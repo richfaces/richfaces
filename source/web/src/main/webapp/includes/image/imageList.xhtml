@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:richx="http://richfaces.org/richx">
+	
+	<ui:include src="/includes/image/inputNumberSlider.xhtml"/>
+	
+	<rich:datascroller rendered="#{model.images.size() > 20}" for="imageList" reRender="userAlbumImages" ajaxSingle="false"></rich:datascroller>
+	
+	<h:panelGroup layout="block" style="margin : 30px 0px 0px 0px;">
+		<h:panelGroup layout="block" style="float : right; cursor : pointer">
+			<a4j:commandLink rendered="#{model.images.size > 0}"
+				actionListener="#{slideshow.startSlideshow()}" 
+				styleClass="slideshow-link"
+				reRender="slideShowForm, mainArea, slideShowModalPanel">	
+					<h:graphicImage value="/img/shell/tree_icon_slid.png" width="27" height="16" alt="" style="vertical-align : bottom; margin-right : 5px; border:0;"/>
+					<h:outputText value="#{messages['slideshow.start']}"/>
+			</a4j:commandLink>
+			
+		</h:panelGroup>
+		
+	</h:panelGroup>	
+	<br/><br/>	
+	<h:panelGroup id="userAlbumImages">		
+	<a4j:repeat id="imageList" value="#{model.images}" var="image" rows="20">
+		<h:panelGroup layout="block" styleClass="#{imageSizeHelper.currentDimension.cssClass}">
+			<h:graphicImage styleClass="pr_photo_bg" style="#{imageSizeHelper.currentDimension.imageBgStyle}" value="#{imageSizeHelper.currentDimension.imageBg}" />
+			<h:panelGrid cellpadding="0">
+				<h:panelGroup>
+					<a4j:commandLink
+							actionListener="#{controller.showImage(image)}"
+							reRender="mainArea, treePanel">					
+								<a4j:mediaOutput id="img"  element="img" 
+									createContent="#{imageLoader.paintImage}" 
+									style="border : 1px solid #FFFFFF;"
+									value="#{fileManager.transformPath(image.fullPath, imageSizeHelper.currentDimension.filePostfix)}">
+									<f:param value="#{imageSizeHelper.currentDimension.x}" name="x" />
+									<rich:dragSupport rendered="#{controller.isUserImage(image)}" reRender="mainArea, treePanel" id="dragSource" dragIndicator="dragIndicator"
+                                dragType="image" dragValue="#{image}">
+                                <rich:dndParam id="dragParam" name="label" value="#{image.name}" />
+                            </rich:dragSupport>
+							</a4j:mediaOutput>
+					</a4j:commandLink>
+					<br/>
+				</h:panelGroup>
+			</h:panelGrid>				
+			<h:panelGroup layout="block" styleClass="photo_name">#{image.name}</h:panelGroup>		
+			<h:panelGroup layout="block" styleClass="photo_data">
+				<h:outputText value="#{image.created}">
+					<f:convertDateTime />
+				</h:outputText>
+			</h:panelGroup>		
+		</h:panelGroup>
+		<ui:include src="/includes/contextMenu/CMForImage.xhtml" >
+			<ui:param name="image" value="#{image}" />
+			<ui:param name="mediaOutput" value="#{rich:clientId('img')}"/>
+		</ui:include>
+	</a4j:repeat>
+	</h:panelGroup>								
+</ui:composition>

@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:richx="http://richfaces.org/richx">
+	<rich:panel id="footerPanel" styleClass="footer-panel">
+		<h:graphicImage value="/img/shell/logo_bottom.gif" width="160"
+			height="55" alt="" border="0"
+			style="position : absolute; right : 0px; top : 27px" />
+		<h:panelGroup layout="block" styleClass="footer-panel-content">
+			<rich:toolBar styleClass="top-right-menu-toolbar">
+				<rich:toolBarGroup styleClass="top-right-menu-item"
+					contentClass="bottom-right-menu-item-content">
+					
+					<h:graphicImage width="3" height="15" alt="" border="0"
+						value="/img/shell/bullet.gif" />
+					<h:panelGroup styleClass="top-right-menu-item-padding " layout="block">	
+						<a href="#" class=""> #{messages['terms_and_conditions']}</a>
+					</h:panelGroup>	
+					<h:graphicImage width="3" height="15" alt="" border="0"
+						value="/img/shell/bullet.gif" />
+					<h:panelGroup styleClass="top-right-menu-item-padding " layout="block">	
+						<a href="#" class="bottom-right-menu-item-content">#{messages['privacy_statement']}</a>
+					</h:panelGroup>
+				</rich:toolBarGroup>
+			</rich:toolBar>
+		</h:panelGroup>
+	</rich:panel>
+</ui:composition>

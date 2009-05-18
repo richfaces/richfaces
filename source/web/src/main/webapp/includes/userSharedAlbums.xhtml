@@ -1,0 +1,13 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<h:panelGrid styleClass="album-header-table" cellpadding="0">
+			<h:outputText value="#{messages['all_shared_albums']}( #{model.selectedUser.sharedAlbums.size()}) #{messages['of_user']} #{model.selectedUser.login}" styleClass="h1-style"/>
+	</h:panelGrid>
+	<ui:include src="/includes/album/albumsList.xhtml">
+		<ui:param name="albums" value="#{model.selectedUser.sharedAlbums}" />
+	</ui:include>
+</ui:composition>

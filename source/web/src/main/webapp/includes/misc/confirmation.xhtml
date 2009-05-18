@@ -1,0 +1,56 @@
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:a4j="http://richfaces.org/a4j"
+   xmlns:rich="http://richfaces.org/rich"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:richx="http://richfaces.org/richx"
+   >
+	<rich:modalPanel id="confirmation" width="400" height="180" onshow="applyModalPanelEffect('confirmation', appearFunc,{delay: 0.5})" autosized="false">
+		<f:facet name="header">#{messages['confirm.confirm']}</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup id="confirmPanelHideControl">
+					<h:graphicImage value="/img/modal/close.png" style="cursor:pointer"
+						id="hideConfirmation" />
+					<rich:componentControl for="confirmation" attachTo="hideConfirmation"
+						operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		<rich:effect type="Appear" name="appearFunc" />
+		
+		<a4j:form id="confirmForm">
+			
+			<h:panelGroup id="panel" layout="block" style="width: 100%">
+				
+				<h:panelGroup id="content" layout="block">			
+					<h:panelGrid columns="2" width="300px" style="margin-left: auto; margin-right: auto;" >
+						<h:panelGroup id="icon" layout="block" style="width: 43px">
+							<h:graphicImage value="img/modal/ico_warning.png" />
+						</h:panelGroup>
+						
+						<h:panelGroup id="message" layout="block" style="width: 257px; margin-left: 20px">
+							<h:outputText value="#{confirmationPopupHelper.caption}" />
+						</h:panelGroup>
+					</h:panelGrid>
+				</h:panelGroup>
+				
+				<h:panelGroup id="buttons" layout="block">
+					<h:panelGrid columns="2" style="margin-left: auto; margin-right: auto;">
+						<h:panelGroup id="firstButton" layout="block">
+							<richx:commandButton value="#{messages['confirm.ok']}"
+										actionListener="#{confirmationPopupHelper[confirmationPopupHelper.actionName]}"
+										id="storebutton"
+										oncomplete="#{rich:component('confirmation')}.hide()"
+										reRender="treePanel, mainArea, menu" />
+						</h:panelGroup>
+						<h:panelGroup id="secondButton" layout="block">		
+							<richx:commandButton value="#{messages['confirm.cancel']}" onclick="#{rich:component('confirmation')}.hide(); Event.stop(event); return false" />
+						</h:panelGroup>
+					</h:panelGrid>
+				</h:panelGroup>
+				
+			</h:panelGroup>
+			
+		</a4j:form>
+	</rich:modalPanel>
+</ui:component>

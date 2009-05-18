@@ -1,0 +1,77 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:richx="http://richfaces.org/richx"
+	xmlns:rich="http://richfaces.org/rich">
+	<div style="margin : 10px 0px 30px 30px; width : 504px; background : #f1f1f1">
+		<rich:graphValidator>
+			<table style="border-collapse : collapse;" cellpadding="5" border="0">
+				<tr>
+					<td valign="top" nowrap="true" class="album-edit-field">
+						#{messages['album_name']}
+					</td>
+					<td valign="top" colspan="2">
+						<h:inputText id="album_name"
+									 value="#{model.selectedAlbum.name}"
+									 styleClass="album-edit-input"
+									 required="true">
+							<rich:ajaxValidator event="onblur"/>
+						</h:inputText>
+					</td>
+				</tr>
+				
+				<tr>
+					<td style="padding:0; margin:0;"/>
+					<td style="padding:0; margin:0;" class="errors"><rich:message for="album_name" /></td>
+				</tr>
+				<tr>
+					<td valign="top" nowrap="true"  class="album-edit-field">
+						#{messages['creation_date']}
+					</td>
+					<td valign="top">
+						<a4j:outputPanel id="calendar" layout="block">
+							<rich:calendar styleClass="album-edit-calendar"
+										   enableManualInput="true"
+										   value="#{model.selectedAlbum.created}"
+										   id="album_date"
+										   cellWidth="24px"
+										   cellHeight="22px">
+								<rich:ajaxValidator event="oninputblur"/>
+							</rich:calendar>
+						</a4j:outputPanel>
+						<rich:message for="calendar" />
+					</td>
+				</tr>
+				<tr>
+					<td style="padding:0; margin:0;" />
+					<td style="padding:0; margin:0;" class="errors" ><rich:message for="album_date" /></td>
+				</tr>
+				<tr>
+					<td valign="top" nowrap="true" class="album-edit-field">
+						#{messages['description']}
+					</td>
+					<td valign="top" colspan="2">
+						<h:inputTextarea id="album_description"
+										 value="#{model.selectedAlbum.description}"
+										 styleClass="album-edit-area" />
+					</td>
+				</tr>
+				<tr>
+					<td style="padding:0; margin:0;" />
+					<td style="padding:0; margin:0;"><rich:message for="album_description" /></td>
+				</tr>
+				<tr>
+					<td valign="top">
+					</td>
+					<td valign="top" align="right" colspan="2" style="padding : 10px;">
+						<richx:commandButton id="saveButton" value="#{messages['save']}" style="float: left" actionListener="#{albumManager.editAlbum(model.selectedAlbum, false)}" reRender="treePanel, mainArea" />
+						<richx:commandButton id="cancelButton" value="#{messages['cancel']}" immediate="true" actionListener="#{controller.cancelEditAlbum()}" reRender="mainArea" />
+					</td>
+				</tr>
+			</table>
+		</rich:graphValidator>
+	</div>
+	<ui:include src="/includes/image/imageList.xhtml"/>
+</ui:composition>

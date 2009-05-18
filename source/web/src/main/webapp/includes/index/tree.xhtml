@@ -1,0 +1,150 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:richx="http://richfaces.org/richx">
+	<h:panelGroup layout="block">
+	<h:panelGrid columns="2">
+	<a4j:commandLink actionListener="#{controller.selectPublicShelves()}" reRender="mainArea, treePanel"><h2><h:outputText value="Pre-defined shelves:"/></h2></a4j:commandLink>
+	<a4j:commandLink rendered="#{help.isShowHelp()}" actionListener="#{help.navigateTo('/includes/help/tree_predefined.xhtml')}" oncomplete="#{rich:component('helpPanel')}.show()"
+				reRender="helpPanel">
+		<h:panelGroup style="cursor: hand; width: 34px; height: 34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
+			<h:graphicImage style="border:none;" styleClass="ie6transparency" border="0" height="34" width="34" value="img/icons/help_sign.png"></h:graphicImage>
+		</h:panelGroup>	
+	</a4j:commandLink>
+	</h:panelGrid>
+	
+	<br/>
+	<rich:tree 
+			adviseNodeOpened="#{controller.adviseNodeSelected}"
+			adviseNodeSelected="#{controller.adviseNodeSelected}"
+			ajaxSubmitSelection="false" id="PreDefinedTree"
+			treeNodeVar="treeNode" switchType="client"
+			showConnectingLines="false">
+			<f:facet name="iconCollapsed">
+				<h:panelGroup style="cursor: hand; width: 25px; height: 16px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/shell/tree_icon_plus.png',sizingMethod='scale');">
+					<h:graphicImage style="border:none;" styleClass="ie6transparency" border="0" height="16" width="25" value="img/shell/tree_icon_plus.png"></h:graphicImage>
+				</h:panelGroup>	
+			</f:facet>
+			<f:facet name="iconExpanded">
+				<h:panelGroup style="cursor: hand; width: 25px; height: 16px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/shell/tree_icon_minus.png',sizingMethod='scale');">
+					<h:graphicImage style="border:none;" styleClass="ie6transparency" border="0" height="16" width="25" value="img/shell/tree_icon_minus.png"></h:graphicImage>
+				</h:panelGroup>	
+			</f:facet>
+			
+			<rich:treeNodesAdaptor nodes="#{shelfManager.getPredefinedShelves()}"
+				var="shelf">
+				<rich:treeNode style="cursor:pointer" reRender="treePanel,mainArea"
+					selectedClass="tree-selected-node">
+				<f:facet name="icon">
+					<h:graphicImage style="border: none" value="/img/shell/tree_icon_shelf.png"/>
+				</f:facet>
+				<a4j:outputPanel layout="block" style="cursor:pointer" >
+					<h:outputText  value="#{shelf.name}" />
+					<h:outputText value=" :: " />
+					<h:outputText rendered="#{shelf.unvisitedImages.size > 0}" style="font-weight:bold;" value="#{shelf.unvisitedImages.size()}"/>
+					<h:outputText rendered="#{shelf.unvisitedImages.size > 0}" value=" #{messages['new']}" /> 
+					<a4j:support reRender="treePanel, mainArea" event="onclick" actionListener="#{controller.showShelf(shelf)}" similarityGroupingId="sel" />
+				</a4j:outputPanel>
+				
+				</rich:treeNode>
+
+				<rich:treeNodesAdaptor var="album"
+					nodes="#{shelf.albums}">
+					<rich:treeNode style="cursor:pointer" reRender="treePanel,mainArea"
+						selectedClass="tree-selected-node"
+						icon="img/shell/tree_icon_album.png">
+						<f:facet name="iconLeaf">
+							<h:graphicImage style="border: none" value="img/shell/tree_icon_album.png"/>
+						</f:facet>
+						<a4j:outputPanel layout="block" style="cursor:pointer">
+							<h:outputText  value="#{album.name}" />
+							<h:outputText value=" :: " />
+							<h:outputText rendered="#{album.unvisitedImages.size > 0}" style="font-weight:bold;" value="#{album.unvisitedImages.size()}"/>
+							<h:outputText rendered="#{album.unvisitedImages.size > 0}" value=" #{messages['new']}" /> 
+						<a4j:support reRender="treePanel, mainArea" event="onclick" actionListener="#{controller.showAlbum(album)}" similarityGroupingId="sel" />
+						</a4j:outputPanel>		
+				</rich:treeNode>
+
+				</rich:treeNodesAdaptor>
+			</rich:treeNodesAdaptor>
+
+		</rich:tree>
+		</h:panelGroup><br/>
+		<h:panelGroup id="tree" rendered="#{identity.loggedIn}" layout="block">
+		<h:panelGrid columns="2">
+	<a4j:commandLink actionListener="#{controller.selectShelves()}" reRender="mainArea, treePanel"><h2><h:outputText  value="My shelves:"/></h2></a4j:commandLink>
+	<a4j:commandLink rendered="#{help.isShowHelp()}"  actionListener="#{help.navigateTo('/includes/help/tree_user.xhtml')}" oncomplete="#{rich:component('helpPanel')}.show()"
+				reRender="helpPanel">
+				<h:panelGroup style="cursor: hand; width: 34px; height: 34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
+					<h:graphicImage style="border:none;" styleClass="ie6transparency" border="0" height="34" width="34" value="img/icons/help_sign.png"></h:graphicImage>
+				</h:panelGroup>	
+	</a4j:commandLink>
+	</h:panelGrid>
+		<br/>
+	<rich:dragIndicator
+			id="dragIndicator" />
+		<rich:tree 
+			adviseNodeOpened="#{controller.adviseNodeSelected}"
+			adviseNodeSelected="#{controller.adviseNodeSelected}"
+			ajaxSubmitSelection="false" dragIndicator="dragIndicator" 
+			treeNodeVar="treeNode" switchType="client"
+			iconCollapsed="/img/shell/tree_icon_plus.png"
+			iconExpanded="/img/shell/tree_icon_minus.png"
+			dropListener="#{dndManager.processDrop}"
+			showConnectingLines="false">
+			<rich:treeNodesAdaptor nodes="#{shelfManager.getUserShelves()}"
+				var="shelf">
+				<rich:treeNode style="cursor:pointer" acceptedTypes="album" dropValue="#{shelf}"
+                     reRender="mainArea, treePanel"
+					selectedClass="tree-selected-node">
+				<f:facet name="icon">
+					<h:graphicImage style="border: none" value="/img/shell/tree_icon_shelf.png"/>
+				</f:facet>
+    			<ui:include src="/includes/contextMenu/CMForShelf.xhtml" >
+					<ui:param name="shelf" value="#{shelf}" />
+				</ui:include>
+				<a4j:outputPanel layout="block" style="cursor:pointer">
+					<h:outputText  value="#{shelf.name}" />
+					<h:outputText value=" :: " />
+					<h:outputText rendered="#{shelf.unvisitedImages.size > 0}" style="font-weight:bold;" value="#{shelf.unvisitedImages.size()}"/>
+					<h:outputText rendered="#{shelf.unvisitedImages.size > 0}" value=" #{messages['new']}" /> 
+					<a4j:support reRender="treePanel, mainArea" event="onclick" actionListener="#{controller.showShelf(shelf)}" similarityGroupingId="sel" />
+				</a4j:outputPanel>
+				
+				</rich:treeNode>
+
+				<rich:treeNodesAdaptor var="album"
+					nodes="#{shelf.albums}">
+					<rich:treeNode style="cursor:pointer" reRender="mainArea, treePanel" dragType="album"
+						dragValue="#{album}" dropValue="#{album}"
+						acceptedTypes="image"
+						selectedClass="tree-selected-node"
+						icon="img/shell/tree_icon_album.png">
+						<f:facet name="iconLeaf">
+							<h:graphicImage style="border: none" value="img/shell/tree_icon_album.png"/>
+						</f:facet>
+						<ui:include src="/includes/contextMenu/CMForAlbum.xhtml" >
+						<ui:param name="album" value="#{album}" />
+						</ui:include>
+						<rich:dndParam name="label" type="drag" value="#{album.name}" />
+						<a4j:outputPanel layout="block" style="cursor:pointer">
+							<h:outputText  value="#{album.name}" />
+							<h:outputText value=" :: " />
+							<h:outputText rendered="#{album.unvisitedImages.size > 0}" style="font-weight:bold;" value="#{album.unvisitedImages.size()}"/>
+							<h:outputText rendered="#{album.unvisitedImages.size > 0}" value=" #{messages['new']}" /> 
+						<a4j:support reRender="treePanel, mainArea" event="onclick" actionListener="#{controller.showAlbum(album)}" similarityGroupingId="sel" />
+						</a4j:outputPanel>
+						
+				</rich:treeNode>
+
+				</rich:treeNodesAdaptor>
+			</rich:treeNodesAdaptor>
+
+		</rich:tree>
+		</h:panelGroup>
+	
+</ui:composition>

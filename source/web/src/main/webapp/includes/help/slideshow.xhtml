@@ -1,0 +1,461 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<div class="section" lang="en-US">
+	<div class="titlepage">
+	<div>
+	<div>
+	<h3 class="title">Slideshow mechanism.</h3>
+	</div>
+	</div>
+	</div>
+	<p>The slideshow feature in the Photo Album Demo can be enabled by
+	clicking on <span class="bold"><strong>"Start
+	Slideshow"</strong></span> link from two different places in the application: 1) from
+	user's album preview (<code class="code">/web/src/main/webapp/image/albumInfo.xhtml</code>)
+	and 2) from a particular photo preview (<code class="code">src/main/webapp/image/imageInfo.xhtml</code>).
+	Both of two mentioned XHTML files include slideshow with the help of
+	Facelets &lt;<span class="bold"><strong><span
+		class="property">ui:include</span></strong></span> tag (for more information about
+	&lt;<span class="bold"><strong><span class="property">ui:include</span></strong></span>
+	see Facelets Reference Guide " <a target="_blank" 
+		xmlns:xlink="http://www.w3.org/1999/xlink"
+		href="http://www.jsftoolbox.com/documentation/facelets/01-Introduction/index.jsf">http://www.jsftoolbox.com/documentation/facelets/01-Introduction/index.jsf</a>).
+	</p>
+	<p>The components that implement the slideshow functionality are:</p>
+	<div class="itemizedlist">
+	<ul>
+		<li>
+		<p><span class="bold"><strong><span
+			class="property">&lt;rich:modalPanelgt;</span></strong></span> located in <code
+			class="code">web/src/main/webapp/includes/image/slideshow.xhtml</code>
+		that is hidden by default as the attribute <code class="code">showWhenRendered=" {slideshow.active}"</code>
+		and the active property of SlideshowManager.java is set to "false" by
+		default.</p>
+		</li>
+		<li>
+		<p><span class="bold"><strong><span
+			class="property">&lt;a4j:poll&gt;</span></strong></span> located in <code
+			class="code">includes/misc/slideShowPooler.xhtml</code> which is also
+		inactive due to the mentioned active property ( <code class="code">active= {slideshow.active}</code>)</p>
+		</li>
+	</ul>
+	</div>
+	<p>After activation, <span class="bold"><strong><span
+		class="property">&lt;a4j:poll&gt;</span></strong></span> will send asynchronous
+	requests to the server with some certain interval, as the result of
+	these requests modal panel will display the next image in the row.</p>
+	<p>Now let's have a look at the details of the slideshow
+	implementation.</p>
+	<p>The <code class="code">startSlideshow()</code> method of <code
+		class="code">SlideshowManager.java</code> is invoked when no photo is
+	selected in the current image list. The method iterates over all photos
+	of a particular album starting from the first one in the list. Look at
+	the <code class="code">SlideshowManager.java</code> listing below:</p>
+	<pre  xml:space="preserve" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory"
+		class="JAVA"><!-- <br/> --><span class="java_separator">...</span>
+<!--  --><br /><span class="java_plain">  </span><span
+		class="java_separator">...</span>
+<!--  --><br /><span class="java_keyword">public</span><span
+		class="java_plain"> </span><span class="java_type">void</span><span
+		class="java_plain"> startSlideshow</span><span
+		class="java_separator">(){</span>
+<!--  --><br /><span class="java_plain">      active </span><span
+		class="java_operator">=</span><span class="java_plain"> </span><span
+		class="java_literal">true</span><span class="java_separator">;</span>
+<!--  --><br /><span class="java_plain">      </span><span
+		class="java_keyword">this</span><span class="java_separator">.</span><span
+		class="java_plain">slideshowIndex </span><span
+		class="java_operator">=</span><span class="java_plain"> </span><span
+		class="java_literal">0</span><span class="java_separator">;</span>
+<!--  --><br /><span class="java_plain">      </span><span
+		class="java_keyword">if</span><span class="java_separator">(</span><span
+		class="java_plain">model</span><span class="java_separator">.</span><span
+		class="java_plain">getImages</span><span class="java_separator">()</span><span
+		class="java_plain"> </span><span class="java_operator">==</span><span
+		class="java_plain"> </span><span class="java_literal">null</span><span
+		class="java_plain"> </span><span class="java_operator">||</span><span
+		class="java_plain"> model</span><span class="java_separator">.</span><span
+		class="java_plain">getImages</span><span class="java_separator">().</span><span
+		class="java_plain">size</span><span class="java_separator">()</span><span
+		class="java_plain"> </span><span class="java_operator">&lt;</span><span
+		class="java_plain"> </span><span class="java_literal">1</span><span
+		class="java_separator">){</span>
+<!--  --><br /><span class="java_plain">            stopSlideshow</span><span
+		class="java_separator">();</span>
+<!--  --><br /><span class="java_plain">            </span><span
+		class="java_type">Events</span><span class="java_separator">.</span><span
+		class="java_plain">instance</span><span class="java_separator">().</span><span
+		class="java_plain">raiseEvent</span><span class="java_separator">(</span><span
+		class="java_type">Constants</span><span class="java_separator">.</span><span
+		class="java_plain">ADD_ERROR_EVENT</span><span class="java_separator">,</span><span
+		class="java_plain"> </span><span class="java_literal">&quot;No images for slideshow!&quot;</span><span
+		class="java_separator">);</span>
+<!--  --><br /><span class="java_plain">            </span><span
+		class="java_keyword">return</span><span class="java_separator">;</span>
+<!--  --><br /><span class="java_plain">      </span><span
+		class="java_separator">}</span>
+<!--  --><br /><span class="java_plain">      </span><span
+		class="java_keyword">this</span><span class="java_separator">.</span><span
+		class="java_plain">selectedImage </span><span
+		class="java_operator">=</span><span class="java_plain"> model</span><span
+		class="java_separator">.</span><span class="java_plain">getImages</span><span
+		class="java_separator">().</span><span class="java_plain">get</span><span
+		class="java_separator">(</span><span class="java_keyword">this</span><span
+		class="java_separator">.</span><span class="java_plain">slideshowIndex</span><span
+		class="java_separator">);</span>
+<!--  --><br /><span class="java_plain">      </span><span
+		class="java_keyword">this</span><span class="java_separator">.</span><span
+		class="java_plain">selectedImage</span><span class="java_separator">.</span><span
+		class="java_plain">getAlbum</span><span class="java_separator">().</span><span
+		class="java_plain">visitImage</span><span class="java_separator">(</span><span
+		class="java_plain">selectedImage</span><span class="java_separator">,</span><span
+		class="java_plain"> </span><span class="java_literal">true</span><span
+		class="java_separator">);</span>
+<!--  --><br /><span class="java_separator">}</span>
+<!--  --><br /><span class="java_separator">...</span></pre>
+	<p>The second variation of the <code class="code">startSlideshow()</code>
+	method is activated when a link to slide-show is clicked from a
+	particular photo preview. This method iterates over the rest of photos
+	starting from the current selected one:</p>
+	<pre  xml:space="preserve" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory"
+		class="JAVA"><!-- <br/> --><span class="java_separator">...</span>
+<!--  --><br /><span class="java_plain"> </span><span
+		class="java_keyword">public</span><span class="java_plain"> </span><span
+		class="java_type">void</span><span class="java_plain"> startSlideshow</span><span
+		class="java_separator">(</span><span class="java_type">Image</span><span
+		class="java_plain"> selectedImage</span><span
+		class="java_separator">){</span>
+<!--  --><br /><span class="java_plain">      active </span><span
+		class="java_operator">=</span><span class="java_plain"> </span><span
+		class="java_literal">true</span><span class="java_separator">;</span>
+<!--  --><br /><span class="java_plain">      </span><span
+		class="java_keyword">if</span><span class="java_separator">(</span><span
+		class="java_plain">model</span><span class="java_separator">.</span><span
+		class="java_plain">getImages</span><span class="java_separator">()</span><span
+		class="java_plain"> </span><span class="java_operator">==</span><span
+		class="java_plain"> </span><span class="java_literal">null</span><span
+		class="java_plain"> </span><span class="java_operator">||</span><span
+		class="java_plain"> model</span><span class="java_separator">.</span><span
+		class="java_plain">getImages</span><span class="java_separator">().</span><span
+		class="java_plain">size</span><span class="java_separator">()</span><span
+		class="java_plain"> </span><span class="java_operator">&lt;</span><span
+		class="java_plain"> </span><span class="java_literal">1</span><span
+		class="java_separator">){</span>
+<!--  --><br /><span class="java_plain">            stopSlideshow</span><span
+		class="java_separator">();</span>
+<!--  --><br /><span class="java_plain">            </span><span
+		class="java_type">Events</span><span class="java_separator">.</span><span
+		class="java_plain">instance</span><span class="java_separator">().</span><span
+		class="java_plain">raiseEvent</span><span class="java_separator">(</span><span
+		class="java_type">Constants</span><span class="java_separator">.</span><span
+		class="java_plain">ADD_ERROR_EVENT</span><span class="java_separator">,</span><span
+		class="java_plain"> </span><span class="java_literal">&quot;No images for slideshow!&quot;</span><span
+		class="java_separator">);</span>
+<!--  --><br /><span class="java_plain">            </span><span
+		class="java_keyword">return</span><span class="java_separator">;</span>
+<!--  --><br /><span class="java_plain">      </span><span
+		class="java_separator">}</span>
+<!--  --><br /><span class="java_plain">      </span><span
+		class="java_keyword">this</span><span class="java_separator">.</span><span
+		class="java_plain">slideshowIndex </span><span
+		class="java_operator">=</span><span class="java_plain"> model</span><span
+		class="java_separator">.</span><span class="java_plain">getImages</span><span
+		class="java_separator">().</span><span class="java_plain">indexOf</span><span
+		class="java_separator">(</span><span class="java_plain">selectedImage</span><span
+		class="java_separator">);</span>
+<!--  --><br /><span class="java_plain">      </span><span
+		class="java_keyword">this</span><span class="java_separator">.</span><span
+		class="java_plain">selectedImage </span><span
+		class="java_operator">=</span><span class="java_plain"> selectedImage</span><span
+		class="java_separator">;</span>
+<!--  --><br /><span class="java_plain">      </span><span
+		class="java_keyword">this</span><span class="java_separator">.</span><span
+		class="java_plain">selectedImage</span><span class="java_separator">.</span><span
+		class="java_plain">getAlbum</span><span class="java_separator">().</span><span
+		class="java_plain">visitImage</span><span class="java_separator">(</span><span
+		class="java_plain">selectedImage</span><span class="java_separator">,</span><span
+		class="java_plain"> </span><span class="java_literal">true</span><span
+		class="java_separator">);</span>
+<!--  --><br /><span class="java_separator">}</span>
+<!--  --><br /><span class="java_separator">...</span></pre>
+	<p>Both variants of <code class="code">startSlideshow()</code>
+	method set the <code class="code">active</code> property to "true" as a
+	result the poller is activated and modal panel becomes visible.</p>
+	<p>The slideshow modal panel is kept in the <code class="code">web/src/main/webapp/includes/image/slideshow.xhtml</code>
+	file and referred from the corresponding pages with the help of
+	&lt;ui:include&gt; Facelets tag:</p>
+	<pre  xml:space="preserve" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory"
+		class="JAVA"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
+<span class="xml_plain">...</span><br />
+<span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">ui:include</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">src</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;/includes/image/slideshow.xhtml&quot;</span><span
+		class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">...</span><br />
+</pre>
+	<p>Have a look at <code class="code">web/src/main/webapp/includes/image/slideshow.xhtml</code>
+	file:</p>
+	<pre  xml:space="preserve" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory"
+		class="JAVA"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
+<span class="xml_plain">...</span><br />
+<span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">ui:composition</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">xmlns</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;http://www.w3.org/1999/xhtml&quot;</span><span
+		class="xml_plain">...</span><span class="xml_tag_symbols">&gt;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">      </span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">rich:modalPanel</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">showWhenRendered</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot; {slideshow.active}&quot;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">                  </span><span
+		class="xml_attribute_name">domElementAttachment</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;parent&quot;</span><span
+		class="xml_plain"> </span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">                  </span><span
+		class="xml_attribute_name">id</span><span class="xml_tag_symbols">=</span><span
+		class="xml_attribute_value">&quot;slideShowModalPanel&quot;</span><span
+		class="xml_plain"> </span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">                  </span><span
+		class="xml_attribute_name">width</span><span class="xml_tag_symbols">=</span><span
+		class="xml_attribute_value">&quot;650&quot;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">                  </span><span
+		class="xml_attribute_name">onshow</span><span class="xml_tag_symbols">=</span><span
+		class="xml_attribute_value">&quot;showPictureEffect();&quot;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">                  </span><span
+		class="xml_attribute_name">autosized</span><span class="xml_tag_symbols">=</span><span
+		class="xml_attribute_value">&quot;true&quot;</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">            </span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">f:facet</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">name</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;controls&quot;</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">                  </span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">h:panelGroup</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">                        </span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">h:graphicImage</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">value</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;/img/modal/close.png&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">style</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;cursor:pointer&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">id</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;hidelink&quot;</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">                              </span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">a4j:support</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">event</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;onclick&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">actionListener</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot; {slideshow.stopSlideshow}&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">reRender</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;slideShowForm, mainArea, tree&quot;</span><span
+		class="xml_plain"> </span><span class="xml_tag_symbols">/&gt;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">                        </span><span
+		class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">h:graphicImage</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">                  </span><span
+		class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">h:panelGroup</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">            </span><span
+		class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">f:facet</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">            ...      </span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">      </span><span
+		class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">rich:modalPanel</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">ui:composition</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain"></span><br />
+<span class="xml_plain">...</span><br />
+</pre>
+	<p>This is the source code of <code class="code">includes/misc/slideShowPooler.xhtml</code>:
+	</p>
+	<pre  xml:space="preserve" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory"
+		class="JAVA"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
+<span class="xml_plain">...</span><br />
+<span class="xml_tag_symbols">&lt;</span><span class="xml_plain">!</span><span
+		class="xml_attribute_name">DOCTYPE</span><span class="xml_plain"> </span><span
+		class="xml_attribute_name">composition</span><span class="xml_plain"> </span><span
+		class="xml_attribute_name">PUBLIC</span><span class="xml_plain"> </span><span
+		class="xml_attribute_value">&quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_value">&quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">ui:composition</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">xmlns</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;http://www.w3.org/1999/xhtml&quot;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">    </span><span
+		class="xml_attribute_name">xmlns:s</span><span class="xml_tag_symbols">=</span><span
+		class="xml_attribute_value">&quot;http://jboss.com/products/seam/taglib&quot;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">    </span><span
+		class="xml_attribute_name">xmlns:ui</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;http://java.sun.com/jsf/facelets&quot;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">    </span><span
+		class="xml_attribute_name">xmlns:f</span><span class="xml_tag_symbols">=</span><span
+		class="xml_attribute_value">&quot;http://java.sun.com/jsf/core&quot;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">    </span><span
+		class="xml_attribute_name">xmlns:h</span><span class="xml_tag_symbols">=</span><span
+		class="xml_attribute_value">&quot;http://java.sun.com/jsf/html&quot;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">    </span><span
+		class="xml_attribute_name">xmlns:rich</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;http://richfaces.org/rich&quot;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">    </span><span
+		class="xml_attribute_name">xmlns:a4j</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;http://richfaces.org/a4j&quot;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">    </span><span
+		class="xml_attribute_name">xmlns:richx</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;http://richfaces.org/richx&quot;</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">      </span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">a4j:form</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">id</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;slideShowForm&quot;</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">            </span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">a4j:poll</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">reRender</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;slideshowImage&quot;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">                              </span><span
+		class="xml_attribute_name">actionListener</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot; {slideshow.showNextImage()}&quot;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">                              </span><span
+		class="xml_attribute_name">interval</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot; {slideshow.interval}&quot;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">                              </span><span
+		class="xml_attribute_name">enabled</span><span class="xml_tag_symbols">=</span><span
+		class="xml_attribute_value">&quot; {slideshow.active}&quot;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">                              </span><span
+		class="xml_attribute_name">onsubmit</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;hidePictureEffect()&quot;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">                              </span><span
+		class="xml_attribute_name">oncomplete</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;showPictureEffect();&quot;</span><span
+		class="xml_tag_symbols">/&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">      </span><span
+		class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">a4j:form</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">ui:composition</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">...</span><br />
+</pre>
+	<p>The slideshow poller sends the request for the next image (<code
+		class="code">showNextImage()</code> method) each four seconds. The
+	interval is defined in the interval property of the <code class="code">SlideshowManager.java</code>
+	and refers to a <code class="code">INITIAL.DELAY</code> constant (<code
+		class="code">constants.java</code>).</p>
+	<p>The described above example implements a modal panel with photos
+	that rotate them in the order they are stored in an album.</p>
+	<div class="figure"><a id="d0e975" />
+	<div class="figure-contents">
+	<div class="mediaobject"><img src="img/help/slide_show.png"
+		alt="Image size control" /></div>
+	</div>
+	<p class="title"><b>Image size control</b></p>
+	</div>
+	<br class="figure-break" />
+	<p>To stop the slide-show user clicks <span class="bold"><strong>Close
+	window</strong></span> button on the slide-show panel and <code class="code">stopSlideshow()</code>
+	method is invoked.</p>
+	<pre  xml:space="preserve" xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory"
+		class="JAVA"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
+<span class="xml_plain">...</span><br />
+<span class="xml_plain">@Observer(&quot;stopSlideshow&quot;)</span><br />
+<span class="xml_plain">      public void stopSlideshow(){</span><br />
+<span class="xml_plain">            active = false;</span><br />
+<span class="xml_plain">            this.selectedImage = null;</span><br />
+<span class="xml_plain">            this.slideshowIndex = 0;</span><br />
+<span class="xml_plain">      }</span><br />
+<span class="xml_plain">      ...</span><br />
+</pre>
+	<p>The <code class="code">active</code> field is set to "false"
+	again, consequently the poller becomes inactive and the modal panel
+	becomes invisible too.</p>
+	</div>
+	<p>Vizit following pages at RichFaces Live Demo for more
+	information, examples and sources on the components used in the
+	application and described in this chapter:</p>
+	<div class="itemizedlist">
+	<ul>
+		<li>
+		<p><a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
+			href="http://livedemo.exadel.com/richfaces-demo/richfaces/modalPanel.jsf?c=modalPanel">ModalPanel</a>
+		page for the <span class="bold"><strong><span
+			class="property">&lt;rich:modalPanel&gt;</span></strong></span> component;</p>
+		</li>
+		<li>
+		<p><a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
+			href="http://livedemo.exadel.com/richfaces-demo/richfaces/effect.jsf?c=effect">Effect</a>
+		for the <span class="bold"><strong><span
+			class="property">&lt;rich:effect&gt;</span></strong></span> component;</p>
+		</li>
+		<li>
+		<p><a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
+			href="http://livedemo.exadel.com/richfaces-demo/richfaces/mediaOutput.jsf?c=mediaOutput">MediaOutput</a>
+		for the <span class="bold"><strong><span
+			class="property">&lt;a4j:mediaOutput&gt;</span></strong></span> component;</p>
+		</li>
+		<li>
+		<p><a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
+			href="http://livedemo.exadel.com/richfaces-demo/richfaces/support.jsf?c=support">AjaxSupport</a>
+		for the <span class="bold"><strong><span
+			class="property">&lt;a4j:suport&gt;</span></strong></span> component;</p>
+		</li>
+		<li>
+		<p><a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
+			href="http://livedemo.exadel.com/richfaces-demo/richfaces/commandLink.jsf?c=commandLink">CommandLink</a>
+		for the <span class="bold"><strong><span
+			class="property">&lt;a4j:commandLink&gt;</span></strong></span> component;</p>
+		</li>
+		<li>
+		<p><a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
+			href="http://livedemo.exadel.com/richfaces-demo/richfaces/form.jsf?c=form">AjaxForm</a>
+		for the <span class="bold"><strong><span
+			class="property">&lt;a4j:form&gt;</span></strong></span> component;</p>
+		</li>
+		<li>
+		<p><a target="_blank" xmlns:xlink="http://www.w3.org/1999/xlink"
+			href="http://livedemo.exadel.com/richfaces-demo/richfaces/poll.jsf?c=poll">Poll</a>
+		for the <span class="bold"><strong><span
+			class="property">&lt;a4j:poll&gt;</span></strong></span> component.</p>
+		</li>
+	</ul>
+	</div>
+
+</ui:composition>

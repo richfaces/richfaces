@@ -1,0 +1,73 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:richx="http://richfaces.org/richx">
+	<table style="border-collapse: collapse; margin-bottom: 15px"
+		cellpadding="0">
+		<tr>
+			<td><h:outputText value="#{messages['files_upload']}"
+				styleClass="h1-style" /></td>
+		</tr>
+	</table>
+	<div
+		style="margin: 10px 0px 5px 0px; width: 504px; background: #f1f1f1; border: 1px solid #A1A1A1">
+	<table style="border-collapse: collapse; margin: 10px 10px 10px 10px"
+		cellpadding="5" border="0">
+		<tr>
+			<td valign="top" style="padding-top: 8px; white-space: nowrap;">#{messages['choose_album']}</td>
+			<td valign="top"><h:selectOneMenu value="#{model.selectedAlbum}">
+				<s:selectItems var="album" value="#{user.albums}"
+					label="#{album.name}" />
+				<a4j:support actionListener="#{controller.resetFileUpload()}"
+					event="onchange"></a4j:support>
+				<s:convertEntity></s:convertEntity>
+			</h:selectOneMenu></td>
+		</tr>
+		<tr>
+			<td valign="top" style="padding-top: 8px; white-space: nowrap;"></td>
+			<td><h:panelGrid columns="3">
+				<richx:commandButton value="#{messages['create']}"
+					data="#{albumManager.errorInCreate}"
+					actionListener="#{albumManager.createAlbum(model.selectedShelf)}"
+					oncomplete="if(!data)$('albumModalPanel').component.show()"
+					reRender="albumModalPanel" />
+				<a4j:commandLink rendered="#{help.isShowHelp()}"
+					actionListener="#{help.navigateTo('/includes/help/buttonHelp.xhtml')}"
+					oncomplete="#{rich:component('helpPanel')}.show()"
+					reRender="helpPanel">
+					<h:panelGroup
+						style="cursor: hand; width: 34px; height: 34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
+						<h:graphicImage style="border:none;" styleClass="ie6transparency"
+							border="0" height="34" width="34" value="img/icons/help_sign.png"></h:graphicImage>
+					</h:panelGroup>
+				</a4j:commandLink>
+			</h:panelGrid></td>
+		</tr>
+	</table>
+	</div>
+	<h:panelGrid columns="2">
+		<rich:fileUpload allowFlash="true" maxFilesQuantity="100"
+			autoclear="true" fileUploadListener="#{fileUploadManager.listener}"
+			id="fileUpload" disabled="#{model.selectedAlbum == null}"
+			immediateUpload="false" acceptedTypes="jpg,jpeg">
+			<a4j:support event="onuploadcomplete"
+				reRender="filesPanel, treePanel"
+				actionListener="#{fileWrapper.setComplete(true)}" />
+			<a4j:support event="onfileuploadcomplete" />
+		</rich:fileUpload>
+		<a4j:commandLink rendered="#{help.isShowHelp()}"
+			actionListener="#{help.navigateTo('/includes/help/fileUploadHelp.xhtml')}"
+			oncomplete="#{rich:component('helpPanel')}.show()"
+			reRender="helpPanel">
+			<h:panelGroup
+				style="cursor: hand; width: 34px; height: 34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
+				<h:graphicImage style="border:none;" styleClass="ie6transparency"
+					border="0" height="34" width="34" value="img/icons/help_sign.png"></h:graphicImage>
+			</h:panelGroup>
+		</a4j:commandLink>
+	</h:panelGrid>
+</ui:composition>

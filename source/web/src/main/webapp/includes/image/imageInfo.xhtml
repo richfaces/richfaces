@@ -1,0 +1,133 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:s="http://jboss.com/products/seam/taglib"
+				xmlns:a4j="http://richfaces.org/a4j"
+				xmlns:rich="http://richfaces.org/rich"
+				xmlns:richx="http://richfaces.org/richx">
+<h:panelGrid styleClass="image-header-table" cellpadding="0">
+	<h:panelGroup>
+		<h1>
+			<h:outputText value="#{model.selectedImage.name}" rendered="#{!controller.isUserImage(model.selectedImage)}"/>
+			<rich:inplaceInput value="#{model.selectedImage.name}" rendered="#{controller.isUserImage(model.selectedImage)}" inputWidth="200px">
+				<a4j:support event="onviewactivated" reRender="mainArea" action="#{imageManager.editImage(model.selectedImage,true)}"/>
+			</rich:inplaceInput>
+		</h1>
+		<a4j:commandLink styleClass="additional-info-text"
+						 actionListener="#{controller.showShelf(model.selectedShelf)}"
+						 reRender="mainArea, treePanel"
+						 value="#{messages['shelf']} #{model.selectedShelf.name}"/>
+		<h:outputText value=" :: "/>
+		<a4j:commandLink styleClass="additional-info-text"
+						 actionListener="#{controller.showAlbum(model.selectedAlbum)}"
+						 reRender="mainArea, treePanel"
+						 value="#{messages['album']} #{model.selectedAlbum.name}"/>
+	</h:panelGroup>
+</h:panelGrid>
+
+<p><h:outputText value="#{model.selectedImage.description}"/></p>
+
+<ui:include src="/includes/image/imageScroller.xhtml"/>
+
+<br clear="all"/>
+		<h:panelGroup id="mainImage" layout="block" styleClass="mainImage-div">
+			<table cellpadding="0" class="mainImage-table">
+				<tr>
+					<td class="mainImage-table-col1" rowspan="2">
+						<h:panelGroup layout="block" styleClass="slideshow-outerdiv">
+						<a4j:commandLink rendered="#{model.images.size > 0}" actionListener="#{slideshow.startSlideshow(model.selectedImage)}"
+										 styleClass="slideshow-link"
+										 reRender="slideShowForm, mainArea, slideShowModalPanel">
+							<h:graphicImage value="img/shell/tree_icon_slid.png"
+											width="27"
+											height="16" alt="" border="0"
+											style="vertical-align : bottom; margin-right : 5px; border:0;"/>
+							<h:outputText value="#{messages['slideshow.start']}"/>
+						</a4j:commandLink>
+						<a4j:commandLink rendered="#{help.isShowHelp()}" actionListener="#{help.navigateTo('/includes/help/slideshow.xhtml')}" oncomplete="#{rich:component('helpPanel')}.show()" reRender="helpPanel">
+							<h:panelGroup style="cursor: hand; width: 34px; height: 34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
+								<h:graphicImage style="border:none;" styleClass="ie6transparency"  height="34" width="34" value="img/icons/help_sign.png"></h:graphicImage>
+							</h:panelGroup>	
+						</a4j:commandLink>
+					</h:panelGroup>
+						<a4j:mediaOutput id="img" element="img"
+										 styleClass="main-image"
+										 createContent="#{imageLoader.paintImage}"
+										 style="border : 3px solid #808080;"
+										 value="#{fileManager.transformPath(model.selectedImage.fullPath, '_medium')}">
+							<rich:dragSupport
+									rendered="#{controller.isUserImage(model.selectedImage)}"
+									reRender="mainArea, treePanel" id="dragSource"
+									dragIndicator="dragIndicator"
+									dragType="image"
+									dragValue="#{model.selectedImage}">
+								<rich:dndParam id="dragParam" name="label"
+											   value="#{model.selectedImage.name}"/>
+							</rich:dragSupport>
+							<rich:toolTip followMouse="true" direction="top-right" showDelay="500" styleClass="tooltip" rendered="#{model.selectedImage.showMetaInfo}">
+								<span  style="white-space:nowrap; display:block; text-align:left;">
+									<h:outputText value="#{messages['size']}: #{model.selectedImage.size}" /><br />
+									<h:outputText value="#{messages['original_size']}: #{model.selectedImage.height}x#{model.selectedImage.width}" /><br />
+									<h:outputText value="Captured at: #{model.selectedImage.created}"/><br />
+									<h:outputText value="#{messages['camera']}: #{model.selectedImage.cameraModel}" />
+								</span>
+							</rich:toolTip>
+						</a4j:mediaOutput>
+					</td>
+					<td valign="top">
+						<h:panelGroup layout="block"
+									  styleClass="buttons-body"
+									  style="margin : 26px 0px 0px 0px;">
+						<h:graphicImage value="/img/shell/button.png"
+										width="103"
+										height="28" alt=""
+										styleClass="buttons-body-image"/>
+						<s:link value="#{messages['original_size']}"
+								styleClass="buttons-body-text-div"
+								view="/includes/directImage.xhtml"
+								propagation="join"
+								style="color : #ffffff; text-decoration:none;"
+								target="_blank">
+							<f:param name="imageId" value="#{model.selectedImage.id}"/>
+						</s:link>
+					</h:panelGroup></td>
+				</tr>
+				<tr>
+					<td valign="bottom" class="mainImage-table-col3">
+						<richx:commandButton
+								value="Edit image"
+								rendered="#{controller.isUserImage(model.selectedImage)}"
+								actionListener="#{controller.startEditImage(model.selectedImage)}"
+								reRender="mainArea"/> <richx:commandButton
+							value="#{messages['image.delete']}"
+							actionListener="#{confirmationPopupHelper.initImagePopup('deleteImage',messages['image.delete.confirm'],model.selectedImage)}"
+							reRender="confirmation"
+							rendered="#{controller.isUserImage(model.selectedImage)}"
+							oncomplete="#{rich:component('confirmation')}.show()"/>
+					</td>
+				</tr>
+			</table>
+		</h:panelGroup>
+<h:outputText styleClass="additional-info-text"
+					  value="Camera: "/>
+		<h:outputText value="#{model.selectedImage.cameraModel}"/>
+		<br/>
+		<h:outputText styleClass="additional-info-text"
+					  value="Captured at: "/>
+		<h:outputText value="#{model.selectedImage.created}"/>
+		<br/>
+		<h:outputText styleClass="additional-info-text"
+					  value="#{messages['uploaded']}: "/>
+		<h:outputText value="#{model.selectedImage.uploaded}" />
+		<br/>
+		<h:outputText styleClass="additional-info-text"
+					  value="Author: "/>
+		<a4j:commandLink
+				actionListener="#{controller.showUser(model.selectedImage.album.owner)}"
+				reRender="mainArea" value="#{model.selectedImage.album.owner.login}"/>
+		<br/>
+		<br/>
+
+		<ui:include src="#{additionalImageBlock}"/>
+</ui:composition>

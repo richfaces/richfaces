@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<a4j:repeat rendered="#{result.size() > 0}" id="userList" value="#{result}" var="searchedUser">
+		<h:panelGroup layout="block" styleClass="preview_box_photo_120">
+			<h:graphicImage styleClass="pr_photo_bg" value="/img/shell/frame_photo_200.png" style="border:none"/>
+			<h:panelGrid cellpadding="0">
+				<h:panelGroup>
+						<a4j:commandLink reRender="mainArea" actionListener="#{controller.showUser(searchedUser)}">
+							<a4j:mediaOutput rendered="#{searchedUser.hasAvatar}" element="img" createContent="#{imageLoader.paintAvatarImage}"
+										styleClass="avatar"
+										value="/#{searchedUser.login}/avatar.jpg" />
+							<h:graphicImage rendered="#{!searchedUser.hasAvatar and searchedUser.sex.key =='1' }" value="/img/shell/avatar_default.png" width="80" height="80" alt="" style="border:none"/>
+							<h:graphicImage rendered="#{!searchedUser.hasAvatar and searchedUser.sex.key =='0' }" value="/img/shell/avatar_w_default.png" width="80" height="80" alt="" style="border:none"/>
+						</a4j:commandLink>
+						<br/>
+				</h:panelGroup>
+			</h:panelGrid>
+			<h:panelGroup layout="block" styleClass="photo_name">
+				<strong>#{searchedUser.firstName} #{searchedUser.secondName}</strong>
+			</h:panelGroup>				
+			<h:panelGroup layout="block" styleClass="photo_data">
+				<h:outputText value="#{searchedUser.birthDate}" >
+					<f:convertDateTime />
+				</h:outputText>
+			</h:panelGroup>				
+			<h:panelGroup layout="block" styleClass="photo_data">
+				<a4j:commandLink reRender="treePanel, mainArea" actionListener="#{controller.showSharedAlbums(searchedUser)}" ><h:outputText value="#{searchedUser.sharedAlbums.size} #{messages['albums_small']} "/></a4j:commandLink> | <a4j:commandLink reRender="mainArea" actionListener="#{controller.showSharedImages(searchedUser)}"><h:outputText value="#{searchedUser.sharedImages.size} #{messages['photos']}"/></a4j:commandLink>
+			</h:panelGroup>		
+		</h:panelGroup>		
+	</a4j:repeat>
+	<h:outputText rendered="#{result.size() == 0}" value="#{messages['no_results_found']}" />
+</ui:composition>

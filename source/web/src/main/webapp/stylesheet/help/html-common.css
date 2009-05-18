@@ -1,0 +1,289 @@
+@import url("jbossorg.css");
+
+.expand_collapse_toc {
+    float:left;
+    width:20px;
+    color:#6699CC;
+    cursor:pointer;
+}
+
+.toc dl dt span.chapter{
+	margin: 0px 0px 0px 20px;
+	padding: 0px;
+}
+
+h2.title a, h3.title a, h4.title a, h5.title a, h6.title a, p.title a {
+	text-decoration:none;
+	color: #334D69;
+}
+p.title a{
+	color:#333333;
+}
+
+div.book, div.chapter, div.section{
+	width:1000px;
+	margin:0 auto;
+	text-align:justify;
+	font-weight: 100;
+} 
+
+div.abstract {
+font-size:10px;
+}
+
+.docnav{
+	padding:1em 0 3em;
+}
+
+.docnav li.previous strong, .docnav li.next strong {
+    width: 200px;
+    height:22px;
+}
+
+.docnav a:hover {
+    cursor:pointer;
+}
+
+#title, ul.docnav{
+	margin:0 auto;
+	width:1000px;
+	margin-left:0px;
+}
+
+/* Center all images and Figure/Table titles */
+div.mediaobject img {margin:left;}
+
+p.title {
+	text-align:left;
+	font-size: 11px;
+}
+
+.css_normal {
+line-height:0px;
+color:#000000;
+}
+.css_colon {
+color:#000000;
+}
+.css_semi_colon {
+color:#000000;
+}
+.css_curly_brace {
+color:#000000;
+}
+.css_comment {
+color:#3F5FBF;
+background-color:rgb(247,247,247);
+}
+.css_error {
+color:#BF3F3F;
+}
+.css_selector {
+color:#3F7F7F;
+}
+.css_null {
+color:rgb(0,0,0);
+}
+.css_property_name {
+font-weight:bold;
+color:#7F007F;
+}
+.css_property_value {
+color:#2A00FF;
+}
+.css_uri {
+color:#2A00FF;
+}
+.css_atmark_rule {
+color:#3F7F7F;
+}
+.css_media {
+color:#2A00FF;
+}
+.css_string {
+color:#2A00FF;
+}
+code.code{
+color:#000000; 
+font-size:14px; 
+font-family:monospace; 
+}
+
+.tbi {color: #aaaaaa;}
+.tbi p {color: #333333;}
+
+div.note, div.tip, div.important{
+	height:100%;
+}
+
+pre.JAVA {
+line-height:10px;
+!line-height:15px;
+}
+pre.CSS {
+line-height:10px;
+!line-height:15px;
+}
+div.table-contents table{
+	font-size:12px;
+}
+
+/* Feedback styles */
+
+.problemLayer {
+	position: absolute;
+	left: 34%;
+	top: 20%;
+	width: 400px;
+	height: 110px;
+	z-index: 2;
+	background: #fff;
+	display: none;
+}
+
+.time_out_div {
+	height: 100%;
+	width: 100%;
+	min-height: 100%;
+	background-color: #5781AF;
+	filter:alpha(opacity=50);
+	opacity: 0.5;
+	-moz-opacity: 0.5;
+	-khtml-opacity: 0.5;
+	z-index: 99;
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: none;
+}
+
+#feedback-maincontainer{
+	font-family: Arial;
+	font-size: 14px;
+	display:none;
+	background: #F5F5F5;
+	border: 8px solid #7F9DB9;
+	height:440px;
+	left:30%;
+	position:fixed;
+	text-align:left;
+	top:20%;
+	bottom:20%;
+	width:500px;
+	z-index:100;
+}
+
+#feedback-maincontainer  div#guide_words{
+	margin: 0px 20px 0px 20px !important;
+	font-size: 12px;
+}
+.feedback-helper, #summary-helper-left{
+	color: #ff3333;
+	font-size: 10px;
+	float:left;
+	
+}
+#summary-helper-left{
+	float:right;
+	color: #5781AF;
+	padding-right:5px;
+}
+ 
+.clear{
+	clear:both;
+}
+#feedback-header{
+	background-color:#5781AF;
+	border-bottom: 2px solid #ccc;
+	color:white;
+	font-weight:bold;
+	font-size: 16px;
+	height:20px;
+	margin:0;
+	padding:10px 0 10px 20px;
+	position:relative;
+	text-align:left;
+}
+
+#feedback-close{
+	display:block;
+	position:absolute;
+	right:9px;
+	top:6px;
+	width:12px;
+	border: 0px;
+}
+
+#feedback-mailform{
+	margin: 0px 20px 0px 20px !important;
+	padding-bottom:5px;
+	text-align:left;
+}
+
+#feedback-mailform textarea, #feedback-mailform input, #feedback-mailform label{
+	font-family: Arial,Helvetica,sans-serif;
+	width:450px;
+}
+#feedback-mailform input, #feedback-mailform label{
+	display:block;
+}
+#feedback-mailform label{
+	margin-top: 10px;
+}
+#feedback-mailform label span{
+	color: #ff0000
+}
+#feedback-mailform textarea{
+	font-size: 14px;
+	height: 100px;
+	padding: 2px;
+}
+#feedback-mailform textarea#feedback-environment{
+	height: 50px;
+}
+
+.feedback-formbutton{
+	font-size: 12px;
+	font-family: Arial, Helvetica, sans-serif;
+	color: #999;
+	margin: 15px 20px;
+}
+
+
+.feedback-images{
+	border:0;
+	margin:0;
+	display: inline;
+}
+#feedback-iFrame {
+	background-color:#F5F5F5;
+	border:medium none;
+	height:90%;
+	line-height:20px;
+	overflow:visible;
+	width:100%;
+	display:none;
+}
+
+#feedback-wrapper{
+	margin: 0px;
+	padding: 0px;
+	position:fixed;
+	bottom:0px;
+	right:0px;
+	height:315px;
+	width: 47px;
+	overflow: hidden;
+	cursor:pointer;
+}
+
+#feedback-link{
+	float: left;
+	display: block;
+}
+
+#feedback-link img{
+	width: 47px;
+	height:315px;
+}
+

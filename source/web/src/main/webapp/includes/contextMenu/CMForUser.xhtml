@@ -1,0 +1,15 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:richx="http://richfaces.org/richx">
+	<rich:contextMenu disableDefaultMenu="false" event="oncontextmenu" attached="true"
+		submitMode="ajax">
+		<rich:menuItem value="#{messages['user_show_albums']}" limitToList="true"
+			actionListener="#{controller.showUser(CMUser)}" reRender="mainArea">
+		</rich:menuItem>
+	</rich:contextMenu>
+</ui:composition>

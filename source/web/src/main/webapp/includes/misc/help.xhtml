@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<link rel="stylesheet" href="stylesheet/html.css" type="text/css"/>
+	<link rel="stylesheet" href="stylesheet/help/html-common.css" type="text/css"/>
+	<link rel="stylesheet" href="stylesheet/help/html-release.css" type="text/css"/>
+	<link rel="stylesheet" href="stylesheet/help/jbossorg.css" type="text/css"/>
+	<rich:modalPanel  id="helpPanel" onshow="applyModalPanelEffect('helpPanel', appearFunc,{delay: 0.5})"  width="1100" height="620">
+		<f:facet name="header">
+		<h:graphicImage value="/img/icons/help_sign.png"></h:graphicImage>
+		#{messages['how_it_works']}</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/img/modal/close.png" style="cursor:pointer"
+					id="hidelink8" />
+				<rich:componentControl for="helpPanel" attachTo="hidelink8"
+					operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		
+		<rich:effect type="Appear" name="appearFunc" />
+		
+		<a4j:form  id="helpForm" >
+			<h:panelGroup >
+			<div style="height:570px;padding-bottom:10px;overflow-y: auto; overflow-x: hidden">
+				<ui:include src="#{help.getPage()}"/>
+			</div>
+			</h:panelGroup>
+		</a4j:form>
+	</rich:modalPanel>
+</ui:composition>

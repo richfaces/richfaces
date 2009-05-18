@@ -1,0 +1,23 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<ui:insert name="header">
+		<h:panelGrid styleClass="shelf-header-table" cellpadding="0">
+			<h:outputText value="#{header}" styleClass="h1-style" />
+		</h:panelGrid>
+	</ui:insert>
+	<table width="100%">
+		<a4j:repeat id="shelves" value="#{shelves}" var="shelf" >			
+			<tr><td>
+			<h:panelGroup id="shelfInfo">
+				<ui:include src="/includes/shelf/shelfInfo.xhtml" >
+					<ui:param name="shelf" value="#{shelf}" />
+				</ui:include>
+				</h:panelGroup>
+			</td></tr>
+		</a4j:repeat>			
+	</table>
+</ui:composition>

@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<a4j:form style="margin: 0px">
+	<rich:modalPanel showWhenRendered="#{slideshow.active}"
+		domElementAttachment="parent" id="slideShowModalPanel"
+		onshow="showPictureEffect();" 
+		autosized="true">
+		<f:facet name="header">Slideshow panel</f:facet>
+	<f:facet name="controls">
+		<h:panelGroup>
+			<h:graphicImage value="/img/modal/close.png" style="cursor:pointer"
+				id="hidelink">
+				<a4j:support event="onclick" actionListener="#{slideshow.stopSlideshow()}" reRender="slideShowForm, mainArea, treePanel, slideShowModalPanel" />
+			</h:graphicImage>
+		</h:panelGroup>
+	</f:facet>
+	<rich:effect name="hidePictureEffect" type="Opacity"
+		params="duration:0.4, from:1.0, to:0.0" for="imgSlideShow" />
+	<rich:effect name="showPictureEffect" type="Opacity"
+		params="duration:0.4, from:0.1, to:1.0" for="imgSlideShow" />
+		<h:panelGrid styleClass="slideshow-table" columnClasses="slideshow-table-col" rowClasses="slideshow-table-row">
+			<h:panelGroup id="slideshowImage">	
+				<a4j:mediaOutput id="imgSlideShow" element="img"
+					styleClass="main-image" createContent="#{imageLoader.paintImage}"
+					style="opacity: 0.1"
+					value="#{slideshow.selectedImage != null? fileManager.transformPath(slideshow.selectedImage.fullPath, '_medium'):null}">
+					<rich:toolTip followMouse="true" direction="top-right"
+						showDelay="500" styleClass="tooltip">
+						<span style="white-space: nowrap"> #{slideshow.selectedImage.description} </span>
+					</rich:toolTip>
+				</a4j:mediaOutput>
+			</h:panelGroup>
+		</h:panelGrid>
+	</rich:modalPanel>
+	</a4j:form>
+</ui:composition>

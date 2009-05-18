@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:richx="http://richfaces.org/richx">
+	<a4j:outputPanel id="filesPanel" ajaxRendered="true">
+		<h:panelGroup layout="block" id="uploadProgress" rendered="#{(fileWrapper.files.size() > 0 or fileWrapper.errorFiles.size() > 0) and !fileWrapper.complete}"
+			style="margin : 0px 0px 0px 0px; display : !none; height : 40px">
+			<h:panelGroup rendered="#{fileWrapper.errorFiles.size() > 0}">
+			<strong>#{messages['error_during_upload']}</strong><br/>
+			<a4j:repeat value="#{fileWrapper.errorFiles}" var="error">
+			<h:outputText value="#{messages['file']} #{(fileWrapper.getErrorImage(error)).name}. #{messages['see']} "/><a4j:commandLink actionListener="#{controller.showError((fileWrapper.getErrorDescription(error)))}" value="#{messages['error']}"/><br/>
+			</a4j:repeat>
+			</h:panelGroup><br/>
+			<strong>#{messages['photo_upload_progress']}</strong>. #{fileWrapper.files.size()} #{messages['photos_was_uploaded_to']} <strong>
+			<a4j:commandLink
+				actionListener="#{controller.showAlbum(model.selectedAlbum)}"
+				reRender="mainArea, treePanel" value="#{model.selectedAlbum.name}" /></strong>
+		</h:panelGroup><br/>
+		<h:panelGroup layout="block" id="uploadComplete" rendered="#{fileWrapper.complete}"
+			style="margin : 0px 0px 0px 0px; display : !none; height : 40px">
+			<h:panelGroup rendered="#{fileWrapper.errorFiles.size() > 0}">
+			<strong>#{messages['error_during_upload']}</strong><br/>
+			<a4j:repeat value="#{fileWrapper.errorFiles}" var="error">
+			<h:outputText value="#{messages['file']} #{(fileWrapper.getErrorImage(error)).name}. #{messages['see']} "/><a4j:commandLink actionListener="#{controller.showError((fileWrapper.getErrorDescription(error)))}" value="#{messages['error']}"/><br/>
+			</a4j:repeat>
+			</h:panelGroup><br/>
+			<h:panelGroup id="completeLabel">
+			<strong>#{messages['photo_upload_complete']}</strong>. #{fileWrapper.files.size()} #{messages['photos_was_uploaded_to']} <strong>
+			<a4j:commandLink
+				actionListener="#{controller.showAlbum(model.selectedAlbum)}"
+				reRender="mainArea, tree" value="#{model.selectedAlbum.name}" /></strong>
+				<script type="text/javascript">
+				uploadCompleteEffect();
+				</script>
+				</h:panelGroup>
+		</h:panelGroup><br/>
+		<rich:effect name="uploadCompleteEffect"  type="Highlight" params="duration:2.0"  for="completeLabel" />
+		<h:panelGroup style="float: left">
+		
+		<a4j:repeat id="files" columns="1" value="#{fileWrapper.files}"
+			var="image" rowKeyVar="row">
+			<h:panelGroup layout="block" styleClass="preview_box_photo_120">
+				<h:graphicImage styleClass="pr_photo_bg"
+					value="/img/shell/frame_photo_200.png" style="border:0" />
+				<h:panelGrid cellpadding="0">
+					<h:panelGroup>
+					<a4j:commandLink
+							actionListener="#{controller.showImage(image)}"
+							reRender="mainArea, treePanel">	
+						<a4j:mediaOutput element="img"
+							createContent="#{imageLoader.paintImage}"
+							value="#{fileManager.transformPath(image.fullPath, '_small120')}">
+							<rich:dragSupport reRender="mainArea, tree" id="dragSource"
+								dragIndicator="dragIndicator" dragType="image"
+								dragValue="#{image}">
+								<rich:dndParam id="dragParam" name="label" value="#{image.name}" />
+							</rich:dragSupport>
+						</a4j:mediaOutput>
+						</a4j:commandLink>
+					</h:panelGroup>
+				</h:panelGrid>
+				<h:panelGroup layout="block"
+					style="width : 30px; background : #f1f1f1; border : 1px solid #A1A1A1; position : absolute; top : 4px; right : 4px; text-align : center">
+							#{row+1}
+						</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="photo_name">
+					<h:outputText value="#{image.name}" />
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="photo_data">
+					<h:outputText value="#{image.size}" />
+				</h:panelGroup>
+			</h:panelGroup>
+		</a4j:repeat>
+		</h:panelGroup>
+	</a4j:outputPanel>
+</ui:composition>

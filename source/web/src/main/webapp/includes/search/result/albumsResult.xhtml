@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<a4j:repeat rendered="#{result.size() > 0}" id="albumsList" value="#{result}" var="album" >			
+		<h:panelGroup layout="block" styleClass="preview_box_album_120">
+			<h:graphicImage styleClass="pr_album_bg" value="/img/shell/frame_album_200.png" />
+			<h:panelGrid cellpadding="0">
+				<h:panelGroup>
+					<a4j:commandLink
+						actionListener="#{controller.showAlbum(album)}"
+						reRender="mainArea, treePanel">					
+						<a4j:mediaOutput rendered="#{!album.isEmpty()}" id="img"  element="img"
+							createContent="#{imageLoader.paintImage}" 
+							styleClass="album-cover-image"
+							
+							value="#{fileManager.transformPath(album.coveringImage.fullPath, '_small120')}">
+						</a4j:mediaOutput>	
+						<h:graphicImage rendered="#{album.isEmpty()}" 
+								style="width:80px; height:80px;" 
+								value="img/shell/frame_album_200.png"
+								styleClass="album-cover-image">
+						</h:graphicImage>
+						<rich:toolTip followMouse="true" direction="top-right"
+								showDelay="500" styleClass="tooltip">
+								<span style="white-space: nowrap"> #{album.name} </span>
+						</rich:toolTip>
+					</a4j:commandLink>						
+					<br/>
+				</h:panelGroup>
+			</h:panelGrid>		
+			<h:panelGroup layout="block" styleClass="album_name">#{album.name}</h:panelGroup>			
+			<h:panelGroup layout="block" styleClass="album_data">
+				<h:outputText value="#{album.created}">
+					<f:convertDateTime />
+				</h:outputText> 
+			</h:panelGroup>	
+			<h:panelGroup layout="block" styleClass="album_data">
+				<a4j:commandLink reRender="mainArea" actionListener="#{controller.showUser(album.owner)}" value="#{album.owner.firstName} #{album.owner.secondName}" />
+			</h:panelGroup>
+		</h:panelGroup>
+	</a4j:repeat>
+	<h:outputText rendered="#{result.size() == 0}" value="#{messages['no_results_found']}" />
+</ui:composition>

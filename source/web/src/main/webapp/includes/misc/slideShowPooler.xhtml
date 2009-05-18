@@ -1,0 +1,16 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:richx="http://richfaces.org/richx">
+	<a4j:form id="slideShowForm" style="margin: 0px;">
+		<a4j:poll data="#{slideshow.errorDetected}" reRender="slideshowImage, treePanel"
+			interval="#{slideshow.interval}" enabled="#{slideshow.active}"
+			onsubmit="hidePictureEffect()"
+			oncomplete="showPictureEffect(); if(data)#{rich:component('slideShowModalPanel')}.hide()"
+			actionListener="#{slideshow.showNextImage()}"/>
+	</a4j:form>
+</ui:composition>

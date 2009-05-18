@@ -1,0 +1,34 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:richx="http://richfaces.org/richx">
+
+	<a4j:loadScript src="/scripts/buttons.js" />
+
+	<richx:actionMapper>
+		<a4j:outputPanel layout="block" style="#{style}" styleClass="photoalbumButton #{styleClass}" lang="#{lang}" dir="#{dir}" title="#{title}" 
+			rendered="#{empty rendered or rendered}"
+			onmousedown="RF_RW_DEMO.toPressed(this)" onmouseup="RF_RW_DEMO.toReleased(this)" onmouseout="RF_RW_DEMO.toReleased(this)">
+		
+				<h:graphicImage value="/img/shell/button.png" alt="" />
+				<h:graphicImage value="/img/shell/button_press.png" style="display: none;" alt="" />
+	
+				<div>#{value}</div>
+	
+				<a4j:commandButton accesskey="#{accesskey}" ajaxSingle="#{ajaxSingle}" alt="#{alt}" type="image" image="/img/shell/spacer.gif" 
+					actionListener="#{mappedActionListener}" action="#{mappedAction}" bypassUpdates="#{bypassUpdates}" data="#{data}" disabled="#{disabled}"
+					eventsQueue="#{eventsQueue}" focus="#{focus}" ignoreDupResponses="#{ignoreDupResponses}" immediate="#{immediate}" limitToList="#{limitToList}"
+					onbeforedomupdate="#{onbeforedomupdate}" timeout="#{timeout}" tabindex="#{tabindex}" similarityGroupingId="#{similarityGroupingId}" 
+					reRender="#{reRender}" requestDelay="#{requestDelay}" process="#{process}" oncomplete="#{oncomplete}" 
+					onblur="#{onblur}" onclick="#{onclick}" ondblclick="#{ondblclick}" onfocus="#{onfocus}" onkeydown="#{onkeydown}" onkeypress="#{onkeypress}" onkeyup="#{onkeyup}" 
+					onmousedown="#{onmousedown}" onmousemove="#{onmousemove}" onmouseout="#{onmouseout}" onmouseover="#{onmouseover}" onmouseup="#{onmouseup}" />
+	
+		</a4j:outputPanel>
+	</richx:actionMapper>
+
+</ui:composition>

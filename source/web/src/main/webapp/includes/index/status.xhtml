@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:richx="http://richfaces.org/richx">
+	<a4j:form>
+	<h:panelGroup rendered="#{help.isShowHelp()}">
+			<a4j:commandLink style="position: absolute; top: 26px; left: 320px;" actionListener="#{help.navigateTo('/includes/help/statusHelp.xhtml')}" oncomplete="#{rich:component('helpPanel')}.show()"
+				reRender="helpPanel">
+				<h:panelGroup style="cursor: hand; border: none; width: 34px; height: 34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
+					<h:graphicImage height="34" width="34" border="0" style="border: none;" styleClass="ie6transparency" value="img/icons/help_sign.png"></h:graphicImage>
+				</h:panelGroup>	
+			</a4j:commandLink>
+			</h:panelGroup>
+	<a4j:status layout="block"
+		startStyle="height: 52px; width: 79px; position: absolute; top: 0px; left: 278px;" onstop="kickLayout('.main-panel');">
+		<f:facet name="start">
+			<h:panelGroup>
+				<h:panelGroup style="position: absolute; top: 0px; left: 0px; width: 52px; height:79px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/shell/ai.png',sizingMethod='scale');">
+						<h:graphicImage styleClass="ie6transparency"
+						height="79" width="52" alt="" value="img/shell/ai.png" border="0"/>
+				</h:panelGroup>	
+				<h:panelGroup style="position: absolute; top: 26px; left: 13px; display: inline-block; height: 26px; width: 26px;">	
+					<h:graphicImage 
+						height="26" width="26" alt="" value="img/shell/ai.gif" border="0"/>
+				</h:panelGroup>		
+			</h:panelGroup>
+		</f:facet>
+	</a4j:status>
+	
+	</a4j:form>
+</ui:composition>

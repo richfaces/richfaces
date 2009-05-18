@@ -1,0 +1,13 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:richx="http://richfaces.org/richx">
+	<ui:include src="/includes/image/imageInfo.xhtml" >
+		<ui:param name="additionalImageBlock" value="/includes/image/imageAdditionalInfo.xhtml" />
+		<ui:param name="image" value="#{model.selectedImage}" />
+	</ui:include>
+</ui:composition>

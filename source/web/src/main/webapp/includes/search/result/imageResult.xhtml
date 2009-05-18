@@ -1,0 +1,46 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<a4j:outputPanel rendered="#{result.size() > 0}" id="imagesList">
+	<rich:datascroller for="imageList" reRender="userAlbumImages"/>
+		<ui:include src="/includes/image/inputNumberSlider.xhtml">
+			<ui:param name="reRenderArea" value="imagesList" />
+		</ui:include>
+		<br/><br/>
+		<h:panelGroup id="userAlbumImages">
+		<a4j:repeat id="imageList" value="#{result}" var="image" rows="20">
+		<h:panelGroup layout="block" styleClass="#{imageSizeHelper.currentDimension.cssClass}">
+			<h:graphicImage styleClass="pr_photo_bg" value="#{imageSizeHelper.currentDimension.imageBg}" />
+			<h:panelGrid cellpadding="0">
+				<h:panelGroup>
+					<a4j:commandLink
+							actionListener="#{controller.showImage(image)}"
+							reRender="mainArea, treePanel">					
+								<a4j:mediaOutput id="img"  element="img" 
+									createContent="#{imageLoader.paintImage}" 
+									style="border : 2px solid #FFFFFF;"
+									value="#{fileManager.transformPath(image.fullPath, imageSizeHelper.currentDimension.filePostfix)}">
+									<f:param value="#{imageSizeHelper.currentDimension.x}" name="x" />
+								</a4j:mediaOutput>
+					</a4j:commandLink>
+					<br/>
+				</h:panelGroup>
+			</h:panelGrid>				
+			<h:panelGroup layout="block" styleClass="photo_name">#{image.name}</h:panelGroup>		
+			<h:panelGroup layout="block" styleClass="photo_data">
+				<h:outputText value="#{image.created}">
+					<f:convertDateTime />
+				</h:outputText>
+			</h:panelGroup>	
+			<h:panelGroup layout="block" styleClass="photo_data">
+			<a4j:commandLink reRender="mainArea" actionListener="#{controller.showUser(image.album.owner)}" value="#{image.album.owner.firstName} #{image.album.owner.secondName}" />
+			</h:panelGroup>	
+		</h:panelGroup>
+	</a4j:repeat>
+	</h:panelGroup>
+	</a4j:outputPanel>
+	<h:outputText rendered="#{result.size() == 0}" value="#{messages['no_results_found']}" />
+</ui:composition>

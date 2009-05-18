@@ -1,0 +1,29 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="seleniumTestDANe">
+  <!-- test name="IEFunctionalTests">
+    <parameter name="browser" value="*iexplore"/>
+  </test-->
+  <test name="FireFoxFunctionalTestsDANe1">
+    <parameter name="browser" value="*firefox"/>
+    <classes>
+	    	<class name="org.richfaces.photoalbum.testng.SearchTest" />
+	    	<class name="org.richfaces.photoalbum.testng.ScrollerUseCasesTest" />
+	</classes>
+  </test>
+  <test name="FireFoxFunctionalTestsDANe2">
+    <parameter name="browser" value="*firefox"/>
+    <classes>
+	    	<class name="org.richfaces.photoalbum.testng.DnDUseCasesTest" />
+	</classes>
+  </test>
+  <test name="FireFoxFunctionalTestsDANe3">
+    <parameter name="browser" value="*firefox"/>
+    <packages>
+      <package name="org.richfaces.photoalbum.testng" >
+      	<exclude name="SearchTest"></exclude>
+      	<exclude name="DnDUseCasesTest"></exclude>
+      	<exclude name="ScrollerUseCasesTest"></exclude>
+      </package>
+    </packages>
+  </test>
+</suite>

@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:richx="http://richfaces.org/richx">
+	<h:panelGroup layout="block" style="margin-top : 20px">
+		<strong>#{messages['tags']}: </strong> 
+		<a4j:repeat value="#{model.selectedImage.imageTags}" var="tag">
+			<a4j:commandLink actionListener="#{controller.showTag(tag)}" reRender="mainArea" value="#{tag.tag}"/><h:outputText value=" " />
+		</a4j:repeat>
+	</h:panelGroup>
+	
+	<h:panelGroup rendered="#{model.selectedImage.allowComments}" layout="block" id="commentPanel" style="margin-top : 30px">
+		<strong>#{messages['comment.comments']}:</strong>
+		<br/><br/>
+		
+		<a4j:repeat value="#{model.selectedImage.comments}" var="comment">
+			<table class="comment-table" cellpadding="0">
+				<tr>
+					<td valign="top">
+						<h:panelGroup layout="block" styleClass="preview_box_photo_nav" style="margin-right : 5px">
+							<h:graphicImage styleClass="pr_photo_bg" value="/img/shell/frame_photo_200.png" />
+							<h:panelGrid cellpadding="0">
+								<h:panelGroup>	
+									<a4j:commandLink reRender="mainArea" actionListener="#{controller.showUser(comment.author)}">		
+										<a4j:mediaOutput rendered="#{comment.author.hasAvatar}" element="img" createContent="#{imageLoader.paintImage}"
+											styleClass="additional-info-avatar"  
+											value="/#{comment.author.login}/avatar.jpg" />			
+										<h:graphicImage rendered="#{!comment.author.hasAvatar and comment.author.sex.key =='1' }" value="/img/shell/avatar_default.png" width="80" height="80" alt="" style="border:none"/>
+										<h:graphicImage rendered="#{!comment.author.hasAvatar and comment.author.sex.key =='0' }" value="/img/shell/avatar_w_default.png" width="80" height="80" alt="" style="border:none"/>
+									</a4j:commandLink>
+									<br/>
+								</h:panelGroup>
+							</h:panelGrid>				
+						</h:panelGroup>		
+					</td>
+					<td width="100%" valign="top">
+
+						<h:panelGroup layout="block" styleClass="comment-deleteLink">
+							<h:panelGroup rendered="#{comment.author == user}" layout="block" styleClass="additional-info-comment-del">
+								<a4j:commandLink value="#{messages['comment.delete']}" actionListener="#{imageManager.deleteComment(comment)}" reRender="commentPanel"/>
+							</h:panelGroup>
+							<h:panelGroup layout="block" >
+								<strong>#{comment.author.login}   </strong><h:outputText styleClass="additional-info-text" value="#{comment.date}" ><f:convertDateTime /></h:outputText> 
+							</h:panelGroup>
+						</h:panelGroup>	
+						<h:panelGroup layout="block" styleClass="comment-text">
+							<s:formattedText value="#{comment.message}" />
+						</h:panelGroup>	
+
+					</td>
+				</tr>
+			</table>
+		</a4j:repeat>
+		<a4j:region renderRegionOnly="true" rendered="#{identity.hasRole('admin')}">
+			<h:panelGrid columns="1"
+				id="editContent">
+				<rich:editor value="#{editorBean.message}"
+					configuration="#{editorBean.currentConfiguration}" id="editor2"
+					width="400" height="200" useSeamText="true">
+				</rich:editor>
+			</h:panelGrid>
+		</a4j:region>
+		<richx:commandButton rendered="#{identity.hasRole('admin')}" value="#{messages['comment.add']}" actionListener="#{imageManager.addComment(model.selectedImage, editorBean.message)}" reRender="commentPanel" />
+	</h:panelGroup>
+	<h:panelGroup rendered="#{!model.selectedImage.allowComments}" layout="block" id="commentPanel2" style="margin-top : 30px">
+		<strong>#{messages['comments_for_this_photo_is_not_allowed']}</strong>
+		</h:panelGroup>
+</ui:composition>

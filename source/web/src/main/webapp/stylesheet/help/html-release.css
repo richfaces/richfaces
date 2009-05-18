@@ -1,0 +1,30 @@
+@import url("html-common.css");
+.new, .added { 
+background:transparent url(../images/new.png) no-repeat scroll right top; 
+padding-right:70px; 
+} 
+.updated, .changed { 
+background:transparent url(../images/updated.png) no-repeat scroll right top; 
+padding-right:70px; 
+}
+span.diffmkwrapper{
+	background-color: #cce2f6;
+}
+
+div.diffmkwrapper p{
+	background-color: #c8d7e4;
+	padding:0px;
+	margin-left:56px;
+}
+
+h3#feedback-header{
+  display:block;
+}
+.img_marker{
+    display:inline;
+    padding: 0px;
+    margin:0px;
+}
+h1.title {
+	display:block;
+}

@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<h:panelGrid styleClass="album-header-table" cellpadding="0"
+		columns="2" columnClasses="xxx, album-header-table-col2">
+		<h:panelGroup>
+			<h1>
+				<h:outputText value="#{album.name}" rendered="#{!controller.isUserAlbum(album)}"/> 
+				<rich:inplaceInput value="#{album.name}" rendered="#{controller.isUserAlbum(album)}" inputWidth="200px">
+					<a4j:support event="onviewactivated" reRender="mainArea, treePanel" action="#{albumManager.editAlbum(album, true)}"/>
+				</rich:inplaceInput>
+			</h1>
+			<h:panelGroup styleClass="additional-info-text">#{messages['created.album']} <h:outputText style="font-weight:bold;"
+					value=" #{album.created}" />, #{messages['contain']} <h:outputText style="font-weight:bold;"
+					value=" #{album.images.size()}" /> #{messages['images_']}<h:outputText rendered="#{album.unvisitedImages.size > 0}"
+					value=", " /> 
+					<a4j:commandLink rendered="#{album.unvisitedImages.size > 0}" reRender="mainArea,treePanel" actionListener="#{controller.showUnvisitedImages(album)}">
+					<h:outputText style="font-weight:bold;" value="#{album.unvisitedImages.size()}"/>
+					<h:outputText value=" #{messages['new']} " /></a4j:commandLink> <h:outputText rendered="#{album.unvisitedImages.size > 0}" value="#{messages['images_']}"/>
+			</h:panelGroup>
+			<br/>
+			<br/>
+			<a4j:commandLink styleClass="additional-info-text"
+				actionListener="#{controller.showShelf(album.shelf)}"
+				reRender="mainArea, treePanel"
+				value="#{messages['shelf']} #{album.shelf.name}" />
+		</h:panelGroup>
+		<h:panelGroup>
+			<a4j:commandLink
+				rendered="#{album.owner.id == user.id}"
+				value="#{messages['album.edit']} "
+				actionListener="#{controller.startEditAlbum(album)}"
+				reRender="mainArea"></a4j:commandLink>
+			<a4j:commandLink
+				rendered="#{album.owner.id == user.id}"
+				value="#{messages['album.delete']} "
+				actionListener="#{confirmationPopupHelper.initAlbumData('deleteAlbum',messages['album.delete.confirm'],album)}"
+				oncomplete="#{rich:component('confirmation')}.show()"
+				reRender="confirmation" />
+		</h:panelGroup>
+	</h:panelGrid>
+
+	<p><h:outputText value="#{album.description}" /></p>
+	<p>
+
+	
+	</p>
+	<ui:include src="/includes/image/imageList.xhtml"/>
+</ui:composition>

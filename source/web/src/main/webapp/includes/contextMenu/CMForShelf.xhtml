@@ -1,0 +1,26 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:richx="http://richfaces.org/richx">
+	<rich:contextMenu disableDefaultMenu="false" style="text-align:left;" rendered="#{controller.isUserShelf(shelf)}" event="oncontextmenu" attached="true"
+		submitMode="ajax">
+		<rich:menuItem value="#{messages['add_album']}" limitToList="true"
+			reRender="albumModalPanel" data="#{albumManager.errorInCreate}"
+			actionListener="#{albumManager.createAlbum(shelf)}"
+			oncomplete="if(!data)$('albumModalPanel').component.show()">
+		</rich:menuItem>
+		<rich:menuItem value="#{messages['delete_shelf']}" limitToList="true"
+			actionListener="#{confirmationPopupHelper.initShelfData('deleteShelf','Are You sure? All nested albums and images will also dropped! ',shelf)}"
+			oncomplete="#{rich:component('confirmation')}.show()"
+			reRender="confirmation">
+		</rich:menuItem>
+		<rich:menuItem value="#{messages['edit_shelf']}" limitToList="true"
+			actionListener="#{controller.startEditShelf(shelf)}"
+			reRender="mainArea">
+		</rich:menuItem>
+	</rich:contextMenu>
+</ui:composition>

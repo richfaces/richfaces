@@ -1,0 +1,22 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:richx="http://richfaces.org/richx">
+	<div><h:panelGrid columns="3" rendered="#{model.images.size > 0}">
+	<h:outputText value="Image Dimension:"/><rich:inputNumberSlider  enableManualInput="false"
+		value="#{imageSizeHelper.value}" minValue="80" maxValue="200"
+		showArrows="false" showBoundaryValues="true" showInput="false"
+		step="40" width="100">
+		<a4j:support event="onchange" reRender="userAlbumImages" />
+	</rich:inputNumberSlider>
+		<a4j:commandLink rendered="#{help.isShowHelp()}" actionListener="#{help.navigateTo('/includes/help/inputSliderHelp.xhtml')}" oncomplete="#{rich:component('helpPanel')}.show()"
+				reRender="helpPanel">
+				<h:panelGroup style="cursor: hand; width: 34px; height: 34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
+					<h:graphicImage style="border:none;" border="0" width="34" height="34" styleClass="ie6transparency" value="img/icons/help_sign.png"></h:graphicImage>
+				</h:panelGroup>	
+	</a4j:commandLink>
+	</h:panelGrid></div>
+</ui:composition>

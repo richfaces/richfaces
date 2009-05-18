@@ -1,0 +1,15 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:rich="http://richfaces.org/rich">
+			<a4j:repeat value="#{searchImageHelper.options}" var="option">
+				<h:outputText value="#{option.name}"></h:outputText>
+				<h:selectBooleanCheckbox value="#{option.selected}">
+				 	<a4j:support event="onchange" actionListener="#{searchImageHelper.processSelection}" reRender="searchArea"></a4j:support>
+				</h:selectBooleanCheckbox><br/>
+			</a4j:repeat>
+			
+</ui:composition>

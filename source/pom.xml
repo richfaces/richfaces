@@ -1,0 +1,116 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.richfaces.examples</groupId>
+	<artifactId>photoalbum</artifactId>
+	<packaging>pom</packaging>
+	<name>${appName}</name>
+	<version>3.3.1-SNAPSHOT</version>
+
+    <distributionManagement>
+		<downloadUrl>
+			http://labs.jboss.com/portal/jbossrichfaces/downloads
+		</downloadUrl>
+		<repository>
+			<id>repository.jboss.org</id>
+			<uniqueVersion>false</uniqueVersion>
+			<url>${releaseRepository}</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots.jboss.org</id>
+			<uniqueVersion>true</uniqueVersion>
+			<url>${snapshotRepository}</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<properties>
+		<appName>Photoalbum Demo Application</appName>
+		<projectName>photoalbum</projectName>
+		<richfacesVersion>${project.version}</richfacesVersion>
+		<seamVersion>2.1.1.GA</seamVersion>
+		<faceletsVersion>1.1.15.B1</faceletsVersion>
+		<jbosscontext>default</jbosscontext>
+		<!--<imageset>short</imageset>-->
+		<imageset>short</imageset>
+		<imagespath>short</imagespath>
+		<environment.properties>environment/dev</environment.properties>
+	</properties>
+	<repositories>
+		<repository>
+			<id>repository.jboss.org</id>
+			<name>Jboss Repository for Maven</name>
+			<url>http://repository.jboss.org/maven2/</url>
+		</repository>
+	</repositories>
+	<modules>
+		<module>ejb</module>
+		<module>web</module>
+		<module>ear</module>
+	</modules>
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-webdav</artifactId>
+				<version>1.0-beta-2</version>
+			</extension>
+		</extensions>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ejb-plugin</artifactId>
+				<configuration>
+					<ejbVersion>3.0</ejbVersion>
+				</configuration>
+			</plugin>
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-eclipse-plugin</artifactId>
+					<version>2.5</version>
+					<configuration>
+						<downloadSources>true</downloadSources>
+						<downloadJavadocs>false</downloadJavadocs>
+						<projectNameTemplate>[artifactId]-[version]
+						</projectNameTemplate>
+						<wtpmanifest>true</wtpmanifest>
+						<wtpapplicationxml>true</wtpapplicationxml>
+						<wtpversion>2.0</wtpversion>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.5</source>
+						<target>1.5</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<configuration>
+						<skip>true</skip>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	
+	<profiles>
+		<profile>
+			<id>livedemo</id>
+			<properties>
+				<imageset>full</imageset>
+				<imagespath>full</imagespath>
+				<environment.properties>environment/prod</environment.properties>
+			</properties>
+		</profile>
+	</profiles>
+</project>

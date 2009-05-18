@@ -1,0 +1,11 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<a4j:repeat rendered="#{result.size() > 0}" id="tagList" value="#{result}" var="tag">
+		<a4j:commandLink reRender="mainArea" actionListener="#{controller.showTag(tag)}" value="#{tag.tag}"></a4j:commandLink><br/>		
+	</a4j:repeat>
+	<h:outputText rendered="#{result.size() == 0}" value="#{messages['no_results_found']}" />
+</ui:composition>

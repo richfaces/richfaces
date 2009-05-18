@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:richx="http://richfaces.org/richx"
+	xmlns:s="http://jboss.com/products/seam/taglib">
+	
+	<head>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>RichFaces PhotoAlbum demo</title>
+		<link href="stylesheet/photoalbum.css" rel="stylesheet" type="text/css" />
+		<script src="scripts/photoalbum.js" type="text/javascript" />
+	
+		<style type="text/css">
+			* {
+				font-family: verdana;
+				font-size: 11px;
+			}
+		
+			html,body {
+			    height: 100%;
+			 	margin : 0px;
+			 	padding: 0px;
+			    margin: 0px;
+			}
+		</style>
+
+	</head>
+
+	<body class="main-body" style="position: relative;">
+		<div style="position: relative; height: auto; overflow: hidden; min-height: 100%; zoom: 1;" class="main-panel">
+			<div style="padding-bottom: 82px; padding-top: 116px; left: 0px; zoom: 1;">
+					<ui:include src="/includes/misc/modalPanels.xhtml" />
+					<ui:include src="/includes/misc/slideShowPooler.xhtml" />
+					<ui:include src="/includes/image/slideshow.xhtml"/>
+						<table cellpadding="0" cellspacing="0" width="100%">
+							<tbody>
+				    	 		<tr>
+				    	 			<td class="panel-header-bg" style="vertical-align: top;">
+				    	 				<div style="position: relative; zoom: 1;">
+				    	 					<div> 
+				    	 						<rich:spacer width="300" height="1" style="display: block"> </rich:spacer> 
+				    	 					</div>
+				    	 					<h:form id="treeform" style="margin: 0">
+				    	 						<rich:panel id="treePanel"
+						    	 							styleClass="body-main-panel"
+															headerClass="body-main-panel-header"
+															bodyClass="body-main-panel-body" width="240px">
+															<ui:insert name="tree" />
+												</rich:panel>
+											</h:form>	
+											<div class="body-main-bg" style="position: absolute; height: 30000px; right: 0px; top: 0px; width: 5px;">
+											</div>
+				    	 				</div>
+				    	 			</td>
+				    	 			<td width="100%" class="panel-header-bg" style="vertical-align: top;">
+				    	 				<div style="position: relative; zoom: 1;">
+				    	 						<h:form id="mainform" style="margin: 0;"> 
+					    	 						<rich:panel id="bodyPanel" styleClass="body-main-panel"	headerClass="body-main-panel-header"  bodyClass="body-main-panel-body">
+														<ui:insert name="body" />
+													</rich:panel>
+												</h:form>
+				    	 				</div>
+										<div style="position: absolute; height: 30000px; right: 0px; top: 0px; width: 5px;" class="body-main-bg"> 
+										</div>
+																			
+									</td>
+								</tr>
+							</tbody>
+						</table>
+			</div>
+			
+		
+			<div style="position: absolute; top: 0px; width: 100%; height: 116px; left: 0px;">
+				<ui:include src="/includes/index/header.xhtml" />
+			</div>
+	        
+	        <div style="position: absolute; bottom: 0px; width: 100%; height: 82px; left: 0px; zoom: 1;">
+				<ui:include src="/includes/index/footer.xhtml" />
+	        </div>
+	    	<ui:insert name="searchWidget" />
+	    	<ui:include src="/includes/index/status.xhtml" />
+	    </div>
+	
+		
+		
+	 <script type="text/javascript" src="http://www.google-analytics.com/urchin.js"></script>
+
+<script type="text/javascript">
+if (window.location.hostname.indexOf("livedemo.exadel.com") != -1) {
+_uacct = "UA-7306415-2";
+urchinTracker();
+}
+</script>   
+	</body>
+</html>

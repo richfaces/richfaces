@@ -1,0 +1,328 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<div class="section" lang="en-US">
+	<div class="titlepage">
+	<div>
+	<div>
+	<h2 class="title">Navigation tree with pre-defined shelves.</h2>
+	</div>
+	</div>
+	</div>
+	<p>The <span class="bold"><strong><span
+		class="property">&lt;rich:tree&gt;</span></strong></span> component takes one of the
+	main places in the <span class="property">Photo Album</span> and is
+	tightly bounded with the application logic. It helps to represent and
+	implement inherently the "Shelves - Albums" hierarchy. Shelf is the
+	highest possible level in the tree hierarchy, that is used to group
+	thematic albums and may contain as many albums as needed.</p>
+	<p>There are two types of navigation tree in the application: for a
+	registered user and for a guest. The difference between them is that
+	the first one has a context menu and drag-and-drop possibility.</p>
+	<div class="section" lang="en-US">
+	<div class="titlepage">
+	<div>
+	<div>
+	<h3 class="title">Navigation tree for a
+	guest</h3>
+	</div>
+	</div>
+	</div>
+	<p>Navigation tree for a guest is represented as a simple <span
+		class="bold"><strong><span class="property">&lt;rich:tree&gt;</span></strong></span>
+	component.</p>
+	<p>There are several ways to implement the <span class="bold"><strong><span
+		class="property">&lt;rich:tree&gt;</span></strong></span> on a page. In the current
+	application the <span class="bold"><strong><span
+		class="property">&lt;rich:tree&gt;</span></strong></span> is designed using a model
+	tag <span class="bold"><strong><span class="property">&lt;rich:treeNodesAdaptor&gt;</span></strong></span>.
+	</p>
+	<p>The <span class="bold"><strong><span
+		class="property">&lt;rich:treeNodesAdaptor&gt;</span></strong></span> component has a
+	<span class="emphasis"><em><span class="property">"nodes"</span></em></span>
+	attribute that accepts a collection of elements, so <span class="bold"><strong><span
+		class="property">&lt;rich:treeNodesAdaptor&gt;</span></strong></span> iterates over
+	the collection and renders a hierarchical tree structure on a page.</p>
+	<p>According to the "Shelves - Albums" hierarchy we need two nested
+	<span class="bold"><strong><span class="property">&lt;rich:treeNodesAdaptor&gt;</span></strong></span>
+	components. The first one iterates over the Shelves collection that is
+	returned from the <code class="code">getPredefinedShelves()</code>
+	method of <code class="code">ShelfManager.java</code> class:</p>
+	<pre  xml:space="preserve"
+		xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- <br/> --><span
+		class="java_separator">...</span>
+<!--  --><br /><span class="java_keyword">public</span><span
+		class="java_plain"> </span><span class="java_type">List</span><span
+		class="java_operator">&lt;</span><span class="java_type">Shelf</span><span
+		class="java_operator">&gt;</span><span class="java_plain"> getPredefinedShelves</span><span
+		class="java_separator">()</span><span class="java_plain"> </span><span
+		class="java_separator">{</span>
+<!--  --><br /><span class="java_plain">        </span><span
+		class="java_keyword">if</span><span class="java_plain"> </span><span
+		class="java_separator">(</span><span class="java_plain">shelves </span><span
+		class="java_operator">==</span><span class="java_plain"> </span><span
+		class="java_literal">null</span><span class="java_separator">)</span><span
+		class="java_plain"> </span><span class="java_separator">{</span>
+<!--  --><br /><span class="java_plain">            shelves </span><span
+		class="java_operator">=</span><span class="java_plain"> shelfAction</span><span
+		class="java_separator">.</span><span class="java_plain">getPredefinedShelves</span><span
+		class="java_separator">();</span>
+<!--  --><br /><span class="java_plain">        </span><span
+		class="java_separator">}</span>
+<!--  --><br /><span class="java_plain">        </span><span
+		class="java_keyword">return</span><span class="java_plain"> shelves</span><span
+		class="java_separator">;</span>
+<!--  --><br /><span class="java_plain">    </span><span
+		class="java_separator">}</span>
+<!--  --><br /><span class="java_separator">}</span><span
+		class="java_plain"> </span>
+<!--  --><br /><span class="java_separator">...</span></pre>
+	<p>The second <span class="bold"><strong><span
+		class="property">&lt;rich:treeNodesAdaptor&gt;</span></strong></span> component
+	iterates over the Albums collection of the current Shelf which is
+	available via <span class="emphasis"><em><span
+		class="property">"var"</span></em></span> attribute. The <span class="emphasis"><em><span
+		class="property">"var"</span></em></span> attribute is used to get access to the
+	data object of the current collection element Shelf, so it is possible
+	to output any necessary data. Let's see the <code class="code">src/main/webapp/includes/index/tree.xhtml</code>
+	file:</p>
+	<pre  xml:space="preserve"
+		xmlns:rf="java:org.jboss.highlight.XhtmlRendererFactory" class="JAVA"><!-- XML : generated by JHighlight v1.0 (http://jhighlight.dev.java.net) -->
+<span class="xml_plain">...</span><br />
+<span class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">rich:tree</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">adviseNodeOpened</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot; {treeManager.adviseNodeSelected}&quot;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">            </span><span
+		class="xml_attribute_name">adviseNodeSelected</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot; {treeManager.adviseNodeSelected}&quot;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">            </span><span
+		class="xml_attribute_name">ajaxSubmitSelection</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;false&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">id</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;PreDefinedTree&quot;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">            </span><span
+		class="xml_attribute_name">treeNodeVar</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;treeNode&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">switchType</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;client&quot;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">            </span><span
+		class="xml_attribute_name">iconCollapsed</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;/img/shell/tree_icon_plus.png&quot;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">            </span><span
+		class="xml_attribute_name">iconExpanded</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;/img/shell/tree_icon_minus.png&quot;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">            </span><span
+		class="xml_attribute_name">showConnectingLines</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;false&quot;</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">      </span><span class="xml_tag_symbols">&lt;</span><span
+		class="xml_tag_name">rich:treeNodesAdaptor</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">nodes</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot; {shelfManager.getPredefinedShelves()}&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">var</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;shelf&quot;</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">            </span><span class="xml_tag_symbols">&lt;</span><span
+		class="xml_tag_name">rich:treeNode</span><span class="xml_plain"> </span><span
+		class="xml_attribute_name">style</span><span class="xml_tag_symbols">=</span><span
+		class="xml_attribute_value">&quot;cursor:pointer&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">reRender</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;treePanel,mainArea&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">selectedClass</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;tree-selected-node&quot;</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">                  </span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">f:facet</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">name</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;icon&quot;</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">                        </span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">h:graphicImage</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">style</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;border: none&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">value</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;/img/shell/tree_icon_shelf.png&quot;</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">                              </span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">a4j:support</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">reRender</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;treePanel, mainArea&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">event</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;onclick&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">actionListener</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot; {controller.showShelf(shelf)}&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">similarityGroupingId</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;sel&quot;</span><span
+		class="xml_plain"> </span><span class="xml_tag_symbols">/&gt;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">                        </span><span
+		class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">h:graphicImage</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">                  </span><span
+		class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">f:facet</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">                  </span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">a4j:outputPanel</span><span
+		class="xml_plain">  </span><span class="xml_tag_symbols">&gt;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">                        </span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">h:outputText</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">style</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;cursor:pointer&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">value</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot; {shelf.name}&quot;</span><span
+		class="xml_plain"> </span><span class="xml_tag_symbols">/&gt;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">                        </span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">h:outputText</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">value</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot; :: &quot;</span><span
+		class="xml_plain"> </span><span class="xml_tag_symbols">/&gt;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">                        </span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">strong</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"> {shelf.unvisitedImages.size()}</span><span
+		class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">strong</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"> new</span><br />
+<span class="xml_plain">                        </span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">a4j:support</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">reRender</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;treePanel, mainArea&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">event</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;onclick&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">actionListener</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot; {controller.showShelf(shelf)}&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">similarityGroupingId</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;sel&quot;</span><span
+		class="xml_plain"> </span><span class="xml_tag_symbols">/&gt;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">                  </span><span
+		class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">a4j:outputPanel</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">            </span><span class="xml_tag_symbols">&lt;/</span><span
+		class="xml_tag_name">rich:treeNode</span><span class="xml_tag_symbols">&gt;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">            </span><br />
+<span class="xml_plain">            </span><span class="xml_tag_symbols">&lt;</span><span
+		class="xml_tag_name">rich:treeNodesAdaptor</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">var</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;album&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">nodes</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot; {shelf.albums}&quot;</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">                  </span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">rich:treeNode</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">style</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;cursor:pointer&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">reRender</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;treePanel,mainArea&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">selectedClass</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;tree-selected-node&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">icon</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;img/shell/tree_icon_album.png&quot;</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">                        </span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">f:facet</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">name</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;iconLeaf&quot;</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">                              </span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">h:graphicImage</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">style</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;border: none&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">value</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;img/shell/tree_icon_album.png&quot;</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">                                    </span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">a4j:support</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">reRender</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;treePanel, mainArea&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">event</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;onclick&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">actionListener</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot; {controller.showAlbum(album)}&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">similarityGroupingId</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;sel&quot;</span><span
+		class="xml_plain"> </span><span class="xml_tag_symbols">/&gt;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">                              </span><span
+		class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">h:graphicImage</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">                        </span><span
+		class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">f:facet</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">                        </span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">a4j:outputPanel</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">                              </span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">h:outputText</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">style</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;cursor:pointer&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">value</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot; {album.name}&quot;</span><span
+		class="xml_plain"> </span><span class="xml_tag_symbols">/&gt;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">                              </span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">h:outputText</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">value</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot; :: &quot;</span><span
+		class="xml_plain"> </span><span class="xml_tag_symbols">/&gt;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">                              </span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">strong</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"> {album.unvisitedImages.size()}</span><span
+		class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">strong</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"> new</span><br />
+<span class="xml_plain">                              </span><span
+		class="xml_tag_symbols">&lt;</span><span class="xml_tag_name">a4j:support</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">reRender</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;treePanel, mainArea&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">event</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;onclick&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">actionListener</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot; {controller.showAlbum(album)}&quot;</span><span
+		class="xml_plain"> </span><span class="xml_attribute_name">similarityGroupingId</span><span
+		class="xml_tag_symbols">=</span><span class="xml_attribute_value">&quot;sel&quot;</span><span
+		class="xml_plain"> </span><span class="xml_tag_symbols">/&gt;</span><span
+		class="xml_plain"></span><br />
+<span class="xml_plain">                        </span><span
+		class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">a4j:outputPanel</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">                  </span><span
+		class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">rich:treeNode</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">            </span><span class="xml_tag_symbols">&lt;/</span><span
+		class="xml_tag_name">rich:treeNodesAdaptor</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">      </span><span class="xml_tag_symbols">&lt;/</span><span
+		class="xml_tag_name">rich:treeNodesAdaptor</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_tag_symbols">&lt;/</span><span class="xml_tag_name">rich:tree</span><span
+		class="xml_tag_symbols">&gt;</span><span class="xml_plain"></span><br />
+<span class="xml_plain">...</span><br />
+</pre>
+	<p>The image below shows how the navigation tree for a guest is
+	rendered on the page.</p>
+	<div class="figure">
+	<div class="figure-contents">
+	<div class="mediaobject"><img src="img/help/tree.png"
+		alt="Shelves and albums nodes rendered with the help of the &lt;rich:treeNodesAdaptor&gt;" /></div>
+	</div>
+	<p class="title"><b>Shelves and albums nodes rendered with the
+	help of the &lt;rich:treeNodesAdaptor&gt;</b></p>
+	</div>
+	<br class="figure-break" />
+	</div>
+
+	</div>
+</ui:composition>

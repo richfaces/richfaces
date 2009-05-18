@@ -1,0 +1,14 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<a4j:outputPanel rendered="#{result.size() > 0}">
+		<ui:decorate template="/includes/shelf/shelvesList.xhtml">
+			<ui:param name="shelves" value="#{result}" />
+			<ui:define name="header" />
+		</ui:decorate>
+	</a4j:outputPanel>
+	<h:outputText rendered="#{result.size() == 0}" value="#{messages['no_results_found']}" />
+</ui:composition>

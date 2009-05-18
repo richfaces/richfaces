@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:richx="http://richfaces.org/richx">
+		<ui:decorate template="userPrefs/userPrefsEdit.xhtml">
+			<ui:define name="header">
+			<h:panelGroup layout="block">
+				<h1><h:outputText value="#{messages['user.reginfo']}" /></h1>
+				</h:panelGroup>
+			</ui:define>
+			<ui:define name="controls">
+				<h:panelGrid columns="2"
+					style="text-align:center; margin-top : 10px; margin-left:auto; margin-right:auto;">
+					<h:panelGroup layout="block">
+						<richx:commandButton actionListener="#{authenticator.register(user)}" reRender="mainArea,treePanel,searchForm, headerPanel"
+							value="#{messages['user.register']}" />
+					</h:panelGroup>
+					<h:panelGroup layout="block">
+						<richx:commandButton actionListener="#{controller.cancelRegistration()}" reRender="mainArea"
+							immediate="true" value="#{messages['user.cancel']}" />
+					</h:panelGroup>
+				</h:panelGrid>
+			</ui:define>
+		</ui:decorate>
+</ui:composition>

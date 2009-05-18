@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<a4j:outputPanel id="errors" ajaxRendered="true" layout="block">
+		<h:panelGroup rendered="#{errorHandlerBean.errorExist}">
+			<rich:modalPanel id="errorPanel" showWhenRendered="true"
+				minWidth="300" minHeight="200" autosized="true">
+
+				<f:facet name="header">
+					<h:outputText value="#{messages['error_occurred']}" />
+				</f:facet>
+
+				<f:facet name="controls">
+					<h:panelGroup id="errorPanelHideControl">
+						<h:graphicImage value="/img/modal/close.png"
+							style="cursor:pointer" id="errorPanelHidelink" />
+						<rich:componentControl for="errorPanel"
+							attachTo="errorPanelHidelink" operation="hide" event="onclick" />
+					</h:panelGroup>
+				</f:facet>
+				<rich:effect type="Appear" name="appearFunc" />
+				<h:panelGroup id="panel" width="100%" layout="block">
+					<h:panelGroup id="content" layout="block">
+						<h:panelGrid columns="2" width="300px"
+							style="margin-left: auto; margin-right: auto;">
+							<h:panelGroup id="icon" layout="block" style="width: 43px">
+								<h:graphicImage value="img/modal/ico_warning.png" />
+							</h:panelGroup>
+
+							<h:panelGroup id="message" layout="block"
+								style="width: 257px; margin-left: 20px">
+								<a4j:repeat value="#{errorHandlerBean.errors}" var="error">
+									<h:outputText styleClass="error" value="#{error}" />
+									<br />
+								</a4j:repeat>
+								
+							</h:panelGroup>
+								
+									<h:panelGroup 
+										style="cursor: pointer; width: 34px; height:34px;">
+										<h:graphicImage style="border:none;" onclick="sho('/includes/help/errorHelp.xhtml');"
+											 border="0" width="34"
+											height="34" value="/img/icons/help_sign.png"></h:graphicImage>
+									</h:panelGroup>
+						</h:panelGrid>
+					</h:panelGroup>
+				</h:panelGroup>
+			</rich:modalPanel>
+		</h:panelGroup>
+	</a4j:outputPanel>
+</ui:composition>

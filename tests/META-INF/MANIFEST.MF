@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Class-Path: commons-beanutils-1.7.0.jar commons-collections-3.2.jar co
+ mmons-digester-1.8.jar richfaces-api-3.3.0.GA.jar richfaces-impl-3.3.
+ 0.GA.jar richfaces-ui-3.3.0.GA.jar
+

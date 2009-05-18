@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Class-Path: commons-beanutils-1.7.0.jar commons-digester-1.8.1.jar jbo
+ ss-seam-debug-2.1.1.GA.jar jboss-seam-jul-2.1.1.GA.jar jboss-seam-rem
+ oting-2.1.1.GA.jar jboss-seam-ui-2.1.1.GA.jar jhighlight-1.0.jar jsf-
+ facelets-1.1.15.B1.jar junit-3.8.jar metadata-extractor-2.4.0-beta1.j
+ ar richfaces-impl-3.3.1-SNAPSHOT.jar richfaces-ui-3.3.1-SNAPSHOT.jar
+

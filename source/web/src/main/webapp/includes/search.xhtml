@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:s="http://jboss.com/products/seam/taglib"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:rich="http://richfaces.org/rich"
+				xmlns:a4j="http://richfaces.org/a4j"
+				xmlns:c="http://java.sun.com/jstl/core"
+				xmlns:richx="http://richfaces.org/richx">
+	<br/>
+	<rich:tabPanel rendered="#{searchImageHelper.isResultExist()}"
+			id="searchPanel" switchType="client">
+		<c:forEach  items="#{searchImageHelper.options}" var="option"
+				   varStatus="i">
+			<rich:tab label="#{option.searchResultName}"
+					  style="font-weight: bold"
+                                rendered="#{option.selected and option.searchResult.size > 0}">
+				<span class="search-criteria">#{messages['search_criteria']} <strong>#{searchImageHelper.getCriteriaString()}</strong></span>
+				<br/>
+
+				<div style="font-size: 1px; height: 5px"></div>
+				<span class="search-criteria">#{messages['keywords']} <h:outputText value=" "/>
+				<a4j:repeat value="#{searchImageHelper.keywords}" var="keyword" rowKeyVar="row">
+					<h:outputText rendered="#{searchImageHelper.selectedKeyword.equals(keyword.trim())}"
+							value="#{keyword}"></h:outputText>
+					<a4j:commandLink
+							rendered="#{!searchImageHelper.selectedKeyword.equals(keyword.trim())}"
+							actionListener="#{searchImageHelper.search(keyword)}"
+							value="#{keyword.trim()}"
+							reRender="mainArea"/>
+					<h:outputText
+						rendered="#{searchImageHelper.keywords.size() != row+1 }"
+						value=", "/>
+				</a4j:repeat>
+				</span>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				<ui:include src="#{option.searchResultTemplate}">
+					<ui:param name="result" value="#{option.searchResult}"/>
+				</ui:include>
+			</rich:tab>
+		</c:forEach>
+	</rich:tabPanel>
+	<h:panelGroup rendered="#{!searchImageHelper.isResultExist()}">
+		<h:outputText  value="No results found"></h:outputText>
+		</h:panelGroup>
+</ui:composition>

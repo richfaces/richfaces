@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.richfaces.examples</groupId>
+		<artifactId>photoalbum</artifactId>
+		<version>3.3.1-SNAPSHOT</version>
+	</parent>
+	
+	<groupId>org.richfaces.examples</groupId>
+	<artifactId>assembly</artifactId>
+	<name>Examples assembly project</name>
+	<packaging>pom</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.richfaces.examples</groupId>
+			<artifactId>photoalbum-ear</artifactId>
+			<version>${project.version}</version>
+			<type>ear</type>
+		</dependency>
+	</dependencies>
+	
+	<build>
+		<finalName>richfaces-examples-${project.version}</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<outputDirectory>${project.build.directory}/dist</outputDirectory>
+					<descriptors>
+						<descriptor>photoalbum.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>docs</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-dependency-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>unpack</id>
+								<phase>generate-resources</phase>
+								<goals>
+									<goal>unpack</goal>
+								</goals>
+								<configuration>
+									<artifactItems>
+										<artifactItem>
+											<groupId>org.richfaces.docs.photo_album_app_guide</groupId>
+											<artifactId>en</artifactId>
+											<version>${project.version}</version>
+											<type>jar</type>
+											<!--classifier>pdf</classifier-->
+										</artifactItem>
+									</artifactItems>
+									<outputDirectory>
+										${project.build.directory}/docs
+									</outputDirectory>
+									<overWriteReleases>
+										false
+									</overWriteReleases>
+									<overWriteSnapshots>
+										true
+									</overWriteSnapshots>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+	
+</project>

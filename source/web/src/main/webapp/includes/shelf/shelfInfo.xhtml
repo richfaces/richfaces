@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<h:panelGrid styleClass="shelf-header-table" cellpadding="0"
+		columns="2" columnClasses="xxx, shelf-header-table-col2">
+		<h:panelGroup>
+			<h1>
+				<h:outputText value="#{shelf.name}" rendered="#{!controller.isUserShelf(shelf)}"/>
+				<rich:inplaceInput id="shelfDNDId" value="#{shelf.name}" rendered="#{controller.isUserShelf(shelf)}" inputWidth="200px">
+					<a4j:support event="onviewactivated" limitToList="true" reRender="mainArea, treePanel" action="#{shelfManager.editShelf(shelf, true)}"/>
+				</rich:inplaceInput>
+			</h1>
+			
+			<h:panelGroup styleClass="additional-info-text">#{messages['created.shelf']} <strong><h:outputText
+					value=" #{shelf.created}" /></strong>, #{messages['contain']} <strong><h:outputText
+					value=" #{shelf.images.size()}" /></strong> #{messages['pics_into']} <strong><h:outputText
+					value="#{shelf.albums.size()}" /></strong> #{messages['shelf.albums']}<h:outputText rendered="#{shelf.unvisitedImages.size > 0}" value=", "/> <a4j:commandLink
+					reRender="mainArea,tree" rendered="#{shelf.unvisitedImages.size > 0}"
+					actionListener="#{controller.showUnvisitedImages(shelf)}">
+					<h:outputText style="font-weight:bold;" value=" #{shelf.unvisitedImages.size()}"/>
+					<h:outputText value=" #{messages['new']} " /></a4j:commandLink> <h:outputText rendered="#{shelf.unvisitedImages.size > 0}" value="#{messages['images_']}"/></h:panelGroup>
+		</h:panelGroup>
+		<h:panelGroup>
+			<a4j:commandLink rendered="#{controller.isUserShelf(shelf)}"
+				value="#{messages['shelf.edit']} "
+				actionListener="#{controller.startEditShelf(shelf)}"
+				reRender="mainArea"></a4j:commandLink>
+				<h:outputText value=" "/>
+			<a4j:commandLink rendered="#{controller.isUserShelf(shelf)}"
+				value="#{messages['shelf.delete']} "
+				actionListener="#{confirmationPopupHelper.initShelfData('deleteShelf','Are You sure? All nested albums and images will also dropped! ',shelf)}"
+				oncomplete="#{rich:component('confirmation')}.show()"
+				reRender="confirmation" />
+				<h:outputText value=" "/>
+			<a4j:commandLink
+				value="#{messages['shelf.view']} "
+				actionListener="#{controller.showShelf(shelf)}"
+				reRender="mainArea"></a4j:commandLink>
+				<h:outputText value=" "/>
+		</h:panelGroup>
+	</h:panelGrid>
+
+	<p><h:outputText value="#{shelf.description}" /></p>
+	<br />
+	<br />
+
+	<ui:include src="/includes/album/albumsList.xhtml">
+		<ui:param name="albums" value="#{shelf.albums}" />
+	</ui:include>
+</ui:composition>

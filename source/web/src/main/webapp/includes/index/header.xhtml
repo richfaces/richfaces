@@ -1,0 +1,110 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:richx="http://richfaces.org/richx">
+	<rich:panel id="headerPanel" styleClass="header-panel"
+		bodyClass="header-panel-body">
+		<h:panelGroup layout="block" styleClass="header-content-div">
+			<a href="index.html"><h:graphicImage
+				value="/img/shell/logo_top.gif" width="290" height="79" alt=""
+				style="position : absolute; border: 0px;" /></a>
+			<h:graphicImage
+				value="/img/shell/top_tight_bullet.gif" width="20" height="79"
+				alt="" style="position : absolute; right : 0px" />
+			
+			<h:panelGroup id="logInOutMenu" layout="block"
+				styleClass="user-info-div">
+				<h:panelGrid columns="5"
+					columnClasses="top-right-bottom-menu-item,xxx,top-right-bottom-menu-item,xxx,top-right-bottom-menu-item">
+					<h:panelGroup layout="block">
+						<h:form style="margin: 0px">
+							<h:outputText styleClass="logged-user" style="color:#FFFFFF"
+								rendered="#{identity.loggedIn}"
+								value="#{messages['menu.welcome']}" /> 
+                                                        <a4j:commandLink styleClass="logged-user"
+								value="#{identity.username}" reRender="mainArea"
+								actionListener="#{controller.showUser(user)}"
+								rendered="#{identity.loggedIn}" />
+						</h:form>
+
+						<h:outputText styleClass="logged-user" style="color:#FFFFFF"
+							rendered="#{!identity.hasRole('admin')}"
+							value="#{messages['menu.welcome.guest']}" />
+					</h:panelGroup>
+					<h:graphicImage width="3" height="15" alt="" border="0"
+						
+						value="/img/shell/bullet.gif" />
+
+					<h:panelGroup styleClass="top-right-bottom-menu-item-link" layout="block">
+						<h:outputLink id="loginPanelShowlink"
+							rendered="#{!identity.hasRole('admin')}" value="#"
+							onclick="var component = #{rich:component('loginPanel')}; component.show(); ">
+									#{messages['menu.login']}
+								</h:outputLink> 
+                                          
+                                                <s:link propagation="end" view="/index.xhtml"
+							action="#{authenticator.logout}"
+							value="#{messages['menu.logout']}"
+							rendered="#{identity.loggedIn}" />
+					</h:panelGroup>
+
+					<h:graphicImage rendered="#{!identity.loggedIn}" width="3"
+						height="15" alt="" border="0" style="padding: 0 0 0 8px;"
+						value="/img/shell/bullet.gif" />
+
+					<h:panelGroup rendered="#{!identity.loggedIn}"
+						styleClass="top-right-bottom-menu-item-link" layout="block">
+						<h:form style="margin: 0px">
+							<a4j:commandLink value="#{messages['login.register']}"
+								actionListener="#{authenticator.goToRegister}" reRender="mainArea" />
+						</h:form>
+					</h:panelGroup>
+				</h:panelGrid>
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="top-right-menu">
+				<a4j:form>
+					<rich:toolBar id="topmenu" styleClass="top-right-menu-toolbar top-right-menu-item">
+						
+						<rich:toolBarGroup styleClass="top-right-menu-item" location="right">
+							<h:panelGroup styleClass="top-right-menu-item-padding " layout="block">
+								<a4j:commandLink styleClass="top-right-menu-item" value="#{messages['user_guide']}"/>
+							</h:panelGroup>	
+							<h:graphicImage width="3" height="15" alt="" border="0"
+								value="/img/shell/bullet.gif" />
+							<h:panelGroup styleClass="top-right-menu-item-padding " layout="block">	
+								<a4j:commandLink styleClass="top-right-menu-item" value="F.A.Q."/>
+							</h:panelGroup>	
+							<h:graphicImage width="3" height="15" alt="" border="0"
+								value="/img/shell/bullet.gif" />
+							<h:panelGroup styleClass="top-right-menu-item-padding " layout="block">	
+								<a4j:commandLink value="#{messages['about_demo_at_jbosswiki']}" styleClass="top-right-menu-item"/>
+							</h:panelGroup>	
+							<h:graphicImage width="3" height="15" alt="" border="0"
+								value="/img/shell/bullet.gif" />
+							<h:panelGroup styleClass="top-right-menu-item-padding " layout="block">	
+								<a4j:commandLink value="#{messages['about_demo_at_jbossforum']}" styleClass="top-right-menu-item"/>
+							</h:panelGroup>	
+							<h:graphicImage width="3" height="15" alt="" border="0"
+								value="/img/shell/bullet.gif" />
+						</rich:toolBarGroup>
+					</rich:toolBar>
+				</a4j:form>
+			</h:panelGroup>
+		</h:panelGroup>
+		<rich:panel id="menuPanel" styleClass="main-menu-panel"
+			bodyClass="main-menu-panel-body">
+			<h:panelGrid columns="2" cellspacing="0" cellpadding="0"
+				styleClass="main-menu-table"
+				columnClasses="menu-cloumn1, menu-cloumn2">
+				<h:panelGroup>
+					<ui:insert name="menu" />
+				</h:panelGroup>
+			</h:panelGrid>
+		</rich:panel>
+	</rich:panel>
+</ui:composition>

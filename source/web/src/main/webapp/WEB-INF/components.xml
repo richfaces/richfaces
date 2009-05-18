@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<components xmlns="http://jboss.com/products/seam/components"
+            xmlns:core="http://jboss.com/products/seam/core"
+            xmlns:persistence="http://jboss.com/products/seam/persistence"
+            xmlns:drools="http://jboss.com/products/seam/drools"
+            xmlns:bpm="http://jboss.com/products/seam/bpm"
+            xmlns:security="http://jboss.com/products/seam/security"
+            xmlns:mail="http://jboss.com/products/seam/mail"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:transaction="http://jboss.com/products/seam/transaction"
+            xmlns:web="http://jboss.com/products/seam/web"
+            xsi:schemaLocation=
+                    "http://jboss.com/products/seam/core http://jboss.com/products/seam/core-2.1.0.xsd
+                http://jboss.com/products/seam/web http://jboss.com/products/seam/web-2.1.0.xsd
+                http://jboss.com/products/seam/transaction http://jboss.com/products/seam/transaction-2.1.0.xsd
+                 http://jboss.com/products/seam/persistence http://jboss.com/products/seam/persistence-2.1.0.xsd 
+                 http://jboss.com/products/seam/drools http://jboss.com/products/seam/drools-2.1.0.xsd
+                 http://jboss.com/products/seam/bpm http://jboss.com/products/seam/bpm-2.1.0.xsd
+                 http://jboss.com/products/seam/security http://jboss.com/products/seam/security-2.1.0.xsd
+                 http://jboss.com/products/seam/mail http://jboss.com/products/seam/mail-2.1.0.xsd
+                 http://jboss.com/products/seam/components http://jboss.com/products/seam/components-2.1.0.xsd">
+
+    <core:init transaction-management-enabled="false" debug="true" jndi-pattern="@jndiPattern@"/>
+    <core:manager concurrent-request-timeout="20000"
+                  conversation-timeout="200000"
+                  conversation-id-parameter="cid"
+                  default-flush-mode="MANUAL"/>
+    <persistence:managed-persistence-context name="entityManager"
+                                             auto-create="true"
+                                             persistence-unit-jndi-name="java:/photoalbumEntityManager"/>
+    <transaction:ejb-transaction/>
+    <security:identity authenticate-method="#{authenticator.authenticate}"/>
+    <component name="org.jboss.seam.ui.entityConverter">
+        <property name="entityManager">#{em}</property>
+    </component>
+    <event type="org.jboss.seam.security.notLoggedIn">
+        <action execute="#{redirect.captureCurrentView}"/>
+        <action execute="#{identity.tryLogin()}"/>
+    </event>
+    <event type="org.jboss.seam.security.loginSuccessful">
+        <action execute="#{redirect.returnToCapturedView}"/>
+    </event>
+</components>

@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:richx="http://richfaces.org/richx">
+<h:form id="searchForm" style="margin: 0px;">
+	<div class="search-div">
+		<span style="width: 339px; height:65px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/search/search_bg.png',sizingMethod='scale');">
+			<img style="filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);" src="img/search/search_bg.png" width="339" height="65" border="0" class="search-img-bg"/>
+		</span>
+		<div class="search-label">
+			#{messages['search']}
+		</div>
+		<a4j:commandLink styleClass="search-find-button" 
+					id="findLink"
+					value="#{messages['find']}"
+					onclick="hideSearch(); Element.show($('openSeach'))"
+					reRender="mainArea"
+					actionListener="#{searchImageHelper.search}">
+		</a4j:commandLink>
+		<h:inputText required="true" value="#{searchImageHelper.searchQuery}" onkeydown="if (event.keyCode == 13) { #{rich:element('findLink')}.onclick(); return false; }" styleClass="search-input"></h:inputText>
+		<div id="openSeach" class="search-option-div">
+			<a class="search-option-link" href="#" onclick="showSearch(); Element.hide($('openSeach'))">#{messages['options']} <img height="7" border="0" width="7" alt="" src="img/search/bull_arr_down.gif"/></a>
+		</div>
+	</div>
+	<div id="searchOptions" class="search-options" style="display: none;">
+			<img height="153" border="0" width="327" class="search-option-img" src="img/search/search_option_bg.png"/>
+			<div class="search-options-div1">
+			    #{messages['in']} <h:selectBooleanCheckbox rendered="#{identity.loggedIn}" value="#{searchImageHelper.seachInMyAlbums}"></h:selectBooleanCheckbox><h:outputText value=" #{messages['in_my_albums']}" rendered="#{identity.loggedIn}"></h:outputText><h:selectBooleanCheckbox value="#{searchImageHelper.searchInShared}"></h:selectBooleanCheckbox> #{messages['in_shared_albums']}
+				</div>
+			<div class="search-options-div2">
+				<div style="float: left; height: 30px">for</div>
+				<div>
+					<a4j:repeat value="#{searchImageHelper.options}" var="option">
+						<span style="white-space: nowrap">
+							<h:selectBooleanCheckbox value="#{option.selected}"></h:selectBooleanCheckbox>
+							<h:outputText value="#{option.name}  "></h:outputText>
+						</span>
+					</a4j:repeat>
+				</div>
+			</div>
+			<div class="search-hide-options-div">
+			    <a class="search-hide-options-link " href="#" onclick="hideSearch(); Element.show($('openSeach'))">#{messages['hide_options']} <img height="7" border="0" width="7" alt="" src="img/search/bull_arr_up.gif"/> </a>
+			</div>
+	</div>
+	<rich:effect name="showSearch" for="searchOptions" type="Appear" params="duration: 0.5"></rich:effect>
+	<rich:effect name="hideSearch" for="searchOptions" type="Fade" params="duration: 0.5"></rich:effect>
+</h:form>
+</ui:composition>
