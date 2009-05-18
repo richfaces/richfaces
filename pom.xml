@@ -4,7 +4,7 @@
     <groupId>org.richfaces.examples</groupId>
     <artifactId>photoalbum-root</artifactId>
     <packaging>pom</packaging>
-    <version>3.3.1-SNAPSHOT</version>
+    <version>3.3.2-SNAPSHOT</version>
  	<name>Photoalbum Demo Application Root</name>
    
 	<modules>
