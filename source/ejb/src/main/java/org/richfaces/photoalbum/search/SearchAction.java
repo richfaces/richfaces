@@ -18,7 +18,27 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-package org.richfaces.photoalbum.service;
+/**
+ * License Agreement.
+ *
+ *  JBoss RichFaces - Ajax4jsf Component Library
+ *
+ * Copyright (C) 2007  Exadel, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License version 2.1 as published by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+ */
+package org.richfaces.photoalbum.search;
 
 import java.util.List;
 
@@ -34,9 +54,11 @@ import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.domain.MetaTag;
 import org.richfaces.photoalbum.domain.Shelf;
 import org.richfaces.photoalbum.domain.User;
+import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.service.PhotoAlbumException;
 
 /**
- * Search Builder
+ * This class is entry point to retrieve search result
  *  EJB3 Bean
  *
  * @author Andrey Markhel
@@ -51,6 +73,8 @@ public class SearchAction implements ISearchAction {
 	@In(value="entityManager")
 	EntityManager em;
 	
+	@In SearchQueryFactory searchQueryFactory;
+	
 	@In private User user;
 	
 	/**
@@ -60,28 +84,14 @@ public class SearchAction implements ISearchAction {
      * @param searchInMyAlbums - determine is search will be making by only user's albums
      * @param searchInShared - determine is search will be making in only shared albums
      * @return list of founded albums
+	 * @throws PhotoAlbumException if search parameter is wrong
      */
-	public List<Album> searchByAlbum(String searchQuery, boolean searchInMyAlbums, boolean searchInShared) {
-		StringBuilder b = new StringBuilder(Constants.SEARCH_ALBUM_QUERY);
-		//If we search in user's albums
-		if (searchInMyAlbums) {
-			b.append(Constants.SEARCH_ALBUM_MY_ADDON);
+	public List<Album> searchByAlbum(String searchQuery, boolean searchInMyAlbums, boolean searchInShared) throws PhotoAlbumException {
+		Query query = searchQueryFactory.getQuery(SearchEntityEnum.ALBUM, user, searchInShared, searchInMyAlbums, searchQuery);
+		if(null == query){
+			throw new PhotoAlbumException(Constants.WRONG_SEARCH_PARAMETERS_ERROR);
 		}
-		//If we search only in shared albums
-		if(searchInShared){
-			b.append(Constants.SEARCH_ALBUM_SHARED_ADDON);
-		}
-		//Create query
-		Query query = em.createQuery(b.toString());
-		//Set search string
-		query.setParameter(Constants.NAME_PARAMETER, Constants.PERCENT + searchQuery.toLowerCase() + Constants.PERCENT);
-		//If we search only in shared albums
-		//If we search in user's albums
-		if (searchInMyAlbums) {
-			query.setParameter(Constants.LOGIN_PARAMETER, user.getLogin());
-		}
-		//Get result
-		return query.getResultList();
+		return (List<Album>)query.getResultList();
 	}
 
 	/**
@@ -91,27 +101,14 @@ public class SearchAction implements ISearchAction {
      * @param searchInMyAlbums - determine is search will be making by only user's images
      * @param searchInShared - determine is search will be making in only shared images
      * @return list of founded images
+	 * @throws PhotoAlbumException if search parameter is wrong
      */
-	public List<Image> searchByImage(String searchQuery, boolean searchInMyAlbums, boolean searchInShared) {
-		StringBuilder b = new StringBuilder(Constants.SEARCH_IMAGE_QUERY);
-		//If we search in user's images
-		if (searchInMyAlbums) {
-			b.append(Constants.SEARCH_IMAGE_MY_ADDON);
+	public List<Image> searchByImage(String searchQuery, boolean searchInMyAlbums, boolean searchInShared) throws PhotoAlbumException {
+		Query query = searchQueryFactory.getQuery(SearchEntityEnum.IMAGE, user, searchInShared, searchInMyAlbums, searchQuery);
+		if(null == query){
+			throw new PhotoAlbumException(Constants.WRONG_SEARCH_PARAMETERS_ERROR);
 		}
-		//If we search only in shared images
-		if(searchInShared){
-			b.append(Constants.SEARCH_IMAGE_SHARED_ADDON);
-		}
-		//Create query
-		Query query = em.createQuery(b.toString());
-		//Set search string
-		query.setParameter(Constants.NAME_PARAMETER, Constants.PERCENT + searchQuery.toLowerCase() + Constants.PERCENT);
-		//If we search only in shared images
-		if (searchInMyAlbums) {
-			query.setParameter(Constants.LOGIN_PARAMETER, user.getLogin());
-		}
-		//Get result
-		return query.getResultList();
+		return (List<Image>)query.getResultList();
 	}
 
 	/**
@@ -121,15 +118,14 @@ public class SearchAction implements ISearchAction {
      * @param searchInMyAlbums - unused
      * @param searchInShared - unused
      * @return list of founded users
+	 * @throws PhotoAlbumException if search parameter is wrong
      */
-	public List<User> searchByUsers(String searchQuery, boolean searchInMyAlbums, boolean searchInShared) {
-		StringBuilder b = new StringBuilder(Constants.SEARCH_USERS_QUERY);
-		//Create query
-		Query query = em.createQuery(b.toString());
-		//Set search string
-		query.setParameter(Constants.NAME_PARAMETER, Constants.PERCENT + searchQuery.toLowerCase() + Constants.PERCENT);
-		//Get result
-		return query.getResultList();
+	public List<User> searchByUsers(String searchQuery, boolean searchInMyAlbums, boolean searchInShared) throws PhotoAlbumException {
+		Query query = searchQueryFactory.getQuery(SearchEntityEnum.USER, user, searchInShared, searchInMyAlbums, searchQuery);
+		if(null == query){
+			throw new PhotoAlbumException(Constants.WRONG_SEARCH_PARAMETERS_ERROR);
+		}
+		return (List<User>)query.getResultList();
 	}
 
 	/**
@@ -139,15 +135,14 @@ public class SearchAction implements ISearchAction {
      * @param searchInMyAlbums - unused
      * @param searchInShared - unused
      * @return list of founded metatags
+	 * @throws PhotoAlbumException if search parameter is wrong
      */
-	public List<MetaTag> searchByTags(String searchQuery, boolean searchInMyAlbums, boolean searchInShared) {
-		StringBuilder b = new StringBuilder(Constants.SEARCH_METATAG_QUERY);
-		//Create query
-		Query query = em.createQuery(b.toString());
-		//Set search string
-		query.setParameter(Constants.NAME_PARAMETER, Constants.PERCENT + searchQuery.toLowerCase() + Constants.PERCENT);
-		//Get result
-		return query.getResultList();
+	public List<MetaTag> searchByTags(String searchQuery, boolean searchInMyAlbums, boolean searchInShared) throws PhotoAlbumException {
+		Query query = searchQueryFactory.getQuery(SearchEntityEnum.METATAG, user, searchInShared, searchInMyAlbums, searchQuery);
+		if(null == query){
+			throw new PhotoAlbumException(Constants.WRONG_SEARCH_PARAMETERS_ERROR);
+		}
+		return (List<MetaTag>)query.getResultList();
 	}
 
 	/**
@@ -157,28 +152,15 @@ public class SearchAction implements ISearchAction {
      * @param searchInMyAlbums - determine is search will be making by only user's shelves
      * @param searchInShared - determine is search will be making in only shared shelves
      *	@return list of founded images
+	 * @throws PhotoAlbumException if search parameter is wrong
      */
 	public List<Shelf> searchByShelves(String searchQuery, boolean searchInMyAlbums,
-			boolean searchInShared) {
-		StringBuilder b = new StringBuilder(Constants.SEARCH_SHELVES_QUERY);
-		//If we search in user's shelves
-		if (searchInMyAlbums) {
-			b.append(Constants.SEARCH_QUERY_MY_ADDON);
+			boolean searchInShared) throws PhotoAlbumException {
+		Query query = searchQueryFactory.getQuery(SearchEntityEnum.SHELF, user, searchInShared, searchInMyAlbums, searchQuery);
+		if(null == query){
+			throw new PhotoAlbumException(Constants.WRONG_SEARCH_PARAMETERS_ERROR);
 		}
-		//If we search only in shared shelves
-		if (searchInShared) {
-			b.append(Constants.SEARCH_QUERY_SHARED_ADDON);
-		}
-		//Create query
-		Query query = em.createQuery(b.toString());
-		//If we search in user's shelves
-		if (searchInMyAlbums) {
-			query.setParameter(Constants.LOGIN_PARAMETER, user.getLogin());
-		}
-		//Set search string
-		query.setParameter(Constants.NAME_PARAMETER, Constants.PERCENT + searchQuery.toLowerCase() + Constants.PERCENT);
-		//Get result
-		return query.getResultList();
+		return (List<Shelf>)query.getResultList();
 	}
 
 }

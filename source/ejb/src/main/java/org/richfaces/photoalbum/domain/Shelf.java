@@ -56,7 +56,7 @@ public class Shelf implements Serializable {
 	@NotNull
 	private boolean shared;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date created;
 
 	/**

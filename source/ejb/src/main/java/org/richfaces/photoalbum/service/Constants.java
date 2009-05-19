@@ -53,6 +53,7 @@ public class Constants {
 	public static final String USER_DELETED_EVENT = "userDeletedEvent";
 	
 	//Errors(Internationalization pending)
+	public static final String WRONG_SEARCH_PARAMETERS_ERROR = "Wrong search parameters";
 	public static final String YOU_ALREADY_DOWNLOAD_MANY_COPIES_OF_THIS_IMAGE_ERROR = "You already download 256 copies of this image. Please specify another name for uploaded image";
 	public static final String SAME_IMAGE_EXIST_ERROR = "You already have an image with the given name in selected album";
 	public static final String SAME_ALBUM_EXIST_ERROR = "You already have an album with the given name in selected shelf";
@@ -156,19 +157,22 @@ public class Constants {
 	public static final String TAG_POPULAR_QUERY = "tag-popular";
 	public static final String TAG_PARAMETER = "tag";
 	public static final String TAG_BY_NAME_QUERY = "tag-byName";
-	public static final String SEARCH_QUERY_SHARED_ADDON = " and sh.shared=true";
-	public static final String SEARCH_QUERY_MY_ADDON = " and sh.owner.login=:login";
-	public static final String SEARCH_SHELVES_QUERY = "from Shelf sh where (lower(sh.name) like :name or lower(sh.description) like :name) ";
-	public static final String SEARCH_METATAG_QUERY = "from MetaTag t where lower(t.tag) like :name";
-	public static final String SEARCH_USERS_QUERY = "select  u from User u where (lower(u.login) like :name or lower(u.firstName) like :name or lower(u.secondName) like :name) ";
+	public static final String SEARCH_SHELF_SHARED_ADDON = " and sh.shared=true";
+	public static final String SEARCH_SHELF_MY_ADDON = " and sh.owner.login=:login";
+	public static final String SEARCH_SHELF_BOTH_ADDON = " and sh.shared=true or sh.owner.login=:login";
+	public static final String SEARCH_SHELVES_QUERY = "from Shelf sh where (lower(sh.name) like :queryString or lower(sh.description) like :queryString) ";
+	public static final String SEARCH_METATAG_QUERY = "from MetaTag t where lower(t.tag) like :queryString";
+	public static final String SEARCH_USERS_QUERY = "select  u from User u where (lower(u.login) like :queryString or lower(u.firstName) like :queryString or lower(u.secondName) like :queryString) ";
 	public static final String SEARCH_IMAGE_SHARED_ADDON = " and i.album.shelf.shared=true";
 	public static final String SEARCH_IMAGE_MY_ADDON = " and i.album.shelf.owner.login=:login";
-	public static final String SEARCH_IMAGE_QUERY = "from Image i where (lower(i.name) like :name or lower(i.description) like :name or lower(i.cameraModel) like :name) ";
+	public static final String SEARCH_IMAGE_BOTH_ADDON = "  and i.album.shelf.shared=true or i.album.shelf.owner.login=:login";
+	public static final String SEARCH_IMAGE_QUERY = "from Image i where (lower(i.name) like :queryString or lower(i.description) like :queryString or lower(i.cameraModel) like :queryString) ";
 	public static final String SHARED_PARAMETER = "shared";
-	public static final String NAME_PARAMETER = "name";
+	public static final String QUERY_PARAMETER = "queryString";
 	public static final String SEARCH_ALBUM_SHARED_ADDON = " and a.shelf.shared=true";
 	public static final String SEARCH_ALBUM_MY_ADDON = " and a.shelf.owner.login=:login";
-	public static final String SEARCH_ALBUM_QUERY = "from Album a where (lower(a.name) like :name or lower(a.description) like :name)";
+	public static final String SEARCH_ALBUM_BOTH_ADDON = " and a.shelf.shared=true or a.shelf.owner.login=:login";
+	public static final String SEARCH_ALBUM_QUERY = "from Album a where (lower(a.name) like :queryString or lower(a.description) like :queryString)";
 	public static final String USER_SHELVES_QUERY = "user-shelves";
 	public static final String SHELF_PARAMETER = "shelf";
 	public static final String PATH_PARAMETER = "path";
@@ -176,6 +180,7 @@ public class Constants {
 	public static final String IMAGE_IDENTICAL_QUERY = "image-countIdenticalImages";
 	public static final String SEARCH_NO_OPTIONS_ERROR = "You must select at least one search option";
 	public static final String TREE_ID = "treeform";
+	public static final String MAINAREA_ID = "mainform:mainArea";
 	public static final String USER_COMMENTS_QUERY = "user-comments";
 	public static final String AUTHOR_PARAMETER = "author";
 	public static final String EMAIL_EXIST_QUERY = "email-exist";

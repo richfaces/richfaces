@@ -80,7 +80,7 @@ public class Album implements Serializable {
 	@OneToOne(fetch = FetchType.LAZY)
 	private Image coveringImage;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.DATE)
 	private Date created;
 
 	@Column(length = 255, nullable = false)
