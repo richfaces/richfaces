@@ -14,7 +14,8 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.core.Events;
 import org.richfaces.photoalbum.manager.NavigationEnum;
 import org.richfaces.photoalbum.service.Constants;
-import org.richfaces.photoalbum.service.ISearchAction;
+import org.richfaces.photoalbum.service.PhotoAlbumException;
+import org.richfaces.photoalbum.search.ISearchAction;
 /**
  * Class, that encapsulate functionality related to search process.
  * @author Andrey Markavtsov
@@ -65,7 +66,7 @@ public class ImageSearchHelper implements Serializable {
 		StringBuilder s = new StringBuilder();
 		for(ISearchOption option:options) {
 			if(option.getSelected()){
-				s.append(option.getName() + Constants.COMMA);
+				s.append(option.getName() + Constants.COMMA + " ");
 			}
 		}
 		if (s.length() >= 2) {
@@ -98,8 +99,12 @@ public class ImageSearchHelper implements Serializable {
 		selectedKeyword = keywords.get(0).trim();
 		while (it.hasNext()) {
 			ISearchOption option = it.next();
-			if (option.getSelected()) {
-				option.search(searchAction, selectedKeyword , seachInMyAlbums, searchInShared);
+			try{
+				if (option.getSelected()) {
+					option.search(searchAction, selectedKeyword , seachInMyAlbums, searchInShared);
+				}
+			}catch(PhotoAlbumException e){
+				Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, option.getName() + ":" + e.getMessage());
 			}
 		}
 	}
@@ -117,8 +122,12 @@ public class ImageSearchHelper implements Serializable {
 		selectedKeyword = keyword.trim();
 		while (it.hasNext()) {
 			ISearchOption option = it.next();
-			if (option.getSelected()) {
-				option.search(searchAction,selectedKeyword , seachInMyAlbums, searchInShared);
+			try{
+				if (option.getSelected()) {
+					option.search(searchAction, selectedKeyword , seachInMyAlbums, searchInShared);
+				}
+			}catch(PhotoAlbumException e){
+				Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, option.getName() + ":" + e.getMessage());
 			}
 		}
 	}
@@ -195,7 +204,7 @@ public class ImageSearchHelper implements Serializable {
 	
 	public boolean isResultExist(){
 		for(ISearchOption option : options){
-			if(option.getSelected() && option.getSearchResult().size() > 0){
+			if(option.getSelected() && option.getSearchResult() != null && option.getSearchResult().size() > 0){
 				return true;
 			}
 		}

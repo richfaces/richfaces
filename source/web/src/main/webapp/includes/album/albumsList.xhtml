@@ -10,7 +10,7 @@
 			<h:graphicImage styleClass="pr_album_bg"
 							value="/img/shell/frame_album_200.png"/>
 			<h:panelGrid cellpadding="0">
-				<h:panelGroup layout="block">
+				<h:panelGroup style="margin-bottom:7px;" layout="block">
 					<a4j:commandLink
 							actionListener="#{controller.showAlbum(album)}"
 							reRender="mainArea, treePanel">
@@ -27,7 +27,6 @@
 								<rich:dndParam id="dragParam" name="label"
 											   value="#{album.name}"/>
 							</rich:dragSupport>
-							
 						</a4j:mediaOutput>
 						<h:graphicImage rendered="#{album.isEmpty()}"
 										style="width:80px; height:80px;"
@@ -36,11 +35,9 @@
 						</h:graphicImage>
 						<rich:toolTip followMouse="true" direction="top-right"
 									  showDelay="500" styleClass="tooltip">
-							<span style="w
-							hite-space: nowrap"> #{album.name} </span>
+							<span style="white-space: nowrap"> #{album.name} </span>
 						</rich:toolTip>
 					</a4j:commandLink>
-					<br/>
 				</h:panelGroup>
 			</h:panelGrid>
 			<h:panelGroup layout="block"

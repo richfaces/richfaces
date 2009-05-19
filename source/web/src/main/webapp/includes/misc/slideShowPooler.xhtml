@@ -10,7 +10,7 @@
 		<a4j:poll data="#{slideshow.errorDetected}" reRender="slideshowImage, treePanel"
 			interval="#{slideshow.interval}" enabled="#{slideshow.active}"
 			onsubmit="hidePictureEffect()"
-			oncomplete="showPictureEffect(); if(data)#{rich:component('slideShowModalPanel')}.hide()"
+			oncomplete="if(data)#{rich:component('slideShowModalPanel')}.hide();showPictureEffect();"
 			actionListener="#{slideshow.showNextImage()}"/>
 	</a4j:form>
 </ui:composition>

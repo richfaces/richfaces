@@ -111,6 +111,7 @@ public class FileUploadManager implements Serializable {
 			return;
 		}
 		//Prepare to show in UI
+		fileWrapper.setComplete(false);
 		fileWrapper.getFiles().add(image);
 		Events.instance().raiseEvent(Constants.IMAGE_ADDED_EVENT, image);
 		//Delete temporary file

@@ -4,8 +4,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
-	<h:panelGrid styleClass="album-header-table" cellpadding="0">
-			<h:outputText value="#{messages['all_new_images']}(#{model.images.size()}) in shelf #{model.selectedShelf.name}" styleClass="h1-style"/>
-	</h:panelGrid>
+	<h:panelGroup styleClass="album-header-table" layout="block">
+		<h:outputText value="#{messages['all_new_images_shelf']}" styleClass="h1-style"/>
+	</h:panelGroup>
 	<ui:include src="/includes/image/imageList.xhtml"/>
 </ui:composition>

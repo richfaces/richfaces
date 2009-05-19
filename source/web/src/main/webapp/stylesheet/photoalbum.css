@@ -294,7 +294,9 @@ img.errors {
 .errors textarea {
 	border: 1px solid red;
 }
-
+.bold {
+	font-weight:bold;
+}	
 .required {
 	color: red;
 	padding-left: 2px;
@@ -565,7 +567,12 @@ h1{font-size : 175%; font-weight : normal; margin : 0px;}
 	border-collapse : collapse; 
 	margin-bottom : 15px;
 }
-
+.user-prefs-button{
+	text-align:center; 
+	margin-top : 10px;
+	margin-left:auto; 
+	margin-right:auto;	
+}
 .shelf-header-table h1{
 	margin-bottom : 4px;
 }
@@ -888,6 +895,12 @@ h1{font-size : 175%; font-weight : normal; margin : 0px;}
 
 .search-criteria {
 	color: #666666;
+	padding-bottom:7px;
+}
+
+.search-keyword {
+	color: #666666;
+	padding-bottom:25px;
 }
 
 .shelf-edit {

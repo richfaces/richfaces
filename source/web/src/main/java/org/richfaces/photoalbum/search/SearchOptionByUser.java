@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.richfaces.photoalbum.domain.User;
-import org.richfaces.photoalbum.service.ISearchAction;
+import org.richfaces.photoalbum.search.ISearchAction;
+import org.richfaces.photoalbum.service.PhotoAlbumException;
 
 /**
  * Class, that encapsulate functionality related to search by user entity.
@@ -48,7 +49,7 @@ public class SearchOptionByUser extends ISearchOption {
 	 * @see org.richfaces.photoalbum.search.ISearchOption#search(org.richfaces.photoalbum.service.ISearchAction)
 	 */
 	@Override
-	public void search(ISearchAction action, String q, boolean searchInMyAlbums, boolean searchInShared) {
+	public void search(ISearchAction action, String q, boolean searchInMyAlbums, boolean searchInShared) throws PhotoAlbumException {
 		List<User> searchByUsers = action.searchByUsers(q, searchInMyAlbums, searchInShared);
 		if(searchByUsers != null){
 			setSearchResult(searchByUsers);

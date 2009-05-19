@@ -21,10 +21,8 @@
 						<h:panelGroup layout="block" styleClass="preview_box_photo_nav" style="margin-right : 5px">
 							<h:graphicImage styleClass="pr_photo_bg" value="/img/shell/frame_photo_200.png" style="border:0"/>
 							<h:panelGrid cellpadding="0">
-								<h:panelGroup>
+								<h:panelGroup style="margin-bottom:7px;">
 									<ui:include src="/includes/userPrefs/avatar.xhtml" />
-
-									<br/>
 								</h:panelGroup>
 							</h:panelGrid>
 						</h:panelGroup>
@@ -61,14 +59,14 @@
 					
 					<td>
 						<h:panelGroup rendered="#{user.id == null}">
-						<h:inputText  id="loginName" value="#{user.login}" styleClass="reg-table-input"/><h:outputText style="color:red;" value="*"/>
+						<h:inputText  id="loginName" value="#{user.login}" styleClass="reg-table-input"/><h:outputText class="required" value="*"/>
 						</h:panelGroup>
 						<h:panelGroup rendered="#{user.id != null}">
 						<h:outputText value="#{user.login}"/>
 						</h:panelGroup>
 					</td>
 					<td>
-						<rich:messages  for="loginName" style="color:red;"/>
+						<rich:messages  for="loginName" styleClass="required"/>
 					</td>
 					
 				</tr>
@@ -79,11 +77,11 @@
 					</td>
 					<td>
 					
-						<h:inputSecret required="true" id="password" value="#{user.password}" styleClass="reg-table-input"/><h:outputText style="color:red;" value="*"/>
+						<h:inputSecret required="true" id="password" value="#{user.password}" styleClass="reg-table-input"/><h:outputText class="required" value="*"/>
 					
 					</td>
 					<td>
-						<rich:messages  for="password" style="color:red;"/>
+						<rich:messages  for="password" styleClass="required"/>
 					</td>
 					</h:panelGroup>
 				</tr>
@@ -94,12 +92,12 @@
 					</td>
 					<td>
 					<h:panelGroup rendered="#{user.id == null}">
-						<h:inputSecret required="true" id="confirmPassword" value="#{user.confirmPassword}" styleClass="reg-table-input"/><h:outputText style="color:red;" value="*"/>
+						<h:inputSecret required="true" id="confirmPassword" value="#{user.confirmPassword}" styleClass="reg-table-input"/><h:outputText class="required" value="*"/>
 					</h:panelGroup>
 						
 					</td>
 					<td>
-						<rich:messages  for="confirmPassword" style="color:red;"/>
+						<rich:messages  for="confirmPassword" styleClass="required"/>
 					</td>
 					</h:panelGroup>
 				</tr>
@@ -113,10 +111,10 @@
 						<h:outputLabel for="firstname">#{messages['user.firstname']}</h:outputLabel>
 					</td>
 					<td>
-						<h:inputText  id="firstname" value="#{user.firstName}" styleClass="reg-table-input"/><h:outputText style="color:red;" value="*"/>
+						<h:inputText  id="firstname" value="#{user.firstName}" styleClass="reg-table-input"/><h:outputText class="required" value="*"/>
 					</td>
 					<td>
-						<rich:messages  for="firstname" style="color:red;"/>
+						<rich:messages  for="firstname" styleClass="required"/>
 						<a4j:commandLink rendered="#{help.isShowHelp()}" actionListener="#{help.navigateTo('/includes/help/validationHelp.xhtml')}" oncomplete="#{rich:component('helpPanel')}.show()"
 				reRender="helpPanel" immediate="true">
 <h:panelGroup styleClass="image-scroller-right-arrow" style="cursor: hand; width: 34px; height:34px; display: inline-block; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='img/icons/help_sign.png',sizingMethod='scale');">
@@ -130,10 +128,10 @@
 						<h:outputLabel for="secondname">#{messages['user.secondname']}</h:outputLabel>
 					</td>
 					<td>
-						<h:inputText  id="secondname" value="#{user.secondName}" styleClass="reg-table-input"/><h:outputText style="color:red;" value="*"/>
+						<h:inputText  id="secondname" value="#{user.secondName}" styleClass="reg-table-input"/><h:outputText class="required" value="*"/>
 					</td>
 					<td>
-						<rich:messages  for="secondname" style="color:red;"/>
+						<rich:messages  for="secondname" styleClass="required"/>
 					</td>
 				</tr>
 				<tr>
@@ -150,7 +148,7 @@
 						</h:panelGrid>
 					</td>
 					<td>
-						<rich:messages  for="sex" style="color:red;"/>
+						<rich:messages  for="sex" styleClass="required"/>
 					</td>
 				</tr>
 				<tr>
@@ -171,8 +169,7 @@
 						</a4j:outputPanel>
 					</td>
 					<td>
-						<rich:messages  for="calendar" style="color:red;"/>
-						<rich:messages  for="birthDate" style="color:red;"/>
+						<rich:messages  for="birthDate" styleClass="required"/>
 					</td>
 				</tr>
 				<tr>
@@ -180,10 +177,10 @@
 						<h:outputLabel for="email">#{messages['user.email']}</h:outputLabel>
 					</td>
 					<td>
-						<h:inputText  id="email" value="#{user.email}" styleClass="reg-table-input"/><h:outputText style="color:red;" value="*"/>
+						<h:inputText  id="email" value="#{user.email}" styleClass="reg-table-input"/><h:outputText class="required" value="*"/>
 					</td>
 					<td>
-						<rich:messages  for="email" style="color:red;"/>
+						<rich:messages  for="email" styleClass="required"/>
 					</td>
 				</tr>
 				<tr>

@@ -98,23 +98,23 @@
 								</span>
 							</rich:toolTip>
 						</a4j:commandLink>
-						<a4j:commandLink  rendered="#{identity.loggedIn}" data="#{albumManager.errorInCreate}"
+						<a4j:commandLink disabled="#{!controller.isUserHaveShelves()}" rendered="#{identity.loggedIn}" data="#{albumManager.errorInCreate}"
 								actionListener="#{albumManager.createAlbum(model.selectedShelf)}"
 								oncomplete="if(!data)$('albumModalPanel').component.show()"
 								reRender="albumModalPanel"> 
 							<h:graphicImage rendered="#{controller.isUserHaveShelves()}" value="/img/shell/icon_add_album.png" width="37" height="23" alt="" styleClass="main-menu-add-icons-img"/>
-							<h:graphicImage rendered="#{!controller.isUserHaveShelves()}" value="/img/shell/icon_add_album_disabled.jpg" width="37" height="23" alt="" styleClass="main-menu-add-icons-img"/>
+							<h:graphicImage rendered="#{!controller.isUserHaveShelves()}" value="/img/shell/icon_add_album_disabled.jpg" style="cursor:default;" width="37" height="23" alt="" styleClass="main-menu-add-icons-img"/>
 							<rich:toolTip followMouse="true" direction="top-right" showDelay="500" styleClass="tooltip">
 								<span  style="white-space:nowrap; display:block; text-align:left; color:#DF6400">
 									<h:outputText value="#{messages['add_album']}" />
 								</span>
 							</rich:toolTip>
 						</a4j:commandLink>
-						<a4j:commandLink rendered="#{identity.loggedIn}"
+						<a4j:commandLink disabled="#{!controller.isUserHaveAlbums()}" rendered="#{identity.loggedIn}"
 							actionListener="#{controller.showFileUpload()}"
 							reRender="mainform:mainArea">
 							<h:graphicImage rendered="#{controller.isUserHaveAlbums()}" value="/img/shell/icon_add_photo.png" width="37" height="23" alt="" styleClass="main-menu-add-icons-img"/>
-							<h:graphicImage rendered="#{!controller.isUserHaveAlbums()}" value="/img/shell/icon_add_photo_disabled.jpg" width="37" height="23" alt="" styleClass="main-menu-add-icons-img"/>
+							<h:graphicImage rendered="#{!controller.isUserHaveAlbums()}" value="/img/shell/icon_add_photo_disabled.jpg" style="cursor:default;" width="37" height="23" alt="" styleClass="main-menu-add-icons-img"/>
 							<rich:toolTip followMouse="true" direction="top-right" showDelay="500" styleClass="tooltip">
 								<span  style="white-space:nowrap; display:block; text-align:left; color:#DF6400">
 									<h:outputText value="#{messages['album_addImage']}" />

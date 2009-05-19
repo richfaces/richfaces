@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.richfaces.photoalbum.domain.MetaTag;
-import org.richfaces.photoalbum.service.ISearchAction;
+import org.richfaces.photoalbum.search.ISearchAction;
+import org.richfaces.photoalbum.service.PhotoAlbumException;
 
 /**
  * Class, that encapsulate functionality related to search by metatag entity.
@@ -49,7 +50,7 @@ public class SearchOptionByTag extends ISearchOption {
 	 */
 	@Override
 	public void search(ISearchAction action, String searchQuery,
-			boolean searchInMyAlbums, boolean searchInShared) {
+			boolean searchInMyAlbums, boolean searchInShared) throws PhotoAlbumException {
 		List<MetaTag> searchByTags = action.searchByTags(searchQuery, searchInMyAlbums, searchInShared);
 		if(searchByTags != null){
 			setSearchResult(searchByTags);

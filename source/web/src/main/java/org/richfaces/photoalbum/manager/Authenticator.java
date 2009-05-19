@@ -88,6 +88,7 @@ public class Authenticator implements Serializable {
 				if (Environment.isInProduction() && user.isPreDefined()) {
 					//If true assume that login failed
 					loginFailed();
+					user = new User();
 					return false;
 				}
 				identity.addRole(Constants.ADMIN_ROLE);

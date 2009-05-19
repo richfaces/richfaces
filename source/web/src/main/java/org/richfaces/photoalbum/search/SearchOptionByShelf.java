@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.richfaces.photoalbum.domain.Shelf;
-import org.richfaces.photoalbum.service.ISearchAction;
+import org.richfaces.photoalbum.search.ISearchAction;
+import org.richfaces.photoalbum.service.PhotoAlbumException;
 
 /**
  * Class, that encapsulate functionality related to search by shelf entity.
@@ -49,7 +50,7 @@ public class SearchOptionByShelf extends ISearchOption {
 	 */
 	@Override
 	public void search(ISearchAction action, String searchQuery,
-			boolean searchInMyAlbums, boolean searchInShared) {
+			boolean searchInMyAlbums, boolean searchInShared) throws PhotoAlbumException {
 		List<Shelf> list = action.searchByShelves(searchQuery, searchInMyAlbums, searchInShared);
 		if(list != null){
 			setSearchResult(list);

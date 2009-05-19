@@ -11,9 +11,11 @@
 	<rich:modalPanel id="albumModalPanel"
 					 width="400" height="180"
 					 onshow="applyModalPanelEffect('albumModalPanel', appearFunc,{delay: 0.5, afterFinish: function(){$('form2:name').focus();}});">
-		<f:facet name="header">#{messages['album.add']}</f:facet>
+		<f:facet name="header">
+			<h:outputText value="#{messages['album.add']}"/>
+		</f:facet>
 		<f:facet name="controls">
-			<h:panelGroup id="albumPanelHideControl">
+			<h:panelGroup>
 				<h:graphicImage value="/img/modal/close.png"
 								style="cursor:pointer"
 								id="albumHidelink" />

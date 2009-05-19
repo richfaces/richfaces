@@ -7,46 +7,51 @@
 	<h:panelGrid styleClass="album-header-table" cellpadding="0"
 		columns="2" columnClasses="xxx, album-header-table-col2">
 		<h:panelGroup>
-			<h1>
-				<h:outputText value="#{album.name}" rendered="#{!controller.isUserAlbum(album)}"/> 
-				<rich:inplaceInput value="#{album.name}" rendered="#{controller.isUserAlbum(album)}" inputWidth="200px">
-					<a4j:support event="onviewactivated" reRender="mainArea, treePanel" action="#{albumManager.editAlbum(album, true)}"/>
-				</rich:inplaceInput>
-			</h1>
-			<h:panelGroup styleClass="additional-info-text">#{messages['created.album']} <h:outputText style="font-weight:bold;"
-					value=" #{album.created}" />, #{messages['contain']} <h:outputText style="font-weight:bold;"
-					value=" #{album.images.size()}" /> #{messages['images_']}<h:outputText rendered="#{album.unvisitedImages.size > 0}"
-					value=", " /> 
-					<a4j:commandLink rendered="#{album.unvisitedImages.size > 0}" reRender="mainArea,treePanel" actionListener="#{controller.showUnvisitedImages(album)}">
-					<h:outputText style="font-weight:bold;" value="#{album.unvisitedImages.size()}"/>
-					<h:outputText value=" #{messages['new']} " /></a4j:commandLink> <h:outputText rendered="#{album.unvisitedImages.size > 0}" value="#{messages['images_']}"/>
+			<h1><h:outputText value="#{album.name}"
+				rendered="#{!controller.isUserAlbum(album)}" /> <rich:inplaceInput selectOnEdit="false"
+				value="#{album.name}" rendered="#{controller.isUserAlbum(album)}"
+				inputWidth="200px">
+				<a4j:support event="onviewactivated" reRender="mainArea, treePanel"
+					action="#{albumManager.editAlbum(album, true)}" />
+			</rich:inplaceInput></h1>
+			<h:panelGroup layout="block" style="margin-bottom:15px;" styleClass="additional-info-text">
+				<h:outputText value="#{messages['created.album']}" />
+				<h:outputText class="bold" value=" #{album.created}" />
+				<h:outputText value=", #{messages['contain']}" />
+				<h:outputText class="bold"
+					value=" #{album.images.size()}" />
+				<h:outputText value=" #{messages['images_']}" />
+				<h:panelGroup rendered="#{album.unvisitedImages.size > 0}">
+				<h:outputText value=", " />
+				<a4j:commandLink reRender="mainArea,treePanel"
+					actionListener="#{controller.showUnvisitedImages(album)}">
+					<h:outputText class="bold"
+						value="#{album.unvisitedImages.size()}" />
+					<h:outputText value=" #{messages['new']}" />
+				</a4j:commandLink>
+				<h:outputText value=" #{messages['images_']}" />
+				</h:panelGroup>
 			</h:panelGroup>
-			<br/>
-			<br/>
 			<a4j:commandLink styleClass="additional-info-text"
 				actionListener="#{controller.showShelf(album.shelf)}"
 				reRender="mainArea, treePanel"
 				value="#{messages['shelf']} #{album.shelf.name}" />
 		</h:panelGroup>
 		<h:panelGroup>
-			<a4j:commandLink
-				rendered="#{album.owner.id == user.id}"
+			<a4j:commandLink rendered="#{album.owner.id == user.id}"
 				value="#{messages['album.edit']} "
 				actionListener="#{controller.startEditAlbum(album)}"
-				reRender="mainArea"></a4j:commandLink>
-			<a4j:commandLink
-				rendered="#{album.owner.id == user.id}"
+				reRender="mainArea"/>
+			<a4j:commandLink rendered="#{album.owner.id == user.id}"
 				value="#{messages['album.delete']} "
 				actionListener="#{confirmationPopupHelper.initAlbumData('deleteAlbum',messages['album.delete.confirm'],album)}"
 				oncomplete="#{rich:component('confirmation')}.show()"
-				reRender="confirmation" />
+				reRender="confirmation"/>
 		</h:panelGroup>
 	</h:panelGrid>
 
-	<p><h:outputText value="#{album.description}" /></p>
-	<p>
-
-	
-	</p>
-	<ui:include src="/includes/image/imageList.xhtml"/>
+	<h:panelGroup layout="block" style="margin-bottom:15px;">
+		<h:outputText value="#{album.description}" />
+	</h:panelGroup>
+	<ui:include src="/includes/image/imageList.xhtml" />
 </ui:composition>

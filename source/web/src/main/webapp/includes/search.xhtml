@@ -10,19 +10,22 @@
 	<br/>
 	<rich:tabPanel rendered="#{searchImageHelper.isResultExist()}"
 			id="searchPanel" switchType="client">
-		<c:forEach  items="#{searchImageHelper.options}" var="option"
+		<c:forEach items="#{searchImageHelper.options}" var="option"
 				   varStatus="i">
 			<rich:tab label="#{option.searchResultName}"
-					  style="font-weight: bold"
+					  styleClass="bold"
                                 rendered="#{option.selected and option.searchResult.size > 0}">
-				<span class="search-criteria">#{messages['search_criteria']} <strong>#{searchImageHelper.getCriteriaString()}</strong></span>
-				<br/>
-
-				<div style="font-size: 1px; height: 5px"></div>
-				<span class="search-criteria">#{messages['keywords']} <h:outputText value=" "/>
+				<h:panelGroup layout="block" styleClass="search-criteria">
+					<h:outputText value="#{messages['search_criteria']} "/>
+					<h:outputText value="#{searchImageHelper.getCriteriaString()}"/>
+				</h:panelGroup>
+			
+				<h:panelGroup layout="block" styleClass="search-keyword">
+				 	<h:outputText value="#{messages['keywords']} "/>
+				 
 				<a4j:repeat value="#{searchImageHelper.keywords}" var="keyword" rowKeyVar="row">
 					<h:outputText rendered="#{searchImageHelper.selectedKeyword.equals(keyword.trim())}"
-							value="#{keyword}"></h:outputText>
+							value="#{keyword}"/>
 					<a4j:commandLink
 							rendered="#{!searchImageHelper.selectedKeyword.equals(keyword.trim())}"
 							actionListener="#{searchImageHelper.search(keyword)}"
@@ -32,18 +35,14 @@
 						rendered="#{searchImageHelper.keywords.size() != row+1 }"
 						value=", "/>
 				</a4j:repeat>
-				</span>
-				<br/>
-				<br/>
-				<br/>
-				<br/>
+				</h:panelGroup>
 				<ui:include src="#{option.searchResultTemplate}">
 					<ui:param name="result" value="#{option.searchResult}"/>
 				</ui:include>
 			</rich:tab>
 		</c:forEach>
 	</rich:tabPanel>
-	<h:panelGroup rendered="#{!searchImageHelper.isResultExist()}">
-		<h:outputText  value="No results found"></h:outputText>
-		</h:panelGroup>
+	<h:panelGroup layout="block" rendered="#{!searchImageHelper.isResultExist()}">
+		<h:outputText  value="No results found"/>
+	</h:panelGroup>
 </ui:composition>

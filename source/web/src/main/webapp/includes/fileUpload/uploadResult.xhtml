@@ -7,41 +7,58 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:richx="http://richfaces.org/richx">
 	<a4j:outputPanel id="filesPanel" ajaxRendered="true">
-		<h:panelGroup layout="block" id="uploadProgress" rendered="#{(fileWrapper.files.size() > 0 or fileWrapper.errorFiles.size() > 0) and !fileWrapper.complete}"
-			style="margin : 0px 0px 0px 0px; display : !none; height : 40px">
-			<h:panelGroup rendered="#{fileWrapper.errorFiles.size() > 0}">
-			<strong>#{messages['error_during_upload']}</strong><br/>
-			<a4j:repeat value="#{fileWrapper.errorFiles}" var="error">
-			<h:outputText value="#{messages['file']} #{(fileWrapper.getErrorImage(error)).name}. #{messages['see']} "/><a4j:commandLink actionListener="#{controller.showError((fileWrapper.getErrorDescription(error)))}" value="#{messages['error']}"/><br/>
-			</a4j:repeat>
-			</h:panelGroup><br/>
-			<strong>#{messages['photo_upload_progress']}</strong>. #{fileWrapper.files.size()} #{messages['photos_was_uploaded_to']} <strong>
-			<a4j:commandLink
+		<h:panelGroup layout="block" id="uploadProgress"
+			rendered="#{(fileWrapper.files.size() > 0 or fileWrapper.errorFiles.size() > 0) and !fileWrapper.complete}"
+			style="clear:both;padding-top:15px;margin : 0px 0px 0px 0px; display : !none; height : 40px">
+			<h:outputText styleClass="bold"
+				value="#{messages['photo_upload_progress']} " />
+			<h:outputText
+				value="#{fileWrapper.files.size()} #{messages['photos_was_uploaded_to']} " />
+			<a4j:commandLink styleClass="bold"
 				actionListener="#{controller.showAlbum(model.selectedAlbum)}"
-				reRender="mainArea, treePanel" value="#{model.selectedAlbum.name}" /></strong>
-		</h:panelGroup><br/>
-		<h:panelGroup layout="block" id="uploadComplete" rendered="#{fileWrapper.complete}"
-			style="margin : 0px 0px 0px 0px; display : !none; height : 40px">
-			<h:panelGroup rendered="#{fileWrapper.errorFiles.size() > 0}">
-			<strong>#{messages['error_during_upload']}</strong><br/>
-			<a4j:repeat value="#{fileWrapper.errorFiles}" var="error">
-			<h:outputText value="#{messages['file']} #{(fileWrapper.getErrorImage(error)).name}. #{messages['see']} "/><a4j:commandLink actionListener="#{controller.showError((fileWrapper.getErrorDescription(error)))}" value="#{messages['error']}"/><br/>
-			</a4j:repeat>
-			</h:panelGroup><br/>
+				reRender="mainArea, treePanel" value="#{model.selectedAlbum.name}" />
+		</h:panelGroup>
+		<h:panelGroup layout="block" id="uploadComplete"
+			rendered="#{fileWrapper.complete}"
+			style="clear:both;margin : 0px 0px 0px 0px; display : !none; height : 40px;">
+			
 			<h:panelGroup id="completeLabel">
-			<strong>#{messages['photo_upload_complete']}</strong>. #{fileWrapper.files.size()} #{messages['photos_was_uploaded_to']} <strong>
-			<a4j:commandLink
-				actionListener="#{controller.showAlbum(model.selectedAlbum)}"
-				reRender="mainArea, tree" value="#{model.selectedAlbum.name}" /></strong>
+				<h:outputText styleClass="bold"
+					value="#{messages['photo_upload_complete']} " />
+				<h:outputText
+					value=" #{fileWrapper.files.size()} #{messages['photos_was_uploaded_to']} " />
+				<a4j:commandLink styleClass="bold"
+					actionListener="#{controller.showAlbum(model.selectedAlbum)}"
+					reRender="mainArea, tree" value="#{model.selectedAlbum.name}" />
 				<script type="text/javascript">
 				uploadCompleteEffect();
 				</script>
+			</h:panelGroup>
+		</h:panelGroup>
+		<h:panelGroup style="padding-bottom:7px;" layout="block"
+				rendered="#{fileWrapper.errorFiles.size() > 0}">
+				<h:panelGroup style="padding-bottom:7px;" layout="block">
+				<h:outputText styleClass="bold" style="padding-bottom:7px;"
+					value="#{messages['error_during_upload']}" />
 				</h:panelGroup>
-		</h:panelGroup><br/>
-		<rich:effect name="uploadCompleteEffect"  type="Highlight" params="duration:2.0"  for="completeLabel" />
-		<h:panelGroup style="float: left">
-		
-		<a4j:repeat id="files" columns="1" value="#{fileWrapper.files}"
+				<a4j:repeat value="#{fileWrapper.errorFiles}" var="error">
+					<h:panelGroup style="padding-bottom:7px;" layout="block">
+					<h:outputText
+						value="#{messages['file']} #{(fileWrapper.getErrorImage(error)).name}. #{messages['see']} " />
+					<a4j:commandLink style="padding-bottom:7px;"
+						actionListener="#{controller.showError((fileWrapper.getErrorDescription(error)))}"
+						value="#{messages['error']}" />
+						</h:panelGroup>
+				</a4j:repeat>
+			</h:panelGroup>
+		<rich:effect name="uploadCompleteEffect" type="Highlight"
+			params="duration:2.0" for="completeLabel" />
+		<h:panelGroup style="padding-left:0px;" layout="block" >
+		<h:panelGroup style="padding-bottom:7px;" rendered="#{fileWrapper.files.size > 0}" layout="block">
+		<h:outputText style="padding-left:-4px;" styleClass="bold" 
+					value="Successfully downloaded images:" />
+		</h:panelGroup>
+			<a4j:repeat id="files" columns="1" value="#{fileWrapper.files}"
 			var="image" rowKeyVar="row">
 			<h:panelGroup layout="block" styleClass="preview_box_photo_120">
 				<h:graphicImage styleClass="pr_photo_bg"

@@ -10,7 +10,7 @@
 	<h:panelGroup>
 		<h1>
 			<h:outputText value="#{model.selectedImage.name}" rendered="#{!controller.isUserImage(model.selectedImage)}"/>
-			<rich:inplaceInput value="#{model.selectedImage.name}" rendered="#{controller.isUserImage(model.selectedImage)}" inputWidth="200px">
+			<rich:inplaceInput selectOnEdit="false" value="#{model.selectedImage.name}" rendered="#{controller.isUserImage(model.selectedImage)}" inputWidth="200px">
 				<a4j:support event="onviewactivated" reRender="mainArea" action="#{imageManager.editImage(model.selectedImage,true)}"/>
 			</rich:inplaceInput>
 		</h1>
@@ -67,7 +67,7 @@
 							</rich:dragSupport>
 							<rich:toolTip followMouse="true" direction="top-right" showDelay="500" styleClass="tooltip" rendered="#{model.selectedImage.showMetaInfo}">
 								<span  style="white-space:nowrap; display:block; text-align:left;">
-									<h:outputText value="#{messages['size']}: #{model.selectedImage.size}" /><br />
+									<h:outputText value="Size in bytes: #{model.selectedImage.size}" /><br />
 									<h:outputText value="#{messages['original_size']}: #{model.selectedImage.height}x#{model.selectedImage.width}" /><br />
 									<h:outputText value="Captured at: #{model.selectedImage.created}"/><br />
 									<h:outputText value="#{messages['camera']}: #{model.selectedImage.cameraModel}" />

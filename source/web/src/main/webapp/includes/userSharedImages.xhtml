@@ -4,8 +4,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
-	<h:panelGrid styleClass="album-header-table" cellpadding="0">
-			<h:outputText value="#{messages['all_shared_images']}( #{model.images.size()}) #{messages['of_user']} #{model.selectedUser.login}" styleClass="h1-style"/>
-	</h:panelGrid>
+	<h:panelGroup layout="block" styleClass="album-header-table">
+		<h:outputText value="#{messages['all_shared_images']}" styleClass="h1-style"/>
+	</h:panelGroup>
 	<ui:include src="/includes/image/imageList.xhtml"/>
 </ui:composition>

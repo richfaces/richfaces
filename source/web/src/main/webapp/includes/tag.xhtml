@@ -5,8 +5,8 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:richx="http://richfaces.org/richx">
-	<h:panelGrid styleClass="album-header-table" cellpadding="0">
-		<h:outputText value="#{messages['all_images']}(#{model.images.size()}) #{messages['related_to_tag']} #{model.selectedTag.tag}" styleClass="h1-style"/>
-	</h:panelGrid>
+	<h:panelGroup styleClass="album-header-table" layout="block">
+		<h:outputText value="#{messages['all_images_tag']}" styleClass="h1-style"/>
+	</h:panelGroup>
 	<ui:include src="/includes/image/imageList.xhtml"/>
 </ui:composition>

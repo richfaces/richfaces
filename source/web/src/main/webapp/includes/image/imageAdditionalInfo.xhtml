@@ -7,21 +7,21 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:richx="http://richfaces.org/richx">
 	<h:panelGroup layout="block" style="margin-top : 20px">
-		<strong>#{messages['tags']}: </strong> 
+		<h:outputText class="bold" value="#{messages['tags']}: "/>
 		<a4j:repeat value="#{model.selectedImage.imageTags}" var="tag">
-			<a4j:commandLink actionListener="#{controller.showTag(tag)}" reRender="mainArea" value="#{tag.tag}"/><h:outputText value=" " />
+			<a4j:commandLink actionListener="#{controller.showTag(tag)}" reRender="mainArea" value="#{tag.tag}"/>
+			<h:outputText value=" " />
 		</a4j:repeat>
 	</h:panelGroup>
 	
-	<h:panelGroup rendered="#{model.selectedImage.allowComments}" layout="block" id="commentPanel" style="margin-top : 30px">
-		<strong>#{messages['comment.comments']}:</strong>
-		<br/><br/>
-		
+	<h:panelGroup rendered="#{model.selectedImage.allowComments}" layout="block" id="commentPanel" style="margin-top : 30px; width:100%;">
+		<h:panelGroup style="padding-bottom:15px;">
+		<h:outputText  class="bold" value="#{messages['comment.comments']}:"/>
+		</h:panelGroup>
+
 		<a4j:repeat value="#{model.selectedImage.comments}" var="comment">
-			<table class="comment-table" cellpadding="0">
-				<tr>
-					<td valign="top">
-						<h:panelGroup layout="block" styleClass="preview_box_photo_nav" style="margin-right : 5px">
+						<h:panelGroup layout="block" style="clear:both; padding-bottom:10px;padding-top:10px;">
+						<h:panelGroup layout="block" styleClass="preview_box_photo_nav" style="margin-right : 5px; float:left;">
 							<h:graphicImage styleClass="pr_photo_bg" value="/img/shell/frame_photo_200.png" />
 							<h:panelGrid cellpadding="0">
 								<h:panelGroup>	
@@ -36,37 +36,35 @@
 								</h:panelGroup>
 							</h:panelGrid>				
 						</h:panelGroup>		
-					</td>
-					<td width="100%" valign="top">
+				
 
 						<h:panelGroup layout="block" styleClass="comment-deleteLink">
 							<h:panelGroup rendered="#{comment.author == user}" layout="block" styleClass="additional-info-comment-del">
 								<a4j:commandLink value="#{messages['comment.delete']}" actionListener="#{imageManager.deleteComment(comment)}" reRender="commentPanel"/>
 							</h:panelGroup>
 							<h:panelGroup layout="block" >
-								<strong>#{comment.author.login}   </strong><h:outputText styleClass="additional-info-text" value="#{comment.date}" ><f:convertDateTime /></h:outputText> 
+								<h:outputText class="bold" value="#{comment.author.login} "/><h:outputText styleClass="additional-info-text" value="#{comment.date}" ><f:convertDateTime /></h:outputText> 
 							</h:panelGroup>
 						</h:panelGroup>	
-						<h:panelGroup layout="block" styleClass="comment-text">
+						<h:panelGroup style="width:600px;overflow-x:auto;" layout="block" styleClass="comment-text">
 							<s:formattedText value="#{comment.message}" />
 						</h:panelGroup>	
-
-					</td>
-				</tr>
-			</table>
+</h:panelGroup>
 		</a4j:repeat>
+		<h:panelGroup layout="block" style="padding-top:10px;clear:both">
 		<a4j:region renderRegionOnly="true" rendered="#{identity.hasRole('admin')}">
-			<h:panelGrid columns="1"
+			<h:panelGroup layout="block"
 				id="editContent">
 				<rich:editor value="#{editorBean.message}"
 					configuration="#{editorBean.currentConfiguration}" id="editor2"
 					width="400" height="200" useSeamText="true">
 				</rich:editor>
-			</h:panelGrid>
+			</h:panelGroup>
 		</a4j:region>
+		</h:panelGroup>
 		<richx:commandButton rendered="#{identity.hasRole('admin')}" value="#{messages['comment.add']}" actionListener="#{imageManager.addComment(model.selectedImage, editorBean.message)}" reRender="commentPanel" />
 	</h:panelGroup>
 	<h:panelGroup rendered="#{!model.selectedImage.allowComments}" layout="block" id="commentPanel2" style="margin-top : 30px">
-		<strong>#{messages['comments_for_this_photo_is_not_allowed']}</strong>
+		<h:outputText class="bold" value="#{messages['comments_for_this_photo_is_not_allowed']}"/>
 		</h:panelGroup>
 </ui:composition>

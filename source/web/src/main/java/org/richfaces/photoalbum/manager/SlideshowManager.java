@@ -26,6 +26,10 @@ package org.richfaces.photoalbum.manager;
  */
 import java.io.Serializable;
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+
+import org.ajax4jsf.context.AjaxContext;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
@@ -167,6 +171,7 @@ public class SlideshowManager implements Serializable{
 	public void showNextImage(){
 		if(!active){
 			errorDetected = true;
+			addMainAreaToRerender();
 			return;
 		}
 		//reset index if we reached last image
@@ -178,6 +183,7 @@ public class SlideshowManager implements Serializable{
 		if(slideshowIndex == startSlideshowIndex){
 			stopSlideshow();
 			errorDetected = true;
+			addMainAreaToRerender();
 			return;
 		}
 		selectedImage = model.getImages().get(slideshowIndex);
@@ -189,6 +195,7 @@ public class SlideshowManager implements Serializable{
 			Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.IMAGE_RECENTLY_DELETED_ERROR);
 			active = false;
 			errorDetected = true;
+			addMainAreaToRerender();
 			model.resetModel(NavigationEnum.ALBUM_IMAGE_PREVIEW, this.selectedImage.getAlbum().getOwner(), this.selectedImage.getAlbum().getShelf(), this.selectedImage.getAlbum(), null, this.selectedImage.getAlbum().getImages());
 			return;
 		}
@@ -208,5 +215,16 @@ public class SlideshowManager implements Serializable{
 
 	public void setErrorDetected(boolean errorDetected) {
 		this.errorDetected = errorDetected;
+	}
+	
+	private void addMainAreaToRerender() {
+		try {
+			FacesContext fc = FacesContext.getCurrentInstance();
+			AjaxContext ac = AjaxContext.getCurrentInstance();
+			UIComponent mainArea = fc.getViewRoot().findComponent(Constants.MAINAREA_ID);
+			ac.addComponentToAjaxRender(mainArea);
+		} catch (Exception e) {
+			System.err.print(e.getMessage());
+		}
 	}
 }
