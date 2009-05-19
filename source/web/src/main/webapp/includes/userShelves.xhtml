@@ -6,6 +6,6 @@
 	xmlns:rich="http://richfaces.org/rich">
 	<ui:include src="/includes/shelf/shelvesList.xhtml" >
 		<ui:param name="shelves" value="#{user.shelves}" />
-		<ui:param name="header" value="#{messages['my_album_shelves']} #{user.shelves.size}" />
+		<ui:param name="header" value="My shelves #{user.shelves.size}" />
 	</ui:include>
 </ui:composition>
