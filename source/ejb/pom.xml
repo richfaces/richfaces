@@ -107,16 +107,16 @@
 					<!-- here the phase you need -->
 					<phase>validate</phase>
 					<goals>
-					  <goal>copy-resources</goal>
+						<goal>copy-resources</goal>
 					</goals>
 					<configuration>
 						<outputDirectory>${project.build.directory}/resources-filtered</outputDirectory>
 						<resources>
-						<resource>
-						  <directory>src/main/resources-filtered</directory>
-						  <filtering>true</filtering>
-						</resource>
-					  </resources>
+							<resource>
+								<directory>src/main/resources-filtered</directory>
+								<filtering>true</filtering>
+							</resource>
+						</resources>
 					</configuration>
 				  </execution>
 				</executions>

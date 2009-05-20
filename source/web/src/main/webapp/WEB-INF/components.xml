@@ -20,7 +20,7 @@
                  http://jboss.com/products/seam/mail http://jboss.com/products/seam/mail-2.1.0.xsd
                  http://jboss.com/products/seam/components http://jboss.com/products/seam/components-2.1.0.xsd">
 
-    <core:init transaction-management-enabled="false" debug="true" jndi-pattern="@jndiPattern@"/>
+    <core:init transaction-management-enabled="false" debug="${environment.debug}" jndi-pattern="@jndiPattern@"/>
     <core:manager concurrent-request-timeout="20000"
                   conversation-timeout="200000"
                   conversation-id-parameter="cid"

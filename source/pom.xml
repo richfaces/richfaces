@@ -37,6 +37,8 @@
 		<imageset>short</imageset>
 		<imagespath>short</imagespath>
 		<environment.properties>environment/dev</environment.properties>
+		<environment.debug>true</environment.debug>
+		<environment.facelets.REFRESH_PERIOD>2</environment.facelets.REFRESH_PERIOD>
 	</properties>
 	<repositories>
 		<repository>
@@ -105,11 +107,31 @@
 	
 	<profiles>
 		<profile>
+			<id>short</id>
+			<properties>
+				<imageset>short</imageset>
+				<imagespath>short</imagespath>
+				<environment.properties>environment/dev</environment.properties>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>full</id>
+			<properties>
+				<imageset>full</imageset>
+				<imagespath>full</imagespath>
+				<environment.properties>environment/dev</environment.properties>
+			</properties>
+		</profile>
+
+		<profile>
 			<id>livedemo</id>
 			<properties>
 				<imageset>full</imageset>
 				<imagespath>full</imagespath>
 				<environment.properties>environment/prod</environment.properties>
+				<environment.debug>false</environment.debug>
+				<environment.facelets.REFRESH_PERIOD>-1</environment.facelets.REFRESH_PERIOD>
 			</properties>
 		</profile>
 	</profiles>
