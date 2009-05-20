@@ -14,7 +14,7 @@
 	<properties>
 		<jboss.version>4.2.3.GA</jboss.version>
 		<jbosshome>${project.basedir}/target/installs/jboss-${jboss.version}/jboss-${jboss.version}</jbosshome>
-		<jboss.installer.url>file:F:\Distribs\jboss-${jboss.version}.zip</jboss.installer.url>
+		<jboss.installer.url>file:d:\workspace\jboss-${jboss.version}.zip</jboss.installer.url>
 		<jbosscontext>default</jbosscontext>
 	</properties>
 
@@ -68,22 +68,28 @@
 			<classifier>jdk15</classifier>
 		</dependency>
 		<dependency>
-			<groupId>org.openqa.selenium.client-drivers</groupId>
+			<groupId>org.seleniumhq.selenium.core</groupId>
+			<artifactId>selenium-core</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
 			<artifactId>selenium-java-client-driver</artifactId>
 			<version>1.0-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.openqa.selenium.server</groupId>
+			<groupId>org.seleniumhq.selenium.server</groupId>
 			<artifactId>selenium-server-coreless</artifactId>
 			<version>1.0-SNAPSHOT</version>
 			<scope>test</scope>
-			<exclusions>
+			<!--exclusions>
 				<exclusion>
 					<groupId>jetty</groupId>
 					<artifactId>org.mortbay.jetty</artifactId>
 				</exclusion>
-			</exclusions>
+			</exclusions-->
 		</dependency>
 		<dependency>
 			<groupId>org.apache.xmlgraphics</groupId>

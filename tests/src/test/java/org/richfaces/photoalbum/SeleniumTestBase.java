@@ -77,7 +77,7 @@ public abstract class SeleniumTestBase implements RichSeleniumTest {
     @BeforeSuite
     public void startSeleniumServer() throws Exception {
         RemoteControlConfiguration config = new RemoteControlConfiguration();
-        config.setMultiWindow(false);
+        config.setSingleWindow(true);
         config.setPort(seleniumServerPort);
         config.setUserExtensions(new File(getClass().getClassLoader().getResource("script/selenium/user-extensions.js").toURI()));
         seleniumServer = new SeleniumServer(false, config);
