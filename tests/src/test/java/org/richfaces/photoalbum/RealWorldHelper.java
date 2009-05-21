@@ -443,6 +443,12 @@ public class RealWorldHelper {
 			if (presented) {
 				selenium.click(HtmlConstants.ImageArea.PREVIEW_PATH + "[" + i + "]" +  HtmlConstants.ImageArea.PREVIEW_LINK_PATH_SUFFIX);
 				waitForAjaxCompletion(selenium);
+				try {
+					Thread.sleep(5000); // It was do for jboss 5.X
+				}catch (Exception e) {
+					Assert.fail("Test failed caused by: " + e);
+				}
+				
 				testImageArea(selenium, imageName);
 			}
 			

@@ -108,6 +108,7 @@ public abstract class SeleniumTestBase implements RichSeleniumTest {
             selenium = createSeleniumClient(protocol + "://" + host + ":" + port + "/", browser);
             setFileExtensionContent();
             selenium.start();
+            selenium.setTimeout("120000"); // It was do for jboss 5.X
             selenium.allowNativeXpath("false");
         }
     }
