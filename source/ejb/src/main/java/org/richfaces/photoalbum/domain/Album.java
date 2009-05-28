@@ -44,6 +44,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -79,7 +81,10 @@ public class Album implements Serializable {
 
 	@OneToOne(fetch = FetchType.LAZY)
 	private Image coveringImage;
-
+	
+	@Transient
+	private boolean showAfterCreate;
+	
 	@Temporal(TemporalType.DATE)
 	private Date created;
 
@@ -306,5 +311,13 @@ public class Album implements Serializable {
 	@Override
 	public String toString() {
 		return "{id : "+getId()+", name : "+getName()+"}";
+	}
+
+	public boolean isShowAfterCreate() {
+		return showAfterCreate;
+	}
+
+	public void setShowAfterCreate(boolean showAfterCreate) {
+		this.showAfterCreate = showAfterCreate;
 	}
 }

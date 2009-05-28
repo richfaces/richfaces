@@ -234,10 +234,6 @@ public class User implements Serializable {
 		return shelves;
 	}
 
-	public void setShelves(List<Shelf> shelves) {
-		this.shelves = shelves;
-	}
-
 	public Sex getSex() {
 		return sex;
 	}

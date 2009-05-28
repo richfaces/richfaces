@@ -89,6 +89,18 @@ public class UserAction implements IUserAction {
 	}
 	
 	/**
+     * Refresh state of user entity with database
+     * @Param user - user to refresh
+     * @return user if success
+	 * @throws PhotoAlbumException
+     */
+	public User refreshUser(){
+		user = em.find(User.class, user.getId());
+		em.refresh(user);
+		return user;
+	}
+	
+	/**
      * Check if user with specified login already exist
      * @return is user with specified login already exist
      */

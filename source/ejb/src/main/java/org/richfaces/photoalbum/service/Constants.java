@@ -29,6 +29,7 @@ package org.richfaces.photoalbum.service;
 public class Constants {
 
 	//Events
+	public static final String CHECK_USER_EXPIRED_EVENT = "checkUserExpiredEvent";
 	public static final String ADD_ERROR_EVENT = "addErrorEvent";
 	public static final String ALBUM_DELETED_EVENT = "albumDeleted";
 	public static final String ALBUM_EDITED_EVENT = "albumEdited";
@@ -159,19 +160,19 @@ public class Constants {
 	public static final String TAG_BY_NAME_QUERY = "tag-byName";
 	public static final String SEARCH_SHELF_SHARED_ADDON = " and sh.shared=true";
 	public static final String SEARCH_SHELF_MY_ADDON = " and sh.owner.login=:login";
-	public static final String SEARCH_SHELF_BOTH_ADDON = " and sh.shared=true or sh.owner.login=:login";
+	public static final String SEARCH_SHELF_BOTH_ADDON = " and (sh.shared=true or sh.owner.login=:login)";
 	public static final String SEARCH_SHELVES_QUERY = "from Shelf sh where (lower(sh.name) like :queryString or lower(sh.description) like :queryString) ";
 	public static final String SEARCH_METATAG_QUERY = "from MetaTag t where lower(t.tag) like :queryString";
 	public static final String SEARCH_USERS_QUERY = "select  u from User u where (lower(u.login) like :queryString or lower(u.firstName) like :queryString or lower(u.secondName) like :queryString) ";
 	public static final String SEARCH_IMAGE_SHARED_ADDON = " and i.album.shelf.shared=true";
 	public static final String SEARCH_IMAGE_MY_ADDON = " and i.album.shelf.owner.login=:login";
-	public static final String SEARCH_IMAGE_BOTH_ADDON = "  and i.album.shelf.shared=true or i.album.shelf.owner.login=:login";
+	public static final String SEARCH_IMAGE_BOTH_ADDON = "  and (i.album.shelf.shared=true or i.album.shelf.owner.login=:login)";
 	public static final String SEARCH_IMAGE_QUERY = "from Image i where (lower(i.name) like :queryString or lower(i.description) like :queryString or lower(i.cameraModel) like :queryString) ";
 	public static final String SHARED_PARAMETER = "shared";
 	public static final String QUERY_PARAMETER = "queryString";
 	public static final String SEARCH_ALBUM_SHARED_ADDON = " and a.shelf.shared=true";
 	public static final String SEARCH_ALBUM_MY_ADDON = " and a.shelf.owner.login=:login";
-	public static final String SEARCH_ALBUM_BOTH_ADDON = " and a.shelf.shared=true or a.shelf.owner.login=:login";
+	public static final String SEARCH_ALBUM_BOTH_ADDON = " and (a.shelf.shared=true or a.shelf.owner.login=:login)";
 	public static final String SEARCH_ALBUM_QUERY = "from Album a where (lower(a.name) like :queryString or lower(a.description) like :queryString)";
 	public static final String USER_SHELVES_QUERY = "user-shelves";
 	public static final String SHELF_PARAMETER = "shelf";

@@ -36,5 +36,6 @@ public interface IUserAction {
 	public void register(User user) throws PhotoAlbumException;
 	public boolean isUserExist(String login) ;
 	public User updateUser() throws PhotoAlbumException;
+	public User refreshUser();
 	public boolean isEmailExist(String email);
 }
