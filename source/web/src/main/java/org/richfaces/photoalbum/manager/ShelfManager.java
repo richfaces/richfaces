@@ -157,16 +157,6 @@ public class ShelfManager implements Serializable {
         return shelves;
     }
     
-    /**
-	 * This method used to populate 'my shelves' tree
-	 * 
-	 * @return List of users shelves
-	 *
-	 */
-    public List<Shelf> getUserShelves(){
-    	return user.getShelves();
-    }
-    
 	public boolean isValidationSuccess() {
 		return validationSuccess;
 	}

@@ -12,5 +12,7 @@
       </locale-config>
       <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
    </application>
-   
+   <lifecycle>
+    <phase-listener>org.richfaces.photoalbum.ui.UserExpiredPhaseListener</phase-listener>
+  </lifecycle>
 </faces-config>

@@ -59,7 +59,7 @@
 					
 					<td>
 						<h:panelGroup rendered="#{user.id == null}">
-						<h:inputText  id="loginName" value="#{user.login}" styleClass="reg-table-input"/><h:outputText class="required" value="*"/>
+						<h:inputText  id="loginName" value="#{user.login}" styleClass="reg-table-input"/><h:outputText styleClass="required" value="*"/>
 						</h:panelGroup>
 						<h:panelGroup rendered="#{user.id != null}">
 						<h:outputText value="#{user.login}"/>
@@ -77,7 +77,7 @@
 					</td>
 					<td>
 					
-						<h:inputSecret required="true" id="password" value="#{user.password}" styleClass="reg-table-input"/><h:outputText class="required" value="*"/>
+						<h:inputSecret required="true" id="password" value="#{user.password}" styleClass="reg-table-input"/><h:outputText styleClass="required" value="*"/>
 					
 					</td>
 					<td>
@@ -92,7 +92,7 @@
 					</td>
 					<td>
 					<h:panelGroup rendered="#{user.id == null}">
-						<h:inputSecret required="true" id="confirmPassword" value="#{user.confirmPassword}" styleClass="reg-table-input"/><h:outputText class="required" value="*"/>
+						<h:inputSecret required="true" id="confirmPassword" value="#{user.confirmPassword}" styleClass="reg-table-input"/><h:outputText styleClass="required" value="*"/>
 					</h:panelGroup>
 						
 					</td>
@@ -111,7 +111,7 @@
 						<h:outputLabel for="firstname">#{messages['user.firstname']}</h:outputLabel>
 					</td>
 					<td>
-						<h:inputText  id="firstname" value="#{user.firstName}" styleClass="reg-table-input"/><h:outputText class="required" value="*"/>
+						<h:inputText  id="firstname" value="#{user.firstName}" styleClass="reg-table-input"/><h:outputText styleClass="required" value="*"/>
 					</td>
 					<td>
 						<rich:messages  for="firstname" styleClass="required"/>
@@ -128,7 +128,7 @@
 						<h:outputLabel for="secondname">#{messages['user.secondname']}</h:outputLabel>
 					</td>
 					<td>
-						<h:inputText  id="secondname" value="#{user.secondName}" styleClass="reg-table-input"/><h:outputText class="required" value="*"/>
+						<h:inputText  id="secondname" value="#{user.secondName}" styleClass="reg-table-input"/><h:outputText styleClass="required" value="*"/>
 					</td>
 					<td>
 						<rich:messages  for="secondname" styleClass="required"/>
@@ -177,7 +177,7 @@
 						<h:outputLabel for="email">#{messages['user.email']}</h:outputLabel>
 					</td>
 					<td>
-						<h:inputText  id="email" value="#{user.email}" styleClass="reg-table-input"/><h:outputText class="required" value="*"/>
+						<h:inputText  id="email" value="#{user.email}" styleClass="reg-table-input"/><h:outputText styleClass="required" value="*"/>
 					</td>
 					<td>
 						<rich:messages  for="email" styleClass="required"/>

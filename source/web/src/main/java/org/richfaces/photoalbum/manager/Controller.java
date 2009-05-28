@@ -233,7 +233,9 @@ public class Controller implements Serializable{
 	 */
 	@Observer(Constants.ALBUM_ADDED_EVENT)
 	public void onAlbumAdded(Album album){
-		model.resetModel(NavigationEnum.ALBUM_PREVIEW, album.getOwner(), album.getShelf(), album, null, album.getImages());
+		if(album.isShowAfterCreate()){
+			model.resetModel(NavigationEnum.ALBUM_PREVIEW, album.getOwner(), album.getShelf(), album, null, album.getImages());
+		}
 	}
 	
 	/**

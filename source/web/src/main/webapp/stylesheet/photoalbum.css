@@ -269,7 +269,6 @@ input[type='submit'], input[type='button'], button {
 
 .name {
 	font-weight: bold;
-	width: 115px;
 	padding: 5px;
 	margin-top: 3px;
 }

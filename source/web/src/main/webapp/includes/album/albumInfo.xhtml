@@ -10,22 +10,22 @@
 			<h1><h:outputText value="#{album.name}"
 				rendered="#{!controller.isUserAlbum(album)}" /> <rich:inplaceInput selectOnEdit="false"
 				value="#{album.name}" rendered="#{controller.isUserAlbum(album)}"
-				inputWidth="200px">
+				inputWidth="570">
 				<a4j:support event="onviewactivated" reRender="mainArea, treePanel"
 					action="#{albumManager.editAlbum(album, true)}" />
 			</rich:inplaceInput></h1>
 			<h:panelGroup layout="block" style="margin-bottom:15px;" styleClass="additional-info-text">
 				<h:outputText value="#{messages['created.album']}" />
-				<h:outputText class="bold" value=" #{album.created}" />
+				<h:outputText styleClass="bold" value=" #{album.created}" />
 				<h:outputText value=", #{messages['contain']}" />
-				<h:outputText class="bold"
+				<h:outputText styleClass="bold"
 					value=" #{album.images.size()}" />
 				<h:outputText value=" #{messages['images_']}" />
 				<h:panelGroup rendered="#{album.unvisitedImages.size > 0}">
 				<h:outputText value=", " />
 				<a4j:commandLink reRender="mainArea,treePanel"
 					actionListener="#{controller.showUnvisitedImages(album)}">
-					<h:outputText class="bold"
+					<h:outputText styleClass="bold"
 						value="#{album.unvisitedImages.size()}" />
 					<h:outputText value=" #{messages['new']}" />
 				</a4j:commandLink>

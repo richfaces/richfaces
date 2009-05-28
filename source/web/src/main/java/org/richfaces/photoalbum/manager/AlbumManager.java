@@ -98,10 +98,11 @@ public class AlbumManager implements Serializable{
 	/**
 	 * Method, that invoked  when user want to create new album. Only registered users can create new albums.
 	 * @param shelf - shelf, that will contain new album
+	 * @param isShowAlbumAfterCreate - indicate is we need to show created album after create.
 	 *
 	 */
 	@Restrict("#{s:hasRole('admin')}")
-	public void createAlbum(Shelf shelf){
+	public void createAlbum(Shelf shelf, boolean isShowAlbumAfterCreate){
 		Album album = new Album();
 		if(shelf == null){
 			if(user.getShelves().size() > 0){
@@ -114,6 +115,7 @@ public class AlbumManager implements Serializable{
 			}
 		}
 		album.setShelf(shelf);
+		album.setShowAfterCreate(isShowAlbumAfterCreate);
 		//Reset 'album' component in conversation scope
 		Contexts.getConversationContext().set(Constants.ALBUM_VARIABLE, album);
 	}

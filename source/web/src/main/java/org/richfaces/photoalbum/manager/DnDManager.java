@@ -24,10 +24,6 @@ package org.richfaces.photoalbum.manager;
  *
  * @author Andrey Markhel
  */
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
-import org.ajax4jsf.context.AjaxContext;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.security.Restrict;
@@ -41,6 +37,7 @@ import org.richfaces.photoalbum.domain.Shelf;
 import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IAlbumAction;
+import org.richfaces.photoalbum.util.Utils;
 
 @Name("dndManager")
 public class DnDManager implements DropListener {
@@ -90,7 +87,7 @@ public class DnDManager implements DropListener {
 			return;
 		}
 		Events.instance().raiseEvent(Constants.ALBUM_DRAGGED_EVENT, dragValue, pathOld);
-		addTreeToRerender();
+		Utils.addToRerender(Constants.TREE_ID);
 	}
 
 	private void handleImage(Image dragValue, Album dropValue) {
@@ -106,17 +103,8 @@ public class DnDManager implements DropListener {
 			return;
 		}
 		Events.instance().raiseEvent(Constants.IMAGE_DRAGGED_EVENT, dragValue, pathOld);
-		addTreeToRerender();
+		Utils.addToRerender(Constants.TREE_ID);
 	}
 	
-	private void addTreeToRerender() {
-		try {
-			FacesContext fc = FacesContext.getCurrentInstance();
-			AjaxContext ac = AjaxContext.getCurrentInstance();
-			UIComponent destTree = fc.getViewRoot().findComponent(Constants.TREE_ID);
-			ac.addComponentToAjaxRender(destTree);
-		} catch (Exception e) {
-			System.err.print(e.getMessage());
-		}
-	}
+	
 }

@@ -35,6 +35,7 @@ import org.jboss.seam.annotations.Observer;
 import org.jboss.seam.annotations.Out;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.core.Events;
+import org.richfaces.photoalbum.domain.Album;
 import org.richfaces.photoalbum.domain.User;
 import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IUserAction;
@@ -80,6 +81,15 @@ public class UserManager implements Serializable{
 			Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.UPDATE_USER_ERROR);
 			return;
 		}
+	}
+	
+	/**
+	 * This method observes <code>Constants.ALBUM_ADDED_EVENT</code> and invoked after the user add new album
+	 * @param album - added album
+	 */
+	@Observer(Constants.ALBUM_ADDED_EVENT)
+	public void onAlbumAdded(Album album){
+		user = userAction.refreshUser();
 	}
 	
 	/**

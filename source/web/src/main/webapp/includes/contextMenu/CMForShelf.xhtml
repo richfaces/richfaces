@@ -10,7 +10,7 @@
 		submitMode="ajax">
 		<rich:menuItem value="#{messages['add_album']}" limitToList="true"
 			reRender="albumModalPanel" data="#{albumManager.errorInCreate}"
-			actionListener="#{albumManager.createAlbum(shelf)}"
+			actionListener="#{albumManager.createAlbum(shelf, true)}"
 			oncomplete="if(!data)$('albumModalPanel').component.show()">
 		</rich:menuItem>
 		<rich:menuItem value="#{messages['delete_shelf']}" limitToList="true"

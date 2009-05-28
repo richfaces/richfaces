@@ -9,8 +9,8 @@
 		<h:panelGroup>
 			<h1><h:outputText value="#{shelf.name}"
 				rendered="#{!controller.isUserShelf(shelf)}" /> <rich:inplaceInput selectOnEdit="false"
-				id="shelfDNDId" value="#{shelf.name}"
-				rendered="#{controller.isUserShelf(shelf)}" inputWidth="200px">
+				id="shelfDNDId" value="#{shelf.name}" inputWidth="570"
+				rendered="#{controller.isUserShelf(shelf)}">
 				<a4j:support event="onviewactivated" limitToList="true"
 					reRender="mainArea, treePanel"
 					action="#{shelfManager.editShelf(shelf, true)}" />
@@ -18,17 +18,17 @@
 
 			<h:panelGroup styleClass="additional-info-text">
 				<h:outputText value="#{messages['created.shelf']}" />
-				<h:outputText class="bold" value=" #{shelf.created}, " />
+				<h:outputText styleClass="bold" value=" #{shelf.created}, " />
 				<h:outputText value="#{messages['contain']}" />
-				<h:outputText class="bold" value=" #{shelf.images.size()} " />
+				<h:outputText styleClass="bold" value=" #{shelf.images.size()} " />
 				<h:outputText value="#{messages['pics_into']}" />
-				<h:outputText class="bold" value=" #{shelf.albums.size()} " />
+				<h:outputText styleClass="bold" value=" #{shelf.albums.size()} " />
 				<h:outputText value="#{messages['shelf.albums']}" />
 				<h:panelGroup rendered="#{shelf.unvisitedImages.size > 0}">
 				<h:outputText value=", "/>
 				<a4j:commandLink reRender="mainArea,tree"
 					actionListener="#{controller.showUnvisitedImages(shelf)}">
-					<h:outputText class="bold"
+					<h:outputText styleClass="bold"
 						value=" #{shelf.unvisitedImages.size()}" />
 					<h:outputText value=" #{messages['new']}" />
 				</a4j:commandLink>

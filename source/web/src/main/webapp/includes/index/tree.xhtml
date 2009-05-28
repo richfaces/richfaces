@@ -45,7 +45,7 @@
 				<a4j:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;" >
 					<h:outputText  value="#{shelf.name}" />
 					<h:outputText rendered="#{shelf.unvisitedImages.size > 0}" value=" :: " />
-					<h:outputText rendered="#{shelf.unvisitedImages.size > 0}" class="bold" value="#{shelf.unvisitedImages.size()}"/>
+					<h:outputText rendered="#{shelf.unvisitedImages.size > 0}" styleClass="bold" value="#{shelf.unvisitedImages.size()}"/>
 					<h:outputText rendered="#{shelf.unvisitedImages.size > 0}" value=" #{messages['new']}" /> 
 					<a4j:support reRender="treePanel, mainArea" event="onclick" actionListener="#{controller.showShelf(shelf)}" similarityGroupingId="sel" />
 				</a4j:outputPanel>
@@ -63,7 +63,7 @@
 						<a4j:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
 							<h:outputText  value="#{album.name}" />
 							<h:outputText rendered="#{album.unvisitedImages.size > 0}" value=" :: " />
-							<h:outputText rendered="#{album.unvisitedImages.size > 0}" class="bold" value="#{album.unvisitedImages.size()}"/>
+							<h:outputText rendered="#{album.unvisitedImages.size > 0}" styleClass="bold" value="#{album.unvisitedImages.size()}"/>
 							<h:outputText rendered="#{album.unvisitedImages.size > 0}" value=" #{messages['new']}" /> 
 						<a4j:support reRender="treePanel, mainArea" event="onclick" actionListener="#{controller.showAlbum(album)}" similarityGroupingId="sel" />
 						</a4j:outputPanel>		
@@ -96,7 +96,7 @@
 			iconExpanded="/img/shell/tree_icon_minus.png"
 			dropListener="#{dndManager.processDrop}"
 			showConnectingLines="false">
-			<rich:treeNodesAdaptor nodes="#{shelfManager.getUserShelves()}"
+			<rich:treeNodesAdaptor nodes="#{user.getShelves()}"
 				var="shelf">
 				<rich:treeNode style="cursor:pointer" acceptedTypes="album" dropValue="#{shelf}"
                      reRender="mainArea, treePanel"
@@ -110,7 +110,7 @@
 				<a4j:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
 					<h:outputText  value="#{shelf.name}" />
 					<h:outputText value=" :: " />
-					<h:outputText rendered="#{shelf.unvisitedImages.size > 0}" class="bold" value="#{shelf.unvisitedImages.size()}"/>
+					<h:outputText rendered="#{shelf.unvisitedImages.size > 0}" styleClass="bold" value="#{shelf.unvisitedImages.size()}"/>
 					<h:outputText rendered="#{shelf.unvisitedImages.size > 0}" value=" #{messages['new']}" /> 
 					<a4j:support reRender="treePanel, mainArea" event="onclick" actionListener="#{controller.showShelf(shelf)}" similarityGroupingId="sel" />
 				</a4j:outputPanel>
@@ -134,7 +134,7 @@
 						<a4j:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;">
 							<h:outputText  value="#{album.name}" />
 							<h:outputText value=" :: " />
-							<h:outputText rendered="#{album.unvisitedImages.size > 0}" class="bold" value="#{album.unvisitedImages.size()}"/>
+							<h:outputText rendered="#{album.unvisitedImages.size > 0}" styleClass="bold" value="#{album.unvisitedImages.size()}"/>
 							<h:outputText rendered="#{album.unvisitedImages.size > 0}" value=" #{messages['new']}" /> 
 						<a4j:support reRender="treePanel, mainArea" event="onclick" actionListener="#{controller.showAlbum(album)}" similarityGroupingId="sel" />
 						</a4j:outputPanel>

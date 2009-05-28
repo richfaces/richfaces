@@ -99,7 +99,7 @@
 							</rich:toolTip>
 						</a4j:commandLink>
 						<a4j:commandLink disabled="#{!controller.isUserHaveShelves()}" rendered="#{identity.loggedIn}" data="#{albumManager.errorInCreate}"
-								actionListener="#{albumManager.createAlbum(model.selectedShelf)}"
+								actionListener="#{albumManager.createAlbum(model.selectedShelf, true)}"
 								oncomplete="if(!data)$('albumModalPanel').component.show()"
 								reRender="albumModalPanel"> 
 							<h:graphicImage rendered="#{controller.isUserHaveShelves()}" value="/img/shell/icon_add_album.png" width="37" height="23" alt="" styleClass="main-menu-add-icons-img"/>

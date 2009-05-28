@@ -26,10 +26,6 @@ package org.richfaces.photoalbum.manager;
  */
 import java.io.Serializable;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-
-import org.ajax4jsf.context.AjaxContext;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
@@ -39,6 +35,7 @@ import org.jboss.seam.contexts.Contexts;
 import org.jboss.seam.core.Events;
 import org.richfaces.photoalbum.domain.Image;
 import org.richfaces.photoalbum.service.Constants;
+import org.richfaces.photoalbum.util.Utils;
 
 @Name("slideshow")
 @Scope(ScopeType.CONVERSATION)
@@ -81,28 +78,16 @@ public class SlideshowManager implements Serializable{
 	 *
 	 */
 	public void startSlideshow(){
-		active = true;
-		errorDetected = false;
-		this.slideshowIndex = 0;
-		this.startSlideshowIndex = 0;
+		initSlideshow();
 		if(model.getImages() == null || model.getImages().size() < 1){
-			stopSlideshow();
-			errorDetected = true;
-			Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.NO_IMAGES_FOR_SLIDESHOW_ERROR);
+			onError(true);
 			return;
 		}
 		this.selectedImage = model.getImages().get(this.slideshowIndex);
 		//mark image as 'visited'
 		this.selectedImage.setVisited(true);
 		//Check if that image was recently deleted. If yes, immediately stop slideshow process
-		FileManager fileManager = (FileManager)Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
-		if(!fileManager.isFilePresent(this.selectedImage.getFullPath())){
-			Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.IMAGE_RECENTLY_DELETED_ERROR);
-			active = false;
-			errorDetected = true;
-			model.resetModel(NavigationEnum.ALBUM_IMAGE_PREVIEW, this.selectedImage.getAlbum().getOwner(), this.selectedImage.getAlbum().getShelf(), this.selectedImage.getAlbum(), null, this.selectedImage.getAlbum().getImages());
-			return;
-		}
+		checkIsFileRecentlyDeleted();
 	}
 	
 	/**
@@ -111,12 +96,9 @@ public class SlideshowManager implements Serializable{
 	 *@param selectedImage - first image to show during slideshow
 	 */
 	public void startSlideshow(Image selectedImage){
-		errorDetected = false;
-		active = true;
+		initSlideshow();
 		if(model.getImages() == null || model.getImages().size() < 1){
-			stopSlideshow();
-			errorDetected = true;
-			Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.NO_IMAGES_FOR_SLIDESHOW_ERROR);
+			onError(true);
 			return;
 		}
 		this.slideshowIndex = model.getImages().indexOf(selectedImage);
@@ -125,14 +107,7 @@ public class SlideshowManager implements Serializable{
 		//mark image as 'visited'
 		this.selectedImage.setVisited(true);
 		//Check if that image was recently deleted. If yes, immediately stop slideshow
-		FileManager fileManager = (FileManager)Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
-		if(!fileManager.isFilePresent(this.selectedImage.getFullPath())){
-			Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.IMAGE_RECENTLY_DELETED_ERROR);
-			active = false;
-			errorDetected = true;
-			model.resetModel(NavigationEnum.ALBUM_IMAGE_PREVIEW, this.selectedImage.getAlbum().getOwner(), this.selectedImage.getAlbum().getShelf(), this.selectedImage.getAlbum(), null, this.selectedImage.getAlbum().getImages());
-			return;
-		}
+		checkIsFileRecentlyDeleted();
 	}
 	
 	/**
@@ -170,8 +145,7 @@ public class SlideshowManager implements Serializable{
 	 */
 	public void showNextImage(){
 		if(!active){
-			errorDetected = true;
-			addMainAreaToRerender();
+			onError(false);
 			return;
 		}
 		//reset index if we reached last image
@@ -181,24 +155,14 @@ public class SlideshowManager implements Serializable{
 		slideshowIndex++;
 		//To prevent slideshow mechanism working in cycle.
 		if(slideshowIndex == startSlideshowIndex){
-			stopSlideshow();
-			errorDetected = true;
-			addMainAreaToRerender();
+			onError(false);
 			return;
 		}
 		selectedImage = model.getImages().get(slideshowIndex);
 		//mark image as 'visited'
 		this.selectedImage.setVisited(true);
 		//Check if that image was recently deleted. If yes, stopping slideshow
-		FileManager fileManager = (FileManager)Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
-		if(!fileManager.isFilePresent(this.selectedImage.getFullPath())){
-			Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.IMAGE_RECENTLY_DELETED_ERROR);
-			active = false;
-			errorDetected = true;
-			addMainAreaToRerender();
-			model.resetModel(NavigationEnum.ALBUM_IMAGE_PREVIEW, this.selectedImage.getAlbum().getOwner(), this.selectedImage.getAlbum().getShelf(), this.selectedImage.getAlbum(), null, this.selectedImage.getAlbum().getImages());
-			return;
-		}
+		checkIsFileRecentlyDeleted();
 	}
 
 	public Integer getStartSlideshowIndex() {
@@ -217,14 +181,32 @@ public class SlideshowManager implements Serializable{
 		this.errorDetected = errorDetected;
 	}
 	
-	private void addMainAreaToRerender() {
-		try {
-			FacesContext fc = FacesContext.getCurrentInstance();
-			AjaxContext ac = AjaxContext.getCurrentInstance();
-			UIComponent mainArea = fc.getViewRoot().findComponent(Constants.MAINAREA_ID);
-			ac.addComponentToAjaxRender(mainArea);
-		} catch (Exception e) {
-			System.err.print(e.getMessage());
+	private void initSlideshow() {
+		active = true;
+		errorDetected = false;
+		this.slideshowIndex = 0;
+		this.startSlideshowIndex = 0;
+	}
+	
+	private void onError(boolean isShowOnUI) {
+		stopSlideshow();
+		errorDetected = true;
+		Utils.addToRerender(Constants.MAINAREA_ID);
+		if(isShowOnUI){
+			Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.NO_IMAGES_FOR_SLIDESHOW_ERROR);
+		}
+		return;
+	}
+	
+	private void checkIsFileRecentlyDeleted() {
+		FileManager fileManager = (FileManager)Contexts.getApplicationContext().get(Constants.FILE_MANAGER_COMPONENT);
+		if(!fileManager.isFilePresent(this.selectedImage.getFullPath())){
+			Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.IMAGE_RECENTLY_DELETED_ERROR);
+			active = false;
+			errorDetected = true;
+			Utils.addToRerender(Constants.MAINAREA_ID);
+			model.resetModel(NavigationEnum.ALBUM_IMAGE_PREVIEW, this.selectedImage.getAlbum().getOwner(), this.selectedImage.getAlbum().getShelf(), this.selectedImage.getAlbum(), null, this.selectedImage.getAlbum().getImages());
+			return;
 		}
 	}
 }

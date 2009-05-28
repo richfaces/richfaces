@@ -9,7 +9,7 @@
 	>
 	
 	<rich:modalPanel id="albumModalPanel"
-					 width="400" height="180"
+					 width="450" height="140"
 					 onshow="applyModalPanelEffect('albumModalPanel', appearFunc,{delay: 0.5, afterFinish: function(){$('form2:name').focus();}});">
 		<f:facet name="header">
 			<h:outputText value="#{messages['album.add']}"/>
@@ -36,11 +36,11 @@
 									 id="editContent"
 									 rowClasses="prop"
 									 columnClasses="name,value, error">
-							<h:panelGroup style="width: 115px" layout="block">
+							<h:panelGroup style="text-align:right;" layout="block">
 								<h:outputText value="#{messages['shelf']} " />
 							</h:panelGroup>	
 							
-							<rich:inplaceSelect required="true" id="shelf"
+							<rich:inplaceSelect minSelectWidth="370" listWidth="400" required="true" id="shelf"
 												value="#{album.shelf}"
 												openOnEdit="true"
 												editEvent="onclick"
@@ -52,13 +52,14 @@
 												viewHoverClass="hover">
 								
 								<s:selectItems var="shelf"
-									value="#{shelfManager.getUserShelves()}"
+									value="#{user.getShelves()}"
 									label="#{shelf.name}" />
 								<s:convertEntity/>
 							</rich:inplaceSelect>
 							<rich:messages for="shelf" />
-							<h:outputText value="#{messages['album.name']}" />
-							
+							<h:panelGroup style="text-align:right;" layout="block">
+								<h:outputText value="#{messages['album.name']}" />
+							</h:panelGroup>	
 							<h:inputText id="name" value="#{album.name}" onkeydown="if (event.keyCode == 13) { jQuery(&quot; .album input[type='image']&quot;).click(); return false; }"/>
 							<rich:message for="name" />
 						</h:panelGrid>

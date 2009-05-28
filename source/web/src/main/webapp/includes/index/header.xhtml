@@ -12,11 +12,11 @@
 			<a href="index.html"><h:graphicImage
 				value="/img/shell/logo_top.gif" width="290" height="79" alt=""
 				style="position : absolute; border: 0px;" /></a>
-			<h:graphicImage
+			<h:graphicImage rendered="#{authenticator.conversationStarted}"
 				value="/img/shell/top_tight_bullet.gif" width="20" height="79"
 				alt="" style="position : absolute; right : 0px" />
 			
-			<h:panelGroup id="logInOutMenu" layout="block"
+			<h:panelGroup id="logInOutMenu" layout="block" rendered="#{authenticator.conversationStarted}"
 				styleClass="user-info-div">
 				<h:panelGrid columns="5"
 					columnClasses="top-right-bottom-menu-item,xxx,top-right-bottom-menu-item,xxx,top-right-bottom-menu-item">

@@ -27,8 +27,6 @@ package org.richfaces.photoalbum.manager;
 import java.io.File;
 import java.io.Serializable;
 
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.security.auth.login.LoginException;
 
@@ -47,6 +45,7 @@ import org.richfaces.photoalbum.service.Constants;
 import org.richfaces.photoalbum.service.IUserAction;
 import org.richfaces.photoalbum.util.Environment;
 import org.richfaces.photoalbum.util.HashUtils;
+import org.richfaces.photoalbum.util.Utils;
 
 @Name("authenticator")
 @Scope(ScopeType.CONVERSATION)
@@ -54,6 +53,8 @@ public class Authenticator implements Serializable {
 
 	private static final long serialVersionUID = -4585673256547342140L;
 
+	@In LoggedUserTracker userTracker;
+	
 	@In @Out
 	User user;
 
@@ -91,6 +92,10 @@ public class Authenticator implements Serializable {
 					user = new User();
 					return false;
 				}
+				//Remove previous session id from users store
+				userTracker.removeUserId(user.getId());
+				//Mark current user as actual
+				userTracker.addUserId(user.getId(), Utils.getSession().getId());
 				identity.addRole(Constants.ADMIN_ROLE);
 				//Raise event to controller to update Model
 				Events.instance().raiseEvent(Constants.AUTHENTICATED_EVENT, user);
@@ -112,6 +117,8 @@ public class Authenticator implements Serializable {
 	 */
 	public String logout() {
 		identity.logout();
+		//Remove user from users store
+		userTracker.removeUserId(user.getId());
 		setConversationStarted(false);
 		return Constants.LOGOUT_OUTCOME;
 	}
@@ -193,7 +200,7 @@ public class Authenticator implements Serializable {
 	
 	private boolean checkUserExist(User user) {
 		if (userAction.isUserExist(user.getLogin())) {
-			addFacesMessage(Constants.REGISTER_LOGIN_NAME_ID, Constants.USER_WITH_THIS_LOGIN_ALREADY_EXIST);
+			Utils.addFacesMessage(Constants.REGISTER_LOGIN_NAME_ID, Constants.USER_WITH_THIS_LOGIN_ALREADY_EXIST);
 			return true;
 		}
 		return false;
@@ -201,22 +208,17 @@ public class Authenticator implements Serializable {
 
 	private boolean checkEmailExist(String email) {
 		if (userAction.isEmailExist(email)) {
-			addFacesMessage(Constants.REGISTER_EMAIL_ID, Constants.USER_WITH_THIS_EMAIL_ALREADY_EXIST);
+			Utils.addFacesMessage(Constants.REGISTER_EMAIL_ID, Constants.USER_WITH_THIS_EMAIL_ALREADY_EXIST);
 			return true;
 		}
 		return false;
 	}
 
-	private void addFacesMessage(String componentId, String message) {
-		UIComponent root = FacesContext.getCurrentInstance().getViewRoot();
-		UIComponent component = root.findComponent(componentId);
-		FacesContext.getCurrentInstance().addMessage(component
-			.getClientId(FacesContext.getCurrentInstance()),new FacesMessage(FacesMessage.SEVERITY_ERROR, message, message));
-	}
+	
 
 	private boolean checkPassword(User user) {
 		if (!user.getPassword().equals(user.getConfirmPassword())) {
-			addFacesMessage(Constants.REGISTER_CONFIRM_PASSWORD_ID, Constants.CONFIRM_PASSWORD_NOT_EQUALS_PASSWORD);
+			Utils.addFacesMessage(Constants.REGISTER_CONFIRM_PASSWORD_ID, Constants.CONFIRM_PASSWORD_NOT_EQUALS_PASSWORD);
 			return true;
 		}
 		return false;
