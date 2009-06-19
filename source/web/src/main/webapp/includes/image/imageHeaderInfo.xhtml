@@ -1,0 +1,29 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:richx="http://richfaces.org/richx">
+	<h:panelGrid styleClass="image-header-table" cellpadding="0">
+	<h:panelGroup>
+		<h1>
+			<h:outputText value="#{model.selectedImage.name}" rendered="#{!controller.isUserImage(model.selectedImage)}"/>
+			<rich:inplaceInput selectOnEdit="false" value="#{model.selectedImage.name}" rendered="#{controller.isUserImage(model.selectedImage)}" inputWidth="570">
+				<a4j:support event="onviewactivated" reRender="mainArea" action="#{imageManager.editImage(model.selectedImage,true)}"/>
+			</rich:inplaceInput>
+		</h1>
+		<a4j:commandLink styleClass="additional-info-text"
+						 actionListener="#{controller.showShelf(model.selectedShelf)}"
+						 reRender="mainArea, treePanel"
+						 value="#{messages['shelf']} #{model.selectedShelf.name}"/>
+		<h:outputText value=" :: "/>
+		<a4j:commandLink styleClass="additional-info-text"
+						 actionListener="#{controller.showAlbum(model.selectedAlbum)}"
+						 reRender="mainArea, treePanel"
+						 value="#{messages['album']} #{model.selectedAlbum.name}"/>
+	</h:panelGroup>
+</h:panelGrid>
+<p><h:outputText value="#{model.selectedImage.description}"/></p>
+</ui:composition>

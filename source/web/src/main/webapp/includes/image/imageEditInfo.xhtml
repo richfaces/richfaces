@@ -6,6 +6,8 @@
                 xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:richx="http://richfaces.org/richx">
+                <ui:include src="/includes/image/imageHeaderInfo.xhtml" />
+		
     <h:panelGroup layout="block" styleClass="image-edit-div">
 		<rich:graphValidator>
 			<table class="image-edit-div-table" cellpadding="5" border="0">
@@ -131,4 +133,5 @@
 			</table>
 		</rich:graphValidator>
 	</h:panelGroup>
+	<ui:include src="/includes/image/imageGeneralInfo.xhtml" />
 </ui:composition>

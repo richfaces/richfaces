@@ -40,16 +40,20 @@
 						value="/img/shell/bullet.gif" />
 
 					<h:panelGroup styleClass="top-right-bottom-menu-item-link" layout="block">
-						<h:outputLink id="loginPanelShowlink"
-							rendered="#{!identity.hasRole('admin')}" value="#"
-							onclick="var component = #{rich:component('loginPanel')}; component.show(); ">
-									#{messages['menu.login']}
-								</h:outputLink> 
+					<h:form style="margin: 0px">
+						<a4j:commandLink id="loginPanelShowlink"
+							rendered="#{!identity.hasRole('admin')}" value="#{messages['menu.login']}"
+							reRender="loginPanel"
+							actionListener="#{authenticator.resetCredentials()}"
+							oncomplete="#{rich:component('loginPanel')}.show(); ">
+									
+								</a4j:commandLink> 
                                           
                                                 <s:link propagation="end" view="/index.xhtml"
 							action="#{authenticator.logout}"
 							value="#{messages['menu.logout']}"
 							rendered="#{identity.loggedIn}" />
+							</h:form>
 					</h:panelGroup>
 
 					<h:graphicImage rendered="#{!identity.loggedIn}" width="3"

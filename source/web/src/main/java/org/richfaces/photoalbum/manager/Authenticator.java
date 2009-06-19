@@ -123,6 +123,9 @@ public class Authenticator implements Serializable {
 		return Constants.LOGOUT_OUTCOME;
 	}
 
+	public void resetCredentials(){
+		credentials.clear();
+	}
 	/**
 	 * Method, that invoked when user try to register in the application.
 	 * If registration was successfull, user immediately will be loginned to the system.

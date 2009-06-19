@@ -70,10 +70,7 @@
 		<param-value>/WEB-INF/tags/photoalbum-taglib.xml</param-value>
 	</context-param>
 	
-	<context-param>
-		<param-name>facelets.REFRESH_PERIOD</param-name>
-		<param-value>${environment.facelets.REFRESH_PERIOD}</param-value>
-	</context-param>
+
 	
 	<context-param>
 		<param-name>org.richfaces.LoadScriptStrategy</param-name>

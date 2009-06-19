@@ -59,9 +59,11 @@
 							<rich:messages for="shelf" />
 							<h:panelGroup style="text-align:right;" layout="block">
 								<h:outputText value="#{messages['album.name']}" />
-							</h:panelGroup>	
+							</h:panelGroup>
+							<h:panelGroup layout="block">
 							<h:inputText id="name" value="#{album.name}" onkeydown="if (event.keyCode == 13) { jQuery(&quot; .album input[type='image']&quot;).click(); return false; }"/>
-							<rich:message for="name" />
+							<rich:message styleClass="required" for="name" />
+							</h:panelGroup>
 						</h:panelGrid>
 					</rich:graphValidator>
 				</a4j:region>
