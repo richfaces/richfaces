@@ -40,7 +40,7 @@
 						value="/img/shell/bullet.gif" />
 
 					<h:panelGroup styleClass="top-right-bottom-menu-item-link" layout="block">
-					<h:form style="margin: 0px">
+					<h:form id="login-form" style="margin: 0px">
 						<a4j:commandLink id="loginPanelShowlink"
 							rendered="#{!identity.hasRole('admin')}" value="#{messages['menu.login']}"
 							reRender="loginPanel"

@@ -59,14 +59,14 @@ public class RealWorldHelper {
 		
 		public static interface LogInOutArea {
 			String PATH = "xpath=id('logInOutMenu')";
-			String LOGIN_ID = "loginPanelShowlink";
+			String LOGIN_ID = "login-form:loginPanelShowlink";
 			String REGISTER_PATH = PATH + "/descendant::a[2]";
 			String LOGOUT_PATH = REGISTER_PATH;
 			String USER_INFO_PATH = "//a[@class='logged-user']";
 		}
 		
 		public static interface ToolBarArea {
-			String PATH = "//*[@class='dr-toolbar-int rich-toolbar-item main-menu-toolbar-content']";
+			String PATH = "//*[@class='rich-toolbar-item main-menu-toolbar-content']";
 			String VIEW_SHELFS_PATH = PATH + "/div[2]";
 			String VIEW_ALBUMS_PATH = PATH + "/div[3]";
 			String VIEW_IMAGES_PATH = PATH + "/div[4]";
@@ -156,15 +156,15 @@ public class RealWorldHelper {
 		}
 
 		public static interface TreeArea {
-			String CHILDREN_PATH = "//*[@id='treeform:tree']/*[@class='dr-tree rich-tree']/*[contains(@id, 'childs')]";
+			String CHILDREN_PATH = "//*[@id='treeform:tree']/*[@class='rich-tree']/*[contains(@id, 'childs')]";
 			String SHELF_PATH_PART = CHILDREN_PATH + "/*[not(contains(@class, 'rich-tree-node-children'))]";
 			String ALBUM_PATH_PART = CHILDREN_PATH + "/*[contains(@class, 'rich-tree-node-children')]";
 			String TEXT_PATH_SUFFIX = "/descendant::*[contains(@id, 'text')]";
 		}
 
 		public static interface ResizeSlider {
-			String TRACK_SLIDER = "//td[./div[@class='dr-insldr-track rich-inslider-track']]";
-			String SLIDER_INPUT = "//*[@class='dr-insldr rich-slider']//input[@type='hidden']";
+			String TRACK_SLIDER = "//td[./div[@class='rich-inslider-track']]";
+			String SLIDER_INPUT = "//*[@class='rich-inslider rich-slider']//input[@type='hidden']";
 		}
 
 		public static interface Search {
@@ -172,11 +172,11 @@ public class RealWorldHelper {
 			String SEARCH_BUTTON = "//*[@class='search-find-button']";
 			String SEARCH_OPTION = "//*[@class='search-option-link']";
 
-			String INACTIVE_TAB = "//*[@class='dr-tbpnl-tb rich-tab-header dr-tbpnl-tb-inact rich-tab-inactive']";
-			String ACTIVE_TAB = "//*[@class='dr-tbpnl-tbcell-act rich-tabhdr-cell-active']";
+			String INACTIVE_TAB = "//*[@class='rich-tab-header rich-tab-inactive bold']";
+			String ACTIVE_TAB = "//*[@class='rich-tab-header rich-tab-active bold']";
 
-			String SEARCH_CRITERIA_KEYWORDS = "//*[@class='search-criteria'][2]";
-			String SEARCH_CRITERIA_OBJECTS = "//*[@class='search-criteria'][1]/strong";
+			String SEARCH_CRITERIA_KEYWORDS = "//*[@class='search-keyword']";
+			String SEARCH_CRITERIA_OBJECTS = "//*[@class='search-criteria'][1]";
 			String OBJECTS_MY = "//*[@class='search-options-div1']/input[1]";
 			String OBJECTS_SHARED = "//*[@class='search-options-div1']/input[2]";
 

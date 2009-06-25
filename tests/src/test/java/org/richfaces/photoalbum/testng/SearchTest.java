@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 import static org.richfaces.photoalbum.RealWorldHelper.HtmlConstants.Search.*;
 
-/**
+/**ss
  * @user: akolonitsky
  * Date: Apr 29, 2009
  */
@@ -15,11 +15,12 @@ public class SearchTest extends SeleniumTestBase {
 	private static final String NATURE = "nature";
 	private static final String SPORT = "sport";
 
-	private static final String OBJECTS_ALL = "Shelves,Albums,Images,Users,Tag";
-	private static final String OBJECT_TAG = "Tag";
+	private static final String OBJECTS_ALL = "Shelves, Albums, Images, Users, Tags";
+	private static final String OBJECT_TAG = "Tags";
 
 	private static final String SHELF_HEADER = "//*[@class='shelf-header-table']";
 	private static final String KEYWORDS = "Keywords: ";
+	private static final String SEARCH_CRITERIA="Search criteria: ";
 
 
 	@Test
@@ -86,18 +87,17 @@ public class SearchTest extends SeleniumTestBase {
 
 		checkResult(SPORT, 0, 0, OBJECT_TAG);
 
-		Assert.assertEquals(1, selenium.getXpathCount("//*[@class='dr-tbpnl-cntnt rich-tabpanel-content']//a"));
+		Assert.assertEquals(1, selenium.getXpathCount("//*[@class='rich-tabpanel-content bold']"));
 	}
 
 
 	private void checkResult(final String searchValue, final int shelfCount, final int inactiveTabCount, final String searchObjects) {
 		selenium.type(SEARCH_INPUT, searchValue);
 		selenium.click(SEARCH_BUTTON);
-		waitForAjaxCompletion();
+		waitForAjaxCompletion();		
 
 		Assert.assertEquals(1, selenium.getXpathCount(ACTIVE_TAB));
-
-		Assert.assertEquals(searchObjects, selenium.getText(SEARCH_CRITERIA_OBJECTS).trim());
+        Assert.assertEquals(SEARCH_CRITERIA + searchObjects, selenium.getText(SEARCH_CRITERIA_OBJECTS).trim());
 		Assert.assertEquals(KEYWORDS + searchValue, selenium.getText(SEARCH_CRITERIA_KEYWORDS).trim());
 
 		Assert.assertEquals(shelfCount, selenium.getXpathCount(SHELF_HEADER));
@@ -108,7 +108,7 @@ public class SearchTest extends SeleniumTestBase {
 //	@Test
 //	public void testClickOnFirstAlbum() {
 
-//		renderPage();
+//		renderPage();hindi songs 2009 hits
 //
 //		RealWorldHelper.login(selenium);
 //
