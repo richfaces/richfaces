@@ -58,7 +58,7 @@ public class AlbumManager implements Serializable{
 	@In private IAlbumAction albumAction;
 	
 	@In private User user;
-	
+	@In Model model;
 	@In FacesMessages facesMessages;
 	
 	/**
@@ -105,7 +105,10 @@ public class AlbumManager implements Serializable{
 	public void createAlbum(Shelf shelf, boolean isShowAlbumAfterCreate){
 		Album album = new Album();
 		if(shelf == null){
-			if(user.getShelves().size() > 0){
+			if(model.getSelectedShelf() != null){
+				shelf = model.getSelectedShelf();
+			}
+			else if(user.getShelves().size() > 0){
 				shelf = user.getShelves().get(0);
 			}
 			if(shelf == null){

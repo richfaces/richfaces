@@ -127,15 +127,9 @@ public class User implements Serializable {
 	private String login;
 
 	@Transient
-	@NotNull
-	@NotEmpty
-	@Length(min = 3)
 	private String password;
 
 	@Transient
-	@NotNull
-	@NotEmpty
-	@Length(min = 3)
 	private String confirmPassword;
 
 	@Temporal(TemporalType.TIMESTAMP)
