@@ -33,7 +33,7 @@ mvn clean install -Plivedemo
 To make sure the project is built successfully you need to have a SVN client installed on your local machine, for example Subversion. To launch the application use the instructions given above.
 
 In order to explore, run and deploy the application in Eclipse IDE build it with the
- mvn clean install eclipse:clean eclipse:eclipse eclipse:eclipse 
+ mvn clean install eclipse:clean eclipse:eclipse 
 
 command and import the project to the IDE.  More details you can find in the JBoss Server Manager Reference Guide (http://download.jboss.org/jbosstools/nightly-docs/en/as/html/index.html)
 
