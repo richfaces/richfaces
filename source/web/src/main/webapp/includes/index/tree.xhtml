@@ -49,7 +49,10 @@
 					<h:outputText rendered="#{shelf.unvisitedImages.size > 0}" value=" #{messages['new']}" /> 
 					<a4j:support reRender="treePanel, mainArea" event="onclick" actionListener="#{controller.showShelf(shelf)}" similarityGroupingId="sel" />
 				</a4j:outputPanel>
-				
+				<rich:toolTip direction="top-right" showDelay="1000" >
+            <span style="white-space:nowrap">
+                #{shelf.name}
+            </span>
 				</rich:treeNode>
 
 				<rich:treeNodesAdaptor var="album"
@@ -67,6 +70,10 @@
 							<h:outputText rendered="#{album.unvisitedImages.size > 0}" value=" #{messages['new']}" /> 
 						<a4j:support reRender="treePanel, mainArea" event="onclick" actionListener="#{controller.showAlbum(album)}" similarityGroupingId="sel" />
 						</a4j:outputPanel>		
+						<rich:toolTip direction="top-right" showDelay="1000" >
+            <span style="white-space:nowrap">
+                #{album.name}
+            </span>
 				</rich:treeNode>
 
 				</rich:treeNodesAdaptor>
@@ -114,7 +121,10 @@
 					<h:outputText rendered="#{shelf.unvisitedImages.size > 0}" value=" #{messages['new']}" /> 
 					<a4j:support reRender="treePanel, mainArea" event="onclick" actionListener="#{controller.showShelf(shelf)}" similarityGroupingId="sel" />
 				</a4j:outputPanel>
-				
+				<rich:toolTip direction="top-right" showDelay="1000" >
+            <span style="white-space:nowrap">
+                #{shelf.name}
+            </span>
 				</rich:treeNode>
 
 				<rich:treeNodesAdaptor var="album"
@@ -138,7 +148,10 @@
 							<h:outputText rendered="#{album.unvisitedImages.size > 0}" value=" #{messages['new']}" /> 
 						<a4j:support reRender="treePanel, mainArea" event="onclick" actionListener="#{controller.showAlbum(album)}" similarityGroupingId="sel" />
 						</a4j:outputPanel>
-						
+						<rich:toolTip direction="top-right" showDelay="1000" >
+            <span style="white-space:nowrap">
+                #{shelf.name}
+            </span>
 				</rich:treeNode>
 
 				</rich:treeNodesAdaptor>
