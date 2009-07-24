@@ -65,6 +65,7 @@ public class ImageSearchHelper implements Serializable {
 	boolean seachInMyAlbums;
 	
 	boolean searchInShared = true;
+	private SearchInformationHolder searchOptionsHolder;
 	
 	/**
 	 * Default constructor. During instantiation populate in field options all possible search options
@@ -99,6 +100,7 @@ public class ImageSearchHelper implements Serializable {
 	 * Method, that perform search, when user clicks by 'Find' button.
 	 */
 	public void search() {
+		searchOptionsHolder = null;
 		if(!isSearchOptionSelected()){
 			//If no options selected
 			Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.SEARCH_NO_OPTIONS_ERROR);
@@ -127,6 +129,7 @@ public class ImageSearchHelper implements Serializable {
 				Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, option.getName() + ":" + e.getMessage());
 			}
 		}
+		searchOptionsHolder = new SearchInformationHolder(new ArrayList<ISearchOption>(options),seachInMyAlbums, searchInShared);
 	}
 
 	/**
@@ -138,13 +141,13 @@ public class ImageSearchHelper implements Serializable {
 			Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, Constants.SEARCH_NO_OPTIONS_ERROR);
 			return;
 		}
-		Iterator<ISearchOption> it = options.iterator();
+		Iterator<ISearchOption> it = searchOptionsHolder.getOptions().iterator();
 		selectedKeyword = keyword.trim();
 		while (it.hasNext()) {
 			ISearchOption option = it.next();
 			try{
 				if (option.getSelected()) {
-					option.search(searchAction, selectedKeyword , seachInMyAlbums, searchInShared);
+					option.search(searchAction, selectedKeyword , searchOptionsHolder.isSeachInMyAlbums(), searchOptionsHolder.isSearchInShared());
 				}
 			}catch(PhotoAlbumException e){
 				Events.instance().raiseEvent(Constants.ADD_ERROR_EVENT, option.getName() + ":" + e.getMessage());
@@ -252,5 +255,29 @@ public class ImageSearchHelper implements Serializable {
 			}
 		}
 		return isOptionSelected;
+	}
+}
+class SearchInformationHolder{
+	SearchInformationHolder(List<ISearchOption> options, boolean seachInMyAlbums, boolean searchInShared){
+		this.options = options;
+		this.seachInMyAlbums = seachInMyAlbums;
+		this.searchInShared = searchInShared;
+	}
+	List<ISearchOption> options;
+	
+	boolean seachInMyAlbums;
+	
+	boolean searchInShared;
+
+	public List<ISearchOption> getOptions() {
+		return options;
+	}
+
+	public boolean isSeachInMyAlbums() {
+		return seachInMyAlbums;
+	}
+
+	public boolean isSearchInShared() {
+		return searchInShared;
 	}
 }
