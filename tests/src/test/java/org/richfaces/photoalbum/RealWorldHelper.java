@@ -66,7 +66,7 @@ public class RealWorldHelper {
 		}
 		
 		public static interface ToolBarArea {
-			String PATH = "//*[@class='rich-toolbar-item main-menu-toolbar-content']";
+			String PATH = "//*[@class='dr-toolbar-int rich-toolbar-item main-menu-toolbar-content']";
 			String VIEW_SHELFS_PATH = PATH + "/div[2]";
 			String VIEW_ALBUMS_PATH = PATH + "/div[3]";
 			String VIEW_IMAGES_PATH = PATH + "/div[4]";
@@ -96,7 +96,7 @@ public class RealWorldHelper {
 			String HEADER_PATH = "//*[@class='album-header-table']";
 			String HEADER_NAME_PATH_SUFFIX = "//h1//text()";
 			String HEADER_NAME_PATH = HEADER_PATH + HEADER_NAME_PATH_SUFFIX;
-			String DESCRIPTION_PATH = HEADER_PATH + "/following-sibling::p";
+			String DESCRIPTION_PATH = HEADER_PATH + "/following-sibling::div[1]";
 			String PREVIEW_PATH = "//*[@class='preview_box_album_120']";
 			String PREVIEW_LINK_PATH_SUFFIX = "//a";
 			String PREVIEW_DRAG_PATH_SUFFIX = PREVIEW_LINK_PATH_SUFFIX + "/img";
@@ -172,8 +172,8 @@ public class RealWorldHelper {
 			String SEARCH_BUTTON = "//*[@class='search-find-button']";
 			String SEARCH_OPTION = "//*[@class='search-option-link']";
 
-			String INACTIVE_TAB = "//*[@class='rich-tab-header rich-tab-inactive bold']";
-			String ACTIVE_TAB = "//*[@class='rich-tab-header rich-tab-active bold']";
+			String INACTIVE_TAB = "//*[@class='dr-tbpnl-tb rich-tab-header dr-tbpnl-tb-inact rich-tab-inactive bold']";
+			String ACTIVE_TAB = "//*[@class='dr-tbpnl-tb rich-tab-header dr-tbpnl-tb-act rich-tab-active bold']";
 
 			String SEARCH_CRITERIA_KEYWORDS = "//*[@class='search-keyword']";
 			String SEARCH_CRITERIA_OBJECTS = "//*[@class='search-criteria'][1]";

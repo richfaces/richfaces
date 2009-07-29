@@ -39,20 +39,19 @@
 				var="shelf">
 				<rich:treeNode style="cursor:pointer" reRender="treePanel,mainArea"
 					selectedClass="tree-selected-node">
-				<f:facet name="icon">
-					<h:graphicImage style="border: none" value="/img/shell/tree_icon_shelf.png"/>
-				</f:facet>
-				<a4j:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;" >
-					<h:outputText  value="#{shelf.name}" />
-					<h:outputText rendered="#{shelf.unvisitedImages.size > 0}" value=" :: " />
-					<h:outputText rendered="#{shelf.unvisitedImages.size > 0}" styleClass="bold" value="#{shelf.unvisitedImages.size()}"/>
-					<h:outputText rendered="#{shelf.unvisitedImages.size > 0}" value=" #{messages['new']}" /> 
-					<a4j:support reRender="treePanel, mainArea" event="onclick" actionListener="#{controller.showShelf(shelf)}" similarityGroupingId="sel" />
-				</a4j:outputPanel>
-				<rich:toolTip direction="top-right" showDelay="1000" >
-            <span style="white-space:nowrap">
-                #{shelf.name}
-            </span>
+					<f:facet name="icon">
+						<h:graphicImage style="border: none" value="/img/shell/tree_icon_shelf.png"/>
+					</f:facet>
+					<a4j:outputPanel layout="block" style="cursor:pointer;width:200px; overflow-x:hidden;" >
+						<h:outputText  value="#{shelf.name}" />
+						<h:outputText rendered="#{shelf.unvisitedImages.size > 0}" value=" :: " />
+						<h:outputText rendered="#{shelf.unvisitedImages.size > 0}" styleClass="bold" value="#{shelf.unvisitedImages.size()}"/>
+						<h:outputText rendered="#{shelf.unvisitedImages.size > 0}" value=" #{messages['new']}" /> 
+						<a4j:support reRender="treePanel, mainArea" event="onclick" actionListener="#{controller.showShelf(shelf)}" similarityGroupingId="sel" />
+					</a4j:outputPanel>
+					<rich:toolTip direction="top-right" showDelay="1000" >
+			            <span style="white-space:nowrap">#{shelf.name}</span>
+					</rich:toolTip>
 				</rich:treeNode>
 
 				<rich:treeNodesAdaptor var="album"
@@ -71,9 +70,8 @@
 						<a4j:support reRender="treePanel, mainArea" event="onclick" actionListener="#{controller.showAlbum(album)}" similarityGroupingId="sel" />
 						</a4j:outputPanel>		
 						<rich:toolTip direction="top-right" showDelay="1000" >
-            <span style="white-space:nowrap">
-                #{album.name}
-            </span>
+				            <span style="white-space:nowrap">#{album.name}</span>
+						</rich:toolTip>
 				</rich:treeNode>
 
 				</rich:treeNodesAdaptor>
@@ -122,9 +120,10 @@
 					<a4j:support reRender="treePanel, mainArea" event="onclick" actionListener="#{controller.showShelf(shelf)}" similarityGroupingId="sel" />
 				</a4j:outputPanel>
 				<rich:toolTip direction="top-right" showDelay="1000" >
-            <span style="white-space:nowrap">
-                #{shelf.name}
-            </span>
+		            <span style="white-space:nowrap">
+		                #{shelf.name}
+		            </span>
+				</rich:toolTip>
 				</rich:treeNode>
 
 				<rich:treeNodesAdaptor var="album"
@@ -149,9 +148,10 @@
 						<a4j:support reRender="treePanel, mainArea" event="onclick" actionListener="#{controller.showAlbum(album)}" similarityGroupingId="sel" />
 						</a4j:outputPanel>
 						<rich:toolTip direction="top-right" showDelay="1000" >
-            <span style="white-space:nowrap">
-                #{shelf.name}
-            </span>
+				            <span style="white-space:nowrap">
+				                #{shelf.name}
+				            </span>
+						</rich:toolTip>
 				</rich:treeNode>
 
 				</rich:treeNodesAdaptor>
