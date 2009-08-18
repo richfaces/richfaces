@@ -2,11 +2,22 @@ INSERT INTO User(id, firstname, secondname, email, login, passwordHash, birthdat
 INSERT INTO User(id, firstname, secondname, email, login, passwordHash, birthdate, sex, hasAvatar, preDefined) VALUES (2,  'Nick',   'Curtis',  'nkurtis@iba.com',      'Viking',   '8cb2237d0679ca88db6464eac60da96345513964',  '1978-01-08', 1, false, true);
 INSERT INTO User(id, firstname, secondname, email, login, passwordHash, birthdate, sex, hasAvatar, preDefined) VALUES (3,  'John',   'Smith',   'jsmith@jboss.com',     'Noname',   '8cb2237d0679ca88db6464eac60da96345513964',  '1970-01-08', 1, false, true);
 
+INSERT INTO User(id, firstname, secondname, email, login, passwordHash, birthdate, sex, hasAvatar, preDefined) VALUES (10, 'John',   'Smith',   'jsmith_10@jboss.com',     'user_for_add',   '8cb2237d0679ca88db6464eac60da96345513964',  '1970-01-08', 1, false, false);
+INSERT INTO User(id, firstname, secondname, email, login, passwordHash, birthdate, sex, hasAvatar, preDefined) VALUES (11, 'John',   'Smith',   'jsmith_11@jboss.com',     'user_for_del',   '8cb2237d0679ca88db6464eac60da96345513964',  '1970-01-08', 1, false, false);
+INSERT INTO User(id, firstname, secondname, email, login, passwordHash, birthdate, sex, hasAvatar, preDefined) VALUES (12, 'John',   'Smith',   'jsmith_12@jboss.com',     'user_for_dnd',  '8cb2237d0679ca88db6464eac60da96345513964',  '1970-01-08', 1, false, false);
+
 INSERT INTO Shelf(id, name, description, owner_id, created, shared) VALUES (1, 'Nature',       'Nature pictures',        1, '2009-12-18', true);
 INSERT INTO Shelf(id, name, description, owner_id, created, shared) VALUES (2, 'Sport & Cars', 'Sport & Cars pictures',  1, '2009-12-18', true);
 INSERT INTO Shelf(id, name, description, owner_id, created, shared) VALUES (3, 'Portrait',     'Human faces',        2, '2009-12-18', true);
 INSERT INTO Shelf(id, name, description, owner_id, created, shared) VALUES (4, 'Monuments',    'Monuments pictures',     3, '2009-12-18', true);
 INSERT INTO Shelf(id, name, description, owner_id, created, shared) VALUES (5, 'Water',        'Water pictures',         3, '2009-12-18', true);
+
+INSERT INTO Shelf(id, name, description, owner_id, created, shared) VALUES (100, 'MyShelf 100',     'MyShelf',               10, '2009-12-18', false);
+INSERT INTO Shelf(id, name, description, owner_id, created, shared) VALUES (101, 'MyShelf 101',     'MyShelf',               10, '2009-12-18', false);
+INSERT INTO Shelf(id, name, description, owner_id, created, shared) VALUES (110, 'MyShelf 110',     'MyShelf',               11, '2009-12-18', false);
+INSERT INTO Shelf(id, name, description, owner_id, created, shared) VALUES (111, 'MyShelf 111',     'MyShelf',               11, '2009-12-18', false);
+INSERT INTO Shelf(id, name, description, owner_id, created, shared) VALUES (120, 'MyShelf 120',     'MyShelf',               12, '2009-12-18', false);
+INSERT INTO Shelf(id, name, description, owner_id, created, shared) VALUES (121, 'MyShelf 121',     'MyShelf',               12, '2009-12-18', false);
 
 ---------------------------------------------------------------------
 -- ALBUM - Animals"
@@ -562,4 +573,194 @@ INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, w
   INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (255, '1985-01-08', 'Perfecft!',120, 2);
   INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (256, '1985-01-08', 'Gorgeous! Lovely color!',120, 1);
 UPDATE Album set coveringImage_id=120 where id = 6;
+
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+-- TEST DATA
+---------------------------------------------------------------------
+---------------------------------------------------------------------
+
+---------------------------------------------------------------------
+-- ALBUM - MyShelf - 100
+---------------------------------------------------------------------
+INSERT INTO Album(id, name, description, shelf_id, created) VALUES (100, 'MyAlbum 100', 'MyAlbum pictures',  100, '2009-12-18');
+INSERT INTO MetaTag(id, tag) VALUES (10006,  'MyAlbum_100');
+
+INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, width, size, height, uploaded, allowComments, showMetaInfo) VALUES (100027, '117215467_5cccef9aaa_b.jpg', '117215467_5cccef9aaa_b.jpg', 'Water - 117215467_5cccef9aaa_b.jpg image',  '2009-12-18', 100, 'Sony CyberShot DSC-T77', 1024, 1917, 768, '2009-12-01', true, true);
+  INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(10006, 100027);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (100052, '1985-01-08', '|Wonderful| coloured flower .... *excellent* macro .... -nice- details!!!',100027, 2);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (100053, '1985-01-08', 'love every thing about this picture, really beautiful... :))',100027, 3);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (100054, '1985-01-08', 'Perfecft!',100027, 3);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (100055, '1985-01-08', 'Beautiful colours. Nice close up. ',100027, 1);
+INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, width, size, height, uploaded, allowComments, showMetaInfo) VALUES (100029, '205579493_baf0f850d1_o.jpg', '205579493_baf0f850d1_o.jpg', 'Water - 205579493_baf0f850d1_o.jpg image',  '2009-12-18', 100, 'Nikon D60', 1024, 1917, 768, '2009-12-01', true, true);
+  INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(10006, 100029);
+UPDATE Album set coveringImage_id=100027 where id = 1000;
+---------------------------------------------------------------------
+-- ALBUM - MyShelf - 101
+---------------------------------------------------------------------
+INSERT INTO Album(id, name, description, shelf_id, created) VALUES (101, 'MyAlbum 101', 'MyAlbum pictures',  100, '2009-12-18');
+INSERT INTO MetaTag(id, tag) VALUES (10106,  'MyAlbum_101');
+
+INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, width, size, height, uploaded, allowComments, showMetaInfo) VALUES (101027, '117215467_5cccef9aaa_b.jpg', '117215467_5cccef9aaa_b.jpg', 'Water - 117215467_5cccef9aaa_b.jpg image',  '2009-12-18', 101, 'Sony CyberShot DSC-T77', 1024, 1917, 768, '2009-12-01', true, true);
+  INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(10106, 101027);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (101052, '1985-01-08', '|Wonderful| coloured flower .... *excellent* macro .... -nice- details!!!',101027, 2);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (101053, '1985-01-08', 'love every thing about this picture, really beautiful... :))',101027, 3);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (101054, '1985-01-08', 'Perfecft!',101027, 3);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (101055, '1985-01-08', 'Beautiful colours. Nice close up. ',101027, 1);
+INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, width, size, height, uploaded, allowComments, showMetaInfo) VALUES (101029, '205579493_baf0f850d1_o.jpg', '205579493_baf0f850d1_o.jpg', 'Water - 205579493_baf0f850d1_o.jpg image',  '2009-12-18', 101, 'Nikon D60', 1024, 1917, 768, '2009-12-01', true, true);
+  INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(10106, 101029);
+UPDATE Album set coveringImage_id=101027 where id = 1010;
+---------------------------------------------------------------------
+-- ALBUM - MyShelf - 102
+---------------------------------------------------------------------
+INSERT INTO Album(id, name, description, shelf_id, created) VALUES (102, 'MyAlbum 102', 'MyAlbum pictures',  101, '2009-12-18');
+INSERT INTO MetaTag(id, tag) VALUES (10206,  'MyAlbum_102');
+
+INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, width, size, height, uploaded, allowComments, showMetaInfo) VALUES (102027, '117215467_5cccef9aaa_b.jpg', '117215467_5cccef9aaa_b.jpg', 'Water - 117215467_5cccef9aaa_b.jpg image',  '2009-12-18', 102, 'Sony CyberShot DSC-T77', 1024, 1917, 768, '2009-12-01', true, true);
+  INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(10206, 102027);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (102052, '1985-01-08', '|Wonderful| coloured flower .... *excellent* macro .... -nice- details!!!',102027, 2);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (102053, '1985-01-08', 'love every thing about this picture, really beautiful... :))',102027, 3);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (102054, '1985-01-08', 'Perfecft!',102027, 3);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (102055, '1985-01-08', 'Beautiful colours. Nice close up. ',102027, 1);
+INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, width, size, height, uploaded, allowComments, showMetaInfo) VALUES (102029, '205579493_baf0f850d1_o.jpg', '205579493_baf0f850d1_o.jpg', 'Water - 205579493_baf0f850d1_o.jpg image',  '2009-12-18', 102, 'Nikon D60', 1024, 1917, 768, '2009-12-01', true, true);
+  INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(10206, 102029);
+UPDATE Album set coveringImage_id=102027 where id = 1020;
+---------------------------------------------------------------------
+-- ALBUM - MyShelf - 103
+---------------------------------------------------------------------
+INSERT INTO Album(id, name, description, shelf_id, created) VALUES (103, 'MyAlbum 103', 'MyAlbum pictures',  101, '2009-12-18');
+INSERT INTO MetaTag(id, tag) VALUES (10306,  'MyAlbum_103');
+
+INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, width, size, height, uploaded, allowComments, showMetaInfo) VALUES (103027, '117215467_5cccef9aaa_b.jpg', '117215467_5cccef9aaa_b.jpg', 'Water - 117215467_5cccef9aaa_b.jpg image',  '2009-12-18', 103, 'Sony CyberShot DSC-T77', 1024, 1917, 768, '2009-12-01', true, true);
+  INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(10306, 103027);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (103052, '1985-01-08', '|Wonderful| coloured flower .... *excellent* macro .... -nice- details!!!',103027, 2);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (103053, '1985-01-08', 'love every thing about this picture, really beautiful... :))',103027, 3);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (103054, '1985-01-08', 'Perfecft!',103027, 3);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (103055, '1985-01-08', 'Beautiful colours. Nice close up. ',103027, 1);
+INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, width, size, height, uploaded, allowComments, showMetaInfo) VALUES (103029, '205579493_baf0f850d1_o.jpg', '205579493_baf0f850d1_o.jpg', 'Water - 205579493_baf0f850d1_o.jpg image',  '2009-12-18', 103, 'Nikon D60', 1024, 1917, 768, '2009-12-01', true, true);
+  INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(10306, 103029);
+UPDATE Album set coveringImage_id=103027 where id = 1030;
+
+---------------------------------------------------------------------
+-- ALBUM - MyShelf - 110
+---------------------------------------------------------------------
+INSERT INTO Album(id, name, description, shelf_id, created) VALUES (110, 'MyAlbum 110', 'MyAlbum pictures',  110, '2009-12-18');
+INSERT INTO MetaTag(id, tag) VALUES (11006,  'MyAlbum_110');
+
+INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, width, size, height, uploaded, allowComments, showMetaInfo) VALUES (110027, '117215467_5cccef9aaa_b.jpg', '117215467_5cccef9aaa_b.jpg', 'Water - 117215467_5cccef9aaa_b.jpg image',  '2009-12-18', 110, 'Sony CyberShot DSC-T77', 1024, 1917, 768, '2009-12-01', true, true);
+  INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(11006, 110027);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (110052, '1985-01-08', '|Wonderful| coloured flower .... *excellent* macro .... -nice- details!!!',110027, 2);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (110053, '1985-01-08', 'love every thing about this picture, really beautiful... :))',110027, 3);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (110054, '1985-01-08', 'Perfecft!',110027, 3);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (110055, '1985-01-08', 'Beautiful colours. Nice close up. ',110027, 1);
+INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, width, size, height, uploaded, allowComments, showMetaInfo) VALUES (110029, '205579493_baf0f850d1_o.jpg', '205579493_baf0f850d1_o.jpg', 'Water - 205579493_baf0f850d1_o.jpg image',  '2009-12-18', 110, 'Nikon D60', 1024, 1917, 768, '2009-12-01', true, true);
+  INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(11006, 110029);
+UPDATE Album set coveringImage_id=110027 where id = 1100;
+---------------------------------------------------------------------
+-- ALBUM - MyShelf - 111
+---------------------------------------------------------------------
+INSERT INTO Album(id, name, description, shelf_id, created) VALUES (111, 'MyAlbum 111', 'MyAlbum pictures',  110, '2009-12-18');
+INSERT INTO MetaTag(id, tag) VALUES (11106,  'MyAlbum_111');
+
+INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, width, size, height, uploaded, allowComments, showMetaInfo) VALUES (111027, '117215467_5cccef9aaa_b.jpg', '117215467_5cccef9aaa_b.jpg', 'Water - 117215467_5cccef9aaa_b.jpg image',  '2009-12-18', 111, 'Sony CyberShot DSC-T77', 1024, 1917, 768, '2009-12-01', true, true);
+  INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(11106, 111027);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (111052, '1985-01-08', '|Wonderful| coloured flower .... *excellent* macro .... -nice- details!!!',111027, 2);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (111053, '1985-01-08', 'love every thing about this picture, really beautiful... :))',111027, 3);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (111054, '1985-01-08', 'Perfecft!',111027, 3);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (111055, '1985-01-08', 'Beautiful colours. Nice close up. ',111027, 1);
+INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, width, size, height, uploaded, allowComments, showMetaInfo) VALUES (111029, '205579493_baf0f850d1_o.jpg', '205579493_baf0f850d1_o.jpg', 'Water - 205579493_baf0f850d1_o.jpg image',  '2009-12-18', 111, 'Nikon D60', 1024, 1917, 768, '2009-12-01', true, true);
+  INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(11106, 111029);
+UPDATE Album set coveringImage_id=111027 where id = 1110;
+---------------------------------------------------------------------
+-- ALBUM - MyShelf - 112
+---------------------------------------------------------------------
+INSERT INTO Album(id, name, description, shelf_id, created) VALUES (112, 'MyAlbum 112', 'MyAlbum pictures',  111, '2009-12-18');
+INSERT INTO MetaTag(id, tag) VALUES (11206,  'MyAlbum_112');
+
+INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, width, size, height, uploaded, allowComments, showMetaInfo) VALUES (112027, '117215467_5cccef9aaa_b.jpg', '117215467_5cccef9aaa_b.jpg', 'Water - 117215467_5cccef9aaa_b.jpg image',  '2009-12-18', 112, 'Sony CyberShot DSC-T77', 1024, 1917, 768, '2009-12-01', true, true);
+  INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(11206, 112027);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (112052, '1985-01-08', '|Wonderful| coloured flower .... *excellent* macro .... -nice- details!!!',112027, 2);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (112053, '1985-01-08', 'love every thing about this picture, really beautiful... :))',112027, 3);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (112054, '1985-01-08', 'Perfecft!',112027, 3);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (112055, '1985-01-08', 'Beautiful colours. Nice close up. ',112027, 1);
+INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, width, size, height, uploaded, allowComments, showMetaInfo) VALUES (112029, '205579493_baf0f850d1_o.jpg', '205579493_baf0f850d1_o.jpg', 'Water - 205579493_baf0f850d1_o.jpg image',  '2009-12-18', 112, 'Nikon D60', 1024, 1917, 768, '2009-12-01', true, true);
+  INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(11206, 112029);
+UPDATE Album set coveringImage_id=112027 where id = 1120;
+---------------------------------------------------------------------
+-- ALBUM - MyShelf - 113
+---------------------------------------------------------------------
+INSERT INTO Album(id, name, description, shelf_id, created) VALUES (113, 'MyAlbum 113', 'MyAlbum pictures',  111, '2009-12-18');
+INSERT INTO MetaTag(id, tag) VALUES (11306,  'MyAlbum_113');
+
+INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, width, size, height, uploaded, allowComments, showMetaInfo) VALUES (113027, '117215467_5cccef9aaa_b.jpg', '117215467_5cccef9aaa_b.jpg', 'Water - 117215467_5cccef9aaa_b.jpg image',  '2009-12-18', 113, 'Sony CyberShot DSC-T77', 1024, 1917, 768, '2009-12-01', true, true);
+  INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(11306, 113027);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (113052, '1985-01-08', '|Wonderful| coloured flower .... *excellent* macro .... -nice- details!!!',113027, 2);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (113053, '1985-01-08', 'love every thing about this picture, really beautiful... :))',113027, 3);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (113054, '1985-01-08', 'Perfecft!',113027, 3);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (113055, '1985-01-08', 'Beautiful colours. Nice close up. ',113027, 1);
+INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, width, size, height, uploaded, allowComments, showMetaInfo) VALUES (113029, '205579493_baf0f850d1_o.jpg', '205579493_baf0f850d1_o.jpg', 'Water - 205579493_baf0f850d1_o.jpg image',  '2009-12-18', 113, 'Nikon D60', 1024, 1917, 768, '2009-12-01', true, true);
+  INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(11306, 113029);
+UPDATE Album set coveringImage_id=113027 where id = 1130;
+
+---------------------------------------------------------------------
+-- ALBUM - MyShelf - 120
+---------------------------------------------------------------------
+INSERT INTO Album(id, name, description, shelf_id, created) VALUES (120, 'MyAlbum 120', 'MyAlbum pictures',  120, '2009-12-18');
+INSERT INTO MetaTag(id, tag) VALUES (12006,  'MyAlbum_120');
+
+INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, width, size, height, uploaded, allowComments, showMetaInfo) VALUES (120027, '117215467_5cccef9aaa_b.jpg', '117215467_5cccef9aaa_b.jpg', 'Water - 117215467_5cccef9aaa_b.jpg image',  '2009-12-18', 120, 'Sony CyberShot DSC-T77', 1024, 1917, 768, '2009-12-01', true, true);
+  INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(12006, 120027);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (120052, '1985-01-08', '|Wonderful| coloured flower .... *excellent* macro .... -nice- details!!!',120027, 2);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (120053, '1985-01-08', 'love every thing about this picture, really beautiful... :))',120027, 3);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (120054, '1985-01-08', 'Perfecft!',120027, 3);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (120055, '1985-01-08', 'Beautiful colours. Nice close up. ',120027, 1);
+INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, width, size, height, uploaded, allowComments, showMetaInfo) VALUES (120029, '205579493_baf0f850d1_o.jpg', '205579493_baf0f850d1_o.jpg', 'Water - 205579493_baf0f850d1_o.jpg image',  '2009-12-18', 120, 'Nikon D60', 1024, 1917, 768, '2009-12-01', true, true);
+  INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(12006, 120029);
+UPDATE Album set coveringImage_id=120027 where id = 1200;
+---------------------------------------------------------------------
+-- ALBUM - MyShelf - 121
+---------------------------------------------------------------------
+INSERT INTO Album(id, name, description, shelf_id, created) VALUES (121, 'MyAlbum 121', 'MyAlbum pictures',  120, '2009-12-18');
+INSERT INTO MetaTag(id, tag) VALUES (12106,  'MyAlbum_121');
+
+INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, width, size, height, uploaded, allowComments, showMetaInfo) VALUES (121027, '117215467_5cccef9aaa_b.jpg', '117215467_5cccef9aaa_b.jpg', 'Water - 117215467_5cccef9aaa_b.jpg image',  '2009-12-18', 121, 'Sony CyberShot DSC-T77', 1024, 1917, 768, '2009-12-01', true, true);
+  INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(12106, 121027);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (121052, '1985-01-08', '|Wonderful| coloured flower .... *excellent* macro .... -nice- details!!!',121027, 2);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (121053, '1985-01-08', 'love every thing about this picture, really beautiful... :))',121027, 3);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (121054, '1985-01-08', 'Perfecft!',121027, 3);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (121055, '1985-01-08', 'Beautiful colours. Nice close up. ',121027, 1);
+INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, width, size, height, uploaded, allowComments, showMetaInfo) VALUES (121029, '205579493_baf0f850d1_o.jpg', '205579493_baf0f850d1_o.jpg', 'Water - 205579493_baf0f850d1_o.jpg image',  '2009-12-18', 121, 'Nikon D60', 1024, 1917, 768, '2009-12-01', true, true);
+  INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(12106, 121029);
+UPDATE Album set coveringImage_id=121027 where id = 1210;
+---------------------------------------------------------------------
+-- ALBUM - MyShelf - 122
+---------------------------------------------------------------------
+INSERT INTO Album(id, name, description, shelf_id, created) VALUES (122, 'MyAlbum 122', 'MyAlbum pictures',  121, '2009-12-18');
+INSERT INTO MetaTag(id, tag) VALUES (12206,  'MyAlbum_122');
+
+INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, width, size, height, uploaded, allowComments, showMetaInfo) VALUES (122027, '117215467_5cccef9aaa_b.jpg', '117215467_5cccef9aaa_b.jpg', 'Water - 117215467_5cccef9aaa_b.jpg image',  '2009-12-18', 122, 'Sony CyberShot DSC-T77', 1024, 1917, 768, '2009-12-01', true, true);
+  INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(12206, 122027);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (122052, '1985-01-08', '|Wonderful| coloured flower .... *excellent* macro .... -nice- details!!!',122027, 2);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (122053, '1985-01-08', 'love every thing about this picture, really beautiful... :))',122027, 3);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (122054, '1985-01-08', 'Perfecft!',122027, 3);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (122055, '1985-01-08', 'Beautiful colours. Nice close up. ',122027, 1);
+INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, width, size, height, uploaded, allowComments, showMetaInfo) VALUES (122029, '205579493_baf0f850d1_o.jpg', '205579493_baf0f850d1_o.jpg', 'Water - 205579493_baf0f850d1_o.jpg image',  '2009-12-18', 122, 'Nikon D60', 1024, 1917, 768, '2009-12-01', true, true);
+  INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(12206, 122029);
+UPDATE Album set coveringImage_id=122027 where id = 1220;
+---------------------------------------------------------------------
+-- ALBUM - MyShelf - 123
+---------------------------------------------------------------------
+INSERT INTO Album(id, name, description, shelf_id, created) VALUES (123, 'MyAlbum 123', 'MyAlbum pictures',  121, '2009-12-18');
+INSERT INTO MetaTag(id, tag) VALUES (12306,  'MyAlbum_123');
+
+INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, width, size, height, uploaded, allowComments, showMetaInfo) VALUES (123027, '117215467_5cccef9aaa_b.jpg', '117215467_5cccef9aaa_b.jpg', 'Water - 117215467_5cccef9aaa_b.jpg image',  '2009-12-18', 123, 'Sony CyberShot DSC-T77', 1024, 1917, 768, '2009-12-01', true, true);
+  INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(12306, 123027);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (123052, '1985-01-08', '|Wonderful| coloured flower .... *excellent* macro .... -nice- details!!!',123027, 2);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (123053, '1985-01-08', 'love every thing about this picture, really beautiful... :))',123027, 3);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (123054, '1985-01-08', 'Perfecft!',123027, 3);
+  INSERT INTO Comment(id, date, message, image_id, author_id) VALUES (123055, '1985-01-08', 'Beautiful colours. Nice close up. ',123027, 1);
+INSERT INTO Image(id, name, path, description, created, album_id, cameraModel, width, size, height, uploaded, allowComments, showMetaInfo) VALUES (123029, '205579493_baf0f850d1_o.jpg', '205579493_baf0f850d1_o.jpg', 'Water - 205579493_baf0f850d1_o.jpg image',  '2009-12-18', 123, 'Nikon D60', 1024, 1917, 768, '2009-12-01', true, true);
+  INSERT INTO Image_MetaTag(IMAGETAGS_ID, IMAGES_ID) VALUES(12306, 123029);
+UPDATE Album set coveringImage_id=123027 where id = 1230;
+
 

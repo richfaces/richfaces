@@ -15,28 +15,37 @@ import org.testng.annotations.Test;
  *
  */
 public class DeleteUseCasesTest extends SeleniumTestBase {
-	
-	@Test
+
+    @Test
+    public void testDelete() {
+        testDeleteImage();
+        testDeleteAlbum();
+        testDeleteShelf();
+    }
+
 	public void testDeleteImage() {
 		renderPage();
-		RealWorldHelper.login(selenium);
+		RealWorldHelper.login(selenium, "user_for_del");
 		selenium.click(HtmlConstants.ToolBarArea.VIEW_IMAGES_PATH);
 		waitForAjaxCompletion();
-		String imageName = selenium.getText(HtmlConstants.ImageArea.PREVIEW_PATH + HtmlConstants.ImageArea.PREVIEW_NAME_PATH_SUFFIX);
+
+        String imageName = selenium.getText(HtmlConstants.ImageArea.PREVIEW_PATH + HtmlConstants.ImageArea.PREVIEW_NAME_PATH_SUFFIX);
+        String xpath = "//*[@class='preview_box_photo_120']/*[@class='photo_name' and . = '" + imageName + "']";
+        int count = selenium.getXpathCount(xpath).intValue();
 		RealWorldHelper.openImageFromPreview(selenium);
 		RealWorldHelper.deleteCurrentImage(selenium);
 		selenium.click(HtmlConstants.ToolBarArea.VIEW_IMAGES_PATH);
 		waitForAjaxCompletion();
-		Assert.assertFalse(RealWorldHelper.isImagePresentOnPage(selenium, imageName));
+		Assert.assertTrue(count > selenium.getXpathCount(xpath).intValue());
 	}
 
-	@Test
 	public void testDeleteAlbum() {
 		renderPage();
-		RealWorldHelper.login(selenium);
+		RealWorldHelper.login(selenium, "user_for_del");
 		selenium.click(HtmlConstants.ToolBarArea.VIEW_ALBUMS_PATH);
 		waitForAjaxCompletion();
-		String albumName = selenium.getText(HtmlConstants.AlbumArea.PREVIEW_PATH + HtmlConstants.AlbumArea.PREVIEW_NAME_PATH_SUFFIX);
+
+        String albumName = selenium.getText(HtmlConstants.AlbumArea.PREVIEW_PATH + HtmlConstants.AlbumArea.PREVIEW_NAME_PATH_SUFFIX);
 		RealWorldHelper.openAlbumFromPreview(selenium);
 		RealWorldHelper.deleteCurrentAlbum(selenium);
 		selenium.click(HtmlConstants.ToolBarArea.VIEW_ALBUMS_PATH);
@@ -44,11 +53,11 @@ public class DeleteUseCasesTest extends SeleniumTestBase {
 		Assert.assertFalse(RealWorldHelper.isAlbumPresentOnPage(selenium, albumName));
 	}
 	
-	@Test
 	public void testDeleteShelf() {
 		renderPage();
-		RealWorldHelper.login(selenium);
-		String shelfName = selenium.getText(HtmlConstants.ShelfArea.HEADER_NAME_PATH);
+		RealWorldHelper.login(selenium, "user_for_del");
+
+        String shelfName = selenium.getText(HtmlConstants.ShelfArea.HEADER_NAME_PATH);
 		RealWorldHelper.deleteCurrentShelf(selenium);
 		Assert.assertFalse(RealWorldHelper.isShelfPresentOnPage(selenium, shelfName));
 	}

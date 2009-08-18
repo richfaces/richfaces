@@ -87,7 +87,7 @@ public class SearchTest extends SeleniumTestBase {
 
 		checkResult(SPORT, 0, 0, OBJECT_TAG);
 
-		Assert.assertEquals(1, selenium.getXpathCount("//*[@class='rich-tabpanel-content bold']"));
+		Assert.assertEquals(1, selenium.getXpathCount("//*[contains(@class, 'rich-tabpanel-content bold')]"));
 	}
 
 

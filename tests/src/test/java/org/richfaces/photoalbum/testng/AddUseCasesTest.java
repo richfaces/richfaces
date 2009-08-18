@@ -20,11 +20,13 @@ public class AddUseCasesTest extends SeleniumTestBase {
 	public void testAddAlbum() {
 		String albumName = "_album";
 		renderPage();
-		RealWorldHelper.login(selenium);
+
+        RealWorldHelper.login(selenium, "user_for_add");
 		selenium.click(HtmlConstants.ToolBarArea.VIEW_ALBUMS_PATH);
 		waitForAjaxCompletion();
 		Assert.assertFalse(RealWorldHelper.isAlbumPresentOnPage(selenium, albumName));
-		RealWorldHelper.addAlbum(selenium, albumName);
+
+        RealWorldHelper.addAlbum(selenium, albumName);
 		selenium.click(HtmlConstants.ToolBarArea.VIEW_ALBUMS_PATH);
 		waitForAjaxCompletion();
 		Assert.assertTrue(RealWorldHelper.isAlbumPresentOnPage(selenium, albumName));
@@ -34,11 +36,13 @@ public class AddUseCasesTest extends SeleniumTestBase {
 	public void testAddShelf() {
 		String shelfName = "_shelf";
 		renderPage();
-		RealWorldHelper.login(selenium);
+
+        RealWorldHelper.login(selenium, "user_for_add");
 		selenium.click(HtmlConstants.ToolBarArea.VIEW_SHELFS_PATH);
 		waitForAjaxCompletion();
 		Assert.assertFalse(RealWorldHelper.isShelfPresentOnPage(selenium, shelfName));
-		RealWorldHelper.addShelf(selenium, shelfName);
+
+        RealWorldHelper.addShelf(selenium, shelfName);
 		selenium.click(HtmlConstants.ToolBarArea.VIEW_SHELFS_PATH);
 		waitForAjaxCompletion();
 		Assert.assertTrue(RealWorldHelper.isShelfPresentOnPage(selenium, shelfName));
