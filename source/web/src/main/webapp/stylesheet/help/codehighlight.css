@@ -1,6 +1,10 @@
 span.property {color:#0066CC;}
 
-pre.JAVA {line-height:10px;}
+pre.JAVA {
+	line-height:10px;
+	overflow-x:auto;
+	overflow-y:visible;
+}
 
 pre.XML {line-height:8px;}
 
