@@ -25,7 +25,7 @@ public class OpenAreasUseCasesTest extends SeleniumTestBase {
 	@Test
 	public void testOpenAlbumAndImageWithAuthentication() {
 		renderPage();
-		RealWorldHelper.login(selenium);
+		RealWorldHelper.login(selenium, "Viking");
 		RealWorldHelper.openAlbumFromPreview(selenium);
 		RealWorldHelper.openImageFromPreview(selenium);
 	}
@@ -33,7 +33,7 @@ public class OpenAreasUseCasesTest extends SeleniumTestBase {
 	@Test
 	public void testOpenUserProfile() {
 		renderPage();
-		RealWorldHelper.login(selenium);
+		RealWorldHelper.login(selenium, "Viking");
 		selenium.click(HtmlConstants.LogInOutArea.USER_INFO_PATH);
 		waitForAjaxCompletion();
 		RealWorldHelper.testUserProfile(selenium, UserInfoConstants.LOGIN_NAME);
@@ -42,7 +42,7 @@ public class OpenAreasUseCasesTest extends SeleniumTestBase {
 	@Test
 	public void testOpenFilesUpload() {
 		renderPage();
-		RealWorldHelper.login(selenium);
+		RealWorldHelper.login(selenium, "Viking");
 		selenium.click(HtmlConstants.ToolBarArea.ADD_IMAGE_PATH);
 		waitForAjaxCompletion();
 		RealWorldHelper.testFilesUpload(selenium);
@@ -52,7 +52,7 @@ public class OpenAreasUseCasesTest extends SeleniumTestBase {
 	@Test
 	public void testToolbarViewButtons() {
 		renderPage();
-		RealWorldHelper.login(selenium);
+		RealWorldHelper.login(selenium, "Viking");
 		
 		selenium.click(HtmlConstants.ToolBarArea.VIEW_SHELFS_PATH);
 		waitForAjaxCompletion();

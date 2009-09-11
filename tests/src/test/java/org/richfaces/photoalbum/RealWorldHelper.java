@@ -200,12 +200,24 @@ public class RealWorldHelper {
 		if (isLogined(selenium)) {
 			logout(selenium);
 		}
-		selenium.click(HtmlConstants.LogInOutArea.LOGIN_ID);
-		try {
-			Thread.sleep(5000);
-		}catch (Exception e) {
-			Assert.fail("Test failed caused by: " + e);
-		}
+
+        for (int i = 0; i < 3; i++) {
+            if (selenium.getXpathCount(HtmlConstants.LogInOutArea.LOGIN_ID).intValue() > 0) {
+                selenium.click(HtmlConstants.LogInOutArea.LOGIN_ID);
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    Assert.fail("Error : " + e.getMessage());
+                }
+                break;
+            }
+            
+            String photoalbumPath = "//*[@id='mainform:bodyPanel_body']/a";
+            if (selenium.getXpathCount(photoalbumPath).intValue() > 0) {
+                selenium.click(photoalbumPath);
+            }
+        }
 
 		Assert.assertTrue(selenium.isVisible(HtmlConstants.LoginPanel.usernameId), "Input for username in not visible");
 		Assert.assertTrue(selenium.isVisible(HtmlConstants.LoginPanel.passwordId), "Input for password in not visible");
