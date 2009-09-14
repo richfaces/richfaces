@@ -200,12 +200,29 @@ public class RealWorldHelper {
 		if (isLogined(selenium)) {
 			logout(selenium);
 		}
-		selenium.click(HtmlConstants.LogInOutArea.LOGIN_ID);
-		try {
-			Thread.sleep(5000);
-		}catch (Exception e) {
-			Assert.fail("Test failed caused by: " + e);
-		}
+
+        for (int i = 0; i < 3; i++) {
+            try {
+                selenium.click(HtmlConstants.LogInOutArea.LOGIN_ID);
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    Assert.fail("Error : " + e.getMessage());
+                }
+                break;
+            } catch (Exception e) {
+                // Do nothing.
+                System.out.println("RealWorldHelper.login -1- ");
+            }
+
+            try {
+                selenium.click("//*[@id='mainform:bodyPanel_body']/a");
+            } catch (Exception e) {
+                // Do nothing.
+                System.out.println("RealWorldHelper.login -2- ");
+            }
+        }
 
 		Assert.assertTrue(selenium.isVisible(HtmlConstants.LoginPanel.usernameId), "Input for username in not visible");
 		Assert.assertTrue(selenium.isVisible(HtmlConstants.LoginPanel.passwordId), "Input for password in not visible");
