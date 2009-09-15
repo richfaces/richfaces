@@ -199,12 +199,13 @@ public class RealWorldHelper {
 
     public static void login(SeleniumTestBase seleniumTest, String name, String password) {
         Selenium selenium = seleniumTest.selenium;
-		if (isLogined(selenium)) {
-			logout(selenium);
-		}
 
         for (int i = 0; i < 5; i++) {
             try {
+                if (isLogined(selenium)) {
+                    logout(selenium);
+                }
+
                 selenium.click(HtmlConstants.LogInOutArea.LOGIN_ID);
                 delay();
                 break;
@@ -213,8 +214,8 @@ public class RealWorldHelper {
                 System.out.println("RealWorldHelper.login not found '" + i + "'");
             }
 
-            delay(10000);
             seleniumTest.renderPage();
+            delay(10000);
         }
 
 		Assert.assertTrue(selenium.isVisible(HtmlConstants.LoginPanel.usernameId), "Input for username in not visible");
