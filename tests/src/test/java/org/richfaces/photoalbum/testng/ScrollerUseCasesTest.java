@@ -18,7 +18,7 @@ public class ScrollerUseCasesTest extends SeleniumTestBase {
 	@Test
 	public void testScroller() {
 		renderPage();
-		RealWorldHelper.login(selenium);
+		RealWorldHelper.login(this);
 		selenium.click(HtmlConstants.ToolBarArea.VIEW_IMAGES_PATH);
 		waitForAjaxCompletion();
 		RealWorldHelper.openImageFromPreview(selenium);

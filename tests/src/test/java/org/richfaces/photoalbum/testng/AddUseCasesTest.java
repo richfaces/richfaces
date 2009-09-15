@@ -21,7 +21,7 @@ public class AddUseCasesTest extends SeleniumTestBase {
 		String albumName = "_album";
 		renderPage();
 
-        RealWorldHelper.login(selenium, "user_for_add");
+        RealWorldHelper.login(this, "user_for_add");
 		selenium.click(HtmlConstants.ToolBarArea.VIEW_ALBUMS_PATH);
 		waitForAjaxCompletion();
 		Assert.assertFalse(RealWorldHelper.isAlbumPresentOnPage(selenium, albumName));
@@ -37,7 +37,7 @@ public class AddUseCasesTest extends SeleniumTestBase {
 		String shelfName = "_shelf";
 		renderPage();
 
-        RealWorldHelper.login(selenium, "user_for_add");
+        RealWorldHelper.login(this, "user_for_add");
 		selenium.click(HtmlConstants.ToolBarArea.VIEW_SHELFS_PATH);
 		waitForAjaxCompletion();
 		Assert.assertFalse(RealWorldHelper.isShelfPresentOnPage(selenium, shelfName));

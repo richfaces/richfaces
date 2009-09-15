@@ -34,7 +34,7 @@ public class SearchTest extends SeleniumTestBase {
 	public void testSearch() {
 		renderPage();
 
-		RealWorldHelper.login(selenium);
+		RealWorldHelper.login(this);
 
 		selenium.click(SEARCH_OPTION);
 		selenium.check(OBJECTS_MY);
@@ -47,7 +47,7 @@ public class SearchTest extends SeleniumTestBase {
 	public void testSearchOnMyOnly() {
 		renderPage();
 
-		RealWorldHelper.login(selenium);
+		RealWorldHelper.login(this);
 
 		selenium.click(SEARCH_OPTION);
 		selenium.check(OBJECTS_MY);
@@ -60,7 +60,7 @@ public class SearchTest extends SeleniumTestBase {
 	public void testSearchOnSharedOnly() {
 		renderPage();
 
-		RealWorldHelper.login(selenium);
+		RealWorldHelper.login(this);
 
 		selenium.click(SEARCH_OPTION);
 		selenium.uncheck(OBJECTS_MY);
@@ -73,7 +73,7 @@ public class SearchTest extends SeleniumTestBase {
 	public void testSearchOnMyTags() {
 		renderPage();
 
-		RealWorldHelper.login(selenium);
+		RealWorldHelper.login(this);
 
 		selenium.click(SEARCH_OPTION);
 		selenium.check(OBJECTS_MY);

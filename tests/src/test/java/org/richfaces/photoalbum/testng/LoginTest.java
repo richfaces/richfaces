@@ -21,7 +21,7 @@ public class LoginTest extends SeleniumTestBase {
 	public void testAuthentication() {
 		renderPage();
 		
-		RealWorldHelper.login(selenium);
+		RealWorldHelper.login(this);
 		RealWorldHelper.logout(selenium);
 	}
 	

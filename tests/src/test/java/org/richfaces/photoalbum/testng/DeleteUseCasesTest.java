@@ -25,7 +25,7 @@ public class DeleteUseCasesTest extends SeleniumTestBase {
 
 	public void testDeleteImage() {
 		renderPage();
-		RealWorldHelper.login(selenium, "user_for_del");
+		RealWorldHelper.login(this, "user_for_del");
 		selenium.click(HtmlConstants.ToolBarArea.VIEW_IMAGES_PATH);
 		waitForAjaxCompletion();
 
@@ -41,7 +41,7 @@ public class DeleteUseCasesTest extends SeleniumTestBase {
 
 	public void testDeleteAlbum() {
 		renderPage();
-		RealWorldHelper.login(selenium, "user_for_del");
+		RealWorldHelper.login(this, "user_for_del");
 		selenium.click(HtmlConstants.ToolBarArea.VIEW_ALBUMS_PATH);
 		waitForAjaxCompletion();
 
@@ -55,7 +55,7 @@ public class DeleteUseCasesTest extends SeleniumTestBase {
 	
 	public void testDeleteShelf() {
 		renderPage();
-		RealWorldHelper.login(selenium, "user_for_del");
+		RealWorldHelper.login(this, "user_for_del");
 
         String shelfName = selenium.getText(HtmlConstants.ShelfArea.HEADER_NAME_PATH);
 		RealWorldHelper.deleteCurrentShelf(selenium);

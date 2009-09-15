@@ -17,7 +17,7 @@ public class EditUseCasesTest extends SeleniumTestBase {
 	@Test
 	public void testEditShelf() {
 		renderPage();
-		RealWorldHelper.login(selenium);
+		RealWorldHelper.login(this);
 		String shelfName = selenium.getText(HtmlConstants.ShelfArea.HEADER_NAME_PATH);
 		String description = "New shelf description";
 		selenium.click(HtmlConstants.ShelfArea.EDIT_PATH);
@@ -31,7 +31,7 @@ public class EditUseCasesTest extends SeleniumTestBase {
 	@Test
 	public void testEditAlbum() {
 		renderPage();
-		RealWorldHelper.login(selenium);
+		RealWorldHelper.login(this);
 		String albumName = selenium.getText(HtmlConstants.AlbumArea.PREVIEW_PATH + HtmlConstants.AlbumArea.PREVIEW_NAME_PATH_SUFFIX);
 		String description = "New album description";
 		RealWorldHelper.openAlbumFromPreview(selenium);
@@ -46,7 +46,7 @@ public class EditUseCasesTest extends SeleniumTestBase {
 	@Test
 	public void testEditImage() {
 		renderPage();
-		RealWorldHelper.login(selenium);
+		RealWorldHelper.login(this);
 		RealWorldHelper.openAlbumFromPreview(selenium);
 		String imageName = selenium.getText(HtmlConstants.ImageArea.PREVIEW_PATH + HtmlConstants.ImageArea.PREVIEW_NAME_PATH_SUFFIX);
 		String description = "New image description";

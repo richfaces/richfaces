@@ -18,7 +18,7 @@ public class DnDUseCasesTest extends SeleniumTestBase {
 	@Test
 	public void testDnDAlbumFromTree() {
 		renderPage();
-		RealWorldHelper.login(selenium, "user_for_add");
+		RealWorldHelper.login(this, "user_for_add");
 		String toShelfName = selenium.getText(HtmlConstants.ShelfArea.HEADER_PATH + "[2]" + HtmlConstants.ShelfArea.HEADER_NAME_PATH_SUFFIX);
 		String fromShelfName = selenium.getText(HtmlConstants.ShelfArea.HEADER_PATH + "[3]" + HtmlConstants.ShelfArea.HEADER_NAME_PATH_SUFFIX);
 		RealWorldHelper.openShelf(selenium, fromShelfName);
@@ -43,7 +43,7 @@ public class DnDUseCasesTest extends SeleniumTestBase {
 	@Test
 	public void testDnDAlbumFromPreview() {
 		renderPage();
-		RealWorldHelper.login(selenium, "user_for_add");
+		RealWorldHelper.login(this, "user_for_add");
 		String fromShelfName = selenium.getText(HtmlConstants.ShelfArea.HEADER_PATH + "[2]" + HtmlConstants.ShelfArea.HEADER_NAME_PATH_SUFFIX);
 		String toShelfName = selenium.getText(HtmlConstants.ShelfArea.HEADER_PATH + "[3]" + HtmlConstants.ShelfArea.HEADER_NAME_PATH_SUFFIX);
 		RealWorldHelper.openShelf(selenium, fromShelfName);
@@ -66,7 +66,7 @@ public class DnDUseCasesTest extends SeleniumTestBase {
 	@Test
 	public void testDnDImage() {
 		renderPage();
-		RealWorldHelper.login(selenium, "user_for_dnd");
+		RealWorldHelper.login(this, "user_for_dnd");
 		RealWorldHelper.openShelf(selenium);
 		String fromAlbumName = selenium.getText(HtmlConstants.AlbumArea.PREVIEW_PATH + HtmlConstants.AlbumArea.PREVIEW_NAME_PATH_SUFFIX);
 		String toAlbumName = selenium.getText(HtmlConstants.AlbumArea.PREVIEW_PATH + "[2]" + HtmlConstants.AlbumArea.PREVIEW_NAME_PATH_SUFFIX);

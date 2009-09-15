@@ -190,38 +190,31 @@ public class RealWorldHelper {
 
     }
 
-    public static void login(Selenium selenium) {
+    public static void login(SeleniumTestBase selenium) {
         login(selenium, UserInfoConstants.LOGIN_NAME, UserInfoConstants.LOGIN_PASSWORD);
     }
-    public static void login(Selenium selenium, String login) {
+    public static void login(SeleniumTestBase selenium, String login) {
         login(selenium, login, UserInfoConstants.LOGIN_PASSWORD);
     }
-    public static void login(Selenium selenium, String name, String password) {
+
+    public static void login(SeleniumTestBase seleniumTest, String name, String password) {
+        Selenium selenium = seleniumTest.selenium;
 		if (isLogined(selenium)) {
 			logout(selenium);
 		}
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 5; i++) {
             try {
                 selenium.click(HtmlConstants.LogInOutArea.LOGIN_ID);
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                    Assert.fail("Error : " + e.getMessage());
-                }
+                delay();
                 break;
             } catch (Exception e) {
                 // Do nothing.
-                System.out.println("RealWorldHelper.login -1- ");
+                System.out.println("RealWorldHelper.login not found '" + i + "'");
             }
 
-            try {
-                selenium.click("//*[@id='mainform:bodyPanel_body']/a");
-            } catch (Exception e) {
-                // Do nothing.
-                System.out.println("RealWorldHelper.login -2- ");
-            }
+            delay(10000);
+            seleniumTest.renderPage();
         }
 
 		Assert.assertTrue(selenium.isVisible(HtmlConstants.LoginPanel.usernameId), "Input for username in not visible");
@@ -238,12 +231,23 @@ public class RealWorldHelper {
 		selenium.click(HtmlConstants.LoginPanel.loginButtonPath);
 		waitForAjaxCompletion(selenium);
 
-//		if (!isLogined(selenium, UserInfoConstants.LOGIN_NAME)) {
-//			Assert.fail("Authentication was not succesfull. Logged user text should contain typed login name");
-//		}
-	}
+    }
 
-	public static void logout(Selenium selenium) {
+    private static void delay() {
+        delay(5000); 
+    }
+
+    private static void delay(int delay) {
+        try {
+            Thread.sleep(delay);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Assert.fail("Error : " + e.getMessage());
+        }
+    }
+
+
+    public static void logout(Selenium selenium) {
 		selenium.click(HtmlConstants.LogInOutArea.LOGOUT_PATH);
 		selenium.waitForPageToLoad(String.valueOf(TIMEOUT));
 		Assert.assertFalse(isLogined(selenium), "Logout was not succesfull.");
