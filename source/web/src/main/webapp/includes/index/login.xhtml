@@ -35,7 +35,7 @@
 						</a4j:outputPanel>
 						<h:panelGrid columns="2" style="text-align:center; margin-top : 10px; margin-left:auto; margin-right:auto;">
 							<h:panelGroup layout="block">
-								<richx:commandButton styleClass="login" data="#{authenticator.loginFailed}" action="index" oncomplete="if(!data)$('loginPanel').component.hide();" value="#{messages['login.login']}" reRender="mainArea,treePanel,searchForm, headerPanel"/>
+								<richx:commandButton styleClass="login" data="#{authenticator.loginFailed}" action="gotoindex" oncomplete="if(!data)$('loginPanel').component.hide();" value="#{messages['login.login']}" reRender="mainArea,treePanel,searchForm, headerPanel"/>
 							</h:panelGroup>
 							<h:panelGroup layout="block">
 								<richx:commandButton value="#{messages['login.register']}" immediate="true" actionListener="#{authenticator.goToRegister}" reRender="mainArea" oncomplete="$('loginPanel').component.hide();"/>

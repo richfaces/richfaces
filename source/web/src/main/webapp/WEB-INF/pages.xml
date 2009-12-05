@@ -12,6 +12,11 @@
  				<redirect view-id="/index.html"/>
  			</rule>
  		</navigation>
+ 		<navigation>
+ 			<rule if-outcome="gotoindex">
+ 				<redirect view-id="/index.html"/>
+ 			</rule>
+ 		</navigation>
  		<navigation from-action="#{authenticator.startConversation}">
  				<redirect view-id="/index.xhtml"/>
  		</navigation>
