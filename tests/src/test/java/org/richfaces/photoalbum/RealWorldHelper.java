@@ -230,10 +230,14 @@ public class RealWorldHelper {
 		selenium.type(HtmlConstants.LoginPanel.passwordId, password);
 
 		selenium.click(HtmlConstants.LoginPanel.loginButtonPath);
-		waitForAjaxCompletion(selenium);
-
+		waitForLogin(selenium);
     }
-
+    
+    private static void waitForLogin(final Selenium selenium) {
+    	delay();
+		selenium.waitForPageToLoad(String.valueOf(TIMEOUT));
+    }
+    
     private static void delay() {
         delay(5000); 
     }
