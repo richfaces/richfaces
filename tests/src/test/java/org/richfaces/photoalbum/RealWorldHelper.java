@@ -249,7 +249,7 @@ public class RealWorldHelper {
 
     public static void logout(Selenium selenium) {
 		selenium.click(HtmlConstants.LogInOutArea.LOGOUT_PATH);
-		selenium.waitForPageToLoad(String.valueOf(TIMEOUT));
+		selenium.waitForCondition("selenium.isElementPresent('//form[@id=\"login-form\"]/a[normalize-space(text())=\"Login\"]')", String.valueOf(TIMEOUT));
 		Assert.assertFalse(isLogined(selenium), "Logout was not succesfull.");
 	}
 	
