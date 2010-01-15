@@ -230,7 +230,7 @@ public class RealWorldHelper {
 		selenium.type(HtmlConstants.LoginPanel.passwordId, password);
 
 		selenium.click(HtmlConstants.LoginPanel.loginButtonPath);
-		selenium.waitForCondition("selenium.isElementPresent('//a[@class=\"logged-user\" and normalize-space(text()=\"" + name + "\")]')", "5000");
+		selenium.waitForCondition("selenium.isElementPresent('//a[@class=\"logged-user\" and normalize-space(text()=\"" + name + "\")]')", String.valueOf(TIMEOUT));
     }
     
     private static void delay() {
