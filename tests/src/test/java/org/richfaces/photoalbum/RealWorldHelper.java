@@ -230,12 +230,7 @@ public class RealWorldHelper {
 		selenium.type(HtmlConstants.LoginPanel.passwordId, password);
 
 		selenium.click(HtmlConstants.LoginPanel.loginButtonPath);
-		waitForLogin(selenium);
-    }
-    
-    private static void waitForLogin(final Selenium selenium) {
-    	delay();
-		selenium.waitForPageToLoad(String.valueOf(TIMEOUT));
+		selenium.waitForCondition("selenium.isElementPresent('//a[@class=\"logged-user\" and normalize-space(text()=\"" + name + "\")]')", "5000");
     }
     
     private static void delay() {
@@ -526,7 +521,7 @@ public class RealWorldHelper {
 		waitForAjaxCompletion(selenium, TIMEOUT);
     }
     public static void waitForAjaxCompletion(Selenium selenium, int miliseconds) {
-        selenium.waitForCondition(WINDOW_JS_RESOLVER + "document.getElementById('" + STATUS_START_ID + "').style.display == 'none'", String.valueOf(miliseconds));
+        selenium.waitForCondition(WINDOW_JS_RESOLVER + "document.getElementById('" + STATUS_START_ID + "') != null && " + WINDOW_JS_RESOLVER + "document.getElementById('" + STATUS_START_ID + "').style.display == 'none'", String.valueOf(miliseconds));
     }
     
     public static void confirm(Selenium selenium) {
