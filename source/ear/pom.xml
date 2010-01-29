@@ -8,7 +8,7 @@
 	</parent>
 
 	<groupId>org.richfaces.examples</groupId>
-	<artifactId>${projectName}-ear</artifactId>
+	<artifactId>photoalbum-ear</artifactId>
 	<name>${appName} EAR module</name>
 	<packaging>ear</packaging>
 
@@ -61,7 +61,7 @@
     </dependency>
 	</dependencies>
 	<build>
-		<finalName>${projectName}-ear-${project.version}</finalName>
+		<finalName>photoalbum-ear</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -78,15 +78,18 @@
 					<generateApplicationXml>true</generateApplicationXml>
 					<includeJar>false</includeJar>
 					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<version>5</version>
 					<modules>
 						<webModule>
 							<groupId>org.richfaces.examples</groupId>
-							<artifactId>${projectName}-web</artifactId>
-							<contextRoot>/${projectName}</contextRoot>
+							<artifactId>photoalbum-web</artifactId>
+							<contextRoot>/photoalbum-web</contextRoot>
+							<bundleFileName>photoalbum-web.war</bundleFileName>
 						</webModule>
 						<ejbModule>
 							<groupId>org.richfaces.examples</groupId>
-							<artifactId>${projectName}-ejb</artifactId>
+							<artifactId>photoalbum-ejb</artifactId>
+							<bundleFileName>photoalbum-ejb.jar</bundleFileName>
 						</ejbModule>
 						<ejbModule>
 							<groupId>org.jboss.seam</groupId>
