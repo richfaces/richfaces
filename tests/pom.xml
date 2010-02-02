@@ -16,6 +16,7 @@
 		<jbosshome>${project.basedir}/target/installs/jboss-${jboss.version}/jboss-${jboss.version}</jbosshome>
 		<jboss.installer.url>file:d:\workspace\jboss-${jboss.version}.zip</jboss.installer.url>
 		<jbosscontext>default</jbosscontext>
+		<selenium.version>1.0.1</selenium.version>
 	</properties>
 
 	<repositories>
@@ -70,19 +71,19 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium.core</groupId>
 			<artifactId>selenium-core</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>${selenium.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.seleniumhq.selenium.client-drivers</groupId>
 			<artifactId>selenium-java-client-driver</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>${selenium.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.seleniumhq.selenium.server</groupId>
 			<artifactId>selenium-server-coreless</artifactId>
-			<version>1.0-SNAPSHOT</version>
+			<version>${selenium.version}</version>
 			<scope>test</scope>
 			<!--exclusions>
 				<exclusion>
