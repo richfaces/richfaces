@@ -76,6 +76,7 @@
 	<profiles>
 		<profile>
 			<id>livedemo</id>
+
 			<properties>
 				<imageset>full</imageset>
 			</properties>
@@ -88,17 +89,37 @@
 			<resource>
 				<directory>src/main/resources</directory>
 			</resource>
-			
+			<resource>
+				<directory>${project.build.directory}/resources-filtered</directory>
+			</resource>
 			<resource>
 				<directory>sql/${imageset}</directory>
 			</resource>
-			
 		</resources>
 
 		<plugins>
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.3</version>	
+				<version>2.3</version>
+				<executions>
+				  <execution>
+					<id>copy-resources</id>
+					<!-- here the phase you need -->
+					<phase>validate</phase>
+					<goals>
+						<goal>copy-resources</goal>
+					</goals>
+					<configuration>
+						<outputDirectory>${project.build.directory}/resources-filtered</outputDirectory>
+						<resources>
+							<resource>
+								<directory>src/main/resources-filtered</directory>
+								<filtering>true</filtering>
+							</resource>
+						</resources>
+					</configuration>
+				  </execution>
+				</executions>
 			</plugin>
 
 			<plugin>
