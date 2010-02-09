@@ -30,12 +30,12 @@
 			<version>${project.version}</version>
 			<type>ejb</type>
 		</dependency>
-       <dependency>
+        <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.14</version>
-       </dependency>
-       <dependency>
+        </dependency>
+	<dependency>
       <groupId>org.jboss.seam</groupId>
       <artifactId>jboss-seam</artifactId>
       <version>${seamVersion}</version>

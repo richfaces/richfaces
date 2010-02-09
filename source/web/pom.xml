@@ -264,6 +264,7 @@
 								<goals>
 									<goal>export</goal>
 								</goals>
+
 								<configuration>
 									<connectionType>connection</connectionType>
 									<developerConnectionUrl>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/examples-data/photoapp/images/Upload</developerConnectionUrl>
