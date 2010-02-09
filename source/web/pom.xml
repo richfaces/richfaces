@@ -10,7 +10,7 @@
 	</parent>
 
 	<groupId>org.richfaces.examples</groupId>
-	<artifactId>photoalbum-web</artifactId>
+	<artifactId>${projectName}-web</artifactId>
 	<name>${appName} WAR module</name>
 	<packaging>war</packaging>
 	
@@ -264,7 +264,6 @@
 								<goals>
 									<goal>export</goal>
 								</goals>
-
 								<configuration>
 									<connectionType>connection</connectionType>
 									<developerConnectionUrl>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/examples-data/photoapp/images/Upload</developerConnectionUrl>

@@ -10,17 +10,17 @@
             xmlns:transaction="http://jboss.com/products/seam/transaction"
             xmlns:web="http://jboss.com/products/seam/web"
             xsi:schemaLocation=
-                    "http://jboss.com/products/seam/core http://jboss.com/products/seam/core-2.1.xsd
-                http://jboss.com/products/seam/web http://jboss.com/products/seam/web-2.1.xsd
-                http://jboss.com/products/seam/transaction http://jboss.com/products/seam/transaction-2.1.xsd
-                 http://jboss.com/products/seam/persistence http://jboss.com/products/seam/persistence-2.1.xsd 
-                 http://jboss.com/products/seam/drools http://jboss.com/products/seam/drools-2.1.xsd
-                 http://jboss.com/products/seam/bpm http://jboss.com/products/seam/bpm-2.1.xsd
-                 http://jboss.com/products/seam/security http://jboss.com/products/seam/security-2.1.xsd
-                 http://jboss.com/products/seam/mail http://jboss.com/products/seam/mail-2.1.xsd
-                 http://jboss.com/products/seam/components http://jboss.com/products/seam/components-2.1.xsd">
+                    "http://jboss.com/products/seam/core http://jboss.com/products/seam/core-2.1.0.xsd
+                http://jboss.com/products/seam/web http://jboss.com/products/seam/web-2.1.0.xsd
+                http://jboss.com/products/seam/transaction http://jboss.com/products/seam/transaction-2.1.0.xsd
+                 http://jboss.com/products/seam/persistence http://jboss.com/products/seam/persistence-2.1.0.xsd 
+                 http://jboss.com/products/seam/drools http://jboss.com/products/seam/drools-2.1.0.xsd
+                 http://jboss.com/products/seam/bpm http://jboss.com/products/seam/bpm-2.1.0.xsd
+                 http://jboss.com/products/seam/security http://jboss.com/products/seam/security-2.1.0.xsd
+                 http://jboss.com/products/seam/mail http://jboss.com/products/seam/mail-2.1.0.xsd
+                 http://jboss.com/products/seam/components http://jboss.com/products/seam/components-2.1.0.xsd">
 
-    <core:init transaction-management-enabled="false" debug="true" jndi-pattern="@jndiPattern@"/>
+    <core:init transaction-management-enabled="false" debug="${environment.debug}" jndi-pattern="@jndiPattern@"/>
     <core:manager concurrent-request-timeout="20000"
                   conversation-timeout="200000"
                   conversation-id-parameter="cid"

@@ -10,7 +10,7 @@
 	</parent>
 
 	<groupId>org.richfaces.examples</groupId>
-	<artifactId>photoalbum-ejb</artifactId>
+	<artifactId>${projectName}-ejb</artifactId>
 	<name>${appName} EJB module</name>
 	<packaging>ejb</packaging>
 
@@ -76,7 +76,6 @@
 	<profiles>
 		<profile>
 			<id>livedemo</id>
-
 			<properties>
 				<imageset>full</imageset>
 			</properties>
