@@ -506,7 +506,7 @@ public class Image implements Serializable {
 			return true;
 		}
 
-		if (obj == null || getClass() != obj.getClass()) {
+		if (obj == null) {
 			return false;
 		}
 
