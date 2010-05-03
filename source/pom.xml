@@ -15,12 +15,12 @@
 			http://labs.jboss.com/portal/jbossrichfaces/downloads
 		</downloadUrl>
 		<repository>
-			<id>repository.jboss.org</id>
+			<id>jboss-releases-repository</id>
 			<uniqueVersion>false</uniqueVersion>
 			<url>${releaseRepository}</url>
 		</repository>
 		<snapshotRepository>
-			<id>snapshots.jboss.org</id>
+			<id>jboss-snapshots-repository</id>
 			<uniqueVersion>true</uniqueVersion>
 			<url>${snapshotRepository}</url>
 		</snapshotRepository>
@@ -42,7 +42,7 @@
 	</properties>
 	<repositories>
 		<repository>
-			<id>repository.jboss.org</id>
+			<id>jboss-public-repository-group</id>
 			<name>Jboss Repository for Maven</name>
 			<url>https://repository.jboss.org/nexus/content/groups/public/</url>
 		</repository>
