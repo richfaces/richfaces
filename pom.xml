@@ -129,7 +129,7 @@
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>2.3</version>
                     <configuration>
-                        <skip>${skipch}</skip>
+                        <skip>${skipCheckstyle}</skip>
                     </configuration>
                 </plugin>
                 <plugin>
