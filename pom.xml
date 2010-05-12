@@ -1,0 +1,277 @@
+    <!--
+        JBoss, Home of Professional Open Source Copyright 2010, Red Hat,
+        Inc. and individual contributors by the @authors tag. See the
+        copyright.txt in the distribution for a full listing of
+        individual contributors. This is free software; you can
+        redistribute it and/or modify it under the terms of the GNU
+        Lesser General Public License as published by the Free Software
+        Foundation; either version 2.1 of the License, or (at your
+        option) any later version. This software is distributed in the
+        hope that it will be useful, but WITHOUT ANY WARRANTY; without
+        even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+        PARTICULAR PURPOSE. See the GNU Lesser General Public License
+        for more details. You should have received a copy of the GNU
+        Lesser General Public License along with this software; if not,
+        write to the Free Software Foundation, Inc., 51 Franklin St,
+        Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF site:
+        http://www.fsf.org.
+    -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.richfaces</groupId>
+    <artifactId>richfaces-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>1-SNAPSHOT</version>
+    <name>RichFaces Parent</name>
+
+    <parent>
+        <groupId>org.jboss</groupId>
+        <artifactId>jboss-parent</artifactId>
+        <version>5</version>
+    </parent>
+
+    <description>
+      The Parent for all RichFaces sub-projects.  This specifies build, plugin and project meta-data.
+    </description>
+
+    <url>http://www.jboss.org/richfaces</url>
+
+    <licenses>
+        <license>
+            <name>GNU Lesser General Public License, Version 2.1</name>
+            <distribution>repo</distribution>
+            <url>http://www.gnu.org/licenses/lgpl-2.1.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>RichFaces committers</name>
+        </developer>
+    </developers>
+
+    <issueManagement>
+        <system>jira</system>
+        <url>https://jira.jboss.org/jira/browse/RF</url>
+    </issueManagement>
+
+    <properties>
+        <richfaces.version>4.0.0-SNAPSHOT</richfaces.version>
+        
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <!-- Repository management, including extra repositories if needed -->
+    <repositories>
+        <repository>
+            <id>jboss-public-repository-group</id>
+            <name>JBoss Public Maven Repository Group</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jboss-public-repository-group</id>
+            <name>JBoss Public Maven Repository Group</name>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+    
+    <!-- Build -->
+    <build>
+        <!-- Plugin config, including versions to use in the build.
+             Note: some are inherited from jboss-parent
+         -->
+        <pluginManagement>
+            <plugins>
+                <!-- TODO: change to the current CDK version -->
+                <plugin>
+                    <groupId>org.richfaces.cdk</groupId>
+                    <artifactId>maven-javascript-plugin</artifactId>
+                    <version>3.3.1.GA</version>
+                </plugin>
+                
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>javacc-maven-plugin</artifactId>
+                    <version>2.4</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                </plugin>
+                <plugin>
+                    <groupId>com.atlassian.maven.plugins</groupId>
+                    <artifactId>maven-clover2-plugin</artifactId>
+                    <!-- <version>2.5.1</version> -->
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-source</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <index>true</index>
+                        <manifest>
+                            <addDefaultSpecificationEntries>
+                                true
+                            </addDefaultSpecificationEntries>
+                            <addDefaultImplementationEntries>
+                                true
+                            </addDefaultImplementationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <mode>development</mode>
+                            <Build-Number>${buildNumber}</Build-Number>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.0-beta-1</version>
+                <executions>
+                    <execution>
+                        <id>enforce-versions</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>2.1.0</version>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-eclipse-plugin</artifactId>
+                <configuration>
+                    <wtpversion>2.0</wtpversion>
+                    <downloadSources>true</downloadSources>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
+    
+    
+    <!-- Profiles -->
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.2</version>
+                        <configuration>
+                            <javadocVersion>1.5</javadocVersion>
+                            <aggregate>true</aggregate>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>generate-javadoc</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>clover</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.atlassian.maven.plugins</groupId>
+                        <artifactId>maven-clover2-plugin</artifactId>
+                        <configuration>
+                            <licenseLocation>
+                                ${clover.license.path}
+                            </licenseLocation>
+                            <jdk>1.5</jdk>
+                            <generatePdf>false</generatePdf>
+                            <generateXml>true</generateXml>
+                            <generateHtml>true</generateHtml>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>instrument</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>instrument</goal>
+                                    <goal>check</goal>
+                                    <goal>clover</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>hudson</id>
+            <properties>
+                <clover.license.path>/home/hudson/config_repository/resources/richfaces/richfaces-clover-license.txt
+                </clover.license.path>
+            </properties>
+        </profile>
+    </profiles>
+    
+    <!-- SCM and distribution management -->
+    <scm>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/build/parent/trunk</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/build/parent/trunk</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces</url>
+    </scm>
+    
+</project>
