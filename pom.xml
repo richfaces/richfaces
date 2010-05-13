@@ -127,7 +127,7 @@
                     <dependencies>
                         <dependency>
                             <groupId>org.richfaces</groupId>
-                            <artifactId>checkstyle</artifactId>
+                            <artifactId>richfaces-build-checkstyle</artifactId>
                             <version>${richfaces.checkstyle.version}</version>
                         </dependency>
                     </dependencies>
