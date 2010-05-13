@@ -220,7 +220,8 @@
                     </configuration>
                 </plugin>
 
-                <!-- docs -->
+                <!-- docs 
+                     TODO should move to profiles probably a "doc" profile-->
                 <plugin>
                     <groupId>gr.abiss.mvn.plugins</groupId>
                     <artifactId>maven-jstools-plugin</artifactId>
