@@ -59,6 +59,7 @@
     </issueManagement>
 
     <properties>
+        <richfaces.checkstyle.version>4.0.0-SNAPSHOT</richfaces.checkstyle.version>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
@@ -111,7 +112,6 @@
                     <artifactId>maven-javascript-plugin</artifactId>
                     <version>3.3.1.GA</version>
                 </plugin>
-
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>javacc-maven-plugin</artifactId>
@@ -121,13 +121,20 @@
                     <artifactId>maven-antrun-plugin</artifactId>
                 </plugin>
                 <plugin>
-                    <groupId>com.atlassian.maven.plugins</groupId>
-                    <artifactId>maven-clover2-plugin</artifactId>
-                </plugin>
-                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>2.3</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.richfaces</groupId>
+                            <artifactId>checkstyle</artifactId>
+                            <version>${richfaces.checkstyle.version}</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <configLocation>richfaces-checkstyle/richfaces-checkstyle.xml</configLocation>
+                        <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
+                    </configuration>
                     <executions>
                         <execution>
                             <id>richfaces-checkstyle-report</id>
@@ -137,14 +144,6 @@
                             </goals>
                         </execution>
                     </executions>
-                    <configuration>
-                        <skip>${skipCheckstyle}</skip>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.2</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-source-plugin</artifactId>
@@ -166,10 +165,10 @@
                             <manifest>
                                 <addDefaultSpecificationEntries>
                                     true
-                            </addDefaultSpecificationEntries>
+                                </addDefaultSpecificationEntries>
                                 <addDefaultImplementationEntries>
                                     true
-                            </addDefaultImplementationEntries>
+                                </addDefaultImplementationEntries>
                             </manifest>
                             <manifestEntries>
                                 <mode>development</mode>
@@ -199,23 +198,43 @@
                     </executions>
                 </plugin>
                 <plugin>
-                    <artifactId>maven-eclipse-plugin</artifactId>
-                    <configuration>
-                        <wtpversion>2.0</wtpversion>
-                        <downloadSources>true</downloadSources>
-                    </configuration>
-                </plugin>
-                <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <configuration>
                         <source>1.5</source>
                         <target>1.5</target>
                     </configuration>
                 </plugin>
+
+                <!-- reporting -->
+                <plugin>
+                    <groupId>com.atlassian.maven.plugins</groupId>
+                    <artifactId>maven-clover2-plugin</artifactId>
+                </plugin>
+                
+                <!-- dev -->
+                <plugin>
+                    <artifactId>maven-eclipse-plugin</artifactId>
+                    <configuration>
+                        <wtpversion>2.0</wtpversion>
+                        <downloadSources>true</downloadSources>
+                    </configuration>
+                </plugin>
+
+                <!-- docs -->
                 <plugin>
                     <groupId>gr.abiss.mvn.plugins</groupId>
                     <artifactId>maven-jstools-plugin</artifactId>
                     <version>0.7</version>
+                    <configuration>
+                        <jsDir>${basedir}/src/main/resources/Meta-inf/resources</jsDir>
+                        <includes>**/*.js</includes>
+                        <caseSensitive>true</caseSensitive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.2</version>
                 </plugin>
             </plugins>
         </pluginManagement>
