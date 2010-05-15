@@ -250,7 +250,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.2</version>
                         <configuration>
                             <javadocVersion>1.5</javadocVersion>
                             <aggregate>true</aggregate>
@@ -307,6 +306,12 @@
             </properties>
         </profile>
     </profiles>
+
+    <distributionManagement>
+        <downloadUrl>
+            http://labs.jboss.com/portal/jbossrichfaces/downloads
+        </downloadUrl>
+    </distributionManagement>
 
     <!-- SCM and distribution management -->
     <scm>
