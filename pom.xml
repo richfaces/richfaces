@@ -106,19 +106,10 @@
         -->
         <pluginManagement>
             <plugins>
-                <!-- TODO: change to the current CDK version -->
-                <plugin>
-                    <groupId>org.richfaces.cdk</groupId>
-                    <artifactId>maven-javascript-plugin</artifactId>
-                    <version>3.3.1.GA</version>
-                </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>javacc-maven-plugin</artifactId>
                     <version>2.4</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-antrun-plugin</artifactId>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
