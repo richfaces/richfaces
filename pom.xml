@@ -1,21 +1,19 @@
 
     <!--
-        JBoss, Home of Professional Open Source Copyright 2010, Red Hat,
-        Inc. and individual contributors by the @authors tag. See the
-        copyright.txt in the distribution for a full listing of
-        individual contributors. This is free software; you can
-        redistribute it and/or modify it under the terms of the GNU
-        Lesser General Public License as published by the Free Software
-        Foundation; either version 2.1 of the License, or (at your
-        option) any later version. This software is distributed in the
-        hope that it will be useful, but WITHOUT ANY WARRANTY; without
-        even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-        PARTICULAR PURPOSE. See the GNU Lesser General Public License
-        for more details. You should have received a copy of the GNU
-        Lesser General Public License along with this software; if not,
-        write to the Free Software Foundation, Inc., 51 Franklin St,
-        Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF site:
-        http://www.fsf.org.
+        JBoss, Home of Professional Open Source Copyright 2010, Red Hat, Inc.
+        and individual contributors by the @authors tag. See the copyright.txt
+        in the distribution for a full listing of individual contributors. This
+        is free software; you can redistribute it and/or modify it under the
+        terms of the GNU Lesser General Public License as published by the Free
+        Software Foundation; either version 2.1 of the License, or (at your
+        option) any later version. This software is distributed in the hope that
+        it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+        warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+        GNU Lesser General Public License for more details. You should have
+        received a copy of the GNU Lesser General Public License along with this
+        software; if not, write to the Free Software Foundation, Inc., 51
+        Franklin St, Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF
+        site: http://www.fsf.org.
     -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -34,7 +32,8 @@
     </parent>
 
     <description>
-      The Parent for all RichFaces sub-projects.  This specifies build, plugin and project meta-data.
+        The Parent for all RichFaces sub-projects. This specifies build, plugin
+        and project meta-data.
     </description>
 
     <url>http://www.jboss.org/richfaces</url>
@@ -68,7 +67,8 @@
         <repository>
             <id>jboss-public-repository-group</id>
             <name>JBoss Public Maven Repository Group</name>
-            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+            <url>https://repository.jboss.org/nexus/content/groups/public/
+            </url>
             <layout>default</layout>
             <releases>
                 <enabled>true</enabled>
@@ -85,7 +85,8 @@
         <pluginRepository>
             <id>jboss-public-repository-group</id>
             <name>JBoss Public Maven Repository Group</name>
-            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+            <url>https://repository.jboss.org/nexus/content/groups/public/
+            </url>
             <layout>default</layout>
             <releases>
                 <enabled>true</enabled>
@@ -101,40 +102,52 @@
     <!-- Build -->
     <build>
         <!--
-            Plugin config, including versions to use in the build. Note:
-            some are inherited from jboss-parent
+            Plugin config, including versions to use in the build. Note: some
+            are inherited from jboss-parent
         -->
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>javacc-maven-plugin</artifactId>
-                    <version>2.4</version>
-                </plugin>
+                <!-- Release -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>2.3</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.richfaces</groupId>
-                            <artifactId>richfaces-build-checkstyle</artifactId>
-                            <version>${richfaces.checkstyle.version}</version>
-                        </dependency>
-                    </dependencies>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>${version.release.plugin}</version>
                     <configuration>
-                        <configLocation>richfaces-checkstyle/richfaces-checkstyle.xml</configLocation>
-                        <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
+                        <arguments>-Drelease </arguments>
+                        <autoVersionSubmodules>true</autoVersionSubmodules>
+                        <!-- As we need access to our own artifacts -->
+                        <preparationGoals>install</preparationGoals>
                     </configuration>
+                </plugin>
+
+
+                <!-- Build -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>1.0-beta-1</version>
                     <executions>
                         <execution>
-                            <id>richfaces-checkstyle-report</id>
-                            <phase>process-sources</phase>
+                            <id>enforce-versions</id>
                             <goals>
-                                <goal>check</goal>
+                                <goal>enforce</goal>
                             </goals>
+                            <configuration>
+                                <rules>
+                                    <requireMavenVersion>
+                                        <version>2.1.0</version>
+                                    </requireMavenVersion>
+                                </rules>
+                            </configuration>
                         </execution>
                     </executions>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.5</source>
+                        <target>1.5</target>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <artifactId>maven-source-plugin</artifactId>
@@ -163,37 +176,16 @@
                             </manifest>
                             <manifestEntries>
                                 <mode>development</mode>
-                                <Build-Number>${buildNumber}</Build-Number>
+                                <Build-Number>${buildNumber}
+                                </Build-Number>
                             </manifestEntries>
                         </archive>
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>1.0-beta-1</version>
-                    <executions>
-                        <execution>
-                            <id>enforce-versions</id>
-                            <goals>
-                                <goal>enforce</goal>
-                            </goals>
-                            <configuration>
-                                <rules>
-                                    <requireMavenVersion>
-                                        <version>2.1.0</version>
-                                    </requireMavenVersion>
-                                </rules>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>1.5</source>
-                        <target>1.5</target>
-                    </configuration>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>javacc-maven-plugin</artifactId>
+                    <version>2.4</version>
                 </plugin>
 
                 <!-- reporting -->
@@ -201,7 +193,36 @@
                     <groupId>com.atlassian.maven.plugins</groupId>
                     <artifactId>maven-clover2-plugin</artifactId>
                 </plugin>
-                
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>2.3</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.richfaces</groupId>
+                            <artifactId>richfaces-build-checkstyle
+                            </artifactId>
+                            <version>${richfaces.checkstyle.version}
+                            </version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <configLocation>richfaces-checkstyle/richfaces-checkstyle.xml
+                        </configLocation>
+                        <suppressionsLocation>checkstyle-suppressions.xml
+                        </suppressionsLocation>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>richfaces-checkstyle-report</id>
+                            <phase>process-sources</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
                 <!-- dev -->
                 <plugin>
                     <artifactId>maven-eclipse-plugin</artifactId>
@@ -211,14 +232,16 @@
                     </configuration>
                 </plugin>
 
-                <!-- docs 
-                     TODO should move to profiles probably a "doc" profile-->
+                <!--
+                    docs TODO should move to profiles probably a "doc" profile
+                -->
                 <plugin>
                     <groupId>gr.abiss.mvn.plugins</groupId>
                     <artifactId>maven-jstools-plugin</artifactId>
                     <version>0.7</version>
                     <configuration>
-                        <jsDir>${basedir}/src/main/resources/Meta-inf/resources</jsDir>
+                        <jsDir>${basedir}/src/main/resources/Meta-inf/resources
+                        </jsDir>
                         <includes>**/*.js</includes>
                         <caseSensitive>true</caseSensitive>
                     </configuration>
