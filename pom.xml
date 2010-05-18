@@ -58,7 +58,6 @@
     </issueManagement>
 
     <properties>
-        <richfaces.checkstyle.version>4.0.0-SNAPSHOT</richfaces.checkstyle.version>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
@@ -234,15 +233,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
                     <version>2.3</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.richfaces</groupId>
-                            <artifactId>richfaces-build-checkstyle
-                            </artifactId>
-                            <version>${richfaces.checkstyle.version}
-                            </version>
-                        </dependency>
-                    </dependencies>
                     <configuration>
                         <configLocation>richfaces-checkstyle/richfaces-checkstyle.xml
                         </configLocation>
