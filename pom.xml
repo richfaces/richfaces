@@ -113,10 +113,15 @@
                     <artifactId>maven-release-plugin</artifactId>
                     <version>${version.release.plugin}</version>
                     <configuration>
-                        <arguments>-Drelease </arguments>
+                        <!-- All sub-modules will have same version -->
                         <autoVersionSubmodules>true</autoVersionSubmodules>
-                        <!-- As we need access to our own artifacts -->
-                        <preparationGoals>install</preparationGoals>
+                        <!-- During release:perform, enable the "release" profile -->
+                        <releaseProfiles>release</releaseProfiles>
+                        <!--
+                            RichFaces modules should override and set goals to
+                            run for release:perform
+                        -->
+                        <!-- <goals></goals> -->
                     </configuration>
                 </plugin>
 
@@ -253,6 +258,13 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <!-- For the release this parent pom -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+            </plugin>
+        </plugins>
     </build>
 
     <!-- Profiles -->
@@ -262,6 +274,7 @@
             <build>
                 <plugins>
                     <plugin>
+                        <!-- TODO move to doc profile? -->
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <configuration>
@@ -282,6 +295,15 @@
             </build>
         </profile>
         <profile>
+            <!--
+                Triggers generated documentation as part of builds ( javadoc,
+                jsdoc, etc...
+            -->
+            <id>doc</id>
+            <!-- TODO -->
+        </profile>
+        <profile>
+            <!-- Triggers clover reports to be generated -->
             <id>clover</id>
             <build>
                 <plugins>
@@ -313,6 +335,7 @@
             </build>
         </profile>
         <profile>
+            <!-- Required when in JBoss hudson env to have clover reports generate -->
             <id>hudson</id>
             <properties>
                 <clover.license.path>/home/hudson/config_repository/resources/richfaces/richfaces-clover-license.txt
@@ -323,7 +346,7 @@
 
     <distributionManagement>
         <downloadUrl>
-            http://labs.jboss.com/portal/jbossrichfaces/downloads
+            http://www.jboss.org/richfaces/download
         </downloadUrl>
     </distributionManagement>
 
