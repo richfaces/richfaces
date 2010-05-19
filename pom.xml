@@ -39,8 +39,18 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+                    <tagBase>https://svn.jboss.org/repos/richfaces/root/build/resources/</tagBase>
+                </configuration>
             </plugin>
         </plugins>
     </build>
+    
+    <!-- SCM and distribution management -->
+    <scm>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/build/resources/trunk/checkstyle</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/build/resources/trunk/checkstyle</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces</url>
+    </scm>
 
 </project>
