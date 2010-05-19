@@ -16,9 +16,7 @@
         Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF site:
         http://www.fsf.org.
     -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.richfaces</groupId>
@@ -28,7 +26,7 @@
     
     <groupId>org.richfaces</groupId>
     <artifactId>richfaces-build-checkstyle</artifactId>
-    <version>1-SNAPSHOT</version>
+    <version>1</version>
     <name>Richfaces Checkstyle</name>
     
     <description>Contains the checkstyle settings for the RichFaces project</description>
@@ -48,9 +46,9 @@
     
     <!-- SCM and distribution management -->
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/build/resources/trunk/checkstyle</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/build/resources/trunk/checkstyle</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/build/resources/tags/richfaces-checkstyle-1</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/build/resources/tags/richfaces-checkstyle-1</developerConnection>
+        <url>scm:svn:https://svn.jboss.org/repos/richfaces/root/build/resources/tags/richfaces-checkstyle-1</url>
     </scm>
 
 </project>
