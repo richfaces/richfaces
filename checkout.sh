@@ -37,7 +37,7 @@ then
    SVNARGS="--quiet"
 fi
   
-if  [ -d $DESTINATION ]
+if  [ -d "$DESTINATION" ]
 then
    echo "Checking out to $DESTINATION"
 else
@@ -75,13 +75,13 @@ do
    echo
    echo =================================
 
-   if [ -d $moduledir ]
+   if [ -d "$moduledir" ]
    then
       echo "Updating $module"
-      svncmd="svn up $SVNARGS $DESTINATION/$module"
+      svncmd="svn up $SVNARGS $moduledir"
    else
       echo "Checking out $module"
-      svncmd="svn co $SVNARGS $url $DESTINATION/$module"
+      svncmd="svn co $SVNARGS $url $moduledir"
    fi
 
    echo =================================
