@@ -21,7 +21,7 @@
     <groupId>org.richfaces</groupId>
     <artifactId>richfaces-parent</artifactId>
     <packaging>pom</packaging>
-    <version>2</version>
+    <version>3-SNAPSHOT</version>
     <name>RichFaces Parent</name>
 
     <parent>
@@ -435,11 +435,11 @@
 
     <!-- SCM and distribution management -->
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/build/parent/tags/richfaces-parent-2
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/build/parent/trunk
         </connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/build/parent/tags/richfaces-parent-2
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/build/parent/trunk
         </developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/tags/richfaces-parent-2</url>
+        <url>http://fisheye.jboss.org/browse/richfaces</url>
     </scm>
 
 </project>
