@@ -21,7 +21,7 @@
     <groupId>org.richfaces</groupId>
     <artifactId>richfaces-parent</artifactId>
     <packaging>pom</packaging>
-    <version>3-SNAPSHOT</version>
+    <version>3</version>
     <name>RichFaces Parent</name>
 
     <parent>
@@ -128,7 +128,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.4</version>
+                <version>4.7</version>
             </dependency>
             <!-- JSF imple is only a testing requirement -->
             <!--   This is set by profiles below -->
@@ -435,11 +435,11 @@
 
     <!-- SCM and distribution management -->
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/build/parent/trunk
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/build/parent/tags/richfaces-parent-3
         </connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/build/parent/trunk
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/build/parent/tags/richfaces-parent-3
         </developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces</url>
+        <url>http://fisheye.jboss.org/browse/richfaces/tags/richfaces-parent-3</url>
     </scm>
 
 </project>
