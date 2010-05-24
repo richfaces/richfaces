@@ -15,14 +15,13 @@
         Franklin St, Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF
         site: http://www.fsf.org.
     -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.richfaces</groupId>
     <artifactId>richfaces-parent</artifactId>
     <packaging>pom</packaging>
-    <version>2-SNAPSHOT</version>
+    <version>2</version>
     <name>RichFaces Parent</name>
 
     <parent>
@@ -436,11 +435,11 @@
 
     <!-- SCM and distribution management -->
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/build/parent/trunk
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/build/parent/tags/richfaces-parent-2
         </connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/build/parent/trunk
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/build/parent/tags/richfaces-parent-2
         </developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces</url>
+        <url>http://fisheye.jboss.org/browse/richfaces/tags/richfaces-parent-2</url>
     </scm>
 
 </project>
