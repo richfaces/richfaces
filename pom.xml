@@ -59,8 +59,9 @@
     </issueManagement>
 
     <properties>
-        <project.reporting.outputEncoding>UTF-8
-        </project.reporting.outputEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- Override the default 2.0.9 from jboss-parent -->
+        <maven.min.version>2.1.0</maven.min.version>
     </properties>
 
     <!-- Repository management, including extra repositories if needed -->
@@ -168,42 +169,11 @@
 
                 <!-- Build -->
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>1.0-beta-1</version>
-                    <executions>
-                        <execution>
-                            <id>enforce-versions</id>
-                            <goals>
-                                <goal>enforce</goal>
-                            </goals>
-                            <configuration>
-                                <rules>
-                                    <requireMavenVersion>
-                                        <version>2.1.0</version>
-                                    </requireMavenVersion>
-                                </rules>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <configuration>
                         <source>1.5</source>
                         <target>1.5</target>
                     </configuration>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-source-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>attach-source</id>
-                            <goals>
-                                <goal>jar</goal>
-                            </goals>
-                        </execution>
-                    </executions>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -378,8 +348,7 @@
         <!--
             The following profiles determine the JSF api/impl combinations that
             will beused. The detfault profile is "jsf-ri", this can be
-            overwritten by setting -Djsf=[myfaces|mix] on the
-            mvn command line
+            overwritten by setting -Djsf=[myfaces|mix] on the mvn command line
         -->
         <profile>
             <id>jsf-ri</id>
