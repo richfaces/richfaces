@@ -353,7 +353,8 @@
             <id>jsf-ri</id>
             <activation>
                 <property>
-                    <name>!jsf_profile</name>
+                    <name>jsf_profile</name>
+                    <value>ri_snapshot</value>
                 </property>
             </activation>
             <properties>
@@ -371,8 +372,7 @@
             <id>ri_202</id>
             <activation>
                 <property>
-                    <name>jsf_profile</name>
-                    <value>ri_202</value>
+                    <name>!jsf_profile</name>
                 </property>
             </activation>
             <properties>
