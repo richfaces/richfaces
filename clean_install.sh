@@ -129,10 +129,13 @@ DOC_QE_MODULE_ARRAY=(
 EXAMPLE_ARCHETYPE_MODULE_ARRAY=(
        # For each example
        # "examples/<example-name>"
-       "examples/core-demo"
-       "examples/repeater-demo"
-       "examples/richfaces-showcase"
-       "examples/dist"
+       "examples"
+       
+       # TODO for now these can not be build alone
+       # "examples/core-demo"
+       # "examples/repeater-demo"
+       # "examples/richfaces-showcase"
+       # "examples/dist"
 
        # For each archetype
        # "archetype/archetype-name"
