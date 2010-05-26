@@ -21,7 +21,7 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
-        <version>4</version>
+        <version>5</version>
     </parent>
     
     <groupId>org.richfaces</groupId>
