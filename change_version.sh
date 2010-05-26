@@ -12,6 +12,9 @@ BASIC OPTIONS:
    -d      Destination directory, otherwise the PWD is used 
    -o      Version to replace - such as 4-SNAPSHOT
    -n      Version to replace with - such as 5
+   
+   BUGS: This is traverse into tags as well, so some may need to be reverted
+   
 EOF
 }
 
@@ -30,15 +33,14 @@ fi
    echo =================================
    echo "Changing <version>$ORIG_VERSION</version> into <version>$NEW_VERSION</version>"
 
-   find . -name "pom.xml" | xargs perl -pi -e "s/<version>$ORIG_VERSION<\/version>/<version>$NEW_VERSION<\/version>/"
+   find $DESTINATION -name "pom.xml" | xargs perl -pi -e "s/<version>$ORIG_VERSION<\/version>/<version>$NEW_VERSION<\/version>/"
    
    echo =================================
-
-done
 
 }
 
 DESTINATION=`pwd`
+WORK=1
 ORIG_VERSION=
 NEW_VERSION=
 
