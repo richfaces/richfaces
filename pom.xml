@@ -377,13 +377,13 @@
             </activation>
             <properties>
                 <!-- Define jsf 2 api dependency -->
-                <jsf2.api.groupid>com.sun.faces</jsf2.api.groupid>
+                <jsf2.api.groupid>javax.faces</jsf2.api.groupid>
                 <jsf2.api.artifactid>jsf-api</jsf2.api.artifactid>
-                <jsf2.api.version>2.0.2</jsf2.api.version>
+                <jsf2.api.version>2.0.2-FCS</jsf2.api.version>
                 <!-- Define jsf 2 impl dependency -->
-                <jsf2.impl.groupid>com.sun.faces</jsf2.impl.groupid>
+                <jsf2.impl.groupid>javax.faces</jsf2.impl.groupid>
                 <jsf2.impl.artifactid>jsf-impl</jsf2.impl.artifactid>
-                <jsf2.impl.version>2.0.2</jsf2.impl.version>
+                <jsf2.impl.version>2.0.2-FCS</jsf2.impl.version>
             </properties>
         </profile>
         <profile>
