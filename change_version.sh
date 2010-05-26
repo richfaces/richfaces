@@ -28,7 +28,7 @@ fi
 
    echo
    echo =================================
-   echo "Changing <version>$ORIG_VERSION</version> into <version>$NEW_VERSION</version>
+   echo "Changing <version>$ORIG_VERSION</version> into <version>$NEW_VERSION</version>"
 
    find . -name "pom.xml" | xargs perl -pi -e "s/<version>$ORIG_VERSION<\/version>/<version>$NEW_VERSION<\/version>/"
    
