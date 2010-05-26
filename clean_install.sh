@@ -8,7 +8,6 @@ usage: $0 options
 This script will execute "mvn clean install" on all modules in RichFaces 4.0.  With the the various options below.  
 
 MODULE OPTIONS
-   -c      Include cdk modules
    -t      Include tests, and docs modules (NOT FUNCTIONAL)
    -e      Include examples, and archetype modules (NOT FUNCTIONAL)
    -s      Include sandbox modules
@@ -46,11 +45,6 @@ else
 fi
 
 FINAL_LIST=( ${MAIN_MODULE_ARRAY[@]} )
-
-if [ "$INCL_CDK" -eq "1" ]
-then
-   FINAL_LIST=( ${FINAL_LIST[@]} ${CDK_MODULE_ARRAY[@]} )
-fi
 
 if [ "$INCL_DOCS_TESTS" -eq "1" ]
 then
@@ -96,7 +90,6 @@ DEBUG=0
 SKIP_ENFORCE=0
 MVNARGS=
 WORK=1
-INCL_CDK=0
 INCL_DOCS_TESTS=0
 INCL_EXAMPLES_ARCHETYPE=0
 INCL_SANDBOX=0
@@ -108,17 +101,12 @@ MAIN_MODULE_ARRAY=(
        "build/bom/trunk" 
        "build/resources/trunk/checkstyle"  
        "commons/trunk"
+       "cdk/trunk"
        "core/trunk" 
        "ui/core/trunk"
        "ui/misc/trunk"
        # other ui modules when in place 
        # TODO NOT SURE WHAT TO DO WITH /DISTS
-      )
-
-CDK_MODULE_ARRAY=(
-       "cdk/trunk"
-       #"cdk-sandbox/trunk/xsd2javadoc"
-       #"cdk-sandbox/trunk/maven-resource-dependency-plugin"
       )
 
 DOC_QE_MODULE_ARRAY=(
@@ -164,7 +152,7 @@ SANDBOX_MODULE_ARRAY=(
        # "ui-sandbox/tree-model"
       )
 
-while getopts "tecsahd:xy" OPTION
+while getopts "tesahd:xy" OPTION
 do
      case $OPTION in
          t)
@@ -173,14 +161,10 @@ do
          e)
              INCL_EXAMPLES_ARCHETYPE=1
              ;;
-         c)
-             INCL_CDK=1
-             ;;
          s)
              INCL_SANDBOX=1
              ;;
          a)
-             INCL_CDK=1
              INCL_DOCS_TESTS=1
              INCL_EXAMPLES_ARCHETYPE=1
              INCL_SANDBOX=1
