@@ -347,32 +347,32 @@
         <!--
             The following profiles determine the JSF api/impl combinations that
             will beused. The detfault profile is "jsf-ri", this can be
-            overwritten by setting -Djsf=[myfaces|mix] on the mvn command line
+            overwritten by setting -Djsf_profile=<profile-name> on the mvn command line
         -->
         <profile>
-            <id>jsf-ri</id>
+            <id>jsf_ri</id>
             <activation>
                 <property>
-                    <name>jsf_profile</name>
-                    <value>ri_snapshot</value>
+                    <name>!jsf_profile</name>
                 </property>
             </activation>
             <properties>
                 <!-- Define jsf 2 api dependency -->
                 <jsf2.api.groupid>com.sun.faces</jsf2.api.groupid>
                 <jsf2.api.artifactid>jsf-api</jsf2.api.artifactid>
-                <jsf2.api.version>2.0.3-SNAPSHOT</jsf2.api.version>
+                <jsf2.api.version>2.0.2</jsf2.api.version>
                 <!-- Define jsf 2 impl dependency -->
                 <jsf2.impl.groupid>com.sun.faces</jsf2.impl.groupid>
                 <jsf2.impl.artifactid>jsf-impl</jsf2.impl.artifactid>
-                <jsf2.impl.version>2.0.3-SNAPSHOT</jsf2.impl.version>
+                <jsf2.impl.version>2.0.2</jsf2.impl.version>
             </properties>
         </profile>
         <profile>
-            <id>ri_202</id>
+            <id>jsf_ri_javax</id>
             <activation>
                 <property>
-                    <name>!jsf_profile</name>
+                    <name>jsf_profile</name>
+                    <value>jsf_ri_javax</value>
                 </property>
             </activation>
             <properties>
@@ -384,6 +384,25 @@
                 <jsf2.impl.groupid>javax.faces</jsf2.impl.groupid>
                 <jsf2.impl.artifactid>jsf-impl</jsf2.impl.artifactid>
                 <jsf2.impl.version>2.0.2-FCS</jsf2.impl.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>jsf_ri_snapshot</id>
+            <activation>
+                <property>
+                    <name>jsf_profile</name>
+                    <value>jsf_ri_snapshot</value>
+                </property>
+            </activation>
+            <properties>
+                <!-- Define jsf 2 api dependency -->
+                <jsf2.api.groupid>com.sun.faces</jsf2.api.groupid>
+                <jsf2.api.artifactid>jsf-api</jsf2.api.artifactid>
+                <jsf2.api.version>2.0.3-SNAPSHOT</jsf2.api.version>
+                <!-- Define jsf 2 impl dependency -->
+                <jsf2.impl.groupid>com.sun.faces</jsf2.impl.groupid>
+                <jsf2.impl.artifactid>jsf-impl</jsf2.impl.artifactid>
+                <jsf2.impl.version>2.0.3-SNAPSHOT</jsf2.impl.version>
             </properties>
         </profile>
         <profile>
@@ -406,22 +425,22 @@
             </properties>
         </profile>
         <profile>
-            <id>myfaces-api-ri-impl</id>
+            <id>myfaces_snapshot</id>
             <activation>
                 <property>
                     <name>jsf_profile</name>
-                    <value>mix</value>
+                    <value>myfaces_snapshot</value>
                 </property>
             </activation>
             <properties>
                 <!-- Define jsf 2 api dependency -->
                 <jsf2.api.groupid>org.apache.myfaces.core</jsf2.api.groupid>
                 <jsf2.api.artifactid>myfaces-api</jsf2.api.artifactid>
-                <jsf2.api.version>2.0.0</jsf2.api.version>
+                <jsf2.api.version>2.0.1-SNAPSHOT</jsf2.api.version>
                 <!-- Define jsf 2 impl dependency -->
-                <jsf2.impl.groupid>com.sun.faces</jsf2.impl.groupid>
-                <jsf2.impl.artifactid>jsf-impl</jsf2.impl.artifactid>
-                <jsf2.impl.version>2.0.3-SNAPSHOT</jsf2.impl.version>
+                <jsf2.impl.groupid>org.apache.myfaces.core</jsf2.impl.groupid>
+                <jsf2.impl.artifactid>myfaces-impl</jsf2.impl.artifactid>
+                <jsf2.impl.version>2.0.1-SNAPSHOT</jsf2.impl.version>
             </properties>
         </profile>
 
