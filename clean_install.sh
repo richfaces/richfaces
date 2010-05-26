@@ -18,6 +18,7 @@ BASIC OPTIONS:
    -h      Show this message
    -d      Root directory, otherwise the PWD is used 
    -x      Use mvn -X option
+   -y      Skip enforcement rules - this is needed if using cdk plugin snapshots
 
 TODO Add options for skip test, skip check style etc...
 EOF
@@ -29,6 +30,11 @@ work()
 if [ "$DEBUG" -eq "1" ]
 then
    MVNARGS="-X"
+fi
+
+if [ "$SKIP_ENFORCE" -eq "1" ]
+then
+   MVNARGS="$MVNARGS -Dskip-enforce"
 fi
   
 if  [ -d "$DESTINATION" ]
@@ -87,6 +93,7 @@ done
 
 DESTINATION=`pwd`
 DEBUG=0
+SKIP_ENFORCE=0
 MVNARGS=
 WORK=1
 INCL_CDK=0
@@ -154,7 +161,7 @@ SANDBOX_MODULE_ARRAY=(
        # "ui-sandbox/tree-model"
       )
 
-while getopts "tecsahd:x" OPTION
+while getopts "tecsahd:xy" OPTION
 do
      case $OPTION in
          t)
@@ -184,6 +191,9 @@ do
              ;;
          x)
              DEBUG=1
+             ;;
+         y)
+             SKIP_ENFORCE=1
              ;;
          [?])
              usage;
