@@ -20,14 +20,13 @@ BASIC OPTIONS:
    -x      Use mvn -X option
 
 TODO Add options for skip test, skip check style etc...
-
 EOF
 }
 
 work()
 {
 
-if [ "$DEBUG" -eq "0" ]
+if [ "$DEBUG" -eq "1" ]
 then
    MVNARGS="-X"
 fi
@@ -64,7 +63,7 @@ fi
 
 for module in "${FINAL_LIST[@]}"
 do
-   moduledir=$DESTINATION/$module
+   moduledir="$DESTINATION/$module"
    command="mvn $MVNARGS clean install" 
    echo
    echo =================================
@@ -104,14 +103,15 @@ MAIN_MODULE_ARRAY=(
        "commons/trunk"
        "core/trunk" 
        "ui/core/trunk"
-       "ui/misc/trunk
+       "ui/misc/trunk"
        # other ui modules when in place 
        # TODO NOT SURE WHAT TO DO WITH /DISTS
       )
 
 CDK_MODULE_ARRAY=(
        "cdk/trunk"
-       "cdk-sandbox/trunk"
+       #"cdk-sandbox/trunk/xsd2javadoc"
+       #"cdk-sandbox/trunk/maven-resource-dependency-plugin"
       )
 
 DOC_QE_MODULE_ARRAY=(
@@ -121,23 +121,23 @@ DOC_QE_MODULE_ARRAY=(
 
 EXAMPLE_ARCHETYPE_MODULE_ARRAY=(
        # For each example
-       # "examples/<example>"
+       # "examples/<example-name>"
        "examples/core-demo"
        "examples/repeater-demo"
        "examples/richfaces-showcase"
        "examples/dist"
 
        # For each archetype
-       # "archetype/<archetype>"
+       # "archetype/archetype-name"
        # TODO - populate after we have archetypes
       )
 
 SANDBOX_MODULE_ARRAY=(
        # For each example in sandbox
-       # "examples-sandbox/<example>"
+       # "examples-sandbox/<example-name>"
        
        # For each component in sandbox
-       # "ui-sandbox/<component>"
+       # "ui-sandbox/<component-name>"
        "ui-sandbox/tables/trunk"
        "ui-sandbox/datascroller/trunk"
        "ui-sandbox/componentControl/trunk"
