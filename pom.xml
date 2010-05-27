@@ -152,6 +152,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
+                    <version>2.0</version>
                     <configuration>
                         <!-- All sub-modules will have same version -->
                         <autoVersionSubmodules>true</autoVersionSubmodules>
