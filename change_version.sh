@@ -33,7 +33,7 @@ fi
    echo =================================
    echo "Changing <version>$ORIG_VERSION</version> into <version>$NEW_VERSION</version>"
 
-   find $DESTINATION -name "pom.xml" | xargs perl -pi -e "s/<version>$ORIG_VERSION<\/version>/<version>$NEW_VERSION<\/version>/"
+   find $DESTINATION -name "pom.xml" -path *trunk/* | xargs perl -pi -e "s/<version>$ORIG_VERSION<\/version>/<version>$NEW_VERSION<\/version>/"
    
    echo =================================
 
