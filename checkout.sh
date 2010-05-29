@@ -69,7 +69,7 @@ fi
 
 for module in "${FINAL_LIST[@]}"
 do
-   url="$SVNBASE/$module/trunk"
+   url="$SVNBASE/$module"
    moduledir=$DESTINATION/$module/trunk
 
    echo
@@ -106,21 +106,20 @@ INCL_SANDBOX=0
 # Listing of all modules to be checked out
 # $1 = path to module ( before trunk/tag/branch )
 MAIN_MODULE_ARRAY=(
-       "build/parent" 
-       "build/bom" 
-       "build/resources"  
-       "commons"
-       "core" 
-       "dist"
-       "ui/core"
-       "ui/dist"
-       # other ui modules when in place 
-       # "ui/inputs"
+       "build/parent/trunk" 
+       "build/bom/trunk" 
+       "build/resources/trunk"  
+       "commons/trunk"
+       "core/trunk" 
+       "dist/trunk"
+       "ui/core/trunk"
+       "ui/dist/trunk"
+       "ui/misc/trunk"
+       "ui/iteration/trunk"
       )
 
 CDK_MODULE_ARRAY=(
-       "cdk"
-       "cdk-sandbox"
+       "cdk/trunk"
       )
 
 DOC_QE_MODULE_ARRAY=(
@@ -131,34 +130,25 @@ DOC_QE_MODULE_ARRAY=(
 EXAMPLE_ARCHETYPE_MODULE_ARRAY=(
        # For each example
        # "examples/<example>"
-       "examples/dist"
-       "examples/core-demo"
-       "examples/repeater-demo"
-       "examples/richfaces-showcase"
-
+       "examples"
+       # TODO - Clean up examples so it does not need root aggregator
+       
        # For each archetype
        # "archetype/<archetype>"
-       # TODO - populate after we have archetypes
+       "archetype"
+       # TODO - Clean up archetype so it does not need root aggregator
+
       )
 
 SANDBOX_MODULE_ARRAY=(
+       # cdk sandbox
+       "cdk-sandbox/trunk"
+
        # For each example in sandbox
        # "examples-sandbox/<example>"
        
        # For each component in sandbox
        # "ui-sandbox/<component>"
-       "ui-sandbox/calendar"
-       "ui-sandbox/componentcontrol"
-       "ui-sandbox/datafilterslider"
-       "ui-sandbox/datascroller"
-       "ui-sandbox/drag-drop"
-       "ui-sandbox/fileupload"
-       "ui-sandbox/numberinputs"
-       "ui-sandbox/selects"
-       "ui-sandbox/tables"
-       "ui-sandbox/togglepanels"
-       "ui-sandbox/tree"
-       "ui-sandbox/tree-model"
       )
 
 while getopts "tecsahrd:v" OPTION
