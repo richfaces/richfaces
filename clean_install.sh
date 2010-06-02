@@ -105,6 +105,8 @@ MAIN_MODULE_ARRAY=(
        "core/trunk" 
        "ui/core/trunk"
        "ui/misc/trunk"
+       "ui/iteration/trunk"
+       "ui/dist/trunk"
        # other ui modules when in place 
        # TODO NOT SURE WHAT TO DO WITH /DISTS
       )
