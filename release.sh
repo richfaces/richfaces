@@ -163,17 +163,17 @@ WORK=1
 # $4 = tag name base - "-<release version" appended
 # $5 = version property - required for updating intermodule dependencies modules
 MAIN_MODULE_ARRAY=(
-       "build/bom 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-bom org.richfaces.bom" 
-       "commons 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-commons org.richfaces.commons"
-       "core 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-core org.richfaces.core"
-       "cdk 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-cdk org.richfaces.cdk"
-       "ui/core 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-ui-core org.richfaces.ui.core"
-       "ui/misc 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-ui-misc org.richfaces.ui.misc"
-       "ui/iteration 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-ui-iteration org.richfaces.ui.iteration"
-       "ui/dist 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-ui-dist org.richfaces.ui"
-       "archetypes/richfaces-archetype-simpleapp 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-archetype-simpleapp org.richfaces.archetypes.richfaces-archetype-simpleapp"
-       "examples/core-demo 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-core-demo org.richfaces.examples.core-demo"
-       "examples/richfaces-showcase 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-showcase org.richfaces.examples.richfaces-showcase"
+       #"build/bom 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-bom org.richfaces.bom" 
+       #"commons 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-commons org.richfaces.commons"
+       #"core 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-core org.richfaces.core"
+       #"cdk 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-cdk org.richfaces.cdk"
+       #"ui/core 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-ui-core org.richfaces.ui.core"
+       #"ui/misc 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-ui-misc org.richfaces.ui.misc"
+       #"ui/iteration 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-ui-iteration org.richfaces.ui.iteration"
+       #"ui/dist 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-ui-dist org.richfaces.ui"
+       #"archetypes/richfaces-archetype-simpleapp 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-archetype-simpleapp org.richfaces.archetypes.richfaces-archetype-simpleapp"
+       #"examples/core-demo 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-core-demo org.richfaces.examples.core-demo"
+       #"examples/richfaces-showcase 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-showcase org.richfaces.examples.richfaces-showcase"
        "docs 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-docs org.richfaces.docs"
        "dist 4.0.0.Alpha2 4.0.0-SNAPSHOT  richfaces-dist org.richfaces.dist"
       )
