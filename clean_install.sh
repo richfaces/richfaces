@@ -97,9 +97,11 @@ INCL_SANDBOX=0
 # Listing of all modules to be checked out
 # $1 = path to module ( before trunk/tag/branch )
 MAIN_MODULE_ARRAY=(
-       "build/parent/trunk" 
+       # Non-Released Modules
+       #"build/parent/trunk"
+       #"build/resources/trunk/checkstyle"
+       #"build/resources/trunk/faces-shade-transformers"
        "build/bom/trunk" 
-       "build/resources/trunk/checkstyle"  
        "commons/trunk"
        "cdk/trunk"
        "core/trunk" 
@@ -107,8 +109,11 @@ MAIN_MODULE_ARRAY=(
        "ui/misc/trunk"
        "ui/iteration/trunk"
        "ui/dist/trunk"
-       # other ui modules when in place 
-       # TODO NOT SURE WHAT TO DO WITH /DISTS
+       "archetypes/richfaces-archetype-simpleapp/trunk"
+       "examples/core-demo/trunk"
+       "examples/richfaces-showcase/trunk"
+       "docs/trunk"
+       "dist/trunk"
       )
 
 DOC_QE_MODULE_ARRAY=(

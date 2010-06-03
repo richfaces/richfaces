@@ -170,10 +170,12 @@ MAIN_MODULE_ARRAY=(
        "ui/core 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-ui-core org.richfaces.ui.core"
        "ui/misc 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-ui-misc org.richfaces.ui.misc"
        "ui/iteration 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-ui-iteration org.richfaces.ui.iteration"
-       # TODO Needs to be updated after merge
-       #"ui/dist 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-ui-dist org.richfaces.ui.dist"
-       #"archetypes/richfaces-archetype-simpleapp/ 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-archetype-simpleapp org.richfaces.archetypes.richfaces-archetype-simpleapp"
-       #"archetypes/richfaces-archetype-simpleapp/ 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-archetype-simpleapp org.richfaces.archetypes richfaces-archetype-simpleapp"
+       "ui/dist 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-ui-dist org.richfaces.ui"
+       "archetypes/richfaces-archetype-simpleapp 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-archetype-simpleapp org.richfaces.archetypes.richfaces-archetype-simpleapp"
+       "examples/core-demo 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-core-demo org.richfaces.examples.core-demo"
+       "examples/richfaces-showcase 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-showcase org.richfaces.examples.richfaces-showcase"
+       "docs 4.0.0.Alpha2 4.0.0-SNAPSHOT richfaces-docs org.richfaces.docs"
+       "dist 4.0.0.Alpha2 4.0.0-SNAPSHOT  richfaces-dist org.richfaces.dist"
       )
 
 while getopts "hb:x" OPTION
