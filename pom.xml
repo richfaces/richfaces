@@ -245,7 +245,7 @@
                     <artifactId>maven-jstools-plugin</artifactId>
                     <version>0.7</version>
                     <configuration>
-                        <jsDir>${basedir}/src/main/resources/Meta-inf/resources
+                        <jsDir>${project.basedir}/src/main/resources/META-INF/resources
                         </jsDir>
                         <includes>**/*.js</includes>
                         <caseSensitive>true</caseSensitive>
@@ -264,7 +264,7 @@
 		           <dependencies>
 		              <dependency>
 		                 <groupId>org.jboss</groupId>
-		                 <artifactId>jbossorg-jdocbook-xslt</artifactId>
+		                 <artifactId>jbossorg-docbook-xslt</artifactId>
 		                 <version>1.1.0</version>
 		              </dependency>
 		              <dependency>
