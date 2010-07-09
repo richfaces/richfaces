@@ -256,6 +256,7 @@
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>2.2</version>
                 </plugin>
+                <!--
 		        <plugin>
 		           <groupId>org.jboss.maven.plugins</groupId>
 		           <artifactId>maven-jdocbook-plugin</artifactId>
@@ -309,6 +310,7 @@
 		              </options>
 		           </configuration>
 		        </plugin>
+		        -->
             </plugins>
         </pluginManagement>
         <plugins>
