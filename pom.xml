@@ -256,61 +256,6 @@
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>2.2</version>
                 </plugin>
-                <!--
-		        <plugin>
-		           <groupId>org.jboss.maven.plugins</groupId>
-		           <artifactId>maven-jdocbook-plugin</artifactId>
-		           <version>2.2.3</version>
-		           <extensions>true</extensions>
-		           <dependencies>
-		              <dependency>
-		                 <groupId>org.jboss</groupId>
-		                 <artifactId>jbossorg-docbook-xslt</artifactId>
-		                 <version>1.1.0</version>
-		              </dependency>
-		              <dependency>
-		                 <groupId>org.jboss</groupId>
-		                 <artifactId>jbossorg-jdocbook-style</artifactId>
-		                 <version>1.1.0</version>
-		                 <type>jdocbook-style</type>
-		              </dependency>
-		           </dependencies>
-		           <configuration>
-		              <sourceDirectory>${project.basedir}/src/main/docbook</sourceDirectory>
-		              <sourceDocumentName>${docname}.xml</sourceDocumentName>
-		              <masterTranslation>en-US</masterTranslation>
-		              <imageResource>
-		                 <directory>${project.basedir}/src/main/docbook/en-US</directory>
-		                 <includes>
-		                    <include>images/*.png</include>
-		                 </includes>
-		              </imageResource>
-		              <formats>
-		                 <format>
-		                    <formatName>pdf</formatName>
-		                    <stylesheetResource>classpath:/xslt/org/jboss/pdf.xsl</stylesheetResource>
-		                    <finalName>${pdf.name}</finalName>
-		                 </format>
-		                 <format>
-		                    <formatName>html</formatName>
-		                    <stylesheetResource>classpath:/xslt/org/jboss/xhtml.xsl</stylesheetResource>
-		                    <finalName>index.html</finalName>
-		                 </format>
-		                 <format>
-		                    <formatName>html_single</formatName>
-		                    <stylesheetResource>classpath:/xslt/org/jboss/xhtml-single.xsl</stylesheetResource>
-		                    <finalName>index.html</finalName>
-		                 </format>
-		              </formats>
-		              <options>
-		                 <xincludeSupported>true</xincludeSupported>
-		                 <xmlTransformerType>saxon</xmlTransformerType>
-		                 <docbookVersion>1.72.0</docbookVersion>
-		                 <localeSeparator>-</localeSeparator>
-		              </options>
-		           </configuration>
-		        </plugin>
-		        -->
             </plugins>
         </pluginManagement>
         <plugins>
@@ -413,32 +358,15 @@
             </activation>
             <properties>
                 <!-- Define jsf 2 api dependency -->
-                <jsf2.api.groupid>com.sun.faces</jsf2.api.groupid>
-                <jsf2.api.artifactid>jsf-api</jsf2.api.artifactid>
-                <jsf2.api.version>2.0.2</jsf2.api.version>
-                <!-- Define jsf 2 impl dependency -->
-                <jsf2.impl.groupid>com.sun.faces</jsf2.impl.groupid>
-                <jsf2.impl.artifactid>jsf-impl</jsf2.impl.artifactid>
-                <jsf2.impl.version>2.0.2</jsf2.impl.version>
-            </properties>
-        </profile>
-        <profile>
-            <id>jsf_ri_javax</id>
-            <activation>
-                <property>
-                    <name>jsf_profile</name>
-                    <value>jsf_ri_javax</value>
-                </property>
-            </activation>
-            <properties>
-                <!-- Define jsf 2 api dependency -->
                 <jsf2.api.groupid>javax.faces</jsf2.api.groupid>
                 <jsf2.api.artifactid>jsf-api</jsf2.api.artifactid>
-                <jsf2.api.version>2.0.2-FCS</jsf2.api.version>
-                <!-- Define jsf 2 impl dependency -->
-                <jsf2.impl.groupid>javax.faces</jsf2.impl.groupid>
+                <jsf2.api.version>2.0</jsf2.api.version>
+                <!-- Define jsf 2 impl dependency 
+                     NOTE: This is the version that is available from maven repo, and is the same
+                           as 2.0.3.FCS, the mojarra team did not upload as FCS -->
+                <jsf2.impl.groupid>com.sun.faces</jsf2.impl.groupid>
                 <jsf2.impl.artifactid>jsf-impl</jsf2.impl.artifactid>
-                <jsf2.impl.version>2.0.2-FCS</jsf2.impl.version>
+                <jsf2.impl.version>2.0.3-b03</jsf2.impl.version>
             </properties>
         </profile>
         <profile>
@@ -451,9 +379,9 @@
             </activation>
             <properties>
                 <!-- Define jsf 2 api dependency -->
-                <jsf2.api.groupid>com.sun.faces</jsf2.api.groupid>
+                <jsf2.api.groupid>javax.faces</jsf2.api.groupid>
                 <jsf2.api.artifactid>jsf-api</jsf2.api.artifactid>
-                <jsf2.api.version>2.0.3-SNAPSHOT</jsf2.api.version>
+                <jsf2.api.version>2.0</jsf2.api.version>
                 <!-- Define jsf 2 impl dependency -->
                 <jsf2.impl.groupid>com.sun.faces</jsf2.impl.groupid>
                 <jsf2.impl.artifactid>jsf-impl</jsf2.impl.artifactid>
@@ -513,7 +441,7 @@
         </connection>
         <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/build/parent/trunk
         </developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces</url>
+        <url>http://fisheye.jboss.org/browse/richfaces/root/build/parent/trunk</url>
     </scm>
 
 </project>
