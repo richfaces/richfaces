@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+ 
+    <display-name>Flex Enterprise Services</display-name>
+    <description>Flex Enterprise Services Application</description>
+
+    <context-param>
+        <param-name>flex.class.path</param-name>
+        <param-value>/WEB-INF/flex/hotfixes,/WEB-INF/flex/jars</param-value>
+    </context-param>
+
+
+  <context-param>
+    <param-name>javax.faces.CONFIG_FILES</param-name>
+    <param-value>/WEB-INF/faces-config.xml</param-value>
+    <description>Comma separated list of URIs of (additional) faces config files.
+            (e.g. /WEB-INF/my-config.xml)
+            See JSF 1.0 PRD2, 10.3.2</description>
+  </context-param>
+  <context-param>
+    <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+    <param-value>client</param-value>
+    <description>State saving method: "client" or "server" (= default)
+            See JSF Specification 2.5.2</description>
+  </context-param>
+  <context-param>
+    <param-name>org.apache.myfaces.ALLOW_JAVASCRIPT</param-name>
+    <param-value>true</param-value>
+    <description>This parameter tells MyFaces if javascript code should be allowed in the
+            rendered HTML output.
+            If javascript is allowed, command_link anchors will have javascript code
+            that submits the corresponding form.
+            If javascript is not allowed, the state saving info and nested parameters
+            will be added as url parameters.
+            Default: "true"</description>
+  </context-param>
+  <context-param>
+    <param-name>org.apache.myfaces.PRETTY_HTML</param-name>
+    <param-value>true</param-value>
+    <description>If true, rendered HTML code will be formatted, so that it is "human readable".
+            i.e. additional line separators and whitespace will be written, that do not
+            influence the HTML code.
+            Default: "true"</description>
+  </context-param>
+  <context-param>
+    <param-name>org.apache.myfaces.DETECT_JAVASCRIPT</param-name>
+    <param-value>false</param-value>
+  </context-param>
+  <context-param>
+    <param-name>org.apache.myfaces.AUTO_SCROLL</param-name>
+    <param-value>true</param-value>
+    <description>If true, a javascript function will be rendered that is able to restore the
+            former vertical scroll on every request. Convenient feature if you have pages
+            with long lists and you do not want the browser page to always jump to the top
+            if you trigger a link or button action that stays on the same page.
+            Default: "false"</description>
+  </context-param>
+  <context-param>
+    <param-name>tiles-definitions</param-name>
+    <param-value>/WEB-INF/tiles.xml</param-value>
+  </context-param> 
+  <context-param>
+<param-name>org.ajax4jsf.VIEW_HANDLERS</param-name>
+<param-value>org.apache.myfaces.application.jsp.JspTilesViewHandlerImpl</param-value>
+</context-param>
+
+  
+  <filter>
+    <filter-name>extensionsFilter</filter-name>
+    <filter-class>org.apache.myfaces.component.html.util.ExtensionsFilter</filter-class>
+    <init-param>
+      <param-name>uploadMaxFileSize</param-name>
+      <param-value>10m</param-value>
+      <description>Set the size limit for uploaded files.
+                Format: 10 - 10 bytes
+                        10k - 10 KB
+                        10m - 10 MB
+                        1g - 1 GB</description>
+    </init-param>
+    <init-param>
+      <param-name>uploadThresholdSize</param-name>
+      <param-value>1k</param-value>
+      <description>Set the threshold size - files
+                    below this limit are stored in memory, files above
+                    this limit are stored on disk.
+
+                Format: 10 - 10 bytes
+                        10k - 10 KB
+                        10m - 10 MB
+                        1g - 1 GB
+            </description>
+        </init-param>
+    </filter>
+    <!-- Shale Application Controller Filter -->
+	<filter>
+		<filter-name>shale</filter-name>
+		<filter-class>
+		  org.apache.shale.faces.ShaleApplicationFilter
+		</filter-class>
+	</filter>
+	<filter>
+		<filter-name>security</filter-name>
+		<filter-class>
+		  com.pfizer.eNCA.filter.SecurityFilter
+		</filter-class>
+	</filter>
+	<filter>	
+	<filter-name>ajax4jsf</filter-name>
+	<filter-class>org.ajax4jsf.Filter</filter-class>
+	</filter>
+	 <filter-mapping>
+	<filter-name>ajax4jsf</filter-name>
+	<servlet-name>Faces Servlet</servlet-name>	
+	</filter-mapping> 
+	<filter-mapping>
+		<filter-name>shale</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>	
+	<filter-mapping>
+        <filter-name>extensionsFilter</filter-name>
+        <url-pattern>*.jsf</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>extensionsFilter</filter-name>
+        <url-pattern>/faces/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+		<filter-name>security</filter-name>
+		<url-pattern>/jsp/*</url-pattern>
+	</filter-mapping>
+
+    <listener>
+        <listener-class>org.apache.myfaces.webapp.StartupServletContextListener</listener-class>
+    </listener>
+    <!-- Commons Chain Configuration Listener -->
+	<listener>
+	    <listener-class>org.apache.commons.chain.web.ChainListener</listener-class>
+	</listener>
+	<listener>
+		<listener-class>com.pfizer.eNCA.util.SessionListener</listener-class>
+	</listener>
+
+    <!-- MessageBroker Servlet -->
+    <servlet>
+        <servlet-name>MessageBrokerServlet</servlet-name>
+        <display-name>MessageBrokerServlet</display-name>
+        <servlet-class>flex.messaging.MessageBrokerServlet</servlet-class>
+        <init-param>
+            <param-name>services.configuration.file</param-name>
+            <param-value>/WEB-INF/flex/flex-enterprise-services.xml</param-value>
+       </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <servlet-name>FlexMxmlServlet</servlet-name>
+        <display-name>MXML Processor</display-name>
+        <description>Servlet wrapper for the Mxml Compiler</description>
+        <servlet-class>flex.bootstrap.BootstrapServlet</servlet-class>
+        <init-param>
+            <param-name>servlet.class</param-name>
+            <param-value>flex2.server.j2ee.MxmlServlet</param-value>
+        </init-param>
+        <init-param>
+            <param-name>webtier.configuration.file</param-name>
+            <param-value>/WEB-INF/flex/flex-webtier-config.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <servlet-name>FlexSwfServlet</servlet-name>
+        <display-name>SWF Retriever</display-name>
+        <servlet-class>flex.bootstrap.BootstrapServlet</servlet-class>
+        <init-param>
+            <param-name>servlet.class</param-name>
+            <param-value>flex2.server.j2ee.SwfServlet</param-value>
+        </init-param>
+        <!-- SwfServlet must be initialized after MxmlServlet -->
+        <load-on-startup>2</load-on-startup>
+    </servlet>
+
+    <servlet>
+        <servlet-name>FlexInternalServlet</servlet-name>
+        <servlet-class>flex.bootstrap.BootstrapServlet</servlet-class>
+        <init-param>
+            <param-name>servlet.class</param-name>
+            <param-value>flex.server.j2ee.filemanager.FileManagerServlet</param-value>
+        </init-param>
+        <load-on-startup>10</load-on-startup>
+    </servlet>
+	
+	
+	
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>updateRequest</servlet-name>
+        <servlet-class>com.pfizer.eNCA.servlets.AJAXServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>treeRequest</servlet-name>
+        <servlet-class>com.pfizer.eNCA.servlets.TreeStateServlet</servlet-class>
+    </servlet>
+     <servlet>
+     <servlet-name>renderExcel</servlet-name>
+     <servlet-class>com.pfizer.eNCA.servlets.RenderExcel</servlet-class>
+    </servlet>
+  <servlet>
+     <servlet-name>renderSPlus</servlet-name>
+     <servlet-class>com.pfizer.eNCA.servlets.RenderSPlus</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>pkFile</servlet-name>
+    <servlet-class>com.pfizer.eNCA.servlets.PKFileReaderServlet</servlet-class>
+    <init-param>
+			<param-name>requiredSessionObject</param-name>
+			<param-value>loggedInUser</param-value>
+			<description>Require Session Object for Security</description>
+	</init-param>
+  </servlet>
+  
+    <servlet-mapping>
+        <servlet-name>MessageBrokerServlet</servlet-name>
+        <url-pattern>/messagebroker/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>FlexMxmlServlet</servlet-name>
+        <url-pattern>*.mxml</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>FlexSwfServlet</servlet-name>
+        <url-pattern>*.swf</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>FlexInternalServlet</servlet-name>
+        <url-pattern>/flex-internal/*</url-pattern>
+    </servlet-mapping>
+  
+  
+  <servlet-mapping>
+      <servlet-name>renderExcel</servlet-name>
+      <url-pattern>renderexcel.csv</url-pattern>
+     </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>renderSPlus</servlet-name>
+    <url-pattern>rendersplus.sdd</url-pattern>
+  </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateRequest</servlet-name>
+        <url-pattern>/updateRequest/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>treeRequest</servlet-name>
+        <url-pattern>/treeRequest/*</url-pattern>
+    </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>pkFile</servlet-name>
+    <url-pattern>/pk/*</url-pattern>
+  </servlet-mapping>
+    <mime-mapping>
+		<extension>doc</extension>
+		<mime-type>application/msword</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>xls</extension>
+		<mime-type>application/vnd.ms-excel</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>ppt</extension>
+		<mime-type>application/vnd.ms-powerpoint</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>swf</extension>
+		<mime-type>application/x-shockwave-flash</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>pdf</extension>
+		<mime-type>application/pdf</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>inc</extension>
+		<mime-type>text/html</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>zip</extension>
+		<mime-type>application/zip</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>exe</extension>
+		<mime-type>application/octet-stream</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>csv</extension>
+		<mime-type>application/x-csv</mime-type>
+	</mime-mapping>
+    <welcome-file-list>
+        <welcome-file>/jsp/index.jsp</welcome-file>
+    </welcome-file-list>
+	<taglib>
+        <taglib-uri>http://struts.apache.org/tags-tiles</taglib-uri>
+        <taglib-location>/WEB-INF/struts-tiles.tld</taglib-location>
+    </taglib>
+    
+	<security-constraint>
+	    <display-name>Restrict access to JSP pages</display-name>
+	    <web-resource-collection>
+	        <web-resource-name>Restrict access to JSP pages</web-resource-name>
+	        <url-pattern>/jsp/*.jsp</url-pattern>
+	    </web-resource-collection>
+	    <auth-constraint>
+	        <description>With no roles defined, no access granted</description>
+	    </auth-constraint>
+	</security-constraint>
+</web-app>
+

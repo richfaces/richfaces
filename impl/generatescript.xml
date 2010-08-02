@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<!-- ====================================================================== 
+     12.11.2005 23:40:43                                                        
+
+     assemblescripts    
+     Assemble all javaScript library files to one AJAXJSF.js
+                   
+     shura                                                                
+     ====================================================================== -->
+<project name="assemblescripts" default="assembly">
+	<description>
+            Assemble all javaScript library files to one AJAXJSF.js
+    </description>
+
+	<property name="scripts-path" value="org/ajax4jsf/javascript/scripts"></property>
+	<property name="prototype-scripts-path" value="org/ajax4jsf/javascript/scripts"></property>
+	<property name="scriptaculous-scripts-path" value="org/richfaces/renderkit/html/scripts/scriptaculous"></property>
+	<property name="jquery-scripts-path" value="org/richfaces/renderkit/html/scripts/jquery"></property>
+
+	<property name="target-dir" value="${project.build.directory}/javascript"></property>
+	
+	<property name="scripts.dir"
+	          value="${target-dir}/${scripts-path}"
+	/>
+	<property name="prototype.scripts.dir"
+		          value="${target-dir}/${prototype-scripts-path}"
+		/>
+	<property name="script" value="AJAX.js" />
+	
+	<property name="script.rico" value="rico.js"></property>
+	<property name="script.aculo" value="scriptaculo.js"></property>
+	<property name="script.scriptaculous" value="scriptaculous.js"></property>
+	<property name="scriptaculous.scripts.dir"
+		          value="${target-dir}/${scriptaculous-scripts-path}"/>
+	<property name="jquery.scripts.dir"
+		          value="${target-dir}/${jquery-scripts-path}"/>
+
+	<property name="script.prototype" value="prototype.js"></property>
+	<property name="script.jquery" value="jquery.js"></property>
+
+	<property name="script.imagecache" value="imagecache.js"></property>
+	<property name="script.dnd" value="dnd.js"></property>
+	<property name="script.css-rules" value="css-rules.js"></property>
+	<filelist id="imagecache" dir="${basedir}/src/main/javascript/ajaxjsf" files="imagecache.js"></filelist>
+<!--
+	<filelist id="prototype"
+	          dir="${basedir}/src/main/javascript/prototype"
+	          files="empty.js,base.js,string.js,enumerable.js,array.js,hash.js,range.js"
+	>
+-->	
+	<filelist id="jquery"
+	          dir="${basedir}/src/main/javascript/jquery"
+	          files="jquery-1.3.2.js,../memory.js,patches.js">
+	</filelist>
+
+	<filelist id="scriptaculous"
+	          dir="${basedir}/src/main/javascript/scriptaculous"
+	          files="builder.js,effects.js,dragdrop.js,controls.js,slider.js,sound.js" >
+	</filelist>
+
+
+    <filelist id="prototype"
+		          dir="${basedir}/src/main/javascript/prototype"
+		          files="prototype-1.6.0.3.js,../memory.js,patches.js">
+	</filelist>
+
+
+	<filelist id="dnd"
+		          dir="${basedir}/src/main/javascript/dnd"
+			      files="prolog.js,dnd.js,epilog.js">
+	</filelist>
+
+    <filelist id="ajaxjsf" dir="${basedir}/src/main/javascript/ajaxjsf" files="prolog.js,sarissa.js,JSFAJAX.js,queue.js,log4ajax.js,epilog.js,../memory.js"></filelist>   
+	<!-- ================================= 
+          target: assemble              
+         ================================= -->
+	<target name="assembly"
+	        depends="depends"
+	        description="--> Assemble all javaScript library files to one AJAXJSF.js"
+	>
+		<concat append="false"
+		        binary="false"
+		        destfile="${scripts.dir}/${script}"
+		        fixlastline="yes"
+                eol="unix"         
+		>
+            <filelist refid="ajaxjsf">
+                </filelist>
+			</concat>
+		<concat append="false"
+				        binary="false"
+				        destfile="${scripts.dir}/${script.imagecache}"
+				        fixlastline="yes"
+		                eol="unix"         
+				>
+		            <filelist refid="imagecache"/>
+		</concat>
+		<concat append="false"
+				        binary="false"
+				        destfile="${scripts.dir}/${script.dnd}"
+				        fixlastline="yes"
+		                eol="unix"         
+				>
+		            <filelist refid="dnd"/>
+		</concat>
+		<concat append="false"
+		        binary="false"
+		        destfile="${prototype.scripts.dir}/${script.prototype}"
+		        fixlastline="yes"
+                eol="unix">
+		        <filelist refid="prototype">
+		        </filelist>
+		</concat>
+		<concat append="false"
+			        binary="false"
+			        destfile="${scriptaculous.scripts.dir}/${script.scriptaculous}"
+			        fixlastline="yes"
+	                eol="unix"
+			>
+		        <filelist refid="scriptaculous"></filelist>
+		</concat>
+
+		<concat append="false"
+			        binary="false"
+			        destfile="${jquery.scripts.dir}/${script.jquery}"
+			        fixlastline="yes"
+	                eol="unix"
+			>
+		        <filelist refid="jquery"></filelist>
+		</concat>
+
+
+                <copy todir="${prototype.scripts.dir}" file="${basedir}/src/main/javascript/ajaxjsf/smartposition.js">
+		</copy>
+                <copy todir="${scriptaculous.scripts.dir}">
+		        <fileset dir="${basedir}/src/main/javascript/scriptaculous"></fileset>
+		</copy>
+	</target>
+
+    
+    <!-- ================================= 
+          target: fixeol              
+         ================================= -->
+    <target name="fixeol" depends="depends" description="--> Fix CR/LF in files">
+        <fixcrlf srcdir="${basedir}" includes="*.js" eol="unix">
+        </fixcrlf>
+    </target>
+
+   
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: depends                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="depends">
+	</target>
+
+</project>
+

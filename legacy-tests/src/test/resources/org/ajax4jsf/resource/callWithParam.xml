@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f='http://jsf.exadel.com/template'
+   xmlns:u='http://jsf.exadel.com/template/util' 
+   xmlns="http://www.w3.org/1999/xhtml" >
+	<u:selector name=".exadel_debug_console">
+		<f:call name="org.ajax4jsf.resource.CSSTemplateTestCase.contextCallWithParam" >
+			<f:parameter value="Test" /> 
+		</f:call>
+		<u:style name="margin" value="0px"/>
+		<u:style name="font-size" skin="preferableDataSizeFont"></u:style>
+	</u:selector>
+</f:template>

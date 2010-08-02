@@ -1,0 +1,1 @@
+/* that is a dependency of org.richfaces.resource.ResourceHandlerImplTest */

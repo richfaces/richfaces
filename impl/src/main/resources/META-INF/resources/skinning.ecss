@@ -1,0 +1,75 @@
+/* basic skinning styles */
+
+input, select, textarea, button, keygen, isindex, legend, a {
+	font-size : '#{richSkin.generalSizeFont}';
+	font-family : '#{richSkin.generalFamilyFont}';
+	color : '#{richSkin.controlTextColor}';
+}
+fieldset {
+	border-width: 1px; 
+	border-style: solid;
+	padding: 10px;
+	border-color : '#{richSkin.panelBorderColor}';
+}
+hr {
+	border-width: 1px; 
+	border-style: solid;
+	border-color : '#{richSkin.panelBorderColor}';
+}
+a {
+	color : '#{richSkin.generalLinkColor}';
+}
+a:hover {
+	color : '#{richSkin.hoverLinkColor}';
+}
+a:visited {
+	color : '#{richSkin.visitedLinkColor}';
+}
+
+/* extended skinning styles */
+
+input, select, textarea, button, keygen, isindex {
+	border-width: 1px;
+	border-color: '#{richSkin.panelBorderColor}';
+	color: '#{richSkin.controlTextColor}';
+}
+
+button, input[type="reset"], input[type="submit"], input[type="button"] {
+	border-width: 1px;
+	border-color: '#{richSkin.panelBorderColor}';
+	
+	font-size: '#{richSkin.generalSizeFont}';
+	font-family: '#{richSkin.generalFamilyFont}';
+	color: '#{richSkin.headerTextColor}';
+	
+	background-repeat: repeat-x;
+	background-position: top left;
+	background-color: '#{richSkin.headerBackgroundColor}';
+	background-image: "url(#{resource['org.richfaces.renderkit.html.images.ButtonBackgroundImage']})";
+}
+
+button[disabled], input[type="reset"][disabled], input[type="submit"][disabled], input[type="button"][disabled] {
+	color: '#{richSkin.tabDisabledTextColor}';
+	border-color: '#{richSkin.tableFooterBackgroundColor}';
+	background-color: '#{richSkin.tableFooterBackgroundColor}';
+	background-image: "url(#{resource['org.richfaces.renderkit.html.images.ButtonDisabledBackgroundImage']})";
+}
+
+textarea, input[type="text"], input[type="password"], select {
+	border-width: 1px;
+	border-style: inset;
+	border-color: '#{richSkin.panelBorderColor}';
+	
+	font-size: '#{richSkin.generalSizeFont}';
+	font-family: '#{richSkin.generalFamilyFont}';
+	color: '#{richSkin.controlTextColor}';
+
+	background-repeat: no-repeat;
+	background-position: 1px 1px;
+	background-color: '#{richSkin.controlBackgroundColor}';
+	background-image: "url(#{resource['org.richfaces.renderkit.html.images.InputBackgroundImage']})";
+}
+
+textarea[disabled], input[type="text"][disabled], input[type="password"][disabled], select[disabled] {
+	color: '#{richSkin.panelBorderColor}';
+}

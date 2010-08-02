@@ -1,0 +1,4 @@
+@page :right {
+	margin-left: 3cm;
+	margin-right: 4cm;
+}

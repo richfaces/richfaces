@@ -1,0 +1,126 @@
+/**
+ * JavaCC file
+ */
+ 
+options {
+	JDK_VERSION="1.3";
+	STATIC = false;
+	UNICODE_INPUT = true;
+}
+
+PARSER_BEGIN(RichMacroDefinition)
+package org.richfaces.javacc;
+
+import java.util.*;
+import java.io.*;
+
+public class RichMacroDefinition {
+
+	private static String unescape(String arg) {
+		StringBuffer result = new StringBuffer(arg);
+		int idx = 0;
+		while ((idx = result.indexOf("\\", idx)) != -1) {
+			char ch = result.charAt(idx + 1);
+			result.replace(idx, idx + 2, String.valueOf(ch));
+		
+			idx ++;
+		}
+		
+		return result.toString();
+	}
+
+	public static void main(String args[]) throws ParseException, IOException {
+		System.out.println("Reading from standard input...");
+		String line = new BufferedReader(new InputStreamReader(System.in)).readLine();
+		RichMacroDefinition parser = new RichMacroDefinition(new StringReader(line));
+		Object def = parser.expression();
+		System.out.println(def);
+	}
+}
+PARSER_END(RichMacroDefinition)
+
+TOKEN : 
+{
+
+	< SLASH: "\\" > |
+	< LEFT_BRACKET: "{" > |
+	< RIGHT_BRACKET: "}" > |
+	<LITERAL: ((~["{", "\\", "}"])+) | ("\\" ["{", "\\", "}"]) >
+}
+
+List expression(): 
+{
+	String m = null;
+	String t = null;
+	List elems = new ArrayList();	
+}
+{
+
+  (
+    (
+    	t = text() {
+			elems.add(t);
+			t = null;
+    	}
+    	| 
+    	m = macrodef () {
+			elems.add(new org.richfaces.renderkit.Expression(m));
+			m = null;
+    	}
+    )
+  )*
+
+  {
+    return elems;
+  }
+}
+
+String text(): 
+{
+	String result = null;
+	StringBuffer sb = null;
+	Token t = null;
+}
+{
+	( t = <LITERAL>
+		{	
+			if (result == null) {
+				result = unescape(t.image);
+			} else {
+				if (sb == null) {
+					sb = new StringBuffer(result);
+				}
+				
+				sb.append(unescape(t.image));
+			}
+
+			t = null;	 
+		}
+	)+
+	
+	{
+		return (sb != null ? sb.toString() : result);
+	}
+}
+
+String macrodef(): 
+{
+	StringBuffer result = new StringBuffer();
+	String m = null;
+	String t = null;
+}
+{
+	//macrodef:	
+	//LEFT_BRACKET (macrodefpart | text)+ RIGHT_BRACKET;
+	<LEFT_BRACKET> (
+		t = text () {
+			result.append(t); t = null;
+		} 
+		|
+		m = macrodef() {
+			result.append("{" + m + "}"); m = null;
+		}
+
+	)+ <RIGHT_BRACKET>
+	{	return result.toString(); }
+}

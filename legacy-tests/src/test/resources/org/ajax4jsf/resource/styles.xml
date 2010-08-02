@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:template xmlns:f='http://jsf.exadel.com/template'
+   xmlns:u='http://jsf.exadel.com/template/util' 
+   xmlns="http://www.w3.org/1999/xhtml" >
+	<u:selector name=".exadel_debug_console">
+		<u:style name="position" value="fixed"/>
+		<u:style name="z-index" value="80"/>
+		<u:style name="width" value="99%"/>
+		<u:style name="height" context="height"/>
+		<u:style name="left" value="10px"/>
+		<u:style name="bottom" value="30px"/>
+	</u:selector>
+	<u:selector name=".exadel_debug_console_minimized">
+		<u:style name="position" value="fixed"/>
+		<u:style name="z-index" value="80"/>
+		<u:style name="width" value="40px"/>
+		<u:style name="height" value="40px"/>
+		<u:style name="left" value="10px"/>
+		<u:style name="bottom" value="0"/>
+	</u:selector>
+	<u:selector name=".exadel_debug_console_inner">
+		<u:style name="width" value="auto"/>
+		<u:style name="height" value="auto"/>
+		<u:style name="border">
+			<f:verbatim value="1px solid "/>
+			<f:verbatim skin="overAllBackground"/>
+		</u:style>
+		<u:style name="background-color" skin="generalBackgroundColor"/>
+		<u:style name="margin" value="10px"/>
+		<u:style name="margin-bottom" value="20px"/>
+	</u:selector>
+	<u:selector name=".exadel_debug_console_header, .exadel_debug_console_header a">
+		<u:style name="background-color" skin="headerBackgroundColor"/>
+		<u:style name="margin" value="1px"/>
+		<u:style name="text-align" value="center"/>
+		<u:style name="vertical-align" value="middle"/>
+		<u:style name="color" skin="headTextColor"/>
+		<u:style name="text-decoration" value="none"/>
+	</u:selector>
+	<u:selector name=".exadel_debug_console_header TD, TD.exadel_debug_console_header">
+		<u:style name="vertical-align" value="middle"/>
+		<u:style name="font-family" skin="headerFamilyFont"/>
+		<u:style name="font-size" skin="headerSizeFont"/>
+		<u:style name="font-weight" skin="preferableHeaderWeightFont"/>
+		<u:style name="white-space" value="nowrap"/>
+		<u:style name="padding" value="4px"/>
+	</u:selector>
+	<u:selector name=".exadel_debug_console_toolbar TD">
+		<u:style name="vertical-align" value="middle"/>
+		<u:style name="font-family" skin="tabFamilyFont"/>
+		<u:style name="font-size" skin="tabSizeFont"/>
+		<u:style name="white-space" value="nowrap"/>
+		<u:style name="padding" value="4px"/>
+		<u:style name="text-align" value="center"/>
+	</u:selector>
+	<u:selector name=".exadel_debug_console_toolbar a">
+		<u:style name="text-decoration" value="none"/>
+	</u:selector>
+	<u:selector name=".exadel_debug_console_output">
+		<u:style name="height" context="panelHeight"/>
+		<!--u:style name="bottom" value="40px"/-->
+		<!--u:style name="width" value="auto"/-->
+		<u:style name="margin" value="4px"/>
+		<u:style name="padding" value="4px"/>
+		<u:style name="overflow" value="auto"/>
+		<u:style name="border-right" value=" 1px solid "><f:verbatim skin="tableBorderColor"/></u:style>
+		<u:style name="border-top" value=" 1px solid "><f:verbatim skin="generalTextColor"/></u:style>
+		<u:style name="border-left" value=" 1px solid "><f:verbatim skin="generalTextColor"/></u:style>
+		<u:style name="border-bottom" value=" 1px solid "><f:verbatim skin="tableBorderColor"/></u:style>
+		<u:style name="color" skin="controlTextColor"/>
+		<u:style name="font-weight" value=" normal"/>
+		<u:style name="font-size" skin="preferableDataSizeFont"/>
+		<u:style name="font-family" skin="preferableDataFamilyFont"/>
+		<u:style name="background-color" skin="tableBackgroundColor"/>
+		<!--u:style name="background-repeat" value=" repeat-x"/-->
+		<!--u:style name="background-image" ><f:resource f:key="com.exadel.vcp.skins.defaultskin.ControlGradient"/></u:style-->
+	</u:selector>
+	<u:selector name=".exadel_debug_console_inactive_tab">
+		<u:style name="color" skin="generalLinkColor"/>
+	</u:selector>
+	<u:selector name=".exadel_debug_console_active_tab">
+		<u:style name="color" skin="generalTextColor"/>
+		<u:style name="font-weight" value="bold"/>
+	</u:selector>
+	<u:selector name=".exadel_debug_console_shadow_corner, .exadel_debug_console_shadow_h, .exadel_debug_console_shadow_v">
+		<u:style name="background-color" value="#000000"/>
+		<u:style name="line-height" value="0px"/>
+	</u:selector>
+	<u:selector name=".exadel_debug_console_tree">
+		<u:style name="font-family" skin="preferableDataFamilyFont"></u:style>
+	</u:selector>
+	<u:selector name="li.exadel_debug_console_tree, pre.exadel_debug_console_tree">
+		<u:style name="padding" value="0px"/>
+		<u:style name="margin" value="0px"/>
+		<u:style name="font-size" skin="preferableDataSizeFont"></u:style>
+	</u:selector>
+</f:template>

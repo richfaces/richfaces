@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  version="2.0">	
+
+	<factory>
+		<partial-view-context-factory>org.richfaces.context.PartialViewContextFactoryImpl</partial-view-context-factory>
+	</factory>
+	
+	<application>
+		<system-event-listener>
+			<system-event-listener-class>org.richfaces.context.PartialViewContextAjaxOutputTracker</system-event-listener-class>
+			<system-event-class>javax.faces.event.PreRemoveFromViewEvent</system-event-class>
+		</system-event-listener>
+		<system-event-listener>
+			<system-event-listener-class>org.richfaces.context.PartialViewContextAjaxOutputTracker</system-event-listener-class>
+			<system-event-class>javax.faces.event.PostAddToViewEvent</system-event-class>
+		</system-event-listener>
+	</application>
+
+</faces-config>

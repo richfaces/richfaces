@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+ <display-name>testcase</display-name>
+ <context-param>
+  <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+  <param-value>server</param-value>
+ </context-param>
+ <context-param>
+  <param-name>javax.faces.CONFIG_FILES</param-name>
+  <param-value>/WEB-INF/faces-config.xml</param-value>
+ </context-param>
+
+ <filter>
+  <description>Convert HTML to XML</description>
+  <display-name>Filter</display-name>
+  <filter-name>A4J</filter-name>
+  <filter-class>org.ajax4jsf.Filter</filter-class>
+  <init-param>
+   <param-name>publicid</param-name>
+   <param-value>-//W3C//DTD XHTML 1.0 Transitional//EN</param-value>
+  </init-param>
+  <init-param>
+   <param-name>systemid</param-name>
+   <param-value>http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd</param-value>
+  </init-param>
+  <init-param>
+   <param-name>namespace</param-name>
+   <param-value>http://www.w3.org/1999/xhtml</param-value>
+  </init-param>
+  <init-param>
+   <param-name>forceparser</param-name>
+   <param-value>true</param-value>
+  </init-param>
+  <init-param>
+   <param-name>rewriteid</param-name>
+   <param-value>false</param-value>
+  </init-param>
+  <init-param>
+   <param-name>mime-type</param-name>
+   <param-value>text/xml</param-value>
+  </init-param>
+  <init-param>
+   <param-name>log4j-init-file</param-name>
+   <param-value>WEB-INF/log4j.xml</param-value>
+  </init-param>
+  <init-param>
+   <param-name>enable-cache</param-name>
+   <param-value>true</param-value>
+  </init-param>
+ </filter>
+ <filter-mapping>
+  <filter-name>A4J</filter-name>
+  <url-pattern>*.jsf</url-pattern>
+ </filter-mapping>
+ <filter-mapping>
+  <filter-name>A4J</filter-name>
+  <url-pattern>/*</url-pattern>
+ </filter-mapping>
+ <listener>
+  <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
+ </listener>
+ <servlet>
+  <servlet-name>Faces Servlet</servlet-name>
+  <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+  <load-on-startup>1</load-on-startup>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>Faces Servlet</servlet-name>
+  <url-pattern>*.jsf</url-pattern>
+ </servlet-mapping>
+</web-app>
