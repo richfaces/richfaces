@@ -1,0 +1,5 @@
+.rf-ulst-i, .rf-olst-i, .rf-dlst-t, .rf-dlst-d {
+	font-size: '#{richSkin.generalSizeFont}';
+	font-family: '#{richSkin.generalFamilyFont}';
+	color: '#{richSkin.generalTextColor}';
+}

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//AJAX4JSF//CDK Generator config/EN"  "http://labs.jboss.com/jbossrichfaces/component-config.dtd">
+
+<components>
+	<component>
+		<name>org.ajax4jsf.LoadScript</name>
+		<family>org.ajax4jsf.LoadScript</family>
+		<classname>org.ajax4jsf.component.html.HtmlLoadScript</classname>
+		<superclass>org.ajax4jsf.component.UIResource</superclass>
+		<test />
+		<description>
+			<![CDATA[
+    ]]>
+		</description>
+		<renderer>
+			<name>org.ajax4jsf.LoadScriptRenderer</name>
+			<classname>org.ajax4jsf.renderkit.LoadResourceRendererBase</classname>
+		</renderer>
+		<tag>
+			<name>loadScript</name>
+			<classname>org.ajax4jsf.taglib.html.jsp.LoadScriptTag</classname>
+			<superclass>
+				org.ajax4jsf.webapp.taglib.HtmlComponentTagBase
+			</superclass>
+			<test />
+		</tag>
+		<!--
+		<taghandler>
+			<classname>org.ajax4jsf.tag.TestHandler</classname>
+		</taghandler>
+		-->
+		&ui_component_attributes;
+		<!--
+		<property>
+			<name>param</name>
+			<classname>java.lang.String</classname>
+			<description>
+			</description>
+			<defaultvalue>"default"</defaultvalue>
+		</property>
+        -->
+		<property required="true">
+			<name>src</name>
+			<classname>java.lang.Object</classname>
+			<description><![CDATA[
+			name of JavaScript resource to load.
+			]]>
+			</description>
+		</property>
+
+	</component>
+</components>

@@ -1,0 +1,50 @@
+<html 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core">
+	<body>
+		<f:view>
+			<h:form id="form">
+				<a4j:queue name="queue" />
+			
+				<a4j:commandButton requestDelay="400" value="Button 1" id="button1" eventsQueue="queue" 
+					similarityGroupingId="buttons" />
+				
+				<a4j:commandButton requestDelay="400" value="Button 2" id="button2" eventsQueue="queue" 
+					similarityGroupingId="buttons" />
+				
+				<a4j:commandButton value="Button 3" requestDelay="500" id="button3" eventsQueue="queue" />
+				<a4j:commandButton value="Button 4" requestDelay="500" id="button4" eventsQueue="queue" />
+			
+			</h:form>
+			
+			<h:form id="dropNext">
+				<a4j:queue name="dropNextQueue" size="3" sizeExceededBehavior="dropNext" />
+
+				<a4j:commandButton value="Button 1" requestDelay="500" id="button1" eventsQueue="dropNextQueue" />
+				<a4j:commandButton value="Button 2" requestDelay="500" id="button2" eventsQueue="dropNextQueue" />
+			</h:form>
+			<h:form id="dropNew">
+				<a4j:queue name="dropNewQueue" size="3" sizeExceededBehavior="dropNew" />
+
+				<a4j:commandButton value="Button 1" requestDelay="500" id="button1" eventsQueue="dropNewQueue" />
+				<a4j:commandButton value="Button 2" requestDelay="500" id="button2" eventsQueue="dropNewQueue" />
+			</h:form>
+			<h:form id="fireNext">
+				<a4j:queue name="fireNextQueue" size="3" sizeExceededBehavior="fireNext" />
+
+				<a4j:commandButton value="Button 1" requestDelay="500" id="button1" eventsQueue="fireNextQueue" />
+				<a4j:commandButton value="Button 2" requestDelay="500" id="button2" eventsQueue="fireNextQueue" />
+			</h:form>
+			<h:form id="fireNew">
+				<a4j:queue name="fireNewQueue" size="3" sizeExceededBehavior="fireNew" />
+
+				<a4j:commandButton value="Button 1" requestDelay="500" id="button1" eventsQueue="fireNewQueue" />
+				<a4j:commandButton value="Button 2" requestDelay="500" id="button2" eventsQueue="fireNewQueue" />
+			</h:form>
+
+		</f:view>
+	</body>	
+</html>  

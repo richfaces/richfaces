@@ -1,0 +1,40 @@
+<html 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<body>
+		<f:view>
+			<ui:include src="queue-discovery-base.xhtml" />
+
+			<h:form id="form">
+				<a4j:commandButton id="button" oncomplete="stub()" requestDelay="100">
+					<f:param name="data" value="button" />
+				</a4j:commandButton>
+
+				<a4j:commandButton id="alternativeQueueButton" eventsQueue="alternativeQueue" oncomplete="addResult('alternativeQueueButton')">
+					<f:param name="data" value="alternativeQueueButton" />
+				</a4j:commandButton>
+
+				<a4j:commandButton id="implicitQueue" eventsQueue="implicitQueue" oncomplete="addResult('implicitQueue')">
+					<f:param name="data" value="implicitQueue" />
+				</a4j:commandButton>
+			</h:form>
+
+			<h:form id="form2">
+				<a4j:jsFunction name="ajaxFunction" oncomplete="stub()">
+					<f:param name="data" value="function" />
+				</a4j:jsFunction>
+
+				<a4j:commandButton id="implicitDelayedQueue" requestDelay="500" 
+					eventsQueue="implicitDelayedQueue" oncomplete="addResult('implicitDelayedQueue')">
+					<f:param name="data" value="implicitDelayedQueue" />
+				</a4j:commandButton>
+			</h:form>
+
+			<a4j:queue oncomplete="addResult(request.options.parameters.data)"/>
+			<a4j:queue oncomplete="addResult('alt:' + request.options.parameters.data)" name="alternativeQueue" />
+
+		</f:view>
+	</body>	
+</html>  

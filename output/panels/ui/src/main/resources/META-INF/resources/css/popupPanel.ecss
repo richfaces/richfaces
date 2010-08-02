@@ -1,0 +1,163 @@
+.mp-button {
+	outline-style: none;
+	position: absolute;
+	clip: rect(0px 0px 1px 1px);
+	height: 0px;
+	width: 0px;
+	left: 0px;
+	top: 0px;
+	z-index: -300;
+	opacity:0.1;
+	filter : 'alpha(opacity=10)';
+}
+
+.mp_shade {
+	position : fixed;
+ 	width : 100%;
+ 	height : 100%;
+ 	top:0px;
+  	left : 0px;
+ 	background : #D0D0D0;
+ 	opacity:0.5;
+ 	filter : 'alpha(opacity=50)';
+}
+.mp_iframe {
+	position : absolute;
+ 	width : 100%;
+ 	height : 100%;
+ 	top:0px;
+  	left : 0px;
+ 	opacity:0.3;
+ 	filter : 'alpha(opacity=30)';
+}
+.mp_shadow {
+	position : fixed;
+ 	background-color : #000000;
+ 	opacity:0.1;
+ 	filter : 'alpha(opacity=10)';
+}
+.mp_container {
+	position : fixed;
+ 	border : '1px solid #{richSkin.panelBorderColor}';
+ 	background : '#{richSkin.generalBackgroundColor}';
+ 	z-index:100;
+}
+.mp_header {
+	background : "url(#{resource['org.richfaces.renderkit.html.GradientA']})";
+ 	repeat-x : 'top left #{richSkin.headerBackgroundColor}';
+ 	position : relative;
+ 	padding-left : 10px;
+ 	cursor : move;
+ 	padding : 2px;
+}
+.mp_header_content {
+	overflow : hidden;
+ 	white-space : nowrap;
+ 	text-overflow: ellipsis;
+ 	font-weight : '#{richSkin.headerWeightFont}';
+ 	color : '#{richSkin.headerTextColor}';
+ 	font-family : '#{richSkin.headerFamilyFont}';
+ 	font-size : '#{richSkin.headerSizeFont}';
+ 	padding : 2px;
+ 	padding-left : 10px;
+}
+.mp_header_controls {
+ 	position : absolute;
+ 	top : 2px;
+ 	right : 2px;
+ 	white-space : nowrap;
+ 	cursor : default;
+ 	font-weight : '#{richSkin.headerWeightFont}';
+ 	color : '#{richSkin.headerTextColor}';
+ 	font-family : '#{richSkin.headerFamilyFont}';
+ 	font-size : '#{richSkin.headerSizeFont}';
+}
+
+.mp_content_scroller {
+ 	position : relative;
+ 	top : 0px;
+ 	left : 0px;
+ 	overflow : auto;
+}
+.mp_content {
+	position : relative;
+ 	padding : 10px;
+ 	color : '#{richSkin.generalTextColor}';
+ 	font-family : '#{richSkin.generalFamilyFont}';
+ 	font-size : '#{richSkin.generalSizeFont}';
+}
+.mp_handler {
+	background : red;
+ 	filter : 'alpha(opacity=0)';
+ 	opacity:0;
+	position : absolute;
+	margin : -4px;
+}
+.mp_handler_left {
+ 	width : 7px;
+ 	height : 100%;
+ 	top : 0px;
+ 	left : 0px;
+ 	cursor : w-resize;
+}
+
+.mp_handler_right {
+ 	width : 7px;
+ 	height : 100%;
+ 	top : 0px;
+ 	right : 0px;
+ 	cursor : w-resize;
+}
+
+.mp-iframe {
+			position: absolute; 
+			left: 0px; 
+			top: 0px; 
+			background-color: white; 
+			overflow-y: hidden; 
+			z-index: -1;
+}
+		
+.mp_handler_top {
+ 	width : 100%;
+ 	height : 7px;
+ 	top : 0px;
+ 	left : 0px;
+ 	cursor : n-resize;
+}
+.mp_handler_bottom {
+ 	width : 100%;
+ 	height : 7px;
+ 	bottom : 0px;
+ 	left : 0px;
+ 	cursor : n-resize;
+}
+	
+.mp_handler_top_left {
+ 	width : 10px;
+ 	height : 10px;
+ 	top : 0px;
+ 	left : 0px;
+ 	cursor : nw-resize;
+}
+.mp_handler_top_right {
+ 	width : 10px;
+ 	height : 10px;
+ 	top : 0px;
+ 	right : 0px;
+ 	cursor : ne-resize;
+}
+.mp_handler_bottom_left {
+ 	width : 10px;
+ 	height : 10px;
+ 	bottom : 0px;
+ 	left : 0px;
+ 	cursor : ne-resize;
+}
+.mp_handler_bottom_right {
+ 	width : 10px;
+ 	height : 10px;
+ 	bottom : 0px;
+ 	right : 0px;
+ 	cursor : nw-resize;
+}

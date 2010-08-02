@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<faces-config version="2.0" metadata-complete="false"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+              xmlns="http://java.sun.com/xml/ns/javaee" xmlns:cdk="http://richfaces.org/cdk/extensions"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<component>
+		<component-type>org.richfaces.Panel</component-type>
+		<component-class>org.richfaces.component.UIPanel</component-class>
+	</component>
+	<component>
+		<component-type>org.richfaces.PopupPanel</component-type>
+		<component-class>org.richfaces.component.UIPopupPanel</component-class>
+	</component>
+    <render-kit>
+        <render-kit-id>HTML_BASIC</render-kit-id>
+        <renderer>
+            <component-family>org.richfaces.Panel</component-family>
+            <renderer-type>org.richfaces.PanelRenderer</renderer-type>
+            <renderer-class>org.richfaces.renderkit.html.PanelRenderer</renderer-class>
+        </renderer>
+        <renderer>
+            <component-family>org.richfaces.PopupPanel</component-family>
+            <renderer-type>org.richfaces.PopupPanelRenderer</renderer-type>
+            <renderer-class>org.richfaces.renderkit.html.PopupPanelRenderer</renderer-class>
+        </renderer>
+    </render-kit>
+    <faces-config-extension>
+        <cdk:taglib>
+            <cdk:shortName>panels</cdk:shortName>
+            <cdk:uri>http://richfaces.org/panels</cdk:uri>
+        </cdk:taglib>
+    </faces-config-extension>
+</faces-config>

@@ -1,0 +1,23 @@
+
+<facelet-taglib>
+ <tag>
+  <tag-name>ajaxListener</tag-name>
+		    <handler-class>
+				org.ajax4jsf.taglib.html.facelets.AjaxListenerHandler
+			</handler-class>
+	
+ </tag>
+ <tag>
+  <tag-name>facet</tag-name>
+		    <handler-class>
+				org.ajax4jsf.taglib.html.facelets.FacetHandler
+			</handler-class>
+	
+ </tag>
+ <tag>
+  <tag-name>keepAlive</tag-name>
+		    <handler-class>
+				org.ajax4jsf.taglib.html.facelets.KeepAliveHandler
+			</handler-class>	
+ </tag>
+</facelet-taglib>

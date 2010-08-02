@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components 
+        PUBLIC "-//AJAX4JSF//CDK Generator config/EN"
+        "http://labs.jboss.com/jbossrichfaces/component-config.dtd"
+[
+	<!ENTITY universal_html_attributes   SYSTEM "html_universal_attributes.xml">	
+]>
+
+<components>
+     	<component>
+		<name>org.ajax4jsf.OutputPanel</name>
+		<family>javax.faces.Panel</family>
+		<classname>
+			org.ajax4jsf.component.html.HtmlAjaxOutputPanel
+		</classname>
+		<superclass>org.ajax4jsf.component.UIAjaxOutputPanel</superclass>
+		<test />
+		<description>
+			<![CDATA[
+    	Creates an AJAX-enabled part of the page. For a normal request,
+    render a &amp;lt;span&amp;gt; or &amp;lt;div&amp;gt; HTML element
+    depending on the value of the "layout" attribute, "inline" or "block".
+    (The "id" attribute will be the value of the clientId property.) For an
+    AJAX request, the content of this element is included in the response if
+    the value of the property, "ajaxRendered", is set to true.
+    ]]>
+		</description>
+		<displayname>Ajax panel</displayname>
+		<icon>icon</icon>
+		<renderer generate="false" override="false">
+			<name>org.ajax4jsf.components.AjaxOutputPanelRenderer</name>
+			<classname>
+				org.ajax4jsf.renderkit.html.AjaxOutputPanelRenderer
+			</classname>
+			<!-- 
+				<superclass>javax.faces.renderer.Renderer</superclass>
+			-->
+			<description>
+				Performs functions for decoding AJAX requests and
+				building client script for events.
+			</description>
+			<displayname>renderer for Ajax OutputPanel</displayname>
+			<icon>icon</icon>
+		</renderer>
+		<tag>
+			<name>outputPanel</name>
+			<classname>
+				org.ajax4jsf.taglib.html.jsp.AjaxOutputPanel
+			</classname>
+			<superclass>
+				org.ajax4jsf.webapp.taglib.UIComponentTagBase
+			</superclass>
+			<test />
+			<displayname>Ajax OutputPanel</displayname>
+			<icon>icon</icon>
+		</tag>
+		&ui_panel_attributes;
+		&html_universal_attributes;
+		&html_event_handler_attributes;
+		&ajax_output_attributes;
+		<property>
+			<name>ajaxRendered</name>
+			<classname>boolean</classname>
+			<description>
+				Defines, whether the content of this component must be
+				(or not) included in AJAX response created by parent
+				AJAX Container, even if it is not forced by reRender
+				list of ajax action. Ignored if component marked to output by some Ajax action component.
+				Default value is &quot;false&quot;.
+			</description>
+			<defaultvalue>false</defaultvalue>
+		</property>
+		<property>
+			<name>layout</name>
+			<classname>java.lang.String</classname>
+			<description>
+				<![CDATA[
+			HTML layout for generated markup. Possible values: "block"
+            for generating an HTML &lt;div&gt; element, "inline" for
+            generating an HTML &lt;span&gt; element, and "none" for generating
+            no HTML element. There is a minor exception for the "none" case
+            where a child element has the property "rendered" set to "false".
+            In this case, we create an empty &lt;span&gt; element with same ID
+            as the child element to use as a placeholder for later
+            processing. Default value is &quot;inline&quot;
+			]]>
+			</description>
+			<defaultvalue>"inline"</defaultvalue>
+		</property>
+		<property>
+			<name>keepTransient</name>
+			<classname>boolean</classname>
+			<description>
+				<![CDATA[
+				Flag to mark all child components to non-transient. If
+            true, all children components will be set to non-transient state
+            and keep in saved components tree. For output in self-renderer
+            region all content ( By default, all content in &lt;f:verbatim&gt;
+            tags and non-jsf elements in facelets, marked as transient -
+            since, self-rendered ajax regions don't plain output for ajax
+            processing ). Default value is &quot;true&quot;
+			]]>
+			</description>
+			<defaultvalue>true</defaultvalue>
+		</property>
+	</component>
+     
+</components>

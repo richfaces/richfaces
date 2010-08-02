@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://richfaces.org/cdk/xhtml-el" xmlns:cdk="http://richfaces.org/cdk/core"
+	xmlns:c="http://richfaces.org/cdk/jstl/core" xmlns:cc="http://richfaces.org/cdk/jsf/composite"
+	xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+	<cc:interface>
+		<cdk:class>org.richfaces.renderkit.html.AjaxLogRenderer</cdk:class>
+		<cdk:superclass>org.ajax4jsf.renderkit.RendererBase</cdk:superclass>
+		<cdk:component-family>org.richfaces.AjaxLog</cdk:component-family>
+		<cdk:renderer-type>org.richfaces.AjaxLogRenderer</cdk:renderer-type>
+	</cc:interface>
+
+	<cc:implementation>
+		<!--
+			f:clientid var="clientId"/ > <cdk:choose> <cdk:when
+			test="#{component.isPopup()}"> <script id="#{clientId}"
+			type="text/javascript"> LOG.registerPopup(
+			'#{component.attributes["hotkey"]}',
+			'#{component.attributes["name"]}', #{component.attributes["width"]},
+			#{component.attributes["height"]},
+			LOG.#{component.attributes["level"]}); </script> </cdk:when>
+			<cdk:otherwise> <div id="richfaces.log"
+			style='width:#{component.attributes["width"]};height:#{component.attributes["height"]};overflow:auto;#{component.attributes["style"]}'
+			cdk:passThroughWithExclusions="value name id style">
+			<button>Clear</button><br /> <script type="text/javascript">
+			LOG.LEVEL = LOG.#{component.attributes["level"]}; </script> </div>
+			</cdk:otherwise> </cdk:choose
+		-->
+		<div id="richfaces.log" class="rich-log #{component.attributes['styleClass']}">
+			<script type="text/javascript">
+				RichFaces.log.setLevel("#{component.attributes['level']}");
+		</script>
+		</div>
+	</cc:implementation>
+</cdk:root>

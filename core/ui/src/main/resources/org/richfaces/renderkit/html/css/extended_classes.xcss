@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+         
+<f:template xmlns:f='http:/jsf.exadel.com/template'
+   xmlns:u='http:/jsf.exadel.com/template/util'
+   xmlns="http://www.w3.org/1999/xhtml">
+
+	<u:selector name=".rich-container input, .rich-input,
+		.rich-container select, .rich-select,
+		.rich-container textarea, .rich-textarea,
+		.rich-container button, .rich-button,
+		.rich-container keygen, .rich-keygen,
+		.rich-container isindex, .rich-isindex">
+		<u:style name="border-width" value="1px" />
+		<u:style name="border-color" skin="panelBorderColor" />
+		<u:style name="color" skin="controlTextColor" />
+	</u:selector>
+
+	<f:verbatim>
+		<![CDATA[
+		.rich-container *|button, .rich-button {
+			border-width: 1px; 
+			background-repeat : repeat-x;
+			background-position : top left;
+		}
+
+		.rich-button, 
+		.rich-container button[type="button"], .rich-button-button,
+		.rich-container button[type="reset"], .rich-button-reset,
+		.rich-container button[type="submit"], .rich-button-submit,
+		.rich-container input[type="reset"], .rich-input-reset,
+		.rich-container input[type="submit"], .rich-input-submit,
+		.rich-container input[type="button"], .rich-input-button {
+			border-width: 1px; 
+			background-repeat : repeat-x;
+			background-position : top left;
+		}
+		
+		]]>
+	</f:verbatim>
+
+	<u:selector name=".rich-container *|button, .rich-button">
+		<u:style name="border-color" skin="panelBorderColor" />
+		<u:style name="font-size" skin="generalSizeFont" />
+		<u:style name="font-family" skin="generalFamilyFont" />
+		<u:style name="color" skin="headerTextColor" />
+		<u:style name="background-color" skin="headerBackgroundColor" />
+
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.images.ButtonBackgroundImage"/>
+		</u:style>
+	</u:selector>
+
+	<u:selector name="
+		.rich-button, 
+		.rich-container button[type=&quot;button&quot;], .rich-button-button,
+		.rich-container button[type=&quot;reset&quot;], .rich-button-reset,
+		.rich-container button[type=&quot;submit&quot;], .rich-button-submit,
+		.rich-container input[type=&quot;reset&quot;], .rich-input-reset,
+		.rich-container input[type=&quot;submit&quot;], .rich-input-submit,
+		.rich-container input[type=&quot;button&quot;], .rich-input-button
+		">
+		<u:style name="border-color" skin="panelBorderColor" />
+		<u:style name="font-size" skin="generalSizeFont" />
+		<u:style name="font-family" skin="generalFamilyFont" />
+		<u:style name="color" skin="headerTextColor" />
+		<u:style name="background-color" skin="headerBackgroundColor" />
+
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.images.ButtonBackgroundImage"/>
+		</u:style>
+	</u:selector>
+
+
+	<u:selector name=".rich-container *|button[disabled]">
+		<u:style name="color" skin="tabDisabledTextColor" />
+		<u:style name="background-color" skin="tableFooterBackgroundColor" />
+		<u:style name="border-color" skin="tableFooterBackgroundColor" />
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.images.ButtonDisabledBackgroundImage"/>
+		</u:style>
+	</u:selector>
+	
+	<u:selector name=".rich-button-disabled,
+		.rich-container button[type=&quot;button&quot;][disabled], .rich-button-button-disabled,
+		.rich-container button[type=&quot;reset&quot;][disabled], .rich-button-reset-disabled,
+		.rich-container button[type=&quot;submit&quot;][disabled], .rich-button-submit-disabled, 
+		.rich-container input[type=&quot;reset&quot;][disabled], .rich-input-reset-disabled, 
+		.rich-container input[type=&quot;submit&quot;][disabled], .rich-input-submit-disabled, 
+		.rich-container input[type=&quot;button&quot;][disabled], .rich-input-button-disabled">
+		<u:style name="color" skin="tabDisabledTextColor" />
+		<u:style name="background-color" skin="tableFooterBackgroundColor" />
+		<u:style name="border-color" skin="tableFooterBackgroundColor" />
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.images.ButtonDisabledBackgroundImage"/>
+		</u:style>
+	</u:selector>
+	
+	
+	<f:verbatim>
+		<![CDATA[
+		.rich-container *|textarea {
+			border-width: 1px; 
+			border-style : inset;
+			background-repeat : no-repeat;
+			background-position : 1px 1px;
+		}
+		
+		.rich-textarea, 
+		.rich-container textarea[type="textarea"], .rich-textarea-textarea, 
+		.rich-container input[type="text"], .rich-input-text, 
+		.rich-container input[type="password"], .rich-input-password, 
+		.rich-container select, .rich-select {
+			border-width: 1px; 
+			border-style : inset;
+			background-repeat : no-repeat;
+			background-position : 1px 1px;
+		}
+		]]>
+	</f:verbatim>
+
+	<u:selector name=".rich-container *|textarea">
+		<u:style name="border-color" skin="panelBorderColor" />
+		<u:style name="font-size" skin="generalSizeFont" />
+		<u:style name="font-family" skin="generalFamilyFont" />
+		<u:style name="color" skin="controlTextColor" />
+		<u:style name="background-color" skin="controlBackgroundColor" />
+
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.images.InputBackgroundImage"/>
+		</u:style>
+	</u:selector>
+
+	<u:selector name=".rich-textarea, 
+		.rich-container textarea[type=&quot;textarea&quot;], .rich-textarea-textarea,
+		.rich-container input[type=&quot;text&quot;], .rich-input-text,
+		.rich-container input[type=&quot;password&quot;], .rich-input-password, 
+		.rich-container select, .rich-select">
+		<u:style name="border-color" skin="panelBorderColor" />
+		<u:style name="font-size" skin="generalSizeFont" />
+		<u:style name="font-family" skin="generalFamilyFont" />
+		<u:style name="color" skin="controlTextColor" />
+		<u:style name="background-color" skin="controlBackgroundColor" />
+
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.images.InputBackgroundImage"/>
+		</u:style>
+	</u:selector>
+
+	<u:selector name=".rich-container *|textarea[disabled], .rich-container *|select[disabled]">
+		<u:style name="color" skin="panelBorderColor" />
+	</u:selector>
+
+	<u:selector name=".rich-textarea-disabled, .rich-container textarea[type=&quot;textarea&quot;][disabled], .rich-textarea-textarea-disabled,
+		.rich-container input[type=&quot;text&quot;][disabled], .rich-input-text-disabled, 
+		.rich-container input[type=&quot;password&quot;][disabled], .rich-input-password-disabled,
+		.rich-container select[disabled], .rich-select-disabled">
+		<u:style name="color" skin="panelBorderColor" />
+	</u:selector>
+</f:template>

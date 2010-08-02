@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components 
+        PUBLIC "-//AJAX4JSF//CDK Generator config/EN"
+        "http://labs.jboss.com/jbossrichfaces/component-config.dtd"
+[
+	<!ENTITY universal_html_attributes   SYSTEM "html_universal_attributes.xml">	
+]>
+
+<components>
+     	<component>
+		<name>org.ajax4jsf.Push</name>
+		<family>org.ajax4jsf.components.AjaxPush</family>
+		<classname>org.ajax4jsf.component.html.AjaxPush</classname>
+		<superclass>org.ajax4jsf.component.UIPush</superclass>
+		<test />
+		<description>
+			Periodically perform AJAX request to server, to simulate
+			'push' data.
+			<br />
+		</description>
+		<displayname>Ajax Push</displayname>
+		<icon>icon</icon>
+		<renderer generate="false" override="false">
+			<name>org.ajax4jsf.components.AjaxPushRenderer</name>
+			<classname>
+				org.ajax4jsf.renderkit.html.AjaxPushRenderer
+			</classname>
+			<!-- 
+				<superclass>javax.faces.renderer.Renderer</superclass>
+			-->
+			<description>
+				Perform functions for decoding AJAX requests and
+				building client script for events.
+			</description>
+			<displayname>renderer for Ajax Push</displayname>
+			<icon>icon</icon>
+		</renderer>
+		<tag>
+			<name>push</name>
+			<classname>org.ajax4jsf.taglib.html.jsp.AjaxPushTag</classname>
+			<superclass>
+				org.ajax4jsf.webapp.taglib.UIComponentTagBase
+			</superclass>
+			<test />
+			<displayname>Ajax Push</displayname>
+			<icon>icon</icon>
+		</tag>
+		<taghandler generate="false">
+			<classname>org.ajax4jsf.taglib.html.facelets.AjaxPushHandler</classname>
+			<!-- superclass>org.ajax4jsf.webapp.taglib.AjaxComponentHandler</superclass-->
+		</taghandler>
+		&ui_component_attributes;
+		&ui_command_attributes;
+		&ajax_component_attributes;
+	    <property elonly="true"  attachedstate="true">
+
+		<name>eventProducer</name>
+
+		<classname>javax.el.MethodExpression</classname>
+		<description>
+            MethodBinding pointing at method accepting  an PushEventListener with return type void.
+            User bean must register this listener and send EventObject to this listener on ready.
+        </description>
+        <methodargs>java.util.EventListener</methodargs>
+    </property>
+		<!-- 
+		<property>
+			<name>onsubmit</name>
+			<classname>java.lang.String</classname>
+			<description>
+				JavaScript code for call before submission of ajax
+				event
+			</description>
+		</property>
+		 -->
+		<property>
+			<name>interval</name>
+			<classname>int</classname>
+			<description>
+				Interval (in ms) for call push requests. Default value is &quot;1000&quot;ms (1 second).
+			</description>
+		</property>
+		<property>
+			<name>enabled</name>
+			<classname>boolean</classname>
+			<description>
+				<![CDATA[Enables/disables pushing. Default value is "true".]]>
+			</description>
+			<defaultvalue>true</defaultvalue>
+		</property>
+		<property hidden="true">
+			<name>value</name>
+			<classname>java.lang.Object</classname>
+		</property>
+		<property hidden="true">
+			<name>submitted</name>
+			<classname>boolean</classname>
+		</property>
+		<property hidden="true">
+			<name>requestDelay</name>
+			<classname>int</classname>
+		</property>
+		<property>
+			<name>ignoreDupResponses</name>
+			<classname>boolean</classname>
+			<description>
+Attribute allows to ignore an Ajax Response produced by a request if the newest 'similar' request is
+in a queue already. ignoreDupResponses="true" does not cancel the request while it is processed on the server,
+but just allows to avoid unnecessary updates on the client side if the response isn't actual now
+			</description>
+		</property>
+		<property>
+			<name>timeout</name>
+			<classname>int</classname>
+			<description>Timeout (in ms) for request</description>
+		</property>
+	</component>     
+</components>

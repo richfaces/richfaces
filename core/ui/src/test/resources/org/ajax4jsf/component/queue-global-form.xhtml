@@ -1,0 +1,53 @@
+<html 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<body>
+		<f:view>
+			<ui:include src="queue-discovery-base.xhtml" />
+
+			<h:form id="form">
+				<a4j:queue oncomplete="addResult('alt1:' + request.options.parameters.data)" name="alternativeQueue1" />
+				<a4j:queue oncomplete="addResult('buttonFormQueue')"/>
+	
+				<a4j:commandButton id="button" oncomplete="stub()">
+					<f:param name="data" value="button" />
+				</a4j:commandButton>
+
+				<a4j:commandButton id="implicitQueue" eventsQueue="implicitQueue" oncomplete="addResult('implicitQueue')">
+					<f:param name="data" value="implicitQueue" />
+				</a4j:commandButton>
+				
+				<a4j:commandButton id="alternativeQueueButton" eventsQueue="alternativeQueue" oncomplete="addResult('alternativeQueueButton')">
+					<f:param name="data" value="alternativeQueueButton" />
+				</a4j:commandButton>
+				
+				<a4j:commandButton id="alternativeQueue1Button" eventsQueue="alternativeQueue1" oncomplete="addResult('alternativeQueue1Button')">
+					<f:param name="data" value="alternativeQueue1Button" />
+				</a4j:commandButton>
+
+			</h:form>
+
+			<h:form>
+				<a4j:jsFunction name="ajaxFunction" oncomplete="addResult('ajaxFunction')"/>
+			</h:form>
+
+
+			<h:form id="form2">
+				<a4j:commandButton id="button" requestDelay="1000" oncomplete="stub()" />
+				<a4j:commandButton id="implicitDelayedQueue" requestDelay="500" 
+					eventsQueue="implicitDelayedQueue" oncomplete="addResult('implicitDelayedQueue')">
+					<f:param name="data" value="implicitDelayedQueue" />
+				</a4j:commandButton>
+	
+				<a4j:commandButton id="alternativeQueueButton" eventsQueue="alternativeQueue" oncomplete="addResult('alternativeQueueButton')">
+					<f:param name="data" value="alternativeQueueButton" />
+				</a4j:commandButton>
+
+				<a4j:queue oncomplete="addResult('buttonForm2Queue')"/>
+				<a4j:queue oncomplete="addResult('alt:' + request.options.parameters.data)" name="alternativeQueue" />
+			</h:form>
+		</f:view>
+	</body>	
+</html>  

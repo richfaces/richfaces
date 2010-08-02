@@ -1,0 +1,42 @@
+<html 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<head>
+		<title>a4j:form check page</title>
+	</head>
+	<body>
+		<f:view>
+			<script type="text/javascript">
+				window.testResults = {};
+			</script>
+			
+			<a4j:status startText="...running..." startStyle="color: green" />
+
+			<a4j:queue oncomplete="window.testResults.viewDefault = true"/>
+
+			<a4j:form ajaxSubmit="true" id="viewDefault">
+				<h:commandButton value="view default queue" id="link" />		
+			</a4j:form>
+
+			<a4j:queue oncomplete="window.testResults.viewNamed = true" name="viewNamed" />
+
+			<a4j:form ajaxSubmit="true" eventsQueue="viewNamed" id="viewNamed">
+				<h:commandButton value="view named queue" id="link" />		
+			</a4j:form>
+
+			<a4j:form ajaxSubmit="true" id="formDefault">
+				<a4j:queue oncomplete="window.testResults.formDefault = true" />
+		
+				<h:commandButton value="form default queue" id="link" />		
+			</a4j:form>
+
+			<a4j:form ajaxSubmit="true" eventsQueue="formQueue" id="formNamed">
+				<a4j:queue oncomplete="window.testResults.formNamed = true" name="formQueue" />
+		
+				<h:commandButton value="form named queue" id="link" />		
+			</a4j:form>
+		</f:view>
+	</body>	
+</html>  

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<cdk:root xmlns="http://richfaces.org/cdk/xhtml-el" xmlns:cdk="http://richfaces.org/cdk/core"
+	xmlns:c="http://richfaces.org/cdk/jstl/core" xmlns:cc="http://richfaces.org/cdk/jsf/composite"
+	xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+	<cc:interface>
+		<cdk:class>org.richfaces.renderkit.html.SubTableToggleControlRenderer</cdk:class>
+		<cdk:superclass>org.richfaces.renderkit.SubTableToggleControlRendererBase</cdk:superclass>
+		<cdk:component-family>org.richfaces.SubTableToggleControl</cdk:component-family>
+		<cdk:renderer-type>org.richfaces.SubTableToggleControlRenderer</cdk:renderer-type>
+	</cc:interface>
+
+	<cc:implementation>
+		<span id="#{clientId}" 	class="#{component.attributes['styleClass']}">
+			<cdk:call expression="encodeControl(facesContext, component);" />
+		</span>
+	</cc:implementation>
+		
+</cdk:root>

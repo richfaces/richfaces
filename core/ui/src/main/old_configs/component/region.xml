@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components 
+        PUBLIC "-//AJAX4JSF//CDK Generator config/EN"
+        "http://labs.jboss.com/jbossrichfaces/component-config.dtd"
+[
+	<!ENTITY universal_html_attributes   SYSTEM "html_universal_attributes.xml">	
+]>
+
+<components>
+     	<component>
+		<name>org.ajax4jsf.AjaxRegion</name>
+		<family>org.ajax4jsf.AjaxRegion</family>
+		<classname>org.ajax4jsf.component.html.HtmlAjaxRegion</classname>
+		<superclass>org.ajax4jsf.component.UIAjaxRegion</superclass>
+		<test />
+		<description>
+			<![CDATA[Root view for ajax areas on the page. It must either be a 
+			nested tag inside the <body> tag inside of the 
+			<html> tag or, if selfRendered="true", it can be 
+			in any part of the page. Decode: Obtain the Map from the
+			"requestParameterMap" property of the ExternalContext. If
+			the value in Map for the "AJAXREQUEST" is not null, and equals
+			to value of the "clientId" property of the component, set
+			ajaxRequest property to true, create AjaxEvent around the
+			component, and pass it to the queueEvent() method of the
+			component, which must be an instance of AjaxContainer
+			Rendering : On standart JSF request, insert &lt;script&gt;
+			element with link to Ajax client-side javaScript at start
+			tag position. If performed Ajax request, invoke listeners
+			and render only affected to request components. List of
+			clientId of rendered components set as special response
+			headers and hidden &lt;span&gt; html element. With
+			'selfRendered' attribute set as "true", render affected
+			components at Invoke Application phase - produce
+			&lt;html&gt;&lt;body&gt; elements, render affected
+			components and set responseComplete at FacesContext. In this
+			case, JSP page not rendered. Since, Jstl or other JSP tags
+			must not be used inside &lt;a4jx:region&gt; with immediate
+			flag.]]>
+		</description>
+		<displayname>Ajax Region</displayname>
+		<icon>icon</icon>
+		<renderer generate="false" override="false">
+			<name>org.ajax4jsf.components.AjaxRegionRenderer</name>
+			<classname>
+				org.ajax4jsf.renderkit.html.AjaxRegionRenderer
+			</classname>
+			<!-- 
+				<superclass>javax.faces.renderer.Renderer</superclass>
+			-->
+			<description>test renderer description</description>
+			<displayname>renderer for Ajax Region</displayname>
+			<icon>icon</icon>
+		</renderer>
+		<tag>
+			<name>region</name>
+			<classname>org.ajax4jsf.taglib.html.jsp.AjaxRegion</classname>
+			<superclass>
+				org.ajax4jsf.webapp.taglib.HtmlComponentTagBase
+			</superclass>
+			<test />
+			<description>
+				<![CDATA[This tag defines a part of the JSF Tree that is to be decoded on the
+    server side during AJAX request processing]]>
+			</description>
+			<displayname>Ajax Region</displayname>
+			<icon>icon</icon>
+		</tag>
+		&ui_component_attributes;
+		&ajax_region_attributes;
+		<property>
+			<name>renderRegionOnly</name>
+			<classname>boolean</classname>
+			<description>
+			      Excludes all the components from the outside of the region from updating on the page on Renderer Response phase.
+			      Default value is &quot;false&quot;.
+			</description>
+			<defaultvalue>false</defaultvalue>
+		</property>
+	</component>
+     
+</components>

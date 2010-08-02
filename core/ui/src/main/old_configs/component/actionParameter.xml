@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components 
+        PUBLIC "-//AJAX4JSF//CDK Generator config/EN"
+        "http://labs.jboss.com/jbossrichfaces/component-config.dtd"
+[		
+		<!ENTITY universal_html_attributes   SYSTEM "html_universal_attributes.xml">	
+]>
+
+<components>
+     	<component>
+		<name>org.ajax4jsf.ActionParameter</name>
+		<classname>
+			org.ajax4jsf.component.html.HtmlActionParameter
+		</classname>
+		<superclass>org.ajax4jsf.component.UIActionParameter</superclass>
+		<test />
+		<description>
+			<![CDATA[
+			A combination of the functionality of two JSF tags, <f:actionListener> and <f:param>.
+			At the render phase, it's decoded by parent component (<h:commandLink> or like) as usual.
+			At the process request phase, if the parent component performs an action event, update the value specified in the
+			"assignTo" attribute as its value. If a converter attribute is specified, use it to encode and decode the value to a string
+			stored in the html parameter.
+		]]>
+		</description>
+		<!-- 		<renderer>
+			<name>org.ajax4jsf.components.ActionParam</name>
+			<classname>org.ajax4jsf.renderers.ajax.</classname>
+			</renderer> 
+		-->
+		<tag>
+			<name>actionparam</name>
+			<classname>org.ajax4jsf.taglib.html.jsp.ActionParam</classname>
+			<superclass>
+				org.ajax4jsf.taglib.html.jsp.ActionParamTag
+			</superclass>
+			<test/>
+			<description>
+			<![CDATA[
+				A combination of the functionality of two JSF tags,
+				&lt;f:actionListener&gt;; and &lt;f:param&gt;. At the
+				render phase, it's decoded by parent component
+				(&lt;h:commandLink&gt;; or like) as usual.
+				<br />
+				At the process request phase, if the parent component
+				performs an action event, update the value specified in
+				the "assignTo" attribute as its value.
+				<br />
+				If a converter attribute is specified, use it to encode
+				and decode the value to a string stored in the html
+				parameter.
+				<br />
+				]]>
+			</description>
+		</tag>
+		<taghandler generate="false">
+			<classname>org.ajax4jsf.taglib.html.facelets.ActionParamHandler</classname>
+		</taghandler>
+		&ui_component_attributes;
+		&ui_parameter_attributes;
+		<property>
+			<name>converter</name>
+			<classname>javax.faces.convert.Converter</classname>
+			<description>
+				ID of a converter to be used or a reference to a
+				converter.
+			</description>
+		</property>
+		<property exist="true" el="true" elonly="true">
+			<name>assignTo</name>
+			<classname>java.lang.String</classname>
+			<description>
+				EL expression for updatable bean property. This property
+				will be updated if the parent command component performs
+				an actionEvent.
+			</description>
+		</property>
+		<property>
+			<name>noEscape</name>
+			<classname>boolean</classname>
+			<description>
+				If set to true, the value will not enclosed within
+				single quotes and there will be no escaping of
+				characters. This allows the use of the value as
+				JavaScript code for calculating value on the
+				client-side. This doesn't work with non-AJAX components.
+			</description>
+		</property>
+		<property hidden="true">
+			<name>assignToBinding</name>
+		</property>
+     	<property exist="true" el="true" elonly="true" existintag="true">
+     		<name>actionListener</name>
+     		<classname>javax.el.MethodExpression</classname>
+     		<methodargs>javax.faces.event.ActionEvent</methodargs>
+		<description>A method binding that refers to a method with this signature: void methodName(ActionEvent)</description>
+     	</property>
+     </component>
+     
+</components>

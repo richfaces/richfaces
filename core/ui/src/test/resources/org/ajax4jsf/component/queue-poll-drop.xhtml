@@ -1,0 +1,26 @@
+<html 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<body>
+		<f:view>
+			<a4j:queue size="2" name="dropNextQueue" sizeExceededBehavior="dropNext" />
+			<a4j:queue size="2" name="dropNewQueue" sizeExceededBehavior="dropNew" />
+			<a4j:queue size="1" name="dropNextQueueSingle" sizeExceededBehavior="dropNext" />
+			
+			<h:form id="firstForm" rendered="#{renderDropNext}">
+				<a4j:poll interval="2000" id="poll" eventsQueue="dropNextQueue" />
+			</h:form>
+
+			<h:form id="secondForm" rendered="#{renderDropNew}">
+				<a4j:poll interval="2500" id="poll" eventsQueue="dropNewQueue" />
+			</h:form>
+
+			<h:form id="thirdForm" rendered="#{renderDropNextSingle}">
+				<a4j:poll interval="2000" id="poll" eventsQueue="dropNextQueueSingle" />
+			</h:form>
+
+		</f:view>
+	</body>	
+</html>  

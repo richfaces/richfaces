@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//AJAX4JSF//CDK Generator config/EN"  "http://labs.jboss.com/jbossrichfaces/component-config.dtd">
+
+<components>
+	<component>
+		<name>org.ajax4jsf.LoadStyle</name>
+		<family>org.ajax4jsf.LoadStyle</family>
+		<classname>org.ajax4jsf.component.html.HtmlLoadStyle</classname>
+		<superclass>org.ajax4jsf.component.UIResource</superclass>
+		<test />
+		<description>
+			<![CDATA[
+    ]]>
+		</description>
+		<renderer>
+			<name>org.ajax4jsf.LoadStyleRenderer</name>
+			<classname>org.ajax4jsf.renderkit.LoadResourceRendererBase</classname>
+		</renderer>
+		<tag>
+			<name>loadStyle</name>
+			<classname>org.ajax4jsf.taglib.html.jsp.LoadStyleTag</classname>
+			<superclass>
+				org.ajax4jsf.webapp.taglib.HtmlComponentTagBase
+			</superclass>
+			<test />
+		</tag>
+		<!--
+		<taghandler>
+			<classname>org.ajax4jsf.tag.TestHandler</classname>
+		</taghandler>
+		-->
+		&ui_component_attributes;
+		<property required="true">
+			<name>src</name>
+			<classname>java.lang.Object</classname>
+			<description><![CDATA[
+			Defines the context relative path to the style sheet file.
+			]]>
+			</description>
+		</property>
+		<property>
+			<name>media</name>
+			<classname>java.lang.String</classname>
+			<description>
+				This attribute defines the device to which it is necessary to apply style registration. 
+				The possible values are &quot;all&quot;, &quot;screen&quot; (by default), &quot;print&quot;, &quot;projection&quot;, &quot;projection&quot;, &quot;braille&quot; and &quot;speech&quot;.
+			</description>
+		</property>
+	</component>
+</components>

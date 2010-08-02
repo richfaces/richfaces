@@ -1,0 +1,35 @@
+<html 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core">
+	<head>
+		<title></title>
+	</head>
+	<body>
+		<f:view>
+			<a4j:status startText="...running..." stopText="stopped" startStyle="color: green" />
+
+			<a4j:status id="queueStatus" forceId="true" onstart="window.startStatusTime = Timer.currentTime;" 
+			onstop="statusData.push([window.startStatusTime, Timer.currentTime]); window.startStatusTime = undefined;" />
+			
+			<a4j:queue name="queueDefaults" />
+
+			<a4j:queue name="queueRequestDelay" requestDelay="15" />
+			
+			<a4j:queue name="queueTimeout" timeout="5000" />
+			
+			<script type="text/javascript">
+			//LOG.LEVEL = LOG.ALL;
+			window.queueIgnoreDupResponsesTest = new Array();
+			window.statusData = new Array();
+			</script>
+			
+			<a4j:queue status="queueStatus" name="queueIgnoreDupResponses" ignoreDupResponses="true" oncomplete="queueIgnoreDupResponsesTest.push(data + ':' + Timer.currentTime)" />
+
+			<a4j:queue name="testQueue" />
+
+		</f:view>
+	</body>	
+</html>  

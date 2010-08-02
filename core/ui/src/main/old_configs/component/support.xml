@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components 
+        PUBLIC "-//AJAX4JSF//CDK Generator config/EN"
+        "http://labs.jboss.com/jbossrichfaces/component-config.dtd"
+[
+	<!ENTITY universal_html_attributes   SYSTEM "html_universal_attributes.xml">	
+]>
+
+<components>
+     	<component>
+		<name>org.ajax4jsf.Support</name>
+		<family>org.ajax4jsf.AjaxSupport</family>
+		<classname>org.ajax4jsf.component.html.HtmlAjaxSupport</classname>
+		<superclass>org.ajax4jsf.component.UIAjaxSupport</superclass>
+		<test>
+			<classname>org.richfaces.component.html.HtmlAjaxSupportComponentTest</classname>
+			<superclassname>org.ajax4jsf.tests.AbstractAjax4JsfTestCase</superclassname>
+		</test>
+		<description>
+			Adds the AJAX functionality for those UIComponent-based
+			component that have properties for JavaScript events.
+			<br />
+			During Decoding: If a request is Ajax-performed, obtains the
+			Map from the "requestParameterMap" property of the
+			ExternalContext. If this Map contains non null value for the
+			"clientId" key, creates a javax.faces.event.ActionEvent
+			around the component, passes it to the queueEvent() method
+			of the component, and then appends it's reRender components
+			IDs to a list of rendered areas.
+			<br />
+			During Encoding. Doesn't encode as a component. Instead, it
+			adds ValueBinding for a property of the parent component
+			with the name as a value of its "event" property. As a
+			result, when rendered, the parent component builds
+			JavaScript code for submitting an AJAX request on this
+			event.
+			<br />
+			If the component has child UIParameter components, appends
+			it's name/value as additional request parameters.
+			<br />
+			If a parent component is an instance of UIInput and the
+			ajaxType property is "input", submits the value of the input
+			field, also. In this case, you can submit a single input
+			field outside of UIForm.
+			<br />
+		</description>
+		<displayname>Ajax Support</displayname>
+		<icon>icon</icon>
+		<renderer generate="false" override="false">
+			<name>org.ajax4jsf.components.AjaxSupportRenderer</name>
+			<classname>
+				org.ajax4jsf.renderkit.html.AjaxSupportRenderer
+			</classname>
+			<!-- 
+				<superclass>javax.faces.renderer.Renderer</superclass>
+			-->
+			<description>
+				Perform functions for decoding AJAX requests and
+				building client script for events.
+			</description>
+			<displayname>renderer for Ajax Support</displayname>
+			<icon>icon</icon>
+		</renderer>
+		<tag>
+			<name>support</name>
+			<classname>org.ajax4jsf.taglib.html.jsp.AjaxSupport</classname>
+			<superclass>
+				org.ajax4jsf.taglib.html.jsp.AjaxSupportTag
+			</superclass>
+			<test/>
+			<!-- 			<superclass>
+				org.ajax4jsf.webapp.taglib.UIComponentTagBase
+				</superclass>
+			-->
+			<displayname>Ajax Support</displayname>
+			<icon>icon</icon>
+		</tag>
+		<taghandler>
+			<classname>org.ajax4jsf.taglib.html.facelets.AjaxSupportHandler</classname>
+		</taghandler>
+		&ui_component_attributes;
+		&ui_command_attributes;
+		&ajax_component_attributes;
+		<property>
+			<name>onsubmit</name>
+			<classname>java.lang.String</classname>
+			<description>
+				The client-side script method to be called before an ajax request is submitted
+			</description>
+		</property>
+		<property el="false">
+			<name>event</name>
+			<classname>java.lang.String</classname>
+			<description>
+				Name of JavaScript event property ( onclick, onchange,
+				etc.) of parent component, for which we will build AJAX
+				submission code
+			</description>
+		</property>
+		<property>
+			<name>disableDefault</name>
+			<classname>boolean</classname>
+			<description>
+				<![CDATA[Disables default action for target event ( append "return false;" to JavaScript ). Default value is &quot;false&quot;]]>
+			</description>
+			<defaultvalue>false</defaultvalue>
+		</property>
+		<property disabled="true">
+			<name>value</name>
+			<classname>java.lang.Object</classname>
+		</property>
+		<property disabled="true">
+			<name>parentProperties</name>
+		</property>
+		<property>
+			<name>ignoreDupResponses</name>
+			<classname>boolean</classname>
+			<description>
+Attribute allows to ignore an Ajax Response produced by a request if the newest 'similar' request is
+in a queue already. ignoreDupResponses="true" does not cancel the request while it is processed on the server,
+but just allows to avoid unnecessary updates on the client side if the response isn't actual now
+			</description>
+		</property>
+		<property>
+			<name>timeout</name>
+			<classname>int</classname>
+			<description>Timeout (in ms) for request</description>
+		</property>
+		<property>
+			<name>disabled</name>
+			<classname>boolean</classname>
+			<description>If &quot;true&quot;, disable this component on page.</description>
+		</property>
+
+	</component>
+     
+</components>

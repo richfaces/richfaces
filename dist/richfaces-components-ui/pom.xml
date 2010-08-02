@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    JBoss, Home of Professional Open Source Copyright 2010, Red Hat,
+    Inc. and individual contributors by the @authors tag. See the
+    copyright.txt in the distribution for a full listing of
+    individual contributors. This is free software; you can
+    redistribute it and/or modify it under the terms of the GNU
+    Lesser General Public License as published by the Free Software
+    Foundation; either version 2.1 of the License, or (at your
+    option) any later version. This software is distributed in the
+    hope that it will be useful, but WITHOUT ANY WARRANTY; without
+    even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+    PARTICULAR PURPOSE. See the GNU Lesser General Public License
+    for more details. You should have received a copy of the GNU
+    Lesser General Public License along with this software; if not,
+    write to the Free Software Foundation, Inc., 51 Franklin St,
+    Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF site:
+    http://www.fsf.org.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.richfaces.ui</groupId>
+        <artifactId>richfaces-ui-parent</artifactId>
+        <version>4.0.0-SNAPSHOT</version>
+        <relativePath>../parent/pom.xml</relativePath>
+    </parent>
+
+    <groupId>org.richfaces.ui</groupId>
+    <artifactId>richfaces-components-ui</artifactId>
+    <version>4.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>Richfaces UI Components UI</name>
+
+    <properties>
+        <faces-shade-transformers.version>2</faces-shade-transformers.version>
+        <assembly.projects.group>org.richfaces.ui</assembly.projects.group>
+    </properties>
+
+    <dependencies>
+        <!-- artifacts for aggregation -->
+        <dependency>
+            <groupId>org.richfaces.ui.core</groupId>
+            <artifactId>richfaces-ui-core-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.ui.misc</groupId>
+            <artifactId>richfaces-ui-misc-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.ui.iteration</groupId>
+            <artifactId>richfaces-ui-iteration-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.ui.output</groupId>
+            <artifactId>richfaces-ui-output-ui</artifactId>
+        </dependency>
+
+        <!-- for javadoc generation -->
+        <dependency>
+            <groupId>org.richfaces.ui</groupId>
+            <artifactId>richfaces-components-impl</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.richfaces.core</groupId>
+            <artifactId>richfaces-core-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.core</groupId>
+            <artifactId>richfaces-core-impl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.commons</groupId>
+            <artifactId>richfaces-commons-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${jsf2.api.groupid}</groupId>
+            <artifactId>${jsf2.api.artifactid}</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>${jsf2.impl.groupid}</groupId>
+            <artifactId>${jsf2.impl.artifactid}</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>el-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>el-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>1.3.3</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <artifactSet>
+                                <includes>
+                                    <include>${assembly.projects.group}.*:*-ui:*</include>
+                                </includes>
+                            </artifactSet>
+                            <createSourcesJar>true</createSourcesJar>
+                            <transformers>
+                                <transformer implementation="org.richfaces.build.shade.resource.TaglibXmlResourceTransformer">
+                                    <taglibs>
+                                        <taglib>
+                                            <targetNamespace>http://richfaces.org/a4j</targetNamespace>
+                                        </taglib>
+                                        <taglib>
+                                            <targetNamespace>http://richfaces.org/rich</targetNamespace>
+                                            <sourceNamespacesPattern>.*</sourceNamespacesPattern>
+                                        </taglib>
+                                    </taglibs>
+                                </transformer>
+                                <transformer implementation="org.richfaces.build.shade.resource.FacesConfigXmlResourceTransformer" />
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.richfaces.build.resources</groupId>
+                        <artifactId>faces-shade-transformers</artifactId>
+                        <version>${faces-shade-transformers.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <!-- unpack necessary dependencies for collecting jsdoc and javadocs -->
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>deps</id>
+                                <phase>process-sources</phase>
+                                <goals>
+                                    <goal>unpack-dependencies</goal>
+                                </goals>
+                                <configuration>
+                                    <classifier>sources</classifier>
+
+                                    <includeGroupIds>${assembly.projects.group}.core, ${assembly.projects.group}.misc, ${assembly.projects.group}.iteration, ${assembly.projects.group}.output</includeGroupIds>
+                                    <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
+                                    <excludeTransitive>true</excludeTransitive>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+<!--                    <plugin>
+                        &lt;!&ndash; collecting jsdoc &ndash;&gt;
+                        <groupId>gr.abiss.mvn.plugins</groupId>
+                        <artifactId>maven-jstools-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>jsdoc</id>
+                                <phase>prepare-package</phase>
+                                <configuration>
+                                    <outputBaseDirectory>${basedir}/target</outputBaseDirectory>
+                                    <jsDir>${basedir}/target/dependency</jsDir>
+                                    <includes>**/*.js</includes>
+                                    <caseSensitive>true</caseSensitive>
+                                </configuration>
+                                <goals>
+                                    <goal>jsdoc</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        &lt;!&ndash; pack jsdoc to jar &ndash;&gt;
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>pack-jsodcs</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <classesDirectory>${basedir}/target/jsdoc</classesDirectory>
+                                    <classifier>jsdoc</classifier>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>-->
+                    <plugin>
+                        <!-- collecting javadoc -->
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.7</version>
+                        <executions>
+                            <execution>
+                                <id>javadoc-jar</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <sourcepath>${basedir}/target/dependency</sourcepath>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+    
+    <scm>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/ui/dist/trunk/richfaces-components-ui</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/ui/dist/trunk/richfaces-components-ui</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces</url>
+    </scm>
+
+</project>

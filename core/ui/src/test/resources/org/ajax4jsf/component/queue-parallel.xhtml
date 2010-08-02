@@ -1,0 +1,24 @@
+<html 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core">
+	<head>
+		<title></title>
+	</head>
+	<body>
+		<f:view>
+			<a4j:status startText="...running..." stopText="stopped" startStyle="color: green" />
+
+			<h:form id="form">
+				<a4j:queue name="queue" />
+			
+				<a4j:commandButton id="asyncButton" />
+			
+				<a4j:commandButton id="syncButton1" eventsQueue="queue" />
+				<a4j:commandButton id="syncButton2" eventsQueue="queue" />
+			</h:form>
+		</f:view>
+	</body>	
+</html>  

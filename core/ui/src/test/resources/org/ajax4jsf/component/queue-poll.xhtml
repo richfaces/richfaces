@@ -1,0 +1,29 @@
+<html 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<body>
+		<f:view>
+			
+			<h:form id="firstForm">
+				<a4j:queue />
+	
+				<a4j:poll id="queuedDefaultPoll" enabled="#{queuedDefaultPollEnabled}" interval="600" />
+				<a4j:poll id="queuedDelayedPoll" enabled="#{queuedDelayedPollEnabled}" interval="200" requestDelay="100" />
+			</h:form>
+
+			<h:form id="secondForm">
+				<a4j:queue requestDelay="10000" />
+	
+				<a4j:poll id="delayedQueueDefaultPoll" enabled="#{delayedQueueDefaultPollEnabled}" interval="1500" />
+				<a4j:poll id="delayedQueueDelayedPoll" enabled="#{delayedQueueDelayedPollEnabled}" interval="2000" requestDelay="400" />
+			</h:form>
+
+			<h:form id="thirdForm">
+				<a4j:poll id="unqueuedDefaultPoll" enabled="#{unqueuedDefaultPollEnabled}" interval="700" />
+				<a4j:poll id="unqueuedDelayedPoll" enabled="#{unqueuedDelayedPollEnabled}" interval="900" requestDelay="50" />
+			</h:form>
+		</f:view>
+	</body>	
+</html>  

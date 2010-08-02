@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<f:template xmlns:f='http:/jsf.exadel.com/template'
+   xmlns:u='http:/jsf.exadel.com/template/util'
+   xmlns="http://www.w3.org/1999/xhtml">
+
+
+	<u:selector name=".rich-container input, .rich-input, 
+			  .rich-container select, .rich-select,
+		
+			  .rich-container textarea, .rich-textarea,
+		
+			  .rich-container button, .rich-button,
+		
+			  .rich-container keygen, .rich-keygen,
+		
+			  .rich-container isindex, .rich-isindex,
+		
+			  .rich-container legend, .rich-legend,
+
+			  .rich-container a, .rich-link,
+
+			  .rich-container fieldset, .rich-fieldset,
+
+			  .rich-field, .rich-field-edit, .rich-field-error,
+
+			  .rich-button, .rich-button-disabled, .rich-button-over, .rich-button-press">
+
+		<u:style name="font-size" skin="generalSizeFont" />
+		<u:style name="font-family" skin="generalFamilyFont" />
+		<u:style name="color" skin="controlTextColor" />
+	</u:selector>
+
+	<f:verbatim>
+		<![CDATA[
+		.rich-container fieldset, .rich-fieldset {
+			border-width: 1px; 
+			border-style: solid;
+			padding: 10px;
+		}
+
+		.rich-container hr, .rich-hr {
+			border-width: 1px; 
+			border-style: solid;
+		}
+
+		.rich-container legend, .rich-legend {
+			font-weight : bold;
+		}
+
+		.rich-container form, .rich-form {
+			padding : 0px;
+			margin : 0px;
+		}
+		]]>
+	</f:verbatim>
+
+	<u:selector name=".rich-container fieldset, .rich-fieldset">
+		<u:style name="border-color" skin="panelBorderColor" />
+	</u:selector>
+
+	<u:selector name=".rich-container hr, .rich-hr">
+		<u:style name="border-color" skin="panelBorderColor" />
+	</u:selector>
+
+	<u:selector name=".rich-container a, .rich-link">
+		<u:style name="color" skin="generalLinkColor" />
+	</u:selector>
+	
+	<u:selector name=".rich-container a:hover, .rich-link:hover">
+		<u:style name="color" skin="hoverLinkColor" />
+	</u:selector>
+	
+	<u:selector name=".rich-container a:visited, .rich-link:visited">
+		<u:style name="color" skin="visitedLinkColor" />
+	</u:selector>
+
+
+
+
+	<u:selector name=".rich-field, .rich-field-edit, .rich-field-error">
+		<u:style name="border-width" value="1px" />
+		<u:style name="border-style" value="inset" />
+		<u:style name="border-color" skin="panelBorderColor" />
+	</u:selector>
+
+	<u:selector name=".rich-field">
+		<u:style name="background-color" skin="controlBackgroundColor" />
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.images.ButtonBackgroundImage"/>
+		</u:style>
+		<u:style name="background-repeat" value="no-repeat" />
+		<u:style name="background-position" value="1px 1px" />
+	</u:selector>
+
+	<u:selector name=".rich-field-edit">
+		<u:style name="background-color" skin="editBackgroundColor" />
+	</u:selector>
+
+	<u:selector name=".rich-field-error">
+		<u:style name="background-color" skin="warningBackgroundColor" />;
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.images.InputErrorIcon"/>
+		</u:style>
+		<u:style name="background-repeat" value="no-repeat" />
+		<u:style name="background-position" value="center left" />
+		<u:style name="padding-left" value="7px" />
+	</u:selector>
+
+
+
+	<u:selector name=".rich-button, .rich-button-disabled, .rich-button-over, .rich-button-press">
+		<u:style name="border-width" value="1px" />
+		<u:style name="border-style" value="solid" />
+		<u:style name="border-color" skin="panelBorderColor" />
+		<u:style name="background-color" skin="trimColor" />
+		<u:style name="padding" value="2px 10px 2px 10px" />
+		<u:style name="text-align" value="center" />
+		<u:style name="cursor" value="pointer" />
+		<u:style name="background-repeat" value="repeat-x" />
+		<u:style name="background-position" value="top left" />
+	</u:selector>
+
+	<u:selector name=".rich-button">
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.images.StandardButtonBgImage"/>
+		</u:style>
+	</u:selector>
+
+	<u:selector name=".rich-button-disabled">
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.images.StandardButtonBgImage"/>
+		</u:style>
+	</u:selector>
+
+	<u:selector name=".rich-button-over">
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.images.StandardButtonBgImage"/>
+		</u:style>
+	</u:selector>
+
+	<u:selector name=".rich-button-press">
+		StandardButtonBgImage
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.images.StandardButtonPressedBgImage"/>
+		</u:style>
+		<u:style name="background-position" value="bottom left" />
+	</u:selector>
+
+	/*border color styles*/
+
+	<u:selector name=".rich-box-border-color-control-select">
+		<u:style name="border-color" skin="selectControlColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-border-color-subborder">
+		<u:style name="border-color" skin="subBorderColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-border-color-header">
+		<u:style name="border-color" skin="headerBackgroundColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-border-color-general">
+		<u:style name="border-color" skin="generalBackgroundColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-border-color-additional">
+		<u:style name="border-color" skin="additionalBackgroundColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-border-color-panel">
+		<u:style name="border-color" skin="panelBorderColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-border-color-tip">
+		<u:style name="border-color" skin="tipBorderColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-border-color-table">
+		<u:style name="border-color" skin="tableBorderColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-border-control-select, .rich-box-border-subborder, .rich-box-border-header,
+			.rich-box-border-general, .rich-box-border-additional, .rich-box-border-panel, .rich-box-border-tip, .rich-box-border-table">
+		<u:style name="border-style" value="solid" />
+		<u:style name="border-width" value="1px" />
+	</u:selector>
+
+	<u:selector name=".rich-box-border-control-select">
+		<u:style name="border-color" skin="selectControlColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-border-subborder">
+		<u:style name="border-color" skin="subBorderColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-border-header">
+		<u:style name="border-color" skin="headerBackgroundColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-border-general">
+		<u:style name="border-color" skin="generalBackgroundColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-border-additional">
+		<u:style name="border-color" skin="additionalBackgroundColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-border-panel">
+		<u:style name="border-color" skin="panelBorderColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-border-tip">
+		<u:style name="border-color" skin="tipBorderColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-border-table">
+		<u:style name="border-color" skin="tableBorderColor" />
+	</u:selector>
+	
+	/*background color styles*/
+
+	<u:selector name=".rich-box-bgcolor-header">
+		<u:style name="background-color" skin="headerBackgroundColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-bgcolor-general">
+		<u:style name="background-color" skin="generalBackgroundColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-bgcolor-additional">
+		<u:style name="background-color" skin="additionalBackgroundColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-bgcolor-panel">
+		<u:style name="background-color" skin="panelBackgroundColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-bgcolor-tab">
+		<u:style name="background-color" skin="tabBackgroundColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-bgcolor-trim">
+		<u:style name="background-color" skin="trimColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-bgcolor-tip">
+		<u:style name="background-color" skin="tipBackgroundColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-bgcolor-table">
+		<u:style name="background-color" skin="tableBackgroundColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-bgcolor-table-footer">
+		<u:style name="background-color" skin="tableFooterBackgroundColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-bgcolor-table-subfooter">
+		<u:style name="background-color" skin="tableSubfooterBackgroundColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-bgcolor-editor">
+		<u:style name="background-color" skin="editorBackgroundColor" />
+	</u:selector>
+
+	<u:selector name=".rich-box-bgcolor-edit">
+		<u:style name="background-color" skin="editBackgroundColor" />
+	</u:selector>
+
+	/*text color styles*/
+
+	<u:selector name=".rich-text-color-header">
+		<u:style name="color" skin="headerTextColor" />
+	</u:selector>
+
+	<u:selector name=".rich-text-color-general">
+		<u:style name="color" skin="generalTextColor" />
+	</u:selector>
+
+	<u:selector name=".rich-text-color-tab-disabled">
+		<u:style name="color" skin="tabDisabledTextColor" />
+	</u:selector>
+
+	<u:selector name=".rich-text-color-select">
+		<u:style name="color" skin="selectControlColor" />
+	</u:selector>
+
+	<u:selector name=".rich-text-color-link-general">
+		<u:style name="color" skin="generalLinkColor" />
+	</u:selector>
+
+	<u:selector name=".rich-text-color-link-hover">
+		<u:style name="color" skin="hoverLinkColor" />
+	</u:selector>
+
+	<u:selector name=".rich-text-color-link-visited">
+		<u:style name="color" skin="visitedLinkColor" />
+	</u:selector>
+	
+	/*font size styles*/
+
+	<u:selector name=".rich-font-size-general">
+		<u:style name="font-size" skin="generalSizeFont" />
+	</u:selector>
+
+	<u:selector name=".rich-font-size-header">
+		<u:style name="font-size" skin="headerSizeFont" />
+	</u:selector>
+	
+	/*font family styles*/
+
+	<u:selector name=".rich-font-family-general">
+		<u:style name="font-family" skin="generalFamilyFont" />
+	</u:selector>
+
+	<u:selector name=".rich-font-family-header">
+		<u:style name="font-family" skin="headerFamilyFont" />
+	</u:selector>
+
+	/* text styles */
+
+	<u:selector name=".rich-text-general">
+		<u:style name="font-size" skin="generalSizeFont" />
+		<u:style name="font-family" skin="generalFamilyFont" />
+		<u:style name="color" skin="generalTextColor" />
+	</u:selector>
+
+	<u:selector name=".rich-text-header">
+		<u:style name="font-size" skin="generalSizeFont" />
+		<u:style name="font-family" skin="headerFamilyFont" />
+		<u:style name="color" skin="headerTextColor" />
+	</u:selector>
+
+	<u:selector name=".rich-text-tab-disabled">
+		<u:style name="font-size" skin="generalSizeFont" />
+		<u:style name="font-family" skin="generalFamilyFont" />
+		<u:style name="color" skin="tabDisabledTextColor" />
+	</u:selector>
+
+	<u:selector name=".rich-text-control-select">
+		<u:style name="font-size" skin="generalSizeFont" />
+		<u:style name="font-family" skin="headerFamilyFont" />
+		<u:style name="color" skin="selectControlColor" />
+	</u:selector>
+
+	/*gradient styles*/
+
+	<u:selector name=".rich-gradient-header-inverse">
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.gradientimages.HeaderInverseGradientImage"/>
+		</u:style>
+		<u:style name="background-repeat" value="repeat-x" />
+	</u:selector>
+
+	<u:selector name=".rich-gradient-header">
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.gradientimages.HeaderGradientImage"/>
+		</u:style>
+		<u:style name="background-repeat" value="repeat-x" />
+	</u:selector>
+
+	<u:selector name=".rich-gradient-tab">
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.gradientimages.TabGradientImage"/>
+		</u:style>
+		<u:style name="background-repeat" value="repeat-x" />
+	</u:selector>
+
+	<u:selector name=".rich-gradient-tab-inverse">
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.gradientimages.TabInverseGradientImage"/>
+		</u:style>
+		<u:style name="background-repeat" value="repeat-x" />
+	</u:selector>
+
+	<u:selector name=".rich-gradient-input">
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.gradientimages.InputGradientImage"/>
+		</u:style>
+		<u:style name="background-repeat" value="repeat-x" />
+	</u:selector>
+
+	<u:selector name=".rich-gradient-menu-inverse">
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.gradientimages.MenuInverseGradientImage"/>
+		</u:style>
+		<u:style name="background-repeat" value="repeat-x" />
+	</u:selector>
+
+	<u:selector name=".rich-gradient-menu">
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.gradientimages.MenuGradientImage"/>
+		</u:style>
+		<u:style name="background-repeat" value="repeat-x" />
+	</u:selector>
+
+	<u:selector name=".rich-gradient-button-inverse">
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.gradientimages.ButtonInverseGradientImage"/>
+		</u:style>
+		<u:style name="background-repeat" value="repeat-x" />
+	</u:selector>
+
+	<u:selector name=".rich-gradient-button">
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.gradientimages.ButtonGradientImage"/>
+		</u:style>
+		<u:style name="background-repeat" value="repeat-x" />
+	</u:selector>
+
+</f:template>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components 
+        PUBLIC "-//AJAX4JSF//CDK Generator config/EN"
+        "http://labs.jboss.com/jbossrichfaces/component-config.dtd"
+[
+	<!ENTITY universal_html_attributes   SYSTEM "html_universal_attributes.xml">	
+]>
+
+<components>
+     	<component>
+		<name>org.ajax4jsf.Repeat</name>
+		<family>javax.faces.Data</family>
+		<classname>org.ajax4jsf.component.html.HtmlAjaxRepeat</classname>
+		<superclass>org.ajax4jsf.component.UIRepeat</superclass>
+		<test />
+		<description>
+			<![CDATA[
+    ]]>
+		</description>
+		<displayname>Ajax-enabled repeater</displayname>
+		<icon>icon</icon>
+		<renderer generate="false" override="false">
+			<name>org.ajax4jsf.components.RepeatRenderer</name>
+			<classname>
+				org.ajax4jsf.renderkit.html.RepeatRenderer
+			</classname>
+			<!-- 
+				<superclass>javax.faces.renderer.Renderer</superclass>
+			-->
+			<description></description>
+			<displayname>
+				renderer for Ajax-enabled repeater
+			</displayname>
+			<icon>icon</icon>
+		</renderer>
+		<tag>
+			<name>repeat</name>
+			<classname>org.ajax4jsf.taglib.html.jsp.AjaxRepeat</classname>
+			<superclass>
+				org.ajax4jsf.webapp.taglib.UIComponentTagBase
+			</superclass>
+			<test />
+			<displayname>Ajax-enabled repeater</displayname>
+			<icon>icon</icon>
+		</tag>
+		&ui_data_attributes;
+		&ui_component_attributes;
+		<property>
+			<name>componentState</name>
+			<classname>org.ajax4jsf.model.DataComponentState</classname>
+			<description>It defines EL-binding  for a component state for saving or redefinition.</description>
+		</property>		
+		<property el="false">
+			<name>stateVar</name>
+			<classname>java.lang.String</classname>
+			<description>The attribute  provides access to a component state on the client side.</description>
+		</property>		
+		<property>
+			<name>value</name>
+			<classname>java.lang.Object</classname>
+			<description>The current value for this component.</description>
+		</property>
+		<property>
+			<name>ajaxKeys</name>
+			<classname>java.util.Set</classname>
+			<description>This attribute defines row keys that are updated after an AJAX request.</description>
+		</property>
+		<property el="false">
+			<name>rowKeyVar</name>
+			<classname>java.lang.String</classname>
+			<description>The attribute  provides access to a row key in a Request scope.</description>
+		</property>
+		<property hidden="true">
+			<name>rowKey</name>
+			<classname>java.lang.Object</classname>
+			<description>RowKey is a representation of an identifier for a specific data row.</description>
+		</property>
+     		<property>
+     			<name>rowKeyConverter</name>
+     			<classname>javax.faces.convert.Converter</classname>
+     			<description>Converter for a row key object</description>
+     		</property>	
+
+	</component>     
+</components>

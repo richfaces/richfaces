@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://richfaces.org/cdk/xhtml-el"
+	xmlns:cdk="http://richfaces.org/cdk/core"
+	xmlns:c="http://richfaces.org/cdk/jstl/core"
+	xmlns:cc="http://richfaces.org/cdk/jsf/composite"
+	xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+	<cc:interface>
+		<cdk:class>org.richfaces.renderkit.html.PopupPanelRenderer</cdk:class>
+		<cdk:superclass>org.richfaces.renderkit.html.PopupPanelBaseRenderer</cdk:superclass>
+		<cdk:component-family>org.richfaces.PopupPanel</cdk:component-family>
+		<cdk:renderer-type>org.richfaces.PopupPanelRenderer</cdk:renderer-type>
+	</cc:interface>
+
+	<cc:implementation>
+	<cdk:call expression="checkOptions(facesContext, component)" />
+	<div id="#{clientId}" style="visibility: hidden;">
+	<c:if test="#{component.attributes['modal']}">
+	<div id="#{clientId}_shade" onclick="#{component.attributes['onmaskclick']}"
+				ondblclick="#{component.attributes['onmaskdblclick']}"
+				oncontextmenu="#{component.attributes['onmaskcontextmenu']}"
+				onmouseup="#{component.attributes['onmaskmouseup']}"
+				onmousedown="#{component.attributes['onmaskmousedown']}"
+				onmousemove="#{component.attributes['onmaskmousemove']}"
+				onmouseover="#{component.attributes['onmaskmouseover']}"
+				onmouseout="#{component.attributes['onmaskmouseout']}" class="mp_shade">
+				<button class="mp-button" id="#{clientId}FirstHref"></button>
+				</div>
+
+</c:if>
+	<div id="#{clientId}_shadow" class="mp_shadow"/>
+	<div id="#{clientId}_container" cdk:passThroughWithExclusions="id style class styleClass" class="mp_container #{component.attributes['styleClass']}">
+
+		<c:if test="#{component.getFacet('header')!=null and component.getFacet('header').rendered}">
+		<div id="#{clientId}_header" class="mp_header #{component.attributes['headerClass']}" >
+			<div id="#{clientId}_header_content" class="mp_header_content">
+				<cdk:call expression="renderHeaderFacet(facesContext, component)"/>
+			</div>
+			</div>
+		</c:if>
+		<c:if test="#{component.getFacet('controls')!=null and component.getFacet('controls').rendered}">
+			<div id="#{clientId}_header_controls" class="mp_header_controls #{component.attributes['controlsClass']}">
+				<cdk:call expression="renderControlsFacet(facesContext, component)"/>
+			</div>
+	</c:if>
+		
+		<div id="#{clientId}_content_scroller" style="#{getStyleIfTrimmed(component)}" class="mp_content_scroller">
+			<div id="#{clientId}_content" class="mp_content" style="#{component.attributes['style']}">
+				<cdk:call expression="renderChildren(facesContext, component)"/>
+			</div>
+		</div>
+		<c:if test="#{component.attributes['resizeable']}">
+		<div id="#{clientId}ResizerW" class="mp_handler  mp_handler_left"></div>
+		<div id="#{clientId}ResizerE" class="mp_handler mp_handler_right"></div>
+		<div id="#{clientId}ResizerN" class="mp_handler mp_handler_top"></div>
+
+		<div id="#{clientId}ResizerS" class="mp_handler mp_handler_bottom"></div>
+		<div id="#{clientId}ResizerNW" class="mp_handler mp_handler_top_left"></div>
+		<div id="#{clientId}ResizerNE" class="mp_handler mp_handler_top_right"></div>
+		<div id="#{clientId}ResizerSW" class="mp_handler mp_handler_bottom_left"></div>
+		<div id="#{clientId}ResizerSE" class="mp_handler mp_handler_bottom_right"></div>
+		</c:if>
+		
+	</div>
+</div>
+<cdk:object type="java.lang.String" name="script" value="#{buildScript(facesContext, component)}" />
+	<cdk:object type="java.lang.String" name="showScript" value="#{buildShowScript(facesContext, component)}" />
+			<script type="text/javascript">	
+				#{script}
+			</script>
+			<c:if test="#{showScript != null}">
+			<script type="text/javascript">	
+				#{showScript}
+			</script>
+			</c:if>
+
+
+	</cc:implementation>
+</cdk:root>

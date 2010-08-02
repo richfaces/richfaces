@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components 
+        PUBLIC "-//AJAX4JSF//CDK Generator config/EN"
+        "http://labs.jboss.com/jbossrichfaces/component-config.dtd"
+[
+	<!ENTITY universal_html_attributes   SYSTEM "html_universal_attributes.xml">	
+]>
+
+<components>
+     	<component>
+		<name>org.ajax4jsf.CommandButton</name>
+		<family>javax.faces.Command</family>
+		<classname>
+			org.ajax4jsf.component.html.HtmlAjaxCommandButton
+		</classname>
+		<superclass>org.ajax4jsf.component.UIAjaxCommandButton</superclass>
+		<test />
+		<description><![CDATA[
+			Renders an HTML "input" element.
+			<br />
+			During Decoding: Obtains the Map from the
+			"requestParameterMap" property of the ExternalContext. If
+			the value in the Map for the value of the "clientId"
+			property of the component is not null, create a
+			javax.faces.event.ActionEvent around the component, and pass
+			it to the queueEvent() method of the component. If the
+			request is Ajax-performed, add its target IDs of the
+			reRender property to the rendered areas list of the nesting
+			AjaxContainer.
+			<br />
+			During Encoding: Builds an AJAX.Submit JavaScript call for
+			the "onclick" event. Renders the clientId of the component
+			as the value of the "name" attribute. Renders the current
+			value of the component as the value of the "value"
+			attribute. If the "styleClass" attribute is specified,
+			render its value as the value of the "class" attribute.
+			Renders child components inside the HTML "input" element.
+			]]>
+		</description>
+		<displayname>Ajax commandButton</displayname>
+		<icon>icon</icon>
+		<renderer generate="true" override="true">
+			<name>
+				org.ajax4jsf.components.AjaxCommandButtonRenderer
+			</name>
+			<template>org/ajax4jsf/renderkit/html/button.jspx</template>
+			<!-- 
+				<superclass>javax.faces.renderer.Renderer</superclass>
+			-->
+			<description>
+				Performs functions for decoding AJAX requests and
+				building client script for events.
+			</description>
+			<displayname>renderer for Ajax CommandButton</displayname>
+			<icon>icon</icon>
+		</renderer>
+		<tag>
+			<name>commandButton</name>
+			<classname>
+				org.ajax4jsf.taglib.html.jsp.AjaxCommandButton
+			</classname>
+			<superclass>
+				org.ajax4jsf.webapp.taglib.UIComponentTagBase
+			</superclass>
+			<test />
+			<displayname>Ajax CommandButton</displayname>
+			<icon>icon</icon>
+		</tag>
+		<taghandler>
+			<classname>org.ajax4jsf.webapp.taglib.AjaxComponentHandler</classname>
+		</taghandler>
+		&ui_command_attributes;
+		&html_universal_attributes;
+		&html_button_attributes;
+		&html_events;
+		&html_control_events;
+		&ajax_component_attributes;
+		<property>
+			<name>image</name>
+			<classname>java.lang.String</classname>
+			<description>
+				<![CDATA[
+			 Absolute or relative URL of the image to be displayed for this button. If specified, this "input" element will be of type "image". Otherwise, it will be of the type specified by the "type" property with a label specified by the "value" property.
+			]]>
+			</description>
+		</property>
+		<property>
+			<name>alt</name>
+			<classname>java.lang.String</classname>
+			<description>
+				<![CDATA[
+			  Alternate textual description of the element rendered by this component.
+			]]>
+			</description>
+		</property>
+		<property>
+			<name>ignoreDupResponses</name>
+			<classname>boolean</classname>
+			<description>
+Attribute allows to ignore an Ajax Response produced by a request if the newest 'similar' request is
+in a queue already. ignoreDupResponses="true" does not cancel the request while it is processed on the server,
+but just allows to avoid unnecessary updates on the client side if the response isn't actual now.
+			</description>
+		</property>
+		<property>
+			<name>timeout</name>
+			<classname>int</classname>
+			<description>Timeout ( in ms ) for request.</description>
+		</property>
+		<property>
+			<name>disabled</name>
+			<classname>boolean</classname>
+			<description>If &quot;true&quot;, disable this component on page.</description>
+		</property>
+	</component>     
+</components>

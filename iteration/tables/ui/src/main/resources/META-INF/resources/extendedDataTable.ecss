@@ -1,0 +1,159 @@
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright ${year}, Red Hat, Inc. and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */ 
+.rf-edt {
+	overflow: hidden;
+	background-color: '#{richSkin.tableBackgroundColor}';
+	border: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
+}
+
+.rf-edt-h, .rf-edt-th {
+	background-image : "url(#{resource['org.richfaces.renderkit.html.images.ColumnHeaderGradientImage']})";
+}
+
+.rf-edt-th {
+	border-bottom: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
+}
+
+.rf-edt-b {
+	overflow-x: hidden;
+	overflow-y: auto;
+	width: 100%;
+}
+
+.rf-edt-s {
+	height: 0px;
+	font-size: 0px; /*for IE7 only*/
+}
+
+.rf-edt-f, .rf-edt-tf {
+	border-top: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
+	background-color: '#{richSkin.tableFooterBackgroundColor}';
+}
+
+.rf-edt-fa {
+	vertical-align: top;
+}
+
+.rf-edt-p {
+	overflow: hidden;
+}
+
+.rf-edt-fp {
+	overflow-x: auto;
+	overflow-y: visible;
+}
+
+.rf-edt-rsh {
+	left : 0px;
+	position: relative;
+	height: 0px;
+}
+
+.rf-edt-rs {
+	background-image: url("#{resource['spacer.gif']}");
+	cursor: e-resize;
+	height: 20px; /*TODO*/
+	position: absolute;
+	left: 100%;
+	margin-left: -3px;
+	width: 6px;
+}
+
+.rf-edt-d {
+	cursor: e-resize;
+	position: absolute;
+	border-left: '1px dotted #{richSkin.generalTextColor}';
+	/*background-color: #848089;*/
+	width: 1px;
+	display: none;
+}
+
+.rf-edt-ro {
+	position: absolute;
+	border-collapse: collapse;
+	display: none;
+}
+
+.rf-edt-ro th {
+	width: 20px;
+	height: 5px;
+	font-size: 1px;
+	background-color: '#{richSkin.tableHeaderBackgroundColor}';
+	border: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
+}
+
+.rf-edt-ro td {
+	width: 20px;
+	height: 5px;
+	font-size: 1px;
+	background-color: '#{richSkin.tableBackgroundColor}';
+	border: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
+}
+
+.rf-edt-c, .rf-edt-hc, .rf-edt-fc {
+	height: 20px;
+	overflow: hidden;
+	border-bottom: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
+	border-right: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
+}
+
+.rf-edt-efc {
+	border-right: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
+	height: 1px;
+}
+
+.rf-edt-cc, .rf-edt-hcc, .rf-edt-fcc, .rf-edt-th, .rf-edt-tf {
+	padding: 3px 7px;
+	white-space: nowrap;
+	font-family: '#{richSkin.generalFamilyFont}';
+	font-size: '#{richSkin.generalSizeFont}';
+}
+
+.rf-edt-hcc, .rf-edt-th, .rf-edt-fcc, .rf-edt-tf {
+	font-weight: bold;
+	text-align: center;
+}
+
+.rf-edt-hcc, .rf-edt-th {
+	color: '#{richSkin.tableHeaderTextColor}';
+}
+
+.rf-edt-cc, .rf-edt-fcc, .rf-edt-tf {
+	color: '#{richSkin.generalTextColor}';	
+}
+
+.rf-edt-rom {
+	position: absolute;
+	height: 9px;
+	font-size: 9px;
+	width: 9px;
+	background-image: url("#{resource['reorderMarker.gif']}");
+	display: none;
+}
+
+.rf-edt-r-s {
+	background-color: '#{richSkin.additionalBackgroundColor}';	/*TODO Probably use other skin property.*/
+}
+
+.rf-edt-r-a {
+	font-weight: bold;	/*TODO Probably use other property.*/
+}

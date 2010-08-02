@@ -1,0 +1,65 @@
+<html 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<body>
+		<f:view>
+			<ui:include src="queue-discovery-base.xhtml" />
+			
+			<a4j:queue oncomplete="addResult(request.options.parameters.data)"/>
+			
+			<h:form id="form">
+				<a4j:queue oncomplete="addResult('buttonFormQueue')"/>
+	
+				<a4j:commandButton id="button" oncomplete="stub()">
+					<f:param name="data" value="button" />
+				</a4j:commandButton>
+				
+				<a4j:commandButton id="viewQueueButton" oncomplete="stub()" eventsQueue="viewQueue">
+					<f:param name="data" value="viewQueueButton" />
+				</a4j:commandButton>
+
+				<a4j:commandButton id="implicitDelayedQueue" requestDelay="500" 
+					eventsQueue="implicitDelayedQueue" oncomplete="addResult('implicitDelayedQueue')">
+					<f:param name="data" value="implicitDelayedQueue" />
+				</a4j:commandButton>
+			</h:form>
+
+			<h:form id="form2">
+				<a4j:commandButton id="formQueueButton" eventsQueue="formQueue" requestDelay="1000" oncomplete="stub()">
+					<f:param name="data" value="formQueueButton" />
+				</a4j:commandButton>
+
+				<a4j:queue oncomplete="addResult('formQueue:' + request.options.parameters.data)" name="formQueue"/>
+	
+				<a4j:commandButton id="button" requestDelay="1000" oncomplete="stub()">
+					<f:param name="data" value="form2Button" />
+				</a4j:commandButton>
+
+				<a4j:commandButton id="implicitQueue" eventsQueue="implicitQueue" oncomplete="addResult('implicitQueue')">
+					<f:param name="data" value="implicitQueue" />
+				</a4j:commandButton>
+			</h:form>
+
+			<h:form id="form3">
+	
+				<a4j:commandButton id="button">
+					<f:param name="data" value="form3Button" />
+				</a4j:commandButton>
+
+				<a4j:commandButton id="anotherImplicitQueue" ignoreDupResponses="true" eventsQueue="anotherImplicitQueue" oncomplete="addResult('anotherImplicitQueue')">
+					<f:param name="data" value="anotherImplicitQueue" />
+				</a4j:commandButton>
+			</h:form>
+
+			<h:form>
+				<a4j:queue oncomplete="addResult('functionFormQueue')"/>
+	
+				<a4j:jsFunction name="ajaxFunction" />
+			</h:form>
+
+			<a4j:queue oncomplete="addResult('viewQueue:' + request.options.parameters.data)" name="viewQueue"/>
+		</f:view>
+	</body>	
+</html>  

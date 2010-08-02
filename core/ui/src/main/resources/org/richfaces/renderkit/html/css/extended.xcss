@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+         
+<f:template xmlns:f='http:/jsf.exadel.com/template'
+   xmlns:u='http:/jsf.exadel.com/template/util'
+   xmlns="http://www.w3.org/1999/xhtml">
+
+	<u:selector name="input, select, textarea, button, keygen, isindex">
+		<u:style name="border-width" value="1px" />
+		<u:style name="border-color" skin="panelBorderColor" />
+		<u:style name="color" skin="controlTextColor" />
+	</u:selector>
+
+	<f:verbatim>
+		<![CDATA[
+		*|button {
+			border-width: 1px; 
+			background-repeat : repeat-x;
+			background-position : top left;
+		}
+
+		button[type="button"], button[type="reset"], button[type="submit"], input[type="reset"], input[type="submit"], input[type="button"] {
+			border-width: 1px; 
+			background-repeat : repeat-x;
+			background-position : top left;
+		}
+		
+		]]>
+	</f:verbatim>
+
+	<u:selector name="*|button">
+		<u:style name="border-color" skin="panelBorderColor" />
+		<u:style name="font-size" skin="generalSizeFont" />
+		<u:style name="font-family" skin="generalFamilyFont" />
+		<u:style name="color" skin="headerTextColor" />
+		<u:style name="background-color" skin="headerBackgroundColor" />
+
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.images.ButtonBackgroundImage"/>
+		</u:style>
+	</u:selector>
+
+	<u:selector name="button[type=&quot;button&quot;], button[type=&quot;reset&quot;], button[type=&quot;submit&quot;], 
+						input[type=&quot;reset&quot;], input[type=&quot;submit&quot;], input[type=&quot;button&quot;]">
+		<u:style name="border-color" skin="panelBorderColor" />
+		<u:style name="font-size" skin="generalSizeFont" />
+		<u:style name="font-family" skin="generalFamilyFont" />
+		<u:style name="color" skin="headerTextColor" />
+		<u:style name="background-color" skin="headerBackgroundColor" />
+
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.images.ButtonBackgroundImage"/>
+		</u:style>
+	</u:selector>
+
+	<u:selector name="*|button[disabled]">
+		<u:style name="color" skin="tabDisabledTextColor" />
+		<u:style name="border-color" skin="tableFooterBackgroundColor" />
+		<u:style name="background-color" skin="tableFooterBackgroundColor" />
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.images.ButtonDisabledBackgroundImage"/>
+		</u:style>
+	</u:selector>
+
+	<u:selector name="button[type=&quot;button&quot;][disabled], button[type=&quot;reset&quot;][disabled], button[type=&quot;submit&quot;][disabled], 
+						input[type=&quot;reset&quot;][disabled], input[type=&quot;submit&quot;][disabled], input[type=&quot;button&quot;][disabled]">
+		<u:style name="color" skin="tabDisabledTextColor" />
+		<u:style name="border-color" skin="tableFooterBackgroundColor" />
+		<u:style name="background-color" skin="tableFooterBackgroundColor" />
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.images.ButtonDisabledBackgroundImage"/>
+		</u:style>
+	</u:selector>
+
+	<f:verbatim>
+		<![CDATA[
+		*|textarea {
+			border-width: 1px; 
+			border-style : inset;
+			background-repeat : no-repeat;
+			background-position : 1px 1px;
+		}
+		
+		textarea[type="textarea"], input[type="text"], input[type="password"], select {
+			border-width: 1px; 
+			border-style : inset;
+			background-repeat : no-repeat;
+			background-position : 1px 1px;
+		}
+		]]>
+	</f:verbatim>
+
+	<u:selector name="*|textarea">
+		<u:style name="border-color" skin="panelBorderColor" />
+		<u:style name="font-size" skin="generalSizeFont" />
+		<u:style name="font-family" skin="generalFamilyFont" />
+		<u:style name="color" skin="controlTextColor" />
+		<u:style name="background-color" skin="controlBackgroundColor" />
+
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.images.InputBackgroundImage"/>
+		</u:style>
+	</u:selector>
+
+	<u:selector name="textarea[type=&quot;textarea&quot;], input[type=&quot;text&quot;], input[type=&quot;password&quot;], select">
+		<u:style name="border-color" skin="panelBorderColor" />
+		<u:style name="font-size" skin="generalSizeFont" />
+		<u:style name="font-family" skin="generalFamilyFont" />
+		<u:style name="color" skin="controlTextColor" />
+		<u:style name="background-color" skin="controlBackgroundColor" />
+
+		<u:style name="background-image">
+			<f:resource f:key="org.richfaces.renderkit.html.images.InputBackgroundImage"/>
+		</u:style>
+	</u:selector>
+
+	<u:selector name="*|textarea[disabled], *|select[disabled]">
+		<u:style name="color" skin="panelBorderColor" />
+	</u:selector>
+	
+	<u:selector name="textarea[type=&quot;textarea&quot;][disabled], input[type=&quot;text&quot;][disabled], input[type=&quot;password&quot;][disabled], select[disabled]">
+		<u:style name="color" skin="panelBorderColor" />
+	</u:selector>
+	
+</f:template>

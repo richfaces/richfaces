@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components 
+        PUBLIC "-//AJAX4JSF//CDK Generator config/EN"
+        "http://labs.jboss.com/jbossrichfaces/component-config.dtd"
+[
+	<!ENTITY universal_html_attributes   SYSTEM "html_universal_attributes.xml">	
+]>
+
+<components>
+     	<component>
+		<name>org.ajax4jsf.Portlet</name>
+		<classname>
+			org.ajax4jsf.component.html.HtmlPortlet
+		</classname>
+		<superclass>org.ajax4jsf.component.UIPortlet</superclass>
+		<test />
+		<description>
+			<![CDATA[
+		]]>
+		</description>
+		<tag>
+			<name>portlet</name>
+			<classname>org.ajax4jsf.taglib.html.jsp.Portlet</classname>
+			<superclass>
+				org.ajax4jsf.webapp.taglib.HtmlComponentTagBase
+			</superclass>
+			<test/>
+			<description>
+			<![CDATA[
+				]]>
+			</description>
+		</tag>
+		&ui_component_attributes;
+	</component>
+     
+</components>

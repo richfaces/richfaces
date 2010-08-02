@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource-config>
+    <resource>
+        <name>org/richfaces/renderkit/html/css/basic.xcss</name>
+        <path>org/richfaces/renderkit/html/css/basic.xcss</path>
+    </resource>
+    <resource>
+        <name>org/richfaces/renderkit/html/css/basic_classes.xcss</name>
+        <path>org/richfaces/renderkit/html/css/basic_classes.xcss</path>
+    </resource>
+    <resource>
+        <name>org/richfaces/renderkit/html/css/basic_both.xcss</name>
+        <path>org/richfaces/renderkit/html/css/basic_both.xcss</path>
+    </resource>
+
+    <resource>
+        <name>org/richfaces/renderkit/html/css/extended.xcss</name>
+        <path>org/richfaces/renderkit/html/css/extended.xcss</path>
+    </resource>
+    <resource>
+        <name>org/richfaces/renderkit/html/css/extended_classes.xcss</name>
+        <path>org/richfaces/renderkit/html/css/extended_classes.xcss</path>
+    </resource>
+    <resource>
+        <name>org/richfaces/renderkit/html/css/extended_both.xcss</name>
+        <path>org/richfaces/renderkit/html/css/extended_both.xcss</path>
+    </resource>
+    
+    <resource>
+        <name>org/richfaces/skin-bas-both.xcss</name>
+        <path>org/richfaces/skin-bas-both.xcss</path>
+    </resource>
+    <resource>
+        <name>org/richfaces/skin-bas-classes.xcss</name>
+        <path>org/richfaces/skin-bas-classes.xcss</path>
+    </resource>
+    <resource>
+        <name>org/richfaces/skin-bas-styles.xcss</name>
+        <path>org/richfaces/skin-bas-styles.xcss</path>
+    </resource>
+    <resource>
+        <name>org/richfaces/skin-ext-both.xcss</name>
+        <path>org/richfaces/skin-ext-both.xcss</path>
+    </resource>
+    <resource>
+        <name>org/richfaces/skin-ext-classes.xcss</name>
+        <path>org/richfaces/skin-ext-classes.xcss</path>
+    </resource>
+    <resource>
+        <name>org/richfaces/skin-ext-styles.xcss</name>
+        <path>org/richfaces/skin-ext-styles.xcss</path>
+    </resource>
+</resource-config>

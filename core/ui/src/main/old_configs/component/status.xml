@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components 
+        PUBLIC "-//AJAX4JSF//CDK Generator config/EN"
+        "http://labs.jboss.com/jbossrichfaces/component-config.dtd"
+[
+	<!ENTITY universal_html_attributes   SYSTEM "html_universal_attributes.xml">	
+]>
+
+<components>
+     	<component>
+		<name>org.ajax4jsf.Status</name>
+		<family>javax.faces.Panel</family>
+		<classname>org.ajax4jsf.component.html.HtmlAjaxStatus</classname>
+		<superclass>org.ajax4jsf.component.UIAjaxStatus</superclass>
+		<test />
+		<description><![CDATA[
+			Renders area for indicating Ajax request status on the
+			client-side.
+			<br />
+			During Encoding: Creates two "span" elements with id created
+			as clientId of this component or of target AJAX region
+			(pointed to by the "for" property) with appended
+			":status.start" and ":status:stop" strings.
+			<br />
+			"start" span has "display:none" style (hidden). Inside this
+			span, renders the value of the startText/stopText properties
+			or, if they exist, the content of "start" and "stop" facets.
+			<br />
+			On performing an AJAX request, the client-side script
+			changes the visibility of the "start" span and hides "stop".
+			After all requests for this indicator are completed,
+			restores "stop" and hide "start" start[style,styleClass] and
+			stop[style,styleClass] are rendered for spans as style and
+			class atributes, respectivetly.
+			<br />
+			During Encoding: Creates two "span" or "div"(depending on
+			'layout' attribute) elements with id created as clientId of
+			this component or of target AJAX region (pointed to by the
+			"for" property) with appended ":status.start" and
+			":status:stop" strings. "start" element has "display:none"
+			style (hidden). Inside this element, renders the value of
+			the startText/stopText properties or, if they exist, the
+			content of "start" and "stop" facets. On performing an AJAX
+			request, the client-side script changes the visibility of
+			the "start" element and hides "stop". After all requests for
+			this indicator are completed, restores "stop" and hide
+			"start"
+			<br />
+			start[style,styleClass] and stop[style,styleClass] are
+			rendered for spans as style and class atributes,
+			respectivetly.
+			]]>
+		</description>
+		<facet>
+			<name>start</name>
+			<description>
+				The content of this facet will be displayed during a
+				request.
+			</description>
+		</facet>
+		<facet>
+			<name>stop</name>
+			<description>
+				The content of this facet will be displayed after a
+				request is completed.
+			</description>
+		</facet>
+		<renderer>
+			<name>org.ajax4jsf.components.AjaxStatusRenderer</name>
+			<classname>
+				org.ajax4jsf.renderkit.html.AjaxStatusRenderer
+			</classname>
+		</renderer>
+		<tag>
+			<name>status</name>
+			<classname>org.ajax4jsf.taglib.html.jsp.AjaxStatus</classname>
+			<superclass>
+				org.ajax4jsf.webapp.taglib.UIComponentTagBase
+			</superclass>
+			<test />
+		</tag>
+		&ui_panel_attributes;
+		&html_event_handler_attributes;
+		&html_universal_attributes;
+		<property>
+			<name>for</name>
+			<classname>java.lang.String</classname>
+			<description>
+				ID of the AjaxContainer component whose status is
+				indicated (in the format of a
+				javax.faces.UIComopnent.findComponent() call).
+			</description>
+		</property>
+
+		<property>
+			<name>forceId</name>
+			<classname>boolean</classname>
+			<description>
+				If true, render the ID of the component in HTML code
+				without JSF modifications.
+			</description>
+		</property>
+		<property>
+			<name>startText</name>
+			<classname>java.lang.String</classname>
+			<description>
+				Text to display on starting request.
+			</description>
+		</property>
+		<property>
+			<name>stopText</name>
+			<classname>java.lang.String</classname>
+			<description>
+				Text for display on request complete.
+			</description>
+		</property>
+
+		<property>
+			<name>startStyle</name>
+			<classname>java.lang.String</classname>
+			<description>
+				CSS style rules to be applied to the element displayed when a request is in progress
+			</description>
+		</property>
+		<property>
+			<name>stopStyle</name>
+			<classname>java.lang.String</classname>
+			<description>
+				CSS style rules to be applied to the element displayed on a request completion
+			</description>
+		</property>
+
+		<property>
+			<name>layout</name>
+			<classname>java.lang.String</classname>
+			<description>
+				Define visual layout of panel, can be "block" or
+				"inline".
+			</description>
+		</property>
+
+		<property>
+			<name>startStyleClass</name>
+			<classname>java.lang.String</classname>
+			<description>
+				Assigns one or more space-separated CSS class names to the element displayed when a request is in progress
+			</description>
+		</property>
+		<property>
+			<name>stopStyleClass</name>
+			<classname>java.lang.String</classname>
+			<description>
+				Assigns one or more space-separated CSS class names to the element displayed on a request completion
+			</description>
+		</property>
+		<property>
+			<name>onstart</name>
+			<classname>java.lang.String</classname>
+			<description>
+				The client-side script method to be called at the start
+				of the request
+			</description>
+		</property>
+		<property>
+			<name>onstop</name>
+			<classname>java.lang.String</classname>
+			<description>
+				The client-side script method to be called when the request is finished
+			</description>
+		</property>
+	</component>     
+</components>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components 
+        PUBLIC "-//AJAX4JSF//CDK Generator config/EN"
+        "http://labs.jboss.com/jbossrichfaces/component-config.dtd"
+[
+	<!ENTITY universal_html_attributes   SYSTEM "html_universal_attributes.xml">	
+]>
+
+<components>
+     	<component>
+		<name>org.ajax4jsf.Log</name>
+		<family>org.ajax4jsf.Log</family>
+		<classname>org.ajax4jsf.component.html.AjaxLog</classname>
+		<superclass>org.ajax4jsf.component.UIAjaxLog</superclass>
+		<test />
+		<description>
+			<![CDATA[
+		Encode javaScript to open popup window with client-side Log information.
+		]]>
+		</description>
+		<renderer generate="true">
+			<name>org.ajax4jsf.LogRenderer</name>
+			<template>org/ajax4jsf/renderkit/html/log.jspx</template>
+		</renderer>
+		<tag>
+			<name>log</name>
+			<classname>org.ajax4jsf.taglib.html.jsp.LogTag</classname>
+			<superclass>
+				org.ajax4jsf.webapp.taglib.UIComponentTagBase
+			</superclass>
+			<test />
+			<displayname>pop-up window with request log</displayname>
+			<icon>icon</icon>
+		</tag>
+		&ui_component_attributes;
+		&html_event_handler_attributes;
+		&html_universal_attributes;
+		<property>
+			<name>hotkey</name>
+			<classname>java.lang.String</classname>
+			<description>
+				Keyboard key for activate ( in combination with
+				CTRL+SHIFT ) log window. Default value is &quot;L&quot;
+			</description>
+			<defaultvalue>"L"</defaultvalue>
+		</property>
+		<property>
+			<name>name</name>
+			<classname>java.lang.String</classname>
+			<description>Name of pop-up window. Default value is &quot;LogWindow&quot;</description>
+			<defaultvalue>"LogWindow"</defaultvalue>
+		</property>
+		<property>
+			<name>level</name>
+			<classname>java.lang.String</classname>
+			<description>
+				Log level. The possible values are 
+				&quot;FATAL&quot;, &quot;ERROR&quot;, &quot;WARN&quot;, &quot;INFO&quot;, &quot;DEBUG&quot;, &quot;ALL&quot;.
+				Component sets level 'ALL' by default.
+			</description>
+			<defaultvalue>"ALL"</defaultvalue>
+		</property>
+		<property>
+			<name>width</name>
+			<classname>java.lang.String</classname>
+			<description>Width of pop-up. Default value is &quot;800&quot;.</description>
+			<defaultvalue>"800"</defaultvalue>
+		</property>
+		<property>
+			<name>height</name>
+			<classname>java.lang.String</classname>
+			<description>Height of pop-up. Default value is &quot;600&quot;.</description>
+			<defaultvalue>"600"</defaultvalue>
+		</property>
+		<property>
+			<name>popup</name>
+			<classname>boolean</classname>
+			<description>
+				Renders log as pop-up window or as div element on the page. Default value is &quot;true&quot;.
+			</description>
+			<defaultvalue>true</defaultvalue>
+		</property>
+	</component>     
+</components>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<f:template xmlns:f='http:/jsf.exadel.com/template'
+   xmlns:u='http:/jsf.exadel.com/template/util'
+   xmlns="http://www.w3.org/1999/xhtml">
+
+	<u:selector name="input, select, textarea, button, keygen, isindex, legend, a">
+		<u:style name="font-size" skin="generalSizeFont" />
+		<u:style name="font-family" skin="generalFamilyFont" />
+		<u:style name="color" skin="controlTextColor" />
+	</u:selector>
+
+	<f:verbatim>
+		<![CDATA[
+		fieldset {
+			border-width: 1px; 
+			border-style: solid;
+			padding: 10px;
+		}
+
+		hr {
+			border-width: 1px; 
+			border-style: solid;
+		}
+		]]>
+	</f:verbatim>
+
+	<u:selector name="fieldset">
+		<u:style name="border-color" skin="panelBorderColor" />
+	</u:selector>
+
+	<u:selector name="hr">
+		<u:style name="border-color" skin="panelBorderColor" />
+	</u:selector>
+
+	<u:selector name="a">
+		<u:style name="color" skin="generalLinkColor" />
+	</u:selector>
+	
+	<u:selector name="a:hover">
+		<u:style name="color" skin="hoverLinkColor" />
+	</u:selector>
+	
+	<u:selector name="a:visited">
+		<u:style name="color" skin="visitedLinkColor" />
+	</u:selector>
+</f:template>

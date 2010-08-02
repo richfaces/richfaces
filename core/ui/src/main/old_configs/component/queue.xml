@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components PUBLIC "-//AJAX4JSF//CDK Generator config/EN"  "http://labs.jboss.com/jbossrichfaces/component-config.dtd">
+<components>
+	<component>
+		<name>org.ajax4jsf.Queue</name>
+		<family>org.ajax4jsf.Queue</family>
+		<classname>org.ajax4jsf.component.html.HtmlQueue</classname>
+		<superclass>org.ajax4jsf.component.UIQueue</superclass>
+		<test />
+		<description>
+			<![CDATA[The <a4j:queue> tag.]]>
+		</description>
+		<tag generate="true" bodyContent="empty">
+			<name>queue</name>
+			<classname>org.ajax4jsf.taglib.html.jsp.QueueTag</classname>
+			<superclass>org.ajax4jsf.webapp.taglib.HtmlComponentTagBase</superclass>
+			<test/>
+		</tag>
+		<renderer generate="false">
+			<name>org.ajax4jsf.QueueRenderer</name>
+			<classname>org.ajax4jsf.renderkit.html.QueueRenderer</classname>
+		</renderer>
+		<!-- 
+		<taghandler>
+			<classname>org.ajax4jsf.taglib.html.facelets.QueueHandler</classname>
+		</taghandler>
+		 -->
+		 
+		&ui_component_attributes; 
+		
+		<property>
+			<name>size</name>
+			<classname>int</classname>
+			<description>Defines the number of requests allowed in the queue at one time.</description>
+		</property>
+	    <property>
+	        <name>name</name>
+	        <classname>java.lang.String</classname>
+	    	<description>Specifies to name for the named queue.</description>
+	        <defaultvalue>""</defaultvalue>
+	    </property>
+
+	    <property >
+	        <name>requestDelay</name>
+	        <classname>int</classname>
+	    	<description>Attribute defines the time (in ms) the request will be waiting in the queue before it is ready to be sent.</description>
+	    </property>
+		<property>
+			<name>ignoreDupResponses</name>
+			<classname>boolean</classname>
+			<description>Attribute allows you to ignore an Ajax response produced by a request if the newest &apos;similar&apos; request is in the queue already.
+				ignoreDupResponses=&quot;true&quot; does not cancel the request while it is processed on the server, but just allows avoiding unnecessary updates on the client side if the response isn't actual now</description>
+		</property>
+		<property>
+			<name>timeout</name>
+			<classname>int</classname>
+			<description>Waiting time for response on a particular request. If no response is received during this time, the request is aborted</description>
+		</property>
+		<property>
+			<name>disabled</name>
+			<classname>boolean</classname>
+			<description>If &quot;true&quot;, disables this component on page.</description>
+		</property>
+		
+		<property>
+			<name>onsubmit</name>
+	        <classname>java.lang.String</classname>
+			<description>The client-side script method to be called before an ajax request is submitted</description>
+		</property>
+		<property>
+			<name>onbeforedomupdate</name>
+	        <classname>java.lang.String</classname>
+			<description>The client-side script method to be called before DOM is updated</description>
+		</property>
+		<property>
+			<name>oncomplete</name>
+	        <classname>java.lang.String</classname>
+			<description>The client-side script method to be called after the request is completed</description>
+		</property>
+		<property>
+			<name>onerror</name>
+	        <classname>java.lang.String</classname>
+			<description>The client-side script method to be called whenever a JavaScript error occurs</description>
+		</property>
+		<property>
+			<name>sizeExceededBehavior</name>
+	        <classname>java.lang.String</classname>
+			<description>Defines the strategies of the queue's behavior if the number of the requests waiting in the queue is exceeded. 
+				There are four strategies: dropNext (by default), dropNew, fireNext , fireNew.</description>
+		</property>
+		<property>
+			<name>onsizeexceeded</name>
+	        <classname>java.lang.String</classname>
+			<description>The client-side script method to be called when a size is exceeded</description>
+		</property>
+		<property>
+			<name>onrequestqueue</name>
+			<classname>java.lang.String</classname>
+			<description>The client-side script method to be called when the request is added to the queue</description>
+		</property>
+		<property>
+			<name>onrequestdequeue</name>
+			<classname>java.lang.String</classname>
+			<description>The client-side script method to be called after the request is removed from the queue</description>
+		</property>
+		
+		<property>
+			<name>status</name>
+			<classname>java.lang.String</classname>
+			<description>ID (in format of call UIComponent.findComponent()) of Request status component</description>
+		</property>
+		
+		<property hidden="true">
+			<name>rendered</name>
+		</property>
+	</component>
+</components>

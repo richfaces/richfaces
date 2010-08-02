@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE components 
+        PUBLIC "-//AJAX4JSF//CDK Generator config/EN"
+        "http://labs.jboss.com/jbossrichfaces/component-config.dtd"
+[
+	<!ENTITY universal_html_attributes   SYSTEM "html_universal_attributes.xml">	
+]>
+
+<components>
+     	<component>
+		<name>org.ajax4jsf.components.Page</name>
+		<family>org.ajax4jsf.components.AjaxRegion</family>
+		<classname>org.ajax4jsf.component.html.HtmlPage</classname>
+		<superclass>org.ajax4jsf.component.UIAjaxRegion</superclass>
+		<test />
+		<description>
+			This component renders a full HTML page structure. It must
+			be the first (and only) child for the view root (JSP
+			&lt;f:view&gt; tag). No HTML code can be outside of this
+			component. It also has support for processing child
+			components in AJAX requests, just like &lt;a4j:region&gt;.
+			For a normal request, it will render the results of a
+			&lt;script&gt; element with a client-side library at the
+			page's &lt;head&gt;. If this component includes a "head"
+			facet, the facet's content will also be rendered at the
+			&lt;head&gt; element. For an AJAX request, only affected
+			components in the full document structure will be rendered.
+			<br />
+			Here's an example of using it in JSP (jspx version):
+			&lt;jsp:root xmlns:.... &lt;f:view&gt;
+			&lt;a4j:page&gt;&lt;f:facet name="head"&gt; ...
+			&lt;/f:facet&gt; &lt;!-- page content here --&gt;
+			&lt;/a4j:page&gt; &lt;/f:view&gt;&lt;/jsp:root&gt;
+		</description>
+		<displayname>Page</displayname>
+		<icon>icon</icon>
+		<facet>
+			<name>head</name>
+			<description>
+				Content of this facet in HTML head.
+			</description>
+		</facet>
+		<renderer generate="false" override="false">
+			<name>org.ajax4jsf.components.AjaxPageRenderer</name>
+			<classname>
+				org.ajax4jsf.renderkit.html.AjaxPageRenderer
+			</classname>
+			<!-- 
+				<superclass>javax.faces.renderer.Renderer</superclass>
+			-->
+			<description>Renderer for HTML page</description>
+			<displayname>Renderer for HTML page</displayname>
+			<icon>icon</icon>
+		</renderer>
+		<tag>
+			<name>page</name>
+			<classname>org.ajax4jsf.taglib.html.jsp.AjaxPage</classname>
+			<superclass>
+				org.ajax4jsf.webapp.taglib.HtmlComponentTagBase
+			</superclass>
+			<test />
+			<displayname>Ajax Page</displayname>
+			<icon>icon</icon>
+		</tag>
+		&ui_component_attributes;
+		&ajax_region_attributes;
+		&html_universal_attributes;
+		<property hidden="true" existintag="true">
+			<name>renderRegionOnly</name>
+			<classname>boolean</classname>
+			<description>
+				Flag to disable rendering in AJAX responses content
+				outside of active region. If this attribute set to
+				"true" , no one of the components outside of region will
+				be included to AJAX response. If set to "false", search
+				for components to include in response will be performed
+				on all tree. Default value is  &quot;true&quot;.
+			</description>
+			<defaultvalue>true</defaultvalue>
+		</property>
+		<property>
+			<name>pageTitle</name>
+			<classname>java.lang.String</classname>
+			<description>
+				String for output as a page title.
+			</description>
+		</property>
+		<property>
+			<name>onload</name>
+			<classname>java.lang.String</classname>
+			<description>
+				The client-side script method to be called before a page is loaded
+			</description>
+		</property>
+		<property>
+			<name>onunload</name>
+			<classname>java.lang.String</classname>
+			<description>
+				The client-side script method to be called when a page is unloaded
+			</description>
+		</property>
+		<property>
+			<name>format</name>
+			<classname>java.lang.String</classname>
+			<description>
+				<![CDATA[Page layout format ( html, xhtml, html-transitional, html-3.2 ) for encoding DOCTYPE, namespace and Content-Type definitions]]>
+			</description>
+		</property>
+		<property>
+			<name>contentType</name>
+			<classname>java.lang.String</classname>
+			<description>
+				<![CDATA[Set custom mime content type to response]]>
+			</description>
+		</property>
+		<property>
+			<name>namespace</name>
+			<classname>java.lang.String</classname>
+			<description>
+				<![CDATA[Set html element default namespace]]>
+			</description>
+		</property>
+	</component>
+     
+</components>

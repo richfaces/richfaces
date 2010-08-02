@@ -1,0 +1,56 @@
+<html 
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j">
+	<body>
+		<f:view>
+			<a4j:queue name="defaultSizeQueue" />
+
+			<a4j:queue name="dropNextQueue" sizeExceededBehavior="dropNext" size="3" />
+			<a4j:queue name="dropNextQueueSingle" sizeExceededBehavior="dropNext" size="1"  />
+
+			<a4j:queue name="fireNextQueue" sizeExceededBehavior="fireNext" size="3" />
+			<a4j:queue name="fireNextQueueSingle" sizeExceededBehavior="fireNext" size="1"  />
+
+			<a4j:queue name="dropNewQueue" sizeExceededBehavior="dropNew" size="3" />
+			<a4j:queue name="dropNewQueueSingle" sizeExceededBehavior="dropNew" size="1"  />
+
+			<a4j:queue name="fireNewQueue" sizeExceededBehavior="fireNew" size="3" />
+			<a4j:queue name="fireNewQueueSingle" sizeExceededBehavior="fireNew" size="1"  />
+
+			<script type="text/javascript">
+				defaultExceededQueueResults = new Array();
+
+				function addEventData(queue, query, options, event) {
+					if (!queue) {
+						throw "queue not defined";
+					}
+					if (!query) {
+						throw "query not defined";
+					}
+					if (!options) {
+						throw "options not defined";
+					}
+					if (!event) {
+						throw "event not defined";
+					}
+					
+					defaultExceededQueueResults.push({queue: queue, query: query, options: options, event: event, _time: Timer.currentTime});
+				}
+
+				defaultSingleSizedQueueResults = new Array();
+			</script>
+
+			<a4j:queue onsizeexceeded="addEventData(this, query, options, event)" size="2" name="defaultExceededQueue" />
+			<h:form id="form">
+				<a4j:commandButton id="button0" eventsQueue="defaultExceededQueue" value="button" />
+				<a4j:commandButton id="button1" eventsQueue="defaultExceededQueue" value="button" />
+				<a4j:commandButton id="button2" eventsQueue="defaultExceededQueue" value="button" />
+				<a4j:commandButton id="button3" eventsQueue="defaultExceededQueue" value="button" />
+			</h:form>
+
+			<a4j:queue name="singleSizedDefaultQueue" size="1" ignoreDupResponses="true" oncomplete="defaultSingleSizedQueueResults.push(data)" />
+		</f:view>
+	</body>	
+</html>  
