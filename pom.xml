@@ -265,8 +265,8 @@
     </repositories>
     
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/examples/richfaces-showcase/trunk</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/examples/richfaces-showcase/trunk</developerConnection>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/examples/richfaces-showcase</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/examples/richfaces-showcase</developerConnection>
         <url>http://fisheye.jboss.org/browse/richfaces</url>
     </scm>
 </project>
