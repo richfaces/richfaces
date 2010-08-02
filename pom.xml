@@ -1,0 +1,42 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>org.jboss</groupId>
+        <artifactId>jboss-parent</artifactId>
+        <version>5</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.richfaces</groupId>
+    <artifactId>root</artifactId>
+    <version>4.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>Richfaces Aggregator</name>
+
+    
+
+    <profiles>
+        
+    <profile><id>build</id><modules>
+        <module>bom</module>
+        <module>../core</module>
+        <module>../cdk</module>
+
+        
+        <module>../ui/core</module>
+        <module>../ui/iteration</module>
+        <module>../ui/misc</module>
+        <module>../ui/output</module>
+        <module>../ui/dist</module>
+
+        
+        <module>../archetypes</module>
+        <module>../dev-examples</module>
+        <module>../docs/trunk</module>
+    <module>../showcase</module></modules></profile><profile>
+            <id>release</id>
+            <modules>
+                <module>dist</module>
+            </modules>
+        </profile></profiles>
+</project>
