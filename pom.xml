@@ -44,7 +44,7 @@
         <module>repeater-demo</module>
         <module>iteration-demo</module>
         
-        <!--<module>dist/trunk</module>-->
+        <!--<module>dist</module>-->
     </modules>
 
 </project>
