@@ -32,7 +32,7 @@
         
         <module>../archetypes</module>
         <module>../dev-examples</module>
-        <module>../docs/trunk</module>
+        <module>../docs</module>
     <module>../showcase</module></modules></profile><profile>
             <id>release</id>
             <modules>
