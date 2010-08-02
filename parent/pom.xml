@@ -101,8 +101,8 @@
     </build>
     
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/core/trunk/parent</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/core/trunk/parent</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/root/core/trunk/parent</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/core/parent</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/core/parent</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/trunk/core/parent</url>
     </scm>
 </project>

@@ -72,8 +72,8 @@
     </build>
     
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/commons/trunk/api</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/commons/trunk/api</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/root/commons/trunk/api</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/commons/api</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/commons/api</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/trunk/commons/api</url>
     </scm>
 </project>

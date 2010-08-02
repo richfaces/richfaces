@@ -42,9 +42,9 @@
     </modules>
     
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/commons/trunk</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/commons/trunk</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/root/commons/trunk</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/commons</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/commons</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/trunk/commons</url>
     </scm>
 </project>
 
