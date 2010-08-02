@@ -162,8 +162,8 @@
     </profiles>
     
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/ui/iteration/trunk/dist/richfaces-ui-iteration-api</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/ui/iteration/trunk/dist/richfaces-ui-iteration-api</developerConnection>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/iteration/dist/richfaces-ui-iteration-api</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/iteration/dist/richfaces-ui-iteration-api</developerConnection>
         <url>http://fisheye.jboss.org/browse/richfaces</url>
     </scm>
 </project>

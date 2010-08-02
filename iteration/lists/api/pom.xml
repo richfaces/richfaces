@@ -103,8 +103,8 @@
 	</dependencies>
     
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/ui/iteration/trunk/lists/api</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/ui/iteration/trunk/lists/api</developerConnection>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/iteration/lists/api</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/iteration/lists/api</developerConnection>
         <url>http://fisheye.jboss.org/browse/richfaces</url>
     </scm>
 	

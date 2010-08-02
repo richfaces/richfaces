@@ -57,8 +57,8 @@
     </dependencyManagement>
 
   <scm>
-    <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/ui/core/trunk/bom</connection>
-    <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/ui/core/trunk/bom</developerConnection>
+    <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/core/bom</connection>
+    <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/core/bom</developerConnection>
     <url>http://fisheye.jboss.org/browse/richfaces/</url>
   </scm>
 </project>

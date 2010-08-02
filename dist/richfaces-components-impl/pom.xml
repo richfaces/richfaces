@@ -207,8 +207,8 @@
     </profiles>
     
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/ui/dist/trunk/richfaces-components-impl</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/ui/dist/trunk/richfaces-components-impl</developerConnection>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/dist/richfaces-components-impl</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/dist/richfaces-components-impl</developerConnection>
         <url>http://fisheye.jboss.org/browse/richfaces</url>
     </scm>
 </project>

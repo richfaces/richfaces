@@ -79,17 +79,17 @@
             <id>build-force</id>
 
             <modules>
-                <module>../../core/trunk</module>
-                <module>../../misc/trunk/dist</module>
-                <module>../../iteration/trunk/dist</module>
-                <module>../../output/trunk/dist</module>
+                <module>../../core</module>
+                <module>../../misc/dist</module>
+                <module>../../iteration/dist</module>
+                <module>../../output/dist</module>
             </modules>
         </profile>
     </profiles>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/ui/dist/trunk</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/ui/dist/trunk</developerConnection>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/dist</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/dist</developerConnection>
         <url>http://fisheye.jboss.org/browse/richfaces</url>
     </scm>
 

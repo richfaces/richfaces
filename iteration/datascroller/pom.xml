@@ -41,8 +41,8 @@
     </modules>
     
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/ui/iteration/trunk/datascroller</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/ui/iteration/trunk/datascroller</developerConnection>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/iteration/datascroller</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/iteration/datascroller</developerConnection>
         <url>http://fisheye.jboss.org/browse/richfaces</url>
     </scm>
 </project>

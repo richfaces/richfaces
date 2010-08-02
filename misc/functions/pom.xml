@@ -120,8 +120,8 @@
     </dependencies>
     
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/ui/misc/trunk/functions</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/ui/misc/trunk/functions</developerConnection>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/misc/functions</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/misc/functions</developerConnection>
         <url>http://fisheye.jboss.org/browse/richfaces/</url>
     </scm>
 </project>

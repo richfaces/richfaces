@@ -41,8 +41,8 @@
     </modules>
     
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/ui/iteration/trunk/lists</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/ui/iteration/trunk/lists</developerConnection>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/iteration/lists</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/iteration/lists</developerConnection>
         <url>http://fisheye.jboss.org/browse/richfaces</url>
     </scm>
 </project>

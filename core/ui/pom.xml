@@ -119,9 +119,9 @@
 	</dependencies>
 
 	<scm>
-		<connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/ui/core/trunk/ui
+		<connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/core/ui
 		</connection>
-		<developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/ui/core/trunk/ui
+		<developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/core/ui
 		</developerConnection>
 		<url>http://fisheye.jboss.org/browse/richfaces</url>
 	</scm>

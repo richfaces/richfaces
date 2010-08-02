@@ -126,8 +126,8 @@
     </dependencies>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/ui/misc/trunk/componentcontrol</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/ui/misc/trunk/componentcontrol</developerConnection>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/misc/componentcontrol</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/misc/componentcontrol</developerConnection>
         <url>http://fisheye.jboss.org/browse/richfaces/</url>
     </scm>
 </project>

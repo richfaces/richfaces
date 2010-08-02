@@ -111,9 +111,9 @@
     </dependencyManagement>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/ui/dist/trunk/bom</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/ui/dist/trunk/bom</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/root/ui/dist/trunk/bom</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/dist/bom</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/dist/bom</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/trunk/ui/dist/bom</url>
     </scm>
 
 </project>
