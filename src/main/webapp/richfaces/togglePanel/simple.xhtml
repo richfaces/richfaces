@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+
+	<ui:composition>
+		<p>DESC</p>
+		<h:form>
+		<rich:togglePanel id="panel1" activeItem="item1">
+			<rich:togglePanelItem name="item1">
+				<h:outputText value="This Toggle Panel Item 1"/>
+			</rich:togglePanelItem>
+			<rich:togglePanelItem name="item2">
+				<h:outputText value="This Toggle Panel Item 2"/>
+			</rich:togglePanelItem>			
+		</rich:togglePanel>
+		</h:form>
+		<h:commandButton value="Switch">
+			<rich:toggleControl forPanel="panel1"/>
+		</h:commandButton>
+	</ui:composition>
+
+</html>

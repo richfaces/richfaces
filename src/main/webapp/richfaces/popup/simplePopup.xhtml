@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j">
+
+<ui:composition>
+	<p>Popup panel component used to create any kind of popups on the page.</p>
+	<p>Main features:</p>
+	<ul>
+	<li>Has two states modal and non-modal</li>
+	<li>Could be defined as resizable</li>
+	<li>Could be autosized according to content</li>
+	<li>Could be moved across the screen</li>
+	<li>Could be automatically positioned as centered or use user defined position</li>
+	</ul>
+	<p>This sample shows simple <b>non-modal popup</b> which are <b>movable</b> but not resizable 
+	as defined to use <b>autosizing</b> according to it's content</p>
+	<h:commandButton value="Call the popup">
+		<rich:componentControl target="popup" operation="show" />
+	</h:commandButton>
+	<rich:popupPanel id="popup" modal="false" autosized="true"
+		resizeable="false">
+		<f:facet name="header">
+			<h:outputText value="Simple popup panel" />
+		</f:facet>
+		<f:facet name="controls">
+			<h:outputLink value="#"
+				onclick="#{rich:component('popup')}.hide(); return false;">
+					X
+				</h:outputLink>
+		</f:facet>
+		<p>Any content might be inside the panel.</p>
+		<p>Consider inclusion of the form elements into the popup or 
+		redefinition of <b>domElementAttachment</b> attribute.</p>
+		<p>The popup panel is open and closed from the javascript function
+		of component client side object. The following code <a href="#"
+			onclick="#{rich:component('popup')}.hide()">hide this panel</a>: <f:verbatim>&#35;</f:verbatim>{rich:component('popup')}.hide()</p>
+	</rich:popupPanel>
+	<p>Besides this sample shows two variants of working with the component JS API:</p>
+	<ul>
+		<li>The popup is called by the <b>rich:componentControl</b> attached to button</li>
+		<li>The popup is closed by simple JS calls which defined using <b>rich:component</b> function</li>
+	</ul>
+</ui:composition>
+
+</html>
