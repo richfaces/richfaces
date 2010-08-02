@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+
+    <managed-bean>
+        <managed-bean-name>togglePanelBean</managed-bean-name>
+        <managed-bean-class>org.richfaces.TogglePanelBean</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+
+    <navigation-rule>
+        <!-- Examples -->
+        <navigation-case>
+            <from-outcome>togglePanel</from-outcome>
+            <to-view-id>/examples/togglePanel.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>togglePanel/server</from-outcome>
+            <to-view-id>/examples/togglePanel-server.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>togglePanel/ajax</from-outcome>
+            <to-view-id>/examples/togglePanel-ajax.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>togglePanel/client</from-outcome>
+            <to-view-id>/examples/togglePanel-client.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>togglePanel/mixed</from-outcome>
+            <to-view-id>/examples/togglePanel-mixed.xhtml</to-view-id>
+        </navigation-case>
+
+        <!-- QUnit -->
+        <navigation-case>
+            <from-outcome>qunit/togglePanel</from-outcome>
+            <to-view-id>/qunit/togglePanel.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>qunit/togglePanelItem</from-outcome>
+            <to-view-id>/qunit/togglePanelItem.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+</faces-config>

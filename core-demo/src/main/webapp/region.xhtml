@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:utils="http://java.sun.com/jsf/composite/utils">
+<f:view>
+	<h:head>
+		<h:outputScript name="jquery.js" />
+		<script type="text/javascript">/*<![CDATA[*/
+			function randomize() {
+				jQuery("input[type='text']").each(function() {
+					var letters = "ABCDEFGHIJK";
+					var val = "";
+
+					for (var i = 0; i < 3; i++) {
+						var letter = letters.charAt(Math.floor(letters.length * Math.random()));
+						val += letter;
+					}
+
+					this.value = val;
+				});
+			}
+		/*]]>*/</script>
+	</h:head>
+	<h:body>
+		<utils:highlighter />
+
+		<h:form>
+			<h:outputLabel value="Defaults for all" for="defaultsSelect"/>
+			<h:selectOneMenu id="defaultsSelect" valueChangeListener="#{regionBean.handleDefaultsValueChange}" onchange="submit()">
+				<f:selectItems value="#{regionBean.executeOptions}" />
+			</h:selectOneMenu>
+			<br />
+		</h:form>
+		
+		<h:form>
+			<h:outputLabel value="Out of region" for="outerSelect"/>
+			<h:selectOneMenu id="outerSelect" value="#{regionBean.outerExecute}" onchange="submit()">
+				<f:selectItems value="#{regionBean.executeOptions}" />
+			</h:selectOneMenu>
+			<br />
+			<h:outputLabel value="Region" for="regionSelect"/>
+			<h:selectOneMenu id="regionSelect" value="#{regionBean.execute}" onchange="submit()">
+				<f:selectItems value="#{regionBean.executeOptions}" />
+			</h:selectOneMenu>
+			<br />
+			<h:outputLabel value="Nested region" for="nestedRegionSelect" />
+			<h:selectOneMenu id="nestedRegionSelect" value="#{regionBean.nestedExecute}" onchange="submit()">
+				<f:selectItems value="#{regionBean.executeOptions}" />
+			</h:selectOneMenu>
+			<h:commandLink value="Apply" />
+		</h:form>
+
+		<h:panelGroup layout="block" id="outputValues">
+			<h:panelGrid columns="2" >
+				Outer: <h:outputText value="#{regionBean.outerValue}" />
+				Region: <h:outputText value="#{regionBean.regionValue}" />
+				Nested region: <h:outputText value="#{regionBean.nestedRegionValue}" />
+			</h:panelGrid>
+		
+			<div>
+				Last executed link value: #{regionBean.lastExecutedLinkValue}
+			</div>
+		</h:panelGroup>
+
+		<button type="button" onclick="randomize()">Generate random values</button>
+
+		<h:form id="formId">
+			<h:inputText value="#{regionBean.outerValue}" />
+
+			<h:commandLink value="Out of region">
+				<a4j:ajax listener="#{regionBean.handleBehavior}" execute="#{regionBean.outerExecute}" render="outputValues" />
+			</h:commandLink>
+
+			<fieldset>
+				<legend>Region</legend>
+
+				<a4j:region>
+					<h:inputText value="#{regionBean.regionValue}" />
+
+					<h:commandLink value="Region">
+						<a4j:ajax listener="#{regionBean.handleBehavior}" execute="#{regionBean.execute}" render="outputValues" />
+					</h:commandLink>
+
+					<fieldset>
+						<legend>Nested region</legend>
+
+						<a4j:region id="nestedRegion">
+							<h:inputText value="#{regionBean.nestedRegionValue}" />
+
+							<h:commandLink value="Nested region">
+								<a4j:ajax listener="#{regionBean.handleBehavior}" execute="#{regionBean.nestedExecute}" render="outputValues" />
+							</h:commandLink>
+
+						</a4j:region>
+					</fieldset>
+				</a4j:region>
+			</fieldset>
+		</h:form>
+	</h:body>
+</f:view>
+</html>

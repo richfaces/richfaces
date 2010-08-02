@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j">
+<f:view>
+	<h:head>
+	</h:head>
+	<h:body>
+		<h:form id="form">
+			<a4j:commandButton value="Set param value to Alex"  render="param" >
+            	<a4j:param name="username" value="Alex"  assignTo="#{commandBean.name}" />
+        	</a4j:commandButton>
+			<a4j:commandButton value="Get screen width"  render="param2" >
+            	<a4j:param name="username" value="screen.width"  assignTo="#{commandBean.name}" noEscape="true" />
+        	</a4j:commandButton>
+		</h:form>
+		<h:panelGroup id="param">
+	<h:outputText value="Name is: #{commandBean.name}"/>
+	</h:panelGroup>
+	<h:panelGroup id="param2">
+	<h:outputText value="Screen width is: #{commandBean.name}"/>
+	</h:panelGroup>
+	</h:body>
+</f:view>
+</html>

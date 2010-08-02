@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j">
+<f:view>
+	<h:head>
+	</h:head>
+	<h:body>
+		<h:form>
+			<h:outputLabel value="Select skin: " for="skinSelector" />
+			<h:selectOneRadio id="skinSelector" value="#{skinBean.skin}"
+				onclick="submit()">
+				<f:selectItems value="#{skinBean.skinSetItems}" />
+			</h:selectOneRadio>
+
+			<br />
+			<h:outputLabel value="Enable skinning via elements: "
+				for="skinViaElementsCheck" />
+			<h:selectBooleanCheckbox id="skinViaElementsCheck"
+				value="#{skinBean.enableElementsSkinning}" onclick="submit()" />
+			<br />
+			<h:outputLabel value="Enable skinning via classes: "
+				for="skinViaClassesCheck" />
+			<h:selectBooleanCheckbox id="skinViaClassesCheck"
+				value="#{skinBean.enableClassesSkinning}" onclick="submit()" />
+			<br />
+
+			<h:commandButton value="Apply" />
+		</h:form>
+
+		Skinned via elements:
+
+		<form>
+			<fieldset>
+				<legend>Legend</legend>
+
+				<button>Test</button>
+				<button disabled="disabled">Test disabled</button>
+				
+				<input type="button" value="Test" /> 
+				<input disabled="disabled" type="button" value="Test disabled" /> 
+				
+				<input type="checkbox" name="check" />
+				<input type="checkbox" name="check" checked="checked"/>
+				<input type="checkbox" name="check" disabled="disabled"/>
+				<input type="checkbox" name="check" checked="checked" disabled="disabled" />
+
+				<input type="file" /> 
+
+				<input type="radio" name="radio" /> 
+				<input type="radio" name="radio" checked="checked"/> 
+				<input type="radio" name="radio" disabled="disabled" /> 
+				<input type="radio" name="radio0" checked="checked" disabled="disabled" /> 
+
+				<input type="text" value="Test" /> 
+				<input type="text" value="Test disabled" disabled="disabled" /> 
+				<input type="text" value="Test readonly" readonly="readonly"/> 
+
+				<select size="1">
+					<option>Test</option>
+					<option>Test</option>
+					<option>Test</option>
+					<option>Test</option>
+				</select> 
+				<select size="1" disabled="disabled">
+					<option>Test</option>
+					<option>Test</option>
+					<option>Test</option>
+					<option>Test</option>
+				</select> 
+				
+				<select multiple="multiple" size="4">
+					<option>Test</option>
+					<option>Test1</option>
+					<option>Test2</option>
+					<option>Test3</option>
+				</select> 
+				<select multiple="multiple" size="4" disabled="disabled">
+					<option>Test</option>
+					<option>Test1</option>
+					<option>Test2</option>
+					<option>Test3</option>
+				</select> 
+				
+				<br/><br/> 
+				<textarea>text</textarea> 
+				<textarea disabled="disabled">text disabled</textarea> 
+				<textarea readonly="readonly">text readonly</textarea> 
+
+				<keygen /> 
+				<keygen disabled="disabled" /> 
+				<br /><br />
+				<isindex />
+
+				<a href="#1">Link 1</a> 
+				<br />
+				<a href="#2">Link 2</a>
+			</fieldset>
+		</form>
+	</h:body>
+</f:view>
+</html>

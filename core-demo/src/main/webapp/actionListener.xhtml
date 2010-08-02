@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:demo="http://java.sun.com/jsf/composite/demo">
+<f:view>
+	<h:head>
+	</h:head>
+	<h:body>
+		<h:form id="form">
+			<h:messages id="messages" />
+		
+			<h:panelGrid columns="1">
+				<h:commandButton value="Invoke listener by type">
+					<a4j:actionListener type="org.richfaces.demo.ActionListenerBean$ActionListenerImpl" />
+					<f:ajax render="messages" /> 
+				</h:commandButton>
+
+				<h:commandButton value="Invoke listener by binding">
+					<a4j:actionListener binding="#{actionListenerBean.actionListener}" />
+					<f:ajax render="messages" /> 
+				</h:commandButton>
+
+				<h:commandButton value="Invoke listener method">
+					<a4j:actionListener listener="#{actionListenerBean.handleActionMethod}" />
+					<f:ajax render="messages" /> 
+				</h:commandButton>
+				
+				<demo:actionComposite render=":form:messages" value="Invoke listener method in composite component">
+					<a4j:actionListener for="button" listener="#{actionListenerBean.handleActionMethodComposite}" />
+				</demo:actionComposite>
+			</h:panelGrid>
+		</h:form>
+	</h:body>
+</f:view>
+</html>

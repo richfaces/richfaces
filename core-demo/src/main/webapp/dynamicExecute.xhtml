@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j">
+<f:view>
+	<h:head>
+	</h:head>
+	<h:body>
+		<h:form>
+			<h:selectOneMenu value="#{dynamicExecuteBean.execute}" onchange="submit()">
+				<f:selectItems value="#{dynamicExecuteBean.executeOptions}" />
+			</h:selectOneMenu>
+			<br />
+			<h:commandLink value="Apply" />
+		</h:form>
+
+		<h:form id="formId">
+			<a4j:outputPanel ajaxRendered="true">
+			Actions counter: #{dynamicExecuteBean.actionsCounter}<br />
+			Input value: #{dynamicExecuteBean.inputValue}<br />
+			Applied value: #{dynamicExecuteBean.value}<br />
+			</a4j:outputPanel>
+			
+			<h:inputText value="#{dynamicExecuteBean.inputValue}" />
+			
+			<a4j:jsFunction action="#{dynamicExecuteBean.applyValue}" name="testFunction" execute="#{dynamicExecuteBean.execute}" />
+			<a href="javascript:testFunction()">Call test function</a>
+		</h:form>
+		
+		<h:form id="anotherFormId">
+			<a4j:jsFunction action="#{dynamicExecuteBean.applyValue}" name="anotherTestFunction" execute="#{dynamicExecuteBean.execute}" />
+			<a href="javascript:anotherTestFunction()">Call test function from another form</a>
+		</h:form>
+	</h:body>
+</f:view>
+</html>

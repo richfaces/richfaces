@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" >
+
+<h:head>
+    <title>
+        <ui:define name="title">Application Title</ui:define>
+    </title>
+
+    <meta http-equiv="content-type" content="text/xhtml; charset=UTF-8" />
+
+</h:head>
+
+<h:body>
+    <ui:insert name="scripts" ></ui:insert>
+    <table width="100%">
+        <thead>
+            <tr>
+                <th width="20%" align="left">Content</th>
+                <th width="80%" align="left">
+                    <ui:insert name="body_head">Example</ui:insert>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr valign="top">
+                <td>
+                    <h:form id="nav">
+                        <p>Examples</p>
+                        <ul>
+                            <li><h:commandLink value="togglePanel" action="togglePanel" /></li>
+                            <li><h:commandLink value="togglePanel Ajax" action="togglePanel/ajax" /></li>
+                            <li><h:commandLink value="togglePanel Client" action="togglePanel/client" /></li>
+                            <li><h:commandLink value="togglePanel Server" action="togglePanel/server" /></li>
+                            <li><h:commandLink value="togglePanel Mixed" action="togglePanel/mixed" /></li>
+                        </ul>
+                        <p>QUnit</p>
+                        <ul>
+                            <li><h:commandLink value="togglePanel" action="qunit/togglePanel" /></li>
+                            <li><h:commandLink value="togglePanelItem" action="qunit/togglePanelItem" /></li>
+                        </ul>
+                    </h:form>
+                </td>
+                <td>
+                    <ui:insert name="body">Default content</ui:insert>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</h:body>
+</html>

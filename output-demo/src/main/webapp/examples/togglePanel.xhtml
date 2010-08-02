@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:pn="http://richfaces.org/output">
+
+<body>
+<ui:composition template="/templates/template.xhtml">
+
+    <ui:define name="title">Toggle Panel Example</ui:define>
+    <ui:define name="body_head">Toggle Panel Example</ui:define>
+
+    <ui:define name="body">
+        <h:form id="f">
+            <pn:togglePanel id="my_id" lang="en" activeItem="name1">
+                <pn:togglePanelItem name="name1">
+                    hello name1
+                </pn:togglePanelItem>
+                <pn:togglePanelItem name="name2">
+                    hello name2
+                </pn:togglePanelItem>
+            </pn:togglePanel>
+
+            <h:outputLink>
+                <pn:toggleControl forPanel="my_id" targetItem="name2" event="click" />
+                
+                Click me :) it is toggle control
+            </h:outputLink>
+        </h:form>
+    </ui:define>
+</ui:composition>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<f:view>
+	<h:head>
+	</h:head>
+	<h:body>
+
+		<h:form>
+			<h:commandButton value="Classic">
+				<f:setPropertyActionListener target="#{skinBean.skin}" value="classic" />
+			</h:commandButton>
+			<h:commandButton value="BlueSky">
+				<f:setPropertyActionListener target="#{skinBean.skin}" value="blueSky" />
+			</h:commandButton>
+			<h:commandButton value="DeepMarine">
+				<f:setPropertyActionListener target="#{skinBean.skin}" value="deepMarine" />
+			</h:commandButton>
+		</h:form>
+
+		<h:form>
+			<div style="padding: 2px;">
+				<div class="rich-panel-header">header</div>
+			</div>
+			
+			<img src="#{resource['org.richfaces.resource.TestResource2']}" />
+			
+			<img src="#{resource['org.richfaces.resource.AnimatedTestResource']}" />
+			
+			<img src="#{testResource.requestPath}" />
+			
+		</h:form>
+	</h:body>
+</f:view>
+</html>

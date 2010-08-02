@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j">
+<f:view>
+	<h:head>
+		<style type="text/css">
+			.cell {
+				width: 120px;
+				padding: 10px;
+			}
+			
+			.cell-even.row-even,.cell-odd.row-odd {
+				background-color: #CFC;
+			}
+		</style>
+	</h:head>
+	<h:body>
+		<h:form>
+			<h:panelGroup id="group">
+			#{repeatBean.selectedDataItem.text}
+			</h:panelGroup>
+
+			<ul>
+				<a4j:repeat value="#{repeatBean.dataList}" var="item"
+					iterationStatusVar="status">
+					<li><h:inputText value="#{item.text}" /> <h:commandLink
+						value="Link">
+						<f:ajax render="@form" execute="@form" />
+						<f:setPropertyActionListener
+							target="#{repeatBean.selectedDataItem}" value="#{item}" />
+					</h:commandLink> #{status}</li>
+				</a4j:repeat>
+			</ul>
+		</h:form>
+
+		<h:form id="matrixForm">
+			<h:panelGroup id="matrixInput" layout="block">
+				<h:messages />
+				<table>
+					<tbody>
+						<a4j:repeat value="#{repeatBean.matrixRows}" var="row"
+							iterationStatusVar="rowStatus">
+							<tr>
+								<a4j:repeat value="#{row.cells}" var="cell"
+									iterationStatusVar="cellStatus">
+									<td><h:panelGroup layout="block"
+										styleClass="cell #{rowStatus.even ? 'row-even' : 'row-odd'} #{cellStatus.even ? 'cell-even' : 'cell-odd'}">
+										<h:inputText value="#{cell.value}" size="3">
+											<f:convertNumber />
+											<f:ajax render=":matrixForm:matrixInput :matrixOutput" />
+										</h:inputText>
+
+										<h:commandLink action="#{cell.clearValueAction}" value="C">
+											<f:ajax render=":matrixForm:matrixInput :matrixOutput" />
+										</h:commandLink>
+										<h:outputText value=" / " />
+										<h:commandLink action="#{cell.increaseValueAction}" value="+">
+											<f:ajax render=":matrixForm:matrixInput :matrixOutput" />
+										</h:commandLink>
+										<h:outputText value=" / " />
+										<h:commandLink action="#{cell.decreaseValueAction}" value="-">
+											<f:ajax render=":matrixForm:matrixInput :matrixOutput" />
+										</h:commandLink>
+									</h:panelGroup></td>
+								</a4j:repeat>
+							</tr>
+						</a4j:repeat>
+					</tbody>
+				</table>
+			</h:panelGroup>
+
+		</h:form>
+		<h:panelGroup id="matrixOutput" layout="block">
+			<table>
+				<tbody>
+					<a4j:repeat value="#{repeatBean.matrixRows}" var="row">
+						<tr>
+							<a4j:repeat value="#{row.cells}" var="cell">
+								<td><h:panelGroup styleClass="cell" layout="block">
+								#{cell.value}
+							</h:panelGroup></td>
+							</a4j:repeat>
+						</tr>
+					</a4j:repeat>
+				</tbody>
+			</table>
+		</h:panelGroup>
+	</h:body>
+</f:view>
+</html>

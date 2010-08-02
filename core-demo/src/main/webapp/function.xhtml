@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j">
+<f:view>
+	<h:head>
+	</h:head>
+	<h:body>
+		<h:panelGrid columns="2">
+			Time1: <h:panelGroup id="time1">#{timeBean.dateString}</h:panelGroup>
+			Time2: <h:panelGroup id="time2">#{timeBean.dateString}</h:panelGroup>
+			Ajax time: <a4j:outputPanel ajaxRendered="true">#{timeBean.dateString}</a4j:outputPanel>
+		</h:panelGrid>
+
+		<h:form id="form">
+			<a4j:jsFunction action="#{requestBean.setupIdsToRender}" name="testFunction1" execute="@all" render="#{requestBean.idsToRender}">
+				<f:param name="idsToRender" value="time1" />
+			</a4j:jsFunction>
+			<a4j:jsFunction action="#{requestBean.setupIdsToRender}" name="testFunction1Limited" execute="form" limitRender="true" render="#{requestBean.idsToRender}">
+				<f:param name="idsToRender" value="time1" />
+			</a4j:jsFunction>
+			<a4j:jsFunction action="#{requestBean.setupIdsToRender}" name="testFunction2" execute="form" render="#{requestBean.idsToRender}">
+				<f:param name="idsToRender" value="time2" />
+			</a4j:jsFunction>
+			<a4j:jsFunction action="#{requestBean.setupIdsToRender}" name="testFunction2Limited" execute="form" limitRender="true" render="#{requestBean.idsToRender}">
+				<f:param name="idsToRender" value="time2" />
+			</a4j:jsFunction>
+			
+			<a4j:jsFunction name="eventsBoundFunction" status="someStatus" onbegin="alert(event.type + ' begin')" oncomplete="alert(event.type + ' complete')" onbeforedomupdate="alert(event.type + ' beforedomupdate')">
+				<f:ajax event="complete" />
+			</a4j:jsFunction>
+			
+			<h:commandLink value="test">
+				<f:ajax />
+				<f:param name="a" value="b" />
+			</h:commandLink>
+		</h:form>
+		
+		<a href="javascript:testFunction1()">Call test function1</a>
+		<a href="javascript:testFunction1Limited()">Call test function1 with limitRender=true</a>
+		<a href="javascript:testFunction2()">Call test function2</a>
+		<a href="javascript:testFunction2Limited()">Call test function2 with limitRender=true</a>
+		<a href="javascript:eventsBoundFunction()">Call events bound function</a>
+		<a4j:log />
+	</h:body>
+</f:view>
+</html>
