@@ -17,6 +17,7 @@
 
     <profiles>
         
+        
     <profile><id>build</id><modules>
         <module>bom</module>
         <module>../core</module>
@@ -34,6 +35,13 @@
         <module>../dev-examples</module>
         <module>../docs</module>
     <module>../showcase</module></modules></profile><profile>
+            <id>bootstrap</id>
+            <modules>
+                <module>../parent</module>
+                <module>../checkstyle</module>
+                <module>../shade-transformers</module>
+            </modules>
+        </profile><profile>
             <id>release</id>
             <modules>
                 <module>dist</module>
