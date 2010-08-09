@@ -30,6 +30,8 @@ import javax.faces.context.FacesContext;
  */
 public interface ResourceFactory {
 
+    public static final String STATIC_RESOURCE_MAPPINGS = "META-INF/richfaces/static-resource-mappings.properties";
+
     public abstract Resource createResource(String resourceName, String libraryName, String contentType);
 
     public abstract Resource createResource(FacesContext context, ResourceCodecData resourceData);
