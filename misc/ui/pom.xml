@@ -65,51 +65,67 @@
             <artifactId>annotations</artifactId>
             <version>${org.richfaces.cdk.version}</version>
         </dependency>
+		
+		<!-- JSF with dependencies -->
+        <dependency>
+            <groupId>${jsf2.api.groupid}</groupId>
+            <artifactId>${jsf2.api.artifactid}</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>el-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <scope>provided</scope>
+        </dependency>
+		
+        <!-- tests -->
+        <dependency>
+            <groupId>${jsf2.impl.groupid}</groupId>
+            <artifactId>${jsf2.impl.artifactid}</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <!-- todo api? -->
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.test-jsf</groupId>
+            <artifactId>jsf-test-stage</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.test-jsf</groupId>
+            <artifactId>htmlunit-client</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.test-jsf</groupId>
+            <artifactId>jsf-mock</artifactId>
+            <scope>test</scope>
+        </dependency>		
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>1.3.3</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <artifactSet>
-                                <includes>
-                                    <include>${assembly.projects.group}:*-ui:*</include>
-                                </includes>
-                            </artifactSet>
-                            <createSourcesJar>true</createSourcesJar>
-                            <transformers>
-                                <transformer implementation="org.richfaces.build.shade.resource.TaglibXmlResourceTransformer">
-                                    <taglibs>
-                                        <taglib>
-                                            <targetNamespace>http://richfaces.org/misc</targetNamespace>
-                                            <sourceNamespacesPattern>.*</sourceNamespacesPattern>
-                                        </taglib>
-                                    </taglibs>
-                                </transformer>
-                                <transformer implementation="org.richfaces.build.shade.resource.FacesConfigXmlResourceTransformer" />
-                            </transformers>
-                        </configuration>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.richfaces.build.resources</groupId>
-                        <artifactId>faces-shade-transformers</artifactId>
-                        <version>${faces-shade-transformers.version}</version>
-                    </dependency>
-                </dependencies>                
-            </plugin>
-        </plugins>
-    </build>
 
     <profiles>
         <profile>
