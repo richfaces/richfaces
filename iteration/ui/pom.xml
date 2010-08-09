@@ -33,11 +33,25 @@
     <artifactId>richfaces-ui-iteration-ui</artifactId>
     <name>Richfaces UI Components: Iteration UI</name>
     <packaging>jar</packaging>
+
+    <properties>
+        <org.richfaces.cdk.version>4.0.0-SNAPSHOT</org.richfaces.cdk.version>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>maven-cdk-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.0-beta-1</version>
+                <configuration>
+                    <fail>false</fail>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -124,6 +138,11 @@
             <artifactId>jsf-mock</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.richfaces.cdk</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${org.richfaces.cdk.version}</version>
+        </dependency>
     </dependencies>
     
     <scm>
@@ -131,5 +150,4 @@
         <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/iteration/datascroller/impl</developerConnection>
         <url>http://fisheye.jboss.org/browse/richfaces</url>
     </scm>
-	
 </project>
