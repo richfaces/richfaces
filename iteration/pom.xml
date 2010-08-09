@@ -35,12 +35,8 @@
     <name>Richfaces UI Components: Iteration Aggregator</name>
 
     <modules>
-        <module>bom</module>
-        <module>parent</module>
-        <module>tables</module>
-        <module>datascroller</module>
-        <module>lists</module>
-        <module>dist</module>
+        <module>api</module>
+        <module>ui</module>
     </modules>
 
     <build>

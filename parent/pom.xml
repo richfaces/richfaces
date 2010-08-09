@@ -18,7 +18,8 @@
     http://www.fsf.org.
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -51,6 +52,17 @@
             </dependency>
 
             <dependency>
+                <groupId>org.richfaces.ui.iteration</groupId>
+                <artifactId>richfaces-ui-iteration-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui.iteration</groupId>
+                <artifactId>richfaces-ui-iteration-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.richfaces.ui.core</groupId>
                 <artifactId>richfaces-ui-core-bom</artifactId>
                 <version>${org.richfaces.ui.core.version}</version>
@@ -64,28 +76,12 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.richfaces.ui.misc</groupId>
-                <artifactId>componentcontrol-ui</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.richfaces.ui.misc</groupId>
-                <artifactId>functions-ui</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.richfaces.ui.misc</groupId>
-                <artifactId>jquery-ui</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>annotations</artifactId>
                 <version>${org.richfaces.cdk.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
-
 
     <build>
         <pluginManagement>
@@ -106,24 +102,45 @@
                     <version>2.0-alpha-4</version>
                     <extensions>true</extensions>
                 </plugin>
-            <plugin>
-                <groupId>org.richfaces.cdk</groupId>
-                <artifactId>maven-cdk-plugin</artifactId>
+                <plugin>
+                    <groupId>org.richfaces.cdk</groupId>
+                    <artifactId>maven-cdk-plugin</artifactId>
                     <version>${org.richfaces.cdk.version}</version>
-                <executions>
-                    <execution>
-                        <id>cdk-generate-sources</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+                    <configuration>
+                        <library>
+                            <prefix>org.richfaces</prefix>
+                            <taglib>
+                                <uri>http://richfaces.org/iteration</uri>
+                                <shortName>it</shortName>
+                                <displayName>Iteration components tags</displayName>
+                            </taglib>
+                        </library>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>cdk-generate-sources</id>
+                            <phase>generate-sources</phase>
+                            <goals>
+                                <goal>generate</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
             </plugins>
         </pluginManagement>
 
         <plugins>
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.richfaces</groupId>
+                        <artifactId>richfaces-build-checkstyle</artifactId>
+                        <version>${richfaces.checkstyle.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
@@ -132,8 +149,54 @@
                     <fail>false</fail>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+                            <javadocVersion>1.5</javadocVersion>
+                            <aggregate>true</aggregate>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>generate-javadoc</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <configuration>
+                            <aggregate>true</aggregate>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>generate-source</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
 
     <scm>
         <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/misc/parent</connection>
