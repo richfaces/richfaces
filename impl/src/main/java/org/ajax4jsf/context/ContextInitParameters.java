@@ -69,6 +69,10 @@ public final class ContextInitParameters {
     public static final String SKIN = "org.richfaces.skin";
     public static final String BASE_SKIN = "org.richfaces.baseSkin";
     
+    public static final String STATIC_RESOURCE_LOCATION = "org.richfaces.staticResourceLocation";
+    
+    public static final String STATIC_RESOURCE_LOCATION_VARIABLE = "resourceLocation";
+
     private static final String[] RESOURCES_TTL_ARRAY = { RESOURCES_TTL };
     private static final String[] RESOURCES_CACHE_SIZE_ARRAY = { RESOURCES_CACHE_SIZE };
     
@@ -143,6 +147,10 @@ public final class ContextInitParameters {
         return evaluateInitParameter(context, BASE_SKIN);
     }
 
+    public static String getStaticResourceLocation(FacesContext context) {
+        return (String) evaluateInitParameter(context, STATIC_RESOURCE_LOCATION);
+    }
+    
     static int getInteger(FacesContext context, String[] paramNames, int defaultValue) {
         String initParameter = getInitParameter(context, paramNames);
 

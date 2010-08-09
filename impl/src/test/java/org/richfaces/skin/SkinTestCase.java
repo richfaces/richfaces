@@ -129,7 +129,7 @@ public class SkinTestCase extends AbstractFacesTest {
     /*
      * Test method for 'org.richfaces.skin.SkinFactory.getSkin(FacesContext)'
      */
-    @SkinParameters(skinName = "test")
+    @SkinParameters(skinName = "test", baseSkinName = "DEFAULT")
     public void testSkinReferences() {
         SkinFactory factory = SkinFactory.getInstance();
 
@@ -279,6 +279,20 @@ public class SkinTestCase extends AbstractFacesTest {
      * Test method for 'org.richfaces.skin.SkinFactory.getSkinName(FacesContext)'
      */
     public void testGetSkinName() {}
+
+    @SkinParameters(skinName = "plain")
+    public void testPlainSkin() throws Exception {
+        SkinFactory factory = (SkinFactory) SkinFactory.getInstance();
+
+        assertNull(factory.getSkin(facesContext).getParameter(facesContext, Skin.GENERAL_BACKGROUND_COLOR));
+    }
+    
+    @SkinParameters(baseSkinName = "plain")
+    public void testPlainSkinBase() throws Exception {
+        SkinFactory factory = (SkinFactory) SkinFactory.getInstance();
+
+        assertNull(factory.getBaseSkin(facesContext).getParameter(facesContext, Skin.GENERAL_BACKGROUND_COLOR));
+    }
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.METHOD)

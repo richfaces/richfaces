@@ -64,9 +64,13 @@ public class SkinFactoryImpl extends AbstractSkinFactory {
         if (skin == null) {
             Skin mainSkin = getSkinOrName(context, false);
             Skin baseSkin = getSkinOrName(context, true);
-            Skin defaultSkin = getDefaultSkin(context);
             
-            skin = new CompositeSkinImpl(mainSkin, baseSkin, defaultSkin);
+            if (mainSkin != null || baseSkin != null) {
+                skin = new CompositeSkinImpl(mainSkin, baseSkin);
+            } else {
+                skin = new CompositeSkinImpl(getDefaultSkin(context));
+            }
+
             context.getAttributes().put(SKIN_KEY, skin);
         }
         
@@ -77,9 +81,13 @@ public class SkinFactoryImpl extends AbstractSkinFactory {
         Skin skin = (Skin) context.getAttributes().get(BASE_SKIN_KEY);
         if (skin == null) {
             Skin baseSkin = getSkinOrName(context, true);
-            Skin defaultSkin = getDefaultSkin(context);
-            
-            skin = new CompositeSkinImpl(baseSkin, defaultSkin);
+
+            if (baseSkin != null) {
+                skin = new CompositeSkinImpl(baseSkin);
+            } else {
+                skin = new CompositeSkinImpl(getDefaultSkin(context));
+            }
+
             context.getAttributes().put(BASE_SKIN_KEY, skin);
         }
         

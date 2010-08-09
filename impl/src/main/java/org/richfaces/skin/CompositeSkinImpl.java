@@ -21,16 +21,35 @@
 
 package org.richfaces.skin;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.faces.context.FacesContext;
+
+import com.google.common.base.Function;
+import com.google.common.base.Joiner;
+import com.google.common.collect.Iterables;
 
 /**
  * @author nick belaevski
  */
 final class CompositeSkinImpl extends AbstractSkin {
 
+    private static final Joiner DASH_JOINER = Joiner.on('-').skipNulls();
+    
+    private static final Function<Skin, String> SKIN_NAME_FUNCTION = new Function<Skin, String>() {
+        public String apply(Skin from) {
+            if (from == null) {
+                return null;
+            }
+            
+            return from.getName();
+        };
+    };
+    
     private int hashCode = 0;
     
-    private Skin[] skinsChain;
+    private List<Skin> skinsChain;
     
     /**
      * @param properties
@@ -38,7 +57,7 @@ final class CompositeSkinImpl extends AbstractSkin {
     CompositeSkinImpl(Skin... skinsChain) {
         // TODO Auto-generated constructor stub
         
-        this.skinsChain = skinsChain;
+        this.skinsChain = Arrays.asList(skinsChain);
     }
 
     public boolean containsProperty(String name) {
@@ -56,15 +75,7 @@ final class CompositeSkinImpl extends AbstractSkin {
     }
 
     public String getName() {
-        for (Skin skin : skinsChain) {
-            if (skin == null) {
-                continue;
-            }
-        
-            return skin.getName();
-        }
-
-        throw new IllegalStateException();
+        return DASH_JOINER.join(Iterables.transform(skinsChain, SKIN_NAME_FUNCTION));
     }
 
     public int hashCode(FacesContext context) {

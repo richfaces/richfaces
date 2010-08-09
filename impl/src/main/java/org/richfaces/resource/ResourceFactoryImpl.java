@@ -35,10 +35,10 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.application.DependencyInjector;
 import org.richfaces.application.ServiceTracker;
-import org.richfaces.skin.SkinFactory;
 import org.richfaces.util.PropertiesUtil;
 import org.richfaces.util.Util;
 
+import com.google.common.base.Joiner;
 import com.google.common.collect.Maps;
 
 /**
@@ -47,75 +47,110 @@ import com.google.common.collect.Maps;
  */
 public class ResourceFactoryImpl implements ResourceFactory {
 
-    private static final String SKINNED_RESOURCE_PREFIX = "%skin%/";
-
+    private static final Joiner RESOURCE_QUALIFIER_JOINER = Joiner.on(':').skipNulls();
+    
     private static final ResourceLogger LOGGER = ResourceLogger.INSTANCE;
 
-    private static class ResourceLocator {
-        
-        private String resourcePath;
-        
-        public ResourceLocator(String resourcePath) {
-            super();
-            this.resourcePath = resourcePath;
+    private static class ExternalStaticResourceFactory {
+
+        private String resourceName;
+
+        private String libraryName;
+
+        private String resourceLocation;
+
+        private boolean skinDependent;
+
+        public Resource createResource() {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            ExternalStaticResource resource = new ExternalStaticResource(resourceLocation, skinDependent);
+            
+            resource.setResourceName(resourceName);
+            resource.setLibraryName(libraryName);
+            resource.setContentType(facesContext.getExternalContext().getMimeType(resourceLocation));
+            
+            return resource;
         }
 
-        public String locateResource(FacesContext facesContext) {
-            return resourcePath;
+        public void setResourceName(String resourceName) {
+            this.resourceName = resourceName;
         }
-        
+
+        public void setLibraryName(String libraryName) {
+            this.libraryName = libraryName;
+        }
+
+        public void setResourceLocation(String resourceLocation) {
+            this.resourceLocation = resourceLocation;
+        }
+
+        public void setSkinDependent(boolean skinDependent) {
+            this.skinDependent = skinDependent;
+        }
     }
 
-    private static final class SkinResourceLocator extends ResourceLocator {
-        
-        public SkinResourceLocator(String resourcePath) {
-            super(resourcePath);
-        }
-
-        @Override
-        public String locateResource(FacesContext facesContext) {
-            SkinFactory skinFactory = SkinFactory.getInstance(facesContext);
-
-            String skinName = skinFactory.getSkin(facesContext).getName();
-            return skinName + '/' + super.locateResource(facesContext);
-        }
-    }
-    
     private ResourceHandler defaultHandler;
-    
-    private Map<String, ResourceLocator> resourceLocatorsMap; 
-    
+
+    private Map<String, ExternalStaticResourceFactory> externalStaticResourceFactories;
+
     public ResourceFactoryImpl(ResourceHandler defaultHandler) {
         super();
         this.defaultHandler = defaultHandler;
-        
-        initializeResourceLocatorsMap();
+
+        initializeExternalResourcesMap();
     }
 
-    private void initializeResourceLocatorsMap() {
-        resourceLocatorsMap = Maps.newHashMap();
-        
-        Properties properties = new Properties();
-        PropertiesUtil.loadProperties(properties, "META-INF/resources/org.richfaces/resource-mappings.properties");
-        
-        Set<Entry<Object, Object>> entries = properties.entrySet();
-        for (Entry<Object, Object> entry : entries) {
-            String resourceKey = (String) entry.getKey();
-            
-            ResourceLocator resourceLocator;
-            String resourcePath = (String) entry.getValue();
-            if (resourcePath.startsWith(SKINNED_RESOURCE_PREFIX)) {
-                resourceLocator = new SkinResourceLocator(resourcePath.substring(SKINNED_RESOURCE_PREFIX.length()));
-            } else {
-                resourceLocator = new ResourceLocator(resourcePath);
-            }
-            
-            resourceLocatorsMap.put(resourceKey, resourceLocator);
+    private String getResourceNameFromQualifier(String qualifier) {
+        int idx = qualifier.lastIndexOf(':');
+        if (idx < 0) {
+            return qualifier;
         }
         
-        resourceLocatorsMap = Collections.unmodifiableMap(resourceLocatorsMap);
+        return qualifier.substring(idx + 1);
     }
     
+    private String getLibraryNameFromQualifier(String qualifier) {
+        int idx = qualifier.lastIndexOf(':');
+        if (idx < 0) {
+            return null;
+        }
+        
+        return qualifier.substring(0, idx);
+    }
+
+    private String getResourceQualifier(String resourceName, String libraryName) {
+        return RESOURCE_QUALIFIER_JOINER.join(libraryName, resourceName);
+    }
+    
+    private void initializeExternalResourcesMap() {
+        externalStaticResourceFactories = Maps.newHashMap();
+
+        Properties properties = new Properties();
+        PropertiesUtil.loadProperties(properties, ResourceFactory.STATIC_RESOURCE_MAPPINGS);
+
+        Set<Entry<Object, Object>> entries = properties.entrySet();
+        for (Entry<Object, Object> entry : entries) {
+            String resourceQualifier = (String) entry.getKey();
+
+            String resourceLocation = (String) entry.getValue();
+            boolean skinDependent = false;
+            if (resourceLocation.startsWith(SKINNED_RESOURCE_PREFIX)) {
+                resourceLocation = resourceLocation.substring(SKINNED_RESOURCE_PREFIX.length());
+                skinDependent = true;
+            }
+            
+            ExternalStaticResourceFactory factory = new ExternalStaticResourceFactory();
+            factory.setResourceLocation(resourceLocation);
+            factory.setSkinDependent(skinDependent);
+            factory.setResourceName(getResourceNameFromQualifier(resourceQualifier));
+            factory.setLibraryName(getLibraryNameFromQualifier(resourceQualifier));
+
+            externalStaticResourceFactories.put(resourceQualifier, factory);
+        }
+
+        externalStaticResourceFactories = Collections.unmodifiableMap(externalStaticResourceFactories);
+    }
+
     private String extractParametersFromResourceName(String resourceName) {
         if (!(resourceName.lastIndexOf("?") != -1)) {
             return resourceName;
@@ -128,17 +163,17 @@ public class ResourceFactoryImpl implements ResourceFactory {
         if (sourceResource != null) {
             return new CompiledCSSResource(sourceResource);
         }
-        
+
         return null;
     }
-    
+
     protected void injectProperties(Object resource, Map<String, String> parameters) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
 
         Map<Object, Object> attributes = facesContext.getAttributes();
         try {
             attributes.put(ResourceParameterELResolver.CONTEXT_ATTRIBUTE_NAME, parameters);
-            ServiceTracker.getService(DependencyInjector.class).inject(facesContext,resource);
+            ServiceTracker.getService(DependencyInjector.class).inject(facesContext, resource);
         } finally {
             attributes.remove(ResourceParameterELResolver.CONTEXT_ATTRIBUTE_NAME);
         }
@@ -146,7 +181,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
 
     /**
      * Should be called only if {@link #isResourceExists(String)} returns <code>true</code>
-     *
+     * 
      * @param resourceName
      * @return
      */
@@ -163,26 +198,27 @@ public class ResourceFactoryImpl implements ResourceFactory {
                 DynamicResource annotation = loadedClass.getAnnotation(DynamicResource.class);
                 legitimateResource = (annotation != null);
                 if (legitimateResource) {
-                    LOGGER.debug(
-                        MessageFormat.format("Dynamic resource annotation is present on resource class {0}", resourceName));
+                    LOGGER.debug(MessageFormat.format("Dynamic resource annotation is present on resource class {0}",
+                        resourceName));
                 } else {
-                    LOGGER.debug(
-                        MessageFormat.format("Dynamic resource annotation is not present on resource class {0}", resourceName));
+                    LOGGER.debug(MessageFormat.format(
+                        "Dynamic resource annotation is not present on resource class {0}", resourceName));
                 }
 
                 if (!legitimateResource) {
                     // TODO resource marker extension name?
-                    URL resourceMarkerUrl = contextClassLoader.getResource("META-INF/" + resourceName + ".resource.properties");
+                    URL resourceMarkerUrl = contextClassLoader.getResource("META-INF/" + resourceName
+                        + ".resource.properties");
 
                     legitimateResource = resourceMarkerUrl != null;
 
                     if (LOGGER.isDebugEnabled()) {
                         if (legitimateResource) {
-                            LOGGER.debug(
-                                MessageFormat.format("Marker file for {0} resource found in classpath", resourceName));
+                            LOGGER.debug(MessageFormat.format("Marker file for {0} resource found in classpath",
+                                resourceName));
                         } else {
-                            LOGGER.debug(
-                                MessageFormat.format("Marker file for {0} resource does not exist", resourceName));
+                            LOGGER.debug(MessageFormat.format("Marker file for {0} resource does not exist",
+                                resourceName));
                         }
                     }
                 }
@@ -209,22 +245,24 @@ public class ResourceFactoryImpl implements ResourceFactory {
 
                     resource.setResourceName(resourceName);
                     if (LOGGER.isDebugEnabled()) {
-                        LOGGER.debug(MessageFormat.format("Successfully created instance of {0} resource",
-                            resourceName));
+                        LOGGER.debug(MessageFormat
+                            .format("Successfully created instance of {0} resource", resourceName));
                     }
                 }
             } catch (ClassNotFoundException e) {
-                //do nothing
+                // do nothing
             } catch (Exception e) {
-                LOGGER.logResourceProblem(FacesContext.getCurrentInstance(), e, "Error creating resource {0}", resourceName);
+                LOGGER.logResourceProblem(FacesContext.getCurrentInstance(), e, "Error creating resource {0}",
+                    resourceName);
             } catch (LinkageError e) {
-                LOGGER.logResourceProblem(FacesContext.getCurrentInstance(), e, "Error creating resource {0}", resourceName);
+                LOGGER.logResourceProblem(FacesContext.getCurrentInstance(), e, "Error creating resource {0}",
+                    resourceName);
             }
         }
 
         return resource;
     }
-    
+
     public Resource createResource(FacesContext context, ResourceCodecData resourceData) {
         String resourceName = resourceData.getResourceName();
 
@@ -246,14 +284,11 @@ public class ResourceFactoryImpl implements ResourceFactory {
             String requestedVersion = resourceData.getVersion();
 
             if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug(
-                    MessageFormat.format(
-                        "Client requested {0} version of resource, server has {1} version",
-                        String.valueOf(requestedVersion), String.valueOf(existingVersion)));
+                LOGGER.debug(MessageFormat.format("Client requested {0} version of resource, server has {1} version",
+                    String.valueOf(requestedVersion), String.valueOf(existingVersion)));
             }
 
-            if ((existingVersion != null) && (requestedVersion != null)
-                && !existingVersion.equals(requestedVersion)) {
+            if ((existingVersion != null) && (requestedVersion != null) && !existingVersion.equals(requestedVersion)) {
                 LOGGER.logResourceProblem(context, null, "Resource {0} of version {1} was not found", resourceName,
                     requestedVersion);
                 return null;
@@ -269,27 +304,33 @@ public class ResourceFactoryImpl implements ResourceFactory {
                 LOGGER.debug("Resource state data decoded as null");
             }
         }
-        
+
         Util.restoreResourceState(context, resource, decodedData);
-        
+
         return resource;
     }
-    
+
     public Resource createResource(String resourceName, String libraryName, String contentType) {
+        String resourceQualifier = getResourceQualifier(resourceName, libraryName);
+        ExternalStaticResourceFactory externalStaticResourceFactory = externalStaticResourceFactories.get(resourceQualifier);
+        if (externalStaticResourceFactory != null) {
+            return externalStaticResourceFactory.createResource();
+        }
+        
         Resource result = null;
         Map<String, String> params = Util.parseResourceParameters(resourceName);
         resourceName = extractParametersFromResourceName(resourceName);
         if (resourceName.endsWith(".ecss")) {
-            //TODO nick - params?
+            // TODO nick - params?
             result = createCompiledCSSResource(resourceName, libraryName);
         } else {
-            //TODO nick - libraryName as package name?
+            // TODO nick - libraryName as package name?
             if ((resourceName != null) && ((libraryName == null) || (libraryName.length() == 0))) {
                 result = createHandlerDependentResource(resourceName, params);
             }
         }
-    
+
         return result;
     }
-    
+
 }

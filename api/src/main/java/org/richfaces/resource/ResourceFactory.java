@@ -32,6 +32,10 @@ public interface ResourceFactory {
 
     public static final String STATIC_RESOURCE_MAPPINGS = "META-INF/richfaces/static-resource-mappings.properties";
 
+    public static final String SKINNED_RESOURCE_PREFIX = "%skin%/";
+    
+    //TODO implement resource mappings
+    
     public abstract Resource createResource(String resourceName, String libraryName, String contentType);
 
     public abstract Resource createResource(FacesContext context, ResourceCodecData resourceData);
