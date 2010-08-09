@@ -35,14 +35,7 @@
     <name>Richfaces UI Components: Miscellanous Aggregator</name>
 
     <modules>
-        <module>bom</module>
-        <module>parent</module>
-        <module>functions</module>
-        <module>componentcontrol</module>
-        <module>jquery</module>
-
-        <!-- assembler -->
-        <module>dist</module>
+        <module>ui</module>
     </modules>
 
     <build>

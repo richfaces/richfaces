@@ -37,12 +37,19 @@
     <properties>
         <org.richfaces.ui.core.version>4.0.0-SNAPSHOT</org.richfaces.ui.core.version>
         <org.richfaces.cdk.version>4.0.0-SNAPSHOT</org.richfaces.cdk.version>
+        <org.richfaces.core.version>4.0.0-SNAPSHOT</org.richfaces.core.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.richfaces.core</groupId>
+                <artifactId>richfaces-core-bom</artifactId>
+                <version>${org.richfaces.core.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
 
-            <!-- TODO: remove this dependency used by componentControl -->
             <dependency>
                 <groupId>org.richfaces.ui.core</groupId>
                 <artifactId>richfaces-ui-core-bom</artifactId>
@@ -53,12 +60,24 @@
 
             <dependency>
                 <groupId>org.richfaces.ui.misc</groupId>
-                <artifactId>richfaces-ui-misc-bom</artifactId>
+                <artifactId>richfaces-ui-misc-ui</artifactId>
                 <version>${project.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
             </dependency>
-
+            <dependency>
+                <groupId>org.richfaces.ui.misc</groupId>
+                <artifactId>componentcontrol-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui.misc</groupId>
+                <artifactId>functions-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui.misc</groupId>
+                <artifactId>jquery-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>annotations</artifactId>
