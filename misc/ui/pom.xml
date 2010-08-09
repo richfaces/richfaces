@@ -17,15 +17,15 @@
     Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF site:
     http://www.fsf.org.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.richfaces.ui.misc</groupId>
-        <artifactId>richfaces-ui-misc-assembler</artifactId>
+        <artifactId>richfaces-ui-parent</artifactId>
         <version>4.0.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.ui.misc</groupId>
@@ -41,20 +41,6 @@
     </properties>
 
     <dependencies>
-        <!-- artifacts for aggregation -->
-        <dependency>
-            <groupId>org.richfaces.ui.misc</groupId>
-            <artifactId>componentcontrol-ui</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces.ui.misc</groupId>
-            <artifactId>functions-ui</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.richfaces.ui.misc</groupId>
-            <artifactId>jquery-ui</artifactId>
-        </dependency>
-
         <!-- artifacts for javadoc generation -->
         <dependency>
             <groupId>${jsf2.api.groupid}</groupId>
@@ -65,8 +51,13 @@
             <artifactId>annotations</artifactId>
             <version>${org.richfaces.cdk.version}</version>
         </dependency>
-		
-		<!-- JSF with dependencies -->
+        <dependency>
+            <groupId>org.richfaces.ui.core</groupId>
+            <artifactId>richfaces-ui-core-ui</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- JSF with dependencies -->
         <dependency>
             <groupId>${jsf2.api.groupid}</groupId>
             <artifactId>${jsf2.api.artifactid}</artifactId>
@@ -92,7 +83,7 @@
             <artifactId>jstl</artifactId>
             <scope>provided</scope>
         </dependency>
-		
+
         <!-- tests -->
         <dependency>
             <groupId>${jsf2.impl.groupid}</groupId>
@@ -124,7 +115,7 @@
             <groupId>org.jboss.test-jsf</groupId>
             <artifactId>jsf-mock</artifactId>
             <scope>test</scope>
-        </dependency>		
+        </dependency>
     </dependencies>
 
     <profiles>
@@ -153,45 +144,45 @@
                             </execution>
                         </executions>
                     </plugin>
-<!--
-                    <plugin>
-                        &lt;!&ndash; collecting jsdoc &ndash;&gt;
-                        <groupId>gr.abiss.mvn.plugins</groupId>
-                        <artifactId>maven-jstools-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>jsdoc</id>
-                                <phase>prepare-package</phase>
-                                <configuration>
-                                    <outputBaseDirectory>${basedir}/target</outputBaseDirectory>
-                                    <jsDir>${basedir}/target/dependency</jsDir>
-                                    <includes>**/*.js</includes>
-                                    <caseSensitive>true</caseSensitive>
-                                </configuration>
-                                <goals>
-                                    <goal>jsdoc</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        &lt;!&ndash; pack jsdoc to jar &ndash;&gt;
-                        <artifactId>maven-jar-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>pack-jsodcs</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                                <configuration>
-                                    <classesDirectory>${basedir}/target/jsdoc</classesDirectory>
-                                    <classifier>jsdoc</classifier>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
--->
+                    <!--
+                                        <plugin>
+                                            &lt;!&ndash; collecting jsdoc &ndash;&gt;
+                                            <groupId>gr.abiss.mvn.plugins</groupId>
+                                            <artifactId>maven-jstools-plugin</artifactId>
+                                            <executions>
+                                                <execution>
+                                                    <id>jsdoc</id>
+                                                    <phase>prepare-package</phase>
+                                                    <configuration>
+                                                        <outputBaseDirectory>${basedir}/target</outputBaseDirectory>
+                                                        <jsDir>${basedir}/target/dependency</jsDir>
+                                                        <includes>**/*.js</includes>
+                                                        <caseSensitive>true</caseSensitive>
+                                                    </configuration>
+                                                    <goals>
+                                                        <goal>jsdoc</goal>
+                                                    </goals>
+                                                </execution>
+                                            </executions>
+                                        </plugin>
+                                        <plugin>
+                                            &lt;!&ndash; pack jsdoc to jar &ndash;&gt;
+                                            <artifactId>maven-jar-plugin</artifactId>
+                                            <executions>
+                                                <execution>
+                                                    <id>pack-jsodcs</id>
+                                                    <phase>package</phase>
+                                                    <goals>
+                                                        <goal>jar</goal>
+                                                    </goals>
+                                                    <configuration>
+                                                        <classesDirectory>${basedir}/target/jsdoc</classesDirectory>
+                                                        <classifier>jsdoc</classifier>
+                                                    </configuration>
+                                                </execution>
+                                            </executions>
+                                        </plugin>
+                    -->
                     <plugin>
                         <!-- collecting javadoc -->
                         <artifactId>maven-javadoc-plugin</artifactId>
@@ -205,12 +196,12 @@
                                 </goals>
                                 <configuration>
                                     <sourcepath>${basedir}/target/dependency</sourcepath>
-<!--
-                                    <includeDependencySources>true</includeDependencySources>
-                                    <dependencySourceIncludes>
-                                        <dependencySourceInclude>${assembly.projects.group}:*-ui:*</dependencySourceInclude>
-                                    </dependencySourceIncludes>
--->
+                                    <!--
+                                                                        <includeDependencySources>true</includeDependencySources>
+                                                                        <dependencySourceIncludes>
+                                                                            <dependencySourceInclude>${assembly.projects.group}:*-ui:*</dependencySourceInclude>
+                                                                        </dependencySourceIncludes>
+                                    -->
                                 </configuration>
                             </execution>
                         </executions>
@@ -219,10 +210,12 @@
             </build>
         </profile>
     </profiles>
-    
+
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/misc/dist/richfaces-ui-misc-ui</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/misc/dist/richfaces-ui-misc-ui</developerConnection>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/misc/dist/richfaces-ui-misc-ui
+        </connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/misc/dist/richfaces-ui-misc-ui
+        </developerConnection>
         <url>http://fisheye.jboss.org/browse/richfaces/</url>
     </scm>
 </project>

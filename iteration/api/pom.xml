@@ -22,16 +22,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <parent>
-        <groupId>org.richfaces.ui.iteration</groupId>
-        <artifactId>datascroller-aggregator</artifactId>
+        <groupId>org.richfaces.ui</groupId>
+        <artifactId>richfaces-ui-parent</artifactId>
         <version>4.0.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.richfaces.ui.iteration</groupId>
-    <artifactId>datascroller-api</artifactId>
-    <name>Richfaces UI Components: Datascroller API</name>
+    <artifactId>richfaces-ui-iteration-api</artifactId>
+    <name>Richfaces UI Components: Iteration API</name>
     <packaging>jar</packaging>
 
     <dependencies>
