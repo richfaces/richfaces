@@ -124,6 +124,14 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.0-beta-1</version>
+                <configuration>
+                    <fail>false</fail>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <profiles>
