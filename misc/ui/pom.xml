@@ -49,12 +49,10 @@
         <dependency>
             <groupId>org.richfaces.cdk</groupId>
             <artifactId>annotations</artifactId>
-            <version>${org.richfaces.cdk.version}</version>
         </dependency>
         <dependency>
             <groupId>org.richfaces.ui.core</groupId>
             <artifactId>richfaces-ui-core-ui</artifactId>
-            <version>${project.version}</version>
         </dependency>
 
         <!-- JSF with dependencies -->
