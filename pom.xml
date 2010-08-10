@@ -24,16 +24,17 @@
         <module>../cdk</module>
 
         
+        <module>../ui/parent</module>
         <module>../ui/core</module>
         <module>../ui/iteration</module>
         <module>../ui/misc</module>
         <module>../ui/output</module>
-        <module>../ui/dist</module>
+        <!--<module>ui/dist</module>-->
 
         
         <module>../archetypes</module>
         <module>../dev-examples</module>
-        <module>../docs</module>
+        
     <module>../showcase</module></modules></profile><profile>
             <id>bootstrap</id>
             <modules>
