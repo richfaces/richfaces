@@ -32,7 +32,7 @@
     <name>Richfaces UI Assembler</name>
 
     <modules>
-        <module>bom</module>
+        <!--<module>bom</module>-->
         <!--<module>parent</module>-->
         <module>richfaces-components-api</module>
         <module>richfaces-components-impl</module>

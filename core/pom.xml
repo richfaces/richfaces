@@ -35,8 +35,6 @@
     <name>Richfaces UI Components: Core Aggregator</name>
 
     <modules>
-        <module>bom</module>
-        <module>parent</module>
         <module>ui</module>
     </modules>
 

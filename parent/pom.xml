@@ -37,9 +37,13 @@
 
     <properties>
         <richfaces.checkstyle.version>1</richfaces.checkstyle.version>
-        <org.richfaces.ui.core.version>4.0.0-SNAPSHOT</org.richfaces.ui.core.version>
         <org.richfaces.cdk.version>4.0.0-SNAPSHOT</org.richfaces.cdk.version>
         <org.richfaces.core.version>4.0.0-SNAPSHOT</org.richfaces.core.version>
+        <org.richfaces.commons.version>4.0.0-SNAPSHOT</org.richfaces.commons.version>
+        <org.richfaces.ui.core.version>4.0.0-SNAPSHOT</org.richfaces.ui.core.version>
+        <org.richfaces.ui.misc.version>4.0.0-SNAPSHOT</org.richfaces.ui.misc.version>
+        <org.richfaces.ui.iteration.version>4.0.0-SNAPSHOT</org.richfaces.ui.iteration.version>
+        <org.richfaces.ui.output.version>4.0.0-SNAPSHOT</org.richfaces.ui.output.version>
     </properties>
 
     <dependencyManagement>
@@ -50,6 +54,19 @@
                 <version>${org.richfaces.core.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.commons</groupId>
+                <artifactId>richfaces-commons-bom</artifactId>
+                <version>${org.richfaces.commons.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.richfaces.ui.core</groupId>
+                <artifactId>richfaces-ui-core-ui</artifactId>
+                <version>#{org.richfaces.ui.core.version}</version>
             </dependency>
 
             <dependency>
@@ -64,19 +81,29 @@
             </dependency>
 
             <dependency>
-                <groupId>org.richfaces.ui.core</groupId>
-                <artifactId>richfaces-ui-core-bom</artifactId>
-                <version>${org.richfaces.ui.core.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
+                <groupId>org.richfaces.ui</groupId>
+                <artifactId>richfaces-components-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui</groupId>
+                <artifactId>richfaces-components-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui</groupId>
+                <artifactId>richfaces-components-ui</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
+            
             <dependency>
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>annotations</artifactId>
                 <version>${org.richfaces.cdk.version}</version>
             </dependency>
         </dependencies>
+        
     </dependencyManagement>
 
     <build>
