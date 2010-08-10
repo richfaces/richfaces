@@ -31,7 +31,7 @@
         <dependencies>
             <dependency>
                 <groupId>org.richfaces.ui</groupId>
-                <artifactId>richfaces-components-bom</artifactId>
+                <artifactId>richfaces-ui-parent</artifactId>
                 <version>${org.richfaces.ui.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
@@ -46,7 +46,7 @@
         </dependency>
         <dependency>
             <groupId>org.richfaces.ui</groupId>
-            <artifactId>richfaces-components-ui</artifactId>
+            <artifactId>richfaces-components-api</artifactId>
         </dependency>
         <dependency>
             <groupId>${jsf2.api.groupid}</groupId>
