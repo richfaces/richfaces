@@ -133,8 +133,8 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.richfaces.ui.output</groupId>
-                <artifactId>richfaces-ui-output-bom</artifactId>
+                <groupId>org.richfaces.ui</groupId>
+                <artifactId>richfaces-ui-parent</artifactId>
                 <version>${version}</version>
                 <scope>import</scope>
                 <type>pom</type>

@@ -46,8 +46,8 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.richfaces.ui.misc</groupId>
-                <artifactId>richfaces-ui-misc-bom</artifactId>
+                <groupId>org.richfaces.ui</groupId>
+                <artifactId>richfaces-ui-parent</artifactId>
                 <version>${project.version}</version>
                 <scope>import</scope>
                 <type>pom</type>

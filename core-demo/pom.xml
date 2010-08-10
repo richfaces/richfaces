@@ -41,15 +41,15 @@
         
         <jetty.port>8080</jetty.port>
         <richfaces.checkstyle.version>1</richfaces.checkstyle.version>
-        <org.richfaces.ui.core.version>4.0.0-SNAPSHOT</org.richfaces.ui.core.version>
+        <org.richfaces.ui.version>4.0.0-SNAPSHOT</org.richfaces.ui.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.richfaces.ui.core</groupId>
-                <artifactId>richfaces-ui-core-bom</artifactId>
-                <version>${org.richfaces.ui.core.version}</version>
+                <groupId>org.richfaces.ui</groupId>
+                <artifactId>richfaces-ui-parent</artifactId>
+                <version>${org.richfaces.ui.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
