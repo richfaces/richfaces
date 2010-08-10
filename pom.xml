@@ -49,6 +49,10 @@
             <artifactId>richfaces-components-api</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.richfaces.ui</groupId>
+            <artifactId>richfaces-components-ui</artifactId>
+        </dependency>
+        <dependency>
             <groupId>${jsf2.api.groupid}</groupId>
             <artifactId>${jsf2.api.artifactid}</artifactId>
         </dependency>
