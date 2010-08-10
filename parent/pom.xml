@@ -104,15 +104,9 @@
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui</groupId>
-                <artifactId>richfaces-components-impl</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.richfaces.ui</groupId>
                 <artifactId>richfaces-components-ui</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
             
             <dependency>
                 <groupId>org.richfaces.cdk</groupId>
