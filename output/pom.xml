@@ -28,17 +28,15 @@
         <version>9</version>
     </parent>
 
-    <groupId>org.richfaces.ui.output</groupId>
+    <groupId>org.richfaces.ui</groupId>
     <artifactId>richfaces-ui-output-aggregator</artifactId>
     <version>4.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Richfaces UI Components: Output Aggregator</name>
 
     <modules>
-        <module>bom</module>
-        <module>parent</module>
-        <module>panels</module>
-        <module>dist</module>
+        <module>api</module>
+        <module>ui</module>
     </modules>
 
     <build>
@@ -48,9 +46,7 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
                     <configuration>
-                        <!--
-                            The dist requires clean install for prepare
-                        -->
+                        <!-- The dist requires clean install for prepare -->
                         <preparationGoals>clean install</preparationGoals>
                     </configuration>
                 </plugin>
@@ -61,9 +57,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
                 <configuration>
-                    <!--
-                        The dist requires clean install for prepare
-                    -->
+                    <!-- The dist requires clean install for prepare -->
                     <preparationGoals>clean install</preparationGoals>
                 </configuration>
             </plugin>

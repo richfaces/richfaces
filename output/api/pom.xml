@@ -19,19 +19,19 @@
     http://www.fsf.org.
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <parent>
-        <groupId>org.richfaces.ui.output</groupId>
-        <artifactId>panels-aggregator</artifactId>
+        <groupId>org.richfaces.ui</groupId>
+        <artifactId>richfaces-ui-parent</artifactId>
         <version>4.0.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.richfaces.ui.output</groupId>
-    <artifactId>panels-api</artifactId>
-    <name>Richfaces UI Components: Panels API</name>
+    <artifactId>richfaces-ui-output-api</artifactId>
+    <name>Richfaces UI Components: Output API</name>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -40,8 +40,8 @@
             <groupId>org.richfaces.core</groupId>
             <artifactId>richfaces-core-api</artifactId>
         </dependency>
-		
-		<!-- JSF with dependencies -->
+
+        <!-- JSF with dependencies -->
         <dependency>
             <groupId>${jsf2.api.groupid}</groupId>
             <artifactId>${jsf2.api.artifactid}</artifactId>
@@ -100,12 +100,13 @@
             <artifactId>jsf-mock</artifactId>
             <scope>test</scope>
         </dependency>
-	</dependencies>
-    
+    </dependencies>
+
     <scm>
         <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/output/panels/api</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/output/panels/api</developerConnection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/output/panels/api
+        </developerConnection>
         <url>http://fisheye.jboss.org/browse/richfaces</url>
     </scm>
-	
+
 </project>
