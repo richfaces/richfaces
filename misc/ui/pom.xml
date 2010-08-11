@@ -34,6 +34,24 @@
     <packaging>jar</packaging>
     <name>Richfaces UI Misc UI</name>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.richfaces.cdk</groupId>
+                <artifactId>maven-cdk-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.0-beta-1</version>
+                <configuration>
+                    <fail>false</fail>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <properties>
         <assembly.projects.group>org.richfaces.ui.misc</assembly.projects.group>
         <faces-shade-transformers.version>2</faces-shade-transformers.version>
