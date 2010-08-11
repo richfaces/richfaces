@@ -69,9 +69,13 @@
             <artifactId>annotations</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.richfaces.ui.core</groupId>
+            <groupId>org.richfaces.ui.common</groupId>
+            <artifactId>richfaces-ui-common-ui</artifactId>
+       </dependency>
+        <dependency>
+             <groupId>org.richfaces.ui.core</groupId>
             <artifactId>richfaces-ui-core-ui</artifactId>
-        </dependency>
+       </dependency>
 
         <!-- JSF with dependencies -->
         <dependency>

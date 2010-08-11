@@ -30,7 +30,7 @@
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
-    <groupId>org.richfaces.ui.commmon</groupId>
+    <groupId>org.richfaces.ui.common</groupId>
     <artifactId>richfaces-ui-common-ui</artifactId>
     <name>Richfaces UI Components: Common UI</name>
     <packaging>jar</packaging>
@@ -40,6 +40,12 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.richfaces.ui.common</groupId>
+            <artifactId>richfaces-ui-common-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    
         <!-- runtime -->
         <dependency>
             <groupId>org.richfaces.core</groupId>
