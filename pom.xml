@@ -24,12 +24,7 @@
         <module>../cdk</module>
 
         
-        <module>../ui/parent</module>
-        <module>../ui/core</module>
-        <module>../ui/iteration</module>
-        <module>../ui/misc</module>
-        <module>../ui/output</module>
-        <module>../ui/dist</module>
+		<module>../components</module>
 
         
         <module>../archetypes</module>
