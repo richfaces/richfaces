@@ -13,7 +13,7 @@
     <groupId>org.richfaces.examples</groupId>
     <artifactId>output-demo</artifactId>
     <version>4.0.0-SNAPSHOT</version>
-    <name>Richfaces UI Components: outputs demo</name>
+    <name>Richfaces Examples: Outputs</name>
     <packaging>war</packaging>
 
     <url>http://jboss.org/richfaces</url>
