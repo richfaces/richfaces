@@ -19,9 +19,11 @@ import org.richfaces.component.UIPopupPanel;
 
 //TODO nick - JSF have concept of library, it should be used instead of '/' in resource names
 @ResourceDependencies( { @ResourceDependency(name = "jquery.js"), @ResourceDependency(name = "richfaces.js"),
-    @ResourceDependency(name = "richfaces-base-component.js"), @ResourceDependency(name = "script/popupPanel.js"),
-    @ResourceDependency(name = "script/popupPanelBorders.js"), @ResourceDependency(name = "script/popupPanelSizer.js"),
-    @ResourceDependency(name = "css/popupPanel.ecss")
+    @ResourceDependency(name = "richfaces-base-component.js"), 
+    @ResourceDependency(library = "org.richfaces", name = "popupPanel.js"),
+    @ResourceDependency(library = "org.richfaces", name = "popupPanelBorders.js"), 
+    @ResourceDependency(library = "org.richfaces", name = "popupPanelSizer.js"),
+    @ResourceDependency(library = "org.richfaces", name = "popupPanel.ecss")
 
 })
 public class PopupPanelBaseRenderer extends RendererBase {

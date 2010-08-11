@@ -22,17 +22,18 @@
 
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.component.AbstractTogglePanelItem;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+
+import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.component.AbstractTogglePanelItem;
 
 /**
  * @author akolonitsky
@@ -44,7 +45,7 @@ import java.util.Map;
     @ResourceDependency(name = "richfaces.js"),
     @ResourceDependency(name = "richfaces-event.js"),
     @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(name = "script/TogglePanelItem.js") })
+    @ResourceDependency(library = "org.richfaces", name = "TogglePanelItem.js") })
 public class TogglePanelItemRenderer extends DivPanelRenderer {
     
     private static final String LEAVE = "leave";

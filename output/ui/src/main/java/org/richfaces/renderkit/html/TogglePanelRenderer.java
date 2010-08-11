@@ -22,6 +22,18 @@
 
 package org.richfaces.renderkit.html;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+
 import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSObject;
@@ -33,17 +45,6 @@ import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.component.AbstractTogglePanelItem;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
  * @author akolonitsky
  * @since -4712-01-01
@@ -54,7 +55,7 @@ import java.util.Map;
     @ResourceDependency(name = "richfaces.js"),
     @ResourceDependency(name = "richfaces-event.js"),
     @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(name = "script/TogglePanel.js") })
+    @ResourceDependency(library = "org.richfaces", name = "TogglePanel.js") })
 public class TogglePanelRenderer extends DivPanelRenderer {
 
     private static final String VALUE_POSTFIX = "-value";

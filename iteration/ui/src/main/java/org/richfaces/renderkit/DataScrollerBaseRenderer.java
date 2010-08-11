@@ -47,8 +47,9 @@ import org.richfaces.event.DataScrollerEvent;
 @ResourceDependencies( { @ResourceDependency(library = "javax.faces", name = "jsf-uncompressed.js"),
     @ResourceDependency(name = "jquery.js"), @ResourceDependency(name = "richfaces.js"),
     @ResourceDependency(name = "richfaces-event.js"),
-    @ResourceDependency(name = "richfaces-base-component.js"), @ResourceDependency(name = "script/datascroller.js"),
-    @ResourceDependency(name = "css/datascroller.ecss")
+    @ResourceDependency(name = "richfaces-base-component.js"), 
+    @ResourceDependency(library = "org.richfaces", name = "datascroller.js"),
+    @ResourceDependency(library = "org.richfaces", name = "datascroller.ecss")
 
 })
 public class DataScrollerBaseRenderer extends RendererBase {
