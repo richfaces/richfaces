@@ -73,6 +73,8 @@ public final class ContextInitParameters {
     
     public static final String STATIC_RESOURCE_LOCATION_VARIABLE = "resourceLocation";
 
+    public static final String EXECUTE_AWT_INITIALIZER = "org.richfaces.executeAWTInitializer";
+    
     private static final String[] RESOURCES_TTL_ARRAY = { RESOURCES_TTL };
     private static final String[] RESOURCES_CACHE_SIZE_ARRAY = { RESOURCES_CACHE_SIZE };
     
@@ -149,6 +151,11 @@ public final class ContextInitParameters {
 
     public static String getStaticResourceLocation(FacesContext context) {
         return (String) evaluateInitParameter(context, STATIC_RESOURCE_LOCATION);
+    }
+    
+    public static boolean isExecuteAWTInitializer(FacesContext context) {
+        Object paramValue = evaluateInitParameter(context, EXECUTE_AWT_INITIALIZER);
+        return getBooleanValue(paramValue, true);
     }
     
     static int getInteger(FacesContext context, String[] paramNames, int defaultValue) {

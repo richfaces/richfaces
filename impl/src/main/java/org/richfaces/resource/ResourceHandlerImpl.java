@@ -35,7 +35,6 @@ import javax.faces.application.ResourceHandler;
 import javax.faces.application.ResourceHandlerWrapper;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -58,25 +57,6 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
 
     private ResourceFactory resourceFactory;
     
-    // TODO - review - do we need this?
-    static {
-
-        // set in-memory caching ImageIO
-        Thread thread = Thread.currentThread();
-        ClassLoader initialTCCL = thread.getContextClassLoader();
-
-        try {
-            ClassLoader systemCL = ClassLoader.getSystemClassLoader();
-
-            thread.setContextClassLoader(systemCL);
-            ImageIO.setUseCache(false);
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage(), e);
-        } finally {
-            thread.setContextClassLoader(initialTCCL);
-        }
-    }
-
     private ResourceHandler defaultHandler;
 
     public ResourceHandlerImpl(ResourceHandler defaultHandler) {

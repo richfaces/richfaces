@@ -21,16 +21,23 @@
  */
 package org.richfaces.application;
 
+import java.awt.Toolkit;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
 import javax.faces.FacesException;
+import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.PostConstructApplicationEvent;
 import javax.faces.event.PreDestroyApplicationEvent;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
 
+import org.ajax4jsf.context.ContextInitParameters;
 import org.richfaces.VersionBean;
 import org.richfaces.log.RichfacesLogger;
 import org.slf4j.Logger;
@@ -43,6 +50,53 @@ public class InitializationListener implements SystemEventListener {
 
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
     
+    private static final class AWTInitializer {
+
+        private static boolean checkGetSystemClassLoaderAccess() {
+            try {
+                ClassLoader.getSystemClassLoader();
+
+                return true;
+            } catch (SecurityException e) {
+                return false;
+            }
+        }
+        
+        public static void initialize() {
+            if (!checkGetSystemClassLoaderAccess()) {
+                LOGGER.warn("Access to system class loader restricted - AWTInitializer won't be run");
+                return;
+            }
+
+            Thread thread = Thread.currentThread();
+            ClassLoader initialTCCL = thread.getContextClassLoader();
+            ImageInputStream testStream = null;
+            
+            try {
+                ClassLoader systemCL = ClassLoader.getSystemClassLoader();
+                thread.setContextClassLoader(systemCL);
+                // set in-memory caching ImageIO
+                ImageIO.setUseCache(false);
+                
+                //force Disposer/AWT threads initialization
+                testStream = ImageIO.createImageInputStream(new ByteArrayInputStream(new byte[0]));
+                Toolkit.getDefaultToolkit().getSystemEventQueue();
+            } catch (IOException e) {
+                LOGGER.error(e.getMessage(), e);
+            } finally {
+                if (testStream != null) {
+                    try {
+                        testStream.close();
+                    } catch (IOException e) {
+                        LOGGER.error(e.getMessage(), e);
+                    }
+                }
+
+                thread.setContextClassLoader(initialTCCL);
+            }
+        }
+    }
+
     /* (non-Javadoc)
       * @see javax.faces.event.SystemEventListener#isListenerForSource(java.lang.Object)
       */
@@ -58,6 +112,15 @@ public class InitializationListener implements SystemEventListener {
             String versionString = VersionBean.VERSION.toString();
             if (versionString != null && versionString.length() != 0) {
                 LOGGER.info(versionString);
+            }
+        }
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (ContextInitParameters.isExecuteAWTInitializer(context)) {
+            try {
+                AWTInitializer.initialize();
+            } catch (NoClassDefFoundError e) {
+                LOGGER.warn(MessageFormat.format("There were problems loading class: {0} - AWTInitializer won't be run", e.getMessage()));
             }
         }
     }
