@@ -56,7 +56,7 @@ import org.richfaces.component.behavior.ComponentControlBehavior;
     @ResourceDependency(name = "jquery.js"), @ResourceDependency(name = "richfaces.js"),
     @ResourceDependency(name = "richfaces-event.js"),
     @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(name = "script/component-control.js") })
+    @ResourceDependency(library = "org.richfaces", name = "component-control.js") })
 public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
 
     private static final String FUNC_NAME = "RichFaces.ui.ComponentControl.execute";
