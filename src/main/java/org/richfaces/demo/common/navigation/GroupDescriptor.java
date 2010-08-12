@@ -11,8 +11,8 @@ public class GroupDescriptor extends BaseDescriptor {
 
     private List<DemoDescriptor> demos;
 
-    @XmlElementWrapper(name="demos")
-    @XmlElement(name="demo")
+    @XmlElementWrapper(name = "demos")
+    @XmlElement(name = "demo")
     public List<DemoDescriptor> getDemos() {
         return demos;
     }

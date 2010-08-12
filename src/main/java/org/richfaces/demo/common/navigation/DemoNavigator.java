@@ -25,21 +25,20 @@ public class DemoNavigator implements Serializable {
     private static final String SEPARATOR = "/";
     private static final String SAMPLE_PREFIX = "-sample";
     private static final String SAMPLES_FOLDER = "samples/";
-    
-    
+
     @ManagedProperty(value = "#{navigationParser.groupsList}")
     private List<GroupDescriptor> groups;
     private DemoDescriptor currentDemo;
     private SampleDescriptor currentSample;
     private String sample;
     private String demo;
-    
+
     @PostConstruct
     public void init() {
-        currentDemo =null;
+        currentDemo = null;
         currentSample = null;
     }
-    
+
     public DemoDescriptor getCurrentDemo() {
         String id = getViewParameter(DEMO_VIEW_PARAMETER);
         if (currentDemo == null || !currentDemo.getId().equals(id)) {
@@ -84,9 +83,9 @@ public class DemoNavigator implements Serializable {
             GroupDescriptor group = it.next();
             Iterator<DemoDescriptor> dit = group.getDemos().iterator();
             while (dit.hasNext()) {
-                DemoDescriptor demo = (DemoDescriptor) dit.next();
-                if (demo.getId().equals(id)) {
-                    return demo;
+                DemoDescriptor locDemo = (DemoDescriptor) dit.next();
+                if (locDemo.getId().equals(id)) {
+                    return locDemo;
                 }
             }
         }
@@ -94,7 +93,6 @@ public class DemoNavigator implements Serializable {
     }
 
     public String getSampleURI() {
-        DemoDescriptor currentDemo = getCurrentDemo();
         FacesContext context = FacesContext.getCurrentInstance();
 
         NavigationHandler handler = context.getApplication().getNavigationHandler();
@@ -110,21 +108,23 @@ public class DemoNavigator implements Serializable {
 
         return null;
     }
-    
+
     /**
-     * @return actual sample inclusion src
-     * Consider that: 1) all the samples should be placed in "samples" subfolder of the actual sample
-     * 2) all the samples pages should use the same name as main sample page with "-sample" prefix
+     * @return actual sample inclusion src Consider that: 1) all the samples should be placed in "samples" subfolder of
+     *         the actual sample 2) all the samples pages should use the same name as main sample page with "-sample"
+     *         prefix
      */
-    public String getSampleIncludeURI(){
+    public String getSampleIncludeURI() {
         String sampleURI = getSampleURI();
         StringBuffer sampleURIBuffer = new StringBuffer(sampleURI);
         int folderOffset = sampleURIBuffer.lastIndexOf(currentSample.getId());
-        int fileNameOffset = sampleURIBuffer.lastIndexOf(currentSample.getId()) + currentSample.getId().length() + SAMPLE_PREFIX.length() + 1;
-        String result = new StringBuffer(sampleURI).insert(folderOffset, SAMPLES_FOLDER).insert(fileNameOffset, SAMPLE_PREFIX).toString();
-        return  result;
+        int fileNameOffset = sampleURIBuffer.lastIndexOf(currentSample.getId()) + currentSample.getId().length()
+            + SAMPLE_PREFIX.length() + 1;
+        String result = new StringBuffer(sampleURI).insert(folderOffset, SAMPLES_FOLDER).insert(fileNameOffset,
+            SAMPLE_PREFIX).toString();
+        return result;
     }
-    
+
     public List<GroupDescriptor> getGroups() {
         return groups;
     }

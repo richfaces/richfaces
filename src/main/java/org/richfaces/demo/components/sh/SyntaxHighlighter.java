@@ -17,19 +17,22 @@ import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.resource.ResourceNotFoundException;
 
 @FacesComponent(value = "syntaxHighlighter")
-@ResourceDependencies( { @ResourceDependency(library = "js", name = "shCore.js"),
+@ResourceDependencies({ @ResourceDependency(library = "js", name = "shCore.js"),
     @ResourceDependency(library = "css", name = "shCore.css"),
-    @ResourceDependency(library = "css", name = "shThemeDefault.css"),    
+    @ResourceDependency(library = "css", name = "shThemeDefault.css"),
     @ResourceDependency(library = "js", name = "shBrushJScript.js"),
     @ResourceDependency(library = "js", name = "shBrushJava.js"),
     @ResourceDependency(library = "js", name = "shBrushXml.js"),
     @ResourceDependency(library = "js", name = "shBrushCss.js"),
-    @ResourceDependency(library = "js", name = "shBrushPlain.js")})
-    
-public class SyntaxHighlighter extends UIComponentBase{
+    @ResourceDependency(library = "js", name = "shBrushPlain.js") })
+public class SyntaxHighlighter extends UIComponentBase {
     private static final String COMPONENT_FAMILY = "org.richfaces.SyntaxHighlighter";
     private static final String DEFAULT_SOURCE_TYPE = "xhtml";
-    enum propertyKeys {sourceType, src, style, styleClass};
+
+    enum propertyKeys {
+        sourceType, src, style, styleClass
+    };
+
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
@@ -85,7 +88,7 @@ public class SyntaxHighlighter extends UIComponentBase{
     }
 
     public String getSourceType() {
-        return (String)getStateHelper().eval(propertyKeys.sourceType, DEFAULT_SOURCE_TYPE);
+        return (String) getStateHelper().eval(propertyKeys.sourceType, DEFAULT_SOURCE_TYPE);
     }
 
     public void setSourceType(String sourceType) {
@@ -93,24 +96,26 @@ public class SyntaxHighlighter extends UIComponentBase{
     }
 
     public String getSrc() {
-        return (String)getStateHelper().eval(propertyKeys.src);
+        return (String) getStateHelper().eval(propertyKeys.src);
     }
 
     public void setSrc(String src) {
         getStateHelper().put(propertyKeys.src, src);
     }
+
     public String getStyle() {
-        return (String)getStateHelper().eval(propertyKeys.style);
+        return (String) getStateHelper().eval(propertyKeys.style);
     }
 
     public void setStyle(String style) {
         getStateHelper().put(propertyKeys.style, style);
     }
+
     public String getStyleClass() {
-        return (String)getStateHelper().eval(propertyKeys.styleClass);
+        return (String) getStateHelper().eval(propertyKeys.styleClass);
     }
 
     public void setStyleClass(String styleClass) {
         getStateHelper().put(propertyKeys.styleClass, styleClass);
-    }    
+    }
 }

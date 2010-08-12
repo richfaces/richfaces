@@ -23,14 +23,15 @@ public class CarsFilteringBean implements Serializable {
         return new Filter<InventoryItem>() {
             public boolean accept(InventoryItem item) {
                 Long mileage = getMileageFilter();
-                if (mileage == null || mileage==0 || mileage.compareTo(item.getMileage().longValue()) >= 0) {
+                if (mileage == null || mileage == 0 || mileage.compareTo(item.getMileage().longValue()) >= 0) {
                     return true;
                 }
                 return false;
             }
         };
     }
-    public Filter<?> getFilterVendor(){
+
+    public Filter<?> getFilterVendor() {
         return new Filter<InventoryItem>() {
             public boolean accept(InventoryItem t) {
                 String vendor = getVendorFilter();

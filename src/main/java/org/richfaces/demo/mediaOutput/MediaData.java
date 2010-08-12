@@ -1,12 +1,12 @@
 package org.richfaces.demo.mediaOutput;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-
 import java.io.Serializable;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+
 @ManagedBean(name = "mediaData")
-@SessionScoped
+@RequestScoped
 public class MediaData implements Serializable {
 
     /**

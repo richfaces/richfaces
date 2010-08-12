@@ -5,18 +5,16 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-
+import javax.faces.bean.RequestScoped;
 import javax.imageio.ImageIO;
 
 @ManagedBean(name = "mediaBean")
-@SessionScoped
+@RequestScoped
 public class MediaBean {
     public void paint(OutputStream out, Object data) throws IOException {
         if (data instanceof MediaData) {

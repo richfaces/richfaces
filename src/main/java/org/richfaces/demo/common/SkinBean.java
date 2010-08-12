@@ -53,7 +53,7 @@ public class SkinBean implements Serializable {
 
     public String getSkin() {
         String currentSkin = getViewParameter(SKIN_VIEW_PARAMETER);
-        if (currentSkin != null){
+        if (currentSkin != null) {
             skin = currentSkin;
         }
         return skin;

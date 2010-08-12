@@ -23,7 +23,7 @@ import org.richfaces.demo.tables.model.cars.InventoryVendorList;
 
 @ManagedBean(name = "carsBean")
 @SessionScoped
-public class CarsBean implements Serializable{
+public class CarsBean implements Serializable {
     /**
      * 
      */
@@ -35,13 +35,13 @@ public class CarsBean implements Serializable{
 
     public List<SelectItem> getVendorOptions() {
         List<SelectItem> result = new ArrayList<SelectItem>();
-        result.add(new SelectItem("",""));
+        result.add(new SelectItem("", ""));
         for (InventoryVendorList vendorList : getInventoryVendorLists()) {
             result.add(new SelectItem(vendorList.getVendor()));
         }
         return result;
     }
-    
+
     public List<String> getAllVendors() {
         List<String> result = new ArrayList<String>();
         for (InventoryVendorList vendorList : getInventoryVendorLists()) {
@@ -58,7 +58,7 @@ public class CarsBean implements Serializable{
 
                 Collections.sort(inventoryItems, new Comparator<InventoryItem>() {
                     public int compare(InventoryItem o1, InventoryItem o2) {
-                        return o1.getVendor().compareTo(o2.getVendor()); 
+                        return o1.getVendor().compareTo(o2.getVendor());
                     }
                 });
                 Iterator<InventoryItem> iterator = inventoryItems.iterator();
