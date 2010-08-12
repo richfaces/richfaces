@@ -186,7 +186,7 @@ if (!window.RichFaces) {
 
 					var levelSelect = console.children("select.rich-log-element");
 					if (levelSelect.length == 0) {
-						levelSelect = jQuery("<select class='rich-log-element' />").appendTo(console);
+						levelSelect = jQuery("<select class='rich-log-element' name='richfaces.log' />").appendTo(console);
 					}
 
 					if (levelSelect.children().length == 0) {
