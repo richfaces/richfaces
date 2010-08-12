@@ -2,10 +2,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:c="http://java.sun.com/jstl/core"
-	xmlns:rich="http://java.sun.com/jsf/composite/rich"
-	xmlns:at="http://richfaces.org/demo/app-taglib">
+	xmlns:a4j="http://richfaces.org/a4j">
 	<p>In RichFaces 4 all request settings related to queue was moved
 	out of components attributes and now customization available using new
 	a4j:attachQueue tag. Next sample shows how requestGroupingId (former
@@ -17,8 +14,11 @@
 	<p>If you will click the buttons fast - requests will be combined
 	and only last click will be processed</p>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
-
-	<at:syntaxHighlighter
-		src="#{demoNavigator.sampleIncludeURI}" sourceType="xhtml"/>
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+		<ui:param name="sourceType" value="xhtml" />
+		<ui:param name="openLabel" value="View Source" />
+		<ui:param name="hideLabel" value="Hide Source" />
+	</ui:include>
 </ui:composition>
 

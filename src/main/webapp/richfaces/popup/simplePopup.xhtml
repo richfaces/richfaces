@@ -2,10 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:at="http://richfaces.org/demo/app-taglib">
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
 	<p>Popup panel component used to create any kind of popups on the page.</p>
@@ -21,7 +18,12 @@
 	as defined to use <b>autosizing</b> according to it's content</p>
 
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
-	<at:syntaxHighlighter src="#{demoNavigator.sampleIncludeURI}" />
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+		<ui:param name="sourceType" value="xhtml" />
+		<ui:param name="openLabel" value="View Source" />
+		<ui:param name="hideLabel" value="Hide Source" />
+	</ui:include>
 
 	<p>Besides this sample shows two variants of working with the component JS API:</p>
 	<ul>

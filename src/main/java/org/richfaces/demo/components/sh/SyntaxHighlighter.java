@@ -13,6 +13,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
+import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.resource.ResourceNotFoundException;
 
 @FacesComponent(value = "syntaxHighlighter")
@@ -23,13 +24,12 @@ import org.ajax4jsf.resource.ResourceNotFoundException;
     @ResourceDependency(library = "js", name = "shBrushJava.js"),
     @ResourceDependency(library = "js", name = "shBrushXml.js"),
     @ResourceDependency(library = "js", name = "shBrushCss.js"),
-    @ResourceDependency(library = "js", name = "shBrushPlain.js"),    
-    @ResourceDependency(library="js", name="sh.js")})
+    @ResourceDependency(library = "js", name = "shBrushPlain.js")})
     
 public class SyntaxHighlighter extends UIComponentBase{
     private static final String COMPONENT_FAMILY = "org.richfaces.SyntaxHighlighter";
     private static final String DEFAULT_SOURCE_TYPE = "xhtml";
-    enum propertyKeys {sourceType, src};
+    enum propertyKeys {sourceType, src, style, styleClass};
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
@@ -71,10 +71,16 @@ public class SyntaxHighlighter extends UIComponentBase{
         ResponseWriter writer = context.getResponseWriter();
         writer.startElement("div", null);
         writer.writeAttribute("id", this.getClientId(), null);
+        writer.writeAttribute("class", this.getStyleClass(), null);
+        writer.writeAttribute("style", this.getStyle(), null);
         writer.startElement("pre", null);
         writer.writeAttribute("class", new StringBuffer().append("brush: ").append(this.getSourceType()), null);
         renderContent(context);
         writer.endElement("pre");
+        JSFunction function = new JSFunction("SyntaxHighlighter.all");
+        writer.startElement("script", null);
+        writer.write(function.toScript());
+        writer.endElement("script");
         writer.endElement("div");
     }
 
@@ -93,5 +99,18 @@ public class SyntaxHighlighter extends UIComponentBase{
     public void setSrc(String src) {
         getStateHelper().put(propertyKeys.src, src);
     }
-    
+    public String getStyle() {
+        return (String)getStateHelper().eval(propertyKeys.style);
+    }
+
+    public void setStyle(String style) {
+        getStateHelper().put(propertyKeys.style, style);
+    }
+    public String getStyleClass() {
+        return (String)getStateHelper().eval(propertyKeys.styleClass);
+    }
+
+    public void setStyleClass(String styleClass) {
+        getStateHelper().put(propertyKeys.styleClass, styleClass);
+    }    
 }

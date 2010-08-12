@@ -3,15 +3,19 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:at="http://richfaces.org/demo/app-taglib">
+	xmlns:a4j="http://richfaces.org/a4j">
 
 <ui:composition>
-	<p>Typical use-case of dependent select components. When you choosing 
-	the type in the first select - corresponding items appears in second one. 
-	</p>	
+	<p>Typical use-case of dependent select components. When you
+	choosing the type in the first select - corresponding items appears in
+	second one.</p>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
-	<at:syntaxHighlighter src="#{demoNavigator.sampleIncludeURI}" sourceType="xhtml"/>
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+		<ui:param name="sourceType" value="xhtml" />
+		<ui:param name="openLabel" value="View Source" />
+		<ui:param name="hideLabel" value="Hide Source" />
+	</ui:include>
 </ui:composition>
 
 </html>

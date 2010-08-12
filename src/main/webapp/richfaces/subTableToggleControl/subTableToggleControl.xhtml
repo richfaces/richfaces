@@ -2,10 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:at="http://richfaces.org/demo/app-taglib">
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
 	<p>This sample shows simple master-detail table implemented using<b>
@@ -20,8 +17,12 @@
 		<li>The developer could get control on current states of
 		subTables using its <b>expanded</b> attribute.</li>
 	</ul>
-
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
-	<at:syntaxHighlighter src="#{demoNavigator.sampleIncludeURI}" />
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+		<ui:param name="sourceType" value="xhtml" />
+		<ui:param name="openLabel" value="View Source" />
+		<ui:param name="hideLabel" value="Hide Source" />
+	</ui:include>
 </ui:composition>
 </html>
