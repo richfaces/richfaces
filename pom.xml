@@ -41,6 +41,7 @@
         <module>core-demo</module>
         <module>misc-demo</module>
         <module>output-demo</module>
+        <module>input-demo</module>
         <module>repeater-demo</module>
         <module>iteration-demo</module>
         
