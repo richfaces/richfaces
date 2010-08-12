@@ -23,7 +23,10 @@ public class DemoNavigator implements Serializable {
     private static final String DEMO_VIEW_PARAMETER = "demo";
     private static final String SAMPLE_VIEW_PARAMETER = "sample";
     private static final String SEPARATOR = "/";
-
+    private static final String SAMPLE_PREFIX = "-sample";
+    private static final String SAMPLES_FOLDER = "samples/";
+    
+    
     @ManagedProperty(value = "#{navigationParser.groupsList}")
     private List<GroupDescriptor> groups;
     private DemoDescriptor currentDemo;
@@ -107,7 +110,21 @@ public class DemoNavigator implements Serializable {
 
         return null;
     }
-
+    
+    /**
+     * @return actual sample inclusion src
+     * Consider that: 1) all the samples should be placed in "samples" subfolder of the actual sample
+     * 2) all the samples pages should use the same name as main sample page with "-sample" prefix
+     */
+    public String getSampleIncludeURI(){
+        String sampleURI = getSampleURI();
+        StringBuffer sampleURIBuffer = new StringBuffer(sampleURI);
+        int folderOffset = sampleURIBuffer.lastIndexOf(currentSample.getId());
+        int fileNameOffset = sampleURIBuffer.lastIndexOf(currentSample.getId()) + currentSample.getId().length() + SAMPLE_PREFIX.length() + 1;
+        String result = new StringBuffer(sampleURI).insert(folderOffset, SAMPLES_FOLDER).insert(fileNameOffset, SAMPLE_PREFIX).toString();
+        return  result;
+    }
+    
     public List<GroupDescriptor> getGroups() {
         return groups;
     }

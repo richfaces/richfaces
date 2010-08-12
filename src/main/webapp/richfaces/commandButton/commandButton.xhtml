@@ -3,31 +3,16 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:at="http://richfaces.org/demo/app-taglib">
 
 <ui:composition>
-	<style>
-	<!--
-        .outhello {
-            font-weight: bold;
-        }
-	-->
-	</style>
-		<p>
-			The combination similar to h:commandButton with f:ajax. Inherits all
-			a4j:ajax special options.
-		</p>	
-	<h:form>
-		<h:panelGrid columns="3">
-			<h:outputText value="Name:" />
-			<h:inputText value="#{userBean.name}" />
-			<a4j:commandButton value="Say Hello" render="out" execute="@form" />
-		</h:panelGrid>
-	</h:form>
-	<br />
-	<a4j:outputPanel id="out">
-		<h:outputText value="Hello #{userBean.name} !" rendered="#{not empty userBean.name}" styleClass="outhello" />
-	</a4j:outputPanel>
+	<p>The combination similar to h:commandButton with f:ajax. Inherits
+	all a4j:ajax special options.</p>
+	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
+	<at:syntaxHighlighter
+		src="#{demoNavigator.sampleIncludeURI}"
+		sourceType="xhtml" />
 </ui:composition>
 
 </html>

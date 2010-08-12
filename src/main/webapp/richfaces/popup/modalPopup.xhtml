@@ -4,7 +4,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:at="http://richfaces.org/demo/app-taglib">
 
 <ui:composition>
 	<p>There you could check the modal panel which blocks the main
@@ -12,25 +13,8 @@
 	with <b>modal="true"</b></p>
 	<p>In that sample the panel also defined as resizable so you could
 	change its sizes using mouse</p>
-	<h:commandButton value="Call the popup">
-		<rich:componentControl target="popup" operation="show" />
-	</h:commandButton>
-	<rich:popupPanel id="popup" modal="true"
-		resizeable="true" onmaskclick="#{rich:component('popup')}.hide()">
-		<f:facet name="header">
-			<h:outputText value="Simple popup panel" />
-		</f:facet>
-		<f:facet name="controls">
-			<h:outputLink value="#"
-				onclick="#{rich:component('popup')}.hide(); return false;">
-					X
-				</h:outputLink>
-		</f:facet>
-		<p>Additionally there you could check how to handle the clicks
-		outside the panel.</p>
-		<p>In this sample the click outside - closes the panel as well as
-		clicking hide control in the header</p>
-	</rich:popupPanel>
+	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
+	<at:syntaxHighlighter src="#{demoNavigator.sampleIncludeURI}" />
 </ui:composition>
 
 </html>

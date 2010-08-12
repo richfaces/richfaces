@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<h:commandButton value="Call the popup">
+		<rich:componentControl target="popup" operation="show" />
+	</h:commandButton>
+	<rich:popupPanel id="popup" modal="false" autosized="true"
+		resizeable="false">
+		<f:facet name="header">
+			<h:outputText value="Simple popup panel" />
+		</f:facet>
+		<f:facet name="controls">
+			<h:outputLink value="#"
+				onclick="#{rich:component('popup')}.hide(); return false;">
+					X
+				</h:outputLink>
+		</f:facet>
+		<p>Any content might be inside the panel.</p>
+		<p>Consider inclusion of the form elements into the popup or
+		redefinition of <b>domElementAttachment</b> attribute.</p>
+		<p>The popup panel is open and closed from the javascript function
+		of component client side object. The following code <a href="#"
+			onclick="#{rich:component('popup')}.hide()">hide this panel</a>: <f:verbatim>&#35;</f:verbatim>{rich:component('popup')}.hide()</p>
+	</rich:popupPanel>
+</ui:composition>

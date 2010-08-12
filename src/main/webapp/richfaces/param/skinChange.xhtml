@@ -4,30 +4,17 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://java.sun.com/jsf/composite/rich">
+	xmlns:rich="http://java.sun.com/jsf/composite/rich"
+	xmlns:at="http://richfaces.org/demo/app-taglib">
 
 <ui:composition>
-	<p>You can use a4j:param not only with ajax components, but with non-ajax command 
-	components and for GET navigation components also. In the following example, the used skin of the demo is changed when 
-	the whole page is refreshed with the regular h:link. </p>
-	<h:form>
-		<rich:panel>
-			<f:facet name="header">
-				<h:outputText value="Change Demo Appplication Skin To: " />
-			</f:facet>
-			<h:panelGrid columns="2">
-				<h:link value="DeepMarine" includeViewParams="true">
-					<a4j:param name="skin" value="deepMarine"
-						assignTo="#{skinBean.skin}" />
-				</h:link>
+	<p>You can use a4j:param not only with ajax components, but with
+	non-ajax command components and for GET navigation components also. In
+	the following example, the used skin of the demo is changed when the
+	whole page is refreshed with the regular h:link.</p>
 
-				<h:link value="BlueSky" includeViewParams="true">
-					<a4j:param name="skin" value="blueSky" assignTo="#{skinBean.skin}" />
-				</h:link>
-			</h:panelGrid>
-
-		</rich:panel>
-	</h:form>
+	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
+	<at:syntaxHighlighter src="#{demoNavigator.sampleIncludeURI}" />
 </ui:composition>
 
 </html>

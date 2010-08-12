@@ -3,20 +3,14 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:a4j="http://richfaces.org/a4j">
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:at="http://richfaces.org/demo/app-taglib">
 
 	<ui:composition>
 		<p>The behavior that adds javascript call for sending Ajax request
 		to specified event on parent component</p>
-		<h:form>
-			<h:inputText value="#{userBean.name}">
-				<a4j:ajax event="keyup" render="out"/>
-			</h:inputText>
-			<h:outputText value="#{userBean.name}" id="out"/>
-		</h:form>
-		<p>Typical use-case of dependent select components. When you
-		choosing the type in the first select - corresponding items appears in
-		second one.</p>		
+		<ui:include src="#{demoNavigator.sampleIncludeURI}"/>
+		<at:syntaxHighlighter id="sh1" src="#{demoNavigator.sampleIncludeURI}" sourceType="xhtml"/>		
 	</ui:composition>
 
 </html>

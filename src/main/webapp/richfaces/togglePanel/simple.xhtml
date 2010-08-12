@@ -4,37 +4,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:at="http://richfaces.org/demo/app-taglib">
 
 <ui:composition>
-<style>
-	.rf-tp-i {
-		border: 1px solid #{   richSkin.panelBorderColor
-	}
-</style>
-	<p>DESC</p>
-	<h:form>
-		<h:commandLink value="Toggle Panel Item 1">
-			<rich:toggleControl forPanel="panel1" targetItem="item1" />
-		</h:commandLink>
-		<h:outputText value=" | " />
-		<h:commandLink value="Toggle Panel Item 2">
-			<rich:toggleControl forPanel="panel1" targetItem="item2" />
-		</h:commandLink>
-		<rich:togglePanel id="panel1" activeItem="item1">
-			<rich:togglePanelItem name="item1" styleClass="rf-tp-i">
-				<p>This toggle panel switches in Ajax mode. So only one active
-				item loaded to the client.</p>
-				<p>For now you are at Panel 1</p>
-			</rich:togglePanelItem>
-			<rich:togglePanelItem name="item2" styleClass="rf-tp-i">
-				<p>After the second link click - panel changed active item to
-				the second one according to name specified in the
-				togglePanelBehavior</p>
-				<p>For now you are at Panel 2</p>
-			</rich:togglePanelItem>
-		</rich:togglePanel>
-	</h:form>
+	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
+	<at:syntaxHighlighter src="#{demoNavigator.sampleIncludeURI}" />
 </ui:composition>
 
 </html>

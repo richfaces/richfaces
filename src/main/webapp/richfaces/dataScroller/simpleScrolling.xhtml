@@ -5,49 +5,16 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich"
-	>
+	xmlns:at="http://richfaces.org/demo/app-taglib">
 
 <ui:composition>
-<p>dataScroller component provided in order to implement Ajax pagination for data iteration components.</p>
-<p>Starting from 4.x version - no more additional updated should be defined by end-developer in order to 
-synchronize different dataScrollers attached to the same table as in example below.</p>
-	<h:form id="form">
-		<rich:dataScroller for="table" maxPages="6"/>
-		<rich:dataTable value="#{carsBean.allInventoryItems}" var="car"
-			id="table" rows="10">
-			<rich:column accept="#{carsFiteringBean.acceptVendor}">
-				<f:facet name="header">
-					<h:outputText value="Vendor " />
-				</f:facet>
-				<h:outputText value="#{car.vendor}" />
-			</rich:column>
-			<rich:column>
-				<f:facet name="header">
-					<h:outputText value="Model" />
-				</f:facet>
-				<h:outputText value="#{car.model}" />
-			</rich:column>
-			<rich:column>
-				<f:facet name="header">
-					<h:outputText value="Price" />
-				</f:facet>
-				<h:outputText value="#{car.price}" />
-			</rich:column>
-			<rich:column>
-				<f:facet name="header">
-					<h:outputText value="Mileage" />
-				</f:facet>
-				<h:outputText value="#{car.mileage}" />
-			</rich:column>
-			<rich:column>
-				<f:facet name="header">
-						<h:outputText value="VIN " />
-				</f:facet>
-				<h:outputText value="#{car.vin}" />
-			</rich:column>
-		</rich:dataTable>
-		<rich:dataScroller for="table" maxPages="6"/>
-	</h:form>
+	<p>dataScroller component provided in order to implement Ajax
+	pagination for data iteration components.</p>
+	<p>Starting from 4.x version - no more additional updated should be
+	defined by end-developer in order to synchronize different
+	dataScrollers attached to the same table as in example below.</p>
+	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
+	<at:syntaxHighlighter src="#{demoNavigator.sampleIncludeURI}"/>
 </ui:composition>
 
 </html>

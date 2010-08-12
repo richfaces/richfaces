@@ -4,36 +4,14 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:rich="http://java.sun.com/jsf/composite/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:at="http://richfaces.org/demo/app-taglib">
 
 <ui:composition>
 	<p>Example of form scoped status. It's defined within a form and
 	handles all Ajax requests within this form</p>
-	<h:form>
-		<rich:panel id="psnel">
-			<f:facet name="header">
-				<h:outputText value="Panel with status" />
-			</f:facet>
-			<h:panelGrid columns="2">
-				<h:panelGrid columns="2">
-					<a4j:ajax event="keyup">
-						<h:outputText value="User name:" />
-						<h:inputText value="#{userBean.name}" />
-						<h:outputText value="Adress:" />
-						<h:inputText value="#{userBean.address}" />
-					</a4j:ajax>
-				</h:panelGrid>
-				<a4j:status>
-					<f:facet name="start">
-						<h:graphicImage value="/images/ai.gif" />
-					</f:facet>
-				</a4j:status>
-			</h:panelGrid>
-			<a4j:commandButton value="Submit" type="button"
-				action="#{userBean.store}" render="out" execute="@form" />
-			<h:outputText value="#{userBean.recordStatus}" id="out" />
-		</rich:panel>
-	</h:form>
+	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
+	<at:syntaxHighlighter src="#{demoNavigator.sampleIncludeURI}" />
 </ui:composition>
 
 </html>

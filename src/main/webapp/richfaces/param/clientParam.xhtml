@@ -4,31 +4,20 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://java.sun.com/jsf/composite/rich">
+	xmlns:rich="http://java.sun.com/jsf/composite/rich"
+	xmlns:at="http://richfaces.org/demo/app-taglib">
 
 <ui:composition>
-	<p>It is possible to use javascript variable of custom function for the 'value' attribute.
-	 In this case the 'noEscape' attribute should be set to true. When noEscape="true", the 
-	 'value' can contain any javascript expression or javascript function invocation and the 
-	 result of them will be send to the server as a value of a4j:actionparam. The following 
-	 example demonstrates how to assign the backing bean with browser screen size values.</p>
-	<h:form>
-		<a4j:commandButton value="Show Screen Size" render="infoPanel">
-			<a4j:param name="w" value="screen.width"
-				assignTo="#{paramBean.screenWidth}" noEscape="true" />
-			<a4j:param name="h" value="screen.height"
-				assignTo="#{paramBean.screenHeight}" noEscape="true" />
-		</a4j:commandButton>
-		<br />
+	<p>It is possible to use javascript variable of custom function for
+	the 'value' attribute. In this case the 'noEscape' attribute should be
+	set to true. When noEscape="true", the 'value' can contain any
+	javascript expression or javascript function invocation and the result
+	of them will be send to the server as a value of a4j:actionparam. The
+	following example demonstrates how to assign the backing bean with
+	browser screen size values.</p>
 
-			<h:panelGrid columns="2" id="infoPanel">
-				<h:outputText value="Width:" />
-				<h:outputText value="#{paramBean.screenWidth}" />
-				<h:outputText value="Height:" />
-				<h:outputText value="#{paramBean.screenHeight}" />
-			</h:panelGrid>
-
-	</h:form>
+	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
+	<at:syntaxHighlighter src="#{demoNavigator.sampleIncludeURI}" />
 </ui:composition>
 
 </html>

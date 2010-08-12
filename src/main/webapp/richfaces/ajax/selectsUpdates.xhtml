@@ -3,24 +3,15 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:at="http://richfaces.org/demo/app-taglib">
 
 <ui:composition>
 	<p>Typical use-case of dependent select components. When you choosing 
 	the type in the first select - corresponding items appears in second one. 
 	</p>	
-	<h:form>
-		<h:selectOneMenu value="#{selectsBean.currentType}"
-			valueChangeListener="#{selectsBean.valueChanged}">
-			<f:selectItems value="#{selectsBean.firstList}" />
-			<a4j:ajax event="valueChange" render="second" execute="@this" />
-		</h:selectOneMenu>
-		<a4j:outputPanel id="second" layout="block">
-			<h:selectOneMenu value="#{selectsBean.currentType}" rendered="#{not empty selectsBean.currentType}">
-				<f:selectItems value="#{selectsBean.secondList}" />
-			</h:selectOneMenu>
-		</a4j:outputPanel>
-	</h:form>
+	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
+	<at:syntaxHighlighter src="#{demoNavigator.sampleIncludeURI}" sourceType="xhtml"/>
 </ui:composition>
 
 </html>

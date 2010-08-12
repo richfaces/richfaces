@@ -4,7 +4,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:rich="http://richfaces.org/rich"
-	xmlns:a4j="http://richfaces.org/a4j">
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:at="http://richfaces.org/demo/app-taglib">
 
 <ui:composition>
 	<p>Popup panel component used to create any kind of popups on the page.</p>
@@ -18,27 +19,10 @@
 	</ul>
 	<p>This sample shows simple <b>non-modal popup</b> which are <b>movable</b> but not resizable 
 	as defined to use <b>autosizing</b> according to it's content</p>
-	<h:commandButton value="Call the popup">
-		<rich:componentControl target="popup" operation="show" />
-	</h:commandButton>
-	<rich:popupPanel id="popup" modal="false" autosized="true"
-		resizeable="false">
-		<f:facet name="header">
-			<h:outputText value="Simple popup panel" />
-		</f:facet>
-		<f:facet name="controls">
-			<h:outputLink value="#"
-				onclick="#{rich:component('popup')}.hide(); return false;">
-					X
-				</h:outputLink>
-		</f:facet>
-		<p>Any content might be inside the panel.</p>
-		<p>Consider inclusion of the form elements into the popup or 
-		redefinition of <b>domElementAttachment</b> attribute.</p>
-		<p>The popup panel is open and closed from the javascript function
-		of component client side object. The following code <a href="#"
-			onclick="#{rich:component('popup')}.hide()">hide this panel</a>: <f:verbatim>&#35;</f:verbatim>{rich:component('popup')}.hide()</p>
-	</rich:popupPanel>
+
+	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
+	<at:syntaxHighlighter src="#{demoNavigator.sampleIncludeURI}" />
+
 	<p>Besides this sample shows two variants of working with the component JS API:</p>
 	<ul>
 		<li>The popup is called by the <b>rich:componentControl</b> attached to button</li>
