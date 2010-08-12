@@ -28,7 +28,7 @@ input.rf-ii-f {
 
 .rf-ii-c-s { 
 	display : inline-block; 
-	background-image : url("#{resource['org/richfaces/images/mark_changed.gif']}"); 
+	background-image : url("#{resource['org.richfaces:mark_changed.gif']}"); 
 	background-position : top left; 
 	background-repeat : no-repeat;
 }
@@ -112,7 +112,7 @@ input.rf-ii-f {
 
 .rf-ii-btn-shadow-t {
 	background-position : top left;
-	background-image : url("#{resource['org/richfaces/images/bg_shadow.png']}"); 
+	background-image : url("#{resource['org.richfaces:bg_shadow.png']}"); 
 	position : absolute; 
 	width : 6px; 
 	top : 0px; 
@@ -122,7 +122,7 @@ input.rf-ii-f {
 
 .rf-ii-btn-shadow-l {
 	background-position : bottom left;
-	background-image : url("#{resource['org/richfaces/images/bg_shadow.png']}"); 
+	background-image : url("#{resource['org.richfaces:bg_shadow.png']}"); 
 	position : absolute; 
 	height : 6px; 
 	bottom : 0px; 
@@ -132,7 +132,7 @@ input.rf-ii-f {
 
 .rf-ii-btn-shadow-r {
 	background-position : bottom right;
-	background-image : url("#{resource['org/richfaces/images/bg_shadow.png']}");
+	background-image : url("#{resource['org.richfaces:bg_shadow.png']}");
 	position: absolute; 
 	width: 6px; 
 	top: 6px; 
@@ -142,7 +142,7 @@ input.rf-ii-f {
 
 .rf-ii-btn-shadow-b {
 	background-position : right top;
-	background-image : url("#{resource['org/richfaces/images/bg_shadow.png']}");  
+	background-image : url("#{resource['org.richfaces:bg_shadow.png']}");  
 	position: absolute; 
 	height: 6px; 
 	top: 0px; 

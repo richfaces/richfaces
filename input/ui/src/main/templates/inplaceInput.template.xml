@@ -24,7 +24,7 @@
 				#{inplaceValue}
 			</span>
 			<div id="#{clientId}:edit" class="#{getEditStyleClass(component, inplaceState)}">
-				<input id="#{clientId}:input" name="#{clientId}:input" type="text" value="#{inplaceValue}" class="rf-ii-f" />
+				<input id="#{clientId}:input" autocomplete="off" name="#{clientId}:input" type="text" value="#{inplaceValue}" class="rf-ii-f" />
 				
 				<c:if test="#{component.attributes['showControls']}">
 					<div class="rf-ii-btn-prepos">
@@ -38,12 +38,12 @@
 								<div id="#{clientId}:btn" style="position : relative">
 									<input type="image"
 										id="#{clientId}:okbtn"
-										src="#{getResourcePath(facesContext, 'images/ico_ok.gif')}"
+										src="#{getResourcePath(facesContext, 'org.richfaces/ico_ok.gif')}"
 										class="rf-ii-btn" onmousedown="this.className='rf-ii-btn-p'"
 										onmouseout="this.className='rf-ii-btn'" onmouseup="this.className='rf-ii-btn'" />
 									<input type="image"
 										id="#{clientId}:cancelbtn"
-										src="#{getResourcePath(facesContext,'images/ico_cancel.gif')}"
+										src="#{getResourcePath(facesContext,'org.richfaces/ico_cancel.gif')}"
 										class="rf-ii-btn" onmousedown="this.className='rf-ii-btn-press'"
 										onmouseout="this.className='rf-ii-btn'" onmouseup="this.className='rf-ii-btn'" />
 									<br />

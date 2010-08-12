@@ -3,12 +3,13 @@
 	richfaces.ui = richfaces.ui || {};
       
         richfaces.ui.InplaceInput =  function(id, options) {
-            this.options = options;
             this.currentState = options.state;
             this.editEvent = options.editEvent;
             this.noneCss = options.noneCss; 
             this.changedCss = options.changedCss;
-                        
+            this.showControls = options.showControls;
+            
+            
             this.element = $(document.getElementById(id)); 
             this.editContainer = $(document.getElementById(options.editContainer));
             this.input = $(document.getElementById(options.input));
@@ -19,11 +20,11 @@
             richfaces.Event.bind(this.input, "change", this.changedState, this);
             richfaces.Event.bind(this.input, "blur", this.readyState, this);
             
-            if(options.showControls) {
+            if(this.showControls) {
             	this.okbtn = $(document.getElementById(options.okbtn));
             	this.cancelbtn = $(document.getElementById(options.cancelbtn));
-            	richfaces.Event.bind(this.okbtn, "click", this.clickOk, this);
-            	richfaces.Event.bind(this.cancelbtn, "click", this.clickCancel, this);
+            	richfaces.Event.bind(this.okbtn, "mousedown", this.clickOk, this);
+            	richfaces.Event.bind(this.cancelbtn, "mousedown", this.clickCancel, this);
             }
         };
         
@@ -59,7 +60,9 @@
            		},
 
            		readyState: function() {
-          			this.switchToState(RichFaces.ui.InplaceInput.READY);
+           			if(!this.showControls) {
+           				this.switchToState(RichFaces.ui.InplaceInput.READY);
+           			}	
            		},
 
            		doEdit: function() {
@@ -75,23 +78,26 @@
            			
            			if(inputValue != this.initialValue) {
            				this.element.addClass(this.changedCss);
-               			this.editContainer.addClass(this.noneCss);
-           			} 
+           			} else {
+           				this.element.removeClass(this.changedCss);
+           			}
            		}, 
 				
            		doReady: function() {
-           			if(this.initialValue == this.input.val()) {
-           				this.element.removeClass(this.changedCss);
-           			}
            			this.editContainer.addClass(this.noneCss);
            		},
            		
            		clickOk: function() {
-           			alert('click');
+           			this.changedState();
+       				this.switchToState(RichFaces.ui.InplaceInput.READY);
+           			return false;
            		}, 
            		
            		clickCancel: function() {
-           			alert('cancel');
+           			var text = this.label.text();
+           			this.input.val(text);
+       				this.switchToState(RichFaces.ui.InplaceInput.READY);
+           			return false;
            		}
            	}
         })());

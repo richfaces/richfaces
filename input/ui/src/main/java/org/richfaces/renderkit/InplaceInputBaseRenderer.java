@@ -46,8 +46,8 @@ import org.richfaces.component.util.HtmlUtil;
 @ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
     @ResourceDependency(name = "jquery.js"), @ResourceDependency(name = "richfaces.js"),
     @ResourceDependency(name = "richfaces-event.js"), 
-    @ResourceDependency(library="org.richfaces.script", name = "inplaceInput.js"), 
-    @ResourceDependency(library="org.richfaces.css", name = "inplaceInput.ecss") })
+    @ResourceDependency(library="org.richfaces", name = "inplaceInput.js"), 
+    @ResourceDependency(library="org.richfaces", name = "inplaceInput.ecss") })
 public class InplaceInputBaseRenderer extends RendererBase {
     
     public static final String OPTIONS_STATE = "state";
