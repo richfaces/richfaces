@@ -22,6 +22,7 @@
 package org.richfaces.renderkit.html.images;
 
 import static java.lang.Math.max;
+
 import java.util.Locale;
 
 /**
@@ -31,7 +32,7 @@ import java.util.Locale;
  * @since 3.2
  */
 public enum GradientAlignment {
-    TOP {
+    top {
         @Override
         public int getBottomRectangleHeight(int imageHeight, int gradientHeight) {
             return max(imageHeight - gradientHeight, 0);
@@ -41,7 +42,7 @@ public enum GradientAlignment {
             return 0;
         }
     },
-    MIDDLE {
+    middle {
         @Override
         public int getBottomRectangleHeight(int imageHeight, int gradientHeight) {
             return max((imageHeight - gradientHeight) / 2, 0);
@@ -51,7 +52,7 @@ public enum GradientAlignment {
             return getBottomRectangleHeight(imageHeight, gradientHeight);
         }
     },
-    BOTTOM {
+    bottom {
         @Override
         public int getBottomRectangleHeight(int imageHeight, int gradientHeight) {
             return 0;
@@ -64,10 +65,10 @@ public enum GradientAlignment {
 
     public static final GradientAlignment getByParameter(String string) {
         if ((string == null) || (string.length() == 0)) {
-            return MIDDLE;
+            return middle;
         }
 
-        return GradientAlignment.valueOf(string.toUpperCase(Locale.US));
+        return GradientAlignment.valueOf(string.toLowerCase(Locale.US));
     }
 
     public abstract int getTopRectangleHeight(int imageHeight, int gradientHeight);

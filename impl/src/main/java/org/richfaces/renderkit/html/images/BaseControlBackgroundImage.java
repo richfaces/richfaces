@@ -68,7 +68,7 @@ public abstract class BaseControlBackgroundImage extends BaseGradient {
         this.height = stream.readInt();
 
         //TODO - create a special method?
-        this.gradientType = GradientType.PLAIN;
+        this.gradientType = GradientType.plain;
     }
 
     public Integer getHeight(FacesContext context, String parameterName) {

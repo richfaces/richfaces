@@ -38,10 +38,10 @@ public class GradientEnumsTest extends TestCase {
     }
 
     public void testAlignment() throws Exception {
-        GradientAlignment.MIDDLE.equals(GradientAlignment.getByParameter("middle"));
+        GradientAlignment.middle.equals(GradientAlignment.getByParameter("middle"));
     }
 
     public void testType() throws Exception {
-        GradientType.PLAIN.equals(GradientType.getByParameter("plain"));
+        GradientType.plain.equals(GradientType.getByParameter("plain"));
     }
 }

@@ -21,7 +21,7 @@
 
 package org.richfaces.renderkit.html.images;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.Locale;
 
 /**
@@ -30,7 +30,7 @@ import java.util.Locale;
  *         created 16.04.2008
  */
 public enum GradientType {
-    GLASS {
+    glass {
         @Override
         public BiColor getFirstLayerColors(BiColor biColor) {
             Color bottomColor = biColor.getBottomColor();
@@ -57,7 +57,7 @@ public enum GradientType {
             }
         }
     },
-    PLASTIC {
+    plastic {
         @Override
         public BiColor getFirstLayerColors(BiColor biColor) {
             Color bottomColor = biColor.getBottomColor();
@@ -84,7 +84,7 @@ public enum GradientType {
             }
         }
     },
-    PLAIN {
+    plain {
         @Override
         public BiColor getFirstLayerColors(BiColor biColor) {
             if ((biColor.getBottomColor() != null) && (biColor.getTopColor() != null)) {
@@ -104,10 +104,10 @@ public enum GradientType {
 
     public static final GradientType getByParameter(String string) {
         if ((string == null) || (string.length() == 0)) {
-            return PLAIN;
+            return plain;
         }
 
-        return GradientType.valueOf(string.toUpperCase(Locale.US));
+        return GradientType.valueOf(string.toLowerCase(Locale.US));
     }
 
     public abstract BiColor getFirstLayerColors(BiColor biColor);
