@@ -44,6 +44,7 @@
         <module>iteration</module>
         <module>misc</module>
         <module>output</module>
+	<module>input</module>
         <module>dist</module>
     </modules>
 

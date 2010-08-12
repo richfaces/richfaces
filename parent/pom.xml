@@ -45,6 +45,7 @@
         <org.richfaces.ui.misc.version>4.0.0-SNAPSHOT</org.richfaces.ui.misc.version>
         <org.richfaces.ui.iteration.version>4.0.0-SNAPSHOT</org.richfaces.ui.iteration.version>
         <org.richfaces.ui.output.version>4.0.0-SNAPSHOT</org.richfaces.ui.output.version>
+	<org.richfaces.ui.input.version>4.0.0-SNAPSHOT</org.richfaces.ui.input.version>
     </properties>
 
     <dependencyManagement>
@@ -103,6 +104,18 @@
                 <version>${project.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.richfaces.ui.input</groupId>
+                <artifactId>richfaces-ui-input-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui.input</groupId>
+                <artifactId>richfaces-ui-input-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+	
             <dependency>
                 <groupId>org.richfaces.ui.misc</groupId>
                 <artifactId>richfaces-ui-misc-ui</artifactId>
