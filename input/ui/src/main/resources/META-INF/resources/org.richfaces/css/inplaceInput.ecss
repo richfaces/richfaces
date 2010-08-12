@@ -1,0 +1,155 @@
+input.rf-ii-f {
+	background-image: none;
+	background-color : '#{richSkin.editBackgroundColor}'; 
+	border-bottom-width : 10px;
+	border-bottom-style: solid;
+	border-bottom-color: '#{richSkin.editBackgroundColor}'; 
+	padding : 0px 0px 0px 0px; 
+	border : 0px; 
+	margin : 0px; 
+	width : 100%; 
+	height : 100%;
+	font-family:inherit; 
+	font-size : inherit;
+}
+
+.rf-ii-d-s { 
+	display : inline-block; 
+	white-space : nowrap; 
+	background-color : '#{richSkin.editorBackgroundColor}'; 
+	border-bottom-width : 1px; 
+	border-bottom-style :  dashed;
+	border-bottom-color : '#{richSkin.generalTextColor}'; 
+	padding-left : 3px; 
+	padding-right : 3px; 
+	display : inline-block; 
+	position : relative;
+}		
+
+.rf-ii-c-s { 
+	display : inline-block; 
+	background-image : url("#{resource['org/richfaces/images/mark_changed.gif']}"); 
+	background-position : top left; 
+	background-repeat : no-repeat;
+}
+
+.rf-ii-e-s {
+	position : absolute; 
+	top : 0px; 
+	left : 0px; 
+	display : inline-block;
+}
+
+.rf-ii-f {
+	background-color : '#{richSkin.editBackgroundColor}'; 
+	border-bottom-width : 10px;
+	border-bottom-style: solid;
+	border-bottom-color: '#{richSkin.editBackgroundColor}'; 
+	padding : 0px 0px 0px 0px; 
+	border : 0px; 
+	margin : 0px; 
+	width : 100%; 
+	height : 100%
+}
+
+.rf-ii-strut {
+	width : 100px; 
+	height : 1px
+}
+
+.rf-ii-btn {
+	background-image : "url(#{resource['org.richfaces.renderkit.html.images.InplaceComponentButtonGradientImage']})";
+	background-position: top;
+	background-repeat: repeat-x;
+	background-color: '#{richSkin.tabBackgroundColor}';
+	border-width : 1px;
+	border-style: outset;
+	border-color: '#{richSkin.panelBorderColor}';
+	padding : 0px; 
+	margin : 0px;
+}
+
+.rf-ii-btn-p {
+	background-image : "url(#{resource['org.richfaces.renderkit.html.images.InplaceComponentPressButtonGradientImage']})";
+	background-position: top;
+	background-repeat: repeat-x;
+	background-color: '#{richSkin.tabBackgroundColor}';
+	border-width : 1px;
+	border-style : inset;
+	border-color :  '#{richSkin.panelBorderColor}';
+	padding : 0px; 
+	margin : 0px;
+}
+	
+.rf-ii-btn-set {
+	position : absolute; 
+	top:0px; 
+	left : 100px; 
+	white-space : nowrap;
+}
+
+.rf-ii-btn-prepos {
+	position : absolute; 
+	bottom : 0px; 
+	right : 0px; 
+	wigth : 1px; 
+	height : 1px;
+}
+
+.rf-ii-btn-pos { 
+	position : absolute; 
+	top : 1px; 
+	right : 0px;
+	white-space : nowrap;
+}
+
+.rf-ii-btn-shadow {
+	position: relative; 
+	padding : 6px 6px 6px 6px; 
+	top : -6px; 
+	right : -6px;
+}
+
+.rf-ii-btn-shadow-t {
+	background-position : top left;
+	background-image : url("#{resource['org/richfaces/images/bg_shadow.png']}"); 
+	position : absolute; 
+	width : 6px; 
+	top : 0px; 
+	bottom : 6px; 
+	left : 0px
+}
+
+.rf-ii-btn-shadow-l {
+	background-position : bottom left;
+	background-image : url("#{resource['org/richfaces/images/bg_shadow.png']}"); 
+	position : absolute; 
+	height : 6px; 
+	bottom : 0px; 
+	left : 0px; 
+	right : 6px;
+}
+
+.rf-ii-btn-shadow-r {
+	background-position : bottom right;
+	background-image : url("#{resource['org/richfaces/images/bg_shadow.png']}");
+	position: absolute; 
+	width: 6px; 
+	top: 6px; 
+	bottom: 0px; 
+	right: 0px;
+}
+
+.rf-ii-btn-shadow-b {
+	background-position : right top;
+	background-image : url("#{resource['org/richfaces/images/bg_shadow.png']}");  
+	position: absolute; 
+	height: 6px; 
+	top: 0px; 
+	left: 6px; 
+	right: 0px;
+}
+
+.rf-ii-none {
+	display: none;
+}

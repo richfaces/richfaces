@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://richfaces.org/cdk/xhtml-el" xmlns:cdk="http://richfaces.org/cdk/core"
+	xmlns:c="http://richfaces.org/cdk/jstl/core" xmlns:cc="http://richfaces.org/cdk/jsf/composite"
+	xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+	<cc:interface>
+		<cdk:class>org.richfaces.renderkit.html.InplaceInputRenderer
+		</cdk:class>
+		<cdk:superclass>org.richfaces.renderkit.InplaceInputBaseRenderer
+		</cdk:superclass>
+		<cdk:component-family>org.richfaces.InplaceInput
+		</cdk:component-family>
+		<cdk:renderer-type>org.richfaces.InplaceInputRenderer
+		</cdk:renderer-type>
+	</cc:interface>
+
+	<cc:implementation>
+		<cdk:object type="org.richfaces.component.InplaceState" name="inplaceState" value="#{getInplaceState(component)}" />
+		<cdk:object type="java.lang.String" name="inplaceValue" value="#{getValue(facesContext, component)}" />
+
+		<div id="#{clientId}" class="#{getReadyStyleClass(component, inplaceState)}">
+			<span id="#{clientId}:label">
+				#{inplaceValue}
+			</span>
+			<div id="#{clientId}:edit" class="#{getEditStyleClass(component, inplaceState)}">
+				<input id="#{clientId}:input" name="#{clientId}:input" type="text" value="#{inplaceValue}" class="rf-ii-f" />
+				
+				<c:if test="#{component.attributes['showControls']}">
+					<div class="rf-ii-btn-prepos">
+						<div class="rf-ii_btn_pos">
+							<div id="#{clientId}:btnshadow" class="rf-ii-btn-shadow">
+								<div class="rf-ii-btn-shadow-t"></div>
+								<div class="rf-ii-btn-shadow-l"></div>
+								<div class="rf-ii-btn-shadow-r"></div>
+								<div class="rf-ii-btn-shadow-b"></div>
+		
+								<div id="#{clientId}:btn" style="position : relative">
+									<input type="image"
+										id="#{clientId}:okbtn"
+										src="#{getResourcePath(facesContext, 'images/ico_ok.gif')}"
+										class="rf-ii-btn" onmousedown="this.className='rf-ii-btn-p'"
+										onmouseout="this.className='rf-ii-btn'" onmouseup="this.className='rf-ii-btn'" />
+									<input type="image"
+										id="#{clientId}:cancelbtn"
+										src="#{getResourcePath(facesContext,'images/ico_cancel.gif')}"
+										class="rf-ii-btn" onmousedown="this.className='rf-ii-btn-press'"
+										onmouseout="this.className='rf-ii-btn'" onmouseup="this.className='rf-ii-btn'" />
+									<br />
+								</div>
+							</div>
+						</div>
+					</div>
+				</c:if>
+			</div>
+			<script type="text/javascript">	
+				<cdk:call expression="buildScript(responseWriter, facesContext, component);"/>
+			</script>
+		</div>
+	</cc:implementation>
+</cdk:root>
