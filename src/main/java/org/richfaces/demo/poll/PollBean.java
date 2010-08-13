@@ -15,11 +15,9 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class PollBean implements Serializable{
+public class PollBean implements Serializable {
 
-    /**
-     * 
-     */
+    private static final int POLL_DISABLEMENT_INTERVAL = 60000;
     private static final long serialVersionUID = 7871292328251171957L;
     private Date pollStartTime;
     private boolean pollEnabled;
@@ -34,7 +32,7 @@ public class PollBean implements Serializable{
             pollStartTime = new Date();
             return date;
         }
-        if ((date.getTime() - pollStartTime.getTime()) >= 60000) {
+        if ((date.getTime() - pollStartTime.getTime()) >= POLL_DISABLEMENT_INTERVAL) {
             setPollEnabled(false);
         }
         return date;

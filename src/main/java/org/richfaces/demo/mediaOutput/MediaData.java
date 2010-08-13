@@ -23,7 +23,6 @@ public class MediaData implements Serializable {
         setText("RichFaces 4.0");
         setColor(1000);
         setScale(2);
-        System.out.println("MediaData instantiated");
     }
 
     public Integer getColor() {
