@@ -44,6 +44,7 @@ import javax.faces.event.PreRenderComponentEvent;
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
+import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.event.FilteringEvent;
@@ -61,10 +62,20 @@ import org.richfaces.model.SortMode;
 import org.richfaces.renderkit.MetaComponentRenderer;
 import org.slf4j.Logger;
 
-public class UIDataTableBase extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder {
+public abstract class UIDataTableBase extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder {
+
+    public static final String COMPONENT_FAMILY = "org.richfaces.Data";
+    
+    public static final String HEADER_FACET_NAME = "header";
+    
+    public static final String FOOTER_FACET_NAME = "footer";
+    
+    public static final String NODATA_FACET_NAME = "noData";
 
     public static final String HEADER = "header";
+
     public static final String FOOTER = "footer";
+    
     public static final String BODY = "body";
     
     private static final Logger RENDERKIT_LOG = RichfacesLogger.RENDERKIT.getLogger();
@@ -78,8 +89,35 @@ public class UIDataTableBase extends UISequence implements Row, MetaComponentRes
     }
     
     protected enum PropertyKeys {
-        filterVar, sortPriority, sortMode, first, rows, noDataLabel, selection
+        filterVar, sortPriority, sortMode, first, rows, noDataLabel, selection, header
     }
+
+    public UIComponent getHeader() {
+        return getFacet(HEADER_FACET_NAME);
+    }
+    
+    public UIComponent getFooter() {
+        return getFacet(FOOTER_FACET_NAME);
+    }
+    
+    public UIComponent getNoData() {
+        return getFacet(NODATA_FACET_NAME);
+    }
+    
+    @Attribute
+    public abstract String getNoDataLabel();
+    
+    @Attribute
+    public abstract String getFilterVar();
+
+    @Attribute
+    public abstract Collection<Object> getSelection();
+
+    @Attribute
+    public abstract Collection<?> getSortPriority();
+    
+    @Attribute
+    public abstract SortMode getSortMode();
 
     public Iterator<UIComponent> columns() {
         return new DataTableColumnsIterator(this);
@@ -93,26 +131,6 @@ public class UIDataTableBase extends UISequence implements Row, MetaComponentRes
         return new DataTableDataIterator(this);
     }
 
-    public UIComponent getHeader() {
-        return getFacet(HEADER);
-    }
-
-    public UIComponent getFooter() {
-        return getFacet(FOOTER);
-    }
-    
-    public UIComponent getNoData() {
-        return getFacet("noData");     
-    }
-    
-    public String getNoDataLabel() {
-        return (String)getStateHelper().eval(PropertyKeys.noDataLabel);
-    }
-    
-    public void setNoDataLabel(String noDataLabel) {
-        getStateHelper().put(PropertyKeys.noDataLabel, noDataLabel);
-    }
-    
     public boolean isColumnFacetPresent(String facetName) {
         Iterator<UIComponent> columns = columns();
         boolean result = false;
@@ -157,8 +175,8 @@ public class UIDataTableBase extends UISequence implements Row, MetaComponentRes
         Map<Object, SortField> sortFieldsMap = new LinkedHashMap<Object, SortField>();
         for (Iterator<UIComponent> iterator = columns(); iterator.hasNext();) {
             UIComponent component = iterator.next();
-            if (component instanceof UIColumn && component.isRendered()) {
-                UIColumn column = (UIColumn) component;
+            if (component instanceof AbstractColumn && component.isRendered()) {
+                AbstractColumn column = (AbstractColumn) component;
                 FilterField filterField = column.getFilterField();
                 if (filterField != null) {
                     filterFields.add(filterField);
@@ -205,40 +223,7 @@ public class UIDataTableBase extends UISequence implements Row, MetaComponentRes
         setRowKey(faces, key);
         restoreOrigValue(faces);
     }
-    
-    public String getFilterVar() {
-        return (String) getStateHelper().eval(PropertyKeys.filterVar);
-    }
-
-    public void setFilterVar(String filterVar) {
-        getStateHelper().put(PropertyKeys.filterVar, filterVar);
-    }
-    
-    @SuppressWarnings("unchecked")
-    public Collection<Object> getSelection() {
-        return (Collection<Object>) getStateHelper().eval(PropertyKeys.selection);
-    }
-
-    public void setSelection(Collection<Object> selection) {
-        getStateHelper().put(PropertyKeys.selection, selection);
-    }
-    
-    public Collection<?> getSortPriority() {
-        return (Collection<?>) getStateHelper().eval(PropertyKeys.sortPriority);
-    }
-
-    public void setSortPriority(Collection<?> sortPriority) {
-        getStateHelper().put(PropertyKeys.sortPriority, sortPriority);
-    }
-    
-    public SortMode getSortMode() {
-        return (SortMode) getStateHelper().eval(PropertyKeys.sortMode, SortMode.single);
-    }
-
-    public void setSortMode(SortMode sortMode) {
-        getStateHelper().put(PropertyKeys.sortMode, sortMode);
-    }
-    
+   
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
         if (SUPPORTED_META_COMPONENTS.contains(metaComponentId)) {
             Object oldRowKey = getRowKey();
@@ -327,7 +312,6 @@ public class UIDataTableBase extends UISequence implements Row, MetaComponentRes
         removeFacesListener(listener);
     }
 
-    
     public void addFilteringListener(FilteringListener listener) {
         addFacesListener(listener);
     }

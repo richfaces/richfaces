@@ -32,7 +32,7 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-import org.richfaces.component.UISubTable;
+import org.richfaces.component.AbstractSubTable;
 
 /**
  * @author Anton Belevich
@@ -56,7 +56,7 @@ public class SubTableHandler extends ComponentHandler {
     static class SubTableHandlerMetaRule extends MetaRule {
 
         public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
-            if (meta.isTargetInstanceOf(UISubTable.class) && "toggleListener".equals(name)) {
+            if (meta.isTargetInstanceOf(AbstractSubTable.class) && "toggleListener".equals(name)) {
                 return new SubTableMapper(attribute);
             }
             return null;
@@ -75,7 +75,7 @@ public class SubTableHandler extends ComponentHandler {
         }
 
         public void applyMetadata(FaceletContext ctx, Object instance) {
-            ((UISubTable) instance).addToggleListener((new MethodExpressionToggleListener(this.attribute.getMethodExpression(ctx, null, SIGNATURE))));
+            ((AbstractSubTable) instance).addToggleListener((new MethodExpressionToggleListener(this.attribute.getMethodExpression(ctx, null, SIGNATURE))));
         }
     }
 }

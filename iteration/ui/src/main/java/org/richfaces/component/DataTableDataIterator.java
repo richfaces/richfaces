@@ -43,7 +43,7 @@ class DataTableDataIterator extends DataTableIteratorBase<UIComponent> {
         UIComponent nextColumn = null;
         while (nextColumn == null && childrenIterator.hasNext()) {
             UIComponent child = childrenIterator.next();
-            if ((child instanceof UIColumn) || (child instanceof Column)) {
+            if ((child instanceof AbstractColumn) || (child instanceof Column)) {
                 nextColumn = child;
             } 
         }

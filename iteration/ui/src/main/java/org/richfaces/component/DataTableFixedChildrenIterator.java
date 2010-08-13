@@ -47,7 +47,7 @@ class DataTableFixedChildrenIterator extends DataTableDataIterator {
             Iterator<UIComponent> childrenIterator = getChildrenIterator();
             while (next == null && childrenIterator.hasNext()) {
                 UIComponent child = childrenIterator.next();
-                if ((child instanceof UIColumn) && child.isRendered()) {
+                if ((child instanceof AbstractColumn) && child.isRendered()) {
                     currentColumnIterator = getChildFacetIterator(child);
                     next = nextItem();
                 } 

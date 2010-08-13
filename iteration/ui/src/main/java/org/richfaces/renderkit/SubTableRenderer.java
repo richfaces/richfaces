@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -37,16 +38,20 @@ import javax.faces.event.AbortProcessingException;
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.renderkit.AjaxRendererUtils;
 import org.ajax4jsf.renderkit.RendererUtils.HTML;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractDataTable;
+import org.richfaces.component.AbstractSubTable;
 import org.richfaces.component.Row;
-import org.richfaces.component.UIDataTable;
 import org.richfaces.component.UIDataTableBase;
-import org.richfaces.component.UISubTable;
 import org.richfaces.event.ToggleEvent;
 
 /**
  * @author Anton Belevich
  *
  */
+
+@JsfRenderer(type = "org.richfaces.SubTableRenderer", family = AbstractSubTable.COMPONENT_FAMILY)
+@ResourceDependency(library="org.richfaces", name = "subtable.js")
 public class SubTableRenderer extends AbstractTableRenderer {
 
     public static final String TB_ROW = ":c";
@@ -60,7 +65,7 @@ public class SubTableRenderer extends AbstractTableRenderer {
     private class SubTableHiddenEncodeStrategy implements EncodeStrategy {
        
         public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params) throws IOException {
-            UISubTable subTable = (UISubTable)component;
+            AbstractSubTable subTable = (AbstractSubTable)component;
             writer.startElement(HTML.TR_ELEMENT, subTable);
             writer.writeAttribute(HTML.ID_ATTRIBUTE, subTable.getClientId(context) + HIDDEN_CONTAINER_ID, null);
             writer.writeAttribute(HTML.STYLE_ATTRIBUTE, DISPLAY_NONE, null);
@@ -82,7 +87,7 @@ public class SubTableRenderer extends AbstractTableRenderer {
     };
         
     protected void doDecode(FacesContext facesContext, UIComponent component) {
-        UISubTable subTable = (UISubTable)component;
+        AbstractSubTable subTable = (AbstractSubTable)component;
        
         String clientId = subTable.getClientId(facesContext);
         Map<String, String> requestMap = facesContext.getExternalContext().getRequestParameterMap();
@@ -124,7 +129,7 @@ public class SubTableRenderer extends AbstractTableRenderer {
     }
     
     public void encodeTableFacets(ResponseWriter writer, FacesContext context, UIDataTableBase dataTable) throws IOException {
-        UISubTable subTable = (UISubTable)dataTable;
+        AbstractSubTable subTable = (AbstractSubTable)dataTable;
 
         encodeHeaderFacet(writer, context, subTable, false);
         
@@ -141,10 +146,10 @@ public class SubTableRenderer extends AbstractTableRenderer {
     
     @Override
     public void encodeTableBodyStart(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase) throws IOException {
-        UISubTable subTable = (UISubTable)dataTableBase;
+        AbstractSubTable subTable = (AbstractSubTable)dataTableBase;
         
         UIDataTableBase component = findParent(subTable);
-        if(component instanceof UIDataTable) {
+        if(component instanceof AbstractDataTable) {
             writer.startElement(HTML.TBODY_ELEMENT, null);
             writer.writeAttribute(HTML.ID_ATTRIBUTE, component.getRelativeClientId(facesContext) + ":" + subTable.getId() + TB_ROW, null);
             writer.writeAttribute(HTML.CLASS_ATTRIBUTE, getTableSkinClass(), null);
@@ -156,14 +161,14 @@ public class SubTableRenderer extends AbstractTableRenderer {
     
     @Override
     public void encodeBeforeRows(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase, boolean encodeParentTBody, boolean partialUpdate) throws IOException {
-        UISubTable subTable = (UISubTable)dataTableBase;
+        AbstractSubTable subTable = (AbstractSubTable)dataTableBase;
         encodeTableBodyStart(writer, facesContext, subTable);
         encodeSubTableDomElement(writer, facesContext, subTable);
         setupTableStartElement(facesContext, subTable);
         encodeHeaderFacet(writer, facesContext, subTable, false);
     }
 
-    private void encodeSubTableDomElement(ResponseWriter writer, FacesContext facesContext, UISubTable subTable) throws IOException{
+    private void encodeSubTableDomElement(ResponseWriter writer, FacesContext facesContext, AbstractSubTable subTable) throws IOException{
         writer.startElement(HTML.TR_ELEMENT, subTable);
         writer.writeAttribute(HTML.STYLE_ATTRIBUTE, DISPLAY_NONE, null);
         writer.writeAttribute(HTML.ID_ATTRIBUTE, subTable.getClientId(facesContext), null);
@@ -179,7 +184,7 @@ public class SubTableRenderer extends AbstractTableRenderer {
         rowHolder.setRowStart(true);
         Iterator<UIComponent> components = row.columns();
         if (rowHolder.isUpdatePartial()) {
-            partialStart(facesContext,((UISubTable) row).getRelativeClientId(facesContext) + ":b");
+            partialStart(facesContext,((AbstractSubTable) row).getRelativeClientId(facesContext) + ":b");
         }
         
         while (components.hasNext()) {
@@ -188,7 +193,7 @@ public class SubTableRenderer extends AbstractTableRenderer {
             if(component instanceof UIColumn) {
                 encodeColumn(facesContext, writer, (UIColumn)component , rowHolder);
             
-            } else if (component instanceof UISubTable) {
+            } else if (component instanceof AbstractSubTable) {
                 if(component.isRendered()) {
                     encodeRowEnd(writer);
                 }
@@ -208,19 +213,19 @@ public class SubTableRenderer extends AbstractTableRenderer {
     @Override
     public void encodeAfterRows(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase,
         boolean encodeParentTBody, boolean partialUpdate) throws IOException {
-        UISubTable subTable = (UISubTable)dataTableBase;
+        AbstractSubTable subTable = (AbstractSubTable)dataTableBase;
         encodeFooterFacet(writer, facesContext, subTable, false);
     }
 
     @Override
     public boolean encodeParentTBody(UIDataTableBase dataTableBase) {
-        UIDataTableBase parent = findParent((UISubTable)dataTableBase);
-        return (parent instanceof UIDataTable);
+        UIDataTableBase parent = findParent((AbstractSubTable)dataTableBase);
+        return (parent instanceof AbstractDataTable);
     }
     
     public void encodeHiddenInput(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase)
         throws IOException {
-        UISubTable subTable = (UISubTable) dataTableBase;
+        AbstractSubTable subTable = (AbstractSubTable) dataTableBase;
 
         String stateId = subTable.getClientId(facesContext) + STATE;
 
@@ -229,7 +234,7 @@ public class SubTableRenderer extends AbstractTableRenderer {
         writer.writeAttribute(HTML.NAME_ATTRIBUTE, stateId, null);
         writer.writeAttribute(HTML.TYPE_ATTR, HTML.INPUT_TYPE_HIDDEN, null);
         
-        int state = subTable.isExpanded() ? UISubTable.EXPAND_STATE : UISubTable.COLLAPSE_STATE;
+        int state = subTable.isExpanded() ? AbstractSubTable.EXPAND_STATE : AbstractSubTable.COLLAPSE_STATE;
         
         writer.writeAttribute(HTML.VALUE_ATTRIBUTE, state, null);
         writer.endElement(HTML.INPUT_ELEM);
@@ -255,7 +260,7 @@ public class SubTableRenderer extends AbstractTableRenderer {
 
     public void encodeClientScript(ResponseWriter writer, FacesContext facesContext, UIDataTableBase component)
         throws IOException {
-        UISubTable subTable = (UISubTable) component;
+        AbstractSubTable subTable = (AbstractSubTable) component;
 
         String id = subTable.getClientId(facesContext);
 
@@ -362,10 +367,10 @@ public class SubTableRenderer extends AbstractTableRenderer {
     @Override
     public void encodeMetaComponent(FacesContext facesContext, UIComponent component, String metaComponentId)
         throws IOException {
-        UISubTable subTable = (UISubTable)component;
+        AbstractSubTable subTable = (AbstractSubTable)component;
         setupTableStartElement(facesContext, subTable);
         
-        if(UISubTable.BODY.equals(metaComponentId)) {
+        if(AbstractSubTable.BODY.equals(metaComponentId)) {
             ResponseWriter writer = facesContext.getResponseWriter();
             UIDataTableBase dataTableBase = findParent(subTable);
             
@@ -386,7 +391,7 @@ public class SubTableRenderer extends AbstractTableRenderer {
         setupTableStartElement(context, component, HTML.TD_ELEM);
     }
 
-    protected UIDataTableBase findParent(UISubTable subTable) {
+    protected UIDataTableBase findParent(AbstractSubTable subTable) {
         UIComponent parent = subTable.getParent();
 
         while(parent != null && !(parent instanceof UIDataTableBase)) {

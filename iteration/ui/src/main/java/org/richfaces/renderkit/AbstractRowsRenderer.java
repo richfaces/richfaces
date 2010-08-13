@@ -25,6 +25,8 @@ package org.richfaces.renderkit;
 import java.io.IOException;
 
 import javax.faces.FacesException;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -38,6 +40,12 @@ import org.richfaces.component.Row;
  * @author Anton Belevich
  * 
  */
+
+@ResourceDependencies({
+    @ResourceDependency(library = "javax.faces", name = "jsf.js"), 
+    @ResourceDependency(name = "jquery.js"),
+    @ResourceDependency(name = "richfaces.js")
+})
 public abstract class AbstractRowsRenderer extends RendererBase implements DataVisitor {
   
     public abstract void encodeRow(ResponseWriter writer, FacesContext facesContext, RowHolderBase rowHolder) throws IOException;

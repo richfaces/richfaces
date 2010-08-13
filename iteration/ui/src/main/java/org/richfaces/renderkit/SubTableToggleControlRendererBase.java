@@ -35,21 +35,23 @@ import javax.faces.context.ResponseWriter;
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.renderkit.RendererBase;
 import org.ajax4jsf.renderkit.RendererUtils.HTML;
-import org.richfaces.component.UISubTable;
-import org.richfaces.component.UISubTableToggleControl;
+import org.richfaces.component.AbstractSubTable;
+import org.richfaces.component.AbstarctSubTableToggleControl;
 
 /**
  * @author Anton Belevich
  */
+
+
 @ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
     @ResourceDependency(name = "richfaces.js"), @ResourceDependency(name = "subtable-toggler.js")})
 public class SubTableToggleControlRendererBase extends RendererBase {
 
     private static final String DISPLAY_NONE = "display: none;";
 
-    private static final String UP_ICON_URL = "up_icon.gif";
+    private static final String UP_ICON_URL = "org.richfaces:up_icon.gif";
 
-    private static final String DOWN_ICON_URL = "down_icon.gif";
+    private static final String DOWN_ICON_URL = "org.richfaces:down_icon.gif";
     
     private static final String EXPAND_STATE = "expand";
 
@@ -61,8 +63,8 @@ public class SubTableToggleControlRendererBase extends RendererBase {
     }
 
     protected void encodeControl(FacesContext context, UIComponent component) throws IOException {
-        UISubTableToggleControl toggleControl = (UISubTableToggleControl) component;
-        UISubTable subTable = findComponent(context, toggleControl);
+        AbstarctSubTableToggleControl toggleControl = (AbstarctSubTableToggleControl) component;
+        AbstractSubTable subTable = findComponent(context, toggleControl);
 
         if (subTable != null) {
             String switchType = subTable.getExpandMode();
@@ -84,7 +86,7 @@ public class SubTableToggleControlRendererBase extends RendererBase {
         }
     }
 
-    protected void encodeControl(FacesContext context, ResponseWriter writer, UISubTableToggleControl control,
+    protected void encodeControl(FacesContext context, ResponseWriter writer, AbstarctSubTableToggleControl control,
                                  String switchType, boolean expanded, boolean visible) throws IOException {
         String state = getState(expanded);
         String styleClass = getStyleClass(context, control);
@@ -155,7 +157,7 @@ public class SubTableToggleControlRendererBase extends RendererBase {
         writer.endElement(HTML.SPAN_ELEM);
     }
 
-    public HashMap<String, Object> encodeOptions(FacesContext context, UISubTableToggleControl toggleControl, UISubTable subTable) {
+    public HashMap<String, Object> encodeOptions(FacesContext context, AbstarctSubTableToggleControl toggleControl, AbstractSubTable subTable) {
         String forId = subTable.getClientId(context);
         String toggleControlId = toggleControl.getClientId(context);
 
@@ -170,21 +172,21 @@ public class SubTableToggleControlRendererBase extends RendererBase {
         return options;
     }
 
-    public String getStyleClass(FacesContext context, UISubTableToggleControl control) {
+    public String getStyleClass(FacesContext context, AbstarctSubTableToggleControl control) {
         return null;
     }
 
-    public String getStyle(FacesContext context, UISubTableToggleControl control) {
+    public String getStyle(FacesContext context, AbstarctSubTableToggleControl control) {
         return null;
     }
 
-    protected UISubTable findComponent(FacesContext context, UISubTableToggleControl toggleControl) {
+    protected AbstractSubTable findComponent(FacesContext context, AbstarctSubTableToggleControl toggleControl) {
         String forId = toggleControl.getFor();
         if (forId != null && forId.length() > 0) {
 
             UIComponent subTable = getUtils().findComponentFor(context, toggleControl, forId);
-            if (subTable instanceof UISubTable) {
-                return (UISubTable) subTable;
+            if (subTable instanceof AbstractSubTable) {
+                return (AbstractSubTable) subTable;
             }
         }
         return null;

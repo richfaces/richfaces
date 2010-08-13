@@ -263,9 +263,9 @@
 
 /*should be generated in M1*/
 .rf-stt-exp{
-	background-image: url("#{resource['up_icon.gif']}");
+	background-image: url("#{resource['org.richfaces:up_icon.gif']}");
 }
 
 .rf-stt-col{
-	background-image: url("#{resource['down_icon.gif']}");
+	background-image: url("#{resource['org.richfaces:down_icon.gif']}");
 }

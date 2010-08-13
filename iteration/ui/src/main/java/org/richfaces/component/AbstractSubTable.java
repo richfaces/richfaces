@@ -24,17 +24,35 @@ package org.richfaces.component;
 
 import javax.el.ELContext;
 import javax.el.ValueExpression;
-import javax.faces.application.ResourceDependency;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.event.ToggleEvent;
 import org.richfaces.event.ToggleListener;
 
 
-@ResourceDependency(name = "subtable.js")
-public class UISubTable extends UIDataTableBase implements Column, Expandable {
+/**
+ * @author Anton Belevich
+ *
+ */
+@JsfComponent(
+    type = AbstractSubTable.COMPONENT_TYPE,
+    family = AbstractSubTable.COMPONENT_FAMILY, 
+    generate = "org.richfaces.component.UISubTable",
+    renderer = @JsfRenderer(type = "org.richfaces.SubTableRenderer"),
+    tag = @Tag(name = "subTable", handler = "org.richfaces.taglib.SubTableHandler", type = TagType.Facelets)
+)
+public abstract class AbstractSubTable extends UIDataTableBase implements Column, Expandable {
+    
+    public static final String COMPONENT_TYPE = "org.richfaces.SubTable";
+
+    public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
 
     public static final String MODE_AJAX = "ajax"; 
     
@@ -48,9 +66,14 @@ public class UISubTable extends UIDataTableBase implements Column, Expandable {
 
 
     enum PropertyKeys {
-        expandMode, expanded, toggleExpression
+        expanded
     }
             
+    @Attribute(defaultValue = "true")
+    public abstract boolean isExpanded();
+    
+    @Attribute(defaultValue = MODE_CLIENT)
+    public abstract String getExpandMode();
 
     public void broadcast(FacesEvent event) throws AbortProcessingException {
         if (event instanceof ToggleEvent) {
@@ -81,14 +104,6 @@ public class UISubTable extends UIDataTableBase implements Column, Expandable {
         super.broadcast(event);
     }
     
-    public boolean isExpanded() {
-        return (Boolean) getStateHelper().eval(PropertyKeys.expanded, true);
-    }
-
-    public void setExpanded(boolean expanded) {
-        getStateHelper().put(PropertyKeys.expanded, expanded);
-    }
-    
     public boolean isBreakBefore() {
         return true;
     }
@@ -116,14 +131,6 @@ public class UISubTable extends UIDataTableBase implements Column, Expandable {
 
     public ToggleListener[] getToggleListeners() {
         return (ToggleListener[]) getFacesListeners(ToggleListener.class);
-    }
-    
-    public String getExpandMode() {
-        return (String) getStateHelper().eval(PropertyKeys.expandMode, MODE_CLIENT);
-    }
-     
-    public void setExpandMode(String expandMode) {
-        getStateHelper().put(PropertyKeys.expandMode, expandMode);
     }
     
     public void setIterationState(Object stateObject) {

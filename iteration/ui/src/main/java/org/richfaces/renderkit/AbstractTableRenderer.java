@@ -40,8 +40,10 @@ import org.richfaces.component.util.HtmlUtil;
  * @author Anton Belevich
  *
  */
-@ResourceDependencies(value = { @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-        @ResourceDependency(name = "jquery.js"), @ResourceDependency(name = "richfaces.js"), @ResourceDependency(name = "richfaces-event.js")})
+
+@ResourceDependencies({
+    @ResourceDependency(name = "richfaces-event.js")
+})    
 public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer implements MetaComponentRenderer {
     
     public static final String HIDDEN_CONTAINER_ID =":sc"; 

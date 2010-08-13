@@ -26,55 +26,51 @@ import java.util.Comparator;
 
 import javax.el.ValueExpression;
 
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.model.Filter;
 import org.richfaces.model.FilterField;
 import org.richfaces.model.SortField;
 
-public class UIColumn extends javax.faces.component.UIColumn implements Column {
+/**
+ * @author Anton Belevich
+ *
+ */
 
-    protected enum PropertyKeys {
-        filter, filterValue, comparator, sortOrder, breakRowBefore
-    }
+@JsfComponent(
+    type = AbstractColumn.COMPONENT_TYPE,
+    family = AbstractColumn.COMPONENT_FAMILY, 
+    generate = "org.richfaces.component.UIColumn",
+    tag = @Tag(name="column")
+)
+public abstract class AbstractColumn extends javax.faces.component.UIColumn implements Column {
+
+    public static final String COMPONENT_TYPE = "org.richfaces.Column";
     
-    public void setBreakRowBefore(boolean breakRowBefore) {
-        getStateHelper().put(PropertyKeys.breakRowBefore, breakRowBefore);
-    }
-
-    public boolean getBreakRowBefore() {
-        return (Boolean) getStateHelper().eval(PropertyKeys.breakRowBefore, false);
-    }
+    public static final String COMPONENT_FAMILY = "org.richfaces.Column";
     
-    public void setSortOrder(SortOrder sortOrder) {
-        getStateHelper().put(PropertyKeys.sortOrder, sortOrder);
-    }
 
-    public SortOrder getSortOrder() {
-        return (SortOrder) getStateHelper().eval(PropertyKeys.sortOrder, SortOrder.unsorted);
-    }
+    @Attribute
+    public abstract boolean isBreakRowBefore();
+    
+    @Attribute(defaultValue="SortOrder.unsorted")
+    public abstract SortOrder getSortOrder();
 
-    public void setFilter(Filter<?> filter) {
-        getStateHelper().put(PropertyKeys.filter, filter);
-    }
+    @Attribute
+    public abstract Filter<?> getFilter();
+    
+    @Attribute
+    public abstract Object getFilterValue();
+    
+    @Attribute
+    public abstract Object getRowspan();
 
-    public Filter<?> getFilter() {
-        return (Filter<?>) getStateHelper().eval(PropertyKeys.filter);
-    }
+    @Attribute
+    public abstract Object getColspan();
 
-    public void setFilterValue(Object filterValue) {
-        getStateHelper().put(PropertyKeys.filterValue, filterValue);
-    }
-
-    public Object getFilterValue() {
-        return getStateHelper().eval(PropertyKeys.filterValue);
-    }
-
-    public void setComparator(Comparator<?> comparator) {
-        getStateHelper().put(PropertyKeys.comparator, comparator);
-    }
-
-    public Comparator<?> getComparator() {
-        return (Comparator<?>) getStateHelper().eval(PropertyKeys.comparator);
-    }
+    @Attribute
+    public abstract Comparator<?> getComparator();
 
     public FilterField getFilterField() {
         FilterField field = null;

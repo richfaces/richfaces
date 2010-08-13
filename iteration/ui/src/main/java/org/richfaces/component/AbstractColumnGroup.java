@@ -29,9 +29,24 @@ import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.model.DataVisitor;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.renderkit.RowHolderBase;
 
-public abstract class UIColumnGroup extends UIPanel implements Row, Column {
+@JsfComponent(
+    type = AbstractColumnGroup.COMPONENT_TYPE,
+    family = AbstractColumnGroup.COMPONENT_FAMILY, 
+    generate = "org.richfaces.component.UIColumnGroup",
+    renderer = @JsfRenderer(type = "org.richfaces.ColumnGroupRenderer"),
+    tag = @Tag(name="columnGroup")
+)
+public abstract class AbstractColumnGroup extends UIPanel implements Row, Column {
+    
+    public static final String COMPONENT_TYPE = "org.richfaces.ColumnGroup";
+    
+    public static final String COMPONENT_FAMILY = "org.richfaces.ColumnGroup";
+
 
     public Iterator<UIComponent> columns() {
         return new DataTableColumnsIterator(this);

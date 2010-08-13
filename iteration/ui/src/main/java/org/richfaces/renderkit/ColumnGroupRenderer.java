@@ -31,19 +31,22 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.AbortProcessingException;
 
-import org.richfaces.component.UIColumnGroup;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractColumnGroup;
 import org.richfaces.component.UIDataTableBase;
 
 /**
  * @author Anton Belevich
  *
  */
+
+@JsfRenderer(type="org.richfaces.ColumnGroupRenderer", family=AbstractColumnGroup.COMPONENT_FAMILY)
 public class ColumnGroupRenderer extends AbstractTableBaseRenderer {
 
     public void encodeRow(ResponseWriter writer, FacesContext facesContext, RowHolderBase holder) throws IOException {
         RowHolder rowHolder = (RowHolder) holder;
 
-        UIColumnGroup row = (UIColumnGroup)rowHolder.getRow();
+        AbstractColumnGroup row = (AbstractColumnGroup)rowHolder.getRow();
         rowHolder.setRowStart(true);
         
         Iterator<UIComponent> components = row.columns();
@@ -64,7 +67,7 @@ public class ColumnGroupRenderer extends AbstractTableBaseRenderer {
             throw new AbortProcessingException("UIColumnGroup should be a child of UIDataTable or UISubTable");
         }
         
-        RowHolder rowHolder = new RowHolder(context, (UIColumnGroup)component); 
+        RowHolder rowHolder = new RowHolder(context, (AbstractColumnGroup)component); 
         rowHolder.setParentClientId(parent.getClientId());
         return rowHolder;
     }

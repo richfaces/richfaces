@@ -40,12 +40,25 @@ import javax.faces.event.FacesEvent;
 import org.ajax4jsf.component.IterationStateHolder;
 import org.ajax4jsf.renderkit.RendererUtils;
 import org.richfaces.DataScrollerUtils;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.util.MessageUtil;
 import org.richfaces.event.DataScrollerEvent;
 import org.richfaces.event.DataScrollerListener;
 import org.richfaces.event.DataScrollerSource;
 
-public class UIDataScroller extends UIComponentBase implements DataScrollerSource, IterationStateHolder {
+
+@JsfComponent(
+    type = AbstractDataScroller.COMPONENT_TYPE,
+    family = AbstractDataScroller.COMPONENT_FAMILY, 
+    generate = "org.richfaces.component.UIDataScroller",
+    renderer = @JsfRenderer(type = "org.richfaces.DataScrollerRenderer"),
+    tag = @Tag(name="dataScroller", handler="org.richfaces.taglib.DataScrollerHandler", type=TagType.Facelets)
+)
+public abstract class AbstractDataScroller extends UIComponentBase implements DataScrollerSource, IterationStateHolder {
 
     public static final String COMPONENT_TYPE = "org.richfaces.DataScroller";
 
@@ -69,61 +82,29 @@ public class UIDataScroller extends UIComponentBase implements DataScrollerSourc
 
     public static final String PAGEMODE_SHORT = "short";
     
-    private static final int MAX_PAGES_DEFAULT = 10;
-
     private Integer page;
 
     protected enum PropertyKeys {
         boundaryControls, fastControls, fastStep, forComponent, inactiveStyle, selectStyle, inactiveStyleClass, selectStyleClass, scrollerListener, lastPageMode, maxPages, pageIndexVar, pagesVar, renderIfSinglePage, style, styleClass, stepControls
     }
 
-    public String getLastPageMode() {
-        return (String) getStateHelper().eval(PropertyKeys.lastPageMode);
-    }
+    @Attribute
+    public abstract String getLastPageMode();
 
-    public void setLastPageMode(String lastPageMode) {
-        getStateHelper().put(PropertyKeys.lastPageMode, lastPageMode);
-    }
+    @Attribute(defaultValue="0")
+    public abstract int getFastStep();
+    
+    @Attribute
+    public abstract String getForComponent();
 
-    public int getFastStep() {
-        return (Integer) getStateHelper().eval(PropertyKeys.fastStep, 0);
-    }
+    @Attribute(defaultValue="10")
+    public abstract int getMaxPages();
 
-    public void setFastStep(int fastStep) {
-        getStateHelper().put(PropertyKeys.fastStep, fastStep);
-    }
-
-    public String getForComponent() {
-        return (String) getStateHelper().eval(PropertyKeys.forComponent);
-    }
-
-    public void setForComponent(String forComponent) {
-        getStateHelper().put(PropertyKeys.forComponent, forComponent);
-    }
-
-    public int getMaxPages() {
-        return (Integer) getStateHelper().eval(PropertyKeys.maxPages, MAX_PAGES_DEFAULT);
-    }
-
-    public void setMaxPages(int maxPages) {
-        getStateHelper().put(PropertyKeys.maxPages, maxPages);
-    }
-
-    public String getBoundaryControls() {
-        return (String) getStateHelper().eval(PropertyKeys.boundaryControls, "show");
-    }
-
-    public void setBoundaryControls(String boundaryControls) {
-        getStateHelper().put(PropertyKeys.boundaryControls, boundaryControls);
-    }
-
-    public String getFastControls() {
-        return (String) getStateHelper().eval(PropertyKeys.fastControls, "show");
-    }
-
-    public void setFastControls(String fastControls) {
-        getStateHelper().put(PropertyKeys.fastControls, fastControls);
-    }
+    @Attribute(defaultValue="show")
+    public abstract String getBoundaryControls();
+    
+    @Attribute(defaultValue="show")
+    public abstract String getFastControls();
 
     public void addScrollerListener(DataScrollerListener listener) {
         addFacesListener(listener);
@@ -138,8 +119,6 @@ public class UIDataScroller extends UIComponentBase implements DataScrollerSourc
     }
 
     public void broadcast(FacesEvent event) throws AbortProcessingException {
-        
-
         if (event instanceof DataScrollerEvent) {
             DataScrollerEvent dataScrollerEvent = (DataScrollerEvent) event;
 
@@ -149,8 +128,8 @@ public class UIDataScroller extends UIComponentBase implements DataScrollerSourc
 
             UIComponent dataTable = getDataTable();
 
-            List<UIDataScroller> dataScrollers = DataScrollerUtils.findDataScrollers(dataTable);
-            for (UIDataScroller dataScroller : dataScrollers) {
+            List<AbstractDataScroller> dataScrollers = DataScrollerUtils.findDataScrollers(dataTable);
+            for (AbstractDataScroller dataScroller : dataScrollers) {
                 facesContext.getPartialViewContext().getRenderIds().add(dataScroller.getClientId(facesContext));
             }
 
@@ -402,15 +381,9 @@ public class UIDataScroller extends UIComponentBase implements DataScrollerSourc
         page = null;
     }
 
-    @Override
-    public String getFamily() {
-        return COMPONENT_FAMILY;
-    }
-
     public Object getIterationState() {
         return this.page;
     }
-
 
     public void setIterationState(Object state) {
         this.page = (Integer) state;

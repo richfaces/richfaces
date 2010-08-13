@@ -33,8 +33,9 @@ import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.model.DataVisitResult;
 import org.ajax4jsf.renderkit.RendererUtils.HTML;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractDataGrid;
 import org.richfaces.component.Row;
-import org.richfaces.component.UIDataGrid;
 import org.richfaces.component.UIDataTableBase;
 
 /**
@@ -42,17 +43,19 @@ import org.richfaces.component.UIDataTableBase;
  *
  */
 
+@JsfRenderer(type = "org.richfaces.DataGridRenderer", family = AbstractDataGrid.COMPONENT_FAMILY)
+
 @ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
     @ResourceDependency(name = "jquery.js"), @ResourceDependency(name = "richfaces.js"),
     @ResourceDependency(name = "richfaces-event.js"), @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(name = "datagrid.ecss")})
+    @ResourceDependency(library="org.richfaces", name = "datagrid.ecss")})
 public class DataGridRenderer extends AbstractRowsRenderer implements MetaComponentRenderer {
 
     private static final EncodeStrategy THEAD = new  EncodeStrategy () {
 
         public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)
             throws IOException {
-            UIDataGrid dataGrid = (UIDataGrid)component;
+            AbstractDataGrid dataGrid = (AbstractDataGrid)component;
             String clientId = dataGrid.getClientId(context) + ":h";
 
             boolean partial = (Boolean)(Boolean)params[0];
@@ -90,7 +93,7 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
         public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)
             throws IOException {
                         
-            UIDataGrid dataGrid = (UIDataGrid)component;
+            AbstractDataGrid dataGrid = (AbstractDataGrid)component;
             String clientId = dataGrid.getClientId(context) + ":f";
             
             int columns = dataGrid.getColumns();
@@ -154,7 +157,7 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
     
     @Override
     public void encodeRow(ResponseWriter writer, FacesContext facesContext, RowHolderBase rowHolder) throws IOException {
-        UIDataGrid dataGrid = (UIDataGrid) rowHolder.getRow();
+        AbstractDataGrid dataGrid = (AbstractDataGrid) rowHolder.getRow();
         
         int columns = dataGrid.getColumns();
         int processCell = rowHolder.getProcessCell();
@@ -175,27 +178,27 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
         writer.endElement(HTML.TD_ELEM);
     }
     
-    public void encodeHeader(ResponseWriter writer, FacesContext facesContext,  UIDataGrid dataGrid, boolean partial) throws IOException {
+    public void encodeHeader(ResponseWriter writer, FacesContext facesContext,  AbstractDataGrid dataGrid, boolean partial) throws IOException {
         UIComponent headerFacet = dataGrid.getHeaderFacet();
         encodeFacet(writer, facesContext, headerFacet, THEAD, dataGrid, new Object[] {partial});
     }
     
-    public void encodeFooter(ResponseWriter writer, FacesContext facesContext, UIDataGrid dataGrid, boolean partial) throws IOException  {
+    public void encodeFooter(ResponseWriter writer, FacesContext facesContext, AbstractDataGrid dataGrid, boolean partial) throws IOException  {
         UIComponent footerFacet = dataGrid.getFooterFacet();
         encodeFacet(writer, facesContext, footerFacet, TFOOT, dataGrid, new Object[] {partial});
     }
     
-    public void encodeCaption(ResponseWriter writer, FacesContext facesContext, UIDataGrid dataGrid) throws IOException {
+    public void encodeCaption(ResponseWriter writer, FacesContext facesContext, AbstractDataGrid dataGrid) throws IOException {
         UIComponent captionFacet = dataGrid.getCaptionFacet();
         encodeFacet(writer, facesContext, captionFacet, CAPTION, dataGrid, null);
     }
     
-    public void encodeNoData(ResponseWriter writer, FacesContext facesContext, UIDataGrid dataGrid) throws IOException {
+    public void encodeNoData(ResponseWriter writer, FacesContext facesContext, AbstractDataGrid dataGrid) throws IOException {
         UIComponent noDataFacet = dataGrid.getNoDataFacet();
         encodeFacet(writer, facesContext, noDataFacet, NODATA, dataGrid, null);
     }
     
-    public void encodeFacet(ResponseWriter writer, FacesContext facesContext, UIComponent facet, EncodeStrategy strategy, UIDataGrid dataGrid, Object [] params) throws IOException{
+    public void encodeFacet(ResponseWriter writer, FacesContext facesContext, UIComponent facet, EncodeStrategy strategy, AbstractDataGrid dataGrid, Object [] params) throws IOException{
         if(facet != null && facet.isRendered()) {
             strategy.begin(writer, facesContext, dataGrid, params);
             facet.encodeAll(facesContext);
@@ -203,7 +206,7 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
         }
     }
     
-    public void encodeTBody(ResponseWriter writer, FacesContext facesContext, UIDataGrid dataGrid,  boolean partial) throws IOException {
+    public void encodeTBody(ResponseWriter writer, FacesContext facesContext, AbstractDataGrid dataGrid,  boolean partial) throws IOException {
         
         String clientId = dataGrid.getClientId(facesContext) + ":dgb";
         if(partial) {
@@ -227,7 +230,7 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
     @Override
     protected void doEncodeChildren(ResponseWriter writer, FacesContext facesContext, UIComponent component)
         throws IOException {
-        UIDataGrid dataGrid = (UIDataGrid)component;
+        AbstractDataGrid dataGrid = (AbstractDataGrid)component;
         writer.startElement(HTML.TABLE_ELEMENT, dataGrid);
         writer.writeAttribute(HTML.ID_ATTRIBUTE, dataGrid.getClientId(facesContext), null);
         writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-dg", null);
@@ -242,17 +245,17 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
 
     @Override
     public RowHolderBase createRowHolder(FacesContext context, UIComponent component, Object[] options) {
-        return new RowHolder(context, (UIDataGrid)component);
+        return new RowHolder(context, (AbstractDataGrid)component);
     }
     
     @Override
     protected Class<? extends UIComponent> getComponentClass() {
-        return UIDataGrid.class;
+        return AbstractDataGrid.class;
     }
 
     public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId)
         throws IOException {
-        UIDataGrid table = (UIDataGrid) component;
+        AbstractDataGrid table = (AbstractDataGrid) component;
         
         if (UIDataTableBase.HEADER.equals(metaComponentId)) {
             encodeHeader(context.getResponseWriter(), context, table, true);
@@ -268,7 +271,7 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
     @Override
     protected void doCleanup(FacesContext context, RowHolderBase rowHolder) throws IOException {
         ResponseWriter writer = context.getResponseWriter();
-        UIDataGrid dataGrid = (UIDataGrid)rowHolder.getRow();
+        AbstractDataGrid dataGrid = (AbstractDataGrid)rowHolder.getRow();
        
         int cell = rowHolder.getProcessCell();
         int columns = dataGrid.getColumns();

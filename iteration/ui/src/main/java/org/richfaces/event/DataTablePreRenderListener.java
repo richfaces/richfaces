@@ -38,7 +38,7 @@ import javax.faces.event.SystemEventListener;
 import org.ajax4jsf.Messages;
 import org.richfaces.DataScrollerUtils;
 import org.richfaces.component.UIDataAdaptor;
-import org.richfaces.component.UIDataScroller;
+import org.richfaces.component.AbstractDataScroller;
 import org.richfaces.component.util.MessageUtil;
 import org.richfaces.log.RichfacesLogger;
 import org.slf4j.Logger;
@@ -51,12 +51,12 @@ public class DataTablePreRenderListener implements SystemEventListener {
         return ((source instanceof UIDataAdaptor) || (source instanceof UIData));
     }
 
-    public UIDataScroller processActiveDatascroller(FacesContext facesContext, List<UIDataScroller> dataScrollers,
+    public AbstractDataScroller processActiveDatascroller(FacesContext facesContext, List<AbstractDataScroller> dataScrollers,
         UIComponent dataTable) {
-        UIDataScroller activeComponent = null;
+        AbstractDataScroller activeComponent = null;
         List<Object> values = new ArrayList<Object>(dataScrollers.size());
 
-        String stateKey = dataTable.getClientId(facesContext) + UIDataScroller.SCROLLER_STATE_ATTRIBUTE;
+        String stateKey = dataTable.getClientId(facesContext) + AbstractDataScroller.SCROLLER_STATE_ATTRIBUTE;
         Map<String, Object> attributes = dataTable.getAttributes();
         Object pageValue = attributes.get(stateKey);
 
@@ -64,7 +64,7 @@ public class DataTablePreRenderListener implements SystemEventListener {
 
         if (pageValue == null) {
 
-            for (UIDataScroller datascroller : dataScrollers) {
+            for (AbstractDataScroller datascroller : dataScrollers) {
                 Object nextPageValue = null;
 
                 if (datascroller.isLocalPageSet()) {
@@ -103,13 +103,13 @@ public class DataTablePreRenderListener implements SystemEventListener {
 
     public void processEvent(SystemEvent event) throws AbortProcessingException {
         UIComponent dataTable = (UIComponent) event.getSource();
-        List<UIDataScroller> dataScrollers = DataScrollerUtils.findDataScrollers(dataTable);
+        List<AbstractDataScroller> dataScrollers = DataScrollerUtils.findDataScrollers(dataTable);
 
         if (!dataScrollers.isEmpty()) {
 
             FacesContext facesContext = FacesContext.getCurrentInstance();
 
-            UIDataScroller activeComponent = processActiveDatascroller(facesContext, dataScrollers, dataTable);
+            AbstractDataScroller activeComponent = processActiveDatascroller(facesContext, dataScrollers, dataTable);
 
             int rowCount = DataScrollerUtils.getRowCount(dataTable);
             int rows = DataScrollerUtils.getRows(dataTable);
@@ -134,7 +134,7 @@ public class DataTablePreRenderListener implements SystemEventListener {
 
                 page = newPage;
                 dataTable.getAttributes().put(
-                    dataTable.getClientId(facesContext) + UIDataScroller.SCROLLER_STATE_ATTRIBUTE, page);
+                    dataTable.getClientId(facesContext) + AbstractDataScroller.SCROLLER_STATE_ATTRIBUTE, page);
             }
 
             int first;
@@ -142,13 +142,13 @@ public class DataTablePreRenderListener implements SystemEventListener {
             String lastPageMode = activeComponent.getLastPageMode();
 
             if (lastPageMode == null) {
-                lastPageMode = UIDataScroller.PAGEMODE_SHORT;
-            } else if (!UIDataScroller.PAGEMODE_SHORT.equals(lastPageMode)
-                && !UIDataScroller.PAGEMODE_FULL.equals(lastPageMode)) {
+                lastPageMode = AbstractDataScroller.PAGEMODE_SHORT;
+            } else if (!AbstractDataScroller.PAGEMODE_SHORT.equals(lastPageMode)
+                && !AbstractDataScroller.PAGEMODE_FULL.equals(lastPageMode)) {
                 throw new IllegalArgumentException("Illegal value of 'lastPageMode' attribute: '" + lastPageMode + "'");
             }
 
-            if (page != pageCount || UIDataScroller.PAGEMODE_SHORT.equals(lastPageMode)) {
+            if (page != pageCount || AbstractDataScroller.PAGEMODE_SHORT.equals(lastPageMode)) {
                 first = (page - 1) * rows;
             } else {
                 first = rowCount - rows;
@@ -160,14 +160,14 @@ public class DataTablePreRenderListener implements SystemEventListener {
         }
     }
 
-    private String getPageDifferentMessage(FacesContext facesContext, UIDataScroller activeComponent,
-        List<UIDataScroller> dataScrollers, List<Object> values) {
+    private String getPageDifferentMessage(FacesContext facesContext, AbstractDataScroller activeComponent,
+        List<AbstractDataScroller> dataScrollers, List<Object> values) {
         StringBuilder builder = new StringBuilder("\n[");
-        Iterator<UIDataScroller> scrollerItr = dataScrollers.iterator();
+        Iterator<AbstractDataScroller> scrollerItr = dataScrollers.iterator();
         Iterator<Object> valueItr = values.iterator();
 
         while (scrollerItr.hasNext()) {
-            UIDataScroller next = scrollerItr.next();
+            AbstractDataScroller next = scrollerItr.next();
             builder.append(MessageUtil.getLabel(facesContext, next));
             builder.append(": ");
 

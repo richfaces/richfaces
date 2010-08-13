@@ -32,7 +32,7 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-import org.richfaces.component.UIDataTable;
+import org.richfaces.component.AbstractDataTable;
 
 /**
  * @author Anton Belevich
@@ -55,7 +55,7 @@ public class DataTableHandler extends ComponentHandler {
     static class SortingFilteringRule extends MetaRule {
 
         public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
-            if(meta.isTargetInstanceOf(UIDataTable.class)) {
+            if(meta.isTargetInstanceOf(AbstractDataTable.class)) {
               
                 if("sortingListener".equals(name)) {
                     return new SortingListenerMapper(attribute);
@@ -81,7 +81,7 @@ public class DataTableHandler extends ComponentHandler {
         }
 
         public void applyMetadata(FaceletContext ctx, Object instance) {
-            ((UIDataTable) instance).addSortingListener(new MethodExpressionSortingListener(this.attribute.getMethodExpression(ctx, null, SIGNATURE)));
+            ((AbstractDataTable) instance).addSortingListener(new MethodExpressionSortingListener(this.attribute.getMethodExpression(ctx, null, SIGNATURE)));
         }
     }
     
@@ -96,7 +96,7 @@ public class DataTableHandler extends ComponentHandler {
         }
 
         public void applyMetadata(FaceletContext ctx, Object instance) {
-            ((UIDataTable) instance).addFilteringListener(new MethodExpressionFilteringListener(this.attribute.getMethodExpression(ctx, null, SIGNATURE)));
+            ((AbstractDataTable) instance).addFilteringListener(new MethodExpressionFilteringListener(this.attribute.getMethodExpression(ctx, null, SIGNATURE)));
         }
     }
 }

@@ -54,7 +54,7 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
     public void encodeColumn(FacesContext context, ResponseWriter writer, UIColumn component, RowHolder rowHolder) throws IOException {
         String parentId = rowHolder.getParentClientId();
         
-        if (component instanceof org.richfaces.component.UIColumn) {
+        if (component instanceof org.richfaces.component.AbstractColumn) {
             Map<String, Object> attributes = component.getAttributes();
             if (Boolean.TRUE.equals(attributes.get(BREAK_ROW_BEFORE)) && rowHolder.getProcessCell() != 0) {
                 encodeRowEnd(writer);
@@ -89,17 +89,17 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
         String cellClass = getCellClass(context, parentId);
         encodeStyleClass(writer, context, component, HTML.STYLE_CLASS_ATTR, cellClass);
 
-        if (component instanceof org.richfaces.component.UIColumn) {
+        if (component instanceof org.richfaces.component.AbstractColumn) {
             Map<String, Object> attributes = component.getAttributes();
 
-            int rowspan = (Integer) attributes.get(HTML.ROWSPAN_ATTRIBUTE);
-            if (rowspan != Integer.MIN_VALUE) {
-                writer.writeAttribute(HTML.ROWSPAN_ATTRIBUTE, Integer.valueOf(rowspan), null);
+            Integer rowspan = (Integer) attributes.get(HTML.ROWSPAN_ATTRIBUTE);
+            if (rowspan != null && rowspan != Integer.MIN_VALUE) {
+                writer.writeAttribute(HTML.ROWSPAN_ATTRIBUTE, rowspan, null);
             }
 
-            int colspan = (Integer) attributes.get(HTML.COLSPAN_ATTRIBUTE);
-            if (colspan != Integer.MIN_VALUE) {
-                writer.writeAttribute(HTML.COLSPAN_ATTRIBUTE, Integer.valueOf(colspan), null);
+            Integer colspan = (Integer) attributes.get(HTML.COLSPAN_ATTRIBUTE);
+            if (colspan != null && colspan != Integer.MIN_VALUE) {
+                writer.writeAttribute(HTML.COLSPAN_ATTRIBUTE, colspan, null);
             }
         }
     }
@@ -216,7 +216,7 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
                         count = currentLength;
                     }
                     currentLength = 0;
-                } else if (component instanceof org.richfaces.component.UIColumn) {
+                } else if (component instanceof org.richfaces.component.AbstractColumn) {
                     // For new row, save length of previsous.
                     Map<String, Object> attributes = component.getAttributes();
                     if (Boolean.TRUE.equals(attributes.get(BREAK_ROW_BEFORE))) {

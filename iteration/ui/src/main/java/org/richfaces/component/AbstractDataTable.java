@@ -24,15 +24,35 @@ package org.richfaces.component;
 
 import javax.faces.component.UIComponent;
 
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+
 /**
  * @author Anton Belevich
  * 
  */
 
-public class UIDataTable extends UIDataTableBase {
+@JsfComponent(
+    type = AbstractDataTable.COMPONENT_TYPE,
+    family = AbstractDataTable.COMPONENT_FAMILY, 
+    generate = "org.richfaces.component.UIDataTable",
+    renderer = @JsfRenderer(type = "org.richfaces.DataTableRenderer"),
+    tag = @Tag(name="dataTable", handler="org.richfaces.taglib.DataTableHandler", type=TagType.Facelets)
+)
+public abstract class AbstractDataTable extends UIDataTableBase {
+    
+    public static final String COMPONENT_TYPE = "org.richfaces.DataTable";
+    
+    public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
+    
+    public static final String CAPTION_FACET_NAME = "caption";
+
     
     public UIComponent getCaption() {
-        return getFacet("caption");
+        return getFacets().get(CAPTION_FACET_NAME);
     }
-  
+    
 }
+

@@ -34,6 +34,12 @@ import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PreRenderComponentEvent;
 
+import org.richfaces.cdk.annotations.Alias;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.log.RichfacesLogger;
@@ -44,7 +50,19 @@ import org.slf4j.Logger;
  * @author Anton Belevich
  *
  */
-public class UIDataGrid extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder {
+
+@JsfComponent(
+    type = AbstractDataGrid.COMPONENT_TYPE,
+    family = AbstractDataGrid.COMPONENT_FAMILY, 
+    generate = "org.richfaces.component.UIDataGrid",
+    renderer = @JsfRenderer(type = "org.richfaces.DataGridRenderer"),
+    tag = @Tag(name="dataGrid", handler="org.richfaces.taglib.DataGridHandler", type=TagType.Facelets)
+)
+public abstract class AbstractDataGrid extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder {
+    
+    public static final String COMPONENT_TYPE = "org.richfaces.DataGrid";
+    
+    public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
     
     public static final String HEADER_FACET_NAME = "header";
     public static final String FOOTER_FACET_NAME = "footer";
@@ -67,9 +85,28 @@ public class UIDataGrid extends UISequence implements Row, MetaComponentResolver
 
 
     enum PropertyKeys {
-        columns, elements
+        columns
+    }
+
+    @Attribute(aliases = @Alias(value="rows"))
+    public abstract int getElements();
+
+    public UIComponent getHeaderFacet() {
+        return getFacets().get(HEADER_FACET_NAME);
     }
     
+    public UIComponent getFooterFacet() {
+        return getFacets().get(FOOTER_FACET_NAME);
+    }
+    
+    public UIComponent getCaptionFacet() {
+        return getFacets().get(CAPTION_FACET_NAME);
+    }
+    
+    public UIComponent getNoDataFacet() {
+        return getFacets().get(NODATA_FACET_NAME);
+    }
+
     public int getColumns() {
         int columns = (Integer)getStateHelper().eval(PropertyKeys.columns, 1);
         return (columns < 1 ? 1 : columns);
@@ -79,35 +116,11 @@ public class UIDataGrid extends UISequence implements Row, MetaComponentResolver
         getStateHelper().put(PropertyKeys.columns, count);
     }
     
-    public int getElements() {
-        return (Integer)getStateHelper().eval(PropertyKeys.elements);
-    }
-    
-    public void setElements(int count) {
-        getStateHelper().put(PropertyKeys.elements, count);
-    }
-
     public Iterator<UIComponent> columns() {
         //DataGrid doesn't work with column components
         return null;
     }
     
-    public UIComponent getHeaderFacet() {
-        return getFacet(HEADER_FACET_NAME);
-    }
-    
-    public UIComponent getFooterFacet() {
-        return getFacet(FOOTER_FACET_NAME);
-    }
-    
-    public UIComponent getCaptionFacet() {
-        return getFacet(CAPTION_FACET_NAME);
-    }
-    
-    public UIComponent getNoDataFacet() {
-        return getFacet(NODATA_FACET_NAME);
-    }
-
     //TODO: copy from UIDataTableBase
     public void encodeMetaComponent(FacesContext context, String metaComponentId) throws IOException {
         context.getApplication().publishEvent(context, PreRenderComponentEvent.class, this);

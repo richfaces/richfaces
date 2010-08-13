@@ -43,6 +43,7 @@ import org.richfaces.model.SortMode;
  * @author Anton Belevich
  *
  */
+
 public abstract class SortingFilteringRowsRenderer extends AbstractRowsRenderer {
     
     private static final String FILTERING_STRING = "rich:filtering";
@@ -58,7 +59,6 @@ public abstract class SortingFilteringRowsRenderer extends AbstractRowsRenderer 
     private static final String SEPARATOR = ":";
 
     protected void decodeSortingFiltering(FacesContext context, UIComponent component) {
-
         if(component instanceof UIDataTableBase) {
         
             UIDataTableBase dataTableBase = (UIDataTableBase)component;

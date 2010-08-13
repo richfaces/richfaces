@@ -32,6 +32,9 @@ import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.log.RichfacesLogger;
@@ -42,8 +45,21 @@ import org.slf4j.Logger;
  * @author Konstantin Mishin
  * 
  */
-public class UIExtendedDataTable extends UIDataTableBase implements MetaComponentResolver, MetaComponentEncoder {
+
+
+@JsfComponent(
+    type = AbstractExtendedDataTable.COMPONENT_TYPE,
+    family = AbstractExtendedDataTable.COMPONENT_FAMILY, 
+    generate = "org.richfaces.component.UIExtendedDataTable",
+    renderer = @JsfRenderer(type = "org.richfaces.ExtendedDataTableRenderer"),
+    tag = @Tag(name = "extendedDataTable")
+)
+public abstract class AbstractExtendedDataTable extends UIDataTableBase implements MetaComponentResolver, MetaComponentEncoder {
     
+    public static final String COMPONENT_TYPE = "org.richfaces.ExtendedDataTable";
+    
+    public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
+
     public static final String SCROLL = "scroll";
     
     public static final String SUBMITTED_CLIENT_FIRST = "submittedClientFirst";
@@ -136,7 +152,6 @@ public class UIExtendedDataTable extends UIDataTableBase implements MetaComponen
 
     public void setClientFirst(int clientFirst) {
         getStateHelper().put(PropertyKeys.clientFirst, clientFirst);
-        
         updateState();
     }
 

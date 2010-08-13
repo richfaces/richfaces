@@ -38,24 +38,28 @@ import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.renderkit.AjaxEventOptions;
 import org.ajax4jsf.renderkit.AjaxRendererUtils;
 import org.ajax4jsf.renderkit.RendererUtils.HTML;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractDataTable;
+import org.richfaces.component.AbstractSubTable;
 import org.richfaces.component.Row;
-import org.richfaces.component.UIDataTable;
 import org.richfaces.component.UIDataTableBase;
-import org.richfaces.component.UISubTable;
 import org.richfaces.component.util.HtmlUtil;
 
 /**
  * @author Anton Belevich
  */
-@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
-    @ResourceDependency(name = "jquery.js"), @ResourceDependency(name = "richfaces.js"),
-    @ResourceDependency(name = "richfaces-event.js"), @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(name = "datatable.js"), @ResourceDependency(name = "datatable.ecss")})
+
+@JsfRenderer(type = "org.richfaces.DataTableRenderer", family = AbstractDataTable.COMPONENT_FAMILY)
+@ResourceDependencies({
+    @ResourceDependency(name = "richfaces-base-component.js"),
+    @ResourceDependency(library="org.richfaces", name = "datatable.js"), 
+    @ResourceDependency(library="org.richfaces", name = "datatable.ecss")
+})
 public class DataTableRenderer extends AbstractTableRenderer {
 
     private class  DataTableHiddenEncodeStrategy implements EncodeStrategy {
         public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params) throws IOException {
-            UIDataTable dataTable = (UIDataTable)component;
+            AbstractDataTable dataTable = (AbstractDataTable)component;
             
             writer.startElement(HTML.TBODY_ELEMENT, dataTable);
             writer.writeAttribute(HTML.ID_ATTRIBUTE, dataTable.getClientId(context) + HIDDEN_CONTAINER_ID, null);
@@ -74,7 +78,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
     private class RichHeaderEncodeStrategy implements EncodeStrategy {
 
         public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object [] params) throws IOException {
-            org.richfaces.component.UIColumn column = (org.richfaces.component.UIColumn) component;
+            org.richfaces.component.AbstractColumn column = (org.richfaces.component.AbstractColumn) component;
             writer.writeAttribute(HTML.ID_ATTRIBUTE, column.getClientId(context), null);
 
             if (isSortable(column)) {
@@ -85,7 +89,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
         }
 
         public void end(ResponseWriter writer, FacesContext context, UIComponent component, Object [] params) throws IOException {
-            org.richfaces.component.UIColumn column = (org.richfaces.component.UIColumn) component;
+            org.richfaces.component.AbstractColumn column = (org.richfaces.component.AbstractColumn) component;
             if (isSortable(column)) {
                 writer.endElement(HTML.SPAN_ELEM);
             }
@@ -94,8 +98,8 @@ public class DataTableRenderer extends AbstractTableRenderer {
     
     public void encodeTableStructure(ResponseWriter writer, FacesContext context, UIDataTableBase dataTable)
         throws IOException {
-        if (dataTable instanceof UIDataTable) {
-            encodeCaption(writer, context, (UIDataTable) dataTable);
+        if (dataTable instanceof AbstractDataTable) {
+            encodeCaption(writer, context, (AbstractDataTable) dataTable);
             // TODO nick - do we need this element if "columnsWidth" is absent?
             writer.startElement(HTML.COLGROUP_ELEMENT, dataTable);
            
@@ -143,7 +147,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
         RowHolder rowHolder = (RowHolder) holder;
         Row row = rowHolder.getRow();
 
-        UIDataTable dataTable = (UIDataTable)row;
+        AbstractDataTable dataTable = (AbstractDataTable)row;
         
         boolean partialUpdate = rowHolder.isUpdatePartial(); 
         boolean parentTbodyStart = rowHolder.isEncodeParentTBody();
@@ -156,7 +160,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
         
             UIComponent child = components.next();
             if(child instanceof Row) {
-                boolean isSubtable = (child instanceof UISubTable); 
+                boolean isSubtable = (child instanceof AbstractSubTable); 
                 //new row -> close </tr>
                 if (rowHolder.getProcessCell() != 0) {
                     encodeRowEnd(writer);
@@ -235,10 +239,10 @@ public class DataTableRenderer extends AbstractTableRenderer {
     }
 
     protected Class<? extends UIComponent> getComponentClass() {
-        return UIDataTable.class;
+        return AbstractDataTable.class;
     }
 
-    public void encodeCaption(ResponseWriter writer, FacesContext context, UIDataTable dataTable) throws IOException {
+    public void encodeCaption(ResponseWriter writer, FacesContext context, AbstractDataTable dataTable) throws IOException {
         UIComponent caption = dataTable.getCaption();
 
         if (caption == null) {
@@ -268,7 +272,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
     }
 
     public EncodeStrategy getHeaderEncodeStrategy(UIComponent column, String facetName) {
-        return (column instanceof org.richfaces.component.UIColumn && UIDataTableBase.HEADER.equals(facetName)) ? new RichHeaderEncodeStrategy() : new SimpleHeaderEncodeStrategy();
+        return (column instanceof org.richfaces.component.AbstractColumn && UIDataTableBase.HEADER.equals(facetName)) ? new RichHeaderEncodeStrategy() : new SimpleHeaderEncodeStrategy();
     }
 
     public boolean containsThead() {
@@ -276,15 +280,15 @@ public class DataTableRenderer extends AbstractTableRenderer {
     }
 
     public boolean isSortable(UIColumn column) {
-        if (column instanceof org.richfaces.component.UIColumn) {
+        if (column instanceof org.richfaces.component.AbstractColumn) {
             //TODO: anton - add check for the "comparator" property
-            return ((org.richfaces.component.UIColumn) column).getValueExpression("sortBy") != null;
+            return ((org.richfaces.component.AbstractColumn) column).getValueExpression("sortBy") != null;
         }
         return false;
     }
 
     public void encodeClientScript(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase) throws IOException {
-        UIDataTable dataTable = (UIDataTable) dataTableBase;
+        AbstractDataTable dataTable = (AbstractDataTable) dataTableBase;
        
         writer.startElement(HTML.SCRIPT_ELEM, dataTable);
         writer.writeAttribute(HTML.TYPE_ATTR, HTML.JAVASCRIPT_TYPE, null);

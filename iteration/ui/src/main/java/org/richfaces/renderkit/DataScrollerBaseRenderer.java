@@ -41,7 +41,7 @@ import org.ajax4jsf.renderkit.AjaxEventOptions;
 import org.ajax4jsf.renderkit.AjaxRendererUtils;
 import org.ajax4jsf.renderkit.RendererBase;
 import org.ajax4jsf.renderkit.RendererUtils.HTML;
-import org.richfaces.component.UIDataScroller;
+import org.richfaces.component.AbstractDataScroller;
 import org.richfaces.event.DataScrollerEvent;
 
 @ResourceDependencies( { @ResourceDependency(library = "javax.faces", name = "jsf-uncompressed.js"),
@@ -62,7 +62,7 @@ public class DataScrollerBaseRenderer extends RendererBase {
 
         if (param != null) {
 
-            UIDataScroller scroller = (UIDataScroller) component;
+            AbstractDataScroller scroller = (AbstractDataScroller) component;
             int newPage = scroller.getPageForFacet(param);
             int page = scroller.getPage();
 
@@ -246,19 +246,19 @@ public class DataScrollerBaseRenderer extends RendererBase {
         String clientId = component.getClientId(context);
 
         if (controlsState.getFirstRendered() && controlsState.getFirstEnabled()) {
-            left.put(clientId + "_ds_f", UIDataScroller.FIRST_FACET_NAME);
+            left.put(clientId + "_ds_f", AbstractDataScroller.FIRST_FACET_NAME);
         }
 
         if (controlsState.getFastRewindRendered() && controlsState.getFastRewindEnabled()) {
-            left.put(clientId + "_ds_fr", UIDataScroller.FAST_REWIND_FACET_NAME);
+            left.put(clientId + "_ds_fr", AbstractDataScroller.FAST_REWIND_FACET_NAME);
         }
 
         if (controlsState.getFastForwardRendered() && controlsState.getFastForwardEnabled()) {
-            right.put(clientId + "_ds_ff", UIDataScroller.FAST_FORWARD_FACET_NAME);
+            right.put(clientId + "_ds_ff", AbstractDataScroller.FAST_FORWARD_FACET_NAME);
         }
 
         if (controlsState.getLastRendered() && controlsState.getLastEnabled()) {
-            right.put(clientId + "_ds_l", UIDataScroller.LAST_FACET_NAME);
+            right.put(clientId + "_ds_l", AbstractDataScroller.LAST_FACET_NAME);
         }
 
         if (!left.isEmpty()) {

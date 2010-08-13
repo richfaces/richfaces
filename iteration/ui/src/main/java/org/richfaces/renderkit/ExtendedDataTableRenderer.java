@@ -54,8 +54,9 @@ import org.ajax4jsf.renderkit.AjaxEventOptions;
 import org.ajax4jsf.renderkit.RendererUtils;
 import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.ajax4jsf.renderkit.RendererUtils.ScriptHashVariableWrapper;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractExtendedDataTable;
 import org.richfaces.component.UIDataTableBase;
-import org.richfaces.component.UIExtendedDataTable;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.context.OnOffResponseWriter;
 import org.richfaces.model.SelectionMode;
@@ -64,10 +65,14 @@ import org.richfaces.model.SelectionMode;
  * @author Konstantin Mishin
  *
  */
-@ResourceDependencies({@ResourceDependency(name = "extendedDataTable.ecss"),
-    @ResourceDependency(library = "javax.faces", name = "jsf.js"), @ResourceDependency(name = "jquery.js"),
-    @ResourceDependency(name = "jquery.position.js"), @ResourceDependency(name = "richfaces.js"),
-    @ResourceDependency(name = "extendedDataTable.js") })
+
+
+@JsfRenderer(type = "org.richfaces.ExtendedDataTableRenderer", family = AbstractExtendedDataTable.COMPONENT_FAMILY)
+@ResourceDependencies({
+    @ResourceDependency(name = "jquery.position.js"),
+    @ResourceDependency(library="org.richfaces", name = "extendedDataTable.ecss"),
+    @ResourceDependency(library="org.richfaces", name = "extendedDataTable.js") 
+})
 public class ExtendedDataTableRenderer extends SelectionRenderer implements MetaComponentRenderer {
 
     private static enum PartName {
@@ -437,16 +442,16 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
     
     @Override
     protected Class<? extends UIComponent> getComponentClass() {
-        return UIExtendedDataTable.class;
+        return AbstractExtendedDataTable.class;
     }
 
     public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) 
         throws IOException {
-        UIExtendedDataTable table = (UIExtendedDataTable) component;
-        if (UIExtendedDataTable.SCROLL.equals(metaComponentId)) {
+        AbstractExtendedDataTable table = (AbstractExtendedDataTable) component;
+        if (AbstractExtendedDataTable.SCROLL.equals(metaComponentId)) {
             final PartialResponseWriter writer = context.getPartialViewContext().getPartialResponseWriter();
             int clientFirst = table.getClientFirst();
-            Integer oldClientFirst = (Integer) table.getAttributes().remove(UIExtendedDataTable.OLD_CLIENT_FIRST);
+            Integer oldClientFirst = (Integer) table.getAttributes().remove(AbstractExtendedDataTable.OLD_CLIENT_FIRST);
             if (oldClientFirst == null) {
                 oldClientFirst = clientFirst;
             }
@@ -821,9 +826,9 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             Integer value = Integer.valueOf(clientFirst);
             Map<String, Object> attributes = component.getAttributes();
             if (!value.equals(attributes.get("clientFirst"))) {
-                attributes.put(UIExtendedDataTable.SUBMITTED_CLIENT_FIRST, value);
+                attributes.put(AbstractExtendedDataTable.SUBMITTED_CLIENT_FIRST, value);
                 context.getPartialViewContext().getRenderIds().add(
-                    component.getClientId(context) + "@" + UIExtendedDataTable.SCROLL);
+                    component.getClientId(context) + "@" + AbstractExtendedDataTable.SCROLL);
             }
         }
     }

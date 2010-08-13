@@ -32,7 +32,7 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-import org.richfaces.component.UIDataScroller;
+import org.richfaces.component.AbstractDataScroller;
 
 /**
  * Created 11.03.2008
@@ -41,7 +41,7 @@ import org.richfaces.component.UIDataScroller;
  * @since 3.2
  */
 
-public class DatascrollerTagHandler extends ComponentHandler {
+public class DataScrollerHandler extends ComponentHandler {
 
     private static final MetaRule PAGERULE = new MetaRule() {
 
@@ -58,7 +58,7 @@ public class DatascrollerTagHandler extends ComponentHandler {
 
         @Override
         public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
-            if (meta.isTargetInstanceOf(UIDataScroller.class)) {
+            if (meta.isTargetInstanceOf(AbstractDataScroller.class)) {
                 if ("scrollListener".equals(name)) {
                     return new ScrollListenerMapper(attribute);
                 }
@@ -81,7 +81,7 @@ public class DatascrollerTagHandler extends ComponentHandler {
         @Override
         public void applyMetadata(FaceletContext ctx, Object instance) {
                                                                     
-            ((UIDataScroller) instance).addScrollerListener((new MethodExpressionScrollListener(this.attribute
+            ((AbstractDataScroller) instance).addScrollerListener((new MethodExpressionScrollListener(this.attribute
                 .getMethodExpression(ctx, null, SIGNATURE))));
         }
     }
@@ -95,7 +95,7 @@ public class DatascrollerTagHandler extends ComponentHandler {
         }
 
         public void applyMetadata(FaceletContext ctx, Object instance) {
-            UIDataScroller datascroller = (UIDataScroller) instance;
+            AbstractDataScroller datascroller = (AbstractDataScroller) instance;
 
             ValueExpression ve = page.getValueExpression(ctx, int.class);
             if (ve.isLiteralText()) {
@@ -108,7 +108,7 @@ public class DatascrollerTagHandler extends ComponentHandler {
 
     }
 
-    public DatascrollerTagHandler(ComponentConfig config) {
+    public DataScrollerHandler(ComponentConfig config) {
         super(config);
     }
 

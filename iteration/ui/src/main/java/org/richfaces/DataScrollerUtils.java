@@ -32,7 +32,7 @@ import java.util.Map.Entry;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 
-import org.richfaces.component.UIDataScroller;
+import org.richfaces.component.AbstractDataScroller;
 
 public final class DataScrollerUtils {
 
@@ -88,8 +88,8 @@ public final class DataScrollerUtils {
         return parent;
     }
 
-    public static List<UIDataScroller> findDataScrollers(UIComponent dataTable) {
-        List<UIDataScroller> datascrollers = new ArrayList<UIDataScroller>();
+    public static List<AbstractDataScroller> findDataScrollers(UIComponent dataTable) {
+        List<AbstractDataScroller> datascrollers = new ArrayList<AbstractDataScroller>();
         Map<String, UIComponent> facets = dataTable.getFacets();
         Set<Entry<String, UIComponent>> entries = facets.entrySet();
 
@@ -105,9 +105,9 @@ public final class DataScrollerUtils {
         return datascrollers;
     }
 
-    protected static void findBelow(UIComponent component, List<UIDataScroller> result) {
-        if ((component instanceof UIDataScroller) && component.isRendered()) {
-            result.add((UIDataScroller) component);
+    protected static void findBelow(UIComponent component, List<AbstractDataScroller> result) {
+        if ((component instanceof AbstractDataScroller) && component.isRendered()) {
+            result.add((AbstractDataScroller) component);
 
         } else {
             for (UIComponent child : component.getChildren()) {
