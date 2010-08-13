@@ -40,8 +40,8 @@ import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.richfaces.component.AbstractExtendedDataTable;
 import org.richfaces.component.SortOrder;
-import org.richfaces.component.UIExtendedDataTable;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -87,10 +87,10 @@ public class ExtendedDataTableRendererTest {
     public final void testGetComponentClass() throws IOException {
         FacesRequest facesRequest = startFacesRequest();
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        UIExtendedDataTable component = (UIExtendedDataTable) facesContext.getViewRoot().findComponent("table");
+        AbstractExtendedDataTable component = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("table");
         ExtendedDataTableRenderer renderer = (ExtendedDataTableRenderer) FacesContext.getCurrentInstance()
             .getRenderKit().getRenderer(component.getFamily(), component.getRendererType());
-        assertEquals(UIExtendedDataTable.class, renderer.getComponentClass());
+        assertEquals(AbstractExtendedDataTable.class, renderer.getComponentClass());
         facesRequest.release();
     }
 
@@ -205,7 +205,7 @@ public class ExtendedDataTableRendererTest {
     public final void testFilteringWithoutClean() throws IOException {
         FacesRequest facesRequest = startFacesRequest();
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        UIExtendedDataTable component = (UIExtendedDataTable) facesContext.getViewRoot().findComponent("table");
+        AbstractExtendedDataTable component = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("table");
         ExtendedDataTableRenderer renderer = (ExtendedDataTableRenderer) FacesContext.getCurrentInstance()
             .getRenderKit().getRenderer(component.getFamily(), component.getRendererType());
         Map<String, Object> column1Attributes = component.findComponent("column1").getAttributes();
@@ -226,7 +226,7 @@ public class ExtendedDataTableRendererTest {
     public final void testFilteringWithClean() throws IOException {
         FacesRequest facesRequest = startFacesRequest();
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        UIExtendedDataTable component = (UIExtendedDataTable) facesContext.getViewRoot().findComponent("table");
+        AbstractExtendedDataTable component = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("table");
         ExtendedDataTableRenderer renderer = (ExtendedDataTableRenderer) FacesContext.getCurrentInstance()
             .getRenderKit().getRenderer(component.getFamily(), component.getRendererType());
         Map<String, Object> column1Attributes = component.findComponent("column1").getAttributes();
@@ -247,7 +247,7 @@ public class ExtendedDataTableRendererTest {
     public final void testColumnResizing() throws IOException {
         FacesRequest facesRequest = startFacesRequest();
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        UIExtendedDataTable component = (UIExtendedDataTable) facesContext.getViewRoot().findComponent("table");
+        AbstractExtendedDataTable component = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("table");
         ExtendedDataTableRenderer renderer = (ExtendedDataTableRenderer) FacesContext.getCurrentInstance()
             .getRenderKit().getRenderer(component.getFamily(), component.getRendererType());
         Map<String, Object> column1Attributes = component.findComponent("column1").getAttributes();
@@ -262,7 +262,7 @@ public class ExtendedDataTableRendererTest {
     public final void testColumnReordering() throws IOException {
         FacesRequest facesRequest = startFacesRequest();
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        UIExtendedDataTable component = (UIExtendedDataTable) facesContext.getViewRoot().findComponent("table");
+        AbstractExtendedDataTable component = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("table");
         ExtendedDataTableRenderer renderer = (ExtendedDataTableRenderer) FacesContext.getCurrentInstance()
             .getRenderKit().getRenderer(component.getFamily(), component.getRendererType());
         Map<String, Object> componentAttributes = component.getAttributes();
@@ -281,7 +281,7 @@ public class ExtendedDataTableRendererTest {
     public final void testSortingWithoutClean() throws IOException {
         FacesRequest facesRequest = startFacesRequest();
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        UIExtendedDataTable component = (UIExtendedDataTable) facesContext.getViewRoot().findComponent("table");
+        AbstractExtendedDataTable component = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("table");
         ExtendedDataTableRenderer renderer = (ExtendedDataTableRenderer) FacesContext.getCurrentInstance()
             .getRenderKit().getRenderer(component.getFamily(), component.getRendererType());
         Map<String, Object> column1Attributes = component.findComponent("column1").getAttributes();
@@ -302,7 +302,7 @@ public class ExtendedDataTableRendererTest {
     public final void testSortingWithClean() throws IOException {
         FacesRequest facesRequest = startFacesRequest();
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        UIExtendedDataTable component = (UIExtendedDataTable) facesContext.getViewRoot().findComponent("table");
+        AbstractExtendedDataTable component = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("table");
         ExtendedDataTableRenderer renderer = (ExtendedDataTableRenderer) FacesContext.getCurrentInstance()
             .getRenderKit().getRenderer(component.getFamily(), component.getRendererType());
         Map<String, Object> column1Attributes = component.findComponent("column1").getAttributes();
@@ -323,18 +323,18 @@ public class ExtendedDataTableRendererTest {
     public final void testScrolling() throws IOException {
         FacesRequest facesRequest = startFacesRequest();
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        UIExtendedDataTable component = (UIExtendedDataTable) facesContext.getViewRoot().findComponent("table");
+        AbstractExtendedDataTable component = (AbstractExtendedDataTable) facesContext.getViewRoot().findComponent("table");
         ExtendedDataTableRenderer renderer = (ExtendedDataTableRenderer) FacesContext.getCurrentInstance()
             .getRenderKit().getRenderer(component.getFamily(), component.getRendererType());
         Map<String, Object> componentAttributes = component.getAttributes();
         String clientId = component.getClientId(facesContext);
-        assertNull(componentAttributes.get(UIExtendedDataTable.SUBMITTED_CLIENT_FIRST));
+        assertNull(componentAttributes.get(AbstractExtendedDataTable.SUBMITTED_CLIENT_FIRST));
         facesRequest.withParameter(clientId, clientId);
         facesRequest.withParameter("rich:clientFirst", "28");
         renderer.doDecode(facesContext, component);
-        assertEquals(28, componentAttributes.get(UIExtendedDataTable.SUBMITTED_CLIENT_FIRST));
+        assertEquals(28, componentAttributes.get(AbstractExtendedDataTable.SUBMITTED_CLIENT_FIRST));
         assertTrue(facesContext.getPartialViewContext().getRenderIds()
-            .contains(clientId + "@" + UIExtendedDataTable.SCROLL));
+            .contains(clientId + "@" + AbstractExtendedDataTable.SCROLL));
         facesRequest.release();
     }
 }

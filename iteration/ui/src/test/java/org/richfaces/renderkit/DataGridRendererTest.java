@@ -14,6 +14,7 @@ import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.richfaces.component.AbstractDataGrid;
 import org.richfaces.component.UIDataGrid;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
@@ -52,10 +53,10 @@ public class DataGridRendererTest {
     public final void testGetComponentClass() throws IOException {
         FacesRequest facesRequest = startFacesRequest();
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        UIDataGrid component = (UIDataGrid) facesContext.getViewRoot().findComponent("dataGrid");
+        AbstractDataGrid component = (AbstractDataGrid) facesContext.getViewRoot().findComponent("dataGrid");
         DataGridRenderer renderer = (DataGridRenderer) FacesContext.getCurrentInstance()
             .getRenderKit().getRenderer(component.getFamily(), component.getRendererType());
-        assertEquals(UIDataGrid.class, renderer.getComponentClass());
+        assertEquals(AbstractDataGrid.class, renderer.getComponentClass());
         facesRequest.release();
     }
 
