@@ -24,42 +24,49 @@
 				onmousedown="#{component.attributes['onmaskmousedown']}"
 				onmousemove="#{component.attributes['onmaskmousemove']}"
 				onmouseover="#{component.attributes['onmaskmouseover']}"
-				onmouseout="#{component.attributes['onmaskmouseout']}" class="mp_shade">
-				<button class="mp-button" id="#{clientId}FirstHref"></button>
+				onmouseout="#{component.attributes['onmaskmouseout']}" class="rf-pp-sh">
+				<button class="rf-pp-b" id="#{clientId}FirstHref"></button>
 				</div>
 
 </c:if>
-	<div id="#{clientId}_shadow" class="mp_shadow"/>
-	<div id="#{clientId}_container" cdk:passThroughWithExclusions="id style class styleClass" class="mp_container #{component.attributes['styleClass']}">
+	<div id="#{clientId}_shadow" style="position: #{component.attributes['followByScroll'] ? 'fixed' : 'absolute'};" class="rf-pp-shw"/>
+	<div id="#{clientId}_container" style="position: #{component.attributes['followByScroll'] ? 'fixed' : 'absolute'};" cdk:passThroughWithExclusions="id style class styleClass" class="rf-pp-cr #{component.attributes['styleClass']}">
 
-		<c:if test="#{component.getFacet('header')!=null and component.getFacet('header').rendered}">
-		<div id="#{clientId}_header" class="mp_header #{component.attributes['headerClass']}" >
-			<div id="#{clientId}_header_content" class="mp_header_content">
+		<c:if test="(#{component.getFacet('header')!=null and component.getFacet('header').rendered})">
+		<div id="#{clientId}_header" class="rf-pp-h #{component.attributes['headerClass']}" >
+			<div id="#{clientId}_header_content" class="rf-pp-h-ct">
 				<cdk:call expression="renderHeaderFacet(facesContext, component)"/>
 			</div>
 			</div>
 		</c:if>
+		<c:if test="#{component.attributes['header'] != null and (component.getFacet('header')==null or !component.getFacet('header').rendered)}">
+		<div id="#{clientId}_header" class="rf-pp-h #{component.attributes['headerClass']}" >
+			<div id="#{clientId}_header_content" class="rf-pp-h-ct">
+				#{component.attributes['header']}
+			</div>
+			</div>
+		</c:if>
 		<c:if test="#{component.getFacet('controls')!=null and component.getFacet('controls').rendered}">
-			<div id="#{clientId}_header_controls" class="mp_header_controls #{component.attributes['controlsClass']}">
+			<div id="#{clientId}_header_controls" class="rf-pp-h-cs #{component.attributes['controlsClass']}">
 				<cdk:call expression="renderControlsFacet(facesContext, component)"/>
 			</div>
 	</c:if>
 		
-		<div id="#{clientId}_content_scroller" style="#{getStyleIfTrimmed(component)}" class="mp_content_scroller">
-			<div id="#{clientId}_content" class="mp_content" style="#{component.attributes['style']}">
+		<div id="#{clientId}_content_scroller" style="#{getStyleIfTrimmed(component)}" class="rf-pp-ct-sr">
+			<div id="#{clientId}_content" class="rf-pp-ct" style="#{component.attributes['style']}">
 				<cdk:call expression="renderChildren(facesContext, component)"/>
 			</div>
 		</div>
 		<c:if test="#{component.attributes['resizeable']}">
-		<div id="#{clientId}ResizerW" class="mp_handler  mp_handler_left"></div>
-		<div id="#{clientId}ResizerE" class="mp_handler mp_handler_right"></div>
-		<div id="#{clientId}ResizerN" class="mp_handler mp_handler_top"></div>
+		<div id="#{clientId}ResizerW" class="rf-pp-hr  rf-pp-hr-l"></div>
+		<div id="#{clientId}ResizerE" class="rf-pp-hr rf-pp-hr-r"></div>
+		<div id="#{clientId}ResizerN" class="rf-pp-hr rf-pp-hr-t"></div>
 
-		<div id="#{clientId}ResizerS" class="mp_handler mp_handler_bottom"></div>
-		<div id="#{clientId}ResizerNW" class="mp_handler mp_handler_top_left"></div>
-		<div id="#{clientId}ResizerNE" class="mp_handler mp_handler_top_right"></div>
-		<div id="#{clientId}ResizerSW" class="mp_handler mp_handler_bottom_left"></div>
-		<div id="#{clientId}ResizerSE" class="mp_handler mp_handler_bottom_right"></div>
+		<div id="#{clientId}ResizerS" class="rf-pp-hr rf-pp-hr-b"></div>
+		<div id="#{clientId}ResizerNW" class="rf-pp-hr rf-pp-hr-tl"></div>
+		<div id="#{clientId}ResizerNE" class="rf-pp-hr rf-pp-hr-tr"></div>
+		<div id="#{clientId}ResizerSW" class="rf-pp-hr rf-pp-hr-bl"></div>
+		<div id="#{clientId}ResizerSE" class="rf-pp-hr rf-pp-hr-br"></div>
 		</c:if>
 		
 	</div>

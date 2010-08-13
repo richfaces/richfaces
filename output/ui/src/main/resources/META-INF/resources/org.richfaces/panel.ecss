@@ -1,4 +1,4 @@
-.rf-panel{
+.rf-p{
 	background-color:'#{richSkin.generalBackgroundColor}';
 	color:'#{richSkin.panelBorderColor}';
 	border-width:1px;
@@ -6,7 +6,7 @@
 	padding:1px;
 }
    
-.rf-panel-header{
+.rf-p-hr{
 	background-color:'#{richSkin.headerBackgroundColor}';
 	border-color:'#{richSkin.headerBackgroundColor}';
 	font-size:'#{richSkin.headerSizeFont}';
@@ -21,7 +21,7 @@
 	background-image:"url(#{resource['org.richfaces.renderkit.html.GradientA']})";
 }
 
-.rf-panel-body{
+.rf-p-b{
 	font-size:'#{richSkin.generalSizeFont}';
 	color:'#{richSkin.generalTextColor}';
 	font-family:'#{richSkin.generalFamilyFont}';

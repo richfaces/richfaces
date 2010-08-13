@@ -1,12 +1,14 @@
 package org.richfaces.renderkit.html;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.faces.FacesException;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
@@ -15,7 +17,9 @@ import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.renderkit.RendererBase;
-import org.richfaces.component.UIPopupPanel;
+import org.richfaces.component.AbstractPopupPanel;
+import org.richfaces.json.JSONException;
+import org.richfaces.json.JSONMap;
 
 //TODO nick - JSF have concept of library, it should be used instead of '/' in resource names
 @ResourceDependencies( { @ResourceDependency(name = "jquery.js"), @ResourceDependency(name = "richfaces.js"),
@@ -58,7 +62,7 @@ public class PopupPanelBaseRenderer extends RendererBase {
     protected void doDecode(FacesContext context, UIComponent component) {
         super.doDecode(context, component);
 
-        UIPopupPanel panel = (UIPopupPanel) component;
+        AbstractPopupPanel panel = (AbstractPopupPanel) component;
         ExternalContext exCtx = context.getExternalContext();
         Map<String, String> rqMap = exCtx.getRequestParameterMap();
         Object panelOpenState = rqMap.get(panel.getClientId(context) + "OpenedState");
@@ -73,7 +77,7 @@ public class PopupPanelBaseRenderer extends RendererBase {
                 boolean show = panel.isShow() || Boolean.parseBoolean((String) panelOpenState);
                 panel.setShow(show);
 
-                Map<String, Object> visualOptions = (Map<String, Object>) panel.getHandledVisualOptions();
+                Map<String, Object> visualOptions = (Map<String, Object>) getHandledVisualOptions(panel);
                 Iterator<Entry<String, String>> it = rqMap.entrySet().iterator();
                 while (it.hasNext()) {
                     Map.Entry<String, String> entry = it.next();
@@ -88,11 +92,11 @@ public class PopupPanelBaseRenderer extends RendererBase {
     }
 
     protected Class getComponentClass() {
-        return UIPopupPanel.class;
+        return AbstractPopupPanel.class;
     }
 
     public void checkOptions(FacesContext context, UIComponent component) {
-        UIPopupPanel panel = (UIPopupPanel) component;
+    	AbstractPopupPanel panel = (AbstractPopupPanel) component;
         if (panel.isAutosized() && panel.isResizeable()) {
             throw new IllegalArgumentException("Autosized modal panel can't be resizeable.");
         }
@@ -127,7 +131,7 @@ public class PopupPanelBaseRenderer extends RendererBase {
 
     @SuppressWarnings("unchecked")
     public String buildShowScript(FacesContext context, UIComponent component) {
-        UIPopupPanel panel = (UIPopupPanel) component;
+    	AbstractPopupPanel panel = (AbstractPopupPanel) component;
         StringBuilder result = new StringBuilder();
 
         // Bug https://jira.jboss.org/jira/browse/RF-2466
@@ -137,7 +141,7 @@ public class PopupPanelBaseRenderer extends RendererBase {
             result.append("RichFaces.ui.PopupPanel.showPopupPanel('" + panel.getClientId(context) + "', {");
 
             //TODO nick - use ScriptUtils.toScript
-            Iterator<Map.Entry<String, Object>> it = ((Map<String, Object>) panel.getHandledVisualOptions()).entrySet()
+            Iterator<Map.Entry<String, Object>> it = ((Map<String, Object>) getHandledVisualOptions(panel)).entrySet()
                 .iterator();
             while (it.hasNext()) {
                 Map.Entry<String, Object> entry = it.next();
@@ -176,9 +180,9 @@ public class PopupPanelBaseRenderer extends RendererBase {
             builder.append(",");
         }
     }
-
+    
     public String buildScript(FacesContext context, UIComponent component) throws IOException {
-        UIPopupPanel panel = (UIPopupPanel) component;
+    	AbstractPopupPanel panel = (AbstractPopupPanel) component;
         StringBuilder result = new StringBuilder();
         result.append("new RichFaces.ui.PopupPanel('");
         result.append(panel.getClientId());
@@ -206,6 +210,7 @@ public class PopupPanelBaseRenderer extends RendererBase {
         writeOption(result, "domElementAttachment", panel.getDomElementAttachment(), component, true);
         writeOption(result, "keepVisualState", panel.isKeepVisualState(), component, false);
         writeOption(result, "show", panel.isShow(), component, false);
+        writeOption(result, "modal", panel.isModal(), component, false);
         writeOption(result, "autosized", panel.isAutosized(), component, false);
         writeOption(result, "overlapEmbedObjects", panel.isOverlapEmbedObjects(), component, false);
         //TODO nick - what is deleted here?
@@ -237,10 +242,21 @@ public class PopupPanelBaseRenderer extends RendererBase {
         return "";
     }
 
-    private String writeVisualOptions(FacesContext context, UIPopupPanel panel) throws IOException {
+    public Map<String, Object> getHandledVisualOptions(AbstractPopupPanel panel) {
+        String options = panel.getVisualOptions();
+        Map<String, Object> result;
+        result = prepareVisualOptions(options, panel);
+
+        if (null == result) {
+            result = new HashMap<String, Object>();
+        }
+        return result;
+    }
+    
+    private String writeVisualOptions(FacesContext context, AbstractPopupPanel panel) throws IOException {
         StringBuffer result = new StringBuffer();
 
-        Iterator<Map.Entry<String, Object>> it = ((Map<String, Object>) panel.getHandledVisualOptions()).entrySet()
+        Iterator<Map.Entry<String, Object>> it = ((Map<String, Object>) getHandledVisualOptions(panel)).entrySet()
             .iterator();
         if (it.hasNext()) {
             result.append(",\n");
@@ -254,5 +270,26 @@ public class PopupPanelBaseRenderer extends RendererBase {
             }
         }
         return result.toString();
+    }
+    
+    private Map<String, Object> prepareVisualOptions(Object value, AbstractPopupPanel panel) {
+        if (null == value) {
+            return new HashMap<String, Object>();
+        } else if (value instanceof Map) {
+            return (Map<String, Object>) value;
+        } else if (value instanceof String) {
+            String s = (String) value;
+            if (!s.startsWith("{")) {
+                s = "{" + s + "}";
+            }
+            try {
+                return new HashMap<String, Object>(new JSONMap(s));
+            } catch (JSONException e) {
+                throw new FacesException(e);
+            }
+        } else {
+            throw new FacesException("Attribute visualOptions of component [" + panel.getClientId(FacesContext.getCurrentInstance())
+                + "] must be instance of Map or String, but its type is " + value.getClass().getSimpleName());
+        }
     }
 }

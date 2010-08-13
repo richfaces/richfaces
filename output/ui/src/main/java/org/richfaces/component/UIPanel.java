@@ -23,11 +23,18 @@ package org.richfaces.component;
 
 import javax.faces.component.UIComponentBase;
 
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+
 /**
  * JSF component class
  * 
  */
-//TODO nick - remove
+@JsfComponent(tag = @Tag(type = TagType.Facelets), 
+	    renderer = @JsfRenderer(type = "org.richfaces.PanelRenderer")
+	)
 public class UIPanel extends UIComponentBase {
     private static final String COMPONENT_FAMILY = "org.richfaces.Panel";
 

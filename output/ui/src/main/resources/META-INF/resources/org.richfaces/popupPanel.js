@@ -304,7 +304,7 @@
 					if (this.options.overlapEmbedObjects && !this.iframe) {
 	                        		this.iframe = this.markerId + "IFrame";
 	            		$("<iframe src=\"javascript:''\" frameborder=\"0\" scrolling=\"no\" id=\"" + this.iframe + "\" " +								
-						"class=\"mp-iframe\" style=\"width:" +this.options.width + "px; height:" + this.options.height + "px;\">" +
+						"class=\"rf-pp-if\" style=\"width:" +this.options.width + "px; height:" + this.options.height + "px;\">" +
 						"</iframe>").insertBefore($(':first-child', $(this.cdiv))[0]);
 				
 						eIframe = jQuery("#"+this.iframe); 
