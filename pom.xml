@@ -130,13 +130,6 @@
                 <artifactId>junit</artifactId>
                 <version>4.7</version>
             </dependency>
-            <!-- JSF imple is only a testing requirement -->
-            <!--   This is set by profiles below -->
-            <dependency>
-                <groupId>${jsf2.impl.groupid}</groupId>
-                <artifactId>${jsf2.impl.artifactid}</artifactId>
-                <version>${jsf2.impl.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -157,6 +150,8 @@
                         <autoVersionSubmodules>true</autoVersionSubmodules>
                         <!-- During release:perform, enable the "release" profile -->
                         <releaseProfiles>release</releaseProfiles>
+                        <!-- Some modules (dist) need release items installed during prepare -->
+                        <preparationGoals>clean install</preparationGoals>
                         <!--
                             RichFaces modules should override and set goals to
                             run for release:perform
@@ -344,105 +339,6 @@
             </properties>
         </profile>
 
-        <!--
-            The following profiles determine the JSF api/impl combinations that
-            will beused. The detfault profile is "jsf-ri", this can be
-            overwritten by setting -Djsf_profile=<profile-name> on the mvn command line
-        -->
-        <profile>
-            <id>jsf_ri</id>
-            <activation>
-                <property>
-                    <name>!jsf_profile</name>
-                </property>
-            </activation>
-            <properties>
-                <!-- Define jsf 2 api dependency -->
-                <jsf2.api.groupid>com.sun.faces</jsf2.api.groupid>
-                <jsf2.api.artifactid>jsf-api</jsf2.api.artifactid>
-                <jsf2.api.version>2.0.2</jsf2.api.version>
-                <!-- Define jsf 2 impl dependency -->
-                <jsf2.impl.groupid>com.sun.faces</jsf2.impl.groupid>
-                <jsf2.impl.artifactid>jsf-impl</jsf2.impl.artifactid>
-                <jsf2.impl.version>2.0.2</jsf2.impl.version>
-            </properties>
-        </profile>
-        <profile>
-            <id>jsf_ri_2.0.3</id>
-            <activation>
-                <property>
-                    <name>jsf_profile</name>
-                    <value>jsf_ri_2.0.3</value>
-                </property>
-            </activation>
-            <properties>
-                <!-- Define jsf 2 api dependency -->
-                <jsf2.api.groupid>com.sun.faces</jsf2.api.groupid>
-                <jsf2.api.artifactid>jsf-api</jsf2.api.artifactid>
-                <jsf2.api.version>2.0.3-B03</jsf2.api.version>
-                <!-- Define jsf 2 impl dependency -->
-                <jsf2.impl.groupid>com.sun.faces</jsf2.impl.groupid>
-                <jsf2.impl.artifactid>jsf-impl</jsf2.impl.artifactid>
-                <jsf2.impl.version>2.0.3-B03</jsf2.impl.version>
-            </properties>
-        </profile>
-        <profile>
-            <id>jsf_ri_snapshot</id>
-            <activation>
-                <property>
-                    <name>jsf_profile</name>
-                    <value>jsf_ri_snapshot</value>
-                </property>
-            </activation>
-            <properties>
-                <!-- Define jsf 2 api dependency -->
-                <jsf2.api.groupid>com.sun.faces</jsf2.api.groupid>
-                <jsf2.api.artifactid>jsf-api</jsf2.api.artifactid>
-                <jsf2.api.version>2.0.3-SNAPSHOT</jsf2.api.version>
-                <!-- Define jsf 2 impl dependency -->
-                <jsf2.impl.groupid>com.sun.faces</jsf2.impl.groupid>
-                <jsf2.impl.artifactid>jsf-impl</jsf2.impl.artifactid>
-                <jsf2.impl.version>2.0.3-SNAPSHOT</jsf2.impl.version>
-            </properties>
-        </profile>
-        <profile>
-            <id>myfaces</id>
-            <activation>
-                <property>
-                    <name>jsf_profile</name>
-                    <value>myfaces</value>
-                </property>
-            </activation>
-            <properties>
-                <!-- Define jsf 2 api dependency -->
-                <jsf2.api.groupid>org.apache.myfaces.core</jsf2.api.groupid>
-                <jsf2.api.artifactid>myfaces-api</jsf2.api.artifactid>
-                <jsf2.api.version>2.0.0</jsf2.api.version>
-                <!-- Define jsf 2 impl dependency -->
-                <jsf2.impl.groupid>org.apache.myfaces.core</jsf2.impl.groupid>
-                <jsf2.impl.artifactid>myfaces-impl</jsf2.impl.artifactid>
-                <jsf2.impl.version>2.0.0</jsf2.impl.version>
-            </properties>
-        </profile>
-        <profile>
-            <id>myfaces_snapshot</id>
-            <activation>
-                <property>
-                    <name>jsf_profile</name>
-                    <value>myfaces_snapshot</value>
-                </property>
-            </activation>
-            <properties>
-                <!-- Define jsf 2 api dependency -->
-                <jsf2.api.groupid>org.apache.myfaces.core</jsf2.api.groupid>
-                <jsf2.api.artifactid>myfaces-api</jsf2.api.artifactid>
-                <jsf2.api.version>2.0.1-SNAPSHOT</jsf2.api.version>
-                <!-- Define jsf 2 impl dependency -->
-                <jsf2.impl.groupid>org.apache.myfaces.core</jsf2.impl.groupid>
-                <jsf2.impl.artifactid>myfaces-impl</jsf2.impl.artifactid>
-                <jsf2.impl.version>2.0.1-SNAPSHOT</jsf2.impl.version>
-            </properties>
-        </profile>
         
         <!-- This profile can be used while testing staged releases.  This
              works around two issues with how maven inherits from settings.xml
@@ -487,7 +383,6 @@
                </pluginRepository>
            </pluginRepositories>
         </profile>
-
     </profiles>
 
     <distributionManagement>
