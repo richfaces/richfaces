@@ -58,11 +58,6 @@
 
 		<!-- Provided Dependencies -->
 		<dependency>
-			<groupId>${jsf2.api.groupid}</groupId>
-			<artifactId>${jsf2.api.artifactid}</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>javax.el</groupId>
 			<artifactId>el-api</artifactId>
 			<scope>provided</scope>
@@ -124,11 +119,6 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>${jsf2.impl.groupid}</groupId>
-			<artifactId>${jsf2.impl.artifactid}</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

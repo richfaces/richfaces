@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
-        <version>9</version>
+        <version>10-SNAPSHOT</version>
     </parent>
 
     <groupId>org.richfaces.core</groupId>
@@ -36,9 +36,8 @@
     <description>The root aggregator for the richfaces core module.  This manages intermodule relationships, and destribution assembly where needed.</description>
 
     <modules>
-        <module>commons</module>
-        <module>bom</module>
         <module>parent</module>
+        <module>commons</module>
         <module>api</module>
         <module>impl</module>
     </modules>
