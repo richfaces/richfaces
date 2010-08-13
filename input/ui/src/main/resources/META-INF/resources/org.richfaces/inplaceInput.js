@@ -18,12 +18,13 @@
             richfaces.Event.bind(this.element, this.editEvent, this.edit, this);
             richfaces.Event.bind(this.input, "change", this.save, this);
             richfaces.Event.bind(this.input, "blur", this.save, this);
-            
+            richfaces.Event.bind(this.input, "focus", this.edit, this);
+
             if(this.showControls) {
             	this.okbtn = $(document.getElementById(options.okbtn));
             	this.cancelbtn = $(document.getElementById(options.cancelbtn));
-            	richfaces.Event.bind(this.okbtn, "mousedown", this.saveBtnHandler, this);
-            	richfaces.Event.bind(this.cancelbtn, "mousedown", this.cancelBtnHandler, this);
+            	richfaces.Event.bind(this.okbtn, "mousedown", this.__saveBtnHandler, this);
+            	richfaces.Event.bind(this.cancelbtn, "mousedown", this.__cancelBtnHandler, this);
             }
         };
         
@@ -37,7 +38,7 @@
            	return {
            		name : "RichFaces.ui.InplaceInput",
 
-/******************    public methods  *****************************************/
+/******************  public methods  *****************************************/
            		
            		edit: function() {
            			this.editContainer.removeClass(this.noneCss);
@@ -55,8 +56,10 @@
            			} else {
            				this.element.removeClass(this.changedCss);
            			}
-
-           			this.editContainer.addClass(this.noneCss);
+           			
+           			if(!this.showControls) {
+           				this.editContainer.addClass(this.noneCss);
+           			}
            		}, 
            		
            		cancel: function() {
@@ -73,12 +76,16 @@
            		getValue: function() {
            			return this.input.val();
            		}, 
-           		
-           		saveBtnHandler: function() {
-           			this.save(); return false;
+
+/******************  private methods  *****************************************/
+
+           		__saveBtnHandler: function() {
+           			this.save();
+           			this.editContainer.addClass(this.noneCss);
+           			return false;
            		}, 
            		
-           		cancelBtnHandler: function() {
+           		__cancelBtnHandler: function() {
            			this.cancel(); return false;
            		}
            	}

@@ -151,5 +151,5 @@ input.rf-ii-f {
 }
 
 .rf-ii-none {
-	display: none;
+	clip:rect(0px,0px,0px,0px);
 }

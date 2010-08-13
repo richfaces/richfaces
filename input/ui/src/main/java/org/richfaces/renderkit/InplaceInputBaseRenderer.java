@@ -50,8 +50,6 @@ import org.richfaces.component.util.HtmlUtil;
     @ResourceDependency(library="org.richfaces", name = "inplaceInput.ecss") })
 public class InplaceInputBaseRenderer extends RendererBase {
     
-    public static final String OPTIONS_STATE = "state";
-    
     public static final String OPTIONS_EDIT_EVENT = "editEvent";
     
     public static final String OPTIONS_EDIT_CONTAINER = "editContainer";
@@ -142,7 +140,6 @@ public class InplaceInputBaseRenderer extends RendererBase {
         
         String clientId = inplaceInput.getClientId(facesContext);
         Map<String, Object> options = new HashMap<String, Object>();
-        options.put(OPTIONS_STATE, inplaceInput.getState());
         options.put(OPTIONS_EDIT_EVENT, inplaceInput.getEditEvent());
         options.put(OPTIONS_NONE_CSS, NONE_CSS);
         options.put(OPTIONS_CHANGED_CSS, CHANGED_STATE_CSS);
