@@ -1,30 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-    JBoss, Home of Professional Open Source Copyright 2010, Red Hat,
-    Inc. and individual contributors by the @authors tag. See the
-    copyright.txt in the distribution for a full listing of
-    individual contributors. This is free software; you can
-    redistribute it and/or modify it under the terms of the GNU
-    Lesser General Public License as published by the Free Software
-    Foundation; either version 2.1 of the License, or (at your
-    option) any later version. This software is distributed in the
-    hope that it will be useful, but WITHOUT ANY WARRANTY; without
-    even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-    PARTICULAR PURPOSE. See the GNU Lesser General Public License
-    for more details. You should have received a copy of the GNU
-    Lesser General Public License along with this software; if not,
-    write to the Free Software Foundation, Inc., 51 Franklin St,
-    Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF site:
-    http://www.fsf.org.
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <!--
+        JBoss, Home of Professional Open Source Copyright 2010, Red Hat,
+        Inc. and individual contributors by the @authors tag. See the
+        copyright.txt in the distribution for a full listing of
+        individual contributors. This is free software; you can
+        redistribute it and/or modify it under the terms of the GNU
+        Lesser General Public License as published by the Free Software
+        Foundation; either version 2.1 of the License, or (at your
+        option) any later version. This software is distributed in the
+        hope that it will be useful, but WITHOUT ANY WARRANTY; without
+        even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+        PARTICULAR PURPOSE. See the GNU Lesser General Public License
+        for more details. You should have received a copy of the GNU
+        Lesser General Public License along with this software; if not,
+        write to the Free Software Foundation, Inc., 51 Franklin St,
+        Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF site:
+        http://www.fsf.org.
+    -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+>
 
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
-        <version>9</version>
+        <version>10-SNAPSHOT</version>
     </parent>
 
     <groupId>org.richfaces.examples</groupId>
@@ -38,23 +40,26 @@
         <snapshotRepository>dav:https://repository.jboss.org/nexus/content/repositories/snapshots/</snapshotRepository>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        
+
         <jetty.port>8080</jetty.port>
         <richfaces.checkstyle.version>1</richfaces.checkstyle.version>
-        <org.richfaces.ui.version>4.0.0-SNAPSHOT</org.richfaces.ui.version>
+        <org.richfaces.bom.version>4.0.0-SNAPSHOT</org.richfaces.bom.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.richfaces.ui</groupId>
-                <artifactId>richfaces-ui-parent</artifactId>
-                <version>${org.richfaces.ui.version}</version>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces-bom</artifactId>
+                <version>${org.richfaces.bom.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
 
-            <!-- simple logger binding: only messages of level INFO and higher are printed-->
+            <!--
+                simple logger binding: only messages of level INFO and
+                higher are printed
+            -->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-simple</artifactId>
@@ -71,13 +76,14 @@
     </dependencyManagement>
 
     <dependencies>
+        <!-- JSF impl should be switchable in example specific parent -->
         <dependency>
-            <groupId>${jsf2.api.groupid}</groupId>
-            <artifactId>${jsf2.api.artifactid}</artifactId>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>${jsf2.impl.groupid}</groupId>
-            <artifactId>${jsf2.impl.artifactid}</artifactId>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -150,7 +156,9 @@
                 <configuration>
                     <scanIntervalSeconds>10</scanIntervalSeconds>
                     <connectors>
-                        <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+                        <connector
+                            implementation="org.mortbay.jetty.nio.SelectChannelConnector"
+                        >
                             <port>${jetty.port}</port>
                             <maxIdleTime>60000</maxIdleTime>
                         </connector>
@@ -212,8 +220,12 @@
                                 </goals>
                                 <phase>package</phase>
                                 <configuration>
-                                    <!-- TODO - basedir might have a problem with release realitive
-                                          path might be better to use ${project.build.directory} -->
+                                    <!--
+                                        TODO - basedir might have a
+                                        problem with release realitive
+                                        path might be better to use
+                                        ${project.build.directory}
+                                    -->
                                     <classesDirectory>${basedir}/target/sources/sources</classesDirectory>
                                     <classifier>sources</classifier>
                                 </configuration>
@@ -239,14 +251,15 @@
             </build>
 
             <dependencies>
+                <!-- TODO these should be switchable in example specific parent -->
                 <dependency>
-                    <groupId>${jsf2.api.groupid}</groupId>
-                    <artifactId>${jsf2.api.artifactid}</artifactId>
+                    <groupId>com.sun.faces</groupId>
+                    <artifactId>jsf-api</artifactId>
                     <scope>provided</scope>
                 </dependency>
                 <dependency>
-                    <groupId>${jsf2.impl.groupid}</groupId>
-                    <artifactId>${jsf2.impl.artifactid}</artifactId>
+                    <groupId>com.sun.faces</groupId>
+                    <artifactId>jsf-impl</artifactId>
                     <scope>provided</scope>
                 </dependency>
                 <dependency>
@@ -270,7 +283,7 @@
             </snapshots>
         </repository>
     </repositories>
-    
+
     <scm>
         <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/examples/core-demo</connection>
         <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/examples/core-demo</developerConnection>
