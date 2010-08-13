@@ -404,6 +404,24 @@ public final class RenderKitUtils {
         return new Attributes();
     }
 
+    public static Attributes attributes(Enum<?> ... attrs) {
+        Attributes res = new Attributes();
+        for (Enum<?> attr : attrs) {
+            res.generic(attr.toString(), attr.toString());
+        }
+
+        return res;
+    }
+    
+    public static Attributes attributes(String ... attrs) {
+        Attributes res = new Attributes();
+        for (String attr : attrs) {
+            res.generic(attr, attr);
+        }
+        
+        return res;
+    }
+
     @SuppressWarnings("serial")
     public static final class Attributes extends TreeSet<ComponentAttribute> {
         
