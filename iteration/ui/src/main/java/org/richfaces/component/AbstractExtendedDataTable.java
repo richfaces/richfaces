@@ -32,6 +32,7 @@ import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
+import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -71,6 +72,9 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
     protected enum PropertyKeys {
         clientFirst, clientRows
     }
+    
+    @Attribute(defaultValue = "0")
+    public abstract int getFrozenColumns(); 
     
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
         if (SCROLL.equals(metaComponentId)) {
