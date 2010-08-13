@@ -19,12 +19,12 @@
 		<cdk:object type="org.richfaces.component.InplaceState" name="inplaceState" value="#{getInplaceState(component)}" />
 		<cdk:object type="java.lang.String" name="inplaceValue" value="#{getValue(facesContext, component)}" />
 
-		<div id="#{clientId}" class="#{getReadyStyleClass(component, inplaceState)}">
+		<div id="#{clientId}" class="#{getReadyStyleClass(component, inplaceState)}" cdk:passThroughWithExclusions="id class">
 			<span id="#{clientId}:label">
 				#{inplaceValue}
 			</span>
 			<div id="#{clientId}:edit" class="#{getEditStyleClass(component, inplaceState)}">
-				<input id="#{clientId}:input" autocomplete="off" name="#{clientId}:input" type="text" value="#{inplaceValue}" class="rf-ii-f" />
+				<input id="#{clientId}:input" autocomplete="off" name="#{clientId}:input" type="text" value="#{inplaceValue}" class="rf-ii-f" cdk:passThrough="tabIndex"/>
 				
 				<c:if test="#{component.attributes['showControls']}">
 					<div class="rf-ii-btn-prepos">

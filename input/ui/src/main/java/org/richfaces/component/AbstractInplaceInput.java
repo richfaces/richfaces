@@ -56,4 +56,7 @@ public abstract class AbstractInplaceInput extends UIInput {
     
     @Attribute(defaultValue="false")
     public abstract boolean isShowControls();
+    
+    @Attribute
+    public abstract String getTabIndex();
 }
