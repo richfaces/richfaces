@@ -22,7 +22,7 @@
 
 package org.richfaces.component.html;
 
-import org.richfaces.component.AbstractDivPanel;
+import org.richfaces.component.AbstractAccordion;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 
 import java.util.Arrays;
@@ -33,13 +33,15 @@ import java.util.Collections;
  * @author akolonitsky
  * @since 2010-08-13
  */
-public class HtmlDivPanel extends AbstractDivPanel implements ClientBehaviorHolder {
+public class HtmlAccordion extends AbstractAccordion implements ClientBehaviorHolder {
 
-    public static final String COMPONENT_TYPE = "org.richfaces.DivPanel";
+    public static final String COMPONENT_TYPE = "org.richfaces.Accordion";
 
-    public static final String COMPONENT_FAMILY = "org.richfaces.DivPanel";
+    public static final String COMPONENT_FAMILY = "org.richfaces.Accordion";
 
     private static final Collection<String> EVENT_NAMES = Collections.unmodifiableCollection(Arrays.asList(
+        "itemchange",
+        "beforeitemchange",
         "click",
         "dblclick",
         "mousedown",
@@ -51,6 +53,13 @@ public class HtmlDivPanel extends AbstractDivPanel implements ClientBehaviorHold
 
 
     public enum PropertyKeys {
+        itemHeaderClassActive,
+        itemHeaderClassDisabled,
+        itemHeaderClassInactive,
+        itemContentClass,
+        itemHeaderClass,
+        onitemchange,
+        onbeforeitemchange,
         lang,
         title,
         style,
@@ -65,13 +74,69 @@ public class HtmlDivPanel extends AbstractDivPanel implements ClientBehaviorHold
         onmouseup
     }
 
-    public HtmlDivPanel() {
-        setRendererType("org.richfaces.DivPanel");
+    public HtmlAccordion() {
+        setRendererType("org.richfaces.Accordion");
     }
 
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
+    }
+
+    public String getItemHeaderClassActive() {
+        return (String) getStateHelper().eval(PropertyKeys.itemHeaderClassActive);
+    }
+
+    public void setItemHeaderClassActive(String itemHeaderClassActive) {
+        getStateHelper().put(PropertyKeys.itemHeaderClassActive, itemHeaderClassActive);
+    }
+
+    public String getItemHeaderClassDisabled() {
+        return (String) getStateHelper().eval(PropertyKeys.itemHeaderClassDisabled);
+    }
+
+    public void setItemHeaderClassDisabled(String itemHeaderClassDisabled) {
+        getStateHelper().put(PropertyKeys.itemHeaderClassDisabled, itemHeaderClassDisabled);
+    }
+
+    public String getItemHeaderClassInactive() {
+        return (String) getStateHelper().eval(PropertyKeys.itemHeaderClassInactive);
+    }
+
+    public void setItemHeaderClassInactive(String itemHeaderClassInactive) {
+        getStateHelper().put(PropertyKeys.itemHeaderClassInactive, itemHeaderClassInactive);
+    }
+
+    public String getItemContentClass() {
+        return (String) getStateHelper().eval(PropertyKeys.itemContentClass);
+    }
+
+    public void setItemContentClass(String itemContentClass) {
+        getStateHelper().put(PropertyKeys.itemContentClass, itemContentClass);
+    }
+
+    public String getItemHeaderClass() {
+        return (String) getStateHelper().eval(PropertyKeys.itemHeaderClass);
+    }
+
+    public void setItemHeaderClass(String itemHeaderClass) {
+        getStateHelper().put(PropertyKeys.itemHeaderClass, itemHeaderClass);
+    }
+
+    public String getOnitemchange() {
+        return (String) getStateHelper().eval(PropertyKeys.onitemchange);
+    }
+
+    public void setOnitemchange(String onitemchange) {
+        getStateHelper().put(PropertyKeys.onitemchange, onitemchange);
+    }
+
+    public String getOnbeforeitemchange() {
+        return (String) getStateHelper().eval(PropertyKeys.onbeforeitemchange);
+    }
+
+    public void setOnbeforeitemchange(String onbeforeitemchange) {
+        getStateHelper().put(PropertyKeys.onbeforeitemchange, onbeforeitemchange);
     }
 
     public String getLang() {

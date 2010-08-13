@@ -23,13 +23,16 @@
 package org.richfaces.component.html;
 
 import org.richfaces.component.UITogglePanelItem;
-
 import javax.faces.component.behavior.ClientBehaviorHolder;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
-// TODO nick - no behaviors support!
+/**
+ * @author akolonitsky
+ * @since 2010-08-13
+ */
 public class HtmlTogglePanelItem extends UITogglePanelItem implements ClientBehaviorHolder {
 
     public static final String COMPONENT_TYPE = "org.richfaces.TogglePanelItem";
@@ -37,6 +40,8 @@ public class HtmlTogglePanelItem extends UITogglePanelItem implements ClientBeha
     public static final String COMPONENT_FAMILY = "org.richfaces.TogglePanelItem";
 
     private static final Collection<String> EVENT_NAMES = Collections.unmodifiableCollection(Arrays.asList(
+        "enter",
+        "leave",
         "click",
         "dblclick",
         "mousedown",
@@ -46,21 +51,22 @@ public class HtmlTogglePanelItem extends UITogglePanelItem implements ClientBeha
         "mouseup"
     ));
 
-    private enum PropertyKeys {
+
+    public enum PropertyKeys {
+        onenter,
+        onleave,
         lang,
+        title,
+        style,
+        styleClass,
+        dir,
         onclick,
         ondblclick,
         onmousedown,
         onmousemove,
         onmouseout,
         onmouseover,
-        onmouseup,
-        title,
-        style,
-        styleClass,
-        dir,
-        onenter,
-        onleave
+        onmouseup
     }
 
     public HtmlTogglePanelItem() {
@@ -72,104 +78,8 @@ public class HtmlTogglePanelItem extends UITogglePanelItem implements ClientBeha
         return COMPONENT_FAMILY;
     }
 
-    public String getLang() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.lang));
-    }
-
-    public void setLang(String lang) {
-        getStateHelper().put(PropertyKeys.lang, lang);
-    }
-
-    public String getOnclick() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.onclick));
-    }
-
-    public void setOnclick(String onclick) {
-        getStateHelper().put(PropertyKeys.onclick, onclick);
-    }
-
-    public String getOndblclick() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.ondblclick));
-    }
-
-    public void setOndblclick(String ondblclick) {
-        getStateHelper().put(PropertyKeys.ondblclick, ondblclick);
-    }
-
-    public String getOnmousedown() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.onmousedown));
-    }
-
-    public void setOnmousedown(String onmousedown) {
-        getStateHelper().put(PropertyKeys.onmousedown, onmousedown);
-    }
-
-    public String getOnmousemove() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.onmousemove));
-    }
-
-    public void setOnmousemove(String onmousemove) {
-        getStateHelper().put(PropertyKeys.onmousemove, onmousemove);
-    }
-
-    public String getOnmouseout() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.onmouseout));
-    }
-
-    public void setOnmouseout(String onmouseout) {
-        getStateHelper().put(PropertyKeys.onmouseout, onmouseout);
-    }
-
-    public String getOnmouseover() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.onmouseover));
-    }
-
-    public void setOnmouseover(String onmouseover) {
-        getStateHelper().put(PropertyKeys.onmouseover, onmouseover);
-    }
-
-    public String getOnmouseup() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.onmouseup));
-    }
-
-    public void setOnmouseup(String onmouseup) {
-        getStateHelper().put(PropertyKeys.onmouseup, onmouseup);
-    }
-
-    public String getTitle() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.title));
-    }
-
-    public void setTitle(String title) {
-        getStateHelper().put(PropertyKeys.title, title);
-    }
-
-    public String getStyle() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.style));
-    }
-
-    public void setStyle(String style) {
-        getStateHelper().put(PropertyKeys.style, style);
-    }
-
-    public String getStyleClass() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.styleClass));
-    }
-
-    public void setStyleClass(String styleClass) {
-        getStateHelper().put(PropertyKeys.styleClass, styleClass);
-    }
-
-    public String getDir() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.dir));
-    }
-
-    public void setDir(String dir) {
-        getStateHelper().put(PropertyKeys.dir, dir);
-    }
-
     public String getOnenter() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.onenter));
+        return (String) getStateHelper().eval(PropertyKeys.onenter);
     }
 
     public void setOnenter(String onenter) {
@@ -177,12 +87,110 @@ public class HtmlTogglePanelItem extends UITogglePanelItem implements ClientBeha
     }
 
     public String getOnleave() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.onleave));
+        return (String) getStateHelper().eval(PropertyKeys.onleave);
     }
 
     public void setOnleave(String onleave) {
         getStateHelper().put(PropertyKeys.onleave, onleave);
     }
+
+    public String getLang() {
+        return (String) getStateHelper().eval(PropertyKeys.lang);
+    }
+
+    public void setLang(String lang) {
+        getStateHelper().put(PropertyKeys.lang, lang);
+    }
+
+    public String getTitle() {
+        return (String) getStateHelper().eval(PropertyKeys.title);
+    }
+
+    public void setTitle(String title) {
+        getStateHelper().put(PropertyKeys.title, title);
+    }
+
+    public String getStyle() {
+        return (String) getStateHelper().eval(PropertyKeys.style);
+    }
+
+    public void setStyle(String style) {
+        getStateHelper().put(PropertyKeys.style, style);
+    }
+
+    public String getStyleClass() {
+        return (String) getStateHelper().eval(PropertyKeys.styleClass);
+    }
+
+    public void setStyleClass(String styleClass) {
+        getStateHelper().put(PropertyKeys.styleClass, styleClass);
+    }
+
+    public String getDir() {
+        return (String) getStateHelper().eval(PropertyKeys.dir);
+    }
+
+    public void setDir(String dir) {
+        getStateHelper().put(PropertyKeys.dir, dir);
+    }
+
+    public String getOnclick() {
+        return (String) getStateHelper().eval(PropertyKeys.onclick);
+    }
+
+    public void setOnclick(String onclick) {
+        getStateHelper().put(PropertyKeys.onclick, onclick);
+    }
+
+    public String getOndblclick() {
+        return (String) getStateHelper().eval(PropertyKeys.ondblclick);
+    }
+
+    public void setOndblclick(String ondblclick) {
+        getStateHelper().put(PropertyKeys.ondblclick, ondblclick);
+    }
+
+    public String getOnmousedown() {
+        return (String) getStateHelper().eval(PropertyKeys.onmousedown);
+    }
+
+    public void setOnmousedown(String onmousedown) {
+        getStateHelper().put(PropertyKeys.onmousedown, onmousedown);
+    }
+
+    public String getOnmousemove() {
+        return (String) getStateHelper().eval(PropertyKeys.onmousemove);
+    }
+
+    public void setOnmousemove(String onmousemove) {
+        getStateHelper().put(PropertyKeys.onmousemove, onmousemove);
+    }
+
+    public String getOnmouseout() {
+        return (String) getStateHelper().eval(PropertyKeys.onmouseout);
+    }
+
+    public void setOnmouseout(String onmouseout) {
+        getStateHelper().put(PropertyKeys.onmouseout, onmouseout);
+    }
+
+    public String getOnmouseover() {
+        return (String) getStateHelper().eval(PropertyKeys.onmouseover);
+    }
+
+    public void setOnmouseover(String onmouseover) {
+        getStateHelper().put(PropertyKeys.onmouseover, onmouseover);
+    }
+
+    public String getOnmouseup() {
+        return (String) getStateHelper().eval(PropertyKeys.onmouseup);
+    }
+
+    public void setOnmouseup(String onmouseup) {
+        getStateHelper().put(PropertyKeys.onmouseup, onmouseup);
+    }
+
+
 
     @Override
     public Collection<String> getEventNames() {

@@ -26,30 +26,23 @@ package org.richfaces.component;
 
 /**
  * @author akolonitsky
- * @since 2010-08-13
+ * @since 2010-08-05
  */
-public class UITogglePanelItem extends AbstractTogglePanelItem {
+public abstract class AbstractAccordion extends UITogglePanel {
 
-    public enum PropertyKeys {
-        name,
-        switchType
+    public static final String COMPONENT_TYPE = "org.richfaces.Accordion";
+
+    public static final String COMPONENT_FAMILY = "org.richfaces.Accordion";
+
+    protected AbstractAccordion() {
+        setRendererType("org.richfaces.Accordion");
     }
 
-    public String getName() {
-        return (String) getStateHelper().eval(PropertyKeys.name);
+    @Override
+    public String getFamily() {
+        return COMPONENT_FAMILY;
     }
 
-    public void setName(String name) {
-        getStateHelper().put(PropertyKeys.name, name);
-    }
-
-    public SwitchType getSwitchType() {
-        return (SwitchType) getStateHelper().eval(PropertyKeys.switchType, getParent().getSwitchType());
-    }
-
-    public void setSwitchType(SwitchType switchType) {
-        getStateHelper().put(PropertyKeys.switchType, switchType);
-    }
 
 
 }

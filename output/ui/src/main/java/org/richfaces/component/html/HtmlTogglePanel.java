@@ -23,49 +23,50 @@
 package org.richfaces.component.html;
 
 import org.richfaces.component.UITogglePanel;
-
 import javax.faces.component.behavior.ClientBehaviorHolder;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
-// TODO nick - no behaviors support! check Push renderer to implement
+/**
+ * @author akolonitsky
+ * @since 2010-08-13
+ */
 public class HtmlTogglePanel extends UITogglePanel implements ClientBehaviorHolder {
 
-    // todo Html prefix
     public static final String COMPONENT_TYPE = "org.richfaces.TogglePanel";
 
     public static final String COMPONENT_FAMILY = "org.richfaces.TogglePanel";
 
     private static final Collection<String> EVENT_NAMES = Collections.unmodifiableCollection(Arrays.asList(
+        "itemchange",
+        "beforeitemchange",
         "click",
         "dblclick",
         "mousedown",
         "mousemove",
         "mouseout",
         "mouseover",
-        "mouseup",
-        "complete",
-        "beforedomupdate"
+        "mouseup"
     ));
 
-    private enum PropertyKeys {
+
+    public enum PropertyKeys {
+        onitemchange,
+        onbeforeitemchange,
         lang,
+        title,
+        style,
+        styleClass,
+        dir,
         onclick,
         ondblclick,
         onmousedown,
         onmousemove,
         onmouseout,
         onmouseover,
-        onmouseup,
-        title,
-        style,
-        styleClass,
-        dir,
-        oncomplete,
-        onbeforedomupdate,
-        onitemchange,
-        onitemchanged
+        onmouseup
     }
 
     public HtmlTogglePanel() {
@@ -77,72 +78,32 @@ public class HtmlTogglePanel extends UITogglePanel implements ClientBehaviorHold
         return COMPONENT_FAMILY;
     }
 
+    public String getOnitemchange() {
+        return (String) getStateHelper().eval(PropertyKeys.onitemchange);
+    }
+
+    public void setOnitemchange(String onitemchange) {
+        getStateHelper().put(PropertyKeys.onitemchange, onitemchange);
+    }
+
+    public String getOnbeforeitemchange() {
+        return (String) getStateHelper().eval(PropertyKeys.onbeforeitemchange);
+    }
+
+    public void setOnbeforeitemchange(String onbeforeitemchange) {
+        getStateHelper().put(PropertyKeys.onbeforeitemchange, onbeforeitemchange);
+    }
+
     public String getLang() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.lang));
+        return (String) getStateHelper().eval(PropertyKeys.lang);
     }
 
     public void setLang(String lang) {
         getStateHelper().put(PropertyKeys.lang, lang);
     }
 
-    public String getOnclick() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.onclick));
-    }
-
-    public void setOnclick(String onclick) {
-        getStateHelper().put(PropertyKeys.onclick, onclick);
-    }
-
-    public String getOndblclick() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.ondblclick));
-    }
-
-    public void setOndblclick(String ondblclick) {
-        getStateHelper().put(PropertyKeys.ondblclick, ondblclick);
-    }
-
-    public String getOnmousedown() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.onmousedown));
-    }
-
-    public void setOnmousedown(String onmousedown) {
-        getStateHelper().put(PropertyKeys.onmousedown, onmousedown);
-    }
-
-    public String getOnmousemove() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.onmousemove));
-    }
-
-    public void setOnmousemove(String onmousemove) {
-        getStateHelper().put(PropertyKeys.onmousemove, onmousemove);
-    }
-
-    public String getOnmouseout() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.onmouseout));
-    }
-
-    public void setOnmouseout(String onmouseout) {
-        getStateHelper().put(PropertyKeys.onmouseout, onmouseout);
-    }
-
-    public String getOnmouseover() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.onmouseover));
-    }
-
-    public void setOnmouseover(String onmouseover) {
-        getStateHelper().put(PropertyKeys.onmouseover, onmouseover);
-    }
-
-    public String getOnmouseup() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.onmouseup));
-    }
-
-    public void setOnmouseup(String onmouseup) {
-        getStateHelper().put(PropertyKeys.onmouseup, onmouseup);
-    }
-
     public String getTitle() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.title));
+        return (String) getStateHelper().eval(PropertyKeys.title);
     }
 
     public void setTitle(String title) {
@@ -150,7 +111,7 @@ public class HtmlTogglePanel extends UITogglePanel implements ClientBehaviorHold
     }
 
     public String getStyle() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.style));
+        return (String) getStateHelper().eval(PropertyKeys.style);
     }
 
     public void setStyle(String style) {
@@ -158,7 +119,7 @@ public class HtmlTogglePanel extends UITogglePanel implements ClientBehaviorHold
     }
 
     public String getStyleClass() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.styleClass));
+        return (String) getStateHelper().eval(PropertyKeys.styleClass);
     }
 
     public void setStyleClass(String styleClass) {
@@ -166,47 +127,74 @@ public class HtmlTogglePanel extends UITogglePanel implements ClientBehaviorHold
     }
 
     public String getDir() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.dir));
+        return (String) getStateHelper().eval(PropertyKeys.dir);
     }
 
     public void setDir(String dir) {
         getStateHelper().put(PropertyKeys.dir, dir);
     }
 
-    public String getOncomplete() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.oncomplete));
+    public String getOnclick() {
+        return (String) getStateHelper().eval(PropertyKeys.onclick);
     }
 
-    public void setOncomplete(String oncomplete) {
-        getStateHelper().put(PropertyKeys.oncomplete, oncomplete);
+    public void setOnclick(String onclick) {
+        getStateHelper().put(PropertyKeys.onclick, onclick);
     }
 
-    public String getOnbeforedomupdate() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.onbeforedomupdate));
+    public String getOndblclick() {
+        return (String) getStateHelper().eval(PropertyKeys.ondblclick);
     }
 
-    public void setOnbeforedomupdate(String onbeforedomupdate) {
-        getStateHelper().put(PropertyKeys.onbeforedomupdate, onbeforedomupdate);
+    public void setOndblclick(String ondblclick) {
+        getStateHelper().put(PropertyKeys.ondblclick, ondblclick);
     }
 
-    public String getOnitemchange() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.onitemchange));
+    public String getOnmousedown() {
+        return (String) getStateHelper().eval(PropertyKeys.onmousedown);
     }
 
-    public void setOnitemchange(String onitemchange) {
-        getStateHelper().put(PropertyKeys.onitemchange, onitemchange);
+    public void setOnmousedown(String onmousedown) {
+        getStateHelper().put(PropertyKeys.onmousedown, onmousedown);
     }
 
-    public String getOnitemchanged() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.onitemchanged));
+    public String getOnmousemove() {
+        return (String) getStateHelper().eval(PropertyKeys.onmousemove);
     }
 
-    public void setOnitemchanged(String onitemchanged) {
-        getStateHelper().put(PropertyKeys.onitemchanged, onitemchanged);
+    public void setOnmousemove(String onmousemove) {
+        getStateHelper().put(PropertyKeys.onmousemove, onmousemove);
     }
+
+    public String getOnmouseout() {
+        return (String) getStateHelper().eval(PropertyKeys.onmouseout);
+    }
+
+    public void setOnmouseout(String onmouseout) {
+        getStateHelper().put(PropertyKeys.onmouseout, onmouseout);
+    }
+
+    public String getOnmouseover() {
+        return (String) getStateHelper().eval(PropertyKeys.onmouseover);
+    }
+
+    public void setOnmouseover(String onmouseover) {
+        getStateHelper().put(PropertyKeys.onmouseover, onmouseover);
+    }
+
+    public String getOnmouseup() {
+        return (String) getStateHelper().eval(PropertyKeys.onmouseup);
+    }
+
+    public void setOnmouseup(String onmouseup) {
+        getStateHelper().put(PropertyKeys.onmouseup, onmouseup);
+    }
+
+
 
     @Override
     public Collection<String> getEventNames() {
         return EVENT_NAMES;
     }
 }
+

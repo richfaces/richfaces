@@ -28,27 +28,27 @@ package org.richfaces.component;
  * @author akolonitsky
  * @since 2010-08-13
  */
-public class UITogglePanelItem extends AbstractTogglePanelItem {
+public class UITogglePanelTitledItem extends AbstractTogglePanelTitledItem {
 
     public enum PropertyKeys {
-        name,
-        switchType
+        disabled,
+        header
     }
 
-    public String getName() {
-        return (String) getStateHelper().eval(PropertyKeys.name);
+    public boolean isDisabled() {
+        return Boolean.valueOf(String.valueOf(getStateHelper().eval(PropertyKeys.disabled)));
     }
 
-    public void setName(String name) {
-        getStateHelper().put(PropertyKeys.name, name);
+    public void setDisabled(boolean disabled) {
+        getStateHelper().put(PropertyKeys.disabled, disabled);
     }
 
-    public SwitchType getSwitchType() {
-        return (SwitchType) getStateHelper().eval(PropertyKeys.switchType, getParent().getSwitchType());
+    public String getHeader() {
+        return (String) getStateHelper().eval(PropertyKeys.header);
     }
 
-    public void setSwitchType(SwitchType switchType) {
-        getStateHelper().put(PropertyKeys.switchType, switchType);
+    public void setHeader(String header) {
+        getStateHelper().put(PropertyKeys.header, header);
     }
 
 

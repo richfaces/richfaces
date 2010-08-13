@@ -327,7 +327,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
         } catch (Exception e) {
             caught = e;
             //message = MessageFactory.getMessage(context, UPDATE_MESSAGE_ID,
-            //              MessageFactory.getLabel(context, this));
+            //              MessageFactory.getHeader(context, this));
             setValid(false);
         }
 
@@ -501,7 +501,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
         return getItemByIndex(getRenderedChildren().size() - 1);
     }
 
-    private int getChildIndex(String name) {
+    public int getChildIndex(String name) {
         if (name == null) {
             throw new IllegalArgumentException("Name is required parameter.");
         }

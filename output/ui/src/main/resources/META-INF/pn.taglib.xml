@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <facelet-taglib xmlns="http://java.sun.com/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-                http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd"
-    version="2.0" id="pn">
-    <namespace>http://richfaces.org/panels</namespace>
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+                http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd" version="2.0" id="output">
+    <namespace>http://richfaces.org/output</namespace>
+
 
     <tag>
         <tag-name>toggleControl</tag-name>
@@ -14,87 +14,18 @@
         </behavior>
     </tag>
     <tag>
-        <tag-name>divPanel</tag-name>
+        <tag-name>panel</tag-name>
         <component>
-            <component-type>org.richfaces.DivPanel</component-type>
-            <renderer-type>org.richfaces.DivPanel</renderer-type>
+            <component-type>org.richfaces.Panel</component-type>
+            <renderer-type>org.richfaces.PanelRenderer</renderer-type>
         </component>
-        <attribute>
-            <description></description>
-            <name>lang</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>onclick</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>ondblclick</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>onmousedown</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>onmousemove</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>onmouseout</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>onmouseover</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>onmouseup</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>title</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>style</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>styleClass</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>dir</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description>Long long text</description>
-            <name>id</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description>binding description</description>
-            <name>binding</name>
-            <type>javax.faces.component.UIComponent</type>
-        </attribute>
-        <attribute>
-            <description>I don't know maybe some thing strange</description>
-            <name>rendered</name>
-            <type>boolean</type>
-        </attribute>
-
+    </tag>
+    <tag>
+        <tag-name>popupPanel</tag-name>
+        <component>
+            <component-type>org.richfaces.PopupPanel</component-type>
+            <renderer-type>org.richfaces.PopupPanelRenderer</renderer-type>
+        </component>
     </tag>
 
     <tag>
@@ -104,101 +35,6 @@
             <renderer-type>org.richfaces.TogglePanel</renderer-type>
             <handler-class>org.richfaces.view.facelets.html.TogglePanelTagHandler</handler-class>
         </component>
-        <attribute>
-            <description></description>
-            <name>lang</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>onclick</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>ondblclick</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>onmousedown</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>onmousemove</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>onmouseout</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>onmouseover</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>onmouseup</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>title</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>style</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>styleClass</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>dir</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description>Long long text</description>
-            <name>id</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description>binding description</description>
-            <name>binding</name>
-            <type>javax.faces.component.UIComponent</type>
-        </attribute>
-        <attribute>
-            <description>I don't know maybe some thing strange</description>
-            <name>rendered</name>
-            <type>boolean</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>oncomplete</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>onbeforedomupdate</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>onitemchange</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
-            <name>onitemchanged</name>
-            <type>java.lang.String</type>
-        </attribute>
         <attribute>
             <description></description>
             <name>switchType</name>
@@ -249,54 +85,54 @@
             <name>itemChangeListener</name>
             <type>javax.el.MethodExpression</type>
         </attribute>
-
-    </tag>
-    <tag>
-        <description>
-            Register a ItemChangeListener instance on the UIComponent
-            associated with the closest parent UIComponent custom
-            action.
-        </description>
-        <tag-name>itemChangeListener</tag-name>
-        <handler-class>org.richfaces.view.facelets.html.ItemChangeListenerHandler</handler-class>
         <attribute>
-            <description>
-                Fully qualified Java class name of a
-                ItemChangeListener to be created and registered.
-            </description>
-            <name>type</name>
+            <description>Long long text</description>
+            <name>id</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description>
-                Value binding expression that evaluates to an object that
-                implements org.richfaces.event.ItemChangeListener.
-            </description>
+            <description>binding description</description>
             <name>binding</name>
-            <required>false</required>
-            <type>org.richfaces.event.ItemChangeListener</type>
+            <type>javax.faces.component.UIComponent</type>
         </attribute>
         <attribute>
-            <description>
-                &lt;p class="changed_added_2_0"&gt;If present, this attribute refers
-                to the value of one of the exposed attached objects within the
-                composite component inside of which this tag is nested.&lt;/p&gt; </description>
-            <name>for</name>
-            <required>false</required>
+            <description>I don't know maybe some thing strange</description>
+            <name>rendered</name>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onitemchange</name>
             <type>java.lang.String</type>
         </attribute>
-    </tag>
-
-    <tag>
-        <tag-name>togglePanelItem</tag-name>
-        <component>
-            <component-type>org.richfaces.TogglePanelItem</component-type>
-            <renderer-type>org.richfaces.TogglePanelItem</renderer-type>
-
-        </component>
+        <attribute>
+            <description></description>
+            <name>onbeforeitemchange</name>
+            <type>java.lang.String</type>
+        </attribute>
         <attribute>
             <description></description>
             <name>lang</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>title</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>style</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>styleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>dir</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
@@ -334,6 +170,92 @@
             <name>onmouseup</name>
             <type>java.lang.String</type>
         </attribute>
+
+    </tag>
+    <tag>
+        <description>
+            Register a ItemChangeListener instance on the UIComponent
+            associated with the closest parent UIComponent custom
+            action.
+        </description>
+        <tag-name>itemChangeListener</tag-name>
+        <handler-class>org.richfaces.view.facelets.html.ItemChangeListenerHandler</handler-class>
+        <attribute>
+            <description>
+                Fully qualified Java class name of a
+                ItemChangeListener to be created and registered.
+            </description>
+            <name>type</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Value binding expression that evaluates to an object that
+                implements org.richfaces.event.ItemChangeListener.
+            </description>
+            <name>binding</name>
+            <required>false</required>
+            <type>org.richfaces.event.ItemChangeListener</type>
+        </attribute>
+        <attribute>
+            <description>
+                &lt;p class="changed_added_2_0"&gt;If present, this attribute refers
+                to the value of one of the exposed attached objects within the
+                composite component inside of which this tag is nested.&lt;/p&gt;
+            </description>
+            <name>for</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+
+    <tag>
+        <tag-name>togglePanelItem</tag-name>
+        <component>
+            <component-type>org.richfaces.TogglePanelItem</component-type>
+            <renderer-type>org.richfaces.TogglePanelItem</renderer-type>
+            
+        </component>
+        <attribute>
+            <description></description>
+            <name>name</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>switchType</name>
+            <type>org.richfaces.component.SwitchType</type>
+        </attribute>
+        <attribute>
+            <description>Long long text</description>
+            <name>id</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>binding description</description>
+            <name>binding</name>
+            <type>javax.faces.component.UIComponent</type>
+        </attribute>
+        <attribute>
+            <description>I don't know maybe some thing strange</description>
+            <name>rendered</name>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onenter</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onleave</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>lang</name>
+            <type>java.lang.String</type>
+        </attribute>
         <attribute>
             <description></description>
             <name>title</name>
@@ -355,6 +277,101 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
+            <description></description>
+            <name>onclick</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>ondblclick</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onmousedown</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onmousemove</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onmouseout</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onmouseover</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onmouseup</name>
+            <type>java.lang.String</type>
+        </attribute>
+
+    </tag>
+
+    <tag>
+        <tag-name>accordion</tag-name>
+        <component>
+            <component-type>org.richfaces.Accordion</component-type>
+            <renderer-type>org.richfaces.Accordion</renderer-type>
+            
+        </component>
+        <attribute>
+            <description></description>
+            <name>switchType</name>
+            <type>org.richfaces.component.SwitchType</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>activeItem</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>bypassUpdates</name>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>limitToList</name>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>data</name>
+            <type>java.lang.Object</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>status</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>execute</name>
+            <type>java.lang.Object</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>render</name>
+            <type>java.lang.Object</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>immediate</name>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>itemChangeListener</name>
+            <type>javax.el.MethodExpression</type>
+        </attribute>
+        <attribute>
             <description>Long long text</description>
             <name>id</name>
             <type>java.lang.String</type>
@@ -371,14 +388,198 @@
         </attribute>
         <attribute>
             <description></description>
+            <name>itemHeaderClassActive</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>itemHeaderClassDisabled</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>itemHeaderClassInactive</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>itemContentClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>itemHeaderClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onitemchange</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onbeforeitemchange</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>lang</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>title</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>style</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>styleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>dir</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onclick</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>ondblclick</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onmousedown</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onmousemove</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onmouseout</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onmouseover</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onmouseup</name>
+            <type>java.lang.String</type>
+        </attribute>
+
+    </tag>
+
+    <tag>
+        <tag-name>accordionItem</tag-name>
+        <component>
+            <component-type>org.richfaces.TogglePanelTitledItem</component-type>
+            <renderer-type>org.richfaces.AccordionItem</renderer-type>
+            
+        </component>
+        <attribute>
+            <description></description>
+            <name>disabled</name>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>header</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
             <name>name</name>
-            <required>true</required>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description></description>
             <name>switchType</name>
             <type>org.richfaces.component.SwitchType</type>
+        </attribute>
+        <attribute>
+            <description>Long long text</description>
+            <name>id</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>binding description</description>
+            <name>binding</name>
+            <type>javax.faces.component.UIComponent</type>
+        </attribute>
+        <attribute>
+            <description>I don't know maybe some thing strange</description>
+            <name>rendered</name>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>headerClassActive</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>headerClassDisabled</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>headerClassInactive</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>headerClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>headerStyle</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>contentClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onheaderclick</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onheaderdblclick</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onheadermousedown</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onheadermousemove</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onheadermouseup</name>
+            <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description></description>
@@ -390,23 +591,68 @@
             <name>onleave</name>
             <type>java.lang.String</type>
         </attribute>
+        <attribute>
+            <description></description>
+            <name>lang</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>title</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>style</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>styleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>dir</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onclick</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>ondblclick</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onmousedown</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onmousemove</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onmouseout</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onmouseover</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>onmouseup</name>
+            <type>java.lang.String</type>
+        </attribute>
 
     </tag>
 
 
-    <tag>
-        <tag-name>panel</tag-name>
-        <component>
-            <component-type>org.richfaces.Panel</component-type>
-            <renderer-type>org.richfaces.PanelRenderer</renderer-type>
-        </component>
-    </tag>
-
-    <tag>
-        <tag-name>popupPanel</tag-name>
-        <component>
-            <component-type>org.richfaces.PopupPanel</component-type>
-            <renderer-type>org.richfaces.PopupPanelRenderer</renderer-type>
-        </component>
-    </tag>
 </facelet-taglib>

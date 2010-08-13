@@ -54,6 +54,10 @@ public abstract class AbstractTogglePanelItem extends AbstractDivPanel {
         return (AbstractTogglePanel) super.getParent();
     }
 
+    public boolean isActive() {
+        return getParent().isActiveItem(this);
+    }
+
     @Override
     public Renderer getRenderer(FacesContext context) {
         return super.getRenderer(context);
@@ -89,7 +93,7 @@ public abstract class AbstractTogglePanelItem extends AbstractDivPanel {
         return "<div id=\"" + getClientId() + "\" style=\"display: none\" ></div>";
     }
 
-    private static void hidePanelItem(UIComponent item) {
+    protected static void hidePanelItem(UIComponent item) {
         //TODO nick - attributes shouldn't be overwritten
         item.getAttributes().put(RendererUtils.HTML.STYLE_ATTRIBUTE, "display:none");
     }

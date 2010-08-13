@@ -22,7 +22,7 @@
 
 package org.richfaces.component.html;
 
-import org.richfaces.component.AbstractDivPanel;
+import org.richfaces.component.UITogglePanelTitledItem;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 
 import java.util.Arrays;
@@ -33,13 +33,20 @@ import java.util.Collections;
  * @author akolonitsky
  * @since 2010-08-13
  */
-public class HtmlDivPanel extends AbstractDivPanel implements ClientBehaviorHolder {
+public class HtmlAccordionItem extends UITogglePanelTitledItem implements ClientBehaviorHolder {
 
-    public static final String COMPONENT_TYPE = "org.richfaces.DivPanel";
+    public static final String COMPONENT_TYPE = "org.richfaces.TogglePanelTitledItem";
 
-    public static final String COMPONENT_FAMILY = "org.richfaces.DivPanel";
+    public static final String COMPONENT_FAMILY = "org.richfaces.TogglePanelTitledItem";
 
     private static final Collection<String> EVENT_NAMES = Collections.unmodifiableCollection(Arrays.asList(
+        "headerclick",
+        "headerdblclick",
+        "headermousedown",
+        "headermousemove",
+        "headermouseup",
+        "enter",
+        "leave",
         "click",
         "dblclick",
         "mousedown",
@@ -51,6 +58,19 @@ public class HtmlDivPanel extends AbstractDivPanel implements ClientBehaviorHold
 
 
     public enum PropertyKeys {
+        headerClassActive,
+        headerClassDisabled,
+        headerClassInactive,
+        headerClass,
+        headerStyle,
+        contentClass,
+        onheaderclick,
+        onheaderdblclick,
+        onheadermousedown,
+        onheadermousemove,
+        onheadermouseup,
+        onenter,
+        onleave,
         lang,
         title,
         style,
@@ -65,13 +85,117 @@ public class HtmlDivPanel extends AbstractDivPanel implements ClientBehaviorHold
         onmouseup
     }
 
-    public HtmlDivPanel() {
-        setRendererType("org.richfaces.DivPanel");
+    public HtmlAccordionItem() {
+        setRendererType("org.richfaces.AccordionItem");
     }
 
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
+    }
+
+    public String getHeaderClassActive() {
+        return (String) getStateHelper().eval(PropertyKeys.headerClassActive);
+    }
+
+    public void setHeaderClassActive(String headerClassActive) {
+        getStateHelper().put(PropertyKeys.headerClassActive, headerClassActive);
+    }
+
+    public String getHeaderClassDisabled() {
+        return (String) getStateHelper().eval(PropertyKeys.headerClassDisabled);
+    }
+
+    public void setHeaderClassDisabled(String headerClassDisabled) {
+        getStateHelper().put(PropertyKeys.headerClassDisabled, headerClassDisabled);
+    }
+
+    public String getHeaderClassInactive() {
+        return (String) getStateHelper().eval(PropertyKeys.headerClassInactive);
+    }
+
+    public void setHeaderClassInactive(String headerClassInactive) {
+        getStateHelper().put(PropertyKeys.headerClassInactive, headerClassInactive);
+    }
+
+    public String getHeaderClass() {
+        return (String) getStateHelper().eval(PropertyKeys.headerClass);
+    }
+
+    public void setHeaderClass(String headerClass) {
+        getStateHelper().put(PropertyKeys.headerClass, headerClass);
+    }
+
+    public String getHeaderStyle() {
+        return (String) getStateHelper().eval(PropertyKeys.headerStyle);
+    }
+
+    public void setHeaderStyle(String headerStyle) {
+        getStateHelper().put(PropertyKeys.headerStyle, headerStyle);
+    }
+
+    public String getContentClass() {
+        return (String) getStateHelper().eval(PropertyKeys.contentClass);
+    }
+
+    public void setContentClass(String contentClass) {
+        getStateHelper().put(PropertyKeys.contentClass, contentClass);
+    }
+
+    public String getOnheaderclick() {
+        return (String) getStateHelper().eval(PropertyKeys.onheaderclick);
+    }
+
+    public void setOnheaderclick(String onheaderclick) {
+        getStateHelper().put(PropertyKeys.onheaderclick, onheaderclick);
+    }
+
+    public String getOnheaderdblclick() {
+        return (String) getStateHelper().eval(PropertyKeys.onheaderdblclick);
+    }
+
+    public void setOnheaderdblclick(String onheaderdblclick) {
+        getStateHelper().put(PropertyKeys.onheaderdblclick, onheaderdblclick);
+    }
+
+    public String getOnheadermousedown() {
+        return (String) getStateHelper().eval(PropertyKeys.onheadermousedown);
+    }
+
+    public void setOnheadermousedown(String onheadermousedown) {
+        getStateHelper().put(PropertyKeys.onheadermousedown, onheadermousedown);
+    }
+
+    public String getOnheadermousemove() {
+        return (String) getStateHelper().eval(PropertyKeys.onheadermousemove);
+    }
+
+    public void setOnheadermousemove(String onheadermousemove) {
+        getStateHelper().put(PropertyKeys.onheadermousemove, onheadermousemove);
+    }
+
+    public String getOnheadermouseup() {
+        return (String) getStateHelper().eval(PropertyKeys.onheadermouseup);
+    }
+
+    public void setOnheadermouseup(String onheadermouseup) {
+        getStateHelper().put(PropertyKeys.onheadermouseup, onheadermouseup);
+    }
+
+    public String getOnenter() {
+        return (String) getStateHelper().eval(PropertyKeys.onenter);
+    }
+
+    public void setOnenter(String onenter) {
+        getStateHelper().put(PropertyKeys.onenter, onenter);
+    }
+
+    public String getOnleave() {
+        return (String) getStateHelper().eval(PropertyKeys.onleave);
+    }
+
+    public void setOnleave(String onleave) {
+        getStateHelper().put(PropertyKeys.onleave, onleave);
     }
 
     public String getLang() {

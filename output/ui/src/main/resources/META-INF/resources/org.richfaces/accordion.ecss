@@ -1,0 +1,26 @@
+.rf-ac {
+    width: 300px; /*visible width*/
+    border: 1px solid #a6a6a6; /*panelBorderColor*/
+    border-bottom: 0px;
+    background: #FFFFFF; /*generalBackgroundColor*/
+}
+
+.rf-aci-h {
+    border-bottom: 1px solid #a6a6a6; /*panelBorderColor*/
+    background: url(images/bg_header.png) /*from headerGradientColor to headerBackgroundColor, picture height 20px*/ repeat-x top left #C0D1E7 /*headerBackgroundColor*/;
+    position: relative;
+    padding: 8px 10px 7px 10px;
+    font-weight: bold /*headerWeightFont*/;
+    color: #000000 /*headerTextColor*/;
+    font-family: verdana /*headerFamilyFont*/;
+    font-size: 11px /*headerSizeFont*/;
+    cursor: pointer;
+}
+
+.rf-aci-c {
+    border-bottom: 1px solid #a6a6a6 /*panelBorderColor*/;
+    height: 100px /*visible modal panel height minus header height*/;
+    position: relative;
+    overflow: auto;
+    overflow-x: hidden;
+}

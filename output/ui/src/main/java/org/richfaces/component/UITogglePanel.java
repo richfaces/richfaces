@@ -26,10 +26,11 @@ import javax.el.MethodExpression;
 
 /**
  * @author akolonitsky
+ * @since 2010-08-13
  */
 public class UITogglePanel extends AbstractTogglePanel {
 
-    private enum PropertyKeys {
+    public enum PropertyKeys {
         switchType,
         bypassUpdates,
         limitToList,
@@ -73,7 +74,7 @@ public class UITogglePanel extends AbstractTogglePanel {
     }
 
     public String getStatus() {
-        return String.valueOf(getStateHelper().eval(PropertyKeys.status));
+        return (String) getStateHelper().eval(PropertyKeys.status);
     }
 
     public void setStatus(String status) {

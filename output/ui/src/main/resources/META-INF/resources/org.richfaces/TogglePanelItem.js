@@ -31,8 +31,8 @@
 
         init : function (componentId, options) {
             // call constructor of parent class
-            this.$super.constructor.call(this, componentId);
-            this.$super.attachToDom.call(this, componentId);
+            rf.BaseComponent.call(this, componentId);
+            this.attachToDom(componentId);
 
             this.options = options;
             this.name = this.options.name;

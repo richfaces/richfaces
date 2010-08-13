@@ -22,6 +22,11 @@
 
 package org.richfaces.view.facelets.html;
 
+import org.richfaces.component.AbstractTogglePanel;
+
+import org.richfaces.event.MethodExpressionItemChangeListener;
+import org.richfaces.event.ItemChangeEvent;
+
 import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.ComponentHandler;
 import javax.faces.view.facelets.FaceletContext;
@@ -31,14 +36,9 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-import org.richfaces.component.AbstractTogglePanel;
-import org.richfaces.event.ItemChangeEvent;
-import org.richfaces.event.MethodExpressionItemChangeListener;
-
 /**
  * @author akolonitsky
- * @version 1.0
- * @since -4712-01-01
+ * @since 2010-08-13
  */
 public class TogglePanelTagHandler extends ComponentHandler {
 

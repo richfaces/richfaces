@@ -22,18 +22,18 @@
 
 package org.richfaces.renderkit.html;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.component.AbstractTogglePanel;
+import org.richfaces.component.AbstractTogglePanelItem;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.component.AbstractTogglePanelItem;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author akolonitsky
@@ -72,6 +72,10 @@ public class TogglePanelItemRenderer extends DivPanelRenderer {
         options.put("name", panelItem.getName());
         options.put("togglePanelId", panelItem.getParent().getClientId());
         options.put("switchMode", panelItem.getSwitchType());
+
+        AbstractTogglePanelItem item = (AbstractTogglePanelItem) component;
+        AbstractTogglePanel panel = item.getParent();
+        options.put("index", panel.getChildIndex(item.getName()));
 
         TogglePanelRenderer.addEventOption(context, component, options, LEAVE);
         TogglePanelRenderer.addEventOption(context, component, options, ENTER);

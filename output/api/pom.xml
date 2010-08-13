@@ -43,6 +43,7 @@
         <dependency>
             <groupId>org.richfaces.ui.common</groupId>
             <artifactId>richfaces-ui-common-api</artifactId>
+            <version>${org.richfaces.commons.version}</version>
         </dependency>
 
         <!-- JSF with dependencies -->

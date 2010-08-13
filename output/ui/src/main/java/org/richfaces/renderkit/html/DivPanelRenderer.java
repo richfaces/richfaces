@@ -22,17 +22,20 @@
 
 package org.richfaces.renderkit.html;
 
-import java.io.IOException;
-import java.util.Map;
+import org.ajax4jsf.renderkit.RendererBase;
+import org.ajax4jsf.renderkit.RendererUtils.HTML;
+import org.richfaces.component.AbstractDivPanel;
+import org.richfaces.renderkit.RenderKitUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.Map;
 
-import org.ajax4jsf.renderkit.RendererBase;
-import org.ajax4jsf.renderkit.RendererUtils;
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
-import org.richfaces.component.AbstractDivPanel;
+import static org.richfaces.component.html.HtmlDivPanel.PropertyKeys.*;
+import static org.richfaces.renderkit.RenderKitUtils.attributes;
+import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 
 /**
  * @author akolonitsky
@@ -40,20 +43,35 @@ import org.richfaces.component.AbstractDivPanel;
  */
 public class DivPanelRenderer extends RendererBase {
 
-    public static final String[] ATTRIBUTES = new String[] {
-        "lang",
-        "onclick",
-        "ondblclick",
-        "onmousedown",
-        "onmousemove",
-        "onmouseout",
-        "onmouseover",
-        "onmouseup",
-        "title",
-        "style",
-        "styleClass",
-        "dir",
-    };
+    private static final RenderKitUtils.Attributes PASS_THROUGH_ATTRIBUTES0 = attributes(
+        lang,
+        onclick,
+        ondblclick,
+        onmousedown,
+        onmousemove,
+        onmouseout,
+        onmouseover,
+        onmouseup,
+        title,
+        style,
+        dir
+    );
+
+    protected static String attributeAsString(UIComponent comp, String attr) {
+        Object o = comp.getAttributes().get(attr);
+        return o == null ? "" : o.toString();
+    }
+
+    /**
+     * Capitalize the first character of the given string.
+     *
+     * @param string String to capitalize.
+     * @return Capitalized string.
+     * @throws IllegalArgumentException String is <kk>null</kk> or empty.
+     */
+    protected static String capitalize(final String string) {
+        return Character.toUpperCase(string.charAt(0)) + string.substring(1);
+    }
 
     @Override
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
@@ -61,9 +79,12 @@ public class DivPanelRenderer extends RendererBase {
 
         writer.startElement(HTML.DIV_ELEM, component);
         writer.writeAttribute("id", component.getClientId(context), "clientId");
+        writer.writeAttribute("class", getStyleClass(component), null);
+        renderPassThroughAttributes(context, component, PASS_THROUGH_ATTRIBUTES0);
+    }
 
-        RendererUtils.getInstance()
-            .encodeAttributesFromArray(context, component, ATTRIBUTES);
+    protected String getStyleClass(UIComponent component) {
+        return attributeAsString(component, "styleClass");
     }
 
     @Override
