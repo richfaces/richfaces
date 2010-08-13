@@ -4,7 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:it="http://richfaces.org/iteration"
-	xmlns:cc="http://richfaces.org/componentControl">
+	xmlns:misc="http://richfaces.org/misc">
 <f:view contentType="text/html" />
 
 <h:head>
@@ -13,18 +13,17 @@
 
 <h:body>
 	<h:form id="form1">
-		<it:dataScroller id="scroller1" for="richTable"
-			page="#{dataBean.page}" maxPages="7"></it:dataScroller>
+		<it:dataScroller id="scroller1" for="richTable" page="#{dataBean.page}" maxPages="7"></it:dataScroller>
 		
-		<it:dataTable keepSaved="true" id="richTable" var="record"
-			rowKeyVar="rowKey" value="#{dataBean.employeeList}" rows="20"
-			sortMode="single">
+		<it:dataTable keepSaved="true" id="richTable" var="record" 	rowKeyVar="rowKey" value="#{dataBean.employeeList}" rows="20" sortMode="single">
 			<f:facet name="caption">
 				<h:outputText id="captioFacet1" value="Caption Facet" />
 			</f:facet>
+
 			<f:facet name="header">
 				<h:outputText value="header facet" />
 			</f:facet>
+
 			<it:column id="column_name" sortBy="#{record.name}"
 				sortIconAsc="resources/images/asc.gif"
 				sortIconDesc="resources/images/desc.gif"
@@ -82,8 +81,7 @@
 			</it:subTable -->
 
 			<f:facet name="footer">
-				<it:dataScroller id="scroller3" for="richTable"
-					page="#{dataBean.page}" maxPages="7"></it:dataScroller>
+				<it:dataScroller id="scroller3" for="richTable" page="#{dataBean.page}" maxPages="7"></it:dataScroller>
 			</f:facet>
 
 		</it:dataTable>
@@ -112,28 +110,28 @@
 
 
 		<h:commandButton value="next">
-			<cc:componentControl event="click" target="form1:scroller1"
+			<misc:componentControl event="click" target="form1:scroller1"
 				operation="switchToPage">
 				<f:param value="fastforward" />
-			</cc:componentControl>
+			</misc:componentControl>
 		</h:commandButton>
 
 		<h:commandButton value="previous">
-			<cc:componentControl event="click" target="form1:scroller1"
+			<misc:componentControl event="click" target="form1:scroller1"
 				operation="previous" />
 		</h:commandButton>
 
 		<h:commandButton value="sort">
-			<cc:componentControl event="click" target="form1:richTable"
+			<misc:componentControl event="click" target="form1:richTable"
 				operation="sort">
 				<f:param value="column_title" />
-			</cc:componentControl>
+			</misc:componentControl>
 		</h:commandButton>
 
 		<h:commandButton value="unsort">
-			<cc:componentControl event="click" target="form1:richTable"
+			<misc:componentControl event="click" target="form1:richTable"
 				operation="sort">
-			</cc:componentControl>
+			</misc:componentControl>
 		</h:commandButton>
 
 	</h:form>
