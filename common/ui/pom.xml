@@ -36,81 +36,12 @@
     <packaging>jar</packaging>
 
     <properties>
-        <org.richfaces.cdk.version>4.0.0-SNAPSHOT</org.richfaces.cdk.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.richfaces.ui.common</groupId>
             <artifactId>richfaces-ui-common-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    
-        <!-- runtime -->
-        <dependency>
-            <groupId>org.richfaces.core</groupId>
-            <artifactId>richfaces-core-api</artifactId>
-        </dependency>
-
-        <!-- JSF with dependencies -->
-        <dependency>
-            <groupId>${jsf2.api.groupid}</groupId>
-            <artifactId>${jsf2.api.artifactid}</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>el-api</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- tests -->
-        <dependency>
-            <groupId>${jsf2.impl.groupid}</groupId>
-            <artifactId>${jsf2.impl.artifactid}</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <!-- todo api? -->
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.test-jsf</groupId>
-            <artifactId>jsf-test-stage</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.test-jsf</groupId>
-            <artifactId>htmlunit-client</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.test-jsf</groupId>
-            <artifactId>jsf-mock</artifactId>
-            <scope>test</scope>
         </dependency>
     </dependencies>
-    
 </project>

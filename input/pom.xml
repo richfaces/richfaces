@@ -25,7 +25,7 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
-        <version>9</version>
+        <version>10-SNAPSHOT</version>
     </parent>
 
     <groupId>org.richfaces.ui.input</groupId>
@@ -38,31 +38,6 @@
         <module>api</module>
         <module>ui</module>
     </modules>
-
-    <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <configuration>
-                        <!-- The dist requires clean install for prepare -->
-                        <preparationGoals>clean install</preparationGoals>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <configuration>
-                    <!-- The dist requires clean install for prepare -->
-                    <preparationGoals>clean install</preparationGoals>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
     <scm>
         <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/input</connection>
