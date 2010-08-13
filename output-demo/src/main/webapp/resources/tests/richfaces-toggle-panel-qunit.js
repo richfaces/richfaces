@@ -19,7 +19,6 @@ RichFaces.QUnit.run(function() {
         ok(c instanceof RichFaces.ui.TogglePanel, "inctance of RichFaces.ui.TogglePanel");
         equals(c.componentId, undefined, "componentId shouldn't be here, we must use id form component base");
         equals(c.id, TOGGLE_PANEL_ID, "id");
-        equals(c.switchMode, "client", "switchMode");
         equals(c.activeItem, "name1", "activeItem");
         equals(c.items.length, 3, "items");
 

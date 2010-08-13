@@ -30,6 +30,10 @@
             <from-outcome>togglePanel/mixed</from-outcome>
             <to-view-id>/examples/togglePanel-mixed.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>accordion</from-outcome>
+            <to-view-id>/examples/accordion.xhtml</to-view-id>
+        </navigation-case>
 
         <!-- QUnit -->
         <navigation-case>
@@ -39,6 +43,10 @@
         <navigation-case>
             <from-outcome>qunit/togglePanelItem</from-outcome>
             <to-view-id>/qunit/togglePanelItem.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>qunit/accordion</from-outcome>
+            <to-view-id>/qunit/accordion.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

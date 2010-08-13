@@ -30,16 +30,28 @@
                     <h:form id="nav">
                         <p>Examples</p>
                         <ul>
-                            <li><h:commandLink value="togglePanel" action="togglePanel" /></li>
-                            <li><h:commandLink value="togglePanel Ajax" action="togglePanel/ajax" /></li>
-                            <li><h:commandLink value="togglePanel Client" action="togglePanel/client" /></li>
-                            <li><h:commandLink value="togglePanel Server" action="togglePanel/server" /></li>
-                            <li><h:commandLink value="togglePanel Mixed" action="togglePanel/mixed" /></li>
+                            <li>
+                                <p>Toggle Panel</p>
+                                <ul>
+                                    <li><h:commandLink value="togglePanel" action="togglePanel" /></li>
+                                    <li><h:commandLink value="togglePanel Ajax" action="togglePanel/ajax" /></li>
+                                    <li><h:commandLink value="togglePanel Client" action="togglePanel/client" /></li>
+                                    <li><h:commandLink value="togglePanel Server" action="togglePanel/server" /></li>
+                                    <li><h:commandLink value="togglePanel Mixed" action="togglePanel/mixed" /></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <p>Accordion</p>
+                                <ul>
+                                    <li><h:commandLink value="accordion" action="accordion" /></li>
+                                </ul>
+                            </li>
                         </ul>
                         <p>QUnit</p>
                         <ul>
                             <li><h:commandLink value="togglePanel" action="qunit/togglePanel" /></li>
                             <li><h:commandLink value="togglePanelItem" action="qunit/togglePanelItem" /></li>
+                            <li><h:commandLink value="accordion" action="qunit/accordion" /></li>
                         </ul>
                     </h:form>
                 </td>
