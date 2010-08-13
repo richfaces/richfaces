@@ -69,6 +69,8 @@ import org.richfaces.model.SelectionMode;
 
 @JsfRenderer(type = "org.richfaces.ExtendedDataTableRenderer", family = AbstractExtendedDataTable.COMPONENT_FAMILY)
 @ResourceDependencies({
+    @ResourceDependency(name = "jquery.js"),
+    @ResourceDependency(name = "richfaces.js"),
     @ResourceDependency(name = "jquery.position.js"),
     @ResourceDependency(library="org.richfaces", name = "extendedDataTable.ecss"),
     @ResourceDependency(library="org.richfaces", name = "extendedDataTable.js") 
