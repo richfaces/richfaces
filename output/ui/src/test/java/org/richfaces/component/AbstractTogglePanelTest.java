@@ -59,6 +59,15 @@ public class AbstractTogglePanelTest {
     }
 
     @Test
+    public void testDefaultActiveItem() {
+        Assert.assertNotNull(panel);
+        Assert.assertEquals(null, panel.getActiveItem());
+
+        panel.setActiveItem(ITEM2);
+        Assert.assertEquals(ITEM2, panel.getActiveItem());
+    }
+
+    @Test
     public void testGetItemByIndex() {
         panel.setActiveItem(ITEM1);
 

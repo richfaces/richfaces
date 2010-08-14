@@ -133,7 +133,7 @@ public class TogglePanelRenderer extends DivPanelRenderer {
         AbstractTogglePanel panel = (AbstractTogglePanel) component;
 
         Map<String, Object> options = new HashMap<String, Object>(5);
-        options.put("activeItem", panel.getValue());
+        options.put("activeItem", panel.getActiveItem());
         options.put("items", getChildrenScriptObjects(context, panel));
         options.put("ajax", getAjaxOptions(context, panel));
 

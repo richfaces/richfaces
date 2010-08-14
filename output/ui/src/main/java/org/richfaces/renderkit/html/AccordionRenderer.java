@@ -57,7 +57,7 @@ public class AccordionRenderer extends TogglePanelRenderer {
 
     @Override
     protected String getStyleClass(UIComponent component) {
-        return "rf-ac" + attributeAsString(component, "styleClass");
+        return "rf-ac " + attributeAsString(component, "styleClass");
     }
 
     @Override

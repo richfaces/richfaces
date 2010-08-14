@@ -57,10 +57,11 @@
          * @return {Boolean} false
          * */
         execServer : function (oldPanel, newPanel) {
-            var continueProcess = oldPanel.__leave();
-            if (!continueProcess) {
-
-                return false;
+            if (oldPanel) {
+                var continueProcess = oldPanel.__leave();
+                if (!continueProcess) {
+                    return false;
+                }
             }
 
             this.__setActiveItem(newPanel.getName());
@@ -82,7 +83,10 @@
 
             this.__setActiveItem(newPanel.getName());
             rf.ajax(this.comp.id, null, options);
-            this.__setActiveItem(oldPanel.getName());
+
+            if (oldPanel) {
+                this.__setActiveItem(oldPanel.getName());
+            }
 
             return false;
         },
@@ -97,9 +101,11 @@
          *             - true  - in other cases
          * */
         execClient : function (oldPanel, newPanel) {
-            var continueProcess = oldPanel.__leave();
-            if (!continueProcess) {
-                return false;
+            if (oldPanel) {
+                var continueProcess = oldPanel.__leave();
+                if (!continueProcess) {
+                    return false;
+                }
             }
 
             this.__setActiveItem(newPanel.getName());

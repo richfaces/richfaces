@@ -1,26 +1,27 @@
 .rf-ac {
     width: 300px; /*visible width*/
-    border: 1px solid #a6a6a6; /*panelBorderColor*/
+    border: 1px solid #{richSkin.panelBorderColor}; 
     border-bottom: 0px;
-    background: #FFFFFF; /*generalBackgroundColor*/
+    background: #{richSkin.generalBackgroundColor};
 }
 
 .rf-aci-h {
-    border-bottom: 1px solid #a6a6a6; /*panelBorderColor*/
-    background: url(images/bg_header.png) /*from headerGradientColor to headerBackgroundColor, picture height 20px*/ repeat-x top left #C0D1E7 /*headerBackgroundColor*/;
+    border-bottom: 1px solid #{richSkin.panelBorderColor};
+    background: url(images/bg_header.png) /*from headerGradientColor to headerBackgroundColor, picture height 20px*/ repeat-x top left #{richSkin.headerBackgroundColor};
     position: relative;
     padding: 8px 10px 7px 10px;
-    font-weight: bold /*headerWeightFont*/;
-    color: #000000 /*headerTextColor*/;
-    font-family: verdana /*headerFamilyFont*/;
-    font-size: 11px /*headerSizeFont*/;
+    font-weight: #{richSkin.headerWeightFont};
+    color: #{richSkin.headerTextColor};
+    font-family: #{richSkin.headerFamilyFont};
+    font-size: #{richSkin.headerSizeFont};
     cursor: pointer;
 }
 
 .rf-aci-c {
-    border-bottom: 1px solid #a6a6a6 /*panelBorderColor*/;
+    border-bottom: 1px solid #{richSkin.panelBorderColor};
     height: 100px /*visible modal panel height minus header height*/;
     position: relative;
     overflow: auto;
     overflow-x: hidden;
+    padding: 10px;
 }

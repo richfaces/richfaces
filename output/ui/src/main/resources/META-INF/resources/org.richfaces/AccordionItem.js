@@ -51,17 +51,25 @@
         },
 
         /**
-         * @return {DOMElement}
+         * @param state {string} = inactive | active | disabled
+         *     in that case looking header by css class appropriate to this state
+         *
+         * @return {jQuery Object}
          * */
-        __header : function () {
-            return rf.getDomElement(this.id + ":header");
+        __header : function (state) {
+            var res = $(rf.getDomElement(this.id + ":header"));
+            if (state) {
+                return res.find(".rf-aci-h-" + state);
+            }
+
+            return res;
         },
 
         /**
-         * @return {DOMElement}
+         * @return {jQuery Object}
          * */
         __content : function () {
-            return rf.getDomElement(this.id + ":content");
+            return $(rf.getDomElement(this.id + ":content"));
         },
 
         /**
@@ -79,11 +87,12 @@
                     h -= items[i].getHeight();
                 }
 
-                $(this.__content()).height(h);
+                this.__content().height(h);
             }
 
-            this.__content().style.display = "block";
-
+            this.__content().show();
+            this.__header("inactive").hide();
+            this.__header("active").show();
 
             return this.__fireEnter();
         },
@@ -107,7 +116,10 @@
                 return false;
             }
 
-            this.__content().style.display = "none";
+            this.__content().hide();
+            this.__header("active").hide();
+            this.__header("inactive").show();
+
             return true;
         },
 

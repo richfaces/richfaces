@@ -28,7 +28,7 @@ package org.richfaces.component;
  * @author akolonitsky
  * @since 2010-08-05
  */
-public abstract class AbstractAccordion extends UITogglePanel {
+public class AbstractAccordion extends UITogglePanel {
 
     public static final String COMPONENT_TYPE = "org.richfaces.Accordion";
 
@@ -43,6 +43,12 @@ public abstract class AbstractAccordion extends UITogglePanel {
         return COMPONENT_FAMILY;
     }
 
-
-
+    @Override
+    public String getActiveItem() {
+        String res = super.getActiveItem();
+        if (res == null) {
+            res = getFirstItem().getName();
+        }
+        return res;
+    }
 }
