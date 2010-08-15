@@ -34,22 +34,16 @@
 					ok(!jQuery("input", form).size());
 				});
 
-				test("RichFaces.log test", function() {
-					expect(7);
-					var log = jQuery("#richfaces\\.log");
+				test("RichFaces.log stub test", function() {
+					//none of these calls shouldn't fail
 					RichFaces.log.error("some error");
+					RichFaces.log.warn("some warn");
 					RichFaces.log.info("some info");
-					log = jQuery("#richfaces\\.log .rich-log-contents");
-					equals(log.find("div").size(), 2);
-					equals(log.find("div:contains('some error')").size(), 1);
-					equals(log.find("div:contains('some info')").size(), 1);
-					RichFaces.log.setLevel("error");
-					equals(log.find("div").size(), 0);
-					RichFaces.log.error("some error");
-					RichFaces.log.info("some info");
-					equals(log.find("div").size(), 1);
-					equals(log.find("div:contains('some error')").size(), 1);
-					equals(log.find("div:contains('some info')").size(), 0);
+					RichFaces.log.debug("some debug");
+
+					RichFaces.log.clear();
+					RichFaces.log.getLevel();
+					RichFaces.log.setLevel('info');
 				});
 				
 				test("RichFaces.getValue test", function() {

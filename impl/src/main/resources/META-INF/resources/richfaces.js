@@ -143,129 +143,29 @@ if (!window.RichFaces) {
 		return s.replace(CSS_METACHARS_PATTERN, "\\$1");
 	};
 
-	richfaces.log = (function(jQuery) {
-		var LOG_LEVELS = {'debug': 1, 'info': 2, 'warn': 3, 'error': 4};
-		var LOG_LEVEL_COLORS = {'debug': 'darkblue', 'info': 'blue', 'warn': 'gold', 'error': 'red'};
-		var DEFAULT_LOG_LEVEL = LOG_LEVELS['info'];
-		var currentLogLevel = DEFAULT_LOG_LEVEL;
+	richfaces.log = {
+		debug: function(text) {
+		},
 
-		var consoleInitialized = false;
+		info: function(text) {
+		},
 
-		var setLevel = function(level) {
-			currentLogLevel = LOG_LEVELS[level] || DEFAULT_LOG_LEVEL;
-			if (consoleInitialized) {
-				getConsole().find("select.rich-log-element").val(currentLogLevel);
-			}
-			clear();
-		};
+		warn: function(text) {
+		},
 
-		var setLevelFromSelect = function(iLevel) {
-			currentLogLevel = iLevel || DEFAULT_LOG_LEVEL;
-		};
+		error: function(text) {
+		},
+		
+		setLevel: function(level) {
+		},
 
-		var clear = function() {
-			if (window.console && useBrowserConsole) {
-				window.console.clear();
-			} else {
-				var console = getConsole();
-				console.children(".rich-log-contents").children().remove();
-			}
-		};
-
-		var getConsole = function() {
-			var console = jQuery('#richfaces\\.log');
-			if (console.length != 0) {
-				if (!consoleInitialized) {
-					consoleInitialized = true;
-
-					var clearBtn = console.children("button.rich-log-element");
-					if (clearBtn.length == 0) {
-						clearBtn = jQuery("<button type='button' class='rich-log-element'>Clear</button>").appendTo(console);
-					}
-					clearBtn.click(clear);
-
-					var levelSelect = console.children("select.rich-log-element");
-					if (levelSelect.length == 0) {
-						levelSelect = jQuery("<select class='rich-log-element' name='richfaces.log' />").appendTo(console);
-					}
-
-					if (levelSelect.children().length == 0) {
-						for (var level in LOG_LEVELS) {
-							jQuery("<option value='" + LOG_LEVELS[level]+ "'>" + level + "</option>").appendTo(levelSelect);
-						}
-					}
-
-					levelSelect.val(currentLogLevel);
-					levelSelect.change(function(event) { clear(); setLevelFromSelect(parseInt(jQuery(this).val(), 10)); return false;});
-
-					var consoleEntries = console.children(".rich-log-contents");
-					if (consoleEntries.length == 0) {
-						consoleEntries = jQuery("<div class='rich-log-contents'></div>").appendTo(console);
-					}
-				}
-			}
-
-			return console;
-		};
-
-		var useBrowserConsole = false;
-
-		var AM_PM = /(\s*(?:a|p)m)$/i;
-
-		var getMessagePrefix = function(level) {
-			var date = new Date();
-			var formattedDate = date.toLocaleTimeString();
-
-			var ms = (date.getMilliseconds() + 1000).toString().substr(1);
-			if (AM_PM.test(formattedDate)) {
-				formattedDate = formattedDate.replace(AM_PM, "." + ms + "$1");
-			} else {
-				formattedDate += "." + ms;
-			}
-
-			return level + '[' + formattedDate.replace() + ']: ';
-		};
-
-		var appendConsoleEntry = function(level, messagePrefix, messageText, console) {
-			//TODO - cache jQuery("<element>")?
-			var newEntry = jQuery(document.createElement("div")).appendTo(console.children(".rich-log-contents"));
-			jQuery("<span style='color: " + LOG_LEVEL_COLORS[level] + "'></span>").appendTo(newEntry).text(messagePrefix);
-
-			var entrySpan = jQuery(document.createElement("span")).appendTo(newEntry);
-			if (typeof messageText != 'object' || !messageText.appendTo) {
-				entrySpan.text(messageText);
-			} else {
-				messageText.appendTo(entrySpan);
-			}
-		};
-
-		var appendBrowserConsoleEntry = function(level, text) {
-			window.console[level]();
-		};
-
-		var appendMessage = function(level, message) {
-			if (window.console && useBrowserConsole) {
-				var text = getMessagePrefix(level) + message;
-				appendBrowserConsoleEntry(level, text);
-			} else {
-				var console = getConsole();
-				if (LOG_LEVELS[level] >= currentLogLevel && console.length != 0) {
-					var messagePrefix = getMessagePrefix(level);
-					appendConsoleEntry(level, messagePrefix, message, console);
-				}
-			}
-		};
-
-		var methods = {setLevel: setLevel, clear: clear};
-		for (var logLevel in LOG_LEVELS) {
-			var f = function(text) {
-				appendMessage(arguments.callee.logLevel, text);
-			};
-			f.logLevel = logLevel;
-			methods[logLevel] = f;
+		getLevel: function() {
+			return 'info';
+		},
+		
+		clear: function() {
 		}
-		return methods;
-	}(jQuery));
+	};
 
 	/**
 	 * Evaluates chained properties for the "base" object.

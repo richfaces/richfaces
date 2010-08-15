@@ -21,15 +21,18 @@
 
 package org.richfaces.component.util;
 
-import org.ajax4jsf.javascript.ScriptUtils;
-import org.ajax4jsf.renderkit.RendererUtils;
-import org.ajax4jsf.util.HtmlDimensions;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
+import org.ajax4jsf.javascript.ScriptUtils;
+import org.ajax4jsf.renderkit.RendererUtils;
+import org.ajax4jsf.util.HtmlDimensions;
+
+import com.google.common.base.Strings;
 
 /**
  * @author Nick Belaevski - nbelaevski@exadel.com created 09.02.2007
@@ -124,39 +127,27 @@ public final class HtmlUtil {
         return false;
     }
 
-    private static boolean isEmpty(String s) {
-        return (s == null) || (s.length() == 0);
-    }
-
-    public static String concatClasses(String... classes) {
+    private static String concat(char separator, String... strings) {
         StringBuilder result = new StringBuilder();
 
-        for (String className : classes) {
-            if (!isEmpty(className)) {
+        for (String s : strings) {
+            if (!Strings.isNullOrEmpty(s)) {
                 if (result.length() != 0) {
-                    result.append(' ');
+                    result.append(separator);
                 }
 
-                result.append(className.trim());
+                result.append(s.trim());
             }
         }
 
         return result.toString();
+    }
+    
+    public static String concatClasses(String... classes) {
+        return concat(' ', classes);
     }
 
     public static String concatStyles(String... styles) {
-        StringBuilder result = new StringBuilder();
-
-        for (String style : styles) {
-            if (!isEmpty(style)) {
-                if (result.length() != 0) {
-                    result.append(';');
-                }
-
-                result.append(style.trim());
-            }
-        }
-
-        return result.toString();
+        return concat(';', styles);
     }
 }
