@@ -79,6 +79,11 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.richfaces.ui.core</groupId>
+                <artifactId>richfaces-ui-core-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.richfaces.ui.iteration</groupId>
                 <artifactId>richfaces-ui-iteration-ui</artifactId>
                 <version>${project.version}</version>
