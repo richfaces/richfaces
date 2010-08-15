@@ -12,25 +12,14 @@
 	</cc:interface>
 
 	<cc:implementation>
-		<!--
-			f:clientid var="clientId"/ > <cdk:choose> <cdk:when
-			test="#{component.isPopup()}"> <script id="#{clientId}"
-			type="text/javascript"> LOG.registerPopup(
-			'#{component.attributes["hotkey"]}',
-			'#{component.attributes["name"]}', #{component.attributes["width"]},
-			#{component.attributes["height"]},
-			LOG.#{component.attributes["level"]}); </script> </cdk:when>
-			<cdk:otherwise> <div id="richfaces.log"
-			style='width:#{component.attributes["width"]};height:#{component.attributes["height"]};overflow:auto;#{component.attributes["style"]}'
-			cdk:passThroughWithExclusions="value name id style">
-			<button>Clear</button><br /> <script type="text/javascript">
-			LOG.LEVEL = LOG.#{component.attributes["level"]}; </script> </div>
-			</cdk:otherwise> </cdk:choose
-		-->
 		<div id="richfaces.log" class="rich-log #{component.attributes['styleClass']}">
 			<script type="text/javascript">
-				RichFaces.log.setLevel("#{component.attributes['level']}");
-		</script>
+				RichFaces.log = new RichFaces.HtmlLog({
+                    level: "#{component.attributes['level']}",
+                    hotkey: "#{component.attributes['hotkey']}",
+                    mode: "#{component.attributes['mode']}"
+                });
+		    </script>
 		</div>
 	</cc:implementation>
 </cdk:root>

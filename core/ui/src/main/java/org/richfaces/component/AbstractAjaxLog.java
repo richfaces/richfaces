@@ -38,8 +38,11 @@ import org.richfaces.cdk.annotations.TagType;
  *
  */
 @ResourceDependencies(value = {
-        @ResourceDependency(name = "jquery.js") , @ResourceDependency(name = "richfaces.js") ,
-        @ResourceDependency(name = "richfaces-jsf-log.js"), @ResourceDependency(name = "richfaces.css")
+        @ResourceDependency(name = "jquery.js"), 
+        @ResourceDependency(name = "richfaces.js") ,
+        @ResourceDependency(name = "richfaces-base-component.js") ,
+        @ResourceDependency(library = "org.richfaces", name = "log.js"), 
+        @ResourceDependency(library = "org.richfaces", name = "log.css")
         })
 @JsfComponent(
         tag = @Tag(name = "log", type = TagType.Facelets),
@@ -59,6 +62,8 @@ public abstract class AbstractAjaxLog extends UIComponentBase {
 
     @Attribute(defaultValue = "")
     public abstract String getStyleClass();
+    
+    public abstract LogMode getMode();
 
 //  public abstract String getHotkey();
 //  public abstract void setHotkey(String newvalue);

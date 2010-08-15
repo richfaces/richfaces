@@ -45,6 +45,10 @@
             <artifactId>richfaces-ui-common-api</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.richfaces.ui.core</groupId>
+            <artifactId>richfaces-ui-core-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.richfaces.ui.iteration</groupId>
             <artifactId>richfaces-ui-iteration-api</artifactId>
         </dependency>
@@ -144,7 +148,7 @@
                                 <configuration>
                                     <classifier>sources</classifier>
 
-                                    <includeGroupIds>org.richfaces.ui.common, org.richfaces.ui.iteration, org.richfaces.ui.output</includeGroupIds>
+                                    <includeGroupIds>org.richfaces.ui.common, org.richfaces.ui.core, org.richfaces.ui.iteration, org.richfaces.ui.output</includeGroupIds>
                                     <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
                                     <excludeTransitive>true</excludeTransitive>
                                 </configuration>

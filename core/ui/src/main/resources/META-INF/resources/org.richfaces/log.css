@@ -5,6 +5,6 @@
 }
 
 .rich-log-contents {
-	font-family: Consolas, Courier New, Courier;
+	font-family: monospace;
 	font-size: 14px;
 }
