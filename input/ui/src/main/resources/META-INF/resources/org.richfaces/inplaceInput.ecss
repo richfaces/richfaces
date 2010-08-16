@@ -151,12 +151,5 @@ input.rf-ii-f {
 }
 
 .rf-ii-none {
-	
-	<!--[if lte IE 8]>
-		<style>
-			 clip:rect(0px 0px 1px 1px);
-		</style>
-	<![endif]-->
-	
 	clip:rect(0px, 0px, 1px, 1px);
 }
