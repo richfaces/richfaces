@@ -12,12 +12,13 @@
 	</cc:interface>
 
 	<cc:implementation>
-		<div id="richfaces.log" class="rich-log #{component.attributes['styleClass']}">
+		<div id="richfaces.log" class="rf-log #{component.attributes['styleClass']}">
 			<script type="text/javascript">
 				RichFaces.log = new RichFaces.HtmlLog({
                     level: "#{component.attributes['level']}",
                     hotkey: "#{component.attributes['hotkey']}",
                     mode: "#{component.attributes['mode']}"
+                    /* TODO: pass styleClass in */
                 });
 		    </script>
 		</div>
