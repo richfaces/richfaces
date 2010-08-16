@@ -1,24 +1,33 @@
 .rf-ac {
     width: 300px; /*visible width*/
-    border: 1px solid #{richSkin.panelBorderColor}; 
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{richSkin.panelBorderColor}';
     border-bottom: 0px;
-    background: #{richSkin.generalBackgroundColor};
+    background: '#{richSkin.generalBackgroundColor}';
 }
 
 .rf-aci-h {
-    border-bottom: 1px solid #{richSkin.panelBorderColor};
-    background: url(images/bg_header.png) /*from headerGradientColor to headerBackgroundColor, picture height 20px*/ repeat-x top left #{richSkin.headerBackgroundColor};
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: '#{richSkin.panelBorderColor}';
+    background-image: "url(#{resource['org.richfaces.renderkit.html.GradientA']})";
+    background-repeat: repeat-x;
+    background-position: top left; 
+    background-color: '#{richSkin.headerBackgroundColor}';
     position: relative;
     padding: 8px 10px 7px 10px;
-    font-weight: #{richSkin.headerWeightFont};
-    color: #{richSkin.headerTextColor};
-    font-family: #{richSkin.headerFamilyFont};
-    font-size: #{richSkin.headerSizeFont};
+    font-weight: '#{richSkin.headerWeightFont}';
+    color: '#{richSkin.headerTextColor}';
+    font-family: '#{richSkin.headerFamilyFont}';
+    font-size: '#{richSkin.headerSizeFont}';
     cursor: pointer;
 }
 
 .rf-aci-c {
-    border-bottom: 1px solid #{richSkin.panelBorderColor};
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: '#{richSkin.panelBorderColor}';
     height: 100px /*visible modal panel height minus header height*/;
     position: relative;
     overflow: auto;
