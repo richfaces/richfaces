@@ -24,6 +24,7 @@ package org.richfaces.component;
 import javax.faces.component.UIComponentBase;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -33,65 +34,131 @@ import org.richfaces.cdk.annotations.TagType;
  * JSF component class
  * 
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets), 
-	    renderer = @JsfRenderer(type = "org.richfaces.PopupPanelRenderer")
-	)
+@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.PopupPanelRenderer"))
 public abstract class AbstractPopupPanel extends UIComponentBase {
 
     public static final String COMPONENT_TYPE = "org.richfaces.PopupPanel";
 
     public static final String COMPONENT_FAMILY = "org.richfaces.PopupPanel";
+
     @Attribute
     public abstract String getVisualOptions();
-    @Attribute(defaultValue="100")
+
+    @Attribute(defaultValue = "100")
     public abstract int getZIndex();
-    @Attribute(defaultValue="-1")
+
+    @Attribute(defaultValue = "-1")
     public abstract int getHeight();
-    @Attribute(defaultValue="-1")
+
+    @Attribute(defaultValue = "-1")
     public abstract int getWidth();
-    @Attribute(defaultValue="-1")
+
+    @Attribute(defaultValue = "-1")
     public abstract int getMinHeight();
-    @Attribute(defaultValue="-1")
+
+    @Attribute(defaultValue = "-1")
     public abstract int getMinWidth();
-    @Attribute(defaultValue=""+Integer.MAX_VALUE)
+
+    @Attribute(defaultValue = "" + Integer.MAX_VALUE)
     public abstract int getMaxHeight();
-    @Attribute(defaultValue=""+Integer.MAX_VALUE)
+
+    @Attribute(defaultValue = "" + Integer.MAX_VALUE)
     public abstract int getMaxWidth();
-    @Attribute(defaultValue="auto")
+
+    @Attribute(defaultValue = "auto")
     public abstract String getTop();
-    @Attribute(defaultValue="auto")
+
+    @Attribute(defaultValue = "auto")
     public abstract String getLeft();
-    @Attribute(defaultValue="false")
+
+    @Attribute(defaultValue = "false")
     public abstract boolean isShow();
+
     public abstract void setShow(boolean show);
-    @Attribute(defaultValue="true")
+
+    @Attribute(defaultValue = "true")
     public abstract boolean isMoveable();
-    @Attribute(defaultValue="false")
+
+    @Attribute(defaultValue = "false")
     public abstract boolean isAutosized();
-    @Attribute(defaultValue="true")
+
+    @Attribute(defaultValue = "true")
     public abstract boolean isModal();
-    @Attribute(defaultValue="false")
+
+    @Attribute(defaultValue = "false")
     public abstract boolean isKeepVisualState();
-    @Attribute(defaultValue="false")
+
+    @Attribute(defaultValue = "false")
     public abstract boolean isOverlapEmbedObjects();
-    @Attribute(defaultValue="false")
+
+    @Attribute(defaultValue = "false")
     public abstract boolean isResizeable();
-    @Attribute(defaultValue="false")
+
+    @Attribute(defaultValue = "false")
     public abstract boolean isTrimOverlayedElements();
+
     @Attribute
     public abstract String getDomElementAttachment();
+
     @Attribute
     public abstract String getControlsClass();
+
     @Attribute
     public abstract String getHeader();
+
     @Attribute
     public abstract String getHeaderClass();
+
     @Attribute
     public abstract String getShadowDepth();
+
     @Attribute
     public abstract String getShadowOpacity();
-    @Attribute(defaultValue="true")
+
+    @Attribute(defaultValue = "true")
     public abstract boolean isFollowByScroll();
+
+    @Attribute(events = @EventName("maskclick"))
+    public abstract String getOnmaskclick();
+
+    @Attribute(events = @EventName("maskdblclick"))
+    public abstract String getOnmaskdblclick();
+
+    @Attribute(events = @EventName("maskmousedown"))
+    public abstract String getOnmaskmousedown();
+
+    @Attribute(events = @EventName("maskmouseup"))
+    public abstract String getOnmaskmouseup();
+
+    @Attribute(events = @EventName("maskmouseover"))
+    public abstract String getOnmaskmouseover();
+
+    @Attribute(events = @EventName("maskmousemove"))
+    public abstract String getOnmaskmousemove();
+
+    @Attribute(events = @EventName("maskcontextmenu"))
+    public abstract String getOnmaskcontextmenu();
+
+    @Attribute(events = @EventName("maskmouseout"))
+    public abstract String getOnmaskmouseout();
+
+    @Attribute(events = @EventName("resize"))
+    public abstract String getOnresize();
+
+    @Attribute(events = @EventName("show"))
+    public abstract String getOnshow();
+
+    @Attribute(events = @EventName("hide"))
+    public abstract String getOnhide();
+
+    @Attribute(events = @EventName("move"))
+    public abstract String getOnmove();
+
+    @Attribute(events = @EventName("beforeshow"))
+    public abstract String getOnbeforeshow();
+
+    @Attribute(events = @EventName("beforehide"))
+    public abstract String getOnbeforehide();
 
     @Override
     public String getFamily() {

@@ -74,22 +74,6 @@ public class PopupRendererTest {
         vdl.buildView(facesContext, facesContext.getViewRoot());
         return facesRequest;
     }
-    /**
-     * Test method for {@link org.richfaces.renderkit.ExtendedDataTableRenderer#getComponentClass()}.
-     * 
-     * @throws IOException
-     */
-   /* @Test
-    public final void testGetComponentClass() throws IOException {
-        FacesRequest facesRequest = startFacesRequest();
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        UIPopupPanel component = (UIPopupPanel) facesContext.getViewRoot().findComponent("panel");
-        PopupPanelRenderer renderer = (PopupPanelRenderer) FacesContext.getCurrentInstance()
-            .getRenderKit().getRenderer(component.getFamily(), component.getRendererType());
-        assertEquals(UIPopupPanel.class, renderer.getComponentClass());
-        facesRequest.release();
-    	return ;
-    }*/
 
    /**
      * Test method for
@@ -99,7 +83,6 @@ public class PopupRendererTest {
      * @throws IOException
      */
     @Test
-    @Ignore
     public final void testDoEncode() throws IOException {
         HtmlPage page = environment.getPage("/popupPanelTest.jsf");
         HtmlElement panelWithFacet = page.getElementById("panel");
@@ -109,29 +92,34 @@ public class PopupRendererTest {
         assertEquals("rf-pp-sh", panelShade.getAttribute("class"));
         assertNotNull(panelShade);
         HtmlElement panelShadow = panelWithFacet.getElementById("panel_shadow");
-        assertEquals("mp_shadow", panelShadow.getAttribute("class"));
+        assertEquals("rf-pp-shw", panelShadow.getAttribute("class"));
         assertNotNull(panelShadow);
         HtmlElement panelContainer = panelWithFacet.getElementById("panel_container");
         assertNotNull(panelContainer);
-        assertEquals("mp_container panelStyle", panelContainer.getAttribute("class"));
+        assertEquals("rf-pp-cr panelStyle", panelContainer.getAttribute("class"));
         HtmlElement panelScroller = panelWithFacet.getElementById("panel_content_scroller");
         assertNotNull(panelScroller);
-        assertEquals("mp_content_scroller", panelScroller.getAttribute("class"));
+        assertEquals("rf-pp-ct-sr", panelScroller.getAttribute("class"));
         HtmlElement panelContent = panelWithFacet.getElementById("panel_content");
         assertNotNull(panelContent);
-        assertEquals("mp_content", panelContent.getAttribute("class"));
+        assertEquals("rf-pp-ct", panelContent.getAttribute("class"));
         assertEquals("The CDK includes", panelContent
                 .getTextContent().trim().substring(0, 16));
         HtmlElement panelHeader = panelWithFacet.getElementById("panel_header");
         assertNotNull(panelHeader);
-        assertEquals("mp_header header", panelHeader.getAttribute("class"));
+        assertEquals("rf-pp-h header", panelHeader.getAttribute("class"));
         assertEquals("cursor: move;", panelHeader.getAttribute("style"));
         assertEquals("Write your own custom rich components with built-in AJAX", panelHeader.getTextContent().trim());
         HtmlElement panelResizer = panelWithFacet.getElementById("panelResizerN");
         assertNotNull(panelResizer);
-        assertEquals("mp_handler mp_handler_top", panelResizer.getAttribute("class"));
+        assertEquals("rf-pp-hr rf-pp-hr-t", panelResizer.getAttribute("class"));
         assertEquals("cursor: N-resize;", panelResizer.getAttribute("style"));
         List<HtmlElement> result = page.getElementsByName("script");
+        HtmlElement button = panelWithFacet.getElementById("button");
+        button.click();
+        HtmlElement sizeButton = panelWithFacet.getElementById("size");
+        sizeButton.click();
+        String width = panelContainer.getAttribute("width");
     }
 
 }
