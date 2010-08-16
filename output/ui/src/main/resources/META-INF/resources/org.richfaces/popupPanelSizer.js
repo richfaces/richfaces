@@ -18,7 +18,7 @@
 			doSetupSize: function (modalPanel, elt) {
 				var width = 0;
 				var height = 0;
-		
+				var element = $(richfaces.getDomElement(elt));
 				var reductionData = modalPanel.reductionData;
 				
 				if (reductionData) {
@@ -34,15 +34,15 @@
 				if (width > 0) {
 					if (elt.clientWidth > width) {
 						if (!elt.reducedWidth) {
-							elt.reducedWidth = jQuery(elt).css('width');
+							elt.reducedWidth = element.css('width');
 						}
-						jQuery(elt).css('width', width + 'px');
+						element.css('width', width + 'px');
 					} else if (width < 4 && elt.reducedWidth == 4 + 'px') {
-						jQuery(elt).css('width', width + 'px');
+						element.css('width', width + 'px');
 					}
 				} else {
 					if (elt.reducedWidth) {
-						jQuery(elt).css('width', elt.reducedWidth);
+						element.css('width', elt.reducedWidth);
 						elt.reducedWidth = undefined;
 					}
 				}
@@ -50,24 +50,25 @@
 				if (height > 0) {
 					if (elt.clientHeight > height) {
 						if (!elt.reducedHeight) {
-							elt.reducedHeight = jQuery(elt).css('height');
+							elt.reducedHeight = element.css('height');
 						}
 						elt.style.height = height + 'px';
 					} else if (height < 4 && elt.reducedHeight == 4 + 'px') {
-						jQuery(elt).css('height', height + 'px');
+						element.css('height', height + 'px');
 					}
 				} else {
 					if (elt.reducedHeight) {
-						jQuery(elt).css('height', elt.reducedHeight);
+						element.css('height', elt.reducedHeight);
 						elt.reducedHeight = undefined;
 					}
 				}
 			},
 			
 			doSetupPosition: function (modalPanel, elt, left, top) {
+			var element = $(richfaces.getDomElement(elt));
 				if(!isNaN(left) && !isNaN(top)){
-					jQuery(elt).css('left', left + 'px');
-					jQuery(elt).css('top', top + 'px');
+					element.css('left', left + 'px');
+					element.css('top', top + 'px');
 				}
 			},
 		
@@ -106,7 +107,8 @@
         	name: "richfaces.ui.PopupPanel.Sizer.N",
         	
         	doPosition : function (popupPanel, elt) {
-				jQuery(elt).css('width',popupPanel.width() + 'px');
+			var element = $(richfaces.getDomElement(elt));
+				element.css('width',popupPanel.width() + 'px');
 				this.doSetupPosition(popupPanel, elt, 0, 0);
 			},
 			
@@ -163,7 +165,8 @@
         	name: "richfaces.ui.PopupPanel.Sizer.E",
         	
         	doPosition : function (popupPanel, elt) {
-				jQuery(elt).css('height', popupPanel.height() + 'px');
+			var element = $(richfaces.getDomElement(elt));
+				element.css('height', popupPanel.height() + 'px');
 				this.doSetupPosition(popupPanel, elt, popupPanel.width() - elt.clientWidth, 0);
 			},
 			
@@ -202,7 +205,8 @@
         	name: "richfaces.ui.PopupPanel.Sizer.S",
         	
         	doPosition : function (popupPanel, elt) {
-				jQuery(elt).css('width', popupPanel.width() + 'px');
+			var element = $(richfaces.getDomElement(elt));
+				element.css('width', popupPanel.width() + 'px');
 				this.doSetupPosition(popupPanel, elt, 0, popupPanel.height() - elt.clientHeight);
 			},
 			
@@ -243,7 +247,8 @@
         	name: "richfaces.ui.PopupPanel.Sizer.W",
         	
         	doPosition : function (popupPanel, elt) {
-				jQuery(elt).css('height', popupPanel.height() + 'px');
+			var element = $(richfaces.getDomElement(elt));
+				element.css('height', popupPanel.height() + 'px');
 				this.doSetupPosition(popupPanel, elt, 0, 0);
 			},
 			

@@ -10,11 +10,11 @@
 	{
 		if (typeof element.onselectstart!="undefined") //IE
 		{
-			jQuery(element).bind( 'selectstart', selectionEventHandler);
+			$(richfaces.getDomElement(element)).bind( 'selectstart', selectionEventHandler);
 		}
 		else //All other (ie: Opera)
 		{
-			jQuery(element).bind( 'mousedown', selectionEventHandler);
+			$(richfaces.getDomElement(element)).bind( 'mousedown', selectionEventHandler);
 		}
 	}
 
@@ -22,11 +22,11 @@
 	{
 		if (typeof element.onselectstart!="undefined") //IE
 		{
-			jQuery(element).unbind( 'selectstart', selectionEventHandler);
+			$(richfaces.getDomElement(element)).unbind( 'selectstart', selectionEventHandler);
 		}
 		else //All other (ie: Opera)
 		{
-			jQuery(element).unbind( 'mousedown', selectionEventHandler);
+			$(richfaces.getDomElement(element)).unbind( 'mousedown', selectionEventHandler);
 		}
 	}
 		
@@ -35,10 +35,9 @@
     	$super.constructor.call(this,id);
     	this.markerId = id;
     	this.attachToDom(id);
-    	id = "#" + id;
     	this.options = options; 
 
-		this.id = $(id);
+		this.id = $(richfaces.getDomElement(id));
 		this.minWidth = this.getMinimumSize(this.options.minWidth);
 		this.minHeight = this.getMinimumSize(this.options.minHeight);
 		this.maxWidth = this.options.maxWidth;
@@ -47,15 +46,14 @@
 
 		this.baseZIndex = this.options.zindex ? this.options.zindex : 100;
 		
-		this.div = id;
-		this.cdiv = id + "_container";
-		this.contentDiv = id + "_content";
-		this.shadowDiv = id + "_shadow";
-		this.scrollerDiv = id + "_content_scroller"
+		this.div = $(richfaces.getDomElement(id));
+		this.cdiv = $(richfaces.getDomElement(id + "_container"));
+		this.contentDiv = $(richfaces.getDomElement(id + "_content"));
+		this.shadowDiv = $(richfaces.getDomElement(id + "_shadow"));
+		this.scrollerDiv = $(richfaces.getDomElement(id + "_content_scroller"));
 
 		this.borders = new Array();
-		this.firstHref = id + "FirstHref";
-		this.lastHref = id + "LastHref";
+		this.firstHref = $(richfaces.getDomElement(id + "FirstHref"));
 		if (this.options.resizeable) {
 			this.borders.push(new richfaces.ui.PopupPanel.Border(id + "ResizerN", this, "N-resize", richfaces.ui.PopupPanel.Sizer.N));
 			this.borders.push(new richfaces.ui.PopupPanel.Border(id + "ResizerE", this, "E-resize", richfaces.ui.PopupPanel.Sizer.E));
@@ -68,10 +66,10 @@
 			this.borders.push(new richfaces.ui.PopupPanel.Border(id + "ResizerSW", this, "SW-resize", richfaces.ui.PopupPanel.Sizer.SW));
 		}
 
-		if (this.options.moveable && $(id + "_header")) {
+		if (this.options.moveable && richfaces.getDomElement(id + "_header")) {
 			this.header = new richfaces.ui.PopupPanel.Border(id + "_header", this, "move", richfaces.ui.PopupPanel.Sizer.Header);
 		} else{
-			$(id + "_header").css('cursor', 'default');
+			$(richfaces.getDomElement(id + "_header")).css('cursor', 'default');
 		}
 
     };
@@ -102,24 +100,24 @@
 			},
 			
 			getLeft : function (){
-				return $(this.cdiv).css('left');
+				return this.cdiv.css('left');
 			},
 			
 			getTop : function (){
-				return $(this.cdiv).css('top');
+				return this.cdiv.css('top');
 			},
 			
 			getInitialSize : function(){
 				if(this.options.autosized){
 					return 15;
 				} else{
-					return $(this.div + "_header_content").height();
+					return $(richfaces.getDomElement(this.markerId + "_header_content")).height();
 				}
 			},
 			
 			getContentElement: function() {
 				if (!this._contentElement) {
-					this._contentElement =  $(this.cdiv);
+					this._contentElement =  this.cdiv;
 				}
 
 				return this._contentElement;
@@ -149,8 +147,8 @@
 				this.borders = null;
 
 				if (this.domReattached) {
-					var element = this.id;
-					var parent = $(element).parent();
+					var element = this.div;
+					var parent = element.parent();
 					if (parent) {
 						parent.remove(element);
 					}
@@ -186,27 +184,27 @@
 	
 			setLeft: function(pos) {
 				if(!isNaN(pos)){
-					$(this.cdiv).css('left', pos + "px");
+					this.cdiv.css('left', pos + "px");
 					var depth = this.options.shadowDepth ? this.options.shadowDepth : 2;
-					$(this.shadowDiv).css('left', pos + depth  + "px");
+					this.shadowDiv.css('left', pos + depth  + "px");
 				}
 			},
 
 			setTop: function(pos) {
 				if(!isNaN(pos)){
-					$(this.cdiv).css('top', pos + "px");
+					this.cdiv.css('top', pos + "px");
 					var depth = this.options.shadowDepth ? this.options.shadowDepth : 2;
-					$(this.shadowDiv).css('top', pos + depth +"px");
+					this.shadowDiv.css('top', pos + depth +"px");
 				}
 			},
 
 			show: function(event, opts) {
 				if(!this.shown && this.invokeEvent("beforeshow",event,null,element)) {
 					this.preventFocus();
-					var element = this.id;
+					var element = this.div;
 			
 	        		if (!this.domReattached) {
-						this.parent = $(element).parent();
+						this.parent = element.parent();
 				
 						var domElementAttachment;
 						if (opts) {
@@ -232,7 +230,7 @@
 							element.insertBefore(newParent.firstChild);
 							this.domReattached = true;
 						} else {
-							$(this.parent).show();
+							this.parent.show();
 						}
 					}
 	
@@ -279,9 +277,9 @@
 						if (options.width > this.maxWidth) {
 							options.width = this.maxWidth;
 						}
-						$(eContentElt).css('width', options.width + (/px/.test(options.width) ? '' : 'px'));
-						$(this.shadowDiv).css('width', options.width + 4 + (/px/.test(options.width) ? '' : 'px'));
-						$(this.scrollerDiv).css('width', options.width + (/px/.test(options.width) ? '' : 'px'));
+						$(richfaces.getDomElement(eContentElt)).css('width', options.width + (/px/.test(options.width) ? '' : 'px'));
+						this.shadowDiv.css('width', options.width + 4 + (/px/.test(options.width) ? '' : 'px'));
+						this.scrollerDiv.css('width', options.width + (/px/.test(options.width) ? '' : 'px'));
 						
 						
 					}
@@ -293,10 +291,10 @@
 						if (options.height > this.maxHeight) {
 							options.height = this.maxHeight;
 						}
-						$(eContentElt).css('height', options.height + (/px/.test(options.height) ? '' : 'px'));
-						$(this.shadowDiv).css('height', options.height + 4 + (/px/.test(options.height) ? '' : 'px'));
-						var headerHeight = $(this.div +"_header")[0] ? $(this.div +"_header")[0].clientHeight : 0;
-						$(this.scrollerDiv).css('height', options.height - headerHeight + (/px/.test(options.height) ? '' : 'px'));
+						$(richfaces.getDomElement(eContentElt)).css('height', options.height + (/px/.test(options.height) ? '' : 'px'));
+						this.shadowDiv.css('height', options.height + 4 + (/px/.test(options.height) ? '' : 'px'));
+						var headerHeight = $(richfaces.getDomElement(this.div +"_header"))[0] ? $(richfaces.getDomElement(this.div +"_header"))[0].clientHeight : 0;
+						this.scrollerDiv.css('height', options.height - headerHeight + (/px/.test(options.height) ? '' : 'px'));
 						
 						
 					}
@@ -305,16 +303,16 @@
 	                        		this.iframe = this.markerId + "IFrame";
 	            		$("<iframe src=\"javascript:''\" frameborder=\"0\" scrolling=\"no\" id=\"" + this.iframe + "\" " +								
 						"class=\"rf-pp-if\" style=\"width:" +this.options.width + "px; height:" + this.options.height + "px;\">" +
-						"</iframe>").insertBefore($(':first-child', $(this.cdiv))[0]);
+						"</iframe>").insertBefore($(':first-child', this.cdiv)[0]);
 				
-						eIframe = jQuery("#"+this.iframe); 
+						eIframe = $(richfaces.getDomElement(this.iframe)); 
 	
-						$(eIframe).bind('load', this.initIframe);
+						eIframe.bind('load', this.initIframe);
 						this.eIframe = eIframe;
 					}
 					element.mpSet = true;
 	
-					var eDiv = $(this.div);
+					var eDiv = this.div;
 	
 					if (options.left) {
 						var _left;
@@ -351,10 +349,10 @@
 					}
 
 					var opacity = options.shadowOpacity ? options.shadowOpacity : 0.1;
-					$(this.shadowDiv).css('opacity', opacity);
-					$(this.shadowDiv).css('filter ', 'alpha(opacity='+opacity*100 +');');
-	    			$(element).css('visibility', '');
-	    			$(element).css('display', 'block');
+					this.shadowDiv.css('opacity', opacity);
+					this.shadowDiv.css('filter ', 'alpha(opacity='+opacity*100 +');');
+	    			element.css('visibility', '');
+	    			element.css('display', 'block');
 	    			var event = {};
 	    			event.parameters = opts || {};
 	    			this.shown = true;
@@ -433,7 +431,7 @@
 			var popup = this;
 			if (this.firstOutside) {
 			
-				jQuery(this.firstOutside).bind("focus", {popup: popup}, this.firstOnfocus); 
+				$(richfaces.getDomElement(this.firstOutside)).bind("focus", {popup: popup}, this.firstOnfocus); 
 			}
 		}
 	},
@@ -443,7 +441,7 @@
 			this.processAllFocusElements(document, this.restoreTabindexes);
 		
 			if (this.firstOutside) {
-				jQuery(this.firstOutside).unbind("focus", this.firstOnfocus);
+				$(richfaces.getDomElement(this.firstOutside)).unbind("focus", this.firstOnfocus);
 				this.firstOutside = null;
 			}
 		}
@@ -465,7 +463,7 @@
 					this.currentMinHeight = undefined; 
 					this.currentMinWidth = undefined;			
 	
-					$(this.id).hide();
+					this.id.hide();
 	
 					if (this.parent) {
 						if (this.domReattached) {
@@ -475,7 +473,7 @@
 
 							this.domReattached = false;
 						} else {
-							$(this.parent).hide();
+							this.parent.hide();
 						}
 					}
 			
@@ -498,7 +496,7 @@
 			},
 
 			getStyle: function(elt, name) {
-				return parseInt($(elt).css(name).replace("px", ""), 10);
+				return parseInt($(richfaces.getDomElement(elt)).css(name).replace("px", ""), 10);
 			},
 	
 			doResizeOrMove: function(diff) {
@@ -628,14 +626,16 @@
 					cssHash.top = newPos + 'px';
 					shadowHash.top = newPos + shadowDepth + "px";
 				}
-				$(eContentElt).css(cssHashWH);
-				$(this.scrollerDiv).css(scrollerHashWH);
-				if(this.eIframe)$(this.eIframe).css(scrollerHashWH);
-				$(this.shadowDiv).css(shadowHashWH);
+				eContentElt.css(cssHashWH);
+				this.scrollerDiv.css(scrollerHashWH);
+				if(this.eIframe){
+					this.eIframe.css(scrollerHashWH);
+				}
+				this.shadowDiv.css(shadowHashWH);
 
-				$(eCdiv).css(cssHash);
-				$(this.shadowDiv).css(shadowHash);
-				//if(this.eIframe)$(this.eIframe).css(cssHash);
+				eCdiv.css(cssHash);
+				this.shadowDiv.css(shadowHash);
+
 				$.extend(this.userOptions, cssHash);
 				$.extend(this.userOptions, cssHashWH);
 				var w = this.width();
@@ -672,10 +672,10 @@
 			
 			moveTo : function (top, left){
 				var shadowDepth = this.options.shadowDepth? this.options.shadowDepth: 4;
-				$(this.cdiv).css('top', top);
-				$(this.cdiv).css('left', left);
-				$(this.shadowDiv).css('top', top + shadowDepth);
-				$(this.shadowDiv).css('left', left + shadowDepth);
+				this.cdiv.css('top', top);
+				this.cdiv.css('left', left);
+				this.shadowDiv.css('top', top + shadowDepth);
+				this.shadowDiv.css('left', left + shadowDepth);
 			},
 			
 			move : function (dx, dy){

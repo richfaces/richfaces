@@ -32,7 +32,7 @@
 	<div id="#{clientId}_shadow" style="position: #{component.attributes['followByScroll'] ? 'fixed' : 'absolute'};" class="rf-pp-shw"/>
 	<div id="#{clientId}_container" style="position: #{component.attributes['followByScroll'] ? 'fixed' : 'absolute'};" cdk:passThroughWithExclusions="id style class styleClass" class="rf-pp-cr #{component.attributes['styleClass']}">
 
-		<c:if test="(#{component.getFacet('header')!=null and component.getFacet('header').rendered})">
+		<c:if test="#{component.getFacet('header')!=null and component.getFacet('header').rendered}">
 		<div id="#{clientId}_header" class="rf-pp-h #{component.attributes['headerClass']}" >
 			<div id="#{clientId}_header_content" class="rf-pp-h-ct">
 				<cdk:call expression="renderHeaderFacet(facesContext, component)"/>

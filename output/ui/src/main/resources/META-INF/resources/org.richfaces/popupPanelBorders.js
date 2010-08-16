@@ -6,10 +6,10 @@
     	
     	$super.constructor.call(this,id);
     	
-    	var element = jQuery(id);
-		jQuery(element).css('cursor',cursor);
+    	this.element = $(richfaces.getDomElement(id));
+		this.element.css('cursor',cursor);
 		var border = this;
-		jQuery(this.id).bind( 'mousedown', {border:border},this.startDrag);
+		this.element.bind( 'mousedown', {border:border},this.startDrag);
 
 		this.modalPanel = modalPanel;
 		this.sizer = sizer;
@@ -28,20 +28,21 @@
 			{
 				if (this.doingDrag)
 				{
-					jQuery(document).unbind( 'mousemove', this.doDrag); 
-					jQuery(document).unbind( 'mouseup', this.endDrag); 
+					$(document).unbind( 'mousemove', this.doDrag); 
+					$(document).unbind( 'mouseup', this.endDrag); 
 				}
 		
-				jQuery(this.id).unbind( 'mousedown', this.startDrag);
+				this.element.unbind( 'mousedown', this.startDrag);
+				this.element = null;
 				this.modalPanel=null;
 			},
 		
 			show: function() {
-				jQuery(this.id).show();
+				this.element.show();
 			},
 		
 			hide: function() {
-				jQuery(this.id).hide();
+				this.element.hide();
 			},
 		
 			startDrag: function(event) {
@@ -50,12 +51,8 @@
 		
 				border.dragX = event.clientX;
 				border.dragY = event.clientY;
-				jQuery(document).bind( 'mousemove',{border:border}, border.doDrag);
-				jQuery(document).bind( 'mouseup',{border:border}, border.endDrag);
-				
-				//var eCursorDiv = jQuery(border.modalPanel.cDiv);
-				//jQuery(eCursorDiv).css('cursor', jQuery(border.id).css('cursor'));
-				//jQuery(eCursorDiv).css('zIndex', 10);
+				$(document).bind( 'mousemove',{border:border}, border.doDrag);
+				$(document).bind( 'mouseup',{border:border}, border.endDrag);
 			
 				border.modalPanel.startDrag(border);
 				
@@ -111,7 +108,7 @@
 					var diff = border.sizer.prototype.doDiff(dx, dy);//TODO
 					var doResize;
 					
-					var element = jQuery(border.modalPanel.cdiv);
+					var element = border.modalPanel.cdiv;
 					
 					if (diff.deltaWidth || diff.deltaHeight) {
 						doResize = border.modalPanel.invokeEvent("resize",event,null,element);
@@ -153,8 +150,8 @@
 				var border = event.data.border;
 				border.doingDrag = undefined;
 		
-				jQuery(document).unbind( 'mousemove', border.doDrag); 
-				jQuery(document).unbind( 'mouseup', border.endDrag); 
+				$(document).unbind( 'mousemove', border.doDrag); 
+				$(document).unbind( 'mouseup', border.endDrag); 
 		
 				border.modalPanel.endDrag(border);
 				
@@ -165,7 +162,7 @@
 			},
 		
 			doPosition: function() {
-				this.sizer.prototype.doPosition(this.modalPanel, jQuery(this.id));	//TODO remove prototype
+				this.sizer.prototype.doPosition(this.modalPanel, this.element);	//TODO remove prototype
 			} 
 	    }
     
