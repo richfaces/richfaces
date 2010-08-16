@@ -15,17 +15,16 @@
             this.label = $(document.getElementById(options.label));
             this.initialValue = this.label.text();
             
-            richfaces.Event.bind(this.element, this.editEvent, this.__editHandler, this);
-            richfaces.Event.bind(this.input, "change", this.__saveHandler, this);
-            richfaces.Event.bind(this.input, "blur", this.__saveHandler, this);
-            
-            /* TODO: discuss this with Pavel */
-            this.__boundEditFunc = richfaces.Event.bind(this.input, "focus", this.__editHandler, this);
+            this.element.bind(this.editEvent, $.proxy(this.__editHandler, this));
+            this.input.bind("change", $.proxy(this.__saveHandler, this));
+            this.input.bind("blur", $.proxy(this.__saveHandler, this));
+            this.input.bind("focus", $.proxy(this.__editHandler, this));
+         
             if(this.showControls) {
             	this.okbtn = $(document.getElementById(options.okbtn));
             	this.cancelbtn = $(document.getElementById(options.cancelbtn));
-            	richfaces.Event.bind(this.okbtn, "mousedown", this.__saveBtnHandler, this);
-            	richfaces.Event.bind(this.cancelbtn, "mousedown", this.__cancelBtnHandler, this);
+            	this.okbtn.bind("mousedown", $.proxy(this.__saveBtnHandler, this));
+            	this.cancelbtn.bind("mousedown", $.proxy(this.__cancelBtnHandler, this));
             }
         };
         
@@ -87,14 +86,15 @@
            		}, 
            		
            		__cancelBtnHandler: function(e) {
-           			this.cancel(); this.input.blur(); return false;
+           			this.cancel(); 
+           			this.input.blur(); 
+           			return false;
            		}, 
            		
            		__editHandler: function(e) {
-           			richfaces.Event.unbind(this.input, "focus", this.__boundEditFunc);
-           			this.__boundEditFunc = null;
+           			this.input.unbind("focus", this.__editHandler);
            			this.edit();
-                    this.__boundEditFunc = richfaces.Event.bind(this.input, "focus", this.__editHandler, this);
+           			this.input.bind("focus", $.proxy(this.__editHandler, this));
            		}, 
            		
            		__saveHandler: function(e) {
