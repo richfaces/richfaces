@@ -1,12 +1,19 @@
 .rf-log {
 	color: '#{richSkin.generalTextColor}';
-	height: 300px;
-	overflow: auto;
-	width: 100%;
 }
 
 .rf-log-popup {
 	overflow: visible;
+}
+
+.rf-log-popup-cnt {
+	display: none;
+}
+
+.rf-log-inline {
+	height: 300px;
+	overflow: auto;
+	width: 100%;
 }
 
 .rf-log-contents {

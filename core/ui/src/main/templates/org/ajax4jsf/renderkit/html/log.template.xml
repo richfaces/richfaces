@@ -6,15 +6,15 @@
 
 	<cc:interface>
 		<cdk:class>org.richfaces.renderkit.html.AjaxLogRenderer</cdk:class>
-		<cdk:superclass>org.ajax4jsf.renderkit.RendererBase</cdk:superclass>
+		<cdk:superclass>org.richfaces.renderkit.LogRendererBase</cdk:superclass>
 		<cdk:component-family>org.richfaces.AjaxLog</cdk:component-family>
 		<cdk:renderer-type>org.richfaces.AjaxLogRenderer</cdk:renderer-type>
 	</cc:interface>
 
 	<cc:implementation>
-		<div id="richfaces.log" class="rf-log #{component.attributes['styleClass']}">
+		<div id="richfaces.log" class="rf-log #{isInline(component.attributes['mode']) ? 'rf-log-inline' : 'rf-log-popup rf-log-popup-cnt'} #{component.attributes['styleClass']}">
 			<script type="text/javascript">
-				RichFaces.log = new RichFaces.HtmlLog({
+				new RichFaces.HtmlLog({
                     level: "#{component.attributes['level']}",
                     hotkey: "#{component.attributes['hotkey']}",
                     mode: "#{component.attributes['mode']}"

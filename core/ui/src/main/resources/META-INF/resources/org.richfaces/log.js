@@ -169,9 +169,13 @@
 		},
 
 		init: function(options) {
+			this.$super.constructor.call(this, 'richfaces.log');
+			this.__initialLogImpl = richfaces.log;
+			richfaces.log = this;
+			
 			this.level = options.level;
 			this.hotkey = options.hotkey;
-			this.mode = options.mode;
+			this.mode = (options.mode || 'inline');
 
 			if (this.mode == 'popup') {
 				this.__boundHotkeyHandler = jquery.proxy(this.__hotkeyHandler, this);
@@ -182,6 +186,9 @@
 		},
 
 		destroy: function() {
+			richfaces.log = this.__initialLogImpl;
+			this.__initialLogImpl = null;
+			
 			//TODO test this method
 			if (this.__popupWindow) {
 				this.__popupWindow.close();
