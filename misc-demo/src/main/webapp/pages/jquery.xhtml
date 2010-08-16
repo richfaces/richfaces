@@ -44,7 +44,15 @@
 				<f:ajax render=":liveTestGroup" />
 			</h:commandButton>
 		</h:form>
-
+		
+		<misc:jQuery name="emphasizeElement" query="siblings().css({'border-width': '0px'}).end().css({'border-width': '1px'})" />
+		
+		Click any list item to make selection (imitated by red 1px border):
+		<ul>
+			<ui:repeat value="#{jQueryBean.emphasizedElements}" var="elt">
+				<li style="border-color: red; border-style: solid; border-width: 0px;" onclick="emphasizeElement(this, {})">#{elt}</li>			
+			</ui:repeat>
+		</ul>
 	</h:body>
 </f:view>
 </html>

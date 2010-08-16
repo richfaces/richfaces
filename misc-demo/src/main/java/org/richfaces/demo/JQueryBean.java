@@ -39,9 +39,16 @@ public class JQueryBean {
 
     private List<String> componentsDataList;
 
+    private List<String> emphasizedElements;
+
     public JQueryBean() {
         componentsDataList = new ArrayList<String>();
         addComponent();
+        
+        emphasizedElements = new ArrayList<String>();
+        for (int i = 0; i < 4; i++) {
+            emphasizedElements.add(UUID.randomUUID().toString());
+        }
     }
 
     public List<String> getComponentsDataList() {
@@ -52,4 +59,7 @@ public class JQueryBean {
         componentsDataList.add(UUID.randomUUID().toString());
     }
 
+    public Object getEmphasizedElements() {
+        return emphasizedElements;
+    }
 }
