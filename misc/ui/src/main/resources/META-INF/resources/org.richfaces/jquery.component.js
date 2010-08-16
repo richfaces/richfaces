@@ -4,65 +4,75 @@ if (!window.RichFaces) {
 
 (function(jquery, richfaces) {
 
-	var evaluateSelector = function(selector) {
+	var evaluate = function(selector) {
 		var result = selector;
 		try {
 			result = eval(selector);
 		} catch (e) {
 			//do nothing
 		}
-		return result || "";
+		return result;
 	};
 
-	var createHandler = function(handler) {
-		if (typeof handler == 'function') {
-			return handler;
-		} else {
-			return new Function("event", handler);
+	var evaluateJQuery = function(element, selector) {
+		var result = element || evaluate(selector);
+		if (!(result instanceof jquery)) {
+			result = jquery(result || "");
 		}
+		
+		return result;
 	};
-
-	var bindFunction = function(options) {
-
-		var selector = evaluateSelector(options.selector);
-		var query = options.query;
-
-		if (options.event) {
-			var handler = createHandler(query);
-
-			if (options.attachType == 'live') {
-				jQuery(selector).live(options.event, handler);
-			} else if (options.attachType == 'one') {
-				jQuery(selector).one(options.event, handler);
+	
+	var createEventHandlerFunction = function(opts) {
+		return function() {
+			var selector = evaluateJQuery(null, opts.selector);
+			selector[opts.attachType || "bind"](opts.event, null, new Function("event", opts.query));
+		};
+	};
+	
+	var createDirectQueryFunction = function(opts) {
+		var queryFunction = new Function("options", "arguments[1]." + opts.query);
+		
+		return function() {
+			var element;
+			var options;
+			
+			if (arguments.length == 1) {
+				//function(options) { ...query()... }
+				options = arguments[0];
 			} else {
-				jQuery(selector).bind(options.event, handler);
+				//function(element, options) { ...query()... }
+				element = arguments[0];
+				options = arguments[1];
 			}
+			
+			var selector = evaluateJQuery(element, opts.selector);
+			queryFunction.call(this, options, selector);
+		};
+	};
+	
+	var createQueryFunction = function(options) {
+		if (options.event) {
+			return createEventHandlerFunction(options);
 		} else {
-			var f = new Function("__locatedObject", "__locatedObject." + query);
-			f.call(this, jQuery(selector));
-			//TODO return value?
+			return createDirectQueryFunction(options);
 		}
 	};
-
-	var bind = function(options) {
-		if (options.timing == 'immediate') {
-			bindFunction(options);
+	
+	var query = function(options) {
+		if (options.timing == 'domready') {
+			jquery(document).ready(createQueryFunction(options));
 		} else {
-			jQuery(document).ready(function() {
-				bindFunction(options);
-			});
+			createQueryFunction(options).call(this);
 		}
 	};
-
+	
 	richfaces.jQuery = {
+			
+		createFunction: createQueryFunction,	
+			
+		query: query
 
-		bind: bind,
-
-		createBinder: function(options) {
-			return function() {
-				bind(options);
-			};
-		}
 	};
 
 }(jQuery, RichFaces));

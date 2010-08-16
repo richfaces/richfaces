@@ -20,10 +20,10 @@
 
 				<c:choose>
 					<c:when test="#{not empty functionName}">
-						#{functionName} = RichFaces.jQuery.createBinder(#{options});
+						#{functionName} = RichFaces.jQuery.createFunction(#{options});
 					</c:when>
 					<c:otherwise>
-						RichFaces.jQuery.bind(#{options});
+						RichFaces.jQuery.query(#{options});
 					</c:otherwise>
 				</c:choose>
 			</script>
