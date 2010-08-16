@@ -81,6 +81,9 @@ public abstract class AbstractAutoComplete extends UIInput implements MetaCompon
 
     @Attribute
     public abstract String getFilterFunction();
+	
+    @Attribute(defaultValue = "rf-au-c")
+    public abstract String getSelectedItemClass();
 
     @Attribute
     public abstract String getMode();

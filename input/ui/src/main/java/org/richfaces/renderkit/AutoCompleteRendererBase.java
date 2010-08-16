@@ -75,7 +75,7 @@ public abstract class AutoCompleteRendererBase extends InputRendererBase impleme
         Map<String, Object> options = new HashMap<String, Object>();
         RendererUtils utils = getUtils();
         utils.addToScriptHash(options, "buttonId", component.getClientId() + "Button");
-        utils.addToScriptHash(options, "selectedItemClass", "cb_select");
+        utils.addToScriptHash(options, "selectedItemClass", attributes.get("selectedItemClass"));
         utils.addToScriptHash(options, "minChars", attributes.get("minChars"), "1");
         utils.addToScriptHash(options, "mode", attributes.get("mode"), "ajax");
         utils.addToScriptHash(options, "filterFunction", attributes.get("filterFunction"));

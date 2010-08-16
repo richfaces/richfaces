@@ -1,29 +1,29 @@
-.cb_field_width {
+.rf-au-f-w{
 	width: 200px;
 }
 
-.cb_list_width {
+.rf-au-l-w{
 	width: 200px;
 }
 
-.cb_list_height {
+.rf-au-l-h{
 	max-height: 100px;
 	min-height: 20px;
 }
 
-.cb_input.cb_font, .cb_option.cb_font {
+.rf-au-i.rf-au-ft, .rf-au-o.rf-au-ft{
 	color: '#{richSkin.generalTextColor}';
 	font-size: '#{richSkin.generalSizeFont}';
 	font-family: '#{richSkin.generalFamilyFont}';
 }
 
-input.cb_input {
+input.rf-au-i {
 	border-width: 0px;
 	background: none;
 	width: 100%;
 }
 
-.cb_field {
+.rf-au-f{
 	position: inline-block;
 	border-width: 1px;
 	border-style: solid;
@@ -35,7 +35,7 @@ input.cb_input {
 	background-color: '#{richSkin.controlBackgroundColor}';
 }
 
-.cb_button {
+.rf-au-b{
 	background-image: "url(#{resource['org.richfaces.renderkit.html.images.AutoCompleteButtonGradient']})";
 	background-repeat: repeat-x;
 	background-position: top left;
@@ -52,7 +52,7 @@ input.cb_input {
 	padding-top: 1px
 }
 
-.cb_button_arrow {
+.rf-au-b-a{
 	background-position: center;
 	background-repeat: no-repeat;
 	background-image: "url(#{resource['org.richfaces:combo_down_button.gif']})";
@@ -61,13 +61,13 @@ input.cb_input {
 	height: 15px;
 }
 
-.cb_list_cord {
+.rf-au-l-c{
 	position: absolute;
 	/* TODO nick - review: font-size: 0px; */
 	display: none;
 }
 
-.cb_list_decoration {
+.rf-au-l-d{
 	border-width: 1px;
 	border-style: solid;
 	border-color: '#{richSkin.panelBorderColor}';
@@ -75,28 +75,28 @@ input.cb_input {
 	background-color: '#{richSkin.tableBackgroundColor}';
 }
 
-.cb_list_scroll {
+.rf-au-l-s{
 	overflow: auto;
 	overflow-x: hidden;
 }
 
-.cb_option {
+.rf-au-o{
 	padding: 2px;
 	white-space: nowrap;
 	cursor: default;
 	list-style-type: none;
 }
 
-.cb_select {
+.rf-au-s{
 	padding: 1px;
 	width: 100%;
-	background-color: #DFE8F6;
+	background-color: '#{richSkin.headerBackgroundColor}';
 	border-width: 1px;
 	border-style: dotted;
 	border-color: '#{richSkin.generalTextColor}';
 }
 
-.cb_shadow {
+.rf-au-shw{
 	border: 0px solid red;
 	display: inline-block;
 	position: absolute;
@@ -106,7 +106,7 @@ input.cb_input {
 	left: -7px;
 }
 
-.cb_shadow_t {
+.rf-au-shw-t{
 	background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
 	background-position: top left;
 	position: absolute;
@@ -116,7 +116,7 @@ input.cb_input {
 	left: 0px
 }
 
-.cb_shadow_l {
+.rf-au-shw-l{
 	background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
 	background-position: bottom left;
 	position: absolute;
@@ -126,7 +126,7 @@ input.cb_input {
 	right: 6px;
 }
 
-.cb_shadow_r {
+.rf-au-shw-r{
 	background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
 	background-position: bottom right;
 	position: absolute;
@@ -136,7 +136,7 @@ input.cb_input {
 	right: 0px;
 }
 
-.cb_shadow_b {
+.rf-au-shw-b{
 	background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
 	background-position: right top;
 	position: absolute;
@@ -146,7 +146,7 @@ input.cb_input {
 	right: 0px;
 }
 
-.cb_list_ul {
+.rf-au-l-ul{
 	margin: 0px;
 	padding: 0px;
 }
