@@ -43,8 +43,11 @@ import org.richfaces.component.AbstarctSubTableToggleControl;
  */
 
 
-@ResourceDependencies({@ResourceDependency(library = "javax.faces", name = "jsf.js"),
-    @ResourceDependency(name = "richfaces.js"), @ResourceDependency(name = "subtable-toggler.js")})
+@ResourceDependencies(
+    {@ResourceDependency(library = "javax.faces", name = "jsf.js"),
+    @ResourceDependency(name = "richfaces.js"), 
+    @ResourceDependency(name = "subtable-toggler.js")
+})
 public class SubTableToggleControlRendererBase extends RendererBase {
 
     private static final String DISPLAY_NONE = "display: none;";

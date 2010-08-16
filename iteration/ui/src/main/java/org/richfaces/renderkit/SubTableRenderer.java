@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
@@ -51,7 +52,11 @@ import org.richfaces.event.ToggleEvent;
  */
 
 @JsfRenderer(type = "org.richfaces.SubTableRenderer", family = AbstractSubTable.COMPONENT_FAMILY)
-@ResourceDependency(library="org.richfaces", name = "subtable.js")
+@ResourceDependencies({
+    @ResourceDependency(name = "jquery.js"),
+    @ResourceDependency(name = "richfaces.js"),
+    @ResourceDependency(library="org.richfaces", name = "subtable.js")
+})
 public class SubTableRenderer extends AbstractTableRenderer {
 
     public static final String TB_ROW = ":c";
