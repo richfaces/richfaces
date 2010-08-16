@@ -48,5 +48,9 @@
             <from-outcome>qunit/accordion</from-outcome>
             <to-view-id>/qunit/accordion.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>qunit/accordionHeaders</from-outcome>
+            <to-view-id>/qunit/accordionHeaders.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
 </faces-config>

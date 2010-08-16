@@ -12,15 +12,6 @@
         <h:outputScript name="qunit/qunit.js" />
         <h:outputScript name="qunit/richfaces-qunit.js" />
 
-        <!--<h:outputScript name="richfaces-event.js" />-->
-        <!--<h:outputScript name="richfaces-base-component.js" />-->
-        <!--<h:outputScript name="richfaces.js" />-->
-        <!--<h:outputScript name="TogglePanel.js" />-->
-        <!--<h:outputScript name="TogglePanelItem.js" />-->
-        <!--<h:outputScript name="TogglePanelTitledItem.js" />-->
-        <!--<h:outputScript name="AccordionItem.js" />-->
-        <!--<h:outputScript name="Accordion.js" />-->
-
         <h:outputStylesheet name="qunit/qunit.css" />
     </ui:define>
 
@@ -31,49 +22,12 @@
         <p>Page</p>
 
         <h:form id="f" style="border:blue solid thin;">
-            <pn:accordion id="panel" style="padding: 0px; height: 400px; width: 500px;" switchType="ajax">
+            <pn:accordion id="panel">
                 <pn:accordionItem header="label 1">content 1</pn:accordionItem>
                 <pn:accordionItem header="label 2">content 2</pn:accordionItem>
                 <pn:accordionItem header="label 3">content 3</pn:accordionItem>
             </pn:accordion>
         </h:form>
-
-<!--        <h:form id="f" style="border:blue solid thin;">
-            <div id="f:panel" style="padding: 0px; height: 400px; width: 500px;" class="rich-panelbar rich-panelbar-b">
-                <input type="hidden" id="f:panel-value" />
-                <div id="f:name1" class="rich-panelbar rich-panelbar-interior ">
-                    <div id="f:name1-header" class="rich-panelbar-header">label 1</div>
-                    <div id="f:name1-content" style="display: block; width: 100%; overflow: auto;"
-                         class="rich-panelbar-content-exterior">
-                        content 1
-                    </div>
-                </div>
-                <div id="f:name2" class="rich-panelbar rich-panelbar-interior ">
-                    <div id="f:name2-header" class="rich-panelbar-header">label 2</div>
-                    <div id="f:name2-content" style="display: none; width: 100%; overflow: auto;"
-                         class="rich-panelbar-content-exterior">
-                        content 2
-                    </div>
-                </div>
-                <div id="f:name3" class="rich-panelbar rich-panelbar-interior ">
-                    <div id="f:name3-header" class="rich-panelbar-header  ">label 3</div>
-                    <div id="f:name3-content" style="display: none; width: 100%; overflow: auto;"
-                         class="rich-panelbar-content-exterior">
-                        content 3
-                    </div>
-                </div>
-                <script type="text/javascript">
-                    new RichFaces.ui.Accordion("f:panel",{
-                        "items":[
-                            new RichFaces.ui.AccordionItem("f:name1",{"togglePanelId":"f:panel","switchMode":"client","name":"name1"} ),
-                            new RichFaces.ui.AccordionItem("f:name2",{"togglePanelId":"f:panel","switchMode":"client","name":"name2"} ),
-                            new RichFaces.ui.AccordionItem("f:name3",{"togglePanelId":"f:panel","switchMode":"client","name":"name3"} )] ,
-                        "ajax":{"status":"null","incId":"1"} ,
-                        "activeItem":"name1",
-                        "isKeepHeight": false} )
-                </script>
-            </div>
-        </h:form>-->
 
         <p>Result</p>
         <div>
