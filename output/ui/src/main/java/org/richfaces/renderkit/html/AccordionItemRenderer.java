@@ -138,7 +138,7 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
         writer.writeAttribute("class", "rf-aci-h-" + state + " " + attributeAsString(component, name), name);
 
 
-        UIComponent headerFacet = component.getFacet("header");
+        UIComponent headerFacet = component.getFacet("header" + capitalize(state));
         if (headerFacet != null && headerFacet.isRendered()) {
             headerFacet.encodeAll(facesContext);
         } else {
