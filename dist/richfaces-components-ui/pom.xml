@@ -68,6 +68,10 @@
 
         <!-- for javadoc generation -->
         <dependency>
+            <groupId>org.richfaces.ui</groupId>
+            <artifactId>richfaces-components-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.richfaces.core</groupId>
             <artifactId>richfaces-core-api</artifactId>
         </dependency>
