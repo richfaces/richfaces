@@ -286,7 +286,7 @@
 			</demo>
 		</demos>
 	</group>
-	<group>
+	<group new="true">
 		<name>Output/Panels</name>
 		<demos>
 			<demo>
@@ -300,7 +300,7 @@
 					<sample>
 						<id>lookCustomization</id>
 						<name>Look and feel customization</name>
-					</sample>					
+					</sample>
 				</samples>
 			</demo>
 			<demo>
@@ -312,6 +312,16 @@
 						<name>Simple Toggle Panel</name>
 					</sample>
 				</samples>
+			</demo>
+			<demo>
+				<id>accordion</id>
+				<name>rich:accordion</name>
+				<samples> 
+					<sample>
+						<id>simple</id>
+						<name>Simple Accordion</name>
+					</sample>
+				</samples> 
 			</demo>			
 			<demo>
 				<id>popup</id>
@@ -324,12 +334,50 @@
 					<sample>
 						<id>modalPopup</id>
 						<name>Modal panel example</name>
-					</sample>					
+					</sample>
 				</samples>
 			</demo>
 		</demos>
 	</group>
-
+	<group new="true">
+		<name>Inputs and Selects</name>
+		<demos>
+			<!-- demo>
+				<id>autocomplete</id>
+				<name>rich:autocomplete</name>
+				<samples>
+					<sample>
+						<id>simpleClient</id>
+						<name>Client side autocomplete</name>
+					</sample>
+					<sample>
+						<id>simpleAjax</id>
+						<name>Ajax autocomplete</name>
+					</sample>
+				</samples>
+			</demo-->
+			<demo>
+				<id>inputNumberSlider</id>
+				<name>rich:inputNumberSlider</name>
+				<samples>
+					<sample>
+						<id>sliders</id>
+						<name>Different Sliders samples</name>
+					</sample>
+				</samples>
+			</demo>
+			<demo>
+				<id>inplaceInput</id>
+				<name>rich:inplaceInput</name>
+				<samples>
+					<sample>
+						<id>inplaceInput</id>
+						<name>Inplace Inputs samples</name>
+					</sample>
+				</samples>
+			</demo>							
+		</demos> 
+	</group>
 	<group>
 		<name>Misc Components/Features</name>
 		<demos>
@@ -372,7 +420,7 @@
 						<name>jQuery usage</name>
 					</sample>
 				</samples>
-			</demo>			
+			</demo>
 		</demos>
 	</group>
 </root>

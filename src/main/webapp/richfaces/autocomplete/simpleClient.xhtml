@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+	<p>Autocomplete component - simple Input component which provides suggestions during input.</p>
+	<p>Could works using three modes:
+		<ul>
+			<li>Client - preloads data to the client side and makes suggestions according to entered prefix on the client</li>
+			<li>Ajax - fetches the data on every input change using ajax requests</li>
+			<li>Cached Ajax - loads data via ajax to make suggestions when the prefix length satisfies minchars attribute. Then all the suggestions done at client side except the case when initial prefix changed or token entered. Then loads data again.</li>
+		</ul> 
+	</p>
+	<p>There you could see simple client side autocomplete:</p>
+	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+		<ui:param name="sourceType" value="xhtml" />
+		<ui:param name="openLabel" value="View Source" />
+		<ui:param name="hideLabel" value="Hide Source" />
+	</ui:include>
+</ui:composition>
+
+</html>

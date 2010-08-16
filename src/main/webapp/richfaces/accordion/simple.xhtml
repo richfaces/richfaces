@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+	<p>The Accordion (panelBar from 3.3.x) is a set of panels when one panel is expanded, 
+	but other ones are collapsed. </p>
+	<p>
+		Additionally to previous 3.3.x functionality - accordion in 4.x was finally added with
+		different modes functionality. So as all the switchable panels it could be used with next modes -
+		"client", "ajax" and "server".
+	</p>
+	<p>The following demo shows the simple example of usage for the Accordion in client mode.</p>
+	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+		<ui:param name="sourceType" value="xhtml" />
+		<ui:param name="openLabel" value="View Source" />
+		<ui:param name="hideLabel" value="Hide Source" />
+	</ui:include>
+</ui:composition>
+
+</html>
