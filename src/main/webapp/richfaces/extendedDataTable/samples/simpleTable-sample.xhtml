@@ -8,7 +8,7 @@
 	<h:form>
 		<rich:extendedDataTable value="#{carsBean.allInventoryItems}"
 			var="car" id="table" frozenColumns="2"
-			style="height:300px; width:500px;">
+			style="height:300px; width:500px;" selectionMode="none">
 			<f:facet name="header">
 				<h:outputText value="Cars marketplace" />
 			</f:facet>

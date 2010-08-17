@@ -5,13 +5,18 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
-	<p>ExtendedDataTable component provides next set of features:</p>
-	<ul>
-		<li>Horizontal/Vertical scrolling</li>
-		<li>Ajax lazy loading on vertical scroll</li>
-		<li>Support "frozen" columns which are not scrolled on using
-		horizontal scroll</li>
-	</ul>
+<p>This sample shows the selection management using built-in selection functionality.</p>
+<p><b>selectionMode</b> attribute which controls selection mode has three values:</p>
+<p>
+<ul>
+<li>multi</li>
+<li>single</li>
+<li>none</li>
+</ul>
+</p>
+<p>And in order to manage your selection - use <b>selection</b> attribute which should be pointed to 
+some <b>collection of objects</b>. It will <b>hold rowKeys</b> of currently selected rows.</p>
+<p>Look to next simple sample:</p>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
 		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
@@ -19,8 +24,12 @@
 		<ui:param name="openLabel" value="View Source" />
 		<ui:param name="hideLabel" value="Hide Source" />
 	</ui:include>
-	<p>In order to turn on Ajax loading - just specify clientRows
-	attribute with number of rows to be loaded on the client</p>
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/tables/ExtTableSelectionBean.java" />
+		<ui:param name="sourceType" value="java" />
+		<ui:param name="openLabel" value="View ExtSelectionBean Source" />
+		<ui:param name="hideLabel" value="Hide ExtSelectionBean Source" />
+	</ui:include>	
 </ui:composition>
 
 </html>

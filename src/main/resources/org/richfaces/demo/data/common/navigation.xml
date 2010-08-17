@@ -238,6 +238,10 @@
 						<id>simpleTable</id>
 						<name>ExtendedData Table Basic Usage</name>
 					</sample>
+					<sample>
+						<id>exTableSelection</id>
+						<name>ExtendedData Table Selection usage</name>
+					</sample>					
 				</samples>
 			</demo>
 			<demo>
