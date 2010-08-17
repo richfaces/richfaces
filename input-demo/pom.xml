@@ -108,7 +108,7 @@
                                     <goal>war</goal>
                                 </goals>
                                 <configuration>
-                                    <webappDirectory>${symbol_dollar}{project.build.directory}/${symbol_dollar}{project.build.finalName}-jee6</webappDirectory>
+                                    <webappDirectory>${project.build.directory}/${project.build.finalName}-jee6</webappDirectory>
                                     <classifier>jee6</classifier>
                                     <packagingExcludes>WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/slf4j-*</packagingExcludes>
                                     <warSourceExcludes>WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/slf4j-*</warSourceExcludes>
@@ -118,7 +118,7 @@
                         <configuration>
                             <webResources>
                                 <resource>
-                                    <directory>${symbol_dollar}{basedir}/src/main/java</directory>
+                                    <directory>${basedir}/src/main/java</directory>
                                     <targetPath>/WEB-INF/src</targetPath>
                                 </resource>
                             </webResources>
