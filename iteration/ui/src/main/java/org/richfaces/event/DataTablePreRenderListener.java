@@ -37,11 +37,12 @@ import javax.faces.event.SystemEventListener;
 
 import org.ajax4jsf.Messages;
 import org.richfaces.DataScrollerUtils;
-import org.richfaces.component.UIDataAdaptor;
 import org.richfaces.component.AbstractDataScroller;
+import org.richfaces.component.UIDataAdaptor;
 import org.richfaces.component.util.MessageUtil;
 import org.richfaces.log.RichfacesLogger;
 import org.slf4j.Logger;
+
 
 public class DataTablePreRenderListener implements SystemEventListener {
 

@@ -33,6 +33,7 @@ import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -74,8 +75,14 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
     }
     
     @Attribute(defaultValue = "0")
-    public abstract int getFrozenColumns(); 
+    public abstract int getFrozenColumns();
     
+    @Attribute(events=@EventName(value="selectionchange", defaultEvent=true))
+    public abstract String getOnselectionchange();
+
+    @Attribute(events=@EventName("beforeselectionchange"))
+    public abstract String getOnbeforeselectionchange();
+
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
         if (SCROLL.equals(metaComponentId)) {
             Object oldRowKey = getRowKey();
