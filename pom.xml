@@ -61,6 +61,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Override the default 2.0.9 from jboss-parent -->
         <maven.min.version>2.1.0</maven.min.version>
+        <richfaces.checkstyle.version>2-SNAPSHOT</richfaces.checkstyle.version>
     </properties>
 
     <!-- Repository management, including extra repositories if needed -->
@@ -209,8 +210,6 @@
                     <configuration>
                         <configLocation>richfaces-checkstyle/richfaces-checkstyle.xml
                         </configLocation>
-                        <suppressionsLocation>checkstyle-suppressions.xml
-                        </suppressionsLocation>
                     </configuration>
                     <executions>
                         <execution>
@@ -221,6 +220,13 @@
                             </goals>
                         </execution>
                     </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.richfaces</groupId>
+                            <artifactId>richfaces-build-checkstyle</artifactId>
+                            <version>${richfaces.checkstyle.version}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
 
                 <!-- dev -->
@@ -393,11 +399,11 @@
 
     <!-- SCM and distribution management -->
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/root/build/parent/trunk
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/modules/build/parent/trunk
         </connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/root/build/parent/trunk
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/modules/build/parent/trunk
         </developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/root/build/parent/trunk</url>
+        <url>http://fisheye.jboss.org/browse/richfaces/modules/build/parent/trunk</url>
     </scm>
 
 </project>
