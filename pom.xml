@@ -344,53 +344,8 @@
                 </clover.license.path>
             </properties>
         </profile>
-
-        
-        <!-- This profile can be used while testing staged releases.  This
-             works around two issues with how maven inherits from settings.xml
-             See RF-8756 for more.
-             
-             To use this you also need to add !jboss-public-stage to your
-             mirrorOf settings in settings.xml if you are following jboss dev
-             maven setup.
-         -->
-        <profile>
-            <id>jboss-public-stage</id>
-            <repositories>
-               <repository>
-                  <id>jboss-public-stage</id>
-                  <name>JBoss Public Stage Maven Repository Group</name>
-                  <url>https://repository.jboss.org/nexus/content/groups/staging/</url>
-                  <layout>default</layout>
-                  <releases>
-                      <enabled>true</enabled>
-                      <updatePolicy>never</updatePolicy>
-                  </releases>
-                  <snapshots>
-                      <enabled>false</enabled>
-                      <updatePolicy>never</updatePolicy>
-                  </snapshots>
-              </repository>
-            </repositories>
-            <pluginRepositories>
-               <pluginRepository>
-                   <id>jboss-public-stage</id>
-                   <name>JBoss Public Stage Maven Repository Group</name>
-                   <url>https://repository.jboss.org/nexus/content/groups/staging/</url>
-                   <layout>default</layout>
-                   <releases>
-                       <enabled>true</enabled>
-                       <updatePolicy>never</updatePolicy>
-                   </releases>
-                   <snapshots>
-                       <enabled>false</enabled>
-                       <updatePolicy>never</updatePolicy>
-                   </snapshots>
-               </pluginRepository>
-           </pluginRepositories>
-        </profile>
     </profiles>
-
+    
     <distributionManagement>
         <downloadUrl>
             http://www.jboss.org/richfaces/download
