@@ -76,8 +76,7 @@ function invokeJSAPI() {
 			<h:outputText value="Selected rowKeys" style="padding-left: 30px;"/>
 			<h:outputText id="selectionOutput" value="#{dataBean.selectedRowKeys}"/>
 			
-			
-			<it:extendedDataTable id="extendedDataTable" clientRows="40" rows="100" frozenColumns="2"
+		<it:extendedDataTable id="extendedDataTable" clientRows="40" rows="100" frozenColumns="2"
 				value="#{dataBean.state ? dataBean.employeeList : null}" var="record" noDataLabel="There isn't data."
 				styleClass="extendedDataTable" rowKeyVar="rkv" filterVar="fv" sortMode="multi" 
 				selectionMode="#{dataBean.selectionMode}" selectedRowKeys="#{dataBean.selectedRowKeys}"
@@ -87,7 +86,7 @@ function invokeJSAPI() {
 					<h:outputText value="Current date: #{dataBean.date}"/>
 				</f:facet>
 				<f:facet name="footer">
-				<it:dataScroller id="scroller3" for="extendedDataTable" page="#{dataBean.page}" maxPages="7"></it:dataScroller>
+					<h:outputText value="Footer of table."/>
 
 				</f:facet>
 				<f:facet name="noData">
