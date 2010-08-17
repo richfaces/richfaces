@@ -161,7 +161,7 @@ public class QueueRendererTest{
 	private String extractQueueScript(HtmlPage page) {
 	    HtmlElement scriptElement = page.getElementById(QueueRegistry.QUEUE_SCRIPT_ID);
 	    if (scriptElement != null) {
-	        return getTextContent(scriptElement);
+	        return getTextContent(scriptElement).replaceAll("(^<!--)|(//-->$)", "");
 	    }
         return null;
     }
