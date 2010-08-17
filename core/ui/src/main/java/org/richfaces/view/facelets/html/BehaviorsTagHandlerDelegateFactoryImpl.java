@@ -58,7 +58,19 @@ public class BehaviorsTagHandlerDelegateFactoryImpl extends TagHandlerDelegateFa
 
         // TagHandlers structure is created when view is compiled
         // so there's no need to check for BehaviorsStack
-        return factory.createComponentHandlerDelegate(new BehaviorsAddingComponentHandlerWrapper(owner));
+        
+        ComponentHandler wrappedHandler = owner;
+
+        //TODO - consider re-wrapping by smb. other, use attributes to handle
+        if (wrappedHandler instanceof BehaviorsAddingComponentHandlerWrapper) {
+            //MyFaces calls delegate factory just in ComponentHandler class ctor, so this is to avoid infinite recursion
+            //our delegate is fine with null value
+            return null;
+        } else {
+            wrappedHandler = new BehaviorsAddingComponentHandlerWrapper(owner);
+        }
+        
+        return factory.createComponentHandlerDelegate(wrappedHandler);
     }
 
     /*
