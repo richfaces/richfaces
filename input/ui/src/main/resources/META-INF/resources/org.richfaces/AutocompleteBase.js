@@ -40,7 +40,7 @@ $.extend(RichFaces.Event, {
 	rf.ui = rf.ui || {}; 
 	
 	// Constructor definition
-	rf.ui.AutoCompleteBase = function(componentId, selectId, fieldId, options) {
+	rf.ui.AutocompleteBase = function(componentId, selectId, fieldId, options) {
 		// call constructor of parent class
 		$super.constructor.call(this, componentId);
 		this.selectId = selectId;
@@ -52,10 +52,10 @@ $.extend(RichFaces.Event, {
 	};
 	
 	// Extend component class and add protected methods from parent class to our container
-	rf.BaseComponent.extend(rf.ui.AutoCompleteBase);
+	rf.BaseComponent.extend(rf.ui.AutocompleteBase);
 	
 	// define super class link
-	var $super = rf.ui.AutoCompleteBase.$super;
+	var $super = rf.ui.AutocompleteBase.$super;
 	
 	var defaultOptions = {
 			changeDelay:8
@@ -231,12 +231,12 @@ $.extend(RichFaces.Event, {
 	/*
 	 * Prototype definition
 	 */
-	$.extend(rf.ui.AutoCompleteBase.prototype, (function () {
+	$.extend(rf.ui.AutocompleteBase.prototype, (function () {
 		return {
 			/*
 			 * public API functions
 			 */
- 			name:"AutoCompleteBase",
+ 			name:"AutocompleteBase",
  			show: show,
  			hide: hide,
  			getNamespace: function () {

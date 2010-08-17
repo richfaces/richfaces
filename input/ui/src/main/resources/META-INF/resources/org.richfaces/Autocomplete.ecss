@@ -29,14 +29,14 @@ input.rf-au-i {
 	border-style: solid;
 	border-color: '#{richSkin.panelBorderColor}';
 	display: inline-block;
-	background-image: "url(#{resource['org.richfaces.renderkit.html.images.AutoCompleteFieldGradient']})";
+	background-image: "url(#{resource['org.richfaces.renderkit.html.images.AutocompleteFieldGradient']})";
 	background-repeat: repeat-x;
 	background-position: top left;
 	background-color: '#{richSkin.controlBackgroundColor}';
 }
 
 .rf-au-b{
-	background-image: "url(#{resource['org.richfaces.renderkit.html.images.AutoCompleteButtonGradient']})";
+	background-image: "url(#{resource['org.richfaces.renderkit.html.images.AutocompleteButtonGradient']})";
 	background-repeat: repeat-x;
 	background-position: top left;
 	background-color: '#{richSkin.headerBackgroundColor}';

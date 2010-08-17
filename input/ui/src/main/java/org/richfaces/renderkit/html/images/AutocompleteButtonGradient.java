@@ -29,10 +29,11 @@ import org.richfaces.skin.Skin;
  * 
  */
 @DynamicResource
-public class AutoCompleteFieldGradient extends AutoCompleteBaseGradient {
+public class AutocompleteButtonGradient extends AutocompleteBaseGradient {
 
-    public AutoCompleteFieldGradient() {
-        setTopColorSkinParameter(Skin.ADDITIONAL_BACKGROUND_COLOR);
-        setBottomColorSkinParameter(Skin.CONTROL_BACKGROUND_COLOR);
+    public AutocompleteButtonGradient() {
+        setTopColorSkinParameter(Skin.HEADER_GRADIENT_COLOR);
+        setBottomColorSkinParameter(Skin.HEADER_BACKGROUND_COLOR);
     }
+    
 }

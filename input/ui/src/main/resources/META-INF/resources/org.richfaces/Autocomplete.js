@@ -65,7 +65,7 @@
 	
 	rf.ui = rf.ui || {};
 	// Constructor definition
-	rf.ui.AutoComplete = function(componentId, fieldId, options) {
+	rf.ui.Autocomplete = function(componentId, fieldId, options) {
 		this.namespace = "."+rf.Event.createNamespace(this.name, this.id);
 		this.options = {};
 		// call constructor of parent class
@@ -81,10 +81,10 @@
 	};
 
 	// Extend component class and add protected methods from parent class to our container
-	rf.ui.AutoCompleteBase.extend(rf.ui.AutoComplete);
+	rf.ui.AutocompleteBase.extend(rf.ui.Autocomplete);
 
 	// define super class link
-	var $super = rf.ui.AutoComplete.$super;
+	var $super = rf.ui.Autocomplete.$super;
 
 	var defaultOptions = {
 		selectedItemClass:'rf-au-s',
@@ -241,7 +241,7 @@
 		//}
 		selectItem.call(this);
 		
-		// value is undefined if called from AutoCompleteBase onChange
+		// value is undefined if called from AutocompleteBase onChange
 		var subValue = (typeof value == "undefined") ? this.__getSubValue() : value;
 		
 		// TODO: ajax call here if needed
@@ -330,12 +330,12 @@
 	/*
 	 * Prototype definition
 	 */
-	$.extend(rf.ui.AutoComplete.prototype, (function () {
+	$.extend(rf.ui.Autocomplete.prototype, (function () {
 		return {
 			/*
 			 * public API functions
 			 */
- 			name:"AutoComplete",
+ 			name:"Autocomplete",
  			/*
  			 * Protected methods
  			 */

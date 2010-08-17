@@ -48,7 +48,7 @@ import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.javascript.ScriptUtils;
 import org.ajax4jsf.renderkit.RendererUtils;
 import org.ajax4jsf.util.InputUtils;
-import org.richfaces.component.AbstractAutoComplete;
+import org.richfaces.component.AbstractAutocomplete;
 import org.richfaces.component.AutocompleteLayout;
 import org.richfaces.component.MetaComponentResolver;
 
@@ -63,12 +63,12 @@ import com.google.common.collect.Iterators;
     @ResourceDependency(name = "jquery.js"), @ResourceDependency(name = "jquery.position.js"),
     @ResourceDependency(name = "richfaces.js"), @ResourceDependency(name = "richfaces-event.js"),
     @ResourceDependency(name = "richfaces-base-component.js"), @ResourceDependency(name = "richfaces-selection.js"),
-    @ResourceDependency(library = "org.richfaces", name = "AutoCompleteBase.js"),
-    @ResourceDependency(library = "org.richfaces", name = "AutoComplete.js"),
-    @ResourceDependency(library = "org.richfaces", name = "AutoComplete.ecss")
+    @ResourceDependency(library = "org.richfaces", name = "AutocompleteBase.js"),
+    @ResourceDependency(library = "org.richfaces", name = "Autocomplete.js"),
+    @ResourceDependency(library = "org.richfaces", name = "Autocomplete.ecss")
 
 })
-public abstract class AutoCompleteRendererBase extends InputRendererBase implements MetaComponentRenderer {
+public abstract class AutocompleteRendererBase extends InputRendererBase implements MetaComponentRenderer {
 
     public String getScriptOptions(UIComponent component) {
         Map<String, Object> attributes = component.getAttributes();
@@ -94,7 +94,7 @@ public abstract class AutoCompleteRendererBase extends InputRendererBase impleme
 
     // TODO nick - handle parameter
     @SuppressWarnings("unchecked")
-    private DataModel<Object> getItems(FacesContext facesContext, AbstractAutoComplete component) {
+    private DataModel<Object> getItems(FacesContext facesContext, AbstractAutocomplete component) {
         Object itemsObject = null;
 
         MethodExpression autocompleteMethod = component.getAutocompleteMethod();
@@ -165,8 +165,8 @@ public abstract class AutoCompleteRendererBase extends InputRendererBase impleme
 
     protected void encodeItems(FacesContext facesContext, UIComponent component, List<Object> fetchValues)
         throws IOException {
-        AbstractAutoComplete comboBox = (AbstractAutoComplete) component;
-        AutoCompleteEncodeStrategy strategy = getStrategy(component);
+        AbstractAutocomplete comboBox = (AbstractAutocomplete) component;
+        AutocompleteEncodeStrategy strategy = getStrategy(component);
         strategy.encodeItemsContainerBegin(facesContext, component);
 
         boolean hasEncodedElements = false;
@@ -198,14 +198,14 @@ public abstract class AutoCompleteRendererBase extends InputRendererBase impleme
     }
 
     protected void encodeItemsContainer(FacesContext facesContext, UIComponent component) throws IOException {
-        AutoCompleteEncodeStrategy strategy = getStrategy(component);
+        AutocompleteEncodeStrategy strategy = getStrategy(component);
         strategy.encodeItemsContainerBegin(facesContext, component);
         strategy.encodeFakeItem(facesContext, component);
         strategy.encodeItemsContainerEnd(facesContext, component);
     }
 
-    private AutoCompleteEncodeStrategy getStrategy(UIComponent component) {
-        AbstractAutoComplete comboBox = (AbstractAutoComplete) component;
+    private AutocompleteEncodeStrategy getStrategy(UIComponent component) {
+        AbstractAutocomplete comboBox = (AbstractAutocomplete) component;
         if (comboBox.getLayout() != null) {
             if (comboBox.getLayout().equals(AutocompleteLayout.div)) {
                 return new AutocompleteDivLayoutStrategy();
@@ -235,13 +235,13 @@ public abstract class AutoCompleteRendererBase extends InputRendererBase impleme
             PartialViewContext pvc = context.getPartialViewContext();
             pvc.getRenderIds().add(
                 component.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
-                    + AbstractAutoComplete.ITEMS_META_COMPONENT_ID);
+                    + AbstractAutocomplete.ITEMS_META_COMPONENT_ID);
         }
     }
 
     public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId)
         throws IOException {
-        if (AbstractAutoComplete.ITEMS_META_COMPONENT_ID.equals(metaComponentId)) {
+        if (AbstractAutocomplete.ITEMS_META_COMPONENT_ID.equals(metaComponentId)) {
 
             List<Object> fetchValues = new ArrayList<Object>();
 

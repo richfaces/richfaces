@@ -50,12 +50,12 @@ import org.richfaces.renderkit.MetaComponentRenderer;
  * @author Nick Belaevski
  * 
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.AutoCompleteHandler"), renderer = @JsfRenderer(type = "org.richfaces.AutoCompleteRenderer"))
-public abstract class AbstractAutoComplete extends UIInput implements MetaComponentResolver, MetaComponentEncoder {
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.AutocompleteHandler"), renderer = @JsfRenderer(type = "org.richfaces.AutocompleteRenderer"))
+public abstract class AbstractAutocomplete extends UIInput implements MetaComponentResolver, MetaComponentEncoder {
 
     public static final String ITEMS_META_COMPONENT_ID = "items";
 
-    public static final String COMPONENT_TYPE = "org.richfaces.AutoComplete";
+    public static final String COMPONENT_TYPE = "org.richfaces.Autocomplete";
 
     public static final String COMPONENT_FAMILY = UIInput.COMPONENT_FAMILY;
 

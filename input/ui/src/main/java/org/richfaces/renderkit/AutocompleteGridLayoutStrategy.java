@@ -5,10 +5,10 @@ import java.io.IOException;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.component.AbstractAutoComplete;
+import org.richfaces.component.AbstractAutocomplete;
 
 public class AutocompleteGridLayoutStrategy extends AbstractAutocompleteLayoutStrategy implements
-    AutoCompleteEncodeStrategy {
+    AutocompleteEncodeStrategy {
 
     public void encodeFakeItem(FacesContext facesContext, UIComponent component) throws IOException {
         // TODO Auto-generated method stub
@@ -25,7 +25,7 @@ public class AutocompleteGridLayoutStrategy extends AbstractAutocompleteLayoutSt
 
     }
 
-    public void encodeItem(FacesContext facesContext, AbstractAutoComplete comboBox, Object nextItem)
+    public void encodeItem(FacesContext facesContext, AbstractAutocomplete comboBox, Object nextItem)
         throws IOException {
         // TODO Auto-generated method stub
 

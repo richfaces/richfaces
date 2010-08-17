@@ -7,10 +7,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.renderkit.RendererUtils.HTML;
-import org.richfaces.component.AbstractAutoComplete;
+import org.richfaces.component.AbstractAutocomplete;
 
 public class AutocompleteListLayoutStrategy extends AbstractAutocompleteLayoutStrategy implements
-    AutoCompleteEncodeStrategy {
+    AutocompleteEncodeStrategy {
 
     public void encodeFakeItem(FacesContext facesContext, UIComponent component) throws IOException {
         ResponseWriter responseWriter = facesContext.getResponseWriter();
@@ -32,7 +32,7 @@ public class AutocompleteListLayoutStrategy extends AbstractAutocompleteLayoutSt
         responseWriter.endElement(HTML.UL_ELEMENT);
     }
 
-    public void encodeItem(FacesContext facesContext, AbstractAutoComplete comboBox, Object item) throws IOException {
+    public void encodeItem(FacesContext facesContext, AbstractAutocomplete comboBox, Object item) throws IOException {
         ResponseWriter writer = facesContext.getResponseWriter();
 
         writer.startElement(HTML.LI_ELEMENT, comboBox);
