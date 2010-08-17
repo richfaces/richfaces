@@ -49,7 +49,7 @@ public class DataTablePreRenderListener implements SystemEventListener {
     private static final Logger LOG = RichfacesLogger.COMPONENTS.getLogger();
 
     public boolean isListenerForSource(Object source) {
-        return ((source instanceof UIDataAdaptor) || (source instanceof UIData));
+        return ((source instanceof AbstractDataScroller) ||(source instanceof UIDataAdaptor) || (source instanceof UIData));
     }
 
     public AbstractDataScroller processActiveDatascroller(FacesContext facesContext, List<AbstractDataScroller> dataScrollers,
@@ -103,61 +103,70 @@ public class DataTablePreRenderListener implements SystemEventListener {
     }
 
     public void processEvent(SystemEvent event) throws AbortProcessingException {
-        UIComponent dataTable = (UIComponent) event.getSource();
-        List<AbstractDataScroller> dataScrollers = DataScrollerUtils.findDataScrollers(dataTable);
+        AbstractDataScroller activeDataScroller = null;
+        UIComponent dataTable = null;
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        UIComponent source = (UIComponent) event.getSource();
 
-        if (!dataScrollers.isEmpty()) {
+        if ((source instanceof UIDataAdaptor) || (source instanceof UIData)) {
+            dataTable = source;
+            List<AbstractDataScroller> dataScrollers = DataScrollerUtils.findDataScrollers(dataTable);
+            if(!dataScrollers.isEmpty()) { 
+                activeDataScroller = processActiveDatascroller(facesContext, dataScrollers, dataTable);
+            }    
 
-            FacesContext facesContext = FacesContext.getCurrentInstance();
+        } else if (source instanceof AbstractDataScroller) {
+            activeDataScroller = (AbstractDataScroller) source;
+            dataTable = activeDataScroller.getDataTable();
+        }
+        
+        String scrollerStateKey  = dataTable.getClientId(facesContext) + AbstractDataScroller.SCROLLER_STATE_ATTRIBUTE; 
+        boolean processed = dataTable.getAttributes().containsKey(scrollerStateKey);
+        if(!processed) {
+            if ((activeDataScroller != null) && (dataTable != null)) {
+                int rowCount = DataScrollerUtils.getRowCount(dataTable);
+                int rows = DataScrollerUtils.getRows(dataTable);
+                int pageCount = DataScrollerUtils.getPageCount(dataTable, rowCount, rows);
+                
+                int page = activeDataScroller.getPage();
+                int newPage = -1;
 
-            AbstractDataScroller activeComponent = processActiveDatascroller(facesContext, dataScrollers, dataTable);
-
-            int rowCount = DataScrollerUtils.getRowCount(dataTable);
-            int rows = DataScrollerUtils.getRows(dataTable);
-
-            Integer pageCount = DataScrollerUtils.getPageCount(dataTable, rowCount, rows);
-
-            int page = activeComponent.getPage();
-            int newPage = -1;
-
-            if (page < 1) {
-                newPage = 1;
-            } else if (page > pageCount) {
-                newPage = (pageCount != 0 ? pageCount : 1);
-            }
-
-            if (newPage != -1) {
-                Object label = MessageUtil.getLabel(facesContext, activeComponent);
-                String formattedMessage = Messages.getMessage(Messages.DATASCROLLER_PAGE_MISSING, new Object[] { label,
-                    page, pageCount, newPage });
-
-                LOG.warn(formattedMessage);
-
-                page = newPage;
-                dataTable.getAttributes().put(
-                    dataTable.getClientId(facesContext) + AbstractDataScroller.SCROLLER_STATE_ATTRIBUTE, page);
-            }
-
-            int first;
-
-            String lastPageMode = activeComponent.getLastPageMode();
-
-            if (lastPageMode == null) {
-                lastPageMode = AbstractDataScroller.PAGEMODE_SHORT;
-            } else if (!AbstractDataScroller.PAGEMODE_SHORT.equals(lastPageMode)
-                && !AbstractDataScroller.PAGEMODE_FULL.equals(lastPageMode)) {
-                throw new IllegalArgumentException("Illegal value of 'lastPageMode' attribute: '" + lastPageMode + "'");
-            }
-
-            if (page != pageCount || AbstractDataScroller.PAGEMODE_SHORT.equals(lastPageMode)) {
-                first = (page - 1) * rows;
-            } else {
-                first = rowCount - rows;
-                if (first < 0) {
-                    first = 0;
+                if (page < 1) {
+                    newPage = 1;
+                } else if (page > pageCount) {
+                    newPage = (pageCount != 0 ? pageCount : 1);
                 }
+
+                if (newPage != -1) {
+                    Object label = MessageUtil.getLabel(facesContext, activeDataScroller);
+                    String formattedMessage = Messages.getMessage(Messages.DATASCROLLER_PAGE_MISSING, new Object[] { label,
+                        page, pageCount, newPage });
+
+                    LOG.warn(formattedMessage);
+                    page = newPage;
+                    dataTable.getAttributes().put(scrollerStateKey, page);
+                }
+
+                int first;
+                String lastPageMode = activeDataScroller.getLastPageMode();
+
+                if (lastPageMode == null) {
+                    lastPageMode = AbstractDataScroller.PAGEMODE_SHORT;
+                } else if (!AbstractDataScroller.PAGEMODE_SHORT.equals(lastPageMode)
+                    && !AbstractDataScroller.PAGEMODE_FULL.equals(lastPageMode)) {
+                    throw new IllegalArgumentException("Illegal value of 'lastPageMode' attribute: '" + lastPageMode + "'");
+                }
+
+                if (page != pageCount || AbstractDataScroller.PAGEMODE_SHORT.equals(lastPageMode)) {
+                    first = (page - 1) * rows;
+                } else {
+                    first = rowCount - rows;
+                    if (first < 0) {
+                        first = 0;
+                    }
+                }
+                dataTable.getAttributes().put("first", first);
             }
-            dataTable.getAttributes().put("first", first);
         }
     }
 

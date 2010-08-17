@@ -31,14 +31,12 @@ import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
-import javax.faces.component.UIData;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 
 import org.ajax4jsf.component.IterationStateHolder;
-import org.ajax4jsf.renderkit.RendererUtils;
 import org.richfaces.DataScrollerUtils;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -162,33 +160,7 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
      */
 
     public UIComponent getDataTable() {
-        String forAttribute = (String) getAttributes().get(PropertyKeys.forComponent.toString());
-        UIComponent forComp;
-
-        if (forAttribute == null) {
-            forComp = this;
-
-            while ((forComp = forComp.getParent()) != null) {
-                if (forComp instanceof UIData || forComp instanceof UIDataAdaptor) {
-                    getStateHelper().put(PropertyKeys.forComponent, forComp.getId());
-                    return forComp;
-                }
-            }
-            throw new FacesException("could not find dataTable for  datascroller " + this.getId());
-
-        } else {
-            forComp = RendererUtils.getInstance().findComponentFor(this, forAttribute);
-        }
-
-        if (forComp == null) {
-            throw new IllegalArgumentException("could not find dataTable with id '" + forAttribute + "'");
-        } else if (!((forComp instanceof UIData) || (forComp instanceof UIDataAdaptor))) {
-
-            throw new IllegalArgumentException("component with id '" + forAttribute + "' must be of type "
-                + UIData.class.getName() + " or " + UIDataAdaptor.class + ", not type " + forComp.getClass().getName());
-        }
-
-        return forComp;
+        return DataScrollerUtils.findDataTable(this);
     }
 
     private int getFastStepOrDefault() {

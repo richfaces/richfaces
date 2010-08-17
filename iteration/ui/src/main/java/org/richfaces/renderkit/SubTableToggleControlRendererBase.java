@@ -35,14 +35,16 @@ import javax.faces.context.ResponseWriter;
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.renderkit.RendererBase;
 import org.ajax4jsf.renderkit.RendererUtils.HTML;
+import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractSubTable;
-import org.richfaces.component.AbstarctSubTableToggleControl;
+import org.richfaces.component.AbstractSubTableToggleControl;
 
 /**
  * @author Anton Belevich
  */
 
 
+@JsfRenderer(type = "org.richfaces.SubTableToggleControlRenderer", family = AbstractSubTableToggleControl.COMPONENT_FAMILY)
 @ResourceDependencies(
     {@ResourceDependency(library = "javax.faces", name = "jsf.js"),
     @ResourceDependency(name = "richfaces.js"), 
@@ -66,7 +68,7 @@ public class SubTableToggleControlRendererBase extends RendererBase {
     }
 
     protected void encodeControl(FacesContext context, UIComponent component) throws IOException {
-        AbstarctSubTableToggleControl toggleControl = (AbstarctSubTableToggleControl) component;
+        AbstractSubTableToggleControl toggleControl = (AbstractSubTableToggleControl) component;
         AbstractSubTable subTable = findComponent(context, toggleControl);
 
         if (subTable != null) {
@@ -89,7 +91,7 @@ public class SubTableToggleControlRendererBase extends RendererBase {
         }
     }
 
-    protected void encodeControl(FacesContext context, ResponseWriter writer, AbstarctSubTableToggleControl control,
+    protected void encodeControl(FacesContext context, ResponseWriter writer, AbstractSubTableToggleControl control,
                                  String switchType, boolean expanded, boolean visible) throws IOException {
         String state = getState(expanded);
         String styleClass = getStyleClass(context, control);
@@ -160,7 +162,7 @@ public class SubTableToggleControlRendererBase extends RendererBase {
         writer.endElement(HTML.SPAN_ELEM);
     }
 
-    public HashMap<String, Object> encodeOptions(FacesContext context, AbstarctSubTableToggleControl toggleControl, AbstractSubTable subTable) {
+    public HashMap<String, Object> encodeOptions(FacesContext context, AbstractSubTableToggleControl toggleControl, AbstractSubTable subTable) {
         String forId = subTable.getClientId(context);
         String toggleControlId = toggleControl.getClientId(context);
 
@@ -175,15 +177,15 @@ public class SubTableToggleControlRendererBase extends RendererBase {
         return options;
     }
 
-    public String getStyleClass(FacesContext context, AbstarctSubTableToggleControl control) {
+    public String getStyleClass(FacesContext context, AbstractSubTableToggleControl control) {
         return null;
     }
 
-    public String getStyle(FacesContext context, AbstarctSubTableToggleControl control) {
+    public String getStyle(FacesContext context, AbstractSubTableToggleControl control) {
         return null;
     }
 
-    protected AbstractSubTable findComponent(FacesContext context, AbstarctSubTableToggleControl toggleControl) {
+    protected AbstractSubTable findComponent(FacesContext context, AbstractSubTableToggleControl toggleControl) {
         String forId = toggleControl.getFor();
         if (forId != null && forId.length() > 0) {
 

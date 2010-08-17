@@ -34,13 +34,13 @@ import org.richfaces.cdk.annotations.Tag;
  */
 
 @JsfComponent(
-    type = AbstarctSubTableToggleControl.COMPONENT_TYPE,
-    family = AbstarctSubTableToggleControl.COMPONENT_FAMILY, 
+    type = AbstractSubTableToggleControl.COMPONENT_TYPE,
+    family = AbstractSubTableToggleControl.COMPONENT_FAMILY, 
     generate = "org.richfaces.component.UISubTableToggleControl",
-    renderer = @JsfRenderer(type = "org.richfaces.SubTableRenderer"),
+    renderer = @JsfRenderer(type = "org.richfaces.SubTableToggleControlRenderer"),
     tag = @Tag( name = "subTableToggleControl")
  )
-public abstract class AbstarctSubTableToggleControl extends UIComponentBase {
+public abstract class AbstractSubTableToggleControl extends UIComponentBase {
 
     public static final String COMPONENT_TYPE = "org.richfaces.SubTableToggleControl";
 

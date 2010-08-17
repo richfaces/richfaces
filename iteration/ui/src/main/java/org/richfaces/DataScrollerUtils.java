@@ -26,13 +26,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
+import javax.faces.FacesException;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIData;
 
+import org.ajax4jsf.renderkit.RendererUtils;
 import org.richfaces.component.AbstractDataScroller;
+import org.richfaces.component.UIDataAdaptor;
 
 public final class DataScrollerUtils {
 
@@ -86,6 +90,34 @@ public final class DataScrollerUtils {
             findParentContainer(parent);
         }
         return parent;
+    }
+    
+    public static UIComponent findDataTable(AbstractDataScroller dataScroller) {
+
+        String forAttribute = dataScroller.getForComponent();
+        UIComponent forComp;
+        if (forAttribute == null) {
+            forComp = dataScroller;
+            while ((forComp = forComp.getParent()) != null) {
+                if (forComp instanceof UIData || forComp instanceof UIDataAdaptor) {
+                    return forComp;
+                }
+            }
+
+            throw new FacesException("could not find dataTable for  datascroller " + dataScroller.getId());
+
+        } else {
+            forComp = RendererUtils.getInstance().findComponentFor(dataScroller, forAttribute);
+        }
+
+        if (forComp == null) {
+            throw new IllegalArgumentException("could not find dataTable with id '" + forAttribute + "'");
+        } else if (!((forComp instanceof UIData) || (forComp instanceof UIDataAdaptor))) {
+            throw new IllegalArgumentException("component with id '" + forAttribute + "' must be of type "
+                + UIData.class.getName() + " or " + UIDataAdaptor.class + ", not type " + forComp.getClass().getName());
+        }
+
+        return forComp;
     }
 
     public static List<AbstractDataScroller> findDataScrollers(UIComponent dataTable) {
