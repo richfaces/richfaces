@@ -5,6 +5,18 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
+<p><b>togglePanel</b> is a base component for all switchable panels in RichFaces. It renders 
+sequence of states that can be switched (toggled) by a behavior 
+called <b>toggleControl</b>. rich:togglePanel has no default appearance. You can define it using 
+the set of child <b>togglePanelItem's</b> with any given content inside. </p>
+<p> <b>switchType</b> attribute defines the strategy of switching. The possible values for this attributes are:</p>
+<ul>
+<li><b>client</b> - switching happens on the client without any request to the server. The jsf form is not required in this mode</li>
+<li><b>ajax</b> - when states are switched, the content of new states comes from the server in Ajax way.</li>
+<li><b>server</b> - the whole page is reloaded when states are switched</li>
+</ul>
+<p>As the component not provides any predefined layout it could be used for creation of any kind of switchable panels easilly.
+Here is the sample of simplest tabbed pane organized using that component:</p>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
 		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
