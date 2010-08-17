@@ -44,6 +44,7 @@ import org.ajax4jsf.renderkit.HandlersChain;
 import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.component.AbstractTogglePanelItem;
+import org.richfaces.component.util.HtmlUtil;
 
 /**
  * @author akolonitsky
@@ -113,6 +114,11 @@ public class TogglePanelRenderer extends DivPanelRenderer {
         writer.writeAttribute(HTML.ID_ATTRIBUTE, getActiveItemRequestParamName(context, comp), null);
         writer.writeAttribute(HTML.NAME_ATTRIBUTE, getActiveItemRequestParamName(context, comp), null);
         writer.endElement(HTML.INPUT_ELEM);
+    }
+
+    @Override
+    protected String getStyleClass(UIComponent component) {
+        return HtmlUtil.concatClasses("rf-tgp", attributeAsString(component, "styleClass"));
     }
 
     @Override

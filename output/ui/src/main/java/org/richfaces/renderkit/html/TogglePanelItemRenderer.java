@@ -25,6 +25,7 @@ package org.richfaces.renderkit.html;
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.component.AbstractTogglePanelItem;
+import org.richfaces.component.util.HtmlUtil;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -50,6 +51,11 @@ public class TogglePanelItemRenderer extends DivPanelRenderer {
     
     private static final String LEAVE = "leave";
     private static final String ENTER = "enter";
+
+    @Override
+    protected String getStyleClass(UIComponent component) {
+        return HtmlUtil.concatClasses("rf-tgp-i", attributeAsString(component, "styleClass"));
+    }
 
     @Override
     protected void writeJavaScript(ResponseWriter writer, FacesContext context, UIComponent component)
