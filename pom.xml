@@ -108,22 +108,6 @@
     <build>
         <finalName>richfaces-showcase</finalName>
 
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <!-- Configure checkstyle report for this module -->
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.richfaces</groupId>
-                            <artifactId>richfaces-build-checkstyle</artifactId>
-                            <version>${richfaces.checkstyle.version}</version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
         <plugins>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
