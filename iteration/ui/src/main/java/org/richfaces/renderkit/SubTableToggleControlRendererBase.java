@@ -48,15 +48,16 @@ import org.richfaces.component.AbstractSubTableToggleControl;
 @ResourceDependencies(
     {@ResourceDependency(library = "javax.faces", name = "jsf.js"),
     @ResourceDependency(name = "richfaces.js"), 
-    @ResourceDependency(name = "subtable-toggler.js")
+    @ResourceDependency(name = "richfaces-event.js"),
+    @ResourceDependency(library="org.richfaces", name = "subtable-toggler.js")
 })
 public class SubTableToggleControlRendererBase extends RendererBase {
 
     private static final String DISPLAY_NONE = "display: none;";
 
-    private static final String UP_ICON_URL = "org.richfaces:up_icon.gif";
+    private static final String UP_ICON_URL = "org.richfaces/up_icon.gif";
 
-    private static final String DOWN_ICON_URL = "org.richfaces:down_icon.gif";
+    private static final String DOWN_ICON_URL = "org.richfaces/down_icon.gif";
     
     private static final String EXPAND_STATE = "expand";
 

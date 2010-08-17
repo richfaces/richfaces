@@ -8,8 +8,11 @@
         this.expandControl = options.expandControl;
         this.collapseControl = options.collapseControl;
         this.forId = options.forId;
+        this.element = $(document.getElementById(this.id));
         
-        richfaces.Event.bindById(this.id, this.eventName, this.toggle, this);
+        if(this.element && this.eventName) {
+        	this.element.bind(this.eventName, $.proxy(this.toggle, this));
+        }	
      };
      
      $.extend(richfaces.ui.SubTableToggler.prototype, (function () {
