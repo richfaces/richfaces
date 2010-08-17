@@ -20,6 +20,7 @@
 					<f:param name="sample" value="#{s.id}" />
 					<f:attribute name="style" value="#{(s.id == demoNavigator.currentSample.id) ? 'color:orange' : ''}"/>
 				</h:link>
+				<h:outputText rendered="#{s.newItem}" value="NEW!" styleClass="new_marker" />
 				<h:outputText value=" | " rendered="#{not status.last}" />
 			</ui:repeat>
 		</rich:panel>

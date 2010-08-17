@@ -230,7 +230,7 @@
 					</sample>
 				</samples>
 			</demo>
-			<demo>
+			<demo new="true">
 				<id>extendedDataTable</id>
 				<name>rich:extendedDataTable</name>
 				<samples>
@@ -238,7 +238,7 @@
 						<id>simpleTable</id>
 						<name>ExtendedData Table Basic Usage</name>
 					</sample>
-					<sample>
+					<sample new="true">
 						<id>exTableSelection</id>
 						<name>ExtendedData Table Selection usage</name>
 					</sample>					
