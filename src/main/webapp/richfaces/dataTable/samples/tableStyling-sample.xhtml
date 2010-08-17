@@ -55,12 +55,12 @@
 			</rich:column>
 		</rich:dataTable>
 	</h:form>
-	<script>
-	$('.stable tr').mouseover(function(){$(this).addClass('active-row')});
-	$('.stable tr').mouseout(function(){$(this).removeClass('active-row')});
+	
+    <rich:jQuery selector=".stable tr:odd" query="addClass('odd-row')" />
+    <rich:jQuery selector=".stable tr:even" query="addClass('even-row')" />
+    <rich:jQuery selector=".stable tr" event="mouseover"
+        query="jQuery(this).addClass('active-row')"/>
+    <rich:jQuery selector=".stable tr" event="mouseout" 
+        query="jQuery(this).removeClass('active-row')"/>
 
-	$('.stable tr:odd').addClass('odd-row');
-	$('.stable tr:even').addClass('even-row');
-
-</script>
 </ui:composition>

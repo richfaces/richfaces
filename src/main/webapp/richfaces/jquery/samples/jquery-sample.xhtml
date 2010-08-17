@@ -39,11 +39,8 @@
 	<rich:jQuery selector="#gallery img" query="addClass('pic-normal')" />
 	<rich:jQuery selector="#gallery img"
 		query="wrap('&lt;div class=\'wrap1\'&gt;&lt;/div&gt;')" />
-	<rich:jQuery selector="#gallery img"
-		query="mouseover(function(){enlargePic(this)})" />
-	<rich:jQuery selector="#gallery img"
-		query="mouseout(function(){normalPic(this)})" />
-
-	<rich:jQuery name="enlargePic" query="stop().animate({width:'180px'})" />
-	<rich:jQuery name="normalPic" query="stop().animate({width:'120px'})" />
+	<rich:jQuery selector="#gallery img" event="mouseover"
+		query="jQuery(this).stop().animate({width:'180px'})" />
+	<rich:jQuery selector="#gallery img" event="mouseout"
+		query="jQuery(this).stop().animate({width:'120px'})" />
 </ui:composition>

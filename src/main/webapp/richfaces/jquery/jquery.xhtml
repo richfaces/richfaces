@@ -3,7 +3,38 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<p>rich:jQuery integrates jQuery javascript framework into the
+	JavaServer Faces application. The component allows to apply the styles
+	and behavior to the DOM elements dynamically, including the result of
+	JSF components rendering.</p>
+	<p>The <b>selector</b> attribute defines an object or list of objects,
+	the query defined with the query attribute will be applied to.
+	And <b>query</b> attribute should be defined with valid JavaScript statements or jQuery api calls</p>
+		
+	<p>rich:jQuery can be used in next major modes:</p>
+	<ul>
+		<li>as a once time query applied immediately or on document ready
+		event</li>
+		<li>definition of event handler which bound to elements returned
+		by selector on some event.</li>
+		<li>as a javascript function that can be invoked from the custom
+		javascript</li>
+	</ul>
+	<p>The modes chosen with <b>timing</b>, <b>name </b>and <b>event </b>attributes that
+	can have the following options:</p>
+	<p><b>Timing</b></p>
+	<ul>
+		<li>immediate - applying the query immediately</li>
+		<li>domready - applying the query when the document is loaded.</li>
+	</ul>
+	<p><b>event </b>and <b>attachType </b>defined allows to bind the query to some
+	event of elements which returned by selector. "attachType" could be
+	"<i>live</i>", "<i>bind</i>" and "<i>one</i>".</p>
+	<p>Defining <b>name </b>attribute - causes <u>timing too be ignored</u> and
+	just named function to call from js to be created.</p>
 
+
+This demo shows how to attach the mouseover/mouseout events to the DOM objects. However the images below show how to make them enlarged.
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
 		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
