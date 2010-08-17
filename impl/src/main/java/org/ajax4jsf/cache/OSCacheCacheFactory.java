@@ -50,6 +50,16 @@ public class OSCacheCacheFactory implements CacheFactory {
 
     private List<GeneralCacheAdministrator> cacheAdministrators = new ArrayList<GeneralCacheAdministrator>(1);
     
+    public OSCacheCacheFactory() throws ClassNotFoundException {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        if (classLoader == null) {
+            classLoader = OSCacheCacheFactory.class.getClassLoader();
+        }
+        
+        //try load cache class to check its presence in classpath
+        Class.forName(GeneralCacheAdministrator.class.getName(), false, classLoader);
+    }
+    
     private static Properties loadProperties() throws IOException {
         Properties properties = new Properties();
         URL resource = OSCacheCache.class.getResource("oscache.properties");
@@ -70,16 +80,6 @@ public class OSCacheCacheFactory implements CacheFactory {
         }
 
         return properties;
-    }
-
-    public OSCacheCacheFactory() throws ClassNotFoundException {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        if (classLoader == null) {
-            classLoader = OSCacheCacheFactory.class.getClassLoader();
-        }
-        
-        //try load cache class to check its presence in classpath
-        Class.forName(GeneralCacheAdministrator.class.getName(), false, classLoader);
     }
     
     public Cache createCache(FacesContext facesContext, String cacheName, Map<?, ?> env) {

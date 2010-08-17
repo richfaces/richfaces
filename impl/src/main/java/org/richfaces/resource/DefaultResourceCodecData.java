@@ -31,11 +31,6 @@ final class DefaultResourceCodecData implements ResourceCodecData {
 
     private DefaultResourceCodec defaultResourceCodec;
     
-    public DefaultResourceCodecData(DefaultResourceCodec defaultResourceCodec) {
-        super();
-        this.defaultResourceCodec = defaultResourceCodec;
-    }
-
     private String resourceName;
     
     private String libraryName;
@@ -51,6 +46,11 @@ final class DefaultResourceCodecData implements ResourceCodecData {
     
     //lazy evaluated
     private Object data = null;
+
+    public DefaultResourceCodecData(DefaultResourceCodec defaultResourceCodec) {
+        super();
+        this.defaultResourceCodec = defaultResourceCodec;
+    }
 
     protected void setResourceName(String resourceName) {
         this.resourceName = resourceName;

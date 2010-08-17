@@ -73,25 +73,13 @@
     </dependencyManagement>
     
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <!-- Configure checkstyle report for this module -->
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.richfaces</groupId>
-                            <artifactId>richfaces-build-checkstyle
-                            </artifactId>
-                            <version>${richfaces.checkstyle.version}
-                            </version>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+        <plugins>
+            <!-- Trigger checkstyle checking for this module -->
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+        </plugins>
     </build>
-    
     <scm>
         <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/core/parent</connection>
         <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/core/parent</developerConnection>

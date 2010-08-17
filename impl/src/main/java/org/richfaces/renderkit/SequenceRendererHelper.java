@@ -40,6 +40,14 @@ public class SequenceRendererHelper {
     
     private String[] columnClasses = null;
     
+    public SequenceRendererHelper(UISequence sequence) {
+        super();
+        this.sequence = sequence;
+        
+        this.rowClasses = splitClassesString((String) sequence.getAttributes().get("rowClasses"));
+        this.columnClasses = splitClassesString((String) sequence.getAttributes().get("columnClasses"));
+    }
+    
     private static String[] splitClassesString(String s) {
         if (s != null) {
             return s.split(",");
@@ -54,14 +62,6 @@ public class SequenceRendererHelper {
         }
         
         return null;
-    }
-    
-    public SequenceRendererHelper(UISequence sequence) {
-        super();
-        this.sequence = sequence;
-        
-        this.rowClasses = splitClassesString((String) sequence.getAttributes().get("rowClasses"));
-        this.columnClasses = splitClassesString((String) sequence.getAttributes().get("columnClasses"));
     }
     
     public UISequence getSequence() {

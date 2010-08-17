@@ -51,7 +51,8 @@ public class InitializationListener implements SystemEventListener {
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
     
     private static final class AWTInitializer {
-
+        private AWTInitializer() { } 
+        
         private static boolean checkGetSystemClassLoaderAccess() {
             try {
                 ClassLoader.getSystemClassLoader();
@@ -130,8 +131,8 @@ public class InitializationListener implements SystemEventListener {
         ArrayList<Module> modules = new ArrayList<Module>();
         modules.add(new DefaultModule());
         try {
-        modules.addAll(ServiceLoader.loadServices(Module.class));
-        injector.init(modules);
+            modules.addAll(ServiceLoader.loadServices(Module.class));
+            injector.init(modules);
         } catch (ServiceException e) {
             throw new FacesException(e);
         }

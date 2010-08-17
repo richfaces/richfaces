@@ -124,8 +124,15 @@
 	</dependencies>
 
 	<build>
-
 		<plugins>
+	        <plugin>
+	           <!-- Checkstyle only required here because suppressions needed -->
+	           <artifactId>maven-checkstyle-plugin</artifactId>
+	           <configuration>
+	               <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
+	           </configuration>
+	        </plugin>
+			
 			<!--
 				TODO Centralize this because calendar and context menu use this too
 				Note: This may be removed by redisgn

@@ -30,7 +30,6 @@ import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.util.ELUtils;
 import org.richfaces.application.ServiceTracker;
-import org.richfaces.skin.Skin;
 
 /**
  * This class hold all methods for get application init parameters. Created for
@@ -39,11 +38,7 @@ import org.richfaces.skin.Skin;
  * @author asmirnov
  */
 public final class ContextInitParameters {
-    /**
-     * 
-     */
-    private static final int DEFAULT_TTL = 60 * 60 * 24;
-
+    
     public static final String[] DATATABLE_USES_VIEW_LOCALE = {"org.richfaces.datatableUsesViewLocale"};
 
     /**
@@ -75,6 +70,7 @@ public final class ContextInitParameters {
 
     public static final String EXECUTE_AWT_INITIALIZER = "org.richfaces.executeAWTInitializer";
     
+    private static final int DEFAULT_TTL = 60 * 60 * 24;
     private static final String[] RESOURCES_TTL_ARRAY = { RESOURCES_TTL };
     private static final String[] RESOURCES_CACHE_SIZE_ARRAY = { RESOURCES_CACHE_SIZE };
     

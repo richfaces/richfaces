@@ -42,7 +42,10 @@ import org.richfaces.log.RichfacesLogger;
  */
 public final class VersionBean {
     
+    public static final Version VERSION = new Version();
+	
     private static final org.slf4j.Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
+    
     
     /**
      * Class for incapsulate version info.
@@ -197,8 +200,6 @@ public final class VersionBean {
         }
     }
     
-    public static final Version VERSION = new Version();
-
     public String getVendor() {
         return VERSION.getImplementationVendor();
     }

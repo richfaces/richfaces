@@ -55,15 +55,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <!-- Trigger checkstyle checking for this module -->
-            <plugin>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
     
     <scm>
         <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/commons/api</connection>

@@ -38,40 +38,6 @@ import org.ajax4jsf.Messages;
  */
 final class SkinImpl extends AbstractSkin {
     
-    private static class MutableInteger {
-        private int value;
-        
-        public int getAndIncrement() {
-            return value++;
-        }
-        
-        public int getAndDecrement() {
-            return value--;
-        }
-    }
-    
-    private String name;
-    
-    private MutableInteger getCounter(FacesContext context) {
-        Map<Object, Object> attr = context.getAttributes();
-        
-        MutableInteger counter = (MutableInteger) attr.get(MutableInteger.class);
-        if (counter == null) {
-            counter = new MutableInteger();
-            attr.put(MutableInteger.class, counter);
-        }
-        
-        return counter;
-    }
-    
-    private abstract static class Operation {
-        
-        public abstract Object executeLocal(FacesContext facesContext, SkinImpl skin, String name);
-
-        public abstract Object executeBase(FacesContext facesContext, Skin skin, String name);
-
-    }
-    
     private static final Operation RESOLVE = new Operation() {
         
         public Object executeLocal(FacesContext facesContext, SkinImpl skin, String name) {
@@ -114,9 +80,23 @@ final class SkinImpl extends AbstractSkin {
         }
         
     };
-
+    
     private final Map<Object, Object> skinParams;
-
+    
+    private static class MutableInteger {
+        private int value;
+        
+        public int getAndIncrement() {
+            return value++;
+        }
+        
+        public int getAndDecrement() {
+            return value--;
+        }
+    }
+    
+    private String name;
+    
     /**
      * Skin can instantiate only by factory method.
      *
@@ -125,6 +105,26 @@ final class SkinImpl extends AbstractSkin {
     SkinImpl(Map<Object, Object> properties, String name) {
         this.skinParams = properties;
         this.name = name;
+    }
+    
+    private MutableInteger getCounter(FacesContext context) {
+        Map<Object, Object> attr = context.getAttributes();
+        
+        MutableInteger counter = (MutableInteger) attr.get(MutableInteger.class);
+        if (counter == null) {
+            counter = new MutableInteger();
+            attr.put(MutableInteger.class, counter);
+        }
+        
+        return counter;
+    }
+    
+    private abstract static class Operation {
+        
+        public abstract Object executeLocal(FacesContext facesContext, SkinImpl skin, String name);
+
+        public abstract Object executeBase(FacesContext facesContext, Skin skin, String name);
+
     }
 
     protected Map<Object, Object> getSkinParams() {
