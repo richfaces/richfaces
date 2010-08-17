@@ -64,10 +64,10 @@ public abstract class AbstractColumn extends javax.faces.component.UIColumn impl
     public abstract Object getFilterValue();
     
     @Attribute
-    public abstract Object getRowspan();
+    public abstract int getRowspan();
 
     @Attribute
-    public abstract Object getColspan();
+    public abstract int getColspan();
 
     @Attribute
     public abstract Comparator<?> getComparator();
