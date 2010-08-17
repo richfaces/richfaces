@@ -54,7 +54,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
 			<h:outputText value="#{record.name}"/> 
 			<h:outputText value="#{record.title}"/> 
-			<h:outputText value="#{record.EMail}"/> 
+			<h:outputText value="#{record.EMail}"/>
+			
+			<f:facet name="footer">
+				<it:dataScroller id="scroller3" for="dataGrid" page="#{dataBean.page}" maxPages="7"></it:dataScroller>
+			</f:facet>
+			 
 		</it:dataGrid>
 	</h:form>
 </h:body>

@@ -6,7 +6,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:rich="http://richfaces.org/rich">
+      xmlns:it="http://richfaces.org/iteration">
 <!--
 JBoss, Home of Professional Open Source
 Copyright ${year}, Red Hat, Inc. and individual contributors
@@ -75,7 +75,9 @@ function invokeJSAPI() {
 			<input id="selectionLocker" type="checkbox"/>
 			<h:outputText value="Selected rowKeys" style="padding-left: 30px;"/>
 			<h:outputText id="selectionOutput" value="#{dataBean.selectedRowKeys}"/>
-			<rich:extendedDataTable id="extendedDataTable" clientRows="40" rows="100" frozenColumns="2"
+			
+			
+			<it:extendedDataTable id="extendedDataTable" clientRows="40" rows="100" frozenColumns="2"
 				value="#{dataBean.state ? dataBean.employeeList : null}" var="record" noDataLabel="There isn't data."
 				styleClass="extendedDataTable" rowKeyVar="rkv" filterVar="fv" sortMode="multi" 
 				selectionMode="#{dataBean.selectionMode}" selectedRowKeys="#{dataBean.selectedRowKeys}"
@@ -85,12 +87,13 @@ function invokeJSAPI() {
 					<h:outputText value="Current date: #{dataBean.date}"/>
 				</f:facet>
 				<f:facet name="footer">
-					<h:outputText value="Footer of table."/>
+				<it:dataScroller id="scroller3" for="extendedDataTable" page="#{dataBean.page}" maxPages="7"></it:dataScroller>
+
 				</f:facet>
 				<f:facet name="noData">
 					<h:outputText value="There isn't data." style="border: solid black 1px;"/>
 				</f:facet>
-				<rich:column id="rkv">
+				<it:column id="rkv">
 					<f:facet name="header">
 						<h:outputText value="Index"/>
 					</f:facet>
@@ -100,11 +103,11 @@ function invokeJSAPI() {
 							<h:outputText id="footerFacet" value="index"/>
 						</f:facet>
 	     			</c:if>
-				</rich:column>
-				<rich:column>
+				</it:column>
+				<it:column>
 					<textarea cols="5" rows="5"/>
-				</rich:column>
-				<rich:column id="column_name" filterExpression="#{fn:containsIgnoreCase(record.name, fv)}" sortBy="#{record.name}">
+				</it:column>
+				<it:column id="column_name" filterExpression="#{fn:containsIgnoreCase(record.name, fv)}" sortBy="#{record.name}">
 					<f:facet name="header">
 						<h:outputText id="columnHeader1" value="Column Header Facet"/>
 					</f:facet>
@@ -114,30 +117,30 @@ function invokeJSAPI() {
 							<h:outputText  id="columnFooter1"  value="Column Footer Facet"/>
 						</f:facet>
 					</c:if>
-				</rich:column>
+				</it:column>
 				
-				<rich:column id="column_title" width="200px" sortBy="#{record.title}">
+				<it:column id="column_title" width="200px" sortBy="#{record.title}">
 					<h:outputText value="#{record.title}" />
 	     			<c:if test="#{dataBean.rendered}">
 						<f:facet name="footer">
 							<h:outputText  id="columnFooter2"  value="Column Footer Facet2"/>
 						</f:facet>
 					</c:if>
-				</rich:column>
+				</it:column>
 			
-				<rich:column id="column_email" width="300px">
+				<it:column id="column_email" width="300px">
 					<h:outputText value="#{record.EMail}" />
-				</rich:column>				
-				<rich:column id="column_company_name" width="300px">
+				</it:column>				
+				<it:column id="column_company_name" width="300px">
 					<h:outputText value="#{record.companies[0].name}" />
-				</rich:column>				
-				<rich:column id="column_company_state">
+				</it:column>				
+				<it:column id="column_company_state">
 					<h:outputText value="#{record.companies[0].state}" />
-				</rich:column>
-				<rich:column id="column_company_phone">
+				</it:column>
+				<it:column id="column_company_phone">
 					<h:outputText value="#{record.companies[0].phone}" />
-				</rich:column>
-			</rich:extendedDataTable>
+				</it:column>
+			</it:extendedDataTable>
 			<input id="submit" type="submit" />
 	   </h:form>
 	</h:body>
