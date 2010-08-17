@@ -77,13 +77,6 @@
             <!-- Trigger checkstyle checking for this module -->
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.richfaces</groupId>
-                        <artifactId>richfaces-build-checkstyle</artifactId>
-                        <version>1</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>
