@@ -17,9 +17,10 @@
 	a4j:region</b> component and has no execute definitions - them uses<b>
 	execute="@region"</b></p>
 	<p>Look to the simple example below. There are two similar user
-	info panels. But the ajax behaviors inside the first panel uses execute
-	declarations and pointed to panelGrid id. And the second panel inputs
-	just wrapped to region without any additional execute definitions.</p>
+	info panels. But the <b><u>button inside the first panel will not works</u> </b>as not uses execute
+	declarations and by default execut equals to @this. Separate definition needed to start working properly.
+	And the <b>second panel inputs
+	just wrapped to region with the commandButton and works</b> without any additional execute definitions.</p>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
 		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />

@@ -19,20 +19,20 @@
 			<h:outputLink value="#"
 				onclick="jQuery(#{rich:element('hide')}).slideDown(); jQuery(#{rich:element('show')}).hide(); return false;"
 				id="sh1" styleClass="show">
-				<h:outputText value="#{empty openlabel?'View Source' : openlabel }" />
+				<h:outputText value="#{empty openLabel?'View Source' : openLabel }" />
 			</h:outputLink>
 		</a4j:outputPanel>
 
 		<a4j:outputPanel id="hide" layout="block" style="display:none">
 			<h:outputLink styleClass="hide" value="#"
 				onclick="jQuery(#{rich:element('hide')}).slideUp(); jQuery(#{rich:element('show')}).show(500); return false;">
-				<h:outputText value="#{empty hidelabel?'Hide Source' : openlabel }" />
+				<h:outputText value="#{empty hideLabel?'Hide Source' : hideLabel }" />
 			</h:outputLink>
 			<at:syntaxHighlighter styleClass="source" src="#{src}"
 				sourceType="#{sourceType}" />
 			<h:outputLink styleClass="hide" value="#"
 				onclick="jQuery(#{rich:element('hide')}).slideUp(); jQuery(#{rich:element('show')}).show(500); return false;">
-				<h:outputText value="#{empty hidelabel?'Hide Source' : openlabel }" />
+				<h:outputText value="#{empty hideLabel?'Hide Source' : hideLabel }" />
 			</h:outputLink>
 		</a4j:outputPanel>
 	</a4j:outputPanel>	

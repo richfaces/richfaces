@@ -22,9 +22,8 @@
 		</tbody>
 	</table>
 	<h:form>
-		<a4j:jsFunction name="updateName" render="showname"
-			action="#{functionBean.processHover}">
-			<f:param name="name" />
+		<a4j:jsFunction name="updateName" render="showname">
+			<a4j:param name="name" assignTo="#{functionBean.text}"/>
 		</a4j:jsFunction>
 	</h:form>
 </ui:composition>

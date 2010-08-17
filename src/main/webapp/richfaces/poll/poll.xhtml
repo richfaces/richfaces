@@ -25,7 +25,12 @@
 		<ui:param name="openLabel" value="View Source" />
 		<ui:param name="hideLabel" value="Hide Source" />
 	</ui:include>
-
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/poll/PollBean.java" />
+		<ui:param name="sourceType" value="java" />
+		<ui:param name="openLabel" value="View Bean Source" />
+		<ui:param name="hideLabel" value="Hide Bean Source" />
+	</ui:include>
 	<rich:panel>
 		<b>NOTE:</b>polling is automatically disabled in this demo after one minute of working.
 	</rich:panel>
