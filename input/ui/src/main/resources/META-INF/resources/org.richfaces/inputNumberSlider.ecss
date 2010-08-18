@@ -82,14 +82,24 @@ input.rf-ins-i {
 	height: 6px;
 	clear: both;
 	vertical-align: top;
+	/* outline style fix for chrome */
+	font-size: 0px;
 }
 
-.rf-ins-h, .rf-ins-db, .rf-ins-ib, .rf-ins-h-d, .rf-ins-db-d, .rf-ins-ib-d {
+.rf-ins-h, .rf-ins-h-d, .rf-ins-db, .rf-ins-ib, .rf-ins-db-d, .rf-ins-ib-d {
 	display: inline-block;
 	width: 7px;
 	height: 7px;
+}
+
+.rf-ins-h, .rf-ins-h-d {
 	vertical-align: top;
 }
+
+.rf-ins-db, .rf-ins-ib, .rf-ins-db-d, .rf-ins-ib-d {
+	vertical-align: bottom;
+}
+
 
 .rf-ins-h {
 	background-image: url("#{resource['org.richfaces.renderkit.html.images.SliderArrowBottom']}");
