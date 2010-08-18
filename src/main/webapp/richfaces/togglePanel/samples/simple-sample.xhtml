@@ -34,13 +34,13 @@
 		</rich:togglePanel>
 		<a4j:outputPanel id="tabs">
 		<a4j:outputPanel layout="block" styleClass="tabDiv">
-			<rich:toggleControl event="click" forPanel="panel1"
+			<rich:toggleControl event="click" targetPanel="panel1"
 				targetItem="item1" />
 			<h:outputText value="Toggle Panel Item 1"
 				style="#{rich:findComponent('panel1').activeItem == 'item1' ? 'font-weight:bold' : 'font-weight:normal'}" />
 		</a4j:outputPanel>
 		<a4j:outputPanel layout="block" styleClass="tabDiv">
-			<rich:toggleControl event="click" forPanel="panel1"
+			<rich:toggleControl event="click" targetPanel="panel1"
 				targetItem="item2" />
 			<h:outputText value="Toggle Panel Item 2"
 				style="#{rich:findComponent('panel1').activeItem == 'item2' ? 'font-weight:bold' : 'font-weight:normal'}" />
