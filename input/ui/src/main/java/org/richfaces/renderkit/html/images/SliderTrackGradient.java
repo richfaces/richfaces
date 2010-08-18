@@ -26,8 +26,7 @@ import org.richfaces.renderkit.html.BaseGradient;
 import org.richfaces.skin.Skin;
 
 public class SliderTrackGradient extends BaseGradient {
-	public SliderTrackGradient() {
-		super(7, 10, 7, "tabBackgroundColor", Skin.CONTROL_BACKGROUND_COLOR);
-	}
-	
+    public SliderTrackGradient() {
+        super(7, 10, 7, "tabBackgroundColor", Skin.CONTROL_BACKGROUND_COLOR);
+    }
 }
