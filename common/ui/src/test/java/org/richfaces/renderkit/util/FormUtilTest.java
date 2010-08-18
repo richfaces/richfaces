@@ -28,6 +28,7 @@ import javax.faces.component.UIViewRoot;
 
 import org.jboss.test.faces.AbstractFacesTest;
 import org.richfaces.component.EnclosingFormRequiredException;
+import org.richfaces.component.SwitchType;
 
 /**
  * @author Nick Belaevski - nbelaevski@exadel.com
@@ -74,7 +75,7 @@ public class FormUtilTest extends AbstractFacesTest {
         UIViewRoot viewRoot = facesContext.getViewRoot();
         UIComponent testComponent = application.createComponent(UIOutput.COMPONENT_TYPE);
 
-        testComponent.getAttributes().put("switchType", "CLIENT");
+        testComponent.getAttributes().put("switchType", SwitchType.client);
         viewRoot.getChildren().add(testComponent);
         FormUtil.throwEnclFormReqExceptionIfNeed(facesContext, testComponent);
     }

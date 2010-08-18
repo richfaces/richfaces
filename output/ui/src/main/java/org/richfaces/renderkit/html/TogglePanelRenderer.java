@@ -45,6 +45,7 @@ import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.component.AbstractTogglePanelItem;
 import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.renderkit.util.FormUtil;
 
 /**
  * @author akolonitsky
@@ -105,6 +106,8 @@ public class TogglePanelRenderer extends DivPanelRenderer {
 
     @Override
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent comp) throws IOException {
+        FormUtil.throwEnclFormReqExceptionIfNeed(context, comp);
+
         super.doEncodeBegin(writer, context, comp);
         AbstractTogglePanel panel = (AbstractTogglePanel) comp;
 

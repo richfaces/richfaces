@@ -152,7 +152,7 @@
                                 <configuration>
                                     <classifier>sources</classifier>
 
-                                    <includeGroupIds>org.richfaces.ui.core, org.richfaces.ui.iteration, org.richfaces.ui.output, org.richfaces.ui.input</includeGroupIds>
+                                    <includeGroupIds>org.richfaces.ui.core, org.richfaces.ui.common, org.richfaces.ui.iteration, org.richfaces.ui.output, org.richfaces.ui.input</includeGroupIds>
                                     <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
                                     <excludeTransitive>true</excludeTransitive>
                                 </configuration>
