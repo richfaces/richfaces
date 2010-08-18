@@ -537,6 +537,15 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
         setValue(value);
     }
 
+    @Override
+    public void setValueExpression(String name, ValueExpression binding) {
+        if ("activeItem".equals(name)) {
+            super.setValueExpression("value", binding);
+        } else {
+            super.setValueExpression(name, binding);
+        }
+    }
+
     public abstract SwitchType getSwitchType();
 
     public abstract boolean isBypassUpdates();
