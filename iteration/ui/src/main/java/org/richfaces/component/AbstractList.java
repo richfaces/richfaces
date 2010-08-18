@@ -30,6 +30,7 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
@@ -40,7 +41,7 @@ import com.google.common.collect.Maps;
  * JSF component class
  * 
  */
-@JsfComponent(type = "org.richfaces.List", family = "org.richfaces.List", facets = @Facet(name = AbstractList.TERM),
+@JsfComponent(type = "org.richfaces.List", family = "org.richfaces.List", facets = @Facet(name = AbstractList.TERM),tag=@Tag(name="list"),
     renderer = @JsfRenderer(type = "org.richfaces.ListRenderer"))
 public abstract class AbstractList extends UISequence {
 
