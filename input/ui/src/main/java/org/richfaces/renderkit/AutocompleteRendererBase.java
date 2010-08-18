@@ -79,9 +79,10 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
         utils.addToScriptHash(options, "minChars", attributes.get("minChars"), "1");
         utils.addToScriptHash(options, "mode", attributes.get("mode"), "ajax");
         utils.addToScriptHash(options, "filterFunction", attributes.get("filterFunction"));
-        utils.addToScriptHash(options, "autoFill", attributes.get("autoFill"), "false");
+        utils.addToScriptHash(options, "autofill", attributes.get("autofill"), "true");
         utils.addToScriptHash(options, "disabled", attributes.get("disabled"), "false");
-        utils.addToScriptHash(options, "selectFirst", attributes.get("selectFirst"), "false");
+        utils.addToScriptHash(options, "selectFirst", attributes.get("selectFirst"), "true");
+        utils.addToScriptHash(options, "tokens", attributes.get("tokens"));
         utils.addToScriptHash(options, "onbegin", attributes.get("onbegin"));
         utils.addToScriptHash(options, "oncomplete", attributes.get("oncomplete"));
         utils.addToScriptHash(options, "onerror", attributes.get("onerror"));

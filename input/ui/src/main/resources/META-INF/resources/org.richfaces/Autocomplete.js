@@ -88,7 +88,7 @@
 
 	var defaultOptions = {
 		selectedItemClass:'rf-au-s',
-		autoFill:true,
+		autofill:true,
 		minChars:1,
 		selectFirst:true,
 		ajaxMode:true,
@@ -169,7 +169,7 @@
 	};
 
 	var autoFill = function (inputValue, value) {
-		if( this.options.autoFill) {
+		if( this.options.autofill) {
 			var field = rf.getDomElement(this.fieldId);
 			var start = rf.Selection.getStart(field);
 			this.setInputValue(inputValue + value.substring(inputValue.length));

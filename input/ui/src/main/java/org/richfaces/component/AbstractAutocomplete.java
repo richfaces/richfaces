@@ -90,12 +90,15 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
 
     @Attribute
     public abstract String getLayout();
+    
+    @Attribute
+    public abstract String getTokens();
 
     @Attribute
     public abstract Converter getItemConverter();
 
-    @Attribute(defaultValue = "false")
-    public abstract boolean isAutoFill();
+    @Attribute(defaultValue = "true")
+    public abstract boolean isAutofill();
 
     @Attribute(defaultValue = "false")
     public abstract boolean isDisabled();
@@ -103,7 +106,7 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     @Attribute(defaultValue = "false")
     public abstract boolean isShowButton();
 
-    @Attribute(defaultValue = "false")
+    @Attribute(defaultValue = "true")
     public abstract boolean isSelectFirst();
 
     @Attribute(events = @EventName("click"))
