@@ -77,7 +77,7 @@ input.rf-ins-i {
 }
 
 .rf-ins-t {
-	background: url("#{resource['org.richfaces:bg.gif']}") 1px 1px repeat-x #FFFFFF;
+	background: url("#{resource['org.richfaces.renderkit.html.images.SliderTrackGradient']}") 1px 1px repeat-x #FFFFFF;
 	border: 1px solid #C0C0C0;
 	display: block;
 	height: 6px;
