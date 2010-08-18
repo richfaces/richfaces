@@ -14,7 +14,7 @@
     <ui:define name="body">
         <f:view>
             <h:form id="f">
-                <pn:togglePanel id="panel" activeItem="name1" switchType="ajax"
+                <pn:togglePanel id="panel" activeItem="#{togglePanelBean.value}" switchType="ajax"
                                 itemChangeListener="#{togglePanelBean.itemChangeActionListener}" >
                     <pn:togglePanelItem name="name1">hello name1</pn:togglePanelItem>
                     <pn:togglePanelItem name="name2">hello name2</pn:togglePanelItem>

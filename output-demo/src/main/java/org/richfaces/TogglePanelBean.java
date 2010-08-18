@@ -13,6 +13,8 @@ public class TogglePanelBean implements Serializable {
     
     private String name;
 
+    private String value = "name2";
+
     public TogglePanelBean() {
         LOGGER.info("post construct: initialize");
         name = "John";
@@ -24,6 +26,15 @@ public class TogglePanelBean implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getValue() {
+        System.out.println("value = " + value);
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
     }
 
     public void itemChangeActionListener() {
