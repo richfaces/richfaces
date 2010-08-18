@@ -77,12 +77,12 @@ public class MethodExpressionAjaxBehaviorListener implements AjaxBehaviorListene
         FacesContext context = FacesContext.getCurrentInstance();
         ELContext elContext = context.getELContext();
         try {
-            methodExpressionOneArg.invoke(elContext, new Object[] { event });
+            methodExpressionZeroArg.invoke(elContext, new Object[] {});
         } catch (MethodNotFoundException mnfe) {
-            if (null != methodExpressionZeroArg) {
+            if (null != methodExpressionOneArg) {
 
                 try {
-                    methodExpressionZeroArg.invoke(elContext, new Object[] {});
+                    methodExpressionOneArg.invoke(elContext, new Object[] { event});
                 } catch (ELException ee) {
                     cause = ee.getCause();
                     thrown = ee;
