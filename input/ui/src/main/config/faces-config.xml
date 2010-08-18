@@ -128,8 +128,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		</property>
 		<property>
 			<property-name>maxValue</property-name>
-			<property-class>java.lang.Number</property-class>
-			<default-value>100</default-value>
+			<property-class>java.lang.String</property-class>
+			<default-value>"100"</default-value>
 			<property-extension>
 				<cdk:generate>true</cdk:generate>
 			</property-extension>
@@ -144,8 +144,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		</property>
 		<property>
 			<property-name>minValue</property-name>
-			<property-class>java.lang.Number</property-class>
-			<default-value>0</default-value>
+			<property-class>java.lang.String</property-class>
+			<default-value>"0"</default-value>
 			<property-extension>
 				<cdk:generate>true</cdk:generate>
 			</property-extension>
@@ -184,8 +184,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		</property>
 		<property>
 			<property-name>step</property-name>
-			<property-class>java.lang.Number</property-class>
-			<default-value>1</default-value>
+			<property-class>java.lang.String</property-class>
+			<default-value>"1"</default-value>
 			<property-extension>
 				<cdk:generate>true</cdk:generate>
 			</property-extension>
