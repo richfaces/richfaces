@@ -41,7 +41,7 @@ public class ToggleControl extends ClientBehavior {
     private enum PropertyKeys {
         event,
         targetItem,
-        forPanel,
+        targetPanel,
         disableDefault
     }
 
@@ -61,12 +61,12 @@ public class ToggleControl extends ClientBehavior {
         getStateHelper().put(PropertyKeys.targetItem, target);
     }
 
-    public String getForPanel() {
-        return (String) getStateHelper().eval(PropertyKeys.forPanel);
+    public String getTargetPanel() {
+        return (String) getStateHelper().eval(PropertyKeys.targetPanel);
     }
 
-    public void setForPanel(String selector) {
-        getStateHelper().put(PropertyKeys.forPanel, selector);
+    public void setTargetPanel(String selector) {
+        getStateHelper().put(PropertyKeys.targetPanel, selector);
     }
 
     public void setDisableDefault(Boolean disableDefault) {
@@ -82,7 +82,7 @@ public class ToggleControl extends ClientBehavior {
     }
 
     public AbstractTogglePanel getPanel(UIComponent comp) throws FacesException {
-        String target = this.getForPanel();
+        String target = this.getTargetPanel();
 
         if (target != null) {
 
@@ -121,7 +121,7 @@ public class ToggleControl extends ClientBehavior {
 //        } else if (compare(PropertyKeys.target, name)) {
 //            setTargetItem((String) value);
 //        } else if (compare(PropertyKeys.selector, name)) {
-//            setForPanel((String) value);
+//            setTargetPanel((String) value);
 //        }
     }
 }
