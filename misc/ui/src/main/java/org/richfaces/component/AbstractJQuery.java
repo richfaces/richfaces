@@ -27,13 +27,15 @@ import javax.faces.component.UIComponentBase;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 
 /**
  * @author nick
  *
  */
 @JsfComponent(type = AbstractJQuery.COMPONENT_TYPE, family = AbstractJQuery.COMPONENT_FAMILY, 
-    renderer = @JsfRenderer(type = "org.richfaces.JQueryRenderer"))
+    renderer = @JsfRenderer(type = "org.richfaces.JQueryRenderer"), tag = @Tag(type = TagType.Facelets))
 public abstract class AbstractJQuery extends UIComponentBase {
 
     public static final String COMPONENT_TYPE = "org.richfaces.JQuery";
