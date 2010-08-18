@@ -445,11 +445,14 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
     
     public AbstractTogglePanelItem getItemByIndex(final int index) {
         List<AbstractTogglePanelItem> children = getRenderedChildren();
-        if (index < 0 || index >= children.size()) {
+        if (isCycledSwitching()) {
+            int size = getRenderedChildren().size();
+            return children.get((size + index) % size);
+        } else if (index < 0 || index >= children.size()) {
             return null;
+        } else {
+            return children.get(index);
         }
-
-        return children.get(index);
     }
 
     private List<AbstractTogglePanelItem> getRenderedChildren() {
@@ -551,6 +554,8 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
     public abstract boolean isBypassUpdates();
 
     public abstract boolean isLimitToList();
+
+    public abstract boolean isCycledSwitching();
 
     public abstract Object getData();
 

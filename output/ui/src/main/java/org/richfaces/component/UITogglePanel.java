@@ -34,6 +34,7 @@ public class UITogglePanel extends AbstractTogglePanel {
         switchType,
         bypassUpdates,
         limitToList,
+        cycledSwitching,
         data,
         status,
         execute,
@@ -63,6 +64,14 @@ public class UITogglePanel extends AbstractTogglePanel {
 
     public void setLimitToList(boolean limitToList) {
         getStateHelper().put(PropertyKeys.limitToList, limitToList);
+    }
+
+    public boolean isCycledSwitching() {
+        return Boolean.valueOf(String.valueOf(getStateHelper().eval(PropertyKeys.cycledSwitching, false)));
+    }
+
+    public void setCycledSwitching(boolean cycledSwitching) {
+        getStateHelper().put(PropertyKeys.cycledSwitching, cycledSwitching);
     }
 
     public Object getData() {

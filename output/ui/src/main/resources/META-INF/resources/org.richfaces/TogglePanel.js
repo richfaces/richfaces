@@ -313,7 +313,7 @@
          */
         prevItem: function (itemName) {
             var itemIndex = this.__getItemIndex(itemName || this.activeItem);
-            if (itemIndex < 1) {
+            if (!this.options.cycledSwitching && itemIndex < 1) {
                 return null;
             }
 
@@ -355,11 +355,14 @@
          *    null - if item not found
          * */
         __getItem : function (index) {
-            if (index >= 0 && index < this.items.length) {
+            if (this.options.cycledSwitching) {
+                var size = this.items.length;
+                return this.items[(size + index) % size]
+            } else if (index >= 0 && index < this.items.length) {
                 return this.items[index]
+            } else {
+                return null;
             }
-
-            return null;
         },
 
         __getItemByName : function (name) {

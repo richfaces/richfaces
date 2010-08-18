@@ -57,6 +57,11 @@
         </attribute>
         <attribute>
             <description></description>
+            <name>cycledSwitching</name>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description></description>
             <name>data</name>
             <type>java.lang.Object</type>
         </attribute>
@@ -339,6 +344,11 @@
         <attribute>
             <description></description>
             <name>limitToList</name>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>cycledSwitching</name>
             <type>boolean</type>
         </attribute>
         <attribute>

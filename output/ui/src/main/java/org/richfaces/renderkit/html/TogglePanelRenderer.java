@@ -143,6 +143,7 @@ public class TogglePanelRenderer extends DivPanelRenderer {
 
         Map<String, Object> options = new HashMap<String, Object>(5);
         options.put("activeItem", panel.getActiveItem());
+        options.put("cycledSwitching", panel.isCycledSwitching());
         options.put("items", getChildrenScriptObjects(context, panel));
         options.put("ajax", getAjaxOptions(context, panel));
 

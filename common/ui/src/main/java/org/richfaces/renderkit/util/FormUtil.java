@@ -44,7 +44,7 @@ public final class FormUtil {
 
         // TODO nick -> nick - switchType checking can be harmful here
         SwitchType switchType = (SwitchType) component.getAttributes().get("switchType");
-        boolean isSwitchTypeClient = (switchType != null) && SwitchType.client == switchType;
+        boolean isSwitchTypeClient = SwitchType.client == switchType;
 
         if ((form == null) && !isSwitchTypeClient) {
             throw new EnclosingFormRequiredException(component.getClass().toString() + " (id=\"" + component.getId()

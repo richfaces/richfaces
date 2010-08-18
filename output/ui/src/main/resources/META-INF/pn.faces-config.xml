@@ -35,6 +35,11 @@
         </property>
         <property>
             <description></description>
+            <property-name>cycledSwitching</property-name>
+            <property-class>boolean</property-class>
+        </property>
+        <property>
+            <description></description>
             <property-name>data</property-name>
             <property-class>java.lang.Object</property-class>
         </property>
@@ -271,6 +276,11 @@
         <property>
             <description></description>
             <property-name>limitToList</property-name>
+            <property-class>boolean</property-class>
+        </property>
+        <property>
+            <description></description>
+            <property-name>cycledSwitching</property-name>
             <property-class>boolean</property-class>
         </property>
         <property>
