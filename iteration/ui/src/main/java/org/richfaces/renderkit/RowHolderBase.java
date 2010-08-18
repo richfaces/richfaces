@@ -78,4 +78,7 @@ public abstract class RowHolderBase {
         return processCell++;
     }
 
+    public boolean hasWalkedOverRows() {
+        return currentRow != 0;
+    }
 }

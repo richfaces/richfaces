@@ -244,4 +244,15 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
         }
         return count;
     }
+    
+    @Override
+    public void encodeFakeRow(FacesContext facesContext, RowHolderBase rowHolder) throws IOException {
+        UIComponent component = (UIComponent)rowHolder.getRow();
+        ResponseWriter writer = facesContext.getResponseWriter();
+        writer.startElement(HTML.TR_ELEMENT, component);
+        writer.writeAttribute(HTML.STYLE_ATTRIBUTE, "display:none", null);
+        writer.startElement(HTML.TD_ELEM, component);
+        writer.endElement(HTML.TD_ELEM);
+        writer.endElement(HTML.TR_ELEMENT);
+    }
 }

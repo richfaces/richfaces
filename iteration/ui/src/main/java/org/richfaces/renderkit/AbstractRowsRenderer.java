@@ -72,11 +72,22 @@ public abstract class AbstractRowsRenderer extends RendererBase implements DataV
     protected void encodeRows(FacesContext facesContext, RowHolderBase rowHolder) {
         rowHolder.getRow().walk(facesContext, this, rowHolder);
     }
+    
+    public void encodeFakeRow(FacesContext facesContext, RowHolderBase rowHolder) throws IOException {
+    }
 
     public void processRows(ResponseWriter writer, FacesContext facesContext, UIComponent component, Object[] options) throws IOException {
         RowHolderBase rowHolder = createRowHolder(facesContext, component, options);
         encodeRows(facesContext, rowHolder);
-        doCleanup(facesContext, rowHolder);
+        if(!rowHolder.hasWalkedOverRows()) {
+            try {
+                encodeFakeRow(facesContext, rowHolder);
+            } catch (IOException e){
+                throw new FacesException(e);
+            }
+        } else {
+            doCleanup(facesContext, rowHolder);
+        }
     }
     
     
