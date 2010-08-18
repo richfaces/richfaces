@@ -41,7 +41,7 @@
 	        this.range = this.maxValue - this.minValue;
 	        this.id = id;
 	        this.element = jQuery(this.attachToDom());
-	        this.input = this.element.children(".rf-ins-i");
+	        this.input = this.element.children(".rf-ins-ci").children(".rf-ins-i");
 	        this.track = this.element.children(".rf-ins-ta").children(".rf-ins-t");
 	        this.handle = this.track.children(".rf-ins-h, .rf-ins-h-d");
 	        this.tooltip = this.element.children(".rf-ins-tt");
