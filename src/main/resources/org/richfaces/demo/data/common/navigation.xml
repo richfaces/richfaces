@@ -329,7 +329,7 @@
 			</demo>			
 			<demo>
 				<id>popup</id>
-				<name>rich:popup</name>
+				<name>rich:popupPanel</name>
 				<samples>
 					<sample>
 						<id>simplePopup</id>
