@@ -29,12 +29,14 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 
 /**
  * @author Nick Belaevski
  *
  */
-@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.StatusRenderer"))
+@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.StatusRenderer"), tag = @Tag(type = TagType.Facelets))
 public abstract class AbstractAjaxStatus extends UIOutput {
 
     public static final String COMPONENT_TYPE = "org.richfaces.Status";

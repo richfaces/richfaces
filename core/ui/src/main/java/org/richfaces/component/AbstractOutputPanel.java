@@ -30,13 +30,15 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 
 /**
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:58:26 $
  *
  */
-@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.OutputPanelRenderer"))
+@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.OutputPanelRenderer"), tag = @Tag(type = TagType.Facelets))
 public abstract class AbstractOutputPanel extends UIPanel implements AjaxOutput {
 
     public static final String COMPONENT_TYPE = "org.richfaces.OutputPanel";
