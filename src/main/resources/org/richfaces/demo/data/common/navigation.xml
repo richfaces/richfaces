@@ -346,20 +346,16 @@
 	<group new="true">
 		<name>Inputs and Selects</name>
 		<demos>
-			<!-- demo>
+			<demo>
 				<id>autocomplete</id>
 				<name>rich:autocomplete</name>
 				<samples>
 					<sample>
-						<id>simpleClient</id>
-						<name>Client side autocomplete</name>
-					</sample>
-					<sample>
-						<id>simpleAjax</id>
-						<name>Ajax autocomplete</name>
-					</sample>
+						<id>cachedAjax</id>
+						<name>Autocomplete in Cached Ajax mode</name>
+					</sample> 
 				</samples>
-			</demo-->
+			</demo>
 			<demo>
 				<id>inputNumberSlider</id>
 				<name>rich:inputNumberSlider</name>

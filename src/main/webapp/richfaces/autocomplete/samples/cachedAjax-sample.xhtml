@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<p>Default autocomplete in cachedAjax mode</p>
+	<h:form>
+		<rich:autocomplete mode="cachedAjax"
+			autocompleteMethod="#{autocompleteBean.autocomplete}" />
+	</h:form>
+	<p>Autocomplete without direct suggestions to input(<b>autoFill="false"</b>). Also in the sample comma and space are input <b>tokens</b>, so separate
+	autocompletion requests will be fired for different parts in input</p>
+	<h:form>
+		<rich:autocomplete mode="cachedAjax" tokens=", " autoFill="false"
+			autocompleteMethod="#{autocompleteBean.autocomplete}" />
+	</h:form>
+	<p>In that sample <b>selectFirst</b> set to false so pressing enter will not choose the value from list
+	but just submit currently entered value.</p>
+	<h:form>
+		<rich:autocomplete mode="cachedAjax" tokens=", " autoFill="false" selectFirst="false"
+			autocompleteMethod="#{autocompleteBean.autocomplete}" />
+	</h:form>	
+	<fieldset>
+		<legend><b>NOTE:</b> </legend>
+		The developer has full control under filtering on server side according to prefix.
+		But in client and cachedAjax modes - just built-in startWith method used. In near future
+		the component will be updated with one more attribute which will allow the developer
+		to define client side comparator function to customize that behavior.
+	</fieldset>
+</ui:composition> 
