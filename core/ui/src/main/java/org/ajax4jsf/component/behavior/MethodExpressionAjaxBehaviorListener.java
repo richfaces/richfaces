@@ -23,7 +23,6 @@
 package org.ajax4jsf.component.behavior;
 
 import javax.el.ELContext;
-import javax.el.ELException;
 import javax.el.MethodExpression;
 import javax.el.MethodNotFoundException;
 import javax.faces.component.StateHolder;
@@ -67,36 +66,14 @@ public class MethodExpressionAjaxBehaviorListener implements AjaxBehaviorListene
 
     public void processAjaxBehavior(AjaxBehaviorEvent event) throws AbortProcessingException {
 
-        Throwable cause = null;
-        Throwable thrown = null;
-
-        if (event == null) {
-            throw new NullPointerException();
-        }
-
         FacesContext context = FacesContext.getCurrentInstance();
         ELContext elContext = context.getELContext();
+        
         try {
             methodExpressionZeroArg.invoke(elContext, new Object[] {});
         } catch (MethodNotFoundException mnfe) {
-            if (null != methodExpressionOneArg) {
-
-                try {
-                    methodExpressionOneArg.invoke(elContext, new Object[] { event});
-                } catch (ELException ee) {
-                    cause = ee.getCause();
-                    thrown = ee;
-                }
-            }
-        } catch (ELException ee) {
-            cause = ee.getCause();
-            thrown = ee;
-        }
-
-        if (null != thrown) {
-            throw cause == null ? new AbortProcessingException(thrown.getMessage(), thrown)
-                : new AbortProcessingException(thrown.getMessage(), cause);
-        }
+            methodExpressionOneArg.invoke(elContext, new Object[] { event});
+        } 
     }
 
     public boolean isTransient() {
