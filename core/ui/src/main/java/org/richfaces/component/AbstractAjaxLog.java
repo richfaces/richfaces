@@ -63,6 +63,7 @@ public abstract class AbstractAjaxLog extends UIComponentBase {
     @Attribute(defaultValue = "")
     public abstract String getStyleClass();
     
+    @Attribute(defaultValue = "LogMode.DEFAULT")
     public abstract LogMode getMode();
 
 //  public abstract String getHotkey();

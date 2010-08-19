@@ -32,10 +32,6 @@ public class LogRendererBase extends RendererBase {
 
     protected boolean isInline(Object attributeValue) {
         LogMode mode = (LogMode) attributeValue;
-        if (mode == null) {
-            mode = LogMode.DEFAULT;
-        }
-        
         return mode == LogMode.inline;
     }
     
