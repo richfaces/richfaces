@@ -22,10 +22,10 @@
 	<h:form id="form1">
 		<it:list id="list" var="item" value="#{dataBean.employeeList}" rows="20" type="#{listBean.listType}">
 			<f:facet name="term">
-				#{item.EMail}
+				E-mail: #{item.EMail}
 			</f:facet>
 
-			#{item.name}
+			Name: #{item.name}
 		</it:list>
 
 		<it:dataScroller for="list" />
