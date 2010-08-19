@@ -10,13 +10,13 @@ import javax.faces.model.SelectItem;
 
 /**
  * @author Ilya Shaikovsky
- *
+ * 
  */
 @ManagedBean(name = "selectsBean")
 @RequestScoped
 public class SelectsBean {
-    private static final String[] FRUITS = {"", "Banana", "Cranberry", "Blueberry", "Orange"};
-    private static final String[] VEGETABLES = {"", "Potatoes", "Broccoli", "Garlic", "Carrot"};
+    private static final String[] FRUITS = { "", "Banana", "Cranberry", "Blueberry", "Orange" };
+    private static final String[] VEGETABLES = { "", "Potatoes", "Broccoli", "Garlic", "Carrot" };
     private String currentItem = "";
     private String currentType = "";
     private List<SelectItem> firstList = new ArrayList<SelectItem>();
@@ -54,19 +54,20 @@ public class SelectsBean {
 
     public void valueChanged(ValueChangeEvent event) {
         secondList.clear();
+        if (null != event.getNewValue()) {
+            String[] currentItems;
 
-        String[] currentItems;
+            if (((String) event.getNewValue()).equals("fruits")) {
+                currentItems = FRUITS;
+            } else {
+                currentItems = VEGETABLES;
+            }
 
-        if (((String) event.getNewValue()).equals("fruits")) {
-            currentItems = FRUITS;
-        } else {
-            currentItems = VEGETABLES;
-        }
+            for (int i = 0; i < currentItems.length; i++) {
+                SelectItem item = new SelectItem(currentItems[i]);
 
-        for (int i = 0; i < currentItems.length; i++) {
-            SelectItem item = new SelectItem(currentItems[i]);
-
-            secondList.add(item);
+                secondList.add(item);
+            }
         }
     }
 
