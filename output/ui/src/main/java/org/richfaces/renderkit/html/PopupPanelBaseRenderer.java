@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import javax.faces.FacesException;
 import javax.faces.application.ResourceDependencies;
@@ -15,8 +15,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.javascript.JSFunctionDefinition;
+import org.ajax4jsf.javascript.ScriptUtils;
 import org.ajax4jsf.renderkit.RendererBase;
+import org.ajax4jsf.renderkit.RendererUtils;
 import org.richfaces.component.AbstractPopupPanel;
 import org.richfaces.json.JSONException;
 import org.richfaces.json.JSONMap;
@@ -112,14 +113,14 @@ public class PopupPanelBaseRenderer extends RendererBase {
 
         if (panel.getMinHeight() != -1) {
             if (panel.getMinHeight() < SIZE) {
-                throw new IllegalArgumentException();
+                throw new FacesException("Attribbute minWidth should be greater then 10px");
             }
 
         }
 
         if (panel.getMinWidth() != -1) {
             if (panel.getMinWidth() < SIZE) {
-                throw new IllegalArgumentException();
+                throw new FacesException("Attribbute minHeight should be greater then 10px");
             }
 
         }
@@ -164,82 +165,47 @@ public class PopupPanelBaseRenderer extends RendererBase {
     	return "";
     }
     
-    private void writeOption(StringBuilder builder, String attribbute, Object value, UIComponent component,
-        boolean isString) {
-
-        //TODO nick - use ScriptUtils.toScript
-        if (component.getAttributes().get(attribbute) != null) {
-            builder.append(attribbute + ":");
-            if (isString) {
-                builder.append("'");
-            }
-            builder.append(value);
-            if (isString) {
-                builder.append("'");
-            }
-            builder.append(",");
-        }
-    }
-    
     public String buildScript(FacesContext context, UIComponent component) throws IOException {
     	AbstractPopupPanel panel = (AbstractPopupPanel) component;
         StringBuilder result = new StringBuilder();
         result.append("new RichFaces.ui.PopupPanel('");
         result.append(panel.getClientId());
-        result.append("',{");
-        //TODO nick - use RendererUtils.addToScriptHash(Map<String, Object>, String, Object)
-        writeOption(result, "width", panel.getWidth(), component, false);
-        writeOption(result, "height", panel.getHeight(), component, false);
-        writeOption(result, "minWidth", panel.getMinWidth(), component, false);
-        writeOption(result, "minHeight", panel.getMinHeight(), component, false);
-        writeOption(result, "maxWidth", panel.getMaxWidth(), component, false);
-        writeOption(result, "maxHeight", panel.getMaxHeight(), component, false);
-        writeOption(result, "resizeable", panel.isResizeable(), component, false);
-        writeOption(result, "moveable", panel.isMoveable(), component, false);
-        writeOption(result, "left", panel.getLeft(), component, true);
-        writeOption(result, "top", panel.getTop(), component, true);
-        writeOption(result, "zIndex", panel.getZIndex(), component, false);
-        writeOption(result, "onresize", writeEventHandlerFunction(context, panel, "onresize"), component, false);
-        writeOption(result, "onmove", writeEventHandlerFunction(context, panel, "onmove"), component, false);
-        writeOption(result, "onshow", writeEventHandlerFunction(context, panel, "onshow"), component, false);
-        writeOption(result, "onhide", writeEventHandlerFunction(context, panel, "onhide"), component, false);
-        writeOption(result, "onbeforeshow", writeEventHandlerFunction(context, panel, "onbeforeshow"), component, false);
-        writeOption(result, "onbeforehide", writeEventHandlerFunction(context, panel, "onbeforehide"), component, false);
-        writeOption(result, "shadowDepth", panel.getShadowDepth(), component, true);
-        writeOption(result, "shadowOpacity", panel.getShadowOpacity(), component, true);
-        writeOption(result, "domElementAttachment", panel.getDomElementAttachment(), component, true);
-        writeOption(result, "keepVisualState", panel.isKeepVisualState(), component, false);
-        writeOption(result, "show", panel.isShow(), component, false);
-        writeOption(result, "modal", panel.isModal(), component, false);
-        writeOption(result, "autosized", panel.isAutosized(), component, false);
-        writeOption(result, "overlapEmbedObjects", panel.isOverlapEmbedObjects(), component, false);
-        //TODO nick - what is deleted here?
-        result.delete(result.length() - 1, result.length());
-        if (component.getAttributes().get("visualOptions") != null) {
-            result.append(writeVisualOptions(context, panel));
-        }
-        result.append("});");
+        result.append("',");
+        Map<String, Object> attributes = component.getAttributes();
+        Map<String, Object> options = new HashMap<String, Object>();
+        RendererUtils utils = getUtils();
+        utils.addToScriptHash(options, "width", panel.getWidth(), "-1");
+        utils.addToScriptHash(options, "height", panel.getHeight(), "-1");
+        utils.addToScriptHash(options, "minWidth", panel.getMinWidth(), "-1");
+        utils.addToScriptHash(options, "minHeight", panel.getMinHeight(), "-1");
+        utils.addToScriptHash(options, "maxWidth", panel.getMaxWidth(), "" +Integer.MAX_VALUE);
+        utils.addToScriptHash(options, "maxHeight", panel.getMaxHeight(), "" +Integer.MAX_VALUE);
+        utils.addToScriptHash(options, "moveable", panel.isMoveable(), "true");
+        utils.addToScriptHash(options, "followByScroll", panel.isFollowByScroll(), "true");
+        utils.addToScriptHash(options, "left", panel.getLeft(), "auto");
+        utils.addToScriptHash(options, "top", panel.getTop(), "auto");
+        utils.addToScriptHash(options, "zindex", panel.getZIndex(), "100");
+        utils.addToScriptHash(options, "shadowDepth", panel.getShadowDepth(), "2");
+        utils.addToScriptHash(options, "shadowOpacity", panel.getShadowOpacity(), "0.1");
+        utils.addToScriptHash(options, "domElementAttachment", panel.getDomElementAttachment());
+        
+        utils.addToScriptHash(options, "keepVisualState", panel.isKeepVisualState(), "false");
+        utils.addToScriptHash(options, "show", panel.isShow(), "false");
+        utils.addToScriptHash(options, "modal", panel.isModal(), "true");
+        utils.addToScriptHash(options, "autosized", panel.isAutosized(), "false");
+        utils.addToScriptHash(options, "resizeable", panel.isResizeable(), "false");
+        utils.addToScriptHash(options, "overlapEmbedObjects", panel.isOverlapEmbedObjects(), "false");
+        utils.addToScriptHash(options, "visualOptions", writeVisualOptions(context, panel));
+        utils.addToScriptHash(options, "onresize", attributes.get("onresize"));
+        utils.addToScriptHash(options, "onmove", attributes.get("onmove"));
+        utils.addToScriptHash(options, "onshow", attributes.get("onshow"));
+        utils.addToScriptHash(options, "onhide", attributes.get("onhide"));
+        utils.addToScriptHash(options, "onbeforeshow", attributes.get("onbeforeshow"));
+        utils.addToScriptHash(options, "onbeforehide", attributes.get("onbeforehide"));
+
+        result.append(ScriptUtils.toScript(options));
+        result.append(");");
         return result.toString();
-    }
-
-    public String writeEventHandlerFunction(FacesContext context, UIComponent component, String eventName)
-        throws IOException {
-        String event = (String) component.getAttributes().get(eventName);
-
-        if (event != null) {
-            event = event.trim();
-
-            if (event.length() != 0) {
-                JSFunctionDefinition function = new JSFunctionDefinition();
-
-                function.addParameter("event");
-                function.addToBody(event);
-
-                return function.toScript();
-            }
-        }
-
-        return "";
     }
 
     public Map<String, Object> getHandledVisualOptions(AbstractPopupPanel panel) {

@@ -108,7 +108,7 @@ public class PopupRendererTest {
         HtmlElement panelHeader = panelWithFacet.getElementById("panel_header");
         assertNotNull(panelHeader);
         assertEquals("rf-pp-h header", panelHeader.getAttribute("class"));
-        assertEquals("cursor: move;", panelHeader.getAttribute("style"));
+        //assertEquals("cursor: move;", panelHeader.getAttribute("style"));
         assertEquals("Write your own custom rich components with built-in AJAX", panelHeader.getTextContent().trim());
         HtmlElement panelResizer = panelWithFacet.getElementById("panelResizerN");
         assertNotNull(panelResizer);

@@ -29,22 +29,40 @@
 			$(richfaces.getDomElement(element)).unbind( 'mousedown', selectionEventHandler);
 		}
 	}
-		
+	
+	var defaultOptions = {
+		width:-1,
+		height:-1,
+		minWidth:-1,
+		minHeight:-1,
+		modal:true,
+		moveable:true,
+		resizeable: false,
+		autosized: false,
+		modal:true,
+		left: "auto",
+		top : "auto",
+		zindex:100,
+		shadowDepth : 5,
+		shadowOpacity: 0.1,
+		attachToBody:true
+	};
+	
+	
  	richfaces.ui.PopupPanel =  function(id, options) {
     	
     	$super.constructor.call(this,id);
     	this.markerId = id;
     	this.attachToDom(id);
-    	this.options = options; 
+    	this.options = $.extend(this.options, defaultOptions, options);
 
 		this.id = $(richfaces.getDomElement(id));
 		this.minWidth = this.getMinimumSize(this.options.minWidth);
 		this.minHeight = this.getMinimumSize(this.options.minHeight);
 		this.maxWidth = this.options.maxWidth;
 		this.maxHeight = this.options.maxHeight;
-		this.options = options;
 
-		this.baseZIndex = this.options.zindex ? this.options.zindex : 100;
+		this.baseZIndex = this.options.zindex;
 		
 		this.div = $(richfaces.getDomElement(id));
 		this.cdiv = $(richfaces.getDomElement(id + "_container"));
@@ -185,16 +203,14 @@
 			setLeft: function(pos) {
 				if(!isNaN(pos)){
 					this.cdiv.css('left', pos + "px");
-					var depth = this.options.shadowDepth ? this.options.shadowDepth : 2;
-					this.shadowDiv.css('left', pos + depth  + "px");
+					this.shadowDiv.css('left', pos + parseInt(this.options.shadowDepth)  + "px");
 				}
 			},
 
 			setTop: function(pos) {
 				if(!isNaN(pos)){
 					this.cdiv.css('top', pos + "px");
-					var depth = this.options.shadowDepth ? this.options.shadowDepth : 2;
-					this.shadowDiv.css('top', pos + depth +"px");
+					this.shadowDiv.css('top', pos + parseInt(this.options.shadowDepth) +"px");
 				}
 			},
 
@@ -266,8 +282,6 @@
 							options.width = 300;
 						if (options.height && options.height == -1) 
 							options.height = 200;
-					} else{
-						//options.width = $(this.div+"_headerSpan").width() +20;
 					}
 				
 					if (options.width && options.width != -1) {
@@ -278,7 +292,7 @@
 							options.width = this.maxWidth;
 						}
 						$(richfaces.getDomElement(eContentElt)).css('width', options.width + (/px/.test(options.width) ? '' : 'px'));
-						this.shadowDiv.css('width', options.width + 4 + (/px/.test(options.width) ? '' : 'px'));
+						this.shadowDiv.css('width', options.width + (/px/.test(options.width) ? '' : 'px'));
 						this.scrollerDiv.css('width', options.width + (/px/.test(options.width) ? '' : 'px'));
 						
 						
@@ -292,7 +306,7 @@
 							options.height = this.maxHeight;
 						}
 						$(richfaces.getDomElement(eContentElt)).css('height', options.height + (/px/.test(options.height) ? '' : 'px'));
-						this.shadowDiv.css('height', options.height + 4 + (/px/.test(options.height) ? '' : 'px'));
+						this.shadowDiv.css('height', options.height + (/px/.test(options.height) ? '' : 'px'));
 						var headerHeight = $(richfaces.getDomElement(this.div +"_header"))[0] ? $(richfaces.getDomElement(this.div +"_header"))[0].clientHeight : 0;
 						this.scrollerDiv.css('height', options.height - headerHeight + (/px/.test(options.height) ? '' : 'px'));
 						
@@ -347,12 +361,17 @@
 	
 						this.setTop(Math.round(_top));
 					}
-
-					var opacity = options.shadowOpacity ? options.shadowOpacity : 0.1;
-					this.shadowDiv.css('opacity', opacity);
-					this.shadowDiv.css('filter ', 'alpha(opacity='+opacity*100 +');');
+					
+					this.shadowDiv.css('opacity', this.options.shadowOpacity);
+					this.shadowDiv.css('filter ', 'alpha(opacity='+this.options.shadowOpacity*100 +');');
+	    			
 	    			element.css('visibility', '');
 	    			element.css('display', 'block');
+	    			if (this.options.autosized) {
+						this.shadowDiv.css('height', this.cdiv[0].clientHeight);
+						this.shadowDiv.css('width', this.cdiv[0].clientWidth);
+						
+					}
 	    			var event = {};
 	    			event.parameters = opts || {};
 	    			this.shown = true;
@@ -510,7 +529,7 @@
 
 				var vetoeChange = false;
 				var newSize;
-				var shadowDepth = this.options.shadowDepth? this.options.shadowDepth: 4;
+				var shadowDepth = parseInt(this.options.shadowDepth);
 				var scrollerHeight = 22;
 				var scrollerWidth = 0;
 				var eContentElt = this.getContentElement();
@@ -541,7 +560,7 @@
 					vetoes.x = true;
 				}
 				
-				if (newSize >= this.options.maxWidth) {
+				if (newSize > this.options.maxWidth) {
 					if (diff.deltaWidth) {
 						cssHashWH.width = this.currentMaxWidth + 'px';
 						shadowHashWH.width = this.currentMaxWidth + shadowDepth + 'px';
@@ -594,7 +613,7 @@
 					vetoes.y = true;
 				}
 				
-				if (newSize >= this.options.maxHeight) {
+				if (newSize > this.options.maxHeight) {
 					if (diff.deltaHeight) {
 						cssHashWH.height = this.currentMaxHeight + 'px';
 						shadowHashWH.height = this.currentMaxHeight + shadowDepth + 'px';
@@ -671,7 +690,7 @@
 			},
 			
 			moveTo : function (top, left){
-				var shadowDepth = this.options.shadowDepth? this.options.shadowDepth: 4;
+				var shadowDepth = parseInt(this.options.shadowDepth);
 				this.cdiv.css('top', top);
 				this.cdiv.css('left', left);
 				this.shadowDiv.css('top', top + shadowDepth);
