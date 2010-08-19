@@ -33,10 +33,6 @@ public abstract class InputNumberSliderRendererBase extends InputRendererBase {
 
     protected boolean isInputPosition(UIComponent component, String name) {
         InputNumberSliderInputPosition type = (InputNumberSliderInputPosition) component.getAttributes().get("inputPosition");
-        if (type == null) {
-            type = InputNumberSliderInputPosition.DEFAULT;
-        }
-        
         return type == InputNumberSliderInputPosition.valueOf(name);
     }
     
