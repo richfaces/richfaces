@@ -129,7 +129,7 @@
 	};
 
 	var onMouseAction = function(event) {
-		var element = $(event.target).closest(".rf-ac-i", event.currentTarget).get(0);
+		var element = $(event.target).closest(".rf-au-i", event.currentTarget).get(0);
 
 		if (element) {
 			if (event.type=="mouseover") {
@@ -146,7 +146,7 @@
 	};
 
 	var updateItemsList = function (value, fetchValues) {
-		this.items = $(rf.getDomElement(this.id+ID.ITEMS)).find(".rf-ac-i");
+		this.items = $(rf.getDomElement(this.id+ID.ITEMS)).find(".rf-au-i");
 		if (this.items.length>0) {
 			this.cache = new rf.utils.Cache(value, this.items, fetchValues || getData);
 		}
@@ -343,7 +343,7 @@
 				var subValue = this.__getSubValue();
 				// called from onShow method, not actually value changed
 				if (this.items.length==0 && this.isFirstAjax) {
-					this.options.ajaxMode && callAjax.call(this, event, subValue);
+					callAjax.call(this, event, subValue);
 				}
 				return;
 			},
