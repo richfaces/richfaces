@@ -269,4 +269,14 @@ public abstract class ListRendererBase extends Renderer {
             }
         }
     }
+    
+    @Override
+    public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
+        //do nothing
+    }
+    
+    @Override
+    public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
+        //do nothing
+    }
 }
