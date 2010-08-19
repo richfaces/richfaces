@@ -19,23 +19,23 @@
 		<cdk:object type="org.richfaces.component.InplaceState" name="inplaceState" value="#{getInplaceState(component)}" />
 		<cdk:object type="java.lang.String" name="inplaceValue" value="#{getValue(facesContext, component)}" />
 
-		<div id="#{clientId}" class="#{getReadyStyleClass(component, inplaceState)}" cdk:passThroughWithExclusions="id class">
-			<span id="#{clientId}:label">
+		<span id="#{clientId}" class="#{getReadyStyleClass(component, inplaceState)}" cdk:passThroughWithExclusions="id class">
+			<span id="#{clientId}:label" class="rf-ii-lbl">
 				#{inplaceValue}
 			</span>
-			<div id="#{clientId}:edit" class="#{getEditStyleClass(component, inplaceState)}">
+			<span id="#{clientId}:edit" class="#{getEditStyleClass(component, inplaceState)}">
 				<input id="#{clientId}:input" autocomplete="off" name="#{clientId}:input" type="text" value="#{inplaceValue}" class="rf-ii-f" cdk:passThrough="tabIndex"/>
 				
 				<c:if test="#{component.attributes['showControls']}">
-					<div class="rf-ii-btn-prepos">
-						<div class="rf-ii_btn_pos">
-							<div id="#{clientId}:btnshadow" class="rf-ii-btn-shadow">
-								<div class="rf-ii-btn-shadow-t"></div>
-								<div class="rf-ii-btn-shadow-l"></div>
-								<div class="rf-ii-btn-shadow-r"></div>
-								<div class="rf-ii-btn-shadow-b"></div>
+					<span class="rf-ii-btn-prepos">
+						<span class="rf-ii-btn-pos">
+							<span id="#{clientId}:btnshadow" class="rf-ii-btn-shadow">
+								<span class="rf-ii-btn-shadow-t"></span>
+								<span class="rf-ii-btn-shadow-l"></span>
+								<span class="rf-ii-btn-shadow-r"></span>
+								<span class="rf-ii-btn-shadow-b"></span>
 		
-								<div id="#{clientId}:btn" style="position : relative">
+								<span id="#{clientId}:btn" style="position : relative">
 									<input type="image"
 										id="#{clientId}:okbtn"
 										src="#{getResourcePath(facesContext, 'org.richfaces/ico_ok.gif')}"
@@ -47,15 +47,15 @@
 										class="rf-ii-btn" onmousedown="this.className='rf-ii-btn-press'"
 										onmouseout="this.className='rf-ii-btn'" onmouseup="this.className='rf-ii-btn'" />
 									<br />
-								</div>
-							</div>
-						</div>
-					</div>
+								</span>
+							</span>
+						</span>
+					</span>
 				</c:if>
-			</div>
+			</span>
 			<script type="text/javascript">	
 				<cdk:call expression="buildScript(responseWriter, facesContext, component);"/>
 			</script>
-		</div>
+		</span>
 	</cc:implementation>
 </cdk:root>

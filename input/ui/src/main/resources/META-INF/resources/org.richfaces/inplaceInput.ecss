@@ -13,6 +13,10 @@ input.rf-ii-f {
 	font-size : inherit;
 }
 
+.rf-ii-lbl {
+	white-space : nowrap; 
+}
+
 .rf-ii-d-s { 
 	display : inline-block; 
 	white-space : nowrap; 
@@ -38,6 +42,7 @@ input.rf-ii-f {
 	top : 0px; 
 	left : 0px; 
 	display : inline-block;
+	width: 100%;
 }
 
 .rf-ii-f {
@@ -59,13 +64,14 @@ input.rf-ii-f {
 
 .rf-ii-btn {
 	background-image : "url(#{resource['org.richfaces.renderkit.html.images.InplaceComponentButtonGradientImage']})";
-	background-position: top;
+	background-attachment: scroll;
+	background-position: center top;
 	background-repeat: repeat-x;
 	background-color: '#{richSkin.tabBackgroundColor}';
 	border-width : 1px;
 	border-style: outset;
 	border-color: '#{richSkin.panelBorderColor}';
-	padding : 0px; 
+	padding : 3px; 
 	margin : 0px;
 }
 
@@ -104,6 +110,7 @@ input.rf-ii-f {
 }
 
 .rf-ii-btn-shadow {
+	display: inline-block;
 	position: relative; 
 	padding : 6px 6px 6px 6px; 
 	top : -6px; 
@@ -111,8 +118,11 @@ input.rf-ii-f {
 }
 
 .rf-ii-btn-shadow-t {
-	background-position : top left;
+	background-position : left top;
 	background-image : url("#{resource['org.richfaces:bg_shadow.png']}"); 
+	background-attachment: scroll;
+	background-color: transparent;
+	background-repeat: repeat;
 	position : absolute; 
 	width : 6px; 
 	top : 0px; 
@@ -121,8 +131,11 @@ input.rf-ii-f {
 }
 
 .rf-ii-btn-shadow-l {
-	background-position : bottom left;
-	background-image : url("#{resource['org.richfaces:bg_shadow.png']}"); 
+	background-position : left bottom;
+	background-image : url("#{resource['org.richfaces:bg_shadow.png']}");
+	background-attachment: scroll;
+	background-color: transparent;
+	background-repeat: repeat;
 	position : absolute; 
 	height : 6px; 
 	bottom : 0px; 
@@ -131,8 +144,11 @@ input.rf-ii-f {
 }
 
 .rf-ii-btn-shadow-r {
-	background-position : bottom right;
+	background-position : right bottom;
 	background-image : url("#{resource['org.richfaces:bg_shadow.png']}");
+	background-attachment: scroll;
+	background-color: transparent;
+	background-repeat: repeat;
 	position: absolute; 
 	width: 6px; 
 	top: 6px; 
@@ -143,6 +159,9 @@ input.rf-ii-f {
 .rf-ii-btn-shadow-b {
 	background-position : right top;
 	background-image : url("#{resource['org.richfaces:bg_shadow.png']}");  
+	background-attachment: scroll;
+	background-color: transparent;
+	background-repeat: repeat;
 	position: absolute; 
 	height: 6px; 
 	top: 0px; 
