@@ -1,0 +1,5 @@
+build/parent https://svn.jboss.org/repos/richfaces/modules/build/parent/tags/richfaces-parent-10
+build/checkstyle https://svn.jboss.org/repos/richfaces/modules/build/resources/tags/richfaces-checkstyle-2
+build/faces-shade-transformers https://svn.jboss.org/repos/richfaces/modules/build/resources/tags/richfaces-shade-transformers-3
+
+
