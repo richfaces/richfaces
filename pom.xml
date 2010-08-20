@@ -31,12 +31,12 @@
     </parent>
 
     <description>
-        The Parent for all RichFaces sub-projects. This specifies
-        build, plugin
-        and project meta-data.
+        This is the parent for all RichFaces artifacts, and contains project
+        metadata, shared/stable configuration, and other common settings that 
+        change very rarely.
     </description>
 
-    <url>http://www.jboss.org/richfaces</url>
+    <url>http://richfaces.org</url>
 
     <licenses>
         <license>
@@ -48,6 +48,7 @@
 
     <developers>
         <developer>
+            <!-- TODO populate -->
             <name>RichFaces committers</name>
         </developer>
     </developers>
@@ -59,9 +60,9 @@
 
     <properties>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        
         <!-- Override the default 2.0.9 from jboss-parent -->
         <maven.min.version>2.1.0</maven.min.version>
-        <richfaces.checkstyle.version>2-SNAPSHOT</richfaces.checkstyle.version>
     </properties>
 
     <!-- Repository management, including extra repositories if needed -->
@@ -82,7 +83,6 @@
             </snapshots>
         </repository>
     </repositories>
-
     <pluginRepositories>
         <pluginRepository>
             <id>jboss-public-repository-group</id>
@@ -101,44 +101,12 @@
         </pluginRepository>
     </pluginRepositories>
 
-    <dependencyManagement>
-        <dependencies>
-            <!-- Archetypes dependency -->
-            <dependency>
-                <groupId>org.apache.maven.archetype</groupId>
-                <artifactId>archetype-packaging</artifactId>
-                <version>2.0-alpha-4</version>
-            </dependency>
-
-            <!-- tests -->
-            <dependency>
-                <groupId>org.jboss.test-jsf</groupId>
-                <artifactId>htmlunit-client</artifactId>
-                <version>1.0.3</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.test-jsf</groupId>
-                <artifactId>jsf-mock</artifactId>
-                <version>1.0.3</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jboss.test-jsf</groupId>
-                <artifactId>jsf-test-stage</artifactId>
-                <version>1.0.3</version>
-            </dependency>
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.7</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <!-- Build -->
     <build>
         <!--
-            Plugin config, including versions to use in the build. Note: some
-            are inherited from jboss-parent
+            The pluginManagement section of the richfaces-parent should contain
+            and stable plugin settings, and versions to be used by all part of
+            the project.
         -->
         <pluginManagement>
             <plugins>
@@ -153,80 +121,7 @@
                         <releaseProfiles>release</releaseProfiles>
                         <!-- Some modules (dist) need release items installed during prepare -->
                         <preparationGoals>clean install</preparationGoals>
-                        <!--
-                            RichFaces modules should override and set goals to
-                            run for release:perform
-                        -->
-                        <!-- <goals></goals> -->
                     </configuration>
-                </plugin>
-
-
-                <!-- Build -->
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <configuration>
-                        <source>1.5</source>
-                        <target>1.5</target>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <configuration>
-                        <archive>
-                            <index>true</index>
-                            <manifest>
-                                <addDefaultSpecificationEntries>
-                                    true
-                                </addDefaultSpecificationEntries>
-                                <addDefaultImplementationEntries>
-                                    true
-                                </addDefaultImplementationEntries>
-                            </manifest>
-                            <manifestEntries>
-                                <mode>development</mode>
-                                <Build-Number>${buildNumber}
-                                </Build-Number>
-                            </manifestEntries>
-                        </archive>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>javacc-maven-plugin</artifactId>
-                    <version>2.4</version>
-                </plugin>
-
-                <!-- reporting -->
-                <plugin>
-                    <groupId>com.atlassian.maven.plugins</groupId>
-                    <artifactId>maven-clover2-plugin</artifactId>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>2.3</version>
-                    <configuration>
-                        <configLocation>richfaces-checkstyle/richfaces-checkstyle.xml
-                        </configLocation>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>richfaces-checkstyle-report</id>
-                            <phase>process-sources</phase>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.richfaces</groupId>
-                            <artifactId>richfaces-build-checkstyle</artifactId>
-                            <version>${richfaces.checkstyle.version}</version>
-                        </dependency>
-                    </dependencies>
                 </plugin>
 
                 <!-- dev -->
@@ -236,26 +131,6 @@
                         <wtpversion>2.0</wtpversion>
                         <downloadSources>true</downloadSources>
                     </configuration>
-                </plugin>
-
-                <!--
-                    docs TODO should move to profiles probably a "doc" profile
-                -->
-                <plugin>
-                    <groupId>gr.abiss.mvn.plugins</groupId>
-                    <artifactId>maven-jstools-plugin</artifactId>
-                    <version>0.7</version>
-                    <configuration>
-                        <jsDir>${project.basedir}/src/main/resources/META-INF/resources
-                        </jsDir>
-                        <includes>**/*.js</includes>
-                        <caseSensitive>true</caseSensitive>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.2</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -268,88 +143,10 @@
             </plugin>
         </plugins>
     </build>
-
-    <!-- Profiles -->
-    <profiles>
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <!-- TODO move to doc profile? -->
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <configuration>
-                            <javadocVersion>1.5</javadocVersion>
-                            <aggregate>true</aggregate>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>generate-javadoc</id>
-                                <phase>generate-sources</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <!--
-                Triggers generated documentation as part of builds ( javadoc,
-                jsdoc, etc...
-            -->
-            <id>doc</id>
-            <!-- TODO -->
-        </profile>
-        <profile>
-            <!-- Triggers clover reports to be generated -->
-            <id>clover</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>com.atlassian.maven.plugins</groupId>
-                        <artifactId>maven-clover2-plugin</artifactId>
-                        <configuration>
-                            <licenseLocation>
-                                ${clover.license.path}
-                            </licenseLocation>
-                            <jdk>1.5</jdk>
-                            <generatePdf>false</generatePdf>
-                            <generateXml>true</generateXml>
-                            <generateHtml>true</generateHtml>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>instrument</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>instrument</goal>
-                                    <goal>check</goal>
-                                    <goal>clover</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <!-- Required when in JBoss hudson env to have clover reports generate -->
-            <id>hudson</id>
-            <properties>
-                <clover.license.path>/home/hudson/config_repository/resources/richfaces/richfaces-clover-license.txt
-                </clover.license.path>
-            </properties>
-        </profile>
-    </profiles>
     
     <distributionManagement>
-        <downloadUrl>
-            http://www.jboss.org/richfaces/download
-        </downloadUrl>
+        <!-- Other items inherited from jboss-parent -->
+        <downloadUrl>http://www.jboss.org/richfaces/download</downloadUrl>
     </distributionManagement>
 
     <!-- SCM and distribution management -->
