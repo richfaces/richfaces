@@ -43,7 +43,7 @@ import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes
  */
 public class DivPanelRenderer extends RendererBase {
 
-    private static final RenderKitUtils.Attributes PASS_THROUGH_ATTRIBUTES0 = attributes(
+    private static final RenderKitUtils.Attributes PASS_THROUGH_ATTRIBUTES = attributes(
         lang,
         onclick,
         ondblclick,
@@ -53,10 +53,21 @@ public class DivPanelRenderer extends RendererBase {
         onmouseover,
         onmouseup,
         title,
-        style,
         dir
     );
 
+    protected static String attributeAsStyle(UIComponent comp, Enum attr) {
+        String value = attributeAsString(comp, attr.toString());
+        if (value.isEmpty()) {
+            return "";
+        }
+
+        return new StringBuilder()
+            .append(attr).append(':').append(value).toString();
+    }
+    protected static String attributeAsString(UIComponent comp, Enum attr) {
+        return attributeAsString(comp, attr.toString());
+    }
     protected static String attributeAsString(UIComponent comp, String attr) {
         Object o = comp.getAttributes().get(attr);
         return o == null ? "" : o.toString();
@@ -80,7 +91,16 @@ public class DivPanelRenderer extends RendererBase {
         writer.startElement(HTML.DIV_ELEM, component);
         writer.writeAttribute("id", component.getClientId(context), "clientId");
         writer.writeAttribute("class", getStyleClass(component), null);
-        renderPassThroughAttributes(context, component, PASS_THROUGH_ATTRIBUTES0);
+        writer.writeAttribute(HTML.STYLE_ATTRIBUTE, getStyle(component), null);
+        renderPassThroughAttributes(context, component, getPassThroughAttributes());
+    }
+
+    protected String getStyle(UIComponent component) {
+        return attributeAsString(component, "style");
+    }
+
+    protected RenderKitUtils.Attributes getPassThroughAttributes() {
+        return PASS_THROUGH_ATTRIBUTES;
     }
 
     protected String getStyleClass(UIComponent component) {

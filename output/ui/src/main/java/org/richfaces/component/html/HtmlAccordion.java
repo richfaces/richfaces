@@ -70,6 +70,8 @@ public class HtmlAccordion extends AbstractAccordion implements ClientBehaviorHo
         onmousedown,
         onmousemove,
         onmouseout,
+        width,
+        height,
         onmouseover,
         onmouseup
     }
@@ -81,6 +83,22 @@ public class HtmlAccordion extends AbstractAccordion implements ClientBehaviorHo
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
+    }
+
+    public String getWidth() {
+        return (String) getStateHelper().eval(PropertyKeys.width);
+    }
+
+    public void setWidth(String width) {
+        getStateHelper().put(PropertyKeys.width, width);
+    }
+
+    public String getHeight() {
+        return (String) getStateHelper().eval(PropertyKeys.height);
+    }
+
+    public void setHeight(String height) {
+        getStateHelper().put(PropertyKeys.height, height);
     }
 
     public String getItemHeaderClassActive() {

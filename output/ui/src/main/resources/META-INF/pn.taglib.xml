@@ -338,6 +338,16 @@
         </attribute>
         <attribute>
             <description></description>
+            <name>height</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>width</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
             <name>bypassUpdates</name>
             <type>boolean</type>
         </attribute>

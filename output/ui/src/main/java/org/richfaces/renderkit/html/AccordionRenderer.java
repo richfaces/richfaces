@@ -25,6 +25,7 @@ package org.richfaces.renderkit.html;
 import org.ajax4jsf.javascript.JSObject;
 import org.ajax4jsf.renderkit.RendererUtils;
 import org.richfaces.component.AbstractAccordion;
+import org.richfaces.component.util.HtmlUtil;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -33,6 +34,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.Map;
+
+import static org.richfaces.component.html.HtmlAccordion.PropertyKeys.*;
 
 /**
  * @author akolonitsky
@@ -53,6 +56,15 @@ public class AccordionRenderer extends TogglePanelRenderer {
         super.doEncodeBegin(writer, context, component);
 
         writeJavaScript(writer, context, component);
+    }
+
+    @Override
+    protected String getStyle(UIComponent component) {
+        return HtmlUtil.concatStyles(
+            attributeAsStyle(component, height),
+            attributeAsStyle(component, width),
+
+            super.getStyle(component));
     }
 
     @Override
@@ -79,6 +91,7 @@ public class AccordionRenderer extends TogglePanelRenderer {
     @Override
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
         Map<String, Object> options = super.getScriptObjectOptions(context, component);
+        options.put("isKeepHeight", !attributeAsString(component, height).isEmpty());
         options.remove("items");
 
         return options;

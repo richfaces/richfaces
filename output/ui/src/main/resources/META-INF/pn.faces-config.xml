@@ -25,6 +25,16 @@
         </property>
         <property>
             <description></description>
+            <property-name>height</property-name>
+            <property-class>java.lang.String</property-class>
+        </property>
+        <property>
+            <description></description>
+            <property-name>width</property-name>
+            <property-class>java.lang.String</property-class>
+        </property>
+        <property>
+            <description></description>
             <property-name>bypassUpdates</property-name>
             <property-class>boolean</property-class>
         </property>

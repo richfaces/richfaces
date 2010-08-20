@@ -1,5 +1,5 @@
 .rf-ac {
-    width: 300px; /*visible width*/
+    /*width: 300px;*/ /*visible width*/
     border-width: 1px;
     border-style: solid;
     border-color: '#{richSkin.panelBorderColor}';
@@ -28,7 +28,7 @@
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: '#{richSkin.panelBorderColor}';
-    height: 100px /*visible modal panel height minus header height*/;
+    /*height: 100px*/ /*visible modal panel height minus header height*/;
     position: relative;
     overflow: auto;
     overflow-x: hidden;

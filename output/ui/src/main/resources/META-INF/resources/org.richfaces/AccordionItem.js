@@ -69,7 +69,10 @@
          * @return {jQuery Object}
          * */
         __content : function () {
-            return $(rf.getDomElement(this.id + ":content"));
+            if (!this.__content_) {
+                this.__content_ = $(rf.getDomElement(this.id + ":content"));
+            }
+            return this.__content_;
         },
 
         /**
@@ -80,14 +83,15 @@
         __enter : function () {
             var parentPanel = this.getTogglePanel();
             if (parentPanel.isKeepHeight) {
+                this.__content().hide();
                 var h = parentPanel.getInnerHeight();
 
                 var items = parentPanel.getItems();
                 for (var i = 0; i < items.length; i++) {
-                    h -= items[i].getHeight();
+                    h -= items[i].__header().outerHeight();
                 }
 
-                this.__content().height(h);
+                this.__content().height(h - 20); // 20 it is padding top and bottom
             }
 
             this.__content().show();
