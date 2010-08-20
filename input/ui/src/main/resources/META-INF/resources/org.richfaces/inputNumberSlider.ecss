@@ -33,9 +33,9 @@
 }
 
 .rf-ins-mn, .rf-ins-mx, input.rf-ins-i, .rf-ins-tt {
-	font-size: 11px;
-	font-family: arial;
-	color: #000000;
+	font-size: '#{richSkin.generalSizeFont}';
+	font-family: '#{richSkin.generalFamilyFont}';
+	color: '#{richSkin.generalTextColor}';
 }
 
 .rf-ins-mn, .rf-ins-mx {
@@ -44,13 +44,17 @@
 }
 
 .rf-ins-mn {
-	border-left: 1px solid #c0c0c0;
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-left-color: '#{richSkin.panelBorderColor}';
 	padding-left: 3px;
 	float: left;
 }
 
 .rf-ins-mx {
-	border-right: 1px solid #c0c0c0;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: '#{richSkin.panelBorderColor}';
 	padding-right: 3px;
 	float: right;
 	text-align: right;
@@ -62,8 +66,11 @@
 }
 
 input.rf-ins-i {
-	background: url("#{resource['org.richfaces.renderkit.html.images.InputBackgroundImage']}") top repeat-x #fff;
-	border: 1px inset #C0C0C0;
+	background: url("#{resource['org.richfaces.renderkit.html.images.InputBackgroundImage']}") top repeat-x;
+	background-color: '#{richSkin.controlBackgroundColor}';
+	border-width: 1px;
+	border-style: inset;
+	border-color: '#{richSkin.panelBorderColor}';
 	margin: 0px 10px 0px 10px;
 	vertical-align: bottom;
 }
@@ -77,8 +84,11 @@ input.rf-ins-i {
 }
 
 .rf-ins-t {
-	background: url("#{resource['org.richfaces.renderkit.html.images.SliderTrackGradient']}") 1px 1px repeat-x #FFFFFF;
-	border: 1px solid #C0C0C0;
+	background: url("#{resource['org.richfaces.renderkit.html.images.SliderTrackGradient']}") 1px 1px repeat-x;
+	background-color: '#{richSkin.controlBackgroundColor}';
+	border-width: 1px;
+	border-style: solid;
+	border-color: '#{richSkin.panelBorderColor}';
 	display: block;
 	height: 6px;
 	clear: both;
