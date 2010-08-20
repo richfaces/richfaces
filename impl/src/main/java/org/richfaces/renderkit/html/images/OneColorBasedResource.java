@@ -23,40 +23,84 @@ package org.richfaces.renderkit.html.images;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.io.IOException;
+import java.util.Date;
+import java.util.Map;
 
-import org.ajax4jsf.resource.Java2Dresource;
-import org.ajax4jsf.resource.ResourceContext;
+import javax.faces.context.FacesContext;
+
+import org.richfaces.resource.CacheableResource;
 import org.richfaces.resource.DynamicResource;
 import org.richfaces.resource.ImageType;
+import org.richfaces.resource.Java2DUserResource;
+import org.richfaces.resource.StateHolderResource;
+import org.richfaces.skin.Skin;
+import org.richfaces.skin.SkinFactory;
 
 @DynamicResource
-public abstract class OneColorBasedResource extends Java2Dresource {
-
-    private Dimension dimension;
+public abstract class OneColorBasedResource implements Java2DUserResource, CacheableResource, StateHolderResource {
 
     private String basicColorParamName;
 
     private Color basicColor;
 
-    public OneColorBasedResource(int width, int height, final String basicColorParamName) {
-        super(ImageType.GIF);
+    public OneColorBasedResource(final String basicColorParamName) {
         this.basicColorParamName = basicColorParamName;
-        this.dimension = new Dimension(width, height);
-        
-    }
-
-    /**
-     * @see Java2Dresource#isCacheable(ResourceContext)
-     */
-    public boolean isCacheable(ResourceContext ctx) {
-        return true;
     }
 
     /**
      * Gets value of basicColor field.
      * @return value of basicColor field
      */
-    public Color getBasicColor() {
+    protected Color getBasicColor() {
         return basicColor;
     }
+
+    public boolean isTransient() {
+        return false;
+    }
+
+    public void writeState(FacesContext context, DataOutput dataOutput) throws IOException {
+        Skin skin = SkinFactory.getInstance(context).getSkin(context);
+        dataOutput.writeInt(skin.getColorParameter(context, basicColorParamName));
+    }
+
+    public void readState(FacesContext context, DataInput dataInput) throws IOException {
+        basicColor = new Color(dataInput.readInt());
+    }
+
+    public boolean isCacheable(FacesContext context) {
+        return true;
+    }
+
+    public Date getExpires(FacesContext context) {
+        return null;
+    }
+
+    public int getTimeToLive(FacesContext context) {
+        return 0;
+    }
+
+    public String getEntityTag(FacesContext context) {
+        return null;
+    }
+
+    public Map<String, String> getResponseHeaders() {
+        return null;
+    }
+
+    public Date getLastModified() {
+        return null;
+    }
+
+    public ImageType getImageType() {
+        return ImageType.GIF;
+    }
+
+    public abstract Dimension getDimension();
+
+    public abstract void paint(Graphics2D graphics2d, Dimension dimension);
 }

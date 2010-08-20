@@ -20,30 +20,27 @@
  */
 package org.richfaces.renderkit.html.images;
 
-import org.ajax4jsf.resource.ResourceContext;
-
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
 
 public class InputErrorIcon extends OneColorBasedResource {
 
+    private static final Dimension DIMENSION = new Dimension(6, 11);
+    
     public InputErrorIcon() {
-        super(6, 11, "warningColor");
-    }
-
-    /**
-     * @see org.ajax4jsf.resource.Java2Dresource#paint(ResourceContext, Graphics2D)
-     */
-    protected void paint(ResourceContext context, Graphics2D g2d) {
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setColor(getBasicColor());
-        g2d.fillRect(3, 2, 2, 6);
-        g2d.fillRect(3, 9, 2, 2);
+        super("warningColor");
     }
 
     @Override
     public Dimension getDimension() {
-        // TODO Auto-generated method stub
-        return null;
+        return DIMENSION;
+    }
+
+    @Override
+    public void paint(Graphics2D g2d, Dimension dimension) {
+        g2d.setColor(getBasicColor());
+        g2d.fillRect(3, 2, 2, 6);
+        g2d.fillRect(3, 9, 2, 2);
     }
 
 }
