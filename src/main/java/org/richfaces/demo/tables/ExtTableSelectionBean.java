@@ -1,5 +1,6 @@
 package org.richfaces.demo.tables;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -14,7 +15,7 @@ import org.richfaces.demo.tables.model.cars.InventoryItem;
 
 @ManagedBean
 @SessionScoped
-public class ExtTableSelectionBean {
+public class ExtTableSelectionBean implements Serializable{
     private Collection<Object> selection;
     @ManagedProperty(value = "#{carsBean.allInventoryItems}")
     private List<InventoryItem> inventoryItems;

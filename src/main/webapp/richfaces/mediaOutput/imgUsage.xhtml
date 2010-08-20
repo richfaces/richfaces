@@ -9,9 +9,9 @@
 	other binary resources defined by a user on-the-fly.</p>
 	<p><b>createContent</b> attribute references to the method that
 	will be used for content creating. The method accepts two parameters.
-	The first parameter has an OutputStream type. It is a reference to the
-	steam that should be used for output. The second parameter is a
-	reference to a 'value' attribute of the component.</p>
+	The first parameter has an <b>OutputStream </b>type. It is a reference
+	to the steam that should be used for output. The second parameter is a
+	reference to a '<b>value</b>' attribute of the component.</p>
 	<p><b>value</b> attribute references to data that can be used as
 	input data for a content creator method. The data should be
 	serializable because it is encoded to the URL of the resource.</p>
@@ -23,7 +23,10 @@
 	cached. If it is set to true, it will be cached and the serialized
 	value of 'value' attribute plays the role of a cache key.</p>
 
-	<p>Dynamically generated JPEG file:</p>
+	<p>As <b>Google Application Engine restricts AWT classes usage</b> - in
+	this sample we <b>reading existent image and performing just re-indexing of the
+	palette</b> using colors you selected below. So try to change the color and
+	click process.</p>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
 		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />

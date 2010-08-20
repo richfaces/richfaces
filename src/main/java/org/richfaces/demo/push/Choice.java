@@ -1,6 +1,8 @@
 package org.richfaces.demo.push;
 
-public class Choice {
+import java.io.Serializable;
+
+public class Choice implements Serializable{
     private String label;
     private int votesCount;
 

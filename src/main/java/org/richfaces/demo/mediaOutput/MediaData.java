@@ -3,65 +3,44 @@ package org.richfaces.demo.mediaOutput;
 import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
-@ManagedBean(name = "mediaData")
-@RequestScoped
+@ManagedBean
+@ViewScoped
 public class MediaData implements Serializable {
-
-    /**
-     *
-     */
+    private static final Color[] COLORS = { new Color(255, 0, 0), new Color(0, 0, 255), new Color(0, 255, 0),
+        new Color(255, 255, 0), new Color(0, 255, 255) };
     private static final long serialVersionUID = 1L;
-    int height = 120;
-    int width = 300;
-    Integer color;
-    float scale;
-    String text;
+    private int colorIndex1 = 0;
+    private int colorIndex2 = 1;
+    private int colorIndex3 = 2;
 
-    public MediaData() {
-        setText("RichFaces 4.0");
-        setColor(1000);
-        setScale(2);
+    public Color[] getNewColors() {
+        return new Color[] { COLORS[colorIndex1], COLORS[colorIndex2], COLORS[colorIndex3], };
     }
 
-    public Integer getColor() {
-        return color;
+    public int getColorIndex1() {
+        return colorIndex1;
     }
 
-    public void setColor(Integer color) {
-        this.color = color;
+    public void setColorIndex1(int colorIndex1) {
+        this.colorIndex1 = colorIndex1;
     }
 
-    public float getScale() {
-        return scale;
+    public int getColorIndex2() {
+        return colorIndex2;
     }
 
-    public void setScale(float scale) {
-        this.scale = scale;
+    public void setColorIndex2(int colorIndex2) {
+        this.colorIndex2 = colorIndex2;
     }
 
-    public String getText() {
-        return text;
+    public int getColorIndex3() {
+        return colorIndex3;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setColorIndex3(int colorIndex3) {
+        this.colorIndex3 = colorIndex3;
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
 }

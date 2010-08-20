@@ -162,7 +162,7 @@
 					</sample>
 				</samples>
 			</demo>
-			<demo>
+			<demo new="true">
 				<id>mediaOutput</id>
 				<name>a4j:mediaOutput</name>
 				<samples>

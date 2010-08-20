@@ -25,27 +25,38 @@
 			</h:column>
 		</h:dataTable>
 
-		<a4j:jsFunction name="startPush" action="#{choicesBean.start}"
-			execute="@this" render="push, stop, start" />
-		<a4j:jsFunction name="stopPush" action="#{choicesBean.stop}"
-			execute="@this" render="push, stop, start" />
-
-		<h:commandButton onclick="startPush()" value="Start" id="start"
-			disabled="#{choicesBean.enabled}" type="button" />
-
-		<h:commandButton onclick="stopPush()" type="button" value="Stop"
-			id="stop" disabled="#{!choicesBean.enabled}" />
-
 		<a4j:outputPanel layout="block" id="tempResults">
 			<h:outputText
 				value="Latest update votes was: #{choicesBean.updateInfo} at #{choicesBean.timeStamp}"
 				rendered="#{choicesBean.enabled}" />
+			<h:outputText style="color:red"
+				value="The push has been disabled automatically after 3 minutes of working. Please refresh the page."
+				rendered="#{!choicesBean.enabled}" />
 		</a4j:outputPanel>
-
+		
+		<fieldset>
+			<legend><b>Firing event</b></legend> 
+			<a4j:commandLink style="font-weight:bold;"
+				value="Initiate server Event" id="initiate"
+				disabled="#{!choicesBean.enabled}" render="@none"
+				action="#{choicesBean.initiateEvent}" />
+		<p>Pay attention that this link has <b>@none value in render</b> so it's actually not performs any updates.
+		It's just <b>queues server side event</b> which will be <b>fetched by push</b> component and processed</p>
+		</fieldset>
+		
 		<a4j:push enabled="#{choicesBean.enabled}" interval="1000"
 			eventProducer="#{choicesBean.addListener}" id="push"
-			action="#{choicesBean.processUpdates}">
-			<a4j:ajax render="choiceVotes push tempResults" />
-		</a4j:push>
+			action="#{choicesBean.processUpdates}"
+			render="choiceVotes push tempResults" />
+
+	</h:form>
+
+	<h:form>
+		<!-- This poll used only to expire push after a minute of working. Done in order not 
+		to flood the server with the requests from pages "forgotten" to be closed before 
+		weekends :)-->
+		<a4j:poll interval="180000" action="#{choicesBean.stop}"
+			enabled="#{choicesBean.enabled}"
+			render="push start initiate poll tempResults" id="poll" />
 	</h:form>
 </ui:composition>
