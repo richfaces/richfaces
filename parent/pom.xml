@@ -42,7 +42,7 @@
     </description>
 
     <properties>
-        <richfaces.checkstyle.version>2-SNAPSHOT</richfaces.checkstyle.version>
+        <richfaces.checkstyle.version>2</richfaces.checkstyle.version>
     </properties>
 
 
