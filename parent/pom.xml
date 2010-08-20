@@ -41,7 +41,6 @@
 
         <jetty.port>8080</jetty.port>
         <richfaces.checkstyle.version>2</richfaces.checkstyle.version>
-        <org.richfaces.bom.version>4.0.0-SNAPSHOT</org.richfaces.bom.version>
     </properties>
 
     <dependencyManagement>
@@ -49,7 +48,7 @@
             <dependency>
                 <groupId>org.richfaces</groupId>
                 <artifactId>richfaces-bom</artifactId>
-                <version>${org.richfaces.bom.version}</version>
+                <version>${project.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
