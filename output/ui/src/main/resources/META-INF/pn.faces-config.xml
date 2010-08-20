@@ -2,7 +2,7 @@
 <faces-config version="2.0" metadata-complete="false"
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
               xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:cdk="http://richfaces.org/cdk/extensions"
+              xmlns:cdk="http://jboss.org/schema/richfaces/cdk/extensions"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
     <behavior>
