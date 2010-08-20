@@ -16,10 +16,13 @@
             this.initialValue = this.label.text();
             
             this.element.bind(this.editEvent, $.proxy(this.__editHandler, this));
-            this.input.bind("change", $.proxy(this.__saveHandler, this));
-            this.input.bind("blur", $.proxy(this.__saveHandler, this));
             this.input.bind("focus", $.proxy(this.__editHandler, this));
-         
+            
+            if(!this.showControls) {
+            	this.input.bind("change", $.proxy(this.__saveHandler, this));
+            	this.input.bind("blur", $.proxy(this.__saveHandler, this));
+            }	
+
             if(this.showControls) {
             	this.okbtn = $(document.getElementById(options.okbtn));
             	this.cancelbtn = $(document.getElementById(options.cancelbtn));
@@ -46,20 +49,21 @@
            		}, 
            		
            		save: function() {
-           			var inputValue = this.input.val();
-           			if(inputValue.length > 0) {
-           				this.label.text(inputValue);
-           			}
-           			
-           			if(inputValue != this.initialValue) {
-           				this.element.addClass(this.changedCss);
-           			} else {
-           				this.element.removeClass(this.changedCss);
-           			}
-           			
-           			if(!this.showControls) {
-           				this.editContainer.addClass(this.noneCss);
-           			}
+      
+	           			var inputValue = this.input.val();
+	           			if(inputValue.length > 0) {
+	           				this.label.text(inputValue);
+	           			}
+	           			
+	           			if(inputValue != this.initialValue) {
+	           				this.element.addClass(this.changedCss);
+	           			} else {
+	           				this.element.removeClass(this.changedCss);
+	           			}
+	           			
+	           			if(!this.showControls) {
+	           				this.editContainer.addClass(this.noneCss);
+	           			}
            		}, 
            		
            		cancel: function() {
@@ -81,6 +85,7 @@
 
            		__saveBtnHandler: function(e) {
            			this.input.blur();
+           			this.save();
            			this.editContainer.addClass(this.noneCss);
            			return false;
            		}, 
@@ -100,7 +105,6 @@
            		__saveHandler: function(e) {
            			this.save();
            		}
-	
            	}
            	})());
 
