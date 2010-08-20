@@ -26,7 +26,7 @@
     
     <groupId>org.richfaces</groupId>
     <artifactId>richfaces-build-checkstyle</artifactId>
-    <version>2</version>
+    <version>3-SNAPSHOT</version>
     <name>Richfaces Checkstyle</name>
     
     <description>Contains the checkstyle settings for the RichFaces project</description>
@@ -46,9 +46,9 @@
     
     <!-- SCM and distribution management -->
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/modules/build/resources/tags/richfaces-checkstyle-2</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/modules/build/resources/tags/richfaces-checkstyle-2</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/modules/build/resources/tags/richfaces-checkstyle-2</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/modules/build/resources/trunk/checkstyle</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/modules/build/resources/trunk/checkstyle</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/modules/build/resources/trunk/checkstyle</url>
     </scm>
 
 </project>
