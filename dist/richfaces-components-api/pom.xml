@@ -36,7 +36,7 @@
 
     <properties>
         <assembly.projects.group>org.richfaces.ui</assembly.projects.group>
-        <faces-shade-transformers.version>2</faces-shade-transformers.version>
+        <faces-shade-transformers.version>3-SNAPSHOT</faces-shade-transformers.version>
     </properties>
 
     <dependencies>

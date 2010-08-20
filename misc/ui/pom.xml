@@ -46,7 +46,6 @@
 
     <properties>
         <assembly.projects.group>org.richfaces.ui.misc</assembly.projects.group>
-        <faces-shade-transformers.version>2</faces-shade-transformers.version>
     </properties>
 
     <dependencies>

@@ -29,6 +29,7 @@
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
         <version>10-SNAPSHOT</version>
+<relativePath>../parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.ui</groupId>

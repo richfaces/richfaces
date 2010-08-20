@@ -23,10 +23,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.richfaces.ui</groupId>
-        <artifactId>richfaces-ui-parent</artifactId>
+        <groupId>org.richfaces</groupId>
+        <artifactId>richfaces-root-parent</artifactId>
         <version>4.0.0-SNAPSHOT</version>
-        <relativePath>../parent/pom.xml</relativePath>
+        <relativePath>../../build/parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.ui.iteration</groupId>
