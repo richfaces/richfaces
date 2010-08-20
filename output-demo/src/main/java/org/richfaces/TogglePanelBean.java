@@ -29,7 +29,6 @@ public class TogglePanelBean implements Serializable {
     }
 
     public String getValue() {
-        System.out.println("value = " + value);
         return value;
     }
 
