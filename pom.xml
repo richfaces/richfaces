@@ -4,11 +4,12 @@
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
         <version>10-SNAPSHOT</version>
+        <relativePath>../parent/pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.richfaces</groupId>
-    <artifactId>root</artifactId>
+    <artifactId>richfaces-root</artifactId>
     <version>4.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Richfaces Aggregator</name>
@@ -30,6 +31,7 @@
         
     <profile><id>build</id><modules>
         <module>bom</module>
+        <module>parent</module>
         <module>../core</module>
         <module>../cdk</module>
 
