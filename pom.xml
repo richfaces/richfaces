@@ -29,6 +29,7 @@
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
         <version>10-SNAPSHOT</version>
+<relativePath>../parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.examples</groupId>
@@ -38,6 +39,7 @@
     <name>RichFaces Examples: Aggregator</name>
 
     <modules>
+        <module>parent</module>
         <module>core-demo</module>
         <module>misc-demo</module>
         <module>output-demo</module>

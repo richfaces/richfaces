@@ -4,9 +4,10 @@
 >
 
     <parent>
-        <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-parent</artifactId>
-        <version>10-SNAPSHOT</version>
+        <groupId>org.richfaces.examples</groupId>
+        <artifactId>richfaces-example-parent</artifactId>
+        <version>4.0.0-SNAPSHOT</version>
+        <relativePath>../parent/pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -17,35 +18,12 @@
     <name>Richfaces Examples: Outputs</name>
     <packaging>war</packaging>
 
-    <url>http://jboss.org/richfaces</url>
-
-    <repositories>
-        <repository>
-            <id>jboss-public-repository-group</id>
-            <name>Jboss Repository for Maven</name>
-            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
-        </repository>
-        <repository>
-            <id>java-net</id>
-            <name>Java.net Maven Repository</name>
-            <url>http://download.java.net/maven/2</url>
-        </repository>
-    </repositories>
-
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <build>
         <finalName>${artifactId}-${project.version}</finalName>
         <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                </configuration>
-            </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.1-beta-1</version>
@@ -130,18 +108,6 @@
         </profile>
     </profiles>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.richfaces</groupId>
-                <artifactId>richfaces-bom</artifactId>
-                <version>${project.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.richfaces.ui.output</groupId>
@@ -152,14 +118,6 @@
             <artifactId>richfaces-ui-core-ui</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.sun.faces</groupId>
-            <artifactId>jsf-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.faces</groupId>
-            <artifactId>jsf-impl</artifactId>
-        </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
