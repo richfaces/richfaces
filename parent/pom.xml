@@ -17,9 +17,7 @@
         Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF site:
         http://www.fsf.org.
     -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -31,7 +29,7 @@
 
     <groupId>org.richfaces.examples</groupId>
     <artifactId>richfaces-example-parent</artifactId>
-    <version>4.0.0-SNAPSHOT</version>
+    <version>4.0.0.20100822-M2</version>
     <packaging>pom</packaging>
     <name>RichFaces Examples Parent</name>
 
@@ -124,8 +122,7 @@
                     <configuration>
                         <scanIntervalSeconds>10</scanIntervalSeconds>
                         <connectors>
-                            <connector
-                                implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+                            <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
                                 <port>${jetty.port}</port>
                                 <maxIdleTime>60000</maxIdleTime>
                             </connector>
@@ -224,8 +221,8 @@
     </profiles>
     
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/examples/parent</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/examples/parent</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/trunk/examples/parent</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/tags/4.0.0.20100822-M2/examples/parent</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/tags/4.0.0.20100822-M2/examples/parent</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/tags/4.0.0.20100822-M2/examples/parent</url>
     </scm>
 </project>
