@@ -17,14 +17,13 @@
         Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF site:
         http://www.fsf.org.
     -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.richfaces</groupId>
     <artifactId>richfaces-bom</artifactId>
     <packaging>pom</packaging>
-    <version>4.0.0-SNAPSHOT</version>
+    <version>4.0.0.20100822-M2</version>
     <name>RichFaces BOM</name>
 
     <parent>
@@ -218,9 +217,9 @@
     </dependencyManagement>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/build/bom</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/build/bom</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/trunk/build/bom</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/tags/4.0.0.20100822-M2/build/bom</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/tags/4.0.0.20100822-M2/build/bom</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/tags/4.0.0.20100822-M2/build/bom</url>
     </scm>
 
 </project>
