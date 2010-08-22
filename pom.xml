@@ -15,7 +15,7 @@
     <name>Richfaces Aggregator</name>
 
     
-    
+
     <build>
         <plugins>
             <!-- To trigger the release -->
@@ -36,7 +36,7 @@
         <module>../cdk</module>
 
         
-		<module>../components</module>
+        <module>../components</module>
 
         
         <module>../archetypes</module>
@@ -55,4 +55,10 @@
                 <module>dist</module>
             </modules>
         </profile></profiles>
+
+    <scm>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/trunk</url>
+    </scm>
 </project>
