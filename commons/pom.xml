@@ -21,13 +21,13 @@
     <parent>
         <groupId>org.richfaces.core</groupId>
         <artifactId>richfaces-core-parent</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.0.0.20100822-M2</version>
         <relativePath>../parent/pom.xml</relativePath>
     </parent>
     
     <groupId>org.richfaces.commons</groupId>
     <artifactId>richfaces-commons-api</artifactId>
-    <version>4.0.0-SNAPSHOT</version>
+    <version>4.0.0.20100822-M2</version>
     <name>RichFaces Commons API</name>
 
     <dependencies>
@@ -57,8 +57,8 @@
     </dependencies>
     
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/commons/api</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/commons/api</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/trunk/commons/api</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/tags/4.0.0.20100822-M2/commons/api</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/tags/4.0.0.20100822-M2/commons/api</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/tags/4.0.0.20100822-M2/commons/api</url>
     </scm>
 </project>
