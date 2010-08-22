@@ -17,9 +17,7 @@
     Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF site:
     http://www.fsf.org.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!-- This aggregator pom, is not released, and is only used to make it easy to build all of the
@@ -34,7 +32,7 @@
 
     <groupId>org.richfaces.ui</groupId>
     <artifactId>richfaces-ui-aggregator</artifactId>
-    <version>4.0.0-SNAPSHOT</version>
+    <version>4.0.0.20100822-M2</version>
     <packaging>pom</packaging>
     <name>RichFaces UI: Aggregator</name>
 
@@ -49,5 +47,11 @@
         <module>dist</module>
     </modules>
 
+
+  <scm>
+    <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/modules/build/parent/tags/4.0.0.20100822-M2</connection>
+    <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/modules/build/parent/tags/4.0.0.20100822-M2</developerConnection>
+    <url>http://fisheye.jboss.org/browse/richfaces/modules/build/parent/tags/4.0.0.20100822-M2</url>
+  </scm>
 </project>
 
