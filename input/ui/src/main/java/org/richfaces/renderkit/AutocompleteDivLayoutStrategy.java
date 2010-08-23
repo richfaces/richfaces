@@ -58,7 +58,7 @@ public class AutocompleteDivLayoutStrategy extends AbstractAutocompleteLayoutStr
         ResponseWriter writer = facesContext.getResponseWriter();
 
         writer.startElement(HTML.DIV_ELEM, comboBox);
-        writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "cb_option cb_font rf-ac-i", null);
+        writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-au-option rf-au-font rf-au-input", null);
 
         if (comboBox.getChildCount() > 0) {
             for (UIComponent child : comboBox.getChildren()) {
