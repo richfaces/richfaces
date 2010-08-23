@@ -170,6 +170,7 @@
 
 		init: function(options) {
 			this.$super.constructor.call(this, 'richfaces.log');
+			this.attachToDom();
 			this.__initialLogImpl = richfaces.log;
 			richfaces.log = this;
 			
