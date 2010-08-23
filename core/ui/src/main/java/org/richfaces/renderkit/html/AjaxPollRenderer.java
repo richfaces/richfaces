@@ -29,6 +29,7 @@ import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionEvent;
 
@@ -56,12 +57,18 @@ public class AjaxPollRenderer extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.PollRenderer";
     private static final String AJAX_POLL_FUNCTION = "RichFaces.startPoll";
 
+    private void addComponentToAjaxRender(FacesContext context, UIComponent component) {
+        PartialViewContext pvc = context.getPartialViewContext();
+        pvc.getRenderIds().add(component.getClientId(context));
+    }
+    
     @Override
     protected void queueComponentEventForBehaviorEvent(FacesContext context, UIComponent component, String eventName) {
         super.queueComponentEventForBehaviorEvent(context, component, eventName);
         
         if (AbstractPoll.TIMER.equals(eventName)) {
             new ActionEvent(component).queue();
+            addComponentToAjaxRender(context, component);
         } 
     }
 
@@ -133,6 +140,7 @@ public class AjaxPollRenderer extends RendererBase {
             Map<String, String> requestParameterMap = context.getExternalContext().getRequestParameterMap();
             if (requestParameterMap.get(poll.getClientId(context)) != null) {
                 new ActionEvent(poll).queue();
+                addComponentToAjaxRender(context, component);
             }
         }
     }
