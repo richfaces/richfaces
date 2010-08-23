@@ -12,7 +12,7 @@ import org.richfaces.component.AbstractAutocomplete;
 public class AutocompleteTableLayoutStrategy extends AbstractAutocompleteLayoutStrategy implements
     AutocompleteEncodeStrategy {
 
-	public void encodeFakeItem(FacesContext facesContext, UIComponent component) throws IOException {
+    public void encodeFakeItem(FacesContext facesContext, UIComponent component) throws IOException {
         ResponseWriter responseWriter = facesContext.getResponseWriter();
         responseWriter.startElement(HTML.TD_ELEM, component);
         responseWriter.writeAttribute(HTML.STYLE_ATTRIBUTE, "display:none", null);

@@ -24,7 +24,7 @@ public class AutocompleteListLayoutStrategy extends AbstractAutocompleteLayoutSt
         ResponseWriter responseWriter = facesContext.getResponseWriter();
         responseWriter.startElement(HTML.UL_ELEMENT, component);
         responseWriter.writeAttribute(HTML.ID_ATTRIBUTE, getContainerElementId(facesContext, component), null);
-        responseWriter.writeAttribute(HTML.CLASS_ATTRIBUTE, "cb_list_ul", null);
+        responseWriter.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-au-list-ul", null);
     }
 
     public void encodeItemsContainerEnd(FacesContext facesContext, UIComponent component) throws IOException {
@@ -36,7 +36,7 @@ public class AutocompleteListLayoutStrategy extends AbstractAutocompleteLayoutSt
         ResponseWriter writer = facesContext.getResponseWriter();
 
         writer.startElement(HTML.LI_ELEMENT, comboBox);
-        writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "cb_option cb_font rf-ac-i", null);
+        writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-au-option rf-au-font rf-au-input", null);
 
         if (comboBox.getChildCount() > 0) {
             for (UIComponent child : comboBox.getChildren()) {
