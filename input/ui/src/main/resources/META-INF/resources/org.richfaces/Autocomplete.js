@@ -88,6 +88,7 @@
 
 	var defaultOptions = {
 		selectedItemClass:'rf-au-s',
+		itemClass:'cb_option',
 		autofill:true,
 		minChars:1,
 		selectFirst:true,
@@ -129,7 +130,7 @@
 	};
 
 	var onMouseAction = function(event) {
-		var element = $(event.target).closest(".rf-au-i", event.currentTarget).get(0);
+		var element = $(event.target).closest("."+this.options.itemClass, event.currentTarget).get(0);
 
 		if (element) {
 			if (event.type=="mouseover") {
@@ -146,7 +147,7 @@
 	};
 
 	var updateItemsList = function (value, fetchValues) {
-		this.items = $(rf.getDomElement(this.id+ID.ITEMS)).find(".rf-au-i");
+		this.items = $(rf.getDomElement(this.id+ID.ITEMS)).find("."+this.options.itemClass);
 		if (this.items.length>0) {
 			this.cache = new rf.utils.Cache(value, this.items, fetchValues || getData);
 		}
@@ -236,9 +237,6 @@
 	};
 	
 	var onChangeValue = function (event, value) {
-		//if(this.options.onchange){
-				//this.options.onchange.call(this, event);
-		//}
 		selectItem.call(this);
 		
 		// value is undefined if called from AutocompleteBase onChange
@@ -251,6 +249,8 @@
 			this.options.ajaxMode && callAjax.call(this, event, subValue);
 			return;
 		}
+
+		// TODO: check js error if open by shoButton and minchar>0
 		if(!this.cache){
 			return;
 		}
@@ -260,19 +260,13 @@
 		$(rf.getDomElement(this.id+ID.ITEMS)).empty().append(newItems);
 		this.index = -1;
 		this.value = subValue;
-		if (subValue.length<this.options.minChars){
-			this.hide();
-		}
 		if (this.options.selectFirst) {
 			if (event.which == rf.KEYS.RETURN || event.type == "click") {
 				this.setInputValue(subValue);
-				return;
 			} else {
 				selectItem.call(this, 0, false, event.which == rf.KEYS.BACKSPACE || event.which == rf.KEYS.LEFT || event.which == rf.KEYS.RIGHT);
-				return;
 			}
 		}
-		this.setInputValue(subValue);
 	};
 	
 	var getSelectedItemValue = function () {
@@ -342,8 +336,8 @@
  			__updateState: function (event) {
 				var subValue = this.__getSubValue();
 				// called from onShow method, not actually value changed
-				if (this.items.length==0 && this.isFirstAjax) {
-					callAjax.call(this, event, subValue);
+				if (this.items.length==0 && subValue.length>=this.options.minChars && this.isFirstAjax) {
+					this.options.ajaxMode && callAjax.call(this, event, subValue);
 				}
 				return;
 			},
@@ -380,13 +374,11 @@
 				//rf.getDomElement(this.fieldId).focus();
  			},
  			__onShow: function (event) {
- 				if (event.which != rf.KEYS.BACKSPACE) {
- 					if(this.items && this.items.length>0){
- 						if (this.index!=0 && this.options.selectFirst) {
- 							selectItem.call(this, 0);
- 						}
+ 				if (event.which != rf.KEYS.BACKSPACE && this.items && this.items.length>0) {
+ 					if (this.index!=0 && this.options.selectFirst) {
+ 						selectItem.call(this, 0);
  					}
- 				}
+				}
  			},
  			__onHide: function () {
  				selectItem.call(this);
