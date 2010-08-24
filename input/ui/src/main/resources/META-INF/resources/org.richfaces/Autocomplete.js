@@ -2,13 +2,14 @@
 	rf.utils = rf.utils || {};
 
 	rf.utils.Cache = function (key, items, values) {
-		this.key = key;
+		this.key = key.toLowerCase();
 		this.cache = {}
 		this.cache[this.key] = items || [];
 		this.values = typeof values != "function" ? values || this.cache[this.key] : values(items);
 	};
 
 	var getItems = function (key) {
+		key = key.toLowerCase();
 		var newCache = [];
 		
 		if (key.length < this.key.length) {
@@ -21,7 +22,7 @@
 			var itemsCache = this.cache[this.key];
 			for (var i = 0; i<this.values.length; i++) {
 				var value = this.values[i].toLowerCase();
-				var p = value.indexOf(key.toLowerCase());
+				var p = value.indexOf(key);
 				if (p == 0) {
 					newCache.push(itemsCache[i]);
 				}
@@ -43,7 +44,8 @@
 	};
 	
 	var isCached = function (key) {
-		return this.cache[key];
+		key = key.toLowerCase();
+		return this.cache[key] || this.key.indexOf(key)==0;
 	};
 
 	$.extend(rf.utils.Cache.prototype, (function () {
@@ -93,6 +95,7 @@
 		minChars:1,
 		selectFirst:true,
 		ajaxMode:true,
+		isCachedAjax:true,
 		tokens: ",",
 		attachToBody:true
 	};
@@ -182,6 +185,7 @@
 	var callAjax = function(event, value) {
 		
 		$(rf.getDomElement(this.id+ID.ITEMS)).removeData().empty();
+		
 		rf.getDomElement(this.id+ID.VALUE).value = value;
 		
 		var _this = this;
@@ -236,37 +240,39 @@
 		!noAutoFill && autoFill.call(this, this.value, getSelectedItemValue.call(this));
 	};
 	
+	var updateItemsFromCache = function (value) {
+		var newItems = this.cache.getItems(value);
+		this.items = $(newItems);
+		//TODO: works only with simple markup, not with <tr>
+		$(rf.getDomElement(this.id+ID.ITEMS)).empty().append(newItems);
+	}
+	
 	var onChangeValue = function (event, value) {
 		selectItem.call(this);
 		
 		// value is undefined if called from AutocompleteBase onChange
 		var subValue = (typeof value == "undefined") ? this.__getSubValue() : value;
 		
-		// TODO: ajax call here if needed
-		if ((!this.cache || subValue.length==0 || subValue.toLowerCase().indexOf(this.cache.key.toLowerCase())!=0) && 
-				subValue.length>=this.options.minChars) {
+		if (this.cache && this.cache.isCached(subValue)) {
+			updateItemsFromCache.call(this, subValue);
+			this.index = -1;
 			this.value = subValue;
-			this.options.ajaxMode && callAjax.call(this, event, subValue);
-			return;
-		}
-
-		// TODO: check js error if open by shoButton and minchar>0
-		if(!this.cache){
-			return;
-		}
-		var newItems = this.cache.getItems(subValue);
-		this.items = $(newItems);
-		//TODO: works only with simple markup, not with <tr>
-		$(rf.getDomElement(this.id+ID.ITEMS)).empty().append(newItems);
-		this.index = -1;
-		this.value = subValue;
-		if (this.options.selectFirst) {
-			if (event.which == rf.KEYS.RETURN || event.type == "click") {
-				this.setInputValue(subValue);
-			} else {
-				selectItem.call(this, 0, false, event.which == rf.KEYS.BACKSPACE || event.which == rf.KEYS.LEFT || event.which == rf.KEYS.RIGHT);
+			if (this.options.selectFirst) {
+				if (event.which == rf.KEYS.RETURN || event.type == "click") {
+					this.setInputValue(subValue);
+				} else {
+					selectItem.call(this, 0, false, event.which == rf.KEYS.BACKSPACE || event.which == rf.KEYS.LEFT || event.which == rf.KEYS.RIGHT);
+				}
+			}
+		} else {
+			if (subValue.length>=this.options.minChars) {
+				if (this.options.ajaxMode && this.value!=subValue) {
+					this.value = subValue;
+					this.options.ajaxMode && callAjax.call(this, event, subValue);
+				}
 			}
 		}
+
 	};
 	
 	var getSelectedItemValue = function () {
