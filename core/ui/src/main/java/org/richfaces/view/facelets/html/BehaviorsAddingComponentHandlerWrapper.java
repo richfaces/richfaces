@@ -36,8 +36,6 @@ import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.Tag;
 import javax.faces.view.facelets.TagAttribute;
 
-import org.richfaces.component.AbstractAttachQueue;
-
 /**
  * @author Nick Belaevski
  */
@@ -102,10 +100,6 @@ public class BehaviorsAddingComponentHandlerWrapper extends ComponentHandler {
         BehaviorStack behaviorStack = BehaviorStack.getBehaviorStack(facesContext, false);
 
         if (behaviorStack != null && !behaviorStack.isEmpty()) {
-            if (!(c instanceof AbstractAttachQueue)) {
-                behaviorStack.markWrapping();
-            }
-
             if (c instanceof ClientBehaviorHolder) {
                 ClientBehaviorHolder behaviorHolder = (ClientBehaviorHolder) c;
 

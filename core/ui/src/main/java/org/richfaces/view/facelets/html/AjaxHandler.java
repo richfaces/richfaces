@@ -38,9 +38,12 @@ import javax.faces.view.AttachedObjectTarget;
 import javax.faces.view.BehaviorHolderAttachedObjectTarget;
 import javax.faces.view.facelets.BehaviorConfig;
 import javax.faces.view.facelets.ComponentHandler;
+import javax.faces.view.facelets.CompositeFaceletHandler;
 import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.FaceletHandler;
 import javax.faces.view.facelets.MetaRule;
 import javax.faces.view.facelets.TagException;
+import javax.faces.view.facelets.TagHandler;
 
 import org.ajax4jsf.component.behavior.AjaxBehavior;
 import org.richfaces.component.AbstractAttachQueue;
@@ -57,6 +60,31 @@ public class AjaxHandler extends CustomBehaviorHandler {
         super(config);
     }
 
+    public boolean isWrapping() {
+        if (this.nextHandler instanceof TagHandler) {
+            return !(this.nextHandler instanceof AttachQueueHandler);
+        }
+        
+        if (this.nextHandler instanceof CompositeFaceletHandler) {
+            FaceletHandler[] handlers = ((CompositeFaceletHandler) this.nextHandler).getHandlers();
+            for (FaceletHandler handler : handlers) {
+                if (handler instanceof TagHandler) {
+                    if (handler instanceof AttachQueueHandler) {
+                        continue;
+                    }
+                    
+                    return true;
+                }
+                
+                if (handler instanceof CompositeFaceletHandler) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
     public void apply(FaceletContext ctx, UIComponent parent) throws IOException {
 
         Application application = ctx.getFacesContext().getApplication();
@@ -81,7 +109,7 @@ public class AjaxHandler extends CustomBehaviorHandler {
 
             BehaviorInfo behaviorInfo = ajaxBehaviors.popBehavior();
             if (behaviorInfo != null) {
-                if (behaviorInfo.isWrapping()) {
+                if (isWrapping()) {
                     AbstractAttachQueue attachQueue = attachQueueInfo.getAttachQueue();
                     if (attachQueue != null) {
                         List<ClientBehavior> behaviors = behaviorInfo.getBehaviors();

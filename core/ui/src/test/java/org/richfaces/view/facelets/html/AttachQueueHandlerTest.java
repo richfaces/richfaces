@@ -38,6 +38,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewDeclarationLanguage;
 
 import org.ajax4jsf.component.behavior.AjaxBehavior;
+import org.ajax4jsf.renderkit.AjaxRendererUtils;
 import org.jboss.test.faces.FacesEnvironment;
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.junit.After;
@@ -122,7 +123,7 @@ public class AttachQueueHandlerTest {
         UIComponent attachQueue = viewRoot.findComponent(attachQueueId);
         
         assertTrue(attachQueue instanceof AbstractAttachQueue);
-        assertNull(attachQueue.getParent().getAttributes().get(AbstractAttachQueue.QUEUE_ID_ATTRIBUTE));
+        assertNull(attachQueue.getParent().getAttributes().get(AjaxRendererUtils.QUEUE_ID_ATTRIBUTE));
     }
     
     @Test
@@ -146,7 +147,7 @@ public class AttachQueueHandlerTest {
         buildView("/attachQueueWithParentComponent.xhtml");
         
         UIComponent link = viewRoot.findComponent(":form:link");
-        assertEquals("form:attachQueue", link.getAttributes().get(AbstractAttachQueue.QUEUE_ID_ATTRIBUTE));
+        assertEquals("form:attachQueue", link.getAttributes().get(AjaxRendererUtils.QUEUE_ID_ATTRIBUTE));
     }
     
     @Test

@@ -80,13 +80,6 @@ final class BehaviorStack {
         }
     }
 
-    void markWrapping() {
-        if (!behaviorStack.isEmpty()) {
-            BehaviorInfoImpl behaviorInfo = behaviorStack.getFirst();
-            behaviorInfo.markWrapping();
-        }
-    }
-
     public void pushBehavior(FacesContext context, ClientBehavior clientBehavior, String behaviorId, String eventName) {
 
         Object behaviorState = ((StateHolder) clientBehavior).saveState(context);
@@ -107,7 +100,6 @@ final class BehaviorStack {
 
         public List<ClientBehavior> getBehaviors();
 
-        public boolean isWrapping();
     }
 
     private static class BehaviorInfoImpl implements BehaviorInfo {
@@ -116,7 +108,6 @@ final class BehaviorStack {
         private Object behaviorState;
         private String eventName;
         private List<ClientBehavior> behaviors;
-        private boolean wrapping = false;
 
         public BehaviorInfoImpl(String behaviorId, String eventName, Object behaviorState) {
             this.behaviorId = behaviorId;
@@ -144,14 +135,6 @@ final class BehaviorStack {
 
         public List<ClientBehavior> getBehaviors() {
             return behaviors;
-        }
-
-        public boolean isWrapping() {
-            return wrapping;
-        }
-
-        private void markWrapping() {
-            wrapping = true;
         }
 
         private boolean shouldAddBehavior(ClientBehaviorHolder behaviorHolder, String eventName) {

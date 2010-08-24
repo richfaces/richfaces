@@ -23,6 +23,9 @@
 
 package org.richfaces.view.facelets.html;
 
+import java.util.Locale;
+
+import javax.faces.application.Application;
 import javax.faces.view.facelets.BehaviorHandler;
 import javax.faces.view.facelets.ComponentHandler;
 import javax.faces.view.facelets.ConverterHandler;
@@ -30,16 +33,40 @@ import javax.faces.view.facelets.TagHandlerDelegate;
 import javax.faces.view.facelets.TagHandlerDelegateFactory;
 import javax.faces.view.facelets.ValidatorHandler;
 
+import org.richfaces.log.RichfacesLogger;
+import org.slf4j.Logger;
+
 /**
  * @author Nick Belaevski
  */
 public class BehaviorsTagHandlerDelegateFactoryImpl extends TagHandlerDelegateFactory {
+
+    private static final Logger LOGGER = RichfacesLogger.WEBAPP.getLogger();
+    
     private TagHandlerDelegateFactory factory;
 
+    private boolean isMyFaces = false;
+    
     public BehaviorsTagHandlerDelegateFactoryImpl(TagHandlerDelegateFactory factory) {
         this.factory = factory;
+        detectMyFaces();
     }
 
+    private void detectMyFaces() {
+        String implementationTitle = Application.class.getPackage().getImplementationTitle();
+        if (implementationTitle != null) {
+            isMyFaces = implementationTitle.toLowerCase(Locale.US).contains("myfaces");
+            
+            if (isMyFaces) {
+                //TODO - RF M3 workaround for https://jira.jboss.org/browse/RF-9025 / https://issues.apache.org/jira/browse/MYFACES-2888
+                LOGGER.warn("MyFaces implementation of JavaServer Faces detected. " +
+                		"Wrapping of components using RichFaces behaviors (a4j:ajax etc.) won't work!");
+            }
+        } else {
+            LOGGER.warn("Cannot detect Mojarra vs MyFaces implementation of JavaServer Faces");
+        }
+    }
+    
     /*
      *  (non-Javadoc)
      * @see javax.faces.view.facelets.TagHandlerDelegateFactory#createBehaviorHandlerDelegate(javax.faces.view.facelets.BehaviorHandler)
@@ -59,18 +86,13 @@ public class BehaviorsTagHandlerDelegateFactoryImpl extends TagHandlerDelegateFa
         // TagHandlers structure is created when view is compiled
         // so there's no need to check for BehaviorsStack
         
-        ComponentHandler wrappedHandler = owner;
+        ComponentHandler handler = owner;
 
-        //TODO - consider re-wrapping by smb. other, use attributes to handle
-        if (wrappedHandler instanceof BehaviorsAddingComponentHandlerWrapper) {
-            //MyFaces calls delegate factory just in ComponentHandler class ctor, so this is to avoid infinite recursion
-            //our delegate is fine with null value
-            return null;
-        } else {
-            wrappedHandler = new BehaviorsAddingComponentHandlerWrapper(owner);
+        if (!isMyFaces) {
+            handler = new BehaviorsAddingComponentHandlerWrapper(owner);
         }
         
-        return factory.createComponentHandlerDelegate(wrappedHandler);
+        return factory.createComponentHandlerDelegate(handler);
     }
 
     /*

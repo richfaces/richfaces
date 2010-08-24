@@ -33,6 +33,7 @@ import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
 
 import org.ajax4jsf.component.behavior.AjaxBehavior;
+import org.ajax4jsf.renderkit.AjaxRendererUtils;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -56,8 +57,6 @@ public abstract class AbstractAttachQueue extends UIComponentBase implements Com
     
     public static final String COMPONENT_FAMILY = "org.richfaces.AttachQueue";
     
-    public static final String QUEUE_ID_ATTRIBUTE = "queueId";
-
     private transient List<UIComponent> componentsToAssociate;
     
     private transient List<AjaxBehavior> behaviorsToAssociate;
@@ -93,7 +92,7 @@ public abstract class AbstractAttachQueue extends UIComponentBase implements Com
     }
 
     private static void immediateAssociateWith(UIComponent component, String queueId) {
-        component.getAttributes().put(QUEUE_ID_ATTRIBUTE, queueId);
+        component.getAttributes().put(AjaxRendererUtils.QUEUE_ID_ATTRIBUTE, queueId);
     }
 
     private static void immediateAssociateWith(AjaxBehavior behavior, String queueId) {
