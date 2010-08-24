@@ -24,7 +24,7 @@
 				#{inplaceValue}
 			</span>
 			<span id="#{clientId}:edit" class="#{getEditStyleClass(component, inplaceState)}">
-				<input id="#{clientId}:input" autocomplete="off" name="#{clientId}:input" type="text" value="#{inplaceValue}" class="rf-ii-f" cdk:passThrough="tabIndex"/>
+				<input id="#{clientId}:input" autocomplete="off" name="#{clientId}:input" type="text" value="#{inplaceValue}" class="rf-ii-f" cdk:passThrough="tabIndex" style="width: #{component.attributes['inputWidth']};" />
 				
 				<c:if test="#{component.attributes['showControls']}">
 					<span class="rf-ii-btn-prepos">

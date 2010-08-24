@@ -1,8 +1,35 @@
-(function ($, richfaces) {
+// TODO: remove when these functions will be moved to the RichFaces.Event
+$.extend(RichFaces.Event, {
+	bindScrollEventHandlers: function(element, handler, component) {
+		var elements = [];
+		element = RichFaces.getDomElement(element).parentNode;
+		while (element && element!=window.document.body)
+		{
+			if (element.offsetWidth!=element.scrollWidth || element.offsetHeight!=element.scrollHeight)
+			{
+				elements.push(element);
+				RichFaces.Event.bind(element, "scroll"+component.getNamespace(), handler, component);
+			}
+			element = element.parentNode;
+		}
+		return elements;
+	},
+	unbindScrollEventHandlers: function(elements, component) {
+		RichFaces.Event.unbind(elements, "scroll"+component.getNamespace());
+	}
+});
+
+(function ($, rf) {
 	
-	richfaces.ui = richfaces.ui || {};
+	rf.ui = rf.ui || {};
       
-        richfaces.ui.InplaceInput =  function(id, options) {
+        rf.ui.InplaceInput =  function(id, options) {
+        	/*TODO: use defaultOptions*/ 
+        	$super.constructor.call(this, id);
+    		this.attachToDom(id);
+
+    		this.namespace = this.namespace || "."+rf.Event.createNamespace(this.name, this.id);
+
             this.currentState = options.state;
             this.editEvent = options.editEvent;
             this.noneCss = options.noneCss; 
@@ -17,11 +44,9 @@
             
             this.element.bind(this.editEvent, $.proxy(this.__editHandler, this));
             this.input.bind("focus", $.proxy(this.__editHandler, this));
-            
-            if(!this.showControls) {
-            	this.input.bind("change", $.proxy(this.__saveHandler, this));
-            	this.input.bind("blur", $.proxy(this.__saveHandler, this));
-            }	
+           	this.input.bind("change", $.proxy(this.__changeHandler, this));
+           	this.input.bind("blur", $.proxy(this.__blurHandler, this));
+           	this.input.bind("keydown", $.proxy(this.__keydownHandler, this));
 
             if(this.showControls) {
             	this.okbtn = $(document.getElementById(options.okbtn));
@@ -30,46 +55,52 @@
             	this.cancelbtn.bind("mousedown", $.proxy(this.__cancelBtnHandler, this));
             }
         };
-        
-    	$.extend(richfaces.ui.InplaceInput, {
-    		READY : "ready",
-    		EDIT : "edit",
-    		CHANGED : "changed"
-    	});
     	
-    	$.extend(richfaces.ui.InplaceInput.prototype, ( function () {
-           	return {
-           		name : "RichFaces.ui.InplaceInput",
+    	// Extend component class and add protected methods from parent class to our container
+    	rf.BaseComponent.extend( rf.ui.InplaceInput);
+    	
+    	// define super class link
+    	var $super = rf.ui.InplaceInput.$super;
+
+    	$.extend(rf.ui.InplaceInput.prototype, ( function () {
+    		
+    		var isSaved = false;
+           
+    		return {
+           		name : "inplaceInput",
 
 /******************  public methods  *****************************************/
            		
+           		getNamespace: function () {
+     				return this.namespace;
+     			},
+           		
            		edit: function() {
-           			this.editContainer.removeClass(this.noneCss);
+       				isSaved = false;
+       				this.__show();
            			this.input.focus();
            		}, 
            		
            		save: function() {
-      
-	           			var inputValue = this.input.val();
-	           			if(inputValue.length > 0) {
-	           				this.label.text(inputValue);
-	           			}
+           			var inputValue = this.input.val();
+           			if(inputValue.length > 0) {
+           				this.label.text(inputValue);
+           			}
 	           			
-	           			if(inputValue != this.initialValue) {
-	           				this.element.addClass(this.changedCss);
-	           			} else {
-	           				this.element.removeClass(this.changedCss);
-	           			}
-	           			
-	           			if(!this.showControls) {
-	           				this.editContainer.addClass(this.noneCss);
-	           			}
+           			if(inputValue != this.initialValue) {
+           				this.element.addClass(this.changedCss);
+           			} else {
+           				this.element.removeClass(this.changedCss);
+           			}
+           			isSaved = true;
+       				this.__hide();
            		}, 
            		
            		cancel: function() {
            			var text = this.label.text();
            			this.input.val(text);
-           			this.editContainer.addClass(this.noneCss);
+           			isSaved = true;
+               		this.__hide();
            		},
            		
            		setValue: function (value) {
@@ -84,15 +115,12 @@
 /******************  private methods  *****************************************/
 
            		__saveBtnHandler: function(e) {
-           			this.input.blur();
            			this.save();
-           			this.editContainer.addClass(this.noneCss);
            			return false;
            		}, 
            		
            		__cancelBtnHandler: function(e) {
-           			this.cancel(); 
-           			this.input.blur(); 
+           			this.cancel();
            			return false;
            		}, 
            		
@@ -102,9 +130,52 @@
            			this.input.bind("focus", $.proxy(this.__editHandler, this));
            		}, 
            		
-           		__saveHandler: function(e) {
-           			this.save();
-           		}
+           		__changeHandler: function(e) {
+           			if(!isSaved) {
+           				this.save();
+           			}
+           		}, 
+           		
+           		__blurHandler: function(e) {
+           			if(!isSaved) {
+           				this.save();
+           			}
+           		},
+           		
+           		__scrollHandler: function(e) {
+           			this.cancel();
+           		},
+           		
+           		__keydownHandler: function(e) {
+           			switch(e.keyCode) {
+           				/*Esc*/
+           				case 27: 
+           					this.cancel(); 
+           					break;
+           				/*Enter*/	
+           				case 13:
+           					this.save(); 
+           					return false;
+           			}
+           			
+           		},
+           		           		
+           		__show: function() {
+    				this.scrollElements = rf.Event.bindScrollEventHandlers(this.id, this.__scrollHandler, this);
+          			this.editContainer.removeClass(this.noneCss);
+           		},
+           		
+           		__hide: function() {
+        			rf.Event.unbindScrollEventHandlers(this.scrollElements, this);
+        			this.scrollElements = null;
+           			this.editContainer.addClass(this.noneCss);
+   					this.input.blur();
+           		},
+
+     			destroy: function () {
+           			//TODO: unbind handlers
+           			$super.destroy.call(this);
+     			}
            	}
            	})());
 

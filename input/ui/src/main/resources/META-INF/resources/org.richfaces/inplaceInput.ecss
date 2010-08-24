@@ -170,9 +170,9 @@ input.rf-ii-f {
 }
 
 .rf-ii-none {
-	clip:rect(0px, 0px, 1px, 1px);
+	clip: "rect(0px 0px 1px 1px)";
 }
 
 .rf-ii-none {
-	clip:rect(0px 0px 1px 1px);
+	clip: rect(0px, 0px, 1px, 1px);
 }

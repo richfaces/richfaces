@@ -49,7 +49,6 @@ public class InplaceInputRendererTest {
     @Before
     public void setUp() {
         environment = new HtmlUnitEnvironment();
-        
         environment.withWebRoot(new File("src/test/resources"));
         environment.withResource("/WEB-INF/faces-config.xml", "org/richfaces/renderkit/faces-config.xml");
         environment.withResource("/test.xhtml", "org/richfaces/renderkit/rendererTest.xhtml");
@@ -137,7 +136,10 @@ public class InplaceInputRendererTest {
     @Test
     public void testEdit() throws Exception {
         HtmlPage page = environment.getPage("/test.jsf");
-        edit(page, "input_default");        
+        edit(page, "input_default", "Another Test String");  
+
+        blur(page);
+
         List<?> labelNodes = page.getByXPath("//*[@id = 'form:input_default:label']/text()");
         assertEquals(1, labelNodes.size());
         DomText text = (DomText) labelNodes.get(0);
@@ -150,7 +152,22 @@ public class InplaceInputRendererTest {
 
     }
     
-    private void edit(HtmlPage page, String inplaceInputId) throws Exception {
+    private void blur(HtmlPage page) throws Exception {
+        List<?> panelNodes = page.getByXPath("//*[@id = 'form:panel']");
+        assertEquals(1, panelNodes.size());
+        HtmlElement panel = (HtmlElement) panelNodes.get(0);
+        panel.click();
+    }
+    
+    private void typeNewValue(HtmlPage page, String inplaceInputId, String value) throws Exception {
+        List<?> inputNodes = page.getByXPath("//*[@id = 'form:" + inplaceInputId + ":input']");
+        assertEquals(1, inputNodes.size());
+        HtmlElement input = (HtmlElement) inputNodes.get(0);
+        input.setAttribute(HTML.VALUE_ATTRIBUTE, "");
+        input.type(value);
+    }
+    
+    private void edit(HtmlPage page, String inplaceInputId, String value) throws Exception {
         List<?> nodes = page.getByXPath("//*[@id = 'form:" + inplaceInputId + "']");
         assertEquals(1, nodes.size());
         HtmlElement span = (HtmlElement) nodes.get(0);
@@ -160,29 +177,20 @@ public class InplaceInputRendererTest {
         assertEquals(1, editNodes.size());
         HtmlElement edit = (HtmlElement) editNodes.get(0);
         assertEquals("rf-ii-e-s", edit.getAttribute(HTML.CLASS_ATTRIBUTE));
-        
-        List<?> inputNodes = page.getByXPath("//*[@id = 'form:" + inplaceInputId + ":input']");
-        assertEquals(1, inputNodes.size());
-        HtmlElement input = (HtmlElement) inputNodes.get(0);
-        input.setAttribute(HTML.VALUE_ATTRIBUTE, "");
-        input.type("Another Test String");
-        
-        List<?> panelNodes = page.getByXPath("//*[@id = 'form:panel']");
-        assertEquals(1, panelNodes.size());
-        HtmlElement panel = (HtmlElement) panelNodes.get(0);
-        panel.click();
+
+        typeNewValue(page, inplaceInputId, value);
     }
     
     @Test
     public void testEditWithControls() throws Exception {
         HtmlPage page = environment.getPage("/test.jsf");
         
-        edit(page, "input_controls");
+        edit(page, "input_controls", "Another Test String");
         
         List<?> cancelNodes = page.getByXPath("//*[@id = 'form:input_controls:cancelbtn']");
         assertEquals(1, cancelNodes.size());
         HtmlElement cancel = (HtmlElement) cancelNodes.get(0);
-        
+       
         cancel.mouseDown();
         
         List<?> labelNodes = page.getByXPath("//*[@id = 'form:input_controls:label']/text()");
@@ -195,7 +203,7 @@ public class InplaceInputRendererTest {
         HtmlElement span = (HtmlElement) nodes.get(0);
         assertEquals("rf-ii-d-s", span.getAttribute(HTML.CLASS_ATTRIBUTE));
         
-        edit(page, "input_controls");
+        edit(page, "input_controls",  "Another Test String");
                 
         List<?> okNodes = page.getByXPath("//*[@id = 'form:input_controls:okbtn']");
         assertEquals(1, okNodes.size());
@@ -212,6 +220,15 @@ public class InplaceInputRendererTest {
         assertEquals(1, nodes.size());
         span = (HtmlElement) nodes.get(0);
         assertEquals("rf-ii-d-s rf-ii-c-s", span.getAttribute(HTML.CLASS_ATTRIBUTE));
+        
+        edit(page, "input_controls", "Test String");
+        
+        blur(page);
+        
+        labelNodes = page.getByXPath("//*[@id = 'form:input_controls:label']/text()");
+        assertEquals(1, labelNodes.size());
+        text = (DomText) labelNodes.get(0);
+        assertEquals("Test String", text.getTextContent());
     }
 
     @After
