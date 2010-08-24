@@ -29,7 +29,7 @@
 				onmouseout="#{component.attributes['onmouseout']}"
 				onkeyup="#{component.attributes['onkeyup']}"
 				onkeydown="#{component.attributes['onkeydown']}"
-				onkeypress="#{component.attributes['onkeypress']}" id="#{clientId}Input"  disabled="#{disabled}" name="#{clientId}" type="text" class="rf-au-font rf-au-input" />
+				onkeypress="#{component.attributes['onkeypress']}" id="#{clientId}Input" value="#{component.attributes['value']}"  disabled="#{disabled}" name="#{clientId}" type="text" class="rf-au-font rf-au-input" />
                 <c:if test="#{component.attributes['showButton']}">
                 <c:if test="#{component.attributes['disabled']}">
                 <div id="#{clientId}Button" class="rf-au-button">

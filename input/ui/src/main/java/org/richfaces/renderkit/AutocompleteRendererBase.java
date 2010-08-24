@@ -88,6 +88,11 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
         utils.addToScriptHash(options, "onerror", attributes.get("onerror"));
         utils.addToScriptHash(options, "onbeforedomupdate", attributes.get("onbeforedomupdate"));
         utils.addToScriptHash(options, "onchange", attributes.get("onchange"));
+        if (attributes.get("mode").equals("ajax")){
+            utils.addToScriptHash(options, "isCachedAjax", false, "true");
+        } else if (attributes.get("mode").equals("client")) {
+            utils.addToScriptHash(options, "ajaxMode", false, "true");
+        }
         StringBuilder builder = new StringBuilder();
         builder.append(ScriptUtils.toScript(options));
         return builder.toString();
@@ -201,23 +206,28 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
     protected void encodeItemsContainer(FacesContext facesContext, UIComponent component) throws IOException {
         AutocompleteEncodeStrategy strategy = getStrategy(component);
         strategy.encodeItemsContainerBegin(facesContext, component);
-        strategy.encodeFakeItem(facesContext, component);
+        if (component.getAttributes().get("mode").equals("client")) {
+            List<Object> fetchValues = new ArrayList<Object>();
+            this.encodeItems(facesContext, component, fetchValues);
+        } else {
+            strategy.encodeFakeItem(facesContext, component);
+        }
         strategy.encodeItemsContainerEnd(facesContext, component);
     }
 
     private AutocompleteEncodeStrategy getStrategy(UIComponent component) {
         AbstractAutocomplete comboBox = (AbstractAutocomplete) component;
         if (comboBox.getLayout() != null) {
-            if (comboBox.getLayout().equals(AutocompleteLayout.div)) {
+            if (comboBox.getLayout().equals(AutocompleteLayout.div.toString())) {
                 return new AutocompleteDivLayoutStrategy();
             }
-            if (comboBox.getLayout().equals(AutocompleteLayout.grid)) {
+            if (comboBox.getLayout().equals(AutocompleteLayout.grid.toString())) {
                 return new AutocompleteGridLayoutStrategy();
             }
-            if (comboBox.getLayout().equals(AutocompleteLayout.list)) {
+            if (comboBox.getLayout().equals(AutocompleteLayout.list.toString())) {
                 return new AutocompleteListLayoutStrategy();
             }
-            if (comboBox.getLayout().equals(AutocompleteLayout.table)) {
+            if (comboBox.getLayout().equals(AutocompleteLayout.table.toString())) {
                 return new AutocompleteTableLayoutStrategy();
             }
         }
@@ -226,12 +236,21 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
 
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
-        if (InputUtils.isDisabled(component)) {
+        AbstractAutocomplete autocomplete = (AbstractAutocomplete)component;
+    	if (InputUtils.isDisabled(autocomplete)) {
             return;
+        }
+        Map<String, String> requestParameters = context.getExternalContext().getRequestParameterMap();
+        Object value = requestParameters.get(component.getClientId(context) + "Value");
+        if (value != null) {
+            if(autocomplete.getConverter() != null){
+                value = autocomplete.getConverter().getAsObject(context, component, value.toString());
+            }
+            autocomplete.setSubmittedValue(value);
         }
         super.doDecode(context, component);
 
-        Map<String, String> requestParameters = context.getExternalContext().getRequestParameterMap();
+        
         if (requestParameters.get(component.getClientId(context) + ".ajax") != null) {
             PartialViewContext pvc = context.getPartialViewContext();
             pvc.getRenderIds().add(
