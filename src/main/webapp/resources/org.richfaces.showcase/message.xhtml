@@ -11,17 +11,18 @@
 <title>panel</title>
 </head>
 <body>
-
+   
 <composite:interface>
+	<composite:attribute name="for" required="true" />
 	<composite:attribute name="style" required="false" />
 	<composite:attribute name="styleClass" required="false" />
 </composite:interface>
 
 <composite:implementation>
-	<h:outputStylesheet name="rich/css/messages.css" />
+	<h:outputStylesheet library="org.richfaces.showcase" name="message.css" />  
 	<a4j:outputPanel ajaxRendered="true" layout="none">
-		<h:messages layout="#{cc.attrs.layout}"
-			showSummary="true" style="color:red; #{cc.attrs.style}"
+		<h:message for="#{cc.attrs.for}" showDetail="#{cc.attrs.showDetails}"
+			showSummary="#{cc.attrs.showSummary}" style="#{cc.attrs.style}"
 			styleClass="rich-message #{cc.attrs.styleClass}" />
 	</a4j:outputPanel>
 </composite:implementation>
