@@ -38,5 +38,15 @@ In order to explore, run and deploy the application in Eclipse IDE you can use o
 
 You can find more details in the RichFaces Getting Started Guide (visit documentation page at http://jboss.org/richfaces)
 
+2) Publishing to Google Application Engine
+ 
+In M2 we completed resource plugin which generates static resources and that allow us to create Google App Engine compatible application using RichFaces.
 
+just execute 
+	* mvn clean package -Pgae -Denforcer.skip=true
+(enforcer skipped as resource plugin using snapshot plugin)
 
+And now you're ready to publish the application to GAE. just use appcfg as for any other one like described at google documentation.  
+
+more details about the resource plugin(it could be highly usefull not only in case of GAE usage but for general cases like serving resources at separate content systems) - 
+will be published at our wiki and announced at RichFaces usage space.
