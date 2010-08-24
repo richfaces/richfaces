@@ -15,7 +15,7 @@ $.extend(RichFaces.Event, {
 		return elements;
 	},
 	unbindScrollEventHandlers: function(elements, component) {
-		RichFaces.Event.unbind(elements, component.getNamespace());
+		RichFaces.Event.unbind(elements, "scroll"+component.getNamespace());
 	}
 });
 
