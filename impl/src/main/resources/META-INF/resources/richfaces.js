@@ -143,27 +143,54 @@ if (!window.RichFaces) {
 		return s.replace(CSS_METACHARS_PATTERN, "\\$1");
 	};
 
+	var logImpl;
+	
+	richfaces.setLog = function(newLogImpl) {
+		logImpl = newLogImpl;
+	};
+	
 	richfaces.log = {
 		debug: function(text) {
+			if (logImpl) {
+				logImpl.debug(text);
+			}
 		},
 
 		info: function(text) {
+			if (logImpl) {
+				logImpl.info(text);
+			}
 		},
 
 		warn: function(text) {
+			if (logImpl) {
+				logImpl.warn(text);
+			}
 		},
 
 		error: function(text) {
+			if (logImpl) {
+				logImpl.error(text);
+			}
 		},
 		
 		setLevel: function(level) {
+			if (logImpl) {
+				logImpl.setLevel(level);
+			}
 		},
 
 		getLevel: function() {
+			if (logImpl) {
+				return logImpl.getLevel();
+			}
 			return 'info';
 		},
 		
 		clear: function() {
+			if (logImpl) {
+				logImpl.clear();
+			}
 		}
 	};
 
