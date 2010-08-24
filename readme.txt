@@ -49,4 +49,9 @@ just execute
 And now you're ready to publish the application to GAE. just use appcfg as for any other one like described at google documentation.  
 
 more details about the resource plugin(it could be highly usefull not only in case of GAE usage but for general cases like serving resources at separate content systems) - 
-will be published at our wiki and announced at RichFaces usage space.
+will be published at our wiki and announced at RichFaces usage space. 
+
+There are some additional changes were made in order to make richfaces-showcase GAE compatible:
+	* WebConfiguration class from com.sun.faces were patched removing code which is not compatible with GAE
+	* web.xml with additional properties for GAE created and placed at src\main\webapp-gae\WEB-INF\ (it replaces common one durinf build with GAE profile)
+	* check pom.xml GAE profile section in order to check additional dependencies for that configuration.
