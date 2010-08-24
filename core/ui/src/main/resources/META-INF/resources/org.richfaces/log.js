@@ -171,8 +171,7 @@
 		init: function(options) {
 			this.$super.constructor.call(this, 'richfaces.log');
 			this.attachToDom();
-			this.__initialLogImpl = richfaces.log;
-			richfaces.log = this;
+			richfaces.setLog(this);
 			
 			this.level = options.level;
 			this.hotkey = options.hotkey;
@@ -187,8 +186,7 @@
 		},
 
 		destroy: function() {
-			richfaces.log = this.__initialLogImpl;
-			this.__initialLogImpl = null;
+			richfaces.setLog(null);
 			
 			//TODO test this method
 			if (this.__popupWindow) {
