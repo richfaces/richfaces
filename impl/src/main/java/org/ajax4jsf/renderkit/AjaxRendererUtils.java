@@ -327,7 +327,10 @@ public final class AjaxRendererUtils {
             ajaxEventOptions.set(behaviorName, handlerScript);
         }
 
-        ajaxEventOptions.set(QUEUE_ID_ATTRIBUTE, getQueueId(component));
+        String queueId = getQueueId(component);
+        if (isNotEmpty(queueId)) {
+            ajaxEventOptions.set(QUEUE_ID_ATTRIBUTE, queueId);
+        }
         
         ajaxEventOptions.set("incId", "1");
     }
