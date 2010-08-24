@@ -133,6 +133,8 @@ public final class AjaxRendererUtils {
     public static final String AJAX_COMPONENT_ID_PARAMETER = "org.richfaces.ajax.component";
     public static final String BEHAVIOR_EVENT_PARAMETER = "javax.faces.behavior.event";
 
+    public static final String QUEUE_ID_ATTRIBUTE = "queueId";
+
     private static final String BEFOREDOMUPDATE_ELEMENT_NAME = "beforedomupdate";
     private static final String COMPLETE_ELEMENT_NAME = "complete";
     private static final String DATA_ELEMENT_NAME = "data";
@@ -324,6 +326,8 @@ public final class AjaxRendererUtils {
         if (isNotEmpty(handlerScript)) {
             ajaxEventOptions.set(behaviorName, handlerScript);
         }
+
+        ajaxEventOptions.set(QUEUE_ID_ATTRIBUTE, getQueueId(component));
         
         ajaxEventOptions.set("incId", "1");
     }
@@ -723,6 +727,10 @@ public final class AjaxRendererUtils {
 //      return statusId;
     }
 
+    public static String getQueueId(UIComponent component) {
+        return (String) component.getAttributes().get(QUEUE_ID_ATTRIBUTE);
+    }
+    
     public static JSFunctionDefinition buildAjaxOncomplete(String body) {
         JSFunctionDefinition function = new JSFunctionDefinition("request", "event", "data");
 
