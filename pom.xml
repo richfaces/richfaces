@@ -285,12 +285,8 @@
                                 <configuration>
                                     <webappDirectory>${project.build.directory}/${project.build.finalName}-jee6</webappDirectory>
                                     <classifier>jee6</classifier>
-                                    <!--
-                                        For JBoss AS 6 integration there is a conflict with guava, and
-                                        google-collections. So excluding guava is required
-                                    -->
-                                    <packagingExcludes>WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/guava-*</packagingExcludes>
-                                    <warSourceExcludes>WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/guava-*</warSourceExcludes>
+                                    <packagingExcludes>WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*</packagingExcludes>
+                                    <warSourceExcludes>WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*</warSourceExcludes>
                                     <webResources>
                                         <resource>
                                             <directory>${basedir}/src/main/java</directory>
@@ -365,21 +361,6 @@
             </build>
 
             <dependencies>
-                <dependency>
-                    <groupId>org.richfaces.ui</groupId>
-                    <artifactId>richfaces-components-api</artifactId>
-                    <!--
-                        For JBoss AS 6 integration there is a conflict
-                        with guava, and google-collections. So this is
-                        required until this is resolved.
-                    -->
-                    <exclusions>
-                        <exclusion>
-                            <artifactId>guava</artifactId>
-                            <groupId>com.google.guava</groupId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
                 <dependency>
                     <groupId>com.sun.faces</groupId>
                     <artifactId>jsf-api</artifactId>
