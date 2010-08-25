@@ -23,9 +23,13 @@
 			<span id="#{clientId}:label" class="rf-ii-lbl">
 				#{inplaceValue}
 			</span>
+			<input id="#{clientId}:focus" type="image" style="position: absolute; top: 0px; left: 0px; outline-style: none;" class="rf-ii-none"/>
 			<span id="#{clientId}:edit" class="#{getEditStyleClass(component, inplaceState)}">
-				<input id="#{clientId}:input" autocomplete="off" name="#{clientId}:input" type="text" value="#{inplaceValue}" class="rf-ii-f" cdk:passThrough="tabIndex" style="width: #{component.attributes['inputWidth']};" />
-				
+				<input id="#{clientId}:input" autocomplete="off" name="#{clientId}:input" 
+					   type="text" value="#{inplaceValue}" class="rf-ii-f" style="width: #{component.attributes['inputWidth']};" 
+					   cdk:passThrough="tabIndex">
+					    <cdk:call expression="renderInputHandlers(facesContext, component);"/>
+				</input>
 				<c:if test="#{component.attributes['showControls']}">
 					<span class="rf-ii-btn-prepos">
 						<span class="rf-ii-btn-pos">

@@ -29,7 +29,7 @@ $.extend(RichFaces.Event, {
     		this.attachToDom(id);
 
     		this.namespace = this.namespace || "."+rf.Event.createNamespace(this.name, this.id);
-
+    		
             this.currentState = options.state;
             this.editEvent = options.editEvent;
             this.noneCss = options.noneCss; 
@@ -40,6 +40,7 @@ $.extend(RichFaces.Event, {
             this.editContainer = $(document.getElementById(options.editContainer));
             this.input = $(document.getElementById(options.input));
             this.label = $(document.getElementById(options.label));
+            this.focusElement = $(document.getElementById(options.focusElement));
             this.initialValue = this.label.text();
             
             this.element.bind(this.editEvent, $.proxy(this.__editHandler, this));
@@ -94,13 +95,14 @@ $.extend(RichFaces.Event, {
            			}
            			isSaved = true;
        				this.__hide();
-           		}, 
+       			 }, 
            		
            		cancel: function() {
            			var text = this.label.text();
            			this.input.val(text);
            			isSaved = true;
                		this.__hide();
+       				this.element.focus();
            		},
            		
            		setValue: function (value) {
@@ -113,7 +115,7 @@ $.extend(RichFaces.Event, {
            		}, 
 
 /******************  private methods  *****************************************/
-
+           		
            		__saveBtnHandler: function(e) {
            			this.save();
            			return false;
@@ -140,6 +142,7 @@ $.extend(RichFaces.Event, {
            			if(!isSaved) {
            				this.save();
            			}
+           			return false;
            		},
            		
            		__scrollHandler: function(e) {
@@ -169,7 +172,7 @@ $.extend(RichFaces.Event, {
         			rf.Event.unbindScrollEventHandlers(this.scrollElements, this);
         			this.scrollElements = null;
            			this.editContainer.addClass(this.noneCss);
-   					this.input.blur();
+           			this.focusElement.focus();
            		},
 
      			destroy: function () {
