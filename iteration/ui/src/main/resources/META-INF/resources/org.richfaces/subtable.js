@@ -85,7 +85,7 @@
     		},
     		    		    		
     		isExpand: function() {
-    			return (this.getState() > richfaces.ui.SubTable.collapse);
+    			return (parseInt(this.getState()) == richfaces.ui.SubTable.expand);
            	},
            
     		switchState: function(options) {

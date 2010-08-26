@@ -1,5 +1,5 @@
 /*
- * JBoss, Home of Professional Open Source
+* JBoss, Home of Professional Open Source
  * Copyright ${year}, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
@@ -69,8 +69,13 @@ public abstract class AbstractSubTable extends UIDataTableBase implements Column
         expanded
     }
             
-    @Attribute(defaultValue = "true")
-    public abstract boolean isExpanded();
+    public boolean isExpanded() {
+        return (Boolean)getStateHelper().eval(PropertyKeys.expanded, true);
+    }
+    
+    public void setExpanded(boolean expanded) {
+        getStateHelper().put(PropertyKeys.expanded, expanded);
+    }
     
     @Attribute(defaultValue = MODE_CLIENT)
     public abstract String getExpandMode();
@@ -79,6 +84,7 @@ public abstract class AbstractSubTable extends UIDataTableBase implements Column
         if (event instanceof ToggleEvent) {
             ToggleEvent toggleEvent = (ToggleEvent) event;
             boolean newValue = toggleEvent.isExpanded();
+
             getStateHelper().put(PropertyKeys.expanded, newValue);
             
             FacesContext facesContext = getFacesContext();
