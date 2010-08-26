@@ -23,7 +23,7 @@
     <groupId>org.richfaces</groupId>
     <artifactId>richfaces-bom</artifactId>
     <packaging>pom</packaging>
-    <version>4.0.0-SNAPSHOT</version>
+    <version>4.0.0.20100826-M2</version>
     <name>RichFaces BOM</name>
 
     <parent>
@@ -217,9 +217,9 @@
     </dependencyManagement>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/build/bom</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/build/bom</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/trunk/build/bom</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/tags/4.0.0.20100826-M2/build/bom</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/tags/4.0.0.20100826-M2/build/bom</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/tags/4.0.0.20100826-M2/build/bom</url>
     </scm>
 
 </project>
