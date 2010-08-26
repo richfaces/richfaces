@@ -25,13 +25,13 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-root-parent</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.0.0.20100826-M2</version>
         <relativePath>../../build/parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.ui</groupId>
     <artifactId>richfaces-ui-parent</artifactId>
-    <version>4.0.0-SNAPSHOT</version>
+    <version>4.0.0.20100826-M2</version>
     <name>Richfaces UI Components Parent</name>
     <packaging>pom</packaging>
 
@@ -202,8 +202,8 @@
 
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/parent</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/parent</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/tags/4.0.0.20100826-M2/ui/parent</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/tags/4.0.0.20100826-M2/ui/parent</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/tags/4.0.0.20100826-M2/ui/parent</url>
     </scm>
 </project>

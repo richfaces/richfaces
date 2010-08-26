@@ -25,13 +25,13 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-root-parent</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.0.0.20100826-M2</version>
         <relativePath>../../build/parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.ui.misc</groupId>
     <artifactId>richfaces-ui-misc-aggregator</artifactId>
-    <version>4.0.0-SNAPSHOT</version>
+    <version>4.0.0.20100826-M2</version>
     <packaging>pom</packaging>
     <name>Richfaces UI Components: Miscellanous Aggregator</name>
 
@@ -40,9 +40,9 @@
     </modules>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/misc</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/misc</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/tags/4.0.0.20100826-M2/ui/misc</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/tags/4.0.0.20100826-M2/ui/misc</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/tags/4.0.0.20100826-M2/ui/misc</url>
     </scm>
 
 </project>
