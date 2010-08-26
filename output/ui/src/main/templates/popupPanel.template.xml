@@ -70,8 +70,7 @@
 		</c:if>
 		
 	</div>
-</div>
-<cdk:object type="java.lang.String" name="script" value="#{buildScript(facesContext, component)}" />
+	<cdk:object type="java.lang.String" name="script" value="#{buildScript(facesContext, component)}" />
 	<cdk:object type="java.lang.String" name="showScript" value="#{buildShowScript(facesContext, component)}" />
 			<script type="text/javascript">	
 				#{script}
@@ -81,6 +80,8 @@
 				#{showScript}
 			</script>
 			</c:if>
+</div>
+
 
 
 	</cc:implementation>

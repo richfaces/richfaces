@@ -155,7 +155,10 @@ public class PopupPanelBaseRenderer extends RendererBase {
 
             result.append("});");
         }
-        return result.toString();
+        if (result.length() > 0) {
+            return result.toString();
+        }
+        return null;
     }
 
     public String getStyleIfTrimmed(UIComponent panel){
