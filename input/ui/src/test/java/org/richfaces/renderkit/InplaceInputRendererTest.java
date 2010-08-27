@@ -89,7 +89,6 @@ public class InplaceInputRendererTest {
     }
     
     @Test
-    @Ignore("Updates to RF-9132 broke this test - it needs to be fixed, but is blocking M2 release")
     public void testRenderEditState() throws Exception {
         
         HtmlPage page = environment.getPage("/test.jsf");
