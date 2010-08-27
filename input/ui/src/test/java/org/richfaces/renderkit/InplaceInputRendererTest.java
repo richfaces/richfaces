@@ -72,7 +72,10 @@ public class InplaceInputRendererTest {
         DomNode text = label.getFirstChild();
         assertEquals(DomNode.TEXT_NODE, text.getNodeType());
         
-        HtmlElement edit = (HtmlElement)label.getNextSibling();
+        List<?> editNodes = page.getByXPath("//*[@id = 'form:input_default:edit']");
+        assertEquals(1, editNodes.size());
+        HtmlElement edit = (HtmlElement) editNodes.get(0);
+        
         assertEquals("span", edit.getNodeName());
         assertEquals("rf-ii-e-s rf-ii-none", edit.getAttribute(HTML.CLASS_ATTRIBUTE));
         
@@ -103,7 +106,9 @@ public class InplaceInputRendererTest {
         DomNode text = label.getFirstChild();
         assertEquals(DomNode.TEXT_NODE, text.getNodeType());
         
-        HtmlElement edit = (HtmlElement)label.getNextSibling();
+        List<?> editNodes = page.getByXPath("//*[@id = 'form:input_edit:edit']");
+        assertEquals(1, editNodes.size());
+        HtmlElement edit = (HtmlElement) editNodes.get(0);
         assertEquals("span", edit.getNodeName());
         assertEquals("rf-ii-e-s", edit.getAttribute(HTML.CLASS_ATTRIBUTE));
         
