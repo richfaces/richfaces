@@ -34,7 +34,7 @@ import javax.faces.event.ActionEvent;
 import org.ajax4jsf.renderkit.HandlersChain;
 import org.ajax4jsf.renderkit.RendererBase;
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
+import org.richfaces.log.Logger;
 
 /**
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)

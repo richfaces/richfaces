@@ -44,7 +44,7 @@ import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.MetaComponentRenderer;
-import org.slf4j.Logger;
+import org.richfaces.log.Logger;
 
 /**
  * @author Anton Belevich

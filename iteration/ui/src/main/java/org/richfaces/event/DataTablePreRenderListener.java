@@ -41,7 +41,7 @@ import org.richfaces.component.AbstractDataScroller;
 import org.richfaces.component.UIDataAdaptor;
 import org.richfaces.component.util.MessageUtil;
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
+import org.richfaces.log.Logger;
 
 
 public class DataTablePreRenderListener implements SystemEventListener {

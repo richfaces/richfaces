@@ -29,7 +29,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
+import org.richfaces.log.Logger;
 
 /**
  * @author Nick Belaevski

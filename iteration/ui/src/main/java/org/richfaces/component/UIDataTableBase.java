@@ -60,7 +60,7 @@ import org.richfaces.model.FilterField;
 import org.richfaces.model.SortField;
 import org.richfaces.model.SortMode;
 import org.richfaces.renderkit.MetaComponentRenderer;
-import org.slf4j.Logger;
+import org.richfaces.log.Logger;
 
 public abstract class UIDataTableBase extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder {
 

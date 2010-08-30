@@ -34,7 +34,7 @@ import javax.faces.view.facelets.TagHandlerDelegateFactory;
 import javax.faces.view.facelets.ValidatorHandler;
 
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
+import org.richfaces.log.Logger;
 
 /**
  * @author Nick Belaevski

@@ -36,8 +36,9 @@ import javax.faces.render.Renderer;
 
 import org.ajax4jsf.context.ContextInitParameters;
 import org.richfaces.component.QueueRegistry;
+import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
+
 
 /**
  * @author Nick Belaevski Base class for rendering Queue
