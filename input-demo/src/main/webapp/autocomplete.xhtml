@@ -17,7 +17,7 @@
 		block text block text block text block text block text block text
 		block text block
 
-		<input:autocomplete autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" fetchValue="#{country.name}">
+		<input:autocomplete mode="" minChars="2" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" fetchValue="#{country.name}" showButton="true">
 			#{country.name} #{country.iso} #{country.domain}
 		</input:autocomplete>
 
