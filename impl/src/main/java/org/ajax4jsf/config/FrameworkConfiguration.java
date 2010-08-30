@@ -2,7 +2,7 @@ package org.ajax4jsf.config;
 
 import org.ajax4jsf.util.ELUtils;
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
+import org.richfaces.log.Logger;
 
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;

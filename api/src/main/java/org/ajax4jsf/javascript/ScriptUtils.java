@@ -40,8 +40,8 @@ import javax.faces.FacesException;
 import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.Messages;
+import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
 
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)

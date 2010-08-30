@@ -31,9 +31,9 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.context.ContextInitParameters;
+import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.util.Util;
-import org.slf4j.Logger;
 
 /**
  * @author Nick Belaevski

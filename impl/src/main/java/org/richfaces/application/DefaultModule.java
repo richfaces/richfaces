@@ -3,6 +3,7 @@ package org.richfaces.application;
 import org.ajax4jsf.cache.Cache;
 import org.ajax4jsf.context.InitParametersStorage;
 import org.ajax4jsf.renderkit.AJAXDataSerializer;
+import org.richfaces.l10n.BundleLoader;
 import org.richfaces.resource.DefaultResourceCodec;
 import org.richfaces.resource.ResourceCodec;
 import org.richfaces.skin.SkinFactory;
@@ -18,6 +19,7 @@ public class DefaultModule implements Module {
         factory.setInstance(Uptime.class, new Uptime());
         factory.setInstance(DependencyInjector.class, new DependencyInjectionServiceImpl());
         factory.setInstance(InitParametersStorage.class, new InitParametersStorage());
+        factory.setInstance(MessageFactory.class, new MessageFactoryImpl(new BundleLoader()));
     }
 
 }

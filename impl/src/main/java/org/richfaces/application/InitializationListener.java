@@ -39,8 +39,8 @@ import javax.imageio.stream.ImageInputStream;
 
 import org.ajax4jsf.context.ContextInitParameters;
 import org.richfaces.VersionBean;
+import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
 
 /**
  * @author Nick Belaevski

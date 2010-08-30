@@ -29,7 +29,7 @@ import org.ajax4jsf.cache.Cache;
 import org.ajax4jsf.cache.CacheFactory;
 import org.ajax4jsf.context.ContextInitParameters;
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
+import org.richfaces.log.Logger;
 
 /**
  * @author Nick - mailto:nbelaevski@exadel.com

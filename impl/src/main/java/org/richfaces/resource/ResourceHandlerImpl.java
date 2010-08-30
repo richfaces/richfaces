@@ -40,6 +40,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.ajax4jsf.cache.Cache;
 import org.richfaces.application.ServiceTracker;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 import org.richfaces.util.RequestStateManager.BooleanRequestStateVariable;
 import org.richfaces.util.Util;
 
@@ -53,7 +55,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
     public static final String RESOURCE_CACHE_NAME = "org.richfaces.ResourcesCache";
     public static final String HANDLER_START_TIME_ATTRIBUTE = ResourceHandlerImpl.class.getName() + ":StartTime";
 
-    private static final ResourceLogger LOGGER = ResourceLogger.INSTANCE;
+    private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
 
     private ResourceFactory resourceFactory;
     

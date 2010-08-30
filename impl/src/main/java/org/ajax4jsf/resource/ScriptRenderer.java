@@ -21,14 +21,14 @@
 
 package org.ajax4jsf.resource;
 
-import org.ajax4jsf.Messages;
-import org.ajax4jsf.javascript.JSMin;
-import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import org.ajax4jsf.Messages;
+import org.ajax4jsf.javascript.JSMin;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 class CountingOutputStream extends OutputStream {
     private int written = 0;

@@ -54,8 +54,8 @@ import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSReference;
 import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.richfaces.application.ServiceTracker;
+import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
 
 /**
  * @author shura

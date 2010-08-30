@@ -21,9 +21,15 @@
 
 package org.ajax4jsf.util;
 
-import org.ajax4jsf.Messages;
-import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.el.ELContext;
 import javax.el.ValueExpression;
@@ -38,15 +44,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.model.SelectItem;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
+
+import org.ajax4jsf.Messages;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * @author Maksim Kaszynski

@@ -21,20 +21,21 @@
 
 package org.ajax4jsf.renderkit;
 
-import org.ajax4jsf.Messages;
-import org.ajax4jsf.component.AjaxChildrenEncoder;
-import org.ajax4jsf.component.AjaxOutput;
-import org.ajax4jsf.context.AjaxContext;
-import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
-
-import javax.faces.component.NamingContainer;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+
+import javax.faces.component.NamingContainer;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+
+import org.ajax4jsf.Messages;
+import org.ajax4jsf.component.AjaxChildrenEncoder;
+import org.ajax4jsf.component.AjaxOutput;
+import org.ajax4jsf.context.AjaxContext;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * @author shura

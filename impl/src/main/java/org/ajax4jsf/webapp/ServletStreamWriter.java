@@ -21,9 +21,10 @@
 
 package org.ajax4jsf.webapp;
 
-import javax.servlet.ServletOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+
+import javax.servlet.ServletOutputStream;
 
 /**
  * HACK - for case if servlet response already use Writer, create wrapper to stream -

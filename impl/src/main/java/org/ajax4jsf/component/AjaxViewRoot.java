@@ -29,7 +29,7 @@ import org.ajax4jsf.event.AjaxListener;
 import org.ajax4jsf.event.EventsQueue;
 import org.ajax4jsf.renderkit.AjaxContainerRenderer;
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
+import org.richfaces.log.Logger;
 
 import javax.el.MethodExpression;
 import javax.faces.FacesException;

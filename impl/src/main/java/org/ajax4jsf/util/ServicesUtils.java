@@ -21,17 +21,18 @@
 
 package org.ajax4jsf.util;
 
-import org.ajax4jsf.resource.util.URLToStreamHelper;
-import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
-
-import javax.faces.FacesException;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.faces.FacesException;
+
+import org.ajax4jsf.resource.util.URLToStreamHelper;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * @author shura

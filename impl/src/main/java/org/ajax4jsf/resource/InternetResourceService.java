@@ -45,8 +45,8 @@ import org.ajax4jsf.cache.ServletContextInitMap;
 import org.ajax4jsf.resource.util.URLToStreamHelper;
 import org.ajax4jsf.webapp.BaseFilter;
 import org.ajax4jsf.webapp.WebXml;
+import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
 
 public class InternetResourceService {
     static final String ENABLE_CACHING_PARAMETER = "enable-cache";

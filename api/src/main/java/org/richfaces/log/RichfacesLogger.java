@@ -3,9 +3,6 @@ package org.richfaces.log;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * @author Anton Belevich
  *
@@ -27,7 +24,7 @@ public enum RichfacesLogger {
     }
 
     public Logger getLogger() {
-        return LoggerFactory.getLogger(loggerName);
+        return LogFactory.getLogger(loggerName);
     }
     
     /**

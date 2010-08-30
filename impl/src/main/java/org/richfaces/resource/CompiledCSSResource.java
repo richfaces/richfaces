@@ -33,11 +33,11 @@ import javax.faces.application.ProjectStage;
 import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
 
+import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.css.CSSVisitorImpl;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
-import org.slf4j.Logger;
 import org.w3c.css.sac.CSSException;
 import org.w3c.css.sac.CSSParseException;
 import org.w3c.css.sac.ErrorHandler;

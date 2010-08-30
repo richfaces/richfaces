@@ -21,16 +21,17 @@
 
 package org.ajax4jsf.renderkit;
 
-import org.ajax4jsf.Messages;
-import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
+import java.util.Iterator;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.ApplicationFactory;
 import javax.faces.context.FacesContext;
 import javax.faces.render.RenderKit;
 import javax.faces.render.RenderKitFactory;
-import java.util.Iterator;
+
+import org.ajax4jsf.Messages;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)

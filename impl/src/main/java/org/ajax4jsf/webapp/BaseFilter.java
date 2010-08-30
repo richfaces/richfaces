@@ -21,14 +21,16 @@
 
 package org.ajax4jsf.webapp;
 
-import org.ajax4jsf.Messages;
-import org.ajax4jsf.context.AjaxContext;
-import org.ajax4jsf.renderkit.AjaxContainerRenderer;
-import org.ajax4jsf.request.MultipartRequest;
-import org.ajax4jsf.resource.InternetResourceService;
-import org.richfaces.component.FileUploadConstants;
-import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.faces.application.ViewHandler;
 import javax.servlet.Filter;
@@ -42,16 +44,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.Collections;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Pattern;
+
+import org.ajax4jsf.Messages;
+import org.ajax4jsf.context.AjaxContext;
+import org.ajax4jsf.renderkit.AjaxContainerRenderer;
+import org.ajax4jsf.request.MultipartRequest;
+import org.ajax4jsf.resource.InternetResourceService;
+import org.richfaces.component.FileUploadConstants;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * Base class for request processing filters, with convert Htmp content to XML

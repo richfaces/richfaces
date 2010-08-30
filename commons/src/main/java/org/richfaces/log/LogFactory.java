@@ -21,7 +21,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 
-package org.richfaces;
+package org.richfaces.log;
+
 
 /**
  * <p class="changed_added_4_0">This class produces loggers used by whole RichFaces library.</p>

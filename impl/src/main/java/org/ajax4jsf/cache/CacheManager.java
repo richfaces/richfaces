@@ -32,7 +32,7 @@ import javax.faces.context.FacesContext;
 import org.ajax4jsf.cache.lru.LRUMapCacheFactory;
 import org.ajax4jsf.resource.util.URLToStreamHelper;
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
+import org.richfaces.log.Logger;
 
 /**
  * TODO stop caches on application stop

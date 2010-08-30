@@ -82,9 +82,9 @@ import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.Messages;
 import org.ajax4jsf.util.base64.Codec;
+import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.StateHolderResource;
-import org.slf4j.Logger;
 
 /**
  * @author Nick Belaevski

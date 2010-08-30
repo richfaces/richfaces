@@ -21,15 +21,6 @@
 
 package org.ajax4jsf.webapp;
 
-import org.ajax4jsf.io.FastBufferOutputStream;
-import org.ajax4jsf.io.FastBufferWriter;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.util.Util;
-import org.slf4j.Logger;
-
-import javax.faces.context.ExternalContext;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -39,6 +30,16 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import javax.faces.context.ExternalContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+
+import org.ajax4jsf.io.FastBufferOutputStream;
+import org.ajax4jsf.io.FastBufferWriter;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.util.Util;
 
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)

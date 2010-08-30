@@ -28,15 +28,12 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
 import java.text.MessageFormat;
 
+import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-
-import org.slf4j.Logger;
 
 /**
  * @author Nick Belaevski

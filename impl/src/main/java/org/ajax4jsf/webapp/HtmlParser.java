@@ -21,12 +21,12 @@
 
 package org.ajax4jsf.webapp;
 
-import org.w3c.dom.Node;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.Writer;
+
+import org.w3c.dom.Node;
 
 public interface HtmlParser {
     public abstract void parseHtml(InputStream input, Writer output) throws IOException;

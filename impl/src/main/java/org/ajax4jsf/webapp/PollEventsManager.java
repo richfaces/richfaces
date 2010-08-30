@@ -21,10 +21,11 @@
 
 package org.ajax4jsf.webapp;
 
-import javax.servlet.ServletContext;
 import java.io.Serializable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+
+import javax.servlet.ServletContext;
 
 /**
  * @author asmirnov

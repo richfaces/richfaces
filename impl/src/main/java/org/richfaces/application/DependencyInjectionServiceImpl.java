@@ -42,11 +42,11 @@ import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 
+import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.PostConstructResource;
 import org.richfaces.resource.ResourceParameter;
 import org.richfaces.resource.ResourceParameterELResolver;
-import org.slf4j.Logger;
 
 /**
  * @author Nick Belaevski

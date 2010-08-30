@@ -35,19 +35,6 @@
 
 package org.ajax4jsf.webapp;
 
-import org.ajax4jsf.Messages;
-import org.ajax4jsf.io.FastBufferInputStream;
-import org.ajax4jsf.io.FastBufferOutputStream;
-import org.ajax4jsf.io.FastBufferReader;
-import org.ajax4jsf.io.FastBufferWriter;
-import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
-import org.xml.sax.InputSource;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -60,6 +47,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
+
+import org.ajax4jsf.Messages;
+import org.ajax4jsf.io.FastBufferInputStream;
+import org.ajax4jsf.io.FastBufferOutputStream;
+import org.ajax4jsf.io.FastBufferReader;
+import org.ajax4jsf.io.FastBufferWriter;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.xml.sax.InputSource;
 
 /**
  * Base wrapper save JSF page response, for parse to XML with different parsers

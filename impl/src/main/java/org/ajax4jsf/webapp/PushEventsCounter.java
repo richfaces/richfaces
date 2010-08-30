@@ -21,10 +21,10 @@
 
 package org.ajax4jsf.webapp;
 
-import org.ajax4jsf.event.PushEventListener;
-
 import java.io.Serializable;
 import java.util.EventObject;
+
+import org.ajax4jsf.event.PushEventListener;
 
 public class PushEventsCounter implements PushEventListener, Serializable {
 

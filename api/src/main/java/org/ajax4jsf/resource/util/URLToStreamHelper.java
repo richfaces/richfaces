@@ -25,13 +25,11 @@ package org.ajax4jsf.resource.util;
 
 import java.io.IOException;
 import java.io.InputStream;
-
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-
-import org.slf4j.Logger;
 
 /**
  * Utility class to solve JAR locking issue using {@link URLConnection#setUseCaches(boolean)} method.

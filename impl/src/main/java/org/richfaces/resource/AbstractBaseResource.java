@@ -39,9 +39,9 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.application.Uptime;
+import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.util.Util;
-import org.slf4j.Logger;
 
 /**
  * @author Nick Belaevski

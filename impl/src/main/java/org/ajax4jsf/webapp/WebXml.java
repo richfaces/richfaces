@@ -31,8 +31,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.ajax4jsf.config.WebXMLParser;
 import org.richfaces.VersionBean;
 import org.richfaces.VersionBean.Version;
+import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
 
 /**
  * Parse at startup application web.xml and store servlet and filter mappings.

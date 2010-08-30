@@ -24,7 +24,7 @@ import org.jboss.cache.config.EvictionRegionConfig;
 import org.jboss.cache.eviction.EvictionAlgorithmConfigBase;
 import org.jboss.cache.eviction.ExpirationAlgorithmConfig;
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
+import org.richfaces.log.Logger;
 
 /**
  * @author Nick Belaevski

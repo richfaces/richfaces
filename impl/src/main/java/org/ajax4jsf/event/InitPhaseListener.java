@@ -23,7 +23,7 @@ package org.ajax4jsf.event;
 
 import org.ajax4jsf.application.AjaxViewHandler;
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
+import org.richfaces.log.Logger;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;

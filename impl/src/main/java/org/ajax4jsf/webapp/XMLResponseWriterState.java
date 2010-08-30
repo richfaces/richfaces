@@ -21,10 +21,11 @@
 
 package org.ajax4jsf.webapp;
 
-import org.ajax4jsf.Messages;
+import java.io.IOException;
 
 import javax.faces.component.UIComponent;
-import java.io.IOException;
+
+import org.ajax4jsf.Messages;
 
 /**
  * @author shura Class to implement state pattern for

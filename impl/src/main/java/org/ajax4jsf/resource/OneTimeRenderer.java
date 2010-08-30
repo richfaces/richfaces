@@ -21,13 +21,14 @@
 
 package org.ajax4jsf.resource;
 
-import org.ajax4jsf.Messages;
-import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
-
-import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.util.Map;
+
+import javax.faces.context.FacesContext;
+
+import org.ajax4jsf.Messages;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * Base class for resources, rendered only one time in page ( JavaScript, CSS )

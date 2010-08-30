@@ -41,9 +41,9 @@ import javax.faces.context.FacesContext;
 import org.ajax4jsf.io.ByteBuffer;
 import org.ajax4jsf.io.FastBufferInputStream;
 import org.ajax4jsf.io.FastBufferOutputStream;
+import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.util.Util;
-import org.slf4j.Logger;
 
 /**
  * @author Nick Belaevski

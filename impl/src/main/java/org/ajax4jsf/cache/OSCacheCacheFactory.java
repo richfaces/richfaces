@@ -35,7 +35,7 @@ import javax.faces.context.FacesContext;
 import org.ajax4jsf.context.ContextInitParameters;
 import org.ajax4jsf.resource.util.URLToStreamHelper;
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
+import org.richfaces.log.Logger;
 
 import com.opensymphony.oscache.base.AbstractCacheAdministrator;
 import com.opensymphony.oscache.general.GeneralCacheAdministrator;

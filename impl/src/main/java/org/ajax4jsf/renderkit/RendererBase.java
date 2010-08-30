@@ -30,11 +30,11 @@ import javax.faces.render.Renderer;
 
 import org.ajax4jsf.Messages;
 import org.ajax4jsf.resource.InternetResource;
+import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
-import org.slf4j.Logger;
 
 /**
  * Base Renderer for all chameleon Skin's and components.

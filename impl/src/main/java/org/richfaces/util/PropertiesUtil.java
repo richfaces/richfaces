@@ -29,8 +29,8 @@ import java.util.Enumeration;
 import java.util.Properties;
 
 import org.ajax4jsf.resource.util.URLToStreamHelper;
+import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
 
 /**
  * @author Nick Belaevski

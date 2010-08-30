@@ -32,8 +32,8 @@ import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.util.ELUtils;
+import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
 import org.w3c.dom.css.CSSCharsetRule;
 import org.w3c.dom.css.CSSFontFaceRule;
 import org.w3c.dom.css.CSSImportRule;

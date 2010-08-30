@@ -30,7 +30,7 @@ import org.ajax4jsf.resource.InternetResource;
 import org.ajax4jsf.webapp.BaseFilter;
 import org.ajax4jsf.webapp.FilterServletResponseWrapper;
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
+import org.richfaces.log.Logger;
 
 import javax.faces.FacesException;
 import javax.faces.application.Resource;

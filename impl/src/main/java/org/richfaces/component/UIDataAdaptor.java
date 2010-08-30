@@ -72,8 +72,8 @@ import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
 import org.ajax4jsf.model.SerializableDataModel;
 import org.richfaces.context.ExtendedVisitContext;
+import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
 
 /**
  * Base class for iterable components, like dataTable, Tomahawk dataList, Facelets repeat, tree etc., with support for

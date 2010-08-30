@@ -24,7 +24,7 @@ package org.ajax4jsf.component;
 import org.ajax4jsf.Messages;
 import org.ajax4jsf.event.AjaxEvent;
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
+import org.richfaces.log.Logger;
 
 import javax.el.ELContext;
 import javax.el.MethodExpression;

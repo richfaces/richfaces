@@ -32,6 +32,7 @@ import java.util.jar.Attributes;
 import java.util.jar.JarInputStream;
 import java.util.jar.Manifest;
 
+import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
 /**
@@ -44,7 +45,7 @@ public final class VersionBean {
     
     public static final Version VERSION = new Version();
 	
-    private static final org.slf4j.Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
+    private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
     
     
     /**

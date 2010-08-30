@@ -21,8 +21,8 @@
 
 package org.ajax4jsf.resource;
 
-import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
+import java.io.IOException;
+import java.util.Locale;
 
 import javax.faces.FacesException;
 import javax.faces.FactoryFinder;
@@ -34,8 +34,9 @@ import javax.faces.event.PhaseListener;
 import javax.faces.lifecycle.Lifecycle;
 import javax.faces.lifecycle.LifecycleFactory;
 import javax.faces.render.RenderKitFactory;
-import java.io.IOException;
-import java.util.Locale;
+
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * Lifecycle for simulate faces request processing for resource.

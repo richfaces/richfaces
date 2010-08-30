@@ -45,8 +45,8 @@ import javax.faces.event.PhaseId;
 import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.renderkit.AjaxRendererUtils;
 import org.richfaces.component.MetaComponentEncoder;
+import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
 
 /**
  * @author Nick Belaevski

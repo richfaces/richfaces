@@ -24,9 +24,7 @@
 package org.ajax4jsf.application;
 
 import java.io.IOException;
-
 import java.lang.reflect.Constructor;
-
 import java.util.Locale;
 
 import javax.faces.FacesException;
@@ -35,10 +33,8 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.Messages;
-
+import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-
-import org.slf4j.Logger;
 
 /**
  * Base wrapper for {@link javax.faces.application.ViewHandler} . By default, delegate all

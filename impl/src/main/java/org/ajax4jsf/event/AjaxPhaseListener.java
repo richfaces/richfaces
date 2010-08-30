@@ -30,8 +30,8 @@ import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
 import org.ajax4jsf.context.AjaxContext;
+import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
 
 /**
  * Listener for act before Render phase to set RenderKit Id for current skin.

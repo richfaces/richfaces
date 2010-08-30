@@ -21,12 +21,11 @@
 
 package org.ajax4jsf.webapp;
 
-import org.ajax4jsf.Messages;
-import org.ajax4jsf.application.AjaxViewHandler;
-import org.ajax4jsf.context.ContextInitParameters;
-import org.ajax4jsf.renderkit.AjaxContainerRenderer;
-import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
+import java.util.Map;
 
 import javax.faces.application.ViewExpiredException;
 import javax.servlet.FilterChain;
@@ -37,11 +36,13 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.io.Writer;
-import java.util.Map;
+
+import org.ajax4jsf.Messages;
+import org.ajax4jsf.application.AjaxViewHandler;
+import org.ajax4jsf.context.ContextInitParameters;
+import org.ajax4jsf.renderkit.AjaxContainerRenderer;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 public abstract class BaseXMLFilter {
     public static final String AJAX_EXPIRED = "Ajax-Expired";

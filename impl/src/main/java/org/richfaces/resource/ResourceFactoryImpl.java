@@ -29,12 +29,15 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
+import javax.faces.application.ProjectStage;
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.application.DependencyInjector;
 import org.richfaces.application.ServiceTracker;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 import org.richfaces.util.PropertiesUtil;
 import org.richfaces.util.Util;
 
@@ -49,7 +52,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
 
     private static final Joiner RESOURCE_QUALIFIER_JOINER = Joiner.on(':').skipNulls();
     
-    private static final ResourceLogger LOGGER = ResourceLogger.INSTANCE;
+    private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
 
     private static class ExternalStaticResourceFactory {
 
@@ -100,6 +103,28 @@ public class ResourceFactoryImpl implements ResourceFactory {
         initializeExternalResourcesMap();
     }
 
+    private void logResourceProblem(FacesContext context, Throwable throwable, String messagePattern,
+        Object... arguments) {
+        boolean isProductionStage = context.isProjectStage(ProjectStage.Production);
+
+        if (LOGGER.isWarnEnabled() || (!isProductionStage && LOGGER.isInfoEnabled())) {
+            String formattedMessage = MessageFormat.format(messagePattern, arguments);
+
+            if (throwable != null) {
+                LOGGER.warn(formattedMessage, throwable);
+            } else {
+                if (isProductionStage) {
+                    LOGGER.info(formattedMessage);
+                } else {
+                    LOGGER.warn(formattedMessage);
+                }
+            }
+        }
+    }
+
+    private void logMissingResource(FacesContext context, String resourceData) {
+        logResourceProblem(context, null, "Resource {0} was not found", resourceData);
+    }    
     private String getResourceNameFromQualifier(String qualifier) {
         int idx = qualifier.lastIndexOf(':');
         if (idx < 0) {
@@ -252,10 +277,10 @@ public class ResourceFactoryImpl implements ResourceFactory {
             } catch (ClassNotFoundException e) {
                 // do nothing
             } catch (Exception e) {
-                LOGGER.logResourceProblem(FacesContext.getCurrentInstance(), e, "Error creating resource {0}",
+                logResourceProblem(FacesContext.getCurrentInstance(), e, "Error creating resource {0}",
                     resourceName);
             } catch (LinkageError e) {
-                LOGGER.logResourceProblem(FacesContext.getCurrentInstance(), e, "Error creating resource {0}",
+                logResourceProblem(FacesContext.getCurrentInstance(), e, "Error creating resource {0}",
                     resourceName);
             }
         }
@@ -274,7 +299,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
         Resource resource = createResource(resourceName, libraryName, null);
 
         if (resource == null) {
-            LOGGER.logMissingResource(context, resourceData.getResourceKey());
+            logMissingResource(context, resourceData.getResourceKey());
             return null;
         }
 
@@ -289,7 +314,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
             }
 
             if ((existingVersion != null) && (requestedVersion != null) && !existingVersion.equals(requestedVersion)) {
-                LOGGER.logResourceProblem(context, null, "Resource {0} of version {1} was not found", resourceName,
+                logResourceProblem(context, null, "Resource {0} of version {1} was not found", resourceName,
                     requestedVersion);
                 return null;
             }

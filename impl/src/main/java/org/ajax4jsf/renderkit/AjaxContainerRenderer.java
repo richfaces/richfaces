@@ -21,19 +21,20 @@
 
 package org.ajax4jsf.renderkit;
 
-import org.ajax4jsf.Messages;
-import org.ajax4jsf.component.AjaxContainer;
-import org.ajax4jsf.context.AjaxContext;
-import org.ajax4jsf.event.AjaxEvent;
-import org.richfaces.log.RichfacesLogger;
-import org.slf4j.Logger;
+import java.io.IOException;
+import java.util.Map;
+import java.util.Set;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.io.IOException;
-import java.util.Map;
-import java.util.Set;
+
+import org.ajax4jsf.Messages;
+import org.ajax4jsf.component.AjaxContainer;
+import org.ajax4jsf.context.AjaxContext;
+import org.ajax4jsf.event.AjaxEvent;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * Base renderer for all AJAX - subview components.
