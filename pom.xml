@@ -58,22 +58,6 @@
             <artifactId>ehcache</artifactId>
         </dependency>
 
-        <!--
-            simple logger binding: only messages of level INFO and
-            higher are printed
-        -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.5.8</version>
-        </dependency>
-
-        <!-- Log4J dependency used in examples -->
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.14</version>
-        </dependency>
     </dependencies>
 
     <build>
