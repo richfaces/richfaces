@@ -15,7 +15,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.richfaces.component.AbstractDataGrid;
-import org.richfaces.component.UIDataGrid;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
