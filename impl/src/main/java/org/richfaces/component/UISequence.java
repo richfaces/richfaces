@@ -277,7 +277,7 @@ public class UISequence extends UIDataAdaptor {
         int rowIndex = getRowIndex();
         int rows = getRows();
 
-        if (rows > 0) {
+        if (rows > 1) {
             return rowIndex % rows;
         }
         
