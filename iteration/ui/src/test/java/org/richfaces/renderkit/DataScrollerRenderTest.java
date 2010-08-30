@@ -1,0 +1,440 @@
+package org.richfaces.renderkit;
+
+import static org.junit.Assert.assertEquals;
+
+import java.io.File;
+import java.util.List;
+
+import org.ajax4jsf.renderkit.RendererUtils.HTML;
+import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.gargoylesoftware.htmlunit.html.DomNode;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+
+
+
+/**
+ * @author Anton Belevich
+ *
+ */
+public class DataScrollerRenderTest {
+    
+    private HtmlUnitEnvironment environment;
+
+    @Before
+    public void setUp() {
+        environment = new HtmlUnitEnvironment();
+        environment.withWebRoot(new File("src/test/resources"));
+        environment.withResource("/WEB-INF/faces-config.xml", "org/richfaces/renderkit/faces-config.xml");
+        environment.withResource("/test.xhtml", "org/richfaces/renderkit/dataTableTest.xhtml");
+        environment.start();
+    }
+    
+    @Test
+    public void testEncoding() throws Exception {
+        HtmlPage page = environment.getPage("/test.jsf");
+        
+        String scrollerId = "scroller1";
+        //first scroll
+        List<?> nodes = page.getByXPath("//*[@id = 'form:scroller1']");
+
+        assertEquals(1, nodes.size());
+        HtmlElement span = (HtmlElement) nodes.get(0);
+        assertEquals("span", span.getNodeName());
+        assertEquals("rf-ds", span.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+        
+        // first/fastRewind buttons with arrows
+        HtmlElement first = getFirstButton(page, scrollerId);
+        assertEquals("span", first.getNodeName());
+        assertEquals("rf-ds-btn rf-ds-l rf-ds-dis", first.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+        
+        HtmlElement fastRewind = getFastRewindButton(page, scrollerId);
+        assertEquals("span", fastRewind.getNodeName());
+        assertEquals("rf-ds-btn rf-ds-l rf-ds-dis", fastRewind.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+        
+        // currently selected digital button
+        HtmlElement dc = getDigitalButton(page, scrollerId, 1);
+        assertEquals("span", dc.getNodeName());
+        assertEquals("rf-ds-dtl rf-ds-cur", dc.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+
+        // digital buttons
+        HtmlElement d2 = getDigitalButton(page, scrollerId, 2);
+        assertEquals("a", d2.getNodeName());
+        assertEquals("rf-ds-dtl", d2.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+        assertEquals("javascript:void(0);", d2.getAttribute(HTML.HREF_ATTR));
+        
+        HtmlElement d3 = getDigitalButton(page, scrollerId, 3);
+        assertEquals("a", d3.getNodeName());
+        assertEquals("rf-ds-dtl", d3.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+        assertEquals("javascript:void(0);", d3.getAttribute(HTML.HREF_ATTR));
+        
+        HtmlElement d4 = getDigitalButton(page, scrollerId, 4);
+        assertEquals("a", d4.getNodeName());
+        assertEquals("rf-ds-dtl", d4.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+        assertEquals("javascript:void(0);", d4.getAttribute(HTML.HREF_ATTR));
+        
+        HtmlElement d5 = getDigitalButton(page, scrollerId, 5);
+        assertEquals("a", d5.getNodeName());
+        assertEquals("rf-ds-dtl", d5.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+        assertEquals("javascript:void(0);", d5.getAttribute(HTML.HREF_ATTR));
+        
+        HtmlElement d6 = getDigitalButton(page, scrollerId, 6);
+        assertEquals("a", d6.getNodeName());
+        assertEquals("rf-ds-dtl", d6.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+        assertEquals("javascript:void(0);", d6.getAttribute(HTML.HREF_ATTR));
+        
+        // last/fastForward buttons with arrows
+        HtmlElement fastForward = getFastForwardButton(page, scrollerId);
+        assertEquals("a", fastForward.getNodeName());
+        assertEquals("rf-ds-btn rf-ds-r", fastForward.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+        assertEquals("javascript:void(0);", fastForward.getAttribute(HTML.HREF_ATTR));
+        
+        HtmlElement last = getLastButton(page, scrollerId);
+        assertEquals("a", last.getNodeName());
+        assertEquals("rf-ds-btn rf-ds-r", last.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+        assertEquals("javascript:void(0);", last.getAttribute(HTML.HREF_ATTR));
+    }
+        
+    @Test
+    public void testOutDataScrollerFirstLastButtons() throws Exception {
+        HtmlPage page = environment.getPage("/test.jsf");
+        String firstScrollerId = "scroller1";
+       
+        //dataScroller inside dataTable 'footer' facet
+        String secondScrollerId = "richTable:scroller2";
+        
+        HtmlElement last = getLastButton(page, firstScrollerId);
+        last.click();
+        checkLastPageButtons(page, firstScrollerId, secondScrollerId);
+        
+        HtmlElement first = getFirstButton(page, firstScrollerId);
+        first.click();
+        checkFirstPageButtons(page, firstScrollerId, secondScrollerId);
+    }
+    
+    @Test
+    public void testInnerDataScrollerFirstLastButtons() throws Exception {
+        HtmlPage page = environment.getPage("/test.jsf");
+        String firstScrollerId = "scroller1";
+       
+        //dataScroller inside dataTable 'footer' facet
+        String secondScrollerId = "richTable:scroller2";
+        
+        HtmlElement last = getLastButton(page, secondScrollerId);
+        last.click();
+        checkLastPageButtons(page, firstScrollerId, secondScrollerId);
+        
+        HtmlElement first = getFirstButton(page, secondScrollerId);
+        first.click();
+        checkFirstPageButtons(page, firstScrollerId, secondScrollerId);
+    }
+   
+    @Test
+    public void testOutDataScrollerFastButtons() throws Exception {
+        HtmlPage page = environment.getPage("/test.jsf");
+        String firstScrollerId = "scroller1";
+       
+        //dataScroller inside dataTable 'footer' facet
+        String secondScrollerId = "richTable:scroller2";
+        
+        for(int i = 2; i <= 6; i++) {
+            HtmlElement ff = getFastForwardButton(page, firstScrollerId);
+            
+            ff.click();
+            
+            HtmlElement currentDigital1 = getDigitalButton(page, firstScrollerId, i);
+            assertEquals("span", currentDigital1.getNodeName());
+            assertEquals("rf-ds-dtl rf-ds-cur", currentDigital1.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+            
+            // if scroller inside dataTable has switched
+            HtmlElement currentDigital2 = getDigitalButton(page, secondScrollerId, i);
+            assertEquals("span", currentDigital2.getNodeName());
+            assertEquals("rf-ds-dtl rf-ds-cur", currentDigital2.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+
+            // check if page has switched
+            assertEquals(i + " page content", getCurrentPageContent(page, i));
+        }
+        
+        checkLastPageButtons(page, firstScrollerId, secondScrollerId);
+        
+        //scroll back
+        for(int i = 5; i >= 1; i--) {
+            HtmlElement fr = getFastRewindButton(page, firstScrollerId);
+            fr.click();
+            HtmlElement currentDigital1 = getDigitalButton(page, firstScrollerId, i);
+
+            assertEquals("span", currentDigital1.getNodeName());
+            assertEquals("rf-ds-dtl rf-ds-cur", currentDigital1.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+            
+            // if scroller inside dataTable has switched
+            HtmlElement currentDigital2 = getDigitalButton(page, secondScrollerId, i);
+            assertEquals("span", currentDigital2.getNodeName());
+            assertEquals("rf-ds-dtl rf-ds-cur", currentDigital2.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+
+            // check if page has switched
+            assertEquals(i + " page content", getCurrentPageContent(page, i));
+        }
+        
+        checkFirstPageButtons(page, firstScrollerId, secondScrollerId);
+    }
+    
+    @Test
+    public void testInnerDataScrollerFastButtons() throws Exception {
+        HtmlPage page = environment.getPage("/test.jsf");
+        String firstScrollerId = "scroller1";
+        
+        //dataScroller inside dataTable 'footer' facet
+        String secondScrollerId = "richTable:scroller2";
+        
+        for(int i = 2; i <= 6; i++) {
+            HtmlElement ff = getFastForwardButton(page, secondScrollerId);
+            ff.click();
+            HtmlElement currentDigital2 = getDigitalButton(page, secondScrollerId, i);
+            assertEquals("span", currentDigital2.getNodeName());
+            assertEquals("rf-ds-dtl rf-ds-cur", currentDigital2.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+            
+            // if scroller outside dataTable has switched
+            HtmlElement currentDigital1 = getDigitalButton(page, firstScrollerId, i);
+            assertEquals("span", currentDigital1.getNodeName());
+            assertEquals("rf-ds-dtl rf-ds-cur", currentDigital1.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+
+            // check if page has switched
+            assertEquals(i + " page content", getCurrentPageContent(page, i));
+        }
+        
+        checkLastPageButtons(page, firstScrollerId, secondScrollerId);
+        
+        //scroll back
+        for(int i = 5; i >= 1; i--) {
+            HtmlElement fr = getFastRewindButton(page, secondScrollerId);
+            fr.click();
+            
+            HtmlElement currentDigital2 = getDigitalButton(page, secondScrollerId, i);
+            assertEquals("span", currentDigital2.getNodeName());
+            assertEquals("rf-ds-dtl rf-ds-cur", currentDigital2.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+            
+            // if scroller inside dataTable has switched
+            HtmlElement currentDigital1 = getDigitalButton(page, firstScrollerId, i);
+            assertEquals("span", currentDigital1.getNodeName());
+            assertEquals("rf-ds-dtl rf-ds-cur", currentDigital1.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+
+            // check if page has switched
+            assertEquals(i + " page content", getCurrentPageContent(page, i));
+        }
+        
+        checkFirstPageButtons(page, firstScrollerId, secondScrollerId);
+    }
+    
+    @Test
+    public void testOutDataScrollerDigitalButtons() throws Exception {
+        HtmlPage page = environment.getPage("/test.jsf");
+        String firstScrollerId = "scroller1";
+        
+        //dataScroller inside dataTable 'footer' facet
+        String secondScrollerId = "richTable:scroller2";
+        
+        for(int i = 2; i <= 6; i++) {
+            HtmlElement currentDigital1 = getDigitalButton(page, firstScrollerId, i);
+            currentDigital1.click();
+
+            currentDigital1 = getDigitalButton(page, firstScrollerId, i);
+            assertEquals("span", currentDigital1.getNodeName());
+            assertEquals("rf-ds-dtl rf-ds-cur", currentDigital1.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+            
+            // if scroller inside dataTable has switched
+            HtmlElement currentDigital2 = getDigitalButton(page, secondScrollerId, i);
+            assertEquals("span", currentDigital2.getNodeName());
+            assertEquals("rf-ds-dtl rf-ds-cur", currentDigital2.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+
+            // check if page has switched
+            assertEquals(i + " page content", getCurrentPageContent(page, i));
+        }
+        
+        checkLastPageButtons(page, firstScrollerId, secondScrollerId);
+        
+        //scroll back
+        for(int i = 5; i >= 1; i--) {
+            HtmlElement currentDigital1 = getDigitalButton(page, firstScrollerId, i);
+            currentDigital1.click();
+            
+            currentDigital1 = getDigitalButton(page, firstScrollerId, i);
+            assertEquals("span", currentDigital1.getNodeName());
+            assertEquals("rf-ds-dtl rf-ds-cur", currentDigital1.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+            
+            // if scroller inside dataTable has switched
+            HtmlElement currentDigital2 = getDigitalButton(page, secondScrollerId, i);
+            assertEquals("span", currentDigital2.getNodeName());
+            assertEquals("rf-ds-dtl rf-ds-cur", currentDigital2.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+
+            // check if page has switched
+            assertEquals(i + " page content", getCurrentPageContent(page, i));
+        }
+        
+        checkFirstPageButtons(page, firstScrollerId, secondScrollerId);
+    }
+    
+    @Test
+    public void testInnerDataScrollerDigitalButtons() throws Exception {
+        HtmlPage page = environment.getPage("/test.jsf");
+        String firstScrollerId = "scroller1";
+        
+        //dataScroller inside dataTable 'footer' facet
+        String secondScrollerId = "richTable:scroller2";
+        
+        for(int i = 2; i <= 6; i++) {
+            HtmlElement currentDigital2 = getDigitalButton(page, secondScrollerId, i);
+            currentDigital2.click();
+
+            currentDigital2 = getDigitalButton(page, secondScrollerId, i);
+            assertEquals("span", currentDigital2.getNodeName());
+            assertEquals("rf-ds-dtl rf-ds-cur", currentDigital2.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+            
+            // if scroller outside dataTable has switched
+            HtmlElement currentDigital1 = getDigitalButton(page, firstScrollerId, i);
+            assertEquals("span", currentDigital1.getNodeName());
+            assertEquals("rf-ds-dtl rf-ds-cur", currentDigital1.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+
+            // check if page has switched
+            assertEquals(i + " page content", getCurrentPageContent(page, i));
+        }
+        
+        checkLastPageButtons(page, firstScrollerId, secondScrollerId);
+        
+        //scroll back
+        for(int i = 5; i >= 1; i--) {
+            HtmlElement currentDigital2 = getDigitalButton(page, secondScrollerId, i);
+            currentDigital2.click();
+            
+            currentDigital2 = getDigitalButton(page, secondScrollerId, i);
+            assertEquals("span", currentDigital2.getNodeName());
+            assertEquals("rf-ds-dtl rf-ds-cur", currentDigital2.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+            
+            // if scroller inside dataTable has switched
+            HtmlElement currentDigital1 = getDigitalButton(page, firstScrollerId, i);
+            assertEquals("span", currentDigital1.getNodeName());
+            assertEquals("rf-ds-dtl rf-ds-cur", currentDigital1.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+
+            // check if page has switched
+            assertEquals(i + " page content", getCurrentPageContent(page, i));
+        }
+        
+        checkFirstPageButtons(page, firstScrollerId, secondScrollerId);
+    }
+        
+    @After
+    public void tearDown() {
+        environment.release();
+        environment = null;
+    }
+    
+    private void  checkFirstPageButtons(HtmlPage page, String firstScrollerId, String secondScrollerId) throws Exception {
+        HtmlElement fastForward = getFastForwardButton(page, firstScrollerId);
+        HtmlElement last = getLastButton(page, firstScrollerId);
+        
+        assertEquals("a", fastForward.getNodeName());
+        assertEquals("rf-ds-btn rf-ds-r", fastForward.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+        
+        assertEquals("a", last.getNodeName());
+        assertEquals("rf-ds-btn rf-ds-r", last.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+        
+        fastForward = getFastForwardButton(page, secondScrollerId);
+        last = getFastForwardButton(page, secondScrollerId);
+        
+        assertEquals("a", fastForward.getNodeName());
+        assertEquals("rf-ds-btn rf-ds-r", fastForward.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+        
+        assertEquals("a", last.getNodeName());
+        assertEquals("rf-ds-btn rf-ds-r", last.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+        
+        //check if left buttons is disabled
+        HtmlElement fastRewind = getFastRewindButton(page, firstScrollerId);
+        HtmlElement first = getFirstButton(page, firstScrollerId);
+        
+        assertEquals("span", fastRewind.getNodeName());
+        assertEquals("rf-ds-btn rf-ds-l rf-ds-dis", fastRewind.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+        
+        assertEquals("span", first.getNodeName());
+        assertEquals("rf-ds-btn rf-ds-l rf-ds-dis", first.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+        
+        fastRewind = getFastRewindButton(page, secondScrollerId);
+        first = getFirstButton(page, secondScrollerId);
+        
+        assertEquals("span", fastRewind.getNodeName());
+        assertEquals("rf-ds-btn rf-ds-l rf-ds-dis", fastRewind.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+        
+        assertEquals("span", first.getNodeName());
+        assertEquals("rf-ds-btn rf-ds-l rf-ds-dis", first.getAttribute(HTML.CLASS_ATTRIBUTE).trim()); 
+    }
+    
+    private void  checkLastPageButtons(HtmlPage page, String firstScrollerId, String secondScrollerId) throws Exception {
+        //check if right buttons is disabled
+        HtmlElement fastForward = getFastForwardButton(page, firstScrollerId);
+        HtmlElement last = getLastButton(page, firstScrollerId);
+        
+        assertEquals("span", fastForward.getNodeName());
+        assertEquals("rf-ds-btn rf-ds-r rf-ds-dis", fastForward.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+        
+        assertEquals("span", last.getNodeName());
+        assertEquals("rf-ds-btn rf-ds-r rf-ds-dis", last.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+        
+        fastForward = getFastForwardButton(page, secondScrollerId);
+        last = getFastForwardButton(page, secondScrollerId);
+        
+        assertEquals("span", fastForward.getNodeName());
+        assertEquals("rf-ds-btn rf-ds-r rf-ds-dis", fastForward.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+        
+        assertEquals("span", last.getNodeName());
+        assertEquals("rf-ds-btn rf-ds-r rf-ds-dis", last.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+        
+        //check if left buttons is enabled
+        HtmlElement fastRewind = getFastRewindButton(page, firstScrollerId);
+        HtmlElement first = getFirstButton(page, firstScrollerId);
+        
+        assertEquals("a", fastRewind.getNodeName());
+        assertEquals("rf-ds-btn rf-ds-l", fastRewind.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+        
+        assertEquals("a", first.getNodeName());
+        assertEquals("rf-ds-btn rf-ds-l", first.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+        
+        fastRewind = getFastRewindButton(page, secondScrollerId);
+        first = getFirstButton(page, secondScrollerId);
+        
+        assertEquals("a", fastRewind.getNodeName());
+        assertEquals("rf-ds-btn rf-ds-l", fastRewind.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+        
+        assertEquals("a", first.getNodeName());
+        assertEquals("rf-ds-btn rf-ds-l", first.getAttribute(HTML.CLASS_ATTRIBUTE).trim());
+    }
+    
+    private String getCurrentPageContent(HtmlPage page, int i) throws Exception {
+        HtmlElement content =  page.getFirstByXPath("//*[@id = 'form:richTable:" + (--i) + ":pageContent']");
+        DomNode text = content.getFirstChild();
+        assertEquals(DomNode.TEXT_NODE, text.getNodeType());
+        return text.getNodeValue();
+    }
+    
+    private HtmlElement getFastRewindButton(HtmlPage page, String scrollerId) {
+        return page.getFirstByXPath("//*[@id = 'form:" + scrollerId +"_ds_fr']"); 
+    }
+    
+    private HtmlElement getFirstButton(HtmlPage page, String scrollerId) {
+        return page.getFirstByXPath("//*[@id = 'form:" + scrollerId +"_ds_f']"); 
+    }
+    
+    private HtmlElement getFastForwardButton(HtmlPage page, String scrollerId) {
+       return page.getFirstByXPath("//*[@id = 'form:" + scrollerId +"_ds_ff']"); 
+    }
+    
+    private HtmlElement getLastButton(HtmlPage page, String scrollerId) {
+        return page.getFirstByXPath("//*[@id = 'form:" + scrollerId +"_ds_l']"); 
+    }
+    
+    private HtmlElement getDigitalButton(HtmlPage page, String scrollerId, int i) {
+        return page.getFirstByXPath("//*[@id = 'form:" + scrollerId + "_ds_" + i +"']"); 
+    }
+    
+}
