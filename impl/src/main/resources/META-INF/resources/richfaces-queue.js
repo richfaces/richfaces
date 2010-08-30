@@ -105,6 +105,10 @@
 						}
 					}
 				}
+				
+				if (typeof this.queueOptions.requestGroupId == "undefined") {
+					this.queueOptions.requestGroupId = typeof this.source == "string" ? this.source : this.source.id;
+				}
 
 				// copy of event should be created otherwise IE will fail
 				this.event = $.extend({}, event);
