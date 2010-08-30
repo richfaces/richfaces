@@ -27,8 +27,8 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.richfaces.log.LogFactory;
+import org.richfaces.log.Logger;
 
 /**
  * @author Nick Belaevski
@@ -38,7 +38,7 @@ public class PhaseTracker implements PhaseListener {
 
     private static final long serialVersionUID = 6358081870120864332L;
 
-    private Logger logger = LoggerFactory.getLogger(PhaseTracker.class);
+    private Logger logger = LogFactory.getLogger(PhaseTracker.class);
 
     private ThreadLocal<Long> phaseTimer = new ThreadLocal<Long>();
     

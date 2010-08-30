@@ -1,15 +1,15 @@
 package org.richfaces;
 
-import org.slf4j.LoggerFactory;
-import org.slf4j.Logger;
-
 import java.io.Serializable;
+
+import org.richfaces.log.LogFactory;
+import org.richfaces.log.Logger;
 
 public class TogglePanelBean implements Serializable {
 
     private static final long serialVersionUID = -2403138958014741653L;
     
-    private static final Logger LOGGER = LoggerFactory.getLogger(TogglePanelBean.class);
+    private static final Logger LOGGER = LogFactory.getLogger(TogglePanelBean.class);
     
     private String name;
 
