@@ -6,7 +6,19 @@
 		this.cache = {}
 		this.cache[this.key] = items || [];
 		this.values = typeof values != "function" ? values || this.cache[this.key] : values(items);
+		this.useCache = checkValuesPrefix.call(this);
 	};
+	
+	var checkValuesPrefix = function () {
+		var result = true;
+		for (var i = 0; i<this.values.length; i++) {
+			if (this.values[i].indexOf(this.key)!=0) {
+				result = false;
+				break;
+			}
+		}
+		return result;
+	}
 
 	var getItems = function (key) {
 		key = key.toLowerCase();
@@ -45,7 +57,7 @@
 	
 	var isCached = function (key) {
 		key = key.toLowerCase();
-		return this.cache[key] || this.key.indexOf(key)==0;
+		return this.cache[key] || this.useCache && key.indexOf(this.key)==0;
 	};
 
 	$.extend(rf.utils.Cache.prototype, (function () {
@@ -173,7 +185,7 @@
 	};
 
 	var autoFill = function (inputValue, value) {
-		if( this.options.autofill) {
+		if( this.options.autofill && value.toLowerCase().indexOf(inputValue)==0) {
 			var field = rf.getDomElement(this.fieldId);
 			var start = rf.Selection.getStart(field);
 			this.setInputValue(inputValue + value.substring(inputValue.length));
@@ -184,7 +196,7 @@
 
 	var callAjax = function(event, value) {
 		
-		$(rf.getDomElement(this.id+ID.ITEMS)).removeData().empty();
+		clearItems.call(this);
 		
 		rf.getDomElement(this.id+ID.VALUE).value = value;
 		
@@ -245,18 +257,24 @@
 		this.items = $(newItems);
 		//TODO: works only with simple markup, not with <tr>
 		$(rf.getDomElement(this.id+ID.ITEMS)).empty().append(newItems);
-	}
+	};
+	
+	var clearItems = function () {
+		$(rf.getDomElement(this.id+ID.ITEMS)).removeData().empty();
+		this.items = [];
+	};
 	
 	var onChangeValue = function (event, value) {
 		selectItem.call(this);
+		this.index = -1;
 		
 		// value is undefined if called from AutocompleteBase onChange
 		var subValue = (typeof value == "undefined") ? this.__getSubValue() : value;
+		var oldValue = this.value;
+		this.value = subValue;
 		
 		if (this.cache && this.cache.isCached(subValue)) {
 			updateItemsFromCache.call(this, subValue);
-			this.index = -1;
-			this.value = subValue;
 			if (this.options.selectFirst) {
 				if (event.which == rf.KEYS.RETURN || event.type == "click") {
 					this.setInputValue(subValue);
@@ -265,10 +283,16 @@
 				}
 			}
 		} else {
+			if (event.which == rf.KEYS.RETURN || event.type == "click") {
+				this.setInputValue(subValue);
+			}
 			if (subValue.length>=this.options.minChars) {
-				if (this.options.ajaxMode && this.value!=subValue) {
-					this.value = subValue;
+				if (this.options.ajaxMode && oldValue!=subValue) {
 					this.options.ajaxMode && callAjax.call(this, event, subValue);
+				}
+			} else {
+				if (this.options.ajaxMode) {
+					clearItems.call(this);
 				}
 			}
 		}
