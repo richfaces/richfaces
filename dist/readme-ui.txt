@@ -13,11 +13,9 @@ Getting up and running quickly
 	1.3)  richfaces-core-impl-4.0.0.20100824-M2.jar
 	1.4)  richfaces-components-api-4.0.0.20100824-M2.jar
 	1.5)  richfaces-components-ui-4.0.0.20100824-M2.jar
-	1.6)  slf4j-api
-	1.7)  slf4j-log4j12 (or whatever else - select the implementation according to logging framework that you use)
-	1.8)  sac-1.3, cssparser-0.9.5 - required for components CSS work
-	1.9)  google-guava-r06 - core runtime dependency.
-	1.10) annotations.jar from org.richfaces.cdk . It's optional and should be added only if some RichFaces components will be 
+	1.6)  sac-1.3, cssparser-0.9.5 - required for components CSS work
+	1.7)  google-guava-r06 - core runtime dependency.
+	1.8) annotations.jar from org.richfaces.cdk . It's optional and should be added only if some RichFaces components will be 
 	      created/accessed dynamically from some appication actions/listeners. 
 
 For optimal performance it's recommended to add one of these caching frameworks to application classpath: EhCache, JBoss Cache, OsCache. 	
