@@ -53,7 +53,7 @@
 			<c:if test="#{controlsState.fastForwardRendered}">
 				<c:choose>
 					<c:when test="#{controlsState.fastForwardEnabled}">
-						<a id="#{clientId}_ds_ff" class="rf-ds-btn rf-ds-r" href="javascript:void(0)">
+						<a id="#{clientId}_ds_ff" class="rf-ds-btn rf-ds-r" href="javascript:void(0);">
 							&#187;
 						</a>
 					</c:when>
@@ -68,7 +68,7 @@
 			<c:if test="#{controlsState.lastRendered}">
 				<c:choose>
 					<c:when test="#{controlsState.lastEnabled}">
-						<a id="#{clientId}_ds_l" class="rf-ds-btn rf-ds-r" href="javascript:void(0)">
+						<a id="#{clientId}_ds_l" class="rf-ds-btn rf-ds-r" href="javascript:void(0);">
 							&#187;&#187;
 						</a>
 					</c:when>
