@@ -35,7 +35,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.renderkit.RendererBase;
 import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.richfaces.component.AbstractInplaceInput;
 import org.richfaces.component.InplaceState;
@@ -51,7 +50,7 @@ import org.richfaces.component.util.HtmlUtil;
     @ResourceDependency(name = "richfaces-base-component.js"),
     @ResourceDependency(library="org.richfaces", name = "inplaceInput.js"), 
     @ResourceDependency(library="org.richfaces", name = "inplaceInput.ecss") })
-public class InplaceInputBaseRenderer extends RendererBase {
+public class InplaceInputBaseRenderer extends InputRendererBase {
     
     public static final String OPTIONS_EDIT_EVENT = "editEvent";
     
@@ -61,11 +60,13 @@ public class InplaceInputBaseRenderer extends RendererBase {
     
     public static final String OPTIONS_FOCUS = "focusElement";
     
-    public static final String OPTIONS_BTN_OK = "okbtn";
+    public static final String OPTIONS_BUTTON_OK = "okbtn";
     
     public static final String OPTIONS_LABEL = "label";
     
-    public static final String OPTIONS_BTN_CANCEL = "cancelbtn";
+    public static final String OPTIONS_DEFAULT_LABEL = "defaultLabel";
+    
+    public static final String OPTIONS_BUTTON_CANCEL = "cancelbtn";
     
     public static final String OPTIONS_SHOWCONTROLS = "showControls";
         
@@ -115,17 +116,6 @@ public class InplaceInputBaseRenderer extends RendererBase {
             setComponentAttributeName("onselect")
     ));
 
-    
-    @Override
-    protected void doDecode(FacesContext facesContext, UIComponent component) {
-        AbstractInplaceInput inplaceInput = (AbstractInplaceInput)component;
-        Map <String, String> parameterMap = facesContext.getExternalContext().getRequestParameterMap();
-        String newValue = (String)parameterMap.get(inplaceInput.getClientId(facesContext));
-        if (newValue != null) {
-            inplaceInput.setSubmittedValue(newValue);
-        }
-    }
-
     protected void renderInputHandlers(FacesContext facesContext, UIComponent component) throws IOException {
         RenderKitUtils.renderPassThroughAttributesOptimized(facesContext, component, INPLACEINPUT_HANDLER_ATTRIBUTES);
     }
@@ -134,12 +124,15 @@ public class InplaceInputBaseRenderer extends RendererBase {
         return ((AbstractInplaceInput) component).getState();
     }
 
-    public String getValue(FacesContext context, UIComponent component) throws IOException {
-        // TODO: convert?
-        String value = (String) ((AbstractInplaceInput) component).getValue();
+    public String getValue(FacesContext facesContext, UIComponent component) throws IOException {
+        AbstractInplaceInput inplaceInput = (AbstractInplaceInput)component;        
+        String value = getInputValue(facesContext, inplaceInput);
+        if(value == null || "".equals(value)) {
+            value = inplaceInput.getDefaultLabel();
+        }
         return value;
     }
-
+    
     public String getResourcePath(FacesContext context, String resourceName) {
         if (resourceName != null) {
             ResourceHandler resourceHandler = context.getApplication().getResourceHandler();
@@ -188,12 +181,13 @@ public class InplaceInputBaseRenderer extends RendererBase {
         options.put(OPTIONS_INPUT, clientId + ":input");
         options.put(OPTIONS_LABEL, clientId + ":label");
         options.put(OPTIONS_FOCUS, clientId + ":focus");
+        options.put(OPTIONS_DEFAULT_LABEL, inplaceInput.getDefaultLabel());
         
         boolean showControls = inplaceInput.isShowControls();
         options.put(OPTIONS_SHOWCONTROLS, showControls);
         if(showControls) {
-            options.put(OPTIONS_BTN_OK, clientId + ":okbtn");
-            options.put(OPTIONS_BTN_CANCEL, clientId + ":cancelbtn");
+            options.put(OPTIONS_BUTTON_OK, clientId + ":okbtn");
+            options.put(OPTIONS_BUTTON_CANCEL, clientId + ":cancelbtn");
         }    
         function.addParameter(options);
         

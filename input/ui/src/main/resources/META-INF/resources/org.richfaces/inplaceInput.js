@@ -28,21 +28,26 @@ $.extend(RichFaces.Event, {
         	$super.constructor.call(this, id);
     		this.attachToDom(id);
 
-    		this.namespace = this.namespace || "."+rf.Event.createNamespace(this.name, this.id);
+    		this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, this.id);
     		
             this.currentState = options.state;
             this.editEvent = options.editEvent;
             this.noneCss = options.noneCss; 
             this.changedCss = options.changedCss;
             this.showControls = options.showControls;
+            this.defaultLabel = options.defaultLabel;
             
             this.element = $(document.getElementById(id)); 
             this.editContainer = $(document.getElementById(options.editContainer));
             this.input = $(document.getElementById(options.input));
             this.label = $(document.getElementById(options.label));
             this.focusElement = $(document.getElementById(options.focusElement));
-            this.initialValue = this.label.text();
             
+            var label = this.label.text();
+            var inputLabel = this.input.val();
+           
+            this.initialValue = (label == inputLabel) ? label : "";
+
             this.element.bind(this.editEvent, $.proxy(this.__editHandler, this));
             this.input.bind("focus", $.proxy(this.__editHandler, this));
            	this.input.bind("change", $.proxy(this.__changeHandler, this));
@@ -66,7 +71,8 @@ $.extend(RichFaces.Event, {
     	$.extend(rf.ui.InplaceInput.prototype, ( function () {
     		
     		var isSaved = false;
-           
+    		var isValueChanged = false;
+        
     		return {
            		name : "inplaceInput",
 
@@ -86,6 +92,10 @@ $.extend(RichFaces.Event, {
            			var inputValue = this.input.val();
            			if(inputValue.length > 0) {
            				this.label.text(inputValue);
+           				isValueChanged = true;
+           			} else {
+           				this.label.text(this.defaultLabel);
+           				isValueChanged = false;
            			}
 	           			
            			if(inputValue != this.initialValue) {
@@ -98,7 +108,10 @@ $.extend(RichFaces.Event, {
        			 }, 
            		
            		cancel: function() {
-           			var text = this.label.text();
+       				var text = "";
+       				if(isValueChanged) {
+       					text = this.label.text();
+       				} 
            			this.input.val(text);
            			isSaved = true;
                		this.__hide();
