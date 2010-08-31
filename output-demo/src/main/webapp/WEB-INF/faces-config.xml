@@ -34,6 +34,10 @@
             <from-outcome>accordion</from-outcome>
             <to-view-id>/examples/accordion.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>collapsiblePanel</from-outcome>
+            <to-view-id>/examples/collapsiblePanel.xhtml</to-view-id>
+        </navigation-case>
 
         <!-- QUnit -->
         <navigation-case>
@@ -51,6 +55,10 @@
         <navigation-case>
             <from-outcome>qunit/accordionHeaders</from-outcome>
             <to-view-id>/qunit/accordionHeaders.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>qunit/collapsiblePanel</from-outcome>
+            <to-view-id>/qunit/collapsiblePanel.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>
