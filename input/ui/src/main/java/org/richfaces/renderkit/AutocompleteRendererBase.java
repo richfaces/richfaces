@@ -37,6 +37,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.PartialViewContext;
+import javax.faces.context.ResponseWriter;
 import javax.faces.model.ArrayDataModel;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
@@ -47,6 +48,7 @@ import javax.servlet.jsp.jstl.sql.Result;
 import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.javascript.ScriptUtils;
 import org.ajax4jsf.renderkit.RendererUtils;
+import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.ajax4jsf.util.InputUtils;
 import org.richfaces.component.AbstractAutocomplete;
 import org.richfaces.component.AutocompleteLayout;
@@ -88,10 +90,12 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
         utils.addToScriptHash(options, "onerror", attributes.get("onerror"));
         utils.addToScriptHash(options, "onbeforedomupdate", attributes.get("onbeforedomupdate"));
         utils.addToScriptHash(options, "onchange", attributes.get("onchange"));
-        if (attributes.get("mode").equals("ajax")){
-            utils.addToScriptHash(options, "isCachedAjax", false, "true");
-        } else if (attributes.get("mode").equals("client")) {
-            utils.addToScriptHash(options, "ajaxMode", false, "true");
+        if (attributes.get("mode") != null) {
+            if (attributes.get("mode").equals("ajax")){
+                utils.addToScriptHash(options, "isCachedAjax", false, "true");
+            } else if (attributes.get("mode").equals("client")) {
+                utils.addToScriptHash(options, "ajaxMode", false, "true");
+            }
         }
         StringBuilder builder = new StringBuilder();
         builder.append(ScriptUtils.toScript(options));
@@ -185,12 +189,17 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
             Object nextItem = items.next();
             setVar(facesContext, comboBox.getVar(), nextItem);
 
-            strategy.encodeItem(facesContext, comboBox, nextItem);
+            this.encodeItem(facesContext, comboBox, nextItem, strategy);
             if (comboBox.getFetchValue() != null) {
                 fetchValues.add(comboBox.getFetchValue());
             } else {
                 // TODO use converter
-                fetchValues.add(nextItem);
+                if (comboBox.getItemConverter() != null) {
+                    fetchValues.add(comboBox.getItemConverter().getAsString(facesContext, component, nextItem));
+                } else{
+                    fetchValues.add(nextItem);
+            	}
+                
             }
         }
 
@@ -205,24 +214,51 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
 
     protected void encodeItemsContainer(FacesContext facesContext, UIComponent component) throws IOException {
         AutocompleteEncodeStrategy strategy = getStrategy(component);
-        strategy.encodeItemsContainerBegin(facesContext, component);
-        if (component.getAttributes().get("mode").equals("client")) {
+        Object mode = component.getAttributes().get("mode");
+        if (mode!= null && mode.equals("client")) {
             List<Object> fetchValues = new ArrayList<Object>();
             this.encodeItems(facesContext, component, fetchValues);
-        } else {
+        } else if (mode!= null && mode.equals("lazyClient")){
+            strategy.encodeItemsContainerBegin(facesContext, component);
+            strategy.encodeItemsContainerEnd(facesContext, component);
+        } else{
+            strategy.encodeItemsContainerBegin(facesContext, component);
             strategy.encodeFakeItem(facesContext, component);
+            strategy.encodeItemsContainerEnd(facesContext, component);
         }
-        strategy.encodeItemsContainerEnd(facesContext, component);
     }
 
+    public void encodeItem(FacesContext facesContext, AbstractAutocomplete comboBox, Object item, AutocompleteEncodeStrategy strategy) throws IOException {
+        strategy.encodeItemBegin(facesContext, comboBox);
+        ResponseWriter writer = facesContext.getResponseWriter();
+        
+        writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-au-option rf-au-font rf-au-input", null);
+
+        if (comboBox.getChildCount() > 0) {
+            for (UIComponent child : comboBox.getChildren()) {
+                child.encodeAll(facesContext);
+            }
+        } else {
+            if (item != null) {
+                // TODO nick - use converter
+                String value = null;
+                if (comboBox.getItemConverter() != null) {
+                    value = comboBox.getItemConverter().getAsString(facesContext, comboBox, item);
+                }
+                if (value != null) {
+                    writer.writeText(value, null);
+                }
+                writer.writeText(item, null);
+            }
+        }
+
+    }
+    
     private AutocompleteEncodeStrategy getStrategy(UIComponent component) {
         AbstractAutocomplete comboBox = (AbstractAutocomplete) component;
         if (comboBox.getLayout() != null) {
             if (comboBox.getLayout().equals(AutocompleteLayout.div.toString())) {
                 return new AutocompleteDivLayoutStrategy();
-            }
-            if (comboBox.getLayout().equals(AutocompleteLayout.grid.toString())) {
-                return new AutocompleteGridLayoutStrategy();
             }
             if (comboBox.getLayout().equals(AutocompleteLayout.list.toString())) {
                 return new AutocompleteListLayoutStrategy();

@@ -7,7 +7,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.renderkit.RendererUtils.HTML;
-import org.richfaces.component.AbstractAutocomplete;
 
 public class AutocompleteListLayoutStrategy extends AbstractAutocompleteLayoutStrategy implements
     AutocompleteEncodeStrategy {
@@ -31,33 +30,15 @@ public class AutocompleteListLayoutStrategy extends AbstractAutocompleteLayoutSt
         ResponseWriter responseWriter = facesContext.getResponseWriter();
         responseWriter.endElement(HTML.UL_ELEMENT);
     }
-
-    public void encodeItem(FacesContext facesContext, AbstractAutocomplete comboBox, Object item) throws IOException {
+    
+    public void encodeItemBegin(FacesContext facesContext, UIComponent component) throws IOException {
+    	ResponseWriter writer = facesContext.getResponseWriter();
+        writer.startElement(HTML.LI_ELEMENT, component);
+    }
+    
+    public void encodeItemEnd(FacesContext facesContext, UIComponent component) throws IOException {
         ResponseWriter writer = facesContext.getResponseWriter();
-
-        writer.startElement(HTML.LI_ELEMENT, comboBox);
-        writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-au-option rf-au-font rf-au-input", null);
-
-        if (comboBox.getChildCount() > 0) {
-            for (UIComponent child : comboBox.getChildren()) {
-                child.encodeAll(facesContext);
-            }
-        } else {
-            if (item != null) {
-                // TODO nick - use converter
-                String value = null;
-                if (comboBox.getItemConverter() != null) {
-                    value = comboBox.getItemConverter().getAsString(facesContext, comboBox, item);
-                }
-                if (value != null) {
-                    writer.writeText(value, null);
-                }
-                writer.writeText(item, null);
-            }
-        }
-
         writer.endElement(HTML.LI_ELEMENT);
-
     }
 
 }
