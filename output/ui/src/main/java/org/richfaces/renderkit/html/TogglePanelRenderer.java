@@ -60,7 +60,7 @@ import org.richfaces.renderkit.util.FormUtil;
     @ResourceDependency(library = "org.richfaces", name = "TogglePanel.js") })
 public class TogglePanelRenderer extends DivPanelRenderer {
 
-    private static final String VALUE_POSTFIX = "-value";
+    public static final String VALUE_POSTFIX = "-value";
 
     private static final String ON = "on";
     private static final String ITEM_CHANGE = "itemchange";
@@ -74,7 +74,7 @@ public class TogglePanelRenderer extends DivPanelRenderer {
               context.getExternalContext().getRequestParameterMap();
 
         // Don't overwrite the value unless you have to!
-        String newValue = requestMap.get(getActiveItemRequestParamName(context, component));
+        String newValue = requestMap.get(getValueRequestParamName(context, component));
         if (newValue != null) {
             panel.setSubmittedActiveItem(newValue);
         }
@@ -92,7 +92,7 @@ public class TogglePanelRenderer extends DivPanelRenderer {
         }
     }
 
-    private static void addOnCompleteParam(String newValue, String panelId) {
+    protected static void addOnCompleteParam(String newValue, String panelId) {
         StringBuilder onComplete = new StringBuilder();
         onComplete.append("RichFaces.$('").append(panelId)
                     .append("').onCompleteHandler('").append(newValue).append("');");
@@ -100,7 +100,7 @@ public class TogglePanelRenderer extends DivPanelRenderer {
         AjaxContext.getCurrentInstance().appendOncomplete(onComplete.toString());
     }
 
-    private static String getActiveItemRequestParamName(FacesContext context, UIComponent component) {
+    public static String getValueRequestParamName(FacesContext context, UIComponent component) {
         return component.getClientId(context) + VALUE_POSTFIX;
     }
 
@@ -114,8 +114,8 @@ public class TogglePanelRenderer extends DivPanelRenderer {
         writer.startElement(HTML.INPUT_ELEM, comp);
         writer.writeAttribute(HTML.TYPE_ATTR, HTML.INPUT_TYPE_HIDDEN, null);
         writer.writeAttribute(HTML.VALUE_ATTRIBUTE, panel.getActiveItem(), "activeItem");
-        writer.writeAttribute(HTML.ID_ATTRIBUTE, getActiveItemRequestParamName(context, comp), null);
-        writer.writeAttribute(HTML.NAME_ATTRIBUTE, getActiveItemRequestParamName(context, comp), null);
+        writer.writeAttribute(HTML.ID_ATTRIBUTE, getValueRequestParamName(context, comp), null);
+        writer.writeAttribute(HTML.NAME_ATTRIBUTE, getValueRequestParamName(context, comp), null);
         writer.endElement(HTML.INPUT_ELEM);
     }
 
@@ -127,7 +127,7 @@ public class TogglePanelRenderer extends DivPanelRenderer {
     @Override
     protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component)
         throws IOException {
-        
+
         renderChildren(context, component);
     }
 
@@ -141,7 +141,7 @@ public class TogglePanelRenderer extends DivPanelRenderer {
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
         AbstractTogglePanel panel = (AbstractTogglePanel) component;
 
-        Map<String, Object> options = new HashMap<String, Object>(5);
+        Map<String, Object> options = new HashMap<String, Object>();
         options.put("activeItem", panel.getActiveItem());
         options.put("cycledSwitching", panel.isCycledSwitching());
         options.put("items", getChildrenScriptObjects(context, panel));
@@ -155,7 +155,7 @@ public class TogglePanelRenderer extends DivPanelRenderer {
 
     public static void addEventOption(FacesContext context, UIComponent component, Map<String, Object> options,
                                 String eventName) {
-        
+
         HandlersChain handlersChain = new HandlersChain(context, component);
         handlersChain.addInlineHandlerFromAttribute(ON + eventName);
         handlersChain.addBehaviors(eventName);
@@ -168,11 +168,11 @@ public class TogglePanelRenderer extends DivPanelRenderer {
         }
     }
 
-    private static AjaxEventOptions getAjaxOptions(FacesContext context, UIComponent panel) {
+    public static AjaxEventOptions getAjaxOptions(FacesContext context, UIComponent panel) {
         return AjaxRendererUtils.buildEventOptions(context, panel);
     }
 
-    private List<JSObject> getChildrenScriptObjects(FacesContext context, UIComponent component) {
+    protected List<JSObject> getChildrenScriptObjects(FacesContext context, UIComponent component) {
         List<JSObject> res = new ArrayList<JSObject>(component.getChildCount());
         for (UIComponent child : component.getChildren()) {
             res.add(getChildScriptObject(context, (AbstractTogglePanelItem) child));

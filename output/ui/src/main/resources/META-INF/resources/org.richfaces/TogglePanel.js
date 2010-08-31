@@ -111,7 +111,7 @@
             this.__setActiveItem(newPanel.getName());
 
             newPanel.__enter();
-            this.__fireItemChange(oldPanel, newPanel);
+            this.comp.__fireItemChange(oldPanel, newPanel);
 
             return true;
         },
@@ -136,16 +136,6 @@
          * */
         __getValueInputId: function () {
             return this.comp.id + "-value"
-        },
-
-        /********************* Events *************************/
-
-        __fireItemChange : function (oldItem, newItem) {
-            return new rf.Event.fireById(this.comp.id, "itemchange", {
-                id: this.comp.id,
-                oldItem : oldItem,
-                newItem : newItem
-            });
         }
     };
 
@@ -163,7 +153,6 @@
         name:"TogglePanel",
 
         init : function (componentId, options) {
-            // call constructor of parent class
             rf.BaseComponent.call(this, componentId);
             this.attachToDom(componentId);
 
@@ -381,6 +370,15 @@
         /**
          * Fire Concealable Event
          * */
+
+        __fireItemChange : function (oldItem, newItem) {
+            return new rf.Event.fireById(this.id, "itemchange", {
+                id: this.id,
+                oldItem : oldItem,
+                newItem : newItem
+            });
+        },
+
         __fireBeforeItemChange : function (oldItem, newItem) {
             return rf.Event.fireById(this.id, "beforeitemchange", {
                 id: this.id,
@@ -389,11 +387,8 @@
             });
         },
 
-        // class stuff
         destroy: function () {
-            //                 rf.Event.unbindById(this.options.buttonId, "."+this.namespace);
-            //                 rf.Event.unbindById(this.componentId, "."+this.namespace);
-            //                 $super.destroy.call(this);
+            rf.BaseComponent.destroy.call(this);
         }
     });
 })(jQuery, RichFaces);

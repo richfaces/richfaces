@@ -62,12 +62,18 @@ public class DivPanelRenderer extends RendererBase {
             return "";
         }
 
-        return new StringBuilder()
-            .append(attr).append(':').append(value).toString();
+        return styleElement(attr, value);
     }
+
+    protected static String styleElement(Object name, Object value) {
+        return new StringBuilder()
+            .append(name).append(':').append(value).toString();
+    }
+
     protected static String attributeAsString(UIComponent comp, Enum attr) {
         return attributeAsString(comp, attr.toString());
     }
+
     protected static String attributeAsString(UIComponent comp, String attr) {
         Object o = comp.getAttributes().get(attr);
         return o == null ? "" : o.toString();

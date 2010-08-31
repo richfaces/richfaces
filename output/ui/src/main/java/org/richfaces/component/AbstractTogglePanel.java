@@ -423,7 +423,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
         return isActiveItem(kid, getActiveItemValue());
     }
 
-    protected static boolean isActiveItem(UIComponent kid, String value) {
+    protected boolean isActiveItem(UIComponent kid, String value) {
         if (kid == null || value == null) {
             return false;
         }
