@@ -40,6 +40,53 @@ import org.richfaces.l10n.MessageBundle;
  */
 public class MessageFactoryImpl implements MessageFactory {
 
+    protected static interface Factory<T> {
+        
+        public T create(ResourceBundle bundle, Enum<?> messageKey, Object... args) throws MissingResourceException;
+        
+    }
+    
+    private static final Factory<FacesMessage> MESSAGE_FACTORY = new Factory<FacesMessage>() {
+
+        public FacesMessage create(ResourceBundle bundle, Enum<?> messageKey, Object... args)
+            throws MissingResourceException {
+
+            String messageId = messageKey.toString();
+            
+            String summary = null;
+            String detail = null;
+
+            try {
+                summary = bundle.getString(messageId);
+                detail = bundle.getString(messageId + "_detail");
+            } catch (MissingResourceException e) {
+                // do nothing
+            }
+
+            if (summary != null) {
+                String formattedSummary = MessageFormat.format(summary, args);
+                String formattedDetail = null;
+
+                if (detail != null) {
+                    formattedDetail = MessageFormat.format(detail, args);
+                }
+
+                return new FacesMessage(formattedSummary, formattedDetail);
+            }
+
+            return null;
+        }
+    };
+    
+    private static final Factory<String> LABEL_FACTORY = new Factory<String>() {
+
+        public String create(ResourceBundle bundle, Enum<?> messageKey, Object... args) throws MissingResourceException {
+            String pattern = bundle.getString(messageKey.toString());
+            return MessageFormat.format(pattern, args);
+        }
+        
+    };
+    
     private BundleLoader bundleLoader;
 
     public MessageFactoryImpl(BundleLoader bundleLoader) {
@@ -73,26 +120,46 @@ public class MessageFactoryImpl implements MessageFactory {
             throw new NullPointerException("messageKey");
         }
         
-        FacesMessage result = null;
+        FacesMessage result = detectLocalesAndCreate(facesContext, MESSAGE_FACTORY, messageKey, args);
 
-        Locale locale = detectLocale(facesContext);
+        if (result != null) {
+            result.setSeverity(severity);
+        }
+
+        return result;
+    }
+
+    public String getMessageText(FacesContext facesContext, Enum<?> messageKey, Object... args) {
+        String text = detectLocalesAndCreate(facesContext, LABEL_FACTORY, messageKey, args);
+        if (text == null) {
+            text = "???" + messageKey + "???";
+        }
+
+        return text;
+    }
+    
+    protected <T> T detectLocalesAndCreate(FacesContext context, Factory<T> factory, Enum<?> messageKey, Object... args) {
+        
+        T result = null;
+        
+        Locale locale = detectLocale(context);
         if (locale != null) {
-            result = createMessage(facesContext, severity, locale, messageKey, args);
+            result = create(context, factory, locale, messageKey, args);
         }
 
         if (result == null) {
             Locale defaultLocale = Locale.getDefault();
             
             if (!defaultLocale.equals(locale)) {
-                result = createMessage(facesContext, severity, defaultLocale, messageKey, args);
+                result = create(context, factory, defaultLocale, messageKey, args);
             }
             
         }
-
+        
         return result;
     }
-
-    protected FacesMessage createMessage(FacesContext context, Severity severity, Locale locale, Enum<?> messageKey,
+    
+    protected <T> T create(FacesContext context, Factory<T> factory, Locale locale, Enum<?> messageKey,
         Object... args) {
         
         MessageBundle messageBundle = messageKey.getClass().getAnnotation(MessageBundle.class);
@@ -101,41 +168,25 @@ public class MessageFactoryImpl implements MessageFactory {
             return null;
         }
 
-        String messageId = messageKey.toString();
-
-        String summary = null;
-        String detail = null;
+        T result = null;
 
         try {
             ResourceBundle bundle = bundleLoader.getApplicationBundle(context, messageKey, locale);
-            summary = bundle.getString(messageId);
-            detail = bundle.getString(messageId + "_detail");
+            result = factory.create(bundle, messageKey, args);
         } catch (MissingResourceException e) {
             // do nothing
         }
 
-        if (summary == null) {
+        if (result == null) {
             try {
                 ResourceBundle bundle = bundleLoader.getBundle(messageKey, locale);
-                summary = bundle.getString(messageId);
-                detail = bundle.getString(messageId + "_detail");
+                result = factory.create(bundle, messageKey, args);
             } catch (MissingResourceException e) {
                 // do nothing
             }
         }
 
-        if (summary == null) {
-            return null;
-        }
-        
-        String formattedSummary = MessageFormat.format(summary, args);
-        String formattedDetail = null;
-
-        if (detail != null) {
-            formattedDetail = MessageFormat.format(detail, args);
-        }
-
-        return new FacesMessage(severity, formattedSummary, formattedDetail);
+        return result;
     }
 
 }

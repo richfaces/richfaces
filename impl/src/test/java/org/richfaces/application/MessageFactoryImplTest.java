@@ -40,7 +40,7 @@ import org.richfaces.l10n.BundleLoader;
  * @author Nick Belaevski
  * 
  */
-public class MessageFactoryImpltest {
+public class MessageFactoryImplTest {
 
     private MockFacesEnvironment facesEnvironment;
 
@@ -92,6 +92,19 @@ public class MessageFactoryImpltest {
     }
     
     @Test
+    public void testGetMessageTextFromFacesBundle() throws Exception {
+        expect(facesEnvironment.getFacesContext().getViewRoot()).andStubReturn(null);
+        expect(facesEnvironment.getApplication().getMessageBundle()).andStubReturn(null);
+        facesEnvironment.replay();
+        
+        // {1}: Could not convert ''{0}'' to a string.
+        String message = messageFactory.getMessageText(facesEnvironment.getFacesContext(),
+            FacesMessages.CONVERTER_STRING, "something", "Message");
+
+        assertEquals("Message: Could not convert 'something' to a string.", message);
+    }
+    
+    @Test
     public void testCreateMessageFromApplicationBundle() throws Exception {
         UIViewRoot mockViewRoot = facesEnvironment.createMock(UIViewRoot.class);
         expect(mockViewRoot.getLocale()).andStubReturn(new Locale("ru", "RU"));
@@ -125,5 +138,25 @@ public class MessageFactoryImpltest {
         assertNotNull(inputConversionMessage);
         assertEquals(FacesMessage.SEVERITY_INFO, inputConversionMessage.getSeverity());
         assertEquals("Failure message: Conversion error occurred.", inputConversionMessage.getSummary());
+    }
+    
+    @Test
+    public void testGetMessageTextFromApplicationBundle() throws Exception {
+        UIViewRoot mockViewRoot = facesEnvironment.createMock(UIViewRoot.class);
+        expect(mockViewRoot.getLocale()).andStubReturn(new Locale("ru", "RU"));
+        expect(facesEnvironment.getFacesContext().getViewRoot()).andStubReturn(mockViewRoot);
+        expect(facesEnvironment.getApplication().getMessageBundle()).andStubReturn("org.richfaces.application.MessageFactoryImplTest");
+        facesEnvironment.replay();
+        
+        // {1}: ''{0}'' ne konvertiruyetsia v stroku.
+        String message = messageFactory.getMessageText(facesEnvironment.getFacesContext(),
+            FacesMessages.CONVERTER_STRING, "something", "Message");
+
+        assertEquals("Message: 'something' ne konvertiruyetsia v stroku.", message);
+
+        // javax.faces.component.UIInput.CONVERSION={0}: Conversion error occurred.
+        String otherMessage = messageFactory.getMessageText(facesEnvironment.getFacesContext(),
+            FacesMessages.UIINPUT_CONVERSION, "Failure message");
+        assertEquals("Failure message: Conversion error occurred.", otherMessage);
     }
 }
