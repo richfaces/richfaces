@@ -79,7 +79,6 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
         utils.addToScriptHash(options, "buttonId", component.getClientId() + "Button");
         utils.addToScriptHash(options, "selectedItemClass", attributes.get("selectedItemClass"));
         utils.addToScriptHash(options, "minChars", attributes.get("minChars"), "1");
-        utils.addToScriptHash(options, "mode", attributes.get("mode"), "ajax");
         utils.addToScriptHash(options, "filterFunction", attributes.get("filterFunction"));
         utils.addToScriptHash(options, "autofill", attributes.get("autofill"), "true");
         utils.addToScriptHash(options, "disabled", attributes.get("disabled"), "false");
@@ -90,12 +89,16 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
         utils.addToScriptHash(options, "onerror", attributes.get("onerror"));
         utils.addToScriptHash(options, "onbeforedomupdate", attributes.get("onbeforedomupdate"));
         utils.addToScriptHash(options, "onchange", attributes.get("onchange"));
-        if (attributes.get("mode") != null) {
-            if (attributes.get("mode").equals("ajax")){
-                utils.addToScriptHash(options, "isCachedAjax", false, "true");
-            } else if (attributes.get("mode").equals("client")) {
-                utils.addToScriptHash(options, "ajaxMode", false, "true");
-            }
+        String mode = (String)attributes.get("mode");
+        if (mode != null) {
+	        if (mode.equals("ajax")){
+	            utils.addToScriptHash(options, "isCachedAjax", false, "true");
+	        } else if (mode.equals("client") || mode.equals("lazyClient")) {
+	            utils.addToScriptHash(options, "ajaxMode", false, "true");
+	            if (mode.equals("lazyClient")) {
+	                utils.addToScriptHash(options, "lazyClientMode", true, "false");
+	            }
+	        }
         }
         StringBuilder builder = new StringBuilder();
         builder.append(ScriptUtils.toScript(options));
@@ -218,12 +221,10 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
         if (mode!= null && mode.equals("client")) {
             List<Object> fetchValues = new ArrayList<Object>();
             this.encodeItems(facesContext, component, fetchValues);
-        } else if (mode!= null && mode.equals("lazyClient")){
+        } else {
             strategy.encodeItemsContainerBegin(facesContext, component);
-            strategy.encodeItemsContainerEnd(facesContext, component);
-        } else{
-            strategy.encodeItemsContainerBegin(facesContext, component);
-            strategy.encodeFakeItem(facesContext, component);
+            // TODO: is it needed
+            //strategy.encodeFakeItem(facesContext, component);
             strategy.encodeItemsContainerEnd(facesContext, component);
         }
     }
@@ -251,7 +252,7 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
                 writer.writeText(item, null);
             }
         }
-
+        strategy.encodeItemEnd(facesContext, comboBox);
     }
     
     private AutocompleteEncodeStrategy getStrategy(UIComponent component) {
