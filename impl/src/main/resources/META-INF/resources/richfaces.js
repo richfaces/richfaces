@@ -128,7 +128,7 @@ if (!window.RichFaces) {
 
     //there is the same pattern in server-side code:
 	//org.ajax4jsf.javascript.ScriptUtils.escapeCSSMetachars(String)
-	var CSS_METACHARS_PATTERN = /([#;&,.+*~':"!^$[\]()=>|\/])/g;
+	var CSS_METACHARS_PATTERN = /([#;&,.+*~':"!^$\[\]()=>|\/])/g;
 
 	/**
      * Escapes CSS meta-characters in string according to
