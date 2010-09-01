@@ -149,70 +149,71 @@ public class DataTableRenderer extends AbstractTableRenderer {
         RowHolder rowHolder = (RowHolder) holder;
         Row row = rowHolder.getRow();
 
-        AbstractDataTable dataTable = (AbstractDataTable)row;
-        
-        boolean partialUpdate = rowHolder.isUpdatePartial(); 
+        AbstractDataTable dataTable = (AbstractDataTable) row;
+
+        boolean partialUpdate = rowHolder.isUpdatePartial();
         boolean parentTbodyStart = rowHolder.isEncodeParentTBody();
         boolean tbodyStart = parentTbodyStart;
-                
+
         rowHolder.setRowStart(true);
 
         Iterator<UIComponent> components = row.columns();
         while (components.hasNext()) {
-        
             UIComponent child = components.next();
-            if(child instanceof Row) {
-                boolean isSubtable = (child instanceof AbstractSubTable); 
-                //new row -> close </tr>
-                if (rowHolder.getProcessCell() != 0) {
-                    encodeRowEnd(writer);
+            if (child.isRendered()) {
+                if (child instanceof Row) {
+                    boolean isSubtable = (child instanceof AbstractSubTable);
+                    // new row -> close </tr>
+                    if (rowHolder.getProcessCell() != 0) {
+                        encodeRowEnd(writer);
 
-                    if(isSubtable) {
-                        encodeTableBodyEnd(writer);
-                        tbodyStart = false;
-                        
-                        if (partialUpdate) {
-                            partialEnd(facesContext);
+                        if (isSubtable) {
+                            encodeTableBodyEnd(writer);
+                            tbodyStart = false;
+
+                            if (partialUpdate) {
+                                partialEnd(facesContext);
+                            }
                         }
                     }
-                }
-                
-                rowHolder.nextCell();
-                
-                if(isSubtable && partialUpdate){
-                    String id = dataTable.getRelativeClientId(facesContext) + ":"+ child.getId() +":c";
-                    partialStart(facesContext, id);
-                } 
-                
-                child.encodeAll(facesContext);
-                
-                if (isSubtable && partialUpdate) {
-                    partialEnd(facesContext);
-                }
-                
-            } else if(child instanceof UIColumn) {
-                
-                if(!parentTbodyStart && !tbodyStart) {
-                    if (partialUpdate) {
-                        partialStart(facesContext, dataTable.getRelativeClientId(facesContext) + ":tb");
+
+                    rowHolder.nextCell();
+
+                    if (isSubtable && partialUpdate) {
+                        String id = dataTable.getRelativeClientId(facesContext) + ":" + child.getId() + ":c";
+                        partialStart(facesContext, id);
                     }
-                    
-                    encodeTableBodyStart(writer, facesContext, dataTable);
-                    rowHolder.setRowStart(true);
-                    tbodyStart = true;
-                }
-                
-                encodeColumn(facesContext, writer, (UIColumn)child, rowHolder);
-                
-                if(!components.hasNext()) {
-                    encodeRowEnd(writer);
-                    
-                    if(!parentTbodyStart && tbodyStart) {
-                        encodeTableBodyEnd(writer);
-                        tbodyStart = false;
-                    
-                        if(partialUpdate) {
-                            partialEnd(facesContext);
+
+                    child.encodeAll(facesContext);
+
+                    if (isSubtable && partialUpdate) {
+                        partialEnd(facesContext);
+                    }
+
+                } else if (child instanceof UIColumn) {
+
+                    if (!parentTbodyStart && !tbodyStart) {
+                        if (partialUpdate) {
+                            partialStart(facesContext, dataTable.getRelativeClientId(facesContext) + ":tb");
+                        }
+
+                        encodeTableBodyStart(writer, facesContext, dataTable);
+                        rowHolder.setRowStart(true);
+                        tbodyStart = true;
+                    }
+
+                    encodeColumn(facesContext, writer, (UIColumn) child, rowHolder);
+
+                    if (!components.hasNext()) {
+                        encodeRowEnd(writer);
+
+                        if (!parentTbodyStart && tbodyStart) {
+                            encodeTableBodyEnd(writer);
+                            tbodyStart = false;
+
+                            if (partialUpdate) {
+                                partialEnd(facesContext);
+                            }
                         }
                     }
                 }

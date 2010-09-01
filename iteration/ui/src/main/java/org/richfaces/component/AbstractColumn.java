@@ -50,7 +50,6 @@ public abstract class AbstractColumn extends javax.faces.component.UIColumn impl
     
     public static final String COMPONENT_FAMILY = "org.richfaces.Column";
     
-
     @Attribute
     public abstract boolean isBreakRowBefore();
     

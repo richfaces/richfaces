@@ -194,18 +194,19 @@ public class SubTableRenderer extends AbstractTableRenderer {
         
         while (components.hasNext()) {
             UIComponent component = components.next();
-            
-            if(component instanceof UIColumn) {
-                encodeColumn(facesContext, writer, (UIColumn)component , rowHolder);
-            
-            } else if (component instanceof AbstractSubTable) {
-                if(component.isRendered()) {
-                    encodeRowEnd(writer);
-                }
+            if(component.isRendered()) {
+                if(component instanceof UIColumn ) {
+                    encodeColumn(facesContext, writer, (UIColumn)component , rowHolder);
                 
-                component.encodeAll(facesContext);
-                rowHolder.setRowStart(true);
-            }
+                } else if (component instanceof AbstractSubTable) {
+                    if(component.isRendered()) {
+                        encodeRowEnd(writer);
+                    }
+                    
+                    component.encodeAll(facesContext);
+                    rowHolder.setRowStart(true);
+                }
+            }    
         }
 
         encodeRowEnd(writer);

@@ -52,7 +52,10 @@ public class ColumnGroupRenderer extends AbstractTableBaseRenderer {
         Iterator<UIComponent> components = row.columns();
 
         while(components.hasNext()){
-            encodeColumn(facesContext,  writer, (UIColumn)components.next(),rowHolder);
+            UIColumn column = (UIColumn)components.next();
+            if(column.isRendered()) {
+                encodeColumn(facesContext,  writer, column,rowHolder);
+            }    
         }
         encodeRowEnd(writer);
     }
