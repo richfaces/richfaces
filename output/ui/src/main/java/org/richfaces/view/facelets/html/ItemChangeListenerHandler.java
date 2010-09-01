@@ -22,7 +22,6 @@
 
 package org.richfaces.view.facelets.html;
 
-import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.event.ItemChangeListener;
 import org.richfaces.event.ItemChangeSource;
@@ -31,14 +30,8 @@ import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
-import javax.faces.view.EditableValueHolderAttachedObjectHandler;
-import javax.faces.view.facelets.ComponentHandler;
 import javax.faces.view.facelets.FaceletContext;
-import javax.faces.view.facelets.TagAttribute;
-import javax.faces.view.facelets.TagAttributeException;
 import javax.faces.view.facelets.TagConfig;
-import javax.faces.view.facelets.TagException;
-import javax.faces.view.facelets.TagHandler;
 import java.io.Serializable;
 
 /**
@@ -46,88 +39,22 @@ import java.io.Serializable;
  * @author akolonitsky
  * @version 1.0
  */
-public final class ItemChangeListenerHandler extends TagHandler implements EditableValueHolderAttachedObjectHandler {
+public final class ItemChangeListenerHandler extends EventListenerHandler {
 
-    private static class LazyItemChangeListener implements ItemChangeListener, Serializable {
-
-        private static final long serialVersionUID = 1L;
-
-        private final String type;
-
-        private final ValueExpression binding;
+    private static class LazyItemChangeListener extends LazyEventListener<ItemChangeListener> implements ItemChangeListener, Serializable {
+        private static final long serialVersionUID = 7715606467989165179L;
 
         LazyItemChangeListener(String type, ValueExpression binding) {
-            this.type = type;
-            this.binding = binding;
+            super(type, binding);
         }
 
-        public void processItemChange(ItemChangeEvent event)
-            throws AbortProcessingException {
-            
-            FacesContext faces = FacesContext.getCurrentInstance();
-            if (faces == null) {
-                return;
-            }
-
-            ItemChangeListener instance = null;
-            if (this.binding != null) {
-                instance = (ItemChangeListener) binding.getValue(faces.getELContext());
-            }
-            if (instance == null && this.type != null) {
-                try {
-                    instance = (ItemChangeListener) forName(this.type).newInstance();
-                } catch (Exception e) {
-                    throw new AbortProcessingException("Couldn't Lazily instantiate ItemChangeListener", e);
-                }
-                if (this.binding != null) {
-                    binding.setValue(faces.getELContext(), instance);
-                }
-            }
-            if (instance != null) {
-                instance.processItemChange(event);
-            }
+        public void processItemChange(ItemChangeEvent event) throws AbortProcessingException {
+            processEvent(event);
         }
     }
-
-    private final TagAttribute binding;
-
-    private final String listenerType;
 
     public ItemChangeListenerHandler(TagConfig config) {
         super(config);
-        this.binding = this.getAttribute("binding");
-        TagAttribute type = this.getAttribute("type");
-        if (type != null) {
-            if (type.isLiteral()) {
-                try {
-                    forName(type.getValue());
-                } catch (ClassNotFoundException e) {
-                    throw new TagAttributeException(type, "Couldn't qualify ItemChangeListener", e);
-                }
-            } else {
-                throw new TagAttributeException(type, "Must be a literal class name of type ItemChangeListener");
-            }
-            this.listenerType = type.getValue();
-        } else {
-            this.listenerType = null;
-        }
-    }
-
-    public void apply(FaceletContext ctx, UIComponent parent) {
-
-        // only process if it's been created
-        if (parent == null || !ComponentHandler.isNew(parent)) {
-            return;
-        }
-
-        if (parent instanceof AbstractTogglePanel) {
-            applyAttachedObject(ctx.getFacesContext(), parent);
-        } else if (UIComponent.isCompositeComponent(parent)) {
-            // Allow the composite component to know about the target component.
-            TagHandlerUtils.getOrCreateRetargetableHandlersList(parent).add(this);
-        } else {
-            throw new TagException(this.tag, "Parent is not of type AbstractTogglePanel, type is: " + parent);
-        }
     }
 
     public void applyAttachedObject(FacesContext context, UIComponent parent) {
@@ -139,19 +66,6 @@ public final class ItemChangeListenerHandler extends TagHandler implements Edita
 
         ItemChangeSource evh = (ItemChangeSource) parent;
         evh.addItemChangeListener(new LazyItemChangeListener(this.listenerType, valueExpr));
-    }
-
-    public String getFor() {
-        TagAttribute attr = this.getAttribute("for");
-        return attr == null ? null : attr.getValue();
-    }
-
-    public static Class<?> forName(String name) throws ClassNotFoundException {
-        if (null == name || "".equals(name)) {
-            return null;
-        }
-        
-        return Class.forName(name, false, Thread.currentThread().getContextClassLoader());
     }
 }
 

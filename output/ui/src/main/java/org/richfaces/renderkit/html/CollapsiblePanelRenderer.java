@@ -25,6 +25,7 @@ package org.richfaces.renderkit.html;
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.component.AbstractCollapsiblePanel;
 import org.richfaces.component.AbstractTogglePanel;
+import org.richfaces.component.AbstractTogglePanelTitledItem;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -32,9 +33,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.richfaces.component.AbstractCollapsiblePanel.States.*;
 import static org.richfaces.component.util.HtmlUtil.concatClasses;
 import static org.richfaces.component.util.HtmlUtil.concatStyles;
 
@@ -104,11 +107,13 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
         AbstractTogglePanel panel = (AbstractTogglePanel) component;
 
-        Map<String, Object> options = super.getScriptObjectOptions(context, component);
+        Map<String, Object> options = new HashMap<String, Object>();
+        options.put("activeItem", panel.getActiveItem());
+        options.put("ajax", getAjaxOptions(context, panel));
         options.put("switchMode", panel.getSwitchType());
 
-//        TogglePanelRenderer.addEventOption(context, panel, options, SWITCH);
-//        TogglePanelRenderer.addEventOption(context, panel, options, BEFORE_SWITCH);
+        TogglePanelRenderer.addEventOption(context, panel, options, SWITCH);
+        TogglePanelRenderer.addEventOption(context, panel, options, BEFORE_SWITCH);
 
         return options;
     }
@@ -119,18 +124,18 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
         writer.writeAttribute("class", concatClasses("rf-cp-hr", attributeAsString(component, "headerClass")), null);
 
         AbstractCollapsiblePanel panel = (AbstractCollapsiblePanel) component;
-        encodeHeader(context, component, writer, "expanded", panel.isExpanded());
-        encodeHeader(context, component, writer, "collapsed", !panel.isExpanded());
+        encodeHeader(context, component, writer, expanded, panel.isExpanded());
+        encodeHeader(context, component, writer, collapsed, !panel.isExpanded());
 
         writer.endElement("div");
     }
     
-    private void encodeHeader(FacesContext context, UIComponent component, ResponseWriter responseWriter, String state, boolean isVisible) throws IOException {
+    private void encodeHeader(FacesContext context, UIComponent component, ResponseWriter responseWriter, AbstractCollapsiblePanel.States state, boolean isVisible) throws IOException {
         responseWriter.startElement("div", component);
         responseWriter.writeAttribute("class", "rf-cp-hr-" + state, null);
         responseWriter.writeAttribute("style", concatStyles(styleElement("display", isVisible ? "" : "none"), attributeAsString(component, "headerClass")), null);
 
-        UIComponent header = component.getFacet("header" + capitalize(state));
+        UIComponent header = AbstractTogglePanelTitledItem.getHeaderFacet(component, state);
         if (header != null && header.isRendered()) {
             header.encodeAll(context);
         } else {

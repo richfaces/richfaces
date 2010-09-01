@@ -22,13 +22,7 @@
 
 package org.richfaces.event;
 
-import javax.el.ELContext;
-import javax.el.ELException;
 import javax.el.MethodExpression;
-import javax.el.MethodNotFoundException;
-import javax.faces.component.StateHolder;
-import javax.faces.component.UIComponentBase;
-import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 
 /**
@@ -44,158 +38,23 @@ import javax.faces.event.AbortProcessingException;
  * @since -4712-01-01
  *
  */
-//TODO nick - good candidate for utility class
-public class MethodExpressionItemChangeListener implements ItemChangeListener, StateHolder {
-
-    private static final Class<?>[] ITEM_CHANGE_LISTENER_ZERO_ARG_SIG = new Class[] {};
-
-    private static final Object[] NO_PARAMS = new Object[0];
-
-    // ------------------------------------------------------ Instance Variables
-
-    private MethodExpression methodExpressionOneArg = null;
-    private MethodExpression methodExpressionZeroArg = null;
-
-    private boolean isTransient;
+public class MethodExpressionItemChangeListener extends MethodExpressionEventListener implements ItemChangeListener {
 
     public MethodExpressionItemChangeListener() {
     }
 
-   /**
-     * <p><span class="changed_modified_2_0">Construct</span> a {@link
-     * ItemChangeListener} that contains a {@link
-     * MethodExpression}.<span
-     * class="changed_added_2_0">To accomodate method expression targets
-     * that take no arguments instead of taking a {@link
-     * ItemChangeEvent} argument</span>, the implementation of this
-     * class must take the argument <code>methodExpressionOneArg</code>,
-     * extract its expression string, and create another
-     * <code>MethodExpression</code> whose expected param types match
-     * those of a zero argument method.  The usage requirements for both
-     * of these <code>MethodExpression</code> instances are described in
-     * {@link #processItemChange}.</p>
-     *
-     * @param methodExpressionOneArg a <code>MethodExpression</code>
-     * that points to a method that returns <code>void</code> and takes
-     * a single argument of type {@link ItemChangeEvent}.
-     */
-    public MethodExpressionItemChangeListener(MethodExpression methodExpressionOneArg) {
-
-        super();
-        this.methodExpressionOneArg = methodExpressionOneArg;
-        FacesContext context = FacesContext.getCurrentInstance();
-        ELContext elContext = context.getELContext();
-        this.methodExpressionZeroArg = context.getApplication().
-                getExpressionFactory().createMethodExpression(elContext,
-                methodExpressionOneArg.getExpressionString(), Void.class,
-                ITEM_CHANGE_LISTENER_ZERO_ARG_SIG);
+    public MethodExpressionItemChangeListener(MethodExpression methodExprOneArg) {
+       super(methodExprOneArg);
     }
 
-   /**
-     * <p>Construct a {@link ItemChangeListener} that contains a {@link MethodExpression}.</p>
-    *
-    * @param methodExpressionOneArg
-    * @param methodExpressionZeroArg
-    */
-    public MethodExpressionItemChangeListener(MethodExpression methodExpressionOneArg,
-            MethodExpression methodExpressionZeroArg) {
-
-        super();
-        this.methodExpressionOneArg = methodExpressionOneArg;
-        this.methodExpressionZeroArg = methodExpressionZeroArg;
+    public MethodExpressionItemChangeListener(MethodExpression methodExprOneArg, MethodExpression methodExprZeroArg) {
+        super(methodExprOneArg, methodExprZeroArg);
     }
 
-    // ------------------------------------------------------- Event Method
+    // ------------------------------------------------------- Listener Method
 
-    /**
-     * <p><span class="changed_modified_2_0">Call</span> through to the
-     * {@link MethodExpression} passed in our constructor.  <span
-     * class="changed_added_2_0">First, try to invoke the
-     * <code>MethodExpression</code> passed to the constructor of this
-     * instance, passing the argument {@link ItemChangeEvent} as the
-     * argument.  If a {@link MethodNotFoundException} is thrown, call
-     * to the zero argument <code>MethodExpression</code> derived from
-     * the <code>MethodExpression</code> passed to the constructor of
-     * this instance.  If that fails for any reason, throw an {@link
-     * AbortProcessingException}, including the cause of the
-     * failure.</span></p>
-     *
-     * @throws NullPointerException {@inheritDoc}
-     * @throws AbortProcessingException {@inheritDoc}
-     */
     public void processItemChange(ItemChangeEvent itemChangeEvent) throws AbortProcessingException {
-
-        if (itemChangeEvent == null) {
-            throw new NullPointerException();
-        }
-        FacesContext context = FacesContext.getCurrentInstance();
-        ELContext elContext = context.getELContext();
-        // PENDING: The corresponding code in MethodExpressionActionListener
-        // has an elaborate message capture, logging, and rethrowing block.
-        // Why not here?
-        try {
-            methodExpressionOneArg.invoke(elContext, new Object[] {itemChangeEvent});
-        } catch (MethodNotFoundException mnf) {
-            if (null != methodExpressionZeroArg) {
-
-                try {
-                    // try to invoke a no-arg version
-                    methodExpressionZeroArg.invoke(elContext, NO_PARAMS);
-                } catch (ELException e) {
-                    throw new AbortProcessingException(e.getMessage(), e.getCause());
-                }
-            }
-        } catch (ELException e) {
-            throw new AbortProcessingException(e.getMessage(), e.getCause());
-        }
-    }
-
-
-    // ------------------------------------------------ Methods from StateHolder
-
-
-    /**
-     * <p class="changed_modified_2_0">Both {@link MethodExpression}
-     * instances described in the constructor must be saved.</p>
-     */
-    public Object saveState(FacesContext context) {
-        if (context == null) {
-            throw new NullPointerException();
-        }
-
-        return new Object[] {
-            UIComponentBase.saveAttachedState(context, methodExpressionOneArg),
-            UIComponentBase.saveAttachedState(context, methodExpressionZeroArg) 
-        };
-    }
-
-
-    /**
-     * <p class="changed_modified_2_0">Both {@link MethodExpression}
-     * instances described in the constructor must be restored.</p>
-     */
-    public void restoreState(FacesContext context, Object state) {
-        if (context == null) {
-            throw new NullPointerException();
-        }
-        
-        if (state == null) {
-            return;
-        }
-
-        methodExpressionOneArg = (MethodExpression) UIComponentBase
-            .restoreAttachedState(context, ((Object[]) state)[0]);
-        methodExpressionZeroArg = (MethodExpression) UIComponentBase
-            .restoreAttachedState(context, ((Object[]) state)[1]);
-    }
-
-
-    public boolean isTransient() {
-        return isTransient;
-    }
-
-    public void setTransient(boolean newTransientValue) {
-        isTransient = newTransientValue;
+        processEvent(itemChangeEvent);
     }
 }
 

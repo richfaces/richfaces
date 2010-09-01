@@ -36,7 +36,7 @@ public class UITogglePanelItem extends AbstractTogglePanelItem {
     }
 
     public String getName() {
-        return (String) getStateHelper().eval(PropertyKeys.name);
+        return (String) getStateHelper().eval(PropertyKeys.name, getId());
     }
 
     public void setName(String name) {
@@ -50,6 +50,4 @@ public class UITogglePanelItem extends AbstractTogglePanelItem {
     public void setSwitchType(SwitchType switchType) {
         getStateHelper().put(PropertyKeys.switchType, switchType);
     }
-
-
 }

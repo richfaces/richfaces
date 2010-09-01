@@ -51,7 +51,7 @@ public class MethodExpressionChangeExpandListener extends MethodExpressionEventL
         super(methodExprOneArg, methodExprZeroArg);
     }
 
-    // ------------------------------------------------------- Event Method
+    // ------------------------------------------------------- Listener Method
 
     public void processChangeExpand(ChangeExpandEvent changeExpandEvent) throws AbortProcessingException {
         processEvent(changeExpandEvent);

@@ -34,6 +34,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 
+import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates;
+
 /**
  *
  * <div id="clientId" class="rf-aci">
@@ -50,7 +52,7 @@ import java.io.IOException;
  * @author akolonitsky
  * @since 2010-08-05
  */
-@ResourceDependencies({ // TODO review
+@ResourceDependencies({
     @ResourceDependency(library = "javax.faces", name = "jsf.js"),
     @ResourceDependency(name = "jquery.js"),
     @ResourceDependency(name = "richfaces.js"),
@@ -118,15 +120,15 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
         AbstractTogglePanelTitledItem titledItem = (AbstractTogglePanelTitledItem) component;
         boolean isActive = titledItem.isActive();
         boolean isDisabled = titledItem.isDisabled(); 
-        encodeHeader(facesContext, component, responseWriter, "inactive", !isActive && !isDisabled);
-        encodeHeader(facesContext, component, responseWriter, "active", isActive && !isDisabled);
-        encodeHeader(facesContext, component, responseWriter, "disable", isDisabled);
+        encodeHeader(facesContext, titledItem, responseWriter, HeaderStates.inactive, !isActive && !isDisabled);
+        encodeHeader(facesContext, titledItem, responseWriter, HeaderStates.active, isActive && !isDisabled);
+        encodeHeader(facesContext, titledItem, responseWriter, HeaderStates.disable, isDisabled);
 
         responseWriter.endElement("div");
     }
 
-    private void encodeHeader(FacesContext facesContext, UIComponent component, ResponseWriter writer,
-                              String state, Boolean isDisplay) throws IOException {
+    private void encodeHeader(FacesContext facesContext, AbstractTogglePanelTitledItem component, ResponseWriter writer,
+                              HeaderStates state, Boolean isDisplay) throws IOException {
         
         writer.startElement("div", component);
 
@@ -134,11 +136,11 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
             writer.writeAttribute("style", "display : none", null);
         }
 
-        String name = "headerClass" + capitalize(state);
+        String name = "headerClass" + capitalize(state.toString());
         writer.writeAttribute("class", "rf-aci-h-" + state + " " + attributeAsString(component, name), name);
 
 
-        UIComponent headerFacet = component.getFacet("header" + capitalize(state));
+        UIComponent headerFacet = component.getHeaderFacet(state);
         if (headerFacet != null && headerFacet.isRendered()) {
             headerFacet.encodeAll(facesContext);
         } else {

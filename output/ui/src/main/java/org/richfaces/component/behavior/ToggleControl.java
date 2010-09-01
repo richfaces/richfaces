@@ -54,7 +54,7 @@ public class ToggleControl extends ClientBehavior {
     }
 
     public String getTargetItem() {
-        return (String) getStateHelper().eval(PropertyKeys.targetItem);
+        return (String) getStateHelper().eval(PropertyKeys.targetItem, AbstractTogglePanel.META_NAME_NEXT);
     }
 
     public void setTargetItem(String target) {

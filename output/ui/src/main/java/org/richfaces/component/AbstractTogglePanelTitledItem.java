@@ -22,6 +22,8 @@
 
 package org.richfaces.component;
 
+import org.richfaces.renderkit.html.DivPanelRenderer;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
@@ -35,6 +37,12 @@ public abstract class AbstractTogglePanelTitledItem extends UITogglePanelItem {
     public static final String COMPONENT_TYPE = "org.richfaces.TogglePanelTitledItem";
 
     public static final String COMPONENT_FAMILY = "org.richfaces.TogglePanelTitledItem";
+
+    public enum HeaderStates {
+        active,
+        inactive,
+        disable
+    }
 
     protected AbstractTogglePanelTitledItem() {
         setRendererType("org.richfaces.TogglePanelTitledItem");
@@ -70,5 +78,21 @@ public abstract class AbstractTogglePanelTitledItem extends UITogglePanelItem {
         }
 
         encodeEnd(context);
+    }
+
+    public UIComponent getHeaderFacet(Enum<?> state) {
+        return getHeaderFacet(this, state);
+    }
+
+    public static UIComponent getHeaderFacet(UIComponent component, Enum<?> state) {
+        UIComponent headerFacet = null;
+        if (state != null) {
+            headerFacet = component.getFacet("header" + DivPanelRenderer.capitalize(state.toString()));
+        }
+
+        if (headerFacet == null) {
+            headerFacet = component.getFacet("header");
+        }
+        return headerFacet;
     }
 }

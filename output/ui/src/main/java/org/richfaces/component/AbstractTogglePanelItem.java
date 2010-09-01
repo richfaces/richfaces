@@ -28,6 +28,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * @author akolonitsky
@@ -94,8 +95,9 @@ public abstract class AbstractTogglePanelItem extends AbstractDivPanel {
     }
 
     protected static void hidePanelItem(UIComponent item) {
-        //TODO nick - attributes shouldn't be overwritten
-        item.getAttributes().put(RendererUtils.HTML.STYLE_ATTRIBUTE, "display:none");
+        Map<String,Object> attrs = item.getAttributes();
+        Object style = attrs.get(RendererUtils.HTML.STYLE_ATTRIBUTE);
+        attrs.put(RendererUtils.HTML.STYLE_ATTRIBUTE, "display:none; " + style);
     }
 
     public abstract String getName();

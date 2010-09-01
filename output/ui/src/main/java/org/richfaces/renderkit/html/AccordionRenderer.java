@@ -39,9 +39,8 @@ import static org.richfaces.component.html.HtmlAccordion.PropertyKeys.*;
 
 /**
  * @author akolonitsky
- * @since 2010-08-05
  */
-@ResourceDependencies( { // TODO review
+@ResourceDependencies( {
     @ResourceDependency(library = "javax.faces", name = "jsf.js"),
     @ResourceDependency(name = "jquery.js"),
     @ResourceDependency(name = "richfaces.js"),

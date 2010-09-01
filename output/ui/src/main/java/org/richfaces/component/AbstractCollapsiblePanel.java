@@ -37,8 +37,11 @@ public abstract class AbstractCollapsiblePanel extends UITogglePanel implements 
     public static final String COMPONENT_TYPE = "org.richfaces.CollapsiblePanel";
 
     public static final String COMPONENT_FAMILY = "org.richfaces.CollapsiblePanel";
-    private static final String STATE_EXPANDED = "expanded";
-    private static final String STATE_COLLAPSED = "collapsed";
+
+    public enum States {
+        expanded,
+        collapsed
+    }
 
     protected AbstractCollapsiblePanel() {
         setRendererType("org.richfaces.CollapsiblePanel");

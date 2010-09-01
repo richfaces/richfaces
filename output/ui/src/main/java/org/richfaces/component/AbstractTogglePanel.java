@@ -56,6 +56,11 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
 
     public static final String COMPONENT_FAMILY = "org.richfaces.TogglePanel";
 
+    public static final String META_NAME_FIRST = "@first";
+    public static final String META_NAME_PREV = "@prev";
+    public static final String META_NAME_NEXT = "@next";
+    public static final String META_NAME_LAST = "@last";
+
     // TODO What is MessageId ?
     public static final String UPDATE_MESSAGE_ID = "javax.faces.component.UIInput.UPDATE";
 
@@ -467,13 +472,13 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
     }
 
     public AbstractTogglePanelItem getItem(String name) {
-        if ("@first".equals(name)) {
+        if (META_NAME_FIRST.equals(name)) {
             return getFirstItem();
-        } else if ("@prev".equals(name)) {
+        } else if (META_NAME_PREV.equals(name)) {
             return getPrevItem();
-        } else if ("@next".equals(name)) {
+        } else if (META_NAME_NEXT.equals(name)) {
             return getNextItem();
-        } else if ("@last".equals(name)) {
+        } else if (META_NAME_LAST.equals(name)) {
             return getLastItem();
         } else {
             return getItemByIndex(getChildIndex(name));

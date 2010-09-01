@@ -86,7 +86,7 @@ public class DivPanelRenderer extends RendererBase {
      * @return Capitalized string.
      * @throws IllegalArgumentException String is <kk>null</kk> or empty.
      */
-    protected static String capitalize(final String string) {
+    public static String capitalize(final String string) {
         return Character.toUpperCase(string.charAt(0)) + string.substring(1);
     }
 
