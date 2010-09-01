@@ -57,6 +57,8 @@ import org.richfaces.application.ServiceTracker;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
+import com.google.common.base.Strings;
+
 /**
  * @author shura
  *         <p/>
@@ -680,6 +682,10 @@ public final class AjaxRendererUtils {
                     String[] values = asArray(areasString);
                     Set<String> result = new LinkedHashSet<String>(values.length);
                     for (String value : values) {
+                        if (Strings.isNullOrEmpty(value)) {
+                            continue;
+                        }
+                        
                         result.add(value);
                     }
 
@@ -687,7 +693,9 @@ public final class AjaxRendererUtils {
                 } else {
                     Set<String> areasSet = new LinkedHashSet<String>(5);
 
-                    areasSet.add(areasString);
+                    if (!Strings.isNullOrEmpty(areasString)) {
+                        areasSet.add(areasString);
+                    }
 
                     return areasSet;
                 }
