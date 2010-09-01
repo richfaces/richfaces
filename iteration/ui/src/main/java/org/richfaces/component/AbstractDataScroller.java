@@ -68,6 +68,10 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
 
     public static final String LAST_FACET_NAME = "last";
 
+    public static final String NEXT_FACET_NAME = "next";
+
+    public static final String PREVIOUS_FACET_NAME = "previous";
+    
     public static final String FAST_FORWARD_FACET_NAME = "fastforward";
 
     public static final String FAST_REWIND_FACET_NAME = "fastrewind";
@@ -82,16 +86,9 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
     
     private Integer page;
 
-    protected enum PropertyKeys {
-        boundaryControls, fastControls, fastStep, forComponent, inactiveStyle, selectStyle, inactiveStyleClass, selectStyleClass, scrollerListener, lastPageMode, maxPages, pageIndexVar, pagesVar, renderIfSinglePage, style, styleClass, stepControls
-    }
-
     @Attribute
     public abstract String getLastPageMode();
 
-    @Attribute(defaultValue="0")
-    public abstract int getFastStep();
-    
     @Attribute
     public abstract String getForComponent();
 
@@ -104,6 +101,12 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
     @Attribute(defaultValue="show")
     public abstract String getFastControls();
 
+    @Attribute(defaultValue="show")
+    public abstract String getStepControls();
+    
+    @Attribute(defaultValue="1")
+    public abstract int getFastStep();
+    
     public void addScrollerListener(DataScrollerListener listener) {
         addFacesListener(listener);
     }
@@ -163,10 +166,6 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
         return DataScrollerUtils.findDataTable(this);
     }
 
-    private int getFastStepOrDefault() {
-        return (Integer) getStateHelper().eval(PropertyKeys.fastStep, 1);
-    }
-
     public int getPageForFacet(String facetName) {
         if (facetName == null) {
             throw new NullPointerException();
@@ -179,10 +178,14 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
             newPage = 1;
         } else if (LAST_FACET_NAME.equals(facetName)) {
             newPage = pageCount > 0 ? pageCount : 1;
+        }  else if (PREVIOUS_FACET_NAME.equals(facetName)) {
+            newPage = getPage() - 1;
+        } else if (NEXT_FACET_NAME.equals(facetName)) {
+            newPage = getPage() + 1;
         } else if (FAST_FORWARD_FACET_NAME.equals(facetName)) {
-            newPage = getPage() + getFastStepOrDefault();
+            newPage = getPage() + getFastStep();
         } else if (FAST_REWIND_FACET_NAME.equals(facetName)) {
-            newPage = getPage() - getFastStepOrDefault();
+            newPage = getPage() - getFastStep();
         } else {
             try {
                 newPage = Integer.parseInt(facetName.toString());
@@ -233,6 +236,14 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
 
     public UIComponent getLast() {
         return getFacetByKey(LAST_FACET_NAME);
+    }
+    
+    public UIComponent getNext() {
+        return getFacetByKey(NEXT_FACET_NAME);
+    }
+
+    public UIComponent getPrevious() {
+        return getFacetByKey(PREVIOUS_FACET_NAME);
     }
 
     public UIComponent getFastForward() {

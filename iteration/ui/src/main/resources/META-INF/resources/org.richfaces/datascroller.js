@@ -132,13 +132,21 @@
         			RichFaces.Event.fireById(this.id, this.getScrollEventName(), {'page' : page});
         		}	
         	},
-    	
+        	
+        	fastForward: function() {
+        		this.switchToPage("fastforward");
+        	}, 
+        	
+        	fastRewind: function() {
+        		this.switchToPage("fastrewind");
+        	}, 
+        	
 	    	next: function() {
-	    		this.switchToPage("fastforward");
+	    		this.switchToPage("next");
 	    	},
 	    	
 	    	previous: function() {
-	    		this.switchToPage("fastrewind");
+	    		this.switchToPage("previous");
 	    	},
 	    	
 	    	first: function() {

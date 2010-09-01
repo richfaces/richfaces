@@ -87,10 +87,10 @@ public class DataScrollerBaseRenderer extends RendererBase {
 
         boolean useFirst = true;
         boolean useLast = true;
-
+        
         boolean useBackFast = true;
         boolean useForwFast = true;
-
+        
         ControlsState controlsState = new ControlsState();
 
         if (pageIndex <= minPageIdx) {
@@ -110,6 +110,7 @@ public class DataScrollerBaseRenderer extends RendererBase {
         }
 
         String boundaryControls = (String) component.getAttributes().get("boundaryControls");
+        String stepControls = (String) component.getAttributes().get("stepControls");
         String fastControls = (String) component.getAttributes().get("fastControls");
         
         boolean isAuto = "auto".equals(boundaryControls); 
@@ -125,7 +126,21 @@ public class DataScrollerBaseRenderer extends RendererBase {
             controlsState.setFirstRendered(false);
             controlsState.setLastRendered(false);
         }
+        
+        isAuto = "auto".equals(stepControls);
+        if (isAuto || "show".equals(stepControls)) {
+            if (isAuto) {
+                controlsState.setPreviousRendered(useFirst);
+                controlsState.setNextRendered(useLast);
+            }
 
+            controlsState.setPreviousEnabled(useFirst);
+            controlsState.setNextEnabled(useLast);
+        } else {
+            controlsState.setPreviousRendered(false);
+            controlsState.setNextRendered(false);
+        }
+        
         isAuto = "auto".equals(fastControls);
         if (isAuto || "show".equals(fastControls)) {
             if (isAuto) {
@@ -253,8 +268,16 @@ public class DataScrollerBaseRenderer extends RendererBase {
             left.put(clientId + "_ds_fr", AbstractDataScroller.FAST_REWIND_FACET_NAME);
         }
 
+        if (controlsState.getPreviousRendered() && controlsState.getPreviousEnabled()) {
+            left.put(clientId + "_ds_prev", AbstractDataScroller.PREVIOUS_FACET_NAME);
+        }
+        
         if (controlsState.getFastForwardRendered() && controlsState.getFastForwardEnabled()) {
             right.put(clientId + "_ds_ff", AbstractDataScroller.FAST_FORWARD_FACET_NAME);
+        }
+        
+        if (controlsState.getNextRendered() && controlsState.getNextEnabled()) {
+            right.put(clientId + "_ds_next", AbstractDataScroller.NEXT_FACET_NAME);
         }
 
         if (controlsState.getLastRendered() && controlsState.getLastEnabled()) {
@@ -305,6 +328,10 @@ public class DataScrollerBaseRenderer extends RendererBase {
         function.appendScript(buffer);
         definition.addToBody(buffer);
         return definition;
+    }
+    
+    public void encodeFacet(FacesContext context, UIComponent component) throws IOException {
+        component.encodeAll(context);
     }
 
     public boolean getRendersChildren() {

@@ -35,6 +35,14 @@ public class ControlsState {
     private boolean lastRendered = true;
 
     private boolean lastEnabled = true;
+    
+    private boolean nextRendered = true;
+    
+    private boolean nextEnabled = true;
+
+    private boolean previousRendered = true;
+    
+    private boolean previousEnabled = true;
 
     private boolean fastRewindRendered = true;
 
@@ -109,8 +117,40 @@ public class ControlsState {
     public void setFastForwardEnabled(boolean fastForwardEnabled) {
         this.fastForwardEnabled = fastForwardEnabled;
     }
+    
+    public boolean getNextRendered() {
+        return nextRendered;
+    }
 
-    public boolean isControlsSeparatorRendered() {
+    public void setNextRendered(boolean nextRendered) {
+        this.nextRendered = nextRendered;
+    }
+
+    public boolean getNextEnabled() {
+        return nextEnabled;
+    }
+
+    public void setNextEnabled(boolean nextEnabled) {
+        this.nextEnabled = nextEnabled;
+    }
+
+    public boolean getPreviousRendered() {
+        return previousRendered;
+    }
+
+    public void setPreviousRendered(boolean previousRendered) {
+        this.previousRendered = previousRendered;
+    }
+
+    public boolean getPreviousEnabled() {
+        return previousEnabled;
+    }
+
+    public void setPreviousEnabled(boolean previousEnabled) {
+        this.previousEnabled = previousEnabled;
+    }
+
+    public boolean getControlsSeparatorRendered() {
         return controlsSeparatorRendered;
     }
 
