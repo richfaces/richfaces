@@ -66,7 +66,7 @@
 
             this.__setActiveItem(newPanel.getName());
 
-            rf.submitForm(this.__getParentForm(), null, {});
+            rf.submitForm(this.__getParentForm());
 
             return false;
         },

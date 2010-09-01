@@ -26,7 +26,6 @@ import org.ajax4jsf.javascript.JSObject;
 import org.ajax4jsf.renderkit.RendererUtils;
 import org.richfaces.component.AbstractTogglePanelItem;
 import org.richfaces.component.AbstractTogglePanelTitledItem;
-import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.renderkit.RenderKitUtils;
 
 import javax.faces.application.ResourceDependencies;
@@ -38,6 +37,7 @@ import java.io.IOException;
 
 import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates;
 import static org.richfaces.component.html.HtmlAccordionItem.PropertyKeys;
+import static org.richfaces.component.util.HtmlUtil.concatClasses;
 import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 
 /**
@@ -67,6 +67,14 @@ import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes
     })
 public class AccordionItemRenderer extends TogglePanelItemRenderer {
 
+    private static final RenderKitUtils.Attributes HEADER_ATTRIBUTES = RenderKitUtils.attributes()
+        .generic("style", PropertyKeys.headerStyle.toString())
+        .generic("onclick", PropertyKeys.onheaderclick.toString(), "headerclick")
+        .generic("ondblclick", PropertyKeys.onheaderdblclick.toString(), "headerdblclick")
+        .generic("onmousedown", PropertyKeys.onheadermousedown.toString(), "headermousedown")
+        .generic("onmousemove", PropertyKeys.onheadermousemove.toString(), "headermousemove")
+        .generic("onmouseup", PropertyKeys.onheadermouseup.toString(), "headermouseup");
+
     @Override
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         super.doEncodeBegin(writer, context, component);
@@ -78,7 +86,7 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
 
     @Override
     protected String getStyleClass(UIComponent component) {
-        return "rf-aci " + attributeAsString(component, "styleClass");
+        return concatClasses("rf-aci", attributeAsString(component, "styleClass"));
     }
 
     @Override
@@ -103,7 +111,7 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
 
     private void encodeContentBegin(UIComponent component, ResponseWriter writer) throws IOException {
         writer.startElement("div", component);
-        writer.writeAttribute("class", "rf-aci-c " + attributeAsString(component, "contentClass"), null);
+        writer.writeAttribute("class", concatClasses("rf-aci-c", attributeAsString(component, "contentClass")), null);
         writer.writeAttribute("id", component.getClientId() + ":content", null);
 
         if (!((AbstractTogglePanelItem) component).isActive()) {
@@ -118,16 +126,9 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
     private void encodeHeader(FacesContext context, UIComponent component, ResponseWriter writer) throws IOException {
 
         writer.startElement("div", component);
-        writer.writeAttribute("class", "rf-aci-h " + attributeAsString(component, PropertyKeys.headerClass), null);
+        writer.writeAttribute("class", concatClasses("rf-aci-h", attributeAsString(component, PropertyKeys.headerClass)), null);
         writer.writeAttribute("id", component.getClientId() + ":header", null);
-        renderPassThroughAttributes(context, component, RenderKitUtils.attributes()
-            .generic("style", PropertyKeys.headerStyle.toString())
-            .generic("onclick", PropertyKeys.onheaderclick.toString(), "headerclick")
-            .generic("ondblclick", PropertyKeys.onheaderdblclick.toString(), "headerdblclick")
-            .generic("onmousedown", PropertyKeys.onheadermousedown.toString(), "headermousedown")
-            .generic("onmousemove", PropertyKeys.onheadermousemove.toString(), "headermousemove")
-            .generic("onmouseup", PropertyKeys.onheadermouseup.toString(), "headermouseup")
-        );
+        renderPassThroughAttributes(context, component, HEADER_ATTRIBUTES);
 
         AbstractTogglePanelTitledItem titledItem = (AbstractTogglePanelTitledItem) component;
         boolean isActive = titledItem.isActive();
@@ -149,7 +150,7 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
         }
 
         String name = "headerClass" + capitalize(state.toString());
-        writer.writeAttribute("class", HtmlUtil.concatClasses("rf-aci-h-" + state, attributeAsString(component, name)), null);
+        writer.writeAttribute("class", concatClasses("rf-aci-h-" + state, attributeAsString(component, name)), null);
 
         UIComponent headerFacet = component.getHeaderFacet(state);
         if (headerFacet != null && headerFacet.isRendered()) {

@@ -27,7 +27,6 @@ import javax.faces.component.UIOutput;
 /**
  * @author akolonitsky
  * @version 1.0
- * @since -4712-01-01
  *
  */
 public abstract class AbstractDivPanel extends UIOutput {
