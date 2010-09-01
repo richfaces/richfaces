@@ -13,7 +13,7 @@
 <h:body>
 	<h:form id="form">
 
-		<it:dataScroller  id="scroller1" for="richTable" page="#{dataScrollerBean.pageNumber}" maxPages="6"></it:dataScroller>
+		<it:dataScroller fastStep="2" id="scroller1" for="richTable" page="#{dataScrollerBean.pageNumber}" maxPages="5"></it:dataScroller>
 		<it:dataTable id="richTable" rowKeyVar="rowKey" var="content" value="#{dataScrollerBean.content}" rows="1">
 			<it:column>
 				<h:panelGroup id="pageContent">
@@ -21,7 +21,7 @@
 				</h:panelGroup>
 			</it:column>
 			<f:facet name="footer">
-				<it:dataScroller  id="scroller2" for="richTable" page="#{dataScrollerBean.pageNumber}" maxPages="6"></it:dataScroller>
+				<it:dataScroller fastStep="2" id="scroller2" for="richTable" page="#{dataScrollerBean.pageNumber}" maxPages="5"></it:dataScroller>
 			</f:facet>	
 		</it:dataTable>
 	</h:form>

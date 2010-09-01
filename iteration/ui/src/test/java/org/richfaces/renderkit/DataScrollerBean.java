@@ -17,7 +17,6 @@ public class DataScrollerBean {
         content.add("3 page content");
         content.add("4 page content"); 
         content.add("5 page content");
-        content.add("6 page content");
     }
 
     public List<String> getContent() {
