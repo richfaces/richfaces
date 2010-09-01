@@ -43,6 +43,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.easymock.classextension.EasyMock;
 import org.jboss.test.faces.AbstractFacesTest;
 import org.jboss.test.faces.htmlunit.LocalWebClient;
+import org.richfaces.application.DependencyInjectionServiceImpl;
+import org.richfaces.application.DependencyInjector;
 import org.richfaces.application.Module;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.application.ServicesFactory;
@@ -247,6 +249,7 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
                 injector.setInstance(ResourceCodec.class,mockedCodec);
                 injector.setInstance(org.ajax4jsf.cache.Cache.class,mockCache);
                 injector.setInstance(Uptime.class, new Uptime());
+                injector.setInstance(DependencyInjector.class, new DependencyInjectionServiceImpl());
             }
             
         }));
