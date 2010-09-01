@@ -22,16 +22,20 @@
 package org.richfaces;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.JarURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
 import java.text.MessageFormat;
 import java.util.jar.Attributes;
+import java.util.jar.JarFile;
 import java.util.jar.JarInputStream;
 import java.util.jar.Manifest;
 
+import org.ajax4jsf.resource.util.URLToStreamHelper;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
@@ -45,9 +49,6 @@ public final class VersionBean {
     
     public static final Version VERSION = new Version();
 	
-    private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
-    
-    
     /**
      * Class for incapsulate version info.
      *
@@ -55,6 +56,8 @@ public final class VersionBean {
      * @version $Revision$ $Date$
      */
     public static class Version {
+        
+        private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
         
         private static final String UNKNOWN = "";
         
@@ -125,6 +128,30 @@ public final class VersionBean {
                 if (codeSource != null) {
                     URL url = codeSource.getLocation();
                     if (url != null) {
+                        InputStream manifestStream = null;
+                        try {
+                            manifestStream = URLToStreamHelper.urlToStream(new URL(url, JarFile.MANIFEST_NAME));
+                            return new Manifest(manifestStream);
+                        } catch (MalformedURLException e1) {
+                            //that's ok - just log in debug
+                            if (LOGGER.isDebugEnabled()) {
+                                LOGGER.debug(e1.getMessage(), e1);
+                            }
+                        } catch (IOException e) {
+                            //that's ok - just log in debug
+                            if (LOGGER.isDebugEnabled()) {
+                                LOGGER.debug(e.getMessage(), e);
+                            }
+                        } finally {
+                            if (manifestStream != null) {
+                                try {
+                                    manifestStream.close();
+                                } catch (IOException e) {
+                                    LOGGER.error(MessageFormat.format("Error closing stream: {0}", e.getMessage()), e);
+                                }
+                            }
+                        }
+                        
                         JarInputStream jis = null;
                         try {
                             URLConnection urlConnection = url.openConnection();
