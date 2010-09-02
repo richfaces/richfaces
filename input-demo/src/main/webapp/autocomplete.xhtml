@@ -13,11 +13,17 @@
 <h:body style="margin: 30px;">
 
 	<h:form id="form">
+		<h:selectOneMenu value="#{autoCompleteBean.mode}" onchange="submit()">
+			<f:selectItem itemValue="lazyClient"/>
+			<f:selectItem itemValue="client"/>
+			<f:selectItem itemValue="cachedAjax"/>
+			<f:selectItem itemValue="ajax"/>
+		</h:selectOneMenu>
 		<div style="height: 300px; width: 300px; overflow: auto;">Text
 		block text block text block text block text block text block text
 		block text block
 
-		<input:autocomplete mode="" minChars="2" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" fetchValue="#{country.name}" showButton="true">
+		<input:autocomplete mode="#{autoCompleteBean.mode}" minChars="2" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" fetchValue="#{country.name}" showButton="true">
 			#{country.name} #{country.iso} #{country.domain}
 		</input:autocomplete>
 

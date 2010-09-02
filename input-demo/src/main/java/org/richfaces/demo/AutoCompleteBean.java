@@ -22,6 +22,7 @@
 package org.richfaces.demo;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Locale;
 
 import javax.faces.bean.ManagedBean;
@@ -29,6 +30,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+
+import org.richfaces.component.UIAutocomplete;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
@@ -60,6 +63,16 @@ public class AutoCompleteBean implements Serializable {
             return input.getName().toLowerCase(Locale.US).startsWith(countryNamePrefix);
         }
     }
+    
+    private String mode = "lazyClient";
+
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
 
     @ManagedProperty(value = "#{countriesBean}")
     private CountriesBean countriesBean;
@@ -69,7 +82,13 @@ public class AutoCompleteBean implements Serializable {
     }
 
     public Object autocomplete(FacesContext facesContext, UIComponent component, String value) {
-        return Collections2.filter(countriesBean.getCountries(), new CountryNamePredicate(value));
+        // for tests when value does not starts with prefix 
+        /*String str = value;
+        if (str.charAt(0)=='i') {
+            str = str.substring(1);
+        }*/
+        String v = mode.equals("lazyClient") || mode.equals("client") ? "" : value;
+        return Collections2.filter(countriesBean.getCountries(), new CountryNamePredicate(v.toLowerCase()));
     }
 
 }
