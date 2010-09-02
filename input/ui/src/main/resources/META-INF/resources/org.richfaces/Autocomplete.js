@@ -1,13 +1,22 @@
 (function ($, rf) {
 	rf.utils = rf.utils || {};
 
-	rf.utils.Cache = function (key, items, values) {
+	rf.utils.Cache = function (key, items, values, useCache) {
 		this.key = key.toLowerCase();
 		this.cache = {}
 		this.cache[this.key] = items || [];
-		this.values = typeof values != "function" ? values || this.cache[this.key] : values(items);
-		this.useCache = checkValuesPrefix.call(this);
+		this.originalValues = typeof values == "function" ? values(items) : values || this.cache[this.key];
+		this.values = processValues(this.originalValues);
+		this.useCache = useCache || checkValuesPrefix.call(this);
 	};
+	
+	var processValues = function (values) {
+		var processedValues = [];
+		for (var i = 0; i<values.length; i++) {
+			processedValues.push(values[i].toLowerCase());
+		}
+		return processedValues;
+	}
 	
 	var checkValuesPrefix = function () {
 		var result = true;
@@ -33,7 +42,7 @@
 		} else {
 			var itemsCache = this.cache[this.key];
 			for (var i = 0; i<this.values.length; i++) {
-				var value = this.values[i].toLowerCase();
+				var value = this.values[i];
 				var p = value.indexOf(key);
 				if (p == 0) {
 					newCache.push(itemsCache[i]);
@@ -52,7 +61,7 @@
 	};
 	
 	var getItemValue = function (item) {
-		return this.values[this.cache[this.key].index(item)];
+		return this.originalValues[this.cache[this.key].index(item)];
 	};
 	
 	var isCached = function (key) {
@@ -107,8 +116,9 @@
 		minChars:1,
 		selectFirst:true,
 		ajaxMode:true,
+		lazyClientMode:false,
 		isCachedAjax:true,
-		tokens: ",",
+		tokens: "",
 		attachToBody:true
 	};
 
@@ -150,9 +160,7 @@
 		if (element) {
 			if (event.type=="mouseover") {
 				var index = this.items.index(element);
-				if (index!=this.index) {
-					selectItem.call(this, index);
-				}
+				selectItem.call(this, event, index);
 			} else {
 				this.__onChangeValue(event, getSelectedItemValue.call(this));
 				rf.Selection.setCaretTo(rf.getDomElement(this.fieldId));
@@ -164,7 +172,7 @@
 	var updateItemsList = function (value, fetchValues) {
 		this.items = $(rf.getDomElement(this.id+ID.ITEMS)).find("."+this.options.itemClass);
 		if (this.items.length>0) {
-			this.cache = new rf.utils.Cache(value, this.items, fetchValues || getData);
+			this.cache = new rf.utils.Cache((this.options.ajaxMode ? value : ""), this.items, fetchValues || getData, !this.options.ajaxMode);
 		}
 	};
 
@@ -194,17 +202,24 @@
 		}
 	};
 
-	var callAjax = function(event, value) {
+	var callAjax = function(event, value, callback) {
 		
 		clearItems.call(this);
 		
 		rf.getDomElement(this.id+ID.VALUE).value = value;
 		
 		var _this = this;
+		var _event = event;
 		var ajaxSuccess = function (event) {
 			updateItemsList.call(_this, _this.value, event.componentData && event.componentData[_this.id]);
-			if (_this.isVisible && _this.options.selectFirst) {
-				selectItem.call(_this, 0);
+			if (_this.options.lazyClientMode && _this.value.length!=0) {
+				updateItemsFromCache.call(_this, _this.value);
+			}
+			if (_this.focused && _this.items.length!=0 && callback) {
+				callback.call(_this, _event);
+			}
+			if (!callback && _this.isVisible && _this.options.selectFirst) {
+				selectItem.call(_this, _event, 0);
 			}
 		}
 		
@@ -219,8 +234,8 @@
 		rf.ajax(this.id, event, {parameters: params, error: ajaxError, complete:ajaxSuccess});
 	};
 	
-	var selectItem = function(index, isOffset, noAutoFill) {
-		if (this.items.length==0) return;
+	var selectItem = function(event, index, isOffset) {
+		if (this.items.length==0 || (!isOffset && this.index == index)) return;
 	
 		if (this.index!=-1) {
 				this.items.eq(this.index).removeClass(this.options.selectedItemClass);
@@ -233,11 +248,11 @@
 
 		if (isOffset) {
 			this.index += index;
-		if ( this.index<0 ) {
-			this.index = this.items.length - 1;
-		} else if (this.index >= this.items.length) {
-			this.index = 0;
-		}
+			if ( this.index<0 ) {
+				this.index = this.items.length - 1;
+			} else if (this.index >= this.items.length) {
+				this.index = 0;
+			}
 		} else {
 			if (index<0) {
 				index = 0;
@@ -249,14 +264,21 @@
 		var item = this.items.eq(this.index);
 		item.addClass(this.options.selectedItemClass);
 		scrollToSelectedItem.call(this);
-		!noAutoFill && autoFill.call(this, this.value, getSelectedItemValue.call(this));
+		if (event &&
+			event.which != rf.KEYS.BACKSPACE &&
+			event.which != rf.KEYS.DEL &&
+			event.which != rf.KEYS.LEFT &&
+			event.which != rf.KEYS.RIGHT) {
+				autoFill.call(this, this.value, getSelectedItemValue.call(this));
+		}
 	};
 	
 	var updateItemsFromCache = function (value) {
 		var newItems = this.cache.getItems(value);
 		this.items = $(newItems);
 		//TODO: works only with simple markup, not with <tr>
-		$(rf.getDomElement(this.id+ID.ITEMS)).empty().append(newItems);
+		$(rf.getDomElement(this.id+ID.ITEMS)).empty().append(this.items);
+		window.console && console.log && console.log("updateItemsFromCache");
 	};
 	
 	var clearItems = function () {
@@ -264,31 +286,34 @@
 		this.items = [];
 	};
 	
-	var onChangeValue = function (event, value) {
-		selectItem.call(this);
-		this.index = -1;
+	var onChangeValue = function (event, value, callback) {
+		selectItem.call(this, event);
 		
 		// value is undefined if called from AutocompleteBase onChange
 		var subValue = (typeof value == "undefined") ? this.__getSubValue() : value;
 		var oldValue = this.value;
 		this.value = subValue;
 		
-		if (this.cache && this.cache.isCached(subValue)) {
-			updateItemsFromCache.call(this, subValue);
-			if (this.options.selectFirst) {
-				if (event.which == rf.KEYS.RETURN || event.type == "click") {
-					this.setInputValue(subValue);
-				} else {
-					selectItem.call(this, 0, false, event.which == rf.KEYS.BACKSPACE || event.which == rf.KEYS.LEFT || event.which == rf.KEYS.RIGHT);
-				}
+		if ((this.options.isCachedAjax || !this.options.ajaxMode) &&
+			this.cache && this.cache.isCached(subValue)) {
+			if (oldValue!=subValue) {
+				updateItemsFromCache.call(this, subValue);
+			}
+			if (this.items.length!=0 && callback) {
+				callback.call(this, event);
+			}
+			if (event.which == rf.KEYS.RETURN || event.type == "click") {
+				this.setInputValue(subValue);
+			} else if (this.options.selectFirst) {
+				selectItem.call(this, event, 0);
 			}
 		} else {
 			if (event.which == rf.KEYS.RETURN || event.type == "click") {
 				this.setInputValue(subValue);
 			}
 			if (subValue.length>=this.options.minChars) {
-				if (this.options.ajaxMode && oldValue!=subValue) {
-					this.options.ajaxMode && callAjax.call(this, event, subValue);
+				if ((this.options.ajaxMode || this.options.lazyClientMode) && oldValue!=subValue) {
+					callAjax.call(this, event, subValue, callback);
 				}
 			} else {
 				if (this.options.ajaxMode) {
@@ -365,9 +390,11 @@
  			 */
  			__updateState: function (event) {
 				var subValue = this.__getSubValue();
-				// called from onShow method, not actually value changed
-				if (this.items.length==0 && subValue.length>=this.options.minChars && this.isFirstAjax) {
-					this.options.ajaxMode && callAjax.call(this, event, subValue);
+				// called from AutocompleteBase when not actually value changed
+				if (this.items.length==0 && this.isFirstAjax) {
+					if ((this.options.ajaxMode && subValue.length>=this.options.minChars) || this.options.lazyClientMode) {
+						callAjax.call(this, event, subValue);
+					}
 				}
 				return;
 			},
@@ -383,16 +410,16 @@
  			/*
  			 * Override abstract protected methods
  			 */
- 			__onKeyUp: function () {
- 				selectItem.call(this, -1, true);
+ 			__onKeyUp: function (event) {
+ 				selectItem.call(this, event, -1, true);
  			},
- 			__onKeyDown: function () {
- 				selectItem.call(this, 1, true);
+ 			__onKeyDown: function (event) {
+ 				selectItem.call(this, event, 1, true);
  			},
- 			__onPageUp: function () {
+ 			__onPageUp: function (event) {
 
  			},
- 			__onPageDown: function () {
+ 			__onPageDown: function (event) {
 
  			},
  			__onBeforeShow: function (event) {
@@ -404,14 +431,12 @@
 				//rf.getDomElement(this.fieldId).focus();
  			},
  			__onShow: function (event) {
- 				if (event.which != rf.KEYS.BACKSPACE && this.items && this.items.length>0) {
- 					if (this.index!=0 && this.options.selectFirst) {
- 						selectItem.call(this, 0);
- 					}
+ 				if (this.options.selectFirst) {
+ 					selectItem.call(this, event, 0);
 				}
  			},
- 			__onHide: function () {
- 				selectItem.call(this);
+ 			__onHide: function (event) {
+ 				selectItem.call(this, event);
  			},
  			/*
  			 * Destructor

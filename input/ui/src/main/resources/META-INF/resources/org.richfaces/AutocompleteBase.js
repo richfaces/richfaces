@@ -107,6 +107,7 @@ $.extend(RichFaces.Event, {
 	};
 	
 	var onFocus = function (event) {
+		this.focused = true;
 	};
 	
 	var onBlur = function (event) {
@@ -116,6 +117,7 @@ $.extend(RichFaces.Event, {
 		} else if (this.isVisible && !this.isMouseDown) {
 			var _this = this;
 			this.timeoutId = window.setTimeout(function(){_this.hide();}, 200);
+			this.focused=false;
 		}
 	};
 	
@@ -128,15 +130,11 @@ $.extend(RichFaces.Event, {
 		//TODO: is it needed to chesk keys?
 		//TODO: we need to set value when autoFill used when LEFT or RIGHT was pressed
 		if (event.which == rf.KEYS.LEFT || event.which == rf.KEYS.RIGHT || flag) {
-			if (flag || this.isVisible) {
-				this.__onChangeValue(event);
-			}
 			if (flag) {
+				this.__onChangeValue(event, undefined, (!this.isVisible ? this.show : undefined));
 				this.currentValue = this.getInputValue();
-				/*if(value && value.length>=this.options.minChars){
-					onShow.call(this, event);
-				}*/ // TODO: AMarkhel: is this check needed??? for what?
-				onShow.call(this, event);
+			} else if (this.isVisible) {
+				this.__onChangeValue(event);
 			}
 		}
 	};
