@@ -29,7 +29,7 @@
 		return result;
 	}
 
-	var getItems = function (key) {
+	var getItems = function (key, filterFunction) {
 		key = key.toLowerCase();
 		var newCache = [];
 		
@@ -40,12 +40,17 @@
 		if (this.cache[key]) {
 			newCache = this.cache[key];
 		} else {
+			var useCustomFilterFunction = typeof filterFunction == "function";
 			var itemsCache = this.cache[this.key];
 			for (var i = 0; i<this.values.length; i++) {
 				var value = this.values[i];
-				var p = value.indexOf(key);
-				if (p == 0) {
+				if (useCustomFilterFunction && filterFunction(key, value)) {
 					newCache.push(itemsCache[i]);
+				} else {
+					var p = value.indexOf(key);
+					if (p == 0) {
+						newCache.push(itemsCache[i]);
+					}
 				}
 			}
 
@@ -119,7 +124,8 @@
 		lazyClientMode:false,
 		isCachedAjax:true,
 		tokens: "",
-		attachToBody:true
+		attachToBody:true,
+		filterFunction: undefined
 	};
 
 	var ID = {
@@ -274,7 +280,7 @@
 	};
 	
 	var updateItemsFromCache = function (value) {
-		var newItems = this.cache.getItems(value);
+		var newItems = this.cache.getItems(value, this.options.filterFunction);
 		this.items = $(newItems);
 		//TODO: works only with simple markup, not with <tr>
 		$(rf.getDomElement(this.id+ID.ITEMS)).empty().append(this.items);

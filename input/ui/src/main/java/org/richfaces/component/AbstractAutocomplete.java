@@ -195,6 +195,9 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
 
     @Attribute(events = @EventName("beforedomupdate"))
     public abstract String getOnbeforedomupdate();
+    
+    @Attribute
+    public abstract String getClientFilter();
 
     @Override
     public Converter getConverter() {

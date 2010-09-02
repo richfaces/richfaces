@@ -46,6 +46,7 @@ import javax.faces.model.ResultSetDataModel;
 import javax.servlet.jsp.jstl.sql.Result;
 
 import org.ajax4jsf.context.AjaxContext;
+import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.ScriptUtils;
 import org.ajax4jsf.renderkit.RendererUtils;
 import org.ajax4jsf.renderkit.RendererUtils.HTML;
@@ -72,6 +73,19 @@ import com.google.common.collect.Iterators;
 })
 public abstract class AutocompleteRendererBase extends InputRendererBase implements MetaComponentRenderer {
 
+    public JSFunctionDefinition getClientFilterFunction(UIComponent component) {
+        AbstractAutocomplete autocomplete = (AbstractAutocomplete) component;
+        String clientFilter = (String)autocomplete.getAttributes().get("clientFilter");
+        if (clientFilter != null && clientFilter.length() != 0) {
+            JSFunctionDefinition clientFilterFunction = new JSFunctionDefinition("subString");
+            clientFilterFunction.addParameter("value");
+            clientFilterFunction.addToBody(clientFilter);
+            return clientFilterFunction;
+        }
+        
+        return null;
+    }
+    
     public String getScriptOptions(UIComponent component) {
         Map<String, Object> attributes = component.getAttributes();
         Map<String, Object> options = new HashMap<String, Object>();
@@ -89,6 +103,7 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
         utils.addToScriptHash(options, "onerror", attributes.get("onerror"));
         utils.addToScriptHash(options, "onbeforedomupdate", attributes.get("onbeforedomupdate"));
         utils.addToScriptHash(options, "onchange", attributes.get("onchange"));
+        utils.addToScriptHash(options, "filterFunction", getClientFilterFunction(component));
         String mode = (String)attributes.get("mode");
         if (mode != null) {
             if (mode.equals("ajax")){
