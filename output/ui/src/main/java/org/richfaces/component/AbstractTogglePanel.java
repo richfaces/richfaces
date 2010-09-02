@@ -383,17 +383,22 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
     @Override
     public void queueEvent(FacesEvent event) {
         if ((event instanceof ItemChangeEvent) && (event.getComponent() == this)) {
-            if (isImmediate()) {
-                event.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
-            } else if (isBypassUpdates()) {
-                event.setPhaseId(PhaseId.PROCESS_VALIDATIONS);
-            } else {
-                event.setPhaseId(PhaseId.INVOKE_APPLICATION);
-            }
+            setEventPhase(event);
         }
 
         super.queueEvent(event);
     }
+
+    protected void setEventPhase(FacesEvent event) {
+        if (isImmediate()) {
+            event.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
+        } else if (isBypassUpdates()) {
+            event.setPhaseId(PhaseId.PROCESS_VALIDATIONS);
+        } else {
+            event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+        }
+    }
+
 
     @Override
     public void broadcast(FacesEvent event) throws AbortProcessingException {

@@ -159,12 +159,16 @@
             this.options = options;
             this.activeItem = this.options.activeItem;
             this.items = this.options.items;
+
+            this.__addUserEventHandler("itemchange");
+            this.__addUserEventHandler("beforeitemchange");
         },
 
-        /***************************** Public Methods  ********************************************************************/
+        /***************************** Public Methods  ****************************************************************/
 
         /**
          * @methodOf
+         *
          * @name TogglePanel#getSelectItem
          *
          * @return {String} name of current selected panel item
@@ -356,6 +360,16 @@
 
             rf.log.info("TogglePanel.getItemIndex: item with name '" + itemName + "' not found");
             return -1;
+        },
+
+        /**
+         * @private
+         * */
+        __addUserEventHandler : function (name) {
+            var handler = this.options["on" + name];
+            if (handler) {
+                rf.Event.bindById(this.id, name, handler);
+            }
         },
 
         /**

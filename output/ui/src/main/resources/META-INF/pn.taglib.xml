@@ -132,12 +132,12 @@
         </attribute>
         <attribute>
             <description></description>
-            <name>ononswitch</name>
+            <name>onswitch</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description></description>
-            <name>ononbeforeswitch</name>
+            <name>onbeforeswitch</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>

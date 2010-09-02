@@ -40,8 +40,8 @@ public class HtmlCollapsiblePanel extends UICollapsiblePanel implements ClientBe
     public static final String COMPONENT_FAMILY = "org.richfaces.CollapsiblePanel";
 
     private static final Collection<String> EVENT_NAMES = Collections.unmodifiableCollection(Arrays.asList(
-        "onswitch",
-        "onbeforeswitch",
+        "switch",
+        "beforeswitch",
         "click",
         "dblclick",
         "mousedown",
@@ -58,8 +58,8 @@ public class HtmlCollapsiblePanel extends UICollapsiblePanel implements ClientBe
         headerControlClass,
         oncomplete,
         onbeforedomupdate,
-        ononswitch,
-        ononbeforeswitch,
+        onswitch,
+        onbeforeswitch,
         lang,
         title,
         style,
@@ -123,20 +123,20 @@ public class HtmlCollapsiblePanel extends UICollapsiblePanel implements ClientBe
         getStateHelper().put(PropertyKeys.onbeforedomupdate, onbeforedomupdate);
     }
 
-    public String getOnonswitch() {
-        return (String) getStateHelper().eval(PropertyKeys.ononswitch);
+    public String getOnswitch() {
+        return (String) getStateHelper().eval(PropertyKeys.onswitch);
     }
 
-    public void setOnonswitch(String ononswitch) {
-        getStateHelper().put(PropertyKeys.ononswitch, ononswitch);
+    public void setOnswitch(String onswitch) {
+        getStateHelper().put(PropertyKeys.onswitch, onswitch);
     }
 
-    public String getOnonbeforeswitch() {
-        return (String) getStateHelper().eval(PropertyKeys.ononbeforeswitch);
+    public String getOnbeforeswitch() {
+        return (String) getStateHelper().eval(PropertyKeys.onbeforeswitch);
     }
 
-    public void setOnonbeforeswitch(String ononbeforeswitch) {
-        getStateHelper().put(PropertyKeys.ononbeforeswitch, ononbeforeswitch);
+    public void setOnbeforeswitch(String onbeforeswitch) {
+        getStateHelper().put(PropertyKeys.onbeforeswitch, onbeforeswitch);
     }
 
     public String getLang() {

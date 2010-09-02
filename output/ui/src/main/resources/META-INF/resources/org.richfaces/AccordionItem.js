@@ -41,7 +41,14 @@
             this.index = options["index"];
             this.getTogglePanel().getItems()[this.index] = this;
 
-            rf.Event.bindById(this.id + ":header", "click", this.__onHeaderClick, this)
+            rf.Event.bindById(this.id + ":header", "click", this.__onHeaderClick, this);
+
+            if (this.isSelected()) {
+                var item = this;
+                $(this.togglePanelId).ready(function () {
+                    item.__fitToHeight(item.getTogglePanel());
+                });
+            }
         },
 
         /***************************** Public Methods  ****************************************************************/
@@ -83,15 +90,8 @@
         __enter : function () {
             var parentPanel = this.getTogglePanel();
             if (parentPanel.isKeepHeight) {
-                this.__content().hide();
-                var h = parentPanel.getInnerHeight();
-
-                var items = parentPanel.getItems();
-                for (var i = 0; i < items.length; i++) {
-                    h -= items[i].__header().outerHeight();
-                }
-
-                this.__content().height(h - 20); // 20 it is padding top and bottom
+                this.__content().hide(); // TODO ?
+                this.__fitToHeight(parentPanel);
             }
 
             this.__content().show();
@@ -99,6 +99,17 @@
             this.__header("active").show();
 
             return this.__fireEnter();
+        },
+
+        __fitToHeight : function (parentPanel) {
+            var h = parentPanel.getInnerHeight();
+
+            var items = parentPanel.getItems();
+            for (var i = 0; i < items.length; i++) {
+                h -= items[i].__header().outerHeight();
+            }
+
+            this.__content().height(h - 20); // 20 it is padding top and bottom
         },
 
         getHeight : function (recalculate) {

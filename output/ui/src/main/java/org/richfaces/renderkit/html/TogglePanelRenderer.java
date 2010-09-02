@@ -159,7 +159,7 @@ public class TogglePanelRenderer extends DivPanelRenderer {
         HandlersChain handlersChain = new HandlersChain(context, component);
         handlersChain.addInlineHandlerFromAttribute(ON + eventName);
         handlersChain.addBehaviors(eventName);
-        handlersChain.addAjaxSubmitFunction();
+//        handlersChain.addAjaxSubmitFunction();
 
         String handler = handlersChain.toScript();
         if (handler != null) {

@@ -40,6 +40,9 @@
             rf.ui.TogglePanel.call(this, componentId, options);
             this.switchMode = options.switchMode;
 
+            this.__addUserEventHandler("beforeswitch");
+            this.__addUserEventHandler("switch");
+
             this.items = [
                 new RichFaces.ui.CollapsiblePanelItem(
                     this.id + ":content", {"index":0, "togglePanelId":this.id, "switchMode":this.switchMode, "name":"true"}),

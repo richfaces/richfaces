@@ -22,11 +22,14 @@
 
 package org.richfaces.component;
 
+import org.richfaces.event.ChangeExpandEvent;
+import org.richfaces.event.ChangeExpandListener;
+import org.richfaces.event.ChangeExpandSource;
+import org.richfaces.event.ItemChangeEvent;
+
 import javax.el.MethodExpression;
 import javax.faces.component.UIComponent;
-
-import org.richfaces.event.ChangeExpandSource;
-import org.richfaces.event.ChangeExpandListener;
+import javax.faces.event.FacesEvent;
 
 /**
  * @author akolonitsky
@@ -81,8 +84,17 @@ public abstract class AbstractCollapsiblePanel extends UITogglePanel implements 
 
     public abstract MethodExpression getChangeExpandListener();
 
-    
+    @Override
+    public void queueEvent(FacesEvent facesEvent) {
+        ChangeExpandEvent event = null;
+        if ((facesEvent instanceof ItemChangeEvent) && (facesEvent.getComponent() == this)) {
+            event = new ChangeExpandEvent(this, Boolean.valueOf(((ItemChangeEvent) facesEvent).getNewItem()));
 
+            setEventPhase(event);
+        }
+
+        super.queueEvent(event != null ? event : facesEvent);
+    }
 
     // ------------------------------------------------ Event Processing Methods
 
