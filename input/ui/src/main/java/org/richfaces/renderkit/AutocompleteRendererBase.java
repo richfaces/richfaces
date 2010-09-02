@@ -91,14 +91,14 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
         utils.addToScriptHash(options, "onchange", attributes.get("onchange"));
         String mode = (String)attributes.get("mode");
         if (mode != null) {
-	        if (mode.equals("ajax")){
-	            utils.addToScriptHash(options, "isCachedAjax", false, "true");
-	        } else if (mode.equals("client") || mode.equals("lazyClient")) {
-	            utils.addToScriptHash(options, "ajaxMode", false, "true");
-	            if (mode.equals("lazyClient")) {
-	                utils.addToScriptHash(options, "lazyClientMode", true, "false");
-	            }
-	        }
+            if (mode.equals("ajax")){
+                utils.addToScriptHash(options, "isCachedAjax", false, "true");
+            } else if (mode.equals("client") || mode.equals("lazyClient")) {
+                utils.addToScriptHash(options, "ajaxMode", false, "true");
+                if (mode.equals("lazyClient")) {
+                    utils.addToScriptHash(options, "lazyClientMode", true, "false");
+                }
+            }
         }
         StringBuilder builder = new StringBuilder();
         builder.append(ScriptUtils.toScript(options));
