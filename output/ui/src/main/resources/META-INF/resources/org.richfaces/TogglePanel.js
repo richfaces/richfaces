@@ -315,18 +315,40 @@
 
         /********************* Methods *************************/
 
-        __ITEMS_META_NAMES : {
-            "@first" : function (comp) { return 0; },
-            "@prev"  : function (comp) { return comp.__getItemIndex(comp.activeItem) - 1; },
-            "@next"  : function (comp) { return comp.__getItemIndex(comp.activeItem) + 1; },
-            "@last"  : function (comp) { return comp.items.length - 1; }
-        },
+        __ITEMS_META_NAMES : (function () {
+            function goFrom (comp, ind, step) {
+                var res = ind;
+                while (!comp.items[res] && res < comp.items.length && res > 0) {
+                    res += step;
+                }
+                return res;
+            }
+
+
+            return {
+                "@first" : function (comp) {
+                    return goFrom(comp, 0, 1);
+                },
+
+                "@prev"  : function (comp) {
+                    return goFrom(comp, parseInt(comp.__getItemIndex(comp.activeItem)) - 1 , -1);
+                },
+
+                "@next"  : function (comp) {
+                    return goFrom(comp, parseInt(comp.__getItemIndex(comp.activeItem)) + 1 , 1);
+                },
+
+                "@last"  : function (comp) {
+                    return goFrom(comp, comp.items.length - 1, -1);
+                }
+            }
+        })(),
 
         /**
          * @private
          * */
         __getItemIndex : function (itemName) {
-            for (var i = 0; i < this.items.length; i++) {
+            for (var i in this.items) {
                 if (this.items[i].getName() === itemName) {
                     return i;
                 }

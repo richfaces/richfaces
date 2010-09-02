@@ -24,7 +24,6 @@ package org.richfaces.renderkit.html;
 
 import org.ajax4jsf.javascript.JSObject;
 import org.ajax4jsf.renderkit.RendererUtils;
-import org.richfaces.component.AbstractTogglePanelItem;
 import org.richfaces.component.AbstractTogglePanelTitledItem;
 import org.richfaces.renderkit.RenderKitUtils;
 
@@ -93,20 +92,20 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         encodeContentEnd(component, writer);
 
-        super.doEncodeEnd(writer, context, component);    //To change body of overridden methods use File | Settings | File Templates.
+        super.doEncodeEnd(writer, context, component);
     }
 
     @Override
     protected void writeJavaScript(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        // todo how to call method from parent of parent class? 
-
         Object script = getScriptObject(context, component);
-        if (script != null) {
-            writer.startElement(RendererUtils.HTML.SCRIPT_ELEM, component);
-            writer.writeAttribute(RendererUtils.HTML.TYPE_ATTR, "text/javascript", "type");
-            writer.writeText(script, null);
-            writer.endElement(RendererUtils.HTML.SCRIPT_ELEM);
+        if (script == null || ((AbstractTogglePanelTitledItem) component).isDisabled()) {
+            return;
         }
+        
+        writer.startElement(RendererUtils.HTML.SCRIPT_ELEM, component);
+        writer.writeAttribute(RendererUtils.HTML.TYPE_ATTR, "text/javascript", "type");
+        writer.writeText(script, null);
+        writer.endElement(RendererUtils.HTML.SCRIPT_ELEM);
     }
 
     private void encodeContentBegin(UIComponent component, ResponseWriter writer) throws IOException {
@@ -114,7 +113,8 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
         writer.writeAttribute("class", concatClasses("rf-aci-c", attributeAsString(component, "contentClass")), null);
         writer.writeAttribute("id", component.getClientId() + ":content", null);
 
-        if (!((AbstractTogglePanelItem) component).isActive()) {
+        AbstractTogglePanelTitledItem item = (AbstractTogglePanelTitledItem) component;
+        if (!item.isActive() || item.isDisabled()) {
             writer.writeAttribute("style", "display: none", null);
         }
     }

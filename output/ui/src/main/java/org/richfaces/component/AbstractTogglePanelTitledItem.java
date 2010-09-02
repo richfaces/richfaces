@@ -69,14 +69,16 @@ public abstract class AbstractTogglePanelTitledItem extends UITogglePanelItem {
         }
 
         encodeBegin(context);
-        if (getRendersChildren()) {
-            encodeChildren(context);
-        } else if (this.getChildCount() > 0) {
-            for (UIComponent kid : getChildren()) {
-                kid.encodeAll(context);
+        if (!isDisabled()) {
+            if (getRendersChildren()) {
+                encodeChildren(context);
+            } else if (this.getChildCount() > 0) {
+                for (UIComponent kid : getChildren()) {
+                    kid.encodeAll(context);
+                }
             }
         }
-
+            
         encodeEnd(context);
     }
 
