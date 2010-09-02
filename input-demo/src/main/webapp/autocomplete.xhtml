@@ -23,7 +23,7 @@
 		block text block text block text block text block text block text
 		block text block
 
-		<input:autocomplete mode="#{autoCompleteBean.mode}" minChars="2" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" fetchValue="#{country.name}" showButton="true">
+		<input:autocomplete clientFilter="if(subString.length>1) if(value.indexOf(subString)!=-1) return true;" mode="#{autoCompleteBean.mode}" minChars="2" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" fetchValue="#{country.name}" showButton="true">
 			#{country.name} #{country.iso} #{country.domain}
 		</input:autocomplete>
 
