@@ -21,8 +21,6 @@
 
 package org.richfaces.view.facelets.html;
 
-import org.richfaces.component.AbstractCollapsiblePanel;
-
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -118,7 +116,7 @@ public abstract class EventListenerHandler extends TagHandler implements Editabl
             return;
         }
 
-        if (parent instanceof AbstractCollapsiblePanel) {
+        if (isEventSource(parent)) {
             applyAttachedObject(ctx.getFacesContext(), parent);
         } else if (UIComponent.isCompositeComponent(parent)) {
             // Allow the composite component to know about the target component.
@@ -140,6 +138,8 @@ public abstract class EventListenerHandler extends TagHandler implements Editabl
 
         return Class.forName(name, false, Thread.currentThread().getContextClassLoader());
     }
+
+    public abstract boolean isEventSource(UIComponent comp);
 }
 
 

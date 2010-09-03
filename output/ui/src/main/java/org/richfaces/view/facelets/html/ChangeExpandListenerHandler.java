@@ -66,5 +66,10 @@ public final class ChangeExpandListenerHandler extends EventListenerHandler {
         ChangeExpandSource source = (ChangeExpandSource) parent;
         source.addChangeExpandListener(new LazyChangeExpandListener(this.listenerType, expression));
     }
+
+    @Override
+    public boolean isEventSource(UIComponent comp) {
+        return comp instanceof ChangeExpandSource;
+    }
 }
 

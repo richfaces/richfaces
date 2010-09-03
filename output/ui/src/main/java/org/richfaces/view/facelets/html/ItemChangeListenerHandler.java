@@ -67,5 +67,10 @@ public final class ItemChangeListenerHandler extends EventListenerHandler {
         ItemChangeSource evh = (ItemChangeSource) parent;
         evh.addItemChangeListener(new LazyItemChangeListener(this.listenerType, valueExpr));
     }
+
+    @Override
+    public boolean isEventSource(UIComponent comp) {
+        return comp instanceof ItemChangeSource;
+    }
 }
 
