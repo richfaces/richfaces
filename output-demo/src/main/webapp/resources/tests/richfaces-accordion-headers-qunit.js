@@ -25,6 +25,34 @@ RichFaces.QUnit.run(function() {
 
     var ACCORDION_ID = "f:panel";
 
+    function testFirst(items) {
+        ok(items[0].__header("act").is(":visible"), "1 item: active visible");
+        ok(!items[0].__header("inact").is(":visible"), "1 item: inactive unvisible");
+        ok(!items[0].__header("dis").is(":visible"), "1 item: disabled unvisible");
+
+        ok(!items[1].__header("act").is(":visible"), "2 item: active visible");
+        ok(!items[1].__header("inact").is(":visible"), "2 item: inactive unvisible");
+        ok(items[1].__header("dis").is(":visible"), "2 item: disabled unvisible");
+
+        ok(!items[2].__header("act").is(":visible"), "3 item: active unvisible");
+        ok(items[2].__header("inact").is(":visible"), "3 item: inactive visible");
+        ok(!items[2].__header("dis").is(":visible"), "3 item: disabled unvisible");
+    }
+    
+    function testLast(items) {
+        ok(!items[0].__header("act").is(":visible"), "1 item: active unvisible");
+        ok(items[0].__header("inact").is(":visible"), "1 item: inactive visible");
+        ok(!items[0].__header("dis").is(":visible"), "1 item: disabled unvisible");
+
+        ok(!items[1].__header("act").is(":visible"), "2 item: active visible");
+        ok(!items[1].__header("inact").is(":visible"), "2 item: inactive unvisible");
+        ok(items[1].__header("dis").is(":visible"), "2 item: disabled unvisible");
+
+        ok(items[2].__header("act").is(":visible"), "3 item: active visible");
+        ok(!items[2].__header("inact").is(":visible"), "3 item: inactive unvisible");
+        ok(!items[2].__header("dis").is(":visible"), "3 item: disabled unvisible");
+    }
+
     test("RichFaces.ui.Accordion change headers", function () {
         var c = RichFaces.$(ACCORDION_ID);
 
@@ -34,31 +62,38 @@ RichFaces.QUnit.run(function() {
         equals(c.getItems().length, 3, "getItems().length");
 
         var items = c.getItems();
-        ok( items[0].__header("active"  ).is(":visible"), "1 item: active visible");
-        ok(!items[0].__header("inactive").is(":visible"), "1 item: inactive unvisible");
-        ok(!items[0].__header("disable" ).is(":visible"), "1 item: disabled unvisible");
-
-//        ok(!items[1].__header("active"  ).is(":visible"), "2 item: active unvisible");
-//        ok(!items[1].__header("inactive").is(":visible"), "2 item: inactive unvisible");
-//        ok( items[1].__header("disable" ).is(":visible"), "2 item: disabled visible");
-
-        ok(!items[2].__header("active"  ).is(":visible"), "3 item: active unvisible");
-        ok( items[2].__header("inactive").is(":visible"), "3 item: inactive visible");
-        ok(!items[2].__header("disable" ).is(":visible"), "3 item: disabled unvisible");
+        testFirst(items);
 
         c.switchToItem(items[2].getName());
-        ok(!items[0].__header("active"  ).is(":visible"), "1 item: active unvisible");
-        ok( items[0].__header("inactive").is(":visible"), "1 item: inactive visible");
-        ok(!items[0].__header("disable" ).is(":visible"), "1 item: disabled unvisible");
+        testLast(items);
 
-//        ok(!items[1].__header("active"  ).is(":visible"), "2 item: active unvisible");
-//        ok(!items[1].__header("inactive").is(":visible"), "2 item: inactive unvisible");
-//        ok( items[1].__header("disable" ).is(":visible"), "2 item: disabled visible");
+        c.switchToItem("@first");
+        testFirst(items);
 
-        ok( items[2].__header("active"  ).is(":visible"), "3 item: active visible");
-        ok(!items[2].__header("inactive").is(":visible"), "3 item: inactive unvisible");
-        ok(!items[2].__header("disable" ).is(":visible"), "3 item: disabled unvisible");
+        c.switchToItem("@last");
+        testLast(items);
+
+        c.switchToItem("@prev");
+        testFirst(items);
+
+        c.switchToItem("@next");
+        testLast(items);
+    });
+
+    test("RichFaces.ui.Accordion change disabled headers", function () {
+        var c = RichFaces.$(ACCORDION_ID);
+
+        ok(c instanceof RichFaces.ui.Accordion, "inctance of RichFaces.ui.Accordion");
+        equals(c.id, ACCORDION_ID, "id");
+
+        equals(c.getItems().length, 3, "getItems().length");
+
+        var items = c.getItems();
 
         c.switchToItem(items[0].getName());
+        testFirst(items);
+        
+        c.switchToItem(items[1].getName());
+        testFirst(items);
     });
 });
