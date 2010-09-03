@@ -42,8 +42,18 @@ public abstract class AbstractCollapsiblePanel extends UITogglePanel implements 
     public static final String COMPONENT_FAMILY = "org.richfaces.CollapsiblePanel";
 
     public enum States {
-        expanded,
-        collapsed
+        expanded("exp"),
+        collapsed("colps");
+
+        private final String abbreviation;
+
+        States(String abbreviation) {
+            this.abbreviation = abbreviation;
+        }
+
+        public String abbreviation() {
+            return abbreviation;
+        }
     }
 
     protected AbstractCollapsiblePanel() {

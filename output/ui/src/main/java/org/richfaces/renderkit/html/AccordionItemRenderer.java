@@ -33,6 +33,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
+import java.util.Map;
 
 import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates;
 import static org.richfaces.component.html.HtmlAccordionItem.PropertyKeys;
@@ -41,13 +42,13 @@ import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes
 
 /**
  *
- * <div id="clientId" class="rf-aci">
- *     <div id="clientId:header" class="rf-aci-h">
- *         <div class="rf-aci-h-inactive">Level 1</div>
- *         <div class="rf-aci-h-active"  >Level 1</div>
- *         <div class="rf-aci-h-disabled">Level 1</div>
+ * <div id="clientId" class="rf-ac-itm">
+ *     <div id="clientId:header" class="rf-ac-itm-hdr">
+ *         <div class="rf-ac-itm-hdr-inact">Level 1</div>
+ *         <div class="rf-ac-itm-hdr-act"  >Level 1</div>
+ *         <div class="rf-ac-itm-hdr-dis">Level 1</div>
  *     </div>
- *     <div id="clientId:content" class="rf-aci-c">
+ *     <div id="clientId:content" class="rf-ac-itm-cnt">
  *         Content will be here.
  *     </div>
  * </div>
@@ -85,7 +86,7 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
 
     @Override
     protected String getStyleClass(UIComponent component) {
-        return concatClasses("rf-aci", attributeAsString(component, "styleClass"));
+        return concatClasses("rf-ac-itm", attributeAsString(component, "styleClass"));
     }
 
     @Override
@@ -98,7 +99,7 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
     @Override
     protected void writeJavaScript(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         Object script = getScriptObject(context, component);
-        if (script == null || ((AbstractTogglePanelTitledItem) component).isDisabled()) {
+        if (script == null) {
             return;
         }
         
@@ -110,7 +111,7 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
 
     private void encodeContentBegin(UIComponent component, ResponseWriter writer) throws IOException {
         writer.startElement("div", component);
-        writer.writeAttribute("class", concatClasses("rf-aci-c", attributeAsString(component, "contentClass")), null);
+        writer.writeAttribute("class", concatClasses("rf-ac-itm-cnt", attributeAsString(component, "contentClass")), null);
         writer.writeAttribute("id", component.getClientId() + ":content", null);
 
         AbstractTogglePanelTitledItem item = (AbstractTogglePanelTitledItem) component;
@@ -126,7 +127,7 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
     private void encodeHeader(FacesContext context, UIComponent component, ResponseWriter writer) throws IOException {
 
         writer.startElement("div", component);
-        writer.writeAttribute("class", concatClasses("rf-aci-h", attributeAsString(component, PropertyKeys.headerClass)), null);
+        writer.writeAttribute("class", concatClasses("rf-ac-itm-hdr", attributeAsString(component, PropertyKeys.headerClass)), null);
         writer.writeAttribute("id", component.getClientId() + ":header", null);
         renderPassThroughAttributes(context, component, HEADER_ATTRIBUTES);
 
@@ -150,7 +151,7 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
         }
 
         String name = "headerClass" + capitalize(state.toString());
-        writer.writeAttribute("class", concatClasses("rf-aci-h-" + state, attributeAsString(component, name)), null);
+        writer.writeAttribute("class", concatClasses("rf-ac-itm-hdr-" + state.abbreviation(), attributeAsString(component, name)), null);
 
         UIComponent headerFacet = component.getHeaderFacet(state);
         if (headerFacet != null && headerFacet.isRendered()) {
@@ -169,6 +170,14 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
         return new JSObject("RichFaces.ui.AccordionItem", component.getClientId(),
             getScriptObjectOptions(context, component));
+    }
+
+    @Override
+    protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
+        Map<String, Object> res = super.getScriptObjectOptions(context, component);
+        res.put("disabled", ((AbstractTogglePanelTitledItem) component).isDisabled());
+
+        return res;
     }
 
     @Override

@@ -322,7 +322,7 @@
         __ITEMS_META_NAMES : (function () {
             function goFrom (comp, ind, step) {
                 var res = ind;
-                while (!comp.items[res] && res < comp.items.length && res > 0) {
+                while ((!comp.items[res] || comp.items[res].disabled) && res < comp.items.length && res > 0) {
                     res += step;
                 }
                 return res;
@@ -353,8 +353,8 @@
          * */
         __getItemIndex : function (itemName) {
             for (var i in this.items) {
-                if (this.items[i].getName() === itemName) {
-                    return i;
+                if (!this.items[i].disabled && this.items[i].getName() === itemName) {
+                    return parseInt(i);
                 }
             }
 

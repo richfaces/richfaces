@@ -51,7 +51,7 @@
         __header : function (state) {
             var res = $(rf.getDomElement(this.togglePanelId + ":header"));
             if (state) {
-                return res.find(".rf-cp-hr-" + state);
+                return res.find(".rf-cp-hdr-" + state);
             }
 
             return res;

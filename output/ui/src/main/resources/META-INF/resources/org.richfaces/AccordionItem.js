@@ -41,7 +41,9 @@
             this.index = options["index"];
             this.getTogglePanel().getItems()[this.index] = this;
 
-            rf.Event.bindById(this.id + ":header", "click", this.__onHeaderClick, this);
+            if (!this.disabled) {
+                rf.Event.bindById(this.id + ":header", "click", this.__onHeaderClick, this);
+            }
 
             if (this.isSelected()) {
                 var item = this;
@@ -66,7 +68,7 @@
         __header : function (state) {
             var res = $(rf.getDomElement(this.id + ":header"));
             if (state) {
-                return res.find(".rf-aci-h-" + state);
+                return res.find(".rf-ac-itm-hdr-" + state);
             }
 
             return res;
@@ -95,8 +97,8 @@
             }
 
             this.__content().show();
-            this.__header("inactive").hide();
-            this.__header("active").show();
+            this.__header("inact").hide();
+            this.__header("act").show();
 
             return this.__fireEnter();
         },
@@ -105,7 +107,7 @@
             var h = parentPanel.getInnerHeight();
 
             var items = parentPanel.getItems();
-            for (var i = 0; i < items.length; i++) {
+            for (var i in items) {
                 h -= items[i].__header().outerHeight();
             }
 
@@ -132,8 +134,8 @@
             }
 
             this.__content().hide();
-            this.__header("active").hide();
-            this.__header("inactive").show();
+            this.__header("act").hide();
+            this.__header("inact").show();
 
             return true;
         },

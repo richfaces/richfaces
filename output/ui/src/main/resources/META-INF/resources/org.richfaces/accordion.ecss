@@ -1,5 +1,4 @@
 .rf-ac {
-    /*width: 300px;*/ /*visible width*/
     border-width: 1px;
     border-style: solid;
     border-color: '#{richSkin.panelBorderColor}';
@@ -7,7 +6,7 @@
     background: '#{richSkin.generalBackgroundColor}';
 }
 
-.rf-aci-h {
+.rf-ac-itm-hdr {
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: '#{richSkin.panelBorderColor}';
@@ -24,13 +23,17 @@
     cursor: pointer;
 }
 
-.rf-aci-c {
+.rf-ac-itm-hdr-act {}
+.rf-ac-itm-hdr-inact {}
+.rf-ac-itm-hdr-dis {}
+
+.rf-ac-itm-cnt {
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: '#{richSkin.panelBorderColor}';
-    /*height: 100px*/ /*visible modal panel height minus header height*/;
     position: relative;
     overflow: auto;
     overflow-x: hidden;
     padding: 10px;
 }
+

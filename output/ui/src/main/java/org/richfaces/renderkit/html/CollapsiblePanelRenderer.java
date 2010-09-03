@@ -121,7 +121,7 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
     private void encodeHeader(FacesContext context, UIComponent component, ResponseWriter writer) throws IOException {
         writer.startElement("div", component);
         writer.writeAttribute("id", component.getClientId(context) + ":header", null);
-        writer.writeAttribute("class", concatClasses("rf-cp-hr", attributeAsString(component, "headerClass")), null);
+        writer.writeAttribute("class", concatClasses("rf-cp-hdr", attributeAsString(component, "headerClass")), null);
 
         AbstractCollapsiblePanel panel = (AbstractCollapsiblePanel) component;
         encodeHeader(context, component, writer, expanded, panel.isExpanded());
@@ -132,7 +132,7 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
     
     private void encodeHeader(FacesContext context, UIComponent component, ResponseWriter responseWriter, AbstractCollapsiblePanel.States state, boolean isVisible) throws IOException {
         responseWriter.startElement("div", component);
-        responseWriter.writeAttribute("class", "rf-cp-hr-" + state, null);
+        responseWriter.writeAttribute("class", "rf-cp-hdr-" + state.abbreviation(), null);
         responseWriter.writeAttribute("style", concatStyles(styleElement("display", isVisible ? "" : "none"), attributeAsString(component, "headerClass")), null);
 
         UIComponent header = AbstractTogglePanelTitledItem.getHeaderFacet(component, state);

@@ -39,9 +39,19 @@ public abstract class AbstractTogglePanelTitledItem extends UITogglePanelItem {
     public static final String COMPONENT_FAMILY = "org.richfaces.TogglePanelTitledItem";
 
     public enum HeaderStates {
-        active,
-        inactive,
-        disable
+        active("act"),
+        inactive("inact"),
+        disable("dis");
+
+        private final String abbreviation;
+
+        HeaderStates(String abbreviation) {
+            this.abbreviation = abbreviation;
+        }
+
+        public String abbreviation() {
+            return abbreviation;
+        }
     }
 
     protected AbstractTogglePanelTitledItem() {

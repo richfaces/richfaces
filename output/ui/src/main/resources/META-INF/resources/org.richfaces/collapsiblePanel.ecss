@@ -6,7 +6,7 @@
 	padding:1px;
 }
 
-.rf-cp-hr{
+.rf-cp-hdr{
 	background-color:'#{richSkin.headerBackgroundColor}';
 	border-color:'#{richSkin.headerBackgroundColor}';
 	font-size:'#{richSkin.headerSizeFont}';
@@ -20,6 +20,9 @@
 	background-repeat:repeat-x;
 	background-image:"url(#{resource['org.richfaces.renderkit.html.GradientA']})";
 }
+
+.rf-cp-hdr-exp {}
+.rf-cp-hdr-colps {}
 
 .rf-cp-b{
 	font-size:'#{richSkin.generalSizeFont}';

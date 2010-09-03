@@ -54,7 +54,7 @@ public class TogglePanelItemRenderer extends DivPanelRenderer {
 
     @Override
     protected String getStyleClass(UIComponent component) {
-        return HtmlUtil.concatClasses("rf-tgp-i", attributeAsString(component, "styleClass"));
+        return HtmlUtil.concatClasses("rf-tgp-itm", attributeAsString(component, "styleClass"));
     }
 
     @Override

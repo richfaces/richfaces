@@ -38,6 +38,7 @@
             this.name = this.options.name;
             this.togglePanelId = this.options.togglePanelId;
             this.switchMode = this.options.switchMode;
+            this.disabled = this.options.disabled || false;
         },
 
         /***************************** Public Methods *****************************************************************/
