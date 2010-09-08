@@ -42,6 +42,8 @@ import org.richfaces.renderkit.html.images.GradientType.BiColor;
 import org.richfaces.resource.DynamicResource;
 import org.richfaces.resource.ImageType;
 import org.richfaces.resource.Java2DUserResource;
+import org.richfaces.resource.PostConstructResource;
+import org.richfaces.resource.ResourceParameter;
 import org.richfaces.resource.StateHolderResource;
 import org.richfaces.resource.VersionedResource;
 import org.richfaces.skin.Skin;
@@ -58,21 +60,21 @@ public class BaseGradient implements Java2DUserResource, StateHolderResource, Ve
     protected Integer headerGradientColor;
     protected GradientType gradientType;
 
-    private final int width;
-    private final int height;
-    private final int gradientHeight;
-    private final String baseColor;
-    private final String gradientColor;
-    private final boolean horizontal;
+    private int width;
+    private int height;
+    private int gradientHeight;
+    private String baseColor;
+    private String gradientColor;
+    private boolean horizontal;
 
     public BaseGradient(int width, int height, int gradientHeight, String baseColor, String gradientColor,
                         boolean horizontal) {
-        this.width = width;
-        this.height = height;
-        this.gradientHeight = gradientHeight;
-        this.baseColor = baseColor != null ? baseColor : Skin.HEADER_BACKGROUND_COLOR;
-        this.gradientColor = gradientColor != null ? gradientColor : Skin.HEADER_GRADIENT_COLOR;
-        this.horizontal = horizontal;
+        this.setWidth(width);
+        this.setHeight(height);
+        this.setGradientHeight(gradientHeight);
+        this.setBaseColorParam(baseColor);
+        this.setGradientColorParam(gradientColor);
+        this.setHorizontal(horizontal);
     }
 
     public BaseGradient(int width, int height, int gradientHeight) {
@@ -119,21 +121,62 @@ public class BaseGradient implements Java2DUserResource, StateHolderResource, Ve
         this(30, 50, 20, baseColor, gradientColor, horizontal);
     }
 
-    private void initialize() {
+    protected void initializeProperties(FacesContext context, Skin skin) {
+        
+    }
+    
+    @PostConstructResource
+    public final void initialize() {
         FacesContext context = FacesContext.getCurrentInstance();
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
         
-        this.headerBackgroundColor = skin.getColorParameter(context, baseColor);
-        this.headerGradientColor = skin.getColorParameter(context, gradientColor);
-
         String gradientTypeString = null;
         if (gradientTypeString == null || gradientTypeString.length() == 0) {
             gradientTypeString = (String) skin.getParameter(context, Skin.GRADIENT_TYPE);
         }
 
         this.gradientType = GradientType.getByParameter(gradientTypeString);
+
+        initializeProperties(context, skin);
+
+        this.headerBackgroundColor = skin.getColorParameter(context, baseColor);
+        this.headerGradientColor = skin.getColorParameter(context, gradientColor);
     }
 
+    @ResourceParameter(defaultValue = "30")
+    public final void setWidth(int width) {
+        this.width = width;
+    }
+    
+    @ResourceParameter(defaultValue = "50")
+    public final void setHeight(int height) {
+        this.height = height;
+    }
+    
+    @ResourceParameter(defaultValue = "20")
+    public final void setGradientHeight(int gradientHeight) {
+        this.gradientHeight = gradientHeight;
+    }
+    
+    @ResourceParameter(defaultValue = Skin.HEADER_BACKGROUND_COLOR)
+    public final void setBaseColorParam(String paramName) {
+        this.baseColor = paramName;
+    }
+    
+    @ResourceParameter(defaultValue = Skin.HEADER_GRADIENT_COLOR)
+    public final void setGradientColorParam(String paramName) {
+        this.gradientColor = paramName;
+    }
+    
+    @ResourceParameter(defaultValue = "false")
+    public final void setHorizontal(boolean horizontal) {
+        this.horizontal = horizontal;
+    }
+    
+    public final void setGradientType(GradientType gradientType) {
+        this.gradientType = gradientType;
+    }
+    
     public Dimension getDimension() {
         return new Dimension(getWidth(), getHeight());
     }
@@ -237,15 +280,22 @@ public class BaseGradient implements Java2DUserResource, StateHolderResource, Ve
     }
 
     public void readState(FacesContext context, DataInput dataInput) throws IOException {
+        this.width = dataInput.readShort();
+        this.height = dataInput.readShort();
+        this.gradientHeight = dataInput.readShort();
+        this.horizontal = dataInput.readBoolean();
+        
         this.headerBackgroundColor = dataInput.readInt();
         this.headerGradientColor = dataInput.readInt();
         this.gradientType = GradientType.values()[dataInput.readByte()];
     }
     
     public void writeState(FacesContext context, DataOutput dataOutput) throws IOException {
-        //TODO move this call to another place in this and alike resources
-        initialize();
-
+        dataOutput.writeShort((short) width);
+        dataOutput.writeShort((short) height);
+        dataOutput.writeShort((short) gradientHeight);
+        dataOutput.writeBoolean(horizontal);
+        
         dataOutput.writeInt(this.headerBackgroundColor);
         dataOutput.writeInt(this.headerGradientColor);
         dataOutput.writeByte((byte) this.gradientType.ordinal());

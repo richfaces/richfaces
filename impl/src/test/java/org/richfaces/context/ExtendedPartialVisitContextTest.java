@@ -44,6 +44,7 @@ import javax.el.ELContext;
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
 import javax.faces.application.Application;
+import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.component.UIOutput;
@@ -76,17 +77,21 @@ import org.junit.Test;
  *           &lt;h:outputText id=&quot;theHeader&quot; /&gt;
  *       &lt;/f:facet&gt;
  *
- *       &lt;a4j:outputText id=&quot;nestedOutput&quot; value=&quot;#{item}&quot; /&gt;
+ *       &lt;h:column&gt;
+ *          &lt;a4j:outputText id=&quot;nestedOutput&quot; value=&quot;#{item}&quot; /&gt;
  *
- *       &lt;h:outputText id=&quot;nestedText&quot; value=&quot;#{item}&quot; /&gt;
+ *          &lt;h:outputText id=&quot;nestedText&quot; value=&quot;#{item}&quot; /&gt;
  *
- *       &lt;a4j:table id=&quot;nestedTable&quot; value=&quot;['Nested item 0',... ,'Nested item 2']&quot; var=&quot;nestedItem&quot;&gt;
- *           &lt;f:facet name=&quot;footer&quot;&gt;
- *              &lt;h:outputText id=&quot;nestedTableFooter&quot; value=&quot;#{item}&quot; /&gt;
- *           &lt;/f:facet&gt;
+ *          &lt;a4j:table id=&quot;nestedTable&quot; value=&quot;['Nested item 0',... ,'Nested item 2']&quot; var=&quot;nestedItem&quot;&gt;
+ *              &lt;f:facet name=&quot;footer&quot;&gt;
+ *                  &lt;h:outputText id=&quot;nestedTableFooter&quot; value=&quot;#{item}&quot; /&gt;
+ *              &lt;/f:facet&gt;
  *
- *           &lt;h:outputText id=&quot;nestedTableText&quot; value=&quot;#{nestedItem}&quot; /&gt;
- *       &lt;/a4j:table&gt;
+ *              &lt;h:column&gt;
+ *                  &lt;h:outputText id=&quot;nestedTableText&quot; value=&quot;#{nestedItem}&quot; /&gt;
+ *              &lt;/h:column&gt;
+ *          &lt;/a4j:table&gt;
+ *       &lt;/h:column&gt;
  *   &lt;/a4j:table&gt;
  * &lt;/h:form&gt;
  * </pre>
@@ -220,7 +225,7 @@ public class ExtendedPartialVisitContextTest {
         nestedText.setId("nestedText");
         nestedText.setValueExpression("value", createTableVarValueExpression());
 
-        table.getChildren().add(nestedText);
+        table.getChildren().get(0).getChildren().add(nestedText);
     }
 
     private void createNestedOutput() {
@@ -229,7 +234,7 @@ public class ExtendedPartialVisitContextTest {
         nestedOutput.setId("nestedOutput");
         nestedOutput.setValueExpression("value", createTableVarValueExpression());
 
-        table.getChildren().add(nestedOutput);
+        table.getChildren().get(0).getChildren().add(nestedOutput);
     }
 
     private void createOuterOutput() {
@@ -255,7 +260,9 @@ public class ExtendedPartialVisitContextTest {
         createNestedTableData();
         nestedTable.setValue(nestedTableData);
 
-        table.getChildren().add(nestedTable);
+        nestedTable.getChildren().add(new UIColumn());
+        
+        table.getChildren().get(0).getChildren().add(nestedTable);
 
         createNestedTableText();
         createNestedTableFooter();
@@ -274,7 +281,7 @@ public class ExtendedPartialVisitContextTest {
         nestedTableText.setId("nestedTableText");
         nestedTableText.setValueExpression("value", createNestedTableVarValueExpression());
 
-        nestedTable.getChildren().add(nestedTableText);
+        nestedTable.getChildren().get(0).getChildren().add(nestedTableText);
     }
 
     private void createTable() {
@@ -285,6 +292,8 @@ public class ExtendedPartialVisitContextTest {
         createTableData();
         table.setValue(tableData);
 
+        table.getChildren().add(new UIColumn());
+        
         form.getChildren().add(table);
         createNestedOutput();
         createNestedText();
@@ -478,7 +487,7 @@ public class ExtendedPartialVisitContextTest {
         assertEqualSets(tableClientIds, renderingContext.getSubtreeIdsToVisit(table));
         assertEqualSets(tableIds, renderingContext.getDirectSubtreeIdsToVisit(table));
 
-        table.setRowKey(Integer.valueOf(0));
+        table.setRowIndex(0);
 
         Set<String> nestedTableClientIds = asSet("myForm:table:0:nestedTable:1",
             "myForm:table:0:nestedTable:nestedFooter");
@@ -487,7 +496,7 @@ public class ExtendedPartialVisitContextTest {
         assertEqualSets(nestedTableClientIds, renderingContext.getSubtreeIdsToVisit(nestedTable));
         assertEqualSets(nestedTableIds, renderingContext.getDirectSubtreeIdsToVisit(nestedTable));
 
-        table.setRowKey(null);
+        table.setRowIndex(-1);
     }
 
     @Test
@@ -503,7 +512,7 @@ public class ExtendedPartialVisitContextTest {
         assertSame(VisitContext.ALL_IDS, renderingContext.getDirectSubtreeIdsToVisit(table));
 
         for (int i = 0; i < tableData.size(); i++) {
-            table.setRowKey(Integer.valueOf(i));
+            table.setRowIndex(i);
 
             assertSame(VisitContext.ALL_IDS, renderingContext.getSubtreeIdsToVisit(table));
             assertEqualSets(asSet("nestedText", "nestedTable", "nestedOutput"),
@@ -513,7 +522,7 @@ public class ExtendedPartialVisitContextTest {
             assertEqualSets(asSet("0"), renderingContext.getDirectSubtreeIdsToVisit(nestedTable));
         }
 
-        table.setRowKey(null);
+        table.setRowIndex(-1);
     }
 
     @Test
@@ -529,7 +538,7 @@ public class ExtendedPartialVisitContextTest {
         assertSame(VisitContext.ALL_IDS, renderingContext.getDirectSubtreeIdsToVisit(table));
 
         for (int i = 0; i < tableData.size(); i++) {
-            table.setRowKey(Integer.valueOf(i));
+            table.setRowIndex(i);
 
             assertSame(VisitContext.ALL_IDS, renderingContext.getSubtreeIdsToVisit(table));
             assertEqualSets(asSet("nestedText", "nestedTable"), renderingContext.getDirectSubtreeIdsToVisit(table));
@@ -538,7 +547,7 @@ public class ExtendedPartialVisitContextTest {
             assertEqualSets(asSet("0"), renderingContext.getDirectSubtreeIdsToVisit(nestedTable));
         }
 
-        table.setRowKey(null);
+        table.setRowIndex(-1);
     }
 
     @Test
@@ -553,7 +562,7 @@ public class ExtendedPartialVisitContextTest {
         assertSame(VisitContext.ALL_IDS, renderingContext.getDirectSubtreeIdsToVisit(table));
 
         for (int i = 0; i < tableData.size(); i++) {
-            table.setRowKey(Integer.valueOf(i));
+            table.setRowIndex(i);
 
             assertSame(VisitContext.ALL_IDS, renderingContext.getSubtreeIdsToVisit(table));
             assertEqualSets(asSet("nestedTable"), renderingContext.getDirectSubtreeIdsToVisit(table));
@@ -562,7 +571,7 @@ public class ExtendedPartialVisitContextTest {
             assertTrue(renderingContext.getDirectSubtreeIdsToVisit(nestedTable).isEmpty());
         }
 
-        table.setRowKey(null);
+        table.setRowIndex(-1);
     }
 
     @Test

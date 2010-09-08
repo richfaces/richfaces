@@ -123,9 +123,9 @@ public class ScriptUtilsTest extends TestCase {
      * Test method for {@link org.ajax4jsf.javascript.ScriptUtils#toScript(java.lang.Object)}.
      */
     public void testStringToScript() {
-        Object obj = "f \b\r\t\f\n\"'\\/ oo";
+        Object obj = "foo";
 
-        assertEquals("\"f \\b\\r\\t\\f\\n\\\"'\\\\\\/ oo\"", ScriptUtils.toScript(obj));
+        assertEquals("\"foo\"", ScriptUtils.toScript(obj));
     }
 
     /**
@@ -260,8 +260,8 @@ public class ScriptUtilsTest extends TestCase {
     public void testAddEncoded() {
         StringBuilder buff = new StringBuilder();
 
-        ScriptUtils.addEncoded(buff, "foo");
-        assertEquals("foo", buff.toString());
+        ScriptUtils.addEncoded(buff, "foo\"\'");
+        assertEquals("foo\\\"\\\'", buff.toString());
     }
 
     /**

@@ -21,15 +21,10 @@
 
 package org.richfaces.renderkit.html.images;
 
-import java.io.DataInput;
-import java.io.DataOutput;
-import java.io.IOException;
-
 import javax.faces.context.FacesContext;
 
 import org.richfaces.renderkit.html.BaseGradient;
 import org.richfaces.skin.Skin;
-import org.richfaces.skin.SkinFactory;
 
 /**
  * Created 23.02.2008
@@ -40,40 +35,19 @@ import org.richfaces.skin.SkinFactory;
 
 public abstract class BaseControlBackgroundImage extends BaseGradient {
 
-    private Integer height = null;
-
+    public BaseControlBackgroundImage() {
+    }
+    
     public BaseControlBackgroundImage(String baseColor, String gradientColor, int width) {
         super(width, -1, baseColor, gradientColor);
     }
 
     @Override
-    protected int getHeight() {
-        return height;
-    }
-    
-    @Override
-    public void writeState(FacesContext context,
-                              DataOutput stream) throws IOException {
-        super.writeState(context, stream);
-
-        this.height = getHeight(context, Skin.GENERAL_SIZE_FONT);
-        
-        stream.writeInt(this.height);
-    }
-
-    @Override
-    public void readState(FacesContext context, DataInput stream) throws IOException {
-        super.readState(context, stream);
-
-        this.height = stream.readInt();
-
-        //TODO - create a special method?
-        this.gradientType = GradientType.plain;
-    }
-
-    public Integer getHeight(FacesContext context, String parameterName) {
-        Skin skin = SkinFactory.getInstance(context).getSkin(context);
-        return skin.getIntegerParameter(context, parameterName);
+    protected void initializeProperties(FacesContext context, Skin skin) {
+        super.initializeProperties(context, skin);
+        setHeight(skin.getIntegerParameter(context, Skin.GENERAL_SIZE_FONT));
+        setGradientType(GradientType.plain);
+        setGradientHeight(-1);
     }
 
 }

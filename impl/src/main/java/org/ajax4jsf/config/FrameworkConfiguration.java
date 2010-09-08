@@ -1,6 +1,6 @@
 package org.ajax4jsf.config;
 
-import org.ajax4jsf.util.ELUtils;
+import org.richfaces.el.util.ELUtils;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.log.Logger;
 

@@ -31,14 +31,13 @@ public class JSEncoder {
 
     // private char APOSTROPHE[] = { '\\', '\'' };
     private static final char[] ENCODE_HEX = "0123456789ABCDEF".toCharArray();
+    private static final char[] ENCODE_APOS = "\\'".toCharArray();
     private static final char[] ENCODE_QUOT = "\\\"".toCharArray();
     private static final char[] ENCODE_LF = "\\n".toCharArray();
-    private static final char[] ENCODE_BC = "\\b".toCharArray();
     private static final char[] ENCODE_FF = "\\f".toCharArray();
     private static final char[] ENCODE_CR = "\\r".toCharArray();
     private static final char[] ENCODE_TAB = "\\t".toCharArray();
     private static final char[] ENCODE_BS = "\\\\".toCharArray();
-    private static final char[] ENCODE_FS = "\\/".toCharArray();
 
     // private static final char ENCODE_ESC[] = "\\e".toCharArray();
 
@@ -48,34 +47,32 @@ public class JSEncoder {
     public JSEncoder() {}
 
     /**
-     * Return true or false whether this encoding/format can encode the specified
+     * Return true or false wether this encoding can encode the specified
      * character or not.
      * <p>
      * This method will return true for the following character range: <br />
      * <code>
-     *   <nobr>\b | \f | \t | \r | \n | " | \ | / | [#x20-#xD7FF] | [#xE000-#xFFFD]</nobr>
+     *   <nobr>#x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD]</nobr>
      * </code>
      * </p>
      *
      * @see <a href="http://www.w3.org/TR/REC-xml#charsets">W3C XML 1.0 </a>
-     * @see <a href="http://json.org/">JSON.org</a>
      */
     public boolean compile(char c) {
-        if ((c == '\b') ||
-                (c == '\f') |
-                    (c == '\t') ||
-                        (c == '\n') ||
-                            (c == '\r') ||
-                                (c == '"') ||
-                                    (c == '\\') ||
-                                        (c == '/') ||
-                                            (c == ']') || // ] - to avoid conflicts in CDATA
-                                            (c == '<') || // - escape HTML markup characters
-                                            (c == '>') || // - HTML
-                                            (c == '&') || // - HTML
-                                            (c == '-') || // - HTML comments
-                                            (c < 0x20) || // See <http://www.w3.org/TR/REC-xml#charsets>
-                                            ((c > 0xd7ff) && (c < 0xe000)) || (c > 0xfffd) || (c > 0xff)) {
+        if ((c == 0x09) || // [\t]
+                (c == 0x0a) || // [\n]
+                    (c == 0x0d) || // [\r](c == 0x22) || // ["]
+                        (c == 0x22) || // ["]
+                            (c == 0x27) || // [']
+                                (c == 0x5c) || // [\]
+                                    (c == 0x03) || // [esc]
+                                        (c == ']') || // ] - to avoid conflicts in CDATA
+                                        (c == '<') || // - escape HTML markup characters
+                                        (c == '>') || // - HTML
+                                        (c == '&') || // - HTML
+                                        (c == '-') || // - HTML comments
+                                        (c < 0x20) || // See <http://www.w3.org/TR/REC-xml#charsets>
+                                        ((c > 0xd7ff) && (c < 0xe000)) || (c > 0xfffd) || (c > 0xff)) {
             return false;
         }
 
@@ -88,35 +85,38 @@ public class JSEncoder {
      */
     public char[] encode(char c) {
         switch (c) {
-            case '\b' :
-                return ENCODE_BC;
-                
-            case '\f' :
-                return ENCODE_FF;
+            case 0x03 :
+                return ENCODE_FF; // (>) [&gt;]
 
-            case '\t' :
-                return ENCODE_TAB;
+            case 0x09 :
+                return ENCODE_TAB; // (>) [&gt;]
 
-            case '\n' :
-                return ENCODE_LF;
+            case 0x0a :
+                return ENCODE_LF; // (>) [&gt;]
 
-            case '\r' :
-                return ENCODE_CR;
+            case 0x0d :
+                return ENCODE_CR; // (>) [&gt;]
 
-            case '"' :
-                return ENCODE_QUOT;
+            case 0x22 :
+                return ENCODE_QUOT; // (") [&quot;]
 
-            case '\\' :
-                return ENCODE_BS;
+            case 0x27 :
+                return ENCODE_APOS; // (') [&apos;]
 
-            case '/' :
-                return ENCODE_FS;
-                
+            case 0x5c :
+                return ENCODE_BS; // (<) [&lt;]
+
             default : {
-                char[] ret = {
-                    '\\', 'u', ENCODE_HEX[c >> 0xc & 0xf], ENCODE_HEX[c >> 0x8 & 0xf], ENCODE_HEX[c >> 0x4 & 0xf],
-                    ENCODE_HEX[c & 0xf]
-                };
+                if (c > 0xff) {
+                    char[] ret = {
+                        '\\', 'u', ENCODE_HEX[c >> 0xc & 0xf], ENCODE_HEX[c >> 0x8 & 0xf], ENCODE_HEX[c >> 0x4 & 0xf],
+                        ENCODE_HEX[c & 0xf]
+                    };
+
+                    return ret;
+                }
+
+                char[] ret = {'\\', 'x', ENCODE_HEX[c >> 0x4 & 0xf], ENCODE_HEX[c & 0xf]};
 
                 return ret;
             }

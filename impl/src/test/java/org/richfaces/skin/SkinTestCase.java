@@ -21,18 +21,26 @@
 
 package org.richfaces.skin;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-import java.lang.reflect.Method;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.fail;
+import static org.richfaces.application.CoreConfiguration.BASE_SKIN_PARAM_NAME;
+import static org.richfaces.application.CoreConfiguration.SKIN_PARAM_NAME;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.faces.FacesException;
+import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.context.ContextInitParameters;
-import org.jboss.test.faces.AbstractFacesTest;
+import org.junit.Rule;
+import org.junit.Test;
+import org.richfaces.ContextInitParameter;
+import org.richfaces.ContextInitParameters;
+import org.richfaces.FacesRequestSetupRule;
 
 /**
  * Test for Skin/skin factory methods.
@@ -40,78 +48,43 @@ import org.jboss.test.faces.AbstractFacesTest;
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/10 14:28:13 $
  *
  */
-public class SkinTestCase extends AbstractFacesTest {
+public class SkinTestCase {
+    
+    @Rule
+    public FacesRequestSetupRule rule = new FacesRequestSetupRule();
 
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
-        setupFacesRequest();
-    }
-
-    @Override
-    public void tearDown() throws Exception {
-        super.tearDown();
-    }
-
-    @Override
-    protected void setupJsfInitParameters() {
-        super.setupJsfInitParameters();
-        setupSkinParameters();
-    }
-
-    private void setupSkinParameters() {
-        try {
-            Method method = getClass().getMethod(getName());
-            SkinParameters skinParameters = method.getAnnotation(SkinParameters.class);
-
-            if (skinParameters != null) {
-                String skinName = skinParameters.skinName();
-
-                if (skinName != null && skinName.length() != 0) {
-                    facesServer.addInitParameter(ContextInitParameters.SKIN, skinName);
-                }
-
-                String baseSkinName = skinParameters.baseSkinName();
-
-                if (baseSkinName != null && baseSkinName.length() != 0) {
-                    facesServer.addInitParameter(ContextInitParameters.BASE_SKIN, baseSkinName);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    /*
-     * Test method for 'org.richfaces.skin.SkinFactory.getInstance()'
-     */
-    public void testGetInstance() {
-        SkinFactory factory = SkinFactory.getInstance();
-        SkinFactory factory1 = SkinFactory.getInstance();
-
-        assertSame(factory, factory1);
-    }
-
-    private void addParameters(Object[][] strings) {
+    private void addParameters(FacesContext facesContext, Object[][] strings) {
         Map<Object, Object> baseMap = new HashMap<Object, Object>();
-
+        
         for (Object[] objects : strings) {
             baseMap.put(objects[0], objects[1]);
         }
-
+        
         facesContext.getExternalContext().getRequestMap().put("test", baseMap);
+    }
+    
+    @Test
+    public void testGetInstance() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        SkinFactory factory = SkinFactory.getInstance(facesContext);
+        SkinFactory factory1 = SkinFactory.getInstance(facesContext);
+
+        assertSame(factory, factory1);
     }
 
     /*
      * Test method for 'org.richfaces.skin.SkinFactory.getSkin(FacesContext)'
      */
-    @SkinParameters(skinName = "test")
+    @Test
+    @ContextInitParameter(name = SKIN_PARAM_NAME, value = "test")
     public void testGetSkin() {
-        addParameters(new Object[][] {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        
+        addParameters(facesContext, new Object[][] {
             new Object[] {"bean", "test.value"}
         });
 
-        SkinFactory factory = SkinFactory.getInstance();
+        SkinFactory factory = SkinFactory.getInstance(facesContext);
 
         // test call
         Skin skin = factory.getSkin(facesContext);
@@ -129,9 +102,13 @@ public class SkinTestCase extends AbstractFacesTest {
     /*
      * Test method for 'org.richfaces.skin.SkinFactory.getSkin(FacesContext)'
      */
-    @SkinParameters(skinName = "test", baseSkinName = "DEFAULT")
+    @ContextInitParameters({
+        @ContextInitParameter(name = SKIN_PARAM_NAME, value = "test"),
+        @ContextInitParameter(name = BASE_SKIN_PARAM_NAME, value = "DEFAULT")
+    })
     public void testSkinReferences() {
-        SkinFactory factory = SkinFactory.getInstance();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        SkinFactory factory = SkinFactory.getInstance(facesContext);
 
         // test call
         Skin skin = factory.getSkin(facesContext);
@@ -144,9 +121,14 @@ public class SkinTestCase extends AbstractFacesTest {
     /*
      * Test method for 'org.richfaces.skin.SkinFactory.getSkin(FacesContext)'
      */
-    @SkinParameters(skinName = "style", baseSkinName = "style_base")
+    @Test
+    @ContextInitParameters({
+        @ContextInitParameter(name = SKIN_PARAM_NAME, value = "style"),
+        @ContextInitParameter(name = BASE_SKIN_PARAM_NAME, value = "style_base")
+    })
     public void testSkinReferences1() {
-        SkinFactory factory = SkinFactory.getInstance();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        SkinFactory factory = SkinFactory.getInstance(facesContext);
 
         // test call
         Skin skin = factory.getSkin(facesContext);
@@ -158,11 +140,16 @@ public class SkinTestCase extends AbstractFacesTest {
         assertEquals("white.textcolor", skin.getParameter(facesContext, "additionalTextColor"));
     }
 
-    @SkinParameters(skinName = "dynatest", baseSkinName = "dynatest_base")
+    @Test
+    @ContextInitParameters({
+        @ContextInitParameter(name = SKIN_PARAM_NAME, value = "dynatest"),
+        @ContextInitParameter(name = BASE_SKIN_PARAM_NAME, value = "dynatest_base")
+    })
     public void testBaseSkin() {
-        SkinFactory factory = SkinFactory.getInstance();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        SkinFactory factory = SkinFactory.getInstance(facesContext);
 
-        addParameters(new Object[][] {
+        addParameters(facesContext, new Object[][] {
             new Object[] {"bean", "dynabase1"}
         });
 
@@ -183,9 +170,13 @@ public class SkinTestCase extends AbstractFacesTest {
     /*
      * Test method for 'org.richfaces.skin.SkinFactory.getSkin(FacesContext)'
      */
-    @SkinParameters(skinName = "cyclic")
+    @Test
+    @ContextInitParameters({
+        @ContextInitParameter(name = SKIN_PARAM_NAME, value = "cyclic")
+    })
     public void testCyclicSkinReferences() {
-        SkinFactory factory = SkinFactory.getInstance();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        SkinFactory factory = SkinFactory.getInstance(facesContext);
 
         try {
             Skin skin = factory.getSkin(facesContext);
@@ -201,9 +192,13 @@ public class SkinTestCase extends AbstractFacesTest {
     /*
      * Test method for 'org.richfaces.skin.SkinFactory.getSkin(FacesContext)'
      */
-    @SkinParameters(skinName = "noref")
+    @Test
+    @ContextInitParameters({
+        @ContextInitParameter(name = SKIN_PARAM_NAME, value = "noref")
+    })
     public void testBadSkinReferences() {
-        SkinFactory factory = SkinFactory.getInstance();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        SkinFactory factory = SkinFactory.getInstance(facesContext);
 
         // test call
         try {
@@ -220,11 +215,15 @@ public class SkinTestCase extends AbstractFacesTest {
     /*
      * Test method for 'org.richfaces.skin.SkinFactory.getSkin(FacesContext)'
      */
-    @SkinParameters(skinName = "#{test.skin}")
+    @Test
+    @ContextInitParameters({
+        @ContextInitParameter(name = SKIN_PARAM_NAME, value = "#{test.skin}")
+    })
     public void testGetBindedSkin() {
-        SkinFactory factory = SkinFactory.getInstance();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        SkinFactory factory = SkinFactory.getInstance(facesContext);
 
-        addParameters(new Object[][] {
+        addParameters(facesContext, new Object[][] {
             new Object[] {"skin", "bindedtest"}, new Object[] {"bean", "binded.test.value"}
         });
 
@@ -240,11 +239,15 @@ public class SkinTestCase extends AbstractFacesTest {
         assertEquals("binded.test.value", skin.getParameter(facesContext, "bind.property"));
     }
 
-    @SkinParameters(skinName = "#{test.skin}")
+    @Test
+    @ContextInitParameters({
+        @ContextInitParameter(name = SKIN_PARAM_NAME, value = "#{test.skin}")
+    })
     public void testSkinHash() {
-        SkinFactory factory = SkinFactory.getInstance();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        SkinFactory factory = SkinFactory.getInstance(facesContext);
 
-        addParameters(new Object[][] {
+        addParameters(facesContext, new Object[][] {
             new Object[] {"skin", "bindedtest"}, new Object[] {"bean", "binded.test.value"}
         });
 
@@ -267,39 +270,36 @@ public class SkinTestCase extends AbstractFacesTest {
     /*
      * Test method for 'org.richfaces.skin.SkinFactory.getDefaultProperties()'
      */
+    @Test
     public void testGetDefaultProperties() {
-        SkinFactory factory = (SkinFactory) SkinFactory.getInstance();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        SkinFactory factory = (SkinFactory) SkinFactory.getInstance(facesContext);
 
         // assertEquals("HTML_BASIC",defaultProps.getProperty("render.kit"));
         // Second default config
         assertEquals("default", factory.getDefaultSkin(facesContext).getParameter(facesContext, "a"));
     }
 
-    /*
-     * Test method for 'org.richfaces.skin.SkinFactory.getSkinName(FacesContext)'
-     */
-    public void testGetSkinName() {}
-
-    @SkinParameters(skinName = "plain")
+    @Test
+    @ContextInitParameters({
+        @ContextInitParameter(name = SKIN_PARAM_NAME, value = "plain")
+    })
     public void testPlainSkin() throws Exception {
-        SkinFactory factory = (SkinFactory) SkinFactory.getInstance();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        SkinFactory factory = (SkinFactory) SkinFactory.getInstance(facesContext);
 
         assertNull(factory.getSkin(facesContext).getParameter(facesContext, Skin.GENERAL_BACKGROUND_COLOR));
     }
-    
-    @SkinParameters(baseSkinName = "plain")
+
+    @Test
+    @ContextInitParameters({
+        @ContextInitParameter(name = BASE_SKIN_PARAM_NAME, value = "plain")
+    })
     public void testPlainSkinBase() throws Exception {
-        SkinFactory factory = (SkinFactory) SkinFactory.getInstance();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        SkinFactory factory = (SkinFactory) SkinFactory.getInstance(facesContext);
 
         assertNull(factory.getBaseSkin(facesContext).getParameter(facesContext, Skin.GENERAL_BACKGROUND_COLOR));
     }
 
-    @Retention(RetentionPolicy.RUNTIME)
-    @Target(ElementType.METHOD)
-    private @interface SkinParameters {
-        String skinName() default "";
-        String baseSkinName() default "";
-    }
-
-    ;
 }

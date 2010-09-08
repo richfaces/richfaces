@@ -21,9 +21,9 @@
 
 package org.richfaces.context;
 
-import org.ajax4jsf.component.AjaxClientBehavior;
-import org.ajax4jsf.renderkit.AjaxRendererUtils;
-import org.ajax4jsf.renderkit.RendererUtils;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+import java.util.List;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehavior;
@@ -32,9 +32,10 @@ import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.List;
+
+import org.ajax4jsf.component.AjaxClientBehavior;
+import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
+import org.richfaces.renderkit.util.CoreRendererUtils;
 
 /**
  * User: akolonitsky
@@ -95,7 +96,7 @@ abstract class ComponentCallback implements VisitCallback {
         }
 
         //TODO - unit tests check for "@none" element
-        Collection<String> attributeIds = AjaxRendererUtils.asSet(attributeObject);
+        Collection<String> attributeIds = CoreAjaxRendererUtils.asIdsSet(attributeObject);
         if (attributeIds == null) {
             attributeIds = new LinkedHashSet<String>();
         }
@@ -105,7 +106,7 @@ abstract class ComponentCallback implements VisitCallback {
             attributeIds.add(defaultIdAttribute);
         }
 
-        componentIds.addAll(RendererUtils.getInstance().findComponentsFor(context, target, attributeIds));
+        componentIds.addAll(CoreRendererUtils.INSTANCE.findComponentsFor(context, target, attributeIds));
     }
 
     public final VisitResult visit(VisitContext visitContext, UIComponent target) {

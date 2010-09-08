@@ -40,10 +40,6 @@
 			<artifactId>richfaces-core-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.richfaces.commons</groupId>
-			<artifactId>richfaces-commons-api</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>net.sourceforge.cssparser</groupId>
 			<artifactId>cssparser</artifactId>
 		</dependency>
@@ -124,21 +120,6 @@
 	           </configuration>
 	        </plugin>
 			
-			<!--
-				TODO Centralize this because calendar and context menu use this too
-				Note: This may be removed by redisgn
-			-->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>javacc-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>javacc</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>buildnumber-maven-plugin</artifactId>

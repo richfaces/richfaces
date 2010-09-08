@@ -146,7 +146,7 @@ public class DependencyInjectionServiceImpl implements DependencyInjector {
                 }
             }
             
-            if (!propertyType.isPrimitive() && propertyValue != null) {
+            if (propertyValue != null) {
                 propertyValue = context.getApplication().getExpressionFactory().coerceToType(propertyValue, propertyType);
             }
 
@@ -202,6 +202,7 @@ public class DependencyInjectionServiceImpl implements DependencyInjector {
     }
 
     private void verifyPostConstructMethod(Method method) {
+        //TODO - allow FacesContext to be passed
         if (method.getParameterTypes().length != 0) {
             throw new IllegalStateException(
                 MessageFormat.format("Post-construction method {0} has one or more parameters", method.toString()));

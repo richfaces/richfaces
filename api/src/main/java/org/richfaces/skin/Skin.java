@@ -252,6 +252,8 @@ public interface Skin {
      */
     public static final String TAB_WEIGHT_FONT = "tabWeightFont";
 
+    public static final String TRIM_COLOR = "trimColor";
+
     /**
      * Get value for configuration parameter. If parameter set as EL-expression,
      * calculate it value.

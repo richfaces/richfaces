@@ -21,6 +21,8 @@
  */
 package org.richfaces.resource;
 
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getStringConfigurationValue;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -29,7 +31,7 @@ import java.util.Map;
 import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.context.ContextInitParameters;
+import org.richfaces.application.CoreConfiguration;
 import org.richfaces.skin.SkinFactory;
 
 import com.google.common.base.Joiner;
@@ -39,6 +41,8 @@ import com.google.common.base.Joiner;
  * 
  */
 public class ExternalStaticResource extends Resource {
+
+    public static final String STATIC_RESOURCE_LOCATION_VARIABLE = "resourceLocation";
 
     private static final Joiner RESOURCE_PATH_JOINER = Joiner.on('/').skipNulls();
     
@@ -77,18 +81,18 @@ public class ExternalStaticResource extends Resource {
     public String getRequestPath() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
-        Object resourceVarValue = requestMap.get(ContextInitParameters.STATIC_RESOURCE_LOCATION_VARIABLE);
+        Object resourceVarValue = requestMap.get(STATIC_RESOURCE_LOCATION_VARIABLE);
         try {
             String resourceLocation = getResourceLocation(facesContext);
 
-            requestMap.put(ContextInitParameters.STATIC_RESOURCE_LOCATION_VARIABLE, resourceLocation);
+            requestMap.put(STATIC_RESOURCE_LOCATION_VARIABLE, resourceLocation);
             
             //TODO pass via ViewHandler?
-            return ContextInitParameters.getStaticResourceLocation(facesContext);
+            return getStringConfigurationValue(facesContext, CoreConfiguration.Items.staticResourceLocation);
         } finally {
-            requestMap.remove(ContextInitParameters.STATIC_RESOURCE_LOCATION_VARIABLE);
+            requestMap.remove(STATIC_RESOURCE_LOCATION_VARIABLE);
             if (resourceVarValue != null) {
-                requestMap.put(ContextInitParameters.STATIC_RESOURCE_LOCATION_VARIABLE, resourceVarValue);
+                requestMap.put(STATIC_RESOURCE_LOCATION_VARIABLE, resourceVarValue);
             }
         }
     }

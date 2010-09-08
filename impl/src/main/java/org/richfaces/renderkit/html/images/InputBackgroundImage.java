@@ -21,6 +21,8 @@
 
 package org.richfaces.renderkit.html.images;
 
+import javax.faces.context.FacesContext;
+
 import org.richfaces.skin.Skin;
 
 /**
@@ -32,8 +34,11 @@ import org.richfaces.skin.Skin;
 
 public class InputBackgroundImage extends BaseControlBackgroundImage {
 
-    public InputBackgroundImage() {
-        super(Skin.ADDITIONAL_BACKGROUND_COLOR, Skin.CONTROL_BACKGROUND_COLOR, 2000);
+    @Override
+    protected void initializeProperties(FacesContext context, Skin skin) {
+        super.initializeProperties(context, skin);
+        setBaseColorParam(Skin.ADDITIONAL_BACKGROUND_COLOR);
+        setGradientColorParam(Skin.CONTROL_BACKGROUND_COLOR);
+        setWidth(2000);
     }
-
 }

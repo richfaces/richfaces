@@ -33,7 +33,9 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
-import org.ajax4jsf.context.ContextInitParameters;
+import org.richfaces.application.CoreConfiguration;
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.application.configuration.ConfigurationService;
 import org.richfaces.el.BaseReadOnlyValueExpression;
 
 /**
@@ -81,8 +83,10 @@ public class SkinningResourcesPhaseListener implements PhaseListener {
         public Object getValue(ELContext context) {
             FacesContext facesContext = getFacesContext(context);
 
-            boolean controls = ContextInitParameters.isStandardControlSkinningEnabled(facesContext);
-            boolean classes = ContextInitParameters.isStandardControlSkinningClassesEnabled(facesContext);
+            ConfigurationService configurationService = ServiceTracker.getService(ConfigurationService.class);
+            
+            boolean controls = configurationService.getBooleanValue(facesContext, CoreConfiguration.Items.standardControlsSkinning);
+            boolean classes = configurationService.getBooleanValue(facesContext, CoreConfiguration.Items.standardControlsSkinningClasses);
             
             if (controls && classes) {
                 return BOTH_SKINNING;
@@ -109,8 +113,10 @@ public class SkinningResourcesPhaseListener implements PhaseListener {
         public Object getValue(ELContext context) {
             FacesContext facesContext = getFacesContext(context);
 
-            return ContextInitParameters.isStandardControlSkinningEnabled(facesContext) || 
-                ContextInitParameters.isStandardControlSkinningClassesEnabled(facesContext);
+            ConfigurationService configurationService = ServiceTracker.getService(ConfigurationService.class);
+            
+            return configurationService.getBooleanValue(facesContext, CoreConfiguration.Items.standardControlsSkinning) ||
+                configurationService.getBooleanValue(facesContext, CoreConfiguration.Items.standardControlsSkinningClasses);
         }
         
     }

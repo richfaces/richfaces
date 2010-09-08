@@ -26,7 +26,7 @@ import java.awt.Color;
 import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.util.HtmlColor;
-import org.ajax4jsf.util.HtmlDimensions;
+import org.richfaces.renderkit.util.HtmlDimensions;
 
 /**
  * @author Nick Belaevski

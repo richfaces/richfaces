@@ -21,11 +21,11 @@
 
 package org.richfaces.context;
 
-import org.ajax4jsf.component.AjaxClientBehavior;
-import org.ajax4jsf.renderkit.AjaxRendererUtils;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+
+import org.ajax4jsf.component.AjaxClientBehavior;
+import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
 
 /**
  * @author akolonitsky
@@ -65,10 +65,10 @@ class RenderComponentCallback extends ComponentCallback {
     protected void doVisit(FacesContext context, UIComponent target, AjaxClientBehavior behavior) {
         super.doVisit(context, target, behavior);
 
-        limitRender = AjaxRendererUtils.isAjaxLimitRender(target);
-        onbeforedomupdate = AjaxRendererUtils.getAjaxOnBeforeDomUpdate(target);
-        oncomplete = AjaxRendererUtils.getAjaxOncomplete(target);
-        data = AjaxRendererUtils.getAjaxData(target);
+        limitRender = CoreAjaxRendererUtils.isAjaxLimitRender(target);
+        onbeforedomupdate = CoreAjaxRendererUtils.getAjaxOnBeforeDomUpdate(target);
+        oncomplete = CoreAjaxRendererUtils.getAjaxOncomplete(target);
+        data = CoreAjaxRendererUtils.getAjaxData(target);
 
         if (behavior != null) {
             limitRender = behavior.isLimitRender();

@@ -36,12 +36,11 @@
     </description>
 
     <dependencies>
-        <!-- Runtime dependencies -->
         <dependency>
-            <groupId>org.richfaces.commons</groupId>
-            <artifactId>richfaces-commons-api</artifactId>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
         </dependency>
-
+    
         <!-- Provided dependencies -->
         <dependency>
             <groupId>javax.el</groupId>

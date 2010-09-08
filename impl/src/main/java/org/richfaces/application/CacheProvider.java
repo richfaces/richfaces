@@ -28,8 +28,8 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.cache.Cache;
-import org.ajax4jsf.cache.CacheManager;
+import org.richfaces.cache.Cache;
+import org.richfaces.cache.CacheManager;
 import org.richfaces.resource.ResourceHandlerImpl;
 
 /**
@@ -46,7 +46,7 @@ public class CacheProvider implements Initializable,Cache {
      * <p class="changed_added_4_0"></p>
      * @param key
      * @return
-     * @see org.ajax4jsf.cache.Cache#get(java.lang.Object)
+     * @see org.richfaces.cache.Cache#get(java.lang.Object)
      */
     public Object get(Object key) {
         return this.instance.get(key);
@@ -57,7 +57,7 @@ public class CacheProvider implements Initializable,Cache {
      * @param key
      * @param value
      * @param expired
-     * @see org.ajax4jsf.cache.Cache#put(java.lang.Object, java.lang.Object, java.util.Date)
+     * @see org.richfaces.cache.Cache#put(java.lang.Object, java.lang.Object, java.util.Date)
      */
     public void put(Object key, Object value, Date expired) {
         this.instance.put(key, value, expired);
@@ -65,7 +65,7 @@ public class CacheProvider implements Initializable,Cache {
 
     /**
      * <p class="changed_added_4_0"></p>
-     * @see org.ajax4jsf.cache.Cache#start()
+     * @see org.richfaces.cache.Cache#start()
      */
     public void start() {
         this.instance.start();
@@ -73,7 +73,7 @@ public class CacheProvider implements Initializable,Cache {
 
     /**
      * <p class="changed_added_4_0"></p>
-     * @see org.ajax4jsf.cache.Cache#stop()
+     * @see org.richfaces.cache.Cache#stop()
      */
     public void stop() {
         this.instance.stop();

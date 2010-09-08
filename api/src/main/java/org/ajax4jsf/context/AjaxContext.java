@@ -79,10 +79,6 @@ public abstract class AjaxContext {
 
     public abstract Set<String> getAjaxRenderedAreas();
 
-    public abstract void addComponentToAjaxRender(UIComponent base, String id);
-
-    public abstract void addComponentToAjaxRender(UIComponent component);
-
     public abstract void addRegionsFromComponent(UIComponent component);
 
     /**
@@ -106,8 +102,6 @@ public abstract class AjaxContext {
     public abstract void encodeAjaxBegin(FacesContext context) throws IOException;
 
     public abstract void renderAjax(FacesContext context);
-
-    public abstract void decode(FacesContext context);
 
     public abstract void release();
 
@@ -219,7 +213,6 @@ public abstract class AjaxContext {
 
             try {
                 ajaxContext = clazz.newInstance();
-                ajaxContext.decode(context);
             } catch (InstantiationException e) {
                 throw new FacesException("Error to create AjaxContext Instance", e);
             } catch (IllegalAccessException e) {

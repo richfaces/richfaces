@@ -70,7 +70,7 @@ public final class ServiceTracker {
 
     private static ServicesFactory getServicesFactory() {
         if(!INSTANCES.containsKey(getCurrentLoader())){
-            throw new FacesException("Service Traccker has not been initialized");
+            throw new FacesException("Service Tracker has not been initialized");
         }
         ServicesFactory service = INSTANCES.get(getCurrentLoader());
         return service;

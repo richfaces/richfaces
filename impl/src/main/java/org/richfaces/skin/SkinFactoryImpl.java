@@ -21,6 +21,8 @@
 
 package org.richfaces.skin;
 
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getConfigurationValue;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -28,7 +30,7 @@ import java.util.Properties;
 import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.Messages;
-import org.ajax4jsf.context.ContextInitParameters;
+import org.richfaces.application.CoreConfiguration;
 
 /**
  * Implementation of {@link SkinFactory} with building skins from properties
@@ -117,7 +119,7 @@ public class SkinFactoryImpl extends AbstractSkinFactory {
      *         expression.
      */
     protected Skin getSkinOrName(FacesContext context, boolean useBase) {
-        Object skinObject = useBase ? ContextInitParameters.getBaseSkin(context) : ContextInitParameters.getSkin(context);
+        Object skinObject = getConfigurationValue(context, useBase ? CoreConfiguration.Items.baseSkin : CoreConfiguration.Items.skin);
         
         Skin result = null;
         

@@ -21,7 +21,11 @@
 
 package org.ajax4jsf.context;
 
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
+import javax.faces.FacesException;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.richfaces.renderkit.HtmlConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -30,10 +34,6 @@ import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
-
-import javax.faces.FacesException;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 class ResponseWriterContentHandler implements ContentHandler {
     private String linkClass;
@@ -96,8 +96,8 @@ class ResponseWriterContentHandler implements ContentHandler {
             element.setAttribute(atts.getLocalName(i), atts.getValue(i));
         }
 
-        if (HTML.LINK_ELEMENT.equals(localName)) {
-            element.setAttribute(HTML.CLASS_ATTRIBUTE, linkClass);
+        if (HtmlConstants.LINK_ELEMENT.equals(localName)) {
+            element.setAttribute(HtmlConstants.CLASS_ATTRIBUTE, linkClass);
         }
 
         node = node.appendChild(element);

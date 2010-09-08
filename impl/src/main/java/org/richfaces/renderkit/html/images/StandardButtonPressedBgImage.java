@@ -26,11 +26,14 @@ import javax.faces.context.FacesContext;
 import org.richfaces.skin.Skin;
 
 public class StandardButtonPressedBgImage extends BaseControlBackgroundImage {
-    public StandardButtonPressedBgImage() {
-        super("trimColor", Skin.ADDITIONAL_BACKGROUND_COLOR, 9);
-    }
 
-    protected Integer getHeight(FacesContext context) {
-        return (int) (1.7 * getHeight(context, Skin.BUTTON_SIZE_FONT));
+    @Override
+    protected void initializeProperties(FacesContext context, Skin skin) {
+        super.initializeProperties(context, skin);
+        setHeight((int) (1.7 * skin.getIntegerParameter(context, Skin.BUTTON_SIZE_FONT)));
+        setBaseColorParam(Skin.TRIM_COLOR);
+        setGradientColorParam(Skin.ADDITIONAL_BACKGROUND_COLOR);
+        setWidth(9);
     }
+    
 }

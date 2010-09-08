@@ -21,8 +21,16 @@
 
 package org.richfaces.renderkit.html;
 
+import javax.faces.context.FacesContext;
+
+import org.richfaces.skin.Skin;
+
 public class GradientA extends BaseGradient {
-    public GradientA() {
-        super(30, 50, 20, "headerGradientColor", "headerBackgroundColor");
+    
+    @Override
+    protected void initializeProperties(FacesContext context, Skin skin) {
+        super.initializeProperties(context, skin);
+        setBaseColorParam(Skin.HEADER_GRADIENT_COLOR);
+        setGradientColorParam(Skin.HEADER_BACKGROUND_COLOR);
     }
 }

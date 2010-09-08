@@ -21,6 +21,10 @@
  */
 package org.richfaces.context;
 
+import static org.richfaces.renderkit.AjaxConstants.AJAX_COMPONENT_ID_PARAMETER;
+import static org.richfaces.renderkit.AjaxConstants.ALL;
+import static org.richfaces.renderkit.AjaxConstants.BEHAVIOR_EVENT_PARAMETER;
+
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
@@ -43,10 +47,10 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.event.PhaseId;
 
 import org.ajax4jsf.context.AjaxContext;
-import org.ajax4jsf.renderkit.AjaxRendererUtils;
 import org.richfaces.component.MetaComponentEncoder;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
 
 /**
  * @author Nick Belaevski
@@ -144,7 +148,7 @@ public class PartialViewContextImpl extends PartialViewContext {
         assertNotReleased();
 
         if (detectContextMode() == ContextMode.DIRECT) {
-            return getExecuteIds().contains(AjaxRendererUtils.ALL);
+            return getExecuteIds().contains(ALL);
         } else {
             return wrappedViewContext.isExecuteAll();
         }
@@ -159,7 +163,7 @@ public class PartialViewContextImpl extends PartialViewContext {
                 return renderAll.booleanValue();
             }
 
-            return getRenderIds().contains(AjaxRendererUtils.ALL);
+            return getRenderIds().contains(ALL);
         } else {
             return wrappedViewContext.isRenderAll();
         }
@@ -248,7 +252,7 @@ public class PartialViewContextImpl extends PartialViewContext {
         if (visitActivatorComponent(activatorComponentId, callback)) {
             ids.addAll(callback.getComponentIds());
 
-            if (!ids.contains(AjaxRendererUtils.ALL)) {
+            if (!ids.contains(ALL)) {
                 addImplicitExecuteIds(ids);
             }
         } else {
@@ -265,7 +269,7 @@ public class PartialViewContextImpl extends PartialViewContext {
                 ids.addAll(callback.getComponentIds());
                 limitRender = callback.isLimitRender();
 
-                if (!Boolean.TRUE.equals(renderAll) && !ids.contains(AjaxRendererUtils.ALL)) {
+                if (!Boolean.TRUE.equals(renderAll) && !ids.contains(ALL)) {
                     addImplicitRenderIds(ids, limitRender);
 
                     //TODO - review
@@ -355,7 +359,7 @@ public class PartialViewContextImpl extends PartialViewContext {
     }
 
     protected void renderExtensions(FacesContext context, UIComponent component) throws IOException {
-        AjaxRendererUtils.renderAjaxExtensions(context, component);
+        CoreAjaxRendererUtils.renderAjaxExtensions(context, component);
     }
 
     private void assertNotReleased() {
@@ -383,11 +387,11 @@ public class PartialViewContextImpl extends PartialViewContext {
     protected ContextMode detectContextMode() {
         if (contextMode == null) {
             Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
-            activatorComponentId = requestParameterMap.get(AjaxRendererUtils.AJAX_COMPONENT_ID_PARAMETER);
+            activatorComponentId = requestParameterMap.get(AJAX_COMPONENT_ID_PARAMETER);
 
             if (activatorComponentId != null) {
                 contextMode = ContextMode.DIRECT;
-                behaviorEvent = requestParameterMap.get(AjaxRendererUtils.BEHAVIOR_EVENT_PARAMETER);
+                behaviorEvent = requestParameterMap.get(BEHAVIOR_EVENT_PARAMETER);
             } else {
                 contextMode = ContextMode.WRAPPED;
             }

@@ -21,6 +21,7 @@
 
 package org.richfaces.resource;
 
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getLongConfigurationValue;
 import static org.richfaces.resource.ResourceUtils.millisToSecond;
 import static org.richfaces.resource.ResourceUtils.secondToMillis;
 
@@ -30,7 +31,7 @@ import java.util.Map;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.context.ContextInitParameters;
+import org.richfaces.application.CoreConfiguration;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.util.Util;
@@ -188,7 +189,7 @@ public abstract class AbstractCacheableResource extends AbstractBaseResource imp
                     formattedExpireDate = Util.formatHttpDate(expired);
                     maxAge = millisToSecond(expired.getTime() - currentTime);
                 } else {
-                    maxAge = ContextInitParameters.getResourcesTimeToLive(facesContext);
+                    maxAge = getLongConfigurationValue(facesContext, CoreConfiguration.Items.resourcesTTL);
                     formattedExpireDate = Util.formatHttpDate(currentTime + secondToMillis(maxAge));
                 }
             }

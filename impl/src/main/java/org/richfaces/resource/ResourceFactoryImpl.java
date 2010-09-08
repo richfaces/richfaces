@@ -23,11 +23,11 @@ package org.richfaces.resource;
 
 import java.net.URL;
 import java.text.MessageFormat;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
-import java.util.Set;
 
 import javax.faces.application.ProjectStage;
 import javax.faces.application.Resource;
@@ -41,7 +41,8 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.util.PropertiesUtil;
 import org.richfaces.util.Util;
 
-import com.google.common.base.Joiner;
+import com.google.common.base.Function;
+import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
 
 /**
@@ -50,57 +51,106 @@ import com.google.common.collect.Maps;
  */
 public class ResourceFactoryImpl implements ResourceFactory {
 
-    private static final Joiner RESOURCE_QUALIFIER_JOINER = Joiner.on(':').skipNulls();
-    
-    private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
-
     private static class ExternalStaticResourceFactory {
 
-        private String resourceName;
-
-        private String libraryName;
+        private ResourceKey resourceKey;
 
         private String resourceLocation;
 
         private boolean skinDependent;
 
+        public ExternalStaticResourceFactory(ResourceKey resourceKey, String resourceLocation, boolean skinDependent) {
+            super();
+            this.resourceKey = resourceKey;
+            this.resourceLocation = resourceLocation;
+            this.skinDependent = skinDependent;
+        }
+
         public Resource createResource() {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             ExternalStaticResource resource = new ExternalStaticResource(resourceLocation, skinDependent);
             
-            resource.setResourceName(resourceName);
-            resource.setLibraryName(libraryName);
+            resource.setResourceName(resourceKey.getResourceName());
+            resource.setLibraryName(resourceKey.getLibraryName());
             resource.setContentType(facesContext.getExternalContext().getMimeType(resourceLocation));
             
             return resource;
         }
 
-        public void setResourceName(String resourceName) {
-            this.resourceName = resourceName;
-        }
-
-        public void setLibraryName(String libraryName) {
-            this.libraryName = libraryName;
-        }
-
-        public void setResourceLocation(String resourceLocation) {
-            this.resourceLocation = resourceLocation;
-        }
-
-        public void setSkinDependent(boolean skinDependent) {
-            this.skinDependent = skinDependent;
-        }
     }
 
+    private static class MappedResourceData {
+
+        private ResourceKey resourceKey;
+        
+        private Map<String, String> params;
+        
+        public MappedResourceData(ResourceKey resourceKey, Map<String, String> params) {
+            this.resourceKey = resourceKey;
+            this.params = params;
+        }
+        
+        public ResourceKey getResourceKey() {
+            return resourceKey;
+        }
+        
+        public Map<String, String> getParams() {
+            return params;
+        }
+        
+    }
+    
+    private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
+
+    private static final Function<Entry<String, String>, ExternalStaticResourceFactory> EXTERNAL_MAPPINGS_FACTORY_PRODUCER = new Function<Entry<String,String>, ExternalStaticResourceFactory>() {
+
+        public ExternalStaticResourceFactory apply(Entry<String, String> entry) {
+            String resourceQualifier = entry.getKey();
+
+            String resourceLocation = entry.getValue();
+            boolean skinDependent = false;
+            if (resourceLocation.startsWith(SKINNED_RESOURCE_PREFIX)) {
+                resourceLocation = resourceLocation.substring(SKINNED_RESOURCE_PREFIX.length());
+                skinDependent = true;
+            }
+            
+            return new ExternalStaticResourceFactory(
+                new ResourceKey(resourceQualifier), resourceLocation, skinDependent);
+        }
+    };
+    
+    private static final Function<Entry<String, String>, MappedResourceData> DYNAMIC_MAPPINGS_DATA_PRODUCER = new Function<Entry<String,String>, MappedResourceData>() {
+
+        public MappedResourceData apply(Entry<String, String> from) {
+            String resourceLocation = from.getValue();
+            Map<String, String> params = Util.parseResourceParameters(resourceLocation);
+            String resourceQualifier = extractParametersFromResourceName(resourceLocation);
+            
+            return new MappedResourceData(new ResourceKey(resourceQualifier), params);
+        }
+        
+    };
+    
     private ResourceHandler defaultHandler;
 
-    private Map<String, ExternalStaticResourceFactory> externalStaticResourceFactories;
+    private Map<ResourceKey, ExternalStaticResourceFactory> externalStaticResourceFactories;
 
+    private Map<ResourceKey, MappedResourceData> mappedResourceDataMap;
+    
     public ResourceFactoryImpl(ResourceHandler defaultHandler) {
         super();
+        
         this.defaultHandler = defaultHandler;
+        
+        this.externalStaticResourceFactories = readMappings(EXTERNAL_MAPPINGS_FACTORY_PRODUCER, ResourceFactory.STATIC_RESOURCE_MAPPINGS);
+        this.mappedResourceDataMap = readMappings(DYNAMIC_MAPPINGS_DATA_PRODUCER, ResourceFactory.DYNAMIC_RESOURCE_MAPPINGS);
+    }
 
-        initializeExternalResourcesMap();
+    private static String extractParametersFromResourceName(String resourceName) {
+        if (!(resourceName.lastIndexOf("{") != -1)) {
+            return resourceName;
+        }
+        return resourceName.substring(0, resourceName.lastIndexOf("{"));
     }
 
     private void logResourceProblem(FacesContext context, Throwable throwable, String messagePattern,
@@ -125,66 +175,22 @@ public class ResourceFactoryImpl implements ResourceFactory {
     private void logMissingResource(FacesContext context, String resourceData) {
         logResourceProblem(context, null, "Resource {0} was not found", resourceData);
     }    
-    private String getResourceNameFromQualifier(String qualifier) {
-        int idx = qualifier.lastIndexOf(':');
-        if (idx < 0) {
-            return qualifier;
-        }
-        
-        return qualifier.substring(idx + 1);
-    }
     
-    private String getLibraryNameFromQualifier(String qualifier) {
-        int idx = qualifier.lastIndexOf(':');
-        if (idx < 0) {
-            return null;
-        }
+    private <V> Map<ResourceKey, V> readMappings(Function<Entry<String, String>, V> producer, String mappingFileName) {
+        Map<ResourceKey, V> result = Maps.newHashMap();
         
-        return qualifier.substring(0, idx);
-    }
-
-    private String getResourceQualifier(String resourceName, String libraryName) {
-        return RESOURCE_QUALIFIER_JOINER.join(libraryName, resourceName);
-    }
-    
-    private void initializeExternalResourcesMap() {
-        externalStaticResourceFactories = Maps.newHashMap();
-
         Properties properties = new Properties();
-        PropertiesUtil.loadProperties(properties, ResourceFactory.STATIC_RESOURCE_MAPPINGS);
-
-        Set<Entry<Object, Object>> entries = properties.entrySet();
-        for (Entry<Object, Object> entry : entries) {
-            String resourceQualifier = (String) entry.getKey();
-
-            String resourceLocation = (String) entry.getValue();
-            boolean skinDependent = false;
-            if (resourceLocation.startsWith(SKINNED_RESOURCE_PREFIX)) {
-                resourceLocation = resourceLocation.substring(SKINNED_RESOURCE_PREFIX.length());
-                skinDependent = true;
-            }
-            
-            ExternalStaticResourceFactory factory = new ExternalStaticResourceFactory();
-            factory.setResourceLocation(resourceLocation);
-            factory.setSkinDependent(skinDependent);
-            factory.setResourceName(getResourceNameFromQualifier(resourceQualifier));
-            factory.setLibraryName(getLibraryNameFromQualifier(resourceQualifier));
-
-            externalStaticResourceFactories.put(resourceQualifier, factory);
+        PropertiesUtil.loadProperties(properties, mappingFileName);
+        for (Entry<String, String> entry : Maps.fromProperties(properties).entrySet()) {
+            result.put(new ResourceKey(entry.getKey()), producer.apply(entry));
         }
 
-        externalStaticResourceFactories = Collections.unmodifiableMap(externalStaticResourceFactories);
+        result = Collections.unmodifiableMap(result);
+        return result;
     }
 
-    private String extractParametersFromResourceName(String resourceName) {
-        if (!(resourceName.lastIndexOf("?") != -1)) {
-            return resourceName;
-        }
-        return resourceName.substring(0, resourceName.lastIndexOf("?"));
-    }
-
-    private Resource createCompiledCSSResource(String resourceName, String libraryName) {
-        Resource sourceResource = defaultHandler.createResource(resourceName, libraryName, "text/plain");
+    private Resource createCompiledCSSResource(ResourceKey resourceKey) {
+        Resource sourceResource = defaultHandler.createResource(resourceKey.getResourceName(), resourceKey.getLibraryName(), "text/plain");
         if (sourceResource != null) {
             return new CompiledCSSResource(sourceResource);
         }
@@ -210,7 +216,14 @@ public class ResourceFactoryImpl implements ResourceFactory {
      * @param resourceName
      * @return
      */
-    protected Resource createHandlerDependentResource(String resourceName, Map<String, String> parameters) {
+    protected Resource createHandlerDependentResource(ResourceKey resourceKey, Map<String, String> parameters) {
+        // TODO nick - libraryName as package name?
+        if (!Strings.isNullOrEmpty(resourceKey.getLibraryName())) {
+            return null;
+        }
+        
+        String resourceName = resourceKey.getResourceName();
+        
         Resource resource = null;
         ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
 
@@ -288,7 +301,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
         return resource;
     }
 
-    public Resource createResource(FacesContext context, ResourceCodecData resourceData) {
+    public Resource createResource(FacesContext context, ResourceRequestData resourceData) {
         String resourceName = resourceData.getResourceName();
 
         if ((resourceName == null) || (resourceName.length() == 0)) {
@@ -296,7 +309,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
         }
 
         String libraryName = resourceData.getLibraryName();
-        Resource resource = createResource(resourceName, libraryName, null);
+        Resource resource = createDynamicResource(new ResourceKey(resourceName, libraryName), false);
 
         if (resource == null) {
             logMissingResource(context, resourceData.getResourceKey());
@@ -336,26 +349,54 @@ public class ResourceFactoryImpl implements ResourceFactory {
     }
 
     public Resource createResource(String resourceName, String libraryName, String contentType) {
-        String resourceQualifier = getResourceQualifier(resourceName, libraryName);
-        ExternalStaticResourceFactory externalStaticResourceFactory = externalStaticResourceFactories.get(resourceQualifier);
+        ResourceKey resourceKey = new ResourceKey(resourceName, libraryName);
+        ExternalStaticResourceFactory externalStaticResourceFactory = externalStaticResourceFactories.get(resourceKey);
         if (externalStaticResourceFactory != null) {
             return externalStaticResourceFactory.createResource();
         }
         
-        Resource result = null;
-        Map<String, String> params = Util.parseResourceParameters(resourceName);
-        resourceName = extractParametersFromResourceName(resourceName);
-        if (resourceName.endsWith(".ecss")) {
-            // TODO nick - params?
-            result = createCompiledCSSResource(resourceName, libraryName);
-        } else {
-            // TODO nick - libraryName as package name?
-            if ((resourceName != null) && ((libraryName == null) || (libraryName.length() == 0))) {
-                result = createHandlerDependentResource(resourceName, params);
-            }
-        }
-
-        return result;
+        return createDynamicResource(resourceKey, true);
     }
 
+    protected Resource createDynamicResource(ResourceKey resourceKey, boolean useDependencyInjection) {
+        Resource result = null;
+
+        Map<String, String> params = null;
+        
+        MappedResourceData mappedResourceData = mappedResourceDataMap.get(resourceKey);
+        ResourceKey actualKey;
+        if (mappedResourceData != null) {
+            actualKey = mappedResourceData.getResourceKey();
+            if (useDependencyInjection) {
+                params = mappedResourceData.getParams();
+            }
+        } else {
+            actualKey = resourceKey;
+            if (useDependencyInjection) {
+                params = Collections.<String, String>emptyMap();
+            }
+        }       
+
+        if (Strings.isNullOrEmpty(resourceKey.getResourceName())) {
+            return null;
+        }
+
+        if (actualKey.getResourceName().endsWith(".ecss")) {
+            // TODO nick - params?
+            result = createCompiledCSSResource(actualKey);
+        } else {
+            result = createHandlerDependentResource(actualKey, params);
+        }
+        
+        if (result != null) {
+            result.setLibraryName(resourceKey.getLibraryName());
+            result.setResourceName(resourceKey.getResourceName());
+        }
+        
+        return result;
+    }
+    
+    public Collection<ResourceKey> getMappedDynamicResourceKeys() {
+        return Collections.unmodifiableSet(mappedResourceDataMap.keySet());
+    }
 }

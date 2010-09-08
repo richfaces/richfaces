@@ -38,8 +38,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.ajax4jsf.cache.Cache;
 import org.richfaces.application.ServiceTracker;
+import org.richfaces.cache.Cache;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.util.RequestStateManager.BooleanRequestStateVariable;
@@ -144,7 +144,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
 
             assert (resourcePath != null) && (resourcePath.length() != 0);
 
-            ResourceCodecData data = resourceCodec.decodeResource(context, resourcePath);
+            ResourceRequestData data = resourceCodec.decodeResource(context, resourcePath);
             assert (data != null);
 
             Cache cache = ServiceTracker.getService(context, Cache.class);

@@ -21,6 +21,8 @@
 
 package org.richfaces.renderkit.html.images;
 
+import javax.faces.context.FacesContext;
+
 import org.richfaces.skin.Skin;
 
 /**
@@ -31,7 +33,12 @@ import org.richfaces.skin.Skin;
  */
 
 public class ButtonBackgroundImage extends BaseControlBackgroundImage {
-    public ButtonBackgroundImage() {
-        super(Skin.HEADER_GRADIENT_COLOR, Skin.HEADER_BACKGROUND_COLOR, 1);
+    
+    @Override
+    protected void initializeProperties(FacesContext context, Skin skin) {
+        super.initializeProperties(context, skin);
+        setBaseColorParam(Skin.HEADER_GRADIENT_COLOR);
+        setGradientColorParam(Skin.HEADER_BACKGROUND_COLOR);
+        setWidth(1);
     }
 }

@@ -36,10 +36,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.renderkit.AjaxRendererUtils;
-import org.ajax4jsf.renderkit.RendererUtils;
 import org.richfaces.component.AjaxContainer;
 import org.richfaces.component.MetaComponentResolver;
+import org.richfaces.renderkit.util.CoreRendererUtils;
 
 /**
  * @author Nick Belaevski
@@ -47,8 +46,6 @@ import org.richfaces.component.MetaComponentResolver;
  */
 public final class ComponentIdResolver {
 
-    private static RendererUtils renderUtils = RendererUtils.getInstance();
-    
     private static Map<String, String> metaComponentSubstitutions = new HashMap<String, String>();
 
     static {
@@ -302,7 +299,7 @@ public final class ComponentIdResolver {
                     resolvedId = resolveMetaComponentId(facesContext, bottomMatch, metaComponentId);
                 }
 
-                if (AjaxRendererUtils.GLOBAL_META_COMPONENTS.contains(resolvedId)) {
+                if (CoreRendererUtils.GLOBAL_META_COMPONENTS.contains(resolvedId)) {
                     resolvedIds.clear();
                     resolvedIds.add(resolvedId);
 
@@ -310,7 +307,7 @@ public final class ComponentIdResolver {
                     break;
                 } else {
                     if (resolvedId != null) {
-                        String predefinedMetaComponentId = renderUtils.getPredefinedMetaComponentId(facesContext, 
+                        String predefinedMetaComponentId = CoreRendererUtils.INSTANCE.getPredefinedMetaComponentId(facesContext, 
                             bottomMatch, resolvedId);
                         
                         if (predefinedMetaComponentId != null) {

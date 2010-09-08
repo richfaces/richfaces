@@ -36,7 +36,7 @@ import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
 
 import org.ajax4jsf.util.HtmlColor;
-import org.ajax4jsf.util.HtmlDimensions;
+import org.richfaces.renderkit.util.HtmlDimensions;
 import org.richfaces.resource.AbstractCacheableResource;
 import org.richfaces.resource.ImageType;
 import org.richfaces.resource.StateHolderResource;

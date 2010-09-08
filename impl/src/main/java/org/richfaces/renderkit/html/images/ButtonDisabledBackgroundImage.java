@@ -21,12 +21,21 @@
 
 package org.richfaces.renderkit.html.images;
 
+import javax.faces.context.FacesContext;
+
+import org.richfaces.skin.Skin;
+
 /**
  * @author Nick Belaevski
  * @since 3.2
  */
 public class ButtonDisabledBackgroundImage extends BaseControlBackgroundImage {
-    public ButtonDisabledBackgroundImage() {
-        super("tableSubfooterBackgroundColor", "tableFooterBackgroundColor", 1);
+
+    @Override
+    protected void initializeProperties(FacesContext context, Skin skin) {
+        super.initializeProperties(context, skin);
+        setBaseColorParam("tableSubfooterBackgroundColor");
+        setGradientColorParam("tableFooterBackgroundColor");
+        setWidth(1);
     }
 }

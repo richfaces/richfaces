@@ -25,9 +25,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Locale;
 import java.util.Map;
@@ -37,7 +37,6 @@ import javax.faces.FacesException;
 import javax.faces.FactoryFinder;
 import javax.faces.application.StateManager;
 import javax.faces.application.ViewHandler;
-import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.ExternalContext;
@@ -49,13 +48,11 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
 import org.ajax4jsf.Messages;
-import org.ajax4jsf.application.AjaxViewHandler;
-import org.ajax4jsf.renderkit.AjaxContainerRenderer;
-import org.ajax4jsf.renderkit.AjaxRendererUtils;
-import org.ajax4jsf.renderkit.RendererUtils;
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
-import org.richfaces.log.RichfacesLogger;
 import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
+import org.richfaces.renderkit.util.CoreRendererUtils;
 
 /**
  * This class incapsulated
@@ -65,6 +62,10 @@ import org.richfaces.log.Logger;
  */
 public class AjaxContextImpl extends AjaxContext {
     public static final String SERVLET_ERROR_EXCEPTION_ATTRIBUTE = "javax.servlet.error.exception";
+    
+    //TODO remove this
+    private static final String SERIALIZED_STATE_KEY = "org.ajax4jsf.view.serializedstate";
+
     private static final Logger LOG = RichfacesLogger.CONTEXT.getLogger();
     Set<String> ajaxAreasToProcess = null;
     Set<String> ajaxAreasToRender = new LinkedHashSet<String>();
@@ -93,30 +94,6 @@ public class AjaxContextImpl extends AjaxContext {
         responseComponentDataMap = new HashMap<String, Object>();
         commonAjaxParameters = new HashMap<String, Object>();
         responseData = null;
-    }
-
-    /*
-     *  (non-Javadoc)
-     * @see org.ajax4jsf.context.AjaxContext#decode(javax.faces.context.FacesContext)
-     */
-    @Override
-    public void decode(FacesContext context) {
-        ExternalContext externalContext = context.getExternalContext();
-
-        if (null == externalContext.getRequestMap().get(SERVLET_ERROR_EXCEPTION_ATTRIBUTE)) {
-            Map<String, String> requestParameterMap = externalContext.getRequestParameterMap();
-            String ajaxRegionId = requestParameterMap.get(AjaxContainerRenderer.AJAX_PARAMETER_NAME);
-
-            setSubmittedRegionClientId(ajaxRegionId);
-            setAjaxRequest(null != ajaxRegionId);
-            setAjaxSingleClientId(requestParameterMap.get(AjaxRendererUtils.AJAX_SINGLE_PARAMETER_NAME));
-        } else {
-
-            // Error page is always serviced as non-ajax.
-            setAjaxRequest(false);
-            setSubmittedRegionClientId(null);
-            setAjaxSingleClientId(null);
-        }
     }
 
     /**
@@ -203,12 +180,12 @@ public class AjaxContextImpl extends AjaxContext {
         ResponseWriter out = context.getResponseWriter();
 
         // DebugUtils.traceView("ViewRoot in AJAX Page encode begin");
-        out.startElement(HTML.HTML_ELEMENT, viewRoot);
+        out.startElement(HtmlConstants.HTML_ELEMENT, viewRoot);
 
         Locale locale = viewRoot.getLocale();
 
-        out.writeAttribute(HTML.LANG_ATTRIBUTE, locale.toString(), "lang");
-        out.startElement(HTML.BODY_ELEMENT, viewRoot);
+        out.writeAttribute(HtmlConstants.LANG_ATTRIBUTE, locale.toString(), "lang");
+        out.startElement(HtmlConstants.BODY_ELEMENT, viewRoot);
     }
 
     /**
@@ -224,8 +201,8 @@ public class AjaxContextImpl extends AjaxContext {
         ResponseWriter out = context.getResponseWriter();
 
         // DebugUtils.traceView("ViewRoot in AJAX Page encode begin");
-        out.endElement(HTML.BODY_ELEMENT);
-        out.endElement(HTML.HTML_ELEMENT);
+        out.endElement(HtmlConstants.BODY_ELEMENT);
+        out.endElement(HtmlConstants.HTML_ELEMENT);
     }
 
     public void saveViewState(FacesContext context) throws IOException {
@@ -243,7 +220,7 @@ public class AjaxContextImpl extends AjaxContext {
             tempWriter.flush();
 
             if (bufWriter.getBuffer().length() > 0) {
-                context.getExternalContext().getRequestMap().put(AjaxViewHandler.SERIALIZED_STATE_KEY,
+                context.getExternalContext().getRequestMap().put(SERIALIZED_STATE_KEY,
                     bufWriter.toString());
             }
 
@@ -309,7 +286,7 @@ public class AjaxContextImpl extends AjaxContext {
     public void addRegionsFromComponent(UIComponent component) {
 
         // First step - find parent ajax view
-        Set<String> ajaxRegions = AjaxRendererUtils.getAjaxAreas(component);
+        Set<String> ajaxRegions = CoreAjaxRendererUtils.getAjaxAreas(component);
 
         // if (ajaxRegions == null){
         // FacesContext context = FacesContext.getCurrentInstance();
@@ -319,12 +296,9 @@ public class AjaxContextImpl extends AjaxContext {
             LOG.debug(Messages.getMessage(Messages.INVOKE_AJAX_REGION_LISTENER, component.getId()));
         }
 
+        
         if (ajaxRegions != null) {
-            for (Iterator<String> iter = ajaxRegions.iterator(); iter.hasNext();) {
-                String id = iter.next().toString();
-
-                ajaxAreasToRender.add(convertId(component, id));
-            }
+            ajaxAreasToRender.addAll(CoreRendererUtils.INSTANCE.findComponentsFor(FacesContext.getCurrentInstance(), component, ajaxRegions));
         }
 
         // Is that component limit to list ?
@@ -340,65 +314,17 @@ public class AjaxContextImpl extends AjaxContext {
      */
     @Override
     public void addAreasToProcessFromComponent(FacesContext context, UIComponent component) {
-        RendererUtils rendererUtils = RendererUtils.getInstance();
-        Set<String> areasToProcess = AjaxRendererUtils.getAjaxAreasToProcess(component);
+        Set<String> areasToProcess = CoreAjaxRendererUtils.getAjaxAreasToProcess(component);
 
         if (areasToProcess != null) {
-            Set<String> convertedAreaIds = new HashSet<String>();
-
-            for (String areaId : areasToProcess) {
-                UIComponent areaComponent = rendererUtils.findComponentFor(component, areaId);
-
-                if (areaComponent != null) {
-                    convertedAreaIds.add(areaComponent.getClientId(context));
-                } else {
-                    convertedAreaIds.add(areaId);
-                }
-            }
+            Collection<String> convertedAreaIds = CoreRendererUtils.INSTANCE.findComponentsFor(context, component, areasToProcess);
 
             if (this.ajaxAreasToProcess == null) {
-                this.ajaxAreasToProcess = convertedAreaIds;
+                this.ajaxAreasToProcess = new HashSet<String>(convertedAreaIds);
             } else {
                 this.ajaxAreasToProcess.addAll(convertedAreaIds);
             }
         }
-    }
-
-    public void addComponentToAjaxRender(UIComponent component) {
-        this.ajaxAreasToRender.add(AjaxRendererUtils.getAbsoluteId(component));
-    }
-
-    public void addComponentToAjaxRender(UIComponent base, String id) {
-        this.ajaxAreasToRender.add(convertId(base, id));
-    }
-
-    /**
-     * Test for relative id of target components. Attempt convert to absolute.
-     * For use as argument for
-     * {@link RendererUtils#findComponentFor(UIComponent, String)}
-     *
-     * @param component
-     * @param id
-     * @return
-     */
-    private String convertId(UIComponent component, String id) {
-        if (id.charAt(0) == NamingContainer.SEPARATOR_CHAR) {
-            return id;
-        }
-
-        if (null == component) {
-            throw new NullPointerException("Base component for search re-rendered compnnent is null");
-        }
-
-        UIComponent target = RendererUtils.getInstance().findComponentFor(component, id);
-
-        if (null != target) {
-            return AjaxRendererUtils.getAbsoluteId(target);
-        }
-
-        LOG.warn("Target component for id " + id + " not found");
-
-        return id;
     }
 
     /**

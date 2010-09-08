@@ -63,7 +63,6 @@ import java.nio.charset.CharsetEncoder;
 import java.text.Format;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -91,9 +90,10 @@ import org.richfaces.resource.StateHolderResource;
  * @since 4.0
  */
 public final class Util {
-    private static final String EQUALS_SIGN = "=";
-    private static final String AND_SEPARATOR = "&";
-    private static final String QUESTION_SIGN = "?";
+    
+    private static final Pattern RESOURCE_PARAMS_SPLIT_PATTERN = Pattern.compile("\\s*(\\s|,)\\s*");
+    private static final Pattern RESOURCE_PARAMS = Pattern.compile("\\{([^\\}]*)\\}\\s*$");
+    
     private static final String DATA_BYTES_SEPARATOR = "/DATB/";
     private static final String DATA_SEPARATOR = "/DATA/";
 
@@ -112,6 +112,8 @@ public final class Util {
     private static final String VERSION_SEPARATOR = "/VER";
     private static final Pattern DATA_SEPARATOR_PATTERN = Pattern.compile("/DAT(A|B)/([^/]*)");
     private static final SimpleDateFormat RFC1123_DATE_FORMATTER;
+    private static final String QUESTION_SIGN = "?";
+    private static final String EQUALS_SIGN = "=";
 
     static {
         SimpleDateFormat format = new SimpleDateFormat(RFC1123_DATE_PATTERN, Locale.US);
@@ -408,29 +410,29 @@ public final class Util {
     }
 
     public static Map<String, String> parseResourceParameters(String resourceName) {
-        int queryPartIdx = resourceName.lastIndexOf(QUESTION_SIGN);
-        if (queryPartIdx == -1) {
-            return Collections.emptyMap();
-        }
-        
         Map<String, String> params = new HashMap<String, String>();
-        resourceName = resourceName.substring(queryPartIdx + 1);
-        try {
-            if (resourceName.trim().length() > 0) {
-                String query = resourceName;
-                String[] paramPairs = query.split(AND_SEPARATOR);
-                for (int i = 0; i < paramPairs.length; i++) {
-                    String[] pair = paramPairs[i].split(EQUALS_SIGN);
+
+        Matcher matcher = RESOURCE_PARAMS.matcher(resourceName);
+        if (matcher.find()) {
+            String paramsString = matcher.group(1);
+            
+            String[] paramsSplit = RESOURCE_PARAMS_SPLIT_PATTERN.split(paramsString);
+
+            try {
+                for (String param : paramsSplit) {
+                    String[] pair = param.split(EQUALS_SIGN);
                     String key = URLDecoder.decode(pair[0], "UTF-8").trim();
                     String value = URLDecoder.decode(pair[1], "UTF-8").trim();
                     if (key != null && value != null && key.trim().length() > 0 && value.trim().length() > 0) {
                         params.put(key, value);
                     }
                 }
+            } catch (UnsupportedEncodingException e) {
+                RESOURCE_LOGGER.debug("Cannot parse resource parameters");
             }
-        } catch (UnsupportedEncodingException e) {
-            RESOURCE_LOGGER.debug("Cannot parse resource parameters");
+           
         }
+
         return params;
     }
 

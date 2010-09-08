@@ -37,7 +37,7 @@ public final class DefaultResourceCodec implements ResourceCodec {
 
     private static final String LIBRARY_NAME_PARAM = "ln";
 
-    String encodeResource(DefaultResourceCodecData data) {
+    String encodeResource(DefaultCodecResourceRequestData data) {
         return encodeResource(data.getLibraryName(), data.getResourceName(), data.getDataString(), 
             data.isDataSerialized(), data.getVersion());
     }
@@ -110,9 +110,9 @@ public final class DefaultResourceCodec implements ResourceCodec {
         return Util.encodeJSFURL(context, resourcePath);
     }
     
-    public ResourceCodecData decodeResource(FacesContext context, String requestPath) {
+    public ResourceRequestData decodeResource(FacesContext context, String requestPath) {
         Map<String, String> params = context.getExternalContext().getRequestParameterMap();
-        DefaultResourceCodecData data = new DefaultResourceCodecData(this);
+        DefaultCodecResourceRequestData data = new DefaultCodecResourceRequestData(this);
         data.setResourceName(requestPath);
         data.setLibraryName(params.get(LIBRARY_NAME_PARAM));
         data.setVersion(params.get(VERSION_PARAM));

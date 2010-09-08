@@ -3,7 +3,6 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   version="2.0">	
 	<factory>
-		<render-kit-factory>org.ajax4jsf.renderkit.ChameleonRenderKitFactory</render-kit-factory>
 	<!-- 
 		<lifecycle-factory>org.ajax4jsf.application.DebugLifecycleFactory</lifecycle-factory>
 	-->
@@ -26,7 +25,6 @@
 	</application>
   <!-- lifecycle>
   	<phase-listener>org.ajax4jsf.event.AjaxPhaseListener</phase-listener>
-  	<phase-listener>org.ajax4jsf.event.InitPhaseListener</phase-listener>
   </lifecycle -->
     <managed-bean>
        <managed-bean-name>a4j</managed-bean-name>

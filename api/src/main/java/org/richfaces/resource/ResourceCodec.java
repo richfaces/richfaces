@@ -16,5 +16,5 @@ public interface ResourceCodec {
     
     public String encodeJSFMapping(FacesContext context, String resourcePath);
     
-    public ResourceCodecData decodeResource(FacesContext context, String requestPath);
+    public ResourceRequestData decodeResource(FacesContext context, String requestPath);
 }

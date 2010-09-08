@@ -50,6 +50,8 @@ import org.richfaces.application.ServiceTracker;
 import org.richfaces.application.ServicesFactory;
 import org.richfaces.application.ServicesFactoryImpl;
 import org.richfaces.application.Uptime;
+import org.richfaces.application.configuration.ConfigurationService;
+import org.richfaces.application.configuration.ConfigurationServiceImpl;
 import org.richfaces.util.Util;
 
 import com.gargoylesoftware.htmlunit.Cache;
@@ -229,9 +231,9 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
         setupFacesRequest();
 
         final ResourceCodec mockedCodec = EasyMock.createNiceMock(ResourceCodec.class);
-        final org.ajax4jsf.cache.Cache mockCache = EasyMock.createNiceMock(org.ajax4jsf.cache.Cache.class);
+        final org.richfaces.cache.Cache mockCache = EasyMock.createNiceMock(org.richfaces.cache.Cache.class);
 
-        ResourceCodecData resourceCodecData = EasyMock.createMock(ResourceCodecData.class);
+        ResourceRequestData resourceCodecData = EasyMock.createMock(ResourceRequestData.class);
         expect(resourceCodecData.getResourceName()).andStubReturn("org.richfaces.resource.StateHolderResourceImpl");
         expect(resourceCodecData.getLibraryName()).andStubReturn(null);
         expect(resourceCodecData.getData()).andStubReturn("test text".getBytes());
@@ -247,9 +249,10 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
 
             public void configure(ServicesFactory injector) {
                 injector.setInstance(ResourceCodec.class,mockedCodec);
-                injector.setInstance(org.ajax4jsf.cache.Cache.class,mockCache);
+                injector.setInstance(org.richfaces.cache.Cache.class,mockCache);
                 injector.setInstance(Uptime.class, new Uptime());
                 injector.setInstance(DependencyInjector.class, new DependencyInjectionServiceImpl());
+                injector.setInstance(ConfigurationService.class, new ConfigurationServiceImpl());
             }
             
         }));

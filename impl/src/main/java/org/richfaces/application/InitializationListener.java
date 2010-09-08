@@ -21,6 +21,8 @@
  */
 package org.richfaces.application;
 
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
+
 import java.awt.Toolkit;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -37,7 +39,6 @@ import javax.faces.event.SystemEventListener;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
 
-import org.ajax4jsf.context.ContextInitParameters;
 import org.richfaces.VersionBean;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
@@ -107,7 +108,6 @@ public class InitializationListener implements SystemEventListener {
 
     protected void onStart() {
         ServicesFactory injector = createFactory(); 
-        ServiceTracker.setFactory(injector);
 
         if (LOGGER.isInfoEnabled()) {
             String versionString = VersionBean.VERSION.toString();
@@ -117,7 +117,7 @@ public class InitializationListener implements SystemEventListener {
         }
 
         FacesContext context = FacesContext.getCurrentInstance();
-        if (ContextInitParameters.isExecuteAWTInitializer(context)) {
+        if (getBooleanConfigurationValue(context, CoreConfiguration.Items.executeAWTInitializer)) {
             try {
                 AWTInitializer.initialize();
             } catch (NoClassDefFoundError e) {
@@ -128,6 +128,7 @@ public class InitializationListener implements SystemEventListener {
 
     protected ServicesFactory createFactory() {
         ServicesFactoryImpl injector = new ServicesFactoryImpl();
+        ServiceTracker.setFactory(injector);
         ArrayList<Module> modules = new ArrayList<Module>();
         modules.add(new DefaultModule());
         try {

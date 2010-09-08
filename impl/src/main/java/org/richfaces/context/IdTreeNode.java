@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.ajax4jsf.renderkit.AjaxRendererUtils;
+import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
 
 final class IdTreeNode {
 
@@ -106,7 +106,7 @@ final class IdTreeNode {
                 if (componentId.length() > 2 && componentId.charAt(0) == LIST_OPENING_CHAR &&
                     componentId.charAt(componentId.length() - 1) == LIST_CLOSING_CHAR) {
 
-                    String[] split = AjaxRendererUtils.asArray(componentId.substring(1, componentId.length() - 1));
+                    String[] split = CoreAjaxRendererUtils.asIdsArray(componentId.substring(1, componentId.length() - 1));
                     for (IdTreeNode node : nodes) {
                         node.setChildNodes(split);
                         childNodesCount += split.length;

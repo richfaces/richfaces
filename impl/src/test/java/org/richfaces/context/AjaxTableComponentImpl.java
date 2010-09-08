@@ -19,21 +19,29 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
+
 package org.richfaces.context;
 
+import java.util.Collection;
+
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIData;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
+import javax.faces.context.FacesContext;
 
-import org.richfaces.component.UISequence;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * @author Nick Belaevski
  *
  */
-public class AjaxTableComponentImpl extends UISequence {
+public class AjaxTableComponentImpl extends UIData {
 
+    private static final Logger LOG = RichfacesLogger.COMPONENTS.getLogger();
+    
     private boolean visitMetaComponent(String name, ExtendedVisitContext visitContext, VisitCallback callback) {
         UIComponent facet = getFacet(name);
         if (facet != null) {
@@ -51,7 +59,81 @@ public class AjaxTableComponentImpl extends UISequence {
         }
     }
 
+    private boolean doVisitChildren(VisitContext context) {
+        // TODO optimize for returned IDs
+        Collection<String> idsToVisit = context.getSubtreeIdsToVisit(this);
+
+        assert idsToVisit != null;
+
+        if (idsToVisit == VisitContext.ALL_IDS) {
+            // TODO
+        }
+
+        // All ids or non-empty collection means we need to visit our children.
+        return !idsToVisit.isEmpty();
+    }
+
     @Override
+    public boolean visitTree(VisitContext visitContext, VisitCallback callback) {
+
+        // First check to see whether we are visitable. If not
+        // short-circuit out of this subtree, though allow the
+        // visit to proceed through to other subtrees.
+        if (!isVisitable(visitContext)) {
+            return false;
+        }
+
+        // Clear out the row index is one is set so that
+        // we start from a clean slate.
+        FacesContext facesContext = visitContext.getFacesContext();
+
+        int oldRowIndex = getRowIndex();
+        setRowIndex(-1);
+
+        // Push ourselves to EL
+        pushComponentToEL(facesContext, null);
+
+        try {
+
+            // Visit ourselves. Note that we delegate to the
+            // VisitContext to actually perform the visit.
+            VisitResult result = visitContext.invokeVisitCallback(this, callback);
+
+            // If the visit is complete, short-circuit out and end the visit
+            if (result == VisitResult.COMPLETE) {
+                return true;
+            }
+
+            // Visit children, short-circuiting as necessary
+            if ((result == VisitResult.ACCEPT) && doVisitChildren(visitContext)) {
+                setRowIndex(-1);
+                
+                if (visitFixedChildren(visitContext, callback)) {
+                    return true;
+                }
+
+                if (visitDataChildren(visitContext, callback)) {
+                    return true;
+                }
+            }
+        } finally {
+
+            // Clean up - pop EL and restore old row index
+            popComponentFromEL(facesContext);
+
+            try {
+                setRowIndex(oldRowIndex);
+            } catch (Exception e) {
+
+                // TODO: handle exception
+                LOG.error(e.getMessage(), e);
+            }
+        }
+
+        // Return false to allow the visit to continue
+        return false;
+    }    
+    
     protected boolean visitFixedChildren(VisitContext visitContext, VisitCallback callback) {
 
         if (visitContext instanceof ExtendedVisitContext) {
@@ -67,8 +149,38 @@ public class AjaxTableComponentImpl extends UISequence {
 
             return false;
         } else {
-            return super.visitFixedChildren(visitContext, callback);
+            for (UIComponent facet: getFacets().values()) {
+                if (facet.visitTree(visitContext, callback)) {
+                    return true;
+                }
+            }
+            
+            return false;
         }
+    }
+
+    protected boolean visitDataChildren(VisitContext visitContext, VisitCallback callback) {
+        int rowIndex = 0;
+        
+        for (setRowIndex(rowIndex); isRowAvailable(); setRowIndex(++rowIndex)) {
+            VisitResult result = visitContext.invokeVisitCallback(this, callback);
+            
+            if (result == VisitResult.COMPLETE) {
+                return true;
+            }
+            
+            if (result == VisitResult.REJECT) {
+                continue;
+            }
+            
+            for (UIComponent child: getChildren()) {
+                if (child.visitTree(visitContext, callback)) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
     }
 
 }

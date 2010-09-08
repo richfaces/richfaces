@@ -21,6 +21,8 @@
  */
 package org.richfaces.resource;
 
+import java.util.Collection;
+
 import javax.faces.application.Resource;
 import javax.faces.context.FacesContext;
 
@@ -32,12 +34,14 @@ public interface ResourceFactory {
 
     public static final String STATIC_RESOURCE_MAPPINGS = "META-INF/richfaces/static-resource-mappings.properties";
 
+    public static final String DYNAMIC_RESOURCE_MAPPINGS = "META-INF/richfaces/resource-mappings.properties";
+
     public static final String SKINNED_RESOURCE_PREFIX = "%skin%/";
     
-    //TODO implement resource mappings
+    public Collection<ResourceKey> getMappedDynamicResourceKeys();
     
     public abstract Resource createResource(String resourceName, String libraryName, String contentType);
 
-    public abstract Resource createResource(FacesContext context, ResourceCodecData resourceData);
+    public abstract Resource createResource(FacesContext context, ResourceRequestData resourceData);
 
 }
