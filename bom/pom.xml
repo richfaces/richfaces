@@ -46,11 +46,6 @@
         <dependencies>
             <!-- Project Versions -->
             <dependency>
-                <groupId>org.richfaces.commons</groupId>
-                <artifactId>richfaces-commons-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.richfaces.core</groupId>
                 <artifactId>richfaces-core-api</artifactId>
                 <version>${project.version}</version>

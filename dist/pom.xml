@@ -55,10 +55,6 @@
             <groupId>org.richfaces.core</groupId>
             <artifactId>richfaces-core-impl</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.richfaces.commons</groupId>
-            <artifactId>richfaces-commons-api</artifactId>
-        </dependency>
 
         <!-- Examples -->
         <dependency>
@@ -89,7 +85,7 @@
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <configuration>
-                    <includeGroupIds>org.richfaces.core,org.richfaces.commons,org.richfaces.ui</includeGroupIds>
+                    <includeGroupIds>org.richfaces.core,org.richfaces.ui</includeGroupIds>
                 </configuration>
                 <executions>
                     <execution>
