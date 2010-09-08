@@ -153,7 +153,7 @@ public interface HtmlConstants {
         "accesskey", "alt", "cols", "height", "lang", "longdesc", "maxlength", "rows", "size", "tabindex", "title",
         "width", "dir", "rules", "frame", "border", "cellspacing", "cellpadding", "summary", "bgcolor", "usemap",
         "enctype", "accept-charset", "accept", "target", "charset", "coords", "hreflang", "rel", "rev", "shape",
-        "disabled", "readonly", "ismap", "align"
+        "disabled", "readonly", "ismap", "align", "type"
     };
 
     /**
