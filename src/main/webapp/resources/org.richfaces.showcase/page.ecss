@@ -9,7 +9,7 @@ body {
 
 .header_bg {
 	background-image:
-		"url(#{resource['org.richfaces.demo.images.PageHeaderGradient']})";
+		"url(#{resource['org.richfaces.demo.images:pgHdrGrad.png']})";
 	border-bottom: 1px solid #FFFFFF;
 	background-color: '#{richSkin.headerBackgroundColor}';
 	background-repeat: repeat-x;
@@ -18,7 +18,7 @@ body {
 
 .footer_bg {
 	background-image:
-		"url(#{resource['org.richfaces.demo.images.PageFooterGradient']})";
+		"url(#{resource['org.richfaces.demo.images:pgFtrGrad.png']})";
 	border-top: 1px solid #FFFFFF;
 	background-color: '#{richSkin.headerBackgroundColor}';
 	background-repeat: repeat-x;

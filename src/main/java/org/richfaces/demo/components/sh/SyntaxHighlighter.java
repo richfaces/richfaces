@@ -14,7 +14,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.resource.ResourceNotFoundException;
 
 @FacesComponent(value = "syntaxHighlighter")
 @ResourceDependencies({ @ResourceDependency(library = "js", name = "shCore.js"),
@@ -62,7 +61,7 @@ public class SyntaxHighlighter extends UIComponentBase {
             if (stream != null) {
                 renderStream(context, stream);
             } else {
-                throw new ResourceNotFoundException("resource for highlight not found");
+                throw new NullPointerException("resource for highlight not found");
             }
         } else {
             throw new NullPointerException("src may not be null");

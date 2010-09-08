@@ -19,7 +19,7 @@
 	background-position: left top;
 	background-repeat: repeat-x;
 	background-image:
-		"url(#{resource['org.richfaces.demo.images.PanelGradient']})";
+		"url(#{resource['org.richfaces.demo.images:pnGrad.png']})";
 	color: '#{richSkin.headerTextColor}';
 }
 
