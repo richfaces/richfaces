@@ -22,6 +22,8 @@
 
 package org.richfaces.model;
 
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
+
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,12 +37,12 @@ import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModelListener;
 
-import org.ajax4jsf.context.ContextInitParameters;
 import org.ajax4jsf.model.DataVisitResult;
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
 import org.ajax4jsf.model.SequenceRange;
+import org.richfaces.application.IterationComponentsConfiguration;
 import org.richfaces.component.SortOrder;
 
 /**
@@ -335,7 +337,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     private Comparator<? super String> createStringComparator(FacesContext context) {
         Comparator<? super String> comparator = null;
         Locale locale = state.getLocale();
-        if (locale != null && ContextInitParameters.isDatatableUsesViewLocale(context)) {
+        if (locale != null && getBooleanConfigurationValue(context, IterationComponentsConfiguration.Items.datatableUsesViewLocale)) {
             comparator = Collator.getInstance(locale);
         } else {
             comparator = new Comparator<String>() {

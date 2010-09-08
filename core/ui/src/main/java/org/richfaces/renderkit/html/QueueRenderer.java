@@ -22,12 +22,11 @@
 package org.richfaces.renderkit.html;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.renderkit.RendererUtils;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractQueue;
+import org.richfaces.renderkit.util.RendererUtils;
 
 /**
  * @author Nick Belaevski Renderer for queue component
@@ -41,7 +40,7 @@ public class QueueRenderer extends QueueRendererBase {
         String nameAttributeValue = (String) comp.getAttributes().get(NAME_ATTRIBBUTE);
 
         if (nameAttributeValue == null || nameAttributeValue.length() == 0) {
-            UIForm form = utils.getNestingForm(context, comp);
+            UIComponent form = utils.getNestingForm(context, comp);
             if (form != null) {
                 nameAttributeValue = form.getClientId(context);
             } else {

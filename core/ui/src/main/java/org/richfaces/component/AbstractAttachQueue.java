@@ -33,12 +33,12 @@ import javax.faces.event.ListenerFor;
 import javax.faces.event.PostAddToViewEvent;
 
 import org.ajax4jsf.component.behavior.AjaxBehavior;
-import org.ajax4jsf.renderkit.AjaxRendererUtils;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.renderkit.util.AjaxRendererUtils;
 
 /**
  * @author Nick Belaevski

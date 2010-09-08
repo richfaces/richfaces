@@ -21,7 +21,6 @@
  */
 package org.richfaces.renderkit;
 
-import org.ajax4jsf.renderkit.RendererBase;
 import org.richfaces.component.LogMode;
 
 /**

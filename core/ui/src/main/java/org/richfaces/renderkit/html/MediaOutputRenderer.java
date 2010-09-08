@@ -34,10 +34,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.Messages;
-import org.ajax4jsf.renderkit.RendererBase;
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractMediaOutput;
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.RendererBase;
 
 /**
  * @author shura
@@ -146,7 +146,7 @@ public class MediaOutputRenderer extends RendererBase {
         }
 
         writer.writeURIAttribute(uriAttribute, uri, "uri");
-        getUtils().encodeAttributesFromArray(context, component, HTML.PASS_THRU_STYLES);
+        getUtils().encodeAttributesFromArray(context, component, HtmlConstants.PASS_THRU_STYLES);
         getUtils().encodePassThru(context, mmedia, null);
     }
 }

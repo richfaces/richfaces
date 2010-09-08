@@ -23,9 +23,9 @@
 package org.richfaces.renderkit.html;
 
 import org.ajax4jsf.javascript.JSObject;
-import org.ajax4jsf.renderkit.RendererUtils;
 import org.richfaces.component.AbstractAccordion;
 import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.renderkit.HtmlConstants;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -73,7 +73,7 @@ public class AccordionRenderer extends TogglePanelRenderer {
 
     @Override
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        writer.endElement(RendererUtils.HTML.DIV_ELEM);
+        writer.endElement(HtmlConstants.DIV_ELEM);
     }
 
     @Override

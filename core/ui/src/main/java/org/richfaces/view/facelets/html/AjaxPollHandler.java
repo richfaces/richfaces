@@ -23,8 +23,8 @@ package org.richfaces.view.facelets.html;
 
 import javax.faces.event.ActionEvent;
 import javax.faces.view.facelets.*;
-import org.richfaces.MethodMetadata;
 import org.richfaces.component.AbstractPoll;
+import org.richfaces.view.facelets.MethodMetadata;
 
 public class AjaxPollHandler extends ComponentHandler {
 

@@ -22,6 +22,8 @@
 
 package org.ajax4jsf.renderkit;
 
+import static org.richfaces.renderkit.AjaxConstants.BEHAVIOR_EVENT_PARAMETER;
+
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.ActionSource;
@@ -39,6 +41,9 @@ import javax.faces.render.RenderKitFactory;
 import org.ajax4jsf.component.AjaxClientBehavior;
 import org.ajax4jsf.component.behavior.AjaxBehavior;
 import org.ajax4jsf.javascript.JSFunction;
+import org.richfaces.renderkit.AjaxEventOptions;
+import org.richfaces.renderkit.util.AjaxRendererUtils;
+import org.richfaces.renderkit.util.RendererUtils;
 
 /**
  * @author Anton Belevich
@@ -142,7 +147,7 @@ public class AjaxBehaviorRenderer extends ClientBehaviorRenderer {
         UIComponent parent = bContext.getComponent();
         String eventName = bContext.getEventName();
         AjaxEventOptions options = AjaxRendererUtils.buildEventOptions(context, parent, behavior);
-        options.setParameter(AjaxRendererUtils.BEHAVIOR_EVENT_PARAMETER, eventName);
+        options.setParameter(BEHAVIOR_EVENT_PARAMETER, eventName);
         return options;
     }
 }

@@ -21,6 +21,8 @@
  */
 package org.richfaces.component;
 
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
+
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -30,7 +32,7 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
 
-import org.ajax4jsf.context.ContextInitParameters;
+import org.richfaces.aplication.CoreComponentsConfiguration;
 
 /**
  * @author Nick Belaevski
@@ -48,7 +50,7 @@ public class QueuePreRenderViewListener implements SystemEventListener {
         FacesContext context = FacesContext.getCurrentInstance();
         UIViewRoot viewRoot = context.getViewRoot();
         
-        boolean queueEnabled = ContextInitParameters.isQueueEnabled(context);
+        boolean queueEnabled = getBooleanConfigurationValue(context, CoreComponentsConfiguration.Items.queueEnabled);
         if (queueEnabled) {
             Application application = context.getApplication();
             UIComponent queueResourceComponent = application.createComponent(context, 

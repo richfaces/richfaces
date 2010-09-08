@@ -41,7 +41,7 @@ a.rf-ds-btn {
 	background-position: top left; 
 	background-repeat: repeat-x;
 	background-color: '#{richSkin.headerBackgroundColor}'; 
-	background-image: "url(#{resource['org.richfaces.renderkit.html.images.DSButtonGradientImage']})";
+	background-image: "url(#{resource['org.richfaces.images:dsBtnGrad.png']})";
 
 	font-size: '#{richSkin.generalSizeFont}'; 
 	font-family: '#{richSkin.generalFamilyFont}'; 
@@ -73,7 +73,7 @@ a.rf-ds-btn {
 	border-top-color: '#{richSkin.tableBorderColor}';
 
 	background-color: '#{richSkin.tableBackgroundColor}'; 
-	background-image: "url(#{resource['org.richfaces.renderkit.html.images.DSDigitalGradientImage']})";
+	background-image: "url(#{resource['org.richfaces.images:dsDigGrad.png']})";
 
 	
 	background-position: top left;
@@ -95,7 +95,7 @@ a.rf-ds-btn {
 	background-position: top left;
 	background-repeat: repeat-x;
 	background-color: '#{richSkin.tableBackgroundColor}'; 
-	background-image: "url(#{resource['org.richfaces.renderkit.html.images.DSButtonOverGradientImage']})";
+	background-image: "url(#{resource['org.richfaces.images:dsBtnGradOver.png']})";
 }
 
 .rf-ds-press { 

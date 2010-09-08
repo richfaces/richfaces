@@ -26,7 +26,7 @@
 }
 
 .rf-edt-h, .rf-edt-th {
-	background-image : "url(#{resource['org.richfaces.renderkit.html.images.ColumnHeaderGradientImage']})";
+	background-image : "url(#{resource['org.richfaces.images:colHdrGrad.png']})";
 }
 
 .rf-edt-th {

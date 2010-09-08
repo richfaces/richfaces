@@ -22,13 +22,14 @@
 
 package org.richfaces.component;
 
-import org.ajax4jsf.renderkit.RendererUtils;
+import java.io.IOException;
+import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
-import java.io.IOException;
-import java.util.Map;
+
+import org.richfaces.renderkit.HtmlConstants;
 
 /**
  * @author akolonitsky
@@ -96,8 +97,8 @@ public abstract class AbstractTogglePanelItem extends AbstractDivPanel {
 
     protected static void hidePanelItem(UIComponent item) {
         Map<String,Object> attrs = item.getAttributes();
-        Object style = attrs.get(RendererUtils.HTML.STYLE_ATTRIBUTE);
-        attrs.put(RendererUtils.HTML.STYLE_ATTRIBUTE, "display:none; " + style);
+        Object style = attrs.get(HtmlConstants.STYLE_ATTRIBUTE);
+        attrs.put(HtmlConstants.STYLE_ATTRIBUTE, "display:none; " + style);
     }
 
     public abstract String getName();

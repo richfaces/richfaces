@@ -22,10 +22,10 @@
 
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.renderkit.RendererBase;
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.richfaces.component.AbstractDivPanel;
+import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.renderkit.RendererBase;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -94,10 +94,10 @@ public class DivPanelRenderer extends RendererBase {
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         super.doEncodeBegin(writer, context, component);
 
-        writer.startElement(HTML.DIV_ELEM, component);
+        writer.startElement(HtmlConstants.DIV_ELEM, component);
         writer.writeAttribute("id", component.getClientId(context), "clientId");
         writer.writeAttribute("class", getStyleClass(component), null);
-        writer.writeAttribute(HTML.STYLE_ATTRIBUTE, getStyle(component), null);
+        writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, getStyle(component), null);
         renderPassThroughAttributes(context, component, getPassThroughAttributes());
     }
 
@@ -119,16 +119,16 @@ public class DivPanelRenderer extends RendererBase {
 
         writeJavaScript(writer, context, component);
 
-        writer.endElement(HTML.DIV_ELEM);
+        writer.endElement(HtmlConstants.DIV_ELEM);
     }
 
     protected void writeJavaScript(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         Object script = getScriptObject(context, component);
         if (script != null) {
-            writer.startElement(HTML.SCRIPT_ELEM, component);
-            writer.writeAttribute(HTML.TYPE_ATTR, "text/javascript", "type");
+            writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
+            writer.writeAttribute(HtmlConstants.TYPE_ATTR, "text/javascript", "type");
             writer.writeText(script, null);
-            writer.endElement(HTML.SCRIPT_ELEM);
+            writer.endElement(HtmlConstants.SCRIPT_ELEM);
         }
     }
 

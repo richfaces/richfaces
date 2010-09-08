@@ -38,14 +38,14 @@ import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSObject;
 import org.ajax4jsf.javascript.JSReference;
-import org.ajax4jsf.renderkit.AjaxEventOptions;
-import org.ajax4jsf.renderkit.AjaxRendererUtils;
-import org.ajax4jsf.renderkit.HandlersChain;
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.component.AbstractTogglePanelItem;
 import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.renderkit.AjaxEventOptions;
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.util.AjaxRendererUtils;
 import org.richfaces.renderkit.util.FormUtil;
+import org.richfaces.renderkit.util.HandlersChain;
 
 /**
  * @author akolonitsky
@@ -111,12 +111,12 @@ public class TogglePanelRenderer extends DivPanelRenderer {
         super.doEncodeBegin(writer, context, comp);
         AbstractTogglePanel panel = (AbstractTogglePanel) comp;
 
-        writer.startElement(HTML.INPUT_ELEM, comp);
-        writer.writeAttribute(HTML.TYPE_ATTR, HTML.INPUT_TYPE_HIDDEN, null);
-        writer.writeAttribute(HTML.VALUE_ATTRIBUTE, panel.getActiveItem(), "activeItem");
-        writer.writeAttribute(HTML.ID_ATTRIBUTE, getValueRequestParamName(context, comp), null);
-        writer.writeAttribute(HTML.NAME_ATTRIBUTE, getValueRequestParamName(context, comp), null);
-        writer.endElement(HTML.INPUT_ELEM);
+        writer.startElement(HtmlConstants.INPUT_ELEM, comp);
+        writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.INPUT_TYPE_HIDDEN, null);
+        writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, panel.getActiveItem(), "activeItem");
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, getValueRequestParamName(context, comp), null);
+        writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, getValueRequestParamName(context, comp), null);
+        writer.endElement(HtmlConstants.INPUT_ELEM);
     }
 
     @Override

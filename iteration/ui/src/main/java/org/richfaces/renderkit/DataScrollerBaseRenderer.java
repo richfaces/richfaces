@@ -37,12 +37,9 @@ import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSLiteral;
 import org.ajax4jsf.javascript.JSReference;
-import org.ajax4jsf.renderkit.AjaxEventOptions;
-import org.ajax4jsf.renderkit.AjaxRendererUtils;
-import org.ajax4jsf.renderkit.RendererBase;
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.richfaces.component.AbstractDataScroller;
 import org.richfaces.event.DataScrollerEvent;
+import org.richfaces.renderkit.util.AjaxRendererUtils;
 
 @ResourceDependencies( { @ResourceDependency(library = "javax.faces", name = "jsf-uncompressed.js"),
     @ResourceDependency(name = "jquery.js"), @ResourceDependency(name = "richfaces.js"),
@@ -219,32 +216,32 @@ public class DataScrollerBaseRenderer extends RendererBase {
 
 
             if (isCurrentPage) {
-                out.startElement(HTML.SPAN_ELEM, component);
-                out.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-ds-dtl rf-ds-cur " + styleClass, null);
+                out.startElement(HtmlConstants.SPAN_ELEM, component);
+                out.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-ds-dtl rf-ds-cur " + styleClass, null);
             } else {
-                out.startElement(HTML.A_ELEMENT, component);
-                out.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-ds-dtl " + styleClass, null);
-                out.writeAttribute(HTML.HREF_ATTR, "javascript:void(0);", null);
+                out.startElement(HtmlConstants.A_ELEMENT, component);
+                out.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-ds-dtl " + styleClass, null);
+                out.writeAttribute(HtmlConstants.HREF_ATTR, "javascript:void(0);", null);
             }
 
 
             if (null != style) {
-                out.writeAttribute(HTML.STYLE_ATTRIBUTE, style, null);
+                out.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, style, null);
             }
 
             String page = Integer.toString(i + 1);
             String id = clientId + "_ds_" + page;
 
-            out.writeAttribute(HTML.ID_ATTRIBUTE, id, null);
+            out.writeAttribute(HtmlConstants.ID_ATTRIBUTE, id, null);
 
             digital.put(id, page);
 
             out.writeText(page, null);
         
             if(isCurrentPage) {
-                out.endElement(HTML.SPAN_ELEM);
+                out.endElement(HtmlConstants.SPAN_ELEM);
             } else {
-                out.endElement(HTML.A_ELEMENT);
+                out.endElement(HtmlConstants.A_ELEMENT);
             }
         }
 

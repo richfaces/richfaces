@@ -38,13 +38,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewDeclarationLanguage;
 
 import org.ajax4jsf.component.behavior.AjaxBehavior;
-import org.ajax4jsf.renderkit.AjaxRendererUtils;
 import org.jboss.test.faces.FacesEnvironment;
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.richfaces.component.AbstractAttachQueue;
+import org.richfaces.renderkit.util.AjaxRendererUtils;
 
 
 /**

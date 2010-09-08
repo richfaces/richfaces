@@ -40,6 +40,8 @@ import javax.faces.view.facelets.TagConfig;
 import javax.faces.view.facelets.TagException;
 import javax.faces.view.facelets.TagHandler;
 
+import org.richfaces.view.facelets.TagHandlerUtils;
+
 /**
  * @author Nick Belaevski
  * 

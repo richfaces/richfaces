@@ -34,11 +34,16 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIData;
 
-import org.ajax4jsf.renderkit.RendererUtils;
 import org.richfaces.component.AbstractDataScroller;
 import org.richfaces.component.UIDataAdaptor;
+import org.richfaces.renderkit.util.RendererUtils;
 
 public final class DataScrollerUtils {
+
+    /**
+     * 
+     */
+    private static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
 
     protected enum PropertyKeys {
         rowCount, rows
@@ -107,7 +112,7 @@ public final class DataScrollerUtils {
             throw new FacesException("could not find dataTable for  datascroller " + dataScroller.getId());
 
         } else {
-            forComp = RendererUtils.getInstance().findComponentFor(dataScroller, forAttribute);
+            forComp = RENDERER_UTILS.findComponentFor(dataScroller, forAttribute);
         }
 
         if (forComp == null) {

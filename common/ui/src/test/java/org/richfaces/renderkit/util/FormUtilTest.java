@@ -27,7 +27,6 @@ import javax.faces.component.UIOutput;
 import javax.faces.component.UIViewRoot;
 
 import org.jboss.test.faces.AbstractFacesTest;
-import org.richfaces.component.EnclosingFormRequiredException;
 import org.richfaces.component.SwitchType;
 
 /**

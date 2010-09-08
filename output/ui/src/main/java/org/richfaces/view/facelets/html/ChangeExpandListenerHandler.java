@@ -22,16 +22,17 @@
 
 package org.richfaces.view.facelets.html;
 
-import org.richfaces.event.ChangeExpandEvent;
-import org.richfaces.event.ChangeExpandListener;
-import org.richfaces.event.ChangeExpandSource;
-
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.TagConfig;
+
+import org.richfaces.event.ChangeExpandEvent;
+import org.richfaces.event.ChangeExpandListener;
+import org.richfaces.event.ChangeExpandSource;
+import org.richfaces.view.facelets.EventListenerHandler;
 
 /**
  *

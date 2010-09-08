@@ -27,8 +27,8 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.renderkit.RendererBase;
 import org.richfaces.component.UIPanel;
+import org.richfaces.renderkit.RendererBase;
 
 /**
  * @author amarkhel

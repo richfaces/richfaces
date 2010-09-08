@@ -22,23 +22,24 @@
 
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.javascript.JSObject;
-import org.ajax4jsf.renderkit.RendererUtils;
-import org.richfaces.component.AbstractTogglePanelTitledItem;
-import org.richfaces.renderkit.RenderKitUtils;
+import static org.richfaces.component.util.HtmlUtil.concatClasses;
+import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
+
+import java.io.IOException;
+import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Map;
 
-import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates;
-import static org.richfaces.component.html.HtmlAccordionItem.PropertyKeys;
-import static org.richfaces.component.util.HtmlUtil.concatClasses;
-import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
+import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.component.AbstractTogglePanelTitledItem;
+import org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates;
+import org.richfaces.component.html.HtmlAccordionItem.PropertyKeys;
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.RenderKitUtils;
 
 /**
  *
@@ -103,10 +104,10 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
             return;
         }
         
-        writer.startElement(RendererUtils.HTML.SCRIPT_ELEM, component);
-        writer.writeAttribute(RendererUtils.HTML.TYPE_ATTR, "text/javascript", "type");
+        writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
+        writer.writeAttribute(HtmlConstants.TYPE_ATTR, "text/javascript", "type");
         writer.writeText(script, null);
-        writer.endElement(RendererUtils.HTML.SCRIPT_ELEM);
+        writer.endElement(HtmlConstants.SCRIPT_ELEM);
     }
 
     private void encodeContentBegin(UIComponent component, ResponseWriter writer) throws IOException {

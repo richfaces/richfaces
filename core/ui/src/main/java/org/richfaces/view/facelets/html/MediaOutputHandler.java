@@ -22,8 +22,8 @@
 
 package org.richfaces.view.facelets.html;
 
-import org.richfaces.MethodMetadata;
 import org.richfaces.component.AbstractMediaOutput;
+import org.richfaces.view.facelets.MethodMetadata;
 
 import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.ComponentHandler;

@@ -35,13 +35,12 @@ import javax.faces.render.Renderer;
 
 import org.ajax4jsf.model.DataVisitResult;
 import org.ajax4jsf.model.DataVisitor;
-import org.ajax4jsf.renderkit.RendererUtils;
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.richfaces.component.AbstractList;
 import org.richfaces.component.ListType;
 import org.richfaces.component.UISequence;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.renderkit.util.RendererUtils;
 
 /**
  * @author Nick Belaevski
@@ -52,25 +51,25 @@ public abstract class ListRendererBase extends Renderer {
 
     private static final Map<String, ComponentAttribute> ROW_HANDLER_ATTRIBUTES = Collections
     .unmodifiableMap(ComponentAttribute.createMap(
-        new ComponentAttribute(HTML.ONCLICK_ATTRIBUTE).setEventNames("rowclick").
+        new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("rowclick").
             setComponentAttributeName("onrowclick"),
-        new ComponentAttribute(HTML.ONDBLCLICK_ATTRIBUTE).setEventNames("rowdblclick").
+        new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE).setEventNames("rowdblclick").
             setComponentAttributeName("onrowdblclick"),
-        new ComponentAttribute(HTML.ONMOUSEDOWN_ATTRIBUTE).setEventNames("rowmousedown").
+        new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE).setEventNames("rowmousedown").
             setComponentAttributeName("onrowmousedown"),
-        new ComponentAttribute(HTML.ONMOUSEUP_ATTRIBUTE).setEventNames("rowmouseup").
+        new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE).setEventNames("rowmouseup").
             setComponentAttributeName("onrowmouseup"),
-        new ComponentAttribute(HTML.ONMOUSEOVER_ATTRIBUTE).setEventNames("rowmouseover").
+        new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE).setEventNames("rowmouseover").
             setComponentAttributeName("onrowmouseover"),
-        new ComponentAttribute(HTML.ONMOUSEMOVE_ATTRIBUTE).setEventNames("rowmousemove").
+        new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE).setEventNames("rowmousemove").
             setComponentAttributeName("onrowmousemove"),
-        new ComponentAttribute(HTML.ONMOUSEOUT_ATTRIBUTE).setEventNames("rowmouseout").
+        new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE).setEventNames("rowmouseout").
             setComponentAttributeName("onrowmouseout"),
-        new ComponentAttribute(HTML.ONKEYPRESS_ATTRIBUTE).setEventNames("rowkeypress").
+        new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE).setEventNames("rowkeypress").
             setComponentAttributeName("onrowkeypress"),
-        new ComponentAttribute(HTML.ONKEYDOWN_ATTRIBUTE).setEventNames("rowkeydown").
+        new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE).setEventNames("rowkeydown").
             setComponentAttributeName("onrowkeydown"),
-        new ComponentAttribute(HTML.ONKEYUP_ATTRIBUTE).setEventNames("rowkeyup").
+        new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE).setEventNames("rowkeyup").
             setComponentAttributeName("onrowkeyup")
     ));
 
@@ -94,24 +93,24 @@ public abstract class ListRendererBase extends Renderer {
             throws IOException {
             ResponseWriter writer = context.getResponseWriter();
 
-            writer.startElement(HTML.LI_ELEMENT, sequence);
+            writer.startElement(HtmlConstants.LI_ELEMENT, sequence);
 
             if (rendererUtils.hasExplicitId(sequence)) {
-                rendererUtils.writeAttribute(writer, HTML.ID_ATTRIBUTE, sequence.getClientId(context));
+                rendererUtils.writeAttribute(writer, HtmlConstants.ID_ATTRIBUTE, sequence.getClientId(context));
             }
 
-            rendererUtils.writeAttribute(writer, HTML.CLASS_ATTRIBUTE,
+            rendererUtils.writeAttribute(writer, HtmlConstants.CLASS_ATTRIBUTE,
                 HtmlUtil.concatClasses(helper.getRowClass(), helper.getColumnClass(), itemClass));
             renderHandlers(context, sequence);
             rendererUtils.encodeChildren(context, sequence);
-            writer.endElement(HTML.LI_ELEMENT);
+            writer.endElement(HtmlConstants.LI_ELEMENT);
         }
 
         public void encodeFakeItem(FacesContext context, UIComponent component) throws IOException {
             ResponseWriter writer = context.getResponseWriter();
-            writer.startElement(HTML.LI_ELEMENT, component);
-            writer.writeAttribute(HTML.STYLE_ATTRIBUTE, "display:none", null);
-            writer.endElement(HTML.LI_ELEMENT);
+            writer.startElement(HtmlConstants.LI_ELEMENT, component);
+            writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display:none", null);
+            writer.endElement(HtmlConstants.LI_ELEMENT);
         }
     }
 
@@ -127,36 +126,36 @@ public abstract class ListRendererBase extends Renderer {
 
             UIComponent termFacet = sequence.getFacet(AbstractList.TERM);
             if (termFacet != null) {
-                writer.startElement(HTML.DT_ELEMENT, sequence);
+                writer.startElement(HtmlConstants.DT_ELEMENT, sequence);
 
                 if (rendererUtils.hasExplicitId(sequence)) {
-                    rendererUtils.writeAttribute(writer, HTML.ID_ATTRIBUTE, sequence.getClientId(context) + ".dt");
+                    rendererUtils.writeAttribute(writer, HtmlConstants.ID_ATTRIBUTE, sequence.getClientId(context) + ".dt");
                 }
 
-                rendererUtils.writeAttribute(writer, HTML.CLASS_ATTRIBUTE,
+                rendererUtils.writeAttribute(writer, HtmlConstants.CLASS_ATTRIBUTE,
                     HtmlUtil.concatClasses(helper.getRowClass(), helper.getColumnClass(), "rf-dlst-t"));
                 termFacet.encodeAll(context);
-                writer.endElement(HTML.DT_ELEMENT);
+                writer.endElement(HtmlConstants.DT_ELEMENT);
             }
 
-            writer.startElement(HTML.DD_ELEMENT, sequence);
+            writer.startElement(HtmlConstants.DD_ELEMENT, sequence);
 
             if (rendererUtils.hasExplicitId(sequence)) {
-                rendererUtils.writeAttribute(writer, HTML.ID_ATTRIBUTE, sequence.getClientId(context));
+                rendererUtils.writeAttribute(writer, HtmlConstants.ID_ATTRIBUTE, sequence.getClientId(context));
             }
 
-            rendererUtils.writeAttribute(writer, HTML.CLASS_ATTRIBUTE,
+            rendererUtils.writeAttribute(writer, HtmlConstants.CLASS_ATTRIBUTE,
                 HtmlUtil.concatClasses(helper.getRowClass(), helper.getColumnClass(), "rf-dlst-d"));
             renderHandlers(context, sequence);
             rendererUtils.encodeChildren(context, sequence);
-            writer.endElement(HTML.DD_ELEMENT);
+            writer.endElement(HtmlConstants.DD_ELEMENT);
         }
 
         public void encodeFakeItem(FacesContext context, UIComponent component) throws IOException {
             ResponseWriter writer = context.getResponseWriter();
-            writer.startElement(HTML.DD_ELEMENT, component);
-            writer.writeAttribute(HTML.STYLE_ATTRIBUTE, "display:none", null);
-            writer.endElement(HTML.DD_ELEMENT);
+            writer.startElement(HtmlConstants.DD_ELEMENT, component);
+            writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display:none", null);
+            writer.endElement(HtmlConstants.DD_ELEMENT);
         }
     }
 
@@ -237,7 +236,7 @@ public abstract class ListRendererBase extends Renderer {
     }
 
     protected String getStyleClass(UIComponent component, ListType listType) {
-        String styleClass = (String) component.getAttributes().get(HTML.STYLE_CLASS_ATTR);
+        String styleClass = (String) component.getAttributes().get(HtmlConstants.STYLE_CLASS_ATTR);
         return HtmlUtil.concatClasses(styleClass, getListClass(listType));
     }
 

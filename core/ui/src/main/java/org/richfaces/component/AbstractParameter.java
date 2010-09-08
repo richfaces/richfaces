@@ -37,7 +37,7 @@ import org.ajax4jsf.component.JavaScriptParameter;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.util.PartialStateHolderUtil;
+import org.richfaces.component.util.PartialStateHolderUtil;
 
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)

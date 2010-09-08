@@ -21,9 +21,9 @@
  */
 package org.richfaces.renderkit;
 
-import static org.ajax4jsf.renderkit.AjaxRendererUtils.AJAX_FUNCTION_NAME;
-import static org.ajax4jsf.renderkit.AjaxRendererUtils.buildAjaxFunction;
-import static org.ajax4jsf.renderkit.AjaxRendererUtils.buildEventOptions;
+import static org.richfaces.renderkit.util.AjaxRendererUtils.AJAX_FUNCTION_NAME;
+import static org.richfaces.renderkit.util.AjaxRendererUtils.buildAjaxFunction;
+import static org.richfaces.renderkit.util.AjaxRendererUtils.buildEventOptions;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -50,16 +50,14 @@ import org.ajax4jsf.javascript.ScriptUtils;
 import org.ajax4jsf.model.DataVisitResult;
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.SequenceRange;
-import org.ajax4jsf.renderkit.AjaxEventOptions;
-import org.ajax4jsf.renderkit.RendererUtils;
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
-import org.ajax4jsf.renderkit.RendererUtils.ScriptHashVariableWrapper;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractExtendedDataTable;
 import org.richfaces.component.UIDataTableBase;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.context.OnOffResponseWriter;
 import org.richfaces.model.SelectionMode;
+import org.richfaces.renderkit.util.RendererUtils;
+import org.richfaces.renderkit.util.RendererUtils.ScriptHashVariableWrapper;
 
 /**
  * @author Konstantin Mishin
@@ -221,12 +219,12 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
     private void encodeEmptyFooterCell(FacesContext context, ResponseWriter writer, UIComponent column)
         throws IOException {
         if (column.isRendered()) {
-            writer.startElement(HTML.TD_ELEM, column);
-            writer.startElement(HTML.DIV_ELEM, column);
-            writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-edt-efc rf-edt-cw-"
+            writer.startElement(HtmlConstants.TD_ELEM, column);
+            writer.startElement(HtmlConstants.DIV_ELEM, column);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-efc rf-edt-cw-"
                 + column.getId(), null);
-            writer.endElement(HTML.DIV_ELEM);
-            writer.endElement(HTML.TD_ELEM);
+            writer.endElement(HtmlConstants.DIV_ELEM);
+            writer.endElement(HtmlConstants.TD_ELEM);
         }
     }
 
@@ -235,30 +233,30 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         if (column.isRendered()) {
 
             String classAttribute = facetName + "Class";
-            writer.startElement(HTML.TD_ELEM, column);
+            writer.startElement(HtmlConstants.TD_ELEM, column);
             if ("header".equals(facetName)) {
-                writer.startElement(HTML.DIV_ELEM, column);
-                writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-edt-rsh rf-edt-cw-"
+                writer.startElement(HtmlConstants.DIV_ELEM, column);
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-rsh rf-edt-cw-"
                     + column.getId(), null);
-                writer.startElement(HTML.DIV_ELEM, column);
-                writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-edt-rs", null);
-                writer.endElement(HTML.DIV_ELEM);
-                writer.endElement(HTML.DIV_ELEM);
+                writer.startElement(HtmlConstants.DIV_ELEM, column);
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-rs", null);
+                writer.endElement(HtmlConstants.DIV_ELEM);
+                writer.endElement(HtmlConstants.DIV_ELEM);
             }
-            writer.startElement(HTML.DIV_ELEM, column);
+            writer.startElement(HtmlConstants.DIV_ELEM, column);
             writer
-            .writeAttribute(HTML.CLASS_ATTRIBUTE, HtmlUtil.concatClasses("rf-edt-" + facetName.charAt(0) + "c",
+            .writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, HtmlUtil.concatClasses("rf-edt-" + facetName.charAt(0) + "c",
                 "rf-edt-cw-" + column.getId(), (String) column.getAttributes().get(classAttribute)),
                 null);
-            writer.startElement(HTML.DIV_ELEM, column);
-            writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-edt-" + facetName.charAt(0) + "cc", null);
+            writer.startElement(HtmlConstants.DIV_ELEM, column);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-" + facetName.charAt(0) + "cc", null);
             UIComponent facet = column.getFacet(facetName);
             if (facet != null && facet.isRendered()) {
                 facet.encodeAll(context);
             }
-            writer.endElement(HTML.DIV_ELEM);
-            writer.endElement(HTML.DIV_ELEM);
-            writer.endElement(HTML.TD_ELEM);
+            writer.endElement(HtmlConstants.DIV_ELEM);
+            writer.endElement(HtmlConstants.DIV_ELEM);
+            writer.endElement(HtmlConstants.TD_ELEM);
         }
     }
 
@@ -268,32 +266,32 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         UIDataTableBase table = state.getRow();
         boolean columnFacetPresent = table.isColumnFacetPresent(name);
         if (columnFacetPresent || "footer".equals(name)) {
-            writer.startElement(HTML.DIV_ELEM, table);
-            writer.writeAttribute(HTML.CLASS_ATTRIBUTE, HtmlUtil.concatClasses("rf-edt-" + name.charAt(0),
+            writer.startElement(HtmlConstants.DIV_ELEM, table);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, HtmlUtil.concatClasses("rf-edt-" + name.charAt(0),
                 (String) table.getAttributes().get(name + "Class")), null);
-            writer.startElement(HTML.TABLE_ELEMENT, table);
-            writer.writeAttribute(HTML.CELLPADDING_ATTRIBUTE, "0", null);
-            writer.writeAttribute(HTML.CELLSPACING_ATTRIBUTE, "0", null);
-            writer.startElement(HTML.TBODY_ELEMENT, table);
-            writer.startElement(HTML.TR_ELEMENT, table);
+            writer.startElement(HtmlConstants.TABLE_ELEMENT, table);
+            writer.writeAttribute(HtmlConstants.CELLPADDING_ATTRIBUTE, "0", null);
+            writer.writeAttribute(HtmlConstants.CELLSPACING_ATTRIBUTE, "0", null);
+            writer.startElement(HtmlConstants.TBODY_ELEMENT, table);
+            writer.startElement(HtmlConstants.TR_ELEMENT, table);
             for (state.startIterate(); state.hasNextPart();) {
                 Part part = state.nextPart();
                 PartName partName = part.getName();
                 Iterator<UIComponent> columns = part.getColumns().iterator();
                 if (columns.hasNext()) {
-                    writer.startElement(HTML.TD_ELEM, table);
+                    writer.startElement(HtmlConstants.TD_ELEM, table);
                     if (PartName.frozen.equals(partName) && "footer".equals(name)) {
-                        writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-edt-fa", null);
+                        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-fa", null);
                     }
-                    writer.startElement(HTML.DIV_ELEM, table);
+                    writer.startElement(HtmlConstants.DIV_ELEM, table);
                     if (PartName.frozen.equals(partName)) {
                         if ("header".equals(name)) {
                             writer
-                            .writeAttribute(HTML.ID_ATTRIBUTE, table.getClientId(context) + ":frozenHeader", null);
+                            .writeAttribute(HtmlConstants.ID_ATTRIBUTE, table.getClientId(context) + ":frozenHeader", null);
                         }
                     } else {
-                        writer.writeAttribute(HTML.ID_ATTRIBUTE, table.getClientId(context) + ":" + name, null);
-                        writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-edt-"
+                        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, table.getClientId(context) + ":" + name, null);
+                        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-"
                             + ("footer".equals(name) ? "f" : "") + "p rf-edt-pw", null);
                     }
 
@@ -301,12 +299,12 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                     EncoderVariance encoderVariance = state.getEncoderVariance();
                     encoderVariance.encodeStartUpdate(context, tableId);
 
-                    writer.startElement(HTML.TABLE_ELEMENT, table);
-                    writer.writeAttribute(HTML.ID_ATTRIBUTE, tableId, null);
-                    writer.writeAttribute(HTML.CELLPADDING_ATTRIBUTE, "0", null);
-                    writer.writeAttribute(HTML.CELLSPACING_ATTRIBUTE, "0", null);
-                    writer.startElement(HTML.TBODY_ELEMENT, table);
-                    writer.startElement(HTML.TR_ELEMENT, table);
+                    writer.startElement(HtmlConstants.TABLE_ELEMENT, table);
+                    writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, tableId, null);
+                    writer.writeAttribute(HtmlConstants.CELLPADDING_ATTRIBUTE, "0", null);
+                    writer.writeAttribute(HtmlConstants.CELLSPACING_ATTRIBUTE, "0", null);
+                    writer.startElement(HtmlConstants.TBODY_ELEMENT, table);
+                    writer.startElement(HtmlConstants.TR_ELEMENT, table);
                     while (columns.hasNext()) {
                         if (columnFacetPresent) {
                             encodeHeaderOrFooterCell(context, writer, columns.next(), name);
@@ -314,20 +312,20 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                             encodeEmptyFooterCell(context, writer, columns.next());
                         }
                     }
-                    writer.endElement(HTML.TR_ELEMENT);
-                    writer.endElement(HTML.TBODY_ELEMENT);
-                    writer.endElement(HTML.TABLE_ELEMENT);
+                    writer.endElement(HtmlConstants.TR_ELEMENT);
+                    writer.endElement(HtmlConstants.TBODY_ELEMENT);
+                    writer.endElement(HtmlConstants.TABLE_ELEMENT);
 
                     encoderVariance.encodeEndUpdate(context);
 
-                    writer.endElement(HTML.DIV_ELEM);
-                    writer.endElement(HTML.TD_ELEM);
+                    writer.endElement(HtmlConstants.DIV_ELEM);
+                    writer.endElement(HtmlConstants.TD_ELEM);
                 }
             }
-            writer.endElement(HTML.TR_ELEMENT);
-            writer.endElement(HTML.TBODY_ELEMENT);
-            writer.endElement(HTML.TABLE_ELEMENT);
-            writer.endElement(HTML.DIV_ELEM);
+            writer.endElement(HtmlConstants.TR_ELEMENT);
+            writer.endElement(HtmlConstants.TBODY_ELEMENT);
+            writer.endElement(HtmlConstants.TABLE_ELEMENT);
+            writer.endElement(HtmlConstants.DIV_ELEM);
         }
     }
 
@@ -343,11 +341,11 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             EncoderVariance encoderVariance = state.getEncoderVariance();
             encoderVariance.encodeStartUpdate(context, elementId);
 
-            writer.startElement(HTML.DIV_ELEM, table);
-            writer.writeAttribute(HTML.ID_ATTRIBUTE, elementId, null);
-            writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-edt-th", null);
+            writer.startElement(HtmlConstants.DIV_ELEM, table);
+            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, elementId, null);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-th", null);
             header.encodeAll(context);
-            writer.endElement(HTML.DIV_ELEM);
+            writer.endElement(HtmlConstants.DIV_ELEM);
 
             encoderVariance.encodeEndUpdate(context);
         }
@@ -362,9 +360,9 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         String tableBodyId = table.getClientId(context) + ":b";
         EncoderVariance encoderVariance = state.getEncoderVariance();
         encoderVariance.encodeStartUpdate(context, tableBodyId);
-        writer.startElement(HTML.DIV_ELEM, table);
-        writer.writeAttribute(HTML.ID_ATTRIBUTE, tableBodyId, null);
-        writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-edt-b", null);
+        writer.startElement(HtmlConstants.DIV_ELEM, table);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, tableBodyId, null);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-b", null);
         if (table.getRowCount() == 0) {
             UIComponent facet = table.getFacet("noData");
             if (facet != null && facet.isRendered()) {
@@ -377,44 +375,44 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             }
         } else {
             table.getAttributes().put("clientFirst", 0);
-            writer.startElement(HTML.DIV_ELEM, table);
-            writer.startElement(HTML.DIV_ELEM, table);
-            writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-edt-s", null);
-            writer.endElement(HTML.DIV_ELEM);
-            writer.startElement(HTML.TABLE_ELEMENT, table);
-            writer.writeAttribute(HTML.CELLPADDING_ATTRIBUTE, "0", null);
-            writer.writeAttribute(HTML.CELLSPACING_ATTRIBUTE, "0", null);
-            writer.startElement(HTML.TBODY_ELEMENT, table);
-            writer.startElement(HTML.TR_ELEMENT, table);
+            writer.startElement(HtmlConstants.DIV_ELEM, table);
+            writer.startElement(HtmlConstants.DIV_ELEM, table);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-s", null);
+            writer.endElement(HtmlConstants.DIV_ELEM);
+            writer.startElement(HtmlConstants.TABLE_ELEMENT, table);
+            writer.writeAttribute(HtmlConstants.CELLPADDING_ATTRIBUTE, "0", null);
+            writer.writeAttribute(HtmlConstants.CELLSPACING_ATTRIBUTE, "0", null);
+            writer.startElement(HtmlConstants.TBODY_ELEMENT, table);
+            writer.startElement(HtmlConstants.TR_ELEMENT, table);
             for (state.startIterate(); state.hasNextPart();) {
-                writer.startElement(HTML.TD_ELEM, table);
-                writer.startElement(HTML.DIV_ELEM, table);
+                writer.startElement(HtmlConstants.TD_ELEM, table);
+                writer.startElement(HtmlConstants.DIV_ELEM, table);
                 PartName partName = state.nextPart().getName();
                 if (PartName.normal.equals(partName)) {
-                    writer.writeAttribute(HTML.ID_ATTRIBUTE, table.getClientId(context) + ":body", null);
-                    writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-edt-p rf-edt-pw", null);
+                    writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, table.getClientId(context) + ":body", null);
+                    writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-p rf-edt-pw", null);
                 }
                 String targetId = table.getClientId(context) + ":tbt" + partName.name().charAt(0);
-                writer.startElement(HTML.TABLE_ELEMENT, table);
-                writer.writeAttribute(HTML.ID_ATTRIBUTE, targetId, null);
-                writer.writeAttribute(HTML.CELLPADDING_ATTRIBUTE, "0", null);
-                writer.writeAttribute(HTML.CELLSPACING_ATTRIBUTE, "0", null);
-                writer.startElement(HTML.TBODY_ELEMENT, table);
-                writer.writeAttribute(HTML.ID_ATTRIBUTE, table.getClientId(context) + ":tb"
+                writer.startElement(HtmlConstants.TABLE_ELEMENT, table);
+                writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, targetId, null);
+                writer.writeAttribute(HtmlConstants.CELLPADDING_ATTRIBUTE, "0", null);
+                writer.writeAttribute(HtmlConstants.CELLSPACING_ATTRIBUTE, "0", null);
+                writer.startElement(HtmlConstants.TBODY_ELEMENT, table);
+                writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, table.getClientId(context) + ":tb"
                     + partName.toString().charAt(0), null);
                 encodeRows(context, state);
-                writer.endElement(HTML.TBODY_ELEMENT);
-                writer.endElement(HTML.TABLE_ELEMENT);
+                writer.endElement(HtmlConstants.TBODY_ELEMENT);
+                writer.endElement(HtmlConstants.TABLE_ELEMENT);
 
-                writer.endElement(HTML.DIV_ELEM);
-                writer.endElement(HTML.TD_ELEM);
+                writer.endElement(HtmlConstants.DIV_ELEM);
+                writer.endElement(HtmlConstants.TD_ELEM);
             }
-            writer.endElement(HTML.TR_ELEMENT);
-            writer.endElement(HTML.TBODY_ELEMENT);
-            writer.endElement(HTML.TABLE_ELEMENT);
-            writer.endElement(HTML.DIV_ELEM);
+            writer.endElement(HtmlConstants.TR_ELEMENT);
+            writer.endElement(HtmlConstants.TBODY_ELEMENT);
+            writer.endElement(HtmlConstants.TABLE_ELEMENT);
+            writer.endElement(HtmlConstants.DIV_ELEM);
         }
-        writer.endElement(HTML.DIV_ELEM);
+        writer.endElement(HtmlConstants.DIV_ELEM);
         encoderVariance.encodeEndUpdate(context);
     }
 
@@ -432,11 +430,11 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             EncoderVariance encoderVariance = state.getEncoderVariance();
             encoderVariance.encodeStartUpdate(context, elementId);
 
-            writer.startElement(HTML.DIV_ELEM, table);
-            writer.writeAttribute(HTML.ID_ATTRIBUTE, elementId, null);
-            writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-edt-tf", null);
+            writer.startElement(HtmlConstants.DIV_ELEM, table);
+            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, elementId, null);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-tf", null);
             footer.encodeAll(context);
-            writer.endElement(HTML.DIV_ELEM);
+            writer.endElement(HtmlConstants.DIV_ELEM);
 
             encoderVariance.encodeEndUpdate(context);
         }
@@ -578,11 +576,11 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component)
         throws IOException {
         Map<String, Object> attributes = component.getAttributes();
-        writer.startElement(HTML.DIV_ELEM, component);
-        writer.writeAttribute(HTML.ID_ATTRIBUTE, component.getClientId(context), null);
-        writer.writeAttribute(HTML.CLASS_ATTRIBUTE, HtmlUtil.concatClasses("rf-edt",
+        writer.startElement(HtmlConstants.DIV_ELEM, component);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context), null);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, HtmlUtil.concatClasses("rf-edt",
             (String) attributes.get("styleClass")), null);
-        getUtils().writeAttribute(writer, HTML.STYLE_ATTRIBUTE, attributes.get("style"));
+        getUtils().writeAttribute(writer, HtmlConstants.STYLE_ATTRIBUTE, attributes.get("style"));
     }
 
     public RendererState createRowHolder(FacesContext context, UIComponent component, Object[] options) {
@@ -607,37 +605,37 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
 
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component)
         throws IOException {
-        writer.startElement(HTML.DIV_ELEM, component);
-        writer.writeAttribute(HTML.ID_ATTRIBUTE, component.getClientId(context) + ":d", null);
-        writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-edt-d", null);
-        writer.endElement(HTML.DIV_ELEM);
-        writer.startElement(HTML.TABLE_ELEMENT, component);
-        writer.writeAttribute(HTML.ID_ATTRIBUTE, component.getClientId(context) + ":r", null);
-        writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-edt-ro", null);
-        writer.writeAttribute(HTML.CELLPADDING_ATTRIBUTE, "0", null);
-        writer.writeAttribute(HTML.CELLSPACING_ATTRIBUTE, "0", null);
-        writer.startElement(HTML.TR_ELEMENT, component);
-        writer.startElement(HTML.TH_ELEM, component);
+        writer.startElement(HtmlConstants.DIV_ELEM, component);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context) + ":d", null);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-d", null);
+        writer.endElement(HtmlConstants.DIV_ELEM);
+        writer.startElement(HtmlConstants.TABLE_ELEMENT, component);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context) + ":r", null);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-ro", null);
+        writer.writeAttribute(HtmlConstants.CELLPADDING_ATTRIBUTE, "0", null);
+        writer.writeAttribute(HtmlConstants.CELLSPACING_ATTRIBUTE, "0", null);
+        writer.startElement(HtmlConstants.TR_ELEMENT, component);
+        writer.startElement(HtmlConstants.TH_ELEM, component);
         writer.write("&#160;");
-        writer.endElement(HTML.TH_ELEM);
-        writer.endElement(HTML.TR_ELEMENT);
+        writer.endElement(HtmlConstants.TH_ELEM);
+        writer.endElement(HtmlConstants.TR_ELEMENT);
         for (int i = 0; i < 6; i++) {
-            writer.startElement(HTML.TR_ELEMENT, component);
-            writer.startElement(HTML.TD_ELEM, component);
+            writer.startElement(HtmlConstants.TR_ELEMENT, component);
+            writer.startElement(HtmlConstants.TD_ELEM, component);
             writer.write("&#160;");
-            writer.endElement(HTML.TD_ELEM);
-            writer.endElement(HTML.TR_ELEMENT);
+            writer.endElement(HtmlConstants.TD_ELEM);
+            writer.endElement(HtmlConstants.TR_ELEMENT);
         }
-        writer.endElement(HTML.TABLE_ELEMENT);
-        writer.startElement(HTML.DIV_ELEM, component);
-        writer.writeAttribute(HTML.ID_ATTRIBUTE, component.getClientId(context) + ":rm", null);
-        writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-edt-rom", null);
-        writer.endElement(HTML.DIV_ELEM);
-        writer.startElement(HTML.INPUT_ELEM, component);
-        writer.writeAttribute(HTML.ID_ATTRIBUTE, component.getClientId(context) + ":wi", null);
-        writer.writeAttribute(HTML.NAME_ATTRIBUTE, component.getClientId(context) + ":wi", null);
-        writer.writeAttribute(HTML.TYPE_ATTR, HTML.INPUT_TYPE_HIDDEN, null);
-        writer.endElement(HTML.INPUT_ELEM);
+        writer.endElement(HtmlConstants.TABLE_ELEMENT);
+        writer.startElement(HtmlConstants.DIV_ELEM, component);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context) + ":rm", null);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-rom", null);
+        writer.endElement(HtmlConstants.DIV_ELEM);
+        writer.startElement(HtmlConstants.INPUT_ELEM, component);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context) + ":wi", null);
+        writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, component.getClientId(context) + ":wi", null);
+        writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.INPUT_TYPE_HIDDEN, null);
+        writer.endElement(HtmlConstants.INPUT_ELEM);
         encodeSelectionInput(writer, context, component);
         JSFunction ajaxFunction = buildAjaxFunction(context, component, AJAX_FUNCTION_NAME);
         AjaxEventOptions eventOptions = buildEventOptions(context, component);
@@ -662,7 +660,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         }
         builder.append(");");
         utils.writeScript(context, component, builder.toString());
-        writer.endElement(HTML.DIV_ELEM);
+        writer.endElement(HtmlConstants.DIV_ELEM);
     }
     
     private int getRowCount(UIComponent component) {
@@ -683,7 +681,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         ResponseWriter writer = context.getResponseWriter();
         UIDataTableBase table = state.getRow();
         writer.startElement("style", table);
-        writer.writeAttribute(HTML.TYPE_ATTR, "text/css", null);
+        writer.writeAttribute(HtmlConstants.TYPE_ATTR, "text/css", null);
         writer.writeText(".rf-edt-pw {", null); // TODO getNormalizedId(context, state.getGrid())
         writer.writeText("width: 100%;", "width");
         writer.writeText("}", null);
@@ -707,7 +705,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         throws IOException {
         RendererState state = (RendererState) rowHolder;
         UIDataTableBase table = state.getRow();
-        writer.startElement(HTML.TR_ELEMENT, table);
+        writer.startElement(HtmlConstants.TR_ELEMENT, table);
         StringBuilder builder = new StringBuilder();
         Collection<Object> selection = table.getSelection();
         if (selection != null && selection.contains(table.getRowKey())) {
@@ -726,29 +724,29 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             builder.append("rf-edt-r-t");
         }
         if (builder.length() > 0) {
-            writer.writeAttribute(HTML.CLASS_ATTRIBUTE, builder.toString(), null);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, builder.toString(), null);
         }
         Iterator<UIComponent> columns = null;
         Part part = state.getPart();
-        writer.writeAttribute(HTML.ID_ATTRIBUTE,
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE,
             table.getClientId(facesContext) + ":" + part.getName().toString().charAt(0), null);
         columns = part.getColumns().iterator();
         while (columns.hasNext()) {
             UIComponent column = (UIComponent) columns.next();
             if (column.isRendered()) {
-                writer.startElement(HTML.TD_ELEM, table);
-                writer.startElement(HTML.DIV_ELEM, table);
-                writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-edt-c rf-edt-cw-"
+                writer.startElement(HtmlConstants.TD_ELEM, table);
+                writer.startElement(HtmlConstants.DIV_ELEM, table);
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-c rf-edt-cw-"
                     + column.getId(), null);
-                writer.startElement(HTML.DIV_ELEM, column);
-                writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-edt-cc", null);
+                writer.startElement(HtmlConstants.DIV_ELEM, column);
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-cc", null);
                 renderChildren(facesContext, column);
-                writer.endElement(HTML.DIV_ELEM);
-                writer.endElement(HTML.DIV_ELEM);
-                writer.endElement(HTML.TD_ELEM);
+                writer.endElement(HtmlConstants.DIV_ELEM);
+                writer.endElement(HtmlConstants.DIV_ELEM);
+                writer.endElement(HtmlConstants.TD_ELEM);
             }
         }
-        writer.endElement(HTML.TR_ELEMENT);
+        writer.endElement(HtmlConstants.TR_ELEMENT);
     }
 
     protected void doDecode(FacesContext context, UIComponent component) {

@@ -23,17 +23,21 @@
 
 package org.richfaces.component;
 
+import java.util.Map;
+
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.util.LRUMap;
+import org.richfaces.util.LRUMap;
 
 /**
  * @author Nick Belaevski
  * @since 4.0
  */
 public class PushListenersManager {
+    
     private static final String CONTEXT_ATTRIBUTE_NAME = "richFacesPushListenersManager";
-    private LRUMap<String, PushEventTracker> listeners;
+    
+    private Map<String, PushEventTracker> listeners;
 
     public PushListenersManager() {
 

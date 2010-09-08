@@ -43,9 +43,9 @@ import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSReference;
 import org.ajax4jsf.javascript.ScriptUtils;
-import org.ajax4jsf.renderkit.RendererUtils;
 import org.richfaces.component.UIHashParameter;
 import org.richfaces.component.behavior.ComponentControlBehavior;
+import org.richfaces.renderkit.util.RendererUtils;
 
 /**
  * @author Anton Belevich
@@ -58,6 +58,11 @@ import org.richfaces.component.behavior.ComponentControlBehavior;
     @ResourceDependency(name = "richfaces-base-component.js"),
     @ResourceDependency(library = "org.richfaces", name = "component-control.js") })
 public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
+
+    /**
+     * 
+     */
+    private static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
 
     private static final String FUNC_NAME = "RichFaces.ui.ComponentControl.execute";
 
@@ -72,8 +77,6 @@ public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
     private static final String PARAM_SELECTOR = "selector";
 
     private static final Pattern COMMA_SEPARATED_STRING = Pattern.compile("\\s*,\\s*");
-    
-    private final RendererUtils utils = RendererUtils.getInstance();
     
     @Override
     public String getScript(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
@@ -163,7 +166,7 @@ public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
         List<String> resultHolder = new ArrayList<String>(split.length);
         
         for (String target : split) {
-            UIComponent targetComponent = utils.findComponentFor(contextComponent, target);
+            UIComponent targetComponent = RENDERER_UTILS.findComponentFor(contextComponent, target);
 
             String targetClientId;
             if (targetComponent != null) {

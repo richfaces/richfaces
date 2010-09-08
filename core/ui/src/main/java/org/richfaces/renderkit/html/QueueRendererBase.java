@@ -21,6 +21,8 @@
  */
 package org.richfaces.renderkit.html;
 
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
+
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
@@ -34,7 +36,7 @@ import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.PreRemoveFromViewEvent;
 import javax.faces.render.Renderer;
 
-import org.ajax4jsf.context.ContextInitParameters;
+import org.richfaces.aplication.CoreComponentsConfiguration;
 import org.richfaces.component.QueueRegistry;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
@@ -60,7 +62,7 @@ public abstract class QueueRendererBase extends Renderer implements ComponentSys
     public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
         FacesContext context = FacesContext.getCurrentInstance();
         
-        if (!ContextInitParameters.isQueueEnabled(context)) {
+        if (!getBooleanConfigurationValue(context, CoreComponentsConfiguration.Items.queueEnabled)) {
             return;
         }
         

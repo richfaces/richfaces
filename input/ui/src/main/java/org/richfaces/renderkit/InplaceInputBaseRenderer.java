@@ -35,7 +35,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.richfaces.component.AbstractInplaceInput;
 import org.richfaces.component.InplaceState;
 import org.richfaces.component.util.HtmlUtil;
@@ -86,33 +85,33 @@ public class InplaceInputBaseRenderer extends InputRendererBase {
     
     private static final Map<String, ComponentAttribute> INPLACEINPUT_HANDLER_ATTRIBUTES = Collections
     .unmodifiableMap(ComponentAttribute.createMap(
-        new ComponentAttribute(HTML.ONCLICK_ATTRIBUTE).setEventNames("inputClick").
+        new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("inputClick").
             setComponentAttributeName("onInputClick"),
-        new ComponentAttribute(HTML.ONDBLCLICK_ATTRIBUTE).setEventNames("inputDblclick").
+        new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE).setEventNames("inputDblclick").
             setComponentAttributeName("onInputDblclick"),
-        new ComponentAttribute(HTML.ONMOUSEDOWN_ATTRIBUTE).setEventNames("inputMousedown").
+        new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE).setEventNames("inputMousedown").
             setComponentAttributeName("onInputMousedown"),
-        new ComponentAttribute(HTML.ONMOUSEUP_ATTRIBUTE).setEventNames("inputMouseup").
+        new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE).setEventNames("inputMouseup").
             setComponentAttributeName("onInputMouseup"),
-        new ComponentAttribute(HTML.ONMOUSEOVER_ATTRIBUTE).setEventNames("inputMouseover").
+        new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE).setEventNames("inputMouseover").
             setComponentAttributeName("onInputMouseover"),
-        new ComponentAttribute(HTML.ONMOUSEMOVE_ATTRIBUTE).setEventNames("inputMousemove").
+        new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE).setEventNames("inputMousemove").
             setComponentAttributeName("onInputMousemove"),
-        new ComponentAttribute(HTML.ONMOUSEOUT_ATTRIBUTE).setEventNames("inputMouseout").
+        new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE).setEventNames("inputMouseout").
             setComponentAttributeName("onInputMouseout"),
-        new ComponentAttribute(HTML.ONKEYPRESS_ATTRIBUTE).setEventNames("inputKeypress").
+        new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE).setEventNames("inputKeypress").
             setComponentAttributeName("onInputKeypress"),
-        new ComponentAttribute(HTML.ONKEYDOWN_ATTRIBUTE).setEventNames("inputKeydown").
+        new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE).setEventNames("inputKeydown").
             setComponentAttributeName("onInputKeydown"),
-        new ComponentAttribute(HTML.ONKEYUP_ATTRIBUTE).setEventNames("inputKeyup").
+        new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE).setEventNames("inputKeyup").
             setComponentAttributeName("onInputKeyup"),
-        new ComponentAttribute(HTML.ONBLUR_ATTRIBUTE).setEventNames("inputBlur").
+        new ComponentAttribute(HtmlConstants.ONBLUR_ATTRIBUTE).setEventNames("inputBlur").
             setComponentAttributeName("onInputBlur"),
-        new ComponentAttribute(HTML.ONFOCUS_ATTRIBUTE).setEventNames("inputFocus").
+        new ComponentAttribute(HtmlConstants.ONFOCUS_ATTRIBUTE).setEventNames("inputFocus").
             setComponentAttributeName("onInputFocus"),
-        new ComponentAttribute(HTML.ONCHANGE_ATTRIBUTE).setEventNames("change").
+        new ComponentAttribute(HtmlConstants.ONCHANGE_ATTRIBUTE).setEventNames("change").
             setComponentAttributeName("onchange"),
-        new ComponentAttribute(HTML.ONSELECT_ATTRIBUTE).setEventNames("select").
+        new ComponentAttribute(HtmlConstants.ONSELECT_ATTRIBUTE).setEventNames("select").
             setComponentAttributeName("onselect")
     ));
 

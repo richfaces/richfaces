@@ -25,7 +25,7 @@ package org.ajax4jsf.component.behavior;
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.PartialStateHolderHelper;
+import org.richfaces.component.PartialStateHolderHelper;
 
 /**
  * @author Anton Belevich

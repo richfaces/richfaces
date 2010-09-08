@@ -31,7 +31,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.richfaces.component.Row;
 import org.richfaces.component.UIDataTableBase;
 import org.richfaces.component.util.HtmlUtil;
@@ -139,7 +138,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         
         setupTableStartElement(context, dataTable);
         encodeHeaderFacet(writer, context, dataTable, false);
-        setupTableStartElement(context, dataTable, HTML.TD_ELEM);
+        setupTableStartElement(context, dataTable, HtmlConstants.TD_ELEM);
         encodeFooterFacet(writer, context, dataTable, false);
         dataTable.setRowKey(context, key);
         dataTable.restoreOrigValue(context);
@@ -150,7 +149,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         
         int rowCount = dataTableBase.getRowCount();
        
-        put(facesContext, dataTableBase.getClientId(facesContext) + CELL_ELEMENT_KEY, HTML.TD_ELEM);
+        put(facesContext, dataTableBase.getClientId(facesContext) + CELL_ELEMENT_KEY, HtmlConstants.TD_ELEM);
         
         Object key = dataTableBase.getRowKey();
         dataTableBase.captureOrigValue(facesContext);
@@ -164,14 +163,14 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         } else {
             int columns = getColumnsCount(dataTableBase.columns());
 
-            writer.startElement(HTML.TR_ELEMENT, dataTableBase);
-            writer.startElement(HTML.TD_ELEM, dataTableBase);
-            writer.writeAttribute(HTML.COLSPAN_ATTRIBUTE, columns, null);
+            writer.startElement(HtmlConstants.TR_ELEMENT, dataTableBase);
+            writer.startElement(HtmlConstants.TD_ELEM, dataTableBase);
+            writer.writeAttribute(HtmlConstants.COLSPAN_ATTRIBUTE, columns, null);
 
             String styleClass = (String) dataTableBase.getAttributes().get("noDataStyleClass");
             styleClass = styleClass != null ? getNoDataClass() + " " + styleClass : getNoDataClass();
 
-            writer.writeAttribute(HTML.CLASS_ATTRIBUTE, styleClass, null);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, styleClass, null);
 
             UIComponent noDataFacet = dataTableBase.getNoData();
             if (noDataFacet != null && noDataFacet.isRendered()) {
@@ -183,8 +182,8 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
                 }
             }
 
-            writer.endElement(HTML.TD_ELEM);
-            writer.endElement(HTML.TR_ELEMENT);
+            writer.endElement(HtmlConstants.TD_ELEM);
+            writer.endElement(HtmlConstants.TR_ELEMENT);
         }      
        
         
@@ -212,10 +211,10 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
     }
     
     public void encodeTableStart(ResponseWriter writer, FacesContext context, UIDataTableBase component) throws IOException {
-        writer.startElement(HTML.TABLE_ELEMENT, component);
-        writer.writeAttribute(HTML.ID_ATTRIBUTE, component.getClientId(), null);
+        writer.startElement(HtmlConstants.TABLE_ELEMENT, component);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(), null);
         String styleClass = getTableSkinClass();
-        encodeStyleClass(writer, context, component, HTML.STYLE_CLASS_ATTR, styleClass);
+        encodeStyleClass(writer, context, component, HtmlConstants.STYLE_CLASS_ATTR, styleClass);
     }
     
     protected void encodeHiddens(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase, Object [] params) throws IOException {
@@ -231,7 +230,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
     }
     
     public void encodeTableEnd(ResponseWriter writer) throws IOException {
-        writer.endElement(HTML.TABLE_ELEMENT);
+        writer.endElement(HtmlConstants.TABLE_ELEMENT);
     }
     
     public abstract void encodeClientScript(ResponseWriter writer, FacesContext context, UIDataTableBase component) throws IOException;
@@ -241,16 +240,16 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
     public void encodeTableBodyStart(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase)
         throws IOException {
            
-        writer.startElement(HTML.TBODY_ELEMENT, dataTableBase);
+        writer.startElement(HtmlConstants.TBODY_ELEMENT, dataTableBase);
         String clientId = (dataTableBase.getRelativeRowIndex() < 0) ? dataTableBase.getClientId(facesContext) : dataTableBase.getRelativeClientId(facesContext);
        
-        writer.writeAttribute(HTML.ID_ATTRIBUTE,  clientId + ":tb", null);
-        writer.writeAttribute(HTML.CLASS_ATTRIBUTE, getTableSkinClass(), null);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE,  clientId + ":tb", null);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, getTableSkinClass(), null);
         encodeStyle(writer, facesContext, dataTableBase, null);
     }
     
     public void encodeTableBodyEnd(ResponseWriter writer) throws IOException {
-        writer.endElement(HTML.TBODY_ELEMENT);
+        writer.endElement(HtmlConstants.TBODY_ELEMENT);
     }
 
     public void encodeFooterFacet(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTable, 
@@ -271,9 +270,9 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
                     partialStart(facesContext, footerClientId);
                 }
 
-                writer.startElement(HTML.TFOOT_ELEMENT, dataTable);
-                writer.writeAttribute(HTML.ID_ATTRIBUTE, footerClientId, null);
-                writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rd-dt-tfoot", null);
+                writer.startElement(HtmlConstants.TFOOT_ELEMENT, dataTable);
+                writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, footerClientId, null);
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rd-dt-tfoot", null);
             }
      
             int columns = getColumnsCount(dataTable);
@@ -300,12 +299,12 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
                     partialStart(facesContext, targetId);
                 }
                 
-                writer.startElement(HTML.TR_ELEMENT, dataTable);
-                writer.writeAttribute(HTML.ID_ATTRIBUTE, targetId, null);
+                writer.startElement(HtmlConstants.TR_ELEMENT, dataTable);
+                writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, targetId, null);
                 
                 encodeStyleClass(writer, facesContext, dataTable, null, rowClass);
                 encodeColumnFacet(facesContext, writer, dataTable, UIDataTableBase.FOOTER,columns, cellClass);
-                writer.endElement(HTML.TR_ELEMENT);
+                writer.endElement(HtmlConstants.TR_ELEMENT);
 
                 if (encodePartialUpdateForChildren) {
                     partialEnd(facesContext);
@@ -328,7 +327,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
             }
 
             if (encodeTfoot) {
-                writer.endElement(HTML.TFOOT_ELEMENT);
+                writer.endElement(HtmlConstants.TFOOT_ELEMENT);
                 
                 if (partialUpdateEncoded) {
                     partialEnd(facesContext);
@@ -368,9 +367,9 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
                     partialStart(facesContext, headerClientId);
                 }
                 
-                writer.startElement(HTML.THEAD_ELEMENT, dataTable);
-                writer.writeAttribute(HTML.ID_ATTRIBUTE, headerClientId, null);
-                writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-dt-thead", null);
+                writer.startElement(HtmlConstants.THEAD_ELEMENT, dataTable);
+                writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, headerClientId, null);
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dt-thead", null);
             }
             
             int columns = getColumnsCount(dataTable);
@@ -410,13 +409,13 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
                     partialStart(facesContext, targetId);
                 }
                 
-                writer.startElement(HTML.TR_ELEMENT, dataTable);
-                writer.writeAttribute(HTML.ID_ATTRIBUTE, targetId, null);
+                writer.startElement(HtmlConstants.TR_ELEMENT, dataTable);
+                writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, targetId, null);
                 
                 encodeStyleClass(writer, facesContext, dataTable, null, rowClass);
                 
                 encodeColumnFacet(facesContext, writer, dataTable, UIDataTableBase.HEADER, columns, cellClass);
-                writer.endElement(HTML.TR_ELEMENT);
+                writer.endElement(HtmlConstants.TR_ELEMENT);
                 
                 if (encodePartialUpdateForChildren) {
                     partialEnd(facesContext);
@@ -424,7 +423,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
             }
 
             if (encodeThead) {
-                writer.endElement(HTML.THEAD_ELEMENT);
+                writer.endElement(HtmlConstants.THEAD_ELEMENT);
                 
                 if (partialUpdateEncoded) {
                     partialEnd(facesContext);
@@ -449,7 +448,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
                 continue;
             }
 
-            Integer colspan = (Integer) column.getAttributes().get(HTML.COLSPAN_ATTRIBUTE);
+            Integer colspan = (Integer) column.getAttributes().get(HtmlConstants.COLSPAN_ATTRIBUTE);
             if (colspan != null && colspan.intValue() > 0) {
                 tColCount += colspan.intValue();
             } else {
@@ -464,8 +463,8 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
 
             encodeStyleClass(writer, context, column, null, cellClass);
 
-            writer.writeAttribute(HTML.SCOPE_ATTRIBUTE, HTML.COL_ELEMENT, null);
-            getUtils().encodeAttribute(context, column, HTML.COLSPAN_ATTRIBUTE);
+            writer.writeAttribute(HtmlConstants.SCOPE_ATTRIBUTE, HtmlConstants.COL_ELEMENT, null);
+            getUtils().encodeAttribute(context, column, HtmlConstants.COLSPAN_ATTRIBUTE);
             
             EncodeStrategy strategy = getHeaderEncodeStrategy(column, facetName);
             if(strategy != null) {
@@ -497,8 +496,8 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
                 partialStart(facesContext, targetId);
             }
             
-            writer.startElement(HTML.TR_ELEMENT, footer);
-            writer.writeAttribute(HTML.ID_ATTRIBUTE, targetId, null);
+            writer.startElement(HtmlConstants.TR_ELEMENT, footer);
+            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, targetId, null);
 
             encodeStyleClass(writer, facesContext, footer, null, rowClass);
             
@@ -507,10 +506,10 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
             encodeStyleClass(writer, facesContext, footer, null, cellClass);
 
             if (columns > 0) {
-                writer.writeAttribute(HTML.COLSPAN_ATTRIBUTE, String.valueOf(columns), null);
+                writer.writeAttribute(HtmlConstants.COLSPAN_ATTRIBUTE, String.valueOf(columns), null);
             }
 
-            writer.writeAttribute(HTML.SCOPE_ATTRIBUTE, HTML.COLGROUP_ELEMENT, null);
+            writer.writeAttribute(HtmlConstants.SCOPE_ATTRIBUTE, HtmlConstants.COLGROUP_ELEMENT, null);
         }    
         
         if (encodePartialUpdate && !partialUpdateEncoded) {
@@ -525,7 +524,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
 
         if (!isColumnGroup){
             writer.endElement(element);
-            writer.endElement(HTML.TR_ELEMENT);
+            writer.endElement(HtmlConstants.TR_ELEMENT);
             
             if (partialUpdateEncoded) {
                 partialEnd(facesContext);
@@ -587,10 +586,10 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
             setupTableStartElement(context, component);
             encodeHeaderFacet(context.getResponseWriter(), context, table, true);
         } else if (UIDataTableBase.FOOTER.equals(metaComponentId)) {
-            setupTableStartElement(context, component, HTML.TD_ELEM);
+            setupTableStartElement(context, component, HtmlConstants.TD_ELEM);
             encodeFooterFacet(context.getResponseWriter(), context, table, true);
         } else if(UIDataTableBase.BODY.equals(metaComponentId)) {
-            setupTableStartElement(context, component, HTML.TD_ELEM);
+            setupTableStartElement(context, component, HtmlConstants.TD_ELEM);
             encodeTableRows(context.getResponseWriter(), context, table, true);
         } else {
             throw new IllegalArgumentException("Unsupported metaComponentIdentifier: " + metaComponentId);

@@ -32,7 +32,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.model.DataVisitResult;
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractDataGrid;
 import org.richfaces.component.Row;
@@ -65,21 +64,21 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
             
             int columns = dataGrid.getColumns();
             
-            writer.startElement(HTML.THEAD_ELEMENT, component);
-            writer.writeAttribute(HTML.ID_ATTRIBUTE, clientId , null);
-            writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-dg-thead", null);
-            writer.startElement(HTML.TR_ELEMENT, component);
-            writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-dg-h", null);
-            writer.startElement(HTML.TH_ELEM, component);
-            writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-dg-h-c", null);
-            writer.writeAttribute(HTML.COLSPAN_ATTRIBUTE, columns, null);
+            writer.startElement(HtmlConstants.THEAD_ELEMENT, component);
+            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId , null);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-thead", null);
+            writer.startElement(HtmlConstants.TR_ELEMENT, component);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-h", null);
+            writer.startElement(HtmlConstants.TH_ELEM, component);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-h-c", null);
+            writer.writeAttribute(HtmlConstants.COLSPAN_ATTRIBUTE, columns, null);
         }
 
         public void end(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)
             throws IOException {
-            writer.endElement(HTML.TH_ELEM);
-            writer.endElement(HTML.TR_ELEMENT);
-            writer.endElement(HTML.THEAD_ELEMENT);
+            writer.endElement(HtmlConstants.TH_ELEM);
+            writer.endElement(HtmlConstants.TR_ELEMENT);
+            writer.endElement(HtmlConstants.THEAD_ELEMENT);
             
             boolean partial = (Boolean)(Boolean)params[0];
             if(partial) {
@@ -102,21 +101,21 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
                 context.getPartialViewContext().getPartialResponseWriter().startUpdate(clientId);
             }
             
-            writer.startElement(HTML.TFOOT_ELEMENT, component);
-            writer.writeAttribute(HTML.ID_ATTRIBUTE, clientId , null);
-            writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-dg-tfoot", null);
-            writer.startElement(HTML.TR_ELEMENT, component);
-            writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-dg-f", null);
-            writer.startElement(HTML.TD_ELEM, component);
-            writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-dg-f-c", null);
-            writer.writeAttribute(HTML.COLSPAN_ATTRIBUTE, columns, null);
+            writer.startElement(HtmlConstants.TFOOT_ELEMENT, component);
+            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId , null);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-tfoot", null);
+            writer.startElement(HtmlConstants.TR_ELEMENT, component);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-f", null);
+            writer.startElement(HtmlConstants.TD_ELEM, component);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-f-c", null);
+            writer.writeAttribute(HtmlConstants.COLSPAN_ATTRIBUTE, columns, null);
         }
 
         public void end(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)
             throws IOException {
-            writer.endElement(HTML.TD_ELEM);
-            writer.endElement(HTML.TR_ELEMENT);
-            writer.endElement(HTML.TFOOT_ELEMENT);
+            writer.endElement(HtmlConstants.TD_ELEM);
+            writer.endElement(HtmlConstants.TR_ELEMENT);
+            writer.endElement(HtmlConstants.TFOOT_ELEMENT);
             
             boolean partial = (Boolean)(Boolean)params[0];
             if(partial) {
@@ -128,29 +127,29 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
     private static final EncodeStrategy CAPTION = new EncodeStrategy() {
         public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)
             throws IOException {
-            writer.startElement(HTML.CAPTION_ELEMENT, component);
-            writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-dg-cap", null);
+            writer.startElement(HtmlConstants.CAPTION_ELEMENT, component);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-cap", null);
         }
 
         public void end(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)
             throws IOException {
-            writer.endElement(HTML.CAPTION_ELEMENT);
+            writer.endElement(HtmlConstants.CAPTION_ELEMENT);
         }
     };
 
     private static final EncodeStrategy NODATA = new EncodeStrategy() {
         public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)
             throws IOException {
-            writer.startElement(HTML.TR_ELEMENT, component);
-            writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-dg-nd", null);
-            writer.startElement(HTML.TD_ELEM, component);
-            writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-dg-nd-c", null);
+            writer.startElement(HtmlConstants.TR_ELEMENT, component);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-nd", null);
+            writer.startElement(HtmlConstants.TD_ELEM, component);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-nd-c", null);
         }
 
         public void end(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)
             throws IOException {
-            writer.endElement(HTML.TD_ELEM);
-            writer.endElement(HTML.TR_ELEMENT);
+            writer.endElement(HtmlConstants.TD_ELEM);
+            writer.endElement(HtmlConstants.TR_ELEMENT);
         }
     };
 
@@ -164,18 +163,18 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
 
         if (columns > 0 && (processCell % columns == 0)) {
             if (processCell != 0) {
-                writer.endElement(HTML.TR_ELEMENT);
+                writer.endElement(HtmlConstants.TR_ELEMENT);
                 rowHolder.resetProcessCell();
                 rowHolder.nextRow();
             }
-            writer.startElement(HTML.TR_ELEMENT, dataGrid);
-            writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-dg-r", null);
+            writer.startElement(HtmlConstants.TR_ELEMENT, dataGrid);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-r", null);
         }
 
-        writer.startElement(HTML.TD_ELEM, dataGrid);
-        writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-dg-c", null);
+        writer.startElement(HtmlConstants.TD_ELEM, dataGrid);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-c", null);
         renderChildren(facesContext, dataGrid);
-        writer.endElement(HTML.TD_ELEM);
+        writer.endElement(HtmlConstants.TD_ELEM);
     }
     
     public void encodeHeader(ResponseWriter writer, FacesContext facesContext,  AbstractDataGrid dataGrid, boolean partial) throws IOException {
@@ -212,15 +211,15 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
         if(partial) {
             facesContext.getPartialViewContext().getPartialResponseWriter().startUpdate(clientId);
         }
-        writer.startElement(HTML.TBODY_ELEMENT, dataGrid);
-        writer.writeAttribute(HTML.ID_ATTRIBUTE, clientId , null);
-        writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-dg-body", null);
+        writer.startElement(HtmlConstants.TBODY_ELEMENT, dataGrid);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId , null);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-body", null);
         if(dataGrid.getRowCount() > 0) {
             processRows(writer, facesContext, dataGrid, null);
         } else {
             encodeNoData(writer, facesContext, dataGrid);
         }
-        writer.endElement(HTML.TBODY_ELEMENT);
+        writer.endElement(HtmlConstants.TBODY_ELEMENT);
         
         if(partial) {
             facesContext.getPartialViewContext().getPartialResponseWriter().endUpdate();   
@@ -231,16 +230,16 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
     protected void doEncodeChildren(ResponseWriter writer, FacesContext facesContext, UIComponent component)
         throws IOException {
         AbstractDataGrid dataGrid = (AbstractDataGrid)component;
-        writer.startElement(HTML.TABLE_ELEMENT, dataGrid);
-        writer.writeAttribute(HTML.ID_ATTRIBUTE, dataGrid.getClientId(facesContext), null);
-        writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-dg", null);
+        writer.startElement(HtmlConstants.TABLE_ELEMENT, dataGrid);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, dataGrid.getClientId(facesContext), null);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg", null);
 
         encodeCaption(writer, facesContext, dataGrid);
         encodeHeader(writer, facesContext, dataGrid, false);
         encodeFooter(writer, facesContext, dataGrid, false);
         encodeTBody(writer, facesContext, dataGrid, false);
         
-        writer.endElement(HTML.TABLE_ELEMENT);
+        writer.endElement(HtmlConstants.TABLE_ELEMENT);
     }
 
     @Override
@@ -280,13 +279,13 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
         
         if(rest != 0) {
             for (int i = 0; i < rest; i++) {
-                writer.startElement(HTML.TD_ELEM, dataGrid);
-                writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-dg-c", null);
-                writer.endElement(HTML.TD_ELEM);
+                writer.startElement(HtmlConstants.TD_ELEM, dataGrid);
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-c", null);
+                writer.endElement(HtmlConstants.TD_ELEM);
             }
         }
 
-        writer.endElement(HTML.TR_ELEMENT);
+        writer.endElement(HtmlConstants.TR_ELEMENT);
         
     }
     
@@ -310,10 +309,10 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
     public void encodeFakeRow(FacesContext facesContext, RowHolderBase rowHolder) throws IOException {
         UIComponent component = (UIComponent) rowHolder.getRow();
         ResponseWriter writer = facesContext.getResponseWriter();
-        writer.startElement(HTML.TR_ELEMENT, component);
-        writer.writeAttribute(HTML.STYLE_ATTRIBUTE, "display:none", null);
-        writer.startElement(HTML.TD_ELEM, component);
-        writer.endElement(HTML.TD_ELEM);
-        writer.endElement(HTML.TR_ELEMENT);
+        writer.startElement(HtmlConstants.TR_ELEMENT, component);
+        writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display:none", null);
+        writer.startElement(HtmlConstants.TD_ELEM, component);
+        writer.endElement(HtmlConstants.TD_ELEM);
+        writer.endElement(HtmlConstants.TR_ELEMENT);
     }
 }

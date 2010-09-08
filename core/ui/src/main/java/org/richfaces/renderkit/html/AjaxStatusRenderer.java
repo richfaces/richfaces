@@ -32,14 +32,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.renderkit.HandlersChain;
-import org.ajax4jsf.renderkit.RendererBase;
-import org.ajax4jsf.renderkit.RendererUtils;
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
-import org.ajax4jsf.renderkit.RendererUtils.ScriptHashVariableWrapper;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractAjaxStatus;
 import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.renderkit.util.HandlersChain;
+import org.richfaces.renderkit.util.RendererUtils;
+import org.richfaces.renderkit.util.RendererUtils.ScriptHashVariableWrapper;
 
 /**
  * @author Nick Belaevski
@@ -150,18 +150,18 @@ public class AjaxStatusRenderer extends RendererBase {
         }
 
         ResponseWriter writer = facesContext.getResponseWriter();
-        writer.startElement(HTML.SPAN_ELEM, status);
+        writer.startElement(HtmlConstants.SPAN_ELEM, status);
 
         String stateStyle = (String) statusAttributes.get(state.getStyleAttributeName());
 
-        rendererUtils.writeAttribute(writer, HTML.STYLE_ATTRIBUTE,
+        rendererUtils.writeAttribute(writer, HtmlConstants.STYLE_ATTRIBUTE,
             HtmlUtil.concatStyles(stateStyle,
                 state.isInitial() ? null : "display:none")
         );
 
         String stateStyleClass = (String) statusAttributes.get(state.getStyleClassAttributeName());
 
-        rendererUtils.writeAttribute(writer, HTML.CLASS_ATTRIBUTE,
+        rendererUtils.writeAttribute(writer, HtmlConstants.CLASS_ATTRIBUTE,
             HtmlUtil.concatClasses(state.getDefaultStyleClass(),
                 stateStyleClass));
 
@@ -173,7 +173,7 @@ public class AjaxStatusRenderer extends RendererBase {
             }
         }
 
-        writer.endElement(HTML.SPAN_ELEM);
+        writer.endElement(HtmlConstants.SPAN_ELEM);
     }
 
     @Override
@@ -183,16 +183,16 @@ public class AjaxStatusRenderer extends RendererBase {
 
         AbstractAjaxStatus ajaxStatus = (AbstractAjaxStatus) component;
         ResponseWriter writer = context.getResponseWriter();
-        writer.startElement(HTML.SPAN_ELEM, component);
+        writer.startElement(HtmlConstants.SPAN_ELEM, component);
         String clientId = component.getClientId(context);
-        writer.writeAttribute(HTML.ID_ATTRIBUTE, clientId, "id");
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId, "id");
 
         for (StatusState state : StatusState.values()) {
             encodeState(context, ajaxStatus, state);
         }
 
-        writer.startElement(HTML.SCRIPT_ELEM, component);
-        writer.writeAttribute(HTML.TYPE_ATTR, HTML.TEXT_JAVASCRIPT_TYPE, null);
+        writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
+        writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.TEXT_JAVASCRIPT_TYPE, null);
 
         JSFunction statusConstructor = new JSFunction("new RichFaces.status",
             clientId);
@@ -217,9 +217,9 @@ public class AjaxStatusRenderer extends RendererBase {
         }
 
         writer.writeText(statusConstructor.toScript(), null);
-        writer.endElement(HTML.SCRIPT_ELEM);
+        writer.endElement(HtmlConstants.SCRIPT_ELEM);
 
-        writer.endElement(HTML.SPAN_ELEM);
+        writer.endElement(HtmlConstants.SPAN_ELEM);
     }
 
     /* (non-Javadoc)

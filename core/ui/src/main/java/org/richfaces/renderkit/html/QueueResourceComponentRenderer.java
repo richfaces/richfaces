@@ -35,10 +35,10 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
 
 import org.ajax4jsf.javascript.ScriptUtils;
-import org.ajax4jsf.renderkit.RendererUtils;
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.QueueRegistry;
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.util.RendererUtils;
 
 /**
  * @author Nick Belaevski
@@ -79,9 +79,9 @@ public class QueueResourceComponentRenderer extends Renderer {
         if (registry != null && registry.hasQueuesToEncode()) {
             ResponseWriter writer = context.getResponseWriter();
             
-            writer.startElement(HTML.SCRIPT_ELEM, component);
-            writer.writeAttribute(HTML.ID_ATTRIBUTE, component.getClientId(context), null);
-            writer.writeAttribute(HTML.TYPE_ATTR, HTML.JAVASCRIPT_TYPE, null);
+            writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
+            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context), null);
+            writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.JAVASCRIPT_TYPE, null);
             
             writer.writeText(FUNCTION_NAME, null);
             writer.writeText("({", null);
@@ -111,7 +111,7 @@ public class QueueResourceComponentRenderer extends Renderer {
 
             writer.writeText("});", null);
             
-            writer.endElement(HTML.SCRIPT_ELEM);
+            writer.endElement(HtmlConstants.SCRIPT_ELEM);
         }
     }
 }

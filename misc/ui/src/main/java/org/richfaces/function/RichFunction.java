@@ -27,9 +27,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.renderkit.AjaxRendererUtils;
-import org.ajax4jsf.renderkit.RendererUtils;
 import org.richfaces.cdk.annotations.Function;
+import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
+import org.richfaces.renderkit.util.RendererUtils;
 
 /**
  * Created 20.03.2008
@@ -38,6 +38,11 @@ import org.richfaces.cdk.annotations.Function;
  */
 
 public final class RichFunction {
+
+    /**
+     * 
+     */
+    private static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
 
     //EasyMock requires at least protected access for the interface for calls to be delegated to
     protected static interface ComponentLocator {
@@ -48,10 +53,8 @@ public final class RichFunction {
 
     private static ComponentLocator locator = new ComponentLocator() {
 
-        private final RendererUtils utils = RendererUtils.getInstance();
-
         public UIComponent findComponent(FacesContext context, UIComponent contextComponent, String id) {
-            return utils.findComponentFor(context, contextComponent, id);
+            return RENDERER_UTILS.findComponentFor(context, contextComponent, id);
         }
     };
 
@@ -122,7 +125,7 @@ public final class RichFunction {
     @Function
     public static boolean isUserInRole(Object rolesObject) {
         //TODO nick - AjaxRendererUtils split text by commas and whitespace, what is the right variant?
-        Set<String> rolesSet = AjaxRendererUtils.asSet(rolesObject);
+        Set<String> rolesSet = CoreAjaxRendererUtils.asIdsSet(rolesObject);
         if (rolesSet != null) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             ExternalContext externalContext = facesContext.getExternalContext();

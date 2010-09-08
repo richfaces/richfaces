@@ -84,7 +84,7 @@ input.rf-ins-i {
 }
 
 .rf-ins-t {
-	background: url("#{resource['org.richfaces.renderkit.html.images.SliderTrackGradient']}") 1px 1px repeat-x;
+	background: url("#{resource['org.richfaces.images:insldrTrackGrad.png']}") 1px 1px repeat-x;
 	background-color: '#{richSkin.controlBackgroundColor}';
 	border-width: 1px;
 	border-style: solid;

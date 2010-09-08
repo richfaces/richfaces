@@ -21,13 +21,10 @@
 
 package org.richfaces.renderkit.util;
 
-import org.ajax4jsf.renderkit.RendererUtils;
-import org.richfaces.component.EnclosingFormRequiredException;
-import org.richfaces.component.SwitchType;
-
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
+
+import org.richfaces.component.SwitchType;
 
 /**
  * @author Filip Antonov - mailto:fantonov@exadel.com
@@ -40,7 +37,7 @@ public final class FormUtil {
     public static void throwEnclFormReqExceptionIfNeed(FacesContext context, UIComponent component)
         throws EnclosingFormRequiredException {
 
-        UIForm form = RendererUtils.getInstance().getNestingForm(context, component);
+        UIComponent form = RendererUtils.getInstance().getNestingForm(context, component);
 
         // TODO nick -> nick - switchType checking can be harmful here
         SwitchType switchType = (SwitchType) component.getAttributes().get("switchType");

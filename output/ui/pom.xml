@@ -57,10 +57,6 @@
             <artifactId>richfaces-core-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.richfaces.commons</groupId>
-            <artifactId>richfaces-commons-api</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.richfaces.ui.common</groupId>
             <artifactId>richfaces-ui-common-ui</artifactId>
         </dependency>

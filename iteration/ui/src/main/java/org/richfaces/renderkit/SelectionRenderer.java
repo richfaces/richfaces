@@ -33,7 +33,6 @@ import javax.faces.context.ResponseWriter;
 import org.ajax4jsf.model.DataVisitResult;
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.SequenceRange;
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.richfaces.component.UIDataTableBase;
 
 /**
@@ -123,11 +122,11 @@ public abstract class SelectionRenderer extends SortingFilteringRowsRenderer {
     
     protected void encodeSelectionInput(ResponseWriter writer, FacesContext context, UIComponent component)
         throws IOException {
-        writer.startElement(HTML.INPUT_ELEM, component);
+        writer.startElement(HtmlConstants.INPUT_ELEM, component);
         //TODO nick - selection input id should use constants/be a method
-        writer.writeAttribute(HTML.ID_ATTRIBUTE, component.getClientId(context) + ":si", null);
-        writer.writeAttribute(HTML.NAME_ATTRIBUTE, component.getClientId(context) + ":si", null);
-        writer.writeAttribute(HTML.TYPE_ATTR, HTML.INPUT_TYPE_HIDDEN, null);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context) + ":si", null);
+        writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, component.getClientId(context) + ":si", null);
+        writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.INPUT_TYPE_HIDDEN, null);
         UIDataTableBase table = (UIDataTableBase) component;
         StringBuilder builder = new StringBuilder("|");
         Object key = table.getRowKey();
@@ -158,8 +157,8 @@ public abstract class SelectionRenderer extends SortingFilteringRowsRenderer {
         builder.append("|");
         table.setRowKey(context, key);
         table.restoreOrigValue(context);
-        writer.writeAttribute(HTML.VALUE_ATTRIBUTE, builder.toString(), null);
-        writer.endElement(HTML.INPUT_ELEM);
+        writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, builder.toString(), null);
+        writer.endElement(HtmlConstants.INPUT_ELEM);
     }
 
     

@@ -32,6 +32,7 @@ import javax.faces.event.ActionListener;
 import org.richfaces.cdk.annotations.Event;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.view.facelets.TagHandlerUtils;
 
 /**
  * @author Nick Belaevski

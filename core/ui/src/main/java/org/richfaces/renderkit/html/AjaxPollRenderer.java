@@ -36,11 +36,11 @@ import javax.faces.event.ActionEvent;
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSReference;
-import org.ajax4jsf.renderkit.HandlersChain;
-import org.ajax4jsf.renderkit.RendererBase;
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractPoll;
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.renderkit.util.HandlersChain;
 
 /**
  * @author shura
@@ -82,13 +82,13 @@ public class AjaxPollRenderer extends RendererBase {
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context,
                                UIComponent component) throws IOException {
         AbstractPoll poll = (AbstractPoll) component;
-        writer.startElement(HTML.SPAN_ELEM, component);
-        writer.writeAttribute(HTML.STYLE_ATTRIBUTE, "display:none;", null);
+        writer.startElement(HtmlConstants.SPAN_ELEM, component);
+        writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display:none;", null);
         getUtils().encodeId(context, component);
         getUtils().encodeBeginFormIfNessesary(context, component);
         // polling script.
-        writer.startElement(HTML.SCRIPT_ELEM, component);
-        writer.writeAttribute(HTML.TYPE_ATTR, "text/javascript", null);
+        writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
+        writer.writeAttribute(HtmlConstants.TYPE_ATTR, "text/javascript", null);
         StringBuffer script = new StringBuffer("\n");
         if (poll.isEnabled()) {
             JSFunction function = new JSFunction(AJAX_POLL_FUNCTION);
@@ -115,9 +115,9 @@ public class AjaxPollRenderer extends RendererBase {
         }
         script.append(";\n");
         writer.writeText(script.toString(), null);
-        writer.endElement(HTML.SCRIPT_ELEM);
+        writer.endElement(HtmlConstants.SCRIPT_ELEM);
         getUtils().encodeEndFormIfNessesary(context, component);
-        writer.endElement(HTML.SPAN_ELEM);
+        writer.endElement(HtmlConstants.SPAN_ELEM);
     }
 
     /*

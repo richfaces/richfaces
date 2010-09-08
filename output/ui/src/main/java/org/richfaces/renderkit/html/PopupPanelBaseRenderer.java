@@ -16,11 +16,11 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.javascript.ScriptUtils;
-import org.ajax4jsf.renderkit.RendererBase;
-import org.ajax4jsf.renderkit.RendererUtils;
 import org.richfaces.component.AbstractPopupPanel;
 import org.richfaces.json.JSONException;
 import org.richfaces.json.JSONMap;
+import org.richfaces.renderkit.RendererBase;
+import org.richfaces.renderkit.util.RendererUtils;
 
 //TODO nick - JSF have concept of library, it should be used instead of '/' in resource names
 @ResourceDependencies( { @ResourceDependency(name = "jquery.js"), @ResourceDependency(name = "richfaces.js"),

@@ -1,0 +1,1071 @@
+/**
+ * License Agreement.
+ *
+ * Rich Faces - Natural Ajax for Java Server Faces (JSF)
+ *
+ * Copyright (C) 2007 Exadel, Inc.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License version 2.1 as published by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+ */
+
+
+
+package org.richfaces.renderkit.util;
+
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+
+import javax.faces.FacesException;
+import javax.faces.application.ViewHandler;
+import javax.faces.component.EditableValueHolder;
+import javax.faces.component.NamingContainer;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIForm;
+import javax.faces.component.UIParameter;
+import javax.faces.component.UIViewRoot;
+import javax.faces.component.ValueHolder;
+import javax.faces.component.behavior.ClientBehaviorContext.Parameter;
+import javax.faces.component.behavior.ClientBehaviorHolder;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.convert.Converter;
+
+import org.ajax4jsf.Messages;
+import org.ajax4jsf.component.JavaScriptParameter;
+import org.ajax4jsf.javascript.JSEncoder;
+import org.ajax4jsf.javascript.JSFunctionDefinition;
+import org.ajax4jsf.javascript.JSReference;
+import org.richfaces.renderkit.HtmlConstants;
+
+/**
+ * Util class for common render operations - render passthru html attributes,
+ * iterate over child components etc.
+ *
+ * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
+ * @version $Revision: 1.1.2.6 $ $Date: 2007/02/08 19:07:16 $
+ *
+ */
+public final class RendererUtils {
+
+    public static final String DUMMY_FORM_ID = ":_form";
+
+    // we'd better use this instance multithreadly quickly
+    private static final RendererUtils INSTANCE = new RendererUtils();
+
+    /**
+     * Substitutions for components properies names and HTML attributes names.
+     */
+    private static final Map<String, String> SUBSTITUTIONS = new HashMap<String, String>();
+    
+    private static final Set<String> REQUIRED_ATTRIBUTES = new HashSet<String>();
+
+    static {
+        SUBSTITUTIONS.put(HtmlConstants.CLASS_ATTRIBUTE, "styleClass");
+        
+        REQUIRED_ATTRIBUTES.add(HtmlConstants.ALT_ATTRIBUTE);
+
+        Arrays.sort(HtmlConstants.PASS_THRU);
+        Arrays.sort(HtmlConstants.PASS_THRU_EVENTS);
+        Arrays.sort(HtmlConstants.PASS_THRU_BOOLEAN);
+        Arrays.sort(HtmlConstants.PASS_THRU_URI);
+    }
+
+    // can be created by subclasses;
+    // administratively restricted to be created by package members ;)
+    protected RendererUtils() {
+        super();
+    }
+
+    /**
+     * Wrapper class around object value used to transform values into particular JS objects
+     *
+     * @author Nick Belaevski
+     * @since 3.3.2
+     */
+    public static enum ScriptHashVariableWrapper {
+
+        /**
+         * No-op default wrapper
+         */
+        DEFAULT {
+            @Override
+            Object wrap(Object o) {
+                return o;
+            }
+        },
+
+        /**
+         * Event handler functions wrapper. Wraps <pre>functionCode</pre> object into:
+         * <pre>function(event) {
+         *   functionCode
+         * }</pre>
+         */
+        EVENT_HANDLER {
+            @Override
+            Object wrap(Object o) {
+                return new JSFunctionDefinition("event").addToBody(o);
+            }
+        };
+
+        /**
+         * Method that does the wrapping
+         *
+         * @param o object to wrap
+         * @return wrapped object
+         */
+        abstract Object wrap(Object o);
+    }
+
+    /**
+     * Use this method to get singleton instance of RendererUtils
+     * @return singleton instance
+     */
+    public static RendererUtils getInstance() {
+        return INSTANCE;
+    }
+
+    /**
+     * Encode id attribute with clientId component property
+     *
+     * @param context
+     * @param component
+     * @throws IOException
+     */
+    public void encodeId(FacesContext context, UIComponent component) throws IOException {
+        encodeId(context, component, HtmlConstants.ID_ATTRIBUTE);
+    }
+
+    /**
+     * Encode clientId to custom attribute ( for example, to control name )
+     *
+     * @param context
+     * @param component
+     * @param attribute
+     * @throws IOException
+     */
+    public void encodeId(FacesContext context, UIComponent component, String attribute) throws IOException {
+        String clientId = null;
+
+        try {
+            clientId = component.getClientId(context);
+        } catch (Exception e) {
+
+            // just ignore if clientId wasn't inited yet
+        }
+
+        if (null != clientId) {
+            context.getResponseWriter().writeAttribute(attribute, clientId,
+                    (String) getComponentAttributeName(attribute));
+        }
+    }
+
+    /**
+     * Encode id attribute with clientId component property. Encoded only if id
+     * not auto generated.
+     *
+     * @param context
+     * @param component
+     * @throws IOException
+     */
+    public void encodeCustomId(FacesContext context, UIComponent component) throws IOException {
+        if (hasExplicitId(component)) {
+            context.getResponseWriter().writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context),
+                    HtmlConstants.ID_ATTRIBUTE);
+        }
+    }
+
+    public Map<String, Object> createParametersMap(FacesContext context, UIComponent component) {
+        Map<String, Object> parameters = new LinkedHashMap<String, Object>();
+
+        if (component.getChildCount() > 0) {
+            for (UIComponent child : component.getChildren()) {
+                if (child instanceof UIParameter) {
+                    UIParameter parameter = (UIParameter) child;
+                    String name = parameter.getName();
+                    Object value = parameter.getValue();
+
+                    if (null == name) {
+                        throw new IllegalArgumentException(Messages.getMessage(Messages.UNNAMED_PARAMETER_ERROR,
+                                component.getClientId(context)));
+                    }
+
+                    boolean escape = true;
+
+                    if (child instanceof JavaScriptParameter) {
+                        JavaScriptParameter actionParam = (JavaScriptParameter) child;
+
+                        escape = !actionParam.isNoEscape();
+                    }
+
+                    if (escape) {
+                        if (value == null) {
+                            value = "";
+                        }
+                    } else {
+                        value = new JSReference(value.toString());
+
+                        // if(it.hasNext()){onEvent.append(',');};
+                        // renderAjaxLinkParameter( name,
+                        // value, onClick, jsForm, nestingForm);
+                    }
+
+                    parameters.put(name, value);
+                }
+            }
+        }
+
+        return parameters;
+    }
+
+    private void encodeBehaviors(FacesContext context, ClientBehaviorHolder behaviorHolder,
+                                 String defaultHtmlEventName, String[] attributesExclusions)
+        throws IOException {
+
+//      if (attributesExclusions != null && attributesExclusions.length != 0) {
+//          assert false : "Not supported yet";
+//      }
+        // TODO: disabled component check
+        String defaultEventName = behaviorHolder.getDefaultEventName();
+        Collection<String> eventNames = behaviorHolder.getEventNames();
+
+        if (eventNames != null) {
+            UIComponent component = (UIComponent) behaviorHolder;
+            ResponseWriter writer = context.getResponseWriter();
+            Collection<Parameter> parametersList = HandlersChain.createParametersList(createParametersMap(context,
+                                                       component));
+
+            for (String behaviorEventName : eventNames) {
+                if (behaviorEventName.equals(defaultEventName)) {
+                    continue;
+                }
+
+                String htmlEventName = "on" + behaviorEventName;
+
+                if ((attributesExclusions == null) || (Arrays.binarySearch(attributesExclusions, htmlEventName) < 0)) {
+                    HandlersChain handlersChain = new HandlersChain(context, component, parametersList);
+
+                    handlersChain.addInlineHandlerFromAttribute(htmlEventName);
+                    handlersChain.addBehaviors(behaviorEventName);
+
+                    String handlerScript = handlersChain.toScript();
+
+                    if (!isEmpty(handlerScript)) {
+                        writer.writeAttribute(htmlEventName, handlerScript, htmlEventName);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Encode common pass-thru html attributes.
+     *
+     * @param context
+     * @param component
+     * @throws IOException
+     */
+    public void encodePassThru(FacesContext context, UIComponent component, String defaultHtmlEvent)
+        throws IOException {
+
+        encodeAttributesFromArray(context, component, HtmlConstants.PASS_THRU);
+
+        if (component instanceof ClientBehaviorHolder) {
+            ClientBehaviorHolder clientBehaviorHolder = (ClientBehaviorHolder) component;
+
+            encodeBehaviors(context, clientBehaviorHolder, defaultHtmlEvent, null);
+        } else {
+            encodeAttributesFromArray(context, component, HtmlConstants.PASS_THRU_EVENTS);
+        }
+    }
+
+    /**
+     * Encode pass-through attributes except specified ones
+     *
+     * @param context
+     * @param component
+     * @param exclusions
+     * @throws IOException
+     */
+    public void encodePassThruWithExclusions(FacesContext context, UIComponent component, String exclusions,
+            String defaultHtmlEvent) throws IOException {
+
+        if (null != exclusions) {
+            String[] exclusionsArray = exclusions.split(",");
+
+            encodePassThruWithExclusionsArray(context, component, exclusionsArray, defaultHtmlEvent);
+        }
+    }
+
+    public void encodePassThruWithExclusionsArray(FacesContext context, UIComponent component, String[] exclusions,
+            String defaultHtmlEvent) throws IOException {
+
+        ResponseWriter writer = context.getResponseWriter();
+        Map<String, Object> attributes = component.getAttributes();
+
+        Arrays.sort(exclusions);
+
+        for (int i = 0; i < HtmlConstants.PASS_THRU.length; i++) {
+            String attribute = HtmlConstants.PASS_THRU[i];
+
+            if (Arrays.binarySearch(exclusions, attribute) < 0) {
+                encodePassThruAttribute(context, attributes, writer, attribute);
+            }
+        }
+
+        if (component instanceof ClientBehaviorHolder) {
+            ClientBehaviorHolder clientBehaviorHolder = (ClientBehaviorHolder) component;
+
+            encodeBehaviors(context, clientBehaviorHolder, defaultHtmlEvent, exclusions);
+        } else {
+            for (int i = 0; i < HtmlConstants.PASS_THRU_EVENTS.length; i++) {
+                String attribute = HtmlConstants.PASS_THRU_EVENTS[i];
+
+                if (Arrays.binarySearch(exclusions, attribute) < 0) {
+                    encodePassThruAttribute(context, attributes, writer, attribute);
+                }
+            }
+        }
+    }
+
+    /**
+     * Encode one pass-thru attribute, with plain/boolean/url value, got from
+     * properly component attribute.
+     *
+     * @param context
+     * @param writer
+     * @param attribute
+     * @throws IOException
+     */
+    public void encodePassThruAttribute(FacesContext context, Map<String, Object> attributes, ResponseWriter writer,
+            String attribute) throws IOException {
+
+        Object value = attributeValue(attribute, attributes.get(getComponentAttributeName(attribute)));
+
+        if ((null != value) && shouldRenderAttribute(attribute, value)) {
+            if (Arrays.binarySearch(HtmlConstants.PASS_THRU_URI, attribute) >= 0) {
+                String url = context.getApplication().getViewHandler().getResourceURL(context, value.toString());
+
+                url = context.getExternalContext().encodeResourceURL(url);
+                writer.writeURIAttribute(attribute, url, attribute);
+            } else {
+                writer.writeAttribute(attribute, value, attribute);
+            }
+        }
+    }
+
+    public void encodeAttributesFromArray(FacesContext context, UIComponent component, String[] attrs)
+        throws IOException {
+
+        ResponseWriter writer = context.getResponseWriter();
+        Map<String, Object> attributes = component.getAttributes();
+
+        for (int i = 0; i < attrs.length; i++) {
+            String attribute = attrs[i];
+
+            encodePassThruAttribute(context, attributes, writer, attribute);
+        }
+    }
+
+    /**
+     * Encode attributes given by comma-separated string list.
+     *
+     * @param context
+     *            current JSF context
+     * @param component
+     *            for with render attributes values
+     * @param attrs
+     *            comma separated list of attributes
+     * @throws IOException
+     */
+    public void encodeAttributes(FacesContext context, UIComponent component, String attrs) throws IOException {
+        if (null != attrs) {
+            String[] attrsArray = attrs.split(",");
+
+            encodeAttributesFromArray(context, component, attrsArray);
+        }
+    }
+
+    /**
+     * @param context
+     * @param component
+     * @param property
+     * @param attributeName
+     *
+     * @throws IOException
+     */
+    public void encodeAttribute(FacesContext context, UIComponent component, Object property, String attributeName)
+        throws IOException {
+
+        ResponseWriter writer = context.getResponseWriter();
+        Object value = component.getAttributes().get(property);
+
+        if (shouldRenderAttribute(attributeName, value)) {
+            writer.writeAttribute(attributeName, value, property.toString());
+        }
+    }
+
+    public void encodeAttribute(FacesContext context, UIComponent component, String attribute) throws IOException {
+        encodeAttribute(context, component, getComponentAttributeName(attribute), attribute);
+    }
+
+    /**
+     * Write html-attribute
+     *
+     * @param writer
+     * @param attribute
+     * @param value
+     * @throws IOException
+     */
+    public void writeAttribute(ResponseWriter writer, String attribute, Object value) throws IOException {
+        if (shouldRenderAttribute(attribute, value)) {
+            writer.writeAttribute(attribute, value.toString(), attribute);
+        }
+    }
+
+    /**
+     * @return true if and only if the argument <code>attributeVal</code> is
+     *         an instance of a wrapper for a primitive type and its value is
+     *         equal to the default value for that type as given in the spec.
+     */
+    public boolean shouldRenderAttribute(Object attributeVal) {
+        if (null == attributeVal) {
+            return false;
+        } else if ((attributeVal instanceof Boolean)
+                   && ((Boolean) attributeVal).booleanValue() == Boolean.FALSE.booleanValue()) {
+            return false;
+        } else if (attributeVal.toString().length() == 0) {
+            return false;
+        } else {
+            return isValidProperty(attributeVal);
+        }
+    }
+
+    public boolean shouldRenderAttribute(String attributeName, Object attributeVal) {
+        if (REQUIRED_ATTRIBUTES.contains(attributeName)) {
+            if (attributeVal == null) {
+                return false;
+            }
+        } else {
+            return shouldRenderAttribute(attributeVal);
+        }
+
+        return true;
+    }
+
+    /**
+     * Test for valid value of property. by default, for non-setted properties
+     * with Java primitive types of JSF component return appropriate MIN_VALUE .
+     *
+     * @param property -
+     *            value of property returned from
+     *            {@link UIComponent#getAttributes()}
+     * @return true for setted property, false otherthise.
+     */
+    public boolean isValidProperty(Object property) {
+        if (null == property) {
+            return false;
+        } else if ((property instanceof Integer) && ((Integer) property).intValue() == Integer.MIN_VALUE) {
+            return false;
+        } else if ((property instanceof Double) && ((Double) property).doubleValue() == Double.MIN_VALUE) {
+            return false;
+        } else if ((property instanceof Character) && ((Character) property).charValue() == Character.MIN_VALUE) {
+            return false;
+        } else if ((property instanceof Float) && ((Float) property).floatValue() == Float.MIN_VALUE) {
+            return false;
+        } else if ((property instanceof Short) && ((Short) property).shortValue() == Short.MIN_VALUE) {
+            return false;
+        } else if ((property instanceof Byte) && ((Byte) property).byteValue() == Byte.MIN_VALUE) {
+            return false;
+        } else if ((property instanceof Long) && ((Long) property).longValue() == Long.MIN_VALUE) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks if the argument passed in is empty or not.
+     * Object is empty if it is: <br />
+     *  - <code>null</code><br />
+     *  - zero-length string<br />
+     *  - empty collection<br />
+     *  - empty map<br />
+     *  - zero-length array<br />
+     *
+     * @param o object to check for emptiness
+     * @since 3.3.2
+     * @return <code>true</code> if the argument is empty, <code>false</code> otherwise
+     */
+    public boolean isEmpty(Object o) {
+        if (null == o) {
+            return true;
+        }
+
+        if (o instanceof String) {
+            return 0 == ((String) o).length();
+        }
+
+        if (o instanceof Collection<?>) {
+            return ((Collection<?>) o).isEmpty();
+        }
+
+        if (o instanceof Map<?, ?>) {
+            return ((Map<?, ?>) o).isEmpty();
+        }
+
+        if (o.getClass().isArray()) {
+            return Array.getLength(o) == 0;
+        }
+
+        return false;
+    }
+
+    /**
+     * Puts value into map under specified key if the value is not empty and not default.
+     * Performs optional value wrapping.
+     *
+     * @param hash
+     * @param name
+     * @param value
+     * @param defaultValue
+     * @param wrapper
+     *
+     * @since 3.3.2
+     */
+    public void addToScriptHash(Map<String, Object> hash, String name, Object value, String defaultValue,
+                                ScriptHashVariableWrapper wrapper) {
+        ScriptHashVariableWrapper wrapperOrDefault = (wrapper != null) ? wrapper : ScriptHashVariableWrapper.DEFAULT;
+
+        if (isValidProperty(value) && !isEmpty(value)) {
+            if (!isEmpty(defaultValue)) {
+                if (!defaultValue.equals(value.toString())) {
+                    hash.put(name, wrapperOrDefault.wrap(value));
+                }
+            } else {
+                if (!(value instanceof Boolean) || ((Boolean) value).booleanValue()) {
+                    hash.put(name, wrapperOrDefault.wrap(value));
+                }
+            }
+        }
+    }
+
+    /**
+     * Puts value into map under specified key if the value is not empty and not default.
+     * Performs optional value wrapping.
+     *
+     * @param hash
+     * @param name
+     * @param value
+     * @param defaultValue
+     *
+     * @since 3.3.2
+     */
+    public void addToScriptHash(Map<String, Object> hash, String name, Object value, String defaultValue) {
+        addToScriptHash(hash, name, value, defaultValue, null);
+    }
+
+    /**
+     * Puts value into map under specified key if the value is not empty and not default.
+     * Performs optional value wrapping.
+     *
+     * @param hash
+     * @param name
+     * @param value
+     *
+     * @since 3.3.2
+     */
+    public void addToScriptHash(Map<String, Object> hash, String name, Object value) {
+        addToScriptHash(hash, name, value, null, null);
+    }
+
+    /**
+     * Convert HTML attribute name to component property name.
+     *
+     * @param key
+     * @return
+     */
+    protected Object getComponentAttributeName(Object key) {
+        Object converted = SUBSTITUTIONS.get(key);
+
+        if (null == converted) {
+            return key;
+        } else {
+            return converted;
+        }
+    }
+
+    /**
+     * Convert attribute value to proper object. For known html boolean
+     * attributes return name for true value, otherthise - null. For non-boolean
+     * attributes return same value.
+     *
+     * @param name
+     *            attribute name.
+     * @param value
+     * @return
+     */
+    protected Object attributeValue(String name, Object value) {
+        if (null == value || Arrays.binarySearch(HtmlConstants.PASS_THRU_BOOLEAN, name) < 0) {
+            return value;
+        }
+
+        boolean checked;
+
+        if (value instanceof Boolean) {
+            checked = ((Boolean) value).booleanValue();
+        } else {
+            checked = Boolean.parseBoolean(value.toString());
+        }
+
+        return checked ? name : null;
+    }
+
+    /**
+     * Get boolean value of logical attribute
+     *
+     * @param component
+     * @param name
+     *            attribute name
+     * @return true if attribute is equals Boolean.TRUE or String "true" , false
+     *         otherwise.
+     */
+    public boolean isBooleanAttribute(UIComponent component, String name) {
+        Object attrValue = component.getAttributes().get(name);
+        boolean result = false;
+
+        if (null != attrValue) {
+            if (attrValue instanceof String) {
+                result = "true".equalsIgnoreCase((String) attrValue);
+            } else {
+                result = Boolean.TRUE.equals(attrValue);
+            }
+        }
+
+        return result;
+    }
+
+    /**
+     * Return converted value for {@link javax.faces.component.ValueHolder} as
+     * String, perform nessesary convertions.
+     *
+     * @param context
+     * @param component
+     * @return
+     */
+    public String getValueAsString(FacesContext context, UIComponent component) {
+
+        // First - get submitted value for input components
+        if (component instanceof EditableValueHolder) {
+            EditableValueHolder input = (EditableValueHolder) component;
+            String submittedValue = (String) input.getSubmittedValue();
+
+            if (null != submittedValue) {
+                return submittedValue;
+            }
+        }
+
+        // If no submitted value presented - convert same for UIInput/UIOutput
+        if (component instanceof ValueHolder) {
+            return formatValue(context, component, ((ValueHolder) component).getValue());
+        } else {
+            throw new IllegalArgumentException(
+                Messages.getMessage(Messages.CONVERTING_NON_VALUE_HOLDER_COMPONENT_ERROR, component.getId()));
+        }
+    }
+
+    /**
+     * Convert any object value to string. If component instance of
+     * {@link ValueHolder } got {@link Converter} for formatting. If not,
+     * attempt to use converter based on value type.
+     *
+     * @param context
+     * @param component
+     * @return
+     */
+    public String formatValue(FacesContext context, UIComponent component, Object value) {
+        if (value instanceof String) {
+            return (String) value;
+        }
+
+        Converter converter = null;
+
+        if (component instanceof ValueHolder) {
+            ValueHolder holder = (ValueHolder) component;
+
+            converter = holder.getConverter();
+        }
+
+        if ((null == converter) && (null != value)) {
+            try {
+                converter = context.getApplication().createConverter(value.getClass());
+            } catch (FacesException e) {
+
+                // TODO - log converter exception.
+            }
+        }
+
+        if (null == converter) {
+            if (null != value) {
+                return value.toString();
+            }
+        } else {
+            return converter.getAsString(context, component, value);
+        }
+
+        return "";
+    }
+
+    public String encodePx(String value) {
+        return HtmlDimensions.formatPx(HtmlDimensions.decode(value));
+    }
+
+    /**
+     * formats given value to
+     *
+     * @param value
+     *
+     * @return
+     */
+    public String encodePctOrPx(String value) {
+        if (value.indexOf('%') > 0) {
+            return value;
+        } else {
+            return encodePx(value);
+        }
+    }
+
+    /**
+     * Find nested form for given component
+     *
+     * @param component
+     * @return nested <code>UIForm</code> component, or <code>null</code>
+     */
+    public UIComponent getNestingForm(FacesContext context, UIComponent component) {
+        UIComponent parent = component;
+
+        // Search enclosed UIForm or ADF UIXForm component
+        while ((parent != null) && !(parent instanceof UIForm)
+            && !("org.apache.myfaces.trinidad.Form".equals(parent.getFamily()))
+            && !("oracle.adf.Form".equals(parent.getFamily()))) {
+            parent = parent.getParent();
+        }
+
+        return parent;
+    }
+
+    /**
+     * @param context
+     * @param component
+     * @return
+     * @throws IOException
+     */
+    public void encodeBeginFormIfNessesary(FacesContext context, UIComponent component) throws IOException {
+        UIComponent form = getNestingForm(context, component);
+
+        if (null == form) {
+            ResponseWriter writer = context.getResponseWriter();
+            String clientId = component.getClientId(context) + DUMMY_FORM_ID;
+
+            encodeBeginForm(context, component, writer, clientId);
+
+            // writer.writeAttribute(HTML.STYLE_ATTRIBUTE, "margin:0;
+            // padding:0;", null);
+        }
+    }
+
+    /**
+     * @param context
+     * @param component
+     * @param writer
+     * @param clientId
+     * @throws IOException
+     */
+    public void encodeBeginForm(FacesContext context, UIComponent component, ResponseWriter writer, String clientId)
+        throws IOException {
+
+        String actionURL = getActionUrl(context);
+        String encodeActionURL = context.getExternalContext().encodeActionURL(actionURL);
+
+        writer.startElement(HtmlConstants.FORM_ELEMENT, component);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId, null);
+        writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, clientId, null);
+        writer.writeAttribute(HtmlConstants.METHOD_ATTRIBUTE, "post", null);
+        writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "margin:0; padding:0; display: inline;", null);
+        writer.writeURIAttribute(HtmlConstants.ACTION_ATTRIBUTE, encodeActionURL, "action");
+    }
+
+    /**
+     * @param context
+     * @param component
+     * @throws IOException
+     */
+    public void encodeEndFormIfNessesary(FacesContext context, UIComponent component) throws IOException {
+        UIComponent form = getNestingForm(context, component);
+
+        if (null == form) {
+            ResponseWriter writer = context.getResponseWriter();
+
+            // TODO - hidden form parameters ?
+            encodeEndForm(context, writer);
+        }
+    }
+
+    /**
+     * Write state saving markers to context, include MyFaces view sequence.
+     *
+     * @param context
+     * @throws IOException
+     */
+    public static void writeState(FacesContext context) throws IOException {
+        context.getApplication().getViewHandler().writeState(context);
+    }
+
+    /**
+     * @param context
+     * @param writer
+     * @throws IOException
+     */
+    public void encodeEndForm(FacesContext context, ResponseWriter writer) throws IOException {
+        writeState(context);
+        writer.endElement(HtmlConstants.FORM_ELEMENT);
+    }
+
+    /**
+     * @param facesContext
+     * @return String A String representing the action URL
+     */
+    public String getActionUrl(FacesContext facesContext) {
+        ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
+        String viewId = facesContext.getViewRoot().getViewId();
+
+        return viewHandler.getActionURL(facesContext, viewId);
+    }
+
+    /**
+     * Simplified version of {@link encodeId}
+     *
+     * @param context
+     * @param component
+     * @return client id of current component
+     */
+    public String clientId(FacesContext context, UIComponent component) {
+        String clientId = "";
+
+        try {
+            clientId = component.getClientId(context);
+        } catch (Exception e) {
+
+            // just ignore
+        }
+
+        return clientId;
+    }
+
+    /**
+     * Wtrie JavaScript with start/end elements and type.
+     *
+     * @param context
+     * @param component
+     * @param script
+     */
+    public void writeScript(FacesContext context, UIComponent component, Object script) throws IOException {
+        ResponseWriter writer = context.getResponseWriter();
+
+        writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
+        writer.writeAttribute(HtmlConstants.TYPE_ATTR, "text/javascript", "type");
+        writer.writeText(script, null);
+        writer.endElement(HtmlConstants.SCRIPT_ELEM);
+    }
+    /**
+     * If target component contains generated id and for doesn't, correct for id
+     * @param forAttr
+     * @param component
+     *
+     */
+    public String correctForIdReference(String forAttr, UIComponent component) {
+        int contains = forAttr.indexOf(UIViewRoot.UNIQUE_ID_PREFIX);
+
+        if (contains <= 0) {
+            String id = component.getId();
+            int pos = id.indexOf(UIViewRoot.UNIQUE_ID_PREFIX);
+
+            if (pos > 0) {
+                return forAttr.concat(id.substring(pos));
+            }
+        }
+
+        return forAttr;
+    }
+
+    public static void writeEventHandlerFunction(FacesContext context, UIComponent component, String eventName)
+        throws IOException {
+
+        ResponseWriter writer = context.getResponseWriter();
+        Object script = component.getAttributes().get(eventName);
+
+        if ((script != null) && !script.equals("")) {
+            JSFunctionDefinition onEventDefinition = new JSFunctionDefinition();
+
+            onEventDefinition.addParameter("event");
+            onEventDefinition.addToBody(script);
+            writer.writeText(eventName + ": " + onEventDefinition.toScript(), null);
+        } else {
+            writer.writeText(eventName + ": ''", null);
+        }
+    }
+
+    public JSFunctionDefinition getAsEventHandler(FacesContext context, UIComponent component, String attributeName,
+            String append) {
+        String event = (String) component.getAttributes().get(attributeName);
+
+        if (event != null) {
+            event = event.trim();
+
+            if (event.length() != 0) {
+                JSFunctionDefinition function = new JSFunctionDefinition();
+
+                function.addParameter("event");
+
+                if ((null != append) && (append.length() > 0)) {
+                    function.addToBody(event + append);
+                } else {
+                    function.addToBody(event);
+                }
+
+                return function;
+            }
+        }
+
+        return null;
+    }
+
+    public String escapeJavaScript(Object o) {
+        if (o != null) {
+            StringBuilder result = new StringBuilder();
+            JSEncoder encoder = new JSEncoder();
+            char[] chars = o.toString().toCharArray();
+            int start = 0;
+            int end = chars.length;
+
+            for (int x = start; x < end; x++) {
+                char c = chars[x];
+
+                if (encoder.compile(c)) {
+                    continue;
+                }
+
+                if (start != x) {
+                    result.append(chars, start, x - start);
+                }
+
+                result.append(encoder.encode(c));
+                start = x + 1;
+
+                continue;
+            }
+
+            if (start != end) {
+                result.append(chars, start, end - start);
+            }
+
+            return result.toString();
+        } else {
+            return null;
+        }
+    }
+
+    public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
+        if (component.getChildCount() > 0) {
+            for (UIComponent child : component.getChildren()) {
+                child.encodeAll(context);
+            }
+        }
+    }
+    
+    public boolean hasExplicitId(UIComponent component) {
+        return component.getId() != null && !component.getId().startsWith(UIViewRoot.UNIQUE_ID_PREFIX);
+    }
+
+    public UIComponent findComponentFor(FacesContext context, UIComponent component, String id) {
+        return findComponentFor(component, id);
+    }
+
+    /**
+     * @param component
+     * @param id
+     * @return
+     */
+    public UIComponent findComponentFor(UIComponent component, String id) {
+        if (id == null) {
+            throw new NullPointerException("id is null!");
+        }
+
+        if (id.length() == 0) {
+            return null;
+        }
+
+        UIComponent target = null;
+        UIComponent parent = component;
+        UIComponent root = component;
+
+        while ((null == target) && (null != parent)) {
+            target = parent.findComponent(id);
+            root = parent;
+            parent = parent.getParent();
+        }
+
+        if (null == target) {
+            target = findUIComponentBelow(root, id);
+        }
+
+        return target;
+    }
+
+    private UIComponent findUIComponentBelow(UIComponent root, String id) {
+        UIComponent target = null;
+
+        for (Iterator<UIComponent> iter = root.getFacetsAndChildren(); iter.hasNext();) {
+            UIComponent child = (UIComponent) iter.next();
+
+            if (child instanceof NamingContainer) {
+                try {
+                    target = child.findComponent(id);
+                } catch (IllegalArgumentException iae) {
+                    continue;
+                }
+            }
+
+            if (target == null) {
+                if ((child.getChildCount() > 0) || (child.getFacetCount() > 0)) {
+                    target = findUIComponentBelow(child, id);
+                }
+            }
+
+            if (target != null) {
+                break;
+            }
+        }
+
+        return target;
+    }
+
+}

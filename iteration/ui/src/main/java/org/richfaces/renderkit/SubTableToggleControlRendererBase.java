@@ -33,11 +33,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.renderkit.RendererBase;
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractSubTable;
 import org.richfaces.component.AbstractSubTableToggleControl;
+import org.richfaces.renderkit.util.RendererUtils;
 
 /**
  * @author Anton Belevich
@@ -52,6 +51,11 @@ import org.richfaces.component.AbstractSubTableToggleControl;
     @ResourceDependency(library="org.richfaces", name = "subtable-toggler.js")
 })
 public class SubTableToggleControlRendererBase extends RendererBase {
+
+    /**
+     * 
+     */
+    private static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
 
     private static final String DISPLAY_NONE = "display: none;";
 
@@ -86,9 +90,9 @@ public class SubTableToggleControlRendererBase extends RendererBase {
             Map<String, Object> options = encodeOptions(context, toggleControl, subTable);
             jsFunction.addParameter(options);
 
-            writer.startElement(HTML.SCRIPT_ELEM, subTable);
+            writer.startElement(HtmlConstants.SCRIPT_ELEM, subTable);
             writer.writeText(jsFunction.toScript(), null);
-            writer.endElement(HTML.SCRIPT_ELEM);
+            writer.endElement(HtmlConstants.SCRIPT_ELEM);
         }
     }
 
@@ -98,15 +102,15 @@ public class SubTableToggleControlRendererBase extends RendererBase {
         String styleClass = getStyleClass(context, control);
         String style = getStyle(context, control);
 
-        writer.startElement(HTML.SPAN_ELEM, control);
+        writer.startElement(HtmlConstants.SPAN_ELEM, control);
 
         if (!visible) {
-            writer.writeAttribute(HTML.STYLE_ATTRIBUTE, DISPLAY_NONE, null);
+            writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, DISPLAY_NONE, null);
         }
 
-        writer.writeAttribute(HTML.ID_ATTRIBUTE, control.getClientId() + ":" + state, null);
-        writer.writeAttribute(HTML.CLASS_ATTRIBUTE, styleClass, null);
-        writer.writeAttribute(HTML.STYLE_ATTRIBUTE, style, null);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, control.getClientId() + ":" + state, null);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, styleClass, null);
+        writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, style, null);
 
         boolean encodeDefault = true;
 
@@ -114,9 +118,9 @@ public class SubTableToggleControlRendererBase extends RendererBase {
         if (controlFacet != null && controlFacet.isRendered()) {
 
             if (!visible) {
-                String facetStyle = (String) controlFacet.getAttributes().get(HTML.STYLE_ATTRIBUTE);
+                String facetStyle = (String) controlFacet.getAttributes().get(HtmlConstants.STYLE_ATTRIBUTE);
                 facetStyle = facetStyle != null ? facetStyle + ";" + DISPLAY_NONE : DISPLAY_NONE;
-                controlFacet.getAttributes().put(HTML.STYLE_ATTRIBUTE, facetStyle);
+                controlFacet.getAttributes().put(HtmlConstants.STYLE_ATTRIBUTE, facetStyle);
             }
             controlFacet.encodeAll(context);
             encodeDefault = false;
@@ -130,20 +134,20 @@ public class SubTableToggleControlRendererBase extends RendererBase {
 
             String image = expanded ? expandIcon : collapseIcon;
             if (image != null && image.trim().length() > 0) {
-                writer.startElement(HTML.IMG_ELEMENT, control);
-                writer.writeAttribute(HTML.SRC_ATTRIBUTE, image, null);
-                writer.writeAttribute(HTML.ALT_ATTRIBUTE, "", null);
-                writer.endElement(HTML.IMG_ELEMENT);
+                writer.startElement(HtmlConstants.IMG_ELEMENT, control);
+                writer.writeAttribute(HtmlConstants.SRC_ATTRIBUTE, image, null);
+                writer.writeAttribute(HtmlConstants.ALT_ATTRIBUTE, "", null);
+                writer.endElement(HtmlConstants.IMG_ELEMENT);
             }
             encodeDefault = false;
         }
 
         String label = expanded ? control.getExpandLabel() : control.getCollapseLabel();
         if (label != null && label.trim().length() > 0) {
-            writer.startElement(HTML.A_ELEMENT, control);
-            writer.writeAttribute(HTML.HREF_ATTR, "javascript:void(0);", null);
+            writer.startElement(HtmlConstants.A_ELEMENT, control);
+            writer.writeAttribute(HtmlConstants.HREF_ATTR, "javascript:void(0);", null);
             writer.writeText(label, null);
-            writer.endElement(HTML.A_ELEMENT);
+            writer.endElement(HtmlConstants.A_ELEMENT);
             encodeDefault = false;
         }
 
@@ -153,14 +157,14 @@ public class SubTableToggleControlRendererBase extends RendererBase {
 
             String image = expanded ? expandIcon : collapseIcon;
             if (image != null && image.trim().length() > 0) {
-                writer.startElement(HTML.IMG_ELEMENT, control);
-                writer.writeAttribute(HTML.SRC_ATTRIBUTE, image, null);
-                writer.writeAttribute(HTML.ALT_ATTRIBUTE, "", null);
-                writer.endElement(HTML.IMG_ELEMENT);
+                writer.startElement(HtmlConstants.IMG_ELEMENT, control);
+                writer.writeAttribute(HtmlConstants.SRC_ATTRIBUTE, image, null);
+                writer.writeAttribute(HtmlConstants.ALT_ATTRIBUTE, "", null);
+                writer.endElement(HtmlConstants.IMG_ELEMENT);
             }
         }
 
-        writer.endElement(HTML.SPAN_ELEM);
+        writer.endElement(HtmlConstants.SPAN_ELEM);
     }
 
     public HashMap<String, Object> encodeOptions(FacesContext context, AbstractSubTableToggleControl toggleControl, AbstractSubTable subTable) {
@@ -190,7 +194,7 @@ public class SubTableToggleControlRendererBase extends RendererBase {
         String forId = toggleControl.getFor();
         if (forId != null && forId.length() > 0) {
 
-            UIComponent subTable = getUtils().findComponentFor(context, toggleControl, forId);
+            UIComponent subTable = RENDERER_UTILS.findComponentFor(context, toggleControl, forId);
             if (subTable instanceof AbstractSubTable) {
                 return (AbstractSubTable) subTable;
             }

@@ -30,10 +30,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.context.AjaxContext;
-import org.ajax4jsf.renderkit.RendererBase;
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractOutputPanel;
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.RendererBase;
 
 /**
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
@@ -69,10 +69,10 @@ public class AjaxOutputPanelRenderer extends RendererBase {
                     } else {
                         // Render "dummy" span.
                         ResponseWriter out = context.getResponseWriter();
-                        out.startElement(HTML.SPAN_ELEM, child);
-                        out.writeAttribute(HTML.ID_ATTRIBUTE, childId, HTML.ID_ATTRIBUTE);
-                        out.writeAttribute(HTML.STYLE_ATTRIBUTE, "display: none;", "style");
-                        out.endElement(HTML.SPAN_ELEM);
+                        out.startElement(HtmlConstants.SPAN_ELEM, child);
+                        out.writeAttribute(HtmlConstants.ID_ATTRIBUTE, childId, HtmlConstants.ID_ATTRIBUTE);
+                        out.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display: none;", "style");
+                        out.endElement(HtmlConstants.SPAN_ELEM);
                     }
                     // register child as rendered
                     if (ajaxRequest && null != ajaxRenderedAreas) {
@@ -124,7 +124,7 @@ public class AjaxOutputPanelRenderer extends RendererBase {
      */
     private String getTag(AbstractOutputPanel panel) {
         Object layout = panel.getAttributes().get("layout");
-        return "block".equals(layout) ? HTML.DIV_ELEM : HTML.SPAN_ELEM;
+        return "block".equals(layout) ? HtmlConstants.DIV_ELEM : HtmlConstants.SPAN_ELEM;
     }
 
     /* (non-Javadoc)

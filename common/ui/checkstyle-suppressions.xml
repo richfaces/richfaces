@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+        "-//Puppy Crawl//DTD Suppressions 1.0//EN"
+        "http://www.puppycrawl.com/dtds/suppressions_1_0.dtd">
+
+<!-- NOTE: Because of issues with maven checkstyle plugin each suppression
+           file must have all suppressions defined.
+           
+           See RF-9077 for details. -->
+<suppressions>
+    <suppress checks="DoubleCheckedLocking" files="MultipartRequestRegistry.java" />
+    <suppress checks="FallThrough" files="JSMin.java" />
+    <suppress checks="IllegalCatch" files="UISwitchablePanel.java" />
+    <suppress checks="ModifiedControlVariable" files="MultipartRequest.java" />
+    <suppress checks="IllegalCatch" files="StagingServer.java" />
+    <suppress checks="IllegalCatch" files="PartialViewContextImpl.java" />
+    <suppress checks="FallThrough" files="StagingServer.java" />
+    <suppress checks="ModifiedControlVariable" files="Cookie.java" />
+    <suppress checks="IllegalCatch" files="CacheManager.java" />
+    <suppress checks="MissingSwitchDefault" files="JSONTokener.java" />
+    <suppress checks="IllegalCatch" files="AjaxViewRoot.java" />
+    <suppress checks="FallThrough" files="XMLTokener.java" />
+    <suppress checks="IllegalCatch" files="ResourceHandlerImpl.java" />
+    <suppress checks="IllegalThrows" files="AbstractThreadedTest.java" />
+    <suppress checks="ModifiedControlVariable" files="URLCodec.java" />
+
+    <!-- TODO it is hot fix for building process, this files belong to the test-base module, 
+              and must be removed from here -->
+    <suppress checks="IllegalCatch" files="AbstractThreadedTest.java" />
+    <suppress checks="IllegalCatch" files="StagingServer.java" />
+
+    <!-- TODO it is hot fix for building process, this files belong to the ui/output/trunk/panela/ui module, 
+              and must be removed from here -->
+    <suppress checks="IllegalCatch" files="AbstractTogglePanel.java" />           
+</suppressions>

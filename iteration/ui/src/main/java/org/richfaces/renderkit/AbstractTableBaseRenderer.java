@@ -31,7 +31,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.richfaces.component.Row;
 
 
@@ -87,19 +86,19 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
         writer.startElement(element, component);
         getUtils().encodeId(context, component);
         String cellClass = getCellClass(context, parentId);
-        encodeStyleClass(writer, context, component, HTML.STYLE_CLASS_ATTR, cellClass);
+        encodeStyleClass(writer, context, component, HtmlConstants.STYLE_CLASS_ATTR, cellClass);
 
         if (component instanceof org.richfaces.component.AbstractColumn) {
             Map<String, Object> attributes = component.getAttributes();
 
-            Integer rowspan = (Integer) attributes.get(HTML.ROWSPAN_ATTRIBUTE);
+            Integer rowspan = (Integer) attributes.get(HtmlConstants.ROWSPAN_ATTRIBUTE);
             if (rowspan != null && rowspan != Integer.MIN_VALUE) {
-                writer.writeAttribute(HTML.ROWSPAN_ATTRIBUTE, rowspan, null);
+                writer.writeAttribute(HtmlConstants.ROWSPAN_ATTRIBUTE, rowspan, null);
             }
 
-            Integer colspan = (Integer) attributes.get(HTML.COLSPAN_ATTRIBUTE);
+            Integer colspan = (Integer) attributes.get(HtmlConstants.COLSPAN_ATTRIBUTE);
             if (colspan != null && colspan != Integer.MIN_VALUE) {
-                writer.writeAttribute(HTML.COLSPAN_ATTRIBUTE, colspan, null);
+                writer.writeAttribute(HtmlConstants.COLSPAN_ATTRIBUTE, colspan, null);
             }
         }
     }
@@ -109,23 +108,23 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
     }
     
     public void encodeFirstRowStart(ResponseWriter writer, FacesContext context, String parentId, int currentRow, UIComponent component) throws  IOException {
-        writer.startElement(HTML.TR_ELEMENT, component);
+        writer.startElement(HtmlConstants.TR_ELEMENT, component);
         String styleClass = getFirstRowClass(context, parentId);
-        encodeStyleClass(writer, context, component, HTML.STYLE_CLASS_ATTR, styleClass);
+        encodeStyleClass(writer, context, component, HtmlConstants.STYLE_CLASS_ATTR, styleClass);
     }
     
     public void encodeFirstRowEnd(ResponseWriter writer)throws  IOException {
-        writer.endElement(HTML.TR_ELEMENT);
+        writer.endElement(HtmlConstants.TR_ELEMENT);
     }
     
     public void encodeRowStart(ResponseWriter writer, FacesContext context, String parentId, int currentRow, UIComponent component) throws  IOException {
-        writer.startElement(HTML.TR_ELEMENT, component);
+        writer.startElement(HtmlConstants.TR_ELEMENT, component);
         String styleClass = getRowClass(context, parentId);
-        encodeStyleClass(writer, context, component, HTML.STYLE_CLASS_ATTR, styleClass);   
+        encodeStyleClass(writer, context, component, HtmlConstants.STYLE_CLASS_ATTR, styleClass);   
     }
     
     public void encodeRowEnd(ResponseWriter writer) throws  IOException {
-        writer.endElement(HTML.TR_ELEMENT);
+        writer.endElement(HtmlConstants.TR_ELEMENT);
     }
   
     protected String getFirstRowClass(FacesContext context, String id) {
@@ -160,7 +159,7 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
 
         String componentStyleClass = isEmpty ? styleClass : styleClass + " "
             + component.getAttributes().get(styleClassAttribute);
-        writer.writeAttribute(HTML.CLASS_ATTRIBUTE, componentStyleClass, null);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, componentStyleClass, null);
     }
     
     protected boolean isEmptyAttr(UIComponent component, String attribute) {
@@ -177,8 +176,8 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
         
         StringBuffer toEncode = new StringBuffer();
 
-        if (!isEmptyAttr(component, HTML.STYLE_ATTRIBUTE)) {
-            String style = ((String) component.getAttributes().get(HTML.STYLE_ATTRIBUTE)).trim();
+        if (!isEmptyAttr(component, HtmlConstants.STYLE_ATTRIBUTE)) {
+            String style = ((String) component.getAttributes().get(HtmlConstants.STYLE_ATTRIBUTE)).trim();
             style = style.endsWith(";") ? style : style + ";";
             toEncode.append(style);
         }
@@ -189,7 +188,7 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
         }
 
         if (toEncode.length() > 0) {
-            writer.writeAttribute(HTML.STYLE_ATTRIBUTE, toEncode.toString(), null);
+            writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, toEncode.toString(), null);
         }
     }
     
@@ -225,7 +224,7 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
                         }
                         currentLength = 0;
                     }
-                    Integer colspan = (Integer) attributes.get(HTML.COLSPAN_ATTRIBUTE);
+                    Integer colspan = (Integer) attributes.get(HtmlConstants.COLSPAN_ATTRIBUTE);
                     // Append colspan of this column
                     if (null != colspan && colspan.intValue() != Integer.MIN_VALUE) {
                         currentLength += colspan.intValue();
@@ -249,10 +248,10 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
     public void encodeFakeRow(FacesContext facesContext, RowHolderBase rowHolder) throws IOException {
         UIComponent component = (UIComponent)rowHolder.getRow();
         ResponseWriter writer = facesContext.getResponseWriter();
-        writer.startElement(HTML.TR_ELEMENT, component);
-        writer.writeAttribute(HTML.STYLE_ATTRIBUTE, "display:none", null);
-        writer.startElement(HTML.TD_ELEM, component);
-        writer.endElement(HTML.TD_ELEM);
-        writer.endElement(HTML.TR_ELEMENT);
+        writer.startElement(HtmlConstants.TR_ELEMENT, component);
+        writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display:none", null);
+        writer.startElement(HtmlConstants.TD_ELEM, component);
+        writer.endElement(HtmlConstants.TD_ELEM);
+        writer.endElement(HtmlConstants.TR_ELEMENT);
     }
 }

@@ -96,6 +96,7 @@
             <!-- todo remove this dependency or move to test scope -->
             <groupId>org.richfaces.core</groupId>
             <artifactId>richfaces-core-impl</artifactId>
+			<scope>test</scope>
         </dependency>
 
         <dependency>

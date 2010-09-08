@@ -48,12 +48,11 @@ import javax.servlet.jsp.jstl.sql.Result;
 import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.ScriptUtils;
-import org.ajax4jsf.renderkit.RendererUtils;
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
-import org.ajax4jsf.util.InputUtils;
 import org.richfaces.component.AbstractAutocomplete;
 import org.richfaces.component.AutocompleteLayout;
 import org.richfaces.component.MetaComponentResolver;
+import org.richfaces.component.util.InputUtils;
+import org.richfaces.renderkit.util.RendererUtils;
 
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterators;
@@ -248,7 +247,7 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
         strategy.encodeItemBegin(facesContext, comboBox);
         ResponseWriter writer = facesContext.getResponseWriter();
         
-        writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rf-au-option rf-au-font rf-au-input", null);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-au-option rf-au-font rf-au-input", null);
 
         if (comboBox.getChildCount() > 0) {
             for (UIComponent child : comboBox.getChildren()) {

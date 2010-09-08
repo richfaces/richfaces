@@ -22,6 +22,12 @@
 
 package org.ajax4jsf.component.behavior;
 
+import static org.richfaces.renderkit.AjaxConstants.ALL;
+import static org.richfaces.renderkit.AjaxConstants.FORM;
+import static org.richfaces.renderkit.AjaxConstants.NONE;
+import static org.richfaces.renderkit.AjaxConstants.REGION;
+import static org.richfaces.renderkit.AjaxConstants.THIS;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
@@ -38,10 +44,10 @@ import javax.faces.event.AjaxBehaviorListener;
 import javax.faces.event.BehaviorEvent;
 
 import org.ajax4jsf.component.AjaxClientBehavior;
-import org.ajax4jsf.renderkit.AjaxRendererUtils;
 import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
 
 /**
  * @author Anton Belevich
@@ -56,11 +62,11 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
     private static final Set<ClientBehaviorHint> HINTS = Collections.unmodifiableSet(EnumSet
         .of(ClientBehaviorHint.SUBMITTING));
     
-    private static final Set<String> ALL_SINGLETON_SET = Collections.singleton(AjaxRendererUtils.ALL);
-    private static final Set<String> FORM_SINGLETON_SET = Collections.singleton(AjaxRendererUtils.FORM);
-    private static final Set<String> THIS_SINGLETON_SET = Collections.singleton(AjaxRendererUtils.THIS);
-    private static final Set<String> REGION_SINGLETON_SET = Collections.singleton(AjaxRendererUtils.REGION);
-    private static final Set<String> NONE_SINGLETON_SET = Collections.singleton(AjaxRendererUtils.NONE);
+    private static final Set<String> ALL_SINGLETON_SET = Collections.singleton(ALL);
+    private static final Set<String> FORM_SINGLETON_SET = Collections.singleton(FORM);
+    private static final Set<String> THIS_SINGLETON_SET = Collections.singleton(THIS);
+    private static final Set<String> REGION_SINGLETON_SET = Collections.singleton(REGION);
+    private static final Set<String> NONE_SINGLETON_SET = Collections.singleton(NONE);
     
     enum PropertyKeys {
         data, execute, onbeforedomupdate, onbegin, oncomplete, onerror, onevent, queueId, render,
@@ -113,7 +119,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         }
 
         if (result == null) {
-            result = AjaxRendererUtils.asSet(value);
+            result = CoreAjaxRendererUtils.asIdsSet(value);
         }
 
         if (result == null) {
@@ -136,15 +142,15 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         }
         
         if(value.charAt(0) == '@') {
-            if (AjaxRendererUtils.ALL.equals(value)) {
+            if (ALL.equals(value)) {
                 return ALL_SINGLETON_SET;
-            } else if (AjaxRendererUtils.FORM.equals(value)) {
+            } else if (FORM.equals(value)) {
                 return FORM_SINGLETON_SET;
-            } else if (AjaxRendererUtils.THIS.equals(value)) {
+            } else if (THIS.equals(value)) {
                 return THIS_SINGLETON_SET;
-            } else if (AjaxRendererUtils.REGION.equals(value)) {
+            } else if (REGION.equals(value)) {
                 return REGION_SINGLETON_SET;
-            } else if (AjaxRendererUtils.NONE.equals(value)) {
+            } else if (NONE.equals(value)) {
                 return NONE_SINGLETON_SET;
             } else {
                 throw new FacesException(value + " : Invalid id keyword specified for '"

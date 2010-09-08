@@ -27,8 +27,7 @@ import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSReference;
 import org.ajax4jsf.javascript.ScriptUtils;
-import org.ajax4jsf.renderkit.AjaxEventOptions;
-import org.ajax4jsf.renderkit.AjaxRendererUtils;
+import org.richfaces.renderkit.util.AjaxRendererUtils;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;

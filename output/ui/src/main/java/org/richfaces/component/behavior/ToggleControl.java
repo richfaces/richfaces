@@ -27,8 +27,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorContext;
 
 import org.ajax4jsf.component.behavior.ClientBehavior;
-import org.ajax4jsf.renderkit.RendererUtils;
 import org.richfaces.component.AbstractTogglePanel;
+import org.richfaces.renderkit.util.RendererUtils;
 
 /**
  * @author akolonitsky
@@ -37,6 +37,8 @@ import org.richfaces.component.AbstractTogglePanel;
 public class ToggleControl extends ClientBehavior {
 
     public static final String BEHAVIOR_ID = "org.richfaces.component.behavior.ToggleControl";
+
+    private static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
 
     private enum PropertyKeys {
         event,
@@ -86,8 +88,7 @@ public class ToggleControl extends ClientBehavior {
 
         if (target != null) {
 
-            UIComponent targetComponent = RendererUtils.getInstance()
-                    .findComponentFor(comp, target);
+            UIComponent targetComponent = RENDERER_UTILS.findComponentFor(comp, target);
 
             if (null != targetComponent) {
                 return (AbstractTogglePanel) targetComponent;

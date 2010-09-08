@@ -24,6 +24,9 @@ package org.richfaces.component;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.richfaces.renderkit.AjaxConstants.AJAX_COMPONENT_ID_PARAMETER;
+import static org.richfaces.renderkit.AjaxConstants.ALL;
+import static org.richfaces.renderkit.AjaxConstants.THIS;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -36,7 +39,6 @@ import javax.faces.component.UIForm;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.renderkit.AjaxRendererUtils;
 import org.jboss.test.faces.FacesEnvironment;
 import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.junit.After;
@@ -191,7 +193,7 @@ public class RegionTest {
     }
     
     private void setActivatorComponentId(String clientId) {
-        request.withParameter(AjaxRendererUtils.AJAX_COMPONENT_ID_PARAMETER, clientId);
+        request.withParameter(AJAX_COMPONENT_ID_PARAMETER, clientId);
     }
     
     private <T> void assertSingleElementCollection(T expected, Collection<T> actual) {
@@ -253,7 +255,7 @@ public class RegionTest {
 
     @Test
     public void testExecuteThis() throws Exception {
-        linkExecute = AjaxRendererUtils.THIS;
+        linkExecute = THIS;
         setActivatorComponentId(linkClientId);
         
         Collection<String> executeIds = facesContext.getPartialViewContext().getExecuteIds();
@@ -262,7 +264,7 @@ public class RegionTest {
 
     @Test
     public void testExecuteThisInRegion() throws Exception {
-        regionLinkExecute = AjaxRendererUtils.THIS;
+        regionLinkExecute = THIS;
         setActivatorComponentId(regionLinkClientId);
         
         Collection<String> executeIds = facesContext.getPartialViewContext().getExecuteIds();
@@ -271,20 +273,20 @@ public class RegionTest {
     
     @Test
     public void testExecuteAll() throws Exception {
-        linkExecute = AjaxRendererUtils.ALL;
+        linkExecute = ALL;
         setActivatorComponentId(linkClientId);
         
         Collection<String> executeIds = facesContext.getPartialViewContext().getExecuteIds();
-        assertSingleElementCollection(AjaxRendererUtils.ALL, executeIds);
+        assertSingleElementCollection(ALL, executeIds);
     }
     
     @Test
     public void testExecuteAllInRegion() throws Exception {
-        regionLinkExecute = AjaxRendererUtils.ALL;
+        regionLinkExecute = ALL;
         setActivatorComponentId(regionLinkClientId);
 
         Collection<String> executeIds = facesContext.getPartialViewContext().getExecuteIds();
-        assertSingleElementCollection(AjaxRendererUtils.ALL, executeIds);
+        assertSingleElementCollection(ALL, executeIds);
     }
     
     @Test

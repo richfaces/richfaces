@@ -26,7 +26,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
@@ -73,7 +72,7 @@ public class ListRendererTest {
         assertEquals(1, nodes.size());
         HtmlElement list = (HtmlElement) nodes.get(0);
         assertEquals("ol", list.getNodeName());
-        assertEquals("rf-olst", list.getAttribute(HTML.CLASS_ATTRIBUTE));
+        assertEquals("rf-olst", list.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         verifySimpleListItems(list, "rf-olst-i");
     }
 
@@ -86,7 +85,7 @@ public class ListRendererTest {
         HtmlElement list = (HtmlElement) nodes.get(0);
 
         assertEquals("ul", list.getNodeName());
-        assertEquals("rf-ulst", list.getAttribute(HTML.CLASS_ATTRIBUTE));
+        assertEquals("rf-ulst", list.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         verifySimpleListItems((HtmlElement) list, "rf-ulst-i");
     }
 

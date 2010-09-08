@@ -31,13 +31,15 @@ import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 
 import org.ajax4jsf.component.IterationStateHolder;
 import org.richfaces.DataScrollerUtils;
+import org.richfaces.application.MessageFactory;
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.appplication.FacesMessages;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -306,6 +308,10 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
         return 1;
     }
 
+    private MessageFactory getMessageFactory(FacesContext context) {
+        return ServiceTracker.getService(MessageFactory.class);
+    }
+    
     private void updateModel(int newPage) {
 
         FacesContext facesContext = getFacesContext();
@@ -332,8 +338,9 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
                 }
                 FacesMessage message;
                 if (null == messageStr) {
-                    message = MessageUtil.getMessage(facesContext, UIInput.UPDATE_MESSAGE_ID,
-                        new Object[] {MessageUtil.getLabel(facesContext, this) });
+                    message = ServiceTracker.getService(MessageFactory.class).createMessage(facesContext, 
+                        FacesMessages.UIINPUT_UPDATE,
+                        MessageUtil.getLabel(facesContext, this));
                 } else {
                     message = new FacesMessage(FacesMessage.SEVERITY_ERROR, messageStr, messageStr);
                 }
@@ -341,14 +348,16 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
                 facesContext.addMessage(getClientId(facesContext), message);
                 facesContext.renderResponse();
             } catch (IllegalArgumentException e) {
-                FacesMessage message = MessageUtil.getMessage(facesContext, UIInput.UPDATE_MESSAGE_ID,
-                    new Object[] {MessageUtil.getLabel(facesContext, this) });
+                FacesMessage message = ServiceTracker.getService(MessageFactory.class).createMessage(facesContext, 
+                    FacesMessages.UIINPUT_UPDATE,
+                    MessageUtil.getLabel(facesContext, this));
                 facesContext.getExternalContext().log(message.getSummary(), e);
                 facesContext.addMessage(getClientId(facesContext), message);
                 facesContext.renderResponse();
             } catch (Exception e) {
-                FacesMessage message = MessageUtil.getMessage(facesContext, UIInput.UPDATE_MESSAGE_ID,
-                    new Object[] {MessageUtil.getLabel(facesContext, this) });
+                FacesMessage message = ServiceTracker.getService(MessageFactory.class).createMessage(facesContext, 
+                    FacesMessages.UIINPUT_UPDATE,
+                    MessageUtil.getLabel(facesContext, this));
                 facesContext.getExternalContext().log(message.getSummary(), e);
                 facesContext.addMessage(getClientId(facesContext), message);
                 facesContext.renderResponse();

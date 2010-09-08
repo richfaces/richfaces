@@ -37,14 +37,13 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.event.AbortProcessingException;
 
 import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.renderkit.AjaxRendererUtils;
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractDataTable;
 import org.richfaces.component.AbstractSubTable;
 import org.richfaces.component.Row;
 import org.richfaces.component.UIDataTableBase;
 import org.richfaces.event.ToggleEvent;
+import org.richfaces.renderkit.util.AjaxRendererUtils;
 
 /**
  * @author Anton Belevich
@@ -71,15 +70,15 @@ public class SubTableRenderer extends AbstractTableRenderer {
        
         public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params) throws IOException {
             AbstractSubTable subTable = (AbstractSubTable)component;
-            writer.startElement(HTML.TR_ELEMENT, subTable);
-            writer.writeAttribute(HTML.ID_ATTRIBUTE, subTable.getClientId(context) + HIDDEN_CONTAINER_ID, null);
-            writer.writeAttribute(HTML.STYLE_ATTRIBUTE, DISPLAY_NONE, null);
-            writer.startElement(HTML.TD_ELEM, subTable);
+            writer.startElement(HtmlConstants.TR_ELEMENT, subTable);
+            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, subTable.getClientId(context) + HIDDEN_CONTAINER_ID, null);
+            writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, DISPLAY_NONE, null);
+            writer.startElement(HtmlConstants.TD_ELEM, subTable);
         }
 
         public void end(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params) throws IOException {
-            writer.endElement(HTML.TD_ELEM);
-            writer.endElement(HTML.TR_ELEMENT);
+            writer.endElement(HtmlConstants.TD_ELEM);
+            writer.endElement(HtmlConstants.TR_ELEMENT);
             
             if(params != null && params.length ==1) {
                 boolean endTbody = (Boolean)params[0];
@@ -119,18 +118,18 @@ public class SubTableRenderer extends AbstractTableRenderer {
     
     @Override
     public void encodeFirstRowStart(ResponseWriter writer, FacesContext context, String parentId, int currentRow, UIComponent component) throws IOException {
-        writer.startElement(HTML.TR_ELEMENT, component);
-        writer.writeAttribute(HTML.ID_ATTRIBUTE, parentId + ":" + currentRow + ":b", null);
+        writer.startElement(HtmlConstants.TR_ELEMENT, component);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, parentId + ":" + currentRow + ":b", null);
         String styleClass = getFirstRowClass(context, parentId);
-        encodeStyleClass(writer, context, component, HTML.STYLE_CLASS_ATTR, styleClass);
+        encodeStyleClass(writer, context, component, HtmlConstants.STYLE_CLASS_ATTR, styleClass);
     }
     
     @Override
     public void encodeRowStart(ResponseWriter writer, FacesContext context, String parentId, int currentRow, UIComponent component) throws IOException {
-        writer.startElement(HTML.TR_ELEMENT, component);
-        writer.writeAttribute(HTML.ID_ATTRIBUTE, parentId + ":" + currentRow + ":b", null);
+        writer.startElement(HtmlConstants.TR_ELEMENT, component);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, parentId + ":" + currentRow + ":b", null);
         String styleClass = getRowClass(context, parentId);
-        encodeStyleClass(writer, context, component, HTML.STYLE_CLASS_ATTR, styleClass);
+        encodeStyleClass(writer, context, component, HtmlConstants.STYLE_CLASS_ATTR, styleClass);
     }
     
     public void encodeTableFacets(ResponseWriter writer, FacesContext context, UIDataTableBase dataTable) throws IOException {
@@ -155,9 +154,9 @@ public class SubTableRenderer extends AbstractTableRenderer {
         
         UIDataTableBase component = findParent(subTable);
         if(component instanceof AbstractDataTable) {
-            writer.startElement(HTML.TBODY_ELEMENT, null);
-            writer.writeAttribute(HTML.ID_ATTRIBUTE, component.getRelativeClientId(facesContext) + ":" + subTable.getId() + TB_ROW, null);
-            writer.writeAttribute(HTML.CLASS_ATTRIBUTE, getTableSkinClass(), null);
+            writer.startElement(HtmlConstants.TBODY_ELEMENT, null);
+            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getRelativeClientId(facesContext) + ":" + subTable.getId() + TB_ROW, null);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, getTableSkinClass(), null);
             
             String predefinedStyles = !subTable.isExpanded() ?  DISPLAY_NONE : null;
             encodeStyle(writer, facesContext, subTable, predefinedStyles);
@@ -174,12 +173,12 @@ public class SubTableRenderer extends AbstractTableRenderer {
     }
 
     private void encodeSubTableDomElement(ResponseWriter writer, FacesContext facesContext, AbstractSubTable subTable) throws IOException{
-        writer.startElement(HTML.TR_ELEMENT, subTable);
-        writer.writeAttribute(HTML.STYLE_ATTRIBUTE, DISPLAY_NONE, null);
-        writer.writeAttribute(HTML.ID_ATTRIBUTE, subTable.getClientId(facesContext), null);
-        writer.startElement(HTML.TD_ELEM, subTable);
-        writer.endElement(HTML.TD_ELEM);
-        writer.endElement(HTML.TR_ELEMENT);
+        writer.startElement(HtmlConstants.TR_ELEMENT, subTable);
+        writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, DISPLAY_NONE, null);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, subTable.getClientId(facesContext), null);
+        writer.startElement(HtmlConstants.TD_ELEM, subTable);
+        writer.endElement(HtmlConstants.TD_ELEM);
+        writer.endElement(HtmlConstants.TR_ELEMENT);
     }
     
     public void encodeRow(ResponseWriter writer, FacesContext facesContext, RowHolderBase holder) throws IOException {
@@ -235,22 +234,22 @@ public class SubTableRenderer extends AbstractTableRenderer {
 
         String stateId = subTable.getClientId(facesContext) + STATE;
 
-        writer.startElement(HTML.INPUT_ELEM, subTable);
-        writer.writeAttribute(HTML.ID_ATTRIBUTE, stateId, null);
-        writer.writeAttribute(HTML.NAME_ATTRIBUTE, stateId, null);
-        writer.writeAttribute(HTML.TYPE_ATTR, HTML.INPUT_TYPE_HIDDEN, null);
+        writer.startElement(HtmlConstants.INPUT_ELEM, subTable);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, stateId, null);
+        writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, stateId, null);
+        writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.INPUT_TYPE_HIDDEN, null);
         
         int state = subTable.isExpanded() ? AbstractSubTable.EXPAND_STATE : AbstractSubTable.COLLAPSE_STATE;
         
-        writer.writeAttribute(HTML.VALUE_ATTRIBUTE, state, null);
-        writer.endElement(HTML.INPUT_ELEM);
+        writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, state, null);
+        writer.endElement(HtmlConstants.INPUT_ELEM);
 
         String optionsId = subTable.getClientId(facesContext) + OPTIONS;
-        writer.startElement(HTML.INPUT_ELEM, subTable);
-        writer.writeAttribute(HTML.ID_ATTRIBUTE, optionsId, null);
-        writer.writeAttribute(HTML.NAME_ATTRIBUTE, optionsId, null);
-        writer.writeAttribute(HTML.TYPE_ATTR, HTML.INPUT_TYPE_HIDDEN, null);
-        writer.endElement(HTML.INPUT_ELEM);
+        writer.startElement(HtmlConstants.INPUT_ELEM, subTable);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, optionsId, null);
+        writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, optionsId, null);
+        writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.INPUT_TYPE_HIDDEN, null);
+        writer.endElement(HtmlConstants.INPUT_ELEM);
 
     }
     
@@ -284,10 +283,10 @@ public class SubTableRenderer extends AbstractTableRenderer {
         jsFunction.addParameter(formId);
         jsFunction.addParameter(options);
 
-        writer.startElement(HTML.SCRIPT_ELEM, subTable);
-        writer.writeAttribute(HTML.TYPE_ATTR, HTML.JAVASCRIPT_TYPE, null);
+        writer.startElement(HtmlConstants.SCRIPT_ELEM, subTable);
+        writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.JAVASCRIPT_TYPE, null);
         writer.writeText(jsFunction.toScript(), null);
-        writer.endElement(HTML.SCRIPT_ELEM);
+        writer.endElement(HtmlConstants.SCRIPT_ELEM);
     }
     
     public String getTableSkinClass() {
@@ -394,7 +393,7 @@ public class SubTableRenderer extends AbstractTableRenderer {
     }
 
     protected void setupTableStartElement(FacesContext context, UIComponent component) {
-        setupTableStartElement(context, component, HTML.TD_ELEM);
+        setupTableStartElement(context, component, HtmlConstants.TD_ELEM);
     }
 
     protected UIDataTableBase findParent(AbstractSubTable subTable) {

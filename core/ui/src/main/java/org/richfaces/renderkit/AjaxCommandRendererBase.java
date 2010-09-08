@@ -31,10 +31,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-import org.ajax4jsf.renderkit.HandlersChain;
-import org.ajax4jsf.renderkit.RendererBase;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.log.Logger;
+import org.richfaces.renderkit.util.HandlersChain;
 
 /**
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)

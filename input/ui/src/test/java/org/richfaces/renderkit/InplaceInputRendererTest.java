@@ -27,7 +27,6 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.util.List;
 
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
@@ -60,22 +59,22 @@ public class InplaceInputRendererTest {
         HtmlPage page = environment.getPage("/test.jsf");
         HtmlElement span = page.getFirstByXPath("//*[@id = 'form:input_default']");
         assertEquals("span", span.getNodeName());
-        assertEquals("rf-ii-d-s", span.getAttribute(HTML.CLASS_ATTRIBUTE));
+        assertEquals("rf-ii-d-s", span.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         
         HtmlElement label = (HtmlElement)span.getFirstChild();
         assertEquals("span", label.getNodeName());
-        assertEquals("rf-ii-lbl", label.getAttribute(HTML.CLASS_ATTRIBUTE));
+        assertEquals("rf-ii-lbl", label.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         DomNode text = label.getFirstChild();
         assertEquals(DomNode.TEXT_NODE, text.getNodeType());
         
         HtmlElement edit = page.getFirstByXPath("//*[@id = 'form:input_default:edit']");
         assertEquals("span", edit.getNodeName());
-        assertEquals("rf-ii-e-s rf-ii-none", edit.getAttribute(HTML.CLASS_ATTRIBUTE));
+        assertEquals("rf-ii-e-s rf-ii-none", edit.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         
         HtmlElement input = (HtmlElement)edit.getFirstChild();
         assertEquals("input", input.getNodeName());
-        assertEquals("rf-ii-f", input.getAttribute(HTML.CLASS_ATTRIBUTE));
-        assertEquals(text.getNodeValue(), input.getAttribute(HTML.VALUE_ATTRIBUTE));
+        assertEquals("rf-ii-f", input.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
+        assertEquals(text.getNodeValue(), input.getAttribute(HtmlConstants.VALUE_ATTRIBUTE));
         
         List<?> buttons = page.getByXPath("//*[@id = 'form:input_default:btn']");
         assertEquals(true, buttons.isEmpty());
@@ -88,35 +87,35 @@ public class InplaceInputRendererTest {
     
         HtmlElement span = page.getFirstByXPath("//*[@id = 'form:input_edit']");
         assertEquals("span", span.getNodeName());
-        assertEquals("rf-ii-d-s", span.getAttribute(HTML.CLASS_ATTRIBUTE));
+        assertEquals("rf-ii-d-s", span.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
 
         HtmlElement label = (HtmlElement)span.getFirstChild();
         assertEquals("span", label.getNodeName());
-        assertEquals("rf-ii-lbl", label.getAttribute(HTML.CLASS_ATTRIBUTE));
+        assertEquals("rf-ii-lbl", label.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         DomNode text = label.getFirstChild();
         assertEquals(DomNode.TEXT_NODE, text.getNodeType());
         
         HtmlElement edit = page.getFirstByXPath("//*[@id = 'form:input_edit:edit']");
         assertEquals("span", edit.getNodeName());
-        assertEquals("rf-ii-e-s", edit.getAttribute(HTML.CLASS_ATTRIBUTE));
+        assertEquals("rf-ii-e-s", edit.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         
         HtmlElement input = (HtmlElement)edit.getFirstChild();
         assertEquals("input", input.getNodeName());
-        assertEquals("rf-ii-f", input.getAttribute(HTML.CLASS_ATTRIBUTE));
-        assertEquals(text.getNodeValue(), input.getAttribute(HTML.VALUE_ATTRIBUTE));
+        assertEquals("rf-ii-f", input.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
+        assertEquals(text.getNodeValue(), input.getAttribute(HtmlConstants.VALUE_ATTRIBUTE));
 
         HtmlElement button = page.getFirstByXPath("//*[@id = 'form:input_edit:btn']");
         assertEquals("span", button.getNodeName());
         
         HtmlElement okButton = page.getFirstByXPath("//*[@id = 'form:input_edit:okbtn']");
         assertEquals("input", okButton.getNodeName());
-        assertEquals("rf-ii-btn", okButton.getAttribute(HTML.CLASS_ATTRIBUTE));
-        assertEquals("image", okButton.getAttribute(HTML.TYPE_ATTR));
+        assertEquals("rf-ii-btn", okButton.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
+        assertEquals("image", okButton.getAttribute(HtmlConstants.TYPE_ATTR));
 
         HtmlElement cancelButton = page.getFirstByXPath("//*[@id = 'form:input_edit:cancelbtn']");
         assertEquals("input", cancelButton.getNodeName());
-        assertEquals("rf-ii-btn", cancelButton.getAttribute(HTML.CLASS_ATTRIBUTE));
-        assertEquals("image", cancelButton.getAttribute(HTML.TYPE_ATTR));
+        assertEquals("rf-ii-btn", cancelButton.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
+        assertEquals("image", cancelButton.getAttribute(HtmlConstants.TYPE_ATTR));
 
     }
     
@@ -128,7 +127,7 @@ public class InplaceInputRendererTest {
         DomText text = page.getFirstByXPath("//*[@id = 'form:input_default:label']/text()");
         assertEquals("Another Test String", text.getTextContent());
         HtmlElement span = page.getFirstByXPath("//*[@id = 'form:input_default']");
-        assertEquals("rf-ii-d-s rf-ii-c-s", span.getAttribute(HTML.CLASS_ATTRIBUTE));
+        assertEquals("rf-ii-d-s rf-ii-c-s", span.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
     }
     
     private void blur(HtmlPage page) throws Exception {
@@ -138,7 +137,7 @@ public class InplaceInputRendererTest {
     
     private void typeNewValue(HtmlPage page, String inplaceInputId, String value) throws Exception {
         HtmlElement input = page.getFirstByXPath("//*[@id = 'form:" + inplaceInputId + ":input']");
-        input.setAttribute(HTML.VALUE_ATTRIBUTE, "");
+        input.setAttribute(HtmlConstants.VALUE_ATTRIBUTE, "");
         input.type(value);
     }
     
@@ -146,7 +145,7 @@ public class InplaceInputRendererTest {
         HtmlElement span = page.getFirstByXPath("//*[@id = 'form:" + inplaceInputId + "']");
         span.click();
         HtmlElement edit = page.getFirstByXPath("//*[@id = 'form:" + inplaceInputId + ":edit']");
-        assertEquals("rf-ii-e-s", edit.getAttribute(HTML.CLASS_ATTRIBUTE));
+        assertEquals("rf-ii-e-s", edit.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         typeNewValue(page, inplaceInputId, value);
     }
     
@@ -162,7 +161,7 @@ public class InplaceInputRendererTest {
         assertEquals("Test String", text.getTextContent());
                 
         HtmlElement span = page.getFirstByXPath("//*[@id = 'form:input_controls']");
-        assertEquals("rf-ii-d-s", span.getAttribute(HTML.CLASS_ATTRIBUTE));
+        assertEquals("rf-ii-d-s", span.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         
         edit(page, "input_controls",  "Another Test String");
                 
@@ -173,7 +172,7 @@ public class InplaceInputRendererTest {
         assertEquals("Another Test String", text.getTextContent());
         
         span = page.getFirstByXPath("//*[@id = 'form:input_controls']");
-        assertEquals("rf-ii-d-s rf-ii-c-s", span.getAttribute(HTML.CLASS_ATTRIBUTE));
+        assertEquals("rf-ii-d-s rf-ii-c-s", span.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         
         edit(page, "input_controls", "Test String");
         

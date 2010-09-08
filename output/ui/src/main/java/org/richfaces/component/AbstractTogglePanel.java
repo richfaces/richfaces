@@ -22,10 +22,9 @@
 
 package org.richfaces.component;
 
-import org.richfaces.component.util.MessageUtil;
-import org.richfaces.event.ItemChangeEvent;
-import org.richfaces.event.ItemChangeListener;
-import org.richfaces.event.ItemChangeSource;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.el.ELException;
 import javax.el.MethodExpression;
@@ -42,9 +41,14 @@ import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PostValidateEvent;
 import javax.faces.event.PreValidateEvent;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+
+import org.richfaces.application.MessageFactory;
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.appplication.FacesMessages;
+import org.richfaces.component.util.MessageUtil;
+import org.richfaces.event.ItemChangeEvent;
+import org.richfaces.event.ItemChangeListener;
+import org.richfaces.event.ItemChangeSource;
 
 /**
  * @author akolonitsky
@@ -323,8 +327,9 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
             }
 
             if (messageStr == null) {
-                message = MessageUtil.getMessage(context, UPDATE_MESSAGE_ID,
-                              new Object[] {MessageUtil.getLabel(context, this)});
+                message = ServiceTracker.getService(MessageFactory.class).createMessage(context, 
+                    FacesMessage.SEVERITY_ERROR,
+                    FacesMessages.UIINPUT_UPDATE, MessageUtil.getLabel(context, this));
             } else {
                 message = new FacesMessage(FacesMessage.SEVERITY_ERROR, messageStr, messageStr);
             }

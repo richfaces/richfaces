@@ -35,15 +35,13 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.renderkit.AjaxEventOptions;
-import org.ajax4jsf.renderkit.AjaxRendererUtils;
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractDataTable;
 import org.richfaces.component.AbstractSubTable;
 import org.richfaces.component.Row;
 import org.richfaces.component.UIDataTableBase;
 import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.renderkit.util.AjaxRendererUtils;
 
 /**
  * @author Anton Belevich
@@ -63,17 +61,17 @@ public class DataTableRenderer extends AbstractTableRenderer {
         public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params) throws IOException {
             AbstractDataTable dataTable = (AbstractDataTable)component;
             
-            writer.startElement(HTML.TBODY_ELEMENT, dataTable);
-            writer.writeAttribute(HTML.ID_ATTRIBUTE, dataTable.getClientId(context) + HIDDEN_CONTAINER_ID, null);
-            writer.writeAttribute(HTML.STYLE_ATTRIBUTE, "display: none", null);
-            writer.startElement(HTML.TR_ELEMENT, dataTable);
-            writer.startElement(HTML.TD_ELEM, dataTable);
+            writer.startElement(HtmlConstants.TBODY_ELEMENT, dataTable);
+            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, dataTable.getClientId(context) + HIDDEN_CONTAINER_ID, null);
+            writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display: none", null);
+            writer.startElement(HtmlConstants.TR_ELEMENT, dataTable);
+            writer.startElement(HtmlConstants.TD_ELEM, dataTable);
         }
 
         public void end(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params) throws IOException {
-            writer.endElement(HTML.TD_ELEM);
-            writer.endElement(HTML.TR_ELEMENT);
-            writer.endElement(HTML.TBODY_ELEMENT);
+            writer.endElement(HtmlConstants.TD_ELEM);
+            writer.endElement(HtmlConstants.TR_ELEMENT);
+            writer.endElement(HtmlConstants.TBODY_ELEMENT);
         }
     };
     
@@ -81,19 +79,19 @@ public class DataTableRenderer extends AbstractTableRenderer {
 
         public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object [] params) throws IOException {
             org.richfaces.component.AbstractColumn column = (org.richfaces.component.AbstractColumn) component;
-            writer.writeAttribute(HTML.ID_ATTRIBUTE, column.getClientId(context), null);
+            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, column.getClientId(context), null);
 
             if (isSortable(column)) {
                 //TODO :anton -> should component be selfSorted
-                writer.startElement(HTML.SPAN_ELEM, column);
-                writer.writeAttribute(HTML.CLASS_ATTRIBUTE, "rich-table-sortable-header", null);
+                writer.startElement(HtmlConstants.SPAN_ELEM, column);
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rich-table-sortable-header", null);
             }
         }
 
         public void end(ResponseWriter writer, FacesContext context, UIComponent component, Object [] params) throws IOException {
             org.richfaces.component.AbstractColumn column = (org.richfaces.component.AbstractColumn) component;
             if (isSortable(column)) {
-                writer.endElement(HTML.SPAN_ELEM);
+                writer.endElement(HtmlConstants.SPAN_ELEM);
             }
         }
     }
@@ -103,24 +101,24 @@ public class DataTableRenderer extends AbstractTableRenderer {
         if (dataTable instanceof AbstractDataTable) {
             encodeCaption(writer, context, (AbstractDataTable) dataTable);
             // TODO nick - do we need this element if "columnsWidth" is absent?
-            writer.startElement(HTML.COLGROUP_ELEMENT, dataTable);
+            writer.startElement(HtmlConstants.COLGROUP_ELEMENT, dataTable);
            
             int columns = getColumnsCount(dataTable);
-            writer.writeAttribute(HTML.SPAN_ELEM, String.valueOf(columns), null);
+            writer.writeAttribute(HtmlConstants.SPAN_ELEM, String.valueOf(columns), null);
             String columnsWidth = (String) dataTable.getAttributes().get("columnsWidth");
 
             if (columnsWidth != null) {
 
                 String[] widths = columnsWidth.split(",");
                 for (int i = 0; i < widths.length; i++) {
-                    writer.startElement(HTML.COL_ELEMENT, dataTable);
-                    writer.writeAttribute(HTML.WIDTH_ATTRIBUTE, widths[i], null);
-                    writer.endElement(HTML.COL_ELEMENT);
+                    writer.startElement(HtmlConstants.COL_ELEMENT, dataTable);
+                    writer.writeAttribute(HtmlConstants.WIDTH_ATTRIBUTE, widths[i], null);
+                    writer.endElement(HtmlConstants.COL_ELEMENT);
                 }
                 
             }
             
-            writer.endElement(HTML.COLGROUP_ELEMENT);
+            writer.endElement(HtmlConstants.COLGROUP_ELEMENT);
         }
     }
 
@@ -256,22 +254,22 @@ public class DataTableRenderer extends AbstractTableRenderer {
             return;
         }
 
-        writer.startElement(HTML.CAPTION_ELEMENT, dataTable);
+        writer.startElement(HtmlConstants.CAPTION_ELEMENT, dataTable);
 
         String captionClass = (String) dataTable.getAttributes().get("captionClass");
         String captionSkinClass = getCaptionSkinClass();
 
         captionClass = HtmlUtil.concatClasses(captionClass, captionSkinClass);
-        writer.writeAttribute(HTML.CLASS_ATTRIBUTE, captionClass, "captionClass");
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, captionClass, "captionClass");
         
         String captionStyle = (String) dataTable.getAttributes().get("captionStyle");
         if (captionStyle != null && captionStyle.trim().length() != 0) {
-            writer.writeAttribute(HTML.STYLE_ATTRIBUTE, captionStyle, "captionStyle");
+            writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, captionStyle, "captionStyle");
         }
 
         caption.encodeAll(context);
 
-        writer.endElement(HTML.CAPTION_ELEMENT);
+        writer.endElement(HtmlConstants.CAPTION_ELEMENT);
     }
 
     public EncodeStrategy getHeaderEncodeStrategy(UIComponent column, String facetName) {
@@ -293,8 +291,8 @@ public class DataTableRenderer extends AbstractTableRenderer {
     public void encodeClientScript(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase) throws IOException {
         AbstractDataTable dataTable = (AbstractDataTable) dataTableBase;
        
-        writer.startElement(HTML.SCRIPT_ELEM, dataTable);
-        writer.writeAttribute(HTML.TYPE_ATTR, HTML.JAVASCRIPT_TYPE, null);
+        writer.startElement(HtmlConstants.SCRIPT_ELEM, dataTable);
+        writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.JAVASCRIPT_TYPE, null);
 
         JSFunction function = new JSFunction("new RichFaces.ui.DataTable");
         function.addParameter(dataTable.getClientId(facesContext));
@@ -306,7 +304,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
         function.addParameter(options);
 
         writer.writeText(function.toScript(), null);
-        writer.endElement(HTML.SCRIPT_ELEM);
+        writer.endElement(HtmlConstants.SCRIPT_ELEM);
     }
 
     @Override
@@ -386,7 +384,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
     }
 
     protected void setupTableStartElement(FacesContext context, UIComponent component) {
-        setupTableStartElement(context, component, HTML.TH_ELEM);
+        setupTableStartElement(context, component, HtmlConstants.TH_ELEM);
     }
     
     public EncodeStrategy getHiddenContainerStrategy(UIDataTableBase dataTableBase) {

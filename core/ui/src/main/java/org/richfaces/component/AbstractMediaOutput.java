@@ -43,8 +43,6 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.resource.MediaOutputResource;
 import org.richfaces.resource.UserResourceWrapper;
-import org.richfaces.webapp.taglib.MethodBindingMethodExpressionAdaptor;
-import org.richfaces.webapp.taglib.MethodExpressionMethodBindingAdaptor;
 
 /**
  * @author shura

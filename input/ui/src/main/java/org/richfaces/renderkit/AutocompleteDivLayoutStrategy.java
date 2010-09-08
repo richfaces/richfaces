@@ -28,38 +28,37 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.ajax4jsf.renderkit.RendererUtils.HTML;
 
 public class AutocompleteDivLayoutStrategy extends AbstractAutocompleteLayoutStrategy implements
     AutocompleteEncodeStrategy {
 
     public void encodeFakeItem(FacesContext facesContext, UIComponent component) throws IOException {
         ResponseWriter responseWriter = facesContext.getResponseWriter();
-        responseWriter.startElement(HTML.DIV_ELEM, component);
-        responseWriter.writeAttribute(HTML.STYLE_ATTRIBUTE, "display:none", null);
-        responseWriter.endElement(HTML.DIV_ELEM);
+        responseWriter.startElement(HtmlConstants.DIV_ELEM, component);
+        responseWriter.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display:none", null);
+        responseWriter.endElement(HtmlConstants.DIV_ELEM);
 
     }
 
     public void encodeItemsContainerBegin(FacesContext facesContext, UIComponent component) throws IOException {
         ResponseWriter responseWriter = facesContext.getResponseWriter();
-        responseWriter.startElement(HTML.DIV_ELEM, component);
-        responseWriter.writeAttribute(HTML.ID_ATTRIBUTE, getContainerElementId(facesContext, component), null);
+        responseWriter.startElement(HtmlConstants.DIV_ELEM, component);
+        responseWriter.writeAttribute(HtmlConstants.ID_ATTRIBUTE, getContainerElementId(facesContext, component), null);
     }
 
     public void encodeItemsContainerEnd(FacesContext facesContext, UIComponent component) throws IOException {
         ResponseWriter responseWriter = facesContext.getResponseWriter();
-        responseWriter.endElement(HTML.DIV_ELEM);
+        responseWriter.endElement(HtmlConstants.DIV_ELEM);
     }
     
     public void encodeItemBegin(FacesContext facesContext, UIComponent component) throws IOException {
     	ResponseWriter writer = facesContext.getResponseWriter();
-        writer.startElement(HTML.DIV_ELEM, component);
+        writer.startElement(HtmlConstants.DIV_ELEM, component);
     }
     
     public void encodeItemEnd(FacesContext facesContext, UIComponent component) throws IOException {
         ResponseWriter writer = facesContext.getResponseWriter();
-        writer.endElement(HTML.DIV_ELEM);
+        writer.endElement(HtmlConstants.DIV_ELEM);
     }
 
 }

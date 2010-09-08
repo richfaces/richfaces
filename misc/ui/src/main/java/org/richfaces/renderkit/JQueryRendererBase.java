@@ -32,11 +32,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 
 import org.ajax4jsf.javascript.ScriptUtils;
-import org.ajax4jsf.renderkit.RendererUtils;
 import org.richfaces.component.AbstractJQuery;
 import org.richfaces.component.JQueryAttachType;
 import org.richfaces.component.JQueryTiming;
 import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.renderkit.util.RendererUtils;
 
 /**
  * @author nick
