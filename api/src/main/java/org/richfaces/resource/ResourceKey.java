@@ -21,6 +21,7 @@
  */
 package org.richfaces.resource;
 
+import com.google.common.base.Function;
 import com.google.common.base.Objects;
 
 /**
@@ -29,6 +30,12 @@ import com.google.common.base.Objects;
  */
 public class ResourceKey {
 
+    public static final Function<String, ResourceKey> FACTORY = new Function<String, ResourceKey>() {
+        public ResourceKey apply(String from) {
+            return new ResourceKey(from);
+        };
+    };
+    
     private String resourceName;
     
     private String libraryName;

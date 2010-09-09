@@ -42,6 +42,7 @@ import org.richfaces.application.ServiceTracker;
 import org.richfaces.cache.Cache;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.renderkit.html.ResourceLibraryRenderer;
 import org.richfaces.util.RequestStateManager.BooleanRequestStateVariable;
 import org.richfaces.util.Util;
 
@@ -291,6 +292,10 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
             return "javax.faces.resource.Stylesheet";
         }
 
+        if (resourceName.endsWith(ResourceLibraryRenderer.RESOURCE_LIBRARY_EXTENSION)) {
+            return ResourceLibraryRenderer.RENDERER_TYPE;
+        }
+        
         return defaultHandler.getRendererTypeForResourceName(resourceName);
     }
 

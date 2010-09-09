@@ -26,11 +26,14 @@ import java.io.InputStream;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.Enumeration;
+import java.util.Map;
 import java.util.Properties;
 
 import org.ajax4jsf.resource.util.URLToStreamHelper;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+
+import com.google.common.collect.Maps;
 
 /**
  * @author Nick Belaevski
@@ -87,4 +90,11 @@ public final class PropertiesUtil {
     
         return loaded;
     }
+    
+    public static Map<String, String> loadProperties(String location) {
+        Properties props = new Properties();
+        loadProperties(props, location);
+        return Maps.fromProperties(props);
+    }
+    
 }

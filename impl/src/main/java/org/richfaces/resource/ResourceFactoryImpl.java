@@ -27,7 +27,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Properties;
 
 import javax.faces.application.ProjectStage;
 import javax.faces.application.Resource;
@@ -179,9 +178,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
     private <V> Map<ResourceKey, V> readMappings(Function<Entry<String, String>, V> producer, String mappingFileName) {
         Map<ResourceKey, V> result = Maps.newHashMap();
         
-        Properties properties = new Properties();
-        PropertiesUtil.loadProperties(properties, mappingFileName);
-        for (Entry<String, String> entry : Maps.fromProperties(properties).entrySet()) {
+        for (Entry<String, String> entry : PropertiesUtil.loadProperties(mappingFileName).entrySet()) {
             result.put(new ResourceKey(entry.getKey()), producer.apply(entry));
         }
 

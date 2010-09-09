@@ -8,6 +8,8 @@ import org.richfaces.renderkit.AjaxDataSerializer;
 import org.richfaces.renderkit.AjaxDataSerializerImpl;
 import org.richfaces.resource.DefaultResourceCodec;
 import org.richfaces.resource.ResourceCodec;
+import org.richfaces.resource.ResourceLibraryFactory;
+import org.richfaces.resource.ResourceLibraryFactoryImpl;
 import org.richfaces.skin.SkinFactory;
 import org.richfaces.skin.SkinFactoryImpl;
 
@@ -22,6 +24,7 @@ public class DefaultModule implements Module {
         factory.setInstance(Uptime.class, new Uptime());
         factory.setInstance(DependencyInjector.class, new DependencyInjectionServiceImpl());
         factory.setInstance(MessageFactory.class, new MessageFactoryImpl(new BundleLoader()));
+        factory.setInstance(ResourceLibraryFactory.class, new ResourceLibraryFactoryImpl());
     }
 
 }
