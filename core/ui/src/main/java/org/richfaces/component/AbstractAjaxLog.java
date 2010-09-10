@@ -38,9 +38,7 @@ import org.richfaces.cdk.annotations.TagType;
  *
  */
 @ResourceDependencies(value = {
-        @ResourceDependency(name = "jquery.js"), 
-        @ResourceDependency(name = "richfaces.js") ,
-        @ResourceDependency(name = "richfaces-base-component.js") ,
+        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"), 
         @ResourceDependency(library = "org.richfaces", name = "log.js"),
         @ResourceDependency(library = "org.richfaces", name = "log.ecss")
         })

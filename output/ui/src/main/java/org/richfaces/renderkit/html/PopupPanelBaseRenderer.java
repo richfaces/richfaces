@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.faces.FacesException;
 import javax.faces.application.ResourceDependencies;
@@ -23,8 +23,8 @@ import org.richfaces.renderkit.RendererBase;
 import org.richfaces.renderkit.util.RendererUtils;
 
 //TODO nick - JSF have concept of library, it should be used instead of '/' in resource names
-@ResourceDependencies( { @ResourceDependency(name = "jquery.js"), @ResourceDependency(name = "richfaces.js"),
-    @ResourceDependency(name = "richfaces-base-component.js"), 
+@ResourceDependencies( { 
+    @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"), 
     @ResourceDependency(library = "org.richfaces", name = "popupPanel.js"),
     @ResourceDependency(library = "org.richfaces", name = "popupPanelBorders.js"), 
     @ResourceDependency(library = "org.richfaces", name = "popupPanelSizer.js"),

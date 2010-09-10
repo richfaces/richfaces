@@ -32,7 +32,7 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
 
-import org.richfaces.aplication.CoreComponentsConfiguration;
+import org.richfaces.application.CommonComponentsConfiguration;
 
 /**
  * @author Nick Belaevski
@@ -50,7 +50,7 @@ public class QueuePreRenderViewListener implements SystemEventListener {
         FacesContext context = FacesContext.getCurrentInstance();
         UIViewRoot viewRoot = context.getViewRoot();
         
-        boolean queueEnabled = getBooleanConfigurationValue(context, CoreComponentsConfiguration.Items.queueEnabled);
+        boolean queueEnabled = getBooleanConfigurationValue(context, CommonComponentsConfiguration.Items.queueEnabled);
         if (queueEnabled) {
             Application application = context.getApplication();
             UIComponent queueResourceComponent = application.createComponent(context, 

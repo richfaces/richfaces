@@ -21,12 +21,13 @@
  */
 package org.richfaces.renderkit.html;
 
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
+
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -35,6 +36,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
 
 import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.application.CommonComponentsConfiguration;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.QueueRegistry;
 import org.richfaces.renderkit.HtmlConstants;
@@ -45,11 +47,7 @@ import org.richfaces.renderkit.util.RendererUtils;
  * 
  */
 @JsfRenderer(type = "org.richfaces.QueueResourceComponentRenderer", family = UIOutput.COMPONENT_FAMILY)
-@ResourceDependencies(value = {
-        @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-        @ResourceDependency(name = "jquery.js"), 
-        @ResourceDependency(name = "richfaces.js"),
-        @ResourceDependency(name = "richfaces-queue.js")})
+@ResourceDependency(library = "org.richfaces", name = "ajax.reslib")
 public class QueueResourceComponentRenderer extends Renderer {
 
     private static final String FUNCTION_NAME = "RichFaces.queue.setQueueOptions";
@@ -75,6 +73,10 @@ public class QueueResourceComponentRenderer extends Renderer {
     public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
         super.encodeEnd(context, component);
         
+        if (!getBooleanConfigurationValue(context, CommonComponentsConfiguration.Items.queueEnabled)) {
+            return;
+        }
+
         QueueRegistry registry = QueueRegistry.getInstance(context);
         if (registry != null && registry.hasQueuesToEncode()) {
             ResponseWriter writer = context.getResponseWriter();

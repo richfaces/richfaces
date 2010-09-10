@@ -41,10 +41,10 @@ import org.richfaces.component.AbstractDataScroller;
 import org.richfaces.event.DataScrollerEvent;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 
-@ResourceDependencies( { @ResourceDependency(library = "javax.faces", name = "jsf-uncompressed.js"),
-    @ResourceDependency(name = "jquery.js"), @ResourceDependency(name = "richfaces.js"),
+@ResourceDependencies( { 
+    @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"), 
+    @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"), 
     @ResourceDependency(name = "richfaces-event.js"),
-    @ResourceDependency(name = "richfaces-base-component.js"), 
     @ResourceDependency(library = "org.richfaces", name = "datascroller.js"),
     @ResourceDependency(library = "org.richfaces", name = "datascroller.ecss")
 

@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -44,10 +43,7 @@ import org.richfaces.renderkit.util.RendererUtils.ScriptHashVariableWrapper;
 /**
  * @author Nick Belaevski
  */
-@ResourceDependencies({
-    @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-    @ResourceDependency(name = "jquery.js"),
-    @ResourceDependency(name = "richfaces.js")})
+@ResourceDependency(library = "org.richfaces", name = "ajax.reslib")
 @JsfRenderer(type = "org.richfaces.StatusRenderer", family = AbstractAjaxStatus.COMPONENT_FAMILY)
 public class AjaxStatusRenderer extends RendererBase {
 

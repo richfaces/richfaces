@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -45,10 +44,7 @@ import org.richfaces.renderkit.util.HandlersChain;
 /**
  * @author shura
  */
-@ResourceDependencies(value = {
-        @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-        @ResourceDependency(name = "jquery.js"),
-        @ResourceDependency(name = "richfaces.js")})
+@ResourceDependency(library = "org.richfaces", name = "ajax.reslib")
 @JsfRenderer
 public class AjaxPollRenderer extends RendererBase {
 

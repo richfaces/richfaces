@@ -34,7 +34,6 @@ import org.richfaces.renderkit.RendererBase;
  * @author amarkhel
  * @since Jun 14, 2010
  */
-//TODO nick - JSF have concept of library, it should be used instead of '/' in resource names
 @ResourceDependency(library = "org.richfaces", name = "panel.ecss")
 public class PanelBaseRenderer extends RendererBase {
 

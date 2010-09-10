@@ -23,7 +23,6 @@ package org.richfaces.renderkit.html;
 
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
 
-import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -36,7 +35,7 @@ import javax.faces.event.PostAddToViewEvent;
 import javax.faces.event.PreRemoveFromViewEvent;
 import javax.faces.render.Renderer;
 
-import org.richfaces.aplication.CoreComponentsConfiguration;
+import org.richfaces.application.CommonComponentsConfiguration;
 import org.richfaces.component.QueueRegistry;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
@@ -45,10 +44,7 @@ import org.richfaces.log.RichfacesLogger;
 /**
  * @author Nick Belaevski Base class for rendering Queue
  */
-@ResourceDependencies(value = {
-        @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-        @ResourceDependency(name = "jquery.js"), 
-        @ResourceDependency(name = "richfaces.js")})
+@ResourceDependency(library = "org.richfaces", name = "ajax.reslib")
 @ListenersFor({ 
     @ListenerFor(systemEventClass = PostAddToViewEvent.class),
     @ListenerFor(systemEventClass = PreRemoveFromViewEvent.class) 
@@ -62,7 +58,7 @@ public abstract class QueueRendererBase extends Renderer implements ComponentSys
     public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
         FacesContext context = FacesContext.getCurrentInstance();
         
-        if (!getBooleanConfigurationValue(context, CoreComponentsConfiguration.Items.queueEnabled)) {
+        if (!getBooleanConfigurationValue(context, CommonComponentsConfiguration.Items.queueEnabled)) {
             return;
         }
         

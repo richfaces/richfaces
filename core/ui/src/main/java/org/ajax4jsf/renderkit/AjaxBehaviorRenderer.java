@@ -24,7 +24,6 @@ package org.ajax4jsf.renderkit;
 
 import static org.richfaces.renderkit.AjaxConstants.BEHAVIOR_EVENT_PARAMETER;
 
-import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.ActionSource;
 import javax.faces.component.EditableValueHolder;
@@ -52,13 +51,7 @@ import org.richfaces.renderkit.util.RendererUtils;
 @FacesBehaviorRenderer(rendererType = "org.ajax4jsf.behavior.Ajax",
                        renderKitId = RenderKitFactory.HTML_BASIC_RENDER_KIT)
                        
-@ResourceDependencies(
-    {@ResourceDependency(library = "javax.faces", name = "jsf.js"),
-        @ResourceDependency(name = "jquery.js", target = "head"), 
-        @ResourceDependency(name = "richfaces.js", target = "head")
-    }
-)
-
+@ResourceDependency(library = "org.richfaces", name = "ajax.reslib")
 public class AjaxBehaviorRenderer extends ClientBehaviorRenderer {
     
     private final RendererUtils utils = RendererUtils.getInstance();
