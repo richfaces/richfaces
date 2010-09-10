@@ -199,19 +199,26 @@ public class PopupPanelBaseRenderer extends RendererBase {
         utils.addToScriptHash(options, "resizeable", panel.isResizeable(), "false");
         utils.addToScriptHash(options, "overlapEmbedObjects", panel.isOverlapEmbedObjects(), "false");
         utils.addToScriptHash(options, "visualOptions", writeVisualOptions(context, panel));
-        utils.addToScriptHash(options, "onresize", attributes.get("onresize"));
-        utils.addToScriptHash(options, "onmove", attributes.get("onmove"));
-        utils.addToScriptHash(options, "onshow", attributes.get("onshow"));
-        utils.addToScriptHash(options, "onhide", attributes.get("onhide"));
-        utils.addToScriptHash(options, "onbeforeshow", attributes.get("onbeforeshow"));
-        utils.addToScriptHash(options, "onbeforehide", attributes.get("onbeforehide"));
+        utils.addToScriptHash(options, "onresize", buildEventFunction(attributes.get("onresize")));
+        utils.addToScriptHash(options, "onmove", buildEventFunction(attributes.get("onmove")));
+        utils.addToScriptHash(options, "onshow", buildEventFunction(attributes.get("onshow")));
+        utils.addToScriptHash(options, "onhide", buildEventFunction(attributes.get("onhide")));
+        utils.addToScriptHash(options, "onbeforeshow", buildEventFunction(attributes.get("onbeforeshow")));
+        utils.addToScriptHash(options, "onbeforehide", buildEventFunction(attributes.get("onbeforehide")));
 
         result.append(ScriptUtils.toScript(options));
         result.append(");");
         return result.toString();
     }
 
-    public Map<String, Object> getHandledVisualOptions(AbstractPopupPanel panel) {
+    private Object buildEventFunction(Object eventFunction) {
+        if(eventFunction != null && eventFunction.toString().length() > 0) {
+            return "new Function(\"" + eventFunction.toString() + "\");";
+        }
+        return null;
+    }
+
+	public Map<String, Object> getHandledVisualOptions(AbstractPopupPanel panel) {
         String options = panel.getVisualOptions();
         Map<String, Object> result;
         result = prepareVisualOptions(options, panel);

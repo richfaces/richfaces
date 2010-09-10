@@ -68,6 +68,7 @@
 		this.cdiv = $(richfaces.getDomElement(id + "_container"));
 		this.contentDiv = $(richfaces.getDomElement(id + "_content"));
 		this.shadowDiv = $(richfaces.getDomElement(id + "_shadow"));
+		this.shadeDiv = $(richfaces.getDomElement(id + "_shade"));
 		this.scrollerDiv = $(richfaces.getDomElement(id + "_content_scroller"));
 
 		this.borders = new Array();
@@ -215,9 +216,10 @@
 			},
 
 			show: function(event, opts) {
+				var element = this.cdiv;
 				if(!this.shown && this.invokeEvent("beforeshow",event,null,element)) {
 					this.preventFocus();
-					var element = this.div;
+					
 			
 	        		if (!this.domReattached) {
 						this.parent = element.parent();
@@ -243,7 +245,9 @@
 				
 						if (newParent != this.parent) {
 							this.saveInputValues(element);
-							element.insertBefore(newParent.firstChild);
+							this.shadeDiv.insertAfter(newParent.lastChild);
+							this.shadowDiv.insertAfter(newParent.lastChild);
+							this.cdiv.insertAfter(newParent.lastChild);
 							this.domReattached = true;
 						} else {
 							this.parent.show();
@@ -475,7 +479,7 @@
 			},
 
 			hide: function(event, opts) {
-				var element = this.id;
+				var element = this.cdiv;
 				this.restoreFocus();
 				if (this.shown && this.invokeEvent("beforehide",event,null,element)) {
 
@@ -487,7 +491,8 @@
 					if (this.parent) {
 						if (this.domReattached) {
 							this.saveInputValues(element);
-
+							this.parent.append(this.shadeDiv);
+							this.parent.append(this.shadowDiv);
 							this.parent.append(element);
 
 							this.domReattached = false;
@@ -510,7 +515,7 @@
 					}
 	
 					this.shown = false;
-			
+					this.invokeEvent("hide",event,null,element)
 				}
 			},
 
@@ -748,7 +753,7 @@
 	
 			invokeEvent: function(eventName, event, value, element) {
 	
-				var eventFunction = this.options['on'+eventName];
+				var eventFunction = eval(this.options['on'+eventName]);
 				var result;
 
 				if (eventFunction) {
