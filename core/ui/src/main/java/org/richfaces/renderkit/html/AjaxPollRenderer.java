@@ -95,6 +95,12 @@ public class AjaxPollRenderer extends RendererBase {
             HandlersChain handlersChain = new HandlersChain(context, poll);
             handlersChain.addInlineHandlerFromAttribute(AbstractPoll.ON_TIMER);
             handlersChain.addBehaviors(AbstractPoll.TIMER);
+            handlersChain.addInlineHandlerFromAttribute(AbstractPoll.ON_BEGIN);
+            handlersChain.addBehaviors(AbstractPoll.BEGIN);
+            handlersChain.addInlineHandlerFromAttribute(AbstractPoll.ON_COMPLETE);
+            handlersChain.addBehaviors(AbstractPoll.COMPLETE);
+            handlersChain.addInlineHandlerFromAttribute(AbstractPoll.ON_BEFOREDOMUPDATE);
+            handlersChain.addBehaviors(AbstractPoll.BEFOREDOMUPDATE);
             handlersChain.addAjaxSubmitFunction();
 
             String handler = handlersChain.toScript();

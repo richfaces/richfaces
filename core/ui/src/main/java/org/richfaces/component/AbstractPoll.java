@@ -47,6 +47,18 @@ public abstract class AbstractPoll extends AbstractActionComponent {
     public static final String TIMER = "timer";
 
     public static final String ON_TIMER = "ontimer";
+    
+    public static final String BEGIN = "begin";
+
+    public static final String ON_BEGIN = "onbegin";
+    
+    public static final String COMPLETE = "complete";
+
+    public static final String ON_COMPLETE = "oncomplete";
+    
+    public static final String BEFOREDOMUPDATE = "beforedomupdate";
+
+    public static final String ON_BEFOREDOMUPDATE = "onbeforedomupdate";
 
     @Attribute(defaultValue = "1000")
     public abstract int getInterval();
