@@ -84,7 +84,8 @@ public class CachedResourceImplTest extends AbstractFacesTest {
     }
 
     private CachedResourceImpl createCachedResource(Map<String, String> headers, InputStream stream)
-            throws IOException {
+        throws IOException {
+        
         MockHeadersResourceImpl mockResource = new MockHeadersResourceImpl(headers, stream);
         CachedResourceImpl cachedResource = new MockCachedResourceImpl();
 
