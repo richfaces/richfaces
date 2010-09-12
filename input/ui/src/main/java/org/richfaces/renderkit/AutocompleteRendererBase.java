@@ -59,11 +59,10 @@ import com.google.common.collect.Iterators;
 
 /**
  * @author Nick Belaevski
- * 
  */
-@ResourceDependencies({ 
+@ResourceDependencies({
     @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
-    @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"), 
+    @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
     @ResourceDependency(name = "jquery.position.js"), @ResourceDependency(name = "richfaces-event.js"),
     @ResourceDependency(name = "richfaces-selection.js"),
     @ResourceDependency(library = "org.richfaces", name = "AutocompleteBase.js"),
@@ -75,17 +74,17 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
 
     public JSFunctionDefinition getClientFilterFunction(UIComponent component) {
         AbstractAutocomplete autocomplete = (AbstractAutocomplete) component;
-        String clientFilter = (String)autocomplete.getAttributes().get("clientFilter");
+        String clientFilter = (String) autocomplete.getAttributes().get("clientFilter");
         if (clientFilter != null && clientFilter.length() != 0) {
             JSFunctionDefinition clientFilterFunction = new JSFunctionDefinition("subString");
             clientFilterFunction.addParameter("value");
             clientFilterFunction.addToBody(clientFilter);
             return clientFilterFunction;
         }
-        
+
         return null;
     }
-    
+
     public String getScriptOptions(UIComponent component) {
         Map<String, Object> attributes = component.getAttributes();
         Map<String, Object> options = new HashMap<String, Object>();
@@ -104,9 +103,9 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
         utils.addToScriptHash(options, "onbeforedomupdate", attributes.get("onbeforedomupdate"));
         utils.addToScriptHash(options, "onchange", attributes.get("onchange"));
         utils.addToScriptHash(options, "filterFunction", getClientFilterFunction(component));
-        String mode = (String)attributes.get("mode");
+        String mode = (String) attributes.get("mode");
         if (mode != null) {
-            if (mode.equals("ajax")){
+            if (mode.equals("ajax")) {
                 utils.addToScriptHash(options, "isCachedAjax", false, "true");
             } else if (mode.equals("client") || mode.equals("lazyClient")) {
                 utils.addToScriptHash(options, "ajaxMode", false, "true");
@@ -121,6 +120,7 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
     }
 
     // TODO nick - handle parameter
+
     @SuppressWarnings("unchecked")
     private DataModel<Object> getItems(FacesContext facesContext, AbstractAutocomplete component) {
         Object itemsObject = null;
@@ -132,16 +132,16 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
             try {
                 // String value = getInputValue(facesContext, component);
 
-                itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[] { facesContext,
-                    component, value });
+                itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[]{facesContext,
+                    component, value});
             } catch (ELException e) {
                 try {
                     autocompleteMethod = facesContext
                         .getApplication()
                         .getExpressionFactory()
                         .createMethodExpression(facesContext.getELContext(), autocompleteMethod.getExpressionString(),
-                            Void.class, new Class[] { String.class });
-                    itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[] { value });
+                            Void.class, new Class[]{String.class});
+                    itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[]{value});
                 } catch (ELException ee) {
                     ee.printStackTrace();
                 }
@@ -214,10 +214,10 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
                 // TODO use converter
                 if (comboBox.getItemConverter() != null) {
                     fetchValues.add(comboBox.getItemConverter().getAsString(facesContext, component, nextItem));
-                } else{
+                } else {
                     fetchValues.add(nextItem);
-            	}
-                
+                }
+
             }
         }
 
@@ -233,7 +233,7 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
     protected void encodeItemsContainer(FacesContext facesContext, UIComponent component) throws IOException {
         AutocompleteEncodeStrategy strategy = getStrategy(component);
         Object mode = component.getAttributes().get("mode");
-        if (mode!= null && mode.equals("client")) {
+        if (mode != null && mode.equals("client")) {
             List<Object> fetchValues = new ArrayList<Object>();
             this.encodeItems(facesContext, component, fetchValues);
         } else {
@@ -244,10 +244,11 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
         }
     }
 
-    public void encodeItem(FacesContext facesContext, AbstractAutocomplete comboBox, Object item, AutocompleteEncodeStrategy strategy) throws IOException {
+    public void encodeItem(FacesContext facesContext, AbstractAutocomplete comboBox, Object item,
+                           AutocompleteEncodeStrategy strategy) throws IOException {
         strategy.encodeItemBegin(facesContext, comboBox);
         ResponseWriter writer = facesContext.getResponseWriter();
-        
+
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-au-option rf-au-font rf-au-input", null);
 
         if (comboBox.getChildCount() > 0) {
@@ -269,7 +270,7 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
         }
         strategy.encodeItemEnd(facesContext, comboBox);
     }
-    
+
     private AutocompleteEncodeStrategy getStrategy(UIComponent component) {
         AbstractAutocomplete comboBox = (AbstractAutocomplete) component;
         if (comboBox.getLayout() != null) {
@@ -288,21 +289,21 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
 
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
-        AbstractAutocomplete autocomplete = (AbstractAutocomplete)component;
-    	if (InputUtils.isDisabled(autocomplete)) {
+        AbstractAutocomplete autocomplete = (AbstractAutocomplete) component;
+        if (InputUtils.isDisabled(autocomplete)) {
             return;
         }
         Map<String, String> requestParameters = context.getExternalContext().getRequestParameterMap();
         Object value = requestParameters.get(component.getClientId(context) + "Value");
         if (value != null) {
-            if(autocomplete.getConverter() != null){
+            if (autocomplete.getConverter() != null) {
                 value = autocomplete.getConverter().getAsObject(context, component, value.toString());
             }
             autocomplete.setSubmittedValue(value);
         }
         super.doDecode(context, component);
 
-        
+
         if (requestParameters.get(component.getClientId(context) + ".ajax") != null) {
             PartialViewContext pvc = context.getPartialViewContext();
             pvc.getRenderIds().add(

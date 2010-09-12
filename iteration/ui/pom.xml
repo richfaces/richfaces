@@ -53,9 +53,12 @@
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>maven-cdk-plugin</artifactId>
             </plugin>
-       </plugins>
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+        </plugins>
     </build>
-    
+
     <scm>
         <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/iteration/datascroller/impl</connection>
         <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/iteration/datascroller/impl</developerConnection>

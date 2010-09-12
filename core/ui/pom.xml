@@ -54,9 +54,12 @@
                 <groupId>org.richfaces.cdk</groupId>
                 <artifactId>maven-cdk-plugin</artifactId>
             </plugin>
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
         </plugins>
     </build>
-    
+
     <scm>
         <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/core/ui
         </connection>

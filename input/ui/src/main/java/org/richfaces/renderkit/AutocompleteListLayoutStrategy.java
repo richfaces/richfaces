@@ -31,7 +31,7 @@ public class AutocompleteListLayoutStrategy extends AbstractAutocompleteLayoutSt
     }
     
     public void encodeItemBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    	ResponseWriter writer = facesContext.getResponseWriter();
+        ResponseWriter writer = facesContext.getResponseWriter();
         writer.startElement(HtmlConstants.LI_ELEMENT, component);
     }
     

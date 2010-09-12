@@ -59,8 +59,8 @@ public class BehaviorsTagHandlerDelegateFactoryImpl extends TagHandlerDelegateFa
             
             if (isMyFaces) {
                 //TODO - RF M3 workaround for https://jira.jboss.org/browse/RF-9025 / https://issues.apache.org/jira/browse/MYFACES-2888
-                LOGGER.warn("MyFaces implementation of JavaServer Faces detected. " +
-                		"Wrapping of components using RichFaces behaviors (a4j:ajax etc.) won't work!");
+                LOGGER.warn("MyFaces implementation of JavaServer Faces detected. "
+                    + "Wrapping of components using RichFaces behaviors (a4j:ajax etc.) won't work!");
             }
         } else {
             LOGGER.warn("Cannot detect Mojarra vs MyFaces implementation of JavaServer Faces");

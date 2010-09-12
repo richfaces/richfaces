@@ -33,4 +33,13 @@
     <artifactId>richfaces-ui-common-api</artifactId>
     <name>Richfaces UI Components: Common API</name>
     <packaging>jar</packaging>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+    
 </project>

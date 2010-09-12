@@ -38,11 +38,10 @@
     <build>
         <plugins>
             <plugin>
-               <!-- Checkstyle only required here because suppressions needed -->
-               <artifactId>maven-checkstyle-plugin</artifactId>
-               <configuration>
-                   <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
-               </configuration>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <suppressionsLocation>${project.basedir}/richfaces-suppressions.xml</suppressionsLocation>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.richfaces.cdk</groupId>

@@ -52,7 +52,7 @@ public class AutocompleteDivLayoutStrategy extends AbstractAutocompleteLayoutStr
     }
     
     public void encodeItemBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    	ResponseWriter writer = facesContext.getResponseWriter();
+        ResponseWriter writer = facesContext.getResponseWriter();
         writer.startElement(HtmlConstants.DIV_ELEM, component);
     }
     

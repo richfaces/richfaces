@@ -30,6 +30,14 @@
     <name>Richfaces UI Components: Core API</name>
     <packaging>jar</packaging>
 
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+    
     <dependencies>
         <!-- runtime -->
         <dependency>

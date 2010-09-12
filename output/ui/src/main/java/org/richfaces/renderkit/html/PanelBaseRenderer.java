@@ -21,14 +21,13 @@
 
 package org.richfaces.renderkit.html;
 
-import java.io.IOException;
+import org.richfaces.component.UIPanel;
+import org.richfaces.renderkit.RendererBase;
 
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-
-import org.richfaces.component.UIPanel;
-import org.richfaces.renderkit.RendererBase;
+import java.io.IOException;
 
 /**
  * @author amarkhel
@@ -39,12 +38,12 @@ public class PanelBaseRenderer extends RendererBase {
 
     public PanelBaseRenderer() {
     }
-    
+
     public void renderHeaderFacet(FacesContext context, UIComponent component) throws IOException {
-    	UIComponent headerFacet = component.getFacet("header");
-    	headerFacet.encodeAll(context);
+        UIComponent headerFacet = component.getFacet("header");
+        headerFacet.encodeAll(context);
     }
-    
+
     @Override
     protected Class<? extends UIComponent> getComponentClass() {
         return UIPanel.class;
