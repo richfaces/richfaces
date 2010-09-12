@@ -11,6 +11,16 @@
     </behavior>
 
     <component>
+        <component-type>org.richfaces.TabPanel</component-type>
+        <component-class>org.richfaces.component.html.HtmlTabPanel</component-class>
+    </component>
+
+    <component>
+        <component-type>org.richfaces.Tab</component-type>
+        <component-class>org.richfaces.component.html.HtmlTab</component-class>
+    </component>
+
+    <component>
         <component-type>org.richfaces.CollapsiblePanel</component-type>
         <component-class>org.richfaces.component.html.HtmlCollapsiblePanel</component-class>
         <property>
@@ -682,6 +692,17 @@
             <component-family>org.richfaces.TogglePanelTitledItem</component-family>
             <renderer-type>org.richfaces.AccordionItem</renderer-type>
             <renderer-class>org.richfaces.renderkit.html.AccordionItemRenderer</renderer-class>
+        </renderer>
+
+        <renderer>
+            <component-family>org.richfaces.TabPanel</component-family>
+            <renderer-type>org.richfaces.TabPanel</renderer-type>
+            <renderer-class>org.richfaces.renderkit.html.TabPanelRenderer</renderer-class>
+        </renderer>
+        <renderer>
+            <component-family>org.richfaces.TogglePanelTitledItem</component-family>
+            <renderer-type>org.richfaces.Tab</renderer-type>
+            <renderer-class>org.richfaces.renderkit.html.TabRenderer</renderer-class>
         </renderer>
         <renderer>
             <component-family>org.richfaces.Panel</component-family>

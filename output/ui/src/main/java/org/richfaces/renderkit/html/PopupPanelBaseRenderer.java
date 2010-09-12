@@ -218,7 +218,7 @@ public class PopupPanelBaseRenderer extends RendererBase {
         return null;
     }
 
-	public Map<String, Object> getHandledVisualOptions(AbstractPopupPanel panel) {
+    public Map<String, Object> getHandledVisualOptions(AbstractPopupPanel panel) {
         String options = panel.getVisualOptions();
         Map<String, Object> result;
         result = prepareVisualOptions(options, panel);
