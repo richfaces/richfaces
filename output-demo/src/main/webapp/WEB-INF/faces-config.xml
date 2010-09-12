@@ -38,6 +38,10 @@
             <from-outcome>collapsiblePanel</from-outcome>
             <to-view-id>/examples/collapsiblePanel.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>tabPanel</from-outcome>
+            <to-view-id>/examples/tabPanel.xhtml</to-view-id>
+        </navigation-case>
 
         <!-- QUnit -->
         <navigation-case>
@@ -59,6 +63,10 @@
         <navigation-case>
             <from-outcome>qunit/collapsiblePanel</from-outcome>
             <to-view-id>/qunit/collapsiblePanel.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>qunit/tabPanel</from-outcome>
+            <to-view-id>/qunit/tabPanel.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>
