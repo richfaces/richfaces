@@ -100,10 +100,11 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>2.3</version>
+                    <version>2.5</version>
                     <configuration>
-                        <configLocation>richfaces-checkstyle/richfaces-checkstyle.xml
-                        </configLocation>
+                        <configLocation>richfaces-checkstyle/richfaces-checkstyle.xml</configLocation>
+                        <logViolationsToConsole>true</logViolationsToConsole>
+                        <violationSeverity>error</violationSeverity>
                     </configuration>
                     <executions>
                         <execution>
