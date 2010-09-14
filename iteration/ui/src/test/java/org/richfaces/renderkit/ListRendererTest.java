@@ -73,7 +73,7 @@ public class ListRendererTest {
         HtmlElement list = (HtmlElement) nodes.get(0);
         assertEquals("ol", list.getNodeName());
         assertEquals("rf-olst", list.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
-        verifySimpleListItems(list, "rf-olst-i");
+        verifySimpleListItems(list, "rf-olst-itm");
     }
 
     @Test
@@ -86,7 +86,7 @@ public class ListRendererTest {
 
         assertEquals("ul", list.getNodeName());
         assertEquals("rf-ulst", list.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
-        verifySimpleListItems((HtmlElement) list, "rf-ulst-i");
+        verifySimpleListItems((HtmlElement) list, "rf-ulst-itm");
     }
 
     @Test
@@ -140,7 +140,7 @@ public class ListRendererTest {
 
             HtmlElement item = (HtmlElement) termItems.get(i);
             assertEquals("dt", item.getNodeName());
-            assertEquals("rf-dlst-t", item.getAttribute("class"));
+            assertEquals("rf-dlst-trm", item.getAttribute("class"));
             assertEquals(data.getTerm(), item.asText());
         }
 
@@ -149,7 +149,7 @@ public class ListRendererTest {
 
             HtmlElement item = (HtmlElement) definitionItems.get(i);
             assertEquals("dd", item.getNodeName());
-            assertEquals("rf-dlst-d", item.getAttribute("class"));
+            assertEquals("rf-dlst-dfn", item.getAttribute("class"));
             assertEquals(data.getDefinition(), item.asText());
         }
     }
