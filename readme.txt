@@ -46,7 +46,8 @@ just execute
 	* mvn clean package -Pgae -Denforcer.skip=true
 (enforcer skipped as resource plugin using snapshot plugin)
 
-And now you're ready to publish the application to GAE. just use appcfg as for any other one like described at google documentation.  
+And now you're ready to publish the application to GAE. just use appcfg as for any other one like described at google documentation. Do not forget to register your 
+own application name and rename the demo application accordingly. 
 
 more details about the resource plugin(it could be highly usefull not only in case of GAE usage but for general cases like serving resources at separate content systems) - 
 will be published at our wiki and announced at RichFaces usage space. 
