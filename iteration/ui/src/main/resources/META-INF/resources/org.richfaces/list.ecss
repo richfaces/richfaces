@@ -1,4 +1,4 @@
-.rf-ulst-i, .rf-olst-i, .rf-dlst-t, .rf-dlst-d {
+.rf-ulst-itm, .rf-olst-itm, .rf-dlst-trm, .rf-dlst-dfn {
 	font-size: '#{richSkin.generalSizeFont}';
 	font-family: '#{richSkin.generalFamilyFont}';
 	color: '#{richSkin.generalTextColor}';

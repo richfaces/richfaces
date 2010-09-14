@@ -133,7 +133,7 @@ public abstract class ListRendererBase extends Renderer {
                 }
 
                 rendererUtils.writeAttribute(writer, HtmlConstants.CLASS_ATTRIBUTE,
-                    HtmlUtil.concatClasses(helper.getRowClass(), helper.getColumnClass(), "rf-dlst-t"));
+                    HtmlUtil.concatClasses(helper.getRowClass(), helper.getColumnClass(), "rf-dlst-trm"));
                 termFacet.encodeAll(context);
                 writer.endElement(HtmlConstants.DT_ELEMENT);
             }
@@ -145,7 +145,7 @@ public abstract class ListRendererBase extends Renderer {
             }
 
             rendererUtils.writeAttribute(writer, HtmlConstants.CLASS_ATTRIBUTE,
-                HtmlUtil.concatClasses(helper.getRowClass(), helper.getColumnClass(), "rf-dlst-d"));
+                HtmlUtil.concatClasses(helper.getRowClass(), helper.getColumnClass(), "rf-dlst-dfn"));
             renderHandlers(context, sequence);
             rendererUtils.encodeChildren(context, sequence);
             writer.endElement(HtmlConstants.DD_ELEMENT);
@@ -191,9 +191,9 @@ public abstract class ListRendererBase extends Renderer {
 
     }
 
-    private ItemsEncoder unorderedListItemsEncoder = new SimpleItemsEncoder("rf-ulst-i");
+    private ItemsEncoder unorderedListItemsEncoder = new SimpleItemsEncoder("rf-ulst-itm");
 
-    private ItemsEncoder orderedListItemsEncoder = new SimpleItemsEncoder("rf-olst-i");
+    private ItemsEncoder orderedListItemsEncoder = new SimpleItemsEncoder("rf-olst-itm");
 
     private ItemsEncoder definitionItemsEncoder = new DefinitionItemsEncoder();
 
