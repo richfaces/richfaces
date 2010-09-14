@@ -20,36 +20,40 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.richfaces.component;
+(function ($, rf) {
+
+    rf.ui = rf.ui || {};
+
+    rf.ui.TabPanel = rf.ui.TogglePanel.extendClass({
+        // class name
+        name:"TabPanel",
+
+        /**
+         * @class TabPanel
+         * @name TabPanel
+         *
+         * @constructor
+         * @param {String} componentId - component id
+         * @param {Hash} options - params
+         * */
+        init : function (componentId, options) {
+            rf.ui.TogglePanel.call(this, componentId, options);
+            this.items = [];
+
+            this.isKeepHeight = options["isKeepHeight"] || false
+        },
+
+        /***************************** Public Methods  ****************************************************************/
 
 
 
-/**
- * @author akolonitsky
- * @since 2010-08-13
- */
-public class UITogglePanelTitledItem extends AbstractTogglePanelTitledItem {
-
-    public enum PropertyKeys {
-        disabled,
-        header
-    }
-
-    public boolean isDisabled() {
-        return Boolean.valueOf(String.valueOf(getStateHelper().eval(PropertyKeys.disabled)));
-    }
-
-    public void setDisabled(boolean disabled) {
-        getStateHelper().put(PropertyKeys.disabled, disabled);
-    }
-
-    public String getHeader() {
-        return (String) getStateHelper().eval(PropertyKeys.header, getName());
-    }
-
-    public void setHeader(String header) {
-        getStateHelper().put(PropertyKeys.header, header);
-    }
+        /***************************** Private Methods ********************************************************/
 
 
-}
+        destroy: function () {
+            rf.Event.unbindById(this.id, "."+this.namespace);
+
+            rf.ui.TogglePanel.destroy.call(this);
+        }
+    });
+})(jQuery, RichFaces);

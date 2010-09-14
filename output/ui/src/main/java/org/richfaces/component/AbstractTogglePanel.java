@@ -459,9 +459,9 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
     }
     
     public AbstractTogglePanelItem getItemByIndex(final int index) {
-        List<AbstractTogglePanelItem> children = getRenderedChildren();
+        List<AbstractTogglePanelItem> children = getRenderedItems();
         if (isCycledSwitching()) {
-            int size = getRenderedChildren().size();
+            int size = getRenderedItems().size();
             return children.get((size + index) % size);
         } else if (index < 0 || index >= children.size()) {
             return null;
@@ -470,7 +470,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
         }
     }
 
-    private List<AbstractTogglePanelItem> getRenderedChildren() {
+    public List<AbstractTogglePanelItem> getRenderedItems() {
         List<AbstractTogglePanelItem> res = new ArrayList<AbstractTogglePanelItem>(getChildCount());
         for (UIComponent child : getChildren()) {
             if (child.isRendered() && child instanceof AbstractTogglePanelItem) {
@@ -516,7 +516,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
     }
 
     public AbstractTogglePanelItem getLastItem() {
-        return getItemByIndex(getRenderedChildren().size() - 1);
+        return getItemByIndex(getRenderedItems().size() - 1);
     }
 
     public int getChildIndex(String name) {
@@ -524,7 +524,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
             throw new IllegalArgumentException("Name is required parameter.");
         }
         
-        List<AbstractTogglePanelItem> items = getRenderedChildren();
+        List<AbstractTogglePanelItem> items = getRenderedItems();
         for (int ind = 0; ind < items.size(); ind++) {
             if (name.equals(items.get(ind).getName())) {
                 return ind;
