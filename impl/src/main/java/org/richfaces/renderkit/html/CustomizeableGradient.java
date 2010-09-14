@@ -47,7 +47,7 @@ import org.richfaces.skin.Skin;
  *         created 02.02.2007
  */
 @DynamicResource
-public class CustomizeableGradient extends Java2Dresource {
+public abstract class CustomizeableGradient extends Java2Dresource {
 
     private static final String BASE_COLOR = "baseColor";
 
