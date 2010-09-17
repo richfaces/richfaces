@@ -21,6 +21,9 @@
 			richfaces.MyComponent = function(componentId, [options]) {
 				// call constructor of parent class
 				$super.constructor.call(this, componentId, [options]);
+				// call this.attachToDom method to attach component to dom element
+				// its required for the client side API calls and to clean up after ajax request or page unload:
+				// destroy method will be called if component attached to dom
 			};
 
 			// define private method
@@ -37,7 +40,14 @@
 			$.extend(richfaces.MyComponent.prototype, (function (params) {
 				return {
 		 				name:"MyComponent",
-						f:function (){alert("hello");
+						f:function (){alert("hello"),
+						// destroy method definition for clean up
+						destroy: function () {
+							// clean up code here
+							
+							// call parent's destroy method
+							$super.destroy.call(this);
+						}
 					}
 				};
 			})(params));
@@ -181,7 +191,9 @@
 				return result.join(', ');
 			},
 			
-			// TODO: add jsdocs and qunit tests
+			/** TODO: add jsdocs and qunit tests
+			 * 
+			 */
 			getValue: function() {
 				return;
 			},
@@ -201,6 +213,8 @@
 
 			/**
 		     * Attach component object to DOM element by component id, DOM element or jQuery object and returns the element
+		     * Its required for the client side API calls and to clean up after ajax request or document unload by
+		     * calling destroy method
 		     *
 		     * @function
 		     * @name RichFaces.BaseComponent#attachToDom
