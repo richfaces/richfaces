@@ -76,8 +76,8 @@ $.extend(RichFaces.Event, {
 		inputEventHandlers["blur"+this.namespace] = onBlur;
 		inputEventHandlers["click"+this.namespace] = onClick;
 		inputEventHandlers[($.browser.opera ? "keypress" : "keydown")+this.namespace] = onKeyDown;
+		inputEventHandlers["change"+this.namespace] = function (event) {if (this.focused) {event.stopPropagation()}};
 		rf.Event.bindById(this.fieldId, inputEventHandlers, this);
-		//inputEventHandlers["change"+this.namespace] = function (event) {if (this.focused) {event}};
 		
 		inputEventHandlers = {};
 		inputEventHandlers["mousedown"+this.namespace] = onSelectMouseDown;
