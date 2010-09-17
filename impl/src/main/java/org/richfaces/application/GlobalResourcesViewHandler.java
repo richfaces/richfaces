@@ -19,22 +19,21 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.context;
+package org.richfaces.application;
 
+import java.io.ObjectStreamException;
 import java.util.List;
 
 import javax.el.ELContext;
+import javax.el.ValueExpression;
 import javax.faces.application.Application;
+import javax.faces.application.ViewHandler;
+import javax.faces.application.ViewHandlerWrapper;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-import javax.faces.event.PhaseEvent;
-import javax.faces.event.PhaseId;
-import javax.faces.event.PhaseListener;
 
-import org.richfaces.application.CoreConfiguration;
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.application.configuration.ConfigurationService;
 import org.richfaces.el.BaseReadOnlyValueExpression;
 
@@ -42,11 +41,9 @@ import org.richfaces.el.BaseReadOnlyValueExpression;
  * @author Nick Belaevski
  * 
  */
-public class SkinningResourcesPhaseListener implements PhaseListener {
+public class GlobalResourcesViewHandler extends ViewHandlerWrapper {
 
-    private static final long serialVersionUID = 7430448731396547419L;
-
-    private static final String SKINNING_RESOURCE_MARKER = SkinningResourcesPhaseListener.class.getName();
+    private static final String SKINNING_RESOURCE_ID = "__rf_skinning_resource";
 
     private static final String CLASSES_ECSS = "_classes.ecss";
 
@@ -71,11 +68,25 @@ public class SkinningResourcesPhaseListener implements PhaseListener {
 
     }
 
+    private ViewHandler viewHandler;
+
+    public GlobalResourcesViewHandler(ViewHandler viewHandler) {
+        super();
+        this.viewHandler = viewHandler;
+    }
+    
+    @Override
+    public ViewHandler getWrapped() {
+        return viewHandler;
+    }
+
     private static final class SkinningResourceNameExpression extends BaseReadOnlyValueExpression {
 
-        private static final long serialVersionUID = 7520575496522682120L;
+        public static final ValueExpression INSTANCE = new SkinningResourceNameExpression();
 
-        public SkinningResourceNameExpression() {
+        private static final long serialVersionUID = 7520575496522682120L;
+        
+        private SkinningResourceNameExpression() {
             super(String.class);
         }
 
@@ -99,13 +110,19 @@ public class SkinningResourcesPhaseListener implements PhaseListener {
             return CONTROLS_SKINNING;
         }
         
+        private Object readResolve() throws ObjectStreamException {
+            return INSTANCE;
+        }
+        
     }
 
     private static final class SkinningResourceRenderedExpression extends BaseReadOnlyValueExpression {
 
-        private static final long serialVersionUID = -1579256471133808739L;
+        public static final ValueExpression INSTANCE = new SkinningResourceRenderedExpression();
 
-        public SkinningResourceRenderedExpression() {
+        private static final long serialVersionUID = -1579256471133808739L;
+        
+        private SkinningResourceRenderedExpression() {
             super(Boolean.TYPE);
         }
 
@@ -119,49 +136,52 @@ public class SkinningResourcesPhaseListener implements PhaseListener {
                 configurationService.getBooleanValue(facesContext, CoreConfiguration.Items.standardControlsSkinningClasses);
         }
         
+        private Object readResolve() throws ObjectStreamException {
+            return INSTANCE;
+        }
     }
 
     private UIComponent createComponentResource(FacesContext context) {
         Application application = context.getApplication();
+        
+        //renderkit id is not set on FacesContext at this point, so calling 
+        //application.createComponent(context, componentType, rendererType) causes NPE
+        UIComponent resourceComponent = application.createComponent(UIOutput.COMPONENT_TYPE);
+
         String rendererType = application.getResourceHandler().getRendererTypeForResourceName(BOTH_SKINNING);
-        UIComponent resourceComponent = application.createComponent(context, UIOutput.COMPONENT_TYPE, rendererType);
+        resourceComponent.setRendererType(rendererType);
 
         return resourceComponent;
     }
     
-    public void afterPhase(PhaseEvent event) {
-        //not used
-    }
-
-    public void beforePhase(PhaseEvent event) {
-        //it's important for skinning resources to come *before* any users/components stylesheet, 
-        //that's why they are added via phase listener
+    @Override
+    public UIViewRoot createView(FacesContext context, String viewId) {
+        UIViewRoot viewRoot = super.createView(context, viewId);
         
-        FacesContext context = event.getFacesContext();
-        UIViewRoot viewRoot = context.getViewRoot();
-        
-        assert viewRoot != null;
-
-        boolean skinnigResourceFound = false;
+        boolean skinningResourceFound = false;
         List<UIComponent> resources = viewRoot.getComponentResources(context, HEAD);
         for (UIComponent resource : resources) {
-            if (resource.getAttributes().get(SKINNING_RESOURCE_MARKER) != null) {
-                skinnigResourceFound = true;
+            if (SKINNING_RESOURCE_ID.equals(resource.getId())) {
+                skinningResourceFound = true;
                 break;
             }
         }
 
-        if (!skinnigResourceFound) {
+        if (!skinningResourceFound) {
+            //it's important for skinning resources to come *before* any users/components stylesheet, 
+            //that's why they are *always* added here
             UIComponent basic = createComponentResource(context);
-            basic.setValueExpression("name", new SkinningResourceNameExpression());
-            basic.setValueExpression("rendered", new SkinningResourceRenderedExpression());
-            basic.getAttributes().put(SKINNING_RESOURCE_MARKER, Boolean.TRUE);
+            basic.setValueExpression("name", SkinningResourceNameExpression.INSTANCE);
+            basic.setValueExpression("rendered", SkinningResourceRenderedExpression.INSTANCE);
+            basic.setId(SKINNING_RESOURCE_ID);
             
+            //workaround for Mojarra: RF-8937
+            boolean initialProcessingEvents = context.isProcessingEvents();
+            context.setProcessingEvents(false);
             viewRoot.addComponentResource(context, basic);
+            context.setProcessingEvents(initialProcessingEvents);
         }
-    }
 
-    public PhaseId getPhaseId() {
-        return PhaseId.RENDER_RESPONSE;
+        return viewRoot;
     }
 }

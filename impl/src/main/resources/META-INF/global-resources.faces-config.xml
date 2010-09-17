@@ -2,7 +2,9 @@
 
 <faces-config xmlns="http://java.sun.com/xml/ns/javaee" version="2.0">	
 	<name>richfaces</name>
-	<lifecycle>
-		<phase-listener>org.richfaces.context.SkinningResourcesPhaseListener</phase-listener>
-	</lifecycle>
+    
+    <application>
+        <view-handler>org.richfaces.application.GlobalResourcesViewHandler</view-handler>
+    </application>
+
 </faces-config>
