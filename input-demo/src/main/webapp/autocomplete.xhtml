@@ -3,7 +3,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:input="http://richfaces.org/input">
+	xmlns:input="http://richfaces.org/input"
+	xmlns:a4j="http://richfaces.org/a4j">
 <f:view contentType="text/html" />
 
 <h:head>
@@ -18,15 +19,21 @@
 			<f:selectItem itemValue="client"/>
 			<f:selectItem itemValue="cachedAjax"/>
 			<f:selectItem itemValue="ajax"/>
-		</h:selectOneMenu>
-		<div style="height: 300px; width: 300px; overflow: auto;">Text
+		</h:selectOneMenu><br/>
+		<div style="height: 300px; width: 300px; overflow: auto; float:left;">Text
 		block text block text block text block text block text block text
 		block text block
 
-		<input:autocomplete clientFilter="if(subString.length>1) if(value.indexOf(subString)!=-1) return true;" mode="#{autoCompleteBean.mode}" minChars="2" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" fetchValue="#{country.name}" showButton="true">
+		<input:autocomplete id="myAutocomplete" clientFilter="if(subString.length>1) if(value.indexOf(subString)!=-1) return true;" mode="#{autoCompleteBean.mode}" minChars="2" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" fetchValue="#{country.name}" showButton="true"
+		 onchange="return onEvent.call(this, event);" onselectitem="return onEvent.call(this, event);" onblur="return onEvent.call(this, event);" onfocus="return onEvent.call(this, event);">
 			#{country.name} #{country.iso} #{country.domain}
 		</input:autocomplete>
-
+		<script type="text/javascript">
+			onEvent = function(event, element, data){
+				RichFaces.log.info("jQuery Event: "+(event instanceof jQuery.Event)+"; event: "+event.type+"; data:"+(data || (event['rich']||{})['data'])+"; this.id:"+this.id+"; component:"+ (event['rich']||{})['component']||RichFaces.$(this.id));
+			};
+			RichFaces.Event.bindById("form:myAutocomplete", "selectitem change blur focus", onEvent);
+		</script>
 		<br />
 		<select style="width: 200px" name="select">
 			<option>ccccc</option>
@@ -59,6 +66,9 @@
 		block text block text block text block text block text block text
 		block text block text block text block text block text block text
 		block text block text block
+		</div>
+		<div>
+			<a4j:log mode="inline"></a4j:log>
 		</div>
 	</h:form>
 </h:body>
