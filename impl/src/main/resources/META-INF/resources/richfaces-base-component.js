@@ -21,9 +21,13 @@
 			richfaces.MyComponent = function(componentId, [options]) {
 				// call constructor of parent class
 				$super.constructor.call(this, componentId, [options]);
+				
+				<span style="color:red">
 				// call this.attachToDom method to attach component to dom element
 				// its required for the client side API calls and to clean up after ajax request or page unload:
 				// destroy method will be called if component attached to dom
+				this.attachToDom(componentId);
+				</span>
 			};
 
 			// define private method
