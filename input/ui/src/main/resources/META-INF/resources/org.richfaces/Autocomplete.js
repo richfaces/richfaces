@@ -168,7 +168,7 @@
 				var index = this.items.index(element);
 				selectItem.call(this, event, index);
 			} else {
-				this.__onChangeValue(event, getSelectedItemValue.call(this));
+				this.__onEnter(event);
 				rf.Selection.setCaretTo(rf.getDomElement(this.fieldId));
 				this.hide(event);
 			}
@@ -431,10 +431,9 @@
  			__onBeforeShow: function (event) {
  			},
  			__onEnter: function (event) {
- 				this.__onChangeValue(event, getSelectedItemValue.call(this));
-				//rf.getDomElement(this.fieldId).blur();
-				//rf.Selection.setCaretTo(rf.getDomElement(this.fieldId));
-				//rf.getDomElement(this.fieldId).focus();
+ 				var value = getSelectedItemValue.call(this);
+ 				this.__onChangeValue(event, value);
+ 				this.invokeEvent("selectitem", rf.getDomElement(this.fieldId), event, value);
  			},
  			__onShow: function (event) {
  				if (this.options.selectFirst) {

@@ -53,6 +53,7 @@ import org.richfaces.component.AutocompleteLayout;
 import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.component.util.InputUtils;
 import org.richfaces.renderkit.util.RendererUtils;
+import org.richfaces.renderkit.util.RendererUtils.ScriptHashVariableWrapper;
 
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterators;
@@ -97,11 +98,14 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
         utils.addToScriptHash(options, "disabled", attributes.get("disabled"), "false");
         utils.addToScriptHash(options, "selectFirst", attributes.get("selectFirst"), "true");
         utils.addToScriptHash(options, "tokens", attributes.get("tokens"));
-        utils.addToScriptHash(options, "onbegin", attributes.get("onbegin"));
-        utils.addToScriptHash(options, "oncomplete", attributes.get("oncomplete"));
-        utils.addToScriptHash(options, "onerror", attributes.get("onerror"));
-        utils.addToScriptHash(options, "onbeforedomupdate", attributes.get("onbeforedomupdate"));
-        utils.addToScriptHash(options, "onchange", attributes.get("onchange"));
+        utils.addToScriptHash(options, "onbegin", attributes.get("onbegin"), null, ScriptHashVariableWrapper.EVENT_HANDLER);
+        utils.addToScriptHash(options, "oncomplete", attributes.get("oncomplete"), null, ScriptHashVariableWrapper.EVENT_HANDLER);
+        utils.addToScriptHash(options, "onerror", attributes.get("onerror"), null, ScriptHashVariableWrapper.EVENT_HANDLER);
+        utils.addToScriptHash(options, "onbeforedomupdate", attributes.get("onbeforedomupdate"), null, ScriptHashVariableWrapper.EVENT_HANDLER);
+        utils.addToScriptHash(options, "onchange", attributes.get("onchange"), null, ScriptHashVariableWrapper.EVENT_HANDLER);
+        utils.addToScriptHash(options, "onselectitem", attributes.get("onselectitem"), null, ScriptHashVariableWrapper.EVENT_HANDLER);
+        utils.addToScriptHash(options, "onfocus", attributes.get("onfocus"), null, ScriptHashVariableWrapper.EVENT_HANDLER);
+        utils.addToScriptHash(options, "onblur", attributes.get("onblur"), null, ScriptHashVariableWrapper.EVENT_HANDLER);        
         utils.addToScriptHash(options, "filterFunction", getClientFilterFunction(component));
         String mode = (String) attributes.get("mode");
         if (mode != null) {

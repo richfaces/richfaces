@@ -177,12 +177,9 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
 
     @Attribute(events = @EventName("focus"))
     public abstract String getOnfocus();
-
-    @Attribute(events = @EventName("listblur"))
-    public abstract String getOnlistblur();
-
-    @Attribute(events = @EventName("listfocus"))
-    public abstract String getOnlistfocus();
+    
+    @Attribute(events = @EventName("selectitem"))
+    public abstract String getOnselectitem();
 
     @Attribute(events = @EventName("begin"))
     public abstract String getOnbegin();

@@ -77,6 +77,7 @@ $.extend(RichFaces.Event, {
 		inputEventHandlers["click"+this.namespace] = onClick;
 		inputEventHandlers[($.browser.opera ? "keypress" : "keydown")+this.namespace] = onKeyDown;
 		rf.Event.bindById(this.fieldId, inputEventHandlers, this);
+		//inputEventHandlers["change"+this.namespace] = function (event) {if (this.focused) {event}};
 		
 		inputEventHandlers = {};
 		inputEventHandlers["mousedown"+this.namespace] = onSelectMouseDown;
@@ -107,17 +108,29 @@ $.extend(RichFaces.Event, {
 	};
 	
 	var onFocus = function (event) {
-		this.focused = true;
+		if (!this.focused) {
+			this.__focusValue = this.getInputValue();
+			this.focused = true;
+			this.invokeEvent("focus", rf.getDomElement(this.fieldId), event);
+		}
 	};
 	
 	var onBlur = function (event) {
 		if (this.isMouseDown) {
 			rf.getDomElement(this.fieldId).focus();
 			this.isMouseDown = false;
-		} else if (this.isVisible && !this.isMouseDown) {
-			var _this = this;
-			this.timeoutId = window.setTimeout(function(){_this.hide();}, 200);
-			this.focused=false;
+		} else if (!this.isMouseDown) {
+			if (this.isVisible) {
+				var _this = this;
+				this.timeoutId = window.setTimeout(function(){_this.hide();}, 200);
+			}
+			if (this.focused) {
+				this.focused=false;
+				this.invokeEvent("blur", rf.getDomElement(this.fieldId), event);
+				if (this.__focusValue != this.getInputValue()) {
+					this.invokeEvent("change", rf.getDomElement(this.fieldId), event);
+				}
+			}
 		}
 	};
 	
