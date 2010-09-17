@@ -4,6 +4,8 @@
 
 
 (function ($, richfaces, params) {
+	
+	var RICH_CONTAINER = "richfaces";
 
 	richfaces.blankFunction = function (){}; //TODO: add it to global library
 
@@ -50,6 +52,7 @@
      * */
 	richfaces.BaseComponent = function(componentId) {
 		this.id = componentId;
+		this.options = {};
 	};
 
 	var $p = {};
@@ -149,7 +152,7 @@
         $.extend(DerivedClass.prototype, methods);
 
         return DerivedClass;
-    },
+    };
 
 	$.extend(richfaces.BaseComponent.prototype, (function (params) {
 		return {
@@ -176,6 +179,11 @@
 				}
 				result[result.length] = this.name;
 				return result.join(', ');
+			},
+			
+			// TODO: add jsdocs and qunit tests
+			getValue: function() {
+				return;
 			},
 
 			/**
@@ -204,7 +212,7 @@
 				source = source || this.id;
 				var element = richfaces.getDomElement(source);
 				if (element) {
-					element["richfaces"] = element["richfaces"] || {};
+					element[RICH_CONTAINER] = element[RICH_CONTAINER] || {};
 					element.richfaces.component = this;
 				}
 				return element;
@@ -222,6 +230,44 @@
 				source = source || this.id;
 				var element = richfaces.getDomElement(source);
 				element && element.richfaces && (element.richfaces.component=null);
+			},
+			
+			/** TODO: add jsdocs and qunit tests
+			 * 
+			 */
+			invokeEvent: function(eventType, element, event, data) {
+				var handlerResult, result;
+				var eventObj = $.extend({}, event, {type: eventType});
+
+				if (!eventObj)
+				{
+					if( document.createEventObject ) 
+					{
+						eventObj = document.createEventObject();
+						eventObj.type = eventType;
+					}
+					else if( document.createEvent )
+					{
+						eventObj = document.createEvent('Events');
+						eventObj.initEvent( eventType, true, false );
+					}
+				}
+				eventObj[RICH_CONTAINER] = {component:this, data: data};
+				
+				var eventHandler = this.options['on'+eventType];
+
+				if (typeof eventHandler == "function")
+				{	
+					handlerResult = eventHandler.call(element, eventObj);
+				}
+				
+				if (richfaces.Event) {
+					result = richfaces.Event.callHandler(this, eventType, data);
+				}
+				
+				if (result!=false && handlerResult!=false) result=true;
+				
+				return result;
 			},
 
 			/**
