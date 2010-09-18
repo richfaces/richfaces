@@ -653,7 +653,14 @@
             <property-name>onmouseup</property-name>
             <property-class>java.lang.String</property-class>
         </property>
-
+    </component>
+    <component>
+        <component-type>org.richfaces.TabPanel</component-type>
+        <component-class>org.richfaces.component.html.HtmlTabPanel</component-class>
+    </component>
+    <component>
+        <component-type>org.richfaces.TogglePanelTitledItem</component-type>
+        <component-class>org.richfaces.component.html.HtmlTab</component-class>
     </component>
 
     <render-kit>
@@ -700,7 +707,18 @@
                 <cdk:renders-children>false</cdk:renders-children>
             </renderer-extension>
         </renderer>
-    </render-kit>
+
+        <renderer>
+            <component-family>org.richfaces.TabPanel</component-family>
+            <renderer-type>org.richfaces.TabPanel</renderer-type>
+            <renderer-class>org.richfaces.renderkit.html.TabPanelRenderer</renderer-class>
+        </renderer>
+        <renderer>
+            <component-family>org.richfaces.TogglePanelTitledItem</component-family>
+            <renderer-type>org.richfaces.Tab</renderer-type>
+            <renderer-class>org.richfaces.renderkit.html.TabRenderer</renderer-class>
+        </renderer>
+	</render-kit>
 
     <faces-config-extension>
         <cdk:taglib>

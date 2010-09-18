@@ -29,6 +29,22 @@
     </tag>
 
     <tag>
+        <tag-name>tabPanel</tag-name>
+        <component>
+            <component-type>org.richfaces.TabPanel</component-type>
+            <renderer-type>org.richfaces.TabPanel</renderer-type>
+        </component>
+    </tag>
+    <tag>
+        <tag-name>tab</tag-name>
+        <component>
+            <component-type>org.richfaces.TogglePanelTitledItem</component-type>
+            <renderer-type>org.richfaces.Tab</renderer-type>
+        </component>
+    </tag>
+
+
+    <tag>
         <tag-name>collapsiblePanel</tag-name>
         <component>
             <component-type>org.richfaces.CollapsiblePanel</component-type>
