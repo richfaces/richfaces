@@ -138,7 +138,7 @@ public abstract class ClientBehavior extends ClientBehaviorBase {
           
             if (stateObject.length == 3) {
                 getStateHelper().restoreState(context, stateObject[1]);
-                restoreBindings(context, stateObject[2]);
+                this.bindings = restoreBindings(context, stateObject[2]);
 
                 clearInitialState();
             }
@@ -167,7 +167,6 @@ public abstract class ClientBehavior extends ClientBehaviorBase {
 
     // Utility for restoring bindings from state
     private static Map<String, ValueExpression> restoreBindings(FacesContext context, Object state) {
-
         if (state == null) {
             return (null);
         }
@@ -175,7 +174,7 @@ public abstract class ClientBehavior extends ClientBehaviorBase {
         Object[] values = (Object[]) state;
         String[] names = (String[]) values[0];
         Object[] states = (Object[]) values[1];
-        Map<String, ValueExpression> bindings = new HashMap<String, ValueExpression>(names.length);
+        Map<String, ValueExpression> bindings = new HashMap<String, ValueExpression>();
         for (int i = 0; i < names.length; i++) {
             bindings.put(names[i], (ValueExpression) UIComponentBase.restoreAttachedState(context, states[i]));
         }
