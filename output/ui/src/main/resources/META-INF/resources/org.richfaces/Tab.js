@@ -124,7 +124,11 @@
             var parent = this.getTogglePanel();
             delete parent.getItems()[this.index];
 
-            rf.Event.unbindById(this.id, "."+this.namespace);
+            rf.Event.unbindById(this.id);
+            
+            //TODO - optimize
+            rf.Event.unbindById(this.id + ":header:active");
+            rf.Event.unbindById(this.id + ":header:inactive");
 
             this.$super.destroy.call(this);
         }
