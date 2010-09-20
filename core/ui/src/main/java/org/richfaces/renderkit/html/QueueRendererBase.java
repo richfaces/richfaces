@@ -23,8 +23,12 @@ package org.richfaces.renderkit.html;
 
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
 
+import java.util.List;
+
+import javax.faces.application.Application;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ComponentSystemEvent;
@@ -55,6 +59,28 @@ public abstract class QueueRendererBase extends Renderer implements ComponentSys
     protected static final String NAME_ATTRIBBUTE = "name";
     protected static final Logger LOGGER = RichfacesLogger.COMPONENTS.getLogger();
 
+    private static final String QUEUE_RESOURCE_COMPONENT_RENDERER_TYPE = "org.richfaces.QueueResourceComponentRenderer";
+    private static final String QUEUE_RESOURCE_COMPONENT_TARGET = "head";
+
+    private void addQueueResourceComponent(FacesContext context) {
+        List<UIComponent> resources = context.getViewRoot().getComponentResources(context, QUEUE_RESOURCE_COMPONENT_TARGET);
+        
+        for (UIComponent resource: resources) {
+            if (QUEUE_RESOURCE_COMPONENT_RENDERER_TYPE.equals(resource.getRendererType())) {
+                return;
+            }
+        }
+        
+        Application application = context.getApplication();
+        UIComponent queueResourceComponent = application.createComponent(context, 
+            UIOutput.COMPONENT_TYPE, QUEUE_RESOURCE_COMPONENT_RENDERER_TYPE);
+        
+        //fix for JSF duplicate ID exception
+        queueResourceComponent.setId(QueueRegistry.QUEUE_SCRIPT_ID);
+        
+        context.getViewRoot().addComponentResource(context, queueResourceComponent, QUEUE_RESOURCE_COMPONENT_TARGET);
+    }
+    
     public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
         FacesContext context = FacesContext.getCurrentInstance();
         
@@ -69,6 +95,7 @@ public abstract class QueueRendererBase extends Renderer implements ComponentSys
         
         if (event instanceof PostAddToViewEvent) {
             queueRegistry.addQueue(queueName, comp);
+            addQueueResourceComponent(context);
         } else if (event instanceof PreRemoveFromViewEvent) {
             queueRegistry.removeQueue(queueName);
         }
