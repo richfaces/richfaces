@@ -41,7 +41,9 @@
             this.index = options["index"];
             this.getTogglePanel().getItems()[this.index] = this;
 
-            rf.Event.bindById(this.id + ":header", "click", this.__onHeaderClick, this)
+            //TODO - optimize this
+            rf.Event.bindById(this.id + ":header:active", "click", this.__onHeaderClick, this)
+            rf.Event.bindById(this.id + ":header:inactive", "click", this.__onHeaderClick, this)
         },
 
         /***************************** Public Methods  ****************************************************************/
@@ -70,7 +72,7 @@
          * */
         __content : function () {
             if (!this.__content_) {
-                this.__content_ = $(rf.getDomElement(this.id));
+                this.__content_ = $(rf.getDomElement(this.id + ":content"));
             }
             return this.__content_;
         },

@@ -22,6 +22,23 @@
 
 package org.richfaces.renderkit.html;
 
+import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.active;
+import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.disable;
+import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.inactive;
+import static org.richfaces.component.html.HtmlAccordion.PropertyKeys.height;
+import static org.richfaces.component.util.HtmlUtil.concatClasses;
+import static org.richfaces.component.util.HtmlUtil.concatStyles;
+import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
+
+import java.io.IOException;
+import java.util.Map;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.component.AbstractTabPanel;
 import org.richfaces.component.AbstractTogglePanel;
@@ -31,21 +48,6 @@ import org.richfaces.component.html.HtmlTab;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Map;
-
-import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.*;
-import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.active;
-import static org.richfaces.component.html.HtmlAccordion.PropertyKeys.height;
-import static org.richfaces.component.util.HtmlUtil.concatClasses;
-import static org.richfaces.component.util.HtmlUtil.concatStyles;
-import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 
 /**
  * @author akolonitsky
@@ -64,7 +66,6 @@ import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes
 public class TabPanelRenderer extends TogglePanelRenderer {
 
     private static final RenderKitUtils.Attributes HEADER_ATTRIBUTES = RenderKitUtils.attributes()
-        .generic("style", HtmlTab.PropertyKeys.headerStyle.toString())
         .generic("onclick", HtmlTab.PropertyKeys.onheaderclick.toString(), "headerclick")
         .generic("ondblclick", HtmlTab.PropertyKeys.onheaderdblclick.toString(), "headerdblclick")
         .generic("onmousedown", HtmlTab.PropertyKeys.onheadermousedown.toString(), "headermousedown")
@@ -112,9 +113,9 @@ public class TabPanelRenderer extends TogglePanelRenderer {
         w.endElement("tbody");
         w.endElement("table");
 
-        writeTopTabsControl(w, comp, "rf-tb-hdr_scroll_left rftp_hidden", "«");
-        writeTopTabsControl(w, comp, "rf-tb-hdr_tabslist rftp_hidden", "↓");
-        writeTopTabsControl(w, comp, "rf-tb-hdr_scroll_right rftp_hidden", "»");
+        writeTopTabsControl(w, comp, "rf-tb-hdr_scroll_left rftp_hidden", "\u00AB");
+        writeTopTabsControl(w, comp, "rf-tb-hdr_tabslist rftp_hidden", "\u2193");
+        writeTopTabsControl(w, comp, "rf-tb-hdr_scroll_right rftp_hidden", "\u00BB");
 
         w.endElement("div");
     }
@@ -129,33 +130,27 @@ public class TabPanelRenderer extends TogglePanelRenderer {
         return HtmlUtil.concatClasses("rf-tbp", attributeAsString(component, "styleClass"));
     }
 
-
     private void writeTopTabHeader(FacesContext context, ResponseWriter writer, AbstractTogglePanelTitledItem tab) throws IOException {
-        writer.startElement("td", tab);
-        writer.writeAttribute("id", tab.getClientId() + ":header", null);
-        writer.writeAttribute("class", concatClasses("rf-tb-hdr", attributeAsString(tab, HtmlTab.PropertyKeys.headerClass)), null);
-        renderPassThroughAttributes(context, tab, HEADER_ATTRIBUTES);
-
         boolean isActive = tab.isActive();
         boolean isDisabled = tab.isDisabled();
+        
         encodeTabHeader(context, tab, writer, inactive, !isActive && !isDisabled);
         encodeTabHeader(context, tab, writer, active, isActive && !isDisabled);
         encodeTabHeader(context, tab, writer, disable, isDisabled);
         
-        writer.endElement("td");
     }    
 
     private void encodeTabHeader(FacesContext context, AbstractTogglePanelTitledItem tab, ResponseWriter writer,
                               AbstractTogglePanelTitledItem.HeaderStates state, Boolean isDisplay) throws IOException {
 
-        writer.startElement("div", tab);
-        writer.writeAttribute("id", tab.getClientId() + ":header:" + state, null);
-        writer.writeAttribute("style", concatStyles("white-space: nowrap", isDisplay ? "" : "display : none"), null);
-
+        
+        writer.startElement("td", tab);
+        writer.writeAttribute("id", tab.getClientId() + ":header:" + state.toString(), null);
+        renderPassThroughAttributes(context, tab, HEADER_ATTRIBUTES);
         String name = "headerClass" + capitalize(state.toString());
-        writer.writeAttribute("class", concatClasses("rf-tb-hdr-" + state.abbreviation(), attributeAsString(tab, name)), null);
-
-        writeTopTabIcon(context, tab, writer, "rftp_icon", "ico.gif");
+        writer.writeAttribute("class", concatClasses("rf-tb-hdr rf-tb-hdr-" + state.abbreviation(), 
+            attributeAsString(tab, HtmlTab.PropertyKeys.headerClass), attributeAsString(tab, name)), null);
+        writer.writeAttribute("style", concatStyles(isDisplay ? "" : "display : none", attributeAsString(tab, HtmlTab.PropertyKeys.headerStyle.toString())), null);
 
         writer.startElement("span", tab);
         writer.writeAttribute("class", "rftp_label", null);
@@ -171,10 +166,8 @@ public class TabPanelRenderer extends TogglePanelRenderer {
         }
 
         writer.endElement("span");
-        
-        writeTopTabIcon(context, tab, writer, "rftp_close", "close_act.gif");
-        
-        writer.endElement("div");
+
+        writer.endElement("td");
     }
 
 
@@ -184,16 +177,6 @@ public class TabPanelRenderer extends TogglePanelRenderer {
         w.writeAttribute("class", styles, null);
         w.writeText(text, null);
         w.endElement("div");
-    }
-
-    private void writeTopTabIcon(FacesContext context, UIComponent comp, ResponseWriter writer, String styleClass, String image) throws IOException {
-        writer.startElement("img", comp);
-        writer.writeAttribute("width", 16, null);
-        writer.writeAttribute("height", 16, null);
-        writer.writeAttribute("class", styleClass, null);
-        
-        String imagePath = context.getApplication().getResourceHandler().createResource("org.richfaces/" + image).getRequestPath();
-        writer.writeAttribute("src", imagePath, null);
     }
 
     private void writeTopTabFirstSpacer(ResponseWriter w, UIComponent comp) throws IOException {
