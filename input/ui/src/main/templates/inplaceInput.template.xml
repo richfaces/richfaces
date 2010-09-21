@@ -49,29 +49,29 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 			<input id="#{clientId}:focus" type="image" style="position: absolute; top: 0px; left: 0px; outline-style: none;" class="rf-ii-none"/>
 			<span id="#{clientId}:edit" class="#{getEditStyleClass(component, inplaceState)}">
 				<input id="#{clientId}:input" autocomplete="off" name="#{clientId}" 
-					   type="text" value="#{getInputValue(facesContext, component)}" class="rf-ii-f" style="width: #{component.attributes['inputWidth']};" 
+					   type="text" value="#{getInputValue(facesContext, component)}" class="rf-ii-fld" style="width: #{component.attributes['inputWidth']};" 
 					   cdk:passThrough="tabIndex">
 					    <cdk:call expression="renderInputHandlers(facesContext, component);"/>
 				</input>
 				<c:if test="#{component.attributes['showControls']}">
 					<span class="rf-ii-btn-prepos">
 						<span class="rf-ii-btn-pos">
-							<span id="#{clientId}:btnshadow" class="rf-ii-btn-shadow">
-								<span class="rf-ii-btn-shadow-t"></span>
-								<span class="rf-ii-btn-shadow-l"></span>
-								<span class="rf-ii-btn-shadow-r"></span>
-								<span class="rf-ii-btn-shadow-b"></span>
+							<span id="#{clientId}:btnshadow" class="rf-ii-btn-shdw">
+								<span class="rf-ii-btn-shdw-t"></span>
+								<span class="rf-ii-btn-shdw-l"></span>
+								<span class="rf-ii-btn-shdw-r"></span>
+								<span class="rf-ii-btn-shdw-b"></span>
 		
 								<span id="#{clientId}:btn" style="position : relative">
 									<input type="image"
 										id="#{clientId}:okbtn"
 										src="#{getResourcePath(facesContext, 'org.richfaces/ico_ok.gif')}"
-										class="rf-ii-btn" onmousedown="this.className='rf-ii-btn-p'"
+										class="rf-ii-btn" onmousedown="this.className='rf-ii-btn-prsd'"
 										onmouseout="this.className='rf-ii-btn'" onmouseup="this.className='rf-ii-btn'" />
 									<input type="image"
 										id="#{clientId}:cancelbtn"
 										src="#{getResourcePath(facesContext,'org.richfaces/ico_cancel.gif')}"
-										class="rf-ii-btn" onmousedown="this.className='rf-ii-btn-press'"
+										class="rf-ii-btn" onmousedown="this.className='rf-ii-btn-prsd'"
 										onmouseout="this.className='rf-ii-btn'" onmouseup="this.className='rf-ii-btn'" />
 									<br />
 								</span>

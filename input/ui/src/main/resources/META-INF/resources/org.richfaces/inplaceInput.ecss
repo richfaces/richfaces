@@ -1,4 +1,4 @@
-input.rf-ii-f {
+input.rf-ii-fld {
 	background-image: none;
 	background-color : '#{richSkin.editBackgroundColor}'; 
 	border-bottom-width : 10px;
@@ -17,7 +17,7 @@ input.rf-ii-f {
 	white-space : nowrap; 
 }
 
-.rf-ii-d-s { 
+.rf-ii-ready-st { 
 	display : inline-block; 
 	white-space : nowrap; 
 	background-color : '#{richSkin.editorBackgroundColor}'; 
@@ -30,14 +30,14 @@ input.rf-ii-f {
 	position : relative;
 }		
 
-.rf-ii-c-s { 
+.rf-ii-chd-st { 
 	display : inline-block; 
 	background-image : url("#{resource['org.richfaces:mark_changed.gif']}"); 
 	background-position : top left; 
 	background-repeat : no-repeat;
 }
 
-.rf-ii-e-s {
+.rf-ii-edt-st {
 	position : absolute; 
 	top : 0px; 
 	left : 0px; 
@@ -45,7 +45,7 @@ input.rf-ii-f {
 	width: 100%;
 }
 
-.rf-ii-f {
+.rf-ii-fld {
 	background-color : '#{richSkin.editBackgroundColor}'; 
 	border-bottom-width : 10px;
 	border-bottom-style: solid;
@@ -75,7 +75,7 @@ input.rf-ii-f {
 	margin : 0px;
 }
 
-.rf-ii-btn-p {
+.rf-ii-btn-prsd {
 	background-image : "url(#{resource['org.richfaces.images:inplaceBtnPressGrad.png']})";
 	background-position: top;
 	background-repeat: repeat-x;
@@ -85,13 +85,6 @@ input.rf-ii-f {
 	border-color :  '#{richSkin.panelBorderColor}';
 	padding : 0px; 
 	margin : 0px;
-}
-	
-.rf-ii-btn-set {
-	position : absolute; 
-	top:0px; 
-	left : 100px; 
-	white-space : nowrap;
 }
 
 .rf-ii-btn-prepos {
@@ -109,7 +102,7 @@ input.rf-ii-f {
 	white-space : nowrap;
 }
 
-.rf-ii-btn-shadow {
+.rf-ii-btn-shdw {
 	display: inline-block;
 	position: relative; 
 	padding : 6px 6px 6px 6px; 
@@ -117,7 +110,7 @@ input.rf-ii-f {
 	right : -6px;
 }
 
-.rf-ii-btn-shadow-t {
+.rf-ii-btn-shdw-t {
 	background-position : left top;
 	background-image : url("#{resource['org.richfaces:bg_shadow.png']}"); 
 	background-attachment: scroll;
@@ -130,7 +123,7 @@ input.rf-ii-f {
 	left : 0px
 }
 
-.rf-ii-btn-shadow-l {
+.rf-ii-btn-shdw-l {
 	background-position : left bottom;
 	background-image : url("#{resource['org.richfaces:bg_shadow.png']}");
 	background-attachment: scroll;
@@ -143,7 +136,7 @@ input.rf-ii-f {
 	right : 6px;
 }
 
-.rf-ii-btn-shadow-r {
+.rf-ii-btn-shdw-r {
 	background-position : right bottom;
 	background-image : url("#{resource['org.richfaces:bg_shadow.png']}");
 	background-attachment: scroll;
@@ -156,7 +149,7 @@ input.rf-ii-f {
 	right: 0px;
 }
 
-.rf-ii-btn-shadow-b {
+.rf-ii-btn-shdw-b {
 	background-position : right top;
 	background-image : url("#{resource['org.richfaces:bg_shadow.png']}");  
 	background-attachment: scroll;
