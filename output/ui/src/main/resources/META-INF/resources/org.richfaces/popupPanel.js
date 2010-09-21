@@ -320,7 +320,7 @@
 					if (this.options.overlapEmbedObjects && !this.iframe) {
 	                        		this.iframe = this.markerId + "IFrame";
 	            		$("<iframe src=\"javascript:''\" frameborder=\"0\" scrolling=\"no\" id=\"" + this.iframe + "\" " +								
-						"class=\"rf-pp-if\" style=\"width:" +this.options.width + "px; height:" + this.options.height + "px;\">" +
+						"class=\"rf-pp-ifr\" style=\"width:" +this.options.width + "px; height:" + this.options.height + "px;\">" +
 						"</iframe>").insertBefore($(':first-child', this.cdiv)[0]);
 				
 						eIframe = $(richfaces.getDomElement(this.iframe)); 

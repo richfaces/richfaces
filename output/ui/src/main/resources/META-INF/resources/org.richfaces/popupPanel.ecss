@@ -1,4 +1,4 @@
-.rf-pp-b {
+.rf-pp-btn {
 	outline-style: none;
 	position: absolute;
 	clip: rect(0px 0px 1px 1px);
@@ -11,7 +11,7 @@
 	filter: 'alpha(opacity \5C 3D 10)';
 }
 
-.rf-pp-sh {
+.rf-pp-shade {
 	position: fixed;
  	width: 100%;
  	height: 100%;
@@ -22,18 +22,18 @@
  	filter: 'alpha(opacity \5C 3D 50)';
 }
 
-.rf-pp-shw {
+.rf-pp-shdw {
  	background-color: #000000;
  	opacity: 0.1;
  	filter: 'alpha(opacity \5C 3D 10)';
 }
 
-.rf-pp-cr {
+.rf-pp-cntr {
  	border : '1px solid #{richSkin.panelBorderColor}';
  	background : '#{richSkin.generalBackgroundColor}';
  	z-index:100;
 }
-.rf-pp-h {
+.rf-pp-hdr {
 	background : "url(#{resource['org.richfaces.renderkit.html.GradientA']})";
  	repeat-x : 'top left #{richSkin.headerBackgroundColor}';
  	position : relative;
@@ -41,7 +41,7 @@
  	cursor : move;
  	padding : 2px;
 }
-.rf-pp-h-ct {
+.rf-pp-hdr-ñnt {
 	overflow : hidden;
  	white-space : nowrap;
  	text-overflow: ellipsis;
@@ -52,7 +52,7 @@
  	padding : 2px;
  	padding-left : 10px;
 }
-.rf-pp-h-cs {
+.rf-pp-hdr-cntrls {
  	position : absolute;
  	top : 2px;
  	right : 2px;
@@ -65,20 +65,20 @@
 	z-index:100;
 }
 
-.rf-pp-ct-sr {
+.rf-pp-cnt-scrlr {
  	position : relative;
  	top : 0px;
  	left : 0px;
  	overflow : auto;
 }
-.rf-pp-ct {
+.rf-pp-cnt {
 	position : relative;
  	padding : 10px;
  	color : '#{richSkin.generalTextColor}';
  	font-family : '#{richSkin.generalFamilyFont}';
  	font-size : '#{richSkin.generalSizeFont}';
 }
-.rf-pp-hr {
+.rf-pp-hndlr {
 	background : red;
  	opacity:0;
 	position : absolute;
@@ -86,7 +86,7 @@
  	filter : 'alpha(opacity \5C 3D 0)';
 }
 
-.rf-pp-hr-l {
+.rf-pp-hndlr-l {
  	width : 7px;
  	height : 100%;
  	top : 0px;
@@ -94,7 +94,7 @@
  	cursor : w-resize;
 }
 
-.rf-pp-hr-r {
+.rf-pp-hndlr-r {
  	width : 7px;
  	height : 100%;
  	top : 0px;
@@ -102,7 +102,7 @@
  	cursor : w-resize;
 }
 
-.rf-pp-if {
+.rf-pp-ifr {
 			position: absolute; 
 			left: 0px; 
 			top: 0px; 
@@ -111,14 +111,14 @@
 			z-index: -1;
 }
 		
-.rf-pp-hr-t {
+.rf-pp-hndlr-t {
  	width : 100%;
  	height : 7px;
  	top : 0px;
  	left : 0px;
  	cursor : n-resize;
 }
-.rf-pp-hr-b {
+.rf-pp-hndlr-b {
  	width : 100%;
  	height : 7px;
  	bottom : 0px;
@@ -126,28 +126,28 @@
  	cursor : n-resize;
 }
 	
-.rf-pp-hr-tl {
+.rf-pp-hndlr-tl {
  	width : 10px;
  	height : 10px;
  	top : 0px;
  	left : 0px;
  	cursor : nw-resize;
 }
-.rf-pp-hr-tr {
+.rf-pp-hndlr-tr {
  	width : 10px;
  	height : 10px;
  	top : 0px;
  	right : 0px;
  	cursor : ne-resize;
 }
-.rf-pp-hr-bl {
+.rf-pp-hndlr-bl {
  	width : 10px;
  	height : 10px;
  	bottom : 0px;
  	left : 0px;
  	cursor : ne-resize;
 }
-.rf-pp-hr-br {
+.rf-pp-hndlr-br {
  	width : 10px;
  	height : 10px;
  	bottom : 0px;
