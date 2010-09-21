@@ -15,6 +15,8 @@ public interface AutocompleteEncodeStrategy {
     void encodeItemBegin(FacesContext facesContext, UIComponent component) throws IOException ;
     
     void encodeItemEnd(FacesContext facesContext, UIComponent component) throws IOException ;
+    
+    void encodeItem(FacesContext facesContext, UIComponent component) throws IOException ;
 
     void encodeFakeItem(FacesContext facesContext, UIComponent component) throws IOException ;
 

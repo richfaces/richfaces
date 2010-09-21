@@ -250,17 +250,13 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
 
     public void encodeItem(FacesContext facesContext, AbstractAutocomplete comboBox, Object item,
                            AutocompleteEncodeStrategy strategy) throws IOException {
-        strategy.encodeItemBegin(facesContext, comboBox);
-        ResponseWriter writer = facesContext.getResponseWriter();
-
-        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-au-option rf-au-font rf-au-input", null);
-
+    	ResponseWriter writer = facesContext.getResponseWriter();
         if (comboBox.getChildCount() > 0) {
-            for (UIComponent child : comboBox.getChildren()) {
-                child.encodeAll(facesContext);
-            }
+            strategy.encodeItem(facesContext, comboBox);
         } else {
             if (item != null) {
+            	strategy.encodeItemBegin(facesContext, comboBox);
+            	writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-au-option rf-au-font rf-au-input", null);
                 // TODO nick - use converter
                 String value = null;
                 if (comboBox.getItemConverter() != null) {
@@ -270,9 +266,10 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
                     writer.writeText(value, null);
                 }
                 writer.writeText(item, null);
+                strategy.encodeItemEnd(facesContext, comboBox);
             }
         }
-        strategy.encodeItemEnd(facesContext, comboBox);
+        
     }
 
     private AutocompleteEncodeStrategy getStrategy(UIComponent component) {

@@ -2,6 +2,7 @@ package org.richfaces.renderkit;
 
 import java.io.IOException;
 
+import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -39,10 +40,33 @@ public class AutocompleteTableLayoutStrategy extends AbstractAutocompleteLayoutS
         writer.startElement(HtmlConstants.TD_ELEM, component);
     }
     
+    private void encodeItemChildBegin(FacesContext facesContext, UIComponent component) throws IOException {
+    	ResponseWriter writer = facesContext.getResponseWriter();
+        writer.startElement(HtmlConstants.TD_ELEM, component);
+    }
+    
+    private void encodeItemChildEnd(FacesContext facesContext, UIComponent component) throws IOException {
+        ResponseWriter writer = facesContext.getResponseWriter();
+        writer.endElement(HtmlConstants.TD_ELEM);
+    }
+    
     public void encodeItemEnd(FacesContext facesContext, UIComponent component) throws IOException {
         ResponseWriter writer = facesContext.getResponseWriter();
         writer.endElement(HtmlConstants.TD_ELEM);
         writer.endElement(HtmlConstants.TR_ELEMENT);
     }
 
+    public void encodeItem(FacesContext facesContext, UIComponent component) throws IOException {
+        ResponseWriter writer = facesContext.getResponseWriter();
+        writer.startElement(HtmlConstants.TR_ELEMENT, component);
+        for (UIComponent child : component.getChildren()) {
+            if (child instanceof UIColumn) {
+                encodeItemChildBegin(facesContext, component);
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-au-option rf-au-font rf-au-input", null);
+                child.encodeAll(facesContext);
+                encodeItemChildEnd(facesContext, component);
+            }
+        }
+        writer.endElement(HtmlConstants.TR_ELEMENT);
+    }
 }
