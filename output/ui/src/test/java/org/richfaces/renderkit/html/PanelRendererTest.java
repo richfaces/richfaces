@@ -130,7 +130,7 @@ public class PanelRendererTest {
         assertNotNull(nestedPanelContainer.getElementById("nestedPanelContainer_header"));
         assertEquals("||||", nestedPanelContainer.getElementById("nestedPanelContainer_header").getTextContent().trim());
         HtmlElement nestedPanelContainerHeader = page.getElementById("nestedPanelContainer_header");
-        assertEquals("rf-p-hr outpanelHeader", nestedPanelContainerHeader.getAttribute("class"));
+        assertEquals("rf-p-hdr outpanelHeader", nestedPanelContainerHeader.getAttribute("class"));
         assertEquals("Benefits of Usin", nestedPanelContainer
         		.getElementById("nestedPanelContainer_body")
                 .getTextContent().trim().substring(0, 16));

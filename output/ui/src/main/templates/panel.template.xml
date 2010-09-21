@@ -17,13 +17,13 @@
 		<div cdk:passThroughWithExclusions="id,value,styleClass,class" id="#{clientId}" class="rf-p #{component.attributes['styleClass']}">
 		 <c:choose>
 		 <c:when test="#{component.getFacet('header') != null and component.getFacet('header').rendered}"> 
-				<div id="#{clientId}_header" class="rf-p-hr #{component.attributes['headerClass']}">
+				<div id="#{clientId}_header" class="rf-p-hdr #{component.attributes['headerClass']}">
 					<!--  <cc:renderFacet name="header" />-->
 					<cdk:call expression="renderHeaderFacet(facesContext, component)" />
 				</div>
 			 </c:when>
 			 <c:when test="#{component.attributes['header']!= null and not component.attributes['header'].equals('')}"> 
-				<div id="#{clientId}_header" class="rf-p-hr #{component.attributes['headerClass']}">
+				<div id="#{clientId}_header" class="rf-p-hdr #{component.attributes['headerClass']}">
 					#{component.attributes['header']}
 				</div>
 			 </c:when>
