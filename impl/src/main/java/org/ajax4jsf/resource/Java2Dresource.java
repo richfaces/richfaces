@@ -55,7 +55,9 @@ public abstract class Java2Dresource extends AbstractCacheableResource implement
         super();
         this.imageType = imageType;
     }
-
+    public ImageType getImageType() {
+        return this.imageType;
+    }
     /**
      * Primary calculation of image dimensions - used when HTML code is
      * generated to render IMG's width and height Subclasses should override
