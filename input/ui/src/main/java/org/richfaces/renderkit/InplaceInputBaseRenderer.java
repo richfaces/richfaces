@@ -75,11 +75,11 @@ public class InplaceInputBaseRenderer extends InputRendererBase {
     
     public static final String OPTIONS_INITIAL_VALUE = "initialValue";
     
-    private static final String READY_STATE_CSS = "rf-ii-d-s";
+    private static final String READY_STATE_CSS = "rf-ii-ready-st";
 
-    private static final String EDIT_STATE_CSS = "rf-ii-e-s";
+    private static final String EDIT_STATE_CSS = "rf-ii-edt-st";
 
-    private static final String CHANGED_STATE_CSS = "rf-ii-c-s";
+    private static final String CHANGED_STATE_CSS = "rf-ii-chd-st";
 
     private static final String NONE_CSS = "rf-ii-none";
     
