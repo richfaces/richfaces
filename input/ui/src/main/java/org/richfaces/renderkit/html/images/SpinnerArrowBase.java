@@ -28,9 +28,9 @@ import java.awt.Dimension;
  * @author Konstantin Mishin
  * 
  */
-public abstract class SliderArrowBase extends ArrowBase {
+public abstract class SpinnerArrowBase extends ArrowBase {
 
-    private Dimension dimension =  new Dimension(7, 7);
+    private Dimension dimension =  new Dimension(5, 3);
 
     @Override
     public Dimension getDimension() {
