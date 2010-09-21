@@ -64,7 +64,7 @@ public class AutocompleteDivLayoutStrategy extends AbstractAutocompleteLayoutStr
     public void encodeItem(FacesContext facesContext, UIComponent component) throws IOException {
         ResponseWriter writer = facesContext.getResponseWriter();
         encodeItemBegin(facesContext, component);
-        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-au-option rf-au-font rf-au-input", null);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-au-opt rf-au-fnt rf-au-inp", null);
         for (UIComponent child : component.getChildren()) {
             child.encodeAll(facesContext);
         }

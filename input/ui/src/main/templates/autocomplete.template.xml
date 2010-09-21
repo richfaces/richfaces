@@ -15,8 +15,8 @@
 
     <cc:implementation>
     <cdk:object type="java.lang.Object" name="disabled" value="#{component.attributes['disabled']}" />
-        <div id="#{clientId}" class="rf-au-field-width rf-au-field">
-        	<input id="#{clientId}Value" name="#{clientId}Value" type="hidden" class="rf-au-font rf-au-input" />
+        <div id="#{clientId}" class="rf-au-fld">
+        	<input id="#{clientId}Value" name="#{clientId}Value" type="hidden" class="rf-au-fnt rf-au-inp" />
             <div style="position : relative; overflow : hidden; text-align : left; padding-right : 21px;">
             	<input onclick="#{component.attributes['onclick']}"
 				ondblclick="#{component.attributes['ondblclick']}"
@@ -27,16 +27,16 @@
 				onmouseout="#{component.attributes['onmouseout']}"
 				onkeyup="#{component.attributes['onkeyup']}"
 				onkeydown="#{component.attributes['onkeydown']}"
-				onkeypress="#{component.attributes['onkeypress']}" id="#{clientId}Input" value="#{component.attributes['value']}"  disabled="#{disabled}" name="#{clientId}" type="text" class="rf-au-font rf-au-input" autocomplete="off"/>
+				onkeypress="#{component.attributes['onkeypress']}" id="#{clientId}Input" value="#{component.attributes['value']}"  disabled="#{disabled}" name="#{clientId}" type="text" class="rf-au-fnt rf-au-inp" autocomplete="off"/>
                 <c:if test="#{component.attributes['showButton']}">
                 <c:if test="#{component.attributes['disabled']}">
-                <div id="#{clientId}Button" class="rf-au-button">
-                    <div class="rf-au-button-arrow"></div>
+                <div id="#{clientId}Button" class="rf-au-btn">
+                    <div class="rf-au-btn-arrow"></div>
                 </div>
                 </c:if>
                 <c:if test="#{!component.attributes['disabled']}">
-                <div id="#{clientId}Button" class="rf-au-button">
-                    <div class="rf-au-button-arrow"></div>
+                <div id="#{clientId}Button" class="rf-au-btn">
+                    <div class="rf-au-btn-arrow"></div>
                 </div>
                 </c:if>
                 </c:if>
@@ -52,16 +52,16 @@
 				onkeyup="#{component.attributes['onlistkeyup']}"
 				onkeydown="#{component.attributes['onlistkeydown']}"
 				onkeypress="#{component.attributes['onlistkeypress']}"
-				 id="#{clientId}List" class="rf-au-list-cord">
+				 id="#{clientId}List" class="rf-au-lst-cord">
 
-                <div class="rf-au-shadow">
-                    <div class="rf-au-shadow-t"></div>
-                    <div class="rf-au-shadow-l"></div>
-                    <div class="rf-au-shadow-r"></div>
-                    <div class="rf-au-shadow-b"></div>
+                <div class="rf-au-shdw">
+                    <div class="rf-au-shdw-t"></div>
+                    <div class="rf-au-shdw-l"></div>
+                    <div class="rf-au-shdw-r"></div>
+                    <div class="rf-au-shdw-b"></div>
 
-                    <div class="rf-au-list-decoration">
-                        <div class="rf-au-list-scroll rf-au-list-width rf-au-list-height">
+                    <div class="rf-au-lst-dcrtn">
+                        <div class="rf-au-lst-scrl">
                             <cdk:body>
                                 <cdk:call expression="encodeItemsContainer(facesContext, component)"/>
                             </cdk:body>

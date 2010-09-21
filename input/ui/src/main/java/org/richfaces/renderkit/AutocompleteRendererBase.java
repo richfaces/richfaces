@@ -256,7 +256,7 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
         } else {
             if (item != null) {
             	strategy.encodeItemBegin(facesContext, comboBox);
-            	writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-au-option rf-au-font rf-au-input", null);
+            	writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-au-opt rf-au-fnt rf-au-inp", null);
                 // TODO nick - use converter
                 String value = null;
                 if (comboBox.getItemConverter() != null) {

@@ -1,29 +1,18 @@
-.rf-au-field-width{
-	width: 200px;
-}
 
-.rf-au-list-width{
-	width: 200px;
-}
-
-.rf-au-list-height{
-	max-height: 100px;
-	min-height: 20px;
-}
-
-.rf-au-input.rf-au-font, .rf-au-option.rf-au-font{
+.rf-au-inp.rf-au-fnt, .rf-au-opt.rf-au-fnt{
 	color: '#{richSkin.generalTextColor}';
 	font-size: '#{richSkin.generalSizeFont}';
 	font-family: '#{richSkin.generalFamilyFont}';
 }
 
-input.rf-au-input {
+input.rf-au-inp {
 	border-width: 0px;
 	background: none;
 	width: 100%;
 }
 
-.rf-au-field{
+.rf-au-fld{
+	width: 200px;
 	position: inline-block;
 	border-width: 1px;
 	border-style: solid;
@@ -35,7 +24,7 @@ input.rf-au-input {
 	background-color: '#{richSkin.controlBackgroundColor}';
 }
 
-.rf-au-button{
+.rf-au-btn{
 	background-image: "url(#{resource['org.richfaces.renderkit.html.images.AutocompleteButtonGradient']})";
 	background-repeat: repeat-x;
 	background-position: top left;
@@ -52,7 +41,7 @@ input.rf-au-input {
 	padding-top: 1px
 }
 
-.rf-au-button-arrow{
+.rf-au-btn-arrow{
 	background-position: center;
 	background-repeat: no-repeat;
 	background-image: "url(#{resource['org.richfaces:combo_down_button.gif']})";
@@ -61,13 +50,13 @@ input.rf-au-input {
 	height: 15px;
 }
 
-.rf-au-list-cord{
+.rf-au-lst-cord{
 	position: absolute;
 	/* TODO nick - review: font-size: 0px; */
 	display: none;
 }
 
-.rf-au-list-decoration{
+.rf-au-lst-dcrtn{
 	border-width: 1px;
 	border-style: solid;
 	border-color: '#{richSkin.panelBorderColor}';
@@ -75,28 +64,22 @@ input.rf-au-input {
 	background-color: '#{richSkin.tableBackgroundColor}';
 }
 
-.rf-au-list-scroll{
+.rf-au-lst-scrl{
 	overflow: auto;
 	overflow-x: hidden;
+	width: 200px;
+	max-height: 100px;
+	min-height: 20px;
 }
 
-.rf-au-option{
+.rf-au-opt{
 	padding: 2px;
 	white-space: nowrap;
 	cursor: default;
 	list-style-type: none;
 }
 
-.rf-au-select{
-	padding: 1px;
-	width: 100%;
-	background-color: '#{richSkin.headerBackgroundColor}';
-	border-width: 1px;
-	border-style: dotted;
-	border-color: '#{richSkin.generalTextColor}';
-}
-
-.rf-au-shadow{
+.rf-au-shdw{
 	border: 0px solid red;
 	display: inline-block;
 	position: absolute;
@@ -106,7 +89,7 @@ input.rf-au-input {
 	left: -7px;
 }
 
-.rf-au-shadow-t{
+.rf-au-shdw-t{
 	background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
 	background-position: top left;
 	position: absolute;
@@ -116,7 +99,7 @@ input.rf-au-input {
 	left: 0px
 }
 
-.rf-au-shadow-l{
+.rf-au-shdw-l{
 	background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
 	background-position: bottom left;
 	position: absolute;
@@ -126,7 +109,7 @@ input.rf-au-input {
 	right: 6px;
 }
 
-.rf-au-shadow-r{
+.rf-au-shdw-r{
 	background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
 	background-position: bottom right;
 	position: absolute;
@@ -136,7 +119,7 @@ input.rf-au-input {
 	right: 0px;
 }
 
-.rf-au-shadow-b{
+.rf-au-shdw-b{
 	background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
 	background-position: right top;
 	position: absolute;
@@ -146,7 +129,7 @@ input.rf-au-input {
 	right: 0px;
 }
 
-.rf-au-list-ul{
+.rf-au-lst-ul{
 	margin: 0px;
 	padding: 0px;
 }
