@@ -21,6 +21,8 @@
  */
 package org.richfaces.demo;
 
+import java.util.Date;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -159,5 +161,9 @@ public class InputNumberSliderBean {
 
     public int getInputSize() {
         return inputSize;
+    }
+    
+    public Date getDate() {
+        return new Date();
     }
 }
