@@ -86,15 +86,15 @@ public class TabPanelRenderer extends TogglePanelRenderer {
     }
 
     private void writeTabsLineSeparator(ResponseWriter writer) throws IOException {
-        writer.write("<div class='rf-tb-hdr_border'></div>");
+        writer.write("<div class='rf-tb-hdr_brd'></div>");
     }
 
     private void writeTabsLine(ResponseWriter w, FacesContext context, UIComponent comp) throws IOException {
         w.startElement(DIV, comp);
-        w.writeAttribute(CLASS, "rf-tb-hdr_tabline_vis", null);
+        w.writeAttribute(CLASS, "rf-tb-hdr-tabline-vis", null);
 
         w.startElement("table", comp);
-        w.writeAttribute("class", "rf-tb-hdr_tabs", null);
+        w.writeAttribute("class", "rf-tb-hdr-tabs", null);
         w.writeAttribute("cellspacing", "0", null);
         w.startElement("tbody", comp);
         w.startElement("tr", comp);
@@ -113,9 +113,9 @@ public class TabPanelRenderer extends TogglePanelRenderer {
         w.endElement("tbody");
         w.endElement("table");
 
-        writeTopTabsControl(w, comp, "rf-tb-hdr_scroll_left rftp_hidden", "\u00AB");
-        writeTopTabsControl(w, comp, "rf-tb-hdr_tabslist rftp_hidden", "\u2193");
-        writeTopTabsControl(w, comp, "rf-tb-hdr_scroll_right rftp_hidden", "\u00BB");
+        writeTopTabsControl(w, comp, "rf-tb-hdr-scrl_l rf-tb-hdn", "\u00AB");
+        writeTopTabsControl(w, comp, "rf-tb-hdr-tablst rf-tb-hdn", "\u2193");
+        writeTopTabsControl(w, comp, "rf-tb-hdr-scrl_r rf-tb-hdn", "\u00BB");
 
         w.endElement("div");
     }
@@ -153,7 +153,7 @@ public class TabPanelRenderer extends TogglePanelRenderer {
         writer.writeAttribute("style", concatStyles(isDisplay ? "" : "display : none", attributeAsString(tab, HtmlTab.PropertyKeys.headerStyle.toString())), null);
 
         writer.startElement("span", tab);
-        writer.writeAttribute("class", "rftp_label", null);
+        writer.writeAttribute("class", "rf-tb-lbl", null);
 
         UIComponent headerFacet = tab.getHeaderFacet(state);
         if (headerFacet != null && headerFacet.isRendered()) {
@@ -180,15 +180,15 @@ public class TabPanelRenderer extends TogglePanelRenderer {
     }
 
     private void writeTopTabFirstSpacer(ResponseWriter w, UIComponent comp) throws IOException {
-        writeTopTabSpacer(w, comp, "padding-left: 5px;", "rf-tb-hdr_spacer");
+        writeTopTabSpacer(w, comp, "padding-left: 5px;", "rf-tb-hdr-spcr");
     }
 
     private void writeTopTabSpacer(ResponseWriter w, UIComponent comp) throws IOException {
-        writeTopTabSpacer(w, comp, "", "rf-tb-hdr_spacer rftp_horizonttab_tabspacer_width");
+        writeTopTabSpacer(w, comp, "", "rf-tb-hdr-spcr rf-tb-hortab-tabspcr_wdh");
     }
 
     private void writeTopTabLastSpacer(ResponseWriter w, UIComponent comp) throws IOException {
-        writeTopTabSpacer(w, comp, "padding-right: 5px; width: 100%;", "rf-tb-hdr_spacer");
+        writeTopTabSpacer(w, comp, "padding-right: 5px; width: 100%;", "rf-tb-hdr-spcr");
     }
 
     private void writeTopTabSpacer(ResponseWriter w, UIComponent comp, String style, String classStyle) throws IOException {
