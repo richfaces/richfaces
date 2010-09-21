@@ -1,0 +1,36 @@
+.rich-progress-bar-height{height : 13px;}
+.rich-progress-bar-width{width : 200px}	
+.rich-progress-bar-block{white-space : nowrap;}		
+.rich-progress-bar-uploaded{
+background-repeat : repeat-x;
+background-image : "url(#{resource['org.richfaces.renderkit.html.images.ProgressBarAnimatedBg']})";
+background-color : '#{richSkin.selectControlColor}';
+}
+.rich-progress-bar-uploaded-dig{
+overflow : hidden; position : absolute; top : 0px; left : 0px;
+border-color : '#{richSkin.panelBorderColor}';
+}
+.rich-progress-bar-shell{
+margin-bottom : 2px; border : 1px solid;
+background-color : '#{richSkin.controlBackgroundColor}';
+border-color : '#{richSkin.panelBorderColor}';
+}
+.rich-progress-bar-shell-dig{
+position : relative; margin-bottom : 2px; border : 1px solid; overflow: hidden;
+border-color : '#{richSkin.panelBorderColor}';
+color : '#{richSkin.controlTextColor}';
+font-family : '#{richSkin.generalFamilyFont}';
+font-size : '#{richSkin.generalSizeFont}';
+}
+.rich-progress-bar-remained{
+text-align : center; font-weight : bold; position : relative;
+background-color : '#{richSkin.controlBackgroundColor}';
+text-color : '#{richSkin.controlTextColor}';
+}
+.rich-progress-bar-completed{
+text-align : center; font-weight : bold; background-repeat : repeat-x;
+background-color : '#{richSkin.selectControlColor}';
+text-color : '#{richSkin.controlBackgroundColor}';
+background-image : "url(#{resource['org.richfaces.renderkit.html.images.ProgressBarAnimatedBg']})";
+}
+.rich-progress-bar-padding{padding: 0px}

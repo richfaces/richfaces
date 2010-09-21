@@ -718,6 +718,14 @@
             <renderer-type>org.richfaces.Tab</renderer-type>
             <renderer-class>org.richfaces.renderkit.html.TabRenderer</renderer-class>
         </renderer>
+         <renderer>
+            <component-family>org.richfaces.ProgressBar</component-family>
+            <renderer-type>org.richfaces.ProgressBarRenderer</renderer-type>
+            <renderer-class>org.richfaces.renderkit.html.ProgressBarRenderer</renderer-class>
+            <renderer-extension>
+                <cdk:renders-children>false</cdk:renders-children>
+            </renderer-extension>
+        </renderer>
 	</render-kit>
 
     <faces-config-extension>

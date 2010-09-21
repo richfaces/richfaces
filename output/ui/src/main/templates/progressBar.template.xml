@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+	xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+	xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+	xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+	xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+	<cc:interface>
+		<cdk:class>org.richfaces.renderkit.html.ProgressBarRenderer</cdk:class>
+		<cdk:superclass>org.richfaces.renderkit.html.ProgressBarBaseRenderer</cdk:superclass>
+		<cdk:component-family>org.richfaces.ProgressBarRenderer</cdk:component-family>
+		<cdk:renderer-type>org.richfaces.ProgressBarRenderer</cdk:renderer-type>
+	</cc:interface>
+
+	<cc:implementation>
+		<c:choose>
+		 <c:when test="#{isAjaxMode(component)}"> 
+		 <cdk:object type="java.lang.String" name="state" value="#{getCurrentOrForcedState(facesContext, component)}" />
+				
+			<c:if test="#{state eq 'initialState'}">
+				<div id="#{clientId}" class="#{component.attributes['initialClass']}" style="#{component.attributes['style']}">
+					<cdk:call expression="renderInitialFacet(facesContext, component)"/>
+				</div>
+			</c:if>
+			<c:if test="#{state eq 'completeState'}">
+				<div id="#{clientId}" class="#{component.attributes['finishClass']}" style="#{component.attributes['style']}">
+					<cdk:call expression="renderCompleteFacet(facesContext, component)"/>
+				</div>
+			</c:if>
+			<c:if test="#{state eq 'progressState'}">
+				<cdk:object type="java.lang.String" name="shellStyle" value="#{getShellStyle(facesContext, component)}" />
+				<div cdk:passThroughWithExclusions="onclick, ondblclick, onmouseup, onmousedown, onmousemove, onmouseover, onmouseout" id="#{clientId}" class="rich-progress-bar-block rich-progress-bar-width #{shellStyle} #{component.attributes['styleClass']}" style="#{component.attributes['style']}">
+				<c:if test="#{!isSimpleMarkup(component)}">
+					<div class="rich-progress-bar-width rich-progress-bar-height rich-progress-bar-remained rich-progress-bar-padding #{component.attributes['remainClass']}" id="#{clientId}:remain" style="#{component.attributes['style']}"/>
+					<div class="rich-progress-bar-uploaded-dig" id="#{clientId}:upload" style="#{component.attributes['style']}; width:#{getWidth(component)}%;">
+						<div class="rich-progress-bar-height rich-progress-bar-width rich-progress-bar-completed rich-progress-bar-padding  #{component.attributes['completeClass']}" id="#{clientId}:complete" style="#{component.attributes['style']}"/>
+					</div>
+				</c:if>
+				<c:if test="#{isSimpleMarkup(component)}">
+					<div class="rich-progress-bar-height rich-progress-bar-uploaded #{component.attributes['completeClass']}" id="#{clientId}:upload" style="#{component.attributes['style']}; width:#{getWidth(component)}%;"/>
+				</c:if>
+					<script type="text/javascript">
+						#{getInitialScript(facesContext, component, 'progressState')}
+						#{getPollScript(facesContext, component)}
+					</script>
+				
+				</div>
+			</c:if>
+		</c:when>
+		<c:otherwise>
+		<div id="#{clientId}" >
+			<div id="#{clientId}:initialState" class="#{component.attributes['initialClass']}" style="#{component.attributes['style']} display:none;">
+				<cdk:call expression="renderInitialFacet(facesContext, component)"/>
+			</div>
+			<cdk:object type="java.lang.String" name="shellStyle" value="#{getShellStyle(facesContext, component)}" />
+			<div cdk:passThroughWithExclusions="onclick, ondblclick, onmouseup, onmousedown, onmousemove, onmouseover, onmouseout" id="#{clientId}:progressState" class="rich-progress-bar-block rich-progress-bar-height rich-progress-bar-width #{shellStyle} #{component.attributes['styleClass']}" style="#{component.attributes['style']} display:none;">
+				<c:if test="#{!isSimpleMarkup(component)}">
+					<div class="rich-progress-bar-width rich-progress-bar-remained rich-progress-bar-padding #{component.attributes['remainClass']}" id="#{clientId}:remain" style="#{component.attributes['style']}"/>
+					<div class="rich-progress-bar-uploaded-dig" id="#{clientId}:upload" style="#{component.attributes['style']}; width=#{getWidth(component)}%;">
+						<div class="rich-progress-bar-height rich-progress-bar-width rich-progress-bar-completed rich-progress-bar-padding  #{component.attributes['completeClass']}" id="#{clientId}:complete" style="#{component.attributes['style']}"/>
+					</div>
+				</c:if>
+				<c:if test="#{isSimpleMarkup(component)}">
+					<div class="rich-progress-bar-height rich-progress-bar-uploaded #{component.attributes['completeClass']}" id="#{clientId}:upload" style="#{component.attributes['style']}; width=#{getWidth(component)}%;"/>
+				</c:if>
+			</div>
+			<div id="#{clientId}:completeState" class="#{component.attributes['finishClass']}" style="#{component.attributes['style']} display:none;">
+				<cdk:call expression="renderCompleteFacet(facesContext, component)"/>
+			</div>
+			<cdk:object type="java.lang.String" name="state" value="#{getCurrentState(facesContext, component)}" />
+			<script type="text/javascript">
+				#{getInitialScript(facesContext, component, state)}
+				#{getRenderStateScript(facesContext, component, state)}
+			</script>
+		</div>
+		
+		</c:otherwise>
+	</c:choose>
+	</cc:implementation>
+</cdk:root>

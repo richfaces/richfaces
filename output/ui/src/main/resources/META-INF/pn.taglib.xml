@@ -21,6 +21,13 @@
         </component>
     </tag>
     <tag>
+        <tag-name>progressBar</tag-name>
+        <component>
+            <component-type>org.richfaces.ProgressBar</component-type>
+            <renderer-type>org.richfaces.ProgressBarRenderer</renderer-type>
+        </component>
+    </tag>
+    <tag>
         <tag-name>popupPanel</tag-name>
         <component>
             <component-type>org.richfaces.PopupPanel</component-type>
