@@ -278,8 +278,8 @@ public class ProgressBarBaseRenderer extends RendererBase {
     }
     
     public String getShellStyle(FacesContext context, UIComponent component){
-        return (!isSimpleMarkup(component)) ? "rich-progress-bar-shell-dig "
-            : "rich-progress-bar-shell ";
+        return (!isSimpleMarkup(component)) ? "rf-pb-shl-dig "
+            : "rf-pb-shl ";
     }
     
     public String getWidth(UIComponent component){

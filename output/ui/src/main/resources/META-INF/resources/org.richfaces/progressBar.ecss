@@ -1,36 +1,44 @@
-.rich-progress-bar-height{height : 13px;}
-.rich-progress-bar-width{width : 200px}	
-.rich-progress-bar-block{white-space : nowrap;}		
-.rich-progress-bar-uploaded{
+.rf-pb-cnt{
+height : 13px;
+white-space : nowrap;
+width : 200px;
+}	
+.rf-pb-upl{
 background-repeat : repeat-x;
 background-image : "url(#{resource['org.richfaces.renderkit.html.images.ProgressBarAnimatedBg']})";
 background-color : '#{richSkin.selectControlColor}';
+height : 13px;
 }
-.rich-progress-bar-uploaded-dig{
+.rf-pb-upl-dig{
 overflow : hidden; position : absolute; top : 0px; left : 0px;
 border-color : '#{richSkin.panelBorderColor}';
 }
-.rich-progress-bar-shell{
+.rf-pb-shl{
 margin-bottom : 2px; border : 1px solid;
 background-color : '#{richSkin.controlBackgroundColor}';
 border-color : '#{richSkin.panelBorderColor}';
 }
-.rich-progress-bar-shell-dig{
+.rf-pb-shl-dig{
 position : relative; margin-bottom : 2px; border : 1px solid; overflow: hidden;
 border-color : '#{richSkin.panelBorderColor}';
 color : '#{richSkin.controlTextColor}';
 font-family : '#{richSkin.generalFamilyFont}';
 font-size : '#{richSkin.generalSizeFont}';
 }
-.rich-progress-bar-remained{
+.rf-pb-rmnd{
 text-align : center; font-weight : bold; position : relative;
 background-color : '#{richSkin.controlBackgroundColor}';
 text-color : '#{richSkin.controlTextColor}';
+height : 13px;
+width : 200px;
+padding: 0px;
 }
-.rich-progress-bar-completed{
+.rf-pb-cmpltd{
 text-align : center; font-weight : bold; background-repeat : repeat-x;
 background-color : '#{richSkin.selectControlColor}';
 text-color : '#{richSkin.controlBackgroundColor}';
+height : 13px;
+width : 200px;
+padding: 0px;
 background-image : "url(#{resource['org.richfaces.renderkit.html.images.ProgressBarAnimatedBg']})";
 }
-.rich-progress-bar-padding{padding: 0px}

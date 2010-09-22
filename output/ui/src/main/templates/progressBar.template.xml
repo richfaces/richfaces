@@ -30,15 +30,15 @@
 			</c:if>
 			<c:if test="#{state eq 'progressState'}">
 				<cdk:object type="java.lang.String" name="shellStyle" value="#{getShellStyle(facesContext, component)}" />
-				<div cdk:passThroughWithExclusions="onclick, ondblclick, onmouseup, onmousedown, onmousemove, onmouseover, onmouseout" id="#{clientId}" class="rich-progress-bar-block rich-progress-bar-width #{shellStyle} #{component.attributes['styleClass']}" style="#{component.attributes['style']}">
+				<div cdk:passThroughWithExclusions="onclick, ondblclick, onmouseup, onmousedown, onmousemove, onmouseover, onmouseout" id="#{clientId}" class="rf-pb-cnt #{shellStyle} #{component.attributes['styleClass']}" style="#{component.attributes['style']}">
 				<c:if test="#{!isSimpleMarkup(component)}">
-					<div class="rich-progress-bar-width rich-progress-bar-height rich-progress-bar-remained rich-progress-bar-padding #{component.attributes['remainClass']}" id="#{clientId}:remain" style="#{component.attributes['style']}"/>
-					<div class="rich-progress-bar-uploaded-dig" id="#{clientId}:upload" style="#{component.attributes['style']}; width:#{getWidth(component)}%;">
-						<div class="rich-progress-bar-height rich-progress-bar-width rich-progress-bar-completed rich-progress-bar-padding  #{component.attributes['completeClass']}" id="#{clientId}:complete" style="#{component.attributes['style']}"/>
+					<div class="rf-pb-rmnd #{component.attributes['remainClass']}" id="#{clientId}:remain" style="#{component.attributes['style']}"/>
+					<div class="rf-pb-upl-dig" id="#{clientId}:upload" style="#{component.attributes['style']}; width:#{getWidth(component)}%;">
+						<div class="rf-pb-cmpltd #{component.attributes['completeClass']}" id="#{clientId}:complete" style="#{component.attributes['style']}"/>
 					</div>
 				</c:if>
 				<c:if test="#{isSimpleMarkup(component)}">
-					<div class="rich-progress-bar-height rich-progress-bar-uploaded #{component.attributes['completeClass']}" id="#{clientId}:upload" style="#{component.attributes['style']}; width:#{getWidth(component)}%;"/>
+					<div class="rf-pb-upl #{component.attributes['completeClass']}" id="#{clientId}:upload" style="#{component.attributes['style']}; width:#{getWidth(component)}%;"/>
 				</c:if>
 					<script type="text/javascript">
 						#{getInitialScript(facesContext, component, 'progressState')}
@@ -54,15 +54,15 @@
 				<cdk:call expression="renderInitialFacet(facesContext, component)"/>
 			</div>
 			<cdk:object type="java.lang.String" name="shellStyle" value="#{getShellStyle(facesContext, component)}" />
-			<div cdk:passThroughWithExclusions="onclick, ondblclick, onmouseup, onmousedown, onmousemove, onmouseover, onmouseout" id="#{clientId}:progressState" class="rich-progress-bar-block rich-progress-bar-height rich-progress-bar-width #{shellStyle} #{component.attributes['styleClass']}" style="#{component.attributes['style']} display:none;">
+			<div cdk:passThroughWithExclusions="onclick, ondblclick, onmouseup, onmousedown, onmousemove, onmouseover, onmouseout" id="#{clientId}:progressState" class="rf-pb-cnt #{shellStyle} #{component.attributes['styleClass']}" style="#{component.attributes['style']} display:none;">
 				<c:if test="#{!isSimpleMarkup(component)}">
-					<div class="rich-progress-bar-width rich-progress-bar-remained rich-progress-bar-padding #{component.attributes['remainClass']}" id="#{clientId}:remain" style="#{component.attributes['style']}"/>
-					<div class="rich-progress-bar-uploaded-dig" id="#{clientId}:upload" style="#{component.attributes['style']}; width=#{getWidth(component)}%;">
-						<div class="rich-progress-bar-height rich-progress-bar-width rich-progress-bar-completed rich-progress-bar-padding  #{component.attributes['completeClass']}" id="#{clientId}:complete" style="#{component.attributes['style']}"/>
+					<div class="rf-pb-rmnd #{component.attributes['remainClass']}" id="#{clientId}:remain" style="#{component.attributes['style']}"/>
+					<div class="rf-pb-upl-dig" id="#{clientId}:upload" style="#{component.attributes['style']}; width=#{getWidth(component)}%;">
+						<div class="rf-pb-cmpltd  #{component.attributes['completeClass']}" id="#{clientId}:complete" style="#{component.attributes['style']}"/>
 					</div>
 				</c:if>
 				<c:if test="#{isSimpleMarkup(component)}">
-					<div class="rich-progress-bar-height rich-progress-bar-uploaded #{component.attributes['completeClass']}" id="#{clientId}:upload" style="#{component.attributes['style']}; width=#{getWidth(component)}%;"/>
+					<div class="rf-pb-upl #{component.attributes['completeClass']}" id="#{clientId}:upload" style="#{component.attributes['style']}; width=#{getWidth(component)}%;"/>
 				</c:if>
 			</div>
 			<div id="#{clientId}:completeState" class="#{component.attributes['finishClass']}" style="#{component.attributes['style']} display:none;">
