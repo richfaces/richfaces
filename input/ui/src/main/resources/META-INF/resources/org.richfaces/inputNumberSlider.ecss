@@ -19,31 +19,31 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-.rf-ins, .rf-ins-ta {
+.rf-insl, .rf-insl-trc-cntr {
 	display: inline-block;
 }
 
-.rf-ins {
+.rf-insl {
 	white-space: nowrap;
 }
 
-.rf-ins-ta {
+.rf-insl-trc-cntr {
 	width: 200px; /*TODO remove it*/
 	vertical-align: top;
 }
 
-.rf-ins-mn, .rf-ins-mx, input.rf-ins-i, .rf-ins-tt {
+.rf-insl-mn, .rf-insl-mx, input.rf-insl-inp, .rf-insl-tt {
 	font-size: '#{richSkin.generalSizeFont}';
 	font-family: '#{richSkin.generalFamilyFont}';
 	color: '#{richSkin.generalTextColor}';
 }
 
-.rf-ins-mn, .rf-ins-mx {
+.rf-insl-mn, .rf-insl-mx {
 	display: block;
 	margin-bottom: 3px;
 }
 
-.rf-ins-mn {
+.rf-insl-mn {
 	border-left-width: 1px;
 	border-left-style: solid;
 	border-left-color: '#{richSkin.panelBorderColor}';
@@ -51,7 +51,7 @@
 	float: left;
 }
 
-.rf-ins-mx {
+.rf-insl-mx {
 	border-right-width: 1px;
 	border-right-style: solid;
 	border-right-color: '#{richSkin.panelBorderColor}';
@@ -60,12 +60,12 @@
 	text-align: right;
 }
 
-.rf-ins-ci {
+.rf-insl-inp-cntr {
 	margin: 0px; 
 	vertical-align: bottom;
 }
 
-input.rf-ins-i {
+input.rf-insl-inp {
 	background: url("#{resource['org.richfaces.renderkit.html.images.InputBackgroundImage']}") top repeat-x;
 	background-color: '#{richSkin.controlBackgroundColor}';
 	border-width: 1px;
@@ -75,7 +75,7 @@ input.rf-ins-i {
 	vertical-align: bottom;
 }
 
-.rf-ins-tt {
+.rf-insl-tt {
 	position: absolute;
 	display: none;
 	/* TODO padding: 2px;
@@ -83,7 +83,7 @@ input.rf-ins-i {
 	background-color: '#{richSkin.tipBackgroundColor}';*/
 }
 
-.rf-ins-t {
+.rf-insl-trc {
 	background: url("#{resource['org.richfaces.images:insldrTrackGrad.png']}") 1px 1px repeat-x;
 	background-color: '#{richSkin.controlBackgroundColor}';
 	border-width: 1px;
@@ -97,53 +97,53 @@ input.rf-ins-i {
 	font-size: 0px;
 }
 
-.rf-ins-h, .rf-ins-h-d, .rf-ins-db, .rf-ins-ib, .rf-ins-db-d, .rf-ins-ib-d {
+.rf-insl-hnd, .rf-insl-hnd-dis, .rf-insl-dec, .rf-insl-inc, .rf-insl-dec-dis, .rf-insl-inc-dis {
 	display: inline-block;
 	width: 7px;
 	height: 7px;
 }
 
-.rf-ins-h, .rf-ins-h-d {
+.rf-insl-hnd, .rf-insl-hnd-dis {
 	vertical-align: top;
 }
 
-.rf-ins-db, .rf-ins-ib, .rf-ins-db-d, .rf-ins-ib-d {
+.rf-insl-dec, .rf-insl-inc, .rf-insl-dec-dis, .rf-insl-inc-dis {
 	vertical-align: bottom;
 }
 
 
-.rf-ins-h {
+.rf-insl-hnd {
 	background-image: url("#{resource['org.richfaces.renderkit.html.images.SliderArrowBottom']}");
 }
 
-.rf-ins-h-s {
+.rf-insl-hnd-sel {
 	background-image: url("#{resource['org.richfaces.renderkit.html.images.SliderSelectedArrowBottom']}");
 }
 
-.rf-ins-h-d {
+.rf-insl-hnd-dis {
 	background-image: url("#{resource['org.richfaces.renderkit.html.images.SliderDisabledArrowBottom']}");
 }
 
-.rf-ins-db {
+.rf-insl-dec {
 	background-image: url("#{resource['org.richfaces.renderkit.html.images.SliderArrowLeft']}");
 }
 
-.rf-ins-db-s {
+.rf-insl-dec-sel {
 	background-image: url("#{resource['org.richfaces.renderkit.html.images.SliderSelectedArrowLeft']}");
 }
 
-.rf-ins-db-d {
+.rf-insl-dec-dis {
 	background-image: url("#{resource['org.richfaces.renderkit.html.images.SliderDisabledArrowLeft']}");
 }
 
-.rf-ins-ib {
+.rf-insl-inc {
 	background-image: url("#{resource['org.richfaces.renderkit.html.images.SliderArrowRight']}");
 }
 
-.rf-ins-ib-s {
+.rf-insl-inc-sel {
 	background-image: url("#{resource['org.richfaces.renderkit.html.images.SliderSelectedArrowRight']}");
 }
 
-.rf-ins-ib-d {
+.rf-insl-inc-dis {
 	background-image: url("#{resource['org.richfaces.renderkit.html.images.SliderDisabledArrowRight']}");
 }

@@ -32,25 +32,25 @@
 	    step: 1,
 	    tabIndex: 0,
 	
-	    decreaseSelectedClass: "rf-ins-db-s",
-	    handleSelectedClass: "rf-ins-h-s",
-	    increaseSelectedClass: "rf-ins-ib-s",
+	    decreaseSelectedClass: "rf-insl-dec-sel",
+	    handleSelectedClass: "rf-insl-hnd-sel",
+	    increaseSelectedClass: "rf-insl-inc-sel",
 
 	    init: function (id, options, selectedClasses) {
 			jQuery.extend(this, options);
 	        this.range = this.maxValue - this.minValue;
 	        this.id = id;
 	        this.element = jQuery(this.attachToDom());
-	        this.input = this.element.children(".rf-ins-ci").children(".rf-ins-i");
-	        this.track = this.element.children(".rf-ins-ta").children(".rf-ins-t");
-	        this.handle = this.track.children(".rf-ins-h, .rf-ins-h-d");
-	        this.tooltip = this.element.children(".rf-ins-tt");
+	        this.input = this.element.children(".rf-insl-inp-cntr").children(".rf-insl-inp");
+	        this.track = this.element.children(".rf-insl-trc-cntr").children(".rf-insl-trc");
+	        this.handle = this.track.children(".rf-insl-hnd, .rf-insl-hnd-dis");
+	        this.tooltip = this.element.children(".rf-insl-tt");
 	        
 	        this.__inputHandler();
 	        
 	        if (!this.disabled) {
-		        this.decreaseButton = this.element.children(".rf-ins-db");
-		        this.increaseButton = this.element.children(".rf-ins-ib");
+		        this.decreaseButton = this.element.children(".rf-insl-dec");
+		        this.increaseButton = this.element.children(".rf-insl-inc");
 	
 	        	this.track[0].tabIndex = this.tabIndex;
 	

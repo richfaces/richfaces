@@ -22,9 +22,9 @@ License along with this software; if not, write to the Free
 Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
-<span class="rf-ins-ci">
+<span class="rf-insl-inp-cntr">
 	<input xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core" name="#{clientId}" type="text"
-		class="rf-ins-i #{component.attributes['inputClass']}" value="#{getInputValue(facesContext, component)}"
+		class="rf-insl-inp #{component.attributes['inputClass']}" value="#{getInputValue(facesContext, component)}"
 		cdk:passThrough="accesskey disabled maxlength size:inputSize tabindex" readonly="#{!component.attributes['enableManualInput']}"
 		style="#{component.attributes['showInput'] ? null : 'display: none;'}" />
 </span>

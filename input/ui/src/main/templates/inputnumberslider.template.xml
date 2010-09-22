@@ -37,7 +37,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		<cdk:resource-dependency library="org.richfaces" name="inputNumberSlider.js" />
 	</cc:interface>
 	<cc:implementation>
-		<span id="#{clientId}" class="rf-ins #{component.attributes['styleClass']}" cdk:passThroughWithExclusions="id class">
+		<span id="#{clientId}" class="rf-insl #{component.attributes['styleClass']}" cdk:passThroughWithExclusions="id class">
             <c:if test="#{isInputPosition(component, 'left') || isInputPosition(component, 'top')}">
 				<xi:include xpointer="xpointer(/*)" href="input.template.inc" />
 				<c:if test="#{isInputPosition(component, 'top') and component.attributes['showInput']}">
@@ -45,19 +45,19 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 				</c:if>
 			</c:if>
 			<c:if test="#{component.attributes['showArrows']}">
-				<span class="rf-ins-db#{component.attributes['disabled'] ? '-d' : ''} #{component.attributes['decreaseClass']}" />
+				<span class="rf-insl-dec#{component.attributes['disabled'] ? '-dis' : ''} #{component.attributes['decreaseClass']}" />
 			</c:if>
-			<span class="rf-ins-ta">
+			<span class="rf-insl-trc-cntr">
 				<c:if test="#{component.attributes['showBoundaryValues']}">
-					<span class="rf-ins-mn">#{component.attributes['minValue']}</span>
-					<span class="rf-ins-mx">#{component.attributes['maxValue']}</span>
+					<span class="rf-insl-mn">#{component.attributes['minValue']}</span>
+					<span class="rf-insl-mx">#{component.attributes['maxValue']}</span>
 				</c:if>
-				<span class="rf-ins-t #{component.attributes['trackClass']}">
-					<span class="rf-ins-h#{component.attributes['disabled'] ? '-d' : ''} #{component.attributes['handleClass']}" />
+				<span class="rf-insl-trc #{component.attributes['trackClass']}">
+					<span class="rf-insl-hnd#{component.attributes['disabled'] ? '-dis' : ''} #{component.attributes['handleClass']}" />
 				</span>
 			</span>
 			<c:if test="#{component.attributes['showArrows']}">
-				<span class="rf-ins-ib#{component.attributes['disabled'] ? '-d' : ''} #{component.attributes['increaseClass']}" />
+				<span class="rf-insl-inc#{component.attributes['disabled'] ? '-dis' : ''} #{component.attributes['increaseClass']}" />
 			</c:if>
 			<c:if test="#{isInputPosition(component, 'right') || isInputPosition(component, 'bottom')}">
 				<c:if test="#{isInputPosition(component, 'bottom') and component.attributes['showInput']}">
@@ -66,7 +66,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 				<xi:include xpointer="xpointer(/*)" href="input.template.inc" />
 			</c:if>
 			<c:if test="#{component.attributes['showToolTip']}">
-				<span class="rf-ins-tt #{component.attributes['toolTipClass']}">#{getInputValue(facesContext, component)}</span>
+				<span class="rf-insl-tt #{component.attributes['toolTipClass']}">#{getInputValue(facesContext, component)}</span>
 			</c:if>
 			<script type="text/javascript">new RichFaces.ui.InputNumberSlider('#{clientId}', {
 				delay: #{component.attributes['delay']},
