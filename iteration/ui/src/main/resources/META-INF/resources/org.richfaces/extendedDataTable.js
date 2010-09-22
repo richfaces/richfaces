@@ -122,7 +122,7 @@
 	};
 
 	richfaces.ExtendedDataTable = function(id, rowCount, ajaxFunction, options) {
-		var WIDTH_CLASS_NAME_BASE = "rf-edt-cw-";
+		var WIDTH_CLASS_NAME_BASE = "rf-edt-c-";
 		var MIN_WIDTH = 20;
 		
 		options = options || {};
@@ -135,9 +135,9 @@
 		var reorderMarkerElement = document.getElementById(id + ":rm");
 		var widthInput = document.getElementById(id + ":wi");
 		var selectionInput = document.getElementById(id + ":si");
-		var normalPartStyle = richfaces.utils.getCSSRule(".rf-edt-pw").style;
-		var header = jQuery(element).children(".rf-edt-h");
-		var resizerHolders = header.find(".rf-edt-rsh");
+		var normalPartStyle = richfaces.utils.getCSSRule(".rf-edt-cnt, .rf-edt-ftr-cnt").style;
+		var header = jQuery(element).children(".rf-edt-hdr");
+		var resizerHolders = header.find(".rf-edt-rsz-cntr");
 		
 		var frozenHeaderPartElement = document.getElementById(id + ":frozenHeader");
 		var frozenColumnCount = frozenHeaderPartElement ? frozenHeaderPartElement.firstChild.rows[0].cells.length : 0;//TODO Richfaces.firstDescendant;
@@ -265,7 +265,7 @@
 				spacerElement = null;
 				dataTableElement = null;
 			}
-			parts = jQuery(element).find(".rf-edt-p");
+			parts = jQuery(element).find(".rf-edt-cnt, .rf-edt-ftr-cnt");
 			updateLayout();
 			updateScrollPosition(); //TODO Restore horizontal scroll position
 		};
@@ -319,7 +319,7 @@
 		var beginReorder = function(event) {
 			idOfReorderingColumn = this.className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1];
 			jQuery(document).bind("mousemove", reorder);
-			header.find(".rf-edt-hc").bind("mouseover", overReorder);
+			header.find(".rf-edt-hdr-c").bind("mouseover", overReorder);
 			jQuery(document).one("mouseup", cancelReorder);
 			return false;
 		};
@@ -345,7 +345,7 @@
 			jQuery(this).unbind("mouseout", outReorder);
 			var id = this.className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1];
 			var colunmsOrder = "";
-			header.find(".rf-edt-hc").each(function() {
+			header.find(".rf-edt-hdr-c").each(function() {
 				var i = this.className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1];
 				if (i == id) {
 					colunmsOrder += idOfReorderingColumn + "," + id + ",";
@@ -358,7 +358,7 @@
 		
 		var cancelReorder = function(event) {
 			jQuery(document).unbind("mousemove", reorder);
-			header.find(".rf-edt-hc").unbind("mouseover", overReorder);
+			header.find(".rf-edt-hdr-c").unbind("mouseover", overReorder);
 			reorderElement.style.display = "none";
 		};
 		
@@ -395,34 +395,34 @@
 		var selectRow = function(index) {
 			ranges.add(index);
 			for ( var i = 0; i < tbodies.length; i++) {
-				jQuery(tbodies[i].rows[index]).addClass("rf-edt-r-s");
+				jQuery(tbodies[i].rows[index]).addClass("rf-edt-r-sel");
 			}
 		}
 		
 		var deselectRow = function (index) {
 			ranges.remove(index);
 			for ( var i = 0; i < tbodies.length; i++) {
-				jQuery(tbodies[i].rows[index]).removeClass("rf-edt-r-s");
+				jQuery(tbodies[i].rows[index]).removeClass("rf-edt-r-sel");
 			}
 		}
 
 		var setActiveRow = function (index) {
 			if(typeof activeIndex == "number") {
 				for ( var i = 0; i < tbodies.length; i++) {
-					jQuery(tbodies[i].rows[activeIndex]).removeClass("rf-edt-r-a");
+					jQuery(tbodies[i].rows[activeIndex]).removeClass("rf-edt-r-act");
 				}
 				
 			}
 			activeIndex = index;
 			for ( var i = 0; i < tbodies.length; i++) {
-				jQuery(tbodies[i].rows[activeIndex]).addClass("rf-edt-r-a");
+				jQuery(tbodies[i].rows[activeIndex]).addClass("rf-edt-r-act");
 			}
 		}
 		
 		var resetShiftRow = function () {
 			if(typeof shiftIndex == "number") {
 				for ( var i = 0; i < tbodies.length; i++) {
-					jQuery(tbodies[i].rows[shiftIndex]).removeClass("rf-edt-r-t");
+					jQuery(tbodies[i].rows[shiftIndex]).removeClass("rf-edt-r-sht");
 				}
 				
 			}
@@ -434,7 +434,7 @@
 			shiftIndex = index;
 			if(typeof index == "number") {
 				for ( var i = 0; i < tbodies.length; i++) {
-					jQuery(tbodies[i].rows[shiftIndex]).addClass("rf-edt-r-t");
+					jQuery(tbodies[i].rows[shiftIndex]).addClass("rf-edt-r-sht");
 				}
 			}
 		}
@@ -448,13 +448,13 @@
 			var rows = tbodies[0].rows;
 			for (var i = 0; i < rows.length; i++) {
 				var row = jQuery(rows[i]);
-				if (row.hasClass("rf-edt-r-s")) {
+				if (row.hasClass("rf-edt-r-sel")) {
 					ranges.add(row[0].rowIndex)
 				}
-				if (row.hasClass("rf-edt-r-a")) {
+				if (row.hasClass("rf-edt-r-act")) {
 					activeIndex = row[0].rowIndex;
 				}
-				if (row.hasClass("rf-edt-r-t")) {
+				if (row.hasClass("rf-edt-r-sht")) {
 					shiftIndex = row[0].rowIndex;
 				}
 			}
@@ -616,8 +616,8 @@
 		jQuery(window).bind("resize", updateLayout);
 		jQuery(scrollElement).bind("scroll", updateScrollPosition);
 		var bindHeaderHandlers = function () {
-			header.find(".rf-edt-rs").bind("mousedown", beginResize);
-			header.find(".rf-edt-hc").bind("mousedown", beginReorder);
+			header.find(".rf-edt-rsz").bind("mousedown", beginResize);
+			header.find(".rf-edt-hdr-c").bind("mousedown", beginReorder);
 		}
 		bindHeaderHandlers();
 		jQuery(element).bind("rich:onajaxcomplete", ajaxComplete);
@@ -628,7 +628,7 @@
 		
 		this.getColumnPosition = function(id) {
 			var position;
-			var headers = header.find(".rf-edt-hc");
+			var headers = header.find(".rf-edt-hdr-c");
 			for (var i = 0; i < headers.length; i++) {
 				if (id == headers[i].className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1]) {
 					position = i;
@@ -640,7 +640,7 @@
 		this.setColumnPosition = function(id, position) {
 			var colunmsOrder = "";
 			var before;
-			var headers = header.find(".rf-edt-hc");
+			var headers = header.find(".rf-edt-hdr-c");
 			for (var i = 0; i < headers.length; i++) {
 				var current = headers[i].className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1];
 				if (i == position) {

@@ -121,36 +121,36 @@ public class ExtendedDataTableRendererTest {
         HtmlPage page = environment.getPage("/extendedDataTableTest.jsf");
         HtmlElement table = page.getElementById("table");
         String text = table.getElementsByTagName("style").get(0).getTextContent();
-        assertTrue(text.contains("rf-edt-pw"));
-        assertTrue(text.contains("rf-edt-cw"));
-        HtmlElement header = table.getFirstByXPath("div[@class='rf-edt-h']");
+        assertTrue(text.contains(".rf-edt-cnt, .rf-edt-ftr-cnt"));
+        assertTrue(text.contains("rf-edt-c"));
+        HtmlElement header = table.getFirstByXPath("div[@class='rf-edt-hdr']");
         HtmlElement frozenHeader = header.getElementById("table:frozenHeader");
         HtmlElement normalHeader = header.getElementById("table:header");
-        assertTrue(normalHeader.getAttribute("class").contains("rf-edt-pw"));
-        assertNotNull(frozenHeader.getFirstByXPath("descendant::*[@class='rf-edt-rs']"));
-        assertNotNull(normalHeader.getFirstByXPath("descendant::*[@class='rf-edt-rs']"));
+        assertTrue(normalHeader.getAttribute("class").contains("rf-edt-cnt"));
+        assertNotNull(frozenHeader.getFirstByXPath("descendant::*[@class='rf-edt-rsz']"));
+        assertNotNull(normalHeader.getFirstByXPath("descendant::*[@class='rf-edt-rsz']"));
         assertEquals("headerColumnFacet1", ((HtmlElement) frozenHeader
-                .getFirstByXPath("//*[@class='rf-edt-hcc']//*[@id='table:headerColumnFacet1']"))
+                .getFirstByXPath("//*[@class='rf-edt-hdr-c-cnt']//*[@id='table:headerColumnFacet1']"))
                 .getTextContent());
         assertEquals("headerColumnFacet2", ((HtmlElement) normalHeader
-                .getFirstByXPath("//*[@class='rf-edt-hcc']//*[@id='table:headerColumnFacet2']"))
+                .getFirstByXPath("//*[@class='rf-edt-hdr-c-cnt']//*[@id='table:headerColumnFacet2']"))
                 .getTextContent());
         HtmlElement body = table.getElementById("table:b");
         assertEquals("rf-edt-b", body.getAttribute("class"));
-        assertNotNull(body.getFirstByXPath("descendant::*[@class='rf-edt-s']"));
+        assertNotNull(body.getFirstByXPath("descendant::*[@class='rf-edt-spcr']"));
         assertNotNull(body
-            .getFirstByXPath("descendant::*[@class='rf-edt-p rf-edt-pw']//*[@id='table:tbn']"));
+            .getFirstByXPath("descendant::*[@class='rf-edt-cnt']//*[@id='table:tbn']"));
         assertEquals("noDataFacet", ((HtmlElement) page
             .getFirstByXPath("//*[@id='table2']//*[@id='table2:b']//*[@id='table2:noDataFacet']")).getTextContent());
-        HtmlElement footer = table.getFirstByXPath("div[@class='rf-edt-f']");
-        HtmlElement frozenFooter = footer.getFirstByXPath("descendant::*[@class='rf-edt-fa']/div");
+        HtmlElement footer = table.getFirstByXPath("div[@class='rf-edt-ftr']");
+        HtmlElement frozenFooter = footer.getFirstByXPath("descendant::*[@class='rf-edt-ftr-fzn']/div");
         HtmlElement normalFooter = footer.getElementById("table:footer");
-        assertTrue(normalFooter.getAttribute("class").contains("rf-edt-pw"));
+        assertTrue(normalFooter.getAttribute("class").contains("rf-edt-ftr-cnt"));
         assertEquals("footerColumnFacet1", ((HtmlElement) frozenFooter
-                .getFirstByXPath("descendant::*[@class='rf-edt-fcc']//*[@id='table:footerColumnFacet1']"))
+                .getFirstByXPath("descendant::*[@class='rf-edt-ftr-c-cnt']//*[@id='table:footerColumnFacet1']"))
                 .getTextContent());
         assertEquals("footerColumnFacet2", ((HtmlElement) normalFooter
-                .getFirstByXPath("descendant::*[@class='rf-edt-fcc']//*[@id='table:footerColumnFacet2']"))
+                .getFirstByXPath("descendant::*[@class='rf-edt-ftr-c-cnt']//*[@id='table:footerColumnFacet2']"))
                 .getTextContent());
     }
 
@@ -166,9 +166,9 @@ public class ExtendedDataTableRendererTest {
         HtmlPage page = environment.getPage("/extendedDataTableTest.jsf");
         HtmlElement table = page.getElementById("table");
         assertEquals("footerFacet", table.getElementById("table:footerFacet").getTextContent());
-        assertEquals("rf-edt-d", table.getElementById("table:d").getAttribute("class"));
-        assertEquals("rf-edt-ro", table.getElementById("table:r").getAttribute("class"));
-        assertEquals("rf-edt-rom", table.getElementById("table:rm").getAttribute("class"));
+        assertEquals("rf-edt-rsz-mkr", table.getElementById("table:d").getAttribute("class"));
+        assertEquals("rf-edt-rord", table.getElementById("table:r").getAttribute("class"));
+        assertEquals("rf-edt-rord-mkr", table.getElementById("table:rm").getAttribute("class"));
         assertEquals("table:wi", table.getElementById("table:wi").getAttribute("name"));
         assertTrue(table.getElementsByTagName("script").get(0).getTextContent()
             .contains("RichFaces.ExtendedDataTable"));
@@ -187,7 +187,7 @@ public class ExtendedDataTableRendererTest {
         HtmlElement cell = table.getElementById("table:0:f").getElementsByTagName("div").get(0);
         assertTrue(cell.getAttribute("class").contains("rf-edt-c"));
         HtmlElement cellContent = cell.getElementsByTagName("div").get(0);
-        assertEquals("rf-edt-cc", cellContent.getAttribute("class"));
+        assertEquals("rf-edt-c-cnt", cellContent.getAttribute("class"));
         assertEquals("value", cellContent.getElementById("table:0:outputText").getTextContent());
     }
 

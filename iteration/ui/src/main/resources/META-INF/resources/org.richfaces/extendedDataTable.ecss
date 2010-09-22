@@ -25,11 +25,11 @@
 	border: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
 }
 
-.rf-edt-h, .rf-edt-th {
+.rf-edt-hdr, .rf-edt-tbl-hdr {
 	background-image : "url(#{resource['org.richfaces.images:colHdrGrad.png']})";
 }
 
-.rf-edt-th {
+.rf-edt-tbl-hdr {
 	border-bottom: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
 }
 
@@ -39,36 +39,36 @@
 	width: 100%;
 }
 
-.rf-edt-s {
+.rf-edt-spcr {
 	height: 0px;
 	font-size: 0px; /*for IE7 only*/
 }
 
-.rf-edt-f, .rf-edt-tf {
+.rf-edt-ftr, .rf-edt-tbl-ftr {
 	border-top: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
 	background-color: '#{richSkin.tableFooterBackgroundColor}';
 }
 
-.rf-edt-fa {
+.rf-edt-ftr-fzn {
 	vertical-align: top;
 }
 
-.rf-edt-p {
+.rf-edt-cnt {
 	overflow: hidden;
 }
 
-.rf-edt-fp {
+.rf-edt-ftr-cnt {
 	overflow-x: auto;
 	overflow-y: visible;
 }
 
-.rf-edt-rsh {
+.rf-edt-rsz-cntr {
 	left : 0px;
 	position: relative;
 	height: 0px;
 }
 
-.rf-edt-rs {
+.rf-edt-rsz {
 	background-image: url("#{resource['spacer.gif']}");
 	cursor: e-resize;
 	height: 20px; /*TODO*/
@@ -78,7 +78,7 @@
 	width: 6px;
 }
 
-.rf-edt-d {
+.rf-edt-rsz-mkr {
 	cursor: e-resize;
 	position: absolute;
 	border-left: '1px dotted #{richSkin.generalTextColor}';
@@ -87,13 +87,13 @@
 	display: none;
 }
 
-.rf-edt-ro {
+.rf-edt-rord {
 	position: absolute;
 	border-collapse: collapse;
 	display: none;
 }
 
-.rf-edt-ro th {
+.rf-edt-rord th {
 	width: 20px;
 	height: 5px;
 	font-size: 1px;
@@ -101,7 +101,7 @@
 	border: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
 }
 
-.rf-edt-ro td {
+.rf-edt-rord td {
 	width: 20px;
 	height: 5px;
 	font-size: 1px;
@@ -109,39 +109,39 @@
 	border: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
 }
 
-.rf-edt-c, .rf-edt-hc, .rf-edt-fc {
+.rf-edt-c, .rf-edt-hdr-c, .rf-edt-ftr-c {
 	height: 20px;
 	overflow: hidden;
 	border-bottom: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
 	border-right: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
 }
 
-.rf-edt-efc {
+.rf-edt-ftr-c-emp {
 	border-right: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
 	height: 1px;
 }
 
-.rf-edt-cc, .rf-edt-hcc, .rf-edt-fcc, .rf-edt-th, .rf-edt-tf {
+.rf-edt-c-cnt, .rf-edt-hdr-c-cnt, .rf-edt-ftr-c-cnt, .rf-edt-tbl-hdr, .rf-edt-tbl-ftr {
 	padding: 3px 7px;
 	white-space: nowrap;
 	font-family: '#{richSkin.generalFamilyFont}';
 	font-size: '#{richSkin.generalSizeFont}';
 }
 
-.rf-edt-hcc, .rf-edt-th, .rf-edt-fcc, .rf-edt-tf {
+.rf-edt-hdr-c-cnt, .rf-edt-tbl-hdr, .rf-edt-ftr-c-cnt, .rf-edt-tbl-ftr {
 	font-weight: bold;
 	text-align: center;
 }
 
-.rf-edt-hcc, .rf-edt-th {
+.rf-edt-hdr-c-cnt, .rf-edt-tbl-hdr {
 	color: '#{richSkin.tableHeaderTextColor}';
 }
 
-.rf-edt-cc, .rf-edt-fcc, .rf-edt-tf {
+.rf-edt-c-cnt, .rf-edt-ftr-c-cnt, .rf-edt-tbl-ftr {
 	color: '#{richSkin.generalTextColor}';	
 }
 
-.rf-edt-rom {
+.rf-edt-rord-mkr {
 	position: absolute;
 	height: 9px;
 	font-size: 9px;
@@ -150,10 +150,10 @@
 	display: none;
 }
 
-.rf-edt-r-s {
+.rf-edt-r-sel {
 	background-color: '#{richSkin.additionalBackgroundColor}';	/*TODO Probably use other skin property.*/
 }
 
-.rf-edt-r-a {
+.rf-edt-r-act {
 	font-weight: bold;	/*TODO Probably use other property.*/
 }
