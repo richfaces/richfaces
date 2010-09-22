@@ -79,6 +79,15 @@ input.rf-au-inp {
 	list-style-type: none;
 }
 
+.rf-au-sel{
+	padding: 1px;
+	width: 100%;
+	background-color: '#{richSkin.headerBackgroundColor}';
+	border-width: 1px;
+	border-style: dotted;
+	border-color: '#{richSkin.generalTextColor}';
+}
+
 .rf-au-shdw{
 	border: 0px solid red;
 	display: inline-block;

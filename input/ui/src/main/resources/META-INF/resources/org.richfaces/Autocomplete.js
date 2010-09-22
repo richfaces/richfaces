@@ -115,8 +115,8 @@
 	var $super = rf.ui.Autocomplete.$super;
 
 	var defaultOptions = {
-		selectedItemClass:'rf-au-select',
-		itemClass:'rf-au-option',
+		selectedItemClass:'rf-au-sel',
+		itemClass:'rf-au-opt',
 		autofill:true,
 		minChars:1,
 		selectFirst:true,
