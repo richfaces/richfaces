@@ -298,15 +298,15 @@ public class SubTableRenderer extends AbstractTableRenderer {
     }
 
     public String getFirstRowSkinClass() {
-        return "rf-st-f-r";
+        return "rf-st-fst-r";
     }
 
     public String getHeaderRowSkinClass() {
-        return "rf-st-h-r";
+        return "rf-st-hdr-r";
     }
 
     public String getHeaderFirstRowSkinClass() {
-        return "rf-st-h-f-r";
+        return "rf-st-hdr-fst-r";
     }
 
     public String getCellSkinClass() {
@@ -314,55 +314,55 @@ public class SubTableRenderer extends AbstractTableRenderer {
     }
    
     public String getHeaderCellSkinClass() {
-        return "rf-st-h-c";
+        return "rf-st-hdr-c";
     }
 
     public String getColumnHeaderCellSkinClass() {
-        return "rf-st-sh-c";
+        return "rf-st-shdr-c";
     }
 
     public String getColumnHeaderSkinClass() {
-        return "rf-st-sh";
+        return "rf-st-shdr";
     }
 
     public String getFooterSkinClass() {
-        return "rf-st-f";
+        return "rf-st-ftr";
     }
     
     public String getFooterCellSkinClass() {
-        return "rf-st-f-c";
+        return "rf-st-ftr-c";
     }
 
     public String getFooterFirstRowSkinClass() {
-        return "rf-st-f-f";
+        return "rf-st-ftr-fst";
     }
 
     public String getColumnFooterCellSkinClass() {
-        return "rf-st-sf-c";
+        return "rf-st-sftr-c";
     }
 
     public String getColumnFooterSkinClass() {
-        return "rf-st-sf";
+        return "rf-st-sftr";
     }
     
     public String getColumnFooterFirstSkinClass() {
-        return "rf-st-sf-f";    
+        return "rf-st-sftr-fst";    
     }
 
     public String getColumnHeaderFirstSkinClass() {
-        return "rf-st-sh-f";
+        return "rf-st-shdr-fst";
     }
 
     public String getFooterFirstSkinClass() {
-        return "rf-st-f-f";
+        return "rf-st-ftr-fst";
     }
 
     public String getHeaderFirstSkinClass() {
-        return "rf-st-h-f";
+        return "rf-st-hdr-fst";
     }
 
     public String getHeaderSkinClass() {
-        return "rf-st-h";
+        return "rf-st-hdr";
     }
     
     public String getNoDataClass() {

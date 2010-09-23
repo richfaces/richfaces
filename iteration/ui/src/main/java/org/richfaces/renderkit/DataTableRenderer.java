@@ -322,7 +322,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
     }
 
     public String getFirstRowSkinClass() {
-        return "rf-dt-f-r";
+        return "rf-dt-fst-r";
     }
 
     public String getCellSkinClass() {
@@ -330,55 +330,55 @@ public class DataTableRenderer extends AbstractTableRenderer {
     }
 
     public String getHeaderSkinClass() {
-        return "rf-dt-h";
+        return "rf-dt-hdr";
     }
 
     public String getHeaderFirstSkinClass() {
-        return "rf-dt-h-f";
+        return "rf-dt-hdr-fst";
     }
 
     public String getHeaderCellSkinClass() {
-        return "rf-dt-h-c";
+        return "rf-dt-hdr-c";
     }
 
     public String getColumnHeaderSkinClass() {
-        return "rf-dt-sh";
+        return "rf-dt-shdr";
     }
 
     public String getColumnHeaderFirstSkinClass() {
-        return "rf-dt-sh-f";
+        return "rf-dt-shdr-fst";
     }
 
     public String getColumnHeaderCellSkinClass() {
-        return "rf-dt-sh-c";
+        return "rf-dt-shdr-c";
     }
 
     public String getColumnFooterSkinClass() {
-        return "rf-dt-sf";
+        return "rf-dt-sftr";
     }
 
     public String getColumnFooterFirstSkinClass() {
-        return "rf-dt-sf-f";
+        return "rf-dt-sftr-fst";
     }
 
     public String getColumnFooterCellSkinClass() {
-        return "rf-dt-sf-c";
+        return "rf-dt-sftr-c";
     }
 
     public String getFooterSkinClass() {
-        return "rf-dt-f";
+        return "rf-dt-ftr";
     }
 
     public String getFooterFirstSkinClass() {
-        return "rf-dt-f-f";
+        return "rf-dt-ftr-fst";
     }
 
     public String getFooterCellSkinClass() {
-        return "rf-dt-f-c";
+        return "rf-dt-ftr-c";
     }
 
     public String getNoDataClass() {
-        return "rf-dt-nd-c";
+        return "rf-dt-ndt";
     }
 
     protected void setupTableStartElement(FacesContext context, UIComponent component) {

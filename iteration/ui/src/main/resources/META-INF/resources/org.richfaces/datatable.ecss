@@ -16,7 +16,7 @@
 .rf-dt-r{
 }
 
-.rf-dt-f-r{
+.rf-dt-fst-r{
 }
 
 .rf-dt-c{
@@ -32,7 +32,7 @@
 	padding:4px;
 }
 
-.rf-dt-nd-c{ 
+.rf-dt-ndt{ 
 	border-bottom-width:'#{richSkin.tableBorderWidth}'; 
 	border-bottom-style:solid;
 	border-bottom-color:'#{richSkin.tableBorderColor}';
@@ -45,13 +45,13 @@
 	padding:4px;
 }
 
-.rf-dt-h{
+.rf-dt-hdr{
 }	
 
-.rf-dt-h-f{
+.rf-dt-hdr-fst{
 }
 
-.rf-dt-h-c{
+.rf-dt-hdr-c{
 	border-bottom-width:'#{richSkin.tableBorderWidth}';
 	border-bottom-style:solid;
 	border-bottom-color:'#{richSkin.tableBorderColor}';
@@ -69,13 +69,13 @@
 	text-align:center;
 }
 
-.rf-dt-sh {
+.rf-dt-shdr {
 }	
 
-.rf-dt-sh-f {
+.rf-dt-shdr-fst {
 }
 
-.rf-dt-sh-c{
+.rf-dt-shdr-c{
 	border-bottom-width:'#{richSkin.tableBorderWidth}';
 	border-bottom-style:solid;
 	border-bottom-color:'#{richSkin.tableBorderColor}';
@@ -93,13 +93,13 @@
 	text-align:center;
 }
 
-.rf-dt-sf{
+.rf-dt-sftr{
 }
 
-.rf-dt-sf-f{
+.rf-dt-sftr-fst{
 }
 
-.rf-dt-sf-c{
+.rf-dt-sftr-c{
 	border-bottom-width:'#{richSkin.tableBorderWidth}';
 	border-bottom-style:solid;
 	border-bottom-color:'#{richSkin.tableBorderColor}';
@@ -123,14 +123,14 @@
 	border-bottom-color:'#{richSkin.tableBorderColor}';
 }
 
-.rf-dt-f {
+.rf-dt-ftr {
 	
 }
 
-.rf-dt-f-f{
+.rf-dt-ftr-fst{
 }
 
-.rf-dt-f-c{
+.rf-dt-ftr-c{
 	border-bottom-width:'#{richSkin.tableBorderWidth}';
 	border-bottom-style:solid;
 	border-bottom-color:'#{richSkin.tableBorderColor}';
@@ -152,13 +152,13 @@
 .rf-st-r{
 }
 
-.rf-st-f-r{
+.rf-st-fst-r{
 }
 
-.rf-st-h-r{
+.rf-st-hdr-r{
 }
 
-.rf-st-h-f-r{
+.rf-st-hdr-fst-r{
 }
 
 .rf-st-c{
@@ -175,7 +175,7 @@
 	padding:4px; 
 }
 
-.rf-st-h-c{
+.rf-st-hdr-c{
 	border-bottom-width:'#{richSkin.tableBorderWidth}';
 	border-bottom-style:solid;
 	border-bottom-color:'#{richSkin.tableBorderColor}';
@@ -191,7 +191,7 @@
 	text-align:left;
 }	
 
-.rf-st-sh-c{
+.rf-st-shdr-c{
 	border-bottom-width:'#{richSkin.tableBorderWidth}';
 	border-bottom-style:solid;
 	border-bottom-color:'#{richSkin.tableBorderColor}';
@@ -206,13 +206,13 @@
 	padding:4px;
 }
 
-.rf-st-sh{
+.rf-st-shdr{
 }
 
-.rf-st-f {
+.rf-st-ftr {
 }
 
-.rf-st-f-c{
+.rf-st-ftr-c{
 	border-bottom-width:3px;
 	border-bottom-style:solid;
 	border-bottom-color:'#{richSkin.tableBorderColor}';
@@ -228,7 +228,7 @@
 	text-align:left;
 }
 
-.rf-st-sf-c{
+.rf-st-sftr-c{
 	border-bottom-width:'#{richSkin.tableBorderWidth}';
 	border-bottom-style:solid;
 	border-bottom-color:'#{richSkin.tableBorderColor}';
@@ -242,22 +242,22 @@
 	padding:4px;
 }
 
-.rf-st-sf{
+.rf-st-sftr{
 }
 
-.rf-st-sf-f{
+.rf-st-sftr-fst{
 }
 
-.rf-st-sh-f{
+.rf-st-shdr-fst{
 }
 
-.rf-st-f-f{
+.rf-st-ftr-fst{
 }
 
-.rf-st-h-f{
+.rf-st-hdr-fst{
 }
 
-.rf-st-h{
+.rf-st-hdr{
 }
 
 
