@@ -222,7 +222,7 @@
 					
 			
 	        		if (!this.domReattached) {
-						this.parent = element.parent();
+						this.parent = this.div.parent();
 				
 						var domElementAttachment;
 						if (opts) {
