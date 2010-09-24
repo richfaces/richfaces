@@ -369,8 +369,8 @@
 					this.shadowDiv.css('opacity', this.options.shadowOpacity);
 					this.shadowDiv.css('filter ', 'alpha(opacity='+this.options.shadowOpacity*100 +');');
 	    			
-	    			element.css('visibility', '');
-	    			element.css('display', 'block');
+	    			this.div.css('visibility', '');
+	    			this.div.css('display', 'block');
 	    			if (this.options.autosized) {
 						this.shadowDiv.css('height', this.cdiv[0].clientHeight);
 						this.shadowDiv.css('width', this.cdiv[0].clientWidth);
@@ -715,8 +715,8 @@
 			findForm: function(elt) {
 				var target = elt;
 				while (target) {
-					if (!target.tagName /* document node doesn't have tagName */ 
-							|| target.tagName.toLowerCase() != "form") {
+					if (!target[0].tagName /* document node doesn't have tagName */ 
+							|| target[0].tagName.toLowerCase() != "form") {
 				
 						target = $(target).parent();
 					} else {
