@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" >
+
+<h:head>
+    <title>
+        <ui:define name="title">Application Title</ui:define>
+    </title>
+
+    <meta http-equiv="content-type" content="text/xhtml; charset=UTF-8" />
+</h:head>
+
+<h:body>
+
+
+    <ui:insert name="scripts" ></ui:insert>
+    <table width="100%">
+        <thead>
+            <tr>
+                <th width="20%" align="left">Content</th>
+                <th width="80%" align="left">
+                    <ui:insert name="body_head">Example</ui:insert>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr valign="top">
+                <td>
+                    <h:form id="nav">
+                        <p>Input Component's Examples</p>
+							<ul>
+								<li><h:commandLink value="rich:inplaceInput" action="inplaceInput" /></li>
+								<li><h:commandLink value="rich:inputNumberSlider" action="inputNumberSlider" /></li>
+								<li><h:commandLink value="rich:inputNumberSpinner" action="inputNumberSpinner" /></li>
+								<li><h:commandLink value="rich:autocomplete" action="autocomplete" /></li>
+							</ul>
+							
+							<h:panelGrid columns="3">
+								<h:commandButton value="Classic">
+									<f:setPropertyActionListener target="#{skinBean.skin}" 	value="classic" />
+								</h:commandButton>
+								<h:commandButton value="BlueSky">
+									<f:setPropertyActionListener target="#{skinBean.skin}" value="blueSky" />
+								</h:commandButton>
+								<h:commandButton value="DeepMarine">
+									<f:setPropertyActionListener target="#{skinBean.skin}" value="deepMarine" />
+								</h:commandButton>
+							</h:panelGrid>
+							
+						<p>QUnit tests</p>
+	                        <ul>
+	                            <li><h:commandLink value="rich:autocomplete qunit" action="qunit/autocomplete" /></li>
+	                        </ul>
+                    </h:form>
+                </td>
+                <td>
+                    <ui:insert name="body">Default content</ui:insert>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</h:body>
+</html>

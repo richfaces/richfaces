@@ -6,26 +6,14 @@
 <h:head>
 </h:head>
 <h:body>
-	<h4>Input Components Sample</h4>
-	<ul>
-		<li><h:link outcome="inplaceInput">rich:inplaceInput</h:link></li>
-		<li><h:link outcome="inputNumberSlider">rich:inputNumberSlider</h:link></li>
-		<li><h:link outcome="inputNumberSpinner">rich:inputNumberSpinner</h:link></li>
-		<li><h:link outcome="autocomplete">rich:autocomplete</h:link></li>
-	</ul>
+<ui:composition template="/templates/template.xhtml">
 
-	<h:form>
-		<h:panelGrid columns="3">
-			<h:commandButton value="Classic">
-				<f:setPropertyActionListener target="#{skinBean.skin}" 	value="classic" />
-			</h:commandButton>
-			<h:commandButton value="BlueSky">
-				<f:setPropertyActionListener target="#{skinBean.skin}" value="blueSky" />
-			</h:commandButton>
-			<h:commandButton value="DeepMarine">
-				<f:setPropertyActionListener target="#{skinBean.skin}" value="deepMarine" />
-			</h:commandButton>
-		</h:panelGrid>
-	</h:form>
+    <ui:define name="title">RichFaces Sample</ui:define>
+
+    <ui:define name="body">
+    </ui:define>
+
+    <div style="top: auto;"></div>
+</ui:composition>
 </h:body>
 </html>

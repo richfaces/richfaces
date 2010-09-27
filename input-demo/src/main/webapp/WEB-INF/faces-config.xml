@@ -3,5 +3,32 @@
 <faces-config xmlns="http://java.sun.com/xml/ns/javaee"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
-              version="2.0">   
+              version="2.0">
+
+    <navigation-rule>
+        <!-- Examples -->
+        <navigation-case>
+            <from-outcome>inplaceInput</from-outcome>
+            <to-view-id>/examples/inplaceInput.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>inputNumberSlider</from-outcome>
+            <to-view-id>/examples/inputNumberSlider.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>inputNumberSpinner</from-outcome>
+            <to-view-id>/examples/inputNumberSpinner.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>autocomplete</from-outcome>
+            <to-view-id>/examples/autocomplete.xhtml</to-view-id>
+        </navigation-case>		
+		
+        <!-- QUnit -->
+        <navigation-case>
+            <from-outcome>qunit/autocomplete</from-outcome>
+            <to-view-id>/qunit/autocomplete-qunit.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
 </faces-config>

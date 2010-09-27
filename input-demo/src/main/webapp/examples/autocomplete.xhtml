@@ -8,10 +8,17 @@
 <f:view contentType="text/html" />
 
 <h:head>
-	<title>Richfaces ComboBox</title>
+	<title>Richfaces Autocomplete</title>
 </h:head>
 
 <h:body style="margin: 30px;">
+
+<ui:composition template="/templates/template.xhtml">
+
+    <ui:define name="title">Autocomplete Example</ui:define>
+    <ui:define name="body_head">Autocomplete Example</ui:define>
+
+    <ui:define name="body">
 
 	<h:form id="form">
 		<h:selectOneMenu value="#{autoCompleteBean.mode}" onchange="submit()">
@@ -24,7 +31,7 @@
 		block text block text block text block text block text block text
 		block text block
 
-		<input:autocomplete id="myAutocomplete" clientFilter="if(subString.length>1) if(value.indexOf(subString)!=-1) return true;" mode="#{autoCompleteBean.mode}" minChars="2" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" fetchValue="#{country.name}" showButton="true"
+		<input:autocomplete autofill="false" id="myAutocomplete" clientFilter="if(subString.length>1) if(value.indexOf(subString)!=-1) return true;" mode="#{autoCompleteBean.mode}" minChars="2" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" fetchValue="#{country.name}" showButton="true"
 		 onchange="return onEvent.call(this, event);" onselectitem="return onEvent.call(this, event);" onblur="return onEvent.call(this, event);" onfocus="return onEvent.call(this, event);">
 			#{country.name} #{country.iso} #{country.domain}
 		</input:autocomplete>
@@ -71,5 +78,9 @@
 			<a4j:log mode="inline"></a4j:log>
 		</div>
 	</h:form>
+	
+	</ui:define>
+</ui:composition>
+	
 </h:body>
 </html>
