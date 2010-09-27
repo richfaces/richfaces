@@ -217,10 +217,10 @@ public class DataScrollerBaseRenderer extends RendererBase {
 
             if (isCurrentPage) {
                 out.startElement(HtmlConstants.SPAN_ELEM, component);
-                out.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-ds-dtl rf-ds-cur " + styleClass, null);
+                out.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-ds-nmb-btn rf-ds-act " + styleClass, null);
             } else {
                 out.startElement(HtmlConstants.A_ELEMENT, component);
-                out.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-ds-dtl " + styleClass, null);
+                out.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-ds-nmb-btn " + styleClass, null);
                 out.writeAttribute(HtmlConstants.HREF_ATTR, "javascript:void(0);", null);
             }
 

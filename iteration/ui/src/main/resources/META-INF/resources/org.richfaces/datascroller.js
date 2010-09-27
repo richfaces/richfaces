@@ -69,25 +69,25 @@
         
         if(buttons) {
            	var leftButtons = buttons.left;
-           	css.mouseover = "rf-ds-btn rf-ds-l";
-           	css.mouseup = "rf-ds-btn rf-ds-l";
-           	css.mouseout = "rf-ds-btn rf-ds-l";
-           	css.mousedown = "rf-ds-btn rf-ds-l rf-ds-over";
+           	css.mouseover = "rf-ds-btn rf-ds-lft";
+           	css.mouseup = "rf-ds-btn rf-ds-lft";
+           	css.mouseout = "rf-ds-btn rf-ds-lft";
+           	css.mousedown = "rf-ds-btn rf-ds-lft rf-ds-hov";
         	initButtons(leftButtons,css, this);
         	
         	var rightButtons = buttons.right;
-        	css.mouseover = "rf-ds-btn rf-ds-r";
-           	css.mouseup = "rf-ds-btn rf-ds-r";
-           	css.mouseout = "rf-ds-btn rf-ds-r";
-           	css.mousedown = "rf-ds-btn rf-ds-r rf-ds-over";
+        	css.mouseover = "rf-ds-btn rf-ds-rgh";
+           	css.mouseup = "rf-ds-btn rf-ds-rgh";
+           	css.mouseout = "rf-ds-btn rf-ds-rgh";
+           	css.mousedown = "rf-ds-btn rf-ds-rgh rf-ds-hov";
         	initButtons(rightButtons,css, this);
         }
         
         if(digitals) {
-        	css.mouseover= "rf-ds-dtl rf-ds-over";
-           	css.mouseup= "rf-ds-dtl rf-ds-over";
-           	css.mouseout = "rf-ds-dtl";
-           	css.mousedown="rf-ds-dtl rf-ds-press";
+        	css.mouseover= "rf-ds-nmb-btn rf-ds-hov";
+           	css.mouseup= "rf-ds-nmb-btn rf-ds-hov";
+           	css.mouseout = "rf-ds-nmb-btn";
+           	css.mousedown="rf-ds-nmb-btn rf-ds-press";
            	initButtons(digitals, css,this);
         }
     };

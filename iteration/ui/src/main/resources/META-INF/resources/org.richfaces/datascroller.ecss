@@ -7,7 +7,7 @@
  	background:'#{richSkin.tableBackgroundColor}'; 
 }
 
-a.rf-ds-dtl {
+a.rf-ds-nmb-btn {
 	color: '#{richSkin.generalTextColor}';
 }
 
@@ -50,15 +50,15 @@ a.rf-ds-btn {
 	font-weight: normal;
 }
 
-.rf-ds-l { 
+.rf-ds-lft { 
 	margin-right: 1px;
 }
 
-.rf-ds-r { 
+.rf-ds-rgh { 
 	margin-left: 1px;
 }
 
-.rf-ds-dtl { 
+.rf-ds-nmb-btn { 
 	cursor: pointer; 
 	width: 2em; 
 	text-align: center; 
@@ -88,7 +88,7 @@ a.rf-ds-btn {
 	
 }
 
-.rf-ds-over { 
+.rf-ds-hov { 
 	border-width : 1px;
 	border-style: solid;
 	border-color: '#{richSkin.tableBorderColor}'; 
@@ -105,7 +105,7 @@ a.rf-ds-btn {
 	background: '#{richSkin.additionalBackgroundColor}';
 }
 
-.rf-ds-cur { 
+.rf-ds-act { 
 	cursor: default; 
 	font-weight: bold; 
 	border-width: 1px;
