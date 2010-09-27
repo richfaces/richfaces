@@ -114,7 +114,7 @@
 			
 			doDiff : function(dx, dy) {
 				return new richfaces.ui.PopupPanel.Sizer.Diff(0, dy, 0, -dy);
-			},
+			}
 
 	});
 	
