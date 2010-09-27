@@ -135,7 +135,7 @@
 		var reorderMarkerElement = document.getElementById(id + ":rm");
 		var widthInput = document.getElementById(id + ":wi");
 		var selectionInput = document.getElementById(id + ":si");
-		var normalPartStyle = richfaces.utils.getCSSRule(".rf-edt-cnt, .rf-edt-ftr-cnt").style;
+		var normalPartStyle = richfaces.utils.getCSSRule("div.rf-edt-cnt").style;
 		var header = jQuery(element).children(".rf-edt-hdr");
 		var resizerHolders = header.find(".rf-edt-rsz-cntr");
 		
@@ -183,7 +183,7 @@
 			}
 			var height = element.clientHeight;
 			var el = element.firstChild;
-			while (el) {
+			while (el && el.nodeName && el.nodeName.toUpperCase() != "TABLE") {
 				if(el.nodeName && el.nodeName.toUpperCase() == "DIV" && el != bodyElement) {
 					height -= el.offsetHeight;
 				}

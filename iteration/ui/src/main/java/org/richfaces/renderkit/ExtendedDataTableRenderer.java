@@ -292,8 +292,8 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                         }
                     } else {
                         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, table.getClientId(context) + ":" + name, null);
-                        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-"
-                            + ("footer".equals(name) ? "ftr-" : "") + "cnt", null);
+                        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-cnt"
+                            + ("footer".equals(name) ? " rf-edt-ftr-cnt" : ""), null);
                     }
 
                     String tableId = table.getClientId(context) + ":cf" + name.charAt(0) + partName.name().charAt(0);
@@ -606,10 +606,6 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
 
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component)
         throws IOException {
-        writer.startElement(HtmlConstants.DIV_ELEM, component);
-        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context) + ":d", null);
-        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-rsz-mkr", null);
-        writer.endElement(HtmlConstants.DIV_ELEM);
         writer.startElement(HtmlConstants.TABLE_ELEMENT, component);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context) + ":r", null);
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-rord", null);
@@ -628,6 +624,10 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             writer.endElement(HtmlConstants.TR_ELEMENT);
         }
         writer.endElement(HtmlConstants.TABLE_ELEMENT);
+        writer.startElement(HtmlConstants.DIV_ELEM, component);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context) + ":d", null);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-rsz-mkr", null);
+        writer.endElement(HtmlConstants.DIV_ELEM);
         writer.startElement(HtmlConstants.DIV_ELEM, component);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context) + ":rm", null);
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-rord-mkr", null);
@@ -683,7 +683,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         UIDataTableBase table = state.getRow();
         writer.startElement("style", table);
         writer.writeAttribute(HtmlConstants.TYPE_ATTR, "text/css", null);
-        writer.writeText(".rf-edt-cnt, .rf-edt-ftr-cnt {", null); // TODO getNormalizedId(context, state.getGrid())
+        writer.writeText("div.rf-edt-cnt {", null); // TODO getNormalizedId(context, state.getGrid())
         writer.writeText("width: 100%;", "width");
         writer.writeText("}", null);
         Iterator<UIComponent> columns = table.columns();
