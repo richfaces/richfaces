@@ -93,6 +93,9 @@ public class QueueResourceComponentRenderer extends Renderer {
             boolean isFirst = true;
             Map<String, UIComponent> registeredQueues = registry.getRegisteredQueues();
             for (Entry<String, UIComponent> queueEntry : registeredQueues.entrySet()) {
+                if (!queueEntry.getValue().isRendered()) {
+                    break;
+                }
                 if (isFirst) {
                     isFirst = false;
                 } else {

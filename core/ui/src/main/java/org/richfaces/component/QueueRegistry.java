@@ -81,6 +81,14 @@ public final class QueueRegistry {
     }
 
     public boolean hasQueuesToEncode() {
-        return !queuesData.isEmpty();
+        if (queuesData.isEmpty()) {
+            return false;
+        }
+        for (Map.Entry<String, UIComponent> queue : queuesData.entrySet()) {
+            if (queue.getValue().isRendered()) {
+                return true;
+            }
+        }
+        return false;
     }
 }
