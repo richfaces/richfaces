@@ -136,6 +136,21 @@
 		var jqe = $(element);
 		var offset = jqe.offset();
 		return {width: jqe.width(), height: jqe.height(), left: Math.floor(offset.left), top: Math.floor(offset.top)};
+		/*
+			var jqe = $(element);
+			var offset = jqe.offset();
+			var width = jqe.width();
+			var height = jqe.height();
+			if (width == 0 && height==0) {
+				//TODO: create getComputedStyle function for this
+				var e = jqe.get(0);
+				if (e.currentStyle) {
+					width = parseInt(e.currentStyle['width'],10) || 0;
+					height = parseInt(e.currentStyle['height'],10) || 0;
+				}
+			}
+			return {width: width, height: height, left: Math.floor(offset.left), top: Math.floor(offset.top)};
+		 */
 	};
 	
 	function checkCollision (elementRect, windowRect) {
@@ -147,9 +162,10 @@
 			return 0;
 		// return collision squire
 		var rect = {left:   (elementRect.left>windowRect.left ? elementRect.left : windowRect.left),
-					top:    (elementRect.top>windowRect.top ? elementRect.top : windowRect.top),
-					right:  (elementRect.right<windowRect.right ? elementRect.right : windowRect.right),
-					bottom: (elementRect.bottom<windowRect.bottom ? elementRect.bottom : windowRect.bottom)};
+					top:    (elementRect.top>windowRect.top ? elementRect.top : windowRect.top)};
+		rect.right = elementRect.right<windowRect.right ? (elementRect.right==elementRect.left ? rect.left : elementRect.right) : windowRect.right;
+		rect.bottom = elementRect.bottom<windowRect.bottom ? (elementRect.bottom==elementRect.top ? rect.top : elementRect.bottom) : windowRect.bottom;
+
 		return (rect.right-rect.left) * (rect.bottom-rect.top);
 	};
 	
