@@ -121,7 +121,7 @@ public class ExtendedDataTableRendererTest {
         HtmlPage page = environment.getPage("/extendedDataTableTest.jsf");
         HtmlElement table = page.getElementById("table");
         String text = table.getElementsByTagName("style").get(0).getTextContent();
-        assertTrue(text.contains(".rf-edt-cnt, .rf-edt-ftr-cnt"));
+        assertTrue(text.contains(".rf-edt-cnt"));
         assertTrue(text.contains("rf-edt-c"));
         HtmlElement header = table.getFirstByXPath("div[@class='rf-edt-hdr']");
         HtmlElement frozenHeader = header.getElementById("table:frozenHeader");
