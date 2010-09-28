@@ -46,7 +46,8 @@
 	        this.handle = this.track.children(".rf-insl-hnd, .rf-insl-hnd-dis");
 	        this.tooltip = this.element.children(".rf-insl-tt");
 	        
-	        this.__inputHandler();
+	        var proxy = jQuery.proxy(this.__inputHandler, this);
+	        jQuery(document).ready(proxy);
 	        
 	        if (!this.disabled) {
 		        this.decreaseButton = this.element.children(".rf-insl-dec");
@@ -57,7 +58,6 @@
 				for (var i in selectedClasses) {
 					this[i] += " " + selectedClasses[i];
 				}
-	        	var proxy = jQuery.proxy(this.__inputHandler, this)
 		        this.input.change(proxy);
 		        this.input.submit(proxy);
 		        this.track.keydown(jQuery.proxy(this.__keydownHandler, this));
