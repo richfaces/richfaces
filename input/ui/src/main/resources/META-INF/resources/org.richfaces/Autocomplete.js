@@ -94,7 +94,7 @@
 	rf.ui = rf.ui || {};
 	// Constructor definition
 	rf.ui.Autocomplete = function(componentId, fieldId, options) {
-		this.namespace = "."+rf.Event.createNamespace(this.name, this.id);
+		this.namespace = "."+rf.Event.createNamespace(this.name, componentId);
 		this.options = {};
 		// call constructor of parent class
 		$super.constructor.call(this, componentId, componentId+ID.SELECT, fieldId, options);
