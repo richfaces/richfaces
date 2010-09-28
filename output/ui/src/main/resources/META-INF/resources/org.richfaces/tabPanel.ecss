@@ -1,4 +1,3 @@
-
 .rf-tb-hdr { 
 	white-space: nowrap;
 	border: "1px solid #{richSkin.panelBorderColor}";
@@ -10,6 +9,7 @@
     background-position: top;
     background-repeat: repeat-x;
     background-color: "#{richSkin.tabBackgroundColor}";
+    color: '#{richSkin.generalTextColor}';
 }
 
 
