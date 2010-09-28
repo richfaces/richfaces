@@ -23,31 +23,68 @@
 RichFaces.QUnit.run(function() {
     module("richfaces-autocomplete");
 
-    var AUTOCOMPLETE_ID = "form:myAutocomplete";
+    var AUTOCOMPLETE_ID = "form:autocomplete";
 
     test("RichFaces.ui.Autocomplete constructor test", function () {
-        var c = RichFaces.$(AUTOCOMPLETE_ID);
+        var c = RichFaces.$(AUTOCOMPLETE_ID+'Default');
 
         ok(c instanceof RichFaces.ui.AutocompleteBase, "inctance of RichFaces.ui.AutocompleteBase");
         ok(c instanceof RichFaces.ui.Autocomplete, "inctance of RichFaces.ui.Autocomplete");
-        equals(c.id, AUTOCOMPLETE_ID, "id");
-        // TODO other params
-
+        equals(c.name, "Autocomplete", "name");
+        equals(c.id, AUTOCOMPLETE_ID+'Default', "id");
+        // test default options
+        equals(c.options.selectedItemClass, 'rf-au-sel', "options.selectedItemClass");
+        equals(c.options.itemClass, 'rf-au-opt', "options.itemClass");
+        equals(c.options.autofill, true, "options.autofill");
+        equals(c.options.minChars, 1, "options.minChars");
+        equals(c.options.selectFirst, true, "options.selectFirst");
+        equals(c.options.ajaxMode, true, "options.ajaxMode");
+        equals(c.options.lazyClientMode, false, "options.lazyClientMode");
+        equals(c.options.isCachedAjax, true, "options.isCachedAjax");
+        equals(c.options.tokens, "", "options.tokens");
+        equals(c.options.attachToBody, true, "options.attachToBody");
+        equals(c.options.filterFunction, undefined, "options.filterFunction");
+    });
+    
+    test("RichFaces.ui.Autocomplete client api function's", function () {
+    	var CLIENT_API_BASE = ['show','hide','getNamespace','getInputValue','setInputValue'];
+    	var CLIENT_API = [];
+        var c = RichFaces.$(AUTOCOMPLETE_ID+'Default');
+        var fn = "";
+        for (var i=0; i<CLIENT_API_BASE.length; i++) {
+        	fn = CLIENT_API_BASE[i];
+        	ok(typeof c[fn] == "function", fn+" present in component");
+        }
+    });
+    
+    test("RichFaces.ui.Autocomplete client api: show/hide [attachToDom=true]", function () {
+        var c = RichFaces.$(AUTOCOMPLETE_ID+'Default');
+        var e = RichFaces.getDomElement(AUTOCOMPLETE_ID+'DefaultList');
+        equals(e.parentNode.tagName.toLowerCase(), "div", "before show list attached to");
+        equals($(e).css("display"), "none", "list style.display");
+        c.show();
+        e = RichFaces.getDomElement(AUTOCOMPLETE_ID+'DefaultList');
+        equals(e.parentNode.tagName.toLowerCase(), "body", "after show list attached to");
+        equals(e.style.display, "block", "list style.display");
+        c.hide();
+        e = RichFaces.getDomElement(AUTOCOMPLETE_ID+'DefaultList');
+        equals(e.parentNode.tagName.toLowerCase(), "div", "after hide list attached to");
+        equals(e.style.display, "none", "list style.display");
+    });
+    
+    test("RichFaces.ui.Autocomplete client api: getNamespace", function () {
+        var c = RichFaces.$(AUTOCOMPLETE_ID+'Default');
+        equals(c.getNamespace(), '.'+RichFaces.Event.createNamespace(c.name, AUTOCOMPLETE_ID+'Default'), "getNamespace");
+    });
+    
+    test("RichFaces.ui.Autocomplete client api: getInputValue / setInputValue", function () {
+        var c = RichFaces.$(AUTOCOMPLETE_ID+'Default');
+        equals(c.getInputValue(), 'a', "getInputValue");
+        c.setInputValue("b");
+        equals(c.getInputValue(), 'b', "getInputValue after setInputValue");
     });
 
 /*
-    	test("RichFaces.ui.Tab test public api", function () {
-        var c = RichFaces.$(TAB_ID);
-
-        var PUBLIC_API = [];
-
-        for (var i in PUBLIC_API) {
-            var funcName = PUBLIC_API[i];
-            ok(c.[funcName], funcName + "present in component");
-            // TODO check other functions + check is it function
-        }
-    });
-
     test("RichFaces.ui.Tab test events", function () {
         var componentId = TAB_ID;
         var c = RichFaces.$(componentId);

@@ -30,7 +30,19 @@
         <p>Page</p>
 
         <h:form id="form">
-			<input:autocomplete id="myAutocomplete" fetchValue="#{country.name}" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" showButton="true">
+			<input:autocomplete id="autocompleteDefault" value="a" fetchValue="#{country.name}" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country">
+			#{country.name} #{country.iso} #{country.domain}
+			</input:autocomplete><br />
+			<input:autocomplete id="autocompleteClientMode" mode="client" fetchValue="#{country.name}" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" showButton="true">
+			#{country.name} #{country.iso} #{country.domain}
+			</input:autocomplete><br />
+			<input:autocomplete id="autocompleteLazyClientMode" mode="lazyClient" fetchValue="#{country.name}" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" showButton="true">
+			#{country.name} #{country.iso} #{country.domain}
+			</input:autocomplete><br />
+			<input:autocomplete id="autocompleteAjaxMode" mode="ajax" fetchValue="#{country.name}" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" showButton="true">
+			#{country.name} #{country.iso} #{country.domain}
+			</input:autocomplete><br />
+			<input:autocomplete id="autocompleteCachedAjaxMode" mode="cachedAjax" fetchValue="#{country.name}" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" showButton="true">
 			#{country.name} #{country.iso} #{country.domain}
 			</input:autocomplete>
         </h:form>
