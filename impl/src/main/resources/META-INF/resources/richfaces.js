@@ -13,6 +13,8 @@ if (!window.RichFaces) {
 
 (function(jQuery, richfaces) {
 
+	richfaces.RICH_CONTAINER = "richfaces";
+	
 	// get DOM element by id or DOM element or jQuery object
 	richfaces.getDomElement = function (source) {
 		var type = typeof source;

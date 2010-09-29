@@ -4,8 +4,6 @@
 
 
 (function ($, richfaces, params) {
-	
-	var RICH_CONTAINER = "richfaces";
 
 	richfaces.blankFunction = function (){}; //TODO: add it to global library
 
@@ -177,7 +175,7 @@
              * @type String
              * */
 			name: "BaseComponent",
-
+			
 			/**
              * Method for converting object to string
              *
@@ -230,7 +228,7 @@
 				source = source || this.id;
 				var element = richfaces.getDomElement(source);
 				if (element) {
-					element[RICH_CONTAINER] = element[RICH_CONTAINER] || {};
+					element[richfaces.RICH_CONTAINER] = element[richfaces.RICH_CONTAINER] || {};
 					element.richfaces.component = this;
 				}
 				return element;
@@ -270,7 +268,7 @@
 						eventObj.initEvent( eventType, true, false );
 					}
 				}
-				eventObj[RICH_CONTAINER] = {component:this, data: data};
+				eventObj[richfaces.RICH_CONTAINER] = {component:this, data: data};
 				
 				var eventHandler = this.options['on'+eventType];
 
