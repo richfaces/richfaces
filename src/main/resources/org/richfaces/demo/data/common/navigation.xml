@@ -367,6 +367,16 @@
 				</samples>
 			</demo>
 			<demo>
+				<id>inputNumberSpinner</id>
+				<name>rich:inputNumberSpinner</name>
+				<samples>
+					<sample>
+						<id>spinners</id>
+						<name>Different Spinners samples</name>
+					</sample>
+				</samples>
+			</demo>
+			<demo>
 				<id>inplaceInput</id>
 				<name>rich:inplaceInput</name>
 				<samples>
