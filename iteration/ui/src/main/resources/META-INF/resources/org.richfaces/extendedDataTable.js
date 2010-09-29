@@ -128,14 +128,13 @@
 		options = options || {};
 		var ranges = new richfaces.utils.Ranges();
 		var element = document.getElementById(id);
-		var bodyElement, contentElement, spacerElement, dataTableElement, rows, rowHeight, parts, tbodies, shiftIndex,
-			activeIndex, selectionFlag;
+		var bodyElement, contentElement, spacerElement, dataTableElement, normalPartStyle, rows, rowHeight, parts, tbodies,
+			shiftIndex, activeIndex, selectionFlag;
 		var dragElement = document.getElementById(id + ":d");
 		var reorderElement = document.getElementById(id + ":r");
 		var reorderMarkerElement = document.getElementById(id + ":rm");
 		var widthInput = document.getElementById(id + ":wi");
 		var selectionInput = document.getElementById(id + ":si");
-		var normalPartStyle = richfaces.utils.getCSSRule("div.rf-edt-cnt").style;
 		var header = jQuery(element).children(".rf-edt-hdr");
 		var resizerHolders = header.find(".rf-edt-rsz-cntr");
 		
@@ -168,11 +167,10 @@
 					normalPartStyle.width = width + "px";
 				}
 				normalPartStyle.display = "block";
+				scrollElement.style.overflowX = "";
 				if (scrollElement.clientWidth < scrollElement.scrollWidth
 						&& scrollElement.scrollHeight == scrollElement.offsetHeight) {
 					scrollElement.style.overflowX = "scroll";
-				} else {
-					scrollElement.style.overflowX = "";
 				}
 				var delta = scrollElement.firstChild.offsetHeight - scrollElement.clientHeight;
 				if (delta) {
@@ -183,7 +181,7 @@
 			}
 			var height = element.clientHeight;
 			var el = element.firstChild;
-			while (el && el.nodeName && el.nodeName.toUpperCase() != "TABLE") {
+			while (el && (!el.nodeName || el.nodeName.toUpperCase() != "TABLE")) {
 				if(el.nodeName && el.nodeName.toUpperCase() == "DIV" && el != bodyElement) {
 					height -= el.offsetHeight;
 				}
@@ -244,6 +242,7 @@
 		var initialize = function() {
 			bodyElement = document.getElementById(id + ":b");
 			bodyElement.tabIndex = -1; //TODO don't use tabIndex.
+			normalPartStyle = richfaces.utils.getCSSRule("div.rf-edt-cnt").style;
 			var bodyJQuery = jQuery(bodyElement);
 			contentElement = bodyJQuery.children("div:first")[0];
 			if (contentElement) {
@@ -625,6 +624,10 @@
 		//JS API
 		element["richfaces"] = element["richfaces"] || {}; // TODO ExtendedDataTable should extend richfaces.BaseComponent instead of using it.
 		element.richfaces.component = this;
+		this.destroy = function() {
+			element.richfaces.component = null;
+			jQuery(window).unbind("resize", updateLayout);			
+		}
 		
 		this.getColumnPosition = function(id) {
 			var position;

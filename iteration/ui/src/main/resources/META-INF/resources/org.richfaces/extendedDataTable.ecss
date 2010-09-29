@@ -57,7 +57,7 @@
 	overflow: hidden;
 }
 
-.rf-edt-ftr-cnt {
+div.rf-edt-ftr-cnt {
 	overflow-x: auto;
 	overflow-y: visible;
 }
