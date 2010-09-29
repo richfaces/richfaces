@@ -25,13 +25,13 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-root-parent</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.0.0.20100929-M3</version>
         <relativePath>../../build/parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.ui.input</groupId>
     <artifactId>richfaces-ui-input-aggregator</artifactId>
-    <version>4.0.0-SNAPSHOT</version>
+    <version>4.0.0.20100929-M3</version>
     <packaging>pom</packaging>
     <name>Richfaces UI Components: Input Aggregator</name>
 
@@ -41,8 +41,8 @@
     </modules>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/input</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/input</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/tags/4.0.0.20100929-M3/ui/input</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/tags/4.0.0.20100929-M3/ui/input</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/tags/4.0.0.20100929-M3/ui/input</url>
     </scm>
 </project>
