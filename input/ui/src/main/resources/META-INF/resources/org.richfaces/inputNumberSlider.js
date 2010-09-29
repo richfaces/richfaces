@@ -68,20 +68,20 @@
 	    },
 	
 	    decrease: function (event) {
-	    	this.setValue(this.value - this.step);
+	    	this.setValue(this.value - this.step, event);
 	    },
 	    	    
 	    increase: function (event) {
-	    	this.setValue(this.value + this.step);
+	    	this.setValue(this.value + this.step, event);
 	    },
 	    
-	    setValue: function (value) {
+	    setValue: function (value, event) {
 	    	if (!this.disabled) {
-	    		this.__setValue(value);
+	    		this.__setValue(value, event);
 	    	}
 	    },
 	
-	    __setValue: function (value) {
+	    __setValue: function (value, event) {
 	    	if (!isNaN(value)) {
 	        	value = Math.round(value / this.step) * this.step; //TODO Add normal support of float values. E.g. '0.3' should be instead of '0.30000000000000004'.
 		        if (value > this.maxValue) {
@@ -96,34 +96,37 @@
 		        	this.tooltip.text(value);
 		        	this.tooltip.setPosition(this.handle,{from: 'LT', offset: [0, -3]}); //TODO Seems offset doesn't work now.
 		        	this.value = value;
+		        	if (this.onchange && (!event || event.type)) {
+		        		this.onchange.call(this.element[0], event);
+		        	}
 		        }
 	    	}
 	    },
 	
-	    __inputHandler: function () {
+	    __inputHandler: function (event) {
 	    	var value = Number(this.input.val());
 	    	if (isNaN(value)) {
 	    		this.input.val(this.value);
 	    	} else {
-	    		this.__setValue(value);
+	    		this.__setValue(value, event);
 	    	}
 	    },
 	
 	    __keydownHandler: function (event) {
 			if (event.keyCode == 37) { //LEFT
-		    	this.__setValue(Number(this.input.val()) - this.step);
+		    	this.__setValue(Number(this.input.val()) - this.step, event);
 		    	event.preventDefault();
 			} else if (event.keyCode == 39) { //RIGHT
-		    	this.__setValue(Number(this.input.val()) + this.step);
+		    	this.__setValue(Number(this.input.val()) + this.step, event);
 		    	event.preventDefault();
 			}
 	    },
 	    
 	    __decreaseHandler: function (event) {
 	    	var component = this;
-    		component.decrease();
+    		component.decrease(event);
 	    	this.intervalId = window.setInterval(function() {
-	    		component.decrease();
+	    		component.decrease(event);
 	    	}, this.delay);
 	    	jQuery(document).one("mouseup", true, jQuery.proxy(this.__clearInterval, this));
 	    	this.decreaseButton.addClass(this.decreaseSelectedClass);
@@ -132,9 +135,9 @@
 	    
 	    __increaseHandler: function (event) {
 	    	var component = this;
-    		component.increase();
+    		component.increase(event);
 	    	this.intervalId = window.setInterval(function() {
-	    		component.increase();
+	    		component.increase(event);
 	    	}, this.delay);
 	    	jQuery(document).one("mouseup",jQuery.proxy(this.__clearInterval, this));
 	    	this.increaseButton.addClass(this.increaseSelectedClass);
@@ -163,7 +166,7 @@
 	    __mousemoveHandler: function (event) {
 	    	var value = this.range * (event.pageX - this.track.position().left) / (this.track.width()
 	    			- this.handle.width()) + this.minValue;
-	        this.__setValue(value);
+	        this.__setValue(value, event);
 	    	event.preventDefault();
 	    },
 	    

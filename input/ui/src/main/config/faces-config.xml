@@ -151,6 +151,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 			</property-extension>
 		</property>
 		<property>
+			<property-name>onchange</property-name>
+			<property-class>java.lang.String</property-class>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+				<cdk:event-name default="true">change</cdk:event-name>
+			</property-extension>
+		</property>
+		<property>
 			<property-name>showArrows</property-name>
 			<property-class>boolean</property-class>
 			<default-value>false</default-value>
