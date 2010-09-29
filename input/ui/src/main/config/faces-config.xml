@@ -503,6 +503,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 			</property-extension>
 		</property>
 		<property>
+			<property-name>step</property-name>
+			<property-class>java.lang.String</property-class>
+			<default-value>"1"</default-value>
+			<property-extension>
+				<cdk:generate>true</cdk:generate>
+			</property-extension>
+		</property>
+		<property>
 			<property-name>style</property-name>
 			<property-class>java.lang.String</property-class>
 			<property-extension>
