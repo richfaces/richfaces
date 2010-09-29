@@ -25,7 +25,9 @@ RichFaces.QUnit.run(function() {
 
     var AUTOCOMPLETE_ID = "form:autocomplete";
 
+    // Constructor tests
     test("RichFaces.ui.Autocomplete constructor test", function () {
+    	expect(15);
         var c = RichFaces.$(AUTOCOMPLETE_ID+'Default');
 
         ok(c instanceof RichFaces.ui.AutocompleteBase, "inctance of RichFaces.ui.AutocompleteBase");
@@ -46,7 +48,9 @@ RichFaces.QUnit.run(function() {
         equals(c.options.filterFunction, undefined, "options.filterFunction");
     });
     
+    // Client API tests
     test("RichFaces.ui.Autocomplete client api function's", function () {
+    	expect(5);
     	var CLIENT_API_BASE = ['show','hide','getNamespace','getInputValue','setInputValue'];
     	var CLIENT_API = [];
         var c = RichFaces.$(AUTOCOMPLETE_ID+'Default');
@@ -58,6 +62,7 @@ RichFaces.QUnit.run(function() {
     });
     
     test("RichFaces.ui.Autocomplete client api: show/hide [attachToDom=true]", function () {
+    	expect(6);
         var c = RichFaces.$(AUTOCOMPLETE_ID+'Default');
         var e = RichFaces.getDomElement(AUTOCOMPLETE_ID+'DefaultList');
         equals(e.parentNode.tagName.toLowerCase(), "div", "before show list attached to");
@@ -73,44 +78,163 @@ RichFaces.QUnit.run(function() {
     });
     
     test("RichFaces.ui.Autocomplete client api: getNamespace", function () {
+    	expect(1);
         var c = RichFaces.$(AUTOCOMPLETE_ID+'Default');
         equals(c.getNamespace(), '.'+RichFaces.Event.createNamespace(c.name, AUTOCOMPLETE_ID+'Default'), "getNamespace");
     });
     
     test("RichFaces.ui.Autocomplete client api: getInputValue / setInputValue", function () {
+    	expect(2);
         var c = RichFaces.$(AUTOCOMPLETE_ID+'Default');
         equals(c.getInputValue(), 'a', "getInputValue");
         c.setInputValue("b");
         equals(c.getInputValue(), 'b', "getInputValue after setInputValue");
     });
-
-/*
-    test("RichFaces.ui.Tab test events", function () {
-        var componentId = TAB_ID;
-        var c = RichFaces.$(componentId);
-
-        expect(5);
-        var beforeitemchngeHandler = function (event, comp, data) {
-            ok(true, "beforeitemchnge handler invouked");
-
-            same(data.id, componentId, "component id");
-            same(data.oldItem.getName(), c.items[0].getName(), "old item");
-            same(data.newItem.getName(), c.items[1].getName(), "new item");
-
-            return true;
+    
+    //Inline user's event handlers tests
+    window.checkInlineEvent = function (event, c, checkData) {
+    	var richContainer = event[RichFaces.RICH_CONTAINER];
+    	ok(richContainer, "rich container is present in event");
+    	ok(richContainer.component, "component is present in rich container");
+    	equals(richContainer.component, c, "component");
+    	if (checkData) {
+    		ok(typeof richContainer.data!="undefined", "data is present in rich container");
+    		equals(richContainer.data, RichFaces.getDomElement(AUTOCOMPLETE_ID+'Default2Input').value, "data");
+    	}
+    };
+    
+    test("RichFaces.ui.Autocomplete inline event handlers: focus/blur", function () {
+    	expect(10);
+        var c = RichFaces.$(AUTOCOMPLETE_ID+'Default');
+        
+        window.onEvent = function (event) {
+        	ok(event, "event is present");
+        	equals(event.type, "focus", "event type after focus");
+        	checkInlineEvent(event, c);
         };
-
-        var beforeitemchngeHandlerWrapper = RichFaces.Event.bindById(componentId, "beforeitemchange", beforeitemchngeHandler);
-
-        var itemchangeHandler = handler("itemchnge handler invouked", undefined);
-        var itemchangeHandlerWrapper = RichFaces.Event.bindById(componentId, "itemchange", itemchangeHandler);
-
-        c.switchToItem("name2");
-
-        RichFaces.Event.unbindById(componentId, "beforeitemchange", beforeitemchngeHandlerWrapper);
-        RichFaces.Event.unbindById(componentId, "itemchange", itemchangeHandlerWrapper);
-
-        c.switchToItem("name1");
+        var input = RichFaces.getDomElement(AUTOCOMPLETE_ID+'DefaultInput');
+        input.focus();
+        
+        window.onEvent = function (event) {
+        	ok(event, "event is present");
+        	equals(event.type, "blur", "event type after blur");
+        	checkInlineEvent(event, c);
+        };
+        input = RichFaces.getDomElement(AUTOCOMPLETE_ID+'Default2Input');
+        input.focus();
+        window.onEvent = function (){};
     });
-    */
+    
+    test("RichFaces.ui.Autocomplete inline event handlers: change", function () {
+    	expect(5);
+        var c = RichFaces.$(AUTOCOMPLETE_ID+'Default');
+        
+        window.onEvent = function (event) {
+        	if (event.type!="change") return;
+        	ok(event, "event is present");
+        	equals(event.type, "change", "event type");
+        	checkInlineEvent(event, c);
+        };
+        var input = RichFaces.getDomElement(AUTOCOMPLETE_ID+'DefaultInput');
+        input.value="";
+        input.focus();
+        input.value="a";
+        input = RichFaces.getDomElement(AUTOCOMPLETE_ID+'Default2Input');
+        input.focus();
+        window.onEvent = function (){};
+    });
+    
+    test("RichFaces.ui.Autocomplete inline event handlers: selectitem", function () {
+    	expect(7);
+        var c = RichFaces.$(AUTOCOMPLETE_ID+'Default2');
+        
+        window.onEvent = function (event) {
+        	if (event.type!="selectitem") return;
+        	ok(event, "event is present");
+        	equals(event.type, "selectitem", "event type");
+        	checkInlineEvent(event, c, true);
+        };
+        var input = RichFaces.getDomElement(AUTOCOMPLETE_ID+'Default2Input');
+        input.value="a";
+        var button = RichFaces.getDomElement(AUTOCOMPLETE_ID+'Default2Button');
+        RichFaces.Event.fire(button,"mousedown");
+        c.__onEnter.call(c, {which:13});
+        c.hide();
+        input = RichFaces.getDomElement(AUTOCOMPLETE_ID+'ClientModeInput');
+        input.focus();
+        window.onEvent = function (){};
+    });
+    
+    //Binded user's event handlers tests
+    window.checkBindedEvent = function (event, element, c) {
+    	equals(element.id, c.id, "element id");
+    	equals(RichFaces.$(element.id), c, "component");
+    };
+    
+    test("RichFaces.ui.Autocomplete binded event handlers: focus/blur", function () {
+    	expect(10);
+        var c = RichFaces.$(AUTOCOMPLETE_ID+'Default');
+        RichFaces.Event.bindById(AUTOCOMPLETE_ID+'Default', {"focus": function (event, element) {
+        		ok(event, "event is present");
+        		ok(element, "element is present");
+        		equals(event.type, "focus", "event type after focus");
+        		checkBindedEvent(event, element, c);
+        	},
+        	"blur": function (event, element) {
+        		ok(event, "event is present");
+        		ok(element, "element is present");
+            	equals(event.type, "blur", "event type after blur");
+            	checkBindedEvent(event, element, c);
+            }
+        });
+        var input = RichFaces.getDomElement(AUTOCOMPLETE_ID+'DefaultInput');
+        input.focus();
+        input = RichFaces.getDomElement(AUTOCOMPLETE_ID+'Default2Input');
+        input.focus();
+        RichFaces.Event.unbindById(AUTOCOMPLETE_ID+'Default', "focus blur");
+    });
+    
+    test("RichFaces.ui.Autocomplete binded event handlers: change", function () {
+    	expect(5);
+        var c = RichFaces.$(AUTOCOMPLETE_ID+'Default');
+        RichFaces.Event.bindById(AUTOCOMPLETE_ID+'Default', "change", function (event, element) {
+        		ok(event, "event is present");
+        		ok(element, "element is present");
+        		equals(event.type, "change", "event type");
+        		checkBindedEvent(event, element, c);
+        	});
+        var input = RichFaces.getDomElement(AUTOCOMPLETE_ID+'DefaultInput');
+        input.value="";
+        input.focus();
+        input.value="a"
+        input = RichFaces.getDomElement(AUTOCOMPLETE_ID+'Default2Input');
+        input.focus();
+        RichFaces.Event.unbindById(AUTOCOMPLETE_ID+'Default', "change");
+    });
+    
+    test("RichFaces.ui.Autocomplete binded event handlers: selectitem", function () {
+    	expect(7);
+        var c = RichFaces.$(AUTOCOMPLETE_ID+'Default2');
+        
+        RichFaces.Event.bindById(AUTOCOMPLETE_ID+'Default2', "selectitem", function (event, element, data) {
+        	ok(event, "event is present");
+        	ok(element, "element is present");
+        	ok(data, "data is present");
+        	equals(data, RichFaces.getDomElement(AUTOCOMPLETE_ID+'Default2Input').value, "data");
+        	equals(event.type, "selectitem", "event type");
+        	checkBindedEvent(event, element, c);
+        });
+        var input = RichFaces.getDomElement(AUTOCOMPLETE_ID+'Default2Input');
+        input.value="a";
+        var button = RichFaces.getDomElement(AUTOCOMPLETE_ID+'Default2Button');
+        RichFaces.Event.fire(button,"mousedown");
+        c.__onEnter.call(c, {which:13});
+        c.hide();
+        input = RichFaces.getDomElement(AUTOCOMPLETE_ID+'ClientModeInput');
+        input.focus();
+        RichFaces.Event.unbindById(AUTOCOMPLETE_ID+'Default2', "selectitem");
+    });
+    
+    // TODO add modes test ?? or create selenium tests for modes ??
+
 });

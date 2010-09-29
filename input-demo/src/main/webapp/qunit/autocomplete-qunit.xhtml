@@ -30,7 +30,12 @@
         <p>Page</p>
 
         <h:form id="form">
-			<input:autocomplete id="autocompleteDefault" value="a" fetchValue="#{country.name}" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country">
+			<input:autocomplete id="autocompleteDefault" value="a" fetchValue="#{country.name}" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country"
+			onchange="return onEvent.call(this, event);" onselectitem="return onEvent.call(this, event);" onblur="return onEvent.call(this, event);" onfocus="return onEvent.call(this, event);">
+			#{country.name} #{country.iso} #{country.domain}
+			</input:autocomplete><br />
+			<input:autocomplete id="autocompleteDefault2" fetchValue="#{country.name}" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country"
+			onselectitem="return onEvent.call(this, event);" showButton="true" mode="client">
 			#{country.name} #{country.iso} #{country.domain}
 			</input:autocomplete><br />
 			<input:autocomplete id="autocompleteClientMode" mode="client" fetchValue="#{country.name}" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" showButton="true">
