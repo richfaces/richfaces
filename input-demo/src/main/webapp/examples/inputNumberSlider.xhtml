@@ -39,12 +39,17 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 				<f:selectItems value="#{skinBean.skins}"/>
 			</h:selectOneMenu>
 			<br />
+			<h:outputText value="Date: "/>
+			<h:outputText id="date" value="#{inputNumberSliderBean.date}" />			
+			<br />
 			<ins:inputNumberSlider id="ins" value="#{inputNumberSliderBean.value}" accesskey="#{inputNumberSliderBean.accesskey}" delay="#{inputNumberSliderBean.delay}"
 				disabled="#{inputNumberSliderBean.disabled}" enableManualInput="#{inputNumberSliderBean.enableManualInput}"
 				inputPosition="#{inputNumberSliderBean.inputPosition}" inputSize="#{inputNumberSliderBean.inputSize}" showArrows="#{inputNumberSliderBean.showArrows}"
 				showBoundaryValues="#{inputNumberSliderBean.showBoundaryValues}" showInput="#{inputNumberSliderBean.showInput}"
 				showToolTip="#{inputNumberSliderBean.showToolTip}" maxValue="#{inputNumberSliderBean.maxValue}" minValue="#{inputNumberSliderBean.minValue}"
-				step="#{inputNumberSliderBean.step}" />
+				step="#{inputNumberSliderBean.step}" >
+				<f:ajax render="date" />
+			</ins:inputNumberSlider>
 			<br />
 			<h:outputText value="Accesskey: "/>
 			<h:inputText value="#{inputNumberSliderBean.accesskey}">
