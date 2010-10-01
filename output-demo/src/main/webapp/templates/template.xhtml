@@ -16,6 +16,19 @@
 
 
     <ui:insert name="scripts" ></ui:insert>
+
+    <h:form>
+        <h:commandButton value="Classic">
+            <f:setPropertyActionListener target="#{skinBean.skin}" value="classic"/>
+        </h:commandButton>
+        <h:commandButton value="BlueSky">
+            <f:setPropertyActionListener target="#{skinBean.skin}" value="blueSky"/>
+        </h:commandButton>
+        <h:commandButton value="DeepMarine">
+            <f:setPropertyActionListener target="#{skinBean.skin}" value="deepMarine"/>
+        </h:commandButton>
+    </h:form>
+
     <table width="100%">
         <thead>
             <tr>

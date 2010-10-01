@@ -5,6 +5,21 @@
          version="2.5">
     
     <display-name>Sample RichFaces 4 Application</display-name>
+
+    <context-param>
+        <param-name>org.richfaces.skin</param-name>
+        <param-value>#{skinBean.skin}</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.richfaces.enableControlSkinning</param-name>
+        <param-value>#{skinBean.enableElementsSkinning}</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.richfaces.enableControlSkinningClasses</param-name>
+        <param-value>#{skinBean.enableClassesSkinning}</param-value>
+    </context-param>
+
+
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
