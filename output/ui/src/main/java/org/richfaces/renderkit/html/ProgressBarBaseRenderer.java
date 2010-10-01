@@ -152,7 +152,9 @@ public class ProgressBarBaseRenderer extends RendererBase {
         try {
             if (children) {
                 this.renderChildren(context, component);
-            } 
+            } else if (component.getAttributes().get("label") != null) {
+                clonedWriter.write(component.getAttributes().get("label").toString());
+            }
         } finally {
             clonedWriter.flush();
             context.setResponseWriter(writer);
