@@ -252,6 +252,8 @@ public interface Skin {
      */
     public static final String TAB_WEIGHT_FONT = "tabWeightFont";
 
+    public static final String TAB_BACKGROUND_COLOR = "tabBackgroundColor";
+
     public static final String TRIM_COLOR = "trimColor";
 
     /**
