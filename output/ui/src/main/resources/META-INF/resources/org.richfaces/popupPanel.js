@@ -491,13 +491,11 @@
 					if (this.parent) {
 						if (this.domReattached) {
 							this.saveInputValues(element);
-							this.parent.append(this.shadeDiv);
-							this.parent.append(this.shadowDiv);
-							this.parent.append(element);
+							this.div.append(this.shadeDiv);
+							this.div.append(this.shadowDiv);
+							this.div.append(element);
 
 							this.domReattached = false;
-						} else {
-							this.parent.hide();
 						}
 					}
 			
@@ -549,14 +547,14 @@
 				if (newSize >= this.currentMinWidth || this.options.autosized) {
 					if (diff.deltaWidth) {
 						cssHashWH.width = newSize + 'px';
-						shadowHashWH.width = newSize + shadowDepth + 'px';
+						shadowHashWH.width = newSize + 'px';
 						contentHashWH.width = newSize - scrollerWidth + 'px';
 						scrollerHashWH.width = newSize - scrollerWidth + 'px';
 					}
 				} else {
 					if (diff.deltaWidth) {
 						cssHashWH.width = this.currentMinWidth + 'px';
-						shadowHashWH.width = this.currentMinWidth + shadowDepth + 'px';
+						shadowHashWH.width = this.currentMinWidth + 'px';
 						contentHashWH.width = this.currentMinWidth - scrollerWidth + 'px';
 						scrollerHashWH.width = this.currentMinWidth - scrollerWidth + 'px';
 						vetoes.vx = oldSize - this.currentMinWidth;
@@ -568,7 +566,7 @@
 				if (newSize > this.options.maxWidth) {
 					if (diff.deltaWidth) {
 						cssHashWH.width = this.currentMaxWidth + 'px';
-						shadowHashWH.width = this.currentMaxWidth + shadowDepth + 'px';
+						shadowHashWH.width = this.currentMaxWidth + 'px';
 						contentHashWH.width = this.currentMaxWidth - scrollerWidth + 'px';
 						scrollerHashWH.width = this.currentMaxWidth - scrollerWidth + 'px';
 						vetoes.vx = oldSize - this.currentMaxWidth;
@@ -604,13 +602,13 @@
 				if (newSize >= this.currentMinHeight || this.options.autosized) {
 					if (diff.deltaHeight) {
 						cssHashWH.height = newSize + 'px';
-						shadowHashWH.height = newSize + shadowDepth + 'px';
+						shadowHashWH.height = newSize + 'px';
 						scrollerHashWH.height = newSize - scrollerHeight + 'px';
 					}
 				} else {
 					if (diff.deltaHeight) {
 						cssHashWH.height = this.currentMinHeight + 'px';
-						shadowHashWH.height = this.currentMinHeight + shadowDepth + 'px';
+						shadowHashWH.height = this.currentMinHeight + 'px';
 						scrollerHashWH.height = this.currentMinHeight - scrollerHeight + 'px';
 						vetoes.vy = oldSize - this.currentMinHeight;
 					}
@@ -621,7 +619,7 @@
 				if (newSize > this.options.maxHeight) {
 					if (diff.deltaHeight) {
 						cssHashWH.height = this.currentMaxHeight + 'px';
-						shadowHashWH.height = this.currentMaxHeight + shadowDepth + 'px';
+						shadowHashWH.height = this.currentMaxHeight + 'px';
 						scrollerHashWH.height = this.currentMaxHeight - scrollerHeight + 'px';
 						vetoes.vy = oldSize - this.currentMaxHeight;
 					}
@@ -715,8 +713,8 @@
 			findForm: function(elt) {
 				var target = elt;
 				while (target) {
-					if (!target[0].tagName /* document node doesn't have tagName */ 
-							|| target[0].tagName.toLowerCase() != "form") {
+					if (target[0] && (!target[0].tagName /* document node doesn't have tagName */ 
+							|| target[0].tagName.toLowerCase() != "form")) {
 				
 						target = $(target).parent();
 					} else {

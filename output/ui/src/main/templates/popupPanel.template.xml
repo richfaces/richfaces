@@ -34,14 +34,14 @@
 
 		<c:if test="#{component.getFacet('header')!=null and component.getFacet('header').rendered}">
 		<div id="#{clientId}_header" class="rf-pp-hdr #{component.attributes['headerClass']}" >
-			<div id="#{clientId}_header_content" class="rf-pp-hdr-сnt">
+			<div id="#{clientId}_header_content" class="rf-pp-hdr-cnt">
 				<cdk:call expression="renderHeaderFacet(facesContext, component)"/>
 			</div>
 			</div>
 		</c:if>
 		<c:if test="#{component.attributes['header'] != null and (component.getFacet('header')==null or !component.getFacet('header').rendered)}">
 		<div id="#{clientId}_header" class="rf-pp-hdr #{component.attributes['headerClass']}" >
-			<div id="#{clientId}_header_content" class="rf-pp-hdr-сnt">
+			<div id="#{clientId}_header_content" class="rf-pp-hdr-cnt">
 				#{component.attributes['header']}
 			</div>
 			</div>
