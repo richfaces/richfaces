@@ -341,6 +341,20 @@
 					</sample>
 				</samples>
 			</demo>
+			<demo>
+				<id>progressBar</id>
+				<name>rich:progressBar</name>
+				<samples>
+					<sample>
+						<id>ajaxProgressBar</id>
+						<name>ProgressBar in ajax mode</name>
+					</sample>
+					<sample>
+						<id>clientProgressBar</id>
+						<name>ProgressBar in client mode</name>
+					</sample>
+				</samples>
+			</demo>
 		</demos>
 	</group>
 	<group new="true">
