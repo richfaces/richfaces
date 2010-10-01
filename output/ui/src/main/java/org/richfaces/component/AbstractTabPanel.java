@@ -43,6 +43,12 @@ public abstract class AbstractTabPanel extends UITogglePanel {
         return COMPONENT_FAMILY;
     }
 
-
-
+    @Override
+    public String getActiveItem() {
+        String res = super.getActiveItem();
+        if (res == null) {
+            res = getFirstItem().getName();
+        }
+        return res;
+    }
 }
