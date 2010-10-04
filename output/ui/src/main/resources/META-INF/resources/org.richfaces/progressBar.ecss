@@ -5,7 +5,7 @@ width : 200px;
 }	
 .rf-pb-upl{
 background-repeat : repeat-x;
-background-image : "url(#{resource['org.richfaces.renderkit.html.images.ProgressBarAnimatedBg']})";
+background-image : "url(#{resource['org.richfaces.images:pbAniBg.gif']})";
 background-color : '#{richSkin.selectControlColor}';
 height : 13px;
 }
@@ -40,5 +40,5 @@ text-color : '#{richSkin.controlBackgroundColor}';
 height : 13px;
 width : 200px;
 padding: 0px;
-background-image : "url(#{resource['org.richfaces.renderkit.html.images.ProgressBarAnimatedBg']})";
+background-image : "url(#{resource['org.richfaces.images:pbAniBg.gif']})";
 }
