@@ -195,7 +195,7 @@ public class TabPanelRenderer extends TogglePanelRenderer {
         w.startElement("td", comp);
         w.writeAttribute(STYLE, style, null);
         w.writeAttribute(CLASS, classStyle, null);
-        w.startElement("br", comp);
+        w.write("<br />");
         w.endElement("td");
     }
 
