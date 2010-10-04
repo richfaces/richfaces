@@ -23,6 +23,8 @@
 package org.richfaces.component.html;
 
 import org.richfaces.component.UITogglePanelTitledItem;
+import org.richfaces.component.behavior.ToggleControl;
+
 import javax.faces.component.behavior.ClientBehaviorHolder;
 
 import java.util.Arrays;
@@ -94,8 +96,12 @@ public class HtmlAccordionItem extends UITogglePanelTitledItem implements Client
         return COMPONENT_FAMILY;
     }
 
+    public HtmlAccordion getAccordion() {
+        return (HtmlAccordion) ToggleControl.getEnclosedPanel(this);
+    }
+
     public String getHeaderClassActive() {
-        return (String) getStateHelper().eval(PropertyKeys.headerClassActive);
+        return (String) getStateHelper().eval(PropertyKeys.headerClassActive, getAccordion().getItemHeaderClassActive());
     }
 
     public void setHeaderClassActive(String headerClassActive) {
@@ -103,7 +109,7 @@ public class HtmlAccordionItem extends UITogglePanelTitledItem implements Client
     }
 
     public String getHeaderClassDisabled() {
-        return (String) getStateHelper().eval(PropertyKeys.headerClassDisabled);
+        return (String) getStateHelper().eval(PropertyKeys.headerClassDisabled, getAccordion().getItemHeaderClassDisabled());
     }
 
     public void setHeaderClassDisabled(String headerClassDisabled) {
@@ -111,7 +117,7 @@ public class HtmlAccordionItem extends UITogglePanelTitledItem implements Client
     }
 
     public String getHeaderClassInactive() {
-        return (String) getStateHelper().eval(PropertyKeys.headerClassInactive);
+        return (String) getStateHelper().eval(PropertyKeys.headerClassInactive, getAccordion().getItemHeaderClassInactive());
     }
 
     public void setHeaderClassInactive(String headerClassInactive) {
@@ -119,7 +125,7 @@ public class HtmlAccordionItem extends UITogglePanelTitledItem implements Client
     }
 
     public String getHeaderClass() {
-        return (String) getStateHelper().eval(PropertyKeys.headerClass);
+        return (String) getStateHelper().eval(PropertyKeys.headerClass, getAccordion().getItemHeaderClass());
     }
 
     public void setHeaderClass(String headerClass) {
@@ -135,7 +141,7 @@ public class HtmlAccordionItem extends UITogglePanelTitledItem implements Client
     }
 
     public String getContentClass() {
-        return (String) getStateHelper().eval(PropertyKeys.contentClass);
+        return (String) getStateHelper().eval(PropertyKeys.contentClass, getAccordion().getItemContentClass());
     }
 
     public void setContentClass(String contentClass) {

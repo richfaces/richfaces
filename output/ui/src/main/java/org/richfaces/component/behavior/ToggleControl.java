@@ -25,6 +25,7 @@ package org.richfaces.component.behavior;
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorContext;
+import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.component.behavior.ClientBehavior;
 import org.richfaces.component.AbstractTogglePanel;
@@ -97,17 +98,26 @@ public class ToggleControl extends ClientBehavior {
                         + comp.getClientId(getFacesContext()) + ") has not been found.");
             }
         } else {
-            UIComponent control = comp;
-            while (control != null) {
-                if (control instanceof AbstractTogglePanel) {
-                    return (AbstractTogglePanel) control;
-                }
-
-                control = control.getParent();
-            }
-            throw new FacesException("Parent panel for control (id="
-                    + comp.getClientId(getFacesContext()) + ") has not been found.");
+            return getEnclosedPanel(comp);
         }
+    }
+
+    public static AbstractTogglePanel getEnclosedPanel(UIComponent comp) {
+        if (comp == null) {
+            return null;
+        }
+
+        UIComponent control = comp;
+        while (control != null) {
+            if (control instanceof AbstractTogglePanel) {
+                return (AbstractTogglePanel) control;
+            }
+
+            control = control.getParent();
+        }
+        
+        throw new FacesException("Parent panel for control (id="
+                + comp.getClientId(FacesContext.getCurrentInstance()) + ") has not been found.");
     }
 
     @Override

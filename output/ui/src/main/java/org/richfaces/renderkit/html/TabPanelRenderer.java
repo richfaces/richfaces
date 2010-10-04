@@ -23,7 +23,7 @@
 package org.richfaces.renderkit.html;
 
 import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.active;
-import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.disable;
+import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.disabled;
 import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.inactive;
 import static org.richfaces.component.html.HtmlAccordion.PropertyKeys.height;
 import static org.richfaces.component.util.HtmlUtil.concatClasses;
@@ -136,7 +136,7 @@ public class TabPanelRenderer extends TogglePanelRenderer {
         
         encodeTabHeader(context, tab, writer, inactive, !isActive && !isDisabled);
         encodeTabHeader(context, tab, writer, active, isActive && !isDisabled);
-        encodeTabHeader(context, tab, writer, disable, isDisabled);
+        encodeTabHeader(context, tab, writer, disabled, isDisabled);
         
     }    
 

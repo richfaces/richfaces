@@ -137,7 +137,7 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
         boolean isDisabled = titledItem.isDisabled(); 
         encodeHeader(context, titledItem, writer, HeaderStates.inactive, !isActive && !isDisabled);
         encodeHeader(context, titledItem, writer, HeaderStates.active, isActive && !isDisabled);
-        encodeHeader(context, titledItem, writer, HeaderStates.disable, isDisabled);
+        encodeHeader(context, titledItem, writer, HeaderStates.disabled, isDisabled);
 
         writer.endElement("div");
     }

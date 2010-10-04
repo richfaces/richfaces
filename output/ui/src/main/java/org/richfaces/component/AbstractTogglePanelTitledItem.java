@@ -41,7 +41,7 @@ public abstract class AbstractTogglePanelTitledItem extends UITogglePanelItem {
     public enum HeaderStates {
         active("act"),
         inactive("inact"),
-        disable("dis");
+        disabled("dis");
 
         private final String abbreviation;
 

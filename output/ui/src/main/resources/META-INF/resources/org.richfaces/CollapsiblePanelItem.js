@@ -45,7 +45,7 @@
         },
 
         __state : function () {
-            return this.getName() === "true" ? "expanded" : "collapsed";
+            return this.getName() === "true" ? "exp" : "colps";
         },
 
         __header : function (state) {
