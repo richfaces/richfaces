@@ -22,23 +22,18 @@
 
 package org.richfaces.renderkit.html;
 
-import org.richfaces.component.behavior.ToggleControl;
-
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.render.ClientBehaviorRenderer;
-import javax.faces.render.FacesBehaviorRenderer;
-import javax.faces.render.RenderKitFactory;
+
+import org.richfaces.component.behavior.ToggleControl;
 
 /**
  * @author akolonitsky
  *
  */
-@FacesBehaviorRenderer(
-    rendererType = "org.richfaces.component.behavior.ToggleControl",
-    renderKitId = RenderKitFactory.HTML_BASIC_RENDER_KIT)
 @ResourceDependencies({
     @ResourceDependency(name = "jquery.js"),
     @ResourceDependency(name = "richfaces.js") })

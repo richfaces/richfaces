@@ -726,6 +726,11 @@
                 <cdk:renders-children>false</cdk:renders-children>
             </renderer-extension>
         </renderer>
+        
+        <client-behavior-renderer>
+            <client-behavior-renderer-type>org.richfaces.component.behavior.ToggleControl</client-behavior-renderer-type>
+            <client-behavior-renderer-class>org.richfaces.renderkit.html.ToggleControlRenderer</client-behavior-renderer-class>
+        </client-behavior-renderer>
 	</render-kit>
 
     <faces-config-extension>
