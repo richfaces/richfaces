@@ -21,6 +21,7 @@
  */
 package org.richfaces.resource;
 
+import java.awt.Dimension;
 import java.awt.Transparency;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
@@ -115,6 +116,10 @@ public enum ImageType {
     
     public abstract BufferedImage createImage(int width, int height);
 
+    public BufferedImage createImage(Dimension dimension) {
+        return createImage(dimension.width, dimension.height);
+    }
+    
     public String getFormatName() {
         return formatName;
     }

@@ -260,7 +260,11 @@ public class ResourceFactoryImpl implements ResourceFactory {
 
                 if (legitimateResource) {
                     Object wrappedResource;
-                    if (Java2DUserResource.class.isAssignableFrom(loadedClass)) {
+                    if (Java2DAnimatedUserResource.class.isAssignableFrom(loadedClass)) {
+                        Java2DAnimatedUserResource java2DAnimatedUserResource = (Java2DAnimatedUserResource) loadedClass.newInstance();
+                        wrappedResource = java2DAnimatedUserResource;
+                        resource = new Java2DAnimatedUserResourceWrapperImpl(java2DAnimatedUserResource);
+                    } else if (Java2DUserResource.class.isAssignableFrom(loadedClass)) {
                         Java2DUserResource java2DUserResource = (Java2DUserResource) loadedClass.newInstance();
                         wrappedResource = java2DUserResource;
                         resource = new Java2DUserResourceWrapperImpl(java2DUserResource);

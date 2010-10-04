@@ -34,6 +34,7 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageOutputStream;
 
 import org.ajax4jsf.util.HtmlColor;
 import org.richfaces.renderkit.util.HtmlDimensions;
@@ -52,46 +53,25 @@ public class Java2DUserResourceWrapperImpl extends BaseResourceWrapper<Java2DUse
     }
 
     public InputStream getInputStream() throws IOException {
-        Java2DUserResource j2DUserResource = getWrapped();
-        Dimension dimension = j2DUserResource.getDimension();
-        int width = dimension.width;
-        int height = dimension.height;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-        ImageType imageType = j2DUserResource.getImageType();
-        
-        if ((width > 0) && (height > 0)) {
-            BufferedImage image = imageType.createImage(width, height);
-            Graphics2D g2d = image.createGraphics();
-
-            try {
-                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                g2d.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
-
-                g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
-                    RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-                g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-                g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-
-                j2DUserResource.paint(g2d, dimension);
-            } finally {
-                g2d.dispose();
-            }
-
-            try {
-                ImageIO.write(image, imageType.getFormatName(), baos);
-            } finally {
+        ImageOutputStream imageOutputStream = ImageIO.createImageOutputStream(baos);
+        try {
+            paintAndWrite(imageOutputStream);
+        } finally {
+            if (imageOutputStream != null) {
                 try {
-                    baos.close();
+                    imageOutputStream.close();
                 } catch (IOException e) {
-
-                    // TODO Auto-generated catch block
+                    // TODO: handle exception
                     e.printStackTrace();
                 }
             }
         }
-
         return new ByteArrayInputStream(baos.toByteArray());
+    }
+
+    protected void write(BufferedImage image, String formatName, ImageOutputStream imageOutputStream) throws IOException {
+        ImageIO.write(image, formatName, imageOutputStream);
     }
 
     public String getContentType() {
@@ -99,7 +79,7 @@ public class Java2DUserResourceWrapperImpl extends BaseResourceWrapper<Java2DUse
     }
 
     protected String getValueParameter(FacesContext context, String name) {
-        SkinFactory skinFactory = SkinFactory.getInstance();
+        SkinFactory skinFactory = SkinFactory.getInstance(context);
 
         Skin skin = skinFactory.getSkin(context);
         String value = (String) skin.getParameter(context, name);
@@ -115,16 +95,16 @@ public class Java2DUserResourceWrapperImpl extends BaseResourceWrapper<Java2DUse
     protected Integer getColorValueParameter(FacesContext context, String name, boolean useDefault) {
         Skin skin;
         if (useDefault) {
-            skin = SkinFactory.getInstance().getDefaultSkin(context);
+            skin = SkinFactory.getInstance(context).getDefaultSkin(context);
         } else {
-            skin = SkinFactory.getInstance().getSkin(context);
+            skin = SkinFactory.getInstance(context).getSkin(context);
         }
 
         return decodeColor((String) skin.getParameter(context, name));
     }
 
     protected Integer getHeight(FacesContext context, String heightParamName) {
-        SkinFactory skinFactory = SkinFactory.getInstance();
+        SkinFactory skinFactory = SkinFactory.getInstance(context);
         Skin skin = skinFactory.getSkin(context);
 
         String height = (String) skin.getParameter(context, heightParamName);
@@ -156,5 +136,34 @@ public class Java2DUserResourceWrapperImpl extends BaseResourceWrapper<Java2DUse
     @Override
     protected Date getLastModified(FacesContext context) {
         return getWrapped().getLastModified();
+    }
+    
+    protected void paintAndWrite(ImageOutputStream outputStream) throws IOException {
+        Java2DUserResource resource = getWrapped();
+        ImageType imageType = resource.getImageType();
+        
+        BufferedImage image = imageType.createImage(resource.getDimension());
+        Graphics2D g2d = null;
+        try {
+            g2d = createGraphics(image);
+            resource.paint(g2d, new Dimension(image.getWidth(), image.getHeight()));
+            ImageIO.write(image, imageType.getFormatName(), outputStream);
+        } finally {
+            if (g2d != null) {
+                g2d.dispose();
+            }
+        }
+    }
+    
+    protected Graphics2D createGraphics(BufferedImage image) {
+        Graphics2D g2d = image.createGraphics();
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
+
+        g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
+            RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+        g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+        g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        return g2d;
     }
 }
