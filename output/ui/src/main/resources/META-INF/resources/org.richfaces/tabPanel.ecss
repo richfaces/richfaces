@@ -4,7 +4,7 @@
     cursor : pointer;
     padding : 0px 5px 3px 5px;
     vertical-align : top;
-    background-image: "url(#{resource['org.richfaces.renderkit.html.images.TabHeaderGradient']})";
+    background-image: "url(#{resource['org.richfaces.images:tabBg.png']})";
     background-position: top;
     background-repeat: repeat-x;
     background-color: "#{richSkin.tabBackgroundColor}";
@@ -16,7 +16,7 @@
     border-bottom: 0px;
     font-weight: bold;
     vertical-align: top;
-    background-image: "url(#{resource['org.richfaces.renderkit.html.images.TopTabHeaderGradient']})";
+    background-image: "url(#{resource['org.richfaces.images:actTabBg.png']})";
     background-position: top;
     background-repeat: repeat-x;
     background-color: "#{richSkin.additionalBackgroundColor}";
@@ -32,10 +32,15 @@
 }
 
 .rf-tb-hdr-tabline-vis {
-    background:url("tabline_bg.gif") repeat-x scroll center top #EEF4FB;
-    border-color:#A6A6A6 #A6A6A6 -moz-use-text-color;
-    border-style:solid solid none;
-    border-width:1px 1px 0;
+    background:url("tabline_bg.gif") repeat-x scroll center top;
+    background-color: "#{richSkin.additionalBackgroundColor}";
+
+    border-color: "#{richSkin.panelBorderColor}";
+    border-style: solid;
+    border-width: 1px;
+    
+    border-bottom-width: 0px;
+    
     padding-top: 2px;
     overflow: hidden;
     height: 25px;
@@ -68,7 +73,7 @@
 }
 
 .rf-tb-hdr-scrl_l {
-    background: "url(#{resource['org.richfaces.renderkit.html.images.TopTabHeaderGradient']}) top repeat-x #{richSkin.additionalBackgroundColor}";
+    background: "url(#{resource['org.richfaces.images:actTabBg.png']}) top repeat-x #{richSkin.additionalBackgroundColor}";
     position: absolute;
     top: 1px;
     left: 1px;
@@ -83,7 +88,7 @@
 }
 
 .rf-tb-hdr-scrl_r {
-    background: "url(#{resource['org.richfaces.renderkit.html.images.TopTabHeaderGradient']}) top repeat-x #{richSkin.additionalBackgroundColor}";
+    background: "url(#{resource['org.richfaces.images:actTabBg.png']}) top repeat-x #{richSkin.additionalBackgroundColor}";
     position: absolute;
     top: 1px;
     right: 17px;
@@ -98,7 +103,7 @@
 }
 
 .rf-tb-hdr-tablst {
-    background: "url(#{resource['org.richfaces.renderkit.html.images.TopTabHeaderGradient']}) top repeat-x #{richSkin.additionalBackgroundColor}";
+    background: "url(#{resource['org.richfaces.images:actTabBg.png']}) top repeat-x #{richSkin.additionalBackgroundColor}";
     position: absolute;
     top: 1px;
     right: 1px;

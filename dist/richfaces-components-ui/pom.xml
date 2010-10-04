@@ -137,6 +137,9 @@
                                     </taglibs>
                                 </transformer>
                                 <transformer implementation="org.richfaces.build.shade.resource.FacesConfigXmlResourceTransformer" />
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+                                    <resource>META-INF/richfaces/resource-mappings.properties</resource>
+                                </transformer>
                             </transformers>
                         </configuration>
                     </execution>
