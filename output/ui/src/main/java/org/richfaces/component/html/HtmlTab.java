@@ -23,8 +23,8 @@
 package org.richfaces.component.html;
 
 import org.richfaces.component.UITogglePanelTitledItem;
-import javax.faces.component.behavior.ClientBehaviorHolder;
 
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -94,8 +94,12 @@ public class HtmlTab extends UITogglePanelTitledItem implements ClientBehaviorHo
         return COMPONENT_FAMILY;
     }
 
+    public HtmlTabPanel getTabPanel() {
+        return (HtmlTabPanel) this.getParent();
+    }
+
     public String getHeaderClassActive() {
-        return (String) getStateHelper().eval(PropertyKeys.headerClassActive);
+        return (String) getStateHelper().eval(PropertyKeys.headerClassActive, getTabPanel().getTabHeaderClassActive());
     }
 
     public void setHeaderClassActive(String headerClassActive) {
@@ -103,7 +107,7 @@ public class HtmlTab extends UITogglePanelTitledItem implements ClientBehaviorHo
     }
 
     public String getHeaderClassDisabled() {
-        return (String) getStateHelper().eval(PropertyKeys.headerClassDisabled);
+        return (String) getStateHelper().eval(PropertyKeys.headerClassDisabled, getTabPanel().getTabHeaderClassDisabled());
     }
 
     public void setHeaderClassDisabled(String headerClassDisabled) {
@@ -111,7 +115,7 @@ public class HtmlTab extends UITogglePanelTitledItem implements ClientBehaviorHo
     }
 
     public String getHeaderClassInactive() {
-        return (String) getStateHelper().eval(PropertyKeys.headerClassInactive);
+        return (String) getStateHelper().eval(PropertyKeys.headerClassInactive, getTabPanel().getTabHeaderClassInactive());
     }
 
     public void setHeaderClassInactive(String headerClassInactive) {
@@ -119,7 +123,7 @@ public class HtmlTab extends UITogglePanelTitledItem implements ClientBehaviorHo
     }
 
     public String getHeaderClass() {
-        return (String) getStateHelper().eval(PropertyKeys.headerClass);
+        return (String) getStateHelper().eval(PropertyKeys.headerClass, getTabPanel().getTabHeaderClass());
     }
 
     public void setHeaderClass(String headerClass) {
@@ -135,7 +139,7 @@ public class HtmlTab extends UITogglePanelTitledItem implements ClientBehaviorHo
     }
 
     public String getContentClass() {
-        return (String) getStateHelper().eval(PropertyKeys.contentClass);
+        return (String) getStateHelper().eval(PropertyKeys.contentClass, getTabPanel().getTabContentClass());
     }
 
     public void setContentClass(String contentClass) {
