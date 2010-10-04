@@ -45,7 +45,7 @@
     <tag>
         <tag-name>tab</tag-name>
         <component>
-            <component-type>org.richfaces.TogglePanelTitledItem</component-type>
+            <component-type>org.richfaces.TabPanelItem</component-type>
             <renderer-type>org.richfaces.Tab</renderer-type>
         </component>
     </tag>
@@ -741,9 +741,8 @@
     <tag>
         <tag-name>accordionItem</tag-name>
         <component>
-            <component-type>org.richfaces.TogglePanelTitledItem</component-type>
+            <component-type>org.richfaces.AccordionItem</component-type>
             <renderer-type>org.richfaces.AccordionItem</renderer-type>
-
         </component>
         <attribute>
             <description></description>

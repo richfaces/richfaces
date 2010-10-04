@@ -22,14 +22,14 @@
 
 package org.richfaces.component.html;
 
-import org.richfaces.component.UITogglePanelTitledItem;
-import org.richfaces.component.behavior.ToggleControl;
-
-import javax.faces.component.behavior.ClientBehaviorHolder;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+
+import javax.faces.component.behavior.ClientBehaviorHolder;
+
+import org.richfaces.component.UITogglePanelTitledItem;
+import org.richfaces.component.behavior.ToggleControl;
 
 /**
  * @author akolonitsky
@@ -37,7 +37,7 @@ import java.util.Collections;
  */
 public class HtmlAccordionItem extends UITogglePanelTitledItem implements ClientBehaviorHolder {
 
-    public static final String COMPONENT_TYPE = "org.richfaces.TogglePanelTitledItem";
+    public static final String COMPONENT_TYPE = "org.richfaces.AccordionItem";
 
     public static final String COMPONENT_FAMILY = "org.richfaces.TogglePanelTitledItem";
 

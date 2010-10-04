@@ -22,17 +22,19 @@
 
 package org.richfaces.component.html;
 
-import org.richfaces.component.UITogglePanelTitledItem;
-import javax.faces.component.behavior.ClientBehaviorHolder;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+
+import javax.faces.component.behavior.ClientBehaviorHolder;
+
+import org.richfaces.component.UITogglePanelTitledItem;
 
 /**
  * @author akolonitsky
  * @since 2010-08-13
  */
+//TODO alex - what's the purpose of this class?
 public class HtmlTogglePanelTitledItem extends UITogglePanelTitledItem implements ClientBehaviorHolder {
 
     public static final String COMPONENT_TYPE = "org.richfaces.TogglePanelTitledItem";

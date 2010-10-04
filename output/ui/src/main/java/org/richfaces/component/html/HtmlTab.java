@@ -22,12 +22,13 @@
 
 package org.richfaces.component.html;
 
-import org.richfaces.component.UITogglePanelTitledItem;
-
-import javax.faces.component.behavior.ClientBehaviorHolder;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+
+import javax.faces.component.behavior.ClientBehaviorHolder;
+
+import org.richfaces.component.UITogglePanelTitledItem;
 
 /**
  * @author akolonitsky
@@ -35,7 +36,7 @@ import java.util.Collections;
  */
 public class HtmlTab extends UITogglePanelTitledItem implements ClientBehaviorHolder {
 
-    public static final String COMPONENT_TYPE = "org.richfaces.TogglePanelTitledItem";
+    public static final String COMPONENT_TYPE = "org.richfaces.TabPanelItem";
 
     public static final String COMPONENT_FAMILY = "org.richfaces.TogglePanelTitledItem";
 

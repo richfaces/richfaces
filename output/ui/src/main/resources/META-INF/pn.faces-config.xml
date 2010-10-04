@@ -491,7 +491,7 @@
 
     </component>
     <component>
-        <component-type>org.richfaces.TogglePanelTitledItem</component-type>
+        <component-type>org.richfaces.AccordionItem</component-type>
         <component-class>org.richfaces.component.html.HtmlAccordionItem</component-class>
         <property>
             <description></description>
@@ -659,7 +659,7 @@
         <component-class>org.richfaces.component.html.HtmlTabPanel</component-class>
     </component>
     <component>
-        <component-type>org.richfaces.TogglePanelTitledItem</component-type>
+        <component-type>org.richfaces.TabPanelItem</component-type>
         <component-class>org.richfaces.component.html.HtmlTab</component-class>
     </component>
 
