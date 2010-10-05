@@ -8,10 +8,10 @@ Getting up and running quickly
 -------------------------------
 
 1) Put RichFaces libraries and its dependencies in your application libraries folder:
-	1.1)  richfaces-core-api-4.0.0.20101001-M3.jar
-	1.2)  richfaces-core-impl-4.0.0.20101001-M3.jar
-	1.3)  richfaces-components-api-4.0.0.20101001-M3.jar
-	1.4)  richfaces-components-ui-4.0.0.20101001-M3.jar
+	1.1)  richfaces-core-api-4.0.0.20101004-M3.jar
+	1.2)  richfaces-core-impl-4.0.0.20101004-M3.jar
+	1.3)  richfaces-components-api-4.0.0.20101004-M3.jar
+	1.4)  richfaces-components-ui-4.0.0.20101004-M3.jar
 	1.5)  sac-1.3, cssparser-0.9.5 - required for components CSS work
 	1.6)  google-guava-r06 - core runtime dependency.
 	1.7)  annotations.jar from org.richfaces.cdk
