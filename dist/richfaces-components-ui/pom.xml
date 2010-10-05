@@ -24,13 +24,13 @@
     <parent>
         <groupId>org.richfaces.ui</groupId>
         <artifactId>richfaces-ui-parent</artifactId>
-        <version>4.0.0.20101004-M3</version>
+        <version>4.0.0-SNAPSHOT</version>
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.ui</groupId>
     <artifactId>richfaces-components-ui</artifactId>
-    <version>4.0.0.20101004-M3</version>
+    <version>4.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>Richfaces UI Components UI</name>
 
@@ -241,9 +241,9 @@
     </profiles>
     
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/tags/4.0.0.20101004-M3/ui/dist/richfaces-components-ui</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/tags/4.0.0.20101004-M3/ui/dist/richfaces-components-ui</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/tags/4.0.0.20101004-M3/ui/dist/richfaces-components-ui</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/dist/richfaces-components-ui</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/dist/richfaces-components-ui</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces</url>
     </scm>
 
 </project>

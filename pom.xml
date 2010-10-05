@@ -32,7 +32,7 @@
 
     <groupId>org.richfaces.ui</groupId>
     <artifactId>richfaces-ui-aggregator</artifactId>
-    <version>4.0.0.20101004-M3</version>
+    <version>4.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>RichFaces UI: Aggregator</name>
 
@@ -46,11 +46,5 @@
         <module>input</module>
         <module>dist</module>
     </modules>
-
-  <scm>
-    <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/modules/build/parent/tags/4.0.0.20101004-M3</connection>
-    <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/modules/build/parent/tags/4.0.0.20101004-M3</developerConnection>
-    <url>http://fisheye.jboss.org/browse/richfaces/modules/build/parent/tags/4.0.0.20101004-M3</url>
-  </scm>
 </project>
 
