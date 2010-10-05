@@ -3,6 +3,7 @@
  */
 package org.richfaces.demo.progressBar;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
@@ -14,8 +15,10 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class ProgressBarBean {
+public class ProgressBarBean implements Serializable {
 	
+    private static final long serialVersionUID = -314414475508376585L;
+
     private boolean buttonRendered = true;
     private boolean enabled=false;
     private Long startTime;
