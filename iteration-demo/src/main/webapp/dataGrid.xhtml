@@ -39,13 +39,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
 <h:body>
 	<h:form id="form1">
-		<it:dataGrid columns="3" var="record" elements="8" value="#{dataBean.employeeList}">
+		<it:dataGrid id="dataGrid" columns="3" var="record" elements="8" value="#{dataBean.employeeList}">
 			<f:facet name="header">
 				<h:outputText value="header"/>
-			</f:facet>
-			
-			<f:facet name="footer">
-				<h:outputText value="footer"/>
 			</f:facet>
 			
 			<f:facet name="caption">
