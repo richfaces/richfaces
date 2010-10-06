@@ -54,15 +54,12 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
 
         public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)
             throws IOException {
-            AbstractDataGrid dataGrid = (AbstractDataGrid)component;
-            String clientId = dataGrid.getClientId(context) + ":h";
+            String clientId = component.getClientId(context) + ":h";
 
             boolean partial = (Boolean)(Boolean)params[0];
             if(partial) {
                 context.getPartialViewContext().getPartialResponseWriter().startUpdate(clientId);
             }
-            
-            int columns = dataGrid.getColumns();
             
             writer.startElement(HtmlConstants.THEAD_ELEMENT, component);
             writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId , null);
@@ -71,7 +68,11 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-h", null);
             writer.startElement(HtmlConstants.TH_ELEM, component);
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-h-c", null);
-            writer.writeAttribute(HtmlConstants.COLSPAN_ATTRIBUTE, columns, null);
+            
+            int columns = (Integer)component.getAttributes().get("columns");
+            if(columns != Integer.MIN_VALUE) {
+            	writer.writeAttribute(HtmlConstants.COLSPAN_ATTRIBUTE, columns, null);
+            }	
         }
 
         public void end(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)
@@ -92,10 +93,8 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
         public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)
             throws IOException {
                         
-            AbstractDataGrid dataGrid = (AbstractDataGrid)component;
-            String clientId = dataGrid.getClientId(context) + ":f";
-            
-            int columns = dataGrid.getColumns();
+            String clientId = component.getClientId(context) + ":f";
+
             boolean partial = (Boolean)(Boolean)params[0];
             if(partial) {
                 context.getPartialViewContext().getPartialResponseWriter().startUpdate(clientId);
@@ -108,7 +107,11 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-f", null);
             writer.startElement(HtmlConstants.TD_ELEM, component);
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-f-c", null);
-            writer.writeAttribute(HtmlConstants.COLSPAN_ATTRIBUTE, columns, null);
+            
+            int columns = (Integer)component.getAttributes().get("columns");
+            if(columns != Integer.MIN_VALUE) {
+            	writer.writeAttribute(HtmlConstants.COLSPAN_ATTRIBUTE, columns, null);
+            }	
         }
 
         public void end(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)
@@ -144,6 +147,11 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-nd", null);
             writer.startElement(HtmlConstants.TD_ELEM, component);
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-nd-c", null);
+            
+            int columns = (Integer)component.getAttributes().get("columns");
+            if(columns != Integer.MIN_VALUE) {
+            	writer.writeAttribute(HtmlConstants.COLSPAN_ATTRIBUTE, columns, null);
+            }
         }
 
         public void end(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)
@@ -165,10 +173,10 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
             if (processCell != 0) {
                 writer.endElement(HtmlConstants.TR_ELEMENT);
                 rowHolder.resetProcessCell();
-                rowHolder.nextRow();
             }
             writer.startElement(HtmlConstants.TR_ELEMENT, dataGrid);
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-r", null);
+            rowHolder.nextRow();
         }
 
         writer.startElement(HtmlConstants.TD_ELEM, dataGrid);
@@ -283,10 +291,8 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-c", null);
                 writer.endElement(HtmlConstants.TD_ELEM);
             }
+            writer.endElement(HtmlConstants.TR_ELEMENT);
         }
-
-        writer.endElement(HtmlConstants.TR_ELEMENT);
-        
     }
     
     public DataVisitResult process(FacesContext facesContext, Object rowKey, Object argument) {
