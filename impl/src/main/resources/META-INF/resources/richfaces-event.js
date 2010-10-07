@@ -184,6 +184,25 @@
 			return $(document.getElementById(id)).unbind(eventType, fn);
 		},
 		
+		// TODO add jsdocs and qunits
+		bindScrollEventHandlers: function(element, handler, component) {
+			var elements = [];
+			element = richfaces.getDomElement(element).parentNode;
+			while (element && element!=window.document.body)
+			{
+				if (element.offsetWidth!=element.scrollWidth || element.offsetHeight!=element.scrollHeight)
+				{
+					elements.push(element);
+					richfaces.Event.bind(element, "scroll"+component.getNamespace(), handler, component);
+				}
+				element = element.parentNode;
+			}
+			return elements;
+		},
+		unbindScrollEventHandlers: function(elements, component) {
+			richfaces.Event.unbind(elements, "scroll"+component.getNamespace());
+		},
+		
 		/** 
 		  * Execute all handlers and behaviors attached to the matched elements for the given event type.
 		  * @function
