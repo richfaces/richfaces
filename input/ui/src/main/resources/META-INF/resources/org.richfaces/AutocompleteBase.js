@@ -1,24 +1,3 @@
-// TODO: move this extend to RichFaces.Event for exapmle
-$.extend(RichFaces.Event, {
-	bindScrollEventHandlers: function(element, handler, component) {
-		var elements = [];
-		element = RichFaces.getDomElement(element).parentNode;
-		while (element && element!=window.document.body)
-		{
-			if (element.offsetWidth!=element.scrollWidth || element.offsetHeight!=element.scrollHeight)
-			{
-				elements.push(element);
-				RichFaces.Event.bind(element, "scroll"+component.getNamespace(), handler, component);
-			}
-			element = element.parentNode;
-		}
-		return elements;
-	},
-	unbindScrollEventHandlers: function(elements, component) {
-		RichFaces.Event.unbind(elements, "scroll"+component.getNamespace());
-	}
-});
-
 (function (rf) {
 	rf.KEYS = {
 		BACKSPACE: 8,	
@@ -31,8 +10,8 @@ $.extend(RichFaces.Event, {
 		UP: 38,
 		RIGHT: 39,
 		DOWN: 40,
-		DEL: 46,
-	}
+		DEL: 46
+	};
 })(RichFaces);
 
 (function ($, rf) {
@@ -205,7 +184,7 @@ $.extend(RichFaces.Event, {
 				}
 				break;
 		}
-	}
+	};
 	
 	/*
 	 * public API functions definition
