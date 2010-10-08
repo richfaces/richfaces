@@ -1,0 +1,214 @@
+input.insel_field { 
+	background : '#{richSkin.editBackgroundColor}'; 
+	padding : 0px 0px 0px 0px; 
+	border : 0px; 
+	margin : 0px; 
+	width : 112px; 
+	background-image:"url(#{resource['org.richfaces:mark_list.gif']})";
+	background-position : center right;
+	background-repeat : no-repeat;
+	font-family:inherit; 
+	font-size : inherit;
+}
+
+.rf-is-none {
+	clip:rect(0px, 0px, 1px, 1px);
+}
+
+.insel_font {
+}
+
+.insel_default_state {
+	display : inline-block; 
+	position : relative; 
+	white-space : nowrap; 
+	background-color : '#{richSkin.editorBackgroundColor}'; 
+	border-bottom-width : 1px;
+	border-bottom-style : dashed;
+	border-bottom-color : '#{richSkin.generalTextColor}'; 
+	padding-left : 3px; 
+	padding-right : 3px;
+}
+
+.insel_changed_state {
+	display : inline-block;
+	background-image : "url(#{resource['org.richfaces:mark_changed.gif']})"; 
+	background-position : top left; 
+	background-repeat : no-repeat;
+}
+
+.insel_edit_state{  
+	position : absolute; 
+	top : 0px; 
+	left : 0px; 
+	width : 100px; 
+	background-color : '#{richSkin.editBackgroundColor}';
+}
+
+.insel_field { 
+	background-color : '#{richSkin.editBackgroundColor}'; 
+	padding : 0px 0px 0px 0px; 
+	border : 0px; 
+	margin : 0px; 
+	width : 112px; 
+	background-image: "url(#{resource['org.richfaces:mark_list.gif']})"; 
+	background-position : center right; 
+	background-repeat : no-repeat;
+}
+
+.insel_btn {
+	background-image : "url(#{resource['org.richfaces.renderkit.html.images.InplaceComponentButtonGradientImage']})";
+	background-position : top; 
+	background-repeat: repeat-x; 
+	background-color: '#{richSkin.tabBackgroundColor}';
+	border-width : 1px;
+	border-style : outset;
+	border-color : '#{richSkin.panelBorderColor}';
+	padding : 3px; 
+	margin : 0px;
+}
+
+.insel_btn_press {
+	background-image : "url(#{resource['org.richfaces.renderkit.html.images.InplaceComponentPressButtonGradientImage']})"; 
+	background-position : top;
+	background-repeat : repeat-x; 
+	background-color : '#{richSkin.tabBackgroundColor}'; 
+	border-width : 1px; 
+	border-style : inset; 
+	border-color : '#{richSkin.panelBorderColor}';
+	padding : 3px; 
+	margin : 0px;
+}
+	
+.insel_btn_set { 
+	position : absolute; 
+	top : 0px; 
+	left : 112px; 
+	white-space : nowrap;
+}
+
+.insel_list_cord {
+	display : block;
+	/*font-size : 0px;*/
+	position : relative; 
+	font-family:inherit; 
+	font-size : inherit;
+}
+
+.insel_list_position {
+	display : block;   
+	position : absolute; 
+	top: 0px; 
+	left: -1px; 
+}
+
+.insel_list_decoration { 
+	display : block;
+	border-width : 1px;
+	border-style : solid;
+	border-color : '#{richSkin.panelBorderColor}'; 
+	padding : 0px;
+	/*width: 100%;*/
+	background-color : '#{richSkin.editBackgroundColor}';
+}
+
+.insel_list_scroll {
+	display : block; 
+	overflow : auto;
+	overflow-x : hidden;
+	/*height : 100px;*/
+}
+
+.insel_option {
+	display : block;  
+	padding : 2px; 
+	white-space : nowrap; 
+	background-color : '#{richSkin.editBackgroundColor}'; 
+	cursor : default;
+}
+
+.insel_select {
+	display : block; 
+	padding : 1px; 
+	background-color: #DFE8F6; /*get from skin???*/ 
+	border-width : 1px;
+	border-style : dotted;
+	border-color : '#{richSkin.generalTextColor}';
+}
+
+.insel_btn_preposition {
+	display : block; 
+	position : absolute;
+	top : -4px;
+	right : 0px;
+	wigth : 1px;
+	height : 1px;
+}
+
+.insel_btn_position {
+	display : block;
+	position : absolute;
+	top : 0px;
+	left : 0px;
+	white-space : nowrap;
+}
+
+.insel_btn_shadow {
+	display : block;
+	position: relative; 
+	padding : 6px 6px 6px 6px; 
+	top : -6px; 
+	right : -6px;
+}
+
+.insel_shadow {
+	display : block;
+	position: relative; 
+	padding : 6px 6px 6px 6px; 
+	top : -6px; 
+	left : -6px;
+}
+
+.insel_shadow_t {
+	display : block;
+	background-image :  "url(#{resource['org.richfaces:bg_shadow.png']})";
+	background-position : top left; 
+	position: absolute; 
+	width: 6px; 
+	top: 0px; 
+	bottom: 6px; 
+	left : 0px
+}
+
+.insel_shadow_l {
+	display : block;
+	background-image : "url(#{resource['org.richfaces:bg_shadow.png']})";
+	background-position : bottom left; 
+	position : absolute; 
+	height : 6px; 
+	bottom : 0px; 
+	left : 0px;
+	right : 6px;
+}
+
+.insel_shadow_r {
+	display : block;
+	background : "url(#{resource['org.richfaces:bg_shadow.png']})"; 
+	background-position : bottom right; 
+	position : absolute; 
+	width : 6px; 
+	top : 6px; 
+	bottom : 0px; 
+	right : 0px;
+}
+
+.insel_shadow_b {
+	display : block;
+	background : "url(#{resource['org.richfaces:bg_shadow.png']})"; 
+	background-position : right top; 
+	position: absolute; 
+	height : 6px;
+	top: 0px;
+	left : 6px;
+	right : 0px;
+}

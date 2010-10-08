@@ -35,7 +35,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.javascript.JSFunction;
-import org.richfaces.component.AbstractInplaceInput;
+import org.richfaces.component.InplaceComponent;
 import org.richfaces.component.InplaceState;
 import org.richfaces.component.util.HtmlUtil;
 
@@ -43,10 +43,11 @@ import org.richfaces.component.util.HtmlUtil;
  * @author Anton Belevich
  * 
  */
-@ResourceDependencies({ 
-    @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-    @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"), 
+@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+    @ResourceDependency(name = "jquery.js"), @ResourceDependency(name = "richfaces.js"),
     @ResourceDependency(name = "richfaces-event.js"), 
+    @ResourceDependency(name = "richfaces-base-component.js"),
+    @ResourceDependency(library="org.richfaces", name = "inplaceBase.js"), 
     @ResourceDependency(library="org.richfaces", name = "inplaceInput.js"), 
     @ResourceDependency(library="org.richfaces", name = "inplaceInput.ecss") })
 public class InplaceInputBaseRenderer extends InputRendererBase {
@@ -75,14 +76,9 @@ public class InplaceInputBaseRenderer extends InputRendererBase {
     
     public static final String OPTIONS_INITIAL_VALUE = "initialValue";
     
-    private static final String READY_STATE_CSS = "rf-ii-ready-st";
-
-    private static final String EDIT_STATE_CSS = "rf-ii-edt-st";
-
-    private static final String CHANGED_STATE_CSS = "rf-ii-chd-st";
-
-    private static final String NONE_CSS = "rf-ii-none";
+    public static final String OPTIONS_SAVE_ON_BLUR = "saveOnBlur";
     
+
     private static final Map<String, ComponentAttribute> INPLACEINPUT_HANDLER_ATTRIBUTES = Collections
     .unmodifiableMap(ComponentAttribute.createMap(
         new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("inputClick").
@@ -120,14 +116,13 @@ public class InplaceInputBaseRenderer extends InputRendererBase {
     }
     
     public InplaceState getInplaceState(UIComponent component) {
-        return ((AbstractInplaceInput) component).getState();
+        return ((InplaceComponent) component).getState();
     }
 
     public String getValue(FacesContext facesContext, UIComponent component) throws IOException {
-        AbstractInplaceInput inplaceInput = (AbstractInplaceInput)component;        
-        String value = getInputValue(facesContext, inplaceInput);
+        String value = getInputValue(facesContext, component);
         if(value == null || "".equals(value)) {
-            value = inplaceInput.getDefaultLabel();
+            value = ((InplaceComponent)component).getDefaultLabel();
         }
         return value;
     }
@@ -142,11 +137,11 @@ public class InplaceInputBaseRenderer extends InputRendererBase {
     }
 
     public String getReadyStyleClass(UIComponent component, InplaceState inplaceState) {
-        return (InplaceState.changed != inplaceState) ? READY_STATE_CSS : HtmlUtil.concatClasses(READY_STATE_CSS, CHANGED_STATE_CSS);
+        return (InplaceState.changed != inplaceState) ? getReadyStateCss() : HtmlUtil.concatClasses(getReadyStateCss(), getChangedStateCss());
     }
 
     public String getEditStyleClass(UIComponent component, InplaceState inplaceState) {
-        return (InplaceState.edit != inplaceState)? HtmlUtil.concatClasses(EDIT_STATE_CSS, NONE_CSS) : EDIT_STATE_CSS;
+        return (InplaceState.edit != inplaceState)? HtmlUtil.concatClasses(getEditStateCss(), getNoneCss()) : getEditStateCss();
     }
     public String getReadyClientId(FacesContext facesContext, UIComponent component, InplaceState inplaceState) {
         String clientId = component.getClientId(facesContext);
@@ -166,30 +161,64 @@ public class InplaceInputBaseRenderer extends InputRendererBase {
         return result;
     }
     
-    public void buildScript(ResponseWriter writer, FacesContext facesContext, UIComponent component) throws IOException {
-        AbstractInplaceInput inplaceInput = (AbstractInplaceInput)component;
-        JSFunction function = new JSFunction("new RichFaces.ui.InplaceInput");
-        function.addParameter(inplaceInput.getClientId(facesContext));
-        
-        String clientId = inplaceInput.getClientId(facesContext);
+    public void buildScript(ResponseWriter writer, FacesContext facesContext, UIComponent component, Object additional) throws IOException {
+        if(!(component instanceof InplaceComponent)) {
+            return;
+        }
+
+        String scriptName = getScriptName();
+        JSFunction function = new JSFunction(scriptName);
+        String clientId = component.getClientId(facesContext);
+        Map<String, Object> options = createInplaceComponentOptions(clientId, (InplaceComponent)component);
+        addToOptions(facesContext, component, options, additional);
+        function.addParameter(clientId);
+        function.addParameter(options);
+        writer.write(function.toString());
+    }
+    
+    protected String getScriptName() {
+        return "new RichFaces.ui.InplaceInput";
+    }
+    
+    private Map<String, Object> createInplaceComponentOptions(String clientId, InplaceComponent inplaceComponent) {
         Map<String, Object> options = new HashMap<String, Object>();
-        options.put(OPTIONS_EDIT_EVENT, inplaceInput.getEditEvent());
-        options.put(OPTIONS_NONE_CSS, NONE_CSS);
-        options.put(OPTIONS_CHANGED_CSS, CHANGED_STATE_CSS);
+        options.put(OPTIONS_EDIT_EVENT, inplaceComponent.getEditEvent());
+        options.put(OPTIONS_NONE_CSS, getNoneCss());
+        options.put(OPTIONS_CHANGED_CSS, getChangedStateCss());
         options.put(OPTIONS_EDIT_CONTAINER, clientId + ":edit");
         options.put(OPTIONS_INPUT, clientId + ":input");
         options.put(OPTIONS_LABEL, clientId + ":label");
         options.put(OPTIONS_FOCUS, clientId + ":focus");
-        options.put(OPTIONS_DEFAULT_LABEL, inplaceInput.getDefaultLabel());
+        options.put(OPTIONS_DEFAULT_LABEL, inplaceComponent.getDefaultLabel());
+        options.put(OPTIONS_SAVE_ON_BLUR, inplaceComponent.isSaveOnBlur());
+
+        boolean showControls = inplaceComponent.isShowControls();
         
-        boolean showControls = inplaceInput.isShowControls();
         options.put(OPTIONS_SHOWCONTROLS, showControls);
         if(showControls) {
             options.put(OPTIONS_BUTTON_OK, clientId + ":okbtn");
             options.put(OPTIONS_BUTTON_CANCEL, clientId + ":cancelbtn");
-        }    
-        function.addParameter(options);
-        
-        writer.write(function.toString());
+        }
+        return options;
+    }
+    
+    public void addToOptions(FacesContext facesContext, UIComponent component, Map<String, Object> options, Object additional) {
+        //override this method if you need additional options
+    }
+    
+    public String getReadyStateCss() {
+        return "rf-ii-d-s";
+    }
+    
+    public String getEditStateCss() {
+        return "rf-ii-e-s";
+    }
+    
+    public String getChangedStateCss() {
+        return "rf-ii-c-s";
+    }
+    
+    public String getNoneCss() {
+        return "rf-ii-none";
     }
 }

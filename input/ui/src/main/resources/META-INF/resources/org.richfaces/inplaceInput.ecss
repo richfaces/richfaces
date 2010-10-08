@@ -1,6 +1,7 @@
-input.rf-ii-fld {
+input.rf-ii-f {
 	background-image: none;
 	background-color : '#{richSkin.editBackgroundColor}'; 
+	/*TODO: seems these styles are incorrect*/
 	border-bottom-width : 10px;
 	border-bottom-style: solid;
 	border-bottom-color: '#{richSkin.editBackgroundColor}'; 
@@ -17,7 +18,7 @@ input.rf-ii-fld {
 	white-space : nowrap; 
 }
 
-.rf-ii-ready-st { 
+.rf-ii-d-s { 
 	display : inline-block; 
 	white-space : nowrap; 
 	background-color : '#{richSkin.editorBackgroundColor}'; 
@@ -30,14 +31,14 @@ input.rf-ii-fld {
 	position : relative;
 }		
 
-.rf-ii-chd-st { 
+.rf-ii-c-s { 
 	display : inline-block; 
 	background-image : url("#{resource['org.richfaces:mark_changed.gif']}"); 
 	background-position : top left; 
 	background-repeat : no-repeat;
 }
 
-.rf-ii-edt-st {
+.rf-ii-e-s {
 	position : absolute; 
 	top : 0px; 
 	left : 0px; 
@@ -45,7 +46,7 @@ input.rf-ii-fld {
 	width: 100%;
 }
 
-.rf-ii-fld {
+.rf-ii-f {
 	background-color : '#{richSkin.editBackgroundColor}'; 
 	border-bottom-width : 10px;
 	border-bottom-style: solid;
@@ -63,7 +64,7 @@ input.rf-ii-fld {
 }
 
 .rf-ii-btn {
-	background-image : "url(#{resource['org.richfaces.images:inplaceBtnGrad.png']})";
+	background-image : "url(#{resource['org.richfaces.renderkit.html.images.InplaceComponentButtonGradientImage']})";
 	background-attachment: scroll;
 	background-position: center top;
 	background-repeat: repeat-x;
@@ -75,8 +76,8 @@ input.rf-ii-fld {
 	margin : 0px;
 }
 
-.rf-ii-btn-prsd {
-	background-image : "url(#{resource['org.richfaces.images:inplaceBtnPressGrad.png']})";
+.rf-ii-btn-p {
+	background-image : "url(#{resource['org.richfaces.renderkit.html.images.InplaceComponentPressButtonGradientImage']})";
 	background-position: top;
 	background-repeat: repeat-x;
 	background-color: '#{richSkin.tabBackgroundColor}';
@@ -85,6 +86,13 @@ input.rf-ii-fld {
 	border-color :  '#{richSkin.panelBorderColor}';
 	padding : 0px; 
 	margin : 0px;
+}
+	
+.rf-ii-btn-set {
+	position : absolute; 
+	top:0px; 
+	left : 100px; 
+	white-space : nowrap;
 }
 
 .rf-ii-btn-prepos {
@@ -102,7 +110,7 @@ input.rf-ii-fld {
 	white-space : nowrap;
 }
 
-.rf-ii-btn-shdw {
+.rf-ii-btn-shadow {
 	display: inline-block;
 	position: relative; 
 	padding : 6px 6px 6px 6px; 
@@ -110,7 +118,7 @@ input.rf-ii-fld {
 	right : -6px;
 }
 
-.rf-ii-btn-shdw-t {
+.rf-ii-btn-shadow-t {
 	background-position : left top;
 	background-image : url("#{resource['org.richfaces:bg_shadow.png']}"); 
 	background-attachment: scroll;
@@ -123,7 +131,7 @@ input.rf-ii-fld {
 	left : 0px
 }
 
-.rf-ii-btn-shdw-l {
+.rf-ii-btn-shadow-l {
 	background-position : left bottom;
 	background-image : url("#{resource['org.richfaces:bg_shadow.png']}");
 	background-attachment: scroll;
@@ -136,7 +144,7 @@ input.rf-ii-fld {
 	right : 6px;
 }
 
-.rf-ii-btn-shdw-r {
+.rf-ii-btn-shadow-r {
 	background-position : right bottom;
 	background-image : url("#{resource['org.richfaces:bg_shadow.png']}");
 	background-attachment: scroll;
@@ -149,7 +157,7 @@ input.rf-ii-fld {
 	right: 0px;
 }
 
-.rf-ii-btn-shdw-b {
+.rf-ii-btn-shadow-b {
 	background-position : right top;
 	background-image : url("#{resource['org.richfaces:bg_shadow.png']}");  
 	background-attachment: scroll;

@@ -1,0 +1,169 @@
+// TODO: remove when these functions will be moved to the RichFaces.Event <!--
+$.extend(RichFaces.Event, {
+	bindScrollEventHandlers: function(element, handler, component) {
+		var elements = [];
+		element = RichFaces.getDomElement(element).parentNode;
+		while (element && element!=window.document.body)
+		{
+			if (element.offsetWidth!=element.scrollWidth || element.offsetHeight!=element.scrollHeight)
+			{
+				elements.push(element);
+				RichFaces.Event.bind(element, "scroll"+component.getNamespace(), handler, component);
+			}
+			element = element.parentNode;
+		}
+		return elements;
+	},
+	unbindScrollEventHandlers: function(elements, component) {
+		RichFaces.Event.unbind(elements, "scroll"+component.getNamespace());
+	}
+});
+// -->
+
+(function ($, rf) {
+	
+	rf.ui = rf.ui || {};
+      
+	rf.ui.InplaceBase =  function(id, options) {
+    	$super.constructor.call(this, id);
+		this.attachToDom(id);
+    	this.namespace = this.getNamespace() || "." + rf.Event.createNamespace(this.getName(), this.id);
+		
+		this.editEvent = options.editEvent;
+        this.noneCss = options.noneCss; 
+        this.changedCss = options.changedCss;
+        this.showControls = options.showControls;
+        this.defaultLabel = options.defaultLabel;
+                
+        this.element = $(document.getElementById(id)); 
+        this.editContainer = $(document.getElementById(options.editContainer));
+        
+        this.element.bind(this.editEvent, $.proxy(this.__editHandler, this));
+        
+        this.isSaved = false;
+        this.useDefaultLabel = false;
+
+        if(this.showControls) {
+        	this.okbtn = $(document.getElementById(options.okbtn));
+        	this.cancelbtn = $(document.getElementById(options.cancelbtn));
+        	this.okbtn.bind("mousedown", $.proxy(this.__saveBtnHandler, this));
+        	this.cancelbtn.bind("mousedown", $.proxy(this.__cancelBtnHandler, this));
+        }
+	};
+    
+	rf.BaseComponent.extend(rf.ui.InplaceBase);
+	var $super = rf.ui.InplaceBase.$super;
+	
+	$.extend(rf.ui.InplaceBase.prototype, ( function () {
+
+		return {
+			getName: function() {
+			}, 
+			
+			getNamespace: function() {
+			},
+			
+       		getValue: function() {
+       		},
+       		
+       		setValue: function(value){
+       		}, 
+       		
+       		getLabel: function() {
+       		},
+			
+       		setLabel: function(value) {
+       		}, 
+       		
+       		onshow: function(){
+			}, 
+			
+			onhide: function() {
+			},
+			
+			getNamespace: function() {
+			},
+			
+			save: function() {
+				var value = this.getValue()
+       			if(value.length > 0) {
+       				this.setLabel(value);
+       			} else {
+       				this.setLabel(this.defaultLabel);
+       				this.useDefaultLabel = true;
+       			}
+				
+				this.isSaved = true;
+
+				this.__applyChangedStyles();
+				this.__hide();
+			}, 
+			
+			__applyChangedStyles: function() {
+				if(this.isValueChanged()) {
+       				this.element.addClass(this.changedCss);
+       			} else {
+       				this.element.removeClass(this.changedCss);
+       			}
+			},
+			
+			cancel: function(){
+				var text = "";
+   				if(!this.useDefaultLabel) {
+   					text = this.getLabel()
+   				} 
+       			this.setValue(text);
+       			this.isSaved = true;
+           		this.__hide();
+			},
+			
+			isValueSaved: function() {
+				return this.isSaved;
+			},
+			
+			__saveValue: function(value) {
+				
+			}, 
+			
+			__show: function() {
+				this.scrollElements = rf.Event.bindScrollEventHandlers(this.id, this.__scrollHandler, this);
+      			this.onshow();
+			}, 
+			
+			__hide: function() {
+				if(this.scrollElements) {
+					rf.Event.unbindScrollEventHandlers(this.scrollElements, this);
+					this.scrollElements = null;
+				}
+				this.onhide();
+      			this.editContainer.addClass(this.noneCss);
+			},
+			
+			__editHandler: function(e) {
+   				this.isSaved = false;
+      			this.editContainer.removeClass(this.noneCss);
+       			this.__show();
+       		}, 
+
+       		__saveBtnHandler: function(e) {
+       			this.save();
+       			return false;
+       		}, 
+       		
+       		__cancelBtnHandler: function(e) {
+       			this.cancel();
+       			return false;
+       		},
+       		
+       		__scrollHandler: function(e) {
+       			this.cancel();
+       		},
+       		
+ 			destroy: function () {
+       			$super.destroy.call(this);
+ 			}
+		}
+	
+	})());
+	
+})(jQuery, window.RichFaces);

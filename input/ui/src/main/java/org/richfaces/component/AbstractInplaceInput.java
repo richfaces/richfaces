@@ -40,7 +40,7 @@ import org.richfaces.cdk.annotations.Tag;
     renderer = @JsfRenderer(type = "org.richfaces.InplaceInputRenderer"),
     tag = @Tag(name="inplaceInput")
 )
-public abstract class AbstractInplaceInput extends UIInput {
+public abstract class AbstractInplaceInput extends UIInput implements InplaceComponent {
     
     public static final String COMPONENT_TYPE = "org.richfaces.InplaceInput";
     
@@ -48,6 +48,9 @@ public abstract class AbstractInplaceInput extends UIInput {
     
     @Attribute
     public abstract String getDefaultLabel();
+    
+    @Attribute(defaultValue="true")
+    public abstract boolean isSaveOnBlur();
     
     @Attribute(defaultValue="InplaceState.ready")
     public abstract InplaceState getState();

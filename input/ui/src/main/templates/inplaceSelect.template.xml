@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- JBoss, Home of Professional Open Source Copyright ${year}, Red Hat, 
+	Inc. and individual contributors by the @authors tag. See the copyright.txt 
+	in the distribution for a full listing of individual contributors. This is 
+	free software; you can redistribute it and/or modify it under the terms of 
+	the GNU Lesser General Public License as published by the Free Software Foundation; 
+	either version 2.1 of the License, or (at your option) any later version. 
+	This software is distributed in the hope that it will be useful, but WITHOUT 
+	ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+	FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more 
+	details. You should have received a copy of the GNU Lesser General Public 
+	License along with this software; if not, write to the Free Software Foundation, 
+	Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA, or see the 
+	FSF site: http://www.fsf.org. -->
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
+	xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core" xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+	xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+	xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+	<cc:interface>
+		<cdk:class>org.richfaces.renderkit.html.InplaceSelectRenderer
+		</cdk:class>
+		<cdk:superclass>org.richfaces.renderkit.InplaceSelectBaseRenderer
+		</cdk:superclass>
+		<cdk:component-family>org.richfaces.InplaceSelect
+		</cdk:component-family>
+		<cdk:renderer-type>org.richfaces.InplaceSelectRenderer
+		</cdk:renderer-type>
+	</cc:interface>
+
+	<cc:implementation>
+		<cdk:object type="org.richfaces.component.InplaceState"
+			name="inplaceState" value="#{getInplaceState(component)}" />
+		<cdk:object type="java.lang.String" name="inplaceValue"
+			value="#{getSelectLabel(facesContext, component)}"/>
+
+		<cdk:object type="java.util.List" type-arguments="InplaceSelectBaseRenderer.ClientSelectItem" name="clientSelectItems"
+			value="#{getConvertedSelectItems(facesContext, component)}" />
+		
+		<span id="#{clientId}" class="#{getReadyStyleClass(component, inplaceState)}"
+			cdk:passThroughWithExclusions="id class">
+
+			<span id="#{clientId}:label" class="rf-is-lbl">
+				#{inplaceValue}
+			</span>
+			
+			<input id="#{clientId}:focus" type="image" 	style="position: absolute; top: 0px; left: 0px; outline-style: none;" class="rf-is-none" />
+			
+			<span id="#{clientId}:edit" class="#{getEditStyleClass(component, inplaceState)}">
+				<input id="#{clientId}selValue" name="#{clientId}" type="hidden" value="#{getValue(facesContext, component)}"/>
+				<input id="#{clientId}:input" autocomplete="off" 
+					type="text" value="#{getSelectInputLabel(facesContext, component)}"
+					class="insel_field" style="width: #{component.attributes['inputWidth']};" readonly="readonly"
+					cdk:passThrough="tabIndex">
+					<cdk:call expression="renderInputHandlers(facesContext, component);" />
+				</input>
+				<c:if test="#{component.attributes['showControls']}">
+					<span class="insel_btn_preposition">
+						<span class="insel_btn_position">
+							<span id="#{clientId}:btnshadow" class="insel_shadow">
+								<span class="insel_shadow_t"></span>
+								<span class="insel_shadow_l"></span>
+								<span class="insel_shadow_r"></span>
+								<span class="insel_shadow_b"></span>
+
+								<span id="#{clientId}:btn" style="position : relative;">
+									<input type="image" id="#{clientId}:okbtn"
+										src="#{getResourcePath(facesContext, 'org.richfaces/ico_ok.gif')}"
+										class="insel_btn" onmousedown="this.className='insel_btn_press'"
+										onmouseout="this.className='insel_btn_press'" onmouseup="this.className='insel_btn'" />
+									<input type="image" id="#{clientId}:cancelbtn"
+										src="#{getResourcePath(facesContext,'org.richfaces/ico_cancel.gif')}"
+										class="insel_btn" onmousedown="this.className='insel_btn_press'"
+										onmouseout="this.className='insel_btn_press'" onmouseup="this.className='insel_btn'" />
+									<br />
+								</span>
+							</span>
+						</span>
+					</span>
+				</c:if>
+				<span id="#{clientId}List" class="rf-is-none insel_list_cord">
+					<span class="insel_list_position" style="width: #{component.attributes['listWidth']}">
+						<span class="insel_shadow">
+							<span class="insel_shadow_t"></span>
+							<span class="insel_shadow_l"></span>
+							<span class="insel_shadow_r"></span>
+							<span class="insel_shadow_b"></span>
+							<span class="insel_list_decoration">
+								<span class="insel_list_scroll" id="#{clientId}Items" style="height: #{component.attributes['listHeight']}">
+									<cdk:call expression="encodeOptions(facesContext, component, clientSelectItems);"/>
+								</span>
+							</span>
+						</span>
+
+					</span>
+				</span>
+			</span>
+			<script type="text/javascript">
+				<cdk:call expression="buildScript(responseWriter, facesContext, component, clientSelectItems);" />
+			</script>
+		</span>
+	</cc:implementation>
+</cdk:root>
