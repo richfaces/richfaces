@@ -120,8 +120,8 @@ public class InplaceSelectBaseRenderer extends InplaceInputBaseRenderer {
     @Override
     public void addToOptions(FacesContext facesContext, UIComponent component,
             Map<String, Object> options, Object additional) {
-        options.put(OPTIONS_ITEM_CLASS, "insel_option");
-        options.put(OPTIONS_SELECT_ITEM_CLASS, "insel_select");
+        options.put(OPTIONS_ITEM_CLASS, "rf-is-opt");
+        options.put(OPTIONS_SELECT_ITEM_CLASS, "rf-is-sel");
         String clientId = component.getClientId(facesContext);
         options.put(OPTIONS_LIST_CORD, clientId + "List");
         options.put(OPTIONS_ITEMS_CORD, clientId + "Items");
@@ -192,15 +192,15 @@ public class InplaceSelectBaseRenderer extends InplaceInputBaseRenderer {
     }
 
     public String getReadyStateCss() {
-        return "insel_default_state";
+        return "rf-is-d-s";
     }
 
     public String getEditStateCss() {
-        return "insel_edit_state";
+        return "rf-is-e-s";
     }
 
     public String getChangedStateCss() {
-        return "insel_changed_state";
+        return "rf-is-c-s";
     }
 
     public String getNoneCss() {
@@ -208,7 +208,7 @@ public class InplaceSelectBaseRenderer extends InplaceInputBaseRenderer {
     }
 
     public String getOptionCss() {
-        return "insel_option insel_font";
+        return "rf-is-opt rf-is-fnt";
     }
 
 }

@@ -89,7 +89,7 @@
        		},
        		
        		__isPopupList: function(target) {
-       			var parentId = target.parents(".insel_list_cord").attr("id");
+       			var parentId = target.parents(".rf-is-lst-cord").attr("id");
        			return (parentId && (parentId == this.select.__getId()));
        		}
 		}

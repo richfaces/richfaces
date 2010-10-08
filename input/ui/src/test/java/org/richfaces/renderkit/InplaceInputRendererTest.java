@@ -73,7 +73,7 @@ public class InplaceInputRendererTest {
         
         HtmlElement input = (HtmlElement)edit.getFirstChild();
         assertEquals("input", input.getNodeName());
-        assertEquals("rf-ii-f", input.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
+        assertEquals("rf-ii-fld", input.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         assertEquals(text.getNodeValue(), input.getAttribute(HtmlConstants.VALUE_ATTRIBUTE));
         
         List<?> buttons = page.getByXPath("//*[@id = 'form:input_default:btn']");
@@ -101,7 +101,7 @@ public class InplaceInputRendererTest {
         
         HtmlElement input = (HtmlElement)edit.getFirstChild();
         assertEquals("input", input.getNodeName());
-        assertEquals("rf-ii-f", input.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
+        assertEquals("rf-ii-fld", input.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         assertEquals(text.getNodeValue(), input.getAttribute(HtmlConstants.VALUE_ATTRIBUTE));
 
         HtmlElement button = page.getFirstByXPath("//*[@id = 'form:input_edit:btn']");

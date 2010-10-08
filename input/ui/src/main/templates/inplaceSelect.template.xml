@@ -50,48 +50,47 @@
 				<input id="#{clientId}selValue" name="#{clientId}" type="hidden" value="#{getValue(facesContext, component)}"/>
 				<input id="#{clientId}:input" autocomplete="off" 
 					type="text" value="#{getSelectInputLabel(facesContext, component)}"
-					class="insel_field" style="width: #{component.attributes['inputWidth']};" readonly="readonly"
+					class="rf-is-fld" style="width: #{component.attributes['inputWidth']};" readonly="readonly"
 					cdk:passThrough="tabIndex">
 					<cdk:call expression="renderInputHandlers(facesContext, component);" />
 				</input>
 				<c:if test="#{component.attributes['showControls']}">
-					<span class="insel_btn_preposition">
-						<span class="insel_btn_position">
-							<span id="#{clientId}:btnshadow" class="insel_shadow">
-								<span class="insel_shadow_t"></span>
-								<span class="insel_shadow_l"></span>
-								<span class="insel_shadow_r"></span>
-								<span class="insel_shadow_b"></span>
+					<span class="rf-is-btn-prepos">
+						<span class="rf-is-btn-pos">
+							<span id="#{clientId}:btnshadow" class="rf-is-shdw">
+								<span class="rf-is-shdw-t"></span>
+								<span class="rf-is-shdw-l"></span>
+								<span class="rf-is-shdw-r"></span>
+								<span class="rf-is-shdw-b"></span>
 
 								<span id="#{clientId}:btn" style="position : relative;">
 									<input type="image" id="#{clientId}:okbtn"
 										src="#{getResourcePath(facesContext, 'org.richfaces/ico_ok.gif')}"
-										class="insel_btn" onmousedown="this.className='insel_btn_press'"
-										onmouseout="this.className='insel_btn_press'" onmouseup="this.className='insel_btn'" />
+										class="rf-is-btn" onmousedown="this.className='rf-is-btn-press'"
+										onmouseout="this.className='rf-is-btn-press'" onmouseup="this.className='rf-is-btn'" />
 									<input type="image" id="#{clientId}:cancelbtn"
 										src="#{getResourcePath(facesContext,'org.richfaces/ico_cancel.gif')}"
-										class="insel_btn" onmousedown="this.className='insel_btn_press'"
-										onmouseout="this.className='insel_btn_press'" onmouseup="this.className='insel_btn'" />
+										class="rf-is-btn" onmousedown="this.className='rf-is-btn-press'"
+										onmouseout="this.className='rf-is-btn-press'" onmouseup="this.className='rf-is-btn'" />
 									<br />
 								</span>
 							</span>
 						</span>
 					</span>
 				</c:if>
-				<span id="#{clientId}List" class="rf-is-none insel_list_cord">
-					<span class="insel_list_position" style="width: #{component.attributes['listWidth']}">
-						<span class="insel_shadow">
-							<span class="insel_shadow_t"></span>
-							<span class="insel_shadow_l"></span>
-							<span class="insel_shadow_r"></span>
-							<span class="insel_shadow_b"></span>
-							<span class="insel_list_decoration">
-								<span class="insel_list_scroll" id="#{clientId}Items" style="height: #{component.attributes['listHeight']}">
+				<span id="#{clientId}List" class="rf-is-none rf-is-lst-cord">
+					<span class="rf-is-lst-pos" style="width: #{component.attributes['listWidth']}">
+						<span class="rf-is-shdw">
+							<span class="rf-is-shdw-t"></span>
+							<span class="rf-is-shdw-l"></span>
+							<span class="rf-is-shdw-r"></span>
+							<span class="rf-is-shdw-b"></span>
+							<span class="rf-is-lst-dec">
+								<span class="rf-is-lst-scrl" id="#{clientId}Items" style="height: #{component.attributes['listHeight']}">
 									<cdk:call expression="encodeOptions(facesContext, component, clientSelectItems);"/>
 								</span>
 							</span>
 						</span>
-
 					</span>
 				</span>
 			</span>

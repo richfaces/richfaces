@@ -1,4 +1,4 @@
-input.rf-ii-f {
+input.rf-ii-fld {
 	background-image: none;
 	background-color : '#{richSkin.editBackgroundColor}'; 
 	/*TODO: seems these styles are incorrect*/
@@ -46,7 +46,7 @@ input.rf-ii-f {
 	width: 100%;
 }
 
-.rf-ii-f {
+.rf-ii-fld {
 	background-color : '#{richSkin.editBackgroundColor}'; 
 	border-bottom-width : 10px;
 	border-bottom-style: solid;
@@ -110,7 +110,7 @@ input.rf-ii-f {
 	white-space : nowrap;
 }
 
-.rf-ii-btn-shadow {
+.rf-ii-btn-shdw {
 	display: inline-block;
 	position: relative; 
 	padding : 6px 6px 6px 6px; 
@@ -118,7 +118,7 @@ input.rf-ii-f {
 	right : -6px;
 }
 
-.rf-ii-btn-shadow-t {
+.rf-ii-btn-shdw-t {
 	background-position : left top;
 	background-image : url("#{resource['org.richfaces:bg_shadow.png']}"); 
 	background-attachment: scroll;
@@ -131,7 +131,7 @@ input.rf-ii-f {
 	left : 0px
 }
 
-.rf-ii-btn-shadow-l {
+.rf-ii-btn-shdw-l {
 	background-position : left bottom;
 	background-image : url("#{resource['org.richfaces:bg_shadow.png']}");
 	background-attachment: scroll;
@@ -144,7 +144,7 @@ input.rf-ii-f {
 	right : 6px;
 }
 
-.rf-ii-btn-shadow-r {
+.rf-ii-btn-shdw-r {
 	background-position : right bottom;
 	background-image : url("#{resource['org.richfaces:bg_shadow.png']}");
 	background-attachment: scroll;
@@ -157,7 +157,7 @@ input.rf-ii-f {
 	right: 0px;
 }
 
-.rf-ii-btn-shadow-b {
+.rf-ii-btn-shdw-b {
 	background-position : right top;
 	background-image : url("#{resource['org.richfaces:bg_shadow.png']}");  
 	background-attachment: scroll;
