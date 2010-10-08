@@ -67,11 +67,11 @@
 									<input type="image" id="#{clientId}:okbtn"
 										src="#{getResourcePath(facesContext, 'org.richfaces/ico_ok.gif')}"
 										class="rf-is-btn" onmousedown="this.className='rf-is-btn-press'"
-										onmouseout="this.className='rf-is-btn-press'" onmouseup="this.className='rf-is-btn'" />
+										onmouseout="this.className='rf-is-btn'" onmouseup="this.className='rf-is-btn'" />
 									<input type="image" id="#{clientId}:cancelbtn"
 										src="#{getResourcePath(facesContext,'org.richfaces/ico_cancel.gif')}"
 										class="rf-is-btn" onmousedown="this.className='rf-is-btn-press'"
-										onmouseout="this.className='rf-is-btn-press'" onmouseup="this.className='rf-is-btn'" />
+										onmouseout="this.className='rf-is-btn'" onmouseup="this.className='rf-is-btn'" />
 									<br />
 								</span>
 							</span>
