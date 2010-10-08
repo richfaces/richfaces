@@ -286,7 +286,7 @@
  			renderLabel: renderLabel,
  			switchState: switchState,
  			renderState: renderState,
- 			forceState: forceState,
+ 			forceState: forceState
  			
 		};
 	})());
