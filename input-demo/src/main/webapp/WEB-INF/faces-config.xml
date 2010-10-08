@@ -12,6 +12,10 @@
             <to-view-id>/examples/inplaceInput.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
+            <from-outcome>inplaceSelect</from-outcome>
+            <to-view-id>/examples/inplaceSelect.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>inputNumberSlider</from-outcome>
             <to-view-id>/examples/inputNumberSlider.xhtml</to-view-id>
         </navigation-case>

@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:in="http://richfaces.org/input">
+<f:view contentType="text/html" />
+
+<h:head>
+	<title>InplaceInput</title>
+</h:head>
+
+
+<h:body>
+	<h:form id="form">
+		<div id="scroll" style="width: 400px; height:400px; overflow:auto;" >
+			<fieldset>
+				<legend>Test App</legend>
+				Fresh off his victory in the Florida primary, Sen. John McCain is poised to take another big prize. Former
+				<in:inplaceSelect defaultLabel="Edit Text" value="#{inputBean.value}">
+					<f:selectItem itemLabel="1#OptionLabel" itemValue="1#OptionValue"/>
+					<f:selectItem itemLabel="2#OptionLabel" itemValue="2#OptionValue"/>
+					<f:selectItem itemLabel="3#OptionLabel" itemValue="3#OptionValue"/>
+					<f:selectItem itemLabel="4#OptionLabel" itemValue="4#OptionValue"/>
+				</in:inplaceSelect>
+				 Mayor Rudy Giuliani plans to drop out and endorse McCain, two GOP sources said. That would give McCain added momentum heading into a debate Wednesday and next week's Super Tuesday contests 
+			</fieldset>
+			<h:commandButton value="submit"></h:commandButton>
+		</div>
+		<h:panelGroup id="out">
+			<h:outputText value="Entered Value: #{inputBean.value}"/>
+		</h:panelGroup>
+	</h:form>
+</h:body>
+</html>
