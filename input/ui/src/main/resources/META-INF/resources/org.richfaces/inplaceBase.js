@@ -32,7 +32,6 @@ $.extend(RichFaces.Event, {
 		this.editEvent = options.editEvent;
         this.noneCss = options.noneCss; 
         this.changedCss = options.changedCss;
-        this.showControls = options.showControls;
         this.defaultLabel = options.defaultLabel;
                 
         this.element = $(document.getElementById(id)); 
@@ -43,12 +42,6 @@ $.extend(RichFaces.Event, {
         this.isSaved = false;
         this.useDefaultLabel = false;
 
-        if(this.showControls) {
-        	this.okbtn = $(document.getElementById(options.okbtn));
-        	this.cancelbtn = $(document.getElementById(options.cancelbtn));
-        	this.okbtn.bind("mousedown", $.proxy(this.__saveBtnHandler, this));
-        	this.cancelbtn.bind("mousedown", $.proxy(this.__cancelBtnHandler, this));
-        }
 	};
     
 	rf.BaseComponent.extend(rf.ui.InplaceBase);
@@ -84,6 +77,10 @@ $.extend(RichFaces.Event, {
 			getNamespace: function() {
 			},
 			
+			isValueSaved: function() {
+				return this.isSaved;
+			},
+			
 			save: function() {
 				var value = this.getValue()
        			if(value.length > 0) {
@@ -99,14 +96,6 @@ $.extend(RichFaces.Event, {
 				this.__hide();
 			}, 
 			
-			__applyChangedStyles: function() {
-				if(this.isValueChanged()) {
-       				this.element.addClass(this.changedCss);
-       			} else {
-       				this.element.removeClass(this.changedCss);
-       			}
-			},
-			
 			cancel: function(){
 				var text = "";
    				if(!this.useDefaultLabel) {
@@ -117,13 +106,13 @@ $.extend(RichFaces.Event, {
            		this.__hide();
 			},
 			
-			isValueSaved: function() {
-				return this.isSaved;
+			__applyChangedStyles: function() {
+				if(this.isValueChanged()) {
+       				this.element.addClass(this.changedCss);
+       			} else {
+       				this.element.removeClass(this.changedCss);
+       			}
 			},
-			
-			__saveValue: function(value) {
-				
-			}, 
 			
 			__show: function() {
 				this.scrollElements = rf.Event.bindScrollEventHandlers(this.id, this.__scrollHandler, this);
@@ -143,18 +132,7 @@ $.extend(RichFaces.Event, {
    				this.isSaved = false;
       			this.editContainer.removeClass(this.noneCss);
        			this.__show();
-       		}, 
-
-       		__saveBtnHandler: function(e) {
-       			this.save();
-       			return false;
-       		}, 
-       		
-       		__cancelBtnHandler: function(e) {
-       			this.cancel();
-       			return false;
-       		},
-       		
+       		},       		
        		__scrollHandler: function(e) {
        			this.cancel();
        		},

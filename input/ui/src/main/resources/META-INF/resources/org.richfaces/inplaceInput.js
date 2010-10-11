@@ -12,11 +12,19 @@
             var inputLabel = this.input.val();
             this.initialValue = (label == inputLabel) ? label : "";
             this.saveOnBlur = options.saveOnBlur;
+            this.showControls = options.showControls;
 
         	this.input.bind("focus", $.proxy(this.__editHandler, this));
            	this.input.bind("change", $.proxy(this.__changeHandler, this));
            	this.input.bind("blur", $.proxy(this.__blurHandler, this));
            	this.input.bind("keydown", $.proxy(this.__keydownHandler, this));
+           	
+            if(this.showControls) {
+            	this.okbtn = $(document.getElementById(options.okbtn));
+            	this.cancelbtn = $(document.getElementById(options.cancelbtn));
+            	this.okbtn.bind("mousedown", $.proxy(this.__saveBtnHandler, this));
+            	this.cancelbtn.bind("mousedown", $.proxy(this.__cancelBtnHandler, this));
+            }
            	
             this.focusElement = $(document.getElementById(options.focusElement));
         };
@@ -72,6 +80,16 @@
            			this.input.unbind("focus", this.__editHandler);
            			this.input.focus();
            			this.input.bind("focus", $.proxy(this.__editHandler, this));
+           		},
+           		
+           		__saveBtnHandler: function(e) {
+           			this.save();
+           			return false;
+           		}, 
+           		
+           		__cancelBtnHandler: function(e) {
+           			this.cancel();
+           			return false;
            		},
 
            		getValue: function() {
