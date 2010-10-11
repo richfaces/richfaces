@@ -19,6 +19,17 @@ input.rf-is-fld {
 	clip: rect(0px, 0px, 1px, 1px);
 }
 
+.rf-is-dis-s {
+}
+
+.rf-is-edit {
+	position : absolute; 
+	top : 0px; 
+	left : 0px; 
+	width : 100px; 
+	background-color : '#{richSkin.editBackgroundColor}';
+}
+
 .rf-is-fnt {
 }
 
@@ -42,11 +53,6 @@ input.rf-is-fld {
 }
 
 .rf-is-e-s {  
-	position : absolute; 
-	top : 0px; 
-	left : 0px; 
-	width : 100px; 
-	background-color : '#{richSkin.editBackgroundColor}';
 }
 
 .rf-is-fld { 

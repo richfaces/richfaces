@@ -69,7 +69,7 @@ public class InplaceInputRendererTest {
         
         HtmlElement edit = page.getFirstByXPath("//*[@id = 'form:input_default:edit']");
         assertEquals("span", edit.getNodeName());
-        assertEquals("rf-ii-e-s rf-ii-none", edit.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
+        assertEquals("rf-ii-edit rf-ii-none", edit.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         
         HtmlElement input = (HtmlElement)edit.getFirstChild();
         assertEquals("input", input.getNodeName());
@@ -87,7 +87,7 @@ public class InplaceInputRendererTest {
     
         HtmlElement span = page.getFirstByXPath("//*[@id = 'form:input_edit']");
         assertEquals("span", span.getNodeName());
-        assertEquals("rf-ii-d-s", span.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
+        assertEquals("rf-ii-d-s rf-ii-e-s", span.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
 
         HtmlElement label = (HtmlElement)span.getFirstChild();
         assertEquals("span", label.getNodeName());
@@ -97,7 +97,7 @@ public class InplaceInputRendererTest {
         
         HtmlElement edit = page.getFirstByXPath("//*[@id = 'form:input_edit:edit']");
         assertEquals("span", edit.getNodeName());
-        assertEquals("rf-ii-e-s", edit.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
+        assertEquals("rf-ii-edit", edit.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         
         HtmlElement input = (HtmlElement)edit.getFirstChild();
         assertEquals("input", input.getNodeName());
@@ -145,7 +145,7 @@ public class InplaceInputRendererTest {
         HtmlElement span = page.getFirstByXPath("//*[@id = 'form:" + inplaceInputId + "']");
         span.click();
         HtmlElement edit = page.getFirstByXPath("//*[@id = 'form:" + inplaceInputId + ":edit']");
-        assertEquals("rf-ii-e-s", edit.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
+        assertEquals("rf-ii-edit", edit.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         typeNewValue(page, inplaceInputId, value);
     }
     

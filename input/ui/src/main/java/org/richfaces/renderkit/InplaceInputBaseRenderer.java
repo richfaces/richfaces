@@ -43,148 +43,202 @@ import org.richfaces.component.util.HtmlUtil;
  * @author Anton Belevich
  * 
  */
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-    @ResourceDependency(name = "jquery.js"), @ResourceDependency(name = "richfaces.js"),
-    @ResourceDependency(name = "richfaces-event.js"), 
-    @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(library="org.richfaces", name = "inplaceBase.js"), 
-    @ResourceDependency(library="org.richfaces", name = "inplaceInput.js"), 
-    @ResourceDependency(library="org.richfaces", name = "inplaceInput.ecss") })
+@ResourceDependencies({
+        @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(name = "jquery.js"),
+        @ResourceDependency(name = "richfaces.js"),
+        @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(name = "richfaces-base-component.js"),
+        @ResourceDependency(library = "org.richfaces", name = "inplaceBase.js"),
+        @ResourceDependency(library = "org.richfaces", name = "inplaceInput.js"),
+        @ResourceDependency(library = "org.richfaces", name = "inplaceInput.ecss") })
 public class InplaceInputBaseRenderer extends InputRendererBase {
-    
+
     public static final String OPTIONS_EDIT_EVENT = "editEvent";
     
+    public static final String OPTIONS_STATE = "state";
+
     public static final String OPTIONS_EDIT_CONTAINER = "editContainer";
-    
+
     public static final String OPTIONS_INPUT = "input";
-    
+
     public static final String OPTIONS_FOCUS = "focusElement";
-    
+
     public static final String OPTIONS_BUTTON_OK = "okbtn";
-    
+
     public static final String OPTIONS_LABEL = "label";
-    
+
     public static final String OPTIONS_DEFAULT_LABEL = "defaultLabel";
-    
+
     public static final String OPTIONS_BUTTON_CANCEL = "cancelbtn";
-    
+
     public static final String OPTIONS_SHOWCONTROLS = "showControls";
-        
+
     public static final String OPTIONS_NONE_CSS = "noneCss";
-    
+
     public static final String OPTIONS_CHANGED_CSS = "changedCss";
     
+    public static final String OPTIONS_EDIT_CSS = "editCss";
+
     public static final String OPTIONS_INITIAL_VALUE = "initialValue";
-    
+
     public static final String OPTIONS_SAVE_ON_BLUR = "saveOnBlur";
-    
 
     private static final Map<String, ComponentAttribute> INPLACEINPUT_HANDLER_ATTRIBUTES = Collections
-    .unmodifiableMap(ComponentAttribute.createMap(
-        new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("inputclick").
-            setComponentAttributeName("oninputclick"),
-        new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE).setEventNames("inputdblclick").
-            setComponentAttributeName("oninputdblclick"),
-        new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE).setEventNames("inputmousedown").
-            setComponentAttributeName("oninputmousedown"),
-        new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE).setEventNames("inputmouseup").
-            setComponentAttributeName("oninputmouseup"),
-        new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE).setEventNames("inputmouseover").
-            setComponentAttributeName("oninputmouseover"),
-        new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE).setEventNames("inputmousemove").
-            setComponentAttributeName("oninputmousemove"),
-        new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE).setEventNames("inputmouseout").
-            setComponentAttributeName("oninputmouseout"),
-        new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE).setEventNames("inputkeypress").
-            setComponentAttributeName("oninputkeypress"),
-        new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE).setEventNames("inputkeydown").
-            setComponentAttributeName("oninputkeydown"),
-        new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE).setEventNames("inputkeyup").
-            setComponentAttributeName("oninputkeyup"),
-        new ComponentAttribute(HtmlConstants.ONBLUR_ATTRIBUTE).setEventNames("inputblur").
-            setComponentAttributeName("oninputblur"),
-        new ComponentAttribute(HtmlConstants.ONFOCUS_ATTRIBUTE).setEventNames("inputfocus").
-            setComponentAttributeName("oninputfocus"),
-        new ComponentAttribute(HtmlConstants.ONCHANGE_ATTRIBUTE).setEventNames("change").
-            setComponentAttributeName("onchange"),
-        new ComponentAttribute(HtmlConstants.ONSELECT_ATTRIBUTE).setEventNames("select").
-            setComponentAttributeName("onselect")
-    ));
+            .unmodifiableMap(ComponentAttribute.createMap(
+                    new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE)
+                            .setEventNames("inputclick")
+                            .setComponentAttributeName("oninputclick"),
+                    new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE)
+                            .setEventNames("inputdblclick")
+                            .setComponentAttributeName("oninputdblclick"),
+                    new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE)
+                            .setEventNames("inputmousedown")
+                            .setComponentAttributeName("oninputmousedown"),
+                    new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE)
+                            .setEventNames("inputmouseup")
+                            .setComponentAttributeName("oninputmouseup"),
+                    new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE)
+                            .setEventNames("inputmouseover")
+                            .setComponentAttributeName("oninputmouseover"),
+                    new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE)
+                            .setEventNames("inputmousemove")
+                            .setComponentAttributeName("oninputmousemove"),
+                    new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE)
+                            .setEventNames("inputmouseout")
+                            .setComponentAttributeName("oninputmouseout"),
+                    new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE)
+                            .setEventNames("inputkeypress")
+                            .setComponentAttributeName("oninputkeypress"),
+                    new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE)
+                            .setEventNames("inputkeydown")
+                            .setComponentAttributeName("oninputkeydown"),
+                    new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE)
+                            .setEventNames("inputkeyup")
+                            .setComponentAttributeName("oninputkeyup"),
+                    new ComponentAttribute(HtmlConstants.ONBLUR_ATTRIBUTE)
+                            .setEventNames("inputblur")
+                            .setComponentAttributeName("oninputblur"),
+                    new ComponentAttribute(HtmlConstants.ONFOCUS_ATTRIBUTE)
+                            .setEventNames("inputfocus")
+                            .setComponentAttributeName("oninputfocus"),
+                    new ComponentAttribute(HtmlConstants.ONCHANGE_ATTRIBUTE)
+                            .setEventNames("change").setComponentAttributeName(
+                                    "onchange"),
+                    new ComponentAttribute(HtmlConstants.ONSELECT_ATTRIBUTE)
+                            .setEventNames("select").setComponentAttributeName(
+                                    "onselect")));
 
-    protected void renderInputHandlers(FacesContext facesContext, UIComponent component) throws IOException {
-        RenderKitUtils.renderPassThroughAttributesOptimized(facesContext, component, INPLACEINPUT_HANDLER_ATTRIBUTES);
+    protected void renderInputHandlers(FacesContext facesContext,
+            UIComponent component) throws IOException {
+        RenderKitUtils.renderPassThroughAttributesOptimized(facesContext,
+                component, INPLACEINPUT_HANDLER_ATTRIBUTES);
     }
-    
+
     public InplaceState getInplaceState(UIComponent component) {
         return ((InplaceComponent) component).getState();
     }
 
     public String getValue(FacesContext facesContext, UIComponent component) throws IOException {
         String value = getInputValue(facesContext, component);
-        if(value == null || "".equals(value)) {
-            value = ((InplaceComponent)component).getDefaultLabel();
+        if (!isDisable(getInplaceState(component)) && (value == null || "".equals(value)) ) {
+            value = ((InplaceComponent) component).getDefaultLabel();
         }
         return value;
     }
-    
+
     public String getResourcePath(FacesContext context, String resourceName) {
         if (resourceName != null) {
-            ResourceHandler resourceHandler = context.getApplication().getResourceHandler();
+            ResourceHandler resourceHandler = context.getApplication()
+                    .getResourceHandler();
             Resource resource = resourceHandler.createResource(resourceName);
             return resource.getRequestPath();
         }
         return null;
     }
 
-    public String getReadyStyleClass(UIComponent component, InplaceState inplaceState) {
-        return (InplaceState.changed != inplaceState) ? getReadyStateCss() : HtmlUtil.concatClasses(getReadyStateCss(), getChangedStateCss());
+    public String getStateStyleClass(UIComponent component,
+            InplaceState inplaceState) {
+        String style = getReadyStateCss();
+        switch (inplaceState) {
+            case edit:
+                style = HtmlUtil.concatClasses(style, getEditStateCss());
+                break;
+    
+            case changed: 
+                style = HtmlUtil.concatClasses(style, getChangedStateCss());
+                break;
+    
+            case disable:
+                style = getDisableStateCss();
+                break;
+    
+            default:
+                break;
+        }
+
+        return style;
     }
 
-    public String getEditStyleClass(UIComponent component, InplaceState inplaceState) {
-        return (InplaceState.edit != inplaceState)? HtmlUtil.concatClasses(getEditStateCss(), getNoneCss()) : getEditStateCss();
+    public boolean isDisable(InplaceState currentState) {
+        return (InplaceState.disable == currentState); 
     }
-    public String getReadyClientId(FacesContext facesContext, UIComponent component, InplaceState inplaceState) {
+    
+    public String getEditStyleClass(UIComponent component,
+            InplaceState inplaceState) {
+        return (InplaceState.edit != inplaceState) ? HtmlUtil.concatClasses(getEditCss(), getNoneCss()) : getEditCss();
+    }
+
+    public String getReadyClientId(FacesContext facesContext,
+            UIComponent component, InplaceState inplaceState) {
         String clientId = component.getClientId(facesContext);
         return getId(clientId, InplaceState.ready, inplaceState);
     }
 
-    public String getChangedClientId(FacesContext facesContext, UIComponent component, InplaceState inplaceState) {
+    public String getChangedClientId(FacesContext facesContext,
+            UIComponent component, InplaceState inplaceState) {
         String clientId = component.getClientId(facesContext);
         return getId(clientId, InplaceState.changed, inplaceState);
     }
 
-    private String getId(String clientId, InplaceState expect, InplaceState current) {
+    private String getId(String clientId, InplaceState expect,
+            InplaceState current) {
         String result = clientId;
         if (expect != current) {
             result = clientId + ":" + expect;
         }
         return result;
     }
-    
-    public void buildScript(ResponseWriter writer, FacesContext facesContext, UIComponent component, Object additional) throws IOException {
-        if(!(component instanceof InplaceComponent)) {
+
+    public void buildScript(ResponseWriter writer, FacesContext facesContext,
+            UIComponent component, Object additional) throws IOException {
+        if (!(component instanceof InplaceComponent)) {
             return;
         }
 
         String scriptName = getScriptName();
         JSFunction function = new JSFunction(scriptName);
         String clientId = component.getClientId(facesContext);
-        Map<String, Object> options = createInplaceComponentOptions(clientId, (InplaceComponent)component);
+        Map<String, Object> options = createInplaceComponentOptions(clientId,
+                (InplaceComponent) component);
         addToOptions(facesContext, component, options, additional);
         function.addParameter(clientId);
         function.addParameter(options);
         writer.write(function.toString());
     }
-    
+
     protected String getScriptName() {
         return "new RichFaces.ui.InplaceInput";
     }
-    
-    private Map<String, Object> createInplaceComponentOptions(String clientId, InplaceComponent inplaceComponent) {
+
+    private Map<String, Object> createInplaceComponentOptions(String clientId,
+            InplaceComponent inplaceComponent) {
         Map<String, Object> options = new HashMap<String, Object>();
         options.put(OPTIONS_EDIT_EVENT, inplaceComponent.getEditEvent());
+        options.put(OPTIONS_STATE, inplaceComponent.getState());
         options.put(OPTIONS_NONE_CSS, getNoneCss());
         options.put(OPTIONS_CHANGED_CSS, getChangedStateCss());
+        options.put(OPTIONS_EDIT_CSS, getEditStateCss());
         options.put(OPTIONS_EDIT_CONTAINER, clientId + ":edit");
         options.put(OPTIONS_INPUT, clientId + ":input");
         options.put(OPTIONS_LABEL, clientId + ":label");
@@ -193,31 +247,40 @@ public class InplaceInputBaseRenderer extends InputRendererBase {
         options.put(OPTIONS_SAVE_ON_BLUR, inplaceComponent.isSaveOnBlur());
 
         boolean showControls = inplaceComponent.isShowControls();
-        
+
         options.put(OPTIONS_SHOWCONTROLS, showControls);
-        if(showControls) {
+        if (showControls) {
             options.put(OPTIONS_BUTTON_OK, clientId + ":okbtn");
             options.put(OPTIONS_BUTTON_CANCEL, clientId + ":cancelbtn");
         }
         return options;
     }
     
-    public void addToOptions(FacesContext facesContext, UIComponent component, Map<String, Object> options, Object additional) {
-        //override this method if you need additional options
+    public void addToOptions(FacesContext facesContext, UIComponent component,
+            Map<String, Object> options, Object additional) {
+        // override this method if you need additional options
     }
-    
+
     public String getReadyStateCss() {
         return "rf-ii-d-s";
     }
-    
+
     public String getEditStateCss() {
         return "rf-ii-e-s";
     }
-    
+
     public String getChangedStateCss() {
         return "rf-ii-c-s";
     }
-    
+
+    public String getDisableStateCss() {
+        return "rf-ii-dis-s";
+    }
+
+    public String getEditCss() {
+        return "rf-ii-edit";
+    }
+
     public String getNoneCss() {
         return "rf-ii-none";
     }

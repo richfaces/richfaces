@@ -198,7 +198,7 @@ public class InplaceSelectBaseRenderer extends InplaceInputBaseRenderer {
             UIComponent component) {
         AbstractInplaceSelect select = (AbstractInplaceSelect) component;
         String label = getSelectInputLabel(facesContext, select);
-        if (label == null) {
+        if (!isDisable(getInplaceState(component)) && (label == null)) {
             label = select.getDefaultLabel();
         }
         return label;
@@ -238,6 +238,14 @@ public class InplaceSelectBaseRenderer extends InplaceInputBaseRenderer {
 
     public String getChangedStateCss() {
         return "rf-is-c-s";
+    }
+
+    public String getDisableStateCss() {
+    	return "rf-is-dis-s";
+    }
+    
+    public String getEditCss() {
+    	return "rf-is-edit";
     }
 
     public String getNoneCss() {

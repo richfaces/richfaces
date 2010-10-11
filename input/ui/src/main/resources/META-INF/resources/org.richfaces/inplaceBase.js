@@ -33,13 +33,15 @@ $.extend(RichFaces.Event, {
         this.noneCss = options.noneCss; 
         this.changedCss = options.changedCss;
         this.defaultLabel = options.defaultLabel;
+        this.state = options.state;
                 
         this.element = $(document.getElementById(id)); 
         this.editContainer = $(document.getElementById(options.editContainer));
+        this.state = options.state;
         
-        this.element.bind(this.editEvent, $.proxy(this.__editHandler, this));
-        
-        this.isSaved = false;
+       	this.element.bind(this.editEvent, $.proxy(this.__editHandler, this));
+
+       	this.isSaved = false;
         this.useDefaultLabel = false;
 
 	};
@@ -48,7 +50,14 @@ $.extend(RichFaces.Event, {
 	var $super = rf.ui.InplaceBase.$super;
 	
 	$.extend(rf.ui.InplaceBase.prototype, ( function () {
-
+		
+		var STATE = {
+				READY : 'ready', 
+	    		CHANGED: 'changed', 
+	    		DISABLE: 'disable', 
+	    		EDIT: 'edit' 
+		};
+		
 		return {
 			getName: function() {
 			}, 

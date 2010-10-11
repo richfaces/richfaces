@@ -14,6 +14,17 @@ input.rf-ii-fld {
 	font-size : inherit;
 }
 
+.rf-ii-edit {
+	position : absolute; 
+	top : 0px; 
+	left : 0px; 
+	display : inline-block;
+	width: 100%;
+}
+
+.rf-ii-dis-s {
+}
+
 .rf-ii-lbl {
 	white-space : nowrap; 
 }
@@ -39,11 +50,6 @@ input.rf-ii-fld {
 }
 
 .rf-ii-e-s {
-	position : absolute; 
-	top : 0px; 
-	left : 0px; 
-	display : inline-block;
-	width: 100%;
 }
 
 .rf-ii-fld {
