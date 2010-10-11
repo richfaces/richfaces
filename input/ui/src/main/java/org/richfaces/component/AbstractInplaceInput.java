@@ -103,41 +103,41 @@ public abstract class AbstractInplaceInput extends UIInput implements InplaceCom
     @Attribute(events=@EventName("mouseup"))
     public abstract String getOnmouseup();
 
-    @Attribute(events=@EventName("inputClick"))
-    public abstract String getOnInputClick();
+    @Attribute(events=@EventName("inputclick"))
+    public abstract String getOninputclick();
     
-    @Attribute(events=@EventName("inputDblclick"))
-    public abstract String getOnInputDblclick();
+    @Attribute(events=@EventName("inputdblclick"))
+    public abstract String getOninputdblclick();
     
-    @Attribute(events=@EventName("inputMousedown"))
-    public abstract String getOnInputMousedown();
+    @Attribute(events=@EventName("inputmousedown"))
+    public abstract String getOninputmousedown();
     
-    @Attribute(events=@EventName("inputMousemove"))
-    public abstract String getOnInputMousemove();
+    @Attribute(events=@EventName("inputmousemove"))
+    public abstract String getOninputmousemove();
     
-    @Attribute(events=@EventName("inputMouseout"))
-    public abstract String getOnInputMouseout();
+    @Attribute(events=@EventName("inputmouseout"))
+    public abstract String getOninputmouseout();
     
-    @Attribute(events=@EventName("inputMouseover"))
-    public abstract String getOnInputMouseover();
+    @Attribute(events=@EventName("inputmouseover"))
+    public abstract String getOninputmouseover();
     
-    @Attribute(events=@EventName("inputMouseup"))
-    public abstract String getOnInputMouseup();
+    @Attribute(events=@EventName("inputmouseup"))
+    public abstract String getOninputmouseup();
     
-    @Attribute(events=@EventName("inputKeydown"))
-    public abstract String getOnInputKeydown();
+    @Attribute(events=@EventName("inputkeydown"))
+    public abstract String getOninputkeydown();
     
-    @Attribute(events=@EventName("inputKeypress"))
-    public abstract String getOnInputKeypress();
+    @Attribute(events=@EventName("inputkeypress"))
+    public abstract String getOninputkeypress();
     
-    @Attribute(events=@EventName("oninputKeyup"))
-    public abstract String getOnInputKeypup();
+    @Attribute(events=@EventName("oninputkeyup"))
+    public abstract String getOninputkeypup();
     
-    @Attribute(events=@EventName("inputFocus"))
-    public abstract String getOnInputFocus();
+    @Attribute(events=@EventName("inputfocus"))
+    public abstract String getOninputfocus();
   
-    @Attribute(events=@EventName("inputBlur"))
-    public abstract String getOnInputBlur();
+    @Attribute(events=@EventName("inputblur"))
+    public abstract String getOninputblur();
     
     @Attribute(events=@EventName("select"))
     public abstract String getOnselect();

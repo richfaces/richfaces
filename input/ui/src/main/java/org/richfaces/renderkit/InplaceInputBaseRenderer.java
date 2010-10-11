@@ -81,30 +81,30 @@ public class InplaceInputBaseRenderer extends InputRendererBase {
 
     private static final Map<String, ComponentAttribute> INPLACEINPUT_HANDLER_ATTRIBUTES = Collections
     .unmodifiableMap(ComponentAttribute.createMap(
-        new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("inputClick").
-            setComponentAttributeName("onInputClick"),
-        new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE).setEventNames("inputDblclick").
-            setComponentAttributeName("onInputDblclick"),
-        new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE).setEventNames("inputMousedown").
-            setComponentAttributeName("onInputMousedown"),
-        new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE).setEventNames("inputMouseup").
-            setComponentAttributeName("onInputMouseup"),
-        new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE).setEventNames("inputMouseover").
-            setComponentAttributeName("onInputMouseover"),
-        new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE).setEventNames("inputMousemove").
-            setComponentAttributeName("onInputMousemove"),
-        new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE).setEventNames("inputMouseout").
-            setComponentAttributeName("onInputMouseout"),
-        new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE).setEventNames("inputKeypress").
-            setComponentAttributeName("onInputKeypress"),
-        new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE).setEventNames("inputKeydown").
-            setComponentAttributeName("onInputKeydown"),
-        new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE).setEventNames("inputKeyup").
-            setComponentAttributeName("onInputKeyup"),
-        new ComponentAttribute(HtmlConstants.ONBLUR_ATTRIBUTE).setEventNames("inputBlur").
-            setComponentAttributeName("onInputBlur"),
-        new ComponentAttribute(HtmlConstants.ONFOCUS_ATTRIBUTE).setEventNames("inputFocus").
-            setComponentAttributeName("onInputFocus"),
+        new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("inputclick").
+            setComponentAttributeName("oninputclick"),
+        new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE).setEventNames("inputdblclick").
+            setComponentAttributeName("oninputdblclick"),
+        new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE).setEventNames("inputmousedown").
+            setComponentAttributeName("oninputmousedown"),
+        new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE).setEventNames("inputmouseup").
+            setComponentAttributeName("oninputmouseup"),
+        new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE).setEventNames("inputmouseover").
+            setComponentAttributeName("oninputmouseover"),
+        new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE).setEventNames("inputmousemove").
+            setComponentAttributeName("oninputmousemove"),
+        new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE).setEventNames("inputmouseout").
+            setComponentAttributeName("oninputmouseout"),
+        new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE).setEventNames("inputkeypress").
+            setComponentAttributeName("oninputkeypress"),
+        new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE).setEventNames("inputkeydown").
+            setComponentAttributeName("oninputkeydown"),
+        new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE).setEventNames("inputkeyup").
+            setComponentAttributeName("oninputkeyup"),
+        new ComponentAttribute(HtmlConstants.ONBLUR_ATTRIBUTE).setEventNames("inputblur").
+            setComponentAttributeName("oninputblur"),
+        new ComponentAttribute(HtmlConstants.ONFOCUS_ATTRIBUTE).setEventNames("inputfocus").
+            setComponentAttributeName("oninputfocus"),
         new ComponentAttribute(HtmlConstants.ONCHANGE_ATTRIBUTE).setEventNames("change").
             setComponentAttributeName("onchange"),
         new ComponentAttribute(HtmlConstants.ONSELECT_ATTRIBUTE).setEventNames("select").
