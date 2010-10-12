@@ -47,7 +47,15 @@
     			},
            		
            		__keydownHandler: function(e) {
-           			switch(e.keyCode) {
+    				var code; 
+    				
+    				if(e.keyCode) {
+    					code = e.keyCode;
+    				} else if(e.which) {
+    					code = e.which;
+    				}
+    				
+           			switch(code) {
            				case 27: 
            					this.cancel(); 
            					break;

@@ -79,6 +79,30 @@
 					}
 				}
 			}, 
+			
+       		__keydownHandler: function(e) {
+				$super.__keydownHandler(e);
+				
+				var code; 
+				
+				if(e.keyCode) {
+					code = e.keyCode;
+				} else if(e.which) {
+					code = e.which;
+				}
+       			
+       			switch(code) {
+       				case rf.KEYS.DOWN: 
+       					e.preventDefault();
+       					this.select.__onKeyDown(e); 
+       					break;
+       				
+       				case rf.KEYS.UP:
+       					e.preventDefault();
+       					this.select.__onKeyUp(e);
+       					break;
+   				}	
+			},	
 						
 			__blurHandler: function(e) {
 				var target = $(e.originalEvent.explicitOriginalTarget);
