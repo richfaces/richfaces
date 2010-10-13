@@ -4,7 +4,7 @@
     
 	rf.ui.InplaceSelect =  function(id, options) {
     	$super.constructor.call(this, id, options)
-    	this.select = new rf.ui.Select(options.listCord, this, options);
+    	this.select = new rf.ui.SelectList(options.listCord, this, options);
     	this.selectItems = options.selectItems;
     	this.selValueInput = $(document.getElementById(options.selValueInput));
 		this.openPopup = false; 

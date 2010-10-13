@@ -55,7 +55,9 @@ import org.richfaces.component.util.SelectUtils;
         @ResourceDependency(name = "richfaces-base-component.js"),
         @ResourceDependency(name = "richfaces-selection.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceBase.js"),
-        @ResourceDependency(library = "org.richfaces", name = "select.js"),
+        @ResourceDependency(library = "org.richfaces", name = "popup.js"),
+        @ResourceDependency(library = "org.richfaces", name = "popupList.js"),
+        @ResourceDependency(library = "org.richfaces", name = "selectList.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceInput.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceSelect.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceSelect.ecss") })

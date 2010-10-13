@@ -48,9 +48,13 @@
 					this.items = this.popup.find("."+this.itemCss);
 				},
 
-           		__select: function(index) {
-           			var item;
-
+				__select: function(item) {
+    				var index = this.items.index(item);
+    				this.__selectByIndex(index);
+				},
+				
+           		__selectByIndex: function(index) {
+					var item;
            			if (this.index != -1) {
 						item = this.items.eq(this.index);
 						this.__unSelectItem(item);
@@ -75,6 +79,7 @@
            			item.removeClass(this.selectItemCss);
            		},
            		
+           	//remove event, rename ???
            		__onEnter: function(e) {
            		},
            		
@@ -90,15 +95,13 @@
            		
 				__onMouseOver: function(e) {
            			var item = this.__getItem(e);
-    				var index = this.items.index(item);
-    				this.__select(index);
+           			this.__select(item);
            		},
            		
            		__onClick: function(e) {
            			var item = this.__getItem(e);
-    				var index = this.items.index(item);
-    				this.__select(index);
            			this.processItem(e, item);
+    				this.__select(item);
            		}, 
 				
 				__getItem: function(e) {
