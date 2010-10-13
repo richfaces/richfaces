@@ -46,7 +46,7 @@
 			}, 
 			
 			processItem: function(event, element) {
-				var key = element.attr("id");
+				var key = $(element).attr("id");
 				var value = this.getItemValue(key);
 				this.saveItemValue(value);
 				
@@ -54,7 +54,7 @@
 				//inplace label
 				this.setValue(label);
            		this.select.hide();
-
+				this.openPopup = false;
            		this.__setInputFocus();
 			},
 			
@@ -114,7 +114,7 @@
        		
        		__isPopupList: function(target) {
        			var parentId = target.parents(".rf-is-lst-cord").attr("id");
-       			return (parentId && (parentId == this.select.__getId()));
+       			return (parentId && (parentId == this.select.getId()));
        		}
 		}
 		

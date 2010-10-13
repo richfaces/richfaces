@@ -53,19 +53,35 @@
     				this.__selectByIndex(index);
 				},
 				
-           		__selectByIndex: function(index) {
+           		__selectByIndex: function(index, isOffset) {
+					if (this.items.length==0 || (!isOffset && this.index == index)) return;
+
 					var item;
            			if (this.index != -1) {
 						item = this.items.eq(this.index);
 						this.__unSelectItem(item);
 					}
-					
-					this.index += index;
-					if (this.index < 0 ) {
-						this.index = this.items.length - 1;
-					} else if (this.index >= this.items.length) {
-						this.index = 0;
-					}
+           			
+           			if (index==undefined) {
+           				this.index = -1;
+           				return;
+           			}
+
+           			if (isOffset) {
+           				this.index += index;
+           				if ( this.index<0 ) {
+           					this.index = this.items.length - 1;
+           				} else if (this.index >= this.items.length) {
+           					this.index = 0;
+           				}
+           			} else {
+           				if (index<0) {
+           					index = 0;
+           				} else if (index>=this.items.length) {
+           					index = this.items.length - 1;
+           				}
+           				this.index = index;
+           			}
 
            			item = this.items.eq(this.index);
            			this.__selectItem(item);
@@ -85,17 +101,19 @@
            		
            		//remove event, rename
            		__onKeyUp: function(e) {
-           			this.__select(-1);
+           			this.__selectByIndex(-1, true);
            		},
            		
            		//remove event, rename 
            		__onKeyDown: function(e) {
-           			this.__select(1);
+           			this.__selectByIndex(1, true);
            		},
            		
 				__onMouseOver: function(e) {
            			var item = this.__getItem(e);
-           			this.__select(item);
+           			if(item) {
+           				this.__select(item);
+           			}
            		},
            		
            		__onClick: function(e) {
@@ -105,7 +123,7 @@
            		}, 
 				
 				__getItem: function(e) {
-					return $(e.target).closest("."+this.itemCss, e.currentTarget);
+					return $(e.target).closest("."+this.itemCss, e.currentTarget).get(0);
 				}, 
 				
 				__getItems: function () {
