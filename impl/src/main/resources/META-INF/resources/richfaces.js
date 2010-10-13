@@ -40,8 +40,19 @@ if (!window.RichFaces) {
 		var element = richfaces.getDomElement(source);
 
 		if (element) {
-			return (element["richfaces"] || {})["component"];
+			return (element[richfaces.RICH_CONTAINER] || {})["component"];
 		}
+	}
+	
+	richfaces.$$ = function(componentName, element)
+	{
+	   	while (element.parentNode) {
+	   		var e = element[richfaces.RICH_CONTAINER];
+	   		if (e && e.component && e.component.name==componentName)
+	   			return e.component;
+			else
+				element = element.parentNode;
+	   	}
 	}
 
 	// find component and call his method
