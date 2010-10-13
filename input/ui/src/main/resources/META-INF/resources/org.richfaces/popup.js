@@ -6,8 +6,8 @@
        	this.id = id;
 		this.attachToDom(id);
        	this.popup = $(document.getElementById(id));
-       	this.visible = options.visible;
-		
+
+       	this.visible = options.visible;;
        	this.popup.bind("mouseover", $.proxy(this.__onMouseOver, this));
        	this.popup.bind("click", $.proxy(this.__onClick, this));
 	};
@@ -23,11 +23,13 @@
            			
 			show: function() {
 				this.popup.css('display', '');
+				//add attachToBody logic
 				this.visible = true;
 			}, 
            		
 			hide: function() {
 				this.popup.css('display', 'none');
+				//add attachToBody logic
 				this.visible = false;
 			},
            		

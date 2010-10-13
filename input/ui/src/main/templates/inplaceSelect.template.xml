@@ -79,7 +79,7 @@
 							</span>
 						</span>
 					</c:if>
-					<span id="#{clientId}List" class="rf-is-lst-cord">
+					<span id="#{clientId}List" style="#{getListStyles(facesContext, component)}" class="rf-is-lst-cord">
 						<span class="rf-is-lst-pos" style="width: #{component.attributes['listWidth']}">
 							<span class="rf-is-shdw">
 								<span class="rf-is-shdw-t"></span>

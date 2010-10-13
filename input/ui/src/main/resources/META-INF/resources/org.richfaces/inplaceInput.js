@@ -57,11 +57,14 @@
     				
            			switch(code) {
            				case 27: 
+	       					e.preventDefault();
            					this.cancel(); 
            					break;
            				case 13:
+	       					e.preventDefault();
            					this.save(); 
            					return false;
+           					break;
            			}
     			},
     			

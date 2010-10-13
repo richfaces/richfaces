@@ -60,7 +60,10 @@ public abstract class AbstractInplaceSelect extends UISelectOne implements Inpla
     
     @Attribute
     public abstract String getDefaultLabel();
-    
+
+    @Attribute(defaultValue="false")
+    public abstract boolean isOpenOnEdit();
+
     @Attribute(defaultValue="true")
     public abstract boolean isSaveOnBlur();
 

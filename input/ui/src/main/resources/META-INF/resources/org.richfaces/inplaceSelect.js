@@ -46,13 +46,15 @@
 			}, 
 			
 			processItem: function(event, element) {
-				var key = $(element).attr("id");
-				var value = this.getItemValue(key);
-				this.saveItemValue(value);
+				if(element) { 
+					var key = $(element).attr("id");
+					var value = this.getItemValue(key);
+					this.saveItemValue(value);
+					var label = this.getItemLabel(key);
+					//inplace label
+					this.setValue(label);
+				}
 				
-				var label = this.getItemLabel(key);
-				//inplace label
-				this.setValue(label);
            		this.select.hide();
 				this.openPopup = false;
            		this.__setInputFocus();
@@ -81,7 +83,6 @@
 			}, 
 			
        		__keydownHandler: function(e) {
-				$super.__keydownHandler(e);
 				
 				var code; 
 				
@@ -91,17 +92,30 @@
 					code = e.which;
 				}
        			
-       			switch(code) {
-       				case rf.KEYS.DOWN: 
-       					e.preventDefault();
-       					this.select.__onKeyDown(e); 
-       					break;
-       				
-       				case rf.KEYS.UP:
-       					e.preventDefault();
-       					this.select.__onKeyUp(e);
-       					break;
-   				}	
+				if(this.select.isVisible()) {
+	       			switch(code) {
+	       				case rf.KEYS.DOWN: 
+	       					e.preventDefault();
+	       					this.select.__onKeyDown(e); 
+	       	           		this.__setInputFocus();
+	       					break;
+	       				
+	       				case rf.KEYS.UP:
+	       					e.preventDefault();
+	       					this.select.__onKeyUp(e);
+	       	           		this.__setInputFocus();
+	       					break;
+	       				
+	       				case rf.KEYS.RETURN:
+	       					e.preventDefault();
+	       					this.select.__onEnter(e);
+	       					return false;
+	       					break;
+	   				}
+				}
+       			
+				$super.__keydownHandler.call(this,e);
+
 			},	
 						
 			__blurHandler: function(e) {

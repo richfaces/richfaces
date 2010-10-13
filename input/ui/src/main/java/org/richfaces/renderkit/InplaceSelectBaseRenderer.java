@@ -74,6 +74,8 @@ public class InplaceSelectBaseRenderer extends InplaceInputBaseRenderer {
     public static final String OPTIONS_SELECT_ITEMS = "selectItems";
 
     public static final String OPTIONS_SELECT_ITEM_VALUE_INPUT = "selValueInput";
+    
+    public static final String OPTIONS_VISIBLE = "visible";
 
     protected static final class ClientSelectItem implements ScriptString {
 
@@ -166,6 +168,7 @@ public class InplaceSelectBaseRenderer extends InplaceInputBaseRenderer {
         options.put(OPTIONS_ITEMS_CORD, clientId + "Items");
         options.put(OPTIONS_SELECT_ITEMS, additional);
         options.put(OPTIONS_SELECT_ITEM_VALUE_INPUT, clientId + "selValue");
+        options.put(OPTIONS_VISIBLE, component.getAttributes().get("openOnEdit"));
     }
 
     public void encodeOptions(FacesContext facesContext, UIComponent component,
@@ -227,7 +230,8 @@ public class InplaceSelectBaseRenderer extends InplaceInputBaseRenderer {
     }
 
     public String getListStyles(FacesContext facesContext, UIComponent component) {
-        return "";
+        AbstractInplaceSelect inplaceSelect = (AbstractInplaceSelect) component;
+        return inplaceSelect.isOpenOnEdit() ? "" : "display: none"; 
     }
 
     public String getReadyStateCss() {

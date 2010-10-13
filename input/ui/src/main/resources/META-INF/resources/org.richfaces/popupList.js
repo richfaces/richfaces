@@ -16,7 +16,6 @@
             
            	//TODO: from option map?
            	this.index = -1;
-           	this.visible = false;
            	this.__updateItemsList();
         };
         
@@ -97,6 +96,11 @@
            		
            	//remove event, rename ???
            		__onEnter: function(e) {
+           			var item;
+           			if(this.items) {
+           				item = this.items.eq(this.index);
+               			this.processItem(e, item);
+           			}
            		},
            		
            		//remove event, rename
