@@ -2,14 +2,6 @@
 	
 	rf.ui = rf.ui || {};
 		
-		var INTERFACE = {
-			SelectListener : { 
-				processItem: function(item){}, 
-				selectItem: function(item){}, 
-				unselectItem: function(item){}
-			}	
-		};
-		
         rf.ui.PopupList =  function(id, listener, options) {
         	$super.constructor.call(this, id, options);
             this.selectListener =  listener;
@@ -29,7 +21,6 @@
     			
     			name : "popupList", 
            		
-    			
            		processItem: function(item) {
     				if(this.selectListener.processItem && typeof this.selectListener.processItem == 'function') {
            				this.selectListener.processItem(item);

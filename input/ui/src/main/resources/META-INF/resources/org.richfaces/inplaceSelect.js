@@ -110,6 +110,7 @@
 	       				case rf.KEYS.RETURN:
 	       					e.preventDefault();
 	       					this.select.__selectCurrent();
+	       	           		this.__setInputFocus();
 	       					return false;
 	       					break;
 	   				}
