@@ -51,6 +51,7 @@ import org.richfaces.component.util.SelectUtils;
         @ResourceDependency(name = "jquery.js"),
         @ResourceDependency(name = "jquery.position.js"),
         @ResourceDependency(name = "richfaces.js"),
+        @ResourceDependency(name = "jquery.position.js"),
         @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(name = "richfaces-base-component.js"),
         @ResourceDependency(name = "richfaces-selection.js"),

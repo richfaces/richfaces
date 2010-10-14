@@ -7,7 +7,10 @@
 		this.attachToDom(id);
        	this.popup = $(document.getElementById(id));
 
-       	this.visible = options.visible;;
+       	this.visible = options.visible;
+       	this.attachTo = options.attachTo;
+       	this.attachToBody = options.attachToBody;
+
        	this.popup.bind("mouseover", $.proxy(this.__onMouseOver, this));
        	this.popup.bind("click", $.proxy(this.__onClick, this));
 	};
@@ -22,15 +25,25 @@
 			name : "popup", 
            			
 			show: function() {
-				this.popup.css('display', '');
-				//add attachToBody logic
-				this.visible = true;
+				if(!this.visible) {
+					if(this.attachToBody) {
+						this.parentElement = this.popup.parent();
+						this.popup.detach().appendTo("body");	
+					}
+					this.popup.setPosition({id: this.attachTo}, {type:"DROPDOWN", offset:[0,20]}).show();
+					this.visible = true;
+				}
 			}, 
            		
 			hide: function() {
-				this.popup.css('display', 'none');
-				//add attachToBody logic
-				this.visible = false;
+				if(this.visible) {
+					this.popup.hide();
+					this.visible = false;
+					if (this.attachToBody && this.parentElement) {
+						this.popup.detach().appendTo(this.parentElement);
+						this.parentElement = null;
+					}
+				}
 			},
            		
 			isVisible: function() {

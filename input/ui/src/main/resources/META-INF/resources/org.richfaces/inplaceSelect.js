@@ -4,7 +4,11 @@
     
 	rf.ui.InplaceSelect =  function(id, options) {
     	$super.constructor.call(this, id, options)
+
+    	options['attachTo'] = id;
+    	options['attachToBody'] = true;
     	this.select = new rf.ui.SelectList(options.listCord, this, options);
+
     	this.selectItems = options.selectItems;
     	this.selValueInput = $(document.getElementById(options.selValueInput));
 		this.openPopup = false; 
@@ -45,15 +49,12 @@
 				this.openPopup = false;
 			}, 
 			
-			processItem: function(event, element) {
-				if(element) { 
-					var key = $(element).attr("id");
-					var value = this.getItemValue(key);
-					this.saveItemValue(value);
-					var label = this.getItemLabel(key);
-					//inplace label
-					this.setValue(label);
-				}
+			processItem: function(item) {
+				var key = $(item).attr("id");
+				var value = this.getItemValue(key);
+				this.saveItemValue(value);
+				var label = this.getItemLabel(key);
+				this.setValue(label);
 				
            		this.select.hide();
 				this.openPopup = false;
@@ -96,19 +97,19 @@
 	       			switch(code) {
 	       				case rf.KEYS.DOWN: 
 	       					e.preventDefault();
-	       					this.select.__onKeyDown(e); 
+	       					this.select.__selectNext(); 
 	       	           		this.__setInputFocus();
 	       					break;
 	       				
 	       				case rf.KEYS.UP:
 	       					e.preventDefault();
-	       					this.select.__onKeyUp(e);
+	       					this.select.__selectPrev();
 	       	           		this.__setInputFocus();
 	       					break;
 	       				
 	       				case rf.KEYS.RETURN:
 	       					e.preventDefault();
-	       					this.select.__onEnter(e);
+	       					this.select.__selectCurrent();
 	       					return false;
 	       					break;
 	   				}

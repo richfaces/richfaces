@@ -4,7 +4,9 @@
 		
 		var INTERFACE = {
 			SelectListener : { 
-				processItem: function(e, element){}
+				processItem: function(item){}, 
+				selectItem: function(item){}, 
+				unselectItem: function(item){}
 			}	
 		};
 		
@@ -13,8 +15,7 @@
             this.selectListener =  listener;
             this.selectItemCss = options.selectItemCss;
             this.itemCss = options.itemCss;
-            
-           	//TODO: from option map?
+         
            	this.index = -1;
            	this.__updateItemsList();
         };
@@ -23,23 +24,31 @@
     	var $super = rf.ui.PopupList.$super;
         
     	$.extend(rf.ui.PopupList.prototype, ( function () {
-
-    		var isSelectListener = function(obj) {
-    			for (var method in INTERFACE.SelectListener) {
-    		        if ( (typeof obj[method] != typeof INTERFACE.SelectListener[method]) ) {
-    		        	return false;
-    		        }
-    		    }
-    		    return true;
-    		};
     		
     		return{
     			
     			name : "popupList", 
-           			
-           		processItem: function(e, element) {
-           			if(isSelectListener(this.selectListener)) {
-           				this.selectListener.processItem(e, element);
+           		
+    			
+           		processItem: function(item) {
+    				if(this.selectListener.processItem && typeof this.selectListener.processItem == 'function') {
+           				this.selectListener.processItem(item);
+           			}
+           		},
+           		
+           		selectItem: function(item) {
+           			if(this.selectListener.selectItem && typeof this.selectListener.selectItem == 'function') {
+           				this.selectListener.selectItem(item);
+           			} else {
+           				item.addClass(this.selectItemCss);
+           			}
+           		},
+           		
+           		unselectItem: function(item) {
+           			if(this.selectListener.unselectItem && typeof this.selectListener.unselectItem == 'function') {
+           				this.selectListener.unselectItem(item);
+           			} else {
+           				item.removeClass(this.selectItemCss);
            			}
            		},
            		
@@ -58,7 +67,7 @@
 					var item;
            			if (this.index != -1) {
 						item = this.items.eq(this.index);
-						this.__unSelectItem(item);
+						this.unselectItem(item);
 					}
            			
            			if (index==undefined) {
@@ -83,33 +92,22 @@
            			}
 
            			item = this.items.eq(this.index);
-           			this.__selectItem(item);
+           			this.selectItem(item);
            		},
            		
-           		__selectItem: function(item) {
-           			item.addClass(this.selectItemCss);
-           		},
-           		
-           		__unSelectItem: function(item) {
-           			item.removeClass(this.selectItemCss);
-           		},
-           		
-           	//remove event, rename ???
-           		__onEnter: function(e) {
+           		__selectCurrent: function() {
            			var item;
-           			if(this.items) {
+           			if(this.items && this.index >= 0) {
            				item = this.items.eq(this.index);
-               			this.processItem(e, item);
+               			this.processItem(item);
            			}
            		},
            		
-           		//remove event, rename
-           		__onKeyUp: function(e) {
+           		__selectPrev: function() {
            			this.__selectByIndex(-1, true);
            		},
            		
-           		//remove event, rename 
-           		__onKeyDown: function(e) {
+           		__selectNext: function() {
            			this.__selectByIndex(1, true);
            		},
            		
@@ -122,7 +120,7 @@
            		
            		__onClick: function(e) {
            			var item = this.__getItem(e);
-           			this.processItem(e, item);
+           			this.processItem(item);
     				this.__select(item);
            		}, 
 				
