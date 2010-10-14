@@ -20,7 +20,7 @@
     </properties>
 
     <build>
-        <finalName>${artifactId}-${project.version}</finalName>
+        <finalName>${project.artifactId}-${project.version}</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
