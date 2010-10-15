@@ -23,12 +23,14 @@
 
 package org.ajax4jsf.javascript;
 
+import java.io.Serializable;
+
 /**
  * Class provides creation of simple literal javascript to be set in ajax response data
  * @author Andrey Markavtsov
  *
  */
-public class JSLiteral extends ScriptStringBase {
+public class JSLiteral extends ScriptStringBase implements Serializable{
     public static final JSLiteral EMPTY_HASH = new ImmutableJSLiteral("{}");
     public static final JSLiteral EMPTY_LIST = new ImmutableJSLiteral("[]");
 
