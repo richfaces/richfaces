@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:in="http://richfaces.org/input">
+<f:view contentType="text/html" />
+
+<h:head>
+	<title>Select</title>
+</h:head>
+
+
+<h:body>
+	<h:form id="form">
+		<div id="scroll" style="width: 400px; height:400px; overflow:auto;" >
+			<fieldset>
+				<legend>Select Test App</legend>
+				<in:select defaultLabel="Select Value ..." value="#{inputBean.value}">
+					<f:selectItem itemLabel="Label#1" itemValue="Value#1"/>
+					<f:selectItem itemLabel="Label#2" itemValue="Value#2"/>
+					<f:selectItem itemLabel="Label#3" itemValue="Value#3"/>
+					<f:selectItem itemLabel="Label#4" itemValue="Value#4"/>
+				</in:select>
+			</fieldset>
+			<h:commandButton value="submit"></h:commandButton>
+		</div>
+		<h:panelGroup id="out">
+			<h:outputText value="Selected Value: #{inputBean.value}"/>
+		</h:panelGroup>
+	</h:form>
+</h:body>
+</html>
