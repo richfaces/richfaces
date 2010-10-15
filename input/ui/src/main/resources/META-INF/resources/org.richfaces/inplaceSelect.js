@@ -7,9 +7,9 @@
 
     	options['attachTo'] = id;
     	options['attachToBody'] = true;
-    	this.select = new rf.ui.SelectList(options.listCord, this, options);
+    	this.popupList = new rf.ui.SelectList(options.list, this, options);
 
-    	this.selectItems = options.selectItems;
+    	this.items = options.items;
     	this.selValueInput = $(document.getElementById(options.selValueInput));
 		this.openPopup = false; 
 
@@ -34,7 +34,7 @@
 
 			onshow: function() {
 				if(this.openPopup) {
-					this.select.show();
+					this.popupList.show();
 				}
 				
 				if(!this.openPopup) {
@@ -45,7 +45,7 @@
 			}, 
 			
 			onhide: function() {
-				this.select.hide();
+				this.popupList.hide();
 				this.openPopup = false;
 			}, 
 			
@@ -56,14 +56,14 @@
 				var label = this.getItemLabel(key);
 				this.setValue(label);
 				
-           		this.select.hide();
+           		this.popupList.hide();
 				this.openPopup = false;
            		this.__setInputFocus();
 			},
 			
 			getItemValue: function(key) {
-				for(var i in this.selectItems) {
-					var item = this.selectItems[i];
+				for(var i in this.items) {
+					var item = this.items[i];
 					if(item && item.id == key) {
 						return item.value;
 					}
@@ -75,8 +75,8 @@
 			},
 			
 			getItemLabel: function(key) {
-				for(var i in this.selectItems) {
-					var item = this.selectItems[i];
+				for(var i in this.items) {
+					var item = this.items[i];
 					if(item && item.id == key) {
 						return item.label;
 					}
@@ -93,23 +93,23 @@
 					code = e.which;
 				}
        			
-				if(this.select.isVisible()) {
+				if(this.popupList.isVisible()) {
 	       			switch(code) {
 	       				case rf.KEYS.DOWN: 
 	       					e.preventDefault();
-	       					this.select.__selectNext(); 
+	       					this.popupList.__selectNext(); 
 	       	           		this.__setInputFocus();
 	       					break;
 	       				
 	       				case rf.KEYS.UP:
 	       					e.preventDefault();
-	       					this.select.__selectPrev();
+	       					this.popupList.__selectPrev();
 	       	           		this.__setInputFocus();
 	       					break;
 	       				
 	       				case rf.KEYS.RETURN:
 	       					e.preventDefault();
-	       					this.select.__selectCurrent();
+	       					this.popupList.__selectCurrent();
 	       	           		this.__setInputFocus();
 	       					return false;
 	       					break;
@@ -118,19 +118,18 @@
        			
 				$super.__keydownHandler.call(this,e);
 
-			},	
+			},
+			
+			__isButton: function(target) {
+				
+			},
 						
 			__blurHandler: function(e) {
 				var target = $(e.originalEvent.explicitOriginalTarget);
-				if(!this.__isPopupList(target)) {
+				if(!this.popupList.isPopupList(target)) {
 					$super.__blurHandler.call(this,e);
 				} 				
        			return false;
-       		},
-       		
-       		__isPopupList: function(target) {
-       			var parentId = target.parents(".rf-is-lst-cord").attr("id");
-       			return (parentId && (parentId == this.select.getId()));
        		}
 		}
 		

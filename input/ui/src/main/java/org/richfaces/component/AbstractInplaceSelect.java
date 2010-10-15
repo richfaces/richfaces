@@ -22,10 +22,7 @@
 
 package org.richfaces.component;
 
-import javax.faces.component.UISelectOne;
-
 import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -43,24 +40,15 @@ import org.richfaces.cdk.annotations.Tag;
     renderer = @JsfRenderer(type = "org.richfaces.InplaceSelectRenderer"),
     tag = @Tag(name="inplaceSelect")
 )
-public abstract class AbstractInplaceSelect extends UISelectOne implements InplaceComponent {
+public abstract class AbstractInplaceSelect extends AbstractSelect implements InplaceComponent {
     
     public static final String COMPONENT_TYPE = "org.richfaces.InplaceSelect";
     
-    public static final String COMPONENT_FAMILY = "org.richfaces.InplaceSelect";
-
-    @Attribute(defaultValue="250px")
-    public abstract String getListWidth();
-    
-    @Attribute(defaultValue="100px")
-    public abstract String getListHeight();
+    public static final String COMPONENT_FAMILY = "org.richfaces.Select";
 
     @Attribute(defaultValue="InplaceState.ready")
     public abstract InplaceState getState();
     
-    @Attribute
-    public abstract String getDefaultLabel();
-
     @Attribute(defaultValue="false")
     public abstract boolean isOpenOnEdit();
 
@@ -72,47 +60,17 @@ public abstract class AbstractInplaceSelect extends UISelectOne implements Inpla
     
     @Attribute(defaultValue="click")
     public abstract String getEditEvent();
-    
-    @Attribute(events=@EventName("blur"))
-    public abstract String getOnblur();
 
-    @Attribute(events=@EventName("click"))
-    public abstract String getOnclick();
+    @Override
+    @Attribute(defaultValue="rf-is-opt")
+    public abstract String getItemCss();
     
-    @Attribute(events=@EventName("ondblclick"))
-    public abstract String getOndblclick();
-   
-    @Attribute(events=@EventName("focus"))
-    public abstract String getOnfocus();
+    @Override
+    @Attribute(defaultValue="rf-is-sel")
+    public abstract String getSelectItemCss();
     
-    @Attribute(events=@EventName("keydown"))
-    public abstract String getOnkeydown();
+    @Override
+    @Attribute(defaultValue="rf-is-lst-cord")
+    public abstract String getListCss();
     
-    @Attribute(events=@EventName("keypress"))
-    public abstract String getOnkeypress();
-    
-    @Attribute(events=@EventName("keyup"))
-    public abstract String getOnkeypup();
-    
-    @Attribute(events=@EventName("mousedown"))
-    public abstract String getOnmousedown();
-    
-    @Attribute(events=@EventName("mousemove"))
-    public abstract String getOnmousemove();
-    
-    @Attribute(events=@EventName("mouseout"))
-    public abstract String getOnmouseout();
-    
-    @Attribute(events=@EventName("mouseover"))
-    public abstract String getOnmouseover();
-    
-    @Attribute(events=@EventName("mouseup"))
-    public abstract String getOnmouseup();
-    
-    @Attribute(events=@EventName("select"))
-    public abstract String getOnselect();
-    
-    @Attribute(events=@EventName("change"))
-    public abstract String getOnchange();
-
 }

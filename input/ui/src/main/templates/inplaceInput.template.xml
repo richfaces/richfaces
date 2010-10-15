@@ -30,7 +30,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	<cc:interface>
 		<cdk:class>org.richfaces.renderkit.html.InplaceInputRenderer
 		</cdk:class>
-		<cdk:superclass>org.richfaces.renderkit.InplaceInputBaseRenderer
+		<cdk:superclass>org.richfaces.renderkit.InplaceInputRendererBase
 		</cdk:superclass>
 		<cdk:component-family>org.richfaces.InplaceInput
 		</cdk:component-family>

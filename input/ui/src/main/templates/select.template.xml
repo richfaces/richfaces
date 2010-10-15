@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+    xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.SelectRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.SelectRendererBase</cdk:superclass>
+        <cdk:component-family>org.richfaces.Select</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.SelectRenderer</cdk:renderer-type>
+        <cdk:renders-children>true</cdk:renders-children>
+    </cc:interface>
+
+    <cc:implementation>
+    
+    	<cdk:object type="java.util.List" type-arguments="org.richfaces.renderkit.ClientSelectItem" name="clientSelectItems"
+			value="#{getConvertedSelectItems(facesContext, component)}" />
+    	
+   		<cdk:object type="java.lang.Object" name="disabled" value="#{component.attributes['disabled']}" />
+        
+        <div id="#{clientId}" class="rf-au-fld">
+            <div style="position : relative; overflow : hidden; text-align : left; padding-right : 21px;">
+            	<input id="#{clientId}selValue" name="#{clientId}" type="hidden" value="#{getValue(facesContext, component)}"/>
+            	<input cdk:passThroughWithExclusions="class autocomplete id value disabled name type readonly" 
+					id="#{clientId}Input" 
+					value="#{getSelectInputLabel(facesContext, component)}"  
+					disabled="#{disabled}" 
+					type="text" 
+					class="rf-au-fnt rf-au-inp" 
+					autocomplete="off"
+					readonly="readonly"/>
+                
+                <c:if test="#{component.attributes['showButton']}">
+	                <c:if test="#{component.attributes['disabled']}">
+		                <div id="#{clientId}Button" class="rf-au-btn">
+		                    <div class="rf-au-btn-arrow"></div>
+		                </div>
+	                </c:if>
+	                <c:if test="#{!component.attributes['disabled']}">
+		                <div id="#{clientId}Button" class="rf-au-btn">
+		                    <div class="rf-au-btn-arrow"></div>
+		                </div>
+	                </c:if>
+                </c:if>
+            </div>
+
+            <div id="#{clientId}List" class="rf-au-lst-cord">
+				<cdk:call expression="renderListHandlers(facesContext, component);"/>
+                <div class="rf-au-shdw">
+                    <div class="rf-au-shdw-t"></div>
+                    <div class="rf-au-shdw-l"></div>
+                    <div class="rf-au-shdw-r"></div>
+                    <div class="rf-au-shdw-b"></div>
+
+                    <div class="rf-au-lst-dcrtn">
+                        <div class="rf-au-lst-scrl">
+							<cdk:call expression="encodeItems(facesContext, component, clientSelectItems);"/>
+						</div>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+				<cdk:call expression="buildScript(responseWriter, facesContext, component, clientSelectItems);"/>
+            </script>
+        </div>
+    </cc:implementation>
+</cdk:root>

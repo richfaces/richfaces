@@ -7,7 +7,7 @@
             this.selectListener =  listener;
             this.selectItemCss = options.selectItemCss;
             this.itemCss = options.itemCss;
-         
+            this.listCss = options.listCss;
            	this.index = -1;
            	this.__updateItemsList();
         };
@@ -42,6 +42,11 @@
            				item.removeClass(this.selectItemCss);
            			}
            		},
+           		
+           		isPopupList: function(target) {
+	       			var parentId = target.parents("." + this.listCss).attr("id");
+	       			return (parentId && (parentId == this.getId()));
+	       		},
            		
            		__updateItemsList: function () {
 					this.items = this.popup.find("."+this.itemCss);
@@ -121,7 +126,8 @@
 				
 				__getItems: function () {
 					return this.items;
-				}
+				} 
+			
     		}
     	})());
 

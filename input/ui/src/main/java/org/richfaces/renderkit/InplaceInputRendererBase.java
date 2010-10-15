@@ -52,7 +52,7 @@ import org.richfaces.component.util.HtmlUtil;
         @ResourceDependency(library = "org.richfaces", name = "inplaceBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceInput.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceInput.ecss") })
-public class InplaceInputBaseRenderer extends InputRendererBase {
+public class InplaceInputRendererBase extends InputRendererBase {
 
     public static final String OPTIONS_EDIT_EVENT = "editEvent";
     

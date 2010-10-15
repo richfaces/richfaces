@@ -1,157 +1,131 @@
-//TODO: utils?
-(function (rf) {
-	rf.KEYS = {
-		BACKSPACE: 8,	
-		TAB: 9,
-		RETURN: 13,
-		ESC: 27,
-		PAGEUP: 33,
-		PAGEDOWN: 34,
-		LEFT: 37,
-		UP: 38,
-		RIGHT: 39,
-		DOWN: 40,
-		DEL: 46
-	};
-})(RichFaces);
-
 (function ($, rf) {
 	
 	rf.ui = rf.ui || {};
 		
-		var INTERFACE = {
-			SelectListener : { 
-				processItem: function(e, element){}
-			}	
-		};
-		
-        rf.ui.Select =  function(id, listener, options) {
+        rf.ui.Select =  function(id, options) {
         	this.id = id;
-        	this.select = $(document.getElementById(id));
-        	this.itemsCord = $(document.getElementById(options.itemsCord));
-        	this.selectItemCss = options.selectItemCss;
-        	this.itemCss = options.itemCss;
-            this.selectListener =  listener;
 
-            this.select.bind("blur", $.proxy(this.__blurHandler, this));
-        	this.itemsCord.bind("mouseover", $.proxy(this.__mouseHandler, this));
-           	this.itemsCord.bind("click", $.proxy(this.__mouseHandler, this));
-           	
-           	this.index = -1;
-           	//TODO: from option map?
-           	this.visible = false;
-           	this.updateItemsList();
+        	// TODO: move to defaultOptions ??
+        	options['attachTo'] = id;
+        	options['attachToBody'] = true;
+        	
+        	this.selValueInput = $(document.getElementById(options.selValueInput));
+        	
+        	this.input = $(document.getElementById(id+"Input"));
+        	this.input.bind("click", $.proxy(this.__clickHandler, this));
+        	this.input.bind("keydown", $.proxy(this.__keydownHandler, this));
+        	this.input.bind("blur", $.proxy(this.__blurHandler, this));
+        	
+        	this.items = options.items;
+        	
+        	if(options.showControl) {
+        		this.btn = $(document.getElementById(id+"Button"));
+            	this.btn.bind("click", $.proxy(this.__clickHandler, this));
+        	}
+        	this.popupList = new rf.ui.SelectList(options.list, this, options);
         };
         
     	rf.BaseComponent.extend(rf.ui.Select);
     	var $super = rf.ui.Select.$super;
         
     	$.extend(rf.ui.Select.prototype, ( function () {
-    		
-    		var processed = null;
-    		
-    		var isSelectListener = function(obj) {
-    			for (var method in INTERFACE.SelectListener) {
-    		        if ( (typeof obj[method] != typeof INTERFACE.SelectListener[method]) ) {
-    		        	return false;
-    		        }
-    		    }
-    		    return true;
-    		};
-    		
+
     		return{
     			name : "select", 
+    			
+    			__clickHandler: function(e) {
+    				e.preventDefault();
+    				if(!this.popupList.isVisible()) {
+    					this.popupList.show();
+    				} else {
+    					this.popupList.hide();
+    				}
+    				this.__setInputFocus();
+    			}, 
+		
+    			__keydownHandler: function(e) {
+    				var code; 
+    				
+    				if(e.keyCode) {
+    					code = e.keyCode;
+    				} else if(e.which) {
+    					code = e.which;
+    				}
            			
-           		show: function() {
-    				this.select.css("display", "");
-    				this.visible = true;
-           		}, 
-           		
-           		hide: function() {
-    				this.select.css("display", "none");
-    				this.visible = false;
+    				if(this.popupList.isVisible()) {
+    	       			switch(code) {
+    	       				case rf.KEYS.DOWN: 
+    	       					e.preventDefault();
+    	       					this.popupList.__selectNext(); 
+    	       	           		this.__setInputFocus();
+    	       					break;
+    	       				
+    	       				case rf.KEYS.UP:
+    	       					e.preventDefault();
+    	       					this.popupList.__selectPrev();
+    	       	           		this.__setInputFocus();
+    	       					break;
+    	       				
+    	       				case rf.KEYS.RETURN:
+    	       					e.preventDefault();
+    	       					this.popupList.__selectCurrent();
+    	       	           		this.__setInputFocus();
+    	       					return false;
+    	       					break;
+    	   				}
+    				}
+    			}, 
+    			
+           		__setInputFocus: function() {
+           			this.input.focus();
            		},
            		
-           		processItem: function(e, element) {
-           			if(isSelectListener(this.selectListener)) {
-           				this.selectListener.processItem(e, element);
-           			}
+    			__blurHandler: function(e) {
+    				var target = $(e.originalEvent.explicitOriginalTarget);
+    				if(!this.popupList.isPopupList(target)) {
+    					this.popupList.hide();
+    					return true;
+    				} 				
+           			return false;
            		},
-           		
-           		isVisible: function() {
-           			return this.visible;
-           		},
-           		
-           		__selectItem: function(e, index) {
-           			var item;
-         			
-         			if (this.index != -1) {
-						item = this.items.eq(this.index);
-						item.removeClass(this.selectItemCss);
-					}
-					
-					this.index += index;
-					if ( this.index < 0 ) {
-						this.index = this.items.length - 1;
-					} else if (this.index >= this.items.length) {
-						this.index = 0;
-					}
-					
-           			item = this.items.eq(this.index);
-           			item.addClass(this.selectItemCss);
-           		},
-           		
-           		__onEnter: function(e) {
-           		
-           		},
-           		
-           		__onKeyUp: function(e) {
-           			this.__selectItem(e, -1);
-           		},
-           		
-           		__onKeyDown: function(e) {
-           			this.__selectItem(e, 1);
-           		},
-           		
-           		__getCurrentElement: function() {
-           			return processed;
-           		},
-           		
-           		__blurHandler: function(e) {
-    				processItem(e, processed);
-    				return false;
-           		},
-
-				__mouseHandler: function(e) {
-           			var element = $(e.target).closest("."+this.itemCss, e.currentTarget);
-           			if (e && element) {
-           				if(e.type == 'mouseover') {
-	           				if(processed) {
-	           					processed.removeClass(this.selectItemCss);
-	           				}
-	           				element.addClass(this.selectItemCss);
-	           				processed = element;
-           				}
-           				
-           				if(e.type == 'click') {
-           					this.processItem(e, element);
-           				}
-           			}
-   					return false;
-           		},
-           		
-       			updateItemsList: function () {
-					this.items = this.itemsCord.find("."+this.itemCss);
-				},
-				
-				__getItems: function () {
-					return this.items;
-				},
-           		
-           		__getId: function() {
-           			return this.id;
+    			
+    			processItem: function(item) {
+    				var key = $(item).attr("id");
+    				var value = this.getItemValue(key);
+    				this.saveItemValue(value);
+    				var label = this.getItemLabel(key);
+    				this.setValue(label);
+               		this.popupList.hide();
+               		this.__setInputFocus();
+    			}, 
+    			
+    			getItemValue: function(key) {
+    				for(var i in this.items) {
+    					var item = this.items[i];
+    					if(item && item.id == key) {
+    						return item.value;
+    					}
+    				}
+    			}, 
+    			
+    			getItemLabel: function(key) {
+    				for(var i in this.items) {
+    					var item = this.items[i];
+    					if(item && item.id == key) {
+    						return item.label;
+    					}
+    				}
+    			}, 
+    			
+    			saveItemValue: function(value) {
+    				this.selValueInput.val(value);
+    			}, 
+    			
+    	 		setValue: function(value){
+           			this.input.val(value);
            		}
     		}
+    		
     	})());
 
 })(jQuery, window.RichFaces);

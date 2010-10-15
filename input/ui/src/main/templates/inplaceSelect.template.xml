@@ -20,7 +20,7 @@
 	<cc:interface>
 		<cdk:class>org.richfaces.renderkit.html.InplaceSelectRenderer
 		</cdk:class>
-		<cdk:superclass>org.richfaces.renderkit.InplaceSelectBaseRenderer
+		<cdk:superclass>org.richfaces.renderkit.InplaceSelectRendererBase
 		</cdk:superclass>
 		<cdk:component-family>org.richfaces.InplaceSelect
 		</cdk:component-family>
@@ -88,7 +88,7 @@
 								<span class="rf-is-shdw-b"></span>
 								<span class="rf-is-lst-dec">
 									<span class="rf-is-lst-scrl" id="#{clientId}Items" style="height: #{component.attributes['listHeight']}">
-										<cdk:call expression="encodeOptions(facesContext, component, clientSelectItems);"/>
+										<cdk:call expression="encodeItems(facesContext, component, clientSelectItems);"/>
 									</span>
 								</span>
 							</span>
