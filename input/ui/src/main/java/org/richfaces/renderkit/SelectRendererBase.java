@@ -1,3 +1,25 @@
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright 2010, Red Hat, Inc. and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
+
 package org.richfaces.renderkit;
 
 import java.io.IOException;
@@ -25,15 +47,7 @@ import org.richfaces.component.AbstractSelect;
         @ResourceDependency(library = "org.richfaces", name = "select.js"),
         @ResourceDependency(library = "org.richfaces", name = "select.ecss") })
 public class SelectRendererBase extends InputRendererBase {
-    
-    //TODO: move to SelectHelper <!--
-    public static final String OPTION_SHOWCONTROL = "showControl";
-    
-    public static final String OPTIONS_SELECT_ITEM_VALUE_INPUT = "selValueInput";
 
-    public static final String OPTION_LIST_ITEMS = "items";
-    // -->
-    
     public void renderListHandlers(FacesContext facesContext, UIComponent component) throws IOException {
         RenderKitUtils.renderPassThroughAttributesOptimized(facesContext, component, SelectHelper.SELECT_LIST_HANDLER_ATTRIBUTES);
     }
@@ -62,8 +76,8 @@ public class SelectRendererBase extends InputRendererBase {
 
         String clientId = abstractSelect.getClientId(facesContext);
         Map<String, Object> options = new HashMap<String, Object>();
-        options.put(OPTION_SHOWCONTROL, abstractSelect.isShowButton());
-        options.put(OPTION_LIST_ITEMS, selectItems);
+        options.put(SelectHelper.OPTIONS_SHOWCONTROL, abstractSelect.isShowButton());
+        options.put(SelectHelper.OPTIONS_LIST_ITEMS, selectItems);
         options.put(PopupConstants.OPTIONS_ITEM_CLASS, abstractSelect.getItemCss());
         options.put(PopupConstants.OPTIONS_SELECT_ITEM_CLASS, abstractSelect.getSelectItemCss());
         options.put(PopupConstants.OPTIONS_LIST_CLASS, abstractSelect.getListCss());
@@ -85,9 +99,5 @@ public class SelectRendererBase extends InputRendererBase {
     
     protected String getScriptName() {
         return "new RichFaces.ui.Select";
-    }
-
-    public String getListStyles(FacesContext facesContext, UIComponent component) {
-        return "";
     }
 }

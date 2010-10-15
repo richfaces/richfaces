@@ -19,7 +19,7 @@
     	
    		<cdk:object type="java.lang.Object" name="disabled" value="#{component.attributes['disabled']}" />
         
-        <div id="#{clientId}" class="rf-au-fld">
+        <div id="#{clientId}" class="rf-sel-fld">
             <div style="position : relative; overflow : hidden; text-align : left; padding-right : 21px;">
             	<input id="#{clientId}selValue" name="#{clientId}" type="hidden" value="#{getValue(facesContext, component)}"/>
             	<input cdk:passThroughWithExclusions="class autocomplete id value disabled name type readonly" 
@@ -27,34 +27,34 @@
 					value="#{getSelectInputLabel(facesContext, component)}"  
 					disabled="#{disabled}" 
 					type="text" 
-					class="rf-au-fnt rf-au-inp" 
+					class="rf-sel-fnt rf-sel-inp" 
 					autocomplete="off"
 					readonly="readonly"/>
                 
                 <c:if test="#{component.attributes['showButton']}">
 	                <c:if test="#{component.attributes['disabled']}">
-		                <div id="#{clientId}Button" class="rf-au-btn">
-		                    <div class="rf-au-btn-arrow"></div>
+		                <div id="#{clientId}Button" class="rf-sel-btn">
+		                    <div class="rf-sel-btn-arrow"></div>
 		                </div>
 	                </c:if>
 	                <c:if test="#{!component.attributes['disabled']}">
-		                <div id="#{clientId}Button" class="rf-au-btn">
-		                    <div class="rf-au-btn-arrow"></div>
+		                <div id="#{clientId}Button" class="rf-sel-btn">
+		                    <div class="rf-sel-btn-arrow"></div>
 		                </div>
 	                </c:if>
                 </c:if>
             </div>
 
-            <div id="#{clientId}List" class="rf-au-lst-cord">
+            <div id="#{clientId}List" class="rf-sel-lst-cord">
 				<cdk:call expression="renderListHandlers(facesContext, component);"/>
-                <div class="rf-au-shdw">
-                    <div class="rf-au-shdw-t"></div>
-                    <div class="rf-au-shdw-l"></div>
-                    <div class="rf-au-shdw-r"></div>
-                    <div class="rf-au-shdw-b"></div>
+                <div class="rf-sel-shdw">
+                    <div class="rf-sel-shdw-t"></div>
+                    <div class="rf-sel-shdw-l"></div>
+                    <div class="rf-sel-shdw-r"></div>
+                    <div class="rf-sel-shdw-b"></div>
 
-                    <div class="rf-au-lst-dcrtn">
-                        <div class="rf-au-lst-scrl">
+                    <div class="rf-sel-lst-dcrtn">
+                        <div class="rf-sel-lst-scrl">
 							<cdk:call expression="encodeItems(facesContext, component, clientSelectItems);"/>
 						</div>
                     </div>
