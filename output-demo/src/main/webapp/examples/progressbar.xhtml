@@ -1,0 +1,79 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/output" template="/templates/template.xhtml">
+	
+	  <ui:define name="body">
+	  <script>
+//<![CDATA[
+        var counter = 1;
+        var intervalID;
+            function updateProgress(i) {
+                RichFaces.$('form2:progressBar').setValue(counter*5);
+                if ((counter++)>20){
+                    clearInterval(intervalID);
+                    document.getElementById('button').disabled=false;
+                }
+            }
+             
+            function startProgress(){
+                counter=1;
+                document.getElementById('button').disabled=true;
+                RichFaces.$('form2:progressBar').enable();
+                RichFaces.$('form2:progressBar').setValue(1);
+                intervalID = setInterval(updateProgress,5000);
+            }
+//]]>
+      </script>
+    <h:form id="form">
+	Ajax mode:
+    <rich:progressBar mode="ajax" value="#{progressBarBean.currentValue}"
+                interval="2000"
+                enabled="#{progressBarBean.enabled}" minValue="-1" maxValue="100"
+                reRenderAfterComplete="progressPanel">
+                <f:facet name="initial">
+                    <br />
+                    <h:outputText value="Process doesn't started yet" />
+                    <a4j:commandButton action="#{progressBarBean.startProcess}"
+                        value="Start Process"
+                        render="form"
+                        style="margin: 9px 0px 5px;" />
+                </f:facet>
+                <f:facet name="complete">
+                    <br />
+                    <h:outputText value="Process Done" />
+                    <a4j:commandButton action="#{progressBarBean.startProcess}"
+                        value="Restart Process" execute="@form"
+                        rendered="#{progressBarBean.buttonRendered}"
+                        style="margin: 9px 0px 5px;" />
+                </f:facet>
+                <h:outputText value="#{progressBarBean.currentValue} %"/>
+            </rich:progressBar>
+            <h:panelGroup id="progressPanel">
+            <h:outputText value="#{progressBarBean.currentValue}"/>
+            </h:panelGroup>
+            </h:form>
+            
+
+
+				Client mode:
+				
+				
+    <h:form id="form2">
+          <rich:progressBar mode="client" id="progressBar">
+            <f:facet name="initial">
+                <h:outputText value="Process doesn't started yet"/>
+            </f:facet>
+            <f:facet name="complete">
+                <h:outputText value="Process Done"/>
+            </f:facet>
+          </rich:progressBar>
+          <button type="button" onclick="startProgress();" style="margin: 9px 0px 5px;" id="button">Start Progress</button>
+    </h:form>
+	</ui:define>
+</ui:composition>
+
+	
+

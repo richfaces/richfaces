@@ -42,6 +42,18 @@
             <from-outcome>tabPanel</from-outcome>
             <to-view-id>/examples/tabPanel.xhtml</to-view-id>
         </navigation-case>
+		<navigation-case>
+            <from-outcome>panel</from-outcome>
+            <to-view-id>/examples/panel.xhtml</to-view-id>
+        </navigation-case>
+		<navigation-case>
+            <from-outcome>popup</from-outcome>
+            <to-view-id>/examples/popupPanel.xhtml</to-view-id>
+        </navigation-case>
+		<navigation-case>
+            <from-outcome>progressbar</from-outcome>
+            <to-view-id>/examples/progressbar.xhtml</to-view-id>
+        </navigation-case>
 
         <!-- QUnit -->
         <navigation-case>

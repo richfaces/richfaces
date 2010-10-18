@@ -16,19 +16,6 @@
 
 
     <ui:insert name="scripts" ></ui:insert>
-
-    <h:form>
-        <h:commandButton value="Classic">
-            <f:setPropertyActionListener target="#{skinBean.skin}" value="classic"/>
-        </h:commandButton>
-        <h:commandButton value="BlueSky">
-            <f:setPropertyActionListener target="#{skinBean.skin}" value="blueSky"/>
-        </h:commandButton>
-        <h:commandButton value="DeepMarine">
-            <f:setPropertyActionListener target="#{skinBean.skin}" value="deepMarine"/>
-        </h:commandButton>
-    </h:form>
-
     <table width="100%">
         <thead>
             <tr>
@@ -58,6 +45,24 @@
                                 <p>Accordion</p>
                                 <ul>
                                     <li><h:commandLink value="accordion" action="accordion" /></li>
+                                </ul>
+                            </li>
+							<li>
+                                <p>Panel</p>
+                                <ul>
+                                    <li><h:commandLink value="panel" action="panel" /></li>
+                                </ul>
+                            </li>
+							<li>
+                                <p>Popup panel</p>
+                                <ul>
+                                    <li><h:commandLink value="popup" action="popup" /></li>
+                                </ul>
+                            </li>
+							<li>
+                                <p>ProgressBar</p>
+                                <ul>
+                                    <li><h:commandLink value="progressbar" action="progressbar" /></li>
                                 </ul>
                             </li>
                             <li>
