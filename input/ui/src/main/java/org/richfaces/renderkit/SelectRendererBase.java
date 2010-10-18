@@ -41,9 +41,9 @@ import org.richfaces.component.AbstractSelect;
         @ResourceDependency(name = "richfaces.js"), @ResourceDependency(name = "jquery.position.js"),
         @ResourceDependency(name = "richfaces-event.js"), @ResourceDependency(name = "richfaces-base-component.js"),
         @ResourceDependency(name = "richfaces-selection.js"),
+        @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "popup.js"),
         @ResourceDependency(library = "org.richfaces", name = "popupList.js"),
-        @ResourceDependency(library = "org.richfaces", name = "selectList.js"),
         @ResourceDependency(library = "org.richfaces", name = "select.js"),
         @ResourceDependency(library = "org.richfaces", name = "select.ecss") })
 public class SelectRendererBase extends InputRendererBase {
@@ -58,6 +58,15 @@ public class SelectRendererBase extends InputRendererBase {
 
     public String getSelectInputLabel(FacesContext facesContext, UIComponent component) {
         return SelectHelper.getSelectInputLabel(facesContext, component);
+    }
+    
+    public String getSelectLabel(FacesContext facesContext, UIComponent component) {
+        AbstractSelect select = (AbstractSelect) component;
+        String label = getSelectInputLabel(facesContext, select);
+        if (label == null || "".equals(label.trim())) {
+            label = select.getDefaultLabel();
+        }
+        return label;
     }
 
     public void encodeItems(FacesContext facesContext, UIComponent component, List<ClientSelectItem> clientSelectItems)
@@ -78,23 +87,17 @@ public class SelectRendererBase extends InputRendererBase {
         Map<String, Object> options = new HashMap<String, Object>();
         options.put(SelectHelper.OPTIONS_SHOWCONTROL, abstractSelect.isShowButton());
         options.put(SelectHelper.OPTIONS_LIST_ITEMS, selectItems);
+        options.put(SelectHelper.OPTIONS_SELECT_ITEM_VALUE_INPUT, clientId + "selValue");
         options.put(PopupConstants.OPTIONS_ITEM_CLASS, abstractSelect.getItemCss());
         options.put(PopupConstants.OPTIONS_SELECT_ITEM_CLASS, abstractSelect.getSelectItemCss());
         options.put(PopupConstants.OPTIONS_LIST_CLASS, abstractSelect.getListCss());
         options.put(PopupConstants.OPTIONS_LIST_CORD, clientId + "List");
 
+
         function.addParameter(clientId);
         function.addParameter(options);
 
         writer.write(function.toString());
-    }
-    
-    public String getValue(FacesContext facesContext, UIComponent component) throws IOException {
-        String value = getInputValue(facesContext, component);
-        if (value == null || "".equals(value)) {
-            value = ((AbstractSelect) component).getDefaultLabel();
-        }
-        return value;
     }
     
     protected String getScriptName() {

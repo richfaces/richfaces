@@ -129,6 +129,7 @@ public final class SelectHelper {
     public static String getSelectInputLabel(FacesContext facesContext, UIComponent component) {
         AbstractSelect select = (AbstractSelect) component;
         Object value = select.getSubmittedValue();
+        String label = null;
         if (value == null) {
             value = select.getValue();
             if (value != null) {
@@ -136,13 +137,13 @@ public final class SelectHelper {
                         facesContext, component);
                 for (SelectItem item : items) {
                     if (value.equals(item.getValue())) {
-                        value = item.getLabel();
+                        label = item.getLabel();
                     }
                 }
             }
         }
 
-        return (String) value;
+        return label;
     }
 
 }

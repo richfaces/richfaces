@@ -1,8 +1,27 @@
+//TODO:  to the utils? 
+(function (rf) {
+	rf.KEYS = {
+		BACKSPACE: 8,	
+		TAB: 9,
+		RETURN: 13,
+		ESC: 27,
+		PAGEUP: 33,
+		PAGEDOWN: 34,
+		LEFT: 37,
+		UP: 38,
+		RIGHT: 39,
+		DOWN: 40,
+		DEL: 46
+	};
+})(RichFaces);
+
+
 (function ($, rf) {
 	
 	rf.ui = rf.ui || {};
 		
         rf.ui.Select =  function(id, options) {
+        	$super.constructor.call(this, id);
         	this.id = id;
 
         	// TODO: move to defaultOptions ??
@@ -10,22 +29,16 @@
         	options['attachToBody'] = true;
         	
         	this.selValueInput = $(document.getElementById(options.selValueInput));
-        	
-        	this.input = $(document.getElementById(id+"Input"));
-        	this.input.bind("click", $.proxy(this.__clickHandler, this));
-        	this.input.bind("keydown", $.proxy(this.__keydownHandler, this));
-        	this.input.bind("blur", $.proxy(this.__blurHandler, this));
-        	
         	this.items = options.items;
         	
         	if(options.showControl) {
         		this.btn = $(document.getElementById(id+"Button"));
             	this.btn.bind("click", $.proxy(this.__clickHandler, this));
         	}
-        	this.popupList = new rf.ui.SelectList(options.list, this, options);
+        	this.popupList = new rf.ui.PopupList(options.list, this, options);
         };
         
-    	rf.BaseComponent.extend(rf.ui.Select);
+    	rf.ui.InputBase.extend(rf.ui.Select);
     	var $super = rf.ui.Select.$super;
         
     	$.extend(rf.ui.Select.prototype, ( function () {
@@ -75,10 +88,6 @@
     	   				}
     				}
     			}, 
-    			
-           		__setInputFocus: function() {
-           			this.input.focus();
-           		},
            		
     			__blurHandler: function(e) {
     				var target = $(e.originalEvent.explicitOriginalTarget);
@@ -119,11 +128,7 @@
     			
     			saveItemValue: function(value) {
     				this.selValueInput.val(value);
-    			}, 
-    			
-    	 		setValue: function(value){
-           			this.input.val(value);
-           		}
+    			}
     		}
     		
     	})());

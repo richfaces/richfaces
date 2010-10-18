@@ -40,16 +40,16 @@
 		<span id="#{clientId}" class="#{getStateStyleClass(component, inplaceState)}"
 			cdk:passThroughWithExclusions="id class">
 
-			<span id="#{clientId}:label" class="rf-is-lbl">
+			<span id="#{clientId}Label" class="rf-is-lbl">
 				#{inplaceValue}
 			</span>
 			
 			<c:if test="#{!isDisable(inplaceState)}">			
-				<input id="#{clientId}:focus" type="image" 	style="position: absolute; top: 0px; left: 0px; outline-style: none;" class="rf-is-none" />
+				<input id="#{clientId}Focus" type="image" 	style="position: absolute; top: 0px; left: 0px; outline-style: none;" class="rf-is-none" />
 				
-				<span id="#{clientId}:edit" class="#{getEditStyleClass(component, inplaceState)}">
+				<span id="#{clientId}Edit" class="#{getEditStyleClass(component, inplaceState)}">
 					<input id="#{clientId}selValue" name="#{clientId}" type="hidden" value="#{getValue(facesContext, component)}"/>
-					<input id="#{clientId}:input" autocomplete="off" 
+					<input id="#{clientId}Input" autocomplete="off" 
 						type="text" value="#{getSelectInputLabel(facesContext, component)}"
 						class="rf-is-fld" style="width: #{component.attributes['inputWidth']};" readonly="readonly"
 						cdk:passThrough="tabIndex">
@@ -58,18 +58,18 @@
 					<c:if test="#{component.attributes['showControls']}">
 						<span class="rf-is-btn-prepos">
 							<span class="rf-is-btn-pos">
-								<span id="#{clientId}:btnshadow" class="rf-is-shdw">
+								<span id="#{clientId}Btnshadow" class="rf-is-shdw">
 									<span class="rf-is-shdw-t"></span>
 									<span class="rf-is-shdw-l"></span>
 									<span class="rf-is-shdw-r"></span>
 									<span class="rf-is-shdw-b"></span>
 	
-									<span id="#{clientId}:btn" style="position : relative;">
-										<input type="image" id="#{clientId}:okbtn"
+									<span id="#{clientId}Btn" style="position : relative;">
+										<input type="image" id="#{clientId}Okbtn"
 											src="#{getResourcePath(facesContext, 'org.richfaces/ico_ok.gif')}"
 											class="rf-is-btn" onmousedown="this.className='rf-is-btn-press'"
 											onmouseout="this.className='rf-is-btn'" onmouseup="this.className='rf-is-btn'" />
-										<input type="image" id="#{clientId}:cancelbtn"
+										<input type="image" id="#{clientId}Cancelbtn"
 											src="#{getResourcePath(facesContext,'org.richfaces/ico_cancel.gif')}"
 											class="rf-is-btn" onmousedown="this.className='rf-is-btn-press'"
 											onmouseout="this.className='rf-is-btn'" onmouseup="this.className='rf-is-btn'" />

@@ -36,13 +36,10 @@ import java.util.Map;
  *         created 23.01.2007
  */
 public class InputRendererBase extends AjaxComponentRendererBase {
-    protected Class getComponentClass() {
-        return UIInput.class;
-    }
 
     protected void doDecode(FacesContext context, UIComponent component) {
         String clientId = component.getClientId(context);
-        Map requestParameterMap = context.getExternalContext().getRequestParameterMap();
+        Map<String, String> requestParameterMap = context.getExternalContext().getRequestParameterMap();
         String newValue = (String) requestParameterMap.get(clientId);
 
         if (null != newValue) {

@@ -48,19 +48,14 @@ import org.richfaces.component.AbstractInplaceSelect;
         @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(name = "richfaces-base-component.js"),
         @ResourceDependency(name = "richfaces-selection.js"),
+        @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "popup.js"),
         @ResourceDependency(library = "org.richfaces", name = "popupList.js"),
-        @ResourceDependency(library = "org.richfaces", name = "selectList.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceInput.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceSelect.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceSelect.ecss") })
 public class InplaceSelectRendererBase extends InplaceInputRendererBase {
-
-
-    public static final String OPTION_LIST_ITEMS = "items";
-
-    public static final String OPTIONS_SELECT_ITEM_VALUE_INPUT = "selValueInput";
     
     public static final String OPTIONS_VISIBLE = "visible";
 
@@ -97,13 +92,12 @@ public class InplaceSelectRendererBase extends InplaceInputRendererBase {
     public void addToOptions(FacesContext facesContext, UIComponent component, Map<String, Object> options, Object additional) {
         options.put(PopupConstants.OPTIONS_ITEM_CLASS, "rf-is-opt");
         options.put(PopupConstants.OPTIONS_SELECT_ITEM_CLASS, "rf-is-sel");
-        options.put(OPTION_LIST_ITEMS, additional);
         
         String clientId = component.getClientId(facesContext);
         options.put(PopupConstants.OPTIONS_LIST_CORD, clientId + "List");
         options.put(PopupConstants.OPTIONS_LIST_CLASS, component.getAttributes().get("listCss"));
-
-        options.put(OPTIONS_SELECT_ITEM_VALUE_INPUT, clientId + "selValue");
+        options.put(SelectHelper.OPTIONS_SELECT_ITEM_VALUE_INPUT, clientId + "selValue");
+        options.put(SelectHelper.OPTIONS_LIST_ITEMS, additional);
         options.put(OPTIONS_VISIBLE, component.getAttributes().get("openOnEdit"));
     }
 

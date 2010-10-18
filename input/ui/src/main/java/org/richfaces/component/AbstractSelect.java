@@ -111,7 +111,5 @@ public abstract class AbstractSelect extends UISelectOne {
     
     @Attribute(defaultValue = "rf-sel-lst-cord")
     public abstract String getListCss();
-    
-    
 
 }

@@ -7,18 +7,17 @@
 
     	options['attachTo'] = id;
     	options['attachToBody'] = true;
-    	this.popupList = new rf.ui.SelectList(options.list, this, options);
+    	this.popupList = new rf.ui.PopupList(options.list, this, options);
 
     	this.items = options.items;
     	this.selValueInput = $(document.getElementById(options.selValueInput));
 		this.openPopup = false; 
 
     }
-
-	rf.ui.InplaceInput.extend(rf.ui.InplaceSelect);
-	$.extend(rf.ui.InplaceSelect, rf.ui.SelectListener);
 	
+    rf.ui.InplaceInput.extend(rf.ui.InplaceSelect);
 	var $super = rf.ui.InplaceSelect.$super;
+	
 	$.extend(rf.ui.InplaceSelect.prototype, ( function () {
 		
 		return{
@@ -119,11 +118,7 @@
 				$super.__keydownHandler.call(this,e);
 
 			},
-			
-			__isButton: function(target) {
-				
-			},
-						
+		
 			__blurHandler: function(e) {
 				var target = $(e.originalEvent.explicitOriginalTarget);
 				if(!this.popupList.isPopupList(target)) {

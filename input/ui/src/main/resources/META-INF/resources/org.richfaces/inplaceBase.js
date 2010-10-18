@@ -44,10 +44,8 @@ $.extend(RichFaces.Event, {
       
 	rf.ui.InplaceBase =  function(id, options) {
     	$super.constructor.call(this, id);
-		this.attachToDom(id);
-    	this.namespace = this.getNamespace() || "." + rf.Event.createNamespace(this.getName(), this.id);
-		
-		this.editEvent = options.editEvent;
+
+    	this.editEvent = options.editEvent;
         this.noneCss = options.noneCss; 
         this.changedCss = options.changedCss;
         this.defaultLabel = options.defaultLabel;
@@ -64,7 +62,7 @@ $.extend(RichFaces.Event, {
 
 	};
     
-	rf.BaseComponent.extend(rf.ui.InplaceBase);
+	rf.ui.InputBase.extend(rf.ui.InplaceBase);
 	var $super = rf.ui.InplaceBase.$super;
 	
 	$.extend(rf.ui.InplaceBase.prototype, ( function () {
@@ -77,17 +75,6 @@ $.extend(RichFaces.Event, {
 		};
 		
 		return {
-			getName: function() {
-			}, 
-			
-			getNamespace: function() {
-			},
-			
-       		getValue: function() {
-       		},
-       		
-       		setValue: function(value){
-       		}, 
        		
        		getLabel: function() {
        		},
@@ -99,9 +86,6 @@ $.extend(RichFaces.Event, {
 			}, 
 			
 			onhide: function() {
-			},
-			
-			getNamespace: function() {
 			},
 			
 			isValueSaved: function() {

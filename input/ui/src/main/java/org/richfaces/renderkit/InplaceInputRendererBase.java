@@ -49,6 +49,7 @@ import org.richfaces.component.util.HtmlUtil;
         @ResourceDependency(name = "richfaces.js"),
         @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(name = "richfaces-base-component.js"),
+        @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceInput.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceInput.ecss") })
@@ -188,28 +189,7 @@ public class InplaceInputRendererBase extends InputRendererBase {
             InplaceState inplaceState) {
         return (InplaceState.edit != inplaceState) ? HtmlUtil.concatClasses(getEditCss(), getNoneCss()) : getEditCss();
     }
-
-    public String getReadyClientId(FacesContext facesContext,
-            UIComponent component, InplaceState inplaceState) {
-        String clientId = component.getClientId(facesContext);
-        return getId(clientId, InplaceState.ready, inplaceState);
-    }
-
-    public String getChangedClientId(FacesContext facesContext,
-            UIComponent component, InplaceState inplaceState) {
-        String clientId = component.getClientId(facesContext);
-        return getId(clientId, InplaceState.changed, inplaceState);
-    }
-
-    private String getId(String clientId, InplaceState expect,
-            InplaceState current) {
-        String result = clientId;
-        if (expect != current) {
-            result = clientId + ":" + expect;
-        }
-        return result;
-    }
-
+    
     public void buildScript(ResponseWriter writer, FacesContext facesContext,
             UIComponent component, Object additional) throws IOException {
         if (!(component instanceof InplaceComponent)) {
@@ -239,10 +219,10 @@ public class InplaceInputRendererBase extends InputRendererBase {
         options.put(OPTIONS_NONE_CSS, getNoneCss());
         options.put(OPTIONS_CHANGED_CSS, getChangedStateCss());
         options.put(OPTIONS_EDIT_CSS, getEditStateCss());
-        options.put(OPTIONS_EDIT_CONTAINER, clientId + ":edit");
-        options.put(OPTIONS_INPUT, clientId + ":input");
-        options.put(OPTIONS_LABEL, clientId + ":label");
-        options.put(OPTIONS_FOCUS, clientId + ":focus");
+        options.put(OPTIONS_EDIT_CONTAINER, clientId + "Edit");
+        options.put(OPTIONS_INPUT, clientId + "Input");
+        options.put(OPTIONS_LABEL, clientId + "Label");
+        options.put(OPTIONS_FOCUS, clientId + "Focus");
         options.put(OPTIONS_DEFAULT_LABEL, inplaceComponent.getDefaultLabel());
         options.put(OPTIONS_SAVE_ON_BLUR, inplaceComponent.isSaveOnBlur());
 
@@ -250,8 +230,8 @@ public class InplaceInputRendererBase extends InputRendererBase {
 
         options.put(OPTIONS_SHOWCONTROLS, showControls);
         if (showControls) {
-            options.put(OPTIONS_BUTTON_OK, clientId + ":okbtn");
-            options.put(OPTIONS_BUTTON_CANCEL, clientId + ":cancelbtn");
+            options.put(OPTIONS_BUTTON_OK, clientId + "Okbtn");
+            options.put(OPTIONS_BUTTON_CANCEL, clientId + "Cancelbtn");
         }
         return options;
     }

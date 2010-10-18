@@ -5,21 +5,19 @@
         rf.ui.InplaceInput =  function(id, options) {
         	$super.constructor.call(this, id, options);
 
-        	this.input = $(document.getElementById(options.input));
+        	//rename input id in template (id + "Input") 
+
             this.label = $(document.getElementById(options.label));
 
             var label = this.label.text();
-            var inputLabel = this.input.val();
+            var inputLabel = this.getValue();
             this.initialValue = (label == inputLabel) ? label : "";
             this.saveOnBlur = options.saveOnBlur;
             this.showControls = options.showControls;
 
-        	this.input.bind("focus", $.proxy(this.__editHandler, this));
-           	this.input.bind("change", $.proxy(this.__changeHandler, this));
-           	this.input.bind("blur", $.proxy(this.__blurHandler, this));
-           	this.input.bind("keydown", $.proxy(this.__keydownHandler, this));
-           	
-            if(this.showControls) {
+        	this.getInput().bind("focus", $.proxy(this.__editHandler, this));
+
+        	if(this.showControls) {
             	this.okbtn = $(document.getElementById(options.okbtn));
             	this.cancelbtn = $(document.getElementById(options.cancelbtn));
             	this.okbtn.bind("mousedown", $.proxy(this.__saveBtnHandler, this));
@@ -88,9 +86,9 @@
            		},
            		
            		__setInputFocus: function() {
-           			this.input.unbind("focus", this.__editHandler);
-           			this.input.focus();
-           			this.input.bind("focus", $.proxy(this.__editHandler, this));
+           			this.getInput().unbind("focus", this.__editHandler);
+           			this.getInput().focus();
+           			this.getInput().bind("focus", $.proxy(this.__editHandler, this));
            		},
            		
            		__saveBtnHandler: function(e) {
@@ -102,15 +100,7 @@
            			this.cancel();
            			return false;
            		},
-
-           		getValue: function() {
-    				return this.input.val();
-           		},
-           		
-           		setValue: function(value){
-           			this.input.val(value);
-           		}, 
-           		
+          		
            		getLabel: function() {
            			return this.label.text();
            		}, 

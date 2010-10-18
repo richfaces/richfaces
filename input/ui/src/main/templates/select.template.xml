@@ -21,10 +21,10 @@
         
         <div id="#{clientId}" class="rf-sel-fld">
             <div style="position : relative; overflow : hidden; text-align : left; padding-right : 21px;">
-            	<input id="#{clientId}selValue" name="#{clientId}" type="hidden" value="#{getValue(facesContext, component)}"/>
+            	<input id="#{clientId}selValue" name="#{clientId}" type="hidden" value="#{getInputValue(facesContext, component)}"/>
             	<input cdk:passThroughWithExclusions="class autocomplete id value disabled name type readonly" 
 					id="#{clientId}Input" 
-					value="#{getSelectInputLabel(facesContext, component)}"  
+					value="#{getSelectLabel(facesContext, component)}"  
 					disabled="#{disabled}" 
 					type="text" 
 					class="rf-sel-fnt rf-sel-inp" 
