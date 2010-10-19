@@ -66,7 +66,7 @@ public abstract class AbstractSelect extends UISelectOne {
     @Attribute(events=@EventName("click"))
     public abstract String getOnclick();
     
-    @Attribute(events=@EventName("ondblclick"))
+    @Attribute(events=@EventName("dblclick"))
     public abstract String getOndblclick();
    
     @Attribute(events=@EventName("focus"))
@@ -96,11 +96,42 @@ public abstract class AbstractSelect extends UISelectOne {
     @Attribute(events=@EventName("mouseup"))
     public abstract String getOnmouseup();
     
+    @Attribute(events=@EventName("listclick"))
+    public abstract String getOnlistclick();
+
+    @Attribute(events=@EventName("listdblclick"))
+    public abstract String getOnlistdblclick();
+    
+    @Attribute(events=@EventName("listmousedown"))
+    public abstract String getOnlistmousedown();
+    
+    @Attribute(events=@EventName("listmouseup"))
+    public abstract String getOnlistmouseup();
+    
+    @Attribute(events=@EventName("listmouseover"))
+    public abstract String getOnlistmouseover();
+    
+    @Attribute(events=@EventName("listmousemove"))
+    public abstract String getOnlistmousemove();
+    
+    @Attribute(events=@EventName("listmouseout"))
+    public abstract String getOnlistmouseout();
+    
+    @Attribute(events=@EventName("listkeypress"))
+    public abstract String getOnlistkeypress();
+
+    @Attribute(events=@EventName("listkeydown"))
+    public abstract String getOnlistkeydown();
+
+    @Attribute(events=@EventName("listkeyup"))
+    public abstract String getOnlistkeyup();
+    
     @Attribute(events=@EventName("select"))
     public abstract String getOnselect();
     
     @Attribute(events=@EventName("change"))
     public abstract String getOnchange();
+    //TODO: add list event attributes
     
     @Attribute(defaultValue = "rf-sel-opt")
     public abstract String getItemCss();

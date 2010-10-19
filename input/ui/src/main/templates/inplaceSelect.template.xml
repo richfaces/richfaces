@@ -37,8 +37,7 @@
 		<cdk:object type="java.util.List" type-arguments="InplaceSelectBaseRenderer.ClientSelectItem" name="clientSelectItems"
 			value="#{getConvertedSelectItems(facesContext, component)}" />
 		
-		<span id="#{clientId}" class="#{getStateStyleClass(component, inplaceState)}"
-			cdk:passThroughWithExclusions="id class">
+		<span id="#{clientId}" class="#{getStateStyleClass(component, inplaceState)}" cdk:passThroughWithExclusions="id class">
 
 			<span id="#{clientId}Label" class="rf-is-lbl">
 				#{inplaceValue}
@@ -80,6 +79,7 @@
 						</span>
 					</c:if>
 					<span id="#{clientId}List" style="#{getListStyles(facesContext, component)}" class="rf-is-lst-cord">
+						<cdk:call expression="renderListHandlers(facesContext, component);"/>
 						<span class="rf-is-lst-pos" style="width: #{component.attributes['listWidth']}">
 							<span class="rf-is-shdw">
 								<span class="rf-is-shdw-t"></span>

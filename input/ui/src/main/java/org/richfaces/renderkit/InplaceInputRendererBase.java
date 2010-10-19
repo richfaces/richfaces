@@ -85,7 +85,7 @@ public class InplaceInputRendererBase extends InputRendererBase {
 
     public static final String OPTIONS_SAVE_ON_BLUR = "saveOnBlur";
 
-    private static final Map<String, ComponentAttribute> INPLACEINPUT_HANDLER_ATTRIBUTES = Collections
+    protected static final Map<String, ComponentAttribute> INPLACEINPUT_HANDLER_ATTRIBUTES = Collections
             .unmodifiableMap(ComponentAttribute.createMap(
                     new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE)
                             .setEventNames("inputclick")
@@ -124,13 +124,13 @@ public class InplaceInputRendererBase extends InputRendererBase {
                             .setEventNames("inputfocus")
                             .setComponentAttributeName("oninputfocus"),
                     new ComponentAttribute(HtmlConstants.ONCHANGE_ATTRIBUTE)
-                            .setEventNames("change").setComponentAttributeName(
-                                    "onchange"),
+                            .setEventNames("inputchange").setComponentAttributeName(
+                                    "oninputchange"),
                     new ComponentAttribute(HtmlConstants.ONSELECT_ATTRIBUTE)
-                            .setEventNames("select").setComponentAttributeName(
-                                    "onselect")));
+                            .setEventNames("inputselect").setComponentAttributeName(
+                                    "oninputselect")));
 
-    protected void renderInputHandlers(FacesContext facesContext,
+    public void renderInputHandlers(FacesContext facesContext,
             UIComponent component) throws IOException {
         RenderKitUtils.renderPassThroughAttributesOptimized(facesContext,
                 component, INPLACEINPUT_HANDLER_ATTRIBUTES);

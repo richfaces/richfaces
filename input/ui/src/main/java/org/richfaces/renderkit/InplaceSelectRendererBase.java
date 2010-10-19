@@ -23,7 +23,6 @@
 package org.richfaces.renderkit;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -59,13 +58,6 @@ public class InplaceSelectRendererBase extends InplaceInputRendererBase {
     
     public static final String OPTIONS_VISIBLE = "visible";
 
-    private static final Map<String, ComponentAttribute> INPLACESELECT_HANDLER_ATTRIBUTES = Collections.unmodifiableMap(ComponentAttribute.createMap(
-            new ComponentAttribute(HtmlConstants.ONCHANGE_ATTRIBUTE).setEventNames("change").
-                setComponentAttributeName("onchange"),
-            new ComponentAttribute(HtmlConstants.ONSELECT_ATTRIBUTE).setEventNames("select").
-                setComponentAttributeName("onselect")
-    ));
-
     @Override
     protected String getScriptName() {
         return "new RichFaces.ui.InplaceSelect";
@@ -79,9 +71,13 @@ public class InplaceSelectRendererBase extends InplaceInputRendererBase {
         SelectHelper.encodeItems(facesContext, component, clientSelectItems, HtmlConstants.SPAN_ELEM);
     }
     
+    public void renderListHandlers(FacesContext facesContext, UIComponent component) throws IOException {
+        RenderKitUtils.renderPassThroughAttributesOptimized(facesContext, component, SelectHelper.SELECT_LIST_HANDLER_ATTRIBUTES);
+    }
+    
     @Override
-    protected void renderInputHandlers(FacesContext facesContext, UIComponent component) throws IOException {
-        RenderKitUtils.renderPassThroughAttributesOptimized(facesContext, component, INPLACESELECT_HANDLER_ATTRIBUTES);
+    public void renderInputHandlers(FacesContext facesContext, UIComponent component) throws IOException {
+        RenderKitUtils.renderPassThroughAttributesOptimized(facesContext, component, INPLACEINPUT_HANDLER_ATTRIBUTES);
     }
     
     public String getSelectInputLabel(FacesContext facesContext, UIComponent component) {

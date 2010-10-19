@@ -49,6 +49,7 @@ public final class SelectHelper {
 
     public static final String OPTIONS_LIST_ITEMS = "items";
 
+    
     public static final Map<String, ComponentAttribute> SELECT_LIST_HANDLER_ATTRIBUTES = Collections
     .unmodifiableMap(ComponentAttribute.createMap(
             new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE)

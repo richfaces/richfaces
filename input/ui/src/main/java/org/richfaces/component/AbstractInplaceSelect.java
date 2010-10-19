@@ -23,6 +23,7 @@
 package org.richfaces.component;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -45,7 +46,7 @@ public abstract class AbstractInplaceSelect extends AbstractSelect implements In
     public static final String COMPONENT_TYPE = "org.richfaces.InplaceSelect";
     
     public static final String COMPONENT_FAMILY = "org.richfaces.Select";
-
+    
     @Attribute(defaultValue="InplaceState.ready")
     public abstract InplaceState getState();
     
@@ -73,4 +74,40 @@ public abstract class AbstractInplaceSelect extends AbstractSelect implements In
     @Attribute(defaultValue="rf-is-lst-cord")
     public abstract String getListCss();
     
+    @Attribute(events=@EventName("inputclick"))
+    public abstract String getOninputclick();
+    
+    @Attribute(events=@EventName("inputdblclick"))
+    public abstract String getOninputdblclick();
+    
+    @Attribute(events=@EventName("inputmousedown"))
+    public abstract String getOninputmousedown();
+    
+    @Attribute(events=@EventName("inputmousemove"))
+    public abstract String getOninputmousemove();
+    
+    @Attribute(events=@EventName("inputmouseout"))
+    public abstract String getOninputmouseout();
+    
+    @Attribute(events=@EventName("inputmouseover"))
+    public abstract String getOninputmouseover();
+    
+    @Attribute(events=@EventName("inputmouseup"))
+    public abstract String getOninputmouseup();
+    
+    @Attribute(events=@EventName("inputkeydown"))
+    public abstract String getOninputkeydown();
+    
+    @Attribute(events=@EventName("inputkeypress"))
+    public abstract String getOninputkeypress();
+    
+    @Attribute(events=@EventName("inputkeyup"))
+    public abstract String getOninputkeypup();
+    
+    @Attribute(events=@EventName("inputfocus"))
+    public abstract String getOninputfocus();
+  
+    @Attribute(events=@EventName("inputblur"))
+    public abstract String getOninputblur();
+  
 }

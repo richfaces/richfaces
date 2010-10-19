@@ -130,7 +130,7 @@ public abstract class AbstractInplaceInput extends UIInput implements InplaceCom
     @Attribute(events=@EventName("inputkeypress"))
     public abstract String getOninputkeypress();
     
-    @Attribute(events=@EventName("oninputkeyup"))
+    @Attribute(events=@EventName("inputkeyup"))
     public abstract String getOninputkeypup();
     
     @Attribute(events=@EventName("inputfocus"))
@@ -139,11 +139,11 @@ public abstract class AbstractInplaceInput extends UIInput implements InplaceCom
     @Attribute(events=@EventName("inputblur"))
     public abstract String getOninputblur();
     
-    @Attribute(events=@EventName("select"))
-    public abstract String getOnselect();
+    @Attribute(events=@EventName("inputselect"))
+    public abstract String getOninputselect();
     
-    @Attribute(events=@EventName("change"))
-    public abstract String getOnchange();
+    @Attribute(events=@EventName("inputchange"))
+    public abstract String getOninputchange();
     
     //TODO: what is default event?, add onViewActivated, onEditActivated events support
 }
