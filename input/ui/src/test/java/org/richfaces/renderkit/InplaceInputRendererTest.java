@@ -67,7 +67,7 @@ public class InplaceInputRendererTest {
         DomNode text = label.getFirstChild();
         assertEquals(DomNode.TEXT_NODE, text.getNodeType());
         
-        HtmlElement edit = page.getFirstByXPath("//*[@id = 'form:input_default:edit']");
+        HtmlElement edit = page.getFirstByXPath("//*[@id = 'form:input_defaultEdit']");
         assertEquals("span", edit.getNodeName());
         assertEquals("rf-ii-edit rf-ii-none", edit.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         
@@ -76,7 +76,7 @@ public class InplaceInputRendererTest {
         assertEquals("rf-ii-fld", input.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         assertEquals(text.getNodeValue(), input.getAttribute(HtmlConstants.VALUE_ATTRIBUTE));
         
-        List<?> buttons = page.getByXPath("//*[@id = 'form:input_default:btn']");
+        List<?> buttons = page.getByXPath("//*[@id = 'form:input_defaultBtn']");
         assertEquals(true, buttons.isEmpty());
     }
     
@@ -95,7 +95,7 @@ public class InplaceInputRendererTest {
         DomNode text = label.getFirstChild();
         assertEquals(DomNode.TEXT_NODE, text.getNodeType());
         
-        HtmlElement edit = page.getFirstByXPath("//*[@id = 'form:input_edit:edit']");
+        HtmlElement edit = page.getFirstByXPath("//*[@id = 'form:input_editEdit']");
         assertEquals("span", edit.getNodeName());
         assertEquals("rf-ii-edit", edit.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         
@@ -104,15 +104,15 @@ public class InplaceInputRendererTest {
         assertEquals("rf-ii-fld", input.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         assertEquals(text.getNodeValue(), input.getAttribute(HtmlConstants.VALUE_ATTRIBUTE));
 
-        HtmlElement button = page.getFirstByXPath("//*[@id = 'form:input_edit:btn']");
+        HtmlElement button = page.getFirstByXPath("//*[@id = 'form:input_editBtn']");
         assertEquals("span", button.getNodeName());
         
-        HtmlElement okButton = page.getFirstByXPath("//*[@id = 'form:input_edit:okbtn']");
+        HtmlElement okButton = page.getFirstByXPath("//*[@id = 'form:input_editOkbtn']");
         assertEquals("input", okButton.getNodeName());
         assertEquals("rf-ii-btn", okButton.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         assertEquals("image", okButton.getAttribute(HtmlConstants.TYPE_ATTR));
 
-        HtmlElement cancelButton = page.getFirstByXPath("//*[@id = 'form:input_edit:cancelbtn']");
+        HtmlElement cancelButton = page.getFirstByXPath("//*[@id = 'form:input_editCancelbtn']");
         assertEquals("input", cancelButton.getNodeName());
         assertEquals("rf-ii-btn", cancelButton.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         assertEquals("image", cancelButton.getAttribute(HtmlConstants.TYPE_ATTR));
@@ -124,7 +124,7 @@ public class InplaceInputRendererTest {
         HtmlPage page = environment.getPage("/test.jsf");
         edit(page, "input_default", "Another Test String");  
         blur(page);
-        DomText text = page.getFirstByXPath("//*[@id = 'form:input_default:label']/text()");
+        DomText text = page.getFirstByXPath("//*[@id = 'form:input_defaultLabel']/text()");
         assertEquals("Another Test String", text.getTextContent());
         HtmlElement span = page.getFirstByXPath("//*[@id = 'form:input_default']");
         assertEquals("rf-ii-d-s rf-ii-c-s", span.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
@@ -136,7 +136,7 @@ public class InplaceInputRendererTest {
     }
     
     private void typeNewValue(HtmlPage page, String inplaceInputId, String value) throws Exception {
-        HtmlElement input = page.getFirstByXPath("//*[@id = 'form:" + inplaceInputId + ":input']");
+        HtmlElement input = page.getFirstByXPath("//*[@id = 'form:" + inplaceInputId + "Input']");
         input.setAttribute(HtmlConstants.VALUE_ATTRIBUTE, "");
         input.type(value);
     }
@@ -144,7 +144,7 @@ public class InplaceInputRendererTest {
     private void edit(HtmlPage page, String inplaceInputId, String value) throws Exception {
         HtmlElement span = page.getFirstByXPath("//*[@id = 'form:" + inplaceInputId + "']");
         span.click();
-        HtmlElement edit = page.getFirstByXPath("//*[@id = 'form:" + inplaceInputId + ":edit']");
+        HtmlElement edit = page.getFirstByXPath("//*[@id = 'form:" + inplaceInputId + "Edit']");
         assertEquals("rf-ii-edit", edit.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         typeNewValue(page, inplaceInputId, value);
     }
@@ -154,10 +154,10 @@ public class InplaceInputRendererTest {
         HtmlPage page = environment.getPage("/test.jsf");
         edit(page, "input_controls", "Another Test String");
 
-        HtmlElement cancel = page.getFirstByXPath("//*[@id = 'form:input_controls:cancelbtn']");
+        HtmlElement cancel = page.getFirstByXPath("//*[@id = 'form:input_controlsCancelbtn']");
         cancel.mouseDown();
         
-        DomText text = page.getFirstByXPath("//*[@id = 'form:input_controls:label']/text()");
+        DomText text = page.getFirstByXPath("//*[@id = 'form:input_controlsLabel']/text()");
         assertEquals("Test String", text.getTextContent());
                 
         HtmlElement span = page.getFirstByXPath("//*[@id = 'form:input_controls']");
@@ -165,10 +165,10 @@ public class InplaceInputRendererTest {
         
         edit(page, "input_controls",  "Another Test String");
                 
-        HtmlElement ok = page.getFirstByXPath("//*[@id = 'form:input_controls:okbtn']");
+        HtmlElement ok = page.getFirstByXPath("//*[@id = 'form:input_controlsOkbtn']");
         ok.mouseDown();
         
-        text = page.getFirstByXPath("//*[@id = 'form:input_controls:label']/text()");
+        text = page.getFirstByXPath("//*[@id = 'form:input_controlsLabel']/text()");
         assertEquals("Another Test String", text.getTextContent());
         
         span = page.getFirstByXPath("//*[@id = 'form:input_controls']");
@@ -178,7 +178,7 @@ public class InplaceInputRendererTest {
         
         blur(page);
         
-        text = page.getFirstByXPath("//*[@id = 'form:input_controls:label']/text()");
+        text = page.getFirstByXPath("//*[@id = 'form:input_controlsLabel']/text()");
         assertEquals("Test String", text.getTextContent());
     }
 
