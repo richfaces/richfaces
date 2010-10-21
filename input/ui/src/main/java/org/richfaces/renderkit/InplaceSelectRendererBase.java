@@ -32,6 +32,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.component.AbstractInplaceSelect;
+import org.richfaces.component.AbstractSelect;
+import org.richfaces.component.InplaceComponent;
+import org.richfaces.component.util.HtmlUtil;
 
 /**
  * @author Anton Belevich
@@ -41,7 +44,6 @@ import org.richfaces.component.AbstractInplaceSelect;
 @ResourceDependencies({
         @ResourceDependency(library = "javax.faces", name = "jsf.js"),
         @ResourceDependency(name = "jquery.js"),
-        @ResourceDependency(name = "jquery.position.js"),
         @ResourceDependency(name = "richfaces.js"),
         @ResourceDependency(name = "jquery.position.js"),
         @ResourceDependency(name = "richfaces-event.js"),
@@ -57,6 +59,13 @@ import org.richfaces.component.AbstractInplaceSelect;
 public class InplaceSelectRendererBase extends InplaceInputRendererBase {
     
     public static final String OPTIONS_VISIBLE = "visible";
+    
+    public static final String ITEM_CSS = "rf-is-opt"; 
+    
+    public static final String SELECT_ITEM_CSS = "rf-is-sel";    
+
+    public static final String LIST_CSS = "rf-is-lst-cord";
+
 
     @Override
     protected String getScriptName() {
@@ -68,7 +77,7 @@ public class InplaceSelectRendererBase extends InplaceInputRendererBase {
     }
     
     public void encodeItems(FacesContext facesContext, UIComponent component, List<ClientSelectItem> clientSelectItems) throws IOException {
-        SelectHelper.encodeItems(facesContext, component, clientSelectItems, HtmlConstants.SPAN_ELEM);
+        SelectHelper.encodeItems(facesContext, component, clientSelectItems, HtmlConstants.SPAN_ELEM, ITEM_CSS);
     }
     
     public void renderListHandlers(FacesContext facesContext, UIComponent component) throws IOException {
@@ -77,7 +86,7 @@ public class InplaceSelectRendererBase extends InplaceInputRendererBase {
     
     @Override
     public void renderInputHandlers(FacesContext facesContext, UIComponent component) throws IOException {
-        RenderKitUtils.renderPassThroughAttributesOptimized(facesContext, component, INPLACEINPUT_HANDLER_ATTRIBUTES);
+        RenderKitUtils.renderPassThroughAttributesOptimized(facesContext, component, INPLACE_INPUT_HANDLER_ATTRIBUTES);
     }
     
     public String getSelectInputLabel(FacesContext facesContext, UIComponent component) {
@@ -86,15 +95,13 @@ public class InplaceSelectRendererBase extends InplaceInputRendererBase {
     
     @Override
     public void addToOptions(FacesContext facesContext, UIComponent component, Map<String, Object> options, Object additional) {
-        options.put(PopupConstants.OPTIONS_ITEM_CLASS, "rf-is-opt");
-        options.put(PopupConstants.OPTIONS_SELECT_ITEM_CLASS, "rf-is-sel");
-        
-        String clientId = component.getClientId(facesContext);
-        options.put(PopupConstants.OPTIONS_LIST_CORD, clientId + "List");
-        options.put(PopupConstants.OPTIONS_LIST_CLASS, component.getAttributes().get("listCss"));
-        options.put(SelectHelper.OPTIONS_SELECT_ITEM_VALUE_INPUT, clientId + "selValue");
+        AbstractSelect abstractSelect = (AbstractSelect)component;
+        SelectHelper.addSelectCssToOptions(abstractSelect, options, new String[] {ITEM_CSS, SELECT_ITEM_CSS, LIST_CSS});
+        boolean openOnEdit = (Boolean)component.getAttributes().get("openOnEdit");
+        if(openOnEdit) {
+            options.put(OPTIONS_VISIBLE, openOnEdit);
+        }    
         options.put(SelectHelper.OPTIONS_LIST_ITEMS, additional);
-        options.put(OPTIONS_VISIBLE, component.getAttributes().get("openOnEdit"));
     }
 
     public String getSelectLabel(FacesContext facesContext, UIComponent component) {
@@ -106,32 +113,33 @@ public class InplaceSelectRendererBase extends InplaceInputRendererBase {
         return label;
     }
     
-    public String getListStyles(FacesContext facesContext, UIComponent component) {
-        AbstractInplaceSelect inplaceSelect = (AbstractInplaceSelect) component;
-        return inplaceSelect.isOpenOnEdit() ? "" : "display: none"; 
+    public String getReadyStateCss(InplaceComponent component) {
+        String css = component.getReadyStateCss();
+        return HtmlUtil.concatClasses("rf-is-d-s", css);
     }
 
-    public String getReadyStateCss() {
-        return "rf-is-d-s";
+    public String getEditStateCss(InplaceComponent component) {
+        String css = component.getEditStateCss();
+        return HtmlUtil.concatClasses("rf-is-e-s", css);
     }
 
-    public String getEditStateCss() {
-        return "rf-is-e-s";
+    public String getChangedStateCss(InplaceComponent component) {
+        String css = component.getChangedStateCss();
+        return HtmlUtil.concatClasses("rf-is-c-s", css);
     }
 
-    public String getChangedStateCss() {
-        return "rf-is-c-s";
-    }
-
-    public String getDisableStateCss() {
-    	return "rf-is-dis-s";
+    public String getDisableStateCss(InplaceComponent component) {
+        String css = component.getDisableStateCss();
+        return HtmlUtil.concatClasses("rf-is-dis-s", css);
     }
     
-    public String getEditCss() {
-    	return "rf-is-edit";
+    public String getEditCss(InplaceComponent component) {
+        String css = component.getEditCss();
+        return HtmlUtil.concatClasses("rf-is-edit", css);
     }
 
-    public String getNoneCss() {
-        return "rf-is-none";
+    public String getNoneCss(InplaceComponent component) {
+        String css = component.getNoneCss();
+        return HtmlUtil.concatClasses("rf-is-none", css);
     }
 }

@@ -36,6 +36,10 @@ import javax.faces.context.ResponseWriter;
 import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.component.AbstractSelect;
 
+/**
+ * @author abelevich
+ *
+ */
 @ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
         @ResourceDependency(name = "jquery.js"), @ResourceDependency(name = "jquery.position.js"),
         @ResourceDependency(name = "richfaces.js"), @ResourceDependency(name = "jquery.position.js"),
@@ -44,10 +48,18 @@ import org.richfaces.component.AbstractSelect;
         @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "popup.js"),
         @ResourceDependency(library = "org.richfaces", name = "popupList.js"),
+        @ResourceDependency(library = "org.richfaces", name = "selectList.js"),
         @ResourceDependency(library = "org.richfaces", name = "select.js"),
         @ResourceDependency(library = "org.richfaces", name = "select.ecss") })
 public class SelectRendererBase extends InputRendererBase {
+    
+    public static final String ITEM_CSS = "rf-sel-opt"; 
+    
+    public static final String SELECT_ITEM_CSS = "rf-sel-sel";    
 
+    public static final String LIST_CSS = "rf-sel-lst-cord";
+    
+    
     public void renderListHandlers(FacesContext facesContext, UIComponent component) throws IOException {
         RenderKitUtils.renderPassThroughAttributesOptimized(facesContext, component, SelectHelper.SELECT_LIST_HANDLER_ATTRIBUTES);
     }
@@ -71,7 +83,7 @@ public class SelectRendererBase extends InputRendererBase {
 
     public void encodeItems(FacesContext facesContext, UIComponent component, List<ClientSelectItem> clientSelectItems)
         throws IOException {
-        SelectHelper.encodeItems(facesContext, component, clientSelectItems, HtmlConstants.DIV_ELEM);
+        SelectHelper.encodeItems(facesContext, component, clientSelectItems, HtmlConstants.DIV_ELEM, ITEM_CSS);
     }
 
     public void buildScript(ResponseWriter writer, FacesContext facesContext, UIComponent component, List<ClientSelectItem> selectItems) throws IOException {
@@ -85,14 +97,26 @@ public class SelectRendererBase extends InputRendererBase {
 
         String clientId = abstractSelect.getClientId(facesContext);
         Map<String, Object> options = new HashMap<String, Object>();
-        options.put(SelectHelper.OPTIONS_SHOWCONTROL, abstractSelect.isShowButton());
         options.put(SelectHelper.OPTIONS_LIST_ITEMS, selectItems);
-        options.put(SelectHelper.OPTIONS_SELECT_ITEM_VALUE_INPUT, clientId + "selValue");
-        options.put(PopupConstants.OPTIONS_ITEM_CLASS, abstractSelect.getItemCss());
-        options.put(PopupConstants.OPTIONS_SELECT_ITEM_CLASS, abstractSelect.getSelectItemCss());
-        options.put(PopupConstants.OPTIONS_LIST_CLASS, abstractSelect.getListCss());
-        options.put(PopupConstants.OPTIONS_LIST_CORD, clientId + "List");
-
+            
+        if(!abstractSelect.isShowButton()) {
+            options.put(SelectHelper.OPTIONS_SHOWCONTROL, abstractSelect.isShowButton());
+        }    
+        
+        String defaultLabel = abstractSelect.getDefaultLabel(); 
+        if( defaultLabel != null && defaultLabel.trim().length() > 0) {
+            options.put(SelectHelper.OPTIONS_INPUT_DEFAULT_LABEL, defaultLabel);
+        }
+        
+        if(abstractSelect.isEnableManualInput()) {
+            options.put(SelectHelper.OPTIONS_ENABLE_MANUAL_INPUT, abstractSelect.isEnableManualInput());
+        }    
+        
+        if(!abstractSelect.isSelectFirst()) {
+            options.put(SelectHelper.OPTIONS_LIST_SELECT_FIRST, abstractSelect.isSelectFirst());
+        }
+        
+        SelectHelper.addSelectCssToOptions(abstractSelect, options, new String[] {ITEM_CSS, SELECT_ITEM_CSS, LIST_CSS});
 
         function.addParameter(clientId);
         function.addParameter(options);

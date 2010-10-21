@@ -29,7 +29,7 @@
 					type="text" 
 					class="rf-sel-fnt rf-sel-inp" 
 					autocomplete="off"
-					readonly="readonly"/>
+					readonly="#{component.attributes['enableManualInput'] ? '' : 'readonly'}"/>
                 
                 <c:if test="#{component.attributes['showButton']}">
 	                <c:if test="#{component.attributes['disabled']}">
@@ -54,7 +54,7 @@
                     <div class="rf-sel-shdw-b"></div>
 
                     <div class="rf-sel-lst-dcrtn">
-                        <div class="rf-sel-lst-scrl">
+                        <div class="rf-sel-lst-scrl" id="#{clientId}Items" >
 							<cdk:call expression="encodeItems(facesContext, component, clientSelectItems);"/>
 						</div>
                     </div>

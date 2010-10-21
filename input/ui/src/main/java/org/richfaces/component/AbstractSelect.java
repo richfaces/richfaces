@@ -30,7 +30,6 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
-
 /**
  * @author abelevich
  *
@@ -57,9 +56,24 @@ public abstract class AbstractSelect extends UISelectOne {
     @Attribute(defaultValue="true")
     public abstract boolean isShowButton();
     
+    @Attribute(defaultValue="false")
+    public abstract boolean isEnableManualInput();
+    
+    @Attribute(defaultValue="true")
+    public abstract boolean isSelectFirst();
+    
     @Attribute
     public abstract String getDefaultLabel();
     
+    @Attribute
+    public abstract String getItemCss();
+    
+    @Attribute
+    public abstract String getSelectItemCss();
+    
+    @Attribute
+    public abstract String getListCss();
+
     @Attribute(events=@EventName("blur"))
     public abstract String getOnblur();
 
@@ -131,16 +145,5 @@ public abstract class AbstractSelect extends UISelectOne {
     
     @Attribute(events=@EventName("change"))
     public abstract String getOnchange();
-    //TODO: add list event attributes
-    
-    @Attribute(defaultValue = "rf-sel-opt")
-    public abstract String getItemCss();
-    
-    //TODO: rename css class "rf-sel-opt-sel"
-    @Attribute(defaultValue = "rf-sel-sel")
-    public abstract String getSelectItemCss();
-    
-    @Attribute(defaultValue = "rf-sel-lst-cord")
-    public abstract String getListCss();
-
+   
 }

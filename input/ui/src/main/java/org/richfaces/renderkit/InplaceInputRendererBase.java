@@ -84,8 +84,12 @@ public class InplaceInputRendererBase extends InputRendererBase {
     public static final String OPTIONS_INITIAL_VALUE = "initialValue";
 
     public static final String OPTIONS_SAVE_ON_BLUR = "saveOnBlur";
-
-    protected static final Map<String, ComponentAttribute> INPLACEINPUT_HANDLER_ATTRIBUTES = Collections
+    
+    
+    
+        
+    //TODO: anton - move to RenderUtils (we use the same in the calendar base renderer) ? 
+    protected static final Map<String, ComponentAttribute> INPLACE_INPUT_HANDLER_ATTRIBUTES = Collections
             .unmodifiableMap(ComponentAttribute.createMap(
                     new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE)
                             .setEventNames("inputclick")
@@ -133,7 +137,7 @@ public class InplaceInputRendererBase extends InputRendererBase {
     public void renderInputHandlers(FacesContext facesContext,
             UIComponent component) throws IOException {
         RenderKitUtils.renderPassThroughAttributesOptimized(facesContext,
-                component, INPLACEINPUT_HANDLER_ATTRIBUTES);
+                component, INPLACE_INPUT_HANDLER_ATTRIBUTES);
     }
 
     public InplaceState getInplaceState(UIComponent component) {
@@ -158,20 +162,20 @@ public class InplaceInputRendererBase extends InputRendererBase {
         return null;
     }
 
-    public String getStateStyleClass(UIComponent component,
-            InplaceState inplaceState) {
-        String style = getReadyStateCss();
+    public String getStateStyleClass(UIComponent component, InplaceState inplaceState) {
+        InplaceComponent inplaceComponent = (InplaceComponent)component; 
+        String style = getReadyStateCss(inplaceComponent);
         switch (inplaceState) {
             case edit:
-                style = HtmlUtil.concatClasses(style, getEditStateCss());
+                style = HtmlUtil.concatClasses(style, getEditStateCss(inplaceComponent));
                 break;
     
             case changed: 
-                style = HtmlUtil.concatClasses(style, getChangedStateCss());
+                style = HtmlUtil.concatClasses(style, getChangedStateCss(inplaceComponent));
                 break;
     
             case disable:
-                style = getDisableStateCss();
+                style = getDisableStateCss(inplaceComponent);
                 break;
     
             default:
@@ -185,9 +189,9 @@ public class InplaceInputRendererBase extends InputRendererBase {
         return (InplaceState.disable == currentState); 
     }
     
-    public String getEditStyleClass(UIComponent component,
-            InplaceState inplaceState) {
-        return (InplaceState.edit != inplaceState) ? HtmlUtil.concatClasses(getEditCss(), getNoneCss()) : getEditCss();
+    public String getEditStyleClass(UIComponent component,  InplaceState inplaceState) {
+        InplaceComponent inplaceComponent = (InplaceComponent)component;
+        return (InplaceState.edit != inplaceState) ? HtmlUtil.concatClasses(getEditCss(inplaceComponent), getNoneCss(inplaceComponent)) : getEditCss(inplaceComponent);
     }
     
     public void buildScript(ResponseWriter writer, FacesContext facesContext,
@@ -214,25 +218,43 @@ public class InplaceInputRendererBase extends InputRendererBase {
     private Map<String, Object> createInplaceComponentOptions(String clientId,
             InplaceComponent inplaceComponent) {
         Map<String, Object> options = new HashMap<String, Object>();
-        options.put(OPTIONS_EDIT_EVENT, inplaceComponent.getEditEvent());
-        options.put(OPTIONS_STATE, inplaceComponent.getState());
-        options.put(OPTIONS_NONE_CSS, getNoneCss());
-        options.put(OPTIONS_CHANGED_CSS, getChangedStateCss());
-        options.put(OPTIONS_EDIT_CSS, getEditStateCss());
-        options.put(OPTIONS_EDIT_CONTAINER, clientId + "Edit");
-        options.put(OPTIONS_INPUT, clientId + "Input");
-        options.put(OPTIONS_LABEL, clientId + "Label");
-        options.put(OPTIONS_FOCUS, clientId + "Focus");
-        options.put(OPTIONS_DEFAULT_LABEL, inplaceComponent.getDefaultLabel());
-        options.put(OPTIONS_SAVE_ON_BLUR, inplaceComponent.isSaveOnBlur());
-
-        boolean showControls = inplaceComponent.isShowControls();
-
-        options.put(OPTIONS_SHOWCONTROLS, showControls);
-        if (showControls) {
-            options.put(OPTIONS_BUTTON_OK, clientId + "Okbtn");
-            options.put(OPTIONS_BUTTON_CANCEL, clientId + "Cancelbtn");
+        
+        if(!"click".equals(inplaceComponent.getEditEvent())){ 
+            options.put(OPTIONS_EDIT_EVENT, inplaceComponent.getEditEvent());
         }
+        
+        if(!(InplaceState.ready == inplaceComponent.getState())) {
+            options.put(OPTIONS_STATE, inplaceComponent.getState());
+        }
+        
+        String css = inplaceComponent.getNoneCss();
+        if(css != null && css.trim().length() > 0) {
+            options.put(OPTIONS_NONE_CSS, getNoneCss(inplaceComponent));
+        }
+
+        css = inplaceComponent.getChangedStateCss();
+        if(css != null && css.trim().length() > 0) {
+            options.put(OPTIONS_CHANGED_CSS, getChangedStateCss(inplaceComponent));
+        }    
+        
+        css = inplaceComponent.getEditStateCss(); 
+        if(css != null && css.trim().length() > 0) {
+            options.put(OPTIONS_EDIT_CSS, getEditStateCss(inplaceComponent));
+        }
+        
+        String label = inplaceComponent.getDefaultLabel();
+        if(label != null && label.trim().length() > 0) {
+            options.put(OPTIONS_DEFAULT_LABEL, inplaceComponent.getDefaultLabel());
+        }
+        
+        if(!inplaceComponent.isSaveOnBlur()) {
+            options.put(OPTIONS_SAVE_ON_BLUR, inplaceComponent.isSaveOnBlur());
+        }
+        
+        if(inplaceComponent.isShowControls()) {
+            options.put(OPTIONS_SHOWCONTROLS, inplaceComponent.isShowControls());
+        }    
+        
         return options;
     }
     
@@ -241,27 +263,33 @@ public class InplaceInputRendererBase extends InputRendererBase {
         // override this method if you need additional options
     }
 
-    public String getReadyStateCss() {
-        return "rf-ii-d-s";
+    public String getReadyStateCss(InplaceComponent component) {
+        String css = component.getReadyStateCss();
+        return HtmlUtil.concatClasses("rf-ii-d-s", css);
     }
 
-    public String getEditStateCss() {
-        return "rf-ii-e-s";
+    public String getEditStateCss(InplaceComponent component) {
+        String css = component.getEditStateCss();
+        return HtmlUtil.concatClasses("rf-ii-e-s", css);
     }
 
-    public String getChangedStateCss() {
-        return "rf-ii-c-s";
+    public String getChangedStateCss(InplaceComponent component) {
+        String css = component.getChangedStateCss();
+        return HtmlUtil.concatClasses("rf-ii-c-s", css);
     }
 
-    public String getDisableStateCss() {
-        return "rf-ii-dis-s";
+    public String getDisableStateCss(InplaceComponent component) {
+        String css = component.getDisableStateCss();
+        return HtmlUtil.concatClasses("rf-ii-dis-s", css);
+    }
+    
+    public String getEditCss(InplaceComponent component) {
+        String css = component.getEditCss();
+        return HtmlUtil.concatClasses("rf-ii-edit", css);
     }
 
-    public String getEditCss() {
-        return "rf-ii-edit";
-    }
-
-    public String getNoneCss() {
-        return "rf-ii-none";
+    public String getNoneCss(InplaceComponent component) {
+        String css = component.getNoneCss();
+        return HtmlUtil.concatClasses("rf-ii-none", css);
     }
 }

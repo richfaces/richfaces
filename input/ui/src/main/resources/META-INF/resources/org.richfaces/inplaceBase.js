@@ -44,26 +44,26 @@ $.extend(RichFaces.Event, {
       
 	rf.ui.InplaceBase =  function(id, options) {
     	$super.constructor.call(this, id);
-
-    	this.editEvent = options.editEvent;
-        this.noneCss = options.noneCss; 
-        this.changedCss = options.changedCss;
-        this.defaultLabel = options.defaultLabel;
-        this.state = options.state;
-                
+    	var mergedOptions = $.extend({}, defaultOptions, options);
+    	this.editEvent = mergedOptions.editEvent;
+        this.noneCss = mergedOptions.noneCss; 
+        this.changedCss = mergedOptions.changedCss;
+        this.defaultLabel = mergedOptions.defaultLabel;
+        this.state = mergedOptions.state;
         this.element = $(document.getElementById(id)); 
-        this.editContainer = $(document.getElementById(options.editContainer));
-        this.state = options.state;
-        
+        this.editContainer = $(document.getElementById(id+"Edit"));
        	this.element.bind(this.editEvent, $.proxy(this.__editHandler, this));
-
        	this.isSaved = false;
         this.useDefaultLabel = false;
-
 	};
     
 	rf.ui.InputBase.extend(rf.ui.InplaceBase);
 	var $super = rf.ui.InplaceBase.$super;
+	
+	var defaultOptions = {
+		editEvent: "click",
+		state: "ready"
+   	};
 	
 	$.extend(rf.ui.InplaceBase.prototype, ( function () {
 		

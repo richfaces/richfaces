@@ -78,7 +78,7 @@
 							</span>
 						</span>
 					</c:if>
-					<span id="#{clientId}List" style="#{getListStyles(facesContext, component)}" class="rf-is-lst-cord">
+					<span id="#{clientId}List" style="#{component.attributes['openOnEdit'] ? '' : 'display: none'}" class="rf-is-lst-cord">
 						<cdk:call expression="renderListHandlers(facesContext, component);"/>
 						<span class="rf-is-lst-pos" style="width: #{component.attributes['listWidth']}">
 							<span class="rf-is-shdw">

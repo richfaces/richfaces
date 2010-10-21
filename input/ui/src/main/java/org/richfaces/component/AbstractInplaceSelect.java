@@ -57,23 +57,24 @@ public abstract class AbstractInplaceSelect extends AbstractSelect implements In
     public abstract boolean isSaveOnBlur();
 
     @Attribute(defaultValue="false")
-    public abstract boolean isShowControls(); 
+    public abstract boolean isShowControls();
+    
+    @Override
+    @Attribute
+    public abstract String getItemCss();
+    
+    @Override
+    @Attribute
+    public abstract String getSelectItemCss();
+    
+    @Override
+    @Attribute
+    public abstract String getListCss();
+    
     
     @Attribute(defaultValue="click")
     public abstract String getEditEvent();
 
-    @Override
-    @Attribute(defaultValue="rf-is-opt")
-    public abstract String getItemCss();
-    
-    @Override
-    @Attribute(defaultValue="rf-is-sel")
-    public abstract String getSelectItemCss();
-    
-    @Override
-    @Attribute(defaultValue="rf-is-lst-cord")
-    public abstract String getListCss();
-    
     @Attribute(events=@EventName("inputclick"))
     public abstract String getOninputclick();
     
@@ -109,5 +110,11 @@ public abstract class AbstractInplaceSelect extends AbstractSelect implements In
   
     @Attribute(events=@EventName("inputblur"))
     public abstract String getOninputblur();
+    
+    @Attribute(events=@EventName("inputselect"))
+    public abstract String getOninputselect();
+    
+    @Attribute(events=@EventName("inputchange"))
+    public abstract String getOnchange();
   
 }

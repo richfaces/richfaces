@@ -3,20 +3,29 @@
 	rf.ui = rf.ui || {};
     
 	rf.ui.InplaceSelect =  function(id, options) {
-    	$super.constructor.call(this, id, options)
-
-    	options['attachTo'] = id;
-    	options['attachToBody'] = true;
-    	this.popupList = new rf.ui.PopupList(options.list, this, options);
-
-    	this.items = options.items;
-    	this.selValueInput = $(document.getElementById(options.selValueInput));
+       	var mergedOptions = $.extend({}, defaultOptions, options);
+    	$super.constructor.call(this, id, mergedOptions)
+    	mergedOptions['attachTo'] = id;
+    	this.popupList = new rf.ui.PopupList(id+"List", this, mergedOptions);
+    	this.items = mergedOptions.items;
+    	this.selValueInput = $(document.getElementById(id+"selValue"));
 		this.openPopup = false; 
-
     }
 	
     rf.ui.InplaceInput.extend(rf.ui.InplaceSelect);
 	var $super = rf.ui.InplaceSelect.$super;
+	
+	var defaultOptions = {
+    	defaultLabel: "",
+    	showControl: false,
+    	itemCss: "rf-is-opt",
+    	selectItemCss: "rf-is-sel", 
+    	listCss: "rf-is-lst-cord",
+    	noneCss: "rf-is-none",
+	    editCss: "rf-is-edit", 
+	    changedCss: "rf-is-c-s"
+	};
+
 	
 	$.extend(rf.ui.InplaceSelect.prototype, ( function () {
 		

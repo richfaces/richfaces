@@ -3,33 +3,41 @@
 	rf.ui = rf.ui || {};
       
         rf.ui.InplaceInput =  function(id, options) {
-        	$super.constructor.call(this, id, options);
-
-        	//rename input id in template (id + "Input") 
-
-            this.label = $(document.getElementById(options.label));
-
-            var label = this.label.text();
+        	var mergedOptions = $.extend({}, defaultOptions, options);
+        	$super.constructor.call(this, id, mergedOptions);
+            this.label = $(document.getElementById(id+"Label"));
+            var labelText = this.label.text();
             var inputLabel = this.getValue();
-            this.initialValue = (label == inputLabel) ? label : "";
-            this.saveOnBlur = options.saveOnBlur;
-            this.showControls = options.showControls;
-
+            this.initialValue = (labelText == inputLabel) ? labelText : "";
+            this.saveOnBlur = mergedOptions.saveOnBlur;
+            this.showControls = mergedOptions.showControls;
         	this.getInput().bind("focus", $.proxy(this.__editHandler, this));
 
         	if(this.showControls) {
-            	this.okbtn = $(document.getElementById(options.okbtn));
-            	this.cancelbtn = $(document.getElementById(options.cancelbtn));
+            	this.okbtn = $(document.getElementById(id+"Okbtn"));
+            	this.cancelbtn = $(document.getElementById(id+"Cancelbtn"));
             	this.okbtn.bind("mousedown", $.proxy(this.__saveBtnHandler, this));
             	this.cancelbtn.bind("mousedown", $.proxy(this.__cancelBtnHandler, this));
             }
-           	
-            this.focusElement = $(document.getElementById(options.focusElement));
+        	this.focusElement = $(document.getElementById(id+"Focus"));
         };
 
         rf.ui.InplaceBase.extend(rf.ui.InplaceInput);
     	var $super = rf.ui.InplaceInput.$super;
-    	
+
+    	var defaultOptions = {
+    	    defaultLabel: "",
+    	    saveOnBlur: true,
+    	    showControl: true,
+    	    itemCss: "rf-ii-opt",
+    	    selectItemCss: "rf-ii-sel", 
+    	    listCss: "rf-ii-lst-cord",
+    	    noneCss: "rf-ii-none",
+    	    //not used in inputBase?
+    	    editCss: "rf-ii-edit", 
+    	    changedCss: "rf-ii-c-s"
+    	};
+
     	$.extend(rf.ui.InplaceInput.prototype, ( function () {
 
     		return {
@@ -45,15 +53,7 @@
     			},
            		
            		__keydownHandler: function(e) {
-    				var code; 
-    				
-    				if(e.keyCode) {
-    					code = e.keyCode;
-    				} else if(e.which) {
-    					code = e.which;
-    				}
-    				
-           			switch(code) {
+           			switch(e.keyCode || e.which) {
            				case 27: 
 	       					e.preventDefault();
            					this.cancel(); 

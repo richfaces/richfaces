@@ -67,6 +67,24 @@ public abstract class AbstractInplaceInput extends UIInput implements InplaceCom
     @Attribute
     public abstract String getTabIndex();
     
+    @Attribute
+    public abstract String getReadyStateCss();
+
+    @Attribute
+    public abstract String getEditStateCss();
+
+    @Attribute
+    public abstract String getChangedStateCss();
+
+    @Attribute
+    public abstract String getDisableStateCss();
+    
+    @Attribute
+    public abstract String getEditCss();
+    
+    @Attribute
+    public abstract String getNoneCss();
+    
     @Attribute(events=@EventName("blur"))
     public abstract String getOnblur();
 

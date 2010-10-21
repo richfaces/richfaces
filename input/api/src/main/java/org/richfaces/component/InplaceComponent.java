@@ -38,5 +38,17 @@ public interface InplaceComponent {
     public boolean isSaveOnBlur();
     
     public InplaceState getState();
+    
+    public String getReadyStateCss();
 
+    public String getEditStateCss();
+
+    public String getChangedStateCss();
+
+    public String getDisableStateCss();
+
+    public String getEditCss();
+
+    public String getNoneCss();
+ 
 }

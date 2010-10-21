@@ -7,9 +7,12 @@
 		this.attachToDom(id);
        	this.popup = $(document.getElementById(id));
 
-       	this.visible = options.visible;
-       	this.attachTo = options.attachTo;
-       	this.attachToBody = options.attachToBody;
+       	var mergedOptions = $.extend({}, defaultOptions, options);
+       	this.visible = mergedOptions.visible;
+       	this.attachTo = mergedOptions.attachTo;
+       	this.attachToBody = mergedOptions.attachToBody;
+       	this.positionType = mergedOptions.positionType;
+       	this.positionOffset = mergedOptions.positionOffset;
 
        	this.popup.bind("mouseover", $.proxy(this.__onMouseOver, this));
        	this.popup.bind("click", $.proxy(this.__onClick, this));
@@ -17,6 +20,11 @@
         
 	rf.BaseComponent.extend(rf.ui.Popup);
 	var $super = rf.ui.Popup.$super;
+	
+
+	var defaultOptions = {
+		visible: false	
+	};
     
 	$.extend(rf.ui.Popup.prototype, (function () {
 
@@ -30,7 +38,7 @@
 						this.parentElement = this.popup.parent();
 						this.popup.detach().appendTo("body");	
 					}
-					this.popup.setPosition({id: this.attachTo}, {type:"DROPDOWN", offset:[0,20]}).show();
+					this.popup.setPosition({id: this.attachTo}, {type: this.positionType , offset: this.positionOffset}).show();
 					this.visible = true;
 				}
 			}, 

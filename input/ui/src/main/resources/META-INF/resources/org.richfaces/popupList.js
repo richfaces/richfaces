@@ -3,17 +3,25 @@
 	rf.ui = rf.ui || {};
 		
         rf.ui.PopupList =  function(id, listener, options) {
-        	$super.constructor.call(this, id, options);
+           	var mergedOptions = $.extend({}, defaultOptions, options);
+        	$super.constructor.call(this, id, mergedOptions);
             this.selectListener =  listener;
-            this.selectItemCss = options.selectItemCss;
-            this.itemCss = options.itemCss;
-            this.listCss = options.listCss;
+            this.selectItemCss = mergedOptions.selectItemCss;
+            this.itemCss = mergedOptions.itemCss;
+            this.listCss = mergedOptions.listCss;
            	this.index = -1;
            	this.__updateItemsList();
         };
         
         rf.ui.Popup.extend(rf.ui.PopupList);
     	var $super = rf.ui.PopupList.$super;
+    	
+    	var defaultOptions = {
+   			attachToBody: true,
+   			positionType: "DROPDOWN",
+   			positionOffset: [0,20]
+   		};
+
         
     	$.extend(rf.ui.PopupList.prototype, ( function () {
     		
@@ -43,13 +51,23 @@
            			}
            		},
            		
+           		resetItemsSelection: function() {
+           			if(this.items) {
+           				var popup = this; 
+           				this.items.each(function(i,item){ 
+           						popup.unselectItem($(item));
+           					}
+           				);
+           			}
+           		},
+           		
            		isPopupList: function(target) {
 	       			var parentId = target.parents("." + this.listCss).attr("id");
 	       			return (parentId && (parentId == this.getId()));
 	       		},
            		
            		__updateItemsList: function () {
-					this.items = this.popup.find("."+this.itemCss);
+					return (this.items = this.popup.find("."+this.itemCss));
 				},
 
 				__select: function(item) {
@@ -126,7 +144,11 @@
 				
 				__getItems: function () {
 					return this.items;
-				} 
+				}, 
+				
+				__setItems: function(items) {
+					this.items = items;
+				}
 			
     		}
     	})());
