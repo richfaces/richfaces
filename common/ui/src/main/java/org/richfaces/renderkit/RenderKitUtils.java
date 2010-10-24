@@ -304,14 +304,12 @@ public final class RenderKitUtils {
         return result.toString();
     }
 
-    public static boolean shouldRenderAttribute(Object attributeValue) {
+    private static boolean isAttributeSet(Object attributeValue) {
         //TODO - consider required attributes with "" value (like 'alt')
         if (attributeValue == null) {
             return false;
         } else if (attributeValue instanceof String) {
             return ((String) attributeValue).length() > 0;
-        } else if (attributeValue instanceof Boolean && Boolean.FALSE.equals(attributeValue)) {
-            return false;
         } else if (attributeValue instanceof Integer && (Integer) attributeValue == Integer.MIN_VALUE) {
             return false;
         } else if (attributeValue instanceof Double && (Double) attributeValue == Double.MIN_VALUE) {
@@ -325,6 +323,19 @@ public final class RenderKitUtils {
         } else if (attributeValue instanceof Byte && (Byte) attributeValue == Byte.MIN_VALUE) {
             return false;
         } else if (attributeValue instanceof Long && (Long) attributeValue == Long.MIN_VALUE) {
+            return false;
+        }
+
+        return attributeValue.toString().length() > 0;
+    }
+    
+    public static boolean shouldRenderAttribute(Object attributeValue) {
+        //TODO - consider required attributes with "" value (like 'alt')
+        if (!isAttributeSet(attributeValue)) {
+            return false;
+        }
+        
+        if (attributeValue instanceof Boolean && Boolean.FALSE.equals(attributeValue)) {
             return false;
         }
 
@@ -599,7 +610,7 @@ public final class RenderKitUtils {
         
         ScriptHashVariableWrapper wrapperOrDefault = wrapper != null ? wrapper : ScriptHashVariableWrapper.noop;
         
-        if (!isEmpty(value) && shouldRenderAttribute(value)) {
+        if (!isEmpty(value) && isAttributeSet(value)) {
             if (defaultValue != null) {
                 if (!String.valueOf(defaultValue).equals(value.toString())) {
                     hash.put(name, wrapperOrDefault.wrap(value));

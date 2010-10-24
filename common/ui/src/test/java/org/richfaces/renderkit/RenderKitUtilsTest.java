@@ -39,6 +39,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.ajax4jsf.javascript.JSFunctionDefinition;
+import org.ajax4jsf.javascript.ScriptUtils;
 import org.junit.Test;
 import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 
@@ -163,6 +164,7 @@ public class RenderKitUtilsTest {
         assertEquals("1,2,null,3", toScriptArgs(1, 2, null, 3));
     }
 
+    @Test
     public void testScriptHashVariableWrapper() throws Exception {
         assertEquals("abc", ScriptHashVariableWrapper.noop.wrap("abc"));
 
@@ -174,9 +176,10 @@ public class RenderKitUtilsTest {
         assertEquals("function(event){abc}", dehydrate(handlerFunction.toScript()));
 
         Object arrayObject = ScriptHashVariableWrapper.asArray.wrap("header, footer");
-        assertEquals("[\"header\",\"footer\"]", arrayObject.toString().replaceAll("\\s", ""));
+        assertEquals("[\"header\",\"footer\"]", dehydrate(ScriptUtils.toScript(arrayObject)));
     }
 
+    @Test
     public void testAddToScriptHash() throws Exception {
         Map<String, Object> hash = new HashMap<String, Object>();
 
@@ -237,11 +240,12 @@ public class RenderKitUtilsTest {
         assertTrue(hash.get("onclick1") instanceof JSFunctionDefinition);
     }
 
-
+    @Test
     public void testAsArray() {
         assertNull(RenderKitUtils.asArray(null));
     }
 
+    @Test
     public void testAsArray1() {
         String[] strings = new String[] {"a", "b"};
         String[] array = RenderKitUtils.asArray(strings);
@@ -249,6 +253,7 @@ public class RenderKitUtilsTest {
         assertSame(strings, array);
     }
 
+    @Test
     public void testAsArray2() {
         Object[] objects = new Object[] {Integer.valueOf(12), null, Integer.valueOf(22), Integer.valueOf(42)};
         String[] array = RenderKitUtils.asArray(objects);
@@ -257,6 +262,7 @@ public class RenderKitUtilsTest {
         assertTrue(Arrays.equals(etalon, array));
     }
 
+    @Test
     public void testAsArray3() {
         ArrayList<Integer> list = new ArrayList<Integer>();
 
@@ -271,6 +277,7 @@ public class RenderKitUtilsTest {
         assertTrue(Arrays.equals(etalon, array));
     }
 
+    @Test
     public void testAsArray31() {
         Set<Integer> set = new TreeSet<Integer>();
 
@@ -284,6 +291,7 @@ public class RenderKitUtilsTest {
         assertTrue(Arrays.equals(etalon, array));
     }
 
+    @Test
     public void testAsArray4() {
         String string = " a , \t\n b  \n , c ";
         String[] strings = RenderKitUtils.asArray(string);
