@@ -31,10 +31,6 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
-import org.ajax4jsf.javascript.JSFunctionDefinition;
-import org.richfaces.renderkit.util.RendererUtils;
-import org.richfaces.renderkit.util.RendererUtils.ScriptHashVariableWrapper;
-
 /**
  * @author Nick Belaevski
  * @since 3.3.2
@@ -70,78 +66,5 @@ public class RendererUtilsTest extends TestCase {
         assertTrue(utils.isEmpty(new int[0]));
         assertFalse(utils.isEmpty(new Object[1]));
         assertFalse(utils.isEmpty(new int[1]));
-    }
-
-    public void testScriptHashVariableWrapper() throws Exception {
-        assertEquals("abc", RendererUtils.ScriptHashVariableWrapper.DEFAULT.wrap("abc"));
-
-        Object eventHandler = RendererUtils.ScriptHashVariableWrapper.EVENT_HANDLER.wrap("abc");
-
-        assertTrue(eventHandler instanceof JSFunctionDefinition);
-
-        JSFunctionDefinition handlerFunction = (JSFunctionDefinition) eventHandler;
-
-        assertEquals("function(event){abc}", handlerFunction.toScript().replaceAll("\\s", ""));
-    }
-
-    public void testAddToScriptHash() throws Exception {
-        Map<String, Object> hash = new HashMap<String, Object>();
-        RendererUtils utils = RendererUtils.getInstance();
-
-        utils.addToScriptHash(hash, "x", "y", null, null);
-        assertEquals("y", hash.get("x"));
-        utils.addToScriptHash(hash, "y", "", null, null);
-        assertNull(hash.get("y"));
-        assertFalse(hash.containsKey("y"));
-        utils.addToScriptHash(hash, "y1", null, null, null);
-        assertNull(hash.get("y1"));
-        assertFalse(hash.containsKey("y1"));
-        utils.addToScriptHash(hash, "st", "server", "", null);
-        assertEquals("server", hash.get("st"));
-        utils.addToScriptHash(hash, "st1", "ajax", "ajax", null);
-        assertNull(hash.get("st1"));
-        assertFalse(hash.containsKey("st1"));
-        utils.addToScriptHash(hash, "st2", "", "ajax", null);
-        assertNull(hash.get("st2"));
-        assertFalse(hash.containsKey("st2"));
-        utils.addToScriptHash(hash, "null", null, "server", null);
-        assertNull(hash.get("null"));
-        assertFalse(hash.containsKey("null"));
-        utils.addToScriptHash(hash, "b", false, null, null);
-        assertNull(hash.get("b"));
-        assertFalse(hash.containsKey("b"));
-        utils.addToScriptHash(hash, "b1", true, null, null);
-        assertEquals(Boolean.TRUE, hash.get("b1"));
-        utils.addToScriptHash(hash, "b2", true, "true", null);
-        assertNull(hash.get("b2"));
-        assertFalse(hash.containsKey("b2"));
-        utils.addToScriptHash(hash, "b3", false, "true", null);
-        assertEquals(Boolean.FALSE, hash.get("b3"));
-        utils.addToScriptHash(hash, "b4", true, "false", null);
-        assertEquals(Boolean.TRUE, hash.get("b4"));
-        utils.addToScriptHash(hash, "b5", false, "false", null);
-        assertNull(hash.get("b5"));
-        assertFalse(hash.containsKey("b5"));
-        utils.addToScriptHash(hash, "i", Integer.valueOf(0), null, null);
-        assertEquals(Integer.valueOf(0), hash.get("i"));
-        utils.addToScriptHash(hash, "i1", Integer.valueOf(0), "0", null);
-        assertNull(hash.get("i1"));
-        assertFalse(hash.containsKey("i1"));
-        utils.addToScriptHash(hash, "i2", Integer.valueOf(0), "1", null);
-        assertEquals(Integer.valueOf(0), hash.get("i2"));
-        utils.addToScriptHash(hash, "i3", Integer.MIN_VALUE, null, null);
-        assertNull(hash.get("i3"));
-        assertFalse(hash.containsKey("i3"));
-        utils.addToScriptHash(hash, "i4", Integer.MIN_VALUE, "0", null);
-        assertNull(hash.get("i4"));
-        assertFalse(hash.containsKey("i4"));
-        utils.addToScriptHash(hash, "plain", "test", null, ScriptHashVariableWrapper.DEFAULT);
-        assertEquals("test", hash.get("plain"));
-        utils.addToScriptHash(hash, "plain1", "newtest", "blank", ScriptHashVariableWrapper.DEFAULT);
-        assertEquals("newtest", hash.get("plain1"));
-        utils.addToScriptHash(hash, "onclick", "alert(1)", null, ScriptHashVariableWrapper.EVENT_HANDLER);
-        assertTrue(hash.get("onclick") instanceof JSFunctionDefinition);
-        utils.addToScriptHash(hash, "onclick1", "alert(1)", "no-val", ScriptHashVariableWrapper.EVENT_HANDLER);
-        assertTrue(hash.get("onclick1") instanceof JSFunctionDefinition);
     }
 }

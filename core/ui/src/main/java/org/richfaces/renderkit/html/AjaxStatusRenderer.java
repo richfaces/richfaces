@@ -21,6 +21,9 @@
 
 package org.richfaces.renderkit.html;
 
+import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
+import static org.richfaces.renderkit.RenderKitUtils.renderAttribute;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,10 +38,9 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractAjaxStatus;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.renderkit.util.HandlersChain;
-import org.richfaces.renderkit.util.RendererUtils;
-import org.richfaces.renderkit.util.RendererUtils.ScriptHashVariableWrapper;
 
 /**
  * @author Nick Belaevski
@@ -128,8 +130,6 @@ public class AjaxStatusRenderer extends RendererBase {
         }
     }
 
-    private RendererUtils rendererUtils = RendererUtils.getInstance();
-
     protected void encodeState(FacesContext facesContext, AbstractAjaxStatus status,
                                StatusState state) throws IOException {
 
@@ -150,14 +150,13 @@ public class AjaxStatusRenderer extends RendererBase {
 
         String stateStyle = (String) statusAttributes.get(state.getStyleAttributeName());
 
-        rendererUtils.writeAttribute(writer, HtmlConstants.STYLE_ATTRIBUTE,
-            HtmlUtil.concatStyles(stateStyle,
-                state.isInitial() ? null : "display:none")
+        renderAttribute(facesContext, HtmlConstants.STYLE_ATTRIBUTE,
+            HtmlUtil.concatStyles(stateStyle, state.isInitial() ? null : "display:none")
         );
 
         String stateStyleClass = (String) statusAttributes.get(state.getStyleClassAttributeName());
 
-        rendererUtils.writeAttribute(writer, HtmlConstants.CLASS_ATTRIBUTE,
+        renderAttribute(facesContext, HtmlConstants.CLASS_ATTRIBUTE,
             HtmlUtil.concatClasses(state.getDefaultStyleClass(),
                 stateStyleClass));
 
@@ -201,12 +200,12 @@ public class AjaxStatusRenderer extends RendererBase {
             HandlersChain handlersChain = new HandlersChain(context, component, true);
             handlersChain.addInlineHandlerFromAttribute(eventAttribute);
             handlersChain.addBehaviors(eventName);
-            rendererUtils.addToScriptHash(options, eventAttribute,
+            addToScriptHash(options, eventAttribute,
                 handlersChain.toScript(), null,
-                ScriptHashVariableWrapper.EVENT_HANDLER);
+                ScriptHashVariableWrapper.eventHandler);
         }
 
-        rendererUtils.addToScriptHash(options, "statusName", attributes.get("name"));
+        addToScriptHash(options, "statusName", attributes.get("name"));
 
         if (!options.isEmpty()) {
             statusConstructor.addParameter(options);

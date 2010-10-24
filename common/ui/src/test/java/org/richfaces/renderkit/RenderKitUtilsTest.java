@@ -23,9 +23,24 @@ package org.richfaces.renderkit;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
+import static org.richfaces.renderkit.RenderKitUtils.concat;
+import static org.richfaces.renderkit.RenderKitUtils.toScriptArgs;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+
+import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.junit.Test;
+import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 
 /**
  * @author Nick Belaevski
@@ -107,4 +122,173 @@ public class RenderKitUtilsTest {
         assertFalse(RenderKitUtils.shouldRenderAttribute(Boolean.FALSE));
     }
 
+    @Test
+    public void testConcat() throws Exception {
+        assertEquals("", concat());
+        assertEquals("", concat((String) null));
+        assertEquals("", concat((String[]) null));
+        assertEquals("", concat(""));
+        assertEquals("test", concat("test"));
+        assertEquals("build a string", concat("build", " a ", "string"));
+        assertEquals("omit nulls", concat(null, "omit", null, " ", null, "nulls", null));
+    }
+
+    private static String dehydrate(String s) {
+        return s.replaceAll("\\s+", "");
+    }
+
+    @Test
+    public void testToScriptArgs() throws Exception {
+        assertEquals("", toScriptArgs());
+        assertEquals("", toScriptArgs((Object) null));
+        assertEquals("", toScriptArgs((Object[]) null));
+
+        assertEquals("\"test\"", toScriptArgs("test"));
+        assertEquals("[5,8]", dehydrate(toScriptArgs(Arrays.asList(5, 8))));
+        assertEquals("{\"a\":true}", dehydrate(toScriptArgs(Collections.singletonMap("a", true))));
+
+        assertEquals("\"test\"", toScriptArgs("test", null));
+        assertEquals("null,\"test\"", toScriptArgs(null, "test"));
+
+        assertEquals("\"test\"", toScriptArgs("test", Collections.emptyList()));
+        assertEquals("[],\"test\"", dehydrate(toScriptArgs(Collections.emptyList(), "test")));
+
+        assertEquals("\"test\"", toScriptArgs("test", Collections.emptyMap()));
+        assertEquals("{},\"test\"", dehydrate(toScriptArgs(Collections.emptyMap(), "test")));
+
+        assertEquals("\"test\"", toScriptArgs("test", ""));
+        assertEquals("\"\",\"test\"", dehydrate(toScriptArgs("", "test")));
+
+        assertEquals("1,2,3", toScriptArgs(1, 2, 3, null));
+        assertEquals("1,2,null,3", toScriptArgs(1, 2, null, 3));
+    }
+
+    public void testScriptHashVariableWrapper() throws Exception {
+        assertEquals("abc", ScriptHashVariableWrapper.noop.wrap("abc"));
+
+        Object eventHandler = ScriptHashVariableWrapper.eventHandler.wrap("abc");
+
+        assertTrue(eventHandler instanceof JSFunctionDefinition);
+
+        JSFunctionDefinition handlerFunction = (JSFunctionDefinition) eventHandler;
+        assertEquals("function(event){abc}", dehydrate(handlerFunction.toScript()));
+
+        Object arrayObject = ScriptHashVariableWrapper.asArray.wrap("header, footer");
+        assertEquals("[\"header\",\"footer\"]", arrayObject.toString().replaceAll("\\s", ""));
+    }
+
+    public void testAddToScriptHash() throws Exception {
+        Map<String, Object> hash = new HashMap<String, Object>();
+
+        addToScriptHash(hash, "x", "y", null, null);
+        assertEquals("y", hash.get("x"));
+        addToScriptHash(hash, "y", "", null, null);
+        assertNull(hash.get("y"));
+        assertFalse(hash.containsKey("y"));
+        addToScriptHash(hash, "y1", null, null, null);
+        assertNull(hash.get("y1"));
+        assertFalse(hash.containsKey("y1"));
+        addToScriptHash(hash, "st", "server", "", null);
+        assertEquals("server", hash.get("st"));
+        addToScriptHash(hash, "st1", "ajax", "ajax", null);
+        assertNull(hash.get("st1"));
+        assertFalse(hash.containsKey("st1"));
+        addToScriptHash(hash, "st2", "", "ajax", null);
+        assertNull(hash.get("st2"));
+        assertFalse(hash.containsKey("st2"));
+        addToScriptHash(hash, "null", null, "server", null);
+        assertNull(hash.get("null"));
+        assertFalse(hash.containsKey("null"));
+        addToScriptHash(hash, "b", false, null, null);
+        assertNull(hash.get("b"));
+        assertFalse(hash.containsKey("b"));
+        addToScriptHash(hash, "b1", true, null, null);
+        assertEquals(Boolean.TRUE, hash.get("b1"));
+        addToScriptHash(hash, "b2", true, "true", null);
+        assertNull(hash.get("b2"));
+        assertFalse(hash.containsKey("b2"));
+        addToScriptHash(hash, "b3", false, "true", null);
+        assertEquals(Boolean.FALSE, hash.get("b3"));
+        addToScriptHash(hash, "b4", true, "false", null);
+        assertEquals(Boolean.TRUE, hash.get("b4"));
+        addToScriptHash(hash, "b5", false, "false", null);
+        assertNull(hash.get("b5"));
+        assertFalse(hash.containsKey("b5"));
+        addToScriptHash(hash, "i", Integer.valueOf(0), null, null);
+        assertEquals(Integer.valueOf(0), hash.get("i"));
+        addToScriptHash(hash, "i1", Integer.valueOf(0), "0", null);
+        assertNull(hash.get("i1"));
+        assertFalse(hash.containsKey("i1"));
+        addToScriptHash(hash, "i2", Integer.valueOf(0), "1", null);
+        assertEquals(Integer.valueOf(0), hash.get("i2"));
+        addToScriptHash(hash, "i3", Integer.MIN_VALUE, null, null);
+        assertNull(hash.get("i3"));
+        assertFalse(hash.containsKey("i3"));
+        addToScriptHash(hash, "i4", Integer.MIN_VALUE, "0", null);
+        assertNull(hash.get("i4"));
+        assertFalse(hash.containsKey("i4"));
+        addToScriptHash(hash, "plain", "test", null, ScriptHashVariableWrapper.noop);
+        assertEquals("test", hash.get("plain"));
+        addToScriptHash(hash, "plain1", "newtest", "blank", ScriptHashVariableWrapper.noop);
+        assertEquals("newtest", hash.get("plain1"));
+        addToScriptHash(hash, "onclick", "alert(1)", null, ScriptHashVariableWrapper.eventHandler);
+        assertTrue(hash.get("onclick") instanceof JSFunctionDefinition);
+        addToScriptHash(hash, "onclick1", "alert(1)", "no-val", ScriptHashVariableWrapper.eventHandler);
+        assertTrue(hash.get("onclick1") instanceof JSFunctionDefinition);
+    }
+
+
+    public void testAsArray() {
+        assertNull(RenderKitUtils.asArray(null));
+    }
+
+    public void testAsArray1() {
+        String[] strings = new String[] {"a", "b"};
+        String[] array = RenderKitUtils.asArray(strings);
+
+        assertSame(strings, array);
+    }
+
+    public void testAsArray2() {
+        Object[] objects = new Object[] {Integer.valueOf(12), null, Integer.valueOf(22), Integer.valueOf(42)};
+        String[] array = RenderKitUtils.asArray(objects);
+        String[] etalon = new String[] {"12", null, "22", "42"};
+
+        assertTrue(Arrays.equals(etalon, array));
+    }
+
+    public void testAsArray3() {
+        ArrayList<Integer> list = new ArrayList<Integer>();
+
+        list.add(new Integer(12));
+        list.add(null);
+        list.add(new Integer(22));
+        list.add(new Integer(42));
+
+        String[] array = RenderKitUtils.asArray(list);
+        String[] etalon = new String[] {"12", null, "22", "42"};
+
+        assertTrue(Arrays.equals(etalon, array));
+    }
+
+    public void testAsArray31() {
+        Set<Integer> set = new TreeSet<Integer>();
+
+        set.add(new Integer(12));
+        set.add(new Integer(22));
+        set.add(new Integer(42));
+
+        String[] array = RenderKitUtils.asArray(set);
+        String[] etalon = new String[] {"12", "22", "42"};
+
+        assertTrue(Arrays.equals(etalon, array));
+    }
+
+    public void testAsArray4() {
+        String string = " a , \t\n b  \n , c ";
+        String[] strings = RenderKitUtils.asArray(string);
+        String[] etalon = new String[] {"a", "b", "c"};
+
+        assertTrue(Arrays.equals(etalon, strings));
+    }
 }

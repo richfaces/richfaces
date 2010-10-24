@@ -22,10 +22,12 @@
 package org.richfaces.renderkit;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -41,6 +43,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
+import org.ajax4jsf.javascript.JSFunctionDefinition;
+import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.renderkit.ComponentAttribute.Kind;
 
 /**
@@ -82,8 +86,113 @@ public final class RenderKitUtils {
 
     private static final String DISABLED_ATTRIBUTE_NAME = "disabled";
 
+    /**
+     * Wrapper class around object value used to transform values into particular JS objects
+     * 
+     * @author Nick Belaevski
+     * @since 3.3.2
+     */
+    public enum ScriptHashVariableWrapper {
+
+        /**
+         * No-op default wrapper
+         */
+        noop {
+
+            @Override
+            Object wrap(Object o) {
+                return o;
+            }
+            
+        }, 
+        
+
+        /**
+         * Convert parameter to array of srings.
+         */
+        asArray {
+
+            @Override
+            Object wrap(Object o) {
+                return asArray(o);
+            }
+            
+        }, 
+        
+        /**
+         * Event handler functions wrapper. Wraps <pre>functionCode</pre> object into:
+         * <pre>function(event) {
+         *   functionCode
+         * }</pre>
+         */
+        eventHandler {
+
+            @Override
+            Object wrap(Object o) {
+                return new JSFunctionDefinition("event").addToBody(o);
+            }
+            
+        };
+        
+        /**
+         * Method that does the wrapping
+         * 
+         * @param o object to wrap
+         * @return wrapped object
+         */
+        abstract Object wrap(Object o);
+    }
+    
     private RenderKitUtils() {
         // utility constructor
+    }
+
+    static String[] asArray(Object object) {
+        if (object == null) {
+            return null;
+        }
+
+        Class<?> componentType = object.getClass().getComponentType();
+
+        if (String.class.equals(componentType)) {
+            return (String[]) object;
+        } else if (componentType != null) {
+            Object[] objects = (Object[]) object;
+            String[] result = new String[objects.length];
+
+            for (int i = 0; i < objects.length; i++) {
+                Object o = objects[i];
+
+                if (o == null) {
+                    continue;
+                }
+
+                result[i] = o.toString();
+            }
+
+            return result;
+        } else if (object instanceof Collection) {
+            Collection<?> collection = (Collection<?>) object;
+            String[] result = new String[collection.size()];
+            Iterator<?> iterator = collection.iterator();
+
+            for (int i = 0; i < result.length; i++) {
+                Object next = iterator.next();
+
+                if (next == null) {
+                    continue;
+                }
+
+                result[i] = next.toString();
+            }
+
+            return result;
+        } else {
+            String string = object.toString().trim();
+            String[] split = string.split("\\s*,\\s*");
+
+            return split;
+        }
     }
 
     private static Map<String, List<ClientBehavior>> getClientBehaviorsMap(UIComponent component) {
@@ -196,6 +305,7 @@ public final class RenderKitUtils {
     }
 
     public static boolean shouldRenderAttribute(Object attributeValue) {
+        //TODO - consider required attributes with "" value (like 'alt')
         if (attributeValue == null) {
             return false;
         } else if (attributeValue instanceof String) {
@@ -422,6 +532,148 @@ public final class RenderKitUtils {
         return res;
     }
 
+    /**
+     * Checks if the argument passed in is empty or not.
+     * Object is empty if it is: <br />
+     *  - <code>null<code><br />
+     *  - zero-length string<br />
+     *  - empty collection<br />
+     *  - empty map<br />
+     *  - zero-length array<br />
+     * 
+     * @param o object to check for emptiness
+     * @since 3.3.2
+     * @return <code>true</code> if the argument is empty, <code>false</code> otherwise
+     */
+    private static boolean isEmpty(Object o) {
+        if (null == o) {
+            return true;
+        }
+        if (o instanceof String ) {
+            return (0 == ((String)o).length());
+        }
+        if (o instanceof Collection) {
+            return ((Collection<?>)o).isEmpty();
+        }
+        if (o instanceof Map) {
+            return ((Map<?, ?>)o).isEmpty();
+        }
+        if (o.getClass().isArray()) {
+            return Array.getLength(o) == 0;
+        }
+        return false;
+    }
+    
+    public static void addToScriptHash(Map<String, Object> hash, 
+        String name, 
+        Object value) {
+        
+        addToScriptHash(hash, name, value, null, null);
+    }
+    
+    public static void addToScriptHash(Map<String, Object> hash, 
+        String name, 
+        Object value,
+        Object defaultValue) {
+        
+        addToScriptHash(hash, name, value, defaultValue, null);
+    }
+
+    /**
+     * Puts value into map under specified key if the value is not empty and not default. 
+     * Performs optional value wrapping.
+     * 
+     * @param hash
+     * @param name
+     * @param value
+     * @param defaultValue
+     * @param wrapper
+     * 
+     * @since 3.3.2
+     */
+    public static void addToScriptHash(Map<String, Object> hash, 
+            String name, 
+            Object value, 
+            Object defaultValue,
+            ScriptHashVariableWrapper wrapper) {
+        
+        ScriptHashVariableWrapper wrapperOrDefault = wrapper != null ? wrapper : ScriptHashVariableWrapper.noop;
+        
+        if (!isEmpty(value) && shouldRenderAttribute(value)) {
+            if (defaultValue != null) {
+                if (!String.valueOf(defaultValue).equals(value.toString())) {
+                    hash.put(name, wrapperOrDefault.wrap(value));
+                }
+            } else {
+                if (!(value instanceof Boolean) || ((Boolean) value).booleanValue()) {
+                    hash.put(name, wrapperOrDefault.wrap(value));
+                }
+            }
+        }
+    }
+
+    public static void addToScriptHash(Map<String, Object> hash, FacesContext facesContext, UIComponent component, 
+        Attributes attributes, ScriptHashVariableWrapper wrapper) {
+        
+        boolean disabled = isDisabled(component);
+        for (ComponentAttribute knownAttribute : attributes) {
+            if (!disabled || knownAttribute.getEventNames().length == 0) {
+                String attributeName = knownAttribute.getComponentAttributeName();
+                addToScriptHash(hash, attributeName, 
+                    getAttributeAndBehaviorsValue(facesContext, component, knownAttribute),
+                    knownAttribute.getDefaultValue(), wrapper);
+            }
+        }
+    }    
+    
+    public static String concat(String... strings) {
+        if (strings == null) {
+            return "";
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        for (String s : strings) {
+            if (s == null || s.length() == 0) {
+                continue;
+            }
+            
+            sb.append(s);
+        }
+        return sb.toString();
+    }
+    
+    public static String toScriptArgs(Object... objects) {
+        if (objects == null) {
+            return "";
+        }
+        
+        int lastNonNullIdx = objects.length - 1;
+        for (; 0 <= lastNonNullIdx; lastNonNullIdx--) {
+            if (!isEmpty(objects[lastNonNullIdx])) {
+                break;
+            }
+        }
+        
+        if (lastNonNullIdx < 0) {
+            return "";
+        }
+        
+        if (lastNonNullIdx == 0) {
+            return ScriptUtils.toScript(objects[lastNonNullIdx]);
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i <= lastNonNullIdx; i++) {
+            if (sb.length() > 0) {
+                sb.append(",");
+            }
+            
+            sb.append(ScriptUtils.toScript(objects[i]));
+        }
+        
+        return sb.toString();
+    }
+    
     @SuppressWarnings("serial")
     public static final class Attributes extends TreeSet<ComponentAttribute> {
         

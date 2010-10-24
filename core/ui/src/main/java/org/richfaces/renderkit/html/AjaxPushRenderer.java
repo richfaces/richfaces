@@ -21,6 +21,8 @@
 
 package org.richfaces.renderkit.html;
 
+import static org.richfaces.renderkit.RenderKitUtils.shouldRenderAttribute;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -89,7 +91,7 @@ public class AjaxPushRenderer extends RendererBase {
             Map<String, Object> options = new HashMap<String, Object>();
 
             int interval = push.getInterval();
-            if (!getUtils().shouldRenderAttribute(interval)) {
+            if (shouldRenderAttribute(interval)) {
                 String intervalInitParameter = context.getExternalContext().getInitParameter(PUSH_INTERVAL_PARAMETER);
                 if (null != intervalInitParameter) {
                     interval = Integer.parseInt(intervalInitParameter);

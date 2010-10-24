@@ -96,11 +96,11 @@ public abstract class ListRendererBase extends Renderer {
             writer.startElement(HtmlConstants.LI_ELEMENT, sequence);
 
             if (rendererUtils.hasExplicitId(sequence)) {
-                rendererUtils.writeAttribute(writer, HtmlConstants.ID_ATTRIBUTE, sequence.getClientId(context));
+                writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, sequence.getClientId(context), null);
             }
 
-            rendererUtils.writeAttribute(writer, HtmlConstants.CLASS_ATTRIBUTE,
-                HtmlUtil.concatClasses(helper.getRowClass(), helper.getColumnClass(), itemClass));
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
+                HtmlUtil.concatClasses(helper.getRowClass(), helper.getColumnClass(), itemClass), null);
             renderHandlers(context, sequence);
             rendererUtils.encodeChildren(context, sequence);
             writer.endElement(HtmlConstants.LI_ELEMENT);
@@ -129,11 +129,11 @@ public abstract class ListRendererBase extends Renderer {
                 writer.startElement(HtmlConstants.DT_ELEMENT, sequence);
 
                 if (rendererUtils.hasExplicitId(sequence)) {
-                    rendererUtils.writeAttribute(writer, HtmlConstants.ID_ATTRIBUTE, sequence.getClientId(context) + ".dt");
+                    writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, sequence.getClientId(context) + ".dt", null);
                 }
 
-                rendererUtils.writeAttribute(writer, HtmlConstants.CLASS_ATTRIBUTE,
-                    HtmlUtil.concatClasses(helper.getRowClass(), helper.getColumnClass(), "rf-dlst-trm"));
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
+                    HtmlUtil.concatClasses(helper.getRowClass(), helper.getColumnClass(), "rf-dlst-trm"), null);
                 termFacet.encodeAll(context);
                 writer.endElement(HtmlConstants.DT_ELEMENT);
             }
@@ -141,11 +141,11 @@ public abstract class ListRendererBase extends Renderer {
             writer.startElement(HtmlConstants.DD_ELEMENT, sequence);
 
             if (rendererUtils.hasExplicitId(sequence)) {
-                rendererUtils.writeAttribute(writer, HtmlConstants.ID_ATTRIBUTE, sequence.getClientId(context));
+                writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, sequence.getClientId(context), null);
             }
 
-            rendererUtils.writeAttribute(writer, HtmlConstants.CLASS_ATTRIBUTE,
-                HtmlUtil.concatClasses(helper.getRowClass(), helper.getColumnClass(), "rf-dlst-dfn"));
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
+                HtmlUtil.concatClasses(helper.getRowClass(), helper.getColumnClass(), "rf-dlst-dfn"), null);
             renderHandlers(context, sequence);
             rendererUtils.encodeChildren(context, sequence);
             writer.endElement(HtmlConstants.DD_ELEMENT);

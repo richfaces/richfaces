@@ -21,6 +21,8 @@
  */
 package org.richfaces.renderkit;
 
+import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
+import static org.richfaces.renderkit.RenderKitUtils.renderAttribute;
 import static org.richfaces.renderkit.util.AjaxRendererUtils.AJAX_FUNCTION_NAME;
 import static org.richfaces.renderkit.util.AjaxRendererUtils.buildAjaxFunction;
 import static org.richfaces.renderkit.util.AjaxRendererUtils.buildEventOptions;
@@ -56,8 +58,7 @@ import org.richfaces.component.UIDataTableBase;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.context.OnOffResponseWriter;
 import org.richfaces.model.SelectionMode;
-import org.richfaces.renderkit.util.RendererUtils;
-import org.richfaces.renderkit.util.RendererUtils.ScriptHashVariableWrapper;
+import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 
 /**
  * @author Konstantin Mishin
@@ -581,7 +582,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context), null);
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, HtmlUtil.concatClasses("rf-edt",
             (String) attributes.get("styleClass")), null);
-        getUtils().writeAttribute(writer, HtmlConstants.STYLE_ATTRIBUTE, attributes.get("style"));
+        renderAttribute(context, HtmlConstants.STYLE_ATTRIBUTE, attributes.get("style"));
     }
 
     public RendererState createRowHolder(FacesContext context, UIComponent component, Object[] options) {
@@ -645,14 +646,13 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         ajaxFunction.addParameter(eventOptions);
         Map<String, Object> attributes = component.getAttributes();
         Map<String, Object> options = new HashMap<String, Object>();
-        RendererUtils utils = getUtils();
-        utils.addToScriptHash(options, "parameters", parameters);
-        utils.addToScriptHash(options, "selectionMode", attributes.get("selectionMode"),
-            SelectionMode.multiple.toString());
-        utils.addToScriptHash(options, "onbeforeselectionchange", RenderKitUtils.getAttributeAndBehaviorsValue(context,
-            component, EVENT_ATTRIBUTES.get("onbeforeselectionchange")), null, ScriptHashVariableWrapper.EVENT_HANDLER);
-        utils.addToScriptHash(options, "onselectionchange", RenderKitUtils.getAttributeAndBehaviorsValue(context,
-            component, EVENT_ATTRIBUTES.get("onselectionchange")), null, ScriptHashVariableWrapper.EVENT_HANDLER);
+        addToScriptHash(options, "parameters", parameters);
+        addToScriptHash(options, "selectionMode", attributes.get("selectionMode"),
+            SelectionMode.multiple);
+        addToScriptHash(options, "onbeforeselectionchange", RenderKitUtils.getAttributeAndBehaviorsValue(context,
+            component, EVENT_ATTRIBUTES.get("onbeforeselectionchange")), null, ScriptHashVariableWrapper.eventHandler);
+        addToScriptHash(options, "onselectionchange", RenderKitUtils.getAttributeAndBehaviorsValue(context,
+            component, EVENT_ATTRIBUTES.get("onselectionchange")), null, ScriptHashVariableWrapper.eventHandler);
         StringBuilder builder = new StringBuilder("new RichFaces.ExtendedDataTable('");
         builder.append(component.getClientId(context)).append("', ").append(getRowCount(component))
             .append(", function(event, parameters) {").append(ajaxFunction.toScript()).append(";}");
@@ -660,7 +660,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             builder.append(",").append(ScriptUtils.toScript(options));
         }
         builder.append(");");
-        utils.writeScript(context, component, builder.toString());
+        getUtils().writeScript(context, component, builder.toString());
         writer.endElement(HtmlConstants.DIV_ELEM);
     }
     

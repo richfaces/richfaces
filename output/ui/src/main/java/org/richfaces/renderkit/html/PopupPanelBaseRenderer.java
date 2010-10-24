@@ -1,5 +1,7 @@
 package org.richfaces.renderkit.html;
 
+import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -20,7 +22,6 @@ import org.richfaces.component.AbstractPopupPanel;
 import org.richfaces.json.JSONException;
 import org.richfaces.json.JSONMap;
 import org.richfaces.renderkit.RendererBase;
-import org.richfaces.renderkit.util.RendererUtils;
 
 //TODO nick - JSF have concept of library, it should be used instead of '/' in resource names
 @ResourceDependencies( { 
@@ -176,35 +177,34 @@ public class PopupPanelBaseRenderer extends RendererBase {
         result.append("',");
         Map<String, Object> attributes = component.getAttributes();
         Map<String, Object> options = new HashMap<String, Object>();
-        RendererUtils utils = getUtils();
-        utils.addToScriptHash(options, "width", panel.getWidth(), "-1");
-        utils.addToScriptHash(options, "height", panel.getHeight(), "-1");
-        utils.addToScriptHash(options, "minWidth", panel.getMinWidth(), "-1");
-        utils.addToScriptHash(options, "minHeight", panel.getMinHeight(), "-1");
-        utils.addToScriptHash(options, "maxWidth", panel.getMaxWidth(), "" +Integer.MAX_VALUE);
-        utils.addToScriptHash(options, "maxHeight", panel.getMaxHeight(), "" +Integer.MAX_VALUE);
-        utils.addToScriptHash(options, "moveable", panel.isMoveable(), "true");
-        utils.addToScriptHash(options, "followByScroll", panel.isFollowByScroll(), "true");
-        utils.addToScriptHash(options, "left", panel.getLeft(), "auto");
-        utils.addToScriptHash(options, "top", panel.getTop(), "auto");
-        utils.addToScriptHash(options, "zindex", panel.getZIndex(), "100");
-        utils.addToScriptHash(options, "shadowDepth", panel.getShadowDepth(), "2");
-        utils.addToScriptHash(options, "shadowOpacity", panel.getShadowOpacity(), "0.1");
-        utils.addToScriptHash(options, "domElementAttachment", panel.getDomElementAttachment());
+        addToScriptHash(options, "width", panel.getWidth(), "-1");
+        addToScriptHash(options, "height", panel.getHeight(), "-1");
+        addToScriptHash(options, "minWidth", panel.getMinWidth(), "-1");
+        addToScriptHash(options, "minHeight", panel.getMinHeight(), "-1");
+        addToScriptHash(options, "maxWidth", panel.getMaxWidth(), "" +Integer.MAX_VALUE);
+        addToScriptHash(options, "maxHeight", panel.getMaxHeight(), "" +Integer.MAX_VALUE);
+        addToScriptHash(options, "moveable", panel.isMoveable(), "true");
+        addToScriptHash(options, "followByScroll", panel.isFollowByScroll(), "true");
+        addToScriptHash(options, "left", panel.getLeft(), "auto");
+        addToScriptHash(options, "top", panel.getTop(), "auto");
+        addToScriptHash(options, "zindex", panel.getZIndex(), "100");
+        addToScriptHash(options, "shadowDepth", panel.getShadowDepth(), "2");
+        addToScriptHash(options, "shadowOpacity", panel.getShadowOpacity(), "0.1");
+        addToScriptHash(options, "domElementAttachment", panel.getDomElementAttachment());
         
-        utils.addToScriptHash(options, "keepVisualState", panel.isKeepVisualState(), "false");
-        utils.addToScriptHash(options, "show", panel.isShow(), "false");
-        utils.addToScriptHash(options, "modal", panel.isModal(), "true");
-        utils.addToScriptHash(options, "autosized", panel.isAutosized(), "false");
-        utils.addToScriptHash(options, "resizeable", panel.isResizeable(), "false");
-        utils.addToScriptHash(options, "overlapEmbedObjects", panel.isOverlapEmbedObjects(), "false");
-        utils.addToScriptHash(options, "visualOptions", writeVisualOptions(context, panel));
-        utils.addToScriptHash(options, "onresize", buildEventFunction(attributes.get("onresize")));
-        utils.addToScriptHash(options, "onmove", buildEventFunction(attributes.get("onmove")));
-        utils.addToScriptHash(options, "onshow", buildEventFunction(attributes.get("onshow")));
-        utils.addToScriptHash(options, "onhide", buildEventFunction(attributes.get("onhide")));
-        utils.addToScriptHash(options, "onbeforeshow", buildEventFunction(attributes.get("onbeforeshow")));
-        utils.addToScriptHash(options, "onbeforehide", buildEventFunction(attributes.get("onbeforehide")));
+        addToScriptHash(options, "keepVisualState", panel.isKeepVisualState(), "false");
+        addToScriptHash(options, "show", panel.isShow(), "false");
+        addToScriptHash(options, "modal", panel.isModal(), "true");
+        addToScriptHash(options, "autosized", panel.isAutosized(), "false");
+        addToScriptHash(options, "resizeable", panel.isResizeable(), "false");
+        addToScriptHash(options, "overlapEmbedObjects", panel.isOverlapEmbedObjects(), "false");
+        addToScriptHash(options, "visualOptions", writeVisualOptions(context, panel));
+        addToScriptHash(options, "onresize", buildEventFunction(attributes.get("onresize")));
+        addToScriptHash(options, "onmove", buildEventFunction(attributes.get("onmove")));
+        addToScriptHash(options, "onshow", buildEventFunction(attributes.get("onshow")));
+        addToScriptHash(options, "onhide", buildEventFunction(attributes.get("onhide")));
+        addToScriptHash(options, "onbeforeshow", buildEventFunction(attributes.get("onbeforeshow")));
+        addToScriptHash(options, "onbeforehide", buildEventFunction(attributes.get("onbeforehide")));
 
         result.append(ScriptUtils.toScript(options));
         result.append(");");

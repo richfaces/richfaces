@@ -28,11 +28,9 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 
 import javax.faces.FacesException;
 import javax.faces.application.ViewHandler;
@@ -51,10 +49,9 @@ import javax.faces.convert.Converter;
 
 import org.ajax4jsf.Messages;
 import org.ajax4jsf.component.JavaScriptParameter;
-import org.ajax4jsf.javascript.JSEncoder;
-import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.RenderKitUtils;
 
 /**
  * Util class for common render operations - render passthru html attributes,
@@ -76,12 +73,8 @@ public final class RendererUtils {
      */
     private static final Map<String, String> SUBSTITUTIONS = new HashMap<String, String>();
     
-    private static final Set<String> REQUIRED_ATTRIBUTES = new HashSet<String>();
-
     static {
         SUBSTITUTIONS.put(HtmlConstants.CLASS_ATTRIBUTE, "styleClass");
-        
-        REQUIRED_ATTRIBUTES.add(HtmlConstants.ALT_ATTRIBUTE);
 
         Arrays.sort(HtmlConstants.PASS_THRU);
         Arrays.sort(HtmlConstants.PASS_THRU_EVENTS);
@@ -93,46 +86,6 @@ public final class RendererUtils {
     // administratively restricted to be created by package members ;)
     protected RendererUtils() {
         super();
-    }
-
-    /**
-     * Wrapper class around object value used to transform values into particular JS objects
-     *
-     * @author Nick Belaevski
-     * @since 3.3.2
-     */
-    public static enum ScriptHashVariableWrapper {
-
-        /**
-         * No-op default wrapper
-         */
-        DEFAULT {
-            @Override
-            Object wrap(Object o) {
-                return o;
-            }
-        },
-
-        /**
-         * Event handler functions wrapper. Wraps <pre>functionCode</pre> object into:
-         * <pre>function(event) {
-         *   functionCode
-         * }</pre>
-         */
-        EVENT_HANDLER {
-            @Override
-            Object wrap(Object o) {
-                return new JSFunctionDefinition("event").addToBody(o);
-            }
-        };
-
-        /**
-         * Method that does the wrapping
-         *
-         * @param o object to wrap
-         * @return wrapped object
-         */
-        abstract Object wrap(Object o);
     }
 
     /**
@@ -360,7 +313,7 @@ public final class RendererUtils {
 
         Object value = attributeValue(attribute, attributes.get(getComponentAttributeName(attribute)));
 
-        if ((null != value) && shouldRenderAttribute(attribute, value)) {
+        if ((null != value) && RenderKitUtils.shouldRenderAttribute(value)) {
             if (Arrays.binarySearch(HtmlConstants.PASS_THRU_URI, attribute) >= 0) {
                 String url = context.getApplication().getViewHandler().getResourceURL(context, value.toString());
 
@@ -418,88 +371,13 @@ public final class RendererUtils {
         ResponseWriter writer = context.getResponseWriter();
         Object value = component.getAttributes().get(property);
 
-        if (shouldRenderAttribute(attributeName, value)) {
+        if (RenderKitUtils.shouldRenderAttribute(value)) {
             writer.writeAttribute(attributeName, value, property.toString());
         }
     }
 
     public void encodeAttribute(FacesContext context, UIComponent component, String attribute) throws IOException {
         encodeAttribute(context, component, getComponentAttributeName(attribute), attribute);
-    }
-
-    /**
-     * Write html-attribute
-     *
-     * @param writer
-     * @param attribute
-     * @param value
-     * @throws IOException
-     */
-    public void writeAttribute(ResponseWriter writer, String attribute, Object value) throws IOException {
-        if (shouldRenderAttribute(attribute, value)) {
-            writer.writeAttribute(attribute, value.toString(), attribute);
-        }
-    }
-
-    /**
-     * @return true if and only if the argument <code>attributeVal</code> is
-     *         an instance of a wrapper for a primitive type and its value is
-     *         equal to the default value for that type as given in the spec.
-     */
-    public boolean shouldRenderAttribute(Object attributeVal) {
-        if (null == attributeVal) {
-            return false;
-        } else if ((attributeVal instanceof Boolean)
-                   && ((Boolean) attributeVal).booleanValue() == Boolean.FALSE.booleanValue()) {
-            return false;
-        } else if (attributeVal.toString().length() == 0) {
-            return false;
-        } else {
-            return isValidProperty(attributeVal);
-        }
-    }
-
-    public boolean shouldRenderAttribute(String attributeName, Object attributeVal) {
-        if (REQUIRED_ATTRIBUTES.contains(attributeName)) {
-            if (attributeVal == null) {
-                return false;
-            }
-        } else {
-            return shouldRenderAttribute(attributeVal);
-        }
-
-        return true;
-    }
-
-    /**
-     * Test for valid value of property. by default, for non-setted properties
-     * with Java primitive types of JSF component return appropriate MIN_VALUE .
-     *
-     * @param property -
-     *            value of property returned from
-     *            {@link UIComponent#getAttributes()}
-     * @return true for setted property, false otherthise.
-     */
-    public boolean isValidProperty(Object property) {
-        if (null == property) {
-            return false;
-        } else if ((property instanceof Integer) && ((Integer) property).intValue() == Integer.MIN_VALUE) {
-            return false;
-        } else if ((property instanceof Double) && ((Double) property).doubleValue() == Double.MIN_VALUE) {
-            return false;
-        } else if ((property instanceof Character) && ((Character) property).charValue() == Character.MIN_VALUE) {
-            return false;
-        } else if ((property instanceof Float) && ((Float) property).floatValue() == Float.MIN_VALUE) {
-            return false;
-        } else if ((property instanceof Short) && ((Short) property).shortValue() == Short.MIN_VALUE) {
-            return false;
-        } else if ((property instanceof Byte) && ((Byte) property).byteValue() == Byte.MIN_VALUE) {
-            return false;
-        } else if ((property instanceof Long) && ((Long) property).longValue() == Long.MIN_VALUE) {
-            return false;
-        }
-
-        return true;
     }
 
     /**
@@ -537,64 +415,6 @@ public final class RendererUtils {
         }
 
         return false;
-    }
-
-    /**
-     * Puts value into map under specified key if the value is not empty and not default.
-     * Performs optional value wrapping.
-     *
-     * @param hash
-     * @param name
-     * @param value
-     * @param defaultValue
-     * @param wrapper
-     *
-     * @since 3.3.2
-     */
-    public void addToScriptHash(Map<String, Object> hash, String name, Object value, String defaultValue,
-                                ScriptHashVariableWrapper wrapper) {
-        ScriptHashVariableWrapper wrapperOrDefault = (wrapper != null) ? wrapper : ScriptHashVariableWrapper.DEFAULT;
-
-        if (isValidProperty(value) && !isEmpty(value)) {
-            if (!isEmpty(defaultValue)) {
-                if (!defaultValue.equals(value.toString())) {
-                    hash.put(name, wrapperOrDefault.wrap(value));
-                }
-            } else {
-                if (!(value instanceof Boolean) || ((Boolean) value).booleanValue()) {
-                    hash.put(name, wrapperOrDefault.wrap(value));
-                }
-            }
-        }
-    }
-
-    /**
-     * Puts value into map under specified key if the value is not empty and not default.
-     * Performs optional value wrapping.
-     *
-     * @param hash
-     * @param name
-     * @param value
-     * @param defaultValue
-     *
-     * @since 3.3.2
-     */
-    public void addToScriptHash(Map<String, Object> hash, String name, Object value, String defaultValue) {
-        addToScriptHash(hash, name, value, defaultValue, null);
-    }
-
-    /**
-     * Puts value into map under specified key if the value is not empty and not default.
-     * Performs optional value wrapping.
-     *
-     * @param hash
-     * @param name
-     * @param value
-     *
-     * @since 3.3.2
-     */
-    public void addToScriptHash(Map<String, Object> hash, String name, Object value) {
-        addToScriptHash(hash, name, value, null, null);
     }
 
     /**
@@ -914,83 +734,6 @@ public final class RendererUtils {
         }
 
         return forAttr;
-    }
-
-    public static void writeEventHandlerFunction(FacesContext context, UIComponent component, String eventName)
-        throws IOException {
-
-        ResponseWriter writer = context.getResponseWriter();
-        Object script = component.getAttributes().get(eventName);
-
-        if ((script != null) && !script.equals("")) {
-            JSFunctionDefinition onEventDefinition = new JSFunctionDefinition();
-
-            onEventDefinition.addParameter("event");
-            onEventDefinition.addToBody(script);
-            writer.writeText(eventName + ": " + onEventDefinition.toScript(), null);
-        } else {
-            writer.writeText(eventName + ": ''", null);
-        }
-    }
-
-    public JSFunctionDefinition getAsEventHandler(FacesContext context, UIComponent component, String attributeName,
-            String append) {
-        String event = (String) component.getAttributes().get(attributeName);
-
-        if (event != null) {
-            event = event.trim();
-
-            if (event.length() != 0) {
-                JSFunctionDefinition function = new JSFunctionDefinition();
-
-                function.addParameter("event");
-
-                if ((null != append) && (append.length() > 0)) {
-                    function.addToBody(event + append);
-                } else {
-                    function.addToBody(event);
-                }
-
-                return function;
-            }
-        }
-
-        return null;
-    }
-
-    public String escapeJavaScript(Object o) {
-        if (o != null) {
-            StringBuilder result = new StringBuilder();
-            JSEncoder encoder = new JSEncoder();
-            char[] chars = o.toString().toCharArray();
-            int start = 0;
-            int end = chars.length;
-
-            for (int x = start; x < end; x++) {
-                char c = chars[x];
-
-                if (encoder.compile(c)) {
-                    continue;
-                }
-
-                if (start != x) {
-                    result.append(chars, start, x - start);
-                }
-
-                result.append(encoder.encode(c));
-                start = x + 1;
-
-                continue;
-            }
-
-            if (start != end) {
-                result.append(chars, start, end - start);
-            }
-
-            return result.toString();
-        } else {
-            return null;
-        }
     }
 
     public void encodeChildren(FacesContext context, UIComponent component) throws IOException {

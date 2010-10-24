@@ -27,6 +27,8 @@
 
 package org.richfaces.renderkit.html;
 
+import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
+
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.HashMap;
@@ -202,18 +204,18 @@ public class ProgressBarBaseRenderer extends RendererBase {
 
         String clientId = component.getClientId(context);
         
-        utils.addToScriptHash(options, "mode", component.getAttributes().get("mode"), "ajax"); 
-        utils.addToScriptHash(options, "minValue", component.getAttributes().get("minValue"), "0"); 
-        utils.addToScriptHash(options, "maxValue", component.getAttributes().get("maxValue"), "100"); 
-        utils.addToScriptHash(options, "context", getContext(component)); 
+        addToScriptHash(options, "mode", component.getAttributes().get("mode"), "ajax"); 
+        addToScriptHash(options, "minValue", component.getAttributes().get("minValue"), "0"); 
+        addToScriptHash(options, "maxValue", component.getAttributes().get("maxValue"), "100"); 
+        addToScriptHash(options, "context", getContext(component)); 
         
         Integer interval = new Integer(progressBar.getInterval());
-        utils.addToScriptHash(options, "pollinterval", interval); 
-        utils.addToScriptHash(options, "enabled", progressBar.isEnabled()); 
-        utils.addToScriptHash(options, "pollId", progressBar.getClientId(context)); 
-        utils.addToScriptHash(options, "state", state, "initialState"); 
-        utils.addToScriptHash(options, "value", NumberUtils.getNumber(component.getAttributes().get("value"))); 
-        utils.addToScriptHash(options, "onsubmit", buildEventFunction(component.getAttributes().get("onsubmit")));
+        addToScriptHash(options, "pollinterval", interval); 
+        addToScriptHash(options, "enabled", progressBar.isEnabled()); 
+        addToScriptHash(options, "pollId", progressBar.getClientId(context)); 
+        addToScriptHash(options, "state", state, "initialState"); 
+        addToScriptHash(options, "value", NumberUtils.getNumber(component.getAttributes().get("value"))); 
+        addToScriptHash(options, "onsubmit", buildEventFunction(component.getAttributes().get("onsubmit")));
         script.append("new RichFaces.ui.ProgressBar('").append(clientId).append("'");
         if (!options.isEmpty()) {
             script.append(",").append(ScriptUtils.toScript(options));

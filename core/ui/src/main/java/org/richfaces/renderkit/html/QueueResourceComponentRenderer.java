@@ -22,6 +22,7 @@
 package org.richfaces.renderkit.html;
 
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
+import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
 
 import java.io.IOException;
 import java.util.LinkedHashMap;
@@ -40,7 +41,6 @@ import org.richfaces.application.CommonComponentsConfiguration;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.QueueRegistry;
 import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.renderkit.util.RendererUtils;
 
 /**
  * @author Nick Belaevski
@@ -52,8 +52,6 @@ public class QueueResourceComponentRenderer extends Renderer {
 
     private static final String FUNCTION_NAME = "RichFaces.queue.setQueueOptions";
 
-    private final RendererUtils utils = RendererUtils.getInstance();
-    
     private enum QueueOptions {
         onbeforedomupdate, oncomplete, onerror, onevent, onrequestdequeue, onrequestqueue, onsubmit, 
         requestDelay, timeout, status, queueId, ignoreDupResponses, requestGroupingId
@@ -65,7 +63,7 @@ public class QueueResourceComponentRenderer extends Renderer {
         for (QueueOptions option : QueueOptions.values()) {
             String optionName = option.name();
             Object value = attributes.get(optionName);
-            utils.addToScriptHash(optionsHash, optionName, value);
+            addToScriptHash(optionsHash, optionName, value);
         }
     }
     

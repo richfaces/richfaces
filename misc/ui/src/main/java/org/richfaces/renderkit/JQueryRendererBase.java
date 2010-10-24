@@ -22,21 +22,13 @@
 
 package org.richfaces.renderkit;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 
-import org.ajax4jsf.javascript.ScriptUtils;
-import org.richfaces.component.AbstractJQuery;
-import org.richfaces.component.JQueryAttachType;
-import org.richfaces.component.JQueryTiming;
 import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.renderkit.util.RendererUtils;
 
 /**
  * @author nick
@@ -48,8 +40,6 @@ import org.richfaces.renderkit.util.RendererUtils;
 })
 public abstract class JQueryRendererBase extends Renderer {
 
-    private RendererUtils rendererUtils = RendererUtils.getInstance();
-
     protected String getEscapedSelector(FacesContext context, UIComponent component) {
         String selector = (String) component.getAttributes().get("selector");
 
@@ -60,17 +50,4 @@ public abstract class JQueryRendererBase extends Renderer {
         return selector;
     }
 
-    protected String getOptionsAsJavascriptString(FacesContext context, UIComponent component) {
-        AbstractJQuery jQuery = (AbstractJQuery) component;
-
-        Map<String,Object> map = new HashMap<String, Object>();
-
-        rendererUtils.addToScriptHash(map, "selector", getEscapedSelector(context, jQuery));
-        rendererUtils.addToScriptHash(map, "event", jQuery.getEvent());
-        rendererUtils.addToScriptHash(map, "query", jQuery.getQuery());
-        rendererUtils.addToScriptHash(map, "attachType", jQuery.getAttachType(), JQueryAttachType.DEFAULT.toString());
-        rendererUtils.addToScriptHash(map, "timing", jQuery.getTiming(), JQueryTiming.DEFAULT.toString());
-
-        return ScriptUtils.toScript(map);
-    }
 }
