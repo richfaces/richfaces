@@ -68,6 +68,12 @@
             <groupId>org.richfaces.ui.output</groupId>
             <artifactId>richfaces-ui-output-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>xmlunit</groupId>
+            <artifactId>xmlunit</artifactId>
+            <version>1.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     
     <scm>
