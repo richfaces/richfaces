@@ -32,9 +32,13 @@
 		block text block
 
 		<input:autocomplete autofill="false" id="myAutocomplete" clientFilter="if(subString.length>1) if(value.indexOf(subString)!=-1) return true;" mode="#{autoCompleteBean.mode}" minChars="2" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" fetchValue="#{country.name}" showButton="true"
+		 value = "#{autoCompleteBean.value}"
 		 onchange="return onEvent.call(this, event);" onselectitem="return onEvent.call(this, event);" onblur="return onEvent.call(this, event);" onfocus="return onEvent.call(this, event);">
 			#{country.name} #{country.iso} #{country.domain}
+		<a4j:ajax event="change" render="output"/>
 		</input:autocomplete>
+		<br/><br/>
+            Your selection: <h:outputText id="output" value="#{autoCompleteBean.value}"/>
 		<script type="text/javascript">
 			onEvent = function(event, element, data){
 				RichFaces.log.info("jQuery Event: "+(event instanceof jQuery.Event)+"; event: "+event.type+"; data:"+(data || (event['rich']||{})['data'])+"; this.id:"+this.id+"; component:"+ (event['rich']||{})['component']||RichFaces.$(this.id));
