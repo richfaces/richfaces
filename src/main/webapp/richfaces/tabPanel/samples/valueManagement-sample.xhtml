@@ -7,12 +7,19 @@
 	xmlns:rich="http://richfaces.org/rich">
 
 <ui:composition>
-	<strong>External controls for switching the panel</strong>
-	<br />
-	<br />
 	<h:form>
-		<rich:tabPanel switchType="ajax" id="tp"
-			headerPosition="top"
+		<strong>External controls for switching the panel:</strong>
+		<br />
+		<h:commandLink value="Previous tab">
+			<rich:toggleControl targetPanel="tp" targetItem="@prev" />
+		</h:commandLink>
+		<h:outputText value=" | " />
+		<h:commandLink value="Next tab">
+			<rich:toggleControl targetPanel="tp" targetItem="@next" />
+		</h:commandLink>
+		<br />
+		<br />
+		<rich:tabPanel switchType="ajax" id="tp" headerPosition="top"
 			headerLocation="center">
 			<rich:tab header="First">
             Here is tab #1
@@ -23,14 +30,8 @@
 			<rich:tab header="Third">
             Here is tab #3
         </rich:tab>
-		</rich:tabPanel> 
-		<h:commandLink value="Previous tab">
-			<rich:toggleControl targetPanel="tp" targetItem="@prev"/>
-		</h:commandLink>	
-		<h:outputText value=" | "/>	
-		<h:commandLink value="Next tab">
-			<rich:toggleControl targetPanel="tp" targetItem="@next"/>
-		</h:commandLink>
+		</rich:tabPanel>
+
 	</h:form>
 </ui:composition>
 </html>
