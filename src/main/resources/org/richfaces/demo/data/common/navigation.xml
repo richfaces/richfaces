@@ -317,7 +317,7 @@
 					</sample>					
 				</samples>
 			</demo>
-			<demo>
+			<demo new="true">
 				<id>tabPanel</id>
 				<name>rich:tabPanel</name>
 				<samples>
@@ -338,6 +338,16 @@
 					</sample>			
 				</samples>
 			</demo>	
+			<demo new="true">
+				<id>collapsiblePanel</id>
+				<name>rich:collapsiblePanel</name>
+				<samples>
+					<sample>
+						<id>simple</id>
+						<name>Simple Collapsible Panel</name>
+					</sample>
+				</samples>
+			</demo>
 			<demo>
 				<id>accordion</id>
 				<name>rich:accordion</name>

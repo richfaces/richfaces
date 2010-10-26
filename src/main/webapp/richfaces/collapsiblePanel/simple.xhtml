@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+	<p><b>collapsiblePanel</b> representation is fully analogous to simple
+	<b>rich:panel</b> component. Additionally that component could be toggled
+	between two representations. In collapsed state only header shown and
+	in expanded state there is complete panel.</p>
+	<p>As most of switchable components it has three <b>switch types</b> for
+	switching between states - <b>ajax</b>, <b>server</b> and <b>client</b>
+	</p>
+	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+		<ui:param name="sourceType" value="xhtml" />
+		<ui:param name="openLabel" value="View Source" />
+		<ui:param name="hideLabel" value="Hide Source" />
+	</ui:include>
+	<p>In ajax and server mode <b>PanelToggleEvent</b> queued and could be handled
+	using <b>Listener</b> defined via <b>toggleListener</b> attribute</p>
+</ui:composition>
+</html>
