@@ -199,10 +199,10 @@ public class RenderKitUtilsMocksTest {
         ClientBehaviorHolder behaviorHolder = createMockClientBehaviorHolder();
         UIComponent component = (UIComponent) behaviorHolder;
 
-        responseWriter.writeAttribute(eq("onkeypress"), eq("jsf.util.chain('alert(keypress)','prompt(keypress)')"),
+        responseWriter.writeAttribute(eq("onkeypress"), eq("jsf.util.chain(this, event, 'alert(keypress)','prompt(keypress)')"),
             EasyMock.<String>isNull());
         responseWriter.writeAttribute(eq("onclick"),
-            eq("jsf.util.chain('alert(click)','prompt(action1)','prompt(action2)')"), EasyMock.<String>isNull());
+            eq("jsf.util.chain(this, event, 'alert(click)','prompt(action1)','prompt(action2)')"), EasyMock.<String>isNull());
         responseWriter.writeAttribute(eq("onmousemove"), eq("alert(mousemove)"), EasyMock.<String>isNull());
         responseWriter.writeAttribute(eq("oncontextmenu"), eq("prompt(contextmenu)"), EasyMock.<String>isNull());
 
@@ -249,7 +249,7 @@ public class RenderKitUtilsMocksTest {
         componentAttributes.put("disabled", Boolean.FALSE);
         UIComponent component = setupBehaviorsTestForDisabledComponent();
 
-        responseWriter.writeAttribute(eq("onclick"), eq("jsf.util.chain('alert(click)','prompt(action1)')"),
+        responseWriter.writeAttribute(eq("onclick"), eq("jsf.util.chain(this, event, 'alert(click)','prompt(action1)')"),
             EasyMock.<String>isNull());
         responseWriter.writeAttribute(eq("onmousemove"),
             eq("alert(mousemove)"), EasyMock.<String>isNull());

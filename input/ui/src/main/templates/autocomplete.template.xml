@@ -70,8 +70,18 @@
                 </div>
             </div>
             <script type="text/javascript">
+		<cdk:object name="mode" type="Object" value="#{component.attributes['mode']}" />
+                <cdk:scriptObject name="options">
+                    <cdk:scriptOption name="buttonId" value="#{clientId}Button" />
+                    <cdk:scriptOption attributes="selectedItemClass minChars filterFunction autofill disabled selectFirst tokens" /> 
+                    <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onselectitem onfocus onblur" wrapper="eventHandler"/> 
+                    <cdk:scriptOption name="filterFunction" value="#{getClientFilterFunction(component)}" />
+                    <cdk:scriptOption name="isCachedAjax" value="#{'ajax'==mode ? false : true}" defaultValue="true" />
+		    <cdk:scriptOption name="ajaxMode" value="#{'client'==mode||'lazyClient'==mode ? false : true}" defaultValue="true" />
+		    <cdk:scriptOption name="lazyClientMode" value="#{'lazyClient'==mode ? true : false}" defaultValue="false" /> 
+                </cdk:scriptObject>
                 new RichFaces.ui.Autocomplete("#{clientId}",
-                "#{clientId}Input", #{getScriptOptions(component)}
+                "#{clientId}Input", #{toScriptArgs(options)}
                  );
             </script>
         </div>

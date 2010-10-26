@@ -21,12 +21,9 @@
  */
 package org.richfaces.renderkit;
 
-import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
-
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -49,12 +46,10 @@ import javax.servlet.jsp.jstl.sql.Result;
 
 import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
-import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.component.AbstractAutocomplete;
 import org.richfaces.component.AutocompleteLayout;
 import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.component.util.InputUtils;
-import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterators;
@@ -86,43 +81,7 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
 
         return null;
     }
-
-    public String getScriptOptions(UIComponent component) {
-        Map<String, Object> attributes = component.getAttributes();
-        Map<String, Object> options = new HashMap<String, Object>();
-        addToScriptHash(options, "buttonId", component.getClientId() + "Button");
-        addToScriptHash(options, "selectedItemClass", attributes.get("selectedItemClass"));
-        addToScriptHash(options, "minChars", attributes.get("minChars"), 1);
-        addToScriptHash(options, "filterFunction", attributes.get("filterFunction"));
-        addToScriptHash(options, "autofill", attributes.get("autofill"), true);
-        addToScriptHash(options, "disabled", attributes.get("disabled"), false);
-        addToScriptHash(options, "selectFirst", attributes.get("selectFirst"), true);
-        addToScriptHash(options, "tokens", attributes.get("tokens"));
-        addToScriptHash(options, "onbegin", attributes.get("onbegin"), null, ScriptHashVariableWrapper.eventHandler);
-        addToScriptHash(options, "oncomplete", attributes.get("oncomplete"), null, ScriptHashVariableWrapper.eventHandler);
-        addToScriptHash(options, "onerror", attributes.get("onerror"), null, ScriptHashVariableWrapper.eventHandler);
-        addToScriptHash(options, "onbeforedomupdate", attributes.get("onbeforedomupdate"), null, ScriptHashVariableWrapper.eventHandler);
-        addToScriptHash(options, "onchange", attributes.get("onchange"), null, ScriptHashVariableWrapper.eventHandler);
-        addToScriptHash(options, "onselectitem", attributes.get("onselectitem"), null, ScriptHashVariableWrapper.eventHandler);
-        addToScriptHash(options, "onfocus", attributes.get("onfocus"), null, ScriptHashVariableWrapper.eventHandler);
-        addToScriptHash(options, "onblur", attributes.get("onblur"), null, ScriptHashVariableWrapper.eventHandler);        
-        addToScriptHash(options, "filterFunction", getClientFilterFunction(component));
-        String mode = (String) attributes.get("mode");
-        if (mode != null) {
-            if (mode.equals("ajax")) {
-                addToScriptHash(options, "isCachedAjax", false, true);
-            } else if (mode.equals("client") || mode.equals("lazyClient")) {
-                addToScriptHash(options, "ajaxMode", false, true);
-                if (mode.equals("lazyClient")) {
-                    addToScriptHash(options, "lazyClientMode", true, false);
-                }
-            }
-        }
-        StringBuilder builder = new StringBuilder();
-        builder.append(ScriptUtils.toScript(options));
-        return builder.toString();
-    }
-
+    
     // TODO nick - handle parameter
 
     @SuppressWarnings("unchecked")

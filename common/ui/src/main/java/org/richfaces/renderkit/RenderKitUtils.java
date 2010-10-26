@@ -297,7 +297,7 @@ public final class RenderKitUtils {
         }
 
         if (isChained) {
-            result.insert(0, "jsf.util.chain(");
+            result.insert(0, "jsf.util.chain(this, event, ");
             result.append(")");
         }
 
