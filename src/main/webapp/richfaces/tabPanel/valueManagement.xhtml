@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+	<p>That sample shows how to use external controls for switching the
+	panel</p>
+	<p><b>toggleControl</b> behavior used as for any other switchable
+	panel (<i>togglePanel, accordion</i>)</p>
+	<p><b>targetItem</b> could be <b>defined with tab name</b> and
+	additionally tabPanel supports next <b>predefined shortcuts</b>:</p>
+	<ul>
+		<li>@next</li>
+		<li>@prev</li>
+		<li>@first</li>
+		<li>@last</li>
+	</ul>
+	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+		<ui:param name="sourceType" value="xhtml" />
+		<ui:param name="openLabel" value="View Source" />
+		<ui:param name="hideLabel" value="Hide Source" />
+	</ui:include>
+	<p>Additionally you could manage the current tab at server side
+	using <b>activeItem</b> attribute at tabPanel <b>bound to some Bean
+	property</b> which holds current tab name.</p>
+</ui:composition>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition>
+	<strong>Tab Panel with headers attached to top or bottom side</strong>
+	<br />
+	<br />
+	<h:form>
+		<h:panelGrid columns="2">
+			<h:outputLabel value="Header Position:" for="position" />
+			<h:selectOneRadio id="position">
+				<f:selectItem itemLabel="Top" itemValue="top" />
+				<f:selectItem itemLabel="Bottom" itemValue="bottom" />
+				<a4j:ajax event="change" render="tp" />
+			</h:selectOneRadio>
+			<h:outputLabel value="Header Location:" for="location" />
+			<h:selectOneRadio id="location">
+				<f:selectItem itemLabel="Left" itemValue="left" />
+				<f:selectItem itemLabel="Right" itemValue="right" />
+				<f:selectItem itemLabel="Center" itemValue="center" />
+				<a4j:ajax event="change" render="tp" />
+			</h:selectOneRadio>
+		</h:panelGrid>
+		<rich:tabPanel switchType="ajax" id="tp"
+			headerPosition="top"
+			headerLocation="center">
+			<rich:tab header="First">
+            Here is tab #1
+        </rich:tab>
+			<rich:tab header="Second">
+            Here is tab #2
+        </rich:tab>
+			<rich:tab header="Third">
+            Here is tab #3
+        </rich:tab>
+		</rich:tabPanel>
+	</h:form>
+</ui:composition>
+</html>

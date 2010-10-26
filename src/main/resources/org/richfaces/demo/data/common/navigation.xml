@@ -162,7 +162,7 @@
 					</sample>
 				</samples>
 			</demo>
-			<demo new="true">
+			<demo>
 				<id>mediaOutput</id>
 				<name>a4j:mediaOutput</name>
 				<samples>
@@ -230,7 +230,7 @@
 					</sample>
 				</samples>
 			</demo>
-			<demo new="true">
+			<demo>
 				<id>extendedDataTable</id>
 				<name>rich:extendedDataTable</name>
 				<samples>
@@ -238,7 +238,7 @@
 						<id>simpleTable</id>
 						<name>ExtendedData Table Basic Usage</name>
 					</sample>
-					<sample new="true">
+					<sample>
 						<id>exTableSelection</id>
 						<name>ExtendedData Table Selection usage</name>
 					</sample>					
@@ -268,7 +268,7 @@
 					</sample>
 				</samples>
 			</demo>
-			<demo new="true">
+			<demo>
 				<id>list</id>
 				<name>rich:list</name>
 				<samples>
@@ -278,7 +278,7 @@
 					</sample>
 				</samples>
 			</demo>
-			<demo new="true">
+			<demo>
 				<id>dataGrid</id>
 				<name>rich:dataGrid</name>
 				<samples>
@@ -290,7 +290,7 @@
 			</demo>
 		</demos>
 	</group>
-	<group new="true">
+	<group>
 		<name>Output/Panels</name>
 		<demos>
 			<demo>
@@ -317,6 +317,27 @@
 					</sample>					
 				</samples>
 			</demo>
+			<demo>
+				<id>tabPanel</id>
+				<name>rich:tabPanel</name>
+				<samples>
+					<sample>
+						<id>simple</id>
+						<description>Simple Tab Panels</description>
+						<name>Simple Tab Panels</name>
+					</sample>
+					<!-- sample>
+						<id>headerCustomization</id>
+						<description>Headers Customization</description>
+						<name>Headers Customization</name>
+					</sample-->		
+					<sample>  
+						<id>valueManagement</id>
+						<description>Selected Tab Management</description>
+						<name>Selected Tab Management</name>
+					</sample>			
+				</samples>
+			</demo>	
 			<demo>
 				<id>accordion</id>
 				<name>rich:accordion</name>
@@ -357,7 +378,7 @@
 			</demo>
 		</demos>
 	</group>
-	<group new="true">
+	<group>
 		<name>Inputs and Selects</name>
 		<demos>
 			<demo>
@@ -435,7 +456,7 @@
 					</sample>
 				</samples>
 			</demo>
-			<demo new="true">
+			<demo>
 				<id>jquery</id>
 				<name>rich:jQuery</name>
 				<samples>
