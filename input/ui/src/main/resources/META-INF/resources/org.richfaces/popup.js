@@ -40,6 +40,7 @@
 					}
 					this.popup.setPosition({id: this.attachTo}, {type: this.positionType , offset: this.positionOffset}).show();
 					this.visible = true;
+					this.__onShow();
 				}
 			}, 
            		
@@ -51,6 +52,7 @@
 						this.popup.detach().appendTo(this.parentElement);
 						this.parentElement = null;
 					}
+					this.__onHide();
 				}
 			},
            		
@@ -66,6 +68,13 @@
 			},            		
 			
 			__onClick: function(e) {
+			}, 
+			
+			__onHide: function() {
+			}, 
+			
+			__onShow: function() {
+				
 			}
 		}	
 		

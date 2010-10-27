@@ -30,7 +30,7 @@
 
 input.rf-insp-inp[type="text"] {
 	background-color: '#{richSkin.controlBackgroundColor}';
-	background-imaage: url("#{resource['org.richfaces.renderkit.html.images.InputBackgroundImage']}");
+	background-image: url("#{resource['org.richfaces.renderkit.html.images.InputBackgroundImage']}");
 	background-position:1px 1px;
 	background-repeat:no-repeat;
 	border: 0px;

@@ -66,14 +66,17 @@
            			}
     			},
     			
-           		__blurHandler: function(e) {
-           			if(!this.isValueSaved() && this.__isSaveOnBlur()) {
+    			__handleBlur: function() { 
+    				if(!this.isValueSaved() && this.__isSaveOnBlur()) {
            				this.save();
            			} else {
            				this.__hide();
            			}
-           			return false;
-           		},
+    			},
+    			
+           		__blurHandler: function(e) {
+    				this.__handleBlur();
+    			},
     			
            		__changeHandler: function(e) {
            			if(!this.isValueSaved()) {

@@ -55,6 +55,7 @@ $.extend(RichFaces.Event, {
        	this.element.bind(this.editEvent, $.proxy(this.__editHandler, this));
        	this.isSaved = false;
         this.useDefaultLabel = false;
+        this.editState = false;
 	};
     
 	rf.ui.InputBase.extend(rf.ui.InplaceBase);
@@ -128,6 +129,7 @@ $.extend(RichFaces.Event, {
 			__show: function() {
 				this.scrollElements = rf.Event.bindScrollEventHandlers(this.id, this.__scrollHandler, this);
       			this.onshow();
+      			this.editState = true;
 			}, 
 			
 			__hide: function() {
@@ -136,6 +138,7 @@ $.extend(RichFaces.Event, {
 					this.scrollElements = null;
 				}
 				this.onhide();
+				this.editState = false;
       			this.editContainer.addClass(this.noneCss);
 			},
 			
@@ -146,6 +149,10 @@ $.extend(RichFaces.Event, {
        		},       		
        		__scrollHandler: function(e) {
        			this.cancel();
+       		},
+       		
+       		isEditState: function() {
+       			return this.editState;
        		},
        		
  			destroy: function () {

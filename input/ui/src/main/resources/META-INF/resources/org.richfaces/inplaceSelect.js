@@ -9,6 +9,8 @@
     	this.popupList = new rf.ui.PopupList(id+"List", this, mergedOptions);
     	this.items = mergedOptions.items;
     	this.selValueInput = $(document.getElementById(id+"selValue"));
+    	this.list = $(document.getElementById(id+"List"));
+    	this.list.bind("click", $.proxy(this.__onListClick, this));
 		this.openPopup = false; 
     }
 	
@@ -125,15 +127,19 @@
 				}
        			
 				$super.__keydownHandler.call(this,e);
-
 			},
 		
 			__blurHandler: function(e) {
-				var target = $(e.originalEvent.explicitOriginalTarget);
-				if(!this.popupList.isPopupList(target)) {
-					$super.__blurHandler.call(this,e);
-				} 				
-       			return false;
+				if(this.isEditState()) {
+					this.timeoutId = window.setTimeout($.proxy(function(){
+						this.popupList.hide();
+						this.__handleBlur();
+					}, this), 200);
+				}	
+       		}, 
+
+       		__onListClick: function(e) {
+       			window.clearTimeout(this.timeoutId);
        		}
 		}
 		

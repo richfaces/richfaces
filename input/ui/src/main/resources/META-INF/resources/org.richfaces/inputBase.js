@@ -25,7 +25,7 @@
         	this.id = id;
         	this.input = $(document.getElementById(id + "Input"));
     		this.attachToDom(id);
-
+    		
     		this.input.bind("keydown", $.proxy(this.__keydownHandler, this));
            	this.input.bind("blur", $.proxy(this.__blurHandler, this));
            	this.input.bind("change", $.proxy(this.__changeHandler, this));

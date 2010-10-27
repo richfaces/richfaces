@@ -125,10 +125,16 @@
 
             if(mergedOptions.showControl) {
         		this.btn = $(document.getElementById(id+"Button"));
-            	this.btn.bind("click", $.proxy(this.__clickHandler, this));
+        	   	this.btn.bind("click", $.proxy(this.__clickHandler, this));
+        	   	this.btn.mousedown($.proxy(this, function(){
+        	   		this.focusin = false;
+        	   	}));
         	}
         	this.selectFirst = mergedOptions.selectFirst;
         	this.popupList = new rf.ui.SelectList((id+"List"), this, mergedOptions);
+        	this.listElem =  $(document.getElementById(id+"List"));
+        	this.listElem.bind("click", $.proxy(this.__onListClick, this));
+
         	
     		var items = this.popupList.__getItems();
         	var enableManualInput = mergedOptions.enableManualInput; 
@@ -169,13 +175,13 @@
     			name : "select", 
     			
     			__clickHandler: function(e) {
-    				e.preventDefault();
     				if(!this.popupList.isVisible()) {
     					this.popupList.show();
-        				this.__setInputFocus();
     				} else {
     					this.popupList.hide();
     				}
+    				this.__setInputFocus();
+           			window.clearTimeout(this.timeoutId);
     			}, 
     			
     			__focusHandler: function(e) {
@@ -250,19 +256,24 @@
     				}	
     			},
     			
+    			__handleBlur: function(e) {
+    				var inputLabel = this.getValue();
+					if(!inputLabel || inputLabel == "") {
+						this.setValue(this.defaultLabel);
+					}
+    			}, 
+
     			__blurHandler: function(e) {
-    				var target = $(e.originalEvent.explicitOriginalTarget);
-    				if(!this.popupList.isPopupList(target)) {
-    					var inputLabel = this.getValue();
-    					if(!inputLabel || inputLabel == "") {
-    						this.setValue(this.defaultLabel);
-    					}
-    					this.popupList.hide();
-    					return true;
-    				} 				
-           			return false;
+    				this.timeoutId = window.setTimeout($.proxy(function(){
+        					this.popupList.hide();
+        					this.__handleBlur();
+    					}, this), 200);
+    			},
+           		
+           		__onListClick: function(e) {
+           			window.clearTimeout(this.timeoutId);
            		},
-    			
+           		
     			processItem: function(item) {
     				var key = $(item).attr("id");
     				var value = this.getItemValue(key);
