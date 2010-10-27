@@ -9,7 +9,7 @@
 		<name>Ajax Action</name>
 		<demos>
 			<demo>
-				<id>ajax</id>
+				<id>ajax</id> 
 				<name>a4j:ajax</name>
 				<samples>
 					<sample>
@@ -401,6 +401,16 @@
 					</sample> 
 				</samples>
 			</demo>
+			<!--demo>
+				<id>calendar</id>
+				<name>rich:calendar</name>
+				<samples>
+					<sample>
+						<id>calendar</id>
+						<name>Simple Calendar</name>
+					</sample>
+				</samples>
+			</demo-->
 			<demo>
 				<id>inputNumberSlider</id>
 				<name>rich:inputNumberSlider</name>
@@ -430,7 +440,27 @@
 						<name>Inplace Inputs samples</name>
 					</sample>
 				</samples>
-			</demo>							
+			</demo>				
+			<demo new="true">
+				<id>inplaceSelect</id>
+				<name>rich:inplaceSelect</name>
+				<samples>
+					<sample>
+						<id>inplaceSelect</id>
+						<name>Inplace Selects samples</name>
+					</sample>
+				</samples>
+			</demo>		
+			<demo new="true">
+				<id>select</id>
+				<name>rich:select</name>
+				<samples>
+					<sample>
+						<id>select</id>
+						<name>Selects samples</name>
+					</sample>
+				</samples>
+			</demo>											
 		</demos> 
 	</group>
 	<group>
