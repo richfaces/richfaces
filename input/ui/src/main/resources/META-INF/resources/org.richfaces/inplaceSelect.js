@@ -11,7 +11,8 @@
     	this.selValueInput = $(document.getElementById(id+"selValue"));
     	this.list = $(document.getElementById(id+"List"));
     	this.list.bind("click", $.proxy(this.__onListClick, this));
-		this.openPopup = false; 
+    	this.openOnEdit = options.openOnEdit;
+    	this.saveOnSelect = options.saveOnSelect;
     }
 	
     rf.ui.InplaceInput.extend(rf.ui.InplaceSelect);
@@ -41,23 +42,25 @@
 			geNamespace: function() {
 				return this.namespace;
 			},
-
+			
 			onshow: function() {
-				if(this.openPopup) {
-					this.popupList.show();
-				}
-				
-				if(!this.openPopup) {
-					this.openPopup = true;
-				}
-				
 				$super.onshow.call(this);
-			}, 
+				if(this.openOnEdit) {
+					this.showPopup();
+				}
+			},
 			
 			onhide: function() {
+				this.hidePopup();
+			},
+			
+			showPopup: function() {
+				this.popupList.show();
+			},
+			
+			hidePopup: function() {
 				this.popupList.hide();
-				this.openPopup = false;
-			}, 
+			},
 			
 			processItem: function(item) {
 				var key = $(item).attr("id");
@@ -65,10 +68,11 @@
 				this.saveItemValue(value);
 				var label = this.getItemLabel(key);
 				this.setValue(label);
-				
-           		this.popupList.hide();
-				this.openPopup = false;
            		this.__setInputFocus();
+           		this.hidePopup();
+           		if(this.saveOnSelect) {
+       				this.save();
+				} 
 			},
 			
 			getItemValue: function(key) {
@@ -132,11 +136,15 @@
 			__blurHandler: function(e) {
 				if(this.isEditState()) {
 					this.timeoutId = window.setTimeout($.proxy(function(){
-						this.popupList.hide();
+						this.hidePopup();
 						this.__handleBlur();
 					}, this), 200);
 				}	
        		}, 
+       		
+       		__clickHandler: function(e) {
+       			this.showPopup();
+       		},
 
        		__onListClick: function(e) {
        			window.clearTimeout(this.timeoutId);

@@ -50,8 +50,11 @@ public abstract class AbstractInplaceSelect extends AbstractSelect implements In
     @Attribute(defaultValue="InplaceState.ready")
     public abstract InplaceState getState();
     
-    @Attribute(defaultValue="false")
+    @Attribute(defaultValue="true")
     public abstract boolean isOpenOnEdit();
+    
+    @Attribute(defaultValue="true")
+    public abstract boolean isSaveOnSelect();
 
     @Attribute(defaultValue="true")
     public abstract boolean isSaveOnBlur();

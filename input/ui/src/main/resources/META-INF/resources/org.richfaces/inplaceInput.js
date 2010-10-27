@@ -11,6 +11,7 @@
             this.initialValue = (labelText == inputLabel) ? labelText : "";
             this.saveOnBlur = mergedOptions.saveOnBlur;
             this.showControls = mergedOptions.showControls;
+            this.__proxie
         	this.getInput().bind("focus", $.proxy(this.__editHandler, this));
 
         	if(this.showControls) {
@@ -72,6 +73,7 @@
            			} else {
            				this.__hide();
            			}
+           			this.getInput().bind("focus", $.proxy(this.__editHandler, this));
     			},
     			
            		__blurHandler: function(e) {
@@ -91,7 +93,6 @@
            		__setInputFocus: function() {
            			this.getInput().unbind("focus", this.__editHandler);
            			this.getInput().focus();
-           			this.getInput().bind("focus", $.proxy(this.__editHandler, this));
            		},
            		
            		__saveBtnHandler: function(e) {

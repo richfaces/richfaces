@@ -58,7 +58,9 @@ import org.richfaces.component.util.HtmlUtil;
         @ResourceDependency(library = "org.richfaces", name = "inplaceSelect.ecss") })
 public class InplaceSelectRendererBase extends InplaceInputRendererBase {
     
-    public static final String OPTIONS_VISIBLE = "visible";
+    public static final String OPTIONS_OPEN_ON_EDIT = "openOnEdit";
+    
+    public static final String OPTIONS_SAVE_ON_SELECT = "saveOnSelect";
     
     public static final String ITEM_CSS = "rf-is-opt"; 
     
@@ -98,8 +100,11 @@ public class InplaceSelectRendererBase extends InplaceInputRendererBase {
         AbstractSelect abstractSelect = (AbstractSelect)component;
         SelectHelper.addSelectCssToOptions(abstractSelect, options, new String[] {ITEM_CSS, SELECT_ITEM_CSS, LIST_CSS});
         boolean openOnEdit = (Boolean)component.getAttributes().get("openOnEdit");
+        boolean saveOnSelect = (Boolean)component.getAttributes().get("saveOnSelect");
         if(openOnEdit) {
-            options.put(OPTIONS_VISIBLE, openOnEdit);
+            options.put(OPTIONS_OPEN_ON_EDIT, openOnEdit);
+            options.put(OPTIONS_SAVE_ON_SELECT, saveOnSelect);
+            
         }    
         options.put(SelectHelper.OPTIONS_LIST_ITEMS, additional);
     }
