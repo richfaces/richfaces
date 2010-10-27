@@ -6,8 +6,14 @@
 	version="2.0">
 
 	<managed-bean>
-		<managed-bean-name>dataBean</managed-bean-name>
-		<managed-bean-class>org.richfaces.renderkit.DataBean</managed-bean-class>
+		<managed-bean-name>inputBean</managed-bean-name>
+		<managed-bean-class>org.richfaces.renderkit.InputBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+	<managed-bean>
+		<managed-bean-name>selectBean</managed-bean-name>
+		<managed-bean-class>org.richfaces.renderkit.SelectBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 
