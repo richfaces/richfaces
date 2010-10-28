@@ -9,7 +9,20 @@
     </managed-bean>
 
     <navigation-rule>
-        <!-- Examples -->
+		<navigation-case>
+            <from-outcome>panel</from-outcome>
+            <to-view-id>/examples/panel.xhtml</to-view-id>
+        </navigation-case>
+		<navigation-case>
+            <from-outcome>popup</from-outcome>
+            <to-view-id>/examples/popupPanel.xhtml</to-view-id>
+        </navigation-case>
+		<navigation-case>
+            <from-outcome>progressbar</from-outcome>
+            <to-view-id>/examples/progressbar.xhtml</to-view-id>
+        </navigation-case>
+
+        <!-- TogglePanel navigation -->
         <navigation-case>
             <from-outcome>togglePanel</from-outcome>
             <to-view-id>/examples/togglePanel.xhtml</to-view-id>
@@ -31,38 +44,18 @@
             <to-view-id>/examples/togglePanel-mixed.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>accordion</from-outcome>
-            <to-view-id>/examples/accordion.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>collapsiblePanel</from-outcome>
-            <to-view-id>/examples/collapsiblePanel.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-outcome>tabPanel</from-outcome>
-            <to-view-id>/examples/tabPanel.xhtml</to-view-id>
-        </navigation-case>
-		<navigation-case>
-            <from-outcome>panel</from-outcome>
-            <to-view-id>/examples/panel.xhtml</to-view-id>
-        </navigation-case>
-		<navigation-case>
-            <from-outcome>popup</from-outcome>
-            <to-view-id>/examples/popupPanel.xhtml</to-view-id>
-        </navigation-case>
-		<navigation-case>
-            <from-outcome>progressbar</from-outcome>
-            <to-view-id>/examples/progressbar.xhtml</to-view-id>
-        </navigation-case>
-
-        <!-- QUnit -->
-        <navigation-case>
             <from-outcome>qunit/togglePanel</from-outcome>
             <to-view-id>/qunit/togglePanel.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>qunit/togglePanelItem</from-outcome>
             <to-view-id>/qunit/togglePanelItem.xhtml</to-view-id>
+        </navigation-case>
+
+        <!-- Accordion navigation -->
+        <navigation-case>
+            <from-outcome>accordion</from-outcome>
+            <to-view-id>/examples/accordion.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>qunit/accordion</from-outcome>
@@ -72,13 +65,35 @@
             <from-outcome>qunit/accordionHeaders</from-outcome>
             <to-view-id>/qunit/accordionHeaders.xhtml</to-view-id>
         </navigation-case>
+
+        <!-- CollapsiblePanel navigation -->
+        <navigation-case>
+            <from-outcome>collapsiblePanel</from-outcome>
+            <to-view-id>/examples/collapsiblePanel.xhtml</to-view-id>
+        </navigation-case>
         <navigation-case>
             <from-outcome>qunit/collapsiblePanel</from-outcome>
             <to-view-id>/qunit/collapsiblePanel.xhtml</to-view-id>
+        </navigation-case>
+
+        <!-- TabPanel navigation -->
+        <navigation-case>
+            <from-outcome>tabPanel</from-outcome>
+            <to-view-id>/examples/tabPanel.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>qunit/tabPanel</from-outcome>
             <to-view-id>/qunit/tabPanel.xhtml</to-view-id>
         </navigation-case>
+
+        <!-- Tooltip navigation -->
+        <navigation-case>
+            <from-outcome>tooltip</from-outcome>
+            <to-view-id>/examples/tooltip.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>qunit/tooltip</from-outcome>
+            <to-view-id>/qunit/tooltip.xhtml</to-view-id>
+        </navigation-case>        
     </navigation-rule>
 </faces-config>
