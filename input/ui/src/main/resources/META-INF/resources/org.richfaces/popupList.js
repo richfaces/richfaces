@@ -5,11 +5,14 @@
         rf.ui.PopupList =  function(id, listener, options) {
            	var mergedOptions = $.extend({}, defaultOptions, options);
         	$super.constructor.call(this, id, mergedOptions);
-            this.selectListener =  listener;
+        	this.selectListener =  listener;
             this.selectItemCss = mergedOptions.selectItemCss;
             this.itemCss = mergedOptions.itemCss;
             this.listCss = mergedOptions.listCss;
            	this.index = -1;
+           	this.popup.bind("mouseover", $.proxy(this.__onMouseOver, this));
+           	this.popup.bind("click", $.proxy(this.__onClick, this));
+           	
            	this.__updateItemsList();
         };
         
