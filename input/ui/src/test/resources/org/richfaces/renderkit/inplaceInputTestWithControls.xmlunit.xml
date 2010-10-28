@@ -18,12 +18,12 @@
 						<input class="rf-ii-btn" id="form:inplaceInputWithControlsOkbtn"
 							onmousedown="this.className='rf-ii-btn-p'" onmouseout="this.className='rf-ii-btn'"
 							onmouseup="this.className='rf-ii-btn'"
-							src="/javax.faces.resource/org.richfaces/ico_ok.gif.jsf"
+							src="/javax.faces.resource/ico_ok.gif.jsf?ln=org.richfaces"
 							type="image" />
 						<input class="rf-ii-btn" id="form:inplaceInputWithControlsCancelbtn"
 							onmousedown="this.className='rf-ii-btn-press'" onmouseout="this.className='rf-ii-btn'"
 							onmouseup="this.className='rf-ii-btn'"
-							src="/javax.faces.resource/org.richfaces/ico_cancel.gif.jsf"
+							src="/javax.faces.resource/ico_cancel.gif.jsf?ln=org.richfaces"
 							type="image" />
 						<br />
 					</span>

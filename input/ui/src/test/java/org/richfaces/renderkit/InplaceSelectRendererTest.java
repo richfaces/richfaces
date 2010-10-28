@@ -21,6 +21,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  * @author abelevich
  * 
  */
+
 public class InplaceSelectRendererTest extends InplaceRendererTestBase  {
     
     

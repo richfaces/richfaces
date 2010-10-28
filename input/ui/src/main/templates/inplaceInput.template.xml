@@ -66,12 +66,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 									<span id="#{clientId}Btn" style="position : relative">
 										<input type="image"
 											id="#{clientId}Okbtn"
-											src="#{getResourcePath(facesContext, 'org.richfaces/ico_ok.gif')}"
+											src="#{getResourcePath(facesContext, 'org.richfaces', 'ico_ok.gif')}"
 											class="rf-ii-btn" onmousedown="this.className='rf-ii-btn-p'"
 											onmouseout="this.className='rf-ii-btn'" onmouseup="this.className='rf-ii-btn'" />
 										<input type="image"
 											id="#{clientId}Cancelbtn"
-											src="#{getResourcePath(facesContext,'org.richfaces/ico_cancel.gif')}"
+											src="#{getResourcePath(facesContext,'org.richfaces', 'ico_cancel.gif')}"
 											class="rf-ii-btn" onmousedown="this.className='rf-ii-btn-press'"
 											onmouseout="this.className='rf-ii-btn'" onmouseup="this.className='rf-ii-btn'" />
 										<br />

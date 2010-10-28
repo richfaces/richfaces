@@ -65,11 +65,11 @@
 	
 									<span id="#{clientId}Btn" style="position : relative;">
 										<input type="image" name="#{clientId}Okbtn" id="#{clientId}Okbtn"
-											src="#{getResourcePath(facesContext, 'org.richfaces/ico_ok.gif')}"
+											src="#{getResourcePath(facesContext, 'org.richfaces', 'ico_ok.gif')}"
 											class="rf-is-btn" onmousedown="this.className='rf-is-btn-press'"
 											onmouseout="this.className='rf-is-btn'" onmouseup="this.className='rf-is-btn'" />
 										<input name="#{clientId}Okbtn" type="image" id="#{clientId}Cancelbtn"
-											src="#{getResourcePath(facesContext,'org.richfaces/ico_cancel.gif')}"
+											src="#{getResourcePath(facesContext,'org.richfaces', 'ico_cancel.gif')}"
 											class="rf-is-btn" onmousedown="this.className='rf-is-btn-press'"
 											onmouseout="this.className='rf-is-btn'" onmouseup="this.className='rf-is-btn'" />
 										<br />

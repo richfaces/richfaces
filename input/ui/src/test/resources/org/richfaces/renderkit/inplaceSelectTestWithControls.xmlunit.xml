@@ -18,8 +18,8 @@
           <span class="rf-is-shdw-b">
           </span>
           <span id="form:inplaceSelectWithControlsBtn" style="position : relative;">
-            <input class="rf-is-btn" id="form:inplaceSelectWithControlsOkbtn" name="form:inplaceSelectWithControlsOkbtn" onmousedown="this.className=&apos;rf-is-btn-press&apos;" onmouseout="this.className=&apos;rf-is-btn&apos;" onmouseup="this.className=&apos;rf-is-btn&apos;" src="/javax.faces.resource/org.richfaces/ico_ok.gif.jsf" type="image"/>
-            <input class="rf-is-btn" id="form:inplaceSelectWithControlsCancelbtn" name="form:inplaceSelectWithControlsOkbtn" onmousedown="this.className=&apos;rf-is-btn-press&apos;" onmouseout="this.className=&apos;rf-is-btn&apos;" onmouseup="this.className=&apos;rf-is-btn&apos;" src="/javax.faces.resource/org.richfaces/ico_cancel.gif.jsf" type="image"/>
+            <input class="rf-is-btn" id="form:inplaceSelectWithControlsOkbtn" name="form:inplaceSelectWithControlsOkbtn" onmousedown="this.className=&apos;rf-is-btn-press&apos;" onmouseout="this.className=&apos;rf-is-btn&apos;" onmouseup="this.className=&apos;rf-is-btn&apos;" src="/javax.faces.resource/ico_ok.gif.jsf?ln=org.richfaces" type="image"/>
+            <input class="rf-is-btn" id="form:inplaceSelectWithControlsCancelbtn" name="form:inplaceSelectWithControlsOkbtn" onmousedown="this.className=&apos;rf-is-btn-press&apos;" onmouseout="this.className=&apos;rf-is-btn&apos;" onmouseup="this.className=&apos;rf-is-btn&apos;" src="/javax.faces.resource/ico_cancel.gif.jsf?ln=org.richfaces" type="image"/>
             <br/>
           </span>
         </span>
