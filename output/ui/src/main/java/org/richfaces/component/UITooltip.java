@@ -57,7 +57,7 @@ public class UITooltip extends AbstractTooltip {
     }
 
     public String getTarget() {
-        return (String) getStateHelper().eval(PropertyKeys.target);
+        return (String) getStateHelper().eval(PropertyKeys.target, getParent().getClientId());
     }
 
     public void setTarget(String target) {

@@ -116,36 +116,44 @@
          * @param {Hash} options - params
          * */
         init : function (componentId, options) {
+            this.id = componentId
             this.options = $.extend({}, DEFAULT_OPTIONS, this.options || {}, options || {});
             this.attachToDom.call(this, componentId);
 
-            rf.ui.Tooltip.$super.constructor.call(this, componentId);
-
             this.mode = TooltipMode.ajax;
-            this.options = options;
+            this.target = this.options.target;
 
             this.__addUserEventHandler("hide");
             this.__addUserEventHandler("show");
             this.__addUserEventHandler("beforehide");
             this.__addUserEventHandler("beforeshow");
 
-            this.popup = new RichFaces.ui.Popup(this.id + ":cntr", {attachTo: "div", attachToBody: false, positionType: "TOOLTIP", positionOffset: [200,200]});
+            this.popup = new RichFaces.ui.Popup(this.id + ":cntr", {
+                attachTo: this.target,
+                attachToBody: false,
+                positionType: "TOOLTIP",
+                positionOffset: [200,200]
+            });
 
             var tooltip = this;
             function mouseMoveHandler(event) {
                 tooltip.popup.show(event);
             }
 
-            $("#div").bind(this.options.showEvent, function (event) {
+            $(this.options.target).bind(this.options.showEvent, function (event) {
                 tooltip.show(event);
 
-                $("#div").bind("mousemove", mouseMoveHandler);
+                if (tooltip.options.followMouse) {
+                    $(tooltip.target).bind("mousemove", mouseMoveHandler);
+                }
             });
 
-            $("#div").bind(this.options.hideEvent, function (event) {
+            $(tooltip.target).bind(this.options.hideEvent, function (event) {
                 tooltip.hide();
 
-                $("#div").unbind("mousemove", mouseMoveHandler);
+                if (tooltip.options.followMouse) {
+                    $(tooltip.target).unbind("mousemove", mouseMoveHandler);
+                }
             });
 
         },

@@ -163,6 +163,7 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
         options.put("showDelay", tooltip.getShowDelay());
         options.put("showEvent", tooltip.getShowEvent());
         options.put("followMouse", tooltip.isFollowMouse());
+        options.put("target", tooltip.getTarget());
 
         addEventOption(context, tooltip, options, HIDE);
         addEventOption(context, tooltip, options, SHOW);
