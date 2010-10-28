@@ -44,11 +44,11 @@
 			</span>
 			
 			<c:if test="#{!isDisable(inplaceState)}">			
-				<input id="#{clientId}Focus" type="image" 	style="position: absolute; top: 0px; left: 0px; outline-style: none;" class="rf-is-none" />
+				<input id="#{clientId}Focus" type="image" 	name="#{clientId}Focus" style="position: absolute; top: 0px; left: 0px; outline-style: none;" class="rf-is-none" />
 				
 				<span id="#{clientId}Edit" class="#{getEditStyleClass(component, inplaceState)}">
-					<input id="#{clientId}selValue" name="#{clientId}" type="hidden" value="#{getValue(facesContext, component)}"/>
-					<input id="#{clientId}Input" autocomplete="off" 
+					<input id="#{clientId}selValue" name="#{clientId}" type="hidden" value="#{getInputValue(facesContext, component)}"/>
+					<input id="#{clientId}Input" name="#{clientId}Input" autocomplete="off" 
 						type="text" value="#{getSelectInputLabel(facesContext, component)}"
 						class="rf-is-fld" style="width: #{component.attributes['inputWidth']};" readonly="readonly"
 						cdk:passThrough="tabIndex">
@@ -64,11 +64,11 @@
 									<span class="rf-is-shdw-b"></span>
 	
 									<span id="#{clientId}Btn" style="position : relative;">
-										<input type="image" id="#{clientId}Okbtn"
+										<input type="image" name="#{clientId}Okbtn" id="#{clientId}Okbtn"
 											src="#{getResourcePath(facesContext, 'org.richfaces/ico_ok.gif')}"
 											class="rf-is-btn" onmousedown="this.className='rf-is-btn-press'"
 											onmouseout="this.className='rf-is-btn'" onmouseup="this.className='rf-is-btn'" />
-										<input type="image" id="#{clientId}Cancelbtn"
+										<input name="#{clientId}Okbtn" type="image" id="#{clientId}Cancelbtn"
 											src="#{getResourcePath(facesContext,'org.richfaces/ico_cancel.gif')}"
 											class="rf-is-btn" onmousedown="this.className='rf-is-btn-press'"
 											onmouseout="this.className='rf-is-btn'" onmouseup="this.className='rf-is-btn'" />

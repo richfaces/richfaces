@@ -26,10 +26,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.faces.application.Resource;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
-import javax.faces.application.ResourceHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -153,13 +151,7 @@ public class InplaceInputRendererBase extends InputRendererBase {
     }
 
     public String getResourcePath(FacesContext context, String resourceName) {
-        if (resourceName != null) {
-            ResourceHandler resourceHandler = context.getApplication()
-                    .getResourceHandler();
-            Resource resource = resourceHandler.createResource(resourceName);
-            return resource.getRequestPath();
-        }
-        return null;
+        return RenderKitUtils.getResourcePath(context, resourceName);
     }
 
     public String getStateStyleClass(UIComponent component, InplaceState inplaceState) {
