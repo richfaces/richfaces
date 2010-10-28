@@ -11,6 +11,112 @@
     </behavior>
 
     <component>
+        <component-type>org.richfaces.Tooltip</component-type>
+        <component-class>org.richfaces.component.html.HtmlTooltip</component-class>
+        <property>
+            <description></description>
+            <property-name>for_</property-name>
+            <property-class>java.lang.String</property-class>
+        </property>
+        <property>
+            <description></description>
+            <property-name>value</property-name>
+            <property-class>java.lang.String</property-class>
+        </property>
+        <property>
+            <description></description>
+            <property-name>layout</property-name>
+            <property-class>org.richfaces.TooltipLayout</property-class>
+        </property>
+        <property>
+            <description></description>
+            <property-name>attached</property-name>
+            <property-class>boolean</property-class>
+        </property>
+        <property>
+            <description></description>
+            <property-name>direction</property-name>
+            <property-class>org.richfaces.TooltipDirection</property-class>
+        </property>
+        <property>
+            <description></description>
+            <property-name>disabled</property-name>
+            <property-class>boolean</property-class>
+        </property>
+        <property>
+            <description></description>
+            <property-name>followMouse</property-name>
+            <property-class>boolean</property-class>
+        </property>
+        <property>
+            <description></description>
+            <property-name>hideDelay</property-name>
+            <property-class>int</property-class>
+        </property>
+        <property>
+            <description></description>
+            <property-name>hideEvent</property-name>
+            <property-class>java.lang.String</property-class>
+        </property>
+        <property>
+            <description></description>
+            <property-name>horizontalOffset</property-name>
+            <property-class>int</property-class>
+        </property>
+        <property>
+            <description></description>
+            <property-name>mode</property-name>
+            <property-class>org.richfaces.TooltipMode</property-class>
+        </property>
+        <property>
+            <description></description>
+            <property-name>showDelay</property-name>
+            <property-class>int</property-class>
+        </property>
+        <property>
+            <description></description>
+            <property-name>showEvent</property-name>
+            <property-class>java.lang.String</property-class>
+        </property>
+        <property>
+            <description></description>
+            <property-name>verticalOffset</property-name>
+            <property-class>int</property-class>
+        </property>
+        <property>
+            <description></description>
+            <property-name>bypassUpdates</property-name>
+            <property-class>boolean</property-class>
+        </property>
+        <property>
+            <description></description>
+            <property-name>limitToList</property-name>
+            <property-class>boolean</property-class>
+        </property>
+        <property>
+            <description></description>
+            <property-name>data</property-name>
+            <property-class>java.lang.Object</property-class>
+        </property>
+        <property>
+            <description></description>
+            <property-name>status</property-name>
+            <property-class>java.lang.String</property-class>
+        </property>
+        <property>
+            <description></description>
+            <property-name>execute</property-name>
+            <property-class>java.lang.Object</property-class>
+        </property>
+        <property>
+            <description></description>
+            <property-name>render</property-name>
+            <property-class>java.lang.Object</property-class>
+        </property>
+
+    </component>
+    
+    <component>
         <component-type>org.richfaces.CollapsiblePanel</component-type>
         <component-class>org.richfaces.component.html.HtmlCollapsiblePanel</component-class>
         <property>
@@ -665,6 +771,12 @@
 
     <render-kit>
         <render-kit-id>HTML_BASIC</render-kit-id>
+        <renderer>
+            <component-family>org.richfaces.Tooltip</component-family>
+            <renderer-type>org.richfaces.Tooltip</renderer-type>
+            <renderer-class>org.richfaces.renderkit.html.TooltipRenderer</renderer-class>
+        </renderer>
+        
         <renderer>
             <component-family>org.richfaces.CollapsiblePanel</component-family>
             <renderer-type>org.richfaces.CollapsiblePanel</renderer-type>

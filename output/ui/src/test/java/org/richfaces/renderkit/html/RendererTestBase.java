@@ -51,7 +51,6 @@ public abstract class RendererTestBase {
         XMLUnit.setIgnoreDiffBetweenTextAndCDATA(true);
         XMLUnit.setIgnoreWhitespace(true);
         XMLUnit.setIgnoreComments(true);
-
     }
     
     protected HtmlUnitEnvironment environment;
@@ -85,7 +84,7 @@ public abstract class RendererTestBase {
 
         Diff xmlDiff = new Diff(new StringReader(pageCode), new InputStreamReader(expectedPageCode));
         xmlDiff.overrideDifferenceListener(new IgnoreScriptsContent());
-        Assert.assertTrue("XML was not similar:" + xmlDiff.toString(), xmlDiff.similar());
+        Assert.assertTrue("XML was not similar:" + xmlDiff.toString() + "\n\n" + pageCode, xmlDiff.similar());
     }
     
 }
