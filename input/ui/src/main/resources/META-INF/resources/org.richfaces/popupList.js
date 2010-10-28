@@ -158,10 +158,7 @@
 				__scrollToSelectedItem : function() {
 					if(this.scrollContainer) {
 				        var offset = 0;
-				        if(this.index > 5) {
-				        	var test = 5;
-				        }
-				        
+
 				        this.items.slice(0, this.index).each(function() {
 							offset += this.offsetHeight;
 						});
