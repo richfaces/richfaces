@@ -33,6 +33,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.faces.application.Resource;
+import javax.faces.application.ResourceHandler;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.behavior.ClientBehavior;
@@ -685,6 +687,16 @@ public final class RenderKitUtils {
         return sb.toString();
     }
     
+
+    public static String getResourcePath(FacesContext context, String resourceName) {
+        if (resourceName != null) {
+            ResourceHandler resourceHandler = context.getApplication().getResourceHandler();
+            Resource resource = resourceHandler.createResource(resourceName);
+            return resource.getRequestPath();
+        }
+        return null;
+    }
+    
     @SuppressWarnings("serial")
     public static final class Attributes extends TreeSet<ComponentAttribute> {
         
@@ -725,6 +737,8 @@ public final class RenderKitUtils {
             last.setDefaultValue(value);
             return this;
         }
+        
+        
 
     }
 
