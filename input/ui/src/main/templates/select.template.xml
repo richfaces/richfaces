@@ -54,8 +54,10 @@
                     <div class="rf-sel-shdw-b"></div>
 
                     <div class="rf-sel-lst-dcrtn">
-                        <div class="rf-sel-lst-scrl" id="#{clientId}Items" >
-							<cdk:call expression="encodeItems(facesContext, component, clientSelectItems);"/>
+                    	<div class="rf-sel-lst-scrl">
+	                        <div id="#{clientId}Items" >
+								<cdk:call expression="encodeItems(facesContext, component, clientSelectItems);"/>
+							</div>
 						</div>
                     </div>
                 </div>

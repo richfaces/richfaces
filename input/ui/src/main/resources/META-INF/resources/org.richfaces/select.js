@@ -115,7 +115,8 @@
         	this.id = id;
            	var mergedOptions = $.extend({}, defaultOptions, options);
            	mergedOptions['attachTo'] = id;
-      
+           	mergedOptions['scrollContainer'] = $(document.getElementById(id + "Items")).parent()[0];
+           	
         	this.defaultLabel = mergedOptions.defaultLabel;
             var inputLabel = this.getValue() ;
             this.initialValue = (inputLabel != this.defaultLabel) ? inputLabel : "";

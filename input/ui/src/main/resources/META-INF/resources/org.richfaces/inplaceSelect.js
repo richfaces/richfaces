@@ -4,8 +4,10 @@
     
 	rf.ui.InplaceSelect =  function(id, options) {
        	var mergedOptions = $.extend({}, defaultOptions, options);
-    	$super.constructor.call(this, id, mergedOptions)
-    	mergedOptions['attachTo'] = id;
+       	$super.constructor.call(this, id, mergedOptions)
+    	
+       	mergedOptions['attachTo'] = id;
+       	mergedOptions['scrollContainer'] = $(document.getElementById(id + "Items")).parent()[0];
     	this.popupList = new rf.ui.PopupList(id+"List", this, mergedOptions);
     	this.items = mergedOptions.items;
     	this.selValueInput = $(document.getElementById(id+"selValue"));

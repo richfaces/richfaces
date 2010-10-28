@@ -87,8 +87,10 @@
 								<span class="rf-is-shdw-r"></span>
 								<span class="rf-is-shdw-b"></span>
 								<span class="rf-is-lst-dec">
-									<span class="rf-is-lst-scrl" id="#{clientId}Items" style="height: #{component.attributes['listHeight']}">
-										<cdk:call expression="encodeItems(facesContext, component, clientSelectItems);"/>
+									<span class="rf-is-lst-scrl" style="height: #{component.attributes['listHeight']}">
+										<span id="#{clientId}Items">
+											<cdk:call expression="encodeItems(facesContext, component, clientSelectItems);"/>
+										</span>
 									</span>
 								</span>
 							</span>

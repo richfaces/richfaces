@@ -7,6 +7,7 @@
         	$super.constructor.call(this, id, mergedOptions);
         	this.selectListener =  listener;
             this.selectItemCss = mergedOptions.selectItemCss;
+            this.scrollContainer = $(mergedOptions.scrollContainer);
             this.itemCss = mergedOptions.itemCss;
             this.listCss = mergedOptions.listCss;
            	this.index = -1;
@@ -44,6 +45,7 @@
            			} else {
            				item.addClass(this.selectItemCss);
            			}
+           			this.__scrollToSelectedItem(this);
            		},
            		
            		unselectItem: function(item) {
@@ -151,8 +153,30 @@
 				
 				__setItems: function(items) {
 					this.items = items;
+				}, 
+
+				__scrollToSelectedItem : function() {
+					if(this.scrollContainer) {
+				        var offset = 0;
+				        if(this.index > 5) {
+				        	var test = 5;
+				        }
+				        
+				        this.items.slice(0, this.index).each(function() {
+							offset += this.offsetHeight;
+						});
+				        
+				        var parentContainer = this.scrollContainer;
+				        if(offset < parentContainer.scrollTop()) {
+				        	parentContainer.scrollTop(offset);
+				        } else {
+				        	offset+=this.items.get(this.index).offsetHeight;
+				        	if(offset - parentContainer.scrollTop() > parentContainer.get(0).clientHeight) {
+				        		parentContainer.scrollTop(offset - parentContainer.innerHeight());
+				            }
+				        }
+					}    
 				}
-			
     		}
     	})());
 
