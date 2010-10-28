@@ -19,5 +19,14 @@
 				<f:selectItem itemValue="4" itemLabel="Option 5" />
 			</rich:select>
 		</rich:panel>
+		<p>DESC</p>
+		<rich:panel style="width:220px;">
+			<f:facet name="header">
+				<h:outputText value="Select with manual input"></h:outputText>
+			</f:facet>
+			<rich:select enableManualInput="true" defaultLabel="start typing for select" >
+				<f:selectItems value="#{inplaceSelectBean.capitalsOptions}"/>
+			</rich:select>
+		</rich:panel>		
 	</h:form>
 </ui:composition>
