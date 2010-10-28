@@ -687,14 +687,16 @@ public final class RenderKitUtils {
         return sb.toString();
     }
     
-
-    public static String getResourcePath(FacesContext context, String resourceName) {
-        if (resourceName != null) {
+    public static String getResourcePath(FacesContext context, String library, String resourceName) {
+        String path = null;
+        if(resourceName != null) {
             ResourceHandler resourceHandler = context.getApplication().getResourceHandler();
-            Resource resource = resourceHandler.createResource(resourceName);
-            return resource.getRequestPath();
+            Resource resource = (library != null) ? resourceHandler.createResource(resourceName,library) : resourceHandler.createResource(resourceName);
+            if(resource != null) {
+                path = resource.getRequestPath(); 
+            }
         }
-        return null;
+        return path;
     }
     
     @SuppressWarnings("serial")
@@ -737,9 +739,6 @@ public final class RenderKitUtils {
             last.setDefaultValue(value);
             return this;
         }
-        
-        
-
     }
 
 }
