@@ -14,7 +14,8 @@
 				<h:outputText value="Simples select"></h:outputText>
 			</f:facet>
 			<rich:inplaceSelect defaultLabel="Click here to edit"
-				openOnEdit="true" saveOnBlur="false">
+				openOnEdit="true" saveOnBlur="false" oninputchange="alert('10')"
+				onchange="alert('1')" oninputkeydown="alert('kdown')">
 				<f:selectItem itemValue="0" itemLabel="Option 1" />
 				<f:selectItem itemValue="1" itemLabel="Option 2" />
 				<f:selectItem itemValue="2" itemLabel="Option 3" />
@@ -22,21 +23,32 @@
 				<f:selectItem itemValue="4" itemLabel="Option 5" />
 			</rich:inplaceSelect>
 		</rich:panel>
-		<p>In that sample component customized in next way:
-		</p>
+		<p>In that sample component customized in next way:</p>
 		<ul>
-			<li><b>f:selectItems</b> tag is used to define a list of items to use.</li>
-			<li>Controls "save" and "cancel" are turned on with <b>showControls</b> attribute</li>
-			<li><b>editEvent</b> set to dblclick and used to switch to edit state.</li>
+			<li><b>f:selectItems</b> tag is used to define a list of items
+			to use.</li>
+			<li>Controls "save" and "cancel" are turned on with <b>showControls</b>
+			attribute</li>
+			<li><b>editEvent</b> set to dblclick and used to switch to edit
+			state.</li>
+			<li><b>saveOnSelect</b> defined as false causes component not to store
+			value right after choosing but wait till buttons will be used or
+			focus lost.</li>
+			<li><b>saveOnBlur</b> defined as false causes component to cancel new
+			value if it was chosen and focus was lost without save button
+			activation. That could be useful on interfaces where every change
+			causes long processing. And if use true value - it will works like in
+			spreadsheets where leaving the changed field causes new value to be
+			applied.</li>
 		</ul>
 		<rich:panel style="width:220px;">
 			<f:facet name="header">
 				<h:outputText value="Select customization"></h:outputText>
 			</f:facet>
 			<rich:inplaceSelect editEvent="dblclick" id="inplaceSelect"
-				showControls="true" saveOnBlur="true"
-				value="#{inplaceSelectBean.value}" defaultLabel="Double click to edit value"
-				openOnEdit="true">
+				showControls="true" saveOnSelect="false" saveOnBlur="false"
+				value="#{inplaceSelectBean.value}"
+				defaultLabel="Double click to edit value">
 				<f:selectItems value="#{inplaceSelectBean.capitalsOptions}" />
 			</rich:inplaceSelect>
 		</rich:panel>
