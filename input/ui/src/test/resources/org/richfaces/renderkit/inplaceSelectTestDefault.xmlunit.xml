@@ -17,15 +17,16 @@
 					<span class="rf-is-shdw-r"></span>
 					<span class="rf-is-shdw-b"></span>
 					<span class="rf-is-lst-dec">
-						<span class="rf-is-lst-scrl" id="form:inplaceSelectDefaultItems"
-							style="height: 100px">
-							<span id="form:inplaceSelectDefaultItem0" class="rf-is-opt">Label#1
-							</span>
-							<span id="form:inplaceSelectDefaultItem1" class="rf-is-opt">Label#2
-							</span>
-							<span id="form:inplaceSelectDefaultItem2" class="rf-is-opt">Label#3
-							</span>
-							<span id="form:inplaceSelectDefaultItem3" class="rf-is-opt">Label#4
+						<span class="rf-is-lst-scrl" style="height: 100px"> 
+							<span id="form:inplaceSelectDefaultItems">
+								<span id="form:inplaceSelectDefaultItem0" class="rf-is-opt">Label#1
+								</span>
+								<span id="form:inplaceSelectDefaultItem1" class="rf-is-opt">Label#2
+								</span>
+								<span id="form:inplaceSelectDefaultItem2" class="rf-is-opt">Label#3
+								</span>
+								<span id="form:inplaceSelectDefaultItem3" class="rf-is-opt">Label#4
+								</span>
 							</span>
 						</span>
 					</span>

@@ -40,12 +40,17 @@
 					<span class="rf-is-shdw-r"></span>
 					<span class="rf-is-shdw-b"></span>
 					<span class="rf-is-lst-dec">
-						<span class="rf-is-lst-scrl" id="form:inplaceSelectEditItems"
-							style="height: 100px">
-							<span id="form:inplaceSelectEditItem0" class="rf-is-opt">Label#1</span>
-							<span id="form:inplaceSelectEditItem1" class="rf-is-opt">Label#2</span>
-							<span id="form:inplaceSelectEditItem2" class="rf-is-opt">Label#3</span>
-							<span id="form:inplaceSelectEditItem3" class="rf-is-opt">Label#4</span>
+						<span class="rf-is-lst-scrl" style="height: 100px"> 
+							<span id="form:inplaceSelectEditItems">
+								<span id="form:inplaceSelectEditItem0" class="rf-is-opt">Label#1
+								</span>
+								<span id="form:inplaceSelectEditItem1" class="rf-is-opt">Label#2
+								</span>
+								<span id="form:inplaceSelectEditItem2" class="rf-is-opt">Label#3
+								</span>
+								<span id="form:inplaceSelectEditItem3" class="rf-is-opt">Label#4
+								</span>
+							</span>
 						</span>
 					</span>
 				</span>

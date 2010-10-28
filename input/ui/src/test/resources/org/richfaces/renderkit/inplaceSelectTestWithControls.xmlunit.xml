@@ -41,15 +41,16 @@
 					<span class="rf-is-shdw-r"></span>
 					<span class="rf-is-shdw-b"></span>
 					<span class="rf-is-lst-dec">
-						<span class="rf-is-lst-scrl" id="form:inplaceSelectWithControlsItems"
-							style="height: 100px">
-							<span id="form:inplaceSelectWithControlsItem0" class="rf-is-opt">Label#1
-							</span>
-							<span id="form:inplaceSelectWithControlsItem1" class="rf-is-opt">Label#2
-							</span>
-							<span id="form:inplaceSelectWithControlsItem2" class="rf-is-opt">Label#3
-							</span>
-							<span id="form:inplaceSelectWithControlsItem3" class="rf-is-opt">Label#4
+						<span class="rf-is-lst-scrl" style="height: 100px">
+							<span id="form:inplaceSelectWithControlsItems">
+								<span id="form:inplaceSelectWithControlsItem0" class="rf-is-opt">Label#1
+								</span>
+								<span id="form:inplaceSelectWithControlsItem1" class="rf-is-opt">Label#2
+								</span>
+								<span id="form:inplaceSelectWithControlsItem2" class="rf-is-opt">Label#3
+								</span>
+								<span id="form:inplaceSelectWithControlsItem3" class="rf-is-opt">Label#4
+								</span>
 							</span>
 						</span>
 					</span>
@@ -58,6 +59,6 @@
 		</span>
 	</span>
 	<script type="text/javascript">
-		// ignored
+		//ignore
 	</script>
 </span>

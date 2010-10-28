@@ -1,3 +1,9 @@
+.rf-is-fld, .rf-is-opt, .rf-is-lbl {
+	color: '#{richSkin.generalTextColor}';
+	font-family: '#{richSkin.generalFamilyFont}'; 
+	font-size : '#{richSkin.generalSizeFont}';
+}
+
 input.rf-is-fld { 
 	background : '#{richSkin.editBackgroundColor}'; 
 	padding : 0px 0px 0px 0px; 
@@ -7,8 +13,9 @@ input.rf-is-fld {
 	background-image:"url(#{resource['org.richfaces:mark_list.gif']})";
 	background-position : center right;
 	background-repeat : no-repeat;
-	font-family:inherit; 
-	font-size : inherit;
+	color: '#{richSkin.generalTextColor}';
+	font-family: '#{richSkin.generalFamilyFont}'; 
+	font-size : '#{richSkin.generalSizeFont}';
 }
 
 .rf-is-none {
@@ -99,10 +106,10 @@ input.rf-is-fld {
 
 .rf-is-lst-cord {
 	display : block;
-	/*font-size : 0px;*/
 	position : relative; 
-	font-family:inherit; 
-	font-size : inherit;
+	color: '#{richSkin.generalTextColor}';
+	font-family: '#{richSkin.generalFamilyFont}'; 
+	font-size : '#{richSkin.generalSizeFont}';
 }
 
 .rf-is-lst-pos {

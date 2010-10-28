@@ -1,5 +1,5 @@
 
-.rf-sel-inp.rf-s-fnt, .rf-sel-opt.rf-sel-fnt{
+.rf-sel-inp, .rf-sel-opt {
 	color: '#{richSkin.generalTextColor}';
 	font-size: '#{richSkin.generalSizeFont}';
 	font-family: '#{richSkin.generalFamilyFont}';
