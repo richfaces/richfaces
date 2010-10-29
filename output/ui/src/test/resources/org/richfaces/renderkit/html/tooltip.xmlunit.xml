@@ -1,6 +1,5 @@
 <span id="f:tooltip" class="rf-tt">
     <span id="f:tooltip:cntr" class="rf-tt-cntr">
-        <span id="f:tooltip:loading" class="rf-tt-loading">Loading...</span>
         <span id="f:tooltip@content" class="rf-tt-cnt"></span>
     </span>
     <script type="text/javascript">

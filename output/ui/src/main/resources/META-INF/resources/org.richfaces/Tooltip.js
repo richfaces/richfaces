@@ -120,7 +120,7 @@
             this.options = $.extend({}, DEFAULT_OPTIONS, this.options || {}, options || {});
             this.attachToDom.call(this, componentId);
 
-            this.mode = TooltipMode.ajax;
+            this.mode = this.options.mode;
             this.target = this.options.target;
 
             this.__addUserEventHandler("hide");
@@ -140,19 +140,19 @@
                 tooltip.popup.show(event);
             }
 
-            $(this.options.target).bind(this.options.showEvent, function (event) {
+            $(document.getElementById(this.target)).bind(this.options.showEvent, function (event) {
                 tooltip.show(event);
 
                 if (tooltip.options.followMouse) {
-                    $(tooltip.target).bind("mousemove", mouseMoveHandler);
+                    $(document.getElementById(tooltip.target)).bind("mousemove", mouseMoveHandler);
                 }
             });
 
-            $(tooltip.target).bind(this.options.hideEvent, function (event) {
+            $(document.getElementById(tooltip.target)).bind(this.options.hideEvent, function (event) {
                 tooltip.hide();
 
                 if (tooltip.options.followMouse) {
-                    $(tooltip.target).unbind("mousemove", mouseMoveHandler);
+                    $(document.getElementById(tooltip.target)).unbind("mousemove", mouseMoveHandler);
                 }
             });
 
@@ -207,8 +207,8 @@
         },
 
         onCompleteHandler : function () {
-            this.__loading().hide();
             this.__content().show();
+            this.__loading().hide();
 
             return this.__fireShow();
         },

@@ -25,6 +25,7 @@ package org.richfaces.renderkit.html;
 
 import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.TooltipMode;
 import org.richfaces.component.AbstractTooltip;
 import org.richfaces.component.html.HtmlTooltip;
 import org.richfaces.renderkit.HtmlConstants;
@@ -34,6 +35,7 @@ import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.HashMap;
@@ -105,7 +107,10 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
         writer.writeAttribute("id", component.getClientId(context) + ":cntr", null);
         writer.writeAttribute("class", "rf-tt-cntr", null);
 
-        encodeLoading(writer, context, tooltip);
+        if (tooltip.getMode() == TooltipMode.ajax) {
+            encodeLoading(writer, context, tooltip);
+        }
+
         encodeContentBegin(writer, context, tooltip);
     }
 
@@ -197,13 +202,16 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
     public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) throws IOException {
         if (AbstractTooltip.CONTENT_META_COMPONENT_ID.equals(metaComponentId)) {
             AbstractTooltip tooltip = (AbstractTooltip) component;
-            ResponseWriter writer = context.getResponseWriter();
-
+            PartialResponseWriter writer = context.getPartialViewContext().getPartialResponseWriter();
+            writer.startUpdate(((AbstractTooltip) component).getContentClientId(context));
+            
             encodeContentBegin(writer, context, tooltip);
             for (UIComponent child : tooltip.getChildren()) {
                 child.encodeAll(context);
             }
             encodeContentEnd(writer, context, tooltip);
+
+            writer.endUpdate();
         }
     }
 
