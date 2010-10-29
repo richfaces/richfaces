@@ -44,6 +44,7 @@
         <module>misc-demo</module>
         <module>output-demo</module>
         <module>input-demo</module>
+        <module>calendar-demo</module>
         <module>repeater-demo</module>
         <module>iteration-demo</module>
         
