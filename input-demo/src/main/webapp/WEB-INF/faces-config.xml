@@ -26,7 +26,12 @@
         <navigation-case>
             <from-outcome>autocomplete</from-outcome>
             <to-view-id>/examples/autocomplete.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>calendar</from-outcome>
+            <to-view-id>/examples/calendar.xhtml</to-view-id>
         </navigation-case>		
+        		
 		
         <!-- QUnit -->
         <navigation-case>
