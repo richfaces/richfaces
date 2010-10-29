@@ -26,33 +26,33 @@ package org.richfaces.event;
  * @author akolonitsky
  * @since 2010-08-27
  */
-public interface ChangeExpandSource {
+public interface PanelToggleSource {
 
     /**
-     * <p>Add a new {@link org.richfaces.event.ChangeExpandListener} to the set of listeners
-     * interested in being notified when {@link org.richfaces.event.ChangeExpandEvent}s occur.</p>
+     * <p>Add a new {@link PanelToggleListener} to the set of listeners
+     * interested in being notified when {@link PanelToggleEvent}s occur.</p>
      *
-     * @param listener The {@link org.richfaces.event.ChangeExpandListener} to be added
+     * @param listener The {@link PanelToggleListener} to be added
      * @throws NullPointerException if <code>listener</code>
      *                              is <code>null</code>
      */
-    void addChangeExpandListener(ChangeExpandListener listener);
+    void addPanelToggleListener(PanelToggleListener listener);
 
     /**
-     * <p>Return the set of registered {@link org.richfaces.event.ChangeExpandListener}s for this instance.
+     * <p>Return the set of registered {@link PanelToggleListener}s for this instance.
      * If there are no registered listeners, a zero-length array is returned.</p>
      */
-    ChangeExpandListener[] getChangeExpandListeners();
+    PanelToggleListener[] getPanelToggleListeners();
 
     /**
-     * <p>Remove an existing {@link org.richfaces.event.ChangeExpandListener} (if any) from the
+     * <p>Remove an existing {@link PanelToggleListener} (if any) from the
      * set of listeners interested in being notified when
-     * {@link org.richfaces.event.ChangeExpandEvent}s occur.</p>
+     * {@link PanelToggleEvent}s occur.</p>
      *
-     * @param listener The {@link org.richfaces.event.ChangeExpandListener} to be removed
+     * @param listener The {@link PanelToggleListener} to be removed
      * @throws NullPointerException if <code>listener</code>
      *                              is <code>null</code>
      */
-    void removeChangeExpandListener(ChangeExpandListener listener);
+    void removePanelToggleListener(PanelToggleListener listener);
 
 }

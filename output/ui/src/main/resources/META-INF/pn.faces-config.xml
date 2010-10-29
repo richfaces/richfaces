@@ -166,7 +166,7 @@
         </property>
         <property>
             <description></description>
-            <property-name>changeExpandListener</property-name>
+            <property-name>toggleListener</property-name>
             <property-class>javax.el.MethodExpression</property-class>
         </property>
 

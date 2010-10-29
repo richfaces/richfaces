@@ -32,7 +32,7 @@ public class UICollapsiblePanel extends AbstractCollapsiblePanel {
 
     public enum PropertyKeys {
         header,
-        changeExpandListener
+        toggleListener
     }
 
     public String getHeader() {
@@ -43,11 +43,11 @@ public class UICollapsiblePanel extends AbstractCollapsiblePanel {
         getStateHelper().put(PropertyKeys.header, header);
     }
 
-    public MethodExpression getChangeExpandListener() {
-        return (MethodExpression) getStateHelper().get(PropertyKeys.changeExpandListener);
+    public MethodExpression getPanelToggleListener() {
+        return (MethodExpression) getStateHelper().get(PropertyKeys.toggleListener);
     }
 
-    public void setChangeExpandListener(MethodExpression changeExpandListener) {
-        getStateHelper().put(PropertyKeys.changeExpandListener, changeExpandListener);
+    public void setPanelToggleListener(MethodExpression panelToggleListener) {
+        getStateHelper().put(PropertyKeys.toggleListener, panelToggleListener);
     }
 }

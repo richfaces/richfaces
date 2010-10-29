@@ -31,7 +31,7 @@ import javax.faces.event.FacesListener;
  * @author akolonitsky
  * @since 2010-08-27
  */
-public class ChangeExpandEvent extends FacesEvent {
+public class PanelToggleEvent extends FacesEvent {
 
     private final Boolean isExpanded;
 
@@ -51,7 +51,7 @@ public class ChangeExpandEvent extends FacesEvent {
      * @throws IllegalArgumentException if <code>component</code> is
      *  <code>null</code>
      */
-    public ChangeExpandEvent(UIComponent component, Boolean isExpanded) {
+    public PanelToggleEvent(UIComponent component, Boolean isExpanded) {
         super(component);
         this.isExpanded = isExpanded;
     }
@@ -68,7 +68,7 @@ public class ChangeExpandEvent extends FacesEvent {
 
     @Override
     public boolean isAppropriateListener(FacesListener listener) {
-        return listener instanceof ChangeExpandListener;
+        return listener instanceof PanelToggleListener;
     }
 
     /**
@@ -76,7 +76,7 @@ public class ChangeExpandEvent extends FacesEvent {
      */
     @Override
     public void processListener(FacesListener listener) {
-        ((ChangeExpandListener) listener).processChangeExpand(this);
+        ((PanelToggleListener) listener).processPanelToggle(this);
     }
 }
 

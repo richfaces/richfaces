@@ -29,9 +29,9 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.TagConfig;
 
-import org.richfaces.event.ChangeExpandEvent;
-import org.richfaces.event.ChangeExpandListener;
-import org.richfaces.event.ChangeExpandSource;
+import org.richfaces.event.PanelToggleEvent;
+import org.richfaces.event.PanelToggleListener;
+import org.richfaces.event.PanelToggleSource;
 import org.richfaces.view.facelets.EventListenerHandler;
 
 /**
@@ -39,21 +39,21 @@ import org.richfaces.view.facelets.EventListenerHandler;
  * @author akolonitsky
  * @version 1.0
  */
-public final class ChangeExpandListenerHandler extends EventListenerHandler {
+public final class PanelToggleListenerHandler extends EventListenerHandler {
 
-    private static class LazyChangeExpandListener extends LazyEventListener<ChangeExpandListener> implements ChangeExpandListener {
+    private static class LazyPanelToggleListener extends LazyEventListener<PanelToggleListener> implements PanelToggleListener {
         private static final long serialVersionUID = -391020876192823200L;
 
-        LazyChangeExpandListener(String type, ValueExpression binding) {
+        LazyPanelToggleListener(String type, ValueExpression binding) {
             super(type, binding);
         }
 
-        public void processChangeExpand(ChangeExpandEvent event) throws AbortProcessingException {
+        public void processPanelToggle(PanelToggleEvent event) throws AbortProcessingException {
             processEvent(event);
         }
     }
 
-    public ChangeExpandListenerHandler(TagConfig config) {
+    public PanelToggleListenerHandler(TagConfig config) {
         super(config);
     }
 
@@ -61,16 +61,16 @@ public final class ChangeExpandListenerHandler extends EventListenerHandler {
         ValueExpression expression = null;
         if (this.binding != null) {
             FaceletContext ctx = (FaceletContext) context.getAttributes().get(FaceletContext.FACELET_CONTEXT_KEY);
-            expression = this.binding.getValueExpression(ctx, ChangeExpandListener.class);
+            expression = this.binding.getValueExpression(ctx, PanelToggleListener.class);
         }
 
-        ChangeExpandSource source = (ChangeExpandSource) parent;
-        source.addChangeExpandListener(new LazyChangeExpandListener(this.listenerType, expression));
+        PanelToggleSource source = (PanelToggleSource) parent;
+        source.addPanelToggleListener(new LazyPanelToggleListener(this.listenerType, expression));
     }
 
     @Override
     public boolean isEventSource(UIComponent comp) {
-        return comp instanceof ChangeExpandSource;
+        return comp instanceof PanelToggleSource;
     }
 }
 

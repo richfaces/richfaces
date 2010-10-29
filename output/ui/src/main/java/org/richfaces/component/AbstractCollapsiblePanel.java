@@ -22,9 +22,9 @@
 
 package org.richfaces.component;
 
-import org.richfaces.event.ChangeExpandEvent;
-import org.richfaces.event.ChangeExpandListener;
-import org.richfaces.event.ChangeExpandSource;
+import org.richfaces.event.PanelToggleEvent;
+import org.richfaces.event.PanelToggleListener;
+import org.richfaces.event.PanelToggleSource;
 import org.richfaces.event.ItemChangeEvent;
 
 import javax.el.MethodExpression;
@@ -35,7 +35,7 @@ import javax.faces.event.FacesEvent;
  * @author akolonitsky
  * @since 2010-08-27
  */
-public abstract class AbstractCollapsiblePanel extends UITogglePanel implements ChangeExpandSource {
+public abstract class AbstractCollapsiblePanel extends UITogglePanel implements PanelToggleSource {
 
     public static final String COMPONENT_TYPE = "org.richfaces.CollapsiblePanel";
 
@@ -92,13 +92,13 @@ public abstract class AbstractCollapsiblePanel extends UITogglePanel implements 
 
     public abstract String getHeader();
 
-    public abstract MethodExpression getChangeExpandListener();
+    public abstract MethodExpression getPanelToggleListener();
 
     @Override
     public void queueEvent(FacesEvent facesEvent) {
-        ChangeExpandEvent event = null;
+        PanelToggleEvent event = null;
         if ((facesEvent instanceof ItemChangeEvent) && (facesEvent.getComponent() == this)) {
-            event = new ChangeExpandEvent(this, Boolean.valueOf(((ItemChangeEvent) facesEvent).getNewItem()));
+            event = new PanelToggleEvent(this, Boolean.valueOf(((ItemChangeEvent) facesEvent).getNewItem()));
 
             setEventPhase(event);
         }
@@ -108,15 +108,15 @@ public abstract class AbstractCollapsiblePanel extends UITogglePanel implements 
 
     // ------------------------------------------------ Event Processing Methods
 
-    public void addChangeExpandListener(ChangeExpandListener listener) {
+    public void addPanelToggleListener(PanelToggleListener listener) {
         addFacesListener(listener);
     }
 
-    public ChangeExpandListener[] getChangeExpandListeners() {
-        return (ChangeExpandListener[]) getFacesListeners(ChangeExpandListener.class);
+    public PanelToggleListener[] getPanelToggleListeners() {
+        return (PanelToggleListener[]) getFacesListeners(PanelToggleListener.class);
     }
 
-    public void removeChangeExpandListener(ChangeExpandListener listener) {
+    public void removePanelToggleListener(PanelToggleListener listener) {
         removeFacesListener(listener);
     }
 }

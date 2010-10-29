@@ -320,7 +320,7 @@
         </attribute>
         <attribute>
             <description></description>
-            <name>changeExpandListener</name>
+            <name>panelToggleListener</name>
             <type>javax.el.MethodExpression</type>
         </attribute>
         <attribute>
@@ -422,16 +422,16 @@
     </tag>
     <tag>
         <description>
-            Register a ChangeExpandListener instance on the UIComponent
+            Register a PanelToggleListener instance on the UIComponent
             associated with the closest parent UIComponent custom
             action.
         </description>
-        <tag-name>changeExpandListener</tag-name>
-        <handler-class>org.richfaces.view.facelets.html.ChangeExpandListenerHandler</handler-class>
+        <tag-name>panelToggleListener</tag-name>
+        <handler-class>org.richfaces.view.facelets.html.PanelToggleListenerHandler</handler-class>
         <attribute>
             <description>
                 Fully qualified Java class name of a
-                ChangeExpandListener to be created and registered.
+                PanelToggleListener to be created and registered.
             </description>
             <name>type</name>
             <type>java.lang.String</type>
@@ -439,11 +439,11 @@
         <attribute>
             <description>
                 Value binding expression that evaluates to an object that
-                implements org.richfaces.event.ChangeExpandListener.
+                implements org.richfaces.event.PanelToggleListener.
             </description>
             <name>binding</name>
             <required>false</required>
-            <type>org.richfaces.event.ChangeExpandListener</type>
+            <type>org.richfaces.event.PanelToggleListener</type>
         </attribute>
         <attribute>
             <description>

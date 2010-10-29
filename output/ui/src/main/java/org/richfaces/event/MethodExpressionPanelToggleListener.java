@@ -22,33 +22,38 @@
 
 package org.richfaces.event;
 
+import javax.el.MethodExpression;
 import javax.faces.event.AbortProcessingException;
-import javax.faces.event.FacesListener;
 
 /**
- * <p>A listener interface for receiving {@link ChangeExpandEvent}s.  A class
- * that is interested in receiving such events implements this interface, and
- * then registers itself with the source {@link javax.faces.component.UIComponent} of interest, by
- * calling <code>addChangeExpandListener()</code>.</p>
+ * <p><strong><span
+ * class="changed_modified_2_0">MethodExpressionPanelToggleListener</span></strong>
+ * is a {@link PanelToggleListener} that wraps a {@link
+ * MethodExpression}. When it receives a {@link PanelToggleEvent}, it
+ * executes a method on an object identified by the {@link
+ * MethodExpression}.</p>
  *
  * @author akolonitsky
  * @version 1.0
- * @since 2010-08-27
  *
  */
-public interface ChangeExpandListener extends FacesListener {
+public class MethodExpressionPanelToggleListener extends MethodExpressionEventListener implements PanelToggleListener {
 
+    public MethodExpressionPanelToggleListener() {
+        super();
+    }
 
-    /**
-     * <p>Invoked when {@link ChangeExpandEvent} occurs.</p>
-     *
-     * @param event The {@link ChangeExpandEvent} that has occurred
-     *
-     * @throws AbortProcessingException Signal the JavaServer Faces
-     *  implementation that no further processing on the current event
-     *  should be performed
-     */
-    public void processChangeExpand(ChangeExpandEvent event)
-        throws AbortProcessingException;
+    public MethodExpressionPanelToggleListener(MethodExpression methodExprOneArg) {
+        super(methodExprOneArg);
+    }
 
+    public MethodExpressionPanelToggleListener(MethodExpression methodExprOneArg, MethodExpression methodExprZeroArg) {
+        super(methodExprOneArg, methodExprZeroArg);
+    }
+
+    // ------------------------------------------------------- Listener Method
+
+    public void processPanelToggle(PanelToggleEvent panelToggleEvent) throws AbortProcessingException {
+        processEvent(panelToggleEvent);
+    }
 }

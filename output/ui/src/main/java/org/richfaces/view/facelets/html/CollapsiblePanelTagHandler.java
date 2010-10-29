@@ -24,8 +24,8 @@ package org.richfaces.view.facelets.html;
 
 import org.richfaces.component.AbstractCollapsiblePanel;
 
-import org.richfaces.event.MethodExpressionChangeExpandListener;
-import org.richfaces.event.ChangeExpandEvent;
+import org.richfaces.event.MethodExpressionPanelToggleListener;
+import org.richfaces.event.PanelToggleEvent;
 
 import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.ComponentHandler;
@@ -61,8 +61,8 @@ public class CollapsiblePanelTagHandler extends ComponentHandler {
         @Override
         public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
             if (meta.isTargetInstanceOf(AbstractCollapsiblePanel.class)) {
-                if ("changeExpandListener".equals(name)) {
-                    return new ChangeExpandExpressionMetadata(attribute);
+                if ("toggleListener".equals(name)) {
+                    return new PanelToggleExpressionMetadata(attribute);
                 }
 
             }
@@ -70,18 +70,18 @@ public class CollapsiblePanelTagHandler extends ComponentHandler {
         }
     }
 
-    private static final class ChangeExpandExpressionMetadata extends Metadata {
-        private static final Class<?>[] CHANGE_EXPAND_SIG = new Class[] {ChangeExpandEvent.class };
+    private static final class PanelToggleExpressionMetadata extends Metadata {
+        private static final Class<?>[] CHANGE_EXPAND_SIG = new Class[] {PanelToggleEvent.class };
 
         private final TagAttribute attr;
 
-        ChangeExpandExpressionMetadata(TagAttribute attr) {
+        PanelToggleExpressionMetadata(TagAttribute attr) {
             this.attr = attr;
         }
 
         @Override
         public void applyMetadata(FaceletContext ctx, Object instance) {
-            ((AbstractCollapsiblePanel) instance).addChangeExpandListener(new MethodExpressionChangeExpandListener(
+            ((AbstractCollapsiblePanel) instance).addPanelToggleListener(new MethodExpressionPanelToggleListener(
                             this.attr.getMethodExpression(ctx, null, CHANGE_EXPAND_SIG)));
         }
     }
