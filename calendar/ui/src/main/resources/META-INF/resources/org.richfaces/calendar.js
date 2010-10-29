@@ -24,8 +24,8 @@
 			var text = rf.calendarUtils.formatDate(calendar.selectedDate,(calendar.timeType ? calendar.datePattern : calendar.params.datePattern), calendar.params.monthLabels, calendar.params.monthLabelsShort);
 			var onclick = "RichFaces.$$('Calendar',this).showSelectedDate(); return true;"
 			var markup = ( calendar.params.disabled ? 
-							new E('div', {'class': 'rich-calendar-tool-btn-disabled'}, [new ET(text)]) : 
-							new E('div', {'class': 'rich-calendar-tool-btn', 'onclick': onclick}, [new ET(text)]) );
+							new E('div', {'class': 'rf-ca-tl-btn-dis'}, [new ET(text)]) : 
+							new E('div', {'class': 'rf-ca-tl-btn', 'onclick': onclick}, [new ET(text)]) );
 	
 			return markup;
 		},
@@ -36,19 +36,19 @@
 			
 			var text = rf.calendarUtils.formatDate(calendar.selectedDate, calendar.timePattern, calendar.params.monthLabels, calendar.params.monthLabelsShort);
 	
-			var onmouseover = "jQuery(this).removeClass('rich-calendar-tool-btn-press');";
-			var onmouseout = "jQuery(this).addClass('rich-calendar-tool-btn-press');";
+			var onmouseover = "jQuery(this).removeClass('rf-ca-tl-btn-press');";
+			var onmouseout = "jQuery(this).addClass('rf-ca-tl-btn-press');";
 			var onclick = "RichFaces.$$('Calendar',this).showTimeEditor();return true;";
 			var markup = calendar.params.disabled || calendar.params.readonly ? 
-						new E('div', {'class': 'rich-calendar-tool-btn-disabled'}, [new ET(text)]) : 
-						new E('div', {'class': 'rich-calendar-tool-btn rich-calendar-tool-btn-hover rich-calendar-tool-btn-press', 'onclick': onclick,
+						new E('div', {'class': 'rf-ca-tl-btn-btn-dis'}, [new ET(text)]) : 
+						new E('div', {'class': 'rf-ca-tl-btn rf-ca-tl-btn-hov rf-ca-tl-btn-press', 'onclick': onclick,
 								'onmouseover': + onmouseover ,
 								'onmouseout' : + onmouseout}, [new ET(text)]);
 	
 			return markup;
 		},
 
-		toolButtonAttributes: {className: "rich-calendar-tool-btn", onmouseover:"this.className='rich-calendar-tool-btn rich-calendar-tool-btn-hover'", onmouseout:"this.className='rich-calendar-tool-btn'", onmousedown:"this.className='rich-calendar-tool-btn rich-calendar-tool-btn-hover rich-calendar-tool-btn-press'", onmouseup:"this.className='rich-calendar-tool-btn rich-calendar-tool-btn-hover'"},
+		toolButtonAttributes: {className: "rf-ca-tl-btn", onmouseover:"this.className='rf-ca-tl-btn rf-ca-tl-btn-hov'", onmouseout:"this.className='rf-ca-tl-btn'", onmousedown:"this.className='rf-ca-tl-btn rf-ca-tl-btn-hov rf-ca-tl-btn-btn-press'", onmouseup:"this.className='rf-ca-tl-btn rf-ca-tl-btn-hov'"},
 		nextYearControl: function (context) {
 			return (!context.calendar.params.disabled ? CalendarView.getControl(">>", CalendarView.toolButtonAttributes, "nextYear") : "");
 		},
@@ -64,7 +64,7 @@
 		currentMonthControl: function (context) {
 			var text = rf.calendarUtils.formatDate(context.calendar.getCurrentDate(), "MMMM, yyyy", context.monthLabels, context.monthLabelsShort);
 			var markup = context.calendar.params.disabled ?
-						 new E('div',{className: "rich-calendar-tool-btn-disabled"},[new T(text)]) :
+						 new E('div',{className: "rf-ca-tl-btn-dis"},[new T(text)]) :
 						 CalendarView.getControl(text, CalendarView.toolButtonAttributes, "showDateEditor");
 			return markup;
 		},
@@ -92,27 +92,27 @@
 					[
 						new E('tr',{},
 						[
-							new E('td',{'class': 'rich-calendar-tool'},
+							new E('td',{'class': 'rf-ca-tl'},
 							[
 								new ET(function (context) { return rf.calendarTemplates.evalMacro("previousYearControl", context)})
 							]),
-							new E('td',{'class': 'rich-calendar-tool'},
+							new E('td',{'class': 'rf-ca-tl'},
 							[
 								new ET(function (context) { return rf.calendarTemplates.evalMacro("previousMonthControl", context)})
 							]),
-							new E('td',{'class': 'rich-calendar-month'},
+							new E('td',{'class': 'rf-ca-month'},
 							[
 								new ET(function (context) { return rf.calendarTemplates.evalMacro("currentMonthControl", context)})
 							]),				
-							new E('td',{'class': 'rich-calendar-tool'},
+							new E('td',{'class': 'rf-ca-tl'},
 							[
 								new ET(function (context) { return rf.calendarTemplates.evalMacro("nextMonthControl", context)})
 							]),
-							new E('td',{'class': 'rich-calendar-tool'},
+							new E('td',{'class': 'rf-ca-tl'},
 							[
 								new ET(function (context) { return rf.calendarTemplates.evalMacro("nextYearControl", context)})
 							]),
-							new E('td',{'class': 'rich-calendar-tool rich-calendar-tool-close', 'style':function(context){return (this.isEmpty ? 'display:none;' : '');}},
+							new E('td',{'class': 'rf-ca-tl rf-ca-tl-close', 'style':function(context){return (this.isEmpty ? 'display:none;' : '');}},
 							[
 								new ET(function (context) { return rf.calendarTemplates.evalMacro("closeControl", context)})
 							])
@@ -128,24 +128,24 @@
 					[
 						new E('tr',{},
 						[
-							new E('td',{'class': 'rich-calendar-toolfooter', 'style':function(context){return (this.isEmpty ? 'display:none;' : '');}},
+							new E('td',{'class': 'rf-tl-ftr', 'style':function(context){return (this.isEmpty ? 'display:none;' : '');}},
 							[
 								new ET(function (context) { return rf.calendarTemplates.evalMacro("selectedDateControl", context)})
 							]),
-							new E('td',{'class': 'rich-calendar-toolfooter', 'style':function(context){return (this.isEmpty ? 'display:none;' : '');}},
+							new E('td',{'class': 'rf-tl-ftr', 'style':function(context){return (this.isEmpty ? 'display:none;' : '');}},
 							[
 								new ET(function (context) { return rf.calendarTemplates.evalMacro("cleanControl", context)})
 							]),
-							new E('td',{'class': 'rich-calendar-toolfooter', 'style':function(context){return (this.isEmpty ? 'display:none;' : '');}},
+							new E('td',{'class': 'rf-tl-ftr', 'style':function(context){return (this.isEmpty ? 'display:none;' : '');}},
 							[
 								new ET(function (context) { return rf.calendarTemplates.evalMacro("timeControl", context)})
 							]),
-							new E('td',{'class': 'rich-calendar-toolfooter', 'style': 'background-image:none;', 'width': '100%'}, []),
-							new E('td',{'class': 'rich-calendar-toolfooter', 'style':function(context){return (this.isEmpty ? 'display:none;' : '')+(context.calendar.params.disabled || context.calendar.params.readonly || !context.calendar.params.showApplyButton ? 'background-image:none;' : '');}},
+							new E('td',{'class': 'rf-tl-ftr', 'style': 'background-image:none;', 'width': '100%'}, []),
+							new E('td',{'class': 'rf-tl-ftr', 'style':function(context){return (this.isEmpty ? 'display:none;' : '')+(context.calendar.params.disabled || context.calendar.params.readonly || !context.calendar.params.showApplyButton ? 'background-image:none;' : '');}},
 							[
 								new ET(function (context) { return rf.calendarTemplates.evalMacro("todayControl", context)})
 							]),
-							new E('td',{'class': 'rich-calendar-toolfooter', 'style':function(context){return (this.isEmpty ? 'display:none;' : '')+'background-image:none;';}},
+							new E('td',{'class': 'rf-tl-ftr', 'style':function(context){return (this.isEmpty ? 'display:none;' : '')+'background-image:none;';}},
 							[
 								new ET(function (context) { return rf.calendarTemplates.evalMacro("applyControl", context)})
 							])
@@ -156,22 +156,22 @@
 		
 		timeEditorLayout: [
 	
-		        new E('table',{'id': function(context){return context.calendar.TIME_EDITOR_LAYOUT_ID}, 'border': '0', 'cellpadding': '0', 'cellspacing': '0', 'class': 'rich-calendar-time-layout'},
+		        new E('table',{'id': function(context){return context.calendar.TIME_EDITOR_LAYOUT_ID}, 'border': '0', 'cellpadding': '0', 'cellspacing': '0', 'class': 'rf-ca-time-layout'},
 				[
 					new E('tbody',{},
 					[
 						new E('tr',{},
 						[
-							new E('td',{'class': 'rich-calendar-time-layout-fields', 'colspan': '2', 'align': 'center'},
+							new E('td',{'class': 'rf-ca-time-layout-fld', 'colspan': '2', 'align': 'center'},
 							[
 								new ET(function (context) { return rf.calendarTemplates.evalMacro("timeEditorFields", context)})
 							])
 						]),
 						new E('tr',{},
 						[
-							new E('td',{'class': 'rich-calendar-time-layout-ok'},
+							new E('td',{'class': 'rf-ca-time-layout-ok'},
 							[
-								new E('div',{'id': function(context){return context.calendar.TIME_EDITOR_BUTTON_OK}, 'class': 'rich-calendar-time-btn', 'style': 'float:right;', 'onmousedown': "jQuery(this).addClass('rich-calendar-time-btn-press');", 'onmouseout': "jQuery(this).removeClass('rich-calendar-time-btn-press');", 'onmouseup': "jQuery(this).removeClass('rich-calendar-time-btn-press');", 'onclick': function(context){return "RichFaces.$('"+context.calendar.id+"').hideTimeEditor(true)";}},
+								new E('div',{'id': function(context){return context.calendar.TIME_EDITOR_BUTTON_OK}, 'class': 'rf-ca-time-btn', 'style': 'float:right;', 'onmousedown': "jQuery(this).addClass('rf-ca-time-btn-press');", 'onmouseout': "jQuery(this).removeClass('rf-ca-time-btn-press');", 'onmouseup': "jQuery(this).removeClass('rf-ca-time-btn-press');", 'onclick': function(context){return "RichFaces.$('"+context.calendar.id+"').hideTimeEditor(true)";}},
 								[
 									new E('span',{},
 									[
@@ -180,9 +180,9 @@
 								])
 							])
 							,
-							new E('td',{'class': 'rich-calendar-time-layout-cancel'},
+							new E('td',{'class': 'rf-ca-time-layout-cancel'},
 							[
-								new E('div',{'id': function(context){return context.calendar.TIME_EDITOR_BUTTON_CANCEL}, 'class': 'rich-calendar-time-btn', 'style': 'float:left;', 'onmousedown': "jQuery(this).addClass('rich-calendar-time-btn-press');", 'onmouseout': "jQuery(this).removeClass('rich-calendar-time-btn-press');", 'onmouseup': "jQuery(this).removeClass('rich-calendar-time-btn-press');", 'onclick': function(context){return "RichFaces.$('"+context.calendar.id+"').hideTimeEditor(false)";}},
+								new E('div',{'id': function(context){return context.calendar.TIME_EDITOR_BUTTON_CANCEL}, 'class': 'rf-ca-time-btn', 'style': 'float:left;', 'onmousedown': "jQuery(this).addClass('rf-ca-time-btn-press');", 'onmouseout': "jQuery(this).removeClass('rf-ca-time-btn-press');", 'onmouseup': "jQuery(this).removeClass('rf-ca-time-btn-press');", 'onclick': function(context){return "RichFaces.$('"+context.calendar.id+"').hideTimeEditor(false)";}},
 								[
 									new E('span',{},
 									[
@@ -312,7 +312,7 @@
 		// isDayEnabled - end-developer JS function
 		// dayStyleClass - end-developer JS function that provide style class for day's cells.
 		
-		// dayCellClass - add div to day cell with class 'rich-calendar-cell-div' and add this class to TD if defined  
+		// dayCellClass - add div to day cell with class 'rf-ca-c-div' and add this class to TD if defined  
 		// style - table style
 		// styleClass - table class
 		
@@ -404,12 +404,12 @@
 
 		var tempStr = "RichFaces.$('"+this.id+"').";
 
-		var htmlTextHeader = '<table id="'+this.CALENDAR_CONTENT+'" border="0" cellpadding="0" cellspacing="0" class="rich-calendar-exterior rich-calendar-popup '+this.params.styleClass+'" style="'+popupStyles+this.params.style+'" onclick="'+tempStr+'skipEventOnCollapse=true;"><tbody>';
+		var htmlTextHeader = '<table id="'+this.CALENDAR_CONTENT+'" border="0" cellpadding="0" cellspacing="0" class="rf-ca-extr rf-ca-popup '+this.params.styleClass+'" style="'+popupStyles+this.params.style+'" onclick="'+tempStr+'skipEventOnCollapse=true;"><tbody>';
 		var colspan = (this.params.showWeeksBar ? "8" : "7");
-		var htmlHeaderOptional = (this.params.optionalHeaderMarkup) ? '<tr><td class="rich-calendar-header-optional" colspan="'+colspan+'" id="'+this.id+'HeaderOptional"></td></tr>' : '';
-		var htmlFooterOptional = (this.params.optionalFooterMarkup) ? '<tr><td class="rich-calendar-footer-optional" colspan="'+colspan+'" id="'+this.id+'FooterOptional"></td></tr>' : '';
-		var htmlControlsHeader = (this.params.showHeader ? '<tr><td class="rich-calendar-header" colspan="'+colspan+'" id="'+this.id+'Header"></td></tr>' : '');
-		var htmlControlsFooter = (this.params.showFooter ? '<tr><td class="rich-calendar-footer" colspan="'+colspan+'" id="'+this.id+'Footer"></td></tr>' : '');
+		var htmlHeaderOptional = (this.params.optionalHeaderMarkup) ? '<tr><td class="rf-ca-hdr-optnl" colspan="'+colspan+'" id="'+this.id+'HeaderOptional"></td></tr>' : '';
+		var htmlFooterOptional = (this.params.optionalFooterMarkup) ? '<tr><td class="rf-ca-ftr-optl" colspan="'+colspan+'" id="'+this.id+'FooterOptional"></td></tr>' : '';
+		var htmlControlsHeader = (this.params.showHeader ? '<tr><td class="rf-ca-hdr" colspan="'+colspan+'" id="'+this.id+'Header"></td></tr>' : '');
+		var htmlControlsFooter = (this.params.showFooter ? '<tr><td class="rf-ca-ftr" colspan="'+colspan+'" id="'+this.id+'Footer"></td></tr>' : '');
 		var htmlTextFooter = '</tbody></table>'
 
 		// days bar creation
@@ -422,7 +422,7 @@
 		if (this.params.showWeekDaysBar)
 		{ 
 			htmlTextWeekDayBar.push('<tr id="'+this.WEEKDAY_BAR_ID+'">');
-			if (this.params.showWeeksBar) htmlTextWeekDayBar.push('<td class="rich-calendar-days"><br/></td>');
+			if (this.params.showWeeksBar) htmlTextWeekDayBar.push('<td class="rf-ca-days"><br/></td>');
 			var weekDayCounter = this.params.firstWeekDay;
 			for (var i=0;i<7;i++)
 			{
@@ -430,12 +430,12 @@
 				var weekDayHtml = this.evaluateMarkup(this.params.weekDayMarkup, context );
 				if (weekDayCounter==6) weekDayCounter=0; else weekDayCounter++;
 
-				styleClass = "rich-calendar-days";
+				styleClass = "rf-ca-days";
 				if (context.isWeekend)
 				{
-					styleClass += " rich-calendar-weekends";
+					styleClass += " rf-ca-weekends";
 				}
-				if (i==6) styleClass += " rich-right-cell";
+				if (i==6) styleClass += " rf-rgh-cell";
 				htmlTextWeekDayBar.push('<td class="'+styleClass+'" id="'+context.elementId+'">'+weekDayHtml+'</td>');
 			}
 			htmlTextWeekDayBar.push('</tr>\n');
@@ -448,26 +448,26 @@
 
 		for (k=1;k<7;k++)
 		{
-			bottomStyleClass = (k==6 ? "rich-bottom-cell " : "");			
+			bottomStyleClass = (k==6 ? "rf-btm-c " : "");			
 			htmlTextWeek.push('<tr id="'+this.WEEKNUMBER_BAR_ID+k+'">');
 			if (this.params.showWeeksBar)
 			{
 				context = {weekNumber: k, elementId:this.WEEKNUMBER_ELEMENT_ID+k, component:this}; 
 				var weekNumberHtml = this.evaluateMarkup(this.params.weekNumberMarkup, context );
-				htmlTextWeek.push('<td class="rich-calendar-week '+bottomStyleClass+'" id="'+context.elementId+'">'+weekNumberHtml+'</td>');
+				htmlTextWeek.push('<td class="rf-ca-week '+bottomStyleClass+'" id="'+context.elementId+'">'+weekNumberHtml+'</td>');
 			}
 			
 			// day cells creation 
 			for (var i=0;i<7;i++)
 			{
-				styleClass = bottomStyleClass+(!this.params.dayCellClass ? "rich-calendar-cell-size" : (!this.customDayListMarkup ? this.params.dayCellClass : ""))+" rich-calendar-cell";
-				if (i==this.firstWeekendDayNumber || i==this.secondWeekendDayNumber) styleClass+=" rich-calendar-holly";
-				if (i==6) styleClass+=" rich-right-cell";
+				styleClass = bottomStyleClass+(!this.params.dayCellClass ? "rf-ca-c-size" : (!this.customDayListMarkup ? this.params.dayCellClass : ""))+" rf-ca-c";
+				if (i==this.firstWeekendDayNumber || i==this.secondWeekendDayNumber) styleClass+=" rf-ca-holly";
+				if (i==6) styleClass+=" rf-rgh-c";
 				
 				this.dayCellClassName.push(styleClass);
 				htmlTextWeek.push('<td class="'+styleClass+'" id="'+this.DATE_ELEMENT_ID+p+'" '+
 				eventsStr+
-				'>'+(this.customDayListMarkup ? '<div class="rich-calendar-cell-div'+(this.params.dayCellClass ? ' '+this.params.dayCellClass : '')+'"></div>' : '')+'</td>');
+				'>'+(this.customDayListMarkup ? '<div class="rf-ca-c-div'+(this.params.dayCellClass ? ' '+this.params.dayCellClass : '')+'"></div>' : '')+'</td>');
 				p++;
 			}
 			htmlTextWeek.push('</tr>');
@@ -531,19 +531,19 @@
 		{
 			if (this.dateEditorYearID)
 			{
-				$(rf.getDomElement(this.dateEditorYearID)).removeClass('rich-calendar-editor-btn-selected');
+				$(rf.getDomElement(this.dateEditorYearID)).removeClass('rf-ca-edtr-btn-sel');
 			}
 			this.dateEditorYear = this.dateEditorStartYear + value;
 			this.dateEditorYearID = this.DATE_EDITOR_LAYOUT_ID+'Y'+value;
-			$(rf.getDomElement(this.dateEditorYearID)).addClass('rich-calendar-editor-btn-selected');
+			$(rf.getDomElement(this.dateEditorYearID)).addClass('rf-ca-edtr-btn-sel');
 		},
 		
 		dateEditorSelectMonth: function(value)
 		{
 			this.dateEditorMonth = value;
-			$(rf.getDomElement(this.dateEditorMonthID)).removeClass('rich-calendar-editor-btn-selected');
+			$(rf.getDomElement(this.dateEditorMonthID)).removeClass('rf-ca-edtr-btn-sel');
 			this.dateEditorMonthID = this.DATE_EDITOR_LAYOUT_ID+'M'+value;
-			$(rf.getDomElement(this.dateEditorMonthID)).addClass('rich-calendar-editor-btn-selected');
+			$(rf.getDomElement(this.dateEditorMonthID)).addClass('rf-ca-edtr-btn-sel');
 		},
 		
 		scrollEditorYear: function(value)
@@ -552,7 +552,7 @@
 
 			if (this.dateEditorYearID)
 			{
-				$(rf.getDomElement(this.dateEditorYearID)).removeClass('rich-calendar-editor-btn-selected');
+				$(rf.getDomElement(this.dateEditorYearID)).removeClass('rf-ca-edtr-btn-sel');
 				this.dateEditorYearID='';
 			}
 
@@ -562,9 +562,9 @@
 				if (this.dateEditorMonth != this.getCurrentMonth())
 				{
 					this.dateEditorMonth = this.getCurrentMonth();
-					$(rf.getDomElement(this.dateEditorMonthID)).removeClass('rich-calendar-editor-btn-selected');
+					$(rf.getDomElement(this.dateEditorMonthID)).removeClass('rf-ca-edtr-btn-sel');
 					this.dateEditorMonthID = this.DATE_EDITOR_LAYOUT_ID+'M'+this.dateEditorMonth;
-					$(rf.getDomElement(this.dateEditorMonthID)).addClass('rich-calendar-editor-btn-selected');
+					$(rf.getDomElement(this.dateEditorMonthID)).addClass('rf-ca-edtr-btn-sel');
 				}			
 			}
 			
@@ -579,14 +579,14 @@
 					div.firstChild.innerHTML=year;
 					if (year == this.dateEditorYear)
 					{
-						$(div.firstChild).addClass('rich-calendar-editor-btn-selected');
+						$(div.firstChild).addClass('rf-ca-edtr-btn-sel');
 						this.dateEditorYearID = div.firstChild.id;
 					}
 					div = div.nextSibling;
 					div.firstChild.innerHTML=year+5;
 					if (year+5  == this.dateEditorYear)
 					{
-						$(div.firstChild).addClass('rich-calendar-editor-btn-selected');
+						$(div.firstChild).addClass('rf-ca-edtr-btn-sel');
 						this.dateEditorYearID = div.firstChild.id;
 					}
 					year++;
@@ -630,8 +630,8 @@
 		{
 			var element = $(rf.getDomElement(this.CALENDAR_CONTENT));
 			var zindex = parseInt(element.css('z-index'), 10);
-			var htmlBegin = '<div id="'+this.EDITOR_SHADOW_ID+'" class="rich-calendar-editor-shadow" style="position:absolute; display:none;z-index:'+zindex+'"></div><table border="0" cellpadding="0" cellspacing="0" id="'+this.EDITOR_ID+'" style="position:absolute; display:none;z-index:'+(zindex+1)+'" onclick="RichFaces.$(\''+this.id+'\').skipEventOnCollapse=true;"><tbody><tr><td class="rich-calendar-editor-container" align="center"><div style="position:relative; width:100%">';
-			var htmlContent = '<div id="'+this.EDITOR_LAYOUT_SHADOW_ID+'" class="rich-calendar-editor-layout-shadow"></div>';
+			var htmlBegin = '<div id="'+this.EDITOR_SHADOW_ID+'" class="rf-ca-edtr-shdw" style="position:absolute; display:none;z-index:'+zindex+'"></div><table border="0" cellpadding="0" cellspacing="0" id="'+this.EDITOR_ID+'" style="position:absolute; display:none;z-index:'+(zindex+1)+'" onclick="RichFaces.$(\''+this.id+'\').skipEventOnCollapse=true;"><tbody><tr><td class="rf-ca-edtr-cntr" align="center"><div style="position:relative; width:100%">';
+			var htmlContent = '<div id="'+this.EDITOR_LAYOUT_SHADOW_ID+'" class="rf-ca-edtr-layout-shdw"></div>';
 			
 			var htmlEnd = '</div></td></tr></tbody></table>';
 			element.after(htmlBegin+htmlContent+htmlEnd);
@@ -690,27 +690,27 @@
 		{
 			if (buttonType==0)
 			{
-				return '<div id="'+id+'" class="rich-calendar-editor-btn'+(className ? ' '+className : '')+
-				                      '" onmouseover="this.className=\'rich-calendar-editor-btn rich-calendar-editor-tool-over\';" onmouseout="this.className=\'rich-calendar-editor-btn\';" onmousedown="this.className=\'rich-calendar-editor-btn rich-calendar-editor-tool-press\';" onmouseup="this.className=\'rich-calendar-editor-btn rich-calendar-editor-tool-over\';" onclick="RichFaces.$(\''+this.id+'\').scrollEditorYear('+param+');">'+value+'</div>';
+				return '<div id="'+id+'" class="rf-ca-edtr-btn'+(className ? ' '+className : '')+
+				                      '" onmouseover="this.className=\'rf-ca-edtr-btn rf-ca-edtr-tl-over\';" onmouseout="this.className=\'rf-ca-edtr-btn\';" onmousedown="this.className=\'rf-ca-edtr-btn rf-ca-edtr-tl-press\';" onmouseup="this.className=\'rf-ca-edtr-btn rf-ca-edtr-tl-over\';" onclick="RichFaces.$(\''+this.id+'\').scrollEditorYear('+param+');">'+value+'</div>';
 			}
 			else 
 			{
 				var onclick = (buttonType==1 ? 'RichFaces.$(\''+this.id+'\').dateEditorSelectMonth('+param+');':
 						   				    'RichFaces.$(\''+this.id+'\').dateEditorSelectYear('+param+');' );
-				return '<div id="'+id+'" class="rich-calendar-editor-btn'+(className ? ' '+className : '')+
-									  '" onmouseover="jQuery(this).addClass(\'rich-calendar-editor-btn-over\');" onmouseout="$(this).removeClass(\'rich-calendar-editor-btn-over\');" onclick="'+onclick+'">'+value+'</div>';
+				return '<div id="'+id+'" class="rf-ca-edtr-btn'+(className ? ' '+className : '')+
+									  '" onmouseover="jQuery(this).addClass(\'rf-ca-edtr-btn-over\');" onmouseout="$(this).removeClass(\'rf-ca-edtr-btn-over\');" onclick="'+onclick+'">'+value+'</div>';
 			}
 		},
 
 		createDateEditorLayout: function(editor)
 		{
-			var htmlBegin = '<table id="'+this.DATE_EDITOR_LAYOUT_ID+'" class="rich-calendar-date-layout" border="0" cellpadding="0" cellspacing="0"><tbody><tr id="'+this.DATE_EDITOR_LAYOUT_ID+'TR">';
+			var htmlBegin = '<table id="'+this.DATE_EDITOR_LAYOUT_ID+'" class="rf-ca-date-layout" border="0" cellpadding="0" cellspacing="0"><tbody><tr id="'+this.DATE_EDITOR_LAYOUT_ID+'TR">';
 			var htmlEnd = '</tr></tbody></table>';
 			var month = 0;
 			this.dateEditorYear = this.getCurrentYear();
 			var year = this.dateEditorStartYear = this.dateEditorYear-4;
 			var htmlContent = '<td align="center">'+this.createDECell(this.DATE_EDITOR_LAYOUT_ID+'M'+month, this.params.monthLabelsShort[month], 1, month)+'</td>'
-							 +'<td align="center" class="rich-calendar-date-layout-split">'+this.createDECell(this.DATE_EDITOR_LAYOUT_ID+'M'+(month+6), this.params.monthLabelsShort[month+6], 1, month+6)+'</td>'
+							 +'<td align="center" class="rf-ca-date-layout-split">'+this.createDECell(this.DATE_EDITOR_LAYOUT_ID+'M'+(month+6), this.params.monthLabelsShort[month+6], 1, month+6)+'</td>'
 							 +'<td align="center">'+this.createDECell('','&lt;', 0, -1)+'</td>'
 							 +'<td align="center">'+this.createDECell('','&gt;', 0, 1)+'</td>';
 				month++;
@@ -718,8 +718,8 @@
 			for (var i=0;i<5;i++)
 			{
 				htmlContent+='</tr><tr><td align="center">'+this.createDECell(this.DATE_EDITOR_LAYOUT_ID+'M'+month, this.params.monthLabelsShort[month], 1, month)+'</td>'
-							+'<td align="center" class="rich-calendar-date-layout-split">'+this.createDECell(this.DATE_EDITOR_LAYOUT_ID+'M'+(month+6), this.params.monthLabelsShort[month+6], 1, month+6)+'</td>'
-							+'<td align="center">'+this.createDECell(this.DATE_EDITOR_LAYOUT_ID+'Y'+i, year, 2, i, (i==4 ? 'rich-calendar-editor-btn-selected' : ''))+'</td>'
+							+'<td align="center" class="rf-ca-date-layout-split">'+this.createDECell(this.DATE_EDITOR_LAYOUT_ID+'M'+(month+6), this.params.monthLabelsShort[month+6], 1, month+6)+'</td>'
+							+'<td align="center">'+this.createDECell(this.DATE_EDITOR_LAYOUT_ID+'Y'+i, year, 2, i, (i==4 ? 'rf-ca-edtr-btn-sel' : ''))+'</td>'
 							+'<td align="center">'+this.createDECell(this.DATE_EDITOR_LAYOUT_ID+'Y'+(i+5), year+5, 2, i+5)+'</td>';
 				month++;
 				year++;
@@ -728,16 +728,16 @@
 			this.dateEditorMonth = this.getCurrentMonth();
 			this.dateEditorMonthID = this.DATE_EDITOR_LAYOUT_ID+'M'+this.dateEditorMonth;
 			
-			htmlContent+='</tr><tr><td colspan="2" class="rich-calendar-date-layout-ok">'+
-						 '<div id="'+this.DATE_EDITOR_BUTTON_OK+'" class="rich-calendar-time-btn" style="float:right;" onmousedown="jQuery(this).addClass(\'rich-calendar-time-btn-press\');" onmouseout="$(this).removeClass(\'rich-calendar-time-btn-press\');" onmouseup="$(this).removeClass(\'rich-calendar-time-btn-press\');" onclick="RichFaces.$(\''+this.id+'\').hideDateEditor(true);"><span>'+this.params.labels.ok+'</span></div>'+
-						 '</td><td colspan="2" class="rich-calendar-date-layout-cancel">'+
-						 '<div id="'+this.DATE_EDITOR_BUTTON_CANCEL+'" class="rich-calendar-time-btn" style="float:left;" onmousedown="jQuery(this).addClass(\'rich-calendar-time-btn-press\');" onmouseout="$(this).removeClass(\'rich-calendar-time-btn-press\');" onmouseup="$(this).removeClass(\'rich-calendar-time-btn-press\');" onclick="RichFaces.$(\''+this.id+'\').hideDateEditor(false);"><span>'+this.params.labels.cancel+'</span></div>'+
+			htmlContent+='</tr><tr><td colspan="2" class="rf-ca-date-layout-ok">'+
+						 '<div id="'+this.DATE_EDITOR_BUTTON_OK+'" class="rf-ca-time-btn" style="float:right;" onmousedown="jQuery(this).addClass(\'rf-ca-time-btn-press\');" onmouseout="$(this).removeClass(\'rf-ca-time-btn-press\');" onmouseup="$(this).removeClass(\'rf-ca-time-btn-press\');" onclick="RichFaces.$(\''+this.id+'\').hideDateEditor(true);"><span>'+this.params.labels.ok+'</span></div>'+
+						 '</td><td colspan="2" class="rf-ca-date-layout-cancel">'+
+						 '<div id="'+this.DATE_EDITOR_BUTTON_CANCEL+'" class="rf-ca-time-btn" style="float:left;" onmousedown="jQuery(this).addClass(\'rf-ca-time-btn-press\');" onmouseout="$(this).removeClass(\'rf-ca-time-btn-press\');" onmouseup="$(this).removeClass(\'rf-ca-time-btn-press\');" onclick="RichFaces.$(\''+this.id+'\').hideDateEditor(false);"><span>'+this.params.labels.cancel+'</span></div>'+
 						 '</td>';
 
 
 			$(rf.getDomElement(this.EDITOR_LAYOUT_SHADOW_ID)).after(htmlBegin+htmlContent+htmlEnd);
 			
-			$(rf.getDomElement(this.dateEditorMonthID)).addClass('rich-calendar-editor-btn-selected');
+			$(rf.getDomElement(this.dateEditorMonthID)).addClass('rf-ca-edtr-btn-sel');
 			
 			this.correctEditorButtons(editor, this.DATE_EDITOR_BUTTON_OK, this.DATE_EDITOR_BUTTON_CANCEL);
 			
@@ -746,22 +746,22 @@
 		
 		createSpinnerTable: function(id) {
 			return '<table cellspacing="0" cellpadding="0" border="0"><tbody><tr>'+
-						'<td class="rich-calendar-spinner-input-container">'+
-							'<input id="' + id + '" name="' + id + '" class="rich-calendar-spinner-input" type="text" />'+
+						'<td class="rf-ca-sp-inp-ctnr">'+
+							'<input id="' + id + '" name="' + id + '" class="rf-ca-sp-inp" type="text" />'+
 						'</td>'+	
-						'<td class="rich-calendar-spinner-buttons">'+
+						'<td class="rf-ca-sp-btn">'+
 							'<table border="0" cellspacing="0" cellpadding="0"><tbody>'+
 								'<tr><td>'+
-									'<div id="'+id+'BtnUp" class="rich-calendar-spinner-up"'+
-										' onmousedown="this.className=\'rich-calendar-spinner-up rich-calendar-spinner-pressed\'"'+
-										' onmouseup="this.className=\'rich-calendar-spinner-up\'"'+ 
-										' onmouseout="this.className=\'rich-calendar-spinner-up\'"><span></span></div>'+
+									'<div id="'+id+'BtnUp" class="rf-ca-sp-up"'+
+										' onmousedown="this.className=\'rf-ca-sp-up rf-ca-sp-press\'"'+
+										' onmouseup="this.className=\'rf-ca-sp-up\'"'+ 
+										' onmouseout="this.className=\'rf-ca-sp-up\'"><span></span></div>'+
 								'</td></tr>'+
 								'<tr><td>'+
-									'<div id="'+id+'BtnDown" class="rich-calendar-spinner-down"'+
-										' onmousedown="this.className=\'rich-calendar-spinner-down rich-calendar-spinner-pressed\'"'+
-										' onmouseup="this.className=\'rich-calendar-spinner-down\'"'+
-										' onmouseout="this.className=\'rich-calendar-spinner-down\'"><span></span></div>'+
+									'<div id="'+id+'BtnDown" class="rf-ca-sp-down"'+
+										' onmousedown="this.className=\'rf-ca-sp-down rf-ca-sp-press\'"'+
+										' onmouseup="this.className=\'rf-ca-sp-down\'"'+
+										' onmouseout="this.className=\'rf-ca-sp-down\'"><span></span></div>'+
 								'</td></tr>'+
 							'</tbody></table>'+
 						'</td>'+
@@ -1071,7 +1071,7 @@
 			if (this.invokeEvent("datemouseover", obj, e, daydata.date) && daydata.enabled)
 			{
 				if (daydata._month==0 && obj.id!=this.selectedDateCellId && obj.id!=this.todayCellId) {
-					$(obj).addClass('rich-calendar-hover');
+					$(obj).addClass('rf-ca-hov');
 				}
 			}
 		},
@@ -1081,7 +1081,7 @@
 			if (this.invokeEvent("datemouseout", obj, e, daydata.date) && daydata.enabled)
 			{
 				if (daydata._month==0 && obj.id!=this.selectedDateCellId && obj.id!=this.todayCellId) {
-					$(obj).removeClass('rich-calendar-hover');
+					$(obj).removeClass('rf-ca-hov');
 				}
 			}
 		},
@@ -1310,10 +1310,10 @@
 					// class styles
 					if (dataobj._month!=0) 
 					{
-						classNames+=' rich-calendar-boundary-dates';
+						classNames+=' rf-ca-boundary-dates';
 						if (!this.params.disabled && !this.params.readonly && boundaryDatesModeFlag)
 						{
-							classNames+=' rich-calendar-btn';
+							classNames+=' rf-ca-btn';
 						}
 					}
 					else 
@@ -1322,16 +1322,16 @@
 						{
 							this.todayCellId = element.id;
 							this.todayCellColor = this.getCellBackgroundColor(element);
-							classNames+=" rich-calendar-today";
+							classNames+=" rf-ca-today";
 						}
 					
 						if (selectedflag && dataobj.day==selecteddate)
 						{
 							this.selectedDateCellId = element.id;
 							this.selectedDateCellColor = this.getCellBackgroundColor(element);
-							classNames+=" rich-calendar-select";
+							classNames+=" rf-ca-sel";
 						} 
-						else if (!this.params.disabled && !this.params.readonly && dataobj.enabled) classNames+=' rich-calendar-btn';
+						else if (!this.params.disabled && !this.params.readonly && dataobj.enabled) classNames+=' rf-ca-btn';
 
 						// add custom style class
 						if (dataobj.customStyleClass) 
@@ -1569,13 +1569,13 @@
 							// find cell and change style class
 							var e = $(rf.getDomElement(this.DATE_ELEMENT_ID+(this.firstDateIndex + this.selectedDate.getDate()-1)));
 							
-							this.clearEffect(this.selectedDateCellId, "rich-calendar-select", (this.params.disabled || this.params.readonly ? null : "rich-calendar-btn"));
+							this.clearEffect(this.selectedDateCellId, "rf-ca-sel", (this.params.disabled || this.params.readonly ? null : "rf-ca-btn"));
 							this.selectedDateCellId = e.attr('id');
 							this.selectedDateCellColor = this.getCellBackgroundColor(e);
 		
-							e.removeClass("rich-calendar-btn");
-							e.removeClass("rich-calendar-hover");
-							e.addClass("rich-calendar-select");
+							e.removeClass("rf-ca-btn");
+							e.removeClass("rf-ca-hov");
+							e.addClass("rf-ca-sel");
 		
 							this.renderHF();
 						}
@@ -1600,7 +1600,7 @@
 				{
 					this.selectedDate = null;
 
-					this.clearEffect(this.selectedDateCellId, "rich-calendar-select", (this.params.disabled || this.params.readonly ? null : "rich-calendar-btn"));
+					this.clearEffect(this.selectedDateCellId, "rf-ca-sel", (this.params.disabled || this.params.readonly ? null : "rf-ca-btn"));
 					
 					if (this.selectedDateCellId)
 					{
@@ -1642,7 +1642,7 @@
 				this.selectedDate = null;
 				this.invokeEvent("dateselected", null, null, null);
 				
-				this.selectedDateCellId = this.clearEffect(this.selectedDateCellId, "rich-calendar-select", (this.params.disabled || this.params.readonly ? null : "rich-calendar-btn"));
+				this.selectedDateCellId = this.clearEffect(this.selectedDateCellId, "rf-ca-sel", (this.params.disabled || this.params.readonly ? null : "rf-ca-btn"));
 				 
 				this.renderHF();
 				if (!this.params.showApplyButton)

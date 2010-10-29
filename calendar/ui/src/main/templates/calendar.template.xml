@@ -37,7 +37,7 @@
 						disabled="#{component.attributes['disabled']}" accesskey="#{component.attributes['accesskey']}"
 						maxlength="#{component.attributes['maxlength']}" size="#{component.attributes['inputSize']}"
 						style="vertical-align: middle; #{component.attributes['inputStyle']}"
-						class="rich-calendar-input #{component.attributes['inputClass']}"
+						class="rf-ca-inp #{component.attributes['inputClass']}"
 						tabindex="#{component.attributes['tabindex']}"
 						readonly="#{(!component.attributes['enableManualInput'] || component.attributes['readonly']) ? 'readonly' : ''}">
 						<cdk:call expression="renderInputHandlers(facesContext, component);" />
@@ -45,14 +45,14 @@
 					<c:choose>
 						<c:when test="#{isUseIcons(facesContext, component)}">
 							<img id="#{clientId}PopupButton" alt=""
-								class="rich-calendar-button #{component.attributes['buttonClass']}"
+								class="rf-ca-btn #{component.attributes['buttonClass']}"
 								accesskey="#{component.attributes['accesskey']}" style="vertical-align: middle"
 								tabindex="#{component.attributes['tabindex']}" src="#{getButtonIcon(facesContext, component)}" />
 						</c:when>
 						<c:otherwise>
 							<button type="button" id="#{clientId}PopupButton" name="#{clientId}PopupButton"
 								style="vertical-align: middle"
-								class="rich-calendar-button #{component.attributes['buttonClass']}"
+								class="rf-ca-btn #{component.attributes['buttonClass']}"
 								tabindex="#{component.attributes['tabindex']}" disabled="#{component.attributes['disabled']}">
 								#{component.attributes['buttonLabel']}
 								</button>
