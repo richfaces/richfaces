@@ -46,11 +46,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <p>Page</p>
 
         <h:form id="f" style="border:blue solid thin;">
-            <div id="div" style="border: 2px solid red; background-color: #adff2f; width:300px; height:300px">
-                Hello
+            <div id="myRectangle" style="border: 2px solid red; background-color: #adff2f; width:300px; height:300px">
+                Tooltip apeared under green rectangle.
 
-                <pn:tooltip id="tooltip" target="div">
-                    ToolTip Yo!!!
+                <pn:tooltip id="tooltip" target="myRectangle" mode="ajax">
+                    New ToolTip Yo!!!
                 </pn:tooltip>
             </div>
 
