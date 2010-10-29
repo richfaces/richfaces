@@ -44,6 +44,7 @@
         <module>misc</module>
         <module>output</module>
         <module>input</module>
+        <module>calendar</module>
         <module>dist</module>
     </modules>
 </project>
