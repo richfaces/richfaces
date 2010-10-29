@@ -5,15 +5,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
-	<p>Autocomplete component - simple Input component which provides suggestions during input.</p>
-	<p>Could works using three modes:
-		<ul>
-			<li>Client - preloads data to the client side and makes suggestions according to entered prefix on the client</li>
-			<li>Ajax - fetches the data on every input change using ajax requests</li>
-			<li>Cached Ajax - loads data via ajax to make suggestions when the prefix length satisfies minchars attribute. Then all the suggestions done at client side except the case when initial prefix changed or token entered. Then loads data again.</li>
-		</ul> 
-	</p>
-	<p>There you could see simple client side autocomplete:</p>
+	<p>DESC</p>
+
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
 		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />

@@ -386,6 +386,16 @@
 					</sample>
 				</samples>
 			</demo>
+			<demo new="true">
+				<id>tooltip</id>
+				<name>rich:tooltip</name>
+				<samples>
+					<sample>
+						<id>tooltip</id>
+						<name>Simple tooltips</name>
+					</sample>
+				</samples>
+			</demo>			
 		</demos>
 	</group>
 	<group>
@@ -399,6 +409,10 @@
 						<id>cachedAjax</id>
 						<name>Autocomplete in Cached Ajax mode</name>
 					</sample> 
+					<sample>
+						<id>clientFilter</id>
+						<name>Custom client filter</name>
+					</sample> 					
 				</samples>
 			</demo>
 			<!--demo>

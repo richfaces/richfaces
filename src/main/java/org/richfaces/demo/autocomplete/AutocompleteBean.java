@@ -33,7 +33,12 @@ public class AutocompleteBean {
 
     public List<String> autocomplete(String prefix) {
         ArrayList<String> result = new ArrayList<String>();
-        if (prefix.length() > 0) {
+        if ((prefix == null) || (prefix.length() == 0)) {
+            for (int i = 0; i < 10; i++) {
+                result.add(capitals.get(i).getState());
+            }
+
+        } else {
             Iterator<Capital> iterator = capitals.iterator();
             while (iterator.hasNext()) {
                 Capital elem = ((Capital) iterator.next());
@@ -42,11 +47,8 @@ public class AutocompleteBean {
                     result.add(elem.getState());
                 }
             }
-        }else{
-            for (int i = 0; i < 10; i++) {
-                result.add(capitals.get(i).getState());
-            }
         }
+
         return result;
     }
 
