@@ -23,8 +23,8 @@
 
 package org.richfaces.component;
 
-import org.richfaces.event.ChangeExpandEvent;
 import org.richfaces.event.ItemChangeEvent;
+import org.richfaces.event.PanelToggleEvent;
 
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
@@ -78,7 +78,7 @@ public abstract class AbstractPanelMenuGroup extends UIPanelMenuItem {
         setExpanded(expanded);
         setSubmittedExpanded(null);
         if (previous != null && !previous.equals(expanded)) {
-            queueEvent(new ChangeExpandEvent(this, previous));
+            queueEvent(new PanelToggleEvent(this, previous));
         }
     }
 

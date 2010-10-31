@@ -98,7 +98,7 @@ public class DivPanelRenderer extends RendererBase {
         writer.writeAttribute("id", component.getClientId(context), "clientId");
         writer.writeAttribute("class", getStyleClass(component), null);
         String style = getStyle(component);
-        if (style != null) {
+        if (style != null && style.length() > 0) {
             writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, style, null);
         }
         
