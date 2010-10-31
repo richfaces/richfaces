@@ -401,7 +401,7 @@
 	<group>
 		<name>Inputs and Selects</name>
 		<demos>
-			<demo>
+			<demo new="true">
 				<id>autocomplete</id>
 				<name>rich:autocomplete</name>
 				<samples>
@@ -409,13 +409,13 @@
 						<id>cachedAjax</id>
 						<name>Autocomplete in Cached Ajax mode</name>
 					</sample> 
-					<sample>
+					<sample new="true">
 						<id>clientFilter</id>
 						<name>Custom client filter</name>
 					</sample> 					
 				</samples>
 			</demo>
-			<!--demo>
+			<demo new="true">
 				<id>calendar</id>
 				<name>rich:calendar</name>
 				<samples>
@@ -424,7 +424,7 @@
 						<name>Simple Calendar</name>
 					</sample>
 				</samples>
-			</demo-->
+			</demo>
 			<demo>
 				<id>inputNumberSlider</id>
 				<name>rich:inputNumberSlider</name>
