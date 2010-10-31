@@ -3,7 +3,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:it="http://richfaces.org/iteration">
+	xmlns:it="http://richfaces.org/tree">
 <f:view contentType="text/html" />
 
 <h:head>
@@ -18,5 +18,11 @@
 			</h:panelGroup>
 		</it:treeNode>
 	</it:tree>
+	
+	<h:form>
+		<h:commandLink value="Re-render">
+			<f:ajax render=":tree" />
+		</h:commandLink>
+	</h:form>
 </h:body>
 </html>

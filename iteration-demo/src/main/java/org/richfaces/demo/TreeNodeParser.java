@@ -99,18 +99,18 @@ public class TreeNodeParser implements ContentHandler {
             currentNode.addChild(newNode);
         }
         
-        currentNode.setData(JOINER.join(currentNode.getData(), localName.toLowerCase(Locale.US), " ["));
+        newNode.setData(JOINER.join(newNode.getData(), localName.toLowerCase(Locale.US), " ["));
         
         currentNode = newNode;
     }
 
     public void endElement(String uri, String localName, String qName) throws SAXException {
-        currentNode.setData(JOINER.join("]", currentNode.getData()));
+        currentNode.setData(JOINER.join(currentNode.getData(), "]"));
         currentNode = (SwingTreeNodeImpl) currentNode.getParent();
     }
 
     public void characters(char[] ch, int start, int length) throws SAXException {
-        currentNode.setData(JOINER.join(currentNode.getData(), new String(ch, start, length)));
+        currentNode.setData(JOINER.join(currentNode.getData(), new String(ch, start, length).trim()));
     }
 
     public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
