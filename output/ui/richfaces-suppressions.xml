@@ -6,4 +6,6 @@
 
 <suppressions>
     <suppress checks="IllegalCatch" files="AbstractTogglePanel.java" />           
+    <suppress checks="IllegalCatch" files="AbstractPanelMenu.java" />           
+    <suppress checks="IllegalCatch" files="AbstractPanelMenuGroup.java" />           
 </suppressions>

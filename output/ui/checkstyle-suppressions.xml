@@ -33,4 +33,5 @@
     <!-- TODO it is hot fix for building process, this files belong to the ui/output/trunk/panela/ui module, 
               and must be removed from here -->
     <suppress checks="IllegalCatch" files="AbstractTogglePanel.java" />           
+    <suppress checks="IllegalCatch" files="AbstractPanelMenu.java" />           
 </suppressions>

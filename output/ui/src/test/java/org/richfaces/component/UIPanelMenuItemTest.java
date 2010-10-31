@@ -21,25 +21,31 @@
  */
 
 
-package org.richfaces.renderkit.html;
+package org.richfaces.component;
 
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import org.xml.sax.SAXException;
 
-import java.io.IOException;
+import javax.faces.component.UIComponent;
+import java.util.List;
 
- /**
+/**
  * @author akolonitsky
  * @since 2010-10-25
  */
-public class PanelMenuRendererTest extends RendererTestBase {
+public class UIPanelMenuItemTest {
 
-    @Test
-    public void testDoEncode() throws IOException, SAXException {
-        doTest("panelMenu", "f:panelMenu");
+    private UIPanelMenuItem panelMenuItem;
+
+    @Before
+    public void setUp () {
+        panelMenuItem = new UIPanelMenuItem();
     }
 
+    @Test
+    public void testSomething() {
+        Assert.assertNotNull(panelMenuItem);
+    }
 }
-
-
 

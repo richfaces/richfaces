@@ -42,7 +42,7 @@
             this.getTogglePanel().getItems()[this.index] = this;
 
             //TODO - optimize this
-            rf.Event.bindById(this.id + ":header:active", "click", this.__onHeaderClick, this)
+            rf.Event.bindById(this.id + ":header:active", "click", this.__onHeaderClick, this);
             rf.Event.bindById(this.id + ":header:inactive", "click", this.__onHeaderClick, this)
         },
 

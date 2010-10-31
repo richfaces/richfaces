@@ -32,11 +32,11 @@ import java.io.IOException;
  * @author akolonitsky
  * @since 2010-10-25
  */
-public class PanelMenuRendererTest extends RendererTestBase {
+public class PanelMenuItemRendererTest extends RendererTestBase {
 
     @Test
     public void testDoEncode() throws IOException, SAXException {
-        doTest("panelMenu", "f:panelMenu");
+        doTest("panelMenuItem", "f:panelMenuItem");
     }
 
 }

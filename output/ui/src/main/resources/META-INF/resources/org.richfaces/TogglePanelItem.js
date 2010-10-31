@@ -111,9 +111,7 @@
 
         // class stuff
         destroy: function () {
-            //                 rf.Event.unbindById(this.options.buttonId, "."+this.namespace);
-            //                 rf.Event.unbindById(this.componentId, "."+this.namespace);
-            //                $super.destroy.call(this);
+            rf.ui.TogglePanelItem.$super.destroy.call(this);
         }
     });
 })(jQuery, RichFaces);

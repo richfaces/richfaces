@@ -60,6 +60,8 @@ public abstract class RendererTestBase {
         environment = new HtmlUnitEnvironment();
         environment.withWebRoot(new File(this.getClass().getResource(".").toURI()));
         environment.start();
+        
+        environment.getWebClient().setJavaScriptEnabled(false);
     }
 
     @After
@@ -82,7 +84,7 @@ public abstract class RendererTestBase {
             return;
         }
 
-        Diff xmlDiff = new Diff(new StringReader(pageCode), new InputStreamReader(expectedPageCode));
+        Diff xmlDiff = new Diff(new InputStreamReader(expectedPageCode), new StringReader(pageCode));
         xmlDiff.overrideDifferenceListener(new IgnoreScriptsContent());
         Assert.assertTrue("XML was not similar:" + xmlDiff.toString() + "\n\n" + pageCode, xmlDiff.similar());
     }

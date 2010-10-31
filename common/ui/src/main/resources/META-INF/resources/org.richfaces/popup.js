@@ -39,7 +39,6 @@
     rf.BaseComponent.extend(rf.ui.Popup);
     var $super = rf.ui.Popup.$super;
 
-
     var defaultOptions = {
         visible: false
     };

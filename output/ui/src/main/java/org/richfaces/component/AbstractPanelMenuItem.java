@@ -21,25 +21,53 @@
  */
 
 
-package org.richfaces.renderkit.html;
+package org.richfaces.component;
 
-import org.junit.Test;
-import org.xml.sax.SAXException;
+import org.richfaces.PanelMenuMode;
 
-import java.io.IOException;
+import javax.faces.component.UIOutput;
 
- /**
+/**
  * @author akolonitsky
  * @since 2010-10-25
  */
-public class PanelMenuRendererTest extends RendererTestBase {
+public abstract class AbstractPanelMenuItem extends UIOutput {
 
-    @Test
-    public void testDoEncode() throws IOException, SAXException {
-        doTest("panelMenu", "f:panelMenu");
+    public static final String COMPONENT_TYPE = "org.richfaces.PanelMenuItem";
+
+    public static final String COMPONENT_FAMILY = "org.richfaces.PanelMenuItem";
+
+    protected AbstractPanelMenuItem() {
+        setRendererType("org.richfaces.PanelMenuItem");
     }
 
+    @Override
+    public String getFamily() {
+        return COMPONENT_FAMILY;
+    }
+
+    public abstract String getIcon();
+
+    public abstract PanelMenuMode getMode();
+
+    public abstract String getLabel();
+
+    public abstract String getName();
+
+    public abstract boolean isDisabled();
+
+    public abstract boolean isBypassUpdates();
+
+    public abstract boolean isLimitToList();
+
+    public abstract Object getData();
+
+    public abstract String getStatus();
+
+    public abstract Object getExecute();
+
+    public abstract Object getRender();
+
+
+
 }
-
-
-

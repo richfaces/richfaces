@@ -3,43 +3,70 @@
  * Copyright ${year}, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
- * 
+ *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation; either version 2.1 of
  * the License, or (at your option) any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
+.rf-pm {
+    border:1px solid red;
+    padding:10px;
+}
 
-package org.richfaces.renderkit.html;
+.rf-pm-itm {
+    border:1px solid #ffd700;
+}
 
-import org.junit.Test;
-import org.xml.sax.SAXException;
+.rf-pm-itm-hov {
+    background-color:#ffd700;
+}
 
-import java.io.IOException;
+.rf-pm-itm-sel {
+    background-color:blue;
+    color:#f5f5f5;
+}
 
- /**
- * @author akolonitsky
- * @since 2010-10-25
- */
-public class PanelMenuRendererTest extends RendererTestBase {
-
-    @Test
-    public void testDoEncode() throws IOException, SAXException {
-        doTest("panelMenu", "f:panelMenu");
-    }
+.rf-pm-gr {
 
 }
 
+.rf-pm-gr-hov {
+    background-color:green;
+    color:white;
+}
 
+.rf-pm-gr-sel {
+    background-color:blue;
+    color:#f5f5f5;
+}
 
+.rf-pm-gr-hdr {
+    border:1px solid green;
+    padding:2px;
+}
+
+.rf-pm-gr-cnt {
+    border:1px solid yellow;
+    padding:2px;
+    margin-left: 10px;
+}
+
+.rf-pm-colps {
+    display : none;
+}
+
+.rf-pm-exp {
+    display : block;
+}

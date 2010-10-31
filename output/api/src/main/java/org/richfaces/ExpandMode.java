@@ -19,32 +19,17 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 
-package org.richfaces.renderkit.html;
-
-import org.custommonkey.xmlunit.Difference;
-import org.custommonkey.xmlunit.DifferenceConstants;
-import org.custommonkey.xmlunit.DifferenceListener;
-import org.custommonkey.xmlunit.IgnoreTextAndAttributeValuesDifferenceListener;
-import org.w3c.dom.Node;
-
-import java.util.Arrays;
+package org.richfaces;
 
 /**
  * @author akolonitsky
- * @since Oct 22, 2010
+ * @since Oct 19, 2010
  */
-public class IgnoreScriptsContent implements DifferenceListener {
+public enum ExpandMode {
+    ajax,
+    server,
+    client,
+    none;
 
-    public int differenceFound(Difference difference) {
-        if (DifferenceConstants.TEXT_VALUE_ID == difference.getId()
-            && !"script".equalsIgnoreCase(difference.getTestNodeDetail().getNode().getLocalName())) {
-
-            return RETURN_IGNORE_DIFFERENCE_NODES_SIMILAR;
-        }
-        return RETURN_ACCEPT_DIFFERENCE;
-    }
-
-    public void skippedComparison(Node node, Node node1) {
-
-    }
+    public static final ExpandMode DEFAULT = client;
 }

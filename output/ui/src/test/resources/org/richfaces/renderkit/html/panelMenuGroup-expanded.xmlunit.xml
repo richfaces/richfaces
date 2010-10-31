@@ -1,0 +1,12 @@
+<div id="f:panelMenuGroup" class="rf-pm-gr">
+  <input id="f:panelMenuGroup:expanded" name="f:panelMenuGroup:expanded" type="hidden" value="true"/>
+  <div id="f:panelMenuGroup:hdr" class="rf-pm-gr-hdr">
+    Group Label
+  </div>
+  <div id="f:panelMenuGroup:cnt" class="rf-pm-gr-cnt rf-pm-exp">
+
+  </div>
+  <script type="text/javascript">
+      // Text
+  </script>
+</div>
