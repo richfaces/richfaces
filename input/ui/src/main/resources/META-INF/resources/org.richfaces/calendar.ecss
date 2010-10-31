@@ -329,7 +329,7 @@
 }
 
 .rf-ca-sp-up {
-	background-image: "url(#{resource['StandardButtonBgImage']})";
+	background-image: "url(#{resource['org.richfaces.renderkit.html.images.StandardButtonBgImage']})";
 	height: 7px;
 	width: 14px;
 	margin: 0px 1px 1px 0px;

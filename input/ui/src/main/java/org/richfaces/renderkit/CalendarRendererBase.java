@@ -443,7 +443,11 @@ public class CalendarRendererBase extends InputRendererBase {
                 result.put(MINUTES_VALUE, minutes);
             }
         }
-        return result;   
+        if (result.size() > 0) {
+            return result;   
+        } else {
+            return null;
+        }
     } 
 
     private static String[] shiftDates(int minimum, int maximum, String[] labels) {
