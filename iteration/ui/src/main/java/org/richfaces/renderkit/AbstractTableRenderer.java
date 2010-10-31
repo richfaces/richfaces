@@ -596,6 +596,10 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         }
     }
     
+    public void decodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) {
+        throw new UnsupportedOperationException();
+    }
+
     protected void partialStart(FacesContext facesContext, String id) throws IOException {
         facesContext.getPartialViewContext().getPartialResponseWriter().startUpdate(id);
     }

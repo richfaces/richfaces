@@ -575,6 +575,10 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         }
     }
     
+    public void decodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) {
+        throw new UnsupportedOperationException();
+    }
+
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component)
         throws IOException {
         Map<String, Object> attributes = component.getAttributes();

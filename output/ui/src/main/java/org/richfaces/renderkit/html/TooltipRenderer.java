@@ -23,13 +23,13 @@
 
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.context.AjaxContext;
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.TooltipMode;
-import org.richfaces.component.AbstractTooltip;
-import org.richfaces.component.html.HtmlTooltip;
-import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.renderkit.MetaComponentRenderer;
+import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -37,14 +37,14 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
-import static org.richfaces.component.util.HtmlUtil.concatClasses;
-import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
+import org.ajax4jsf.context.AjaxContext;
+import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.TooltipMode;
+import org.richfaces.component.AbstractTooltip;
+import org.richfaces.component.html.HtmlTooltip;
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.MetaComponentRenderer;
 
 /**
  * @author amarkhel
@@ -215,6 +215,10 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
         }
     }
 
+    public void decodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) {
+        throw new UnsupportedOperationException();
+    }
+    
     @Override
     protected Class<? extends UIComponent> getComponentClass() {
         return AbstractTooltip.class;

@@ -275,6 +275,9 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
         }
     }
     
+    public void decodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) {
+        throw new UnsupportedOperationException();
+    }
     
     @Override
     protected void doCleanup(FacesContext context, RowHolderBase rowHolder) throws IOException {

@@ -21,12 +21,12 @@
 
 package org.richfaces.renderkit;
 
-import org.ajax4jsf.javascript.ScriptStringBase;
-import org.ajax4jsf.javascript.ScriptUtils;
-
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import org.ajax4jsf.javascript.ScriptStringBase;
+import org.ajax4jsf.javascript.ScriptUtils;
 
 /**
  * @author Nick Belaevski
@@ -34,10 +34,10 @@ import java.util.Map;
  */
 public class AjaxEventOptions extends ScriptStringBase {
 
-    /**
-     *
-     */
     public static final String PARAMETERS = "parameters";
+
+    public static final String CLIENT_PARAMETERS = "clientParameters";
+
     private Map<String, Object> options = new HashMap<String, Object>();
 
     public void appendScript(StringBuffer functionString) {
@@ -99,5 +99,21 @@ public class AjaxEventOptions extends ScriptStringBase {
         if (parameters != null) {
             parameters.remove(parameterName);
         }
+    }
+    
+    public Object getClientParameters() {
+        return options.get(CLIENT_PARAMETERS);
+    }
+    
+    public void setClientParameters(Object value) {
+        options.put(CLIENT_PARAMETERS, value);
+    }
+    
+    public Object getAjaxComponent() {
+        return getParameter(AjaxConstants.AJAX_COMPONENT_ID_PARAMETER);
+    }
+    
+    public void setAjaxComponent(Object ajaxComponent) {
+        getParameters().put(AjaxConstants.AJAX_COMPONENT_ID_PARAMETER, ajaxComponent);
     }
 }

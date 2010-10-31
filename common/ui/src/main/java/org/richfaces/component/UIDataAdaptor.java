@@ -292,6 +292,15 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
                         return DataVisitResult.STOP;
                     }
+                    
+                    if (result == VisitResult.ACCEPT) {
+                        result = visitDataChildrenMetaComponents((ExtendedVisitContext) visitContext, callback);
+                        if (VisitResult.COMPLETE.equals(result)) {
+                            visitResult = true;
+                            
+                            return DataVisitResult.STOP;
+                        }
+                    }
                 }
 
                 if (VisitResult.ACCEPT.equals(result)) {
@@ -1013,10 +1022,16 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
             serializableModel.update();
         }
+        
+        doUpdate();
 
         popComponentFromEL(faces);
     }
 
+    protected void doUpdate() {
+        
+    }
+    
     @Override
     public void setId(String id) {
         super.setId(id);
@@ -1342,6 +1357,10 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         return visitComponents(fixedChildren(), visitContext, callback);
     }
 
+    protected VisitResult visitDataChildrenMetaComponents(ExtendedVisitContext extendedVisitContext, VisitCallback callback) {
+        return VisitResult.ACCEPT;
+    }
+    
     protected boolean visitDataChildren(VisitContext visitContext, VisitCallback callback, boolean visitRows) {
 
         if (visitRows) {

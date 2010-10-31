@@ -128,10 +128,11 @@ public final class HtmlUtil {
         return false;
     }
 
-    private static String concat(char separator, String... strings) {
+    private static String concat(char separator, Object... objects) {
         StringBuilder result = new StringBuilder();
 
-        for (String s : strings) {
+        for (Object o : objects) {
+            String s = (String) o;
             if (!Strings.isNullOrEmpty(s)) {
                 if (result.length() != 0) {
                     result.append(separator);
@@ -144,11 +145,11 @@ public final class HtmlUtil {
         return result.toString();
     }
     
-    public static String concatClasses(String... classes) {
+    public static String concatClasses(Object... classes) {
         return concat(' ', classes);
     }
 
-    public static String concatStyles(String... styles) {
+    public static String concatStyles(Object... styles) {
         return concat(';', styles);
     }
 }

@@ -29,6 +29,7 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
 
 import org.ajax4jsf.Messages;
+import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.util.RendererUtils;
@@ -281,4 +282,11 @@ public abstract class RendererBase extends Renderer {
         }
     }
 
+    public String concatClasses(Object... objects) {
+        return HtmlUtil.concatClasses(objects);
+    }
+
+    public String concatStyles(Object... objects) {
+        return HtmlUtil.concatStyles(objects);
+    }
 }

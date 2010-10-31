@@ -291,4 +291,8 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
             throw new IllegalArgumentException(metaComponentId);
         }
     }
+    
+    public void decodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) {
+        throw new UnsupportedOperationException();
+    }
 }
