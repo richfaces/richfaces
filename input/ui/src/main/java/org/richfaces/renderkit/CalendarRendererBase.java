@@ -69,7 +69,7 @@ import org.richfaces.utils.CalendarHelper;
         @ResourceDependency(library = "org.richfaces", name = "json-dom.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.effects.core.js"),
         @ResourceDependency(library = "org.richfaces", name = "jquery.effects.highlight.js"),
-        @ResourceDependency(library = "org.richfaces", name = "JQuerySpinBtn.js.js"),
+        @ResourceDependency(library = "org.richfaces", name = "JQuerySpinBtn.js"),
         @ResourceDependency(library = "org.richfaces", name = "calendar-utils.js"),
         @ResourceDependency(library = "org.richfaces", name = "calendar.js"),
         @ResourceDependency(library = "org.richfaces", name = "calendar.ecss") })
