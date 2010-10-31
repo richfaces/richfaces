@@ -9,15 +9,15 @@
     </managed-bean>
 
     <navigation-rule>
-		<navigation-case>
+        <navigation-case>
             <from-outcome>panel</from-outcome>
             <to-view-id>/examples/panel.xhtml</to-view-id>
         </navigation-case>
-		<navigation-case>
+        <navigation-case>
             <from-outcome>popup</from-outcome>
             <to-view-id>/examples/popupPanel.xhtml</to-view-id>
         </navigation-case>
-		<navigation-case>
+        <navigation-case>
             <from-outcome>progressbar</from-outcome>
             <to-view-id>/examples/progressbar.xhtml</to-view-id>
         </navigation-case>
@@ -84,6 +84,16 @@
         <navigation-case>
             <from-outcome>qunit/tabPanel</from-outcome>
             <to-view-id>/qunit/tabPanel.xhtml</to-view-id>
+        </navigation-case>
+
+        <!-- PanelMenu navigation -->
+        <navigation-case>
+            <from-outcome>panelMenu</from-outcome>
+            <to-view-id>/examples/panelMenu.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>qunit/panelMenu</from-outcome>
+            <to-view-id>/qunit/panelMenu.xhtml</to-view-id>
         </navigation-case>
 
         <!-- Tooltip navigation -->

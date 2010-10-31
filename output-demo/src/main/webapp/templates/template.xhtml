@@ -13,9 +13,20 @@
 </h:head>
 
 <h:body>
-
-
     <ui:insert name="scripts" ></ui:insert>
+
+    <h:form>
+        <h:commandButton value="Classic">
+            <f:setPropertyActionListener target="#{skinBean.skin}" value="classic"/>
+        </h:commandButton>
+        <h:commandButton value="BlueSky">
+            <f:setPropertyActionListener target="#{skinBean.skin}" value="blueSky"/>
+        </h:commandButton>
+        <h:commandButton value="DeepMarine">
+            <f:setPropertyActionListener target="#{skinBean.skin}" value="deepMarine"/>
+        </h:commandButton>
+    </h:form>
+
     <table width="100%">
         <thead>
             <tr>
@@ -29,85 +40,104 @@
             <tr valign="top">
                 <td>
                     <h:form id="nav">
-                        <p>Examples</p>
-                        <ul>
-                            <li>
-                                <p>Toggle Panel</p>
-                                <ul>
-                                    <li><h:commandLink value="togglePanel" action="togglePanel" /></li>
-                                    <li><h:commandLink value="togglePanel Ajax" action="togglePanel/ajax" /></li>
-                                    <li><h:commandLink value="togglePanel Client" action="togglePanel/client" /></li>
-                                    <li><h:commandLink value="togglePanel Server" action="togglePanel/server" /></li>
-                                    <li><h:commandLink value="togglePanel Mixed" action="togglePanel/mixed" /></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <p>Accordion</p>
-                                <ul>
-                                    <li><h:commandLink value="accordion" action="accordion" /></li>
-                                </ul>
-                            </li>
-							<li>
-                                <p>Panel</p>
-                                <ul>
-                                    <li><h:commandLink value="panel" action="panel" /></li>
-                                </ul>
-                            </li>
-							<li>
-                                <p>Popup panel</p>
-                                <ul>
-                                    <li><h:commandLink value="popup" action="popup" /></li>
-                                </ul>
-                            </li>
-							<li>
-                                <p>ProgressBar</p>
-                                <ul>
-                                    <li><h:commandLink value="progressbar" action="progressbar" /></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <p>Collapsible Panel</p>
-                                <ul>
-                                    <li><h:commandLink value="Collapsible Panel" action="collapsiblePanel" /></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <p>Tab Panel</p>
-                                <ul>
-                                    <li><h:commandLink value="Tab Panel" action="tabPanel" /></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <p>Tooltip</p>
-                                <ul>
-                                    <li>
-                                        <p>Examples</p>
-                                        <ul>
-                                            <li>
-                                                <h:commandLink value="Tooltip" action="tooltip"/>
-                                            </li>
-                                        </ul>
-                                        <p>QUnit</p>
-                                        <ul>
-                                            <li>
-                                                <h:commandLink value="Tooltip" action="qunit/tooltip"/>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <p>QUnit</p>
-                        <ul>
-                            <li><h:commandLink value="togglePanel" action="qunit/togglePanel" /></li>
-                            <li><h:commandLink value="togglePanelItem" action="qunit/togglePanelItem" /></li>
-                            <li><h:commandLink value="accordion" action="qunit/accordion" /></li>
-                            <li><h:commandLink value="accordionHeaders" action="qunit/accordionHeaders" /></li>
-                            <li><h:commandLink value="collapsiblePanel" action="qunit/collapsiblePanel" /></li>
-                            <li><h:commandLink value="tabPanel" action="qunit/tabPanel" /></li>
-                        </ul>
+                    <p>Toggle Panel</p>
+                    <ul>
+                        <li>
+                            <p>Examples</p>
+                            <ul>
+                                <li><h:commandLink value="togglePanel" action="togglePanel" /></li>
+                                <li><h:commandLink value="togglePanel Ajax" action="togglePanel/ajax" /></li>
+                                <li><h:commandLink value="togglePanel Client" action="togglePanel/client" /></li>
+                                <li><h:commandLink value="togglePanel Server" action="togglePanel/server" /></li>
+                                <li><h:commandLink value="togglePanel Mixed" action="togglePanel/mixed" /></li>
+                            </ul>
+                            <p>QUnit</p>
+                            <ul>
+                                <li><h:commandLink value="togglePanel" action="qunit/togglePanel" /></li>
+                                <li><h:commandLink value="togglePanelItem" action="qunit/togglePanelItem" /></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+
+                    <p>Accordion</p>
+                    <ul>
+                        <li>
+                            <p>Examples</p>
+                            <ul>
+                                <li><h:commandLink value="accordion" action="accordion" /></li>
+                            </ul>
+                            <p>QUnit</p>
+                            <ul>
+                                <li><h:commandLink value="accordion" action="qunit/accordion" /></li>
+                                <li><h:commandLink value="accordionHeaders" action="qunit/accordionHeaders" /></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <p>Collapsible Panel</p>
+                    <ul>
+                        <li>
+                            <p>Examples</p>
+                            <ul>
+                                <li><h:commandLink value="Collapsible Panel" action="collapsiblePanel" /></li>
+                            </ul>
+                            <p>QUnit</p>
+                            <ul>
+                                <li><h:commandLink value="tabPanel" action="qunit/tabPanel" /></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <p>Tab Panel</p>
+                    <ul>
+                        <li>
+                            <p>Examples</p>
+                            <ul>
+                                <li><h:commandLink value="Tab Panel" action="tabPanel" /></li>
+                            </ul>
+                            <p>QUnit</p>
+                            <ul>
+                                <li><h:commandLink value="tabPanel" action="qunit/tabPanel" /></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <p>Panel Menu</p>
+                    <ul>
+                        <li>
+                            <p>Examples</p>
+                            <ul>
+                                <li><h:commandLink value="Panel Menu" action="panelMenu" /></li>
+                            </ul>
+                            <p>QUnit</p>
+                            <ul>
+                                <li><h:commandLink value="Panel Menu" action="qunit/panelMenu" /></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <p>Tooltip</p>
+                    <ul>
+                        <li>
+                            <p>Examples</p>
+                            <ul>
+                                <li>
+                                    <h:commandLink value="Tooltip" action="tooltip"/>
+                                </li>
+                            </ul>
+                            <p>QUnit</p>
+                            <ul>
+                                <li>
+                                    <h:commandLink value="Tooltip" action="qunit/tooltip"/>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
                     </h:form>
                 </td>
+
                 <td>
                     <ui:insert name="body">Default content</ui:insert>
                 </td>
