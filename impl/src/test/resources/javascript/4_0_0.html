@@ -164,6 +164,25 @@
 				RichFaces.ajax(ajaxSource, ajaxEvent, ajaxOptions);
 			});
 
+			test("RichFaces.ajax client parameters test", function() {
+				expect(7);
+				var ajaxSource = "source";
+				var ajaxEvent = "event";
+				var ajaxOptions = {clientParameters: {'param': 'value'}, incId: 1};
+				jsf.ajax = {
+					request : function(source, event, options) {
+						equals(source, ajaxSource);
+						equals(event, ajaxEvent);
+						equals(options['execute'], '@component');
+						equals(options['render'], '@component');
+						equals(options['param'], 'value');
+						equals(options['org.richfaces.ajax.component'], 'source');
+						equals(options['source'], 'source');
+					}
+				}
+				RichFaces.ajax(ajaxSource, ajaxEvent, ajaxOptions);
+			});
+
 			test("RichFaces.escapeCSSMetachars test", function() {
 				expect(6);
 

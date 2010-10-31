@@ -41,14 +41,13 @@ import javax.faces.component.visit.VisitHint;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.component.AjaxOutput;
 import org.richfaces.component.MetaComponentResolver;
 
 /**
  * @author Nick Belaevski
  *
  */
-public class ExtendedPartialVisitContext extends ExtendedVisitContext {
+public class BaseExtendedVisitContext extends ExtendedVisitContext {
 
     static final String ANY_WILDCARD = "*";
 
@@ -134,7 +133,7 @@ public class ExtendedPartialVisitContext extends ExtendedVisitContext {
                 ComponentMatcherNode n = lastNode;
                 int addedSegmentsCount = 0;
                 while (n != null && addedSegmentsCount < SHORT_ID_IN_CLIENTID_SEGMENTS_NUMBER) {
-                    if (!n.isPatternNode()) {
+                    if (!n.isPatternNode() && !n.isMetaComponentNode()) {
                         String shortId = n.getSource();
                         if (shortId != null) {
                             addedSegmentsCount++;
@@ -185,8 +184,6 @@ public class ExtendedPartialVisitContext extends ExtendedVisitContext {
 
     private IdParser idParser;
 
-    private boolean limitRender;
-
     // The client ids to visit
     private Collection<String> clientIds;
 
@@ -200,20 +197,6 @@ public class ExtendedPartialVisitContext extends ExtendedVisitContext {
     private Map<String, ComponentMatcherNode> directNodesMap;
 
     /**
-     * Creates a PartialVisitorContext instance.
-     *
-     * @param facesContext
-     *            the FacesContext for the current request
-     * @param clientIds
-     *            the client ids of the components to visit
-     * @throws NullPointerException
-     *             if {@code facesContext} is {@code null}
-     */
-    public ExtendedPartialVisitContext(FacesContext facesContext, Collection<String> clientIds, boolean limitRender) {
-        this(facesContext, clientIds, null, limitRender);
-    }
-
-    /**
      * Creates a PartialVisitorContext instance with the specified hints.
      *
      * @param facesContext
@@ -225,10 +208,10 @@ public class ExtendedPartialVisitContext extends ExtendedVisitContext {
      * @throws NullPointerException
      *             if {@code facesContext} is {@code null}
      */
-    public ExtendedPartialVisitContext(FacesContext facesContext, Collection<String> clientIds, Set<VisitHint> hints,
-        boolean limitRender) {
+    public BaseExtendedVisitContext(FacesContext facesContext, Collection<String> clientIds, Set<VisitHint> hints,
+        ExtendedVisitContextMode contextMode) {
 
-        super(facesContext, ExtendedVisitContextMode.RENDER);
+        super(facesContext, contextMode);
 
         // Initialize our various collections
         initializeCollections(clientIds);
@@ -238,8 +221,6 @@ public class ExtendedPartialVisitContext extends ExtendedVisitContext {
             : EnumSet.copyOf(hints);
 
         this.hints = Collections.unmodifiableSet(hintsEnumSet);
-
-        this.limitRender = limitRender;
     }
 
     private IdParser setupIdParser(String id) {
@@ -312,6 +293,7 @@ public class ExtendedPartialVisitContext extends ExtendedVisitContext {
             nextNode = command.getNextNode(currentNode, componentId, false);
             if (nextNode != null) {
                 nextNode = command.getNextNode(nextNode, metadataComponentId, false);
+                nextNode.setMetaComponentNode(true);
             }
         } else {
             boolean isPattern = ANY_WILDCARD.equals(componentId);
@@ -399,6 +381,10 @@ public class ExtendedPartialVisitContext extends ExtendedVisitContext {
         return clientIds;
     }
 
+    protected boolean hasImplicitSubtreeIdsToVisit(UIComponent component) {
+        return false;
+    }
+    
     /**
      * @see VisitContext#getSubtreeIdsToVisit VisitContext.getSubtreeIdsToVisit()
      */
@@ -410,7 +396,7 @@ public class ExtendedPartialVisitContext extends ExtendedVisitContext {
             throw new IllegalArgumentException("Component is not a NamingContainer: " + component);
         }
 
-        if (!limitRender && PartialViewContextAjaxOutputTracker.hasNestedAjaxOutputs(component)) {
+        if (hasImplicitSubtreeIdsToVisit(component)) {
             return VisitContext.ALL_IDS;
         }
 
@@ -444,6 +430,9 @@ public class ExtendedPartialVisitContext extends ExtendedVisitContext {
         return result;
     }
 
+    protected void addDirectSubtreeIdsToVisitForImplicitComponents(UIComponent component, Set<String> result) {
+    }
+
     public Collection<String>getDirectSubtreeIdsToVisit(UIComponent component) {
         // Make sure component is a NamingContainer
         if (!(component instanceof NamingContainer)) {
@@ -457,23 +446,12 @@ public class ExtendedPartialVisitContext extends ExtendedVisitContext {
             return VisitContext.ALL_IDS;
         }
 
-        Set<String> result = null;
+        Set<String> result = new HashSet<String>();
         if (node != null && node.hasDirectIdChildren()) {
-            result = new HashSet<String>();
             result.addAll(node.getIdChildren().keySet());
         }
 
-        if (!limitRender) {
-
-            Collection<String> directChildrenIds = PartialViewContextAjaxOutputTracker.getDirectChildrenIds(component);
-            if (directChildrenIds != null && !directChildrenIds.isEmpty()) {
-                if (result == null) {
-                    result = new HashSet<String>();
-                }
-
-                result.addAll(directChildrenIds);
-            }
-        }
+        addDirectSubtreeIdsToVisitForImplicitComponents(component, result);
 
         if (result != null && !result.isEmpty()) {
             return Collections.unmodifiableCollection(result);
@@ -482,6 +460,14 @@ public class ExtendedPartialVisitContext extends ExtendedVisitContext {
         }
     }
 
+    protected VisitResult invokeVisitCallbackForImplicitComponent(UIComponent component, VisitCallback callback) {
+        return VisitResult.ACCEPT;
+    }
+
+    protected boolean shouldCompleteOnEmptyIds() {
+        return true;
+    }
+    
     /**
      * @see VisitContext#invokeVisitCallback VisitContext.invokeVisitCallback()
      */
@@ -495,7 +481,7 @@ public class ExtendedPartialVisitContext extends ExtendedVisitContext {
 
                 removeNode(clientId);
 
-                if (clientIds.isEmpty() && limitRender) {
+                if (clientIds.isEmpty() && shouldCompleteOnEmptyIds()) {
                     return VisitResult.COMPLETE;
                 } else {
                     return visitResult;
@@ -503,18 +489,7 @@ public class ExtendedPartialVisitContext extends ExtendedVisitContext {
             }
         }
 
-        if (!limitRender) {
-            if (component instanceof AjaxOutput) {
-                AjaxOutput ajaxOutput = (AjaxOutput) component;
-                if (ajaxOutput.isAjaxRendered()) {
-
-                    // TODO - remove explicit nested IDs from update
-                    return callback.visit(this, component);
-                }
-            }
-        }
-
-        return VisitResult.ACCEPT;
+        return invokeVisitCallbackForImplicitComponent(component, callback);
     }
 
     // Called to initialize our various collections.

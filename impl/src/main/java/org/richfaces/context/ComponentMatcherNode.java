@@ -34,6 +34,8 @@ final class ComponentMatcherNode {
 
     private boolean patternNode;
 
+    private boolean metaComponentNode = false;
+    
     private String source;
 
     private boolean hasParentPatternNode;
@@ -331,5 +333,13 @@ final class ComponentMatcherNode {
 
     public void setPatternNode(boolean patternNode) {
         this.patternNode = patternNode;
+    }
+    
+    public void setMetaComponentNode(boolean metaComponentNode) {
+        this.metaComponentNode = metaComponentNode;
+    }
+    
+    public boolean isMetaComponentNode() {
+        return metaComponentNode;
     }
 }

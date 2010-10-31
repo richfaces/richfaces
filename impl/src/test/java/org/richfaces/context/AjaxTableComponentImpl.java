@@ -41,7 +41,7 @@ import org.richfaces.log.RichfacesLogger;
 public class AjaxTableComponentImpl extends UIData {
 
     private static final Logger LOG = RichfacesLogger.COMPONENTS.getLogger();
-    
+
     private boolean visitMetaComponent(String name, ExtendedVisitContext visitContext, VisitCallback callback) {
         UIComponent facet = getFacet(name);
         if (facet != null) {
@@ -107,7 +107,7 @@ public class AjaxTableComponentImpl extends UIData {
             // Visit children, short-circuiting as necessary
             if ((result == VisitResult.ACCEPT) && doVisitChildren(visitContext)) {
                 setRowIndex(-1);
-                
+
                 if (visitFixedChildren(visitContext, callback)) {
                     return true;
                 }
@@ -133,7 +133,7 @@ public class AjaxTableComponentImpl extends UIData {
         // Return false to allow the visit to continue
         return false;
     }    
-    
+
     protected boolean visitFixedChildren(VisitContext visitContext, VisitCallback callback) {
 
         if (visitContext instanceof ExtendedVisitContext) {
@@ -154,32 +154,32 @@ public class AjaxTableComponentImpl extends UIData {
                     return true;
                 }
             }
-            
+
             return false;
         }
     }
 
     protected boolean visitDataChildren(VisitContext visitContext, VisitCallback callback) {
         int rowIndex = 0;
-        
+
         for (setRowIndex(rowIndex); isRowAvailable(); setRowIndex(++rowIndex)) {
             VisitResult result = visitContext.invokeVisitCallback(this, callback);
-            
+
             if (result == VisitResult.COMPLETE) {
                 return true;
             }
-            
+
             if (result == VisitResult.REJECT) {
                 continue;
             }
-            
+
             for (UIComponent child: getChildren()) {
                 if (child.visitTree(visitContext, callback)) {
                     return true;
                 }
             }
         }
-        
+
         return false;
     }
 

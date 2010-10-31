@@ -392,6 +392,8 @@ public class ResourceFactoryImpl implements ResourceFactory {
         if (result != null) {
             result.setLibraryName(resourceKey.getLibraryName());
             result.setResourceName(resourceKey.getResourceName());
+        } else if (mappedResourceData != null) {
+            result = defaultHandler.createResource(actualKey.getResourceName(), actualKey.getLibraryName());
         }
         
         return result;

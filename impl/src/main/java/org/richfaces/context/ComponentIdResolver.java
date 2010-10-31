@@ -168,7 +168,7 @@ public final class ComponentIdResolver {
                 continue;
             }
 
-            if (ExtendedPartialVisitContext.ANY_WILDCARD.equals(componentId)) {
+            if (BaseExtendedVisitContext.ANY_WILDCARD.equals(componentId)) {
                 continue;
             }
 

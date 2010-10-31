@@ -532,6 +532,10 @@ if (!window.RichFaces) {
 		parameters.execute = "@component";
 		parameters.render = "@component";
 
+		if (options.clientParameters) {
+			jQuery.extend(parameters, options.clientParameters);
+		}
+		
 		if (!parameters["org.richfaces.ajax.component"]) {
 			parameters["org.richfaces.ajax.component"] = sourceId;
 		}

@@ -185,15 +185,54 @@ public class PartialViewContextImpl extends PartialViewContext {
         return wrappedViewContext.getPartialResponseWriter();
     }
 
+    private boolean isProcessedExecutePhase(PhaseId phaseId) {
+        return phaseId == PhaseId.APPLY_REQUEST_VALUES || phaseId == PhaseId.PROCESS_VALIDATIONS 
+            || phaseId == PhaseId.UPDATE_MODEL_VALUES;
+    } 
+    
     @Override
     public void processPartial(PhaseId phaseId) {
-        if (detectContextMode() == ContextMode.DIRECT && phaseId == PhaseId.RENDER_RESPONSE) {
-            processPartialRenderPhase();
+        if (detectContextMode() == ContextMode.DIRECT) {
+            if (phaseId == PhaseId.RENDER_RESPONSE) {
+                processPartialRenderPhase();
+            } else if (isProcessedExecutePhase(phaseId)) {
+                processPartialExecutePhase(phaseId);
+            }
         } else {
             wrappedViewContext.processPartial(phaseId);
         }
     }
 
+    protected void processPartialExecutePhase(PhaseId phaseId) {
+        PartialViewContext pvc = facesContext.getPartialViewContext();
+        Collection <String> executeIds = pvc.getExecuteIds();
+        
+        if (executeIds == null || executeIds.isEmpty()) {
+            if (phaseId == PhaseId.APPLY_REQUEST_VALUES) {
+                LOG.warn("Partial execute won't happen - executeIds were not specified");
+            }
+            return;
+        }
+
+        try {
+            executeComponents(phaseId, executeIds);
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+
+        if (phaseId == PhaseId.APPLY_REQUEST_VALUES) {
+            PartialResponseWriter writer = pvc.getPartialResponseWriter();
+            facesContext.setResponseWriter(writer);
+        }
+    }
+    
+    protected void executeComponents(PhaseId phaseId, Collection<String> executeIds) {
+        EnumSet<VisitHint> hints = EnumSet.of(VisitHint.SKIP_UNRENDERED);
+        VisitContext visitContext = new ExecuteExtendedVisitContext(facesContext, executeIds, hints);
+        PartialViewExecuteVisitCallback callback = new PartialViewExecuteVisitCallback(facesContext, phaseId);
+        facesContext.getViewRoot().visitTree(visitContext, callback);
+    }
+    
     protected void processPartialRenderPhase() {
         PartialViewContext pvc = facesContext.getPartialViewContext();
         UIViewRoot viewRoot = facesContext.getViewRoot();
@@ -223,7 +262,7 @@ public class PartialViewContextImpl extends PartialViewContext {
                 (!limitRender && PartialViewContextAjaxOutputTracker.hasNestedAjaxOutputs(viewRoot))) {
 
                 EnumSet<VisitHint> hints = EnumSet.of(VisitHint.SKIP_UNRENDERED);
-                VisitContext visitContext = new ExtendedPartialVisitContext(facesContext, phaseIds, hints, limitRender);
+                VisitContext visitContext = new RenderExtendedVisitContext(facesContext, phaseIds, hints, limitRender);
                 VisitCallback visitCallback = new RenderVisitCallback(facesContext);
                 viewRoot.visitTree(visitContext, visitCallback);
             }
@@ -369,9 +408,10 @@ public class PartialViewContextImpl extends PartialViewContext {
     }
 
     private boolean visitActivatorComponent(String componentActivatorId, VisitCallback visitCallback) {
+        
         Set<String> idsToVisit = Collections.singleton(componentActivatorId);
         Set<VisitHint> visitHints = EnumSet.of(VisitHint.SKIP_UNRENDERED);
-        VisitContext visitContext = VisitContext.createVisitContext(facesContext, idsToVisit, visitHints);
+        VisitContext visitContext = new ExecuteExtendedVisitContext(facesContext, idsToVisit, visitHints);
 
         boolean visitResult = facesContext.getViewRoot().visitTree(visitContext, visitCallback);
         return visitResult;

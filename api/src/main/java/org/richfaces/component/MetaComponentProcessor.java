@@ -19,22 +19,16 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.renderkit;
+package org.richfaces.component;
 
-import java.io.IOException;
-
-import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
- *
+ * 
  */
-public interface MetaComponentRenderer {
+public interface MetaComponentProcessor {
 
-    public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) 
-        throws IOException;
+    public void processMetaComponent(FacesContext context, String metaComponentId);
 
-    public void decodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId);
-    
 }

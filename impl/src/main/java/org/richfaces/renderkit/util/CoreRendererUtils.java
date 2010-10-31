@@ -37,7 +37,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 
+import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.context.ComponentIdResolver;
+import org.richfaces.context.ExtendedVisitContext;
 
 /**
  * Util class for common render operations - render passthru html attributes,
@@ -71,6 +73,10 @@ public final class CoreRendererUtils {
         } else if (NONE.equals(id)) {
             return NONE;
         } else if (THIS.equals(id)) {
+            String metaComponentId = (String) facesContext.getAttributes().get(ExtendedVisitContext.META_COMPONENT_ID);
+            if (metaComponentId != null) {
+                return component.getClientId(facesContext) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + metaComponentId;
+            }
             return component.getClientId(facesContext);
         } else if (FORM.equals(id)) {
             UIForm nestingForm = getNestingForm(facesContext, component);

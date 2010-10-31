@@ -46,6 +46,7 @@ import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIData;
 import javax.faces.component.UIForm;
 import javax.faces.component.UIOutput;
 import javax.faces.component.UIViewRoot;
@@ -150,7 +151,7 @@ public class ExtendedPartialVisitContextTest {
 
     private List<String> tableData;
 
-    private ExtendedPartialVisitContext renderingContext;
+    private BaseExtendedVisitContext renderingContext;
 
     private TrackingVisitCallback trackingVisitCallback;
 
@@ -163,13 +164,17 @@ public class ExtendedPartialVisitContextTest {
     private UIOutput nestedTableFooter;
 
     private static void assertEqualSets(Collection<?> expected, Collection<?> actual) {
-        assertEquals(asSet(expected), asSet(actual));
+        assertEquals(asComparableCollection(expected), asComparableCollection(actual));
     }
 
-    private static <T> Set<T> asSet(Collection<T> c) {
-        if (c instanceof Set) {
-            return (Set) c;
+    private static <T> Collection<T> asComparableCollection(Collection<T> c) {
+        if (c instanceof Set || c instanceof List) {
+            return c;
         } else {
+            if (c == VisitContext.ALL_IDS) {
+                return c;
+            }
+            
             if (c != null) {
                 return new HashSet<T>(c);
             } else {
@@ -188,7 +193,7 @@ public class ExtendedPartialVisitContextTest {
     }
 
     private void createVisitContext(boolean limitRender) {
-        renderingContext = new ExtendedPartialVisitContext(facesContext, Collections.<String>emptySet(),
+        renderingContext = new RenderExtendedVisitContext(facesContext, Collections.<String>emptySet(),
             EnumSet.<VisitHint>of(VisitHint.SKIP_UNRENDERED), limitRender);
     }
 
