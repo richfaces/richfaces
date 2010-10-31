@@ -11,17 +11,23 @@
 </h:head>
 
 <h:body>
-	<it:tree id="tree" var="node" value="#{treeBean.rootNodes}">
-		<it:treeNode>
-			<h:panelGroup id="group">
-			#{node.data}
-			</h:panelGroup>
-		</it:treeNode>
-	</it:tree>
-	
 	<h:form>
+		<h:selectOneRadio value="#{treeBean.toggleMode}" onclick="submit()">
+			<f:selectItems value="#{treeBean.modes}" var="item" itemValue="#{item}" />
+		</h:selectOneRadio>
+	</h:form>
+
+	<h:form id="form">
+		<it:tree id="tree" var="node" value="#{treeBean.rootNodes}" toggleMode="#{treeBean.toggleMode}">
+			<it:treeNode>
+				<h:panelGroup id="group">
+				#{node.data}
+				</h:panelGroup>
+			</it:treeNode>
+		</it:tree>
+
 		<h:commandLink value="Re-render">
-			<f:ajax render=":tree" />
+			<f:ajax render=":form:tree" execute="@all" />
 		</h:commandLink>
 	</h:form>
 </h:body>

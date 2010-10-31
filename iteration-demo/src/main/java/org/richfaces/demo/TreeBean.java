@@ -29,6 +29,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.swing.tree.TreeNode;
 
+import org.richfaces.component.SwitchType;
 import org.richfaces.log.LogFactory;
 import org.richfaces.log.Logger;
 
@@ -46,6 +47,8 @@ public class TreeBean implements Serializable {
     
     private List<TreeNode> rootNodes;
     
+    private SwitchType toggleMode = SwitchType.DEFAULT;
+    
     @PostConstruct
     public void init() {
         try {
@@ -60,5 +63,16 @@ public class TreeBean implements Serializable {
     public List<TreeNode> getRootNodes() {
         return rootNodes;
     }
+
+    public SwitchType[] getModes() {
+        return SwitchType.values();
+    }
     
+    public SwitchType getToggleMode() {
+        return toggleMode;
+    }
+    
+    public void setToggleMode(SwitchType switchType) {
+        this.toggleMode = switchType;
+    }
 }
