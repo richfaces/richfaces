@@ -25,8 +25,10 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.swing.tree.TreeNode;
 
 import org.richfaces.component.SwitchType;
@@ -48,6 +50,8 @@ public class TreeBean implements Serializable {
     private List<TreeNode> rootNodes;
     
     private SwitchType toggleMode = SwitchType.DEFAULT;
+    
+    private Object nodeData;
     
     @PostConstruct
     public void init() {
@@ -74,5 +78,18 @@ public class TreeBean implements Serializable {
     
     public void setToggleMode(SwitchType switchType) {
         this.toggleMode = switchType;
+    }
+    
+    public Object getNodeData() {
+        return nodeData;
+    }
+    
+    public void setNodeData(Object nodeData) {
+        this.nodeData = nodeData;
+    }
+    
+    public void clickNode() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        facesContext.addMessage(null, new FacesMessage("Clicked node: " + getNodeData()));
     }
 }
