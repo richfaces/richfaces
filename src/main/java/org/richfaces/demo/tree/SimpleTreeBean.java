@@ -42,9 +42,9 @@ public class SimpleTreeBean implements Serializable {
     private List<CD> cds;
     @PostConstruct
     public void init() {
-        for (CD cd : cds) {
-            
-        }
+//        for (CD cd : cds) {
+//            
+//        }
     }
 
     public List<CD> getCds() {
