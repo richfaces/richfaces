@@ -56,7 +56,7 @@ public class TreeBean implements Serializable {
 
     private Object nodeData;
     
-    private Collection<Object> selection;
+    private Collection<Object> selection = new TracingSet<Object>();
     
     @PostConstruct
     public void init() {

@@ -24,7 +24,8 @@
 	</h:form>
 
 	<h:form id="form">
-		<it:tree id="tree" nodeType="#{node.parent == null ? 'rootNode': 'childNode'}" var="node" value="#{treeBean.rootNodes}" selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}">
+		<it:tree id="tree" nodeType="#{node.parent == null ? 'rootNode': 'childNode'}" var="node" value="#{treeBean.rootNodes}" 
+			selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}" selection="#{treeBean.selection}">
 			<it:treeNode type="rootNode">
 				<h:panelGroup id="rootNodeGroup">
 					Root node: #{node.data} - 
