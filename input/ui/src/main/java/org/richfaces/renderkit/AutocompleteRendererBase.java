@@ -45,7 +45,7 @@ import javax.faces.model.ResultSetDataModel;
 import javax.servlet.jsp.jstl.sql.Result;
 
 import org.ajax4jsf.context.AjaxContext;
-import org.ajax4jsf.javascript.JSFunctionDefinition;
+import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractAutocomplete;
 import org.richfaces.component.AutocompleteLayout;
 import org.richfaces.component.MetaComponentResolver;
@@ -69,14 +69,11 @@ import com.google.common.collect.Iterators;
 })
 public abstract class AutocompleteRendererBase extends InputRendererBase implements MetaComponentRenderer {
 
-    public JSFunctionDefinition getClientFilterFunction(UIComponent component) {
+    public JSReference getClientFilterFunction(UIComponent component) {
         AbstractAutocomplete autocomplete = (AbstractAutocomplete) component;
-        String clientFilter = (String) autocomplete.getAttributes().get("clientFilter");
+        String clientFilter = (String) autocomplete.getAttributes().get("clientFilterFunction");
         if (clientFilter != null && clientFilter.length() != 0) {
-            JSFunctionDefinition clientFilterFunction = new JSFunctionDefinition("subString");
-            clientFilterFunction.addParameter("value");
-            clientFilterFunction.addToBody(clientFilter);
-            return clientFilterFunction;
+            return new JSReference(clientFilter);
         }
 
         return null;
