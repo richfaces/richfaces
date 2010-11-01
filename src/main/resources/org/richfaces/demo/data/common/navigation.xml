@@ -398,6 +398,15 @@
 			</demo>			
 		</demos>
 	</group>
+	<!-- group>
+		<name>Menus</name>
+		<demos>
+			<demo>
+				<id>panelMenu</id>
+				<name>rich:panelMenu</name>
+			</demo>
+		</demos>
+	</group-->
 	<group>
 		<name>Inputs and Selects</name>
 		<demos>
