@@ -753,6 +753,23 @@ if (!window.RichFaces) {
 			}
 		}
 	};
+	
+	//keys codes
+	richfaces.KEYS = { 
+				BACKSPACE: 8,	
+				TAB: 9,
+				RETURN: 13,
+				ESC: 27,
+				PAGEUP: 33,
+				PAGEDOWN: 34,
+				LEFT: 37,
+				UP: 38,
+				RIGHT: 39,
+				DOWN: 40,
+				DEL: 46
+			};
+
+	
 	// move this code to somewhere
 	if (typeof jsf != 'undefined') {
 		jsf.ajax.addOnEvent(ajaxOnComplete);
