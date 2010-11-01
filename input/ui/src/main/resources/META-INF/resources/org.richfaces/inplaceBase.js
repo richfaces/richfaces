@@ -1,43 +1,3 @@
-// TODO: remove when these functions will be moved to the RichFaces.Event <!--
-
-(function (rf) {
-	rf.KEYS = {
-		BACKSPACE: 8,	
-		TAB: 9,
-		RETURN: 13,
-		ESC: 27,
-		PAGEUP: 33,
-		PAGEDOWN: 34,
-		LEFT: 37,
-		UP: 38,
-		RIGHT: 39,
-		DOWN: 40,
-		DEL: 46
-	};
-})(RichFaces);
-
-
-$.extend(RichFaces.Event, {
-	bindScrollEventHandlers: function(element, handler, component) {
-		var elements = [];
-		element = RichFaces.getDomElement(element).parentNode;
-		while (element && element!=window.document.body)
-		{
-			if (element.offsetWidth!=element.scrollWidth || element.offsetHeight!=element.scrollHeight)
-			{
-				elements.push(element);
-				RichFaces.Event.bind(element, "scroll"+component.getNamespace(), handler, component);
-			}
-			element = element.parentNode;
-		}
-		return elements;
-	},
-	unbindScrollEventHandlers: function(elements, component) {
-		RichFaces.Event.unbind(elements, "scroll"+component.getNamespace());
-	}
-});
-// -->
-
 (function ($, rf) {
 	
 	rf.ui = rf.ui || {};
@@ -161,10 +121,6 @@ $.extend(RichFaces.Event, {
        		},       		
        		__scrollHandler: function(e) {
        			this.cancel();
-       		},
-       		
-       		__setInputFocus: function() {
-       			this.input.focus();
        		},
        		
  			destroy: function () {

@@ -1,22 +1,3 @@
-//TODO:  to the utils? <--
-(function (rf) {
-	rf.KEYS = {
-		BACKSPACE: 8,	
-		TAB: 9,
-		RETURN: 13,
-		ESC: 27,
-		PAGEUP: 33,
-		PAGEDOWN: 34,
-		LEFT: 37,
-		UP: 38,
-		RIGHT: 39,
-		DOWN: 40,
-		DEL: 46
-	};
-})(RichFaces);
-
-
-//TODO: remove when cache will be moved to utils <-- 
 (function ($, rf) {
 	rf.utils = rf.utils || {};
 

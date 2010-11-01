@@ -50,6 +50,10 @@
            		__changeHandler: function(e) {
            		},
            		
+           		__setInputFocus: function() {
+           			this.input.focus();
+           		},
+           		
            		getValue: function() {
     				return this.input.val();
            		},
