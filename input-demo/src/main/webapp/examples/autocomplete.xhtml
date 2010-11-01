@@ -30,8 +30,14 @@
 		<div style="height: 300px; width: 300px; overflow: auto; float:left;">Text
 		block text block text block text block text block text block text
 		block text block
+		<script type="text/javascript">
+			function customFilterFunction(subString, value) {
+				if(subString.length>1)
+					if(value.indexOf(subString)!=-1) return true;
+			}
+		</script>
 
-		<input:autocomplete autofill="false" id="myAutocomplete" clientFilter="if(subString.length>1) if(value.indexOf(subString)!=-1) return true;" mode="#{autoCompleteBean.mode}" minChars="2" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" fetchValue="#{country.name}" showButton="true"
+		<input:autocomplete autofill="false" id="myAutocomplete" clientFilterFunction="customFilterFunction" mode="#{autoCompleteBean.mode}" minChars="2" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" fetchValue="#{country.name}" showButton="true"
 		 value = "#{autoCompleteBean.value}"
 		 onchange="return onEvent.call(this, event);" onselectitem="return onEvent.call(this, event);" onblur="return onEvent.call(this, event);" onfocus="return onEvent.call(this, event);">
 			#{country.name} #{country.iso} #{country.domain}
