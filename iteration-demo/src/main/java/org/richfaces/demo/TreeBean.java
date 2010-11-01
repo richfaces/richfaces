@@ -22,6 +22,7 @@
 package org.richfaces.demo;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -31,7 +32,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.swing.tree.TreeNode;
 
-import org.richfaces.component.Selection;
 import org.richfaces.component.SwitchType;
 import org.richfaces.log.LogFactory;
 import org.richfaces.log.Logger;
@@ -50,13 +50,13 @@ public class TreeBean implements Serializable {
     
     private List<TreeNode> rootNodes;
     
-    private SwitchType toggleMode = SwitchType.DEFAULT;
+    private SwitchType toggleType = SwitchType.DEFAULT;
     
-    private SwitchType selectionMode = SwitchType.client;
+    private SwitchType selectionType = SwitchType.client;
 
     private Object nodeData;
     
-    private Selection selection;
+    private Collection<Object> selection;
     
     @PostConstruct
     public void init() {
@@ -73,24 +73,24 @@ public class TreeBean implements Serializable {
         return rootNodes;
     }
 
-    public SwitchType[] getModes() {
+    public SwitchType[] getTypes() {
         return SwitchType.values();
     }
     
-    public SwitchType getToggleMode() {
-        return toggleMode;
+    public SwitchType getToggleType() {
+        return toggleType;
     }
     
-    public void setToggleMode(SwitchType switchType) {
-        this.toggleMode = switchType;
+    public void setToggleType(SwitchType switchType) {
+        this.toggleType = switchType;
     }
     
-    public SwitchType getSelectionMode() {
-        return selectionMode;
+    public SwitchType getSelectionType() {
+        return selectionType;
     }
     
-    public void setSelectionMode(SwitchType selectionMode) {
-        this.selectionMode = selectionMode;
+    public void setSelectionType(SwitchType selectionMode) {
+        this.selectionType = selectionMode;
     }
     
     public Object getNodeData() {
@@ -101,11 +101,11 @@ public class TreeBean implements Serializable {
         this.nodeData = nodeData;
     }
     
-    public Selection getSelection() {
+    public Collection<Object> getSelection() {
         return selection;
     }
     
-    public void setSelection(Selection selection) {
+    public void setSelection(Collection<Object> selection) {
         this.selection = selection;
     }
     

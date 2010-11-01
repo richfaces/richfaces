@@ -14,17 +14,17 @@
 	<h:messages id="messages" />
 
 	<h:form>
-		Toggle mode: <h:selectOneRadio value="#{treeBean.toggleMode}" onclick="submit()">
-			<f:selectItems value="#{treeBean.modes}" var="item" itemValue="#{item}" />
+		Toggle mode: <h:selectOneRadio value="#{treeBean.toggleType}" onclick="submit()">
+			<f:selectItems value="#{treeBean.types}" var="item" itemValue="#{item}" />
 		</h:selectOneRadio>
 
-		Selection mode: <h:selectOneRadio value="#{treeBean.selectionMode}" onclick="submit()">
-			<f:selectItems value="#{treeBean.modes}" itemDisabled="#{item == 'server'}" var="item" itemValue="#{item}" />
+		Selection mode: <h:selectOneRadio value="#{treeBean.selectionType}" onclick="submit()">
+			<f:selectItems value="#{treeBean.types}" itemDisabled="#{item == 'server'}" var="item" itemValue="#{item}" />
 		</h:selectOneRadio>
 	</h:form>
 
 	<h:form id="form">
-		<it:tree id="tree" var="node" value="#{treeBean.rootNodes}" selectionMode="#{treeBean.selectionMode}" toggleMode="#{treeBean.toggleMode}">
+		<it:tree id="tree" var="node" value="#{treeBean.rootNodes}" selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}">
 			<it:treeNode>
 				<h:panelGroup id="group">
 					#{node.data} - 
