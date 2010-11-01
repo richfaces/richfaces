@@ -22,7 +22,6 @@
 package org.richfaces.event;
 
 import java.util.Collection;
-import java.util.HashSet;
 
 import javax.faces.component.UIComponent;
 import javax.faces.event.FacesEvent;
@@ -36,15 +35,15 @@ public class TreeSelectionEvent extends FacesEvent {
 
     private static final long serialVersionUID = 6292604445872458007L;
 
-    private Collection<Object> addedKeys = new HashSet<Object>();
+    private Collection<Object> oldSelection;
 
-    private Collection<Object> removedKeys = new HashSet<Object>();
+    private Collection<Object> newSelection;
 
-    public TreeSelectionEvent(UIComponent component, Collection<Object> addedKeys, Collection<Object> removedKeys) {
+    public TreeSelectionEvent(UIComponent component, Collection<Object> oldSelection, Collection<Object> newSelection) {
         super(component);
-        
-        this.addedKeys = addedKeys;
-        this.removedKeys = removedKeys;
+
+        this.oldSelection = oldSelection;
+        this.newSelection = newSelection;
     }
 
     @Override
@@ -57,11 +56,12 @@ public class TreeSelectionEvent extends FacesEvent {
         ((TreeSelectionListener) listener).processSelection(this);
     }
 
-    public Collection<Object> getAddedKeys() {
-        return addedKeys;
+    public Collection<Object> getOldSelection() {
+        return oldSelection;
     }
     
-    public Collection<Object> getRemovedKeys() {
-        return removedKeys;
+    public Collection<Object> getNewSelection() {
+        return newSelection;
     }
+    
 }

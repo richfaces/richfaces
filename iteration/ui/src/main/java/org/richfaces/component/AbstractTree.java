@@ -66,6 +66,7 @@ import org.richfaces.model.TreeDataModelImpl;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
 import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
 
 /**
@@ -313,14 +314,18 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         } else if (event instanceof TreeSelectionEvent) {
             TreeSelectionEvent selectionEvent = (TreeSelectionEvent) event;
             
-            Collection<Object> selection = getSelection();
+            final Collection<Object> newSelection = selectionEvent.getNewSelection();
+
+            Collection<Object> selectionCollection = getSelection();
             
-            for (Object addedKey: selectionEvent.getAddedKeys()) {
-                selection.add(addedKey);
-            }
+            Iterables.removeIf(selectionCollection, new Predicate<Object>() {
+                public boolean apply(Object input) {
+                    return !newSelection.contains(input);
+                };
+            });
             
-            for (Object removedKey: selectionEvent.getRemovedKeys()) {
-                selection.remove(removedKey);
+            if (!newSelection.isEmpty()) {
+                Iterables.addAll(selectionCollection, newSelection);
             }
         }
     }

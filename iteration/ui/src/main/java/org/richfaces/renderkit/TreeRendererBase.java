@@ -29,10 +29,9 @@ import static org.richfaces.renderkit.util.AjaxRendererUtils.buildEventOptions;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UINamingContainer;
@@ -54,6 +53,7 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
 import com.google.common.base.Strings;
+import com.google.common.collect.Sets;
 
 
 /**
@@ -304,18 +304,20 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
 
         Collection<Object> selection = tree.getSelection();
 
-        Set<Object> addedKeys = new HashSet<Object>(2);
-        Set<Object> removedKeys = new HashSet<Object>(2);
-
+        Collection<Object> newSelection = null;
+        
         if (selectionRowKey == null) {
-            removedKeys.addAll(selection);
-        } else if (!selection.contains(selectionRowKey)) {
-            addedKeys.add(selectionRowKey);
-            removedKeys.addAll(selection);
+            if (!selection.isEmpty()) {
+                newSelection = Collections.emptySet();
+            }
+        } else {
+            if (!selection.contains(selectionRowKey)) {
+                newSelection = Collections.singleton(selectionRowKey);
+            }
         }
-
-        if (!removedKeys.isEmpty() || !addedKeys.isEmpty()) {
-            new TreeSelectionEvent(component, addedKeys, removedKeys).queue();
+        
+        if (newSelection != null) {
+            new TreeSelectionEvent(component, Sets.newHashSet(selection), newSelection).queue();
         }
 
         PartialViewContext pvc = context.getPartialViewContext();

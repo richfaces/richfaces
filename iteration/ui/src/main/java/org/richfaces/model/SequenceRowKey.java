@@ -74,4 +74,9 @@ public class SequenceRowKey<T> implements Serializable {
         }
         return true;
     }
+    
+    @Override
+    public String toString() {
+        return getClass().getName() + Arrays.toString(simpleKeys);
+    }
 }
