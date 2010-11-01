@@ -65,7 +65,7 @@ input.rf-ii-fld {
 	border : 0px; 
 	margin : 0px; 
 	width : 100%; 
-	height : 100%
+	height : 100%;
 	color: '#{richSkin.generalTextColor}';
 	font-family: '#{richSkin.generalFamilyFont}'; 
 	font-size : '#{richSkin.generalSizeFont}';
@@ -73,7 +73,7 @@ input.rf-ii-fld {
 
 .rf-ii-strut {
 	width : 100px; 
-	height : 1px
+	height : 1px;
 }
 
 .rf-ii-btn {
