@@ -572,7 +572,7 @@ public class CalendarRendererBase extends InputRendererBase {
     public void buildAddLocaleScript(ResponseWriter writer, FacesContext facesContext, UIComponent component) throws IOException {
         if(component instanceof AbstractCalendar) {
             AbstractCalendar calendar = (AbstractCalendar)component;
-            JSFunction function = new JSFunction("RichFaces.ui.Calendar.addLocale", CalendarHelper.getAsLocale(facesContext, calendar), getLocaleOptions(facesContext, calendar));
+            JSFunction function = new JSFunction("RichFaces.ui.Calendar.addLocale", CalendarHelper.getAsLocale(facesContext, calendar).toString(), getLocaleOptions(facesContext, calendar));
             writer.write(function.toScript());
             writer.write(";");
         }
@@ -582,7 +582,7 @@ public class CalendarRendererBase extends InputRendererBase {
         if(component instanceof AbstractCalendar) {
             AbstractCalendar calendar = (AbstractCalendar)component;
             ScriptOptions scriptOptions = createCalendarScriptOption(facesContext, calendar);
-            JSFunction function = new JSFunction("new RichFaces.ui.Calendar", calendar.getClientId(facesContext),  CalendarHelper.getAsLocale(facesContext, calendar), scriptOptions, "");
+            JSFunction function = new JSFunction("new RichFaces.ui.Calendar", calendar.getClientId(facesContext),  CalendarHelper.getAsLocale(facesContext, calendar).toString(), scriptOptions, "");
             StringBuffer scriptBuffer = new StringBuffer(); 
             scriptBuffer.append(function.toScript()).append(".load();");
             writer.write(scriptBuffer.toString());
