@@ -8,7 +8,7 @@
 	top: 0px;
 	z-index: -300;
  	opacity: 0.1;
-	filter: 'alpha(opacity = 10)';
+	filter: 'alpha(opacity \5C 3D 10)';
 }
 
 .rf-pp-shade {
@@ -19,13 +19,13 @@
   	left: 0px;
  	background-color: #D0D0D0;
  	opacity: 0.5;
- 	filter: 'alpha(opacity = 50)';
+ 	filter: 'alpha(opacity \5C 3D 50)';
 }
 
 .rf-pp-shdw {
  	background-color: #000000;
  	opacity: 0.1;
- 	filter: 'alpha(opacity = 10)';
+ 	filter: 'alpha(opacity \5C 3D 10)';
 }
 
 .rf-pp-cntr {
@@ -82,7 +82,7 @@
  	opacity:0;
 	position : absolute;
 	margin : -4px;
- 	filter : 'alpha(opacity = 0)';
+ 	filter : 'alpha(opacity \5C 3D 0)';
 }
 
 .rf-pp-hndlr-l {
