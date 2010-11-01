@@ -10,19 +10,26 @@
         var counter = 1;
         var intervalID;
             function updateProgress(i) {
-                RichFaces.$('form2:progressBar').setValue(counter*5);
+            	#{rich:component('progressBar')}.setValue(counter*5);
                 if ((counter++)>20){
                     clearInterval(intervalID);
-                    document.getElementById('button').disabled=false;
+                    #{rich:element('start')}.disabled=false;
+                	#{rich:element('pause')}.disabled=true;
+                    counter=1;
                 }
             }
-            
             function startProgress(){
-                counter=1;
-                document.getElementById('button').disabled=true;
-                RichFaces.$('form2:progressBar').enable();
-                RichFaces.$('form2:progressBar').setValue(1);
-                intervalID = setInterval(updateProgress,5000);
+            	#{rich:element('start')}.disabled=true;
+            	#{rich:element('pause')}.disabled=false;
+            	#{rich:component('progressBar')}.enable();
+            	#{rich:component('progressBar')}.setValue(counter*5);
+                intervalID = setInterval(updateProgress,2000);
+            }
+            function pauseProgress(){
+                #{rich:element('start')}.disabled=false;
+            	#{rich:element('pause')}.disabled=true;
+            	#{rich:component('progressBar')}.disable();
+                clearInterval(intervalID);
             }
 //]]> 
       </script>
@@ -35,6 +42,7 @@
                 <h:outputText value="Process Done"/>
             </f:facet>
           </rich:progressBar>
-          <button type="button" onclick="startProgress();" style="margin: 9px 0px 5px;" id="button">Start Progress</button>
+          <h:commandButton type="button" onclick="startProgress(); return false;" style="margin: 9px 0px 5px;" id="start" value="Start Progress"/>
+          <h:commandButton type="button" onclick="pauseProgress(); return false;" style="margin: 9px 0px 5px;" id="pause" disabled="true" value="Pause Progress"/>
     </h:form>
 </ui:composition>
