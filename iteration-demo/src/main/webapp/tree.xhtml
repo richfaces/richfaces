@@ -24,9 +24,19 @@
 	</h:form>
 
 	<h:form id="form">
-		<it:tree id="tree" var="node" value="#{treeBean.rootNodes}" selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}">
-			<it:treeNode>
-				<h:panelGroup id="group">
+		<it:tree id="tree" nodeType="#{node.parent == null ? 'rootNode': 'childNode'}" var="node" value="#{treeBean.rootNodes}" selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}">
+			<it:treeNode type="rootNode">
+				<h:panelGroup id="rootNodeGroup">
+					Root node: #{node.data} - 
+					<h:commandLink value="link" action="#{treeBean.clickNode}">
+						<f:setPropertyActionListener value="#{node.data}" target="#{treeBean.nodeData}" />
+					
+						<f:ajax render=":messages" />						
+					</h:commandLink>
+				</h:panelGroup>
+			</it:treeNode>
+			<it:treeNode type="childNode">
+				<h:panelGroup id="childNodeGroup">
 					#{node.data} - 
 					<h:commandLink value="link" action="#{treeBean.clickNode}">
 						<f:setPropertyActionListener value="#{node.data}" target="#{treeBean.nodeData}" />
