@@ -62,7 +62,7 @@
 					</sample>
 				</samples>
 			</demo>
-			<demo>
+			<!-- demo>
 				<id>push</id>
 				<name>a4j:push</name>
 				<samples>
@@ -71,7 +71,7 @@
 						<name>push Simple</name>
 					</sample>
 				</samples>
-			</demo>
+			</demo-->
 			<demo>
 				<id>param</id>
 				<name>a4j:param</name>
