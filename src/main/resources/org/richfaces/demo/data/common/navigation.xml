@@ -290,6 +290,21 @@
 			</demo>
 		</demos>
 	</group>
+	<!-- group>
+		<name>Trees</name>
+		<demos>
+			<demo new="true">
+				<id>tree</id>
+				<name>rich:tree</name>
+				<samples>
+					<sample>
+						<id>tree</id>
+						<name>Simple tree from XML</name>
+					</sample>
+				</samples>
+			</demo>
+		</demos>
+	</group-->
 	<group>
 		<name>Output/Panels</name>
 		<demos>
