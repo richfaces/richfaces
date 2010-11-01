@@ -21,30 +21,78 @@
  */
 package org.richfaces.model;
 
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
-import java.util.List;
+import java.util.NoSuchElementException;
 
-import javax.faces.context.FacesContext;
 import javax.swing.tree.TreeNode;
 
-import org.ajax4jsf.model.DataVisitResult;
-import org.ajax4jsf.model.DataVisitor;
-import org.ajax4jsf.model.ExtendedDataModel;
-import org.ajax4jsf.model.Range;
-import org.richfaces.component.TreeRange;
-
+import com.google.common.base.Predicates;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
 
 /**
  * @author Nick Belaevski
  * 
  */
-public class TreeDataModelImpl extends ExtendedDataModel<TreeNode> {
+public class SwingTreeNodeDataModelImpl implements TreeDataModel<TreeNode> {
+
+    /**
+     * @author Nick Belaevski
+     * 
+     */
+    private final class FakeRootNode implements TreeNode {
+        public boolean isLeaf() {
+            return !wrappedData.isEmpty();
+        }
+
+        public TreeNode getParent() {
+            return null;
+        }
+
+        public int getIndex(TreeNode node) {
+            if (wrappedData == null) {
+                return -1;
+            }
+            
+            return Iterables.indexOf(wrappedData, Predicates.equalTo(node));
+        }
+
+        public int getChildCount() {
+            if (wrappedData == null) {
+                return 0;
+            }
+            
+            return wrappedData.size();
+        }
+
+        public TreeNode getChildAt(int childIndex) {
+            if (wrappedData == null) {
+                throw new NoSuchElementException(String.valueOf(childIndex));
+            }
+            
+            return Iterables.get(wrappedData, childIndex);
+        }
+
+        public boolean getAllowsChildren() {
+            return true;
+        }
+
+        public Enumeration<?> children() {
+            if (wrappedData == null) {
+                return Iterators.asEnumeration(Iterators.emptyIterator());
+            }
+            
+            return Iterators.asEnumeration(wrappedData.iterator());
+        }
+    }
 
     private static final SequenceRowKey<Integer> EMPTY_SEQUENCE_ROW_KEY = new SequenceRowKey<Integer>();
 
-    private SwingTreeNodeImpl<?> rootNode;
+    private Collection<TreeNode> wrappedData = null;
+    
+    private TreeNode fakeRootNode = new FakeRootNode();
 
     private TreeNode selectedNode;
     
@@ -65,7 +113,7 @@ public class TreeDataModelImpl extends ExtendedDataModel<TreeNode> {
             return null;
         }
         
-        TreeNode result = rootNode;
+        TreeNode result = fakeRootNode;
         
         for (Integer simpleKey : compositeKey.getSimpleKeys()) {
             int idx = simpleKey.intValue();
@@ -81,62 +129,13 @@ public class TreeDataModelImpl extends ExtendedDataModel<TreeNode> {
         return result;
     }
     
-    @Override
     public void setRowKey(Object key) {
         this.selectedRowKey = (SequenceRowKey<Integer>) key;
         this.selectedNode = findNode(selectedRowKey);
     }
 
-    @Override
     public Object getRowKey() {
         return selectedRowKey;
-    }
-
-    @Override
-    public boolean isRowAvailable() {
-        return selectedNode != null;
-    }
-
-    /* (non-Javadoc)
-     * @see javax.faces.model.DataModel#getRowCount()
-     */
-    @Override
-    public int getRowCount() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public TreeNode getRowData() {
-        return selectedNode;
-    }
-
-    /* (non-Javadoc)
-     * @see javax.faces.model.DataModel#getRowIndex()
-     */
-    @Override
-    public int getRowIndex() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    /* (non-Javadoc)
-     * @see javax.faces.model.DataModel#setRowIndex(int)
-     */
-    @Override
-    public void setRowIndex(int rowIndex) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public Object getWrappedData() {
-        return rootNode.getChildrenList();
-    }
-
-    @Override
-    public void setWrappedData(Object data) {
-        this.rootNode = new SwingTreeNodeImpl((List<TreeNode>) data);
     }
 
     private SequenceRowKey<Integer> castKeyAndWrapNull(Object rowKey) {
@@ -147,38 +146,34 @@ public class TreeDataModelImpl extends ExtendedDataModel<TreeNode> {
         return (SequenceRowKey<Integer>) rowKey;
     }
     
-    public Iterator<Object> getChildrenIterator(FacesContext faces, Object rowKey) {
+    public Iterator<Object> getChildrenRowKeysIterator(Object rowKey) {
         SequenceRowKey<Integer> sequenceKey = castKeyAndWrapNull(rowKey);
         Iterator<TreeNode> itr = findChildren(sequenceKey);
         
         return new SequenceRowKeyIterator<TreeNode>(sequenceKey, itr);
     }
 
-    protected void walk(FacesContext context, DataVisitor visitor, Range range, Object argument, Iterator<Object> keysIterator) {
-        while (keysIterator.hasNext()) {
-            Object object = (Object) keysIterator.next();
-            
-            DataVisitResult visitResult = visitor.process(context, object, argument);
-            if (visitResult == DataVisitResult.CONTINUE) {
-                if (((TreeRange) range).shouldIterateChildren(object)) {
-                    Iterator<Object> childrenIterator = getChildrenIterator(context, object);
-                    walk(context, visitor, range, argument, childrenIterator);
-                }
-            }
+    public TreeNode getData() {
+        if (!isDataAvailable()) {
+            throw new IllegalArgumentException();
         }
+        
+        return selectedNode;
     }
 
-    /* (non-Javadoc)
-     * @see org.ajax4jsf.model.ExtendedDataModel#walk(javax.faces.context.FacesContext, org.ajax4jsf.model.DataVisitor, org.ajax4jsf.model.Range, java.lang.Object)
-     */
-    @Override
-    public void walk(FacesContext context, DataVisitor visitor, Range range, Object argument) {
-        // TODO Auto-generated method stub
-
-        if (((TreeRange) range).shouldIterateChildren(null)) {
-            Iterator<Object> iterator = getChildrenIterator(context, null);
-            walk(context, visitor, range, argument, iterator);
-        }
+    public Object getParentRowKey(Object rowKey) {
+        throw new UnsupportedOperationException();
     }
 
+    public boolean isDataAvailable() {
+        return selectedNode != null;
+    }
+    
+    public Object getWrappedData() {
+        return wrappedData;
+    }
+    
+    public void setWrappedData(Object wrappedData) {
+        this.wrappedData = (Collection<TreeNode>) wrappedData;
+    }
 }

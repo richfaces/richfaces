@@ -19,32 +19,31 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.renderkit;
+package org.richfaces.model;
 
-import javax.faces.context.FacesContext;
-
-import org.richfaces.component.AbstractTree;
+import java.util.Iterator;
 
 /**
  * @author Nick Belaevski
  * 
  */
-class TreeEncoderFull extends TreeEncoderBase {
+//TODO - add necessary methods for tree adaptors support
+public interface TreeDataModel<E> {
 
-    public TreeEncoderFull(FacesContext context, AbstractTree tree) {
-        super(context, tree);
-    }
+    public Object getRowKey();
+    
+    public void setRowKey(Object rowKey);
+    
+    public boolean isDataAvailable();
+    
+    public E getData();
+    
+    public Iterator<Object> getChildrenRowKeysIterator(Object rowKey);
+    
+    public Object getParentRowKey(Object rowKey);
+    
+    public Object getWrappedData();
 
-    public void encode() throws java.io.IOException {
-        Object initialRowKey = tree.getRowKey();
-        try {
-            encodeTree(tree.getChildrenRowKeysIterator(context, null));
-        } finally {
-            try {
-                tree.setRowKey(context, initialRowKey);
-            } catch (Exception e) {
-                TreeRendererBase.LOGGER.error(e.getMessage(), e);
-            }
-        }
-    }
+    public void setWrappedData(Object data);
+    
 }

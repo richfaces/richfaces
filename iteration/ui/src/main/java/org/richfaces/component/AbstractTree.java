@@ -43,6 +43,7 @@ import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
+import javax.swing.tree.TreeNode;
 
 import org.ajax4jsf.model.DataComponentState;
 import org.ajax4jsf.model.ExtendedDataModel;
@@ -62,7 +63,9 @@ import org.richfaces.event.TreeSelectionEvent;
 import org.richfaces.event.TreeSelectionListener;
 import org.richfaces.event.TreeToggleEvent;
 import org.richfaces.event.TreeToggleListener;
-import org.richfaces.model.TreeDataModelImpl;
+import org.richfaces.model.ExtendedTreeDataModelImpl;
+import org.richfaces.model.SwingTreeNodeDataModelImpl;
+import org.richfaces.model.TreeDataModel;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
 import com.google.common.base.Predicate;
@@ -210,12 +213,9 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         getStateHelper().put(PropertyKeys.expanded, this.getClientId(getFacesContext()), newValue);
     }
 
-    /* (non-Javadoc)
-     * @see org.richfaces.component.UIDataAdaptor#createExtendedDataModel()
-     */
     @Override
     protected ExtendedDataModel<?> createExtendedDataModel() {
-        TreeDataModelImpl model = new TreeDataModelImpl();
+        ExtendedTreeDataModelImpl<?> model = new ExtendedTreeDataModelImpl<TreeNode>(new SwingTreeNodeDataModelImpl());
         model.setWrappedData(getValue());
         return model;
     }
@@ -235,8 +235,9 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         return converter;
     }
 
-    public Iterator<Object> getChildrenIterator(FacesContext faces, Object rowKey) {
-        return ((TreeDataModelImpl) getExtendedDataModel()).getChildrenIterator(faces, rowKey);
+    public Iterator<Object> getChildrenRowKeysIterator(FacesContext faces, Object rowKey) {
+        TreeDataModel<?> dataModel = (TreeDataModel<?>) getExtendedDataModel();
+        return dataModel.getChildrenRowKeysIterator(rowKey);
     }
 
     public AbstractTreeNode getTreeNodeComponent() {

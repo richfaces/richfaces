@@ -104,7 +104,7 @@ abstract class TreeEncoderBase {
         boolean iterateChildren = treeRange.shouldIterateChildren(rowKey);
         
         if (iterateChildren) {
-            encodeTree(tree.getChildrenIterator(context, rowKey));
+            encodeTree(tree.getChildrenRowKeysIterator(context, rowKey));
         }
 
         QueuedData data = queuedData.removeLast();
