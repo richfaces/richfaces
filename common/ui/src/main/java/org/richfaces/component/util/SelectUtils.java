@@ -280,7 +280,10 @@ public final class SelectUtils {
      * @param component
      * @param property
      * @return converter for specified component attribute
+     * @deprecated use SelectUtils.findConverter instead
      */
+    
+    @Deprecated
     public static Converter getConverterForProperty(FacesContext facesContext, UIOutput component, String property) {
         Converter converter = component.getConverter();
 
@@ -306,4 +309,27 @@ public final class SelectUtils {
 
         return converter;
     }
+    
+    public static Converter findConverter(FacesContext facesContext, UIOutput component, String property) {
+        Converter converter = component.getConverter();
+
+        if (converter == null) {
+
+            ValueExpression ve = component.getValueExpression(property);
+            
+            if (ve != null) {
+
+                Class<?> valueType = ve.getType(facesContext.getELContext());
+                if ((valueType == null) || String.class.equals(valueType) || Object.class.equals(valueType)) {
+                    // No converter needed
+                } else {
+                    converter = facesContext.getApplication().createConverter(valueType);
+                }
+                
+            }
+        }
+
+        return converter;
+    }
+     
 }
