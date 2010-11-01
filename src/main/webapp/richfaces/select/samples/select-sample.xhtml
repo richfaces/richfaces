@@ -6,7 +6,7 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
 	<h:form>
-		<p>DESC</p>
+		<p>There is simple sample where select behaves as standard one:</p>
 		<rich:panel style="width:220px;">
 			<f:facet name="header">
 				<h:outputText value="Simples select"></h:outputText>
@@ -19,14 +19,21 @@
 				<f:selectItem itemValue="4" itemLabel="Option 5" />
 			</rich:select>
 		</rich:panel>
-		<p>DESC</p>
+		<p>There you could check keyboard filtering within the select
+		component. It allows to enter only valid items from the list. Wrong
+		input will be reseted.</p>
 		<rich:panel style="width:220px;">
 			<f:facet name="header">
 				<h:outputText value="Select with manual input"></h:outputText>
 			</f:facet>
-			<rich:select enableManualInput="true" defaultLabel="start typing for select" >
-				<f:selectItems value="#{inplaceSelectBean.capitalsOptions}"/>
+			<rich:select enableManualInput="true"
+				defaultLabel="start typing for select">
+				<f:selectItems value="#{inplaceSelectBean.capitalsOptions}" />
 			</rich:select>
-		</rich:panel>		
+			<a4j:commandButton value="submit"></a4j:commandButton>
+			<a4j:outputPanel ajaxRendered="true">
+				<h:messages />
+			</a4j:outputPanel>
+		</rich:panel>
 	</h:form>
 </ui:composition>
