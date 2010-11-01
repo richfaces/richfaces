@@ -23,15 +23,17 @@
 
 package org.richfaces.renderkit.html;
 
+import java.io.IOException;
+
+import org.junit.Ignore;
 import org.junit.Test;
 import org.xml.sax.SAXException;
-
-import java.io.IOException;
 
  /**
  * @author akolonitsky
  * @since 2010-10-25
  */
+@Ignore
 public class PanelMenuGroupRendererTest extends RendererTestBase {
 
     @Test
