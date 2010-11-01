@@ -52,7 +52,12 @@ public class SyntaxHighlighter extends UIComponentBase {
             in.close();
         }
     }
-
+    
+    private void renderLabel(FacesContext context, String label) throws IOException{
+        ResponseWriter writer = context.getResponseWriter();
+        writer.writeText(label.toCharArray(), 0, label.length());
+    }
+    
     private void renderContent(FacesContext context) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         String src = getSrc();
@@ -61,10 +66,10 @@ public class SyntaxHighlighter extends UIComponentBase {
             if (stream != null) {
                 renderStream(context, stream);
             } else {
-                throw new NullPointerException("resource for highlight not found");
+                renderLabel(context, "resource for highlight not found");
             }
         } else {
-            throw new NullPointerException("src may not be null");
+            renderLabel(context, "src may not be null");
         }
     }
 
