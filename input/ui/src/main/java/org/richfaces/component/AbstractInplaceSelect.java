@@ -64,15 +64,15 @@ public abstract class AbstractInplaceSelect extends AbstractSelect implements In
     
     @Override
     @Attribute
-    public abstract String getItemCss();
+    public abstract String getItemClass();
     
     @Override
     @Attribute
-    public abstract String getSelectItemCss();
+    public abstract String getSelectItemClass();
     
     @Override
     @Attribute
-    public abstract String getListCss();
+    public abstract String getListClass();
     
     
     @Attribute(defaultValue="click")

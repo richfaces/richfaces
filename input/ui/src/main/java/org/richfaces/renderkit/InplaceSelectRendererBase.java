@@ -119,32 +119,32 @@ public class InplaceSelectRendererBase extends InplaceInputRendererBase {
     }
     
     public String getReadyStateCss(InplaceComponent component) {
-        String css = component.getReadyStateCss();
+        String css = component.getReadyStateClass();
         return HtmlUtil.concatClasses("rf-is-d-s", css);
     }
 
     public String getEditStateCss(InplaceComponent component) {
-        String css = component.getEditStateCss();
+        String css = component.getEditStateClass();
         return HtmlUtil.concatClasses("rf-is-e-s", css);
     }
 
     public String getChangedStateCss(InplaceComponent component) {
-        String css = component.getChangedStateCss();
+        String css = component.getChangedStateClass();
         return HtmlUtil.concatClasses("rf-is-c-s", css);
     }
 
     public String getDisableStateCss(InplaceComponent component) {
-        String css = component.getDisableStateCss();
+        String css = component.getDisableStateClass();
         return HtmlUtil.concatClasses("rf-is-dis-s", css);
     }
     
     public String getEditCss(InplaceComponent component) {
-        String css = component.getEditCss();
+        String css = component.getEditClass();
         return HtmlUtil.concatClasses("rf-is-edit", css);
     }
 
     public String getNoneCss(InplaceComponent component) {
-        String css = component.getNoneCss();
+        String css = component.getNoneClass();
         return HtmlUtil.concatClasses("rf-is-none", css);
     }
 }

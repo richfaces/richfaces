@@ -219,17 +219,17 @@ public class InplaceInputRendererBase extends InputRendererBase {
             options.put(OPTIONS_STATE, inplaceComponent.getState());
         }
         
-        String css = inplaceComponent.getNoneCss();
+        String css = inplaceComponent.getNoneClass();
         if(css != null && css.trim().length() > 0) {
             options.put(OPTIONS_NONE_CSS, getNoneCss(inplaceComponent));
         }
 
-        css = inplaceComponent.getChangedStateCss();
+        css = inplaceComponent.getChangedStateClass();
         if(css != null && css.trim().length() > 0) {
             options.put(OPTIONS_CHANGED_CSS, getChangedStateCss(inplaceComponent));
         }    
         
-        css = inplaceComponent.getEditStateCss(); 
+        css = inplaceComponent.getEditStateClass(); 
         if(css != null && css.trim().length() > 0) {
             options.put(OPTIONS_EDIT_CSS, getEditStateCss(inplaceComponent));
         }
@@ -256,32 +256,32 @@ public class InplaceInputRendererBase extends InputRendererBase {
     }
 
     public String getReadyStateCss(InplaceComponent component) {
-        String css = component.getReadyStateCss();
+        String css = component.getReadyStateClass();
         return HtmlUtil.concatClasses("rf-ii-d-s", css);
     }
 
     public String getEditStateCss(InplaceComponent component) {
-        String css = component.getEditStateCss();
+        String css = component.getEditStateClass();
         return HtmlUtil.concatClasses("rf-ii-e-s", css);
     }
 
     public String getChangedStateCss(InplaceComponent component) {
-        String css = component.getChangedStateCss();
+        String css = component.getChangedStateClass();
         return HtmlUtil.concatClasses("rf-ii-c-s", css);
     }
 
     public String getDisableStateCss(InplaceComponent component) {
-        String css = component.getDisableStateCss();
+        String css = component.getDisableStateClass();
         return HtmlUtil.concatClasses("rf-ii-dis-s", css);
     }
     
     public String getEditCss(InplaceComponent component) {
-        String css = component.getEditCss();
+        String css = component.getEditClass();
         return HtmlUtil.concatClasses("rf-ii-edit", css);
     }
 
     public String getNoneCss(InplaceComponent component) {
-        String css = component.getNoneCss();
+        String css = component.getNoneClass();
         return HtmlUtil.concatClasses("rf-ii-none", css);
     }
 }

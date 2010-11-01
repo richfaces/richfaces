@@ -39,16 +39,16 @@ public interface InplaceComponent {
     
     public InplaceState getState();
     
-    public String getReadyStateCss();
+    public String getReadyStateClass();
 
-    public String getEditStateCss();
+    public String getEditStateClass();
 
-    public String getChangedStateCss();
+    public String getChangedStateClass();
 
-    public String getDisableStateCss();
+    public String getDisableStateClass();
 
-    public String getEditCss();
+    public String getEditClass();
 
-    public String getNoneCss();
+    public String getNoneClass();
  
 }

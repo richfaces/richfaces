@@ -119,7 +119,7 @@ public final class SelectHelper {
                 writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, itemClientId,
                         null);
                 
-                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, HtmlUtil.concatClasses(defaultItemCss, select.getItemCss()), null);
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, HtmlUtil.concatClasses(defaultItemCss, select.getItemClass()), null);
 
                 String label = clientSelectItem.getLabel();
                 if (label != null && label.trim().length() > 0) {
@@ -153,17 +153,17 @@ public final class SelectHelper {
     }
     
     public static void addSelectCssToOptions(AbstractSelect abstractSelect, Map<String, Object> options, String [] defaultCss) {
-        String itemCss = abstractSelect.getItemCss();
+        String itemCss = abstractSelect.getItemClass();
         if(itemCss != null && itemCss.trim().length() > 0) {
             options.put(PopupConstants.OPTIONS_ITEM_CLASS, HtmlUtil.concatClasses(defaultCss[0], itemCss));
         }    
         
-        String selectItemCss = abstractSelect.getSelectItemCss();
+        String selectItemCss = abstractSelect.getSelectItemClass();
         if(selectItemCss != null && selectItemCss.trim().length() > 0) {
             options.put(PopupConstants.OPTIONS_SELECT_ITEM_CLASS, HtmlUtil.concatClasses(defaultCss[1], selectItemCss));
         }
         
-        String listCss = abstractSelect.getListCss();
+        String listCss = abstractSelect.getListClass();
         if(listCss != null && listCss.trim().length() > 0) {
             options.put(PopupConstants.OPTIONS_LIST_CLASS, HtmlUtil.concatClasses(defaultCss[2], listCss));
         }

@@ -66,13 +66,13 @@ public abstract class AbstractSelect extends UISelectOne {
     public abstract String getDefaultLabel();
     
     @Attribute
-    public abstract String getItemCss();
+    public abstract String getItemClass();
     
     @Attribute
-    public abstract String getSelectItemCss();
+    public abstract String getSelectItemClass();
     
     @Attribute
-    public abstract String getListCss();
+    public abstract String getListClass();
 
     @Attribute(events=@EventName("blur"))
     public abstract String getOnblur();
