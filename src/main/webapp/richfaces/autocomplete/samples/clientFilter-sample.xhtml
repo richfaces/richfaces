@@ -15,7 +15,7 @@
 	</script>
 	<h:form>
 		<rich:autocomplete mode="client" minChars="0" autofill="false"
-			clientFilter="return customFilter(subString, value)"
+			clientFilterFunction="customFilter"
 			autocompleteMethod="#{autocompleteBean.autocomplete}" />
 	</h:form>
 </ui:composition>
