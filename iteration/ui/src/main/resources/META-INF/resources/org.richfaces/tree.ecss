@@ -1,5 +1,5 @@
 .rf-trn {
-	background: "url(#{resource['org.richfaces.images:last.gif']}) no-repeat center left";
+	background: "url(#{resource['org.richfaces.images:last.png']}) no-repeat center left";
 	cursor: default;
 	font-size: '#{richSkin.generalSizeFont}';
 	font-family: '#{richSkin.generalFamilyFont}';
@@ -26,7 +26,7 @@
 }
 
 .rf-tr-nd {
-	background: "url(#{resource['org.richfaces.images:line.gif']}) repeat-y";
+	background: "url(#{resource['org.richfaces.images:line.png']}) repeat-y";
 }
 
 .rf-tr-nd-last {
@@ -51,11 +51,11 @@
 }
 
 .rf-trn-hnd-colps {
-	background: "url(#{resource['org.richfaces.images:plus.gif']}) no-repeat center";
+	background: "url(#{resource['org.richfaces.images:plus.png']}) no-repeat center";
 }
 
 .rf-trn-hnd-exp {
-	background: "url(#{resource['org.richfaces.images:minus.gif']}) no-repeat center";
+	background: "url(#{resource['org.richfaces.images:minus.png']}) no-repeat center";
 }
 
 .rf-trn-ico-nd {
