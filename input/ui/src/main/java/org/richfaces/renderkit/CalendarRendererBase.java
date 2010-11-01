@@ -242,13 +242,14 @@ public class CalendarRendererBase extends InputRendererBase {
         String newValue = (String) submittedValue;
         // if we have no local value, try to get the valueExpression.
         AbstractCalendar calendar = (AbstractCalendar) component;
-        Converter converter = SelectUtils.getConverterForProperty(facesContext, calendar, "value"); 
+        Converter converter = SelectUtils.findConverter(facesContext, calendar, "value"); 
 
         // in case the converter hasn't been set, try to use default 
         // DateTimeConverter
         if (converter == null) {
             converter = createDefaultConverter();
         }
+        
         setupConverter(facesContext, converter, calendar);
         return converter.getAsObject(facesContext, component, newValue);
     }
@@ -263,12 +264,13 @@ public class CalendarRendererBase extends InputRendererBase {
         String value = (String) calendar.getSubmittedValue();
         if (value == null) {
             Object curVal = calendar.getValue();
-            Converter converter = SelectUtils.getConverterForProperty(facesContext, calendar, "value");
+            Converter converter = SelectUtils.findConverter(facesContext, calendar, "value");
             
             if(converter == null) {
                 converter = createDefaultConverter();
-                setupConverter(facesContext, converter, calendar);
             }
+            
+            setupConverter(facesContext, converter, calendar);
                         
             if (converter != null) {
                 value = converter.getAsString(facesContext, calendar, curVal);
