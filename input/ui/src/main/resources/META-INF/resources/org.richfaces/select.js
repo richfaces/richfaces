@@ -1,3 +1,5 @@
+//TODO anton -> Cache impl should be moved to the utils  
+
 (function ($, rf) {
 	rf.utils = rf.utils || {};
 

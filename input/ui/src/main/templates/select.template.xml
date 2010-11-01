@@ -26,6 +26,7 @@
 					id="#{clientId}Input" 
 					value="#{getSelectLabel(facesContext, component)}"  
 					disabled="#{disabled}" 
+					name="#{clientId}Input"
 					type="text" 
 					class="rf-sel-fnt rf-sel-inp" 
 					autocomplete="off"

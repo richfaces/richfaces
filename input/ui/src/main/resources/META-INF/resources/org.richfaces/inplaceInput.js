@@ -11,9 +11,7 @@
             this.initialValue = (labelText == inputLabel) ? labelText : "";
             this.saveOnBlur = mergedOptions.saveOnBlur;
             this.showControls = mergedOptions.showControls;
-            this.__proxie
-        	this.getInput().bind("focus", $.proxy(this.__editHandler, this));
-
+           	this.getInput().bind("focus", $.proxy(this.__editHandler, this));
         	if(this.showControls) {
             	this.okbtn = $(document.getElementById(id+"Okbtn"));
             	this.cancelbtn = $(document.getElementById(id+"Cancelbtn"));
