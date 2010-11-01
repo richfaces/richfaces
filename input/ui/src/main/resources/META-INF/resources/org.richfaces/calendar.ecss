@@ -243,7 +243,6 @@
 .rf-ca-edtr-shdw {
 	background: '#{richSkin.tableBackgroundColor}';
 	opacity: 0.5;
-	filter: alpha(opacity=50);
 }
 
 .rf-ca-time-layout {
@@ -328,18 +327,20 @@
 	margin: 0px 2px;
 }
 
-.rf-ca-sp-up {
-	background-image: "url(#{resource['org.richfaces.renderkit.html.images.StandardButtonBgImage']})";
+.rf-ca-sp-up, .rf-ca-sp-down {
+	background-repeat: no-repeat;
+	background-position: 50% 40%;
 	height: 7px;
 	width: 14px;
-	margin: 0px 1px 1px 0px;
+	margin: 0px 1px 1px 0px;	
+}
+
+.rf-ca-sp-up {
+	background-image: "url(#{resource['org.richfaces.renderkit.html.images.SpinnerArrowTop']})";
 }
 
 .rf-ca-sp-down {
-	background-image: "url(#{resource['org.richfaces.renderkit.html.images.StandardButtonPressedBgImage']})";
-	height: 7px;
-	width: 14px;
-	margin: 0px 1px 1px 0px;
+	background-image: "url(#{resource['org.richfaces.renderkit.html.images.SpinnerArrowBottom']})";
 }
 
 .rf-ca-sp-press {
@@ -356,7 +357,6 @@
 	background-color: '#{richSkin.shadowBackgroundColor}';
 	position: absolute;
 	opacity: 0.3;
-	filter: alpha(opacity=30);
 }
 
 .rf-ca-edtr-btn {
