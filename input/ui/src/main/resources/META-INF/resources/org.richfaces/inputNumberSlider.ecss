@@ -93,6 +93,7 @@ input.rf-insl-inp {
 	height: 6px;
 	clear: both;
 	vertical-align: top;
+	text-align: left;
 	/* outline style fix for chrome */
 	font-size: 0px;
 }
