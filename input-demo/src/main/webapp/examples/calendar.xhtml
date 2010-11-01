@@ -29,13 +29,52 @@ License along with this software; if not, write to the Free
 Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
-	<h:head>
-		<title>Richfaces Calendar Demo</title>
-	</h:head>
-	<h:body>
-		<h:form id="form">
-			<calendar:calendar popup="true"/>
-			<h:commandButton value="submit"></h:commandButton>				
-		</h:form>
-	</h:body>
+<h:head>
+	<title>Richfaces Calendar Demo</title>
+</h:head>
+<h:body>
+	<h:form id="form">
+		<h:panelGrid id="panel" columns="2">
+			<h:panelGroup layout="block">
+				<calendar:calendar value="#{calendarBean.selectedDate}" id="calendar"
+					locale="#{calendarBean.locale}" popup="#{calendarBean.popup}"
+					datePattern="#{calendarBean.pattern}"
+					showApplyButton="#{calendarBean.showApply}" cellWidth="24px"
+					cellHeight="22px" style="width:200px">
+					<f:convertDateTime pattern="#{calendarBean.pattern}"
+						onchange="alert('1')" />
+				</calendar:calendar>
+			</h:panelGroup>
+			<h:panelGrid columns="2">
+				<h:outputText value="Popup Mode:" />
+				<h:selectBooleanCheckbox value="#{calendarBean.popup}">
+					<f:ajax event="click" execute="@form" render="calendar @this" />
+				</h:selectBooleanCheckbox>
+				<h:outputText value="Apply Button:" />
+				<h:selectBooleanCheckbox value="#{calendarBean.showApply}">
+					<f:ajax event="click" execute="@form" render="calendar @this" />
+				</h:selectBooleanCheckbox>
+				<h:outputText value="Select Locale" />
+				<h:selectOneRadio value="en/US"
+					valueChangeListener="#{calendarBean.selectLocale}">
+					<f:ajax execute="@form" event="click" render="calendar @this" />
+					<f:selectItem itemLabel="US" itemValue="en/US" />
+					<f:selectItem itemLabel="DE" itemValue="de/DE" />
+					<f:selectItem itemLabel="FR" itemValue="fr/FR" />
+					<f:selectItem itemLabel="RU" itemValue="ru/RU" />
+				</h:selectOneRadio>
+
+				<h:outputText value="Select Date Pattern:" />
+				<h:selectOneMenu value="#{calendarBean.pattern}">
+					<f:ajax execute="@form" event="change" render="calendar @this" />
+					<f:selectItem itemLabel="d/M/yy HH:mm" itemValue="d/M/yy HH:mm" />
+					<f:selectItem itemLabel="dd/M/yy hh:mm a"
+						itemValue="dd/M/yy hh:mm a" />
+					<f:selectItem itemLabel="d/MMM/y" itemValue="d/MMM/y" />
+					<f:selectItem itemLabel="MMM d, yyyy" itemValue="MMM d, yyyy" />
+				</h:selectOneMenu>
+			</h:panelGrid>
+		</h:panelGrid>
+	</h:form>
+</h:body>
 </html>
