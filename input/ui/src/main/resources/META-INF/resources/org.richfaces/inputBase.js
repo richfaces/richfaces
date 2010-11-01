@@ -1,19 +1,3 @@
-(function (rf) {
-	rf.KEYS = {
-		BACKSPACE: 8,	
-		TAB: 9,
-		RETURN: 13,
-		ESC: 27,
-		PAGEUP: 33,
-		PAGEDOWN: 34,
-		LEFT: 37,
-		UP: 38,
-		RIGHT: 39,
-		DOWN: 40,
-		DEL: 46
-	};
-})(RichFaces);
-
 (function ($, rf) {
 	
 	rf.ui = rf.ui || {};
@@ -64,10 +48,6 @@
            		},
     			
            		__changeHandler: function(e) {
-           		},
-           		
-           		__setInputFocus: function() {
-           			this.input.focus();
            		},
            		
            		getValue: function() {

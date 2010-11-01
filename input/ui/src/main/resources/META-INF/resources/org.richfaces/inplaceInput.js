@@ -55,11 +55,11 @@
            		
            		__keydownHandler: function(e) {
            			switch(e.keyCode || e.which) {
-           				case 27: 
+           				case rf.KEYS.ESC: 
 	       					e.preventDefault();
            					this.cancel(); 
            					break;
-           				case 13:
+           				case rf.KEYS.RETURN:
 	       					e.preventDefault();
            					this.save(); 
            					return false;

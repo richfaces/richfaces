@@ -89,6 +89,12 @@ $.extend(RichFaces.Event, {
 			onhide: function() {
 			},
 			
+			onsave: function() {
+			}, 
+			
+			oncancel: function() {
+			},
+			
 			isValueSaved: function() {
 				return this.isSaved;
 			},
@@ -106,6 +112,7 @@ $.extend(RichFaces.Event, {
 
 				this.__applyChangedStyles();
 				this.__hide();
+				this.onsave();
 			}, 
 			
 			cancel: function(){
@@ -116,7 +123,12 @@ $.extend(RichFaces.Event, {
        			this.setValue(text);
        			this.isSaved = true;
            		this.__hide();
+           		this.oncancel();
 			},
+       		
+       		isEditState: function() {
+       			return this.editState;
+       		},
 			
 			__applyChangedStyles: function() {
 				if(this.isValueChanged()) {
@@ -128,8 +140,8 @@ $.extend(RichFaces.Event, {
 			
 			__show: function() {
 				this.scrollElements = rf.Event.bindScrollEventHandlers(this.id, this.__scrollHandler, this);
-      			this.onshow();
       			this.editState = true;
+      			this.onshow();
 			}, 
 			
 			__hide: function() {
@@ -137,9 +149,9 @@ $.extend(RichFaces.Event, {
 					rf.Event.unbindScrollEventHandlers(this.scrollElements, this);
 					this.scrollElements = null;
 				}
-				this.onhide();
 				this.editState = false;
       			this.editContainer.addClass(this.noneCss);
+				this.onhide();
 			},
 			
 			__editHandler: function(e) {
@@ -151,8 +163,8 @@ $.extend(RichFaces.Event, {
        			this.cancel();
        		},
        		
-       		isEditState: function() {
-       			return this.editState;
+       		__setInputFocus: function() {
+       			this.input.focus();
        		},
        		
  			destroy: function () {

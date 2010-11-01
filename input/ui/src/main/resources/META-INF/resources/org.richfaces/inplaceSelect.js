@@ -15,6 +15,7 @@
     	this.list.bind("click", $.proxy(this.__onListClick, this));
     	this.openOnEdit = options.openOnEdit;
     	this.saveOnSelect = options.saveOnSelect;
+    	this.savedIndex = -1;
     }
 	
     rf.ui.InplaceInput.extend(rf.ui.InplaceSelect);
@@ -64,39 +65,64 @@
 				this.popupList.hide();
 			},
 			
+       		onsave: function() {
+				var item = this.popupList.currentSelectItem();
+				if(item) {
+					this.savedIndex = this.popupList.getSelectedItemIndex();
+					var value = this.getItemValue(item);
+					this.saveItemValue(value);
+				}	
+       		},
+       		
+       		oncancel: function() {
+       			var prevItem = this.popupList.getItemByIndex(this.savedIndex);
+       			if(prevItem) {
+       				var value = this.getItemValue(prevItem);
+       				this.saveItemValue(value);
+       			}
+       		},
+			
 			processItem: function(item) {
-				var key = $(item).attr("id");
-				var value = this.getItemValue(key);
-				this.saveItemValue(value);
-				var label = this.getItemLabel(key);
+				var label = this.getItemLabel(item);
 				this.setValue(label);
-           		this.__setInputFocus();
+           		
+				this.__setInputFocus();
            		this.hidePopup();
+           		
            		if(this.saveOnSelect) {
        				this.save();
 				} 
 			},
 			
-			getItemValue: function(key) {
-				for(var i in this.items) {
-					var item = this.items[i];
-					if(item && item.id == key) {
-						return item.value;
-					}
-				}
+			getItemValue: function(item) {
+				var key = $(item).attr("id");
+
+				var value;
+				$.each(this.items, function(){ 
+						if (this.id == key) {
+							value = this.value;
+							return false;
+						}	
+				});
+				
+				return value;				
 			}, 
 			
 			saveItemValue: function(value) {
 				this.selValueInput.val(value);
 			},
 			
-			getItemLabel: function(key) {
-				for(var i in this.items) {
-					var item = this.items[i];
-					if(item && item.id == key) {
-						return item.label;
-					}
-				}
+			getItemLabel: function(item) {
+				var key = $(item).attr("id");
+				var label;
+				$.each(this.items, function(){ 
+						if (this.id == key) {
+							label = this.label;
+							return false;
+						}	
+				});
+				
+				return label;
 			}, 
 			
        		__keydownHandler: function(e) {
@@ -150,7 +176,8 @@
 
        		__onListClick: function(e) {
        			window.clearTimeout(this.timeoutId);
-       		}
+       		} 
+       		
 		}
 		
 	})());

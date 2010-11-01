@@ -56,6 +56,22 @@
            			}
            		},
            		
+           		currentSelectItem: function() {
+           			if(this.items && this.index != -1) {
+           				return this.items[this.index];
+           			}
+           		},
+           		
+           		getSelectedItemIndex: function() {
+           			return this.index;
+           		},
+           		
+           		getItemByIndex: function(i) {
+           			if(i >= 0 && i <= this.items.length) {
+           				return this.items[i];
+           			}
+           		},
+           		
            		resetItemsSelection: function() {
            			if(this.items) {
            				var popup = this; 
@@ -82,7 +98,7 @@
 				
            		__selectByIndex: function(index, isOffset) {
 					if (this.items.length==0 || (!isOffset && this.index == index)) return;
-
+					
 					var item;
            			if (this.index != -1) {
 						item = this.items.eq(this.index);
