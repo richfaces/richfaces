@@ -31,6 +31,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.swing.tree.TreeNode;
 
+import org.richfaces.component.Selection;
 import org.richfaces.component.SwitchType;
 import org.richfaces.log.LogFactory;
 import org.richfaces.log.Logger;
@@ -51,7 +52,11 @@ public class TreeBean implements Serializable {
     
     private SwitchType toggleMode = SwitchType.DEFAULT;
     
+    private SwitchType selectionMode = SwitchType.client;
+
     private Object nodeData;
+    
+    private Selection selection;
     
     @PostConstruct
     public void init() {
@@ -80,12 +85,28 @@ public class TreeBean implements Serializable {
         this.toggleMode = switchType;
     }
     
+    public SwitchType getSelectionMode() {
+        return selectionMode;
+    }
+    
+    public void setSelectionMode(SwitchType selectionMode) {
+        this.selectionMode = selectionMode;
+    }
+    
     public Object getNodeData() {
         return nodeData;
     }
     
     public void setNodeData(Object nodeData) {
         this.nodeData = nodeData;
+    }
+    
+    public Selection getSelection() {
+        return selection;
+    }
+    
+    public void setSelection(Selection selection) {
+        this.selection = selection;
     }
     
     public void clickNode() {

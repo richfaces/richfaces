@@ -14,16 +14,21 @@
 	<h:messages id="messages" />
 
 	<h:form>
-		<h:selectOneRadio value="#{treeBean.toggleMode}" onclick="submit()">
+		Toggle mode: <h:selectOneRadio value="#{treeBean.toggleMode}" onclick="submit()">
 			<f:selectItems value="#{treeBean.modes}" var="item" itemValue="#{item}" />
+		</h:selectOneRadio>
+
+		Selection mode: <h:selectOneRadio value="#{treeBean.selectionMode}" onclick="submit()">
+			<f:selectItems value="#{treeBean.modes}" itemDisabled="#{item == 'server'}" var="item" itemValue="#{item}" />
 		</h:selectOneRadio>
 	</h:form>
 
 	<h:form id="form">
-		<it:tree id="tree" var="node" value="#{treeBean.rootNodes}" toggleMode="#{treeBean.toggleMode}">
+		<it:tree id="tree" var="node" value="#{treeBean.rootNodes}" selectionMode="#{treeBean.selectionMode}" toggleMode="#{treeBean.toggleMode}">
 			<it:treeNode>
 				<h:panelGroup id="group">
-					<h:commandLink value="#{node.data}" action="#{treeBean.clickNode}">
+					#{node.data} - 
+					<h:commandLink value="link" action="#{treeBean.clickNode}">
 						<f:setPropertyActionListener value="#{node.data}" target="#{treeBean.nodeData}" />
 					
 						<f:ajax render=":messages" />						
