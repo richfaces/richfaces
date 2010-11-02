@@ -44,6 +44,7 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
+import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.javascript.JSFunction;
@@ -76,7 +77,18 @@ import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 public class ExtendedDataTableRenderer extends SelectionRenderer implements MetaComponentRenderer {
 
     private static enum PartName {
-        frozen, normal
+        
+        frozen, normal;
+        
+        private String id;
+        
+        private PartName() {
+            id = String.valueOf(this.toString().charAt(0));
+        }
+        
+        public String getId() {
+            return id;
+        }
     }
         
     private class Part {
@@ -246,11 +258,11 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             writer.startElement(HtmlConstants.DIV_ELEM, column);
             writer.writeAttribute(
                 HtmlConstants.CLASS_ATTRIBUTE,
-                HtmlUtil.concatClasses("rf-edt-" + facetName.charAt(0) + facetName.charAt(3) + "r-c", "rf-edt-c-"
+                HtmlUtil.concatClasses("rf-edt-" + getFacetClassName(facetName) + "-c", "rf-edt-c-"
                     + column.getId(), (String) column.getAttributes().get(classAttribute)), null);
             writer.startElement(HtmlConstants.DIV_ELEM, column);
-            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-" + facetName.charAt(0) + facetName.charAt(3)
-                + "r-c-cnt", null);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-" + getFacetClassName(facetName)
+                + "-c-cnt", null);
             UIComponent facet = column.getFacet(facetName);
             if (facet != null && facet.isRendered()) {
                 facet.encodeAll(context);
@@ -261,6 +273,16 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         }
     }
 
+    private String getFacetClassName(String name) {
+        if ("header".equals(name)) {
+            return "hdr";
+        } else if ("footer".equals(name)) {
+            return "ftr";
+        }
+        
+        throw new IllegalArgumentException(name);
+    }
+    
     private void encodeHeaderOrFooter(RendererState state, String name) throws IOException {
         FacesContext context = state.getContext();
         ResponseWriter writer = context.getResponseWriter();
@@ -268,8 +290,8 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         boolean columnFacetPresent = table.isColumnFacetPresent(name);
         if (columnFacetPresent || "footer".equals(name)) {
             writer.startElement(HtmlConstants.DIV_ELEM, table);
-            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, HtmlUtil.concatClasses("rf-edt-" + name.charAt(0)
-                + name.charAt(3) + "r", (String) table.getAttributes().get(name + "Class")), null);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, HtmlUtil.concatClasses("rf-edt-" + getFacetClassName(name), 
+                (String) table.getAttributes().get(name + "Class")), null);
             writer.startElement(HtmlConstants.TABLE_ELEMENT, table);
             writer.writeAttribute(HtmlConstants.CELLPADDING_ATTRIBUTE, "0", null);
             writer.writeAttribute(HtmlConstants.CELLSPACING_ATTRIBUTE, "0", null);
@@ -296,7 +318,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                             + ("footer".equals(name) ? " rf-edt-ftr-cnt" : ""), null);
                     }
 
-                    String tableId = table.getClientId(context) + ":cf" + name.charAt(0) + partName.name().charAt(0);
+                    String tableId = table.getClientId(context) + ":cf" + name.charAt(0) + partName.getId();
                     EncoderVariance encoderVariance = state.getEncoderVariance();
                     encoderVariance.encodeStartUpdate(context, tableId);
 
@@ -393,14 +415,14 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                     writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, table.getClientId(context) + ":body", null);
                     writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-cnt", null);
                 }
-                String targetId = table.getClientId(context) + ":tbt" + partName.name().charAt(0);
+                String targetId = table.getClientId(context) + ":tbt" + partName.getId();
                 writer.startElement(HtmlConstants.TABLE_ELEMENT, table);
                 writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, targetId, null);
                 writer.writeAttribute(HtmlConstants.CELLPADDING_ATTRIBUTE, "0", null);
                 writer.writeAttribute(HtmlConstants.CELLSPACING_ATTRIBUTE, "0", null);
                 writer.startElement(HtmlConstants.TBODY_ELEMENT, table);
                 writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, table.getClientId(context) + ":tb"
-                    + partName.toString().charAt(0), null);
+                    + partName.getId(), null);
                 encodeRows(context, state);
                 writer.endElement(HtmlConstants.TBODY_ELEMENT);
                 writer.endElement(HtmlConstants.TABLE_ELEMENT);
@@ -481,14 +503,14 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                 final RendererState state = createRowHolder(context, table, null);
                 // TODO 1. Encode fixed children
                 for (state.startIterate(); state.hasNextPart();) {
-                    char partNameFirstChar = state.nextPart().getName().toString().charAt(0);
+                    String partId = state.nextPart().getName().getId();
                     final List<String> ids = new LinkedList<String>();
                     table.walk(context, new DataVisitor() {
                         public DataVisitResult process(FacesContext context, Object rowKey, Object argument) {
                             UIDataTableBase dataTable = state.getRow();
                             dataTable.setRowKey(context, rowKey);
                             ids.add(dataTable.getClientId(context) + ":"
-                                + state.getPart().getName().toString().charAt(0));
+                                + state.getPart().getName().getId());
                             return DataVisitResult.CONTINUE;
                         }
                     }, removeRange, null);
@@ -498,7 +520,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                             dataTable.setRowKey(context, rowKey);
                             HashMap<String, String> attributes = new HashMap<String, String>(1);
                             String id = dataTable.getClientId(context) + ":"
-                                + state.getPart().getName().toString().charAt(0);
+                                + state.getPart().getName().getId();
                             attributes.put("id", id);
                             try {
                                 writer.updateAttributes(ids.remove(0), attributes);
@@ -518,7 +540,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                     
                     //TODO nick - move this to external JavaScript file
                     writer.write("var richTBody = document.getElementById('" + component.getClientId(context) + ":tb"
-                        + partNameFirstChar + "');");
+                        + partId + "');");
                     writer.write("var richRows = richTBody.rows;");
                     writer.write("for (var i = 0; i < " + difference
                         + "; i++ ) richTBody.appendChild(richTBody.removeChild(richRows[0]));");
@@ -684,11 +706,33 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         FacesContext context = state.getContext();
         ResponseWriter writer = context.getResponseWriter();
         UIDataTableBase table = state.getRow();
-        writer.startElement("style", table);
-        writer.writeAttribute(HtmlConstants.TYPE_ATTR, "text/css", null);
-        writer.writeText("div.rf-edt-cnt {", null); // TODO getNormalizedId(context, state.getGrid())
-        writer.writeText("width: 100%;", "width");
-        writer.writeText("}", null);
+        
+        PartialViewContext pvc = context.getPartialViewContext();
+        if (!pvc.isAjaxRequest()) {
+            writer.startElement("style", table);
+            writer.writeAttribute(HtmlConstants.TYPE_ATTR, "text/css", null);
+            writer.writeText(getCSSText(context, table), null);
+            writer.endElement("style");
+        } else {
+            writer.startElement(HtmlConstants.SCRIPT_ELEM, table);
+            writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.TEXT_JAVASCRIPT_TYPE, null);
+            
+            String cssText = getCSSText(context, table);
+            JSFunction function = new JSFunction("RichFaces.utils.addCSSText", cssText, table.getClientId(context) 
+                + ":st");
+            
+            writer.writeText(function.toScript(), null);
+            
+            writer.endElement(HtmlConstants.SCRIPT_ELEM);
+        }
+        
+    }
+
+    protected String getCSSText(FacesContext context, UIDataTableBase table) throws IOException {
+        StringBuilder sb = new StringBuilder();
+        
+        sb.append("div.rf-edt-cnt { width: 100%; }"); // TODO getNormalizedId(context, state.getGrid())
+
         Iterator<UIComponent> columns = table.columns();
         while (columns.hasNext()) {
             UIComponent column = (UIComponent) columns.next();
@@ -698,11 +742,12 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                 id = column.getId();
             }
             String width = getColumnWidth(column);
-            writer.writeText(".rf-edt-c-" + id + " {", "width"); // TODO getNormalizedId(context,
-            writer.writeText("width: " + width + ";", "width");
-            writer.writeText("}", "width");
+            sb.append(".rf-edt-c-" + id + " {"); // TODO getNormalizedId(context,
+            sb.append("width: " + width + ";");
+            sb.append("}");
         }
-        writer.endElement("style");
+        
+        return sb.toString();
     }
 
     public void encodeRow(ResponseWriter writer, FacesContext facesContext, RowHolderBase rowHolder)
@@ -733,7 +778,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         Iterator<UIComponent> columns = null;
         Part part = state.getPart();
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE,
-            table.getClientId(facesContext) + ":" + part.getName().toString().charAt(0), null);
+            table.getClientId(facesContext) + ":" + part.getName().getId(), null);
         columns = part.getColumns().iterator();
         while (columns.hasNext()) {
             UIComponent column = (UIComponent) columns.next();

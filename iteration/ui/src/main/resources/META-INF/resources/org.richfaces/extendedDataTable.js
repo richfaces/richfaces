@@ -22,6 +22,16 @@
 (function(richfaces, jQuery) {
     richfaces.utils = richfaces.utils || {};
 
+    richfaces.utils.addCSSText = function(cssText, elementId) {
+		var style = jQuery("<style></style>").attr({type: 'text/css', id: elementId}).appendTo("head");
+		try {
+			style.html(cssText);
+		} catch (e) {
+			//IE
+			style[0].styleSheet.cssText = cssText;
+		}
+    };
+    
     richfaces.utils.getCSSRule = function (className) {
 		var rule = null;
 		var sheets = document.styleSheets;
@@ -622,11 +632,12 @@
 		jQuery(element).bind("rich:onajaxcomplete", ajaxComplete);
 		
 		//JS API
-		element["richfaces"] = element["richfaces"] || {}; // TODO ExtendedDataTable should extend richfaces.BaseComponent instead of using it.
-		element.richfaces.component = this;
+		element[richfaces.RICH_CONTAINER] = element[richfaces.RICH_CONTAINER] || {}; // TODO ExtendedDataTable should extend richfaces.BaseComponent instead of using it.
+		element[richfaces.RICH_CONTAINER].component = this;
 		this.destroy = function() {
-			element.richfaces.component = null;
+			element[richfaces.RICH_CONTAINER] = null;
 			jQuery(window).unbind("resize", updateLayout);			
+	    	jQuery(richfaces.getDomElement(id + ':st')).remove();
 		}
 		
 		this.getColumnPosition = function(id) {
