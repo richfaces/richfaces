@@ -63,6 +63,9 @@ public abstract class AbstractTreeNode extends UIComponentBase {
     
     public abstract String getType();
     
+    //TODO - move to template
+    public abstract String getStyleClass();
+    
     protected AbstractTree findTreeComponent() {
         UIComponent c = this;
         while (c != null && !(c instanceof AbstractTree)) {

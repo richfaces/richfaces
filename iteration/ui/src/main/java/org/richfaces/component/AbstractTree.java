@@ -158,6 +158,9 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     
     public abstract String getNodeType();
     
+    //TODO - move to template
+    public abstract String getStyleClass();
+    
     public Collection<Object> getSelection() {
         @SuppressWarnings("unchecked")
         Collection<Object> selection = (Collection<Object>) getStateHelper().eval(PropertyKeys.selection);
