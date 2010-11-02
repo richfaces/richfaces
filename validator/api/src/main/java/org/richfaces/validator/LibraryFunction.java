@@ -24,16 +24,16 @@
 package org.richfaces.validator;
 
 /**
- * <p class="changed_added_4_0">This class contains information about JavaScript associated with JSF object ( converter or validator )</p>
+ * <p class="changed_added_4_0">
+ * This class contains information about JavaScript function in external library ( resource )
+ * </p>
+ * 
  * @author asmirnov@exadel.com
- *
+ * 
  */
-public interface ClientScript {
+public interface LibraryFunction  extends LibraryScript {
 
-    String getLibrary();
     
-    String getResourceName();
-    
-    String getFunctionName();
-    
+    String getName();
+
 }

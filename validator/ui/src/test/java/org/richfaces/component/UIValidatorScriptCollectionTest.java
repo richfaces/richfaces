@@ -8,8 +8,8 @@ import java.util.Collection;
 import org.junit.Test;
 import org.richfaces.renderkit.html.ClientOnlyScript;
 import org.richfaces.renderkit.html.ComponentValidatorScript;
-import org.richfaces.renderkit.html.LibraryScriptString;
 import org.richfaces.validator.LibraryResource;
+import org.richfaces.validator.LibraryScriptString;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
@@ -59,7 +59,7 @@ public class UIValidatorScriptCollectionTest {
     }
 
     private LibraryScriptString createLibraryScript(final String name) {
-        return new TestScript(name);
+        return new Script(name);
     }
     
     private ComponentValidatorScript createValidatorScript(String converter, String ...validators){

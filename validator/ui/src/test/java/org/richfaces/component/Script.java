@@ -1,12 +1,12 @@
 package org.richfaces.component;
 
-import org.richfaces.renderkit.html.LibraryScriptString;
 import org.richfaces.validator.LibraryResource;
+import org.richfaces.validator.LibraryScriptString;
 
-final class TestScript implements LibraryScriptString {
+final class Script implements LibraryScriptString {
     private final String name;
 
-    TestScript(String name) {
+    Script(String name) {
         this.name = name;
     }
 
@@ -48,7 +48,7 @@ final class TestScript implements LibraryScriptString {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        TestScript other = (TestScript) obj;
+        Script other = (Script) obj;
         if (name == null) {
             if (other.name != null) {
                 return false;
@@ -57,5 +57,9 @@ final class TestScript implements LibraryScriptString {
             return false;
         }
         return true;
+    }
+
+    public String getName() {
+        return name;
     }
 }

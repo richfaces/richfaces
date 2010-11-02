@@ -2,6 +2,8 @@ package org.richfaces.renderkit.html;
 
 import java.util.Collection;
 
+import org.richfaces.validator.LibraryScriptString;
+
 
 public class ClientAndAjaxScript extends ClientOnlyScript{
     

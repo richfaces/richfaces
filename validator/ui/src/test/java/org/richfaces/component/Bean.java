@@ -16,7 +16,7 @@ import org.richfaces.validator.LibraryResource;
  * @author asmirnov
  *
  */
-public class TestBean {
+public class Bean {
     
     public static final String TEST_SCRIPT_NAME = "test_script";
 

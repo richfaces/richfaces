@@ -1,4 +1,4 @@
-package org.richfaces.renderkit.html;
+package org.richfaces.validator;
 
 import org.ajax4jsf.javascript.ScriptString;
 

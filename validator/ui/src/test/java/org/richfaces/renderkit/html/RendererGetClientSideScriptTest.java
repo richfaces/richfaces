@@ -20,7 +20,8 @@ import org.junit.runner.RunWith;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.validator.ClientScriptService;
 import org.richfaces.validator.ConverterDescriptor;
-import org.richfaces.validator.LibraryScript;
+import org.richfaces.validator.LibraryFunction;
+import org.richfaces.validator.LibraryScriptString;
 import org.richfaces.validator.ScriptNotFoundException;
 import org.richfaces.validator.ValidatorDescriptor;
 
@@ -40,7 +41,7 @@ public class RendererGetClientSideScriptTest extends RendererTestBase {
     private ClientScriptService scriptService;
 
     @Mock
-    private LibraryScript script;
+    private LibraryFunction script;
 
     private Collection<ValidatorDescriptor> descriptors;
 

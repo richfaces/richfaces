@@ -49,20 +49,20 @@ public class UIViewResourceTest {
         FacesRequest request = environment.createFacesRequest("http://localhost/test.jsf?foo=bar");
         assertNotNull(request.execute());
         String contentAsString = request.getConnection().getContentAsString();
-        assertFalse(contentAsString.contains(TestBean.TEST_SCRIPT));
+        assertFalse(contentAsString.contains(Bean.TEST_SCRIPT));
         FacesRequest request2 = submit(request).submit();
         request2.execute();
         String content2 = request2.getConnection().getContentAsString();
-        assertFalse(content2.contains(TestBean.TEST_SCRIPT));
+        assertFalse(content2.contains(Bean.TEST_SCRIPT));
     }
 
     private FacesRequest submit(FacesRequest request) throws MalformedURLException {
         FacesRequest request2 = request.submit().withParameter("helloForm:input", "BAZ").withParameter("helloForm:command", "Ok");
         request2.execute();
         String content2 = request2.getConnection().getContentAsString();
-        assertTrue(content2.contains(TestBean.TEST_SCRIPT));
-        assertTrue(content2.contains(TestBean.TEST_SCRIPT_NAME));
-        assertTrue(content2.contains(TestBean.FOO_BAR));
+        assertTrue(content2.contains(Bean.TEST_SCRIPT));
+        assertTrue(content2.contains(Bean.TEST_SCRIPT_NAME));
+        assertTrue(content2.contains(Bean.FOO_BAR));
         return request2;
     }
 

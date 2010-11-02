@@ -2,7 +2,6 @@ package org.richfaces.validator;
 
 import java.util.LinkedHashSet;
 
-import org.richfaces.renderkit.html.LibraryScriptString;
 
 import com.google.common.collect.Sets;
 

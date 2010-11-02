@@ -40,7 +40,7 @@ import com.google.common.collect.Lists;
 @RunWith(MockTestRunner.class)
 public class RendererGetComponentScriptTest extends RendererTestBase {
 
-    private static final String JSF_AJAX_REQUEST = "jsf.ajax.request(this,event)";
+    private static final String JSF_AJAX_REQUEST = "jsf.ajax.request(element,event)";
 
     private static final String NUMBER_CONVERTER = "numConverter";
 
@@ -87,6 +87,7 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
 
     private void exceptGetAjaxScript() {
         expect(mockBehavior.getAjaxScript(behaviorContext)).andReturn(JSF_AJAX_REQUEST);
+        expect(behaviorContext.getSourceId()).andStubReturn("clientValidator");
     }
 
     /**

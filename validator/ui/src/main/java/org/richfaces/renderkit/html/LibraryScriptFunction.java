@@ -25,36 +25,44 @@ package org.richfaces.renderkit.html;
 
 import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.validator.LibraryResource;
-import org.richfaces.validator.LibraryScript;
+import org.richfaces.validator.LibraryFunction;
+import org.richfaces.validator.LibraryScriptString;
 
 /**
- * <p class="changed_added_4_0">This class represents call to function in external library.</p>
+ * <p class="changed_added_4_0">
+ * This class represents call to function in external library.
+ * </p>
+ * 
  * @author asmirnov@exadel.com
- *
+ * 
  */
-public class LibraryScriptFunction  extends JSFunction implements LibraryScriptString {
+public class LibraryScriptFunction extends JSFunction implements LibraryScriptString {
 
     private final LibraryResource resource;
     private String name;
 
-    public LibraryScriptFunction(LibraryScript libraryScript, Object... parameters) {
+    public LibraryScriptFunction(LibraryFunction libraryScript, Object... parameters) {
         super(libraryScript.getName(), parameters);
         this.resource = libraryScript.getResource();
         name = libraryScript.getName();
     }
-    
-    public String getName() {
-		return name;
-	}
 
-    /* (non-Javadoc)
+    public String getName() {
+        return name;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.richfaces.renderkit.html.LibraryScriptString#getResource()
      */
     public LibraryResource getResource() {
         return resource;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -67,7 +75,9 @@ public class LibraryScriptFunction  extends JSFunction implements LibraryScriptS
         return result;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -95,16 +105,16 @@ public class LibraryScriptFunction  extends JSFunction implements LibraryScriptS
             }
         } else if (!resource.equals(other.resource)) {
             return false;
-        } else if (!getParameters().equals(other.getParameters())){
+        } else if (!getParameters().equals(other.getParameters())) {
             return false;
         }
         return true;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#hashCode()
      */
 
-    
-    
 }

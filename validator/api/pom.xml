@@ -58,18 +58,6 @@
         	<version>1.0.0.GA</version>
         	<scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.jboss.test-jsf</groupId>
-            <artifactId>jsf-mock</artifactId>
-            <version>1.0.5</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.test-jsf</groupId>
-            <artifactId>jsf-test-stage</artifactId>
-            <version>1.0.5</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <scm>

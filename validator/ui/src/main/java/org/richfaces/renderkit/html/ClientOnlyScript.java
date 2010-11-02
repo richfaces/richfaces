@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 
 import org.richfaces.validator.LibraryResource;
+import org.richfaces.validator.LibraryScriptString;
 
 import com.google.common.collect.Sets;
 
@@ -15,7 +16,11 @@ public class ClientOnlyScript extends ValidatorScriptBase{
     public ClientOnlyScript(LibraryScriptString clientSideConverterScript,
         Collection<? extends LibraryScriptString> validatorScripts) {
         super();
-        this.converter = null==clientSideConverterScript ? NULL_CONVERTER_SCRIPT:clientSideConverterScript;
+        if(null==clientSideConverterScript){
+            this.converter = NULL_CONVERTER_SCRIPT;
+        } else {
+            this.converter = clientSideConverterScript;
+        }
         this.validators = validatorScripts;
         
     }
