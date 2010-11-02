@@ -15,7 +15,7 @@
         <p>Page</p>
 
         <h:form id="f">
-            <pn:collapsiblePanel id="panel">
+            <pn:collapsiblePanel id="panel1" expanded="false" switchType="server">
                 <f:facet name="headerExpanded" >
                     header exanded
                 </f:facet>
@@ -23,7 +23,31 @@
                     header collapsed
                 </f:facet>
 
-                Hello!!!
+                Hello Server!!!
+
+            </pn:collapsiblePanel>
+
+            <pn:collapsiblePanel id="panel2" expanded="false" switchType="ajax">
+                <f:facet name="headerExpanded" >
+                    header exanded
+                </f:facet>
+                <f:facet name="headerCollapsed" >
+                    header collapsed
+                </f:facet>
+
+                Hello Ajax!!!
+
+            </pn:collapsiblePanel>
+
+            <pn:collapsiblePanel id="panel3" expanded="false" switchType="client">
+                <f:facet name="headerExpanded" >
+                    header exanded
+                </f:facet>
+                <f:facet name="headerCollapsed" >
+                    header collapsed
+                </f:facet>
+
+                Hello client!!!
 
             </pn:collapsiblePanel>
 
