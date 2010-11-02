@@ -41,9 +41,9 @@ import org.richfaces.demo.tree.model.Country;
  * @author Ilya Shaikovsky
  * 
  */
-@ManagedBean(name = "treeBean")
+@ManagedBean
 @SessionScoped
-public class SimpleTreeBean implements Serializable {
+public class TreeBean implements Serializable {
     @ManagedProperty(value = "#{cdsParser.cdsList}")
     private List<CDXmlDescriptor> cdXmlDescriptors;
     private List<TreeNode> rootNodes = new ArrayList<TreeNode>();
