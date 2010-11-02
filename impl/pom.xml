@@ -87,6 +87,18 @@
 			<optional>true</optional>
 		</dependency>
 
+        <!-- Push dependencies -->
+        <dependency>
+            <groupId>org.atmosphere</groupId>
+            <artifactId>atmosphere-runtime</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>javax.jms</groupId>
+            <artifactId>jms</artifactId>
+            <optional>true</optional>
+        </dependency>
+
 		<!-- Test Dependencies -->
 		<dependency>
 			<groupId>org.jboss.test-jsf</groupId>

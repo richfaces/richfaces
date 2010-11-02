@@ -32,6 +32,9 @@
 	
 	var getHandlerWrapper = function (component, fn) {
 		return function (e,d){
+			if (!e[richfaces.RICH_CONTAINER]) {
+				e[richfaces.RICH_CONTAINER] = {data: d};
+			}
 			return fn.call(component||this, e, this, d);
 		};
 	}
@@ -52,6 +55,13 @@
 		  * */
 		RICH_NAMESPACE : "RICH",
 		
+		/**
+		  * @constant
+		  * @name RichFaces.Event.EVENT_NAMESPACE_SEPARATOR
+		  * @type string
+		  * */
+		EVENT_NAMESPACE_SEPARATOR : ".",
+
 		/** 
 		  * Attach an event handler to execute when the DOM is fully loaded.
 		  * 
@@ -215,7 +225,7 @@
 		  * */
 		fire : function(selector, eventType, data) {
 			var event = $.Event(eventType);
-			getEventElement(selector).trigger(eventType, data);
+			getEventElement(selector).trigger(event, data);
 			return !event.isDefaultPrevented();
 		},
 		
@@ -287,7 +297,7 @@
 			if (id) {
 				a.push(id);
 			}
-			return a.join('.');
+			return a.join(richfaces.Event.EVENT_NAMESPACE_SEPARATOR);
 		}
 	});
 	

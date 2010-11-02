@@ -228,8 +228,11 @@
 				source = source || this.id;
 				var element = richfaces.getDomElement(source);
 				if (element) {
-					element[richfaces.RICH_CONTAINER] = element[richfaces.RICH_CONTAINER] || {};
-					element.richfaces.component = this;
+					element[richfaces.RICH_CONTAINER] = $.extend(element[richfaces.RICH_CONTAINER] || {}, 
+						{
+							component:this
+						}
+					);
 				}
 				return element;
 			},

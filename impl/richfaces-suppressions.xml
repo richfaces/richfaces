@@ -16,4 +16,5 @@
     <suppress checks="IllegalCatch" files="ResourceHandlerImpl.java" />
     <suppress checks="IllegalThrows" files="AbstractThreadedTest.java" />
     <suppress checks="ModifiedControlVariable" files="URLCodec.java" />
+    <suppress checks="IllegalCatch" files="AbstractRequest.java" />           
 </suppressions>

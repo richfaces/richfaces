@@ -70,6 +70,18 @@ public final class CoreConfiguration {
         staticResourceLocation,
         
         @ConfigurationItem(defaultValue = "true", names = "org.richfaces.executeAWTInitializer", literal = true)
-        executeAWTInitializer
+        executeAWTInitializer,
+        
+        @ConfigurationItem(defaultValue = "/ConnectionFactory", names = "org.richfaces.push.jms.connectionFactory")
+        pushJMSConnectionFactory,
+        
+        @ConfigurationItem(defaultValue = "/topic", names = "org.richfaces.push.jms.topicsNamespace")
+        pushJMSTopicsNamespace,
+        
+        @ConfigurationItem(defaultValue = "", names = "org.richfaces.push.jms.connectionUsername")
+        pushJMSConnectionUsername,
+        
+        @ConfigurationItem(defaultValue = "", names = "org.richfaces.push.jms.connectionPassword")
+        pushJMSConnectionPassword
     }
 }

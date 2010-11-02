@@ -2,6 +2,8 @@ package org.richfaces.application;
 
 import org.richfaces.application.configuration.ConfigurationService;
 import org.richfaces.application.configuration.ConfigurationServiceImpl;
+import org.richfaces.application.push.PushContextFactory;
+import org.richfaces.application.push.impl.jms.PushContextFactoryImpl;
 import org.richfaces.cache.Cache;
 import org.richfaces.l10n.BundleLoader;
 import org.richfaces.renderkit.AjaxDataSerializer;
@@ -25,6 +27,7 @@ public class DefaultModule implements Module {
         factory.setInstance(DependencyInjector.class, new DependencyInjectionServiceImpl());
         factory.setInstance(MessageFactory.class, new MessageFactoryImpl(new BundleLoader()));
         factory.setInstance(ResourceLibraryFactory.class, new ResourceLibraryFactoryImpl());
+        factory.setInstance(PushContextFactory.class, ServiceLoader.loadService(PushContextFactory.class, PushContextFactoryImpl.class));
     }
 
 }

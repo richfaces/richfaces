@@ -13,7 +13,7 @@ if (!window.RichFaces) {
 
 (function(jQuery, richfaces) {
 
-	richfaces.RICH_CONTAINER = "richfaces";
+	richfaces.RICH_CONTAINER = "rf";
 	
 	// get DOM element by id or DOM element or jQuery object
 	richfaces.getDomElement = function (source) {
