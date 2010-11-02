@@ -120,7 +120,7 @@
          * @private
          * */
         __getParentForm : function () {
-            return $(rf.getDomElement(this.comp.id)).parent('form');
+            return $(rf.getDomElement(this.comp.id)).parents('form:first');
         },
 
         /**
