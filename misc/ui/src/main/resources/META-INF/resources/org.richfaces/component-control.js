@@ -28,8 +28,9 @@
     	invokeOnComponent : function(event, target, callback) {
     		if(callback && typeof callback == 'function') {
 	    		$(target).each(function() {
-		    		if (this.richfaces && this.richfaces.component) {
-		    			callback(event, this.richfaces.component);
+		    		var component = richfaces.$(this);
+	    			if (component) {
+		    			callback(event, component);
 		    		}
 		    	});
     		}
