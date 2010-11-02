@@ -11,6 +11,9 @@
 	border-width:3px;
 	padding:10px;
 }
+.tooltip-custom-body{
+	background-color:orange;
+}
 .tooltip-text {
 	width: 350px;
 	height: 80px;
@@ -27,28 +30,28 @@
 </style>
 
 	<h:panelGrid columns="2">
-		<rich:panel id="sample1" styleClass="tooltip-text"
+		<rich:panel id="sample1" styleClass="tooltip-text" 
 			bodyClass="rich-laguna-panel-no-header">
 			<p>Here you can see <b>default client-side</b> tool-tip</p>
-			<rich:tooltip target="sample1" id="tt1" label="123123231">
+			<rich:tooltip id="tt1">
 				<span style="white-space: nowrap"> This tool-tip content was
 				<strong>pre-rendered</strong> to the page.<br />
-				The look of this tool-tip is 100% defined by skin. </span>
+				Also the tooltip following mouse by default </span>
 			</rich:tooltip>
 		</rich:panel>
 		<rich:panel id="sample2" styleClass="tooltip-text"
 			bodyClass="rich-laguna-panel-no-header">
-			<p>This tool-tip will <b>follow mouse</b>. Also this tool-tip has
-			a <b>delay 0.5 sec</b>, so be patient!</p>
-			<rich:tooltip followMouse="true"
-				showDelay="500" styleClass="tooltip">
+			<p>This tool-tip will not <b>follow mouse</b>. Also this tool-tip has
+			a <b>delay 1.5 sec</b>, so be patient!</p>
+			<rich:tooltip followMouse="false"
+				showDelay="1500" bodyClass="tooltip-custom-body" styleClass="qqq">
 				<span style="white-space: nowrap"> This tool-tip content also
 				<strong>pre-rendered</strong> to the page.<br />
 				However, the look of this tool-tip is customized<br />
 				by styleClass attribute. </span>
 			</rich:tooltip>
 		</rich:panel>
-		<h:form>
+		<h:form>	
 			<rich:panel id="sample3" styleClass="tooltip-text"
 				bodyClass="rich-laguna-panel-no-header">
 				<p>This tool-tip rendered on server <b>in separate request</b>.
