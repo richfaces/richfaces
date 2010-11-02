@@ -58,22 +58,22 @@
             <dependency>
                 <groupId>org.jboss.test-jsf</groupId>
                 <artifactId>htmlunit-client</artifactId>
-                <version>1.0.4</version>
+                <version>1.0.5</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.test-jsf</groupId>
                 <artifactId>jsf-mock</artifactId>
-                <version>1.0.4</version>
+                <version>1.0.5</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.test-jsf</groupId>
                 <artifactId>jsf-test-stage</artifactId>
-                <version>1.0.4</version>
+                <version>1.0.5</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.test-jsf</groupId>
                 <artifactId>jsf-test-jetty</artifactId>
-                <version>1.0.4</version>
+                <version>1.0.5</version>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
