@@ -33,4 +33,8 @@
     <!-- TODO it is hot fix for building process, this files belong to the ui/output/trunk/panela/ui module, 
               and must be removed from here -->
     <suppress checks="IllegalCatch" files="AbstractTogglePanel.java" />           
+
+    <!-- TODO it is hot fix for building process, this files belong to the push-redesign module, 
+              and must be removed from here -->
+    <suppress checks="IllegalCatch" files="AbstractRequest.java" />           
 </suppressions>
