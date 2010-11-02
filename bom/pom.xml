@@ -206,6 +206,18 @@
                 <artifactId>ehcache</artifactId>
                 <version>1.6.0</version>
             </dependency>
+
+            <!-- Push dependencies -->
+            <dependency>
+                <groupId>org.atmosphere</groupId>
+                <artifactId>atmosphere-runtime</artifactId>
+                <version>0.6.3</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.jms</groupId>
+                <artifactId>jms</artifactId>
+                <version>1.1</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
