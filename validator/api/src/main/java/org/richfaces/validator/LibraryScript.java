@@ -34,7 +34,5 @@ package org.richfaces.validator;
 public interface LibraryScript  {
 
     LibraryResource getResource();
-    
-    String getName();
 
 }
