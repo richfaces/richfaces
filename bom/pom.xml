@@ -111,6 +111,21 @@
                 <version>${project.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.richfaces.ui.validator</groupId>
+                <artifactId>richfaces-ui-validator-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui.validator</groupId>
+                <artifactId>richfaces-ui-validator-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui.validator</groupId>
+                <artifactId>richfaces-ui-validator-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.richfaces.ui</groupId>
                 <artifactId>richfaces-components-api</artifactId>
                 <version>${project.version}</version>
