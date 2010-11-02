@@ -186,6 +186,7 @@
             var tooltip = this;
             this.__delay(this.options.hideDelay, function () {
                 tooltip.popup.hide();
+                $(rf.getDomElement(tooltip.id)).hide();
             });
         },
 
@@ -219,8 +220,9 @@
          */
         __show: function (event) {
             var tooltip = this;
-            this.__delay(this.options.hideDelay, function () {
+            this.__delay(this.options.showDelay, function () {
                 tooltip.popup.show(event);
+                $(rf.getDomElement(tooltip.id)).show();
             });
         },
 
@@ -231,7 +233,7 @@
                     action();
 
                     if (hidingTimerHandle) {
-                        window.clearTimeout(this.hidingTimerHandle);
+                        window.clearTimeout(hidingTimerHandle);
                         hidingTimerHandle = undefined;
                     }
                 }, delay);

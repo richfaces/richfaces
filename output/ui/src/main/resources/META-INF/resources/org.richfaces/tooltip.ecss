@@ -22,6 +22,7 @@
 
 .rf-tt {
     position: absolute;
+    display: none;
 }
 
 .rf-tt-loading {
@@ -33,6 +34,14 @@
 }
 
 .rf-tt-cntr {
+    background-color: white;
+    padding: 7px;
+    border: 1px solid;
+/*  color: generalFontColor; */
+    border-color : '#{richSkin.tipBorderColor}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
+    float: left;
     position: absolute;
     display: none;
 }
