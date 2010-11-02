@@ -30,7 +30,7 @@ import org.richfaces.el.ELResolverWrapper;
  * @author Nick Belaevski
  * @since 3.3.0
  */
-class CapturingELResolver extends ELResolverWrapper {
+public class CapturingELResolver extends ELResolverWrapper {
     private Object base;
     private Object property;
 

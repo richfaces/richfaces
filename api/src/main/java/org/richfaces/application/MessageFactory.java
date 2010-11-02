@@ -37,4 +37,6 @@ public interface MessageFactory {
 
     public String getMessageText(FacesContext facesContext, Enum<?> messageKey, Object... args);
     
+    public String getMessageFormat(FacesContext facesContext, Enum<?> messageKey);
+    
 }

@@ -34,6 +34,8 @@ import javax.faces.context.FacesContext;
 import org.richfaces.l10n.BundleLoader;
 import org.richfaces.l10n.MessageBundle;
 
+import com.google.common.base.Strings;
+
 /**
  * @author Nick Belaevski
  * 
@@ -87,6 +89,15 @@ public class MessageFactoryImpl implements MessageFactory {
         
     };
     
+    
+    private static final Factory<String> FORMAT_FACTORY = new Factory<String>() {
+    	public String create(ResourceBundle bundle, Enum<?> messageKey, Object... args)
+    			throws MissingResourceException {
+            String format = bundle.getString(messageKey.toString());
+    		return format;
+    	}
+    };
+    
     private BundleLoader bundleLoader;
 
     public MessageFactoryImpl(BundleLoader bundleLoader) {
@@ -136,6 +147,15 @@ public class MessageFactoryImpl implements MessageFactory {
         }
 
         return text;
+    }
+    
+    public String getMessageFormat(FacesContext facesContext, Enum<?> messageKey) {
+        String text = detectLocalesAndCreate(facesContext, FORMAT_FACTORY, messageKey);
+        if (Strings.isNullOrEmpty(text)) {
+        	throw new IllegalStateException("Format not found");
+        }
+        
+    	return text;
     }
     
     protected <T> T detectLocalesAndCreate(FacesContext context, Factory<T> factory, Enum<?> messageKey, Object... args) {
