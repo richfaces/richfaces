@@ -16,34 +16,31 @@
     write to the Free Software Foundation, Inc., 51 Franklin St,
     Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF site:
     http://www.fsf.org.
---><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
-
-    <!-- This aggregator pom, is not released, and is only used to make it easy to build all of the
-         examples at once from trunk. -->
-
     <parent>
         <groupId>org.richfaces</groupId>
-        <artifactId>richfaces-parent</artifactId>
-        <version>10</version>
-<relativePath>../parent/pom.xml</relativePath>
+        <artifactId>richfaces-root-parent</artifactId>
+        <version>4.0.0-SNAPSHOT</version>
+        <relativePath>../../build/parent/pom.xml</relativePath>
     </parent>
-
-    <groupId>org.richfaces.ui</groupId>
-    <artifactId>richfaces-ui-aggregator</artifactId>
-    <version>4.0.0-SNAPSHOT</version>
+    <groupId>org.richfaces.ui.validator</groupId>
+    <artifactId>richfaces-ui-validator-aggregator</artifactId>
     <packaging>pom</packaging>
-    <name>RichFaces UI: Aggregator</name>
+    <name>Richfaces UI Components: validator-aggregator</name>
 
     <modules>
-        <module>parent</module>
-        <module>common</module>
-        <module>core</module>
-        <module>iteration</module>
-        <module>misc</module>
-        <module>output</module>
-        <module>input</module>
-        <module>dist</module>
-    <module>validator</module>
-  </modules>
+        <module>api</module>
+        <module>impl</module>
+        <module>ui</module>
+    </modules>
+    
+    <scm>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/validator</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/validator</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces</url>
+    </scm>
 </project>
