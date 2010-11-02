@@ -39,10 +39,23 @@ public class ByteConverterTest extends BaseTest {
     }
 
     @Test
-    @TestDataHolder(successes = { @TestData(submittedValue = "-128"), @TestData(submittedValue = "0"),
-        @TestData(submittedValue = "127") }, failures = { @TestData(submittedValue = "-129"),
-        @TestData(submittedValue = "128"), @TestData(submittedValue = "1.0"), @TestData(submittedValue = "1.2"),
-        @TestData(submittedValue = "1a"), @TestData(submittedValue = "aaa"), @TestData(submittedValue = "- 127") })
+    @TestDataHolder(
+        successes = {
+            @TestData(submittedValue = "-128"),
+            @TestData(submittedValue = "0"),
+            @TestData(submittedValue = "127")
+        },
+        failures = {
+            @TestData(submittedValue = "-129"),
+            @TestData(submittedValue = "128"),
+            @TestData(submittedValue = "1.0"),
+            @TestData(submittedValue = "1.2"),
+            @TestData(submittedValue = "1a"),
+            @TestData(submittedValue = "aaa"),
+            @TestData(submittedValue = "- 127")
+        }
+    )
+        
     public void testSuccess() throws Exception {
         setClientFunction("RichFaces.csv.getConverter('byte')");
         setObjectId(ByteConverter.CONVERTER_ID);

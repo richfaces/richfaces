@@ -38,11 +38,16 @@ public class DateTimeConverterTest extends BaseTest {
     }
 
     @Test
-    @TestDataHolder(successes = { @TestData(submittedValue = "18-10-2010")
-    // ,@TestData(submittedValue = "17-10-2010")
-    }, failures = {
-    // @TestData(submittedValue = "10/17/2010")
-    })
+    @TestDataHolder(
+        successes = {
+            @TestData(submittedValue = "18-10-2010")
+            // ,@TestData(submittedValue = "17-10-2010")
+        },
+        failures = {
+            // @TestData(submittedValue = "10/17/2010")
+        }
+    )
+    
     public void testPattern() throws Exception {
         setClientFunction("org.rf.DateTimeConverter");
         setObjectId(DateTimeConverter.CONVERTER_ID);

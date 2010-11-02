@@ -39,10 +39,23 @@ public class ShortConverterTest extends BaseTest {
     }
 
     @Test
-    @TestDataHolder(successes = { @TestData(submittedValue = "-32768"), @TestData(submittedValue = "0"),
-        @TestData(submittedValue = "32767") }, failures = { @TestData(submittedValue = "-32769"),
-        @TestData(submittedValue = "32768"), @TestData(submittedValue = "1.0"), @TestData(submittedValue = "1.2"),
-        @TestData(submittedValue = "1a"), @TestData(submittedValue = "aaa"), @TestData(submittedValue = "- 10") })
+    @TestDataHolder(
+        successes = {
+            @TestData(submittedValue = "-32768"),
+            @TestData(submittedValue = "0"),
+            @TestData(submittedValue = "32767")
+        },
+        failures = {
+            @TestData(submittedValue = "-32769"),
+            @TestData(submittedValue = "32768"),
+            @TestData(submittedValue = "1.0"),
+            @TestData(submittedValue = "1.2"),
+            @TestData(submittedValue = "1a"),
+            @TestData(submittedValue = "aaa"),
+            @TestData(submittedValue = "- 10")
+        }
+    )
+    
     public void testSuccess() throws Exception {
         setClientFunction("RichFaces.csv.getConverter('short')");
         setObjectId(ShortConverter.CONVERTER_ID);

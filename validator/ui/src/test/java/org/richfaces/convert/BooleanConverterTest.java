@@ -39,9 +39,19 @@ public class BooleanConverterTest extends BaseTest {
     }
 
     @Test
-    @TestDataHolder(successes = { @TestData(submittedValue = "true"), @TestData(submittedValue = "True"),
-        @TestData(submittedValue = "TRUE"), @TestData(submittedValue = "false"), @TestData(submittedValue = "0"),
-        @TestData(submittedValue = "1"), @TestData(submittedValue = "") }, failures = {})
+    @TestDataHolder(
+        successes = {
+            @TestData(submittedValue = "true"),
+            @TestData(submittedValue = "True"),
+            @TestData(submittedValue = "TRUE"),
+            @TestData(submittedValue = "false"),
+            @TestData(submittedValue = "0"),
+            @TestData(submittedValue = "1"),
+            @TestData(submittedValue = "")
+        },
+        failures = {}
+    )
+    
     public void testSuccess() throws Exception {
         setClientFunction("RichFaces.csv.getConverter('boolean')");
         setObjectId(BooleanConverter.CONVERTER_ID);

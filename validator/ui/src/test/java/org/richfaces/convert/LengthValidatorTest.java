@@ -39,7 +39,15 @@ public class LengthValidatorTest extends BaseTest {
     }
 
     @Test
-    @TestDataHolder(successes = { @TestData(submittedValue = "dddd") }, failures = { @TestData(submittedValue = "1234567890A") })
+    @TestDataHolder(
+        successes = {
+            @TestData(submittedValue = "1234")
+        },
+        failures = {
+            @TestData(submittedValue = "1234567890A")
+        }
+    )
+    
     public void testSuccess() throws Exception {
         setClientFunction("RichFaces.csv.getValidator('length')");
         setObjectId(LengthValidator.VALIDATOR_ID);
@@ -47,5 +55,45 @@ public class LengthValidatorTest extends BaseTest {
         setErrorMessageEnums(messages);
         setAttribute("maximum", 10);
         setAttribute("minimum", 0);
+    }
+    
+    @Test
+    @TestDataHolder(
+        successes = {
+            @TestData(submittedValue = "123"),
+            @TestData(submittedValue = "1234")
+        },
+        failures = {
+            @TestData(submittedValue = "12"),
+            @TestData(submittedValue = "")
+        }
+    )
+    
+    public void minTestSuccess() throws Exception {
+        setClientFunction("RichFaces.csv.getValidator('length')");
+        setObjectId(LengthValidator.VALIDATOR_ID);
+        Enum<?>[] messages = { FacesMessages.LENGTH_VALIDATOR_MAXIMUM, FacesMessages.LENGTH_VALIDATOR_MINIMUM };
+        setErrorMessageEnums(messages);
+        setAttribute("minimum", 3);
+    }
+    
+    @Test
+    @TestDataHolder(
+        successes = {
+            @TestData(submittedValue = ""),
+            @TestData(submittedValue = "12"),
+            @TestData(submittedValue = "123")
+        },
+        failures = {
+            @TestData(submittedValue = "1234")
+        }
+    )
+    
+    public void maxTestSuccess() throws Exception {
+        setClientFunction("RichFaces.csv.getValidator('length')");
+        setObjectId(LengthValidator.VALIDATOR_ID);
+        Enum<?>[] messages = { FacesMessages.LENGTH_VALIDATOR_MAXIMUM, FacesMessages.LENGTH_VALIDATOR_MINIMUM };
+        setErrorMessageEnums(messages);
+        setAttribute("maximum", 3);
     }
 }

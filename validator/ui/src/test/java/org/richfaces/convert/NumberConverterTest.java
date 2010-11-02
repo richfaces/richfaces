@@ -39,7 +39,15 @@ public class NumberConverterTest extends BaseTest {
     }
 
     @Test
-    @TestDataHolder(successes = { @TestData(submittedValue = "111") }, failures = { @TestData(submittedValue = "aaa") })
+    @TestDataHolder(
+        successes = {
+            @TestData(submittedValue = "111")
+        },
+        failures = {
+            @TestData(submittedValue = "aaa")
+        }
+    )
+    
     public void testSuccess() throws Exception {
         setClientFunction("RichFaces.csv.getConverter('number')");
         setObjectId(NumberConverter.CONVERTER_ID);
