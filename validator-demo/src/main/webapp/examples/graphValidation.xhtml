@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:c="http://java.sun.com/jstl/core">
+<ui:composition template="/layout/template.xhtml">
+	<ui:param name="title" value="&lt;rich:graphValidator&gt; usage" />
+	<ui:param name="javaBean" value="org/richfaces/example/GraphValidatorBean.java" />
+	<!-- Page header -->
+	<ui:define name="header">
+		<h1>&lt;rich:graphValidator&gt; usage</h1>
+	</ui:define>
+	<!-- content -->
+    <ui:define name="description">
+        <p>In that sampe &lt;rich:graphValidator&gt; component appends JSR-303 or Hibernate validators to all enclosed input components
+        that check restrictions for field values, and, in addition, validates whole bean.</p>
+        <p>JSF bean fields are annotated with @Min/@Max restrictions and getter for the 'total' attribute is also annotated by the @Max</p>
+        <p>As a result, even valid field values would make whole bean an invalid. For example, values '2','7','15' are valid for fields values but their sum exceed maximum total value '20'</p>
+        <p>Validator assignes new values to a cloned bean instance hence model is not updated with invalid values.</p>
+    </ui:define>
+	<ui:define name="content">
+	<h:form id="form">
+			<rich:graphValidator value="#{graphValidatorBean}" id="validator" profiles="javax.validation.groups.Default">	
+			<h:panelGrid columns="4">
+                <h:outputText value=""/>
+                <h:outputText value="Input"/>
+                <h:outputText value="Message"/>
+                <h:outputText value="Model value"/>
+
+  				<h:outputLabel for="value0" value="First value, integer from 0 to 10:" />
+				<h:inputText id="value0" value="#{graphValidatorBean.first}" label="First" />
+				<rich:message for="value0"/>
+                <h:outputText value="#{graphValidatorBean.first}"/>
+
+  				<h:outputLabel for="value1" value="Second value,integer from 5 to 15:" />
+				<h:inputText id="value1" value="#{graphValidatorBean.second}" label="Second" />
+				<rich:message for="value1"/>
+                <h:outputText value="#{graphValidatorBean.second}"/>
+
+  				<h:outputLabel for="value2" value="Third value,integer from 0 to 20:" />
+				<h:inputText id="value2" value="#{graphValidatorBean.third}" label="Third" />
+				<rich:message for="value2"/>
+                <h:outputText value="#{graphValidatorBean.third}"/>
+
+  				<h:outputLabel for="total" value="Total, should be no more then 20:" />
+				<h:outputText id="total" value="#{graphValidatorBean.summ}"/>
+			</h:panelGrid>
+					<h:commandButton value="Submit" action="#{graphValidatorBean.action}"></h:commandButton>
+					<h:outputText id="result" value="#{graphValidatorBean.actionResult}"/>
+					</rich:graphValidator>
+			<rich:messages/>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
