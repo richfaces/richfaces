@@ -290,7 +290,7 @@
 			</demo>
 		</demos>
 	</group>
-	<!-- group>
+	<group>
 		<name>Trees</name>
 		<demos>
 			<demo new="true">
@@ -304,7 +304,7 @@
 				</samples>
 			</demo>
 		</demos>
-	</group-->
+	</group>
 	<group>
 		<name>Output/Panels</name>
 		<demos>

@@ -1,44 +1,72 @@
 package org.richfaces.demo.tree.model;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.swing.tree.TreeNode;
 
-public class Company implements TreeNode{
+import com.google.common.collect.Iterators;
+
+public class Company extends NamedNode implements TreeNode {
+    private String name;
+    private List<CD> cds = new ArrayList<CD>();
+    private Country country;
+    
+    public Company() {
+        this.setType("company");
+    }
 
     public TreeNode getChildAt(int childIndex) {
-        // TODO Auto-generated method stub
-        return null;
+        return cds.get(childIndex);
     }
 
     public int getChildCount() {
-        // TODO Auto-generated method stub
-        return 0;
+        return cds.size();
     }
 
     public TreeNode getParent() {
-        // TODO Auto-generated method stub
-        return null;
+        return country;
+    }
+
+    public void setParent(Country country) {
+        this.country = country;
     }
 
     public int getIndex(TreeNode node) {
-        // TODO Auto-generated method stub
-        return 0;
+        return cds.indexOf(node);
     }
 
     public boolean getAllowsChildren() {
-        // TODO Auto-generated method stub
-        return false;
+        return true;
     }
 
     public boolean isLeaf() {
-        // TODO Auto-generated method stub
-        return false;
+        return cds.isEmpty();
     }
 
     public Enumeration children() {
-        // TODO Auto-generated method stub
-        return null;
+        return Iterators.asEnumeration(cds.iterator());
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public List<CD> getCds() {
+        return cds;
     }
 
 }

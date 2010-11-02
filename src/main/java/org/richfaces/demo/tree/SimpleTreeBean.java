@@ -22,14 +22,20 @@
 package org.richfaces.demo.tree;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
+import javax.swing.tree.TreeNode;
 
 import org.richfaces.demo.tree.model.CD;
+import org.richfaces.demo.tree.model.Company;
+import org.richfaces.demo.tree.model.Country;
 
 /**
  * @author Ilya Shaikovsky
@@ -39,20 +45,62 @@ import org.richfaces.demo.tree.model.CD;
 @SessionScoped
 public class SimpleTreeBean implements Serializable {
     @ManagedProperty(value = "#{cdsParser.cdsList}")
-    private List<CD> cds;
+    private List<CDXmlDescriptor> cdXmlDescriptors;
+    private List<TreeNode> rootNodes = new ArrayList<TreeNode>();
+    private Map<String, Country> countriesCache = new HashMap<String, Country>();
+    private Map<String, Company> companiesCache = new HashMap<String, Company>();
+
     @PostConstruct
     public void init() {
-//        for (CD cd : cds) {
-//            
-//        }
+        for (CDXmlDescriptor current : cdXmlDescriptors) {
+            String countryName = current.getCountry();
+            String companyName = current.getCompany();
+            Country country = getCountryByName(current);
+            Company company = getCompanyByName(current, country);
+            CD cd = new CD(current.getTitle(), current.getArtist(), company, current.getPrice(), current.getYear());
+            company.getCds().add(cd);
+        }
     }
 
-    public List<CD> getCds() {
-        return cds;
+    private Country getCountryByName(CDXmlDescriptor descriptor) {
+        String countryName = descriptor.getCountry();
+        Country country = countriesCache.get(countryName);
+        if (country == null) {
+            country = new Country();
+            country.setName(countryName);
+            countriesCache.put(countryName, country);
+            rootNodes.add(country);
+        }
+        return country;
     }
 
-    public void setCds(List<CD> cds) {
-        this.cds = cds;
+    private Company getCompanyByName(CDXmlDescriptor descriptor, Country country) {
+        String companyName = descriptor.getCompany();
+        Company company = companiesCache.get(companyName);
+        if (company == null) {
+            company = new Company();
+            company.setName(companyName);
+            company.setParent(country);
+            country.getCompanies().add(company);
+            companiesCache.put(companyName, company);
+        }
+        return company;
+    }
+
+    public List<CDXmlDescriptor> getCdXmlDescriptors() {
+        return cdXmlDescriptors;
+    }
+
+    public void setCdXmlDescriptors(List<CDXmlDescriptor> cdXmlDescriptors) {
+        this.cdXmlDescriptors = cdXmlDescriptors;
+    }
+
+    public List<TreeNode> getRootNodes() {
+        return rootNodes;
+    }
+
+    public void setRootNodes(List<TreeNode> rootNodes) {
+        this.rootNodes = rootNodes;
     }
 
 }

@@ -11,31 +11,30 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.richfaces.demo.tree.model.CD;
 
 @ManagedBean(name="cdsParser")
 @ApplicationScoped
 public class CDParser {
 
-    private List<CD> cdsList;
+    private List<CDXmlDescriptor> cdsList;
     
     @XmlRootElement(name = "CATALOG")
     private static final class CDsHolder {
         
-        private List<CD> cds;
+        private List<CDXmlDescriptor> cds;
         
         @XmlElement(name = "CD")
-        public List<CD> getCds() {
+        public List<CDXmlDescriptor> getCds() {
             return cds;
         }
         
         @SuppressWarnings("unused")
-        public void setCds(List<CD> cds) {
+        public void setCds(List<CDXmlDescriptor> cds) {
             this.cds = cds;
         }
     }
     
-    public synchronized List<CD> getCdsList() {
+    public synchronized List<CDXmlDescriptor> getCdsList() {
         if (cdsList == null) {
             ClassLoader ccl = Thread.currentThread().getContextClassLoader();
             URL resource = ccl.getResource("org/richfaces/demo/tree/CDCatalog.xml");

@@ -8,9 +8,14 @@ import javax.swing.tree.TreeNode;
 
 import com.google.common.collect.Iterators;
 
-public class Country implements TreeNode {
+public class Country extends NamedNode implements TreeNode {
+
     private String name;
     private List<Company> companies = new ArrayList<Company>();
+
+    public Country() {
+        this.setType("country");
+    }
 
     public TreeNode getChildAt(int childIndex) {
         return companies.get(childIndex);
@@ -38,6 +43,18 @@ public class Country implements TreeNode {
 
     public Enumeration<Company> children() {
         return Iterators.asEnumeration(companies.iterator());
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Company> getCompanies() {
+        return companies;
     }
 
 }

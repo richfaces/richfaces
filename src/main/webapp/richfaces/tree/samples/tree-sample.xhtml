@@ -6,21 +6,21 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
 	<h:form id="form">
-		<a4j:repeat value="#{treeBean.cds}" var="cd">#{cd.artist}</a4j:repeat>
-	<ui:remove>
-		<rich:tree id="tree" nodeType="#{node.parent == null ? 'rootNode': 'childNode'}" var="node" value="#{treeBean.rootNodes}" 
-			selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}">
-			<rich:treeNode type="rootNode">
-				<h:panelGroup id="rootNodeGroup">
-					Root node: #{node.data} - 
-				</h:panelGroup>
+		<rich:tree id="tree" nodeType="#{node.type}" var="node"
+			value="#{treeBean.rootNodes}" toggleType="client">
+			<rich:treeNode type="country">
+				#{node.name}
 			</rich:treeNode>
-			<rich:treeNode type="childNode">
-				<h:panelGroup id="childNodeGroup">
-					#{node.data} - 
-				</h:panelGroup>
+			<rich:treeNode type="company">
+				#{node.name}
 			</rich:treeNode>
-		</rich:tree> 
-		</ui:remove>
-		</h:form>	
+			<rich:treeNode type="cd">
+				#{node.artist}:#{node.title}
+			</rich:treeNode>
+			<rich:treeNode>
+				node not found for some reason
+			</rich:treeNode>			
+		</rich:tree>
+
+	</h:form>
 </ui:composition>
