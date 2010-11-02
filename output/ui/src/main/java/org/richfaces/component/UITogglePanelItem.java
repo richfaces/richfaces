@@ -44,7 +44,9 @@ public class UITogglePanelItem extends AbstractTogglePanelItem {
     }
 
     public SwitchType getSwitchType() {
-        return (SwitchType) getStateHelper().eval(PropertyKeys.switchType, getParent().getSwitchType());
+        SwitchType type = (SwitchType) getStateHelper().eval(PropertyKeys.switchType, getParent().getSwitchType());
+        
+        return type == null ? SwitchType.DEFAULT : type;
     }
 
     public void setSwitchType(SwitchType switchType) {

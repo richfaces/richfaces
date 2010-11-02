@@ -424,7 +424,7 @@
         },
 
         destroy: function () {
-            rf.BaseComponent.destroy.call(this);
+            rf.BaseComponent.prototype.destroy.call(this);
         }
     });
 })(jQuery, RichFaces);

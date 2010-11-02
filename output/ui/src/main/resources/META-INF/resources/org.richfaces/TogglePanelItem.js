@@ -111,7 +111,7 @@
 
         // class stuff
         destroy: function () {
-            rf.ui.TogglePanelItem.$super.destroy.call(this);
+            rf.BaseComponent.prototype.destroy.call(this);
         }
     });
 })(jQuery, RichFaces);

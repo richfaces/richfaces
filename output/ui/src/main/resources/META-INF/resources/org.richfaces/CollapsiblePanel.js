@@ -77,11 +77,6 @@
                 id: this.id,
                 isExpanded : newItem.getName()
             });
-        },
-
-
-        destroy: function () {
-            rf.ui.TogglePanel.destroy.call(this);
         }
     });
 })(jQuery, RichFaces);

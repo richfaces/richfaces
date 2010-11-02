@@ -77,8 +77,7 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
         String compClientId = component.getClientId(context);
         String clientId = requestMap.get(compClientId);
         if (clientId != null && clientId.equals(compClientId)) {
-            String itemClientId = clientId + (Boolean.parseBoolean(newValue) ? ":content" : ":empty");
-            context.getPartialViewContext().getRenderIds().add(itemClientId);
+            context.getPartialViewContext().getRenderIds().add(clientId);
 
             //TODO nick - this should be done on encode, not on decode
             addOnCompleteParam(newValue, panel.getClientId());
@@ -191,7 +190,7 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
                     break;
 
                 case ajax:
-                    context.getResponseWriter().write(getPlaceHolder(panel.getClientId() + ":empty"));
+                    writer.write(getPlaceHolder(panel.getClientId() + ":empty"));
                     break;
 
                 case server:
@@ -212,7 +211,8 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
         writer.startElement("div", component);
         writer.writeAttribute("id", component.getClientId() + ":content", null);
         writer.writeAttribute("class", concatClasses("rf-cp-b", attributeAsString(component, "bodyClass")), null);
-        writer.writeAttribute("style", concatStyles(visible ? "" : "none", attributeAsString(component, "style")), null);
+        writer.writeAttribute("style", concatStyles(styleElement("display", visible ? "block" : "none"),
+                                                    attributeAsString(component, "style")), null);
 
         renderChildren(context, component);
 
@@ -223,7 +223,7 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
         writer.startElement("div", component);
         writer.writeAttribute("id", component.getClientId() + ":empty", null);
         writer.writeAttribute("class", "rf-cp-empty", null);
-        writer.writeAttribute("style", styleElement("display", visible ? "" : "none"), null);
+        writer.writeAttribute("style", styleElement("display", visible ? "block" : "none"), null);
         writer.endElement("div");
     }
 
