@@ -39,15 +39,15 @@
 		<h:panelGroup styleClass="removalTestClass" layout="block"></h:panelGroup>
 		
 		<script type="text/javascript">/* <![CDATA[ */
-		function addCss(eltId, cssText) {
-			var style = jQuery("<style></style>").attr({type: 'text/css', id: eltId}).appendTo("head");
+		function addCss(cssText, elementId) {
+			var style = jQuery("<style></style>").attr({type: 'text/css', id: elementId}).appendTo("head");
 			try {
 				style.html(cssText);
 			} catch (e) {
 				//IE
 				style[0].styleSheet.cssText = cssText;
 			}
-		}	                                            
+	    };
 		                                            
 		jQuery(document).ready(function() {
 		    module("rf-9392");
@@ -59,7 +59,7 @@
 		    	expect(2);
 		    	equals(additionTestElt.height(), 0);
 
-		    	addCss("additionTest", ".additionTestClass { height: 140px; }");
+		    	addCss(".additionTestClass { height: 140px; }", "additionTest");
 	
 		    	equals(additionTestElt.height(), 140);
 		    });
