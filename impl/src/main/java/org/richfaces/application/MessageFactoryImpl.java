@@ -91,10 +91,9 @@ public class MessageFactoryImpl implements MessageFactory {
     
     
     private static final Factory<String> FORMAT_FACTORY = new Factory<String>() {
-    	public String create(ResourceBundle bundle, Enum<?> messageKey, Object... args)
-    			throws MissingResourceException {
+    	public String create(ResourceBundle bundle, Enum<?> messageKey, Object... args) throws MissingResourceException {
             String format = bundle.getString(messageKey.toString());
-    		return format;
+            return format;
     	}
     };
     
@@ -152,7 +151,7 @@ public class MessageFactoryImpl implements MessageFactory {
     public String getMessageFormat(FacesContext facesContext, Enum<?> messageKey) {
         String text = detectLocalesAndCreate(facesContext, FORMAT_FACTORY, messageKey);
         if (Strings.isNullOrEmpty(text)) {
-        	throw new IllegalStateException("Format not found");
+            throw new IllegalStateException("Format not found");
         }
         
     	return text;
