@@ -115,11 +115,10 @@
         	   	}));
         	}
         	this.selectFirst = mergedOptions.selectFirst;
-        	this.popupList = new rf.ui.SelectList((id+"List"), this, mergedOptions);
+        	this.popupList = new rf.ui.PopupList((id+"List"), this, mergedOptions);
         	this.listElem =  $(document.getElementById(id+"List"));
         	this.listElem.bind("click", $.proxy(this.__onListClick, this));
 
-        	
     		var items = this.popupList.__getItems();
         	var enableManualInput = mergedOptions.enableManualInput; 
     		if (items.length>0 && enableManualInput) {
@@ -160,9 +159,10 @@
     			
     			__clickHandler: function(e) {
     				if(!this.popupList.isVisible()) {
-    					this.popupList.show();
+						this.__updateItems();
+    					this.showPopup();
     				} else {
-    					this.popupList.hide();
+    					this.hidePopup();
     				}
     				this.__setInputFocus();
            			window.clearTimeout(this.timeoutId);
@@ -188,7 +188,8 @@
     					case rf.KEYS.DOWN: 
     						e.preventDefault();
     						if(!visible) {
-    							this.popupList.show();
+    							this.__updateItems();
+    							this.showPopup();
     						} else {
     							this.popupList.__selectNext() ;
     						}	
@@ -209,6 +210,15 @@
     						return false;
     						break;
     					
+    					case rf.KEYS.TAB:
+    						break;
+    						
+    					case rf.KEYS.ESC:
+    						if(visible) {
+    							this.hidePopup();
+    						}
+    						break;
+
     					default:
     	    				var _this = this;
     	       				window.clearTimeout(this.changeTimerId);
@@ -223,19 +233,10 @@
 
     				if(this.cache && this.cache.isCached(newValue)) {
     					
-    					if(this.initialValue !=newValue) {
-    						var newItems = this.cache.getItems(newValue);
-    						var items = $(newItems);
-    	           			this.popupList.__setItems(items);
-    						$(document.getElementById(this.id+"Items")).empty().append(items);
-    					}	
-    					    	    				
+    					this.__updateItems();
+
     					if(!this.popupList.isVisible()) {
-    						this.popupList.show();
-    					}
-    	           			
-    					if(this.selectFirst) {
-    						this.popupList.__selectByIndex(0);
+    						this.showPopup();
     					}
     				}	
     			},
@@ -244,12 +245,13 @@
     				var inputLabel = this.getValue();
 					if(!inputLabel || inputLabel == "") {
 						this.setValue(this.defaultLabel);
+	    				this.selValueInput.val("");
 					}
     			}, 
 
     			__blurHandler: function(e) {
     				this.timeoutId = window.setTimeout($.proxy(function(){
-        					this.popupList.hide();
+        					this.hidePopup();
         					this.__handleBlur();
     					}, this), 200);
     			},
@@ -258,13 +260,37 @@
            			window.clearTimeout(this.timeoutId);
            		},
            		
+           		__updateItems: function() {
+					var newValue = this.getValue();
+					newValue = (newValue != this.defaultLabel) ? newValue : "";
+					this.__updateItemsFromCache(newValue);
+					if(this.selectFirst) {
+						this.popupList.__selectByIndex(0);
+					}
+           		}, 
+           		
+    			__updateItemsFromCache: function(value) {
+					var newItems = this.cache.getItems(value);
+					var items = $(newItems);
+           			this.popupList.__setItems(items);
+					$(document.getElementById(this.id+"Items")).empty().append(items);
+    			},
+    			
+    			showPopup: function() {
+    				this.popupList.show();
+    			},
+    			
+    			hidePopup: function() {
+    				this.popupList.hide();
+    			},
+           		
     			processItem: function(item) {
     				var key = $(item).attr("id");
     				var value = this.getItemValue(key);
     				this.saveItemValue(value);
     				var label = this.getItemLabel(key);
     				this.setValue(label);
-               		this.popupList.hide();
+               		this.hidePopup();
                		this.__setInputFocus();
     			}, 
     			

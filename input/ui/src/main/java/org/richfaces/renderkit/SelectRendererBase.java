@@ -48,7 +48,6 @@ import org.richfaces.component.AbstractSelect;
         @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "popup.js"),
         @ResourceDependency(library = "org.richfaces", name = "popupList.js"),
-        @ResourceDependency(library = "org.richfaces", name = "selectList.js"),
         @ResourceDependency(library = "org.richfaces", name = "select.js"),
         @ResourceDependency(library = "org.richfaces", name = "select.ecss") })
 public class SelectRendererBase extends InputRendererBase {

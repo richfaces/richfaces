@@ -176,8 +176,7 @@
 
        		__onListClick: function(e) {
        			window.clearTimeout(this.timeoutId);
-       		} 
-       		
+       		}       		
 		}
 		
 	})());
