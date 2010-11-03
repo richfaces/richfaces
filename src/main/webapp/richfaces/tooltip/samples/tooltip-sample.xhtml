@@ -7,20 +7,9 @@
 	xmlns:rich="http://richfaces.org/rich">
 	<style>
 .tooltip {
-	background-color: #{ richSkin.generalBackgroundColor
-}
-
-;
-border-width
-:
-3px;
-
-	
-padding
-:
-10px;
-
-
+	background-color: #{ richSkin.generalBackgroundColor};
+	border-width:3px;
+	padding:10px;
 }
 .tooltip-custom-body {
 	background-color: orange;
@@ -45,7 +34,7 @@ padding
 		<rich:panel id="sample1" styleClass="tooltip-text"
 			bodyClass="rich-laguna-panel-no-header">
 			<p>Here you can see <b>default client-side</b> tool-tip</p>
-			<rich:tooltip id="tt1">
+			<rich:tooltip id="tt1" styleClass="tooltip">
 				<span style="white-space: nowrap"> This tool-tip content was
 				<strong>pre-rendered</strong> to the page.<br />
 				Also the tooltip following mouse by default </span>
@@ -56,7 +45,7 @@ padding
 			<p>This tool-tip will not <b>follow mouse</b>. Also this tool-tip
 			has a <b>delay 1.5 sec</b>, so be patient!</p>
 			<rich:tooltip followMouse="false" showDelay="1500"
-				bodyClass="tooltip-custom-body" styleClass="qqq">
+				styleClass="tooltip-custom-body">
 				<span style="white-space: nowrap"> This tool-tip content also
 				<strong>pre-rendered</strong> to the page.<br />
 				</span>

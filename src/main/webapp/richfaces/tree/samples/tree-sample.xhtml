@@ -5,7 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
-<h:form>
+
 	<rich:tree id="tree" nodeType="#{node.type}" var="node"
 		value="#{treeBean.rootNodes}" toggleType="client">
 		<rich:treeNode type="country">
@@ -18,6 +18,4 @@
 				#{node.artist} - #{node.title}
 			</rich:treeNode>
 	</rich:tree>
-	<a4j:commandButton execute="@all" render="@all"></a4j:commandButton>
-</h:form>
 </ui:composition>
