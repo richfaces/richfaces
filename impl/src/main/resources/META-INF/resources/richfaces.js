@@ -373,7 +373,7 @@ if (!window.RichFaces) {
 	};
 
 	var getExtensionResponseElement = function(responseXML) {
-		return jQuery("partial-response > extension#org\\.richfaces\\.extension", responseXML);
+		return jQuery("partial-response extension#org\\.richfaces\\.extension", responseXML);
 	};
 	
 	var JSON_STRING_START = /^\s*(\[|\{)/;
