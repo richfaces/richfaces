@@ -53,7 +53,7 @@
         destroy: function () {
             rf.Event.unbindById(this.id, "."+this.namespace);
 
-            rf.ui.TogglePanel.destroy.call(this);
+            rf.ui.TogglePanel.prototype.destroy.call(this);
         }
     });
 })(jQuery, RichFaces);
