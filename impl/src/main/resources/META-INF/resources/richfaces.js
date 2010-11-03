@@ -770,10 +770,21 @@ if (!window.RichFaces) {
 			};
 
 	
-	// move this code to somewhere
-	if (typeof jsf != 'undefined') {
-		jsf.ajax.addOnEvent(ajaxOnComplete);
+	var attachAjaxDOMCleaner = function() {
+		// move this code to somewhere
+		if (typeof jsf != 'undefined' && jsf.ajax) {
+			jsf.ajax.addOnEvent(ajaxOnComplete);
+			
+			return true;
+		}
+		
+		return false;
+	};
+
+	if (!attachAjaxDOMCleaner()) {
+		jQuery(document).ready(attachAjaxDOMCleaner);
 	}
+	
 	if (window.addEventListener) {
 		window.addEventListener("unload", richfaces.cleanDom, false);
 	} else {
