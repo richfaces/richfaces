@@ -41,19 +41,6 @@
             this.items = [];
 
             this.isKeepHeight = options["isKeepHeight"] || false
-        },
-
-        /***************************** Public Methods  ****************************************************************/
-
-
-
-        /***************************** Private Methods ********************************************************/
-
-
-        destroy: function () {
-            rf.Event.unbindById(this.id, "."+this.namespace);
-
-            rf.ui.TogglePanel.prototype.destroy.call(this);
         }
     });
 })(jQuery, RichFaces);
