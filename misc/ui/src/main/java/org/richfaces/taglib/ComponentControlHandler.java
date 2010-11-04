@@ -79,8 +79,7 @@ public class ComponentControlHandler extends CustomBehaviorHandler {
             if (isUIParameter(componentType)) {
                 FacesContext facesContext = ctx.getFacesContext();
 
-                UIComponent component = (UIComponent) facesContext.getApplication().createComponent(facesContext,
-                    componentType, null);
+                UIComponent component = (UIComponent) facesContext.getApplication().createComponent(componentType);
                 componentHandler.setAttributes(ctx, component);
 
                 if (parent instanceof ClientBehaviorHolder) {
