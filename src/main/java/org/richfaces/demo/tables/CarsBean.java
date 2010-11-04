@@ -148,7 +148,6 @@ public class CarsBean implements Serializable {
                                 break;
                         }
                     } catch (Exception e) {
-                        System.out.println("!!!!!!loadallInventoryItems Error: " + e.getMessage());
                         e.printStackTrace();
                     }
                 }
@@ -187,7 +186,6 @@ public class CarsBean implements Serializable {
 
             iiList = new ArrayList<InventoryItem>(Arrays.asList(demoInventoryItemArrays));
         } catch (Exception e) {
-            System.out.println("!!!!!!createCategory Error: " + e.getMessage());
             e.printStackTrace();
         }
 

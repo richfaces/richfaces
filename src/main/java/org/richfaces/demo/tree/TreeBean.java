@@ -36,6 +36,7 @@ import javax.swing.tree.TreeNode;
 import org.richfaces.demo.tree.model.CD;
 import org.richfaces.demo.tree.model.Company;
 import org.richfaces.demo.tree.model.Country;
+import org.richfaces.event.TreeSelectionEvent;
 
 /**
  * @author Ilya Shaikovsky
@@ -85,6 +86,10 @@ public class TreeBean implements Serializable {
             companiesCache.put(companyName, company);
         }
         return company;
+    }
+
+    private void selectionListener(TreeSelectionEvent event) {
+        //TODO: implement when ready
     }
 
     public List<CDXmlDescriptor> getCdXmlDescriptors() {
