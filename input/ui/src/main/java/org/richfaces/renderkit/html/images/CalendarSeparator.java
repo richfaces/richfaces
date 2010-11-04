@@ -34,6 +34,7 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
+import org.richfaces.resource.DynamicResource;
 import org.richfaces.resource.ImageType;
 import org.richfaces.resource.Java2DUserResource;
 import org.richfaces.resource.PostConstructResource;
@@ -45,6 +46,7 @@ import org.richfaces.skin.SkinFactory;
  * @author amarkhel
  *
  */
+@DynamicResource
 public class CalendarSeparator implements Java2DUserResource, StateHolderResource {
 
     private static final Dimension DIMENSION = new Dimension(1, 15);
@@ -56,7 +58,7 @@ public class CalendarSeparator implements Java2DUserResource, StateHolderResourc
         FacesContext context = FacesContext.getCurrentInstance();
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
         
-        this.headerTextColor = skin.getColorParameter(context, Skin.HEAD_TEXT_COLOR);
+        this.headerTextColor = skin.getColorParameter(context, Skin.HEADER_TEXT_COLOR);
     }
 
     public boolean isTransient() {
