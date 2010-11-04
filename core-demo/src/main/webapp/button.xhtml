@@ -15,13 +15,19 @@
 	    <h:outputText value="Name:" />
 	    <h:form>
 		    <h:inputText value="#{commandBean.name}" />
-		    <a4j:commandButton action="#{commandBean.submit}" render="out" value="Say Hello" execute="@form" />
-		    <a4j:commandButton action="#{commandBean.submit}" render="out" value="Say Hello with limitRender" 
-		    	limitRender="true" execute="@form" />
-		    <a4j:commandButton action="#{commandBean.reset}" render="out" value="Reset" execute="@form" />
-		    <a4j:commandButton value="Test AjaxBehavior">
-		    	<f:ajax event="action" execute="@form" render=":out" listener="#{commandBean.listener}" />
-		    </a4j:commandButton>
+		    
+		    <h:panelGrid>
+			    <a4j:commandButton action="#{commandBean.submit}" render="out" value="Say Hello" />
+			    <a4j:commandButton action="#{commandBean.submit}" render="out" value="Say Hello with limitRender" 
+			    	limitRender="true"/>
+			    <a4j:commandButton action="#{commandBean.submit}" render="out" execute="@this">
+			        <h:outputText value="Say Hello with execute=@this" /> 
+			    </a4j:commandButton>
+			    <a4j:commandButton action="#{commandBean.reset}" render="out" value="Reset" />
+			    <a4j:commandButton value="Test AjaxBehavior">
+			    	<f:ajax event="action" execute="@form" render=":out" listener="#{commandBean.listener}" />
+			    </a4j:commandButton>
+		    </h:panelGrid>
 	    </h:form>
 		<br />
 	    <h:panelGroup id="out">
