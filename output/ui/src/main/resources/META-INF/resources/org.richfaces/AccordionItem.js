@@ -47,7 +47,7 @@
 
             if (this.isSelected()) {
                 var item = this;
-                $(this.togglePanelId).ready(function () {
+                $(document).ready(function () {
                     item.__fitToHeight(item.getTogglePanel());
                 });
             }

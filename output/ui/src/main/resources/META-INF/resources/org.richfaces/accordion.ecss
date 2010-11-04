@@ -21,6 +21,9 @@
     font-family: '#{richSkin.headerFamilyFont}';
     font-size: '#{richSkin.headerSizeFont}';
     cursor: pointer;
+    
+    /* gain layout trigger for IE7 */
+    min-height: 0px;
 }
 
 .rf-ac-itm-hdr-act {}
