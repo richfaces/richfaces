@@ -128,24 +128,24 @@
 					[
 						new E('tr',{},
 						[
-							new E('td',{'class': 'rf-tl-ftr', 'style':function(context){return (this.isEmpty ? 'display:none;' : '');}},
+							new E('td',{'class': 'rf-ca-tl-ftr', 'style':function(context){return (this.isEmpty ? 'display:none;' : '');}},
 							[
 								new ET(function (context) { return rf.calendarTemplates.evalMacro("selectedDateControl", context)})
 							]),
-							new E('td',{'class': 'rf-tl-ftr', 'style':function(context){return (this.isEmpty ? 'display:none;' : '');}},
+							new E('td',{'class': 'rf-ca-tl-ftr', 'style':function(context){return (this.isEmpty ? 'display:none;' : '');}},
 							[
 								new ET(function (context) { return rf.calendarTemplates.evalMacro("cleanControl", context)})
 							]),
-							new E('td',{'class': 'rf-tl-ftr', 'style':function(context){return (this.isEmpty ? 'display:none;' : '');}},
+							new E('td',{'class': 'rf-ca-tl-ftr', 'style':function(context){return (this.isEmpty ? 'display:none;' : '');}},
 							[
 								new ET(function (context) { return rf.calendarTemplates.evalMacro("timeControl", context)})
 							]),
-							new E('td',{'class': 'rf-tl-ftr', 'style': 'background-image:none;', 'width': '100%'}, []),
-							new E('td',{'class': 'rf-tl-ftr', 'style':function(context){return (this.isEmpty ? 'display:none;' : '')+(context.calendar.params.disabled || context.calendar.params.readonly || !context.calendar.params.showApplyButton ? 'background-image:none;' : '');}},
+							new E('td',{'class': 'rf-ca-tl-ftr', 'style': 'background-image:none;', 'width': '100%'}, []),
+							new E('td',{'class': 'rf-ca-tl-ftr', 'style':function(context){return (this.isEmpty ? 'display:none;' : '')+(context.calendar.params.disabled || context.calendar.params.readonly || !context.calendar.params.showApplyButton ? 'background-image:none;' : '');}},
 							[
 								new ET(function (context) { return rf.calendarTemplates.evalMacro("todayControl", context)})
 							]),
-							new E('td',{'class': 'rf-tl-ftr', 'style':function(context){return (this.isEmpty ? 'display:none;' : '')+'background-image:none;';}},
+							new E('td',{'class': 'rf-ca-tl-ftr', 'style':function(context){return (this.isEmpty ? 'display:none;' : '')+'background-image:none;';}},
 							[
 								new ET(function (context) { return rf.calendarTemplates.evalMacro("applyControl", context)})
 							])
