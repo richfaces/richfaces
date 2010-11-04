@@ -93,7 +93,7 @@ public abstract class AbstractSelect extends UISelectOne {
     public abstract String getOnkeypress();
     
     @Attribute(events=@EventName("keyup"))
-    public abstract String getOnkeypup();
+    public abstract String getOnkeyup();
     
     @Attribute(events=@EventName("mousedown"))
     public abstract String getOnmousedown();

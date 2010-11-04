@@ -64,7 +64,15 @@
                 </div>
             </div>
             <script type="text/javascript">
-				<cdk:call expression="buildScript(responseWriter, facesContext, component, clientSelectItems);"/>
+				<cdk:scriptObject name="options">
+                    <cdk:scriptOption name="items" value="#{clientSelectItems}" />
+                    <cdk:scriptOption name="itemCss" value="#{concatClasses('rf-sel-opt', component.attributes['itemClass'])}" />
+                    <cdk:scriptOption name="selectItemCss" value="#{concatClasses('rf-sel-sel', component.attributes['selectItemClass'])}" />
+                    <cdk:scriptOption name="listCss" value="#{concatClasses('rf-sel-lst-cord', component.attributes['listClass'])}" />
+                    <cdk:scriptOption attributes="onchange onselect" wrapper="eventHandler"/>
+					<cdk:scriptOption attributes="showControl defaultLabel enableManualInput selectFirst" />
+                </cdk:scriptObject>
+            	new RichFaces.ui.Select("#{clientId}", #{toScriptArgs(options)});
             </script>
         </div>
     </cc:implementation>

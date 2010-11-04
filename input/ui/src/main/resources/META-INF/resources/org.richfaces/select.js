@@ -24,8 +24,7 @@
 		var result = true;
 		for (var i = 0; i<this.values.length; i++) {
 			if (this.values[i].indexOf(this.key)!=0) {
-				result = false;
-				break;
+				result = false; break;
 			}
 		}
 		return result;
@@ -42,10 +41,13 @@
 		if (this.cache[key]) {
 			newCache = this.cache[key];
 		} else {
+			
 			var useCustomFilterFunction = typeof filterFunction == "function";
 			var itemsCache = this.cache[this.key];
+
 			for (var i = 0; i<this.values.length; i++) {
 				var value = this.values[i];
+				
 				if (useCustomFilterFunction && filterFunction(key, value)) {
 					newCache.push(itemsCache[i]);
 				} else {
@@ -58,6 +60,7 @@
 
 			if ((!this.lastKey || key.indexOf(this.lastKey)!=0) && newCache.length > 0) {
 				this.cache[key] = newCache;
+				
 				if (newCache.length==1) {
 					this.lastKey = key;
 				}
@@ -94,16 +97,17 @@
 	rf.ui = rf.ui || {};
 		
         rf.ui.Select =  function(id, options) {
-        	$super.constructor.call(this, id);
         	this.id = id;
-           	var mergedOptions = $.extend({}, defaultOptions, options);
+        	var mergedOptions = $.extend({}, defaultOptions, options);
            	mergedOptions['attachTo'] = id;
            	mergedOptions['scrollContainer'] = $(document.getElementById(id + "Items")).parent()[0];
-           	
-        	this.defaultLabel = mergedOptions.defaultLabel;
+
+           	$super.constructor.call(this, id, mergedOptions);
+
+           	this.options = mergedOptions;
+           	this.defaultLabel = mergedOptions.defaultLabel;
             var inputLabel = this.getValue() ;
             this.initialValue = (inputLabel != this.defaultLabel) ? inputLabel : "";
-            
             this.selValueInput = $(document.getElementById(id+"selValue"));
             this.clientItems = mergedOptions.items;
 
@@ -114,15 +118,16 @@
         	   		this.focusin = false;
         	   	}));
         	}
+            
         	this.selectFirst = mergedOptions.selectFirst;
         	this.popupList = new rf.ui.PopupList((id+"List"), this, mergedOptions);
         	this.listElem =  $(document.getElementById(id+"List"));
         	this.listElem.bind("click", $.proxy(this.__onListClick, this));
+    		this.items = this.popupList.__getItems();
+        	this.enableManualInput = mergedOptions.enableManualInput; 
 
-    		var items = this.popupList.__getItems();
-        	var enableManualInput = mergedOptions.enableManualInput; 
-    		if (items.length>0 && enableManualInput) {
-    			this.cache = new rf.utils.Cache("", items, getData, true);
+        	if (this.items.length>0 && this.enableManualInput) {
+    			this.cache = new rf.utils.Cache("", this.items, getData, true);
     		}
     		
     		this.changeDelay = mergedOptions.changeDelay; 
@@ -153,7 +158,6 @@
 		}
         
     	$.extend(rf.ui.Select.prototype, ( function () {
-
     		return{
     			name : "select", 
     			
@@ -169,14 +173,19 @@
     			}, 
     			
     			__focusHandler: function(e) {
-    				if(this.getValue() == this.defaultLabel) {
-    					this.setValue("");
+    				if (!this.focused) {
+	    				if(this.getValue() == this.defaultLabel) {
+	    					this.setValue("");
+	    				}
+	    				this.focusValue = this.selValueInput.val();
+	    				this.focused = true;
+	    				this.invokeEvent.call(this, "focus", document.getElementById(this.id + 'Input'), e);
     				}
     			},
     			
     			__keydownHandler: function(e) {
     				var code; 
-    				
+
     				if(e.keyCode) {
     					code = e.keyCode;
     				} else if(e.which) {
@@ -184,6 +193,7 @@
     				}
            			
     				var visible = this.popupList.isVisible();
+    				
     				switch(code) {
     					case rf.KEYS.DOWN: 
     						e.preventDefault();
@@ -232,7 +242,6 @@
     				var newValue = this.getValue();
 
     				if(this.cache && this.cache.isCached(newValue)) {
-    					
     					this.__updateItems();
 
     					if(!this.popupList.isVisible()) {
@@ -241,19 +250,10 @@
     				}	
     			},
     			
-    			__handleBlur: function(e) {
-    				var inputLabel = this.getValue();
-					if(!inputLabel || inputLabel == "") {
-						this.setValue(this.defaultLabel);
-	    				this.selValueInput.val("");
-					}
-    			}, 
-
     			__blurHandler: function(e) {
     				this.timeoutId = window.setTimeout($.proxy(function(){
-        					this.hidePopup();
-        					this.__handleBlur();
-    					}, this), 200);
+        					this.onblur(e); 
+    				}, this), 200);
     			},
            		
            		__onListClick: function(e) {
@@ -264,16 +264,19 @@
 					var newValue = this.getValue();
 					newValue = (newValue != this.defaultLabel) ? newValue : "";
 					this.__updateItemsFromCache(newValue);
+
 					if(this.selectFirst) {
 						this.popupList.__selectByIndex(0);
 					}
            		}, 
            		
     			__updateItemsFromCache: function(value) {
-					var newItems = this.cache.getItems(value);
-					var items = $(newItems);
-           			this.popupList.__setItems(items);
-					$(document.getElementById(this.id+"Items")).empty().append(items);
+					if(this.items.length>0 && this.enableManualInput) {
+						var newItems = this.cache.getItems(value);
+						var items = $(newItems);
+	           			this.popupList.__setItems(items);
+						$(document.getElementById(this.id+"Items")).empty().append(items);
+					}
     			},
     			
     			showPopup: function() {
@@ -287,7 +290,7 @@
     			processItem: function(item) {
     				var key = $(item).attr("id");
     				var value = this.getItemValue(key);
-    				this.saveItemValue(value);
+    				this.selValueInput.val(value);
     				var label = this.getItemLabel(key);
     				this.setValue(label);
                		this.hidePopup();
@@ -312,11 +315,23 @@
     				}
     			}, 
     			
-    			saveItemValue: function(value) {
-    				this.selValueInput.val(value);
+    			onblur: function(e) {
+					this.hidePopup();
+					var inputLabel = this.getValue();
+					if(!inputLabel || inputLabel == "") {
+						this.setValue(this.defaultLabel);
+	    				this.selValueInput.val("");
+					}
+					
+					this.focused = false;
+					
+					this.invokeEvent.call(this,"blur", document.getElementById(this.id + 'Input'), e);
+
+					if(this.focusValue != this.selValueInput.val() ) {
+						this.invokeEvent.call(this, "change", document.getElementById(this.id + 'Input'), e);
+					}
     			}
     		}
-    		
     	})());
 
 })(jQuery, window.RichFaces);

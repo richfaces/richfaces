@@ -24,7 +24,6 @@ package org.richfaces.renderkit;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -32,9 +31,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.component.AbstractInplaceSelect;
-import org.richfaces.component.AbstractSelect;
 import org.richfaces.component.InplaceComponent;
-import org.richfaces.component.util.HtmlUtil;
 
 /**
  * @author Anton Belevich
@@ -68,12 +65,6 @@ public class InplaceSelectRendererBase extends InplaceInputRendererBase {
 
     public static final String LIST_CSS = "rf-is-lst-cord";
 
-
-    @Override
-    protected String getScriptName() {
-        return "new RichFaces.ui.InplaceSelect";
-    }
-
     public List<ClientSelectItem> getConvertedSelectItems(FacesContext facesContext, UIComponent component) {
         return SelectHelper.getConvertedSelectItems(facesContext, component);
     }
@@ -95,20 +86,6 @@ public class InplaceSelectRendererBase extends InplaceInputRendererBase {
         return SelectHelper.getSelectInputLabel(facesContext, component);
     }
     
-    @Override
-    public void addToOptions(FacesContext facesContext, UIComponent component, Map<String, Object> options, Object additional) {
-        AbstractSelect abstractSelect = (AbstractSelect)component;
-        SelectHelper.addSelectCssToOptions(abstractSelect, options, new String[] {ITEM_CSS, SELECT_ITEM_CSS, LIST_CSS});
-        boolean openOnEdit = (Boolean)component.getAttributes().get("openOnEdit");
-        boolean saveOnSelect = (Boolean)component.getAttributes().get("saveOnSelect");
-        if(openOnEdit) {
-            options.put(OPTIONS_OPEN_ON_EDIT, openOnEdit);
-            options.put(OPTIONS_SAVE_ON_SELECT, saveOnSelect);
-            
-        }    
-        options.put(SelectHelper.OPTIONS_LIST_ITEMS, additional);
-    }
-
     public String getSelectLabel(FacesContext facesContext, UIComponent component) {
         AbstractInplaceSelect select = (AbstractInplaceSelect) component;
         String label = getSelectInputLabel(facesContext, select);
@@ -120,31 +97,31 @@ public class InplaceSelectRendererBase extends InplaceInputRendererBase {
     
     public String getReadyStateCss(InplaceComponent component) {
         String css = component.getReadyStateClass();
-        return HtmlUtil.concatClasses("rf-is-d-s", css);
+        return concatClasses("rf-is-d-s", css);
     }
 
     public String getEditStateCss(InplaceComponent component) {
         String css = component.getEditStateClass();
-        return HtmlUtil.concatClasses("rf-is-e-s", css);
+        return concatClasses("rf-is-e-s", css);
     }
 
     public String getChangedStateCss(InplaceComponent component) {
         String css = component.getChangedStateClass();
-        return HtmlUtil.concatClasses("rf-is-c-s", css);
+        return concatClasses("rf-is-c-s", css);
     }
 
     public String getDisableStateCss(InplaceComponent component) {
         String css = component.getDisableStateClass();
-        return HtmlUtil.concatClasses("rf-is-dis-s", css);
+        return concatClasses("rf-is-dis-s", css);
     }
     
     public String getEditCss(InplaceComponent component) {
         String css = component.getEditClass();
-        return HtmlUtil.concatClasses("rf-is-edit", css);
+        return concatClasses("rf-is-edit", css);
     }
 
     public String getNoneCss(InplaceComponent component) {
         String css = component.getNoneClass();
-        return HtmlUtil.concatClasses("rf-is-none", css);
+        return concatClasses("rf-is-none", css);
     }
 }

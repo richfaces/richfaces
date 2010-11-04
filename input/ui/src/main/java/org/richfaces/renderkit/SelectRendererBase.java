@@ -23,17 +23,13 @@
 package org.richfaces.renderkit;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 
-import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.component.AbstractSelect;
 
 /**
@@ -53,11 +49,6 @@ import org.richfaces.component.AbstractSelect;
 public class SelectRendererBase extends InputRendererBase {
     
     public static final String ITEM_CSS = "rf-sel-opt"; 
-    
-    public static final String SELECT_ITEM_CSS = "rf-sel-sel";    
-
-    public static final String LIST_CSS = "rf-sel-lst-cord";
-    
     
     public void renderListHandlers(FacesContext facesContext, UIComponent component) throws IOException {
         RenderKitUtils.renderPassThroughAttributesOptimized(facesContext, component, SelectHelper.SELECT_LIST_HANDLER_ATTRIBUTES);
@@ -83,47 +74,5 @@ public class SelectRendererBase extends InputRendererBase {
     public void encodeItems(FacesContext facesContext, UIComponent component, List<ClientSelectItem> clientSelectItems)
         throws IOException {
         SelectHelper.encodeItems(facesContext, component, clientSelectItems, HtmlConstants.DIV_ELEM, ITEM_CSS);
-    }
-
-    public void buildScript(ResponseWriter writer, FacesContext facesContext, UIComponent component, List<ClientSelectItem> selectItems) throws IOException {
-        if (!(component instanceof AbstractSelect)) {
-            return;
-        }
-
-        AbstractSelect abstractSelect = (AbstractSelect)component;
-        String scriptName = getScriptName();
-        JSFunction function = new JSFunction(scriptName);
-
-        String clientId = abstractSelect.getClientId(facesContext);
-        Map<String, Object> options = new HashMap<String, Object>();
-        options.put(SelectHelper.OPTIONS_LIST_ITEMS, selectItems);
-            
-        if(!abstractSelect.isShowButton()) {
-            options.put(SelectHelper.OPTIONS_SHOWCONTROL, abstractSelect.isShowButton());
-        }    
-        
-        String defaultLabel = abstractSelect.getDefaultLabel(); 
-        if( defaultLabel != null && defaultLabel.trim().length() > 0) {
-            options.put(SelectHelper.OPTIONS_INPUT_DEFAULT_LABEL, defaultLabel);
-        }
-        
-        if(abstractSelect.isEnableManualInput()) {
-            options.put(SelectHelper.OPTIONS_ENABLE_MANUAL_INPUT, abstractSelect.isEnableManualInput());
-        }    
-        
-        if(!abstractSelect.isSelectFirst()) {
-            options.put(SelectHelper.OPTIONS_LIST_SELECT_FIRST, abstractSelect.isSelectFirst());
-        }
-        
-        SelectHelper.addSelectCssToOptions(abstractSelect, options, new String[] {ITEM_CSS, SELECT_ITEM_CSS, LIST_CSS});
-
-        function.addParameter(clientId);
-        function.addParameter(options);
-
-        writer.write(function.toString());
-    }
-    
-    protected String getScriptName() {
-        return "new RichFaces.ui.Select";
     }
 }

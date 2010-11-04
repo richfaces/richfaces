@@ -55,10 +55,6 @@
 			oncancel: function() {
 			},
 			
-			isValueSaved: function() {
-				return this.isSaved;
-			},
-			
 			save: function() {
 				var value = this.getValue()
        			if(value.length > 0) {
@@ -84,6 +80,10 @@
        			this.isSaved = true;
            		this.__hide();
            		this.oncancel();
+			},
+			
+			isValueSaved: function() {
+				return this.isSaved;
 			},
        		
        		isEditState: function() {

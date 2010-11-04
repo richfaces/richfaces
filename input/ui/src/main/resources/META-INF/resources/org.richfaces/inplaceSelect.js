@@ -5,7 +5,7 @@
 	rf.ui.InplaceSelect =  function(id, options) {
        	var mergedOptions = $.extend({}, defaultOptions, options);
        	$super.constructor.call(this, id, mergedOptions)
-    	
+      	this.getInput().bind("click", $.proxy(this.__clickHandler, this));
        	mergedOptions['attachTo'] = id;
        	mergedOptions['scrollContainer'] = $(document.getElementById(id + "Items")).parent()[0];
     	this.popupList = new rf.ui.PopupList(id+"List", this, mergedOptions);
@@ -81,7 +81,12 @@
        				this.saveItemValue(value);
        			}
        		},
-			
+       		
+			onblur: function() {
+				this.hidePopup();
+				$super.onblur.call(this);
+			},
+		
 			processItem: function(item) {
 				var label = this.getItemLabel(item);
 				this.setValue(label);
@@ -160,12 +165,11 @@
        			
 				$super.__keydownHandler.call(this,e);
 			},
-		
+			
 			__blurHandler: function(e) {
 				if(this.isEditState()) {
 					this.timeoutId = window.setTimeout($.proxy(function(){
-						this.hidePopup();
-						this.__handleBlur();
+						this.onblur();
 					}, this), 200);
 				}	
        		}, 

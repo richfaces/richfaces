@@ -98,7 +98,14 @@
 					</span>
 				</span>
 				<script type="text/javascript">
-					<cdk:call expression="buildScript(responseWriter, facesContext, component, clientSelectItems);" />
+					<cdk:scriptObject name="options">
+						<cdk:scriptOption name="items" value="#{clientSelectItems}" />
+						<cdk:scriptOption name="noneCss" value="#{concatClasses('rf-is-none', component.attributes['noneClass'])}"/>
+						<cdk:scriptOption name="changedCss" value="#{concatClasses('rf-is-c-s', component.attributes['changedClass'])}"/>
+						<cdk:scriptOption name="editCss" value="#{concatClasses('rf-is-e-s', component.attributes['editClass'])}"/>
+					  	<cdk:scriptOption attributes="editEvent state defaultLabel saveOnBlur showControls openOnEdit saveOnSelect" />
+                	</cdk:scriptObject>
+					new RichFaces.ui.InplaceSelect("#{clientId}", #{toScriptArgs(options)});
 				</script>
 			</c:if>	
 		</span>

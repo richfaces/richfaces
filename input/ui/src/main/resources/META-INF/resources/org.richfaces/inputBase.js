@@ -13,7 +13,6 @@
     		this.input.bind("keydown", $.proxy(this.__keydownHandler, this));
            	this.input.bind("blur", $.proxy(this.__blurHandler, this));
            	this.input.bind("change", $.proxy(this.__changeHandler, this));
-           	this.input.bind("click", $.proxy(this.__clickHandler, this));
            	this.input.bind("focus", $.proxy(this.__focusHandler, this));
         };
 
@@ -26,6 +25,7 @@
 
     			name : "inputBase",
     			
+    			
     			getName: function() {
     				return this.name;
     			},
@@ -33,12 +33,8 @@
     			getNamespace: function() {
     				return this.namespace;
     			},
-           		
-    			__focusHandler: function(e) {
-    				
-    			},
     			
-    			__clickHandler: function(e) {
+    			__focusHandler: function(e) {
     			},
     			
            		__keydownHandler: function(e) {

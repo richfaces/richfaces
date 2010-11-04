@@ -74,7 +74,6 @@ public abstract class AbstractInplaceSelect extends AbstractSelect implements In
     @Attribute
     public abstract String getListClass();
     
-    
     @Attribute(defaultValue="click")
     public abstract String getEditEvent();
 
@@ -106,7 +105,7 @@ public abstract class AbstractInplaceSelect extends AbstractSelect implements In
     public abstract String getOninputkeypress();
     
     @Attribute(events=@EventName("inputkeyup"))
-    public abstract String getOninputkeypup();
+    public abstract String getOninputkeyup();
     
     @Attribute(events=@EventName("inputfocus"))
     public abstract String getOninputfocus();

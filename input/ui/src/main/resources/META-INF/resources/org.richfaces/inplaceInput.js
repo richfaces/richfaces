@@ -65,17 +65,8 @@
            			}
     			},
     			
-    			__handleBlur: function() { 
-    				if(!this.isValueSaved() && this.__isSaveOnBlur()) {
-           				this.save();
-           			} else {
-           				this.__hide();
-           			}
-           			this.getInput().bind("focus", $.proxy(this.__editHandler, this));
-    			},
-    			
            		__blurHandler: function(e) {
-    				this.__handleBlur();
+    				this.onblur();
     			},
     			
            		__changeHandler: function(e) {
@@ -121,8 +112,17 @@
     			
     			onhide: function() {
     				this.focusElement.focus();
-    			}   			
-
+    			},
+    			
+    			onblur: function() { 
+    				if(!this.isValueSaved() && this.__isSaveOnBlur()) {
+           				this.save();
+           			} else {
+           				this.__hide();
+           			}
+           			this.getInput().bind("focus", $.proxy(this.__editHandler, this));
+    			}
+    		
     		}
     	})());
 
