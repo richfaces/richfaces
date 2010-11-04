@@ -9,7 +9,9 @@
 .label {
 	font-weight: bold;
 }
-
+.rf-dg, .rf-dg-c{
+	border:none;
+}
 .pbody {
 	width: 200px;
 }
@@ -20,7 +22,7 @@
 		</f:facet>
 		<h:form>
 			<rich:dataGrid value="#{carsBean.allInventoryItems}" var="car"
-				columns="3" elements="9" width="600px">
+				columns="3" elements="9" width="600px" border="0">
 				<rich:panel bodyClass="pbody">
 					<f:facet name="header">
 						<h:outputText value="#{car.vendor} #{car.model}"></h:outputText>
