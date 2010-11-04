@@ -148,7 +148,7 @@ public interface Skin {
      * color, the table header color, color of the title of the active tab in the tabpanel,
      * color of the title on the buttons. Default value #FFFFFF.
      */
-    public static final String HEAD_TEXT_COLOR = "headTextColor";
+    public static final String HEADER_TEXT_COLOR = "headerTextColor";
 
     /**
      * Parameter responsible for 3D Look of panels and buttons.
