@@ -34,6 +34,7 @@ import java.util.Iterator;
 import javax.el.ELContext;
 import javax.el.ValueExpression;
 import javax.faces.application.Application;
+import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.component.UIViewRoot;
@@ -51,19 +52,20 @@ import org.junit.Test;
  * Test page pseudo-code:
  * <pre>
  * &lt;h:form id=&quot;form&quot;&gt;
- *    &lt;a4j:testLink id=&quot;link&quot; 
- *          binding=&quot;#{link}&quot; 
- *          execute=&quot;#{linkExecute}&quot; /&gt;
+ *    &lt;a4j:testCommandComponent id=&quot;testCommand&quot; 
+ *          binding=&quot;#{testCommand}&quot; 
+ *          execute=&quot;#{testCommandExecute}&quot; /&gt;
  *              
  *    &lt;a4j:region id=&quot;region&quot;&gt;
- *        &lt;a4j:testLink id=&quot;regionLink&quot; 
- *          binding=&quot;#{regionLink}&quot; 
- *          execute=&quot;#{regionLinkExecute}&quot; /&gt;
+ *        &lt;a4j:testCommandComponent id=&quot;testCommandRegion&quot; 
+ *          binding=&quot;#{testCommandRegion}&quot; 
+ *          execute=&quot;#{testCommandRegionExecute}&quot; /&gt;
  *              
  *    &lt;/a4j:region&gt;
  * &lt;/h:form&gt;
  * </pre>
  * 
+ * TestCommandComponent is assumed to have execute=@this by default
  * 
  * @author Nick Belaevski
  * 
@@ -76,17 +78,17 @@ public class RegionTest {
 
     private FacesContext facesContext;
     
-    private UIComponent link;
+    private UIComponent testCommand;
     
-    private String linkExecute;
+    private String testCommandExecute;
     
-    private UIComponent regionLink;
+    private UIComponent testCommandRegion;
     
-    private String regionLinkExecute;
+    private String testCommandRegionExecute;
     
-    private String linkClientId;
+    private String testCommandClientId;
     
-    private String regionLinkClientId;
+    private String testCommandRegionClientId;
 
     private String regionClientId;
     
@@ -135,12 +137,12 @@ public class RegionTest {
             
             @Override
             public void setValue(ELContext context, Object value) {
-                linkExecute = (String) value;
+                testCommandExecute = (String) value;
             }
             
             @Override
             public Object getValue(ELContext context) {
-                return linkExecute;
+                return testCommandExecute;
             }
         };
     }
@@ -151,12 +153,12 @@ public class RegionTest {
             
             @Override
             public void setValue(ELContext context, Object value) {
-                regionLinkExecute = (String) value;
+                testCommandRegionExecute = (String) value;
             }
             
             @Override
             public Object getValue(ELContext context) {
-                return regionLinkExecute;
+                return testCommandRegionExecute;
             }
         };
     }
@@ -170,26 +172,26 @@ public class RegionTest {
         form.setId("form");
         viewRoot.getChildren().add(form);
         
-        link = createTestLink();
-        link.setId("link");
-        link.setValueExpression("execute", createFirstLinkExecuteExpression());
-        form.getChildren().add(link);
-        linkClientId = link.getClientId(facesContext);
+        testCommand = createTestLink();
+        testCommand.setId("testCommand");
+        testCommand.setValueExpression("execute", createFirstLinkExecuteExpression());
+        form.getChildren().add(testCommand);
+        testCommandClientId = testCommand.getClientId(facesContext);
 
         UIComponent region = application.createComponent(AbstractRegion.COMPONENT_TYPE);
         region.setId("region");
         form.getChildren().add(region);
         regionClientId = region.getClientId(facesContext);
         
-        regionLink = createTestLink();
-        regionLink.setId("regionLink");
-        regionLink.setValueExpression("execute", createNestedFirstLinkExecuteExpression());
-        region.getChildren().add(regionLink);
-        regionLinkClientId = regionLink.getClientId(facesContext);
+        testCommandRegion = createTestLink();
+        testCommandRegion.setId("testCommandRegion");
+        testCommandRegion.setValueExpression("execute", createNestedFirstLinkExecuteExpression());
+        region.getChildren().add(testCommandRegion);
+        testCommandRegionClientId = testCommandRegion.getClientId(facesContext);
     }
 
     private UIComponent createTestLink() {
-        return facesContext.getApplication().createComponent(UICommandButton.COMPONENT_TYPE);
+        return facesContext.getApplication().createComponent(UICommand.COMPONENT_TYPE);
     }
     
     private void setActivatorComponentId(String clientId) {
@@ -219,14 +221,14 @@ public class RegionTest {
     
     @After
     public void tearDown() throws Exception {
-        linkClientId = null;
-        regionLinkClientId = null;
+        testCommandClientId = null;
+        testCommandRegionClientId = null;
         
-        link = null;
-        regionLink = null;
+        testCommand = null;
+        testCommandRegion = null;
         
-        linkExecute = null;
-        regionLinkExecute = null;
+        testCommandExecute = null;
+        testCommandRegionExecute = null;
         
         facesContext = null;
         
@@ -239,15 +241,15 @@ public class RegionTest {
     
     @Test
     public void testDefaults() throws Exception {
-        setActivatorComponentId(linkClientId);
+        setActivatorComponentId(testCommandClientId);
         
         Collection<String> executeIds = facesContext.getPartialViewContext().getExecuteIds();
-        assertSingleElementCollection(linkClientId, executeIds);
+        assertSingleElementCollection(testCommandClientId, executeIds);
     }
 
     @Test
     public void testDefaultsInRegion() throws Exception {
-        setActivatorComponentId(regionLinkClientId);
+        setActivatorComponentId(testCommandRegionClientId);
         
         Collection<String> executeIds = facesContext.getPartialViewContext().getExecuteIds();
         assertSingleElementCollection(regionClientId, executeIds);
@@ -255,26 +257,26 @@ public class RegionTest {
 
     @Test
     public void testExecuteThis() throws Exception {
-        linkExecute = THIS;
-        setActivatorComponentId(linkClientId);
+        testCommandExecute = THIS;
+        setActivatorComponentId(testCommandClientId);
         
         Collection<String> executeIds = facesContext.getPartialViewContext().getExecuteIds();
-        assertSingleElementCollection(linkClientId, executeIds);
+        assertSingleElementCollection(testCommandClientId, executeIds);
     }
 
     @Test
     public void testExecuteThisInRegion() throws Exception {
-        regionLinkExecute = THIS;
-        setActivatorComponentId(regionLinkClientId);
+        testCommandRegionExecute = THIS;
+        setActivatorComponentId(testCommandRegionClientId);
         
         Collection<String> executeIds = facesContext.getPartialViewContext().getExecuteIds();
-        assertSingleElementCollection(regionLinkClientId, executeIds);
+        assertSingleElementCollection(testCommandRegionClientId, executeIds);
     }
     
     @Test
     public void testExecuteAll() throws Exception {
-        linkExecute = ALL;
-        setActivatorComponentId(linkClientId);
+        testCommandExecute = ALL;
+        setActivatorComponentId(testCommandClientId);
         
         Collection<String> executeIds = facesContext.getPartialViewContext().getExecuteIds();
         assertSingleElementCollection(ALL, executeIds);
@@ -282,8 +284,8 @@ public class RegionTest {
     
     @Test
     public void testExecuteAllInRegion() throws Exception {
-        regionLinkExecute = ALL;
-        setActivatorComponentId(regionLinkClientId);
+        testCommandRegionExecute = ALL;
+        setActivatorComponentId(testCommandRegionClientId);
 
         Collection<String> executeIds = facesContext.getPartialViewContext().getExecuteIds();
         assertSingleElementCollection(ALL, executeIds);
@@ -291,17 +293,17 @@ public class RegionTest {
     
     @Test
     public void testExecuteRegion() throws Exception {
-        linkExecute = AjaxContainer.META_CLIENT_ID;
-        setActivatorComponentId(linkClientId);
+        testCommandExecute = AjaxContainer.META_CLIENT_ID;
+        setActivatorComponentId(testCommandClientId);
 
         Collection<String> executeIds = facesContext.getPartialViewContext().getExecuteIds();
-        assertSingleElementCollection(linkClientId, executeIds);
+        assertSingleElementCollection(testCommandClientId, executeIds);
     }
     
     @Test
     public void testExecuteRegionInRegion() throws Exception {
-        regionLinkExecute = AjaxContainer.META_CLIENT_ID;
-        setActivatorComponentId(regionLinkClientId);
+        testCommandRegionExecute = AjaxContainer.META_CLIENT_ID;
+        setActivatorComponentId(testCommandRegionClientId);
 
         Collection<String> executeIds = facesContext.getPartialViewContext().getExecuteIds();
         assertSingleElementCollection(regionClientId, executeIds);

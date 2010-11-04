@@ -51,6 +51,7 @@ import org.richfaces.event.FilteringEvent;
 import org.richfaces.event.FilteringListener;
 import org.richfaces.event.SortingEvent;
 import org.richfaces.event.SortingListener;
+import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.model.Arrangeable;
 import org.richfaces.model.ArrangeableModel;
@@ -60,7 +61,6 @@ import org.richfaces.model.FilterField;
 import org.richfaces.model.SortField;
 import org.richfaces.model.SortMode;
 import org.richfaces.renderkit.MetaComponentRenderer;
-import org.richfaces.log.Logger;
 
 public abstract class UIDataTableBase extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder {
 
@@ -243,6 +243,12 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
         return null;
     }
     
+    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
+        String metaComponentId) {
+
+        return null;
+    }
+
     public void encodeMetaComponent(FacesContext context, String metaComponentId) throws IOException {
         context.getApplication().publishEvent(context, PreRenderComponentEvent.class, this);
         

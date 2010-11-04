@@ -50,4 +50,10 @@ public abstract class AbstractRegion extends UIComponentBase implements MetaComp
 
         return null;
     }
+    
+    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
+        String metaComponentId) {
+
+        return null;
+    }
 }

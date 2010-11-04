@@ -42,9 +42,9 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
+import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.MetaComponentRenderer;
-import org.richfaces.log.Logger;
 
 /**
  * @author Anton Belevich
@@ -199,5 +199,11 @@ public abstract class AbstractDataGrid extends UISequence implements Row, MetaCo
         }
         
         return null;    
+    }
+    
+    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
+        String metaComponentId) {
+
+        return null;
     }
 }

@@ -24,6 +24,8 @@
 package org.richfaces.component;
 
 import javax.faces.component.UICommand;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
@@ -31,13 +33,14 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.renderkit.AjaxConstants;
 
 /**
  * @author Nick Belaevski
  *
  */
 @JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.CommandButtonRenderer"), tag = @Tag(type = TagType.Facelets))
-public abstract class AbstractCommandButton extends AbstractActionComponent {
+public abstract class AbstractCommandButton extends AbstractActionComponent implements MetaComponentResolver {
 
     public static final String COMPONENT_TYPE = "org.richfaces.CommandButton";
 
@@ -81,4 +84,18 @@ public abstract class AbstractCommandButton extends AbstractActionComponent {
 
     @Attribute
     public abstract boolean isLimitRender();
+    
+    public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
+        return null;
+    }
+    
+    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
+        String metaComponentId) {
+        
+        if (AjaxContainer.META_COMPONENT_ID.equals(metaComponentId)) {
+            return AjaxConstants.FORM;
+        }
+        
+        return null;
+    }
 }

@@ -380,6 +380,12 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         return null;
     }
     
+    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
+        String metaComponentId) {
+
+        return null;
+    }
+
     @Override
     protected Iterator<UIComponent> dataChildren() {
         AbstractTreeNode treeNodeComponent = getTreeNodeComponent();

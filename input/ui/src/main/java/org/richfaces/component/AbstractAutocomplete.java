@@ -237,6 +237,12 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
         return null;
     }
 
+    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
+        String metaComponentId) {
+
+        return null;
+    }
+
     @Override
     public boolean visitTree(VisitContext context, VisitCallback callback) {
         if (context instanceof ExtendedVisitContext) {

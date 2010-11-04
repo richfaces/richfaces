@@ -22,19 +22,20 @@
 
 package org.richfaces.component;
 
-import org.richfaces.TooltipLayout;
-import org.richfaces.TooltipDirection;
-import org.richfaces.TooltipMode;
-import org.richfaces.context.ExtendedVisitContext;
-import org.richfaces.context.ExtendedVisitContextMode;
-import org.richfaces.renderkit.MetaComponentRenderer;
+import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
-import java.io.IOException;
+
+import org.richfaces.TooltipDirection;
+import org.richfaces.TooltipLayout;
+import org.richfaces.TooltipMode;
+import org.richfaces.context.ExtendedVisitContext;
+import org.richfaces.context.ExtendedVisitContextMode;
+import org.richfaces.renderkit.MetaComponentRenderer;
 
 /**
  * @author amarkhel
@@ -152,6 +153,12 @@ public abstract class AbstractTooltip extends AbstractDivPanel implements MetaCo
         if (CONTENT_META_COMPONENT_ID.equals(metaComponentId)) {
             return ((AbstractTooltip) contextComponent).getContentClientId(facesContext);
         }
+
+        return null;
+    }
+    
+    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
+        String metaComponentId) {
 
         return null;
     }
