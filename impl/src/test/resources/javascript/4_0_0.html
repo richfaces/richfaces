@@ -85,36 +85,6 @@
 				equals(RichFaces.interpolate("{prop1} {prop2} {prop3}", context), "value1 value2 {prop3}");
 			});
 			
-			test("RichFaces.startPush and RichFaces.stopPush test", function() {
-				var timeoutFakeObject = {id:"timeoutFakeObject"};
-				expect(1);
-				var options = {
-					pushId : "pushId",
-					clientId: "pushElt",
-					interval : 700,
-					ondataavailable : function() {
-						ok(true, "Function 'ondataavailable' has been called");
-					}
-				};
-				var xhr = {
-					status : 200,
-					getResponseHeader : function() { return "READY" }
-				};
-				var ajax = jQuery.ajax;
-				jQuery.ajax = function(ajaxOptions) {
-					RichFaces.stopPush(options.pushId);
-					ajaxOptions.complete(xhr);
-				};
-				var setTimeout = window.setTimeout;
-				window.setTimeout = function(func, delay) {
-					func();
-					return timeoutFakeObject;
-				};
-				RichFaces.startPush(options);
-				jQuery.ajax = ajax;
-				window.setTimeout = setTimeout;
-			});
-			
 			test("RichFaces.createJSFEventsAdapter test", function() {
 				expect(2);
 				var eventData = {

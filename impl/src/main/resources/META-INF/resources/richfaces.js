@@ -308,61 +308,6 @@ if (!window.RichFaces) {
 		}
 	};
 
-	var pushTracker = {};
-
-	richfaces.startPush = function(options) {
-		var clientId = options.clientId;
-		var pushResourceUrl = options.pushResourceUrl;
-		var pushId = options.pushId;
-		var interval = options.interval;
-		var ondataavailable = options.ondataavailable;
-		richfaces.setZeroRequestDelay(options);
-
-		richfaces.stopPush(pushId);
-
-		pushTracker[pushId] = setTimeout(function() { // TODO: define this function in richfaces object to avoid definition every time when call startPush
-			var ajaxOptions = {
-				type: "HEAD",
-				//TODO - encodeURIComponent; URL sessionId handling check
-				//TODO - add pushUri supports
-				url: pushResourceUrl + "?id=" + pushId,
-				dataType: "text",
-				complete: function(xhr) {
-					var isPushActive = !!pushTracker[pushId];
-
-					//TODO may someone wish to stop push from dataavailable handler?
-					delete pushTracker[pushId];
-
-					if (xhr.status == 200 && xhr.getResponseHeader("Ajax-Push-Status") == "READY") {
-						var pushElement = document.getElementById(clientId);
-						try {
-							ondataavailable.call(pushElement || window);
-						} catch (e) {
-							// TODO: handle exception
-						}
-					}
-
-					if (isPushActive) {
-						richfaces.startPush(options);
-					}
-				}
-			};
-
-			if (options.timeout) {
-				ajaxOptions.timeout = options.timeout;
-			}
-
-			jQuery.ajax(ajaxOptions);
-		}, interval);
-	};
-
-	richfaces.stopPush = function(id) {
-		if (pushTracker[id]){
-			window.clearTimeout(pushTracker[id]);
-			delete pushTracker[id];
-		}
-	};
-
 	var jsfEventsAdapterEventNames = {
 		event: {
 			'begin': ['begin'],
@@ -517,6 +462,7 @@ if (!window.RichFaces) {
 		};
 
 		return {
+			'error': null,
 			'begin': null,
 			'complete': serverEventHandler,
 			'beforedomupdate': serverEventHandler
