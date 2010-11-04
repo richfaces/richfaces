@@ -205,7 +205,7 @@ public class CalendarRendererBase extends InputRendererBase {
         }
         
         AbstractCalendar calendar = (AbstractCalendar)component;
-        if (calendar.isDisable()){
+        if (calendar.isDisabled()){
             return;
         }
         

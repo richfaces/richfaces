@@ -113,7 +113,7 @@ public abstract class AbstractCalendar extends UIInput {
     public abstract String getHidePopupOnScroll();
 
     @Attribute(defaultValue = "false")
-    public abstract boolean isDisable();
+    public abstract boolean isDisabled();
 
     @Attribute(defaultValue = "false")
     public abstract boolean isEnableManualInput();
@@ -140,7 +140,7 @@ public abstract class AbstractCalendar extends UIInput {
     public abstract String getHorizontalOffset();
 
     @Attribute(defaultValue = "0")
-    public abstract String getVerticalOffsetOffset();
+    public abstract String getVerticalOffset();
 
     @Attribute(defaultValue = "3")
     public abstract int getZindex();
@@ -229,7 +229,7 @@ public abstract class AbstractCalendar extends UIInput {
     public abstract String getOninputkeypress();
 
     @Attribute(events = @EventName("inputkeyup"))
-    public abstract String getOninputkeypup();
+    public abstract String getOninputkeyup();
 
     @Attribute(events = @EventName("inputfocus"))
     public abstract String getOninputfocus();
