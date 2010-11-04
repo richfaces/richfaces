@@ -37,8 +37,11 @@ import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.component.AjaxContainer;
+import org.richfaces.component.ComponentIterators;
 import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.renderkit.util.CoreRendererUtils;
+
+import com.google.common.collect.Iterators;
 
 /**
  * @author Nick Belaevski
@@ -110,23 +113,40 @@ public final class ComponentIdResolver {
         return c;
     }
 
-    private static String resolveMetaComponentId(FacesContext context, UIComponent component, String metaComponentId) {
-        UIComponent c = component;
-        while (c != null) {
-            if (c instanceof MetaComponentResolver) {
-                MetaComponentResolver metaComponentResolver = (MetaComponentResolver) c;
+    private static Iterator<MetaComponentResolver> createResolversChainIterator(UIComponent component) {
+        return Iterators.filter(ComponentIterators.parentsAndSelf(component), MetaComponentResolver.class);
+    }
+    
+    private static String substituteUnresolvedMetaComponentId(FacesContext context, UIComponent component, String metaComponentId) {
+        Iterator<MetaComponentResolver> iterator = createResolversChainIterator(component);
+        
+        while (iterator.hasNext()) {
+            MetaComponentResolver metaComponentResolver = (MetaComponentResolver) iterator.next();
+            
+            String resolvedId = metaComponentResolver.substituteUnresolvedClientId(context, component, metaComponentId);
 
-                String resolvedId = metaComponentResolver.resolveClientId(context, component, metaComponentId);
-
-                if (resolvedId != null) {
-                    return resolvedId;
-                }
+            if (resolvedId != null) {
+                return resolvedId;
             }
-
-            c = c.getParent();
         }
+        
+        return null;
+    }
+    
+    private static String resolveMetaComponentId(FacesContext context, UIComponent component, String metaComponentId) {
+        Iterator<MetaComponentResolver> iterator = createResolversChainIterator(component);
+        
+        while (iterator.hasNext()) {
+            MetaComponentResolver metaComponentResolver = (MetaComponentResolver) iterator.next();
+            
+            String resolvedId = metaComponentResolver.resolveClientId(context, component, metaComponentId);
 
-        return metaComponentSubstitutions.get(metaComponentId);
+            if (resolvedId != null) {
+                return resolvedId;
+            }
+        }
+        
+        return null;
     }
 
     //used in unit tests
@@ -297,8 +317,16 @@ public final class ComponentIdResolver {
 
                 if (metaComponentId != null && metaComponentId.length() != 0) {
                     resolvedId = resolveMetaComponentId(facesContext, bottomMatch, metaComponentId);
-                }
 
+                    if (resolvedId == null) {
+                        resolvedId = substituteUnresolvedMetaComponentId(facesContext, bottomMatch, metaComponentId);
+                    }
+                    
+                    if (resolvedId == null) {
+                        resolvedId = metaComponentSubstitutions.get(metaComponentId);
+                    }
+                }
+                
                 if (CoreRendererUtils.GLOBAL_META_COMPONENTS.contains(resolvedId)) {
                     resolvedIds.clear();
                     resolvedIds.add(resolvedId);

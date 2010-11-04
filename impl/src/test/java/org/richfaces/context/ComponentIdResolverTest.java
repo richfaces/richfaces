@@ -39,6 +39,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.richfaces.component.MetaComponentResolver;
+import org.richfaces.renderkit.AjaxConstants;
 
 /**
  * @author Nick Belaevski
@@ -238,5 +239,29 @@ public class ComponentIdResolverTest {
 
         Set<String> resolvedIds = resolver.getResolvedIds();
         assertEquals(asSet("form:table:input", "form:table:column@head", "form:table:[1]:column"), resolvedIds);
+    }
+    
+    @Test
+    public void testUnresolvedMetaComponentSubstitutionCompatibility() throws Exception {
+        ComponentIdResolver resolver = createComponentIdResolver();
+        
+        resolver.addId(META_CLIENT_ID);
+
+        resolver.resolve(evaluateComponentExpression("#{testBean.linkInRegion}"));
+
+        Set<String> resolvedIds = resolver.getResolvedIds();
+        assertEquals(asSet("firstRegion"), resolvedIds);
+    }
+
+    @Test
+    public void testUnresolvedMetaComponentSubstitution() throws Exception {
+        ComponentIdResolver resolver = createComponentIdResolver();
+        
+        resolver.addId(META_CLIENT_ID);
+
+        resolver.resolve(evaluateComponentExpression("#{testBean.linkOutRegion}"));
+
+        Set<String> resolvedIds = resolver.getResolvedIds();
+        assertEquals(asSet(AjaxConstants.ALL), resolvedIds);
     }
 }

@@ -22,9 +22,14 @@
 
 		<ui:fragment binding="#{testBean.firstRegion}" id="firstRegion">
 			<h:outputText binding="#{testBean.outputInRegion}" id="outputInRegion" />
+			
+			<ui:fragment binding="#{testBean.linkInRegion}" id="linkInRegion" />
 		</ui:fragment>
 
 		<h:outputText binding="#{testBean.outputOutRegion}" id="outputOutRegion" />
+		
+		<ui:fragment binding="#{testBean.linkOutRegion}" id="linkOutRegion" />
+	
 	</h:body>
 </f:view>
 </html>
