@@ -26,7 +26,8 @@ JSNode.prototype = {
 			'"':"&quot;",
 			'\'':"&apos;",
 			'\u00A0':"&nbsp;"
-	}, 
+	},
+
 	// Public functions
 	getInnerHTML : function(context) {
 		var children = [];
@@ -38,12 +39,7 @@ JSNode.prototype = {
 	},
 	// Escape XML symbols - < > & ' ...
 	xmlEscape : function(value) {
-		var text = value ? value.toString() : "";
-		for(var i in this._symbols ) {
-			text = text.replace(i,this._symbols[i]);
-		
-		}
-		return text;
+		return jQuery("<div></div>").text(value).html();
 	}
 };
 
