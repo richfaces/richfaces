@@ -68,6 +68,7 @@ public class SessionManagerImpl implements SessionManager {
     }
 
     public void removePushSession(Session session) {
+        // TODO - possible null pointer exception
         sessionMap.remove(session.getId());
         if (session != null) {
             sessionQueue.remove(session);
@@ -76,6 +77,7 @@ public class SessionManagerImpl implements SessionManager {
     
     public void destroy() {
         //TODO notify all session
+        // TODO - synchronize clear/remove/clear. Other thread can insert new value during destroy.
         sessionQueue.clear();
         
         while (!sessionMap.isEmpty()) {

@@ -36,6 +36,7 @@ import org.richfaces.application.push.Session;
  * 
  */
 //TODO - optimize algorithm
+// TODO - use BlockingQueue ?
 final class SessionQueue {
 
     private static final Comparator<? super Session> SESSIONS_COMPARATOR = new Comparator<Session>() {
