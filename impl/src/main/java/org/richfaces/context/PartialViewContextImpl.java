@@ -71,8 +71,11 @@ public class PartialViewContextImpl extends PartialViewContext {
     private FacesContext facesContext;
 
     private Collection<String> executeIds = null;
+
     private Collection<String> renderIds = null;
 
+    private Collection<String> componentRenderIds = null;
+    
     private Boolean renderAll = null;
 
     private String activatorComponentId = null;
@@ -83,6 +86,12 @@ public class PartialViewContextImpl extends PartialViewContext {
     private boolean limitRender = false;
 
     private PartialViewContext wrappedViewContext;
+
+    private String onbeforedomupdate;
+
+    private String oncomplete;
+
+    private Object responseData;
 
     public PartialViewContextImpl(PartialViewContext wrappedViewContext, FacesContext facesContext) {
         super();
@@ -98,7 +107,7 @@ public class PartialViewContextImpl extends PartialViewContext {
         if (detectContextMode() == ContextMode.DIRECT) {
             if (executeIds == null) {
                 executeIds = new LinkedHashSet<String>();
-                setupExecuteIds(executeIds);
+                visitActivatorAtExecute();
             }
 
             return executeIds;
@@ -237,7 +246,7 @@ public class PartialViewContextImpl extends PartialViewContext {
         PartialViewContext pvc = facesContext.getPartialViewContext();
         UIViewRoot viewRoot = facesContext.getViewRoot();
         Collection<String> phaseIds = pvc.getRenderIds();
-        setupRenderIds(phaseIds);
+        visitActivatorAtRender(phaseIds);
 
         try {
             PartialResponseWriter writer = pvc.getPartialResponseWriter();
@@ -285,14 +294,28 @@ public class PartialViewContextImpl extends PartialViewContext {
         }
     }
 
-    private void setupExecuteIds(Collection<String> ids) {
-        ExecuteComponentCallback callback = new ExecuteComponentCallback(behaviorEvent);
+    private void setupExecuteCallbackData(ExecuteComponentCallback callback) {
+        executeIds.addAll(callback.getExecuteIds());
 
-        if (visitActivatorComponent(activatorComponentId, callback)) {
-            ids.addAll(callback.getComponentIds());
+        setupRenderCallbackData(callback);
+    }
+    
+    private void setupRenderCallbackData(RenderComponentCallback callback) {
+        componentRenderIds = callback.getRenderIds();
+        onbeforedomupdate = callback.getOnbeforedomupdate();
+        oncomplete = callback.getOncomplete();
+        responseData = callback.getData();
+        limitRender = callback.isLimitRender();
+    }
+    
+    private void visitActivatorAtExecute() {
+        ExecuteComponentCallback callback = new ExecuteComponentCallback(facesContext, behaviorEvent);
 
-            if (!ids.contains(ALL)) {
-                addImplicitExecuteIds(ids);
+        if (visitActivatorComponent(activatorComponentId, callback, EnumSet.of(VisitHint.SKIP_UNRENDERED))) {
+            setupExecuteCallbackData(callback);
+            
+            if (!executeIds.contains(ALL)) {
+                addImplicitExecuteIds(executeIds);
             }
         } else {
             //TODO - log or exception?
@@ -300,25 +323,29 @@ public class PartialViewContextImpl extends PartialViewContext {
         }
     }
 
-    private void setupRenderIds(Collection<String> ids) {
+    private void visitActivatorAtRender(Collection<String> ids) {
         if (!isRenderAll()) {
-            RenderComponentCallback callback = new RenderComponentCallback(behaviorEvent);
+            RenderComponentCallback callback = new RenderComponentCallback(facesContext, behaviorEvent);
 
-            if (visitActivatorComponent(activatorComponentId, callback)) {
-                ids.addAll(callback.getComponentIds());
-                limitRender = callback.isLimitRender();
-
-                if (!Boolean.TRUE.equals(renderAll) && !ids.contains(ALL)) {
-                    addImplicitRenderIds(ids, limitRender);
-
-                    //TODO - review
-                    AjaxContext ajaxContext = AjaxContext.getCurrentInstance();
-                    ajaxContext.setOnbeforedomupdate(callback.getOnbeforedomupdate());
-                    ajaxContext.appendOncomplete(callback.getOncomplete());
-                    ajaxContext.setResponseData(callback.getData());
-                }
+            if (visitActivatorComponent(activatorComponentId, callback, EnumSet.noneOf(VisitHint.class))) {
+                setupRenderCallbackData(callback);
             } else {
                 //TODO - the same as for "execute"
+            }
+
+            //take collection value stored during execute
+            if (componentRenderIds != null) {
+                ids.addAll(componentRenderIds);
+            }
+
+            if (!Boolean.TRUE.equals(renderAll) && !ids.contains(ALL)) {
+                addImplicitRenderIds(ids, limitRender);
+                
+                //TODO - review
+                AjaxContext ajaxContext = AjaxContext.getCurrentInstance();
+                ajaxContext.setOnbeforedomupdate(onbeforedomupdate);
+                ajaxContext.appendOncomplete(oncomplete);
+                ajaxContext.setResponseData(responseData);
             }
         }
     }
@@ -407,10 +434,9 @@ public class PartialViewContextImpl extends PartialViewContext {
         }
     }
 
-    private boolean visitActivatorComponent(String componentActivatorId, VisitCallback visitCallback) {
+    private boolean visitActivatorComponent(String componentActivatorId, VisitCallback visitCallback, Set<VisitHint> visitHints) {
         
         Set<String> idsToVisit = Collections.singleton(componentActivatorId);
-        Set<VisitHint> visitHints = EnumSet.of(VisitHint.SKIP_UNRENDERED);
         VisitContext visitContext = new ExecuteExtendedVisitContext(facesContext, idsToVisit, visitHints);
 
         boolean visitResult = facesContext.getViewRoot().visitTree(visitContext, visitCallback);

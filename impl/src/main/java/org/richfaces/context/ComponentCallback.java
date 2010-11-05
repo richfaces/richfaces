@@ -43,20 +43,15 @@ import org.richfaces.renderkit.util.CoreRendererUtils;
  */
 abstract class ComponentCallback implements VisitCallback {
 
-    private Collection<String> componentIds = new LinkedHashSet<String>();
+    protected final FacesContext facesContext;
 
     private final String behaviorEvent;
-    private final String defaultIdAttribute;
 
-    ComponentCallback(String behaviorEvent, String defaultIdAttribute) {
+    ComponentCallback(FacesContext facesContext, String behaviorEvent) {
         super();
 
+        this.facesContext = facesContext;
         this.behaviorEvent = behaviorEvent;
-        this.defaultIdAttribute = defaultIdAttribute;
-    }
-
-    protected String getDefaultComponentId() {
-        return null;
     }
 
     private AjaxClientBehavior findBehavior(UIComponent target) {
@@ -82,32 +77,22 @@ abstract class ComponentCallback implements VisitCallback {
         return null;
     }
 
-    protected abstract Object getBehaviorAttributeValue(AjaxClientBehavior behavior);
-
-    protected abstract Object getAttributeValue(UIComponent component);
-
-    protected void doVisit(FacesContext context, UIComponent target, AjaxClientBehavior behavior) {
-        Object attributeObject;
-
-        if (behavior == null) {
-            attributeObject = getAttributeValue(target);
-        } else {
-            attributeObject = getBehaviorAttributeValue(behavior);
-        }
-
+    protected Collection<String> resolveComponents(Object value, UIComponent target, String defaultValue) {
         //TODO - unit tests check for "@none" element
-        Collection<String> attributeIds = CoreAjaxRendererUtils.asIdsSet(attributeObject);
-        if (attributeIds == null) {
-            attributeIds = new LinkedHashSet<String>();
+        Collection<String> ids = CoreAjaxRendererUtils.asIdsSet(value);
+        if (ids == null) {
+            ids = new LinkedHashSet<String>(1);
         }
 
-        if (attributeIds.isEmpty() && defaultIdAttribute != null) {
+        if (ids.isEmpty() && defaultValue != null) {
             // asSet() returns copy of original set and we're free to modify it
-            attributeIds.add(defaultIdAttribute);
+            ids.add(defaultValue);
         }
 
-        componentIds.addAll(CoreRendererUtils.INSTANCE.findComponentsFor(context, target, attributeIds));
+        return CoreRendererUtils.INSTANCE.findComponentsFor(facesContext, target, ids);
     }
+    
+    protected abstract void doVisit(UIComponent target, AjaxClientBehavior behavior);
 
     public final VisitResult visit(VisitContext visitContext, UIComponent target) {
         AjaxClientBehavior ajaxBehavior = null;
@@ -116,13 +101,9 @@ abstract class ComponentCallback implements VisitCallback {
             ajaxBehavior = findBehavior(target);
         }
 
-        doVisit(visitContext.getFacesContext(), target, ajaxBehavior);
+        doVisit(target, ajaxBehavior);
 
         return VisitResult.COMPLETE;
-    }
-
-    public Collection<String> getComponentIds() {
-        return componentIds;
     }
 
 }

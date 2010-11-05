@@ -21,6 +21,9 @@
 
 package org.richfaces.context;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
@@ -33,6 +36,8 @@ import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
  */
 class RenderComponentCallback extends ComponentCallback {
 
+    private Collection<String> renderIds = null;
+    
     private boolean limitRender = false;
 
     private String oncomplete;
@@ -41,8 +46,8 @@ class RenderComponentCallback extends ComponentCallback {
 
     private Object data;
 
-    RenderComponentCallback(String behaviorEvent) {
-        super(behaviorEvent, null);
+    RenderComponentCallback(FacesContext facesContext, String behaviorEvent) {
+        super(facesContext, behaviorEvent);
     }
 
     public boolean isLimitRender() {
@@ -61,31 +66,28 @@ class RenderComponentCallback extends ComponentCallback {
         return data;
     }
 
+    public Collection<String> getRenderIds() {
+        return (renderIds != null) ? renderIds : Collections.<String>emptySet();
+    }
+
     @Override
-    protected void doVisit(FacesContext context, UIComponent target, AjaxClientBehavior behavior) {
-        super.doVisit(context, target, behavior);
-
-        limitRender = CoreAjaxRendererUtils.isAjaxLimitRender(target);
-        onbeforedomupdate = CoreAjaxRendererUtils.getAjaxOnBeforeDomUpdate(target);
-        oncomplete = CoreAjaxRendererUtils.getAjaxOncomplete(target);
-        data = CoreAjaxRendererUtils.getAjaxData(target);
-
+    protected void doVisit(UIComponent target, AjaxClientBehavior behavior) {
+        Object renderValue;
         if (behavior != null) {
+            renderValue = behavior.getRender();
             limitRender = behavior.isLimitRender();
             onbeforedomupdate = behavior.getOnbeforedomupdate();
             oncomplete = behavior.getOncomplete();
             data = behavior.getData();
+        } else {
+            renderValue = target.getAttributes().get("render");
+            limitRender = CoreAjaxRendererUtils.isAjaxLimitRender(target);
+            onbeforedomupdate = CoreAjaxRendererUtils.getAjaxOnBeforeDomUpdate(target);
+            oncomplete = CoreAjaxRendererUtils.getAjaxOncomplete(target);
+            data = CoreAjaxRendererUtils.getAjaxData(target);
         }
-    }
-
-    @Override
-    public Object getAttributeValue(UIComponent component) {
-        return component.getAttributes().get("render");
-    }
-
-    @Override
-    protected Object getBehaviorAttributeValue(AjaxClientBehavior behavior) {
-        return behavior.getRender();
+        
+        renderIds = resolveComponents(renderValue, target, null);
     }
 
 }

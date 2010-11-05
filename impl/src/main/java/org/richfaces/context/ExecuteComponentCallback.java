@@ -21,7 +21,11 @@
 
 package org.richfaces.context;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.component.AjaxClientBehavior;
 import org.richfaces.component.AjaxContainer;
@@ -30,19 +34,30 @@ import org.richfaces.component.AjaxContainer;
  * @author akolonitsky
  * @since Oct 13, 2009
  */
-class ExecuteComponentCallback extends ComponentCallback {
+class ExecuteComponentCallback extends RenderComponentCallback {
 
-    ExecuteComponentCallback(String behaviorEvent) {
-        super(behaviorEvent, AjaxContainer.META_CLIENT_ID);
+    private Collection<String> executeIds = null;
+    
+    ExecuteComponentCallback(FacesContext facesContext, String behaviorEvent) {
+        super(facesContext, behaviorEvent);
     }
 
     @Override
-    public Object getAttributeValue(UIComponent component) {
-        return component.getAttributes().get("execute");
+    protected void doVisit(UIComponent target, AjaxClientBehavior behavior) {
+        super.doVisit(target, behavior);
+        
+        Object value;
+        if (behavior != null) {
+            value = behavior.getExecute();
+        } else {
+            value = target.getAttributes().get("execute");
+        }
+        
+        executeIds = resolveComponents(value, target, AjaxContainer.META_CLIENT_ID);
     }
-
-    @Override
-    protected Object getBehaviorAttributeValue(AjaxClientBehavior behavior) {
-        return behavior.getExecute();
+    
+    public Collection<String> getExecuteIds() {
+        return (executeIds != null) ? executeIds : Collections.<String>emptySet();
     }
+    
 }
