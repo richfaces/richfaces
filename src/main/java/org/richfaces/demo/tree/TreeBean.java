@@ -28,9 +28,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.swing.tree.TreeNode;
 
 import org.richfaces.demo.tree.model.CD;
@@ -43,7 +43,7 @@ import org.richfaces.event.TreeSelectionEvent;
  * 
  */
 @ManagedBean
-@SessionScoped
+@ApplicationScoped
 public class TreeBean implements Serializable {
     @ManagedProperty(value = "#{cdsParser.cdsList}")
     private List<CDXmlDescriptor> cdXmlDescriptors;
