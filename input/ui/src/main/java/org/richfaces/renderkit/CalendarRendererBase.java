@@ -288,7 +288,7 @@ public class CalendarRendererBase extends InputRendererBase {
     }
     
     public String getButtonIcon(FacesContext facesContext, UIComponent component) {
-        boolean disable  = (Boolean)component.getAttributes().get("disable");
+        boolean disable  = (Boolean)component.getAttributes().get("disabled");
         String buttonIcon = (String)component.getAttributes().get("buttonIcon");
         if(disable) {
             buttonIcon = (String)component.getAttributes().get("buttonIconDisabled");
