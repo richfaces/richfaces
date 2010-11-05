@@ -41,7 +41,4 @@
     border-color : '#{richSkin.tipBorderColor}';
     font-family: '#{richSkin.generalFamilyFont}';
     font-size: '#{richSkin.generalSizeFont}';
-    float: left;
-    position: absolute;
-    display: none;
 }

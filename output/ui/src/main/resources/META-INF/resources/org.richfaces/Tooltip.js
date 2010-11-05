@@ -128,7 +128,7 @@
             this.__addUserEventHandler("beforehide");
             this.__addUserEventHandler("beforeshow");
 
-            this.popup = new RichFaces.ui.Popup(this.id + ":cntr", {
+            this.popup = new RichFaces.ui.Popup(this.id, {
                 attachTo: this.target,
                 attachToBody: false,
                 positionType: "TOOLTIP",
@@ -186,7 +186,6 @@
             var tooltip = this;
             this.__delay(this.options.hideDelay, function () {
                 tooltip.popup.hide();
-                $(rf.getDomElement(tooltip.id)).hide();
             });
         },
 
@@ -222,7 +221,6 @@
             var tooltip = this;
             this.__delay(this.options.showDelay, function () {
                 tooltip.popup.show(event);
-                $(rf.getDomElement(tooltip.id)).show();
             });
         },
 
