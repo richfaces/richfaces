@@ -266,6 +266,8 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
             pvc.getRenderIds().add(
                 component.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
                     + AbstractAutocomplete.ITEMS_META_COMPONENT_ID);
+            
+            context.renderResponse();
         }
     }
 
