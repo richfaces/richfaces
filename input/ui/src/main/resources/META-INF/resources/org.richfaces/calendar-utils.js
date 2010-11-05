@@ -267,10 +267,10 @@
 
 		getLastWeekOfPrevYear: function(o) {
 			var year = o.date.getFullYear()-1;
-			var days = (isLeapYear(year) ? 366 : 365);
+			var days = (this.isLeapYear(year) ? 366 : 365);
 			var obj = this.getFirstWeek(year, o.mdifw, o.fdow);
 			days = (days - 7 + o.firstDay);
-			var weeks = Math.floor(days/7)+1;
+			var weeks = Math.ceil(days/7);
 			  
 			return  weeks+obj.weekNumber;
 		},
@@ -282,7 +282,7 @@
 			if (month==0) 
 			{
 				if (o.weekNumber==1) return 1;
-				return getLastWeekOfPrevYear(o);
+				return this.getLastWeekOfPrevYear(o);
 			}
 			var	oneweek =  604800000;
 			var d = new Date(year, month,1);
