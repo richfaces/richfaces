@@ -255,6 +255,7 @@
 .rf-ca-edtr-shdw {
 	background: '#{richSkin.tableBackgroundColor}';
 	opacity: 0.5;
+	filter: 'alpha(opacity=50)';
 }
 
 .rf-ca-time-layout {
@@ -369,6 +370,7 @@
 	background-color: '#{richSkin.shadowBackgroundColor}';
 	position: absolute;
 	opacity: 0.3;
+	filter: 'alpha(opacity=30)';
 }
 
 .rf-ca-edtr-btn {
