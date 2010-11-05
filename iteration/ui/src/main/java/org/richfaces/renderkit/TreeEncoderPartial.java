@@ -27,7 +27,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 
 import org.ajax4jsf.javascript.JSFunction;
-import org.richfaces.component.AbstractTree;
+import org.richfaces.component.AbstractTreeNode;
 
 /**
  * @author Nick Belaevski
@@ -35,10 +35,14 @@ import org.richfaces.component.AbstractTree;
  */
 class TreeEncoderPartial extends TreeEncoderBase {
 
+    protected final AbstractTreeNode treeNode;
+    
     private Object rowKey;
 
-    public TreeEncoderPartial(FacesContext context, AbstractTree tree) {
-        super(context, tree);
+    public TreeEncoderPartial(FacesContext context, AbstractTreeNode treeNode) {
+        super(context, treeNode.findTreeComponent());
+        
+        this.treeNode = treeNode;
         
         this.rowKey = tree.getRowKey();
 
@@ -49,8 +53,10 @@ class TreeEncoderPartial extends TreeEncoderBase {
     
     @Override
     public void encode() throws IOException {
+        String elementId = treeNode.getClientId(context);
+        
         PartialResponseWriter prw = context.getPartialViewContext().getPartialResponseWriter();
-        prw.startUpdate(tree.getClientId(context));
+        prw.startUpdate(elementId);
 
         Object initialRowKey = tree.getRowKey();
         try {
@@ -68,7 +74,7 @@ class TreeEncoderPartial extends TreeEncoderBase {
         }
 
         prw.startEval();
-        JSFunction function = new JSFunction("RichFaces.ui.TreeNode.initNodeByAjax", tree.getClientId(context));
+        JSFunction function = new JSFunction("RichFaces.ui.TreeNode.initNodeByAjax", elementId);
         prw.write(function.toScript());
         prw.endEval();
     }

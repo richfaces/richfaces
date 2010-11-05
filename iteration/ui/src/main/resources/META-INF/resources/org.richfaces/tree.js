@@ -21,9 +21,9 @@
  */ 
 (function($, richfaces) {
 
-	var DECODER_HELPER_ID = "__treeDecoderHelper";
-
 	var NEW_NODE_TOGGLE_STATE = "__NEW_NODE_TOGGLE_STATE";
+	
+	var TRIGGER_NODE_AJAX_UPDATE = "__TRIGGER_NODE_AJAX_UPDATE";
 	
 	var SELECTION_STATE = "__SELECTION_STATE";	
 		
@@ -233,8 +233,6 @@
 		return tree != findTree(elt);
 	};
 	
-	var ncSepChar;
-	
 	richfaces.ui.Tree = richfaces.ui.TreeNode.extendClass({
 
 		name: "Tree",
@@ -304,7 +302,8 @@
 				var form = this.__treeRootElt.closest('form');
 				richfaces.submitForm(form, clientParams);
 			} else {
-				this.__ajaxSubmitFunction(event, toggleSource + ncSepChar + DECODER_HELPER_ID, clientParams);
+				clientParams[toggleSource + TRIGGER_NODE_AJAX_UPDATE] = newNodeState;
+				this.__ajaxSubmitFunction(event, toggleSource, clientParams);
 			}
 		},
 		
@@ -376,8 +375,4 @@
 		}
 	});
 
-	richfaces.ui.Tree.setNamingContainerSeparatorChar = function(s) {
-		ncSepChar = s.charAt(0);
-	};
-	
 }(jQuery, RichFaces));

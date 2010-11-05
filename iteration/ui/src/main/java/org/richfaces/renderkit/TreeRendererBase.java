@@ -21,7 +21,6 @@
  */
 package org.richfaces.renderkit;
 
-import static org.richfaces.component.AbstractTree.NODE_META_COMPONENT_ID;
 import static org.richfaces.component.AbstractTree.SELECTION_META_COMPONENT_ID;
 import static org.richfaces.renderkit.util.AjaxRendererUtils.AJAX_FUNCTION_NAME;
 import static org.richfaces.renderkit.util.AjaxRendererUtils.buildAjaxFunction;
@@ -33,8 +32,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.PartialViewContext;
@@ -46,9 +45,7 @@ import org.richfaces.component.AbstractTree;
 import org.richfaces.component.AbstractTreeNode;
 import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.component.SwitchType;
-import org.richfaces.component.TreeDecoderHelper;
 import org.richfaces.event.TreeSelectionEvent;
-import org.richfaces.event.TreeToggleEvent;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
@@ -68,9 +65,24 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
 
     private static final JSReference SOURCE_JS_REF = new JSReference("source");
 
-    private static final String NEW_NODE_TOGGLE_STATE = "__NEW_NODE_TOGGLE_STATE";
-
     private static final String SELECTION_STATE = "__SELECTION_STATE";
+
+    /**
+     * @author Nick Belaevski
+     * 
+     */
+    private final class RowKeyContextCallback implements ContextCallback {
+        private Object rowKey;
+
+        public void invokeContextCallback(FacesContext context, UIComponent target) {
+            AbstractTreeNode treeNode = (AbstractTreeNode) target;
+            rowKey = treeNode.findTreeComponent().getRowKey();
+        }
+
+        public Object getRowKey() {
+            return rowKey;
+        }
+    }
 
     enum NodeState {
         expanded("rf-tr-nd-exp", "rf-trn-hnd-exp", "rf-trn-ico-nd"), 
@@ -146,10 +158,6 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
         new TreeEncoderFull(context, tree).encode();
     }
 
-    protected String getDecoderHelperId(FacesContext facesContext) {
-        return UINamingContainer.getSeparatorChar(facesContext) + TreeDecoderHelper.HELPER_ID;
-    }
-
     protected String getAjaxSubmitFunction(FacesContext context, UIComponent component) {
         AbstractTree tree = (AbstractTree) component;
 
@@ -189,7 +197,7 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
             try {
                 tree.setRowKey(context, selectionKey);
                 if (tree.isRowAvailable()) {
-                    selectedNodeId = tree.getClientId(context);
+                    selectedNodeId = tree.findTreeNodeComponent().getClientId(context);
                 }
             } finally {
                 try {
@@ -226,20 +234,10 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
         return selectionType;
     }
 
-    protected String getNamingContainerSeparatorChar(FacesContext context) {
-        return String.valueOf(UINamingContainer.getSeparatorChar(context));
-    }
-
-    /* (non-Javadoc)
-     * @see org.richfaces.renderkit.MetaComponentRenderer#encodeMetaComponent(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.String)
-     */
     public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId)
         throws IOException {
 
-        if (NODE_META_COMPONENT_ID.equals(metaComponentId)) {
-            AbstractTree tree = (AbstractTree) component;
-            new TreeEncoderPartial(context, tree).encode();
-        } else if (SELECTION_META_COMPONENT_ID.equals(metaComponentId)) {
+        if (SELECTION_META_COMPONENT_ID.equals(metaComponentId)) {
             PartialResponseWriter writer = context.getPartialViewContext().getPartialResponseWriter();
             
             writer.startUpdate(getSelectionStateInputId(context, component));
@@ -261,30 +259,7 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
     }
 
     public void decodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) {
-        if (NODE_META_COMPONENT_ID.equals(metaComponentId)) {
-            final Map<String, String> map = context.getExternalContext().getRequestParameterMap();
-            String newToggleState = map.get(component.getClientId(context) + NEW_NODE_TOGGLE_STATE);
-            if (newToggleState != null) {
-
-                AbstractTree tree = (AbstractTree) component;
-                AbstractTreeNode treeNode = tree.getTreeNodeComponent();
-                
-                if (treeNode == null) {
-                    return;
-                }
-                
-                boolean expanded = Boolean.valueOf(newToggleState);
-                if (tree.isExpanded() ^ expanded) {
-                    new TreeToggleEvent(treeNode, expanded).queue();
-                }
-
-                PartialViewContext pvc = context.getPartialViewContext();
-                if (pvc.isAjaxRequest()) {
-                    pvc.getRenderIds().add(tree.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR 
-                        + AbstractTree.NODE_META_COMPONENT_ID);
-                }
-            }
-        }
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -298,8 +273,9 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
         Object selectionRowKey = null;
 
         if (!Strings.isNullOrEmpty(selectedNode)) {
-            String selectionRowKeyString = selectedNode.substring(component.getClientId(context).length() + 1 /* naming container separator char */);
-            selectionRowKey = tree.getRowKeyConverter().getAsObject(context, component, selectionRowKeyString);
+            RowKeyContextCallback rowKeyContextCallback = new RowKeyContextCallback();
+            tree.invokeOnComponent(context, selectedNode, rowKeyContextCallback);
+            selectionRowKey = rowKeyContextCallback.getRowKey();
         }
 
         Collection<Object> selection = tree.getSelection();

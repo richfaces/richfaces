@@ -25,44 +25,30 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Map;
 
-import javax.el.ELContext;
-import javax.el.ELException;
 import javax.el.ValueExpression;
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UpdateModelException;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ExceptionQueuedEvent;
-import javax.faces.event.ExceptionQueuedEventContext;
 import javax.faces.event.FacesEvent;
-import javax.faces.event.PhaseId;
 import javax.swing.tree.TreeNode;
 
 import org.ajax4jsf.model.DataComponentState;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
-import org.richfaces.application.MessageFactory;
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.appplication.FacesMessages;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.component.util.MessageUtil;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.convert.SequenceRowKeyConverter;
 import org.richfaces.event.TreeSelectionEvent;
 import org.richfaces.event.TreeSelectionListener;
-import org.richfaces.event.TreeToggleEvent;
-import org.richfaces.event.TreeToggleListener;
 import org.richfaces.model.ExtendedTreeDataModelImpl;
 import org.richfaces.model.SwingTreeNodeDataModelImpl;
 import org.richfaces.model.TreeDataModel;
@@ -88,8 +74,6 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
 
     public static final String COMPONENT_FAMILY = "org.richfaces.Tree";
 
-    public static final String NODE_META_COMPONENT_ID = "node";
-    
     public static final String SELECTION_META_COMPONENT_ID = "selection";
     
     private static final class MatchingTreeNodePredicate implements Predicate<UIComponent> {
@@ -132,12 +116,11 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     }
 
     private enum PropertyKeys {
-        expanded, selection
+        selection
     }
 
-    private transient TreeDecoderHelper treeDecoderHelper = new TreeDecoderHelper(this);
-
     public AbstractTree() {
+        setKeepSaved(true);
         setRendererType("org.richfaces.TreeRenderer");
     }
 
@@ -182,40 +165,6 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         getStateHelper().put(PropertyKeys.selection, selection);
     }
     
-    @SuppressWarnings("unchecked")
-    protected Boolean getLocalExpandedValue(FacesContext facesContext) {
-        Map<String, Object> stateMap = (Map<String, Object>) getStateHelper().get(PropertyKeys.expanded);
-        if (stateMap == null) {
-            return null;
-        }
-
-        String key = this.getClientId(facesContext);
-        return (Boolean) stateMap.get(key);
-    }
-
-    public boolean isExpanded() {
-        if (getRowKey() == null) {
-            return true;
-        }
-        
-        FacesContext context = getFacesContext();
-        Boolean localExpandedValue = getLocalExpandedValue(context);
-        if (localExpandedValue != null) {
-            return localExpandedValue.booleanValue();
-        }
-
-        ValueExpression ve = getValueExpression(PropertyKeys.expanded.toString());
-        if (ve != null) {
-            return Boolean.TRUE.equals(ve.getValue(context.getELContext()));
-        }
-
-        return false;
-    }
-
-    public void setExpanded(boolean newValue) {
-        getStateHelper().put(PropertyKeys.expanded, this.getClientId(getFacesContext()), newValue);
-    }
-
     @Override
     protected ExtendedDataModel<?> createExtendedDataModel() {
         ExtendedTreeDataModelImpl<?> model = new ExtendedTreeDataModelImpl<TreeNode>(new SwingTreeNodeDataModelImpl());
@@ -243,7 +192,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         return dataModel.getChildrenRowKeysIterator(rowKey);
     }
 
-    public AbstractTreeNode getTreeNodeComponent() {
+    public AbstractTreeNode findTreeNodeComponent() {
         if (getChildCount() == 0) {
             return null;
         }
@@ -262,60 +211,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     public void broadcast(FacesEvent event) throws AbortProcessingException {
         super.broadcast(event);
 
-        if (event instanceof TreeToggleEvent) {
-            TreeToggleEvent toggleEvent = (TreeToggleEvent) event;
-            boolean newExpandedValue = toggleEvent.isExpanded();
-
-            FacesContext context = getFacesContext();
-            ValueExpression expression = getValueExpression(PropertyKeys.expanded.toString());
-            if (expression != null) {
-                ELContext elContext = context.getELContext();
-                Exception caught = null;
-                FacesMessage message = null;
-                try {
-                    expression.setValue(elContext, newExpandedValue);
-                } catch (ELException e) {
-                    caught = e;
-                    String messageStr = e.getMessage();
-                    Throwable result = e.getCause();
-                    while (null != result &&
-                        result.getClass().isAssignableFrom(ELException.class)) {
-                        messageStr = result.getMessage();
-                        result = result.getCause();
-                    }
-                    if (null == messageStr) {
-                        MessageFactory messageFactory = ServiceTracker.getService(MessageFactory.class);
-                        message =
-                            messageFactory.createMessage(context, FacesMessages.UIINPUT_UPDATE,
-                                MessageUtil.getLabel(context, this));
-                    } else {
-                        message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                            messageStr,
-                            messageStr);
-                    }
-                } catch (Exception e) {
-                    caught = e;
-                    MessageFactory messageFactory = ServiceTracker.getService(MessageFactory.class);
-                    message =
-                        messageFactory.createMessage(context, FacesMessages.UIINPUT_UPDATE,
-                            MessageUtil.getLabel(context, this));
-                }
-                if (caught != null) {
-                    assert(message != null);
-                    UpdateModelException toQueue = new UpdateModelException(message, caught);
-                    ExceptionQueuedEventContext eventContext =
-                        new ExceptionQueuedEventContext(context,
-                            toQueue,
-                            this,
-                            PhaseId.UPDATE_MODEL_VALUES);
-                    context.getApplication().publishEvent(context,
-                        ExceptionQueuedEvent.class,
-                        eventContext);
-                }
-            } else {
-                setExpanded(newExpandedValue);
-            }
-        } else if (event instanceof TreeSelectionEvent) {
+        if (event instanceof TreeSelectionEvent) {
             TreeSelectionEvent selectionEvent = (TreeSelectionEvent) event;
             
             final Collection<Object> newSelection = selectionEvent.getNewSelection();
@@ -332,20 +228,6 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
                 Iterables.addAll(selectionCollection, newSelection);
             }
         }
-    }
-    
-    @Override
-    protected VisitResult visitDataChildrenMetaComponents(ExtendedVisitContext extendedVisitContext,
-        VisitCallback callback) {
-
-        if (ExtendedVisitContextMode.RENDER == extendedVisitContext.getVisitMode()) {
-            VisitResult result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback, NODE_META_COMPONENT_ID);
-            if (result != VisitResult.ACCEPT) {
-                return result;
-            }
-        }
-        
-        return super.visitDataChildrenMetaComponents(extendedVisitContext, callback);
     }
     
     @Override
@@ -373,7 +255,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     }
     
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
-        if (NODE_META_COMPONENT_ID.equals(metaComponentId) || SELECTION_META_COMPONENT_ID.equals(metaComponentId)) {
+        if (SELECTION_META_COMPONENT_ID.equals(metaComponentId)) {
             return getClientId(facesContext) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + metaComponentId;
         }
         
@@ -388,30 +270,17 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
 
     @Override
     protected Iterator<UIComponent> dataChildren() {
-        AbstractTreeNode treeNodeComponent = getTreeNodeComponent();
+        AbstractTreeNode treeNodeComponent = findTreeNodeComponent();
         if (treeNodeComponent != null) {
-            return Iterators.<UIComponent>concat(Iterators.<UIComponent>singletonIterator(treeNodeComponent), 
-                Iterators.singletonIterator(treeDecoderHelper));
+            return Iterators.<UIComponent>singletonIterator(treeNodeComponent);
         } else {
-            return Iterators.<UIComponent>singletonIterator(treeDecoderHelper);
+            return Iterators.<UIComponent>emptyIterator();
         }
     }
     
     @Override
     public DataComponentState getComponentState() {
         return new TreeComponentState();
-    }
-    
-    public void addToggleListener(TreeToggleListener listener) {
-        addFacesListener(listener);
-    }
-
-    public TreeToggleListener[] getTreeToggleListeners() {
-        return (TreeToggleListener[]) getFacesListeners(TreeToggleListener.class);
-    }
-    
-    public void removeToggleListener(TreeToggleListener listener) {
-        removeFacesListener(listener);
     }
     
     public void addSelectionListener(TreeSelectionListener listener) {
@@ -424,5 +293,19 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     
     public void removeSelectionListener(TreeSelectionListener listener) {
         removeFacesListener(listener);
+    }
+
+    @Attribute(hidden = true)
+    public boolean isExpanded() {
+        if (getRowKey() == null) {
+            return true;
+        }
+        
+        AbstractTreeNode treeNode = findTreeNodeComponent();
+        if (treeNode == null) {
+            return false;
+        }
+        
+        return treeNode.isExpanded();
     }
 }

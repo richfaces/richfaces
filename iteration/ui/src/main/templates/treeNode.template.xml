@@ -8,7 +8,7 @@
     <cc:interface>
         <cdk:class>org.richfaces.renderkit.html.TreeNodeRenderer
         </cdk:class>
-        <cdk:superclass>org.richfaces.renderkit.RendererBase</cdk:superclass>
+        <cdk:superclass>org.richfaces.renderkit.TreeNodeRendererBase</cdk:superclass>
         <cdk:component-family>org.richfaces.TreeNode
         </cdk:component-family>
         <cdk:renderer-type>org.richfaces.TreeNodeRenderer

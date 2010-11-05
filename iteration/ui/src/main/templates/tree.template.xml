@@ -29,7 +29,6 @@
             <cdk:call expression="encodeSelectionStateInput(facesContext, component)" />
             
             <script type="text/javascript">
-                RichFaces.ui.Tree.setNamingContainerSeparatorChar(#{toScriptArgs(getNamingContainerSeparatorChar(facesContext))});
                 <cdk:scriptObject name="options">
                     <cdk:scriptOption attributes="toggleType" defaultValue="SwitchType.DEFAULT" />
                     <cdk:scriptOption name="selectionType" value="#{getSelectionMode(facesContext, component)}" defaultValue="SwitchType.client" />

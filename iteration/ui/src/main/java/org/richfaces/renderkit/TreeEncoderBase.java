@@ -29,6 +29,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.richfaces.component.AbstractTree;
+import org.richfaces.component.AbstractTreeNode;
 import org.richfaces.component.TreeRange;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.renderkit.TreeRendererBase.NodeState;
@@ -72,7 +73,7 @@ abstract class TreeEncoderBase {
                     return false;
                 }
                 
-                return tree.getTreeNodeComponent() != null;
+                return tree.findTreeNodeComponent() != null;
             }
         };
         
@@ -117,6 +118,8 @@ abstract class TreeEncoderBase {
     }
     
     protected void writeTreeNodeStartElement(NodeState nodeState, boolean isLast) throws IOException {
+        AbstractTreeNode treeNodeComponent = tree.findTreeNodeComponent();
+
         context.getAttributes().put(TREE_NODE_HANDLE_CLASS_ATTRIBUTE, nodeState.getHandleClass());
         context.getAttributes().put(TREE_NODE_ICON_CLASS_ATTRIBUTE, nodeState.getIconClass());
         
@@ -124,9 +127,9 @@ abstract class TreeEncoderBase {
         responseWriter.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, 
             HtmlUtil.concatClasses("rf-tr-nd", isLast ? "rf-tr-nd-last" : null, nodeState.getNodeClass()), 
             null);
-        responseWriter.writeAttribute(HtmlConstants.ID_ATTRIBUTE, tree.getClientId(context), null);
+        responseWriter.writeAttribute(HtmlConstants.ID_ATTRIBUTE, treeNodeComponent.getClientId(context), null);
         
-        tree.getTreeNodeComponent().encodeAll(context);
+        treeNodeComponent.encodeAll(context);
     }
 
     protected void writeTreeNodeEndElement() throws IOException {
