@@ -34,7 +34,7 @@
 		<rich:panel id="sample1" styleClass="tooltip-text"
 			bodyClass="rich-laguna-panel-no-header">
 			<p>Here you can see <b>default client-side</b> tool-tip</p>
-			<rich:tooltip id="tt1" styleClass="tooltip">
+			<rich:tooltip id="tt1" styleClass="tooltip" layout="block">
 				<span style="white-space: nowrap"> This tool-tip content was
 				<strong>pre-rendered</strong> to the page.<br />
 				Also the tooltip following mouse by default </span>
@@ -45,7 +45,7 @@
 			<p>This tool-tip will not <b>follow mouse</b>. Also this tool-tip
 			has a <b>delay 1.5 sec</b>, so be patient!</p>
 			<rich:tooltip followMouse="false" showDelay="1500"
-				styleClass="tooltip-custom-body">
+				styleClass="tooltip-custom-body" layout="block">
 				<span style="white-space: nowrap"> This tool-tip content also
 				<strong>pre-rendered</strong> to the page.<br />
 				</span>
