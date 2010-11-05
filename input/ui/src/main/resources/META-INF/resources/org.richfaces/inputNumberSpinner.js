@@ -84,6 +84,17 @@
 	    		this.__setValue(value);
 	    	}
 	    },
+	    
+	    destroy: function (event) {
+	    	if (this.intervalId) {
+		    	window.clearInterval(this.intervalId);
+		    	this.decreaseButton.css("backgroundPosition", " 50% 40%").unbind("mouseout", this.destroy)
+					.unbind("mouseup", this.destroy);
+		    	this.increaseButton.css("backgroundPosition", " 50% 40%").unbind("mouseout", this.destroy)
+					.unbind("mouseup", this.destroy);
+		    	this.intervalId = null;
+	    	}
+	    },
 	
 	    __setValue: function (value, event, skipOnchange) {
 	    	if (!isNaN(value)) {
@@ -128,8 +139,8 @@
 	    	this.intervalId = window.setInterval(function() {
 	    		component.decrease(event);
 	    	}, this.delay);
-	    	var proxy = jQuery.proxy(this.__clearInterval, this);
-	    	this.decreaseButton.bind("mouseup", true, proxy).bind("mouseout", true, proxy)
+	    	var proxy = jQuery.proxy(this.destroy, this);
+	    	this.decreaseButton.bind("mouseup", proxy).bind("mouseout", proxy)
 	    		.css("backgroundPosition", "60% 60%");
 	    	event.preventDefault();
 	    },
@@ -140,20 +151,10 @@
 	    	this.intervalId = window.setInterval(function() {
 	    		component.increase(event);
 	    	}, this.delay);
-	    	var proxy = jQuery.proxy(this.__clearInterval, this);
+	    	var proxy = jQuery.proxy(this.destroy, this);
 	    	this.increaseButton.bind("mouseup", proxy).bind("mouseout", proxy)
 	    		.css("backgroundPosition", "60% 60%");
 	    	event.preventDefault();
-	    },
-	    
-	    __clearInterval: function (event) {
-	    	window.clearInterval(this.intervalId);
-	    	var button = this.increaseButton;
-	    	if (event.data) { // decreaseButton
-	    		button = this.decreaseButton;	    			
-	    	}
-	    	button.css("backgroundPosition", " 50% 40%").unbind("mouseout", this.__clearInterval)
-				.unbind("mouseup", this.__clearInterval);
 	    }	    
 	});
 }(window.RichFaces, jQuery));
