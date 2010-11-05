@@ -224,6 +224,7 @@
     						break;
     						
     					case rf.KEYS.ESC:
+    						e.preventDefault();
     						if(visible) {
     							this.hidePopup();
     						}
