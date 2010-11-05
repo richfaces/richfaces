@@ -12,6 +12,7 @@ import java.util.Locale;
 import javax.el.ValueExpression;
 import javax.faces.component.UIViewRoot;
 import javax.validation.constraints.Size;
+import javax.validation.groups.Default;
 
 import org.jboss.test.faces.mock.Environment;
 import org.jboss.test.faces.mock.Environment.Feature;
@@ -77,7 +78,7 @@ public class BeanValidatorServiceConstrainsTest {
     @Test
     public void testValidatorMessageExtractor() throws Exception {
         forProperty(Bean.class, "string");
-        Collection<ValidatorDescriptor> validators = expectValidators(Size.class);
+        Collection<ValidatorDescriptor> validators = expectValidators( Size.class);
         ValidatorDescriptor validatorDescriptor = Iterables.getOnlyElement(validators);
         assertEquals("size must be between 0 and 2",validatorDescriptor.getMessage().getSummary());
     }
@@ -92,9 +93,16 @@ public class BeanValidatorServiceConstrainsTest {
         assertTrue(validatorDescriptor.getAdditionalParameters().containsKey(param));
         assertEquals(value, validatorDescriptor.getAdditionalParameters().get(param));
     }
+    
+    /**
+     */
     private Collection<ValidatorDescriptor> expectValidators(Class<? extends Annotation>... validators) {
+        return expectValidatorsWithGroups(new Class<?>[0], validators);
+    }
+
+    private Collection<ValidatorDescriptor> expectValidatorsWithGroups(Class<?>[] groups, Class<? extends Annotation>... validators) {
         controller.replay();
-        Collection<ValidatorDescriptor> constrains = validatorService.getConstrains(environment.getFacesContext(), expression);
+        Collection<ValidatorDescriptor> constrains = validatorService.getConstrains(environment.getFacesContext(), expression,groups);
         controller.verify();
         assertEquals(validators.length, constrains.size());
         for (final Class<? extends Annotation> class1 : validators) {
@@ -107,4 +115,18 @@ public class BeanValidatorServiceConstrainsTest {
         }
         return constrains;
     }
+    
+    @Test
+    public void testGetConstrainsWithDefaulGroup() throws Exception {
+        forProperty(Bean.class, "string");expectValidatorsWithGroups(new Class<?>[]{Default.class},Size.class);        
+    }
+    @Test
+    public void testGetConstrainsWithNullGroup() throws Exception {
+        forProperty(Bean.class, "string");expectValidatorsWithGroups(null,Size.class);        
+    }
+    @Test
+    public void testGetConstrainsWithCustomGroup() throws Exception {
+        forProperty(Bean.class, "string");expectValidatorsWithGroups(new Class<?>[]{CustomGroup.class});        
+    }
+
 }

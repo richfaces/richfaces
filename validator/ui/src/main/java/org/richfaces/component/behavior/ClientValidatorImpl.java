@@ -71,6 +71,8 @@ import com.google.common.collect.Lists;
 public class ClientValidatorImpl extends AjaxBehavior implements ClientValidatorBehavior {
     
 
+    private static final Class<?>[] EMPTY_GROUPS = new Class<?>[0];
+
     private static final String VALUE = "value";
 
     private static final Logger LOG = RichfacesLogger.COMPONENTS.getLogger();
@@ -297,7 +299,7 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
             FacesContext ctx = FacesContext.getCurrentInstance();
             return (Class<?>[]) expression.getValue(ctx.getELContext());
         }
-        return null;
+        return EMPTY_GROUPS;
     }
 
     public void setGroups(Class<?>... groups) {

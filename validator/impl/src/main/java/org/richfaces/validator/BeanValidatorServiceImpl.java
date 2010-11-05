@@ -16,6 +16,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.validation.Validator;
 import javax.validation.metadata.ConstraintDescriptor;
+import javax.validation.metadata.ElementDescriptor.ConstraintFinder;
 import javax.validation.metadata.PropertyDescriptor;
 
 import org.richfaces.el.ValueDescriptor;
@@ -57,11 +58,16 @@ public class BeanValidatorServiceImpl implements BeanValidatorService {
 
     Collection<ValidatorDescriptor> processBeanAttribute(FacesContext context, ValueDescriptor descriptor,
         Class<?>... groups) {
-        PropertyDescriptor constraintsForProperty = getValidator(context).getConstraintsForClass(
-            descriptor.getBeanType()).getConstraintsForProperty(descriptor.getName());
+        PropertyDescriptor constraintsForProperty =
+            getValidator(context).getConstraintsForClass(descriptor.getBeanType()).getConstraintsForProperty(
+                descriptor.getName());
         if (null != constraintsForProperty) {
-            Set<ConstraintDescriptor<?>> constraints = constraintsForProperty.findConstraints()
-                .unorderedAndMatchingGroups(groups) // or the requested list of groups)
+            ConstraintFinder propertyConstraints = constraintsForProperty.findConstraints();
+            if (null != groups && groups.length > 0) {
+                // Filter groups, if required
+                propertyConstraints = propertyConstraints.unorderedAndMatchingGroups(groups);
+            }
+            Set<ConstraintDescriptor<?>> constraints = propertyConstraints // or the requested list of groups)
                 .getConstraintDescriptors();
 
             // ContextHolder is an arbitrary object, it will depend on the implementation
