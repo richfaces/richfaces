@@ -326,11 +326,13 @@
 		};
 
 		var beginReorder = function(event) {
-			idOfReorderingColumn = this.className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1];
-			jQuery(document).bind("mousemove", reorder);
-			header.find(".rf-edt-hdr-c").bind("mouseover", overReorder);
-			jQuery(document).one("mouseup", cancelReorder);
-			return false;
+			if (!jQuery(event.target).is("a, img, :input")) {
+				idOfReorderingColumn = this.className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1];
+				jQuery(document).bind("mousemove", reorder);
+				header.find(".rf-edt-hdr-c").bind("mouseover", overReorder);
+				jQuery(document).one("mouseup", cancelReorder);
+				return false;
+			}
 		};
 		
 		var overReorder = function(event) {
