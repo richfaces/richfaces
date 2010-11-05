@@ -174,6 +174,21 @@
 			</demo>
 		</demos>
 	</group>
+	<!-- group>
+		<name>Validation</name>
+		<demos>
+			<demo>
+				<id>clientValidation</id>
+				<name>Ajax/Client Validation</name>
+				<samples>
+					<sample>
+						<id>ajaxValidation</id>
+						<name>Simple Ajax Validation</name>
+					</sample>
+				</samples>
+			</demo>
+		</demos>
+	</group-->
 	<group>
 		<name>Data Iteration</name>
 		<demos>
