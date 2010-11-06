@@ -68,9 +68,9 @@ public class SessionManagerImpl implements SessionManager {
     }
 
     public void removePushSession(Session session) {
-        // TODO - possible null pointer exception
-        sessionMap.remove(session.getId());
+        // XXX - possible null pointer exception
         if (session != null) {
+            sessionMap.remove(session.getId());
             sessionQueue.remove(session);
         }
     }
