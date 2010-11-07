@@ -24,13 +24,13 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-root-parent</artifactId>
-        <version>4.0.0.20101107-M4</version>
+        <version>4.0.0-SNAPSHOT</version>
         <relativePath>../parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces</groupId>
     <artifactId>richfaces-distribution</artifactId>
-    <version>4.0.0.20101107-M4</version>
+    <version>4.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Richfaces Distribution Assembler</name>
 
@@ -187,8 +187,8 @@
     </build>
     
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/tags/4.0.0.20101107-M4/dist</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/tags/4.0.0.20101107-M4/dist</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/tags/4.0.0.20101107-M4/dist</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/dist</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/dist</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/</url>
     </scm>
 </project>
