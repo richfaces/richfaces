@@ -34,7 +34,7 @@
 
     <groupId>org.richfaces.examples</groupId>
     <artifactId>examples-aggregator</artifactId>
-    <version>4.0.0.20101107-M4</version>
+    <version>4.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>RichFaces Examples: Aggregator</name>
 
@@ -53,9 +53,9 @@
     </modules>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/tags/4.0.0.20101107-M4/examples</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/tags/4.0.0.20101107-M4/examples</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/tags/4.0.0.20101107-M4/examples</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/examples</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/examples</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/trunk/examples</url>
     </scm>
 
 </project>

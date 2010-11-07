@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.richfaces.examples</groupId>
         <artifactId>richfaces-example-parent</artifactId>
-        <version>4.0.0.20101107-M4</version>
+        <version>4.0.0-SNAPSHOT</version>
         <relativePath>../parent/pom.xml</relativePath>
     </parent>
 
@@ -12,7 +12,7 @@
 
     <groupId>org.richfaces.examples</groupId>
     <artifactId>input-demo</artifactId>
-    <version>4.0.0.20101107-M4</version>
+    <version>4.0.0-SNAPSHOT</version>
     <name>Richfaces Examples: Inputs</name>
     <packaging>war</packaging>
 
