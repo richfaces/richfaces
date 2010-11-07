@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.richfaces.ui</groupId>
         <artifactId>richfaces-ui-parent</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.0.0.20101107-M4</version>
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
@@ -77,9 +77,9 @@
     </dependencies>
     
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/output/panels/ui</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/output/panels/ui</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/tags/4.0.0.20101107-M4/ui/output/panels/ui</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/tags/4.0.0.20101107-M4/ui/output/panels/ui</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/tags/4.0.0.20101107-M4/ui/output/panels/ui</url>
     </scm>
 	
 </project>

@@ -17,15 +17,14 @@
 		USA, or see the FSF site: http://www.fsf.org.
 	-->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>org.richfaces.ui</groupId>
 		<artifactId>richfaces-ui-parent</artifactId>
-		<version>4.0.0-SNAPSHOT</version>
+		<version>4.0.0.20101107-M4</version>
 		<relativePath>../../parent/pom.xml</relativePath>
 	</parent>
 
@@ -103,8 +102,8 @@
 	</dependencies>
 
 	<scm>
-		<connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/validator/ui</connection>
-		<developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/validator/ui</developerConnection>
-		<url>http://fisheye.jboss.org/browse/richfaces</url>
+		<connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/tags/4.0.0.20101107-M4/ui/validator/ui</connection>
+		<developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/tags/4.0.0.20101107-M4/ui/validator/ui</developerConnection>
+		<url>http://fisheye.jboss.org/browse/richfaces/tags/4.0.0.20101107-M4/ui/validator/ui</url>
 	</scm>
 </project>
