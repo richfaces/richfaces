@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.richfaces.core</groupId>
         <artifactId>richfaces-core-parent</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.0.0.20101107-M4</version>
         <relativePath>../parent/pom.xml</relativePath>
     </parent>
 
@@ -80,8 +80,8 @@
     </build>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/core/api</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/core/api</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/trunk/core/api</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/tags/4.0.0.20101107-M4/core/api</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/tags/4.0.0.20101107-M4/core/api</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/tags/4.0.0.20101107-M4/core/api</url>
     </scm>
 </project>
