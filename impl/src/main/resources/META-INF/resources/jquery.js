@@ -6818,8 +6818,21 @@ function getWindow( elem ) {
 			false;
 }
 
+//added by nick
+var detectedCompatMode;
 
+function getCompatMode(elem) {
+	var compatMode = elem.document.compatMode || detectedCompatMode;
+	if (!compatMode) {
+		//detect compatMode as described in http://code.google.com/p/doctype/wiki/ArticleCompatMode
+		var width = jQuery(elem.document.createElement("div")).attr('style', 'position:absolute;width:0;height:0;width:1').css('width');
+		detectedCompatMode = compatMode = (width == '1px' ? 'BackCompat' : 'CSS1Compat');
+	}
 
+	return compatMode;
+}
+
+//end of added by nick
 
 // Create innerHeight, innerWidth, outerHeight and outerWidth methods
 jQuery.each([ "Height", "Width" ], function( i, name ) {
@@ -6856,7 +6869,7 @@ jQuery.each([ "Height", "Width" ], function( i, name ) {
 
 		return jQuery.isWindow( elem ) ?
 			// Everyone else use document.documentElement or document.body depending on Quirks vs Standards mode
-			elem.document.compatMode === "CSS1Compat" && elem.document.documentElement[ "client" + name ] ||
+			getCompatMode(elem) === "CSS1Compat" && elem.document.documentElement[ "client" + name ] ||
 			elem.document.body[ "client" + name ] :
 
 			// Get document width or height
