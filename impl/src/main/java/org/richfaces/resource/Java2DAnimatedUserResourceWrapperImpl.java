@@ -45,8 +45,8 @@ import org.w3c.dom.Node;
  */
 public class Java2DAnimatedUserResourceWrapperImpl extends Java2DUserResourceWrapperImpl {
 
-    public Java2DAnimatedUserResourceWrapperImpl(Java2DAnimatedUserResource resourceObject) {
-        super(resourceObject);
+    public Java2DAnimatedUserResourceWrapperImpl(Java2DAnimatedUserResource resourceObject, boolean cacheable, boolean versioned) {
+        super(resourceObject, cacheable, versioned);
     }
 
     private static ImageWriter getSequenceCapableImageWriter(ImageType imageType) {
@@ -142,7 +142,7 @@ public class Java2DAnimatedUserResourceWrapperImpl extends Java2DUserResourceWra
                 Graphics2D g2d = null;
                 try {
                     g2d = createGraphics(image);
-                    userResource.paint(g2d, dimension);
+                    userResource.paint(g2d);
                     imageWriter.writeToSequence(new IIOImage(image, null, imageMetaData),
                         defaultImageWriteParam);
                 } finally {

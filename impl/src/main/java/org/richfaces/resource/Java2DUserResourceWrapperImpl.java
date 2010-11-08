@@ -21,7 +21,6 @@
  */
 package org.richfaces.resource;
 
-import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
@@ -48,8 +47,8 @@ import org.richfaces.skin.SkinFactory;
 public class Java2DUserResourceWrapperImpl extends BaseResourceWrapper<Java2DUserResource> 
     implements Java2DUserResourceWrapper {
 
-    public Java2DUserResourceWrapperImpl(Java2DUserResource resourceObject) {
-        super(resourceObject);
+    public Java2DUserResourceWrapperImpl(Java2DUserResource resourceObject, boolean cacheable, boolean versioned) {
+        super(resourceObject, cacheable, versioned);
     }
 
     public InputStream getInputStream() throws IOException {
@@ -146,7 +145,7 @@ public class Java2DUserResourceWrapperImpl extends BaseResourceWrapper<Java2DUse
         Graphics2D g2d = null;
         try {
             g2d = createGraphics(image);
-            resource.paint(g2d, new Dimension(image.getWidth(), image.getHeight()));
+            resource.paint(g2d);
             ImageIO.write(image, imageType.getFormatName(), outputStream);
         } finally {
             if (g2d != null) {

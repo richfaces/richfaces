@@ -21,46 +21,23 @@
  */
 package org.richfaces.resource;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Date;
-import java.util.Map;
-
-import javax.faces.context.FacesContext;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 /**
  * @author Nick Belaevski
  * 
  */
-public class UserResourceWrapperImpl extends BaseResourceWrapper<UserResource> implements UserResourceWrapper {
-    
-    public UserResourceWrapperImpl(UserResource resourceObject, boolean cacheable, boolean versioned) {
-        super(resourceObject, cacheable, versioned);
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@Inherited
+public @interface DynamicUserResource {
 
-    @Override
-    public InputStream getInputStream() throws IOException {
-        return getWrapped().getInputStream();
-    }
+    public boolean cacheable() default true;
+    
+    public boolean versioned() default true;
 
-    @Override
-    protected Map<String, String> getWrappedResourceResponseHeaders() {
-        return getWrapped().getResponseHeaders();
-    }
-    
-    @Override
-    public String getContentType() {
-        return getWrapped().getContentType();
-    }
-    
-    @Override
-    protected int getContentLength(FacesContext context) {
-        return getWrapped().getContentLength();
-    }
-    
-    @Override
-    protected Date getLastModified(FacesContext context) {
-        return getWrapped().getLastModified();
-    }
-    
 }

@@ -21,46 +21,25 @@
  */
 package org.richfaces.resource;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Date;
 import java.util.Map;
-
-import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
  * 
  */
-public class UserResourceWrapperImpl extends BaseResourceWrapper<UserResource> implements UserResourceWrapper {
+public abstract class AbstractUserResource implements UserResource {
+
+    public Map<String, String> getResponseHeaders() {
+        return null;
+    }
     
-    public UserResourceWrapperImpl(UserResource resourceObject, boolean cacheable, boolean versioned) {
-        super(resourceObject, cacheable, versioned);
+    public Date getLastModified() {
+        return null;
     }
 
-    @Override
-    public InputStream getInputStream() throws IOException {
-        return getWrapped().getInputStream();
-    }
-
-    @Override
-    protected Map<String, String> getWrappedResourceResponseHeaders() {
-        return getWrapped().getResponseHeaders();
-    }
-    
-    @Override
-    public String getContentType() {
-        return getWrapped().getContentType();
-    }
-    
-    @Override
-    protected int getContentLength(FacesContext context) {
-        return getWrapped().getContentLength();
-    }
-    
-    @Override
-    protected Date getLastModified(FacesContext context) {
-        return getWrapped().getLastModified();
+    public int getContentLength() {
+        return -1;
     }
     
 }

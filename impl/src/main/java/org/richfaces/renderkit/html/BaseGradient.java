@@ -31,21 +31,16 @@ import java.awt.geom.Rectangle2D;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-import java.util.Date;
-import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
-import org.richfaces.VersionBean;
 import org.richfaces.renderkit.html.images.GradientType;
 import org.richfaces.renderkit.html.images.GradientType.BiColor;
-import org.richfaces.resource.DynamicResource;
-import org.richfaces.resource.ImageType;
-import org.richfaces.resource.Java2DUserResource;
+import org.richfaces.resource.AbstractJava2DUserResource;
+import org.richfaces.resource.DynamicUserResource;
 import org.richfaces.resource.PostConstructResource;
 import org.richfaces.resource.ResourceParameter;
 import org.richfaces.resource.StateHolderResource;
-import org.richfaces.resource.VersionedResource;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
 
@@ -53,8 +48,8 @@ import org.richfaces.skin.SkinFactory;
  * @author Nick Belaevski - nbelaevski@exadel.com
  *         created 02.02.2007
  */
-@DynamicResource
-public class BaseGradient implements Java2DUserResource, StateHolderResource, VersionedResource {
+@DynamicUserResource
+public class BaseGradient extends AbstractJava2DUserResource implements StateHolderResource {
 
     protected Integer headerBackgroundColor;
     protected Integer headerGradientColor;
@@ -69,6 +64,9 @@ public class BaseGradient implements Java2DUserResource, StateHolderResource, Ve
 
     public BaseGradient(int width, int height, int gradientHeight, String baseColor, String gradientColor,
                         boolean horizontal) {
+        
+        super(null);
+        
         this.setWidth(width);
         this.setHeight(height);
         this.setGradientHeight(gradientHeight);
@@ -225,7 +223,7 @@ public class BaseGradient implements Java2DUserResource, StateHolderResource, Ve
         }
     }
 
-    public void paint(Graphics2D graphics2d, Dimension dimension) {
+    public void paint(Graphics2D graphics2d) {
         graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         graphics2d.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
 
@@ -234,7 +232,7 @@ public class BaseGradient implements Java2DUserResource, StateHolderResource, Ve
         graphics2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
         graphics2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
-        paintGradient(graphics2d, dimension);
+        paintGradient(graphics2d, getDimension());
     }
 
     /**
@@ -301,24 +299,8 @@ public class BaseGradient implements Java2DUserResource, StateHolderResource, Ve
         dataOutput.writeByte((byte) this.gradientType.ordinal());
     }
 
-    public Map<String, String> getResponseHeaders() {
-        return null;
-    }
-
-    public Date getLastModified() {
-        return null;
-    }
-
-    public ImageType getImageType() {
-        return ImageType.PNG;
-    }
-
     public boolean isTransient() {
         return false;
-    }
-
-    public String getVersion() {
-        return VersionBean.VERSION.getResourceVersion();
     }
 
 }

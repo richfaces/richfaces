@@ -21,6 +21,9 @@
  */
 package org.richfaces.resource;
 
+import static org.richfaces.application.CoreConfiguration.Items.resourcesDefaultVersion;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.getStringConfigurationValue;
+
 import java.util.Date;
 import java.util.Map;
 
@@ -39,9 +42,16 @@ public abstract class BaseResourceWrapper<T> extends AbstractCacheableResource i
 
     private T resourceObject;
 
-    public BaseResourceWrapper(T resourceObject) {
+    private boolean cacheable;
+    
+    private boolean versioned;
+
+    public BaseResourceWrapper(T resourceObject, boolean cacheable, boolean versioned) {
         super();
+
         this.resourceObject = resourceObject;
+        this.cacheable = cacheable;
+        this.versioned = versioned;
     }
     
     protected abstract Map<String, String> getWrappedResourceResponseHeaders();
@@ -58,11 +68,30 @@ public abstract class BaseResourceWrapper<T> extends AbstractCacheableResource i
         return headers;
     }
     
+    private String getPackageVersion() {
+        Package pkg = resourceObject.getClass().getPackage();
+        
+        if (pkg != null) {
+            return pkg.getImplementationVersion();
+        }
+        
+        return null;
+    }
+    
     public String getVersion() {
         if (resourceObject instanceof VersionedResource) {
             return ((VersionedResource) resourceObject).getVersion();
         }
 
+        if (versioned) {
+            String packageVersion = getPackageVersion();
+            if (packageVersion != null) {
+                return packageVersion;
+            }
+            
+            return getStringConfigurationValue(FacesContext.getCurrentInstance(), resourcesDefaultVersion);
+        }
+        
         return null;
     }
     
@@ -72,7 +101,7 @@ public abstract class BaseResourceWrapper<T> extends AbstractCacheableResource i
             return ((CacheableResource) resourceObject).isCacheable(context);
         }
 
-        return false;
+        return cacheable;
     }
     
     @Override

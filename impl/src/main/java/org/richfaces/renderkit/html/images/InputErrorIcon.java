@@ -28,16 +28,11 @@ public class InputErrorIcon extends OneColorBasedResource {
     private static final Dimension DIMENSION = new Dimension(6, 11);
     
     public InputErrorIcon() {
-        super("warningColor");
+        super(DIMENSION, "warningColor");
     }
 
     @Override
-    public Dimension getDimension() {
-        return DIMENSION;
-    }
-
-    @Override
-    public void paint(Graphics2D g2d, Dimension dimension) {
+    public void paint(Graphics2D g2d) {
         g2d.setColor(getBasicColor());
         g2d.fillRect(3, 2, 2, 6);
         g2d.fillRect(3, 9, 2, 2);

@@ -74,8 +74,6 @@ public final class VersionBean {
         
         private String fullVersionString = UNKNOWN;
         
-        private String resourceVersion = UNKNOWN;
-        
         private boolean containsDataFromManifest = false;
         
         public Version() {
@@ -118,7 +116,6 @@ public final class VersionBean {
 
         private void initializeDerivativeProperties() {
             fullVersionString = MessageFormat.format("v.{0} SVN r.{1}", implementationVersion, scmRevision);
-            resourceVersion = implementationVersion.replace('.', '_');
         }
 
         private Manifest readManifest() {
@@ -194,10 +191,6 @@ public final class VersionBean {
             return fullVersionString;
         }
         
-        public String getResourceVersion() {
-            return resourceVersion;
-        }
-
         public String getImplementationTitle() {
             return implementationTitle;
         }

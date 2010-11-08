@@ -207,6 +207,92 @@ public class ResourceFactoryImpl implements ResourceFactory {
         }
     }
 
+    private Resource createDynamicUserResourceInstance(Class<?> loadedClass) throws Exception, LinkageError {
+        String resourceName = loadedClass.getName();
+        
+        boolean checkResult = false;
+        boolean cacheable = false;
+        boolean versioned = false;
+
+        DynamicUserResource dynamicUserResource = loadedClass.getAnnotation(DynamicUserResource.class);
+        
+        if (dynamicUserResource != null) {
+            cacheable = dynamicUserResource.cacheable();
+            versioned = dynamicUserResource.versioned();
+            checkResult = true;
+
+            LOGGER.debug(MessageFormat.format("Dynamic resource annotation is present on resource class {0}",
+                resourceName));
+        }
+
+        if (!checkResult) {
+            DynamicResource dynamicResource = loadedClass.getAnnotation(DynamicResource.class);
+            if (dynamicResource != null) {
+                LOGGER.debug(MessageFormat.format("Dynamic resource annotation is present on resource class {0}",
+                    resourceName));
+                
+                checkResult = true;
+            }
+        }
+
+        if (!checkResult) {
+            LOGGER.debug(MessageFormat.format("Dynamic resource annotation is not present on resource class {0}",
+                resourceName));
+            
+            checkResult = checkResourceMarker(resourceName);
+        }
+        
+        if (!checkResult) {
+            return null;
+        }
+        
+        BaseResourceWrapper<?> result = null;
+        
+        if (Java2DAnimatedUserResource.class.isAssignableFrom(loadedClass)) {
+            Java2DAnimatedUserResource java2DAnimatedUserResource = (Java2DAnimatedUserResource) loadedClass.newInstance();
+            result = new Java2DAnimatedUserResourceWrapperImpl(java2DAnimatedUserResource, cacheable, versioned);
+        } else if (Java2DUserResource.class.isAssignableFrom(loadedClass)) {
+            Java2DUserResource java2DUserResource = (Java2DUserResource) loadedClass.newInstance();
+            result = new Java2DUserResourceWrapperImpl(java2DUserResource, cacheable, versioned);
+        } else if (UserResource.class.isAssignableFrom(loadedClass)) {
+            UserResource userResource = (UserResource) loadedClass.newInstance();
+            result = new UserResourceWrapperImpl(userResource, cacheable, versioned);
+        }        
+
+        return result;
+    }
+    
+    private Resource createDynamicResourceInstance(Class<?> loadedClass) throws Exception, LinkageError {
+        String resourceName = loadedClass.getName();
+
+        boolean checkResult = false;
+        
+        DynamicResource annotation = loadedClass.getAnnotation(DynamicResource.class);
+
+        if (annotation != null) {
+            LOGGER.debug(MessageFormat.format("Dynamic resource annotation is present on resource class {0}",
+                resourceName));
+
+            checkResult = true;
+        } else {
+            LOGGER.debug(MessageFormat.format(
+                "Dynamic resource annotation is not present on resource class {0}", resourceName));
+        }
+        
+        if (!checkResult) {
+            checkResult = checkResourceMarker(resourceName);
+        }
+        
+        if (!checkResult) {
+            return null;
+        }
+        
+        Class<? extends Resource> resourceClass = loadedClass.asSubclass(Resource.class);
+        Resource result = (Resource) resourceClass.newInstance();
+        
+        return result;
+    }
+    
     /**
      * Should be called only if {@link #isResourceExists(String)} returns <code>true</code>
      * 
@@ -227,62 +313,25 @@ public class ResourceFactoryImpl implements ResourceFactory {
         if (contextClassLoader != null) {
             try {
                 Class<?> loadedClass = Class.forName(resourceName, false, contextClassLoader);
-
-                boolean legitimateResource = false;
-
-                DynamicResource annotation = loadedClass.getAnnotation(DynamicResource.class);
-                legitimateResource = (annotation != null);
-                if (legitimateResource) {
-                    LOGGER.debug(MessageFormat.format("Dynamic resource annotation is present on resource class {0}",
-                        resourceName));
-                } else {
-                    LOGGER.debug(MessageFormat.format(
-                        "Dynamic resource annotation is not present on resource class {0}", resourceName));
+                
+                resource = createDynamicUserResourceInstance(loadedClass);
+                if (resource == null) {
+                    resource = createDynamicResourceInstance(loadedClass);
                 }
-
-                if (!legitimateResource) {
-                    // TODO resource marker extension name?
-                    URL resourceMarkerUrl = contextClassLoader.getResource("META-INF/" + resourceName
-                        + ".resource.properties");
-
-                    legitimateResource = resourceMarkerUrl != null;
-
-                    if (LOGGER.isDebugEnabled()) {
-                        if (legitimateResource) {
-                            LOGGER.debug(MessageFormat.format("Marker file for {0} resource found in classpath",
-                                resourceName));
-                        } else {
-                            LOGGER.debug(MessageFormat.format("Marker file for {0} resource does not exist",
-                                resourceName));
-                        }
-                    }
-                }
-
-                if (legitimateResource) {
-                    Object wrappedResource;
-                    if (Java2DAnimatedUserResource.class.isAssignableFrom(loadedClass)) {
-                        Java2DAnimatedUserResource java2DAnimatedUserResource = (Java2DAnimatedUserResource) loadedClass.newInstance();
-                        wrappedResource = java2DAnimatedUserResource;
-                        resource = new Java2DAnimatedUserResourceWrapperImpl(java2DAnimatedUserResource);
-                    } else if (Java2DUserResource.class.isAssignableFrom(loadedClass)) {
-                        Java2DUserResource java2DUserResource = (Java2DUserResource) loadedClass.newInstance();
-                        wrappedResource = java2DUserResource;
-                        resource = new Java2DUserResourceWrapperImpl(java2DUserResource);
-                    } else if (UserResource.class.isAssignableFrom(loadedClass)) {
-                        UserResource userResource = (UserResource) loadedClass.newInstance();
-                        wrappedResource = userResource;
-                        resource = new UserResourceWrapperImpl(userResource);
-                    } else {
-                        Class<? extends Resource> resourceClass = loadedClass.asSubclass(Resource.class);
-                        resource = (Resource) resourceClass.newInstance();
-                        wrappedResource = resource;
-                    }
+                
+                if (resource != null) {
+                    resource.setResourceName(resourceName);
 
                     if (parameters != null) {
-                        injectProperties(wrappedResource, parameters);
+                        if (resource instanceof BaseResourceWrapper<?>) {
+                            BaseResourceWrapper<?> baseResourceWrapper = (BaseResourceWrapper<?>) resource;
+                            
+                            injectProperties(baseResourceWrapper.getWrapped(), parameters);
+                        } else {
+                            injectProperties(resource, parameters);
+                        }
                     }
 
-                    resource.setResourceName(resourceName);
                     if (LOGGER.isDebugEnabled()) {
                         LOGGER.debug(MessageFormat
                             .format("Successfully created instance of {0} resource", resourceName));
@@ -300,6 +349,27 @@ public class ResourceFactoryImpl implements ResourceFactory {
         }
 
         return resource;
+    }
+
+    private boolean checkResourceMarker(String resourceName) {
+        ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+
+        // TODO resource marker extension name?
+        URL resourceMarkerUrl = contextClassLoader.getResource("META-INF/" + resourceName
+            + ".resource.properties");
+
+        boolean result = (resourceMarkerUrl != null);
+
+        if (LOGGER.isDebugEnabled()) {
+            if (result) {
+                LOGGER.debug(MessageFormat.format("Marker file for {0} resource found in classpath",
+                    resourceName));
+            } else {
+                LOGGER.debug(MessageFormat.format("Marker file for {0} resource does not exist",
+                    resourceName));
+            }
+        }
+        return result;
     }
 
     public Resource createResource(FacesContext context, ResourceRequestData resourceData) {

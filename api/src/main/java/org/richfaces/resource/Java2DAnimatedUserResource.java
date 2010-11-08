@@ -21,7 +21,6 @@
  */
 package org.richfaces.resource;
 
-import java.awt.Dimension;
 import java.awt.Graphics2D;
 
 /**
@@ -38,6 +37,6 @@ public interface Java2DAnimatedUserResource extends Java2DUserResource {
 
     public boolean hasNextFrame();
     
-    public void paint(Graphics2D graphics2d, Dimension dimension);
+    public void paint(Graphics2D graphics2d);
 
 }

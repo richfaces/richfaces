@@ -27,27 +27,25 @@ import java.awt.Graphics2D;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-import java.util.Date;
-import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
-import org.richfaces.resource.CacheableResource;
-import org.richfaces.resource.DynamicResource;
+import org.richfaces.resource.AbstractJava2DUserResource;
+import org.richfaces.resource.DynamicUserResource;
 import org.richfaces.resource.ImageType;
-import org.richfaces.resource.Java2DUserResource;
 import org.richfaces.resource.StateHolderResource;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
 
-@DynamicResource
-public abstract class OneColorBasedResource implements Java2DUserResource, CacheableResource, StateHolderResource {
+@DynamicUserResource
+public abstract class OneColorBasedResource extends AbstractJava2DUserResource implements StateHolderResource {
 
     private String basicColorParamName;
 
     private Color basicColor;
 
-    public OneColorBasedResource(final String basicColorParamName) {
+    public OneColorBasedResource(Dimension dimension, final String basicColorParamName) {
+        super(ImageType.GIF, dimension);
         this.basicColorParamName = basicColorParamName;
     }
 
@@ -72,35 +70,5 @@ public abstract class OneColorBasedResource implements Java2DUserResource, Cache
         basicColor = new Color(dataInput.readInt());
     }
 
-    public boolean isCacheable(FacesContext context) {
-        return true;
-    }
-
-    public Date getExpires(FacesContext context) {
-        return null;
-    }
-
-    public int getTimeToLive(FacesContext context) {
-        return 0;
-    }
-
-    public String getEntityTag(FacesContext context) {
-        return null;
-    }
-
-    public Map<String, String> getResponseHeaders() {
-        return null;
-    }
-
-    public Date getLastModified() {
-        return null;
-    }
-
-    public ImageType getImageType() {
-        return ImageType.GIF;
-    }
-
-    public abstract Dimension getDimension();
-
-    public abstract void paint(Graphics2D graphics2d, Dimension dimension);
+    public abstract void paint(Graphics2D graphics2d);
 }

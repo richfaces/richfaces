@@ -21,46 +21,43 @@
  */
 package org.richfaces.resource;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.awt.Dimension;
 import java.util.Date;
 import java.util.Map;
-
-import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
  * 
  */
-public class UserResourceWrapperImpl extends BaseResourceWrapper<UserResource> implements UserResourceWrapper {
+public abstract class AbstractJava2DUserResource implements Java2DUserResource {
+
+    private ImageType imageType;
     
-    public UserResourceWrapperImpl(UserResource resourceObject, boolean cacheable, boolean versioned) {
-        super(resourceObject, cacheable, versioned);
+    private Dimension dimension;
+
+    public AbstractJava2DUserResource(Dimension dimension) {
+        this(ImageType.PNG, dimension);
     }
 
-    @Override
-    public InputStream getInputStream() throws IOException {
-        return getWrapped().getInputStream();
-    }
-
-    @Override
-    protected Map<String, String> getWrappedResourceResponseHeaders() {
-        return getWrapped().getResponseHeaders();
+    public AbstractJava2DUserResource(ImageType imageType, Dimension dimension) {
+        super();
+        this.imageType = imageType;
+        this.dimension = dimension;
     }
     
-    @Override
-    public String getContentType() {
-        return getWrapped().getContentType();
+    public ImageType getImageType() {
+        return imageType;
     }
     
-    @Override
-    protected int getContentLength(FacesContext context) {
-        return getWrapped().getContentLength();
+    public Dimension getDimension() {
+        return dimension;
     }
     
-    @Override
-    protected Date getLastModified(FacesContext context) {
-        return getWrapped().getLastModified();
+    public Map<String, String> getResponseHeaders() {
+        return null;
     }
     
+    public Date getLastModified() {
+        return null;
+    }
 }

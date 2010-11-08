@@ -40,6 +40,6 @@ public interface Java2DUserResource {
     
     public Dimension getDimension();
     
-    public void paint(Graphics2D graphics2D, Dimension dimension);
+    public void paint(Graphics2D graphics2D);
 
 }

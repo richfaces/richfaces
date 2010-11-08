@@ -62,6 +62,9 @@ public final class CoreConfiguration {
         
         @ConfigurationItem(defaultValue = "512", names = RESOURCES_CACHE_SIZE_PARAM_NAME, literal = true)
         resourcesCacheSize,
+
+        @ConfigurationItem(names = "org.richfaces.resourceDefaultVersion")
+        resourcesDefaultVersion,
         
         @ConfigurationItem(names = "org.ajax4jsf.cache.LRU_MAP_CACHE_SIZE", literal = true)
         lruMapCacheSize,
@@ -82,6 +85,7 @@ public final class CoreConfiguration {
         pushJMSConnectionUsername,
         
         @ConfigurationItem(defaultValue = "", names = "org.richfaces.push.jms.connectionPassword")
-        pushJMSConnectionPassword
+        pushJMSConnectionPassword        
+        
     }
 }
