@@ -53,6 +53,8 @@ public class PushResource implements UserResource {
 
     private static final String FORGET_PUSH_SESSION_ID_PARAM = "forgetPushSessionId";
 
+    private static final InputStream EMPTY_INPUT_STREAM = new ByteArrayInputStream(new byte[0]);
+    
     public Map<String, String> getResponseHeaders() {
         return null;
     }
@@ -85,6 +87,12 @@ public class PushResource implements UserResource {
         ExternalContext externalContext = facesContext.getExternalContext();
 
         PushContextFactory pushContextFactory = ServiceTracker.getService(PushContextFactory.class);
+        
+        //resource plugin stub
+        if (pushContextFactory == null) {
+            return EMPTY_INPUT_STREAM;
+        }
+        
         PushContext pushContext = pushContextFactory.getPushContext();
         
         String forgetPushSessionId = externalContext.getRequestParameterMap().get(FORGET_PUSH_SESSION_ID_PARAM);

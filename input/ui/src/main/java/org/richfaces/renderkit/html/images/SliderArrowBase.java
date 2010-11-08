@@ -30,10 +30,10 @@ import java.awt.Dimension;
  */
 public abstract class SliderArrowBase extends ArrowBase {
 
-    private Dimension dimension =  new Dimension(7, 7);
+    private static final Dimension DIMENSION =  new Dimension(7, 7);
 
-    @Override
-    public Dimension getDimension() {
-        return dimension;
+    public SliderArrowBase() {
+        super(DIMENSION);
     }
+
 }

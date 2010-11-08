@@ -22,7 +22,6 @@
 
 package org.richfaces.renderkit.html.images;
 
-import java.awt.Dimension;
 import java.awt.Graphics2D;
 
 /**
@@ -32,8 +31,8 @@ import java.awt.Graphics2D;
 public class SliderArrowBottom extends SliderArrowBase {
     
     @Override
-    public void paint(Graphics2D graphics2d, Dimension dimension) {
-        super.paint(graphics2d, dimension);
+    public void paint(Graphics2D graphics2d) {
+        super.paint(graphics2d);
         graphics2d.drawLine(0, 1, 6, 1);
         graphics2d.drawLine(1, 2, 5, 2);
         graphics2d.drawLine(2, 3, 4, 3);

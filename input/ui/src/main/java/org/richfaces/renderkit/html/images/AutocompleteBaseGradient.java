@@ -29,15 +29,11 @@ import java.awt.Rectangle;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-import java.util.Date;
-import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
-import org.richfaces.resource.CacheableResource;
-import org.richfaces.resource.DynamicResource;
-import org.richfaces.resource.ImageType;
-import org.richfaces.resource.Java2DUserResource;
+import org.richfaces.resource.AbstractJava2DUserResource;
+import org.richfaces.resource.DynamicUserResource;
 import org.richfaces.resource.StateHolderResource;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
@@ -46,8 +42,8 @@ import org.richfaces.skin.SkinFactory;
  * @author Nick Belaevski
  * 
  */
-@DynamicResource
-public abstract class AutocompleteBaseGradient implements Java2DUserResource, CacheableResource, StateHolderResource {
+@DynamicUserResource
+public abstract class AutocompleteBaseGradient extends AbstractJava2DUserResource implements StateHolderResource {
 
     private static final Dimension DIMENSION = new Dimension(18, 8);
   
@@ -59,46 +55,20 @@ public abstract class AutocompleteBaseGradient implements Java2DUserResource, Ca
     
     private Color bottomColor;
     
-    public Map<String, String> getResponseHeaders() {
-        return null;
+    public AutocompleteBaseGradient() {
+        super(DIMENSION);
     }
-
-    public Date getLastModified() {
-        return null;
-    }
-
-    public ImageType getImageType() {
-        return ImageType.PNG;
-    }
-
-    public Dimension getDimension() {
-        return DIMENSION;
-    }
-
-    public void paint(Graphics2D graphics2d, Dimension dimension) {
+    
+    public void paint(Graphics2D graphics2d) {
+        Dimension dimension = getDimension();
+        
         GradientPaint paint = new GradientPaint(0, 0, topColor, 0, dimension.height, bottomColor);
         graphics2d.setPaint(paint);
         graphics2d.fill(new Rectangle(dimension));
     }
 
-    public boolean isCacheable(FacesContext context) {
-        return true;
-    }
-
-    public Date getExpires(FacesContext context) {
-        return null;
-    }
-
-    public int getTimeToLive(FacesContext context) {
-        return 0;
-    }
-
-    public String getEntityTag(FacesContext context) {
-        return null;
-    }
-
     public void writeState(FacesContext context, DataOutput dataOutput) throws IOException {
-        Skin skin = SkinFactory.getInstance().getSkin(context);
+        Skin skin = SkinFactory.getInstance(context).getSkin(context);
         
         Integer topColor = skin.getColorParameter(context, topColorSkinParameter);
         Integer bottomColor = skin.getColorParameter(context, bottomColorSkinParameter);

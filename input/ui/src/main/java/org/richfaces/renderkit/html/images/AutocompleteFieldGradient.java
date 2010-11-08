@@ -21,14 +21,12 @@
  */
 package org.richfaces.renderkit.html.images;
 
-import org.richfaces.resource.DynamicResource;
 import org.richfaces.skin.Skin;
 
 /**
  * @author Nick Belaevski
  * 
  */
-@DynamicResource
 public class AutocompleteFieldGradient extends AutocompleteBaseGradient {
 
     public AutocompleteFieldGradient() {

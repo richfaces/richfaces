@@ -30,8 +30,10 @@ import java.io.IOException;
 
 import javax.faces.context.FacesContext;
 
-import org.richfaces.resource.DynamicResource;
+import org.richfaces.resource.AbstractJava2DUserResource;
+import org.richfaces.resource.DynamicUserResource;
 import org.richfaces.resource.PostConstructResource;
+import org.richfaces.resource.StateHolderResource;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
 
@@ -39,15 +41,15 @@ import org.richfaces.skin.SkinFactory;
  * @author Nick Belaevski
  * 
  */
-@DynamicResource
-public class TreeLineImage extends BaseTreeImage {
+@DynamicUserResource
+public class TreeLineImage extends AbstractJava2DUserResource implements StateHolderResource {
 
     private static final Dimension DIMENSION = new Dimension(16, 16);
     
     protected Integer trimColorValue;
     
     public TreeLineImage() {
-        super(DIMENSION);
+        this(DIMENSION);
     }
 
     protected TreeLineImage(Dimension dimension) {
@@ -63,7 +65,7 @@ public class TreeLineImage extends BaseTreeImage {
         trimColorValue = skin.getColorParameter(context, Skin.TRIM_COLOR);
     }
     
-    public void paint(Graphics2D g2d, Dimension dimension) {
+    public void paint(Graphics2D g2d) {
         g2d.setColor(new Color(trimColorValue));
         
         g2d.drawLine(7, 0, 7, 15);
@@ -77,6 +79,8 @@ public class TreeLineImage extends BaseTreeImage {
         trimColorValue = dataInput.readInt();
     }
 
-    
+    public boolean isTransient() {
+        return false;
+    }
 
 }

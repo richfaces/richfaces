@@ -30,10 +30,10 @@ import java.awt.Dimension;
  */
 public abstract class SpinnerArrowBase extends ArrowBase {
 
-    private Dimension dimension =  new Dimension(5, 3);
+    private static final Dimension DIMENSION = new Dimension(5, 3);
 
-    @Override
-    public Dimension getDimension() {
-        return dimension;
+    public SpinnerArrowBase() {
+        super(DIMENSION);
     }
+
 }

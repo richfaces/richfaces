@@ -35,14 +35,11 @@ import java.awt.image.BufferedImage;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-import java.util.Date;
-import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
-import org.richfaces.resource.DynamicResource;
-import org.richfaces.resource.ImageType;
-import org.richfaces.resource.Java2DUserResource;
+import org.richfaces.resource.AbstractJava2DUserResource;
+import org.richfaces.resource.DynamicUserResource;
 import org.richfaces.resource.PostConstructResource;
 import org.richfaces.resource.StateHolderResource;
 import org.richfaces.skin.Skin;
@@ -52,8 +49,8 @@ import org.richfaces.skin.SkinFactory;
  * @author amarkhel
  *
  */
-@DynamicResource
-public class CalendarIcon implements Java2DUserResource, StateHolderResource{
+@DynamicUserResource
+public class CalendarIcon extends AbstractJava2DUserResource implements StateHolderResource {
 
     private static final Dimension DIMENSION = new Dimension(20, 20);
     
@@ -61,7 +58,10 @@ public class CalendarIcon implements Java2DUserResource, StateHolderResource{
     
     private Integer headerBackgroundColor;
     
-    
+    public CalendarIcon() {
+        super(DIMENSION);
+    }
+
     @PostConstructResource
     public final void initialize() {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -70,7 +70,6 @@ public class CalendarIcon implements Java2DUserResource, StateHolderResource{
         this.headerTextColor = skin.getColorParameter(context, Skin.HEADER_BACKGROUND_COLOR);
         this.headerBackgroundColor = skin.getColorParameter(context, Skin.SELECT_CONTROL_COLOR);
     }
-
     
     public boolean isTransient() {
         return false;
@@ -86,30 +85,15 @@ public class CalendarIcon implements Java2DUserResource, StateHolderResource{
         this.headerBackgroundColor = dataInput.readInt();
     }
 
-    public Map<String, String> getResponseHeaders() {
-        return null;
-    }
-
-    public Date getLastModified() {
-        return null;
-    }
-
-    public ImageType getImageType() {
-        return ImageType.PNG;
-    }
-
-    public Dimension getDimension() {
-        return DIMENSION;
-    }
-    
     protected BufferedImage createImage(int width, int height) {
         return new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
     }
 
-    public void paint(Graphics2D graphics2d, Dimension dimension) {
+    public void paint(Graphics2D graphics2d) {
         BufferedImage image = paintImage();
         graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         graphics2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+        Dimension dimension = getDimension();
         graphics2d.drawImage(image, 0, 0, dimension.width, dimension.height, null);
     }
     

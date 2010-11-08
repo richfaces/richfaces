@@ -30,14 +30,12 @@ import java.awt.image.BufferedImage;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-import java.util.Date;
-import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
 import org.richfaces.renderkit.util.ColorUtils;
-import org.richfaces.resource.CacheableResource;
-import org.richfaces.resource.DynamicResource;
+import org.richfaces.resource.AbstractJava2DUserResource;
+import org.richfaces.resource.DynamicUserResource;
 import org.richfaces.resource.ImageType;
 import org.richfaces.resource.Java2DAnimatedUserResource;
 import org.richfaces.resource.StateHolderResource;
@@ -49,8 +47,8 @@ import org.richfaces.skin.SkinFactory;
  * 
  */
 //TODO - add version
-@DynamicResource
-public class ProgressBarAnimatedBackgroundImage implements Java2DAnimatedUserResource, StateHolderResource, CacheableResource {
+@DynamicUserResource
+public class ProgressBarAnimatedBackgroundImage extends AbstractJava2DUserResource implements Java2DAnimatedUserResource, StateHolderResource {
 
     private static final int NUMBER_OF_FRAMES = 12;
 
@@ -59,21 +57,9 @@ public class ProgressBarAnimatedBackgroundImage implements Java2DAnimatedUserRes
     private int frameNumber = 0;
 
     private Color basicColor;
-    
-    public Map<String, String> getResponseHeaders() {
-        return null;
-    }
 
-    public Date getLastModified() {
-        return null;
-    }
-
-    public ImageType getImageType() {
-        return ImageType.GIF;
-    }
-
-    public Dimension getDimension() {
-        return DIMENSION;
+    public ProgressBarAnimatedBackgroundImage() {
+        super(ImageType.GIF, DIMENSION);
     }
 
     public boolean isLooped() {
@@ -122,9 +108,11 @@ public class ProgressBarAnimatedBackgroundImage implements Java2DAnimatedUserRes
         return retVal;
     }
     
-    public void paint(Graphics2D g2d, Dimension dimension) {
+    public void paint(Graphics2D g2d) {
         frameNumber++;
 
+        Dimension dimension = getDimension();
+        
         BufferedImage mainStage = createMainStage();
         BufferedImage frame = mainStage.getSubimage(0, 48 - frameNumber * 2, dimension.width, dimension.height);
         g2d.drawImage(frame, null, null);
@@ -150,19 +138,4 @@ public class ProgressBarAnimatedBackgroundImage implements Java2DAnimatedUserRes
         basicColor = new Color(dataInput.readInt());
     }
 
-    public boolean isCacheable(FacesContext context) {
-        return true;
-    }
-
-    public Date getExpires(FacesContext context) {
-        return null;
-    }
-
-    public int getTimeToLive(FacesContext context) {
-        return 0;
-    }
-
-    public String getEntityTag(FacesContext context) {
-        return null;
-    }
 }

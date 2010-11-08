@@ -22,7 +22,6 @@
 
 package org.richfaces.renderkit.html.images;
 
-import java.awt.Dimension;
 import java.awt.Graphics2D;
 
 /**
@@ -32,8 +31,8 @@ import java.awt.Graphics2D;
 public class SpinnerArrowTop extends SpinnerArrowBase {
     
     @Override
-    public void paint(Graphics2D graphics2d, Dimension dimension) {
-        super.paint(graphics2d, dimension);
+    public void paint(Graphics2D graphics2d) {
+        super.paint(graphics2d);
         graphics2d.drawLine(2, 0, 2, 0);
         graphics2d.drawLine(1, 1, 3, 1);
         graphics2d.drawLine(0, 2, 4, 2);

@@ -29,14 +29,12 @@ import java.awt.RenderingHints;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-import java.util.Date;
-import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
-import org.richfaces.resource.DynamicResource;
-import org.richfaces.resource.ImageType;
-import org.richfaces.resource.Java2DUserResource;
+import org.richfaces.resource.AbstractJava2DUserResource;
+import org.richfaces.resource.DynamicUserResource;
+import org.richfaces.resource.PostConstructResource;
 import org.richfaces.resource.StateHolderResource;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
@@ -45,13 +43,18 @@ import org.richfaces.skin.SkinFactory;
  * @author Konstantin Mishin
  * 
  */
-@DynamicResource
-public abstract class ArrowBase implements Java2DUserResource, StateHolderResource {
+@DynamicUserResource
+public abstract class ArrowBase extends AbstractJava2DUserResource implements StateHolderResource {
 
     private int color;
     private String colorName = Skin.GENERAL_TEXT_COLOR;
 
-    private void initialize() {
+    public ArrowBase(Dimension dimension) {
+        super(dimension);
+    }
+
+    @PostConstructResource
+    public void initialize() {
         FacesContext context = FacesContext.getCurrentInstance();
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
         this.color = skin.getColorParameter(context, colorName);
@@ -61,15 +64,12 @@ public abstract class ArrowBase implements Java2DUserResource, StateHolderResour
         this.colorName = colorName;
     }
 
-    public abstract Dimension getDimension();
-    
-    public void paint(Graphics2D graphics2d, Dimension dimension) {
+    public void paint(Graphics2D graphics2d) {
         graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         graphics2d.setColor(new Color(color));
     }
 
     public void writeState(FacesContext context, DataOutput dataOutput) throws IOException {
-        initialize();
         dataOutput.writeInt(this.color);
     }
 
@@ -77,18 +77,6 @@ public abstract class ArrowBase implements Java2DUserResource, StateHolderResour
         this.color = dataInput.readInt();
     }
     
-    public Map<String, String> getResponseHeaders() {
-        return null;
-    }
-
-    public Date getLastModified() {
-        return null;
-    }
-
-    public ImageType getImageType() {
-        return ImageType.PNG;
-    }
-
     public boolean isTransient() {
         return false;
     }

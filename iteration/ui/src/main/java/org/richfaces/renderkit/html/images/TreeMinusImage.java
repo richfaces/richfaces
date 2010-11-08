@@ -21,19 +21,15 @@
  */
 package org.richfaces.renderkit.html.images;
 
-import java.awt.Dimension;
 import java.awt.Graphics2D;
-
-import org.richfaces.resource.DynamicResource;
 
 /**
  * @author Nick Belaevski
  * 
  */
-@DynamicResource
 public class TreeMinusImage extends TreePlusImage {
 
-    public void paint(Graphics2D g2d, Dimension dimension) {
+    public void paint(Graphics2D g2d) {
         drawFrame(g2d);
         drawHorizontalCrossLine(g2d);
     }

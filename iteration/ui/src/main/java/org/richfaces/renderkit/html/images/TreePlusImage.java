@@ -32,8 +32,10 @@ import java.io.IOException;
 
 import javax.faces.context.FacesContext;
 
-import org.richfaces.resource.DynamicResource;
+import org.richfaces.resource.AbstractJava2DUserResource;
+import org.richfaces.resource.DynamicUserResource;
 import org.richfaces.resource.PostConstructResource;
+import org.richfaces.resource.StateHolderResource;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
 
@@ -41,8 +43,8 @@ import org.richfaces.skin.SkinFactory;
  * @author Nick Belaevski
  * 
  */
-@DynamicResource
-public class TreePlusImage extends BaseTreeImage {
+@DynamicUserResource
+public class TreePlusImage extends AbstractJava2DUserResource implements StateHolderResource {
 
     private static final Dimension DIMENSION = new Dimension(16, 16);
 
@@ -80,7 +82,7 @@ public class TreePlusImage extends BaseTreeImage {
         g2d.fill(rect);
     }
 
-    public void paint(Graphics2D g2d, Dimension dimension) {
+    public void paint(Graphics2D g2d) {
         drawFrame(g2d);
 
         drawHorizontalCrossLine(g2d);
@@ -109,6 +111,10 @@ public class TreePlusImage extends BaseTreeImage {
         generalColorValue = dataInput.readInt();
         controlColorValue = dataInput.readInt();
         trimColorValue = dataInput.readInt();
+    }
+
+    public boolean isTransient() {
+        return false;
     }
 
 }

@@ -29,14 +29,11 @@ import java.awt.RenderingHints;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-import java.util.Date;
-import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
-import org.richfaces.resource.DynamicResource;
-import org.richfaces.resource.ImageType;
-import org.richfaces.resource.Java2DUserResource;
+import org.richfaces.resource.AbstractJava2DUserResource;
+import org.richfaces.resource.DynamicUserResource;
 import org.richfaces.resource.PostConstructResource;
 import org.richfaces.resource.StateHolderResource;
 import org.richfaces.skin.Skin;
@@ -46,13 +43,17 @@ import org.richfaces.skin.SkinFactory;
  * @author amarkhel
  *
  */
-@DynamicResource
-public class CalendarSeparator implements Java2DUserResource, StateHolderResource {
+@DynamicUserResource
+public class CalendarSeparator extends AbstractJava2DUserResource implements StateHolderResource {
 
     private static final Dimension DIMENSION = new Dimension(1, 15);
     
     private Integer headerTextColor;
     
+    public CalendarSeparator() {
+        super(DIMENSION);
+    }
+
     @PostConstructResource
     public void initialize() {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -73,23 +74,7 @@ public class CalendarSeparator implements Java2DUserResource, StateHolderResourc
         this.headerTextColor = dataInput.readInt();
     }
 
-    public Map<String, String> getResponseHeaders() {
-        return null;
-    }
-
-    public Date getLastModified() {
-        return null;
-    }
-
-    public ImageType getImageType() {
-        return ImageType.PNG;
-    }
-
-    public Dimension getDimension() {
-        return DIMENSION;
-    }
-
-    public void paint(Graphics2D graphics2d, Dimension dimension) {
+    public void paint(Graphics2D graphics2d) {
         graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
         graphics2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE);
         graphics2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
