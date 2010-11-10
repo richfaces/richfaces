@@ -14,6 +14,7 @@ import org.jboss.test.faces.mock.Mock;
 import org.jboss.test.faces.mock.MockController;
 import org.jboss.test.faces.mock.MockFacesEnvironment;
 import org.jboss.test.faces.mock.Stub;
+import org.junit.After;
 import org.junit.Before;
 import org.richfaces.application.ServicesFactory;
 
@@ -44,6 +45,12 @@ public class BehaviorTestBase {
         behavior = createBehavior();
     }
 
+    
+    @After
+    public void tearDown() throws Exception {
+        controller.release();
+    }
+    
     protected ClientBehaviorContext setupBehaviorContext(UIComponent component) {
         expect(behaviorContext.getComponent()).andStubReturn(component);
         expect(behaviorContext.getFacesContext()).andStubReturn(environment.getFacesContext());
