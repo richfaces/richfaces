@@ -223,7 +223,7 @@
 		todayControl: CalendarView.todayControl,
 		closeControl: CalendarView.closeControl,
 		applyControl: CalendarView.applyControl,
-		timeEditorFields: CalendarView.timeEditorFields,
+		timeEditorFields: CalendarView.timeEditorFields
 	});
 
 	// must be :defaultTime, minDaysInFirstWeek, firstWeekday, weekDayLabels, weekDayLabelsShort, monthLabels, monthLabelsShort
