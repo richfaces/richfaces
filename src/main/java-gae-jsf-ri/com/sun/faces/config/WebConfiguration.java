@@ -965,7 +965,7 @@ public class WebConfiguration
 				StateManager.PARTIAL_STATE_SAVING_PARAM_NAME, true), GenerateUniqueServerStateIds(
 				"com.sun.faces.generateUniqueServerStateIds", true), AutoCompleteOffOnViewState(
 				"com.sun.faces.autoCompleteOffOnViewState", true), EnableThreading(
-				"com.sun.faces.enableThreading", true), AllowTextChildren(
+				"com.sun.faces.enableThreading", false), AllowTextChildren(
 				"com.sun.faces.allowTextChildren", false);
 
 		private BooleanWebContextInitParameter alternate;
