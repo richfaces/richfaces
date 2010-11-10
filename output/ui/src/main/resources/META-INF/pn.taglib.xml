@@ -11,6 +11,7 @@
         <tag-name>toggleControl</tag-name>
         <behavior>
             <behavior-id>org.richfaces.component.behavior.ToggleControl</behavior-id>
+            <handler-class>org.richfaces.view.facelets.html.CustomBehaviorHandler</handler-class>
         </behavior>
     </tag>
     <tag>
