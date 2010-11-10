@@ -26,7 +26,7 @@
     <parent>
         <groupId>org.richfaces.ui</groupId>
         <artifactId>richfaces-ui-parent</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.0.0.20101110-M4</version>
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
@@ -60,8 +60,8 @@
     </build>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/iteration/datascroller/impl</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/iteration/datascroller/impl</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/tags/4.0.0.20101110-M4/ui/iteration/datascroller/impl</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/tags/4.0.0.20101110-M4/ui/iteration/datascroller/impl</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/tags/4.0.0.20101110-M4/ui/iteration/datascroller/impl</url>
     </scm>
 </project>
