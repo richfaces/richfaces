@@ -198,7 +198,7 @@ public class InplaceInputRendererBase extends InputRendererBase {
     }
 
     public String getDisableStateCss(InplaceComponent component) {
-        String css = component.getDisableStateClass();
+        String css = component.getDisabledStateClass();
         return concatClasses("rf-ii-dis-s", css);
     }
     

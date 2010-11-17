@@ -77,7 +77,7 @@ public abstract class AbstractInplaceInput extends UIInput implements InplaceCom
     public abstract String getChangedStateClass();
 
     @Attribute
-    public abstract String getDisableStateClass();
+    public abstract String getDisabledStateClass();
    
     @Attribute
     public abstract String getEditClass();

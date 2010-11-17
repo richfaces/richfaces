@@ -45,7 +45,7 @@ public interface InplaceComponent {
 
     public String getChangedStateClass();
 
-    public String getDisableStateClass();
+    public String getDisabledStateClass();
 
     public String getEditClass();
 
