@@ -13,8 +13,8 @@
     	this.selValueInput = $(document.getElementById(id+"selValue"));
     	this.list = $(document.getElementById(id+"List"));
     	this.list.bind("click", $.proxy(this.__onListClick, this));
-    	this.openOnEdit = options.openOnEdit;
-    	this.saveOnSelect = options.saveOnSelect;
+    	this.openOnEdit = mergedOptions.openOnEdit;
+    	this.saveOnSelect = mergedOptions.saveOnSelect;
     	this.savedIndex = -1;
     }
 	
@@ -23,6 +23,8 @@
 	
 	var defaultOptions = {
     	defaultLabel: "",
+    	saveOnSelect: true,
+    	openOnEdit: true,
     	showControl: false,
     	itemCss: "rf-is-opt",
     	selectItemCss: "rf-is-sel", 
