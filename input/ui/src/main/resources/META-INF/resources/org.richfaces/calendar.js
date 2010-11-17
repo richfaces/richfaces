@@ -261,6 +261,7 @@
 			selectedDate: null,
 			currentDate: null,
 			defaultTime: {hours:12,minutes:0, seconds:0},
+			mode: "client",
 			hidePopupOnScroll: true
 	};
 	
@@ -494,6 +495,9 @@
 		this.scrollElements = null;
 		
 		//alert(new Date().getTime()-_d.getTime());
+		
+		//define isAjaxMode variable
+		"ajax" == this.params.mode ? this.isAjaxMode = true : this.isAjaxMode = false; 
 			
 	};
 		
@@ -1118,9 +1122,11 @@
 			}
 		},
 		
-		indexData:function(daysData, isAjaxMode) {
-			var dateYear = daysData.startDate.getFullYear();
-			var dateMonth = daysData.startDate.getMonth();
+		indexData: function(daysData, isAjaxMode) {
+			
+			var dateYear = daysData.startDate.year;
+			var dateMonth = daysData.startDate.month;
+			daysData.startDate = new Date(dateYear,dateMonth) 
 			
 			daysData.index = [];
 			daysData.index[dateYear+'-'+dateMonth] = 0;
@@ -1402,12 +1408,31 @@
 			var formattedDate = rf.calendarUtils.formatDate(this.getCurrentDate(),"MM/yyyy");
 			rf.getDomElement(this.id+'InputCurrentDate').value=formattedDate;
 			
-			if (this.submitFunction)
-				this.submitFunction.call(this, formattedDate);
+			if (this.isAjaxMode && this.callAjax)
+				this.callAjax.call(this, formattedDate);
 			else
 				this.render();
 		},
 		
+		callAjax: function(calendar, date) {
+			var _this = this;
+			var ajaxSuccess = function (event) {
+				if (event.componentData && event.componentData[_this.id])
+				{
+					var dataDays=event.componentData[_this.id]
+					_this.load(dataDays, true);
+				}
+			}
+			var ajaxError = function (event) {
+				// do nothing
+			}
+			var params = {};
+			params[this.id + ".ajax"] = "1";
+		
+			rf.ajax(this.id, null, {parameters: params, error: ajaxError, complete:ajaxSuccess});
+			
+		},
+
 		nextMonth: function() {
 			this.changeCurrentDateOffset(0,1);
 		},

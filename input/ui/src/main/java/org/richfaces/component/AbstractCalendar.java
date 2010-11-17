@@ -22,16 +22,24 @@
 
 package org.richfaces.component;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
 import javax.el.ELContext;
 import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.UIViewRoot;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.DateTimeConverter;
 import javax.faces.event.AbortProcessingException;
@@ -43,12 +51,16 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.utils.CalendarHelper;
-
+import org.richfaces.context.ExtendedVisitContext;
+import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.event.CurrentDateChangeEvent;
 import org.richfaces.event.CurrentDateChangeListener;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.model.CalendarDataModel;
+import org.richfaces.model.CalendarDataModelItem;
+import org.richfaces.renderkit.MetaComponentRenderer;
+import org.richfaces.utils.CalendarHelper;
 
 
 /**
@@ -57,8 +69,10 @@ import org.richfaces.event.CurrentDateChangeListener;
  */
 
 @JsfComponent(type = AbstractCalendar.COMPONENT_TYPE, family = AbstractCalendar.COMPONENT_FAMILY, generate = "org.richfaces.component.UICalendar", renderer = @JsfRenderer(type = "org.richfaces.CalendarRenderer"), tag = @Tag(name = "calendar"))
-public abstract class AbstractCalendar extends UIInput {
+public abstract class AbstractCalendar extends UIInput implements MetaComponentResolver, MetaComponentEncoder {
 
+    public static final String DAYSDATA_META_COMPONENT_ID = "daysData";
+    
     public static final String COMPONENT_TYPE = "org.richfaces.Calendar";
 
     public static final String COMPONENT_FAMILY = "org.richfaces.Calendar";
@@ -75,6 +89,11 @@ public abstract class AbstractCalendar extends UIInput {
         locale
     };
 
+    public enum Modes {
+        CLIENT,
+        AJAX
+    }
+    
     
     @Attribute(defaultValue = "MMM d, yyyy")
     public abstract String getDatePattern();
@@ -144,6 +163,9 @@ public abstract class AbstractCalendar extends UIInput {
 
     @Attribute(defaultValue = "3")
     public abstract int getZindex();
+    
+    @Attribute(defaultValue = "client")
+    public abstract String getMode(); 
 
     @Attribute
     public abstract String getStyle();
@@ -184,6 +206,7 @@ public abstract class AbstractCalendar extends UIInput {
     @Attribute
     public abstract Object getCurrentDate();
 
+    @Attribute
     public abstract void setCurrentDate(Object date);
 
     @Attribute
@@ -194,6 +217,19 @@ public abstract class AbstractCalendar extends UIInput {
 
     @Attribute
     public abstract Object getDefaultTime();
+    
+    @Attribute(defaultValue = "getDefaultPreloadBegin(getCurrentDateOrDefault())")
+    public abstract Object getPreloadDateRangeBegin();
+    
+    public abstract void setPreloadDateRangeBegin(Object date);
+    
+    @Attribute(defaultValue = "getDefaultPreloadEnd(getCurrentDateOrDefault())")
+    public abstract Object getPreloadDateRangeEnd();
+    
+    public abstract void setPreloadDateRangeEnd(Object date);
+    
+    @Attribute
+    public abstract CalendarDataModel getDataModel();
 
     @Attribute(events = @EventName("inputclick"))
     public abstract String getOninputclick();
@@ -306,6 +342,45 @@ public abstract class AbstractCalendar extends UIInput {
     public CurrentDateChangeListener[] getCurrentDateChangeListeners() {
         return (CurrentDateChangeListener[]) getFacesListeners(CurrentDateChangeListener.class);
     }
+    
+    protected Date getDefaultPreloadBegin(Date date) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        Calendar calendar = Calendar.getInstance(getTimeZone(),
+            CalendarHelper.getAsLocale(facesContext, this, getLocale()));
+        calendar.setTime(date);
+        calendar.set(Calendar.DATE, calendar.getActualMinimum(Calendar.DATE));
+        return calendar.getTime();
+    }
+
+    protected Date getDefaultPreloadEnd(Date date) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        Calendar calendar = Calendar.getInstance(getTimeZone(),
+            CalendarHelper.getAsLocale(facesContext, this, getLocale()));
+        calendar.setTime(date);
+        calendar.set(Calendar.DATE, calendar.getActualMaximum(Calendar.DATE));
+        /*
+         * //force recalculation calendar.getTimeInMillis();
+         * calendar.set(Calendar.DAY_OF_WEEK, getLastDayOfWeek(calendar));
+         */
+        return calendar.getTime();
+    }
+    
+    public Date getCurrentDateOrDefault() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+
+        Date date = CalendarHelper.getAsDate(facesContext, this, getCurrentDate());
+
+        if (date != null) {
+            return date;
+        } else {
+            Date value = CalendarHelper.getAsDate(facesContext, this, this.getValue());
+            if (value != null) {
+                return value;
+            } else {
+                return java.util.Calendar.getInstance(getTimeZone()).getTime();
+            }
+        }
+    }
 
     public void broadcast(FacesEvent event) throws AbortProcessingException {
         if (event instanceof CurrentDateChangeEvent) {
@@ -346,6 +421,112 @@ public abstract class AbstractCalendar extends UIInput {
         super.queueEvent(event);
         if (event instanceof CurrentDateChangeEvent) {
             event.setPhaseId(PhaseId.PROCESS_VALIDATIONS);
+        }
+    }
+    
+    public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
+        if (DAYSDATA_META_COMPONENT_ID.equals(metaComponentId)) {
+            return getClientId(facesContext) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + metaComponentId;
+        }
+        return null;
+    }
+
+    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
+        String metaComponentId) {
+        return null;
+    }
+    
+    @Override
+    public boolean visitTree(VisitContext context, VisitCallback callback) {
+        if (context instanceof ExtendedVisitContext) {
+            ExtendedVisitContext extendedVisitContext = (ExtendedVisitContext) context;
+            if (extendedVisitContext.getVisitMode() == ExtendedVisitContextMode.RENDER) {
+
+                VisitResult result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback,
+                    DAYSDATA_META_COMPONENT_ID);
+                if (result == VisitResult.COMPLETE) {
+                    return true;
+                } else if (result == VisitResult.REJECT) {
+                    return false;
+                }
+            }
+        }
+
+        return super.visitTree(context, callback);
+    }
+
+    public void encodeMetaComponent(FacesContext context, String metaComponentId) throws IOException {
+        ((MetaComponentRenderer) getRenderer(context)).encodeMetaComponent(context, this, metaComponentId);
+    }    
+    
+    public Object getPreload() {
+        Date[] preloadDateRange = getPreloadDateRange();
+        if (preloadDateRange != null && preloadDateRange.length != 0) {
+            CalendarDataModel calendarDataModel = (CalendarDataModel) getDataModel();
+            if (calendarDataModel != null) {
+                CalendarDataModelItem[] calendarDataModelItems = calendarDataModel
+                        .getData(preloadDateRange);
+
+                HashMap<String, Object> args = new HashMap<String, Object>();
+                
+                args.put("startDate", formatStartDate(preloadDateRange[0]));
+                args.put("days", calendarDataModelItems);
+                return args;
+            }
+        }
+        return null;
+    }
+    
+    public static Object formatStartDate(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        HashMap <String, Object> hashDate = new HashMap<String,Object>();
+        hashDate.put("month", calendar.get(Calendar.MONTH));
+        hashDate.put("year", calendar.get(Calendar.YEAR));
+        return hashDate;
+    }
+    
+    public Date[] getPreloadDateRange() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        
+        Date dateRangeBegin = null;
+        Date dateRangeEnd = null;
+        
+        if (Modes.AJAX.toString().equalsIgnoreCase(getMode())) {
+            dateRangeBegin = CalendarHelper.getAsDate(facesContext, this, 
+                getDefaultPreloadBegin((Date) getCurrentDate()));
+            dateRangeEnd = CalendarHelper.getAsDate(facesContext, this, 
+                getDefaultPreloadEnd((Date) getCurrentDate()));                
+        } else {
+            dateRangeBegin = CalendarHelper.getAsDate(facesContext, this, getPreloadDateRangeBegin());
+            dateRangeEnd = CalendarHelper.getAsDate(facesContext, this, getPreloadDateRangeEnd());            
+        }
+
+        if (dateRangeBegin == null && dateRangeEnd == null) {
+            return null;
+        } else {
+            if (dateRangeBegin.after(dateRangeEnd)) {
+                // XXX add message
+                FacesMessage message = new FacesMessage(
+                        "preloadDateRangeBegin is greater than preloadDateRangeEnd");
+                message.setSeverity(FacesMessage.SEVERITY_ERROR);
+                facesContext.addMessage(getClientId(facesContext), message);
+                throw new IllegalArgumentException();
+            }
+
+            List<Date> dates = new ArrayList<Date>();
+
+            Calendar calendar = Calendar.getInstance(this.getTimeZone(), CalendarHelper.getAsLocale(facesContext, this, this.getLocale()));
+            Calendar calendar2 = (Calendar) calendar.clone();
+            calendar.setTime(dateRangeBegin);
+            calendar2.setTime(dateRangeEnd);
+
+            do {
+                dates.add(calendar.getTime());
+                calendar.add(Calendar.DATE, 1);
+            } while (!calendar.after(calendar2));
+
+            return (Date[]) dates.toArray(new Date[dates.size()]);
         }
     }
 }

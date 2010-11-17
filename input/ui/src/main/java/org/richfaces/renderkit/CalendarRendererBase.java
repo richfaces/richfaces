@@ -40,14 +40,17 @@ import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.DateTimeConverter;
 
+import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractCalendar;
+import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.component.util.MessageUtil;
 import org.richfaces.component.util.SelectUtils;
@@ -73,7 +76,7 @@ import org.richfaces.utils.CalendarHelper;
         @ResourceDependency(library = "org.richfaces", name = "calendar-utils.js"),
         @ResourceDependency(library = "org.richfaces", name = "calendar.js"),
         @ResourceDependency(library = "org.richfaces", name = "calendar.ecss") })
-public class CalendarRendererBase extends InputRendererBase {
+public class CalendarRendererBase extends InputRendererBase implements MetaComponentRenderer {
 
     public static final String CALENDAR_BUNDLE = "org.richfaces.renderkit.calendar";
 
@@ -146,9 +149,8 @@ public class CalendarRendererBase extends InputRendererBase {
     public static final String CALENDAR_DISABLE_ICON_RESOURCE_NAME = "disabledCalendarIcon.png";
     
     public static final String CURRENT_DATE_INPUT = "InputCurrentDate";
-
     
-    
+    public static final String OPTION_MODE = "mode";
 
     
     protected static final Map<String, ComponentAttribute> CALENDAR_INPUT_HANDLER_ATTRIBUTES = Collections.unmodifiableMap(ComponentAttribute.createMap(
@@ -200,7 +202,7 @@ public class CalendarRendererBase extends InputRendererBase {
     private static final String MINUTES_VALUE = "minutes";
 
     protected void doDecode(FacesContext context, UIComponent component) {
-        if(!(component instanceof AbstractCalendar)) {
+        if (!(component instanceof AbstractCalendar)) {
             return;
         }
         
@@ -220,6 +222,15 @@ public class CalendarRendererBase extends InputRendererBase {
         String selectedDateString = (String) requestParameterMap.get(clientId + "InputDate");
         if (selectedDateString != null) {
             calendar.setSubmittedValue(selectedDateString);
+        }
+        
+        if (requestParameterMap.get(component.getClientId(context) + ".ajax") != null) {
+            PartialViewContext pvc = context.getPartialViewContext();
+            pvc.getRenderIds().add(
+                component.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
+                    + AbstractCalendar.DAYSDATA_META_COMPONENT_ID);
+            
+            context.renderResponse();
         }
     }
     
@@ -256,7 +267,7 @@ public class CalendarRendererBase extends InputRendererBase {
     
     @Override
     public String getInputValue(FacesContext facesContext, UIComponent component) {
-        if(!(component instanceof AbstractCalendar)) {
+        if (!(component instanceof AbstractCalendar)) {
             return null;
         }
         
@@ -290,11 +301,11 @@ public class CalendarRendererBase extends InputRendererBase {
     public String getButtonIcon(FacesContext facesContext, UIComponent component) {
         boolean disable  = (Boolean)component.getAttributes().get("disabled");
         String buttonIcon = (String)component.getAttributes().get("buttonIcon");
-        if(disable) {
+        if (disable) {
             buttonIcon = (String)component.getAttributes().get("buttonIconDisabled");
         }
         
-        if(buttonIcon != null && buttonIcon.trim().length() != 0) {
+        if (buttonIcon != null && buttonIcon.trim().length() != 0) {
             buttonIcon =  ViewUtil.getResourceURL(buttonIcon, facesContext);
         } else {
             buttonIcon = disable ? CALENDAR_ICON_RESOURCE_NAME: CALENDAR_ICON_RESOURCE_NAME;
@@ -307,11 +318,11 @@ public class CalendarRendererBase extends InputRendererBase {
     public Object getSelectedDate(FacesContext facesContext, UIComponent component) throws IOException {
         Object returnValue = null;
         AbstractCalendar calendar = (AbstractCalendar)component;
-        if(calendar.isValid()) {
+        if (calendar.isValid()) {
             Date date;
             Object value = calendar.getValue();
             date = CalendarHelper.getAsDate(facesContext, calendar, value);
-            if(date != null) {
+            if (date != null) {
                 returnValue = formatSelectedDate(calendar.getTimeZone(), date);  
             }
         }
@@ -382,7 +393,6 @@ public class CalendarRendererBase extends InputRendererBase {
         return ((dayStyleClass != null && dayStyleClass.trim().length() != 0)) ? new JSReference(dayStyleClass) : null; 
     }
     
-    
     public Map<String, Object> getLabels(FacesContext facesContext, AbstractCalendar calendar) {
         ResourceBundle bundle1 = null;
         ResourceBundle bundle2 = null;
@@ -409,11 +419,11 @@ public class CalendarRendererBase extends InputRendererBase {
     
     protected Map<String, Object> getCollectedLabels(ResourceBundle [] bundles , String[] names) {
         Map<String, Object> labels = new HashMap<String, Object>();
-        if(bundles != null && names != null) {
+        if (bundles != null && names != null) {
             for (String name: names) {
                 String label = null;
                 String bundleKey = "RICH_CALENDAR_" + name.toUpperCase() + "_LABEL";
-                for(ResourceBundle bundle: bundles) {
+                for (ResourceBundle bundle: bundles) {
                     if (bundle != null) {
                         try {
                             label = bundle.getString(bundleKey);
@@ -421,7 +431,7 @@ public class CalendarRendererBase extends InputRendererBase {
                         // Current key was not found, ignore this exception;
                         }
                     }
-                    if(label != null) {
+                    if (label != null) {
                         break;
                     }
                 }
@@ -478,36 +488,35 @@ public class CalendarRendererBase extends InputRendererBase {
         int monthMin = calendar.getActualMinimum(Calendar.MONTH);
 
         String [] weekDayLabels = RenderKitUtils.asArray(calendarComponent.getWeekDayLabels());
-        if(weekDayLabels == null) {
+        if (weekDayLabels == null) {
             weekDayLabels = dateFormat.getWeekdays();
             weekDayLabels = shiftDates(minimum, maximum, weekDayLabels);
         }
         RenderKitUtils.addToScriptHash(map, WEEK_DAY_LABELS, weekDayLabels);
 
         String [] weekDayLabelsShort = RenderKitUtils.asArray(calendarComponent.getWeekDayLabelsShort());
-        if(weekDayLabelsShort == null) {
+        if (weekDayLabelsShort == null) {
             weekDayLabelsShort = dateFormat.getShortWeekdays();
             weekDayLabelsShort = shiftDates(minimum, maximum, weekDayLabelsShort);
         }
         RenderKitUtils.addToScriptHash(map, WEEK_DAY_LABELS_SHORT, weekDayLabelsShort);
 
         String [] monthLabels = RenderKitUtils.asArray(calendarComponent.getMonthLabels());
-        if(monthLabels == null) {
+        if (monthLabels == null) {
             monthLabels = dateFormat.getMonths();
             monthLabels = shiftDates(monthMin, monthMax, monthLabels);
         }
         RenderKitUtils.addToScriptHash(map, MONTH_LABELS, monthLabels);
 
-        
         String [] monthLabelsShort = RenderKitUtils.asArray(calendarComponent.getMonthLabelsShort());
-        if(monthLabelsShort == null) {
+        if (monthLabelsShort == null) {
             monthLabelsShort = dateFormat.getShortMonths();
             monthLabelsShort = shiftDates(monthMin, monthMax, monthLabelsShort);
         }
         RenderKitUtils.addToScriptHash(map, MONTH_LABELS_SHORT, monthLabelsShort);
         
         int minDaysInFirstWeek = calendarComponent.getMinDaysInFirstWeek();
-        if(minDaysInFirstWeek == Integer.MIN_VALUE) {
+        if (minDaysInFirstWeek == Integer.MIN_VALUE) {
             minDaysInFirstWeek = calendar.getMinimalDaysInFirstWeek();
         }
 
@@ -516,7 +525,7 @@ public class CalendarRendererBase extends InputRendererBase {
         }
         
         int day = calendarComponent.getFirstWeekDay();
-        if(day == Integer.MIN_VALUE) {
+        if (day == Integer.MIN_VALUE) {
             day = calendar.getFirstDayOfWeek();
             day = calendar.getFirstDayOfWeek() - calendar.getActualMinimum(Calendar.DAY_OF_WEEK);
         }
@@ -526,7 +535,6 @@ public class CalendarRendererBase extends InputRendererBase {
         } else if (day != Integer.MIN_VALUE) {
             facesContext.getExternalContext().log(day + " value of firstWeekDay attribute is not a legal one for component: " + MessageUtil.getLabel(facesContext, calendarComponent) + ". Default value was applied.");
         }
-        
         return map;
     }
 
@@ -538,7 +546,7 @@ public class CalendarRendererBase extends InputRendererBase {
         scriptOptions.addOption(OPTION_READONLY);
         scriptOptions.addOption(OPTION_RESET_TIME_ON_DATE_SELECT);
         scriptOptions.addOption(OPTION_SHOW_APPLY_BUTTON);
-        scriptOptions.addOption(OPTION_POPUP); 
+        scriptOptions.addOption(OPTION_POPUP);
         scriptOptions.addOption(OPTION_SHOW_INPUT);
         scriptOptions.addOption(OPTION_SHOW_HEADER);
         scriptOptions.addOption(OPTION_SHOW_FOOTER);
@@ -565,12 +573,13 @@ public class CalendarRendererBase extends InputRendererBase {
 
         scriptOptions.addOption("styleClass");
         scriptOptions.addOption("style", HtmlUtil.concatStyles("z-index: " + calendar.getZindex(), calendar.getStyle()));
+        scriptOptions.addOption(OPTION_MODE, calendar.getMode());
        
         return scriptOptions;
     }
     
     public void buildAddLocaleScript(ResponseWriter writer, FacesContext facesContext, UIComponent component) throws IOException {
-        if(component instanceof AbstractCalendar) {
+        if (component instanceof AbstractCalendar) {
             AbstractCalendar calendar = (AbstractCalendar)component;
             JSFunction function = new JSFunction("RichFaces.ui.Calendar.addLocale", CalendarHelper.getAsLocale(facesContext, calendar).toString(), getLocaleOptions(facesContext, calendar));
             writer.write(function.toScript());
@@ -579,12 +588,18 @@ public class CalendarRendererBase extends InputRendererBase {
     }
     
     public void buildCalendarScript(ResponseWriter writer, FacesContext facesContext, UIComponent component) throws IOException {
-        if(component instanceof AbstractCalendar) {
+        if (component instanceof AbstractCalendar) {
             AbstractCalendar calendar = (AbstractCalendar)component;
             ScriptOptions scriptOptions = createCalendarScriptOption(facesContext, calendar);
             JSFunction function = new JSFunction("new RichFaces.ui.Calendar", calendar.getClientId(facesContext),  CalendarHelper.getAsLocale(facesContext, calendar).toString(), scriptOptions, "");
             StringBuffer scriptBuffer = new StringBuffer(); 
-            scriptBuffer.append(function.toScript()).append(".load();");
+            scriptBuffer.append(function.toScript()).append(".load(");
+            Object preload = calendar.getPreload();
+            if (null != preload){              
+                scriptBuffer.append(RenderKitUtils.toScriptArgs(preload));
+            }
+                        
+            scriptBuffer.append(");");
             writer.write(scriptBuffer.toString());
         }
     }
@@ -599,11 +614,11 @@ public class CalendarRendererBase extends InputRendererBase {
     }
     
     protected Converter setupConverter(FacesContext facesContext, Converter converter, AbstractCalendar calendar) {
-        if(converter == null || calendar == null) {
+        if (converter == null || calendar == null) {
             return null;
         }
         
-        if(converter instanceof DateTimeConverter) {
+        if (converter instanceof DateTimeConverter) {
             DateTimeConverter defaultConverter = (DateTimeConverter) converter;
             defaultConverter.setPattern(calendar.getDatePattern());
             defaultConverter.setLocale( CalendarHelper.getAsLocale(facesContext, calendar));
@@ -611,5 +626,21 @@ public class CalendarRendererBase extends InputRendererBase {
         }
         return converter;
     }
+    
+    public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId)
+        throws IOException {
+        if (AbstractCalendar.DAYSDATA_META_COMPONENT_ID.equals(metaComponentId)) {
+            Object preload = ((AbstractCalendar) component).getPreload();
+            if (preload != null) {
+                Map<String, Object> dataMap = AjaxContext.getCurrentInstance(context).getResponseComponentDataMap();
+                dataMap.put(component.getClientId(context), preload);
+            }
+        } else {
+            throw new IllegalArgumentException(metaComponentId);
+        }
+    }
 
+    public void decodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) {
+        throw new UnsupportedOperationException();
+    }    
 }
