@@ -129,7 +129,6 @@
         	if (this.items.length>0 && this.enableManualInput) {
     			this.cache = new rf.utils.Cache("", this.items, getData, true);
     		}
-    		
     		this.changeDelay = mergedOptions.changeDelay; 
         };
         
@@ -241,10 +240,8 @@
     			__onChangeValue: function(e) {
     				this.popupList.__selectByIndex();
     				var newValue = this.getValue();
-
     				if(this.cache && this.cache.isCached(newValue)) {
     					this.__updateItems();
-
     					if(!this.popupList.isVisible()) {
     						this.showPopup();
     					}
@@ -290,44 +287,51 @@
            		
     			processItem: function(item) {
     				var key = $(item).attr("id");
-    				var value = this.getItemValue(key);
-    				this.selValueInput.val(value);
-    				var label = this.getItemLabel(key);
+    				var label;
+    				$.each(this.clientItems, function() {
+    					if(this.id == key) {
+    						label = this.label;
+    						return false;
+    					}
+    				});
     				this.setValue(label);
                		this.hidePopup();
                		this.__setInputFocus();
     			}, 
     			
-    			getItemValue: function(key) {
-    				for(var i in this.clientItems) {
-    					var item = this.clientItems[i];
-    					if(item && item.id == key) {
-    						return item.value;
-    					}
-    				}
-    			}, 
-    			
-    			getItemLabel: function(key) {
-    				for(var i in this.clientItems) {
-    					var item = this.clientItems[i];
-    					if(item && item.id == key) {
-    						return item.label;
-    					}
-    				}
-    			}, 
-    			
     			onblur: function(e) {
-					this.hidePopup();
+    				this.hidePopup();
+					var value = "";
+					var label = this.defaultLabel;
 					var inputLabel = this.getValue();
-					if(!inputLabel || inputLabel == "") {
-						this.setValue(this.defaultLabel);
-	    				this.selValueInput.val("");
-					}
-					
+					if(inputLabel && inputLabel != "") {
+						var items = this.cache.getItems(inputLabel);					
+						if(items.length > 0) {
+							var first = $(items[0]);
+							$.each(this.clientItems, function() {
+								if(this.id == first.attr("id")) {
+									label = this.label;
+									value = this.value;
+									return false;
+								}
+							});
+						} else {
+							var prevValue =	this.selValueInput.val();
+							if(prevValue && prevValue != "") {
+								$.each(this.clientItems, function() {
+									if(this.value == prevValue) {
+										label = this.label;
+										value = this.value
+										return false;
+									}
+								});		
+							} 
+						}
+					} 
+					this.setValue(label);
+					this.selValueInput.val(value);
 					this.focused = false;
-					
 					this.invokeEvent.call(this,"blur", document.getElementById(this.id + 'Input'), e);
-
 					if(this.focusValue != this.selValueInput.val() ) {
 						this.invokeEvent.call(this, "change", document.getElementById(this.id + 'Input'), e);
 					}
