@@ -4,11 +4,11 @@ import java.util.Date;
 import java.util.Locale;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class CalendarBean {
 
     private Locale locale;
@@ -17,6 +17,7 @@ public class CalendarBean {
     private Date selectedDate;
     private boolean showApply = true;
     private boolean useCustomDayLabels;
+    private String mode = "client";
 
     public CalendarBean() {
 
@@ -25,6 +26,14 @@ public class CalendarBean {
         pattern = "d/M/yy HH:mm";
     }
 
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+    
     public Locale getLocale() {
         return locale;
     }

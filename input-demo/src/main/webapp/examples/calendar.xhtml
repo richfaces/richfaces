@@ -39,6 +39,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 				<calendar:calendar value="#{calendarBean.selectedDate}" id="calendar"
 					locale="#{calendarBean.locale}" popup="#{calendarBean.popup}"
 					datePattern="#{calendarBean.pattern}"
+					dataModel="#{calendarDataModel}"
+					mode="#{calendarBean.mode}"
 					showApplyButton="#{calendarBean.showApply}" cellWidth="24px"
 					cellHeight="22px" style="width:200px">
 					<f:convertDateTime pattern="#{calendarBean.pattern}"
@@ -73,6 +75,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					<f:selectItem itemLabel="d/MMM/y" itemValue="d/MMM/y" />
 					<f:selectItem itemLabel="MMM d, yyyy" itemValue="MMM d, yyyy" />
 				</h:selectOneMenu>
+				
+				<h:outputText value="Mode" />
+				<h:selectOneMenu value="#{calendarBean.mode}" onchange="submit()">
+					<f:selectItem itemValue="client"/>
+					<f:selectItem itemValue="ajax"/>
+				</h:selectOneMenu><br/>
+						
 			</h:panelGrid>
 		</h:panelGrid>
 	</h:form>
