@@ -38,7 +38,7 @@
 		</script>
 
 		<input:autocomplete autofill="false" id="myAutocomplete" clientFilterFunction="customFilterFunction" mode="#{autoCompleteBean.mode}" minChars="2" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" fetchValue="#{country.name}" showButton="true"
-		 value = "#{autoCompleteBean.value}"
+		 value = "#{autoCompleteBean.value}" layout="list"
 		 onchange="return onEvent.call(this, event);" onselectitem="return onEvent.call(this, event);" onblur="return onEvent.call(this, event);" onfocus="return onEvent.call(this, event);">
 			#{country.name} #{country.iso} #{country.domain}
 		<a4j:ajax event="change" render="output"/>
@@ -88,6 +88,29 @@
 			<a4j:log mode="inline"></a4j:log>
 		</div>
 	</h:form>
+	<h:form>
+		RF-9567:<br/><br/>
+		<a4j:outputPanel ajaxRendered="true"><h:messages /></a4j:outputPanel>
+		
+		
+		<input:autocomplete mode="ajax" id="autocomplete" autocompleteMethod="#{autoCompleteBean.autocomplete}" value="#{autoCompleteBean.value}">
+		<f:validateRegex pattern="Alabama" />
+		</input:autocomplete>
+
+		<a4j:commandButton render="@form" execute="autocomplete" />
+	</h:form>
+	<h:form>
+	<input:autocomplete mode="cachedAjax" tokens="," minChars="0"
+autofill="true" selectFirst="false" layout="table"
+autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" fetchValue="#{country.name}">
+<h:column>
+#{country.name}
+</h:column>
+<h:column>
+#{country.iso}
+</h:column>
+</input:autocomplete>
+</h:form>
 	
 	</ui:define>
 </ui:composition>
