@@ -5,7 +5,7 @@
  */
 
 // draft examples of usage
-// jQuery('#tooltip').setPosition('#aaa',{from:'LB', to:'AA'});
+// jQuery('#tooltip').setPosition('#aaa',{from:'bottom-left', to:'auto-auto'});
 // jQuery('#bbb').bind("click",function(e){jQuery('#tooltip').setPosition(e);});
 // TODO: clear code
 // TODO: optimization
@@ -81,6 +81,14 @@
 			var def = params.type || params.from || params.to ? $.PositionTypes[params.type || defaultType] : {noPositionType:true};
 			
 			var options =  $.extend({}, defaults, def, params);
+			if (!options.noPositionType) {
+				if (options.from.length>2) {
+					options.from = positionDefinition[options.from.toLowerCase()];
+				}
+				if (options.to.length>2) {
+					options.to = positionDefinition[options.to.toLowerCase()];
+				}
+			}
 			return this.each(function() {
 					element = $(this);
 					//alert(rect.left+" "+rect.top+" "+rect.width+" "+rect.height);
@@ -98,6 +106,17 @@
 	var re = /^(left|right)-(top|buttom|auto)$/i;
 	
 	// TODO: make it private
+	var positionDefinition = {
+		'top-left':'LT',
+		'top-right':'RT',
+		'bottom-left':'LB',
+		'bottom-right':'RB',
+		'top-auto':'AT',
+		'bottom-auto':'AB',
+		'auto-left':'LA',
+		'auto-right':'RA',
+		'auto-auto':'AA'
+	};
 	$.PositionTypes = {
 		// horisontal constants: L-left, R-right, C-center, A-auto
 		// vertical constants:   T-top, B-bottom, M-middle, A-auto
@@ -147,15 +166,15 @@
 				offset = e.offset();
 				var d = rect.left - offset.left;
 				if (d<0) {
-					rect.width = (width > rect.width) ? width : rect.width - d;
+					if (width-d > rect.width) rect.width = width - d;
 				} else {
-					if (d + width > rect.width) rect.width = d + width;
+					rect.width += d;
 				}
 				var d = rect.top - offset.top;
 				if (d<0) {
-					rect.height = (height > rect.height) ? height : rect.height - d;
+					if (height-d > rect.height) rect.height = height -d;
 				} else {
-					if (d + height > rect.height) rect.height = d + height;
+					rect.height += d;
 				}
 				if (offset.left < rect.left) rect.left = offset.left;
 				if (offset.top < rect.top) rect.top = offset.top;
