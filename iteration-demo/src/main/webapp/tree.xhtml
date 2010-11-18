@@ -74,27 +74,18 @@
 		</h:commandLink>
 
 		<it:tree id="customizedTree" var="node" value="#{treeBean.rootNodes}" 
-<<<<<<< HEAD
 			selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}"
 			styleClass="#{treeBean.showCustomClasses ? 'customClass' : ''}">
 			
 			<it:treeNode iconLeaf="/images/leaf.png" iconExpanded="/images/minus.png" iconCollapsed="/images/plus.png"
 			styleClass="customNodeClass" handleClass="customHandleClass" iconClass="customIconClass" labelClass="customLabelClass">
-=======
-			selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}">
-			
-			<it:treeNode iconLeaf="/images/leaf.png" iconExpanded="/images/minus.png" iconCollapsed="/images/plus.png">
->>>>>>> https://jira.jboss.org/browse/RF-9715
 			#{node.data}
 			</it:treeNode>
 		</it:tree>
 
-<<<<<<< HEAD
 		<it:tree id="defaultNodeTree" var="node" value="#{treeBean.rootNodes}" 
 			selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}">
 		</it:tree>
-=======
->>>>>>> https://jira.jboss.org/browse/RF-9715
 	</h:form>
 </h:body>
 </html>
