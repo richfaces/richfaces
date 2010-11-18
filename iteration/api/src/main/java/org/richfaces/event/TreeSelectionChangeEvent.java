@@ -53,7 +53,7 @@ public class TreeSelectionChangeEvent extends FacesEvent {
 
     @Override
     public void processListener(FacesListener listener) {
-        ((TreeSelectionChangeListener) listener).processSelection(this);
+        ((TreeSelectionChangeListener) listener).processSelectionChange(this);
     }
 
     public Collection<Object> getOldSelection() {

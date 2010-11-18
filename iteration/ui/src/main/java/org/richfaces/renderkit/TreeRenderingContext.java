@@ -49,11 +49,19 @@ public final class TreeRenderingContext {
     
     private static final ComponentAttribute ONNODETOGGLE_ATTRIBUTE = new ComponentAttribute("onnodetoggle").setEventNames("nodetoggle");
     
+    private static final ComponentAttribute ONBEFORETOGGLE_ATTRIBUTE = new ComponentAttribute("onbeforetoggle").setEventNames("beforetoggle");
+    
+    private static final ComponentAttribute ONBEFORENODETOGGLE_ATTRIBUTE = new ComponentAttribute("onbeforenodetoggle").setEventNames("beforenodetoggle");
+    
     public static final class Handlers extends ScriptStringBase {
     
         private String toggleHandler;
         
         private String nodeToggleHandler;
+        
+        private String beforeToggleHandler;
+        
+        private String beforeNodeToggleHandler;
         
         protected Object chain(String firstHandler, String secondHandler) {
             if (isNullOrEmpty(firstHandler) && isNullOrEmpty(secondHandler)) {
@@ -68,7 +76,7 @@ public final class TreeRenderingContext {
                 return firstHandler;
             }
             
-            return new JSFunction("jsf.util.chain", JSReference.THIS, JSReference.EVENT, firstHandler, secondHandler).toScript();
+            return new JSFunction("return jsf.util.chain", JSReference.THIS, JSReference.EVENT, firstHandler, secondHandler).toScript();
         }
         
         public void setToggleHandler(String toggleHandler) {
@@ -79,17 +87,49 @@ public final class TreeRenderingContext {
             return toggleHandler;
         }
 
+        public void setNodeToggleHandler(String nodeToggleHandler) {
+            this.nodeToggleHandler = nodeToggleHandler;
+        }
+        
         public String getNodeToggleHandler() {
             return nodeToggleHandler;
         }
 
-        public void setNodeToggleHandler(String nodeToggleHandler) {
-            this.nodeToggleHandler = nodeToggleHandler;
+        public void setBeforeToggleHandler(String beforeToggleHandler) {
+            this.beforeToggleHandler = beforeToggleHandler;
         }
-
+        
+        public String getBeforeToggleHandler() {
+            return beforeToggleHandler;
+        }
+        
+        public void setBeforeNodeToggleHandler(String beforeNodeToggleHandler) {
+            this.beforeNodeToggleHandler = beforeNodeToggleHandler;
+        }
+        
+        public String getBeforeNodeToggleHandler() {
+            return beforeNodeToggleHandler;
+        }
+        
         public void appendScript(Appendable target) throws IOException {
-            Object chain = chain(toggleHandler, nodeToggleHandler);
-            ScriptUtils.appendScript(target, chain);
+            Object chainedToggleHandler = chain(toggleHandler, nodeToggleHandler);
+            Object chainedBeforeToggleHandler = chain(beforeToggleHandler, beforeNodeToggleHandler);
+            
+            if (chainedToggleHandler != null || chainedBeforeToggleHandler != null) {
+                Map<String,Object> map = new HashMap<String, Object>(2);
+                
+                if (chainedToggleHandler != null) {
+                    map.put("th", chainedToggleHandler);
+                }
+                
+                if (chainedBeforeToggleHandler != null) {
+                    map.put("bth", chainedBeforeToggleHandler);
+                }
+                
+                ScriptUtils.appendScript(target, map);
+            } else {
+                ScriptUtils.appendScript(target, null);
+            }
         }
     }
     
@@ -145,9 +185,19 @@ public final class TreeRenderingContext {
                 getOrCreateHandlers(relativeClientId).setToggleHandler(toggleHandler);
             }
             
+            String beforeToggleHandler = (String) RenderKitUtils.getAttributeAndBehaviorsValue(context, treeNode, ONBEFORETOGGLE_ATTRIBUTE);
+            if (!isNullOrEmpty(beforeToggleHandler)) {
+                getOrCreateHandlers(relativeClientId).setBeforeToggleHandler(beforeToggleHandler);
+            }
+            
             String nodeToggleHandler = (String) RenderKitUtils.getAttributeAndBehaviorsValue(context, tree, ONNODETOGGLE_ATTRIBUTE);
             if (!isNullOrEmpty(nodeToggleHandler)) {
                 getOrCreateHandlers(relativeClientId).setNodeToggleHandler(nodeToggleHandler);
+            }
+            
+            String beforeNodeToggleHandler = (String) RenderKitUtils.getAttributeAndBehaviorsValue(context, tree, ONBEFORENODETOGGLE_ATTRIBUTE);
+            if (!isNullOrEmpty(beforeNodeToggleHandler)) {
+                getOrCreateHandlers(relativeClientId).setBeforeNodeToggleHandler(beforeNodeToggleHandler);
             }
         }
     }

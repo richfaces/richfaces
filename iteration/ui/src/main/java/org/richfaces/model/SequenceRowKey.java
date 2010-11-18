@@ -49,6 +49,24 @@ public class SequenceRowKey<T> implements Serializable {
         return new SequenceRowKey<T>(ObjectArrays.concat(simpleKeys, segment));
     }
 
+    public T getLastKeySegment() {
+        if (simpleKeys.length == 0) {
+            return null;
+        }
+        
+        return simpleKeys[simpleKeys.length - 1];
+    }
+    
+    public SequenceRowKey<T> getParent() {
+        if (simpleKeys.length == 0) {
+            return null;
+        }
+        
+        T[] parentSimpleKeys = ObjectArrays.newArray(simpleKeys, simpleKeys.length - 1);
+        System.arraycopy(simpleKeys, 0, parentSimpleKeys, 0, parentSimpleKeys.length);
+        return new SequenceRowKey<T>(parentSimpleKeys);
+    }
+    
     @Override
     public int hashCode() {
         final int prime = 31;

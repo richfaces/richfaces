@@ -63,8 +63,9 @@ class TreeEncoderPartial extends TreeEncoderBase {
         Object initialRowKey = tree.getRowKey();
         try {
             TreeRenderingContext.create(context, tree);
-         
-            encodeTreeNode(rowKey, true);
+            tree.setRowKey(context, rowKey);
+
+            encodeTree();
             
             prw.endUpdate();
             

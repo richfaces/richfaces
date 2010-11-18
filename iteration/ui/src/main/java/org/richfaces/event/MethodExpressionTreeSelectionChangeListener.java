@@ -21,15 +21,30 @@
  */
 package org.richfaces.event;
 
+import javax.el.MethodExpression;
 import javax.faces.event.AbortProcessingException;
-import javax.faces.event.FacesListener;
 
 /**
  * @author Nick Belaevski
  * 
  */
-public interface TreeSelectionChangeListener extends FacesListener {
+public class MethodExpressionTreeSelectionChangeListener extends MethodExpressionEventListener implements TreeSelectionChangeListener {
 
-    public void processSelectionChange(TreeSelectionChangeEvent event) throws AbortProcessingException;
-    
+    public MethodExpressionTreeSelectionChangeListener() {
+        super();
+    }
+
+    public MethodExpressionTreeSelectionChangeListener(MethodExpression methodExprOneArg,
+        MethodExpression methodExprZeroArg) {
+        super(methodExprOneArg, methodExprZeroArg);
+    }
+
+    public MethodExpressionTreeSelectionChangeListener(MethodExpression methodExpressionOneArg) {
+        super(methodExpressionOneArg);
+    }
+
+    public void processSelectionChange(TreeSelectionChangeEvent event) throws AbortProcessingException {
+        processEvent(event);
+    }
+
 }

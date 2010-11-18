@@ -38,7 +38,8 @@ class TreeEncoderFull extends TreeEncoderBase {
     public void encode() throws java.io.IOException {
         Object initialRowKey = tree.getRowKey();
         try {
-            encodeTree(tree.getChildrenRowKeysIterator(context, null));
+            tree.setRowKey(context, null);
+            encodeTree();
         } finally {
             try {
                 tree.setRowKey(context, initialRowKey);

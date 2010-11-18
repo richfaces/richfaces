@@ -46,15 +46,21 @@
 			
 			this.__initializeChildren(commonOptions);
 			
-			var __toggleHandler = (commonOptions.clientEventHandlers || {})[this.getId().substring(commonOptions.treeId.length)];
+			var handlers = (commonOptions.clientEventHandlers || {})[this.getId().substring(commonOptions.treeId.length)] || {};
 			
-			if (__toggleHandler) {
-				richfaces.Event.bind(this.__rootElt, "toggle", new Function("event", __toggleHandler));
+			if (handlers.bth) {
+				richfaces.Event.bind(this.__rootElt, "beforetoggle", new Function("event", handlers.bth));
 			}
+			
+			if (handlers.th) {
+				richfaces.Event.bind(this.__rootElt, "toggle", new Function("event", handlers.th));
+			}
+
+			this.__addLastNodeClass();
 		},
 		
 		destroy: function() {
-			this.$super.destroy.call(this);
+			richfaces.BaseComponent.prototype.destroy.call(this);
 
 			if (this.parent) {
 				this.parent.removeChild(this);
@@ -73,6 +79,12 @@
 			this.__rootElt.children(".rf-tr-nd").each(function() {
 				_this.addChild(new richfaces.ui.TreeNode(this, commonOptions));
 			});
+		},
+		
+		__addLastNodeClass: function() {
+			if (this.__rootElt.next("div").length == 0) {
+				this.__rootElt.addClass("rf-tr-nd-last");
+			}
 		},
 		
 		__getHandle: function() {
@@ -163,13 +175,22 @@
 
 		},
 		
+		__fireBeforeToggleEvent: function() {
+			return richfaces.Event.callHandler(this.__rootElt, "beforetoggle");
+		},
+		
 		__fireToggleEvent: function() {
-			richfaces.Event.fire(this.__rootElt, "toggle");
+			richfaces.Event.callHandler(this.__rootElt, "toggle");
 		},
 		
 		__changeToggleState: function(newState) {
 			if (!this.isLeaf()) {
 				if (newState ^ this.isExpanded()) {
+					
+					if (this.__fireBeforeToggleEvent() === false) {
+						return;
+					}
+					
 					var tree = this.getTree();
 					
 					switch (tree.getToggleType()) {
@@ -234,10 +255,6 @@
 		
 		var opts = commonOptions || {};
 		
-		if (node.nextAll(".rf-tr-nd:first").length != 0) {
-			node.removeClass("rf-tr-nd-last");
-		}
-		
 		var parent = node.parent(".rf-tr-nd, .rf-tr");
 		
 		var idx = node.prevAll(".rf-tr-nd").length;
@@ -247,7 +264,7 @@
 
 		var newChild = new richfaces.ui.TreeNode(node[0], opts);
 		parentNode.addChild(newChild, idx);
-		parentNode.getTree().__updateSelection();
+		parentNode.getTree().__updateSelectionFromInput();
 	};
 	
 	richfaces.ui.TreeNode.emitToggleEvent = function(nodeId) {
@@ -291,31 +308,52 @@
 				this.__ajaxSubmitFunction = new Function("event", "source", "params", options.ajaxSubmitFunction);
 			}
 			
+			if (options.onbeforeselectionchange) {
+				richfaces.Event.bind(this.__treeRootElt, "beforeselectionchange", new Function("event", options.onbeforeselectionchange));
+			}
+
 			if (options.onselectionchange) {
 				richfaces.Event.bind(this.__treeRootElt, "selectionchange", new Function("event", options.onselectionchange));
 			}
 			
+			this.__toggleNodeEvent = options.toggleNodeEvent;
+			if (this.__toggleNodeEvent) {
+				this.__treeRootElt.delegate(".rf-trn", this.__toggleNodeEvent, this, this.__nodeToggleActivated);
+			} 
+			if (!this.__toggleNodeEvent || this.__toggleNodeEvent != 'click') {
+				this.__treeRootElt.delegate(".rf-trn-hnd", "click", this, this.__nodeToggleActivated);
+			}
+			
+			this.__treeRootElt.delegate(".rf-trn-cnt", "mousedown", this, this.__nodeSelectionActivated);
+			
 			this.__selectionInput = $(" > .rf-tr-sel-inp", this.__treeRootElt);
+			this.__selection = new richfaces.ui.TreeNodeSet(this.__selectionInput.val());
 			
-			this.__treeRootElt.delegate(".rf-trn-hnd", "click", this, this.__itemHandleClicked);
-			this.__treeRootElt.delegate(".rf-trn-cnt", "mousedown", this, this.__itemContentClicked);
-			
-			this.__updateSelection();
+			$(document).ready($.proxy(this.__updateSelectionFromInput, this));
 		},
 
+		__addLastNodeClass: function() {
+			//stub function overriding parent class method
+		},
+		
 		destroy: function() {
-			this.$super.destroy.call(this);
+			richfaces.ui.TreeNode.prototype.destroy.call(this);
 
-			this.__treeRootElt.undelegate(".rf-trn-hnd", "click", this.__itemHandleClicked);
-			this.__treeRootElt.undelegate(".rf-trn-cnt", "mousedown", this.__itemContentClicked);
+			if (this.__toggleNodeEvent) {
+				this.__treeRootElt.undelegate(".rf-trn", this.__toggleNodeEvent, this, this.__nodeToggleActivated);
+			} 
+			if (!this.__toggleNodeEvent || this.__toggleNodeEvent != 'click') {
+				this.__treeRootElt.undelegate(".rf-trn-hnd", "click", this, this.__nodeToggleActivated);
+			}
+
+			this.__treeRootElt.undelegate(".rf-trn-cnt", "mousedown", this.__nodeSelectionActivated);
 			this.__treeRootElt = null;
 
-			this.__itemContentClickedHandler = null;
 			this.__selectionInput = null;
 			this.__ajaxSubmitFunction = null;
 		},
 		
-		__itemHandleClicked: function(event) {
+		__nodeToggleActivated: function(event) {
 			var theTree = event.data;
 			if (isEventForAnotherTree(theTree, this)) {
 				return;
@@ -325,7 +363,7 @@
 			treeNode.toggle();
 		},
 		
-		__itemContentClicked: function(event) {
+		__nodeSelectionActivated: function(event) {
 			var theTree = event.data;
 			if (isEventForAnotherTree(theTree, this)) {
 				return;
@@ -365,68 +403,119 @@
 			return this;
 		},
 		
-		__bindFocusHandler: function(elt) {
-			elt.mousedown(this.__itemContentClickedHandler);
-		},
-		
 		__isSelected: function(node) {
-			return this.__selectedNodeId == node.getId();
+			return this.__selection.contains(node);
 		},
 		
-		__handleSelectionChange: function() {
+		__handleSelectionChange: function(newSelection) {
+			var eventData = {
+				oldSelection: this.__selection.getNodes(), 
+				newSelection: newSelection.getNodes()
+			};
+			
+			if (richfaces.Event.callHandler(this.__treeRootElt, "beforeselectionchange", eventData) === false) {
+				return;
+			}
+			
+			this.__selectionInput.val(newSelection.toString());
+			
 			if (this.getSelectionType() == 'client') {
-				this.__updateSelection();
+				this.__updateSelection(newSelection);
 			} else {
 				this.__ajaxSubmitFunction(null, this.getId());
 			}
 		},
 		
 		__toggleSelection: function(node) {
-			if (this.__isSelected(node)) {
-				this.__selectionInput.val("");
-			} else {
-				this.__selectionInput.val(node.getId());
-			}
-
-			this.__handleSelectionChange();
+			var newSelection = this.__selection.cloneAndToggle(node);
+			this.__handleSelectionChange(newSelection);
 		},
 		
 		__addToSelection: function(node) {
-			this.__selectionInput.val(node.getId());
-
-			this.__handleSelectionChange();
+			var newSelection = this.__selection.cloneAndAdd(node);
+			this.__handleSelectionChange(newSelection);
 		},
 		
-		__updateSelection: function() {
-			var oldSelection = new Array();
-			var newSelection = new Array();
+		__updateSelectionFromInput: function() {
+			this.__updateSelection(new richfaces.ui.TreeNodeSet(this.__selectionInput.val()));
+		},
+		
+		__updateSelection: function(newSelection) {
+			
+			var oldSelection = this.__selection;
 
-			var oldSelectionId = this.__selectedNodeId;
-			var newSelectionId = this.__selectionInput.val();
-
-			if (oldSelectionId == newSelectionId) {
-				return;
+			oldSelection.each(function() {this.__setSelected(false)});
+			newSelection.each(function() {this.__setSelected(true)});
+			
+			if (oldSelection.getNodeString() != newSelection.getNodeString()) {
+				richfaces.Event.callHandler(this.__treeRootElt, "selectionchange", {
+					oldSelection: oldSelection.getNodes(), 
+					newSelection: newSelection.getNodes()
+				});
 			}
 			
-			if (oldSelectionId) {
-				var oldSelectionNode = richfaces.$(oldSelectionId);
-				if (oldSelectionNode) {
-					oldSelectionNode.__setSelected(false);
-					oldSelection.push(oldSelectionNode);
-				}
-			}
-			
-			if (newSelectionId) {
-				var newSelectionNode = richfaces.$(newSelectionId);
-				if (newSelectionNode) {
-					newSelectionNode.__setSelected(true);
-					newSelection.push(newSelectionNode);
-				}
-			}
-
-			this.__selectedNodeId = newSelectionId;
-			richfaces.Event.fire(this.__treeRootElt, "selectionchange", {oldSelection: oldSelection, newSelection: newSelection});
+			this.__selection = newSelection;
 		}
 	});
-
+	
+	richfaces.ui.TreeNodeSet = function() {
+		this.init.apply(this, arguments);
+	};
+	
+	//TODO - that's a single-node set, implement multi-node support!
+	$.extend(richfaces.ui.TreeNodeSet.prototype, {
+		
+		init: function(nodeId) {
+			this.__nodeId = nodeId;
+		},
+		
+		contains: function(node) {
+			if (node.getId) {
+				return this.__nodeId == node.getId();
+			} else {
+				return this.__nodeId == node;
+			}
+		},
+		
+		getNodeString: function() {
+			return this.__nodeId;
+		},
+		
+		toString: function() {
+			return this.getNodeString();
+		},
+		
+		getNodes: function() {
+			if (this.__nodeId) {
+				var node = richfaces.$(this.__nodeId);
+				if (node) {
+					return [node];
+				} else {
+					return null;
+				}
+			}
+			
+			return [];
+		},
+		
+		cloneAndAdd: function(node) {
+			return new richfaces.ui.TreeNodeSet(node.getId());
+		},
+		
+		cloneAndToggle: function(node) {
+			var nodeId;
+			if (this.contains(node)) {
+				nodeId = "";
+			} else {
+				nodeId = node.getId();
+			}
+			
+			return new richfaces.ui.TreeNodeSet(nodeId);
+		},
+		
+		each: function(callback) {
+			$.each(this.getNodes() || [], callback);
+		}
+	});
+	
 }(jQuery, RichFaces));

@@ -23,25 +23,29 @@ package org.richfaces.model;
 
 import java.util.Iterator;
 
+import com.google.common.base.Objects;
+import com.google.common.base.Objects.ToStringHelper;
+
 /**
  * @author Nick Belaevski
  * 
  */
-public class SequenceRowKeyIterator<T> implements Iterator<Object> {
+public abstract class SequenceRowKeyIterator<K, T> implements Iterator<Object> {
 
-    private int counter = 0;
-    
-    private SequenceRowKey<Integer> baseKey;
+    private SequenceRowKey<K> baseKey;
     
     private Iterator<T> itr;
 
     private T element;
 
-    private SequenceRowKey<Integer> elementKey;
+    private SequenceRowKey<K> elementKey;
+
+    private T baseElement;
     
-    public SequenceRowKeyIterator(SequenceRowKey<Integer> baseKey, Iterator<T> itr) {
+    public SequenceRowKeyIterator(SequenceRowKey<K> baseKey, T baseElement, Iterator<T> itr) {
         super();
         this.baseKey = baseKey;
+        this.baseElement = baseElement;
         this.itr = itr;
     }
 
@@ -49,9 +53,16 @@ public class SequenceRowKeyIterator<T> implements Iterator<Object> {
         return itr.hasNext();
     }
 
+    protected abstract K nextKey();
+    
     public Object next() {
         element = itr.next();
-        elementKey = baseKey.append(counter++);
+        
+        if (baseKey != null) {
+            elementKey = baseKey.append(nextKey());
+        } else {
+            elementKey = new SequenceRowKey<K>(nextKey());
+        }
         
         return elementKey;
     }
@@ -60,7 +71,15 @@ public class SequenceRowKeyIterator<T> implements Iterator<Object> {
         return element;
     }
 
-    public SequenceRowKey<Integer> getElementKey() {
+    public SequenceRowKey<K> getBaseKey() {
+        return baseKey;
+    }
+    
+    public T getBaseElement() {
+        return baseElement;
+    }
+    
+    public SequenceRowKey<K> getElementKey() {
         return elementKey;
     }
     
@@ -68,4 +87,12 @@ public class SequenceRowKeyIterator<T> implements Iterator<Object> {
         throw new UnsupportedOperationException();
     }
     
+    @Override
+    public String toString() {
+        ToStringHelper helper = Objects.toStringHelper(this);
+        
+        helper.add("element", element).add("elementKey", elementKey);
+        
+        return helper.toString();
+    }
 }

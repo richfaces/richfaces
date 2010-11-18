@@ -19,17 +19,18 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.event;
+package org.richfaces.model;
 
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.FacesListener;
+import org.ajax4jsf.model.DataVisitor;
 
 /**
  * @author Nick Belaevski
  * 
  */
-public interface TreeSelectionChangeListener extends FacesListener {
+public interface TreeDataVisitor extends DataVisitor {
 
-    public void processSelectionChange(TreeSelectionChangeEvent event) throws AbortProcessingException;
+    public void enterNode();
+    
+    public void exitNode();
     
 }

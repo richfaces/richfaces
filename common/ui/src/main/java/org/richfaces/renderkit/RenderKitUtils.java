@@ -299,7 +299,7 @@ public final class RenderKitUtils {
         }
 
         if (isChained) {
-            result.insert(0, "jsf.util.chain(this, event, ");
+            result.insert(0, "return jsf.util.chain(this, event, ");
             result.append(")");
         }
 
@@ -715,6 +715,39 @@ public final class RenderKitUtils {
         return context.getExternalContext().encodeResourceURL(value);
     }
 
+    public static Object getFirstNonEmptyAttribute(String attributeName, UIComponent component) {
+        Object attributeValue = component.getAttributes().get(attributeName);
+        
+        return !isEmpty(attributeValue) ? attributeValue : null;
+    }
+    
+    public static Object getFirstNonEmptyAttribute(String attributeName, UIComponent componentA, UIComponent componentB) {
+        Object attributeValue = componentA.getAttributes().get(attributeName);
+        
+        if (!isEmpty(attributeValue)) {
+            return attributeValue;
+        }
+
+        attributeValue = componentB.getAttributes().get(attributeName);
+        
+        if (!isEmpty(attributeValue)) {
+            return attributeValue;
+        }
+        
+        return null;
+    }
+
+    public static Object getFirstNonEmptyAttribute(String attributeName, UIComponent... components) {
+        for (UIComponent component : components) {
+            Object attributeValue = component.getAttributes().get(attributeName);
+            if (!isEmpty(attributeValue)) {
+                return attributeValue;
+            }
+        }
+        
+        return null;
+    }
+    
     @SuppressWarnings("serial")
     public static final class Attributes extends TreeSet<ComponentAttribute> {
         

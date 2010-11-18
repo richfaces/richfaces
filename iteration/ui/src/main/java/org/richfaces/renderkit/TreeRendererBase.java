@@ -88,16 +88,12 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
 
         private Object rowKey;
 
-        private boolean lastNode;
-
-        private boolean expanded;
-
         private boolean encoded;
 
-        public QueuedData(Object rowKey, boolean lastNode, boolean expanded) {
+        private boolean visited;
+        
+        public QueuedData(Object rowKey) {
             this.rowKey = rowKey;
-            this.lastNode = lastNode;
-            this.expanded = expanded;
         }
 
         public void setEncoded(boolean encoded) {
@@ -112,12 +108,12 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
             return rowKey;
         }
 
-        public boolean isLastNode() {
-            return lastNode;
+        public boolean isVisited() {
+            return visited;
         }
-
-        public boolean isExpanded() {
-            return expanded;
+        
+        public void makeVisited() {
+            visited = true;
         }
     }
 
@@ -216,7 +212,7 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
             writer.startEval();
 
             JSFunction function = new JSFunction("RichFaces.$", component.getClientId(context));
-            writer.write(function.toScript() + ".__updateSelection();");
+            writer.write(function.toScript() + ".__updateSelectionFromInput();");
             
             writer.endEval();
         } else {

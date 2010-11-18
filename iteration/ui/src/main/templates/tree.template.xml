@@ -44,7 +44,7 @@
                     <cdk:scriptOption attributes="toggleType" defaultValue="SwitchType.DEFAULT" />
                     <cdk:scriptOption name="selectionType" value="#{getSelectionMode(facesContext, component)}" defaultValue="SwitchType.client" />
                     <cdk:scriptOption name="ajaxSubmitFunction" value="#{getAjaxSubmitFunction(facesContext, component)}" />
-                    <cdk:scriptOption attributes="onselectionchange" />
+                    <cdk:scriptOption attributes="onselectionchange onbeforeselectionchange toggleNodeEvent" />
                     <cdk:scriptOption variables="clientEventHandlers" />
                 </cdk:scriptObject>
             

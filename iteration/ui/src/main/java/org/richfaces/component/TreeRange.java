@@ -50,8 +50,7 @@ public class TreeRange implements Range {
             return true;
         }
         
-        tree.setRowKey(facesContext, rowKey);
-        return tree.isExpanded();
+        return !tree.isLeaf() && tree.isExpanded();
     }
     
 }

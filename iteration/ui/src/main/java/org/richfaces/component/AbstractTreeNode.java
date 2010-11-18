@@ -23,37 +23,30 @@ package org.richfaces.component;
 
 import java.io.IOException;
 
-import javax.el.ELContext;
-import javax.el.ELException;
+import javax.el.MethodExpression;
 import javax.el.ValueExpression;
-import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
-import javax.faces.component.UpdateModelException;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ExceptionQueuedEvent;
-import javax.faces.event.ExceptionQueuedEventContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 
 import org.ajax4jsf.component.IterationStateHolder;
-import org.richfaces.application.MessageFactory;
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.appplication.FacesMessages;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.component.util.MessageUtil;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.event.TreeToggleEvent;
 import org.richfaces.event.TreeToggleListener;
+import org.richfaces.event.TreeToggleSource;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
 /**
@@ -63,11 +56,11 @@ import org.richfaces.renderkit.MetaComponentRenderer;
 @JsfComponent(
     type = AbstractTreeNode.COMPONENT_TYPE,
     family = AbstractTreeNode.COMPONENT_FAMILY, 
-    tag = @Tag(name = "treeNode"),
+    tag = @Tag(name = "treeNode", handler = "org.richfaces.view.facelets.TreeNodeHandler"),
     renderer = @JsfRenderer(type = "org.richfaces.TreeNodeRenderer"),
     attributes = {"events-props.xml", "core-props.xml", "i18n-props.xml"}
 )
-public abstract class AbstractTreeNode extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder, IterationStateHolder {
+public abstract class AbstractTreeNode extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder, IterationStateHolder, TreeToggleSource {
 
     public static final String COMPONENT_TYPE = "org.richfaces.TreeNode";
     
@@ -75,9 +68,12 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
 
     public static final String SUBTREE_META_COMPONENT_ID = "subtree";
     
-    private enum PropertyKeys {
+    enum PropertyKeys {
         expanded
     }
+
+    @Attribute(generate = false, signature = @Signature(returnType = Void.class, parameters = TreeToggleEvent.class))
+    private MethodExpression toggleListener;
 
     public AbstractTreeNode() {
         setRendererType("org.richfaces.TreeNodeRenderer");
@@ -107,6 +103,9 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
     
     @Attribute(events = @EventName("toggle"))
     public abstract String getOntoggle();
+    
+    @Attribute(events = @EventName("beforetoggle"))
+    public abstract String getOnbeforetoggle();
     
     protected Boolean getLocalExpandedValue(FacesContext facesContext) {
         return (Boolean) getStateHelper().get(PropertyKeys.expanded);
@@ -166,69 +165,20 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
         
         if (event instanceof TreeToggleEvent) {
             TreeToggleEvent toggleEvent = (TreeToggleEvent) event;
-            boolean newExpandedValue = toggleEvent.isExpanded();
-
-            FacesContext context = getFacesContext();
-            ValueExpression expression = getValueExpression(PropertyKeys.expanded.toString());
-            if (expression != null) {
-                ELContext elContext = context.getELContext();
-                Exception caught = null;
-                FacesMessage message = null;
-                try {
-                    expression.setValue(elContext, newExpandedValue);
-                } catch (ELException e) {
-                    caught = e;
-                    String messageStr = e.getMessage();
-                    Throwable result = e.getCause();
-                    while (null != result &&
-                        result.getClass().isAssignableFrom(ELException.class)) {
-                        messageStr = result.getMessage();
-                        result = result.getCause();
-                    }
-                    if (null == messageStr) {
-                        MessageFactory messageFactory = ServiceTracker.getService(MessageFactory.class);
-                        message =
-                            messageFactory.createMessage(context, FacesMessages.UIINPUT_UPDATE,
-                                MessageUtil.getLabel(context, this));
-                    } else {
-                        message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                            messageStr,
-                            messageStr);
-                    }
-                } catch (Exception e) {
-                    caught = e;
-                    MessageFactory messageFactory = ServiceTracker.getService(MessageFactory.class);
-                    message =
-                        messageFactory.createMessage(context, FacesMessages.UIINPUT_UPDATE,
-                            MessageUtil.getLabel(context, this));
-                }
-                if (caught != null) {
-                    assert(message != null);
-                    UpdateModelException toQueue = new UpdateModelException(message, caught);
-                    ExceptionQueuedEventContext eventContext =
-                        new ExceptionQueuedEventContext(context,
-                            toQueue,
-                            this,
-                            PhaseId.UPDATE_MODEL_VALUES);
-                    context.getApplication().publishEvent(context,
-                        ExceptionQueuedEvent.class,
-                        eventContext);
-                }
-            } else {
-                setExpanded(newExpandedValue);
-            }
+            new TreeToggleEvent(findTreeComponent(), toggleEvent.isExpanded()).queue();
         }
     }
 
-    public void addToggleListener(TreeToggleListener listener) {
+    public void addTreeToggleListener(TreeToggleListener listener) {
         addFacesListener(listener);
     }
 
+    @Attribute(hidden = true)
     public TreeToggleListener[] getTreeToggleListeners() {
         return (TreeToggleListener[]) getFacesListeners(TreeToggleListener.class);
     }
     
-    public void removeToggleListener(TreeToggleListener listener) {
+    public void removeTreeToggleListener(TreeToggleListener listener) {
         removeFacesListener(listener);
     }
     

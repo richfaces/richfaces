@@ -21,8 +21,7 @@
 
     <cc:implementation>
         <cdk:object name="nodeState" value="#{getNodeState(facesContext)}" type="org.richfaces.renderkit.TreeNodeState" />
-        
-        <cdk:call expression="addClientEventHandlers(facesContext, component)" />
+        <cdk:object name="tree" value="#{getTreeComponent(component)}" type="UIComponent" />
         
         <cdk:call expression="addClientEventHandlers(facesContext, component)" />
         
@@ -31,7 +30,7 @@
         
             <span class="rf-trn-cnt">
                 <cdk:call expression="encodeIcon(facesContext, component)" />
-                <span class="#{concatClasses('rf-trn-lbl', component.attributes['labelClass'])}">
+                <span class="#{concatClasses('rf-trn-lbl', component.attributes['labelClass'], tree.attributes['labelClass'])}">
                     <cdk:body />
                 </span>
             </span>

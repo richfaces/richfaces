@@ -21,6 +21,7 @@
  */
 package org.richfaces.event;
 
+import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesListener;
 
 /**
@@ -29,6 +30,6 @@ import javax.faces.event.FacesListener;
  */
 public interface TreeToggleListener extends FacesListener {
 
-    public void processToggle(TreeToggleEvent event);
+    public void processToggle(TreeToggleEvent event) throws AbortProcessingException;
     
 }

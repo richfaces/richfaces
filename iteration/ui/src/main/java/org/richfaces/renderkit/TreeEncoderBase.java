@@ -22,111 +22,138 @@
 package org.richfaces.renderkit;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.LinkedList;
 
+import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.javascript.JSFunction;
+import org.ajax4jsf.model.DataVisitResult;
 import org.richfaces.component.AbstractTree;
 import org.richfaces.component.AbstractTreeNode;
-import org.richfaces.component.TreeRange;
 import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.model.TreeDataVisitor;
 import org.richfaces.renderkit.TreeRendererBase.QueuedData;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Iterators;
-import com.google.common.collect.UnmodifiableIterator;
-
-abstract class TreeEncoderBase {
+abstract class TreeEncoderBase implements TreeDataVisitor {
 
     static final String TREE_NODE_STATE_ATTRIBUTE = "__treeNodeState";
-    
+
     protected final FacesContext context;
-    
+
     protected final ResponseWriter responseWriter;
-    
+
     protected final AbstractTree tree;
 
-    private TreeRange treeRange;
-    
-    private LinkedList<QueuedData> queuedData = new LinkedList<QueuedData>();
-    
+    private LinkedList<QueuedData> queuedDataList = new LinkedList<QueuedData>();
+
+    private QueuedData queuedData;
+
     public TreeEncoderBase(FacesContext context, AbstractTree tree) {
         super();
         this.context = context;
         this.responseWriter = context.getResponseWriter();
         this.tree = tree;
-        
-        this.treeRange = (TreeRange) tree.getComponentState().getRange();
     }
 
-    protected void encodeTree(Iterator<Object> childrenIterator) throws IOException {
-        Predicate<Object> renderedTreeNodeKeyPredicate = new Predicate<Object>() {
-            public boolean apply(Object input) {
-                tree.setRowKey(input);
-                
-                if (!tree.isRowAvailable()) {
-                    return false;
-                }
-                
-                return tree.findTreeNodeComponent() != null;
-            }
-        };
-        
-        UnmodifiableIterator<Object> filteredIterator = Iterators.filter(childrenIterator, renderedTreeNodeKeyPredicate);
-        while (filteredIterator.hasNext()) {
-            Object rowKey = filteredIterator.next();
+    protected void encodeTree() throws IOException {
+        tree.walk(context, this, null);
+    }
+
+    protected void flushNode() throws IOException {
+        if (!queuedData.isEncoded()) {
+            tree.setRowKey(context, queuedData.getRowKey());
             
-            encodeTreeNode(rowKey, !filteredIterator.hasNext());
-        }
-    }
-    
-    protected void encodeTreeNode(Object rowKey, boolean isLastNode) throws IOException {
-        if (!queuedData.isEmpty()) {
-            QueuedData data = queuedData.getLast();
-            if (!data.isEncoded()) {
-                tree.setRowKey(context, data.getRowKey());
-                
-                writeTreeNodeStartElement(data.isExpanded() ? TreeNodeState.expanded : TreeNodeState.collapsed, data.isLastNode());
-                
-                data.setEncoded(true);
+            TreeNodeState state;
+            if (tree.isLeaf()) {
+                state = TreeNodeState.leaf;
+            } else {
+                if (queuedData.isVisited()) {
+                    state = TreeNodeState.leaf;
+                } else {
+                    state = TreeNodeState.collapsed;
+                }
             }
-        }
-        
-        tree.setRowKey(context, rowKey);
-
-        boolean expanded = tree.isExpanded();
-        queuedData.add(new QueuedData(rowKey, isLastNode, expanded));
-        
-        boolean iterateChildren = treeRange.shouldIterateChildren(rowKey);
-        
-        if (iterateChildren) {
-            encodeTree(tree.getChildrenRowKeysIterator(context, rowKey));
+            
+            writeTreeNodeStartElement(state);
         }
 
-        QueuedData data = queuedData.removeLast();
-        if (!data.isEncoded()) {
-            TreeNodeState nodeState = iterateChildren ? TreeNodeState.leaf : TreeNodeState.collapsed;
-            writeTreeNodeStartElement(nodeState, data.isLastNode());
-        }
-        
         writeTreeNodeEndElement();
     }
     
-    protected void writeTreeNodeStartElement(TreeNodeState nodeState, boolean isLast) throws IOException {
+    protected void flushParentNode() throws IOException {
+        if (queuedDataList.isEmpty()) {
+            return;
+        }
+        
+        QueuedData data = queuedDataList.getLast();
+        if (!data.isEncoded()) {
+            data.setEncoded(true);
+            tree.setRowKey(context, data.getRowKey());
+            
+            writeTreeNodeStartElement(tree.isExpanded() ? TreeNodeState.expanded : TreeNodeState.collapsed);
+        }
+    }
+    
+    public void enterNode() {
+        if (queuedData != null) {
+            queuedData.makeVisited();
+            queuedDataList.add(queuedData);
+            queuedData = null;
+        }
+    }
+
+    public DataVisitResult process(FacesContext context, Object rowKey, Object argument) {
+        try {
+            if (queuedData != null) {
+                flushNode();
+                queuedData = null;
+            } else {
+                flushParentNode();
+            }
+        } catch (IOException e) {
+            throw new FacesException(e.getMessage(), e);
+        }
+
+        if (rowKey != null) {
+            tree.setRowKey(context, rowKey);
+
+            if (tree.isRowAvailable() && tree.findTreeNodeComponent() != null) {
+                queuedData = new QueuedData(rowKey);
+            }
+        }
+
+        return DataVisitResult.CONTINUE;
+    }
+
+    public void exitNode() {
+        try {
+            if (queuedData != null) {
+                flushNode();
+                queuedData = null;
+            }
+
+            if (!queuedDataList.isEmpty()) {
+                queuedData = queuedDataList.removeLast();
+            }
+        } catch (IOException e) {
+            throw new FacesException(e.getMessage(), e);
+        }
+    }
+
+    protected void writeTreeNodeStartElement(TreeNodeState nodeState) throws IOException {
         AbstractTreeNode treeNodeComponent = tree.findTreeNodeComponent();
 
         context.getAttributes().put(TREE_NODE_STATE_ATTRIBUTE, nodeState);
-        
+
         responseWriter.startElement(HtmlConstants.DIV_ELEM, tree);
         responseWriter.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, 
-            HtmlUtil.concatClasses("rf-tr-nd", isLast ? "rf-tr-nd-last" : null, nodeState.getNodeClass()), 
+            HtmlUtil.concatClasses("rf-tr-nd", nodeState.getNodeClass()), 
             null);
         responseWriter.writeAttribute(HtmlConstants.ID_ATTRIBUTE, treeNodeComponent.getClientId(context), null);
-        
+
         emitClientToggleEvent(treeNodeComponent, nodeState);
         treeNodeComponent.encodeAll(context);
     }
@@ -136,12 +163,12 @@ abstract class TreeEncoderBase {
     }
 
     public abstract void encode() throws IOException;
-    
+
     private void emitClientToggleEvent(AbstractTreeNode treeNode, TreeNodeState nodeState) {
         if (treeNode.getClientId(context).equals(context.getAttributes().get(TreeNodeRendererBase.AJAX_TOGGLED_NODE_ATTRIBUTE))) {
             TreeNodeState submittedState = ((Boolean) (context.getAttributes().get(TreeNodeRendererBase.AJAX_TOGGLED_NODE_STATE_ATTRIBUTE)))
                 ? TreeNodeState.expanded : TreeNodeState.collapsed;
-            
+
             if (submittedState == nodeState || nodeState == TreeNodeState.leaf) {
                 AjaxContext ajaxContext = AjaxContext.getCurrentInstance(context);
                 ajaxContext.appendOncomplete(new JSFunction("RichFaces.ui.TreeNode.emitToggleEvent", treeNode.getClientId(context)));

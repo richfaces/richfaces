@@ -18,7 +18,7 @@ public class ClientAndAjaxScript extends ClientOnlyScript{
     }
 
 
-    protected void finishValidation(StringBuffer body) {
+    protected void finishValidation(StringBuilder body) {
         // AJAX callback
         body.append("if(!").append(DISABLE_AJAX).append("){\n");
         body.append(ajaxScript).append(EOL).append("}\n");

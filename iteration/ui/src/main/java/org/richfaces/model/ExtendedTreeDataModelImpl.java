@@ -21,15 +21,11 @@
  */
 package org.richfaces.model;
 
-import java.util.Iterator;
-
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.model.DataVisitResult;
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
-import org.richfaces.component.TreeRange;
 
 /**
  * @author Nick Belaevski
@@ -52,10 +48,6 @@ public class ExtendedTreeDataModelImpl<E> extends ExtendedDataModel<E> implement
         return wrappedModel.getData();
     }
 
-    public Iterator<Object> getChildrenRowKeysIterator(Object rowKey) {
-        return wrappedModel.getChildrenRowKeysIterator(rowKey);
-    }
-
     public Object getParentRowKey(Object rowKey) {
         throw new UnsupportedOperationException();
     }
@@ -70,31 +62,11 @@ public class ExtendedTreeDataModelImpl<E> extends ExtendedDataModel<E> implement
         return wrappedModel.getRowKey();
     }
 
-    protected void walk(FacesContext context, DataVisitor visitor, Range range, Object argument, Iterator<Object> keysIterator) {
-        while (keysIterator.hasNext()) {
-            Object object = (Object) keysIterator.next();
-            
-            DataVisitResult visitResult = visitor.process(context, object, argument);
-            if (visitResult == DataVisitResult.CONTINUE) {
-                if (((TreeRange) range).shouldIterateChildren(object)) {
-                    Iterator<Object> childrenIterator = getChildrenRowKeysIterator(object);
-                    walk(context, visitor, range, argument, childrenIterator);
-                }
-            }
-        }
-    }
-
     @Override
     public void walk(FacesContext context, DataVisitor visitor, Range range, Object argument) {
-        TreeRange treeRange = (TreeRange) range;
-        if (treeRange.shouldIterateChildren(null)) {
-            setRowKey(null);
-            DataVisitResult visitResult = visitor.process(context, null, argument);
-            if (visitResult == DataVisitResult.CONTINUE) {
-                Iterator<Object> iterator = getChildrenRowKeysIterator(null);
-                walk(context, visitor, range, argument, iterator);
-            }            
-        }
+        wrappedModel.enterNode(visitor);
+        wrappedModel.walk(context, visitor, range, argument);
+        wrappedModel.exitNode(visitor);
     }
 
     @Override
@@ -129,6 +101,32 @@ public class ExtendedTreeDataModelImpl<E> extends ExtendedDataModel<E> implement
     @Override
     public void setWrappedData(Object data) {
         wrappedModel.setWrappedData(data);
+    }
+
+    /* (non-Javadoc)
+     * @see org.richfaces.model.TreeDataModel#isLeaf()
+     */
+    public boolean isLeaf() {
+        // TODO Auto-generated method stub
+        return wrappedModel.isLeaf();
+    }
+
+    /* (non-Javadoc)
+     * @see org.richfaces.model.TreeDataModel#enterNode(org.ajax4jsf.model.DataVisitor)
+     */
+    public void enterNode(DataVisitor visitor) {
+        // TODO Auto-generated method stub
+        
+        wrappedModel.enterNode(visitor);
+    }
+    
+    /* (non-Javadoc)
+     * @see org.richfaces.model.TreeDataModel#exitNode(org.ajax4jsf.model.DataVisitor)
+     */
+    public void exitNode(DataVisitor visitor) {
+        // TODO Auto-generated method stub
+     
+        wrappedModel.exitNode(visitor);
     }
 
 
