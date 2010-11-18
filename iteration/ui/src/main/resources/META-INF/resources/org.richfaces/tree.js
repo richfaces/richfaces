@@ -67,8 +67,8 @@
 			});
 		},
 		
-		__getHandles: function() {
-			return this.__rootElt.find(" > .rf-trn:first > .rf-trn-hnd");
+		__getHandle: function() {
+			return this.__rootElt.find(" > .rf-trn:first > .rf-trn-hnd:first");
 		},
 		
 		__getContent: function() {
@@ -163,19 +163,11 @@
 					switch (tree.getToggleType()) {
 						case 'client':
 							this.__rootElt.addClass(TREE_CLASSES[newState ? 1 : 0]).removeClass(TREE_CLASSES[!newState ? 1 : 0]);
-<<<<<<< HEAD
 							this.__getHandle().addClass(TREE_HANDLE_CLASSES[newState ? 1 : 0]).removeClass(TREE_HANDLE_CLASSES[!newState ? 1 : 0]);
 
 							var icons = this.__getIcons();
 							if (icons.length == 1) {
 								icons.addClass(TREE_ICON_CLASSES[newState ? 1 : 0]).removeClass(TREE_ICON_CLASSES[!newState ? 1 : 0]);
-=======
-							
-							var handles = this.__getHandles();
-							
-							if (handles.length == 1) {
-								handles.addClass(TREE_HANDLE_CLASSES[newState ? 1 : 0]).removeClass(TREE_HANDLE_CLASSES[!newState ? 1 : 0]);
->>>>>>> https://jira.jboss.org/browse/RF-9715
 							}
 							
 							this.__updateClientToggleStateInput(newState);
