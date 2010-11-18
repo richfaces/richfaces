@@ -19,11 +19,11 @@
         <cdk:object name="nodeState" value="#{getNodeState(facesContext)}" type="org.richfaces.renderkit.TreeNodeState" />
         
         <div class="#{concatClasses('rf-trn', component.attributes['styleClass'])}">
-            <cdk:call expression="encodeHandle(facesContext, component)" />
+            <span class="#{concatClasses(nodeState.handleClass, component.attributes['handleClass'])}"></span>
         
             <span class="rf-trn-cnt">
-                <span class="rf-trn-ico #{nodeState.iconClass}" />
-                <span class="rf-trn-lbl">
+                <cdk:call expression="encodeIcon(facesContext, component)" />
+                <span class="#{concatClasses('rf-trn-lbl', component.attributes['labelClass'])}">
                     <cdk:body />
                 </span>
             </span>

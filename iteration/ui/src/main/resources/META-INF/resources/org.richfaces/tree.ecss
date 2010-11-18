@@ -58,7 +58,7 @@
 	background: "url(#{resource['org.richfaces.images:minus.png']}) no-repeat center";
 }
 
-.rf-trn-ico-nd {
+.rf-trn-ico-exp, .rf-trn-ico-colps {
 	background: "url(#{resource['org.richfaces.images:node_icon.gif']}) no-repeat center";
 }
 
@@ -66,12 +66,12 @@
 	background: "url(#{resource['org.richfaces.images:leaf_icon.gif']}) no-repeat center";
 }
 
-.rf-trn-hnd-cst {
-	background: none;
+.rf-trn-ico-cst {
+	background-image: none;
+	background-position: 0% 0%;
 }
 
-.rf-tr-nd-colps > .rf-trn > .rf-trn-hnd-exp,
-.rf-tr-nd-exp > .rf-trn > .rf-trn-hnd-colps {
+.rf-tr-nd-exp > .rf-trn > .rf-trn-cnt > .rf-trn-ico-colps, .rf-tr-nd-colps > .rf-trn > .rf-trn-cnt > .rf-trn-ico-exp {
 	display: none;
 }
 

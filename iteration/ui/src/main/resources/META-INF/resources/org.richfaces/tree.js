@@ -31,6 +31,8 @@
 	
 	var TREE_HANDLE_CLASSES = ["rf-trn-hnd-colps", "rf-trn-hnd-exp"];
 	
+	var TREE_ICON_CLASSES = ["rf-trn-ico-colps", "rf-trn-ico-exp"];
+
 	richfaces.ui = richfaces.ui || {};
     
 	richfaces.ui.TreeNode = richfaces.BaseComponent.extendClass({
@@ -65,14 +67,18 @@
 			});
 		},
 		
-		__getHandles: function() {
-			return this.__rootElt.find(" > .rf-trn:first > .rf-trn-hnd");
+		__getHandle: function() {
+			return this.__rootElt.find(" > .rf-trn:first > .rf-trn-hnd:first");
 		},
 		
 		__getContent: function() {
 			return this.__rootElt.find(" > .rf-trn:first > .rf-trn-cnt:first");
 		},
 		
+		__getIcons: function() {
+			return this.__getContent().find(" > .rf-trn-ico");
+		},
+
 		getParent: function() {
 			return this.__parent;
 		},
@@ -157,11 +163,11 @@
 					switch (tree.getToggleType()) {
 						case 'client':
 							this.__rootElt.addClass(TREE_CLASSES[newState ? 1 : 0]).removeClass(TREE_CLASSES[!newState ? 1 : 0]);
-							
-							var handles = this.__getHandles();
-							
-							if (handles.length == 1) {
-								handles.addClass(TREE_HANDLE_CLASSES[newState ? 1 : 0]).removeClass(TREE_HANDLE_CLASSES[!newState ? 1 : 0]);
+							this.__getHandle().addClass(TREE_HANDLE_CLASSES[newState ? 1 : 0]).removeClass(TREE_HANDLE_CLASSES[!newState ? 1 : 0]);
+
+							var icons = this.__getIcons();
+							if (icons.length == 1) {
+								icons.addClass(TREE_ICON_CLASSES[newState ? 1 : 0]).removeClass(TREE_ICON_CLASSES[!newState ? 1 : 0]);
 							}
 							
 							this.__updateClientToggleStateInput(newState);

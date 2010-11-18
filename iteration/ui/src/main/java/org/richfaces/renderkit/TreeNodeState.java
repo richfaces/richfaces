@@ -24,19 +24,19 @@ package org.richfaces.renderkit;
 import org.richfaces.component.util.HtmlUtil;
 
 public enum TreeNodeState {
-    expanded("rf-tr-nd-exp", "rf-trn-hnd-exp", "rf-trn-hnd-exp rf-trn-hnd-cst", "rf-trn-ico-nd") {
+    expanded("rf-tr-nd-exp", "rf-trn-hnd-exp", "rf-trn-ico-exp") {
         @Override
         public boolean isLeaf() {
             return false;
         }
     }, 
-    collapsed("rf-tr-nd-colps", "rf-trn-hnd-colps", "rf-trn-hnd-colps rf-trn-hnd-cst", "rf-trn-ico-nd") {
+    collapsed("rf-tr-nd-colps", "rf-trn-hnd-colps", "rf-trn-ico-colps") {
         @Override
         public boolean isLeaf() {
             return false;
         }
     }, 
-    leaf("rf-tr-nd-lf", "rf-trn-hnd-lf", "rf-trn-hnd-lf rf-trn-hnd-cst", "rf-trn-ico-lf") {
+    leaf("rf-tr-nd-lf", "rf-trn-hnd-lf", "rf-trn-ico-lf") {
         @Override
         public boolean isLeaf() {
             return true;
@@ -45,17 +45,17 @@ public enum TreeNodeState {
 
     private String nodeClass;
 
-    private String defaultHandleClass;
+    private String handleClass;
     
-    private String customHandleClass;
-
     private String iconClass;
+
+    private String customIconClass;
     
-    private TreeNodeState(String nodeClass, String defaultHandleClass, String customHandleClass, String iconClass) {
+    private TreeNodeState(String nodeClass, String defaultHandleClass, String iconClass) {
         this.nodeClass = nodeClass;
-        this.defaultHandleClass = HtmlUtil.concatClasses(defaultHandleClass, "rf-trn-hnd");
-        this.customHandleClass = HtmlUtil.concatClasses(customHandleClass, "rf-trn-hnd");
-        this.iconClass = iconClass;
+        this.handleClass = HtmlUtil.concatClasses(defaultHandleClass, "rf-trn-hnd");
+        this.iconClass = HtmlUtil.concatClasses(iconClass, "rf-trn-ico");
+        this.customIconClass = HtmlUtil.concatClasses(this.iconClass, "rf-trn-ico-cst");
     }
 
     public abstract boolean isLeaf();
@@ -64,15 +64,15 @@ public enum TreeNodeState {
         return nodeClass;
     }
 
-    public String getDefaultHandleClass() {
-        return defaultHandleClass;
+    public String getHandleClass() {
+        return handleClass;
     }
 
     public String getIconClass() {
         return iconClass;
     }
 
-    public String getCustomHandleClass() {
-        return customHandleClass;
+    public String getCustomIconClass() {
+        return customIconClass;
     }
 }
