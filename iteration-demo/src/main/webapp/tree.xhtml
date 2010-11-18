@@ -31,6 +31,32 @@
 </h:head>
 
 <h:body>
+	<h:outputScript>
+		function getNodeStateString(treeNode) {
+			return treeNode.isLeaf() ? 
+				'leaf' 
+				: (treeNode.isExpanded() ? 'expanded' : 'collapsed');
+		}
+	
+		function handleNodeToggle(nodeData, event, isTreeNodeLevel) {
+			var treeNode = RichFaces.$(event.target);
+			RichFaces.log.info('Toggle event ' + (isTreeNodeLevel ? '(treeNode level)' : '') 
+				+ '[' + nodeData + ']:\n ' + treeNode.getId() + ' became ' + getNodeStateString(treeNode));
+		}
+
+		function handleNodeSelect(event) {
+			var treeNode = RichFaces.$(event.target);
+			
+			var selectedNodes = event.rf.data.selection;
+			var selection = new Array();
+			jQuery.each(selectedNodes, function(k, v) {
+				selection.push(v.getId());
+			});
+			
+			RichFaces.log.info('Select event:\n ' + selection.join(''));
+		}
+	</h:outputScript>
+
 	<h:messages id="messages" />
 
 	<h:form>
@@ -78,7 +104,9 @@
 		Tree with customized look:
 		<it:tree id="customizedTree" var="node" value="#{treeBean.rootNodes}" 
 			selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}"
-			styleClass="#{treeBean.showCustomClasses ? 'customClass' : ''}">
+			styleClass="#{treeBean.showCustomClasses ? 'customClass' : ''}"
+			nodeClass="customNodeClassFromTree"
+			handleClass="customHandleClassFromTree" iconClass="customIconClassFromTree" labelClass="customLabelClassFromTree">
 			
 			<it:treeNode iconLeaf="/images/leaf.png" iconExpanded="/images/minus.png" iconCollapsed="/images/plus.png"
 			styleClass="customNodeClass" handleClass="customHandleClass" iconClass="customIconClass" labelClass="customLabelClass">
@@ -93,10 +121,11 @@
 		
 		Tree with client-side event handlers:
 		<it:tree id="clientSideEventsTree" var="node" value="#{treeBean.rootNodes}" 
-			selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}">
+			selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}"
+			onnodetoggle="handleNodeToggle(&quot;#{node.data}&quot;, event, false)"
+			onselectionchange="handleNodeSelect(event)">
 			
-			<it:treeNode ontoggle="RichFaces.log.info('Toggle event: target is - ' + event.target.id)"
-				onselect="RichFaces.log.info('Select event: target is - ' + event.target.id)">
+			<it:treeNode ontoggle="handleNodeToggle(&quot;#{node.data}&quot;, event, true)">
 				#{node.data}
 			</it:treeNode>
 		</it:tree>
