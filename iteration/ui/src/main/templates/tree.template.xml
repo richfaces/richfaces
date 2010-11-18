@@ -13,6 +13,7 @@
         
         <cdk:resource-dependency name="ajax.reslib" library="org.richfaces" />
         <cdk:resource-dependency name="base-component.reslib" library="org.richfaces" />
+        <cdk:resource-dependency name="richfaces-event.js" />
         <cdk:resource-dependency name="tree.js" library="org.richfaces" />
         <cdk:resource-dependency name="tree.ecss" library="org.richfaces" />
 
@@ -43,6 +44,7 @@
                     <cdk:scriptOption attributes="toggleType" defaultValue="SwitchType.DEFAULT" />
                     <cdk:scriptOption name="selectionType" value="#{getSelectionMode(facesContext, component)}" defaultValue="SwitchType.client" />
                     <cdk:scriptOption name="ajaxSubmitFunction" value="#{getAjaxSubmitFunction(facesContext, component)}" />
+                    <cdk:scriptOption attributes="onselectionchange" />
                     <cdk:scriptOption variables="clientEventHandlers" />
                 </cdk:scriptObject>
             

@@ -46,10 +46,16 @@
 			
 			this.__initializeChildren(commonOptions);
 			
-			this.__clientEventHandlers = (commonOptions.clientEventHandlers || {})[commonOptions.treeId + id];
+			var __toggleHandler = (commonOptions.clientEventHandlers || {})[this.getId().substring(commonOptions.treeId.length)];
+			
+			if (__toggleHandler) {
+				richfaces.Event.bind(this.__rootElt, "toggle", new Function("event", __toggleHandler));
+			}
 		},
 		
 		destroy: function() {
+			this.$super.destroy.call(this);
+
 			if (this.parent) {
 				this.parent.removeChild(this);
 				this.parent = null;
@@ -157,6 +163,10 @@
 
 		},
 		
+		__fireToggleEvent: function() {
+			richfaces.Event.fire(this.__rootElt, "toggle");
+		},
+		
 		__changeToggleState: function(newState) {
 			if (!this.isLeaf()) {
 				if (newState ^ this.isExpanded()) {
@@ -173,6 +183,7 @@
 							}
 							
 							this.__updateClientToggleStateInput(newState);
+							this.__fireToggleEvent();
 						break;
 						
 						case 'ajax':
@@ -221,6 +232,8 @@
 	richfaces.ui.TreeNode.initNodeByAjax = function(nodeId, commonOptions) {
 		var node = $(document.getElementById(nodeId));
 		
+		var opts = commonOptions || {};
+		
 		if (node.nextAll(".rf-tr-nd:first").length != 0) {
 			node.removeClass("rf-tr-nd-last");
 		}
@@ -230,9 +243,20 @@
 		var idx = node.prevAll(".rf-tr-nd").length;
 		
 		var parentNode = richfaces.$(parent[0]);
-		var newChild = new richfaces.ui.TreeNode(node[0], commonOptions);
+		opts.treeId = parentNode.getTree().getId();
+
+		var newChild = new richfaces.ui.TreeNode(node[0], opts);
 		parentNode.addChild(newChild, idx);
 		parentNode.getTree().__updateSelection();
+	};
+	
+	richfaces.ui.TreeNode.emitToggleEvent = function(nodeId) {
+		var node = document.getElementById(nodeId);
+		if (!node) {
+			return;
+		}
+		
+		richfaces.$(node).__fireToggleEvent();
 	};
 	
 	var findTree = function(elt) {
@@ -265,6 +289,10 @@
 			
 			if (options.ajaxSubmitFunction) {
 				this.__ajaxSubmitFunction = new Function("event", "source", "params", options.ajaxSubmitFunction);
+			}
+			
+			if (options.onselectionchange) {
+				richfaces.Event.bind(this.__treeRootElt, "selectionchange", new Function("event", options.onselectionchange));
 			}
 			
 			this.__selectionInput = $(" > .rf-tr-sel-inp", this.__treeRootElt);
@@ -369,13 +397,14 @@
 			this.__handleSelectionChange();
 		},
 		
-		__resetSelection: function() {
-			this.__selectedNodeId = null;
-			this.__selectionInput.val("");
-		},
-		
 		__updateSelection: function() {
 			var oldSelection = this.__selectedNodeId;
+			var nodeId = this.__selectionInput.val();
+
+			if (oldSelection == nodeId) {
+				return;
+			}
+			
 			if (oldSelection) {
 				var oldSelectionNode = richfaces.$(oldSelection);
 				if (oldSelectionNode) {
@@ -383,13 +412,20 @@
 				}
 			}
 			
-			var nodeId = this.__selectionInput.val();
+			var newSelectionNode;
+			var selection = new Array();
 			
-			var newSelectionNode = richfaces.$(nodeId);
+			if (nodeId) {
+				newSelectionNode = richfaces.$(nodeId);
+			}
+
 			if (newSelectionNode) {
 				newSelectionNode.__setSelected(true);
+				selection.push(newSelectionNode);
 			}
+
 			this.__selectedNodeId = nodeId;
+			richfaces.Event.fire(this.__treeRootElt, "selectionchange", {selection: selection});
 		}
 	});
 

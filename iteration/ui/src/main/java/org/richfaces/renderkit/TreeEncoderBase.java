@@ -28,6 +28,8 @@ import java.util.LinkedList;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
+import org.ajax4jsf.context.AjaxContext;
+import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.component.AbstractTree;
 import org.richfaces.component.AbstractTreeNode;
 import org.richfaces.component.TreeRange;
@@ -125,6 +127,7 @@ abstract class TreeEncoderBase {
             null);
         responseWriter.writeAttribute(HtmlConstants.ID_ATTRIBUTE, treeNodeComponent.getClientId(context), null);
         
+        emitClientToggleEvent(treeNodeComponent, nodeState);
         treeNodeComponent.encodeAll(context);
     }
 
@@ -134,4 +137,15 @@ abstract class TreeEncoderBase {
 
     public abstract void encode() throws IOException;
     
+    private void emitClientToggleEvent(AbstractTreeNode treeNode, TreeNodeState nodeState) {
+        if (treeNode.getClientId(context).equals(context.getAttributes().get(TreeNodeRendererBase.AJAX_TOGGLED_NODE_ATTRIBUTE))) {
+            TreeNodeState submittedState = ((Boolean) (context.getAttributes().get(TreeNodeRendererBase.AJAX_TOGGLED_NODE_STATE_ATTRIBUTE)))
+                ? TreeNodeState.expanded : TreeNodeState.collapsed;
+            
+            if (submittedState == nodeState || nodeState == TreeNodeState.leaf) {
+                AjaxContext ajaxContext = AjaxContext.getCurrentInstance(context);
+                ajaxContext.appendOncomplete(new JSFunction("RichFaces.ui.TreeNode.emitToggleEvent", treeNode.getClientId(context)));
+            }
+        }
+    }
 }

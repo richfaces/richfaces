@@ -326,6 +326,8 @@ public final class RenderKitUtils {
             return false;
         } else if (attributeValue instanceof Long && (Long) attributeValue == Long.MIN_VALUE) {
             return false;
+        } else if (attributeValue instanceof Collection<?> || attributeValue instanceof Map<?, ?>) {
+            return true;
         }
 
         return attributeValue.toString().length() > 0;

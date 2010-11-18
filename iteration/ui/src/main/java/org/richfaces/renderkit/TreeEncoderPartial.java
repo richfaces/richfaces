@@ -22,6 +22,7 @@
 package org.richfaces.renderkit;
 
 import java.io.IOException;
+import java.util.Collections;
 
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
@@ -58,6 +59,7 @@ class TreeEncoderPartial extends TreeEncoderBase {
         PartialResponseWriter prw = context.getPartialViewContext().getPartialResponseWriter();
         prw.startUpdate(elementId);
 
+        Object clientEventHandlers = null;
         Object initialRowKey = tree.getRowKey();
         try {
             TreeRenderingContext.create(context, tree);
@@ -66,6 +68,7 @@ class TreeEncoderPartial extends TreeEncoderBase {
             
             prw.endUpdate();
             
+            clientEventHandlers = TreeRenderingContext.get(context).getHandlers();
         } finally {
             try {
                 tree.setRowKey(context, initialRowKey);
@@ -77,7 +80,8 @@ class TreeEncoderPartial extends TreeEncoderBase {
         }
 
         prw.startEval();
-        JSFunction function = new JSFunction("RichFaces.ui.TreeNode.initNodeByAjax", elementId);
+        JSFunction function = new JSFunction("RichFaces.ui.TreeNode.initNodeByAjax", elementId, 
+            Collections.singletonMap("clientEventHandlers", clientEventHandlers));
         prw.write(function.toScript());
         prw.endEval();
     }

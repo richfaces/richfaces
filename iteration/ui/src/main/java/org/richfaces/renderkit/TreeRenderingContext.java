@@ -29,8 +29,13 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 
+import org.ajax4jsf.javascript.JSFunction;
+import org.ajax4jsf.javascript.JSReference;
 import org.ajax4jsf.javascript.ScriptStringBase;
+import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.component.AbstractTree;
+import org.richfaces.component.AbstractTreeNode;
+import org.richfaces.component.SwitchType;
 
 /**
  * @author Nick Belaevski
@@ -40,24 +45,32 @@ public final class TreeRenderingContext {
 
     private static final String ATTRIBUTE_NAME = TreeRenderingContext.class.getName() + ":ATTRIBUTE_NAME";
     
+    private static final ComponentAttribute ONTOGGLE_ATTRIBUTE = new ComponentAttribute("ontoggle").setEventNames("toggle");
+    
+    private static final ComponentAttribute ONNODETOGGLE_ATTRIBUTE = new ComponentAttribute("onnodetoggle").setEventNames("nodetoggle");
+    
     public static final class Handlers extends ScriptStringBase {
-        
+    
         private String toggleHandler;
         
-        private String treeToggleHandler;
+        private String nodeToggleHandler;
         
-        private String selectHandler;
-
-        private String treeSelectHandler;
-
-        public void setSelectHandler(String selectHandler) {
-            this.selectHandler = selectHandler;
+        protected Object chain(String firstHandler, String secondHandler) {
+            if (isNullOrEmpty(firstHandler) && isNullOrEmpty(secondHandler)) {
+                return null;
+            }
+            
+            if (isNullOrEmpty(firstHandler)) {
+                return secondHandler;
+            }
+            
+            if (isNullOrEmpty(secondHandler)) {
+                return firstHandler;
+            }
+            
+            return new JSFunction("jsf.util.chain", JSReference.THIS, JSReference.EVENT, firstHandler, secondHandler).toScript();
         }
         
-        public String getSelectHandler() {
-            return selectHandler;
-        }
-
         public void setToggleHandler(String toggleHandler) {
             this.toggleHandler = toggleHandler;
         }
@@ -66,41 +79,35 @@ public final class TreeRenderingContext {
             return toggleHandler;
         }
 
-        public String getTreeToggleHandler() {
-            return treeToggleHandler;
+        public String getNodeToggleHandler() {
+            return nodeToggleHandler;
         }
 
-        public void setTreeToggleHandler(String treeToggleHandler) {
-            this.treeToggleHandler = treeToggleHandler;
+        public void setNodeToggleHandler(String nodeToggleHandler) {
+            this.nodeToggleHandler = nodeToggleHandler;
         }
 
-        public String getTreeSelectHandler() {
-            return treeSelectHandler;
-        }
-
-        public void setTreeSelectHandler(String treeSelectHandler) {
-            this.treeSelectHandler = treeSelectHandler;
-        }
-        
         public void appendScript(Appendable target) throws IOException {
-            // TODO Auto-generated method stub
-            
+            Object chain = chain(toggleHandler, nodeToggleHandler);
+            ScriptUtils.appendScript(target, chain);
         }
     }
     
     private FacesContext context;
-    
+
     private AbstractTree tree;
     
     private String baseClientId;
     
     private Map<String, Handlers> handlersMap = new HashMap<String, Handlers>();
 
+    private Handlers handlers;
+    
     private TreeRenderingContext(FacesContext context, AbstractTree tree) {
         super();
         this.context = context;
         this.tree = tree;
-        this.baseClientId = tree.getClientId(context);
+        this.baseClientId = tree.getBaseClientId(context);
     }
 
     public static TreeRenderingContext create(FacesContext context, AbstractTree tree) {
@@ -117,24 +124,32 @@ public final class TreeRenderingContext {
         context.getAttributes().remove(ATTRIBUTE_NAME);
     }
 
-    public void addHandlers(String toggleHandler, String treeToggleHandler, String selectHandler, String treeSelectHandler) {
-        String clientId = tree.findTreeNodeComponent().getClientId(context);
+    private Handlers getOrCreateHandlers(String relativeClientId) {
+        if (handlers == null) {
+            handlers = new Handlers();
+            handlersMap.put(relativeClientId, handlers);
+        }
+        return handlers;
+    }
+    
+    public void addHandlers(AbstractTreeNode treeNode) {
+        handlers = null;
+        
+        String clientId = treeNode.getClientId(context);
         
         String relativeClientId = clientId.substring(baseClientId.length()); 
         
-        if (isNullOrEmpty(toggleHandler) && isNullOrEmpty(treeToggleHandler) 
-            && isNullOrEmpty(selectHandler) && isNullOrEmpty(treeSelectHandler)) {
+        if (tree.getToggleType() != SwitchType.server) {
+            String toggleHandler = (String) RenderKitUtils.getAttributeAndBehaviorsValue(context, treeNode, ONTOGGLE_ATTRIBUTE);
+            if (!isNullOrEmpty(toggleHandler)) {
+                getOrCreateHandlers(relativeClientId).setToggleHandler(toggleHandler);
+            }
             
-            return;
+            String nodeToggleHandler = (String) RenderKitUtils.getAttributeAndBehaviorsValue(context, tree, ONNODETOGGLE_ATTRIBUTE);
+            if (!isNullOrEmpty(nodeToggleHandler)) {
+                getOrCreateHandlers(relativeClientId).setNodeToggleHandler(nodeToggleHandler);
+            }
         }
-        
-        Handlers handlers = new Handlers();
-        handlers.setToggleHandler(toggleHandler);
-        handlers.setTreeToggleHandler(treeToggleHandler);
-        handlers.setSelectHandler(selectHandler);
-        handlers.setTreeSelectHandler(treeSelectHandler);
-        
-        handlersMap.put(relativeClientId, handlers);
     }
 
     public Object getHandlers() {

@@ -22,8 +22,10 @@
     <cc:implementation>
         <cdk:object name="nodeState" value="#{getNodeState(facesContext)}" type="org.richfaces.renderkit.TreeNodeState" />
         
-        <div class="#{concatClasses('rf-trn', component.attributes['styleClass'])}">
-            <span class="#{concatClasses(nodeState.handleClass, component.attributes['handleClass'])}"></span>
+        <cdk:call expression="addClientEventHandlers(facesContext, component)" />
+        
+        <div class="#{concatClasses('rf-trn', component.attributes['styleClass'], tree.attributes['nodeClass'])}">
+            <span class="#{concatClasses(nodeState.handleClass, component.attributes['handleClass'], tree.attributes['handleClass'])}"></span>
         
             <span class="rf-trn-cnt">
                 <cdk:call expression="encodeIcon(facesContext, component)" />

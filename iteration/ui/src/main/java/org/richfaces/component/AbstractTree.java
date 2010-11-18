@@ -43,6 +43,7 @@ import org.ajax4jsf.model.DataComponentState;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -134,6 +135,26 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
 
     public abstract boolean isImmediate();
 
+    public abstract String getIconLeaf();
+    
+    public abstract String getIconExpanded();
+    
+    public abstract String getIconCollapsed();
+
+    public abstract String getNodeClass();
+    
+    public abstract String getHandleClass();
+    
+    public abstract String getIconClass();
+    
+    public abstract String getLabelClass();
+    
+    @Attribute(events = @EventName("nodetoggle"))
+    public abstract String getOnnodetoggle();
+    
+    @Attribute(events = @EventName("selectionchange"))
+    public abstract String getOnselectionchange();
+    
     @Attribute(defaultValue = "SwitchType.DEFAULT")
     public abstract SwitchType getToggleType();
 

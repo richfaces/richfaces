@@ -853,6 +853,10 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         return clientId;
     }
 
+    public String getBaseClientId(FacesContext context) {
+        return super.getClientId(context);
+    }
+    
     /**
      * Save current state of data variable.
      *
