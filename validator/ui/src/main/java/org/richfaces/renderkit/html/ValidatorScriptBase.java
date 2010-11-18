@@ -1,5 +1,7 @@
 package org.richfaces.renderkit.html;
 
+import java.io.IOException;
+
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSLiteral;
@@ -29,13 +31,13 @@ public abstract class ValidatorScriptBase extends JSFunctionDefinition  implemen
         super(CLIENT_ID,ELEMENT,EVENT,DISABLE_AJAX);
     }
 
-    public void appendScript(StringBuffer functionString) {
+    public void appendScript(Appendable target) throws IOException {
         if(!bodyProcessed){
             // pending RF-9565
             addToBody(buildBody());
             bodyProcessed = true;
         }
-        super.appendScript(functionString);
+        super.appendScript(target);
     }
 
     protected abstract Object buildBody();

@@ -36,35 +36,35 @@ public class ClientOnlyScript extends ValidatorScriptBase{
 
     @Override
     protected Object buildBody() {
-        StringBuffer body = new StringBuffer();
+        StringBuilder body = new StringBuilder();
         // Get component value by clientId.
         body.append("var ").append(ClientValidatorRenderer.VALUE_VAR).append("=");
-        GET_VALUE_FUNCTION.appendScript(body);
+        GET_VALUE_FUNCTION.appendScriptToStringBuilder(body);
         body.append(EOL);
         // Try client-side validation
         body.append("try {\n");
         // convert value
         body.append("var ").append(ClientValidatorRenderer.CONVERTED_VALUE_VAR).append("=");
-        converter.appendScript(body);
+        converter.appendScriptToStringBuilder(body);
         body.append(EOL);
         // call validators
         for (LibraryScriptString validatorScript : validators) {
-            validatorScript.appendScript(body);
+            validatorScript.appendScriptToStringBuilder(body);
             body.append(EOL);
         }
         finishValidation(body);
         body.append("return true;\n");
         // Catch errors
         body.append("} catch(e) {\n");
-        SEND_ERROR_FUNCTION.appendScript(body);body.append(EOL);
+        SEND_ERROR_FUNCTION.appendScriptToStringBuilder(body);body.append(EOL);
         body.append("return false;\n}");
         return body;
     }
 
-    protected void finishValidation(StringBuffer body) {
+    protected void finishValidation(StringBuilder body) {
         // clear messages after successful validation
         body.append("if(!").append(DISABLE_AJAX).append("){\n");
-        CLEAR_ERROR_FUNCTION.appendScript(body);
+        CLEAR_ERROR_FUNCTION.appendScriptToStringBuilder(body);
         body.append(EOL).append("}\n");
     }
 

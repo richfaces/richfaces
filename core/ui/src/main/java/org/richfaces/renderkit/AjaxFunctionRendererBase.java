@@ -23,18 +23,19 @@
 
 package org.richfaces.renderkit;
 
-import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.javascript.JSFunctionDefinition;
-import org.ajax4jsf.javascript.JSReference;
-import org.ajax4jsf.javascript.ScriptUtils;
-import org.richfaces.renderkit.util.AjaxRendererUtils;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
-import java.util.Iterator;
-import java.util.Map;
+
+import org.ajax4jsf.javascript.JSFunction;
+import org.ajax4jsf.javascript.JSFunctionDefinition;
+import org.ajax4jsf.javascript.JSReference;
+import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.renderkit.util.AjaxRendererUtils;
 
 /**
  * @author shura
@@ -48,7 +49,7 @@ public abstract class AjaxFunctionRendererBase extends AjaxCommandRendererBase {
             throw new FacesException("Value of 'name' attribute of a4j:jsFunction component is null!");
         }
 
-        StringBuffer script = new StringBuffer(functionName).append("=");
+        StringBuilder script = new StringBuilder(functionName).append("=");
         JSFunctionDefinition func = new JSFunctionDefinition();
 
         // func.setName(component.getName());
@@ -94,7 +95,7 @@ public abstract class AjaxFunctionRendererBase extends AjaxCommandRendererBase {
         // TODO - added in 4.0 - ?
         func.addParameter(JSReference.EVENT);
         func.addToBody(ajaxFunction.toScript());
-        func.appendScript(script);
+        func.appendScriptToStringBuilder(script);
 
         return script.toString();
     }

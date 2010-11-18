@@ -21,6 +21,7 @@
 
 package org.richfaces.renderkit;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -40,8 +41,8 @@ public class AjaxEventOptions extends ScriptStringBase {
 
     private Map<String, Object> options = new HashMap<String, Object>();
 
-    public void appendScript(StringBuffer functionString) {
-        functionString.append(ScriptUtils.toScript(options));
+    public void appendScript(Appendable target) throws IOException {
+        ScriptUtils.appendScript(target, options);
     }
 
     public boolean isEmpty() {

@@ -206,7 +206,7 @@ public class PopupPanelBaseRenderer extends RendererBase {
         addToScriptHash(options, "onbeforeshow", buildEventFunction(attributes.get("onbeforeshow")));
         addToScriptHash(options, "onbeforehide", buildEventFunction(attributes.get("onbeforehide")));
 
-        result.append(ScriptUtils.toScript(options));
+        ScriptUtils.appendScript(result, options);
         result.append(");");
         return result.toString();
     }

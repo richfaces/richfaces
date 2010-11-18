@@ -271,4 +271,17 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
                 + AbstractTree.SELECTION_META_COMPONENT_ID);
         }
     }
+    
+    protected void createTreeRenderingContext(FacesContext context, UIComponent component) {
+        TreeRenderingContext.create(context, (AbstractTree) component);
+    }
+
+    protected Object getClientEventHandlers(FacesContext facesContext) {
+        TreeRenderingContext treeRenderingContext = TreeRenderingContext.get(facesContext);
+        return treeRenderingContext.getHandlers();
+    }
+    
+    protected void deleteTreeRenderingContext(FacesContext context) {
+        TreeRenderingContext.delete(context);
+    }
 }

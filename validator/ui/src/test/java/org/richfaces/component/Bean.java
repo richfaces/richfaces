@@ -3,6 +3,7 @@
  */
 package org.richfaces.component;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -36,8 +37,16 @@ public class Bean {
             return TEST_SCRIPT;
         }
         
-        public void appendScript(StringBuffer functionString) {
-            functionString.append(TEST_SCRIPT);
+        public void appendScript(Appendable target) throws IOException {
+            target.append(TEST_SCRIPT);
+        }
+        
+        public void appendScriptToStringBuilder(StringBuilder stringBuilder) {
+            try {
+                appendScript(stringBuilder);
+            } catch (IOException e) {
+                //ignore
+            }
         }
         
         public Collection<LibraryResource> getResources() {
@@ -51,6 +60,7 @@ public class Bean {
         public String createCallScript(String clientId,String sourceId) {
             return FOO+"("+clientId+")";
         }
+
     };
 
     private String value=FOO_VALUE;

@@ -45,6 +45,7 @@ import org.richfaces.application.MessageFactory;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.appplication.FacesMessages;
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -63,7 +64,8 @@ import org.richfaces.renderkit.MetaComponentRenderer;
     type = AbstractTreeNode.COMPONENT_TYPE,
     family = AbstractTreeNode.COMPONENT_FAMILY, 
     tag = @Tag(name = "treeNode"),
-    renderer = @JsfRenderer(type = "org.richfaces.TreeNodeRenderer")
+    renderer = @JsfRenderer(type = "org.richfaces.TreeNodeRenderer"),
+    attributes = {"events-props.xml", "core-props.xml", "i18n-props.xml"}
 )
 public abstract class AbstractTreeNode extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder, IterationStateHolder {
 
@@ -91,9 +93,6 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
     
     public abstract String getType();
     
-    //TODO - move to template
-    public abstract String getStyleClass();
-    
     public abstract String getIconLeaf();
     
     public abstract String getIconExpanded();
@@ -105,6 +104,9 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
     public abstract String getIconClass();
     
     public abstract String getLabelClass();
+    
+    @Attribute(events = @EventName("toggle"))
+    public abstract String getOntoggle();
     
     protected Boolean getLocalExpandedValue(FacesContext facesContext) {
         return (Boolean) getStateHelper().get(PropertyKeys.expanded);

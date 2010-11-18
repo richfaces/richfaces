@@ -60,7 +60,8 @@ class TreeEncoderPartial extends TreeEncoderBase {
 
         Object initialRowKey = tree.getRowKey();
         try {
-            
+            TreeRenderingContext.create(context, tree);
+         
             encodeTreeNode(rowKey, true);
             
             prw.endUpdate();
@@ -71,6 +72,8 @@ class TreeEncoderPartial extends TreeEncoderBase {
             } catch (Exception e) {
                 TreeRendererBase.LOGGER.error(e.getMessage(), e);
             }
+
+            TreeRenderingContext.delete(context);
         }
 
         prw.startEval();

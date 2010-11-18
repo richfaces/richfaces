@@ -22,6 +22,8 @@
 
 package org.richfaces.renderkit;
 
+import java.io.IOException;
+
 import org.ajax4jsf.javascript.ScriptString;
 import org.ajax4jsf.javascript.ScriptUtils;
 
@@ -59,14 +61,23 @@ public final class ClientSelectItem implements ScriptString {
         return convertedValue;
     }
 
-    public void appendScript(StringBuffer functionString) {
-        functionString.append(this.toScript());
+    public void appendScript(Appendable target) throws IOException {
+        target.append(this.toScript());
     }
 
+    public void appendScriptToStringBuilder(StringBuilder stringBuilder) {
+        try {
+            appendScript(stringBuilder);
+        } catch (IOException e) {
+            //ignore
+        }
+    }
+    
     public String toScript() {
         return "{ 'id' : " + ScriptUtils.toScript(clientId)
                 + " , 'label' : " + ScriptUtils.toScript(label)
                 + ", 'value' : " + ScriptUtils.toScript(convertedValue)
                 + "}";
     }
+
 }

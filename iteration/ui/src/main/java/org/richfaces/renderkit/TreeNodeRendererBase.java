@@ -46,6 +46,10 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
     
     private static final String TRIGGER_NODE_AJAX_UPDATE = "__TRIGGER_NODE_AJAX_UPDATE";
     
+    private static final ComponentAttribute ONTOGGLE_ATTRIBUTE = new ComponentAttribute("ontoggle").setEventNames("toggle");
+    
+    private static final ComponentAttribute ONSELECT_ATTRIBUTE = new ComponentAttribute("onselect").setEventNames("select");
+
     @Override
     public void decode(FacesContext context, UIComponent component) {
         super.decode(context, component);
@@ -143,5 +147,12 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
         } else {
             encodeCustomIcon(context, treeNode, nodeState.getCustomIconClass(), customIcon);
         }
+    }
+    
+    protected void addEventHandlersToRenderingContext(FacesContext facesContext, UIComponent component) {
+        String ontoggle = (String) RenderKitUtils.getAttributeAndBehaviorsValue(facesContext, component, ONTOGGLE_ATTRIBUTE);
+        String onselect = (String) RenderKitUtils.getAttributeAndBehaviorsValue(facesContext, component, ONSELECT_ATTRIBUTE);
+        
+        TreeRenderingContext.get(facesContext).addHandlers(ontoggle, null, onselect, null);
     }
 }

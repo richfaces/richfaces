@@ -321,9 +321,9 @@ public class DataScrollerBaseRenderer extends RendererBase {
 
         function.addParameter(options);
 
-        StringBuffer buffer = new StringBuffer();
-        function.appendScript(buffer);
-        definition.addToBody(buffer);
+        StringBuilder sb = new StringBuilder();
+        function.appendScriptToStringBuilder(sb);
+        definition.addToBody(sb);
         return definition;
     }
     

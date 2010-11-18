@@ -1,5 +1,7 @@
 package org.richfaces.component;
 
+import java.io.IOException;
+
 import org.richfaces.validator.LibraryResource;
 import org.richfaces.validator.LibraryScriptString;
 
@@ -14,11 +16,18 @@ final class Script implements LibraryScriptString {
         return name;
     }
 
-    public void appendScript(StringBuffer functionString) {
-        functionString.append(name);
-        
+    public void appendScript(Appendable target) throws IOException {
+        target.append(name);
     }
 
+    public void appendScriptToStringBuilder(StringBuilder stringBuilder) {
+        try {
+            appendScript(stringBuilder);
+        } catch (IOException e) {
+            //ignore
+        }
+    }
+    
     public LibraryResource getResource() {
         return UIValidatorScriptCollectionTest.FOO_RESOURCE;
     }

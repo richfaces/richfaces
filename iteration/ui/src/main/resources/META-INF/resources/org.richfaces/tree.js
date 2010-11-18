@@ -39,12 +39,14 @@
 
 		name: "TreeNode",
 
-		init: function (id) {
+		init: function (id, commonOptions) {
 			this.__rootElt = $(this.attachToDom(id));
 
 			this.__children = new Array();
 			
-			this.__initializeChildren();
+			this.__initializeChildren(commonOptions);
+			
+			this.__clientEventHandlers = (commonOptions.clientEventHandlers || {})[commonOptions.treeId + id];
 		},
 		
 		destroy: function() {
@@ -60,10 +62,10 @@
 			this.__rootElt = null;
 		},
 
-		__initializeChildren: function() {
+		__initializeChildren: function(commonOptions) {
 			var _this = this;
 			this.__rootElt.children(".rf-tr-nd").each(function() {
-				_this.addChild(new richfaces.ui.TreeNode(this));
+				_this.addChild(new richfaces.ui.TreeNode(this, commonOptions));
 			});
 		},
 		
@@ -216,7 +218,7 @@
 		
 	});
 
-	richfaces.ui.TreeNode.initNodeByAjax = function(nodeId) {
+	richfaces.ui.TreeNode.initNodeByAjax = function(nodeId, commonOptions) {
 		var node = $(document.getElementById(nodeId));
 		
 		if (node.nextAll(".rf-tr-nd:first").length != 0) {
@@ -228,7 +230,7 @@
 		var idx = node.prevAll(".rf-tr-nd").length;
 		
 		var parentNode = richfaces.$(parent[0]);
-		var newChild = new richfaces.ui.TreeNode(node[0]);
+		var newChild = new richfaces.ui.TreeNode(node[0], commonOptions);
 		parentNode.addChild(newChild, idx);
 		parentNode.getTree().__updateSelection();
 	};
@@ -252,7 +254,11 @@
 		init: function (id, options) {
 			this.__treeRootElt = $(richfaces.getDomElement(id));
 			
-			this.$super.init.call(this, this.__treeRootElt);
+			var commonOptions = {};
+			commonOptions.clientEventHandlers = options.clientEventHandlers || {};
+			commonOptions.treeId = id;
+			
+			this.$super.init.call(this, this.__treeRootElt, commonOptions);
 			
 			this.__toggleType = options.toggleType || 'ajax';
 			this.__selectionType = options.selectionType || 'client';

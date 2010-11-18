@@ -69,7 +69,8 @@ import com.google.common.collect.Iterators;
     type = AbstractTree.COMPONENT_TYPE,
     family = AbstractTree.COMPONENT_FAMILY, 
     tag = @Tag(name = "tree"),
-    renderer = @JsfRenderer(type = "org.richfaces.TreeRenderer")
+    renderer = @JsfRenderer(type = "org.richfaces.TreeRenderer"),
+    attributes = {"events-props.xml", "core-props.xml", "i18n-props.xml"}
 )
 public abstract class AbstractTree extends UIDataAdaptor implements MetaComponentResolver, MetaComponentEncoder {
 
@@ -133,11 +134,6 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
 
     public abstract boolean isImmediate();
 
-    @Override
-    public String getFamily() {
-        return COMPONENT_FAMILY;
-    }
-
     @Attribute(defaultValue = "SwitchType.DEFAULT")
     public abstract SwitchType getToggleType();
 
@@ -146,8 +142,10 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     
     public abstract String getNodeType();
     
-    //TODO - move to template
-    public abstract String getStyleClass();
+    @Override
+    public String getFamily() {
+        return COMPONENT_FAMILY;
+    }
     
     public Collection<Object> getSelection() {
         @SuppressWarnings("unchecked")
@@ -209,7 +207,6 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         }
 
         if (Strings.isNullOrEmpty(nodeType)) {
-            //make PSS happy
             if (getAttributes().put(DEFAULT_TREE_NODE_CREATED, Boolean.TRUE) != null) {
                 return null;
             }
