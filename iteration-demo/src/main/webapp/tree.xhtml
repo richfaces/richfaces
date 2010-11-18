@@ -3,7 +3,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:it="http://richfaces.org/iteration">
+	xmlns:it="http://richfaces.org/iteration"
+	xmlns:a4j="http://richfaces.org/a4j">
 <f:view contentType="text/html" />
 
 <h:head>
@@ -45,6 +46,7 @@
 	</h:form>
 
 	<h:form id="form">
+		Base tree:
 		<it:tree id="tree" nodeType="#{node.parent == null ? 'rootNode': 'childNode'}" var="node" value="#{treeBean.rootNodes}" 
 			selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}" selection="#{treeBean.selection}">
 			<it:treeNode type="rootNode">
@@ -73,6 +75,7 @@
 			<f:ajax render=":form:tree" execute="@all" />
 		</h:commandLink>
 
+		Tree with customized look:
 		<it:tree id="customizedTree" var="node" value="#{treeBean.rootNodes}" 
 			selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}"
 			styleClass="#{treeBean.showCustomClasses ? 'customClass' : ''}">
@@ -83,9 +86,22 @@
 			</it:treeNode>
 		</it:tree>
 
+		Tree with default node:
 		<it:tree id="defaultNodeTree" var="node" value="#{treeBean.rootNodes}" 
 			selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}">
 		</it:tree>
+		
+		Tree with client-side event handlers:
+		<it:tree id="clientSideEventsTree" var="node" value="#{treeBean.rootNodes}" 
+			selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}">
+			
+			<it:treeNode ontoggle="RichFaces.log.info('Toggle event: target is - ' + event.target.id)"
+				onselect="RichFaces.log.info('Select event: target is - ' + event.target.id)">
+				#{node.data}
+			</it:treeNode>
+		</it:tree>
+		
+		<a4j:log />
 	</h:form>
 </h:body>
 </html>
