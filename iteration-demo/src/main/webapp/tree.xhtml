@@ -51,6 +51,15 @@
 		<h:commandLink value="Re-render">
 			<f:ajax render=":form:tree" execute="@all" />
 		</h:commandLink>
+
+		<it:tree id="customizedTree" var="node" value="#{treeBean.rootNodes}" 
+			selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}">
+			
+			<it:treeNode iconLeaf="/images/leaf.png" iconExpanded="/images/minus.png" iconCollapsed="/images/plus.png">
+			#{node.data}
+			</it:treeNode>
+		</it:tree>
+
 	</h:form>
 </h:body>
 </html>
