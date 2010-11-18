@@ -51,6 +51,8 @@ import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.convert.SequenceRowKeyConverter;
 import org.richfaces.event.TreeSelectionEvent;
 import org.richfaces.event.TreeSelectionListener;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 import org.richfaces.model.ExtendedTreeDataModelImpl;
 import org.richfaces.model.SwingTreeNodeDataModelImpl;
 import org.richfaces.model.TreeDataModel;
