@@ -28,6 +28,8 @@ import java.util.List;
 
 import javax.swing.tree.TreeNode;
 
+import com.google.common.base.Objects;
+import com.google.common.base.Objects.ToStringHelper;
 import com.google.common.collect.Iterators;
 
 /**
@@ -98,5 +100,13 @@ public class SwingTreeNodeImpl<T> implements TreeNode, Serializable {
     
     public List<TreeNode> getChildrenList() {
         return children;
+    }
+    
+    @Override
+    public String toString() {
+        ToStringHelper toStringHelper = Objects.toStringHelper(this);
+        toStringHelper.add("data", data);
+        
+        return toStringHelper.toString();
     }
 }

@@ -88,8 +88,12 @@ public class ExtendedTreeDataModelImpl<E> extends ExtendedDataModel<E> implement
     public void walk(FacesContext context, DataVisitor visitor, Range range, Object argument) {
         TreeRange treeRange = (TreeRange) range;
         if (treeRange.shouldIterateChildren(null)) {
-            Iterator<Object> iterator = getChildrenRowKeysIterator(null);
-            walk(context, visitor, range, argument, iterator);
+            setRowKey(null);
+            DataVisitResult visitResult = visitor.process(context, null, argument);
+            if (visitResult == DataVisitResult.CONTINUE) {
+                Iterator<Object> iterator = getChildrenRowKeysIterator(null);
+                walk(context, visitor, range, argument, iterator);
+            }            
         }
     }
 

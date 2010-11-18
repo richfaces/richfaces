@@ -27,7 +27,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import javax.el.ValueExpression;
+import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
+import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
@@ -49,12 +51,15 @@ import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.convert.SequenceRowKeyConverter;
 import org.richfaces.event.TreeSelectionEvent;
 import org.richfaces.event.TreeSelectionListener;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 import org.richfaces.model.ExtendedTreeDataModelImpl;
 import org.richfaces.model.SwingTreeNodeDataModelImpl;
 import org.richfaces.model.TreeDataModel;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
 import com.google.common.base.Predicate;
+import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
 
@@ -75,6 +80,8 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     public static final String COMPONENT_FAMILY = "org.richfaces.Tree";
 
     public static final String SELECTION_META_COMPONENT_ID = "selection";
+    
+    private static final String DEFAULT_TREE_NODE_CREATED = AbstractTree.class.getName() + ":DEFAULT_TREE_NODE_CREATED";
     
     private static final class MatchingTreeNodePredicate implements Predicate<UIComponent> {
         
@@ -193,17 +200,36 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     }
 
     public AbstractTreeNode findTreeNodeComponent() {
-        if (getChildCount() == 0) {
-            return null;
-        }
-
+        FacesContext facesContext = getFacesContext();
+        
+        String nodeType = getNodeType();
         Iterator<UIComponent> iterator = Iterators.filter(getChildren().iterator(), 
-            new MatchingTreeNodePredicate(getNodeType()));
+            new MatchingTreeNodePredicate(nodeType));
         
         if (iterator.hasNext()) {
             return (AbstractTreeNode) iterator.next();
         }
 
+        if (Strings.isNullOrEmpty(nodeType)) {
+            //make PSS happy
+            if (getAttributes().put(DEFAULT_TREE_NODE_CREATED, Boolean.TRUE) != null) {
+                return null;
+            }
+            
+            Application application = facesContext.getApplication();
+            AbstractTreeNode treeNode = (AbstractTreeNode) application.createComponent(AbstractTreeNode.COMPONENT_TYPE);
+            treeNode.setId("__defaultTreeNode");
+            
+            getChildren().add(treeNode);
+            
+            UIComponent text = application.createComponent(HtmlOutputText.COMPONENT_TYPE);
+            text.setValueExpression("value", application.getExpressionFactory().createValueExpression(facesContext.getELContext(), 
+                "#{" + getVar() + "}", String.class));
+            treeNode.getChildren().add(text);
+            
+            return treeNode;
+        }
+        
         return null;
     }
 

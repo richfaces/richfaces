@@ -166,7 +166,7 @@ public class SwingTreeNodeDataModelImpl implements TreeDataModel<TreeNode> {
     }
 
     public boolean isDataAvailable() {
-        return selectedNode != null;
+        return selectedRowKey == null || selectedNode != null;
     }
     
     public Object getWrappedData() {

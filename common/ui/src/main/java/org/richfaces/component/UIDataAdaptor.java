@@ -1489,7 +1489,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         int separatorIndex = substring.indexOf(separatorChar);
 
         if (separatorIndex < 0) {
-            return substring;
+            return null;
         } else {
             return substring.substring(0, separatorIndex);
         }
