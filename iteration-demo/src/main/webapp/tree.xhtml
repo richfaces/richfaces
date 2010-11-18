@@ -32,6 +32,15 @@
 
 <h:body>
 	<h:outputScript>
+		function nodesArrayToString(nodes) {
+			var result = new Array();
+			jQuery.each(nodes, function(k, v) {
+				result.push(v.getId());
+			});
+			
+			return result.join('');
+		}
+	
 		function getNodeStateString(treeNode) {
 			return treeNode.isLeaf() ? 
 				'leaf' 
@@ -47,13 +56,10 @@
 		function handleNodeSelect(event) {
 			var treeNode = RichFaces.$(event.target);
 			
-			var selectedNodes = event.rf.data.selection;
-			var selection = new Array();
-			jQuery.each(selectedNodes, function(k, v) {
-				selection.push(v.getId());
-			});
+			var oldSelectionString = nodesArrayToString(event.rf.data.oldSelection);
+			var newSelectionString = nodesArrayToString(event.rf.data.newSelection);
 			
-			RichFaces.log.info('Select event:\n ' + selection.join(''));
+			RichFaces.log.info('Selection changed from: [' + oldSelectionString + '] to: [' + newSelectionString + ']');
 		}
 	</h:outputScript>
 
@@ -79,8 +85,6 @@
 				<h:panelGroup id="rootNodeGroup">
 					Root node: #{node.data} - 
 					<h:commandLink value="link" action="#{treeBean.clickNode}">
-						<f:setPropertyActionListener value="#{node.data}" target="#{treeBean.nodeData}" />
-					
 						<f:ajax render=":messages" />						
 					</h:commandLink>
 				</h:panelGroup>
@@ -89,8 +93,6 @@
 				<h:panelGroup id="childNodeGroup">
 					#{node.data} - 
 					<h:commandLink value="link" action="#{treeBean.clickNode}">
-						<f:setPropertyActionListener value="#{node.data}" target="#{treeBean.nodeData}" />
-					
 						<f:ajax render=":messages" />						
 					</h:commandLink>
 				</h:panelGroup>
@@ -124,9 +126,26 @@
 			selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}"
 			onnodetoggle="handleNodeToggle(&quot;#{node.data}&quot;, event, false)"
 			onselectionchange="handleNodeSelect(event)">
-			
+
 			<it:treeNode ontoggle="handleNodeToggle(&quot;#{node.data}&quot;, event, true)">
 				#{node.data}
+			</it:treeNode>
+		</it:tree>
+		
+		Tree with attached behaviors:
+		<h:messages id="treeBehaviorsMessages" for="behaviorsAttachedTree" />
+		<h:messages id="treeNodeBehaviorsMessages" globalOnly="true" />
+
+		<it:tree id="behaviorsAttachedTree" var="node" value="#{treeBean.rootNodes}" 
+			selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}">
+		
+			<f:ajax event="nodetoggle" listener="#{treeBean.behaviorToggleListener}" render=":form:treeBehaviorsMessages" />
+			<f:ajax event="selectionchange" listener="#{treeBean.behaviorSelectionChangeListener}" render=":form:treeBehaviorsMessages :form:treeNodeBehaviorsMessages" />
+			
+			<it:treeNode>
+				#{node.data}
+			
+				<f:ajax event="toggle" listener="#{treeBean.behaviorToggleListener}" render=":form:treeNodeBehaviorsMessages" />
 			</it:treeNode>
 		</it:tree>
 		

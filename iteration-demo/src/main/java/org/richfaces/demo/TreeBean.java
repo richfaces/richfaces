@@ -30,6 +30,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.swing.tree.TreeNode;
 
 import org.richfaces.component.SwitchType;
@@ -96,11 +97,8 @@ public class TreeBean implements Serializable {
     }
     
     public Object getNodeData() {
-        return nodeData;
-    }
-    
-    public void setNodeData(Object nodeData) {
-        this.nodeData = nodeData;
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        return facesContext.getApplication().evaluateExpressionGet(facesContext, "#{node}", Object.class);
     }
     
     public Collection<Object> getSelection() {
@@ -122,5 +120,15 @@ public class TreeBean implements Serializable {
     
     public void setShowCustomClasses(boolean showCustomClasses) {
         this.showCustomClasses = showCustomClasses;
+    }
+    
+    public void behaviorToggleListener(AjaxBehaviorEvent event) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        facesContext.addMessage(null, new FacesMessage("Toggle node: " + getNodeData() + ", source is: " + event.getSource()));
+    }
+
+    public void behaviorSelectionChangeListener(AjaxBehaviorEvent event) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        facesContext.addMessage(event.getComponent().getClientId(facesContext), new FacesMessage("Selection changed, source is: " + event.getSource()));
     }
 }
