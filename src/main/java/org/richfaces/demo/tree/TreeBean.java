@@ -36,7 +36,7 @@ import javax.swing.tree.TreeNode;
 import org.richfaces.demo.tree.model.CD;
 import org.richfaces.demo.tree.model.Company;
 import org.richfaces.demo.tree.model.Country;
-import org.richfaces.event.TreeSelectionEvent;
+import org.richfaces.event.TreeSelectionChangeEvent;
 
 /**
  * @author Ilya Shaikovsky
@@ -88,7 +88,7 @@ public class TreeBean implements Serializable {
         return company;
     }
 
-    private void selectionListener(TreeSelectionEvent event) {
+    private void selectionListener(TreeSelectionChangeEvent event) {
         //TODO: implement when ready
     }
 
