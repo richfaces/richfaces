@@ -18,6 +18,8 @@ public class CalendarBean {
     private boolean showApply = true;
     private boolean useCustomDayLabels;
     private String mode = "client";
+    private String jointPoint = "auto-auto";
+    private String direction = "auto-auto";
 
     public CalendarBean() {
 
@@ -90,6 +92,22 @@ public class CalendarBean {
 
     public void setShowApply(boolean showApply) {
         this.showApply = showApply;
+    }
+
+    public void setJointPoint(String jointPoint) {
+        this.jointPoint = jointPoint;
+    }
+
+    public String getJointPoint() {
+        return jointPoint;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    public String getDirection() {
+        return direction;
     }
 
 }

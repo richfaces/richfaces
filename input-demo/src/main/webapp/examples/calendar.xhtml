@@ -37,14 +37,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		<h:panelGrid id="panel" columns="2">
 			<h:panelGroup layout="block">
 				<calendar:calendar value="#{calendarBean.selectedDate}" id="calendar"
+					jointPoint="#{calendarBean.jointPoint}"  direction="#{calendarBean.direction}"
 					locale="#{calendarBean.locale}" popup="#{calendarBean.popup}"
 					datePattern="#{calendarBean.pattern}"
 					dataModel="#{calendarDataModel}"
 					mode="#{calendarBean.mode}"
 					showApplyButton="#{calendarBean.showApply}" cellWidth="24px"
-					cellHeight="22px" style="width:200px">
-					<f:convertDateTime pattern="#{calendarBean.pattern}"
-						onchange="alert('1')" />
+					cellHeight="22px" style="width:200px" minDaysInFirstWeek="3">
+					<f:convertDateTime pattern="#{calendarBean.pattern}" />
 				</calendar:calendar>
 			</h:panelGroup>
 			<h:panelGrid columns="2">
@@ -82,6 +82,24 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					<f:selectItem itemValue="ajax"/>
 				</h:selectOneMenu><br/>
 						
+				<h:outputText value="Select joint point:" />
+				<h:selectOneMenu value="#{calendarBean.jointPoint}">
+					<f:ajax execute="@form" event="change" render="calendar @this" />
+					<f:selectItem itemLabel="auto-auto" itemValue="auto-auto" />
+					<f:selectItem itemLabel="top-left" itemValue="top-left" />
+					<f:selectItem itemLabel="top-right" itemValue="top-right" />
+					<f:selectItem itemLabel="bottom-left" itemValue="bottom-left" />
+					<f:selectItem itemLabel="bottom-right" itemValue="bottom-right" />
+				</h:selectOneMenu>
+				<h:outputText value="Select direction:" />
+				<h:selectOneMenu value="#{calendarBean.direction}">
+					<f:ajax execute="@form" event="change" render="calendar @this" />
+					<f:selectItem itemLabel="auto-auto" itemValue="auto-auto" />
+					<f:selectItem itemLabel="top-left" itemValue="top-left" />
+					<f:selectItem itemLabel="top-right" itemValue="top-right" />
+					<f:selectItem itemLabel="bottom-left" itemValue="bottom-left" />
+					<f:selectItem itemLabel="bottom-right" itemValue="bottom-right" />
+				</h:selectOneMenu>		
 			</h:panelGrid>
 		</h:panelGrid>
 	</h:form>
