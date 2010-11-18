@@ -1,5 +1,4 @@
-
-.rf-au-inp.rf-au-fnt, .rf-au-opt.rf-au-fnt{
+.rf-au-fnt{
 	color: '#{richSkin.generalTextColor}';
 	font-size: '#{richSkin.generalSizeFont}';
 	font-family: '#{richSkin.generalFamilyFont}';
@@ -72,20 +71,26 @@ input.rf-au-inp {
 	min-height: 20px;
 }
 
-.rf-au-opt{
-	padding: 2px;
-	white-space: nowrap;
+.rf-au-itm{
 	cursor: default;
-	list-style-type: none;
+	padding: 2px;
 }
 
-.rf-au-sel{
-	padding: 1px;
-	width: 100%;
+.rf-au-itm-sel{
 	background-color: '#{richSkin.headerBackgroundColor}';
 	border-width: 1px;
 	border-style: dotted;
 	border-color: '#{richSkin.generalTextColor}';
+	padding: 1px;
+}
+
+.rf-au-opt{
+	white-space: nowrap;
+	list-style-type: none;
+}
+
+.rf-au-opt-sel{
+	width: 100%;
 }
 
 .rf-au-shdw{
@@ -141,4 +146,9 @@ input.rf-au-inp {
 .rf-au-lst-ul{
 	margin: 0px;
 	padding: 0px;
+}
+
+.rf-au-tbl{
+	border-spacing: 0px;
+	
 }

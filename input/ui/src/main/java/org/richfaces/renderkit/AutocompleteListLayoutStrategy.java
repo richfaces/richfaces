@@ -22,7 +22,7 @@ public class AutocompleteListLayoutStrategy extends AbstractAutocompleteLayoutSt
         ResponseWriter responseWriter = facesContext.getResponseWriter();
         responseWriter.startElement(HtmlConstants.UL_ELEMENT, component);
         responseWriter.writeAttribute(HtmlConstants.ID_ATTRIBUTE, getContainerElementId(facesContext, component), null);
-        responseWriter.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-au-list-ul", null);
+        responseWriter.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-au-lst-ul", null);
     }
 
     public void encodeItemsContainerEnd(FacesContext facesContext, UIComponent component) throws IOException {
@@ -43,7 +43,7 @@ public class AutocompleteListLayoutStrategy extends AbstractAutocompleteLayoutSt
     public void encodeItem(FacesContext facesContext, UIComponent component) throws IOException {
         ResponseWriter writer = facesContext.getResponseWriter();
         encodeItemBegin(facesContext, component);
-        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-au-opt rf-au-fnt rf-au-inp", null);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-au-itm rf-au-opt rf-au-fnt rf-au-inp", null);
         for (UIComponent child : component.getChildren()) {
             child.encodeAll(facesContext);
         }

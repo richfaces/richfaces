@@ -115,8 +115,10 @@
 	var $super = rf.ui.Autocomplete.$super;
 
 	var defaultOptions = {
-		selectedItemClass:'rf-au-sel',
-		itemClass:'rf-au-opt',
+		itemClass:'rf-au-itm',
+		selectedItemClass:'rf-au-itm-sel',
+		subItemClass:'rf-au-opt',
+		selectedSubItemClass:'rf-au-opt-sel',
 		autofill:true,
 		minChars:1,
 		selectFirst:true,
@@ -244,7 +246,10 @@
 		if (this.items.length==0 || (!isOffset && this.index == index)) return;
 	
 		if (this.index!=-1) {
-				this.items.eq(this.index).removeClass(this.options.selectedItemClass);
+			var element = this.items.eq(this.index)
+			if (element.removeClass(this.options.selectedItemClass).hasClass(this.options.subItemClass)){
+				element.removeClass(this.options.selectedSubItemClass);
+			}
 		}
 
 		if (index==undefined) {
@@ -268,7 +273,9 @@
 			this.index = index;
 		}
 		var item = this.items.eq(this.index);
-		item.addClass(this.options.selectedItemClass);
+		if (item.addClass(this.options.selectedItemClass).hasClass(this.options.subItemClass)) {
+			item.addClass(this.options.selectedSubItemClass);
+		}
 		scrollToSelectedItem.call(this);
 		if (event &&
 			event.which != rf.KEYS.BACKSPACE &&

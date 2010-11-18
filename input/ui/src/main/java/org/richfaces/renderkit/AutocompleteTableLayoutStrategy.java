@@ -25,6 +25,7 @@ public class AutocompleteTableLayoutStrategy extends AbstractAutocompleteLayoutS
         ResponseWriter responseWriter = facesContext.getResponseWriter();
         responseWriter.startElement(HtmlConstants.TABLE_ELEMENT, component);
         responseWriter.writeAttribute(HtmlConstants.ID_ATTRIBUTE, getContainerElementId(facesContext, component), null);
+        responseWriter.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-au-tbl", null);
         responseWriter.startElement(HtmlConstants.TBODY_ELEMENT, component);
     }
 
@@ -37,6 +38,7 @@ public class AutocompleteTableLayoutStrategy extends AbstractAutocompleteLayoutS
     public void encodeItemBegin(FacesContext facesContext, UIComponent component) throws IOException {
         ResponseWriter writer = facesContext.getResponseWriter();
         writer.startElement(HtmlConstants.TR_ELEMENT, component);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-au-itm", null);
         writer.startElement(HtmlConstants.TD_ELEM, component);
     }
     
@@ -59,10 +61,11 @@ public class AutocompleteTableLayoutStrategy extends AbstractAutocompleteLayoutS
     public void encodeItem(FacesContext facesContext, UIComponent component) throws IOException {
         ResponseWriter writer = facesContext.getResponseWriter();
         writer.startElement(HtmlConstants.TR_ELEMENT, component);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-au-itm", null);
         for (UIComponent child : component.getChildren()) {
             if (child instanceof UIColumn) {
                 encodeItemChildBegin(facesContext, component);
-                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-au-opt rf-au-fnt rf-au-inp", null);
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-au-fnt rf-au-inp", null);
                 child.encodeAll(facesContext);
                 encodeItemChildEnd(facesContext, component);
             }
