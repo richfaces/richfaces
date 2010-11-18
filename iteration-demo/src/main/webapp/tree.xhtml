@@ -53,6 +53,20 @@
 				+ '[' + nodeData + ']:\n ' + treeNode.getId() + ' became ' + getNodeStateString(treeNode));
 		}
 
+		function handleBeforeNodeToggle(event, isTreeNodeLevel) {
+			var treeNode = RichFaces.$(event.target);
+			return confirm('Tree' + (isTreeNodeLevel ? ' node ' : ' ') + 'asks: really toggle node ' + treeNode.getId() + '?');
+		}
+		
+		function handleBeforeNodeSelect(event) {
+			var treeNode = RichFaces.$(event.target);
+			
+			var oldSelectionString = nodesArrayToString(event.rf.data.oldSelection);
+			var newSelectionString = nodesArrayToString(event.rf.data.newSelection);
+			
+			return confirm('Selection will be changed from: [' + oldSelectionString + '] to: [' + newSelectionString + ']');
+		}
+
 		function handleNodeSelect(event) {
 			var treeNode = RichFaces.$(event.target);
 			
@@ -75,6 +89,15 @@
 		</h:selectOneRadio>
 		
 		Show custom classes: <h:selectBooleanCheckbox value="#{treeBean.showCustomClasses}" onclick="submit()" />
+		
+		<br />
+		Toggle node event:
+		<h:selectOneMenu value="#{treeBean.toggleNodeEvent}" onchange="submit()">
+			<f:selectItem itemLabel="none" itemValue="" />
+			<f:selectItem itemLabel="click" itemValue="click" />
+			<f:selectItem itemLabel="mouseenter" itemValue="mouseenter" />
+			<f:selectItem itemLabel="dblclick" itemValue="dblclick" />
+		</h:selectOneMenu>
 	</h:form>
 
 	<h:form id="form">
@@ -125,9 +148,12 @@
 		<it:tree id="clientSideEventsTree" var="node" value="#{treeBean.rootNodes}" 
 			selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}"
 			onnodetoggle="handleNodeToggle(&quot;#{node.data}&quot;, event, false)"
-			onselectionchange="handleNodeSelect(event)">
+			onselectionchange="handleNodeSelect(event)"
+			onbeforeselectionchange="return handleBeforeNodeSelect(event)"
+			onbeforenodetoggle="return handleBeforeNodeToggle(event, false)">
 
-			<it:treeNode ontoggle="handleNodeToggle(&quot;#{node.data}&quot;, event, true)">
+			<it:treeNode ontoggle="handleNodeToggle(&quot;#{node.data}&quot;, event, true)"
+				onbeforetoggle="return handleBeforeNodeToggle(event, true)">
 				#{node.data}
 			</it:treeNode>
 		</it:tree>
@@ -146,6 +172,43 @@
 				#{node.data}
 			
 				<f:ajax event="toggle" listener="#{treeBean.behaviorToggleListener}" render=":form:treeNodeBehaviorsMessages" />
+			</it:treeNode>
+		</it:tree>
+		
+		Lazy loaded tree:
+		<it:tree id="lazyLoadedTree" var="node" value="#{treeBean.lazyRootNodes}" 
+			selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}">
+			
+			<it:treeNode>
+				#{node.wrappedNode.data}
+			</it:treeNode>
+		</it:tree>
+		
+		<a4j:outputPanel ajaxRendered="true">
+			<h:messages for="serverListenersTree" />
+		</a4j:outputPanel>
+		
+		Server listeners test:
+		<it:tree id="serverListenersTree" var="node" value="#{treeBean.rootNodes}" 
+			selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}"
+			selectionChangeListener="#{treeBean.processSelectionChange}"
+			toggleListener="#{treeBean.processToggle}">
+			
+			<it:treeSelectionChangeListener type="org.richfaces.demo.TreeBean$SelectionChangeHandler" />
+			<it:treeToggleListener type="org.richfaces.demo.TreeBean$ToggleHandler" />
+			
+			<it:treeNode toggleListener="#{treeBean.processToggle}">
+				<it:treeToggleListener type="org.richfaces.demo.TreeBean$ToggleHandler" />
+			
+				#{node.data}
+			</it:treeNode>
+		</it:tree>
+		
+		Toggle node event:
+		<it:tree toggleNodeEvent="#{treeBean.toggleNodeEvent}" var="node" value="#{treeBean.rootNodes}" 
+			selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}">
+			<it:treeNode>
+				#{node.data}
 			</it:treeNode>
 		</it:tree>
 		

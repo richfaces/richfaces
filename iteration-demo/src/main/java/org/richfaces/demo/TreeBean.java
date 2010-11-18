@@ -22,6 +22,7 @@
 package org.richfaces.demo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -30,10 +31,18 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.event.FacesEvent;
 import javax.swing.tree.TreeNode;
 
+import org.richfaces.component.AbstractTree;
+import org.richfaces.component.AbstractTreeNode;
 import org.richfaces.component.SwitchType;
+import org.richfaces.event.TreeSelectionChangeEvent;
+import org.richfaces.event.TreeSelectionChangeListener;
+import org.richfaces.event.TreeToggleEvent;
+import org.richfaces.event.TreeToggleListener;
 import org.richfaces.log.LogFactory;
 import org.richfaces.log.Logger;
 
@@ -45,21 +54,90 @@ import org.richfaces.log.Logger;
 @SessionScoped
 public class TreeBean implements Serializable {
 
+    public static final class SelectionChangeHandler implements TreeSelectionChangeListener {
+
+        private boolean fromExpression = false;
+
+        public SelectionChangeHandler() {
+        }
+        
+        public SelectionChangeHandler(boolean fromExpression) {
+            super();
+            this.fromExpression = fromExpression;
+        }
+
+        public void processSelectionChange(TreeSelectionChangeEvent event) throws AbortProcessingException {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            
+            facesContext.addMessage(getTree(event).getBaseClientId(facesContext), createEventMessage(event, fromExpression));
+        }
+        
+    }
+    
+    public static final class ToggleHandler implements TreeToggleListener {
+
+        private boolean fromExpression = false;
+
+        public ToggleHandler() {
+        }
+        
+        public ToggleHandler(boolean fromExpression) {
+            super();
+            this.fromExpression = fromExpression;
+        }
+
+        public void processToggle(TreeToggleEvent event) throws AbortProcessingException {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            facesContext.addMessage(getTree(event).getBaseClientId(facesContext), createEventMessage(event, fromExpression));
+        }
+        
+    }
+
     private static final long serialVersionUID = 3368885134614548497L;
 
     private static final Logger LOGGER = LogFactory.getLogger(TreeBean.class);
     
     private List<TreeNode> rootNodes;
     
+    private List<TreeNode> lazyRootNodes;
+    
     private SwitchType toggleType = SwitchType.DEFAULT;
     
     private SwitchType selectionType = SwitchType.client;
 
-    private Object nodeData;
-    
     private boolean showCustomClasses = true;
     
     private Collection<Object> selection = new TracingSet<Object>();
+
+    private String toggleNodeEvent = "";
+    
+    private static Object staticGetNodeData() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        return facesContext.getApplication().evaluateExpressionGet(facesContext, "#{node}", Object.class);
+    }
+    
+    private static FacesMessage createEventMessage(FacesEvent event, boolean fromExpression) {
+        String summary = event + (fromExpression ? " called from attribute" : " called from tag") + ", data: " + staticGetNodeData();
+        return new FacesMessage(summary);
+    }
+    
+    private static AbstractTree getTree(FacesEvent event) {
+        if (event.getComponent() instanceof AbstractTree) {
+            return (AbstractTree) event.getComponent();
+        }
+        
+        return ((AbstractTreeNode) event.getComponent()).findTreeComponent();
+    }
+    
+    private List<TreeNode> createLazyNodes(List<TreeNode> nodes) {
+        List<TreeNode> result = new ArrayList<TreeNode>(nodes.size());
+
+        for (TreeNode srcNode : nodes) {
+            result.add(new LazyTreeNode(srcNode));
+        }
+        
+        return result;
+    }
     
     @PostConstruct
     public void init() {
@@ -67,6 +145,7 @@ public class TreeBean implements Serializable {
             TreeNodeParser parser = new TreeNodeParser();
             parser.parse(TreeBean.class.getResource("plants.xml"));
             rootNodes = parser.getRootNodes();
+            lazyRootNodes = createLazyNodes(rootNodes);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
@@ -76,6 +155,10 @@ public class TreeBean implements Serializable {
         return rootNodes;
     }
 
+    public List<TreeNode> getLazyRootNodes() {
+        return lazyRootNodes;
+    }
+    
     public SwitchType[] getTypes() {
         return SwitchType.values();
     }
@@ -97,8 +180,7 @@ public class TreeBean implements Serializable {
     }
     
     public Object getNodeData() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        return facesContext.getApplication().evaluateExpressionGet(facesContext, "#{node}", Object.class);
+        return staticGetNodeData();
     }
     
     public Collection<Object> getSelection() {
@@ -131,4 +213,22 @@ public class TreeBean implements Serializable {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         facesContext.addMessage(event.getComponent().getClientId(facesContext), new FacesMessage("Selection changed, source is: " + event.getSource()));
     }
+    
+    public void processSelectionChange(TreeSelectionChangeEvent event) {
+        new SelectionChangeHandler(true).processSelectionChange(event);
+    }
+    
+    public void processToggle(TreeToggleEvent event) {
+        new ToggleHandler(true).processToggle(event);
+    }
+
+    public String getToggleNodeEvent() {
+        return toggleNodeEvent;
+    }
+
+    public void setToggleNodeEvent(String toggleNodeEvent) {
+        this.toggleNodeEvent = toggleNodeEvent;
+    }
+
+
 }
