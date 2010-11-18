@@ -56,6 +56,8 @@ public class TreeBean implements Serializable {
 
     private Object nodeData;
     
+    private boolean showCustomClasses = true;
+    
     private Collection<Object> selection = new TracingSet<Object>();
     
     @PostConstruct
@@ -112,5 +114,13 @@ public class TreeBean implements Serializable {
     public void clickNode() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         facesContext.addMessage(null, new FacesMessage("Clicked node: " + getNodeData()));
+    }
+    
+    public boolean isShowCustomClasses() {
+        return showCustomClasses;
+    }
+    
+    public void setShowCustomClasses(boolean showCustomClasses) {
+        this.showCustomClasses = showCustomClasses;
     }
 }

@@ -8,6 +8,25 @@
 
 <h:head>
 	<title>Richfaces Tree</title>
+	
+	<h:outputStylesheet>/*<![CDATA[*/
+	.customClass .customNodeClass {
+		border: 1px solid navy;
+	}
+
+	.customClass .customHandleClass {
+		border: 1px solid red;
+	}
+
+	.customClass .customIconClass {
+		border: 1px solid yellow;
+	}
+
+	.customClass .customLabelClass {
+		border: 1px solid green;
+	}
+
+	/*]]>*/</h:outputStylesheet>
 </h:head>
 
 <h:body>
@@ -21,6 +40,8 @@
 		Selection mode: <h:selectOneRadio value="#{treeBean.selectionType}" onclick="submit()">
 			<f:selectItems value="#{treeBean.types}" itemDisabled="#{item == 'server'}" var="item" itemValue="#{item}" />
 		</h:selectOneRadio>
+		
+		Show custom classes: <h:selectBooleanCheckbox value="#{treeBean.showCustomClasses}" onclick="submit()" />
 	</h:form>
 
 	<h:form id="form">
@@ -53,9 +74,11 @@
 		</h:commandLink>
 
 		<it:tree id="customizedTree" var="node" value="#{treeBean.rootNodes}" 
-			selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}">
+			selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}"
+			styleClass="#{treeBean.showCustomClasses ? 'customClass' : ''}">
 			
-			<it:treeNode iconLeaf="/images/leaf.png" iconExpanded="/images/minus.png" iconCollapsed="/images/plus.png">
+			<it:treeNode iconLeaf="/images/leaf.png" iconExpanded="/images/minus.png" iconCollapsed="/images/plus.png"
+			styleClass="customNodeClass" handleClass="customHandleClass" iconClass="customIconClass" labelClass="customLabelClass">
 			#{node.data}
 			</it:treeNode>
 		</it:tree>
