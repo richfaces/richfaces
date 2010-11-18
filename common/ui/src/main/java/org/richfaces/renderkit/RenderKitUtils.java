@@ -385,6 +385,7 @@ public final class RenderKitUtils {
     }
 
     //TODO - create special method for event handlers that will return String?
+    //TODO - add check for 'disabled'?
     public static Object getAttributeAndBehaviorsValue(FacesContext facesContext, UIComponent component,
         ComponentAttribute componentAttribute) {
         if (facesContext == null) {

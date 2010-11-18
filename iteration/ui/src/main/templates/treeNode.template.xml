@@ -24,6 +24,8 @@
         
         <cdk:call expression="addClientEventHandlers(facesContext, component)" />
         
+        <cdk:call expression="addClientEventHandlers(facesContext, component)" />
+        
         <div class="#{concatClasses('rf-trn', component.attributes['styleClass'], tree.attributes['nodeClass'])}">
             <span class="#{concatClasses(nodeState.handleClass, component.attributes['handleClass'], tree.attributes['handleClass'])}"></span>
         

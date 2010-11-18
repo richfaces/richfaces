@@ -50,8 +50,8 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.convert.SequenceRowKeyConverter;
-import org.richfaces.event.TreeSelectionEvent;
-import org.richfaces.event.TreeSelectionListener;
+import org.richfaces.event.TreeSelectionChangeEvent;
+import org.richfaces.event.TreeSelectionChangeListener;
 import org.richfaces.model.ExtendedTreeDataModelImpl;
 import org.richfaces.model.SwingTreeNodeDataModelImpl;
 import org.richfaces.model.TreeDataModel;
@@ -253,8 +253,8 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     public void broadcast(FacesEvent event) throws AbortProcessingException {
         super.broadcast(event);
 
-        if (event instanceof TreeSelectionEvent) {
-            TreeSelectionEvent selectionEvent = (TreeSelectionEvent) event;
+        if (event instanceof TreeSelectionChangeEvent) {
+            TreeSelectionChangeEvent selectionEvent = (TreeSelectionChangeEvent) event;
             
             final Collection<Object> newSelection = selectionEvent.getNewSelection();
 
@@ -325,15 +325,15 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         return new TreeComponentState();
     }
     
-    public void addSelectionListener(TreeSelectionListener listener) {
+    public void addSelectionChangeListener(TreeSelectionChangeListener listener) {
         addFacesListener(listener);
     }
 
-    public TreeSelectionListener[] getSelectionListeners() {
-        return (TreeSelectionListener[]) getFacesListeners(TreeSelectionListener.class);
+    public TreeSelectionChangeListener[] getSelectionChangeListeners() {
+        return (TreeSelectionChangeListener[]) getFacesListeners(TreeSelectionChangeListener.class);
     }
     
-    public void removeSelectionListener(TreeSelectionListener listener) {
+    public void removeSelectionChangeListener(TreeSelectionChangeListener listener) {
         removeFacesListener(listener);
     }
 

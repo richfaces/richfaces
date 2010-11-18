@@ -21,14 +21,47 @@
  */
 package org.richfaces.event;
 
+import java.util.Collection;
+
+import javax.faces.component.UIComponent;
+import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
 
 /**
  * @author Nick Belaevski
  * 
  */
-public interface TreeSelectionListener extends FacesListener {
+public class TreeSelectionChangeEvent extends FacesEvent {
 
-    public void processSelection(TreeSelectionEvent event);
+    private static final long serialVersionUID = 6292604445872458007L;
+
+    private Collection<Object> oldSelection;
+
+    private Collection<Object> newSelection;
+
+    public TreeSelectionChangeEvent(UIComponent component, Collection<Object> oldSelection, Collection<Object> newSelection) {
+        super(component);
+
+        this.oldSelection = oldSelection;
+        this.newSelection = newSelection;
+    }
+
+    @Override
+    public boolean isAppropriateListener(FacesListener listener) {
+        return listener instanceof TreeSelectionChangeListener;
+    }
+
+    @Override
+    public void processListener(FacesListener listener) {
+        ((TreeSelectionChangeListener) listener).processSelection(this);
+    }
+
+    public Collection<Object> getOldSelection() {
+        return oldSelection;
+    }
+    
+    public Collection<Object> getNewSelection() {
+        return newSelection;
+    }
     
 }

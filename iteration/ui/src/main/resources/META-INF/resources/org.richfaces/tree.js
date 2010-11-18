@@ -398,34 +398,34 @@
 		},
 		
 		__updateSelection: function() {
-			var oldSelection = this.__selectedNodeId;
-			var nodeId = this.__selectionInput.val();
+			var oldSelection = new Array();
+			var newSelection = new Array();
 
-			if (oldSelection == nodeId) {
+			var oldSelectionId = this.__selectedNodeId;
+			var newSelectionId = this.__selectionInput.val();
+
+			if (oldSelectionId == newSelectionId) {
 				return;
 			}
 			
-			if (oldSelection) {
-				var oldSelectionNode = richfaces.$(oldSelection);
+			if (oldSelectionId) {
+				var oldSelectionNode = richfaces.$(oldSelectionId);
 				if (oldSelectionNode) {
 					oldSelectionNode.__setSelected(false);
+					oldSelection.push(oldSelectionNode);
 				}
 			}
 			
-			var newSelectionNode;
-			var selection = new Array();
-			
-			if (nodeId) {
-				newSelectionNode = richfaces.$(nodeId);
+			if (newSelectionId) {
+				var newSelectionNode = richfaces.$(newSelectionId);
+				if (newSelectionNode) {
+					newSelectionNode.__setSelected(true);
+					newSelection.push(newSelectionNode);
+				}
 			}
 
-			if (newSelectionNode) {
-				newSelectionNode.__setSelected(true);
-				selection.push(newSelectionNode);
-			}
-
-			this.__selectedNodeId = nodeId;
-			richfaces.Event.fire(this.__treeRootElt, "selectionchange", {selection: selection});
+			this.__selectedNodeId = newSelectionId;
+			richfaces.Event.fire(this.__treeRootElt, "selectionchange", {oldSelection: oldSelection, newSelection: newSelection});
 		}
 	});
 
