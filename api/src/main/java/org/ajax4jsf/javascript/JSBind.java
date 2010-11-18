@@ -23,6 +23,8 @@
 
 package org.ajax4jsf.javascript;
 
+import java.io.IOException;
+
 /**
  * Created 04.08.2008
  * @author Nick Belaevski
@@ -38,9 +40,9 @@ public class JSBind extends ScriptStringBase {
         this.vars = vars;
     }
 
-    public void appendScript(StringBuffer functionString) {
-        functionString.append("function () {");
-        functionString.append("var vars = {");
+    public void appendScript(Appendable target) throws IOException {
+        target.append("function () {");
+        target.append("var vars = {");
 
         boolean isFirst = true;
 
@@ -48,17 +50,18 @@ public class JSBind extends ScriptStringBase {
             if (isFirst) {
                 isFirst = false;
             } else {
-                functionString.append(',');
+                target.append(',');
             }
 
-            functionString.append(var);
-            functionString.append(':');
-            functionString.append(var);
+            target.append(var);
+            target.append(':');
+            target.append(var);
         }
 
-        functionString.append("};");
-        functionString.append("return function() { with (vars) {");
-        functionString.append(function.toScript());
-        functionString.append("}}}()");
+        target.append("};");
+        target.append("return function() { with (vars) {");
+        target.append(function.toScript());
+        target.append("}}}()");
     }
+
 }

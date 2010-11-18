@@ -21,15 +21,17 @@
 
 package org.richfaces.renderkit;
 
-import org.ajax4jsf.javascript.JSFunctionDefinition;
-import org.ajax4jsf.javascript.ScriptStringBase;
-import org.ajax4jsf.javascript.ScriptUtils;
-
-import javax.faces.component.UIComponent;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import javax.faces.component.UIComponent;
+
+import org.ajax4jsf.javascript.JSFunctionDefinition;
+import org.ajax4jsf.javascript.ScriptStringBase;
+import org.ajax4jsf.javascript.ScriptUtils;
 
 /**
  * @author Maksim Kaszynski
@@ -42,8 +44,8 @@ public class ScriptOptions extends ScriptStringBase {
         this.component = component;
     }
 
-    public void appendScript(StringBuffer functionString) {
-        functionString.append(ScriptUtils.toScript(opts));
+    public void appendScript(Appendable target) throws IOException {
+        ScriptUtils.appendScript(target, opts);
     }
 
     public void addOption(String name) {

@@ -23,6 +23,9 @@
 
 package org.ajax4jsf.javascript;
 
+import java.io.IOException;
+
+
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:58:32 $
@@ -37,8 +40,15 @@ public interface ScriptString {
     public abstract String toScript();
 
     /**
-     * Append JavaScript code to @link StringBuffer
-     * @param functionString
+     * Append JavaScript code to @link {@link Appendable}
+     * @param target
+     * @throws IOException 
      */
-    public void appendScript(StringBuffer functionString);
+    public void appendScript(Appendable target) throws IOException;
+
+    /**
+     * Append JavaScript code to @link {@link StringBuilder}
+     * @param stringBuilder
+     */
+    public void appendScriptToStringBuilder(StringBuilder stringBuilder);
 }

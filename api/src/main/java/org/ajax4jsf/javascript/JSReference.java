@@ -23,6 +23,8 @@
 
 package org.ajax4jsf.javascript;
 
+import java.io.IOException;
+
 /**
  * Create reference to JavaScript variable with optional index.
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
@@ -58,15 +60,14 @@ public class JSReference extends ScriptStringBase {
         this.index = index;
     }
 
-    /*
-     *  (non-Javadoc)
-     * @see org.ajax4jsf.javascript.ScriptString#appendScript(java.lang.StringBuffer)
-     */
-    public void appendScript(StringBuffer functionString) {
-        functionString.append(name);
+    public void appendScript(Appendable target) throws IOException {
+        target.append(name);
 
         if (null != index) {
-            functionString.append("[").append(ScriptUtils.toScript(index)).append("]");
+            target.append("[");
+            ScriptUtils.appendScript(target, index);
+            target.append("]");
         }
     }
+
 }

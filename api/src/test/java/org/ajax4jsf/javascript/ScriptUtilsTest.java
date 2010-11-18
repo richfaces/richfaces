@@ -246,21 +246,23 @@ public class ScriptUtilsTest extends TestCase {
 
     /**
      * Test method for {@link org.ajax4jsf.javascript.ScriptUtils#addEncodedString(java.lang.StringBuffer, java.lang.Object)}.
+     * @throws Exception 
      */
-    public void testAddEncodedString() {
+    public void testAddEncodedString() throws Exception {
         StringBuilder buff = new StringBuilder();
 
-        ScriptUtils.addEncodedString(buff, "foo");
+        ScriptUtils.appendEncodedString(buff, "foo");
         assertEquals("\"foo\"", buff.toString());
     }
 
     /**
      * Test method for {@link org.ajax4jsf.javascript.ScriptUtils#addEncoded(java.lang.StringBuffer, java.lang.Object)}.
+     * @throws Exception 
      */
-    public void testAddEncoded() {
+    public void testAddEncoded() throws Exception {
         StringBuilder buff = new StringBuilder();
 
-        ScriptUtils.addEncoded(buff, "foo");
+        ScriptUtils.appendEncoded(buff, "foo");
         assertEquals("foo", buff.toString());
     }
 

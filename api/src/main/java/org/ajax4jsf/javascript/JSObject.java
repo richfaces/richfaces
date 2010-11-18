@@ -23,6 +23,8 @@
 
 package org.ajax4jsf.javascript;
 
+import java.io.IOException;
+
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:58:30 $
@@ -40,8 +42,8 @@ public class JSObject extends JSFunction {
         // TODO Auto-generated constructor stub
     }
 
-    public void appendScript(StringBuffer functionString) {
-        functionString.append("new ");
-        super.appendScript(functionString);
+    public void appendScript(Appendable target) throws IOException {
+        target.append("new ");
+        super.appendScript(target);
     }
 }

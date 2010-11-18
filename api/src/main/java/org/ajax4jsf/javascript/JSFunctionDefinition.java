@@ -23,6 +23,7 @@
 
 package org.ajax4jsf.javascript;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -56,18 +57,14 @@ public class JSFunctionDefinition extends ScriptStringBase implements ScriptStri
         return this;
     }
 
-    /*
-     *  (non-Javadoc)
-     * @see org.ajax4jsf.components.renderkit.scriptutils.ScriptString#appendScript(java.lang.StringBuffer)
-     */
-    public void appendScript(StringBuffer functionString) {
-        functionString.append("function");
+    public void appendScript(Appendable target) throws IOException {
+        target.append("function");
 
         if (null != name) {
-            functionString.append(" ").append(name);
+            target.append(" ").append(name);
         }
 
-        functionString.append("(");
+        target.append("(");
 
         boolean first = true;
 
@@ -75,16 +72,16 @@ public class JSFunctionDefinition extends ScriptStringBase implements ScriptStri
             Object element = param.next();
 
             if (!first) {
-                functionString.append(',');
+                target.append(',');
             }
 
-            functionString.append(element.toString());
+            target.append(element.toString());
             first = false;
         }
 
-        functionString.append("){").append(body).append("}");
+        target.append("){").append(body).append("}");
     }
-
+    
     /**
      * @return the name
      */
@@ -98,4 +95,5 @@ public class JSFunctionDefinition extends ScriptStringBase implements ScriptStri
     public void setName(String name) {
         this.name = name;
     }
+
 }

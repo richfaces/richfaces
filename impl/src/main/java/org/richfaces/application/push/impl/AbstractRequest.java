@@ -70,17 +70,31 @@ public abstract class AbstractRequest implements Request {
         }
         
         public String toScript() {
-            Map<String,Object> map = new HashMap<String, Object>(2);
-            
-            map.put(TOPIC_KEY, topicKey.getTopicAddress());
-            map.put(DATA_KEY, new JSLiteral(serializedData));
+            Map<String, Object> map = createScriptMap();
             
             return ScriptUtils.toScript(map);
         }
 
-        public void appendScript(StringBuffer functionString) {
-            functionString.append(toScript());
+        private Map<String, Object> createScriptMap() {
+            Map<String,Object> map = new HashMap<String, Object>(2);
+            
+            map.put(TOPIC_KEY, topicKey.getTopicAddress());
+            map.put(DATA_KEY, new JSLiteral(serializedData));
+            return map;
         }
+
+        public void appendScript(Appendable target) throws IOException {
+            target.append(toScript());
+        }
+
+        public void appendScriptToStringBuilder(StringBuilder stringBuilder) {
+            try {
+                appendScript(stringBuilder);
+            } catch (IOException e) {
+                //ignore
+            }
+        }
+        
     }
     
     private static final class FlushMessagesTask implements Runnable {

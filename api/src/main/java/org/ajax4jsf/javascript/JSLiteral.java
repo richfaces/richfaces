@@ -23,6 +23,7 @@
 
 package org.ajax4jsf.javascript;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -53,14 +54,10 @@ public class JSLiteral extends ScriptStringBase implements Serializable{
         this.literal = literal;
     }
 
-    /*
-     *  (non-Javadoc)
-     * @see org.ajax4jsf.javascript.ScriptString#appendScript(java.lang.StringBuffer)
-     */
-    public void appendScript(StringBuffer jsString) {
-        jsString.append(literal);
+    public void appendScript(Appendable target) throws IOException {
+        target.append(literal);
     }
-
+    
     /**
      * @return the literal
      */

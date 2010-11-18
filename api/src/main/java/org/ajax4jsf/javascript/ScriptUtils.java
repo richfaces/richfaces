@@ -26,8 +26,8 @@ package org.ajax4jsf.javascript;
 import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.io.Writer;
 import java.lang.reflect.Array;
+import java.nio.CharBuffer;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Collection;
@@ -66,7 +66,7 @@ public final class ScriptUtils {
         return cs;
     }
     
-    private static void writeScriptToStream(Writer writer, Object obj, Map<Object, Boolean> cycleBusterMap) throws IOException {
+    private static void appendScript(Appendable appendable, Object obj, Map<Object, Boolean> cycleBusterMap) throws IOException {
         Boolean cycleBusterValue = cycleBusterMap.put(obj, Boolean.TRUE);
         
         if (cycleBusterValue != null) {
@@ -81,14 +81,14 @@ public final class ScriptUtils {
 
                 LOG.debug(formattedMessage);
             }            
-            writer.write("null");
+            appendable.append("null");
         } else if (null == obj) {
             //TODO nick - skip non-rendered values like Integer.MIN_VALUE
-            writer.write("null");
+            appendable.append("null");
         } else if (obj instanceof ScriptString) {
-            writer.write(((ScriptString) obj).toScript());
+            ((ScriptString) obj).appendScript(appendable);
         } else if (obj.getClass().isArray()) {
-            writer.write("[");
+            appendable.append("[");
 
             boolean first = true;
 
@@ -96,20 +96,20 @@ public final class ScriptUtils {
                 Object element = Array.get(obj, i);
 
                 if (!first) {
-                    writer.write(',');
+                    appendable.append(',');
                 }
 
-                writeScriptToStream(writer, element, cycleBusterMap);
+                appendScript(appendable, element, cycleBusterMap);
                 first = false;
             }
 
-            writer.write("] ");
+            appendable.append("] ");
         } else if (obj instanceof Collection<?>) {
 
             // Collections put as JavaScript array.
             @SuppressWarnings("unchecked") Collection<Object> collection = (Collection<Object>) obj;
 
-            writer.write("[");
+            appendable.append("[");
 
             boolean first = true;
 
@@ -117,51 +117,51 @@ public final class ScriptUtils {
                 Object element = iter.next();
 
                 if (!first) {
-                    writer.write(',');
+                    appendable.append(',');
                 }
 
-                writeScriptToStream(writer, element, cycleBusterMap);
+                appendScript(appendable, element, cycleBusterMap);
                 first = false;
             }
 
-            writer.write("] ");
+            appendable.append("] ");
         } else if (obj instanceof Map<?, ?>) {
 
             // Maps put as JavaScript hash.
             @SuppressWarnings("unchecked") Map<Object, Object> map = (Map<Object, Object>) obj;
 
-            writer.write("{");
+            appendable.append("{");
 
             boolean first = true;
 
             for (Map.Entry<Object, Object> entry : map.entrySet()) {
                 if (!first) {
-                    writer.write(',');
+                    appendable.append(',');
                 }
 
-                writeEncodedString(writer, entry.getKey());
-                writer.write(":");
-                writeScriptToStream(writer, entry.getValue(), cycleBusterMap);
+                appendEncodedString(appendable, entry.getKey());
+                appendable.append(":");
+                appendScript(appendable, entry.getValue(), cycleBusterMap);
                 first = false;
             }
 
-            writer.write("} ");
+            appendable.append("} ");
         } else if (obj instanceof Number || obj instanceof Boolean) {
 
             // numbers and boolean put as-is, without conversion
-            writer.write(obj.toString());
+            appendable.append(obj.toString());
         } else if (obj instanceof String) {
 
             // all other put as encoded strings.
-            writeEncodedString(writer, obj);
+            appendEncodedString(appendable, obj);
         } else if (obj instanceof Enum<?>) {
 
             // all other put as encoded strings.
-            writeEncodedString(writer, obj);
+            appendEncodedString(appendable, obj);
         } else {
 
             // All other objects threaded as Java Beans.
-            writer.write("{");
+            appendable.append("{");
 
             PropertyDescriptor[] propertyDescriptors;
 
@@ -194,16 +194,16 @@ public final class ScriptUtils {
                 }
 
                 if (!first) {
-                    writer.write(',');
+                    appendable.append(',');
                 }
 
-                writeEncodedString(writer, key);
-                writer.write(":");
-                writeScriptToStream(writer, propertyValue, cycleBusterMap);
+                appendEncodedString(appendable, key);
+                appendable.append(":");
+                appendScript(appendable, propertyValue, cycleBusterMap);
                 first = false;
             }
 
-            writer.write("} ");
+            appendable.append("} ");
         }
         
         if (cycleBusterValue == null) {
@@ -220,7 +220,7 @@ public final class ScriptUtils {
      * @throws IOException
      */
     public static void writeToStream(final ResponseWriter responseWriter, Object obj) throws IOException {
-        writeScriptToStream(new ResponseWriterWrapper(responseWriter), obj, new IdentityHashMap<Object, Boolean>());
+        appendScript(new ResponseWriterWrapper(responseWriter), obj, new IdentityHashMap<Object, Boolean>());
     }
 
     /**
@@ -233,7 +233,7 @@ public final class ScriptUtils {
         StringBuilder sb = new StringBuilder();
 
         try {
-            writeScriptToStream(new StringBuilderWriter(sb), obj, new IdentityHashMap<Object, Boolean>());
+            appendScript(sb, obj, new IdentityHashMap<Object, Boolean>());
         } catch (IOException e) {
 
             // ignore
@@ -242,22 +242,17 @@ public final class ScriptUtils {
         return sb.toString();
     }
 
-    public static void writeEncodedString(Writer w, Object obj) throws IOException {
-        w.write("\"");
-        writeEncoded(w, obj);
-        w.write("\"");
+    public static void appendScript(Appendable appendable, Object obj) throws IOException {
+        appendScript(appendable, obj, new IdentityHashMap<Object, Boolean>());
+    }
+    
+    public static void appendEncodedString(Appendable appendable, Object obj) throws IOException {
+        appendable.append("\"");
+        appendEncoded(appendable, obj);
+        appendable.append("\"");
     }
 
-    public static void addEncodedString(StringBuilder buff, Object obj) {
-        try {
-            writeEncodedString(new StringBuilderWriter(buff), obj);
-        } catch (IOException e) {
-
-            // ignore
-        }
-    }
-
-    public static void writeEncoded(Writer w, Object obj) throws IOException {
+    public static void appendEncoded(Appendable appendable, Object obj) throws IOException {
         JSEncoder encoder = new JSEncoder();
         char[] chars = obj.toString().toCharArray();
 
@@ -265,19 +260,10 @@ public final class ScriptUtils {
             char c = chars[i];
 
             if (!encoder.compile(c)) {
-                w.write(encoder.encode(c));
+                appendable.append(CharBuffer.wrap(encoder.encode(c)));
             } else {
-                w.write(c);
+                appendable.append(c);
             }
-        }
-    }
-
-    public static void addEncoded(StringBuilder buff, Object obj) {
-        try {
-            writeEncoded(new StringBuilderWriter(buff), obj);
-        } catch (IOException e) {
-
-            // ignore
         }
     }
 

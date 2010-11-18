@@ -23,6 +23,7 @@
 
 package org.ajax4jsf.javascript;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -52,8 +53,8 @@ public class JSFunction extends ScriptStringBase implements ScriptString {
         return this;
     }
 
-    public void appendScript(StringBuffer functionString) {
-        functionString.append(name).append('(');
+    public void appendScript(Appendable target) throws IOException {
+        target.append(name).append('(');
 
         boolean first = true;
         List<?> parameters = getParameters();
@@ -63,26 +64,27 @@ public class JSFunction extends ScriptStringBase implements ScriptString {
                 Object element = param.next();
 
                 if (!first) {
-                    functionString.append(',');
+                    target.append(',');
                 }
 
                 if (null != element) {
-                    functionString.append(ScriptUtils.toScript(element));
+                    ScriptUtils.appendScript(target, element);
                 } else {
-                    functionString.append("null");
+                    target.append("null");
                 }
 
                 first = false;
             }
         }
 
-        functionString.append(")");
+        target.append(")");
     }
-
+    
     /**
      * @return the parameters
      */
     public List<Object> getParameters() {
         return this.parameters;
     }
+
 }

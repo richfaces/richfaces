@@ -23,6 +23,11 @@
 
 package org.ajax4jsf.javascript;
 
+import java.io.IOException;
+
+import javax.faces.FacesException;
+
+
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.2 $ $Date: 2007/01/26 10:38:52 $
@@ -30,13 +35,24 @@ package org.ajax4jsf.javascript;
  */
 public abstract class ScriptStringBase implements ScriptString {
     public String toScript() {
-        StringBuffer functionString = new StringBuffer();
+        StringBuilder builder = new StringBuilder();
 
-        appendScript(functionString);
-
-        return functionString.toString();
+        try {
+            appendScript(builder);
+            return builder.toString();
+        } catch (IOException e) {
+            throw new FacesException(e.getMessage(), e);
+        }
     }
 
+    public void appendScriptToStringBuilder(StringBuilder stringBuilder) {
+        try {
+            appendScript(stringBuilder);
+        } catch (IOException e) {
+            //ignore
+        }
+    }
+    
     /*
      *  (non-Javadoc)
      * @see java.lang.Object#toString()
@@ -44,4 +60,5 @@ public abstract class ScriptStringBase implements ScriptString {
     public String toString() {
         return toScript();
     }
+
 }
