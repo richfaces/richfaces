@@ -67,8 +67,8 @@
 			});
 		},
 		
-		__getHandle: function() {
-			return this.__rootElt.find(" > .rf-trn:first > .rf-trn-hnd:first");
+		__getHandles: function() {
+			return this.__rootElt.find(" > .rf-trn:first > .rf-trn-hnd");
 		},
 		
 		__getContent: function() {
