@@ -27,10 +27,14 @@ import java.util.Map;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialViewContext;
+import javax.faces.context.ResponseWriter;
 
 import org.richfaces.component.AbstractTreeNode;
 import org.richfaces.component.MetaComponentResolver;
+import org.richfaces.component.SwitchType;
 import org.richfaces.event.TreeToggleEvent;
+
+import com.google.common.base.Strings;
 
 /**
  * @author Nick Belaevski
@@ -77,6 +81,65 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
         } else {
             throw new IllegalArgumentException(metaComponentId);
         }
+    }
+    
+    protected TreeNodeState getNodeState(FacesContext context) {
+        return (TreeNodeState) context.getAttributes().get(TreeEncoderBase.TREE_NODE_STATE_ATTRIBUTE);
+    }
+    
+    protected void encodeDefaultHandle(FacesContext context, UIComponent component, String styleClass) throws IOException {
+        ResponseWriter writer = context.getResponseWriter();
+        
+        writer.startElement(HtmlConstants.SPAN_ELEM, component);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, styleClass, null);
+        writer.endElement(HtmlConstants.SPAN_ELEM);
+    }
+    
+    protected void encodeCustomHandle(FacesContext context, UIComponent component, String styleClass, String iconSource) throws IOException {
+        ResponseWriter writer = context.getResponseWriter();
+        
+        writer.startElement(HtmlConstants.IMG_ELEMENT, component);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, styleClass, null);
+        writer.writeAttribute(HtmlConstants.ALT_ATTRIBUTE, "", null);
+        writer.writeURIAttribute(HtmlConstants.SRC_ATTRIBUTE, RenderKitUtils.getResourceURL(iconSource, context), null);
+        writer.endElement(HtmlConstants.IMG_ELEMENT);
+    }
+    
+    
+    
+    protected void encodeHandle(FacesContext context, UIComponent component) throws IOException {
+        TreeNodeState nodeState = getNodeState(context);
+        
+        AbstractTreeNode treeNode = (AbstractTreeNode) component;
+        
+        if (nodeState.isLeaf()) {
+            String iconLeaf = (String) treeNode.getAttributes().get("iconLeaf");
+            encodeHandleForNodeState(context, treeNode, nodeState, iconLeaf);
+        } else {
+            String iconExpanded = (String) treeNode.getAttributes().get("iconExpanded");
+            String iconCollapsed = (String) treeNode.getAttributes().get("iconCollapsed");
+            
+            if (Strings.isNullOrEmpty(iconCollapsed) && Strings.isNullOrEmpty(iconExpanded)) {
+                encodeDefaultHandle(context, component, nodeState.getDefaultHandleClass());
+            } else {
+                SwitchType toggleType = treeNode.findTreeComponent().getToggleType();
 
+                if (toggleType == SwitchType.client || nodeState == TreeNodeState.collapsed) {
+                    encodeHandleForNodeState(context, treeNode, TreeNodeState.collapsed, iconCollapsed);
+                }
+                
+                if (toggleType == SwitchType.client || nodeState == TreeNodeState.expanded) {
+                    encodeHandleForNodeState(context, treeNode, TreeNodeState.expanded, iconExpanded);
+                }
+            }
+        }
+    }
+
+    protected void encodeHandleForNodeState(FacesContext context, AbstractTreeNode treeNode, TreeNodeState nodeState, String cutomIcon) throws IOException {
+        if (Strings.isNullOrEmpty(cutomIcon)) {
+            encodeDefaultHandle(context, treeNode, nodeState.getDefaultHandleClass());
+        } else {
+            encodeCustomHandle(context, treeNode, nodeState.getCustomHandleClass(), cutomIcon);
+        }
     }
 }

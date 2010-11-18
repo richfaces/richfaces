@@ -16,10 +16,13 @@
     </cc:interface>
 
     <cc:implementation>
+        <cdk:object name="nodeState" value="#{getNodeState(facesContext)}" type="org.richfaces.renderkit.TreeNodeState" />
+        
         <div class="#{concatClasses('rf-trn', component.attributes['styleClass'])}">
-            <span class="rf-trn-hnd #{facesContext.attributes['__treeNodeHandleClass']}" />
+            <cdk:call expression="encodeHandle(facesContext, component)" />
+        
             <span class="rf-trn-cnt">
-                <span class="rf-trn-ico #{facesContext.attributes['__treeNodeIconClass']}" />
+                <span class="rf-trn-ico #{nodeState.iconClass}" />
                 <span class="rf-trn-lbl">
                     <cdk:body />
                 </span>

@@ -84,37 +84,6 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
         }
     }
 
-    enum NodeState {
-        expanded("rf-tr-nd-exp", "rf-trn-hnd-exp", "rf-trn-ico-nd"), 
-        collapsed("rf-tr-nd-colps", "rf-trn-hnd-colps", "rf-trn-ico-nd"), 
-        leaf("rf-tr-nd-lf", "rf-trn-hnd-lf", "rf-trn-ico-lf");
-
-        private String nodeClass;
-
-        private String handleClass;
-
-        private String iconClass;
-
-        private NodeState(String nodeClass, String handleClass, String iconClass) {
-            this.nodeClass = nodeClass;
-            this.handleClass = handleClass;
-            this.iconClass = iconClass;
-        }
-
-        public String getNodeClass() {
-            return nodeClass;
-        }
-
-        public String getHandleClass() {
-            return handleClass;
-        }
-
-        public String getIconClass() {
-            return iconClass;
-        }
-
-    }
-
     static final class QueuedData {
 
         private Object rowKey;

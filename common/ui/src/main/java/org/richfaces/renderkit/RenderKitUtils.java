@@ -699,6 +699,18 @@ public final class RenderKitUtils {
         return path;
     }
     
+    public static String getResourceURL(String url, FacesContext context) {
+        if (null == url) {
+            return null;
+        }
+
+        String value = url;
+
+        value = context.getApplication().getViewHandler().getResourceURL(context, value);
+
+        return context.getExternalContext().encodeResourceURL(value);
+    }
+
     @SuppressWarnings("serial")
     public static final class Attributes extends TreeSet<ComponentAttribute> {
         

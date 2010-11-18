@@ -65,8 +65,8 @@
 			});
 		},
 		
-		__getHandle: function() {
-			return this.__rootElt.find(" > .rf-trn:first > .rf-trn-hnd:first");
+		__getHandles: function() {
+			return this.__rootElt.find(" > .rf-trn:first > .rf-trn-hnd");
 		},
 		
 		__getContent: function() {
@@ -116,15 +116,15 @@
 		},
 		
 		isExpanded: function() {
-			return !this.isLeaf() && this.__getHandle().hasClass("rf-trn-hnd-exp");
+			return !this.isLeaf() && this.__rootElt.hasClass("rf-tr-nd-exp");
 		},
 		
 		isCollapsed: function() {
-			return !this.isLeaf() && this.__getHandle().hasClass("rf-trn-hnd-colps");
+			return !this.isLeaf() && this.__rootElt.hasClass("rf-tr-nd-colps");
 		},
 		
 		isLeaf: function() {
-			return this.__getHandle().hasClass("rf-trn-hnd-lf");
+			return this.__rootElt.hasClass("rf-tr-nd-lf");
 		},
 		
 		toggle: function() {
@@ -157,7 +157,13 @@
 					switch (tree.getToggleType()) {
 						case 'client':
 							this.__rootElt.addClass(TREE_CLASSES[newState ? 1 : 0]).removeClass(TREE_CLASSES[!newState ? 1 : 0]);
-							this.__getHandle().addClass(TREE_HANDLE_CLASSES[newState ? 1 : 0]).removeClass(TREE_HANDLE_CLASSES[!newState ? 1 : 0]);
+							
+							var handles = this.__getHandles();
+							
+							if (handles.length == 1) {
+								handles.addClass(TREE_HANDLE_CLASSES[newState ? 1 : 0]).removeClass(TREE_HANDLE_CLASSES[!newState ? 1 : 0]);
+							}
+							
 							this.__updateClientToggleStateInput(newState);
 						break;
 						

@@ -32,7 +32,6 @@ import org.richfaces.component.AbstractTree;
 import org.richfaces.component.AbstractTreeNode;
 import org.richfaces.component.TreeRange;
 import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.renderkit.TreeRendererBase.NodeState;
 import org.richfaces.renderkit.TreeRendererBase.QueuedData;
 
 import com.google.common.base.Predicate;
@@ -41,9 +40,7 @@ import com.google.common.collect.UnmodifiableIterator;
 
 abstract class TreeEncoderBase {
 
-    private static final String TREE_NODE_HANDLE_CLASS_ATTRIBUTE = "__treeNodeHandleClass";
-    
-    private static final String TREE_NODE_ICON_CLASS_ATTRIBUTE = "__treeNodeIconClass";
+    static final String TREE_NODE_STATE_ATTRIBUTE = "__treeNodeState";
     
     protected final FacesContext context;
     
@@ -91,7 +88,7 @@ abstract class TreeEncoderBase {
             if (!data.isEncoded()) {
                 tree.setRowKey(context, data.getRowKey());
                 
-                writeTreeNodeStartElement(data.isExpanded() ? NodeState.expanded : NodeState.collapsed, data.isLastNode());
+                writeTreeNodeStartElement(data.isExpanded() ? TreeNodeState.expanded : TreeNodeState.collapsed, data.isLastNode());
                 
                 data.setEncoded(true);
             }
@@ -110,18 +107,17 @@ abstract class TreeEncoderBase {
 
         QueuedData data = queuedData.removeLast();
         if (!data.isEncoded()) {
-            NodeState nodeState = iterateChildren ? NodeState.leaf : NodeState.collapsed;
+            TreeNodeState nodeState = iterateChildren ? TreeNodeState.leaf : TreeNodeState.collapsed;
             writeTreeNodeStartElement(nodeState, data.isLastNode());
         }
         
         writeTreeNodeEndElement();
     }
     
-    protected void writeTreeNodeStartElement(NodeState nodeState, boolean isLast) throws IOException {
+    protected void writeTreeNodeStartElement(TreeNodeState nodeState, boolean isLast) throws IOException {
         AbstractTreeNode treeNodeComponent = tree.findTreeNodeComponent();
 
-        context.getAttributes().put(TREE_NODE_HANDLE_CLASS_ATTRIBUTE, nodeState.getHandleClass());
-        context.getAttributes().put(TREE_NODE_ICON_CLASS_ATTRIBUTE, nodeState.getIconClass());
+        context.getAttributes().put(TREE_NODE_STATE_ATTRIBUTE, nodeState);
         
         responseWriter.startElement(HtmlConstants.DIV_ELEM, tree);
         responseWriter.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, 

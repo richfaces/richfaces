@@ -54,7 +54,6 @@ import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.component.util.MessageUtil;
 import org.richfaces.component.util.SelectUtils;
-import org.richfaces.component.util.ViewUtil;
 import org.richfaces.event.CurrentDateChangeEvent;
 import org.richfaces.utils.CalendarHelper;
 
@@ -305,8 +304,8 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
             buttonIcon = (String)component.getAttributes().get("buttonIconDisabled");
         }
         
-        if (buttonIcon != null && buttonIcon.trim().length() != 0) {
-            buttonIcon =  ViewUtil.getResourceURL(buttonIcon, facesContext);
+        if(buttonIcon != null && buttonIcon.trim().length() != 0) {
+            buttonIcon =  RenderKitUtils.getResourceURL(buttonIcon, facesContext);
         } else {
             buttonIcon = disable ? CALENDAR_ICON_RESOURCE_NAME: CALENDAR_ICON_RESOURCE_NAME;
             buttonIcon = RenderKitUtils.getResourcePath(facesContext, "org.richfaces.images",buttonIcon);

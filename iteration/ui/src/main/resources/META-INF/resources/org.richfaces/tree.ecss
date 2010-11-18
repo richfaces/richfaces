@@ -66,6 +66,15 @@
 	background: "url(#{resource['org.richfaces.images:leaf_icon.gif']}) no-repeat center";
 }
 
+.rf-trn-hnd-colps-cst, .rf-trn-hnd-exp-cst {
+	background: none;
+}
+
+.rf-tr-nd-colps > .rf-trn > .rf-trn-hnd-exp,
+.rf-tr-nd-exp > .rf-trn > .rf-trn-hnd-colps {
+	display: none;
+}
+
 .rf-tr-nd.rf-tr-nd-colps .rf-tr-nd {
 	display: none;
 }

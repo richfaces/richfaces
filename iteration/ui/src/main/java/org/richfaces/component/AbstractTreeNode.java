@@ -94,6 +94,12 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
     //TODO - move to template
     public abstract String getStyleClass();
     
+    public abstract String getIconLeaf();
+    
+    public abstract String getIconExpanded();
+    
+    public abstract String getIconCollapsed();
+    
     protected Boolean getLocalExpandedValue(FacesContext facesContext) {
         return (Boolean) getStateHelper().get(PropertyKeys.expanded);
     }
