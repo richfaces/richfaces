@@ -24,19 +24,19 @@ package org.richfaces.renderkit;
 import org.richfaces.component.util.HtmlUtil;
 
 public enum TreeNodeState {
-    expanded("rf-tr-nd-exp", "rf-trn-hnd-exp", "rf-trn-hnd-exp rf-trn-hnd-exp-cst", "rf-trn-ico-nd") {
+    expanded("rf-tr-nd-exp", "rf-trn-hnd-exp", "rf-trn-hnd-exp rf-trn-hnd-cst", "rf-trn-ico-nd") {
         @Override
         public boolean isLeaf() {
             return false;
         }
     }, 
-    collapsed("rf-tr-nd-colps", "rf-trn-hnd-colps", "rf-trn-hnd-colps rf-trn-hnd-colps-cst", "rf-trn-ico-nd") {
+    collapsed("rf-tr-nd-colps", "rf-trn-hnd-colps", "rf-trn-hnd-colps rf-trn-hnd-cst", "rf-trn-ico-nd") {
         @Override
         public boolean isLeaf() {
             return false;
         }
     }, 
-    leaf("rf-tr-nd-lf", "rf-trn-hnd-lf", "rf-trn-hnd-lf rf-trn-hnd-lf-cst", "rf-trn-ico-lf") {
+    leaf("rf-tr-nd-lf", "rf-trn-hnd-lf", "rf-trn-hnd-lf rf-trn-hnd-cst", "rf-trn-ico-lf") {
         @Override
         public boolean isLeaf() {
             return true;
