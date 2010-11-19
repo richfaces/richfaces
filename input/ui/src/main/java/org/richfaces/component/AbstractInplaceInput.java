@@ -104,7 +104,7 @@ public abstract class AbstractInplaceInput extends UIInput implements InplaceCom
     public abstract String getOnkeypress();
     
     @Attribute(events=@EventName("keyup"))
-    public abstract String getOnkeypup();
+    public abstract String getOnkeyup();
     
     @Attribute(events=@EventName("mousedown"))
     public abstract String getOnmousedown();
@@ -149,7 +149,7 @@ public abstract class AbstractInplaceInput extends UIInput implements InplaceCom
     public abstract String getOninputkeypress();
     
     @Attribute(events=@EventName("inputkeyup"))
-    public abstract String getOninputkeypup();
+    public abstract String getOninputkeyup();
     
     @Attribute(events=@EventName("inputfocus"))
     public abstract String getOninputfocus();
