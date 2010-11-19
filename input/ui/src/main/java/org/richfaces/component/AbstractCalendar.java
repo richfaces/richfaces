@@ -494,9 +494,9 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
         
         if (Modes.AJAX.toString().equalsIgnoreCase(getMode())) {
             dateRangeBegin = CalendarHelper.getAsDate(facesContext, this, 
-                getDefaultPreloadBegin((Date) getCurrentDate()));
+                getDefaultPreloadBegin((Date) getCurrentDateOrDefault()));
             dateRangeEnd = CalendarHelper.getAsDate(facesContext, this, 
-                getDefaultPreloadEnd((Date) getCurrentDate()));                
+                getDefaultPreloadEnd((Date) getCurrentDateOrDefault()));                
         } else {
             dateRangeBegin = CalendarHelper.getAsDate(facesContext, this, getPreloadDateRangeBegin());
             dateRangeEnd = CalendarHelper.getAsDate(facesContext, this, getPreloadDateRangeEnd());            
