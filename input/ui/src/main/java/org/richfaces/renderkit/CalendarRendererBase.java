@@ -298,7 +298,7 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
     }
     
     public String getButtonIcon(FacesContext facesContext, UIComponent component) {
-        boolean disable  = (Boolean)component.getAttributes().get("disabled");
+        boolean disable  = (Boolean)component.getAttributes().get(OPTION_DISABLED);
         String buttonIcon = (String)component.getAttributes().get("buttonIcon");
         if (disable) {
             buttonIcon = (String)component.getAttributes().get("buttonIconDisabled");
@@ -307,10 +307,9 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         if(buttonIcon != null && buttonIcon.trim().length() != 0) {
             buttonIcon =  RenderKitUtils.getResourceURL(buttonIcon, facesContext);
         } else {
-            buttonIcon = disable ? CALENDAR_ICON_RESOURCE_NAME: CALENDAR_ICON_RESOURCE_NAME;
+            buttonIcon = disable ? CALENDAR_DISABLE_ICON_RESOURCE_NAME: CALENDAR_ICON_RESOURCE_NAME;
             buttonIcon = RenderKitUtils.getResourcePath(facesContext, "org.richfaces.images",buttonIcon);
         }
-
         return buttonIcon;
     }
     
