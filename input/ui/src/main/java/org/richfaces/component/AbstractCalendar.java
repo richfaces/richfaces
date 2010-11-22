@@ -272,6 +272,46 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
 
     @Attribute(events = @EventName("inputblur"))
     public abstract String getOninputblur();
+    
+    @Attribute(events = @EventName("change"))
+    public abstract String getOnchange();
+    
+    @Attribute(events = @EventName("dateselect"))
+    public abstract String getOndateselect();
+    
+    @Attribute(events = @EventName("dateselected"))
+    public abstract String getOndateselected();
+    
+    @Attribute(events = @EventName("currentdateselect"))
+    public abstract String getOncurrentdateselect();
+    
+    @Attribute(events = @EventName("currentdateselected"))
+    public abstract String getOncurrentdateselected();
+
+    @Attribute(events = @EventName("complete"))
+    public abstract String getOncomplete();
+    
+    @Attribute(events = @EventName("collapse"))
+    public abstract String getOncollapse();
+    
+    @Attribute(events = @EventName("datemouseout"))
+    public abstract String getOndatemouseout();
+    
+    @Attribute(events = @EventName("datemouseover"))
+    public abstract String getOndatemouseover();
+    
+    @Attribute(events = @EventName("expand"))
+    public abstract String getOnExpand();
+    
+    @Attribute(events = @EventName("timeselect"))
+    public abstract String getOntimeselect();
+    
+    @Attribute(events = @EventName("timeselected"))
+    public abstract String getOntimeselected();
+    
+    @Attribute(events = @EventName("clean"))
+    public abstract String getOnclean();
+    
 
     @Attribute
     public Object getLocale() {

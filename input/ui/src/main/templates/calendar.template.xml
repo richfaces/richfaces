@@ -67,11 +67,25 @@
 		<span style="display: none;" id="#{clientId}Content"></span>
 		<span style="display: none;" id="#{clientId}Script">
 			<script type="text/javascript">
-				<cdk:call
-					expression="buildAddLocaleScript(responseWriter, facesContext, component);" />
-				<cdk:call
-					expression="buildCalendarScript(responseWriter, facesContext, component);" />
-			</script>
+				
+				<cdk:scriptObject name="options">
+					<cdk:scriptOption attributes="enableManualInput disabled readonly resetTimeOnDateSelect showApplyButton popup showInput showHeader showFooter showWeeksBar todayControlMode datePattern jointPoint direction boundaryDatesMode horizontalOffset verticalOffset hidePopupOnScrol showWeekDaysBar styleClass mode" />
+					<cdk:scriptOption attributes="onchange ondateselect ondateselected oncurrentdateselected oncollapse onexpand ondatemouseover ondatemouseout onclean ontimeselect ontimeselected" wrapper="eventHandler" /> 
+					<cdk:scriptOption name="currentDate" value="#{getCurrentDate(facesContext, component)}" />
+					<cdk:scriptOption name="selectedDate" value="#{getSelectedDate(facesContext, component)}" />
+					<cdk:scriptOption name="dayCellClass" value="#{getDayCellClass(facesContext, component)}" />
+					<cdk:scriptOption name="dayStyleClass" value="#{getDayStyleClass(facesContext, component)}" />
+					<cdk:scriptOption name="labels" value="#{getLabels(facesContext, component)}" />
+					<cdk:scriptOption name="defaultTime" value="#{getPreparedDefaultTime(facesContext, component)}" />
+					<cdk:scriptOption name="style" value="#{getStyleWithZindex(facesContext, component)}" />
+				</cdk:scriptObject>
+				 
+				RichFaces.ui.Calendar.addLocale("#{getAsLocale(facesContext, component).toString()}", 
+					#{toScriptArgs(getLocaleOptions(facesContext, component))});
+				new RichFaces.ui.Calendar("#{clientId}", "#{getAsLocale(facesContext, component).toString()}",
+					#{toScriptArgs(options)}).load(#{writePreloadBody(facesContext, component)}); 
+				
+			--></script>
 		</span>
 		</span>
 	</cc:implementation>

@@ -41,7 +41,6 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialViewContext;
-import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.DateTimeConverter;
@@ -79,57 +78,9 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
 
     public static final String CALENDAR_BUNDLE = "org.richfaces.renderkit.calendar";
 
-    public static final String OPTION_ENABLE_MANUAL_INPUT = "enableManualInput";
-    
     public static final String OPTION_DISABLED = "disabled";
     
-    public static final String OPTION_READONLY = "readonly";
-    
-    public static final String OPTION_RESET_TIME_ON_DATE_SELECT = "resetTimeOnDateSelect";
-    
-    public static final String OPTION_SHOW_APPLY_BUTTON = "showApplyButton";
-    
     public static final String OPTION_MIN_DAYS_IN_FIRST_WEEK = "minDaysInFirstWeek";
-    
-    public static final String OPTION_POPUP = "popup";
-    
-    public static final String OPTION_SHOW_INPUT = "showInput";
-    
-    public static final String OPTION_SHOW_HEADER = "showHeader";
-    
-    public static final String OPTION_SHOW_FOOTER = "showFooter";
-    
-    public static final String OPTION_SHOW_WEEKS_BAR = "showWeeksBar";
-    
-    public static final String OPTION_TODAY_CONTROL_MODE = "todayControlMode";
-    
-    public static final String OPTION_DATE_PATTERN = "datePattern";
-    
-    public static final String OPTION_JOINT_POINT = "jointPoint";
-    
-    public static final String OPTION_DIRECTION = "direction";
-    
-    public static final String OPTION_BOUNDARY_DATES_MODE = "boundaryDatesMode";
-    
-    public static final String OPTION_HORIZONTAL_OFFSET = "horizontalOffset";
-
-    public static final String OPTION_VERTICAL_OFFSET = "verticalOffset";
-
-    public static final String OPTION_CURRENT_DATE = "currentDate";
-
-    public static final String OPTION_SELECTED_DATE = "selectedDate";
-
-    public static final String OPTION_DAY_CELL_CLASS = "dayCellClass";
-
-    public static final String OPTION_DAY_STYLE_CLASS = "dayStyleClass";
-    
-    public static final String OPTION_LABELS = "labels";
-    
-    public static final String OPTION_DEFAULT_TIME = "defaultTime";
-    
-    public static final String OPTION_HIDE_POPUP_ON_SCROLL = "hidePopupOnScroll";
-    
-    public static final String OPTION_SHOW_WEEK_DAYS_BAR = "showWeekDaysBar";
     
     public static final String MONTH_LABELS_SHORT = "monthLabelsShort";
 
@@ -148,9 +99,6 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
     public static final String CALENDAR_DISABLE_ICON_RESOURCE_NAME = "disabledCalendarIcon.png";
     
     public static final String CURRENT_DATE_INPUT = "InputCurrentDate";
-    
-    public static final String OPTION_MODE = "mode";
-
     
     protected static final Map<String, ComponentAttribute> CALENDAR_INPUT_HANDLER_ATTRIBUTES = Collections.unmodifiableMap(ComponentAttribute.createMap(
             new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE)
@@ -205,8 +153,8 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
             return;
         }
         
-        AbstractCalendar calendar = (AbstractCalendar)component;
-        if (calendar.isDisabled()){
+        AbstractCalendar calendar = (AbstractCalendar) component;
+        if (calendar.isDisabled()) {
             return;
         }
         
@@ -245,7 +193,7 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
 
         // skip conversion of already converted date
         if (submittedValue instanceof Date) {
-            return (Date)submittedValue;
+            return (Date) submittedValue;
         }
 
         // Store submitted value in the local variable as a string
@@ -276,7 +224,7 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
             Object curVal = calendar.getValue();
             Converter converter = SelectUtils.findConverter(facesContext, calendar, "value");
             
-            if(converter == null) {
+            if (converter == null) {
                 converter = createDefaultConverter();
             }
             
@@ -285,7 +233,7 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
             if (converter != null) {
                 value = converter.getAsString(facesContext, calendar, curVal);
             } else {
-                value = curVal !=null ? curVal.toString() : ""; 
+                value = curVal != null ? curVal.toString() : ""; 
             }
         }
 
@@ -315,7 +263,7 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
     
     public Object getSelectedDate(FacesContext facesContext, UIComponent component) throws IOException {
         Object returnValue = null;
-        AbstractCalendar calendar = (AbstractCalendar)component;
+        AbstractCalendar calendar = (AbstractCalendar) component;
         if (calendar.isValid()) {
             Date date;
             Object value = calendar.getValue();
@@ -343,13 +291,14 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         return result;
     }
 
-    public Object getCurrentDate(FacesContext facesContext, AbstractCalendar calendar) throws IOException {
+    public Object getCurrentDate(FacesContext facesContext, UIComponent component) throws IOException {
+        AbstractCalendar calendar = (AbstractCalendar) component;
         Date date = CalendarHelper.getCurrentDateOrDefault(facesContext, calendar);
         return formatDate(date);
     }
     
     public String getCurrentDateAsString(FacesContext facesContext, UIComponent component) throws IOException {
-        AbstractCalendar calendar = (AbstractCalendar)component;
+        AbstractCalendar calendar = (AbstractCalendar) component;
         Format formatter = new SimpleDateFormat("MM/yyyy");
         
         Date currentDate = CalendarHelper.getCurrentDateOrDefault(facesContext, calendar);
@@ -367,7 +316,7 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         return result;
     }
     
-    public String getDayCellClass(FacesContext facesContext, AbstractCalendar calendar) {
+    public String getDayCellClass(FacesContext facesContext, UIComponent component) {
         //TODO: refactor this
         /*
         String cellwidth = (String) component.getAttributes().get("cellWidth");
@@ -386,12 +335,15 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         return calendar.isDayEnabled() ? JSReference.TRUE : JSReference.FALSE;
     }
     
-    public JSReference getDayStyleClass(FacesContext context, AbstractCalendar calendar) {
+    public JSReference getDayStyleClass(FacesContext context, UIComponent component) {
+        AbstractCalendar calendar = (AbstractCalendar) component;
         String dayStyleClass = calendar.getDayStyleClass();
         return ((dayStyleClass != null && dayStyleClass.trim().length() != 0)) ? new JSReference(dayStyleClass) : null; 
     }
     
-    public Map<String, Object> getLabels(FacesContext facesContext, AbstractCalendar calendar) {
+    public Map<String, Object> getLabels(FacesContext facesContext, UIComponent component) {
+        AbstractCalendar calendar = (AbstractCalendar) component;
+        
         ResourceBundle bundle1 = null;
         ResourceBundle bundle2 = null;
 
@@ -400,7 +352,7 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         String messageBundle = facesContext.getApplication().getMessageBundle();
         Locale locale = CalendarHelper.getAsLocale(facesContext, calendar);
         if (null != messageBundle) {
-            bundle1 = ResourceBundle.getBundle(messageBundle,locale , loader);
+            bundle1 = ResourceBundle.getBundle(messageBundle, locale, loader);
         }
         
         try {
@@ -418,10 +370,10 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
     protected Map<String, Object> getCollectedLabels(ResourceBundle [] bundles , String[] names) {
         Map<String, Object> labels = new HashMap<String, Object>();
         if (bundles != null && names != null) {
-            for (String name: names) {
+            for (String name : names) {
                 String label = null;
                 String bundleKey = "RICH_CALENDAR_" + name.toUpperCase() + "_LABEL";
-                for (ResourceBundle bundle: bundles) {
+                for (ResourceBundle bundle : bundles) {
                     if (bundle != null) {
                         try {
                             label = bundle.getString(bundleKey);
@@ -439,7 +391,9 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         return labels;
     }
     
-    public Map<String, Object> getPreparedDefaultTime(FacesContext facesContext, AbstractCalendar abstractCalendar) {
+    public Map<String, Object> getPreparedDefaultTime(FacesContext facesContext, UIComponent component) {
+        AbstractCalendar abstractCalendar = (AbstractCalendar) component;
+        
         Date date = CalendarHelper.getFormattedDefaultTime(abstractCalendar);
         Map<String, Object> result = new HashMap<String, Object>();
         if (date != null) {
@@ -472,7 +426,9 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         return shiftedLabels;
     }
     
-    protected Map<String, Object> getLocaleOptions(FacesContext facesContext, AbstractCalendar calendarComponent) {
+    protected Map<String, Object> getLocaleOptions(FacesContext facesContext, UIComponent component) {
+        AbstractCalendar calendarComponent = (AbstractCalendar) component;
+        
         Map<String, Object> map = new HashMap<String, Object>();
         
         Locale locale = CalendarHelper.getAsLocale(facesContext, calendarComponent);
@@ -531,74 +487,30 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         if (0 <= day && day <= 6) {
             RenderKitUtils.addToScriptHash(map, FIRST_DAY_WEEK, day);
         } else if (day != Integer.MIN_VALUE) {
-            facesContext.getExternalContext().log(day + " value of firstWeekDay attribute is not a legal one for component: " + MessageUtil.getLabel(facesContext, calendarComponent) + ". Default value was applied.");
+            facesContext.getExternalContext().log(
+                day + " value of firstWeekDay attribute is not a legal one for component: "
+                    + MessageUtil.getLabel(facesContext, calendarComponent) + ". Default value was applied.");
         }
         return map;
     }
-
-    public ScriptOptions createCalendarScriptOption(FacesContext facesContext, UIComponent component) throws IOException {
-        AbstractCalendar calendar = (AbstractCalendar)component;
-        ScriptOptions scriptOptions = new ScriptOptions(component);
-        scriptOptions.addOption(OPTION_ENABLE_MANUAL_INPUT);
-        scriptOptions.addOption(OPTION_DISABLED);
-        scriptOptions.addOption(OPTION_READONLY);
-        scriptOptions.addOption(OPTION_RESET_TIME_ON_DATE_SELECT);
-        scriptOptions.addOption(OPTION_SHOW_APPLY_BUTTON);
-        scriptOptions.addOption(OPTION_POPUP);
-        scriptOptions.addOption(OPTION_SHOW_INPUT);
-        scriptOptions.addOption(OPTION_SHOW_HEADER);
-        scriptOptions.addOption(OPTION_SHOW_FOOTER);
-        scriptOptions.addOption(OPTION_SHOW_WEEKS_BAR);
-        scriptOptions.addOption(OPTION_TODAY_CONTROL_MODE);
-        scriptOptions.addOption(OPTION_DATE_PATTERN);
-        scriptOptions.addOption(OPTION_JOINT_POINT);
-        scriptOptions.addOption(OPTION_DIRECTION);
-        scriptOptions.addOption(OPTION_BOUNDARY_DATES_MODE);
-        scriptOptions.addOption(OPTION_HORIZONTAL_OFFSET);
-        scriptOptions.addOption(OPTION_VERTICAL_OFFSET);
-        scriptOptions.addOption(OPTION_CURRENT_DATE, getCurrentDate(facesContext, calendar));
-        scriptOptions.addOption(OPTION_SELECTED_DATE, getSelectedDate(facesContext, calendar));
-        scriptOptions.addOption(OPTION_DAY_CELL_CLASS, getDayCellClass(facesContext, calendar));
-        scriptOptions.addOption(OPTION_DAY_STYLE_CLASS, getDayStyleClass(facesContext, calendar));
-        /*
-         *add to script option 
-         *<cdk:scriptOption attributes="ondateselected, ondateselect, ontimeselect, ontimeselected, onchanged, ondatemouseover, ondatemouseout, onexpand, oncollapse, oncurrentdateselect, oncurrentdateselected" wrapper="eventHandler" />
-         * */
-        scriptOptions.addOption(OPTION_LABELS, getLabels(facesContext, calendar));
-        scriptOptions.addOption(OPTION_DEFAULT_TIME, getPreparedDefaultTime(facesContext, calendar));
-        scriptOptions.addOption(OPTION_HIDE_POPUP_ON_SCROLL);
-        scriptOptions.addOption("showWeekDaysBar");
-
-        scriptOptions.addOption("styleClass");
-        scriptOptions.addOption("style", HtmlUtil.concatStyles("z-index: " + calendar.getZindex(), calendar.getStyle()));
-        scriptOptions.addOption(OPTION_MODE, calendar.getMode());
-       
-        return scriptOptions;
+    
+    public String getStyleWithZindex(FacesContext facesContext, UIComponent component) {
+        AbstractCalendar calendar = (AbstractCalendar) component;
+        String style =  HtmlUtil.concatStyles("z-index: " + calendar.getZindex(), calendar.getStyle());
+        return style;
     }
     
-    public void buildAddLocaleScript(ResponseWriter writer, FacesContext facesContext, UIComponent component) throws IOException {
-        if (component instanceof AbstractCalendar) {
-            AbstractCalendar calendar = (AbstractCalendar)component;
-            JSFunction function = new JSFunction("RichFaces.ui.Calendar.addLocale", CalendarHelper.getAsLocale(facesContext, calendar).toString(), getLocaleOptions(facesContext, calendar));
-            writer.write(function.toScript());
-            writer.write(";");
-        }
+    public Locale getAsLocale(FacesContext facesContext, UIComponent component) {
+        return CalendarHelper.getAsLocale(facesContext, component);        
     }
     
-    public void buildCalendarScript(ResponseWriter writer, FacesContext facesContext, UIComponent component) throws IOException {
-        if (component instanceof AbstractCalendar) {
-            AbstractCalendar calendar = (AbstractCalendar)component;
-            ScriptOptions scriptOptions = createCalendarScriptOption(facesContext, calendar);
-            JSFunction function = new JSFunction("new RichFaces.ui.Calendar", calendar.getClientId(facesContext),  CalendarHelper.getAsLocale(facesContext, calendar).toString(), scriptOptions, "");
-            StringBuffer scriptBuffer = new StringBuffer(); 
-            scriptBuffer.append(function.toScript()).append(".load(");
-            Object preload = calendar.getPreload();
-            if (null != preload){              
-                scriptBuffer.append(RenderKitUtils.toScriptArgs(preload));
-            }
-                        
-            scriptBuffer.append(");");
-            writer.write(scriptBuffer.toString());
+    public String writePreloadBody(FacesContext context, UIComponent component) throws IOException {
+        AbstractCalendar calendar = (AbstractCalendar) component;
+        Object preload = calendar.getPreload();
+        if (preload != null) {
+            return RenderKitUtils.toScriptArgs(preload);
+        } else {
+            return null;
         }
     }
     
