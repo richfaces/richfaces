@@ -4,6 +4,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:calendar="http://richfaces.org/input">
 <!--
 JBoss, Home of Professional Open Source
@@ -34,7 +35,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 </h:head>
 <h:body>
 	<h:form id="form">
-		<h:panelGrid id="panel" columns="2">
+		<h:panelGrid id="panel" columns="3">
 			<h:panelGroup layout="block">
 				<calendar:calendar value="#{calendarBean.selectedDate}" id="calendar"
 					jointPoint="#{calendarBean.jointPoint}"  direction="#{calendarBean.direction}"
@@ -43,9 +44,24 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					dataModel="#{calendarDataModel}"
 					mode="#{calendarBean.mode}"
 					showApplyButton="#{calendarBean.showApply}" cellWidth="24px"
-					cellHeight="22px" style="width:200px" minDaysInFirstWeek="3">
-					<f:convertDateTime pattern="#{calendarBean.pattern}" />
+					cellHeight="22px" style="width:200px" minDaysInFirstWeek="3"
+					oncollapse="return onEvent.call(this, event);"
+					onexpand="return onEvent.call(this, event);"
+					oncurrentdateselect="return onEvent.call(this, event);"
+					oncurrentdateselected="return onEvent.call(this, event);"
+					ondateselect="return onEvent.call(this, event);"
+					ondateselected="return onEvent.call(this, event);"
+					ontimeselect="return onEvent.call(this, event);"
+					ontimeselected="return onEvent.call(this, event);"
+					oncomplete="return onEvent.call(this, event);"
+					onclean="return onEvent.call(this, event);"					
+					ondatemouseout="return onEvent.call(this, event);"
+					ondatemouseover="return onEvent.call(this, event);"			
+					
+					>
+					<f:ajax event="change" render="echo-text" />
 				</calendar:calendar>
+				<h:outputText id="echo-text" value="#{calendarBean.selectedDate}" />
 			</h:panelGroup>
 			<h:panelGrid columns="2">
 				<h:outputText value="Popup Mode:" />
@@ -101,6 +117,17 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					<f:selectItem itemLabel="bottom-right" itemValue="bottom-right" />
 				</h:selectOneMenu>		
 			</h:panelGrid>
+			<h:panelGroup layout="block">
+					<div>
+						<a4j:log mode="inline"></a4j:log>
+					</div>
+					<script type="text/javascript">
+						onEvent = function(event, element, data){
+							RichFaces.log.info("jQuery Event: "+(event instanceof jQuery.Event)+"; event: "+event.type+"; data:"+(data || (event['rich']||{})['data'])+"; this.id:"+this.id+"; component:"+ (event['rich']||{})['component']||RichFaces.$(this.id));
+						};
+						//RichFaces.Event.bindById("form:calendar", "dateselect dateselected currentdateselect currentdateselected timeselect timeselected changed clean collapse expand complete datemouseout datemouseout", onEvent);
+					</script>
+			</h:panelGroup>
 		</h:panelGrid>
 	</h:form>
 </h:body>
