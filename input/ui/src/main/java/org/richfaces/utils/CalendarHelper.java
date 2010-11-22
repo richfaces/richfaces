@@ -33,6 +33,7 @@ import java.util.regex.Pattern;
 
 import javax.faces.FacesException;
 import javax.faces.application.Application;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.DateTimeConverter;
@@ -126,7 +127,9 @@ public final class CalendarHelper {
         return result;
     }
 
-    public static Locale getAsLocale(FacesContext facesContext, AbstractCalendar calendar) {
+    public static Locale getAsLocale(FacesContext facesContext, UIComponent component) {
+        AbstractCalendar calendar=(AbstractCalendar) component;
+        
         if (calendar == null || facesContext == null) {
             return null;
         }
