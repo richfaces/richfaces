@@ -267,6 +267,10 @@
 	
 	var defaultLabels = {apply:'Apply', today:'Today', clean:'Clean', ok:'OK', cancel:'Cancel', close:'x'};
 	
+	var eventHandlerNames = ["change", "dateselect", "dateselected", "currentdateselect", 
+			"currentdateselected", "currentdateselect", "clean", "complete", "collapse", 
+			"datemouseout", "datemouseover", "expand", "timeselect", "timeselected"]; 
+	
 	// Constructor definition
 	rf.ui.Calendar = function(componentId, locale, options, markups) {
 		
@@ -497,8 +501,13 @@
 		//alert(new Date().getTime()-_d.getTime());
 		
 		//define isAjaxMode variable
-		"ajax" == this.params.mode ? this.isAjaxMode = true : this.isAjaxMode = false; 
-			
+		"ajax" == this.params.mode ? this.isAjaxMode = true : this.isAjaxMode = false;
+		
+		//events handler binding
+		for (var i in eventHandlerNames) {
+			var handler = this.params["on"+eventHandlerNames[i]];
+			if (handler) rf.Event.bindById(this.id, eventHandlerNames[i], handler, this);
+		}	
 	};
 		
 	// Extend component class and add protected methods from parent class to our container
@@ -963,7 +972,7 @@
 			if (field.value!=dateStr)
 			{
 				field.value=dateStr;
-				this.invokeEvent("changed",field, event, this.selectedDate);
+				this.invokeEvent("change",field, event, this.selectedDate);
 			}
 		},
 		
@@ -1122,7 +1131,7 @@
 			}
 		},
 		
-		indexData: function(daysData, isAjaxMode) {
+		indexData:function(daysData, isAjaxMode) {
 			
 			var dateYear = daysData.startDate.year;
 			var dateMonth = daysData.startDate.month;
@@ -1668,7 +1677,7 @@
 				this.invokeEvent("dateselected", null, null, null);
 				
 				this.selectedDateCellId = this.clearEffect(this.selectedDateCellId, "rf-ca-sel", (this.params.disabled || this.params.readonly ? null : "rf-ca-btn"));
-				 
+				this.invokeEvent("clean", null, null, null);
 				this.renderHF();
 				if (!this.params.showApplyButton)
 				{
