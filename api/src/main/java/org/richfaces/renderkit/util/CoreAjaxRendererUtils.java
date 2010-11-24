@@ -210,6 +210,10 @@ public final class CoreAjaxRendererUtils {
 
         return asIdsSet(areas);
     }
+    
+    public static Set<String> asSimpleSet(Object valueToSet) {
+        return asSet(valueToSet, false);
+    }
 
     public static Set<String> asIdsSet(Object valueToSet) {
         return asSet(valueToSet, true);
