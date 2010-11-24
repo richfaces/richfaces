@@ -24,8 +24,6 @@ package org.richfaces.example;
 import javax.validation.constraints.Pattern;
 
 
-
-
 /**
  * JSF bean with text property validation.
  */
