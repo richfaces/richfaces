@@ -80,23 +80,14 @@ public class BehaviorRule extends MetaRule {
     @Override
     public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
         if (meta.isTargetInstanceOf(ClientBehavior.class)) {
-
             if (!attribute.isLiteral()) {
                 Class<?> type = meta.getPropertyType(name);
                 if (type == null) {
                     type = Object.class;
                 }
-
                 return new ValueExpressionMetadata(name, type, attribute);
 
-            } else if (meta != null && meta.getWriteMethod(name) == null) {
-
-                if (log.isDebugEnabled()) {
-                    log
-                        .debug(attribute + " Property '" + name + "' is not on type: "
-                            + meta.getTargetClass().getName());
-                }
-
+            } else {
                 return new LiteralAttributeMetadata(name, attribute.getValue());
             }
         }
