@@ -29,8 +29,6 @@ import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
 import org.ajax4jsf.component.behavior.ClientBehavior;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.log.Logger;
 
 /**
  * @author Anton Belevich
@@ -39,8 +37,6 @@ import org.richfaces.log.Logger;
 public class BehaviorRule extends MetaRule {
 
     public static final BehaviorRule INSTANCE = new BehaviorRule();
-
-    private static Logger log = RichfacesLogger.CONNECTION.getLogger();
 
     static final class LiteralAttributeMetadata extends Metadata {
 
