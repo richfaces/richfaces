@@ -21,7 +21,7 @@
  */
 
 
-package org.richfaces.taglib;
+package org.richfaces.view.facelets.html;
 
 import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.ComponentHandler;
@@ -33,6 +33,7 @@ import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
 import org.richfaces.component.AbstractCalendar;
+import org.richfaces.taglib.MethodExpressionCurrentDateChangeListener;
 
 /**
  * @author amarkhel
