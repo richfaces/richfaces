@@ -26,7 +26,7 @@
 		this.__setValue(this.options.value);
 		
 		if (this.options.submitFunction) {
-			this.submitFunction = new Function("beforeUpdateHandler", "afterUpdateHandler", "event", this.options.submitFunction);
+			this.submitFunction = new Function("beforeUpdateHandler", "afterUpdateHandler", "params", "event", this.options.submitFunction);
 			this.__poll();
 		}
 		
@@ -68,7 +68,8 @@
  			},
  			
  			__submit: function() {
- 				this.submitFunction.call(this, $.proxy(this.__beforeUpdate, this), $.proxy(this.__afterUpdate, this));
+ 				this.submitFunction.call(this, $.proxy(this.__beforeUpdate, this), $.proxy(this.__afterUpdate, this), 
+ 					this.__params || {});
  			},
  			
  			__poll: function(immediate) {
@@ -151,7 +152,8 @@
 			},
 			
 			disable: function () {
- 				if (this.__pollTimer) {
+ 				this.__params = null;
+				if (this.__pollTimer) {
  					clearTimeout(this.__pollTimer);
  					this.__pollTimer = null;
  				}
@@ -159,11 +161,12 @@
  				this.enabled = false;
 			},
 			
-			enable: function () {
+			enable: function (params) {
 				if (this.isEnabled()) {
 					return;
 				}
 				
+ 				this.__params = params;
 				this.enabled = true;
 
 				if (this.isAjaxMode()) {

@@ -69,6 +69,8 @@ public class ProgressBarBaseRenderer extends RendererBase implements MetaCompone
 
     private static final JSReference AFTER_UPDATE_HANDLER = new JSReference("afterUpdateHandler");
 
+    private static final JSReference PARAMS = new JSReference("params");
+
     private static final ProgressBarStateEncoder FULL_ENCODER = new ProgressBarStateEncoder(false);
     
     private static final ProgressBarStateEncoder PARTIAL_ENCODER = new ProgressBarStateEncoder(true);
@@ -131,6 +133,7 @@ public class ProgressBarBaseRenderer extends RendererBase implements MetaCompone
         AjaxEventOptions eventOptions = AjaxRendererUtils.buildEventOptions(facesContext, component);
         eventOptions.set("beforedomupdate", BEFORE_UPDATE_HANDLER);
         eventOptions.set("complete", AFTER_UPDATE_HANDLER);
+        eventOptions.setClientParameters(PARAMS);
         ajaxFunction.addParameter(eventOptions);
         return ajaxFunction.toScript();
     }
