@@ -21,7 +21,7 @@
  */
 
 
-package org.richfaces.view.facelets.html;
+package org.richfaces.view.facelets;
 
 import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.ComponentHandler;
