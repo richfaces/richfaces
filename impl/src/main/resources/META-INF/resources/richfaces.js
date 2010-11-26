@@ -684,21 +684,6 @@ if (!window.RichFaces) {
 			}
 		};
 	}()));
-
-	var ajaxOnComplete = function (data) {
-		var type = data.type;
-		var responseXML = data.responseXML;
-
-		if (data.type == 'event' && data.status == 'complete' && responseXML) {
-			var partialResponse = jQuery(responseXML).children("partial-response");
-			if (partialResponse && partialResponse.length) {
-				var elements = partialResponse.children('changes').children('update, delete');
-				jQuery.each(elements, function () {
-					richfaces.cleanDom(jQuery(this).attr('id'));
-				});
-			}
-		}
-	};
 	
 	//keys codes
 	richfaces.KEYS = { 
@@ -715,6 +700,20 @@ if (!window.RichFaces) {
 				DEL: 46
 			};
 
+	var ajaxOnComplete = function (data) {
+		var type = data.type;
+		var responseXML = data.responseXML;
+
+		if (data.type == 'event' && data.status == 'complete' && responseXML) {
+			var partialResponse = jQuery(responseXML).children("partial-response");
+			if (partialResponse && partialResponse.length) {
+				var elements = partialResponse.children('changes').children('update, delete');
+				jQuery.each(elements, function () {
+					richfaces.cleanDom(jQuery(this).attr('id'));
+				});
+			}
+		}
+	};
 	
 	var attachAjaxDOMCleaner = function() {
 		// move this code to somewhere
