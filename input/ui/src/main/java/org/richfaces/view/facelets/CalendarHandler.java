@@ -33,7 +33,7 @@ import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
 import org.richfaces.component.AbstractCalendar;
-import org.richfaces.taglib.MethodExpressionCurrentDateChangeListener;
+import org.richfaces.event.MethodExpressionCurrentDateChangeListener;
 
 /**
  * @author amarkhel

@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.richfaces.taglib;
+package org.richfaces.event;
 
 import javax.el.MethodExpression;
 import javax.faces.context.FacesContext;
