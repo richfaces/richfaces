@@ -69,7 +69,7 @@ import org.richfaces.utils.CalendarHelper;
  * 
  */
 
-@JsfComponent(type = AbstractCalendar.COMPONENT_TYPE, family = AbstractCalendar.COMPONENT_FAMILY, generate = "org.richfaces.component.UICalendar", renderer = @JsfRenderer(type = "org.richfaces.CalendarRenderer"), tag = @Tag(name = "calendar"))
+@JsfComponent(type = AbstractCalendar.COMPONENT_TYPE, family = AbstractCalendar.COMPONENT_FAMILY, generate = "org.richfaces.component.UICalendar", renderer = @JsfRenderer(type = "org.richfaces.CalendarRenderer"), tag = @Tag(name = "calendar", handler="org.richfaces.view.facelets.CalendarHandler"))
 public abstract class AbstractCalendar extends UIInput implements MetaComponentResolver, MetaComponentEncoder {
 
     public static final String DAYSDATA_META_COMPONENT_ID = "daysData";
@@ -376,7 +376,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
         addFacesListener(listener);
     }
 
-    public void removeToggleListener(CurrentDateChangeListener listener) {
+    public void removeCurrentDateChangeListener(CurrentDateChangeListener listener) {
         removeFacesListener(listener);
     }
 
