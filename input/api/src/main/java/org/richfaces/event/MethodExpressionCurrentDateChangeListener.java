@@ -25,9 +25,6 @@ package org.richfaces.event;
 import javax.el.MethodExpression;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.event.CurrentDateChangeEvent;
-import org.richfaces.event.CurrentDateChangeListener;
-
 /**
  * @author amarkhel
  *
