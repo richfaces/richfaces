@@ -12,17 +12,16 @@
     <listener>
         <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
     </listener>
-    
-    <filter-mapping>
-        <filter-name>PushFilter</filter-name>
-        <url-pattern>/faces/*</url-pattern>
-    </filter-mapping>
-    
     <filter>
         <filter-name>PushFilter</filter-name>
         <filter-class>org.richfaces.webapp.PushFilter</filter-class>
         <async-supported>true</async-supported>
     </filter>
+    
+    <filter-mapping>
+        <filter-name>PushFilter</filter-name>
+        <url-pattern>/faces/*</url-pattern>
+    </filter-mapping>
 
     <!-- context-param>
         <param-name>org.atmosphere.useWebSocket</param-name>
