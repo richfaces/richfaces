@@ -225,7 +225,7 @@
 		  * */
 		fire : function(selector, eventType, data) {
 			var event = $.Event(eventType);
-			getEventElement(selector).trigger(event, data);
+			getEventElement(selector).trigger(event, [data]);
 			return !event.isDefaultPrevented();
 		},
 		
@@ -241,7 +241,7 @@
 		  * */
 		fireById : function(id, eventType, data) {
 			var event = $.Event(eventType);
-			$(document.getElementById(id)).trigger(event, data);
+			$(document.getElementById(id)).trigger(event, [data]);
 			return !event.isDefaultPrevented();
 		},
 		
@@ -260,7 +260,7 @@
 		  * @return value that was returned by the handler
 		  * */
 		callHandler : function(selector, eventType, data) {
-			return getEventElement(selector).triggerHandler(eventType, data);
+			return getEventElement(selector).triggerHandler(eventType, [data]);
 		},
 		
 		/** 
@@ -274,7 +274,7 @@
 		  * @return value that was returned by the handler
 		  *  */
 		callHandlerById : function(id, eventType, data) {
-			return $(document.getElementById(id)).triggerHandler(eventType, data);
+			return $(document.getElementById(id)).triggerHandler(eventType, [data]);
 		},
 		
 		/** 
