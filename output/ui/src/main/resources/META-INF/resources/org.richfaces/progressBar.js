@@ -3,6 +3,7 @@
 	rf.ui = rf.ui || {}; 
 	
 	var defaultOptions = {
+		interval: 1000,
 		minValue: 0,
 		maxValue: 100
 	};
