@@ -1,44 +1,48 @@
-.rf-pb-cnt{
-height : 13px;
-white-space : nowrap;
-width : 200px;
-}	
-.rf-pb-upl{
-background-repeat : repeat-x;
-background-image : "url(#{resource['org.richfaces.images:pbAniBg.gif']})";
-background-color : '#{richSkin.selectControlColor}';
-height : 13px;
+.rf-pb-rmng {
+	height: 13px;
+	white-space: nowrap;
+	width: 200px;
+	
+	position: relative;
+	border-width: 1px;
+	border-style: solid;
+	border-color: '#{richSkin.panelBorderColor}';
+
+	overflow: hidden;
+	color: '#{richSkin.controlTextColor}';
+
+	font-family: '#{richSkin.generalFamilyFont}';
+	font-size: '#{richSkin.generalSizeFont}';
+	font-weight: bold;
+	
+	text-align: center;
+	text-color: '#{richSkin.controlTextColor}';
+
+	background-color: '#{richSkin.controlBackgroundColor}';
+	padding: 0px;
 }
-.rf-pb-upl-dig{
-overflow : hidden; position : absolute; top : 0px; left : 0px;
-border-color : '#{richSkin.panelBorderColor}';
+
+.rf-pb-prgs {
+	overflow: hidden;
+	border-color: '#{richSkin.panelBorderColor}';
+	background-repeat: repeat-x;
+	background-color: '#{richSkin.selectControlColor}';
+	height: 100%;
+	padding: 0px;
+	background-image: "url(#{resource['org.richfaces.images:pbAniBg.gif']})";
 }
-.rf-pb-shl{
-margin-bottom : 2px; border : 1px solid;
-background-color : '#{richSkin.controlBackgroundColor}';
-border-color : '#{richSkin.panelBorderColor}';
+
+.rf-pb-lbl {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	padding: 0px;
+	text-align: center;
+	width: 100%;
 }
-.rf-pb-shl-dig{
-position : relative; margin-bottom : 2px; border : 1px solid; overflow: hidden;
-border-color : '#{richSkin.panelBorderColor}';
-color : '#{richSkin.controlTextColor}';
-font-family : '#{richSkin.generalFamilyFont}';
-font-size : '#{richSkin.generalSizeFont}';
-}
-.rf-pb-rmnd{
-text-align : center; font-weight : bold; position : relative;
-background-color : '#{richSkin.controlBackgroundColor}';
-text-color : '#{richSkin.controlTextColor}';
-height : 13px;
-width : 200px;
-padding: 0px;
-}
-.rf-pb-cmpltd{
-text-align : center; font-weight : bold; background-repeat : repeat-x;
-background-color : '#{richSkin.selectControlColor}';
-text-color : '#{richSkin.controlBackgroundColor}';
-height : 13px;
-width : 200px;
-padding: 0px;
-background-image : "url(#{resource['org.richfaces.images:pbAniBg.gif']})";
+
+.rf-pb-init, .rf-pb-fin {
+	color: '#{richSkin.generalTextColor}';
+	font-family: '#{richSkin.generalFamilyFont}';
+	font-size: '#{richSkin.generalSizeFont}';
 }

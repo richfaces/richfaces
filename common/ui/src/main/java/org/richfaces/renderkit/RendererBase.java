@@ -151,8 +151,6 @@ public abstract class RendererBase extends Renderer {
                 component.getClass().getName()));
         }
 
-        preEncodeBegin(context, component);
-
         if (component.isRendered()) {
             ResponseWriter writer = context.getResponseWriter();
 

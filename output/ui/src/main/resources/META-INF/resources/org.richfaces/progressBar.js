@@ -1,33 +1,38 @@
-//ProgressBar = {};
-//ProgressBar = Class.create();
 (function ($, rf) {
 
 	rf.ui = rf.ui || {}; 
 	
 	var defaultOptions = {
-		mode: "ajax",
 		minValue: 0,
-		maxValue: 100,
-		state: "initialState"
+		maxValue: 100
 	};
 
+	var stateSelectors = {
+		initial: '> .rf-pb-init',
+		progress: '> .rf-pb-rmng',
+		finish: '> .rf-pb-fin' 
+	};
+	
 	// Constructor definition
 	rf.ui.ProgressBar = function(componentId, options) {
 		// call constructor of parent class
 		$super.constructor.call(this, componentId);
 		this.id = componentId;
-		this.attachToDom(this.id);
+		this.__elt = this.attachToDom(this.id);
 		this.options = $.extend({}, defaultOptions, options);
 		this.enabled = this.options.enabled;
-		this.state = this.options.state;
-		this.value = this.options.value;
 		this.minValue = this.options.minValue;
 		this.maxValue = this.options.maxValue;
-		var component = this;
-		this.options.beforedomupdate = function(event) {
-            component.__onComplete(event.data);
-        }
+		this.__setValue(this.options.value);
 		
+		if (this.options.submitFunction) {
+			this.submitFunction = new Function("beforeUpdateHandler", "afterUpdateHandler", "event", this.options.submitFunction);
+			this.__poll();
+		}
+		
+		if (this.options.onfinish) {
+			rf.Event.bind(this.__elt, "finish", new Function("event", this.options.onfinish));
+		}
 	};
 	
 	// Extend component class and add protected methods from parent class to our container
@@ -38,56 +43,41 @@
 	
 	$.extend(rf.ui.ProgressBar.prototype, (function() {
 		return {
- 			name:"ProgressBar",
+ 			name: "ProgressBar",
  			
- 			__updateComponent: function (data) {
- 				this.setValue(this.value);
- 				if (!data['enabled']) { 
- 					this.disable(); 
- 				}
- 				$(rf.getDomElement(this.id + ":complete")).addClass(data['completeClass']);
- 				$(rf.getDomElement(this.id + ":remain")).addClass(data['remainClass']);
- 				$(rf.getDomElement(this.id)).addClass(data['styleClass']);
- 				
- 				if (this.options.pollinterval != data['interval']) {
- 					this.options.pollinterval = data['interval'];
+ 			__isInitialState: function() {
+ 				return parseFloat(this.value) <= parseFloat(this.getMinValue());
+ 			},
+ 			
+ 			__isProgressState: function() {
+ 				return !this.__isInitialState() && !this.__isFinishState();
+ 			},
+ 			
+ 			__isFinishState: function() {
+ 				return parseFloat(this.value) > parseFloat(this.getMaxValue());
+ 			},
+ 			
+ 			__beforeUpdate: function(event) {
+ 				if (event.componentData && typeof event.componentData[this.id] != 'undefined') {
+ 					this.setValue(event.componentData[this.id]);
  				}
  			},
  			
- 			__forceState: function (state, oncomplete) {
- 				var params = {};
- 				params['forcePercent'] = state;
- 				params[this.id] = this.id;
- 				
- 				var options = {
- 					parameters: params,	
- 					oncomplete: oncomplete
- 				};
- 				
- 				var form = $(rf.getDomElement(this.id)).closest('form');
- 				rf.ajax(form.attr('id'), null, options);
+ 			__afterUpdate: function(event) {
+ 				this.__poll();
  			},
  			
- 			__getContext: function () {
- 				var context = this.context || {};
-				context['minValue'] = (this.minValue == 0 ? "0" : this.minValue);
-				context['maxValue'] = (this.maxValue == 0 ? "0" : this.maxValue);
-				context['value'] = (this.value == 0 ? "0" : this.value);
-				if (this.progressVar) {
-					context[this.progressVar] = context['value'];
-				}
- 				return context;
+ 			__submit: function() {
+ 				this.submitFunction.call(this, $.proxy(this.__beforeUpdate, this), $.proxy(this.__afterUpdate, this));
  			},
-
- 			__renderLabel: function (markup, context) {
- 				if (!markup || this.state != "progressState") {
- 					return;
- 				}
- 				var html = rf.interpolate(markup, context || this.__getContext());
- 				var remain = rf.getDomElement(this.id + ":remain");
- 				var complete = rf.getDomElement(this.id + ":complete");
- 				if (remain && complete){
- 					remain.innerHTML = complete.innerHTML = html;
+ 			
+ 			__poll: function(immediate) {
+ 				if (this.enabled) {
+ 					if (immediate) {
+ 						this.__submit();
+ 					} else {
+ 						this.__pollTimer = setTimeout($.proxy(this.__submit, this), this.options.interval);
+ 					}
  				}
  			},
  			
@@ -116,34 +106,36 @@
 				return this.value;
 			},
 			
-			showState: function (state) {
-				this.state = state;
-				
-				var stateElt = $(rf.getDomElement(this.id + ":" + state));
+			__showState: function (state) {
+				var stateElt = $(stateSelectors[state], this.__elt);
 				stateElt.show().siblings().hide();
 			},
 			
+			__setValue: function(val, initialStateSetup) {
+				this.value = parseFloat(this.__getPropertyOrObject(val, "value"));
+				
+				if (this.__isFinishState()) {
+					this.disable();
+				}
+			},
+
+			__updateVisualState: function() {
+				if (this.__isInitialState()) {
+					this.__showState("initial");
+				} else if (this.__isFinishState()) {
+					rf.Event.callHandler(this.__elt, "finish");
+					this.__showState("finish");
+				} else {
+					this.__showState("progress");
+
+					var p = this.__calculatePercent(this.value);
+					$(".rf-pb-prgs", this.__elt).css('width', p + "%");
+				}
+			},
+			
 			setValue: function(val) {
-				this.value = this.__getPropertyOrObject(val, "value");
-				
-				if (!this.isAjaxMode()) {
-					if (parseFloat(this.getValue()) <= parseFloat(this.getMinValue())) {
-						this.showState("initialState");
-					} else if (parseFloat(this.getValue()) > parseFloat(this.getMaxValue())) {
-						this.showState("completeState");
-					} else {
-						this.showState("progressState");
-					}
-				}
-				
-				if (this.isAjaxMode() || this.state == "progressState") {
-					if (this.markup) {
-						this.__renderLabel(this.markup, this.__getContext());
-					}
-					
-					var p = this.__calculatePercent(this.getValue());
-					$(rf.getDomElement(this.id + ":upload")).css('width', p + "%");
-				}
+				this.__setValue(val);
+				this.__updateVisualState();
 			},
 			
 			getMaxValue: function() {
@@ -154,16 +146,17 @@
 				return this.minValue;
 			},
 
-			getMode: function () {
-				return this.options.mode;
-			},
-			
 			isAjaxMode: function () {
-				return (this.getMode() == "ajax");
+				return !!this.submitFunction;
 			},
 			
 			disable: function () {
-				this.enabled = false;
+ 				if (this.__pollTimer) {
+ 					clearTimeout(this.__pollTimer);
+ 					this.__pollTimer = null;
+ 				}
+
+ 				this.enabled = false;
 			},
 			
 			enable: function () {
@@ -173,75 +166,22 @@
 				
 				this.enabled = true;
 
-				if (!this.isAjaxMode()) {
-					this.showState("progressState");
-					this.setValue(this.getMinValue() + 1);
-				} else if (this.value <= this.getMaxValue()) {
-					this.__poll();			
+				if (this.isAjaxMode()) {
+					this.__poll(true);			
 				}
 				
 			},
 			
 			isEnabled: function() {
 				return this.enabled;
-			}
+			},
+			
+ 			destroy: function() {
+ 				this.disable();
+ 				this.__elt = null;
+ 				$super.destroy.call(this);
+ 			}
 		}
 	} ()));
 	
-	var onComplete = function (data) {
-	  	if (!rf.getDomElement(this.id) || !this.isEnabled()) { 
-	  		return; 
-	  	} 
-		if (data) {
-			this.value = data['value'];
-			if (this.state == "progressState") {
-				if (this.value > this.getMaxValue()) {
-					this.disable();
-					this.__forceState("completeState");
-					return;
-				}
-				this.__updateComponent(data);
-				this.__renderLabel(data['markup'], data['context']);
-			} else if (this.state == "initialState" && this.value > this.getMinValue()) {
-				this.state = "progressState";
-				this.__forceState("progressState");
-				return;
-			}
-			this.__poll(); 
-		}
-		
-	};
-	var poll = function () {
-		if (this.isEnabled()){
-			this.options.parameters = this.options.parameters || {};
-			this.options.parameters['percent'] = "percent";
-			this.options.parameters[this.id] = this.id;
-			var component = this;
-			window.setTimeout(function(){
-			if(component.options.onsubmit){
-				var onsubmit = eval(component.options.onsubmit)
-				var result = onsubmit.call(component);
-				if (result!=false) {
-					 result = true;
-				}	 
-				if(result){
-					rf.ajax(component.options.pollId, null, component.options);
-				}
-			}else{
-				rf.ajax(component.options.pollId, null, component.options);
-			}
-			
-		},this.options.pollinterval);
-		}
-	};
-	
-	/*
-	 * Prototype definition
-	 */
-	$.extend(rf.ui.ProgressBar.prototype, (function () {
-		return {
- 			__onComplete: onComplete,
- 			__poll: poll
- 		};
-	})());
 })(jQuery, RichFaces);

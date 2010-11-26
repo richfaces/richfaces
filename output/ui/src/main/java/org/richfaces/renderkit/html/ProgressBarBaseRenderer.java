@@ -27,226 +27,62 @@
 
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
-
 import java.io.IOException;
-import java.io.StringWriter;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.PartialViewContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.event.ActionEvent;
 
-import org.ajax4jsf.javascript.JSLiteral;
-import org.ajax4jsf.javascript.ScriptUtils;
+import org.ajax4jsf.context.AjaxContext;
+import org.ajax4jsf.javascript.JSFunction;
+import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractProgressBar;
+import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.component.NumberUtils;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
+import org.richfaces.component.SwitchType;
+import org.richfaces.renderkit.AjaxEventOptions;
+import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.renderkit.RendererBase;
-import org.richfaces.renderkit.util.RendererUtils;
+import org.richfaces.renderkit.util.AjaxRendererUtils;
 
 /**
  * Abstract progress bar renderer
  * 
- * @author "Andrey Markavtsov"
+ * @author Nick Belaevski
  * 
  */
 @ResourceDependencies( { 
     @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
     @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+    @ResourceDependency(name = "richfaces-event.js"),
     @ResourceDependency(library = "org.richfaces", name = "progressBar.js"),
     @ResourceDependency(library = "org.richfaces", name = "progressBar.ecss")
 
 })
-public class ProgressBarBaseRenderer extends RendererBase {
+public class ProgressBarBaseRenderer extends RendererBase implements MetaComponentRenderer {
 
-    private static final String INITIAL_FACET = "initial";
-    private static final String COMPLETE_FACET = "complete";
-    private static final Logger LOG = RichfacesLogger.APPLICATION.getLogger();
+    private static final JSReference BEFORE_UPDATE_HANDLER = new JSReference("beforeUpdateHandler");
+
+    private static final JSReference AFTER_UPDATE_HANDLER = new JSReference("afterUpdateHandler");
+
+    private static final ProgressBarStateEncoder FULL_ENCODER = new ProgressBarStateEncoder(false);
     
-    
+    private static final ProgressBarStateEncoder PARTIAL_ENCODER = new ProgressBarStateEncoder(true);
+
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
         super.doDecode(context, component);
-        if (component.isRendered()) {
-            new ActionEvent(component).queue();
+
+        Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+        if (params.get(component.getClientId(context)) != null) {
             PartialViewContext pvc = context.getPartialViewContext();
-            pvc.getRenderIds().add(component.getClientId(context));
+            pvc.getRenderIds().add(component.getClientId(context) + 
+                MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + AbstractProgressBar.STATE_META_COMPONENT_ID);
         }
-        
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.richfaces.renderkit.TemplateEncoderRendererBase#encodeChildren(javax.faces.context.FacesContext,
-     *      javax.faces.component.UIComponent)
-     */
-    @Override
-    public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
-        
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.ajax4jsf.renderkit.RendererBase#doEncodeChildren(javax.faces.context.ResponseWriter,
-     *      javax.faces.context.FacesContext, javax.faces.component.UIComponent)
-     */
-    @Override
-    public void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        
-    }
-    
-    public final boolean getRendersChildren() {
-        return true;
-    }
-    
-    /**
-     * Gets state forced from javascript
-     * 
-     * @param component
-     * @return
-     */
-    public String getForcedState(FacesContext context, UIComponent component) {
-        String forcedState = null;
-        Map<String, String> params = context.getExternalContext()
-                .getRequestParameterMap();
-        if (params.containsKey(AbstractProgressBar.FORCE_PERCENT_PARAM)) {
-            forcedState = params.get(AbstractProgressBar.FORCE_PERCENT_PARAM);
-        }
-        return forcedState;
-    }
-
-    /**
-     * Renderes label markup
-     * 
-     * @param context
-     * @param component
-     * @return
-     */
-    public StringBuffer getMarkup(FacesContext context, UIComponent component) {
-        StringBuffer result = new StringBuffer();
-        try {
-            result = new StringBuffer(getMarkupBody(context, component, hasChildren(component)));
-                
-        } catch (Exception e) {
-            LOG.error("Error occurred during rendering of progress bar label. It switched to empty string", e);
-        }
-
-        return result;
-
-    }
-
-    
-    
-    protected String getMarkupBody(FacesContext context, UIComponent component, boolean children) throws IOException {
-        ResponseWriter writer = context.getResponseWriter();
-        StringWriter dumpingWriter = new StringWriter();
-        ResponseWriter clonedWriter = writer.cloneWithWriter(dumpingWriter);
-        context.setResponseWriter(clonedWriter);
-        try {
-            if (children) {
-                this.renderChildren(context, component);
-            } else if (component.getAttributes().get("label") != null) {
-                clonedWriter.write(component.getAttributes().get("label").toString());
-            }
-        } finally {
-            clonedWriter.flush();
-            context.setResponseWriter(writer);
-        }
-
-        return dumpingWriter.toString();
-    }
-    
-    
-    
-
-    /**
-     * Encodes script for state rendering in client mode
-     * 
-     * @param context
-     * @param component
-     * @param state
-     * @throws IOException
-     */
-    public String getShowStateScript(FacesContext context,
-            UIComponent component, String state) throws IOException {
-        StringBuffer script = new StringBuffer("\n");
-        script.append(
-                "RichFaces.$('" + component.getClientId(context)
-                        + "').showState('").append(state).append(
-                "');");
-        return script.toString();
-    }
-
-    
-
-    /**
-     * Encode initial javascript
-     * 
-     * @param context
-     * @param component
-     * @throws IOException
-     */
-    public String getInitialScript(FacesContext context,
-            UIComponent component, String state) throws IOException {
-        AbstractProgressBar progressBar = (AbstractProgressBar) component;
-        StringBuffer script = new StringBuffer();
-        Map<String, Object> options = new HashMap<String, Object>();
-        RendererUtils utils = getUtils();
-
-        String clientId = component.getClientId(context);
-        
-        addToScriptHash(options, "mode", component.getAttributes().get("mode"), "ajax"); 
-        addToScriptHash(options, "minValue", component.getAttributes().get("minValue"), "0"); 
-        addToScriptHash(options, "maxValue", component.getAttributes().get("maxValue"), "100"); 
-        addToScriptHash(options, "context", getContext(component)); 
-        
-        Integer interval = new Integer(progressBar.getInterval());
-        addToScriptHash(options, "pollinterval", interval); 
-        addToScriptHash(options, "enabled", progressBar.isEnabled()); 
-        addToScriptHash(options, "pollId", progressBar.getClientId(context)); 
-        addToScriptHash(options, "state", state, "initialState"); 
-        addToScriptHash(options, "value", NumberUtils.getNumber(component.getAttributes().get("value"))); 
-        addToScriptHash(options, "onsubmit", buildEventFunction(component.getAttributes().get("onsubmit")));
-        script.append("new RichFaces.ui.ProgressBar('").append(clientId).append("'");
-        if (!options.isEmpty()) {
-            script.append(",").append(ScriptUtils.toScript(options));
-        }               
-        script.append(")\n;");
-        return script.toString();
-    }
-
-    private Object buildEventFunction(Object eventFunction) {
-        if(eventFunction != null && eventFunction.toString().length() > 0) {
-            return "new Function(\"" + eventFunction.toString() + "\");";
-        }
-        return null;
-    }
-    
-    /**
-     * Creates options map for AJAX requests
-     * 
-     * @param clientId
-     * @param progressBar
-     * @param context
-     * @return
-     */
-    public String getPollScript(FacesContext context, UIComponent component) {
-    	return "RichFaces.$('" + component.getClientId() + "').__poll()";
-       
-    }
-    
-    public String getStopPollScript(FacesContext context, UIComponent component) {
-        return "RichFaces.$('" + component.getClientId() + "').disable()";
-       
     }
 
     /**
@@ -256,141 +92,74 @@ public class ProgressBarBaseRenderer extends RendererBase {
      * @return
      */
     public boolean isAjaxMode(UIComponent component) {
-        String mode = (String) component.getAttributes().get("mode");
-        return "ajax".equalsIgnoreCase(mode);
-    }
-    
-    public String getCurrentOrForcedState(FacesContext context, UIComponent component){
-        String forcedState = getForcedState(context,component);
-        if (forcedState != null) {
-            return forcedState;
+        SwitchType mode = (SwitchType) component.getAttributes().get("mode");
+        
+        if (mode == SwitchType.server) {
+            throw new IllegalArgumentException("Progress bar doesn't support 'server' mode");
         }
-        return getCurrentState(context, component);
+        
+        return SwitchType.ajax == mode;
     }
     
-    public String getCurrentState(FacesContext context, UIComponent component){
+    protected ProgressBarState getCurrentState(FacesContext context, UIComponent component){
         Number minValue = NumberUtils.getNumber(component.getAttributes().get("minValue"));
         Number maxValue = NumberUtils.getNumber(component.getAttributes().get("maxValue"));
         Number value = NumberUtils.getNumber(component.getAttributes().get("value"));
         if (value.doubleValue() <= minValue.doubleValue()) {
-            return "initialState";
+            return ProgressBarState.initialState;
         } else if (value.doubleValue() > maxValue.doubleValue()) {
-            return "completeState";
-        } else  {
-            return "progressState";
-        }
-    }
-    
-    public String getShellStyle(FacesContext context, UIComponent component){
-        return (!isSimpleMarkup(component)) ? "rf-pb-shl-dig "
-            : "rf-pb-shl ";
-    }
-    
-    public String getWidth(UIComponent component){
-        Number value = NumberUtils.getNumber(component.getAttributes().get("value"));
-        Number minValue = NumberUtils.getNumber(component.getAttributes().get("minValue"));
-        Number maxValue = NumberUtils.getNumber(component.getAttributes().get("maxValue"));
-        Number percent = calculatePercent(value, minValue, maxValue);
-
-        return String.valueOf(percent.intValue());
-    }
-    
-    public void renderInitialFacet(FacesContext context, UIComponent component) throws IOException {
-        renderFacet(context, component, INITIAL_FACET);
-    }
-
-    public void renderCompleteFacet(FacesContext context, UIComponent component) throws IOException {
-        renderFacet(context, component, COMPLETE_FACET);
-    }
-
-    private void renderFacet(FacesContext context, UIComponent component, String facet) throws IOException {
-        UIComponent headerFacet = component.getFacet(facet);
-        if (headerFacet != null) {
-            headerFacet.encodeAll(context);
-        }
-    }
-
-   
-    /**
-     * Returns parameters attr
-     * 
-     * @param component
-     * @param renderer
-     * @param percent
-     * @return
-     */
-    public String getParameters(UIComponent component) {
-        String parameters = (String) component.getAttributes()
-                .get("parameters");
-        return parameters;
-    }
-
-    /**
-     * Returns context for macrosubstitution
-     * 
-     * @param component
-     * @return
-     */
-    private JSLiteral getContext(UIComponent component) {
-        StringBuffer buffer = new StringBuffer();
-        String parameters = getParameters(component);
-        JSLiteral literal = null;
-        if (parameters != null) {
-            buffer.append("{").append(parameters).append("}");
-            literal = new JSLiteral(buffer.toString());
-        }
-        return literal;
-    }
-
-    /**
-     * Return true if component has children components
-     * 
-     * @param component
-     * @return
-     */
-    private boolean hasChildren(UIComponent component) {
-        return (component.getChildCount() != 0);
-    }
-
-    /**
-     * Returns true if markup should rendered as simple 2 divs
-     * 
-     * @param component
-     * @return
-     */
-    public boolean isSimpleMarkup(UIComponent component) {
-        if (hasChildren(component)) {
-            return false;
+            return ProgressBarState.finishState;
         } else {
-            if (component.getAttributes().get("label") != null) {
-                return false;
-            }
+            return ProgressBarState.progressState;
         }
-        return true;
     }
-
-   
-
-    /**
-     * Calculates percent value according to min & max value
-     * 
-     * @param value
-     * @param minValue
-     * @param maxValue
-     * @return
-     */
-    public Number calculatePercent(Number value, Number minValue,
-            Number maxValue) {
-        if (minValue.doubleValue() < value.doubleValue()
-                && value.doubleValue() < maxValue.doubleValue()) {
-            return (Number) ((value.doubleValue() - minValue.doubleValue()) * 100.0 / (maxValue
-                    .doubleValue() - minValue.doubleValue()));
-        } else if (value.doubleValue() <= minValue.doubleValue()) {
-            return 0;
-        } else if (value.doubleValue() >= maxValue.doubleValue()) {
-            return 100;
-        } 
-        return 0;
+    
+    protected String getStateDisplayStyle(String currentState, String state) {
+        if (currentState.equals(state)) {
+            return null;
+        }
+        
+        return "display: none";
     }
+    
+    protected String getSubmitFunction(FacesContext facesContext, UIComponent component) {
+        if (!isAjaxMode(component)) {
+            return null;
+        }
+        
+        JSFunction ajaxFunction = AjaxRendererUtils.buildAjaxFunction(facesContext, component, AjaxRendererUtils.AJAX_FUNCTION_NAME);
+        AjaxEventOptions eventOptions = AjaxRendererUtils.buildEventOptions(facesContext, component);
+        eventOptions.set("beforedomupdate", BEFORE_UPDATE_HANDLER);
+        eventOptions.set("complete", AFTER_UPDATE_HANDLER);
+        ajaxFunction.addParameter(eventOptions);
+        return ajaxFunction.toScript();
+    }
+    
+    public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId)
+        throws IOException {
 
+        if (AbstractProgressBar.STATE_META_COMPONENT_ID.equals(metaComponentId)) {
+            ProgressBarState state = getCurrentState(context, component);
+            
+            AjaxContext ajaxContext = AjaxContext.getCurrentInstance(context);
+            ajaxContext.getResponseComponentDataMap().put(component.getClientId(context), NumberUtils.getNumber(component.getAttributes().get("value")));
+
+            PartialResponseWriter partialResponseWriter = context.getPartialViewContext().getPartialResponseWriter();
+            partialResponseWriter.startUpdate(state.getStateClientId(context, component));
+            
+            state.encodeStateForMetaComponent(context, component, PARTIAL_ENCODER);
+            
+            partialResponseWriter.endUpdate();
+        } else {
+            throw new IllegalArgumentException(metaComponentId);
+        }
+    }
+    
+    public void decodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) {
+        throw new UnsupportedOperationException();
+    }
+    
+    protected ProgressBarStateEncoder getEncoder(FacesContext facesContext, UIComponent component) {
+        return isAjaxMode(component) ? PARTIAL_ENCODER : FULL_ENCODER;
+    }
 }
