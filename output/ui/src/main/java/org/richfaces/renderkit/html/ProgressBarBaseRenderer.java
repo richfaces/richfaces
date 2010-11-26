@@ -176,12 +176,12 @@ public class ProgressBarBaseRenderer extends RendererBase {
      * @param state
      * @throws IOException
      */
-    public String getRenderStateScript(FacesContext context,
+    public String getShowStateScript(FacesContext context,
             UIComponent component, String state) throws IOException {
         StringBuffer script = new StringBuffer("\n");
         script.append(
                 "RichFaces.$('" + component.getClientId(context)
-                        + "').renderState('").append(state).append(
+                        + "').showState('").append(state).append(
                 "');");
         return script.toString();
     }
@@ -240,7 +240,7 @@ public class ProgressBarBaseRenderer extends RendererBase {
      * @return
      */
     public String getPollScript(FacesContext context, UIComponent component) {
-    	return "RichFaces.$('" + component.getClientId() + "').poll()";
+    	return "RichFaces.$('" + component.getClientId() + "').__poll()";
        
     }
     
@@ -305,7 +305,7 @@ public class ProgressBarBaseRenderer extends RendererBase {
 
     private void renderFacet(FacesContext context, UIComponent component, String facet) throws IOException {
         UIComponent headerFacet = component.getFacet(facet);
-        if(headerFacet != null) {
+        if (headerFacet != null) {
             headerFacet.encodeAll(context);
         }
     }

@@ -71,7 +71,7 @@
 			<cdk:object type="java.lang.String" name="state" value="#{getCurrentState(facesContext, component)}" />
 			<script type="text/javascript">
 				#{getInitialScript(facesContext, component, state)}
-				#{getRenderStateScript(facesContext, component, state)}
+				#{getShowStateScript(facesContext, component, state)}
 			</script>
 		</div>
 		
