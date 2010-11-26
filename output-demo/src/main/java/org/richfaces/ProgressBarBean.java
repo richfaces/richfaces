@@ -3,8 +3,10 @@
  */
 package org.richfaces;
  
+import java.io.Serializable;
+import java.text.DateFormat;
 import java.util.Date;
- 
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
  
@@ -14,36 +16,21 @@ import javax.faces.bean.ViewScoped;
  */
 @ManagedBean
 @ViewScoped
-public class ProgressBarBean {
-     
-    private boolean buttonRendered = true;
-    private boolean enabled=false;
-    private Long startTime;
-     
-    public String startProcess() {
-        setEnabled(true);
-        setButtonRendered(false);
-        setStartTime(new Date().getTime());
-        return null;
-    }
- 
-    public Long getCurrentValue(){
-        if (isEnabled()) {
-            Long current = (new Date().getTime() - startTime)/1000;
-            if (current>100){
-                setButtonRendered(true);
-            } else if (current.equals(0)) {
-                return new Long(1);
-            }
-            return (new Date().getTime() - startTime)/1000;
-        }
-        if (startTime == null) {
-            return Long.valueOf(-1);
-        } else {
-            return Long.valueOf(101);
-        }
-            
-    }
+public class ProgressBarBean implements Serializable {
+    
+    private static final long serialVersionUID = -446286889238296278L;
+
+    private int minValue = 0;
+    
+    private int maxValue = 100;
+    
+    private int value = 50;
+    
+    private String label = "'label' attribute";
+    
+    private boolean childrenRendered = false;
+    
+    private boolean enabled = false;
      
     public boolean isEnabled() {
         return enabled;
@@ -53,19 +40,55 @@ public class ProgressBarBean {
         this.enabled = enabled;
     }
  
-    public Long getStartTime() {
-        return startTime;
+    public int getMinValue() {
+        return minValue;
     }
- 
-    public void setStartTime(Long startTime) {
-        this.startTime = startTime;
+
+    public void setMinValue(int minValue) {
+        this.minValue = minValue;
     }
- 
-    public boolean isButtonRendered() {
-        return buttonRendered;
+
+    public int getMaxValue() {
+        return maxValue;
     }
- 
-    public void setButtonRendered(boolean buttonRendered) {
-        this.buttonRendered = buttonRendered;
+
+    public void setMaxValue(int maxValue) {
+        this.maxValue = maxValue;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public boolean isChildrenRendered() {
+        return childrenRendered;
+    }
+
+    public void setChildrenRendered(boolean childrenRendered) {
+        this.childrenRendered = childrenRendered;
+    }
+    
+    public void decreaseValueByFive() {
+        value -= 5;
+    }
+
+    public void increaseValueByFive() {
+        value += 5;
+    }
+    
+    public String getCurrentTimeAsString() {
+        return DateFormat.getTimeInstance().format(new Date());
     }
 }

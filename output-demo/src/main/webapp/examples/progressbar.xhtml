@@ -1,79 +1,105 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:a4j="http://richfaces.org/a4j"
-    xmlns:rich="http://richfaces.org/output" template="/templates/template.xhtml">
-	
-	  <ui:define name="body">
-	  <script>
-//<![CDATA[
-        var counter = 1;
-        var intervalID;
-            function updateProgress(i) {
-                RichFaces.$('form2:progressBar').setValue(counter*5);
-                if ((counter++)>20){
-                    clearInterval(intervalID);
-                    document.getElementById('button').disabled=false;
-                }
-            }
-             
-            function startProgress(){
-                counter=1;
-                document.getElementById('button').disabled=true;
-                RichFaces.$('form2:progressBar').enable();
-                RichFaces.$('form2:progressBar').setValue(1);
-                intervalID = setInterval(updateProgress,5000);
-            }
-//]]>
-      </script>
-    <h:form id="form">
-	Ajax mode:
-    <rich:progressBar mode="ajax" value="#{progressBarBean.currentValue}"
-                interval="2000"
-                enabled="#{progressBarBean.enabled}" minValue="-1" maxValue="100"
-                reRenderAfterComplete="progressPanel">
-                <f:facet name="initial">
-                    <br />
-                    <h:outputText value="Process doesn't started yet" />
-                    <a4j:commandButton action="#{progressBarBean.startProcess}"
-                        value="Start Process"
-                        render="form"
-                        style="margin: 9px 0px 5px;" />
-                </f:facet>
-                <f:facet name="complete">
-                    <br />
-                    <h:outputText value="Process Done" />
-                    <a4j:commandButton action="#{progressBarBean.startProcess}"
-                        value="Restart Process" execute="@form"
-                        rendered="#{progressBarBean.buttonRendered}"
-                        style="margin: 9px 0px 5px;" />
-                </f:facet>
-                <h:outputText value="#{progressBarBean.currentValue} %"/>
-            </rich:progressBar>
-            <h:panelGroup id="progressPanel">
-            <h:outputText value="#{progressBarBean.currentValue}"/>
-            </h:panelGroup>
-            </h:form>
-            
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/output"
+	template="/templates/template.xhtml">
 
+	<ui:define name="body">
+		<h:form>
+			Min value: <h:selectOneMenu value="#{progressBarBean.minValue}" onchange="submit()">
+				<f:selectItem itemLabel="0" itemValue="0" />
+				<f:selectItem itemLabel="-50" itemValue="-50" />
+			</h:selectOneMenu>
 
-				Client mode:
+			<br />
+
+			Value: <h:selectOneMenu value="#{progressBarBean.value}" onchange="submit()">
+				<f:selectItem itemLabel="-25" itemValue="-25" />
+				<f:selectItem itemLabel="0" itemValue="0" />
+				<f:selectItem itemLabel="25" itemValue="25" />
+				<f:selectItem itemLabel="50" itemValue="50" />
+				<f:selectItem itemLabel="100" itemValue="100" />
+				<f:selectItem itemLabel="150" itemValue="150" />
+			</h:selectOneMenu>
+
+			<br />
+
+			Max value: <h:selectOneMenu value="#{progressBarBean.maxValue}" onchange="submit()">
+				<f:selectItem itemLabel="50" itemValue="50" />
+				<f:selectItem itemLabel="100" itemValue="100" />
+			</h:selectOneMenu>
+			
+			<br />
+			
+			Label: <h:inputText value="#{progressBarBean.label}" onchange="submit()" />
+			
+			<br />
+			
+			Children rendered: <h:selectBooleanCheckbox value="#{progressBarBean.childrenRendered}" onclick="submit()" />
+		
+			<br />
+			
+			Enabled: <h:selectBooleanCheckbox value="#{progressBarBean.enabled}" onclick="submit()" />
+		</h:form>      
+      
+		Client mode:
 				
+	    <h:form id="clientPBForm">
+
+			<rich:progressBar mode="client" id="progressBar" value="#{progressBarBean.value}"
+				maxValue="#{progressBarBean.maxValue}" minValue="#{progressBarBean.minValue}" label="#{progressBarBean.label}">
 				
-    <h:form id="form2">
-          <rich:progressBar mode="client" id="progressBar">
-            <f:facet name="initial">
-                <h:outputText value="Process doesn't started yet"/>
-            </f:facet>
-            <f:facet name="complete">
-                <h:outputText value="Process Done"/>
-            </f:facet>
-          </rich:progressBar>
-          <button type="button" onclick="startProgress();" style="margin: 9px 0px 5px;" id="button">Start Progress</button>
-    </h:form>
+				<h:outputText value="child + " rendered="#{progressBarBean.childrenRendered}" />
+				
+				<f:facet name="initial">
+					<h:outputText value="In initial state" />
+				</f:facet>
+				
+				<f:facet name="finish">
+					<h:outputText value="Finished progress" />
+				</f:facet>
+				
+			</rich:progressBar>
+			
+			Set value via CS-API: <h:inputText size="3" onchange="RichFaces.$('clientPBForm:progressBar').setValue(this.value)" />
+			
+		</h:form>
+      
+      
+		<h:form id="ajaxPBForm">
+			Ajax mode:
+		    <rich:progressBar id="progressBar" mode="ajax" interval="2000" value="#{progressBarBean.value}"
+				maxValue="#{progressBarBean.maxValue}" minValue="#{progressBarBean.minValue}" 
+				label="#{progressBarBean.value} % ~ #{progressBarBean.currentTimeAsString}" reRenderAfterComplete="progressPanel"
+				onfinish="alert('\'finish\' event handler: ' + this.tagName)"
+				enabled="#{progressBarBean.enabled}">
+				<h:outputText value="child + " rendered="#{progressBarBean.childrenRendered}" />
+				
+				<f:facet name="initial">
+					<h:outputText value="initial ~ #{progressBarBean.currentTimeAsString}" />
+				</f:facet>
+				
+				<f:facet name="finish">
+					<h:outputText value="finish ~ #{progressBarBean.currentTimeAsString}" />
+				</f:facet>
+			</rich:progressBar>
+			
+			Current value: <h:panelGroup id="currentValue">#{progressBarBean.value}</h:panelGroup>
+			<br />
+			<a4j:commandLink value="-5" action="#{progressBarBean.decreaseValueByFive}" render="currentValue" />
+			
+			<h:outputText value=" / " />
+			
+			<a4j:commandLink value="+5" action="#{progressBarBean.increaseValueByFive}" render="currentValue" />
+
+			<h:outputText value=" / " />
+			
+			<a4j:commandLink value="re-render progress bar" render="progressBar" />
+		</h:form>
 	</ui:define>
 </ui:composition>
 
-	
+
 
