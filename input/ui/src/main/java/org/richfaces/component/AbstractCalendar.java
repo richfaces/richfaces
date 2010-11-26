@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -478,21 +479,49 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     
     @Override
     public boolean visitTree(VisitContext context, VisitCallback callback) {
-        if (context instanceof ExtendedVisitContext) {
-            ExtendedVisitContext extendedVisitContext = (ExtendedVisitContext) context;
-            if (extendedVisitContext.getVisitMode() == ExtendedVisitContextMode.RENDER) {
-
-                VisitResult result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback,
-                    DAYSDATA_META_COMPONENT_ID);
-                if (result == VisitResult.COMPLETE) {
-                    return true;
-                } else if (result == VisitResult.REJECT) {
-                    return false;
-                }
-            }
+        if (!isVisitable(context)) {
+            return false;
         }
 
-        return super.visitTree(context, callback);
+        FacesContext facesContext = context.getFacesContext();
+        pushComponentToEL(facesContext, null);
+
+        try {
+            VisitResult result = context.invokeVisitCallback(this, callback);
+
+            if (result == VisitResult.COMPLETE) {
+                return true;
+            }
+
+            if (result == VisitResult.ACCEPT) {
+                if (context instanceof ExtendedVisitContext) {
+                    ExtendedVisitContext extendedVisitContext = (ExtendedVisitContext) context;
+                    if (extendedVisitContext.getVisitMode() == ExtendedVisitContextMode.RENDER) {
+    
+                        result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback, DAYSDATA_META_COMPONENT_ID);
+                        if (result == VisitResult.COMPLETE) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            
+            if (result == VisitResult.ACCEPT) {
+                Iterator<UIComponent> kids = this.getFacetsAndChildren();
+
+                while(kids.hasNext()) {
+                    boolean done = kids.next().visitTree(context, callback);
+
+                    if (done) {
+                        return true;
+                    }
+                }
+            }
+        } finally {
+            popComponentFromEL(facesContext);
+        }
+
+        return false;
     }
 
     public void encodeMetaComponent(FacesContext context, String metaComponentId) throws IOException {
