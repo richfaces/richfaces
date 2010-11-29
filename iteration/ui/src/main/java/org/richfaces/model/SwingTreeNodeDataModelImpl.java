@@ -166,14 +166,8 @@ public class SwingTreeNodeDataModelImpl extends TreeSequenceKeyModel<Integer, Tr
         return rootNode.getWrappedData();
     }
 
-    @Override
     protected TreeNode findChild(TreeNode parent, Integer simpleKey) {
-        int idx = simpleKey.intValue();
-        if (idx >= 0 && idx < parent.getChildCount()) {
-            return parent.getChildAt(idx);
-        }
-        
-        return null;
+        return parent.getChildAt(simpleKey.intValue());
     }
 
     public Iterator<TreeDataModelTuple> children() {
@@ -188,4 +182,13 @@ public class SwingTreeNodeDataModelImpl extends TreeSequenceKeyModel<Integer, Tr
             return !getData().getAllowsChildren();
         }
     }
+    
+    @Override
+    protected void walkNext(Integer segment) {
+        TreeNode child = findChild(getData(), segment);
+        //TODO what if node is missing?
+        //TODO - optimize - remove partial keys creation
+        setRowKeyAndData(safeGetRowKey().append(segment), child);
+    }
+    
 }

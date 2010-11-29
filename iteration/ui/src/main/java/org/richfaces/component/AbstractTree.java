@@ -68,6 +68,7 @@ import org.richfaces.event.TreeSelectionChangeSource;
 import org.richfaces.event.TreeToggleEvent;
 import org.richfaces.event.TreeToggleListener;
 import org.richfaces.event.TreeToggleSource;
+import org.richfaces.model.DeclarativeTreeDataModelImpl;
 import org.richfaces.model.SwingTreeNodeDataModelImpl;
 import org.richfaces.model.TreeDataModel;
 import org.richfaces.model.TreeDataModelTuple;
@@ -467,8 +468,16 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     
     @Override
     protected ExtendedDataModel<?> createExtendedDataModel() {
-        SwingTreeNodeDataModelImpl dataModel = new SwingTreeNodeDataModelImpl();
-        dataModel.setWrappedData(getValue());
+        ExtendedDataModel<?> dataModel;
+        
+        Object value = getValue();
+        if (value == null) {
+            dataModel = new DeclarativeTreeDataModelImpl(this, getVar(), getVariablesMap(getFacesContext()));
+        } else {
+            dataModel = new SwingTreeNodeDataModelImpl();
+            dataModel.setWrappedData(getValue());
+        }
+        
         return dataModel;
     }
     

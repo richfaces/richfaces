@@ -34,6 +34,8 @@ import org.ajax4jsf.model.Range;
  */
 public abstract class TreeSequenceKeyModel<K, V> extends ExtendedDataModel<V> implements TreeDataModel<V> {
 
+    private final SequenceRowKey<K> emptyKey = new SequenceRowKey<K>();
+    
     private V rootNode;
     
     private V data;
@@ -44,20 +46,33 @@ public abstract class TreeSequenceKeyModel<K, V> extends ExtendedDataModel<V> im
         return rowKey;
     }
 
+    protected SequenceRowKey<K> safeGetRowKey() {
+        SequenceRowKey<K> key = getRowKey();
+
+        if (key == null) {
+            key = emptyKey;
+        }
+        
+        return key;
+    }
+    
     public void setRowKey(Object rowKey) {
         if (this.rowKey == null || !this.rowKey.equals(rowKey)) {
-            this.rowKey = (SequenceRowKey<K>) rowKey;
-            this.data = findData(this.rowKey);
+            walkKey((SequenceRowKey<K>) rowKey);
         }
     }
 
+    protected void resetRowKeyAndData() {
+        setRowKeyAndData(null, rootNode);
+    }
+    
     protected void setRowKeyAndData(SequenceRowKey<K> key, V data) {
         this.rowKey = key;
         this.data = data;
     }
     
     public boolean isDataAvailable() {
-        return data != null;
+        return getRowKey() == null || data != null;
     }
 
     public V getData() {
@@ -67,26 +82,18 @@ public abstract class TreeSequenceKeyModel<K, V> extends ExtendedDataModel<V> im
         
         return data;
     }
+    
+    protected void walkKey(SequenceRowKey<K> key) {
+        resetRowKeyAndData();
 
-    protected V findData(SequenceRowKey<K> key) {
-        if (key == null) {
-            return rootNode;
-        }
-        
-        V result = rootNode;
-        
-        for (K simpleKey : key.getSimpleKeys()) {
-            result = findChild(result, simpleKey);
-
-            if (result == null) {
-                break;
+        if (key != null) {
+            for (K simpleKey: key.getSimpleKeys()) {
+                walkNext(simpleKey);
             }
         }
-        
-        return result;
     }
-        
-    protected abstract V findChild(V parent, K simpleKey);
+
+    protected abstract void walkNext(K segment);
     
     protected V getRootNode() {
         return rootNode;
