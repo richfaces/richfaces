@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <root>
-	<!-- project name="ajax4jsf">
+	<project name="ajax4jsf">
 		<sourceDirectory name="src/main/java">
 			<package name="org.ajax4jsf">
 				<class name="FastFilter.java" />
@@ -22,10 +22,10 @@
 			<package name="org.ajax4jsf.javascript">
 			</package>
 		</sourceDirectory>
-	</project -->
+	</project>
 
 	<project name="richfaces">
-		<!-- sourceDirectory name="src/main/java">
+		<sourceDirectory name="src/main/java">
 			<package name="org.richfaces">
 			</package>
 			<package name="org.richfaces.component">
@@ -52,7 +52,7 @@
 				<file name="FunctionalSpecification-1.0.doc" />
 				<file name="Requirements-1.0.doc" />
 			</directory>			
-		</directory -->
+		</directory>
 		<directory name="src">
 			<directory name="main">
 				<directory name="config">
