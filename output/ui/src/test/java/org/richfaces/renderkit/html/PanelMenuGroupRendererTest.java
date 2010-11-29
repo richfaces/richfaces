@@ -33,7 +33,6 @@ import org.xml.sax.SAXException;
  * @author akolonitsky
  * @since 2010-10-25
  */
-@Ignore
 public class PanelMenuGroupRendererTest extends RendererTestBase {
 
     @Test
@@ -44,6 +43,11 @@ public class PanelMenuGroupRendererTest extends RendererTestBase {
     @Test
     public void testExpanded() throws IOException, SAXException {
         doTest("panelMenuGroup-expanded", "f:panelMenuGroup");
+    }
+
+    @Test
+    public void testTopGroup() throws IOException, SAXException {
+        doTest("panelMenuGroup-topGroup", "f:panelMenuGroup");
     }
 
 }

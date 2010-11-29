@@ -51,7 +51,6 @@
         </component>
     </tag>
 
-<!--
     <tag>
         <tag-name>panelMenuItem</tag-name>
         <component>
@@ -659,7 +658,6 @@
         </attribute>
 
     </tag>
--->
 
     <tag>
         <tag-name>tooltip</tag-name>
@@ -1710,5 +1708,5 @@
             <type>java.lang.String</type>
         </attribute>
     </tag>
-	
+
 </facelet-taglib>

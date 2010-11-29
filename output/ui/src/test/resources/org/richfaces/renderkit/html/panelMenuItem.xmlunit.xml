@@ -1,5 +1,13 @@
 <div id="f:panelMenuItem" class="rf-pm-itm">
-  panelMenuItem
+  <table class="rf-pm-itm-gr">
+      <tbody>
+          <tr>
+              <td class="rf-pm-itm-ico rf-pm-grid"></td>
+              <td class="rf-pm-itm-lbl">panelMenuItem</td>
+              <td class="rf-pm-itm-exp-ico rf-pm-triangle-down"></td>
+          </tr>
+      </tbody>
+  </table>
     
   <script type="text/javascript">
       // Text

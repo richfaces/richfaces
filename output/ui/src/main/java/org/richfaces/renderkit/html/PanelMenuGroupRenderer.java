@@ -26,6 +26,7 @@ package org.richfaces.renderkit.html;
 import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.component.AbstractPanelMenuGroup;
+import org.richfaces.component.AbstractPanelMenuItem;
 import org.richfaces.component.html.HtmlPanelMenuGroup;
 import org.richfaces.renderkit.HtmlConstants;
 
@@ -52,7 +53,8 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
     public static final String BEFORE_COLLAPSE = "beforecollapse";
     public static final String BEFORE_EXPAND = "beforeexpand";
     public static final String BEFORE_SWITCH = "beforeswitch";
-
+    private static final String CSS_CLASS_PREFIX = "rf-pm-gr";
+    private static final String TOP_CSS_CLASS_PREFIX = "rf-pm-top-gr";
 
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
@@ -106,15 +108,22 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
     private void encodeHeader(ResponseWriter writer, FacesContext context, HtmlPanelMenuGroup menuGroup) throws IOException {
         writer.startElement("div", null);
         writer.writeAttribute("id", menuGroup.getClientId(context) + ":hdr", null);
-        writer.writeAttribute("class", "rf-pm-gr-hdr", null);
-        writer.writeText(menuGroup.getLabel(), null);
+        writer.writeAttribute("class", getCssClass(menuGroup, "-hdr"), null);
+        PanelMenuItemRenderer.encodeHeaderGroup(writer, context, menuGroup, getCssClass(menuGroup, ""));
+//        writer.writeText(menuGroup.getLabel(), null);
         writer.endElement("div");
+    }
+
+    public String getCssClass(AbstractPanelMenuItem item, String postfix) {
+        return (item.isTopItem() ? TOP_CSS_CLASS_PREFIX : CSS_CLASS_PREFIX) + postfix;
     }
 
     private void encodeContentBegin(ResponseWriter writer, FacesContext context, HtmlPanelMenuGroup menuGroup) throws IOException {
         writer.startElement("div", null);
         writer.writeAttribute("id", menuGroup.getClientId(context) + ":cnt", null);
-        writer.writeAttribute("class", concatClasses("rf-pm-gr-cnt", menuGroup.isExpanded() ? "rf-pm-exp" : "rf-pm-colps"), null);
+        writer.writeAttribute("class", concatClasses(getCssClass(menuGroup, "-cnt"), menuGroup.isExpanded() ? "rf-pm-exp" : "rf-pm-colps"), null);
+
+        writeJavaScript(writer, context, menuGroup);
     }
 
     private void encodeContentEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
@@ -123,7 +132,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
 
     @Override
     protected String getStyleClass(UIComponent component) {
-        return concatClasses("rf-pm-gr", attributeAsString(component, "styleClass"));
+        return concatClasses(getCssClass((AbstractPanelMenuItem) component, ""), attributeAsString(component, "styleClass"));
     }
 
     @Override
@@ -160,7 +169,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         encodeContentEnd(writer, context, component);
 
-        super.doEncodeEnd(writer, context, component);
+        writer.endElement(HtmlConstants.DIV_ELEM);
     }
 
     @Override

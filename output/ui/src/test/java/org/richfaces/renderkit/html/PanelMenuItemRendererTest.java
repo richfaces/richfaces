@@ -29,11 +29,10 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
- /**
+/**
  * @author akolonitsky
  * @since 2010-10-25
  */
-@Ignore
 public class PanelMenuItemRendererTest extends RendererTestBase {
 
     @Test

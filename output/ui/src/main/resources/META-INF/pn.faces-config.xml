@@ -769,7 +769,6 @@
         <component-class>org.richfaces.component.html.HtmlTab</component-class>
     </component>
 
-<!--
     <component>
         <component-type>org.richfaces.PanelMenuItem</component-type>
         <component-class>org.richfaces.component.html.HtmlPanelMenuItem</component-class>
@@ -949,7 +948,6 @@
             <property-class>java.lang.Object</property-class>
         </property>
     </component>
--->
 
     <render-kit>
         <render-kit-id>HTML_BASIC</render-kit-id>
@@ -1021,7 +1019,7 @@
             </renderer-extension>
         </renderer>
         
-<!--        <renderer>
+        <renderer>
             <component-family>org.richfaces.PanelMenuItem</component-family>
             <renderer-type>org.richfaces.PanelMenuItem</renderer-type>
             <renderer-class>org.richfaces.renderkit.html.PanelMenuItemRenderer</renderer-class>
@@ -1035,7 +1033,7 @@
             <component-family>org.richfaces.PanelMenu</component-family>
             <renderer-type>org.richfaces.PanelMenu</renderer-type>
             <renderer-class>org.richfaces.renderkit.html.PanelMenuRenderer</renderer-class>
-        </renderer>-->
+        </renderer>
 
         <client-behavior-renderer>
             <client-behavior-renderer-type>org.richfaces.component.behavior.ToggleControl</client-behavior-renderer-type>

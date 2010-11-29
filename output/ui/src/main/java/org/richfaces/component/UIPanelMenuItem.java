@@ -46,7 +46,7 @@ public class UIPanelMenuItem extends AbstractPanelMenuItem {
     }
 
     public String getIcon() {
-        return (String) getStateHelper().eval(PropertyKeys.icon);
+        return (String) getStateHelper().eval(PropertyKeys.icon, Icons.DEFAULT.toString());
     }
 
     public void setIcon(String icon) {
