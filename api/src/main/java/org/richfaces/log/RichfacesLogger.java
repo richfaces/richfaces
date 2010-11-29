@@ -8,9 +8,9 @@ import javax.faces.component.UIViewRoot;
  *
  */
 public enum RichfacesLogger {
-    RESOURCE("Resource"), RENDERKIT("Renderkit"), CONFIG("Config"), CONNECTION("Connection"),
-    APPLICATION("Application"),
-    CACHE("Cache"), CONTEXT("Context"), COMPONENTS("Components"), WEBAPP("Webapp"), UTIL("Util");
+    RESOURCE("Resource"), RENDERKIT("Renderkit"), CONFIG("Config"), CONNECTION("Connection"), 
+    APPLICATION("Application"), CACHE("Cache"), CONTEXT("Context"), COMPONENTS("Components"), 
+    WEBAPP("Webapp"), UTIL("Util"), MODEL("Model");
 
     private static final String LOGGER_NAME_PREFIX = "org.richfaces.log.";
     private String loggerName;

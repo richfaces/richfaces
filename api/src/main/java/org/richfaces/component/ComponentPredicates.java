@@ -31,6 +31,21 @@ import com.google.common.base.Predicate;
  */
 public final class ComponentPredicates {
 
+    private static final class WithIdPredicate implements Predicate<UIComponent> {
+        
+        private final String id;
+
+        public WithIdPredicate(String id) {
+            super();
+            this.id = id;
+        }
+        
+        public boolean apply(UIComponent input) {
+            return id.equals(input.getId());
+        }
+        
+    }
+    
     private static final Predicate<UIComponent> IS_RENDERED = new Predicate<UIComponent>() {
         public boolean apply(UIComponent input) {
             return input.isRendered();
@@ -41,5 +56,13 @@ public final class ComponentPredicates {
     
     public static Predicate<UIComponent> isRendered() {
         return IS_RENDERED;
+    }
+    
+    public static Predicate<UIComponent> withId(String id) {
+        if (id == null) {
+            throw new NullPointerException("id");
+        }
+        
+        return new WithIdPredicate(id);
     }
 }
