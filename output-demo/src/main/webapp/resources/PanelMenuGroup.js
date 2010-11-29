@@ -254,14 +254,6 @@
         },
 
         /***************************** Private Methods ****************************************************************/
-        __parentGroup : function () {
-            var parentGroup = this.__group().parents(".rf-pm-gr")[0];
-            if (parentGroup) {
-                return parentGroup;
-            }
-            return this.__panelMenu();
-        },
-
         __childGroups : function () {
             return this.__content().children(".rf-pm-gr")
         },
@@ -304,7 +296,7 @@
 
         __changeState : function () {
             var state = {};
-            state["expanded"] = this.__setExpandValue(this.__getExpandValue());
+            state["expanded"] = this.__setExpandValue(!this.__getExpandValue());
             if (this.options.selectable) {
                 state["itemName"] = this.__rfPanelMenu().selectedItem(this.itemName); // TODO bad function name for function which change component state
             }

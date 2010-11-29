@@ -31,7 +31,8 @@
         mode: "client",
         unselectable: false,
         highlight: true,
-        stylePrefix: "rf-pm-itm"
+        stylePrefix: "rf-pm-itm",
+        itemStep: 20
     };
 
     var SELECT_ITEM = {
@@ -157,6 +158,11 @@
                 }
             }
 
+            item = this;
+            $(this.__panelMenu()).ready(function () {
+                item.__renderNestingLevel();
+            });
+
             this.__addUserEventHandler("select");
         },
 
@@ -212,6 +218,36 @@
         },
 
         /***************************** Private Methods ****************************************************************/
+        __rfParentItem : function () {
+            var res = this.__item().parents(".rf-pm-gr")[0];
+            if (!res) {
+                res = this.__item().parents(".rf-pm-top-gr")[0];
+            }
+
+            if (!res) {
+                res = this.__panelMenu();
+            }
+
+            return res ? rf.$(res) : null;
+        },
+
+        __getNestingLevel : function () {
+            if (!this.nestingLevel) {
+                var parentItem = this.__rfParentItem();
+                if (parentItem && parentItem.__getNestingLevel) {
+                    this.nestingLevel = parentItem.__getNestingLevel() + 1;
+                } else {
+                    this.nestingLevel = 0;
+                }
+            }
+
+            return this.nestingLevel;
+        },
+
+        __renderNestingLevel : function () {
+            this.__item().find("td").first().css("padding-left", this.options.itemStep * this.__getNestingLevel());
+        },
+
         __panelMenu : function () {
             return this.__item().parents(".rf-pm")[0];
         },

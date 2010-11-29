@@ -48,6 +48,7 @@
 
             this.options = $.extend({}, __DEFAULT_OPTIONS, options || {});
             this.activeItem = this.__getValueInput().value;
+            this.nestingLevel = 0;
 
             var menuGroup = this;
             if (menuGroup.options.expandSingle) {
@@ -178,12 +179,14 @@
 
 
         /***************************** Private Methods ****************************************************************/
+
+
         __panelMenu  : function () {
             return $(rf.getDomElement(this.id));
         },
 
         __childGroups : function () {
-            return this.__panelMenu().children(".rf-pm-gr")
+            return this.__panelMenu().children(".rf-pm-top-gr")
         },
 
         /**
