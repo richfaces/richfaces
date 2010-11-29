@@ -15,7 +15,6 @@
 	font-size: '#{richSkin.generalSizeFont}';
 	font-weight: bold;
 	
-	text-align: center;
 	text-color: '#{richSkin.controlTextColor}';
 
 	background-color: '#{richSkin.controlBackgroundColor}';

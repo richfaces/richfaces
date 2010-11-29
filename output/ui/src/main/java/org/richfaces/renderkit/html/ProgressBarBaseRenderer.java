@@ -107,13 +107,24 @@ public class ProgressBarBaseRenderer extends RendererBase implements MetaCompone
         Number minValue = NumberUtils.getNumber(component.getAttributes().get("minValue"));
         Number maxValue = NumberUtils.getNumber(component.getAttributes().get("maxValue"));
         Number value = NumberUtils.getNumber(component.getAttributes().get("value"));
+        
+        ProgressBarState result;
+        
         if (value.doubleValue() <= minValue.doubleValue()) {
-            return ProgressBarState.initialState;
+            result = ProgressBarState.initialState;
         } else if (value.doubleValue() > maxValue.doubleValue()) {
-            return ProgressBarState.finishState;
+            result = ProgressBarState.finishState;
         } else {
-            return ProgressBarState.progressState;
+            result = ProgressBarState.progressState;
         }
+        
+        if (result == ProgressBarState.initialState || result == ProgressBarState.finishState) {
+            if (!result.hasContent(context, component)) {
+                result = ProgressBarState.progressState;
+            }
+        }
+        
+        return result;
     }
     
     protected String getStateDisplayStyle(String currentState, String state) {

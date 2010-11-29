@@ -43,12 +43,15 @@ enum ProgressBarState {
 
         @Override
         public void encodeContent(FacesContext context, UIComponent component) throws IOException {
-            UIComponent facet = component.getFacet("initial");
-            if (facet != null) {
-                facet.encodeAll(context);
-            }
+            component.getFacet("initial").encodeAll(context);
         }
 
+        @Override
+        public boolean hasContent(FacesContext context, UIComponent component) {
+            UIComponent facet = component.getFacet("initial");
+            return facet != null && facet.isRendered();
+        }
+        
         @Override
         public void encodeStateForMetaComponent(FacesContext context, UIComponent component,
             ProgressBarStateEncoder encoder) throws IOException {
@@ -87,6 +90,11 @@ enum ProgressBarState {
         }
 
         @Override
+        public boolean hasContent(FacesContext context, UIComponent component) {
+            return true;
+        }
+        
+        @Override
         public void encodeStateForMetaComponent(FacesContext context, UIComponent component,
             ProgressBarStateEncoder encoder) throws IOException {
             
@@ -114,6 +122,12 @@ enum ProgressBarState {
         }
 
         @Override
+        public boolean hasContent(FacesContext context, UIComponent component) {
+            UIComponent facet = component.getFacet("finish");
+            return facet != null && facet.isRendered();
+        }
+        
+        @Override
         public void encodeStateForMetaComponent(FacesContext context, UIComponent component,
             ProgressBarStateEncoder encoder) throws IOException {
 
@@ -127,5 +141,7 @@ enum ProgressBarState {
 
     public abstract void encodeContent(FacesContext context, UIComponent component) throws IOException;
 
+    public abstract boolean hasContent(FacesContext context, UIComponent component);
+    
     public abstract void encodeStateForMetaComponent(FacesContext context, UIComponent component, ProgressBarStateEncoder encoder) throws IOException;
 }

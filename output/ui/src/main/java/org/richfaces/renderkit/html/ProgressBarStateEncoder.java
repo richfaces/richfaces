@@ -50,6 +50,11 @@ class ProgressBarStateEncoder {
 
     private void encodeStateFacet(FacesContext context, UIComponent component, ProgressBarState state,
         ProgressBarState currentState) throws IOException {
+        
+        if (!state.hasContent(context, component)) {
+            return;
+        }
+        
         String clientId = state.getStateClientId(context, component);
 
         ResponseWriter responseWriter = context.getResponseWriter();
@@ -103,6 +108,11 @@ class ProgressBarStateEncoder {
 
     public void encodeProgressStateContent(FacesContext context, UIComponent component, ProgressBarState currentState)
         throws IOException {
+        
+        if (!ProgressBarState.progressState.hasContent(context, component)) {
+            return;
+        }
+        
         ResponseWriter responseWriter = context.getResponseWriter();
         String stateClientId = ProgressBarState.progressState.getStateClientId(context, component);
 

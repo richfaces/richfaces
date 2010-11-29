@@ -110,6 +110,11 @@
 			
 			__showState: function (state) {
 				var stateElt = $(stateSelectors[state], this.__elt);
+				
+				if (stateElt.length == 0 && (state == 'initial' || state == 'finish')) {
+					stateElt = $(stateSelectors['progress'], this.__elt)
+				}
+				
 				stateElt.show().siblings().hide();
 			},
 			
@@ -125,19 +130,24 @@
 				if (this.__isInitialState()) {
 					this.__showState("initial");
 				} else if (this.__isFinishState()) {
-					rf.Event.callHandler(this.__elt, "finish");
 					this.__showState("finish");
 				} else {
 					this.__showState("progress");
-
-					var p = this.__calculatePercent(this.value);
-					$(".rf-pb-prgs", this.__elt).css('width', p + "%");
 				}
+				
+				var p = this.__calculatePercent(this.value);
+				$(".rf-pb-prgs", this.__elt).css('width', p + "%");
 			},
 			
 			setValue: function(val) {
+				var wasInFinishState = this.__isFinishState();
+				
 				this.__setValue(val);
 				this.__updateVisualState();
+				
+				if (!wasInFinishState && this.__isFinishState()) {
+					rf.Event.callHandler(this.__elt, "finish");
+				}
 			},
 			
 			getMaxValue: function() {

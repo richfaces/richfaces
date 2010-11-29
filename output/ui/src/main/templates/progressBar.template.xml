@@ -16,7 +16,7 @@
 
 	<cc:implementation>
 
-		<div id="#{clientId}" cdk:passThroughWithExclusions="">
+		<div id="#{clientId}" cdk:passThroughWithExclusions="" class="#{concatClasses('rf-pb', component.attributes['styleClass'])}">
             <cdk:object name="encoder" value="#{getEncoder(facesContext, component)}" type="ProgressBarStateEncoder" />
             <cdk:object name="currentState" value="#{getCurrentState(facesContext, component)}" type="ProgressBarState" />
         
