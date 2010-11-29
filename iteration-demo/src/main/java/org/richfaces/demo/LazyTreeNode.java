@@ -93,11 +93,7 @@ public class LazyTreeNode implements TreeNode, Serializable {
     }
 
     public boolean isLeaf() {
-        if (children == null) {
-            return false;
-        }
-        
-        return children.isEmpty();
+        return false;
     }
 
     public Enumeration children() {
