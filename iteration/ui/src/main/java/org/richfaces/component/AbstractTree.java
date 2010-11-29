@@ -90,6 +90,7 @@ import com.google.common.collect.Iterators;
     renderer = @JsfRenderer(type = "org.richfaces.TreeRenderer"),
     attributes = {"events-props.xml", "core-props.xml", "i18n-props.xml"}
 )
+//TODO add rowData caching for wrapper events
 public abstract class AbstractTree extends UIDataAdaptor implements MetaComponentResolver, MetaComponentEncoder, TreeSelectionChangeSource, TreeToggleSource {
 
     public static final String COMPONENT_TYPE = "org.richfaces.Tree";
