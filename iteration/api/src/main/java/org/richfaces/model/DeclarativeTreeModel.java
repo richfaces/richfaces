@@ -21,36 +21,14 @@
  */
 package org.richfaces.model;
 
-import java.util.Iterator;
-
+import javax.faces.component.UIComponent;
 
 /**
  * @author Nick Belaevski
  * 
  */
-//TODO - add necessary methods for tree adaptors support
-public interface TreeDataModel<E> {
+public interface DeclarativeTreeModel<E> extends TreeDataModel<E> {
 
-    public Object getRowKey();
-    
-    public void setRowKey(Object rowKey);
-    
-    public boolean isDataAvailable();
-    
-    public boolean isLeaf();
-    
-    public E getData();
-    
-    public Iterator<TreeDataModelTuple> children();
-
-    public Object getParentRowKey(Object rowKey);
-    
-    public Object getWrappedData();
-
-    public void setWrappedData(Object data);
- 
-    public TreeDataModelTuple createSnapshot();
-
-    public void restoreFromSnapshot(TreeDataModelTuple tuple);
+    public UIComponent getCurrentComponent();
     
 }

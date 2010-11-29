@@ -138,4 +138,13 @@ public abstract class TreeSequenceKeyModel<K, V> extends ExtendedDataModel<V> im
     public void setRowIndex(int rowIndex) {
         throw new UnsupportedOperationException();
     }
+
+    public TreeDataModelTuple createSnapshot() {
+        return new TreeDataModelTuple(getRowKey(), getData());
+    }
+
+    public void restoreFromSnapshot(TreeDataModelTuple tuple) {
+        setRowKeyAndData((SequenceRowKey<K>) tuple.getRowKey(), (V) tuple.getData());
+    }
+    
 }

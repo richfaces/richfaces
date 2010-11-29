@@ -236,21 +236,13 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         return converter;
     }
 
-    protected AbstractTreeNode findTreeNodeComponent(String nodeType, UIComponent parentComponent) {
-        Iterator<UIComponent> matchingNodes = Iterators.filter(parentComponent.getChildren().iterator(), 
-            new MatchingTreeNodePredicate(nodeType));
-        
-        boolean hasNodes = matchingNodes.hasNext();
-        if (hasNodes) {
-            Iterator<UIComponent> renderedTreeNodes = Iterators.filter(matchingNodes, ComponentPredicates.isRendered());
-            if (renderedTreeNodes.hasNext()) {
-                return (AbstractTreeNode) renderedTreeNodes.next();
-            } else {
-                return null;
-            }
+    protected Iterator<UIComponent> findMatchingTreeNodeComponent(String nodeType, UIComponent parentComponent) {
+        Iterator<UIComponent> children = parentComponent.getChildren().iterator();
+        if (parentComponent != this) {
+            children = Iterators.concat(children, this.getChildren().iterator());
         }
         
-        return null;
+        return Iterators.filter(children, new MatchingTreeNodePredicate(nodeType));
     }
 
     protected UIComponent getCurrentComponent() {
@@ -262,25 +254,20 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         return this;
     }
     
-    @Override
-    public void setRowKeyAndData(FacesContext facesContext, Object rowKey, Object localRowData) {
-        super.setRowKeyAndData(facesContext, rowKey, localRowData);
-    }
-    
     public AbstractTreeNode findTreeNodeComponent() {
         FacesContext facesContext = getFacesContext();
 
         String nodeType = getNodeType();
         
-        UIComponent component = getCurrentComponent();
+        Iterator<UIComponent> nodesItr = findMatchingTreeNodeComponent(nodeType, getCurrentComponent());
         
-        AbstractTreeNode treeNodeComponent = findTreeNodeComponent(nodeType, component);
-        if (treeNodeComponent == null && component != this) {
-            treeNodeComponent = findTreeNodeComponent(nodeType, this);
-        }
-        
-        if (treeNodeComponent != null) {
-            return treeNodeComponent;
+        if (nodesItr.hasNext()) {
+            Iterator<UIComponent> renderedNodesItr = Iterators.filter(nodesItr, ComponentPredicates.isRendered());
+            if (renderedNodesItr.hasNext()) {
+                return (AbstractTreeNode) renderedNodesItr.next();
+            }
+            
+            return null;
         }
         
         if (Strings.isNullOrEmpty(nodeType)) {
@@ -497,13 +484,9 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
             }
 
             public void beforeChildrenVisit() {
-                // TODO Auto-generated method stub
-                
             }
 
             public void afterChildrenVisit() {
-                // TODO Auto-generated method stub
-                
             }
             
         });
@@ -555,7 +538,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         while (childrenTuples.hasNext()) {
             TreeDataModelTuple tuple = childrenTuples.next();
             
-            setRowKeyAndData(context, tuple.getRowKey(), tuple.getData());
+            restoreFromSnapshot(context, tuple);
             
             if (!getTreeRange().shouldProcessNode()) {
                 continue;
@@ -576,4 +559,14 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         super.resetDataModel();
         treeRange = null;
     }
+    
+    public TreeDataModelTuple createSnapshot() {
+        return getTreeDataModel().createSnapshot();
+    }
+
+    public void restoreFromSnapshot(FacesContext context, TreeDataModelTuple tuple) {
+        getTreeDataModel().restoreFromSnapshot(tuple);
+        setRowKey(context, tuple.getRowKey());
+    }
+    
 }

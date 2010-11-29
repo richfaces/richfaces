@@ -47,13 +47,17 @@ public class TreeDataModelTuple {
     public Object getData() {
         return data;
     }
- 
-    @Override
-    public String toString() {
+
+    protected ToStringHelper createToStringHelper() {
         ToStringHelper helper = Objects.toStringHelper(this);
         helper.add("rowKey", rowKey);
         helper.add("data", data);
-        
-        return helper.toString();
+
+        return helper;
+    }
+    
+    @Override
+    public String toString() {
+        return createToStringHelper().toString();
     }
 }

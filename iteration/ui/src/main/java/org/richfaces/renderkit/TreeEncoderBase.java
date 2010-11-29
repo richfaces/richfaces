@@ -24,6 +24,7 @@ package org.richfaces.renderkit;
 import java.io.IOException;
 import java.util.LinkedList;
 
+import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
@@ -37,50 +38,41 @@ import org.richfaces.model.TreeDataVisitor;
 
 abstract class TreeEncoderBase implements TreeDataVisitor {
 
-    /**
-     * @author Nick Belaevski
-     * 
-     */
     private static final class QueuedData {
 
-        private boolean encoded = false;
-
-        private boolean visited = false;
+        private enum State {
+            initial, visited, encoded
+        }
         
-        //TODO - should be part of tree state
-        private boolean leaf;
+        private State state = State.initial;
         
         private TreeDataModelTuple tuple;
         
-        public QueuedData(TreeDataModelTuple tuple, boolean leaf) {
+        public QueuedData(TreeDataModelTuple tuple) {
             super();
             this.tuple = tuple;
-            this.leaf = leaf;
         }
 
         public boolean isEncoded() {
-            return encoded;
+            return state == State.encoded;
         }
         
-        public void setEncoded(boolean encoded) {
-            this.encoded = encoded;
+        public void makeEncoded() {
+            this.state = State.encoded;
         }
 
         public void makeVisited() {
-            this.visited = true;
+            this.state = State.visited;
         }
         
         public boolean isVisited() {
-            return visited;
+            return state == State.visited;
         }
         
         public TreeDataModelTuple getTuple() {
             return tuple;
         }
         
-        public boolean isLeaf() {
-            return leaf;
-        }
     }
 
     static final String TREE_NODE_STATE_ATTRIBUTE = "__treeNodeState";
@@ -111,10 +103,10 @@ abstract class TreeEncoderBase implements TreeDataVisitor {
         
         QueuedData data = queuedDataList.getLast();
         if (!data.isEncoded()) {
-            data.setEncoded(true);
-            tree.setRowKeyAndData(context, data.getTuple().getRowKey(), data.getTuple().getData());
+            data.makeEncoded();
+            tree.restoreFromSnapshot(context, data.getTuple());
             
-            TreeNodeState nodeState = getNodeState(data.isLeaf(), false);
+            TreeNodeState nodeState = getNodeState(tree.isLeaf(), false);
             
             writeTreeNodeStartElement(nodeState);
             tree.findTreeNodeComponent().encodeAll(context);
@@ -141,48 +133,36 @@ abstract class TreeEncoderBase implements TreeDataVisitor {
         }
     }
 
-    /* (non-Javadoc)
-     * @see org.richfaces.model.TreeDataVisitor#afterChildrenVisit()
-     */
     public void afterChildrenVisit() {
-        // TODO Auto-generated method stub
-        
     }
     
     public void enterNode() {
-        TreeDataModelTuple tuple = new TreeDataModelTuple(tree.getRowKey(), tree.getRowData());
-        QueuedData queuedData = new QueuedData(tuple, tree.isLeaf());
+        TreeDataModelTuple tuple = tree.createSnapshot();
+        QueuedData queuedData = new QueuedData(tuple);
         
         try {
             flushParentNode();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new FacesException(e.getMessage(), e);
         }
         
-        tree.setRowKeyAndData(context, tuple.getRowKey(), tuple.getData());
+        tree.restoreFromSnapshot(context, tuple);
         queuedDataList.add(queuedData);
     }
     
     public void exitNode() {
         QueuedData data = queuedDataList.removeLast();
-        
-        tree.setRowKeyAndData(context, data.getTuple().getRowKey(), data.getTuple().getData());
-        if (!data.isEncoded()) {
-            try {
-                writeTreeNodeStartElement(getNodeState(data.isLeaf(), data.isVisited()));
-                tree.findTreeNodeComponent().encodeAll(context);
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-        
+
+        tree.restoreFromSnapshot(context, data.getTuple());
         try {
+            if (!data.isEncoded()) {
+                writeTreeNodeStartElement(getNodeState(tree.isLeaf(), data.isVisited()));
+                tree.findTreeNodeComponent().encodeAll(context);
+            }
+        
             writeTreeNodeEndElement();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new FacesException(e.getMessage(), e);
         }
     }
 

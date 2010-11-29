@@ -246,10 +246,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     
     private Object rowKey = null;
 
-    private boolean rowDataIsSet = false;
-    
-    private Object rowData;
-    
     private String clientId;
 
     private Object originalVarValue;
@@ -371,34 +367,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         return rowKey;
     }
 
-    private void setRowKeyAndData(FacesContext facesContext, Object rowKey, boolean localRowDataAvailable, Object localRowData) {
-        this.saveChildState(facesContext);
-        
-        this.rowKey = rowKey;
-        
-        if (localRowDataAvailable) {
-            this.rowData = localRowData;
-            this.rowDataIsSet = (rowKey != null);
-        } else {
-            this.rowData = null;
-            this.rowDataIsSet = false;
-
-            getExtendedDataModel().setRowKey(rowKey);
-        }
-        
-        this.clientId = null;
-
-        boolean rowSelected = (rowKey != null) && isRowAvailable();
-
-        setupVariable(facesContext, rowSelected);
-        
-        this.restoreChildState(facesContext);
-    }
-    
-    protected void setRowKeyAndData(FacesContext facesContext, Object rowKey, Object localRowData) {
-        setRowKeyAndData(facesContext, rowKey, true, localRowData);
-    }
-    
     /**
      * Setup current row by key. Perform same functionality as
      * {@link javax.faces.component.UIData#setRowIndex(int)}, but for key object - it may be not only
@@ -410,7 +378,19 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
      * @param key   new key value.
      */
     public void setRowKey(FacesContext facesContext, Object rowKey) {
-        setRowKeyAndData(facesContext, rowKey, false, null);
+        this.saveChildState(facesContext);
+        
+        this.rowKey = rowKey;
+        
+        getExtendedDataModel().setRowKey(rowKey);
+        
+        this.clientId = null;
+
+        boolean rowSelected = (rowKey != null) && isRowAvailable();
+
+        setupVariable(facesContext, rowSelected);
+        
+        this.restoreChildState(facesContext);
     }
 
     /**
@@ -635,15 +615,11 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     public Object getRowData() {
-        if (rowDataIsSet) {
-            return rowData;
-        }
-        
         return getExtendedDataModel().getRowData();
     }
 
     public boolean isRowAvailable() {
-        return rowDataIsSet || getExtendedDataModel().isRowAvailable();
+        return getExtendedDataModel().isRowAvailable();
     }
 
     /**

@@ -21,36 +21,30 @@
  */
 package org.richfaces.model;
 
-import java.util.Iterator;
+import javax.faces.component.UIComponent;
 
+import com.google.common.base.Objects.ToStringHelper;
 
 /**
  * @author Nick Belaevski
  * 
  */
-//TODO - add necessary methods for tree adaptors support
-public interface TreeDataModel<E> {
+public class DeclarativeTreeDataModelTuple extends TreeDataModelTuple {
 
-    public Object getRowKey();
-    
-    public void setRowKey(Object rowKey);
-    
-    public boolean isDataAvailable();
-    
-    public boolean isLeaf();
-    
-    public E getData();
-    
-    public Iterator<TreeDataModelTuple> children();
+    private UIComponent component;
 
-    public Object getParentRowKey(Object rowKey);
+    public DeclarativeTreeDataModelTuple(Object rowKey, Object data, UIComponent component) {
+        super(rowKey, data);
+        this.component = component;
+    }
     
-    public Object getWrappedData();
-
-    public void setWrappedData(Object data);
+    public UIComponent getComponent() {
+        return component;
+    }
  
-    public TreeDataModelTuple createSnapshot();
-
-    public void restoreFromSnapshot(TreeDataModelTuple tuple);
+    @Override
+    protected ToStringHelper createToStringHelper() {
+        return super.createToStringHelper().add("component", component);
+    }
     
 }

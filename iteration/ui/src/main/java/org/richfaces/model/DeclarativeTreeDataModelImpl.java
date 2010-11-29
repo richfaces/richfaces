@@ -45,7 +45,7 @@ import com.google.common.collect.Lists;
  * @author Nick Belaevski
  * 
  */
-public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<DeclarativeModelKey, Object> implements DeclarativeTreeModel {
+public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<DeclarativeModelKey, Object> implements DeclarativeTreeModel<Object> {
 
     private static final Logger LOGGER = RichfacesLogger.MODEL.getLogger();
     
@@ -71,9 +71,8 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Declarati
             DeclarativeModelKey key = new DeclarativeModelKey(component.getId(), counter++);
             
             SequenceRowKey<DeclarativeModelKey> newKey = baseKey.append(key);
-            setCurrentState(newKey, nextNode, component);
             
-            return new TreeDataModelTuple(newKey, nextNode);
+            return new DeclarativeTreeDataModelTuple(newKey, nextNode, component);
         }
         
         public boolean hasNext() {
@@ -163,8 +162,7 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Declarati
         return currentComponent;
     }
 
-    protected void setCurrentState(SequenceRowKey<DeclarativeModelKey> key, Object data, UIComponent currentComponent) {
-        setRowKeyAndData(key, data);
+    protected void setCurrentComponent(UIComponent currentComponent) {
         this.currentComponent = currentComponent;
     }
     
@@ -180,9 +178,6 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Declarati
         return Iterables.contains(currentComponent.getChildren(), Predicates.instanceOf(TreeModelAdaptor.class));
     }
 
-    /* (non-Javadoc)
-     * @see org.richfaces.model.TreeDataModel#children()
-     */
     public Iterator<TreeDataModelTuple> children() {
         return new DeclarativeModelCompositeIterator(currentComponent, safeGetRowKey());
     }
@@ -255,11 +250,23 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Declarati
         }
 
         Object data = Iterables.get((Iterable<?>) nodes, (Integer) segment.getModelKey());
-        setCurrentState(safeGetRowKey().append(segment), data, modelComponent);
-
+        setRowKeyAndData(safeGetRowKey().append(segment), data);
+        setCurrentComponent(modelComponent);
+ 
         if (var != null) {
             contextMap.put(var, data);
         }
+    }
+
+    public TreeDataModelTuple createSnapshot() {
+        return new DeclarativeTreeDataModelTuple(getRowKey(), getData(), getCurrentComponent());
+    }
+
+    public void restoreFromSnapshot(TreeDataModelTuple tuple) {
+        DeclarativeTreeDataModelTuple declarativeModelTuple = (DeclarativeTreeDataModelTuple) tuple;
+
+        super.restoreFromSnapshot(declarativeModelTuple);
+        setCurrentComponent(declarativeModelTuple.getComponent());
     }
     
 }
