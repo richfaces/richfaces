@@ -29,28 +29,46 @@ public enum TreeNodeState {
         public boolean isLeaf() {
             return false;
         }
-    }, 
+
+        @Override
+        public boolean isDifferentThan(TreeNodeState anotherState) {
+            return anotherState != expandedNoChildren && super.isDifferentThan(anotherState);
+        }
+        
+    },
+    expandedNoChildren("rf-tr-nd-exp rf-tr-nd-exp-nc", "rf-trn-hnd-lf", "rf-trn-ico-exp") {
+        @Override
+        public boolean isLeaf() {
+            return false;
+        }
+
+        @Override
+        public boolean isDifferentThan(TreeNodeState anotherState) {
+            return anotherState != expanded && super.isDifferentThan(anotherState);
+        }
+    },
     collapsed("rf-tr-nd-colps", "rf-trn-hnd-colps", "rf-trn-ico-colps") {
         @Override
         public boolean isLeaf() {
             return false;
         }
-    }, 
+    },
     leaf("rf-tr-nd-lf", "rf-trn-hnd-lf", "rf-trn-ico-lf") {
         @Override
         public boolean isLeaf() {
             return true;
         }
+
     };
 
     private String nodeClass;
 
     private String handleClass;
-    
+
     private String iconClass;
 
     private String customIconClass;
-    
+
     private TreeNodeState(String nodeClass, String defaultHandleClass, String iconClass) {
         this.nodeClass = nodeClass;
         this.handleClass = HtmlUtil.concatClasses(defaultHandleClass, "rf-trn-hnd");
@@ -59,7 +77,11 @@ public enum TreeNodeState {
     }
 
     public abstract boolean isLeaf();
-    
+
+    public boolean isDifferentThan(TreeNodeState anotherState) {
+        return anotherState != this;
+    }
+
     public String getNodeClass() {
         return nodeClass;
     }

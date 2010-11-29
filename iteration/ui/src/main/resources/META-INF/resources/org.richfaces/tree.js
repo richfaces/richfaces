@@ -153,8 +153,12 @@
 			return this.__rootElt.hasClass("rf-tr-nd-lf");
 		},
 		
+		__canBeToggled: function() {
+			return !this.isLeaf() && !this.__rootElt.hasClass("rf-tr-nd-exp-nc");
+		},
+		
 		toggle: function() {
-			if (this.isLeaf()) {
+			if (!this.__canBeToggled()) {
 				return;
 			}
 			

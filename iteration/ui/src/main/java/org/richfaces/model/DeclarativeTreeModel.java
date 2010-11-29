@@ -21,18 +21,14 @@
  */
 package org.richfaces.model;
 
+import javax.faces.component.UIComponent;
 
 /**
  * @author Nick Belaevski
  * 
  */
-public interface TreeDataVisitor {
+public interface DeclarativeTreeModel {
 
-    public void enterNode();
+    public UIComponent getCurrentComponent();
     
-    public void exitNode();
-
-    public void beforeChildrenVisit();
-
-    public void afterChildrenVisit();
 }

@@ -63,9 +63,10 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
 
             AbstractTreeNode treeNode = (AbstractTreeNode) component;
             
-            boolean expanded = Boolean.valueOf(newToggleState);
-            if (treeNode.isExpanded() ^ expanded) {
-                new TreeToggleEvent(treeNode, expanded).queue();
+            boolean initialState = treeNode.isExpanded();
+            boolean newState = Boolean.valueOf(newToggleState);
+            if (initialState ^ newState) {
+                new TreeToggleEvent(treeNode, newState).queue();
             }
 
             PartialViewContext pvc = context.getPartialViewContext();
@@ -73,7 +74,7 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
                 pvc.getRenderIds().add(treeNode.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + AbstractTreeNode.SUBTREE_META_COMPONENT_ID);
             
                 context.getAttributes().put(AJAX_TOGGLED_NODE_ATTRIBUTE, component.getClientId(context));
-                context.getAttributes().put(AJAX_TOGGLED_NODE_STATE_ATTRIBUTE, expanded);
+                context.getAttributes().put(AJAX_TOGGLED_NODE_STATE_ATTRIBUTE, initialState ? TreeNodeState.expanded : TreeNodeState.collapsed);
             }
         }
     }
@@ -141,8 +142,8 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
                 if (toggleType == SwitchType.client || nodeState == TreeNodeState.collapsed) {
                     encodeIconForNodeState(context, tree, treeNode, TreeNodeState.collapsed, iconCollapsed);
                 }
-                
-                if (toggleType == SwitchType.client || nodeState == TreeNodeState.expanded) {
+
+                if (toggleType == SwitchType.client || nodeState == TreeNodeState.expanded || nodeState == TreeNodeState.expandedNoChildren) {
                     encodeIconForNodeState(context, tree, treeNode, TreeNodeState.expanded, iconExpanded);
                 }
             }
@@ -162,6 +163,7 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
     protected void addClientEventHandlers(FacesContext facesContext, UIComponent component) {
         AbstractTreeNode treeNode = (AbstractTreeNode) component;
         
+        //TODO check node state
         //TODO check toggle/selection types
         TreeRenderingContext renderingContext = TreeRenderingContext.get(facesContext);
         renderingContext.addHandlers(treeNode);

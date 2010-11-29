@@ -21,6 +21,9 @@
  */
 package org.richfaces.model;
 
+import com.google.common.base.Objects;
+import com.google.common.base.Objects.ToStringHelper;
+
 /**
  * @author Nick Belaevski
  * 
@@ -44,5 +47,13 @@ public class TreeDataModelTuple {
     public Object getData() {
         return data;
     }
-    
+ 
+    @Override
+    public String toString() {
+        ToStringHelper helper = Objects.toStringHelper(this);
+        helper.add("rowKey", rowKey);
+        helper.add("data", data);
+        
+        return helper.toString();
+    }
 }

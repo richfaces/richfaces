@@ -89,6 +89,6 @@ public class DeclarativeModelKey implements Serializable {
 
     @Override
     public String toString() {
-        return getModelId() + '.' + getModelKey();
+        return getModelId() + "." + getModelKey();
     }
 }

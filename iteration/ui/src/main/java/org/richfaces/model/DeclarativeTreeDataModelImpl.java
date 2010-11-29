@@ -45,7 +45,7 @@ import com.google.common.collect.Lists;
  * @author Nick Belaevski
  * 
  */
-public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<DeclarativeModelKey, Object> {
+public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<DeclarativeModelKey, Object> implements DeclarativeTreeModel {
 
     private static final Logger LOGGER = RichfacesLogger.MODEL.getLogger();
     
@@ -159,7 +159,7 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Declarati
         this.contextMap = contextMap;
     }
 
-    protected UIComponent getCurrentComponent() {
+    public UIComponent getCurrentComponent() {
         return currentComponent;
     }
 

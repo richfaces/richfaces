@@ -69,6 +69,7 @@ import org.richfaces.event.TreeToggleEvent;
 import org.richfaces.event.TreeToggleListener;
 import org.richfaces.event.TreeToggleSource;
 import org.richfaces.model.DeclarativeTreeDataModelImpl;
+import org.richfaces.model.DeclarativeTreeModel;
 import org.richfaces.model.SwingTreeNodeDataModelImpl;
 import org.richfaces.model.TreeDataModel;
 import org.richfaces.model.TreeDataModelTuple;
@@ -131,9 +132,11 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         selection
     }
     
+    @SuppressWarnings("unused")
     @Attribute(generate = false, signature = @Signature(returnType = Void.class, parameters = TreeSelectionChangeEvent.class))
     private MethodExpression selectionChangeListener;
 
+    @SuppressWarnings("unused")
     @Attribute(generate = false, signature = @Signature(returnType = Void.class, parameters = TreeToggleListener.class))
     private MethodExpression toggleListener;
 
@@ -233,13 +236,10 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         return converter;
     }
 
-    public AbstractTreeNode findTreeNodeComponent() {
-        FacesContext facesContext = getFacesContext();
-
-        String nodeType = getNodeType();
-        Iterator<UIComponent> matchingNodes = Iterators.filter(getChildren().iterator(), 
+    protected AbstractTreeNode findTreeNodeComponent(String nodeType, UIComponent parentComponent) {
+        Iterator<UIComponent> matchingNodes = Iterators.filter(parentComponent.getChildren().iterator(), 
             new MatchingTreeNodePredicate(nodeType));
-
+        
         boolean hasNodes = matchingNodes.hasNext();
         if (hasNodes) {
             Iterator<UIComponent> renderedTreeNodes = Iterators.filter(matchingNodes, ComponentPredicates.isRendered());
@@ -249,7 +249,40 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
                 return null;
             }
         }
+        
+        return null;
+    }
 
+    protected UIComponent getCurrentComponent() {
+        ExtendedDataModel<?> dataModel = getExtendedDataModel();
+        if (dataModel instanceof DeclarativeTreeModel) {
+            return ((DeclarativeTreeModel) dataModel).getCurrentComponent();
+        }
+        
+        return this;
+    }
+    
+    @Override
+    public void setRowKeyAndData(FacesContext facesContext, Object rowKey, Object localRowData) {
+        super.setRowKeyAndData(facesContext, rowKey, localRowData);
+    }
+    
+    public AbstractTreeNode findTreeNodeComponent() {
+        FacesContext facesContext = getFacesContext();
+
+        String nodeType = getNodeType();
+        
+        UIComponent component = getCurrentComponent();
+        
+        AbstractTreeNode treeNodeComponent = findTreeNodeComponent(nodeType, component);
+        if (treeNodeComponent == null && component != this) {
+            treeNodeComponent = findTreeNodeComponent(nodeType, this);
+        }
+        
+        if (treeNodeComponent != null) {
+            return treeNodeComponent;
+        }
+        
         if (Strings.isNullOrEmpty(nodeType)) {
             if (getAttributes().put(DEFAULT_TREE_NODE_CREATED, Boolean.TRUE) != null) {
                 return null;
@@ -462,6 +495,16 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
 
             public void exitNode() {
             }
+
+            public void beforeChildrenVisit() {
+                // TODO Auto-generated method stub
+                
+            }
+
+            public void afterChildrenVisit() {
+                // TODO Auto-generated method stub
+                
+            }
             
         });
     }
@@ -506,6 +549,8 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
             return;
         }
         
+        dataVisitor.beforeChildrenVisit();
+        
         Iterator<TreeDataModelTuple> childrenTuples = model.children();
         while (childrenTuples.hasNext()) {
             TreeDataModelTuple tuple = childrenTuples.next();
@@ -522,6 +567,8 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
 
             dataVisitor.exitNode();
         }
+        
+        dataVisitor.afterChildrenVisit();
     }
     
     @Override
