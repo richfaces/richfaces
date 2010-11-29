@@ -31,7 +31,11 @@ public class ProgressBarBean implements Serializable {
     private boolean childrenRendered = false;
     
     private boolean enabled = false;
-     
+    
+    private boolean initialFacetRendered = true; 
+    
+    private boolean finishFacetRendered = true;
+    
     public boolean isEnabled() {
         return enabled;
     }
@@ -80,6 +84,22 @@ public class ProgressBarBean implements Serializable {
         this.childrenRendered = childrenRendered;
     }
     
+    public boolean isInitialFacetRendered() {
+        return initialFacetRendered;
+    }
+
+    public void setInitialFacetRendered(boolean renderInitialFacet) {
+        this.initialFacetRendered = renderInitialFacet;
+    }
+
+    public boolean isFinishFacetRendered() {
+        return finishFacetRendered;
+    }
+
+    public void setFinishFacetRendered(boolean renderFinishFacet) {
+        this.finishFacetRendered = renderFinishFacet;
+    }
+
     public void decreaseValueByFive() {
         value -= 5;
     }

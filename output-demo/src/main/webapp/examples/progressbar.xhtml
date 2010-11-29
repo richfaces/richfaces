@@ -41,6 +41,14 @@
 		
 			<br />
 			
+			'initial' facet rendered: <h:selectBooleanCheckbox value="#{progressBarBean.initialFacetRendered}" onclick="submit()" />
+		
+			<br />
+
+			'finish' facet rendered: <h:selectBooleanCheckbox value="#{progressBarBean.finishFacetRendered}" onclick="submit()" />
+		
+			<br />
+			
 			Enabled: <h:selectBooleanCheckbox value="#{progressBarBean.enabled}" onclick="submit()" />
 		</h:form>      
       
@@ -54,11 +62,15 @@
 				<h:outputText value="child + " rendered="#{progressBarBean.childrenRendered}" />
 				
 				<f:facet name="initial">
-					<h:outputText value="In initial state" />
+					<h:panelGroup rendered="#{progressBarBean.initialFacetRendered}">
+						<h:outputText value="In initial state" />
+					</h:panelGroup>
 				</f:facet>
 				
 				<f:facet name="finish">
-					<h:outputText value="Finished progress" />
+					<h:panelGroup rendered="#{progressBarBean.finishFacetRendered}">
+						<h:outputText value="Finished progress" />
+					</h:panelGroup>
 				</f:facet>
 				
 			</rich:progressBar>
@@ -78,11 +90,15 @@
 				<h:outputText value="child + " rendered="#{progressBarBean.childrenRendered}" />
 				
 				<f:facet name="initial">
-					<h:outputText value="initial ~ #{progressBarBean.currentTimeAsString}" />
+					<h:panelGroup rendered="#{progressBarBean.initialFacetRendered}">
+						<h:outputText value="initial ~ #{progressBarBean.currentTimeAsString}" />
+					</h:panelGroup>
 				</f:facet>
 				
 				<f:facet name="finish">
-					<h:outputText value="finish ~ #{progressBarBean.currentTimeAsString}" />
+					<h:panelGroup rendered="#{progressBarBean.finishFacetRendered}">
+						<h:outputText value="finish ~ #{progressBarBean.currentTimeAsString}" />
+					</h:panelGroup>
 				</f:facet>
 			</rich:progressBar>
 			
