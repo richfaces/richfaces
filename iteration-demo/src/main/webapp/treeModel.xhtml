@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:it="http://richfaces.org/iteration"
+	xmlns:a4j="http://richfaces.org/a4j">
+<f:view contentType="text/html" />
+
+<h:head>
+	<title>Richfaces Tree Models</title>
+</h:head>
+
+<h:body>
+	<h:messages id="messages" />
+
+	<h:form id="form">
+		<it:tree id="tree" var="node" toggleType="ajax">
+			<it:treeModelAdaptor nodes="#{treeModelBean.root.projects}">
+				<it:treeModelAdaptor nodes="#{node.sourceDirectories}">
+					<it:treeModelAdaptor nodes="#{node.packages}">
+						<it:treeModelAdaptor nodes="#{node.classes}" />
+					</it:treeModelAdaptor>				
+				</it:treeModelAdaptor>				
+
+				<it:treeModelRecursiveAdaptor roots="#{node.commonDirectories}" nodes="#{node.directories}">
+					<it:treeModelRecursiveAdaptor roots="#{node.archiveFiles}" nodes="#{node.archiveEntries}">
+						<it:treeModelAdaptor rendered="#{node.class.simpleName eq 'ArchiveEntry'}" 
+							nodes="#{node.archiveEntryFiles}" />
+					</it:treeModelRecursiveAdaptor>
+					<it:treeModelAdaptor nodes="#{node.files}" />
+				</it:treeModelRecursiveAdaptor>				
+			</it:treeModelAdaptor>
+		</it:tree>
+	</h:form>
+</h:body>
+</html>
