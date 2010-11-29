@@ -23,6 +23,7 @@ package org.richfaces.convert;
 
 import javax.faces.convert.DateTimeConverter;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -31,6 +32,7 @@ import org.junit.runner.RunWith;
  * 
  */
 @RunWith(ConverterTestRunner.class)
+@Ignore
 public class DateTimeConverterTest extends BaseTest {
 
     public DateTimeConverterTest() {
