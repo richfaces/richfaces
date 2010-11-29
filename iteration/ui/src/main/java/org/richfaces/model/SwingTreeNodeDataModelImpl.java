@@ -38,35 +38,49 @@ import com.google.common.collect.Iterators;
  */
 public class SwingTreeNodeDataModelImpl extends TreeSequenceKeyModel<Integer, TreeNode> {
 
-    /**
-     * @author Nick Belaevski
-     * 
-     */
-    private static final class SwingTreeNodeRowKeyIterator extends SequenceRowKeyIterator<Integer, TreeNode> {
+    private final class SwingTreeNodeRowKeyIterator implements Iterator<TreeDataModelTuple> {
+
+        private SequenceRowKey<Integer> baseKey;
+        
+        private Iterator<TreeNode> children;
         
         private int counter = 0;
 
-        /**
-         * @param baseKey
-         * @param baseElement
-         * @param itr
-         */
-        private SwingTreeNodeRowKeyIterator(SequenceRowKey<Integer> baseKey, TreeNode baseElement,
-            Iterator<TreeNode> itr) {
-            super(baseKey, baseElement, itr);
+        private SwingTreeNodeRowKeyIterator(SequenceRowKey<Integer> baseKey, Iterator<TreeNode> children) {
+            this.baseKey = baseKey;
+            this.children = children;
         }
 
-        @Override
-        protected Integer nextKey() {
+        private int getNextCounterValue() {
             return counter++;
         }
+        
+        public boolean hasNext() {
+            return children.hasNext();
+        }
+        
+        public TreeDataModelTuple next() {
+            TreeNode node = children.next();
+            
+            SequenceRowKey<Integer> key;
+            
+            if (baseKey != null) {
+                key = baseKey.append(getNextCounterValue());
+            } else {
+                key = new SequenceRowKey<Integer>(getNextCounterValue());
+            }
+            
+            setRowKeyAndData(key, node);
+            
+            return new TreeDataModelTuple(key, node);
+        }
+
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
+        
     }
 
-
-    /**
-     * @author Nick Belaevski
-     * 
-     */
     private final class FakeRootNode implements TreeNode {
         
         private Collection<TreeNode> wrappedData;
@@ -125,7 +139,9 @@ public class SwingTreeNodeDataModelImpl extends TreeSequenceKeyModel<Integer, Tr
         }
     }
 
-    private Iterator<TreeNode> safeGetChildren(SequenceRowKey<Integer> key, TreeNode treeNode) {
+    private boolean asksAllowsChildren = false;
+    
+    private Iterator<TreeNode> safeGetChildren(TreeNode treeNode) {
         if (treeNode == null) {
             return Iterators.emptyIterator();
         }
@@ -136,16 +152,6 @@ public class SwingTreeNodeDataModelImpl extends TreeSequenceKeyModel<Integer, Tr
 
     public Object getParentRowKey(Object rowKey) {
         throw new UnsupportedOperationException();
-    }
-
-    public boolean isLeaf() {
-        if (!isDataAvailable()) {
-            throw new IllegalStateException();
-        }
-        
-        TreeNode treeNode = getData();
-        
-        return !treeNode.getAllowsChildren() || treeNode.isLeaf();
     }
 
     public void setWrappedData(Object data) {
@@ -170,11 +176,16 @@ public class SwingTreeNodeDataModelImpl extends TreeSequenceKeyModel<Integer, Tr
         return null;
     }
 
+    public Iterator<TreeDataModelTuple> children() {
+        return new SwingTreeNodeRowKeyIterator(getRowKey(), safeGetChildren(getData()));
+    }
 
-    @Override
-    protected SequenceRowKeyIterator<Integer, TreeNode> createChildrenIterator(SequenceRowKey<Integer> baseKey,
-        TreeNode value) {
-        
-        return new SwingTreeNodeRowKeyIterator(baseKey, value, safeGetChildren(baseKey, value));
+
+    public boolean isLeaf() {
+        if (!asksAllowsChildren) {
+            return getData().isLeaf();
+        } else {
+            return !getData().getAllowsChildren();
+        }
     }
 }

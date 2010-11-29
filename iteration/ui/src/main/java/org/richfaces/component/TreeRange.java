@@ -21,8 +21,6 @@
  */
 package org.richfaces.component;
 
-import javax.faces.context.FacesContext;
-
 import org.ajax4jsf.model.Range;
 
 /**
@@ -31,26 +29,27 @@ import org.ajax4jsf.model.Range;
  */
 public class TreeRange implements Range {
 
-    private FacesContext facesContext;
-    
     private AbstractTree tree;
     
     private boolean traverseAll;
     
-    public TreeRange(FacesContext facesContext, AbstractTree tree) {
+    public TreeRange(AbstractTree tree) {
         super();
-        this.facesContext = facesContext;
         this.tree = tree;
         
         traverseAll = (SwitchType.client == tree.getToggleType());
     }
 
-    public boolean shouldIterateChildren(Object rowKey) {
-        if (traverseAll) {
-            return true;
+    public boolean shouldProcessNode() {
+        return tree.findTreeNodeComponent() != null;
+    }
+    
+    public boolean shouldIterateChildren() {
+        if (tree.isLeaf()) {
+            return false;
         }
         
-        return !tree.isLeaf() && tree.isExpanded();
+        return traverseAll || tree.isExpanded();
     }
     
 }

@@ -84,39 +84,6 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
         }
     }
 
-    static final class QueuedData {
-
-        private Object rowKey;
-
-        private boolean encoded;
-
-        private boolean visited;
-        
-        public QueuedData(Object rowKey) {
-            this.rowKey = rowKey;
-        }
-
-        public void setEncoded(boolean encoded) {
-            this.encoded = encoded;
-        }
-
-        public boolean isEncoded() {
-            return encoded;
-        }
-
-        public Object getRowKey() {
-            return rowKey;
-        }
-
-        public boolean isVisited() {
-            return visited;
-        }
-        
-        public void makeVisited() {
-            visited = true;
-        }
-    }
-
     public void encodeTree(FacesContext context, UIComponent component) throws IOException {
         AbstractTree tree = (AbstractTree) component;
 

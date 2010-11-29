@@ -21,83 +21,56 @@
  */
 package org.richfaces.model;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.ListIterator;
-
 import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.model.DataVisitor;
+import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
-import org.richfaces.component.TreeRange;
+
 
 /**
  * @author Nick Belaevski
  * 
  */
-public abstract class TreeSequenceKeyModel<K, V> implements TreeDataModel<V> {
+public abstract class TreeSequenceKeyModel<K, V> extends ExtendedDataModel<V> implements TreeDataModel<V> {
 
     private V rootNode;
     
-    private V currentData;
+    private V data;
     
-    private SequenceRowKey<K> currentRowKey;
-    
-    private LinkedList<SequenceRowKeyIterator<K, V>> keysStack = new LinkedList<SequenceRowKeyIterator<K, V>>();
+    private SequenceRowKey<K> rowKey;
     
     public SequenceRowKey<K> getRowKey() {
-        return currentRowKey;
+        return rowKey;
     }
 
     public void setRowKey(Object rowKey) {
-        this.currentRowKey = (SequenceRowKey<K>) rowKey;
-        this.currentData = findData(currentRowKey);
+        if (this.rowKey == null || !this.rowKey.equals(rowKey)) {
+            this.rowKey = (SequenceRowKey<K>) rowKey;
+            this.data = findData(this.rowKey);
+        }
     }
 
+    protected void setRowKeyAndData(SequenceRowKey<K> key, V data) {
+        this.rowKey = key;
+        this.data = data;
+    }
+    
     public boolean isDataAvailable() {
-        return currentRowKey == null || currentData != null;
+        return data != null;
     }
-
-    public abstract boolean isLeaf();
 
     public V getData() {
         if (!isDataAvailable()) {
             throw new IllegalArgumentException();
         }
         
-        return currentData;
+        return data;
     }
 
-    protected boolean isRootNodeKey(SequenceRowKey<K> key) {
-        return key == null || key.getLastKeySegment() == null;
-    }
-    
     protected V findData(SequenceRowKey<K> key) {
         if (key == null) {
             return rootNode;
-        }
-        
-        if (!keysStack.isEmpty()) {
-            ListIterator<SequenceRowKeyIterator<K, V>> listIterator = keysStack.listIterator(keysStack.size());
-            
-            while (listIterator.hasPrevious()) {
-                SequenceRowKeyIterator<K, V> previous = listIterator.previous();
-
-                V baseNode = null;
-                
-                SequenceRowKey<K> baseKey = previous.getBaseKey();
-                if (isRootNodeKey(baseKey) && isRootNodeKey(key.getParent())) {
-                    baseNode = rootNode;
-                } else if (baseKey.equals(key.getParent())) {
-                    baseNode = previous.getBaseElement();
-                }
-                
-                if (baseNode == null) {
-                    continue;
-                }
-                
-                return findChild(baseNode, key.getLastKeySegment());
-            }
         }
         
         V result = rootNode;
@@ -115,48 +88,6 @@ public abstract class TreeSequenceKeyModel<K, V> implements TreeDataModel<V> {
         
     protected abstract V findChild(V parent, K simpleKey);
     
-    protected abstract SequenceRowKeyIterator<K, V> createChildrenIterator(SequenceRowKey<K> baseKey, V value);
-    
-    public void enterNode(DataVisitor visitor) {
-        SequenceRowKey<K> sequenceKey = getRowKey();
-        V data = findData(sequenceKey);
-        
-        keysStack.addLast(createChildrenIterator(sequenceKey, data));
-
-        if (visitor instanceof TreeDataVisitor) {
-            ((TreeDataVisitor) visitor).enterNode();
-        }
-    }
-
-    public void walk(FacesContext context, DataVisitor visitor, Range range, Object argument) {
-        if (getRowKey() != null) {
-            visitor.process(context, getRowKey(), argument);
-        }
-
-        TreeRange treeRange = (TreeRange) range;
-        
-        if (treeRange.shouldIterateChildren(getRowKey())) {
-            enterNode(visitor);
-            Iterator<Object> keysIterator = keysStack.getLast();
-            while (keysIterator.hasNext()) {
-                Object key = (Object) keysIterator.next();
-                setRowKey(key);
-                walk(context, visitor, range, argument);
-            }
-            exitNode(visitor);
-        }
-    }
-
-    public void exitNode(DataVisitor visitor) {
-        if (visitor instanceof TreeDataVisitor) {
-            ((TreeDataVisitor) visitor).exitNode();
-        }
-
-        keysStack.removeLast();
-    }
-
-    public abstract Object getParentRowKey(Object rowKey);
-
     protected V getRootNode() {
         return rootNode;
     }
@@ -165,4 +96,39 @@ public abstract class TreeSequenceKeyModel<K, V> implements TreeDataModel<V> {
         this.rootNode = rootNode;
     }
     
+    //TODO ExtendedDataModel legacy
+    @Override
+    public void walk(FacesContext context, DataVisitor visitor, Range range, Object argument) {
+        throw new UnsupportedOperationException();
+    }
+
+
+    @Override
+    public boolean isRowAvailable() {
+        return isDataAvailable();
+    }
+
+
+    @Override
+    public int getRowCount() {
+        throw new UnsupportedOperationException();
+    }
+
+
+    @Override
+    public V getRowData() {
+        return getData();
+    }
+
+
+    @Override
+    public int getRowIndex() {
+        throw new UnsupportedOperationException();
+    }
+
+
+    @Override
+    public void setRowIndex(int rowIndex) {
+        throw new UnsupportedOperationException();
+    }
 }

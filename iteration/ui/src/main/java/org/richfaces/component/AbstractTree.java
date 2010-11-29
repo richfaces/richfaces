@@ -45,11 +45,10 @@ import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
-import javax.swing.tree.TreeNode;
 
 import org.ajax4jsf.model.DataComponentState;
+import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
-import org.ajax4jsf.model.Range;
 import org.richfaces.application.MessageFactory;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.appplication.FacesMessages;
@@ -69,9 +68,10 @@ import org.richfaces.event.TreeSelectionChangeSource;
 import org.richfaces.event.TreeToggleEvent;
 import org.richfaces.event.TreeToggleListener;
 import org.richfaces.event.TreeToggleSource;
-import org.richfaces.model.ExtendedTreeDataModelImpl;
 import org.richfaces.model.SwingTreeNodeDataModelImpl;
 import org.richfaces.model.TreeDataModel;
+import org.richfaces.model.TreeDataModelTuple;
+import org.richfaces.model.TreeDataVisitor;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
 import com.google.common.base.Predicate;
@@ -125,31 +125,31 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
 
     private static final Converter ROW_KEY_CONVERTER = new SequenceRowKeyConverter();
 
-    /**
-     * @author Nick Belaevski
-     * 
-     */
-    private final class TreeComponentState implements DataComponentState {
-        public Range getRange() {
-            return new TreeRange(getFacesContext(), AbstractTree.this);
-        }
-    }
-
     private enum PropertyKeys {
         selection
     }
-
+    
     @Attribute(generate = false, signature = @Signature(returnType = Void.class, parameters = TreeSelectionChangeEvent.class))
     private MethodExpression selectionChangeListener;
 
     @Attribute(generate = false, signature = @Signature(returnType = Void.class, parameters = TreeToggleListener.class))
     private MethodExpression toggleListener;
 
+    private transient TreeRange treeRange;
+    
     public AbstractTree() {
         setKeepSaved(true);
         setRendererType("org.richfaces.TreeRenderer");
     }
 
+    protected TreeRange getTreeRange() {
+        if (treeRange == null) {
+            treeRange = new TreeRange(this);
+        }
+        
+        return treeRange;
+    }
+    
     public abstract Object getValue();
 
     public abstract boolean isImmediate();
@@ -214,13 +214,6 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
 
     public void setSelection(Collection<Object> selection) {
         getStateHelper().put(PropertyKeys.selection, selection);
-    }
-
-    @Override
-    protected ExtendedDataModel<?> createExtendedDataModel() {
-        ExtendedTreeDataModelImpl<?> model = new ExtendedTreeDataModelImpl<TreeNode>(new SwingTreeNodeDataModelImpl());
-        model.setWrappedData(getValue());
-        return model;
     }
 
     @Override
@@ -403,11 +396,6 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         }
     }
 
-    @Override
-    public DataComponentState getComponentState() {
-        return new TreeComponentState();
-    }
-    
     public void addTreeSelectionChangeListener(TreeSelectionChangeListener listener) {
         addFacesListener(listener);
     }
@@ -448,12 +436,87 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         return treeNode.isExpanded();
     }
 
+    //TODO review
+    protected TreeDataModel<?> getTreeDataModel() {
+        return (TreeDataModel<?>) getExtendedDataModel();
+    }
+    
     @Attribute(hidden = true)
     public boolean isLeaf() {
         if (getRowKey() == null) {
             return false;
         }
 
-        return ((TreeDataModel<?>) getExtendedDataModel()).isLeaf();
+        return getTreeDataModel().isLeaf();
+    }
+    
+    @Override
+    public void walk(final FacesContext faces, final DataVisitor visitor, final Object argument) {
+        walkModel(faces, new TreeDataVisitor() {
+            
+            public void enterNode() {
+                visitor.process(faces, getRowKey(), argument);
+            }
+
+            public void exitNode() {
+            }
+            
+        });
+    }
+    
+    @Override
+    protected ExtendedDataModel<?> createExtendedDataModel() {
+        SwingTreeNodeDataModelImpl dataModel = new SwingTreeNodeDataModelImpl();
+        dataModel.setWrappedData(getValue());
+        return dataModel;
+    }
+    
+    public void walkModel(FacesContext context, TreeDataVisitor dataVisitor) {
+        TreeDataModel<?> model = getTreeDataModel();
+
+        if (!getTreeRange().shouldProcessNode()) {
+            return;
+        }
+        
+        boolean isRootNode = (getRowKey() == null);
+        
+        if (!isRootNode) {
+            dataVisitor.enterNode();
+        }
+
+        walkModelChildren(context, dataVisitor, model);
+
+        if (!isRootNode) {
+            dataVisitor.exitNode();
+        }
+    }
+
+    private void walkModelChildren(FacesContext context, TreeDataVisitor dataVisitor, TreeDataModel<?> model) {
+        if (!getTreeRange().shouldIterateChildren()) {
+            return;
+        }
+        
+        Iterator<TreeDataModelTuple> childrenTuples = model.children();
+        while (childrenTuples.hasNext()) {
+            TreeDataModelTuple tuple = childrenTuples.next();
+            
+            setRowKeyAndData(context, tuple.getRowKey(), tuple.getData());
+            
+            if (!getTreeRange().shouldProcessNode()) {
+                continue;
+            }
+            
+            dataVisitor.enterNode();
+            
+            walkModelChildren(context, dataVisitor, model);
+
+            dataVisitor.exitNode();
+        }
+    }
+    
+    @Override
+    protected void resetDataModel() {
+        super.resetDataModel();
+        treeRange = null;
     }
 }

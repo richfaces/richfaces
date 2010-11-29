@@ -29,7 +29,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
@@ -244,8 +243,13 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     //TODO nick - PSH support?
     private DataComponentState componentState = null;
     private ExtendedDataModel<?> extendedDataModel = null;
+    
     private Object rowKey = null;
 
+    private boolean rowDataIsSet = false;
+    
+    private Object rowData;
+    
     private String clientId;
 
     private Object originalVarValue;
@@ -348,18 +352,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     /*
-     * (non-Javadoc)
-     *
-     * @see org.ajax4jsf.component.AjaxChildrenEncoder#encodeAjaxChild(javax.faces.context.FacesContext,
-     * java.lang.String, java.util.Set, java.util.Set)
-     */
-    public void encodeAjaxChild(FacesContext context, String path, Set<String> ids, Set<String> renderedAreas)
-        throws IOException {
-
-        // TODO Auto-generated method stub
-    }
-
-    /*
      *  (non-Javadoc)
      * @see javax.faces.component.UniqueIdVendor#createUniqueId(javax.faces.context.FacesContext, java.lang.String)
      */
@@ -379,6 +371,34 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         return rowKey;
     }
 
+    private void setRowKeyAndData(FacesContext facesContext, Object rowKey, boolean localRowDataAvailable, Object localRowData) {
+        this.saveChildState(facesContext);
+        
+        this.rowKey = rowKey;
+        
+        if (localRowDataAvailable) {
+            this.rowData = localRowData;
+            this.rowDataIsSet = (rowKey != null);
+        } else {
+            this.rowData = null;
+            this.rowDataIsSet = false;
+
+            getExtendedDataModel().setRowKey(rowKey);
+        }
+        
+        this.clientId = null;
+
+        boolean rowSelected = (rowKey != null) && isRowAvailable();
+
+        setupVariable(facesContext, rowSelected);
+        
+        this.restoreChildState(facesContext);
+    }
+    
+    protected void setRowKeyAndData(FacesContext facesContext, Object rowKey, Object localRowData) {
+        setRowKeyAndData(facesContext, rowKey, true, localRowData);
+    }
+    
     /**
      * Setup current row by key. Perform same functionality as
      * {@link javax.faces.component.UIData#setRowIndex(int)}, but for key object - it may be not only
@@ -390,15 +410,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
      * @param key   new key value.
      */
     public void setRowKey(FacesContext facesContext, Object rowKey) {
-        this.saveChildState(facesContext);
-        this.rowKey = rowKey;
-        this.clientId = null;
-        getExtendedDataModel().setRowKey(rowKey);
-
-        boolean rowSelected = (rowKey != null) && isRowAvailable();
-
-        setupVariable(facesContext, rowSelected);
-        this.restoreChildState(facesContext);
+        setRowKeyAndData(facesContext, rowKey, false, null);
     }
 
     /**
@@ -546,13 +558,13 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         setRowKey(getFacesContext(), rowKey);
     }
 
-    /*
-     *  (non-Javadoc)
-     * @see javax.faces.component.UIComponentBase#queueEvent(javax.faces.event.FacesEvent)
-     */
+    protected FacesEvent wrapEvent(FacesEvent event) {
+        return new RowKeyContextEventWrapper(this, event, getRowKey());
+    }
+    
     @Override
     public void queueEvent(FacesEvent event) {
-        super.queueEvent(new RowKeyContextEventWrapper(this, event, getRowKey()));
+        super.queueEvent(wrapEvent(event));
     }
 
     /*
@@ -561,61 +573,13 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
      */
     @Override
     public void broadcast(FacesEvent event) throws AbortProcessingException {
-        if (!(event instanceof RowKeyContextEventWrapper)) {
-            if (!broadcastLocal(event)) {
-                super.broadcast(event);
-            }
-
-            return;
+        if (event instanceof RowKeyContextEventWrapper) {
+            RowKeyContextEventWrapper eventWrapper = (RowKeyContextEventWrapper) event;
+            
+            eventWrapper.broadcast(getFacesContext());
+        } else {
+            super.broadcast(event);
         }
-
-        FacesContext context = getFacesContext();
-
-        // Set up the correct context and fire our wrapped event
-        RowKeyContextEventWrapper revent = (RowKeyContextEventWrapper) event;
-        Object oldRowKey = getRowKey();
-
-        setRowKey(context, revent.getRowKey());
-
-        FacesEvent rowEvent = revent.getFacesEvent();
-        UIComponent source = rowEvent.getComponent();
-        UIComponent compositeParent = null;
-
-        try {
-            if (!UIComponent.isCompositeComponent(source)) {
-                compositeParent = UIComponent.getCompositeComponentParent(source);
-            }
-
-            if (compositeParent != null) {
-                compositeParent.pushComponentToEL(context, null);
-            }
-
-            source.pushComponentToEL(context, null);
-            source.broadcast(rowEvent);
-        } finally {
-            source.popComponentFromEL(context);
-
-            if (compositeParent != null) {
-                compositeParent.popComponentFromEL(context);
-            }
-        }
-
-        setRowKey(context, oldRowKey);
-    }
-
-    /**
-     * Process events targetted for concrete implementation. Hook method called
-     * from {@link #broadcast(FacesEvent)}
-     *
-     * @param event -
-     *              processed event.
-     * @return true if event processed, false if component must continue
-     *         processing.
-     */
-
-    // TODO - is it still actual?
-    protected boolean broadcastLocal(FacesEvent event) {
-        return false;
     }
 
     /**
@@ -671,11 +635,15 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     public Object getRowData() {
+        if (rowDataIsSet) {
+            return rowData;
+        }
+        
         return getExtendedDataModel().getRowData();
     }
 
     public boolean isRowAvailable() {
-        return getExtendedDataModel().isRowAvailable();
+        return rowDataIsSet || getExtendedDataModel().isRowAvailable();
     }
 
     /**

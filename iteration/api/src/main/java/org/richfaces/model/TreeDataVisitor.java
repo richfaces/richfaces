@@ -21,13 +21,12 @@
  */
 package org.richfaces.model;
 
-import org.ajax4jsf.model.DataVisitor;
 
 /**
  * @author Nick Belaevski
  * 
  */
-public interface TreeDataVisitor extends DataVisitor {
+public interface TreeDataVisitor {
 
     public void enterNode();
     
