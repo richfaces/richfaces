@@ -142,7 +142,7 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
 
         if (selectedKeys.hasNext()) {
             //TODO - better message
-            throw new IllegalArgumentException("Selection object should not contain more than selected keys!");
+            throw new IllegalArgumentException("Selection object should not contain more than one keys!");
         }
 
         writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, selectedNodeId, null);
