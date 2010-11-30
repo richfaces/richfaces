@@ -72,15 +72,15 @@ public class AjaxBehaviorRule extends BehaviorRule {
                 return new ValueExpressionMetadata(name, type, attribute);
 
             } else if (meta != null && meta.getWriteMethod(name) != null) {
-                if (EXECUTE.equals(name) || RENDER.equals(name)) {
-                    return new LiteralAttributeMetadata(name, attribute.getValue());
-                }
+                return new LiteralAttributeMetadata(name, attribute.getValue());
             }
         }
 
         return null;
     }
-
+        
+    
+    
     public static final class AjaxBehaviorListenerMapper extends Metadata {
 
         private final TagAttribute attr;

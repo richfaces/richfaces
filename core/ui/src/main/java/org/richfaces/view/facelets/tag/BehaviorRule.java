@@ -83,7 +83,7 @@ public class BehaviorRule extends MetaRule {
                 }
                 return new ValueExpressionMetadata(name, type, attribute);
 
-            } else {
+            } else if(meta != null && meta.getWriteMethod(name) != null) {
                 return new LiteralAttributeMetadata(name, attribute.getValue());
             }
         }
