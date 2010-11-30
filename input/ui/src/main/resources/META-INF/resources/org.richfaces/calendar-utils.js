@@ -144,7 +144,7 @@
 
 			var re = new RegExp(pattern,'i');
 			var match = dateString.match(re);
-			if (match!=null)
+			if (match!=null && y != undefined && m != undefined && d != undefined)
 			{
 				// set default century start
 				var correctYear = false;
