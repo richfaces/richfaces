@@ -14,7 +14,6 @@ import javax.faces.context.ResponseWriter;
 
 import org.richfaces.component.AbstractToolBar;
 import org.richfaces.component.AbstractToolBarGroup;
-import org.richfaces.component.util.ViewUtil;
 import org.richfaces.renderkit.ComponentAttribute;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
@@ -224,7 +223,7 @@ public abstract class ToolBarRendererBase extends RendererBase {
                 concatClasses(separatorClass, (String) component.getAttributes().get("separatorClass"));
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, separatorClass, null);
                 
-                String uri = ViewUtil.getResourceURL(itemSeparator);
+                String uri = RenderKitUtils.getResourceURL(itemSeparator, context);
                 writer.startElement(HtmlConstants.IMG_ELEMENT, component);
                 writer.writeAttribute(HtmlConstants.SRC_ATTRIBUTE, uri, null);
                 writer.writeAttribute(HtmlConstants.ALT_ATTRIBUTE, "", null);

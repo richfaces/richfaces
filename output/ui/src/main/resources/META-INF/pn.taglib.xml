@@ -6,7 +6,162 @@
                 http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd" version="2.0" id="output">
     <namespace>http://richfaces.org/output</namespace>
 
-
+	    <tag>
+        <tag-name>toolBar</tag-name>
+        <component>
+            <component-type>org.richfaces.ToolBar</component-type>
+            <renderer-type>org.richfaces.ToolBarRenderer</renderer-type>
+        </component>
+        <attribute>
+            <description>The value binding expression used to wire up this component to a component property of a JavaBean class</description>
+            <icon/>
+            <name>binding</name>
+            <type>javax.faces.component.UIComponent</type>
+        </attribute>
+        <attribute>
+            <name>height</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>The component identifier for this component. This value must be unique within the closest parent component that is a naming container.</description>
+            <display-name>Component Identifier</display-name>
+            <icon/>
+            <name>id</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>itemSeparator</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onitemclick</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onitemdblclick</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onitemkeydown</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onitemkeypress</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onitemkeyup</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onitemmousedown</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onitemmousemove</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onitemmouseout</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onitemmouseover</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onitemmouseup</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not this component should be rendered (during Render Response Phase), or processed on any subsequent form submit. The default value for this property is true.</description>
+            <display-name>Rendered Flag</display-name>
+            <icon/>
+            <name>rendered</name>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <name>width</name>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+    <tag>
+        <tag-name>toolBarGroup</tag-name>
+        <component>
+            <component-type>org.richfaces.ToolBarGroup</component-type>
+            <renderer-type>org.richfaces.ToolBarGroupRenderer</renderer-type>
+        </component>
+        <attribute>
+            <description>The value binding expression used to wire up this component to a component property of a JavaBean class</description>
+            <icon/>
+            <name>binding</name>
+            <type>javax.faces.component.UIComponent</type>
+        </attribute>
+        <attribute>
+            <description>The component identifier for this component. This value must be unique within the closest parent component that is a naming container.</description>
+            <display-name>Component Identifier</display-name>
+            <icon/>
+            <name>id</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>itemSeparator</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>location</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onitemclick</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onitemdblclick</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onitemkeydown</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onitemkeypress</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onitemkeyup</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onitemmousedown</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onitemmousemove</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onitemmouseout</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onitemmouseover</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onitemmouseup</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not this component should be rendered (during Render Response Phase), or processed on any subsequent form submit. The default value for this property is true.</description>
+            <display-name>Rendered Flag</display-name>
+            <icon/>
+            <name>rendered</name>
+            <type>boolean</type>
+        </attribute>
+    </tag>
+	
+	
     <tag>
         <tag-name>toggleControl</tag-name>
         <behavior>
