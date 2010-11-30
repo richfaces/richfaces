@@ -93,7 +93,7 @@
 		 *	dd+ - 01-31 */
 		parseDate: function(dateString, pattern, monthNames, monthNamesShort)
 		{
-			var re = /([.*+?^<>=!:${}()[\]\/\\])/g;
+			var re = /([.*+?^<>=!:${}()\[\]\/\\])/g;
 			var monthNamesStr
 			var monthNamesShortStr;
 			if (!monthNames) {
@@ -115,7 +115,7 @@
 			var a,h,min,s;
 			var shortLabel=false;
 			
-			pattern = pattern.replace(/([.*+?^<>=!:${}()|[\]\/\\])/g, '\\$1');
+			pattern = pattern.replace(/([.*+?^<>=!:${}()|\[\]\/\\])/g, '\\$1');
 			pattern = pattern.replace(/(y+|M+|d+|a|H{1,2}|h{1,2}|m{2}|s{2})/g,
 				function($1) {
 					switch ($1) {
