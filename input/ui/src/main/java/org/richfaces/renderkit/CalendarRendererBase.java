@@ -147,6 +147,8 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
     private static final String HOURS_VALUE = "hours";
     
     private static final String MINUTES_VALUE = "minutes";
+    
+    private static final String SECONDS_VALUE = "seconds";
 
     protected void doDecode(FacesContext context, UIComponent component) {
         if (!(component instanceof AbstractCalendar)) {
@@ -401,10 +403,12 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
             calendar.setTime(date);
             int hours = calendar.get(Calendar.HOUR_OF_DAY);
             int minutes = calendar.get(Calendar.MINUTE);
+            int seconds = calendar.get(Calendar.SECOND); 
             
             if (hours != 12 || minutes != 0) {
                 result.put(HOURS_VALUE, hours);
                 result.put(MINUTES_VALUE, minutes);
+                result.put(SECONDS_VALUE, seconds);
             }
         }
         if (result.size() > 0) {
