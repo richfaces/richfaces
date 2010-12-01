@@ -146,5 +146,4 @@ public abstract class TreeSequenceKeyModel<K, V> extends ExtendedDataModel<V> im
     public void restoreFromSnapshot(TreeDataModelTuple tuple) {
         setRowKeyAndData((SequenceRowKey<K>) tuple.getRowKey(), (V) tuple.getData());
     }
-    
 }

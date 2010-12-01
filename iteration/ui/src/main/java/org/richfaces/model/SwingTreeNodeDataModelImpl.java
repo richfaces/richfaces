@@ -172,7 +172,6 @@ public class SwingTreeNodeDataModelImpl extends TreeSequenceKeyModel<Integer, Tr
         return new SwingTreeNodeRowKeyIterator(getRowKey(), safeGetChildren(getData()));
     }
 
-
     public boolean isLeaf() {
         if (!asksAllowsChildren) {
             return getData().isLeaf();
