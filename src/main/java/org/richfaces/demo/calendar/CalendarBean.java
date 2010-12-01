@@ -17,6 +17,7 @@ public class CalendarBean {
     private Date selectedDate;
     private boolean showApply = true;
     private boolean useCustomDayLabels;
+    private boolean disabled = false;
 
     public CalendarBean() {
 
@@ -81,6 +82,14 @@ public class CalendarBean {
 
     public void setShowApply(boolean showApply) {
         this.showApply = showApply;
+    }
+
+    public boolean isDisabled() {
+        return disabled;
+    }
+
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
     }
 
 }

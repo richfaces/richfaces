@@ -29,39 +29,46 @@
 					locale="#{calendarBean.locale}" popup="#{calendarBean.popup}"
 					datePattern="#{calendarBean.pattern}"
 					showApplyButton="#{calendarBean.showApply}" cellWidth="24px"
-					cellHeight="22px" style="width:200px">
+					cellHeight="22px" style="width:200px"
+					disabled="#{calendarBean.disabled}">
 				</rich:calendar>
 			</a4j:outputPanel>
-			<h:panelGrid columns="2">
-				<h:outputText value="Popup Mode:" />
-				<h:selectBooleanCheckbox value="#{calendarBean.popup}">
-					<a4j:ajax event="click" render="calendar @this" />
-				</h:selectBooleanCheckbox>
-				<h:outputText value="Apply Button:" />
-				<h:selectBooleanCheckbox value="#{calendarBean.showApply}">
-					<a4j:ajax event="click" render="calendar @this" />
-				</h:selectBooleanCheckbox>
-				<h:outputText value="Select Locale" />
-				<h:selectOneRadio value="en/US"
-					valueChangeListener="#{calendarBean.selectLocale}">
-					<a4j:ajax event="click" render="calendar @this" />
-					<f:selectItem itemLabel="US" itemValue="en/US" />
-					<f:selectItem itemLabel="DE" itemValue="de/DE" />
-					<f:selectItem itemLabel="FR" itemValue="fr/FR" />
-					<f:selectItem itemLabel="RU" itemValue="ru/RU" />
-				</h:selectOneRadio>
+			<a4j:region>
+				<h:panelGrid columns="2">
+					<h:outputText value="Disabled:" />
+					<h:selectBooleanCheckbox value="#{calendarBean.disabled}">
+						<a4j:ajax event="click" render="calendar @this" />
+					</h:selectBooleanCheckbox>
+					<h:outputText value="Popup Mode:" />
+					<h:selectBooleanCheckbox value="#{calendarBean.popup}">
+						<a4j:ajax event="click" render="calendar @this" />
+					</h:selectBooleanCheckbox>
+					<h:outputText value="Apply Button:" />
+					<h:selectBooleanCheckbox value="#{calendarBean.showApply}">
+						<a4j:ajax event="click" render="calendar @this" />
+					</h:selectBooleanCheckbox>
+					<h:outputText value="Select Locale" />
+					<h:selectOneRadio value="en/US"
+						valueChangeListener="#{calendarBean.selectLocale}">
+						<a4j:ajax event="click" render="calendar @this" />
+						<f:selectItem itemLabel="US" itemValue="en/US" />
+						<f:selectItem itemLabel="DE" itemValue="de/DE" />
+						<f:selectItem itemLabel="FR" itemValue="fr/FR" />
+						<f:selectItem itemLabel="RU" itemValue="ru/RU" />
+					</h:selectOneRadio>
 
-				<h:outputText value="Select Date Pattern:" />
-				<h:selectOneMenu value="#{calendarBean.pattern}">
-					<a4j:ajax event="change" render="calendar @this" />
-					<f:selectItem itemLabel="d/M/yy HH:mm" itemValue="d/M/yy HH:mm" />
-					<f:selectItem itemLabel="dd/M/yy hh:mm a"
-						itemValue="dd/M/yy hh:mm a" />
-					<f:selectItem itemLabel="d/MMM/y" itemValue="d/MMM/y" />
-					<f:selectItem itemLabel="MMM d, yyyy" itemValue="MMM d, yyyy" />
-				</h:selectOneMenu>
+					<h:outputText value="Select Date Pattern:" />
+					<h:selectOneMenu value="#{calendarBean.pattern}">
+						<a4j:ajax event="change" render="calendar @this" />
+						<f:selectItem itemLabel="d/M/yy HH:mm" itemValue="d/M/yy HH:mm" />
+						<f:selectItem itemLabel="dd/M/yy hh:mm a"
+							itemValue="dd/M/yy hh:mm a" />
+						<f:selectItem itemLabel="d/MMM/y" itemValue="d/MMM/y" />
+						<f:selectItem itemLabel="MMM d, yyyy" itemValue="MMM d, yyyy" />
+					</h:selectOneMenu>
 
-			</h:panelGrid>
+				</h:panelGrid>
+			</a4j:region>
 		</h:panelGrid>
 	</h:form>
 </ui:composition>

@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<style>
+.cols {
+	vertical-align: top;
+}
+</style>
+	<h:form id="form">
+		<h:panelGrid columns="2" columnClasses="cols,cols" width="400">
+			<rich:panelMenu style="width:200px" mode="ajax"
+				iconExpandedGroup="disc" iconCollapsedGroup="disc"
+				iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right"
+				iconCollapsedTopGroup="chevronDown"
+				itemChangeListener="#{panelMenuBean.updateCurrent}">
+				<rich:panelMenuGroup label="Group 1">
+					<rich:panelMenuItem label="Item 1.1">
+						<f:param name="current" value="Item 1.1" />
+					</rich:panelMenuItem>
+					<rich:panelMenuItem label="Item 1.2">
+						<f:param name="current" value="Item 1.2" />
+					</rich:panelMenuItem>
+					<rich:panelMenuItem label="Item 1.3">
+						<f:param name="current" value="Item 1.3" />
+					</rich:panelMenuItem>
+				</rich:panelMenuGroup>
+				<rich:panelMenuGroup label="Group 2">
+					<rich:panelMenuItem label="Item 2.1">
+						<f:param name="current" value="Item 2.1" />
+					</rich:panelMenuItem>
+					<rich:panelMenuItem label="Item 2.2">
+						<f:param name="current" value="Item 2.2" />
+					</rich:panelMenuItem>
+					<rich:panelMenuItem label="Item 2.3">
+						<f:param name="current" value="Item 2.3" />
+					</rich:panelMenuItem>
+					<rich:panelMenuGroup label="Group 2.4">
+						<rich:panelMenuItem label="Item 2.4.1">
+							<f:param name="current" value="Item 2.4.1" />
+						</rich:panelMenuItem>
+						<rich:panelMenuItem label="Item 2.4.2">
+							<f:param name="current" value="Item 2.4.2" />
+						</rich:panelMenuItem>
+						<rich:panelMenuItem label="Item 2.4.3">
+							<f:param name="current" value="Item 2.4.3" />
+						</rich:panelMenuItem>
+					</rich:panelMenuGroup>
+					<rich:panelMenuItem label="Item 2.5">
+						<f:param name="current" value="Item 2.5" />
+					</rich:panelMenuItem>
+				</rich:panelMenuGroup>
+				<rich:panelMenuGroup label="Group 3">
+					<rich:panelMenuItem label="Item 3.1">
+						<f:param name="current" value="Item 3.1" />
+					</rich:panelMenuItem>
+					<rich:panelMenuItem label="Item 3.2">
+						<f:param name="current" value="Item 3.2" />
+					</rich:panelMenuItem>
+					<rich:panelMenuItem label="Item 3.3">
+						<f:param name="current" value="Item 3.3" />
+					</rich:panelMenuItem>
+				</rich:panelMenuGroup>
+			</rich:panelMenu>
+			<rich:panel bodyClass="rich-laguna-panel-no-header">
+				<a4j:outputPanel ajaxRendered="true">
+					<h:outputText value="#{panelMenuBean.current} selected" id="current" />
+				</a4j:outputPanel>
+			</rich:panel>
+		</h:panelGrid>
+		<rich:tabPanel>
+			<rich:tab label="12 ">asdasd</rich:tab>
+		</rich:tabPanel>
+	</h:form>
+</ui:composition>

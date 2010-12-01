@@ -422,6 +422,16 @@
 		<name>Menus</name>
 		<demos>
 			<demo  new="true">
+				<id>panelMenu</id>
+				<name>rich:panelMenu</name>
+				<samples>
+					<sample>
+						<id>panelMenu</id>
+						<name>Simple Panel Menu</name>
+					</sample>
+				</samples>
+			</demo>
+			<demo  new="true">
 				<id>toolBar</id>
 				<name>rich:toolBar</name>
 				<samples>
@@ -458,10 +468,14 @@
 				<id>calendar</id>
 				<name>rich:calendar</name>
 				<samples>
-					<sample>
+					<sample new="true">
 						<id>calendar</id>
 						<name>Simple Calendar</name>
 					</sample>
+					<sample new="true">
+						<id>clientStylingDisablement</id>
+						<name>Client Side Styling/Disablement</name>
+					</sample>					
 				</samples>
 			</demo>
 			<demo>
