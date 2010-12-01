@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+	<p><b>Toolbar </b>is a horizontal-oriented panel that can be used in
+	different ways: for top level menu, for information panel and so on. To
+	create top level menu - just use <b>dropDownMenu </b>or <b>menuItem</b>'s as child
+	components.</p>
+	<p>Items on the toolbar can be grouped with ability to define a
+	separator between different groups and between a member of the same
+	group. The "<b>location</b>" attribute set to "<b>right</b>" put a group to the right
+	side of the panel.</p>
+
+	<p>The following example shows how the simple toolbar might look
+	like:</p>
+
+	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+		<ui:param name="sourceType" value="xhtml" />
+		<ui:param name="openLabel" value="View Source" />
+		<ui:param name="hideLabel" value="Hide Source" />
+	</ui:include>
+
+</ui:composition>
+</html>

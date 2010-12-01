@@ -17,6 +17,7 @@ import org.ajax4jsf.javascript.JSFunction;
 
 @FacesComponent(value = "syntaxHighlighter")
 @ResourceDependencies({ @ResourceDependency(library = "js", name = "shCore.js"),
+    @ResourceDependency(name = "jquery.js"),
     @ResourceDependency(library = "css", name = "shCore.css"),
     @ResourceDependency(library = "css", name = "shThemeDefault.css"),
     @ResourceDependency(library = "js", name = "shBrushJScript.js"),
