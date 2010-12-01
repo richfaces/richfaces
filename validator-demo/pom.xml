@@ -13,7 +13,7 @@
     <groupId>org.richfaces.examples</groupId>
     <artifactId>validator-demo</artifactId>
     <version>4.0.0-SNAPSHOT</version>
-    <name>Richfaces Examples: Outputs</name>
+    <name>Richfaces Examples: Validators</name>
     <packaging>war</packaging>
 
     <properties>
