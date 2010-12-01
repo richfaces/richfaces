@@ -22,15 +22,17 @@
 package org.richfaces.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Enumeration;
-import java.util.List;
 
 import javax.swing.tree.TreeNode;
 
 import com.google.common.base.Objects;
 import com.google.common.base.Objects.ToStringHelper;
+import com.google.common.base.Predicates;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
+import com.google.common.collect.Lists;
 
 /**
  * @author Nick Belaevski
@@ -44,17 +46,28 @@ public class SwingTreeNodeImpl<T> implements TreeNode, Serializable {
     
     private T data;
     
-    private List<TreeNode> children = new ArrayList<TreeNode>();
+    private Collection<TreeNode> children;
+    
+    private boolean allowUpdateParents = true;
     
     public SwingTreeNodeImpl() {
+        this(null);
     }
     
-    public SwingTreeNodeImpl(List<TreeNode> children) {
-        this.children = children;
+    void setAllowUpdateParents(boolean allowUpdateParents) {
+        this.allowUpdateParents = allowUpdateParents;
+    }
+    
+    public SwingTreeNodeImpl(Collection<TreeNode> children) {
+        this.children = wrapNull(children);
     }
 
+    private static Collection<TreeNode> wrapNull(Collection<TreeNode> src) {
+        return src != null ? src : Lists.<TreeNode>newArrayList();
+    }
+    
     public TreeNode getChildAt(int childIndex) {
-        return children.get(childIndex);
+        return Iterables.get(children, childIndex);
     }
 
     public int getChildCount() {
@@ -70,12 +83,24 @@ public class SwingTreeNodeImpl<T> implements TreeNode, Serializable {
     }
     
     public int getIndex(TreeNode node) {
-        return children.indexOf(node);
+        return Iterables.indexOf(children, Predicates.equalTo(node));
     }
 
     public void addChild(TreeNode node) {
-        ((SwingTreeNodeImpl<?>) node).setParent(this);
         children.add(node);
+        if (allowUpdateParents && node instanceof SwingTreeNodeImpl<?>) {
+            SwingTreeNodeImpl<?> treeNodeImpl = (SwingTreeNodeImpl<?>) node;
+            treeNodeImpl.setParent(this);
+        }
+    }
+    
+    public void removeChild(TreeNode node) {
+        if (children.remove(node)) {
+            if (allowUpdateParents && node instanceof SwingTreeNodeImpl<?>) {
+                SwingTreeNodeImpl<?> treeNodeImpl = (SwingTreeNodeImpl<?>) node;
+                treeNodeImpl.setParent(null);
+            }
+         }
     }
     
     public boolean getAllowsChildren() {
@@ -98,7 +123,7 @@ public class SwingTreeNodeImpl<T> implements TreeNode, Serializable {
         this.data = data;
     }
     
-    public List<TreeNode> getChildrenList() {
+    public Collection<TreeNode> getChildrenList() {
         return children;
     }
     

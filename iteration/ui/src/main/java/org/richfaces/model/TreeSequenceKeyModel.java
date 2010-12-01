@@ -34,8 +34,6 @@ import org.ajax4jsf.model.Range;
  */
 public abstract class TreeSequenceKeyModel<K, V> extends ExtendedDataModel<V> implements TreeDataModel<V> {
 
-    private final SequenceRowKey<K> emptyKey = new SequenceRowKey<K>();
-    
     private V rootNode;
     
     private V data;
@@ -46,16 +44,6 @@ public abstract class TreeSequenceKeyModel<K, V> extends ExtendedDataModel<V> im
         return rowKey;
     }
 
-    protected SequenceRowKey<K> safeGetRowKey() {
-        SequenceRowKey<K> key = getRowKey();
-
-        if (key == null) {
-            key = emptyKey;
-        }
-        
-        return key;
-    }
-    
     public void setRowKey(Object rowKey) {
         if (this.rowKey == null || !this.rowKey.equals(rowKey)) {
             walkKey((SequenceRowKey<K>) rowKey);

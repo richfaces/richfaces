@@ -21,9 +21,9 @@
  */
 package org.richfaces.model;
 
-import java.util.Collection;
+import static com.google.common.base.Objects.firstNonNull;
+
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
@@ -36,10 +36,7 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
 import com.google.common.base.Predicates;
-import com.google.common.collect.ForwardingIterator;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Iterators;
-import com.google.common.collect.Lists;
 
 /**
  * @author Nick Belaevski
@@ -48,108 +45,17 @@ import com.google.common.collect.Lists;
 public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<DeclarativeModelKey, Object> implements DeclarativeTreeModel<Object> {
 
     private static final Logger LOGGER = RichfacesLogger.MODEL.getLogger();
-    
-    private final class DeclarativeModelIterator implements Iterator<TreeDataModelTuple> {
-        
-        private UIComponent component;
 
-        private SequenceRowKey<DeclarativeModelKey> baseKey;
-        
-        private int counter = 0;
-        
-        private Iterator<?> nodesIterator;
-        
-        public DeclarativeModelIterator(UIComponent component, SequenceRowKey<DeclarativeModelKey> baseKey, Iterator<?> nodesIterator) {
-            super();
-            this.component = component;
-            this.baseKey = baseKey;
-            this.nodesIterator = nodesIterator;
-        }
+    private static final SequenceRowKey<DeclarativeModelKey> EMPTY_KEY = new SequenceRowKey<DeclarativeModelKey>();
 
-        public TreeDataModelTuple next() {
-            Object nextNode = nodesIterator.next();
-            DeclarativeModelKey key = new DeclarativeModelKey(component.getId(), counter++);
-            
-            SequenceRowKey<DeclarativeModelKey> newKey = baseKey.append(key);
-            
-            return new DeclarativeTreeDataModelTuple(newKey, nextNode, component);
-        }
-        
-        public boolean hasNext() {
-            return nodesIterator.hasNext();
-        }
-        
-        public void remove() {
-            throw new UnsupportedOperationException();
-        }
-        
-    }
-    
-    private final class DeclarativeModelCompositeIterator extends ForwardingIterator<TreeDataModelTuple> {
-        
-        private UIComponent component;
-
-        private SequenceRowKey<DeclarativeModelKey> key;
-        
-        private Iterator<TreeDataModelTuple> iterator;
-        
-        public DeclarativeModelCompositeIterator(UIComponent component, SequenceRowKey<DeclarativeModelKey> key) {
-            super();
-            this.component = component;
-            this.key = key;
-        }
-
-        @Override
-        protected Iterator<TreeDataModelTuple> delegate() {
-            if (iterator == null) {
-                List<Iterator<TreeDataModelTuple>> list = Lists.newArrayList();
-                
-                if (component instanceof TreeModelRecursiveAdaptor) {
-                    TreeModelRecursiveAdaptor parentRecursiveAdaptor = (TreeModelRecursiveAdaptor) component;
-                    
-                    Collection<?> nodes = (Collection<?>) parentRecursiveAdaptor.getNodes();
-                    
-                    if (nodes != null) {
-                        list.add(new DeclarativeModelIterator(component, key, nodes.iterator()));
-                    }
-                }
-
-                if (component.getChildCount() > 0) {
-                    for (UIComponent child : Iterables.filter(component.getChildren(), ComponentPredicates.isRendered())) {
-                        Collection<?> nodes = null;
-
-                        if (child instanceof TreeModelRecursiveAdaptor) {
-                            TreeModelRecursiveAdaptor treeModelRecursiveAdaptor = (TreeModelRecursiveAdaptor) child;
-                            
-                            nodes = (Collection<?>) treeModelRecursiveAdaptor.getRoots();
-                        } else if (child instanceof TreeModelAdaptor) {
-                            TreeModelAdaptor treeModelAdaptor = (TreeModelAdaptor) child;
-                            
-                            nodes = (Collection<?>) treeModelAdaptor.getNodes();
-                        }
-
-                        if (nodes != null) {
-                            list.add(new DeclarativeModelIterator(child, key, nodes.iterator()));
-                        }
-                    }
-                }
-                
-                iterator = Iterators.concat(list.iterator());
-            }
-            
-            return iterator;
-        }
-        
-    }
-    
     private String var;
-    
+
     private Map<String, Object> contextMap;
-    
+
     private UIComponent tree;
-    
+
     private UIComponent currentComponent;
-    
+
     public DeclarativeTreeDataModelImpl(AbstractTree tree, String var, Map<String, Object> contextMap) {
         super();
         this.tree = tree;
@@ -162,11 +68,8 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Declarati
         return currentComponent;
     }
 
-    protected void setCurrentComponent(UIComponent currentComponent) {
-        this.currentComponent = currentComponent;
-    }
-    
     public boolean isLeaf() {
+        UIComponent currentComponent = getCurrentComponent();
         if (currentComponent instanceof TreeModelRecursiveAdaptor) {
             return false;
         }
@@ -174,20 +77,16 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Declarati
         if (currentComponent.getChildCount() == 0) {
             return true;
         }
-        
+
         return Iterables.contains(currentComponent.getChildren(), Predicates.instanceOf(TreeModelAdaptor.class));
     }
 
     public Iterator<TreeDataModelTuple> children() {
-        return new DeclarativeModelCompositeIterator(currentComponent, safeGetRowKey());
+        return new DeclarativeTreeDataModelCompositeTuplesIterator(currentComponent, safeGetRowKey());
     }
 
-    /* (non-Javadoc)
-     * @see org.richfaces.model.TreeDataModel#getParentRowKey(java.lang.Object)
-     */
     public Object getParentRowKey(Object rowKey) {
-        // TODO Auto-generated method stub
-        return null;
+        return safeGetRowKey().getParent();
     }
 
     @Override
@@ -207,7 +106,7 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Declarati
         if (var != null) {
             initialContextValue = contextMap.remove(var);
         }
-        
+
         try {
             this.currentComponent = tree;
 
@@ -222,11 +121,11 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Declarati
             }
         }
     }
-    
+
     @Override
     protected void walkNext(DeclarativeModelKey segment) {
         String modelId = segment.getModelId();
-        
+
         UIComponent modelComponent;
 
         if (currentComponent instanceof TreeModelRecursiveAdaptor && modelId.equals(currentComponent.getId())) {
@@ -236,10 +135,10 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Declarati
         }
 
         Object nodes = null;
-        
+
         if (modelComponent instanceof TreeModelRecursiveAdaptor) {
             TreeModelRecursiveAdaptor recursiveAdaptor = (TreeModelRecursiveAdaptor) modelComponent;
-            
+
             if (currentComponent.equals(modelComponent)) {
                 nodes = recursiveAdaptor.getNodes();
             } else {
@@ -251,11 +150,15 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Declarati
 
         Object data = Iterables.get((Iterable<?>) nodes, (Integer) segment.getModelKey());
         setRowKeyAndData(safeGetRowKey().append(segment), data);
-        setCurrentComponent(modelComponent);
- 
+        this.currentComponent = modelComponent;
+
         if (var != null) {
             contextMap.put(var, data);
         }
+    }
+
+    private SequenceRowKey<DeclarativeModelKey> safeGetRowKey() {
+        return firstNonNull(getRowKey(), EMPTY_KEY);
     }
 
     public TreeDataModelTuple createSnapshot() {
@@ -266,7 +169,7 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Declarati
         DeclarativeTreeDataModelTuple declarativeModelTuple = (DeclarativeTreeDataModelTuple) tuple;
 
         super.restoreFromSnapshot(declarativeModelTuple);
-        setCurrentComponent(declarativeModelTuple.getComponent());
+        this.currentComponent = declarativeModelTuple.getComponent();
     }
-    
+
 }

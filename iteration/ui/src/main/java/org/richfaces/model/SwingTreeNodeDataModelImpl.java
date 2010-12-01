@@ -21,147 +21,58 @@
  */
 package org.richfaces.model;
 
+import static com.google.common.base.Objects.firstNonNull;
+
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 import javax.swing.tree.TreeNode;
 
-import com.google.common.base.Predicates;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
-
+import com.google.common.collect.Lists;
 /**
  * @author Nick Belaevski
  * 
  */
 public class SwingTreeNodeDataModelImpl extends TreeSequenceKeyModel<Integer, TreeNode> {
 
-    private final class SwingTreeNodeRowKeyIterator implements Iterator<TreeDataModelTuple> {
-
-        private SequenceRowKey<Integer> baseKey;
-        
-        private Iterator<TreeNode> children;
-        
-        private int counter = 0;
-
-        private SwingTreeNodeRowKeyIterator(SequenceRowKey<Integer> baseKey, Iterator<TreeNode> children) {
-            this.baseKey = baseKey;
-            this.children = children;
-        }
-
-        private int getNextCounterValue() {
-            return counter++;
-        }
-        
-        public boolean hasNext() {
-            return children.hasNext();
-        }
-        
-        public TreeDataModelTuple next() {
-            TreeNode node = children.next();
-            
-            SequenceRowKey<Integer> key;
-            
-            if (baseKey != null) {
-                key = baseKey.append(getNextCounterValue());
-            } else {
-                key = new SequenceRowKey<Integer>(getNextCounterValue());
-            }
-            
-            return new TreeDataModelTuple(key, node);
-        }
-
-        public void remove() {
-            throw new UnsupportedOperationException();
-        }
-        
-    }
-
-    private final class FakeRootNode implements TreeNode {
-        
-        private Collection<TreeNode> wrappedData;
-        
-        public FakeRootNode(Collection<TreeNode> wrappedData) {
-            super();
-            this.wrappedData = wrappedData;
-        }
-
-        public boolean isLeaf() {
-            return !wrappedData.isEmpty();
-        }
-
-        public TreeNode getParent() {
-            return null;
-        }
-
-        public int getIndex(TreeNode node) {
-            if (wrappedData == null) {
-                return -1;
-            }
-            
-            return Iterables.indexOf(wrappedData, Predicates.equalTo(node));
-        }
-
-        public int getChildCount() {
-            if (wrappedData == null) {
-                return 0;
-            }
-            
-            return wrappedData.size();
-        }
-
-        public TreeNode getChildAt(int childIndex) {
-            if (wrappedData == null) {
-                throw new NoSuchElementException(String.valueOf(childIndex));
-            }
-            
-            return Iterables.get(wrappedData, childIndex);
-        }
-
-        public boolean getAllowsChildren() {
-            return true;
-        }
-
-        public Enumeration<?> children() {
-            if (wrappedData == null) {
-                return Iterators.asEnumeration(Iterators.emptyIterator());
-            }
-            
-            return Iterators.asEnumeration(wrappedData.iterator());
-        }
-        
-        public Collection<TreeNode> getWrappedData() {
-            return wrappedData;
-        }
-    }
-
+    private static final SequenceRowKey<Integer> EMPTY_KEY = new SequenceRowKey<Integer>();
+    
     private boolean asksAllowsChildren = false;
     
-    private Iterator<TreeNode> safeGetChildren(TreeNode treeNode) {
-        if (treeNode == null) {
-            return Iterators.emptyIterator();
+    private Object wrappedData;
+
+    private TreeNode createFakeRootNode(Object wrappedData) {
+        Collection<TreeNode> nodes;
+        
+        if (wrappedData instanceof Collection<?>) {
+            nodes = (Collection<TreeNode>) wrappedData;
+        } else if (wrappedData instanceof TreeNode) {
+            nodes = Lists.newArrayList((TreeNode) wrappedData);
+        } else if (wrappedData == null) {
+            nodes = null;
+        } else {
+            throw new IllegalArgumentException(String.valueOf(wrappedData));
         }
         
-        return Iterators.forEnumeration((Enumeration<TreeNode>) treeNode.children());
+        SwingTreeNodeImpl<?> treeNodeImpl = new SwingTreeNodeImpl<Object>(nodes);
+        treeNodeImpl.setAllowUpdateParents(false);
+        return treeNodeImpl;
     }
     
-
     public Object getParentRowKey(Object rowKey) {
         throw new UnsupportedOperationException();
     }
 
     public void setWrappedData(Object data) {
-        setRootNode(new FakeRootNode((Collection<TreeNode>) data));
+        this.wrappedData = data;
+        
+        setRootNode(createFakeRootNode(data));
     }
     
-    public Collection<TreeNode> getWrappedData() {
-        FakeRootNode rootNode = (FakeRootNode) getRootNode();
-        if (rootNode == null) {
-            return null;
-        }
-        return rootNode.getWrappedData();
+    public Object getWrappedData() {
+        return wrappedData;
     }
 
     protected TreeNode findChild(TreeNode parent, Integer simpleKey) {
@@ -169,7 +80,8 @@ public class SwingTreeNodeDataModelImpl extends TreeSequenceKeyModel<Integer, Tr
     }
 
     public Iterator<TreeDataModelTuple> children() {
-        return new SwingTreeNodeRowKeyIterator(getRowKey(), safeGetChildren(getData()));
+        Iterator<TreeNode> children = Iterators.forEnumeration((Enumeration<TreeNode>) getData().children());
+        return new SwingTreeNodeTuplesIterator(getRowKey(), children);
     }
 
     public boolean isLeaf() {
@@ -186,5 +98,9 @@ public class SwingTreeNodeDataModelImpl extends TreeSequenceKeyModel<Integer, Tr
         //TODO what if node is missing?
         //TODO - optimize - remove partial keys creation
         setRowKeyAndData(safeGetRowKey().append(segment), child);
+    }
+
+    private SequenceRowKey<Integer> safeGetRowKey() {
+        return firstNonNull(getRowKey(), EMPTY_KEY);
     }
 }
