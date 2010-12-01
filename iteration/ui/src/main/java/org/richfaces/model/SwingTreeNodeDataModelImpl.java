@@ -187,5 +187,4 @@ public class SwingTreeNodeDataModelImpl extends TreeSequenceKeyModel<Integer, Tr
         //TODO - optimize - remove partial keys creation
         setRowKeyAndData(safeGetRowKey().append(segment), child);
     }
-
 }
