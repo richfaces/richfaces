@@ -126,10 +126,10 @@ public abstract class AbstractProgressBar extends UIComponentBase implements Met
     @Attribute(defaultValue = "SwitchType.DEFAULT")
     public abstract SwitchType getMode();
 
-    @Attribute
+    @Attribute(defaultValue = "100")
     public abstract int getMaxValue();
 
-    @Attribute
+    @Attribute(defaultValue = "0")
     public abstract int getMinValue();
 
     @Attribute
