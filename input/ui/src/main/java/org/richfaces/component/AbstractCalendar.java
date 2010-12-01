@@ -138,8 +138,8 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     @Attribute(defaultValue = "false")
     public abstract boolean isEnableManualInput();
 
-    @Attribute(defaultValue = "false")
-    public abstract boolean isDayEnabled();
+    @Attribute
+    public abstract String getDayDisableFunction();
 
     @Attribute(defaultValue = "false")
     public abstract boolean isShowApplyButton();
@@ -184,7 +184,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     public abstract Object getWeekDayLabels();
 
     @Attribute
-    public abstract String getDayStyleClass();
+    public abstract String getDayClassFunction();
 
     @Attribute
     public abstract String getTabindex();

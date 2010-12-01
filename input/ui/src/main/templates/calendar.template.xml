@@ -75,6 +75,7 @@
 					<cdk:scriptOption name="selectedDate" value="#{getSelectedDate(facesContext, component)}" />
 					<cdk:scriptOption name="dayCellClass" value="#{getDayCellClass(facesContext, component)}" />
 					<cdk:scriptOption name="dayStyleClass" value="#{getDayStyleClass(facesContext, component)}" />
+					<cdk:scriptOption name="isDayEnabled" value="#{getDayEnabled(facesContext, component)}" />
 					<cdk:scriptOption name="labels" value="#{getLabels(facesContext, component)}" />
 					<cdk:scriptOption name="defaultTime" value="#{getPreparedDefaultTime(facesContext, component)}" />
 					<cdk:scriptOption name="style" value="#{getStyleWithZindex(facesContext, component)}" />

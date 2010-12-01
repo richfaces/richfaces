@@ -333,13 +333,15 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         return null;
     }
     
-    public JSReference getIsDayEnabled(FacesContext facesContext, AbstractCalendar calendar) {
-        return calendar.isDayEnabled() ? JSReference.TRUE : JSReference.FALSE;
+    public JSReference getDayEnabled(FacesContext facesContext, UIComponent component) {
+        AbstractCalendar calendar = (AbstractCalendar) component;
+        String dayEnabled = calendar.getDayDisableFunction();
+        return ((dayEnabled != null && dayEnabled.trim().length() != 0)) ? new JSReference(dayEnabled) : null; 
     }
     
     public JSReference getDayStyleClass(FacesContext context, UIComponent component) {
         AbstractCalendar calendar = (AbstractCalendar) component;
-        String dayStyleClass = calendar.getDayStyleClass();
+        String dayStyleClass = calendar.getDayClassFunction();
         return ((dayStyleClass != null && dayStyleClass.trim().length() != 0)) ? new JSReference(dayStyleClass) : null; 
     }
     
