@@ -23,12 +23,11 @@
 
 package org.richfaces.component;
 
-import org.richfaces.ExpandMode;
 import org.richfaces.PanelMenuMode;
 
 /**
  * @author akolonitsky
- * @since 2010-10-25
+ * @since 2010-11-29
  */
 public class UIPanelMenu extends AbstractPanelMenu {
 
@@ -40,6 +39,7 @@ public class UIPanelMenu extends AbstractPanelMenu {
         expandSingle,
         itemMode,
         bubbleSelection,
+        activeItem,
         itemChangeListener,
         bypassUpdates,
         limitToList,
@@ -73,11 +73,11 @@ public class UIPanelMenu extends AbstractPanelMenu {
         getStateHelper().put(PropertyKeys.collapseEvent, collapseEvent);
     }
 
-    public ExpandMode getGroupMode() {
-        return (ExpandMode) getStateHelper().eval(PropertyKeys.groupMode, ExpandMode.DEFAULT);
+    public PanelMenuMode getGroupMode() {
+        return (PanelMenuMode) getStateHelper().eval(PropertyKeys.groupMode, PanelMenuMode.client);
     }
 
-    public void setGroupMode(ExpandMode groupMode) {
+    public void setGroupMode(PanelMenuMode groupMode) {
         getStateHelper().put(PropertyKeys.groupMode, groupMode);
     }
 
@@ -103,6 +103,14 @@ public class UIPanelMenu extends AbstractPanelMenu {
 
     public void setBubbleSelection(boolean bubbleSelection) {
         getStateHelper().put(PropertyKeys.bubbleSelection, bubbleSelection);
+    }
+
+    public String getActiveItem() {
+        return (String) getStateHelper().eval(PropertyKeys.activeItem);
+    }
+
+    public void setActiveItem(String activeItem) {
+        getStateHelper().put(PropertyKeys.activeItem, activeItem);
     }
 
     public String getItemChangeListener() {

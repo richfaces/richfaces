@@ -1605,12 +1605,27 @@
         </property>
         <property>
             <description></description>
-            <property-name>iconCollapsed</property-name>
+            <property-name>bubbleSelection</property-name>
+            <property-class>boolean</property-class>
+        </property>
+        <property>
+            <description></description>
+            <property-name>iconLeftCollapsed</property-name>
             <property-class>java.lang.String</property-class>
         </property>
         <property>
             <description></description>
-            <property-name>iconExpanded</property-name>
+            <property-name>iconLeftExpanded</property-name>
+            <property-class>java.lang.String</property-class>
+        </property>
+        <property>
+            <description></description>
+            <property-name>iconRightCollapsed</property-name>
+            <property-class>java.lang.String</property-class>
+        </property>
+        <property>
+            <description></description>
+            <property-name>iconRightExpanded</property-name>
             <property-class>java.lang.String</property-class>
         </property>
         <property>
@@ -1641,7 +1656,7 @@
         <property>
             <description></description>
             <property-name>groupMode</property-name>
-            <property-class>org.richfaces.ExpandMode</property-class>
+            <property-class>org.richfaces.PanelMenuMode</property-class>
         </property>
         <property>
             <description></description>
@@ -1698,6 +1713,7 @@
             <property-name>render</property-name>
             <property-class>java.lang.Object</property-class>
         </property>
+
     </component>
 
     <render-kit>

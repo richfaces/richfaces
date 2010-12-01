@@ -25,11 +25,15 @@ package org.richfaces.renderkit.html;
 
 import java.io.IOException;
 
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
- /**
+import static org.junit.Assert.assertNotNull;
+
+/**
  * @author akolonitsky
  * @since 2010-10-25
  */
@@ -48,6 +52,30 @@ public class PanelMenuGroupRendererTest extends RendererTestBase {
     @Test
     public void testTopGroup() throws IOException, SAXException {
         doTest("panelMenuGroup-topGroup", "f:panelMenuGroup");
+    }
+
+    @Test
+    public void testIconsInheritanceTopGroup() throws IOException, SAXException {
+        doTest("panelMenu-icons-inheritance", "panelMenu-icons-inheritance-topGroup", "f:panelMenuGroup-top");
+        doTest("panelMenu-icons-inheritance", "panelMenu-icons-inheritance-topGroupDis", "f:panelMenuGroup-topDis");
+    }
+
+    @Test
+    public void testIconsInheritanceTopItem() throws IOException, SAXException {
+        doTest("panelMenu-icons-inheritance", "panelMenu-icons-inheritance-topItem", "f:panelMenuItem-top");
+        doTest("panelMenu-icons-inheritance", "panelMenu-icons-inheritance-topItemDis", "f:panelMenuItem-topDis");
+    }
+
+    @Test
+    public void testIconsInheritanceItem() throws IOException, SAXException {
+        doTest("panelMenu-icons-inheritance", "panelMenu-icons-inheritance-item", "f:panelMenuItem");
+        doTest("panelMenu-icons-inheritance", "panelMenu-icons-inheritance-itemDis", "f:panelMenuItem-dis");
+    }
+
+    @Test
+    public void testIconsInheritanceGroup() throws IOException, SAXException {
+        doTest("panelMenu-icons-inheritance", "panelMenu-icons-inheritance-group", "f:panelMenuGroup");
+        doTest("panelMenu-icons-inheritance", "panelMenu-icons-inheritance-groupDis", "f:panelMenuGroup-dis");
     }
 
 }

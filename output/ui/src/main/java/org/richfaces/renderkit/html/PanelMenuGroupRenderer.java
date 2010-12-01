@@ -29,6 +29,7 @@ import org.richfaces.component.AbstractPanelMenuGroup;
 import org.richfaces.component.AbstractPanelMenuItem;
 import org.richfaces.component.html.HtmlPanelMenuGroup;
 import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.RenderKitUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -37,7 +38,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.richfaces.component.util.HtmlUtil.concatClasses;
 import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
 import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
 
@@ -109,10 +109,78 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
         writer.startElement("div", null);
         writer.writeAttribute("id", menuGroup.getClientId(context) + ":hdr", null);
         writer.writeAttribute("class", getCssClass(menuGroup, "-hdr"), null);
-        PanelMenuItemRenderer.encodeHeaderGroup(writer, context, menuGroup, getCssClass(menuGroup, ""));
-//        writer.writeText(menuGroup.getLabel(), null);
+        encodeHeaderGroup(writer, context, menuGroup, getCssClass(menuGroup, ""));
         writer.endElement("div");
     }
+
+    private void encodeHeaderGroup(ResponseWriter writer, FacesContext context, HtmlPanelMenuGroup menuItem, String classPrefix) throws IOException {
+        writer.startElement("table", null);
+        writer.writeAttribute("class", classPrefix + "-gr", null);
+        writer.startElement("tr", null);
+
+        encodeHeaderGroupIconLeft(writer, context, menuItem, classPrefix);
+
+        writer.startElement("td", null);
+        writer.writeAttribute("class", classPrefix + "-lbl", null);
+        writer.writeText(menuItem.getLabel(), null);
+        writer.endElement("td");
+
+        encodeHeaderGroupIconRight(writer, context, menuItem, classPrefix);
+
+        writer.endElement("tr");
+        writer.endElement("table");
+    }
+
+    private void encodeHeaderGroupIconLeft(ResponseWriter writer, FacesContext context, HtmlPanelMenuGroup menuGroup, String classPrefix) throws IOException {
+        String iconCollapsed = menuGroup.isDisabled() ? menuGroup.getIconLeftDisabled() : menuGroup.getIconLeftCollapsed();
+        String iconExpanded = menuGroup.isDisabled() ? menuGroup.getIconLeftDisabled() : menuGroup.getIconLeftExpanded();
+
+        encodeTdIcon(writer, context, classPrefix + "-ico", menuGroup.isExpanded(), iconCollapsed, iconExpanded);
+    }
+
+    private void encodeHeaderGroupIconRight(ResponseWriter writer, FacesContext context, HtmlPanelMenuGroup menuItem, String classPrefix) throws IOException {
+        String iconCollapsed = menuItem.isDisabled() ? menuItem.getIconRightDisabled() : menuItem.getIconRightCollapsed();
+        String iconExpanded = menuItem.isDisabled() ? menuItem.getIconRightDisabled() : menuItem.getIconRightExpanded();
+
+        encodeTdIcon(writer, context, classPrefix + "-exp-ico", menuItem.isExpanded(), iconCollapsed, iconExpanded);
+    }
+
+    private void encodeTdIcon(ResponseWriter writer, FacesContext context, String cssClass, boolean isExpanded, String attrIconCollapsedValue, String attrIconExpandedValue) throws IOException {
+        writer.startElement("td", null);
+        writer.writeAttribute("class", cssClass, null);
+        try {
+            AbstractPanelMenuItem.Icons iconCollapsed = AbstractPanelMenuItem.Icons.valueOf(attrIconCollapsedValue);
+            writer.startElement("div", null);
+            writer.writeAttribute("class", concatClasses("rf-pm-ico-colps", iconCollapsed.cssClass()), null);
+            writer.writeAttribute("style", styleElement("display", isExpanded ? "none" : "block"), null);
+            writer.endElement("div");
+        } catch (IllegalArgumentException e) {
+            if(attrIconCollapsedValue != null && attrIconCollapsedValue.trim().length() != 0) {
+                writer.startElement(HtmlConstants.IMG_ELEMENT, null);
+                writer.writeAttribute(HtmlConstants.ALT_ATTRIBUTE, "", null);
+                writer.writeURIAttribute(HtmlConstants.SRC_ATTRIBUTE, RenderKitUtils.getResourceURL(attrIconCollapsedValue, context), null);
+                writer.endElement(HtmlConstants.IMG_ELEMENT);
+            }
+        }
+
+        try {
+            AbstractPanelMenuItem.Icons iconExpanded = AbstractPanelMenuItem.Icons.valueOf(attrIconExpandedValue);
+            writer.startElement("div", null);
+            writer.writeAttribute("class", concatClasses("rf-pm-ico-exp", iconExpanded.cssClass()), null);
+            writer.writeAttribute("style", styleElement("display", isExpanded ? "block" : "none"), null);
+            writer.endElement("div");
+        } catch (IllegalArgumentException e) {
+            if(attrIconExpandedValue != null && attrIconExpandedValue.trim().length() != 0) {
+                writer.startElement(HtmlConstants.IMG_ELEMENT, null);
+                writer.writeAttribute(HtmlConstants.ALT_ATTRIBUTE, "", null);
+                writer.writeURIAttribute(HtmlConstants.SRC_ATTRIBUTE, RenderKitUtils.getResourceURL(attrIconExpandedValue, context), null);
+                writer.endElement(HtmlConstants.IMG_ELEMENT);
+            }
+        }
+
+        writer.endElement("td");
+    }
+
 
     public String getCssClass(AbstractPanelMenuItem item, String postfix) {
         return (item.isTopItem() ? TOP_CSS_CLASS_PREFIX : CSS_CLASS_PREFIX) + postfix;
@@ -132,7 +200,12 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
 
     @Override
     protected String getStyleClass(UIComponent component) {
-        return concatClasses(getCssClass((AbstractPanelMenuItem) component, ""), attributeAsString(component, "styleClass"));
+        AbstractPanelMenuItem menuItem = (AbstractPanelMenuItem) component;
+
+        return concatClasses(getCssClass(menuItem, ""),
+            attributeAsString(component, "styleClass"),
+            menuItem.isDisabled() ? getCssClass(menuItem, "-dis") : "",
+            menuItem.isDisabled() ? attributeAsString(component, "disabledClass") : "");
     }
 
     @Override
@@ -149,10 +222,11 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
         options.put("ajax", getAjaxOptions(context, panelMenuGroup));
         options.put("name", panelMenuGroup.getName());
         options.put("mode", panelMenuGroup.getMode());
+        options.put("disabled", panelMenuGroup.isDisabled());
         options.put("expandEvent", panelMenuGroup.getExpandEvent());
         options.put("collapseEvent", panelMenuGroup.getCollapseEvent());
         options.put("expandSingle", panelMenuGroup.isExpandSingle());
-        options.put("bubbleSelection", panelMenuGroup.getBubbleSelection());
+        options.put("bubbleSelection", panelMenuGroup.isBubbleSelection());
         options.put("expanded", panelMenuGroup.isExpanded());
 
         addEventOption(context, panelMenuGroup, options, COLLAPSE);

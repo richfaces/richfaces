@@ -24,15 +24,17 @@
 package org.richfaces.component.html;
 
 import org.richfaces.component.UIPanelMenu;
-import javax.faces.component.behavior.ClientBehaviorHolder;
 
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
+import static org.richfaces.component.AbstractPanelMenuItem.Icons;
+
 /**
  * @author akolonitsky
- * @since 2010-10-25
+ * @since 2010-11-29
  */
 public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
 
@@ -56,31 +58,33 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
         styleClass,
         width,
         itemClass,
-        itemHoverClass,
         itemDisableClass,
-        itemIcon,
-        itemDisableIcon,
-        itemIconPosition,
+        itemIconLeft,
+        itemIconRight,
+        itemDisableIconLeft,
+        itemDisableIconRight,
         topItemClass,
-        topItemHoverClass,
         topItemDisableClass,
-        topItemIcon,
-        topItemDisableIcon,
-        topItemIconPosition,
+        topItemIconLeft,
+        topItemIconRight,
+        topItemDisableIconLeft,
+        topItemDisableIconRight,
         groupClass,
-        groupHoverClass,
         groupDisableClass,
-        groupCollapseIcon,
-        groupExpandIcon,
-        groupDisableIcon,
-        groupIconPosition,
+        groupExpandIconLeft,
+        groupExpandIconRight,
+        groupCollapseIconLeft,
+        groupCollapseIconRight,
+        groupDisableIconLeft,
+        groupDisableIconRight,
         topGroupClass,
-        topGroupHoverClass,
         topGroupDisableClass,
-        topGroupCollapseIcon,
-        topGroupExpandIcon,
-        topGroupDisableIcon,
-        topGroupIconPosition,
+        topGroupExpandIconLeft,
+        topGroupExpandIconRight,
+        topGroupCollapseIconLeft,
+        topGroupCollapseIconRight,
+        topGroupDisableIconLeft,
+        topGroupDisableIconRight,
         onclick,
         ondblclick,
         onmousedown,
@@ -131,14 +135,6 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
         getStateHelper().put(PropertyKeys.itemClass, itemClass);
     }
 
-    public String getItemHoverClass() {
-        return (String) getStateHelper().eval(PropertyKeys.itemHoverClass);
-    }
-
-    public void setItemHoverClass(String itemHoverClass) {
-        getStateHelper().put(PropertyKeys.itemHoverClass, itemHoverClass);
-    }
-
     public String getItemDisableClass() {
         return (String) getStateHelper().eval(PropertyKeys.itemDisableClass);
     }
@@ -147,28 +143,36 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
         getStateHelper().put(PropertyKeys.itemDisableClass, itemDisableClass);
     }
 
-    public String getItemIcon() {
-        return (String) getStateHelper().eval(PropertyKeys.itemIcon);
+    public String getItemIconLeft() {
+        return (String) getStateHelper().eval(PropertyKeys.itemIconLeft, Icons.DEFAULT.toString());
     }
 
-    public void setItemIcon(String itemIcon) {
-        getStateHelper().put(PropertyKeys.itemIcon, itemIcon);
+    public void setItemIconLeft(String itemIconLeft) {
+        getStateHelper().put(PropertyKeys.itemIconLeft, itemIconLeft);
     }
 
-    public String getItemDisableIcon() {
-        return (String) getStateHelper().eval(PropertyKeys.itemDisableIcon);
+    public String getItemIconRight() {
+        return (String) getStateHelper().eval(PropertyKeys.itemIconRight, Icons.DEFAULT.toString());
     }
 
-    public void setItemDisableIcon(String itemDisableIcon) {
-        getStateHelper().put(PropertyKeys.itemDisableIcon, itemDisableIcon);
+    public void setItemIconRight(String itemIconRight) {
+        getStateHelper().put(PropertyKeys.itemIconRight, itemIconRight);
     }
 
-    public String getItemIconPosition() {
-        return (String) getStateHelper().eval(PropertyKeys.itemIconPosition);
+    public String getItemDisableIconLeft() {
+        return (String) getStateHelper().eval(PropertyKeys.itemDisableIconLeft, Icons.DEFAULT.toString());
     }
 
-    public void setItemIconPosition(String itemIconPosition) {
-        getStateHelper().put(PropertyKeys.itemIconPosition, itemIconPosition);
+    public void setItemDisableIconLeft(String itemDisableIconLeft) {
+        getStateHelper().put(PropertyKeys.itemDisableIconLeft, itemDisableIconLeft);
+    }
+
+    public String getItemDisableIconRight() {
+        return (String) getStateHelper().eval(PropertyKeys.itemDisableIconRight, Icons.DEFAULT.toString());
+    }
+
+    public void setItemDisableIconRight(String itemDisableIconRight) {
+        getStateHelper().put(PropertyKeys.itemDisableIconRight, itemDisableIconRight);
     }
 
     public String getTopItemClass() {
@@ -179,14 +183,6 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
         getStateHelper().put(PropertyKeys.topItemClass, topItemClass);
     }
 
-    public String getTopItemHoverClass() {
-        return (String) getStateHelper().eval(PropertyKeys.topItemHoverClass);
-    }
-
-    public void setTopItemHoverClass(String topItemHoverClass) {
-        getStateHelper().put(PropertyKeys.topItemHoverClass, topItemHoverClass);
-    }
-
     public String getTopItemDisableClass() {
         return (String) getStateHelper().eval(PropertyKeys.topItemDisableClass);
     }
@@ -195,28 +191,36 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
         getStateHelper().put(PropertyKeys.topItemDisableClass, topItemDisableClass);
     }
 
-    public String getTopItemIcon() {
-        return (String) getStateHelper().eval(PropertyKeys.topItemIcon);
+    public String getTopItemIconLeft() {
+        return (String) getStateHelper().eval(PropertyKeys.topItemIconLeft, Icons.DEFAULT.toString());
     }
 
-    public void setTopItemIcon(String topItemIcon) {
-        getStateHelper().put(PropertyKeys.topItemIcon, topItemIcon);
+    public void setTopItemIconLeft(String topItemIconLeft) {
+        getStateHelper().put(PropertyKeys.topItemIconLeft, topItemIconLeft);
     }
 
-    public String getTopItemDisableIcon() {
-        return (String) getStateHelper().eval(PropertyKeys.topItemDisableIcon);
+    public String getTopItemIconRight() {
+        return (String) getStateHelper().eval(PropertyKeys.topItemIconRight, Icons.DEFAULT.toString());
     }
 
-    public void setTopItemDisableIcon(String topItemDisableIcon) {
-        getStateHelper().put(PropertyKeys.topItemDisableIcon, topItemDisableIcon);
+    public void setTopItemIconRight(String topItemIconRight) {
+        getStateHelper().put(PropertyKeys.topItemIconRight, topItemIconRight);
     }
 
-    public String getTopItemIconPosition() {
-        return (String) getStateHelper().eval(PropertyKeys.topItemIconPosition);
+    public String getTopItemDisableIconLeft() {
+        return (String) getStateHelper().eval(PropertyKeys.topItemDisableIconLeft, Icons.DEFAULT.toString());
     }
 
-    public void setTopItemIconPosition(String topItemIconPosition) {
-        getStateHelper().put(PropertyKeys.topItemIconPosition, topItemIconPosition);
+    public void setTopItemDisableIconLeft(String topItemDisableIconLeft) {
+        getStateHelper().put(PropertyKeys.topItemDisableIconLeft, topItemDisableIconLeft);
+    }
+
+    public String getTopItemDisableIconRight() {
+        return (String) getStateHelper().eval(PropertyKeys.topItemDisableIconRight, Icons.DEFAULT.toString());
+    }
+
+    public void setTopItemDisableIconRight(String topItemDisableIconRight) {
+        getStateHelper().put(PropertyKeys.topItemDisableIconRight, topItemDisableIconRight);
     }
 
     public String getGroupClass() {
@@ -227,14 +231,6 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
         getStateHelper().put(PropertyKeys.groupClass, groupClass);
     }
 
-    public String getGroupHoverClass() {
-        return (String) getStateHelper().eval(PropertyKeys.groupHoverClass);
-    }
-
-    public void setGroupHoverClass(String groupHoverClass) {
-        getStateHelper().put(PropertyKeys.groupHoverClass, groupHoverClass);
-    }
-
     public String getGroupDisableClass() {
         return (String) getStateHelper().eval(PropertyKeys.groupDisableClass);
     }
@@ -243,36 +239,52 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
         getStateHelper().put(PropertyKeys.groupDisableClass, groupDisableClass);
     }
 
-    public String getGroupCollapseIcon() {
-        return (String) getStateHelper().eval(PropertyKeys.groupCollapseIcon);
+    public String getGroupExpandIconLeft() {
+        return (String) getStateHelper().eval(PropertyKeys.groupExpandIconLeft, Icons.DEFAULT.toString());
     }
 
-    public void setGroupCollapseIcon(String groupCollapseIcon) {
-        getStateHelper().put(PropertyKeys.groupCollapseIcon, groupCollapseIcon);
+    public void setGroupExpandIconLeft(String groupExpandIconLeft) {
+        getStateHelper().put(PropertyKeys.groupExpandIconLeft, groupExpandIconLeft);
     }
 
-    public String getGroupExpandIcon() {
-        return (String) getStateHelper().eval(PropertyKeys.groupExpandIcon);
+    public String getGroupExpandIconRight() {
+        return (String) getStateHelper().eval(PropertyKeys.groupExpandIconRight, Icons.DEFAULT.toString());
     }
 
-    public void setGroupExpandIcon(String groupExpandIcon) {
-        getStateHelper().put(PropertyKeys.groupExpandIcon, groupExpandIcon);
+    public void setGroupExpandIconRight(String groupExpandIconRight) {
+        getStateHelper().put(PropertyKeys.groupExpandIconRight, groupExpandIconRight);
     }
 
-    public String getGroupDisableIcon() {
-        return (String) getStateHelper().eval(PropertyKeys.groupDisableIcon);
+    public String getGroupCollapseIconLeft() {
+        return (String) getStateHelper().eval(PropertyKeys.groupCollapseIconLeft, Icons.DEFAULT.toString());
     }
 
-    public void setGroupDisableIcon(String groupDisableIcon) {
-        getStateHelper().put(PropertyKeys.groupDisableIcon, groupDisableIcon);
+    public void setGroupCollapseIconLeft(String groupCollapseIconLeft) {
+        getStateHelper().put(PropertyKeys.groupCollapseIconLeft, groupCollapseIconLeft);
     }
 
-    public String getGroupIconPosition() {
-        return (String) getStateHelper().eval(PropertyKeys.groupIconPosition);
+    public String getGroupCollapseIconRight() {
+        return (String) getStateHelper().eval(PropertyKeys.groupCollapseIconRight, Icons.DEFAULT.toString());
     }
 
-    public void setGroupIconPosition(String groupIconPosition) {
-        getStateHelper().put(PropertyKeys.groupIconPosition, groupIconPosition);
+    public void setGroupCollapseIconRight(String groupCollapseIconRight) {
+        getStateHelper().put(PropertyKeys.groupCollapseIconRight, groupCollapseIconRight);
+    }
+
+    public String getGroupDisableIconLeft() {
+        return (String) getStateHelper().eval(PropertyKeys.groupDisableIconLeft, Icons.DEFAULT.toString());
+    }
+
+    public void setGroupDisableIconLeft(String groupDisableIconLeft) {
+        getStateHelper().put(PropertyKeys.groupDisableIconLeft, groupDisableIconLeft);
+    }
+
+    public String getGroupDisableIconRight() {
+        return (String) getStateHelper().eval(PropertyKeys.groupDisableIconRight, Icons.DEFAULT.toString());
+    }
+
+    public void setGroupDisableIconRight(String groupDisableIconRight) {
+        getStateHelper().put(PropertyKeys.groupDisableIconRight, groupDisableIconRight);
     }
 
     public String getTopGroupClass() {
@@ -283,14 +295,6 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
         getStateHelper().put(PropertyKeys.topGroupClass, topGroupClass);
     }
 
-    public String getTopGroupHoverClass() {
-        return (String) getStateHelper().eval(PropertyKeys.topGroupHoverClass);
-    }
-
-    public void setTopGroupHoverClass(String topGroupHoverClass) {
-        getStateHelper().put(PropertyKeys.topGroupHoverClass, topGroupHoverClass);
-    }
-
     public String getTopGroupDisableClass() {
         return (String) getStateHelper().eval(PropertyKeys.topGroupDisableClass);
     }
@@ -299,36 +303,52 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
         getStateHelper().put(PropertyKeys.topGroupDisableClass, topGroupDisableClass);
     }
 
-    public String getTopGroupCollapseIcon() {
-        return (String) getStateHelper().eval(PropertyKeys.topGroupCollapseIcon);
+    public String getTopGroupExpandIconLeft() {
+        return (String) getStateHelper().eval(PropertyKeys.topGroupExpandIconLeft, Icons.DEFAULT.toString());
     }
 
-    public void setTopGroupCollapseIcon(String topGroupCollapseIcon) {
-        getStateHelper().put(PropertyKeys.topGroupCollapseIcon, topGroupCollapseIcon);
+    public void setTopGroupExpandIconLeft(String topGroupExpandIconLeft) {
+        getStateHelper().put(PropertyKeys.topGroupExpandIconLeft, topGroupExpandIconLeft);
     }
 
-    public String getTopGroupExpandIcon() {
-        return (String) getStateHelper().eval(PropertyKeys.topGroupExpandIcon);
+    public String getTopGroupExpandIconRight() {
+        return (String) getStateHelper().eval(PropertyKeys.topGroupExpandIconRight, Icons.DEFAULT.toString());
     }
 
-    public void setTopGroupExpandIcon(String topGroupExpandIcon) {
-        getStateHelper().put(PropertyKeys.topGroupExpandIcon, topGroupExpandIcon);
+    public void setTopGroupExpandIconRight(String topGroupExpandIconRight) {
+        getStateHelper().put(PropertyKeys.topGroupExpandIconRight, topGroupExpandIconRight);
     }
 
-    public String getTopGroupDisableIcon() {
-        return (String) getStateHelper().eval(PropertyKeys.topGroupDisableIcon);
+    public String getTopGroupCollapseIconLeft() {
+        return (String) getStateHelper().eval(PropertyKeys.topGroupCollapseIconLeft, Icons.DEFAULT.toString());
     }
 
-    public void setTopGroupDisableIcon(String topGroupDisableIcon) {
-        getStateHelper().put(PropertyKeys.topGroupDisableIcon, topGroupDisableIcon);
+    public void setTopGroupCollapseIconLeft(String topGroupCollapseIconLeft) {
+        getStateHelper().put(PropertyKeys.topGroupCollapseIconLeft, topGroupCollapseIconLeft);
     }
 
-    public String getTopGroupIconPosition() {
-        return (String) getStateHelper().eval(PropertyKeys.topGroupIconPosition);
+    public String getTopGroupCollapseIconRight() {
+        return (String) getStateHelper().eval(PropertyKeys.topGroupCollapseIconRight, Icons.DEFAULT.toString());
     }
 
-    public void setTopGroupIconPosition(String topGroupIconPosition) {
-        getStateHelper().put(PropertyKeys.topGroupIconPosition, topGroupIconPosition);
+    public void setTopGroupCollapseIconRight(String topGroupCollapseIconRight) {
+        getStateHelper().put(PropertyKeys.topGroupCollapseIconRight, topGroupCollapseIconRight);
+    }
+
+    public String getTopGroupDisableIconLeft() {
+        return (String) getStateHelper().eval(PropertyKeys.topGroupDisableIconLeft, Icons.DEFAULT.toString());
+    }
+
+    public void setTopGroupDisableIconLeft(String topGroupDisableIconLeft) {
+        getStateHelper().put(PropertyKeys.topGroupDisableIconLeft, topGroupDisableIconLeft);
+    }
+
+    public String getTopGroupDisableIconRight() {
+        return (String) getStateHelper().eval(PropertyKeys.topGroupDisableIconRight, Icons.DEFAULT.toString());
+    }
+
+    public void setTopGroupDisableIconRight(String topGroupDisableIconRight) {
+        getStateHelper().put(PropertyKeys.topGroupDisableIconRight, topGroupDisableIconRight);
     }
 
     public String getOnclick() {

@@ -47,7 +47,7 @@ public abstract class AbstractPanelMenuItem extends UIOutput {
         triangle("rf-pm-triangle"),
         triangleUp("rf-pm-triangle-up"),
         triangleDown("rf-pm-triangle-down");
-        
+
         public static final Icons DEFAULT = grid;
 
         private final String cssClass;
@@ -100,8 +100,6 @@ public abstract class AbstractPanelMenuItem extends UIOutput {
     public String getFamily() {
         return COMPONENT_FAMILY;
     }
-
-    public abstract String getIcon();
 
     public abstract PanelMenuMode getMode();
 

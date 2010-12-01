@@ -27,12 +27,11 @@ import org.richfaces.PanelMenuMode;
 
 /**
  * @author akolonitsky
- * @since 2010-10-25
+ * @since 2010-11-29
  */
 public class UIPanelMenuItem extends AbstractPanelMenuItem {
 
     public enum PropertyKeys {
-        icon,
         mode,
         label,
         name,
@@ -45,16 +44,8 @@ public class UIPanelMenuItem extends AbstractPanelMenuItem {
         render
     }
 
-    public String getIcon() {
-        return (String) getStateHelper().eval(PropertyKeys.icon, Icons.DEFAULT.toString());
-    }
-
-    public void setIcon(String icon) {
-        getStateHelper().put(PropertyKeys.icon, icon);
-    }
-
     public PanelMenuMode getMode() {
-        return (PanelMenuMode) getStateHelper().eval(PropertyKeys.mode, PanelMenuMode.DEFAULT);
+        return (PanelMenuMode) getStateHelper().eval(PropertyKeys.mode, getPanelMenu().getItemMode());
     }
 
     public void setMode(PanelMenuMode mode) {

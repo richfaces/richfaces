@@ -1,0 +1,15 @@
+<div id="f:panelMenuItem-topDis" class="rf-pm-top-itm topItemClass rf-pm-top-itm-dis topItemDisableClass">
+  <table class="rf-pm-top-itm-gr">
+      <tbody>
+          <tr>
+              <td class="rf-pm-top-itm-ico rf-pm-chevron"></td>
+              <td class="rf-pm-top-itm-lbl">panelMenuItem</td>
+              <td class="rf-pm-top-itm-exp-ico rf-pm-chevron"></td>
+          </tr>
+      </tbody>
+  </table>
+
+  <script type="text/javascript">
+      // Text
+  </script>
+</div>

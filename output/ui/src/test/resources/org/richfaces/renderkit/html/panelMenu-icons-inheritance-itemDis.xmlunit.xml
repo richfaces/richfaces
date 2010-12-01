@@ -1,14 +1,14 @@
-<div id="f:panelMenuItem" class="rf-pm-itm">
+<div id="f:panelMenuItem-dis" class="rf-pm-itm itemClass rf-pm-itm-dis itemDisableClass">
   <table class="rf-pm-itm-gr">
       <tbody>
           <tr>
-              <td class="rf-pm-itm-ico rf-pm-grid"></td>
+              <td class="rf-pm-itm-ico rf-pm-chevron-down"></td>
               <td class="rf-pm-itm-lbl">panelMenuItem</td>
-              <td class="rf-pm-itm-exp-ico rf-pm-grid"></td>
+              <td class="rf-pm-itm-exp-ico rf-pm-chevron-up"></td>
           </tr>
       </tbody>
   </table>
-    
+
   <script type="text/javascript">
       // Text
   </script>

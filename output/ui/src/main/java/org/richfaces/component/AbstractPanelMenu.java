@@ -23,7 +23,6 @@
 
 package org.richfaces.component;
 
-import org.richfaces.ExpandMode;
 import org.richfaces.PanelMenuMode;
 import org.richfaces.event.ItemChangeEvent;
 
@@ -168,7 +167,7 @@ public abstract class AbstractPanelMenu extends UIOutput {
 
     public abstract String getCollapseEvent();
 
-    public abstract ExpandMode getGroupMode();
+    public abstract PanelMenuMode getGroupMode();
 
     public abstract boolean isExpandSingle();
 

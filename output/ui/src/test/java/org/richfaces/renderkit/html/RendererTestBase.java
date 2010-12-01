@@ -71,17 +71,21 @@ public abstract class RendererTestBase {
     }
 
     protected void doTest(String pageName, String pageElementToTest) throws IOException, SAXException {
-        HtmlPage page = environment.getPage('/' + pageName + ".jsf");
+        doTest(pageName, pageName, pageElementToTest);
+    }
+
+    protected void doTest(String jsfPage, String xmlPage, String pageElementToTest) throws IOException, SAXException {
+        HtmlPage page = environment.getPage('/' + jsfPage + ".jsf");
         HtmlElement panel = page.getElementById(pageElementToTest);
         assertNotNull(panel);
 
-        checkXmlStructure(pageName, panel.asXml());
+        checkXmlStructure(xmlPage, panel.asXml());
     }
 
     protected void checkXmlStructure(String pageName, String pageCode) throws SAXException, IOException {
         InputStream expectedPageCode = this.getClass().getResourceAsStream(pageName + ".xmlunit.xml");
         if (expectedPageCode == null) {
-            return;
+            throw new IllegalArgumentException("Page: " + pageName + ".xmlunit.xml doesn't exist.");
         }
 
         Diff xmlDiff = new Diff(new InputStreamReader(expectedPageCode), new StringReader(pageCode));

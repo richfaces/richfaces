@@ -62,6 +62,10 @@
     margin: 0px 3px;
 }
 
+.rf-pm-itm-dis {
+    color: #BED6F8;
+}
+
 .rf-pm-itm-hov {
     background-color: '#{richSkin.additionalBackgroundColor}';
 }
@@ -79,10 +83,14 @@
     margin-bottom: 3px
 }
 
+.rf-pm-gr-dis {
+    color: #BED6F8;
+}
+
 .rf-pm-gr-hov {
     background: '#{richSkin.additionalBackgroundColor}';
 
-    color: white;
+    color: white; /*TODO skin?*/
 }
 
 .rf-pm-gr-sel {
@@ -169,6 +177,10 @@
     margin: 0px 3px;
 }
 
+.rf-pm-top-itm-dis {
+    color: #BED6F8;
+}
+
 .rf-pm-top-itm-hov {
     background-color:#ffd700;
 }
@@ -185,9 +197,13 @@
     margin-bottom: 3px
 }
 
+.rf-pm-top-gr-dis {
+    color: #BED6F8;
+}
+
 .rf-pm-top-gr-hov {
     background-color: green;
-    color: white;
+    color: white; /*TODO skin?*/
 }
 
 .rf-pm-top-gr-sel {
@@ -251,17 +267,20 @@
     display: block;
 }
 
+.rf-pm-ico-colps {}
+.rf-pm-ico-exp {}
+
 
 /*  Icons */
 
-.rf-pm-chevron       { background-image: "url(#{resource['org.richfaces.images:Chevron.png']})" }
-.rf-pm-chevron-down  { background-image: "url(#{resource['org.richfaces.images:ChevronDown.png']})" }
-.rf-pm-chevron-left  { background-image: "url(#{resource['org.richfaces.images:ChevronLeft.png']})" }
-.rf-pm-chevron-up    { background-image: "url(#{resource['org.richfaces.images:ChevronUp.png']})" }
-.rf-pm-disc          { background-image: "url(#{resource['org.richfaces.images:Disc.png']})" }
-.rf-pm-grid          { background-image: "url(#{resource['org.richfaces.images:Grid.png']})" }
-.rf-pm-spacer        { background-image: "url(#{resource['org.richfaces.images:Spacer.png']})" }
-.rf-pm-triangle      { background-image: "url(#{resource['org.richfaces.images:Triangle.png']})" }
-.rf-pm-triangle-down { background-image: "url(#{resource['org.richfaces.images:TriangleDown.png']})" }
-.rf-pm-triangle-left { background-image: "url(#{resource['org.richfaces.images:TriangleLeft.png']})" }
-.rf-pm-triangle-up   { background-image: "url(#{resource['org.richfaces.images:TriangleUp.png']})" }
+.rf-pm-chevron       { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:Chevron.png']})" }
+.rf-pm-chevron-down  { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:ChevronDown.png']})" }
+.rf-pm-chevron-left  { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:ChevronLeft.png']})" }
+.rf-pm-chevron-up    { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:ChevronUp.png']})" }
+.rf-pm-disc          { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:Disc.png']})" }
+.rf-pm-grid          { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:Grid.png']})" }
+.rf-pm-spacer        { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:Spacer.png']})" }
+.rf-pm-triangle      { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:Triangle.png']})" }
+.rf-pm-triangle-down { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:TriangleDown.png']})" }
+.rf-pm-triangle-left { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:TriangleLeft.png']})" }
+.rf-pm-triangle-up   { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:TriangleUp.png']})" }

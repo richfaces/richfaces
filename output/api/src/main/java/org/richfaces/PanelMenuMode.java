@@ -6,7 +6,8 @@ package org.richfaces;
  */
 public enum PanelMenuMode {
     ajax,
-    server;
+    server,
+    client;
 
-    public static final PanelMenuMode DEFAULT = server;
+    public static final PanelMenuMode DEFAULT = ajax;
 }

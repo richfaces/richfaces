@@ -290,32 +290,27 @@
         </attribute>
         <attribute>
             <description></description>
-            <name>disabledStyle</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
             <name>hoverClass</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description></description>
-            <name>hoverStyle</name>
+            <name>iconLeftClass</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description></description>
-            <name>iconClass</name>
+            <name>iconLeftDisabled</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description></description>
-            <name>iconDisabled</name>
+            <name>iconRightClass</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description></description>
-            <name>iconStyle</name>
+            <name>iconRightDisabled</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
@@ -419,12 +414,27 @@
         </attribute>
         <attribute>
             <description></description>
-            <name>iconCollapsed</name>
+            <name>bubbleSelection</name>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>iconLeftCollapsed</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description></description>
-            <name>iconExpanded</name>
+            <name>iconLeftExpanded</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>iconRightCollapsed</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>iconRightExpanded</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
@@ -559,7 +569,7 @@
         <attribute>
             <description></description>
             <name>groupMode</name>
-            <type>org.richfaces.ExpandMode</type>
+            <type>org.richfaces.PanelMenuMode</type>
         </attribute>
         <attribute>
             <description></description>
@@ -653,27 +663,27 @@
         </attribute>
         <attribute>
             <description></description>
-            <name>itemHoverClass</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
             <name>itemDisableClass</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description></description>
-            <name>itemIcon</name>
+            <name>itemIconLeft</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description></description>
-            <name>itemDisableIcon</name>
+            <name>itemIconRight</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description></description>
-            <name>itemIconPosition</name>
+            <name>itemDisableIconLeft</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>itemDisableIconRight</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
@@ -683,27 +693,27 @@
         </attribute>
         <attribute>
             <description></description>
-            <name>topItemHoverClass</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
             <name>topItemDisableClass</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description></description>
-            <name>topItemIcon</name>
+            <name>topItemIconLeft</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description></description>
-            <name>topItemDisableIcon</name>
+            <name>topItemIconRight</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description></description>
-            <name>topItemIconPosition</name>
+            <name>topItemDisableIconLeft</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>topItemDisableIconRight</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
@@ -713,32 +723,37 @@
         </attribute>
         <attribute>
             <description></description>
-            <name>groupHoverClass</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
             <name>groupDisableClass</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description></description>
-            <name>groupCollapseIcon</name>
+            <name>groupExpandIconLeft</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description></description>
-            <name>groupExpandIcon</name>
+            <name>groupExpandIconRight</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description></description>
-            <name>groupDisableIcon</name>
+            <name>groupCollapseIconLeft</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description></description>
-            <name>groupIconPosition</name>
+            <name>groupCollapseIconRight</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>groupDisableIconLeft</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>groupDisableIconRight</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
@@ -748,32 +763,37 @@
         </attribute>
         <attribute>
             <description></description>
-            <name>topGroupHoverClass</name>
-            <type>java.lang.String</type>
-        </attribute>
-        <attribute>
-            <description></description>
             <name>topGroupDisableClass</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description></description>
-            <name>topGroupCollapseIcon</name>
+            <name>topGroupExpandIconLeft</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description></description>
-            <name>topGroupExpandIcon</name>
+            <name>topGroupExpandIconRight</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description></description>
-            <name>topGroupDisableIcon</name>
+            <name>topGroupCollapseIconLeft</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description></description>
-            <name>topGroupIconPosition</name>
+            <name>topGroupCollapseIconRight</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>topGroupDisableIconLeft</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description></description>
+            <name>topGroupDisableIconRight</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>

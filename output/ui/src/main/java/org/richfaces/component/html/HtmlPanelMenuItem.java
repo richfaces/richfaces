@@ -24,8 +24,8 @@
 package org.richfaces.component.html;
 
 import org.richfaces.component.UIPanelMenuItem;
-import javax.faces.component.behavior.ClientBehaviorHolder;
 
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -58,12 +58,13 @@ public class HtmlPanelMenuItem extends UIPanelMenuItem implements ClientBehavior
 
     public enum PropertyKeys {
         disabledClass,
-        disabledStyle,
         hoverClass,
-        hoverStyle,
-        iconClass,
-        iconDisabled,
-        iconStyle,
+        iconLeft,
+        iconLeftClass,
+        iconLeftDisabled,
+        iconRight,
+        iconRightClass,
+        iconRightDisabled,
         style,
         styleClass,
         onbeforedomupdate,
@@ -85,24 +86,22 @@ public class HtmlPanelMenuItem extends UIPanelMenuItem implements ClientBehavior
     }
 
     @Override
+    public HtmlPanelMenu getPanelMenu() {
+        return (HtmlPanelMenu) super.getPanelMenu();
+    }
+
+    @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
     }
 
     public String getDisabledClass() {
-        return (String) getStateHelper().eval(PropertyKeys.disabledClass);
+        return (String) getStateHelper().eval(PropertyKeys.disabledClass,
+            isTopItem() ? getPanelMenu().getTopItemDisableClass() : getPanelMenu().getItemDisableClass());
     }
 
     public void setDisabledClass(String disabledClass) {
         getStateHelper().put(PropertyKeys.disabledClass, disabledClass);
-    }
-
-    public String getDisabledStyle() {
-        return (String) getStateHelper().eval(PropertyKeys.disabledStyle);
-    }
-
-    public void setDisabledStyle(String disabledStyle) {
-        getStateHelper().put(PropertyKeys.disabledStyle, disabledStyle);
     }
 
     public String getHoverClass() {
@@ -113,36 +112,56 @@ public class HtmlPanelMenuItem extends UIPanelMenuItem implements ClientBehavior
         getStateHelper().put(PropertyKeys.hoverClass, hoverClass);
     }
 
-    public String getHoverStyle() {
-        return (String) getStateHelper().eval(PropertyKeys.hoverStyle);
+    public String getIconLeft() {
+        return (String) getStateHelper().eval(PropertyKeys.iconLeft,
+            isTopItem() ? getPanelMenu().getTopItemIconLeft() : getPanelMenu().getItemIconLeft());
     }
 
-    public void setHoverStyle(String hoverStyle) {
-        getStateHelper().put(PropertyKeys.hoverStyle, hoverStyle);
+    public void setIconLeft(String iconLeft) {
+        getStateHelper().put(PropertyKeys.iconLeft, iconLeft);
     }
 
-    public String getIconClass() {
-        return (String) getStateHelper().eval(PropertyKeys.iconClass);
+    public String getIconLeftClass() {
+        return (String) getStateHelper().eval(PropertyKeys.iconLeftClass);
     }
 
-    public void setIconClass(String iconClass) {
-        getStateHelper().put(PropertyKeys.iconClass, iconClass);
+    public void setIconLeftClass(String iconLeftClass) {
+        getStateHelper().put(PropertyKeys.iconLeftClass, iconLeftClass);
     }
 
-    public String getIconDisabled() {
-        return (String) getStateHelper().eval(PropertyKeys.iconDisabled);
+    public String getIconLeftDisabled() {
+        return (String) getStateHelper().eval(PropertyKeys.iconLeftDisabled,
+            isTopItem() ? getPanelMenu().getTopItemDisableIconLeft() : getPanelMenu().getItemDisableIconLeft());
     }
 
-    public void setIconDisabled(String iconDisabled) {
-        getStateHelper().put(PropertyKeys.iconDisabled, iconDisabled);
+    public void setIconLeftDisabled(String iconLeftDisabled) {
+        getStateHelper().put(PropertyKeys.iconLeftDisabled, iconLeftDisabled);
     }
 
-    public String getIconStyle() {
-        return (String) getStateHelper().eval(PropertyKeys.iconStyle);
+    public String getIconRight() {
+        return (String) getStateHelper().eval(PropertyKeys.iconRight,
+            isTopItem() ? getPanelMenu().getTopItemIconRight() : getPanelMenu().getItemIconRight());
     }
 
-    public void setIconStyle(String iconStyle) {
-        getStateHelper().put(PropertyKeys.iconStyle, iconStyle);
+    public void setIconRight(String iconRight) {
+        getStateHelper().put(PropertyKeys.iconRight, iconRight);
+    }
+
+    public String getIconRightClass() {
+        return (String) getStateHelper().eval(PropertyKeys.iconRightClass);
+    }
+
+    public void setIconRightClass(String iconRightClass) {
+        getStateHelper().put(PropertyKeys.iconRightClass, iconRightClass);
+    }
+
+    public String getIconRightDisabled() {
+        return (String) getStateHelper().eval(PropertyKeys.iconRightDisabled,
+            isTopItem() ? getPanelMenu().getTopItemDisableIconRight() : getPanelMenu().getItemDisableIconRight());
+    }
+
+    public void setIconRightDisabled(String iconRightDisabled) {
+        getStateHelper().put(PropertyKeys.iconRightDisabled, iconRightDisabled);
     }
 
     public String getStyle() {
@@ -154,7 +173,8 @@ public class HtmlPanelMenuItem extends UIPanelMenuItem implements ClientBehavior
     }
 
     public String getStyleClass() {
-        return (String) getStateHelper().eval(PropertyKeys.styleClass);
+        return (String) getStateHelper().eval(PropertyKeys.styleClass,
+            isTopItem() ? getPanelMenu().getTopItemClass() : getPanelMenu().getItemClass() );
     }
 
     public void setStyleClass(String styleClass) {

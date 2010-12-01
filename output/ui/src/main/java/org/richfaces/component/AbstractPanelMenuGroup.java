@@ -161,20 +161,13 @@ public abstract class AbstractPanelMenuGroup extends UIPanelMenuItem {
 
 
 
-    public abstract boolean getBubbleSelection();
-    
     public abstract boolean isExpandSingle();
 
     public abstract String getCollapseEvent();
 
     public abstract String getExpandEvent();
 
-    public abstract String getIconCollapsed();
-
-    public abstract String getIconExpanded();
+    public abstract boolean isBubbleSelection();
 
     public abstract String getChangeExpandListener();
-
-
-
 }

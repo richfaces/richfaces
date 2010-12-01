@@ -26,7 +26,6 @@ package org.richfaces.renderkit.html;
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.component.AbstractPanelMenuItem;
 import org.richfaces.component.html.HtmlPanelMenuItem;
-import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
 
@@ -51,41 +50,55 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
     public static final String BEFORE_SELECT = "beforeselect";
     
     private static final String CSS_CLASS_PREFIX = "rf-pm-itm";
+    private static final String TOP_CSS_CLASS_PREFIX = "rf-pm-top-itm";
 
     @Override
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         super.doEncodeBegin(writer, context, component);
 
-        encodeHeaderGroup(writer, context, (AbstractPanelMenuItem) component, CSS_CLASS_PREFIX);
+        HtmlPanelMenuItem menuItem = (HtmlPanelMenuItem) component;
+        encodeHeaderGroup(writer, context, menuItem, menuItem.isTopItem() ? TOP_CSS_CLASS_PREFIX : CSS_CLASS_PREFIX);
     }
 
-    static void encodeHeaderGroup(ResponseWriter writer, FacesContext context, AbstractPanelMenuItem menuItem, String classPrefix) throws IOException {
+    private void encodeHeaderGroup(ResponseWriter writer, FacesContext context, HtmlPanelMenuItem menuItem, String classPrefix) throws IOException {
         writer.startElement("table", null);
         writer.writeAttribute("class", classPrefix + "-gr", null);
         writer.startElement("tr", null);
 
-        encodeTdIcon(writer, context, classPrefix, menuItem.getIcon());
+        encodeHeaderGroupLeftIcon(writer, context, menuItem, classPrefix);
 
         writer.startElement("td", null);
         writer.writeAttribute("class", classPrefix + "-lbl", null);
         writer.writeText(menuItem.getLabel(), null);
         writer.endElement("td");
 
-        writer.startElement("td", null);
-        writer.writeAttribute("class", HtmlUtil.concatClasses(classPrefix + "-exp-ico", "rf-pm-triangle-down"), null);
-        writer.endElement("td");
+        encodeHeaderGroupRightIcon(writer, context, menuItem, classPrefix);
 
         writer.endElement("tr");
         writer.endElement("table");
     }
 
-    private static void encodeTdIcon(ResponseWriter writer, FacesContext context, String classPrefix, String attrIconValue) throws IOException {
+    private void encodeHeaderGroupRightIcon(ResponseWriter writer, FacesContext context, HtmlPanelMenuItem menuItem, String classPrefix) throws IOException {
+        String icon = menuItem.isDisabled() ? menuItem.getIconRightDisabled() : menuItem.getIconRight();
+        String cssClasses = concatClasses(classPrefix + "-exp-ico", menuItem.getIconLeftClass());
+        
+        encodeTdIcon(writer, context, cssClasses, icon);
+    }
+
+    private void encodeHeaderGroupLeftIcon(ResponseWriter writer, FacesContext context, HtmlPanelMenuItem menuItem, String classPrefix) throws IOException {
+        String icon = menuItem.isDisabled() ? menuItem.getIconLeftDisabled() : menuItem.getIconLeft();
+        String cssClasses = concatClasses(classPrefix + "-ico", menuItem.getIconLeftClass());
+
+        encodeTdIcon(writer, context, cssClasses, icon);
+    }
+
+    public void encodeTdIcon(ResponseWriter writer, FacesContext context, String classPrefix, String attrIconValue) throws IOException {
         writer.startElement("td", null);
         try {
             AbstractPanelMenuItem.Icons icon = AbstractPanelMenuItem.Icons.valueOf(attrIconValue);
-            writer.writeAttribute("class", HtmlUtil.concatClasses(classPrefix + "-ico", icon.cssClass()), null);
+            writer.writeAttribute("class", concatClasses(classPrefix, icon.cssClass()), null);
         } catch (IllegalArgumentException e) {
-            writer.writeAttribute("class", classPrefix + "-ico", null);
+            writer.writeAttribute("class", classPrefix, null);
             if(attrIconValue != null && attrIconValue.trim().length() != 0) {
                 writer.startElement(HtmlConstants.IMG_ELEMENT, null);
                 writer.writeAttribute(HtmlConstants.ALT_ATTRIBUTE, "", null);
@@ -99,7 +112,15 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
 
     @Override
     protected String getStyleClass(UIComponent component) {
-        return concatClasses(CSS_CLASS_PREFIX, attributeAsString(component, "styleClass"));
+        AbstractPanelMenuItem menuItem = (AbstractPanelMenuItem) component;
+        return concatClasses(getCssClass(menuItem, ""),
+            attributeAsString(component, "styleClass"),
+            menuItem.isDisabled() ? getCssClass(menuItem, "-dis") : "",
+            menuItem.isDisabled() ? attributeAsString(component, "disabledClass") : "");
+    }
+
+    public String getCssClass(AbstractPanelMenuItem item, String postfix) {
+        return (item.isTopItem() ? TOP_CSS_CLASS_PREFIX : CSS_CLASS_PREFIX) + postfix;
     }
 
     @Override

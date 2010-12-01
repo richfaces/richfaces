@@ -23,7 +23,7 @@
 
 package org.richfaces.component;
 
-
+import org.richfaces.PanelMenuMode;
 
 /**
  * @author akolonitsky
@@ -32,28 +32,26 @@ package org.richfaces.component;
 public class UIPanelMenuGroup extends AbstractPanelMenuGroup {
 
     public enum PropertyKeys {
-        bubbleSelection,
         expanded,
         expandSingle,
         collapseEvent,
         expandEvent,
-        iconCollapsed,
-        iconExpanded,
+        bubbleSelection,
         changeExpandListener
     }
 
-
-
-    public boolean getBubbleSelection() {
-        return Boolean.valueOf(String.valueOf(getStateHelper().eval(PropertyKeys.bubbleSelection, true)));
+    @Override
+    public PanelMenuMode getMode() {
+        return (PanelMenuMode) getStateHelper().eval(UIPanelMenuItem.PropertyKeys.mode, getPanelMenu().getGroupMode());
     }
 
-    public void setBubbleSelection(boolean bubbleSelection) {
-        getStateHelper().put(PropertyKeys.bubbleSelection, bubbleSelection);
+    @Override
+    public void setMode(PanelMenuMode mode) {
+        super.setMode(mode);    //To change body of overridden methods use File | Settings | File Templates.
     }
 
     public boolean isExpandSingle() {
-        return Boolean.valueOf(String.valueOf(getStateHelper().eval(PropertyKeys.expandSingle, true)));
+        return Boolean.valueOf(String.valueOf(getStateHelper().eval(PropertyKeys.expandSingle, getPanelMenu().isExpandSingle())));
     }
 
     public void setExpandSingle(boolean expandSingle) {
@@ -76,20 +74,12 @@ public class UIPanelMenuGroup extends AbstractPanelMenuGroup {
         getStateHelper().put(PropertyKeys.expandEvent, expandEvent);
     }
 
-    public String getIconCollapsed() {
-        return (String) getStateHelper().eval(PropertyKeys.iconCollapsed);
+    public boolean isBubbleSelection() {
+        return Boolean.valueOf(String.valueOf(getStateHelper().eval(PropertyKeys.bubbleSelection, getPanelMenu().isBubbleSelection())));
     }
 
-    public void setIconCollapsed(String iconCollapsed) {
-        getStateHelper().put(PropertyKeys.iconCollapsed, iconCollapsed);
-    }
-
-    public String getIconExpanded() {
-        return (String) getStateHelper().eval(PropertyKeys.iconExpanded);
-    }
-
-    public void setIconExpanded(String iconExpanded) {
-        getStateHelper().put(PropertyKeys.iconExpanded, iconExpanded);
+    public void setBubbleSelection(boolean bubbleSelection) {
+        getStateHelper().put(PropertyKeys.bubbleSelection, bubbleSelection);
     }
 
     public String getChangeExpandListener() {
