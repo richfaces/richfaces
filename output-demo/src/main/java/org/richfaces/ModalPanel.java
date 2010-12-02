@@ -1,196 +1,203 @@
 package org.richfaces;
 
-import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
+import org.richfaces.event.ItemChangeEvent;
+
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class ModalPanel {
-	private boolean autosized;
-	private boolean keepVisualState;
-	private String left;
-	private String top;
-	private boolean rendered;
-	private String shadowDepth;
-	private String shadowOpacity;
-	private boolean show;
-	private int zindex;
-	private int minHeight;
-	private int minWidth;
-	private int maxHeight;
-	private int maxWidth;
-	private int height;
-	private int width;
-	private boolean moveable;
-	private boolean resizeable;
-	private String inputTextTest;
-	private String domElementAttachment;
-	
+    private boolean autosized;
+    private boolean keepVisualState;
+    private String left;
+    private String top;
+    private boolean rendered;
+    private String shadowDepth;
+    private String shadowOpacity;
+    private boolean show;
+    private int zindex;
+    private int minHeight;
+    private int minWidth;
+    private int maxHeight;
+    private int maxWidth;
+    private int height;
+    private int width;
+    private boolean moveable;
+    private boolean resizeable;
+    private String inputTextTest;
+    private String domElementAttachment;
 
-	public String getInputTextTest() {
-		return inputTextTest;
-	}
+    public String getInputTextTest() {
+        return inputTextTest;
+    }
 
-	public void setInputTextTest(String inputTextTest) {
-		this.inputTextTest = inputTextTest;
-	}
+    public void setInputTextTest(String inputTextTest) {
+        this.inputTextTest = inputTextTest;
+    }
 
-	public ModalPanel() {
-		this.inputTextTest = "text";
-		this.minHeight = 100;
-		this.minWidth = 100;
-		this.height = 300;
-		this.width = 300;
-		this.maxWidth = -1;
-		this.maxHeight = -1;
-		this.moveable=true;
-		this.resizeable=true;
-		this.autosized = false;
-		this.keepVisualState = false;
-		this.left = "auto";
-		this.top = "auto";
-		this.rendered = true;
-		this.shadowDepth = "3";
-		this.shadowOpacity = "3";
-		this.show = false;
-		this.domElementAttachment = "body";
-	}
-	
-	public int getHeight() {
-		return height;
-	}
+    public ModalPanel() {
+        this.inputTextTest = "text";
+        this.minHeight = 100;
+        this.minWidth = 100;
+        this.height = 300;
+        this.width = 300;
+        this.maxWidth = -1;
+        this.maxHeight = -1;
+        this.moveable = true;
+        this.resizeable = true;
+        this.autosized = false;
+        this.keepVisualState = false;
+        this.left = "auto";
+        this.top = "auto";
+        this.rendered = true;
+        this.shadowDepth = "3";
+        this.shadowOpacity = "3";
+        this.show = false;
+        this.domElementAttachment = "body";
+    }
 
-	public void setHeight(int height) {
-		this.height = height;
-	}
+    public int getHeight() {
+        return height;
+    }
 
-	public int getMinHeight() {
-		return minHeight;
-	}
+    public void setHeight(int height) {
+        this.height = height;
+    }
 
-	public void setMinHeight(int minHeight) {
-		this.minHeight = minHeight;
-	}
+    public int getMinHeight() {
+        return minHeight;
+    }
 
-	public int getMaxWidth() {
-		return maxWidth;
-	}
+    public void setMinHeight(int minHeight) {
+        this.minHeight = minHeight;
+    }
 
-	public void setMaxWidth(int maxWidth) {
-		this.maxWidth = minWidth;
-	}
-	
-	public int getMaxHeight() {
-		return maxHeight;
-	}
+    public int getMaxWidth() {
+        return maxWidth;
+    }
 
-	public void setMaxHeight(int maxHeight) {
-		this.maxHeight = maxHeight;
-	}
+    public void setMaxWidth(int maxWidth) {
+        this.maxWidth = minWidth;
+    }
 
-	public int getMinWidth() {
-		return minWidth;
-	}
+    public int getMaxHeight() {
+        return maxHeight;
+    }
 
-	public void setMinWidth(int minWidth) {
-		this.minWidth = minWidth;
-	}
+    public void setMaxHeight(int maxHeight) {
+        this.maxHeight = maxHeight;
+    }
 
-	public boolean isMoveable() {
-		return moveable;
-	}
+    public int getMinWidth() {
+        return minWidth;
+    }
 
-	public void setMoveable(boolean moveable) {
-		this.moveable = moveable;
-	}
+    public void setMinWidth(int minWidth) {
+        this.minWidth = minWidth;
+    }
 
-	public boolean isResizeable() {
-		return resizeable;
-	}
+    public boolean isMoveable() {
+        return moveable;
+    }
 
-	public void setResizeable(boolean resizeable) {
-		this.resizeable = resizeable;
-	}
-	
-	public void setAutosized(boolean autosized) {
-		this.autosized = autosized;
-	}
+    public void setMoveable(boolean moveable) {
+        this.moveable = moveable;
+    }
 
+    public boolean isResizeable() {
+        return resizeable;
+    }
 
-	public int getWidth() {
-		return width;
-	}
+    public void setResizeable(boolean resizeable) {
+        this.resizeable = resizeable;
+    }
 
-	public void setWidth(int width) {
-		this.width = width;
-	}
+    public void setAutosized(boolean autosized) {
+        this.autosized = autosized;
+    }
 
-	public boolean isAutosized() {
-		return autosized;
-	}
+    public int getWidth() {
+        return width;
+    }
 
-	public boolean isKeepVisualState() {
-		return keepVisualState;
-	}
+    public void setWidth(int width) {
+        this.width = width;
+    }
 
-	public void setKeepVisualState(boolean keepVisualState) {
-		this.keepVisualState = keepVisualState;
-	}
+    public boolean isAutosized() {
+        return autosized;
+    }
 
-	public String getLeft() {
-		return left;
-	}
+    public boolean isKeepVisualState() {
+        return keepVisualState;
+    }
 
-	public void setLeft(String left) {
-		this.left = left;
-	}
+    public void setKeepVisualState(boolean keepVisualState) {
+        this.keepVisualState = keepVisualState;
+    }
 
-	public String getTop() {
-		return top;
-	}
+    public String getLeft() {
+        return left;
+    }
 
-	public void setTop(String top) {
-		this.top = top;
-	}
+    public void setLeft(String left) {
+        this.left = left;
+    }
 
-	public boolean getRendered() {
-		return rendered;
-	}
+    public String getTop() {
+        return top;
+    }
 
-	public void setRendered(boolean rendered) {
-		this.rendered = rendered;
-	}
+    public void setTop(String top) {
+        this.top = top;
+    }
 
-	public String getShadowDepth() {
-		return shadowDepth;
-	}
+    public boolean getRendered() {
+        return rendered;
+    }
 
-	public void setShadowDepth(String shadowDepth) {
-		this.shadowDepth = shadowDepth;
-	}
+    public void setRendered(boolean rendered) {
+        this.rendered = rendered;
+    }
 
-	public String getShadowOpacity() {
-		return shadowOpacity;
-	}
+    public String getShadowDepth() {
+        return shadowDepth;
+    }
 
-	public void setShadowOpacity(String shadowOpacity) {
-		this.shadowOpacity = shadowOpacity;
-	}
+    public void setShadowDepth(String shadowDepth) {
+        this.shadowDepth = shadowDepth;
+    }
 
-	public boolean isShow() {
-		return show;
-	}
+    public String getShadowOpacity() {
+        return shadowOpacity;
+    }
 
-	public void setShow(boolean show) {
-		this.show = show;
-	}
+    public void setShadowOpacity(String shadowOpacity) {
+        this.shadowOpacity = shadowOpacity;
+    }
 
-	public String getDomElementAttachment() {
-		return domElementAttachment;
-	}
+    public boolean isShow() {
+        return show;
+    }
 
-	public void setDomElementAttachment(String domElementAttachment) {
-		this.domElementAttachment = domElementAttachment;
-	}
+    public void setShow(boolean show) {
+        this.show = show;
+    }
+
+    public String getDomElementAttachment() {
+        return domElementAttachment;
+    }
+
+    public void setDomElementAttachment(String domElementAttachment) {
+        this.domElementAttachment = domElementAttachment;
+    }
+
+    public void itemChangeEventListener(ItemChangeEvent event) {
+        System.out.println("item was changed from '" + event.getOldItem() + "' to '" + event.getNewItem() + "'");
+    }
+
+    public void action() {
+        System.out.println("ModalPanel.action");
+    }
 }
