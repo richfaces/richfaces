@@ -112,7 +112,7 @@ input.rf-ii-fld {
 	position : absolute; 
 	bottom : 0px; 
 	right : 0px; 
-	wigth : 1px; 
+	width : 1px; 
 	height : 1px;
 }
 

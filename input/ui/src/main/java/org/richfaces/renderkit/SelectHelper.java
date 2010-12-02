@@ -33,7 +33,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
 
-import org.richfaces.component.AbstractSelect;
+import org.richfaces.component.AbstractSelectComponent;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.component.util.InputUtils;
 import org.richfaces.component.util.SelectUtils;
@@ -92,7 +92,7 @@ public final class SelectHelper {
     }
     
     public static List<ClientSelectItem> getConvertedSelectItems(FacesContext facesContext, UIComponent component) {
-        AbstractSelect select = (AbstractSelect) component;
+        AbstractSelectComponent select = (AbstractSelectComponent) component;
         List<SelectItem> selectItems = SelectUtils.getSelectItems(facesContext, select);
         List<ClientSelectItem> clientSelectItems = new ArrayList<ClientSelectItem>();
         
@@ -106,7 +106,7 @@ public final class SelectHelper {
     
     public static void encodeItems(FacesContext facesContext, UIComponent component,
             List<ClientSelectItem> clientSelectItems, String itemHtmlElement, String defaultItemCss) throws IOException {
-        AbstractSelect select = (AbstractSelect) component;
+        AbstractSelectComponent select = (AbstractSelectComponent) component;
         if (clientSelectItems != null && !clientSelectItems.isEmpty()) {
             ResponseWriter writer = facesContext.getResponseWriter();
             String clientId = component.getClientId(facesContext);
@@ -133,7 +133,7 @@ public final class SelectHelper {
     }
     
     public static String getSelectInputLabel(FacesContext facesContext, UIComponent component) {
-        AbstractSelect select = (AbstractSelect) component;
+        AbstractSelectComponent select = (AbstractSelectComponent) component;
         Object value = select.getSubmittedValue();
         String label = null;
         if (value == null) {
@@ -152,7 +152,7 @@ public final class SelectHelper {
         return label;
     }
     
-    public static void addSelectCssToOptions(AbstractSelect abstractSelect, Map<String, Object> options, String [] defaultCss) {
+    public static void addSelectCssToOptions(AbstractSelectComponent abstractSelect, Map<String, Object> options, String [] defaultCss) {
         String itemCss = abstractSelect.getItemClass();
         if(itemCss != null && itemCss.trim().length() > 0) {
             options.put(PopupConstants.OPTIONS_ITEM_CLASS, HtmlUtil.concatClasses(defaultCss[0], itemCss));

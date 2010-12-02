@@ -30,7 +30,7 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.component.AbstractSelect;
+import org.richfaces.component.AbstractSelectComponent;
 
 /**
  * @author abelevich
@@ -63,7 +63,7 @@ public class SelectRendererBase extends InputRendererBase {
     }
     
     public String getSelectLabel(FacesContext facesContext, UIComponent component) {
-        AbstractSelect select = (AbstractSelect) component;
+        AbstractSelectComponent select = (AbstractSelectComponent) component;
         String label = getSelectInputLabel(facesContext, select);
         if (label == null || "".equals(label.trim())) {
             label = select.getDefaultLabel();

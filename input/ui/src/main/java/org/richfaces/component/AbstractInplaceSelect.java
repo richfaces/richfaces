@@ -41,7 +41,7 @@ import org.richfaces.cdk.annotations.Tag;
     renderer = @JsfRenderer(type = "org.richfaces.InplaceSelectRenderer"),
     tag = @Tag(name="inplaceSelect")
 )
-public abstract class AbstractInplaceSelect extends AbstractSelect implements InplaceComponent {
+public abstract class AbstractInplaceSelect extends AbstractSelectComponent implements InplaceComponent {
     
     public static final String COMPONENT_TYPE = "org.richfaces.InplaceSelect";
     

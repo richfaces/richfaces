@@ -158,7 +158,7 @@ input.rf-is-fld {
 	position : absolute;
 	top : -4px;
 	right : 0px;
-	wigth : 1px;
+	width : 1px;
 	height : 1px;
 }
 
