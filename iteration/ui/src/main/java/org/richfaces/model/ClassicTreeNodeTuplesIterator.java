@@ -23,43 +23,36 @@ package org.richfaces.model;
 
 import java.util.Iterator;
 
-import javax.swing.tree.TreeNode;
-
 import com.google.common.collect.UnmodifiableIterator;
 
-final class SwingTreeNodeTuplesIterator extends UnmodifiableIterator<TreeDataModelTuple> {
+/**
+ * @author Nick Belaevski
+ * 
+ */
+final class ClassicTreeNodeTuplesIterator extends UnmodifiableIterator<TreeDataModelTuple> {
+
+    private TreeNode treeNode;
 
     private SequenceRowKey baseKey;
     
-    private Iterator<TreeNode> children;
+    private Iterator<Object> childrenKeysIterator = null;
     
-    private int counter = 0;
-
-    SwingTreeNodeTuplesIterator(SequenceRowKey baseKey, Iterator<TreeNode> children) {
+    public ClassicTreeNodeTuplesIterator(TreeNode treeNode, SequenceRowKey baseKey) {
+        super();
+        this.treeNode = treeNode;
         this.baseKey = baseKey;
-        this.children = children;
+        this.childrenKeysIterator = treeNode.getChildrenKeysIterator();
     }
 
-    private int getNextCounterValue() {
-        return counter++;
-    }
-    
     public boolean hasNext() {
-        return children.hasNext();
-    }
-    
-    public TreeDataModelTuple next() {
-        TreeNode node = children.next();
-        
-        SequenceRowKey key;
-        
-        if (baseKey != null) {
-            key = baseKey.append(getNextCounterValue());
-        } else {
-            key = new SequenceRowKey(getNextCounterValue());
-        }
-        
-        return new TreeDataModelTuple(key, node);
+        return childrenKeysIterator.hasNext();
     }
 
+    public TreeDataModelTuple next() {
+        Object nextChildKey = childrenKeysIterator.next();
+        Object rowKey = (baseKey != null ? baseKey.append(nextChildKey) : new SequenceRowKey(nextChildKey));
+        
+        return new TreeDataModelTuple(rowKey, treeNode.getChild(nextChildKey));
+    }
+    
 }

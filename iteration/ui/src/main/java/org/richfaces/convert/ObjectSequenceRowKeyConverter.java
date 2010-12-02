@@ -19,47 +19,31 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.model;
+package org.richfaces.convert;
 
-import java.util.Iterator;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 
-import javax.swing.tree.TreeNode;
+/**
+ * @author Nick Belaevski
+ * 
+ */
+public class ObjectSequenceRowKeyConverter extends SequenceRowKeyConverter<Object> {
 
-import com.google.common.collect.UnmodifiableIterator;
-
-final class SwingTreeNodeTuplesIterator extends UnmodifiableIterator<TreeDataModelTuple> {
-
-    private SequenceRowKey baseKey;
-    
-    private Iterator<TreeNode> children;
-    
-    private int counter = 0;
-
-    SwingTreeNodeTuplesIterator(SequenceRowKey baseKey, Iterator<TreeNode> children) {
-        this.baseKey = baseKey;
-        this.children = children;
-    }
-
-    private int getNextCounterValue() {
-        return counter++;
-    }
-    
-    public boolean hasNext() {
-        return children.hasNext();
-    }
-    
-    public TreeDataModelTuple next() {
-        TreeNode node = children.next();
+    private static final Converter NO_OP_CONVERTER = new Converter() {
         
-        SequenceRowKey key;
-        
-        if (baseKey != null) {
-            key = baseKey.append(getNextCounterValue());
-        } else {
-            key = new SequenceRowKey(getNextCounterValue());
+        public String getAsString(FacesContext context, UIComponent component, Object value) {
+            return (String) value;
         }
         
-        return new TreeDataModelTuple(key, node);
+        public Object getAsObject(FacesContext context, UIComponent component, String value) {
+            return value;
+        }
+    };
+    
+    public ObjectSequenceRowKeyConverter() {
+        super(Object.class, NO_OP_CONVERTER);
     }
 
 }

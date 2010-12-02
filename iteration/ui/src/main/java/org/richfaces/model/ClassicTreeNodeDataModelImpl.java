@@ -23,43 +23,44 @@ package org.richfaces.model;
 
 import java.util.Iterator;
 
-import javax.swing.tree.TreeNode;
+import javax.faces.convert.Converter;
 
-import com.google.common.collect.UnmodifiableIterator;
+import org.richfaces.convert.ObjectSequenceRowKeyConverter;
 
-final class SwingTreeNodeTuplesIterator extends UnmodifiableIterator<TreeDataModelTuple> {
+/**
+ * @author Nick Belaevski
+ * 
+ */
+public class ClassicTreeNodeDataModelImpl extends TreeSequenceKeyModel<TreeNode> {
 
-    private SequenceRowKey baseKey;
+    private static final Converter DEFAULT_CONVERTER = new ObjectSequenceRowKeyConverter();
     
-    private Iterator<TreeNode> children;
+    private TreeNode rootNode;
     
-    private int counter = 0;
-
-    SwingTreeNodeTuplesIterator(SequenceRowKey baseKey, Iterator<TreeNode> children) {
-        this.baseKey = baseKey;
-        this.children = children;
+    public boolean isLeaf() {
+        return getData().isLeaf();
     }
 
-    private int getNextCounterValue() {
-        return counter++;
-    }
-    
-    public boolean hasNext() {
-        return children.hasNext();
-    }
-    
-    public TreeDataModelTuple next() {
-        TreeNode node = children.next();
-        
-        SequenceRowKey key;
-        
-        if (baseKey != null) {
-            key = baseKey.append(getNextCounterValue());
-        } else {
-            key = new SequenceRowKey(getNextCounterValue());
-        }
-        
-        return new TreeDataModelTuple(key, node);
+    public Iterator<TreeDataModelTuple> children() {
+        return new ClassicTreeNodeTuplesIterator(getData(), getRowKey());
     }
 
+    @Override
+    protected TreeNode setupChildContext(Object segment) {
+        return getData().getChild(segment);
+    }
+    
+    @Override
+    public Object getWrappedData() {
+        return rootNode;
+    }
+
+    @Override
+    public void setWrappedData(Object data) {
+        this.rootNode = (TreeNode) data;
+    }
+
+    public Converter getRowKeyConverter() {
+        return DEFAULT_CONVERTER;
+    }
 }

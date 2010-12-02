@@ -23,6 +23,8 @@ package org.richfaces.model;
 
 import java.util.Iterator;
 
+import javax.faces.convert.Converter;
+
 
 /**
  * @author Nick Belaevski
@@ -31,6 +33,8 @@ import java.util.Iterator;
 //TODO - add necessary methods for tree adaptors support
 public interface TreeDataModel<E> {
 
+    public static final char SEPARATOR_CHAR = '.';
+    
     public Object getRowKey();
     
     public void setRowKey(Object rowKey);
@@ -52,5 +56,7 @@ public interface TreeDataModel<E> {
     public TreeDataModelTuple createSnapshot();
 
     public void restoreFromSnapshot(TreeDataModelTuple tuple);
+    
+    public Converter getRowKeyConverter();
     
 }

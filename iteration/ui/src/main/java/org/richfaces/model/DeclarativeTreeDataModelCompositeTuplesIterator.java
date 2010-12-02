@@ -40,11 +40,11 @@ final class DeclarativeTreeDataModelCompositeTuplesIterator extends ForwardingIt
     
     private UIComponent component;
 
-    private SequenceRowKey<DeclarativeModelKey> key;
+    private SequenceRowKey key;
     
     private Iterator<TreeDataModelTuple> iterator;
     
-    public DeclarativeTreeDataModelCompositeTuplesIterator(UIComponent component, SequenceRowKey<DeclarativeModelKey> key) {
+    public DeclarativeTreeDataModelCompositeTuplesIterator(UIComponent component, SequenceRowKey key) {
         super();
         this.component = component;
         this.key = key;

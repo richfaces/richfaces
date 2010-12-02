@@ -19,45 +19,18 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.component;
+package org.richfaces.convert;
 
-import org.ajax4jsf.model.Range;
+import javax.faces.convert.IntegerConverter;
 
 /**
  * @author Nick Belaevski
  * 
  */
-public class TreeRange implements Range {
+public class IntegerSequenceRowKeyConverter extends SequenceRowKeyConverter<Integer> {
 
-    private AbstractTree tree;
-    
-    private boolean traverseAll;
-    
-    public TreeRange(AbstractTree tree) {
-        super();
-        this.tree = tree;
-        
-        traverseAll = (SwitchType.client == tree.getToggleType());
+    public IntegerSequenceRowKeyConverter() {
+        super(Integer.class, new IntegerConverter());
     }
 
-    public boolean shouldProcessNode() {
-        if (tree.getRowKey() == null) {
-            return true;
-        }
-        
-        return tree.findTreeNodeComponent() != null;
-    }
-    
-    public boolean shouldIterateChildren() {
-        if (tree.getRowKey() == null) {
-            return true;
-        }
-        
-        if (tree.isLeaf()) {
-            return false;
-        }
-        
-        return traverseAll || tree.isExpanded();
-    }
-    
 }

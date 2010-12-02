@@ -21,13 +21,14 @@
  */
 package org.richfaces.model;
 
-import static com.google.common.base.Objects.firstNonNull;
-
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
 
+import javax.faces.convert.Converter;
 import javax.swing.tree.TreeNode;
+
+import org.richfaces.convert.IntegerSequenceRowKeyConverter;
 
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
@@ -35,9 +36,9 @@ import com.google.common.collect.Lists;
  * @author Nick Belaevski
  * 
  */
-public class SwingTreeNodeDataModelImpl extends TreeSequenceKeyModel<Integer, TreeNode> {
+public class SwingTreeNodeDataModelImpl extends TreeSequenceKeyModel<TreeNode> {
 
-    private static final SequenceRowKey<Integer> EMPTY_KEY = new SequenceRowKey<Integer>();
+    private static final Converter DEFAULT_CONVERTER = new IntegerSequenceRowKeyConverter();
     
     private boolean asksAllowsChildren = false;
     
@@ -61,10 +62,6 @@ public class SwingTreeNodeDataModelImpl extends TreeSequenceKeyModel<Integer, Tr
         return treeNodeImpl;
     }
     
-    public Object getParentRowKey(Object rowKey) {
-        throw new UnsupportedOperationException();
-    }
-
     public void setWrappedData(Object data) {
         this.wrappedData = data;
         
@@ -93,14 +90,11 @@ public class SwingTreeNodeDataModelImpl extends TreeSequenceKeyModel<Integer, Tr
     }
     
     @Override
-    protected void walkNext(Integer segment) {
-        TreeNode child = findChild(getData(), segment);
-        //TODO what if node is missing?
-        //TODO - optimize - remove partial keys creation
-        setRowKeyAndData(safeGetRowKey().append(segment), child);
+    protected TreeNode setupChildContext(Object segment) {
+        return findChild(getData(), (Integer) segment);
     }
-
-    private SequenceRowKey<Integer> safeGetRowKey() {
-        return firstNonNull(getRowKey(), EMPTY_KEY);
+    
+    public Converter getRowKeyConverter() {
+        return DEFAULT_CONVERTER;
     }
 }

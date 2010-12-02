@@ -25,17 +25,19 @@ import java.util.Iterator;
 
 import javax.faces.component.UIComponent;
 
-final class DeclarativeTreeDataModelTuplesIterator implements Iterator<TreeDataModelTuple> {
+import com.google.common.collect.UnmodifiableIterator;
+
+final class DeclarativeTreeDataModelTuplesIterator extends UnmodifiableIterator<TreeDataModelTuple> {
     
     private UIComponent component;
 
-    private SequenceRowKey<DeclarativeModelKey> baseKey;
+    private SequenceRowKey baseKey;
     
     private int counter = 0;
     
     private Iterator<?> dataIterator;
     
-    public DeclarativeTreeDataModelTuplesIterator(UIComponent component, SequenceRowKey<DeclarativeModelKey> baseKey, Iterator<?> dataIterator) {
+    public DeclarativeTreeDataModelTuplesIterator(UIComponent component, SequenceRowKey baseKey, Iterator<?> dataIterator) {
         super();
         this.component = component;
         this.baseKey = baseKey;
@@ -46,17 +48,13 @@ final class DeclarativeTreeDataModelTuplesIterator implements Iterator<TreeDataM
         Object nextNode = dataIterator.next();
         DeclarativeModelKey key = new DeclarativeModelKey(component.getId(), counter++);
         
-        SequenceRowKey<DeclarativeModelKey> newKey = baseKey.append(key);
+        SequenceRowKey newKey = (baseKey != null ? baseKey.append(key) : new SequenceRowKey(key));
         
         return new DeclarativeTreeDataModelTuple(newKey, nextNode, component);
     }
     
     public boolean hasNext() {
         return dataIterator.hasNext();
-    }
-    
-    public void remove() {
-        throw new UnsupportedOperationException();
     }
     
 }

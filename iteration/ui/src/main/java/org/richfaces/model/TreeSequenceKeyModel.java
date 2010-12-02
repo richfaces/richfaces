@@ -32,29 +32,35 @@ import org.ajax4jsf.model.Range;
  * @author Nick Belaevski
  * 
  */
-public abstract class TreeSequenceKeyModel<K, V> extends ExtendedDataModel<V> implements TreeDataModel<V> {
+public abstract class TreeSequenceKeyModel<V> extends ExtendedDataModel<V> implements TreeDataModel<V> {
 
     private V rootNode;
     
     private V data;
     
-    private SequenceRowKey<K> rowKey;
+    private SequenceRowKey rowKey;
     
-    public SequenceRowKey<K> getRowKey() {
+    public SequenceRowKey getRowKey() {
         return rowKey;
     }
 
     public void setRowKey(Object rowKey) {
+        SequenceRowKey sequenceKey = (SequenceRowKey) rowKey;
+
         if (this.rowKey == null || !this.rowKey.equals(rowKey)) {
-            walkKey((SequenceRowKey<K>) rowKey);
+            setupKey(sequenceKey);
         }
     }
-
+    
     protected void resetRowKeyAndData() {
         setRowKeyAndData(null, rootNode);
     }
     
-    protected void setRowKeyAndData(SequenceRowKey<K> key, V data) {
+    protected void setData(V data) {
+        this.data = data;
+    }
+    
+    protected void setRowKeyAndData(SequenceRowKey key, V data) {
         this.rowKey = key;
         this.data = data;
     }
@@ -71,17 +77,22 @@ public abstract class TreeSequenceKeyModel<K, V> extends ExtendedDataModel<V> im
         return data;
     }
     
-    protected void walkKey(SequenceRowKey<K> key) {
+    protected void setupKey(SequenceRowKey key) {
         resetRowKeyAndData();
 
         if (key != null) {
-            for (K simpleKey: key.getSimpleKeys()) {
-                walkNext(simpleKey);
+            V data = getRootNode();
+            
+            for (Object simpleKey: key.getSimpleKeys()) {
+                data = setupChildContext(simpleKey);
+                setData(data);
             }
+            
+            setRowKeyAndData(key, data);
         }
     }
 
-    protected abstract void walkNext(K segment);
+    protected abstract V setupChildContext(Object segment);
     
     protected V getRootNode() {
         return rootNode;
@@ -132,6 +143,16 @@ public abstract class TreeSequenceKeyModel<K, V> extends ExtendedDataModel<V> im
     }
 
     public void restoreFromSnapshot(TreeDataModelTuple tuple) {
-        setRowKeyAndData((SequenceRowKey<K>) tuple.getRowKey(), (V) tuple.getData());
+        setRowKeyAndData((SequenceRowKey) tuple.getRowKey(), (V) tuple.getData());
+    }
+
+    public Object getParentRowKey(Object rowKey) {
+        SequenceRowKey key = getRowKey();
+        
+        if (key == null) {
+            return null;
+        }
+        
+        return key.getParent();
     }
 }

@@ -30,41 +30,33 @@ import com.google.common.collect.ObjectArrays;
  * @author Nick Belaevski
  * 
  */
-public class SequenceRowKey<T> implements Serializable {
+public class SequenceRowKey implements Serializable {
 
     private static final long serialVersionUID = 5605581090240141910L;
 
-    private T[] simpleKeys;
+    private Object[] simpleKeys;
 
-    public SequenceRowKey(T... keys) {
+    public SequenceRowKey(Object... keys) {
         super();
         this.simpleKeys = keys;
     }
     
-    public T[] getSimpleKeys() {
+    public Object[] getSimpleKeys() {
         return simpleKeys;
     }
     
-    public SequenceRowKey<T> append(T segment) {
-        return new SequenceRowKey<T>(ObjectArrays.concat(simpleKeys, segment));
+    public SequenceRowKey append(Object segment) {
+        return new SequenceRowKey(ObjectArrays.concat(simpleKeys, segment));
     }
 
-    public T getLastKeySegment() {
+    public SequenceRowKey getParent() {
         if (simpleKeys.length == 0) {
             return null;
         }
         
-        return simpleKeys[simpleKeys.length - 1];
-    }
-    
-    public SequenceRowKey<T> getParent() {
-        if (simpleKeys.length == 0) {
-            return null;
-        }
-        
-        T[] parentSimpleKeys = ObjectArrays.newArray(simpleKeys, simpleKeys.length - 1);
+        Object[] parentSimpleKeys = ObjectArrays.newArray(simpleKeys, simpleKeys.length - 1);
         System.arraycopy(simpleKeys, 0, parentSimpleKeys, 0, parentSimpleKeys.length);
-        return new SequenceRowKey<T>(parentSimpleKeys);
+        return new SequenceRowKey(parentSimpleKeys);
     }
     
     @Override
@@ -86,7 +78,7 @@ public class SequenceRowKey<T> implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        SequenceRowKey<?> other = (SequenceRowKey<?>) obj;
+        SequenceRowKey other = (SequenceRowKey) obj;
         if (!Arrays.equals(simpleKeys, other.simpleKeys)) {
             return false;
         }
@@ -97,4 +89,5 @@ public class SequenceRowKey<T> implements Serializable {
     public String toString() {
         return getClass().getName() + Arrays.toString(simpleKeys);
     }
+    
 }

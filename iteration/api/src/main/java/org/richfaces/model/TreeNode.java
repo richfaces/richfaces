@@ -23,43 +23,24 @@ package org.richfaces.model;
 
 import java.util.Iterator;
 
-import javax.swing.tree.TreeNode;
+/**
+ * @author Nick Belaevski
+ * 
+ */
+public interface TreeNode {
 
-import com.google.common.collect.UnmodifiableIterator;
-
-final class SwingTreeNodeTuplesIterator extends UnmodifiableIterator<TreeDataModelTuple> {
-
-    private SequenceRowKey baseKey;
+    public TreeNode getChild(Object key);
     
-    private Iterator<TreeNode> children;
+    public int indexOf(Object key);
     
-    private int counter = 0;
-
-    SwingTreeNodeTuplesIterator(SequenceRowKey baseKey, Iterator<TreeNode> children) {
-        this.baseKey = baseKey;
-        this.children = children;
-    }
-
-    private int getNextCounterValue() {
-        return counter++;
-    }
+    public Iterator<Object> getChildrenKeysIterator();
     
-    public boolean hasNext() {
-        return children.hasNext();
-    }
+    public boolean isLeaf();
     
-    public TreeDataModelTuple next() {
-        TreeNode node = children.next();
-        
-        SequenceRowKey key;
-        
-        if (baseKey != null) {
-            key = baseKey.append(getNextCounterValue());
-        } else {
-            key = new SequenceRowKey(getNextCounterValue());
-        }
-        
-        return new TreeDataModelTuple(key, node);
-    }
-
+    public void addChild(Object key, TreeNode child);
+    
+    public void insertChild(int idx, Object key, TreeNode child);
+    
+    public void removeChild(Object key);
+    
 }

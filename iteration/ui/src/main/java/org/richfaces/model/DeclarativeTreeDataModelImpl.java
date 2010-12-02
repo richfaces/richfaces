@@ -21,17 +21,17 @@
  */
 package org.richfaces.model;
 
-import static com.google.common.base.Objects.firstNonNull;
-
 import java.util.Iterator;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
+import javax.faces.convert.Converter;
 
 import org.richfaces.component.AbstractTree;
 import org.richfaces.component.ComponentPredicates;
 import org.richfaces.component.TreeModelAdaptor;
 import org.richfaces.component.TreeModelRecursiveAdaptor;
+import org.richfaces.convert.DeclarativeModelKeySequenceRowKeyConverter;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
@@ -42,11 +42,11 @@ import com.google.common.collect.Iterables;
  * @author Nick Belaevski
  * 
  */
-public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<DeclarativeModelKey, Object> implements DeclarativeTreeModel<Object> {
+public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Object> implements DeclarativeTreeModel<Object> {
 
     private static final Logger LOGGER = RichfacesLogger.MODEL.getLogger();
 
-    private static final SequenceRowKey<DeclarativeModelKey> EMPTY_KEY = new SequenceRowKey<DeclarativeModelKey>();
+    private static final Converter DEFAULT_CONVERTER = new DeclarativeModelKeySequenceRowKeyConverter();
 
     private String var;
 
@@ -57,7 +57,6 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Declarati
     private UIComponent currentComponent;
 
     public DeclarativeTreeDataModelImpl(AbstractTree tree, String var, Map<String, Object> contextMap) {
-        super();
         this.tree = tree;
         this.currentComponent = tree;
         this.var = var;
@@ -82,11 +81,7 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Declarati
     }
 
     public Iterator<TreeDataModelTuple> children() {
-        return new DeclarativeTreeDataModelCompositeTuplesIterator(currentComponent, safeGetRowKey());
-    }
-
-    public Object getParentRowKey(Object rowKey) {
-        return safeGetRowKey().getParent();
+        return new DeclarativeTreeDataModelCompositeTuplesIterator(currentComponent, getRowKey());
     }
 
     @Override
@@ -100,7 +95,7 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Declarati
     }
 
     @Override
-    protected void walkKey(SequenceRowKey<DeclarativeModelKey> key) {
+    protected void setupKey(SequenceRowKey key) {
         Object initialContextValue = null;
 
         if (var != null) {
@@ -110,7 +105,7 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Declarati
         try {
             this.currentComponent = tree;
 
-            super.walkKey(key);
+            super.setupKey(key);
         } finally {
             if (var != null) {
                 try {
@@ -121,24 +116,29 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Declarati
             }
         }
     }
-
+    
     @Override
-    protected void walkNext(DeclarativeModelKey segment) {
+    protected Object setupChildContext(Object keyObject) {
+        DeclarativeModelKey segment = (DeclarativeModelKey) keyObject;
+        if (var != null) {
+            contextMap.put(var, getData());
+        }
+        
         String modelId = segment.getModelId();
-
+        
         UIComponent modelComponent;
-
+        
         if (currentComponent instanceof TreeModelRecursiveAdaptor && modelId.equals(currentComponent.getId())) {
             modelComponent = currentComponent;
         } else {
             modelComponent = Iterables.find(currentComponent.getChildren(), ComponentPredicates.withId(modelId));
         }
-
+        
         Object nodes = null;
-
+        
         if (modelComponent instanceof TreeModelRecursiveAdaptor) {
             TreeModelRecursiveAdaptor recursiveAdaptor = (TreeModelRecursiveAdaptor) modelComponent;
-
+            
             if (currentComponent.equals(modelComponent)) {
                 nodes = recursiveAdaptor.getNodes();
             } else {
@@ -147,20 +147,13 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Declarati
         } else {
             nodes = ((TreeModelAdaptor) modelComponent).getNodes();
         }
-
+        
         Object data = Iterables.get((Iterable<?>) nodes, (Integer) segment.getModelKey());
-        setRowKeyAndData(safeGetRowKey().append(segment), data);
         this.currentComponent = modelComponent;
-
-        if (var != null) {
-            contextMap.put(var, data);
-        }
+        
+        return data;
     }
-
-    private SequenceRowKey<DeclarativeModelKey> safeGetRowKey() {
-        return firstNonNull(getRowKey(), EMPTY_KEY);
-    }
-
+    
     public TreeDataModelTuple createSnapshot() {
         return new DeclarativeTreeDataModelTuple(getRowKey(), getData(), getCurrentComponent());
     }
@@ -172,4 +165,7 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Declarati
         this.currentComponent = declarativeModelTuple.getComponent();
     }
 
+    public Converter getRowKeyConverter() {
+        return DEFAULT_CONVERTER;
+    }
 }

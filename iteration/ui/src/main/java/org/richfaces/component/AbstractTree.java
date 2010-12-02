@@ -61,7 +61,6 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.util.MessageUtil;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
-import org.richfaces.convert.SequenceRowKeyConverter;
 import org.richfaces.event.TreeSelectionChangeEvent;
 import org.richfaces.event.TreeSelectionChangeListener;
 import org.richfaces.event.TreeSelectionChangeSource;
@@ -125,8 +124,6 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
             return type != null && type.equals(nodeType);
         }
     };
-
-    private static final Converter ROW_KEY_CONVERTER = new SequenceRowKeyConverter();
 
     private enum PropertyKeys {
         selection
@@ -231,7 +228,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     public Converter getRowKeyConverter() {
         Converter converter = super.getRowKeyConverter();
         if (converter == null) {
-            converter = ROW_KEY_CONVERTER;
+            converter = getTreeDataModel().getRowKeyConverter();
         }
         return converter;
     }
@@ -255,6 +252,10 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     }
     
     public AbstractTreeNode findTreeNodeComponent() {
+        if (getRowKey() == null) {
+            return null;
+        }
+        
         FacesContext facesContext = getFacesContext();
 
         String nodeType = getNodeType();
@@ -319,7 +320,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
             boolean newExpandedValue = toggleEvent.isExpanded();
 
             FacesContext context = getFacesContext();
-            ValueExpression expression = getValueExpression(AbstractTreeNode.PropertyKeys.expanded.toString());
+            ValueExpression expression = treeNodeComponent.getValueExpression(AbstractTreeNode.PropertyKeys.expanded.toString());
             if (expression != null) {
                 ELContext elContext = context.getELContext();
                 Exception caught = null;
@@ -465,10 +466,6 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     
     @Attribute(hidden = true)
     public boolean isLeaf() {
-        if (getRowKey() == null) {
-            return false;
-        }
-
         return getTreeDataModel().isLeaf();
     }
     

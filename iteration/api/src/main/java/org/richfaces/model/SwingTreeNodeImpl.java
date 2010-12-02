@@ -43,29 +43,29 @@ public class SwingTreeNodeImpl<T> implements TreeNode, Serializable {
     private static final long serialVersionUID = 8841984268370598781L;
 
     private TreeNode parent;
-    
+
     private T data;
-    
+
     private Collection<TreeNode> children;
-    
+
     private boolean allowUpdateParents = true;
-    
+
     public SwingTreeNodeImpl() {
         this(null);
     }
-    
-    void setAllowUpdateParents(boolean allowUpdateParents) {
-        this.allowUpdateParents = allowUpdateParents;
-    }
-    
+
     public SwingTreeNodeImpl(Collection<TreeNode> children) {
         this.children = wrapNull(children);
+    }
+
+    void setAllowUpdateParents(boolean allowUpdateParents) {
+        this.allowUpdateParents = allowUpdateParents;
     }
 
     private static Collection<TreeNode> wrapNull(Collection<TreeNode> src) {
         return src != null ? src : Lists.<TreeNode>newArrayList();
     }
-    
+
     public TreeNode getChildAt(int childIndex) {
         return Iterables.get(children, childIndex);
     }
@@ -81,7 +81,7 @@ public class SwingTreeNodeImpl<T> implements TreeNode, Serializable {
     public void setParent(TreeNode parent) {
         this.parent = parent;
     }
-    
+
     public int getIndex(TreeNode node) {
         return Iterables.indexOf(children, Predicates.equalTo(node));
     }
@@ -93,16 +93,16 @@ public class SwingTreeNodeImpl<T> implements TreeNode, Serializable {
             treeNodeImpl.setParent(this);
         }
     }
-    
+
     public void removeChild(TreeNode node) {
         if (children.remove(node)) {
             if (allowUpdateParents && node instanceof SwingTreeNodeImpl<?>) {
                 SwingTreeNodeImpl<?> treeNodeImpl = (SwingTreeNodeImpl<?>) node;
                 treeNodeImpl.setParent(null);
             }
-         }
+        }
     }
-    
+
     public boolean getAllowsChildren() {
         return true;
     }
@@ -118,20 +118,20 @@ public class SwingTreeNodeImpl<T> implements TreeNode, Serializable {
     public T getData() {
         return data;
     }
-    
+
     public void setData(T data) {
         this.data = data;
     }
-    
+
     public Collection<TreeNode> getChildrenList() {
         return children;
     }
-    
+
     @Override
     public String toString() {
         ToStringHelper toStringHelper = Objects.toStringHelper(this);
         toStringHelper.add("data", data);
-        
+
         return toStringHelper.toString();
     }
 }
