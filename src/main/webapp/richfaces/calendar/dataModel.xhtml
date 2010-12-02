@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+	<p>Calendar may use a special Data Model to provide data for
+	element rendering. You can re-define the default Calendar Model using
+	the dataModel attribute pointed to the object that implements
+	CalendarDataModel interface.</p>
+	<p>In next simple example next rules applied using model:</p>
+	<ul>
+		<li>Weekend days are disabled (sunday and saturday) and uses bold
+		and italic text style.</li>
+		<li>Thuesday and Thursday are disabled also. (just RichFaces team
+		meeting days) So grayed out as busy days.</li>
+		<li>All the values in the past disabed and styled as boundary
+		dates.</li>
+	</ul>
+	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+		<ui:param name="sourceType" value="xhtml" />
+		<ui:param name="openLabel" value="View Source" />
+		<ui:param name="hideLabel" value="Hide Source" />
+	</ui:include>
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src"
+			value="/WEB-INF/src/org/richfaces/demo/calendar/model/CalendarModel.java" />
+		<ui:param name="sourceType" value="java" />
+		<ui:param name="openLabel" value="View CalendarModel Source" />
+		<ui:param name="hideLabel" value="Hide CalendarModel Source" />
+	</ui:include>
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src"
+			value="/WEB-INF/src/org/richfaces/demo/calendar/model/CalendarModelItem.java" />
+		<ui:param name="sourceType" value="java" />
+		<ui:param name="openLabel" value="View CalendarModelItem Source" />
+		<ui:param name="hideLabel" value="Hide CalendarModelItem Source" />
+	</ui:include>
+	<p>Calendar may use a special Data Model to provide data for
+	element rendering. You can re-define the default Calendar Model using
+	the dataModel attribute pointed to the object that implements
+	<b>CalendarDataModel</b> interface.</p>
+	<p>CalendarDataModel has the following methods:</p>
+	<ul>
+		<li><b>CalendarDataModelItem[] getData(Date[])</b> is called every time
+		when components need the next block of CalendarDataItems. That may
+		happens when the calendar is rendered, or when you navigate to the
+		next/previous month or in any other case when the calendar is
+		rendered. This method is called in an Ajax mode when the calendar
+		renders a new page.</li>
+	</ul>
+	<p>CalendarDataModelItem provides the following methods:</p>
+	<ul>
+		<li><b>Boolean isEnabled()</b> returns "true" if date is "selectable" on
+		the calendar, the default implementation returns "true"</li>
+		<li><b>String getStyleClass()</b> returns "String" that is appended to a
+		style class for the date span. For example it may be "relevant
+		holiday" that means a class looks like "rich-cal-day relevant
+		holiday". The default implementation returns an empty string.</li>
+	</ul>
+</ui:composition>
+
+</html>

@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	<!--
-		NOTES(TODO: move to some readme in future): id for sample should
-		equals to xhtml page name with the sample the same for demo id - it
-		should be equals to name of the folder where samples placed
-	-->
+<!-- NOTES(TODO: move to some readme in future): id for sample should equals 
+	to xhtml page name with the sample the same for demo id - it should be equals 
+	to name of the folder where samples placed -->
 <root>
 	<group>
 		<name>Ajax Action</name>
 		<demos>
 			<demo>
-				<id>ajax</id> 
+				<id>ajax</id>
 				<name>a4j:ajax</name>
 				<samples>
 					<sample>
@@ -174,21 +172,10 @@
 			</demo>
 		</demos>
 	</group>
-	<!-- group>
-		<name>Validation</name>
-		<demos>
-			<demo>
-				<id>clientValidation</id>
-				<name>Ajax/Client Validation</name>
-				<samples>
-					<sample>
-						<id>ajaxValidation</id>
-						<name>Simple Ajax Validation</name>
-					</sample>
-				</samples>
-			</demo>
-		</demos>
-	</group-->
+	<!-- group> <name>Validation</name> <demos> <demo> <id>clientValidation</id> 
+		<name>Ajax/Client Validation</name> <samples> <sample> <id>ajaxValidation</id> 
+		<name>Simple Ajax Validation</name> </sample> </samples> </demo> </demos> 
+		</group -->
 	<group>
 		<name>Data Iteration</name>
 		<demos>
@@ -215,14 +202,10 @@
 						<name>Data Table Styling</name>
 						<description>
 							<!-- TODO: rowClass should appears at this sample after completion -->
-							<!--
-								TODO: rowClasses should be used instead of jQuerry selectors
-								after will works
-							-->
-							<!--
-								TODO: onrowmouseover, onrowmouseout - should be used instead of
-								jQuery selector
-							-->
+							<!-- TODO: rowClasses should be used instead of jQuerry selectors 
+								after will works -->
+							<!-- TODO: onrowmouseover, onrowmouseout - should be used instead 
+								of jQuery selector -->
 						</description>
 					</sample>
 					<sample>
@@ -246,7 +229,7 @@
 					<sample>
 						<id>exTableSelection</id>
 						<name>ExtendedData Table Selection usage</name>
-					</sample>					
+					</sample>
 				</samples>
 			</demo>
 			<demo>
@@ -334,7 +317,7 @@
 					<sample>
 						<id>simple</id>
 						<name>Simple Toggle Panel</name>
-					</sample>					
+					</sample>
 				</samples>
 			</demo>
 			<demo>
@@ -346,18 +329,15 @@
 						<description>Simple Tab Panels</description>
 						<name>Simple Tab Panels</name>
 					</sample>
-					<!-- sample>
-						<id>headerCustomization</id>
-						<description>Headers Customization</description>
-						<name>Headers Customization</name>
-					</sample-->		
-					<sample>  
+					<!-- sample> <id>headerCustomization</id> <description>Headers Customization</description> 
+						<name>Headers Customization</name> </sample -->
+					<sample>
 						<id>valueManagement</id>
 						<description>Selected Tab Management</description>
 						<name>Selected Tab Management</name>
-					</sample>			
+					</sample>
 				</samples>
-			</demo>	
+			</demo>
 			<demo>
 				<id>collapsiblePanel</id>
 				<name>rich:collapsiblePanel</name>
@@ -371,13 +351,13 @@
 			<demo>
 				<id>accordion</id>
 				<name>rich:accordion</name>
-				<samples> 
+				<samples>
 					<sample>
 						<id>simple</id>
 						<name>Simple Accordion</name>
 					</sample>
-				</samples> 
-			</demo>			
+				</samples>
+			</demo>
 			<demo>
 				<id>popup</id>
 				<name>rich:popupPanel</name>
@@ -415,13 +395,13 @@
 						<name>Simple tooltips</name>
 					</sample>
 				</samples>
-			</demo>			
+			</demo>
 		</demos>
 	</group>
 	<group>
 		<name>Menus</name>
 		<demos>
-			<demo  new="true">
+			<demo new="true">
 				<id>panelMenu</id>
 				<name>rich:panelMenu</name>
 				<samples>
@@ -431,7 +411,7 @@
 					</sample>
 				</samples>
 			</demo>
-			<demo  new="true">
+			<demo new="true">
 				<id>toolBar</id>
 				<name>rich:toolBar</name>
 				<samples>
@@ -449,7 +429,7 @@
 	</group>
 	<group>
 		<name>Inputs and Selects</name>
-		<demos> 
+		<demos>
 			<demo>
 				<id>autocomplete</id>
 				<name>rich:autocomplete</name>
@@ -457,14 +437,14 @@
 					<sample>
 						<id>cachedAjax</id>
 						<name>Autocomplete in Cached Ajax mode</name>
-					</sample> 
+					</sample>
 					<sample>
 						<id>clientFilter</id>
 						<name>Custom client filter</name>
-					</sample> 					
+					</sample>
 				</samples>
 			</demo>
-			<demo>
+			<demo new="true">
 				<id>calendar</id>
 				<name>rich:calendar</name>
 				<samples>
@@ -475,7 +455,11 @@
 					<sample new="true">
 						<id>clientStylingDisablement</id>
 						<name>Client Side Styling/Disablement</name>
-					</sample>					
+					</sample>
+					<sample new="true">
+						<id>dataModel</id>
+						<name>Data Model Support</name>
+					</sample>
 				</samples>
 			</demo>
 			<demo>
@@ -507,7 +491,7 @@
 						<name>Inplace Inputs samples</name>
 					</sample>
 				</samples>
-			</demo>				
+			</demo>
 			<demo>
 				<id>inplaceSelect</id>
 				<name>rich:inplaceSelect</name>
@@ -517,7 +501,7 @@
 						<name>Inplace Selects samples</name>
 					</sample>
 				</samples>
-			</demo>		
+			</demo>
 			<demo>
 				<id>select</id>
 				<name>rich:select</name>
@@ -527,8 +511,8 @@
 						<name>Selects samples</name>
 					</sample>
 				</samples>
-			</demo>											
-		</demos> 
+			</demo>
+		</demos>
 	</group>
 	<group>
 		<name>Misc Components/Features</name>
