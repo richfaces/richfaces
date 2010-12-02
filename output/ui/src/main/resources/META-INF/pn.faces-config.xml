@@ -1638,6 +1638,19 @@
     <component>
         <component-type>org.richfaces.PanelMenu</component-type>
         <component-class>org.richfaces.component.html.HtmlPanelMenu</component-class>
+
+        <property>
+            <property-name>action</property-name>
+            <property-class>javax.faces.el.MethodBinding</property-class>
+        </property>
+        <property>
+            <property-name>actionExpression</property-name>
+            <property-class>javax.el.MethodExpression</property-class>
+        </property>
+        <property>
+            <property-name>actionListener</property-name>
+            <property-class>javax.faces.el.MethodBinding</property-class>
+        </property>
         <property>
             <description></description>
             <property-name>disabled</property-name>

@@ -105,14 +105,6 @@ public class UIPanelMenu extends AbstractPanelMenu {
         getStateHelper().put(PropertyKeys.bubbleSelection, bubbleSelection);
     }
 
-    public String getActiveItem() {
-        return (String) getStateHelper().eval(PropertyKeys.activeItem);
-    }
-
-    public void setActiveItem(String activeItem) {
-        getStateHelper().put(PropertyKeys.activeItem, activeItem);
-    }
-
     public String getItemChangeListener() {
         return (String) getStateHelper().eval(PropertyKeys.itemChangeListener);
     }

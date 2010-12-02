@@ -25,11 +25,13 @@ package org.richfaces.component;
 
 import org.richfaces.PanelMenuMode;
 import org.richfaces.event.ItemChangeEvent;
+import org.richfaces.event.ItemChangeListener;
+import org.richfaces.event.ItemChangeSource;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 
@@ -37,7 +39,7 @@ import javax.faces.event.PhaseId;
  * @author akolonitsky
  * @since 2010-10-25
  */
-public abstract class AbstractPanelMenu extends UIOutput {
+public abstract class AbstractPanelMenu extends AbstractActionComponent implements ItemChangeSource {
 
     public static final String COMPONENT_TYPE = "org.richfaces.PanelMenu";
 
@@ -110,6 +112,16 @@ public abstract class AbstractPanelMenu extends UIOutput {
             event.setPhaseId(PhaseId.PROCESS_VALIDATIONS);
         } else {
             event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+        }
+    }
+
+    @Override
+    public void broadcast(FacesEvent event) throws AbortProcessingException {
+        super.broadcast(event);
+
+        if (event instanceof ItemChangeEvent
+            && (isBypassUpdates() || isImmediate())) {
+            FacesContext.getCurrentInstance().renderResponse();
         }
     }
 
@@ -211,5 +223,19 @@ public abstract class AbstractPanelMenu extends UIOutput {
         }
 
         return null;
+    }
+
+    // ------------------------------------------------ Event Processing Methods
+
+    public void addItemChangeListener(ItemChangeListener listener) {
+        addFacesListener(listener);
+    }
+
+    public ItemChangeListener[] getItemChangeListeners() {
+        return (ItemChangeListener[]) getFacesListeners(ItemChangeListener.class);
+    }
+
+    public void removeItemChangeListener(ItemChangeListener listener) {
+        removeFacesListener(listener);
     }
 }

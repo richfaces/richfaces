@@ -35,6 +35,7 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.event.ActionEvent;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -75,6 +76,8 @@ public class PanelMenuRenderer extends DivPanelRenderer {
         String compClientId = component.getClientId(context);
         String clientId = requestMap.get(compClientId);
         if (clientId != null && clientId.equals(compClientId)) {
+            new ActionEvent(component).queue();
+
             AbstractPanelMenuItem panelItem = panelMenu.getItem(newValue);
             if (panelItem != null) {
                 context.getPartialViewContext().getRenderIds().add(panelItem.getClientId(context));
