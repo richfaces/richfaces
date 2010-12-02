@@ -50,7 +50,7 @@ public class TreeBean implements Serializable {
     private List<TreeNode> rootNodes = new ArrayList<TreeNode>();
     private Map<String, Country> countriesCache = new HashMap<String, Country>();
     private Map<String, Company> companiesCache = new HashMap<String, Company>();
-
+    private Object currentSelection;
     @PostConstruct
     public void init() {
         for (CDXmlDescriptor current : cdXmlDescriptors) {
@@ -61,6 +61,13 @@ public class TreeBean implements Serializable {
             CD cd = new CD(current.getTitle(), current.getArtist(), company, current.getPrice(), current.getYear());
             company.getCds().add(cd);
         }
+    }
+    
+    public void selectionChanged(TreeSelectionChangeEvent selectionChangeEvent){
+        //considering only single selection
+        List<Object> selection = new ArrayList<Object>(selectionChangeEvent.getNewSelection());
+        currentSelection = selection.get(0);
+        
     }
 
     private Country getCountryByName(CDXmlDescriptor descriptor) {
@@ -86,10 +93,6 @@ public class TreeBean implements Serializable {
             companiesCache.put(companyName, company);
         }
         return company;
-    }
-
-    private void selectionListener(TreeSelectionChangeEvent event) {
-        //TODO: implement when ready
     }
 
     public List<CDXmlDescriptor> getCdXmlDescriptors() {

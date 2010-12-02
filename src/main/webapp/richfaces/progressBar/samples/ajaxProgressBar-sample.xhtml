@@ -6,27 +6,28 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
 	<h:form id="form">
-	<rich:progressBar mode="ajax" value="#{progressBarBean.currentValue}"
-                interval="2000"
-                enabled="#{progressBarBean.enabled}" minValue="-1" maxValue="100"
-                reRenderAfterComplete="progressPanel">
-                <f:facet name="initial">
-                    <br />
-                    <h:outputText value="Process doesn't started yet" />
-                    <a4j:commandButton action="#{progressBarBean.startProcess}"
-                        value="Start Process" execute="@form"
-                        rendered="#{progressBarBean.buttonRendered}"
-                        style="margin: 9px 0px 5px;" />
-                </f:facet>
-                <f:facet name="complete">
-                    <br />
-                    <h:outputText value="Process Done" />
-                    <a4j:commandButton action="#{progressBarBean.startProcess}"
-                        value="Restart Process" execute="@form"
-                        rendered="#{progressBarBean.buttonRendered}"
-                        style="margin: 9px 0px 5px;" />
-                </f:facet>
-				<h:outputText value="#{progressBarBean.currentValue} %"/>
-            </rich:progressBar>
-			</h:form>
+		<rich:progressBar mode="ajax" value="#{progressBarBean.currentValue}"
+			interval="2000" id="pb" enabled="#{progressBarBean.enabled}"
+			minValue="0" maxValue="100" reRenderAfterComplete="progressPanel">
+			<f:facet name="initial">
+				<h:panelGroup>
+					<h:outputText value="Process doesn't started yet" />
+					<a4j:commandButton action="#{progressBarBean.startProcess}"
+						value="Start Process" execute="@form" render="pb"
+						rendered="#{progressBarBean.buttonRendered}"
+						style="margin: 9px 0px 5px;" />
+				</h:panelGroup>
+			</f:facet>
+			<f:facet name="finish">
+				<h:panelGroup>
+					<h:outputText value="Process Done" />
+					<a4j:commandButton action="#{progressBarBean.startProcess}"
+						value="Restart Process" execute="@form"
+						rendered="#{progressBarBean.buttonRendered}"
+						style="margin: 9px 0px 5px;" />
+				</h:panelGroup>
+			</f:facet>
+			<h:outputText value="#{progressBarBean.currentValue} %" />
+		</rich:progressBar>
+	</h:form>
 </ui:composition>

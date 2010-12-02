@@ -7,7 +7,8 @@
 	xmlns:rich="http://richfaces.org/rich">
 
 	<rich:tree id="tree" nodeType="#{node.type}" var="node"
-		value="#{treeBean.rootNodes}" toggleType="client">
+		value="#{treeBean.rootNodes}" toggleType="client"
+		>
 		<rich:treeNode type="country">
 				#{node.name}
 			</rich:treeNode>

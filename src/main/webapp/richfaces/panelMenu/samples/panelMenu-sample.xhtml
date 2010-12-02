@@ -16,7 +16,7 @@
 				iconExpandedGroup="disc" iconCollapsedGroup="disc"
 				iconExpandedTopGroup="chevronUp" iconGroupTopPosition="right"
 				iconCollapsedTopGroup="chevronDown"
-				itemChangeListener="#{panelMenuBean.updateCurrent}">
+				activeItem="#{panelMenuBean.current}">
 				<rich:panelMenuGroup label="Group 1">
 					<rich:panelMenuItem label="Item 1.1">
 						<f:param name="current" value="Item 1.1" />
@@ -71,8 +71,5 @@
 				</a4j:outputPanel>
 			</rich:panel>
 		</h:panelGrid>
-		<rich:tabPanel>
-			<rich:tab label="12 ">asdasd</rich:tab>
-		</rich:tabPanel>
 	</h:form>
 </ui:composition>

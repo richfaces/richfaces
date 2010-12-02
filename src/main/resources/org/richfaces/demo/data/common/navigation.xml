@@ -291,6 +291,16 @@
 					</sample>
 				</samples>
 			</demo>
+			<demo new="true">
+				<id>treeAdaptors</id>
+				<name>Tree Adaptors</name>
+				<samples>
+					<sample>
+						<id>treeModelRecursiveAdaptor</id>
+						<name>Simple treeModelRecursiveAdaptor usage</name>
+					</sample>
+				</samples>
+			</demo>			
 		</demos>
 	</group>
 	<group>
