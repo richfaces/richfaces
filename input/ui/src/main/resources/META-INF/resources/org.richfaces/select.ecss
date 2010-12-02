@@ -1,4 +1,3 @@
-
 .rf-sel-inp, .rf-sel-opt {
 	color: '#{richSkin.generalTextColor}';
 	font-size: '#{richSkin.generalSizeFont}';
@@ -9,19 +8,29 @@ input.rf-sel-inp {
 	border-width: 0px;
 	background: none;
 	width: 100%;
+	color: '#{richSkin.generalTextColor}';
+	font-size: '#{richSkin.generalSizeFont}';
+	font-family: '#{richSkin.generalFamilyFont}';
 }
 
+.rf-sel{
+	width:200px;
+	display:inline-block;
+}	
+
 .rf-sel-fld{
-	width: 200px;
-	position: inline-block;
 	border-width: 1px;
 	border-style: solid;
 	border-color: '#{richSkin.panelBorderColor}';
-	display: inline-block;
 	background-image: "url(#{resource['org.richfaces.renderkit.html.images.AutocompleteFieldGradient']})";
 	background-repeat: repeat-x;
 	background-position: top left;
 	background-color: '#{richSkin.controlBackgroundColor}';
+	width: 100%;
+}
+
+.rf-sel-fld-err input{
+	color: #FF0000;
 }
 
 .rf-sel-btn{
@@ -30,9 +39,11 @@ input.rf-sel-inp {
 	background-position: top left;
 	background-color: '#{richSkin.headerBackgroundColor}';
 	text-align: center;
-	border-left-style: solid;
-	border-left-width: 1px;
-	border-left-color: '#{richSkin.panelBorderColor}';
+	border-style: solid;
+	border-width: 1px;
+	border-color: '#{richSkin.panelBorderColor}';
+	border-left-width: 0px;
+			
 	width: 15px;
 	position: absolute;
 	top: 0px;

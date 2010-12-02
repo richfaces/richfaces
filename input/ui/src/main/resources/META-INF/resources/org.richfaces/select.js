@@ -109,7 +109,9 @@
             var inputLabel = this.getValue() ;
             this.initialValue = (inputLabel != this.defaultLabel) ? inputLabel : "";
             this.selValueInput = $(document.getElementById(id+"selValue"));
+            this.field = $(document.getElementById(id+"Field"));
             this.clientItems = mergedOptions.items;
+            
 
             if(mergedOptions.showControl) {
         		this.btn = $(document.getElementById(id+"Button"));
@@ -242,6 +244,14 @@
     				var newValue = this.getValue();
     				if(this.cache && this.cache.isCached(newValue)) {
     					this.__updateItems();
+    					
+    					var items = this.popupList.__getItems();
+    					if(items.length != 0) {
+    						this.field.removeClass("rf-sel-fld-err");
+    					} else {
+    						this.field.addClass("rf-sel-fld-err");
+    					}
+    					
     					if(!this.popupList.isVisible()) {
     						this.showPopup();
     					}
@@ -316,7 +326,9 @@
 								}
 							});
 						} else {
-							var prevValue =	this.selValueInput.val();
+    						this.field.removeClass("rf-sel-fld-err");
+							
+    						var prevValue =	this.selValueInput.val();
 							if(prevValue && prevValue != "") {
 								$.each(this.clientItems, function() {
 									if(this.value == prevValue) {
@@ -328,6 +340,7 @@
 							} 
 						}
 					} 
+					
 					this.setValue(label);
 					this.selValueInput.val(value);
 					this.focused = false;
