@@ -25,6 +25,7 @@ package org.richfaces.renderkit;
 
 import java.util.Map;
 
+import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -39,7 +40,9 @@ import org.richfaces.renderkit.util.HandlersChain;
  * @version $Revision: 1.1.2.3 $ $Date: 2007/02/12 17:46:53 $
  *
  */
-@ResourceDependency(library = "org.richfaces", name = "ajax.reslib")
+@ResourceDependencies({
+    @ResourceDependency(library = "org.richfaces", name = "ajax.reslib")
+})
 public abstract class AjaxCommandRendererBase extends RendererBase {
     private static final Logger LOG = RichfacesLogger.RENDERKIT.getLogger();
 
