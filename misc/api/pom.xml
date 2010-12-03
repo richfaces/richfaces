@@ -27,18 +27,15 @@
         <groupId>org.richfaces.ui</groupId>
         <artifactId>richfaces-ui-parent</artifactId>
         <version>4.0.0-SNAPSHOT</version>
+	<relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
-    <groupId>org.richfaces.ui.fileupload</groupId>
-    <artifactId>richfaces-ui-fileupload-api</artifactId>
-    <name>Richfaces UI Components: FileUpload API</name>
+    <groupId>org.richfaces.ui.misc</groupId>
+    <artifactId>richfaces-ui-misc-api</artifactId>
+    <name>Richfaces UI Components: Misc API</name>
     <packaging>jar</packaging>
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.richfaces.cdk</groupId>
-                <artifactId>maven-cdk-plugin</artifactId>
-            </plugin>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
             </plugin>

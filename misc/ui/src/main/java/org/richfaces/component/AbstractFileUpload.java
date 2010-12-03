@@ -23,6 +23,7 @@ package org.richfaces.component;
 
 import java.util.Map;
 
+import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
@@ -72,8 +73,12 @@ public abstract class AbstractFileUpload extends UIComponentBase {
         Map<String, UIComponent> facets = getFacets();
         UIComponent component = facets.get("progress");
         if (component == null) {
-            component = context.getApplication().createComponent(context, "org.richfaces.ProgressBar",
-                "org.richfaces.ProgressBarRenderer");
+            try {
+                component = context.getApplication().createComponent(context, "org.richfaces.ProgressBar",
+                    "org.richfaces.ProgressBarRenderer");
+            } catch (FacesException e) {
+                // To work without ProgressBar.
+            }
             if (component != null) {
                 component.setId(getId() + "_pb");
                 facets.put("progress", component);
