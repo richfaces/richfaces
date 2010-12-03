@@ -27,6 +27,7 @@
 
 .rf-tr-nd {
 	background: "url(#{resource['org.richfaces.images:line.png']}) repeat-y";
+	min-height: 0px;
 }
 
 .rf-tr-nd-last {
@@ -37,7 +38,7 @@
 	margin-left: 16px;
 }
 
-.rf-trn-ico, .rf-trn-hnd {
+.rf-trn-ico, .rf-trn-hnd, .rf-trn-ldn-fct {
 	vertical-align: middle;
 	margin: 0px;
 	cursor: pointer;
@@ -76,5 +77,18 @@
 }
 
 .rf-tr-nd.rf-tr-nd-colps .rf-tr-nd {
+	display: none;
+}
+
+.rf-trn-ldn-fct {
+	cursor: default;
+	display: none;
+}
+
+.rf-trn-ldn > .rf-trn-ldn-fct {
+	display: inline-block;
+}
+
+.rf-trn-ldn > .rf-trn-ldn-fct + .rf-trn-hnd {
 	display: none;
 }

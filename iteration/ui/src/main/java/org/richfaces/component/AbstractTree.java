@@ -256,10 +256,6 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     }
     
     public AbstractTreeNode findTreeNodeComponent() {
-        if (getRowKey() == null) {
-            return null;
-        }
-        
         FacesContext facesContext = getFacesContext();
 
         String nodeType = getNodeType();
@@ -280,6 +276,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
                 return null;
             }
 
+            //TODO default TreeNode is created when getRowKey() == null but it's not used for presentational purposes
             Application application = facesContext.getApplication();
             AbstractTreeNode treeNode = (AbstractTreeNode) application.createComponent(AbstractTreeNode.COMPONENT_TYPE);
             treeNode.setId("__defaultTreeNode");

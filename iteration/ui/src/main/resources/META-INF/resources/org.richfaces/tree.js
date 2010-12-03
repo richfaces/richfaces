@@ -89,12 +89,16 @@
 			}
 		},
 		
+		__getNodeContainer: function() {
+			return this.__rootElt.find(" > .rf-trn:first");
+		},
+		
 		__getHandle: function() {
-			return this.__rootElt.find(" > .rf-trn:first > .rf-trn-hnd:first");
+			return this.__getNodeContainer().find(" > .rf-trn-hnd:first");
 		},
 		
 		__getContent: function() {
-			return this.__rootElt.find(" > .rf-trn:first > .rf-trn-cnt:first");
+			return this.__getNodeContainer().find(" > .rf-trn-cnt:first");
 		},
 		
 		__getIcons: function() {
@@ -156,7 +160,7 @@
 		},
 		
 		__canBeToggled: function() {
-			return !this.isLeaf() && !this.__rootElt.hasClass("rf-tr-nd-exp-nc");
+			return !this.isLeaf() && !this.__rootElt.hasClass("rf-tr-nd-exp-nc") && !this.__loading;
 		},
 		
 		toggle: function() {
@@ -189,6 +193,16 @@
 			richfaces.Event.callHandler(this.__rootElt, "toggle");
 		},
 		
+		__makeLoading: function() {
+			this.__loading = true;
+			this.__getNodeContainer().addClass("rf-trn-ldn");
+		},
+		
+		__resetLoading: function() {
+			this.__loading = false;
+			this.__getNodeContainer().removeClass("rf-trn-ldn");
+		},
+		
 		__changeToggleState: function(newState) {
 			if (!this.isLeaf()) {
 				if (newState ^ this.isExpanded()) {
@@ -216,7 +230,7 @@
 						case 'ajax':
 						case 'server':
 							//TODO - event?
-							tree.__sendToggleRequest(null, this.getId(), newState);
+							tree.__sendToggleRequest(null, this, newState);
 						break;
 					}
 				}
@@ -314,7 +328,7 @@
 			this.__selectionType = options.selectionType || 'client';
 			
 			if (options.ajaxSubmitFunction) {
-				this.__ajaxSubmitFunction = new Function("event", "source", "params", options.ajaxSubmitFunction);
+				this.__ajaxSubmitFunction = new Function("event", "source", "params", "complete", options.ajaxSubmitFunction);
 			}
 			
 			if (options.onbeforeselectionchange) {
@@ -387,15 +401,23 @@
 		},
 		
 		__sendToggleRequest: function(event, toggleSource, newNodeState) {
+			var toggleSourceId = toggleSource.getId();
+			
 			var clientParams = {};
-			clientParams[toggleSource + NEW_NODE_TOGGLE_STATE] = newNodeState;
+			clientParams[toggleSourceId + NEW_NODE_TOGGLE_STATE] = newNodeState;
 			
 			if (this.getToggleType() == 'server') {
 				var form = this.__treeRootElt.closest('form');
 				richfaces.submitForm(form, clientParams);
 			} else {
-				clientParams[toggleSource + TRIGGER_NODE_AJAX_UPDATE] = newNodeState;
-				this.__ajaxSubmitFunction(event, toggleSource, clientParams);
+				toggleSource.__makeLoading();
+				clientParams[toggleSourceId + TRIGGER_NODE_AJAX_UPDATE] = newNodeState;
+				this.__ajaxSubmitFunction(event, toggleSourceId, clientParams, function() {
+					var treeNode = richfaces.$(toggleSourceId);
+					if (treeNode) {
+						treeNode.__resetLoading();
+					}
+				});
 			}
 		},
 		
@@ -425,7 +447,7 @@
 				return;
 			}
 			
-			this.__selectionInput.val(newSelection.toString());
+			this.__selectionInput.val(newSelection.getNodeString());
 			
 			if (this.getSelectionType() == 'client') {
 				this.__updateSelection(newSelection);

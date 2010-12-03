@@ -53,6 +53,8 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
     
     private static final String TRIGGER_NODE_AJAX_UPDATE = "__TRIGGER_NODE_AJAX_UPDATE";
     
+    private static final String LOADING_FACET_NAME = "loading";
+
     @Override
     public void decode(FacesContext context, UIComponent component) {
         super.decode(context, component);
@@ -167,5 +169,22 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
         //TODO check toggle/selection types
         TreeRenderingContext renderingContext = TreeRenderingContext.get(facesContext);
         renderingContext.addHandlers(treeNode);
+    }
+
+    protected UIComponent getLoadingFacetIfApplicable(UIComponent component) {
+        AbstractTreeNode treeNode = (AbstractTreeNode) component;
+
+        AbstractTree tree = treeNode.findTreeComponent();
+        
+        if (tree.getToggleType() != SwitchType.ajax) {
+            return null;
+        }
+        
+        UIComponent facet = treeNode.getFacet(LOADING_FACET_NAME);
+        if (facet == null) {
+            facet = tree.getFacet(LOADING_FACET_NAME);
+        }
+        
+        return facet;
     }
 }

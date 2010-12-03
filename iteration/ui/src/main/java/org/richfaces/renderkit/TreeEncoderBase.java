@@ -162,8 +162,7 @@ abstract class TreeEncoderBase implements TreeDataVisitor {
         
             writeTreeNodeEndElement();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new FacesException(e.getMessage(), e);
         }
     }
 

@@ -26,6 +26,16 @@
         <cdk:call expression="addClientEventHandlers(facesContext, component)" />
         
         <div class="#{concatClasses('rf-trn', component.attributes['styleClass'], tree.attributes['nodeClass'])}">
+            <cdk:object name="loadingFacet" type="UIComponent" value="#{getLoadingFacetIfApplicable(component)}" />
+            
+            <c:if test="#{not empty loadingFacet and loadingFacet.isRendered()}">
+                <span class="rf-trn-ldn-fct">
+                <cdk:call>
+                    loadingFacet.encodeAll(facesContext);
+                </cdk:call>
+                </span>
+            </c:if>
+            
             <span class="#{concatClasses(nodeState.handleClass, component.attributes['handleClass'], tree.attributes['handleClass'])}"></span>
         
             <span class="rf-trn-cnt">
