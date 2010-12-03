@@ -36,6 +36,7 @@
     <name>Richfaces UI Components: Miscellanous Aggregator</name>
 
     <modules>
+        <module>api</module>
         <module>ui</module>
     </modules>
 
