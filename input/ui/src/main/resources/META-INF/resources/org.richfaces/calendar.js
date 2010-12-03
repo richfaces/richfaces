@@ -480,7 +480,7 @@
 			
 		var div = rf.getDomElement(this.CALENDAR_CONTENT);
 		div = $(div).replaceWith(htmlTextHeader+htmlHeaderOptional+htmlControlsHeader+htmlTextWeekDayBar.join('')+htmlTextWeek.join('')+htmlControlsFooter+htmlFooterOptional+htmlTextFooter);				
-		this.attachToDom(this.id); // TODO: optimize double $
+		this.attachToDom(); // TODO: optimize double $
 		
 		// memory leaks fix // from old 3.3.x code, may be not needed now
 		div = null;
@@ -530,7 +530,7 @@
 	 */
 	$.extend(rf.ui.Calendar.prototype, {
 		name: "Calendar",
-		destructor: function()
+		destroy: function()
 		{
 			if (this.params.popup && this.isVisible)
 			{
@@ -538,6 +538,8 @@
 				this.scrollElements = null;
 				rf.Event.unbind(window.document, "click"+this.namespace);
 			}
+			this.detach();
+			$super.destroy.call(this);
 		},
 		
 		dateEditorSelectYear: function(value)

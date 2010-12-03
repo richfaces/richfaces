@@ -98,7 +98,7 @@
 		this.options = {};
 		// call constructor of parent class
 		$super.constructor.call(this, componentId, componentId+ID.SELECT, fieldId, options);
-		this.attachToDom(componentId);
+		this.attachToDom();
 		this.options = $.extend(this.options, defaultOptions, options);
 		this.value = this.__getSubValue();
 		this.index = -1;
@@ -460,6 +460,7 @@
 				var itemsContainer = rf.getDomElement(this.id+ID.ITEMS);
 				$(itemsContainer).removeData();
 				rf.Event.unbind(itemsContainer.parentNode, this.namespace);
+				this.detach()
 				$super.destroy.call(this);
  			}
 		};

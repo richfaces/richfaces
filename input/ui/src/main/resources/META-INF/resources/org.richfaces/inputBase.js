@@ -6,17 +6,22 @@
         	$super.constructor.call(this, id);
         	this.namespace = this.getNamespace() || "." + rf.Event.createNamespace(this.getName(), this.getId());
 
-        	this.id = id;
+        	this.namespace = this.namespace || "."+rf.Event.createNamespace(this.name, this.id);
+
         	this.input = $(document.getElementById(id + "Input"));
-    		this.attachToDom(id);
-    		
-    		this.input.bind("keydown", $.proxy(this.__keydownHandler, this));
-           	this.input.bind("blur", $.proxy(this.__blurHandler, this));
-           	this.input.bind("change", $.proxy(this.__changeHandler, this));
-           	this.input.bind("focus", $.proxy(this.__focusHandler, this));
+        	this.attachToDom();
+
+        	var inputEventHandlers = {};
+        	inputEventHandlers["keydown"+this.namespace] = this.__keydownHandler;
+        	inputEventHandlers["blur"+this.namespace] = this.__blurHandler;
+        	inputEventHandlers["change"+this.namespace] = this.__changeHandler;
+        	inputEventHandlers["focus"+this.namespace] = this.__focusHandler;
+        	rf.Event.bind(this.input, inputEventHandlers, this);
         };
 
         rf.BaseComponent.extend(rf.ui.InputBase);
+
+	// define super class link
     	var $super = rf.ui.InputBase.$super;
     	
     	$.extend(rf.ui.InputBase.prototype, ( function () {
@@ -64,7 +69,13 @@
            	
            		getId: function() {
            			return	this.id;
-           		} 
+           		},
+			destroy: function() {
+				rf.Event.unbindById(this.input, this.namespace);
+				this.input = null;
+				this.detach();
+				$super.destroy.call(this);
+			}
     		}
     	})());
 

@@ -33,8 +33,8 @@
 	    step: 1,
 	
 	    init: function (id, options) {
-			jQuery.extend(this, options);
-	        this.id = id;
+		$super.constructor.call(this, id);
+		jQuery.extend(this, options);
 	        this.element = jQuery(this.attachToDom());
 	        this.input = this.element.children(".rf-insp-inp");
 	        
@@ -94,6 +94,8 @@
 					.unbind("mouseup", this.destroy);
 		    	this.intervalId = null;
 	    	}
+		this.detach();
+		$super.destroy.call(this);
 	    },
 	
 	    __setValue: function (value, event, skipOnchange) {
@@ -157,4 +159,7 @@
 	    	event.preventDefault();
 	    }	    
 	});
+	
+	// define super class link
+	var $super = richfaces.ui.InputNumberSpinner.$super;
 }(window.RichFaces, jQuery));
