@@ -27,6 +27,11 @@
 		border: 1px solid green;
 	}
 
+	.loadingWithoutFacet .rf-trn-ldn .rf-trn-hnd {
+		cursor: default;
+		background-image: url(#{facesContext.externalContext.requestContextPath}/images/loading.gif);
+	}
+
 	/*]]>*/</h:outputStylesheet>
 </h:head>
 
@@ -243,6 +248,22 @@
 
 			</h:panelGroup>
 		</h:panelGrid>
+		
+		'loading' facet:
+		<it:tree value="#{treeBean.rootNodes}" toggleType="ajax" var="node">
+			<it:treeNode>
+				<f:facet name="loading">
+					<h:graphicImage value="/images/loading.gif" />
+				</f:facet>
+				
+				#{node}
+			</it:treeNode>		
+		</it:tree>
+		
+		'loading' without facet:
+		<it:tree value="#{treeBean.rootNodes}" toggleType="ajax" var="node" styleClass="loadingWithoutFacet" />
+		
+		<a4j:queue />
 		
 		<a4j:log />
 	</h:form>
