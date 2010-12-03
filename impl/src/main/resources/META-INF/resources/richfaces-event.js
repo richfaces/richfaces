@@ -94,9 +94,14 @@
 		  * */		
 		bind : function(selector, eventType, fn, component, data) {
 			// eventType: namespace can be used, like onclick.rf.conponentName
-			var f = getHandlerWrapper(component, fn);
-			getEventElement(selector).bind(eventType, data, f);
-			return f;
+			if (typeof eventType == "object") {
+				// in this case fn == component object
+				getEventElement(selector).bind(getMultipleHandlerWrapper(eventType, fn), data);
+			} else {
+				var f = getHandlerWrapper(component, fn);
+				getEventElement(selector).bind(eventType, data, f);
+				return f;
+			}
 		},
 		
 		/** 
