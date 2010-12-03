@@ -216,7 +216,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     @Attribute
     public abstract String getButtonIconDisabled();
 
-    @Attribute
+    @Attribute(defaultValue = "12:00:00")
     public abstract Object getDefaultTime();
     
     @Attribute(defaultValue = "getDefaultPreloadBegin(getCurrentDateOrDefault())")
