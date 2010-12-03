@@ -42,7 +42,7 @@ import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RendererBase;
 
 
-@ResourceDependency(library = "org.richfaces", name = "toolBar.ecss")
+@ResourceDependency(library = "org.richfaces", name = "toolbar.ecss")
 public abstract class ToolBarRendererBase extends RendererBase {
 
     public static final String RENDERER_TYPE = "org.richfaces.ToolBarRenderer";
