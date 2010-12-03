@@ -244,7 +244,7 @@
 			detach: function(source) {
 				source = source || this.id;
 				var element = richfaces.getDomElement(source);
-				element && element.richfaces && (element.richfaces.component=null);
+				element && element[richfaces.RICH_CONTAINER] && (element[richfaces.RICH_CONTAINER].component=null);
 			},
 			
 			/** TODO: add jsdocs and qunit tests
