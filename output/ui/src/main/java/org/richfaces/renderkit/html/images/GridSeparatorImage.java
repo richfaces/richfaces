@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 import org.richfaces.resource.DynamicUserResource;
 
 @DynamicUserResource
-public class GridSeparatorImage extends ToolBarSeparatorImage {
+public class GridSeparatorImage extends ToolbarSeparatorImage {
 
     public Dimension getDimension() {
         return calculateDimension();

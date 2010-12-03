@@ -36,7 +36,7 @@ import org.richfaces.resource.DynamicUserResource;
  * 
  */
 @DynamicUserResource
-public class DotSeparatorImage extends ToolBarSeparatorImage {
+public class DotSeparatorImage extends ToolbarSeparatorImage {
 
     private static final Dimension DIMENSIONS = new Dimension(9, 9);
 

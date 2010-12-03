@@ -12,7 +12,7 @@ import java.awt.geom.RoundRectangle2D;
 import org.richfaces.resource.DynamicUserResource;
 
 @DynamicUserResource
-public class SquareSeparatorImage extends ToolBarSeparatorImage {
+public class SquareSeparatorImage extends ToolbarSeparatorImage {
 
     private static final Dimension DIMENSIONS = new Dimension(9, 9);
 

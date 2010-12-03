@@ -11,8 +11,8 @@
     </behavior>
 
     <component>
-        <component-type>org.richfaces.ToolBar</component-type>
-        <component-class>org.richfaces.component.UIToolBar</component-class>
+        <component-type>org.richfaces.Toolbar</component-type>
+        <component-class>org.richfaces.component.UIToolbar</component-class>
         <property>
             <description>
             A mutable Map of the attributes associated with
@@ -380,20 +380,20 @@
             </property-extension>
         </property>
         <component-extension>
-            <cdk:base-class>org.richfaces.component.AbstractToolBar</cdk:base-class>
+            <cdk:base-class>org.richfaces.component.AbstractToolbar</cdk:base-class>
             <cdk:generate>true</cdk:generate>
-            <cdk:component-family>org.richfaces.ToolBar</cdk:component-family>
-            <cdk:renderer-type>org.richfaces.ToolBarRenderer</cdk:renderer-type>
+            <cdk:component-family>org.richfaces.Toolbar</cdk:component-family>
+            <cdk:renderer-type>org.richfaces.ToolbarRenderer</cdk:renderer-type>
             <cdk:tag>
                 <cdk:generate>false</cdk:generate>
-                <cdk:tag-name>toolBar</cdk:tag-name>
+                <cdk:tag-name>toolbar</cdk:tag-name>
                 <cdk:tag-type>Facelets</cdk:tag-type>
             </cdk:tag>
         </component-extension>
     </component>
     <component>
-        <component-type>org.richfaces.ToolBarGroup</component-type>
-        <component-class>org.richfaces.component.UIToolBarGroup</component-class>
+        <component-type>org.richfaces.ToolbarGroup</component-type>
+        <component-class>org.richfaces.component.UIToolbarGroup</component-class>
         <property>
             <description>
 			A mutable Map of the attributes associated with
@@ -749,13 +749,13 @@
             </property-extension>
         </property>
         <component-extension>
-            <cdk:base-class>org.richfaces.component.AbstractToolBarGroup</cdk:base-class>
+            <cdk:base-class>org.richfaces.component.AbstractToolbarGroup</cdk:base-class>
             <cdk:generate>true</cdk:generate>
-            <cdk:component-family>org.richfaces.ToolBar</cdk:component-family>
-            <cdk:renderer-type>org.richfaces.ToolBarGroupRenderer</cdk:renderer-type>
+            <cdk:component-family>org.richfaces.Toolbar</cdk:component-family>
+            <cdk:renderer-type>org.richfaces.ToolbarGroupRenderer</cdk:renderer-type>
             <cdk:tag>
                 <cdk:generate>false</cdk:generate>
-                <cdk:tag-name>toolBarGroup</cdk:tag-name>
+                <cdk:tag-name>toolbarGroup</cdk:tag-name>
                 <cdk:tag-type>Facelets</cdk:tag-type>
             </cdk:tag>
         </component-extension>
@@ -1757,17 +1757,17 @@
         <render-kit-id>HTML_BASIC</render-kit-id>
 		
 		<renderer>
-            <component-family>org.richfaces.ToolBar</component-family>
-            <renderer-type>org.richfaces.ToolBarRenderer</renderer-type>
-            <renderer-class>org.richfaces.renderkit.html.ToolBarRenderer</renderer-class>
+            <component-family>org.richfaces.Toolbar</component-family>
+            <renderer-type>org.richfaces.ToolbarRenderer</renderer-type>
+            <renderer-class>org.richfaces.renderkit.html.ToolbarRenderer</renderer-class>
             <renderer-extension>
                 <cdk:renders-children>false</cdk:renders-children>
             </renderer-extension>
         </renderer>
          <renderer>
-            <component-family>org.richfaces.ToolBar</component-family>
-            <renderer-type>org.richfaces.ToolBarGroupRenderer</renderer-type>
-            <renderer-class>org.richfaces.renderkit.html.ToolBarGroupRenderer</renderer-class>
+            <component-family>org.richfaces.Toolbar</component-family>
+            <renderer-type>org.richfaces.ToolbarGroupRenderer</renderer-type>
+            <renderer-class>org.richfaces.renderkit.html.ToolbarGroupRenderer</renderer-class>
             <renderer-extension>
                 <cdk:renders-children>false</cdk:renders-children>
             </renderer-extension>

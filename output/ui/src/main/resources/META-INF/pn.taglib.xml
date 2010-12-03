@@ -9,8 +9,8 @@
     <tag>
         <tag-name>toolbar</tag-name>
         <component>
-            <component-type>org.richfaces.ToolBar</component-type>
-            <renderer-type>org.richfaces.ToolBarRenderer</renderer-type>
+            <component-type>org.richfaces.Toolbar</component-type>
+            <renderer-type>org.richfaces.ToolbarRenderer</renderer-type>
         </component>
         <attribute>
             <description>The value binding expression used to wire up this component to a component property of a JavaBean class</description>
@@ -88,8 +88,8 @@
     <tag>
         <tag-name>toolbarGroup</tag-name>
         <component>
-            <component-type>org.richfaces.ToolBarGroup</component-type>
-            <renderer-type>org.richfaces.ToolBarGroupRenderer</renderer-type>
+            <component-type>org.richfaces.ToolbarGroup</component-type>
+            <renderer-type>org.richfaces.ToolbarGroupRenderer</renderer-type>
         </component>
         <attribute>
             <description>The value binding expression used to wire up this component to a component property of a JavaBean class</description>

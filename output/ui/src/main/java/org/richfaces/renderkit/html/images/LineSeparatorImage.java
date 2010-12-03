@@ -8,7 +8,7 @@ import java.awt.Graphics2D;
 import org.richfaces.resource.DynamicUserResource;
 
 @DynamicUserResource
-public class LineSeparatorImage extends ToolBarSeparatorImage {
+public class LineSeparatorImage extends ToolbarSeparatorImage {
 
     public Dimension getDimension() {
         return calculateDimension();
