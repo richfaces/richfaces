@@ -5,7 +5,590 @@
                 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
                 http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd" version="2.0" id="output">
     <namespace>http://richfaces.org/output</namespace>
-
+    <tag>
+        <tag-name>dropDownMenu</tag-name>
+        <component>
+            <component-type>org.richfaces.DropDownMenu</component-type>
+            <renderer-type>org.richfaces.DropDownMenuRenderer</renderer-type>
+        </component>
+        <attribute>
+            <description>The value binding expression used to wire up this component to a component property of a JavaBean class</description>
+            <icon/>
+            <name>binding</name>
+            <type>javax.faces.component.UIComponent</type>
+        </attribute>
+        <attribute>
+            <description>Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right) and "RTL" (right-to-left).</description>
+            <display-name>Direction</display-name>
+            <icon/>
+            <name>dir</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>direction</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>disabled</name>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <name>hideDelay</name>
+            <type>int</type>
+        </attribute>
+        <attribute>
+            <description>The component identifier for this component. This value must be unique within the closest parent component that is a naming container.</description>
+            <display-name>Component Identifier</display-name>
+            <icon/>
+            <name>id</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>jointPoint</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Code describing the language used in the generated markup for this component.</description>
+            <display-name>Language Code</display-name>
+            <icon/>
+            <name>lang</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>mode</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a pointer button is clicked over this element.</description>
+            <display-name>Button Click Script</display-name>
+            <icon/>
+            <name>onclick</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a pointer button is double clicked over this element.</description>
+            <display-name>Double Click Script</display-name>
+            <icon/>
+            <name>ondblclick</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>ongrouphide</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>ongroupshow</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onhide</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onitemclick</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a key is pressed down over this element.</description>
+            <display-name>Key Down Script</display-name>
+            <icon/>
+            <name>onkeydown</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a key is pressed and released over this element.</description>
+            <display-name>Key Press Script</display-name>
+            <icon/>
+            <name>onkeypress</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a key is released over this element.</description>
+            <display-name>Key Up Script</display-name>
+            <icon/>
+            <name>onkeyup</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a pointer button is pressed down over this element.</description>
+            <display-name>Mouse Down Script</display-name>
+            <icon/>
+            <name>onmousedown</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a pointer button is moved within this element.</description>
+            <display-name>Mouse Move Script</display-name>
+            <icon/>
+            <name>onmousemove</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a pointer button is moved away from this element.</description>
+            <display-name>Mouse Out Script</display-name>
+            <icon/>
+            <name>onmouseout</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a pointer button is moved onto this element.</description>
+            <display-name>Mouse Over Script</display-name>
+            <icon/>
+            <name>onmouseover</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a pointer button is released over this element.</description>
+            <display-name>Mouse Up Script</display-name>
+            <icon/>
+            <name>onmouseup</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onshow</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>popupWith</name>
+            <type>int</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not this component should be rendered (during Render Response Phase), or processed on any subsequent form submit. The default value for this property is true.</description>
+            <display-name>Rendered Flag</display-name>
+            <icon/>
+            <name>rendered</name>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <name>showDelay</name>
+            <type>int</type>
+        </attribute>
+        <attribute>
+            <name>showEvent</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>CSS style(s) to be applied when this component is rendered.</description>
+            <display-name>CSS Styles</display-name>
+            <icon/>
+            <name>style</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be passed through as the "class" attribute on generated markup.</description>
+            <display-name>CSS Style Classes</display-name>
+            <icon/>
+            <name>styleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Advisory title information about markup elements generated for this component.</description>
+            <display-name>Advisory Title</display-name>
+            <icon/>
+            <name>title</name>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+    <tag>
+        <tag-name>menuSeparator</tag-name>
+        <component>
+            <component-type>org.richfaces.MenuSeparator</component-type>
+            <renderer-type>org.richfaces.MenuSeparatorRenderer</renderer-type>
+        </component>
+        <attribute>
+            <description>The value binding expression used to wire up this component to a component property of a JavaBean class</description>
+            <icon/>
+            <name>binding</name>
+            <type>javax.faces.component.UIComponent</type>
+        </attribute>
+        <attribute>
+            <description>The component identifier for this component. This value must be unique within the closest parent component that is a naming container.</description>
+            <display-name>Component Identifier</display-name>
+            <icon/>
+            <name>id</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not this component should be rendered (during Render Response Phase), or processed on any subsequent form submit. The default value for this property is true.</description>
+            <display-name>Rendered Flag</display-name>
+            <icon/>
+            <name>rendered</name>
+            <type>boolean</type>
+        </attribute>
+    </tag>
+    <tag>
+        <tag-name>menuGroup</tag-name>
+        <component>
+            <component-type>org.richfaces.MenuGroup</component-type>
+            <renderer-type>org.richfaces.MenuGroupRenderer</renderer-type>
+        </component>
+        <attribute>
+            <description>The value binding expression used to wire up this component to a component property of a JavaBean class</description>
+            <icon/>
+            <name>binding</name>
+            <type>javax.faces.component.UIComponent</type>
+        </attribute>
+        <attribute>
+            <description>Converter instance registered with this component.</description>
+            <display-name>Converter</display-name>
+            <icon/>
+            <name>converter</name>
+            <type>javax.faces.convert.Converter</type>
+        </attribute>
+        <attribute>
+            <description>Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right) and "RTL" (right-to-left).</description>
+            <display-name>Direction</display-name>
+            <icon/>
+            <name>dir</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>direction</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>disabled</name>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <name>horizontalOffset</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>icon</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>iconDisabled</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>iconFolder</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>iconFolderDisabled</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>The component identifier for this component. This value must be unique within the closest parent component that is a naming container.</description>
+            <display-name>Component Identifier</display-name>
+            <icon/>
+            <name>id</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Code describing the language used in the generated markup for this component.</description>
+            <display-name>Language Code</display-name>
+            <icon/>
+            <name>lang</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a pointer button is clicked over this element.</description>
+            <display-name>Button Click Script</display-name>
+            <icon/>
+            <name>onclick</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a pointer button is double clicked over this element.</description>
+            <display-name>Double Click Script</display-name>
+            <icon/>
+            <name>ondblclick</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onhide</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a key is pressed down over this element.</description>
+            <display-name>Key Down Script</display-name>
+            <icon/>
+            <name>onkeydown</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a key is pressed and released over this element.</description>
+            <display-name>Key Press Script</display-name>
+            <icon/>
+            <name>onkeypress</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a key is released over this element.</description>
+            <display-name>Key Up Script</display-name>
+            <icon/>
+            <name>onkeyup</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a pointer button is pressed down over this element.</description>
+            <display-name>Mouse Down Script</display-name>
+            <icon/>
+            <name>onmousedown</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a pointer button is moved within this element.</description>
+            <display-name>Mouse Move Script</display-name>
+            <icon/>
+            <name>onmousemove</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a pointer button is moved away from this element.</description>
+            <display-name>Mouse Out Script</display-name>
+            <icon/>
+            <name>onmouseout</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a pointer button is moved onto this element.</description>
+            <display-name>Mouse Over Script</display-name>
+            <icon/>
+            <name>onmouseover</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a pointer button is released over this element.</description>
+            <display-name>Mouse Up Script</display-name>
+            <icon/>
+            <name>onmouseup</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>onshow</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not this component should be rendered (during Render Response Phase), or processed on any subsequent form submit. The default value for this property is true.</description>
+            <display-name>Rendered Flag</display-name>
+            <icon/>
+            <name>rendered</name>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>CSS style(s) to be applied when this component is rendered.</description>
+            <display-name>CSS Styles</display-name>
+            <icon/>
+            <name>style</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be passed through as the "class" attribute on generated markup.</description>
+            <display-name>CSS Style Classes</display-name>
+            <icon/>
+            <name>styleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Advisory title information about markup elements generated for this component.</description>
+            <display-name>Advisory Title</display-name>
+            <icon/>
+            <name>title</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>The current value of this component.</description>
+            <display-name>Value</display-name>
+            <icon/>
+            <name>value</name>
+            <type>java.lang.Object</type>
+        </attribute>
+        <attribute>
+            <name>verticalOffset</name>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>    
+	<tag>
+        <tag-name>menuItem</tag-name>
+        <component>
+            <component-type>org.richfaces.MenuItem</component-type>
+            <renderer-type>org.richfaces.MenuItemRenderer</renderer-type>
+        </component>
+        <attribute>
+            <description>MethodExpression representing the application action to invoke when this component is activated by the user. The expression must evaluate to a public method that takes no parameters, and returns an Object (the toString() of which is called to derive the logical outcome) which is passed to the NavigationHandler for this application.</description>
+            <display-name>Application Action</display-name>
+            <icon/>
+            <name>action</name>
+            <type>javax.faces.el.MethodBinding</type>
+        </attribute>
+        <attribute>
+            <description>MethodExpression representing the application action to invoke when this component is activated by the user. The expression must evaluate to a public method that takes no parameters, and returns an Object (the toString() of which is called to derive the logical outcome) which is passed to the NavigationHandler for this application.</description>
+            <display-name>Application Action</display-name>
+            <icon/>
+            <name>actionExpression</name>
+            <type>javax.el.MethodExpression</type>
+        </attribute>
+        <attribute>
+            <description>&lt;p&gt; MethodExpression representing an action listener method that will be notified when this component is activated by the user. The expression must evaluate to a public method that takes an ActionEvent parameter, with a return type of void, &lt;span class="changed_added_2_0"&gt;or to a public method that takes no arguments with a return type of void. In the latter case, the method has no way of easily knowing where the event came from, but this can be useful in cases where a notification is needed that "some action happened".&lt;/span&gt; &lt;/p&gt;</description>
+            <display-name>Action Listener</display-name>
+            <icon/>
+            <name>actionListener</name>
+            <type>javax.faces.el.MethodBinding</type>
+        </attribute>
+        <attribute>
+            <description>The value binding expression used to wire up this component to a component property of a JavaBean class</description>
+            <icon/>
+            <name>binding</name>
+            <type>javax.faces.component.UIComponent</type>
+        </attribute>
+        <attribute>
+            <description>Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right) and "RTL" (right-to-left).</description>
+            <display-name>Direction</display-name>
+            <icon/>
+            <name>dir</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>disabled</name>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <name>icon</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>iconDisabled</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>The component identifier for this component. This value must be unique within the closest parent component that is a naming container.</description>
+            <display-name>Component Identifier</display-name>
+            <icon/>
+            <name>id</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating that, if this component is activated by the user, notifications should be delivered to interested listeners and actions immediately (that is, during Apply Request Values phase) rather than waiting until Invoke Application phase.</description>
+            <display-name>Immediate Action</display-name>
+            <icon/>
+            <name>immediate</name>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <name>label</name>
+            <type>java.lang.Object</type>
+        </attribute>
+        <attribute>
+            <description>Code describing the language used in the generated markup for this component.</description>
+            <display-name>Language Code</display-name>
+            <icon/>
+            <name>lang</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>mode</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a pointer button is clicked over this element.</description>
+            <display-name>Button Click Script</display-name>
+            <icon/>
+            <name>onclick</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a pointer button is double clicked over this element.</description>
+            <display-name>Double Click Script</display-name>
+            <icon/>
+            <name>ondblclick</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a key is pressed down over this element.</description>
+            <display-name>Key Down Script</display-name>
+            <icon/>
+            <name>onkeydown</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a key is pressed and released over this element.</description>
+            <display-name>Key Press Script</display-name>
+            <icon/>
+            <name>onkeypress</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a key is released over this element.</description>
+            <display-name>Key Up Script</display-name>
+            <icon/>
+            <name>onkeyup</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a pointer button is pressed down over this element.</description>
+            <display-name>Mouse Down Script</display-name>
+            <icon/>
+            <name>onmousedown</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a pointer button is moved within this element.</description>
+            <display-name>Mouse Move Script</display-name>
+            <icon/>
+            <name>onmousemove</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a pointer button is moved away from this element.</description>
+            <display-name>Mouse Out Script</display-name>
+            <icon/>
+            <name>onmouseout</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a pointer button is moved onto this element.</description>
+            <display-name>Mouse Over Script</display-name>
+            <icon/>
+            <name>onmouseover</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Javascript code executed when a pointer button is released over this element.</description>
+            <display-name>Mouse Up Script</display-name>
+            <icon/>
+            <name>onmouseup</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Flag indicating whether or not this component should be rendered (during Render Response Phase), or processed on any subsequent form submit. The default value for this property is true.</description>
+            <display-name>Rendered Flag</display-name>
+            <icon/>
+            <name>rendered</name>
+            <type>boolean</type>
+        </attribute>
+        <attribute>
+            <description>CSS style(s) to be applied when this component is rendered.</description>
+            <display-name>CSS Styles</display-name>
+            <icon/>
+            <name>style</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be passed through as the "class" attribute on generated markup.</description>
+            <display-name>CSS Style Classes</display-name>
+            <icon/>
+            <name>styleClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>Advisory title information about markup elements generated for this component.</description>
+            <display-name>Advisory Title</display-name>
+            <icon/>
+            <name>title</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>The current value of this component.</description>
+            <display-name>Value</display-name>
+            <icon/>
+            <name>value</name>
+            <type>java.lang.Object</type>
+        </attribute>
+    </tag>
     <tag>
         <tag-name>toolbar</tag-name>
         <component>
