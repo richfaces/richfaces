@@ -11,11 +11,11 @@
         </style>        
     </h:head>
     <h:body>
-        <tb:toolbar height="45" itemSeparator="grid" contentStyle="color:red;">
+        <tb:toolbar height="45" itemSeparator="grid" itemStyle="color:red;" itemClass="custom-item">
         <f:facet name="itemSeparator">
             ||
         </f:facet>      
-          <tb:toolbarGroup itemSeparator="line" onitemclick="22">
+          <tb:toolbarGroup itemStyle="border: 1px solid green" itemClass="custom-item-group" itemSeparator="line" onitemclick="22">
               <h:graphicImage value="/images/icons/create_doc.gif"/>
               <a href="#">link 1</a> Text
               <a href="#">link 2</a>
@@ -41,8 +41,8 @@
           </tb:toolbarGroup>
         </tb:toolbar>
         <br/>
-        <tb:toolbar itemSeparator="grid">
-          <tb:toolbarGroup itemSeparator="line">
+        <tb:toolbar itemSeparator="grid" itemStyle="border: 1px solid green" itemClass="custom-item">
+          <tb:toolbarGroup itemSeparator="line" itemStyle="border: 1px solid green" itemClass="custom-item-group">
               <h:graphicImage value="/images/icons/create_doc.gif"/>
               <h:graphicImage value="/images/icons/create_folder.gif"/>
               <h:graphicImage value="/images/icons/copy.gif"/>
