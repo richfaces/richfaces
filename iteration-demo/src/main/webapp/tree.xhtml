@@ -212,6 +212,38 @@
 			</it:treeNode>
 		</it:tree>
 		
+		execute/render:
+		<h:panelGrid columns="2" id="executeRenderTreeGrid">
+			<it:tree var="node" value="#{treeBean.rootNodes}" execute="executeRenderTreeGrid" render="selectionIndicator" 
+				selection="#{treeBean.selection}" selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}">
+				<it:treeNode>
+					#{node.data}
+				</it:treeNode>
+			</it:tree>
+			
+			<h:panelGroup layout="block" id="selectionIndicator" style="margin-left: 50px;">
+				Current time: #{treeBean.currentTimeAsString}
+
+				<br />
+
+				Current selection: #{treeBean.selection}
+				
+				<br />
+				
+				Test text:
+				<h:inputText value="#{treeBean.executeTestText}" />
+				
+				<br />
+				
+				<a4j:outputPanel ajaxRendered="true">
+					Current time: #{treeBean.currentTimeAsString}
+					<br />
+					<h:outputText value="#{treeBean.executeTestText}" />
+				</a4j:outputPanel>
+
+			</h:panelGroup>
+		</h:panelGrid>
+		
 		<a4j:log />
 	</h:form>
 </h:body>

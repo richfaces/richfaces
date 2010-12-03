@@ -22,8 +22,10 @@
 package org.richfaces.demo;
 
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -110,6 +112,8 @@ public class TreeBean implements Serializable {
     private Collection<Object> selection = new TracingSet<Object>();
 
     private String toggleNodeEvent = "";
+    
+    private String executeTestText;
     
     private static Object staticGetNodeData() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -230,5 +234,15 @@ public class TreeBean implements Serializable {
         this.toggleNodeEvent = toggleNodeEvent;
     }
 
+    public String getExecuteTestText() {
+        return executeTestText;
+    }
+    
+    public void setExecuteTestText(String executeTestText) {
+        this.executeTestText = executeTestText;
+    }
 
+    public String getCurrentTimeAsString() {
+        return DateFormat.getTimeInstance().format(new Date());
+    }
 }
