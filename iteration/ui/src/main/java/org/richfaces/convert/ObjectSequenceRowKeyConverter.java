@@ -31,6 +31,8 @@ import javax.faces.convert.Converter;
  */
 public class ObjectSequenceRowKeyConverter extends SequenceRowKeyConverter<Object> {
 
+    public static final String CONVERTER_ID = "org.richfaces.ObjectSequenceRowKeyConverter";
+    
     private static final Converter NO_OP_CONVERTER = new Converter() {
         
         public String getAsString(FacesContext context, UIComponent component, Object value) {

@@ -6,6 +6,21 @@
     xmlns:cdk="http://jboss.org/schema/richfaces/cdk/extensions"
     version="2.0">
 
+    <converter>
+        <converter-id>org.richfaces.DeclarativeModelSequenceKeyConverter</converter-id>
+        <converter-class>org.richfaces.convert.DeclarativeModelSequenceKeyConverter</converter-class>
+    </converter>
+
+    <converter>
+        <converter-id>org.richfaces.IntegerSequenceRowKeyConverter</converter-id>
+        <converter-class>org.richfaces.convert.IntegerSequenceRowKeyConverter</converter-class>
+    </converter>
+    
+    <converter>
+        <converter-id>org.richfaces.ObjectSequenceRowKeyConverter</converter-id>
+        <converter-class>org.richfaces.convert.ObjectSequenceRowKeyConverter</converter-class>
+    </converter>
+
     <faces-config-extension>
         <cdk:faces-event>
             <cdk:event-class>org.richfaces.event.TreeToggleEvent</cdk:event-class>

@@ -35,7 +35,7 @@ import org.richfaces.model.SequenceRowKey;
  * @author Nick Belaevski
  * 
  */
-public class DeclarativeModelKeySequenceRowKeyConverter extends SequenceRowKeyConverter<DeclarativeModelKey> {
+public class DeclarativeModelSequenceKeyConverter extends SequenceRowKeyConverter<DeclarativeModelKey> {
 
     private final class KeyConvertingWalker extends DeclarativeTreeDataModelWalker {
 
@@ -79,9 +79,11 @@ public class DeclarativeModelKeySequenceRowKeyConverter extends SequenceRowKeyCo
         }
     }
 
+    public static final String CONVERTER_ID = "org.richfaces.DeclarativeModelSequenceKeyConverter";
+    
     private static final Converter INTEGER_CONVERTER = new IntegerConverter();
     
-    public DeclarativeModelKeySequenceRowKeyConverter() {
+    public DeclarativeModelSequenceKeyConverter() {
         super(DeclarativeModelKey.class, new DeclarativeModelKeyConverter(ConverterUtil.stringConverter()));
     }
 

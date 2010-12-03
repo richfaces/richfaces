@@ -29,6 +29,8 @@ import javax.faces.convert.IntegerConverter;
  */
 public class IntegerSequenceRowKeyConverter extends SequenceRowKeyConverter<Integer> {
 
+    public static final String CONVERTER_ID = "org.richfaces.IntegerSequenceRowKeyConverter";
+    
     public IntegerSequenceRowKeyConverter() {
         super(Integer.class, new IntegerConverter());
     }
