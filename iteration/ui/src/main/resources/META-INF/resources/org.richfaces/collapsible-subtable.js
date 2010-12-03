@@ -2,7 +2,7 @@
 
 	richfaces.ui = richfaces.ui || {};
   
-	richfaces.ui.SubTable =  function(id, f, options) {
+	richfaces.ui.CollapsibleSubTable =  function(id, f, options) {
 		this.id = id;
 		this.stateInput = options.stateInput;
 		this.optionsInput = options.optionsInput;
@@ -14,7 +14,7 @@
     	this.attachToDom(id);
     };
 	
-	$.extend(richfaces.ui.SubTable, {
+	$.extend(richfaces.ui.CollapsibleSubTable, {
 		MODE_AJAX: "ajax",
 		MODE_SRV: "server", 
 		MODE_CLNT: "client",
@@ -22,11 +22,11 @@
 		expand: 1
 	})
 	
-	var $super = richfaces.BaseComponent.extend(richfaces.ui.SubTable);
-    var $p = richfaces.BaseComponent.extend(richfaces.ui.SubTable, {});
-    var $super = richfaces.ui.SubTable.$super;
+	var $super = richfaces.BaseComponent.extend(richfaces.ui.CollapsibleSubTable);
+    var $p = richfaces.BaseComponent.extend(richfaces.ui.CollapsibleSubTable, {});
+    var $super = richfaces.ui.CollapsibleSubTable.$super;
 
-    $.extend(richfaces.ui.SubTable.prototype, (function () {
+    $.extend(richfaces.ui.CollapsibleSubTable.prototype, (function () {
     	
     	var element = function() { 
     		//use parent tbody as parent dom elem
@@ -62,34 +62,34 @@
      	  
     	return {
     		
-    		name: "RichFaces.ui.SubTable",
+    		name: "RichFaces.ui.CollapsibleSubTable",
 
     		toggle: function(e, options) {
-    			if(this.expandMode == richfaces.ui.SubTable.MODE_AJAX) {
+    			if(this.expandMode == richfaces.ui.CollapsibleSubTable.MODE_AJAX) {
            			ajax.call(this, e, this.eventOptions, options);
-           		}else if(this.expandMode == richfaces.ui.SubTable.MODE_SRV) {
+           		}else if(this.expandMode == richfaces.ui.CollapsibleSubTable.MODE_SRV) {
            			server.call(this, options);
-           		}else if(this.expandMode == richfaces.ui.SubTable.MODE_CLNT) {
+           		}else if(this.expandMode == richfaces.ui.CollapsibleSubTable.MODE_CLNT) {
            			client.call(this, options);
            		}
     		}, 
     		
     		collapse: function(options) {
-    			this.setState(richfaces.ui.SubTable.collapse);
+    			this.setState(richfaces.ui.CollapsibleSubTable.collapse);
     			element.call(this).hide();
     		}, 
     		
     		expand: function(options) {
-    			this.setState(richfaces.ui.SubTable.expand);
+    			this.setState(richfaces.ui.CollapsibleSubTable.expand);
     			element.call(this).show();
     		},
     		    		    		
     		isExpand: function() {
-    			return (parseInt(this.getState()) == richfaces.ui.SubTable.expand);
+    			return (parseInt(this.getState()) == richfaces.ui.CollapsibleSubTable.expand);
            	},
            
     		switchState: function(options) {
-    			var state = this.isExpand() ? richfaces.ui.SubTable.collapse : richfaces.ui.SubTable.expand;
+    			var state = this.isExpand() ? richfaces.ui.CollapsibleSubTable.collapse : richfaces.ui.CollapsibleSubTable.expand;
     			this.setState(state);
     		}, 
     		

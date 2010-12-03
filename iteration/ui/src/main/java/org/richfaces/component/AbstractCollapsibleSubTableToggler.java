@@ -34,17 +34,17 @@ import org.richfaces.cdk.annotations.Tag;
  */
 
 @JsfComponent(
-    type = AbstractSubTableToggleControl.COMPONENT_TYPE,
-    family = AbstractSubTableToggleControl.COMPONENT_FAMILY, 
-    generate = "org.richfaces.component.UISubTableToggleControl",
-    renderer = @JsfRenderer(type = "org.richfaces.SubTableToggleControlRenderer"),
-    tag = @Tag( name = "subTableToggleControl")
+    type = AbstractCollapsibleSubTableToggler.COMPONENT_TYPE,
+    family = AbstractCollapsibleSubTableToggler.COMPONENT_FAMILY, 
+    generate = "org.richfaces.component.UICollapsibleSubTableToggleControl",
+    renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableTogglerRenderer"),
+    tag = @Tag( name = "collapsibleSubTableToggler")
  )
-public abstract class AbstractSubTableToggleControl extends UIComponentBase {
+public abstract class AbstractCollapsibleSubTableToggler extends UIComponentBase {
 
-    public static final String COMPONENT_TYPE = "org.richfaces.SubTableToggleControl";
+    public static final String COMPONENT_TYPE = "org.richfaces.CollapsibleSubTableToggler";
 
-    public static final String COMPONENT_FAMILY = "org.richfaces.SubTableToggleControl";
+    public static final String COMPONENT_FAMILY = "org.richfaces.CollapsibleSubTableToggler";
     
     public static final String DEFAULT_EVENT = "onclick"; 
     

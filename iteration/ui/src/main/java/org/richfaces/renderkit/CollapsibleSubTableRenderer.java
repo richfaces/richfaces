@@ -39,7 +39,7 @@ import javax.faces.event.AbortProcessingException;
 import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractDataTable;
-import org.richfaces.component.AbstractSubTable;
+import org.richfaces.component.AbstractCollapsibleSubTable;
 import org.richfaces.component.Row;
 import org.richfaces.component.UIDataTableBase;
 import org.richfaces.event.ToggleEvent;
@@ -50,13 +50,14 @@ import org.richfaces.renderkit.util.AjaxRendererUtils;
  *
  */
 
-@JsfRenderer(type = "org.richfaces.SubTableRenderer", family = AbstractSubTable.COMPONENT_FAMILY)
+@JsfRenderer(type = "org.richfaces.CollapsibleSubTableRenderer", family = AbstractCollapsibleSubTable.COMPONENT_FAMILY)
 @ResourceDependencies({
     @ResourceDependency(name = "jquery.js"),
     @ResourceDependency(name = "richfaces.js"),
-    @ResourceDependency(library="org.richfaces", name = "subtable.js")
+    @ResourceDependency(library="org.richfaces", name = "collapsible-subtable.ecss"),
+    @ResourceDependency(library="org.richfaces", name = "collapsible-subtable.js")
 })
-public class SubTableRenderer extends AbstractTableRenderer {
+public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
 
     public static final String TB_ROW = ":c";
     
@@ -66,10 +67,10 @@ public class SubTableRenderer extends AbstractTableRenderer {
     
     private static final String DISPLAY_NONE = "display: none;";
     
-    private class SubTableHiddenEncodeStrategy implements EncodeStrategy {
+    private class CollapsibleSubTableHiddenEncodeStrategy implements EncodeStrategy {
        
         public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params) throws IOException {
-            AbstractSubTable subTable = (AbstractSubTable)component;
+            AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable)component;
             writer.startElement(HtmlConstants.TR_ELEMENT, subTable);
             writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, subTable.getClientId(context) + HIDDEN_CONTAINER_ID, null);
             writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, DISPLAY_NONE, null);
@@ -91,7 +92,7 @@ public class SubTableRenderer extends AbstractTableRenderer {
     };
         
     protected void doDecode(FacesContext facesContext, UIComponent component) {
-        AbstractSubTable subTable = (AbstractSubTable)component;
+        AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable)component;
        
         String clientId = subTable.getClientId(facesContext);
         Map<String, String> requestMap = facesContext.getExternalContext().getRequestParameterMap();
@@ -133,7 +134,7 @@ public class SubTableRenderer extends AbstractTableRenderer {
     }
     
     public void encodeTableFacets(ResponseWriter writer, FacesContext context, UIDataTableBase dataTable) throws IOException {
-        AbstractSubTable subTable = (AbstractSubTable)dataTable;
+        AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable)dataTable;
 
         encodeHeaderFacet(writer, context, subTable, false);
         
@@ -150,7 +151,7 @@ public class SubTableRenderer extends AbstractTableRenderer {
     
     @Override
     public void encodeTableBodyStart(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase) throws IOException {
-        AbstractSubTable subTable = (AbstractSubTable)dataTableBase;
+        AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable)dataTableBase;
         
         UIDataTableBase component = findParent(subTable);
         if(component instanceof AbstractDataTable) {
@@ -165,14 +166,14 @@ public class SubTableRenderer extends AbstractTableRenderer {
     
     @Override
     public void encodeBeforeRows(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase, boolean encodeParentTBody, boolean partialUpdate) throws IOException {
-        AbstractSubTable subTable = (AbstractSubTable)dataTableBase;
+        AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable)dataTableBase;
         encodeTableBodyStart(writer, facesContext, subTable);
         encodeSubTableDomElement(writer, facesContext, subTable);
         setupTableStartElement(facesContext, subTable);
         encodeHeaderFacet(writer, facesContext, subTable, false);
     }
 
-    private void encodeSubTableDomElement(ResponseWriter writer, FacesContext facesContext, AbstractSubTable subTable) throws IOException{
+    private void encodeSubTableDomElement(ResponseWriter writer, FacesContext facesContext, AbstractCollapsibleSubTable subTable) throws IOException{
         writer.startElement(HtmlConstants.TR_ELEMENT, subTable);
         writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, DISPLAY_NONE, null);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, subTable.getClientId(facesContext), null);
@@ -188,7 +189,7 @@ public class SubTableRenderer extends AbstractTableRenderer {
         rowHolder.setRowStart(true);
         Iterator<UIComponent> components = row.columns();
         if (rowHolder.isUpdatePartial()) {
-            partialStart(facesContext,((AbstractSubTable) row).getRelativeClientId(facesContext) + ":b");
+            partialStart(facesContext,((AbstractCollapsibleSubTable) row).getRelativeClientId(facesContext) + ":b");
         }
         
         while (components.hasNext()) {
@@ -197,7 +198,7 @@ public class SubTableRenderer extends AbstractTableRenderer {
                 if(component instanceof UIColumn ) {
                     encodeColumn(facesContext, writer, (UIColumn)component , rowHolder);
                 
-                } else if (component instanceof AbstractSubTable) {
+                } else if (component instanceof AbstractCollapsibleSubTable) {
                     if(component.isRendered()) {
                         encodeRowEnd(writer);
                     }
@@ -218,19 +219,19 @@ public class SubTableRenderer extends AbstractTableRenderer {
     @Override
     public void encodeAfterRows(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase,
         boolean encodeParentTBody, boolean partialUpdate) throws IOException {
-        AbstractSubTable subTable = (AbstractSubTable)dataTableBase;
+        AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable)dataTableBase;
         encodeFooterFacet(writer, facesContext, subTable, false);
     }
 
     @Override
     public boolean encodeParentTBody(UIDataTableBase dataTableBase) {
-        UIDataTableBase parent = findParent((AbstractSubTable)dataTableBase);
+        UIDataTableBase parent = findParent((AbstractCollapsibleSubTable)dataTableBase);
         return (parent instanceof AbstractDataTable);
     }
     
     public void encodeHiddenInput(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase)
         throws IOException {
-        AbstractSubTable subTable = (AbstractSubTable) dataTableBase;
+        AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable) dataTableBase;
 
         String stateId = subTable.getClientId(facesContext) + STATE;
 
@@ -239,7 +240,7 @@ public class SubTableRenderer extends AbstractTableRenderer {
         writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, stateId, null);
         writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.INPUT_TYPE_HIDDEN, null);
         
-        int state = subTable.isExpanded() ? AbstractSubTable.EXPAND_STATE : AbstractSubTable.COLLAPSE_STATE;
+        int state = subTable.isExpanded() ? AbstractCollapsibleSubTable.EXPAND_STATE : AbstractCollapsibleSubTable.COLLAPSE_STATE;
         
         writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, state, null);
         writer.endElement(HtmlConstants.INPUT_ELEM);
@@ -265,7 +266,7 @@ public class SubTableRenderer extends AbstractTableRenderer {
 
     public void encodeClientScript(ResponseWriter writer, FacesContext facesContext, UIDataTableBase component)
         throws IOException {
-        AbstractSubTable subTable = (AbstractSubTable) component;
+        AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable) component;
 
         String id = subTable.getClientId(facesContext);
 
@@ -278,7 +279,7 @@ public class SubTableRenderer extends AbstractTableRenderer {
         options.put("expandMode", subTable.getExpandMode());
         options.put("eventOptions", AjaxRendererUtils.buildEventOptions(facesContext, subTable));
 
-        JSFunction jsFunction = new JSFunction("new RichFaces.ui.SubTable");
+        JSFunction jsFunction = new JSFunction("new RichFaces.ui.CollapsibleSubTable");
         jsFunction.addParameter(id);
         jsFunction.addParameter(formId);
         jsFunction.addParameter(options);
@@ -290,92 +291,92 @@ public class SubTableRenderer extends AbstractTableRenderer {
     }
     
     public String getTableSkinClass() {
-        return "rf-st";
+        return "rf-cst";
     }
         
     public String getRowSkinClass() {
-        return "rf-st-r";
+        return "rf-cst-r";
     }
 
     public String getFirstRowSkinClass() {
-        return "rf-st-fst-r";
+        return "rf-cst-fst-r";
     }
 
     public String getHeaderRowSkinClass() {
-        return "rf-st-hdr-r";
+        return "rf-cst-hdr-r";
     }
 
     public String getHeaderFirstRowSkinClass() {
-        return "rf-st-hdr-fst-r";
+        return "rf-cst-hdr-fst-r";
     }
 
     public String getCellSkinClass() {
-        return "rf-st-c";
+        return "rf-cst-c";
     }
    
     public String getHeaderCellSkinClass() {
-        return "rf-st-hdr-c";
+        return "rf-cst-hdr-c";
     }
 
     public String getColumnHeaderCellSkinClass() {
-        return "rf-st-shdr-c";
+        return "rf-cst-shdr-c";
     }
 
     public String getColumnHeaderSkinClass() {
-        return "rf-st-shdr";
+        return "rf-cst-shdr";
     }
 
     public String getFooterSkinClass() {
-        return "rf-st-ftr";
+        return "rf-cst-ftr";
     }
     
     public String getFooterCellSkinClass() {
-        return "rf-st-ftr-c";
+        return "rf-cst-ftr-c";
     }
 
     public String getFooterFirstRowSkinClass() {
-        return "rf-st-ftr-fst";
+        return "rf-cst-ftr-fst";
     }
 
     public String getColumnFooterCellSkinClass() {
-        return "rf-st-sftr-c";
+        return "rf-cst-sftr-c";
     }
 
     public String getColumnFooterSkinClass() {
-        return "rf-st-sftr";
+        return "rf-cst-sftr";
     }
     
     public String getColumnFooterFirstSkinClass() {
-        return "rf-st-sftr-fst";    
+        return "rf-cst-sftr-fst";    
     }
 
     public String getColumnHeaderFirstSkinClass() {
-        return "rf-st-shdr-fst";
+        return "rf-cst-shdr-fst";
     }
 
     public String getFooterFirstSkinClass() {
-        return "rf-st-ftr-fst";
+        return "rf-cst-ftr-fst";
     }
 
     public String getHeaderFirstSkinClass() {
-        return "rf-st-hdr-fst";
+        return "rf-cst-hdr-fst";
     }
 
     public String getHeaderSkinClass() {
-        return "rf-st-hdr";
+        return "rf-cst-hdr";
     }
     
     public String getNoDataClass() {
-        return "rf-st-nd-c";
+        return "rf-cst-nd-c";
     }
     
     @Override
     public void encodeMetaComponent(FacesContext facesContext, UIComponent component, String metaComponentId)
         throws IOException {
-        AbstractSubTable subTable = (AbstractSubTable)component;
+        AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable)component;
         setupTableStartElement(facesContext, subTable);
         
-        if(AbstractSubTable.BODY.equals(metaComponentId)) {
+        if(AbstractCollapsibleSubTable.BODY.equals(metaComponentId)) {
             ResponseWriter writer = facesContext.getResponseWriter();
             UIDataTableBase dataTableBase = findParent(subTable);
             
@@ -389,14 +390,14 @@ public class SubTableRenderer extends AbstractTableRenderer {
     
     @Override
     public EncodeStrategy getHiddenContainerStrategy(UIDataTableBase dataTableBase) {
-        return new SubTableHiddenEncodeStrategy();
+        return new CollapsibleSubTableHiddenEncodeStrategy();
     }
 
     protected void setupTableStartElement(FacesContext context, UIComponent component) {
         setupTableStartElement(context, component, HtmlConstants.TD_ELEM);
     }
 
-    protected UIDataTableBase findParent(AbstractSubTable subTable) {
+    protected UIDataTableBase findParent(AbstractCollapsibleSubTable subTable) {
         UIComponent parent = subTable.getParent();
 
         while(parent != null && !(parent instanceof UIDataTableBase)) {

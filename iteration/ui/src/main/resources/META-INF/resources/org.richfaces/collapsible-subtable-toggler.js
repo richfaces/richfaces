@@ -2,7 +2,7 @@
 
 	richfaces.ui = richfaces.ui || {};
   
-	richfaces.ui.SubTableToggler =  function(id, options) {
+	richfaces.ui.CollapsibleSubTableToggler =  function(id, options) {
 		this.id = id;
 		this.eventName = options.eventName;
         this.expandControl = options.expandControl;
@@ -15,7 +15,7 @@
         }	
      };
      
-     $.extend(richfaces.ui.SubTableToggler.prototype, (function () {
+     $.extend(richfaces.ui.CollapsibleSubTableToggler.prototype, (function () {
         
     	 var getElementById= function(id) {
     		 return $(document.getElementById(id))
@@ -28,7 +28,7 @@
 		 		if(subtable) {
 		 			var mode = subtable.getMode();
 		 			
-		 			if(richfaces.ui.SubTable.MODE_CLNT == mode) {
+		 			if(richfaces.ui.CollapsibleSubTable.MODE_CLNT == mode) {
 		 				this.toggleControl(subtable.isExpand());
 		 			}
 		 			

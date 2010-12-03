@@ -34,8 +34,8 @@ import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractSubTable;
-import org.richfaces.component.AbstractSubTableToggleControl;
+import org.richfaces.component.AbstractCollapsibleSubTable;
+import org.richfaces.component.AbstractCollapsibleSubTableToggler;
 import org.richfaces.renderkit.util.RendererUtils;
 
 /**
@@ -43,14 +43,14 @@ import org.richfaces.renderkit.util.RendererUtils;
  */
 
 
-@JsfRenderer(type = "org.richfaces.SubTableToggleControlRenderer", family = AbstractSubTableToggleControl.COMPONENT_FAMILY)
+@JsfRenderer(type = "org.richfaces.CollapsibleSubTableTogglerRenderer", family = AbstractCollapsibleSubTableToggler.COMPONENT_FAMILY)
 @ResourceDependencies(
     {@ResourceDependency(library = "javax.faces", name = "jsf.js"),
     @ResourceDependency(name = "richfaces.js"), 
     @ResourceDependency(name = "richfaces-event.js"),
-    @ResourceDependency(library="org.richfaces", name = "subtable-toggler.js")
+    @ResourceDependency(library="org.richfaces", name = "collapsible-subtable-toggler.js")
 })
-public class SubTableToggleControlRendererBase extends RendererBase {
+public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
 
     /**
      * 
@@ -73,8 +73,8 @@ public class SubTableToggleControlRendererBase extends RendererBase {
     }
 
     protected void encodeControl(FacesContext context, UIComponent component) throws IOException {
-        AbstractSubTableToggleControl toggleControl = (AbstractSubTableToggleControl) component;
-        AbstractSubTable subTable = findComponent(context, toggleControl);
+        AbstractCollapsibleSubTableToggler toggleControl = (AbstractCollapsibleSubTableToggler) component;
+        AbstractCollapsibleSubTable subTable = findComponent(context, toggleControl);
 
         if (subTable != null) {
             String switchType = subTable.getExpandMode();
@@ -84,7 +84,7 @@ public class SubTableToggleControlRendererBase extends RendererBase {
             encodeControl(context, writer, toggleControl, switchType, expanded, false);
             encodeControl(context, writer, toggleControl, switchType, !expanded, true);
 
-            JSFunction jsFunction = new JSFunction("new RichFaces.ui.SubTableToggler");
+            JSFunction jsFunction = new JSFunction("new RichFaces.ui.CollapsibleSubTableToggler");
             String toggleId = toggleControl.getClientId(context);
             jsFunction.addParameter(toggleId);
             Map<String, Object> options = encodeOptions(context, toggleControl, subTable);
@@ -96,7 +96,7 @@ public class SubTableToggleControlRendererBase extends RendererBase {
         }
     }
 
-    protected void encodeControl(FacesContext context, ResponseWriter writer, AbstractSubTableToggleControl control,
+    protected void encodeControl(FacesContext context, ResponseWriter writer, AbstractCollapsibleSubTableToggler control,
                                  String switchType, boolean expanded, boolean visible) throws IOException {
         String state = getState(expanded);
         String styleClass = getStyleClass(context, control);
@@ -167,7 +167,7 @@ public class SubTableToggleControlRendererBase extends RendererBase {
         writer.endElement(HtmlConstants.SPAN_ELEM);
     }
 
-    public HashMap<String, Object> encodeOptions(FacesContext context, AbstractSubTableToggleControl toggleControl, AbstractSubTable subTable) {
+    public HashMap<String, Object> encodeOptions(FacesContext context, AbstractCollapsibleSubTableToggler toggleControl, AbstractCollapsibleSubTable subTable) {
         String forId = subTable.getClientId(context);
         String toggleControlId = toggleControl.getClientId(context);
 
@@ -182,21 +182,21 @@ public class SubTableToggleControlRendererBase extends RendererBase {
         return options;
     }
 
-    public String getStyleClass(FacesContext context, AbstractSubTableToggleControl control) {
+    public String getStyleClass(FacesContext context, AbstractCollapsibleSubTableToggler control) {
         return null;
     }
 
-    public String getStyle(FacesContext context, AbstractSubTableToggleControl control) {
+    public String getStyle(FacesContext context, AbstractCollapsibleSubTableToggler control) {
         return null;
     }
 
-    protected AbstractSubTable findComponent(FacesContext context, AbstractSubTableToggleControl toggleControl) {
+    protected AbstractCollapsibleSubTable findComponent(FacesContext context, AbstractCollapsibleSubTableToggler toggleControl) {
         String forId = toggleControl.getFor();
         if (forId != null && forId.length() > 0) {
 
             UIComponent subTable = RENDERER_UTILS.findComponentFor(context, toggleControl, forId);
-            if (subTable instanceof AbstractSubTable) {
-                return (AbstractSubTable) subTable;
+            if (subTable instanceof AbstractCollapsibleSubTable) {
+                return (AbstractCollapsibleSubTable) subTable;
             }
         }
         return null;

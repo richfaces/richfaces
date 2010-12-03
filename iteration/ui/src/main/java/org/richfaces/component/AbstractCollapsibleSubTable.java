@@ -42,15 +42,15 @@ import org.richfaces.event.ToggleListener;
  *
  */
 @JsfComponent(
-    type = AbstractSubTable.COMPONENT_TYPE,
-    family = AbstractSubTable.COMPONENT_FAMILY, 
-    generate = "org.richfaces.component.UISubTable",
-    renderer = @JsfRenderer(type = "org.richfaces.SubTableRenderer"),
-    tag = @Tag(name = "subTable", handler = "org.richfaces.taglib.SubTableHandler", type = TagType.Facelets)
+    type = AbstractCollapsibleSubTable.COMPONENT_TYPE,
+    family = AbstractCollapsibleSubTable.COMPONENT_FAMILY, 
+    generate = "org.richfaces.component.UICollapsibleSubTable",
+    renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableRenderer"),
+    tag = @Tag(name = "collapsibleSubTable", handler = "org.richfaces.taglib.CollapsibleSubTableHandler", type = TagType.Facelets)
 )
-public abstract class AbstractSubTable extends UIDataTableBase implements Column, Expandable {
+public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implements Column, Expandable {
     
-    public static final String COMPONENT_TYPE = "org.richfaces.SubTable";
+    public static final String COMPONENT_TYPE = "org.richfaces.CollapsibleSubTable";
 
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
 

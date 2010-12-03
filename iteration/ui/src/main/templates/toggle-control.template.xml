@@ -6,10 +6,10 @@
 	xmlns:javaee="http://java.sun.com/xml/ns/javaee">
 
 	<cc:interface>
-		<cdk:class>org.richfaces.renderkit.html.SubTableToggleControlRenderer</cdk:class>
-		<cdk:superclass>org.richfaces.renderkit.SubTableToggleControlRendererBase</cdk:superclass>
-		<cdk:component-family>org.richfaces.SubTableToggleControl</cdk:component-family>
-		<cdk:renderer-type>org.richfaces.SubTableToggleControlRenderer</cdk:renderer-type>
+		<cdk:class>org.richfaces.renderkit.html.CollapsibleSubTableTogglerRenderer</cdk:class>
+		<cdk:superclass>org.richfaces.renderkit.CollapsibleSubTableTogglerRendererBase</cdk:superclass>
+		<cdk:component-family>org.richfaces.CollapsibleSubTableToggler</cdk:component-family>
+		<cdk:renderer-type>org.richfaces.CollapsibleSubTableTogglerRenderer</cdk:renderer-type>
 	</cc:interface>
 
 	<cc:implementation>

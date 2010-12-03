@@ -37,7 +37,7 @@ import javax.faces.context.ResponseWriter;
 import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractDataTable;
-import org.richfaces.component.AbstractSubTable;
+import org.richfaces.component.AbstractCollapsibleSubTable;
 import org.richfaces.component.Row;
 import org.richfaces.component.UIDataTableBase;
 import org.richfaces.component.util.HtmlUtil;
@@ -158,7 +158,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
             UIComponent child = components.next();
             if (child.isRendered()) {
                 if (child instanceof Row) {
-                    boolean isSubtable = (child instanceof AbstractSubTable);
+                    boolean isSubtable = (child instanceof AbstractCollapsibleSubTable);
                     // new row -> close </tr>
                     if (rowHolder.getProcessCell() != 0) {
                         encodeRowEnd(writer);
