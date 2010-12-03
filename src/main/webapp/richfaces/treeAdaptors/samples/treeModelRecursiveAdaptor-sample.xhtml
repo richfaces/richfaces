@@ -8,10 +8,13 @@
 
     <h:form>    
         <rich:tree style="width:300px" toggleType="ajax" var="item">
-            <rich:treeModelRecursiveAdaptor roots="#{fileSystemBean.sourceRoots}" nodes="#{item.nodes}" >
+            <rich:treeModelRecursiveAdaptor roots="#{fileSystemBean.sourceRoots}" nodes="#{item.directories}" >
             	<rich:treeNode>
             		#{item.shortPath}
             	</rich:treeNode>
+            	<rich:treeModelAdaptor nodes="#{item.files}">
+            		<rich:treeNode>#{item}</rich:treeNode>
+            	</rich:treeModelAdaptor>
             </rich:treeModelRecursiveAdaptor>
         </rich:tree>
     </h:form>

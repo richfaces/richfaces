@@ -14,7 +14,7 @@ public class FileSystemBean {
 
     public synchronized List<FileSystemNode> getSourceRoots() {
         if (srcRoots == null) {
-            srcRoots = new FileSystemNode(SRC_PATH).getNodes();
+            srcRoots = new FileSystemNode(SRC_PATH).getDirectories();
         }
 
         return srcRoots;
