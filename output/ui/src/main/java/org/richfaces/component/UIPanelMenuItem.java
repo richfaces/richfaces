@@ -53,7 +53,7 @@ public class UIPanelMenuItem extends AbstractPanelMenuItem {
     }
 
     public String getLabel() {
-        return (String) getStateHelper().eval(PropertyKeys.label, getName());
+        return (String) getStateHelper().eval(PropertyKeys.label);
     }
 
     public void setLabel(String label) {

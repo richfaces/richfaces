@@ -57,10 +57,10 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
         super.doEncodeBegin(writer, context, component);
 
         HtmlPanelMenuItem menuItem = (HtmlPanelMenuItem) component;
-        encodeHeaderGroup(writer, context, menuItem, menuItem.isTopItem() ? TOP_CSS_CLASS_PREFIX : CSS_CLASS_PREFIX);
+        encodeHeaderGroupBegin(writer, context, menuItem, getCssClass(menuItem, ""));
     }
 
-    private void encodeHeaderGroup(ResponseWriter writer, FacesContext context, HtmlPanelMenuItem menuItem, String classPrefix) throws IOException {
+    private void encodeHeaderGroupBegin(ResponseWriter writer, FacesContext context, HtmlPanelMenuItem menuItem, String classPrefix) throws IOException {
         writer.startElement("table", null);
         writer.writeAttribute("class", classPrefix + "-gr", null);
         writer.startElement("tr", null);
@@ -69,7 +69,14 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
 
         writer.startElement("td", null);
         writer.writeAttribute("class", classPrefix + "-lbl", null);
-        writer.writeText(menuItem.getLabel(), null);
+
+        String label = menuItem.getLabel();
+        if (label != null) {
+            writer.writeText(label, null);
+        }
+    }
+    
+    private void encodeHeaderGroupEnd(ResponseWriter writer, FacesContext context, HtmlPanelMenuItem menuItem, String classPrefix) throws IOException {
         writer.endElement("td");
 
         encodeHeaderGroupRightIcon(writer, context, menuItem, classPrefix);
@@ -148,6 +155,9 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
 
     @Override
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+        HtmlPanelMenuItem menuItem = (HtmlPanelMenuItem) component;
+        encodeHeaderGroupEnd(writer, context, menuItem, getCssClass(menuItem, ""));
+
         super.doEncodeEnd(writer, context, component);
     }
 

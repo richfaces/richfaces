@@ -122,7 +122,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
 
         writer.startElement("td", null);
         writer.writeAttribute("class", classPrefix + "-lbl", null);
-        writer.writeText(menuItem.getLabel(), null);
+        writer.writeText(String.valueOf(menuItem.getLabel()), null);
         writer.endElement("td");
 
         encodeHeaderGroupIconRight(writer, context, menuItem, classPrefix);
