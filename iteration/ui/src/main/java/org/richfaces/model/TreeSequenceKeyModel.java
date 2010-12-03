@@ -34,8 +34,6 @@ import org.ajax4jsf.model.Range;
  */
 public abstract class TreeSequenceKeyModel<V> extends ExtendedDataModel<V> implements TreeDataModel<V> {
 
-    private V rootNode;
-    
     private V data;
     
     private SequenceRowKey rowKey;
@@ -50,10 +48,6 @@ public abstract class TreeSequenceKeyModel<V> extends ExtendedDataModel<V> imple
         if (this.rowKey == null || !this.rowKey.equals(rowKey)) {
             setupKey(sequenceKey);
         }
-    }
-    
-    protected void resetRowKeyAndData() {
-        setRowKeyAndData(null, rootNode);
     }
     
     protected void setData(V data) {
@@ -77,30 +71,7 @@ public abstract class TreeSequenceKeyModel<V> extends ExtendedDataModel<V> imple
         return data;
     }
     
-    protected void setupKey(SequenceRowKey key) {
-        resetRowKeyAndData();
-
-        if (key != null) {
-            V data = getRootNode();
-            
-            for (Object simpleKey: key.getSimpleKeys()) {
-                data = setupChildContext(simpleKey);
-                setData(data);
-            }
-            
-            setRowKeyAndData(key, data);
-        }
-    }
-
-    protected abstract V setupChildContext(Object segment);
-    
-    protected V getRootNode() {
-        return rootNode;
-    }
-    
-    protected void setRootNode(V rootNode) {
-        this.rootNode = rootNode;
-    }
+    protected abstract void setupKey(SequenceRowKey key);
     
     //TODO ExtendedDataModel legacy
     @Override
@@ -136,14 +107,6 @@ public abstract class TreeSequenceKeyModel<V> extends ExtendedDataModel<V> imple
     @Override
     public void setRowIndex(int rowIndex) {
         throw new UnsupportedOperationException();
-    }
-
-    public TreeDataModelTuple createSnapshot() {
-        return new TreeDataModelTuple(getRowKey(), getData());
-    }
-
-    public void restoreFromSnapshot(TreeDataModelTuple tuple) {
-        setRowKeyAndData((SequenceRowKey) tuple.getRowKey(), (V) tuple.getData());
     }
 
     public Object getParentRowKey(Object rowKey) {

@@ -21,47 +21,45 @@
  */
 package org.richfaces.model;
 
-import java.util.Iterator;
-
-import javax.faces.convert.Converter;
-
-import org.richfaces.convert.ObjectSequenceRowKeyConverter;
-import org.richfaces.model.iterators.ClassicTreeNodeTuplesIterator;
-
 /**
  * @author Nick Belaevski
  * 
  */
-public class ClassicTreeNodeDataModelImpl extends NodesTreeSequenceKeyModel<TreeNode> {
+public abstract class NodesTreeSequenceKeyModel<V> extends TreeSequenceKeyModel<V> {
 
-    private static final Converter DEFAULT_CONVERTER = new ObjectSequenceRowKeyConverter();
+    private V rootNode;
     
-    private TreeNode rootNode;
-    
-    public boolean isLeaf() {
-        return getData().isLeaf();
-    }
-
-    public Iterator<TreeDataModelTuple> children() {
-        return new ClassicTreeNodeTuplesIterator(getData(), getRowKey());
-    }
-
-    @Override
-    protected TreeNode setupChildContext(Object segment) {
-        return getData().getChild(segment);
-    }
-    
-    @Override
-    public Object getWrappedData() {
+    protected V getRootNode() {
         return rootNode;
     }
+    
+    protected void setRootNode(V rootNode) {
+        this.rootNode = rootNode;
+    }
+    
+    protected void setupKey(SequenceRowKey key) {
+        setRowKeyAndData(null, rootNode);
 
-    @Override
-    public void setWrappedData(Object data) {
-        this.rootNode = (TreeNode) data;
+        if (key != null) {
+            V data = getRootNode();
+            
+            for (Object simpleKey: key.getSimpleKeys()) {
+                data = setupChildContext(simpleKey);
+                setData(data);
+            }
+            
+            setRowKeyAndData(key, data);
+        }
     }
 
-    public Converter getRowKeyConverter() {
-        return DEFAULT_CONVERTER;
+    protected abstract V setupChildContext(Object segment);
+    
+    public TreeDataModelTuple createSnapshot() {
+        return new TreeDataModelTuple(getRowKey(), getData());
     }
+
+    public void restoreFromSnapshot(TreeDataModelTuple tuple) {
+        setRowKeyAndData((SequenceRowKey) tuple.getRowKey(), (V) tuple.getData());
+    }
+
 }

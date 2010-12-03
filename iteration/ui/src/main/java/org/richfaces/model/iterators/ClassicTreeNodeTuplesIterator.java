@@ -19,42 +19,41 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.model;
+package org.richfaces.model.iterators;
 
 import java.util.Iterator;
 
-import javax.faces.component.UIComponent;
+import org.richfaces.model.SequenceRowKey;
+import org.richfaces.model.TreeNode;
 
-import com.google.common.collect.UnmodifiableIterator;
+/**
+ * @author Nick Belaevski
+ * 
+ */
+public class ClassicTreeNodeTuplesIterator extends BaseTupleIterator {
 
-final class DeclarativeTreeDataModelTuplesIterator extends UnmodifiableIterator<TreeDataModelTuple> {
-    
-    private UIComponent component;
+    private TreeNode treeNode;
 
     private SequenceRowKey baseKey;
     
-    private int counter = 0;
+    private Iterator<Object> childrenKeysIterator = null;
     
-    private Iterator<?> dataIterator;
-    
-    public DeclarativeTreeDataModelTuplesIterator(UIComponent component, SequenceRowKey baseKey, Iterator<?> dataIterator) {
-        super();
-        this.component = component;
-        this.baseKey = baseKey;
-        this.dataIterator = dataIterator;
+    public ClassicTreeNodeTuplesIterator(TreeNode treeNode, SequenceRowKey baseKey) {
+        super(baseKey);
+        this.treeNode = treeNode;
+        this.childrenKeysIterator = treeNode.getChildrenKeysIterator();
     }
 
-    public TreeDataModelTuple next() {
-        Object nextNode = dataIterator.next();
-        DeclarativeModelKey key = new DeclarativeModelKey(component.getId(), counter++);
-        
-        SequenceRowKey newKey = (baseKey != null ? baseKey.append(key) : new SequenceRowKey(key));
-        
-        return new DeclarativeTreeDataModelTuple(newKey, nextNode, component);
-    }
-    
     public boolean hasNext() {
-        return dataIterator.hasNext();
+        return childrenKeysIterator.hasNext();
+    }
+
+    @Override
+    protected void proceedToNext() {
+        Object key = childrenKeysIterator.next();
+        TreeNode data = treeNode.getChild(key);
+
+        setKeyAndData(key, data);
     }
     
 }

@@ -19,47 +19,43 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.model;
+package org.richfaces.convert;
 
-import java.util.Iterator;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 
-import javax.swing.tree.TreeNode;
+import com.google.common.base.Strings;
 
-import com.google.common.collect.UnmodifiableIterator;
+/**
+ * @author Nick Belaevski
+ * 
+ */
+public final class ConverterUtil {
 
-final class SwingTreeNodeTuplesIterator extends UnmodifiableIterator<TreeDataModelTuple> {
-
-    private SequenceRowKey baseKey;
-    
-    private Iterator<TreeNode> children;
-    
-    private int counter = 0;
-
-    SwingTreeNodeTuplesIterator(SequenceRowKey baseKey, Iterator<TreeNode> children) {
-        this.baseKey = baseKey;
-        this.children = children;
-    }
-
-    private int getNextCounterValue() {
-        return counter++;
-    }
-    
-    public boolean hasNext() {
-        return children.hasNext();
-    }
-    
-    public TreeDataModelTuple next() {
-        TreeNode node = children.next();
+    private static final Converter STRING_CONVERTER = new Converter() {
         
-        SequenceRowKey key;
-        
-        if (baseKey != null) {
-            key = baseKey.append(getNextCounterValue());
-        } else {
-            key = new SequenceRowKey(getNextCounterValue());
+        public String getAsString(FacesContext context, UIComponent component, Object value) {
+            if (value == null) {
+                return "";
+            }
+            
+            return value.toString();
         }
         
-        return new TreeDataModelTuple(key, node);
-    }
+        public Object getAsObject(FacesContext context, UIComponent component, String value) {
+            if (Strings.isNullOrEmpty(value)) {
+                return null;
+            }
+            
+            return value;
+        }
+    };
+    
+    private ConverterUtil() {}
 
+    public static Converter stringConverter() {
+        return STRING_CONVERTER;
+    }
+    
 }

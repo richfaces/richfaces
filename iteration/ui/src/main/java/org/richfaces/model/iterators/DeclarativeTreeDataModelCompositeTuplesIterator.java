@@ -19,24 +19,26 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.model;
+package org.richfaces.model.iterators;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.component.UIComponent;
 
 import org.richfaces.component.ComponentPredicates;
 import org.richfaces.component.TreeModelAdaptor;
 import org.richfaces.component.TreeModelRecursiveAdaptor;
+import org.richfaces.model.SequenceRowKey;
+import org.richfaces.model.TreeDataModelTuple;
 
 import com.google.common.collect.ForwardingIterator;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 
-final class DeclarativeTreeDataModelCompositeTuplesIterator extends ForwardingIterator<TreeDataModelTuple> {
+public class DeclarativeTreeDataModelCompositeTuplesIterator extends ForwardingIterator<TreeDataModelTuple> {
     
     private UIComponent component;
 
@@ -58,29 +60,31 @@ final class DeclarativeTreeDataModelCompositeTuplesIterator extends ForwardingIt
             if (component instanceof TreeModelRecursiveAdaptor) {
                 TreeModelRecursiveAdaptor parentRecursiveAdaptor = (TreeModelRecursiveAdaptor) component;
                 
-                Collection<?> nodes = (Collection<?>) parentRecursiveAdaptor.getNodes();
+                Object nodes = parentRecursiveAdaptor.getNodes();
                 
-                if (nodes != null) {
-                    list.add(new DeclarativeTreeDataModelTuplesIterator(component, key, nodes.iterator()));
+                Iterator<TreeDataModelTuple> tuplesIterator = createTuplesIterator(component, nodes);
+                if (tuplesIterator != null) {
+                    list.add(tuplesIterator);
                 }
             }
 
             if (component.getChildCount() > 0) {
                 for (UIComponent child : Iterables.filter(component.getChildren(), ComponentPredicates.isRendered())) {
-                    Collection<?> nodes = null;
+                    Object nodes = null;
 
                     if (child instanceof TreeModelRecursiveAdaptor) {
                         TreeModelRecursiveAdaptor treeModelRecursiveAdaptor = (TreeModelRecursiveAdaptor) child;
                         
-                        nodes = (Collection<?>) treeModelRecursiveAdaptor.getRoots();
+                        nodes = treeModelRecursiveAdaptor.getRoots();
                     } else if (child instanceof TreeModelAdaptor) {
                         TreeModelAdaptor treeModelAdaptor = (TreeModelAdaptor) child;
                         
-                        nodes = (Collection<?>) treeModelAdaptor.getNodes();
+                        nodes = treeModelAdaptor.getNodes();
                     }
 
-                    if (nodes != null) {
-                        list.add(new DeclarativeTreeDataModelTuplesIterator(child, key, nodes.iterator()));
+                    Iterator<TreeDataModelTuple> tuplesIterator = createTuplesIterator(child, nodes);
+                    if (tuplesIterator != null) {
+                        list.add(tuplesIterator);
                     }
                 }
             }
@@ -89,6 +93,22 @@ final class DeclarativeTreeDataModelCompositeTuplesIterator extends ForwardingIt
         }
         
         return iterator;
+    }
+
+    private Iterator<TreeDataModelTuple> createTuplesIterator(UIComponent component, Object nodes) {
+        if (nodes != null) {
+            if (nodes instanceof Iterable<?>) {
+                Iterable<?> iterable = (Iterable<?>) nodes;
+                
+                return new IterableDataTuplesIterator(key, iterable.iterator(), component);
+            } else if (nodes instanceof Map<?, ?>) {
+                Map<?, ?> map = (Map<?, ?>) nodes;
+             
+                return new MapDataTuplesIterator(key, map, component);
+            }
+        }
+        
+        return null;
     }
     
 }

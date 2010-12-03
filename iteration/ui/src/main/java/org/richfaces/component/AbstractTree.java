@@ -495,7 +495,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         
         Object value = getValue();
         if (value == null) {
-            dataModel = new DeclarativeTreeDataModelImpl(this, getVar(), getVariablesMap(getFacesContext()));
+            dataModel = new DeclarativeTreeDataModelImpl(this);
         } else {
             dataModel = new SwingTreeNodeDataModelImpl();
             dataModel.setWrappedData(getValue());

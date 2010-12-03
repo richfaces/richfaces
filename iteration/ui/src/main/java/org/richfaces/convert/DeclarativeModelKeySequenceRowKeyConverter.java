@@ -21,18 +21,83 @@
  */
 package org.richfaces.convert;
 
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
 import javax.faces.convert.IntegerConverter;
 
+import org.richfaces.component.AbstractTree;
+import org.richfaces.component.DeclarativeTreeDataModelWalker;
 import org.richfaces.model.DeclarativeModelKey;
+import org.richfaces.model.SequenceRowKey;
 /**
  * @author Nick Belaevski
  * 
  */
 public class DeclarativeModelKeySequenceRowKeyConverter extends SequenceRowKeyConverter<DeclarativeModelKey> {
 
-    public DeclarativeModelKeySequenceRowKeyConverter() {
-        super(DeclarativeModelKey.class, new DeclarativeModelKeyConverter(new IntegerConverter()));
+    private final class KeyConvertingWalker extends DeclarativeTreeDataModelWalker {
+
+        private final FacesContext context;
+
+        private DeclarativeModelKey[] convertedSimpleKeys;
+
+        private int keysIdx;
+        
+        private KeyConvertingWalker(AbstractTree rootComponent, FacesContext context) {
+            super(rootComponent);
+            this.context = context;
+        }
+
+        @Override
+        protected DeclarativeModelKey convertKey(Object nodes, DeclarativeModelKey declarativeModelKey) {
+            DeclarativeModelKey convertedKey;
+            
+            if (nodes instanceof Iterable<?>) {
+                String modelKeyAsString = (String) declarativeModelKey.getModelKey();
+                Object modelKey = INTEGER_CONVERTER.getAsObject(context, getRootComponent(), modelKeyAsString);
+                convertedKey = new DeclarativeModelKey(declarativeModelKey.getModelId(), modelKey);
+            } else {
+                convertedKey = declarativeModelKey;
+            }
+
+            convertedSimpleKeys[keysIdx++] = convertedKey;
+            
+            return super.convertKey(nodes, convertedKey);
+        }
+        
+        @Override
+        public void walk(SequenceRowKey key) {
+            convertedSimpleKeys = new DeclarativeModelKey[key.getSimpleKeys().length];
+            keysIdx = 0;
+            super.walk(key);
+        }
+
+        public DeclarativeModelKey[] getConvertedSimpleKeys() {
+            return convertedSimpleKeys;
+        }
     }
 
+    private static final Converter INTEGER_CONVERTER = new IntegerConverter();
+    
+    public DeclarativeModelKeySequenceRowKeyConverter() {
+        super(DeclarativeModelKey.class, new DeclarativeModelKeyConverter(ConverterUtil.stringConverter()));
+    }
+
+    @Override
+    public Object getAsObject(FacesContext context, UIComponent component, String value) throws ConverterException {
+        SequenceRowKey key = (SequenceRowKey) super.getAsObject(context, component, value);
+        
+        if (key != null) {
+            
+            KeyConvertingWalker walker = new KeyConvertingWalker((AbstractTree) component, context);
+            walker.walk(key);
+            
+            key = new SequenceRowKey((Object[]) walker.getConvertedSimpleKeys());
+        }
+        
+        return key;
+    }
 
 }

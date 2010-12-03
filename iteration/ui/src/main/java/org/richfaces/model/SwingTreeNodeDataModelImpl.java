@@ -29,6 +29,7 @@ import javax.faces.convert.Converter;
 import javax.swing.tree.TreeNode;
 
 import org.richfaces.convert.IntegerSequenceRowKeyConverter;
+import org.richfaces.model.iterators.IterableDataTuplesIterator;
 
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
@@ -36,7 +37,7 @@ import com.google.common.collect.Lists;
  * @author Nick Belaevski
  * 
  */
-public class SwingTreeNodeDataModelImpl extends TreeSequenceKeyModel<TreeNode> {
+public class SwingTreeNodeDataModelImpl extends NodesTreeSequenceKeyModel<TreeNode> {
 
     private static final Converter DEFAULT_CONVERTER = new IntegerSequenceRowKeyConverter();
     
@@ -78,7 +79,7 @@ public class SwingTreeNodeDataModelImpl extends TreeSequenceKeyModel<TreeNode> {
 
     public Iterator<TreeDataModelTuple> children() {
         Iterator<TreeNode> children = Iterators.forEnumeration((Enumeration<TreeNode>) getData().children());
-        return new SwingTreeNodeTuplesIterator(getRowKey(), children);
+        return new IterableDataTuplesIterator(getRowKey(), children);
     }
 
     public boolean isLeaf() {

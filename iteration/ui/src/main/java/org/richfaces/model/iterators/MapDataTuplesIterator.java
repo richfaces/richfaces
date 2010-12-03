@@ -19,40 +19,44 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.model;
+package org.richfaces.model.iterators;
 
 import java.util.Iterator;
+import java.util.Map;
 
-import com.google.common.collect.UnmodifiableIterator;
+import javax.faces.component.UIComponent;
+
+import org.richfaces.model.SequenceRowKey;
 
 /**
  * @author Nick Belaevski
  * 
  */
-final class ClassicTreeNodeTuplesIterator extends UnmodifiableIterator<TreeDataModelTuple> {
+public class MapDataTuplesIterator extends BaseTupleIterator {
 
-    private TreeNode treeNode;
+    private Map<?, ?> dataMap;
+    
+    private Iterator<?> keys;
+    
+    public MapDataTuplesIterator(SequenceRowKey baseKey, Map<?, ?> dataMap) {
+        this(baseKey, dataMap, null);
+    }
+    
+    public MapDataTuplesIterator(SequenceRowKey baseKey, Map<?, ?> dataMap, UIComponent component) {
+        super(baseKey, component);
 
-    private SequenceRowKey baseKey;
-    
-    private Iterator<Object> childrenKeysIterator = null;
-    
-    public ClassicTreeNodeTuplesIterator(TreeNode treeNode, SequenceRowKey baseKey) {
-        super();
-        this.treeNode = treeNode;
-        this.baseKey = baseKey;
-        this.childrenKeysIterator = treeNode.getChildrenKeysIterator();
+        this.dataMap = dataMap;
+        this.keys = dataMap.keySet().iterator();
     }
 
     public boolean hasNext() {
-        return childrenKeysIterator.hasNext();
+        return keys.hasNext();
     }
 
-    public TreeDataModelTuple next() {
-        Object nextChildKey = childrenKeysIterator.next();
-        Object rowKey = (baseKey != null ? baseKey.append(nextChildKey) : new SequenceRowKey(nextChildKey));
-        
-        return new TreeDataModelTuple(rowKey, treeNode.getChild(nextChildKey));
+    @Override
+    protected void proceedToNext() {
+        Object key = keys.next();
+        setKeyAndData(key, dataMap.get(key));
     }
-    
+
 }

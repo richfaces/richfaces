@@ -19,49 +19,44 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.model;
+package org.richfaces.model.iterators;
 
 import java.util.Iterator;
 
-import javax.faces.convert.Converter;
+import javax.faces.component.UIComponent;
 
-import org.richfaces.convert.ObjectSequenceRowKeyConverter;
-import org.richfaces.model.iterators.ClassicTreeNodeTuplesIterator;
+import org.richfaces.model.SequenceRowKey;
 
 /**
  * @author Nick Belaevski
  * 
  */
-public class ClassicTreeNodeDataModelImpl extends NodesTreeSequenceKeyModel<TreeNode> {
+public class IterableDataTuplesIterator extends BaseTupleIterator {
 
-    private static final Converter DEFAULT_CONVERTER = new ObjectSequenceRowKeyConverter();
+    private Iterator<?> iterator;
     
-    private TreeNode rootNode;
+    private int counter = 0;
+
+    public IterableDataTuplesIterator(SequenceRowKey baseKey, Iterator<?> children) {
+        this(baseKey, children, null);
+    }
+
+    public IterableDataTuplesIterator(SequenceRowKey baseKey, Iterator<?> children, UIComponent component) {
+        super(baseKey, component);
+        this.iterator = children;
+    }
+
+    public boolean hasNext() {
+        return iterator.hasNext();
+    }
     
-    public boolean isLeaf() {
-        return getData().isLeaf();
-    }
-
-    public Iterator<TreeDataModelTuple> children() {
-        return new ClassicTreeNodeTuplesIterator(getData(), getRowKey());
-    }
-
     @Override
-    protected TreeNode setupChildContext(Object segment) {
-        return getData().getChild(segment);
+    protected void proceedToNext() {
+        setKeyAndData(getNextCounterValue(), iterator.next());
     }
     
-    @Override
-    public Object getWrappedData() {
-        return rootNode;
+    private int getNextCounterValue() {
+        return counter++;
     }
 
-    @Override
-    public void setWrappedData(Object data) {
-        this.rootNode = (TreeNode) data;
-    }
-
-    public Converter getRowKeyConverter() {
-        return DEFAULT_CONVERTER;
-    }
 }
