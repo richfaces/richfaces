@@ -6,7 +6,7 @@
                 http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd" version="2.0" id="output">
     <namespace>http://richfaces.org/output</namespace>
 
-	    <tag>
+    <tag>
         <tag-name>toolBar</tag-name>
         <component>
             <component-type>org.richfaces.ToolBar</component-type>
@@ -160,8 +160,8 @@
             <type>boolean</type>
         </attribute>
     </tag>
-	
-	
+
+
     <tag>
         <tag-name>toggleControl</tag-name>
         <behavior>
@@ -212,6 +212,27 @@
             <component-type>org.richfaces.PanelMenuItem</component-type>
             <renderer-type>org.richfaces.PanelMenuItem</renderer-type>
         </component>
+        <attribute>
+            <description>MethodExpression representing the application action to invoke when this component is activated by the user. The expression must evaluate to a public method that takes no parameters, and returns an Object (the toString() of which is called to derive the logical outcome) which is passed to the NavigationHandler for this application.</description>
+            <display-name>Application Action</display-name>
+            <icon/>
+            <name>action</name>
+            <type>javax.faces.el.MethodBinding</type>
+        </attribute>
+        <attribute>
+            <description>MethodExpression representing the application action to invoke when this component is activated by the user. The expression must evaluate to a public method that takes no parameters, and returns an Object (the toString() of which is called to derive the logical outcome) which is passed to the NavigationHandler for this application.</description>
+            <display-name>Application Action</display-name>
+            <icon/>
+            <name>actionExpression</name>
+            <type>javax.el.MethodExpression</type>
+        </attribute>
+        <attribute>
+            <description>&lt;p&gt; MethodExpression representing an action listener method that will be notified when this component is activated by the user. The expression must evaluate to a public method that takes an ActionEvent parameter, with a return type of void, &lt;span class="changed_added_2_0"&gt;or to a public method that takes no arguments with a return type of void. In the latter case, the method has no way of easily knowing where the event came from, but this can be useful in cases where a notification is needed that "some action happened".&lt;/span&gt; &lt;/p&gt;</description>
+            <display-name>Action Listener</display-name>
+            <icon/>
+            <name>actionListener</name>
+            <type>javax.faces.el.MethodBinding</type>
+        </attribute>
         <attribute>
             <description></description>
             <name>icon</name>
@@ -391,6 +412,27 @@
             <renderer-type>org.richfaces.PanelMenuGroup</renderer-type>
 
         </component>
+        <attribute>
+            <description>MethodExpression representing the application action to invoke when this component is activated by the user. The expression must evaluate to a public method that takes no parameters, and returns an Object (the toString() of which is called to derive the logical outcome) which is passed to the NavigationHandler for this application.</description>
+            <display-name>Application Action</display-name>
+            <icon/>
+            <name>action</name>
+            <type>javax.faces.el.MethodBinding</type>
+        </attribute>
+        <attribute>
+            <description>MethodExpression representing the application action to invoke when this component is activated by the user. The expression must evaluate to a public method that takes no parameters, and returns an Object (the toString() of which is called to derive the logical outcome) which is passed to the NavigationHandler for this application.</description>
+            <display-name>Application Action</display-name>
+            <icon/>
+            <name>actionExpression</name>
+            <type>javax.el.MethodExpression</type>
+        </attribute>
+        <attribute>
+            <description>&lt;p&gt; MethodExpression representing an action listener method that will be notified when this component is activated by the user. The expression must evaluate to a public method that takes an ActionEvent parameter, with a return type of void, &lt;span class="changed_added_2_0"&gt;or to a public method that takes no arguments with a return type of void. In the latter case, the method has no way of easily knowing where the event came from, but this can be useful in cases where a notification is needed that "some action happened".&lt;/span&gt; &lt;/p&gt;</description>
+            <display-name>Action Listener</display-name>
+            <icon/>
+            <name>actionListener</name>
+            <type>javax.faces.el.MethodBinding</type>
+        </attribute>
         <attribute>
             <description></description>
             <name>expanded</name>

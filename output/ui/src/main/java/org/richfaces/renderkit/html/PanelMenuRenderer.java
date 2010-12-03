@@ -76,10 +76,10 @@ public class PanelMenuRenderer extends DivPanelRenderer {
         String compClientId = component.getClientId(context);
         String clientId = requestMap.get(compClientId);
         if (clientId != null && clientId.equals(compClientId)) {
-            new ActionEvent(component).queue();
 
             AbstractPanelMenuItem panelItem = panelMenu.getItem(newValue);
             if (panelItem != null) {
+                new ActionEvent(panelItem).queue();
                 context.getPartialViewContext().getRenderIds().add(panelItem.getClientId(context));
 
                 //TODO nick - this should be done on encode, not on decode

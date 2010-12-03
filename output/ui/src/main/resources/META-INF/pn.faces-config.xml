@@ -9,14 +9,14 @@
         <behavior-id>org.richfaces.component.behavior.ToggleControl</behavior-id>
         <behavior-class>org.richfaces.component.behavior.ToggleControl</behavior-class>
     </behavior>
-	
-	   <component>
+
+    <component>
         <component-type>org.richfaces.ToolBar</component-type>
         <component-class>org.richfaces.component.UIToolBar</component-class>
         <property>
             <description>
-			A mutable Map of the attributes associated with
-			this component, keyed by attribute name.
+            A mutable Map of the attributes associated with
+            this component, keyed by attribute name.
         </description>
             <display-name>Attributes Map</display-name>
             <icon/>
@@ -1524,6 +1524,18 @@
         <component-type>org.richfaces.PanelMenuItem</component-type>
         <component-class>org.richfaces.component.html.HtmlPanelMenuItem</component-class>
         <property>
+            <property-name>action</property-name>
+            <property-class>javax.faces.el.MethodBinding</property-class>
+        </property>
+        <property>
+            <property-name>actionExpression</property-name>
+            <property-class>javax.el.MethodExpression</property-class>
+        </property>
+        <property>
+            <property-name>actionListener</property-name>
+            <property-class>javax.faces.el.MethodBinding</property-class>
+        </property>
+        <property>
             <description></description>
             <property-name>icon</property-name>
             <property-class>java.lang.String</property-class>
@@ -1583,6 +1595,18 @@
     <component>
         <component-type>org.richfaces.PanelMenuGroup</component-type>
         <component-class>org.richfaces.component.html.HtmlPanelMenuGroup</component-class>
+        <property>
+            <property-name>action</property-name>
+            <property-class>javax.faces.el.MethodBinding</property-class>
+        </property>
+        <property>
+            <property-name>actionExpression</property-name>
+            <property-class>javax.el.MethodExpression</property-class>
+        </property>
+        <property>
+            <property-name>actionListener</property-name>
+            <property-class>javax.faces.el.MethodBinding</property-class>
+        </property>
         <property>
             <description></description>
             <property-name>expanded</property-name>

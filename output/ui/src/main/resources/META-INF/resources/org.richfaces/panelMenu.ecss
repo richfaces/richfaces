@@ -279,6 +279,7 @@
 .rf-pm-chevron-up    { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:ChevronUp.png']})" }
 .rf-pm-disc          { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:Disc.png']})" }
 .rf-pm-grid          { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:Grid.png']})" }
+.rf-pm-none          { width: 16px; height: 16px; }
 .rf-pm-spacer        { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:Spacer.png']})" }
 .rf-pm-triangle      { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:Triangle.png']})" }
 .rf-pm-triangle-down { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:TriangleDown.png']})" }
