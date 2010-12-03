@@ -67,6 +67,14 @@ if (!window.RichFaces) {
 	}
 
 	//dom cleaner
+	richfaces.cleanComponent = function (source) {
+		var component = richfaces.$(source);
+		if (component) {
+			richfaces.invokeMethod(component, "destroy");
+			richfaces.invokeMethod(component, "detach", source);
+		}
+	};
+	
 	richfaces.cleanDom = function(source) {
 		var e = (typeof source == "string") ? document.getElementById(source) : jQuery('body').get(0);
 		if (e) {
@@ -75,9 +83,9 @@ if (!window.RichFaces) {
 				jQuery.cleanData(elements);
 				jQuery.cleanData([e]);
 				jQuery.each(elements, function(index) {
-					richfaces.invokeMethod(this, "destroy");
+					richfaces.cleanComponent(this);
 				});
-				richfaces.invokeMethod(e, "destroy");
+				richfaces.cleanComponent(e);
 			}
 		}
 	}
