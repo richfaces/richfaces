@@ -5,17 +5,17 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:tb="http://richfaces.org/output">
     <h:head>
-        <title>ToolBar sample</title>
+        <title>toolbar sample</title>
         <style>
           
         </style>        
     </h:head>
     <h:body>
-        <tb:toolBar height="45" itemSeparator="grid" contentStyle="color:red;">
+        <tb:toolbar height="45" itemSeparator="grid" contentStyle="color:red;">
         <f:facet name="itemSeparator">
             ||
         </f:facet>      
-          <tb:toolBarGroup itemSeparator="line" onitemclick="22">
+          <tb:toolbarGroup itemSeparator="line" onitemclick="22">
               <h:graphicImage value="/images/icons/create_doc.gif"/>
               <a href="#">link 1</a> Text
               <a href="#">link 2</a>
@@ -23,57 +23,57 @@
               <h:graphicImage value="/images/icons/copy.gif"/>
               <a href="#">link 3</a> Text
               <a href="#">link 4</a>
-          </tb:toolBarGroup>
-          <tb:toolBarGroup itemSeparator="none">
+          </tb:toolbarGroup>
+          <tb:toolbarGroup itemSeparator="none">
               <h:graphicImage value="/images/icons/save.gif" onclick="q2"/>
               <h:graphicImage value="/images/icons/save.gif" onclick="q2"/>
               <h:graphicImage value="/images/icons/save.gif" onclick="q2"/>
               <h:graphicImage value="/images/icons/save.gif" onclick="q2"/>
-          </tb:toolBarGroup>
-          <tb:toolBarGroup itemSeparator="line">
+          </tb:toolbarGroup>
+          <tb:toolbarGroup itemSeparator="line">
               <h:graphicImage value="/images/icons/save.gif" onclick="q2"/>
               <h:graphicImage value="/images/icons/save.gif" onclick="q2"/>
-          </tb:toolBarGroup>
+          </tb:toolbarGroup>
           
-          <tb:toolBarGroup location="right" itemSeparator="square">
+          <tb:toolbarGroup location="right" itemSeparator="square">
               <h:graphicImage value="/images/icons/find.gif" />
               <h:graphicImage value="/images/icons/filter.gif" />
-          </tb:toolBarGroup>
-        </tb:toolBar>
+          </tb:toolbarGroup>
+        </tb:toolbar>
         <br/>
-        <tb:toolBar itemSeparator="grid">
-          <tb:toolBarGroup itemSeparator="line">
+        <tb:toolbar itemSeparator="grid">
+          <tb:toolbarGroup itemSeparator="line">
               <h:graphicImage value="/images/icons/create_doc.gif"/>
               <h:graphicImage value="/images/icons/create_folder.gif"/>
               <h:graphicImage value="/images/icons/copy.gif"/>
-          </tb:toolBarGroup>
-          <tb:toolBarGroup itemSeparator="disc">
+          </tb:toolbarGroup>
+          <tb:toolbarGroup itemSeparator="disc">
               <h:graphicImage value="/images/icons/save.gif"/>
               <h:graphicImage value="/images/icons/save_as.gif"/>
               <h:graphicImage value="/images/icons/save_all.gif"/>
-          </tb:toolBarGroup>
-          <tb:toolBarGroup location="right" itemSeparator="square">
+          </tb:toolbarGroup>
+          <tb:toolbarGroup location="right" itemSeparator="square">
               <h:graphicImage value="/images/icons/find.gif"/>
               <h:graphicImage value="/images/icons/filter.gif"/>
-          </tb:toolBarGroup>
-        </tb:toolBar>     
+          </tb:toolbarGroup>
+        </tb:toolbar>     
         
         <br/>
-        <tb:toolBar height="26" itemSeparator="grid">
-          <tb:toolBarGroup itemSeparator="line">
+        <tb:toolbar height="26" itemSeparator="grid">
+          <tb:toolbarGroup itemSeparator="line">
               <h:graphicImage value="/images/icons/create_doc.gif"/>
               <h:graphicImage value="/images/icons/create_folder.gif"/>
               <h:graphicImage value="/images/icons/copy.gif"/>
-          </tb:toolBarGroup>
-          <tb:toolBarGroup itemSeparator="disc">
+          </tb:toolbarGroup>
+          <tb:toolbarGroup itemSeparator="disc">
               <h:graphicImage value="/images/icons/save.gif"/>
               <h:graphicImage value="/images/icons/save_as.gif"/>
               <h:graphicImage value="/images/icons/save_all.gif"/>
-          </tb:toolBarGroup>
-          <tb:toolBarGroup location="right" itemSeparator="square">
+          </tb:toolbarGroup>
+          <tb:toolbarGroup location="right" itemSeparator="square">
               <h:graphicImage value="/images/icons/find.gif"/>
               <h:graphicImage value="/images/icons/filter.gif"/>
-          </tb:toolBarGroup>
-        </tb:toolBar> 
+          </tb:toolbarGroup>
+        </tb:toolbar> 
     </h:body>
 </html>
