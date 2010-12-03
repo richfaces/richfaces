@@ -24,21 +24,24 @@
 package org.richfaces.component;
 
 import org.richfaces.PanelMenuMode;
+import org.richfaces.event.ItemChangeListener;
+import org.richfaces.event.ItemChangeSource;
 
+import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
 
 /**
  * @author akolonitsky
  * @since 2010-10-25
  */
-public abstract class AbstractPanelMenuItem extends UIOutput {
+public abstract class AbstractPanelMenuItem extends UICommand implements ItemChangeSource{
 
     public static final String COMPONENT_TYPE = "org.richfaces.PanelMenuItem";
 
     public static final String COMPONENT_FAMILY = "org.richfaces.PanelMenuItem";
 
     public enum Icons {
+        none("rf-pm-none"),
         disc("rf-pm-disc"),
         grid("rf-pm-grid"),
         chevron("rf-pm-chevron"),
@@ -48,7 +51,7 @@ public abstract class AbstractPanelMenuItem extends UIOutput {
         triangleUp("rf-pm-triangle-up"),
         triangleDown("rf-pm-triangle-down");
 
-        public static final Icons DEFAULT = grid;
+        public static final Icons DEFAULT = none;
 
         private final String cssClass;
 
@@ -121,6 +124,18 @@ public abstract class AbstractPanelMenuItem extends UIOutput {
 
     public abstract Object getRender();
 
+    // ------------------------------------------------ Event Processing Methods
 
+    public void addItemChangeListener(ItemChangeListener listener) {
+        addFacesListener(listener);
+    }
+
+    public ItemChangeListener[] getItemChangeListeners() {
+        return (ItemChangeListener[]) getFacesListeners(ItemChangeListener.class);
+    }
+
+    public void removeItemChangeListener(ItemChangeListener listener) {
+        removeFacesListener(listener);
+    }
 
 }
