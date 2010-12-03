@@ -179,7 +179,7 @@
 		name: COMPONENT_NAME,
 
 		init: function (id, options) {
-			this.id = id;
+			$super.constructor.call(this, id);
 			this.attachToDom();
 
 			this.__address = options.address;
@@ -231,7 +231,12 @@
 			this.__unbindErrorHandler();
 
 			richfaces.Push.decreaseSubscriptionCounters(this.__address);
+			this.detach();
+			$super.destroy.call(this);
 		}
 	});
+
+	// define super class link
+	var $super = richfaces.ui.Push.$super;
 
 }(jsf, window.RichFaces, jQuery));

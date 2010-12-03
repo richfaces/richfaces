@@ -169,7 +169,7 @@
 		},
 
 		init: function(options) {
-			this.$super.constructor.call(this, 'richfaces.log');
+			$super.constructor.call(this, 'richfaces.log');
 			this.attachToDom();
 			richfaces.setLog(this);
 			
@@ -200,7 +200,8 @@
 			}
 
 			this.__contentsElement = null;
-			this.$super.destroy.call(this);
+			this.detach();
+			$super.destroy.call(this);
 		},
 
 		setLevel: function(level) {
@@ -229,6 +230,8 @@
 	}
 	
 	richfaces.HtmlLog = richfaces.BaseComponent.extendClass(logClassMethods);
+	// define super class link
+	var $super = richfaces.HtmlLog.$super;
 }(jQuery, RichFaces));
 
 if (typeof jsf != 'undefined') {
