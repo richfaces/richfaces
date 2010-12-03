@@ -83,6 +83,8 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     public static final String TIME_PATTERN = "HH:mm";
 
     public static final String DEFAULT_DATE_PATTERN = "MMM d, yyyy";
+    
+    public static final String DEFAULT_DATE_VALUE = "12:00:00";
 
     Logger log = RichfacesLogger.COMPONENTS.getLogger();
 
@@ -216,7 +218,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     @Attribute
     public abstract String getButtonIconDisabled();
 
-    @Attribute(defaultValue = "12:00:00")
+    @Attribute(defaultValue = "AbstractCalendar.DEFAULT_DATE_VALUE")
     public abstract Object getDefaultTime();
     
     @Attribute(defaultValue = "getDefaultPreloadBegin(getCurrentDateOrDefault())")
