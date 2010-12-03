@@ -40,7 +40,8 @@
 		name: "TreeNode",
 
 		init: function (id, commonOptions) {
-			this.__rootElt = $(this.attachToDom(id));
+			$superTreeNode.constructor.call(this, id);
+			this.__rootElt = $(this.attachToDom());
 
 			this.__children = new Array();
 			
@@ -60,7 +61,6 @@
 		},
 		
 		destroy: function() {
-			richfaces.BaseComponent.prototype.destroy.call(this);
 
 			if (this.parent) {
 				this.parent.removeChild(this);
@@ -72,6 +72,9 @@
 			this.__clearChildren();
 			
 			this.__rootElt = null;
+			
+			this.detach();
+			$superTreeNode.destroy.call(this);
 		},
 
 		__initializeChildren: function(commonOptions) {
@@ -254,6 +257,9 @@
 		
 	});
 
+	// define super class link for TreeNode
+	var $superTreeNode = richfaces.ui.TreeNode.$super;
+
 	richfaces.ui.TreeNode.initNodeByAjax = function(nodeId, commonOptions) {
 		var node = $(document.getElementById(nodeId));
 		
@@ -303,7 +309,7 @@
 			commonOptions.clientEventHandlers = options.clientEventHandlers || {};
 			commonOptions.treeId = id;
 			
-			this.$super.init.call(this, this.__treeRootElt, commonOptions);
+			$superTree.constructor.call(this, this.__treeRootElt, commonOptions);
 			
 			this.__toggleType = options.toggleType || 'ajax';
 			this.__selectionType = options.selectionType || 'client';
@@ -355,6 +361,7 @@
 
 			this.__selectionInput = null;
 			this.__ajaxSubmitFunction = null;
+			$superTree.destroy.call(this);
 		},
 		
 		__nodeToggleActivated: function(event) {
@@ -461,6 +468,9 @@
 			this.__selection = newSelection;
 		}
 	});
+	
+	// define super class link for Tree
+	var $superTree = richfaces.ui.Tree.$super;
 	
 	richfaces.ui.TreeNodeSet = function() {
 		this.init.apply(this, arguments);

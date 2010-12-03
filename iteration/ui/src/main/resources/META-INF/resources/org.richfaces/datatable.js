@@ -3,15 +3,13 @@
         richfaces.ui = richfaces.ui || {};
         
         richfaces.ui.DataTable =  function(id, options) {
-            this.id = id;
-            this.options = options;
             $super.constructor.call(this,id);
-       	    this.attachToDom(id);
+            this.options = $.extend(this.options, options || {});
+       	    this.attachToDom();
         	
         };
         
-    	var $super = richfaces.BaseComponent.extend(richfaces.ui.DataTable);
-        var $p = richfaces.BaseComponent.extend(richfaces.ui.DataTable, {});
+        richfaces.BaseComponent.extend(richfaces.ui.DataTable);
     	var $super = richfaces.ui.DataTable.$super;
     	
     	$.extend(richfaces.ui.DataTable, {
@@ -96,7 +94,11 @@
             				func.call(component);
             			}
             		}
-            	}
+            	},
+		destroy: function() {
+			this.detach();
+			$super.destroy.call(this);
+		}
             }
            	
         })());

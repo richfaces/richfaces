@@ -10,8 +10,7 @@
 		this.eventOptions = options.eventOptions;
 		this.formId = f;
 		
-    	$super.constructor.call(this, id);
-    	this.attachToDom(id);
+		this.attachToDom();
     };
 	
 	$.extend(richfaces.ui.CollapsibleSubTable, {
@@ -20,11 +19,10 @@
 		MODE_CLNT: "client",
 		collapse: 0,
 		expand: 1
-	})
-	
-	var $super = richfaces.BaseComponent.extend(richfaces.ui.CollapsibleSubTable);
-    var $p = richfaces.BaseComponent.extend(richfaces.ui.CollapsibleSubTable, {});
-    var $super = richfaces.ui.CollapsibleSubTable.$super;
+	});
+
+    	richfaces.BaseComponent.extend(richfaces.ui.CollapsibleSubTable);
+    	var $super = richfaces.ui.CollapsibleSubTable.$super;
 
     $.extend(richfaces.ui.CollapsibleSubTable.prototype, (function () {
     	
@@ -62,7 +60,7 @@
      	  
     	return {
     		
-    		name: "RichFaces.ui.CollapsibleSubTable",
+    		name: "CollapsibleSubTable",
 
     		toggle: function(e, options) {
     			if(this.expandMode == richfaces.ui.CollapsibleSubTable.MODE_AJAX) {
@@ -107,7 +105,11 @@
     		
     		getMode: function() {
     			return this.expandMode;
-    		}	
+    		},
+		destroy: function() {
+			this.detach();
+			$super.destroy.call(this);
+		}
     	};
 
     })());

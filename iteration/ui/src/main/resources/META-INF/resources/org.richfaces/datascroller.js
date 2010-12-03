@@ -52,9 +52,9 @@
 		
  	richfaces.ui.DataScroller =  function(id, submit, options) {
     	
-    	$super.constructor.call(this,id);
+    	$super.constructor.call(this, id);
     	
-    	this.attachToDom(id);
+    	this.attachToDom();
     	
     	this.options = options; 
         this.currentPage = options.currentPage;
@@ -92,8 +92,7 @@
         }
     };
     
-    var $super = richfaces.BaseComponent.extend(richfaces.ui.DataScroller);
-    var $p = richfaces.BaseComponent.extend(richfaces.ui.DataScroller, {});
+	richfaces.BaseComponent.extend(richfaces.ui.DataScroller);
 	var $super = richfaces.ui.DataScroller.$super;
     
     $.extend(richfaces.ui.DataScroller.prototype, (function (options) {
@@ -159,7 +158,11 @@
 	    	
 	    	getScrollEventName: function() {
 	    		return scrollEventName;
-	    	}
+	    	},
+		destroy: function() {
+			this.detach();
+			$super.destroy.call(this);
+		}
 	    }
     
     })());
