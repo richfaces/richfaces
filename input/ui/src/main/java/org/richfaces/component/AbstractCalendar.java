@@ -280,19 +280,19 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     @Attribute(events = @EventName("dateselect"))
     public abstract String getOndateselect();
     
-    @Attribute(events = @EventName("dateselected"))
-    public abstract String getOndateselected();
+    @Attribute(events = @EventName("beforedateselect"))
+    public abstract String getOnbeforedateselect();
     
     @Attribute(events = @EventName("currentdateselect"))
     public abstract String getOncurrentdateselect();
     
-    @Attribute(events = @EventName("currentdateselected"))
-    public abstract String getOncurrentdateselected();
+    @Attribute(events = @EventName("beforecurrentdateselect"))
+    public abstract String getOnbeforecurrentdateselect();
 
     @Attribute(events = @EventName("complete"))
     public abstract String getOncomplete();
     
-    @Attribute(events = @EventName("collapse"))
+    @Attribute(events = @EventName("hide"))
     public abstract String getOncollapse();
     
     @Attribute(events = @EventName("datemouseout"))
@@ -301,14 +301,14 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     @Attribute(events = @EventName("datemouseover"))
     public abstract String getOndatemouseover();
     
-    @Attribute(events = @EventName("expand"))
-    public abstract String getOnExpand();
+    @Attribute(events = @EventName("show"))
+    public abstract String getOnshow();
     
     @Attribute(events = @EventName("timeselect"))
     public abstract String getOntimeselect();
     
-    @Attribute(events = @EventName("timeselected"))
-    public abstract String getOntimeselected();
+    @Attribute(events = @EventName("beforetimeselect"))
+    public abstract String getOnbeforetimeselect();
     
     @Attribute(events = @EventName("clean"))
     public abstract String getOnclean();

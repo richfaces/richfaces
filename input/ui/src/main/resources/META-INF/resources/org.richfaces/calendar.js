@@ -267,9 +267,9 @@
 	
 	var defaultLabels = {apply:'Apply', today:'Today', clean:'Clean', ok:'OK', cancel:'Cancel', close:'x'};
 	
-	var eventHandlerNames = ["change", "dateselect", "dateselected", "currentdateselect", 
-			"currentdateselected", "currentdateselect", "clean", "complete", "collapse", 
-			"datemouseout", "datemouseover", "expand", "timeselect", "timeselected"]; 
+	var eventHandlerNames = ["change", "dateselect", "beforedateselect", "currentdateselect", 
+			"beforecurrentdateselect", "currentdateselect", "clean", "complete", "collapse", 
+			"datemouseout", "datemouseover", "show", "hide", "timeselect", "beforetimeselect"]; 
 	
 	// Constructor definition
 	rf.ui.Calendar = function(componentId, locale, options, markups) {
@@ -878,7 +878,7 @@
 			
 			if (!this.params.popup || !this.isVisible) return;
 			
-			if (this.invokeEvent("collapse", rf.getDomElement(this.id)))
+			if (this.invokeEvent("hide", rf.getDomElement(this.id)))
 			{
 				if (this.isEditorVisible) this.hideEditor();
 				this.scrollElements && rf.Event.unbindScrollEventHandlers(this.scrollElements, this);
@@ -906,7 +906,7 @@
 			
 			var element = rf.getDomElement(this.id);
 
-			if (this.invokeEvent("expand", element, e))
+			if (this.invokeEvent("show", element, e))
 			{
 				var base = rf.getDomElement(this.POPUP_ID)
 				var baseInput = base.firstChild;
@@ -1470,7 +1470,7 @@
 					// the "currentdateselected" Event is fired.
 					this.currentDate = date;
 					if (noUpdate) this.render(); else this.onUpdate();
-					this.invokeEvent("currentdateselected", rf.getDomElement(this.id), null, date);
+					this.invokeEvent("currentdateselect", rf.getDomElement(this.id), null, date);
 					return true;
 				}
 			}
@@ -1480,7 +1480,7 @@
 		changeCurrentDateOffset: function(yearOffset, monthOffset) {
 			var date = new Date(this.currentDate.getFullYear()+yearOffset, this.currentDate.getMonth()+monthOffset,1);
 				
-			if (this.invokeEvent("currentdateselect", rf.getDomElement(this.id), null, date))
+			if (this.invokeEvent("beforecurrentdateselect", rf.getDomElement(this.id), null, date))
 			{
 				// fix for RF-2450.
 				// Additional event is fired: after the hidden input with current date
@@ -1488,7 +1488,7 @@
 				// the "currentdateselected" Event is fired.
 				this.currentDate = date;
 				this.onUpdate();
-				this.invokeEvent("currentdateselected", rf.getDomElement(this.id), null, date);
+				this.invokeEvent("currentdateselect", rf.getDomElement(this.id), null, date);
 			}
 		},
 
@@ -1588,7 +1588,7 @@
 			if ( (oldSelectedDate - newSelectedDate) && (oldSelectedDate!=null || newSelectedDate!=null) )
 			{
 				isDateChange = true;
-				flag = this.invokeEvent("dateselect", eventData.element, eventData.event, date);
+				flag = this.invokeEvent("beforedateselect", eventData.element, eventData.event, date);
 			}	
 			
 			if (flag)
@@ -1657,7 +1657,7 @@
 				// call user event
 				if (isDateChange)
 				{
-					this.invokeEvent("dateselected", eventData.element, eventData.event, this.selectedDate);
+					this.invokeEvent("dateselect", eventData.element, eventData.event, this.selectedDate);
 					if (!this.params.showApplyButton)
 					{
 						this.setInputField(this.selectedDate!=null ? this.getSelectedDateString(this.params.datePattern) : "", eventData.event);
@@ -1671,10 +1671,10 @@
 		resetSelectedDate: function()
 		{
 			if (!this.selectedDate) return;
-			if (this.invokeEvent("dateselect", null, null, null))
+			if (this.invokeEvent("beforedateselect", null, null, null))
 			{
 				this.selectedDate = null;
-				this.invokeEvent("dateselected", null, null, null);
+				this.invokeEvent("dateselect", null, null, null);
 				
 				this.selectedDateCellId = this.clearEffect(this.selectedDateCellId, "rf-ca-sel", (this.params.disabled || this.params.readonly ? null : "rf-ca-btn"));
 				this.invokeEvent("clean", null, null, null);
@@ -1791,12 +1791,12 @@
 					}
 				}
 				var date = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), this.selectedDate.getDate(), h, m, s);
-				if (date-this.selectedDate && this.invokeEvent("timeselect",null, null, date))
+				if (date-this.selectedDate && this.invokeEvent("beforetimeselect",null, null, date))
 				{
 					this.selectedDate = date;
 					this.renderHF();
 					if (!this.params.popup || !this.params.showApplyButton) this.setInputField(this.getSelectedDateString(this.params.datePattern), null);
-					this.invokeEvent("timeselected",null, null, this.selectedDate);
+					this.invokeEvent("timeselect",null, null, this.selectedDate);
 				}
 			}
 			if (this.params.popup && !this.params.showApplyButton) this.close(false);		
