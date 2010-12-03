@@ -37,7 +37,7 @@
          * @param {Hash} options - params
          * */
         init : function (componentId, options) {
-            rf.ui.TogglePanelItem.call(this, componentId, options);
+            $super.constructor.call(this, componentId, options);
             this.index = options["index"];
             this.getTogglePanel().getItems()[this.index] = this;
 
@@ -130,7 +130,10 @@
             rf.Event.unbindById(this.id + ":header:active");
             rf.Event.unbindById(this.id + ":header:inactive");
 
-            this.$super.destroy.call(this);
+            $super.destroy.call(this);
         }
     });
+
+    // define super class link
+    var $super = rf.ui.Tab.$super;
 })(jQuery, RichFaces);

@@ -37,7 +37,7 @@
          * @param {Hash} options - params
          * */
         init : function (componentId, options) {
-            rf.ui.TogglePanelItem.call(this, componentId, options);
+            $super.constructor.call(this, componentId, options);
             this.index = options["index"];
             this.getTogglePanel().getItems()[this.index] = this;
 
@@ -149,7 +149,10 @@
 
             rf.Event.unbindById(this.id, "."+this.namespace);
 
-            this.$super.destroy.call(this);
+            $super.destroy.call(this);
         }
     });
+
+    // define super class link
+    var $super = rf.ui.AccordionItem.$super;
 })(jQuery, RichFaces);

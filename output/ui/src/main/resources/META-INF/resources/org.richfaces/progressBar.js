@@ -18,9 +18,8 @@
 	rf.ui.ProgressBar = function(componentId, options) {
 		// call constructor of parent class
 		$super.constructor.call(this, componentId);
-		this.id = componentId;
-		this.__elt = this.attachToDom(this.id);
-		this.options = $.extend({}, defaultOptions, options);
+		this.__elt = this.attachToDom();
+		this.options = $.extend(this.options, defaultOptions, options || {});
 		this.enabled = this.options.enabled;
 		this.minValue = this.options.minValue;
 		this.maxValue = this.options.maxValue;
@@ -193,6 +192,7 @@
  			destroy: function() {
  				this.disable();
  				this.__elt = null;
+				this.detach();
  				$super.destroy.call(this);
  			}
 		}

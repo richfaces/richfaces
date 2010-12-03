@@ -42,11 +42,11 @@
          * @param {Hash} options - params
          * */
         init : function (componentId, options) {
-            this.id = componentId;
+            $super.constructor.call(this, componentId);
             this.items = [];
-            this.attachToDom(componentId);
+            this.attachToDom();
 
-            this.options = $.extend({}, __DEFAULT_OPTIONS, options || {});
+            this.options = $.extend(this.options, __DEFAULT_OPTIONS, options || {});
             this.activeItem = this.__getValueInput().value;
             this.nestingLevel = 0;
 
@@ -201,8 +201,12 @@
 
         destroy: function () {
             rf.Event.unbindById(this.id, "."+this.namespace);
-
-            this.$super.destroy.call(this);
+            this.detach();
+            $super.destroy.call(this);
         }
     });
+
+    // define super class link
+    var $super = rf.ui.PanelMenu.$super;
+
 })(jQuery, RichFaces);

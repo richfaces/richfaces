@@ -53,10 +53,10 @@
     	
     	$super.constructor.call(this,id);
     	this.markerId = id;
-    	this.attachToDom(id);
-    	this.options = $.extend(this.options, defaultOptions, options);
+    	this.attachToDom(this.markerId);
+    	this.options = $.extend(this.options, defaultOptions, options || {});
 
-		this.id = $(richfaces.getDomElement(id));
+		this.id = $(richfaces.getDomElement(id)); // Should be component Id string // NOT AN OBJECT
 		this.minWidth = this.getMinimumSize(this.options.minWidth);
 		this.minHeight = this.getMinimumSize(this.options.minHeight);
 		this.maxWidth = this.options.maxWidth;
@@ -93,14 +93,13 @@
 
     };
     
-    var $super = richfaces.BaseComponent.extend(richfaces.ui.PopupPanel);
-    var $p = richfaces.BaseComponent.extend(richfaces.ui.PopupPanel, {});
+	richfaces.BaseComponent.extend(richfaces.ui.PopupPanel);
 	var $super = richfaces.ui.PopupPanel.$super;
-    $.extend(richfaces.ui.PopupPanel.prototype, (function (options) {
+	$.extend(richfaces.ui.PopupPanel.prototype, (function (options) {
     	           
         return {
         	
-        	name: "RichFaces.ui.PopupPanel",
+        	name: "PopupPanel",
 			saveInputValues: function(element) {
 				/* Fix for RF-3856 - Checkboxes in modal panel does not hold their states after modal was closed and opened again */
 				if ($.browser.msie /* reproducible for checkbox/radio in IE6, radio in IE 7/8 beta 2 */) {
@@ -154,7 +153,7 @@
 				this.firstOutside = null;
 				this.lastOutside = null;
 				this.firstHref = null;
-        		this.parent = null;
+        			this.parent = null;
         		if (this.header) {
         			this.header.destroy();
 					this.header=null;        	
@@ -184,6 +183,9 @@
 				this.scrollerDiv = null;
 				this.userOptions = null;
 				this.eIframe= null;
+				
+				this.detach(this.markerId);
+				$super.destroy.call(this);
 		
 			},
 
@@ -747,39 +749,6 @@
 					});
 			
 					return true;
-			},
-	
-			invokeEvent: function(eventName, event, value, element) {
-	
-				var eventFunction = eval(this.options['on'+eventName]);
-				var result;
-
-				if (eventFunction) {
-					var eventObj;
-					if (event) {
-						eventObj = event;
-					}
-					else if(document.createEventObject) {
-						eventObj = document.createEventObject();
-					}
-					else if( document.createEvent ) {
-						eventObj = document.createEvent('Events');
-						eventObj.initEvent( eventName, true, false );
-					}
-			
-					eventObj.rich = {component:this};
-					eventObj.rich.value = value;
-
-					try	{
-						result = eventFunction.call(element, eventObj);
-					}
-					catch (e) { LOG.warn("Exception: "+e.Message + "\n[on"+eventName + "]"); }
-				}
-		
-				if (result!=false) {
-					 result = true;
-				}	 
-				return result;
 			}
 			
         	

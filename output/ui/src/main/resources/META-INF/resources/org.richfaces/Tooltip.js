@@ -116,9 +116,9 @@
          * @param {Hash} options - params
          * */
         init : function (componentId, options) {
-            this.id = componentId
-            this.options = $.extend({}, DEFAULT_OPTIONS, this.options || {}, options || {});
-            this.attachToDom.call(this, componentId);
+            $super.constructor.call(this, componentId);
+            this.options = $.extend(this.options, DEFAULT_OPTIONS, options || {});
+            this.attachToDom();
 
             this.mode = this.options.mode;
             this.target = this.options.target;
@@ -286,7 +286,11 @@
         },
 
         destroy: function () {
-            rf.ui.Tooltip.$super.destroy.call(this);
+            this.detach();
+            $super.destroy.call(this);
         }
     });
+
+    // define super class link
+    var $super = rf.ui.Tooltip.$super;
 })(jQuery, RichFaces);

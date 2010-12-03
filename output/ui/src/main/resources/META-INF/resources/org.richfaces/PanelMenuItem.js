@@ -119,10 +119,10 @@
          * @param {Hash} options - params
          * */
         init : function (componentId, options) {
-            this.id = componentId;
-            this.attachToDom(componentId);
+            $super.constructor.call(this, componentId);
+            this.attachToDom();
 
-            this.options = $.extend({}, __DEFAULT_OPTIONS, this.options || {}, options || {});
+            this.options = $.extend(this.options, __DEFAULT_OPTIONS, options || {});
 
             this.mode = this.options.mode
             this.itemName = this.options.name
@@ -312,8 +312,11 @@
 
         destroy: function () {
             delete this.__rfPanelMenu().getItems()[this.itemName];
-
-            rf.ui.PanelMenuItem.$super.destroy.call(this);
+            this.detach();
+            $super.destroy.call(this);
         }
     });
+
+    // define super class link
+    var $super = rf.ui.PanelMenuItem.$super;
 })(jQuery, RichFaces);

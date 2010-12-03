@@ -153,10 +153,10 @@
         name:"TogglePanel",
 
         init : function (componentId, options) {
-            rf.BaseComponent.call(this, componentId);
-            this.attachToDom(componentId);
+            $super.constructor.call(this, componentId);
+            this.attachToDom();
 
-            this.options = options;
+            this.options = $.extend(this.options, options || {});
             this.activeItem = this.options.activeItem;
             this.items = this.options.items;
 
@@ -424,7 +424,11 @@
         },
 
         destroy: function () {
-            rf.BaseComponent.prototype.destroy.call(this);
+		this.detach();
+		$super.destroy.call(this);
         }
     });
+
+    // define super class link
+    var $super = rf.ui.TogglePanel.$super;
 })(jQuery, RichFaces);

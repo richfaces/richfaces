@@ -31,10 +31,10 @@
 
         init : function (componentId, options) {
             // call constructor of parent class
-            rf.BaseComponent.call(this, componentId);
-            this.attachToDom(componentId);
+            $super.constructor.call(this, componentId);
+            this.attachToDom();
 
-            this.options = options;
+            this.options = $.extend(this.options, options || {});
             this.name = this.options.name;
             this.togglePanelId = this.options.togglePanelId;
             this.switchMode = this.options.switchMode;
@@ -111,7 +111,11 @@
 
         // class stuff
         destroy: function () {
-            rf.BaseComponent.prototype.destroy.call(this);
+            this.detach();
+            $super.destroy.call(this);
         }
     });
+
+    // define super class link
+    var $super = rf.ui.TogglePanelItem.$super;
 })(jQuery, RichFaces);

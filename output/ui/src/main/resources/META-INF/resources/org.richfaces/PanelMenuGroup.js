@@ -120,9 +120,8 @@
          * @param {Hash} options - params
          * */
         init : function (componentId, options) {
-            this.options = $.extend({}, __DEFAULT_OPTIONS, options || {});
-
-            rf.ui.PanelMenuItem.call(this, componentId);
+            $super.constructor.call(this, componentId);
+            this.options = $.extend(this.options, __DEFAULT_OPTIONS, options || {});
 
             if (!this.options.disabled) {
                 var menuGroup = this;
@@ -357,7 +356,10 @@
         destroy: function () {
             rf.Event.unbindById(this.id, "."+this.namespace);
 
-            this.$super.destroy.call(this);
+            $super.destroy.call(this);
         }
     });
+
+    // define super class link
+    var $super = rf.ui.PanelMenuGroup.$super;
 })(jQuery, RichFaces);

@@ -37,7 +37,7 @@
          * @param {Hash} options - params
          * */
         init : function (componentId, options) {
-            rf.ui.TogglePanel.call(this, componentId, options);
+            $super.constructor.call(this, componentId, options);
             this.items = [];
 
             this.isKeepHeight = options["isKeepHeight"] || false  
@@ -66,8 +66,10 @@
 
         destroy: function () {
             rf.Event.unbindById(this.id, "." + this.namespace);
-
-            this.$super.destroy.call(this);
+            $super.destroy.call(this);
         }
     });
+
+    // define super class link
+    var $super = rf.ui.Accordion.$super;
 })(jQuery, RichFaces);
