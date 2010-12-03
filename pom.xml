@@ -50,6 +50,7 @@
         <module>push-demo</module>
         
         <module>validator-demo</module>
+		<module>dnd-demo</module>
     </modules>
 
     <scm>
