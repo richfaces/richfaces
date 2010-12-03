@@ -236,11 +236,15 @@ public abstract class ToolBarRendererBase extends RendererBase {
 
             writer.startElement(HtmlConstants.TD_ELEM, component);
             String separatorClass = "rf-tb-sep";
-            
+            concatClasses(separatorClass, (String) component.getAttributes().get("separatorClass"));
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, separatorClass, null);
+
             if (separator != null) {
                 String itemSeparatorClass = "rf-tb-sep-" + separator.toString().toLowerCase();
-                separatorClass = concatClasses(separatorClass, itemSeparatorClass, (String) component.getAttributes().get("separatorClass"));
-                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, separatorClass, null);
+                writer.startElement(HtmlConstants.DIV_ELEM, component);
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, itemSeparatorClass, null);
+                writer.write("&nbsp;");
+                writer.endElement(HtmlConstants.DIV_ELEM);
             } else {
                 concatClasses(separatorClass, (String) component.getAttributes().get("separatorClass"));
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, separatorClass, null);

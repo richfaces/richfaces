@@ -32,7 +32,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.renderkit.html.ToolBarRendererBase;
 
 @JsfComponent(family = AbstractToolBar.COMPONENT_FAMILY, type = AbstractToolBar.COMPONENT_TYPE, 
-        renderer=@JsfRenderer(type = ToolBarRendererBase.RENDERER_TYPE), tag = @Tag(name="toolBar")
+        renderer=@JsfRenderer(type = ToolBarRendererBase.RENDERER_TYPE), tag = @Tag(name="toolbar")
 )
 public abstract class AbstractToolBar extends UIComponentBase {
 

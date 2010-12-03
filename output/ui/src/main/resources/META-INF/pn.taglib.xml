@@ -7,7 +7,7 @@
     <namespace>http://richfaces.org/output</namespace>
 
     <tag>
-        <tag-name>toolBar</tag-name>
+        <tag-name>toolbar</tag-name>
         <component>
             <component-type>org.richfaces.ToolBar</component-type>
             <renderer-type>org.richfaces.ToolBarRenderer</renderer-type>
@@ -86,7 +86,7 @@
         </attribute>
     </tag>
     <tag>
-        <tag-name>toolBarGroup</tag-name>
+        <tag-name>toolbarGroup</tag-name>
         <component>
             <component-type>org.richfaces.ToolBarGroup</component-type>
             <renderer-type>org.richfaces.ToolBarGroupRenderer</renderer-type>

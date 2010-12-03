@@ -37,7 +37,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.renderkit.html.ToolBarGroupRenderer;
 
 @JsfComponent(family = AbstractToolBar.COMPONENT_FAMILY, type = AbstractToolBarGroup.COMPONENT_TYPE,
-        renderer=@JsfRenderer(type = ToolBarGroupRenderer.RENDERER_TYPE), tag = @Tag(name="toolBarGroup"))
+        renderer=@JsfRenderer(type = ToolBarGroupRenderer.RENDERER_TYPE), tag = @Tag(name="toolbarGroup"))
 public abstract class AbstractToolBarGroup extends UIComponentBase {
     
     public static final String COMPONENT_TYPE = "org.richfaces.ToolBarGroup";
