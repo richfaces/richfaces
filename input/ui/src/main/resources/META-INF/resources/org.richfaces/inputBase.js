@@ -73,7 +73,6 @@
 			destroy: function() {
 				rf.Event.unbindById(this.input, this.namespace);
 				this.input = null;
-				this.detach();
 				$super.destroy.call(this);
 			}
     		}

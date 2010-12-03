@@ -538,7 +538,6 @@
 				this.scrollElements = null;
 				rf.Event.unbind(window.document, "click"+this.namespace);
 			}
-			this.detach();
 			$super.destroy.call(this);
 		},
 		

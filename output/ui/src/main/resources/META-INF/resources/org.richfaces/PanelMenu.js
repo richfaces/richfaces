@@ -201,7 +201,6 @@
 
         destroy: function () {
             rf.Event.unbindById(this.id, "."+this.namespace);
-            this.detach();
             $super.destroy.call(this);
         }
     });

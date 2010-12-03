@@ -184,7 +184,6 @@
 				this.userOptions = null;
 				this.eIframe= null;
 				
-				this.detach(this.markerId);
 				$super.destroy.call(this);
 		
 			},

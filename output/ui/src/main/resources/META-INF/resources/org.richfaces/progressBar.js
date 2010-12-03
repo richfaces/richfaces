@@ -192,7 +192,6 @@
  			destroy: function() {
  				this.disable();
  				this.__elt = null;
-				this.detach();
  				$super.destroy.call(this);
  			}
 		}

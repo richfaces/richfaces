@@ -312,7 +312,6 @@
 
         destroy: function () {
             delete this.__rfPanelMenu().getItems()[this.itemName];
-            this.detach();
             $super.destroy.call(this);
         }
     });

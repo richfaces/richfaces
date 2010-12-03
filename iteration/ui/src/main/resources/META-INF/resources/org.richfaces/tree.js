@@ -73,7 +73,6 @@
 			
 			this.__rootElt = null;
 			
-			this.detach();
 			$superTreeNode.destroy.call(this);
 		},
 

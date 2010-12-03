@@ -200,7 +200,6 @@
 			}
 
 			this.__contentsElement = null;
-			this.detach();
 			$super.destroy.call(this);
 		},
 

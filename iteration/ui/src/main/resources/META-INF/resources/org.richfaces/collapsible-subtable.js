@@ -107,7 +107,6 @@
     			return this.expandMode;
     		},
 		destroy: function() {
-			this.detach();
 			$super.destroy.call(this);
 		}
     	};

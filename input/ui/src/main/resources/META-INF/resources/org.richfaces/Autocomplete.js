@@ -460,7 +460,6 @@
 				var itemsContainer = rf.getDomElement(this.id+ID.ITEMS);
 				$(itemsContainer).removeData();
 				rf.Event.unbind(itemsContainer.parentNode, this.namespace);
-				this.detach()
 				$super.destroy.call(this);
  			}
 		};

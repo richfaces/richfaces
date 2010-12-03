@@ -160,7 +160,6 @@
 	    		return scrollEventName;
 	    	},
 		destroy: function() {
-			this.detach();
 			$super.destroy.call(this);
 		}
 	    }

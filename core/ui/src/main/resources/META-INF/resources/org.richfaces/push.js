@@ -231,7 +231,6 @@
 			this.__unbindErrorHandler();
 
 			richfaces.Push.decreaseSubscriptionCounters(this.__address);
-			this.detach();
 			$super.destroy.call(this);
 		}
 	});

@@ -94,7 +94,6 @@
 					.unbind("mouseup", this.destroy);
 		    	this.intervalId = null;
 	    	}
-		this.detach();
 		$super.destroy.call(this);
 	    },
 	
