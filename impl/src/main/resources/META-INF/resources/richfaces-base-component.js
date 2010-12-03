@@ -64,7 +64,7 @@
      * */
 	richfaces.BaseComponent = function(componentId) {
 		this.id = componentId;
-		this.options = {};
+		this.options = this.options || {};
 	};
 
 	var $p = {};
@@ -133,7 +133,7 @@
      *     __overrideMethod : function () {
      *         // if you need to use method from parent class use link to parent prototype
      *         // like in previous solution with extend method
-     *         this.$super.__overrideMethod.call(this, ...params...);
+     *         $super.__overrideMethod.call(this, ...params...);
      *
      *         //...
      *     }
@@ -159,7 +159,6 @@
         SupperClass.extend(DerivedClass);
 
         DerivedClass.extendClass = SupperClass.extendClass;
-        DerivedClass.prototype.$super = SupperClass.prototype;
 
         $.extend(DerivedClass.prototype, methods);
 
@@ -228,11 +227,8 @@
 				source = source || this.id;
 				var element = richfaces.getDomElement(source);
 				if (element) {
-					element[richfaces.RICH_CONTAINER] = $.extend(element[richfaces.RICH_CONTAINER] || {}, 
-						{
-							component:this
-						}
-					);
+					var container = element[richfaces.RICH_CONTAINER] = element[richfaces.RICH_CONTAINER] || {};
+					container.component = this;
 				}
 				return element;
 			},
@@ -297,7 +293,6 @@
              *
              * */
 			destroy: function() {
-				this.detach();
 			}
 		};
 	})(params));
