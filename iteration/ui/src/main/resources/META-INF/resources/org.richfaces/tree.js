@@ -347,8 +347,6 @@
 		},
 		
 		destroy: function() {
-			richfaces.ui.TreeNode.prototype.destroy.call(this);
-
 			if (this.__toggleNodeEvent) {
 				this.__treeRootElt.undelegate(".rf-trn", this.__toggleNodeEvent, this, this.__nodeToggleActivated);
 			} 

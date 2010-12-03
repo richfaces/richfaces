@@ -39,6 +39,7 @@ import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
 
+import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractTree;
@@ -176,12 +177,10 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
             encodeSelectionStateInput(context, component);
             writer.endUpdate();
             
-            writer.startEval();
-
             JSFunction function = new JSFunction("RichFaces.$", component.getClientId(context));
-            writer.write(function.toScript() + ".__updateSelectionFromInput();");
-            
-            writer.endEval();
+
+            AjaxContext ajaxContext = AjaxContext.getCurrentInstance(context);
+            ajaxContext.appendOncomplete(function.toScript() + ".__updateSelectionFromInput();");
         } else {
             throw new IllegalArgumentException(metaComponentId);
         }

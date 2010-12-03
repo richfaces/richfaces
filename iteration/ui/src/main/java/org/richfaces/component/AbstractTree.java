@@ -192,6 +192,10 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
 
     public abstract String getToggleNodeEvent();
     
+    public abstract Object getExecute();
+    
+    public abstract Object getRender();
+    
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
