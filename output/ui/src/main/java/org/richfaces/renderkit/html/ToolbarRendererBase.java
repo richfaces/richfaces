@@ -92,8 +92,8 @@ public abstract class ToolbarRendererBase extends RendererBase {
     @Override
     public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
         AbstractToolbar toolbar = (AbstractToolbar) component;
-        String contentClass = (String) toolbar.getAttributes().get("contentClass");
-        String contentStyle = (String) toolbar.getAttributes().get("contentStyle");
+        String itemClass = (String) toolbar.getAttributes().get("itemClass");
+        String itemStyle = (String) toolbar.getAttributes().get("itemStyle");
 
         List<UIComponent> children = toolbar.getChildren();
 
@@ -123,9 +123,9 @@ public abstract class ToolbarRendererBase extends RendererBase {
                 
                 if (!(child instanceof AbstractToolbarGroup)) {
                     writer.startElement(HtmlConstants.TD_ELEM, component);
-                    writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, concatClasses("rf-tb-itm", contentClass), null);
-                    if (isPropertyRendered(contentStyle)) {
-                        writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, contentStyle, null);
+                    writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, concatClasses("rf-tb-itm", itemClass), null);
+                    if (isPropertyRendered(itemStyle)) {
+                        writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, itemStyle, null);
                     }
                     encodeEventsAttributes(context, toolbar);
                 }
@@ -156,24 +156,7 @@ public abstract class ToolbarRendererBase extends RendererBase {
             }
         }
     }
-    
-    public void encodeItem(FacesContext facesContext, UIComponent component, ResponseWriter writer, String contentStyle, String contentClass) throws IOException {
-        if (!(component instanceof AbstractToolbarGroup)) {
-            writer.startElement(HtmlConstants.TD_ELEM, component);
-            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, concatClasses("rf-tb-itm", contentClass), null);
-            if (isPropertyRendered(contentStyle)) {
-                writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, contentStyle, null);
-            }
-            encodeEventsAttributes(facesContext, component);
-        }
-        
-        component.encodeAll(facesContext);
-        
-        if (!(component instanceof AbstractToolbarGroup)) {
-            writer.endElement(HtmlConstants.TD_ELEM);
-        }
-    }
-    
+
     /**
      * Inserts separator between toolbar items. Uses facet "itemSeparator" if it
      * is set and default separator implementation if facet is not set.

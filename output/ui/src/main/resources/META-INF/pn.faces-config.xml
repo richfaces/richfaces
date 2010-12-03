@@ -239,6 +239,30 @@
             </property-extension>
         </property>
         <property>
+            <property-name>itemClass</property-name>
+            <property-class>java.lang.String</property-class>
+            <property-extension>
+                <cdk:generate>true</cdk:generate>
+                <cdk:hidden>false</cdk:hidden>
+                <cdk:literal>false</cdk:literal>
+                <cdk:pass-through>false</cdk:pass-through>
+                <cdk:read-only>false</cdk:read-only>
+                <cdk:required>false</cdk:required>
+            </property-extension>
+        </property>
+        <property>
+            <property-name>itemStyle</property-name>
+            <property-class>java.lang.String</property-class>
+            <property-extension>
+                <cdk:generate>true</cdk:generate>
+                <cdk:hidden>false</cdk:hidden>
+                <cdk:literal>false</cdk:literal>
+                <cdk:pass-through>false</cdk:pass-through>
+                <cdk:read-only>false</cdk:read-only>
+                <cdk:required>false</cdk:required>
+            </property-extension>
+        </property>
+        <property>
             <property-name>onitemkeydown</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -421,6 +445,30 @@
             <property-class>javax.faces.component.UIComponent</property-class>
             <property-extension>
                 <cdk:generate>false</cdk:generate>
+                <cdk:hidden>false</cdk:hidden>
+                <cdk:literal>false</cdk:literal>
+                <cdk:pass-through>false</cdk:pass-through>
+                <cdk:read-only>false</cdk:read-only>
+                <cdk:required>false</cdk:required>
+            </property-extension>
+        </property>
+        <property>
+            <property-name>itemClass</property-name>
+            <property-class>java.lang.String</property-class>
+            <property-extension>
+                <cdk:generate>true</cdk:generate>
+                <cdk:hidden>false</cdk:hidden>
+                <cdk:literal>false</cdk:literal>
+                <cdk:pass-through>false</cdk:pass-through>
+                <cdk:read-only>false</cdk:read-only>
+                <cdk:required>false</cdk:required>
+            </property-extension>
+        </property>
+        <property>
+            <property-name>itemStyle</property-name>
+            <property-class>java.lang.String</property-class>
+            <property-extension>
+                <cdk:generate>true</cdk:generate>
                 <cdk:hidden>false</cdk:hidden>
                 <cdk:literal>false</cdk:literal>
                 <cdk:pass-through>false</cdk:pass-through>

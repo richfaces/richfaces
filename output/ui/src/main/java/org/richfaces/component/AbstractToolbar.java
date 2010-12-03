@@ -47,6 +47,12 @@ public abstract class AbstractToolbar extends UIComponentBase {
     public abstract String getWidth();
     
     @Attribute
+    public abstract String getItemClass();
+    
+    @Attribute
+    public abstract String getItemStyle();
+        
+    @Attribute
     public abstract String getItemSeparator();
     
     @Attribute(events=@EventName("itemclick"))

@@ -74,9 +74,9 @@ public class ToolbarGroupRenderer extends ToolbarRendererBase {
 
     private void writeStyleValue(AbstractToolbarGroup toolbarGroup, ResponseWriter writer) throws IOException {
         String style = getStringAttribute(toolbarGroup, HtmlConstants.STYLE_ATTRIBUTE);
-        String contentStyle = getStringAttribute(getParentToolBar(toolbarGroup), "contentStyle");
+        String itemStyle = getStringAttribute(getParentToolBar(toolbarGroup), "itemStyle");
 
-        String value = concatStyles(contentStyle, style);
+        String value = concatStyles(itemStyle, style);
 
         if (isPropertyRendered(value)) {
             writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, value, null);
@@ -86,13 +86,13 @@ public class ToolbarGroupRenderer extends ToolbarRendererBase {
     private void writeClassValue(AbstractToolbarGroup toolbarGroup, ResponseWriter writer) throws IOException {
         String styleClass = getStringAttribute(toolbarGroup, HtmlConstants.STYLE_CLASS_ATTR);
         AbstractToolbar toolbar = getParentToolBar(toolbarGroup);
-        String contentClass = null;
+        String itemClass = null;
         
         if(toolbar != null) {
-            contentClass = getStringAttribute(toolbar, "contentClass");
+            itemClass = getStringAttribute(toolbar, "itemClass");
         }
         
-        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, concatClasses("rf-tb-itm", contentClass, styleClass), null);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, concatClasses("rf-tb-itm", itemClass, styleClass), null);
     }
 
     private String getStringAttribute(UIComponent toolbarGroup, String attribute) {

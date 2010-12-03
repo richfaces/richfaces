@@ -29,6 +29,14 @@
             <name>id</name>
             <type>java.lang.String</type>
         </attribute>
+	    <attribute>
+            <name>itemClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>itemStyle</name>
+            <type>java.lang.String</type>
+        </attribute>
         <attribute>
             <name>itemSeparator</name>
             <type>java.lang.String</type>
@@ -102,6 +110,14 @@
             <display-name>Component Identifier</display-name>
             <icon/>
             <name>id</name>
+            <type>java.lang.String</type>
+        </attribute>
+   	    <attribute>
+            <name>itemClass</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>itemStyle</name>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
