@@ -196,6 +196,19 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     
     public abstract Object getRender();
     
+    public abstract boolean isLimitRender();
+
+    @Attribute(events = @EventName("begin"))
+    public abstract String getOnbegin();
+    
+    @Attribute(events = @EventName("beforedomupdate"))
+    public abstract String getOnbeforedomupdate();
+    
+    @Attribute(events = @EventName("complete"))
+    public abstract String getOncomplete();
+
+    public abstract String getStatus();
+    
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
