@@ -7,7 +7,7 @@
 	xmlns:rich="http://richfaces.org/rich">
 
     <h:form>    
-        <rich:tree style="width:300px" toggleType="ajax" var="item">
+        <rich:tree toggleType="ajax" var="item">
             <rich:treeModelRecursiveAdaptor roots="#{fileSystemBean.sourceRoots}" nodes="#{item.directories}" >
             	<rich:treeNode>
             		#{item.shortPath}
