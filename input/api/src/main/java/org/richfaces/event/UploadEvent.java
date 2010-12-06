@@ -20,8 +20,6 @@
  */
 package org.richfaces.event;
 
-import java.util.List;
-
 import javax.faces.component.UIComponent;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
@@ -31,11 +29,11 @@ import org.richfaces.model.UploadItem;
 public class UploadEvent extends FacesEvent {
 
     private static final long serialVersionUID = -7645197191376210068L;
-    private List<UploadItem> uploadItems = null;
+    private UploadItem uploadItem = null;
 
-    public UploadEvent(UIComponent component, List<UploadItem> uploadItems) {
+    public UploadEvent(UIComponent component, UploadItem uploadItem) {
         super(component);
-        this.uploadItems = uploadItems;
+        this.uploadItem = uploadItem;
     }
 
     public boolean isAppropriateListener(FacesListener listener) {
@@ -52,29 +50,6 @@ public class UploadEvent extends FacesEvent {
      * @return the uploadItem
      */
     public UploadItem getUploadItem() {
-        if (uploadItems != null && uploadItems.size() > 0) {
-            return uploadItems.get(0);
-        }
-        return null;
-    }
-
-    /**
-     * Return list of UploadItems
-     * 
-     * @return the uploadItem
-     * @since 3.2.2
-     */
-    public List<UploadItem> getUploadItems() {
-        return uploadItems;
-    }
-
-    /**
-     * Return true if multiple files were uploaded with form
-     * 
-     * @return boolean
-     * @since 3.2.2
-     */
-    public boolean isMultiUpload() {
-        return uploadItems != null && uploadItems.size() > 1;
+        return uploadItem;
     }
 }

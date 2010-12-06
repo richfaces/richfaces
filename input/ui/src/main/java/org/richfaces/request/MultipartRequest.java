@@ -536,31 +536,6 @@ public class MultipartRequest extends HttpServletRequestWrapper {
         return (p != null && p instanceof FileParam) ? ((FileParam) p).getData() : null;
     }
 
-    public InputStream getFileInputStream(String name) {
-        Param p = getParam(name);
-        return (p != null && p instanceof FileParam) ? ((FileParam) p).getInputStream() : null;
-    }
-
-    public String getFileContentType(String name) {
-        Param p = getParam(name);
-        return (p != null && p instanceof FileParam) ? ((FileParam) p).getContentType() : null;
-    }
-
-    public Object getFile(String name) {
-        Param p = getParam(name);
-        return (p != null && p instanceof FileParam) ? ((FileParam) p).getFile() : null;
-    }
-
-    public String getFileName(String name) {
-        Param p = getParam(name);
-        return (p != null && p instanceof FileParam) ? ((FileParam) p).getFilename() : null;
-    }
-
-    public int getFileSize(String name) {
-        Param p = getParam(name);
-        return (p != null && p instanceof FileParam) ? ((FileParam) p).getFileSize() : -1;
-    }
-
     @Override
     public String getParameter(String name) {
         Param p = getParam(name);
@@ -623,12 +598,15 @@ public class MultipartRequest extends HttpServletRequestWrapper {
         return params;
     }
 
-    public List<UploadItem> getUploadItems() {
-        List<UploadItem> uploadItems = new ArrayList<UploadItem>();
-        for (String k : keys) {
-            uploadItems.add(new UploadItem(getFileName(k), getFileSize(k), getFileContentType(k), getFile(k)));
+    public UploadItem getUploadItem(String name) {
+        Param param = getParam(name);
+        if (param instanceof FileParam) {
+            FileParam fileParam = (FileParam) param;
+            return new UploadItem(fileParam.getFilename(), fileParam.getFileSize(), fileParam.getContentType(),
+                fileParam.getFile());
+        } else {
+            return null;
         }
-        return uploadItems;
     }
 
     public boolean isFormUpload() {

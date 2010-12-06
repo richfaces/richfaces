@@ -26,6 +26,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.event.UploadEvent;
+import org.richfaces.model.UploadItem;
 import org.richfaces.request.MultipartRequest;
 
 /**
@@ -38,9 +39,11 @@ public class FileUploadRendererBase extends RendererBase {
     protected void doDecode(FacesContext context, UIComponent component) {
         ExternalContext externalContext = context.getExternalContext();
         Object request = externalContext.getRequest();
-        if (request instanceof MultipartRequest
-            && externalContext.getRequestParameterMap().containsKey(component.getClientId(context))) {
-            component.queueEvent(new UploadEvent(component, ((MultipartRequest) request).getUploadItems()));
+        if (request instanceof MultipartRequest) {
+            UploadItem uploadItem = ((MultipartRequest) request).getUploadItem(component.getClientId(context));
+            if (uploadItem != null) {
+                component.queueEvent(new UploadEvent(component, uploadItem));
+            }
         }
     }
 }
