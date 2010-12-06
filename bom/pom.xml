@@ -97,11 +97,6 @@
             </dependency>
             <dependency>
                 <groupId>org.richfaces.ui.misc</groupId>
-                <artifactId>richfaces-ui-misc-api</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.richfaces.ui.misc</groupId>
                 <artifactId>richfaces-ui-misc-ui</artifactId>
                 <version>${project.version}</version>
             </dependency>
