@@ -46,7 +46,7 @@
  			name: "ProgressBar",
  			
  			__isInitialState: function() {
- 				return parseFloat(this.value) <= parseFloat(this.getMinValue());
+ 				return parseFloat(this.value) < parseFloat(this.getMinValue());
  			},
  			
  			__isProgressState: function() {
@@ -54,7 +54,7 @@
  			},
  			
  			__isFinishState: function() {
- 				return parseFloat(this.value) > parseFloat(this.getMaxValue());
+ 				return parseFloat(this.value) >= parseFloat(this.getMaxValue());
  			},
  			
  			__beforeUpdate: function(event) {
@@ -120,7 +120,7 @@
 			__setValue: function(val, initialStateSetup) {
 				this.value = parseFloat(this.__getPropertyOrObject(val, "value"));
 				
-				if (this.__isFinishState()) {
+				if (this.__isFinishState() || this.__isInitialState()) {
 					this.disable();
 				}
 			},

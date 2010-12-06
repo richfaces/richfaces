@@ -110,9 +110,9 @@ public class ProgressBarBaseRenderer extends RendererBase implements MetaCompone
         
         ProgressBarState result;
         
-        if (value.doubleValue() <= minValue.doubleValue()) {
+        if (value.doubleValue() < minValue.doubleValue()) {
             result = ProgressBarState.initialState;
-        } else if (value.doubleValue() > maxValue.doubleValue()) {
+        } else if (value.doubleValue() >= maxValue.doubleValue()) {
             result = ProgressBarState.finishState;
         } else {
             result = ProgressBarState.progressState;
