@@ -60,10 +60,6 @@
             <groupId>org.richfaces.ui.input</groupId>
             <artifactId>richfaces-ui-input-api</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.richfaces.ui.misc</groupId>
-            <artifactId>richfaces-ui-misc-api</artifactId>
-        </dependency>
 
         <!-- for javadoc generation -->
         <dependency>
