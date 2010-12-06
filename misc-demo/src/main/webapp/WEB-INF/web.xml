@@ -4,15 +4,6 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 	<display-name>misc-demo</display-name>
 
-	<context-param>
-		<param-name>org.richfaces.fileUpload.maxRequestSize</param-name>
-		<param-value>268435456</param-value>
-	</context-param>
-	<context-param>
-		<param-name>org.richfaces.skin</param-name>
-		<param-value>#{skinBean.skin}</param-value>
-	</context-param>
-
 	<filter>
 		<filter-name>Test Identity Filter</filter-name>
 		<filter-class>org.richfaces.demo.TestIdentityFilter</filter-class>
