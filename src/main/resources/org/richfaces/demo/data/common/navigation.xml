@@ -435,6 +435,20 @@
 					</sample>
 				</samples>
 			</demo>
+			<demo new="true">
+				<id>dropDownMenu</id>
+				<name>rich:dropDownMenu</name>
+				<samples>
+					<sample>
+						<id>topMenu</id>
+						<name>Top Menu</name>
+					</sample>
+					<sample>
+						<id>sideMenu</id>
+						<name>Side Menu</name>
+					</sample>
+				</samples>
+			</demo>
 		</demos>
 	</group>
 	<group>
