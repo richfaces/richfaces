@@ -12,7 +12,8 @@
     	this.items = mergedOptions.items;
     	this.selValueInput = $(document.getElementById(id+"selValue"));
     	this.list = $(document.getElementById(id+"List"));
-    	this.list.bind("click", $.proxy(this.__onListClick, this));
+    	this.list.bind("mousedown", $.proxy(this.__onListMouseDown, this));
+    	this.list.bind("mouseup", $.proxy(this.__onListMouseUp, this));
     	this.openOnEdit = mergedOptions.openOnEdit;
     	this.saveOnSelect = mergedOptions.saveOnSelect;
     	this.savedIndex = -1;
@@ -98,7 +99,7 @@
            		
            		if(this.saveOnSelect) {
        				this.save();
-				} 
+				}
 			},
 			
 			getItemValue: function(item) {
@@ -169,20 +170,30 @@
 			},
 			
 			__blurHandler: function(e) {
-				if(this.isEditState()) {
-					this.timeoutId = window.setTimeout($.proxy(function(){
-						this.onblur();
-					}, this), 200);
-				}	
+				if(!this.isMouseDown) {
+					if(this.isEditState()) {
+						this.timeoutId = window.setTimeout($.proxy(function(){
+							this.onblur();
+						}, this), 200);
+					}	
+				} else {
+					this.__setInputFocus();
+	       			this.isMouseDown = false;
+				}
        		}, 
        		
        		__clickHandler: function(e) {
        			this.showPopup();
        		},
 
-       		__onListClick: function(e) {
-       			window.clearTimeout(this.timeoutId);
-       		}       		
+       		__onListMouseDown: function(e) {
+       			this.isMouseDown = true;
+       		},
+       		
+       		__onListMouseUp: function(e) {
+       			this.isMouseDown = false;
+       			this.__setInputFocus();
+       		}
 		}
 		
 	})());

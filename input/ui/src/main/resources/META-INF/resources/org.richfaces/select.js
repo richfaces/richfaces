@@ -115,16 +115,17 @@
 
             if(mergedOptions.showControl) {
         		this.btn = $(document.getElementById(id+"Button"));
-        	   	this.btn.bind("click", $.proxy(this.__clickHandler, this));
-        	   	this.btn.mousedown($.proxy(this, function(){
-        	   		this.focusin = false;
-        	   	}));
+        	   	this.btn.bind("mousedown", $.proxy(this.__onBtnMouseDown, this));
+        	   	this.btn.bind("mouseup", $.proxy(this.__onMouseUp, this));
         	}
             
         	this.selectFirst = mergedOptions.selectFirst;
         	this.popupList = new rf.ui.PopupList((id+"List"), this, mergedOptions);
         	this.listElem =  $(document.getElementById(id+"List"));
-        	this.listElem.bind("click", $.proxy(this.__onListClick, this));
+        	
+        	this.listElem.bind("mousedown", $.proxy(this.__onListMouseDown, this));
+        	this.listElem.bind("mouseup", $.proxy(this.__onMouseUp, this));
+        	
     		this.items = this.popupList.__getItems();
         	this.enableManualInput = mergedOptions.enableManualInput; 
 
@@ -162,16 +163,15 @@
     		return{
     			name : "select", 
     			
-    			__clickHandler: function(e) {
+    			__onBtnMouseDown: function(e) {
     				if(!this.popupList.isVisible()) {
 						this.__updateItems();
     					this.showPopup();
     				} else {
     					this.hidePopup();
     				}
-    				this.__setInputFocus();
-           			window.clearTimeout(this.timeoutId);
-    			}, 
+           			this.isMouseDown = true;
+    			},
     			
     			__focusHandler: function(e) {
     				if (!this.focused) {
@@ -259,13 +259,23 @@
     			},
     			
     			__blurHandler: function(e) {
-    				this.timeoutId = window.setTimeout($.proxy(function(){
-        					this.onblur(e); 
-    				}, this), 200);
+    				if(!this.isMouseDown) {
+	    				this.timeoutId = window.setTimeout($.proxy(function(){
+	        					this.onblur(e); 
+	    				}, this), 200);
+    				} else {
+    					this.__setInputFocus();
+    					this.isMouseDown = false;
+    				}
     			},
            		
-           		__onListClick: function(e) {
-           			window.clearTimeout(this.timeoutId);
+           		__onListMouseDown: function(e) {
+           			this.isMouseDown = true;
+           		},
+           		
+           		__onMouseUp: function(e) {
+           			this.isMouseDown = false;
+           			this.__setInputFocus();	
            		},
            		
            		__updateItems: function() {
@@ -285,6 +295,55 @@
 	           			this.popupList.__setItems(items);
 						$(document.getElementById(this.id+"Items")).empty().append(items);
 					}
+    			},
+    			
+    			__getClientItemFromCache: function(inputLabel) {
+    				var value; 
+    				var label;
+    				if(this.enableManualInput) {
+						var items = this.cache.getItems(inputLabel);
+						if(items && items.length > 0) {
+							var first = $(items[0]);
+							$.each(this.clientItems, function() {
+								if(this.id == first.attr("id")) {
+									label = this.label;
+									value = this.value;
+									return false;
+								}
+							});
+						} else {
+    						this.field.removeClass("rf-sel-fld-err");
+
+    						var prevValue =	this.selValueInput.val();
+							if(prevValue && prevValue != "") {
+								$.each(this.clientItems, function() {
+									if(this.value == prevValue) {
+										label = this.label;
+										value = this.value
+										return false;
+									}
+								});		
+							} 
+						}
+					} 
+    				
+    				if(label && value) {
+    					return {'label': label, 'value': value}; 
+    				}
+    			},
+    			
+    			__getClientItem: function(inputLabel) {
+    				var value;
+    				var label = inputLabel;
+    				$.each(this.clientItems, function(){
+    					if(label == this.label) {
+    						value = this.value;
+    					}
+    				}); 
+  				
+    				if(label && value) {
+    					return {'label': label, 'value': value}; 
+    				}
     			},
     			
     			showPopup: function() {
@@ -307,37 +366,26 @@
     				this.setValue(label);
                		this.hidePopup();
                		this.__setInputFocus();
+
+               		this.invokeEvent.call(this,"selectitem", document.getElementById(this.id + 'Input'), e);
     			}, 
     			
     			onblur: function(e) {
     				this.hidePopup();
 					var value = "";
 					var label = this.defaultLabel;
+					var clientItem; 
 					var inputLabel = this.getValue();
 					if(inputLabel && inputLabel != "") {
-						var items = this.cache.getItems(inputLabel);					
-						if(items.length > 0) {
-							var first = $(items[0]);
-							$.each(this.clientItems, function() {
-								if(this.id == first.attr("id")) {
-									label = this.label;
-									value = this.value;
-									return false;
-								}
-							});
+						if(this.enableManualInput) {
+							clientItem = this.__getClientItemFromCache(inputLabel);
 						} else {
-    						this.field.removeClass("rf-sel-fld-err");
-							
-    						var prevValue =	this.selValueInput.val();
-							if(prevValue && prevValue != "") {
-								$.each(this.clientItems, function() {
-									if(this.value == prevValue) {
-										label = this.label;
-										value = this.value
-										return false;
-									}
-								});		
-							} 
+							clientItem = this.__getClientItem(inputLabel);
+						}
+						
+						if(clientItem) {
+							label = clientItem.label;
+							value = clientItem.value;
 						}
 					} 
 					

@@ -118,8 +118,8 @@ public abstract class AbstractSelectComponent extends UISelectOne {
     @Attribute(events=@EventName("listkeyup"))
     public abstract String getOnlistkeyup();
     
-    @Attribute(events=@EventName("select"))
-    public abstract String getOnselect();
+    @Attribute(events=@EventName("selectitem"))
+    public abstract String getOnselectitem();
     
     @Attribute(events=@EventName("change"))
     public abstract String getOnchange();

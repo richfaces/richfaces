@@ -23,7 +23,7 @@
             <div style="position : relative; overflow : hidden; text-align : left; padding-right : 18px;">
             	<input id="#{clientId}selValue" name="#{clientId}" type="hidden" value="#{getInputValue(facesContext, component)}"/>
             	<div id="#{clientId}Field"  class="rf-sel-fld">
-	            	<input cdk:passThroughWithExclusions="class autocomplete id value disabled name type readonly" 
+	            	<input cdk:passThroughWithExclusions="class autocomplete id value disabled name type readonly onchange onblur" 
 						id="#{clientId}Input" 
 						value="#{getSelectLabel(facesContext, component)}"  
 						disabled="#{disabled}" 
@@ -70,7 +70,7 @@
                     <cdk:scriptOption name="itemCss" value="#{concatClasses('rf-sel-opt', component.attributes['itemClass'])}" />
                     <cdk:scriptOption name="selectItemCss" value="#{concatClasses('rf-sel-sel', component.attributes['selectItemClass'])}" />
                     <cdk:scriptOption name="listCss" value="#{concatClasses('rf-sel-lst-cord', component.attributes['listClass'])}" />
-                    <cdk:scriptOption attributes="onchange onselect" wrapper="eventHandler"/>
+                    <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onblur onselectitem" wrapper="eventHandler"/>
 					<cdk:scriptOption attributes="showControl defaultLabel enableManualInput selectFirst" />
                 </cdk:scriptObject>
             	new RichFaces.ui.Select("#{clientId}", #{toScriptArgs(options)});
