@@ -25,8 +25,9 @@
 	border:1px solid; /*#bfbfc0*/  /*panelBorderColor*/
 	border-color: '#{richSkin.panelBorderColor}';
 	background-color: '#{richSkin.additionalBackgroundColor}'; /*#e7f2fb;/  /*additionalBackgroundColor*/
-	min-width:250px; 
+	min-width:250px; 	
 	position:absolute;
+	z-index:10;
 }
 .rf-ddm-sublst {
 	position:absolute;
