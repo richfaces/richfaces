@@ -1,5 +1,5 @@
-.rf-ddm-lbl, .rf-ddm-lbl-dis {
-	font-family:Arial, Verdana, sans-serif;
+.rf-ddm-lbl, .rf-ddm-lbl-dis {	
+	font-family: '#{richSkin.headerFamilyFont}';	
 	font-size:11px;
 	position:relative;
 }

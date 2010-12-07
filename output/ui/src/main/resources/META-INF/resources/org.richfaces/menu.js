@@ -81,8 +81,8 @@
             },
 
             processItem: function(item) {
-                if (item && item.attr('id') && !this.__isDisabled(item) && this.__isGroup(item)) {
-                	this.invokeEvent("itemclick", rf.getDomElement(this.id), null);
+                if (item && item.attr('id') && !this.__isDisabled(item) && !this.__isGroup(item)) {
+                	this.invokeEvent("itemclick", rf.getDomElement(this.id), null);                	
                     this.hidePopup();                                        
                 }
             },
