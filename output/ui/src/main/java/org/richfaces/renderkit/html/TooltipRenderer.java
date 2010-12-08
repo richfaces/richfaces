@@ -58,7 +58,7 @@ import org.richfaces.renderkit.MetaComponentRenderer;
     @ResourceDependency(name = "richfaces-event.js"),
     @ResourceDependency(name = "richfaces-base-component.js"),
     @ResourceDependency(library = "org.richfaces", name = "popup.js"),
-    @ResourceDependency(library = "org.richfaces", name = "Tooltip_.js"),
+    @ResourceDependency(library = "org.richfaces", name = "tooltip.js"),
     @ResourceDependency(library = "org.richfaces", name = "tooltip.ecss") })
 public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRenderer {
 

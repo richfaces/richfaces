@@ -53,9 +53,9 @@ import static org.richfaces.renderkit.html.TogglePanelRenderer.getValueRequestPa
     @ResourceDependency(name = "richfaces.js"),
     @ResourceDependency(name = "richfaces-event.js"),
     @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(library = "org.richfaces", name = "PanelMenu_.js"),
-    @ResourceDependency(library = "org.richfaces", name = "PanelMenuItem_.js"),
-    @ResourceDependency(library = "org.richfaces", name = "PanelMenuGroup_.js"),
+    @ResourceDependency(library = "org.richfaces", name = "panelMenu.js"),
+    @ResourceDependency(library = "org.richfaces", name = "panelMenuItem.js"),
+    @ResourceDependency(library = "org.richfaces", name = "panelMenuGroup.js"),
     @ResourceDependency(library = "org.richfaces", name = "panelMenu.ecss") })
 public class PanelMenuRenderer extends DivPanelRenderer {
 

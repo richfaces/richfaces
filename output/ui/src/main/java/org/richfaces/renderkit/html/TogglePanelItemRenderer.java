@@ -46,7 +46,7 @@ import java.util.Map;
     @ResourceDependency(name = "richfaces.js"),
     @ResourceDependency(name = "richfaces-event.js"),
     @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(library = "org.richfaces", name = "TogglePanelItem_.js") })
+    @ResourceDependency(library = "org.richfaces", name = "togglePanelItem.js") })
 public class TogglePanelItemRenderer extends DivPanelRenderer {
     
     private static final String LEAVE = "leave";

@@ -58,8 +58,8 @@ import org.richfaces.renderkit.RenderKitUtils;
     @ResourceDependency(name = "richfaces-event.js"),
     @ResourceDependency(name = "richfaces-base-component.js"),
     @ResourceDependency(library = "org.richfaces", name = "tabPanel.ecss"),
-    @ResourceDependency(library = "org.richfaces", name = "TogglePanel_.js"),
-    @ResourceDependency(library = "org.richfaces", name = "TabPanel_.js")
+    @ResourceDependency(library = "org.richfaces", name = "togglePanel.js"),
+    @ResourceDependency(library = "org.richfaces", name = "tabPanel.js")
 })
 public class TabPanelRenderer extends TogglePanelRenderer {
 

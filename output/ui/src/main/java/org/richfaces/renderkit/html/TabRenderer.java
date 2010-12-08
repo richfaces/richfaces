@@ -45,8 +45,8 @@ import org.richfaces.renderkit.HtmlConstants;
     @ResourceDependency(name = "richfaces.js"),
     @ResourceDependency(name = "richfaces-event.js"),
     @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(library = "org.richfaces", name = "TogglePanelItem_.js"),
-    @ResourceDependency(library = "org.richfaces", name = "Tab_.js")
+    @ResourceDependency(library = "org.richfaces", name = "togglePanelItem.js"),
+    @ResourceDependency(library = "org.richfaces", name = "tab.js")
 })
 public class TabRenderer extends TogglePanelItemRenderer {
 

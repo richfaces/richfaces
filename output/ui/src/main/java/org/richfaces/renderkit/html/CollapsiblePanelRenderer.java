@@ -49,10 +49,10 @@ import static org.richfaces.component.AbstractCollapsiblePanel.States.*;
     @ResourceDependency(name = "richfaces.js"),
     @ResourceDependency(name = "richfaces-event.js"),
     @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(library = "org.richfaces", name = "TogglePanel_.js"),
-    @ResourceDependency(library = "org.richfaces", name = "TogglePanelItem_.js"),
-    @ResourceDependency(library = "org.richfaces", name = "CollapsiblePanel_.js"),
-    @ResourceDependency(library = "org.richfaces", name = "CollapsiblePanelItem_.js"),
+    @ResourceDependency(library = "org.richfaces", name = "togglePanel.js"),
+    @ResourceDependency(library = "org.richfaces", name = "togglePanelItem.js"),
+    @ResourceDependency(library = "org.richfaces", name = "collapsiblePanel.js"),
+    @ResourceDependency(library = "org.richfaces", name = "collapsiblePanelItem.js"),
     @ResourceDependency(library = "org.richfaces", name = "collapsiblePanel.ecss") })
 public class CollapsiblePanelRenderer extends TogglePanelRenderer {
 
