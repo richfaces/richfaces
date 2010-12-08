@@ -1,0 +1,12 @@
+      <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:menuItem" 
+       onclick="RichFaces.ajax(&quot;form:menuItem&quot;,event,{&quot;incId&quot;:&quot;1&quot;} );return false;" 
+       onmouseout="this.className=&apos;rf-ddm-itm rf-ddm-itm-unsel &apos;" 
+       onmouseover="this.className=&apos;rf-ddm-itm rf-ddm-itm-sel &apos;">
+        <span class="rf-ddm-itm-ic ">
+          <div class="rf-ddm-emptyIcon">
+          </div>
+        </span>
+        <span class="rf-ddm-itm-lbl ">
+          Test
+        </span>
+      </div>

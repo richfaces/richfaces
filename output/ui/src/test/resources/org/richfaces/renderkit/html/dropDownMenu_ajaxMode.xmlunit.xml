@@ -1,0 +1,60 @@
+      <div class="rf-ddm-lbl rf-ddm-lbl-unsel  " id="form:ddmenu">
+        <div class="rf-ddm-lbl-dec">
+          <img src="/images/ddmenu/copy.gif" class="pic"/>
+          File
+        </div>
+        <div class="rf-ddm-pos">
+          <div class="rf-ddm-lst" id="form:ddmenu_list" style="display:none;min-width:250px;">
+            <div class="rf-ddm-lst-bg">
+              <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:open" onclick="RichFaces.ajax(&quot;form:open&quot;,event,{&quot;incId&quot;:&quot;1&quot;} );return false;" onmouseout="this.className=&apos;rf-ddm-itm rf-ddm-itm-unsel &apos;" onmouseover="this.className=&apos;rf-ddm-itm rf-ddm-itm-sel &apos;">
+                <span class="rf-ddm-itm-ic ">
+                  <div class="rf-ddm-emptyIcon">
+                  </div>
+                </span>
+                <span class="rf-ddm-itm-lbl ">
+                  Open
+                </span>
+              </div>
+              <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:group" onmouseout="this.className=&apos;rf-ddm-itm rf-ddm-itm-unsel&apos;" onmouseover="this.className=&apos;rf-ddm-itm rf-ddm-itm-sel &apos;">
+                <span class="rf-ddm-itm-ic ">
+                  <div class="rf-ddm-emptyIcon">
+                  </div>
+                </span>
+                <span class="rf-ddm-itm-lbl ">
+                  Save As...
+                </span>
+                <div class="rf-ddm-nd">
+                  <div class="rf-ddm-lst rf-ddm-sublst" id="form:group_list" style="display:none;min-width:250px;">
+                    <div class="rf-ddm-lst-bg">
+                      <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:save" onclick="RichFaces.ajax(&quot;form:save&quot;,event,{&quot;incId&quot;:&quot;1&quot;} );return false;" onmouseout="this.className=&apos;rf-ddm-itm rf-ddm-itm-unsel &apos;" onmouseover="this.className=&apos;rf-ddm-itm rf-ddm-itm-sel &apos;">
+                        <span class="rf-ddm-itm-ic ">
+                          <img src="/images/ddmenu/save.gif"/>
+                        </span>
+                        <span class="rf-ddm-itm-lbl ">
+                          Save
+                        </span>
+                      </div>
+                      <div class="rf-ddm-sep">
+                      </div>
+                      <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:saveAll" onclick="RichFaces.ajax(&quot;form:saveAll&quot;,event,{&quot;incId&quot;:&quot;1&quot;} );return false;" onmouseout="this.className=&apos;rf-ddm-itm rf-ddm-itm-unsel &apos;" onmouseover="this.className=&apos;rf-ddm-itm rf-ddm-itm-sel &apos;">
+                        <span class="rf-ddm-itm-ic ">
+                          <div class="rf-ddm-emptyIcon">
+                          </div>
+                        </span>
+                        <span class="rf-ddm-itm-lbl ">
+                          SaveAll
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript">
+//<![CDATA[
+new RichFaces.ui.Menu("form:ddmenu",{"mode":"ajax"} ).initiateGroups([{"id":"form:group","horizontalOffset":"0","verticalOffset":"0","direction":"auto"} ] );
+//]]>
+        </script>
+      </div>
