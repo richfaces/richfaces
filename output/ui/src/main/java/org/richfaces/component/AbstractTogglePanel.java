@@ -111,7 +111,6 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
         return (Boolean) getStateHelper().eval(PropertyKeys.valid, true);
     }
 
-
     public void setValid(boolean valid) {
         getStateHelper().put(PropertyKeys.valid, valid);
     }
@@ -129,11 +128,9 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
         getStateHelper().put(PropertyKeys.required, required);
     }
 
-
     public boolean isImmediate() {
         return (Boolean) getStateHelper().eval(PropertyKeys.immediate, false);
     }
-
 
     public void setImmediate(boolean immediate) {
         getStateHelper().put(PropertyKeys.immediate, immediate);
@@ -170,7 +167,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
         String activeItem = getActiveItemValue();
         while (kids.hasNext()) {
             UIComponent kid = kids.next();
-            if (isActiveItem(kid, activeItem)) {
+            if (isActiveItem(kid, activeItem) || this.getSwitchType() == SwitchType.client) {
                 kid.processDecodes(context);
             }
         }
@@ -184,8 +181,6 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
         } finally {
             popComponentFromEL(context);
         }
-
-        executeValidate(context);
     }
 
     /**
@@ -222,7 +217,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
         String activeItem = getActiveItemValue();
         while (kids.hasNext()) {
             UIComponent kid = kids.next();
-            if (isActiveItem(kid, activeItem)) {
+            if (isActiveItem(kid, activeItem) || this.getSwitchType() == SwitchType.client) {
                 kid.processValidators(context);
             }
         }
@@ -262,13 +257,13 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
         String activeItem = getActiveItemValue();
         while (kids.hasNext()) {
             UIComponent kid = kids.next();
-            if (isActiveItem(kid, activeItem)) {
+            if (isActiveItem(kid, activeItem) || this.getSwitchType() == SwitchType.client) {
                 kid.processUpdates(context);
             }
         }
-        
+
         popComponentFromEL(context);
-        
+
         try {
             updateModel(context);
         } catch (RuntimeException e) {
@@ -276,6 +271,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
             throw e;
         }
 
+        executeValidate(context);
         if (!isValid()) {
             context.renderResponse();
         }
@@ -310,7 +306,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
         if (ve == null) {
             return;
         }
-        
+
         Throwable caught = null;
         FacesMessage message = null;
         try {
@@ -327,7 +323,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
             }
 
             if (messageStr == null) {
-                message = ServiceTracker.getService(MessageFactory.class).createMessage(context, 
+                message = ServiceTracker.getService(MessageFactory.class).createMessage(context,
                     FacesMessage.SEVERITY_ERROR,
                     FacesMessages.UIINPUT_UPDATE, MessageUtil.getLabel(context, this));
             } else {
@@ -347,7 +343,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
             @SuppressWarnings({"ThrowableInstanceNeverThrown"})
             UpdateModelException toQueue = new UpdateModelException(message, caught);
             ExceptionQueuedEventContext eventContext = new ExceptionQueuedEventContext(context,
-                    toQueue, this, PhaseId.UPDATE_MODEL_VALUES);
+                toQueue, this, PhaseId.UPDATE_MODEL_VALUES);
             context.getApplication().publishEvent(context, ExceptionQueuedEvent.class, eventContext);
         }
     }
@@ -404,7 +400,6 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
         }
     }
 
-
     @Override
     public void broadcast(FacesEvent event) throws AbortProcessingException {
         super.broadcast(event);
@@ -416,6 +411,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
     }
 
     // -------------------------------------------------- Panel Items Managing
+
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
@@ -442,7 +438,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
         if (kid == null || value == null) {
             return false;
         }
-        
+
         return getChildName(kid).equals(value);
     }
 
@@ -457,7 +453,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
 
         return ((AbstractTogglePanelItem) item).getName();
     }
-    
+
     public AbstractTogglePanelItem getItemByIndex(final int index) {
         List<AbstractTogglePanelItem> children = getRenderedItems();
         if (isCycledSwitching()) {
@@ -523,14 +519,14 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
         if (name == null) {
             throw new IllegalArgumentException("Name is required parameter.");
         }
-        
+
         List<AbstractTogglePanelItem> items = getRenderedItems();
         for (int ind = 0; ind < items.size(); ind++) {
             if (name.equals(items.get(ind).getName())) {
                 return ind;
             }
         }
-        
+
         return Integer.MIN_VALUE;
     }
 
@@ -581,7 +577,6 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
     public abstract Object getRender();
 
     public abstract MethodExpression getItemChangeListener();
-
 
 
     // ------------------------------------------------ Event Processing Methods
