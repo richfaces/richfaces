@@ -30,6 +30,7 @@ import org.richfaces.event.ItemChangeSource;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
@@ -39,7 +40,7 @@ import javax.faces.event.PhaseId;
  * @author akolonitsky
  * @since 2010-10-25
  */
-public abstract class AbstractPanelMenu extends AbstractActionComponent implements ItemChangeSource {
+public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSource {
 
     public static final String COMPONENT_TYPE = "org.richfaces.PanelMenu";
 
@@ -77,7 +78,7 @@ public abstract class AbstractPanelMenu extends AbstractActionComponent implemen
         String previous = (String) getValue();
         setActiveItem(activeItem);
         setSubmittedActiveItem(null);
-        if (previous != null && !previous.equalsIgnoreCase(activeItem)) {
+        if (previous == null || !previous.equalsIgnoreCase(activeItem)) {
             queueEvent(new ItemChangeEvent(this, previous, activeItem));
         }
     }
