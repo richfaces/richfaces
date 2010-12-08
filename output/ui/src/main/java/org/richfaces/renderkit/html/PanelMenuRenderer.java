@@ -40,7 +40,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.richfaces.component.util.HtmlUtil.concatClasses;
 import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
 import static org.richfaces.renderkit.html.TogglePanelRenderer.getValueRequestParamName;
 
@@ -54,9 +53,9 @@ import static org.richfaces.renderkit.html.TogglePanelRenderer.getValueRequestPa
     @ResourceDependency(name = "richfaces.js"),
     @ResourceDependency(name = "richfaces-event.js"),
     @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(library = "org.richfaces", name = "PanelMenu.js"),
-    @ResourceDependency(library = "org.richfaces", name = "PanelMenuItem.js"),
-    @ResourceDependency(library = "org.richfaces", name = "PanelMenuGroup.js"),
+    @ResourceDependency(library = "org.richfaces", name = "PanelMenu_.js"),
+    @ResourceDependency(library = "org.richfaces", name = "PanelMenuItem_.js"),
+    @ResourceDependency(library = "org.richfaces", name = "PanelMenuGroup_.js"),
     @ResourceDependency(library = "org.richfaces", name = "panelMenu.ecss") })
 public class PanelMenuRenderer extends DivPanelRenderer {
 

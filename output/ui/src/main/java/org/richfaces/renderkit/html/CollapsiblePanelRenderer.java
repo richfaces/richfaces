@@ -38,8 +38,6 @@ import java.util.List;
 import java.util.Map;
 
 import static org.richfaces.component.AbstractCollapsiblePanel.States.*;
-import static org.richfaces.component.util.HtmlUtil.concatClasses;
-import static org.richfaces.component.util.HtmlUtil.concatStyles;
 
 /**
  * @author akolonitsky
@@ -51,10 +49,10 @@ import static org.richfaces.component.util.HtmlUtil.concatStyles;
     @ResourceDependency(name = "richfaces.js"),
     @ResourceDependency(name = "richfaces-event.js"),
     @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(library = "org.richfaces", name = "TogglePanel.js"),
-    @ResourceDependency(library = "org.richfaces", name = "TogglePanelItem.js"),
-    @ResourceDependency(library = "org.richfaces", name = "CollapsiblePanel.js"),
-    @ResourceDependency(library = "org.richfaces", name = "CollapsiblePanelItem.js"),
+    @ResourceDependency(library = "org.richfaces", name = "TogglePanel_.js"),
+    @ResourceDependency(library = "org.richfaces", name = "TogglePanelItem_.js"),
+    @ResourceDependency(library = "org.richfaces", name = "CollapsiblePanel_.js"),
+    @ResourceDependency(library = "org.richfaces", name = "CollapsiblePanelItem_.js"),
     @ResourceDependency(library = "org.richfaces", name = "collapsiblePanel.ecss") })
 public class CollapsiblePanelRenderer extends TogglePanelRenderer {
 

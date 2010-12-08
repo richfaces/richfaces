@@ -26,8 +26,6 @@ import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates
 import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.disabled;
 import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.inactive;
 import static org.richfaces.component.html.HtmlAccordion.PropertyKeys.height;
-import static org.richfaces.component.util.HtmlUtil.concatClasses;
-import static org.richfaces.component.util.HtmlUtil.concatStyles;
 import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 
 import java.io.IOException;
@@ -60,8 +58,8 @@ import org.richfaces.renderkit.RenderKitUtils;
     @ResourceDependency(name = "richfaces-event.js"),
     @ResourceDependency(name = "richfaces-base-component.js"),
     @ResourceDependency(library = "org.richfaces", name = "tabPanel.ecss"),
-    @ResourceDependency(library = "org.richfaces", name = "TogglePanel.js"),
-    @ResourceDependency(library = "org.richfaces", name = "TabPanel.js") 
+    @ResourceDependency(library = "org.richfaces", name = "TogglePanel_.js"),
+    @ResourceDependency(library = "org.richfaces", name = "TabPanel_.js")
 })
 public class TabPanelRenderer extends TogglePanelRenderer {
 

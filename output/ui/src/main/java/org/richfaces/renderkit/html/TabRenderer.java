@@ -22,8 +22,6 @@
 
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.component.util.HtmlUtil.concatClasses;
-
 import java.io.IOException;
 import java.util.Map;
 
@@ -47,8 +45,8 @@ import org.richfaces.renderkit.HtmlConstants;
     @ResourceDependency(name = "richfaces.js"),
     @ResourceDependency(name = "richfaces-event.js"),
     @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(library = "org.richfaces", name = "TogglePanelItem.js"),
-    @ResourceDependency(library = "org.richfaces", name = "Tab.js") 
+    @ResourceDependency(library = "org.richfaces", name = "TogglePanelItem_.js"),
+    @ResourceDependency(library = "org.richfaces", name = "Tab_.js")
 })
 public class TabRenderer extends TogglePanelItemRenderer {
 

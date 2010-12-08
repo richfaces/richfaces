@@ -22,7 +22,6 @@
 
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.component.util.HtmlUtil.concatClasses;
 import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 
 import java.io.IOException;
@@ -63,8 +62,8 @@ import org.richfaces.renderkit.RenderKitUtils;
     @ResourceDependency(name = "richfaces.js"),
     @ResourceDependency(name = "richfaces-event.js"),
     @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(library = "org.richfaces", name = "TogglePanelItem.js"),
-    @ResourceDependency(library = "org.richfaces", name = "AccordionItem.js")
+    @ResourceDependency(library = "org.richfaces", name = "TogglePanelItem_.js"),
+    @ResourceDependency(library = "org.richfaces", name = "AccordionItem_.js")
     })
 public class AccordionItemRenderer extends TogglePanelItemRenderer {
 

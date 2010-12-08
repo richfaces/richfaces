@@ -57,7 +57,7 @@ import org.richfaces.renderkit.util.HandlersChain;
     @ResourceDependency(name = "richfaces.js"),
     @ResourceDependency(name = "richfaces-event.js"),
     @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(library = "org.richfaces", name = "TogglePanel.js") })
+    @ResourceDependency(library = "org.richfaces", name = "TogglePanel_.js") })
 public class TogglePanelRenderer extends DivPanelRenderer {
 
     public static final String VALUE_POSTFIX = "-value";
