@@ -56,7 +56,6 @@
     	this.attachToDom(this.markerId);
     	this.options = $.extend(this.options, defaultOptions, options || {});
 
-		this.id = $(richfaces.getDomElement(id)); // Should be component Id string // NOT AN OBJECT
 		this.minWidth = this.getMinimumSize(this.options.minWidth);
 		this.minHeight = this.getMinimumSize(this.options.minHeight);
 		this.maxWidth = this.options.maxWidth;
@@ -174,8 +173,6 @@
 				this.markerId = null;
 		    	this.options = null; 
 		
-				this.id = null;
-				
 				this.div  = null;
 				this.cdiv = null;
 				this.contentDiv = null;
@@ -412,7 +409,7 @@
 			!root.disabled && root.type!="hidden") {
 				callback.call(this, root);
 		} else {
-			if (root != this.id) {
+			if (root != this.div) {
 				var child = root.firstChild;
 				while (child) {
 					if (!child.style || child.style.display != 'none') {
@@ -487,7 +484,7 @@
 					this.currentMinHeight = undefined; 
 					this.currentMinWidth = undefined;			
 	
-					this.id.hide();
+					this.div.hide();
 	
 					if (this.parent) {
 						if (this.domReattached) {
