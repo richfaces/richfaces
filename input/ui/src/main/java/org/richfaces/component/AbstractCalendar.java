@@ -159,10 +159,10 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     public abstract String getBoundaryDatesMode();
 
     @Attribute(defaultValue = "0")
-    public abstract String getHorizontalOffset();
+    public abstract int getHorizontalOffset();
 
     @Attribute(defaultValue = "0")
-    public abstract String getVerticalOffset();
+    public abstract int getVerticalOffset();
 
     @Attribute(defaultValue = "3")
     public abstract int getZindex();

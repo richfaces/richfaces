@@ -342,7 +342,7 @@
 		}
 		this.params.labels = value;
 		
-		this.popupOffset = {dx:this.params.horizontalOffset, dy:this.params.verticalOffset};
+		this.popupOffset = [this.params.horizontalOffset, this.params.verticalOffset];
 			
 		//
 		if (!this.params.popup) this.params.showApplyButton = false;
