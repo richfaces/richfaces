@@ -58,7 +58,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					onclean="return onEvent.call(this, event);"					
 					ondatemouseout="return onEvent.call(this, event);"
 					ondatemouseover="return onEvent.call(this, event);"			
-					
+					firstWeekDay="4"
+					horizontalOffset="#{calendarBean.horizontalOffset}"
+					verticalOffset="#{calendarBean.verticalOffset}"
 					>
 					<f:ajax event="change" render="echo-text" />
 				</calendar:calendar>
@@ -97,7 +99,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 				<h:selectOneMenu value="#{calendarBean.mode}" onchange="submit()">
 					<f:selectItem itemValue="client"/>
 					<f:selectItem itemValue="ajax"/>
-				</h:selectOneMenu><br/>
+				</h:selectOneMenu>
 						
 				<h:outputText value="Select joint point:" />
 				<h:selectOneMenu value="#{calendarBean.jointPoint}">
@@ -116,7 +118,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					<f:selectItem itemLabel="top-right" itemValue="top-right" />
 					<f:selectItem itemLabel="bottom-left" itemValue="bottom-left" />
 					<f:selectItem itemLabel="bottom-right" itemValue="bottom-right" />
-				</h:selectOneMenu>		
+				</h:selectOneMenu>
+				<h:outputText value="Horisontal offset:" />
+				<h:inputText value="#{calendarBean.horizontalOffset}" />
+				<h:outputText value="Vertical offset:" />
+				<h:inputText value="#{calendarBean.verticalOffset}" />
 			</h:panelGrid>
 			<h:panelGroup layout="block">
 					<div>

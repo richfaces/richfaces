@@ -20,7 +20,9 @@ public class CalendarBean {
     private String mode = "client";
     private String jointPoint = "auto-auto";
     private String direction = "auto-auto";
-
+    private int horizontalOffset = 0;
+    private int verticalOffset = 0;
+    
     public CalendarBean() {
 
         locale = Locale.US;
@@ -108,6 +110,22 @@ public class CalendarBean {
 
     public String getDirection() {
         return direction;
+    }
+
+    public void setHorizontalOffset(int horizontalOffset) {
+        this.horizontalOffset = horizontalOffset;
+    }
+
+    public int getHorizontalOffset() {
+        return horizontalOffset;
+    }
+
+    public void setVerticalOffset(int verticalOffset) {
+        this.verticalOffset = verticalOffset;
+    }
+
+    public int getVerticalOffset() {
+        return verticalOffset;
     }
 
 }
