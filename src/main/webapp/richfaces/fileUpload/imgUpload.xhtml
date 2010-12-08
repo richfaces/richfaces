@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+	<p><b>rich:fileUpload</b> is a component which provides files
+	upload functionality and extends functionality of standard <b>input</b>
+	with <b>type="file"</b>.</p>
+	<p>The next example shows you File Upload which allows you to
+	upload files to the server. Files number allowed to upload is managed
+	with <b>maxFilesQuantity</b> attribute. Every uploaded file should be
+	managed with <b>fileUploadListener</b> which is called after every
+	single file upload is finished.</p>
+	<fieldset><legend><b>Sample limitations</b></legend>This
+	example allows to download <b>up to 5 files</b>. The file extension is
+	limited to <b>GIF, JPG, BMP, PNG</b> and the maximum size of each file
+	must not exceed 100kB</fieldset>
+	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+		<ui:param name="sourceType" value="xhtml" />
+		<ui:param name="openLabel" value="View Source" />
+		<ui:param name="hideLabel" value="Hide Source" />
+	</ui:include>
+	<p><b>FileUpload requires two context-parameter's to be set in
+	web.xml:</b></p>
+	<ul>
+		<li><b>createTempFiles</b> boolean attribute which defines whether the
+		uploaded files are stored in temporary files or available in listener
+		just as byte[] data (false for this example).</li>
+		<li><b>maxRequestSize</b> attribute defines max size in bytes of the
+		uploaded files (<u>1000000 for this example</u>).</li>
+	</ul>
+</ui:composition>
+
+</html>

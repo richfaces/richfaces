@@ -24,6 +24,14 @@
         <param-name>org.richfaces.enableControlSkinningClasses</param-name>
         <param-value>false</param-value>
     </context-param>
+	<context-param>
+		<param-name>org.richfaces.fileUpload.maxRequestSize</param-name>
+		<param-value>100000</param-value>
+	</context-param>
+	<context-param>
+		<param-name>org.richfaces.fileUpload.createTempFiles</param-name>
+		<param-value>false</param-value>
+	</context-param>    
     <context-param>
         <param-name>org.richfaces.skin</param-name>
         <param-value>#{skinBean.skin}</param-value>

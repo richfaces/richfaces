@@ -536,6 +536,16 @@
 					</sample>
 				</samples>
 			</demo>
+			<demo new="true">
+				<id>fileUpload</id>
+				<name>rich:fileUpload</name>
+				<samples>
+					<sample>
+						<id>imgUpload</id>
+						<name>Upload images</name>
+					</sample>
+				</samples>
+			</demo>			
 		</demos>
 	</group>
 	<group>
