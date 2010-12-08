@@ -187,7 +187,7 @@ public class PopupPanelBaseRenderer extends RendererBase {
         addToScriptHash(options, "followByScroll", panel.isFollowByScroll(), "true");
         addToScriptHash(options, "left", panel.getLeft(), "auto");
         addToScriptHash(options, "top", panel.getTop(), "auto");
-        addToScriptHash(options, "zindex", panel.getZIndex(), "100");
+        addToScriptHash(options, "zindex", panel.getZindex(), "100");
         addToScriptHash(options, "shadowDepth", panel.getShadowDepth(), "2");
         addToScriptHash(options, "shadowOpacity", panel.getShadowOpacity(), "0.1");
         addToScriptHash(options, "domElementAttachment", panel.getDomElementAttachment());

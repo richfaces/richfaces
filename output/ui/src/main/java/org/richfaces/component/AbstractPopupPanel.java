@@ -45,7 +45,7 @@ public abstract class AbstractPopupPanel extends UIComponentBase {
     public abstract String getVisualOptions();
 
     @Attribute(defaultValue = "100")
-    public abstract int getZIndex();
+    public abstract int getZindex();
 
     @Attribute(defaultValue = "-1")
     public abstract int getHeight();
