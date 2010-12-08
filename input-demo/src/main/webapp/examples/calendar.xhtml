@@ -120,9 +120,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					<f:selectItem itemLabel="bottom-right" itemValue="bottom-right" />
 				</h:selectOneMenu>
 				<h:outputText value="Horisontal offset:" />
-				<h:inputText value="#{calendarBean.horizontalOffset}" />
+				<h:inputText value="#{calendarBean.horizontalOffset}">
+					<f:ajax execute="@form" event="change" render="calendar @this" />
+				</h:inputText>
 				<h:outputText value="Vertical offset:" />
-				<h:inputText value="#{calendarBean.verticalOffset}" />
+				<h:inputText value="#{calendarBean.verticalOffset}">
+					<f:ajax execute="@form" event="change" render="calendar @this" />
+				</h:inputText>
 			</h:panelGrid>
 			<h:panelGroup layout="block">
 					<div>
