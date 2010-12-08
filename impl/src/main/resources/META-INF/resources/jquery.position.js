@@ -182,21 +182,6 @@
 		}
 		
 		return rect;
-		/*
-			var jqe = $(element);
-			var offset = jqe.offset();
-			var width = jqe.width();
-			var height = jqe.height();
-			if (width == 0 && height==0) {
-				//TODO: create getComputedStyle function for this
-				var e = jqe.get(0);
-				if (e.currentStyle) {
-					width = parseInt(e.currentStyle['width'],10) || 0;
-					height = parseInt(e.currentStyle['height'],10) || 0;
-				}
-			}
-			return {width: width, height: height, left: Math.floor(offset.left), top: Math.floor(offset.top)};
-		 */
 	};
 	
 	function checkCollision (elementRect, windowRect) {
@@ -237,7 +222,6 @@
 	function getPositionRect(baseRect, rectOffset, elementDim, pos) {
 		var rect = {};
 		// TODO: add support for center and middle // may be middle rename to center too
-		// TODO: add rectOffset support && tests 
 		
 		var v = pos.charAt(0);
 		if (v=='L') {
@@ -255,17 +239,21 @@
 		
 		v = pos.charAt(2);
 		if (v=='L') {
+			rect.left -= rectOffset[0];
 			rect.right = rect.left;
 			rect.left -= elementDim.width;
 		} else if (v=='R') {
+			rect.left += rectOffset[0];
 			rect.right = rect.left + elementDim.width;
 		}		
 		
 		v = pos.charAt(3);
 		if (v=='T') {
+			rect.top -= rectOffset[1];
 			rect.bottom = rect.top;
 			rect.top -= elementDim.height;
 		} else if (v=='B') {
+			rect.top += rectOffset[1];
 			rect.bottom = rect.top + elementDim.height;
 		}
 		
