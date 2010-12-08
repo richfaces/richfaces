@@ -118,21 +118,11 @@ public class MultipartRequest extends HttpServletRequestWrapper {
 
     private HeadersHandler headersHandler = null;
 
-    public MultipartRequest(HttpServletRequest request, boolean createTempFiles, String tempFilesDirectory,
-        int maxRequestSize, String uid) {
+    public MultipartRequest(HttpServletRequest request, boolean createTempFiles, String tempFilesDirectory, String uid) {
         super(request);
         this.createTempFiles = createTempFiles;
         this.tempFilesDirectory = tempFilesDirectory;
         this.uid = uid;
-
-        String contentLengthStr = request.getHeader("Content-Length");
-        this.contentLength = Integer.parseInt(contentLengthStr);
-        if (contentLengthStr != null && maxRequestSize > 0 && contentLength > maxRequestSize) {
-            // TODO : we should make decision if can generate exception in this
-            // place
-            // throw new FileUploadException(
-            // "Multipart request is larger than allowed size");
-        }
     }
 
     private class ControlledProgressInputStream extends FilterInputStream {

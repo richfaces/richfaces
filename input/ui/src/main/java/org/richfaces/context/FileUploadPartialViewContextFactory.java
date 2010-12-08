@@ -93,8 +93,8 @@ public class FileUploadPartialViewContextFactory extends PartialViewContextFacto
             if (maxRequestSize != 0 && externalContext.getRequestContentLength() > maxRequestSize) {
                 printResponse(facesContext, uid, ResponseState.sizeExceeded);
             } else {
-                MultipartRequest multipartRequest = new MultipartRequest(request, createTempFiles,
-                    tempFilesDirectory, maxRequestSize, uid);
+                MultipartRequest multipartRequest = new MultipartRequest(request, createTempFiles, tempFilesDirectory,
+                    uid);
                 try {
                     multipartRequest.parseRequest();
                     if (!multipartRequest.isDone()) {

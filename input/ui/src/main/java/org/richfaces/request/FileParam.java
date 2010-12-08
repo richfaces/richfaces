@@ -29,7 +29,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.rmi.server.UID;
+import java.util.UUID;
 
 import org.richfaces.exception.FileUploadException;
 import org.richfaces.log.Logger;
@@ -86,7 +86,7 @@ class FileParam extends Param {
             if (tempFilesDirectory != null) {
                 dir = new File(tempFilesDirectory);
             }
-            tempFile = File.createTempFile(new UID().toString().replace(":", "-"), ".upload", dir);
+            tempFile = File.createTempFile(UUID.randomUUID().toString(), ".upload", dir);
             fOut = new FileOutputStream(tempFile);
         } catch (IOException ex) {
             if (fOut != null) {
