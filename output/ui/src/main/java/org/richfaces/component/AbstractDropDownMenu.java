@@ -29,10 +29,10 @@ public abstract class AbstractDropDownMenu extends UIComponentBase
     @Attribute
     public abstract boolean isDisabled();
     
-    @Attribute(defaultValue = "800")
+    @Attribute(defaultValue = "300")
     public abstract int getHideDelay();
     
-    @Attribute(defaultValue = "800")
+    @Attribute(defaultValue = "50")
     public abstract int getShowDelay();
     
     @Attribute(defaultValue = "250")

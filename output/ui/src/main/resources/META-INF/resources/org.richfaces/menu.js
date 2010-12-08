@@ -6,7 +6,7 @@
         attachToBody: false,
         positionOffset: [0, 0],
         showDelay: 50,
-        hideDelay: 800,
+        hideDelay: 300,
         verticalOffset: 0,
         horisantalOffset: 0,
         showEvent: 'mouseover',
