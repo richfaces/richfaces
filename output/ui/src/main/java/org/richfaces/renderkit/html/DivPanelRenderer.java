@@ -58,7 +58,7 @@ public class DivPanelRenderer extends RendererBase {
 
     protected static String attributeAsStyle(UIComponent comp, Enum attr) {
         String value = attributeAsString(comp, attr.toString());
-        if (value.isEmpty()) {
+        if (value.length() == 0) {
             return "";
         }
 

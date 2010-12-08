@@ -137,7 +137,7 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
             header.encodeAll(context);
         } else {
             String headerText = (String) component.getAttributes().get("header");
-            if (headerText != null && !headerText.isEmpty()) {
+            if (headerText != null && headerText.length() > 0) {
                 responseWriter.writeText(headerText, null);
             }
         }

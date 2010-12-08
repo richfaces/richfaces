@@ -90,7 +90,7 @@ public class AccordionRenderer extends TogglePanelRenderer {
     @Override
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
         Map<String, Object> options = super.getScriptObjectOptions(context, component);
-        options.put("isKeepHeight", !attributeAsString(component, height).isEmpty());
+        options.put("isKeepHeight", attributeAsString(component, height).length() > 0);
         options.remove("items");
 
         return options;
