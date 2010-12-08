@@ -309,7 +309,7 @@
 						}
 						$(richfaces.getDomElement(eContentElt)).css('height', options.height + (/px/.test(options.height) ? '' : 'px'));
 						this.shadowDiv.css('height', options.height + (/px/.test(options.height) ? '' : 'px'));
-						var headerHeight = $(richfaces.getDomElement(this.div +"_header"))[0] ? $(richfaces.getDomElement(this.div +"_header"))[0].clientHeight : 0;
+						var headerHeight = $(richfaces.getDomElement(this.markerId +"_header"))[0] ? $(richfaces.getDomElement(this.markerId +"_header"))[0].clientHeight : 0;
 						this.scrollerDiv.css('height', options.height - headerHeight + (/px/.test(options.height) ? '' : 'px'));
 						
 						
