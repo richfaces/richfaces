@@ -55,8 +55,17 @@ public class ModalPanel {
         this.shadowOpacity = "3";
         this.show = false;
         this.domElementAttachment = "body";
+        this.zindex = 123;
     }
 
+    public int getZindex() {
+        return zindex;
+    }
+
+    public void setZindex(int zindex) {
+        this.zindex = zindex;
+    }    
+    
     public int getHeight() {
         return height;
     }
