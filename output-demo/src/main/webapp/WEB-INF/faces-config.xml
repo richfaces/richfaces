@@ -62,6 +62,10 @@
             <to-view-id>/examples/accordion/RF-9364.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
+            <from-outcome>RF-9851</from-outcome>
+            <to-view-id>/examples/accordion/RF-9851.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
             <from-outcome>qunit/accordion</from-outcome>
             <to-view-id>/qunit/accordion.xhtml</to-view-id>
         </navigation-case>
