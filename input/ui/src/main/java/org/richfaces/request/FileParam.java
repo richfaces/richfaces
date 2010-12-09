@@ -87,6 +87,7 @@ class FileParam extends Param {
                 dir = new File(tempFilesDirectory);
             }
             tempFile = File.createTempFile(UUID.randomUUID().toString(), ".upload", dir);
+            tempFile.deleteOnExit();
             fOut = new FileOutputStream(tempFile);
         } catch (IOException ex) {
             if (fOut != null) {

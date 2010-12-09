@@ -34,6 +34,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialViewContext;
 import javax.faces.context.PartialViewContextFactory;
+import javax.faces.context.PartialViewContextWrapper;
+import javax.faces.event.PhaseId;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -85,6 +87,7 @@ public class FileUploadPartialViewContextFactory extends PartialViewContextFacto
 
     @Override
     public PartialViewContext getPartialViewContext(FacesContext facesContext) {
+        PartialViewContext partialViewContext = parentFactory.getPartialViewContext(facesContext);
         ExternalContext externalContext = facesContext.getExternalContext();
         HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
         Map<String, String> queryParamMap = parseQueryString(request.getQueryString());
@@ -93,9 +96,35 @@ public class FileUploadPartialViewContextFactory extends PartialViewContextFacto
             if (maxRequestSize != 0 && externalContext.getRequestContentLength() > maxRequestSize) {
                 printResponse(facesContext, uid, ResponseState.sizeExceeded);
             } else {
-                MultipartRequest multipartRequest = new MultipartRequest(request, createTempFiles, tempFilesDirectory,
-                    uid);
+                final MultipartRequest multipartRequest = new MultipartRequest(request, createTempFiles,
+                    tempFilesDirectory, uid);
                 try {
+                    final PartialViewContext viewContext = partialViewContext;
+                    partialViewContext = new PartialViewContextWrapper() {
+                        @Override
+                        public void processPartial(PhaseId phaseId) {
+                            try {
+                                super.processPartial(phaseId);
+                            } finally {
+                                if (PhaseId.RENDER_RESPONSE.equals(phaseId)) {
+                                    multipartRequest.cancel();
+                                    //TODO PartialViewContext.release isn't invoked by JSF. Maybe it's a bug.
+                                    //So we should use PartialViewContext.processPartial instead of.
+                                }
+                            }
+                        };
+                        
+                        //TODO This method can be removed from here when PartialViewContextWrapper will implement it.
+                        @Override
+                        public void setPartialRequest(boolean isPartialRequest) {
+                            viewContext.setPartialRequest(isPartialRequest);
+                        }
+                        
+                        @Override
+                        public PartialViewContext getWrapped() {
+                            return viewContext;
+                        }
+                    };
                     multipartRequest.parseRequest();
                     if (!multipartRequest.isDone()) {
                         printResponse(facesContext, uid, ResponseState.stopped);
@@ -109,7 +138,7 @@ public class FileUploadPartialViewContextFactory extends PartialViewContextFacto
                 }
             }
         }
-        return parentFactory.getPartialViewContext(facesContext);
+        return partialViewContext;
     }
 
     private Map<String, String> parseQueryString(String queryString) {
