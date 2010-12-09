@@ -53,9 +53,6 @@ public class FileUploadBean {
     
     public void listener(UploadEvent event) throws Exception {
         item = event.getUploadItem();
-        if (item != null) {
-            item.getFile().delete();
-        }
     }
 
     public void setEnabled(boolean enabled) {
