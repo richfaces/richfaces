@@ -137,8 +137,6 @@
 	};
 	
 	var REGEXP_TRIM = /^[\n\s]*(.*)[\n\s]*$/;
-	var REGEXP_TOKEN_LEFT;
-	var REGEXP_TOKEN_RIGHT;
 	
 	var getData = function (nodeList) {
 		var data = [];
@@ -152,8 +150,8 @@
 		this.useTokens = (typeof this.options.tokens == "string" && this.options.tokens.length>0);
 		if (this.useTokens) {
 			var escapedTokens = this.options.tokens.split('').join("\\");
-			REGEXP_TOKEN_LEFT = new RegExp('[^'+escapedTokens+']+$','i');
-			REGEXP_TOKEN_RIGHT = new RegExp('['+escapedTokens+']','i');
+			this.REGEXP_TOKEN_LEFT = new RegExp('[^'+escapedTokens+']+$','i');
+			this.REGEXP_TOKEN_RIGHT = new RegExp('['+escapedTokens+']','i');
 			this.hasSpaceToken = this.options.tokens.indexOf(' ')!=-1;
 		};
 	};
@@ -178,9 +176,12 @@
 	};
 
 	var updateItemsList = function (value, fetchValues) {
-		this.items = $(rf.getDomElement(this.id+ID.ITEMS)).find("."+this.options.itemClass);
+		var itemsContainer = $(rf.getDomElement(this.id+ID.ITEMS));
+		this.items = itemsContainer.find("."+this.options.itemClass);
+		var data = itemsContainer.data();
+		itemsContainer.removeData();
 		if (this.items.length>0) {
-			this.cache = new rf.utils.Cache((this.options.ajaxMode ? value : ""), this.items, fetchValues || getData, !this.options.ajaxMode);
+			this.cache = new rf.utils.Cache((this.options.ajaxMode ? value : ""), this.items, fetchValues || data.componentData || getData, !this.options.ajaxMode);
 		}
 	};
 
@@ -353,12 +354,12 @@
 			var cursorPosition = rf.Selection.getStart(field);
 			var beforeCursorStr = value.substring(0, cursorPosition);
 			var afterCursorStr = value.substring(cursorPosition);
-			var r = REGEXP_TOKEN_LEFT.exec(beforeCursorStr);
+			var r = this.REGEXP_TOKEN_LEFT.exec(beforeCursorStr);
 			var result = "";
 			if (r) {
 				result = r[0];
 			}
-			r = afterCursorStr.search(REGEXP_TOKEN_RIGHT);
+			r = afterCursorStr.search(this.REGEXP_TOKEN_RIGHT);
 			if (r==-1) r = afterCursorStr.length;
 			result += afterCursorStr.substring(0, r);
 
@@ -376,9 +377,9 @@
 		var beforeCursorStr = inputValue.substring(0, cursorPosition);
 		var afterCursorStr = inputValue.substring(cursorPosition);
 		
-		var pos = beforeCursorStr.search(REGEXP_TOKEN_LEFT);
+		var pos = beforeCursorStr.search(this.REGEXP_TOKEN_LEFT);
 		var startPos = pos!=-1 ? pos : beforeCursorStr.length;
-		pos = afterCursorStr.search(REGEXP_TOKEN_RIGHT);
+		pos = afterCursorStr.search(this.REGEXP_TOKEN_RIGHT);
 		var endPos = pos!=-1 ? pos : afterCursorStr.length;
 		
 		var beginNewValue = inputValue.substring(0, startPos) + value;

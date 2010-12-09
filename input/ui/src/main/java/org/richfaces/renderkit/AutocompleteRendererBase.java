@@ -46,13 +46,11 @@ import javax.servlet.jsp.jstl.sql.Result;
 
 import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.javascript.JSReference;
+import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.component.AbstractAutocomplete;
 import org.richfaces.component.AutocompleteLayout;
 import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.component.util.InputUtils;
-
-import com.google.common.base.Predicates;
-import com.google.common.collect.Iterators;
 
 /**
  * @author Nick Belaevski
@@ -196,11 +194,24 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
         if (mode != null && mode.equals("client")) {
             List<Object> fetchValues = new ArrayList<Object>();
             this.encodeItems(facesContext, component, fetchValues);
+            this.encodeFetchValues(facesContext, component, fetchValues);
         } else {
             strategy.encodeItemsContainerBegin(facesContext, component);
             // TODO: is it needed
             //strategy.encodeFakeItem(facesContext, component);
             strategy.encodeItemsContainerEnd(facesContext, component);
+        }
+    }
+    
+    private void encodeFetchValues(FacesContext facesContext, UIComponent component, List<Object> fetchValues) throws IOException{
+        if (!fetchValues.isEmpty()) {
+            ResponseWriter writer = facesContext.getResponseWriter();
+            writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
+            writer.writeAttribute(HtmlConstants.TYPE_ATTR, "text/javascript", null);
+            StringBuilder sb = new StringBuilder("\njQuery(RichFaces.getDomElement('");
+            sb.append(component.getClientId(facesContext)).append("Items')).data({componentData:").append(ScriptUtils.toScript(fetchValues)).append("});\n");
+            writer.write(sb.toString());
+            writer.endElement(HtmlConstants.SCRIPT_ELEM);
         }
     }
 
@@ -282,7 +293,7 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
             encodeItems(context, component, fetchValues);
             partialWriter.endUpdate();
 
-            if (!fetchValues.isEmpty() && Iterators.find(fetchValues.iterator(), Predicates.notNull()) != null) {
+            if (!fetchValues.isEmpty()) {
                 Map<String, Object> dataMap = AjaxContext.getCurrentInstance(context).getResponseComponentDataMap();
                 dataMap.put(component.getClientId(context), fetchValues);
             }

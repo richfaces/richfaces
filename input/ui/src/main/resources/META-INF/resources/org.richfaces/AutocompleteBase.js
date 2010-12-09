@@ -198,7 +198,7 @@
 					this.parentElement = element.parentNode;
 					$(element).detach().appendTo("body");
 				}
-				$(rf.getDomElement(this.selectId)).setPosition({id: this.fieldId}, {type:"DROPDOWN", offset:[0,20]}).show();
+				$(rf.getDomElement(this.selectId)).setPosition({id: this.fieldId}, {type:"DROPDOWN"}).show();
 				this.isVisible = true;
 				this.__onShow(event);
 			}
