@@ -4,6 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:input="http://richfaces.org/input"
+	xmlns:rich="http://richfaces.org/iteration"
 	xmlns:a4j="http://richfaces.org/a4j">
 <f:view contentType="text/html" />
 
@@ -41,6 +42,20 @@
 		 value = "#{autoCompleteBean.value}" layout="list"
 		 onchange="return onEvent.call(this, event);" onselectitem="return onEvent.call(this, event);" onblur="return onEvent.call(this, event);" onfocus="return onEvent.call(this, event);">
 			#{country.name} #{country.iso} #{country.domain}
+		<a4j:ajax event="change" render="output"/>
+		</input:autocomplete>
+		<br /><h:outputText value="RF-9835:" /><br />
+		<input:autocomplete id="myAutocomplete1" mode="client" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" fetchValue="#{country.name}" showButton="true"
+		 value = "#{autoCompleteBean.value}" layout="table">
+		 	<rich:column>
+		 		<h:outputText value="#{country.name}" />
+			</rich:column>
+			<rich:column>
+		 		<h:outputText value="#{country.iso}" />
+			</rich:column>
+			<rich:column>
+		 		<h:outputText value="#{country.domain}" />
+			</rich:column>
 		<a4j:ajax event="change" render="output"/>
 		</input:autocomplete>
 		<br/><br/>
