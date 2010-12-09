@@ -24,6 +24,7 @@ package org.richfaces.component;
 
 import java.util.Iterator;
 
+import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 
 
@@ -47,7 +48,7 @@ class DataTableFixedChildrenIterator extends DataTableDataIterator {
             Iterator<UIComponent> childrenIterator = getChildrenIterator();
             while (next == null && childrenIterator.hasNext()) {
                 UIComponent child = childrenIterator.next();
-                if ((child instanceof AbstractColumn) && child.isRendered()) {
+                if ((child instanceof UIColumn) && child.isRendered()) {
                     currentColumnIterator = getChildFacetIterator(child);
                     next = nextItem();
                 } 
