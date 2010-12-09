@@ -78,13 +78,11 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
 
     public static final String COMPONENT_FAMILY = "org.richfaces.Calendar";
 
-    public static final String SUB_TIME_PATTERN = "\\s*[hHkKma]+[\\W&&\\S]+[hHkKma]+\\s*";
+    public static final String SUB_TIME_PATTERN = "\\s*[hHkKma]+[\\W&&\\S]+[hHkKma]+[\\W&&\\S]*[s]*\\s*";
 
-    public static final String TIME_PATTERN = "HH:mm";
+    public static final String TIME_PATTERN = "HH:mm:ss";
 
     public static final String DEFAULT_DATE_PATTERN = "MMM d, yyyy";
-    
-    public static final String DEFAULT_DATE_VALUE = "12:00:00";
 
     Logger log = RichfacesLogger.COMPONENTS.getLogger();
 
@@ -95,8 +93,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     public enum Modes {
         CLIENT,
         AJAX
-    }
-    
+    }    
     
     @Attribute(defaultValue = "MMM d, yyyy")
     public abstract String getDatePattern();
@@ -218,7 +215,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     @Attribute
     public abstract String getButtonIconDisabled();
 
-    @Attribute(defaultValue = "AbstractCalendar.DEFAULT_DATE_VALUE")
+    @Attribute(defaultValue = "getDefaultValueOfDefaultTime(null,null)")
     public abstract Object getDefaultTime();
     
     @Attribute(defaultValue = "getDefaultPreloadBegin(getCurrentDateOrDefault())")
@@ -332,6 +329,8 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     public void setLocale(Object locale) {
         getStateHelper().put(PropertyKeys.locale, locale);
     }
+    
+    
 
     public void updateCurrentDate(FacesContext facesContext, Object currentDate) {
         if (facesContext == null) {
@@ -384,6 +383,18 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
 
     public CurrentDateChangeListener[] getCurrentDateChangeListeners() {
         return (CurrentDateChangeListener[]) getFacesListeners(CurrentDateChangeListener.class);
+    }
+    
+    public static Object getDefaultValueOfDefaultTime(FacesContext facesContext, AbstractCalendar calendarComponent) {
+        if (calendarComponent == null) {
+            return null;
+        }
+
+        Calendar calendar = CalendarHelper.getCalendar(facesContext, calendarComponent);
+        calendar.set(Calendar.HOUR_OF_DAY, 12);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        return calendar.getTime();
     }
     
     protected Date getDefaultPreloadBegin(Date date) {

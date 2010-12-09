@@ -75,18 +75,7 @@ public final class CalendarHelper {
         }
 
         return value;
-    }
-
-    public static Object getDefaultValueOfDefaultTime(FacesContext facesContext, AbstractCalendar calendarComponent) {
-        if (calendarComponent == null) {
-            return null;
-        }
-
-        Calendar calendar = getCalendar(facesContext, calendarComponent);
-        calendar.set(Calendar.HOUR_OF_DAY, 12);
-        calendar.set(Calendar.MINUTE, 0);
-        return calendar.getTime();
-    }
+    }  
 
     public static Date getFormattedDefaultTime(AbstractCalendar calendar) {
         if (calendar == null || calendar.getDefaultTime() == null) {
@@ -106,12 +95,11 @@ public final class CalendarHelper {
             String defaultTimeString = defaultTime.toString();
             String datePattern = calendar.getDatePattern();
 
-            String timePattern = AbstractCalendar.TIME_PATTERN;
-            Pattern pattern = Pattern.compile(timePattern);
+            Pattern pattern = Pattern.compile(AbstractCalendar.SUB_TIME_PATTERN);
             Matcher matcher = pattern.matcher(datePattern);
-
-            String subTimePattern = AbstractCalendar.SUB_TIME_PATTERN;
-            if (matcher.find()) {
+            String subTimePattern = AbstractCalendar.TIME_PATTERN;          
+           
+            if(matcher.find()) {
                 subTimePattern = matcher.group().trim();
             }
 

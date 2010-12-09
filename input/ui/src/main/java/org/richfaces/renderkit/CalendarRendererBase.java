@@ -407,7 +407,7 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
             int minutes = calendar.get(Calendar.MINUTE);
             int seconds = calendar.get(Calendar.SECOND); 
             
-            if (hours != 12 || minutes != 0) {
+            if (hours != 12 || minutes != 0 || seconds != 0) {
                 result.put(HOURS_VALUE, hours);
                 result.put(MINUTES_VALUE, minutes);
                 result.put(SECONDS_VALUE, seconds);
