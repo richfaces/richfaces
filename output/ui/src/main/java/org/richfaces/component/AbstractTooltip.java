@@ -88,7 +88,7 @@ public abstract class AbstractTooltip extends AbstractDivPanel implements MetaCo
 
     public abstract boolean isBypassUpdates();
 
-    public abstract boolean isLimitToList();
+    public abstract boolean isDisableImplicitRender();
 
     public abstract Object getData();
 

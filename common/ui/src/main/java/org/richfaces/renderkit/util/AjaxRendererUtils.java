@@ -359,7 +359,7 @@ public final class AjaxRendererUtils {
 //          options.put("parameters", parameters);
 //      }
 //      // parameter to render only current list of areas.
-////        if (isAjaxLimitToList(uiComponent)) {
+////        if (isAjaxDisableImplicitRender(uiComponent)) {
 ////            Set<? extends Object> ajaxAreas = getAjaxAreas(uiComponent);
 ////            Set<String> areasIds = new HashSet<String>();
 ////            if (null != ajaxAreas) {
@@ -507,7 +507,7 @@ public final class AjaxRendererUtils {
     // Set ajaxAreas = getAjaxAreas(uiComponent);
     // onClick.append(',');
     // // parameter to render only current list of areas.
-    // if (isAjaxLimitToList(uiComponent) && ajaxAreas != null &&
+    // if (isAjaxDisableImplicitRender(uiComponent) && ajaxAreas != null &&
     // ajaxAreas.size() > 0)
     // {
     // onClick.append('[');

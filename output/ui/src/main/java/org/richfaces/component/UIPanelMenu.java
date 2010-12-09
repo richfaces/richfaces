@@ -42,7 +42,7 @@ public class UIPanelMenu extends AbstractPanelMenu {
         activeItem,
         itemChangeListener,
         bypassUpdates,
-        limitToList,
+        disableImplicitRender,
         data,
         status,
         execute,
@@ -121,12 +121,12 @@ public class UIPanelMenu extends AbstractPanelMenu {
         getStateHelper().put(PropertyKeys.bypassUpdates, bypassUpdates);
     }
 
-    public boolean isLimitToList() {
-        return Boolean.valueOf(String.valueOf(getStateHelper().eval(PropertyKeys.limitToList)));
+    public boolean isDisableImplicitRender() {
+        return Boolean.valueOf(String.valueOf(getStateHelper().eval(PropertyKeys.disableImplicitRender)));
     }
 
-    public void setLimitToList(boolean limitToList) {
-        getStateHelper().put(PropertyKeys.limitToList, limitToList);
+    public void setDisableImplicitRender(boolean disableImplicitRender) {
+        getStateHelper().put(PropertyKeys.disableImplicitRender, disableImplicitRender);
     }
 
     public Object getData() {

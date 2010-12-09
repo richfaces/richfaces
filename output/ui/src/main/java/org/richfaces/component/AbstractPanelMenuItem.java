@@ -114,7 +114,7 @@ public abstract class AbstractPanelMenuItem extends UICommand implements ItemCha
 
     public abstract boolean isBypassUpdates();
 
-    public abstract boolean isLimitToList();
+    public abstract boolean isDisableImplicitRender();
 
     public abstract Object getData();
 
