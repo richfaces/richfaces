@@ -160,11 +160,6 @@
 		var timeoutId = null;
 		
 		var sendAjax = function(event, map) {
-			for (key in options.parameters) {
-				if(!map[key]) {
-					map[key] = options.parameters[key];
-				}
-			}
 			ajaxFunction(event, map);
 		};
 		

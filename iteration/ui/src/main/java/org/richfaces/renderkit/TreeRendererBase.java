@@ -22,8 +22,6 @@
 package org.richfaces.renderkit;
 
 import static org.richfaces.component.AbstractTree.SELECTION_META_COMPONENT_ID;
-import static org.richfaces.renderkit.util.AjaxRendererUtils.AJAX_FUNCTION_NAME;
-import static org.richfaces.renderkit.util.AjaxRendererUtils.buildEventOptions;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -48,6 +46,7 @@ import org.richfaces.component.SwitchType;
 import org.richfaces.event.TreeSelectionChangeEvent;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.renderkit.util.AjaxRendererUtils;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
@@ -100,20 +99,14 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
             return null;
         }
 
-        JSFunction ajaxFunction = new JSFunction(AJAX_FUNCTION_NAME);
+        AjaxFunction ajaxFunction = AjaxRendererUtils.buildAjaxFunction(context, component);
+        ajaxFunction.setSource(SOURCE_JS_REF);
 
-        ajaxFunction.addParameter(SOURCE_JS_REF);
-        ajaxFunction.addParameter(JSReference.EVENT);
+        AjaxOptions options = ajaxFunction.getOptions();
 
-        AjaxEventOptions eventOptions = buildEventOptions(context, component);
+        options.set("complete", COMPLETE_JS_REF);
+        options.setClientParameters(PARAMS_JS_REF);
 
-        eventOptions.set("complete", COMPLETE_JS_REF);
-        
-        eventOptions.setClientParameters(PARAMS_JS_REF);
-
-        if (!eventOptions.isEmpty()) {
-            ajaxFunction.addParameter(eventOptions);
-        }
         return ajaxFunction.toScript();
     }
 

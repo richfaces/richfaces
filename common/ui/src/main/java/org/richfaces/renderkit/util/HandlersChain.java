@@ -21,9 +21,7 @@
 
 package org.richfaces.renderkit.util;
 
-import static org.richfaces.renderkit.util.AjaxRendererUtils.AJAX_FUNCTION_NAME;
 import static org.richfaces.renderkit.util.AjaxRendererUtils.buildAjaxFunction;
-import static org.richfaces.renderkit.util.AjaxRendererUtils.buildEventOptions;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -41,7 +39,7 @@ import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSReference;
-import org.richfaces.renderkit.AjaxEventOptions;
+import org.ajax4jsf.javascript.ScriptString;
 
 /**
  * @author Nick Belaevski
@@ -169,13 +167,7 @@ public final class HandlersChain {
         if (!this.hasSubmittingBehavior()) {
             hasSubmittingBehavior = true;
             
-            JSFunction ajaxFunction = buildAjaxFunction(facesContext, component, AJAX_FUNCTION_NAME);
-            AjaxEventOptions eventOptions = buildEventOptions(facesContext, component);
-
-            if (!eventOptions.isEmpty()) {
-                ajaxFunction.addParameter(eventOptions);
-            }
-
+            ScriptString ajaxFunction = buildAjaxFunction(facesContext, component);
             this.addInlineHandlerAsValue(ajaxFunction.toScript());
         }
     }

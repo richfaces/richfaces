@@ -23,9 +23,7 @@ package org.richfaces.renderkit;
 
 import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
 import static org.richfaces.renderkit.RenderKitUtils.renderAttribute;
-import static org.richfaces.renderkit.util.AjaxRendererUtils.AJAX_FUNCTION_NAME;
 import static org.richfaces.renderkit.util.AjaxRendererUtils.buildAjaxFunction;
-import static org.richfaces.renderkit.util.AjaxRendererUtils.buildEventOptions;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -75,6 +73,8 @@ import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
     @ResourceDependency(library="org.richfaces", name = "extendedDataTable.js") 
 })
 public class ExtendedDataTableRenderer extends SelectionRenderer implements MetaComponentRenderer {
+
+    private static final JSReference CLIENT_PARAMS = new JSReference("clientParams");
 
     private static enum PartName {
         
@@ -664,14 +664,11 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.INPUT_TYPE_HIDDEN, null);
         writer.endElement(HtmlConstants.INPUT_ELEM);
         encodeSelectionInput(writer, context, component);
-        JSFunction ajaxFunction = buildAjaxFunction(context, component, AJAX_FUNCTION_NAME);
-        AjaxEventOptions eventOptions = buildEventOptions(context, component);
-        Map<String, Object> parameters = eventOptions.getParameters();
-        eventOptions.set(AjaxEventOptions.PARAMETERS, new JSReference("parameters"));
-        ajaxFunction.addParameter(eventOptions);
+        AjaxFunction ajaxFunction = buildAjaxFunction(context, component);
+        ajaxFunction.getOptions().setClientParameters(CLIENT_PARAMS);
+        
         Map<String, Object> attributes = component.getAttributes();
         Map<String, Object> options = new HashMap<String, Object>();
-        addToScriptHash(options, "parameters", parameters);
         addToScriptHash(options, "selectionMode", attributes.get("selectionMode"),
             SelectionMode.multiple);
         addToScriptHash(options, "onbeforeselectionchange", RenderKitUtils.getAttributeAndBehaviorsValue(context,
@@ -680,7 +677,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             component, EVENT_ATTRIBUTES.get("onselectionchange")), null, ScriptHashVariableWrapper.eventHandler);
         StringBuilder builder = new StringBuilder("new RichFaces.ExtendedDataTable('");
         builder.append(component.getClientId(context)).append("', ").append(getRowCount(component))
-            .append(", function(event, parameters) {").append(ajaxFunction.toScript()).append(";}");
+            .append(", function(event, clientParams) {").append(ajaxFunction.toScript()).append(";}");
         if (!options.isEmpty()) {
             builder.append(",").append(ScriptUtils.toScript(options));
         }

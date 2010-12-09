@@ -24,16 +24,20 @@ package org.richfaces.renderkit.util;
 import java.util.Map;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.component.AjaxClientBehavior;
 import org.ajax4jsf.component.AjaxComponent;
 import org.ajax4jsf.context.AjaxContext;
-import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSReference;
-import org.richfaces.renderkit.AjaxEventOptions;
+import org.richfaces.renderkit.AjaxConstants;
+import org.richfaces.renderkit.AjaxFunction;
+import org.richfaces.renderkit.AjaxOptions;
 import org.richfaces.renderkit.HtmlConstants;
+
+import com.google.common.base.Strings;
 /**
  * @author shura
  *         <p/>
@@ -45,10 +49,6 @@ public final class AjaxRendererUtils {
     public static final String AJAX_AREAS_RENDERED = "org.ajax4jsf.areas.rendered";
     public static final String AJAX_DELAY_ATTR = "requestDelay";
 
-    /**
-     * Name Javasript function for submit AJAX request
-     */
-    public static final String AJAX_FUNCTION_NAME = "RichFaces.ajax";
 
     public static final String AJAX_QUEUE_ATTR = "eventsQueue";
     public static final String AJAX_SINGLE_ATTR = "ajaxSingle";
@@ -79,7 +79,7 @@ public final class AjaxRendererUtils {
     private AjaxRendererUtils() {
     }
 
-    private static enum BehaviorEventOptionsData {
+    private static enum BehaviorOptionsData {
         begin {
             @Override
             public String getAttributeValue(AjaxClientBehavior behavior) {
@@ -199,50 +199,58 @@ public final class AjaxRendererUtils {
         return onEvent;
     }
 
-    public static AjaxEventOptions buildEventOptions(FacesContext facesContext, UIComponent component) {
-        return buildEventOptions(facesContext, component, null);
+    //TODO make this function private
+    public static AjaxOptions buildEventOptions(FacesContext facesContext, UIComponent component) {
+        AjaxOptions ajaxOptions = new AjaxOptions();
+        appendComponentOptions(facesContext, component, ajaxOptions);
+
+        Map<String, Object> parametersMap = RENDERER_UTILS.createParametersMap(facesContext, component);
+        ajaxOptions.addParameters(parametersMap);
+        
+        return ajaxOptions;
     }
 
-    public static AjaxEventOptions buildEventOptions(FacesContext facesContext, UIComponent component,
+    private static AjaxOptions buildAjaxOptions(ClientBehaviorContext behaviorContext,
                                                      AjaxClientBehavior ajaxBehavior) {
-        AjaxEventOptions ajaxEventOptions = new AjaxEventOptions();
+        FacesContext facesContext = behaviorContext.getFacesContext();
+        UIComponent component = behaviorContext.getComponent();
+        
+        AjaxOptions ajaxOptions = new AjaxOptions();
+
         Map<String, Object> parametersMap = RENDERER_UTILS.createParametersMap(facesContext, component);
-        String ajaxStatusName = getAjaxStatus(component);
-
-        if (ajaxBehavior != null) {
-            ajaxStatusName = (ajaxBehavior.getStatus() != null) ? ajaxBehavior.getStatus() : ajaxStatusName;
-            appenAjaxBehaviorOptions(ajaxBehavior, ajaxEventOptions);
-        } else {
-            appendComponentOptions(facesContext, component, ajaxEventOptions);
+        ajaxOptions.addParameters(parametersMap);
+        
+        String ajaxStatusName = ajaxBehavior.getStatus();
+        if (Strings.isNullOrEmpty(ajaxStatusName)) {
+            ajaxStatusName = getAjaxStatus(component);
+        }
+        if (!Strings.isNullOrEmpty(ajaxStatusName)) {
+            ajaxOptions.set(STATUS_ATTR_NAME, ajaxStatusName);
         }
 
-        if ((ajaxStatusName != null) && (ajaxStatusName.length() != 0)) {
-            ajaxEventOptions.set(STATUS_ATTR_NAME, ajaxStatusName);
-        }
+        appenAjaxBehaviorOptions(behaviorContext, ajaxBehavior, ajaxOptions);
 
-        if (!parametersMap.isEmpty()) {
-            ajaxEventOptions.getParameters().putAll(parametersMap);
-        }
-
-        return ajaxEventOptions;
+        return ajaxOptions;
     }
 
     private static boolean isNotEmpty(String value) {
         return (value != null) && (value.length() != 0);
     }
 
-    private static void appenAjaxBehaviorOptions(AjaxClientBehavior behavior, AjaxEventOptions ajaxEventOptions) {
-        for (BehaviorEventOptionsData optionsData : BehaviorEventOptionsData.values()) {
-            String eventHandlerValue = optionsData.getAttributeValue(behavior);
+    private static void appenAjaxBehaviorOptions(ClientBehaviorContext behaviorContext, AjaxClientBehavior behavior, AjaxOptions ajaxOptions) {
+        ajaxOptions.setParameter(AjaxConstants.BEHAVIOR_EVENT_PARAMETER, behaviorContext.getEventName());
+        
+        for (BehaviorOptionsData optionsData : BehaviorOptionsData.values()) {
+            String optionValue = optionsData.getAttributeValue(behavior);
 
-            if (isNotEmpty(eventHandlerValue)) {
-                ajaxEventOptions.set(optionsData.toString(), eventHandlerValue);
+            if (isNotEmpty(optionValue)) {
+                ajaxOptions.set(optionsData.toString(), optionValue);
             }
         }
     }
 
     private static void appendComponentOptions(FacesContext facesContext, UIComponent component,
-                                               AjaxEventOptions ajaxEventOptions) {
+                                               AjaxOptions ajaxOptions) {
         String behaviorName = "begin";
         HandlersChain handlersChain = new HandlersChain(facesContext, component);
         String inlineHandler = getAjaxOnBegin(component);
@@ -253,15 +261,20 @@ public final class AjaxRendererUtils {
         String handlerScript = handlersChain.toScript();
 
         if (isNotEmpty(handlerScript)) {
-            ajaxEventOptions.set(behaviorName, handlerScript);
+            ajaxOptions.set(behaviorName, handlerScript);
         }
 
         String queueId = getQueueId(component);
         if (isNotEmpty(queueId)) {
-            ajaxEventOptions.set(QUEUE_ID_ATTRIBUTE, queueId);
+            ajaxOptions.set(QUEUE_ID_ATTRIBUTE, queueId);
         }
         
-        ajaxEventOptions.set("incId", "1");
+        ajaxOptions.set("incId", "1");
+        
+        String status = getAjaxStatus(component);
+        if (!Strings.isNullOrEmpty(status)) {
+            ajaxOptions.set(STATUS_ATTR_NAME, status);
+        }
     }
 
 //  public static AjaxEventOptions buildEventOptions(FacesContext facesContext,
@@ -456,16 +469,29 @@ public final class AjaxRendererUtils {
      * @param functionName
      * @return
      */
-    public static JSFunction buildAjaxFunction(FacesContext facesContext, UIComponent uiComponent,
-                                               String functionName) {
-        JSFunction ajaxFunction = new JSFunction(functionName);
-
-        ajaxFunction.addParameter(uiComponent.getClientId(facesContext));
-        ajaxFunction.addParameter(JSReference.EVENT);
-
-        return ajaxFunction;
+    public static AjaxFunction buildAjaxFunction(FacesContext facesContext, UIComponent component) {
+        return new AjaxFunction(component.getClientId(facesContext), buildEventOptions(facesContext, component));
     }
 
+    public static AjaxFunction buildAjaxFunction(ClientBehaviorContext behaviorContext, AjaxClientBehavior behavior) {
+        Object source;
+        
+        AjaxOptions options = buildAjaxOptions(behaviorContext, behavior);
+
+        if (behaviorContext.getSourceId() != null) {
+            source = behaviorContext.getSourceId();
+        } else {
+            source = JSReference.THIS;
+            
+            FacesContext facesContext = behaviorContext.getFacesContext();
+            UIComponent component = behaviorContext.getComponent();
+            
+            options.set("sourceId", component.getClientId(facesContext));
+        }
+        
+        return new AjaxFunction(source, options);
+    }
+    
     /**
      * Append common parameters ( array of affected areas, status area id, on
      * complete function ) to JavaScript event string.

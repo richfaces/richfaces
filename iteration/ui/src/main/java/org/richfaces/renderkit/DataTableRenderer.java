@@ -295,10 +295,10 @@ public class DataTableRenderer extends AbstractTableRenderer {
         JSFunction function = new JSFunction("new RichFaces.ui.DataTable");
         function.addParameter(dataTable.getClientId(facesContext));
 
-        AjaxEventOptions ajaxEventOptions = AjaxRendererUtils.buildEventOptions(facesContext, dataTable);
+        AjaxOptions ajaxOptions = AjaxRendererUtils.buildEventOptions(facesContext, dataTable);
 
         Map<String, Object> options = new HashMap<String, Object>();
-        options.put("ajaxEventOptions", ajaxEventOptions.getParameters());
+        options.put("ajaxEventOptions", ajaxOptions.getParameters());
         function.addParameter(options);
 
         writer.writeText(function.toScript(), null);

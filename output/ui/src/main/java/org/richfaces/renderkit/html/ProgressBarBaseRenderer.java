@@ -38,13 +38,13 @@ import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.PartialViewContext;
 
 import org.ajax4jsf.context.AjaxContext;
-import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractProgressBar;
 import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.component.NumberUtils;
 import org.richfaces.component.SwitchType;
-import org.richfaces.renderkit.AjaxEventOptions;
+import org.richfaces.renderkit.AjaxFunction;
+import org.richfaces.renderkit.AjaxOptions;
 import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
@@ -140,12 +140,14 @@ public class ProgressBarBaseRenderer extends RendererBase implements MetaCompone
             return null;
         }
         
-        JSFunction ajaxFunction = AjaxRendererUtils.buildAjaxFunction(facesContext, component, AjaxRendererUtils.AJAX_FUNCTION_NAME);
-        AjaxEventOptions eventOptions = AjaxRendererUtils.buildEventOptions(facesContext, component);
-        eventOptions.set("beforedomupdate", BEFORE_UPDATE_HANDLER);
-        eventOptions.set("complete", AFTER_UPDATE_HANDLER);
-        eventOptions.setClientParameters(PARAMS);
-        ajaxFunction.addParameter(eventOptions);
+        AjaxFunction ajaxFunction = AjaxRendererUtils.buildAjaxFunction(facesContext, component);
+        
+        AjaxOptions options = ajaxFunction.getOptions();
+
+        options.set("beforedomupdate", BEFORE_UPDATE_HANDLER);
+        options.set("complete", AFTER_UPDATE_HANDLER);
+        options.setClientParameters(PARAMS);
+
         return ajaxFunction.toScript();
     }
     

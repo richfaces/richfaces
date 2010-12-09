@@ -33,7 +33,7 @@ import org.ajax4jsf.javascript.ScriptUtils;
  * @author Nick Belaevski
  * @since 4.0
  */
-public class AjaxEventOptions extends ScriptStringBase {
+public class AjaxOptions extends ScriptStringBase {
 
     public static final String PARAMETERS = "parameters";
 
@@ -94,6 +94,14 @@ public class AjaxEventOptions extends ScriptStringBase {
         getParameters().put(parameterName, parameterValue);
     }
 
+    public void addParameters(Map<String, Object> params) {
+        if (params == null || params.isEmpty()) {
+            return;
+        }
+        
+        getParameters().putAll(params);
+    }
+    
     public void removeParameter(String parameterName) {
         @SuppressWarnings("unchecked") Map<String, Object> parameters = (Map<String, Object>) options.get(PARAMETERS);
 

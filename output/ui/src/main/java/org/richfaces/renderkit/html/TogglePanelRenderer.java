@@ -41,7 +41,7 @@ import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.component.AbstractTogglePanelItem;
 import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.renderkit.AjaxEventOptions;
+import org.richfaces.renderkit.AjaxOptions;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 import org.richfaces.renderkit.util.FormUtil;
@@ -168,7 +168,7 @@ public class TogglePanelRenderer extends DivPanelRenderer {
         }
     }
 
-    public static AjaxEventOptions getAjaxOptions(FacesContext context, UIComponent panel) {
+    public static AjaxOptions getAjaxOptions(FacesContext context, UIComponent panel) {
         return AjaxRendererUtils.buildEventOptions(context, panel);
     }
 

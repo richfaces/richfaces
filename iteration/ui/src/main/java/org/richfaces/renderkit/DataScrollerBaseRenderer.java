@@ -312,18 +312,12 @@ public class DataScrollerBaseRenderer extends RendererBase {
         JSFunctionDefinition definition = new JSFunctionDefinition(JSReference.EVENT, new JSReference("element"),
             new JSReference("data"));
 
-        JSFunction function = AjaxRendererUtils.buildAjaxFunction(facesContext, component,
-            AjaxRendererUtils.AJAX_FUNCTION_NAME);
-        AjaxEventOptions options = AjaxRendererUtils.buildEventOptions(facesContext, component);
+        AjaxFunction function = AjaxRendererUtils.buildAjaxFunction(facesContext, component);
 
-        Map<String, Object> parameters = options.getParameters();
+        Map<String, Object> parameters = function.getOptions().getParameters();
         parameters.put(component.getClientId(facesContext) + ":page", new JSLiteral("data.page"));
 
-        function.addParameter(options);
-
-        StringBuilder sb = new StringBuilder();
-        function.appendScriptToStringBuilder(sb);
-        definition.addToBody(sb);
+        definition.addToBody(function.toScript());
         return definition;
     }
     

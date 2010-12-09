@@ -31,7 +31,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSReference;
 import org.ajax4jsf.javascript.ScriptUtils;
@@ -54,17 +53,13 @@ public abstract class AjaxFunctionRendererBase extends AjaxCommandRendererBase {
 
         // func.setName(component.getName());
         // Create AJAX Submit function.
-        JSFunction ajaxFunction = AjaxRendererUtils.buildAjaxFunction(context, component,
-                                      AjaxRendererUtils.AJAX_FUNCTION_NAME);
-        AjaxEventOptions options = AjaxRendererUtils.buildEventOptions(context, component);
+        AjaxFunction ajaxFunction = AjaxRendererUtils.buildAjaxFunction(context, component);
+        ajaxFunction.setEvent(null);
+        AjaxOptions options = ajaxFunction.getOptions();
 
         if (options.hasParameters()) {
             Map<String, Object> parameters = options.getParameters();
 
-//          if (null == parameters) {
-//              parameters = new HashMap<String, Object>();
-//              options.put("parameters", parameters);
-//          }
             // Fill parameters.
             for (Iterator<UIComponent> it = component.getChildren().iterator(); it.hasNext(); ) {
                 UIComponent child = it.next();
@@ -88,12 +83,7 @@ public abstract class AjaxFunctionRendererBase extends AjaxCommandRendererBase {
             }
         }
 
-        if (!options.isEmpty()) {
-            ajaxFunction.addParameter(options);
-        }
-
         // TODO - added in 4.0 - ?
-        func.addParameter(JSReference.EVENT);
         func.addToBody(ajaxFunction.toScript());
         func.appendScriptToStringBuilder(script);
 

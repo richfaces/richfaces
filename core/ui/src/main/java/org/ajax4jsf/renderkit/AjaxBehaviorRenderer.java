@@ -22,8 +22,6 @@
 
 package org.ajax4jsf.renderkit;
 
-import static org.richfaces.renderkit.AjaxConstants.BEHAVIOR_EVENT_PARAMETER;
-
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.ActionSource;
 import javax.faces.component.EditableValueHolder;
@@ -37,10 +35,7 @@ import javax.faces.render.ClientBehaviorRenderer;
 import javax.faces.render.FacesBehaviorRenderer;
 import javax.faces.render.RenderKitFactory;
 
-import org.ajax4jsf.component.AjaxClientBehavior;
 import org.ajax4jsf.component.behavior.AjaxBehavior;
-import org.ajax4jsf.javascript.JSFunction;
-import org.richfaces.renderkit.AjaxEventOptions;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 import org.richfaces.renderkit.util.RendererUtils;
 
@@ -126,21 +121,7 @@ public class AjaxBehaviorRenderer extends ClientBehaviorRenderer {
     }
 
     public String buildAjaxCommand(ClientBehaviorContext bContext, AjaxBehavior behavior) {
-        UIComponent parent = bContext.getComponent();
-        FacesContext context = bContext.getFacesContext();
-        JSFunction ajaxFunction = AjaxRendererUtils.buildAjaxFunction(context, parent,
-                                      AjaxRendererUtils.AJAX_FUNCTION_NAME);
-        AjaxEventOptions options = buildOptions(context, bContext, behavior);
-        ajaxFunction.addParameter(options);
-        return ajaxFunction.toString();
+        return AjaxRendererUtils.buildAjaxFunction(bContext, behavior).toString();
     }
 
-    public AjaxEventOptions buildOptions(FacesContext context, ClientBehaviorContext bContext,
-            AjaxClientBehavior behavior) {
-        UIComponent parent = bContext.getComponent();
-        String eventName = bContext.getEventName();
-        AjaxEventOptions options = AjaxRendererUtils.buildEventOptions(context, parent, behavior);
-        options.setParameter(BEHAVIOR_EVENT_PARAMETER, eventName);
-        return options;
-    }
 }
