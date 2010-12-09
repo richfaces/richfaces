@@ -46,7 +46,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 				disabled="#{inputNumberSliderBean.disabled}" enableManualInput="#{inputNumberSliderBean.enableManualInput}"
 				inputPosition="#{inputNumberSliderBean.inputPosition}" inputSize="#{inputNumberSliderBean.inputSize}" showArrows="#{inputNumberSliderBean.showArrows}"
 				showBoundaryValues="#{inputNumberSliderBean.showBoundaryValues}" showInput="#{inputNumberSliderBean.showInput}"
-				showToolTip="#{inputNumberSliderBean.showToolTip}" maxValue="#{inputNumberSliderBean.maxValue}" minValue="#{inputNumberSliderBean.minValue}"
+				showTooltip="#{inputNumberSliderBean.showTooltip}" maxValue="#{inputNumberSliderBean.maxValue}" minValue="#{inputNumberSliderBean.minValue}"
 				step="#{inputNumberSliderBean.step}" >
 				<f:ajax render="date" />
 			</ins:inputNumberSlider>
@@ -107,8 +107,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 				<f:ajax render="ins"/>
 			</h:selectBooleanCheckbox>
 			<br />
-			<h:outputText value="ShowToolTip: "/>
-			<h:selectBooleanCheckbox value="#{inputNumberSliderBean.showToolTip}">
+			<h:outputText value="ShowTooltip: "/>
+			<h:selectBooleanCheckbox value="#{inputNumberSliderBean.showTooltip}">
 				<f:ajax render="ins"/>
 			</h:selectBooleanCheckbox>
 			<br />

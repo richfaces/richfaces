@@ -44,7 +44,7 @@ public class InputNumberSliderBean {
     private boolean showArrows = false;
     private boolean showBoundaryValues = true;
     private boolean showInput = true;
-    private boolean showToolTip = true;
+    private boolean showTooltip = true;
     private double step = 1;
     
     public void setValue(double value) {
@@ -131,12 +131,12 @@ public class InputNumberSliderBean {
         this.showInput = showInput;
     }
 
-    public boolean isShowToolTip() {
-        return showToolTip;
+    public boolean isShowTooltip() {
+        return showTooltip;
     }
 
-    public void setShowToolTip(boolean showToolTip) {
-        this.showToolTip = showToolTip;
+    public void setShowTooltip(boolean showTooltip) {
+        this.showTooltip = showTooltip;
     }
 
     public double getStep() {
