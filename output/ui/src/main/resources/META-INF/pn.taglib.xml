@@ -1940,7 +1940,7 @@
         </attribute>
         <attribute>
             <description></description>
-            <name>panelToggleListener</name>
+            <name>toggleListener</name>
             <type>javax.el.MethodExpression</type>
         </attribute>
         <attribute>
