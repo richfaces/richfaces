@@ -20,7 +20,7 @@
         function disablementFunction(day){
             if (day.isWeekend) return false;
             if (curDt==undefined){
-                curDt = day.date.getDate;
+                curDt = day.date.getDate();
             }
             if (curDt.getTime() - day.date.getTime() &lt; 0) return true; else return false;  
         }

@@ -33,7 +33,7 @@
 			<h:outputText value="#{record.city}" />
 		</rich:column>
 
-		<rich:subTable var="expense" value="#{record.items}">
+		<rich:collapsibleSubTable var="expense" value="#{record.items}">
 			<rich:column>
 				<h:outputText value="#{expense.day}"></h:outputText>
 				<f:facet name="footer">
@@ -80,7 +80,7 @@
 				</f:facet>
 			</rich:column>
 
-		</rich:subTable>
+		</rich:collapsibleSubTable>
 
 		<f:facet name="footer">
 

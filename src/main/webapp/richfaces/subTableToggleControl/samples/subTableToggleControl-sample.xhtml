@@ -33,10 +33,10 @@
 				</rich:columnGroup>
 			</f:facet>
 			<rich:column colspan="6">
-				<rich:subTableToggleControl for="sbtbl" />
+				<rich:collapsibleSubTableToggler for="sbtbl" />
 				<h:outputText value="#{list.vendor}" />
 			</rich:column>
-			<rich:subTable value="#{list.vendorItems}" var="item" id="sbtbl"
+			<rich:collapsibleSubTable value="#{list.vendorItems}" var="item" id="sbtbl"
 				expandMode="client">
 				<rich:column>
 					<h:outputText value="#{item.model}" />
@@ -59,7 +59,7 @@
 				<f:facet name="footer">
 					<h:outputText value="Total of #{list.vendor} Cars: #{list.count}" />
 				</f:facet>
-			</rich:subTable>
+			</rich:collapsibleSubTable>
 		</rich:dataTable>
 	</h:form>
 </ui:composition>
