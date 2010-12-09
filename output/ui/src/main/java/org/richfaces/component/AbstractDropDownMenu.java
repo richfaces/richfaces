@@ -38,11 +38,11 @@ public abstract class AbstractDropDownMenu extends UIComponentBase
     @Attribute(defaultValue = "250")
     public abstract int getPopupWith();
     
-    @Attribute(defaultValue = "auto")
-    public abstract String getJointPoint();
-    
-    @Attribute(defaultValue = "auto")
-    public abstract String getDirection();    
+//    @Attribute(defaultValue = "auto")
+//    public abstract String getJointPoint();
+//    
+//    @Attribute(defaultValue = "auto")
+//    public abstract String getDirection();    
     
     @Attribute(events = @EventName("groupshow"))
     public abstract String getOngroupshow();

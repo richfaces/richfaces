@@ -54,7 +54,7 @@
         </div>
         <script type="text/javascript">
 //<![CDATA[
-new RichFaces.ui.Menu("form:ddmenu",{"mode":"ajax"} ).initiateGroups([{"id":"form:group","horizontalOffset":"0","verticalOffset":"0","direction":"auto"} ] );
+new RichFaces.ui.Menu("form:ddmenu",{"mode":"ajax"} ).initiateGroups([{"id":"form:group"} ] );
 //]]>
         </script>
       </div>

@@ -84,9 +84,6 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
             if (group.isRendered() && !group.isDisabled()) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("id", group.getClientId());
-                map.put("horizontalOffset", group.getHorizontalOffset());
-                map.put("verticalOffset", group.getVerticalOffset());
-                map.put("direction", group.getDirection());
                 RenderKitUtils.addToScriptHash(map, "onhide", group.getOnhide(), null, ScriptHashVariableWrapper.eventHandler);
                 RenderKitUtils.addToScriptHash(map, "onshow", group.getOnshow(), null, ScriptHashVariableWrapper.eventHandler);
                 results.add(map);

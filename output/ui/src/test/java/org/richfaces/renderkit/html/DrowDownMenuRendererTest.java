@@ -71,8 +71,7 @@ public class DrowDownMenuRendererTest extends RendererTestBase {
     
     @Test
     public void testAjaxClick() throws IOException, SAXException {
-        HtmlPage page =  environment.getPage("/dropDownMenu_ajaxMode.jsf");
-
+        HtmlPage page =  environment.getPage("/dropDownMenu_ajaxMode.jsf");        
         HtmlDivision item = (HtmlDivision) page.getElementById("form:saveAll");
         assertNotNull(item);
         DropDownMenuBean.setCurrent("none");
