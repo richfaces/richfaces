@@ -89,12 +89,6 @@
             <groupId>org.richfaces.core</groupId>
             <artifactId>richfaces-core-api</artifactId>
         </dependency>
-        <dependency>
-            <!-- todo remove this dependency or move to test scope -->
-            <groupId>org.richfaces.core</groupId>
-            <artifactId>richfaces-core-impl</artifactId>
-			<scope>test</scope>
-        </dependency>
 
         <dependency>
             <groupId>org.richfaces.cdk</groupId>
