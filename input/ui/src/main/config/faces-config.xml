@@ -183,7 +183,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 			</property-extension>
 		</property>
 		<property>
-			<property-name>showToolTip</property-name>
+			<property-name>showTooltip</property-name>
 			<property-class>boolean</property-class>
 			<default-value>true</default-value>
 			<property-extension>
@@ -221,7 +221,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 			</property-extension>
 		</property>
 		<property>
-			<property-name>toolTipClass</property-name>
+			<property-name>tooltipClass</property-name>
 			<property-class>java.lang.String</property-class>
 			<property-extension>
 				<cdk:generate>true</cdk:generate>

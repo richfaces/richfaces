@@ -65,8 +65,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 				</c:if>
 				<xi:include xpointer="xpointer(/*)" href="input.template.inc" />
 			</c:if>
-			<c:if test="#{component.attributes['showToolTip']}">
-				<span class="rf-insl-tt #{component.attributes['toolTipClass']}">#{getInputValue(facesContext, component)}</span>
+			<c:if test="#{component.attributes['showTooltip']}">
+				<span class="rf-insl-tt #{component.attributes['tooltipClass']}">#{getInputValue(facesContext, component)}</span>
 			</c:if>
 			<!-- TODO Rewrite the next line when the CDK will support normal way to take event handlers from attributes and behaviors. -->
 			<cdk:object name="onchange" type="String" value="#{convertToString(RenderKitUtils.getAttributeAndBehaviorsValue(facesContext, component, RenderKitUtils.attributes().generic('onchange', 'onchange', 'change').first()))}" />
