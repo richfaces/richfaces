@@ -478,7 +478,12 @@ if (!window.RichFaces) {
 	}());
 
 	richfaces.ajax = function(source, event, options) {
-		var sourceId = (typeof source == 'object' && source.id) ? source.id : source;
+		var sourceId;
+		if (options.sourceId) {
+			sourceId = options.sourceId;
+		} else {
+			sourceId = (typeof source == 'object' && source.id) ? source.id : source;
+		}
 
 		options = options || {};
 

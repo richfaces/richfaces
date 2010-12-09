@@ -115,6 +115,21 @@
 				RichFaces.ajax(ajaxSource, ajaxEvent, ajaxOptions);
 			});
 			
+			test("RichFaces.ajax behavior test for sourceId option", function() {
+				expect(2);
+
+				var ajaxSource = "source";
+				var ajaxEvent = "event";
+				var ajaxOptions = {parameters: {'param': 'value'}, sourceId: 'someId'};
+				jsf.ajax = {
+					request : function(source, event, options) {
+						equals(source, ajaxSource);
+						equals(options['org.richfaces.ajax.component'], 'someId');
+					}
+				}
+				RichFaces.ajax(ajaxSource, ajaxEvent, ajaxOptions);
+			});
+			
 			test("RichFaces.ajax component test", function() {
 				expect(7);
 				var ajaxSource = "source";
