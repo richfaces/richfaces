@@ -21,8 +21,6 @@
  */
 package org.richfaces.resource;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Date;
 import java.util.Map;
 
@@ -30,15 +28,12 @@ import java.util.Map;
  * @author Nick Belaevski
  * 
  */
-//TODO nick - add abstract class
-public interface UserResource {
+public interface UserResource extends ContentProducerResource {
 
     public Map<String, String> getResponseHeaders();
     
     public Date getLastModified();
 
-    public InputStream getInputStream() throws IOException;
-    
     public String getContentType();
     
     public int getContentLength();

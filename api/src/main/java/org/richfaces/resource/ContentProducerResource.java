@@ -21,14 +21,16 @@
  */
 package org.richfaces.resource;
 
-import javax.faces.FacesWrapper;
+import java.io.IOException;
+
+import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
  * 
  */
-public interface UserResourceWrapper extends FacesWrapper<UserResource> {
+public interface ContentProducerResource {
 
-    public UserResource getWrapped();
-
+    public void encode(FacesContext context) throws IOException;
+    
 }

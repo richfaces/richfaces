@@ -35,7 +35,6 @@ import javax.faces.application.ResourceHandler;
 import javax.faces.application.ResourceHandlerWrapper;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.richfaces.application.ServiceTracker;
@@ -222,16 +221,14 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
                     externalContext.setResponseContentType(contentType);
                 }
 
-                // TODO - portlets
-                HttpServletRequest httpServletRequest = (HttpServletRequest) externalContext.getRequest();
-
-                if (!"HEAD".equals(httpServletRequest.getMethod())) {
-
-                    // TODO 'HEAD' HTTP method resources - ?
+                if (resource instanceof ContentProducerResource) {
+                    ContentProducerResource contentProducerResource = (ContentProducerResource) resource;
+                    contentProducerResource.encode(context);
+                } else {
                     // TODO setup output buffer size according to configuration parameter
                     InputStream is = resource.getInputStream();
                     OutputStream os = externalContext.getResponseOutputStream();
-
+                    
                     try {
                         Util.copyStreamContent(is, os);
                     } finally {
@@ -244,11 +241,12 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
                                 }
                             }
                         }
-
+                        
                         // TODO flush resource
                         // TODO dispose resource
                     }
                 }
+                
 
                 if (LOGGER.isDebugEnabled()) {
                     LOGGER.debug("Resource succesfully encoded");

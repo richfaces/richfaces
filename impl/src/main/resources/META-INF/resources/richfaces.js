@@ -331,9 +331,7 @@ if (!window.RichFaces) {
 	
 	var JSON_STRING_START = /^\s*(\[|\{)/;
 	
-	var getJSONData = function(extensionElement, elementName) {
-		var dataString = jQuery.trim(extensionElement.children(elementName).text());
-		extensionElement.end();
+	richfaces.parseJSON = function(dataString) {
 		try {
 			if (dataString) {
 				if (JSON_STRING_START.test(dataString)) {
@@ -346,7 +344,14 @@ if (!window.RichFaces) {
 		} catch (e) {
 			richfaces.log.warn("Error evaluating JSON data from element <" + elementName + ">: " + e.message);
 		}
+		
 		return null;
+	}
+	
+	var getJSONData = function(extensionElement, elementName) {
+		var dataString = jQuery.trim(extensionElement.children(elementName).text());
+		extensionElement.end();
+		return richfaces.parseJSON(dataString);
 	};
 	
 	richfaces.createJSFEventsAdapter = function(handlers) {

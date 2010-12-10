@@ -21,15 +21,27 @@
  */
 package org.richfaces.resource;
 
-import javax.faces.FacesWrapper;
+import java.io.IOException;
 
+import javax.faces.context.FacesContext;
+
+import org.ajax4jsf.javascript.ScriptUtils;
 
 /**
  * @author Nick Belaevski
  * 
  */
-public interface Java2DUserResourceWrapper extends FacesWrapper<Java2DUserResource> {
+@DynamicResource
+public abstract class AbstractJSONResource extends AbstractUserResource {
 
-    public Java2DUserResource getWrapped();
+    public String getContentType() {
+        return "text/javascript; charset=utf-8";
+    }
+
+    public void encode(FacesContext context) throws IOException {
+        ScriptUtils.appendScript(context.getExternalContext().getResponseOutputWriter(), getData(context));
+    }
+
+    protected abstract Object getData(FacesContext context);
 
 }

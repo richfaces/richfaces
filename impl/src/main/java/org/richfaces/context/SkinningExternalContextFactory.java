@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.application;
+package org.richfaces.context;
 
 import javax.faces.FacesException;
 import javax.faces.FacesWrapper;
@@ -49,7 +49,7 @@ public class SkinningExternalContextFactory extends ExternalContextFactory imple
             String mimeType;
             
             if (file != null && file.endsWith(".ecss")) {
-                mimeType = "text/plain";
+                mimeType = "text/vnd.richfaces.css";
             } else {
                 mimeType = super.getMimeType(file);
             }

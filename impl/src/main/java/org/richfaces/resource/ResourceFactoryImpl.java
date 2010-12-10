@@ -207,18 +207,24 @@ public class ResourceFactoryImpl implements ResourceFactory {
         }
     }
 
+    private boolean isCacheableSet(Class<?> c) {
+        DynamicUserResource annotation = c.getAnnotation(DynamicUserResource.class);
+        return annotation != null && annotation.cacheable();
+    }
+    
+    private boolean isVersionedSet(Class<?> c) {
+        DynamicUserResource annotation = c.getAnnotation(DynamicUserResource.class);
+        return annotation != null && annotation.versioned();
+    }
+    
     private Resource createDynamicUserResourceInstance(Class<?> loadedClass) throws Exception, LinkageError {
         String resourceName = loadedClass.getName();
         
         boolean checkResult = false;
-        boolean cacheable = false;
-        boolean versioned = false;
 
         DynamicUserResource dynamicUserResource = loadedClass.getAnnotation(DynamicUserResource.class);
         
         if (dynamicUserResource != null) {
-            cacheable = dynamicUserResource.cacheable();
-            versioned = dynamicUserResource.versioned();
             checkResult = true;
 
             LOGGER.debug(MessageFormat.format("Dynamic resource annotation is present on resource class {0}",
@@ -246,17 +252,14 @@ public class ResourceFactoryImpl implements ResourceFactory {
             return null;
         }
         
-        BaseResourceWrapper<?> result = null;
+        Resource result = null;
         
-        if (Java2DAnimatedUserResource.class.isAssignableFrom(loadedClass)) {
-            Java2DAnimatedUserResource java2DAnimatedUserResource = (Java2DAnimatedUserResource) loadedClass.newInstance();
-            result = new Java2DAnimatedUserResourceWrapperImpl(java2DAnimatedUserResource, cacheable, versioned);
-        } else if (Java2DUserResource.class.isAssignableFrom(loadedClass)) {
+        if (Java2DUserResource.class.isAssignableFrom(loadedClass)) {
             Java2DUserResource java2DUserResource = (Java2DUserResource) loadedClass.newInstance();
-            result = new Java2DUserResourceWrapperImpl(java2DUserResource, cacheable, versioned);
+            result = createResource(java2DUserResource);
         } else if (UserResource.class.isAssignableFrom(loadedClass)) {
             UserResource userResource = (UserResource) loadedClass.newInstance();
-            result = new UserResourceWrapperImpl(userResource, cacheable, versioned);
+            result = createResource(userResource);
         }        
 
         return result;
@@ -471,5 +474,24 @@ public class ResourceFactoryImpl implements ResourceFactory {
     
     public Collection<ResourceKey> getMappedDynamicResourceKeys() {
         return Collections.unmodifiableSet(mappedResourceDataMap.keySet());
+    }
+
+    public Resource createResource(Java2DUserResource resource) {
+        boolean cacheable = isCacheableSet(resource.getClass());
+        boolean versioned = isVersionedSet(resource.getClass());
+        
+        if (resource instanceof Java2DAnimatedUserResource) {
+            Java2DAnimatedUserResource java2DAnimatedUserResource = (Java2DAnimatedUserResource) resource;
+            return new Java2DAnimatedUserResourceWrapperImpl(java2DAnimatedUserResource, cacheable, versioned);
+        } else {
+            return new Java2DUserResourceWrapperImpl(resource, cacheable, versioned);
+        }
+    }
+    
+    public Resource createResource(UserResource resource) {
+        boolean cacheable = isCacheableSet(resource.getClass());
+        boolean versioned = isVersionedSet(resource.getClass());
+        
+        return new UserResourceWrapperImpl(resource, cacheable, versioned);
     }
 }

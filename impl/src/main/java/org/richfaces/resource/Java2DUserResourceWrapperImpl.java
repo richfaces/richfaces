@@ -24,8 +24,6 @@ package org.richfaces.resource;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
@@ -35,25 +33,34 @@ import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageOutputStream;
 
+import org.ajax4jsf.io.ByteBuffer;
+import org.ajax4jsf.io.FastBufferInputStream;
+import org.ajax4jsf.io.FastBufferOutputStream;
 import org.ajax4jsf.util.HtmlColor;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.util.HtmlDimensions;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
+
+import com.google.common.io.Closeables;
 
 /**
  * @author Nick Belaevski
  * 
  */
-public class Java2DUserResourceWrapperImpl extends BaseResourceWrapper<Java2DUserResource> 
-    implements Java2DUserResourceWrapper {
+public class Java2DUserResourceWrapperImpl extends BaseResourceWrapper<Java2DUserResource> {
 
+    private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
+    
     public Java2DUserResourceWrapperImpl(Java2DUserResource resourceObject, boolean cacheable, boolean versioned) {
         super(resourceObject, cacheable, versioned);
     }
 
     public InputStream getInputStream() throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageOutputStream imageOutputStream = ImageIO.createImageOutputStream(baos);
+        FastBufferOutputStream fbos = new FastBufferOutputStream();
+        
+        ImageOutputStream imageOutputStream = ImageIO.createImageOutputStream(fbos);
         try {
             paintAndWrite(imageOutputStream);
         } finally {
@@ -61,12 +68,16 @@ public class Java2DUserResourceWrapperImpl extends BaseResourceWrapper<Java2DUse
                 try {
                     imageOutputStream.close();
                 } catch (IOException e) {
-                    // TODO: handle exception
-                    e.printStackTrace();
+                    LOGGER.debug(e.getMessage(), e);
                 }
+                
+                Closeables.closeQuietly(fbos);
             }
         }
-        return new ByteArrayInputStream(baos.toByteArray());
+        ByteBuffer buffer = fbos.getFirstBuffer();
+        buffer.compact();
+        
+        return new FastBufferInputStream(buffer);
     }
 
     protected void write(BufferedImage image, String formatName, ImageOutputStream imageOutputStream) throws IOException {

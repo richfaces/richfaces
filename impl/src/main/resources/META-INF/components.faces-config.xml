@@ -4,7 +4,7 @@
   version="2.0">	
 
 	<factory>
-        <external-context-factory>org.richfaces.application.SkinningExternalContextFactory</external-context-factory>
+        <external-context-factory>org.richfaces.context.SkinningExternalContextFactory</external-context-factory>
 		<partial-view-context-factory>org.richfaces.context.PartialViewContextFactoryImpl</partial-view-context-factory>
 	</factory>
 	

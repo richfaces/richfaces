@@ -27,7 +27,6 @@ import static org.junit.Assert.assertTrue;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Date;
 import java.util.Map;
 
@@ -41,8 +40,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.common.io.ByteStreams;
-
 
 /**
  * @author Nick Belaevski
@@ -52,10 +49,10 @@ public class UserResourcesTestCase {
 
     protected static class BaseUserResource extends AbstractUserResource {
 
-        public InputStream getInputStream() throws IOException {
-            return ByteStreams.newInputStreamSupplier(getClass().getSimpleName().getBytes("US-ASCII")).getInput();
+        public void encode(FacesContext facesContext) throws IOException {
+            facesContext.getResponseWriter().write(getClass().getSimpleName());
         }
-
+        
         public String getContentType() {
             return "text/plain";
         }

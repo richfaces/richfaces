@@ -85,6 +85,8 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.StateHolderResource;
 
+import com.google.common.base.Strings;
+
 /**
  * @author Nick Belaevski
  * @since 4.0
@@ -115,6 +117,8 @@ public final class Util {
     private static final String QUESTION_SIGN = "?";
     private static final String EQUALS_SIGN = "=";
 
+    private static final Pattern CHARSET_IN_CONTENT_TYPE_PATTERN = Pattern.compile(";\\s*charset\\s*=\\s*([^\\s;]+)", Pattern.CASE_INSENSITIVE);
+    
     static {
         SimpleDateFormat format = new SimpleDateFormat(RFC1123_DATE_PATTERN, Locale.US);
 
@@ -616,4 +620,16 @@ public final class Util {
             stateHolder.restoreState(context, state);
         }
     }
+
+    public static Charset getCharsetFromContentType(String contentType) {
+        String charsetName = null;
+        
+        Matcher matcher = CHARSET_IN_CONTENT_TYPE_PATTERN.matcher(contentType);
+        if (matcher.find()) {
+            charsetName = matcher.group(1);
+        }
+        
+        return Strings.isNullOrEmpty(charsetName) ? Charset.defaultCharset() : Charset.forName(charsetName);
+    }
+
 }
