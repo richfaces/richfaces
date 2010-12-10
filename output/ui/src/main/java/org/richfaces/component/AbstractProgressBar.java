@@ -135,6 +135,9 @@ public abstract class AbstractProgressBar extends UIComponentBase implements Met
     @Attribute
     public abstract Object getValue();
 
+    @Attribute(hidden = true)
+    public abstract String getResource();
+    
     public void encodeMetaComponent(FacesContext context, String metaComponentId) throws IOException {
         ((MetaComponentRenderer) getRenderer(context)).encodeMetaComponent(context, this, metaComponentId);
     }

@@ -23,6 +23,8 @@
 
     var UID = "rf_fu_uid";
     
+    var UID_ALT = "rf_fu_uid_alt";
+
     var ITEM_HTML = '<div class="rf-fu-itm">'
     	+ '<span class="rf-fu-itm-lft"><span class="rf-fu-itm-lbl"/><span class="rf-fu-itm-st"/></span>'
 		+ '<span class="rf-fu-itm-rgh"><a href="javascript:void(0)" class="rf-fu-itm-lnk"/></span></div>';
@@ -251,11 +253,12 @@
 			this.model.state = ITEM_STATE.UPLOADING;
 			this.uid = Math.random();
 	    	this.fileUpload.__submit();
-    		var params = {};
-    		params[UID] = this.uid;
     		if (this.fileUpload.progressBar) {
         		this.fileUpload.progressBar.setValue(0);
         		this.state.html(this.fileUpload.progressBarElement.detach());
+
+        		var params = {};
+        		params[UID_ALT] = this.uid;
         		this.fileUpload.progressBar.enable(params);
     		}
 	    },

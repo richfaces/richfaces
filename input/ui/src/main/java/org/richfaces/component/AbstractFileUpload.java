@@ -37,9 +37,8 @@ import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.context.FileUploadPartialViewContextFactory;
 import org.richfaces.event.FileUploadListener;
-import org.richfaces.request.MultipartRequest;
+import org.richfaces.renderkit.RenderKitUtils;
 
 /**
  * @author Konstantin Mishin
@@ -85,16 +84,14 @@ public abstract class AbstractFileUpload extends UIComponentBase {
             }
         }
         if (component != null) {
-            component.setValueExpression("value", context.getApplication().getExpressionFactory()
-                .createValueExpression(context.getELContext(),
-                    "#{" + MultipartRequest.PERCENT_BEAN_NAME + "[param['"
-                    + FileUploadPartialViewContextFactory.UID_KEY + "']]}", Integer.class));
+            String resourcePath = RenderKitUtils.getResourcePath(context, "org.richfaces", "fileUploadProgress");
+            component.getAttributes().put("resource", resourcePath);
         }
     }
     
     /**
      * <p>Add a new {@link FileUploadListener} to the set of listeners
-     * interested in being notified when {@link UploadEvent}s occur.</p>
+     * interested in being notified when {@link org.richfaces.UploadEvent}s occur.</p>
      *
      * @param listener The {@link FileUploadListener} to be added
      * @throws NullPointerException if <code>listener</code>

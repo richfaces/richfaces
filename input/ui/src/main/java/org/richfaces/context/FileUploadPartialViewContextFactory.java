@@ -52,6 +52,8 @@ public class FileUploadPartialViewContextFactory extends PartialViewContextFacto
 
     public static final String UID_KEY = "rf_fu_uid";
 
+    public static final String UID_ALT_KEY = "rf_fu_uid_alt";
+
     private static enum ResponseState {
         sizeExceeded, stopped, serverError
     };
