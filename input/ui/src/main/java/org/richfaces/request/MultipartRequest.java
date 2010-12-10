@@ -92,9 +92,9 @@ public class MultipartRequest extends HttpServletRequestWrapper {
 
     private String encoding = null;
 
-    private Integer contentLength = 0;
+    private long contentLength = 0;
 
-    private int bytesRead = 0;
+    private long bytesRead = 0;
 
     // we shouldn't allow to stop until request reaches PhaseListener because of portlets
     private volatile boolean canStop = false;
@@ -103,7 +103,7 @@ public class MultipartRequest extends HttpServletRequestWrapper {
 
     private Map<String, Object> percentMap = null;
 
-    private Map<String, Integer> requestSizeMap = null;
+    private Map<String, Long> requestSizeMap = null;
 
     private List<String> keys = new ArrayList<String>();
 
@@ -118,11 +118,13 @@ public class MultipartRequest extends HttpServletRequestWrapper {
 
     private HeadersHandler headersHandler = null;
 
-    public MultipartRequest(HttpServletRequest request, boolean createTempFiles, String tempFilesDirectory, String uid) {
+    public MultipartRequest(HttpServletRequest request, boolean createTempFiles, String tempFilesDirectory,
+        String uid) {
         super(request);
         this.createTempFiles = createTempFiles;
         this.tempFilesDirectory = tempFilesDirectory;
         this.uid = uid;
+        this.contentLength = Long.parseLong(request.getHeader("Content-Length"));
     }
 
     private class ControlledProgressInputStream extends FilterInputStream {
@@ -399,9 +401,9 @@ public class MultipartRequest extends HttpServletRequestWrapper {
                             }
 
                             if (requestSizeMap == null) {
-                                requestSizeMap = (Map<String, Integer>) sessionMap.get(REQUEST_SIZE_BEAN_NAME);
+                                requestSizeMap = (Map<String, Long>) sessionMap.get(REQUEST_SIZE_BEAN_NAME);
                                 if (requestSizeMap == null) {
-                                    requestSizeMap = new ConcurrentHashMap<String, Integer>();
+                                    requestSizeMap = new ConcurrentHashMap<String, Long>();
                                     sessionMap.put(REQUEST_SIZE_BEAN_NAME, requestSizeMap);
                                 }
                             }
@@ -409,7 +411,7 @@ public class MultipartRequest extends HttpServletRequestWrapper {
 
                         percentMap.put(uploadId, Double.valueOf(0));
 
-                        requestSizeMap.put(uploadId, getSize());
+                        requestSizeMap.put(uploadId, contentLength);
                     }
                 }
             }
@@ -505,10 +507,6 @@ public class MultipartRequest extends HttpServletRequestWrapper {
         }
 
         return param;
-    }
-
-    public Integer getSize() {
-        return contentLength;
     }
 
     @SuppressWarnings("rawtypes")
@@ -625,8 +623,7 @@ public class MultipartRequest extends HttpServletRequestWrapper {
     }
 
     public boolean isDone() {
-        return !(this.shouldStop && (this.canceled || this.contentLength != null
-            && this.contentLength.intValue() != this.bytesRead));
+        return !(this.contentLength != this.bytesRead && this.shouldStop && this.canceled);
     }
 
     @Override
