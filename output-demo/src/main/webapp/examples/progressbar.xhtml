@@ -114,6 +114,26 @@
 			
 			<a4j:commandLink value="re-render progress bar" render="progressBar" />
 		</h:form>
+		
+		<h:form id="ajaxExtResourcePBForm">
+			Ajax mode with GET requests:
+		    <rich:progressBar id="progressBar" mode="ajax" interval="2000" resource="#{resource['org.richfaces.ProgressBarResource']}"
+				maxValue="#{progressBarBean.maxValue}" minValue="#{progressBarBean.minValue}" 
+				enabled="#{progressBarBean.enabled}">
+				
+				<f:facet name="initial">
+					<h:panelGroup rendered="#{progressBarBean.initialFacetRendered}">
+						<h:outputText value="initial" />
+					</h:panelGroup>
+				</f:facet>
+				
+				<f:facet name="finish">
+					<h:panelGroup rendered="#{progressBarBean.finishFacetRendered}">
+						<h:outputText value="finish" />
+					</h:panelGroup>
+				</f:facet>
+			</rich:progressBar>
+		</h:form>
 	</ui:define>
 </ui:composition>
 
