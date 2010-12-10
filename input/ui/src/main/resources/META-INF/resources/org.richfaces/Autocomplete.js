@@ -465,4 +465,11 @@
  			}
 		};
 	})());
+	
+	$.extend(rf.ui.Autocomplete, {
+		setData: function (id, data) {
+		$(rf.getDomElement(id)).data({componentData:data});
+	}
+	});
+	
 })(jQuery, RichFaces);

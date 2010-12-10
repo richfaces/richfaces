@@ -45,8 +45,8 @@ import javax.faces.model.ResultSetDataModel;
 import javax.servlet.jsp.jstl.sql.Result;
 
 import org.ajax4jsf.context.AjaxContext;
+import org.ajax4jsf.javascript.JSObject;
 import org.ajax4jsf.javascript.JSReference;
-import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.component.AbstractAutocomplete;
 import org.richfaces.component.AutocompleteLayout;
 import org.richfaces.component.MetaComponentResolver;
@@ -208,9 +208,8 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
             ResponseWriter writer = facesContext.getResponseWriter();
             writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
             writer.writeAttribute(HtmlConstants.TYPE_ATTR, "text/javascript", null);
-            StringBuilder sb = new StringBuilder("\njQuery(RichFaces.getDomElement('");
-            sb.append(component.getClientId(facesContext)).append("Items')).data({componentData:").append(ScriptUtils.toScript(fetchValues)).append("});\n");
-            writer.write(sb.toString());
+            JSObject script = new JSObject("RichFaces.ui.Autocomplete.setData", component.getClientId(facesContext)+"Items", fetchValues);
+            writer.writeText(script, null);
             writer.endElement(HtmlConstants.SCRIPT_ELEM);
         }
     }
