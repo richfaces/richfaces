@@ -19,7 +19,7 @@ import org.richfaces.model.UploadItem;
 @SessionScoped
 public class FileUploadBean implements Serializable {
 
-    private ArrayList<UplocadedImage> files = new ArrayList<UplocadedImage>();
+    private ArrayList<UploadedImage> files = new ArrayList<UploadedImage>();
     private int uploadsAvailable = 5;
     private boolean autoUpload = false;
     private boolean useFlash = false;
@@ -38,7 +38,7 @@ public class FileUploadBean implements Serializable {
 
     public void listener(UploadEvent event) throws Exception {
         UploadItem item = event.getUploadItem();
-        UplocadedImage file = new UplocadedImage();
+        UploadedImage file = new UploadedImage();
         file.setLength(item.getData().length);
         file.setName(item.getFileName());
         file.setData(item.getData());
@@ -56,11 +56,11 @@ public class FileUploadBean implements Serializable {
         return System.currentTimeMillis();
     }
 
-    public ArrayList<UplocadedImage> getFiles() {
+    public ArrayList<UploadedImage> getFiles() {
         return files;
     }
 
-    public void setFiles(ArrayList<UplocadedImage> files) {
+    public void setFiles(ArrayList<UploadedImage> files) {
         this.files = files;
     }
 

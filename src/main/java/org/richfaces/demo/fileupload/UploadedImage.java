@@ -1,6 +1,10 @@
 package org.richfaces.demo.fileupload;
 
-public class UplocadedImage {
+import java.io.Serializable;
+
+public class UploadedImage implements Serializable {
+
+    private static final long serialVersionUID = -8192553629588066292L;
 
     private String name;
     private String mime;
@@ -20,7 +24,6 @@ public class UplocadedImage {
     }
 
     public void setName(String name) {
-        name = name;
         int extDot = name.lastIndexOf('.');
         if (extDot > 0) {
             String extension = name.substring(extDot + 1);
