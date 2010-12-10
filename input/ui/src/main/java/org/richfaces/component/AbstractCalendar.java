@@ -465,9 +465,9 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
                 facesContext.addMessage(getClientId(facesContext), message);
                 facesContext.renderResponse();
             }
-        } else {
-            super.broadcast(event);
-        }
+        } 
+        
+        super.broadcast(event);
     }
 
     @Override

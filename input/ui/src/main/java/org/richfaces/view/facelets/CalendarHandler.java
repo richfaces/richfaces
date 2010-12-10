@@ -66,7 +66,7 @@ public class CalendarHandler extends ComponentHandler {
 
     static class CalendarMapper extends Metadata {
 
-        private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.CurrentDateChangeListener.class };
+        private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.CurrentDateChangeEvent.class };
 
         private final TagAttribute attribute;
 
