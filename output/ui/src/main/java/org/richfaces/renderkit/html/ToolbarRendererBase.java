@@ -219,7 +219,7 @@ public abstract class ToolbarRendererBase extends RendererBase {
 
             writer.startElement(HtmlConstants.TD_ELEM, component);
             String separatorClass = "rf-tb-sep";
-            concatClasses(separatorClass, (String) component.getAttributes().get("separatorClass"));
+            separatorClass = concatClasses(separatorClass, (String) component.getAttributes().get("separatorClass"));
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, separatorClass, null);
 
             if (separator != null) {
@@ -229,7 +229,7 @@ public abstract class ToolbarRendererBase extends RendererBase {
                 writer.write("&nbsp;");
                 writer.endElement(HtmlConstants.DIV_ELEM);
             } else {
-                concatClasses(separatorClass, (String) component.getAttributes().get("separatorClass"));
+                separatorClass = concatClasses(separatorClass, (String) component.getAttributes().get("separatorClass"));
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, separatorClass, null);
                 
                 String uri = RenderKitUtils.getResourceURL(itemSeparator, context);
