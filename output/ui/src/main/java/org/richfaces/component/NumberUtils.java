@@ -2,7 +2,13 @@ package org.richfaces.component;
 
 import java.math.BigDecimal;
 
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+
 public final class NumberUtils {
+    
+    private static final Logger LOGGER = RichfacesLogger.COMPONENTS.getLogger();
+    
     private NumberUtils() {
     	
     }
@@ -31,7 +37,7 @@ public final class NumberUtils {
                     }
                 }
             } catch (Exception e) {
-                e.getMessage();
+                LOGGER.error(e.getMessage(), e);
             }
             return result;
         }

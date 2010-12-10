@@ -23,9 +23,12 @@
 		this.enabled = this.options.enabled;
 		this.minValue = this.options.minValue;
 		this.maxValue = this.options.maxValue;
-		this.__setValue(this.options.value);
 		
-		if (this.options.submitFunction) {
+		this.__setValue(this.options.value || this.options.minValue /* TODO - check with Ilya */);
+		
+		if (this.options.resource) {
+			this.__poll();
+		} else if (this.options.submitFunction) {
 			this.submitFunction = new Function("beforeUpdateHandler", "afterUpdateHandler", "params", "event", this.options.submitFunction);
 			this.__poll();
 		}
@@ -67,9 +70,22 @@
  				this.__poll();
  			},
  			
+ 			__onResourceDataAvailable: function(data) {
+ 				var parsedData = rf.parseJSON(data);
+ 				if (parsedData instanceof Number || typeof parsedData == 'number') {
+ 					this.setValue(parsedData);
+ 				}
+ 				
+ 				this.__poll();
+ 			},
+ 			
  			__submit: function() {
- 				this.submitFunction.call(this, $.proxy(this.__beforeUpdate, this), $.proxy(this.__afterUpdate, this), 
- 					this.__params || {});
+ 				if (this.submitFunction) {
+ 					this.submitFunction.call(this, $.proxy(this.__beforeUpdate, this), $.proxy(this.__afterUpdate, this), 
+ 							this.__params || {});
+ 				} else {
+ 					$.get(this.options.resource, this.__params || {}, $.proxy(this.__onResourceDataAvailable, this), 'text');
+ 				}
  			},
  			
  			__poll: function(immediate) {
@@ -158,7 +174,7 @@
 			},
 
 			isAjaxMode: function () {
-				return !!this.submitFunction;
+				return !!this.submitFunction || !!this.options.resource;
 			},
 			
 			disable: function () {

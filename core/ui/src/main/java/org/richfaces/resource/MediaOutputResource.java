@@ -23,12 +23,9 @@
 
 package org.richfaces.resource;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Date;
-import java.util.Map;
 
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
@@ -43,7 +40,7 @@ import org.richfaces.component.AbstractMediaOutput;
  * @since 4.0
  */
 @DynamicResource
-public class MediaOutputResource implements StateHolder, UserResource, CacheableResource {
+public class MediaOutputResource extends AbstractUserResource implements StateHolder, CacheableResource {
     
     private String contentType;
     
@@ -62,15 +59,11 @@ public class MediaOutputResource implements StateHolder, UserResource, Cacheable
     private ValueExpression timeToLiveExpression;
     private Object userData;
 
-    public InputStream getInputStream() throws IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-
-        contentProducer.invoke(facesContext.getELContext(), new Object[] {baos, userData});
-
-        return new ByteArrayInputStream(baos.toByteArray());
+    public void encode(FacesContext facesContext) throws IOException {
+        OutputStream outStream = facesContext.getExternalContext().getResponseOutputStream();
+        contentProducer.invoke(facesContext.getELContext(), new Object[] {outStream, userData});
     }
-
+    
     public boolean isTransient() {
         return false;
     }
@@ -135,14 +128,6 @@ public class MediaOutputResource implements StateHolder, UserResource, Cacheable
         return null;
     }
 
-    public Map<String, String> getResponseHeaders() {
-        return null;
-    }
-
-    public Date getLastModified() {
-        return null;
-    }
-
     public String getContentType() {
         return contentType;
     }
@@ -151,7 +136,4 @@ public class MediaOutputResource implements StateHolder, UserResource, Cacheable
         this.contentType = contentType;
     }
     
-    public int getContentLength() {
-        return -1;
-    }
 }

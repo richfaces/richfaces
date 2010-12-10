@@ -93,7 +93,11 @@ public class ProgressBarBaseRenderer extends RendererBase implements MetaCompone
      * @param component
      * @return
      */
-    public boolean isAjaxMode(UIComponent component) {
+    protected boolean isAjaxMode(UIComponent component) {
+        if (isResourceMode(component)) {
+            return false;
+        }
+         
         SwitchType mode = (SwitchType) component.getAttributes().get("mode");
         
         if (mode == SwitchType.server) {
@@ -103,19 +107,27 @@ public class ProgressBarBaseRenderer extends RendererBase implements MetaCompone
         return SwitchType.ajax == mode;
     }
     
+    protected boolean isResourceMode(UIComponent component) {
+        return component.getAttributes().get("resource") != null;
+    }
+    
     protected ProgressBarState getCurrentState(FacesContext context, UIComponent component){
-        Number minValue = NumberUtils.getNumber(component.getAttributes().get("minValue"));
-        Number maxValue = NumberUtils.getNumber(component.getAttributes().get("maxValue"));
-        Number value = NumberUtils.getNumber(component.getAttributes().get("value"));
-        
         ProgressBarState result;
         
-        if (value.doubleValue() < minValue.doubleValue()) {
+        if (isResourceMode(component)) {
             result = ProgressBarState.initialState;
-        } else if (value.doubleValue() >= maxValue.doubleValue()) {
-            result = ProgressBarState.finishState;
         } else {
-            result = ProgressBarState.progressState;
+            Number minValue = NumberUtils.getNumber(component.getAttributes().get("minValue"));
+            Number maxValue = NumberUtils.getNumber(component.getAttributes().get("maxValue"));
+            Number value = NumberUtils.getNumber(component.getAttributes().get("value"));
+            
+            if (value.doubleValue() < minValue.doubleValue()) {
+                result = ProgressBarState.initialState;
+            } else if (value.doubleValue() >= maxValue.doubleValue()) {
+                result = ProgressBarState.finishState;
+            } else {
+                result = ProgressBarState.progressState;
+            }
         }
         
         if (result == ProgressBarState.initialState || result == ProgressBarState.finishState) {

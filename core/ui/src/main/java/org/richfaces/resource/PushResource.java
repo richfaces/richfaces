@@ -21,17 +21,13 @@
  */
 package org.richfaces.resource;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.Date;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
-import javax.faces.FacesException;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -47,31 +43,12 @@ import org.richfaces.application.push.TopicKey;
  * 
  */
 @DynamicResource
-public class PushResource implements UserResource {
+public class PushResource extends AbstractUserResource {
 
     private static final String PUSH_TOPIC_PARAM = "pushTopic";
 
     private static final String FORGET_PUSH_SESSION_ID_PARAM = "forgetPushSessionId";
 
-    private static final InputStream EMPTY_INPUT_STREAM = new ByteArrayInputStream(new byte[0]);
-    
-    public Map<String, String> getResponseHeaders() {
-        return null;
-    }
-
-    public Date getLastModified() {
-        return null;
-    }
-
-    private InputStream mapToScript(Map<String, Object> map) {
-        try {
-            byte[] bs = ScriptUtils.toScript(map).getBytes("UTF-8");
-            return new ByteArrayInputStream(bs);
-        } catch (UnsupportedEncodingException e) {
-            throw new FacesException(e.getMessage(), e);
-        }
-    }
-    
     private Map<String, String> getFailuresMap(Map<TopicKey, String> failedSubscriptions) {
         Map<String,String> result = new HashMap<String, String>();
         
@@ -82,15 +59,14 @@ public class PushResource implements UserResource {
         return result;
     }
     
-    public InputStream getInputStream() throws IOException {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
+    public void encode(FacesContext facesContext) throws IOException {
         ExternalContext externalContext = facesContext.getExternalContext();
 
         PushContextFactory pushContextFactory = ServiceTracker.getService(PushContextFactory.class);
         
         //resource plugin stub
         if (pushContextFactory == null) {
-            return EMPTY_INPUT_STREAM;
+            return;
         }
         
         PushContext pushContext = pushContextFactory.getPushContext();
@@ -119,15 +95,12 @@ public class PushResource implements UserResource {
         Map<TopicKey, String> failedSubscriptions = session.getFailedSubscriptions();
         subscriptionData.put("failures", getFailuresMap(failedSubscriptions));
         
-        return mapToScript(subscriptionData);
+        Writer outWriter = facesContext.getExternalContext().getResponseOutputWriter();
+        ScriptUtils.appendScript(outWriter, subscriptionData);
     }
-
+    
     public String getContentType() {
-        return "application/javascript; charset=utf-8";
-    }
-
-    public int getContentLength() {
-        return -1;
+        return "text/javascript; charset=utf-8";
     }
 
 }

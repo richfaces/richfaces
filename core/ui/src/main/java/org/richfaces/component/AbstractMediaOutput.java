@@ -28,12 +28,11 @@ import java.util.Date;
 
 import javax.el.MethodExpression;
 import javax.faces.application.Resource;
-import javax.faces.application.ResourceHandler;
 import javax.faces.component.UIOutput;
-import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
 
 import org.ajax4jsf.resource.ResourceComponent2;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -42,7 +41,7 @@ import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.resource.MediaOutputResource;
-import org.richfaces.resource.UserResourceWrapper;
+import org.richfaces.resource.ResourceFactory;
 
 /**
  * @author shura
@@ -120,14 +119,12 @@ public abstract class AbstractMediaOutput extends UIOutput implements ResourceCo
     }
 
     public Resource getResource() {
-        FacesContext facesContext = getFacesContext();
-        ResourceHandler resourceHandler = facesContext.getApplication().getResourceHandler();
-        Resource resource = resourceHandler.createResource(MediaOutputResource.class.getName());
+        ResourceFactory factory = ServiceTracker.getService(ResourceFactory.class);
         
-        MediaOutputResource mediaResource = (MediaOutputResource) ((UserResourceWrapper) resource).getWrapped();
-        mediaResource.initialize(this);
-
-        return resource;
+        MediaOutputResource mediaOutputResource = new MediaOutputResource();
+        mediaOutputResource.initialize(this);
+        
+        return factory.createResource(mediaOutputResource);
     }
 
     @Attribute

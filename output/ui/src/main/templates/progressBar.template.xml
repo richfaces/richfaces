@@ -38,7 +38,7 @@
                     <cdk:scriptOption name="minValue" value="#{component.attributes['minValue']}" defaultValue="0" />
                     <cdk:scriptOption name="maxValue" value="#{component.attributes['maxValue']}" defaultValue="100" />
                     
-                    <cdk:scriptOption attributes="interval enabled value onfinish" />
+                    <cdk:scriptOption attributes="interval enabled value onfinish resource" />
                 </cdk:scriptObject>
             
 				new RichFaces.ui.ProgressBar(#{toScriptArgs(clientId, options)});
