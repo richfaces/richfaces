@@ -67,7 +67,7 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Object> i
             return true;
         }
 
-        return !Iterables.contains(currentComponent.getChildren(), Predicates.instanceOf(TreeModelAdaptor.class));
+        return !Iterables.any(currentComponent.getChildren(), Predicates.instanceOf(TreeModelAdaptor.class));
     }
 
     public Iterator<TreeDataModelTuple> children() {
