@@ -292,7 +292,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     public abstract String getOncomplete();
     
     @Attribute(events = @EventName("hide"))
-    public abstract String getOncollapse();
+    public abstract String getOnhide();
     
     @Attribute(events = @EventName("datemouseout"))
     public abstract String getOndatemouseout();
@@ -558,7 +558,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
         }
         return null;
     }
-    
+
     public static Object formatStartDate(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
