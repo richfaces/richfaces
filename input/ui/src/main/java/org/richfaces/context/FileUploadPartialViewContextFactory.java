@@ -112,7 +112,7 @@ public class FileUploadPartialViewContextFactory extends PartialViewContextFacto
                                     //So we should use PartialViewContext.processPartial instead of.
                                 }
                             }
-                        };
+                        }
                         
                         //TODO This method can be removed from here when PartialViewContextWrapper will implement it.
                         @Override

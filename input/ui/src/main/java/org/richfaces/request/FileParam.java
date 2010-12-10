@@ -86,7 +86,7 @@ class FileParam extends Param {
             if (tempFilesDirectory != null) {
                 dir = new File(tempFilesDirectory);
             }
-            tempFile = File.createTempFile(UUID.randomUUID().toString(), ".upload", dir);
+            tempFile = File.createTempFile("richfaces_uploaded_file_", null, dir);
             tempFile.deleteOnExit();
             fOut = new FileOutputStream(tempFile);
         } catch (IOException ex) {
