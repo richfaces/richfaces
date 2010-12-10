@@ -50,5 +50,7 @@ public interface InplaceComponent {
     public String getEditClass();
 
     public String getNoneClass();
- 
+    
+    public abstract int getTabindex();
+
 }
