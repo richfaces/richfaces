@@ -7,6 +7,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
 
+import org.richfaces.event.CurrentDateChangeEvent;
+
 @ManagedBean
 @SessionScoped
 public class CalendarBean {
@@ -127,5 +129,12 @@ public class CalendarBean {
     public int getVerticalOffset() {
         return verticalOffset;
     }
-
+    
+    public void doValueChangeListener(ValueChangeEvent event) {
+        System.out.println("doValueChangeListener: old value = " + event.getOldValue()+", new value = "+event.getNewValue());
+    }
+    
+    public void doCurrentDataChangeListener(CurrentDateChangeEvent event) {
+        System.out.println("doCurrentDataChangeListener: "+event.getCurrentDateString());
+    }
 }

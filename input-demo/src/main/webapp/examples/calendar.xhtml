@@ -61,8 +61,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					firstWeekDay="4"
 					horizontalOffset="#{calendarBean.horizontalOffset}"
 					verticalOffset="#{calendarBean.verticalOffset}"
+					valueChangeListener="#{calendarBean.doValueChangeListener}"
+					currentDataChangeListener="#{calendarBean.doCurrentDataChangeListener}" 
 					>
-					<f:ajax event="change" render="echo-text" />
+					
 				</calendar:calendar>
 				<h:outputText id="echo-text" value="#{calendarBean.selectedDate}" />
 			</h:panelGroup>
