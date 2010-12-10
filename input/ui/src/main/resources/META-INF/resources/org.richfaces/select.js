@@ -367,7 +367,7 @@
                		this.hidePopup();
                		this.__setInputFocus();
 
-               		this.invokeEvent.call(this,"selectitem", document.getElementById(this.id + 'Input'), e);
+               		this.invokeEvent.call(this,"selectitem", document.getElementById(this.id + 'Input'));
     			}, 
     			
     			onblur: function(e) {

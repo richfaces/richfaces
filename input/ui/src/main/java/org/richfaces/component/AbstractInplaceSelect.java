@@ -62,6 +62,9 @@ public abstract class AbstractInplaceSelect extends AbstractSelectComponent impl
     @Attribute(defaultValue="false")
     public abstract boolean isShowControls();
     
+    @Attribute
+    public abstract int getTabindex();
+    
     @Override
     @Attribute
     public abstract String getItemClass();
@@ -107,16 +110,6 @@ public abstract class AbstractInplaceSelect extends AbstractSelectComponent impl
     @Attribute(events=@EventName("inputkeyup"))
     public abstract String getOninputkeyup();
     
-    @Attribute(events=@EventName("inputfocus"))
-    public abstract String getOninputfocus();
-  
-    @Attribute(events=@EventName("inputblur"))
-    public abstract String getOninputblur();
-    
     @Attribute(events=@EventName("inputselect"))
     public abstract String getOninputselect();
-    
-    @Attribute(events=@EventName("inputchange"))
-    public abstract String getOnchange();
-  
 }

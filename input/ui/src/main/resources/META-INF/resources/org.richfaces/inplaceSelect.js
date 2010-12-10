@@ -85,9 +85,17 @@
        			}
        		},
        		
-			onblur: function() {
+			onblur: function(e) {
 				this.hidePopup();
 				$super.onblur.call(this);
+			},
+			
+			onfocus: function(e) {
+				if(!this.__isFocused()) {
+					this.__setFocused(true);
+					this.focusValue = this.selValueInput.val();
+					this.invokeEvent.call(this, "focus", document.getElementById(this.id + 'Input'), e);
+				}
 			},
 		
 			processItem: function(item) {
@@ -100,6 +108,8 @@
            		if(this.saveOnSelect) {
        				this.save();
 				}
+
+           		this.invokeEvent.call(this,"selectitem", document.getElementById(this.id + 'Input'));
 			},
 			
 			getItemValue: function(item) {
@@ -132,6 +142,10 @@
 				
 				return label;
 			}, 
+			
+			__isValueChanged: function() {
+				return (this.focusValue != this.selValueInput.val());
+			},
 			
        		__keydownHandler: function(e) {
 				
@@ -170,10 +184,10 @@
 			},
 			
 			__blurHandler: function(e) {
-				if(!this.isMouseDown) {
+				if(this.saveOnSelect || !this.isMouseDown) {
 					if(this.isEditState()) {
 						this.timeoutId = window.setTimeout($.proxy(function(){
-							this.onblur();
+							this.onblur(e);
 						}, this), 200);
 					}	
 				} else {

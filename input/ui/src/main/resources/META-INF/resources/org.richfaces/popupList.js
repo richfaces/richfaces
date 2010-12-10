@@ -23,7 +23,7 @@
     	var defaultOptions = {
    			attachToBody: true,
    			positionType: "DROPDOWN",
-   			positionOffset: [0,20]
+   			positionOffset: [0,0]
    		};
 
         

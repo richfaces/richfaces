@@ -115,15 +115,6 @@ public class InplaceInputRendererBase extends InputRendererBase {
                     new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE)
                             .setEventNames("inputkeyup")
                             .setComponentAttributeName("oninputkeyup"),
-                    new ComponentAttribute(HtmlConstants.ONBLUR_ATTRIBUTE)
-                            .setEventNames("inputblur")
-                            .setComponentAttributeName("oninputblur"),
-                    new ComponentAttribute(HtmlConstants.ONFOCUS_ATTRIBUTE)
-                            .setEventNames("inputfocus")
-                            .setComponentAttributeName("oninputfocus"),
-                    new ComponentAttribute(HtmlConstants.ONCHANGE_ATTRIBUTE)
-                            .setEventNames("inputchange").setComponentAttributeName(
-                                    "oninputchange"),
                     new ComponentAttribute(HtmlConstants.ONSELECT_ATTRIBUTE)
                             .setEventNames("inputselect").setComponentAttributeName(
                                     "oninputselect")));

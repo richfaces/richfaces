@@ -65,7 +65,7 @@ public abstract class AbstractInplaceInput extends UIInput implements InplaceCom
     public abstract String getInputWidth();
     
     @Attribute
-    public abstract String getTabIndex();
+    public abstract int getTabindex();
     
     @Attribute
     public abstract String getReadyStateClass();
@@ -85,18 +85,12 @@ public abstract class AbstractInplaceInput extends UIInput implements InplaceCom
     @Attribute
     public abstract String getNoneClass();
     
-    @Attribute(events=@EventName("blur"))
-    public abstract String getOnblur();
-
     @Attribute(events=@EventName("click"))
     public abstract String getOnclick();
     
     @Attribute(events=@EventName("ondblclick"))
     public abstract String getOndblclick();
    
-    @Attribute(events=@EventName("focus"))
-    public abstract String getOnfocus();
-    
     @Attribute(events=@EventName("keydown"))
     public abstract String getOnkeydown();
     
@@ -151,17 +145,18 @@ public abstract class AbstractInplaceInput extends UIInput implements InplaceCom
     @Attribute(events=@EventName("inputkeyup"))
     public abstract String getOninputkeyup();
     
-    @Attribute(events=@EventName("inputfocus"))
-    public abstract String getOninputfocus();
-  
-    @Attribute(events=@EventName("inputblur"))
-    public abstract String getOninputblur();
-    
     @Attribute(events=@EventName("inputselect"))
     public abstract String getOninputselect();
     
-    @Attribute(events=@EventName("inputchange"))
-    public abstract String getOninputchange();
+    @Attribute(events=@EventName("change"))
+    public abstract String getOnchange();
+    
+    @Attribute(events=@EventName("focus"))
+    public abstract String getOnfocus();
+  
+    @Attribute(events=@EventName("blur"))
+    public abstract String getOnblur();
+
     
     //TODO: what is default event?, add onViewActivated, onEditActivated events support
 }

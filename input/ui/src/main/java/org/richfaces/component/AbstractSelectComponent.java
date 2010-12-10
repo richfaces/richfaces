@@ -58,6 +58,9 @@ public abstract class AbstractSelectComponent extends UISelectOne {
     @Attribute(events=@EventName("click"))
     public abstract String getOnclick();
     
+    @Attribute(events=@EventName("change"))
+    public abstract String getOnchange();
+    
     @Attribute(events=@EventName("dblclick"))
     public abstract String getOndblclick();
    
@@ -120,8 +123,5 @@ public abstract class AbstractSelectComponent extends UISelectOne {
     
     @Attribute(events=@EventName("selectitem"))
     public abstract String getOnselectitem();
-    
-    @Attribute(events=@EventName("change"))
-    public abstract String getOnchange();
-   
+
 }

@@ -51,7 +51,7 @@
 					<input id="#{clientId}Input" name="#{clientId}Input" autocomplete="off" 
 						type="text" value="#{getSelectInputLabel(facesContext, component)}"
 						class="rf-is-fld" style="width: #{component.attributes['inputWidth']};" readonly="readonly"
-						cdk:passThrough="tabIndex">
+						cdk:passThrough="tabindex">
 						<cdk:call expression="renderInputHandlers(facesContext, component);" />
 					</input>
 					<c:if test="#{component.attributes['showControls']}">
@@ -104,6 +104,7 @@
 						<cdk:scriptOption name="changedCss" value="#{concatClasses('rf-is-c-s', component.attributes['changedClass'])}"/>
 						<cdk:scriptOption name="editCss" value="#{concatClasses('rf-is-e-s', component.attributes['editClass'])}"/>
 					  	<cdk:scriptOption attributes="editEvent state defaultLabel saveOnBlur showControls openOnEdit saveOnSelect" />
+					  	<cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onselectitem onchange onblur onfocus" wrapper="eventHandler"/>
                 	</cdk:scriptObject>
 					new RichFaces.ui.InplaceSelect("#{clientId}", #{toScriptArgs(options)});
 				</script>

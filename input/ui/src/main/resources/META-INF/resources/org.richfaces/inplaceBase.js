@@ -10,6 +10,9 @@
         this.changedCss = mergedOptions.changedCss;
         this.defaultLabel = mergedOptions.defaultLabel;
         this.state = mergedOptions.state;
+
+        this.options = mergedOptions;
+
         this.element = $(document.getElementById(id)); 
         this.editContainer = $(document.getElementById(id+"Edit"));
        	this.element.bind(this.editEvent, $.proxy(this.__editHandler, this));

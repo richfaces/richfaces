@@ -66,7 +66,7 @@
     			},
     			
            		__blurHandler: function(e) {
-    				this.onblur();
+    				this.onblur(e);
     			},
     			
            		__changeHandler: function(e) {
@@ -85,13 +85,20 @@
            		},
            		
            		__saveBtnHandler: function(e) {
+           			this.cancelButton = false; 
            			this.save();
-           			return false;
+           			this.onblur(e);
            		}, 
            		
            		__cancelBtnHandler: function(e) {
+           			this.cancelButton = true; 
            			this.cancel();
-           			return false;
+           			this.onblur(e);
+           		},
+           		
+           		__editHandler: function(e){
+           			$super.__editHandler.call(this,e);
+           			this.onfocus(e);
            		},
           		
            		getLabel: function() {
@@ -114,15 +121,45 @@
     				this.focusElement.focus();
     			},
     			
-    			onblur: function() { 
-    				if(!this.isValueSaved() && this.__isSaveOnBlur()) {
-           				this.save();
-           			} else {
-           				this.__hide();
-           			}
-           			this.getInput().bind("focus", $.proxy(this.__editHandler, this));
+    			onfocus: function(e) {
+    				if(!this.__isFocused()) {
+    					this.__setFocused(true);
+	    				this.focusValue = this.getValue();
+						this.invokeEvent.call(this, "focus", document.getElementById(this.id + 'Input'), e);
+    				}
+    			},
+    			
+    			onblur: function(e) { 
+    				if(this.__isFocused()) {
+    					this.__setFocused(false);
+	    				this.invokeEvent.call(this, "blur", document.getElementById(this.id + 'Input'), e);
+	    				
+	    				if(!this.isValueSaved() && this.__isSaveOnBlur()) {
+	           				this.save();
+	           			} else {
+	           				this.__hide();
+	           			}
+	    				
+	    				if(!this.cancelButton) {
+	       					if(this.__isValueChanged()) {
+	    						this.invokeEvent.call(this, "change", document.getElementById(this.id + 'Input'), e);
+	       					}
+	       				}
+	           			this.getInput().bind("focus", $.proxy(this.__editHandler, this));
+    				}
+    			}, 
+    			
+    			__isValueChanged: function() {
+    				return (this.focusValue != this.getValue());
+    			},
+    			
+    			__setFocused: function(focused) {
+    				this.focused = focused;
+    			}, 
+    			
+    			__isFocused: function() {
+    				return this.focused;
     			}
-    		
     		}
     	})());
 
