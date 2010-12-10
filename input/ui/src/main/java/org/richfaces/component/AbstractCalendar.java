@@ -552,7 +552,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
                 HashMap<String, Object> args = new HashMap<String, Object>();
                 
                 args.put("startDate", formatStartDate(preloadDateRange[0]));
-                args.put("days", calendarDataModelItems);
+                args.put("days", deleteEmptyPropeties(calendarDataModelItems));
                 return args;
             }
         }
@@ -566,6 +566,23 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
         hashDate.put("month", calendar.get(Calendar.MONTH));
         hashDate.put("year", calendar.get(Calendar.YEAR));
         return hashDate;
+    }
+    
+    public ArrayList<Object> deleteEmptyPropeties(CalendarDataModelItem[] calendarDataModelItems) {
+        ArrayList<Object> hashItems = new ArrayList<Object>();
+        for (CalendarDataModelItem item : calendarDataModelItems) {
+            HashMap<String, Object> itemPropertiesMap = new HashMap<String, Object>();
+            if (null != item) {
+                if (!item.isEnabled()) {
+                    itemPropertiesMap.put("enabled", item.isEnabled());
+                }
+                if (null != item.getStyleClass() && !item.getStyleClass().equalsIgnoreCase("")) {
+                    itemPropertiesMap.put("styleClass", item.getStyleClass());
+                }
+            }
+            hashItems.add(itemPropertiesMap);
+        }
+        return hashItems;
     }
     
     public Date[] getPreloadDateRange() {
