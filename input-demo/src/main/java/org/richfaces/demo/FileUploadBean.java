@@ -28,7 +28,7 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.AjaxBehaviorEvent;
 
 import org.richfaces.event.UploadEvent;
-import org.richfaces.model.UploadItem;
+import org.richfaces.model.UploadedFile;
 
 /**
  * @author Konstantin Mishin
@@ -41,10 +41,10 @@ public class FileUploadBean {
     private String acceptedTypes;
     private boolean enabled = true;
     private boolean noDuplicate = false;
-    private UploadItem item;
+    private UploadedFile file;
     
-    public UploadItem getItem() {
-        return item;
+    public UploadedFile getFile() {
+        return file;
     }
 
 //    public void paint(OutputStream stream, Object object) throws IOException {
@@ -52,7 +52,7 @@ public class FileUploadBean {
 //    }
     
     public void listener(UploadEvent event) throws Exception {
-        item = event.getUploadItem();
+        file = event.getUploadedFile();
     }
 
     public void setEnabled(boolean enabled) {
