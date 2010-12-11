@@ -19,31 +19,18 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.renderkit;
+package org.richfaces.model;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-
-import org.richfaces.event.UploadEvent;
-import org.richfaces.model.UploadedFile;
-import org.richfaces.request.MultipartRequest;
+import java.io.InputStream;
 
 /**
  * @author Konstantin Mishin
  * 
  */
-public class FileUploadRendererBase extends RendererBase {
-
-    @Override
-    protected void doDecode(FacesContext context, UIComponent component) {
-        ExternalContext externalContext = context.getExternalContext();
-        Object request = externalContext.getRequest();
-        if (request instanceof MultipartRequest) {
-            UploadedFile file = ((MultipartRequest) request).getUploadedFile(component.getClientId(context));
-            if (file != null) {
-                component.queueEvent(new UploadEvent(component, file));
-            }
-        }
-    }
+public interface UploadedFile {
+    String getContentType();
+    byte[] getData();
+    InputStream getInputStream();
+    String getName();
+    long getSize();
 }

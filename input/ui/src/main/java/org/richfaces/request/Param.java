@@ -25,16 +25,10 @@ import java.io.IOException;
 
 import org.richfaces.request.ByteSequenceMatcher.BytesHandler;
 
-abstract class Param implements BytesHandler {
-    private String name;
-
-    public Param(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public abstract void complete() throws IOException;
+/**
+ * @author Konstantin Mishin
+ * 
+ */
+interface Param extends BytesHandler {
+    void complete() throws IOException;
 }

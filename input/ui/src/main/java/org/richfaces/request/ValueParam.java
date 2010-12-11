@@ -26,14 +26,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-class ValueParam extends Param {
+class ValueParam implements Param {
 
     private Object value = null;
     private ByteArrayOutputStream buf = new ByteArrayOutputStream();
     private String encoding;
 
-    public ValueParam(String name, String encoding) {
-        super(name);
+    public ValueParam(String encoding) {
         this.encoding = encoding;
     }
 
@@ -60,7 +59,6 @@ class ValueParam extends Param {
     }
 
     public void handle(byte[] bytes, int length) throws IOException {
-        // read += length;
         buf.write(bytes, 0, length);
     }
 }

@@ -29,123 +29,98 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import org.richfaces.exception.FileUploadException;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.model.UploadedFile;
 
-class FileParam extends Param {
+/**
+ * @author Konstantin Mishin
+ * 
+ */
+class FileParam implements Param, UploadedFile {
 
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
 
-    private String filename;
+    private String name;
     private String contentType;
-    private int fileSize;
-
-    private ByteArrayOutputStream bOut = null;
-    private FileOutputStream fOut = null;
-    private File tempFile = null;
-
-    public FileParam(String name) {
-        super(name);
-    }
-
-    public Object getFile() {
-        if (null != tempFile) {
-            return tempFile;
-        } else if (null != bOut) {
-            return bOut.toByteArray();
+    private OutputStream outputStream;
+    private File file;
+    private byte[] data;
+    
+    public FileParam(String name, String contentType, boolean createTempFiles, String tempFilesDirectory) {
+        if (createTempFiles) {
+            try {
+                File dir = null;
+                if (tempFilesDirectory != null) {
+                    dir = new File(tempFilesDirectory);
+                }
+                file = File.createTempFile("richfaces_uploaded_file_", null, dir);
+                file.deleteOnExit();
+                outputStream = new FileOutputStream(file);
+            } catch (IOException ex) {
+                if (outputStream != null) {
+                    try {
+                        outputStream.close();
+                    } catch (IOException e) {
+                        LOGGER.error(e.getMessage(), e);
+                    }
+                }
+                throw new FileUploadException("Could not create temporary file");
+            }
+        } else {
+            outputStream = new ByteArrayOutputStream();
         }
-        return null;
+        this.name = name;
+        this.contentType = contentType;
     }
 
-    public String getFilename() {
-        return filename;
-    }
-
-    public void setFilename(String filename) {
-        this.filename = filename;
+    public String getName() {
+        return name;
     }
 
     public String getContentType() {
         return contentType;
     }
 
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
-    }
-
-    public int getFileSize() {
-        return fileSize;
-    }
-
-    public File createTempFile(String tempFilesDirectory) {
-        try {
-            File dir = null;
-            if (tempFilesDirectory != null) {
-                dir = new File(tempFilesDirectory);
-            }
-            tempFile = File.createTempFile("richfaces_uploaded_file_", null, dir);
-            tempFile.deleteOnExit();
-            fOut = new FileOutputStream(tempFile);
-        } catch (IOException ex) {
-            if (fOut != null) {
-                try {
-                    fOut.close();
-                } catch (IOException e) {
-                    LOGGER.error(e.getMessage(), e);
-                }
-            }
-
-            throw new FileUploadException("Could not create temporary file");
+    public long getSize() {
+        long size = -1;
+        if (data != null) {
+            size = data.length;
+        } else {
+            size = file.length();
         }
-        return tempFile;
-    }
-
-    public void deleteFile() {
-        try {
-            if (fOut != null) {
-                fOut.close();
-            }
-            if (tempFile != null) {
-                tempFile.delete();
-            }
-        } catch (Exception e) {
-            throw new FileUploadException("Could not delete temporary file");
-        }
+        return size;
     }
 
     public byte[] getData() {
-        if (bOut != null) {
-            return bOut.toByteArray();
-        } else if (tempFile != null) {
-            if (tempFile.exists()) {
-                FileInputStream fIn = null;
+        byte[] result = null;
+        if (data != null) {
+            result = data;
+        } else {
+            long fileLength = file.length();
+            if (fileLength > Integer.MAX_VALUE) {
+                throw new IllegalArgumentException("File content is too long to be allocated as byte[]");
+            } else {
+                FileInputStream inputStream = null;
                 try {
-                    long fileLength = tempFile.length();
-                    if (fileLength > Integer.MAX_VALUE) {
-                        throw new IllegalArgumentException("File content is too long to be allocated as byte[]");
-                    }
-
-                    fIn = new FileInputStream(tempFile);
-
+                    inputStream = new FileInputStream(file);
                     byte[] fileData = new byte[(int) fileLength];
                     int totalRead = 0;
-                    int read = 0;
+                    int read;
                     do {
-                        read = fIn.read(fileData, totalRead, fileData.length - totalRead);
-                        if (read > 0) {
-                            totalRead += read;
-                        }
+                        read = inputStream.read(fileData, totalRead, fileData.length - totalRead);
+                        totalRead += read;
                     } while (read > 0);
-
-                    return fileData;
-                } catch (IOException ex) { /* too bad? */
+                    result = fileData;
+                } catch (IOException ex) {
                     LOGGER.error(ex.getMessage(), ex);
                 } finally {
-                    if (fIn != null) {
+                    if (inputStream != null) {
                         try {
-                            fIn.close();
+                            inputStream.close();
                         } catch (IOException e) {
                             LOGGER.error(e.getMessage(), e);
                         }
@@ -153,54 +128,46 @@ class FileParam extends Param {
                 }
             }
         }
-
-        return null;
+        return result;
     }
 
     public InputStream getInputStream() {
-        if (bOut != null) {
-            return new ByteArrayInputStream(bOut.toByteArray());
-        } else if (tempFile != null) {
+        InputStream stream = null;
+        if (data != null) {
+            stream = new ByteArrayInputStream(data);
+        } else {
             try {
-                return new FileInputStream(tempFile) {
-                    @Override
-                    public void close() throws IOException {
-                        super.close();
-                        tempFile.delete();
-                    }
-                };
+                stream = new FileInputStream(file);
             } catch (FileNotFoundException ex) {
                 LOGGER.error(ex.getMessage(), ex);
             }
         }
-
-        return null;
+        return stream;
     }
 
-    @Override
     public void complete() throws IOException {
-        if (fOut != null) {
+        if (outputStream instanceof ByteArrayOutputStream) {
+            data = ((ByteArrayOutputStream) outputStream).toByteArray();
+        } else {
             try {
-                fOut.close();
+                outputStream.close();
             } catch (IOException ex) {
                 LOGGER.error(ex.getMessage(), ex);
             }
-            fOut = null;
+        }
+        outputStream = null;
+    }
+
+    public void clear() {
+        if (data != null) {
+            data = null;
+        } else {
+            file.delete();
         }
     }
 
     public void handle(byte[] bytes, int length) throws IOException {
-        // read += length;
-        if (fOut != null) {
-            fOut.write(bytes, 0, length);
-            fOut.flush();
-        } else {
-            if (bOut == null) {
-                bOut = new ByteArrayOutputStream();
-            }
-            bOut.write(bytes, 0, length);
-        }
-
-        fileSize += length;
+        outputStream.write(bytes, 0, length);
+        outputStream.flush();
     }
 }

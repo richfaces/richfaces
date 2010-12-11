@@ -46,7 +46,7 @@ import javax.servlet.http.HttpServletRequestWrapper;
 import org.richfaces.exception.FileUploadException;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-import org.richfaces.model.UploadItem;
+import org.richfaces.model.UploadedFile;
 import org.richfaces.request.ByteSequenceMatcher.BytesHandler;
 
 public class MultipartRequest extends HttpServletRequestWrapper {
@@ -196,7 +196,7 @@ public class MultipartRequest extends HttpServletRequestWrapper {
             while (it.hasNext()) {
                 Param p = it.next();
                 if (p instanceof FileParam) {
-                    ((FileParam) p).deleteFile();
+                    ((FileParam) p).clear();
                 }
             }
         }
@@ -222,20 +222,14 @@ public class MultipartRequest extends HttpServletRequestWrapper {
         String paramName = headers.get(PARAM_NAME);
         if (paramName != null) {
             if (headers.containsKey(PARAM_FILENAME)) {
-                FileParam fp = new FileParam(paramName);
+                param = new FileParam(decodeFileName(headers.get(PARAM_FILENAME)), headers.get(PARAM_CONTENT_TYPE),
+                    createTempFiles, tempFilesDirectory);
                 this.keys.add(paramName);
-
-                if (createTempFiles) {
-                    fp.createTempFile(tempFilesDirectory);
-                }
-                fp.setContentType(headers.get(PARAM_CONTENT_TYPE));
-                fp.setFilename(decodeFileName(headers.get(PARAM_FILENAME)));
-                param = fp;
             } else {
                 if (parameters.containsKey(paramName)) {
                     param = parameters.get(paramName);
                 } else {
-                    param = new ValueParam(paramName, encoding);
+                    param = new ValueParam(encoding);
                 }
             }
 
@@ -586,12 +580,10 @@ public class MultipartRequest extends HttpServletRequestWrapper {
         return params;
     }
 
-    public UploadItem getUploadItem(String name) {
+    public UploadedFile getUploadedFile(String name) {
         Param param = getParam(name);
-        if (param instanceof FileParam) {
-            FileParam fileParam = (FileParam) param;
-            return new UploadItem(fileParam.getFilename(), fileParam.getFileSize(), fileParam.getContentType(),
-                fileParam.getFile());
+        if (param instanceof UploadedFile) {
+            return (UploadedFile) param;
         } else {
             return null;
         }
