@@ -33,7 +33,7 @@ import javax.faces.view.facelets.TagAttribute;
 
 import org.richfaces.component.AbstractFileUpload;
 import org.richfaces.event.FileUploadListener;
-import org.richfaces.event.UploadEvent;
+import org.richfaces.event.FileUploadEvent;
 
 /**
  * @author Konstantin Mishin
@@ -54,12 +54,12 @@ public class FileUploadHandler extends ComponentHandler {
             public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
                 if (meta.isTargetInstanceOf(AbstractFileUpload.class)) {
                     if ("fileUploadListener".equals(name)) {
-                        return new MethodMetadata(attribute, UploadEvent.class) {
+                        return new MethodMetadata(attribute, FileUploadEvent.class) {
                             @Override
                             public void applyMetadata(final FaceletContext ctx, Object instance) {
                                 final MethodExpression expression = getMethodExpression(ctx);
                                 ((AbstractFileUpload) instance).addFileUploadListener(new FileUploadListener(){
-                                    public void processUpload(UploadEvent event) {
+                                    public void processUpload(FileUploadEvent event) {
                                         expression.invoke(ctx.getFacesContext().getELContext(), new Object[] {event});
                                     }
                                 });

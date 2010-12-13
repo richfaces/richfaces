@@ -25,7 +25,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.event.UploadEvent;
+import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
 import org.richfaces.request.MultipartRequest;
 
@@ -42,7 +42,7 @@ public class FileUploadRendererBase extends RendererBase {
         if (request instanceof MultipartRequest) {
             UploadedFile file = ((MultipartRequest) request).getUploadedFile(component.getClientId(context));
             if (file != null) {
-                component.queueEvent(new UploadEvent(component, file));
+                component.queueEvent(new FileUploadEvent(component, file));
             }
         }
     }

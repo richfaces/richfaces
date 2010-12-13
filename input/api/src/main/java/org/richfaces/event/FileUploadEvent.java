@@ -31,12 +31,12 @@ import org.richfaces.model.UploadedFile;
  * @author Konstantin Mishin
  * 
  */
-public class UploadEvent extends FacesEvent {
+public class FileUploadEvent extends FacesEvent {
 
     private static final long serialVersionUID = -7645197191376210068L;
     private UploadedFile uploadedFile = null;
 
-    public UploadEvent(UIComponent component, UploadedFile uploadedFile) {
+    public FileUploadEvent(UIComponent component, UploadedFile uploadedFile) {
         super(component);
         this.uploadedFile = uploadedFile;
     }
