@@ -31,19 +31,17 @@ import java.io.Serializable;
  * @author Andrey Markavtsov
  *
  */
+@SuppressWarnings("serial")
 public class JSLiteral extends ScriptStringBase implements Serializable{
-    public static final JSLiteral EMPTY_HASH = new ImmutableJSLiteral("{}");
-    public static final JSLiteral EMPTY_LIST = new ImmutableJSLiteral("[]");
+    
+    public static final JSLiteral EMPTY_HASH = new JSLiteral("{}");
+    
+    public static final JSLiteral EMPTY_LIST = new JSLiteral("[]");
+
 
     /** Javascript literal text */
-    private String literal;
+    private final String literal;
 
-    /**
-     * Default constructor
-     */
-    public JSLiteral() {
-        super();
-    }
 
     /**
      * Constructor using literal parameter
@@ -65,21 +63,5 @@ public class JSLiteral extends ScriptStringBase implements Serializable{
         return literal;
     }
 
-    /**
-     * @param literal the literal to set
-     */
-    public void setLiteral(String literal) {
-        this.literal = literal;
-    }
 
-    private static final class ImmutableJSLiteral extends JSLiteral {
-        public ImmutableJSLiteral(String literal) {
-            super(literal);
-        }
-
-        @Override
-        public void setLiteral(String literal) {
-            throw new UnsupportedOperationException();
-        }
-    }
 }

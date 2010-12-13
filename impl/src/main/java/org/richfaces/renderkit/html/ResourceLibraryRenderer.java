@@ -24,11 +24,8 @@ package org.richfaces.renderkit.html;
 import java.io.IOException;
 import java.util.Map;
 
-import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIOutput;
 import javax.faces.context.FacesContext;
-import javax.faces.render.Renderer;
 
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.log.Logger;
@@ -43,7 +40,7 @@ import com.google.common.base.Joiner;
  * @author Nick Belaevski
  * 
  */
-public class ResourceLibraryRenderer extends Renderer {
+public class ResourceLibraryRenderer extends ResourceRenderer {
 
     public static final String RENDERER_TYPE = "org.richfaces.renderkit.ResourceLibraryRenderer";
 
@@ -92,22 +89,9 @@ public class ResourceLibraryRenderer extends Renderer {
             return;
         }
         
-        Application application = context.getApplication();
-        UIComponent resourceComponent = null;
         
-        for (ResourceKey resourceKey: resourceLibrary.getResources(context)) {
-            String rendererType = application.getResourceHandler().getRendererTypeForResourceName(resourceKey.getResourceName());
-            
-            if (resourceComponent == null) {
-                resourceComponent = application.createComponent(UIOutput.COMPONENT_TYPE);
-                resourceComponent.setTransient(true);
-                component.getChildren().add(resourceComponent);
-            }
-
-            resourceComponent.setRendererType(rendererType);
-            setupResourceAttributes(resourceComponent, resourceKey);
-
-            resourceComponent.encodeAll(context);
+        for (ResourceKey resourceKey: resourceLibrary.getResources()) {
+            encodeResource(component, context, resourceKey);
         }
     }
 

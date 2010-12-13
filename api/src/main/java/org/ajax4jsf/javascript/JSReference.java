@@ -37,16 +37,16 @@ public class JSReference extends ScriptStringBase {
     public static final JSReference TRUE = new JSReference("true");
     public static final JSReference NULL = new JSReference("null");
     public static final JSReference FALSE = new JSReference("false");
-    private Object index = null;
-    private String name;
+    
+    private final Object index;
+    private final String name;
 
     /**
      * @param name
      */
     public JSReference(String name) {
-
-        // TODO Auto-generated constructor stub
         this.name = name;
+        this.index = null;
     }
 
     /**

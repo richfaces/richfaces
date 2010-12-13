@@ -21,7 +21,8 @@
  */
 package org.richfaces.resource;
 
-import javax.faces.context.FacesContext;
+
+import com.google.common.collect.ImmutableList;
 
 /**
  * @author Nick Belaevski
@@ -29,14 +30,14 @@ import javax.faces.context.FacesContext;
  */
 class StaticResourceLibrary implements ResourceLibrary {
 
-    private ResourceKey[] keys;
+    private final ImmutableList<ResourceKey> keys;
     
     public StaticResourceLibrary(ResourceKey[] keys) {
         super();
-        this.keys = keys;
+        this.keys = ImmutableList.copyOf(keys);
     }
 
-    public ResourceKey[] getResources(FacesContext context) {
+    public Iterable<ResourceKey> getResources() {
         return keys;
     }
 

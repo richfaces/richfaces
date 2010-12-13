@@ -21,7 +21,8 @@
  */
 package org.richfaces.resource;
 
-import javax.faces.context.FacesContext;
+
+import com.google.common.collect.ImmutableList;
 
 /**
  * @author Nick Belaevski
@@ -29,11 +30,9 @@ import javax.faces.context.FacesContext;
  */
 public class DynamicResourceLibrary implements ResourceLibrary {
 
-    private ResourceKey[] keys = new ResourceKey[] {
-        new ResourceKey("skinning_classes.ecss"), new ResourceKey("jquery.js", null)
-    };
+    private ImmutableList<ResourceKey> keys = ImmutableList.of(ResourceKey.create("skinning_classes.ecss"),  ResourceKey.create("jquery.js", null));
     
-    public ResourceKey[] getResources(FacesContext context) {
+    public Iterable<ResourceKey> getResources() {
         return keys;
     }
 

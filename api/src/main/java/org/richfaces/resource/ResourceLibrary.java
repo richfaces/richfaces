@@ -21,7 +21,6 @@
  */
 package org.richfaces.resource;
 
-import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
@@ -29,6 +28,6 @@ import javax.faces.context.FacesContext;
  */
 public interface ResourceLibrary {
 
-    public ResourceKey[] getResources(FacesContext context);
+    public Iterable<ResourceKey> getResources();
     
 }

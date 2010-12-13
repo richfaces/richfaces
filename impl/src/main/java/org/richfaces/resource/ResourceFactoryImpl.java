@@ -114,7 +114,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
             }
             
             return new ExternalStaticResourceFactory(
-                new ResourceKey(resourceQualifier), resourceLocation, skinDependent);
+                ResourceKey.create(resourceQualifier), resourceLocation, skinDependent);
         }
     };
     
@@ -125,7 +125,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
             Map<String, String> params = Util.parseResourceParameters(resourceLocation);
             String resourceQualifier = extractParametersFromResourceName(resourceLocation);
             
-            return new MappedResourceData(new ResourceKey(resourceQualifier), params);
+            return new MappedResourceData(ResourceKey.create(resourceQualifier), params);
         }
         
     };
@@ -179,7 +179,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
         Map<ResourceKey, V> result = Maps.newHashMap();
         
         for (Entry<String, String> entry : PropertiesUtil.loadProperties(mappingFileName).entrySet()) {
-            result.put(new ResourceKey(entry.getKey()), producer.apply(entry));
+            result.put(ResourceKey.create(entry.getKey()), producer.apply(entry));
         }
 
         result = Collections.unmodifiableMap(result);

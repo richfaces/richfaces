@@ -47,7 +47,11 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.event.PhaseId;
 
 import org.ajax4jsf.context.AjaxContext;
+import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.component.MetaComponentEncoder;
+import org.richfaces.javascript.JavaScriptService;
+import org.richfaces.javascript.ScriptsHolder;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
@@ -425,6 +429,15 @@ public class PartialViewContextImpl extends PartialViewContext {
     }
 
     protected void renderExtensions(FacesContext context, UIComponent component) throws IOException {
+        // ADD deffered scripts 
+        AjaxContext ajaxContext = AjaxContext.getCurrentInstance();
+        ScriptsHolder scriptsHolder = ServiceTracker.getService(JavaScriptService.class).getScriptsHolder(context);
+        for (Object script : scriptsHolder.getScripts()) {
+            ajaxContext.appendOncomplete(ScriptUtils.toScript(script));
+        }
+        for (Object script : scriptsHolder.getPageReadyScripts()) {
+            ajaxContext.appendOncomplete(ScriptUtils.toScript(script));
+        }
         CoreAjaxRendererUtils.renderAjaxExtensions(context, component);
     }
 

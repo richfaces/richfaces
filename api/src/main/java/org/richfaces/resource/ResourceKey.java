@@ -28,21 +28,18 @@ import com.google.common.base.Objects;
  * @author Nick Belaevski
  * 
  */
-public class ResourceKey {
+public final class ResourceKey {
 
     public static final Function<String, ResourceKey> FACTORY = new Function<String, ResourceKey>() {
         public ResourceKey apply(String from) {
-            return new ResourceKey(from);
+            return create(from);
         };
     };
     
-    private String resourceName;
+    private final String resourceName;
     
-    private String libraryName;
+    private final String libraryName;
 
-    public ResourceKey(String resourceQualifier) {
-        this(extractResourceName(resourceQualifier), extractLibraryName(resourceQualifier));
-    }
 
     public ResourceKey(String resourceName, String libraryName) {
         super();
@@ -50,6 +47,14 @@ public class ResourceKey {
         this.libraryName = libraryName;
     }
 
+    public static ResourceKey create(String resourceQualifier){
+        return new ResourceKey(extractResourceName(resourceQualifier), extractLibraryName(resourceQualifier));
+    }
+    
+    public static ResourceKey create(String resourceName, String libraryName){
+        return new ResourceKey(resourceName,libraryName);
+    }
+    
     private static String extractResourceName(String resourceQualifier) {
         int idx = resourceQualifier.lastIndexOf(':');
         if (idx < 0) {
@@ -76,13 +81,6 @@ public class ResourceKey {
         return libraryName;
     }
 
-    public void setResourceName(String resourceName) {
-        this.resourceName = resourceName;
-    }
-
-    public void setLibraryName(String libraryName) {
-        this.libraryName = libraryName;
-    }
 
     @Override
     public int hashCode() {
