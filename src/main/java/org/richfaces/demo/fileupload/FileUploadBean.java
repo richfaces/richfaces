@@ -1,15 +1,14 @@
 package org.richfaces.demo.fileupload;
 
+import org.richfaces.event.UploadEvent;
+import org.richfaces.model.UploadedFile;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-
-import org.richfaces.event.UploadEvent;
-import org.richfaces.model.UploadItem;
 
 /**
  * @author Ilya Shaikovsky
@@ -37,10 +36,10 @@ public class FileUploadBean implements Serializable {
     }
 
     public void listener(UploadEvent event) throws Exception {
-        UploadItem item = event.getUploadItem();
+        UploadedFile item = event.getUploadedFile();
         UploadedImage file = new UploadedImage();
         file.setLength(item.getData().length);
-        file.setName(item.getFileName());
+        file.setName(item.getName());
         file.setData(item.getData());
         files.add(file);
         uploadsAvailable--;
