@@ -71,7 +71,6 @@
 				this.isSaved = true;
 
 				this.__applyChangedStyles();
-				this.__hide();
 				this.onsave();
 			}, 
 			
@@ -82,7 +81,6 @@
    				} 
        			this.setValue(text);
        			this.isSaved = true;
-           		this.__hide();
            		this.oncancel();
 			},
 			

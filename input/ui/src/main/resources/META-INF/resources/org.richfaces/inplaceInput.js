@@ -65,14 +65,8 @@
            		__blurHandler: function(e) {
     				this.onblur(e);
     			},
-    			
-           		__changeHandler: function(e) {
-           			if(!this.isValueSaved()) {
-           				this.save();
-           			}
-           		}, 
-           		
-           		__isSaveOnBlur: function() {
+
+    			__isSaveOnBlur: function() {
            			return this.saveOnBlur; 
            		},
            		
@@ -131,11 +125,13 @@
     					this.__setFocused(false);
 	    				this.invokeEvent.call(this, "blur", document.getElementById(this.id + 'Input'), e);
 	    				
-	    				if(!this.isValueSaved() && this.__isSaveOnBlur()) {
+	    				if(this.isValueSaved() || this.__isSaveOnBlur()) {
 	           				this.save();
 	           			} else {
-	           				this.__hide();
+	               			this.cancel();
 	           			}
+	    				
+           				this.__hide();
 	    				
 	    				if(!this.cancelButton) {
 	       					if(this.__isValueChanged()) {
