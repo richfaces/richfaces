@@ -195,6 +195,7 @@
         __addUserEventHandler : function (name) {
             var handler = this.options["on" + name];
             if (handler) {
+            	//TODO nick - this will cause slowdowns in IE
                 rf.Event.bindById(this.id, name, handler);
             }
         },

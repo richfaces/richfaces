@@ -23,23 +23,25 @@
 
 package org.richfaces.component;
 
+import javax.faces.component.UICommand;
+import javax.faces.component.UIComponent;
+
 import org.richfaces.PanelMenuMode;
 import org.richfaces.event.ItemChangeListener;
 import org.richfaces.event.ItemChangeSource;
-
-import javax.faces.component.UICommand;
-import javax.faces.component.UIComponent;
 
 /**
  * @author akolonitsky
  * @since 2010-10-25
  */
+//TODO nick - use org.richfaces.component.AbstractActionComponent as super class
 public abstract class AbstractPanelMenuItem extends UICommand implements ItemChangeSource{
 
     public static final String COMPONENT_TYPE = "org.richfaces.PanelMenuItem";
 
     public static final String COMPONENT_FAMILY = "org.richfaces.PanelMenuItem";
 
+    //TODO nick - move this enum to renderkit package
     public enum Icons {
         none("rf-pm-none"),
         disc("rf-pm-disc"),
@@ -59,6 +61,7 @@ public abstract class AbstractPanelMenuItem extends UICommand implements ItemCha
             this.cssClass = cssClass;
         }
 
+        //TODO nick - should this become getCssClass()?
         public String cssClass() {
             return cssClass;
         }
@@ -72,6 +75,7 @@ public abstract class AbstractPanelMenuItem extends UICommand implements ItemCha
         return getParentItem() instanceof AbstractPanelMenu;
     }
 
+    //TODO nick - this can be replaced with ComponentIterators.parents(UIComponent) + Iterators.find(...)
     public AbstractPanelMenu getPanelMenu() { // TODO refactor
         UIComponent parentItem = getParent();
         while (parentItem != null) {
@@ -85,6 +89,7 @@ public abstract class AbstractPanelMenuItem extends UICommand implements ItemCha
         return null;
     }
 
+    //TODO nick - this can be replaced with ComponentIterators.parents(UIComponent) + Iterators.find(...)
     public UIComponent getParentItem() {
         UIComponent parentItem = getParent();
         while (parentItem != null) {
@@ -126,6 +131,7 @@ public abstract class AbstractPanelMenuItem extends UICommand implements ItemCha
 
     // ------------------------------------------------ Event Processing Methods
 
+    //TODO nick - it seems these listeners are never triggered
     public void addItemChangeListener(ItemChangeListener listener) {
         addFacesListener(listener);
     }

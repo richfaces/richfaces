@@ -23,21 +23,22 @@
 
 package org.richfaces.renderkit.html;
 
+import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.component.AbstractPanelMenuItem;
 import org.richfaces.component.html.HtmlPanelMenuItem;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
 
 /**
  * @author akolonitsky
@@ -63,6 +64,7 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
     private void encodeHeaderGroupBegin(ResponseWriter writer, FacesContext context, HtmlPanelMenuItem menuItem, String classPrefix) throws IOException {
         writer.startElement("table", null);
         writer.writeAttribute("class", classPrefix + "-gr", null);
+        //TODO nick - TBODY element is missing
         writer.startElement("tr", null);
 
         encodeHeaderGroupLeftIcon(writer, context, menuItem, classPrefix);
@@ -99,6 +101,7 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
         encodeTdIcon(writer, context, cssClasses, icon);
     }
 
+    //TODO nick - the same as in PanelMenuGroupRenderer
     public void encodeTdIcon(ResponseWriter writer, FacesContext context, String classPrefix, String attrIconValue) throws IOException {
         writer.startElement("td", null);
         try {

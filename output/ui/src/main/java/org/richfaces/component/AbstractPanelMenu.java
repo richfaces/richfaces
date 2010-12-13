@@ -23,11 +23,6 @@
 
 package org.richfaces.component;
 
-import org.richfaces.PanelMenuMode;
-import org.richfaces.event.ItemChangeEvent;
-import org.richfaces.event.ItemChangeListener;
-import org.richfaces.event.ItemChangeSource;
-
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
@@ -35,6 +30,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
+
+import org.richfaces.PanelMenuMode;
+import org.richfaces.event.ItemChangeEvent;
+import org.richfaces.event.ItemChangeListener;
+import org.richfaces.event.ItemChangeSource;
 
 /**
  * @author akolonitsky
@@ -61,6 +61,8 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
     public void processDecodes(FacesContext context) {
         super.processDecodes(context);
 
+        //TODO nick - is component immediate = true only?
+        //TODO nick - validate should be executed in context of component, i.e. when 'component' EL variable is set
         executeValidate(context);
     }
 
@@ -78,6 +80,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
         String previous = (String) getValue();
         setActiveItem(activeItem);
         setSubmittedActiveItem(null);
+        
         if (previous == null || !previous.equalsIgnoreCase(activeItem)) {
             queueEvent(new ItemChangeEvent(this, previous, activeItem));
         }
@@ -91,6 +94,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
             throw e;
         }
 
+        //TODO nick - where is 'valid' attribute set?
         if (!isValid()) {
             context.validationFailed();
             context.renderResponse();
@@ -120,8 +124,10 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
     public void broadcast(FacesEvent event) throws AbortProcessingException {
         super.broadcast(event);
 
+        //TODO nick - check for (isBypassUpdates() || isImmediate()) can be removed
         if (event instanceof ItemChangeEvent
             && (isBypassUpdates() || isImmediate())) {
+            //TODO nick - use getFacesContext() instead
             FacesContext.getCurrentInstance().renderResponse();
         }
     }
@@ -132,6 +138,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
         return this.submittedActiveItem;
     }
 
+    //TODO nick - change argument to String
     public void setSubmittedActiveItem(Object submittedValue) {
         this.submittedActiveItem = String.valueOf(submittedValue);
     }
@@ -148,6 +155,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
         return (String) getValue();
     }
 
+    //TODO nick - where is EL-expression updated?
     public void setActiveItem(String value) {
         setValue(value);
     }
@@ -216,6 +224,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
             return (AbstractPanelMenuItem) comp;
         }
 
+        //TODO nick - what if panel menu is nested?
         for (UIComponent item : comp.getChildren()) {
             AbstractPanelMenuItem resItem = getItem(itemName, item);
             if (resItem != null) {

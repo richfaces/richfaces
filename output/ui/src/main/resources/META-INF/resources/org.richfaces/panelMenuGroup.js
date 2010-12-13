@@ -127,6 +127,7 @@
                 var menuGroup = this;
 
                 if (!this.options.selectable) {
+                	//TODO nick - this can be replaced by jQuery.delegate on menu itself
                     this.__header().bind("click", function () {
                         return menuGroup.switchExpantion();
                     });
@@ -170,6 +171,7 @@
                             }
                         });
                         
+                        //TODO nick - why?
                         event.stopPropagation();
                     });
                 }
@@ -211,6 +213,7 @@
             this.__collapse();
 
             this.__childGroups().each (function(index, group) {
+            	//TODO nick - why not group.collapse()?
                 rf.$(group.id).__collapse();
             });
 
@@ -342,12 +345,14 @@
         },
 
         __fireCollapse : function () {
+        	//TODO nick - 'new' should be removed
             return new rf.Event.fireById(this.id, "collapse", {
                 id: this.id
             });
         },
 
         __fireExpand : function () {
+        	//TODO nick - 'new' should be removed
             return new rf.Event.fireById(this.id, "expand", {
                 id: this.id
             });

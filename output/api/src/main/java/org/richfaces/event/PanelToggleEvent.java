@@ -33,6 +33,9 @@ import javax.faces.event.FacesListener;
  */
 public class PanelToggleEvent extends FacesEvent {
 
+    private static final long serialVersionUID = 852945229559247489L;
+
+    //TODO nick - why not primitive boolean here?
     private final Boolean isExpanded;
 
 

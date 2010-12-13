@@ -23,13 +23,13 @@
 
 package org.richfaces.component;
 
-import org.richfaces.event.ItemChangeEvent;
-import org.richfaces.event.PanelToggleEvent;
-
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
+
+import org.richfaces.event.ItemChangeEvent;
+import org.richfaces.event.PanelToggleEvent;
 
 /**
  * @author akolonitsky
@@ -60,6 +60,7 @@ public abstract class AbstractPanelMenuGroup extends UIPanelMenuItem {
     public void processDecodes(FacesContext context) {
         super.processDecodes(context);
 
+        //TODO nick - is component immediate==true always?
         executeValidate(context);
     }
 
@@ -90,6 +91,7 @@ public abstract class AbstractPanelMenuGroup extends UIPanelMenuItem {
             throw e;
         }
 
+        //TODO nick - isValid()/setValid() is not called anywhere
         if (!isValid()) {
             context.validationFailed();
             context.renderResponse();
@@ -169,5 +171,6 @@ public abstract class AbstractPanelMenuGroup extends UIPanelMenuItem {
 
     public abstract boolean isBubbleSelection();
 
+    //TODO nick - this should be MethodExpression
     public abstract String getChangeExpandListener();
 }
