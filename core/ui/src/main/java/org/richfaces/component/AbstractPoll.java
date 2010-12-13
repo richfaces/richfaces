@@ -37,7 +37,8 @@ import org.richfaces.cdk.annotations.TagType;
  */
 @JsfComponent(
 	    tag = @Tag(generate = false, handler = "org.richfaces.view.facelets.html.AjaxPollHandler", type = TagType.Facelets),
-	    renderer = @JsfRenderer(type = "org.richfaces.PollRenderer")
+	    renderer = @JsfRenderer(type = "org.richfaces.PollRenderer"),
+	    attributes = { "ajax-props.xml" }
 	)
 public abstract class AbstractPoll extends AbstractActionComponent {
     public static final String COMPONENT_TYPE = "org.richfaces.Poll";
@@ -66,15 +67,6 @@ public abstract class AbstractPoll extends AbstractActionComponent {
     @Attribute(defaultValue = "true")
     public abstract boolean isEnabled();
 
-    @Attribute(events = @EventName("begin"))
-    public abstract String getOnbegin();
-
-    @Attribute(events = @EventName("beforedomupdate"))
-    public abstract String getOnbeforedomupdate();
-
-    @Attribute(events = @EventName("complete"))
-    public abstract String getOncomplete();
-    
     @Attribute(events = @EventName(value = TIMER, defaultEvent = true))
     public abstract String getOntimer();
 

@@ -11,7 +11,7 @@ import org.richfaces.renderkit.html.MenuItemRendererBase;
     type = AbstractMenuItem.COMPONENT_TYPE, 
     renderer=@JsfRenderer(type = MenuItemRendererBase.RENDERER_TYPE), 
     tag = @Tag(name="menuItem"),
-    attributes = {"events-props.xml", "core-props.xml", "i18n-props.xml"})
+    attributes = {"events-props.xml", "core-props.xml", "i18n-props.xml", "ajax-props.xml"})
 public abstract class AbstractMenuItem extends AbstractActionComponent 
         implements MenuComponent {
 
@@ -31,12 +31,6 @@ public abstract class AbstractMenuItem extends AbstractActionComponent
 
     @Attribute
     public abstract boolean isDisabled();
-
-    @Attribute
-    public abstract String getStyleClass();
-
-    @Attribute
-    public abstract String getStyle();
     
     public enum Facets {
         ICON("icon"), ICON_DISABLED("iconDisabled");

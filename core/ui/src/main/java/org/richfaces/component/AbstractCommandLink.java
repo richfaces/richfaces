@@ -27,7 +27,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -39,7 +38,8 @@ import org.richfaces.renderkit.AjaxConstants;
  */
 @JsfComponent (
     renderer = @JsfRenderer(type = "org.richfaces.CommandLinkRenderer"),
-    tag = @Tag(type = TagType.Facelets)
+    tag = @Tag(type = TagType.Facelets),
+    attributes = { "ajax-props.xml", "link-props.xml", "core-props.xml" }
 )
 public abstract class AbstractCommandLink extends AbstractActionComponent implements MetaComponentResolver {
 
@@ -47,45 +47,9 @@ public abstract class AbstractCommandLink extends AbstractActionComponent implem
 
     public static final String COMPONENT_FAMILY = UICommand.COMPONENT_FAMILY;
     
-    @Attribute(events = {@EventName("click"), @EventName(value = "action", defaultEvent = true)})
-    public abstract String getOnclick();
-
-    @Attribute(events = @EventName("mousemove"))
-    public abstract String getOnmousemove();
-
-    @Attribute(events = @EventName("dblclick"))
-    public abstract String getOndblclick();
-
-    @Attribute(events = @EventName("keydown"))
-    public abstract String getOnkeydown();
-
-    @Attribute(events = @EventName("keypress"))
-    public abstract String getOnkeypress();
-
-    @Attribute(events = @EventName("keyup"))
-    public abstract String getOnkeyup();
-
-    @Attribute(events = @EventName("mousedown"))
-    public abstract String getOnmousedown();
-
-    @Attribute(events = @EventName("mouseout"))
-    public abstract String getOnmouseout();
-
-    @Attribute(events = @EventName("mouseover"))
-    public abstract String getOnmouseover();
-
-    @Attribute(events = @EventName("mouseup"))
-    public abstract String getOnmouseup();
-
-    @Attribute(defaultValue = "")
-    public abstract String getStyle();
-
-    @Attribute(defaultValue = "")
-    public abstract String getStyleClass();
-
-    @Attribute
-    public abstract boolean isLimitRender();
-
+    @Attribute(hidden = true)
+    private String target;
+    
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
         return null;
     }

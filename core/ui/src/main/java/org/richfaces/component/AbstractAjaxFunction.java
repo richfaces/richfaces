@@ -24,7 +24,6 @@
 package org.richfaces.component;
 
 import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -37,7 +36,8 @@ import org.richfaces.cdk.annotations.TagType;
  */
 @JsfComponent(
     renderer = @JsfRenderer(type = "org.richfaces.FunctionRenderer"),
-    tag = @Tag(name = "jsFunction", type = TagType.Facelets)
+    tag = @Tag(name = "jsFunction", type = TagType.Facelets),
+    attributes = {"ajax-props.xml"}
 )
 public abstract class AbstractAjaxFunction extends AbstractActionComponent {
 
@@ -45,27 +45,7 @@ public abstract class AbstractAjaxFunction extends AbstractActionComponent {
 
     public static final String COMPONENT_TYPE = "org.richfaces.Function";
 
-    @Attribute
-    public abstract boolean isLimitRender();
-
     @Attribute(required = true)
     public abstract String getName();
 
-    @Attribute
-    public abstract Object getExecute();
-
-    @Attribute
-    public abstract Object getRender();
-
-    @Attribute
-    public abstract String getStatus();
-
-    @Attribute(events = @EventName("begin"))
-    public abstract String getOnbegin();
-
-    @Attribute(events = @EventName("beforedomupdate"))
-    public abstract String getOnbeforedomupdate();
-
-    @Attribute(events = @EventName("complete"))
-    public abstract String getOncomplete();
 }
