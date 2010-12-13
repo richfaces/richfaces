@@ -3,18 +3,19 @@ package org.richfaces.renderkit.html;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-import org.richfaces.validator.LibraryResource;
-import org.richfaces.validator.LibraryScriptString;
+import org.ajax4jsf.javascript.ScriptWithDependencies;
+import org.richfaces.resource.ResourceKey;
 
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 
-public class ClientOnlyScript extends ValidatorScriptBase{
+public class ClientOnlyScript extends ValidatorScriptBase {
 
-    protected final LibraryScriptString converter;
-    protected final Collection<? extends LibraryScriptString> validators;
+    protected final ScriptWithDependencies converter;
+    protected final Collection<? extends ScriptWithDependencies> validators;
 
-    public ClientOnlyScript(LibraryScriptString clientSideConverterScript,
-        Collection<? extends LibraryScriptString> validatorScripts) {
+    public ClientOnlyScript(ScriptWithDependencies clientSideConverterScript,
+        Collection<? extends ScriptWithDependencies> validatorScripts) {
         super();
         if(null==clientSideConverterScript){
             this.converter = NULL_CONVERTER_SCRIPT;
@@ -25,11 +26,12 @@ public class ClientOnlyScript extends ValidatorScriptBase{
         
     }
 
-    public Collection<LibraryResource> getResources() {
-        LinkedHashSet<LibraryResource> resources = Sets.newLinkedHashSet();
-        resources.add(converter.getResource());
-        for (LibraryScriptString scriptString : validators) {
-            resources.add(scriptString.getResource());
+    public Iterable<ResourceKey> getResources() {
+        // TODO - make immutable.
+        LinkedHashSet<ResourceKey> resources = Sets.newLinkedHashSet();
+        Iterables.addAll(resources,converter.getResources());
+        for (ScriptWithDependencies scriptString : validators) {
+            Iterables.addAll(resources,scriptString.getResources());
         }
         return resources;
     }
@@ -48,7 +50,7 @@ public class ClientOnlyScript extends ValidatorScriptBase{
         converter.appendScriptToStringBuilder(body);
         body.append(EOL);
         // call validators
-        for (LibraryScriptString validatorScript : validators) {
+        for (ScriptWithDependencies validatorScript : validators) {
             validatorScript.appendScriptToStringBuilder(body);
             body.append(EOL);
         }

@@ -2,7 +2,10 @@ package org.richfaces.renderkit.html;
 
 import java.util.Collection;
 
-import org.richfaces.validator.LibraryScriptString;
+import org.ajax4jsf.javascript.ScriptWithDependencies;
+import org.richfaces.resource.ResourceKey;
+
+import com.google.common.collect.Iterables;
 
 
 public class ClientAndAjaxScript extends ClientOnlyScript{
@@ -11,13 +14,18 @@ public class ClientAndAjaxScript extends ClientOnlyScript{
     
     final String ajaxScript;
     
-    public ClientAndAjaxScript(LibraryScriptString clientSideConverterScript,
-        Collection<? extends LibraryScriptString> validatorScripts, String ajaxScript) {
+    public ClientAndAjaxScript(ScriptWithDependencies clientSideConverterScript,
+        Collection<? extends ScriptWithDependencies> validatorScripts, String ajaxScript) {
         super(clientSideConverterScript,validatorScripts);
         this.ajaxScript = ajaxScript;
     }
 
 
+    @Override
+    public Iterable<ResourceKey> getResources() {
+        return Iterables.concat(AjaxOnlyScript.AJAX_LIBRARIES,super.getResources());
+    }
+    
     protected void finishValidation(StringBuilder body) {
         // AJAX callback
         body.append("if(!").append(DISABLE_AJAX).append("){\n");

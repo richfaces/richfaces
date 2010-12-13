@@ -118,6 +118,7 @@
             <artifactId>jstl</artifactId>
             <scope>provided</scope>
         </dependency>
+        <!-- validation -->
 
         <!-- tests -->
         <dependency>

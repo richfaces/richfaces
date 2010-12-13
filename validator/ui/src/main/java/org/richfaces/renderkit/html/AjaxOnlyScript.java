@@ -1,13 +1,14 @@
 package org.richfaces.renderkit.html;
 
-import java.util.Collection;
 import java.util.Collections;
 
-import org.richfaces.validator.LibraryResource;
+import org.richfaces.resource.ResourceKey;
 
 public class AjaxOnlyScript extends ValidatorScriptBase {
 
 
+    public static final Iterable<ResourceKey> AJAX_LIBRARIES=Collections.singleton(ResourceKey.create("ajax.reslib", "org.richfaces"));
+    
     private final String ajaxScript;
 
     public AjaxOnlyScript(String ajaxScript) {
@@ -16,8 +17,8 @@ public class AjaxOnlyScript extends ValidatorScriptBase {
         
     }
 
-    public Collection<LibraryResource> getResources() {
-        return Collections.emptySet();
+    public Iterable<ResourceKey> getResources() {
+        return AJAX_LIBRARIES;
     }
 
     @Override

@@ -1,15 +1,9 @@
 package org.richfaces.renderkit.html;
 
-import java.util.Collection;
+import org.ajax4jsf.javascript.FunctionDefWithDependencies;
 
-import org.ajax4jsf.javascript.ScriptString;
-import org.richfaces.validator.LibraryResource;
-
-public interface ComponentValidatorScript extends ScriptString {
+public interface ComponentValidatorScript extends FunctionDefWithDependencies {
     
-    String getName();
-
-    Collection<LibraryResource> getResources();
 
     /**
      * <p class="changed_added_4_0">Creates JavasCript that calls validator function.</p>

@@ -24,9 +24,9 @@
 package org.richfaces.renderkit.html;
 
 import org.ajax4jsf.javascript.JSFunction;
-import org.richfaces.validator.LibraryResource;
-import org.richfaces.validator.LibraryFunction;
-import org.richfaces.validator.LibraryScriptString;
+import org.ajax4jsf.javascript.ScriptWithDependencies;
+import org.richfaces.javascript.LibraryFunction;
+import org.richfaces.resource.ResourceKey;
 
 /**
  * <p class="changed_added_4_0">
@@ -36,15 +36,15 @@ import org.richfaces.validator.LibraryScriptString;
  * @author asmirnov@exadel.com
  * 
  */
-public class LibraryScriptFunction extends JSFunction implements LibraryScriptString {
+public class LibraryScriptFunction extends JSFunction implements ScriptWithDependencies {
 
-    private final LibraryResource resource;
-    private String name;
+    private final Iterable<ResourceKey> resources;
+    private final String name;
 
     public LibraryScriptFunction(LibraryFunction libraryScript, Object... parameters) {
         super(libraryScript.getName(), parameters);
-        this.resource = libraryScript.getResource();
-        name = libraryScript.getName();
+        this.resources = libraryScript.getResources();
+        this.name = libraryScript.getName();
     }
 
     public String getName() {
@@ -56,8 +56,8 @@ public class LibraryScriptFunction extends JSFunction implements LibraryScriptSt
      * 
      * @see org.richfaces.renderkit.html.LibraryScriptString#getResource()
      */
-    public LibraryResource getResource() {
-        return resource;
+    public Iterable<ResourceKey> getResources() {
+        return resources;
     }
 
     /*
@@ -70,7 +70,7 @@ public class LibraryScriptFunction extends JSFunction implements LibraryScriptSt
         final int prime = 31;
         int result = 1;
         result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((resource == null) ? 0 : resource.hashCode());
+        result = prime * result + ((resources == null) ? 0 : resources.hashCode());
         result = prime * result + getParameters().hashCode();
         return result;
     }
@@ -99,11 +99,11 @@ public class LibraryScriptFunction extends JSFunction implements LibraryScriptSt
         } else if (!name.equals(other.name)) {
             return false;
         }
-        if (resource == null) {
-            if (other.resource != null) {
+        if (resources == null) {
+            if (other.resources != null) {
                 return false;
             }
-        } else if (!resource.equals(other.resource)) {
+        } else if (!resources.equals(other.resources)) {
             return false;
         } else if (!getParameters().equals(other.getParameters())) {
             return false;

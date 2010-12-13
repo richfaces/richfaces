@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scripts>
+   <component>
+       <type>javax.faces.convert.NumberConverter</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+       <function>RichFaces.csv.convertNumber</function>
+   </component>
+   <component>
+       <type>javax.faces.validator.LengthValidator</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+       <function>RichFaces.csv.validateLength</function>
+   </component>
+</scripts>

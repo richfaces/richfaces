@@ -5,10 +5,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 import javax.el.ValueExpression;
-import javax.faces.application.FacesMessage;
+import javax.faces.validator.BeanValidator;
 import javax.faces.validator.Validator;
 import javax.validation.groups.Default;
 
@@ -20,6 +21,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.richfaces.application.ServiceTracker;
+import org.richfaces.javascript.Message;
 import org.richfaces.validator.BeanValidatorService;
 import org.richfaces.validator.FacesValidatorService;
 import org.richfaces.validator.ValidatorDescriptor;
@@ -39,7 +41,7 @@ import com.google.common.collect.Lists;
 @RunWith(MockTestRunner.class)
 public class BehaviorGetValidatorTest extends BehaviorTestBase {
 
-    private static final FacesMessage VALIDATION_ERROR = new FacesMessage("Validation Error");
+    private static final Message VALIDATION_ERROR = new Message(3,"Error","Validation Error");
 
     private static final Class<?>[] DEFAULT_GROUP = { Default.class };
 
@@ -96,6 +98,7 @@ public class BehaviorGetValidatorTest extends BehaviorTestBase {
     }
 
     private void setupBeanValidator(ValidatorDescriptor... validators) {
+        expect(input.getValidators()).andStubReturn(new Validator[]{new BeanValidator()});
         expect(validatorService.getConstrains(environment.getFacesContext(), expression, DEFAULT_GROUP)).andStubReturn(
             Lists.newArrayList(validators));
 
@@ -133,7 +136,6 @@ public class BehaviorGetValidatorTest extends BehaviorTestBase {
 
     @Test
     public void testBeanValidators() throws Exception {
-        setupComponentValidator();
         setupBeanValidator(beanValidatorDescriptor);
         Collection<ValidatorDescriptor> validators = checkValidator();
         assertEquals(1, validators.size());

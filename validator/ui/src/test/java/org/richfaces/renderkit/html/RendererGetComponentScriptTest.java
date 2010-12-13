@@ -1,12 +1,9 @@
 package org.richfaces.renderkit.html;
 
-import static org.easymock.EasyMock.expect;
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.CoreMatchers.not;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.matchers.JUnitMatchers.containsString;
-import static org.junit.matchers.JUnitMatchers.hasItem;
+import static org.easymock.EasyMock.*;
+import static org.hamcrest.CoreMatchers.*;
+import static org.junit.Assert.*;
+import static org.junit.matchers.JUnitMatchers.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,7 +16,8 @@ import javax.faces.convert.NumberConverter;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
-import org.ajax4jsf.javascript.JSLiteral;
+import org.ajax4jsf.javascript.JSReference;
+import org.ajax4jsf.javascript.ScriptWithDependencies;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
@@ -27,12 +25,11 @@ import org.jboss.test.faces.mock.Mock;
 import org.jboss.test.faces.mock.MockTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.richfaces.javascript.LibraryFunction;
+import org.richfaces.javascript.ScriptNotFoundException;
+import org.richfaces.resource.ResourceKey;
 import org.richfaces.validator.ConverterDescriptor;
 import org.richfaces.validator.FacesObjectDescriptor;
-import org.richfaces.validator.LibraryFunction;
-import org.richfaces.validator.LibraryResource;
-import org.richfaces.validator.LibraryScriptString;
-import org.richfaces.validator.ScriptNotFoundException;
 import org.richfaces.validator.ValidatorDescriptor;
 
 import com.google.common.collect.Lists;
@@ -44,12 +41,12 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
 
     private static final String NUMBER_CONVERTER = "numConverter";
 
-    private static final Matcher<LibraryResource> CORE_LIBRARY_MATCHER = new BaseMatcher<LibraryResource>() {
+    private static final Matcher<ResourceKey> CORE_LIBRARY_MATCHER = new BaseMatcher<ResourceKey>() {
 
         public boolean matches(Object arg0) {
-            if (arg0 instanceof LibraryResource) {
-                LibraryResource resource = (LibraryResource) arg0;
-                return ORG_RICHFACES.equals(resource.getLibrary())
+            if (arg0 instanceof ResourceKey) {
+                ResourceKey resource = (ResourceKey) arg0;
+                return ORG_RICHFACES.equals(resource.getLibraryName())
                     && CLIENT_VALIDATORS_JS.equals(resource.getResourceName());
             }
             return false;
@@ -203,11 +200,11 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
     }
 
     private LibraryScriptFunction createValidatorFunction() {
-        return createFunction(REGEX_VALIDATOR, ClientValidatorRenderer.CONVERTED_VALUE_VAR, VALIDATOR_MESSAGE);
+        return createFunction(REGEX_VALIDATOR, ClientValidatorRenderer.CONVERTED_VALUE_VAR, FACES_VALIDATOR_MESSAGE);
     }
 
     private LibraryScriptFunction createConverterFunction() {
-        return createFunction(NUMBER_CONVERTER, ClientValidatorRenderer.VALUE_VAR, VALIDATOR_MESSAGE);
+        return createFunction(NUMBER_CONVERTER, ClientValidatorRenderer.VALUE_VAR, FACES_VALIDATOR_MESSAGE);
     }
 
     private LibraryScriptFunction createFunction(final String name, String var, FacesMessage validatorMessage) {
@@ -219,11 +216,11 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
                 return name;
             }
 
-            public LibraryResource getResource() {
+            public Iterable<ResourceKey> getResources() {
                 return CLIENT_VALIDATOR_LIBRARY;
             }
         };
-        return new LibraryScriptFunction(libraryScript, new JSLiteral(var), validatorMessage, VALIDATOR_PARAMS);
+        return new LibraryScriptFunction(libraryScript, new JSReference(var), validatorMessage, VALIDATOR_PARAMS);
     }
 
     private ClientValidatorRenderer createStubRenderer(final LibraryScriptFunction converterFunction,
@@ -241,7 +238,7 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
             }
 
             @Override
-            Collection<? extends LibraryScriptString> getClientSideValidatorScript(FacesContext facesContext,
+            Collection<? extends ScriptWithDependencies> getClientSideValidatorScript(FacesContext facesContext,
                 Collection<ValidatorDescriptor> validators) {
                 return Lists.newArrayList(validatorFunctions);
             }

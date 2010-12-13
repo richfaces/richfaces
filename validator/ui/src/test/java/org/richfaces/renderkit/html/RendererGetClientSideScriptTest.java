@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.faces.convert.NumberConverter;
 import javax.faces.validator.RegexValidator;
 
+import org.ajax4jsf.javascript.ScriptWithDependencies;
 import org.jboss.test.faces.mock.Mock;
 import org.jboss.test.faces.mock.MockTestRunner;
 import org.junit.After;
@@ -18,11 +19,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.richfaces.application.ServiceTracker;
-import org.richfaces.validator.ClientScriptService;
+import org.richfaces.javascript.ClientScriptService;
+import org.richfaces.javascript.LibraryFunction;
+import org.richfaces.javascript.ScriptNotFoundException;
 import org.richfaces.validator.ConverterDescriptor;
-import org.richfaces.validator.LibraryFunction;
-import org.richfaces.validator.LibraryScriptString;
-import org.richfaces.validator.ScriptNotFoundException;
 import org.richfaces.validator.ValidatorDescriptor;
 
 import com.google.common.collect.Iterables;
@@ -63,7 +63,7 @@ public class RendererGetClientSideScriptTest extends RendererTestBase {
         expect(scriptService.getScript(environment.getFacesContext(), RegexValidator.class)).andThrow(new ScriptNotFoundException());
         
         controller.replay();
-        Collection<? extends LibraryScriptString> clientSideValidatorScript = renderer.getClientSideValidatorScript(
+        Collection<? extends ScriptWithDependencies> clientSideValidatorScript = renderer.getClientSideValidatorScript(
             environment.getFacesContext(), descriptors);
         assertTrue(clientSideValidatorScript.isEmpty());
         controller.verify();
@@ -86,14 +86,14 @@ public class RendererGetClientSideScriptTest extends RendererTestBase {
             (Map<String, Object>) VALIDATOR_PARAMS);
         expect(scriptService.getScript(environment.getFacesContext(), RegexValidator.class)).andReturn(script);
         expect(script.getName()).andReturn(REGEX_VALIDATOR).atLeastOnce();
-        expect(script.getResource()).andReturn(CLIENT_VALIDATOR_LIBRARY);
+        expect(script.getResources()).andReturn(CLIENT_VALIDATOR_LIBRARY);
         controller.replay();
-        Collection<? extends LibraryScriptString> clientSideScripts = renderer.getClientSideValidatorScript(environment.getFacesContext(), descriptors);
+        Collection<? extends ScriptWithDependencies> clientSideScripts = renderer.getClientSideValidatorScript(environment.getFacesContext(), descriptors);
         LibraryScriptFunction clientSideScript = (LibraryScriptFunction) Iterables.getOnlyElement(clientSideScripts);
         assertEquals(ClientValidatorRenderer.CONVERTED_VALUE_LITERAL, clientSideScript.getParameters().get(0));
         assertEquals(VALIDATOR_MESSAGE, clientSideScript.getParameters().get(1));
         assertEquals(VALIDATOR_PARAMS, clientSideScript.getParameters().get(2));
-        assertEquals(CLIENT_VALIDATOR_LIBRARY, clientSideScript.getResource());
+        assertEquals(CLIENT_VALIDATOR_LIBRARY, clientSideScript.getResources());
         controller.verify();
     }
 
@@ -105,14 +105,14 @@ public class RendererGetClientSideScriptTest extends RendererTestBase {
             (Map<String, Object>) VALIDATOR_PARAMS);
         expect(scriptService.getScript(environment.getFacesContext(), NumberConverter.class)).andReturn(script);
         expect(script.getName()).andReturn(REGEX_VALIDATOR).atLeastOnce();
-        expect(script.getResource()).andReturn(CLIENT_VALIDATOR_LIBRARY);
+        expect(script.getResources()).andReturn(CLIENT_VALIDATOR_LIBRARY);
         controller.replay();
         LibraryScriptFunction clientSideScript =
             (LibraryScriptFunction) renderer.getClientSideConverterScript(environment.getFacesContext(), converterDescriptor);
         assertEquals(ClientValidatorRenderer.VALUE_LITERAL, clientSideScript.getParameters().get(0));
         assertEquals(VALIDATOR_MESSAGE, clientSideScript.getParameters().get(1));
         assertEquals(VALIDATOR_PARAMS, clientSideScript.getParameters().get(2));
-        assertEquals(CLIENT_VALIDATOR_LIBRARY, clientSideScript.getResource());
+        assertEquals(CLIENT_VALIDATOR_LIBRARY, clientSideScript.getResources());
         controller.verify();
     }
 

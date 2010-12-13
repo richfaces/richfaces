@@ -6,12 +6,11 @@
         <h:body>
           <h:form id="form">
               <h:inputText id="text" value="#{test.value}">
-                 <f:validateLength minimum="1" maximum="3"/>
+                 <f:validator validatorId="custom" />
                  <csv:validator event="keyup" />
               </h:inputText>
               <h:outputText id="out" value="#{test.value}"></h:outputText>
               <h:message id="message" for="text" />
-              <h:commandLink id="submit">Submit</h:commandLink>
           </h:form>
         </h:body>
 </html>

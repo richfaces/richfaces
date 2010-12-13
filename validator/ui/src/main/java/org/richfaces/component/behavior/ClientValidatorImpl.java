@@ -45,6 +45,7 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.BehaviorEvent;
 import javax.faces.render.ClientBehaviorRenderer;
 import javax.faces.render.RenderKit;
+import javax.faces.validator.BeanValidator;
 import javax.faces.validator.Validator;
 
 import org.richfaces.application.ServiceTracker;
@@ -274,14 +275,17 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
                 FacesValidatorService facesValidatorService = ServiceTracker.getService(facesContext,
                     FacesValidatorService.class);
                 for (Validator validator : facesValidators) {
-                    validators.add(facesValidatorService.getValidatorDescription(facesContext, validator));
+                    if (validator instanceof BeanValidator) {
+                        ValueExpression valueExpression = component.getValueExpression(VALUE);
+                        if (null != valueExpression) {
+                            BeanValidatorService beanValidatorService = ServiceTracker.getService(facesContext,
+                                BeanValidatorService.class);
+                            validators.addAll(beanValidatorService.getConstrains(facesContext, valueExpression, getGroups()));
+                        }
+                    } else {
+                        validators.add(facesValidatorService.getValidatorDescription(facesContext, validator));
+                    }
                 }
-            }
-            ValueExpression valueExpression = component.getValueExpression(VALUE);
-            if (null != valueExpression) {
-                BeanValidatorService beanValidatorService = ServiceTracker.getService(facesContext,
-                    BeanValidatorService.class);
-                validators.addAll(beanValidatorService.getConstrains(facesContext, valueExpression, getGroups()));
             }
             return validators;
         } else {

@@ -3,9 +3,11 @@
  */
 package org.richfaces.renderkit.html;
 
+import java.util.Collections;
+
 import org.ajax4jsf.javascript.JSLiteral;
-import org.richfaces.validator.LibraryResource;
-import org.richfaces.validator.LibraryScriptString;
+import org.ajax4jsf.javascript.ScriptWithDependencies;
+import org.richfaces.resource.ResourceKey;
 
 /**
  * This class represents "dummy" converter call ( just refference to "value" variable )
@@ -13,7 +15,7 @@ import org.richfaces.validator.LibraryScriptString;
  * @author asmirnov
  * 
  */
-public class NullConverterScript extends JSLiteral implements LibraryScriptString {
+public class NullConverterScript extends JSLiteral implements ScriptWithDependencies {
 
     private String name;
 
@@ -30,8 +32,8 @@ public class NullConverterScript extends JSLiteral implements LibraryScriptStrin
      * 
      * @see org.richfaces.renderkit.html.LibraryScriptString#getResource()
      */
-    public LibraryResource getResource() {
-        return null;
+    public Iterable<ResourceKey> getResources() {
+        return Collections.emptySet();
     }
 
 }

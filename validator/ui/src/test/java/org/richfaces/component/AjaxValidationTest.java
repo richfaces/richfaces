@@ -20,7 +20,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 
 /**
- * Test for dynamic add/remove {@link UIValidatorScript} as view resource. 
+ * Test for dynamic add/remove {@link UIScripts} as view resource. 
  * @author asmirnov
  *
  */

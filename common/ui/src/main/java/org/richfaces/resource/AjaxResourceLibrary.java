@@ -21,13 +21,13 @@
  */
 package org.richfaces.resource;
 
-import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
+import static org.richfaces.application.configuration.ConfigurationServiceHelper.*;
 
 import javax.faces.context.FacesContext;
 
 import org.richfaces.application.CommonComponentsConfiguration;
 
-import com.google.common.collect.ObjectArrays;
+import com.google.common.collect.ImmutableList;
 
 /**
  * @author Nick Belaevski
@@ -35,18 +35,19 @@ import com.google.common.collect.ObjectArrays;
  */
 public class AjaxResourceLibrary implements ResourceLibrary {
 
-    private ResourceKey[] ajaxResourceKeys = new ResourceKey[] {
-        new ResourceKey("jsf.js", "javax.faces"), new ResourceKey("jquery.js", null), new ResourceKey("richfaces.js", null)
-    };
+    private static final ImmutableList<ResourceKey> AJAX_ONLY_KEYS = ImmutableList.of(
+        ResourceKey.create("jsf.js", "javax.faces"), ResourceKey.create("jquery.js", null), ResourceKey.create("richfaces.js", null)
+    );
     
-    private ResourceKey[] ajaxQueueResourceKeys = ObjectArrays.concat(ajaxResourceKeys, new ResourceKey("richfaces-queue.js", null));
+    private static final ImmutableList<ResourceKey> AJAX_WITH_QUEUE_KEYS = ImmutableList.<ResourceKey>builder().addAll(AJAX_ONLY_KEYS).add(ResourceKey.create("richfaces-queue.js", null)).build();
     
-    public ResourceKey[] getResources(FacesContext context) {
-        if (getBooleanConfigurationValue(context, CommonComponentsConfiguration.Items.queueEnabled)) {
-            return ajaxQueueResourceKeys;
+    public Iterable<ResourceKey> getResources() {
+        // TODO - initialize at creation.
+        if (getBooleanConfigurationValue(FacesContext.getCurrentInstance(), CommonComponentsConfiguration.Items.queueEnabled)) {
+            return AJAX_WITH_QUEUE_KEYS;
         }
         
-        return ajaxResourceKeys;
+        return AJAX_ONLY_KEYS;
     }
 
 }

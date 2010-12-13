@@ -2,7 +2,8 @@ package org.richfaces.validator;
 
 import java.util.Map;
 
-import javax.faces.application.FacesMessage;
+import org.richfaces.javascript.Message;
+
 
 /**
  * <p class="changed_added_4_0">
@@ -40,5 +41,5 @@ public interface FacesObjectDescriptor {
      * 
      * @return
      */
-    FacesMessage getMessage();
+    Message getMessage();
 }

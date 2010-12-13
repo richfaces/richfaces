@@ -5,4 +5,8 @@
   <managed-bean-class>org.richfaces.component.Bean</managed-bean-class>
   <managed-bean-scope>request</managed-bean-scope>
 </managed-bean>
+<validator>
+  <validator-id>custom</validator-id>
+  <validator-class>org.richfaces.component.CustomValidator</validator-class>
+</validator>
 </faces-config>

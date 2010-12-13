@@ -30,6 +30,7 @@ import java.text.MessageFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.Map.Entry;
@@ -55,7 +56,6 @@ import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.jboss.test.faces.jetty.JettyServer;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.runner.RunWith;
 import org.richfaces.application.MessageFactory;
 import org.richfaces.application.ServiceTracker;
 
@@ -199,6 +199,9 @@ public abstract class BaseTest {
             HtmlInputText testComponent = new HtmlInputText();
             testComponent.setLabel(TEST_COMPONENT_LABEL);
             testBean.componentLabel = TEST_COMPONENT_LABEL;
+            if (errorMessage!=null) {
+            	testComponent.setRequiredMessage(errorMessage);
+            }
             return testComponent;
         }
 
@@ -262,6 +265,7 @@ public abstract class BaseTest {
 
     @Before
     public void setUp() throws Exception {
+    	Locale.setDefault(Locale.US);
         testBean = new TestBean();
 
         environment = new HtmlUnitEnvironment(new JettyServer());

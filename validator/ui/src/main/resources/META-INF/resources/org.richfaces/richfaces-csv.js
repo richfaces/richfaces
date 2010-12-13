@@ -10,6 +10,7 @@
 	
 	$.extend(rf.csv, {
 		RE_DIGITS: /^-?\d+$/,
+		RE_FLOAT: /^(-?\d+)?(\.(\d+)?(e[+-]?\d+)?)?$/,
 		MESSAGE_EVENT_NAME: "onmessage."+rf.Event.RICH_NAMESPACE,
 		// Messages API
 		addMessage: function (messagesObject) {
