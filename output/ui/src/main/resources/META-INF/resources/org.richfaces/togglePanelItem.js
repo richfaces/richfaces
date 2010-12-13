@@ -39,6 +39,9 @@
             this.togglePanelId = this.options.togglePanelId;
             this.switchMode = this.options.switchMode;
             this.disabled = this.options.disabled || false;
+
+            this.__addUserEventHandler("enter");
+            this.__addUserEventHandler("leave");
         },
 
         /***************************** Public Methods *****************************************************************/
@@ -77,6 +80,16 @@
 
         /**
          * @private
+         * */
+        __addUserEventHandler : function (name) {
+            var handler = this.options["on" + name];
+            if (handler) {
+                rf.Event.bindById(this.togglePanelId, name, handler);
+            }
+        },
+
+        /**
+         * @private
          *
          * used in TogglePanel
          * */
@@ -102,11 +115,11 @@
         },
 
         __fireLeave : function () {
-            return rf.Event.fireById(this.id, "__leave");
+            return rf.Event.fireById(this.id, "leave");
         },
 
         __fireEnter : function () {
-            return rf.Event.fireById(this.id, "__enter");
+            return rf.Event.fireById(this.id, "enter");
         },
 
         // class stuff
