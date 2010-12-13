@@ -102,6 +102,8 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
 
     private static final String DEFAULT_TREE_NODE_CREATED = AbstractTree.class.getName() + ":DEFAULT_TREE_NODE_CREATED";
 
+    private static final String DEFAULT_TREE_NODE_ID = "__defaultTreeNode";
+
     private static final class MatchingTreeNodePredicate implements Predicate<UIComponent> {
 
         private String type;
@@ -268,20 +270,32 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         return this;
     }
     
+    private boolean isDefaultTreeNode(AbstractTreeNode node) {
+        return DEFAULT_TREE_NODE_ID.equals(node.getId());
+    }
+    
     public AbstractTreeNode findTreeNodeComponent() {
         FacesContext facesContext = getFacesContext();
 
         String nodeType = getNodeType();
         
         Iterator<UIComponent> nodesItr = findMatchingTreeNodeComponent(nodeType, getCurrentComponent());
-        
-        if (nodesItr.hasNext()) {
-            Iterator<UIComponent> renderedNodesItr = Iterators.filter(nodesItr, ComponentPredicates.isRendered());
-            if (renderedNodesItr.hasNext()) {
-                return (AbstractTreeNode) renderedNodesItr.next();
+        boolean hasOnlyDefaultNodes = true;
+        while (nodesItr.hasNext()) {
+            
+            AbstractTreeNode node = (AbstractTreeNode) nodesItr.next();
+            
+            if (!isDefaultTreeNode(node)) {
+                hasOnlyDefaultNodes = false;
             }
             
-            return null;
+            if (!node.isRendered()) {
+                continue;
+            }
+            
+            if (!isDefaultTreeNode(node) || hasOnlyDefaultNodes) {
+                return node;
+            }
         }
         
         if (Strings.isNullOrEmpty(nodeType)) {
@@ -292,7 +306,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
             //TODO default TreeNode is created when getRowKey() == null but it's not used for presentational purposes
             Application application = facesContext.getApplication();
             AbstractTreeNode treeNode = (AbstractTreeNode) application.createComponent(AbstractTreeNode.COMPONENT_TYPE);
-            treeNode.setId("__defaultTreeNode");
+            treeNode.setId(DEFAULT_TREE_NODE_ID);
 
             getChildren().add(treeNode);
 
