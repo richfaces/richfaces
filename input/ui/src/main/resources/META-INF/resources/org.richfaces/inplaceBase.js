@@ -8,6 +8,7 @@
     	this.editEvent = mergedOptions.editEvent;
         this.noneCss = mergedOptions.noneCss; 
         this.changedCss = mergedOptions.changedCss;
+        this.editCss = mergedOptions.editCss;
         this.defaultLabel = mergedOptions.defaultLabel;
         this.state = mergedOptions.state;
 
@@ -114,11 +115,13 @@
 				}
 				this.editState = false;
       			this.editContainer.addClass(this.noneCss);
+   				this.element.removeClass(this.editCss);
 				this.onhide();
 			},
 			
 			__editHandler: function(e) {
    				this.isSaved = false;
+   				this.element.addClass(this.editCss);
       			this.editContainer.removeClass(this.noneCss);
        			this.__show();
        		},       		

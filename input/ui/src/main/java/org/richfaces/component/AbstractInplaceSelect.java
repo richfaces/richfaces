@@ -50,6 +50,9 @@ public abstract class AbstractInplaceSelect extends AbstractSelectComponent impl
     @Attribute(defaultValue="InplaceState.ready")
     public abstract InplaceState getState();
     
+    @Attribute
+    public abstract boolean isDisabled();
+    
     @Attribute(defaultValue="true")
     public abstract boolean isOpenOnEdit();
     

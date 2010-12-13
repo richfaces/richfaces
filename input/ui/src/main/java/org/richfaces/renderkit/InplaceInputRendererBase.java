@@ -30,6 +30,7 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import org.richfaces.component.AbstractInplaceInput;
 import org.richfaces.component.InplaceComponent;
 import org.richfaces.component.InplaceState;
 
@@ -130,9 +131,10 @@ public class InplaceInputRendererBase extends InputRendererBase {
     }
 
     public String getValue(FacesContext facesContext, UIComponent component) throws IOException {
-        String value = getInputValue(facesContext, component);
-        if (!isDisable(getInplaceState(component)) && (value == null || "".equals(value)) ) {
-            value = ((InplaceComponent) component).getDefaultLabel();
+        AbstractInplaceInput inplaceInput = (AbstractInplaceInput)component;
+        String value = getInputValue(facesContext, inplaceInput);
+        if (!inplaceInput.isDisabled() && (value == null || "".equals(value)) ) {
+            value = inplaceInput.getDefaultLabel();
         }
         return value;
     }
@@ -144,28 +146,21 @@ public class InplaceInputRendererBase extends InputRendererBase {
     public String getStateStyleClass(UIComponent component, InplaceState inplaceState) {
         InplaceComponent inplaceComponent = (InplaceComponent)component; 
         String style = getReadyStateCss(inplaceComponent);
-        switch (inplaceState) {
-            case edit:
-                style = concatClasses(style, getEditStateCss(inplaceComponent));
-                break;
-    
-            case changed: 
-                style = concatClasses(style, getChangedStateCss(inplaceComponent));
-                break;
-    
-            case disable:
-                style = getDisableStateCss(inplaceComponent);
-                break;
-    
-            default:
-                break;
+        if(!inplaceComponent.isDisabled()) {
+            switch (inplaceState) {
+                case edit:
+                    style = concatClasses(style, getEditStateCss(inplaceComponent));
+                    break;
+                case changed: 
+                    style = concatClasses(style, getChangedStateCss(inplaceComponent));
+                    break;
+                default:
+                    break; 
+            }
+        } else {
+            style = getDisableStateCss(inplaceComponent);
         }
-
         return style;
-    }
-
-    public boolean isDisable(InplaceState currentState) {
-        return (InplaceState.disable == currentState); 
     }
     
     public String getEditStyleClass(UIComponent component,  InplaceState inplaceState) {

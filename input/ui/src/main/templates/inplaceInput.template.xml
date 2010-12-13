@@ -47,7 +47,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 				#{inplaceValue}
 			</span>
 			
-			<c:if test="#{!isDisable(inplaceState)}">
+			<c:if test="#{!component.attributes['disabled']}">
 				<input id="#{clientId}Focus" type="image" style="position: absolute; top: 0px; left: 0px; outline-style: none;" class="rf-ii-none"/>
 				<span id="#{clientId}Edit" class="#{getEditStyleClass(component, inplaceState)}">
 					<input id="#{clientId}Input" autocomplete="off" name="#{clientId}" 
@@ -83,9 +83,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 				</span>
 				<script type="text/javascript">	
 					<cdk:scriptObject name="options">
-						<cdk:scriptOption name="noneCss" value="#{concatClasses('rf-ii-none', component.attributes['noneClass'])}"/>
-						<cdk:scriptOption name="changedCss" value="#{concatClasses('rf-ii-c-s', component.attributes['changedClass'])}"/>
-						<cdk:scriptOption name="editCss" value="#{concatClasses('rf-ii-e-s', component.attributes['editClass'])}"/>
+						<cdk:scriptOption name="readyCss" value="#{concatClasses('rf-ii-d-s', component.attributes['readyStateClass'])}"/>
+						<cdk:scriptOption name="noneCss" value="#{concatClasses('rf-ii-none', component.attributes['noneStateClass'])}"/>
+						<cdk:scriptOption name="changedCss" value="#{concatClasses('rf-ii-c-s', component.attributes['changedStateClass'])}"/>
+						<cdk:scriptOption name="editCss" value="#{concatClasses('rf-ii-e-s', component.attributes['editStateClass'])}"/>
 					  	<cdk:scriptOption attributes="editEvent state defaultLabel saveOnBlur showControls" />
 					  	<cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onselectitem onchange onblur onfocus" wrapper="eventHandler"/>
                 	</cdk:scriptObject>

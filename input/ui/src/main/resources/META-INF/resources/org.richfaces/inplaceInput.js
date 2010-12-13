@@ -28,12 +28,9 @@
     	    defaultLabel: "",
     	    saveOnBlur: true,
     	    showControl: true,
-    	    itemCss: "rf-ii-opt",
-    	    selectItemCss: "rf-ii-sel", 
-    	    listCss: "rf-ii-lst-cord",
     	    noneCss: "rf-ii-none",
-    	    //not used in inputBase?
-    	    editCss: "rf-ii-edit", 
+    	    readyCss: "rf-ii-d-s",
+    	    editCss: "rf-ii-e-s", 
     	    changedCss: "rf-ii-c-s"
     	};
 

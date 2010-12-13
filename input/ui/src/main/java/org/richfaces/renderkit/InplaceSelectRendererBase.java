@@ -89,7 +89,7 @@ public class InplaceSelectRendererBase extends InplaceInputRendererBase {
     public String getSelectLabel(FacesContext facesContext, UIComponent component) {
         AbstractInplaceSelect select = (AbstractInplaceSelect) component;
         String label = getSelectInputLabel(facesContext, select);
-        if (!isDisable(getInplaceState(component)) && (label == null)) {
+        if (!select.isDisabled() && (label == null)) {
             label = select.getDefaultLabel();
         }
         return label;
@@ -123,5 +123,12 @@ public class InplaceSelectRendererBase extends InplaceInputRendererBase {
     public String getNoneCss(InplaceComponent component) {
         String css = component.getNoneClass();
         return concatClasses("rf-is-none", css);
+    }
+    
+    public String getListCss(UIComponent component) {
+        AbstractInplaceSelect inplaceSelect = (AbstractInplaceSelect)component;
+        String css = inplaceSelect.getListClass();
+        css = (css != null) ? concatClasses("rf-is-lst-cord", css) : "rf-is-lst-cord";
+        return css; 
     }
 }

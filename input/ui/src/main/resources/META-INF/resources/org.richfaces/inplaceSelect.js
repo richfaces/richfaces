@@ -101,7 +101,7 @@
 			processItem: function(item) {
 				var label = this.getItemLabel(item);
 				this.setValue(label);
-           		
+				
 				this.__setInputFocus();
            		this.hidePopup();
            		

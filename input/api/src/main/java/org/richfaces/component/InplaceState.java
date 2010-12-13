@@ -31,6 +31,5 @@ package org.richfaces.component;
 public enum InplaceState {
     ready, 
     edit,
-    changed,
-    disable
+    changed
 }

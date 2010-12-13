@@ -45,7 +45,10 @@ public abstract class AbstractInplaceInput extends UIInput implements InplaceCom
     public static final String COMPONENT_TYPE = "org.richfaces.InplaceInput";
     
     public static final String COMPONENT_FAMILY = "org.richfaces.InplaceInput";
-    
+
+    @Attribute
+    public abstract boolean isDisabled();
+   
     @Attribute
     public abstract String getDefaultLabel();
     

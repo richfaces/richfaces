@@ -29,6 +29,8 @@ package org.richfaces.component;
  */
 public interface InplaceComponent {
     
+    public boolean isDisabled();
+    
     public String getDefaultLabel();
     
     public String getEditEvent();

@@ -43,7 +43,7 @@
 				#{inplaceValue}
 			</span>
 			
-			<c:if test="#{!isDisable(inplaceState)}">			
+			<c:if test="#{!component.attributes['disabled']}">			
 				<input id="#{clientId}Focus" type="image" 	name="#{clientId}Focus" style="position: absolute; top: 0px; left: 0px; outline-style: none;" class="rf-is-none" />
 				
 				<span id="#{clientId}Edit" class="#{getEditStyleClass(component, inplaceState)}">
@@ -78,7 +78,7 @@
 							</span>
 						</span>
 					</c:if>
-					<span id="#{clientId}List" style="display: none" class="rf-is-lst-cord">
+					<span id="#{clientId}List" style="display: none" class="#{getListCss(component)}">
 						<cdk:call expression="renderListHandlers(facesContext, component);"/>
 						<span class="rf-is-lst-pos" style="width: #{component.attributes['listWidth']}">
 							<span class="rf-is-shdw">
@@ -100,9 +100,10 @@
 				<script type="text/javascript">
 					<cdk:scriptObject name="options">
 						<cdk:scriptOption name="items" value="#{clientSelectItems}" />
-						<cdk:scriptOption name="noneCss" value="#{concatClasses('rf-is-none', component.attributes['noneClass'])}"/>
-						<cdk:scriptOption name="changedCss" value="#{concatClasses('rf-is-c-s', component.attributes['changedClass'])}"/>
-						<cdk:scriptOption name="editCss" value="#{concatClasses('rf-is-e-s', component.attributes['editClass'])}"/>
+						<cdk:scriptOption name="noneCss" value="#{concatClasses('rf-is-none', component.attributes['noneStateClass'])}"/>
+						<cdk:scriptOption name="changedCss" value="#{concatClasses('rf-is-c-s', component.attributes['changedStateClass'])}"/>
+						<cdk:scriptOption name="editCss" value="#{concatClasses('rf-is-e-s', component.attributes['editStateClass'])}"/>
+						<cdk:scriptOption name="selectItemCss" value="#{concatClasses('rf-is-sel', component.attributes['selectItemClass'])}"/>
 					  	<cdk:scriptOption attributes="editEvent state defaultLabel saveOnBlur showControls openOnEdit saveOnSelect" />
 					  	<cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onselectitem onchange onblur onfocus" wrapper="eventHandler"/>
                 	</cdk:scriptObject>
