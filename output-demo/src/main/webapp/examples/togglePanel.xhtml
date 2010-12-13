@@ -15,10 +15,10 @@
     <ui:define name="body">
         <h:form id="f">
             <pn:togglePanel id="my_id" lang="en" activeItem="name1">
-                <pn:togglePanelItem name="name1">
+                <pn:togglePanelItem name="name1" onenter="alert('enter 01')" onleave="alert('leave 01')">
                     hello name1
                 </pn:togglePanelItem>
-                <pn:togglePanelItem name="name2">
+                <pn:togglePanelItem name="name2" onenter="alert('enter 02')" onleave="alert('leave 02')">
                     hello name2
                 </pn:togglePanelItem>
             </pn:togglePanel>
