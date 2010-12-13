@@ -47,7 +47,7 @@
     var DEFAULT_OPTIONS = {
         direction : TooltipDirection.DEFAULT,
         attached : true,
-        offset : [],
+        offset : [10, 10],
         mode : TooltipMode.DEFAULT,
         disabled : false,
         hideDelay : 0,
@@ -132,7 +132,7 @@
                 attachTo: this.target,
                 attachToBody: false,
                 positionType: "TOOLTIP",
-                positionOffset: [200,200]
+                positionOffset: this.options.offset
             });
 
             var tooltip = this;

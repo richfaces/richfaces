@@ -178,10 +178,8 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
         return options;
     }
 
-    public Map<String, Object> getOffset(HtmlTooltip tooltip) {
-        Map<String, Object> options = new HashMap<String, Object>();
-        // TODO
-        return options;
+    public Integer[] getOffset(HtmlTooltip tooltip) {
+        return new Integer[] {tooltip.getHorizontalOffset(), tooltip.getHorizontalOffset()};
     }
 
     private void encodeContentEnd(ResponseWriter writer, FacesContext context, AbstractTooltip tooltip) throws IOException {
