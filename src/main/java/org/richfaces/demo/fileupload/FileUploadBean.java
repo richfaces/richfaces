@@ -1,6 +1,6 @@
 package org.richfaces.demo.fileupload;
 
-import org.richfaces.event.UploadEvent;
+import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
 
 import javax.faces.bean.ManagedBean;
@@ -35,7 +35,7 @@ public class FileUploadBean implements Serializable {
         stream.write(getFiles().get((Integer) object).getData());
     }
 
-    public void listener(UploadEvent event) throws Exception {
+    public void listener(FileUploadEvent event) throws Exception {
         UploadedFile item = event.getUploadedFile();
         UploadedImage file = new UploadedImage();
         file.setLength(item.getData().length);
