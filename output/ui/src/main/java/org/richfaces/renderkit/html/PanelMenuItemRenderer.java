@@ -144,6 +144,7 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
         HtmlPanelMenuItem panelMenuItem = (HtmlPanelMenuItem) component;
 
         Map<String, Object> options = new HashMap<String, Object>();
+        //TODO nick - ajax options should not be rendered in client mode
         options.put("ajax", getAjaxOptions(context, panelMenuItem));
         options.put("disabled", panelMenuItem.isDisabled());
         options.put("mode", panelMenuItem.getMode());

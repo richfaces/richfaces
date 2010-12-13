@@ -61,6 +61,7 @@
          * */
         execServer : function (item) {
             item.__changeState();
+            //TODO nick - 'target' attribute?
             rf.submitForm(this.__getParentForm(item));
 
             return false;
@@ -73,6 +74,7 @@
          * */
         execAjax : function (item) {
             var oldItem = item.__changeState();
+            //TODO nick - check for interaction with queue
             rf.ajax(item.__panelMenu().id, null, $.extend({}, item.options["ajax"], {}));
             item.__restoreState(oldItem);
 
@@ -209,7 +211,8 @@
             if (panelMenu.selectedItem() == this.itemName) {
                 panelMenu.selectedItem(null);
             } else {
-                rf.warn("You try unselect item (name=" + this.itemName + ") that isn't seleted")
+            	//TODO nick - should be rf.log.warn
+                rf.warn("You tried to unselect item (name=" + this.itemName + ") that isn't seleted")
             }
 
             this.__unselect();
@@ -253,6 +256,7 @@
         },
 
         __rfPanelMenu : function () {
+        	//TODO nick - return rf.$(this.__panelMenu())
             return rf.$(this.__item().parents(".rf-pm")[0]);
         },
 
@@ -270,6 +274,7 @@
             return $(rf.getDomElement(this.id));
         },
 
+        //TODO nick - __item() vs __header()?
         __header : function () {
             return this.__item();
         },
@@ -283,7 +288,9 @@
         },
 
         __fireBeforeSelect : function () {
+        	//TODO nick - 'new' is not necessary here
             return new rf.Event.fireById(this.id, "beforeselect", {
+            	//TODO nick - pass item here
                 id: this.id
             });
         },
