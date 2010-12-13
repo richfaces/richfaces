@@ -27,7 +27,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.AjaxBehaviorEvent;
 
-import org.richfaces.event.UploadEvent;
+import org.richfaces.event.FileUploadEvent;
 import org.richfaces.model.UploadedFile;
 
 /**
@@ -51,7 +51,7 @@ public class FileUploadBean {
 //        stream.write(item.getData());
 //    }
     
-    public void listener(UploadEvent event) throws Exception {
+    public void listener(FileUploadEvent event) throws Exception {
         file = event.getUploadedFile();
     }
 
