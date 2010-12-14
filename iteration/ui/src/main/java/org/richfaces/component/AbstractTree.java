@@ -141,6 +141,8 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
 
     private transient TreeRange treeRange;
     
+    private transient UIComponent currentComponent = this;
+    
     public AbstractTree() {
         setKeepSaved(true);
         setRendererType("org.richfaces.TreeRenderer");
@@ -261,13 +263,13 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         return Iterators.filter(children, new MatchingTreeNodePredicate(nodeType));
     }
 
-    protected UIComponent getCurrentComponent() {
+    protected void setupCurrentComponent() {
         ExtendedDataModel<?> dataModel = getExtendedDataModel();
         if (dataModel instanceof DeclarativeTreeModel) {
-            return ((DeclarativeTreeModel) dataModel).getCurrentComponent();
+            currentComponent = ((DeclarativeTreeModel) dataModel).getCurrentComponent();
+        } else {
+            currentComponent = this;
         }
-        
-        return this;
     }
     
     private boolean isDefaultTreeNode(AbstractTreeNode node) {
@@ -279,7 +281,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
 
         String nodeType = getNodeType();
         
-        Iterator<UIComponent> nodesItr = findMatchingTreeNodeComponent(nodeType, getCurrentComponent());
+        Iterator<UIComponent> nodesItr = findMatchingTreeNodeComponent(nodeType, currentComponent);
         boolean hasOnlyDefaultNodes = true;
         while (nodesItr.hasNext()) {
             
@@ -592,6 +594,12 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     public void restoreFromSnapshot(FacesContext context, TreeDataModelTuple tuple) {
         getTreeDataModel().restoreFromSnapshot(tuple);
         setRowKey(context, tuple.getRowKey());
+    }
+
+    @Override
+    protected void restoreChildState(FacesContext facesContext) {
+        setupCurrentComponent();
+        super.restoreChildState(facesContext);
     }
     
 }
