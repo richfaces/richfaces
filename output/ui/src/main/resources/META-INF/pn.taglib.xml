@@ -186,7 +186,6 @@
   <component>
    <component-type>org.richfaces.AccordionItem</component-type>
    <renderer-type>org.richfaces.AccordionItem</renderer-type>
-   <handler-class/>
   </component>
   <attribute>
    <name>disabled</name>
@@ -463,7 +462,6 @@
   <component>
    <component-type>org.richfaces.PanelMenuItem</component-type>
    <renderer-type>org.richfaces.PanelMenuItem</renderer-type>
-   <handler-class/>
   </component>
   <attribute>
    <description>MethodExpression representing the application action to invoke when this component is activated by the user. The expression must evaluate to a public method that takes no parameters, and returns an Object (the toString() of which is called to derive the logical outcome) which is passed to the NavigationHandler for this application.</description>
@@ -619,7 +617,6 @@
   <component>
    <component-type>org.richfaces.PanelMenuGroup</component-type>
    <renderer-type>org.richfaces.PanelMenuGroup</renderer-type>
-   <handler-class/>
   </component>
   <attribute>
    <description>MethodExpression representing the application action to invoke when this component is activated by the user. The expression must evaluate to a public method that takes no parameters, and returns an Object (the toString() of which is called to derive the logical outcome) which is passed to the NavigationHandler for this application.</description>
@@ -1014,7 +1011,6 @@
   <component>
    <component-type>org.richfaces.Tooltip</component-type>
    <renderer-type>org.richfaces.Tooltip</renderer-type>
-   <handler-class/>
   </component>
   <attribute>
    <name>for_</name>
@@ -1505,7 +1501,6 @@
   <component>
    <component-type>org.richfaces.TogglePanelItem</component-type>
    <renderer-type>org.richfaces.TogglePanelItem</renderer-type>
-   <handler-class/>
   </component>
   <attribute>
    <name>name</name>
@@ -1743,7 +1738,6 @@
   <component>
    <component-type>org.richfaces.AccordionItem</component-type>
    <renderer-type>org.richfaces.AccordionItem</renderer-type>
-   <handler-class/>
   </component>
   <attribute>
    <name>disabled</name>
