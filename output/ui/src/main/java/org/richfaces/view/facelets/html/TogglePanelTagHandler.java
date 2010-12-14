@@ -22,19 +22,11 @@
 
 package org.richfaces.view.facelets.html;
 
-import org.richfaces.component.AbstractTogglePanel;
-
-import org.richfaces.event.MethodExpressionItemChangeListener;
 import org.richfaces.event.ItemChangeEvent;
+import org.richfaces.event.ItemChangeSource;
+import org.richfaces.event.MethodExpressionItemChangeListener;
 
-import javax.faces.view.facelets.ComponentConfig;
-import javax.faces.view.facelets.ComponentHandler;
-import javax.faces.view.facelets.FaceletContext;
-import javax.faces.view.facelets.MetaRule;
-import javax.faces.view.facelets.MetaRuleset;
-import javax.faces.view.facelets.Metadata;
-import javax.faces.view.facelets.MetadataTarget;
-import javax.faces.view.facelets.TagAttribute;
+import javax.faces.view.facelets.*;
 
 /**
  * @author akolonitsky
@@ -60,7 +52,7 @@ public class TogglePanelTagHandler extends ComponentHandler {
 
         @Override
         public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
-            if (meta.isTargetInstanceOf(AbstractTogglePanel.class)) {
+            if (meta.isTargetInstanceOf(ItemChangeSource.class)) {
                 if ("itemChangeListener".equals(name)) {
                     return new ItemChangeExpressionMetadata(attribute);
                 }
@@ -81,8 +73,8 @@ public class TogglePanelTagHandler extends ComponentHandler {
 
         @Override
         public void applyMetadata(FaceletContext ctx, Object instance) {
-            ((AbstractTogglePanel) instance).addItemChangeListener(new MethodExpressionItemChangeListener(
-                            this.attr.getMethodExpression(ctx, null, ITEM_CHANGE_SIG)));
+            ((ItemChangeSource) instance).addItemChangeListener(new MethodExpressionItemChangeListener(
+                    this.attr.getMethodExpression(ctx, null, ITEM_CHANGE_SIG)));
         }
     }
 

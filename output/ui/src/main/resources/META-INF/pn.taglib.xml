@@ -1159,7 +1159,7 @@
   <component>
    <component-type>org.richfaces.Accordion</component-type>
    <renderer-type>org.richfaces.Accordion</renderer-type>
-   <handler-class/>
+   <handler-class>org.richfaces.view.facelets.html.TogglePanelTagHandler</handler-class>
   </component>
   <attribute>
    <name>cycledSwitching</name>
