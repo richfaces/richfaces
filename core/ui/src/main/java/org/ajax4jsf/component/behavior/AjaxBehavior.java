@@ -35,6 +35,7 @@ import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.component.behavior.ClientBehaviorHint;
@@ -44,6 +45,7 @@ import javax.faces.event.AjaxBehaviorListener;
 import javax.faces.event.BehaviorEvent;
 
 import org.ajax4jsf.component.AjaxClientBehavior;
+import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
@@ -79,6 +81,9 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
     
     @Override
     public void setLiteralAttribute(String name, Object value) {
+        
+        ExpressionFactory expFactory = getFacesContext().getApplication().getExpressionFactory();
+        
         if (compare(PropertyKeys.data, name)) {
             setData(value);
         } else if (compare(PropertyKeys.execute, name)) {
@@ -100,12 +105,16 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         } else if (compare(PropertyKeys.status, name)) {
             setStatus((String) value);
         } else if (compare(PropertyKeys.disabled, name)) {
-            setDisabled((Boolean) value);
+            value = expFactory.coerceToType(value, Boolean.class);
+            setDisabled((Boolean)value);
         } else if (compare(PropertyKeys.limitRender, name)) {
+            value = expFactory.coerceToType(value, Boolean.class);
             setLimitRender((Boolean) value);
         } else if (compare(PropertyKeys.immediate, name)) {
+            value = expFactory.coerceToType(value, Boolean.class);
             setImmediate((Boolean) value);
         } else if (compare(PropertyKeys.bypassUpdates, name)) {
+            value = expFactory.coerceToType(value, Boolean.class);
             setBypassUpdates((Boolean) value);
         }
     }
@@ -160,7 +169,8 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         
         return null;
     }
-
+    
+    @Attribute
     public Object getData() {
         return getStateHelper().eval(PropertyKeys.data);
     }
@@ -169,6 +179,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         getStateHelper().put(PropertyKeys.data, data);
     }
 
+    @Attribute
     public Collection<String> getExecute() {
         return getCollectionValue(PropertyKeys.execute, execute);
     }
@@ -178,6 +189,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         clearInitialState();
     }
     
+    @Attribute
     public String getOnbeforedomupdate() {
         return (String) getStateHelper().eval(PropertyKeys.onbeforedomupdate);
     }
@@ -186,6 +198,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         getStateHelper().put(PropertyKeys.onbeforedomupdate, onbeforedomupdate);
     }
 
+    @Attribute
     public String getOnbegin() {
         return (String) getStateHelper().eval(PropertyKeys.onbegin);
     }
@@ -194,6 +207,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         getStateHelper().put(PropertyKeys.onbegin, onbegin);
     }
 
+    @Attribute
     public String getOncomplete() {
         return (String) getStateHelper().eval(PropertyKeys.oncomplete);
     }
@@ -202,6 +216,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         getStateHelper().put(PropertyKeys.oncomplete, oncomplete);
     }
 
+    @Attribute
     public String getOnerror() {
         return (String) getStateHelper().eval(PropertyKeys.onerror);
     }
@@ -210,6 +225,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         getStateHelper().put(PropertyKeys.onerror, onerror);
     }
 
+    @Attribute
     public String getOnevent() {
         return (String) getStateHelper().eval(PropertyKeys.onevent);
     }
@@ -218,6 +234,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         getStateHelper().put(PropertyKeys.onevent, onevent);
     }
 
+    @Attribute
     public String getQueueId() {
         return (String) getStateHelper().eval(PropertyKeys.queueId);
     }
@@ -226,6 +243,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         getStateHelper().put(PropertyKeys.queueId, queueId);
     }
 
+    @Attribute
     public Collection<String> getRender() {
         return getCollectionValue(PropertyKeys.render, render);
     }
@@ -235,6 +253,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         clearInitialState();
     }
     
+    @Attribute
     public String getStatus() {
         return (String) getStateHelper().eval(PropertyKeys.status);
     }
@@ -243,6 +262,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         getStateHelper().put(PropertyKeys.status, status);
     }
 
+    @Attribute
     public boolean isDisabled() {
         return (Boolean) getStateHelper().eval(PropertyKeys.disabled, false);
     }
@@ -251,6 +271,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         getStateHelper().put(PropertyKeys.disabled, disabled);
     }
 
+    @Attribute
     public boolean isLimitRender() {
         return (Boolean) getStateHelper().eval(PropertyKeys.limitRender, false);
     }
@@ -259,6 +280,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         getStateHelper().put(PropertyKeys.limitRender, limitRender);
     }
 
+    @Attribute
     public boolean isImmediate() {
         return (Boolean) getStateHelper().eval(PropertyKeys.immediate, false);
     }
@@ -267,6 +289,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         getStateHelper().put(PropertyKeys.limitRender, immediate);
     }
 
+    @Attribute
     public boolean isBypassUpdates() {
         return (Boolean) getStateHelper().eval(PropertyKeys.bypassUpdates, false);
     }
