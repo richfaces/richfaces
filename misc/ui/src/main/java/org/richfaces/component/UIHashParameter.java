@@ -31,10 +31,20 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIParameter;
 
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.Tag;
+
 /**
  * @author Anton Belevich
  * 
  */
+
+@JsfComponent(
+        type = UIHashParameter.COMPONENT_TYPE, 
+        family = UIHashParameter.COMPONENT_FAMILY, 
+        tag = @Tag(name = "hashParam", handler="javax.faces.view.facelets.ComponentHandler")
+)
 public class UIHashParameter extends UIComponentBase {
 
     public static final String COMPONENT_TYPE = "org.richfaces.HashParameter";
@@ -50,6 +60,7 @@ public class UIHashParameter extends UIComponentBase {
         setRendererType(null);
     }
 
+    @Attribute
     public String getName() {
         return (String) getStateHelper().eval(PropertyKeys.name);
     }
@@ -57,7 +68,8 @@ public class UIHashParameter extends UIComponentBase {
     public void setName(String name) {
         getStateHelper().put(PropertyKeys.name, name);
     }
-
+    
+    @Attribute
     public Map<String, Object> getValue() {
         List<UIComponent> children = getChildren();
         Map<String, Object> parameters = new HashMap<String, Object>();

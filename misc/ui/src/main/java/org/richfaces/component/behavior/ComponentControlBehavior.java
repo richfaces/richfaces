@@ -36,7 +36,11 @@ import org.richfaces.cdk.annotations.TagType;
  * @author Anton Belevich
  * 
  */
-@JsfBehavior(id = "org.richfaces.behavior.ComponentControlBehavior", tag = @Tag(name = "componentControl", handler = "org.richfaces.taglib.ComponentControlHandler", type = TagType.Facelets))
+@JsfBehavior(
+        id = "org.richfaces.behavior.ComponentControlBehavior", 
+        tag = @Tag(name = "componentControl", 
+        handler = "org.richfaces.taglib.ComponentControlHandler", type = TagType.Facelets)
+)
 public class ComponentControlBehavior extends ClientBehavior {
 
     public static final String BEHAVIOR_ID = "org.richfaces.behavior.ComponentControlBehavior";
