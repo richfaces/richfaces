@@ -376,7 +376,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
         String previous = (String) getValue();
         setValue(activeItem);
         setSubmittedActiveItem(null);
-        if (previous != null && !previous.equalsIgnoreCase(activeItem)) {
+        if (previous == null || !previous.equalsIgnoreCase(activeItem)) {
             queueEvent(new ItemChangeEvent(this, previous, activeItem));
         }
     }

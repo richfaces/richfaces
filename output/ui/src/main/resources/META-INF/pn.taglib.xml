@@ -7,7 +7,7 @@
   <component>
    <component-type>org.richfaces.TabPanel</component-type>
    <renderer-type>org.richfaces.TabPanel</renderer-type>
-   <handler-class/>
+   <handler-class>org.richfaces.view.facelets.html.TogglePanelTagHandler</handler-class>
   </component>
  </tag>
  <tag>
@@ -15,7 +15,6 @@
   <component>
    <component-type>org.richfaces.TabPanelItem</component-type>
    <renderer-type>org.richfaces.Tab</renderer-type>
-   <handler-class/>
   </component>
  </tag>
  <tag>
