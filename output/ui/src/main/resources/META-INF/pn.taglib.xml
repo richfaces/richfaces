@@ -562,6 +562,11 @@
    <name>onmouseup</name>
    <type>java.lang.String</type>
   </attribute>
+  <attribute>
+   <name>immediate</name>
+   <type>boolean</type>
+  </attribute>
+
  </tag>
  <tag>
   <tag-name>tooltip</tag-name>

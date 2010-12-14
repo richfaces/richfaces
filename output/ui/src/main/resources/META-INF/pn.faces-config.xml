@@ -1778,6 +1778,10 @@
             <property-name>render</property-name>
             <property-class>java.lang.Object</property-class>
         </property>
+        <property>
+            <property-name>immediate</property-name>
+            <property-class>boolean</property-class>
+        </property>
 
     </component>
 
