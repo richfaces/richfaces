@@ -47,12 +47,16 @@ public abstract class AbstractJQuery extends UIComponentBase {
         setRendererType("org.richfaces.JQueryRenderer");
     }
 
+    @Attribute
     public abstract String getName();
 
+    @Attribute
     public abstract String getSelector();
 
+    @Attribute
     public abstract String getEvent();
 
+    @Attribute
     public abstract String getQuery();
 
     @Attribute(defaultValue = "JQueryAttachType.DEFAULT")
