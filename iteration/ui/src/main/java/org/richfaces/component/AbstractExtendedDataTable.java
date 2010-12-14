@@ -78,10 +78,10 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
     public abstract int getFrozenColumns();
     
     @Attribute(events=@EventName(value="selectionchange", defaultEvent=true))
-    public abstract String getSelectionchange();
+    public abstract String getOnselectionchange();
 
     @Attribute(events=@EventName("beforeselectionchange"))
-    public abstract String getBeforeselectionchange();
+    public abstract String getOnbeforeselectionchange();
 
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
         if (SCROLL.equals(metaComponentId)) {
