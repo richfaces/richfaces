@@ -28,6 +28,7 @@ import java.util.List;
 import javax.faces.component.UIComponent;
 
 import org.ajax4jsf.component.behavior.ClientBehavior;
+import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
@@ -58,6 +59,7 @@ public class ComponentControlBehavior extends ClientBehavior {
         return children;
     }
 
+    @Attribute
     public String getEvent() {
         return (String) getStateHelper().eval(PropertyKeys.event);
     }
@@ -66,6 +68,7 @@ public class ComponentControlBehavior extends ClientBehavior {
         getStateHelper().eval(PropertyKeys.event, eventName);
     }
 
+    @Attribute
     public String getTarget() {
         return (String) getStateHelper().eval(PropertyKeys.target);
     }
@@ -74,6 +77,7 @@ public class ComponentControlBehavior extends ClientBehavior {
         getStateHelper().put(PropertyKeys.target, target);
     }
 
+    @Attribute
     public String getSelector() {
         return (String) getStateHelper().eval(PropertyKeys.selector);
     }
@@ -82,6 +86,7 @@ public class ComponentControlBehavior extends ClientBehavior {
         getStateHelper().put(PropertyKeys.selector, selector);
     }
 
+    @Attribute
     public String getOperation() {
         return (String) getStateHelper().eval(PropertyKeys.operation);
     }
