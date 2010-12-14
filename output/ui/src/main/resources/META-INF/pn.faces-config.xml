@@ -1576,10 +1576,6 @@
             <property-class>javax.faces.el.MethodBinding</property-class>
         </property>
         <property>
-            <property-name>actionExpression</property-name>
-            <property-class>javax.el.MethodExpression</property-class>
-        </property>
-        <property>
             <property-name>actionListener</property-name>
             <property-class>javax.faces.el.MethodBinding</property-class>
         </property>
@@ -1646,10 +1642,6 @@
         <property>
             <property-name>action</property-name>
             <property-class>javax.faces.el.MethodBinding</property-class>
-        </property>
-        <property>
-            <property-name>actionExpression</property-name>
-            <property-class>javax.el.MethodExpression</property-class>
         </property>
         <property>
             <property-name>actionListener</property-name>
