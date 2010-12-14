@@ -229,8 +229,6 @@ public abstract class ToolbarRendererBase extends RendererBase {
                 writer.write("&nbsp;");
                 writer.endElement(HtmlConstants.DIV_ELEM);
             } else {
-                separatorClass = concatClasses(separatorClass, (String) component.getAttributes().get("separatorClass"));
-                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, separatorClass, null);
                 
                 String uri = RenderKitUtils.getResourceURL(itemSeparator, context);
                 writer.startElement(HtmlConstants.IMG_ELEMENT, component);
