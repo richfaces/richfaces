@@ -434,10 +434,11 @@ public final class RenderKitUtils {
     public static void renderPassThroughAttributesOptimized(FacesContext context, UIComponent component,
         Map<String, ComponentAttribute> knownAttributesMap) throws IOException {
 
-        boolean disabled = isDisabled(component);
-        Set<String> handledAttributes = new HashSet<String>(knownAttributesMap.size());
         Object attributesThatAreSetObject = component.getAttributes().get(ATTRIBUTES_THAT_ARE_SET);
         if (attributesThatAreSetObject instanceof Collection<?>) {
+            boolean disabled = isDisabled(component);
+            Set<String> handledAttributes = new HashSet<String>(knownAttributesMap.size());
+
             Collection<?> attributesThatAreSet = (Collection<?>) attributesThatAreSetObject;
             for (Object attributeNameObject : attributesThatAreSet) {
                 if (attributeNameObject == null) {

@@ -134,6 +134,7 @@ public abstract class ListRendererBase extends Renderer {
 
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
                     HtmlUtil.concatClasses(helper.getRowClass(), helper.getColumnClass(), "rf-dlst-trm"), null);
+                renderHandlers(context, sequence);
                 termFacet.encodeAll(context);
                 writer.endElement(HtmlConstants.DT_ELEMENT);
             }
