@@ -22,6 +22,7 @@
 
 package org.richfaces.component.behavior;
 
+import javax.el.ExpressionFactory;
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorContext;
@@ -137,7 +138,8 @@ public class ToggleControl extends ClientBehavior {
         } else if (compare(PropertyKeys.targetPanel, name)) {
             setTargetPanel((String) value);
         } else if (compare(PropertyKeys.disableDefault, name)) {
-            setDisableDefault((Boolean)value);
+            ExpressionFactory expFactory = getFacesContext().getApplication().getExpressionFactory();
+            setDisableDefault((Boolean)expFactory.coerceToType(value, Boolean.class));
         }
     }
 }
