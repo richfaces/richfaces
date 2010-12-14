@@ -18,6 +18,7 @@
 		    height="#{component.attributes['height']}" class="rf-tb #{component.attributes['styleClass']}" 
 		    style="#{component.attributes['style']}" 
             cdk:passThroughWithExclusions="">
+            <cdk:call expression="encodeEventsAttributes(facesContext, component)" />            
 		    <tr class="rf-tb-cntr">
 		        <cdk:body />
 		    </tr>
