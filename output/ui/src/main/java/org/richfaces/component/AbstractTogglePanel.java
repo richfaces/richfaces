@@ -264,6 +264,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
 
         popComponentFromEL(context);
 
+        executeValidate(context);
         try {
             updateModel(context);
         } catch (RuntimeException e) {
@@ -271,7 +272,6 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
             throw e;
         }
 
-        executeValidate(context);
         if (!isValid()) {
             context.renderResponse();
         }
@@ -302,7 +302,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
             return;
         }
 
-        ValueExpression ve = getValueExpression("activeItem");
+        ValueExpression ve = getValueExpression("value");
         if (ve == null) {
             return;
         }
@@ -542,6 +542,14 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
 
 
     // ------------------------------------------------ Properties
+
+
+    @Override
+    public void setValue(Object value) {
+        super.setValue(value);
+
+        setLocalValueSet(true);
+    }
 
     public String getActiveItem() {
         return (String) getValue();
