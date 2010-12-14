@@ -36,17 +36,20 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.el.ExpressionFactory;
+import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.component.behavior.ClientBehaviorHint;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.faces.event.AjaxBehaviorListener;
 import javax.faces.event.BehaviorEvent;
 
 import org.ajax4jsf.component.AjaxClientBehavior;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfBehavior;
+import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
@@ -78,6 +81,10 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
     private Set<String> execute;
          
     private Set<String> render;
+    
+    @SuppressWarnings("unused")
+    @Attribute(generate = false, signature = @Signature(returnType = Void.class, parameters = AjaxBehaviorEvent.class))
+    private MethodExpression listener;
     
     @Override
     public void setLiteralAttribute(String name, Object value) {
