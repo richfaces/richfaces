@@ -2,6 +2,7 @@ package org.richfaces;
 
 import java.io.Serializable;
 
+import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.log.LogFactory;
 import org.richfaces.log.Logger;
 
@@ -38,5 +39,9 @@ public class TogglePanelBean implements Serializable {
 
     public void itemChangeActionListener() {
         LOGGER.info("TogglePanelBean.itemChangeActionListener");
+    }
+
+    public void itemChangeActionListener(ItemChangeEvent event) {
+        LOGGER.info("TogglePanelBean.itemChangeActionListener(event)");
     }
 }
