@@ -476,7 +476,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
         return Collections.unmodifiableSet(mappedResourceDataMap.keySet());
     }
 
-    public Resource createResource(Java2DUserResource resource) {
+    protected Resource createResource(Java2DUserResource resource) {
         boolean cacheable = isCacheableSet(resource.getClass());
         boolean versioned = isVersionedSet(resource.getClass());
         
@@ -488,7 +488,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
         }
     }
     
-    public Resource createResource(UserResource resource) {
+    protected Resource createResource(UserResource resource) {
         boolean cacheable = isCacheableSet(resource.getClass());
         boolean versioned = isVersionedSet(resource.getClass());
         

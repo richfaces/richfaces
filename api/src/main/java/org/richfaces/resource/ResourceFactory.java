@@ -44,8 +44,4 @@ public interface ResourceFactory {
 
     public abstract Resource createResource(FacesContext context, ResourceRequestData resourceData);
 
-    public abstract Resource createResource(UserResource resource);
-    
-    public abstract Resource createResource(Java2DUserResource resource);
-    
 }
