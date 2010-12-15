@@ -1,3 +1,13 @@
+/*
+ * code review by Pavel Yaschenko
+ * 
+ * 1. No need to save DOM element (this.indicator). We can use id to get dom element. It helps to avoid memory leaks :)
+ * 
+ * 2. Name refactoring: change names acceptClass, rejectClass, draggingClass 
+ * 						to more readable names: getAcceptClass, getRejectClass, getDragClass
+ * 
+ */
+
 (function ($, rf) {
 	
 	rf.ui = rf.ui || {};

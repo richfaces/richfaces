@@ -1,3 +1,25 @@
+/*
+ * code review by Pavel Yaschenko
+ * 
+ * records in draggables and droppables should be cleaned up when remove component from DOM
+ * 
+ * draft code: something like this
+ * 
+ *
+    rf.ui.Draggable = function (id, options) {
+	 	var c = rf.$(id);
+		if (c) {
+			var baseDestroy = c.destroy;
+			c. destroy = f () 
+				{
+					rf.ui.DnDManager.removeDraggable(id)
+					baseDestroy.call(this);
+				}
+		}
+		// other code ...
+	}
+ */
+
 (function ($, rf) {
 	
 	rf.ui = rf.ui || {};

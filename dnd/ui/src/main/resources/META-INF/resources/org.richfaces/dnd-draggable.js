@@ -1,3 +1,11 @@
+/*
+ * code review by Pavel Yaschenko
+ * 
+ * No event's unbindings when component would be destroyed 
+ * Hint: easy way to unbind - use namespaces when bind event handlers
+ * 
+ */
+
 (function ($, rf) {
 	
 	rf.ui = rf.ui || {};
