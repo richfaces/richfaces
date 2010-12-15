@@ -8,6 +8,26 @@
     <behavior>
         <behavior-id>org.richfaces.component.behavior.ToggleControl</behavior-id>
         <behavior-class>org.richfaces.component.behavior.ToggleControl</behavior-class>
+        <property>
+            <property-name>targetPanel</property-name>
+            <property-class>java.lang.String</property-class>
+        </property>
+        <property>
+            <property-name>targetItem</property-name>
+            <property-class>java.lang.String</property-class>
+        </property>
+        <property>
+            <property-name>event</property-name>
+            <property-class>java.lang.String</property-class>
+        </property>
+        <property>
+            <property-name>disableDefault</property-name>
+            <property-class>java.lang.Boolean</property-class>
+        </property>
+        <property>
+            <property-name>for</property-name>
+            <property-class>java.lang.String</property-class>
+        </property>
     </behavior>
 
     <component>

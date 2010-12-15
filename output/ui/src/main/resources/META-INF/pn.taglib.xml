@@ -3,6 +3,33 @@
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee                 http://java.sun.com/xml/ns/javaee/web-facelettaglibrary_2_0.xsd">
  <namespace>http://richfaces.org/pn</namespace>
     <tag>
+        <tag-name>toggleControl</tag-name>
+        <behavior>
+            <behavior-id>org.richfaces.component.behavior.ToggleControl</behavior-id>
+            <handler-class>org.richfaces.view.facelets.html.CustomBehaviorHandler</handler-class>
+        </behavior>
+        <attribute>
+            <name>targetPanel</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>targetItem</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>event</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>disableDefault</name>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <name>for</name>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+    <tag>
         <tag-name>tabPanel</tag-name>
         <component>
             <component-type>org.richfaces.TabPanel</component-type>
