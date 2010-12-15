@@ -200,7 +200,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     public abstract boolean isBypassUpdates();
 
-    public abstract boolean isDisableImplicitRender();
+    public abstract boolean isLimitRender();
 
     public abstract Object getData();
 

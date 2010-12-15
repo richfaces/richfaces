@@ -33,7 +33,7 @@ public class UITogglePanel extends AbstractTogglePanel {
     public enum PropertyKeys {
         switchType,
         bypassUpdates,
-        disableImplicitRender,
+        limitRender,
         cycledSwitching,
         data,
         status,
@@ -59,12 +59,12 @@ public class UITogglePanel extends AbstractTogglePanel {
         getStateHelper().put(PropertyKeys.bypassUpdates, bypassUpdates);
     }
 
-    public boolean isDisableImplicitRender() {
-        return Boolean.valueOf(String.valueOf(getStateHelper().eval(PropertyKeys.disableImplicitRender)));
+    public boolean isLimitRender() {
+        return Boolean.valueOf(String.valueOf(getStateHelper().eval(PropertyKeys.limitRender)));
     }
 
-    public void setDisableImplicitRender(boolean disableImplicitRender) {
-        getStateHelper().put(PropertyKeys.disableImplicitRender, disableImplicitRender);
+    public void setLimitRender(boolean limitRender) {
+        getStateHelper().put(PropertyKeys.limitRender, limitRender);
     }
 
     public boolean isCycledSwitching() {

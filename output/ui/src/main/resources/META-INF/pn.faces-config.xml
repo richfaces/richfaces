@@ -889,7 +889,7 @@
         </property>
         <property>
             <description></description>
-            <property-name>disableImplicitRender</property-name>
+            <property-name>limitRender</property-name>
             <property-class>boolean</property-class>
         </property>
         <property>
@@ -940,7 +940,7 @@
         </property>
         <property>
             <description></description>
-            <property-name>disableImplicitRender</property-name>
+            <property-name>limitRender</property-name>
             <property-class>boolean</property-class>
         </property>
         <property>
@@ -990,7 +990,7 @@
         </property>
         <property>
             <description></description>
-            <property-name>disableImplicitRender</property-name>
+            <property-name>limitRender</property-name>
             <property-class>boolean</property-class>
         </property>
         <property>
@@ -1235,7 +1235,7 @@
         </property>
         <property>
             <description></description>
-            <property-name>disableImplicitRender</property-name>
+            <property-name>limitRender</property-name>
             <property-class>boolean</property-class>
         </property>
         <property>
@@ -1579,7 +1579,7 @@
             <property-class>boolean</property-class>
         </property>
         <property>
-            <property-name>disableImplicitRender</property-name>
+            <property-name>limitRender</property-name>
             <property-class>boolean</property-class>
         </property>
         <property>
@@ -1943,7 +1943,7 @@
         </property>
         <property>
             <description></description>
-            <property-name>disableImplicitRender</property-name>
+            <property-name>limitRender</property-name>
             <property-class>boolean</property-class>
         </property>
         <property>
@@ -2087,7 +2087,7 @@
         </property>
         <property>
             <description></description>
-            <property-name>disableImplicitRender</property-name>
+            <property-name>limitRender</property-name>
             <property-class>boolean</property-class>
         </property>
         <property>

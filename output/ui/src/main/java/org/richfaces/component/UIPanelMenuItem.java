@@ -38,7 +38,7 @@ public class UIPanelMenuItem extends AbstractPanelMenuItem {
         name,
         disabled,
         bypassUpdates,
-        disableImplicitRender,
+        limitRender,
         data,
         status,
         execute,
@@ -85,12 +85,12 @@ public class UIPanelMenuItem extends AbstractPanelMenuItem {
         getStateHelper().put(PropertyKeys.bypassUpdates, bypassUpdates);
     }
 
-    public boolean isDisableImplicitRender() {
-        return Boolean.valueOf(String.valueOf(getStateHelper().eval(PropertyKeys.disableImplicitRender)));
+    public boolean isLimitRender() {
+        return Boolean.valueOf(String.valueOf(getStateHelper().eval(PropertyKeys.limitRender)));
     }
 
-    public void setDisableImplicitRender(boolean disableImplicitRender) {
-        getStateHelper().put(PropertyKeys.disableImplicitRender, disableImplicitRender);
+    public void setLimitRender(boolean limitRender) {
+        getStateHelper().put(PropertyKeys.limitRender, limitRender);
     }
 
     public Object getData() {

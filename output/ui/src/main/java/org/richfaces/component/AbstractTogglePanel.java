@@ -572,7 +572,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
 
     public abstract boolean isBypassUpdates();
 
-    public abstract boolean isDisableImplicitRender();
+    public abstract boolean isLimitRender();
 
     public abstract boolean isCycledSwitching();
 

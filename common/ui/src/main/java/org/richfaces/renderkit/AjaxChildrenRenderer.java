@@ -72,7 +72,7 @@ public abstract class AjaxChildrenRenderer extends AjaxComponentRendererBase imp
 
             // Do not check children if we have no id to render under naming
             // container.
-            if (AjaxContext.getCurrentInstance(context).isDisableImplicitRender() && noIdUnderPath(path, ids)) {
+            if (AjaxContext.getCurrentInstance(context).isLimitRender() && noIdUnderPath(path, ids)) {
                 return;
             }
         }
@@ -113,7 +113,7 @@ public abstract class AjaxChildrenRenderer extends AjaxComponentRendererBase imp
 
         if (component.isRendered()) { // skip not-rendered components.
             boolean found = false;
-            boolean disableImplicitRender = AjaxContext.getCurrentInstance(context).isDisableImplicitRender();
+            boolean limitRender = AjaxContext.getCurrentInstance(context).isLimitRender();
             String elementId = component.getId();
             String absoluteId = currentPath + elementId;
 
@@ -133,12 +133,12 @@ public abstract class AjaxChildrenRenderer extends AjaxComponentRendererBase imp
             }
 
             //
-            if (!found && disableImplicitRender && (component instanceof NamingContainer)
+            if (!found && limitRender && (component instanceof NamingContainer)
                 && noIdUnderPath(absoluteId + NamingContainer.SEPARATOR_CHAR, ids)) {
                 return;
             }
 
-            if (!found && !disableImplicitRender && (component instanceof AjaxOutput)) {
+            if (!found && !limitRender && (component instanceof AjaxOutput)) {
                 if (((AjaxOutput) component).isAjaxRendered()) {
 
                     // renderChild(context, element);
