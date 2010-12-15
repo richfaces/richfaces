@@ -47,7 +47,7 @@ public abstract class AjaxContext {
     private static final String DEFAULT_CONTEXT_CLASS = "org.ajax4jsf.context.AjaxContextImpl";
     private static Map<ClassLoader, Class<? extends AjaxContext>> ajaxContextClasses =
         new HashMap<ClassLoader, Class<? extends AjaxContext>>();
-    private boolean disableImplicitRender;
+    private boolean limitRender;
 
     protected AjaxContext() { }
 
@@ -125,12 +125,12 @@ public abstract class AjaxContext {
 
     public abstract void setSubmittedRegionClientId(String submittedClientId);
 
-    public boolean isDisableImplicitRender() {
-        return disableImplicitRender;
+    public boolean isLimitRender() {
+        return limitRender;
     }
 
-    public void setDisableImplicitRender(boolean disableImplicitRender) {
-        this.disableImplicitRender = disableImplicitRender;
+    public void setLimitRender(boolean limitRender) {
+        this.limitRender = limitRender;
     }
 
     /**

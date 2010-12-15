@@ -302,8 +302,8 @@ public class AjaxContextImpl extends AjaxContext {
         }
 
         // Is that component limit to list ?
-        if (Boolean.TRUE.equals(component.getAttributes().get("disableImplicitRender"))) {
-            setDisableImplicitRender(true);
+        if (Boolean.TRUE.equals(component.getAttributes().get("limitRender"))) {
+            setLimitRender(true);
         }
     }
 
