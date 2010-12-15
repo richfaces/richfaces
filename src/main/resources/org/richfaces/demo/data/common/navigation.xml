@@ -593,4 +593,19 @@
 			</demo>
 		</demos>
 	</group>
+    <group>
+        <name>Drag'n'Drop</name>
+        <demos>
+            <demo>
+                <id>dragDrop</id>
+                <name>Drag'n'Drop</name>
+                <samples>
+                    <sample>
+                        <id>dragDrop</id>
+                        <name>Drag'n'Drop usage example</name>
+                    </sample>
+                </samples>
+            </demo>
+        </demos>
+    </group>
 </root>
