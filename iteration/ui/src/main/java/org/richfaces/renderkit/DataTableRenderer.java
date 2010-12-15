@@ -378,7 +378,17 @@ public class DataTableRenderer extends AbstractTableRenderer {
     }
 
     public String getNoDataClass() {
-        return "rf-dt-ndt";
+        return "rf-dt-nd";
+    }
+    
+    @Override
+    public String getNoDataCellClass() {
+        return "rf-dt-nd-c";
+    }
+    
+    @Override
+    public String getTableBodySkinClass() {
+        return "rf-dt-b";
     }
 
     protected void setupTableStartElement(FacesContext context, UIComponent component) {

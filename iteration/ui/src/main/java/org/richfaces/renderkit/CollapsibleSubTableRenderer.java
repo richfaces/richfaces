@@ -367,7 +367,18 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
     }
     
     public String getNoDataClass() {
+        return "rf-cst-nd";
+    }
+    
+    @Override
+    public String getNoDataCellClass() {
         return "rf-cst-nd-c";
+    }
+    
+    @Override
+    public String getTableBodySkinClass() {
+        // AbstractSubTable doesn't have tbody
+        return null;
     }
     
     @Override
