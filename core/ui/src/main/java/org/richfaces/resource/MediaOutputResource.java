@@ -30,6 +30,7 @@ import java.util.Date;
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.component.StateHolder;
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 
@@ -98,7 +99,9 @@ public class MediaOutputResource extends AbstractUserResource implements StateHo
      */
 
     // TODO use ResourceComponent or exchange object as argument?
-    public void initialize(AbstractMediaOutput uiMediaOutput) {
+    @PostConstructResource
+    public void initialize() {
+        AbstractMediaOutput uiMediaOutput = (AbstractMediaOutput) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance());
         this.setCacheable(uiMediaOutput.isCacheable());
         this.setContentType(uiMediaOutput.getMimeType());
         this.userData = uiMediaOutput.getValue();
