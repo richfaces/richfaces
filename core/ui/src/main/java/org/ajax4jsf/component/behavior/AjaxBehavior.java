@@ -74,7 +74,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
     private static final Set<String> NONE_SINGLETON_SET = Collections.singleton(NONE);
     
     enum PropertyKeys {
-        data, execute, onbeforedomupdate, onbegin, oncomplete, onerror, onevent, queueId, render,
+        data, execute, onbeforedomupdate, onbegin, oncomplete, onerror, queueId, render,
         status, disabled, limitRender, immediate, bypassUpdates
     }
     
@@ -105,8 +105,6 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
             setOncomplete((String) value);
         } else if (compare(PropertyKeys.onerror, name)) {
             setOnerror((String) value);
-        } else if (compare(PropertyKeys.onevent, name)) {
-            setOnevent((String) value);
         } else if (compare(PropertyKeys.queueId, name)) {
             setQueueId((String) value);
         } else if (compare(PropertyKeys.status, name)) {
@@ -230,15 +228,6 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
 
     public void setOnerror(String onerror) {
         getStateHelper().put(PropertyKeys.onerror, onerror);
-    }
-
-    @Attribute
-    public String getOnevent() {
-        return (String) getStateHelper().eval(PropertyKeys.onevent);
-    }
-
-    public void setOnevent(String onevent) {
-        getStateHelper().put(PropertyKeys.onevent, onevent);
     }
 
     @Attribute
@@ -420,4 +409,5 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
 
         return state;
     }
+
 }

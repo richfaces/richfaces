@@ -97,12 +97,6 @@ public final class AjaxRendererUtils {
             public String getAttributeValue(AjaxClientBehavior behavior) {
                 return behavior.getQueueId();
             }
-        },
-        event {
-            @Override
-            public String getAttributeValue(AjaxClientBehavior behavior) {
-                return behavior.getOnevent();
-            }
         };
 
         public abstract String getAttributeValue(AjaxClientBehavior behavior);
