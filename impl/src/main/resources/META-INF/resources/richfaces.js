@@ -350,7 +350,6 @@ if (!window.RichFaces) {
 	
 	var getJSONData = function(extensionElement, elementName) {
 		var dataString = jQuery.trim(extensionElement.children(elementName).text());
-		extensionElement.end();
 		return richfaces.parseJSON(dataString);
 	};
 	
@@ -463,7 +462,6 @@ if (!window.RichFaces) {
 			var xml = getExtensionResponseElement(event.responseXML);
 
 			var serverHandler = createEventHandler(xml.children(event.type).text());
-			xml.end();
 
 			if (clientHandler) {
 				clientHandler.call(window, event);
