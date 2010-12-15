@@ -76,7 +76,19 @@ public class DropBehaviorRendererBase extends DnDBehaviorRenderBase {
 
         Map<String, String> requestParamMap = facesContext.getExternalContext().getRequestParameterMap();
         String dragSource = (String) requestParamMap.get("dragSource");
-        facesContext.getViewRoot().invokeOnComponent(facesContext, dragSource, new DropBehaviorContextCallBack(component, (ClientDropBehavior)behavior));
+
+        DragBehaviorContextCallBack dragBehaviorContextCallBack = new DragBehaviorContextCallBack();
+        facesContext.getViewRoot().invokeOnComponent(facesContext, dragSource, dragBehaviorContextCallBack);
+
+        if(behavior instanceof ClientDropBehavior) {
+            ClientDropBehavior dropBehavior = (ClientDropBehavior)behavior;
+            DropEvent dropEvent = new DropEvent(component, dropBehavior);
+            dropEvent.setDropValue(dropBehavior.getDropValue());
+            dropEvent.setDragComponent(dragBehaviorContextCallBack.getDragComponent());
+            dropEvent.setDragBehavior(dragBehaviorContextCallBack.getDragBehavior());
+            dropEvent.setDragValue(dragBehaviorContextCallBack.getDragValue());
+            queueEvent(dropEvent);
+        }
     }
     
     @Override
@@ -91,65 +103,34 @@ public class DropBehaviorRendererBase extends DnDBehaviorRenderBase {
             ClientDropBehavior dropBehavior = (ClientDropBehavior)behavior;
             options.put("acceptedTypes", dropBehavior.getAcceptedTypes());
         }
-        
         return options;
     }
     
-    private final class DropBehaviorContextCallBack implements ContextCallback {
+    private final class DragBehaviorContextCallBack implements ContextCallback {
         
-        private ClientDropBehavior dropBehavior;
+        private Object dragValue;
         
-        private UIComponent dropSource;
+        private ClientDragBehavior dragBehavior;
         
-        public DropBehaviorContextCallBack(UIComponent dropSource, ClientDropBehavior dropBehavior) {
-            this.dropSource = dropSource;
-            this.dropBehavior = dropBehavior;
-        }
+        private UIComponent dragComponent;
         
         public void invokeContextCallback(FacesContext context, UIComponent target) {
             ClientDragBehavior dragBehavior = getDragBehavior(target, "mouseover");
-            if(dragBehavior != null) {
-                DropEvent dropEvent = new DropEvent(dropSource, dropBehavior);
-                dropEvent.setDragSource(dragBehavior);
-                dropEvent.setDragComponent(target);
-                queueDropEvent(dropEvent);
-            } else {
-                //TODO: log
-            }
+            this.dragValue = dragBehavior.getDragValue();
+            this.dragBehavior = dragBehavior;
+            this.dragComponent = target;
         }
         
-        private void queueDropEvent(DropEvent event) {
-            PhaseId phaseId = PhaseId.INVOKE_APPLICATION;
-            
-            if (isImmediate()) {
-                phaseId = PhaseId.APPLY_REQUEST_VALUES;
-            } else if (isBypassUpdates()) {
-                phaseId = PhaseId.PROCESS_VALIDATIONS;
-            }
+        public Object getDragValue() {
+            return dragValue;
+        }
 
-            event.setPhaseId(phaseId);
-            this.dropSource.queueEvent(event);
+        public ClientDragBehavior getDragBehavior() {
+            return dragBehavior;
         }
-        
-        private boolean isImmediate(){
-            boolean immediate = this.dropBehavior.isImmediate();
-            if(!immediate) {
-                if (dropSource instanceof EditableValueHolder) {
-                    immediate = ((EditableValueHolder) dropSource).isImmediate();
-                } else if (dropSource instanceof ActionSource) {
-                    immediate = ((ActionSource) dropSource).isImmediate();
-                }
-            }
-            
-            return immediate;
-        }
-        
-        private boolean isBypassUpdates(){
-            boolean bypassUpdates = this.dropBehavior.isBypassUpdates();
-            if (!bypassUpdates) {
-                bypassUpdates = getUtils().isBooleanAttribute(this.dropSource, "bypassUpdates");
-            }
-            return bypassUpdates;
+
+        public UIComponent getDragComponent() {
+            return dragComponent;
         }
         
         private ClientDragBehavior getDragBehavior(UIComponent parent, String event) {
@@ -172,6 +153,44 @@ public class DropBehaviorRendererBase extends DnDBehaviorRenderBase {
             return null;
         }
         
+    }
+    
+    protected void queueEvent(DropEvent dropEvent){
+        UIComponent component = dropEvent.getComponent();
+        ClientDropBehavior dropBehavior = dropEvent.getDropBehavior();
+        
+        if(component != null && dropBehavior != null) {
+            PhaseId phaseId = PhaseId.INVOKE_APPLICATION;
+
+            if (isImmediate(component, dropBehavior)) {
+                phaseId = PhaseId.APPLY_REQUEST_VALUES;
+            } else if (isBypassUpdates(component, dropBehavior)) {
+                phaseId = PhaseId.PROCESS_VALIDATIONS;
+            }
+    
+            dropEvent.setPhaseId(phaseId);
+            component.queueEvent(dropEvent);
+        }
+    }
+    
+    private boolean isImmediate(UIComponent component, ClientDropBehavior dropBehavior){
+        boolean immediate = dropBehavior.isImmediate();
+        if(!immediate) {
+            if (component instanceof EditableValueHolder) {
+                immediate = ((EditableValueHolder) component).isImmediate();
+            } else if (component instanceof ActionSource) {
+                immediate = ((ActionSource) component).isImmediate();
+            }
+        }
+        return immediate;
+    }
+    
+    private boolean isBypassUpdates(UIComponent component, ClientDropBehavior dropBehavior){
+        boolean bypassUpdates = dropBehavior.isBypassUpdates();
+        if (!bypassUpdates) {
+            bypassUpdates = getUtils().isBooleanAttribute(component, "bypassUpdates");
+        }
+        return bypassUpdates;
     }
 
 }

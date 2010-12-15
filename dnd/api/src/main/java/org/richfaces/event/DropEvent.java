@@ -37,21 +37,63 @@ public class DropEvent extends BehaviorEvent {
 
     private static final long serialVersionUID = 3717071628237886288L;
     
-    private ClientDragBehavior dragSource;
+    private ClientDragBehavior dragBehavior;
     
     private UIComponent dragComponent;
     
+    private ClientDropBehavior dropBehavior;
+
+    private UIComponent dropComponent;
+    
+    private Object dropValue;
+    
+    private Object dragValue;
+    
     public DropEvent(UIComponent component, ClientDropBehavior behavior) {
         super(component, behavior);
+        this.dropComponent = component;
+        this.dropBehavior = behavior;
     }
     
-    public ClientDragBehavior getDragSource() {
-        return dragSource;
+ 
+    public void setDropBehavior(ClientDropBehavior dropBehavior) {
+        this.dropBehavior = dropBehavior;
+    }
+    
+    public ClientDropBehavior getDropBehavior() {
+        return this.dropBehavior;
+    }
+    
+    public void setDropComponent(UIComponent dropComponent) {
+        this.dropComponent = dropComponent;
+    }
+    
+    public UIComponent getDropComponent() {
+        return this.dropComponent;
     }
 
+    public Object getDropValue() {
+        return dropValue;
+    }
 
-    public void setDragSource(ClientDragBehavior dragSource) {
-        this.dragSource = dragSource;
+    public void setDropValue(Object dropValue) {
+        this.dropValue = dropValue;
+    }
+
+    public Object getDragValue() {
+        return dragValue;
+    }
+
+    public void setDragValue(Object dragValue) {
+        this.dragValue = dragValue;
+    }
+    
+    public ClientDragBehavior getDragBehavior() {
+        return dragBehavior;
+    }
+
+    public void setDragBehavior(ClientDragBehavior dragBehavior) {
+        this.dragBehavior = dragBehavior;
     }
 
     public UIComponent getDragComponent() {
@@ -61,16 +103,7 @@ public class DropEvent extends BehaviorEvent {
     public void setDragComponent(UIComponent dragComponent) {
         this.dragComponent = dragComponent;
     }
-
-    public ClientDropBehavior getDropSource() {
-        return (ClientDropBehavior)getBehavior();
-    }
     
-    public UIComponent getDropComponent() {
-        return getComponent();
-    }
-
-
     @Override
     public boolean isAppropriateListener(FacesListener listener) {
         return (listener instanceof DropListener);
@@ -80,5 +113,4 @@ public class DropEvent extends BehaviorEvent {
     public void processListener(FacesListener listener) {
         ((DropListener) listener).processDrop(this);
     }
- 
 }
