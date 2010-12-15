@@ -46,8 +46,11 @@
 	        this.handle = this.track.children(".rf-insl-hnd, .rf-insl-hnd-dis");
 	        this.tooltip = this.element.children(".rf-insl-tt");
 	        
-	        var proxy = jQuery.proxy(this.__inputHandler, this);
-	        jQuery(document).ready(proxy);
+	    	var value = Number(this.input.val());
+	    	if (isNaN(value)) {
+	    		value = this.minValue;
+	    	}
+	    	this.__setValue(value, null, true);
 	        
 	        if (!this.disabled) {
 		        this.decreaseButton = this.element.children(".rf-insl-dec");
@@ -58,6 +61,7 @@
 				for (var i in selectedClasses) {
 					this[i] += " " + selectedClasses[i];
 				}
+		        var proxy = jQuery.proxy(this.__inputHandler, this);
 		        this.input.change(proxy);
 		        this.input.submit(proxy);
 		        this.track.keydown(jQuery.proxy(this.__keydownHandler, this));
@@ -81,7 +85,7 @@
 	    	}
 	    },
 	
-	    __setValue: function (value, event) {
+	    __setValue: function (value, event, skipOnchange) {
 	    	if (!isNaN(value)) {
 	        	value = Math.round(value / this.step) * this.step; //TODO Add normal support of float values. E.g. '0.3' should be instead of '0.30000000000000004'.
 		        if (value > this.maxValue) {
@@ -94,9 +98,9 @@
 		        	var left = (value - this.minValue) * (this.track.width() - this.handle.width()) / this.range;
 		        	this.handle.css("margin-left", left + "px");
 		        	this.tooltip.text(value);
-		        	this.tooltip.setPosition(this.handle,{from: 'LT', offset: [0, -3]}); //TODO Seems offset doesn't work now.
+		        	this.tooltip.setPosition(this.handle,{from: 'LT', offset: [0, 5]}); //TODO Seems offset doesn't work now.
 		        	this.value = value;
-		        	if (this.onchange && (!event || event.type)) {
+		        	if (this.onchange && !skipOnchange) {
 		        		this.onchange.call(this.element[0], event);
 		        	}
 		        }
@@ -174,6 +178,11 @@
 	    	this.handle.removeClass(this.handleSelectedClass);
 	    	this.tooltip.hide();
 	    	jQuery(document).unbind("mousemove", this.__mousemoveHandler);
+	    },
+	    
+	    destroy: function (event) {
+		    jQuery(document).unbind("mousemove", this.__mousemoveHandler);
+			$super.destroy.call(this);
 	    }
 	});
 }(window.RichFaces, jQuery));
