@@ -37,7 +37,7 @@ import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.richfaces.component.UIPanel;
+import org.richfaces.component.AbstractPanel;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -83,10 +83,10 @@ public class PanelRendererTest {
     public final void testGetComponentClass() throws IOException {
         FacesRequest facesRequest = startFacesRequest();
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        UIPanel component = (UIPanel) facesContext.getViewRoot().findComponent("panelWithFacet");
+        AbstractPanel component = (AbstractPanel) facesContext.getViewRoot().findComponent("panelWithFacet");
         PanelRenderer renderer = (PanelRenderer) FacesContext.getCurrentInstance()
             .getRenderKit().getRenderer(component.getFamily(), component.getRendererType());
-        assertEquals(UIPanel.class, renderer.getComponentClass());
+        assertEquals(AbstractPanel.class, renderer.getComponentClass());
         facesRequest.release();
     }
 

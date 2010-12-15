@@ -33,9 +33,11 @@ import org.richfaces.cdk.annotations.TagType;
  * 
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), 
-	    renderer = @JsfRenderer(type = "org.richfaces.PanelRenderer")
-	)
-public class UIPanel extends UIComponentBase {
+	renderer = @JsfRenderer(type = "org.richfaces.PanelRenderer"),
+	attributes = {"core-props.xml", "events-props.xml"}
+)
+public abstract class AbstractPanel extends UIComponentBase {
+    
     private static final String COMPONENT_FAMILY = "org.richfaces.Panel";
 
     public boolean getRendersChildren() {

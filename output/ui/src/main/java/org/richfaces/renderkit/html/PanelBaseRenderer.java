@@ -21,7 +21,7 @@
 
 package org.richfaces.renderkit.html;
 
-import org.richfaces.component.UIPanel;
+import org.richfaces.component.AbstractPanel;
 import org.richfaces.renderkit.RendererBase;
 
 import javax.faces.application.ResourceDependency;
@@ -46,6 +46,6 @@ public class PanelBaseRenderer extends RendererBase {
 
     @Override
     protected Class<? extends UIComponent> getComponentClass() {
-        return UIPanel.class;
+        return AbstractPanel.class;
     }
 }
