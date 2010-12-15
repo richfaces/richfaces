@@ -35,10 +35,6 @@ public interface AjaxClientBehavior extends ClientBehavior {
 
     public String getStatus();
 
-    public String getOnevent();
-
-    public void setOnevent(String onevent);
-
     public String getOnerror();
 
     public void setOnerror(String onerror);
