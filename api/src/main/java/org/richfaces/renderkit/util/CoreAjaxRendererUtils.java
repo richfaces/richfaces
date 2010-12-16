@@ -280,14 +280,11 @@ public final class CoreAjaxRendererUtils {
         if (component instanceof AjaxComponent) {
             result = ((AjaxComponent) component).isLimitRender();
         } else {
-            try {
-                result = ((Boolean) component.getAttributes().get(LIMITRENDER_ATTR_NAME)).booleanValue();
-            } catch (NullPointerException e) {
-
-                // NullPointer - ignore ...
-            } catch (ClassCastException e1) {
-
-                // not Boolean - false ...
+            Object limitRenderObject = component.getAttributes().get(LIMITRENDER_ATTR_NAME);
+            if (limitRenderObject instanceof Boolean) {
+                result = ((Boolean) limitRenderObject).booleanValue();
+            } else {
+                result = Boolean.valueOf(String.valueOf(limitRenderObject));
             }
         }
 
