@@ -25,7 +25,7 @@ import java.util.Iterator;
 
 import javax.faces.convert.Converter;
 
-import org.richfaces.convert.ObjectSequenceRowKeyConverter;
+import org.richfaces.convert.StringSequenceRowKeyConverter;
 import org.richfaces.model.iterators.ClassicTreeNodeTuplesIterator;
 
 /**
@@ -34,7 +34,7 @@ import org.richfaces.model.iterators.ClassicTreeNodeTuplesIterator;
  */
 public class ClassicTreeNodeDataModelImpl extends NodesTreeSequenceKeyModel<TreeNode> {
 
-    private static final Converter DEFAULT_CONVERTER = new ObjectSequenceRowKeyConverter();
+    private static final Converter DEFAULT_CONVERTER = new StringSequenceRowKeyConverter();
     
     private TreeNode rootNode;
     

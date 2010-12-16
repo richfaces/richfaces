@@ -17,8 +17,8 @@
     </converter>
     
     <converter>
-        <converter-id>org.richfaces.ObjectSequenceRowKeyConverter</converter-id>
-        <converter-class>org.richfaces.convert.ObjectSequenceRowKeyConverter</converter-class>
+        <converter-id>org.richfaces.StringSequenceRowKeyConverter</converter-id>
+        <converter-class>org.richfaces.convert.StringSequenceRowKeyConverter</converter-class>
     </converter>
 
     <faces-config-extension>

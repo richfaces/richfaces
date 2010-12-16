@@ -21,31 +21,17 @@
  */
 package org.richfaces.convert;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
 
 /**
  * @author Nick Belaevski
  * 
  */
-public class ObjectSequenceRowKeyConverter extends SequenceRowKeyConverter<Object> {
+public class StringSequenceRowKeyConverter extends SequenceRowKeyConverter<Object> {
 
-    public static final String CONVERTER_ID = "org.richfaces.ObjectSequenceRowKeyConverter";
+    public static final String CONVERTER_ID = "org.richfaces.StringSequenceRowKeyConverter";
     
-    private static final Converter NO_OP_CONVERTER = new Converter() {
-        
-        public String getAsString(FacesContext context, UIComponent component, Object value) {
-            return (String) value;
-        }
-        
-        public Object getAsObject(FacesContext context, UIComponent component, String value) {
-            return value;
-        }
-    };
-    
-    public ObjectSequenceRowKeyConverter() {
-        super(Object.class, NO_OP_CONVERTER);
+    public StringSequenceRowKeyConverter() {
+        super(Object.class, ConverterUtil.stringConverter());
     }
 
 }
