@@ -99,7 +99,6 @@
 	
 	    __setValue: function (value, event, skipOnchange) {
 	    	if (!isNaN(value)) {
-	        	value = Math.round(value / this.step) * this.step; //TODO Add normal support of float values. E.g. '0.3' should be instead of '0.30000000000000004'.
 		        if (value > this.maxValue) {
 		        	value = this.maxValue;
 		        } else if (value < this.minValue) {
