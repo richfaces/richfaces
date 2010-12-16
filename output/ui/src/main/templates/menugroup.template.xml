@@ -40,7 +40,7 @@
 					<c:when test="iconFacet != null and iconFacet.isRendered()">
 						<cdk:call expression="iconFacet.encodeAll(facesContext)" />
 					</c:when>
-					<c:when test="#{not empty iconAttribute}">
+					<c:when test="#{not isStringEmpty(iconAttribute)}">
 						<img width="16" height="16" src="#{RenderKitUtils.getResourceURL(iconAttribute, facesContext)}" alt="" />
 					</c:when>
 					<c:otherwise>

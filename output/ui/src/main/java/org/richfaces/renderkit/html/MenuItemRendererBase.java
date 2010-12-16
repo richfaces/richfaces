@@ -97,13 +97,13 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
     protected String getOnClickFunction(FacesContext facesContext, UIComponent component) {
         AbstractMenuItem menuItem = (AbstractMenuItem) component;
         String subminMode = resolveSubmitMode(menuItem);
-        if (subminMode == null || MenuComponent.MODE_SERVER.equalsIgnoreCase(subminMode)) {
+        if (menuItem.isDisabled()) {
+            return "";
+        } else if (subminMode == null || MenuComponent.MODE_SERVER.equalsIgnoreCase(subminMode)) {
             return getServerSubmitFunction(menuItem);
         } else if (MenuComponent.MODE_AJAX.equalsIgnoreCase(subminMode)) {
             return getOnClick(facesContext, menuItem);
-        } else if (menuItem.isDisabled()) {
-            return "";
-        } else if (MenuComponent.MODE_CLIENT.equalsIgnoreCase(subminMode)) {
+        } else  if (MenuComponent.MODE_CLIENT.equalsIgnoreCase(subminMode)) {
             return "";
         }
         
@@ -173,4 +173,16 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
         }
         return null;
     }
+    
+    /**
+     * It is introduced due to RF-10004 CDK: isEmpty method is generated incorrectly 
+     * @param str
+     * @return
+     */
+    protected boolean isStringEmpty(String str) {
+        if (str != null && str.trim().length() > 0) {
+            return false;
+        }
+        return true;
+    }    
 }
