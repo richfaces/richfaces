@@ -1,15 +1,16 @@
 package org.richfaces.demo.calendar;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Locale;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.event.ValueChangeEvent;
 
 @ManagedBean
-@RequestScoped
-public class CalendarBean {
+@ViewScoped
+public class CalendarBean implements Serializable{
 
     private Locale locale;
     private boolean popup;
