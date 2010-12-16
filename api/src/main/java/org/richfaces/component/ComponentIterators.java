@@ -36,6 +36,7 @@ public final class ComponentIterators {
 
     private ComponentIterators() {}
 
+    //TODO nick - convert to filter/find functions
     public static Iterator<UIComponent> parents(final UIComponent component) {
         if (component == null) {
             return Iterators.<UIComponent>emptyIterator();
