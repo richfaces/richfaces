@@ -85,6 +85,7 @@ rich:collapsiblePanel
 rich:panel
 rich:popupPanel
 rich:tabPanel
+rich:tab
 rich:togglePanel
 rich:toggleControl
 rich:togglePanelItem
@@ -92,14 +93,50 @@ rich:itemChangeListener
 rich:accordion
 rich:accordionItem
 rich:progressBar
+rich:tooltip
+rich:message
+rich:messages
+
+---------------------------------
+Menus:
+---------------------------------
+rich:toolbar
+rich:dropDownMenu
+rich:menuGroup
+rich:menuItem
+rich:menuSeparator
+rich:panelMenu
+rich:panelMenuGroup
+rich:panelMenuItem
 
 ---------------------------------
 Input:
 ---------------------------------
 rich:autocomplete
 rich:inplaceInput
+rich:inplaceSelect
 rich:inputNumberSlider
 rich:inputNumberSpinner
+rich:select
+rich:calendar
+rich:fileUpload
+
+---------------------------------
+Trees:
+---------------------------------
+rich:tree
+rich:treeNode
+rich:treeModelAdaptor
+rich:treeModelRecursiveAdaptor
+
+---------------------------------
+Drag'n'Drop:
+---------------------------------
+NOTE: that names really could be renaimed. so refer to jira's and docs for more info if having problems with name
+rich:draggable
+rich:droppable
+rich:dragIndicator
+
 
 Learn more
 ----------
