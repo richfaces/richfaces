@@ -45,8 +45,8 @@ public class DeclarativeModelSequenceKeyConverter extends SequenceRowKeyConverte
 
         private int keysIdx;
         
-        private KeyConvertingWalker(AbstractTree rootComponent, FacesContext context) {
-            super(rootComponent);
+        private KeyConvertingWalker(FacesContext context, AbstractTree rootComponent) {
+            super(context, rootComponent);
             this.context = context;
         }
 
@@ -93,7 +93,7 @@ public class DeclarativeModelSequenceKeyConverter extends SequenceRowKeyConverte
         
         if (key != null) {
             
-            KeyConvertingWalker walker = new KeyConvertingWalker((AbstractTree) component, context);
+            KeyConvertingWalker walker = new KeyConvertingWalker(context, (AbstractTree) component);
             walker.walk(key);
             
             key = new SequenceRowKey((Object[]) walker.getConvertedSimpleKeys());

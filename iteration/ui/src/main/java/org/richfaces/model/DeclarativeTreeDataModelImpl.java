@@ -24,6 +24,7 @@ package org.richfaces.model;
 import java.util.Iterator;
 
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
 import org.richfaces.component.AbstractTree;
@@ -90,7 +91,7 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Object> i
         this.currentComponent = tree;
 
         if (key != null) {
-            DeclarativeTreeDataModelWalker walker = new DeclarativeTreeDataModelWalker(tree);
+            DeclarativeTreeDataModelWalker walker = new DeclarativeTreeDataModelWalker(FacesContext.getCurrentInstance(), tree);
             walker.walk(key);
 
             setRowKeyAndData(key, walker.getData());

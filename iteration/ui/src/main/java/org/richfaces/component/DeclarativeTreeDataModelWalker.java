@@ -51,47 +51,33 @@ public class DeclarativeTreeDataModelWalker {
 
     private Map<String, Object> contextMap;
     
+    private Object modelData;
+    
     private Object data;
     
-    public DeclarativeTreeDataModelWalker(AbstractTree rootComponent) {
+    public DeclarativeTreeDataModelWalker(FacesContext facesContext, AbstractTree rootComponent) {
         super();
 
         this.rootComponent = rootComponent;
-        this.facesContext = FacesContext.getCurrentInstance();
+        this.facesContext = facesContext;
         this.contextMap = rootComponent.getVariablesMap(facesContext);
         this.var = rootComponent.getVar();
         this.currentComponent = rootComponent;
         
     }
     
-    protected UIComponent getChildModelComponent(String modelId) {
-        UIComponent modelComponent;
-
+    private void setupChildModelContext(String modelId) {
         if (currentComponent instanceof TreeModelRecursiveAdaptor && modelId.equals(currentComponent.getId())) {
-            modelComponent = currentComponent;
+            //currentComponent already set
+            modelData = ((TreeModelRecursiveAdaptor) currentComponent).getNodes();
         } else {
-            modelComponent = Iterables.find(currentComponent.getChildren(), ComponentPredicates.withId(modelId));
-        }
-
-        return modelComponent;
-    }
-    
-    protected Object getNodes(UIComponent modelComponent) {
-        Object nodes = null;
-        
-        if (modelComponent instanceof TreeModelRecursiveAdaptor) {
-            TreeModelRecursiveAdaptor recursiveAdaptor = (TreeModelRecursiveAdaptor) modelComponent;
-            
-            if (currentComponent.equals(modelComponent)) {
-                nodes = recursiveAdaptor.getNodes();
+            currentComponent = Iterables.find(currentComponent.getChildren(), ComponentPredicates.withId(modelId));
+            if (currentComponent instanceof TreeModelRecursiveAdaptor) {
+                modelData = ((TreeModelRecursiveAdaptor) currentComponent).getRoots();
             } else {
-                nodes = recursiveAdaptor.getRoots();
+                modelData = ((TreeModelAdaptor) currentComponent).getNodes();
             }
-        } else {
-            nodes = ((TreeModelAdaptor) modelComponent).getNodes();
         }
-        
-        return nodes;
     }
     
     protected FacesContext getFacesContext() {
@@ -143,24 +129,21 @@ public class DeclarativeTreeDataModelWalker {
         }
     }
     
-    protected void walkSimpleKeys(Object simpleKey) {
-        DeclarativeModelKey segment = (DeclarativeModelKey) simpleKey;
-
+    protected void walkSimpleKey(DeclarativeModelKey segment) {
         if (var != null) {
-            contextMap.put(var, this.data);
+            contextMap.put(var, data);
         }
         
-        UIComponent modelComponent = getChildModelComponent(segment.getModelId());
-        Object nodes = getNodes(modelComponent);
-        
-        this.currentComponent = modelComponent;
-        DeclarativeModelKey convertedKey = convertKey(nodes, segment);
-        this.data = getData(nodes, convertedKey.getModelKey());
+        setupChildModelContext(segment.getModelId());
+
+        DeclarativeModelKey convertedKey = convertKey(modelData, segment);
+        data = getData(modelData, convertedKey.getModelKey());
     }
     
     protected void walkSimpleKeys(Object[] simpleKeys) {
         for (Object simpleKey : simpleKeys) {
-            walkSimpleKeys(simpleKey);
+            DeclarativeModelKey declarativeKey = (DeclarativeModelKey) simpleKey;
+            walkSimpleKey(declarativeKey);
         }
     }
     
