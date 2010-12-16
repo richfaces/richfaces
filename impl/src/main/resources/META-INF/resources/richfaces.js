@@ -33,7 +33,7 @@ if (!window.RichFaces) {
 			}
 		}
 		return element;
-	}
+	};
 
 	// get RichFaces component object by component id or DOM element or jQuery object
 	richfaces.$ = function (source) {
@@ -42,7 +42,7 @@ if (!window.RichFaces) {
 		if (element) {
 			return (element[richfaces.RICH_CONTAINER] || {})["component"];
 		}
-	}
+	};
 	
 	richfaces.$$ = function(componentName, element)
 	{
@@ -53,25 +53,23 @@ if (!window.RichFaces) {
 			else
 				element = element.parentNode;
 	   	}
-	}
+	};
 
 	// find component and call his method
 	richfaces.invokeMethod = function(source, method) {
-		var c = richfaces.$(source);
-		if (c) {
-			var f = c[method];
-			if (typeof f == "function") {
-				return f.apply(c, Array.prototype.slice.call(arguments, 2));
-			}
+		var c =  richfaces.$(source);
+		var f;
+		if (c && typeof (f=c[method]) == "function") {
+			return f.apply(c, Array.prototype.slice.call(arguments, 2));
 		}
-	}
+	};
 
 	//dom cleaner
 	richfaces.cleanComponent = function (source) {
 		var component = richfaces.$(source);
 		if (component) {
-			richfaces.invokeMethod(component, "destroy");
-			richfaces.invokeMethod(component, "detach", source);
+			component.destroy();
+			component.detach(source);
 		}
 	};
 	
@@ -88,7 +86,7 @@ if (!window.RichFaces) {
 				richfaces.cleanComponent(e);
 			}
 		}
-	}
+	};
 
 	//form.js
 	richfaces.submitForm = function(form, parameters, target) {
