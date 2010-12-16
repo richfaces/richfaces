@@ -70,7 +70,7 @@ public class FileUploadPartialViewContextFactory extends PartialViewContextFacto
     private String tempFilesDirectory;
 
     /** The maximum size of a file upload request. 0 means no limit. */
-    private int maxRequestSize = 0;
+    private long maxRequestSize = 0;
 
     public FileUploadPartialViewContextFactory(PartialViewContextFactory parentFactory) {
         this.parentFactory = parentFactory;
@@ -83,7 +83,7 @@ public class FileUploadPartialViewContextFactory extends PartialViewContextFacto
         this.tempFilesDirectory = context.getInitParameter("org.richfaces.fileUpload.tempFilesDirectory");
         param = context.getInitParameter("org.richfaces.fileUpload.maxRequestSize");
         if (param != null) {
-            this.maxRequestSize = Integer.parseInt(param);
+            this.maxRequestSize = Long.parseLong(param);
         }
     }
 
@@ -95,7 +95,8 @@ public class FileUploadPartialViewContextFactory extends PartialViewContextFacto
         Map<String, String> queryParamMap = parseQueryString(request.getQueryString());
         String uid = queryParamMap.get(UID_KEY);
         if (uid != null) {
-            if (maxRequestSize != 0 && externalContext.getRequestContentLength() > maxRequestSize) {
+            long contentLength = Long.parseLong(externalContext.getRequestHeaderMap().get("Content-Length"));
+            if (maxRequestSize != 0 && contentLength > maxRequestSize) {
                 printResponse(facesContext, uid, ResponseState.sizeExceeded);
             } else {
                 final MultipartRequest multipartRequest = new MultipartRequest(request, createTempFiles,
