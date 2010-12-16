@@ -40,6 +40,7 @@ import org.richfaces.renderkit.ComponentAttribute;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RendererBase;
+import org.richfaces.renderkit.util.HtmlDimensions;
 
 
 @ResourceDependency(library = "org.richfaces", name = "toolbar.ecss")
@@ -88,18 +89,93 @@ public abstract class ToolbarRendererBase extends RendererBase {
     public enum Locations {
         RIGHT, LEFT
     }
+    
+    private void writeColElement(ResponseWriter writer, UIComponent component) throws IOException {
+        writer.startElement(HtmlConstants.COL_ELEMENT, component);
+        writer.writeAttribute(HtmlConstants.WIDTH_ATTRIBUTE, "1px", null);
+        writer.endElement(HtmlConstants.COL_ELEMENT);
+    }
+    
+    private boolean isSeparatorFacetRendered(UIComponent component) {
+        UIComponent separatorFacet = component.getFacet("itemSeparator");
+        return (separatorFacet != null) ? separatorFacet.isRendered() : false;
+    }
+    
+    private boolean isSeparatorAttributeRendered(UIComponent component) {
+        String itemSeparator = (String) component.getAttributes().get("itemSeparator");
+        
+        if (itemSeparator != null && itemSeparator.trim().length() != 0
+                && !itemSeparator.equalsIgnoreCase(ItemSeparators.NONE.toString())) {
+            return true;
+        }
+        return false;
+    }    
+   
+   
+    private int getColumnCount(List<UIComponent> components) {
+        int result = 0;
+        for (UIComponent component : components) {
+            if (component instanceof AbstractToolbarGroup) {
+                result += component.getChildren().size();
+            } else {
+                result++;
+            }
+        }
+        
+        return result;
+    }    
+    
+    private int getCountSeparators(AbstractToolbar toolBar, List<UIComponent> components) {
+        int result = 0;
+        if (components != null && (isSeparatorFacetRendered(toolBar) || isSeparatorAttributeRendered(toolBar))) {
+            result += components.size() - 1;
+        }
+        
+        for (UIComponent component : components) {
+            if (component instanceof AbstractToolbarGroup) {
+                result += getCountSeparators((AbstractToolbarGroup) component, component.getChildren());
+            }
+        }
+        
+        return result;
+    }
+    
+    private int getCountSeparators(AbstractToolbarGroup toolBarGroup, List<UIComponent> components) {
+        if (components != null && (isSeparatorFacetRendered(toolBarGroup) || isSeparatorAttributeRendered(toolBarGroup))) {
+            return components.size() - 1;
+        }
+        return 0;
+    }
+    
+    protected void renderColElements(FacesContext context, UIComponent component) throws IOException {
+        ResponseWriter writer = context.getResponseWriter();
+        List<UIComponent> childrenToTheLeft = new LinkedList<UIComponent>();
+        List<UIComponent> childrenToTheRight = new LinkedList<UIComponent>();
+        
+        getChildrenToLeftAndRight(context, component, childrenToTheLeft, childrenToTheRight);
+        int columnAmount = getCountSeparators((AbstractToolbar) component, childrenToTheLeft) +
+            getColumnCount(childrenToTheLeft);
+        for (int i = 0; i < columnAmount; i++) {
+            writeColElement(writer, component);
+        }
+        
+        writer.startElement(HtmlConstants.COL_ELEMENT, component);
+        writer.writeAttribute(HtmlConstants.WIDTH_ATTRIBUTE, "*", null);
+        writer.endElement(HtmlConstants.COL_ELEMENT);
+        
+        columnAmount = getCountSeparators((AbstractToolbar) component, childrenToTheRight) +
+            getColumnCount(childrenToTheRight);
+        for (int i = 0; i < columnAmount; i++) {
+            writeColElement(writer, component);
+        }
+    }
 
-    @Override
-    public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
+    private void getChildrenToLeftAndRight(FacesContext context, UIComponent component,
+        final List<UIComponent> childrenToTheLeft, final List<UIComponent> childrenToTheRight) {
+
         AbstractToolbar toolbar = (AbstractToolbar) component;
-        String itemClass = (String) toolbar.getAttributes().get("itemClass");
-        String itemStyle = (String) toolbar.getAttributes().get("itemStyle");
-
         List<UIComponent> children = toolbar.getChildren();
-
         if (children != null) {
-            List<UIComponent> childrenToTheLeft = new LinkedList<UIComponent>();
-            List<UIComponent> childrenToTheRight = new LinkedList<UIComponent>();
             for (UIComponent child : children) {
                 if (child.isRendered()) {
                     if (child instanceof AbstractToolbarGroup) {
@@ -115,7 +191,23 @@ public abstract class ToolbarRendererBase extends RendererBase {
                     }
                 }
             }
+        }
+    }
+    
+    @Override
+    public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
+        AbstractToolbar toolbar = (AbstractToolbar) component;
+        String itemClass = (String) toolbar.getAttributes().get("itemClass");
+        String itemStyle = (String) toolbar.getAttributes().get("itemStyle");
 
+        List<UIComponent> children = toolbar.getChildren();
+
+        if (children != null) {
+            List<UIComponent> childrenToTheLeft = new LinkedList<UIComponent>();
+            List<UIComponent> childrenToTheRight = new LinkedList<UIComponent>();
+            
+            getChildrenToLeftAndRight(context, component, childrenToTheLeft, childrenToTheRight);
+            
             ResponseWriter writer = context.getResponseWriter();
             for (Iterator<UIComponent> it = childrenToTheLeft.iterator(); it.hasNext();) {
                 
@@ -135,16 +227,14 @@ public abstract class ToolbarRendererBase extends RendererBase {
                 if (!(child instanceof AbstractToolbarGroup)) {
                     writer.endElement(HtmlConstants.TD_ELEM);
                 }
-                
-                
-                
+
                 if (it.hasNext()) {
                     insertSeparatorIfNeed(context, toolbar, writer);
                 }
             }
 
             writer.startElement(HtmlConstants.TD_ELEM, component);
-            writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "width:100%", null);
+            writer.write("&nbsp;");
             writer.endElement(HtmlConstants.TD_ELEM);
 
             for (Iterator<UIComponent> it = childrenToTheRight.iterator(); it.hasNext();) {
@@ -257,4 +347,20 @@ public abstract class ToolbarRendererBase extends RendererBase {
     protected boolean isPropertyRendered(String property) {
         return (null != property && !"".equals(property));
     }
+    
+    protected String getWidthToolbar(UIComponent component) {
+        if (component instanceof AbstractToolbar) {
+            return HtmlDimensions.formatSize(((AbstractToolbar)component).getWidth());
+        } else {
+            return "";
+        }
+    }
+    
+    protected String getHeightToolbar(UIComponent component) {
+        if (component instanceof AbstractToolbar) {
+            return HtmlDimensions.formatSize(((AbstractToolbar)component).getHeight());
+        } else {
+            return "";
+        }
+    }    
 }
