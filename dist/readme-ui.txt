@@ -133,8 +133,8 @@ rich:treeModelRecursiveAdaptor
 Drag'n'Drop:
 ---------------------------------
 NOTE: that names really could be renaimed. so refer to jira's and docs for more info if having problems with name
-rich:draggable
-rich:droppable
+rich:dragSource
+rich:dropTarget
 rich:dragIndicator
 
 
