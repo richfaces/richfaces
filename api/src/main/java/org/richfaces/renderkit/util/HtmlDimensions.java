@@ -87,4 +87,17 @@ public final class HtmlDimensions {
 
         return v;
     }
+    
+    public static String formatSize(String size) {
+        if (size != null) {
+            String incomingSize = size.trim();
+            if (!incomingSize.isEmpty()) {
+                char lastChar = incomingSize.charAt(incomingSize.length() - 1);
+                if (Character.isDigit(lastChar)) {
+                    return incomingSize + "px";
+                }
+            }
+        }
+        return size;
+    }
 }
