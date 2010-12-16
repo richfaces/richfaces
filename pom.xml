@@ -18,6 +18,7 @@
     <name>Richfaces Examples: Richfaces Showcase Application</name>
 
     <properties>
+        <gae.version>1.4.0</gae.version>
     </properties>
 
     <dependencies>
@@ -100,6 +101,25 @@
                         </resource>
                     </webResources>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>net.kindleit</groupId>
+                <artifactId>maven-gae-plugin</artifactId>
+                <version>0.7.3</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.kindleit</groupId>
+                        <artifactId>gae-runtime</artifactId>
+                        <version>${gae.version}</version>
+                        <type>pom</type>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>com.google.appengine.orm</groupId>
+                                <artifactId>jdo2-api</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
@@ -227,16 +247,16 @@
                                     </includedContentTypes>
                                     <fileNameMappings>
                                         <property>
-                                            <name>^\Qorg.richfaces.renderkit.html\E</name>
-                                            <value>org.richfaces/images</value>
+                                            <name>^.*showcase.*/([^/]+\.css)$</name>
+                                            <value>org.richfaces.showcase.css/$1</value>
                                         </property>
                                         <property>
-                                            <name>^\Qorg.richfaces.renderkit.html.images\E</name>
-                                            <value>org.richfaces/images</value>
+                                            <name>^.+/([^/]+\.(png|gif|jpg))$</name>
+                                            <value>org.richfaces.images/$1</value>
                                         </property>
                                         <property>
-                                            <name>^css/</name>
-                                            <value>org.richfaces/css/</value>
+                                            <name>^.+/([^/]+\.css)$</name>
+                                            <value>org.richfaces.css/$1</value>
                                         </property>
                                     </fileNameMappings>
                                 </configuration>
@@ -373,6 +393,30 @@
                     <scope>provided</scope>
                 </dependency>
             </dependencies>
+        </profile>
+        <profile>
+            <id>unpack-gae-sdk</id>
+            <activation>
+                <property>
+                    <name>!gae.home</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>net.kindleit</groupId>
+                        <artifactId>maven-gae-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 
