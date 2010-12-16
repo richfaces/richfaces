@@ -86,6 +86,18 @@ public class InplaceSelectRendererBase extends InplaceInputRendererBase {
         return SelectHelper.getSelectInputLabel(facesContext, component);
     }
     
+    public String getListWidth(UIComponent component) {
+        AbstractInplaceSelect select = (AbstractInplaceSelect)component;
+        String width = select.getListWidth();
+        return (width != null && width.trim().length() != 0) ? ("width: " + width) : "";
+    }
+    
+    public String getListHeight(UIComponent component) {
+        AbstractInplaceSelect select = (AbstractInplaceSelect)component;
+        String height = select.getListHeight();
+        return (height != null && height.trim().length() != 0) ? ("height: " + height) : "";
+    }
+    
     public String getSelectLabel(FacesContext facesContext, UIComponent component) {
         AbstractInplaceSelect select = (AbstractInplaceSelect) component;
         String label = getSelectInputLabel(facesContext, select);
