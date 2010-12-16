@@ -103,6 +103,9 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
     public UIComponent getNoData() {
         return getFacet(NODATA_FACET_NAME);
     }
+
+    @Attribute(defaultValue="Integer.MIN_VALUE")
+    public abstract int getColumns();
     
     @Attribute
     public abstract String getNoDataLabel();

@@ -109,11 +109,8 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
     }
 
     protected int getColumnsCount(UIDataTableBase table) {
-        // check for exact value in component
-        Integer span = (Integer) table.getAttributes().get("columns");
-        int count = (null != span && span.intValue() != Integer.MIN_VALUE) ? span.intValue()
-            : getColumnsCount(table.columns());
-        return count;
+        int columns = table.getColumns();
+        return (columns != Integer.MIN_VALUE) ? columns : getColumnsCount(table.columns());
     }
     
     public void encodeTableStructure(ResponseWriter writer, FacesContext context, UIDataTableBase dataTable) throws IOException {
