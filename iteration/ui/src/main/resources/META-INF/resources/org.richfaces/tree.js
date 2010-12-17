@@ -287,7 +287,12 @@
 
 		var newChild = new richfaces.ui.TreeNode(node[0], opts);
 		parentNode.addChild(newChild, idx);
-		parentNode.getTree().__updateSelectionFromInput();
+		
+		var tree = parentNode.getTree();
+		
+		if (tree.getSelection().contains(newChild.getId())) {
+			newChild.__setSelected(true);
+		}
 	};
 	
 	richfaces.ui.TreeNode.emitToggleEvent = function(nodeId) {
@@ -433,13 +438,9 @@
 			return this;
 		},
 		
-		__isSelected: function(node) {
-			return this.__selection.contains(node);
-		},
-		
 		__handleSelectionChange: function(newSelection) {
 			var eventData = {
-				oldSelection: this.__selection.getNodes(), 
+				oldSelection: this.getSelection().getNodes(), 
 				newSelection: newSelection.getNodes()
 			};
 			
@@ -457,12 +458,12 @@
 		},
 		
 		__toggleSelection: function(node) {
-			var newSelection = this.__selection.cloneAndToggle(node);
+			var newSelection = this.getSelection().cloneAndToggle(node);
 			this.__handleSelectionChange(newSelection);
 		},
 		
 		__addToSelection: function(node) {
-			var newSelection = this.__selection.cloneAndAdd(node);
+			var newSelection = this.getSelection().cloneAndAdd(node);
 			this.__handleSelectionChange(newSelection);
 		},
 		
@@ -472,7 +473,7 @@
 		
 		__updateSelection: function(newSelection) {
 			
-			var oldSelection = this.__selection;
+			var oldSelection = this.getSelection();
 
 			oldSelection.each(function() {this.__setSelected(false)});
 			newSelection.each(function() {this.__setSelected(true)});
@@ -485,7 +486,12 @@
 			}
 			
 			this.__selection = newSelection;
+		},
+		
+		getSelection: function() {
+			return this.__selection;
 		}
+		
 	});
 	
 	// define super class link for Tree
