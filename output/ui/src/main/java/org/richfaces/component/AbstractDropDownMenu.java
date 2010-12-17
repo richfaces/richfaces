@@ -13,8 +13,7 @@ import org.richfaces.renderkit.html.DropDownMenuRendererBase;
         renderer=@JsfRenderer(type = DropDownMenuRendererBase.RENDERER_TYPE), 
         tag = @Tag(name="dropDownMenu"),
         attributes = {"events-props.xml", "core-props.xml", "i18n-props.xml"})
-public abstract class AbstractDropDownMenu extends UIComponentBase 
-        implements MenuComponent {
+public abstract class AbstractDropDownMenu extends UIComponentBase {
 
     public static final String COMPONENT_TYPE = "org.richfaces.DropDownMenu";
 
@@ -23,7 +22,7 @@ public abstract class AbstractDropDownMenu extends UIComponentBase
     @Attribute
     public abstract String getShowEvent();
 
-    @Attribute(defaultValue = MenuComponent.MODE_SERVER)
+    @Attribute(defaultValue = "server")
     public abstract String getMode();
     
     @Attribute
@@ -60,16 +59,7 @@ public abstract class AbstractDropDownMenu extends UIComponentBase
     public abstract String getOnitemclick();    
     
     public enum Facets {
-        LABEL("label"), LABEL_DISABLED("labelDisabled");
-        
-        private String facetName;
-        private Facets(String name) {
-            this.facetName = name;
-        }
-        
-        @Override
-        public String toString() {
-            return facetName;
-        }
+        label, 
+        labelDisabled
     }
 }

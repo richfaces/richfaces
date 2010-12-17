@@ -54,16 +54,7 @@ public abstract class AbstractMenuGroup extends UIOutput {
     public abstract String getOnhide();    
     
     public enum Facets {
-        ICON("icon"), ICON_DISABLED("iconDisabled");
-        
-        private String facetName;
-        private Facets(String name) {
-            this.facetName = name;
-        }
-        
-        @Override
-        public String toString() {
-            return facetName;
-        }
+        icon, 
+        iconDisabled
     }    
 }

@@ -39,9 +39,9 @@ public abstract class MenuGroupRendererBase extends RendererBase {
         if (menuGroup != null) {
             
             if (menuGroup.isDisabled()) {
-                facet = menuGroup.getFacet(AbstractMenuGroup.Facets.ICON_DISABLED.toString());
+                facet = menuGroup.getFacet(AbstractMenuGroup.Facets.iconDisabled.toString());
             } else {
-                facet = menuGroup.getFacet(AbstractMenuGroup.Facets.ICON.toString());
+                facet = menuGroup.getFacet(AbstractMenuGroup.Facets.icon.toString());
             }
         }
         return facet;   

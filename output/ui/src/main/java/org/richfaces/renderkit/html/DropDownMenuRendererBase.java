@@ -64,9 +64,9 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
         if (ddmenu != null) {
             
             if (ddmenu.isDisabled()) {
-                facet = ddmenu.getFacet(AbstractDropDownMenu.Facets.LABEL_DISABLED.toString());
+                facet = ddmenu.getFacet(AbstractDropDownMenu.Facets.labelDisabled.toString());
             } else {
-                facet = ddmenu.getFacet(AbstractDropDownMenu.Facets.LABEL.toString());
+                facet = ddmenu.getFacet(AbstractDropDownMenu.Facets.label.toString());
             }
         }
         return facet;   

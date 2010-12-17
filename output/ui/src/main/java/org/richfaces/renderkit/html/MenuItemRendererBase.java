@@ -11,7 +11,7 @@ import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.component.AbstractDropDownMenu;
 import org.richfaces.component.AbstractMenuGroup;
 import org.richfaces.component.AbstractMenuItem;
-import org.richfaces.component.MenuComponent;
+import org.richfaces.component.Mode;
 import org.richfaces.renderkit.AjaxCommandRendererBase;
 
 public class MenuItemRendererBase extends AjaxCommandRendererBase {
@@ -31,9 +31,9 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
         if (menuItem != null) {
             
             if (menuItem.isDisabled()) {
-                facet = menuItem.getFacet(AbstractMenuItem.Facets.ICON_DISABLED.toString());
+                facet = menuItem.getFacet(AbstractMenuItem.Facets.iconDisabled.toString());
             } else {
-                facet = menuItem.getFacet(AbstractMenuItem.Facets.ICON.toString());
+                facet = menuItem.getFacet(AbstractMenuItem.Facets.icon.toString());
             }
         }
         return facet;   
@@ -58,8 +58,8 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
         AbstractMenuItem menuItem = (AbstractMenuItem) component;
 
         if (menuItem != null) {
-            String mode = resolveSubmitMode(menuItem);
-            if (!MenuComponent.MODE_CLIENT.equalsIgnoreCase(mode)) {
+            Mode mode = resolveSubmitMode(menuItem);
+            if (!Mode.client.equals(mode)) {
                 super.doDecode(context, component);
             }
         }
@@ -96,39 +96,35 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
     
     protected String getOnClickFunction(FacesContext facesContext, UIComponent component) {
         AbstractMenuItem menuItem = (AbstractMenuItem) component;
-        String subminMode = resolveSubmitMode(menuItem);
+        Mode subminMode = resolveSubmitMode(menuItem);
         if (menuItem.isDisabled()) {
             return "";
-        } else if (subminMode == null || MenuComponent.MODE_SERVER.equalsIgnoreCase(subminMode)) {
+        } else if (subminMode == null || Mode.server.equals(subminMode)) {
             return getServerSubmitFunction(menuItem);
-        } else if (MenuComponent.MODE_AJAX.equalsIgnoreCase(subminMode)) {
+        } else if (Mode.ajax.equals(subminMode)) {
             return getOnClick(facesContext, menuItem);
-        } else  if (MenuComponent.MODE_CLIENT.equalsIgnoreCase(subminMode)) {
+        } else  if (Mode.client.equals(subminMode)) {
             return "";
         }
         
         return "";
     }
     
-    protected String resolveSubmitMode(AbstractMenuItem menuItem) {
+    protected Mode resolveSubmitMode(AbstractMenuItem menuItem) {
         String submitMode = menuItem.getMode();
         if (null != submitMode) {
-            return submitMode;
+            return Mode.valueOf(submitMode);
         }
-        UIComponent parent = menuItem.getParent();
-        while (null != parent) {
-            if (parent instanceof MenuComponent) {
-                return ((MenuComponent) parent).getMode();
-            }
-            parent = parent.getParent();
+        AbstractDropDownMenu parent = getDDMenu(menuItem);
+        if (parent != null) {
+            return Mode.valueOf(parent.getMode());
         }
-
-        return MenuComponent.MODE_SERVER;
+        return Mode.server;
     } 
     
     protected String getStyleClass(FacesContext facesContext, UIComponent component, String ddMenuStyle, String menuGroupStyle, String menuItemStyle) {
-        UIComponent ddMenu = getDDMenu(facesContext, component);
-        UIComponent menuGroup = getMenuGroup(facesContext, component);
+        UIComponent ddMenu = getDDMenu(component);
+        UIComponent menuGroup = getMenuGroup(component);
         Object styleClass = null;
         if (ddMenu != null && ddMenuStyle != null && ddMenuStyle.length() > 0) {
             styleClass = ddMenu.getAttributes().get(ddMenuStyle);
@@ -140,38 +136,35 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
         return concatClasses(styleClass, component.getAttributes().get(menuItemStyle));
     }
     
-    /**
-     * Returns a parent <code>AbstractDropDownMenu</code> object of the given component.
-     * @param facesContext
-     * @param component
-     * @return <code>UIComponent</code>
-     */
-    protected UIComponent getDDMenu(FacesContext facesContext, UIComponent component) {
-        UIComponent parent = component.getParent();
-        while (parent != null) {
-            if (parent instanceof AbstractDropDownMenu) {
-                return parent;
+    private UIComponent getParent(UIComponent component, Class<?> parentClass) {
+        if (component != null && parentClass != null) {
+            UIComponent parent = component.getParent();
+            while (parent != null) {
+                if (parentClass.isInstance(parent)) {
+                    return parent;
+                }
+                parent = parent.getParent();
             }
-            parent = parent.getParent();
         }
         return null;
+    }
+    
+    /**
+     * Returns a parent <code>AbstractDropDownMenu</code> object of the given component.
+     * @param component
+     * @return <code>AbstractDropDownMenu</code>
+     */
+    protected AbstractDropDownMenu getDDMenu(UIComponent component) {
+        return (AbstractDropDownMenu) getParent(component, AbstractDropDownMenu.class);
     }  
     
     /**
      * Returns a parent <code>AbstractMenuGroup</code> object of the given component.
-     * @param facesContext
      * @param component
-     * @return <code>UIComponent</code>
+     * @return <code>AbstractMenuGroup</code>
      */
-    protected UIComponent getMenuGroup(FacesContext facesContext, UIComponent component) {
-        UIComponent parent = component.getParent();
-        while (parent != null) {
-            if (parent instanceof AbstractMenuGroup) {
-                return parent;
-            }
-            parent = parent.getParent();
-        }
-        return null;
+    protected AbstractMenuGroup getMenuGroup(UIComponent component) {
+        return (AbstractMenuGroup) getParent(component, AbstractMenuGroup.class);
     }
     
     /**
