@@ -24,11 +24,13 @@ package org.richfaces.renderkit.html;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -40,10 +42,15 @@ import org.richfaces.renderkit.ComponentAttribute;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RendererBase;
+import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 import org.richfaces.renderkit.util.HtmlDimensions;
 
 
-@ResourceDependency(library = "org.richfaces", name = "toolbar.ecss")
+
+@ResourceDependencies({
+    @ResourceDependency(name = "jquery.js"),
+    @ResourceDependency(library = "org.richfaces", name = "toolbar.ecss")
+    })
 public abstract class ToolbarRendererBase extends RendererBase {
 
     public static final String RENDERER_TYPE = "org.richfaces.ToolbarRenderer";
@@ -215,11 +222,11 @@ public abstract class ToolbarRendererBase extends RendererBase {
                 
                 if (!(child instanceof AbstractToolbarGroup)) {
                     writer.startElement(HtmlConstants.TD_ELEM, component);
+                    writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, encodeClientItemID(child), null);
                     writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, concatClasses("rf-tb-itm", itemClass), null);
                     if (isPropertyRendered(itemStyle)) {
                         writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, itemStyle, null);
                     }
-                    encodeEventsAttributes(context, toolbar);
                 }
                 
                 child.encodeAll(context);
@@ -339,11 +346,6 @@ public abstract class ToolbarRendererBase extends RendererBase {
         return true;
     }
 
-    protected void encodeEventsAttributes(FacesContext facesContext, UIComponent component)
-        throws IOException {
-        RenderKitUtils.renderPassThroughAttributesOptimized(facesContext, component, ITEMS_HANDLER_ATTRIBUTES);
-    }
-
     protected boolean isPropertyRendered(String property) {
         return (null != property && !"".equals(property));
     }
@@ -363,4 +365,69 @@ public abstract class ToolbarRendererBase extends RendererBase {
             return "";
         }
     }    
+    
+    protected Map<String, Object> getOptions(UIComponent component) {
+        if (component == null) {
+            return null;
+        }
+        HashMap<String, Object> results = new HashMap<String, Object>();
+        if (component instanceof AbstractToolbar) {
+            Map<String, Object> tbEvents = new HashMap<String, Object>();
+            for (ComponentAttribute componentAttribute :ITEMS_HANDLER_ATTRIBUTES.values()) {
+                Object attr = component.getAttributes().get(componentAttribute.getComponentAttributeName());
+                if (attr != null) {
+                    RenderKitUtils.addToScriptHash(tbEvents, componentAttribute.getHtmlAttributeName(),
+                        attr, null, ScriptHashVariableWrapper.eventHandler);    
+                }
+            }
+            results.put("id", component.getClientId());
+            results.put("events", tbEvents);
+            
+            List<AbstractToolbarGroup> groups = getToolBarGroups((AbstractToolbar) component);
+            List<Map<String, Object>> tbgListOptions = new LinkedList<Map<String, Object>>();
+
+            for (AbstractToolbarGroup tbg : groups) {
+                
+                Map<String, Object> tbgOptions = new HashMap<String, Object>();
+                Map<String, Object> tbgEvents = new HashMap<String, Object>();
+                List<String> tbgIDs = new LinkedList<String>();
+                
+                for (UIComponent comp : tbg.getChildren()) {
+                    tbgIDs.add(encodeClientItemID(comp));
+                }
+                
+                for (ComponentAttribute componentAttribute :ITEMS_HANDLER_ATTRIBUTES.values()) {
+                    Object attr = tbg.getAttributes().get(componentAttribute.getComponentAttributeName());
+                    if (attr != null) {
+                        RenderKitUtils.addToScriptHash(tbgEvents, componentAttribute.getHtmlAttributeName(),
+                            attr, null, ScriptHashVariableWrapper.eventHandler);    
+                    }
+                } 
+                if (!tbgEvents.isEmpty()) {
+                    tbgOptions.put("events", tbgEvents);
+                    tbgOptions.put("ids", tbgIDs);
+                    tbgListOptions.add(tbgOptions);    
+                }
+            }
+            
+            results.put("groups", tbgListOptions);
+        } 
+        return results;
+    }
+    
+    protected String encodeClientItemID(UIComponent component) {
+        return component != null ? component.getClientId() + "_itm":"";
+    }
+    
+    private List<AbstractToolbarGroup> getToolBarGroups(AbstractToolbar toolBar) {
+        List<AbstractToolbarGroup> list = new LinkedList<AbstractToolbarGroup>();
+        if (toolBar != null) {
+            for (UIComponent comp : toolBar.getChildren()) {
+                if (comp instanceof AbstractToolbarGroup) {
+                    list.add((AbstractToolbarGroup) comp);
+                }
+            }
+        }
+        return list;
+    }
 }

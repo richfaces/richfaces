@@ -65,9 +65,9 @@ public class ToolbarGroupRenderer extends ToolbarRendererBase {
     private void renderChild(FacesContext facesContext, AbstractToolbarGroup toolbarGroup, ResponseWriter writer,
             UIComponent child) throws IOException {
         writer.startElement(HtmlConstants.TD_ELEM, toolbarGroup);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, encodeClientItemID(child), null);
         writeClassValue(toolbarGroup, writer);
         writeStyleValue(toolbarGroup, writer);
-        encodeEventsAttributes(facesContext, toolbarGroup);
         child.encodeAll(facesContext);
         writer.endElement(HtmlConstants.TD_ELEM);
     }

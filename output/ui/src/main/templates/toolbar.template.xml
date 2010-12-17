@@ -20,11 +20,13 @@
 		    class="rf-tb #{component.attributes['styleClass']}" 
 		    style="#{ component.attributes['style']}" 
             cdk:passThroughWithExclusions="">
-            <cdk:call expression="encodeEventsAttributes(facesContext, component)" /> 
             <cdk:call expression="renderColElements(facesContext, component)" />           
 		    <tr class="rf-tb-cntr">
 		        <cdk:body />
 		    </tr>
 		</table>
+              <script type="text/javascript">
+        #{toScriptArgs(getOptions(component))}
+                </script>		
     </cc:implementation>
 </cdk:root>
