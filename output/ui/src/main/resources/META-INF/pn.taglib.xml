@@ -556,10 +556,6 @@
    <type>java.lang.String</type>
   </attribute>
   <attribute>
-   <name>changeExpandListener</name>
-   <type>java.lang.String</type>
-  </attribute>
-  <attribute>
    <name>icon</name>
    <type>java.lang.String</type>
   </attribute>

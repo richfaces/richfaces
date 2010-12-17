@@ -2044,12 +2044,6 @@
             <property-name>iconRightExpanded</property-name>
             <property-class>java.lang.String</property-class>
         </property>
-        <property>
-            <description></description>
-            <property-name>changeExpandListener</property-name>
-            <property-class>java.lang.String</property-class>
-        </property>
-
     </component>
     <component>
         <component-type>org.richfaces.PanelMenu</component-type>

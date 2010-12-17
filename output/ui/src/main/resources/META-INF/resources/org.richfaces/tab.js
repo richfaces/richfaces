@@ -91,6 +91,21 @@
             return this.__fireEnter();
         },
 
+        __fireLeave : function () {
+            return rf.Event.fireById(this.id + ":content", "leave");
+        },
+
+        __fireEnter : function () {
+            return rf.Event.fireById(this.id + ":content", "enter");
+        },
+
+        __addUserEventHandler : function (name) {
+            var handler = this.options["on" + name];
+            if (handler) {
+                var userHandler = rf.Event.bindById(this.id + ":content", name, handler);
+            }
+        },
+
         getHeight : function (recalculate) {
             if (recalculate || !this.__height) {
                 this.__height = $(rf.getDomElement(this.id)).outerHeight(true)
