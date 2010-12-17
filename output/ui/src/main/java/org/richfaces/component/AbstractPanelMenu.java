@@ -49,7 +49,6 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
     private String submittedActiveItem;
 
     private enum PropertyKeys {
-        valid,
         immediate
     }
 
@@ -62,42 +61,33 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
         super.processDecodes(context);
 
         //TODO nick - is component immediate = true only?
-        //TODO nick - validate should be executed in context of component, i.e. when 'component' EL variable is set
-        executeValidate(context);
+        //TODO nick - processValue should be executed in context of component, i.e. when 'component' EL variable is set
+
+        processValue(context);
     }
 
-    public void validate(FacesContext context) {
-        if (context == null) {
-            throw new NullPointerException();
-        }
-
-        // Submitted value == null means "the component was not submitted at all".
-        String activeItem = getSubmittedActiveItem();
-        if (activeItem == null) {
-            return;
-        }
-
-        String previous = (String) getValue();
-        setActiveItem(activeItem);
-        setSubmittedActiveItem(null);
-        
-        if (previous == null || !previous.equalsIgnoreCase(activeItem)) {
-            queueEvent(new ItemChangeEvent(this, previous, activeItem));
-        }
-    }
-
-    private void executeValidate(FacesContext context) {
+    private void processValue(FacesContext context) {
         try {
-            validate(context);
+            if (context == null) {
+                throw new NullPointerException();
+            }
+
+            // Submitted value == null means "the component was not submitted at all".
+            String activeItem = getSubmittedActiveItem();
+            if (activeItem == null) {
+                return;
+            }
+
+            String previous = (String) getValue();
+            setActiveItem(activeItem);
+            setSubmittedActiveItem(null);
+
+            if (previous == null || !previous.equalsIgnoreCase(activeItem)) {
+                queueEvent(new ItemChangeEvent(this, previous, activeItem));
+            }
         } catch (RuntimeException e) {
             context.renderResponse();
             throw e;
-        }
-
-        //TODO nick - where is 'valid' attribute set?
-        if (!isValid()) {
-            context.validationFailed();
-            context.renderResponse();
         }
     }
 
@@ -125,10 +115,8 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
         super.broadcast(event);
 
         //TODO nick - check for (isBypassUpdates() || isImmediate()) can be removed
-        if (event instanceof ItemChangeEvent
-            && (isBypassUpdates() || isImmediate())) {
-            //TODO nick - use getFacesContext() instead
-            FacesContext.getCurrentInstance().renderResponse();
+        if (event instanceof ItemChangeEvent && (isBypassUpdates() || isImmediate())) {
+            getFacesContext().renderResponse();
         }
     }
 
@@ -138,17 +126,8 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
         return this.submittedActiveItem;
     }
 
-    //TODO nick - change argument to String
-    public void setSubmittedActiveItem(Object submittedValue) {
+    public void setSubmittedActiveItem(String submittedValue) {
         this.submittedActiveItem = String.valueOf(submittedValue);
-    }
-
-    public boolean isValid() {
-        return (Boolean) getStateHelper().eval(PropertyKeys.valid, true);
-    }
-
-    public void setValid(boolean valid) {
-        getStateHelper().put(PropertyKeys.valid, valid);
     }
 
     public String getActiveItem() {
@@ -219,12 +198,15 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
     }
 
     private static AbstractPanelMenuItem getItem(String itemName, UIComponent comp) {
+        if (comp instanceof AbstractPanelMenu) {
+            return null;
+        }
+
         if (comp instanceof AbstractPanelMenuItem
                 && itemName.equals(((AbstractPanelMenuItem) comp).getName())) {
             return (AbstractPanelMenuItem) comp;
         }
 
-        //TODO nick - what if panel menu is nested?
         for (UIComponent item : comp.getChildren()) {
             AbstractPanelMenuItem resItem = getItem(itemName, item);
             if (resItem != null) {

@@ -22,6 +22,8 @@
 
 package org.richfaces.renderkit.html;
 
+import static org.richfaces.renderkit.HtmlConstants.*;
+
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.component.AbstractCollapsiblePanel;
 import org.richfaces.component.AbstractTogglePanel;
@@ -116,21 +118,21 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
     }
 
     private void encodeHeader(FacesContext context, UIComponent component, ResponseWriter writer) throws IOException {
-        writer.startElement("div", component);
-        writer.writeAttribute("id", component.getClientId(context) + ":header", null);
-        writer.writeAttribute("class", concatClasses("rf-cp-hdr", attributeAsString(component, "headerClass")), null);
+        writer.startElement(DIV_ELEM, component);
+        writer.writeAttribute(ID_ATTRIBUTE, component.getClientId(context) + ":header", null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-cp-hdr", attributeAsString(component, "headerClass")), null);
 
         AbstractCollapsiblePanel panel = (AbstractCollapsiblePanel) component;
         encodeHeader(context, component, writer, expanded, panel.isExpanded());
         encodeHeader(context, component, writer, collapsed, !panel.isExpanded());
 
-        writer.endElement("div");
+        writer.endElement(DIV_ELEM);
     }
     
     private void encodeHeader(FacesContext context, UIComponent component, ResponseWriter responseWriter, AbstractCollapsiblePanel.States state, boolean isVisible) throws IOException {
-        responseWriter.startElement("div", component);
-        responseWriter.writeAttribute("class", "rf-cp-hdr-" + state.abbreviation(), null);
-        responseWriter.writeAttribute("style", concatStyles(styleElement("display", isVisible ? "" : "none"), attributeAsString(component, "headerClass")), null);
+        responseWriter.startElement(DIV_ELEM, component);
+        responseWriter.writeAttribute(CLASS_ATTRIBUTE, "rf-cp-hdr-" + state.abbreviation(), null);
+        responseWriter.writeAttribute(STYLE_ATTRIBUTE, concatStyles(styleElement("display", isVisible ? "" : "none"), attributeAsString(component, "headerClass")), null);
 
         UIComponent header = AbstractTogglePanelTitledItem.getHeaderFacet(component, state);
         if (header != null && header.isRendered()) {
@@ -142,7 +144,7 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
             }
         }
         
-        responseWriter.endElement("div");
+        responseWriter.endElement(DIV_ELEM);
     }
 
     @Override
@@ -206,23 +208,23 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
     }
 
     private void encodeContent(ResponseWriter writer, FacesContext context, UIComponent component, boolean visible) throws IOException {
-        writer.startElement("div", component);
-        writer.writeAttribute("id", component.getClientId() + ":content", null);
-        writer.writeAttribute("class", concatClasses("rf-cp-b", attributeAsString(component, "bodyClass")), null);
-        writer.writeAttribute("style", concatStyles(styleElement("display", visible ? "block" : "none"),
+        writer.startElement(DIV_ELEM, component);
+        writer.writeAttribute(ID_ATTRIBUTE, component.getClientId() + ":content", null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-cp-b", attributeAsString(component, "bodyClass")), null);
+        writer.writeAttribute(STYLE_ATTRIBUTE, concatStyles(styleElement("display", visible ? "block" : "none"),
                                                     attributeAsString(component, "style")), null);
 
         renderChildren(context, component);
 
-        writer.endElement("div");
+        writer.endElement(DIV_ELEM);
     }
 
     private void encodeEmptyDiv(ResponseWriter writer, FacesContext context, UIComponent component, boolean visible) throws IOException {
-        writer.startElement("div", component);
-        writer.writeAttribute("id", component.getClientId() + ":empty", null);
-        writer.writeAttribute("class", "rf-cp-empty", null);
-        writer.writeAttribute("style", styleElement("display", visible ? "block" : "none"), null);
-        writer.endElement("div");
+        writer.startElement(DIV_ELEM, component);
+        writer.writeAttribute(ID_ATTRIBUTE, component.getClientId() + ":empty", null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, "rf-cp-empty", null);
+        writer.writeAttribute(STYLE_ATTRIBUTE, styleElement("display", visible ? "block" : "none"), null);
+        writer.endElement(DIV_ELEM);
     }
 
     @Override

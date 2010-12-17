@@ -100,7 +100,7 @@ public class TogglePanelRenderer extends DivPanelRenderer {
         AjaxContext.getCurrentInstance().appendOncomplete(onComplete.toString());
     }
 
-    public static String getValueRequestParamName(FacesContext context, UIComponent component) {
+    static String getValueRequestParamName(FacesContext context, UIComponent component) {
         return component.getClientId(context) + VALUE_POSTFIX;
     }
 

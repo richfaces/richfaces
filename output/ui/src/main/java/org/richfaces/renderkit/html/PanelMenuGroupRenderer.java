@@ -23,24 +23,22 @@
 
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-
-import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.component.AbstractPanelMenuGroup;
 import org.richfaces.component.AbstractPanelMenuItem;
 import org.richfaces.component.html.HtmlPanelMenuGroup;
-import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.richfaces.renderkit.HtmlConstants.*;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
 
 /**
  * @author akolonitsky
@@ -55,6 +53,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
     public static final String BEFORE_EXPAND = "beforeexpand";
     public static final String BEFORE_SWITCH = "beforeswitch";
     private static final String CSS_CLASS_PREFIX = "rf-pm-gr";
+
     //TODO nick - shouldn't this be rf-pm-gr-top?
     private static final String TOP_CSS_CLASS_PREFIX = "rf-pm-top-gr";
 
@@ -66,30 +65,20 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
               context.getExternalContext().getRequestParameterMap();
 
         // Don't overwrite the value unless you have to!
-        //TODO nick - ":expanded" suffix is not necessary
+        //TODO! nick - ":expanded" suffix is not necessary
         String newValue = requestMap.get(component.getClientId() + ":expanded");
         if (newValue != null) {
             menuGroup.setSubmittedExpanded(newValue);
         }
 
-        String compClientId = component.getClientId(context);
-        //TODO nick - rename clientId to smth.
-        String clientId = requestMap.get(compClientId);
-        if (clientId != null && clientId.equals(compClientId)) {
+        String clientId = component.getClientId(context);
+        if (requestMap.get(clientId) != null) {
             context.getPartialViewContext().getRenderIds().add(clientId);
 
             //TODO nick - this should be done on encode, not on decode
-            addOnCompleteParam(clientId);
+            PanelMenuRenderer.addOnCompleteParam(clientId);
         }
     }
-
-    //TODO nick - copy of org.richfaces.renderkit.html.PanelMenuRenderer.addOnCompleteParam(String)
-    protected static void addOnCompleteParam(String itemId) {
-        AjaxContext.getCurrentInstance().appendOncomplete(new StringBuilder()
-            .append("RichFaces.$('").append(itemId).append("').onCompleteHandler();").toString());
-    }
-
-    
 
     @Override
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
@@ -97,48 +86,56 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
 
         HtmlPanelMenuGroup menuGroup = (HtmlPanelMenuGroup) component;
 
-        writer.startElement(HtmlConstants.INPUT_ELEM, component);
+        writer.startElement(INPUT_ELEM, component);
 
         //TODO nick - there is no need to encode this input - group state can be extracted from class
         final String expanded = component.getClientId(context) + ":expanded";
-        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, expanded, null);
-        writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, expanded, null);
-        writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.INPUT_TYPE_HIDDEN, null);
-        writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, String.valueOf(menuGroup.isExpanded()), null);
-        writer.endElement(HtmlConstants.INPUT_ELEM);
+        writer.writeAttribute(ID_ATTRIBUTE, expanded, null);
+        writer.writeAttribute(NAME_ATTRIBUTE, expanded, null);
+        writer.writeAttribute(TYPE_ATTR, INPUT_TYPE_HIDDEN, null);
+        writer.writeAttribute(VALUE_ATTRIBUTE, String.valueOf(menuGroup.isExpanded()), null);
+        writer.endElement(INPUT_ELEM);
 
         encodeHeader(writer, context, menuGroup);
         encodeContentBegin(writer, context, menuGroup);
     }
 
     private void encodeHeader(ResponseWriter writer, FacesContext context, HtmlPanelMenuGroup menuGroup) throws IOException {
-        //TODO nick - HtmlConstants.* should be used
-        writer.startElement("div", null);
-        writer.writeAttribute("id", menuGroup.getClientId(context) + ":hdr", null);
-        writer.writeAttribute("class", getCssClass(menuGroup, "-hdr"), null);
+        writer.startElement(DIV_ELEM, null);
+        writer.writeAttribute(ID_ATTRIBUTE, menuGroup.getClientId(context) + ":hdr", null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, getCssClass(menuGroup, "-hdr"), null);
         encodeHeaderGroup(writer, context, menuGroup, getCssClass(menuGroup, ""));
-        writer.endElement("div");
+        writer.endElement(DIV_ELEM);
     }
 
     private void encodeHeaderGroup(ResponseWriter writer, FacesContext context, HtmlPanelMenuGroup menuItem, String classPrefix) throws IOException {
-        writer.startElement("table", null);
-        writer.writeAttribute("class", classPrefix + "-gr", null);
-        //TODO nick - TBODY is missing
-        writer.startElement("tr", null);
+        writer.startElement(TABLE_ELEMENT, null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, classPrefix + "-gr", null);
+        writer.startElement(TBODY_ELEMENT, null);
+        writer.startElement(TR_ELEMENT, null);
 
         encodeHeaderGroupIconLeft(writer, context, menuItem, classPrefix);
 
-        writer.startElement("td", null);
-        writer.writeAttribute("class", classPrefix + "-lbl", null);
-        //TODO nick - this will render 'null' if label is null
-        //TODO nick - should there be 'label' facet also?
-        writer.writeText(String.valueOf(menuItem.getLabel()), null);
-        writer.endElement("td");
+        writer.startElement(TD_ELEM, null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, classPrefix + "-lbl", null);
+
+        UIComponent headerFacet = menuItem.getFacet("label");
+        if (headerFacet != null && headerFacet.isRendered()) {
+            headerFacet.encodeAll(context);
+        } else {
+            Object label = menuItem.getLabel();
+            if (label != null && !label.equals("")) {
+                writer.writeText(label, null);
+            }
+        }
+
+        writer.endElement(TD_ELEM);
 
         encodeHeaderGroupIconRight(writer, context, menuItem, classPrefix);
 
-        writer.endElement("tr");
-        writer.endElement("table");
+        writer.endElement(TR_ELEMENT);
+        writer.endElement(TBODY_ELEMENT);
+        writer.endElement(TABLE_ELEMENT);
     }
 
     private void encodeHeaderGroupIconLeft(ResponseWriter writer, FacesContext context, HtmlPanelMenuGroup menuGroup, String classPrefix) throws IOException {
@@ -157,41 +154,52 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
     }
 
     private void encodeTdIcon(ResponseWriter writer, FacesContext context, String cssClass, boolean isExpanded, String attrIconCollapsedValue, String attrIconExpandedValue) throws IOException {
-        writer.startElement("td", null);
-        writer.writeAttribute("class", cssClass, null);
-        try {
-            //TODO nick - attrIconCollapsedValue == null?
-            AbstractPanelMenuItem.Icons iconCollapsed = AbstractPanelMenuItem.Icons.valueOf(attrIconCollapsedValue);
-            writer.startElement("div", null);
-            writer.writeAttribute("class", concatClasses("rf-pm-ico-colps", iconCollapsed.cssClass()), null);
-            writer.writeAttribute("style", styleElement("display", isExpanded ? "none" : "block"), null);
-            writer.endElement("div");
-            //TODO nick - I suggest to wrap only Enum.valueOf(...) into try/catch
-        } catch (IllegalArgumentException e) {
-            if(attrIconCollapsedValue != null && attrIconCollapsedValue.trim().length() != 0) {
-                writer.startElement(HtmlConstants.IMG_ELEMENT, null);
-                writer.writeAttribute(HtmlConstants.ALT_ATTRIBUTE, "", null);
-                writer.writeURIAttribute(HtmlConstants.SRC_ATTRIBUTE, RenderKitUtils.getResourceURL(attrIconCollapsedValue, context), null);
-                writer.endElement(HtmlConstants.IMG_ELEMENT);
+        writer.startElement(TD_ELEM, null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, cssClass, null);
+
+        encodeIdIcon(writer, context, isExpanded, attrIconCollapsedValue, "rf-pm-ico-colps");
+        encodeIdIcon(writer, context, !isExpanded, attrIconExpandedValue, "rf-pm-ico-exp");
+
+        writer.endElement(TD_ELEM);
+    }
+
+    private void encodeIdIcon(ResponseWriter writer, FacesContext context, boolean isExpanded, String attrIconValue, String styleClass) throws IOException {
+        if (attrIconValue == null || attrIconValue.trim().length() <= 0) {
+            encodeDivIcon(writer, isExpanded, PanelMenuIcons.none, styleClass);
+        } else {
+            PanelMenuIcons icon = getIcon(attrIconValue);
+            if (icon != null) {
+                encodeDivIcon(writer, isExpanded, icon, styleClass);
+            } else {
+                encodeImage(writer, context, attrIconValue);
             }
+        }
+    }
+
+    private PanelMenuIcons getIcon(String attrIconCollapsedValue) {
+        if (attrIconCollapsedValue == null) {
+            return null;
         }
 
         try {
-            AbstractPanelMenuItem.Icons iconExpanded = AbstractPanelMenuItem.Icons.valueOf(attrIconExpandedValue);
-            writer.startElement("div", null);
-            writer.writeAttribute("class", concatClasses("rf-pm-ico-exp", iconExpanded.cssClass()), null);
-            writer.writeAttribute("style", styleElement("display", isExpanded ? "block" : "none"), null);
-            writer.endElement("div");
+            return PanelMenuIcons.valueOf(attrIconCollapsedValue);
         } catch (IllegalArgumentException e) {
-            if(attrIconExpandedValue != null && attrIconExpandedValue.trim().length() != 0) {
-                writer.startElement(HtmlConstants.IMG_ELEMENT, null);
-                writer.writeAttribute(HtmlConstants.ALT_ATTRIBUTE, "", null);
-                writer.writeURIAttribute(HtmlConstants.SRC_ATTRIBUTE, RenderKitUtils.getResourceURL(attrIconExpandedValue, context), null);
-                writer.endElement(HtmlConstants.IMG_ELEMENT);
-            }
+            return null;
         }
+    }
 
-        writer.endElement("td");
+    private void encodeDivIcon(ResponseWriter writer, boolean isDisplay, PanelMenuIcons icon, String styleClass) throws IOException {
+        writer.startElement(DIV_ELEM, null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses(styleClass, icon.cssClass()), null);
+        writer.writeAttribute(STYLE_ATTRIBUTE, styleElement("display", isDisplay ? "none" : "block"), null);
+        writer.endElement(DIV_ELEM);
+    }
+
+    private void encodeImage(ResponseWriter writer, FacesContext context, String attrIconValue) throws IOException {
+        writer.startElement(IMG_ELEMENT, null);
+        writer.writeAttribute(ALT_ATTRIBUTE, "", null);
+        writer.writeURIAttribute(SRC_ATTRIBUTE, RenderKitUtils.getResourceURL(attrIconValue, context), null);
+        writer.endElement(IMG_ELEMENT);
     }
 
 
@@ -200,15 +208,15 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
     }
 
     private void encodeContentBegin(ResponseWriter writer, FacesContext context, HtmlPanelMenuGroup menuGroup) throws IOException {
-        writer.startElement("div", null);
-        writer.writeAttribute("id", menuGroup.getClientId(context) + ":cnt", null);
-        writer.writeAttribute("class", concatClasses(getCssClass(menuGroup, "-cnt"), menuGroup.isExpanded() ? "rf-pm-exp" : "rf-pm-colps"), null);
+        writer.startElement(DIV_ELEM, null);
+        writer.writeAttribute(ID_ATTRIBUTE, menuGroup.getClientId(context) + ":cnt", null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses(getCssClass(menuGroup, "-cnt"), menuGroup.isExpanded() ? "rf-pm-exp" : "rf-pm-colps"), null);
 
         writeJavaScript(writer, context, menuGroup);
     }
 
     private void encodeContentEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        writer.endElement("div");
+        writer.endElement(DIV_ELEM);
     }
 
     @Override
@@ -257,8 +265,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         encodeContentEnd(writer, context, component);
 
-        writer.endElement(HtmlConstants.DIV_ELEM);
-        //TODO nick - call super.doEncodeEnd(...)?
+        writer.endElement(DIV_ELEM);
     }
 
     @Override

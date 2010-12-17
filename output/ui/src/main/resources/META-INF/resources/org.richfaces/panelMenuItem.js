@@ -126,8 +126,8 @@
 
             this.options = $.extend(this.options, __DEFAULT_OPTIONS, options || {});
 
-            this.mode = this.options.mode
-            this.itemName = this.options.name
+            this.mode = this.options.mode;
+            this.itemName = this.options.name;
             this.__rfPanelMenu().getItems()[this.itemName] = this;
 
             // todo move it
@@ -211,8 +211,7 @@
             if (panelMenu.selectedItem() == this.itemName) {
                 panelMenu.selectedItem(null);
             } else {
-            	//TODO nick - should be rf.log.warn
-                rf.warn("You tried to unselect item (name=" + this.itemName + ") that isn't seleted")
+                rf.log.warn("You tried to unselect item (name=" + this.itemName + ") that isn't seleted")
             }
 
             this.__unselect();
@@ -256,8 +255,7 @@
         },
 
         __rfPanelMenu : function () {
-        	//TODO nick - return rf.$(this.__panelMenu())
-            return rf.$(this.__item().parents(".rf-pm")[0]);
+            return rf.$(this.__panelMenu());
         },
 
         __changeState : function () {
@@ -274,7 +272,6 @@
             return $(rf.getDomElement(this.id));
         },
 
-        //TODO nick - __item() vs __header()?
         __header : function () {
             return this.__item();
         },
@@ -288,22 +285,20 @@
         },
 
         __fireBeforeSelect : function () {
-        	//TODO nick - 'new' is not necessary here
-            return new rf.Event.fireById(this.id, "beforeselect", {
-            	//TODO nick - pass item here
-                id: this.id
+            return rf.Event.fireById(this.id, "beforeselect", {
+                item: this
             });
         },
 
         __fireSelect : function () {
-            return new rf.Event.fireById(this.id, "select", {
-                id: this.id
+            return rf.Event.fireById(this.id, "select", {
+                item: this
             });
         },
 
         __fireUnselect : function () {
-            return new rf.Event.fireById(this.id, "unselect", {
-                id: this.id
+            return rf.Event.fireById(this.id, "unselect", {
+                item: this
             });
         },
 

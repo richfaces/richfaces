@@ -23,49 +23,19 @@
 
 package org.richfaces.component;
 
-import javax.faces.component.UICommand;
-import javax.faces.component.UIComponent;
-
 import org.richfaces.PanelMenuMode;
-import org.richfaces.event.ItemChangeListener;
-import org.richfaces.event.ItemChangeSource;
+
+import javax.faces.component.UIComponent;
 
 /**
  * @author akolonitsky
  * @since 2010-10-25
  */
-//TODO nick - use org.richfaces.component.AbstractActionComponent as super class
-public abstract class AbstractPanelMenuItem extends UICommand implements ItemChangeSource{
+public abstract class AbstractPanelMenuItem extends AbstractActionComponent {
 
     public static final String COMPONENT_TYPE = "org.richfaces.PanelMenuItem";
 
     public static final String COMPONENT_FAMILY = "org.richfaces.PanelMenuItem";
-
-    //TODO nick - move this enum to renderkit package
-    public enum Icons {
-        none("rf-pm-none"),
-        disc("rf-pm-disc"),
-        grid("rf-pm-grid"),
-        chevron("rf-pm-chevron"),
-        chevronUp("rf-pm-chevron-up"),
-        chevronDown("rf-pm-chevron-down"),
-        triangle("rf-pm-triangle"),
-        triangleUp("rf-pm-triangle-up"),
-        triangleDown("rf-pm-triangle-down");
-
-        public static final Icons DEFAULT = none;
-
-        private final String cssClass;
-
-        Icons(String cssClass) {
-            this.cssClass = cssClass;
-        }
-
-        //TODO nick - should this become getCssClass()?
-        public String cssClass() {
-            return cssClass;
-        }
-    }
 
     protected AbstractPanelMenuItem() {
         setRendererType("org.richfaces.PanelMenuItem");
@@ -117,8 +87,6 @@ public abstract class AbstractPanelMenuItem extends UICommand implements ItemCha
 
     public abstract boolean isDisabled();
 
-    public abstract boolean isBypassUpdates();
-
     public abstract boolean isLimitRender();
 
     public abstract Object getData();
@@ -128,20 +96,4 @@ public abstract class AbstractPanelMenuItem extends UICommand implements ItemCha
     public abstract Object getExecute();
 
     public abstract Object getRender();
-
-    // ------------------------------------------------ Event Processing Methods
-
-    //TODO nick - it seems these listeners are never triggered
-    public void addItemChangeListener(ItemChangeListener listener) {
-        addFacesListener(listener);
-    }
-
-    public ItemChangeListener[] getItemChangeListeners() {
-        return (ItemChangeListener[]) getFacesListeners(ItemChangeListener.class);
-    }
-
-    public void removeItemChangeListener(ItemChangeListener listener) {
-        removeFacesListener(listener);
-    }
-
 }

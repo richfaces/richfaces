@@ -22,6 +22,7 @@
 
 package org.richfaces.renderkit.html;
 
+import static org.richfaces.renderkit.HtmlConstants.*;
 import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 
 import java.io.IOException;
@@ -110,25 +111,25 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
     }
 
     private void encodeContentBegin(UIComponent component, ResponseWriter writer) throws IOException {
-        writer.startElement("div", component);
-        writer.writeAttribute("class", concatClasses("rf-ac-itm-cnt", attributeAsString(component, "contentClass")), null);
+        writer.startElement(DIV_ELEM, component);
+        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-ac-itm-cnt", attributeAsString(component, "contentClass")), null);
         writer.writeAttribute("id", component.getClientId() + ":content", null);
 
         AbstractTogglePanelTitledItem item = (AbstractTogglePanelTitledItem) component;
         if (!item.isActive() || item.isDisabled()) {
-            writer.writeAttribute("style", "display: none", null);
+            writer.writeAttribute(STYLE_ATTRIBUTE, "display: none", null);
         }
     }
 
     private void encodeContentEnd(UIComponent component, ResponseWriter responseWriter) throws IOException {
-        responseWriter.endElement("div");
+        responseWriter.endElement(DIV_ELEM);
     }
 
     private void encodeHeader(FacesContext context, UIComponent component, ResponseWriter writer) throws IOException {
 
-        writer.startElement("div", component);
-        writer.writeAttribute("class", concatClasses("rf-ac-itm-hdr", attributeAsString(component, PropertyKeys.headerClass)), null);
-        writer.writeAttribute("id", component.getClientId() + ":header", null);
+        writer.startElement(DIV_ELEM, component);
+        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-ac-itm-hdr", attributeAsString(component, PropertyKeys.headerClass)), null);
+        writer.writeAttribute(ID_ATTRIBUTE, component.getClientId() + ":header", null);
         renderPassThroughAttributes(context, component, HEADER_ATTRIBUTES);
 
         AbstractTogglePanelTitledItem titledItem = (AbstractTogglePanelTitledItem) component;
@@ -138,20 +139,20 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
         encodeHeader(context, titledItem, writer, HeaderStates.active, isActive && !isDisabled);
         encodeHeader(context, titledItem, writer, HeaderStates.disabled, isDisabled);
 
-        writer.endElement("div");
+        writer.endElement(DIV_ELEM);
     }
 
     private void encodeHeader(FacesContext facesContext, AbstractTogglePanelTitledItem component, ResponseWriter writer,
                               HeaderStates state, Boolean isDisplay) throws IOException {
         
-        writer.startElement("div", component);
+        writer.startElement(DIV_ELEM, component);
 
         if (!isDisplay) {
-            writer.writeAttribute("style", "display : none", null);
+            writer.writeAttribute(STYLE_ATTRIBUTE, "display : none", null);
         }
 
         String name = "headerClass" + capitalize(state.toString());
-        writer.writeAttribute("class", concatClasses("rf-ac-itm-hdr-" + state.abbreviation(), attributeAsString(component, name)), null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-ac-itm-hdr-" + state.abbreviation(), attributeAsString(component, name)), null);
 
         UIComponent headerFacet = component.getHeaderFacet(state);
         if (headerFacet != null && headerFacet.isRendered()) {
@@ -163,7 +164,7 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
             }
         }
 
-        writer.endElement("div");
+        writer.endElement(DIV_ELEM);
     }
 
     @Override

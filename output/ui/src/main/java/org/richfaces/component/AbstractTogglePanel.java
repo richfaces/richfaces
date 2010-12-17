@@ -142,7 +142,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
      * <p>Specialized decode behavior on top of that provided by the
      * superclass.  In addition to the standard
      * <code>processDecodes</code> behavior inherited from {@link
-     * javax.faces.component.UIComponentBase}, calls <code>validate()</code> if the the
+     * javax.faces.component.UIComponentBase}, calls <code>processValue()</code> if the the
      * <code>immediate</code> property is true; if the component is
      * invalid afterwards or a <code>RuntimeException</code> is thrown,
      * calls {@link FacesContext#renderResponse}.  </p>
@@ -185,7 +185,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
 
     /**
      * <p>In addition to the standard <code>processValidators</code> behavior
-     * inherited from {@link javax.faces.component.UIComponentBase}, calls <code>validate()</code>
+     * inherited from {@link javax.faces.component.UIComponentBase}, calls <code>processValue()</code>
      * if the <code>immediate</code> property is false (which is the
      * default);  if the component is invalid afterwards, calls
      * {@link FacesContext#renderResponse}.

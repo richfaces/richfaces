@@ -8,7 +8,7 @@
                       <div class="rf-pm-ico-colps rf-pm-triangle-down" style="display:block"></div>
                       <div class="rf-pm-ico-exp rf-pm-disc" style="display:none"></div>
                   </td>
-                  <td class="rf-pm-gr-lbl">panelMenuGroup-top</td>
+                  <td class="rf-pm-gr-lbl"></td>
                   <td class="rf-pm-gr-exp-ico">
                       <div class="rf-pm-ico-colps rf-pm-triangle-up" style="display:block"></div>
                       <div class="rf-pm-ico-exp rf-pm-disc" style="display:none"></div>

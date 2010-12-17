@@ -23,6 +23,7 @@
 
 package org.richfaces.renderkit.html;
 
+import static org.richfaces.renderkit.HtmlConstants.*;
 import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
 import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
@@ -94,8 +95,8 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
         AbstractTooltip tooltip = (AbstractTooltip) component;
 
         writer.startElement(getMarkupElement(tooltip), component);
-        writer.writeAttribute("id", component.getClientId(context), "clientId");
-        writer.writeAttribute("class", getStyleClass(component), null);
+        writer.writeAttribute(ID_ATTRIBUTE, component.getClientId(context), "clientId");
+        writer.writeAttribute(CLASS_ATTRIBUTE, getStyleClass(component), null);
         String style = getStyle(component);
         if (style != null && style.trim().length() > 0) {
             writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, style, null);
@@ -104,8 +105,8 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
         renderPassThroughAttributes(context, component, getPassThroughAttributes());
 
         writer.startElement(getMarkupElement(tooltip), component);
-        writer.writeAttribute("id", component.getClientId(context) + ":cntr", null);
-        writer.writeAttribute("class", "rf-tt-cntr", null);
+        writer.writeAttribute(ID_ATTRIBUTE, component.getClientId(context) + ":cntr", null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, "rf-tt-cntr", null);
 
         if (tooltip.getMode() == TooltipMode.ajax) {
             encodeLoading(writer, context, tooltip);
@@ -116,14 +117,14 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
 
     private void encodeContentBegin(ResponseWriter writer, FacesContext context, AbstractTooltip tooltip) throws IOException {
         writer.startElement(getMarkupElement(tooltip), tooltip);
-        writer.writeAttribute("id", tooltip.getClientId(context) + "@content", null);
-        writer.writeAttribute("class", "rf-tt-cnt", null);
+        writer.writeAttribute(ID_ATTRIBUTE, tooltip.getClientId(context) + "@content", null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, "rf-tt-cnt", null);
     }
 
     private void encodeLoading(ResponseWriter writer, FacesContext context, AbstractTooltip tooltip) throws IOException {
         writer.startElement(getMarkupElement(tooltip), tooltip);
-        writer.writeAttribute("id", tooltip.getClientId(context) + ":loading", null);
-        writer.writeAttribute("class", "rf-tt-loading", null);
+        writer.writeAttribute(ID_ATTRIBUTE, tooltip.getClientId(context) + ":loading", null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, "rf-tt-loading", null);
         writer.writeText("Loading...", null);
         writer.endElement(getMarkupElement(tooltip));
     }

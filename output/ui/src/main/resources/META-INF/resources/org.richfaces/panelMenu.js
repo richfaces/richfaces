@@ -123,10 +123,6 @@
             return document.getElementById(this.id + "-value");
         },
 
-        selectItem: function (itemName) {
-            // TODO
-        },
-
         /**
          * @methodOf
          * @name PanelMenu#expandAll

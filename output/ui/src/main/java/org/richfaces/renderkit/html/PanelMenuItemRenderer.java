@@ -23,6 +23,7 @@
 
 package org.richfaces.renderkit.html;
 
+import static org.richfaces.renderkit.HtmlConstants.*;
 import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
 import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
 
@@ -63,14 +64,14 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
 
     private void encodeHeaderGroupBegin(ResponseWriter writer, FacesContext context, HtmlPanelMenuItem menuItem, String classPrefix) throws IOException {
         writer.startElement("table", null);
-        writer.writeAttribute("class", classPrefix + "-gr", null);
-        //TODO nick - TBODY element is missing
-        writer.startElement("tr", null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, classPrefix + "-gr", null);
+        writer.startElement(TBODY_ELEMENT, null);
+        writer.startElement(TR_ELEMENT, null);
 
         encodeHeaderGroupLeftIcon(writer, context, menuItem, classPrefix);
 
-        writer.startElement("td", null);
-        writer.writeAttribute("class", classPrefix + "-lbl", null);
+        writer.startElement(TD_ELEM, null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, classPrefix + "-lbl", null);
 
         String label = menuItem.getLabel();
         if (label != null) {
@@ -79,11 +80,12 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
     }
     
     private void encodeHeaderGroupEnd(ResponseWriter writer, FacesContext context, HtmlPanelMenuItem menuItem, String classPrefix) throws IOException {
-        writer.endElement("td");
+        writer.endElement(TD_ELEM);
 
         encodeHeaderGroupRightIcon(writer, context, menuItem, classPrefix);
 
-        writer.endElement("tr");
+        writer.endElement(TR_ELEMENT);
+        writer.endElement(TBODY_ELEMENT);
         writer.endElement("table");
     }
 
@@ -103,12 +105,12 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
 
     //TODO nick - the same as in PanelMenuGroupRenderer
     public void encodeTdIcon(ResponseWriter writer, FacesContext context, String classPrefix, String attrIconValue) throws IOException {
-        writer.startElement("td", null);
+        writer.startElement(TD_ELEM, null);
         try {
-            AbstractPanelMenuItem.Icons icon = AbstractPanelMenuItem.Icons.valueOf(attrIconValue);
-            writer.writeAttribute("class", concatClasses(classPrefix, icon.cssClass()), null);
+            PanelMenuIcons icon = PanelMenuIcons.valueOf(attrIconValue);
+            writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses(classPrefix, icon.cssClass()), null);
         } catch (IllegalArgumentException e) {
-            writer.writeAttribute("class", classPrefix, null);
+            writer.writeAttribute(CLASS_ATTRIBUTE, classPrefix, null);
             if(attrIconValue != null && attrIconValue.trim().length() != 0) {
                 writer.startElement(HtmlConstants.IMG_ELEMENT, null);
                 writer.writeAttribute(HtmlConstants.ALT_ATTRIBUTE, "", null);
@@ -117,7 +119,7 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
             }
         }
 
-        writer.endElement("td");
+        writer.endElement(TD_ELEM);
     }
 
     @Override

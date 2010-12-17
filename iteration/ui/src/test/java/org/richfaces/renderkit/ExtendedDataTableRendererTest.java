@@ -39,6 +39,7 @@ import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.richfaces.component.AbstractExtendedDataTable;
 import org.richfaces.component.SortOrder;
@@ -50,6 +51,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  * @author Konstantin Mishin
  * 
  */
+@Ignore
 public class ExtendedDataTableRendererTest {
 
     private HtmlUnitEnvironment environment;

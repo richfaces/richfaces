@@ -25,6 +25,8 @@ package org.richfaces.renderkit.html;
 import java.io.IOException;
 import java.util.Map;
 
+import static org.richfaces.renderkit.HtmlConstants.*;
+
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
@@ -83,18 +85,18 @@ public class TabRenderer extends TogglePanelItemRenderer {
     }
 
     private void encodeContentBegin(UIComponent component, ResponseWriter writer) throws IOException {
-        writer.startElement("div", component);
-        writer.writeAttribute("class", concatClasses("rf-tb-cnt", attributeAsString(component, "contentClass")), null);
-        writer.writeAttribute("id", component.getClientId() + ":content", null);
+        writer.startElement(DIV_ELEM, component);
+        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-tb-cnt", attributeAsString(component, "contentClass")), null);
+        writer.writeAttribute(ID_ATTRIBUTE, component.getClientId() + ":content", null);
 
         AbstractTogglePanelTitledItem item = (AbstractTogglePanelTitledItem) component;
         if (!item.isActive() || item.isDisabled()) {
-            writer.writeAttribute("style", "display: none", null);
+            writer.writeAttribute(STYLE_ATTRIBUTE, "display: none", null);
         }
     }
 
     private void encodeContentEnd(UIComponent component, ResponseWriter responseWriter) throws IOException {
-        responseWriter.endElement("div");
+        responseWriter.endElement(DIV_ELEM);
     }
 
     @Override

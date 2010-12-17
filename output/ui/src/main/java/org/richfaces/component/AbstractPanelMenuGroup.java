@@ -23,6 +23,7 @@
 
 package org.richfaces.component;
 
+import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
@@ -43,7 +44,6 @@ public abstract class AbstractPanelMenuGroup extends UIPanelMenuItem {
     private Boolean submittedExpanded;
 
     private enum PropertyKeys {
-        valid,
         immediate
     }
 
@@ -91,11 +91,6 @@ public abstract class AbstractPanelMenuGroup extends UIPanelMenuItem {
             throw e;
         }
 
-        //TODO nick - isValid()/setValid() is not called anywhere
-        if (!isValid()) {
-            context.validationFailed();
-            context.renderResponse();
-        }
     }
 
     @Override
@@ -127,14 +122,6 @@ public abstract class AbstractPanelMenuGroup extends UIPanelMenuItem {
         this.submittedExpanded = Boolean.parseBoolean(String.valueOf(submittedValue));
     }
 
-    public boolean isValid() {
-        return (Boolean) getStateHelper().eval(PropertyKeys.valid, true);
-    }
-
-    public void setValid(boolean valid) {
-        getStateHelper().put(PropertyKeys.valid, valid);
-    }
-
     public boolean isExpanded() {
         return getValue() == null ? false : (Boolean) getValue();
     }
@@ -160,9 +147,6 @@ public abstract class AbstractPanelMenuGroup extends UIPanelMenuItem {
         getStateHelper().put(PropertyKeys.immediate, immediate);
     }
 
-
-
-
     public abstract boolean isExpandSingle();
 
     public abstract String getCollapseEvent();
@@ -171,6 +155,5 @@ public abstract class AbstractPanelMenuGroup extends UIPanelMenuItem {
 
     public abstract boolean isBubbleSelection();
 
-    //TODO nick - this should be MethodExpression
-    public abstract String getChangeExpandListener();
+    public abstract MethodExpression getChangeExpandListener();
 }

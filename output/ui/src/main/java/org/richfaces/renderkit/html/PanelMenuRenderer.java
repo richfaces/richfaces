@@ -23,20 +23,6 @@
 
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.getValueRequestParamName;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.event.ActionEvent;
-
 import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.component.AbstractPanelMenu;
@@ -44,15 +30,25 @@ import org.richfaces.component.AbstractPanelMenuItem;
 import org.richfaces.component.html.HtmlPanelMenu;
 import org.richfaces.renderkit.HtmlConstants;
 
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.event.ActionEvent;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.getValueRequestParamName;
+
 /**
  * @author akolonitsky
  * @since 2010-10-25
  */
 @ResourceDependencies( { // TODO review
-    //TODO nick - use org.richfaces:ajax.reslib
-    @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-    @ResourceDependency(name = "jquery.js"),
-    @ResourceDependency(name = "richfaces.js"),
+    @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
     @ResourceDependency(name = "richfaces-event.js"),
     @ResourceDependency(name = "richfaces-base-component.js"),
     @ResourceDependency(library = "org.richfaces", name = "panelMenu.js"),
@@ -69,7 +65,6 @@ public class PanelMenuRenderer extends DivPanelRenderer {
               context.getExternalContext().getRequestParameterMap();
 
         // Don't overwrite the value unless you have to!
-        //TODO nick - getValueRequestParamName(...) is method of TogglePanelRenderer - how are these components connected?
         String newValue = requestMap.get(getValueRequestParamName(context, component));
         if (newValue != null) {
             panelMenu.setSubmittedActiveItem(newValue);
@@ -77,9 +72,7 @@ public class PanelMenuRenderer extends DivPanelRenderer {
 
         //TODO nick - I suggest to get this code moved to item renderer
         String compClientId = component.getClientId(context);
-        String clientId = requestMap.get(compClientId);
-        if (clientId != null && clientId.equals(compClientId)) {
-
+        if (requestMap.get(compClientId) != null) {
             AbstractPanelMenuItem panelItem = panelMenu.getItem(newValue);
             if (panelItem != null) {
                 new ActionEvent(panelItem).queue();

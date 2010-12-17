@@ -22,6 +22,8 @@
 
 package org.richfaces.renderkit.html;
 
+import static org.richfaces.renderkit.HtmlConstants.*;
+
 import org.richfaces.component.AbstractDivPanel;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
@@ -95,8 +97,8 @@ public class DivPanelRenderer extends RendererBase {
         super.doEncodeBegin(writer, context, component);
 
         writer.startElement(HtmlConstants.DIV_ELEM, component);
-        writer.writeAttribute("id", component.getClientId(context), "clientId");
-        writer.writeAttribute("class", getStyleClass(component), null);
+        writer.writeAttribute(ID_ATTRIBUTE, component.getClientId(context), "clientId");
+        writer.writeAttribute(CLASS_ATTRIBUTE, getStyleClass(component), null);
         String style = getStyle(component);
         if (style != null && style.length() > 0) {
             writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, style, null);

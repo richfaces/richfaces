@@ -24,13 +24,12 @@
 package org.richfaces.component.html;
 
 import org.richfaces.component.UIPanelMenu;
+import org.richfaces.renderkit.html.PanelMenuIcons;
 
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-
-import static org.richfaces.component.AbstractPanelMenuItem.Icons;
 
 /**
  * @author akolonitsky
@@ -144,7 +143,7 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
     }
 
     public String getItemIconLeft() {
-        return (String) getStateHelper().eval(PropertyKeys.itemIconLeft, Icons.DEFAULT.toString());
+        return (String) getStateHelper().eval(PropertyKeys.itemIconLeft, PanelMenuIcons.DEFAULT.toString());
     }
 
     public void setItemIconLeft(String itemIconLeft) {
@@ -152,7 +151,7 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
     }
 
     public String getItemIconRight() {
-        return (String) getStateHelper().eval(PropertyKeys.itemIconRight, Icons.DEFAULT.toString());
+        return (String) getStateHelper().eval(PropertyKeys.itemIconRight, PanelMenuIcons.DEFAULT.toString());
     }
 
     public void setItemIconRight(String itemIconRight) {
@@ -160,7 +159,7 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
     }
 
     public String getItemDisableIconLeft() {
-        return (String) getStateHelper().eval(PropertyKeys.itemDisableIconLeft, Icons.DEFAULT.toString());
+        return (String) getStateHelper().eval(PropertyKeys.itemDisableIconLeft, PanelMenuIcons.DEFAULT.toString());
     }
 
     public void setItemDisableIconLeft(String itemDisableIconLeft) {
@@ -168,7 +167,7 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
     }
 
     public String getItemDisableIconRight() {
-        return (String) getStateHelper().eval(PropertyKeys.itemDisableIconRight, Icons.DEFAULT.toString());
+        return (String) getStateHelper().eval(PropertyKeys.itemDisableIconRight, PanelMenuIcons.DEFAULT.toString());
     }
 
     public void setItemDisableIconRight(String itemDisableIconRight) {
@@ -192,7 +191,7 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
     }
 
     public String getTopItemIconLeft() {
-        return (String) getStateHelper().eval(PropertyKeys.topItemIconLeft, Icons.DEFAULT.toString());
+        return (String) getStateHelper().eval(PropertyKeys.topItemIconLeft, PanelMenuIcons.DEFAULT.toString());
     }
 
     public void setTopItemIconLeft(String topItemIconLeft) {
@@ -200,7 +199,7 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
     }
 
     public String getTopItemIconRight() {
-        return (String) getStateHelper().eval(PropertyKeys.topItemIconRight, Icons.DEFAULT.toString());
+        return (String) getStateHelper().eval(PropertyKeys.topItemIconRight, PanelMenuIcons.DEFAULT.toString());
     }
 
     public void setTopItemIconRight(String topItemIconRight) {
@@ -208,7 +207,7 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
     }
 
     public String getTopItemDisableIconLeft() {
-        return (String) getStateHelper().eval(PropertyKeys.topItemDisableIconLeft, Icons.DEFAULT.toString());
+        return (String) getStateHelper().eval(PropertyKeys.topItemDisableIconLeft, PanelMenuIcons.DEFAULT.toString());
     }
 
     public void setTopItemDisableIconLeft(String topItemDisableIconLeft) {
@@ -216,7 +215,7 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
     }
 
     public String getTopItemDisableIconRight() {
-        return (String) getStateHelper().eval(PropertyKeys.topItemDisableIconRight, Icons.DEFAULT.toString());
+        return (String) getStateHelper().eval(PropertyKeys.topItemDisableIconRight, PanelMenuIcons.DEFAULT.toString());
     }
 
     public void setTopItemDisableIconRight(String topItemDisableIconRight) {
@@ -240,7 +239,7 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
     }
 
     public String getGroupExpandIconLeft() {
-        return (String) getStateHelper().eval(PropertyKeys.groupExpandIconLeft, Icons.DEFAULT.toString());
+        return (String) getStateHelper().eval(PropertyKeys.groupExpandIconLeft, PanelMenuIcons.DEFAULT.toString());
     }
 
     public void setGroupExpandIconLeft(String groupExpandIconLeft) {
@@ -248,7 +247,7 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
     }
 
     public String getGroupExpandIconRight() {
-        return (String) getStateHelper().eval(PropertyKeys.groupExpandIconRight, Icons.DEFAULT.toString());
+        return (String) getStateHelper().eval(PropertyKeys.groupExpandIconRight, PanelMenuIcons.DEFAULT.toString());
     }
 
     public void setGroupExpandIconRight(String groupExpandIconRight) {
@@ -256,7 +255,7 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
     }
 
     public String getGroupCollapseIconLeft() {
-        return (String) getStateHelper().eval(PropertyKeys.groupCollapseIconLeft, Icons.DEFAULT.toString());
+        return (String) getStateHelper().eval(PropertyKeys.groupCollapseIconLeft, PanelMenuIcons.DEFAULT.toString());
     }
 
     public void setGroupCollapseIconLeft(String groupCollapseIconLeft) {
@@ -264,7 +263,7 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
     }
 
     public String getGroupCollapseIconRight() {
-        return (String) getStateHelper().eval(PropertyKeys.groupCollapseIconRight, Icons.DEFAULT.toString());
+        return (String) getStateHelper().eval(PropertyKeys.groupCollapseIconRight, PanelMenuIcons.DEFAULT.toString());
     }
 
     public void setGroupCollapseIconRight(String groupCollapseIconRight) {
@@ -272,7 +271,7 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
     }
 
     public String getGroupDisableIconLeft() {
-        return (String) getStateHelper().eval(PropertyKeys.groupDisableIconLeft, Icons.DEFAULT.toString());
+        return (String) getStateHelper().eval(PropertyKeys.groupDisableIconLeft, PanelMenuIcons.DEFAULT.toString());
     }
 
     public void setGroupDisableIconLeft(String groupDisableIconLeft) {
@@ -280,7 +279,7 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
     }
 
     public String getGroupDisableIconRight() {
-        return (String) getStateHelper().eval(PropertyKeys.groupDisableIconRight, Icons.DEFAULT.toString());
+        return (String) getStateHelper().eval(PropertyKeys.groupDisableIconRight, PanelMenuIcons.DEFAULT.toString());
     }
 
     public void setGroupDisableIconRight(String groupDisableIconRight) {
@@ -304,7 +303,7 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
     }
 
     public String getTopGroupExpandIconLeft() {
-        return (String) getStateHelper().eval(PropertyKeys.topGroupExpandIconLeft, Icons.DEFAULT.toString());
+        return (String) getStateHelper().eval(PropertyKeys.topGroupExpandIconLeft, PanelMenuIcons.DEFAULT.toString());
     }
 
     public void setTopGroupExpandIconLeft(String topGroupExpandIconLeft) {
@@ -312,7 +311,7 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
     }
 
     public String getTopGroupExpandIconRight() {
-        return (String) getStateHelper().eval(PropertyKeys.topGroupExpandIconRight, Icons.DEFAULT.toString());
+        return (String) getStateHelper().eval(PropertyKeys.topGroupExpandIconRight, PanelMenuIcons.DEFAULT.toString());
     }
 
     public void setTopGroupExpandIconRight(String topGroupExpandIconRight) {
@@ -320,7 +319,7 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
     }
 
     public String getTopGroupCollapseIconLeft() {
-        return (String) getStateHelper().eval(PropertyKeys.topGroupCollapseIconLeft, Icons.DEFAULT.toString());
+        return (String) getStateHelper().eval(PropertyKeys.topGroupCollapseIconLeft, PanelMenuIcons.DEFAULT.toString());
     }
 
     public void setTopGroupCollapseIconLeft(String topGroupCollapseIconLeft) {
@@ -328,7 +327,7 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
     }
 
     public String getTopGroupCollapseIconRight() {
-        return (String) getStateHelper().eval(PropertyKeys.topGroupCollapseIconRight, Icons.DEFAULT.toString());
+        return (String) getStateHelper().eval(PropertyKeys.topGroupCollapseIconRight, PanelMenuIcons.DEFAULT.toString());
     }
 
     public void setTopGroupCollapseIconRight(String topGroupCollapseIconRight) {
@@ -336,7 +335,7 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
     }
 
     public String getTopGroupDisableIconLeft() {
-        return (String) getStateHelper().eval(PropertyKeys.topGroupDisableIconLeft, Icons.DEFAULT.toString());
+        return (String) getStateHelper().eval(PropertyKeys.topGroupDisableIconLeft, PanelMenuIcons.DEFAULT.toString());
     }
 
     public void setTopGroupDisableIconLeft(String topGroupDisableIconLeft) {
@@ -344,7 +343,7 @@ public class HtmlPanelMenu extends UIPanelMenu implements ClientBehaviorHolder {
     }
 
     public String getTopGroupDisableIconRight() {
-        return (String) getStateHelper().eval(PropertyKeys.topGroupDisableIconRight, Icons.DEFAULT.toString());
+        return (String) getStateHelper().eval(PropertyKeys.topGroupDisableIconRight, PanelMenuIcons.DEFAULT.toString());
     }
 
     public void setTopGroupDisableIconRight(String topGroupDisableIconRight) {
