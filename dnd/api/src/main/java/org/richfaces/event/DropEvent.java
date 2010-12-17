@@ -23,53 +23,43 @@
 package org.richfaces.event;
 
 import javax.faces.component.UIComponent;
-import javax.faces.event.BehaviorEvent;
+import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
-
-import org.richfaces.component.behavior.ClientDragBehavior;
-import org.richfaces.component.behavior.ClientDropBehavior;
 
 /**
  * @author abelevich
  *
  */
-public class DropEvent extends BehaviorEvent {
+public class DropEvent extends FacesEvent {
+  
+    private static final long serialVersionUID = -8093828320587434589L;
 
-    private static final long serialVersionUID = 3717071628237886288L;
+    private UIComponent dragSource;
     
-    private ClientDragBehavior dragBehavior;
-    
-    private UIComponent dragComponent;
-    
-    private ClientDropBehavior dropBehavior;
-
-    private UIComponent dropComponent;
+    private UIComponent dropTarget;
     
     private Object dropValue;
     
     private Object dragValue;
-    
-    public DropEvent(UIComponent component, ClientDropBehavior behavior) {
-        super(component, behavior);
-        this.dropComponent = component;
-        this.dropBehavior = behavior;
+
+    public DropEvent(UIComponent dragSource, UIComponent dropTarget) {
+        super(dropTarget);
     }
-    
- 
-    public void setDropBehavior(ClientDropBehavior dropBehavior) {
-        this.dropBehavior = dropBehavior;
+   
+    public UIComponent getDragSource() {
+        return dragSource;
     }
-    
-    public ClientDropBehavior getDropBehavior() {
-        return this.dropBehavior;
+
+    public void setDragSource(UIComponent dragSource) {
+        this.dragSource = dragSource;
     }
-    
-    public void setDropComponent(UIComponent dropComponent) {
-        this.dropComponent = dropComponent;
+
+    public UIComponent getDropTarget() {
+        return dropTarget;
     }
-    
-    public UIComponent getDropComponent() {
-        return this.dropComponent;
+
+    public void setDropTarget(UIComponent dropTarget) {
+        this.dropTarget = dropTarget;
     }
 
     public Object getDropValue() {
@@ -86,22 +76,6 @@ public class DropEvent extends BehaviorEvent {
 
     public void setDragValue(Object dragValue) {
         this.dragValue = dragValue;
-    }
-    
-    public ClientDragBehavior getDragBehavior() {
-        return dragBehavior;
-    }
-
-    public void setDragBehavior(ClientDragBehavior dragBehavior) {
-        this.dragBehavior = dragBehavior;
-    }
-
-    public UIComponent getDragComponent() {
-        return dragComponent;
-    }
-
-    public void setDragComponent(UIComponent dragComponent) {
-        this.dragComponent = dragComponent;
     }
     
     @Override

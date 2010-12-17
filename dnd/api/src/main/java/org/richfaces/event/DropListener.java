@@ -22,14 +22,14 @@
 
 package org.richfaces.event;
 
-import javax.faces.event.BehaviorListener;
+import javax.faces.event.FacesListener;
 
 
 /**
  * @author abelevich
  *
  */
-public interface DropListener extends BehaviorListener {
+public interface DropListener extends FacesListener  {
     
     public void processDrop(DropEvent event);
 
