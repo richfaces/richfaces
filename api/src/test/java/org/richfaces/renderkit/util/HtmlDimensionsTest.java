@@ -21,7 +21,8 @@
  */
 package org.richfaces.renderkit.util;
 
-import org.junit.Assert;
+import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 /**
@@ -32,22 +33,23 @@ public class HtmlDimensionsTest {
 
     @Test
     public void testFormatSize() {
-        Assert.assertEquals("100px", HtmlDimensions.formatSize("100"));
-        Assert.assertEquals("100px", HtmlDimensions.formatSize("100  "));
-        Assert.assertEquals("100px", HtmlDimensions.formatSize("   100"));
-        Assert.assertEquals("100px", HtmlDimensions.formatSize("   100   "));
-        Assert.assertEquals("t100px", HtmlDimensions.formatSize("t100"));
-        Assert.assertEquals("r100px", HtmlDimensions.formatSize("r100  "));        
-        Assert.assertEquals("100px  ", HtmlDimensions.formatSize("100px  "));
-        Assert.assertEquals("  100px", HtmlDimensions.formatSize("  100px"));
-        Assert.assertEquals("  100px ", HtmlDimensions.formatSize("  100px "));
-        Assert.assertEquals("100px", HtmlDimensions.formatSize("100px"));
-        Assert.assertEquals("100 px", HtmlDimensions.formatSize("100 px"));
-        Assert.assertEquals("99%", HtmlDimensions.formatSize("99%"));
-        Assert.assertEquals("99 %", HtmlDimensions.formatSize("99 %"));
-        Assert.assertEquals("100em", HtmlDimensions.formatSize("100em"));
-        Assert.assertEquals("size", HtmlDimensions.formatSize("size"));
-        Assert.assertEquals("", HtmlDimensions.formatSize(""));
-        Assert.assertEquals("   ", HtmlDimensions.formatSize("   "));
+        assertEquals("100px", HtmlDimensions.formatSize("100"));
+        assertEquals("100px", HtmlDimensions.formatSize("100  "));
+        assertEquals("100px", HtmlDimensions.formatSize("   100"));
+        assertEquals("100px", HtmlDimensions.formatSize("   100   "));
+        assertEquals("t100px", HtmlDimensions.formatSize("t100"));
+        assertEquals("r100px", HtmlDimensions.formatSize("r100  "));        
+        assertEquals("100px  ", HtmlDimensions.formatSize("100px  "));
+        assertEquals("  100px", HtmlDimensions.formatSize("  100px"));
+        assertEquals("  100px ", HtmlDimensions.formatSize("  100px "));
+        assertEquals("100px", HtmlDimensions.formatSize("100px"));
+        assertEquals("100 px", HtmlDimensions.formatSize("100 px"));
+        assertEquals("99%", HtmlDimensions.formatSize("99%"));
+        assertEquals("99 %", HtmlDimensions.formatSize("99 %"));
+        assertEquals("100em", HtmlDimensions.formatSize("100em"));
+        assertEquals("size", HtmlDimensions.formatSize("size"));
+        assertEquals("", HtmlDimensions.formatSize(""));
+        assertEquals("   ", HtmlDimensions.formatSize("   "));
+        assertEquals(null, HtmlDimensions.formatSize(null));
     }    
 }
