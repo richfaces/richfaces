@@ -27,10 +27,10 @@
         
         <div class="#{concatClasses('rf-trn', component.attributes['styleClass'], tree.attributes['nodeClass'])}"
             cdk:passThroughWithExclusions="">
-            <cdk:object name="loadingFacet" type="UIComponent" value="#{getLoadingFacetIfApplicable(component)}" />
+            <cdk:object name="loadingFacet" type="UIComponent" value="#{getHandleLoadingFacetIfApplicable(component)}" />
             
             <c:if test="#{not empty loadingFacet and loadingFacet.isRendered()}">
-                <span class="rf-trn-ldn-fct">
+                <span class="rf-trn-hnd-ldn-fct">
                 <cdk:call>
                     loadingFacet.encodeAll(facesContext);
                 </cdk:call>

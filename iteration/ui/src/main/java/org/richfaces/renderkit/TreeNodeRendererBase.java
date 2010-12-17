@@ -53,7 +53,7 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
     
     private static final String TRIGGER_NODE_AJAX_UPDATE = "__TRIGGER_NODE_AJAX_UPDATE";
     
-    private static final String LOADING_FACET_NAME = "loading";
+    private static final String HANDLE_LOADING_FACET_NAME = "handleLoading";
 
     @Override
     public void decode(FacesContext context, UIComponent component) {
@@ -171,7 +171,7 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
         renderingContext.addHandlers(treeNode);
     }
 
-    protected UIComponent getLoadingFacetIfApplicable(UIComponent component) {
+    protected UIComponent getHandleLoadingFacetIfApplicable(UIComponent component) {
         AbstractTreeNode treeNode = (AbstractTreeNode) component;
 
         AbstractTree tree = treeNode.findTreeComponent();
@@ -180,11 +180,15 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
             return null;
         }
         
-        UIComponent facet = treeNode.getFacet(LOADING_FACET_NAME);
+        UIComponent facet = treeNode.getFacet(HANDLE_LOADING_FACET_NAME);
         if (facet == null) {
-            facet = tree.getFacet(LOADING_FACET_NAME);
+            facet = tree.getFacet(HANDLE_LOADING_FACET_NAME);
         }
         
-        return facet;
+        if (facet != null && facet.isRendered()) {
+            return facet;
+        }
+
+        return null;
     }
 }

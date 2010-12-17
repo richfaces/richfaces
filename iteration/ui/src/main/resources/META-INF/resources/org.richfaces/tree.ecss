@@ -80,15 +80,15 @@
 	display: none;
 }
 
-.rf-trn-ldn-fct {
+.rf-trn-hnd-ldn-fct {
 	cursor: default;
 	display: none;
 }
 
-.rf-trn-ldn > .rf-trn-ldn-fct {
+.rf-trn-ldn > .rf-trn-hnd-ldn-fct {
 	display: inline-block;
 }
 
-.rf-trn-ldn > .rf-trn-ldn-fct + .rf-trn-hnd {
+.rf-trn-ldn > .rf-trn-hnd-ldn-fct + .rf-trn-hnd {
 	display: none;
 }
