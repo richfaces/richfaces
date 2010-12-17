@@ -173,7 +173,8 @@
 				var documentElement = contentDocument.documentElement;
 				var responseStatus, id;
 				if (documentElement.tagName.toUpperCase() == "PARTIAL-RESPONSE") {
-					responseStatus = ITEM_STATE.DONE;
+					var errors = jQuery(documentElement).children("error");
+					responseStatus = errors.length > 0 ? ITEM_STATE.SERVER_ERROR: ITEM_STATE.DONE;
 				} else if ((id = documentElement.id) && id.indexOf(UID + this.loadableItem.uid + ":") == 0) {
 					responseStatus = id.split(":")[1];
 				}
