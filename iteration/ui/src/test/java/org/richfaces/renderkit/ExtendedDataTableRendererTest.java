@@ -51,7 +51,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  * @author Konstantin Mishin
  * 
  */
-@Ignore
 public class ExtendedDataTableRendererTest {
 
     private HtmlUnitEnvironment environment;

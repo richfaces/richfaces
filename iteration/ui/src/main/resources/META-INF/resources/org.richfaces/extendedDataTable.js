@@ -636,6 +636,10 @@
 			jQuery(window).unbind("resize", updateLayout);			
 	    	jQuery(richfaces.getDomElement(id + ':st')).remove();
 		}
+
+        this.detach = function () {
+            // TODO see implementation in richfaces-base-component.js
+        };
 		
 		this.getColumnPosition = function(id) {
 			var position;
