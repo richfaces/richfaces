@@ -19,14 +19,14 @@
 		    height="#{getHeightToolbar(component)}" 
 		    class="rf-tb #{component.attributes['styleClass']}" 
 		    style="#{ component.attributes['style']}" 
-            cdk:passThroughWithExclusions="">
+            cdk:passThroughWithExclusions="">           
             <cdk:call expression="renderColElements(facesContext, component)" />           
 		    <tr class="rf-tb-cntr">
 		        <cdk:body />
 		    </tr>
 		</table>
               <script type="text/javascript">
-        #{toScriptArgs(getOptions(component))}
+        toolbarHandlers(#{toScriptArgs(getOptions(component))});
                 </script>		
     </cc:implementation>
 </cdk:root>

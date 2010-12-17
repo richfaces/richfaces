@@ -49,8 +49,10 @@ import org.richfaces.renderkit.util.HtmlDimensions;
 
 @ResourceDependencies({
     @ResourceDependency(name = "jquery.js"),
+    @ResourceDependency(library = "org.richfaces", name = "toolbar.js"),
     @ResourceDependency(library = "org.richfaces", name = "toolbar.ecss")
-    })
+})
+
 public abstract class ToolbarRendererBase extends RendererBase {
 
     public static final String RENDERER_TYPE = "org.richfaces.ToolbarRenderer";
@@ -376,7 +378,7 @@ public abstract class ToolbarRendererBase extends RendererBase {
             for (ComponentAttribute componentAttribute :ITEMS_HANDLER_ATTRIBUTES.values()) {
                 Object attr = component.getAttributes().get(componentAttribute.getComponentAttributeName());
                 if (attr != null) {
-                    RenderKitUtils.addToScriptHash(tbEvents, componentAttribute.getHtmlAttributeName(),
+                    RenderKitUtils.addToScriptHash(tbEvents, componentAttribute.getHtmlAttributeName().substring(2),
                         attr, null, ScriptHashVariableWrapper.eventHandler);    
                 }
             }
@@ -399,7 +401,7 @@ public abstract class ToolbarRendererBase extends RendererBase {
                 for (ComponentAttribute componentAttribute :ITEMS_HANDLER_ATTRIBUTES.values()) {
                     Object attr = tbg.getAttributes().get(componentAttribute.getComponentAttributeName());
                     if (attr != null) {
-                        RenderKitUtils.addToScriptHash(tbgEvents, componentAttribute.getHtmlAttributeName(),
+                        RenderKitUtils.addToScriptHash(tbgEvents, componentAttribute.getHtmlAttributeName().substring(2),
                             attr, null, ScriptHashVariableWrapper.eventHandler);    
                     }
                 } 
