@@ -249,10 +249,10 @@
 			</h:panelGroup>
 		</h:panelGrid>
 		
-		'loading' facet:
+		'handleLoading' facet:
 		<it:tree value="#{treeBean.rootNodes}" toggleType="ajax" var="node">
 			<it:treeNode>
-				<f:facet name="loading">
+				<f:facet name="handleLoading">
 					<h:graphicImage value="/images/loading.gif" />
 				</f:facet>
 				
@@ -260,7 +260,7 @@
 			</it:treeNode>		
 		</it:tree>
 		
-		'loading' without facet:
+		'handleLoading' without facet:
 		<it:tree value="#{treeBean.rootNodes}" toggleType="ajax" var="node" styleClass="loadingWithoutFacet" />
 		
 		<a4j:queue />
