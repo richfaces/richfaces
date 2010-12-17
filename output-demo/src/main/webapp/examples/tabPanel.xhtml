@@ -16,10 +16,10 @@
 
         <h:form id="f">
             <pn:tabPanel id="panel" switchType="ajax" tabHeaderClassDisabled="myClass_01" itemChangeListener="#{togglePanelBean.itemChangeActionListener}">
-                <pn:tab header="tab1 header" headerClassDisabled="myClass_02">
+                <pn:tab header="tab1 header" headerClassDisabled="myClass_02" onenter="alert('onenter 01')">
                     Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here.
                 </pn:tab>
-                <pn:tab header="tab2 header">
+                <pn:tab header="tab2 header" onenter="alert('onenter 02')">
                     He he
                 </pn:tab>
             </pn:tabPanel>
