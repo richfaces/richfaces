@@ -20,29 +20,30 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.richfaces.view.facelets;
+package org.richfaces.event;
 
-import javax.faces.view.facelets.BehaviorConfig;
-import javax.faces.view.facelets.MetaRuleset;
+import javax.el.MethodExpression;
+import javax.faces.context.FacesContext;
 
-import org.richfaces.view.facelets.html.CustomBehaviorHandler;
-import org.richfaces.view.facelets.tag.DropBehaviorRule;
 
 /**
  * @author abelevich
  *
  */
-public class DropBehaviorHandler extends CustomBehaviorHandler{
-    
-    private static final DropBehaviorRule METARULE = new DropBehaviorRule();
-    
-    public DropBehaviorHandler(BehaviorConfig config) {
-        super(config);
+public class MethodExpressionDropListener implements DropListener {
+    private MethodExpression methodExpression;
+
+    public MethodExpressionDropListener() {
+        super();
     }
-    
-    protected MetaRuleset createMetaRuleset(Class type) {
-        MetaRuleset m = super.createMetaRuleset(type);
-        m.addRule(METARULE);
-        return m;
+
+    public MethodExpressionDropListener(MethodExpression methodExpression) {
+        super();
+        this.methodExpression = methodExpression;
+    }
+
+    public void processDrop(DropEvent event) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        methodExpression.invoke(facesContext.getELContext(), new Object[] { event });
     }
 }

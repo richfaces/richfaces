@@ -11,7 +11,10 @@
 	rf.ui = rf.ui || {};
       
 	rf.ui.Draggable =  function(id, options) {
-		this.dragElement = $(document.getElementById(id));
+		this.id = id;
+		this.options = options;
+		
+		this.dragElement = $(document.getElementById(this.options.parentId));
 		this.dragElement.draggable();
 
 		if(options.indicator) {
@@ -25,10 +28,9 @@
 		
 		this.dragElement.draggable("option", "addClasses", false);
 		
-		this.options = options;
-		
 		this.dragElement.data('type', this.options.type);
 		this.dragElement.data("init", true);
+		this.dragElement.data("id", this.id);
 			
 		this.dragElement.bind('dragstart', $.proxy(this.dragStart, this));
 		this.dragElement.bind('drag', $.proxy(this.drag, this));

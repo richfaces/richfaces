@@ -12,8 +12,9 @@
       
 	rf.ui.Droppable =  function(id, options) {
 		this.options = options;
-		this.dropElement = $(document.getElementById(id));
+		this.id = id;
 		
+		this.dropElement = $(document.getElementById(this.options.parentId));
 		this.dropElement.droppable({addClasses: false});
 		this.dropElement.data("init", true);
 		this.dropElement.bind('drop', $.proxy(this.drop, this));
@@ -70,13 +71,13 @@
 				}, 
 				
 				__callAjax: function(e, ui){
-					var options = {};
-					var originalEvent =  this.options['event'];
 					if(ui.draggable) {
-						options['dragSource'] = ui.draggable.attr("id");
-						options['javax.faces.behavior.event'] = originalEvent.type; 
+						var dragSource = ui.draggable.data("id");
+						var ajaxFunc = this.options.ajaxFunction;
+						if(ajaxFunc &&  typeof ajaxFunc == 'function' ) {
+							ajaxFunc.call(this,e, dragSource);
+						}
 					}
-					rf.ajax(this.dropElement[0], originalEvent, {parameters: options});
 				}
 			}
     	})());

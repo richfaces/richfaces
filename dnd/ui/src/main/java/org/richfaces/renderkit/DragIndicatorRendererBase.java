@@ -24,6 +24,10 @@ package org.richfaces.renderkit;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+
+import org.richfaces.component.AbstractDragSource;
 
 
 /**
@@ -39,4 +43,16 @@ import javax.faces.application.ResourceDependency;
     @ResourceDependency(library = "org.richfaces", name = "dnd-indicator.js"),
     @ResourceDependency(library = "org.richfaces", name = "indicator.ecss") })
 public class DragIndicatorRendererBase extends RendererBase {
+
+    
+    public String getDragIndicatorClientId(FacesContext facesContext, AbstractDragSource dragSource) {
+        String indicatorId = dragSource.getDragIndicator();
+        if(!"".equals(indicatorId)) {
+            UIComponent indicator = getUtils().findComponentFor(facesContext, dragSource, indicatorId);
+            if(indicator != null) {
+                indicatorId = indicator.getClientId(facesContext);
+            }
+        }
+        return indicatorId;
+    }
 }
