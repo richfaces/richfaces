@@ -58,21 +58,21 @@
 			<tr>
 				<td><a4j:outputPanel id="drg1" layout="block" styleClass="draggable">
 					<h:outputText value="#{dataBean.dragValue1}"/>
-					<dnd:dragBehavior event="mouseover" type="drg1" dragValue="#{dataBean.dragValue1}"/>
+					<dnd:dragSource type="drg1" dragValue="#{dataBean.dragValue1}"/>
 				</a4j:outputPanel></td>
 				<td><a4j:outputPanel id="drg2" layout="block" styleClass="draggable">
 					<h:outputText value="#{dataBean.dragValue2}"/>
-					<dnd:dragBehavior event="mouseover" type="drg2" dragIndicator="ind" dragValue="#{dataBean.dragValue2}"/>
+					<dnd:dragSource type="drg2" dragIndicator="ind" dragValue="#{dataBean.dragValue2}"/>
 				</a4j:outputPanel></td>
 				<td><a4j:outputPanel id="drg3" layout="block" styleClass="draggable">
 					<h:outputText value="#{dataBean.dragValue3}"/>
-					<dnd:dragBehavior event="mouseover" type="drg3" dragIndicator="ind" dragValue="#{dataBean.dragValue3}"/>
+					<dnd:dragSource type="drg3" dragIndicator="ind" dragValue="#{dataBean.dragValue3}"/>
 				</a4j:outputPanel></td>
 			</tr>
 		</table>
 		
 		<a4j:outputPanel id="drp" layout="block" styleClass="droppable">
-			<dnd:dropBehavior event="mouseover" acceptedTypes="drg1, drg2" listener="#{dataBean.processEvent}" render="grid"></dnd:dropBehavior>
+			<dnd:dropTarget acceptedTypes="drg1, drg2" dropListener="#{dataBean.processEvent}" render="grid"></dnd:dropTarget>
 			<h:dataTable id="grid" var="dropValue" value="#{dataBean.dropValues}">
 				<h:column>
 					<h:outputText value="#{dropValue}"/>
