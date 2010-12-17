@@ -26,13 +26,17 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 
+import org.richfaces.cdk.annotations.Attribute;
+
 /**
  * @author Nick Belaevski
  * 
  */
 public abstract class AbstractActionComponent extends UICommand {
 
+    @Attribute
     public abstract boolean isBypassUpdates();
+
     public abstract void setBypassUpdates(boolean bypassUpdates);
 
     @Override
