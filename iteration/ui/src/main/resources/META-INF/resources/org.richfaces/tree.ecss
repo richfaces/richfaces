@@ -38,7 +38,7 @@
 	margin-left: 16px;
 }
 
-.rf-trn-ico, .rf-trn-hnd, .rf-trn-ldn-fct {
+.rf-trn-ico, .rf-trn-hnd, .rf-trn-hnd-ldn-fct {
 	vertical-align: middle;
 	margin: 0px;
 	cursor: pointer;
