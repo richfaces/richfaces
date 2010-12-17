@@ -37,7 +37,8 @@
 	    increaseSelectedClass: "rf-insl-inc-sel",
 
 	    init: function (id, options, selectedClasses) {
-			jQuery.extend(this, options);
+	    	$superInputNumberSlider.constructor.call(this, id);
+	    	jQuery.extend(this, options);
 	        this.range = this.maxValue - this.minValue;
 	        this.id = id;
 	        this.element = jQuery(this.attachToDom());
@@ -182,7 +183,8 @@
 	    
 	    destroy: function (event) {
 		    jQuery(document).unbind("mousemove", this.__mousemoveHandler);
-			$super.destroy.call(this);
+		    $superInputNumberSlider.destroy.call(this);
 	    }
 	});
+	$superInputNumberSlider = richfaces.ui.InputNumberSlider.$super;
 }(window.RichFaces, jQuery));
