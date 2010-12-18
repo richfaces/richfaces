@@ -401,6 +401,14 @@
                     <name>!gae.home</name>
                 </property>
             </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>com.google.appengine</groupId>
+                    <artifactId>appengine-java-sdk</artifactId>
+                    <version>${gae.version}</version>
+                    <type>zip</type>
+                </dependency>
+            </dependencies>
             <build>
                 <plugins>
                     <plugin>
