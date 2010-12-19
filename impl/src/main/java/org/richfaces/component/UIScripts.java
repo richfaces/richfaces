@@ -50,7 +50,7 @@ public class UIScripts extends UITransient implements ScriptsHolder {
     
     private final List<Object> pageReadyScripts = Lists.newArrayList();
 
-    private String target = "form";
+    private String target = "body";
 
     /* (non-Javadoc)
      * @see org.richfaces.component.ScriptsHolder#getScripts()

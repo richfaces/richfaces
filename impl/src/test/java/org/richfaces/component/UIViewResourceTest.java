@@ -29,10 +29,12 @@ public class UIViewResourceTest {
                 "<html xmlns=\"http://www.w3.org/1999/xhtml\"\n" + 
                 "      xmlns:ui=\"http://java.sun.com/jsf/facelets\"\n" + 
                 "      xmlns:h=\"http://java.sun.com/jsf/html\">"+
+                "<h:body>\n"+
                 "<h:form id=\"helloForm\" >"+
                 "    <h:inputText id=\"input\" value=\"#{test.value}\" />\n" + 
                 "    <h:commandButton id=\"command\" value=\"Ok\" action=\"#{test.action}\"/>\n" + 
                 "</h:form>\n" + 
+                "</h:body>\n" + 
                 "</html>").
                 withResource(FacesEnvironment.FACES_CONFIG_XML, "org/richfaces/component/faces-config.xml").
                 start();

@@ -61,6 +61,8 @@
 		  * @type string
 		  * */
 		EVENT_NAMESPACE_SEPARATOR : ".",
+		
+		MESSAGE_EVENT_TYPE: "onmessage",
 
 		/** 
 		  * Attach an event handler to execute when the DOM is fully loaded.
