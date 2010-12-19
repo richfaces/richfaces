@@ -44,7 +44,7 @@ public class AjaxValidationTest {
     @Test
     public void testRequest() throws Exception {
         HtmlPage page = requestPage();
-        HtmlInput input = hetInput(page);
+        HtmlInput input = getInput(page);
         assertNotNull(input);
 
     }
@@ -66,14 +66,14 @@ public class AjaxValidationTest {
 
     private void submitValueAndCheckMesage(String value, Matcher<String> matcher) throws Exception {
         HtmlPage page = requestPage();
-        HtmlInput input = hetInput(page);
+        HtmlInput input = getInput(page);
         input.setValueAttribute(value);
-        input.fireEvent("keyup");
-        HtmlElement message = page.getElementById("form:message");
+        input.fireEvent("blur");
+        HtmlElement message = page.getElementById("uiMessage");
         assertThat(message.getTextContent(), matcher);
 //        System.out.println(page.asXml());
     }
-    private HtmlInput hetInput(HtmlPage page) {
+    private HtmlInput getInput(HtmlPage page) {
         HtmlForm htmlForm = page.getFormByName("form");
         assertNotNull(htmlForm);
         HtmlInput input = htmlForm.getInputByName("form:text");
@@ -82,7 +82,7 @@ public class AjaxValidationTest {
 
     private HtmlPage requestPage() throws MalformedURLException, IOException {
         HtmlPage page = environment.getPage("/test.jsf");
-//        System.out.println(page.asXml());
+        System.out.println(page.asXml());
         return page;
     }
 

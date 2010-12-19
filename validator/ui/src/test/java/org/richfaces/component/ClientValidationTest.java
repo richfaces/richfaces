@@ -45,17 +45,17 @@ public class ClientValidationTest {
     @Test
     public void testRequest() throws Exception {
         HtmlPage page = requestPage();
-        HtmlInput input = hetInput(page);
+        HtmlInput input = getInput(page);
         assertNotNull(input);
 
     }
 
-    @Test @Ignore
+    @Test
     public void testSubmitTooShortValue() throws Exception {
         submitValueAndCheckMesage("",containsString("Error"));
     }
 
-    @Test @Ignore
+    @Test
     public void testSubmitTooLongValue() throws Exception {
         submitValueAndCheckMesage("123456",containsString("Error"));
     }
@@ -67,14 +67,15 @@ public class ClientValidationTest {
 
     private void submitValueAndCheckMesage(String value, Matcher<String> matcher) throws Exception {
         HtmlPage page = requestPage();
-        HtmlInput input = hetInput(page);
-        input.setValueAttribute(value);
-        input.fireEvent("keyup");
-        HtmlElement message = page.getElementById("form:message");
+        HtmlInput input = getInput(page);
+        page  = (HtmlPage) input.setValueAttribute(value);
+        input.fireEvent("blur");
+        System.out.println(page.asXml());
+        HtmlElement message = page.getElementById("uiMessage");
         assertThat(message.getTextContent(), matcher);
-//        System.out.println(page.asXml());
     }
-    private HtmlInput hetInput(HtmlPage page) {
+
+    private HtmlInput getInput(HtmlPage page) {
         HtmlForm htmlForm = page.getFormByName("form");
         assertNotNull(htmlForm);
         HtmlInput input = htmlForm.getInputByName("form:text");

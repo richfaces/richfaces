@@ -11,7 +11,6 @@
 	$.extend(rf.csv, {
 		RE_DIGITS: /^-?\d+$/,
 		RE_FLOAT: /^(-?\d+)?(\.(\d+)?(e[+-]?\d+)?)?$/,
-		MESSAGE_EVENT_NAME: "onmessage."+rf.Event.RICH_NAMESPACE,
 		// Messages API
 		addMessage: function (messagesObject) {
 			$.extend(_messages, messagesObject);
@@ -30,8 +29,7 @@
 			return {message:message};
 		},
 		sendMessage: function (componentId, message) {
-			rf.Event.fireById(document, MESSAGE_EVENT_NAME, message);
-			rf.Event.fireById(componentId, MESSAGE_EVENT_NAME, message);
+			rf.Event.fire(window.document, rf.Event.MESSAGE_EVENT_TYPE, {'sourceId':componentId, 'message':message});
 		},
 		// Converters API
 		addConverter: function (converterFunctions) {
@@ -86,67 +84,5 @@
 			
 		}
 	});
-	
-	/*
-	// component ids hash that can send messages
-	// each hash item contains array of message component id that receive messages from the component
-	_componentIds = {};
-	// array of message component id that will receive messages from all components
-	_messageComponentIds = {};
-	
-	var messageDispatchers = {};
-	var addDispatcher = function (dispatcherId) {
-	};
-	var removeDispatcher: function (dispatcherId) {
-	};
-
-	rf.MessageDispatcher = function(id) {
-		this.id = id;
-	};
-	rf.BaseComponent.extend(rf.MessageDispatcher);
-	
-	$.extend(rf.MessageDispatcher.prototype, {
-		register: function (messageComponentId, componentIds) {
-			if (!componentIds || componentIds.length==0) {
-				// global message listener
-				_messageComponents.push(messageComponentId);
-			}
-			var messageComponents;
-			for (var i=0;i<componentIds.length;i++) {
-				messageComponents = _components[componentIds[i]];
-				if (!messageComponents) {
-					messageComponents = _components[componentIds[i]] = [];
-				}
-				messageComponents.push(messageComponentId);
-			}
-		},
-		unregister: function (messageComponentId) {
-			var messageComponents;
-			for (var i=0;i<_components.length;i++) {
-				messageComponents = _components[i];
-				if (!messageComponents) {
-					messageComponents = _components[componentIds[i]] = [];
-				}
-				messageComponents.push(messageComponentId);
-			}
-		},
-		send: function (componentId, message) {
-			var messageComponents = _components[componentId];
-			if (messageComponents) {
-				for (var i=0;i<messageComponents.length;i++) {
-					rf.$(messageComponents[id]).update(message);
-				}
-			}
-		}
-	});
-	*/
-	
-	/*
-	 * message.constructor () {
-	 * 		rf.Event.bindById(componentId, "onMessage.RichFaces", onMessage );
-	 * 		rf.Event.bindById(document, "onMessage.RichFaces", onMessage );
-	 * }
-	 * 
-	 */
 	
 })(jQuery, window.RichFaces || (window.RichFaces={}));

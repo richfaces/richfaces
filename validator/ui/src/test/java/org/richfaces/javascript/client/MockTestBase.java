@@ -21,14 +21,15 @@ import com.google.common.collect.ImmutableList.Builder;
 public abstract class MockTestBase {
 
     @Rule
-    public final Qunit qunit = Qunit.builder().loadJsfResource("jquery.js").loadJsfResource("richfaces.js")
-                .loadJsfResource("richfaces-event.js").loadJsfResource("csv.js", "org.richfaces").build();
+    public final Qunit qunit;
+
     protected final RunParameters criteria;
     protected MockFacesEnvironment facesEnvironment;
     protected UIComponent component;
 
     public MockTestBase(RunParameters criteria) {
         this.criteria = criteria;
+        this.qunit = createQunitPage().build();
     }
 
     @Before
@@ -57,6 +58,11 @@ public abstract class MockTestBase {
 
     protected Object getJavaScriptOptions() {
         return criteria.getOptions();
+    }
+
+    protected org.jboss.test.qunit.Qunit.Builder createQunitPage() {
+        return Qunit.builder().loadJsfResource("jquery.js").loadJsfResource("richfaces.js")
+                    .loadJsfResource("richfaces-event.js").loadJsfResource("csv.js", "org.richfaces");
     }
 
     protected abstract String getJavaScriptFunctionName();
