@@ -65,9 +65,13 @@
             <groupId>org.richfaces.ui.input</groupId>
             <artifactId>richfaces-ui-input-ui</artifactId>
         </dependency>
-		<dependency>
+        <dependency>
             <groupId>org.richfaces.ui.dnd</groupId>
             <artifactId>richfaces-ui-dnd-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.richfaces.ui.validator</groupId>
+            <artifactId>richfaces-ui-validator-ui</artifactId>
         </dependency>
         <dependency>
             <groupId>org.richfaces.ui</groupId>
@@ -169,7 +173,10 @@
                                 <configuration>
                                     <classifier>sources</classifier>
 
-                                    <includeGroupIds>${assembly.projects.group}.core, ${assembly.projects.group}.common, ${assembly.projects.group}.misc, ${assembly.projects.group}.iteration, ${assembly.projects.group}.output</includeGroupIds>
+                                    <includeGroupIds>
+                                        ${assembly.projects.group}.core, ${assembly.projects.group}.common, ${assembly.projects.group}.misc, ${assembly.projects.group}.iteration, 
+                                        ${assembly.projects.group}.output, ${assembly.projects.group}.input, ${assembly.projects.group}.dnd, ${assembly.projects.group}.validator
+                                    </includeGroupIds>
                                     <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
                                     <excludeTransitive>true</excludeTransitive>
                                 </configuration>

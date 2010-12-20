@@ -64,6 +64,10 @@
             <groupId>org.richfaces.ui.dnd</groupId>
             <artifactId>richfaces-ui-dnd-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.richfaces.ui.validator</groupId>
+            <artifactId>richfaces-ui-validator-api</artifactId>
+        </dependency>
 
         <!-- for javadoc generation -->
         <dependency>
@@ -144,7 +148,10 @@
                                 <configuration>
                                     <classifier>sources</classifier>
 
-                                    <includeGroupIds>org.richfaces.ui.core, org.richfaces.ui.common, org.richfaces.ui.iteration, org.richfaces.ui.output, org.richfaces.ui.input</includeGroupIds>
+                                    <includeGroupIds>
+                                        org.richfaces.ui.core, org.richfaces.ui.common, org.richfaces.ui.misc, org.richfaces.ui.iteration, 
+                                        org.richfaces.ui.output, org.richfaces.ui.input, org.richfaces.ui.dnd, org.richfaces.ui.validator
+                                    </includeGroupIds>
                                     <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
                                     <excludeTransitive>true</excludeTransitive>
                                 </configuration>
