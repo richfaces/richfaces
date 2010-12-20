@@ -14,14 +14,14 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class MessageTestBase {
 
-    @Rule
-    public final Qunit qunit;
-
     public static final String COMPONENT = "form:component";
 
     public static final String MY_MESSAGE = "form:uiMessage";
 
     public static final String MESSAGE_INIT = "new RichFaces.ui.Message(\"" + MY_MESSAGE + "\", {forComponentId:\"" + COMPONENT + "\"})";
+
+    @Rule
+    public final Qunit qunit;
 
     public MessageTestBase() {
         this.qunit = createQunitPage().build();

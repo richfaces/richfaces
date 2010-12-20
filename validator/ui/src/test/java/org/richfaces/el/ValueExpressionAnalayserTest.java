@@ -1,7 +1,7 @@
 package org.richfaces.el;
 
 
-import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.*;
 import static org.junit.Assert.*;
 
 import javax.el.ELException;

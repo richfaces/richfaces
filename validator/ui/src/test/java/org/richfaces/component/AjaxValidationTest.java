@@ -69,9 +69,9 @@ public class AjaxValidationTest {
         HtmlInput input = getInput(page);
         input.setValueAttribute(value);
         input.fireEvent("blur");
+        System.out.println(page.asXml());
         HtmlElement message = page.getElementById("uiMessage");
         assertThat(message.getTextContent(), matcher);
-//        System.out.println(page.asXml());
     }
     private HtmlInput getInput(HtmlPage page) {
         HtmlForm htmlForm = page.getFormByName("form");

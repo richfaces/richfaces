@@ -36,7 +36,6 @@ import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIMessage;
 import javax.faces.component.UIMessages;
-import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialViewContext;
@@ -48,7 +47,11 @@ import javax.faces.render.RenderKit;
 import javax.faces.validator.BeanValidator;
 import javax.faces.validator.Validator;
 
+import org.ajax4jsf.component.behavior.AjaxBehavior;
 import org.richfaces.application.ServiceTracker;
+import org.richfaces.cdk.annotations.JsfBehavior;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.UIRichMessages;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
@@ -69,6 +72,7 @@ import com.google.common.collect.Lists;
  * @author asmirnov@exadel.com
  * 
  */
+@JsfBehavior(id = "org.richfaces.behavior.ClientValidator", tag = @Tag(name = "validator", handler = "org.richfaces.view.facelets.html.ClientValidatorHandler", type = TagType.Facelets))
 public class ClientValidatorImpl extends AjaxBehavior implements ClientValidatorBehavior {
     
 
@@ -358,6 +362,15 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
                 clearInitialState();
             }
         }
+    }
+    
+
+    /* (non-Javadoc)
+     * @see org.richfaces.component.behavior.ClientValidatorBehavior#isImmediateSet()
+     */
+    public boolean isImmediateSet() {
+        // TODO - implement this method in RichFaces AjaxBehavior
+        return false;
     }
 
 }

@@ -1,6 +1,6 @@
 package org.richfaces.component.behavior;
 
-import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.*;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;

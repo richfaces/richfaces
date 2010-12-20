@@ -98,7 +98,7 @@ public class AjaxHandler extends CustomBehaviorHandler {
 
             BehaviorStack ajaxBehaviors = BehaviorStack.getBehaviorStack(context, true);
             String eventName = getEventName();
-            ajaxBehaviors.pushBehavior(context, ajaxBehavior, AjaxBehavior.BEHAVIOR_ID, eventName);
+            ajaxBehaviors.pushBehavior(context, ajaxBehavior, getBehaviorId(), eventName);
 
             AttachQueueStack attachQueueStack = AttachQueueStack.getStack(context, true);
             AttachQueueInfo attachQueueInfo = new AttachQueueInfo(parent);
@@ -137,6 +137,7 @@ public class AjaxHandler extends CustomBehaviorHandler {
 
         }
     }
+
 
     private void applyNested(FaceletContext ctx, UIComponent parent, AjaxBehavior behavior) {
         if (!ComponentHandler.isNew(parent)) {

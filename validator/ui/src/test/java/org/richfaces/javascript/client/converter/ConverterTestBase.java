@@ -2,14 +2,11 @@ package org.richfaces.javascript.client.converter;
 
 import static org.junit.Assert.*;
 
-
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
 import org.ajax4jsf.javascript.JSFunction;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import org.richfaces.javascript.client.MockTestBase;
 import org.richfaces.javascript.client.RunParameters;
 

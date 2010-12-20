@@ -28,7 +28,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * <p class="changed_added_4_0"></p>

@@ -1,8 +1,7 @@
 package org.richfaces.validator;
 
 
-import static junit.framework.Assert.assertEquals;
-import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.*;
 import static org.junit.Assert.*;
 
 import java.lang.annotation.Annotation;

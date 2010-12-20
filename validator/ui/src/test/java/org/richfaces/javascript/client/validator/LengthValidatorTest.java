@@ -3,8 +3,6 @@
  */
 package org.richfaces.javascript.client.validator;
 
-import static org.easymock.EasyMock.anyObject;
-
 import java.util.List;
 import java.util.Map;
 
