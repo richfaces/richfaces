@@ -47,4 +47,10 @@
         <module>dnd</module>
         <module>validator</module>
   </modules>
+
+  <scm>
+    <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/modules/build/parent/branches/4.0.0.M5</connection>
+    <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/modules/build/parent/branches/4.0.0.M5</developerConnection>
+    <url>http://fisheye.jboss.org/browse/richfaces/modules/build/parent/branches/4.0.0.M5</url>
+  </scm>
 </project>

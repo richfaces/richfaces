@@ -155,10 +155,10 @@
     </profiles>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/misc/dist/richfaces-ui-misc-ui
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/4.0.0.M5/ui/misc/dist/richfaces-ui-misc-ui
         </connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/misc/dist/richfaces-ui-misc-ui
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/4.0.0.M5/ui/misc/dist/richfaces-ui-misc-ui
         </developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/</url>
+        <url>http://fisheye.jboss.org/browse/richfaces/branches/4.0.0.M5/ui/misc/dist/richfaces-ui-misc-ui</url>
     </scm>
 </project>
