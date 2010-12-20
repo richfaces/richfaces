@@ -131,8 +131,8 @@
 	</dependencies>
 
 	<scm>
-		<connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/4.0.0.M5/ui/validator/ui</connection>
-		<developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/4.0.0.M5/ui/validator/ui</developerConnection>
-		<url>http://fisheye.jboss.org/browse/richfaces/branches/4.0.0.M5/ui/validator/ui</url>
+		<connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/validator/ui</connection>
+		<developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/validator/ui</developerConnection>
+		<url>http://fisheye.jboss.org/browse/richfaces</url>
 	</scm>
 </project>
