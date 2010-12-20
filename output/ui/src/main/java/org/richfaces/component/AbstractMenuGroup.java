@@ -33,6 +33,9 @@ public abstract class AbstractMenuGroup extends UIOutput {
     public abstract String getIconFolderDisabled();
     
     @Attribute
+    public abstract String getLabel();    
+    
+    @Attribute
     public abstract String getStyleClass();
 
     @Attribute
