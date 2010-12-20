@@ -40,6 +40,10 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
             <scope>provided</scope>
@@ -295,8 +299,8 @@
                                 <configuration>
                                     <webappDirectory>${project.build.directory}/${project.build.finalName}-jee6</webappDirectory>
                                     <classifier>jee6</classifier>
-                                    <packagingExcludes>WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*</packagingExcludes>
-                                    <warSourceExcludes>WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*</warSourceExcludes>
+                                    <packagingExcludes>WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*</packagingExcludes>
+                                    <warSourceExcludes>WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*</warSourceExcludes>
                                     <webResources>
                                         <resource>
                                             <directory>${basedir}/src/main/java</directory>
