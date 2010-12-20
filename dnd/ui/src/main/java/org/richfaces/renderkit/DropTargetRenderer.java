@@ -33,7 +33,7 @@ public class DropTargetRenderer extends DnDRenderBase {
             Map<String, String> requestParamMap = facesContext.getExternalContext().getRequestParameterMap();
             String dragSourceId = (String) requestParamMap.get("dragSource");
 
-            if(!"".equals(dragSourceId)) {
+            if(dragSourceId !=null && !"".equals(dragSourceId)) {
                 DragSourceContextCallBack dragSourceContextCallBack = new DragSourceContextCallBack();
                 facesContext.getViewRoot().invokeOnComponent(facesContext, dragSourceId, dragSourceContextCallBack);
                 
