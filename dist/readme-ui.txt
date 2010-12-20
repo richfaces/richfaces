@@ -17,6 +17,7 @@ Getting up and running quickly
 	1.7)  annotations.jar from org.richfaces.cdk
 	    - It's optional and only needs to be added if RichFaces components will be 
 	      created/accessed dynamically in your apps actions/listeners. 
+	1.8)  validation-api.jar - if it's not present in application classpath (already included into Java EE 6 servers) 	  
 
 For optimal performance it's recommended to add one of these caching frameworks to application classpath: EhCache, JBoss Cache, OsCache. 	
 
