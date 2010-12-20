@@ -33,7 +33,11 @@
                     </webResources>
                 </configuration>
             </plugin>
-        </plugins>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+            </plugin>
+		</plugins>
     </build>
 
 
@@ -47,22 +51,14 @@
         <dependency>
         	<groupId>org.richfaces.ui.validator</groupId>
         	<artifactId>richfaces-ui-validator-ui</artifactId>
-        	<version>4.0.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-        	<groupId>org.richfaces.ui.validator</groupId>
-        	<artifactId>richfaces-ui-validator-impl</artifactId>
-        	<version>4.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
         	<groupId>org.richfaces.ui.validator</groupId>
         	<artifactId>richfaces-ui-validator-api</artifactId>
-        	<version>4.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
         	<groupId>javax.validation</groupId>
         	<artifactId>validation-api</artifactId>
-        	<version>1.0.0.GA</version>
         </dependency>
     </dependencies>
 </project>
