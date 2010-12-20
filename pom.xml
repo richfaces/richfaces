@@ -44,7 +44,7 @@
         <module>output</module>
         <module>input</module>
         <module>dist</module>
-	<module>dnd</module>
+        <module>dnd</module>
         <module>validator</module>
   </modules>
 </project>
