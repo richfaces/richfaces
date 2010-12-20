@@ -34,13 +34,13 @@ public class MessageTestBase {
     protected Builder createQunitPage() {
         return Qunit.builder().emulate(BrowserVersion.FIREFOX_3_6).loadJsfResource("jquery.js").loadJsfResource("richfaces.js")
         .loadJsfResource("richfaces-event.js").loadJsfResource("richfaces-base-component.js").
-        loadJsfResource("csv.js", "org.richfaces").loadJsfResource("message.js", "org.richfaces").content(/*"<form id=\"form\" name=\"form\" method=\"post\" action=\"/client-test.jsf\" enctype=\"application/x-www-form-urlencoded\">\n" + */
+        loadJsfResource("csv.js", "org.richfaces").loadJsfResource("message.js", "org.richfaces").content("<form id=\"form\" name=\"form\" method=\"post\" action=\"/client-test.jsf\" enctype=\"application/x-www-form-urlencoded\">\n" + 
         		"      <input type=\"hidden\" name=\"form\" value=\"form\"/>\n" + 
         		"      <input id=\"form:text\" type=\"text\" name=\"form:text\" value=\"fooValue\" onblur=\"form_3Atext_3Av(&quot;form:text&quot;,this,event)\"/>\n" + 
         		"      <span id=\"form:out\">\n" + 
         		"        fooValue\n" + 
         		"      </span><div id=\"foo\" ><ul id=\"" + MY_MESSAGE + "\">"+getMessageContent()+"</ul></div><input type=\"hidden\" name=\"javax.faces.ViewState\" id=\"javax.faces.ViewState\" value=\"4262028796446907996:-2607792463910755035\" autocomplete=\"off\"/>\n" 
-        				/*+ "    </form>"*/);
+        				+ "    </form>");
     }
 
     
