@@ -1,6 +1,6 @@
 RichFaces - Ajax enabled JSF 2.0 component library
 =========================================================
-Version 4.0.0.M3
+Version 4.0.0.M5
 
 This software is distributed under the terms of the FSF Lesser Gnu Public License (see lgpl.txt). 
 
@@ -8,10 +8,10 @@ Getting up and running quickly
 -------------------------------
 
 1) Put RichFaces libraries and its dependencies in your application libraries folder:
-	1.1)  richfaces-core-api-4.0.0.20101004-M3.jar
-	1.2)  richfaces-core-impl-4.0.0.20101004-M3.jar
-	1.3)  richfaces-components-api-4.0.0.20101004-M3.jar
-	1.4)  richfaces-components-ui-4.0.0.20101004-M3.jar
+	1.1)  richfaces-core-api.jar
+	1.2)  richfaces-core-impl.jar
+	1.3)  richfaces-components-api.jar
+	1.4)  richfaces-components-ui.jar
 	1.5)  sac-1.3, cssparser-0.9.5 - required for components CSS work
 	1.6)  google-guava-r06 - core runtime dependency.
 	1.7)  annotations.jar from org.richfaces.cdk
@@ -21,13 +21,14 @@ Getting up and running quickly
 For optimal performance it's recommended to add one of these caching frameworks to application classpath: EhCache, JBoss Cache, OsCache. 	
 
 2) As opposed to the previous 3.x.y versions of RichFaces, no special configuration steps are necessary. 
-You don't need to modify web.xml or faces-config.xml
+You don't need to modify web.xml or faces-config.xml (except a4j:push component that requires additional configuration in web.xml; 
+please refer to the documentation)
 
 3) Add RichFaces namespaces/taglibs declaration to your VDL/XHTML pages which will use RichFaces components
    Use xmlns:a4j="http://richfaces.org/a4j" namespace for core components
    Use xmlns:rich="http://richfaces.org/rich" namespace for rich components
 
-4) Add one of the available RichFaces 4.0.M3 components to your page and try it!
+4) Add one of the available RichFaces 4.0.M5 components to your page and try it!
 4.1) Take a look at the RichFaces examples for assistance with usage.
 
 Available Components/Behaviors/Tags/Functions
@@ -58,9 +59,9 @@ Iteration:
 ---------------------------------
 rich:dataTable
 rich:extendedDataTable
-rich:subTable
+rich:collapsibleSubTable
 rich:dataScroller
-rich:subTableToggleControl
+rich:collapsibleSubTableToggler
 rich:dataGrid
 rich:list
 rich:columnGroup
@@ -95,12 +96,12 @@ rich:accordionItem
 rich:progressBar
 rich:tooltip
 rich:message
-rich:messages
 
 ---------------------------------
 Menus:
 ---------------------------------
 rich:toolbar
+rich:toolbarGroup
 rich:dropDownMenu
 rich:menuGroup
 rich:menuItem
@@ -128,11 +129,12 @@ rich:tree
 rich:treeNode
 rich:treeModelAdaptor
 rich:treeModelRecursiveAdaptor
+rich:treeToggleListener
+rich:treeSelectionChangeListener
 
 ---------------------------------
 Drag'n'Drop:
 ---------------------------------
-NOTE: that names really could be renaimed. so refer to jira's and docs for more info if having problems with name
 rich:dragSource
 rich:dropTarget
 rich:dragIndicator
