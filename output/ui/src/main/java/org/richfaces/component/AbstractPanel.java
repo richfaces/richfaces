@@ -27,7 +27,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-
+import org.richfaces.cdk.annotations.Attribute; 
 /**
  * JSF component class
  * 
@@ -38,8 +38,17 @@ import org.richfaces.cdk.annotations.TagType;
 )
 public abstract class AbstractPanel extends UIComponentBase {
     
-    private static final String COMPONENT_FAMILY = "org.richfaces.Panel";
+    private static final String COMPONENT_FAMILY = "org.richfaces.Panel";    
 
+    @Attribute
+    public abstract String getHeader();
+    
+    @Attribute
+    public abstract String getHeaderClass();
+    
+    @Attribute
+    public abstract String getBodyClass();
+   
     public boolean getRendersChildren() {
         return true;
     }
