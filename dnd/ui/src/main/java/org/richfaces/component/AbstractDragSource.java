@@ -24,7 +24,6 @@ package org.richfaces.component;
 
 import javax.faces.component.UIComponentBase;
 
-import org.ajax4jsf.component.AjaxComponent;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -42,7 +41,7 @@ import org.richfaces.cdk.annotations.Tag;
         renderer = @JsfRenderer(type = "org.richfaces.DragSourceRenderer"),
         tag = @Tag(name="dragSource")
 )
-public abstract class AbstractDragSource extends UIComponentBase implements AjaxComponent {
+public abstract class AbstractDragSource extends UIComponentBase {
     
     public static final String COMPONENT_TYPE = "org.richfaces.DragSource";
 

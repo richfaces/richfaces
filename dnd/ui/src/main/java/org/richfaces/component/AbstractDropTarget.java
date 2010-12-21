@@ -22,6 +22,7 @@
 
 package org.richfaces.component;
 
+import javax.faces.component.UIComponentBase;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 
@@ -45,7 +46,7 @@ import org.richfaces.event.DropListener;
         renderer = @JsfRenderer(type = "org.richfaces.DropTargetRenderer"),
         tag = @Tag(name="dropTarget" ,handler="org.richfaces.view.facelets.DropHandler", type = TagType.Facelets)
 )
-public abstract class AbstractDropTarget extends AbstractActionComponent {
+public abstract class AbstractDropTarget extends UIComponentBase {
     
     public static final String COMPONENT_TYPE = "org.richfaces.DropTarget";
 
