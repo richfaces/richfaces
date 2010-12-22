@@ -462,14 +462,14 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         RenderKitUtils.addToScriptHash(map, WEEK_DAY_LABELS_SHORT, weekDayLabelsShort);
 
         String [] monthLabels = RenderKitUtils.asArray(calendarComponent.getMonthLabels());
-        if (monthLabels == null) {
+        if (isEmptyArray(monthLabels)) {
             monthLabels = dateFormat.getMonths();
             monthLabels = shiftDates(monthMin, monthMax, monthLabels);
         }
         RenderKitUtils.addToScriptHash(map, MONTH_LABELS, monthLabels);
 
         String [] monthLabelsShort = RenderKitUtils.asArray(calendarComponent.getMonthLabelsShort());
-        if (monthLabelsShort == null) {
+        if (isEmptyArray(monthLabelsShort)) {
             monthLabelsShort = dateFormat.getShortMonths();
             monthLabelsShort = shiftDates(monthMin, monthMax, monthLabelsShort);
         }
@@ -498,6 +498,17 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
                     + MessageUtil.getLabel(facesContext, calendarComponent) + ". Default value was applied.");
         }
         return map;
+    }
+    
+    private boolean isEmptyArray(String[] array) {
+        if (array != null) {
+            for (String str : array) {
+                if (str.trim().length() > 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
     
     public String getStyleWithZindex(FacesContext facesContext, UIComponent component) {
