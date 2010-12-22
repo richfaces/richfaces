@@ -53,11 +53,12 @@
            				case rf.KEYS.ESC: 
 	       					e.preventDefault();
            					this.cancel(); 
+                   			this.onblur(e);
            					break;
            				case rf.KEYS.RETURN:
 	       					e.preventDefault();
            					this.save(); 
-           					return false;
+                   			this.onblur(e);
            					break;
            			}
     			},
