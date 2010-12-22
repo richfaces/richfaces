@@ -54,6 +54,7 @@ public class BeanValidatorServiceConstrainsTest {
     @Before
     public void setUp() throws Exception {
         RichFacesBeanValidatorFactory validatorFactory = new RichFacesBeanValidatorFactory();
+        validatorFactory.init();
         validatorService = new BeanValidatorServiceImpl(analayser,validatorFactory);
         expect(environment.getFacesContext().getViewRoot()).andStubReturn(viewRoot);
         expect(viewRoot.getLocale()).andStubReturn(Locale.ENGLISH);

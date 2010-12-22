@@ -25,15 +25,12 @@ package org.richfaces.application;
 
 import java.util.Map;
 
-import javax.validation.ValidationException;
-
 import org.richfaces.el.ValueExpressionAnalayserImpl;
 import org.richfaces.javascript.ClientScriptService;
 import org.richfaces.javascript.ClientScriptServiceImpl;
 import org.richfaces.javascript.ClientServiceConfigParser;
 import org.richfaces.javascript.LibraryFunction;
 import org.richfaces.validator.BeanValidator;
-import org.richfaces.validator.BeanValidatorFactory;
 import org.richfaces.validator.BeanValidatorService;
 import org.richfaces.validator.BeanValidatorServiceImpl;
 import org.richfaces.validator.ConverterServiceImpl;
@@ -41,6 +38,7 @@ import org.richfaces.validator.DummyBeanValidatorService;
 import org.richfaces.validator.FacesConverterService;
 import org.richfaces.validator.FacesValidatorService;
 import org.richfaces.validator.FacesValidatorServiceImpl;
+import org.richfaces.validator.InitializationException;
 import org.richfaces.validator.NullValidator;
 import org.richfaces.validator.ObjectValidator;
 import org.richfaces.validator.RichFacesBeanValidatorFactory;
@@ -80,10 +78,11 @@ public class ValidatorModule implements Module {
         BeanValidatorService service ;
         ObjectValidator validator;
         try {
-            BeanValidatorFactory validatorFactory = new RichFacesBeanValidatorFactory();
+            RichFacesBeanValidatorFactory validatorFactory = new RichFacesBeanValidatorFactory();
+            validatorFactory.init();
             service = new BeanValidatorServiceImpl(new ValueExpressionAnalayserImpl(), validatorFactory);
             validator = new BeanValidator(validatorFactory);
-        } catch (ValidationException e) {
+        } catch (InitializationException e) {
             // JSR-303 is available but not initialised.
             service = new DummyBeanValidatorService();
             validator = new NullValidator();
