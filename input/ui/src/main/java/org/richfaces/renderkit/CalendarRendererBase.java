@@ -492,10 +492,9 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         
         if (0 <= day && day <= 6) {
             RenderKitUtils.addToScriptHash(map, FIRST_DAY_WEEK, day);
-        } else if (day != Integer.MIN_VALUE) {
-            facesContext.getExternalContext().log(
-                day + " value of firstWeekDay attribute is not a legal one for component: "
-                    + MessageUtil.getLabel(facesContext, calendarComponent) + ". Default value was applied.");
+        } else {
+            throw new IllegalArgumentException(day + " value of firstWeekDay attribute is not a legal one for component: "
+                + MessageUtil.getLabel(facesContext, calendarComponent));
         }
         return map;
     }
