@@ -234,6 +234,10 @@ public class PartialViewContextImpl extends PartialViewContext {
         }
 
         if (phaseId == PhaseId.APPLY_REQUEST_VALUES) {
+            //fix for MyFaces
+            ExternalContext externalContext = facesContext.getExternalContext();
+            externalContext.setResponseCharacterEncoding(externalContext.getRequestCharacterEncoding());
+            
             PartialResponseWriter writer = pvc.getPartialResponseWriter();
             facesContext.setResponseWriter(writer);
         }
