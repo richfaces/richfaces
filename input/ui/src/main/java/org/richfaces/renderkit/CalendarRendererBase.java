@@ -448,14 +448,14 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         int monthMin = calendar.getActualMinimum(Calendar.MONTH);
 
         String [] weekDayLabels = RenderKitUtils.asArray(calendarComponent.getWeekDayLabels());
-        if (weekDayLabels == null) {
+        if (isEmptyArray(weekDayLabels)) {
             weekDayLabels = dateFormat.getWeekdays();
             weekDayLabels = shiftDates(minimum, maximum, weekDayLabels);
         }
         RenderKitUtils.addToScriptHash(map, WEEK_DAY_LABELS, weekDayLabels);
 
         String [] weekDayLabelsShort = RenderKitUtils.asArray(calendarComponent.getWeekDayLabelsShort());
-        if (weekDayLabelsShort == null) {
+        if (isEmptyArray(weekDayLabelsShort)) {
             weekDayLabelsShort = dateFormat.getShortWeekdays();
             weekDayLabelsShort = shiftDates(minimum, maximum, weekDayLabelsShort);
         }
