@@ -30,11 +30,9 @@ import javax.el.ELContext;
 import javax.el.ELException;
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
-import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UpdateModelException;
-import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
@@ -100,9 +98,9 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
 
     public static final String SELECTION_META_COMPONENT_ID = "selection";
 
-    private static final String DEFAULT_TREE_NODE_CREATED = AbstractTree.class.getName() + ":DEFAULT_TREE_NODE_CREATED";
-
-    private static final String DEFAULT_TREE_NODE_ID = "__defaultTreeNode";
+    public static final String DEFAULT_TREE_NODE_ID = "__defaultTreeNode";
+    
+    public static final String DEFAULT_TREE_NODE_FACET_NAME = DEFAULT_TREE_NODE_ID;
 
     private static final class MatchingTreeNodePredicate implements Predicate<UIComponent> {
 
@@ -272,52 +270,22 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         }
     }
     
-    private boolean isDefaultTreeNode(AbstractTreeNode node) {
-        return DEFAULT_TREE_NODE_ID.equals(node.getId());
-    }
-    
     public AbstractTreeNode findTreeNodeComponent() {
-        FacesContext facesContext = getFacesContext();
-
         String nodeType = getNodeType();
         
         Iterator<UIComponent> nodesItr = findMatchingTreeNodeComponent(nodeType, currentComponent);
-        boolean hasOnlyDefaultNodes = true;
-        while (nodesItr.hasNext()) {
-            
-            AbstractTreeNode node = (AbstractTreeNode) nodesItr.next();
-            
-            if (!isDefaultTreeNode(node)) {
-                hasOnlyDefaultNodes = false;
-            }
-            
-            if (!node.isRendered()) {
-                continue;
-            }
-            
-            if (!isDefaultTreeNode(node) || hasOnlyDefaultNodes) {
-                return node;
-            }
-        }
-        
-        if (Strings.isNullOrEmpty(nodeType)) {
-            if (getAttributes().put(DEFAULT_TREE_NODE_CREATED, Boolean.TRUE) != null) {
-                return null;
+        if (nodesItr.hasNext()) {
+            while (nodesItr.hasNext()) {
+                
+                AbstractTreeNode node = (AbstractTreeNode) nodesItr.next();
+                
+                if (node.isRendered()) {
+                    return node;
+                }
             }
 
-            //TODO default TreeNode is created when getRowKey() == null but it's not used for presentational purposes
-            Application application = facesContext.getApplication();
-            AbstractTreeNode treeNode = (AbstractTreeNode) application.createComponent(AbstractTreeNode.COMPONENT_TYPE);
-            treeNode.setId(DEFAULT_TREE_NODE_ID);
-
-            getChildren().add(treeNode);
-
-            UIComponent text = application.createComponent(HtmlOutputText.COMPONENT_TYPE);
-            text.setValueExpression("value", application.getExpressionFactory().createValueExpression(facesContext.getELContext(), 
-                "#{" + getVar() + "}", String.class));
-            treeNode.getChildren().add(text);
-
-            return treeNode;
+        } else if (Strings.isNullOrEmpty(nodeType)) {
+            return (AbstractTreeNode) getFacet(DEFAULT_TREE_NODE_FACET_NAME);
         }
 
         return null;
@@ -601,5 +569,5 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         setupCurrentComponent();
         super.restoreChildState(facesContext);
     }
-    
+
 }
