@@ -117,7 +117,7 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
     public abstract Collection<Object> getSelection();
 
     @Attribute
-    public abstract Collection<?> getSortPriority();
+    public abstract Collection<Object> getSortPriority();
     
     @Attribute
     public abstract SortMode getSortMode();

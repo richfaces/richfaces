@@ -24,8 +24,7 @@ package org.richfaces.renderkit;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Map;
 
 import javax.el.ELContext;
@@ -95,7 +94,13 @@ public abstract class SortingFilteringRowsRenderer extends AbstractRowsRenderer 
     }
     
     protected void decodeSorting(FacesContext context, UIDataTableBase dataTableBase, String value) {
-        List<Object> sortPriority = new LinkedList<Object>();
+        
+        Collection<Object> sortPriority = dataTableBase.getSortPriority();
+        
+        if(sortPriority == null) {
+            sortPriority = new LinkedHashSet<Object>();
+        }
+        
         String[] values = value.split(SEPARATOR);
         if (Boolean.parseBoolean(values[2]) || SortMode.single.equals(dataTableBase.getSortMode())) {
             for (Iterator<UIComponent> iterator = dataTableBase.columns(); iterator.hasNext();) {
@@ -109,10 +114,10 @@ public abstract class SortingFilteringRowsRenderer extends AbstractRowsRenderer 
             }
         } else {
             updateSortOrder(context, dataTableBase.findComponent(values[0]), values[1]);
-            Collection<?> priority = dataTableBase.getSortPriority();
-            if (priority != null) {
-                priority.remove(values[0]);
-                sortPriority.addAll(priority);
+            sortPriority = dataTableBase.getSortPriority();
+            if (sortPriority != null) {
+                sortPriority.remove(values[0]);
+                sortPriority.addAll(sortPriority);
             }
             sortPriority.add(values[0]);
         }
