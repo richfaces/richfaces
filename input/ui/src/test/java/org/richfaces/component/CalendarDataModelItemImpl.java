@@ -54,5 +54,21 @@ public class CalendarDataModelItemImpl implements CalendarDataModelItem {
     
     public void setStyleClass(String styleClass) {
         this.styleClass = styleClass;
+    }
+
+    public Object getData() {
+        return null;
+    }
+
+    public boolean hasToolTip() {
+        return false;
+    }
+
+    public Object getToolTip() {
+        return null;
+    }
+
+    public int getDay() {
+        return 0;
     }    
 }

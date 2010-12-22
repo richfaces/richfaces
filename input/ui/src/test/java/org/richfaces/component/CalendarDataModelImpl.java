@@ -61,4 +61,8 @@ public class CalendarDataModelImpl implements CalendarDataModel {
 
 		return item;
 	}
+
+    public Object getToolTip(Date date) {
+        return null;
+    }
 }

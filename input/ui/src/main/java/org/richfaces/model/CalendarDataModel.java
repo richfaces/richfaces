@@ -36,5 +36,10 @@ public interface CalendarDataModel {
      * This method will be called in Ajax mode when Calendar renders new page.
      * */
     CalendarDataModelItem[] getData(Date[] dateArray);
-
+    
+    /**
+     * @return tool tip when it's used in "single" mode
+     * This method used when tool tips are displayed in "single" mode
+     * */
+    public Object getToolTip(Date date);    
 }
