@@ -112,7 +112,7 @@ public class RichFunctionTest {
     
     @Before
     public void setUp() throws Exception {
-        environment = MockFacesEnvironment.createEnvironment();
+        environment = MockFacesEnvironment.createNiceEnvironment();
 
         facesContext = environment.getFacesContext();
         expect(facesContext.getAttributes()).andStubReturn(new HashMap<Object, Object>());
