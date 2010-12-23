@@ -53,25 +53,22 @@ public final class CalendarHelper {
         if (date == null) {
             return null;
         }
-
         Date value = null;
-
+        Converter converter = calendar.getConverter();
+        if (converter == null) {
+            Application application = facesContext.getApplication();
+            converter = application.createConverter(date.getClass());
+        }
         if (date instanceof Date) {
             value = (Date) date;
-        } else if (date instanceof String) {
-            value = convertStringToDate(facesContext, calendar, (String) date);
         } else if (date instanceof Calendar) {
             value = ((Calendar) date).getTime();
-        } else {
-            Converter converter = calendar.getConverter();
-            if (converter == null) {
-                Application application = facesContext.getApplication();
-                converter = application.createConverter(date.getClass());
-                if (converter == null) {
-                    throw new FacesException("Wrong attibute type or there is no converter for custom attibute type");
-                }
-            }
+        } else if (converter != null){
             value = convertStringToDate(facesContext, calendar, converter.getAsString(facesContext, calendar, date));
+        } else if (date instanceof String) {
+            value = convertStringToDate(facesContext, calendar, (String) date);
+        } else {
+            throw new FacesException("Wrong attibute type or there is no converter for custom attibute type");
         }
 
         return value;

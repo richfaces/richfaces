@@ -86,7 +86,7 @@
 				new RichFaces.ui.Calendar("#{clientId}", "#{getAsLocale(facesContext, component).toString()}",
 					#{toScriptArgs(options)}).load(#{writePreloadBody(facesContext, component)}); 
 				
-			--></script>
+		    </script>
 		</span>
 		</span>
 	</cc:implementation>
