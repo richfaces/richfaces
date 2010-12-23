@@ -32,5 +32,14 @@ public abstract class AbstractSelect extends AbstractSelectComponent {
     
     @Attribute(defaultValue="true")
     public abstract boolean isShowButton();
+    
+    @Attribute(defaultValue="20px")
+    public abstract String getMinListHeight();
+    
+    @Attribute(defaultValue="100px")
+    public abstract String getMaxListHeight();
+
+    @Attribute(defaultValue="auto")
+    public abstract String getListHeight();
 
 }

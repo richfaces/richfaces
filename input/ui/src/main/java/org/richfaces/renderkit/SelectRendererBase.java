@@ -30,6 +30,7 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import org.richfaces.component.AbstractSelect;
 import org.richfaces.component.AbstractSelectComponent;
 
 /**
@@ -60,6 +61,40 @@ public class SelectRendererBase extends InputRendererBase {
 
     public String getSelectInputLabel(FacesContext facesContext, UIComponent component) {
         return SelectHelper.getSelectInputLabel(facesContext, component);
+    }
+    
+    public String getListWidth(UIComponent component) {
+        AbstractSelect select = (AbstractSelect)component;
+        String width = select.getListWidth();
+        return (width != null && width.trim().length() != 0) ? ("width: " + width) : "";
+    }
+    
+    public String encodeHeightAndWidth(UIComponent component) {
+        AbstractSelect select = (AbstractSelect)component;
+        
+        String height = select.getListHeight();
+        if(!"auto".equals(height)) {
+            height = (height != null && height.trim().length() != 0) ? ("height: " + height) : "";
+        } else {
+            String minHeight = select.getMinListHeight();
+            minHeight = (minHeight != null && minHeight.trim().length() != 0) ? ("min-height: " + minHeight) : "";
+
+            String maxHeight = select.getMaxListHeight();
+            maxHeight = (maxHeight != null && maxHeight.trim().length() != 0) ? ("max-height: " + maxHeight) : "";
+            height = concatStyles(minHeight, maxHeight);
+        }
+
+        String width = select.getListWidth();
+        width = (width != null && width.trim().length() != 0) ? ("width: " + width) : "";
+
+        return concatStyles(height, width);
+    }
+    
+    public String getListCss(UIComponent component) {
+        AbstractSelect inplaceSelect = (AbstractSelect)component;
+        String css = inplaceSelect.getListClass();
+        css = (css != null) ? concatClasses("rf-sel-lst-cord", css) : "rf-sel-lst-cord";
+        return css; 
     }
     
     public String getSelectLabel(FacesContext facesContext, UIComponent component) {

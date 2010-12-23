@@ -47,7 +47,7 @@
                 </c:if>
             </div>
 
-            <div id="#{clientId}List" class="rf-sel-lst-cord">
+            <div id="#{clientId}List" class="#{getListCss(component)}">
 				<cdk:call expression="renderListHandlers(facesContext, component);"/>
                 <div class="rf-sel-shdw">
                     <div class="rf-sel-shdw-t"></div>
@@ -56,7 +56,7 @@
                     <div class="rf-sel-shdw-b"></div>
 
                     <div class="rf-sel-lst-dcrtn">
-                    	<div class="rf-sel-lst-scrl">
+                    	<div class="rf-sel-lst-scrl" style="#{encodeHeightAndWidth(component)}">
 	                        <div id="#{clientId}Items" >
 								<cdk:call expression="encodeItems(facesContext, component, clientSelectItems);"/>
 							</div>
@@ -67,9 +67,8 @@
             <script type="text/javascript">
 				<cdk:scriptObject name="options">
                     <cdk:scriptOption name="items" value="#{clientSelectItems}" />
-                    <cdk:scriptOption name="itemCss" value="#{concatClasses('rf-sel-opt', component.attributes['itemClass'])}" />
+                    <cdk:scriptOption name="itemCss" value="rf-sel-opt" />
                     <cdk:scriptOption name="selectItemCss" value="#{concatClasses('rf-sel-sel', component.attributes['selectItemClass'])}" />
-                    <cdk:scriptOption name="listCss" value="#{concatClasses('rf-sel-lst-cord', component.attributes['listClass'])}" />
                     <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onblur onselectitem onfocus" wrapper="eventHandler"/>
 					<cdk:scriptOption attributes="showControl defaultLabel enableManualInput selectFirst" />
                 </cdk:scriptObject>
