@@ -79,12 +79,12 @@ if (!window.RichFaces) {
 			var elements = e.getElementsByTagName("*");
 			if (elements.length) {
 				jQuery.cleanData(elements);
-				jQuery.cleanData([e]);
 				jQuery.each(elements, function(index) {
 					richfaces.cleanComponent(this);
 				});
-				richfaces.cleanComponent(e);
 			}
+			jQuery.cleanData([e]);
+			richfaces.cleanComponent(e);
 		}
 	};
 
