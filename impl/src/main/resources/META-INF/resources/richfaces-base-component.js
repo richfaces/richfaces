@@ -298,3 +298,35 @@
 	})(params));
 
 })(jQuery, window.RichFaces || (window.RichFaces={}));
+
+// RichFaces Base class for ui components
+(function($, rf) {
+
+	rf.ui = rf.ui || {};
+	
+	// Constructor definition
+	rf.ui.Base = function(componentId, options, defaultOptions) {
+		this.namespace = "."+rf.Event.createNamespace(this.name, componentId);
+		// call constructor of parent class
+		$super.constructor.call(this, componentId);
+		this.options = $.extend(this.options, defaultOptions, options);
+		this.attachToDom();
+		this.__bindEventHandlers();
+	};
+
+	// Extend component class and add protected methods from parent class to our container
+	rf.BaseComponent.extend(rf.ui.Base);
+
+	// define super class link
+	var $super = rf.ui.Base.$super;
+
+	$.extend(rf.ui.Base.prototype, {
+		__bindEventHandlers: function () {
+		},
+		destroy: function () {
+			rf.Event.unbind(this.id, this.namespace);
+			$super.destroy.call(this);
+		}
+	});
+	
+})(jQuery, window.RichFaces || (window.RichFaces={}));
