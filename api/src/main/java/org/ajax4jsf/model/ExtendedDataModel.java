@@ -53,18 +53,6 @@ public abstract class ExtendedDataModel<E> extends DataModel<E> {
     public abstract Object getRowKey();
 
     /**
-     * Iteration component can support save data for use at decoding/validation/update phases to avoid
-     * unnessesary calls to original models,
-     * for example - to avoid requests to database until all data is validated.
-     * @return
-     */
-    public SerializableDataModel getSerializableModel(Range range) {
-
-        // By default, model not serializable.
-        return null;
-    }
-
-    /**
      * Iterate over model by "visitor" pattern, for given range
      * @param context current JSF context.
      * @param visitor instance of {@link DataVisitor}, for process each row.
