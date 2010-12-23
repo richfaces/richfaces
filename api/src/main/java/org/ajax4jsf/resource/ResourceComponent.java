@@ -25,7 +25,7 @@ package org.ajax4jsf.resource;
 
 import java.util.Date;
 
-import javax.faces.el.MethodBinding;
+import javax.el.MethodExpression;
 
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)
@@ -113,14 +113,20 @@ public interface ResourceComponent {
     public abstract void setValue(Object newvalue);
 
     /**
-     * Get El binding to  method in user bean to send resource. Method will called with two parameters - restored data object and servlet output stream.
-     * @return
+     * Get MethodExpression to method in user bean to send resource. Method will
+     * called with two parameters - restored data object and servlet output
+     * stream.
+     *
+     * @return MethodExpression
      */
-    public abstract MethodBinding getCreateContent();
+    public abstract MethodExpression getCreateContent();
 
     /**
-     * Set El binding to  method in user bean to send resource. Method will called with two parameters - restored data object and servlet output stream.
-     * @param newvalue
+     * Set MethodExpression to method in user bean to send resource. Method will
+     * called with two parameters - restored data object and servlet output
+     * stream.
+     *
+     * @param newvalue - new MethodExpression value
      */
-    public abstract void setCreateContent(MethodBinding newvalue);
+    public abstract void setCreateContent(MethodExpression newvalue);
 }
