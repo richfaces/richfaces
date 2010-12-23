@@ -34,6 +34,7 @@ import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -43,7 +44,7 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
-import org.richfaces.el.util.ELUtils;
+import org.richfaces.el.GenericsIntrospectionService;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
 /**
@@ -221,7 +222,7 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
         ValueExpression expression = this.getValueExpression("value");
 
         if (expression != null) {
-            Class<?> containerClass = ELUtils.getContainerClass(context, expression);
+            Class<?> containerClass = ServiceTracker.getService(context, GenericsIntrospectionService.class).getContainerClass(context, expression);
 
             converter = getConverterForType(context, containerClass);
         }
