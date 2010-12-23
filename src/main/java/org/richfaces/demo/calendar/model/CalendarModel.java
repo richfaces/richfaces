@@ -51,4 +51,10 @@ public class CalendarModel implements CalendarDataModel {
 
         return modelItems;
     }
+
+	@Override
+	public Object getToolTip(Date date) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
