@@ -23,9 +23,6 @@
             <system-event-class>javax.faces.event.PreRenderViewEvent</system-event-class>
         </system-event-listener>
 	</application>
-  <!-- lifecycle>
-  	<phase-listener>org.ajax4jsf.event.AjaxPhaseListener</phase-listener>
-  </lifecycle -->
     <managed-bean>
        <managed-bean-name>a4j</managed-bean-name>
        <managed-bean-class>org.richfaces.VersionBean</managed-bean-class>

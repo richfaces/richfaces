@@ -21,24 +21,25 @@
 
 
 
-package org.ajax4jsf.io.parser;
+package org.ajax4jsf.io;
 
 import junit.framework.TestCase;
 
-import org.ajax4jsf.io.ByteBuffer;
-import org.ajax4jsf.io.FastBufferOutputStream;
+import org.ajax4jsf.io.CharBuffer;
+import org.ajax4jsf.io.FastBufferReader;
+import org.ajax4jsf.io.FastBufferWriter;
 
 /**
  * @author Nick Belaevski
  * @since 3.3.0
  */
-public class FastBufferOutputStreamTest extends TestCase {
+public class FastBufferWriterTest extends TestCase {
 
     /**
-     * Test method for {@link org.ajax4jsf.io.FastBufferOutputStream#reset()}.
+     * Test method for {@link org.ajax4jsf.io.FastBufferWriter#reset()}.
      */
     public void testResetOneBuffer() throws Exception {
-        FastBufferOutputStream stream = new FastBufferOutputStream(256);
+        FastBufferWriter stream = new FastBufferWriter(256);
 
         for (int i = 0; i < 255; i++) {
             stream.write(i);
@@ -46,7 +47,7 @@ public class FastBufferOutputStreamTest extends TestCase {
 
         assertEquals(255, stream.getLength());
 
-        ByteBuffer firstBuffer = stream.getFirstBuffer();
+        CharBuffer firstBuffer = stream.getFirstBuffer();
 
         assertNull(firstBuffer.getNext());
         assertNull(firstBuffer.getPrevious());
@@ -59,10 +60,10 @@ public class FastBufferOutputStreamTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.ajax4jsf.io.FastBufferOutputStream#reset()}.
+     * Test method for {@link org.ajax4jsf.io.FastBufferWriter#reset()}.
      */
     public void testResetTwoBuffers() throws Exception {
-        FastBufferOutputStream stream = new FastBufferOutputStream(256);
+        FastBufferWriter stream = new FastBufferWriter(256);
 
         for (int i = 0; i < 257; i++) {
             stream.write(i);
@@ -70,7 +71,7 @@ public class FastBufferOutputStreamTest extends TestCase {
 
         assertEquals(257, stream.getLength());
 
-        ByteBuffer firstBuffer = stream.getFirstBuffer();
+        CharBuffer firstBuffer = stream.getFirstBuffer();
 
         assertNotNull(firstBuffer.getNext());
         assertNull(firstBuffer.getPrevious());
@@ -80,5 +81,38 @@ public class FastBufferOutputStreamTest extends TestCase {
         assertEquals(0, firstBuffer.getUsedSize());
         assertNull(firstBuffer.getNext());
         assertNull(firstBuffer.getPrevious());
+    }
+
+    public void testCompact() throws Exception {
+        int itemsTowWrite = 16384 + 16000;
+        FastBufferWriter writer = new FastBufferWriter(16384);
+
+        for (int i = 0; i < itemsTowWrite; i++) {
+            writer.write(i);
+        }
+
+        writer.close();
+
+        CharBuffer firstBuffer = writer.getFirstBuffer();
+
+        assertNotNull(firstBuffer);
+
+        CharBuffer nextBuffer = firstBuffer.getNext();
+
+        assertNotNull(nextBuffer);
+        assertNull(nextBuffer.getNext());
+        assertTrue(firstBuffer.getUsedSize() == firstBuffer.getCacheSize());
+        assertTrue(nextBuffer.getUsedSize() < nextBuffer.getCacheSize());
+        firstBuffer.compact();
+        assertTrue(firstBuffer.getUsedSize() == firstBuffer.getCacheSize());
+        assertTrue(nextBuffer.getUsedSize() == nextBuffer.getCacheSize());
+
+        FastBufferReader reader = new FastBufferReader(firstBuffer);
+
+        for (int i = 0; i < itemsTowWrite; i++) {
+            assertEquals(i, reader.read());
+        }
+
+        reader.close();
     }
 }
