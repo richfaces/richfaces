@@ -5,7 +5,7 @@
 -->
     <path name="WEB-INF/classes"></path>
 
-    <path name="WEB-INF/lib/guava-r05.jar">
+    <path name="WEB-INF/lib/guava-r07.jar">
         <exclude name="com.google.common.collect" />
     </path>
 </scanning>
