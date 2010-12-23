@@ -308,6 +308,7 @@
 		// 						"inactive" or undefined - no action (default)
 		//						"scroll" - change current month
 		//						"select" - change current month and select date
+		//						"hidden" - does not render content for boundary dates
 		//
 		// todayControlMode - today control onclick action:
 		//						"scroll"
@@ -349,6 +350,7 @@
 		
 		//
 		this.options.boundaryDatesMode = this.options.boundaryDatesMode.toLowerCase();
+		this.hideBoundaryDatesContent = this.options.boundaryDatesMode == "hidden";
 		this.options.todayControlMode = this.options.todayControlMode.toLowerCase();
 			
 		// time
@@ -1319,7 +1321,7 @@
 					}
 
 					contentElement = (this.customDayListMarkup ? element.firstChild : element);
-					contentElement.innerHTML = this.evaluateMarkup(this.options.dayListMarkup, dataobj );
+					contentElement.innerHTML = this.hideBoundaryDatesContent && dataobj._month!=0 ? "" : this.evaluateMarkup(this.options.dayListMarkup, dataobj );
 
 					if (weekdaycounter==6) weekdaycounter=0; else weekdaycounter++;
 					
