@@ -69,7 +69,6 @@ import org.ajax4jsf.model.DataVisitResult;
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
-import org.ajax4jsf.model.SerializableDataModel;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
@@ -104,7 +103,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         
         private boolean componentStateIsStateHolder;
         
-        private ExtendedDataModel<?> dataModel;
+        private transient ExtendedDataModel<?> dataModel;
 
         public IterationState() {
             super();
@@ -154,18 +153,10 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
                 }
             }
 
-            Object savedSerializableModel = null;
-
-            if (componentState != null && dataModel != null) {
-                // TODO handle model serialization - "execute" model
-                savedSerializableModel = dataModel.getSerializableModel(componentState.getRange());
-            }
-
-            if (localSavedComponentState != null || savedSerializableModel != null) {
+            if (localSavedComponentState != null) {
                 return new Object[] {
                     localComponentStateIsHolder,
-                    localSavedComponentState,
-                    savedSerializableModel
+                    localSavedComponentState
                 };
             } else {
                 return null;
@@ -183,8 +174,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
                 } else {
                     componentState = (DataComponentState) localSavedComponentState;
                 }
-                
-                dataModel = (ExtendedDataModel<?>) state[2];
             }
         }
         
@@ -961,16 +950,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         preUpdate(faces);
         this.iterate(faces, updateVisitor);
 
-        ExtendedDataModel<?> dataModel = getExtendedDataModel();
-
-        // If no validation errors, update values for serializable model,
-        // restored from view.
-        if ((dataModel instanceof SerializableDataModel) && (!isKeepSaved())) {
-            SerializableDataModel serializableModel = (SerializableDataModel) dataModel;
-
-            serializableModel.update();
-        }
-        
         doUpdate();
 
         popComponentFromEL(faces);
