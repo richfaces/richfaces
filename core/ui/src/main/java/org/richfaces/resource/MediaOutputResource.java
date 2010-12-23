@@ -105,7 +105,7 @@ public class MediaOutputResource extends AbstractUserResource implements StateHo
         this.setCacheable(uiMediaOutput.isCacheable());
         this.setContentType(uiMediaOutput.getMimeType());
         this.userData = uiMediaOutput.getValue();
-        this.contentProducer = uiMediaOutput.getCreateContentExpression();
+        this.contentProducer = uiMediaOutput.getCreateContent();
         this.lastModifiedExpression = uiMediaOutput.getValueExpression("lastModfied");
         this.expiresExpression = uiMediaOutput.getValueExpression("expires");
         this.timeToLiveExpression = uiMediaOutput.getValueExpression("timeToLive");

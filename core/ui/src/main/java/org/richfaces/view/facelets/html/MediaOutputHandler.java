@@ -22,8 +22,7 @@
 
 package org.richfaces.view.facelets.html;
 
-import org.richfaces.component.AbstractMediaOutput;
-import org.richfaces.view.facelets.MethodMetadata;
+import java.io.OutputStream;
 
 import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.ComponentHandler;
@@ -33,7 +32,9 @@ import javax.faces.view.facelets.MetaRuleset;
 import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
-import java.io.OutputStream;
+
+import org.richfaces.component.AbstractMediaOutput;
+import org.richfaces.view.facelets.MethodMetadata;
 
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)
@@ -62,7 +63,7 @@ public class MediaOutputHandler extends ComponentHandler {
                 if ("createContent".equals(name)) {
                     return new MethodMetadata(attribute, OutputStream.class, Object.class) {
                         public void applyMetadata(FaceletContext ctx, Object instance) {
-                            ((AbstractMediaOutput) instance).setCreateContentExpression(getMethodExpression(ctx));
+                            ((AbstractMediaOutput) instance).setCreateContent(getMethodExpression(ctx));
                         }
                     };
                 }

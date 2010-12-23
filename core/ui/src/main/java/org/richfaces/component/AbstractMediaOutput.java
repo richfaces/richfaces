@@ -23,21 +23,17 @@
 
 package org.richfaces.component;
 
-import java.io.OutputStream;
 import java.util.Date;
 
-import javax.el.MethodExpression;
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
 import javax.faces.component.UIOutput;
-import javax.faces.el.MethodBinding;
 
-import org.ajax4jsf.resource.ResourceComponent2;
+import org.ajax4jsf.resource.ResourceComponent;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.resource.MediaOutputResource;
@@ -50,7 +46,7 @@ import org.richfaces.resource.MediaOutputResource;
         tag = @Tag(generate = false, handler = "org.richfaces.view.facelets.html.MediaOutputHandler", type = TagType.Facelets),
         renderer = @JsfRenderer(type = "org.richfaces.MediaOutputRenderer")
 )
-public abstract class AbstractMediaOutput extends UIOutput implements ResourceComponent2 {
+public abstract class AbstractMediaOutput extends UIOutput implements ResourceComponent {
 
     public static final String COMPONENT_TYPE = "org.richfaces.MediaOutput";
 
@@ -69,53 +65,6 @@ public abstract class AbstractMediaOutput extends UIOutput implements ResourceCo
      */
     @Attribute
     public abstract String getElement();
-
-    /**
-     * Get EL binding to method in user bean to send resource. Method will
-     * called with two parameters - restored data object and servlet output
-     * stream.
-     *
-     * @return MethodBinding to createContent
-     */
-    @Attribute(signature = @Signature(parameters = {OutputStream.class, Object.class}))
-    public MethodBinding getCreateContent() {
-        MethodBinding result = null;
-        MethodExpression me = getCreateContentExpression();
-
-        if (me != null) {
-
-            // if the MethodExpression is an instance of our private
-            // wrapper class.
-            if (me instanceof MethodExpressionMethodBindingAdaptor) {
-                result = ((MethodExpressionMethodBindingAdaptor) me).getBinding();
-            } else {
-
-                // otherwise, this is a real MethodExpression.  Wrap it
-                // in a MethodBinding.
-                result = new MethodBindingMethodExpressionAdaptor(me);
-            }
-        }
-
-        return result;
-    }
-
-    /**
-     * Set EL binding to method in user bean to send resource. Method will
-     * called with two parameters - restored data object and servlet output
-     * stream.
-     *
-     * @param newvalue - new value of createContent method binding
-     */
-    public void setCreateContent(MethodBinding newvalue) {
-        MethodExpressionMethodBindingAdaptor adapter;
-
-        if (newvalue != null) {
-            adapter = new MethodExpressionMethodBindingAdaptor(newvalue);
-            setCreateContentExpression(adapter);
-        } else {
-            setCreateContentExpression(null);
-        }
-    }
 
     public Resource getResource() {
         ResourceHandler resourceHandler = getFacesContext().getApplication().getResourceHandler();
@@ -151,8 +100,6 @@ public abstract class AbstractMediaOutput extends UIOutput implements ResourceCo
 
     @Attribute
     public abstract String getCoords();
-
-    public abstract MethodExpression getCreateContentExpression();
 
     @Attribute
     public abstract String getDeclare();
