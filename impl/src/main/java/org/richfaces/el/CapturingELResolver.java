@@ -19,12 +19,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
 
-package org.richfaces.el.util;
+package org.richfaces.el;
 
 import javax.el.ELContext;
 import javax.el.ELResolver;
-
-import org.richfaces.el.ELResolverWrapper;
 
 /**
  * @author Nick Belaevski
