@@ -2,11 +2,6 @@
 <faces-config xmlns="http://java.sun.com/xml/ns/javaee"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   version="2.0">	
-	<factory>
-	<!-- 
-		<lifecycle-factory>org.ajax4jsf.application.DebugLifecycleFactory</lifecycle-factory>
-	-->
-	</factory>
 	<application>
 		<!-- system-event-listener>
 			<system-event-listener-class>org.ajax4jsf.component.RenderPhaseUIDataAdaptorVisitor</system-event-listener-class>
