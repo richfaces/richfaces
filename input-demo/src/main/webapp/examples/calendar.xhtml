@@ -32,6 +32,11 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 -->
 <h:head>
 	<title>Richfaces Calendar Demo</title>
+	<script>
+		var myFunction = function(event){
+			;
+		}
+	</script>
 </h:head>
 <h:body>
 	<h:form id="form">
@@ -44,8 +49,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					dataModel="#{calendarDataModel}"
 					mode="#{calendarBean.mode}"
 					disabled="false"
-					showApplyButton="#{calendarBean.showApply}" cellWidth="24px"
-					cellHeight="22px" style="width:200px" minDaysInFirstWeek="3"
+					cellWidth="24px"
+					cellHeight="22px" minDaysInFirstWeek="3"
 					oncollapse="return onEvent.call(this, event);"
 					onexpand="return onEvent.call(this, event);"
 					oncurrentdateselect="return onEvent.call(this, event);"
@@ -60,9 +65,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					ondatemouseover="return onEvent.call(this, event);"			
 					firstWeekDay="4"
 					horizontalOffset="#{calendarBean.horizontalOffset}"
-					verticalOffset="#{calendarBean.verticalOffset}"
+					verticalOffset="#{calendarBean.verticalOffset}" defaultTime="11:22:01"
 					valueChangeListener="#{calendarBean.doValueChangeListener}"
-					currentDataChangeListener="#{calendarBean.doCurrentDataChangeListener}" 
+					currentDataChangeListener="#{calendarBean.doCurrentDataChangeListener}"
+					onbeforedateselect="myFunction(event)"
+					style="width:200px;border:10px solid #000000"
+					styleClass="hello"
+					boundaryDatesMode = "scroll"
 					>
 					
 				</calendar:calendar>
@@ -93,6 +102,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					<f:selectItem itemLabel="d/M/yy HH:mm" itemValue="d/M/yy HH:mm" />
 					<f:selectItem itemLabel="dd/M/yy hh:mm a"
 						itemValue="dd/M/yy hh:mm a" />
+					<f:selectItem itemLabel="dd/M/yy hh:mm:ss"
+						itemValue="dd/M/yy hh:mm:ss" />
 					<f:selectItem itemLabel="d/MMM/y" itemValue="d/MMM/y" />
 					<f:selectItem itemLabel="MMM d, yyyy" itemValue="MMM d, yyyy" />
 				</h:selectOneMenu>
