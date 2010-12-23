@@ -69,6 +69,7 @@ import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 @ResourceDependencies({
     @ResourceDependency(library="org.richfaces", name = "extendedDataTable.ecss"),
     @ResourceDependency(library="org.richfaces", name = "ajax.reslib"),
+    @ResourceDependency(library="org.richfaces", name = "base-component.reslib"),
     @ResourceDependency(name = "jquery.position.js"),
     @ResourceDependency(library="org.richfaces", name = "extendedDataTable.js") 
 })
@@ -675,7 +676,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             component, EVENT_ATTRIBUTES.get("onbeforeselectionchange")), null, ScriptHashVariableWrapper.eventHandler);
         addToScriptHash(options, "onselectionchange", RenderKitUtils.getAttributeAndBehaviorsValue(context,
             component, EVENT_ATTRIBUTES.get("onselectionchange")), null, ScriptHashVariableWrapper.eventHandler);
-        StringBuilder builder = new StringBuilder("new RichFaces.ExtendedDataTable('");
+        StringBuilder builder = new StringBuilder("new RichFaces.ui.ExtendedDataTable('");
         builder.append(component.getClientId(context)).append("', ").append(getRowCount(component))
             .append(", function(event, clientParams) {").append(ajaxFunction.toScript()).append(";}");
         if (!options.isEmpty()) {

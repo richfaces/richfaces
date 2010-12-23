@@ -131,531 +131,64 @@
 		}
 	};
 
-	richfaces.ExtendedDataTable = function(id, rowCount, ajaxFunction, options) {
-		var WIDTH_CLASS_NAME_BASE = "rf-edt-c-";
-		var MIN_WIDTH = 20;
-		
-		options = options || {};
-		var ranges = new richfaces.utils.Ranges();
-		var element = document.getElementById(id);
-		var bodyElement, contentElement, spacerElement, dataTableElement, normalPartStyle, rows, rowHeight, parts, tbodies,
-			shiftIndex, activeIndex, selectionFlag;
-		var dragElement = document.getElementById(id + ":d");
-		var reorderElement = document.getElementById(id + ":r");
-		var reorderMarkerElement = document.getElementById(id + ":rm");
-		var widthInput = document.getElementById(id + ":wi");
-		var selectionInput = document.getElementById(id + ":si");
-		var header = jQuery(element).children(".rf-edt-hdr");
-		var resizerHolders = header.find(".rf-edt-rsz-cntr");
-		
-		var frozenHeaderPartElement = document.getElementById(id + ":frozenHeader");
-		var frozenColumnCount = frozenHeaderPartElement ? frozenHeaderPartElement.firstChild.rows[0].cells.length : 0;//TODO Richfaces.firstDescendant;
-		
-		var scrollElement = document.getElementById(id + ":footer");
-		
-		var resizeData = {};
-		var idOfReorderingColumn = "";
-		var newWidths = {};
-		
-		var timeoutId = null;
-		
-		var sendAjax = function(event, map) {
-			ajaxFunction(event, map);
-		};
-		
-		var updateLayout = function() {
-			normalPartStyle.width = "auto";
-			var offsetWidth = frozenHeaderPartElement ? frozenHeaderPartElement.offsetWidth : 0;
-			var width = Math.max(0, element.clientWidth - offsetWidth);
-			if (width) {
-				if (parts.width() > width) {
-					normalPartStyle.width = width + "px";
-				}
-				normalPartStyle.display = "block";
-				scrollElement.style.overflowX = "";
-				if (scrollElement.clientWidth < scrollElement.scrollWidth
-						&& scrollElement.scrollHeight == scrollElement.offsetHeight) {
-					scrollElement.style.overflowX = "scroll";
-				}
-				var delta = scrollElement.firstChild.offsetHeight - scrollElement.clientHeight;
-				if (delta) {
-					scrollElement.style.height = scrollElement.offsetHeight + delta;
-				}
-			} else {
-				normalPartStyle.display = "none";
-			}
-			var height = element.clientHeight;
-			var el = element.firstChild;
-			while (el && (!el.nodeName || el.nodeName.toUpperCase() != "TABLE")) {
-				if(el.nodeName && el.nodeName.toUpperCase() == "DIV" && el != bodyElement) {
-					height -= el.offsetHeight;
-				}
-				el = el.nextSibling;
-			}
-			if (bodyElement.offsetHeight > height) {
-				bodyElement.style.height = height + "px";
-			}
-		};
-		
-		var adjustResizers = function() {
-			var scrollLeft = scrollElement ? scrollElement.scrollLeft : 0;
-			var clientWidth = element.clientWidth - 3;
-			var i = 0;
-			for (; i < frozenColumnCount; i++) {
-				if (clientWidth > 0) {
-					resizerHolders[i].style.display = "none";
-					resizerHolders[i].style.display = "";
-					clientWidth -= resizerHolders[i].offsetWidth;
-				}
-				if (clientWidth <= 0) {
-					resizerHolders[i].style.display = "none";
-				}
-			}
-			scrollLeft -= 3;
-			for (; i < resizerHolders.length; i++) {
-				if (clientWidth > 0) {
-					resizerHolders[i].style.display = "none";
-					if (scrollLeft > 0) {
-						resizerHolders[i].style.display = "";
-						scrollLeft -= resizerHolders[i].offsetWidth;
-						if (scrollLeft > 0) {
-							resizerHolders[i].style.display = "none";
-						} else {
-							clientWidth += scrollLeft;
-						}
-					} else {
-						resizerHolders[i].style.display = "";
-						clientWidth -= resizerHolders[i].offsetWidth;
-					}
-				}
-				if (clientWidth <= 0) {
-					resizerHolders[i].style.display = "none";
-				}
-			}
-		};
+	var WIDTH_CLASS_NAME_BASE = "rf-edt-c-";
+	var MIN_WIDTH = 20;
+	
+    richfaces.ui = richfaces.ui || {};
 
-		var updateScrollPosition = function() {
-			if (scrollElement) {
-				var scrollLeft = scrollElement.scrollLeft;
-				parts.each(function() {
-					this.scrollLeft = scrollLeft;
-				});
-			}
-			adjustResizers();
-		};
-
-		var initialize = function() {
-			bodyElement = document.getElementById(id + ":b");
-			bodyElement.tabIndex = -1; //TODO don't use tabIndex.
-			normalPartStyle = richfaces.utils.getCSSRule("div.rf-edt-cnt").style;
-			var bodyJQuery = jQuery(bodyElement);
-			contentElement = bodyJQuery.children("div:first")[0];
-			if (contentElement) {
-				spacerElement = contentElement.firstChild;//TODO this.marginElement = Richfaces.firstDescendant(this.contentElement);
-				dataTableElement = contentElement.lastChild;//TODO this.dataTableElement = Richfaces.lastDescendant(this.contentElement);
-				tbodies = jQuery(document.getElementById(id + ":tbf")).add(document.getElementById(id + ":tbn"));
-				rows = tbodies[0].rows.length;
-				rowHeight = dataTableElement.offsetHeight / rows;
-				if (rowCount != rows) {
-					contentElement.style.height = (rowCount * rowHeight) + "px";
-				}
-				bodyJQuery.bind("scroll", bodyScrollListener);
-				if (options.selectionMode != "none") {
-					tbodies.bind("click", selectionClickListener);
-					bodyJQuery.bind(window.opera ? "keypress" : "keydown", selectionKeyDownListener);
-					initializeSelection();
-				}
-			} else {
-				spacerElement = null;
-				dataTableElement = null;
-			}
-			parts = jQuery(element).find(".rf-edt-cnt, .rf-edt-ftr-cnt");
-			updateLayout();
-			updateScrollPosition(); //TODO Restore horizontal scroll position
-		};
+	richfaces.ui.ExtendedDataTable = richfaces.BaseComponent.extendClass({
 		
-		var drag = function(event) {
-			jQuery(dragElement).setPosition({left:Math.max(resizeData.left + MIN_WIDTH, event.pageX)});
-			return false;
-		};
-		
-		var beginResize = function(event) {
-			var id = this.parentNode.className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1];
-			resizeData = {
-				id : id,
-				left : jQuery(this).parent().offset().left
-			};
-			dragElement.style.height = element.offsetHeight + "px";
-			jQuery(dragElement).setPosition({top:jQuery(element).offset().top, left:event.pageX});
-			dragElement.style.display = "block";
-			jQuery(document).bind("mousemove", drag);
-			jQuery(document).one("mouseup", endResize);
-			return false;
-		};
-		
-		var setColumnWidth = function(id, width) {
-			width = width + "px";
-			richfaces.utils.getCSSRule("." + WIDTH_CLASS_NAME_BASE + id).style.width = width;
-			newWidths[id] = width;
-			var widthsArray = new Array();
-			for (var id in newWidths) {
-				widthsArray.push(id + ":" + newWidths[id]);
-			}
-			widthInput.value = widthsArray.toString();
-			updateLayout();
-			adjustResizers();
-			sendAjax(); // TODO Maybe, event model should be used here.
-		};
-
-		var endResize = function(event) {
-			jQuery(document).unbind("mousemove", drag);
-			dragElement.style.display = "none";
-			var width = Math.max(MIN_WIDTH, event.pageX - resizeData.left);
-			setColumnWidth(resizeData.id, width);
-		};
-
-		var reorder = function(event) {
-			jQuery(reorderElement).setPosition(event, {offset:[5,5]});
-			reorderElement.style.display = "block";
-			return false;
-		};
-
-		var beginReorder = function(event) {
-			if (!jQuery(event.target).is("a, img, :input")) {
-				idOfReorderingColumn = this.className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1];
-				jQuery(document).bind("mousemove", reorder);
-				header.find(".rf-edt-hdr-c").bind("mouseover", overReorder);
-				jQuery(document).one("mouseup", cancelReorder);
-				return false;
-			}
-		};
-		
-		var overReorder = function(event) {
-			if (idOfReorderingColumn != this.className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1]) {
-				var thisElement = jQuery(this);
-				var offset = thisElement.offset();
-				jQuery(reorderMarkerElement).setPosition({top:offset.top + thisElement.height(), left:offset.left - 5});
-				reorderMarkerElement.style.display = "block";
-				thisElement.one("mouseout", outReorder);
-				thisElement.one("mouseup", endReorder);
-			}
-		};
-		
-		var outReorder = function(event) {
-			reorderMarkerElement.style.display = "";
-			jQuery(this).unbind("mouseup", endReorder);
-		};
-		
-		var endReorder = function(event) {
-			reorderMarkerElement.style.display = "";
-			jQuery(this).unbind("mouseout", outReorder);
-			var id = this.className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1];
-			var colunmsOrder = "";
-			header.find(".rf-edt-hdr-c").each(function() {
-				var i = this.className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1];
-				if (i == id) {
-					colunmsOrder += idOfReorderingColumn + "," + id + ",";
-				} else if (i != idOfReorderingColumn) {
-					colunmsOrder += i + ",";
-				}
-			});
-			sendAjax(event, {"rich:columnsOrder" : colunmsOrder}); // TODO Maybe, event model should be used here.
-		};
-		
-		var cancelReorder = function(event) {
-			jQuery(document).unbind("mousemove", reorder);
-			header.find(".rf-edt-hdr-c").unbind("mouseover", overReorder);
-			reorderElement.style.display = "none";
-		};
-		
-		var loadData = function(event) {
-			var clientFirst = Math.round((bodyElement.scrollTop + bodyElement.clientHeight / 2) / (rowHeight) - rows / 2);
-			if (clientFirst <= 0) {
-				clientFirst = 0;
-			} else {
-				clientFirst = Math.min(rowCount - rows, clientFirst);
-			}
-			sendAjax(event, {"rich:clientFirst" : clientFirst});// TODO Maybe, event model should be used here.
-		}
-
-		var bodyScrollListener = function(event) {
-			if(timeoutId) {
-				window.clearTimeout(timeoutId);
-				timeoutId = null;
-			}
-			if (Math.max(this.scrollTop - rowHeight, 0) < spacerElement.offsetHeight
-						|| Math.min(this.scrollTop + rowHeight + this.clientHeight, this.scrollHeight) > spacerElement.offsetHeight + dataTableElement.offsetHeight) {
-				timeoutId = window.setTimeout(function (event) {loadData(event)}, 1000);
-			}
-		};
-
-		var showActiveRow = function() {
-			if (bodyElement.scrollTop > activeIndex * rowHeight + spacerElement.offsetHeight) { //UP
-				bodyElement.scrollTop = Math.max(bodyElement.scrollTop - rowHeight, 0);
-			} else if (bodyElement.scrollTop + bodyElement.clientHeight
-					< (activeIndex + 1) * rowHeight + spacerElement.offsetHeight) { //DOWN
-				bodyElement.scrollTop = Math.min(bodyElement.scrollTop + rowHeight, bodyElement.scrollHeight - bodyElement.clientHeight);
-			}
-		}
-
-		var selectRow = function(index) {
-			ranges.add(index);
-			for ( var i = 0; i < tbodies.length; i++) {
-				jQuery(tbodies[i].rows[index]).addClass("rf-edt-r-sel");
-			}
-		}
-		
-		var deselectRow = function (index) {
-			ranges.remove(index);
-			for ( var i = 0; i < tbodies.length; i++) {
-				jQuery(tbodies[i].rows[index]).removeClass("rf-edt-r-sel");
-			}
-		}
-
-		var setActiveRow = function (index) {
-			if(typeof activeIndex == "number") {
-				for ( var i = 0; i < tbodies.length; i++) {
-					jQuery(tbodies[i].rows[activeIndex]).removeClass("rf-edt-r-act");
-				}
-				
-			}
-			activeIndex = index;
-			for ( var i = 0; i < tbodies.length; i++) {
-				jQuery(tbodies[i].rows[activeIndex]).addClass("rf-edt-r-act");
-			}
-		}
-		
-		var resetShiftRow = function () {
-			if(typeof shiftIndex == "number") {
-				for ( var i = 0; i < tbodies.length; i++) {
-					jQuery(tbodies[i].rows[shiftIndex]).removeClass("rf-edt-r-sht");
-				}
-				
-			}
-			shiftIndex = null;
-		}
-		
-		var setShiftRow = function (index) {
-			resetShiftRow();
-			shiftIndex = index;
-			if(typeof index == "number") {
-				for ( var i = 0; i < tbodies.length; i++) {
-					jQuery(tbodies[i].rows[shiftIndex]).addClass("rf-edt-r-sht");
-				}
-			}
-		}
-		
-		var initializeSelection = function() {
-			ranges.clear();
-			var strings = selectionInput.value.split("|");
-			activeIndex = strings[1] || null;
-			shiftIndex = strings[2] || null;
-			selectionFlag = null;
-			var rows = tbodies[0].rows;
-			for (var i = 0; i < rows.length; i++) {
-				var row = jQuery(rows[i]);
-				if (row.hasClass("rf-edt-r-sel")) {
-					ranges.add(row[0].rowIndex)
-				}
-				if (row.hasClass("rf-edt-r-act")) {
-					activeIndex = row[0].rowIndex;
-				}
-				if (row.hasClass("rf-edt-r-sht")) {
-					shiftIndex = row[0].rowIndex;
-				}
-			}
-			writeSelection();
-		}
-
-		var writeSelection = function() {
-			selectionInput.value = [ranges, activeIndex, shiftIndex, selectionFlag].join("|");
-		}
-		
-		var selectRows = function(range) {
-			if (typeof range == "number") {
-				range = [range, range];
-			}
-			var changed;
-			var i = 0;
-			for (; i < range[0]; i++) {
-				if (ranges.contains(i)) {
-					deselectRow(i);
-					changed = true;
-				}
-			}
-			for (; i <= range[1]; i++) {
-				if (!ranges.contains(i)) {
-					selectRow(i);
-					changed = true;
-				}
-			}
-			for (; i < rows; i++) {
-				if (ranges.contains(i)) {
-					deselectRow(i);
-					changed = true;
-				}
-			}
-			selectionFlag = typeof shiftIndex == "string" ? shiftIndex : "x";
-			return changed;
-		}
-		
-		var processSlectionWithShiftKey = function(index) {
-			if(shiftIndex == null) {
-				setShiftRow(activeIndex != null ? activeIndex : index);
-			}
-			var range;
-			if ("u" == shiftIndex) {
-				range = [0, index];
-			} else if ("d" == shiftIndex) {
-				range = [index, rows - 1];
-			} else if (index >= shiftIndex) {
-				range = [shiftIndex, index];
-			} else {
-				range = [index, shiftIndex];
-			}
-			return selectRows(range);			
-		}
-		
-		var onbeforeselectionchange = function (event) {
-			return !options.onbeforeselectionchange || options.onbeforeselectionchange.call(element, event) !== false;
-		}
-		
-		var onselectionchange = function (event, index, changed) {
-			if(!event.shiftKey) {
-				resetShiftRow();
-			}
-			if (activeIndex != index) {
-				setActiveRow(index);
-				showActiveRow();
-			}
-			if (changed) {
-				writeSelection();
-				if (options.onselectionchange) {
-					options.onselectionchange.call(element, event);
-				}
-			}
-		}
-		
-		var selectionClickListener = function (event) {
-			if (!onbeforeselectionchange(event)) {
-				return;
-			}
-			var changed;
-			if (event.shiftKey || event.ctrlKey) {
-				if (window.getSelection) { //TODO Try to find other way.
-					window.getSelection().removeAllRanges();
-				} else if (document.selection) {
-					document.selection.empty();
-				}
-			}
-			var tr = event.target;
-			while (tbodies.index(tr.parentNode) == -1) {
-				tr = tr.parentNode;
-			}
-			var index = tr.rowIndex;
-			if (options.selectionMode == "single" || (options.selectionMode != "multipleKeyboardFree"
-				&& !event.shiftKey && !event.ctrlKey)) {
-				changed = selectRows(index);
-			} else if (options.selectionMode == "multipleKeyboardFree" || (!event.shiftKey &&  event.ctrlKey)) {
-				if (ranges.contains(index)) {
-					deselectRow(index);
-				} else {
-					selectRow(index);
-				}
-				changed = true;
-			} else {
-				changed = processSlectionWithShiftKey(index);
-			}
-			onselectionchange(event, index, changed);
-		}
-
-		var selectionKeyDownListener = function(event) {
-			if (event.ctrlKey && options.selectionMode != "single" && (event.keyCode == 65 || event.keyCode == 97) //Ctrl-A
-					&& onbeforeselectionchange(event)) {
-				selectRows([0, rows]);
-				selectionFlag = "a";
-				onselectionchange(event, activeIndex, true); //TODO Is there a way to know that selection haven't changed?
-				event.preventDefault();
-			} else {
-				var index;
-				if (event.keyCode == 38) { //UP
-					index = -1;
-				} else if (event.keyCode == 40) { //DOWN
-					index = 1;
-				}
-				if (index != null && onbeforeselectionchange(event)) {
-					if (typeof activeIndex == "number") {
-						index += activeIndex;
-						if (index >= 0 && index < rows ) {
-							var changed;
-							if (options.selectionMode == "single" || (!event.shiftKey && !event.ctrlKey)) {
-								changed = selectRows(index);
-							} else if (event.shiftKey) {
-								changed = processSlectionWithShiftKey(index);
-							}
-							onselectionchange(event, index, changed);
-						}
-					}
-					event.preventDefault();
-				}
-			}
-		}
-
-		var ajaxComplete = function (event, data) {
-			if (data.reinitializeHeader) {
-				bindHeaderHandlers();
-			} else {
-				selectionInput = document.getElementById(id + ":si");
-				if (data.reinitializeBody) {
-					rowCount = data.rowCount;
-					initialize();
-				} else if (options.selectionMode != "none") {
-					initializeSelection();
-				}
-				if (spacerElement) {
-					spacerElement.style.height = (data.first * rowHeight) + "px";
-				}
-			}
-		};
-		
-		jQuery(document).ready(initialize);
-		jQuery(window).bind("resize", updateLayout);
-		jQuery(scrollElement).bind("scroll", updateScrollPosition);
-		var bindHeaderHandlers = function () {
-			header.find(".rf-edt-rsz").bind("mousedown", beginResize);
-			header.find(".rf-edt-hdr-c").bind("mousedown", beginReorder);
-		}
-		bindHeaderHandlers();
-		jQuery(element).bind("rich:onajaxcomplete", ajaxComplete);
-		
-		//JS API
-		element[richfaces.RICH_CONTAINER] = element[richfaces.RICH_CONTAINER] || {}; // TODO ExtendedDataTable should extend richfaces.BaseComponent instead of using it.
-		element[richfaces.RICH_CONTAINER].component = this;
-		this.destroy = function() {
-			element[richfaces.RICH_CONTAINER] = null;
-			jQuery(window).unbind("resize", updateLayout);			
-	    	jQuery(richfaces.getDomElement(id + ':st')).remove();
-		}
-
-        this.detach = function () {
-            // TODO see implementation in richfaces-base-component.js
-        };
-		
-		this.getColumnPosition = function(id) {
+	    name: "ExtendedDataTable",
+	    
+	    ranges: new richfaces.utils.Ranges(),
+		resizeData: {},
+		idOfReorderingColumn: "",
+		newWidths: {},
+		timeoutId: null,
+	    
+		init: function (id, rowCount, ajaxFunction, options) {
+	    	$super.constructor.call(this, id);
+	    	this.rowCount = rowCount;
+	    	this.ajaxFunction = ajaxFunction;
+			this.options = options || {};
+			this.element = this.attachToDom();
+//			var bodyElement, contentElement, spacerElement, dataTableElement, normalPartStyle, rows, rowHeight, parts, tbodies,
+//				shiftIndex, activeIndex, selectionFlag;
+			this.dragElement = document.getElementById(id + ":d");
+			this.reorderElement = document.getElementById(id + ":r");
+			this.reorderMarkerElement = document.getElementById(id + ":rm");
+			this.widthInput = document.getElementById(id + ":wi");
+			this.selectionInput = document.getElementById(id + ":si");
+			this.header = jQuery(this.element).children(".rf-edt-hdr");
+			this.resizerHolders = this.header.find(".rf-edt-rsz-cntr");
+			
+			this.frozenHeaderPartElement = document.getElementById(id + ":frozenHeader");
+			this.frozenColumnCount = this.frozenHeaderPartElement ? this.frozenHeaderPartElement.firstChild.rows[0].cells.length : 0;//TODO Richfaces.firstDescendant;
+			
+			this.scrollElement = document.getElementById(id + ":footer");
+			
+			jQuery(document).ready(jQuery.proxy(this.initialize, this));
+			jQuery(window).bind("resize", jQuery.proxy(this.updateLayout, this));
+			jQuery(this.scrollElement).bind("scroll", jQuery.proxy(this.updateScrollPosition, this));
+			this.bindHeaderHandlers();
+			jQuery(this.element).bind("rich:onajaxcomplete", jQuery.proxy(this.ajaxComplete, this));
+	    },
+	    
+		getColumnPosition: function(id) {
 			var position;
-			var headers = header.find(".rf-edt-hdr-c");
+			var headers = this.header.find(".rf-edt-hdr-c");
 			for (var i = 0; i < headers.length; i++) {
 				if (id == headers[i].className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1]) {
 					position = i;
 				}
 			}
 			return position;
-		}
-		
-		this.setColumnPosition = function(id, position) {
+		},
+
+	    setColumnPosition: function(id, position) {
 			var colunmsOrder = "";
 			var before;
-			var headers = header.find(".rf-edt-hdr-c");
+			var headers = this.header.find(".rf-edt-hdr-c");
 			for (var i = 0; i < headers.length; i++) {
 				var current = headers[i].className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1];
 				if (i == position) {
@@ -672,38 +205,503 @@
 					}
 				}
 			}
-			sendAjax(null, {"rich:columnsOrder" : colunmsOrder}); // TODO Maybe, event model should be used here.
-		}
+			this.ajaxFunction(null, {"rich:columnsOrder" : colunmsOrder}); // TODO Maybe, event model should be used here.
+		},
 		
-		this.setColumnWidth = function(id, width) {
-			setColumnWidth(id, width);
-		}
+		setColumnWidth: function(id, width) {
+			width = width + "px";
+			richfaces.utils.getCSSRule("." + WIDTH_CLASS_NAME_BASE + id).style.width = width;
+			this.newWidths[id] = width;
+			var widthsArray = new Array();
+			for (var id in this.newWidths) {
+				widthsArray.push(id + ":" + this.newWidths[id]);
+			}
+			this.widthInput.value = widthsArray.toString();
+			this.updateLayout();
+			this.adjustResizers();
+			this.ajaxFunction(); // TODO Maybe, event model should be used here.
+		},
 		
-		this.filter = function(colunmId, filterValue, isClear) {
+		filter: function(colunmId, filterValue, isClear) {
 			if (typeof(filterValue) == "undefined" || filterValue == null) {
 				filterValue = "";
 			}
-			var map = {}
+			var map = {};
 			map[id + "rich:filtering"] = colunmId + ":" + filterValue + ":" + isClear;
-			sendAjax(null, map); // TODO Maybe, event model should be used here.
-		}
+			this.ajaxFunction(null, map); // TODO Maybe, event model should be used here.
+		},
 		
-		this.clearFiltering = function() {
+		clearFiltering: function() {
 			this.filter("", "", true);
-		}
+		},
 		
-		this.sort = function(colunmId, sortOrder, isClear) {
+		sort: function(colunmId, sortOrder, isClear) {
 			if (typeof(sortOrder) == "string") {
 				sortOrder = sortOrder.toUpperCase();
 			}
 			var map = {}
-			map[id + "rich:sorting"] = colunmId + ":" + sortOrder + ":" + isClear;
-			sendAjax(null, map); // TODO Maybe, event model should be used here.
-		}
+			map[this.id + "rich:sorting"] = colunmId + ":" + sortOrder + ":" + isClear;
+			this.ajaxFunction(null, map); // TODO Maybe, event model should be used here.
+		},
 		
-		this.clearSorting = function() {
-			this.filter("", "", true);
-		}
-	};
-}(window.RichFaces, jQuery));
+		clearSorting: function() {
+			this.sort("", "", true);
+		},
 
+		destroy: function() {
+			jQuery(window).unbind("resize", this.updateLayout);			
+	    	jQuery(richfaces.getDomElement(this.id + ':st')).remove();
+			$super.destroy.call(this);
+		},
+		
+		bindHeaderHandlers: function() {
+			this.header.find(".rf-edt-rsz").bind("mousedown", jQuery.proxy(this.beginResize, this));
+			this.header.find(".rf-edt-hdr-c").bind("mousedown", jQuery.proxy(this.beginReorder, this));
+		},
+		
+		updateLayout: function() {
+			this.normalPartStyle.width = "auto";
+			var offsetWidth = this.frozenHeaderPartElement ? this.frozenHeaderPartElement.offsetWidth : 0;
+			var width = Math.max(0, this.element.clientWidth - offsetWidth);
+			if (width) {
+				if (this.parts.width() > width) {
+					this.normalPartStyle.width = width + "px";
+				}
+				this.normalPartStyle.display = "block";
+				this.scrollElement.style.overflowX = "";
+				if (this.scrollElement.clientWidth < this.scrollElement.scrollWidth
+						&& this.scrollElement.scrollHeight == this.scrollElement.offsetHeight) {
+					this.scrollElement.style.overflowX = "scroll";
+				}
+				var delta = this.scrollElement.firstChild.offsetHeight - this.scrollElement.clientHeight;
+				if (delta) {
+					this.scrollElement.style.height = this.scrollElement.offsetHeight + delta;
+				}
+			} else {
+				this.normalPartStyle.display = "none";
+			}
+			var height = this.element.clientHeight;
+			var el = this.element.firstChild;
+			while (el && (!el.nodeName || el.nodeName.toUpperCase() != "TABLE")) {
+				if(el.nodeName && el.nodeName.toUpperCase() == "DIV" && el != this.bodyElement) {
+					height -= el.offsetHeight;
+				}
+				el = el.nextSibling;
+			}
+			if (this.bodyElement.offsetHeight > height) {
+				this.bodyElement.style.height = height + "px";
+			}
+		},
+		
+		adjustResizers: function() { //For IE7 only.
+			var scrollLeft = this.scrollElement ? this.scrollElement.scrollLeft : 0;
+			var clientWidth = this.element.clientWidth - 3;
+			var i = 0;
+			for (; i < this.frozenColumnCount; i++) {
+				if (clientWidth > 0) {
+					this.resizerHolders[i].style.display = "none";
+					this.resizerHolders[i].style.display = "";
+					clientWidth -= this.resizerHolders[i].offsetWidth;
+				}
+				if (clientWidth <= 0) {
+					this.resizerHolders[i].style.display = "none";
+				}
+			}
+			scrollLeft -= 3;
+			for (; i < this.resizerHolders.length; i++) {
+				if (clientWidth > 0) {
+					this.resizerHolders[i].style.display = "none";
+					if (scrollLeft > 0) {
+						this.resizerHolders[i].style.display = "";
+						scrollLeft -= this.resizerHolders[i].offsetWidth;
+						if (scrollLeft > 0) {
+							this.resizerHolders[i].style.display = "none";
+						} else {
+							clientWidth += scrollLeft;
+						}
+					} else {
+						this.resizerHolders[i].style.display = "";
+						clientWidth -= this.resizerHolders[i].offsetWidth;
+					}
+				}
+				if (clientWidth <= 0) {
+					this.resizerHolders[i].style.display = "none";
+				}
+			}
+		},
+		
+		updateScrollPosition: function() {
+			if (this.scrollElement) {
+				var scrollLeft = this.scrollElement.scrollLeft;
+				this.parts.each(function() {
+					this.scrollLeft = scrollLeft;
+				});
+			}
+			this.adjustResizers();
+		},
+		
+		initialize: function() {
+			this.bodyElement = document.getElementById(this.id + ":b");
+			this.bodyElement.tabIndex = -1; //TODO don't use tabIndex.
+			this.normalPartStyle = richfaces.utils.getCSSRule("div.rf-edt-cnt").style;
+			var bodyJQuery = jQuery(this.bodyElement);
+			this.contentElement = bodyJQuery.children("div:first")[0];
+			if (this.contentElement) {
+				this.spacerElement = this.contentElement.firstChild;//TODO this.marginElement = Richfaces.firstDescendant(this.contentElement);
+				this.dataTableElement = this.contentElement.lastChild;//TODO this.dataTableElement = Richfaces.lastDescendant(this.contentElement);
+				this.tbodies = jQuery(document.getElementById(this.id + ":tbf")).add(document.getElementById(this.id + ":tbn"));
+				this.rows = this.tbodies[0].rows.length;
+				this.rowHeight = this.dataTableElement.offsetHeight / this.rows;
+				if (this.rowCount != this.rows) {
+					this.contentElement.style.height = (this.rowCount * this.rowHeight) + "px";
+				}
+				bodyJQuery.bind("scroll", jQuery.proxy(this.bodyScrollListener, this));
+				if (this.options.selectionMode != "none") {
+					this.tbodies.bind("click", jQuery.proxy(this.selectionClickListener, this));
+					bodyJQuery.bind(window.opera ? "keypress" : "keydown", jQuery.proxy(this.selectionKeyDownListener, this));
+					this.initializeSelection();
+				}
+			} else {
+				this.spacerElement = null;
+				this.dataTableElement = null;
+			}
+			this.parts = jQuery(this.element).find(".rf-edt-cnt, .rf-edt-ftr-cnt");
+			this.updateLayout();
+			this.updateScrollPosition(); //TODO Restore horizontal scroll position
+		},
+		
+		drag: function(event) {
+			jQuery(this.dragElement).setPosition({left:Math.max(this.resizeData.left + MIN_WIDTH, event.pageX)});
+			return false;
+		},
+		
+		beginResize: function(event) {
+			var id = event.currentTarget.parentNode.className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1];
+			this.resizeData = {
+				id : id,
+				left : jQuery(event.currentTarget).parent().offset().left
+			};
+			this.dragElement.style.height = this.element.offsetHeight + "px";
+			jQuery(this.dragElement).setPosition({top:jQuery(this.element).offset().top, left:event.pageX});
+			this.dragElement.style.display = "block";
+			jQuery(document).bind("mousemove", jQuery.proxy(this.drag, this));
+			jQuery(document).one("mouseup", jQuery.proxy(this.endResize, this));
+			return false;
+		},
+		
+		endResize: function(event) {
+			jQuery(document).unbind("mousemove", this.drag);
+			this.dragElement.style.display = "none";
+			var width = Math.max(MIN_WIDTH, event.pageX - this.resizeData.left);
+			this.setColumnWidth(this.resizeData.id, width);
+		},
+		
+		reorder: function(event) {
+			jQuery(this.reorderElement).setPosition(event, {offset:[5,5]});
+			this.reorderElement.style.display = "block";
+			return false;
+		},
+		
+		beginReorder: function(event) {
+			if (!jQuery(event.currentTarget).is("a, img, :input")) {
+				this.idOfReorderingColumn = event.currentTarget.className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1];
+				jQuery(document).bind("mousemove", jQuery.proxy(this.reorder, this));
+				this.header.find(".rf-edt-hdr-c").bind("mouseover", jQuery.proxy(this.overReorder, this));
+				jQuery(document).one("mouseup", jQuery.proxy(this.cancelReorder, this));
+				return false;
+			}
+		},
+		
+		overReorder: function(event) {
+			if (this.idOfReorderingColumn !=  event.currentTarget.className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1]) {
+				var eventElement = jQuery(event.currentTarget);
+				var offset = eventElement.offset();
+				jQuery(this.reorderMarkerElement).setPosition({top:offset.top + eventElement.height(), left:offset.left - 5});
+				this.reorderMarkerElement.style.display = "block";
+				eventElement.one("mouseout", jQuery.proxy(this.outReorder, this));
+				eventElement.one("mouseup", jQuery.proxy(this.endReorder, this));
+			}
+		},
+		
+		outReorder: function(event) {
+			this.reorderMarkerElement.style.display = "";
+			jQuery(event.currentTarget).unbind("mouseup", this.endReorder);
+		},
+		
+		endReorder: function(event) {
+			this.reorderMarkerElement.style.display = "";
+			jQuery(event.currentTarget).unbind("mouseout", this.outReorder);
+			var id = event.currentTarget.className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1];
+			var colunmsOrder = "";
+			var _this = this;
+			this.header.find(".rf-edt-hdr-c").each(function() {
+				var i = this.className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1];
+				if (i == id) {
+					colunmsOrder += _this.idOfReorderingColumn + "," + id + ",";
+				} else if (i != _this.idOfReorderingColumn) {
+					colunmsOrder += i + ",";
+				}
+			});
+			this.ajaxFunction(event, {"rich:columnsOrder" : colunmsOrder}); // TODO Maybe, event model should be used here.
+		},
+		
+		cancelReorder: function(event) {
+			jQuery(document).unbind("mousemove", this.reorder);
+			this.header.find(".rf-edt-hdr-c").unbind("mouseover", this.overReorder);
+			this.reorderElement.style.display = "none";
+		},
+		
+		loadData: function(event) {
+			var clientFirst = Math.round((this.bodyElement.scrollTop + this.bodyElement.clientHeight / 2) / this.rowHeight - this.rows / 2);
+			if (clientFirst <= 0) {
+				clientFirst = 0;
+			} else {
+				clientFirst = Math.min(this.rowCount - this.rows, clientFirst);
+			}
+			this.ajaxFunction(event, {"rich:clientFirst" : clientFirst});// TODO Maybe, event model should be used here.
+		},
+		
+		bodyScrollListener: function(event) {
+			if(this.timeoutId) {
+				window.clearTimeout(this.timeoutId);
+				this.timeoutId = null;
+			}
+			if (Math.max(event.currentTarget.scrollTop - this.rowHeight, 0) < this.spacerElement.offsetHeight
+						|| Math.min(event.currentTarget.scrollTop + this.rowHeight + event.currentTarget.clientHeight, event.currentTarget.scrollHeight) > this.spacerElement.offsetHeight + this.dataTableElement.offsetHeight) {
+				var _this = this;
+				this.timeoutId = window.setTimeout(function (event) {_this.loadData(event)}, 1000);
+			}
+		},
+		
+		showActiveRow: function() {
+			if (this.bodyElement.scrollTop > this.activeIndex * this.rowHeight + this.spacerElement.offsetHeight) { //UP
+				this.bodyElement.scrollTop = Math.max(this.bodyElement.scrollTop - this.rowHeight, 0);
+			} else if (this.bodyElement.scrollTop + this.bodyElement.clientHeight
+					< (this.activeIndex + 1) * this.rowHeight + this.spacerElement.offsetHeight) { //DOWN
+				this.bodyElement.scrollTop = Math.min(this.bodyElement.scrollTop + this.rowHeight, this.bodyElement.scrollHeight - this.bodyElement.clientHeight);
+			}
+		},
+		
+		selectRow: function(index) {
+			this.ranges.add(index);
+			for (var i = 0; i < this.tbodies.length; i++) {
+				jQuery(this.tbodies[i].rows[index]).addClass("rf-edt-r-sel");
+			}
+		},
+		
+		deselectRow: function (index) {
+			this.ranges.remove(index);
+			for (var i = 0; i < this.tbodies.length; i++) {
+				jQuery(this.tbodies[i].rows[index]).removeClass("rf-edt-r-sel");
+			}
+		},
+		
+		setActiveRow: function (index) {
+			if (typeof this.activeIndex == "number") {
+				for (var i = 0; i < this.tbodies.length; i++) {
+					jQuery(this.tbodies[i].rows[this.activeIndex]).removeClass("rf-edt-r-act");
+				}
+				
+			}
+			this.activeIndex = index;
+			for (var i = 0; i < this.tbodies.length; i++) {
+				jQuery(this.tbodies[i].rows[this.activeIndex]).addClass("rf-edt-r-act");
+			}
+		},
+		
+		resetShiftRow: function () {
+			if (typeof this.shiftIndex == "number") {
+				for (var i = 0; i < this.tbodies.length; i++) {
+					jQuery(this.tbodies[i].rows[this.shiftIndex]).removeClass("rf-edt-r-sht");
+				}
+				
+			}
+			this.shiftIndex = null;
+		},
+		
+		setShiftRow: function (index) {
+			this.resetShiftRow();
+			this.shiftIndex = index;
+			if(typeof index == "number") {
+				for (var i = 0; i < this.tbodies.length; i++) {
+					jQuery(this.tbodies[i].rows[this.shiftIndex]).addClass("rf-edt-r-sht");
+				}
+			}
+		},
+		
+		initializeSelection: function() {
+			this.ranges.clear();
+			var strings = this.selectionInput.value.split("|");
+			this.activeIndex = strings[1] || null;
+			this.shiftIndex = strings[2] || null;
+			this.selectionFlag = null;
+			var rows = this.tbodies[0].rows;
+			for (var i = 0; i < rows.length; i++) {
+				var row = jQuery(rows[i]);
+				if (row.hasClass("rf-edt-r-sel")) {
+					this.ranges.add(row[0].rowIndex)
+				}
+				if (row.hasClass("rf-edt-r-act")) {
+					this.activeIndex = row[0].rowIndex;
+				}
+				if (row.hasClass("rf-edt-r-sht")) {
+					this.shiftIndex = row[0].rowIndex;
+				}
+			}
+			this.writeSelection();
+		},
+		
+		writeSelection: function() {
+			this.selectionInput.value = [this.ranges, this.activeIndex, this.shiftIndex, this.selectionFlag].join("|");
+		},
+		
+		selectRows: function(range) {
+			if (typeof range == "number") {
+				range = [range, range];
+			}
+			var changed;
+			var i = 0;
+			for (; i < range[0]; i++) {
+				if (this.ranges.contains(i)) {
+					this.deselectRow(i);
+					changed = true;
+				}
+			}
+			for (; i <= range[1]; i++) {
+				if (!this.ranges.contains(i)) {
+					this.selectRow(i);
+					changed = true;
+				}
+			}
+			for (; i < this.rows; i++) {
+				if (this.ranges.contains(i)) {
+					this.deselectRow(i);
+					changed = true;
+				}
+			}
+			this.selectionFlag = typeof this.shiftIndex == "string" ? this.shiftIndex : "x";
+			return changed;
+		},
+		
+		processSlectionWithShiftKey: function(index) {
+			if(this.shiftIndex == null) {
+				this.setShiftRow(this.activeIndex != null ? this.activeIndex : index);
+			}
+			var range;
+			if ("u" == this.shiftIndex) {
+				range = [0, index];
+			} else if ("d" == this.shiftIndex) {
+				range = [index, rows - 1];
+			} else if (index >= this.shiftIndex) {
+				range = [this.shiftIndex, index];
+			} else {
+				range = [index, this.shiftIndex];
+			}
+			return this.selectRows(range);			
+		},
+		
+		onbeforeselectionchange: function (event) {
+			return !this.options.onbeforeselectionchange || this.options.onbeforeselectionchange.call(this.element, event) !== false;
+		},
+		
+		onselectionchange: function (event, index, changed) {
+			if(!event.shiftKey) {
+				this.resetShiftRow();
+			}
+			if (this.activeIndex != index) {
+				this.setActiveRow(index);
+				this.showActiveRow();
+			}
+			if (changed) {
+				this.writeSelection();
+				if (this.options.onselectionchange) {
+					this.options.onselectionchange.call(this.element, event);
+				}
+			}
+		},
+		
+		selectionClickListener: function (event) {
+			if (!this.onbeforeselectionchange(event)) {
+				return;
+			}
+			var changed;
+			if (event.shiftKey || event.ctrlKey) {
+				if (window.getSelection) { //TODO Try to find other way.
+					window.getSelection().removeAllRanges();
+				} else if (document.selection) {
+					document.selection.empty();
+				}
+			}
+			var tr = event.target;
+			while (this.tbodies.index(tr.parentNode) == -1) {
+				tr = tr.parentNode;
+			}
+			var index = tr.rowIndex;
+			if (this.options.selectionMode == "single" || (this.options.selectionMode != "multipleKeyboardFree"
+				&& !event.shiftKey && !event.ctrlKey)) {
+				changed = this.selectRows(index);
+			} else if (this.options.selectionMode == "multipleKeyboardFree" || (!event.shiftKey &&  event.ctrlKey)) {
+				if (this.ranges.contains(index)) {
+					this.deselectRow(index);
+				} else {
+					this.selectRow(index);
+				}
+				changed = true;
+			} else {
+				changed = this.processSlectionWithShiftKey(index);
+			}
+			this.onselectionchange(event, index, changed);
+		},
+		
+		selectionKeyDownListener: function(event) {
+			if (event.ctrlKey && this.options.selectionMode != "single" && (event.keyCode == 65 || event.keyCode == 97) //Ctrl-A
+					&& this.onbeforeselectionchange(event)) {
+				this.selectRows([0, rows]);
+				this.selectionFlag = "a";
+				this.onselectionchange(event, this.activeIndex, true); //TODO Is there a way to know that selection haven't changed?
+				event.preventDefault();
+			} else {
+				var index;
+				if (event.keyCode == 38) { //UP
+					index = -1;
+				} else if (event.keyCode == 40) { //DOWN
+					index = 1;
+				}
+				if (index != null && this.onbeforeselectionchange(event)) {
+					if (typeof this.activeIndex == "number") {
+						index += this.activeIndex;
+						if (index >= 0 && index < this.rows) {
+							var changed;
+							if (this.options.selectionMode == "single" || (!event.shiftKey && !event.ctrlKey)) {
+								changed = this.selectRows(index);
+							} else if (event.shiftKey) {
+								changed = this.processSlectionWithShiftKey(index);
+							}
+							this.onselectionchange(event, index, changed);
+						}
+					}
+					event.preventDefault();
+				}
+			}
+		},
+		
+		ajaxComplete: function (event, data) {
+			if (data.reinitializeHeader) {
+				this.bindHeaderHandlers();
+			} else {
+				this.selectionInput = document.getElementById(this.id + ":si");
+				if (data.reinitializeBody) {
+					this.rowCount = data.rowCount;
+					this.initialize();
+				} else if (this.options.selectionMode != "none") {
+					this.initializeSelection();
+				}
+				if (this.spacerElement) {
+					this.spacerElement.style.height = (data.first * this.rowHeight) + "px";
+				}
+			}
+		}
+	});
+	
+	var $super = richfaces.ui.ExtendedDataTable.$super;
+}(window.RichFaces, jQuery));
