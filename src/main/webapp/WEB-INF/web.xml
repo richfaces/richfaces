@@ -40,10 +40,6 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>/faces/*</url-pattern>
 	</servlet-mapping>
-	<mime-mapping>
-		<extension>ecss</extension>
-		<mime-type>text/css</mime-type>
-	</mime-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
