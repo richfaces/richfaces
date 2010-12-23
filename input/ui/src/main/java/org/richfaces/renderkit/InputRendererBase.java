@@ -22,20 +22,21 @@
 
 package org.richfaces.renderkit;
 
-import org.richfaces.component.util.SelectUtils;
+import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-import java.util.Map;
+
+import org.richfaces.component.util.SelectUtils;
 
 /**
  * @author Nick Belaevski - nbelaevski@exadel.com
  *         created 23.01.2007
  */
-public class InputRendererBase extends AjaxComponentRendererBase {
+public class InputRendererBase extends RendererBase {
 
     protected void doDecode(FacesContext context, UIComponent component) {
         String clientId = component.getClientId(context);

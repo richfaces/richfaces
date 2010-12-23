@@ -28,7 +28,6 @@ import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.component.AjaxClientBehavior;
-import org.ajax4jsf.component.AjaxComponent;
 import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSReference;
@@ -564,30 +563,7 @@ public final class AjaxRendererUtils {
      * @return clientId of status area, or <code>null</code>
      */
     public static String getAjaxStatus(UIComponent component) {
-        String statusId;
-
-        if (component instanceof AjaxComponent) {
-            statusId = ((AjaxComponent) component).getStatus();
-        } else {
-            statusId = (String) component.getAttributes().get(STATUS_ATTR_NAME);
-        }
-
-        return statusId;
-
-//      if (null != statusId) {
-//          UIComponent status = RendererUtils.getInstance().
-//              findComponentFor(component, statusId);
-//
-//          if (null != status) {
-//              statusId = status
-//                      .getClientId(FacesContext.getCurrentInstance());
-//          } else {
-//              LOG.warn(Messages.getMessage(
-//                      Messages.AJAX_STATUS_COMPONENT_NOT_FOWND_WARNING,
-//                      component.getId()));
-//          }
-//      }
-//      return statusId;
+        return (String) component.getAttributes().get(STATUS_ATTR_NAME);
     }
 
     public static String getQueueId(UIComponent component) {
@@ -612,10 +588,6 @@ public final class AjaxRendererUtils {
 
     //TODO nick - refactor - remove this method?
     public static String getAjaxOnBegin(UIComponent component) {
-        if (component instanceof AjaxComponent) {
-            return ((AjaxComponent) component).getOnbegin();
-        }
-
         return (String) component.getAttributes().get(ONBEGIN_ATTR_NAME);
     }
 
