@@ -36,13 +36,13 @@ public class CalendarModel implements CalendarDataModel {
             if (current.before(today)) {
                 modelItem.setEnabled(false);
                 modelItem.setStyleClass(BOUNDARY_DAY_CLASS);
-            } else if (checkBusyDay(current)){
+            } else if (checkBusyDay(current)) {
                 modelItem.setEnabled(false);
                 modelItem.setStyleClass(BUSY_DAY_CLASS);
-            }else if (checkWeekend(current)){
+            } else if (checkWeekend(current)) {
                 modelItem.setEnabled(false);
                 modelItem.setStyleClass(WEEKEND_DAY_CLASS);
-            }else{
+            } else {
                 modelItem.setEnabled(true);
                 modelItem.setStyleClass("");
             }
@@ -52,9 +52,9 @@ public class CalendarModel implements CalendarDataModel {
         return modelItems;
     }
 
-	@Override
-	public Object getToolTip(Date date) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public Object getToolTip(Date date) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
