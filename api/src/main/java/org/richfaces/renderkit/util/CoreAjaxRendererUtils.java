@@ -34,7 +34,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 
-import org.ajax4jsf.component.AjaxComponent;
 import org.ajax4jsf.context.AjaxContext;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.renderkit.AjaxDataSerializer;
@@ -181,14 +180,7 @@ public final class CoreAjaxRendererUtils {
      * @return List of areas Id's , updated by this component.
      */
     public static Set<String> getAjaxAreas(UIComponent uiComponent) {
-        Object areas;
-
-        if (uiComponent instanceof AjaxComponent) {
-            areas = ((AjaxComponent) uiComponent).getReRender();
-        } else {
-            areas = uiComponent.getAttributes().get(AJAX_REGIONS_ATTRIBUTE);
-        }
-
+        Object areas = uiComponent.getAttributes().get(AJAX_REGIONS_ATTRIBUTE);
         return asIdsSet(areas);
     }
 
@@ -200,13 +192,7 @@ public final class CoreAjaxRendererUtils {
      * @since 3.3.0
      */
     public static Set<String> getAjaxAreasToProcess(UIComponent component) {
-        Object areas;
-
-        if (component instanceof AjaxComponent) {
-            areas = ((AjaxComponent) component).getProcess();
-        } else {
-            areas = component.getAttributes().get(AJAX_PROCESS_ATTRIBUTE);
-        }
+        Object areas = component.getAttributes().get(AJAX_PROCESS_ATTRIBUTE);
 
         return asIdsSet(areas);
     }
@@ -277,15 +263,11 @@ public final class CoreAjaxRendererUtils {
     public static boolean isAjaxLimitRender(UIComponent component) {
         boolean result = false;
 
-        if (component instanceof AjaxComponent) {
-            result = ((AjaxComponent) component).isLimitRender();
+        Object limitRenderObject = component.getAttributes().get(LIMITRENDER_ATTR_NAME);
+        if (limitRenderObject instanceof Boolean) {
+            result = ((Boolean) limitRenderObject).booleanValue();
         } else {
-            Object limitRenderObject = component.getAttributes().get(LIMITRENDER_ATTR_NAME);
-            if (limitRenderObject instanceof Boolean) {
-                result = ((Boolean) limitRenderObject).booleanValue();
-            } else {
-                result = Boolean.valueOf(String.valueOf(limitRenderObject));
-            }
+            result = Boolean.valueOf(String.valueOf(limitRenderObject));
         }
 
         return result;
@@ -300,10 +282,6 @@ public final class CoreAjaxRendererUtils {
      */
     //TODO nick - refactor - remove this method?
     public static String getAjaxOncomplete(UIComponent component) {
-        if (component instanceof AjaxComponent) {
-            return ((AjaxComponent) component).getOncomplete();
-        }
-
         return (String) component.getAttributes().get(ONCOMPLETE_ATTR_NAME);
     }
 
@@ -315,10 +293,6 @@ public final class CoreAjaxRendererUtils {
      */
     //TODO nick - refactor - remove this method?
     public static String getAjaxOnBeforeDomUpdate(UIComponent component) {
-        if (component instanceof AjaxComponent) {
-            return ((AjaxComponent) component).getOnbeforedomupdate();
-        }
-
         return (String) component.getAttributes().get(ONBEFOREDOMUPDATE_ATTR_NAME);
     }
 
@@ -328,10 +302,6 @@ public final class CoreAjaxRendererUtils {
      * @since 4.0
      */
     public static Object getAjaxData(UIComponent component) {
-        if (component instanceof AjaxComponent) {
-            return ((AjaxComponent) component).getData();
-        }
-
         return component.getAttributes().get(DATA_ATTR_NAME);
     }
 

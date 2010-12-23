@@ -69,10 +69,6 @@ public abstract class AjaxContext {
 
     public abstract Object getOnbeforedomupdate();
     
-    public abstract void setViewIdHolder(ViewIdHolder viewIdHolder);
-
-    public abstract ViewIdHolder getViewIdHolder();
-
     public abstract boolean removeRenderedArea(String id);
 
     public abstract void addRenderedArea(String id);

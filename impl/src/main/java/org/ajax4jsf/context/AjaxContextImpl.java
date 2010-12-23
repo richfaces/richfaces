@@ -76,7 +76,6 @@ public class AjaxContextImpl extends AjaxContext {
     Object onbeforedomupdate = null;
     boolean selfRender = false;
     String submittedRegionClientId = null;
-    ViewIdHolder viewIdHolder = null;
     Integer viewSequence = new Integer(1);
     Map<String, Object> responseComponentDataMap = new HashMap<String, Object>();
     Map<String, Object> commonAjaxParameters = new HashMap<String, Object>();
@@ -90,7 +89,6 @@ public class AjaxContextImpl extends AjaxContext {
         selfRender = false;
         viewSequence = new Integer(1);
         submittedRegionClientId = null;
-        viewIdHolder = null;
         responseComponentDataMap = new HashMap<String, Object>();
         commonAjaxParameters = new HashMap<String, Object>();
         responseData = null;
@@ -385,20 +383,6 @@ public class AjaxContextImpl extends AjaxContext {
      */
     public void setSelfRender(boolean selfRender) {
         this.selfRender = selfRender;
-    }
-
-    /**
-     * @return the vievIdHolder
-     */
-    public ViewIdHolder getViewIdHolder() {
-        return viewIdHolder;
-    }
-
-    /**
-     * @param viewIdHolder the vievIdHolder to set
-     */
-    public void setViewIdHolder(ViewIdHolder viewIdHolder) {
-        this.viewIdHolder = viewIdHolder;
     }
 
     /**
