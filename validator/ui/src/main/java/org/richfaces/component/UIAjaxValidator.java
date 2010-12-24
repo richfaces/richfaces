@@ -39,8 +39,6 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 
-import org.ajax4jsf.component.AjaxComponent;
-import org.ajax4jsf.component.AjaxSupport;
 import org.ajax4jsf.context.AjaxContext;
 import org.richfaces.event.ValidatorEvent;
 
@@ -48,7 +46,7 @@ import org.richfaces.event.ValidatorEvent;
  * JSF component class
  * 
  */
-public abstract class UIAjaxValidator extends UIComponentBase implements AjaxComponent, AjaxSupport, AjaxContainer {
+public abstract class UIAjaxValidator extends UIComponentBase implements AjaxContainer {
 
     public static final String COMPONENT_TYPE = "org.richfaces.AjaxValidator";
 
@@ -65,6 +63,8 @@ public abstract class UIAjaxValidator extends UIComponentBase implements AjaxCom
         }
     }
 
+    public abstract String getOnsubmit();
+    
     /**
      * @param parent
      * @throws FacesException

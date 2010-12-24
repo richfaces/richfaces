@@ -38,8 +38,8 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 
+import org.richfaces.el.CapturingELResolver;
 import org.richfaces.el.ELContextWrapper;
-import org.richfaces.el.util.CapturingELResolver;
 import org.richfaces.validator.FacesBeanValidator;
 import org.richfaces.validator.GraphValidator;
 import org.richfaces.validator.GraphValidatorState;
