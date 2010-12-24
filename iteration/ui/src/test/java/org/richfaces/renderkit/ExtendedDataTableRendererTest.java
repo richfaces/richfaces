@@ -39,7 +39,6 @@ import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.richfaces.component.AbstractExtendedDataTable;
 import org.richfaces.component.SortOrder;
@@ -278,7 +277,6 @@ public class ExtendedDataTableRendererTest {
         facesRequest.release();
     }
     
-    @Ignore
     @Test
     public final void testSortingWithoutClean() throws IOException {
         FacesRequest facesRequest = startFacesRequest();

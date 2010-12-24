@@ -27,7 +27,7 @@
         	var createParameters = function(type, id, arg1, arg2) {
         		var parameters = {}; 
         		var key = this.id + type;
-        		parameters[key] = ((id || "") + ":" + (arg1 || "") + ":" + (arg2 || true));
+        		parameters[key] = (id + ":" + (arg1 || "") + ":" + arg2);
         		
         		var eventOptions = this.options.ajaxEventOption;
         		for (key in eventOptions) {

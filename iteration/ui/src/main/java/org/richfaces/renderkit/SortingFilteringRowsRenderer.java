@@ -26,6 +26,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.el.ELContext;
 import javax.el.ELException;
@@ -94,37 +95,35 @@ public abstract class SortingFilteringRowsRenderer extends AbstractRowsRenderer 
     }
     
     protected void decodeSorting(FacesContext context, UIDataTableBase dataTableBase, String value) {
-        
-        Collection<Object> sortPriority = dataTableBase.getSortPriority();
-        
-        if(sortPriority == null) {
-            sortPriority = new LinkedHashSet<Object>();
-        }
-        
+        Set<Object> sortPriority = new LinkedHashSet<Object>();
+       
         String[] values = value.split(SEPARATOR);
-        if (Boolean.parseBoolean(values[2]) || SortMode.single.equals(dataTableBase.getSortMode())) {
+        String columnId = values[0];
+        String sortOrder = values[1];
+        boolean isClear = Boolean.parseBoolean(values[2]);
+        
+        if (isClear || SortMode.single.equals(dataTableBase.getSortMode())) {
             for (Iterator<UIComponent> iterator = dataTableBase.columns(); iterator.hasNext();) {
                 UIComponent column = iterator.next();
-                if (values[0].equals(column.getId())) {
-                    updateSortOrder(context, column, values[1]);
-                    sortPriority.add(values[0]);
+                if (columnId.equals(column.getId())) {
+                    updateSortOrder(context, column, sortOrder);
+                    sortPriority.add(columnId);
                 } else {
                     updateAttribute(context, column, SORT_ORDER_STRING, SortOrder.unsorted);
                 }
             }
         } else {
-            updateSortOrder(context, dataTableBase.findComponent(values[0]), values[1]);
-            sortPriority = dataTableBase.getSortPriority();
-            if (sortPriority != null) {
-                sortPriority.remove(values[0]);
-                sortPriority.addAll(sortPriority);
+            updateSortOrder(context, dataTableBase.findComponent(columnId), sortOrder);
+            Collection<?> priority = dataTableBase.getSortPriority();
+            if (priority != null) {
+                priority.remove(columnId);
+                sortPriority.addAll(priority);
             }
-            sortPriority.add(values[0]);
+            sortPriority.add(columnId);
         }
-        
         updateAttribute(context, dataTableBase, SORT_PRIORITY_STRING, sortPriority);
-        context.getPartialViewContext().getRenderIds().add(dataTableBase.getClientId(context)); // TODO Use partial re-rendering here.
-    }
+        context.getPartialViewContext().getRenderIds().add(dataTableBase.getClientId(context)); 
+    }    
     
     private void updateSortOrder(FacesContext context, UIComponent component, String value) {
         SortOrder sortOrder = SortOrder.ascending;
