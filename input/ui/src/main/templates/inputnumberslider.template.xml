@@ -53,7 +53,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					<span class="rf-insl-mx">#{component.attributes['maxValue']}</span>
 				</c:if>
 				<span class="rf-insl-trc #{component.attributes['trackClass']}">
-					<span class="rf-insl-hnd#{component.attributes['disabled'] ? '-dis' : ''} #{component.attributes['handleClass']}" />
+					<span>
+						<span class="rf-insl-hnd#{component.attributes['disabled'] ? '-dis' : ''} #{component.attributes['handleClass']}" />
+					</span>
 				</span>
 			</span>
 			<c:if test="#{component.attributes['showArrows']}">

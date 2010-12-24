@@ -44,13 +44,16 @@
 	        this.element = jQuery(this.attachToDom());
 	        this.input = this.element.children(".rf-insl-inp-cntr").children(".rf-insl-inp");
 	        this.track = this.element.children(".rf-insl-trc-cntr").children(".rf-insl-trc");
-	        this.handle = this.track.children(".rf-insl-hnd, .rf-insl-hnd-dis");
+	        var handleContainer = this.track.children("span");
+	        this.handle = handleContainer.children(".rf-insl-hnd, .rf-insl-hnd-dis");
 	        this.tooltip = this.element.children(".rf-insl-tt");
 	        
 	    	var value = Number(this.input.val());
 	    	if (isNaN(value)) {
 	    		value = this.minValue;
 	    	}
+	    	handleContainer.css("display", "block");
+	    	this.track.css("padding-right", this.handle.width() + "px");
 	    	this.__setValue(value, null, true);
 	        
 	        if (!this.disabled) {
@@ -95,8 +98,8 @@
 		        }
 		        if (value != this.value) {
 		        	this.input.val(value);
-		        	var left = (value - this.minValue) * (this.track.width() - this.handle.width()) / this.range;
-		        	this.handle.css("margin-left", left + "px");
+		        	var left = 100 * (value - this.minValue) / this.range;
+		        	this.handle.css("margin-left", left + "%");
 		        	this.tooltip.text(value);
 		        	this.tooltip.setPosition(this.handle,{from: 'LT', offset: [0, 5]}); //TODO Seems offset doesn't work now.
 		        	this.value = value;
@@ -168,7 +171,7 @@
 	    },
 	    
 	    __mousemoveHandler: function (event) {
-	    	var value = this.range * (event.pageX - this.track.position().left) / (this.track.width()
+	    	var value = this.range * (event.pageX - this.track.position().left - this.handle.width() / 2) / (this.track.width()
 	    			- this.handle.width()) + this.minValue;
         	value = Math.round(value / this.step) * this.step; //TODO Add normal support of float values. E.g. '0.3' should be instead of '0.30000000000000004'.
 	        this.__setValue(value, event);
