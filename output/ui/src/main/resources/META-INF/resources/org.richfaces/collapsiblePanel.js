@@ -52,7 +52,7 @@
             ];
             this.options.cycledSwitching = true;
 
-            rf.Event.bindById(this.id + ":header", "click", this.__onHeaderClick, this)
+            rf.Event.bindById(this.id + ":header", "click", this.__onHeaderClick, this);
         },
 
         switchPanel : function (to) {
