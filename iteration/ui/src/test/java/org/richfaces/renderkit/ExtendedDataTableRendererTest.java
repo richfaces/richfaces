@@ -278,6 +278,7 @@ public class ExtendedDataTableRendererTest {
         facesRequest.release();
     }
     
+    @Ignore
     @Test
     public final void testSortingWithoutClean() throws IOException {
         FacesRequest facesRequest = startFacesRequest();
