@@ -34,6 +34,7 @@ import org.richfaces.component.TreeModelRecursiveAdaptor;
 import org.richfaces.convert.DeclarativeModelSequenceKeyConverter;
 import org.richfaces.model.iterators.DeclarativeTreeDataModelCompositeTuplesIterator;
 
+import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterables;
 
@@ -45,6 +46,8 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Object> i
 
     private static final Converter DEFAULT_CONVERTER = new DeclarativeModelSequenceKeyConverter();
 
+    private static final Predicate<Object> TREE_MODEL_ADAPTOR_INSTANCE_PREDICATE = Predicates.instanceOf(TreeModelAdaptor.class);
+    
     private AbstractTree tree;
 
     private UIComponent currentComponent;
@@ -68,7 +71,7 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Object> i
             return true;
         }
 
-        return !Iterables.any(currentComponent.getChildren(), Predicates.instanceOf(TreeModelAdaptor.class));
+        return !Iterables.any(currentComponent.getChildren(), TREE_MODEL_ADAPTOR_INSTANCE_PREDICATE);
     }
 
     public Iterator<TreeDataModelTuple> children() {
