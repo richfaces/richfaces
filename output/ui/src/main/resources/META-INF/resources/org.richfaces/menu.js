@@ -47,6 +47,9 @@
 				this), this);
 		rf.Event.bindById(this.id, "mouseleave", $.proxy(this.__leaveHandler,
 				this), this);
+		if (!rf.ui.MenuManager)
+			rf.ui.MenuManager = {};
+		this.menuManager=rf.ui.MenuManager;
 
 	};
 
@@ -96,7 +99,7 @@
 						&& !this.__isGroup(item)) {
 					this.invokeEvent("itemclick", rf.getDomElement(this.id),
 							null);
-					this.hidePopup();
+					this.hide();
 				}
 			},
 
@@ -119,8 +122,19 @@
 				// }
 
 			},
+			
+			show: function() {
+				this.menuManager.shutdownMenu();
+				this.__showPopup();
+				this.menuManager.addMenuId(this.id);
+			},
+			
+			hide: function() {
+				this.menuManager.deletedMenuId();
+				this.__hidePopup();
+			},
 
-			showPopup : function() {
+			__showPopup : function() {
 				if (!this.__isShown()) {
 					this.invokeEvent("show", rf.getDomElement(this.id), null);
 					this.popupList.show();
@@ -128,7 +142,7 @@
 				}
 			},
 
-			hidePopup : function() {
+			__hidePopup : function() {
 				/*
 				 * for (var i in this.groupList) { this.groupList[i].hide(); }
 				 */
@@ -155,7 +169,7 @@
 
 			___showHandler : function() {
 				this.showTimeoutId = window.setTimeout($.proxy(function() {
-					this.showPopup();
+					this.show();
 				}, this), this.options.showDelay);
 			},
 
@@ -166,7 +180,7 @@
 			__leaveHandler : function(e) {
 				window.clearTimeout(this.showTimeoutId);
 				this.hideTimeoutId = window.setTimeout($.proxy(function() {
-					this.hidePopup();
+					this.hide();
 				}, this), this.options.hideDelay);
 			},
 
@@ -183,4 +197,25 @@
 			}
 		};
 	})());
+	
+	rf.ui.MenuManager = {
+		openedMenu: null,
+		
+		addMenuId: function(menuId) {
+			this.openedMenu = menuId;
+					
+		},
+		
+		deletedMenuId: function () {
+			this.openedMenu = null;
+		},
+		
+		shutdownMenu: function () {
+			if (this.openedMenu != null){				
+				rf.$(rf.getDomElement(this.openedMenu)).hide();
+			}
+			this.deletedMenuId();
+		}
+		
+	}
 })(jQuery, RichFaces)
