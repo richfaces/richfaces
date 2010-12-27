@@ -40,7 +40,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		<span id="#{clientId}" class="rf-insp #{component.attributes['styleClass']}" cdk:passThroughWithExclusions="id class" >
 			<input name="#{clientId}" type="text"
 				class="rf-insp-inp #{component.attributes['inputClass']}" value="#{getInputValue(facesContext, component)}"
-				cdk:passThrough="accesskey disabled maxlength onblur onfocus onclick:oninputclick ondblclick:ondblinputclick onkeydown:oninputkeydown
+				cdk:passThrough="accesskey disabled maxlength onblur onfocus onclick:oninputclick ondblclick:oninputdblclick onkeydown:oninputkeydown
 				onkeypress:oninputkeypress onkeyup:oninputkeyup onmousedown:oninputmousedown onmousemove:oninputmousemove onmouseout:oninputmouseout
 				onmouseover:oninputmouseover onmouseup:oninputmouseup onselect size:inputSize tabindex"
 				readonly="#{!component.attributes['enableManualInput']}" autocomplete="#{component.attributes['disableBrowserAutoComplete'] ? 'off' : ''}" />
