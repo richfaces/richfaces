@@ -1,6 +1,8 @@
 package org.richfaces.demo.tables.model.slides;
 
-public class Picture {
+import java.io.Serializable;
+
+public class Picture implements Serializable{
     private String name;
     private String uri;
     
