@@ -29,18 +29,18 @@ import javax.faces.context.PartialViewContextFactory;
  * @author Nick Belaevski
  * @since 4.0
  */
-public class PartialViewContextFactoryImpl extends PartialViewContextFactory {
+public class ExtendedPartialViewContextFactoryImpl extends PartialViewContextFactory {
 
     private PartialViewContextFactory parentFactory;
 
-    public PartialViewContextFactoryImpl(PartialViewContextFactory parentFactory) {
+    public ExtendedPartialViewContextFactoryImpl(PartialViewContextFactory parentFactory) {
         super();
         this.parentFactory = parentFactory;
     }
 
     @Override
     public PartialViewContext getPartialViewContext(final FacesContext context) {
-        return new PartialViewContextImpl(parentFactory.getPartialViewContext(context), context);
+        return new ExtendedPartialViewContextImpl(parentFactory.getPartialViewContext(context), context);
     }
 
     @Override

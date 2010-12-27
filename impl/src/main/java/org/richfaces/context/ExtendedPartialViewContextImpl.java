@@ -46,7 +46,6 @@ import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.PhaseId;
 
-import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.component.MetaComponentEncoder;
@@ -60,7 +59,7 @@ import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
  * @author Nick Belaevski
  * @since 4.0
  */
-public class PartialViewContextImpl extends PartialViewContext {
+public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
 
     private static final Logger LOG = RichfacesLogger.CONTEXT.getLogger();
 
@@ -71,8 +70,6 @@ public class PartialViewContextImpl extends PartialViewContext {
     }
 
     private ContextMode contextMode = null;
-
-    private FacesContext facesContext;
 
     private Collection<String> executeIds = null;
 
@@ -97,11 +94,10 @@ public class PartialViewContextImpl extends PartialViewContext {
 
     private Object responseData;
 
-    public PartialViewContextImpl(PartialViewContext wrappedViewContext, FacesContext facesContext) {
-        super();
+    public ExtendedPartialViewContextImpl(PartialViewContext wrappedViewContext, FacesContext facesContext) {
+        super(facesContext);
 
         this.wrappedViewContext = wrappedViewContext;
-        this.facesContext = facesContext;
     }
 
     @Override
@@ -217,6 +213,7 @@ public class PartialViewContextImpl extends PartialViewContext {
     }
 
     protected void processPartialExecutePhase(PhaseId phaseId) {
+        FacesContext facesContext = getFacesContext();
         PartialViewContext pvc = facesContext.getPartialViewContext();
         Collection <String> executeIds = pvc.getExecuteIds();
         
@@ -244,6 +241,7 @@ public class PartialViewContextImpl extends PartialViewContext {
     }
     
     protected void executeComponents(PhaseId phaseId, Collection<String> executeIds) {
+        FacesContext facesContext = getFacesContext();
         EnumSet<VisitHint> hints = EnumSet.of(VisitHint.SKIP_UNRENDERED);
         VisitContext visitContext = new ExecuteExtendedVisitContext(facesContext, executeIds, hints);
         PartialViewExecuteVisitCallback callback = new PartialViewExecuteVisitCallback(facesContext, phaseId);
@@ -251,6 +249,7 @@ public class PartialViewContextImpl extends PartialViewContext {
     }
     
     protected void processPartialRenderPhase() {
+        FacesContext facesContext = getFacesContext();
         PartialViewContext pvc = facesContext.getPartialViewContext();
         UIViewRoot viewRoot = facesContext.getViewRoot();
         Collection<String> phaseIds = pvc.getRenderIds();
@@ -317,7 +316,7 @@ public class PartialViewContextImpl extends PartialViewContext {
     }
     
     private void visitActivatorAtExecute() {
-        ExecuteComponentCallback callback = new ExecuteComponentCallback(facesContext, behaviorEvent);
+        ExecuteComponentCallback callback = new ExecuteComponentCallback(getFacesContext(), behaviorEvent);
 
         if (visitActivatorComponent(activatorComponentId, callback, EnumSet.of(VisitHint.SKIP_UNRENDERED))) {
             setupExecuteCallbackData(callback);
@@ -333,7 +332,7 @@ public class PartialViewContextImpl extends PartialViewContext {
 
     private void visitActivatorAtRender(Collection<String> ids) {
         if (!isRenderAll()) {
-            RenderComponentCallback callback = new RenderComponentCallback(facesContext, behaviorEvent);
+            RenderComponentCallback callback = new RenderComponentCallback(getFacesContext(), behaviorEvent);
 
             if (visitActivatorComponent(activatorComponentId, callback, EnumSet.noneOf(VisitHint.class))) {
                 setupRenderCallbackData(callback);
@@ -348,12 +347,10 @@ public class PartialViewContextImpl extends PartialViewContext {
 
             if (!Boolean.TRUE.equals(renderAll) && !ids.contains(ALL)) {
                 addImplicitRenderIds(ids, limitRender);
-                
-                //TODO - review
-                AjaxContext ajaxContext = AjaxContext.getCurrentInstance();
-                ajaxContext.setOnbeforedomupdate(onbeforedomupdate);
-                ajaxContext.appendOncomplete(oncomplete);
-                ajaxContext.setResponseData(responseData);
+        
+                appendOnbeforedomupdate(onbeforedomupdate);
+                appendOncomplete(oncomplete);
+                setResponseData(responseData);
             }
         }
     }
@@ -389,21 +386,16 @@ public class PartialViewContextImpl extends PartialViewContext {
         }
     }
 
-    /*
-	 * (non-Javadoc)
-	 *
-	 * @see javax.faces.context.PartialViewContext#release()
-	 */
     @Override
     public void release() {
-        assertNotReleased();
+        super.release();
 
+        assertNotReleased();
+        
         released = true;
 
         wrappedViewContext.release();
         wrappedViewContext = null;
-
-        facesContext = null;
 
         renderAll = null;
         executeIds = null;
@@ -418,7 +410,7 @@ public class PartialViewContextImpl extends PartialViewContext {
 
     protected void addImplicitExecuteIds(Collection<String> ids) {
         if (!ids.isEmpty()) {
-            UIViewRoot root = facesContext.getViewRoot();
+            UIViewRoot root = getFacesContext().getViewRoot();
             if (root.getFacetCount() > 0) {
                 if (root.getFacet(UIViewRoot.METADATA_FACET_NAME) != null) {
                     //TODO nick - does ordering matter?
@@ -434,13 +426,12 @@ public class PartialViewContextImpl extends PartialViewContext {
 
     protected void renderExtensions(FacesContext context, UIComponent component) throws IOException {
         // ADD deffered scripts 
-        AjaxContext ajaxContext = AjaxContext.getCurrentInstance();
         ScriptsHolder scriptsHolder = ServiceTracker.getService(JavaScriptService.class).getScriptsHolder(context);
         for (Object script : scriptsHolder.getScripts()) {
-            ajaxContext.appendOncomplete(ScriptUtils.toScript(script));
+            appendOncomplete(ScriptUtils.toScript(script));
         }
         for (Object script : scriptsHolder.getPageReadyScripts()) {
-            ajaxContext.appendOncomplete(ScriptUtils.toScript(script));
+            appendOncomplete(ScriptUtils.toScript(script));
         }
         CoreAjaxRendererUtils.renderAjaxExtensions(context, component);
     }
@@ -452,6 +443,7 @@ public class PartialViewContextImpl extends PartialViewContext {
     }
 
     private boolean visitActivatorComponent(String componentActivatorId, VisitCallback visitCallback, Set<VisitHint> visitHints) {
+        FacesContext facesContext = getFacesContext();
         
         Set<String> idsToVisit = Collections.singleton(componentActivatorId);
         VisitContext visitContext = new ExecuteExtendedVisitContext(facesContext, idsToVisit, visitHints);
@@ -461,6 +453,8 @@ public class PartialViewContextImpl extends PartialViewContext {
     }
 
     private void cleanupAfterView() {
+        FacesContext facesContext = getFacesContext();
+
         ResponseWriter orig = (ResponseWriter) facesContext.getAttributes().get(ORIGINAL_WRITER);
         assert null != orig;
         // move aside the PartialResponseWriter
@@ -469,7 +463,7 @@ public class PartialViewContextImpl extends PartialViewContext {
 
     protected ContextMode detectContextMode() {
         if (contextMode == null) {
-            Map<String, String> requestParameterMap = facesContext.getExternalContext().getRequestParameterMap();
+            Map<String, String> requestParameterMap = getFacesContext().getExternalContext().getRequestParameterMap();
             activatorComponentId = requestParameterMap.get(AJAX_COMPONENT_ID_PARAMETER);
 
             if (activatorComponentId != null) {

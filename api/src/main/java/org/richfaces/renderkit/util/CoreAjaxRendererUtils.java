@@ -34,8 +34,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 
-import org.ajax4jsf.context.AjaxContext;
 import org.richfaces.application.ServiceTracker;
+import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.renderkit.AjaxDataSerializer;
 import org.richfaces.renderkit.HtmlConstants;
 
@@ -109,14 +109,14 @@ public final class CoreAjaxRendererUtils {
     }
 
     public static void renderAjaxExtensions(FacesContext facesContext, UIComponent component) throws IOException {
-        AjaxContext ajaxContext = AjaxContext.getCurrentInstance(facesContext);
+        ExtendedPartialViewContext partialContext = ExtendedPartialViewContext.getInstance(facesContext);
 
         Map<String, String> attributes = Collections.singletonMap(HtmlConstants.ID_ATTRIBUTE,
             facesContext.getExternalContext().encodeNamespace(EXTENSION_ID));
         PartialResponseWriter writer = facesContext.getPartialViewContext().getPartialResponseWriter();
         boolean[] writingState = new boolean[]{false};
 
-        Object onbeforedomupdate = ajaxContext.getOnbeforedomupdate();
+        Object onbeforedomupdate = partialContext.getOnbeforedomupdate();
         if (onbeforedomupdate != null) {
             String string = onbeforedomupdate.toString();
             if (string.length() != 0) {
@@ -127,7 +127,7 @@ public final class CoreAjaxRendererUtils {
             }
         }
 
-        Object oncomplete = ajaxContext.getOncomplete();
+        Object oncomplete = partialContext.getOncomplete();
         if (oncomplete != null) {
             String string = oncomplete.toString();
             if (string.length() != 0) {
@@ -138,7 +138,7 @@ public final class CoreAjaxRendererUtils {
             }
         }
 
-        Object responseData = ajaxContext.getResponseData();
+        Object responseData = partialContext.getResponseData();
         if (responseData != null) {
             startExtensionElementIfNecessary(writer, attributes, writingState);
             writer.startElement(DATA_ELEMENT_NAME, component);
@@ -149,7 +149,7 @@ public final class CoreAjaxRendererUtils {
             writer.endElement(DATA_ELEMENT_NAME);
         }
 
-        Map<String, Object> responseComponentDataMap = ajaxContext.getResponseComponentDataMap();
+        Map<String, Object> responseComponentDataMap = partialContext.getResponseComponentDataMap();
         if (responseComponentDataMap != null && !responseComponentDataMap.isEmpty()) {
             startExtensionElementIfNecessary(writer, attributes, writingState);
             writer.startElement(COMPONENT_DATA_ELEMENT_NAME, component);

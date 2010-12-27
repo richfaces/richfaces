@@ -33,11 +33,6 @@
        <managed-bean-class>org.richfaces.skin.SkinBean</managed-bean-class>
        <managed-bean-scope>application</managed-bean-scope>
     </managed-bean>
-    <managed-bean>
-    	<managed-bean-name>ajaxContext</managed-bean-name>
-    	<managed-bean-class>org.ajax4jsf.context.AjaxContextImpl</managed-bean-class>
-    	<managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
     <!-- component>
 
         <component-type>javax.faces.ViewRoot</component-type>
