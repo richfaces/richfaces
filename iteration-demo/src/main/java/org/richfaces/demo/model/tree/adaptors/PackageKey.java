@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright ${year}, Red Hat, Inc. and individual contributors
+ * Copyright 2010, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,41 +19,54 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.demo.model.tree.adaptors;
-
-import java.util.List;
-import java.util.Map;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlTransient;
-
-import com.google.common.collect.Maps;
 
 /**
  * @author Nick Belaevski
- *         mailto:nbelaevski@exadel.com
- *         created 24.07.2007
- *
+ * 
  */
-public class SourceDirectory extends Entry {
+public class PackageKey {
 
-    @XmlElement(name = "package")
-    private List<Package> packages;
+    private String packageName;
 
-    @XmlTransient
-    private Map<PackageKey, Package> packagesMap;
-    
-    public Map<PackageKey, Package> getPackages() {
-        if (packagesMap == null && packages != null) {
-            packagesMap = Maps.newLinkedHashMap();
-            
-            for (Package pkg: packages) {
-                packagesMap.put(new PackageKey(pkg.getName()), pkg);
-            }
-        }
-        
-        return packagesMap;
+    public PackageKey(String packageName) {
+        super();
+        this.packageName = packageName;
     }
 
+    public String getPackageName() {
+        return packageName;
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((packageName == null) ? 0 : packageName.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        PackageKey other = (PackageKey) obj;
+        if (packageName == null) {
+            if (other.packageName != null) {
+                return false;
+            }
+        } else if (!packageName.equals(other.packageName)) {
+            return false;
+        }
+        return true;
+    }
+
+    
 }

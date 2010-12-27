@@ -32,7 +32,7 @@
 						<a4j:commandLink value="#{node}" action="#{node.processClick}" />
 					</it:treeNode>
 					
-					<it:treeModelAdaptor nodes="#{node.packages}">
+					<it:treeModelAdaptor nodes="#{node.packages}" rowKeyConverter="org.richfaces.demo.PackageKeyConverter">
 						<it:treeModelAdaptor nodes="#{node.classes}" />
 					</it:treeModelAdaptor>				
 				</it:treeModelAdaptor>				

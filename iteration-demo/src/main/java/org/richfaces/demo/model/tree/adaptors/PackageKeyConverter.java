@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright ${year}, Red Hat, Inc. and individual contributors
+ * Copyright 2010, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,58 +19,34 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.demo.model.tree.adaptors;
 
-import java.util.List;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
 
-import com.google.common.collect.Lists;
+import com.google.common.base.Strings;
 
 /**
  * @author Nick Belaevski
- * @since 3.2
+ * 
  */
+public class PackageKeyConverter implements Converter {
 
-public class SimpleRecursiveNode {
-
-    private SimpleRecursiveNode parent;
-
-    private List<SimpleRecursiveNode> children = Lists.newArrayList();
-
-    private String text;
-
-    public SimpleRecursiveNode(SimpleRecursiveNode parent, String text) {
-        super();
-        this.parent = parent;
-        if (parent != null) {
-            parent.addChild(this);
+    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+        if (Strings.isNullOrEmpty(value)) {
+            return null;
         }
-        this.text = text;
+        
+        return new PackageKey(value);
     }
 
-    public void addChild(SimpleRecursiveNode node) {
-        children.add(node);
-    }
-
-    public void removeChild(SimpleRecursiveNode node) {
-        children.remove(node);
-    }
-
-    public void remove() {
-        if (parent != null) {
-            parent.removeChild(this);
+    public String getAsString(FacesContext context, UIComponent component, Object value) {
+        if (value == null) {
+            return "";
         }
+        
+        return ((PackageKey) value).getPackageName();
     }
 
-    public SimpleRecursiveNode getParent() {
-        return parent;
-    }
-
-    public List<SimpleRecursiveNode> getChildren() {
-        return children;
-    }
-
-    public String getText() {
-        return text;
-    }
 }
