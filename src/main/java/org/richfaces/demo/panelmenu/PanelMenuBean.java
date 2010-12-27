@@ -29,6 +29,5 @@ public class PanelMenuBean {
 
     public void updateCurrent(ItemChangeEvent event) {
         setCurrent(event.getNewItem());
-        System.out.println(event.getNewItem());
     }
 }
