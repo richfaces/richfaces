@@ -45,6 +45,7 @@ import org.ajax4jsf.model.Range;
 import org.ajax4jsf.model.SequenceDataModel;
 import org.ajax4jsf.model.SequenceRange;
 import org.ajax4jsf.model.SequenceState;
+import org.richfaces.cdk.annotations.Attribute;
 
 /**
  * @author Nick Belaevski
@@ -139,6 +140,7 @@ public class UISequence extends UIDataAdaptor {
         return getFacesContext().getApplication().createConverter(Integer.class);
     }
 
+    @Attribute
     public int getFirst() {
         return (Integer) getStateHelper().eval(PropertyKeys.first, 0);
     }
@@ -148,6 +150,7 @@ public class UISequence extends UIDataAdaptor {
         updateState();
     }
 
+    @Attribute
     public int getRows() {
         return (Integer) getStateHelper().eval(PropertyKeys.rows, 0);
     }
@@ -157,6 +160,7 @@ public class UISequence extends UIDataAdaptor {
         updateState();
     }
 
+    @Attribute
     public Object getValue() {
         return getStateHelper().eval(PropertyKeys.value);
     }
@@ -166,6 +170,7 @@ public class UISequence extends UIDataAdaptor {
         getStateHelper().put(PropertyKeys.value, value);
     }
 
+    @Attribute
     public String getIterationStatusVar() {
         return (String) getStateHelper().get(PropertyKeys.iterationStatusVar);
     }

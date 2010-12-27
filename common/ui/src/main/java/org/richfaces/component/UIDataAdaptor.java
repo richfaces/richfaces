@@ -69,6 +69,7 @@ import org.ajax4jsf.model.DataVisitResult;
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
+import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
@@ -574,6 +575,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         this.extendedDataModel = extendedDataModel;
     }
 
+    @Attribute
     public String getVar() {
         return (String) getStateHelper().get(PropertyKeys.var);
     }
@@ -582,6 +584,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         getStateHelper().put(PropertyKeys.var, var);
     }
 
+    @Attribute
     public String getRowKeyVar() {
         return (String) getStateHelper().get(PropertyKeys.rowKeyVar);
     }
@@ -590,6 +593,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         getStateHelper().put(PropertyKeys.rowKeyVar, rowKeyVar);
     }
 
+    @Attribute
     public String getStateVar() {
         return (String) getStateHelper().get(PropertyKeys.stateVar);
     }
@@ -616,6 +620,8 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
      * before rendering. By default state is reset if there are no faces messages with severity error or higher.
      * @return
      */
+    
+    @Attribute
     public boolean isKeepSaved() {
         Object value = getStateHelper().eval(PropertyKeys.keepSaved);
 

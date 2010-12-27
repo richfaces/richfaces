@@ -68,7 +68,8 @@ public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implem
     enum PropertyKeys {
         expanded
     }
-            
+    
+    @Attribute
     public boolean isExpanded() {
         return (Boolean)getStateHelper().eval(PropertyKeys.expanded, true);
     }
