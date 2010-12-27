@@ -366,16 +366,18 @@
     				this.setValue(label);
                		this.hidePopup();
                		this.__setInputFocus();
-
-               		this.invokeEvent.call(this,"selectitem", document.getElementById(this.id + 'Input'));
+               		this.__save();
+               		
+					if(this.focusValue != this.selValueInput.val() ) {
+						this.invokeEvent.call(this,"selectitem", document.getElementById(this.id + 'Input'));
+					}	
     			}, 
     			
-    			onblur: function(e) {
-    				this.hidePopup();
+    			__save: function() {
 					var value = "";
-					var label = this.defaultLabel;
-					var clientItem; 
+					var label = "";
 					var inputLabel = this.getValue();
+
 					if(inputLabel && inputLabel != "") {
 						if(this.enableManualInput) {
 							clientItem = this.__getClientItemFromCache(inputLabel);
@@ -387,10 +389,21 @@
 							label = clientItem.label;
 							value = clientItem.value;
 						}
-					} 
-					
+					}	
+
 					this.setValue(label);
 					this.selValueInput.val(value);
+    			},
+    			
+    			onblur: function(e) {
+    				this.hidePopup();
+					var inputLabel = this.getValue();
+					
+					if(!inputLabel || inputLabel == "") {
+						this.setValue(this.defaultLabel);
+						this.selValueInput.val("");
+					}	
+					
 					this.focused = false;
 					this.invokeEvent.call(this,"blur", document.getElementById(this.id + 'Input'), e);
 					if(this.focusValue != this.selValueInput.val() ) {
