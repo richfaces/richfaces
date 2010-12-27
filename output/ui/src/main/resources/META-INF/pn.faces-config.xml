@@ -855,7 +855,7 @@
         <property>
             <description></description>
             <property-name>direction</property-name>
-            <property-class>org.richfaces.TooltipDirection</property-class>
+            <property-class>org.richfaces.component.TooltipDirection</property-class>
         </property>
         <property>
             <description></description>

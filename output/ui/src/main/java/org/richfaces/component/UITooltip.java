@@ -24,7 +24,6 @@
 package org.richfaces.component;
 
 import org.richfaces.TooltipLayout;
-import org.richfaces.TooltipDirection;
 import org.richfaces.TooltipMode;
 
 /**

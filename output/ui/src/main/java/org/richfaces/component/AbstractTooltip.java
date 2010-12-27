@@ -30,7 +30,6 @@ import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.TooltipDirection;
 import org.richfaces.TooltipLayout;
 import org.richfaces.TooltipMode;
 import org.richfaces.context.ExtendedVisitContext;

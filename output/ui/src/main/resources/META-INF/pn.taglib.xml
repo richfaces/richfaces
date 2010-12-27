@@ -909,7 +909,7 @@
   </attribute>
   <attribute>
    <name>direction</name>
-   <type>org.richfaces.TooltipDirection</type>
+   <type>org.richfaces.component.TooltipDirection</type>
   </attribute>
   <attribute>
    <name>disabled</name>
