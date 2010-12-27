@@ -16,13 +16,18 @@
 		<h:messages id="messages" />
 	</a4j:outputPanel>
 
+	<h:form>
+		Project is leaf:
+		<h:selectBooleanCheckbox value="#{treeModelBean.projectIsLeaf}" onclick="submit()" />
+	</h:form>
+
 	<h:form id="form">
 		<it:tree id="tree" var="node" toggleType="ajax">
 			<it:treeNode>
 				<a4j:commandLink value="#{node}" action="#{node.processClick}" />
 			</it:treeNode>
 
-			<it:treeModelAdaptor nodes="#{treeModelBean.root.projects}">
+			<it:treeModelAdaptor nodes="#{treeModelDataBean.root.projects}" leaf="#{treeModelBean.projectIsLeaf}">
 				<it:treeNode iconExpanded="/images/folder_key.png" iconCollapsed="/images/folder_key.png">
 					<a4j:commandLink value="#{node}" action="#{node.processClick}" />
 				</it:treeNode>
