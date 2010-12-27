@@ -288,9 +288,9 @@ if (!window.RichFaces) {
 	//
 
 	var pollTracker = {};
-		richfaces.startPoll =  function(options) {
+	richfaces.startPoll = function(options) {
 		var pollId = options.pollId;
-		var interval = options.pollinterval;
+		var interval = options.interval || 1000;
 		var ontimer = options.ontimer;
 		richfaces.stopPoll(pollId);
 

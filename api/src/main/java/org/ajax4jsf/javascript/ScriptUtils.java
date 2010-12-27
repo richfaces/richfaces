@@ -154,6 +154,8 @@ public final class ScriptUtils {
 
             // all other put as encoded strings.
             appendEncodedString(appendable, obj);
+        } else if (obj instanceof Character) {
+            appendEncodedString(appendable, obj);
         } else if (obj instanceof Enum<?>) {
 
             // all other put as encoded strings.

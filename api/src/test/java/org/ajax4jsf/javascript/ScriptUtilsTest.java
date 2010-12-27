@@ -287,6 +287,10 @@ public class ScriptUtilsTest extends TestCase {
         assertEquals("\"TestEnum: B\"", ScriptUtils.toScript(TestEnum.B));
     }
 
+    public void testCharacter() throws Exception {
+        assertEquals("\"N\"", ScriptUtils.toScript('N'));
+    }
+    
     private void assertCaptureEquals(Capture<? extends Object> capture, String expected) {
         StringBuilder sb = new StringBuilder();
         List<? extends Object> list = capture.getValues();
