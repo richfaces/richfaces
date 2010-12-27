@@ -28,7 +28,6 @@ import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.component.AjaxClientBehavior;
-import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.renderkit.AjaxConstants;
@@ -590,26 +589,5 @@ public final class AjaxRendererUtils {
     public static String getAjaxOnBegin(UIComponent component) {
         return (String) component.getAttributes().get(ONBEGIN_ATTR_NAME);
     }
-
-    protected static String getAjaxActionUrl(FacesContext facesContext) {
-        return AjaxContext.getCurrentInstance(facesContext).getAjaxActionURL(facesContext);
-    }
-
-    /**
-     * @param facesContext
-     * @return
-     */
-    public static boolean isAjaxRequest(FacesContext facesContext) {
-        return AjaxContext.getCurrentInstance(facesContext).isAjaxRequest();
-    }
-
-    /**
-     * @param facesContext
-     * @param component
-     */
-    public static void addRegionsFromComponent(UIComponent component, FacesContext facesContext) {
-        AjaxContext.getCurrentInstance(facesContext).addRegionsFromComponent(component);
-    }
-
 
 }

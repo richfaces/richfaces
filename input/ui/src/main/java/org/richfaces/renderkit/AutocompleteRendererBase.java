@@ -29,7 +29,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.el.ELException;
+import javax.el.ExpressionFactory;
 import javax.el.MethodExpression;
+import javax.el.MethodNotFoundException;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
@@ -44,13 +46,15 @@ import javax.faces.model.ResultDataModel;
 import javax.faces.model.ResultSetDataModel;
 import javax.servlet.jsp.jstl.sql.Result;
 
-import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.javascript.JSObject;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractAutocomplete;
 import org.richfaces.component.AutocompleteLayout;
 import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.component.util.InputUtils;
+import org.richfaces.context.ExtendedPartialViewContext;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * @author Nick Belaevski
@@ -67,6 +71,8 @@ import org.richfaces.component.util.InputUtils;
 })
 public abstract class AutocompleteRendererBase extends InputRendererBase implements MetaComponentRenderer {
 
+    private static final Logger LOGGER = RichfacesLogger.RENDERKIT.getLogger();
+    
     public JSReference getClientFilterFunction(UIComponent component) {
         AbstractAutocomplete autocomplete = (AbstractAutocomplete) component;
         String clientFilter = (String) autocomplete.getAttributes().get("clientFilterFunction");
@@ -88,22 +94,19 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
             Map<String, String> requestParameters = facesContext.getExternalContext().getRequestParameterMap();
             String value = requestParameters.get(component.getClientId(facesContext) + "Value");
             try {
-                // String value = getInputValue(facesContext, component);
-
-                itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[]{facesContext,
-                    component, value});
-            } catch (ELException e) {
                 try {
-                    autocompleteMethod = facesContext
-                        .getApplication()
-                        .getExpressionFactory()
-                        .createMethodExpression(facesContext.getELContext(), autocompleteMethod.getExpressionString(),
-                            Void.class, new Class[]{String.class});
+                    // String value = getInputValue(facesContext, component);
+                    itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[]{facesContext,
+                        component, value});
+                } catch (MethodNotFoundException e) {
+                    ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
+                    autocompleteMethod = expressionFactory.createMethodExpression(facesContext.getELContext(), 
+                        autocompleteMethod.getExpressionString(),
+                        Object.class, new Class[]{String.class});
                     itemsObject = autocompleteMethod.invoke(facesContext.getELContext(), new Object[]{value});
-                } catch (ELException ee) {
-                    ee.printStackTrace();
                 }
-
+            } catch (ELException ee) {
+                LOGGER.error(ee.getMessage(), ee);
             }
         } else {
             itemsObject = component.getAutocompleteList();
@@ -293,7 +296,7 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
             partialWriter.endUpdate();
 
             if (!fetchValues.isEmpty()) {
-                Map<String, Object> dataMap = AjaxContext.getCurrentInstance(context).getResponseComponentDataMap();
+                Map<String, Object> dataMap = ExtendedPartialViewContext.getInstance(context).getResponseComponentDataMap();
                 dataMap.put(component.getClientId(context), fetchValues);
             }
         } else {

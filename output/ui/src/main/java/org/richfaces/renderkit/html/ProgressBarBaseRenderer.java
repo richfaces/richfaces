@@ -37,12 +37,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.PartialViewContext;
 
-import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractProgressBar;
 import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.component.NumberUtils;
 import org.richfaces.component.SwitchType;
+import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.renderkit.AjaxFunction;
 import org.richfaces.renderkit.AjaxOptions;
 import org.richfaces.renderkit.MetaComponentRenderer;
@@ -169,8 +169,8 @@ public class ProgressBarBaseRenderer extends RendererBase implements MetaCompone
         if (AbstractProgressBar.STATE_META_COMPONENT_ID.equals(metaComponentId)) {
             ProgressBarState state = getCurrentState(context, component);
             
-            AjaxContext ajaxContext = AjaxContext.getCurrentInstance(context);
-            ajaxContext.getResponseComponentDataMap().put(component.getClientId(context), NumberUtils.getNumber(component.getAttributes().get("value")));
+            ExtendedPartialViewContext partialContext = ExtendedPartialViewContext.getInstance(context);
+            partialContext.getResponseComponentDataMap().put(component.getClientId(context), NumberUtils.getNumber(component.getAttributes().get("value")));
 
             PartialResponseWriter partialResponseWriter = context.getPartialViewContext().getPartialResponseWriter();
             partialResponseWriter.startUpdate(state.getStateClientId(context, component));

@@ -39,7 +39,6 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 
-import org.ajax4jsf.context.AjaxContext;
 import org.richfaces.event.ValidatorEvent;
 
 /**
@@ -126,14 +125,14 @@ public abstract class UIAjaxValidator extends UIComponentBase implements AjaxCon
     }
 
     public void encodeAjax(FacesContext context) throws IOException {
-        AjaxContext ajaxContext = AjaxContext.getCurrentInstance(context);
-        Set<String> renderedAreas = ajaxContext.getAjaxRenderedAreas();
-        for (UIComponent message : getMessages(context, this)) {
-            if (message.isRendered()) {
-                message.encodeAll(context);
-                renderedAreas.add(message.getClientId(context));
-            }
-        }
+//        AjaxContext ajaxContext = AjaxContext.getCurrentInstance(context);
+//        Set<String> renderedAreas = ajaxContext.getAjaxRenderedAreas();
+//        for (UIComponent message : getMessages(context, this)) {
+//            if (message.isRendered()) {
+//                message.encodeAll(context);
+//                renderedAreas.add(message.getClientId(context));
+//            }
+//        }
         // Write information about encoded areas after submission.
         // AjaxRendererUtils.encodeAreas(context, this);
     }

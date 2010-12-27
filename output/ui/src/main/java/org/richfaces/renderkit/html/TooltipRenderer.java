@@ -23,7 +23,8 @@
 
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.renderkit.HtmlConstants.*;
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
 import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
 import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
@@ -39,11 +40,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.ResponseWriter;
 
-import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.TooltipMode;
 import org.richfaces.component.AbstractTooltip;
 import org.richfaces.component.html.HtmlTooltip;
+import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
@@ -81,12 +82,12 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
             context.getPartialViewContext().getRenderIds().add(tooltip.getContentClientId(context));
 
             //TODO nick - this should be done on encode, not on decode
-            addOnCompleteParam(tooltip.getClientId());
+            addOnCompleteParam(context, tooltip.getClientId());
         }
     }
 
-    protected static void addOnCompleteParam(String tooltipId) {
-        AjaxContext.getCurrentInstance().appendOncomplete(new StringBuilder()
+    protected static void addOnCompleteParam(FacesContext context, String tooltipId) {
+        ExtendedPartialViewContext.getInstance(context).appendOncomplete(new StringBuilder()
                 .append("RichFaces.$('").append(tooltipId).append("').onCompleteHandler();").toString());
     }
 

@@ -23,13 +23,11 @@ package org.richfaces.renderkit.html;
 
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.Set;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.ajax4jsf.context.AjaxContext;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractOutputPanel;
 import org.richfaces.renderkit.HtmlConstants;
@@ -56,33 +54,7 @@ public class AjaxOutputPanelRenderer extends RendererBase {
     @Override
     public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
         //
-        AbstractOutputPanel panel = (AbstractOutputPanel) component;
-        if (hasNoneLayout(panel)) {
-            if (component.getChildCount() > 0) {
-                AjaxContext ajaxContext = AjaxContext.getCurrentInstance(context);
-                boolean ajaxRequest = ajaxContext.isAjaxRequest();
-                Set<String> ajaxRenderedAreas = ajaxContext.getAjaxRenderedAreas();
-                for (UIComponent child : component.getChildren()) {
-                    String childId = child.getClientId(context);
-                    if (child.isRendered()) {
-                        child.encodeAll(context);
-                    } else {
-                        // Render "dummy" span.
-                        ResponseWriter out = context.getResponseWriter();
-                        out.startElement(HtmlConstants.SPAN_ELEM, child);
-                        out.writeAttribute(HtmlConstants.ID_ATTRIBUTE, childId, HtmlConstants.ID_ATTRIBUTE);
-                        out.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display: none;", "style");
-                        out.endElement(HtmlConstants.SPAN_ELEM);
-                    }
-                    // register child as rendered
-                    if (ajaxRequest && null != ajaxRenderedAreas) {
-                        ajaxRenderedAreas.add(childId);
-                    }
-                }
-            }
-        } else {
-            renderChildren(context, component);
-        }
+        renderChildren(context, component);
     }
 
     /* (non-Javadoc)

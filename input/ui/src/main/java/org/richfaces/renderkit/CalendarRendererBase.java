@@ -45,7 +45,6 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.DateTimeConverter;
 
-import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractCalendar;
@@ -53,6 +52,7 @@ import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.component.util.MessageUtil;
 import org.richfaces.component.util.SelectUtils;
+import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.event.CurrentDateChangeEvent;
 import org.richfaces.utils.CalendarHelper;
 
@@ -558,7 +558,7 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         if (AbstractCalendar.DAYSDATA_META_COMPONENT_ID.equals(metaComponentId)) {
             Object preload = ((AbstractCalendar) component).getPreload();
             if (preload != null) {
-                Map<String, Object> dataMap = AjaxContext.getCurrentInstance(context).getResponseComponentDataMap();
+                Map<String, Object> dataMap = ExtendedPartialViewContext.getInstance(context).getResponseComponentDataMap();
                 dataMap.put(component.getClientId(context), preload);
             }
         } else {

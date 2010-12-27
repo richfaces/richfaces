@@ -36,13 +36,13 @@ import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
 
-import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractTree;
 import org.richfaces.component.AbstractTreeNode;
 import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.component.SwitchType;
+import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.event.TreeSelectionChangeEvent;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
@@ -179,8 +179,8 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
             
             JSFunction function = new JSFunction("RichFaces.$", component.getClientId(context));
 
-            AjaxContext ajaxContext = AjaxContext.getCurrentInstance(context);
-            ajaxContext.appendOncomplete(function.toScript() + ".__updateSelectionFromInput();");
+            ExtendedPartialViewContext partialContext = ExtendedPartialViewContext.getInstance(context);
+            partialContext.appendOncomplete(function.toScript() + ".__updateSelectionFromInput();");
         } else {
             throw new IllegalArgumentException(metaComponentId);
         }

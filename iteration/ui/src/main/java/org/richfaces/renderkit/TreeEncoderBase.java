@@ -28,11 +28,11 @@ import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.component.AbstractTree;
 import org.richfaces.component.AbstractTreeNode;
 import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.model.TreeDataModelTuple;
 import org.richfaces.model.TreeDataVisitor;
 
@@ -191,8 +191,8 @@ abstract class TreeEncoderBase implements TreeDataVisitor {
             TreeNodeState initialState = (TreeNodeState) context.getAttributes().get(TreeNodeRendererBase.AJAX_TOGGLED_NODE_STATE_ATTRIBUTE);
 
             if (initialState.isDifferentThan(nodeState)) {
-                AjaxContext ajaxContext = AjaxContext.getCurrentInstance(context);
-                ajaxContext.appendOncomplete(new JSFunction("RichFaces.ui.TreeNode.emitToggleEvent", treeNode.getClientId(context)));
+                ExtendedPartialViewContext partialContext = ExtendedPartialViewContext.getInstance(context);
+                partialContext.appendOncomplete(new JSFunction("RichFaces.ui.TreeNode.emitToggleEvent", treeNode.getClientId(context)));
             }
         }
     }

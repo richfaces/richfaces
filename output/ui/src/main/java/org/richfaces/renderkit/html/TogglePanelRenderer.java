@@ -34,13 +34,13 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-import org.ajax4jsf.context.AjaxContext;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSObject;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.component.AbstractTogglePanelItem;
 import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.renderkit.AjaxOptions;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
@@ -87,17 +87,17 @@ public class TogglePanelRenderer extends DivPanelRenderer {
                 context.getPartialViewContext().getRenderIds().add(panelItem.getClientId(context));
                 
                 //TODO nick - this should be done on encode, not on decode
-                addOnCompleteParam(newValue, panel.getClientId());
+                addOnCompleteParam(context, newValue, panel.getClientId());
             }
         }
     }
 
-    protected static void addOnCompleteParam(String newValue, String panelId) {
+    protected static void addOnCompleteParam(FacesContext context, String newValue, String panelId) {
         StringBuilder onComplete = new StringBuilder();
         onComplete.append("RichFaces.$('").append(panelId)
                     .append("').onCompleteHandler('").append(newValue).append("');");
 
-        AjaxContext.getCurrentInstance().appendOncomplete(onComplete.toString());
+        ExtendedPartialViewContext.getInstance(context).appendOncomplete(onComplete.toString());
     }
 
     static String getValueRequestParamName(FacesContext context, UIComponent component) {
