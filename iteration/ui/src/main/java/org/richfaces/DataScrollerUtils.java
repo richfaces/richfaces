@@ -99,7 +99,7 @@ public final class DataScrollerUtils {
     
     public static UIComponent findDataTable(AbstractDataScroller dataScroller) {
 
-        String forAttribute = dataScroller.getForComponent();
+        String forAttribute = dataScroller.getFor();
         UIComponent forComp;
         if (forAttribute == null) {
             forComp = dataScroller;

@@ -48,10 +48,6 @@ public abstract class AbstractCollapsibleSubTableToggler extends UIComponentBase
     
     public static final String DEFAULT_EVENT = "onclick"; 
     
-    enum PropertyKeys {
-        forId
-    }
-
     @Attribute
     public abstract String getExpandLabel();
     
@@ -66,12 +62,13 @@ public abstract class AbstractCollapsibleSubTableToggler extends UIComponentBase
     
     @Attribute(defaultValue = DEFAULT_EVENT)
     public abstract String getEvent();
-
+    
+    @Attribute
     public String getFor() {
-        return (String)getStateHelper().eval(PropertyKeys.forId);
+        return (String)getStateHelper().eval("for");
     }
     
     public void setFor(String forId) {
-        getStateHelper().put(PropertyKeys.forId, forId);
+        getStateHelper().put("for", forId);
     }
 }

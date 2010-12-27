@@ -116,7 +116,6 @@ public class DataScrollerHandler extends ComponentHandler {
         MetaRuleset ruleset = super.createMetaRuleset(type);
         ruleset.addRule(PAGERULE);
         ruleset.addRule(SCROLL_LISTENER_RULE);
-        ruleset.alias("for", "forComponent");
         return ruleset;
     }
 }

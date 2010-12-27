@@ -91,9 +91,6 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
     @Attribute
     public abstract String getLastPageMode();
 
-    @Attribute
-    public abstract String getForComponent();
-
     @Attribute(defaultValue="10")
     public abstract int getMaxPages();
 
@@ -108,7 +105,16 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
     
     @Attribute(defaultValue="1")
     public abstract int getFastStep();
+
+    @Attribute
+    public String getFor() {
+        return (String)getStateHelper().eval("for");
+    }
     
+    public void setFor(String forId) {
+        getStateHelper().put("for", forId);
+    }
+
     public void addScrollerListener(DataScrollerListener listener) {
         addFacesListener(listener);
     }
