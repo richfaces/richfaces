@@ -60,10 +60,10 @@ if (!window.RichFaces) {
 	};
 	
 	var query = function(options) {
-		if (options.timing == 'domready') {
-			jquery(document).ready(createQueryFunction(options));
-		} else {
+		if (options.timing == 'immediate') {
 			createQueryFunction(options).call(this);
+		} else {
+			jquery(document).ready(createQueryFunction(options));
 		}
 	};
 	

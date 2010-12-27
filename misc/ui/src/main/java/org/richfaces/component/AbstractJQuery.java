@@ -59,10 +59,10 @@ public abstract class AbstractJQuery extends UIComponentBase {
     @Attribute
     public abstract String getQuery();
 
-    @Attribute(defaultValue = "JQueryAttachType.DEFAULT")
+    @Attribute
     public abstract JQueryAttachType getAttachType();
 
-    @Attribute(defaultValue = "JQueryTiming.DEFAULT")
+    @Attribute
     public abstract JQueryTiming getTiming();
 
 }
