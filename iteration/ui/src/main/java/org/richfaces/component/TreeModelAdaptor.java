@@ -37,4 +37,6 @@ public interface TreeModelAdaptor {
     @Attribute
     public Converter getRowKeyConverter();
 
+    public void setRowKeyConverter(Converter converter);
+
 }

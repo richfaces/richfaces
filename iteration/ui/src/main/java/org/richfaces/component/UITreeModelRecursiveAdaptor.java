@@ -30,7 +30,7 @@ import org.richfaces.cdk.annotations.Tag;
  */
 @JsfComponent(type = UITreeModelRecursiveAdaptor.COMPONENT_TYPE,
     family = UITreeModelRecursiveAdaptor.COMPONENT_FAMILY,
-    tag = @Tag(name = "treeModelRecursiveAdaptor"))
+    tag = @Tag(name = "treeModelRecursiveAdaptor", handler = "org.richfaces.view.facelets.TreeModelRecursiveAdaptorHandler"))
 public class UITreeModelRecursiveAdaptor extends AbstractTreeModelAdaptor implements TreeModelRecursiveAdaptor {
 
     public static final String COMPONENT_TYPE = "org.richfaces.TreeModelRecursiveAdaptor";

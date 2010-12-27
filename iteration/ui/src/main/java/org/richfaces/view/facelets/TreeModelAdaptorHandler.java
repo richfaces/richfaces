@@ -19,43 +19,26 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.component;
+package org.richfaces.view.facelets;
 
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.Tag;
+import javax.faces.view.facelets.ComponentConfig;
+import javax.faces.view.facelets.ComponentHandler;
+import javax.faces.view.facelets.MetaRuleset;
 
 /**
  * @author Nick Belaevski
  * 
  */
-@JsfComponent(type = UITreeModelAdaptor.COMPONENT_TYPE,
-    family = UITreeModelAdaptor.COMPONENT_FAMILY,
-    tag = @Tag(name = "treeModelAdaptor", handler = "org.richfaces.view.facelets.TreeModelAdaptorHandler"))
-public class UITreeModelAdaptor extends AbstractTreeModelAdaptor implements TreeModelAdaptor {
+public class TreeModelAdaptorHandler extends ComponentHandler {
 
-    public static final String COMPONENT_TYPE = "org.richfaces.TreeModelAdaptor";
-    
-    public static final String COMPONENT_FAMILY = "org.richfaces.TreeModelAdaptor";
-
-    private enum PropertyKeys {
-        nodes
+    public TreeModelAdaptorHandler(ComponentConfig config) {
+        super(config);
     }
-    
+
     @Override
-    public String getFamily() {
-        return COMPONENT_FAMILY;
+    protected MetaRuleset createMetaRuleset(Class type) {
+        MetaRuleset metaRuleset = super.createMetaRuleset(type);
+        metaRuleset.addRule(TreeAdaptorRowKeyConverterRule.INSTANCE);
+        return metaRuleset;
     }
-
-    public Object getNodes() {
-        Object nodes = getStateHelper().eval(PropertyKeys.nodes);
-        
-        memoizeDefaultRowKeyConverter(nodes);
-        
-        return nodes;
-    }
-    
-    public void setNodes(Object nodes) {
-        getStateHelper().put(PropertyKeys.nodes, nodes);
-    }
-
 }

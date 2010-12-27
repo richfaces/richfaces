@@ -1,26 +1,28 @@
-/**
- * License Agreement.
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright 2010, Red Hat, Inc. and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
  *
- * Rich Faces - Natural Ajax for Java Server Faces (JSF)
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
  *
- * Copyright (C) 2007 Exadel, Inc.
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License version 2.1 as published by the Free Software Foundation.
- *
- * This library is distributed in the hope that it will be useful,
+ * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
 package org.richfaces.view.facelets;
 
+import javax.faces.component.UIComponent;
 import javax.faces.convert.Converter;
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.MetaRule;
@@ -28,20 +30,17 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
-import org.richfaces.component.UIDataAdaptor;
+import org.richfaces.component.TreeModelAdaptor;
 
 /**
- * Apply rowKeyConverter to component
- *
- * @author Maksim Kaszynski
- * @since 3.3.1
  */
-public class RowKeyConverterRule extends MetaRule {
-    public static final RowKeyConverterRule INSTANCE = new RowKeyConverterRule();
+public class TreeAdaptorRowKeyConverterRule extends MetaRule {
+
+    public static final TreeAdaptorRowKeyConverterRule INSTANCE = new TreeAdaptorRowKeyConverterRule();
 
     @Override
     public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
-        if (meta.isTargetInstanceOf(UIDataAdaptor.class)) {
+        if (meta.isTargetInstanceOf(TreeModelAdaptor.class)) {
             if ("rowKeyConverter".equals(name)) {
                 if (attribute.isLiteral()) {
                     return new StaticConverterMetadata(attribute.getValue());
@@ -64,7 +63,7 @@ public class RowKeyConverterRule extends MetaRule {
 
         @Override
         public void applyMetadata(FaceletContext ctx, Object instance) {
-            ((UIDataAdaptor) instance).setValueExpression("rowKeyConverter",
+            ((UIComponent) instance).setValueExpression("rowKeyConverter",
                 attribute.getValueExpression(ctx, Converter.class));
         }
     }
@@ -81,7 +80,7 @@ public class RowKeyConverterRule extends MetaRule {
         public void applyMetadata(FaceletContext ctx, Object instance) {
             Converter converter = ctx.getFacesContext().getApplication().createConverter(converterId);
 
-            ((UIDataAdaptor) instance).setRowKeyConverter(converter);
+            ((TreeModelAdaptor) instance).setRowKeyConverter(converter);
         }
     }
 }

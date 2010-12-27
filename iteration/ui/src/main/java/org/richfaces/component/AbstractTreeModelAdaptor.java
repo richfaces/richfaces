@@ -60,9 +60,7 @@ public abstract class AbstractTreeModelAdaptor extends UIComponentBase {
 
     public void setRowKeyConverter(Converter converter) {
         StateHelper stateHelper = getStateHelper();
-        if (initialStateMarked()) {
-            stateHelper.put(PropertyKeys.rowKeyConverterSet, Boolean.TRUE);
-        }
+        stateHelper.put(PropertyKeys.rowKeyConverterSet, Boolean.TRUE);
 
         this.rowKeyConverter = converter;
     }
@@ -80,10 +78,10 @@ public abstract class AbstractTreeModelAdaptor extends UIComponentBase {
     }
     
     private boolean isSetRowKeyConverter() {
-        return isSetLocalRowKeyConverter() || getValueExpression(PropertyKeys.rowKeyConverter.toString()) != null;
+        return isLocalRowKeyConverterSet() || getValueExpression(PropertyKeys.rowKeyConverter.toString()) != null;
     }
     
-    private boolean isSetLocalRowKeyConverter() {
+    private boolean isLocalRowKeyConverterSet() {
         Boolean value = (Boolean) getStateHelper().get(PropertyKeys.rowKeyConverterSet);
         return Boolean.TRUE.equals(value);
     }
@@ -132,7 +130,7 @@ public abstract class AbstractTreeModelAdaptor extends UIComponentBase {
         boolean converterHasPartialState = false;
 
         if (initialStateMarked()) {
-            if (!isSetLocalRowKeyConverter() && rowKeyConverter != null && rowKeyConverter instanceof PartialStateHolder) {
+            if (!isLocalRowKeyConverterSet() && rowKeyConverter != null && rowKeyConverter instanceof PartialStateHolder) {
                 // Delta
                 StateHolder holder = (StateHolder) rowKeyConverter;
                 if (!holder.isTransient()) {
@@ -145,7 +143,7 @@ public abstract class AbstractTreeModelAdaptor extends UIComponentBase {
                 } else {
                     converterState = null;
                 }
-            } else if (isSetLocalRowKeyConverter() || rowKeyConverter != null) {
+            } else if (isLocalRowKeyConverterSet() || rowKeyConverter != null) {
                 // Full
                 converterState = saveAttachedState(context, rowKeyConverter);
                 nullDelta = false;
