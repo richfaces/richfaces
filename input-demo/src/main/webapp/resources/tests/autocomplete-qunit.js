@@ -35,8 +35,8 @@ RichFaces.QUnit.run(function() {
         equals(c.name, "Autocomplete", "name");
         equals(c.id, AUTOCOMPLETE_ID+'Default', "id");
         // test default options
-        equals(c.options.selectedItemClass, 'rf-au-sel', "options.selectedItemClass");
-        equals(c.options.itemClass, 'rf-au-opt', "options.itemClass");
+        equals(c.options.selectedItemClass, 'rf-au-itm-sel', "options.selectedItemClass");
+        equals(c.options.itemClass, 'rf-au-itm', "options.itemClass");
         equals(c.options.autofill, true, "options.autofill");
         equals(c.options.minChars, 1, "options.minChars");
         equals(c.options.selectFirst, true, "options.selectFirst");
