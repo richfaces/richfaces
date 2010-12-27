@@ -287,7 +287,7 @@ public class ExtendedDataTableRendererTest {
         Map<String, Object> column1Attributes = component.findComponent("column1").getAttributes();
         Map<String, Object> column2Attributes = component.findComponent("column2").getAttributes();
         String clientId = component.getClientId(facesContext);
-        assertEquals(SortOrder.unsorted, column1Attributes.get("sortOrder"));
+        assertNull(column1Attributes.get("sortOrder"));
         assertEquals(SortOrder.ascending, column2Attributes.get("sortOrder"));
         facesRequest.withParameter(clientId, clientId);
         facesRequest.withParameter(clientId + "rich:sorting", "column1:null:null");
@@ -308,7 +308,7 @@ public class ExtendedDataTableRendererTest {
         Map<String, Object> column1Attributes = component.findComponent("column1").getAttributes();
         Map<String, Object> column2Attributes = component.findComponent("column2").getAttributes();
         String clientId = component.getClientId(facesContext);
-        assertEquals(SortOrder.unsorted, column1Attributes.get("sortOrder"));
+        assertNull(column1Attributes.get("sortOrder"));
         assertEquals(SortOrder.ascending, column2Attributes.get("sortOrder"));
         facesRequest.withParameter(clientId, clientId);
         facesRequest.withParameter(clientId + "rich:sorting", "column1:descending:true");

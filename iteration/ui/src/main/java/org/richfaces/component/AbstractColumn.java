@@ -53,7 +53,7 @@ public abstract class AbstractColumn extends javax.faces.component.UIColumn impl
     @Attribute
     public abstract boolean isBreakRowBefore();
     
-    @Attribute(defaultValue="SortOrder.unsorted")
+    @Attribute
     public abstract SortOrder getSortOrder();
 
     @Attribute

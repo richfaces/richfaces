@@ -145,7 +145,13 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             for (; iterator.hasNext();) {
                 columns.add(iterator.next());
             }
-            int count = Math.min(((Integer) table.getAttributes().get("frozenColumns")).intValue(), columns.size());
+            
+            int frozenColumnsAttribute = (Integer) table.getAttributes().get("frozenColumns");
+            if (frozenColumnsAttribute < 0) {
+                frozenColumnsAttribute = 0;
+            }
+            
+            int count = Math.min(frozenColumnsAttribute, columns.size());
             frozenColumns = columns.subList(0, count);
             columns = columns.subList(count, columns.size());
             parts = new ArrayList<Part>(PartName.values().length);
@@ -808,46 +814,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         }
         
         decodeSortingFiltering(context, component);
-
-        /*
-        if (map.get(component.getClientId(context)) != null) {
-            decodeFiltering(context, component, map.get("rich:filterString"));
-        }
-        if (map.get(component.getClientId(context)) != null) {
-            decodeSorting(context, component, map.get("rich:sortString"));
-        } */ 
     }
-    /*
-    private void updateAttribute(FacesContext context, UIComponent component, String attribute, Object value) {
-        Object oldValue = component.getAttributes().get(attribute);
-        if ((oldValue != null && !oldValue.equals(value)) || (oldValue == null && value != null)) {
-            ELContext elContext = context.getELContext();
-            ValueExpression ve = component.getValueExpression(attribute);
-            if (ve != null && !ve.isReadOnly(elContext)) {
-                component.getAttributes().put(attribute, null);
-                try {
-                    ve.setValue(elContext, value);
-                } catch (ELException e) {
-                    throw new FacesException(e);
-                }
-            } else {
-                component.getAttributes().put(attribute, value);
-            }
-        }
-    }
-    
-    private void updateSortOrder(FacesContext context, UIComponent component, String value) {
-        SortOrder sortOrder = SortOrder.ascending;
-        try {
-            sortOrder = SortOrder.valueOf(value);
-        } catch (IllegalArgumentException e) {
-            // If value isn't name of enum constant of SortOrder, toggle sortOrder of column.
-            if (SortOrder.ascending.equals(component.getAttributes().get("sortOrder"))) {
-                sortOrder = SortOrder.descending;
-            }
-        }
-        updateAttribute(context, component, "sortOrder", sortOrder);
-    }*/
 
     private void updateWidthOfColumns(FacesContext context, UIComponent component, String widthString) {
         if (widthString != null && widthString.length() > 0) {
@@ -879,57 +846,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             }
         }
     }
-    
-    /*
-    private void decodeFiltering(FacesContext context, UIComponent component, String value) {
-        if (value != null && value.length() > 0) {
-            String[] values = value.split(":");
-            if (Boolean.parseBoolean(values[2])) {
-                UIDataTableBase table = (UIDataTableBase) component;
-                for (Iterator<UIComponent> iterator = table.columns(); iterator.hasNext();) {
-                    UIComponent column = iterator.next();
-                    if (values[0].equals(column.getId())) {
-                        updateAttribute(context, column, "filterValue", values[1]);
-                    } else {
-                        updateAttribute(context, column, "filterValue", null);
-                    }
-                }
-            } else {
-                updateAttribute(context, component.findComponent(values[0]), "filterValue", values[1]);
-            }
-            context.getPartialViewContext().getRenderIds().add(component.getClientId(context)); // TODO Use partial re-rendering here.
-        }
-    }
-    *
-    private void decodeSorting(FacesContext context, UIComponent component, String value) {
-        if (value != null && value.length() > 0) {
-            UIDataTableBase table = (UIDataTableBase) component;
-            List<Object> sortPriority = new LinkedList<Object>();
-            String[] values = value.split(":");
-            if (Boolean.parseBoolean(values[2]) || SortMode.single.equals(table.getSortMode())) {
-                for (Iterator<UIComponent> iterator = table.columns(); iterator.hasNext();) {
-                    UIComponent column = iterator.next();
-                    if (values[0].equals(column.getId())) {
-                        updateSortOrder(context, column, values[1]);
-                        sortPriority.add(values[0]);
-                    } else {
-                        updateAttribute(context, column, "sortOrder", SortOrder.UNSORTED);
-                    }
-                }
-            } else {
-                updateSortOrder(context, component.findComponent(values[0]), values[1]);
-                Collection<?> priority = table.getSortPriority();
-                if (priority != null) {
-                    priority.remove(values[0]);
-                    sortPriority.addAll(priority);
-                }
-                sortPriority.add(values[0]);
-            }
-            updateAttribute(context, component, "sortPriority", sortPriority);
-            context.getPartialViewContext().getRenderIds().add(component.getClientId(context)); // TODO Use partial re-rendering here.
-        }
-    } */
-    
+        
     /**
      * @deprecated
      * TODO Remove this method when width in relative units in columns will be implemented.

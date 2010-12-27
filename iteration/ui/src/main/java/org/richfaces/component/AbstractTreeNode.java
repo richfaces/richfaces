@@ -84,7 +84,7 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
         return COMPONENT_FAMILY;
     }
     
-    @Attribute(defaultValue = "findTreeComponent().isImmediate()")
+    @Attribute
     public abstract boolean isImmediate();
     
     public abstract String getType();
@@ -151,7 +151,7 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
     public void queueEvent(FacesEvent event) {
         if (this.equals(event.getComponent())) {
             if (event instanceof TreeToggleEvent) {
-                PhaseId targetPhase = isImmediate() ? PhaseId.APPLY_REQUEST_VALUES : PhaseId.PROCESS_VALIDATIONS;
+                PhaseId targetPhase = (isImmediate() || findTreeComponent().isImmediate()) ? PhaseId.APPLY_REQUEST_VALUES : PhaseId.PROCESS_VALIDATIONS;
                 event.setPhaseId(targetPhase);
             }
         }

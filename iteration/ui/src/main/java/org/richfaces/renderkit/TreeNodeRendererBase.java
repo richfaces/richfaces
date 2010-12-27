@@ -22,6 +22,7 @@
 package org.richfaces.renderkit;
 
 import static org.richfaces.renderkit.RenderKitUtils.getFirstNonEmptyAttribute;
+import static org.richfaces.renderkit.TreeRendererBase.getToggleTypeOrDefault;
 
 import java.io.IOException;
 import java.util.Map;
@@ -139,7 +140,7 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
             if (Strings.isNullOrEmpty(iconCollapsed) && Strings.isNullOrEmpty(iconExpanded)) {
                 encodeIconForNodeState(context, tree, treeNode, nodeState, null);
             } else {
-                SwitchType toggleType = treeNode.findTreeComponent().getToggleType();
+                SwitchType toggleType = getToggleTypeOrDefault(treeNode.findTreeComponent());
 
                 if (toggleType == SwitchType.client || nodeState == TreeNodeState.collapsed) {
                     encodeIconForNodeState(context, tree, treeNode, TreeNodeState.collapsed, iconCollapsed);
@@ -176,7 +177,7 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
 
         AbstractTree tree = treeNode.findTreeComponent();
         
-        if (tree.getToggleType() != SwitchType.ajax) {
+        if (getToggleTypeOrDefault(tree) != SwitchType.ajax) {
             return null;
         }
         
@@ -191,4 +192,5 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
 
         return null;
     }
+    
 }

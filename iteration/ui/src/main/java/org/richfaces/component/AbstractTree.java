@@ -195,10 +195,10 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     @Attribute(events = @EventName("beforeselectionchange"))
     public abstract String getOnbeforeselectionchange();
 
-    @Attribute(defaultValue = "SwitchType.DEFAULT")
+    @Attribute
     public abstract SwitchType getToggleType();
 
-    @Attribute(defaultValue = "SwitchType.client")
+    @Attribute
     public abstract SwitchType getSelectionType();
 
     public abstract String getNodeType();

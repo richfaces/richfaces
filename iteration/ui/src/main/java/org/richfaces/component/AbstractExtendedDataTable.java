@@ -39,8 +39,8 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
-import org.richfaces.log.RichfacesLogger;
 import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 
 /**
@@ -74,7 +74,7 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
         clientFirst, clientRows
     }
     
-    @Attribute(defaultValue = "0")
+    @Attribute
     public abstract int getFrozenColumns();
     
     @Attribute(events=@EventName(value="selectionchange", defaultEvent=true))

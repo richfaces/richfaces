@@ -71,7 +71,7 @@ public class UIColumnTest {
      */
     @Test
     public final void testSortOrder() {
-        Assert.assertEquals(SortOrder.unsorted, column.getSortOrder());
+        Assert.assertNull(column.getSortOrder());
         column.setSortOrder(SortOrder.ascending);
         Assert.assertEquals(SortOrder.ascending, column.getSortOrder());
         environment.replay();

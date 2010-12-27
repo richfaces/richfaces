@@ -78,7 +78,7 @@ public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implem
         getStateHelper().put(PropertyKeys.expanded, expanded);
     }
     
-    @Attribute(defaultValue = MODE_CLIENT)
+    @Attribute
     public abstract String getExpandMode();
 
     public void broadcast(FacesEvent event) throws AbortProcessingException {

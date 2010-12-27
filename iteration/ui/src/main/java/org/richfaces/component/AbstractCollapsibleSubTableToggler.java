@@ -60,7 +60,7 @@ public abstract class AbstractCollapsibleSubTableToggler extends UIComponentBase
     @Attribute
     public abstract String getCollapseIcon();
     
-    @Attribute(defaultValue = DEFAULT_EVENT)
+    @Attribute
     public abstract String getEvent();
     
     @Attribute

@@ -6,7 +6,7 @@
 		this.id = id;
 		this.stateInput = options.stateInput;
 		this.optionsInput = options.optionsInput;
-		this.expandMode = options.expandMode;
+		this.expandMode = options.expandMode || richfaces.ui.CollapsibleSubTable.MODE_CLNT;
 		this.eventOptions = options.eventOptions;
 		this.formId = f;
 		

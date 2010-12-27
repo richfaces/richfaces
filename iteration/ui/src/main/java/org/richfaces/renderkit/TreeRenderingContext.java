@@ -22,6 +22,7 @@
 package org.richfaces.renderkit;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
+import static org.richfaces.renderkit.TreeRendererBase.getToggleTypeOrDefault;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -179,7 +180,7 @@ public final class TreeRenderingContext {
         
         String relativeClientId = clientId.substring(baseClientId.length()); 
         
-        if (tree.getToggleType() != SwitchType.server) {
+        if (getToggleTypeOrDefault(tree) != SwitchType.server) {
             String toggleHandler = (String) RenderKitUtils.getAttributeAndBehaviorsValue(context, treeNode, ONTOGGLE_ATTRIBUTE);
             if (!isNullOrEmpty(toggleHandler)) {
                 getOrCreateHandlers(relativeClientId).setToggleHandler(toggleHandler);

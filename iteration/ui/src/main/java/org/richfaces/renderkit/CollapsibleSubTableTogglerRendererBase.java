@@ -38,6 +38,8 @@ import org.richfaces.component.AbstractCollapsibleSubTable;
 import org.richfaces.component.AbstractCollapsibleSubTableToggler;
 import org.richfaces.renderkit.util.RendererUtils;
 
+import com.google.common.base.Strings;
+
 /**
  * @author Anton Belevich
  */
@@ -77,12 +79,11 @@ public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
         AbstractCollapsibleSubTable subTable = findComponent(context, toggleControl);
 
         if (subTable != null) {
-            String switchType = subTable.getExpandMode();
             boolean expanded = subTable.isExpanded();
             
             ResponseWriter writer = context.getResponseWriter();
-            encodeControl(context, writer, toggleControl, switchType, expanded, false);
-            encodeControl(context, writer, toggleControl, switchType, !expanded, true);
+            encodeControl(context, writer, toggleControl, expanded, false);
+            encodeControl(context, writer, toggleControl, !expanded, true);
 
             JSFunction jsFunction = new JSFunction("new RichFaces.ui.CollapsibleSubTableToggler");
             String toggleId = toggleControl.getClientId(context);
@@ -97,7 +98,7 @@ public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
     }
 
     protected void encodeControl(FacesContext context, ResponseWriter writer, AbstractCollapsibleSubTableToggler control,
-                                 String switchType, boolean expanded, boolean visible) throws IOException {
+                                 boolean expanded, boolean visible) throws IOException {
         String state = getState(expanded);
         String styleClass = getStyleClass(context, control);
         String style = getStyle(context, control);
@@ -177,6 +178,11 @@ public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
         options.put("collapseControl", toggleControlId + ":collapse");
 
         String eventName = toggleControl.getEvent();
+        
+        if (Strings.isNullOrEmpty(eventName)) {
+            eventName = AbstractCollapsibleSubTableToggler.DEFAULT_EVENT;
+        }
+        
         eventName = eventName.trim().startsWith("on") ? eventName.substring(2) : eventName;
         options.put("eventName", eventName);
         return options;

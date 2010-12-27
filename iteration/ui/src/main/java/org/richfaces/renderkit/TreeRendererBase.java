@@ -95,7 +95,7 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
     protected String getAjaxSubmitFunction(FacesContext context, UIComponent component) {
         AbstractTree tree = (AbstractTree) component;
 
-        if (tree.getToggleType() != SwitchType.ajax && tree.getSelectionType() != SwitchType.ajax) {
+        if (getToggleTypeOrDefault(tree) != SwitchType.ajax && getSelectionTypeOrDefault(tree) != SwitchType.ajax) {
             return null;
         }
 
@@ -155,11 +155,11 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
         return component.getClientId(context) + SELECTION_STATE;
     }
 
-    protected SwitchType getSelectionMode(FacesContext context, UIComponent component) {
+    protected SwitchType getSelectionType(FacesContext context, UIComponent component) {
         AbstractTree tree = (AbstractTree) component;
 
-        SwitchType selectionType = tree.getSelectionType();
-        if (selectionType != null && selectionType != SwitchType.ajax && selectionType != SwitchType.client) {
+        SwitchType selectionType = getSelectionTypeOrDefault(tree);
+        if (selectionType != SwitchType.ajax && selectionType != SwitchType.client) {
             //TODO - better message
             throw new IllegalArgumentException(String.valueOf(selectionType));
         }
@@ -245,5 +245,21 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
     
     protected void deleteTreeRenderingContext(FacesContext context) {
         TreeRenderingContext.delete(context);
+    }
+
+    static SwitchType getSelectionTypeOrDefault(AbstractTree tree) {
+        SwitchType selectionType = tree.getSelectionType();
+        if (selectionType == null) {
+            selectionType = SwitchType.client;
+        }
+        return selectionType;
+    }
+    
+    static SwitchType getToggleTypeOrDefault(AbstractTree tree) {
+        SwitchType toggleType = tree.getToggleType();
+        if (toggleType == null) {
+            toggleType = SwitchType.DEFAULT;
+        }
+        return toggleType;
     }
 }
