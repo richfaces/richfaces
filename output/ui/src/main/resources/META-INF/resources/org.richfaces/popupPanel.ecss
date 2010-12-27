@@ -71,8 +71,7 @@
  	left : 0px;
  	overflow : auto;
 }
-.rf-pp-cnt {
-	position : relative;
+.rf-pp-cnt {	
  	padding : 10px;
  	color : '#{richSkin.generalTextColor}';
  	font-family : '#{richSkin.generalFamilyFont}';
