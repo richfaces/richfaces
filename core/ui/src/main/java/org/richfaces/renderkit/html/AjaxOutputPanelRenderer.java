@@ -30,6 +30,7 @@ import javax.faces.context.ResponseWriter;
 
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractOutputPanel;
+import org.richfaces.component.OutputPanelLayout;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RendererBase;
 
@@ -44,7 +45,7 @@ public class AjaxOutputPanelRenderer extends RendererBase {
 
     private boolean hasNoneLayout(UIComponent component) {
         //TODO - A1 won't support 'none' layout
-        return false; //"none".equals(component.getAttributes().get("layout"));
+        return false;
     }
 
     /* (non-Javadoc)
@@ -96,7 +97,7 @@ public class AjaxOutputPanelRenderer extends RendererBase {
      */
     private String getTag(AbstractOutputPanel panel) {
         Object layout = panel.getAttributes().get("layout");
-        return "block".equals(layout) ? HtmlConstants.DIV_ELEM : HtmlConstants.SPAN_ELEM;
+        return OutputPanelLayout.block.equals(layout) ? HtmlConstants.DIV_ELEM : HtmlConstants.SPAN_ELEM;
     }
 
     /* (non-Javadoc)

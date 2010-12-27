@@ -52,16 +52,16 @@ public abstract class AbstractAjaxLog extends UIComponentBase {
 
     public static final String COMPONENT_FAMILY = "org.richfaces.AjaxLog";
 
-    @Attribute(defaultValue = "")
+    @Attribute
     public abstract String getStyle();
 
-    @Attribute(defaultValue = "")
+    @Attribute
     public abstract String getLevel();
 
-    @Attribute(defaultValue = "")
+    @Attribute
     public abstract String getStyleClass();
     
-    @Attribute(defaultValue = "LogMode.DEFAULT")
+    @Attribute
     public abstract LogMode getMode();
 
 //  public abstract String getHotkey();

@@ -38,6 +38,7 @@ import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractPoll;
 import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.renderkit.util.HandlersChain;
 
@@ -89,9 +90,9 @@ public class AjaxPollRenderer extends RendererBase {
         if (poll.isEnabled()) {
             JSFunction function = new JSFunction(AJAX_POLL_FUNCTION);
             Map<String, Object> options = new HashMap<String, Object>();
-            Integer interval = new Integer(poll.getInterval());
-            options.put("pollinterval", interval);
-            options.put("pollId", component.getClientId(context));
+            
+            RenderKitUtils.addToScriptHash(options, "interval", poll.getInterval(), "1000");
+            RenderKitUtils.addToScriptHash(options, "pollId", component.getClientId(context));
             HandlersChain handlersChain = new HandlersChain(context, poll);
             handlersChain.addInlineHandlerFromAttribute(AbstractPoll.ON_TIMER);
             handlersChain.addBehaviors(AbstractPoll.TIMER);

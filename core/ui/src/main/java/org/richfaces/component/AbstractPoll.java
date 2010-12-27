@@ -61,7 +61,7 @@ public abstract class AbstractPoll extends AbstractActionComponent {
 
     public static final String ON_BEFOREDOMUPDATE = "onbeforedomupdate";
 
-    @Attribute(defaultValue = "1000")
+    @Attribute
     public abstract int getInterval();
 
     @Attribute(defaultValue = "true")

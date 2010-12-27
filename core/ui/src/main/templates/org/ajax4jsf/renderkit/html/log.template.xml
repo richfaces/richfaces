@@ -9,17 +9,19 @@
 		<cdk:superclass>org.richfaces.renderkit.LogRendererBase</cdk:superclass>
 		<cdk:component-family>org.richfaces.AjaxLog</cdk:component-family>
 		<cdk:renderer-type>org.richfaces.AjaxLogRenderer</cdk:renderer-type>
+
+        <cdk:import package="org.richfaces.component" names="LogMode" />
 	</cc:interface>
 
 	<cc:implementation>
-		<div id="richfaces.log" class="rf-log #{isInline(component.attributes['mode']) ? 'rf-log-inline' : 'rf-log-popup rf-log-popup-cnt'} #{component.attributes['styleClass']}">
+		<div id="richfaces.log" class="#{concatClasses('rf-log', isInline(component.attributes['mode']) ? 'rf-log-inline' : 'rf-log-popup rf-log-popup-cnt', component.attributes['styleClass'])}">
+            <cdk:scriptObject name="options">
+                <cdk:scriptOption attributes="level hotkey" />
+                <cdk:scriptOption attributes="mode" defaultValue="LogMode.DEFAULT" />
+                <!-- TODO: pass styleClass in  -->
+            </cdk:scriptObject>
 			<script type="text/javascript">
-				new RichFaces.HtmlLog({
-                    level: "#{component.attributes['level']}",
-                    hotkey: "#{component.attributes['hotkey']}",
-                    mode: "#{component.attributes['mode']}"
-                    /* TODO: pass styleClass in */
-                });
+				new RichFaces.HtmlLog(#{toScriptArgs(options)});
 		    </script>
 		</div>
 	</cc:implementation>

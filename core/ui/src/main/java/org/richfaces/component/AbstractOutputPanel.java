@@ -51,8 +51,8 @@ public abstract class AbstractOutputPanel extends UIPanel implements AjaxOutput 
     @Attribute
     public abstract boolean isKeepTransient();
 
-    @Attribute(defaultValue = "inline")
-    public abstract String getLayout();
+    @Attribute
+    public abstract OutputPanelLayout getLayout();
 
     @Attribute(events = @EventName("click"))
     public abstract String getOnclick();
