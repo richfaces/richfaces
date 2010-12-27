@@ -173,6 +173,8 @@
 			this.attachToDom();
 			richfaces.setLog(this);
 			
+			options = options || {};
+			
 			this.level = options.level;
 			this.hotkey = options.hotkey;
 			this.mode = (options.mode || 'inline');
