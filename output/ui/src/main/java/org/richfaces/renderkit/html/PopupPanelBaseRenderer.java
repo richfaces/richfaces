@@ -164,7 +164,7 @@ public class PopupPanelBaseRenderer extends RendererBase {
 
     public String getStyleIfTrimmed(UIComponent panel){
     	if (panel.getAttributes().get("trimOverlayedElements").equals(Boolean.TRUE)) {
-    	    return "position: relative, z-index : 0";
+    	    return "position: relative; z-index : 0;";
     	}
     	return "";
     }

@@ -65,8 +65,7 @@
 	z-index:100;
 }
 
-.rf-pp-cnt-scrlr {
- 	position : relative;
+.rf-pp-cnt-scrlr { 	
  	top : 0px;
  	left : 0px;
  	overflow : auto;
