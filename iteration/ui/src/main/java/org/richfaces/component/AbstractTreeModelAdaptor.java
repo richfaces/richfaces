@@ -21,19 +21,149 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UIComponentBase;
+import java.util.Map;
 
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.Tag;
+import javax.el.ValueExpression;
+import javax.faces.component.PartialStateHolder;
+import javax.faces.component.StateHelper;
+import javax.faces.component.StateHolder;
+import javax.faces.component.UIComponentBase;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+
+import org.richfaces.convert.ConverterUtil;
 
 /**
  * @author Nick Belaevski
  * 
  */
-@JsfComponent(type = AbstractTreeModelAdaptor.COMPONENT_TYPE,
-    tag = @Tag(name = "treeModelAdaptor"))
-public abstract class AbstractTreeModelAdaptor extends UIComponentBase implements TreeModelAdaptor {
+public abstract class AbstractTreeModelAdaptor extends UIComponentBase {
 
-    public static final String COMPONENT_TYPE = "org.richfaces.TreeModelAdaptor";
+    private enum PropertyKeys {
+        rowKeyConverter, rowKeyConverterSet
+    }
+    
+    private Converter rowKeyConverter;
+    
+    public Converter getRowKeyConverter() {
+        if (this.rowKeyConverter != null) {
+            return this.rowKeyConverter;
+        }
+
+        ValueExpression converterExpression = getValueExpression(PropertyKeys.rowKeyConverter.toString());
+        if (converterExpression != null) {
+            return (Converter) converterExpression.getValue(getFacesContext().getELContext());
+        } else {
+            return null;
+        }
+    }
+
+    public void setRowKeyConverter(Converter converter) {
+        StateHelper stateHelper = getStateHelper();
+        if (initialStateMarked()) {
+            stateHelper.put(PropertyKeys.rowKeyConverterSet, Boolean.TRUE);
+        }
+
+        this.rowKeyConverter = converter;
+    }
+
+    protected void memoizeDefaultRowKeyConverter(Object value) {
+        if (isSetRowKeyConverter()) {
+            return;
+        }
+        
+        if (value instanceof Iterable<?>) {
+            setRowKeyConverter(ConverterUtil.integerConverter());
+        } else if (value instanceof Map<?, ?>) {
+            setRowKeyConverter(ConverterUtil.stringConverter());
+        }
+    }
+    
+    private boolean isSetRowKeyConverter() {
+        return isSetLocalRowKeyConverter() || getValueExpression(PropertyKeys.rowKeyConverter.toString()) != null;
+    }
+    
+    private boolean isSetLocalRowKeyConverter() {
+        Boolean value = (Boolean) getStateHelper().get(PropertyKeys.rowKeyConverterSet);
+        return Boolean.TRUE.equals(value);
+    }
+
+    @Override
+    public void markInitialState() {
+        super.markInitialState();
+
+        if (rowKeyConverter instanceof PartialStateHolder) {
+            ((PartialStateHolder) rowKeyConverter).markInitialState();
+        }
+    }
+
+    @Override
+    public void clearInitialState() {
+        super.clearInitialState();
+
+        if (rowKeyConverter instanceof PartialStateHolder) {
+            ((PartialStateHolder) rowKeyConverter).clearInitialState();
+        }
+    }
+
+    @Override
+    public void restoreState(FacesContext context, Object stateObject) {
+        Object[] state = (Object[]) stateObject;
+        
+        super.restoreState(context, state[0]);
+        
+        boolean converterHasPartialState = Boolean.TRUE.equals(state[1]);
+        Object savedConverterState = state[2];
+        
+        if (converterHasPartialState) {
+            ((StateHolder) rowKeyConverter).restoreState(context, savedConverterState);
+        } else {
+            rowKeyConverter = (Converter) UIComponentBase.restoreAttachedState(context, savedConverterState);
+        }
+    }
+    
+    @Override
+    public Object saveState(FacesContext context) {
+        Object parentState = super.saveState(context);
+        
+        Object converterState = null;
+        boolean nullDelta = true;
+
+        boolean converterHasPartialState = false;
+
+        if (initialStateMarked()) {
+            if (!isSetLocalRowKeyConverter() && rowKeyConverter != null && rowKeyConverter instanceof PartialStateHolder) {
+                // Delta
+                StateHolder holder = (StateHolder) rowKeyConverter;
+                if (!holder.isTransient()) {
+                    Object attachedState = holder.saveState(context);
+                    if (attachedState != null) {
+                        nullDelta = false;
+                        converterState = attachedState;
+                    }
+                    converterHasPartialState = true;
+                } else {
+                    converterState = null;
+                }
+            } else if (isSetLocalRowKeyConverter() || rowKeyConverter != null) {
+                // Full
+                converterState = saveAttachedState(context, rowKeyConverter);
+                nullDelta = false;
+            }
+
+            if (parentState == null && nullDelta) {
+                // No values
+                return null;
+            }
+        } else {
+            converterState = saveAttachedState(context, rowKeyConverter);
+        }
+
+        return new Object[] {
+            parentState,
+            converterHasPartialState,
+            converterState
+        };
+    }
     
 }

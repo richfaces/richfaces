@@ -21,12 +21,20 @@
  */
 package org.richfaces.component;
 
+import javax.faces.convert.Converter;
+
+import org.richfaces.cdk.annotations.Attribute;
+
 /**
  * @author Nick Belaevski
  * 
  */
 public interface TreeModelAdaptor {
 
+    @Attribute
     public Object getNodes();
     
+    @Attribute
+    public Converter getRowKeyConverter();
+
 }

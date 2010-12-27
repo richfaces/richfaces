@@ -21,12 +21,15 @@
  */
 package org.richfaces.component;
 
+import org.richfaces.cdk.annotations.Attribute;
+
 /**
  * @author Nick Belaevski
  * 
  */
 public interface TreeModelRecursiveAdaptor extends TreeModelAdaptor {
 
+    @Attribute
     public Object getRoots();
     
     public String getRecursionOrder();

@@ -1298,7 +1298,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
             return dataVisitor.getVisitResult();
         } else {
-            return visitComponents(dataChildren(), visitContext, callback);
+            return visitComponents(getFacetsAndChildren(), visitContext, callback);
         }
     }
 

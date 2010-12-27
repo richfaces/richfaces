@@ -21,9 +21,6 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UIComponentBase;
-
-import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 
@@ -31,13 +28,34 @@ import org.richfaces.cdk.annotations.Tag;
  * @author Nick Belaevski
  * 
  */
-@JsfComponent(type = AbstractTreeModelRecursiveAdaptor.COMPONENT_TYPE,
-    tag = @Tag(name = "treeModelRecursiveAdaptor"))
-public abstract class AbstractTreeModelRecursiveAdaptor extends UIComponentBase implements TreeModelRecursiveAdaptor {
+@JsfComponent(type = UITreeModelAdaptor.COMPONENT_TYPE,
+    family = UITreeModelAdaptor.COMPONENT_FAMILY,
+    tag = @Tag(name = "treeModelAdaptor"))
+public class UITreeModelAdaptor extends AbstractTreeModelAdaptor implements TreeModelAdaptor {
 
-    public static final String COMPONENT_TYPE = "org.richfaces.TreeModelRecursiveAdaptor";
+    public static final String COMPONENT_TYPE = "org.richfaces.TreeModelAdaptor";
     
-    @Attribute(defaultValue = "first")
-    public abstract String getRecursionOrder();
+    public static final String COMPONENT_FAMILY = "org.richfaces.TreeModelAdaptor";
+
+    private enum PropertyKeys {
+        nodes
+    }
     
+    @Override
+    public String getFamily() {
+        return COMPONENT_FAMILY;
+    }
+
+    public Object getNodes() {
+        Object nodes = getStateHelper().eval(PropertyKeys.nodes);
+        
+        memoizeDefaultRowKeyConverter(nodes);
+        
+        return nodes;
+    }
+    
+    public void setNodes(Object nodes) {
+        getStateHelper().put(PropertyKeys.nodes, nodes);
+    }
+
 }

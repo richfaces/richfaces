@@ -22,9 +22,11 @@
 package org.richfaces.component;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 
 import javax.el.ELContext;
 import javax.el.ELException;
@@ -38,6 +40,7 @@ import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ExceptionQueuedEvent;
 import javax.faces.event.ExceptionQueuedEventContext;
@@ -65,6 +68,7 @@ import org.richfaces.event.TreeSelectionChangeSource;
 import org.richfaces.event.TreeToggleEvent;
 import org.richfaces.event.TreeToggleListener;
 import org.richfaces.event.TreeToggleSource;
+import org.richfaces.model.DeclarativeModelKey;
 import org.richfaces.model.DeclarativeTreeDataModelImpl;
 import org.richfaces.model.DeclarativeTreeModel;
 import org.richfaces.model.SwingTreeNodeDataModelImpl;
@@ -77,6 +81,7 @@ import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Iterators;
+import com.google.common.collect.Maps;
 
 /**
  * @author Nick Belaevski
@@ -101,6 +106,10 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     public static final String DEFAULT_TREE_NODE_ID = "__defaultTreeNode";
     
     public static final String DEFAULT_TREE_NODE_FACET_NAME = DEFAULT_TREE_NODE_ID;
+
+    private static final String COMPONENT_FOR_MODEL_UNAVAILABLE = "Component is not available for model {0}";
+
+    private static final String CONVERTER_FOR_MODEL_UNAVAILABLE = "Row key converter is not available for model {0}";
 
     private static final class MatchingTreeNodePredicate implements Predicate<UIComponent> {
 
@@ -140,6 +149,8 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     private transient TreeRange treeRange;
     
     private transient UIComponent currentComponent = this;
+    
+    private transient Map<String, UIComponent> declatariveModelsMap = null;
     
     public AbstractTree() {
         setKeepSaved(true);
@@ -552,7 +563,9 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     @Override
     protected void resetDataModel() {
         super.resetDataModel();
+        
         treeRange = null;
+        declatariveModelsMap = null;
     }
     
     public TreeDataModelTuple createSnapshot() {
@@ -568,6 +581,67 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     protected void restoreChildState(FacesContext facesContext) {
         setupCurrentComponent();
         super.restoreChildState(facesContext);
+    }
+
+    protected UIComponent findDeclarativeModel(String modelId) {
+        if (declatariveModelsMap == null) {
+            declatariveModelsMap = Maps.newHashMap();
+        }
+        
+        UIComponent adaptor = declatariveModelsMap.get(modelId);
+        if (adaptor == null) {
+            adaptor = findComponent(modelId);
+            if (adaptor != null) {
+                declatariveModelsMap.put(modelId, adaptor);
+            }
+        }
+        
+        if (adaptor == null) {
+            throw new IllegalStateException(MessageFormat.format(COMPONENT_FOR_MODEL_UNAVAILABLE, modelId));
+        }
+        
+        return adaptor;
+    }
+    
+    public String convertDeclarativeKeyToString(FacesContext context, DeclarativeModelKey declarativeKey) throws ConverterException {
+        try {
+            UIComponent component = findDeclarativeModel(declarativeKey.getModelId());
+            
+            TreeModelAdaptor adaptor = (TreeModelAdaptor) component;
+            
+            Converter rowKeyConverter = adaptor.getRowKeyConverter();
+            if (rowKeyConverter == null) {
+                throw new ConverterException(MessageFormat.format(CONVERTER_FOR_MODEL_UNAVAILABLE, declarativeKey.getModelId()));
+            }
+            
+            return rowKeyConverter.getAsString(context, (UIComponent) adaptor, declarativeKey.getModelKey());
+        } catch (ConverterException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new ConverterException(e.getMessage(), e);
+        }
+    }
+
+    public DeclarativeModelKey convertDeclarativeKeyFromString(FacesContext context, String modelId,
+        String modelKeyAsString) throws ConverterException {
+        
+        try {
+            UIComponent component = findDeclarativeModel(modelId);
+            
+            TreeModelAdaptor adaptor = (TreeModelAdaptor) component;
+            
+            Converter rowKeyConverter = adaptor.getRowKeyConverter();
+            if (rowKeyConverter == null) {
+                throw new ConverterException(MessageFormat.format(CONVERTER_FOR_MODEL_UNAVAILABLE, modelId));
+            }
+            
+            Object modelKey = rowKeyConverter.getAsObject(context, (UIComponent) adaptor, modelKeyAsString);
+            return new DeclarativeModelKey(modelId, modelKey);
+        } catch (ConverterException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new ConverterException(e.getMessage(), e);
+        }
     }
 
 }

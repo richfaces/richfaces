@@ -66,7 +66,7 @@ public class DeclarativeTreeDataModelWalker {
         
     }
     
-    private void setupChildModelContext(String modelId) {
+    private void setupModelComponentContext(String modelId) {
         if (currentComponent instanceof TreeModelRecursiveAdaptor && modelId.equals(currentComponent.getId())) {
             //currentComponent already set
             modelData = ((TreeModelRecursiveAdaptor) currentComponent).getNodes();
@@ -77,6 +77,15 @@ public class DeclarativeTreeDataModelWalker {
             } else {
                 modelData = ((TreeModelAdaptor) currentComponent).getNodes();
             }
+        }
+    }
+    
+    private void setupDataModelContext(Object key) {
+        if (modelData instanceof Iterable<?>) {
+            Iterable<?> iterable = (Iterable<?>) modelData;
+            data = Iterables.get(iterable, (Integer) key);
+        } else {
+            data = ((Map<?, ?>) modelData).get(key);
         }
     }
     
@@ -104,7 +113,15 @@ public class DeclarativeTreeDataModelWalker {
         }
 
         try {
-            walkSimpleKeys(key.getSimpleKeys());
+            for (Object simpleKey : key.getSimpleKeys()) {
+                DeclarativeModelKey declarativeKey = (DeclarativeModelKey) simpleKey;
+                if (var != null) {
+                    contextMap.put(var, data);
+                }
+                
+                setupModelComponentContext(declarativeKey.getModelId());
+                setupDataModelContext(declarativeKey.getModelKey());
+            }
         } finally {
             if (var != null) {
                 try {
@@ -116,35 +133,4 @@ public class DeclarativeTreeDataModelWalker {
         }
     }
 
-    protected DeclarativeModelKey convertKey(Object nodes, DeclarativeModelKey declarativeModelKey) {
-        return declarativeModelKey;
-    }
-    
-    protected Object getData(Object nodes, Object key) {
-        if (nodes instanceof Iterable<?>) {
-            Iterable<?> iterable = (Iterable<?>) nodes;
-            return Iterables.get(iterable, (Integer) key);
-        } else {
-            return ((Map<?, ?>) nodes).get(key);
-        }
-    }
-    
-    protected void walkSimpleKey(DeclarativeModelKey segment) {
-        if (var != null) {
-            contextMap.put(var, data);
-        }
-        
-        setupChildModelContext(segment.getModelId());
-
-        DeclarativeModelKey convertedKey = convertKey(modelData, segment);
-        data = getData(modelData, convertedKey.getModelKey());
-    }
-    
-    protected void walkSimpleKeys(Object[] simpleKeys) {
-        for (Object simpleKey : simpleKeys) {
-            DeclarativeModelKey declarativeKey = (DeclarativeModelKey) simpleKey;
-            walkSimpleKey(declarativeKey);
-        }
-    }
-    
 }

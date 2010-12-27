@@ -1,12 +1,14 @@
 package org.richfaces.convert;
 
+import static org.richfaces.model.TreeDataModel.SEPARATOR_CHAR;
+
 import java.util.List;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-import static org.richfaces.model.TreeDataModel.*;
+
 import org.richfaces.model.SequenceRowKey;
 
 import com.google.common.base.Splitter;
@@ -21,7 +23,7 @@ import com.google.common.collect.ObjectArrays;
 
 public class SequenceRowKeyConverter<T> implements Converter {
 
-    private static final Splitter DOT_SPLITTER = Splitter.on(SEPARATOR_CHAR);
+    static final Splitter SEPARATOR_SPLITTER = Splitter.on(SEPARATOR_CHAR);
     
     private Class<T> clazz;
     
@@ -38,7 +40,7 @@ public class SequenceRowKeyConverter<T> implements Converter {
             return null;
         }
 
-        Iterable<String> split = DOT_SPLITTER.split(value);
+        Iterable<String> split = SEPARATOR_SPLITTER.split(value);
         List<T> keysList = Lists.<T>newArrayList();
         
         for (String s: split) {

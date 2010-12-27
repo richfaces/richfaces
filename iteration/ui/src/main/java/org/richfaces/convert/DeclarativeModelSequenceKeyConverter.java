@@ -21,85 +21,85 @@
  */
 package org.richfaces.convert;
 
+import static org.richfaces.convert.SequenceRowKeyConverter.SEPARATOR_SPLITTER;
+import static org.richfaces.convert.TreeConverterUtil.escape;
+import static org.richfaces.convert.TreeConverterUtil.unescape;
+import static org.richfaces.model.TreeDataModel.SEPARATOR_CHAR;
+
+import java.util.Iterator;
+import java.util.List;
+
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-import javax.faces.convert.IntegerConverter;
 
 import org.richfaces.component.AbstractTree;
-import org.richfaces.component.DeclarativeTreeDataModelWalker;
 import org.richfaces.model.DeclarativeModelKey;
 import org.richfaces.model.SequenceRowKey;
+
+import com.google.common.base.Strings;
+import com.google.common.collect.Lists;
 /**
  * @author Nick Belaevski
  * 
  */
-public class DeclarativeModelSequenceKeyConverter extends SequenceRowKeyConverter<DeclarativeModelKey> {
-
-    private final class KeyConvertingWalker extends DeclarativeTreeDataModelWalker {
-
-        private final FacesContext context;
-
-        private DeclarativeModelKey[] convertedSimpleKeys;
-
-        private int keysIdx;
-        
-        private KeyConvertingWalker(FacesContext context, AbstractTree rootComponent) {
-            super(context, rootComponent);
-            this.context = context;
-        }
-
-        @Override
-        protected DeclarativeModelKey convertKey(Object nodes, DeclarativeModelKey declarativeModelKey) {
-            DeclarativeModelKey convertedKey;
-            
-            if (nodes instanceof Iterable<?>) {
-                String modelKeyAsString = (String) declarativeModelKey.getModelKey();
-                Object modelKey = INTEGER_CONVERTER.getAsObject(context, getRootComponent(), modelKeyAsString);
-                convertedKey = new DeclarativeModelKey(declarativeModelKey.getModelId(), modelKey);
-            } else {
-                convertedKey = declarativeModelKey;
-            }
-
-            convertedSimpleKeys[keysIdx++] = convertedKey;
-            
-            return super.convertKey(nodes, convertedKey);
-        }
-        
-        @Override
-        public void walk(SequenceRowKey key) {
-            convertedSimpleKeys = new DeclarativeModelKey[key.getSimpleKeys().length];
-            keysIdx = 0;
-            super.walk(key);
-        }
-
-        public DeclarativeModelKey[] getConvertedSimpleKeys() {
-            return convertedSimpleKeys;
-        }
-    }
+public class DeclarativeModelSequenceKeyConverter implements Converter {
 
     public static final String CONVERTER_ID = "org.richfaces.DeclarativeModelSequenceKeyConverter";
     
-    private static final Converter INTEGER_CONVERTER = new IntegerConverter();
-    
-    public DeclarativeModelSequenceKeyConverter() {
-        super(DeclarativeModelKey.class, new DeclarativeModelKeyConverter(ConverterUtil.stringConverter()));
-    }
-
-    @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) throws ConverterException {
-        SequenceRowKey key = (SequenceRowKey) super.getAsObject(context, component, value);
-        
-        if (key != null) {
-            
-            KeyConvertingWalker walker = new KeyConvertingWalker(context, (AbstractTree) component);
-            walker.walk(key);
-            
-            key = new SequenceRowKey((Object[]) walker.getConvertedSimpleKeys());
+        if (Strings.isNullOrEmpty(value)) {
+            return null;
         }
         
-        return key;
+        Iterator<String> split = SEPARATOR_SPLITTER.split(value).iterator();
+
+        AbstractTree tree = (AbstractTree) component;
+        
+        List<DeclarativeModelKey> declarativeKeys = Lists.newArrayList();
+        
+        while (split.hasNext()) {
+            String modelId = unescape(split.next());
+            String modelKeyAsString = unescape(split.next());
+            
+            DeclarativeModelKey declarativeKey = tree.convertDeclarativeKeyFromString(context, modelId, modelKeyAsString);
+            
+            declarativeKeys.add(declarativeKey);
+        }
+        
+        return new SequenceRowKey((Object[]) declarativeKeys.toArray(new DeclarativeModelKey[declarativeKeys.size()]));
+    }
+
+    public String getAsString(FacesContext context, UIComponent component, Object value) {
+        if (value == null) {
+            return "";
+        }
+        
+        SequenceRowKey sequenceRowKey = (SequenceRowKey) value;
+        
+        Object[] declarativeKeys = sequenceRowKey.getSimpleKeys();
+        AbstractTree tree = (AbstractTree) component;
+        
+        StringBuilder result = new StringBuilder();
+        
+        for (Object declarativeKeyObject : declarativeKeys) {
+            DeclarativeModelKey declarativeKey = (DeclarativeModelKey) declarativeKeyObject;
+            String modelId = escape(declarativeKey.getModelId());
+            
+            String modelKeyAsString = escape(tree.convertDeclarativeKeyToString(context, declarativeKey));
+            
+            if (result.length() != 0) {
+                result.append(SEPARATOR_CHAR);
+            }
+            
+            result.append(modelId);
+            
+            result.append(SEPARATOR_CHAR);
+            result.append(modelKeyAsString);
+        }
+        
+        return result.toString();
     }
 
 }

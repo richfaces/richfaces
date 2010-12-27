@@ -21,7 +21,6 @@
  */
 package org.richfaces.convert;
 
-import javax.faces.convert.IntegerConverter;
 
 /**
  * @author Nick Belaevski
@@ -32,7 +31,7 @@ public class IntegerSequenceRowKeyConverter extends SequenceRowKeyConverter<Inte
     public static final String CONVERTER_ID = "org.richfaces.IntegerSequenceRowKeyConverter";
     
     public IntegerSequenceRowKeyConverter() {
-        super(Integer.class, new IntegerConverter());
+        super(Integer.class, ConverterUtil.integerConverter());
     }
 
 }
