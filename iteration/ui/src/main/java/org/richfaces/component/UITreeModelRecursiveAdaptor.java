@@ -38,7 +38,7 @@ public class UITreeModelRecursiveAdaptor extends AbstractTreeModelAdaptor implem
     public static final String COMPONENT_FAMILY = "org.richfaces.TreeModelRecursiveAdaptor";
 
     private enum PropertyKeys {
-        roots, nodes
+        roots, nodes, leaf
     }
     
     @Override
@@ -68,6 +68,14 @@ public class UITreeModelRecursiveAdaptor extends AbstractTreeModelAdaptor implem
 
     public String getRecursionOrder() {
         return null;
+    }
+
+    public boolean isLeaf() {
+        return (Boolean) getStateHelper().eval(PropertyKeys.leaf, false);
+    }
+
+    public void setLeaf(boolean leaf) {
+        getStateHelper().put(PropertyKeys.leaf, leaf);
     }
 
 }

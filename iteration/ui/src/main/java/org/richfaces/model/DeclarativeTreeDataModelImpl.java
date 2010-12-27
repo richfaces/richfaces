@@ -63,7 +63,14 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Object> i
 
     public boolean isLeaf() {
         UIComponent currentComponent = getCurrentComponent();
-        if (currentComponent instanceof TreeModelRecursiveAdaptor) {
+        
+        TreeModelAdaptor adaptor = (TreeModelAdaptor) currentComponent;
+        
+        if (adaptor.isLeaf()) {
+            return true;
+        }
+        
+        if (adaptor instanceof TreeModelRecursiveAdaptor) {
             return false;
         }
 

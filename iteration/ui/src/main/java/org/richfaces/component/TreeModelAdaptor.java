@@ -39,4 +39,6 @@ public interface TreeModelAdaptor {
 
     public void setRowKeyConverter(Converter converter);
 
+    public boolean isLeaf();
+
 }
