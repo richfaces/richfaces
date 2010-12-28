@@ -1,6 +1,5 @@
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -17,7 +16,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.component.AbstractPopupPanel;
 import org.richfaces.json.JSONException;
 import org.richfaces.json.JSONMap;
@@ -164,53 +162,10 @@ public class PopupPanelBaseRenderer extends RendererBase {
 
     public String getStyleIfTrimmed(UIComponent panel){
     	if (panel.getAttributes().get("trimOverlayedElements").equals(Boolean.TRUE)) {
-    	    return "position: relative; z-index : 0;";
+    	    return "position: relative; z-index : 0";
     	}
     	return "";
     }
-    
-    public String buildScript(FacesContext context, UIComponent component) throws IOException {
-    	AbstractPopupPanel panel = (AbstractPopupPanel) component;
-        StringBuilder result = new StringBuilder();
-        result.append("new RichFaces.ui.PopupPanel('");
-        result.append(panel.getClientId());
-        result.append("',");
-        Map<String, Object> attributes = component.getAttributes();
-        Map<String, Object> options = new HashMap<String, Object>();
-        addToScriptHash(options, "width", panel.getWidth(), "-1");
-        addToScriptHash(options, "height", panel.getHeight(), "-1");
-        addToScriptHash(options, "minWidth", panel.getMinWidth(), "-1");
-        addToScriptHash(options, "minHeight", panel.getMinHeight(), "-1");
-        addToScriptHash(options, "maxWidth", panel.getMaxWidth(), "" +Integer.MAX_VALUE);
-        addToScriptHash(options, "maxHeight", panel.getMaxHeight(), "" +Integer.MAX_VALUE);
-        addToScriptHash(options, "moveable", panel.isMoveable(), "true");
-        addToScriptHash(options, "followByScroll", panel.isFollowByScroll(), "true");
-        addToScriptHash(options, "left", panel.getLeft(), "auto");
-        addToScriptHash(options, "top", panel.getTop(), "auto");
-        addToScriptHash(options, "zindex", panel.getZindex(), "100");
-        addToScriptHash(options, "shadowDepth", panel.getShadowDepth(), "2");
-        addToScriptHash(options, "shadowOpacity", panel.getShadowOpacity(), "0.1");
-        addToScriptHash(options, "domElementAttachment", panel.getDomElementAttachment());
-        
-        addToScriptHash(options, "keepVisualState", panel.isKeepVisualState(), "false");
-        addToScriptHash(options, "show", panel.isShow(), "false");
-        addToScriptHash(options, "modal", panel.isModal(), "true");
-        addToScriptHash(options, "autosized", panel.isAutosized(), "false");
-        addToScriptHash(options, "resizeable", panel.isResizeable(), "false");
-        addToScriptHash(options, "overlapEmbedObjects", panel.isOverlapEmbedObjects(), "false");
-        addToScriptHash(options, "visualOptions", writeVisualOptions(context, panel));
-        addToScriptHash(options, "onresize", buildEventFunction(attributes.get("onresize")));
-        addToScriptHash(options, "onmove", buildEventFunction(attributes.get("onmove")));
-        addToScriptHash(options, "onshow", buildEventFunction(attributes.get("onshow")));
-        addToScriptHash(options, "onhide", buildEventFunction(attributes.get("onhide")));
-        addToScriptHash(options, "onbeforeshow", buildEventFunction(attributes.get("onbeforeshow")));
-        addToScriptHash(options, "onbeforehide", buildEventFunction(attributes.get("onbeforehide")));
-
-        ScriptUtils.appendScript(result, options);
-        result.append(");");
-        return result.toString();
-    }
-
     private Object buildEventFunction(Object eventFunction) {
         if(eventFunction != null && eventFunction.toString().length() > 0) {
             return "new Function(\"" + eventFunction.toString() + "\");";
@@ -218,7 +173,8 @@ public class PopupPanelBaseRenderer extends RendererBase {
         return null;
     }
 
-    public Map<String, Object> getHandledVisualOptions(AbstractPopupPanel panel) {
+    public Map<String, Object> getHandledVisualOptions(UIComponent component) {
+        AbstractPopupPanel panel = (AbstractPopupPanel) component;
         String options = panel.getVisualOptions();
         Map<String, Object> result;
         result = prepareVisualOptions(options, panel);
@@ -229,24 +185,7 @@ public class PopupPanelBaseRenderer extends RendererBase {
         return result;
     }
     
-    private String writeVisualOptions(FacesContext context, AbstractPopupPanel panel) throws IOException {
-        StringBuffer result = new StringBuffer();
-
-        Iterator<Map.Entry<String, Object>> it = ((Map<String, Object>) getHandledVisualOptions(panel)).entrySet()
-            .iterator();
-        if (it.hasNext()) {
-            result.append(",\n");
-        }
-        while (it.hasNext()) {
-            Map.Entry<String, Object> entry = it.next();
-
-            result.append(entry.getKey() + ": '" + entry.getValue() + "'");
-            if (it.hasNext()) {
-                result.append(",");
-            }
-        }
-        return result.toString();
-    }
+   
     
     private Map<String, Object> prepareVisualOptions(Object value, AbstractPopupPanel panel) {
         if (null == value) {

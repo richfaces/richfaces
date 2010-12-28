@@ -72,16 +72,17 @@
 		</c:if>
 		
 	</div>
-	<cdk:object type="java.lang.String" name="script" value="#{buildScript(facesContext, component)}" />
-	<cdk:object type="java.lang.String" name="showScript" value="#{buildShowScript(facesContext, component)}" />
+		<cdk:scriptObject name="options">
+	                	<cdk:scriptOption attributes="width height minWidth minHeight maxWidth maxHeight moveable followByScroll left top zindex shadowDepth shadowOpacity domElementAttachment show keepVisualState autosized resizeable modal overlapEmbedObjects visualOptions " />
+	                    <cdk:scriptOption attributes="onshow onhide onresize onmove onbeforeshow onbeforehide" wrapper="eventHandler"/>
+	                </cdk:scriptObject>
+			
 			<script type="text/javascript">	
-				#{script}
-			</script>
-			<c:if test="#{showScript != null}">
-			<script type="text/javascript">	
-				#{showScript}
-			</script>
-			</c:if>
+				new RichFaces.ui.PopupPanel(#{toScriptArgs(clientId, options)});
+				<c:if test="#{component.attributes['show'] != false}">
+					RichFaces.ui.PopupPanel.showPopupPanel(#{toScriptArgs(clientId, getHandledVisualOptions(component))});
+				</c:if>
+			</script>			
 </div>
 
 
