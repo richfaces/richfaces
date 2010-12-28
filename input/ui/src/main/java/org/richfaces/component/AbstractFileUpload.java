@@ -53,8 +53,8 @@ public abstract class AbstractFileUpload extends UIComponentBase {
     @Attribute
     public abstract String getAcceptedTypes();
 
-    @Attribute(defaultValue = "true")
-    public abstract boolean isEnabled();
+    @Attribute(defaultValue = "false")
+    public abstract boolean isDisabled();
 
     @Attribute(defaultValue = "false")
     public abstract boolean isNoDuplicate();
