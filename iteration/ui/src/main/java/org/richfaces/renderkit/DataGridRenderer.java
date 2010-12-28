@@ -70,7 +70,7 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-h-c", null);
             
             int columns = (Integer)component.getAttributes().get("columns");
-            if(columns != Integer.MIN_VALUE) {
+            if (columns > 0) {
             	writer.writeAttribute(HtmlConstants.COLSPAN_ATTRIBUTE, columns, null);
             }	
         }
@@ -109,7 +109,7 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-f-c", null);
             
             int columns = (Integer)component.getAttributes().get("columns");
-            if(columns != Integer.MIN_VALUE) {
+            if (columns > 0) {
             	writer.writeAttribute(HtmlConstants.COLSPAN_ATTRIBUTE, columns, null);
             }	
         }
@@ -149,7 +149,7 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-nd-c", null);
             
             int columns = (Integer)component.getAttributes().get("columns");
-            if(columns != Integer.MIN_VALUE) {
+            if (columns > 0) {
             	writer.writeAttribute(HtmlConstants.COLSPAN_ATTRIBUTE, columns, null);
             }
         }

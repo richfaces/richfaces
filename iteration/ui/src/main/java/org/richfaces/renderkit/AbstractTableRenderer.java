@@ -110,7 +110,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
 
     protected int getColumnsCount(UIDataTableBase table) {
         int columns = table.getColumns();
-        return (columns != Integer.MIN_VALUE) ? columns : getColumnsCount(table.columns());
+        return (columns > 0) ? columns : getColumnsCount(table.columns());
     }
     
     public void encodeTableStructure(ResponseWriter writer, FacesContext context, UIDataTableBase dataTable) throws IOException {
