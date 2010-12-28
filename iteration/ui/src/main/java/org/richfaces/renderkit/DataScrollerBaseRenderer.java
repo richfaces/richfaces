@@ -23,6 +23,9 @@
 
 package org.richfaces.renderkit;
 
+import static org.richfaces.component.DataScrollerControlsMode.auto;
+import static org.richfaces.component.DataScrollerControlsMode.show;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +41,7 @@ import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSLiteral;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractDataScroller;
+import org.richfaces.component.DataScrollerControlsMode;
 import org.richfaces.event.DataScrollerEvent;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 
@@ -69,18 +73,22 @@ public class DataScrollerBaseRenderer extends RendererBase {
         }
     }
 
+    private DataScrollerControlsMode getModeOrDefault(UIComponent component, String attributeName) {
+        DataScrollerControlsMode mode = (DataScrollerControlsMode) component.getAttributes().get(attributeName);
+        if (mode == null) {
+            mode = DataScrollerControlsMode.DEFAULT;
+        }
+        return mode;
+    }
+    
     public ControlsState getControlsState(FacesContext context, UIComponent component) {
 
-        int fastStep = (Integer) component.getAttributes().get("fastStep");
+        int fastStep = (Integer) component.getAttributes().get("fastStepOrDefault");
         int pageIndex = (Integer) component.getAttributes().get("page");
         int pageCount = (Integer) component.getAttributes().get("pageCount");
 
         int minPageIdx = 1;
         int maxPageIdx = pageCount;
-
-        if (fastStep <= 1) {
-            fastStep = 1;
-        }
 
         boolean useFirst = true;
         boolean useLast = true;
@@ -106,12 +114,12 @@ public class DataScrollerBaseRenderer extends RendererBase {
             useForwFast = false;
         }
 
-        String boundaryControls = (String) component.getAttributes().get("boundaryControls");
-        String stepControls = (String) component.getAttributes().get("stepControls");
-        String fastControls = (String) component.getAttributes().get("fastControls");
+        DataScrollerControlsMode boundaryControls = getModeOrDefault(component, "boundaryControls");
+        DataScrollerControlsMode stepControls = getModeOrDefault(component, "stepControls");
+        DataScrollerControlsMode fastControls = getModeOrDefault(component, "fastControls");
         
-        boolean isAuto = "auto".equals(boundaryControls); 
-        if (isAuto || "show".equals(boundaryControls)) {
+        boolean isAuto = auto.equals(boundaryControls); 
+        if (isAuto || show.equals(boundaryControls)) {
             if (isAuto) {
                 controlsState.setFirstRendered(useFirst);
                 controlsState.setLastRendered(useLast);
@@ -124,8 +132,8 @@ public class DataScrollerBaseRenderer extends RendererBase {
             controlsState.setLastRendered(false);
         }
         
-        isAuto = "auto".equals(stepControls);
-        if (isAuto || "show".equals(stepControls)) {
+        isAuto = auto.equals(stepControls);
+        if (isAuto || show.equals(stepControls)) {
             if (isAuto) {
                 controlsState.setPreviousRendered(useFirst);
                 controlsState.setNextRendered(useLast);
@@ -138,8 +146,8 @@ public class DataScrollerBaseRenderer extends RendererBase {
             controlsState.setNextRendered(false);
         }
         
-        isAuto = "auto".equals(fastControls);
-        if (isAuto || "show".equals(fastControls)) {
+        isAuto = auto.equals(fastControls);
+        if (isAuto || show.equals(fastControls)) {
             if (isAuto) {
                 controlsState.setFastForwardRendered(useForwFast);
                 controlsState.setFastRewindRendered(useBackFast);
@@ -164,17 +172,13 @@ public class DataScrollerBaseRenderer extends RendererBase {
         throws IOException {
 
         int currentPage = (Integer) component.getAttributes().get("page");
-        int maxPages = (Integer) component.getAttributes().get("maxPages");
+        int maxPages = (Integer) component.getAttributes().get("maxPagesOrDefault");
         int pageCount = (Integer) component.getAttributes().get("pageCount");
 
         Map<String, String> digital = new HashMap<String, String>();
 
         if (pageCount <= 1) {
             return digital;
-        }
-
-        if (maxPages <= 1) {
-            maxPages = 1;
         }
 
         int delta = maxPages / 2;

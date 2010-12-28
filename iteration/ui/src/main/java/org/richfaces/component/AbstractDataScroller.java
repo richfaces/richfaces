@@ -91,21 +91,38 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
     @Attribute
     public abstract String getLastPageMode();
 
-    @Attribute(defaultValue="10")
+    @Attribute
     public abstract int getMaxPages();
 
-    @Attribute(defaultValue="show")
-    public abstract String getBoundaryControls();
+    public int getMaxPagesOrDefault() {
+        int maxPages = getMaxPages();
+        if (maxPages <= 0) {
+            maxPages = 10;
+        }
+        
+        return maxPages;
+    }
     
-    @Attribute(defaultValue="show")
-    public abstract String getFastControls();
+    @Attribute
+    public abstract DataScrollerControlsMode getBoundaryControls();
+    
+    @Attribute
+    public abstract DataScrollerControlsMode getFastControls();
 
-    @Attribute(defaultValue="show")
-    public abstract String getStepControls();
+    @Attribute
+    public abstract DataScrollerControlsMode getStepControls();
     
-    @Attribute(defaultValue="1")
+    @Attribute
     public abstract int getFastStep();
 
+    public int getFastStepOrDefault() {
+        int fastStep = getFastStep();
+        if (fastStep <= 0) {
+            fastStep = 1;
+        }
+        return fastStep;
+    }
+    
     @Attribute
     public String getFor() {
         return (String)getStateHelper().eval("for");
@@ -191,9 +208,9 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
         } else if (NEXT_FACET_NAME.equals(facetName)) {
             newPage = getPage() + 1;
         } else if (FAST_FORWARD_FACET_NAME.equals(facetName)) {
-            newPage = getPage() + getFastStep();
+            newPage = getPage() + getFastStepOrDefault();
         } else if (FAST_REWIND_FACET_NAME.equals(facetName)) {
-            newPage = getPage() - getFastStep();
+            newPage = getPage() - getFastStepOrDefault();
         } else {
             try {
                 newPage = Integer.parseInt(facetName.toString());
