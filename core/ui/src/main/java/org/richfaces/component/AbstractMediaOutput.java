@@ -164,6 +164,9 @@ public abstract class AbstractMediaOutput extends UIOutput implements ResourceCo
     @Attribute
     public abstract String getVspace();
 
+    @Attribute
+    public abstract String getFileName();
+    
     @Attribute(events = @EventName("blur"))
     public abstract String getOnblur();
 

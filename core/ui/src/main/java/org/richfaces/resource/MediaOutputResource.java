@@ -26,6 +26,8 @@ package org.richfaces.resource;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
@@ -35,6 +37,8 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.component.AbstractMediaOutput;
+
+import com.google.common.base.Strings;
 
 /**
  * @author Nick Belaevski
@@ -60,6 +64,8 @@ public class MediaOutputResource extends AbstractUserResource implements StateHo
     private ValueExpression timeToLiveExpression;
     private Object userData;
 
+    private String fileName;
+    
     public void encode(FacesContext facesContext) throws IOException {
         OutputStream outStream = facesContext.getExternalContext().getResponseOutputStream();
         contentProducer.invoke(facesContext.getELContext(), new Object[] {outStream, userData});
@@ -74,13 +80,14 @@ public class MediaOutputResource extends AbstractUserResource implements StateHo
     }
 
     public Object saveState(FacesContext context) {
-        Object[] state = new Object[4];
+        Object[] state = new Object[5];
 
         // parent fields state saving
         state[0] = isCacheable(context) ? Boolean.TRUE : Boolean.FALSE;
         state[1] = getContentType();
         state[2] = UIComponentBase.saveAttachedState(context, userData);
         state[3] = UIComponentBase.saveAttachedState(context, contentProducer);
+        state[4] = fileName;
 
         return state;
     }
@@ -92,6 +99,7 @@ public class MediaOutputResource extends AbstractUserResource implements StateHo
         setContentType((String) state[1]);
         userData = UIComponentBase.restoreAttachedState(context, state[2]);
         contentProducer = (MethodExpression) UIComponentBase.restoreAttachedState(context, state[3]);
+        fileName = (String) state[4];
     }
 
     /**
@@ -109,6 +117,7 @@ public class MediaOutputResource extends AbstractUserResource implements StateHo
         this.lastModifiedExpression = uiMediaOutput.getValueExpression("lastModfied");
         this.expiresExpression = uiMediaOutput.getValueExpression("expires");
         this.timeToLiveExpression = uiMediaOutput.getValueExpression("timeToLive");
+        this.fileName = uiMediaOutput.getFileName();
     }
 
     public boolean isCacheable(FacesContext context) {
@@ -139,4 +148,14 @@ public class MediaOutputResource extends AbstractUserResource implements StateHo
         this.contentType = contentType;
     }
     
+    @Override
+    public Map<String, String> getResponseHeaders() {
+        Map<String, String> headers = new HashMap<String, String>(2);
+
+        if (!Strings.isNullOrEmpty(fileName)) {
+            headers.put("Content-Disposition", "inline; filename=\"" + fileName + "\"");
+        }
+        
+        return headers;
+    }
 }
