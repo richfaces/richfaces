@@ -39,7 +39,7 @@ import org.richfaces.model.UploadedFile;
 public class FileUploadBean {
     
     private String acceptedTypes;
-    private boolean enabled = true;
+    private boolean disabled = false;
     private boolean noDuplicate = false;
     private UploadedFile file;
     
@@ -55,12 +55,12 @@ public class FileUploadBean {
         file = event.getUploadedFile();
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
     }
 
-    public boolean isEnabled() {
-        return enabled;
+    public boolean isDisabled() {
+        return disabled;
     }
 
     public void setNoDuplicate(boolean noDuplicate) {
