@@ -624,9 +624,11 @@ public final class Util {
     public static Charset getCharsetFromContentType(String contentType) {
         String charsetName = null;
         
-        Matcher matcher = CHARSET_IN_CONTENT_TYPE_PATTERN.matcher(contentType);
-        if (matcher.find()) {
-            charsetName = matcher.group(1);
+        if (contentType != null) {
+            Matcher matcher = CHARSET_IN_CONTENT_TYPE_PATTERN.matcher(contentType);
+            if (matcher.find()) {
+                charsetName = matcher.group(1);
+            }
         }
         
         return Strings.isNullOrEmpty(charsetName) ? Charset.defaultCharset() : Charset.forName(charsetName);
