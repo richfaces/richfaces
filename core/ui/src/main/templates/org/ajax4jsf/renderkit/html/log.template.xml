@@ -14,7 +14,8 @@
 	</cc:interface>
 
 	<cc:implementation>
-		<div id="richfaces.log" class="#{concatClasses('rf-log', isInline(component.attributes['mode']) ? 'rf-log-inline' : 'rf-log-popup rf-log-popup-cnt', component.attributes['styleClass'])}">
+		<div id="richfaces.log" class="#{concatClasses('rf-log', isInline(component.attributes['mode']) ? 'rf-log-inline' : 'rf-log-popup rf-log-popup-cnt', component.attributes['styleClass'])}"
+            cdk:passThroughWithExclusions="">
             <cdk:scriptObject name="options">
                 <cdk:scriptOption attributes="level hotkey" />
                 <cdk:scriptOption attributes="mode" defaultValue="LogMode.DEFAULT" />
