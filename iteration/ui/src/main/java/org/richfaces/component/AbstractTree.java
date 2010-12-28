@@ -92,7 +92,7 @@ import com.google.common.collect.Maps;
     family = AbstractTree.COMPONENT_FAMILY, 
     tag = @Tag(name = "tree", handler = "org.richfaces.view.facelets.TreeHandler"),
     renderer = @JsfRenderer(type = "org.richfaces.TreeRenderer"),
-    attributes = {"events-props.xml", "core-props.xml", "i18n-props.xml"}
+    attributes = {"ajax-props.xml", "events-props.xml", "core-props.xml", "i18n-props.xml", "tree-common-props.xml"}
 )
 //TODO add rowData caching for wrapper events
 public abstract class AbstractTree extends UIDataAdaptor implements MetaComponentResolver, MetaComponentEncoder, TreeSelectionChangeSource, TreeToggleSource {
@@ -165,23 +165,14 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         return treeRange;
     }
     
+    @Attribute
     public abstract Object getValue();
 
+    @Attribute
     public abstract boolean isImmediate();
 
-    public abstract String getIconLeaf();
-
-    public abstract String getIconExpanded();
-
-    public abstract String getIconCollapsed();
-
+    @Attribute
     public abstract String getNodeClass();
-
-    public abstract String getHandleClass();
-
-    public abstract String getIconClass();
-
-    public abstract String getLabelClass();
 
     @Attribute(events = @EventName("nodetoggle"))
     public abstract String getOnnodetoggle();
@@ -201,26 +192,11 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
     @Attribute
     public abstract SwitchType getSelectionType();
 
+    @Attribute
     public abstract String getNodeType();
 
+    @Attribute
     public abstract String getToggleNodeEvent();
-    
-    public abstract Object getExecute();
-    
-    public abstract Object getRender();
-    
-    public abstract boolean isLimitRender();
-
-    @Attribute(events = @EventName("begin"))
-    public abstract String getOnbegin();
-    
-    @Attribute(events = @EventName("beforedomupdate"))
-    public abstract String getOnbeforedomupdate();
-    
-    @Attribute(events = @EventName("complete"))
-    public abstract String getOncomplete();
-
-    public abstract String getStatus();
     
     @Override
     public String getFamily() {
