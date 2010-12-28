@@ -36,15 +36,20 @@ input.rf-au-inp {
 	position: absolute;
 	top: 0px;
 	right: 0px;
-	height: 200px;
-	padding-top: 1px
+	height: 15px;
+	padding-top: 1px;
+	cursor: pointer;
+}
+
+.rf-au-btn-dis{
+	background-color: '#{richSkin.headerBackgroundColor}';
+	cursor: default;
 }
 
 .rf-au-btn-arrow{
 	background-position: center;
 	background-repeat: no-repeat;
 	background-image: "url(#{resource['org.richfaces:combo_down_button.gif']})";
-	cursor: pointer;
 	width: 15px;
 	height: 15px;
 }

@@ -16,7 +16,7 @@
     <cc:implementation>
     <cdk:object type="java.lang.Object" name="disabled" value="#{component.attributes['disabled']}" />
         <div id="#{clientId}" class="rf-au-fld">
-        	<input id="#{clientId}Value" name="#{clientId}Value" type="hidden" class="rf-au-fnt rf-au-inp" />
+			<input id="#{clientId}Value" name="#{clientId}Value" type="hidden" class="rf-au-fnt rf-au-inp" />
             <div style="position : relative; overflow : hidden; text-align : left; padding-right : 21px;">
             	<input onclick="#{component.attributes['onclick']}"
 				ondblclick="#{component.attributes['ondblclick']}"
@@ -30,7 +30,7 @@
 				onkeypress="#{component.attributes['onkeypress']}" id="#{clientId}Input" value="#{component.attributes['value']}"  disabled="#{disabled}" name="#{clientId}" type="text" class="rf-au-fnt rf-au-inp" autocomplete="off"/>
                 <c:if test="#{component.attributes['showButton']}">
                 <c:if test="#{component.attributes['disabled']}">
-                <div id="#{clientId}Button" class="rf-au-btn">
+                <div id="#{clientId}Button" class="rf-au-btn rf-au-btn-dis">
                     <div class="rf-au-btn-arrow"></div>
                 </div>
                 </c:if>
@@ -69,6 +69,7 @@
                     </div>
                 </div>
             </div>
+			<c:if test="#{!component.attributes['disabled']}">
             <script type="text/javascript">
 		<cdk:object name="mode" type="Object" value="#{component.attributes['mode']}" />
                 <cdk:scriptObject name="options">
@@ -84,6 +85,7 @@
                 "#{clientId}Input", #{toScriptArgs(options)}
                  );
             </script>
+			</c:if>
         </div>
     </cc:implementation>
 
