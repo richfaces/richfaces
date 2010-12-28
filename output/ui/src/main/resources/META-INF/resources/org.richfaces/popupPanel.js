@@ -51,7 +51,7 @@
 	
  	richfaces.ui.PopupPanel =  function(id, options) {
     	
-    	$super.constructor.call(this,id);
+    	$super.constructor.call(this,id);    	
     	this.markerId = id;
     	this.attachToDom(this.markerId);
     	this.options = $.extend(this.options, defaultOptions, options || {});
@@ -499,9 +499,9 @@
 			
 					var event = {};
 					event.parameters = opts || {};
-					if (this.options && this.options.onhide) {
-						this.options.onhide(event);
-					}
+//					if (this.options && this.options.onhide) {
+//						this.options.onhide(event);
+//					}
 			
 					var forms = $("form", element);
 					if (this.options.keepVisualState && forms) {
@@ -754,12 +754,11 @@
     $.extend(richfaces.ui.PopupPanel, {
     	
     	showPopupPanel : function (id, opts, event) {
-	
-			$(document).ready(richfaces.$(id).show());
+			richface.Event.ready(richfaces.$(id).show());
 		},
 
 		hidePopupPanel : function (id, opts, event) {
-			$(document).ready(richfaces.$(id).hide());
+			richface.Event.ready(richfaces.$(id).hide());
 		}		
     });
 
