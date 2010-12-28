@@ -87,11 +87,11 @@ public class UITooltip extends AbstractTooltip {
         getStateHelper().put(PropertyKeys.attached, attached);
     }
 
-    public TooltipDirection getDirection() {
-        return (TooltipDirection) getStateHelper().eval(PropertyKeys.direction, TooltipDirection.DEFAULT);
+    public Positioning getDirection() {
+        return (Positioning) getStateHelper().eval(PropertyKeys.direction, Positioning.DEFAULT);
     }
 
-    public void setDirection(TooltipDirection direction) {
+    public void setDirection(Positioning direction) {
         getStateHelper().put(PropertyKeys.direction, direction);
     }
 

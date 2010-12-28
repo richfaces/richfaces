@@ -65,7 +65,7 @@ public abstract class AbstractTooltip extends AbstractDivPanel implements MetaCo
 
     public abstract boolean isAttached();
 
-    public abstract TooltipDirection getDirection();
+    public abstract Positioning getDirection();
 
     public abstract boolean isDisabled();
 
