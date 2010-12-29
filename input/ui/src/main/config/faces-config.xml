@@ -236,7 +236,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		</property>
 		<component-extension>
 			<cdk:generate>true</cdk:generate>
-			<cdk:base-class>javax.faces.component.UIInput</cdk:base-class>
+			<cdk:base-class>org.richfaces.component.UIInputNumber</cdk:base-class>
 			<cdk:component-family>javax.faces.Input</cdk:component-family>
 			<cdk:renderer-type>org.richfaces.InputNumberSliderRenderer</cdk:renderer-type>
 			<cdk:tag>
@@ -534,7 +534,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		</property>
 		<component-extension>
 			<cdk:generate>true</cdk:generate>
-			<cdk:base-class>javax.faces.component.UIInput</cdk:base-class>
+			<cdk:base-class>org.richfaces.component.UIInputNumber</cdk:base-class>
 			<cdk:component-family>javax.faces.Input</cdk:component-family>
 			<cdk:renderer-type>org.richfaces.InputNumberSpinnerRenderer</cdk:renderer-type>
 			<cdk:tag>
