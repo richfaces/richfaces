@@ -58,7 +58,7 @@ import org.richfaces.renderkit.MetaComponentRenderer;
     family = AbstractTreeNode.COMPONENT_FAMILY, 
     tag = @Tag(name = "treeNode", handler = "org.richfaces.view.facelets.TreeNodeHandler"),
     renderer = @JsfRenderer(type = "org.richfaces.TreeNodeRenderer"),
-    attributes = {"events-props.xml", "core-props.xml", "i18n-props.xml", "tree-common-props.xml"}
+    attributes = {"events-props.xml", "core-props.xml", "i18n-props.xml"}
 )
 public abstract class AbstractTreeNode extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder, IterationStateHolder, TreeToggleSource {
 
@@ -87,8 +87,19 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
     @Attribute
     public abstract boolean isImmediate();
     
-    @Attribute
     public abstract String getType();
+    
+    public abstract String getIconLeaf();
+    
+    public abstract String getIconExpanded();
+    
+    public abstract String getIconCollapsed();
+
+    public abstract String getHandleClass();
+    
+    public abstract String getIconClass();
+    
+    public abstract String getLabelClass();
     
     @Attribute(events = @EventName("toggle"))
     public abstract String getOntoggle();
@@ -100,7 +111,6 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
         return (Boolean) getStateHelper().get(PropertyKeys.expanded);
     }
 
-    @Attribute
     public boolean isExpanded() {
         FacesContext context = getFacesContext();
         Boolean localExpandedValue = getLocalExpandedValue(context);
