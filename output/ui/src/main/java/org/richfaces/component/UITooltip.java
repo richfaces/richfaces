@@ -37,6 +37,7 @@ public class UITooltip extends AbstractTooltip {
         value,
         layout,
         attached,
+        jointPoint,        
         direction,
         disabled,
         followMouse,
@@ -85,6 +86,14 @@ public class UITooltip extends AbstractTooltip {
 
     public void setAttached(boolean attached) {
         getStateHelper().put(PropertyKeys.attached, attached);
+    }
+    
+    public Positioning getJointPoint() {
+        return (Positioning) getStateHelper().eval(PropertyKeys.jointPoint, Positioning.DEFAULT);
+    }
+
+    public void setJointPoint(Positioning jointPoint) {
+        getStateHelper().put(PropertyKeys.jointPoint, jointPoint);
     }
 
     public Positioning getDirection() {

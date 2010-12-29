@@ -25,17 +25,6 @@
 
     rf.ui = rf.ui || {};
 
-    rf.ui.TooltipDirection = {
-        topRight : "topRight",
-        topLeft : "topLeft",
-        bottomRight : "bottomRight",
-        bottomLeft : "bottomLeft",
-        auto : "auto",
-
-        DEFAULT: "bottomRight"
-    };
-    var TooltipDirection = rf.ui.TooltipDirection;
-
     rf.ui.TooltipMode = {
         client : "client",
         ajax : "ajax",
@@ -45,7 +34,9 @@
     var TooltipMode = rf.ui.TooltipMode;
 
     var DEFAULT_OPTIONS = {
-        direction : TooltipDirection.DEFAULT,
+        jointPoint : "AA",
+        direction : "AA",
+        offset: [0,0],
         attached : true,
         offset : [10, 10],
         mode : TooltipMode.DEFAULT,
@@ -132,7 +123,9 @@
                 attachTo: this.target,
                 attachToBody: false,
                 positionType: "TOOLTIP",
-                positionOffset: this.options.offset
+                positionOffset: this.options.offset,
+                jointPoint: this.options.jointPoint,
+                direction: this.options.direction
             });
 
             var tooltip = this;

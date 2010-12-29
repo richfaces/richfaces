@@ -4,18 +4,18 @@ package org.richfaces.component;
  * @author amarkhel
  */
 public enum Positioning {
-    topRight("RT"),
-    topLeft("LT"),
-    bottomRight("BR"),
-    bottomLeft("BL"),
-
     auto("AA"),
-    topAuto("AT"),
-    bottomAuto("AB"),
-    autoRight("RA"),
-    autoLeft("LA");
+    topLeft("LT"),
+    topRight("RT"),
+    bottomLeft("LB"),
+    bottomRight("RB"),
 
-    public static final Positioning DEFAULT = bottomRight;
+    autoLeft("LA"),
+    autoRight("RA"),
+    topAuto("AT"),
+    bottomAuto("AB");
+
+    public static final Positioning DEFAULT = auto;
 
     String value;
 

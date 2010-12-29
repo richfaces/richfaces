@@ -160,7 +160,8 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
 
         Map<String, Object> options = new HashMap<String, Object>();
         options.put("ajax", getAjaxOptions(context, tooltip));
-        options.put("direction", tooltip.getDirection());
+        options.put("jointPoint", tooltip.getJointPoint().getValue());
+        options.put("direction", tooltip.getDirection().getValue());
         options.put("attached", tooltip.isAttached());
         options.put("offset", getOffset(tooltip));
         options.put("mode", tooltip.getMode());
@@ -181,7 +182,7 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
     }
 
     public Integer[] getOffset(HtmlTooltip tooltip) {
-        return new Integer[] {tooltip.getHorizontalOffset(), tooltip.getHorizontalOffset()};
+        return new Integer[] {tooltip.getHorizontalOffset(), tooltip.getVerticalOffset()};
     }
 
     private void encodeContentEnd(ResponseWriter writer, FacesContext context, AbstractTooltip tooltip) throws IOException {

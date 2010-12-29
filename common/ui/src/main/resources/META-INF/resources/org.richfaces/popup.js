@@ -25,15 +25,17 @@
     rf.ui = rf.ui || {};
 
     rf.ui.Popup = function(id, options) {
-        this.id = id;
+    	$super.constructor.call(this, id);
+        this.options = $.extend({}, defaultOptions, options);
+        this.positionOptions = {type: this.options.positionType, from:this.options.jointPoint, to:this.options.direction, offset: this.options.positionOffset};
+        
         this.popup = $(document.getElementById(id));
 
-        var mergedOptions = $.extend({}, defaultOptions, options);
-        this.visible = mergedOptions.visible;
-        this.attachTo = mergedOptions.attachTo;
-        this.attachToBody = mergedOptions.attachToBody;
-        this.positionType = mergedOptions.positionType;
-        this.positionOffset = mergedOptions.positionOffset;
+        this.visible = this.options.visible;
+        this.attachTo = this.options.attachTo;
+        this.attachToBody = this.options.attachToBody;
+        this.positionType = this.options.positionType;
+        this.positionOffset = this.options.positionOffset;
     };
 
     rf.BaseComponent.extend(rf.ui.Popup);
@@ -56,7 +58,7 @@
                 this.visible = true;
             }
 
-            this.popup.setPosition(event || {id: this.attachTo}, {type: this.positionType , offset: this.positionOffset}).show();
+            this.popup.setPosition(event || {id: this.attachTo}, this.positionOptions).show();
         },
 
         hide: function() {
