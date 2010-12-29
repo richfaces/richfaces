@@ -1047,6 +1047,22 @@
    <renderer-type>org.richfaces.CollapsiblePanel</renderer-type>
    <handler-class>org.richfaces.view.facelets.html.CollapsiblePanelTagHandler</handler-class>
   </component>
+        <attribute>
+            <name>leftCollapsedIcon</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>leftExpandedIcon</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>rightExpandedIcon</name>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>rightCollapsedIcon</name>
+            <type>java.lang.String</type>
+        </attribute>
   <attribute>
    <name>switchType</name>
    <type>org.richfaces.component.SwitchType</type>

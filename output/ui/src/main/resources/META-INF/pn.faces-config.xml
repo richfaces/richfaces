@@ -939,6 +939,22 @@
         <component-type>org.richfaces.CollapsiblePanel</component-type>
         <component-class>org.richfaces.component.html.HtmlCollapsiblePanel</component-class>
         <property>
+            <property-name>leftCollapsedIcon</property-name>
+            <property-class>java.lang.String</property-class>
+        </property>
+        <property>
+            <property-name>leftExpandedIcon</property-name>
+            <property-class>java.lang.String</property-class>
+        </property>
+        <property>
+            <property-name>rightExpandedIcon</property-name>
+            <property-class>java.lang.String</property-class>
+        </property>
+        <property>
+            <property-name>rightCollapsedIcon</property-name>
+            <property-class>java.lang.String</property-class>
+        </property>
+        <property>
             <description></description>
             <property-name>switchType</property-name>
             <property-class>org.richfaces.component.SwitchType</property-class>

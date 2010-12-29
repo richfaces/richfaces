@@ -23,8 +23,8 @@
 package org.richfaces.component.html;
 
 import org.richfaces.component.UICollapsiblePanel;
-import javax.faces.component.behavior.ClientBehaviorHolder;
 
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -53,6 +53,11 @@ public class HtmlCollapsiblePanel extends UICollapsiblePanel implements ClientBe
 
 
     public enum PropertyKeys {
+        leftCollapsedIcon,
+        leftExpandedIcon,
+        rightCollapsedIcon,
+        rightExpandedIcon,
+
         bodyClass,
         headerClass,
         headerControlClass,
@@ -81,6 +86,38 @@ public class HtmlCollapsiblePanel extends UICollapsiblePanel implements ClientBe
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
+    }
+
+    public String getLeftCollapsedIcon() {
+        return (String) getStateHelper().eval(PropertyKeys.leftCollapsedIcon);
+    }
+
+    public void setLeftCollapsedIcon(String leftCollapsedIcon) {
+        getStateHelper().put(PropertyKeys.leftCollapsedIcon, leftCollapsedIcon);
+    }
+
+    public String getLeftExpandedIcon() {
+        return (String) getStateHelper().eval(PropertyKeys.leftExpandedIcon);
+    }
+
+    public void setLeftExpandedIcon(String leftExpandedIcon) {
+        getStateHelper().put(PropertyKeys.leftExpandedIcon, leftExpandedIcon);
+    }
+
+    public String getRightCollapsedIcon() {
+        return (String) getStateHelper().eval(PropertyKeys.rightCollapsedIcon);
+    }
+
+    public void setRightCollapsedIcon(String rightCollapsedIcon) {
+        getStateHelper().put(PropertyKeys.rightCollapsedIcon, rightCollapsedIcon);
+    }
+
+    public String getRightExpandedIcon() {
+        return (String) getStateHelper().eval(PropertyKeys.rightExpandedIcon);
+    }
+
+    public void setRightExpandedIcon(String rightExpandedIcon) {
+        getStateHelper().put(PropertyKeys.rightExpandedIcon, rightExpandedIcon);
     }
 
     public String getBodyClass() {
