@@ -43,8 +43,6 @@ import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.DateTimeConverter;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 
 import org.richfaces.cdk.annotations.Attribute;
@@ -88,12 +86,14 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
 
     protected enum PropertyKeys {
         locale
-    };
+    }
 
     public enum Modes {
-        CLIENT,
-        AJAX
-    }    
+        client,
+        ajax
+    }
+    
+    private Object submittedCurrentDate = null;
     
     @Attribute(defaultValue = "MMM d, yyyy")
     public abstract String getDatePattern();
@@ -311,7 +311,6 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     
     @Attribute(events = @EventName("clean"))
     public abstract String getOnclean();
-    
 
     @Attribute
     public Object getLocale() {
@@ -330,8 +329,49 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
         getStateHelper().put(PropertyKeys.locale, locale);
     }
     
-    
+    public Object getSubmittedCurrentDate() {
+        return submittedCurrentDate;
+    }
 
+    public void setSubmittedCurrentDate(Object submittedCurrentDate) {
+        this.submittedCurrentDate = submittedCurrentDate;
+    }
+
+    @Override
+    public void validate(FacesContext context) {
+        super.validate(context);
+
+        try {
+            // we should use datePattern attribute-based converter only for
+            // selectedDate
+            // current date string always has predefined format: m/y
+            String submittedCurrentDateString = (String) this.getSubmittedCurrentDate();
+            Date currentDate = CalendarHelper.getAsDate(context, this, getCurrentDate());
+            Date submittedCurrentDate = CalendarHelper.convertCurrentDate(submittedCurrentDateString);
+
+            if (!submittedCurrentDate.equals(currentDate)) {
+                updateCurrentDate(context, submittedCurrentDate);
+            }
+            
+            CurrentDateChangeEvent currentDateChangeEvent = new CurrentDateChangeEvent(this, submittedCurrentDateString);
+            currentDateChangeEvent.setCurrentDate(submittedCurrentDate);
+            currentDateChangeEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
+            queueEvent(currentDateChangeEvent);
+
+        } catch (Exception e) {
+            if (log.isDebugEnabled()) {
+                log.debug(" currentDate convertion fails with following exception: " + e.toString(), e);
+            }
+            setValid(false);
+            String messageString = e.toString();
+            FacesMessage message = new FacesMessage(messageString);
+            message.setSeverity(FacesMessage.SEVERITY_ERROR);
+            context.addMessage(getClientId(context), message);
+            context.renderResponse();
+        }        
+        
+    }
+    
     public void updateCurrentDate(FacesContext facesContext, Object currentDate) {
         if (facesContext == null) {
             throw new NullPointerException();
@@ -433,48 +473,6 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
             } else {
                 return java.util.Calendar.getInstance(getTimeZone()).getTime();
             }
-        }
-    }
-
-    public void broadcast(FacesEvent event) throws AbortProcessingException {
-        if (event instanceof CurrentDateChangeEvent) {
-            FacesContext facesContext = getFacesContext();
-            CurrentDateChangeEvent currentDateChangeEvent = (CurrentDateChangeEvent) event;
-            String currentDateString = currentDateChangeEvent.getCurrentDateString();
-
-            try {
-                // we should use datePattern attribute-based converter only for
-                // selectedDate
-                // current date string always has predefined format: m/y
-                Date currentDate = CalendarHelper.getAsDate(facesContext, this, getCurrentDate());
-                Date submittedCurrentDate = CalendarHelper.convertCurrentDate(currentDateString);
-                currentDateChangeEvent.setCurrentDate(submittedCurrentDate);
-
-                if (!submittedCurrentDate.equals(currentDate)) {
-                    updateCurrentDate(facesContext, submittedCurrentDate);
-                }
-
-            } catch (Exception e) {
-                if (log.isDebugEnabled()) {
-                    log.debug(" currentDate convertion fails with following exception: " + e.toString(), e);
-                }
-                setValid(false);
-                String messageString = e.toString();
-                FacesMessage message = new FacesMessage(messageString);
-                message.setSeverity(FacesMessage.SEVERITY_ERROR);
-                facesContext.addMessage(getClientId(facesContext), message);
-                facesContext.renderResponse();
-            }
-        } 
-        
-        super.broadcast(event);
-    }
-
-    @Override
-    public void queueEvent(FacesEvent event) {
-        super.queueEvent(event);
-        if (event instanceof CurrentDateChangeEvent) {
-            event.setPhaseId(PhaseId.PROCESS_VALIDATIONS);
         }
     }
     
@@ -591,7 +589,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
         Date dateRangeBegin = null;
         Date dateRangeEnd = null;
         
-        if (Modes.AJAX.toString().equalsIgnoreCase(getMode())) {
+        if (Modes.ajax.toString().equalsIgnoreCase(getMode())) {
             dateRangeBegin = CalendarHelper.getAsDate(facesContext, this, 
                 getDefaultPreloadBegin((Date) getCurrentDateOrDefault()));
             dateRangeEnd = CalendarHelper.getAsDate(facesContext, this, 
