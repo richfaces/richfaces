@@ -165,7 +165,10 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     public abstract int getZindex();
     
     @Attribute(defaultValue = "client")
-    public abstract String getMode(); 
+    public abstract String getMode();
+    
+    @Attribute
+    public abstract String getDefaultLabel(); 
 
     @Attribute
     public abstract String getStyle();

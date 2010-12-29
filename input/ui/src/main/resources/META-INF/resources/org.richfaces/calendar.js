@@ -262,14 +262,28 @@
 			currentDate: null,
 			defaultTime: {hours:12,minutes:0, seconds:0},
 			mode: "client",
-			hidePopupOnScroll: true
+			hidePopupOnScroll: true,
+			defaultLabel:""
 	};
 	
 	var defaultLabels = {apply:'Apply', today:'Today', clean:'Clean', ok:'OK', cancel:'Cancel', close:'x'};
 	
 	var eventHandlerNames = ["change", "dateselect", "beforedateselect", "currentdateselect", 
 			"beforecurrentdateselect", "currentdateselect", "clean", "complete", "collapse", 
-			"datemouseout", "datemouseover", "show", "hide", "timeselect", "beforetimeselect"]; 
+			"datemouseout", "datemouseover", "show", "hide", "timeselect", "beforetimeselect"];
+	
+	var updateDefaultLabel = function (value) {
+		if (!this.selectedDate) {
+			var field = rf.getDomElement(this.INPUT_DATE_ID);
+			field.value = value;
+		}
+	}
+	
+	var onFocusBlur = function (event) {
+		this.isFocused = event.type=="focus";
+		if (!this.isFocused && this.isVisible) return;
+		updateDefaultLabel.call(this, (event.type=="focus" ? "" : this.options.defaultLabel));
+	}
 	
 	// Constructor definition
 	rf.ui.Calendar = function(componentId, locale, options, markups) {
@@ -496,22 +510,18 @@
 			{
 				rf.Event.bindById(this.INPUT_DATE_ID, "click"+this.namespace, handler, this);				
 			}
+			if (this.options.defaultLabel) {
+				updateDefaultLabel.call(this, this.options.defaultLabel);
+				rf.Event.bindById(this.INPUT_DATE_ID, "focus"+this.namespace+" blur"+this.namespace, onFocusBlur, this);
+			}
 		}
 		
 		this.scrollElements = null;
 		
-		//alert(new Date().getTime()-_d.getTime());
-		
 		//define isAjaxMode variable
-		"ajax" == this.options.mode ? this.isAjaxMode = true : this.isAjaxMode = false;
+		this.isAjaxMode = this.options.mode == "ajax";
 		
-		/*
-		//events handler binding
-		for (var i in eventHandlerNames) {
-			var handler = this.options["on"+eventHandlerNames[i]];
-			if (handler) rf.Event.bindById(this.id, eventHandlerNames[i], handler, this);
-		}
-		*/	
+		//alert(new Date().getTime()-_d.getTime());
 	};
 		
 	// Extend component class and add protected methods from parent class to our container
@@ -892,7 +902,9 @@
 				
 				$(rf.getDomElement(this.CALENDAR_CONTENT)).hide();
 				this.isVisible = false;
-
+				if (this.options.defaultLabel && !this.isFocused) {
+					updateDefaultLabel.call(this, this.options.defaultLabel);
+				}
 			}
 		},
 
@@ -917,7 +929,9 @@
 				var baseInput = base.firstChild;
 				var baseButton = baseInput.nextSibling;
 				
-				if (baseInput && baseInput.value!=undefined)
+				if (this.options.defaultLabel) {
+					if (!this.isFocused) updateDefaultLabel.call(this, "");
+				} else if (baseInput.value!=undefined)
 				{
 					this.selectDate(baseInput.value, false, {event:e, element:element});
 				}
