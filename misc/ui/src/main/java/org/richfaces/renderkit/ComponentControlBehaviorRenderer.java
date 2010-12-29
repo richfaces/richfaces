@@ -125,8 +125,8 @@ public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
         for (UIComponent child : children) {
             if (child instanceof UIParameter) {
                 UIParameter parameter = (UIParameter) child;
-                Object value = parameter.getValue();
-
+                Object value = RendererUtils.getInstance().createParameterValue(parameter);
+                
                 if (value != null) {
                     elements.add(value);
                 }
@@ -135,7 +135,9 @@ public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
             if (child instanceof UIHashParameter) {
                 UIHashParameter parameter = (UIHashParameter) child;
                 String name = parameter.getName();
-                Map<String, Object> value = parameter.getValue();
+                
+                Map<String, Object> value = 
+                    RendererUtils.getInstance().createParametersMap(FacesContext.getCurrentInstance(), child);
 
                 if (value != null) {
                     if (name != null) {

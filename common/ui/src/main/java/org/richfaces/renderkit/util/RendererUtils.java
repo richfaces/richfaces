@@ -146,6 +146,33 @@ public final class RendererUtils {
         }
     }
 
+    /**
+     * Returns value of the parameter. If parameter is instance of 
+     * <code>JavaScriptParameter</code>, <code>NoEcape</code> attribute is applied.
+     * @param parameter instance of <code>UIParameter</code> 
+     * @return <code>Object</code> parameter value
+     */
+    public Object createParameterValue(UIParameter parameter) {
+        Object value = parameter.getValue();
+        boolean escape = true;
+
+        if (parameter instanceof JavaScriptParameter) {
+            JavaScriptParameter actionParam = (JavaScriptParameter) parameter;
+
+            escape = !actionParam.isNoEscape();
+        }
+
+        if (escape) {
+            if (value == null) {
+                value = "";
+            }
+        } else {
+            value = new JSReference(value.toString());
+        }
+        
+        return value;
+    }
+    
     public Map<String, Object> createParametersMap(FacesContext context, UIComponent component) {
         Map<String, Object> parameters = new LinkedHashMap<String, Object>();
 
@@ -154,33 +181,12 @@ public final class RendererUtils {
                 if (child instanceof UIParameter) {
                     UIParameter parameter = (UIParameter) child;
                     String name = parameter.getName();
-                    Object value = parameter.getValue();
+                    Object value = createParameterValue(parameter);
 
                     if (null == name) {
                         throw new IllegalArgumentException(Messages.getMessage(Messages.UNNAMED_PARAMETER_ERROR,
                                 component.getClientId(context)));
                     }
-
-                    boolean escape = true;
-
-                    if (child instanceof JavaScriptParameter) {
-                        JavaScriptParameter actionParam = (JavaScriptParameter) child;
-
-                        escape = !actionParam.isNoEscape();
-                    }
-
-                    if (escape) {
-                        if (value == null) {
-                            value = "";
-                        }
-                    } else {
-                        value = new JSReference(value.toString());
-
-                        // if(it.hasNext()){onEvent.append(',');};
-                        // renderAjaxLinkParameter( name,
-                        // value, onClick, jsForm, nestingForm);
-                    }
-
                     parameters.put(name, value);
                 }
             }
