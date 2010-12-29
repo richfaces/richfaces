@@ -28,7 +28,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:pn="http://richfaces.org/pn"
-      xmlns:rich="http://richfaces.org/output">
+      xmlns:rich="http://richfaces.org/output"
+	  xmlns:a4j="http://richfaces.org/a4j">
 
 <body>
 <ui:composition template="/templates/template.xhtml">
@@ -47,7 +48,7 @@
                 <p>Here you can see <b>default client-side</b> tool-tip</p>
                 <pn:tooltip id="tt1" styleClass="tooltip">
                     <span style="white-space: nowrap"> This tool-tip content was
-                    <strong>pre-rendered</strong> to the page.<br/>
+                    <strong>pre-rendered</strong> to the page.\n
                     Also the tooltip following mouse by default </span>
                 </pn:tooltip>
             </rich:panel>
@@ -58,7 +59,7 @@
                 <pn:tooltip followMouse="false" showDelay="1500"
                             styleClass="tooltip-custom-body">
 	                <span style="white-space: nowrap"> This tool-tip content also
-	                <strong>pre-rendered</strong> to the page.<br/>
+	                <strong>pre-rendered</strong> to the page.
 	                </span>
                 </pn:tooltip>
             </rich:panel>
@@ -95,13 +96,55 @@
                         <h:panelGrid columns="2">
                             <h:outputText style="white-space:nowrap"
                                           value="tooltips requested:"/>
-                            <h:outputText value="#{tooltipData.tooltipCounter}"
+                            <h:outputText value="#{tooltipBean.tooltipCounter}"
                                           styleClass="tooltipData"/>
                         </h:panelGrid>
                     </pn:tooltip>
                 </rich:panel>
             </h:form>
-        </h:panelGrid>
+		</h:panelGrid>
+		<br /><br />
+		<h:form>
+            <rich:panel id="tooltip" styleClass="tooltip-text"
+                        bodyClass="rich-laguna-panel-no-header">
+                <p>This tool-tip rendered on server <b>in separate request</b>.
+                </p>
+                <pn:tooltip styleClass="tooltip" layout="block" 
+				jointPoint="#{tooltipBean.jointPoint}"
+				direction="#{tooltipBean.direction}"
+				horizontalOffset="#{tooltipBean.horizontalOffset}"
+				verticalOffset="#{tooltipBean.verticalOffset}">
+                    Sample tooltip to test attributes:
+					<ul>
+						<li>jointPoint</li>
+						<li>direction</li>
+						<li>horizontalOffset</li>
+						<li>verticalOffset</li>
+					</ul>
+                </pn:tooltip>
+            </rich:panel>
+			<h:panelGrid columns="2">
+			<h:outputText value="Select joint point:" />
+			<h:selectOneMenu value="#{tooltipBean.jointPoint}">
+				<a4j:ajax execute="@form" event="change" render="tooltip @this" />
+				<f:selectItems value="#{tooltipBean.positioningValues}" var="v" itemLabel="#{v}" itemValue="#{v}"/>
+			</h:selectOneMenu>
+			<h:outputText value="Select direction:" />
+			<h:selectOneMenu value="#{tooltipBean.direction}">
+				<f:ajax execute="@form" event="change" render="tooltip @this" />
+				<f:selectItems value="#{tooltipBean.positioningValues}" var="v" itemLabel="#{v}" itemValue="#{v}"/>
+			</h:selectOneMenu>
+			<h:outputText value="Horisontal offset:" />
+			<h:inputText value="#{tooltipBean.horizontalOffset}">
+				<a4j:ajax execute="@form" event="change" render="tooltip @this" />
+			</h:inputText>
+			<h:outputText value="Vertical offset:" />
+			<h:inputText value="#{tooltipBean.verticalOffset}">
+				<f:ajax execute="@form" event="change" render="tooltip @this" />
+			</h:inputText>
+			</h:panelGrid>
+			<a4j:outputPanel ajaxRendered="true"><h:messages></h:messages></a4j:outputPanel>
+        </h:form>
     </ui:define>
 </ui:composition>
 </body>

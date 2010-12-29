@@ -43,15 +43,15 @@ RichFaces.QUnit.run(function() {
         equals(c.id, TOOLTIP_ID, "id");
 
         // test default options
-        same(c.options.direction, RichFaces.ui.TooltipDirection.DEFAULT, "Direction");
+        same(c.options.direction, "AA", "Direction");
         same(c.options.attached, true, "Attached");
-        same(c.options.offset, {}, "Offset");
+        same(c.options.offset, [10,10], "Offset");
         same(c.options.mode, RichFaces.ui.TooltipMode.DEFAULT, "Mode");
         same(c.options.disabled, false, "Disabled");
         same(c.options.hideDelay, 0, "Hide Delay");
-        same(c.options.hideEvent, "leave", "Hide Event");
-        same(c.options.showDelay, 0, "Show Delay");
-        same(c.options.showEvent, "enter", "Show Event");
+        same(c.options.hideEvent, "mouseleave", "Hide Event");
+        same(c.options.showDelay, 500, "Show Delay");
+        same(c.options.showEvent, "mouseenter", "Show Event");
         same(c.options.followMouse, true, "Follow Mouse");
 
     });

@@ -49,7 +49,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
             <div id="myRectangle" style="border: 2px solid red; background-color: #adff2f; width:300px; height:300px">
                 Tooltip apeared under green rectangle.
 
-                <pn:tooltip id="tooltip" target="myRectangle" mode="ajax" showDelay="500">
+                <pn:tooltip id="tooltip" target="myRectangle" mode="client" showDelay="500">
                     New Tooltip Yo!!!
                 </pn:tooltip>
             </div>
@@ -63,7 +63,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
             <div id="testDiv" style="margin-top:10px; border:1px solid #a0a0a0">Main Test Div</div>
         </div>
-        <!--<h:outputScript name="tests/richfaces-tooltip-qunit.js" />-->
+        <h:outputScript name="tests/richfaces-tooltip-qunit.js" />
     </ui:define>
 </ui:composition>
 </body>
