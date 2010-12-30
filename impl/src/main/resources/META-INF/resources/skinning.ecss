@@ -57,7 +57,7 @@ button[disabled], input[type="reset"][disabled], input[type="submit"][disabled],
 
 textarea, input[type="text"], input[type="password"], select {
 	border-width: 1px;
-	border-style: inset;
+	border-style: solid;
 	border-color: '#{richSkin.panelBorderColor}';
 	
 	font-size: '#{richSkin.generalSizeFont}';
@@ -72,4 +72,5 @@ textarea, input[type="text"], input[type="password"], select {
 
 textarea[disabled], input[type="text"][disabled], input[type="password"][disabled], select[disabled] {
 	color: '#{richSkin.panelBorderColor}';
+	cursor:default;
 }
