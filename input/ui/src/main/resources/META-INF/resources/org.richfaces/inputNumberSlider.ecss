@@ -66,11 +66,6 @@
 }
 
 input.rf-insl-inp {
-	background: url("#{resource['org.richfaces.renderkit.html.images.InputBackgroundImage']}") top repeat-x;
-	background-color: '#{richSkin.controlBackgroundColor}';
-	border-width: 1px;
-	border-style: inset;
-	border-color: '#{richSkin.panelBorderColor}';
 	margin: 0px 10px 0px 10px;
 	vertical-align: bottom;
 }

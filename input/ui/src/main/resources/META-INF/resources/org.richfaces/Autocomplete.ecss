@@ -6,7 +6,6 @@
 
 input.rf-au-inp {
 	border-width: 0px;
-	background: none;
 	width: 100%;
 }
 

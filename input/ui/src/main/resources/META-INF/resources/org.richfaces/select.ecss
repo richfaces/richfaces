@@ -6,7 +6,6 @@
 
 input.rf-sel-inp {
 	border-width: 0px;
-	background: none;
 	width: 100%;
 	color: '#{richSkin.generalTextColor}';
 	font-size: '#{richSkin.generalSizeFont}';
