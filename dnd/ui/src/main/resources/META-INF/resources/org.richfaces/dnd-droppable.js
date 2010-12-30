@@ -60,6 +60,10 @@
 				}, 
 								
 				accept: function(draggable) {
+                    // since acceptedTypes is optional it could be null.
+                    // In this case all types are accepted
+                    if(!this.options.acceptedTypes) return true;
+
 					var accept;
 					var acceptType = draggable.data("type");
 					if(acceptType) {
