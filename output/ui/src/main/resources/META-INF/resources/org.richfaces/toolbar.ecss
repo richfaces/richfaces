@@ -21,8 +21,6 @@
 .rf-tb-sep {
 	padding:0 10px;
 	text-align:center;
-	background-repeat:no-repeat;
-	background-position:center center; 
 	height: 100%;
 }
 
