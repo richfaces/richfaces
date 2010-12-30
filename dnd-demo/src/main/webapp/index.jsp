@@ -1,0 +1,1 @@
+<jsp:forward page="examples/dnd.jsf" />

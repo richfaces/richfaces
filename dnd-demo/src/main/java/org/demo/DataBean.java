@@ -13,13 +13,10 @@ import org.richfaces.event.DropEvent;
 public class DataBean {
     
     private List<String> dropValues = new ArrayList<String>();
-    
     private String dragValue1 = "dragValue 1";
-    
-    private String dragValue2 = "dragValue 3";
-    
+    private String dragValue2 = "dragValue 2";
     private String dragValue3 = "dragValue 3";
-    
+    private String acceptedTypes = "drg1, drg2";
 
     public List<String> getDropValues(){
         return dropValues;
@@ -52,12 +49,29 @@ public class DataBean {
     public void setDropValues(List<String> dropValues){
         this.dropValues = dropValues;
     }
-    
+
+    public String getAcceptedTypes() {
+        return acceptedTypes;
+    }
+
+    public void setAcceptedTypes(String acceptedTypes) {
+        this.acceptedTypes = acceptedTypes;
+    }
+
     public void processEvent(DropEvent event) {
         String value = (String)event.getDragValue();
         dropValues.add(value);
         System.out.println("DataBean.processEvent()");
     }
-    
-    
+
+    public void makeAcceptedTypesNullable(){
+        this.setAcceptedTypes(null);
+        this.setDropValues(new ArrayList<String>());
+    }
+
+    public void resetAcceptedTypes(){
+        this.setAcceptedTypes("drg1, drg2");
+        this.setDropValues(new ArrayList<String>());
+    }
+
 }
