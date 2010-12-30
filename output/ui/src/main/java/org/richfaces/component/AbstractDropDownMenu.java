@@ -37,11 +37,12 @@ public abstract class AbstractDropDownMenu extends UIComponentBase {
     @Attribute(defaultValue = "250")
     public abstract int getPopupWith();
     
-//    @Attribute(defaultValue = "auto")
-//    public abstract String getJointPoint();
-//    
-//    @Attribute(defaultValue = "auto")
-//    public abstract String getDirection();    
+    //TODO is it correct or cdk issue
+    @Attribute(defaultValue = "org.richfaces.component.Positioning.DEFAULT")
+    public abstract Positioning getJointPoint();
+    
+    @Attribute(defaultValue = "org.richfaces.component.Positioning.DEFAULT")
+    public abstract Positioning getDirection();
     
     @Attribute(events = @EventName("groupshow"))
     public abstract String getOngroupshow();
