@@ -288,7 +288,7 @@
 				}
 				el = el.nextSibling;
 			}
-			if (this.bodyElement.offsetHeight > height) {
+			if (this.bodyElement.offsetHeight > height || !this.contentElement) {
 				this.bodyElement.style.height = height + "px";
 			}
 		},
