@@ -43,7 +43,7 @@
 		this.selectedGroup = null;
 		rf.Event.bindById(this.id, this.options.showEvent, $.proxy(
 				this.___showHandler, this), this);
-		rf.Event.bindById(this.id, "mouseover", $.proxy(this.__overHandler,
+		rf.Event.bindById(this.id, "mouseenter", $.proxy(this.__overHandler,
 				this), this);
 		rf.Event.bindById(this.id, "mouseleave", $.proxy(this.__leaveHandler,
 				this), this);
@@ -87,10 +87,10 @@
 			submitForm : function(item) {
 				var form = this.__getParentForm(item);
 				if (this.options.mode == "server") {
-					// rf.submitForm(form, {selectedMenuItem: item.id});
+					rf.submitForm(form, {selectedMenuItem: item.id});
 				}
 				if (this.options.mode == "ajax") {
-					// rf.ajax(item.id);
+					rf.ajax(item.id);
 				}
 			},
 
@@ -101,6 +101,11 @@
 							null);
 					this.hide();
 				}
+			},
+			
+			activateItem : function(menuItemId){
+				var item=$(RichFaces.getDomElement(menuItemId));				
+				this.processItem(item);				
 			},
 
 			selectItem : function(item) {
@@ -124,14 +129,14 @@
 			},
 			
 			show: function() {
-				this.menuManager.shutdownMenu();
-				this.__showPopup();
+				this.menuManager.shutdownMenu();				
 				this.menuManager.addMenuId(this.id);
+				this.__showPopup();
 			},
 			
 			hide: function() {
-				this.menuManager.deletedMenuId();
 				this.__hidePopup();
+				this.menuManager.deletedMenuId();
 			},
 
 			__showPopup : function() {
