@@ -76,11 +76,10 @@
  	font-family : '#{richSkin.generalFamilyFont}';
  	font-size : '#{richSkin.generalSizeFont}';
 }
-.rf-pp-hndlr {
- 	opacity:0;
-	filter: 'alpha(opacity=0)';
+.rf-pp-hndlr {	
+	background-image: url("#{resource['spacer.gif']}");
 	position : absolute;
-	margin : -4px;
+	margin : -4px;	
 }
 
 .rf-pp-hndlr-l {
