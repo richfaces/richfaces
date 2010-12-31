@@ -59,10 +59,10 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
     private static class HeaderRenderer extends TableIconsRendererHelper {
 
         public HeaderRenderer(String cssClassPrefix) {
-            super("label", cssClassPrefix);
+            super("label", cssClassPrefix, "rf-pm-ico-");
         }
 
-        protected void encodeHeaderGroupIconLeft(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+        protected void encodeHeaderIconLeft(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
             HtmlPanelMenuGroup group = (HtmlPanelMenuGroup) component;
 
             String iconCollapsed = group.isDisabled() ? group.getIconLeftDisabled() : group.getIconLeftCollapsed();
@@ -71,7 +71,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
             encodeTdIcon(writer, context, cssClassPrefix + "-ico", group.isExpanded(), iconCollapsed, iconExpanded);
         }
 
-        protected void encodeHeaderGroupIconRight(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+        protected void encodeHeaderIconRight(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
             HtmlPanelMenuGroup group = (HtmlPanelMenuGroup) component;
 
             String iconCollapsed = group.isDisabled() ? group.getIconRightDisabled() : group.getIconRightCollapsed();

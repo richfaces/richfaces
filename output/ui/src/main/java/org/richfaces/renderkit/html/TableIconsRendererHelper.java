@@ -15,10 +15,12 @@ public abstract class TableIconsRendererHelper {
 
     protected final String text;
     protected final String cssClassPrefix;
+    protected final String cssIconsClassPrefix;
 
-    public TableIconsRendererHelper(String text, String cssClassPrefix) {
+    public TableIconsRendererHelper(String text, String cssClassPrefix, String cssIconsClassPrefix) {
         this.text = text;
         this.cssClassPrefix = cssClassPrefix;
+        this.cssIconsClassPrefix = cssIconsClassPrefix;
     }
 
     public void encodeHeader(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
@@ -27,11 +29,23 @@ public abstract class TableIconsRendererHelper {
         writer.startElement(TBODY_ELEMENT, null);
         writer.startElement(TR_ELEMENT, null);
 
-        encodeHeaderGroupIconLeft(writer, context, component);
+        encodeHeaderIconLeft(writer, context, component);
+        encodeHeaderText(writer, context, component);
+        encodeHeaderIconRight(writer, context, component);
 
+        writer.endElement(TR_ELEMENT);
+        writer.endElement(TBODY_ELEMENT);
+        writer.endElement(TABLE_ELEMENT);
+    }
+
+    private void encodeHeaderText(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         writer.startElement(TD_ELEM, null);
         writer.writeAttribute(CLASS_ATTRIBUTE, cssClassPrefix + "-lbl", null);
+        encodeHeaderTextValue(writer, context, component);
+        writer.endElement(TD_ELEM);
+    }
 
+    protected void encodeHeaderTextValue(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         UIComponent headerFacet = component.getFacet(text);
         if (headerFacet != null && headerFacet.isRendered()) {
             headerFacet.encodeAll(context);
@@ -41,26 +55,18 @@ public abstract class TableIconsRendererHelper {
                 writer.writeText(label, null);
             }
         }
-
-        writer.endElement(TD_ELEM);
-
-        encodeHeaderGroupIconRight(writer, context, component);
-
-        writer.endElement(TR_ELEMENT);
-        writer.endElement(TBODY_ELEMENT);
-        writer.endElement(TABLE_ELEMENT);
     }
 
-    protected abstract void encodeHeaderGroupIconLeft(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException;
+    protected abstract void encodeHeaderIconLeft(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException;
 
-    protected abstract void encodeHeaderGroupIconRight(ResponseWriter writer, FacesContext context, UIComponent menuItem) throws IOException;
+    protected abstract void encodeHeaderIconRight(ResponseWriter writer, FacesContext context, UIComponent menuItem) throws IOException;
 
     protected void encodeTdIcon(ResponseWriter writer, FacesContext context, String cssClass, boolean isExpanded, String attrIconCollapsedValue, String attrIconExpandedValue) throws IOException {
         writer.startElement(TD_ELEM, null);
         writer.writeAttribute(CLASS_ATTRIBUTE, cssClass, null);
 
-        encodeIdIcon(writer, context, isExpanded, attrIconCollapsedValue, cssClassPrefix + "-colps");
-        encodeIdIcon(writer, context, !isExpanded, attrIconExpandedValue, cssClassPrefix + "-exp");
+        encodeIdIcon(writer, context, isExpanded, attrIconCollapsedValue, cssIconsClassPrefix + "colps");
+        encodeIdIcon(writer, context, !isExpanded, attrIconExpandedValue, cssIconsClassPrefix + "exp");
 
         writer.endElement(TD_ELEM);
     }

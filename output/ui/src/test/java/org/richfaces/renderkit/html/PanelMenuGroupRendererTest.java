@@ -37,7 +37,6 @@ import static org.junit.Assert.assertNotNull;
  * @author akolonitsky
  * @since 2010-10-25
  */
-@Ignore
 public class PanelMenuGroupRendererTest extends RendererTestBase {
 
     @Test

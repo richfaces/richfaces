@@ -59,16 +59,16 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
     public static final String SWITCH = "switch";
     public static final String BEFORE_SWITCH = "beforeswitch";
 
-    private final TableIconsRendererHelper headerRenderer = new TableIconsRendererHelper("header", "rf-cp-") {
+    private final TableIconsRendererHelper headerRenderer = new TableIconsRendererHelper("header", "rf-cp", "rf-cp-ico-") {
 
-        protected void encodeHeaderGroupIconLeft(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+        protected void encodeHeaderIconLeft(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
             HtmlCollapsiblePanel panel = (HtmlCollapsiblePanel) component;
 
             encodeTdIcon(writer, context, cssClassPrefix + "-ico", panel.isExpanded(),
                     panel.getLeftCollapsedIcon(), panel.getLeftExpandedIcon());
         }
 
-        protected void encodeHeaderGroupIconRight(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+        protected void encodeHeaderIconRight(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
             HtmlCollapsiblePanel panel = (HtmlCollapsiblePanel) component;
 
             //TODO nick - should this be "-ico-exp"? also why expanded icon state is connected with right icon alignment?
