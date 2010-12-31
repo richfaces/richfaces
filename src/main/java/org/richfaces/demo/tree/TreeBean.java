@@ -33,6 +33,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.swing.tree.TreeNode;
 
+import org.richfaces.component.UITree;
 import org.richfaces.demo.tree.model.CD;
 import org.richfaces.demo.tree.model.Company;
 import org.richfaces.demo.tree.model.Country;
@@ -50,7 +51,8 @@ public class TreeBean implements Serializable {
     private List<TreeNode> rootNodes = new ArrayList<TreeNode>();
     private Map<String, Country> countriesCache = new HashMap<String, Country>();
     private Map<String, Company> companiesCache = new HashMap<String, Company>();
-    private Object currentSelection;
+    private TreeNode currentSelection = null;
+
     @PostConstruct
     public void init() {
         for (CDXmlDescriptor current : cdXmlDescriptors) {
@@ -62,12 +64,17 @@ public class TreeBean implements Serializable {
             company.getCds().add(cd);
         }
     }
-    
-    public void selectionChanged(TreeSelectionChangeEvent selectionChangeEvent){
-        //considering only single selection
+
+    public void selectionChanged(TreeSelectionChangeEvent selectionChangeEvent) {
+        // considering only single selection
         List<Object> selection = new ArrayList<Object>(selectionChangeEvent.getNewSelection());
-        currentSelection = selection.get(0);
-        
+        Object currentSelectionKey = selection.get(0);
+        UITree tree = (UITree) selectionChangeEvent.getSource();
+
+        Object storedKey = tree.getRowKey();
+        tree.setRowKey(currentSelectionKey);
+        currentSelection = (TreeNode) tree.getRowData();
+        tree.setRowKey(storedKey);
     }
 
     private Country getCountryByName(CDXmlDescriptor descriptor) {
@@ -109,6 +116,14 @@ public class TreeBean implements Serializable {
 
     public void setRootNodes(List<TreeNode> rootNodes) {
         this.rootNodes = rootNodes;
+    }
+
+    public TreeNode getCurrentSelection() {
+        return currentSelection;
+    }
+
+    public void setCurrentSelection(TreeNode currentSelection) {
+        this.currentSelection = currentSelection;
     }
 
 }

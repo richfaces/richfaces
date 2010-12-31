@@ -10,7 +10,6 @@ import com.google.common.collect.Iterators;
 
 public class Country extends NamedNode implements TreeNode {
 
-    private String name;
     private List<Company> companies = new ArrayList<Company>();
 
     public Country() {
@@ -43,14 +42,6 @@ public class Country extends NamedNode implements TreeNode {
 
     public Enumeration<Company> children() {
         return Iterators.asEnumeration(companies.iterator());
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public List<Company> getCompanies() {

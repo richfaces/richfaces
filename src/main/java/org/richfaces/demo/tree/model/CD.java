@@ -7,22 +7,29 @@ import javax.swing.tree.TreeNode;
 public class CD extends NamedNode implements TreeNode {
     private Company company;
     private String artist;
-    private String title;
     private float price;
     private int year;
 
     public CD() {
         this.setType("cd");
     }
-    
-    public CD(String title, String artist, Company company, float price, int year) {
+
+    public CD(String name, String artist, Company company, float price, int year) {
         super();
         this.setType("cd");
         this.company = company;
         this.artist = artist;
-        this.title = title;
+        this.name = name;
         this.price = price;
         this.year = year;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public TreeNode getChildAt(int childIndex) {
@@ -68,14 +75,6 @@ public class CD extends NamedNode implements TreeNode {
 
     public void setArtist(String artist) {
         this.artist = artist;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public float getPrice() {

@@ -5,15 +5,17 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
-	<p><b>rich:tree</b> is a component that renders a tree control on the page. The
-	most important tree features are:</p>
-	<ul> 
+	<p><b>rich:tree</b> is a component that renders a tree control on
+	the page. The most important tree features are:</p>
+	<ul>
 		<li>Native support for Ajax operations</li>
 		<li>Support for "ajax", "client" and "server" switch types</li>
 		<li>Selection capabilities</li>
 		<li>Flexible look</li>
 	</ul>
-
+	<p>This demo also provides simple selection handling sample. When
+	you will select some node its name will be shown. And when you will
+	select a leaf - full CD details will be populated.</p>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
 		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
@@ -21,6 +23,37 @@
 		<ui:param name="openLabel" value="View Source" />
 		<ui:param name="hideLabel" value="Hide Source" />
 	</ui:include>
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/tree/TreeBean.java" />
+		<ui:param name="sourceType" value="java" />
+		<ui:param name="openLabel" value="View TreeBean.java" />
+		<ui:param name="hideLabel" value="Hide TreeBean.java" />
+	</ui:include>
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/tree/model/Country.java" />
+		<ui:param name="sourceType" value="java" />
+		<ui:param name="openLabel" value="View Country.java" />
+		<ui:param name="hideLabel" value="Hide Country.java" />
+	</ui:include>
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/tree/model/Company.java" />
+		<ui:param name="sourceType" value="java" />
+		<ui:param name="openLabel" value="View Company.java" />
+		<ui:param name="hideLabel" value="Hide Company.java" />
+	</ui:include>
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/tree/model/CD.java" />
+		<ui:param name="sourceType" value="java" />
+		<ui:param name="openLabel" value="View CD.java" />
+		<ui:param name="hideLabel" value="Hide CD.java" />
+	</ui:include>
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/tree/model/NamedNode.java" />
+		<ui:param name="sourceType" value="java" />
+		<ui:param name="openLabel" value="View NamedNode.java" />
+		<ui:param name="hideLabel" value="Hide NamedNode.java" />
+	</ui:include>
+	
 </ui:composition>
 
 </html>

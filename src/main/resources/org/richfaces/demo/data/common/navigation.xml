@@ -172,10 +172,21 @@
 			</demo>
 		</demos>
 	</group>
-	<!-- group> <name>Validation</name> <demos> <demo> <id>clientValidation</id> 
-		<name>Ajax/Client Validation</name> <samples> <sample> <id>ajaxValidation</id> 
-		<name>Simple Ajax Validation</name> </sample> </samples> </demo> </demos> 
-		</group -->
+	<!-- group>
+		<name>Validation</name>
+		<demos>
+			<demo new="true">
+				<id>clientValidation</id>
+				<name>Ajax/Client Validation</name>
+				<samples>
+					<sample>
+						<id>simple</id>
+						<name>Simple Ajax Validation</name>
+					</sample>
+				</samples>
+			</demo>
+		</demos>
+	</group-->
 	<group>
 		<name>Data Iteration</name>
 		<demos>
@@ -281,11 +292,11 @@
 	<group>
 		<name>Trees</name>
 		<demos>
-			<demo>
+			<demo new="true">
 				<id>tree</id>
 				<name>rich:tree</name>
 				<samples>
-					<sample>
+					<sample new="true">
 						<id>tree</id>
 						<name>Simple tree from XML</name>
 					</sample>
@@ -300,7 +311,7 @@
 						<name>Simple treeModelRecursiveAdaptor usage</name>
 					</sample>
 				</samples>
-			</demo>			
+			</demo>
 		</demos>
 	</group>
 	<group>
@@ -545,24 +556,24 @@
 						<name>Upload images</name>
 					</sample>
 				</samples>
-			</demo>			
+			</demo>
 		</demos>
 	</group>
-    <group>
-        <name>Drag and Drop</name>
-        <demos>
-            <demo new="true">
-                <id>dragDrop</id>
-                <name>Drag and Drop</name>
-                <samples>
-                    <sample>
-                        <id>dragDrop</id>
-                        <name>Drag and Drop usage example</name>
-                    </sample>
-                </samples>
-            </demo>
-        </demos>
-    </group>	
+	<group>
+		<name>Drag and Drop</name>
+		<demos>
+			<demo new="true">
+				<id>dragDrop</id>
+				<name>Drag and Drop</name>
+				<samples>
+					<sample>
+						<id>dragDrop</id>
+						<name>Drag and Drop usage example</name>
+					</sample>
+				</samples>
+			</demo>
+		</demos>
+	</group>
 	<group>
 		<name>Misc Components/Features</name>
 		<demos>

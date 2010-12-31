@@ -24,6 +24,12 @@
 		<ui:param name="openLabel" value="View Source" />
 		<ui:param name="hideLabel" value="Hide Source" />
 	</ui:include>
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/fileupload/FileUploadBean.java"/>
+		<ui:param name="sourceType" value="java" />
+		<ui:param name="openLabel" value="View FileUploadBean.java" />
+		<ui:param name="hideLabel" value="Hide FileUploadBean.java" />
+	</ui:include>
 	<p><b>FileUpload requires two context-parameter's to be set in
 	web.xml:</b></p>
 	<ul>
