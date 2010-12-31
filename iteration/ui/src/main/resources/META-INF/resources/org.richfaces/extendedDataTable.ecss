@@ -110,10 +110,14 @@ div.rf-edt-ftr-cnt {
 }
 
 .rf-edt-c, .rf-edt-hdr-c, .rf-edt-ftr-c {
-	height: 20px;
-	overflow: hidden;
+	overflow-x: hidden;
 	border-bottom: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
 	border-right: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
+}
+
+.rf-edt-c {
+	height: 20px;
+	overflow: hidden;
 }
 
 .rf-edt-ftr-c-emp {
@@ -121,9 +125,12 @@ div.rf-edt-ftr-cnt {
 	height: 1px;
 }
 
+.rf-edt-c-cnt {
+	white-space: nowrap;
+}
+
 .rf-edt-c-cnt, .rf-edt-hdr-c-cnt, .rf-edt-ftr-c-cnt, .rf-edt-tbl-hdr, .rf-edt-tbl-ftr {
 	padding: 3px 7px;
-	white-space: nowrap;
 	font-family: '#{richSkin.generalFamilyFont}';
 	font-size: '#{richSkin.generalSizeFont}';
 }

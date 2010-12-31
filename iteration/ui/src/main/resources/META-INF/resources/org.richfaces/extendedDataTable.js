@@ -160,6 +160,8 @@
 			this.widthInput = document.getElementById(id + ":wi");
 			this.selectionInput = document.getElementById(id + ":si");
 			this.header = jQuery(this.element).children(".rf-edt-hdr");
+			this.headerCells = this.header.find(".rf-edt-hdr-c");
+			this.footerCells = jQuery(this.element).children(".rf-edt-ftr").find(".rf-edt-ftr-c");
 			this.resizerHolders = this.header.find(".rf-edt-rsz-cntr");
 			
 			this.frozenHeaderPartElement = document.getElementById(id + ":frozenHeader");
@@ -176,9 +178,8 @@
 	    
 		getColumnPosition: function(id) {
 			var position;
-			var headers = this.header.find(".rf-edt-hdr-c");
-			for (var i = 0; i < headers.length; i++) {
-				if (id == headers[i].className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1]) {
+			for (var i = 0; i < this.headerCells.length; i++) {
+				if (id == this.headerCells[i].className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1]) {
 					position = i;
 				}
 			}
@@ -188,9 +189,8 @@
 	    setColumnPosition: function(id, position) {
 			var colunmsOrder = "";
 			var before;
-			var headers = this.header.find(".rf-edt-hdr-c");
-			for (var i = 0; i < headers.length; i++) {
-				var current = headers[i].className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1];
+			for (var i = 0; i < this.headerCells.length; i++) {
+				var current = this.headerCells[i].className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1];
 				if (i == position) {
 					if (before) {
 						colunmsOrder += current + "," + id + ",";
@@ -256,10 +256,26 @@
 		
 		bindHeaderHandlers: function() {
 			this.header.find(".rf-edt-rsz").bind("mousedown", jQuery.proxy(this.beginResize, this));
-			this.header.find(".rf-edt-hdr-c").bind("mousedown", jQuery.proxy(this.beginReorder, this));
+			this.headerCells.bind("mousedown", jQuery.proxy(this.beginReorder, this));
 		},
 		
 		updateLayout: function() {
+			this.headerCells.height("auto");
+			var headerCellHeight = 0;
+			this.headerCells.each(function() {
+				if (this.clientHeight > headerCellHeight) {
+					headerCellHeight = this.clientHeight;
+				}
+			});
+			this.headerCells.height(headerCellHeight + "px");
+			this.footerCells.height("auto");
+			var footerCellHeight = 0;
+			this.footerCells.each(function() {
+				if (this.clientHeight > footerCellHeight) {
+					footerCellHeight = this.clientHeight;
+				}
+			});
+			this.footerCells.height(footerCellHeight + "px");
 			this.normalPartStyle.width = "auto";
 			var offsetWidth = this.frozenHeaderPartElement ? this.frozenHeaderPartElement.offsetWidth : 0;
 			var width = Math.max(0, this.element.clientWidth - offsetWidth);
@@ -406,7 +422,7 @@
 			if (!jQuery(event.currentTarget).is("a, img, :input")) {
 				this.idOfReorderingColumn = event.currentTarget.className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1];
 				jQuery(document).bind("mousemove", jQuery.proxy(this.reorder, this));
-				this.header.find(".rf-edt-hdr-c").bind("mouseover", jQuery.proxy(this.overReorder, this));
+				this.headerCells.bind("mouseover", jQuery.proxy(this.overReorder, this));
 				jQuery(document).one("mouseup", jQuery.proxy(this.cancelReorder, this));
 				return false;
 			}
@@ -434,7 +450,7 @@
 			var id = event.currentTarget.className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1];
 			var colunmsOrder = "";
 			var _this = this;
-			this.header.find(".rf-edt-hdr-c").each(function() {
+			this.headerCells.each(function() {
 				var i = this.className.match(new RegExp(WIDTH_CLASS_NAME_BASE + "([^\\W]*)"))[1];
 				if (i == id) {
 					colunmsOrder += _this.idOfReorderingColumn + "," + id + ",";
@@ -447,7 +463,7 @@
 		
 		cancelReorder: function(event) {
 			jQuery(document).unbind("mousemove", this.reorder);
-			this.header.find(".rf-edt-hdr-c").unbind("mouseover", this.overReorder);
+			this.headerCells.unbind("mouseover", this.overReorder);
 			this.reorderElement.style.display = "none";
 		},
 		
