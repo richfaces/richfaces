@@ -22,28 +22,22 @@
 
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.component.AbstractCollapsiblePanel.States.collapsed;
-import static org.richfaces.component.AbstractCollapsiblePanel.States.expanded;
-import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
-import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.STYLE_ATTRIBUTE;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.component.AbstractCollapsiblePanel;
+import org.richfaces.component.AbstractTogglePanel;
+import org.richfaces.component.html.HtmlCollapsiblePanel;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.component.AbstractCollapsiblePanel;
-import org.richfaces.component.AbstractTogglePanel;
-import org.richfaces.component.AbstractTogglePanelTitledItem;
+import static org.richfaces.renderkit.HtmlConstants.*;
 
 /**
  * @author akolonitsky
@@ -64,6 +58,28 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
 
     public static final String SWITCH = "switch";
     public static final String BEFORE_SWITCH = "beforeswitch";
+
+    private final TableIconsRendererHelper headerRenderer = new TableIconsRendererHelper("header", "rf-cp-") {
+
+        protected void encodeHeaderGroupIconLeft(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+            HtmlCollapsiblePanel panel = (HtmlCollapsiblePanel) component;
+
+            encodeTdIcon(writer, context, cssClassPrefix + "-ico", panel.isExpanded(),
+                    panel.getLeftCollapsedIcon(), panel.getLeftExpandedIcon());
+        }
+
+        protected void encodeHeaderGroupIconRight(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+            HtmlCollapsiblePanel panel = (HtmlCollapsiblePanel) component;
+
+            //TODO nick - should this be "-ico-exp"? also why expanded icon state is connected with right icon alignment?
+            encodeTdIcon(writer, context, cssClassPrefix + "-exp-ico", panel.isExpanded(),
+                    panel.getRightCollapsedIcon(), panel.getRightExpandedIcon());
+        }
+    };
+
+    public TableIconsRendererHelper getHeaderRenderer() {
+        return headerRenderer;
+    }
 
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
@@ -126,31 +142,11 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
         writer.writeAttribute(ID_ATTRIBUTE, component.getClientId(context) + ":header", null);
         writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-cp-hdr", attributeAsString(component, "headerClass")), null);
 
-        AbstractCollapsiblePanel panel = (AbstractCollapsiblePanel) component;
-        encodeHeader(context, component, writer, expanded, panel.isExpanded());
-        encodeHeader(context, component, writer, collapsed, !panel.isExpanded());
+        headerRenderer.encodeHeader(writer, context, component);
 
         writer.endElement(DIV_ELEM);
     }
     
-    private void encodeHeader(FacesContext context, UIComponent component, ResponseWriter responseWriter, AbstractCollapsiblePanel.States state, boolean isVisible) throws IOException {
-        responseWriter.startElement(DIV_ELEM, component);
-        responseWriter.writeAttribute(CLASS_ATTRIBUTE, "rf-cp-hdr-" + state.abbreviation(), null);
-        responseWriter.writeAttribute(STYLE_ATTRIBUTE, concatStyles(styleElement("display", isVisible ? "" : "none"), attributeAsString(component, "headerClass")), null);
-
-        UIComponent header = AbstractTogglePanelTitledItem.getHeaderFacet(component, state);
-        if (header != null && header.isRendered()) {
-            header.encodeAll(context);
-        } else {
-            String headerText = (String) component.getAttributes().get("header");
-            if (headerText != null && headerText.length() > 0) {
-                responseWriter.writeText(headerText, null);
-            }
-        }
-        
-        responseWriter.endElement(DIV_ELEM);
-    }
-
     @Override
     protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component)
         throws IOException {
