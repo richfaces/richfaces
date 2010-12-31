@@ -53,6 +53,7 @@
 		        this.input.change(proxy);
 		        this.input.submit(proxy);
 		        this.input.submit(proxy);
+		        this.input.mousewheel(jQuery.proxy(this.__mousewheelHandler, this));
 		        this.input.keydown(jQuery.proxy(this.__keydownHandler, this));
 		        this.decreaseButton.mousedown(jQuery.proxy(this.__decreaseHandler, this));
 		        this.increaseButton.mousedown(jQuery.proxy(this.__increaseHandler, this));
@@ -121,6 +122,16 @@
 	    	} else {
 	    		this.__setValue(value, event);
 	    	}
+	    },
+	
+	    __mousewheelHandler: function (event, delta, deltaX, deltaY) {
+	    	delta = deltaX || deltaY;
+	    	if (delta > 0) {
+	    		this.increase(event);
+	    	} else if (delta < 0) {
+	    		this.decrease(event);
+	    	}
+	    	return false;
 	    },
 	
 	    __keydownHandler: function (event) {
