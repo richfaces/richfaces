@@ -1,14 +1,15 @@
 package org.richfaces.demo.fileupload;
 
-import org.richfaces.event.FileUploadEvent;
-import org.richfaces.model.UploadedFile;
-
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
+import org.richfaces.event.FileUploadEvent;
+import org.richfaces.model.UploadedFile;
 
 /**
  * @author Ilya Shaikovsky
@@ -18,30 +19,16 @@ import java.util.ArrayList;
 @SessionScoped
 public class FileUploadBean implements Serializable {
 
-    private ArrayList<UploadedImage> files = new ArrayList<UploadedImage>();
+    private ArrayList<UploadedFile> files = new ArrayList<UploadedFile>();
     private int uploadsAvailable = 5;
-    private boolean autoUpload = false;
-    private boolean useFlash = false;
-
-    public int getSize() {
-        if (getFiles().size() > 0) {
-            return getFiles().size();
-        } else {
-            return 0;
-        }
-    }
 
     public void paint(OutputStream stream, Object object) throws IOException {
         stream.write(getFiles().get((Integer) object).getData());
+        stream.close();
     }
 
     public void listener(FileUploadEvent event) throws Exception {
-        UploadedFile item = event.getUploadedFile();
-        UploadedImage file = new UploadedImage();
-        file.setLength(item.getData().length);
-        file.setName(item.getName());
-        file.setData(item.getData());
-        files.add(file);
+        files.add(event.getUploadedFile());
         uploadsAvailable--;
     }
 
@@ -51,16 +38,24 @@ public class FileUploadBean implements Serializable {
         return null;
     }
 
-    public long getTimeStamp() {
-        return System.currentTimeMillis();
+    public int getSize() {
+        if (getFiles().size() > 0) {
+            return getFiles().size();
+        } else {
+            return 0;
+        }
     }
 
-    public ArrayList<UploadedImage> getFiles() {
+    public ArrayList<UploadedFile> getFiles() {
         return files;
     }
 
-    public void setFiles(ArrayList<UploadedImage> files) {
+    public void setFiles(ArrayList<UploadedFile> files) {
         this.files = files;
+    }
+
+    public long getTimeStamp() {
+        return System.currentTimeMillis();
     }
 
     public int getUploadsAvailable() {
@@ -69,22 +64,6 @@ public class FileUploadBean implements Serializable {
 
     public void setUploadsAvailable(int uploadsAvailable) {
         this.uploadsAvailable = uploadsAvailable;
-    }
-
-    public boolean isAutoUpload() {
-        return autoUpload;
-    }
-
-    public void setAutoUpload(boolean autoUpload) {
-        this.autoUpload = autoUpload;
-    }
-
-    public boolean isUseFlash() {
-        return useFlash;
-    }
-
-    public void setUseFlash(boolean useFlash) {
-        this.useFlash = useFlash;
     }
 
 }
