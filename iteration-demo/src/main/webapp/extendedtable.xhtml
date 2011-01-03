@@ -61,10 +61,10 @@ function invokeJSAPI() {
 }
 //-->
 			</script>
-	    	<input id="js_api_id_input" type="text" value="form1:extendedDataTable" />
-			<input id="js_api_function_string_input" type="text" value="sort('column_title')" size="60"/>
+	    	<input id="js_api_id_input" name="js_api" type="text" value="form1:extendedDataTable" />
+			<input id="js_api_function_string_input" name="js_api" type="text" value="sort('column_title')" size="60"/>
 			<input type="button" value="Run" onclick="invokeJSAPI()" />
-			<input id="js_api_result" type="text" readonly="readonly" size="60"/>
+			<input id="js_api_result" name="js_api" type="text" readonly="readonly" size="60"/>
 			<br />
 			<h:outputText value="Selection mode" />
 			<h:selectOneMenu value="#{dataBean.selectionMode}">
@@ -102,9 +102,6 @@ function invokeJSAPI() {
 							<h:outputText id="footerFacet" value="index"/>
 						</f:facet>
 	     			</c:if>
-				</it:column>
-				<it:column>
-					<textarea cols="5" rows="5"/>
 				</it:column>
 				<it:column id="column_name" filterExpression="#{fn:containsIgnoreCase(record.name, fv)}" sortBy="#{record.name}">
 					<f:facet name="header">
