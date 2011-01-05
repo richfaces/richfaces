@@ -11,7 +11,21 @@
 
     <meta http-equiv="content-type" content="text/xhtml; charset=UTF-8" />
     <h:outputScript library="javax.faces" name="jsf.js" target="head" />
+
+    <style type="text/css">
+        .collapsed { display: none; }
+        .menu {
+            background-color:#7fffd4;
+        }
+
+        .selected {
+            background-color:blue;
+            color:white;
+        }
+    </style>
 </h:head>
+
+
 
 <h:body>
     <ui:insert name="scripts" ></ui:insert>
@@ -41,8 +55,8 @@
             <tr valign="top">
                 <td>
                     <h:form id="nav">
-                    <p>Toggle Panel</p>
-                    <ul>
+                    <p class="menu">Toggle Panel</p>
+                    <ul class="collapsed" >
                         <li>
                             <p>Examples</p>
                             <ul>
@@ -61,8 +75,8 @@
                     </ul>
 
 
-                    <p>Accordion</p>
-                    <ul>
+                    <p class="menu">Accordion</p>
+                    <ul class="collapsed" >
                         <li>
                             <p>Examples</p>
                             <ul>
@@ -85,8 +99,8 @@
                         </li>
                     </ul>
 
-                    <p>Collapsible Panel</p>
-                    <ul>
+                    <p class="menu">Collapsible Panel</p>
+                    <ul class="collapsed">
                         <li>
                             <p>Examples</p>
                             <ul>
@@ -99,8 +113,8 @@
                         </li>
                     </ul>
 
-                    <p>Tab Panel</p>
-                    <ul>
+                    <p class="menu">Tab Panel</p>
+                    <ul class="collapsed">
                         <li>
                             <p>Examples</p>
                             <ul>
@@ -113,8 +127,8 @@
                         </li>
                     </ul>
 
-                    <p>Panel Menu</p>
-                    <ul>
+                    <p class="menu">Panel Menu</p>
+                    <ul class="collapsed">
                         <li>
                             <p>Examples</p>
                             <ul>
@@ -127,8 +141,8 @@
                         </li>
                     </ul>
 
-                    <p>Tooltip</p>
-                    <ul>
+                    <p class="menu">Tooltip</p>
+                    <ul class="collapsed">
                         <li>
                             <p>Examples</p>
                             <ul>
@@ -145,8 +159,8 @@
                         </li>
                     </ul>
                     
-                    <p>Toolbar</p>
-                    <ul>
+                    <p class="menu">Toolbar</p>
+                    <ul class="collapsed">
                         <li>
                             <p>Examples</p>
                             <ul>
@@ -156,9 +170,9 @@
                             </ul>
                         </li>
                     </ul>
-					
-					<p>DropDown Menu</p>
-                    <ul>
+
+                    <p class="menu">DropDown Menu</p>
+                    <ul class="collapsed">
                         <li>
                             <p>Examples</p>
                             <ul>
@@ -167,8 +181,14 @@
                                 </li>
                             </ul>
                         </li>
-                    </ul>					
+                    </ul>
 
+                    <script type="text/javascript">
+                        $(".menu").click(function () {
+                            $(this).toggleClass("selected");
+                            $(this).next("ul").toggleClass("collapsed")
+                        })
+                    </script>
 
                     </h:form>
                 </td>
