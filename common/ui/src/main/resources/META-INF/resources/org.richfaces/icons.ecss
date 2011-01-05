@@ -1,0 +1,13 @@
+
+.rf-ico-none          { width: 16px; height: 16px; }
+.rf-ico-chevron       { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:Chevron.png']})" }
+.rf-ico-chevron-down  { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:ChevronDown.png']})" }
+.rf-ico-chevron-left  { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:ChevronLeft.png']})" }
+.rf-ico-chevron-up    { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:ChevronUp.png']})" }
+.rf-ico-disc          { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:Disc.png']})" }
+.rf-ico-grid          { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:Grid.png']})" }
+.rf-ico-spacer        { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:Spacer.png']})" }
+.rf-ico-triangle      { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:Triangle.png']})" }
+.rf-ico-triangle-down { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:TriangleDown.png']})" }
+.rf-ico-triangle-left { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:TriangleLeft.png']})" }
+.rf-ico-triangle-up   { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:TriangleUp.png']})" }

@@ -53,27 +53,37 @@ import static org.richfaces.renderkit.HtmlConstants.*;
     @ResourceDependency(library = "org.richfaces", name = "togglePanelItem.js"),
     @ResourceDependency(library = "org.richfaces", name = "collapsiblePanel.js"),
     @ResourceDependency(library = "org.richfaces", name = "collapsiblePanelItem.js"),
+    @ResourceDependency(library = "org.richfaces", name = "icons.ecss"),
     @ResourceDependency(library = "org.richfaces", name = "collapsiblePanel.ecss") })
 public class CollapsiblePanelRenderer extends TogglePanelRenderer {
 
     public static final String SWITCH = "switch";
     public static final String BEFORE_SWITCH = "beforeswitch";
 
-    private final TableIconsRendererHelper headerRenderer = new TableIconsRendererHelper("header", "rf-cp", "rf-cp-ico-") {
+    private final TableIconsRendererHelper<HtmlCollapsiblePanel> headerRenderer = new TableIconsRendererHelper<HtmlCollapsiblePanel>("header", "rf-cp") {
 
-        protected void encodeHeaderIconLeft(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-            HtmlCollapsiblePanel panel = (HtmlCollapsiblePanel) component;
-
-            encodeTdIcon(writer, context, cssClassPrefix + "-ico", panel.isExpanded(),
+        protected void encodeHeaderIconLeft(ResponseWriter writer, FacesContext context, HtmlCollapsiblePanel panel) throws IOException {
+            encodeTdIcon(writer, context, cssClassPrefix + "-ico",
                     panel.getLeftCollapsedIcon(), panel.getLeftExpandedIcon());
         }
 
-        protected void encodeHeaderIconRight(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-            HtmlCollapsiblePanel panel = (HtmlCollapsiblePanel) component;
-
+        protected void encodeHeaderIconRight(ResponseWriter writer, FacesContext context, HtmlCollapsiblePanel panel) throws IOException {
             //TODO nick - should this be "-ico-exp"? also why expanded icon state is connected with right icon alignment?
-            encodeTdIcon(writer, context, cssClassPrefix + "-exp-ico", panel.isExpanded(),
+            encodeTdIcon(writer, context, cssClassPrefix + "-exp-ico",
                     panel.getRightCollapsedIcon(), panel.getRightExpandedIcon());
+        }
+
+        @Override
+        protected void encodeHeaderTextValue(ResponseWriter writer, FacesContext context, HtmlCollapsiblePanel component) throws IOException {
+            writer.startElement(DIV_ELEM, null);
+            writer.writeAttribute(CLASS_ATTRIBUTE, cssClassPrefix + "-lbl-exp", null);
+            writeFacetOrAttr(writer, context, component, text, text + "Expanded");
+            writer.endElement(DIV_ELEM);
+
+            writer.startElement(DIV_ELEM, null);
+            writer.writeAttribute(CLASS_ATTRIBUTE, cssClassPrefix + "-lbl-colps", null);
+            writeFacetOrAttr(writer, context, component, text, text + "Collapsed");
+            writer.endElement(DIV_ELEM);
         }
     };
 
@@ -108,7 +118,7 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent comp) throws IOException {
         super.doEncodeBegin(writer, context, comp);
 
-        encodeHeader(context, comp, writer);
+        encodeHeader(writer, context, (HtmlCollapsiblePanel) comp);
     }
 
     @Override
@@ -137,10 +147,12 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
         return options;
     }
 
-    private void encodeHeader(FacesContext context, UIComponent component, ResponseWriter writer) throws IOException {
-        writer.startElement(DIV_ELEM, component);
+    private void encodeHeader(ResponseWriter writer, FacesContext context, HtmlCollapsiblePanel component) throws IOException {
+        writer.startElement(DIV_ELEM, null);
         writer.writeAttribute(ID_ATTRIBUTE, component.getClientId(context) + ":header", null);
-        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-cp-hdr", attributeAsString(component, "headerClass")), null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-cp-hdr",
+                "rf-cp-hdr-" + (component.isExpanded() ? "exp" : "colps"),
+                attributeAsString(component, "headerClass")), null);
 
         headerRenderer.encodeHeader(writer, context, component);
 
@@ -204,7 +216,7 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
     }
 
     private String getPlaceHolder(String id) {
-        return "<div id=\"" + id + "\" style=\"display: none\" ></div>";
+        return "<div id=\"" + id + "\" style=\"display:none\" ></div>";
     }
 
     private void encodeContent(ResponseWriter writer, FacesContext context, UIComponent component, boolean visible) throws IOException {

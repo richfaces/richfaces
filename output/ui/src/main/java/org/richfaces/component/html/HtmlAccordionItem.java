@@ -60,6 +60,13 @@ public class HtmlAccordionItem extends UITogglePanelTitledItem implements Client
 
 
     public enum PropertyKeys {
+        leftIconActive,
+        leftIconInactive,
+        leftIconDisabled,
+        rightIconActive,
+        rightIconInactive,
+        rightIconDisabled,
+
         headerClassActive,
         headerClassDisabled,
         headerClassInactive,
@@ -98,6 +105,54 @@ public class HtmlAccordionItem extends UITogglePanelTitledItem implements Client
 
     public HtmlAccordion getAccordion() {
         return (HtmlAccordion) ToggleControl.getEnclosedPanel(this);
+    }
+
+    public String getLeftIconActive() {
+        return (String) getStateHelper().eval(PropertyKeys.leftIconActive, getAccordion().getItemLeftIconActive());
+    }
+
+    public void setLeftIconActive(String leftIconActive) {
+        getStateHelper().put(PropertyKeys.leftIconActive, leftIconActive);
+    }
+
+    public String getLeftIconInactive() {
+        return (String) getStateHelper().eval(PropertyKeys.leftIconInactive, getAccordion().getItemLeftIconInactive());
+    }
+
+    public void setLeftIconInactive(String leftIconInactive) {
+        getStateHelper().put(PropertyKeys.leftIconInactive, leftIconInactive);
+    }
+
+    public String getLeftIconDisabled() {
+        return (String) getStateHelper().eval(PropertyKeys.leftIconDisabled, getAccordion().getItemLeftIconDisabled());
+    }
+
+    public void setLeftIconDisabled(String leftIconDisabled) {
+        getStateHelper().put(PropertyKeys.leftIconDisabled, leftIconDisabled);
+    }
+
+    public String getRightIconActive() {
+        return (String) getStateHelper().eval(PropertyKeys.rightIconActive, getAccordion().getItemRightIconActive());
+    }
+
+    public void setRightIconActive(String rightIconActive) {
+        getStateHelper().put(PropertyKeys.rightIconActive, rightIconActive);
+    }
+
+    public String getRightIconInactive() {
+        return (String) getStateHelper().eval(PropertyKeys.rightIconInactive, getAccordion().getItemRightIconInactive());
+    }
+
+    public void setRightIconInactive(String rightIconInactive) {
+        getStateHelper().put(PropertyKeys.rightIconInactive, rightIconInactive);
+    }
+
+    public String getRightIconDisabled() {
+        return (String) getStateHelper().eval(PropertyKeys.rightIconDisabled, getAccordion().getItemRightIconDisabled());
+    }
+
+    public void setRightIconDisabled(String rightIconDisabled) {
+        getStateHelper().put(PropertyKeys.rightIconDisabled, rightIconDisabled);
     }
 
     public String getHeaderClassActive() {

@@ -28,18 +28,20 @@
 
         init : function (componentId, options) {
             rf.ui.TogglePanelItem.call(this, componentId, options);
+
+            this.headerClass = "rf-cp-hdr-" + this.__state();
         },
 
         __enter : function () {
-            rf.getDomElement(this.id).style.display = "block";
-            this.__header(this.__state()).show();
+            this.__content().show();
+            this.__header().addClass(this.headerClass);
 
             return true;
         },
 
         __leave : function () {
-            rf.getDomElement(this.id).style.display = "none";
-            this.__header(this.__state()).hide();
+            this.__content().hide();
+            this.__header().removeClass(this.headerClass);
 
             return true;
         },
@@ -48,13 +50,12 @@
             return this.getName() === "true" ? "exp" : "colps";
         },
 
-        __header : function (state) {
-            var res = $(rf.getDomElement(this.togglePanelId + ":header"));
-            if (state) {
-                return res.find(".rf-cp-hdr-" + state);
-            }
+        __content : function () {
+            return $(rf.getDomElement(this.id));
+        },
 
-            return res;
+        __header : function () {
+            return $(rf.getDomElement(this.togglePanelId + ":header"));
         }
     });
 })(jQuery, RichFaces);

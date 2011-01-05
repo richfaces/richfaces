@@ -1,17 +1,17 @@
 <div id="f:panelMenuGroup" class="rf-pm-gr">
   <input id="f:panelMenuGroup:expanded" name="f:panelMenuGroup:expanded" type="hidden" value="false"/>
-  <div id="f:panelMenuGroup:hdr" class="rf-pm-gr-hdr">
+  <div id="f:panelMenuGroup:hdr" class="rf-pm-gr-hdr rf-pm-gr-hdr-colps">
       <table class="rf-pm-gr-gr">
           <tbody>
               <tr>
                   <td class="rf-pm-gr-ico">
-                      <div class="rf-pm-ico-colps rf-pm-none" style="display:block"></div>
-                      <div class="rf-pm-ico-exp rf-pm-none" style="display:none"></div>
+                      <div class="rf-pm-ico-colps rf-ico-none"></div>
+                      <div class="rf-pm-ico-exp rf-ico-none"></div>
                   </td>
                   <td class="rf-pm-gr-lbl"></td>
                   <td class="rf-pm-gr-exp-ico">
-                      <div class="rf-pm-ico-colps rf-pm-none" style="display:block"></div>
-                      <div class="rf-pm-ico-exp rf-pm-none" style="display:none"></div>
+                      <div class="rf-pm-ico-colps rf-ico-none"></div>
+                      <div class="rf-pm-ico-exp rf-ico-none"></div>
                   </td>
               </tr>
           </tbody>

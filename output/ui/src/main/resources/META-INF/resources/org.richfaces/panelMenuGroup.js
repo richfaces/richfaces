@@ -196,10 +196,8 @@
 
         __expand : function () {
             this.__content().removeClass("rf-pm-colps").addClass("rf-pm-exp");
-            var header = this.__header();
-            header.find(".rf-pm-ico-colps").hide();
-            header.find(".rf-pm-ico-exp").show();
-            
+            this.__header().removeClass("rf-pm-gr-hdr-colps").addClass("rf-pm-hdr-exp");
+
             this.__setExpandValue(true);
         },
 
@@ -222,9 +220,7 @@
 
         __collapse : function () {
             this.__content().addClass("rf-pm-colps").removeClass("rf-pm-exp");
-            var header = this.__header();
-            header.find(".rf-pm-ico-exp").hide();
-            header.find(".rf-pm-ico-colps").show();
+            this.__header().addClass("rf-pm-hdr-colps").removeClass("rf-pm-hdr-exp");
 
             this.__setExpandValue(false);
         },

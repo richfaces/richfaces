@@ -1,0 +1,26 @@
+<div class="rf-ac-itm" id="f:item">
+    <div id="f:item:header" class="rf-ac-itm-hdr rf-ac-itm-hdr-act">
+        <table class="rf-ac-itm-gr">
+            <tbody>
+                <tr>
+                    <td class="rf-ac-itm-ico">
+                        <div class="rf-ac-itm-ico-act rf-ico-none"></div>
+                        <div class="rf-ac-itm-ico-inact rf-ico-none"></div>
+                    </td>
+                    <td class="rf-ac-itm-lbl">
+                        <div class="rf-ac-itm-lbl-act">item</div>
+                        <div class="rf-ac-itm-lbl-inact">item</div>
+                    </td>
+                    <td class="rf-ac-itm-exp-ico">
+                        <div class="rf-ac-itm-ico-act rf-ico-none"></div>
+                        <div class="rf-ac-itm-ico-inact rf-ico-none"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="f:item:content" class="rf-ac-itm-cnt"></div>
+    <script type="text/javascript">new
+        Text
+    </script>
+</div>

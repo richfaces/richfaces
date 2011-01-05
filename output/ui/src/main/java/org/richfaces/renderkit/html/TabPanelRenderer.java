@@ -146,9 +146,8 @@ public class TabPanelRenderer extends TogglePanelRenderer {
         writer.startElement(TD_ELEM, tab);
         writer.writeAttribute(ID_ATTRIBUTE, tab.getClientId() + ":header:" + state.toString(), null);
         renderPassThroughAttributes(context, tab, HEADER_ATTRIBUTES);
-        String name = "headerClass" + capitalize(state.toString());
         writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-tb-hdr rf-tb-hdr-" + state.abbreviation(),
-            attributeAsString(tab, HtmlTab.PropertyKeys.headerClass), attributeAsString(tab, name)), null);
+            attributeAsString(tab, HtmlTab.PropertyKeys.headerClass), attributeAsString(tab, state.headerClass())), null);
         writer.writeAttribute(STYLE_ATTRIBUTE, concatStyles(isDisplay ? "" : "display : none", attributeAsString(tab, HtmlTab.PropertyKeys.headerStyle.toString())), null);
 
         writer.startElement("span", tab);
@@ -223,4 +222,3 @@ public class TabPanelRenderer extends TogglePanelRenderer {
         return AbstractTabPanel.class;
     }
 }
-

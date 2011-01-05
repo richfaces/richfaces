@@ -2,9 +2,9 @@
   <table class="rf-pm-top-itm-gr">
       <tbody>
           <tr>
-              <td class="rf-pm-top-itm-ico rf-pm-chevron"></td>
+              <td class="rf-pm-top-itm-ico rf-ico-chevron"></td>
               <td class="rf-pm-top-itm-lbl">panelMenuItem</td>
-              <td class="rf-pm-top-itm-exp-ico rf-pm-chevron"></td>
+              <td class="rf-pm-top-itm-exp-ico rf-ico-chevron"></td>
           </tr>
       </tbody>
   </table>

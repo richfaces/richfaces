@@ -66,12 +66,7 @@
          * @return {jQuery Object}
          * */
         __header : function (state) {
-            var res = $(rf.getDomElement(this.id + ":header"));
-            if (state) {
-                return res.find(".rf-ac-itm-hdr-" + state);
-            }
-
-            return res;
+            return $(rf.getDomElement(this.id + ":header"));
         },
 
         /**
@@ -97,8 +92,7 @@
             }
 
             this.__content().show();
-            this.__header("inact").hide();
-            this.__header("act").show();
+            this.__header().addClass("rf-ac-itm-hdr-act").removeClass("rf-ac-itm-hdr-inact");
 
             return this.__fireEnter();
         },
@@ -134,8 +128,7 @@
             }
 
             this.__content().hide();
-            this.__header("act").hide();
-            this.__header("inact").show();
+            this.__header().removeClass("rf-ac-itm-hdr-act").addClass("rf-ac-itm-hdr-inact");
 
             return true;
         },

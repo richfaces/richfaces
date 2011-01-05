@@ -36,23 +36,12 @@ import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.component.AbstractTogglePanelTitledItem;
-import org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates;
+import org.richfaces.component.html.HtmlAccordionItem;
 import org.richfaces.component.html.HtmlAccordionItem.PropertyKeys;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
 
 /**
- *
- * <div id="clientId" class="rf-ac-itm">
- *     <div id="clientId:header" class="rf-ac-itm-hdr">
- *         <div class="rf-ac-itm-hdr-inact">Level 1</div>
- *         <div class="rf-ac-itm-hdr-act"  >Level 1</div>
- *         <div class="rf-ac-itm-hdr-dis">Level 1</div>
- *     </div>
- *     <div id="clientId:content" class="rf-ac-itm-cnt">
- *         Content will be here.
- *     </div>
- * </div>
  *
  * @author akolonitsky
  * @since 2010-08-05
@@ -76,11 +65,13 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
         .generic("onmousemove", PropertyKeys.onheadermousemove.toString(), "headermousemove")
         .generic("onmouseup", PropertyKeys.onheadermouseup.toString(), "headermouseup");
 
+    private final TableIconsRendererHelper<HtmlAccordionItem> headerRenderer = new AccordionItemHeaderRenderer();
+
     @Override
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         super.doEncodeBegin(writer, context, component);
 
-        encodeHeader(context, component, writer);
+        encodeHeader(writer, context, (HtmlAccordionItem) component);
 
         encodeContentBegin(component, writer);
     }
@@ -92,7 +83,7 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
 
     @Override
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        encodeContentEnd(component, writer);
+        encodeContentEnd(writer, component);
 
         super.doEncodeEnd(writer, context, component);
     }
@@ -121,48 +112,20 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
         }
     }
 
-    private void encodeContentEnd(UIComponent component, ResponseWriter responseWriter) throws IOException {
-        responseWriter.endElement(DIV_ELEM);
-    }
-
-    private void encodeHeader(FacesContext context, UIComponent component, ResponseWriter writer) throws IOException {
-
-        writer.startElement(DIV_ELEM, component);
-        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-ac-itm-hdr", attributeAsString(component, PropertyKeys.headerClass)), null);
-        writer.writeAttribute(ID_ATTRIBUTE, component.getClientId() + ":header", null);
-        renderPassThroughAttributes(context, component, HEADER_ATTRIBUTES);
-
-        AbstractTogglePanelTitledItem titledItem = (AbstractTogglePanelTitledItem) component;
-        boolean isActive = titledItem.isActive();
-        boolean isDisabled = titledItem.isDisabled(); 
-        encodeHeader(context, titledItem, writer, HeaderStates.inactive, !isActive && !isDisabled);
-        encodeHeader(context, titledItem, writer, HeaderStates.active, isActive && !isDisabled);
-        encodeHeader(context, titledItem, writer, HeaderStates.disabled, isDisabled);
-
+    private void encodeContentEnd(ResponseWriter writer, UIComponent component) throws IOException {
         writer.endElement(DIV_ELEM);
     }
 
-    private void encodeHeader(FacesContext facesContext, AbstractTogglePanelTitledItem component, ResponseWriter writer,
-                              HeaderStates state, Boolean isDisplay) throws IOException {
-        
+    private void encodeHeader(ResponseWriter writer, FacesContext context, HtmlAccordionItem component) throws IOException {
         writer.startElement(DIV_ELEM, component);
 
-        if (!isDisplay) {
-            writer.writeAttribute(STYLE_ATTRIBUTE, "display : none", null);
-        }
+        String stateCssClass = "rf-ac-itm-hdr-" + (component.isDisabled() ? "dis" : (component.isActive() ? "act" : "inact"));
+        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-ac-itm-hdr", stateCssClass, attributeAsString(component, PropertyKeys.headerClass)), null);
 
-        String name = "headerClass" + capitalize(state.toString());
-        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-ac-itm-hdr-" + state.abbreviation(), attributeAsString(component, name)), null);
+        writer.writeAttribute(ID_ATTRIBUTE, component.getClientId() + ":header", null);
+        renderPassThroughAttributes(context, component, HEADER_ATTRIBUTES);
 
-        UIComponent headerFacet = component.getHeaderFacet(state);
-        if (headerFacet != null && headerFacet.isRendered()) {
-            headerFacet.encodeAll(facesContext);
-        } else {
-            Object headerText = component.getAttributes().get("header");
-            if (headerText != null && !headerText.equals("")) {
-                writer.writeText(headerText, null);
-            }
-        }
+        headerRenderer.encodeHeader(writer, context, component);
 
         writer.endElement(DIV_ELEM);
     }

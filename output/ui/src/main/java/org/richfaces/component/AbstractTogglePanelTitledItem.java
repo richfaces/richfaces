@@ -28,6 +28,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 
+import static org.richfaces.renderkit.html.DivPanelRenderer.capitalize;
+
 /**
  * @author akolonitsky
  * @since 2010-08-05
@@ -51,6 +53,10 @@ public abstract class AbstractTogglePanelTitledItem extends UITogglePanelItem {
 
         public String abbreviation() {
             return abbreviation;
+        }
+
+        public String headerClass() {
+            return "headerClass" + capitalize(this.toString());
         }
     }
 

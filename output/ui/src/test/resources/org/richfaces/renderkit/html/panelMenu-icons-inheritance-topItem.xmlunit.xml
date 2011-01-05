@@ -2,9 +2,9 @@
   <table class="rf-pm-top-itm-gr">
       <tbody>
           <tr>
-              <td class="rf-pm-top-itm-ico rf-pm-triangle"></td>
+              <td class="rf-pm-top-itm-ico rf-ico-triangle"></td>
               <td class="rf-pm-top-itm-lbl">panelMenuItem</td>
-              <td class="rf-pm-top-itm-exp-ico rf-pm-triangle"></td>
+              <td class="rf-pm-top-itm-exp-ico rf-ico-triangle"></td>
           </tr>
       </tbody>
   </table>

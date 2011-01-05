@@ -56,35 +56,8 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
     //TODO nick - shouldn't this be rf-pm-gr-top?
     private static final String TOP_CSS_CLASS_PREFIX = "rf-pm-top-gr";
 
-    private static class HeaderRenderer extends TableIconsRendererHelper {
-
-        public HeaderRenderer(String cssClassPrefix) {
-            super("label", cssClassPrefix, "rf-pm-ico-");
-        }
-
-        protected void encodeHeaderIconLeft(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-            HtmlPanelMenuGroup group = (HtmlPanelMenuGroup) component;
-
-            String iconCollapsed = group.isDisabled() ? group.getIconLeftDisabled() : group.getIconLeftCollapsed();
-            String iconExpanded = group.isDisabled() ? group.getIconLeftDisabled() : group.getIconLeftExpanded();
-
-            encodeTdIcon(writer, context, cssClassPrefix + "-ico", group.isExpanded(), iconCollapsed, iconExpanded);
-        }
-
-        protected void encodeHeaderIconRight(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-            HtmlPanelMenuGroup group = (HtmlPanelMenuGroup) component;
-
-            String iconCollapsed = group.isDisabled() ? group.getIconRightDisabled() : group.getIconRightCollapsed();
-            String iconExpanded = group.isDisabled() ? group.getIconRightDisabled() : group.getIconRightExpanded();
-
-            //TODO nick - should this be "-ico-exp"? also why expanded icon state is connected with right icon alignment?
-            encodeTdIcon(writer, context, cssClassPrefix + "-exp-ico", group.isExpanded(), iconCollapsed, iconExpanded);
-        }
-
-    }
-
-    private final TableIconsRendererHelper headerRenderer = new HeaderRenderer(CSS_CLASS_PREFIX);
-    private final TableIconsRendererHelper topHeaderRenderer = new HeaderRenderer(TOP_CSS_CLASS_PREFIX);
+    private final TableIconsRendererHelper<HtmlPanelMenuGroup> headerRenderer = new PanelMenuGroupHeaderRenderer(CSS_CLASS_PREFIX);
+    private final TableIconsRendererHelper<HtmlPanelMenuGroup> topHeaderRenderer = new PanelMenuGroupHeaderRenderer(TOP_CSS_CLASS_PREFIX);
 
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
@@ -132,7 +105,8 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
     private void encodeHeader(ResponseWriter writer, FacesContext context, HtmlPanelMenuGroup menuGroup) throws IOException {
         writer.startElement(DIV_ELEM, null);
         writer.writeAttribute(ID_ATTRIBUTE, menuGroup.getClientId(context) + ":hdr", null);
-        writer.writeAttribute(CLASS_ATTRIBUTE, getCssClass(menuGroup, "-hdr"), null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses(getCssClass(menuGroup, "-hdr"),
+                getCssClass(menuGroup, "-hdr-" + (menuGroup.isExpanded() ? "exp" : "colps"))), null);
 
         (menuGroup.isTopItem() ? topHeaderRenderer : headerRenderer).encodeHeader(writer, context, menuGroup);
 

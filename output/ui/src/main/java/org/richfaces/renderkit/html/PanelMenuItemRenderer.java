@@ -40,6 +40,7 @@ import org.richfaces.component.AbstractPanelMenuItem;
 import org.richfaces.component.html.HtmlPanelMenuItem;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.renderkit.util.PanelIcons;
 
 /**
  * @author akolonitsky
@@ -107,7 +108,7 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
     public void encodeTdIcon(ResponseWriter writer, FacesContext context, String classPrefix, String attrIconValue) throws IOException {
         writer.startElement(TD_ELEM, null);
         try {
-            PanelMenuIcons icon = PanelMenuIcons.valueOf(attrIconValue);
+            PanelIcons icon = PanelIcons.valueOf(attrIconValue);
             writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses(classPrefix, icon.cssClass()), null);
         } catch (IllegalArgumentException e) {
             writer.writeAttribute(CLASS_ATTRIBUTE, classPrefix, null);

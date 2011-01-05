@@ -1,6 +1,7 @@
 package org.richfaces.renderkit.html;
 
 import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.renderkit.util.PanelIcons;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -9,21 +10,24 @@ import java.io.IOException;
 
 import static org.richfaces.component.util.HtmlUtil.concatClasses;
 import static org.richfaces.renderkit.HtmlConstants.*;
-import static org.richfaces.renderkit.html.DivPanelRenderer.styleElement;
 
-public abstract class TableIconsRendererHelper {
+public abstract class TableIconsRendererHelper<T extends UIComponent> {
 
     protected final String text;
     protected final String cssClassPrefix;
     protected final String cssIconsClassPrefix;
 
-    public TableIconsRendererHelper(String text, String cssClassPrefix, String cssIconsClassPrefix) {
+    protected TableIconsRendererHelper(String text, String cssClassPrefix, String cssIconsClassPrefix) {
         this.text = text;
         this.cssClassPrefix = cssClassPrefix;
         this.cssIconsClassPrefix = cssIconsClassPrefix;
     }
 
-    public void encodeHeader(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+    protected TableIconsRendererHelper(String text, String cssClassPrefix) {
+        this(text, cssClassPrefix, cssClassPrefix + "-ico");
+    }
+
+    public void encodeHeader(ResponseWriter writer, FacesContext context, T component) throws IOException {
         writer.startElement(TABLE_ELEMENT, null);
         writer.writeAttribute(CLASS_ATTRIBUTE, cssClassPrefix + "-gr", null);
         writer.startElement(TBODY_ELEMENT, null);
@@ -38,68 +42,64 @@ public abstract class TableIconsRendererHelper {
         writer.endElement(TABLE_ELEMENT);
     }
 
-    private void encodeHeaderText(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+    protected void encodeHeaderText(ResponseWriter writer, FacesContext context, T component) throws IOException {
         writer.startElement(TD_ELEM, null);
         writer.writeAttribute(CLASS_ATTRIBUTE, cssClassPrefix + "-lbl", null);
+
         encodeHeaderTextValue(writer, context, component);
+
         writer.endElement(TD_ELEM);
     }
 
-    protected void encodeHeaderTextValue(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        UIComponent headerFacet = component.getFacet(text);
+    protected void encodeHeaderTextValue(ResponseWriter writer, FacesContext context, T component) throws IOException {
+        writeFacetOrAttr(writer, context, component, text, text);
+    }
+
+    public static void writeFacetOrAttr(ResponseWriter writer, FacesContext context, UIComponent component, String attr, String facetName) throws IOException {
+        writeFacetOrAttr(writer, context, component, attr, component.getFacet(facetName));
+    }
+
+    public static void writeFacetOrAttr(ResponseWriter writer, FacesContext context, UIComponent component, String attr, UIComponent headerFacet) throws IOException {
         if (headerFacet != null && headerFacet.isRendered()) {
             headerFacet.encodeAll(context);
         } else {
-            Object label = component.getAttributes().get(text);
+            Object label = component.getAttributes().get(attr);
             if (label != null && !label.equals("")) {
                 writer.writeText(label, null);
             }
         }
     }
 
-    protected abstract void encodeHeaderIconLeft(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException;
+    protected abstract void encodeHeaderIconLeft(ResponseWriter writer, FacesContext context, T component) throws IOException;
 
-    protected abstract void encodeHeaderIconRight(ResponseWriter writer, FacesContext context, UIComponent menuItem) throws IOException;
+    protected abstract void encodeHeaderIconRight(ResponseWriter writer, FacesContext context, T menuItem) throws IOException;
 
-    protected void encodeTdIcon(ResponseWriter writer, FacesContext context, String cssClass, boolean isExpanded, String attrIconCollapsedValue, String attrIconExpandedValue) throws IOException {
+    protected void encodeTdIcon(ResponseWriter writer, FacesContext context, String cssClass, String attrIconCollapsedValue, String attrIconExpandedValue) throws IOException {
         writer.startElement(TD_ELEM, null);
         writer.writeAttribute(CLASS_ATTRIBUTE, cssClass, null);
 
-        encodeIdIcon(writer, context, isExpanded, attrIconCollapsedValue, cssIconsClassPrefix + "colps");
-        encodeIdIcon(writer, context, !isExpanded, attrIconExpandedValue, cssIconsClassPrefix + "exp");
+        encodeIdIcon(writer, context, attrIconCollapsedValue, cssIconsClassPrefix + "-colps");
+        encodeIdIcon(writer, context, attrIconExpandedValue, cssIconsClassPrefix + "-exp");
 
         writer.endElement(TD_ELEM);
     }
 
-    protected void encodeIdIcon(ResponseWriter writer, FacesContext context, boolean isExpanded, String attrIconValue, String styleClass) throws IOException {
+    protected void encodeIdIcon(ResponseWriter writer, FacesContext context, String attrIconValue, String styleClass) throws IOException {
         if (attrIconValue == null || attrIconValue.trim().length() <= 0) {
-            encodeDivIcon(writer, isExpanded, PanelMenuIcons.none, styleClass);
+            encodeDivIcon(writer, PanelIcons.none, styleClass);
         } else {
-            PanelMenuIcons icon = getIcon(attrIconValue);
+            PanelIcons icon = PanelIcons.getIcon(attrIconValue);
             if (icon != null) {
-                encodeDivIcon(writer, isExpanded, icon, styleClass);
+                encodeDivIcon(writer, icon, styleClass);
             } else {
                 encodeImage(writer, context, attrIconValue);
             }
         }
     }
 
-    protected PanelMenuIcons getIcon(String attrIconCollapsedValue) {
-        if (attrIconCollapsedValue == null) {
-            return null;
-        }
-
-        try {
-            return PanelMenuIcons.valueOf(attrIconCollapsedValue);
-        } catch (IllegalArgumentException e) {
-            return null;
-        }
-    }
-
-    public static void encodeDivIcon(ResponseWriter writer, boolean isDisplay, PanelMenuIcons icon, String styleClass) throws IOException {
+    public static void encodeDivIcon(ResponseWriter writer, PanelIcons icon, String styleClass) throws IOException {
         writer.startElement(DIV_ELEM, null);
         writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses(styleClass, icon.cssClass()), null);
-        writer.writeAttribute(STYLE_ATTRIBUTE, styleElement("display", isDisplay ? "none" : "block"), null);
         writer.endElement(DIV_ELEM);
     }
 

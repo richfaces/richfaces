@@ -55,6 +55,7 @@ import org.richfaces.renderkit.HtmlConstants;
     @ResourceDependency(library = "org.richfaces", name = "panelMenu.js"),
     @ResourceDependency(library = "org.richfaces", name = "panelMenuItem.js"),
     @ResourceDependency(library = "org.richfaces", name = "panelMenuGroup.js"),
+    @ResourceDependency(library = "org.richfaces", name = "icons.ecss"),
     @ResourceDependency(library = "org.richfaces", name = "panelMenu.ecss") })
 public class PanelMenuRenderer extends DivPanelRenderer {
 

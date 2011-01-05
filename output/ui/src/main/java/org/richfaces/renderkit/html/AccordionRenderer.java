@@ -46,6 +46,7 @@ import static org.richfaces.component.html.HtmlAccordion.PropertyKeys.*;
     @ResourceDependency(name = "richfaces.js"),
     @ResourceDependency(name = "richfaces-base-component.js"),
     @ResourceDependency(library = "org.richfaces", name = "accordion.ecss"),
+    @ResourceDependency(library = "org.richfaces", name = "icons.ecss"),
     @ResourceDependency(library = "org.richfaces", name = "togglePanel.js"),
     @ResourceDependency(library = "org.richfaces", name = "accordion.js") })
 public class AccordionRenderer extends TogglePanelRenderer {

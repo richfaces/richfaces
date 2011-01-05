@@ -9,6 +9,6 @@ public class CollapsiblePanelRendererTest extends RendererTestBase {
 
     @Test
     public void testEmpty() throws IOException, SAXException {
-//        doTest("panelMenuGroup", "f:panelMenuGroup");
+        doTest("collapsiblePanel", "f:panel");
     }
 }
