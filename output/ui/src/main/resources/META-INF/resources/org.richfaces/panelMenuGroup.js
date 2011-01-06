@@ -196,7 +196,7 @@
 
         __expand : function () {
             this.__content().removeClass("rf-pm-colps").addClass("rf-pm-exp");
-            this.__header().removeClass("rf-pm-gr-hdr-colps").addClass("rf-pm-hdr-exp");
+            this.__header().removeClass("rf-pm-hdr-colps").addClass("rf-pm-hdr-exp");
 
             this.__setExpandValue(true);
         },

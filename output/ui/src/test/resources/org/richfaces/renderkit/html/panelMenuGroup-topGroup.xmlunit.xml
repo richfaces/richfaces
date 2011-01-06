@@ -1,6 +1,6 @@
 <div id="f:panelMenuGroup" class="rf-pm-top-gr">
   <input id="f:panelMenuGroup:expanded" name="f:panelMenuGroup:expanded" type="hidden" value="true"/>
-  <div id="f:panelMenuGroup:hdr" class="rf-pm-top-gr-hdr rf-pm-top-gr-hdr-exp">
+  <div id="f:panelMenuGroup:hdr" class="rf-pm-top-gr-hdr rf-pm-hdr-exp">
       <table class="rf-pm-top-gr-gr">
           <tbody>
               <tr>

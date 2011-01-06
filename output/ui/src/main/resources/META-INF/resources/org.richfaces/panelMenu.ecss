@@ -274,7 +274,6 @@
 .rf-pm-ico-colps {}
 .rf-pm-ico-exp {}
 
-
 .rf-pm-hdr-exp .rf-pm-ico-exp   { display: block; }
 .rf-pm-hdr-exp .rf-pm-ico-colps { display: none; }
 

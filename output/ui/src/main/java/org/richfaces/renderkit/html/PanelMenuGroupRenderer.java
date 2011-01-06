@@ -106,7 +106,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
         writer.startElement(DIV_ELEM, null);
         writer.writeAttribute(ID_ATTRIBUTE, menuGroup.getClientId(context) + ":hdr", null);
         writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses(getCssClass(menuGroup, "-hdr"),
-                getCssClass(menuGroup, "-hdr-" + (menuGroup.isExpanded() ? "exp" : "colps"))), null);
+                "rf-pm-hdr-" + (menuGroup.isExpanded() ? "exp" : "colps")), null);
 
         (menuGroup.isTopItem() ? topHeaderRenderer : headerRenderer).encodeHeader(writer, context, menuGroup);
 
