@@ -172,7 +172,7 @@
 			</demo>
 		</demos>
 	</group>
-	<!-- group>
+	<group>
 		<name>Validation</name>
 		<demos>
 			<demo new="true">
@@ -186,7 +186,7 @@
 				</samples>
 			</demo>
 		</demos>
-	</group-->
+	</group>
 	<group>
 		<name>Data Iteration</name>
 		<demos>
