@@ -30,15 +30,17 @@
         name:"TogglePanelItem",
 
         init : function (componentId, options) {
-            // call constructor of parent class
             $super.constructor.call(this, componentId);
-            this.attachToDom();
+            this.attachToDom(this.id);
 
             this.options = $.extend(this.options, options || {});
             this.name = this.options.name;
             this.togglePanelId = this.options.togglePanelId;
             this.switchMode = this.options.switchMode;
             this.disabled = this.options.disabled || false;
+
+            this.index = options["index"];
+            this.getTogglePanel().getItems()[this.index] = this;
 
             this.__addUserEventHandler("enter");
             this.__addUserEventHandler("leave");
@@ -84,7 +86,7 @@
         __addUserEventHandler : function (name) {
             var handler = this.options["on" + name];
             if (handler) {
-                rf.Event.bindById(this.togglePanelId, name, handler);
+                rf.Event.bindById(this.id, name, handler);
             }
         },
 
@@ -124,6 +126,9 @@
 
         // class stuff
         destroy: function () {
+            var parent = this.getTogglePanel();
+            delete parent.getItems()[this.index];
+
             $super.destroy.call(this);
         }
     });

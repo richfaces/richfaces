@@ -130,12 +130,14 @@ public class DivPanelRenderer extends RendererBase {
 
     protected void writeJavaScript(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         Object script = getScriptObject(context, component);
-        if (script != null) {
-            writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
-            writer.writeAttribute(HtmlConstants.TYPE_ATTR, "text/javascript", "type");
-            writer.writeText(script, null);
-            writer.endElement(HtmlConstants.SCRIPT_ELEM);
+        if (script == null) {
+            return;
         }
+
+        writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
+        writer.writeAttribute(HtmlConstants.TYPE_ATTR, "text/javascript", "type");
+        writer.writeText(script, null);
+        writer.endElement(HtmlConstants.SCRIPT_ELEM);
     }
 
     protected Object getScriptObject(FacesContext context, UIComponent component) {

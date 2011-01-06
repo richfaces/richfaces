@@ -25,7 +25,6 @@ package org.richfaces.renderkit.html;
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.component.AbstractTogglePanelItem;
-import org.richfaces.component.util.HtmlUtil;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -54,14 +53,7 @@ public class TogglePanelItemRenderer extends DivPanelRenderer {
 
     @Override
     protected String getStyleClass(UIComponent component) {
-        return HtmlUtil.concatClasses("rf-tgp-itm", attributeAsString(component, "styleClass"));
-    }
-
-    @Override
-    protected void writeJavaScript(ResponseWriter writer, FacesContext context, UIComponent component)
-        throws IOException {
-        
-        // All script should be written by TogglePanel using method getScriptObject
+        return concatClasses("rf-tgp-itm", attributeAsString(component, "styleClass"));
     }
 
     @Override
@@ -74,7 +66,7 @@ public class TogglePanelItemRenderer extends DivPanelRenderer {
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
         AbstractTogglePanelItem panelItem = (AbstractTogglePanelItem) component;
 
-        Map<String, Object> options = new HashMap<String, Object>(5);
+        Map<String, Object> options = new HashMap<String, Object>();
         options.put("name", panelItem.getName());
         options.put("togglePanelId", panelItem.getParent().getClientId());
         options.put("switchMode", panelItem.getSwitchType());
@@ -92,6 +84,18 @@ public class TogglePanelItemRenderer extends DivPanelRenderer {
     @Override
     protected Class<? extends UIComponent> getComponentClass() {
         return AbstractTogglePanelItem.class;
+    }
+
+    public void encodePlaceHolderWithJs(FacesContext context, AbstractTogglePanelItem item) throws IOException {
+        ResponseWriter writer = context.getResponseWriter();
+
+        writer.startElement("div", null);
+        writer.writeAttribute("id", item.getClientId(context), null);
+        writer.writeAttribute("style", "display:none;", null);
+
+        writeJavaScript(writer, context, item);
+
+        writer.endElement("div");
     }
 }
 

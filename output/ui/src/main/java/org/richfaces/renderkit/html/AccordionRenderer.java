@@ -25,17 +25,15 @@ package org.richfaces.renderkit.html;
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.component.AbstractAccordion;
 import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.renderkit.HtmlConstants;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import java.io.IOException;
 import java.util.Map;
 
-import static org.richfaces.component.html.HtmlAccordion.PropertyKeys.*;
+import static org.richfaces.component.html.HtmlAccordion.PropertyKeys.height;
+import static org.richfaces.component.html.HtmlAccordion.PropertyKeys.width;
 
 /**
  * @author akolonitsky
@@ -52,29 +50,14 @@ import static org.richfaces.component.html.HtmlAccordion.PropertyKeys.*;
 public class AccordionRenderer extends TogglePanelRenderer {
 
     @Override
-    protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        super.doEncodeBegin(writer, context, component);
-
-        writeJavaScript(writer, context, component);
-    }
-
-    @Override
     protected String getStyle(UIComponent component) {
-        return HtmlUtil.concatStyles(
-            attributeAsStyle(component, height),
-            attributeAsStyle(component, width),
-
-            super.getStyle(component));
+        return HtmlUtil.concatStyles(attributeAsStyle(component, height), attributeAsStyle(component, width),
+                super.getStyle(component));
     }
 
     @Override
     protected String getStyleClass(UIComponent component) {
         return HtmlUtil.concatClasses("rf-ac", attributeAsString(component, "styleClass"));
-    }
-
-    @Override
-    protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        writer.endElement(HtmlConstants.DIV_ELEM);
     }
 
     @Override
@@ -92,7 +75,6 @@ public class AccordionRenderer extends TogglePanelRenderer {
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
         Map<String, Object> options = super.getScriptObjectOptions(context, component);
         options.put("isKeepHeight", attributeAsString(component, height).length() > 0);
-        options.remove("items");
 
         return options;
     }

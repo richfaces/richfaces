@@ -43,16 +43,18 @@
             this.__addUserEventHandler("beforeswitch");
             this.__addUserEventHandler("switch");
 
-            this.items = [
-                new RichFaces.ui.CollapsiblePanelItem(
-                    this.id + ":content", {"index":0, "togglePanelId":this.id, "switchMode":this.switchMode, "name":"true"}),
-
-                new RichFaces.ui.CollapsiblePanelItem(
-                    this.id + ":empty", {"index":1, "togglePanelId":this.id, "switchMode":this.switchMode, "name":"false"})
-            ];
             this.options.cycledSwitching = true;
 
-            rf.Event.bindById(this.id + ":header", "click", this.__onHeaderClick, this);
+            var panel = this;
+            $(document.getElementById(this.id)).ready(function () { // TODO
+                rf.Event.bindById(panel.id + ":header", "click", panel.__onHeaderClick, panel);
+
+                new RichFaces.ui.CollapsiblePanelItem(
+                    panel.id + ":content", {"index":0, "togglePanelId":panel.id, "switchMode":panel.switchMode, "name":"true"}),
+
+                new RichFaces.ui.CollapsiblePanelItem(
+                    panel.id + ":empty", {"index":1, "togglePanelId":panel.id, "switchMode":panel.switchMode, "name":"false"})
+            })
         },
 
         switchPanel : function (to) {

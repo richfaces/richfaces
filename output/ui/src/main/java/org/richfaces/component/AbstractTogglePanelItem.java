@@ -22,14 +22,14 @@
 
 package org.richfaces.component;
 
-import java.io.IOException;
-import java.util.Map;
+import org.richfaces.renderkit.html.TogglePanelItemRenderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.event.PreRenderComponentEvent;
 import javax.faces.render.Renderer;
-
-import org.richfaces.renderkit.HtmlConstants;
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * @author akolonitsky
@@ -78,11 +78,8 @@ public abstract class AbstractTogglePanelItem extends AbstractDivPanel {
                     break;
 
                 case ajax:
-                    context.getResponseWriter().write(getPlaceHolder());
-                    break;
-
                 case server:
-                    // Do nothing.
+                    this.encodePlaceHolderWithJs(context);
                     break;
 
                 default:
@@ -91,14 +88,34 @@ public abstract class AbstractTogglePanelItem extends AbstractDivPanel {
         }
     }
 
-    private String getPlaceHolder() {
-        return "<div id=\"" + getClientId() + "\" style=\"display: none\" ></div>";
+    public void encodePlaceHolderWithJs(FacesContext context) throws IOException {
+        if (context == null) {
+            throw new IllegalArgumentException();
+        }
+
+        if (!isRendered()) {
+            return;
+        }
+
+        pushComponentToEL(context, null);
+
+        context.getApplication().publishEvent(context, PreRenderComponentEvent.class, this);
+
+        if (this.getRendererType() != null) {
+            TogglePanelItemRenderer renderer = (TogglePanelItemRenderer) this.getRenderer(context);
+            if (renderer != null) {
+                renderer.encodePlaceHolderWithJs(context, this);
+            }
+        }
+
+        popComponentFromEL(context);
     }
 
     protected static void hidePanelItem(UIComponent item) {
+        // TODO move to renderer
         Map<String,Object> attrs = item.getAttributes();
-        Object style = attrs.get(HtmlConstants.STYLE_ATTRIBUTE);
-        attrs.put(HtmlConstants.STYLE_ATTRIBUTE, "display:none; " + style);
+        Object style = attrs.get("style");
+        attrs.put("style", "display:none; " + style);
     }
 
     public abstract String getName();

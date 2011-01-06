@@ -38,8 +38,6 @@
          * */
         init : function (componentId, options) {
             $super.constructor.call(this, componentId, options);
-            this.index = options["index"];
-            this.getTogglePanel().getItems()[this.index] = this;
 
             if (!this.disabled) {
                 rf.Event.bindById(this.id + ":header", "click", this.__onHeaderClick, this);
@@ -60,12 +58,9 @@
         },
 
         /**
-         * @param state {string} = inactive | active | disabled
-         *     in that case looking header by css class appropriate to this state
-         *
          * @return {jQuery Object}
          * */
-        __header : function (state) {
+        __header : function () {
             return $(rf.getDomElement(this.id + ":header"));
         },
 
@@ -131,18 +126,6 @@
             this.__header().removeClass("rf-ac-itm-hdr-act").addClass("rf-ac-itm-hdr-inact");
 
             return true;
-        },
-
-        /***************************** Private Methods ********************************************************/
-
-
-        destroy: function () {
-            var parent = this.getTogglePanel();
-            delete parent.getItems()[this.index];
-
-            rf.Event.unbindById(this.id, "."+this.namespace);
-
-            $super.destroy.call(this);
         }
     });
 

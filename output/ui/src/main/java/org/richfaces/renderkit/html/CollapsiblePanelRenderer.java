@@ -34,7 +34,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static org.richfaces.renderkit.HtmlConstants.*;
@@ -115,10 +114,10 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
     }
 
     @Override
-    protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent comp) throws IOException {
-        super.doEncodeBegin(writer, context, comp);
+    protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+        super.doEncodeBegin(writer, context, component);
 
-        encodeHeader(writer, context, (HtmlCollapsiblePanel) comp);
+        encodeHeader(writer, context, (HtmlCollapsiblePanel) component);
     }
 
     @Override
@@ -237,11 +236,6 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
         writer.writeAttribute(CLASS_ATTRIBUTE, "rf-cp-empty", null);
         writer.writeAttribute(STYLE_ATTRIBUTE, styleElement("display", visible ? "block" : "none"), null);
         writer.endElement(DIV_ELEM);
-    }
-
-    @Override
-    protected List<JSObject> getChildrenScriptObjects(FacesContext context, UIComponent component) {
-        return null;
     }
 
     @Override

@@ -156,9 +156,10 @@
             $super.constructor.call(this, componentId);
             this.attachToDom();
 
+            this.items = [];
+
             this.options = $.extend(this.options, options || {});
             this.activeItem = this.options.activeItem;
-            this.items = this.options.items;
 
             this.__addUserEventHandler("itemchange");
             this.__addUserEventHandler("beforeitemchange");
@@ -421,10 +422,6 @@
                 oldItem : oldItem,
                 newItem : newItem
             });
-        },
-
-        destroy: function () {
-		$super.destroy.call(this);
         }
     });
 

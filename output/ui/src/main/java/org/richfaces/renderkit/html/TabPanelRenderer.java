@@ -76,11 +76,11 @@ public class TabPanelRenderer extends TogglePanelRenderer {
     private static final String CLASS = CLASS_ATTRIBUTE;
 
     @Override
-    protected void doEncodeBegin(ResponseWriter w, FacesContext context, UIComponent comp) throws IOException {
-        super.doEncodeBegin(w, context, comp);
-        writeJavaScript(w, context, comp);
+    protected void doEncodeBegin(ResponseWriter w, FacesContext context, UIComponent component) throws IOException {
+        super.doEncodeBegin(w, context, component);
+        writeJavaScript(w, context, component);
 
-        writeTabsLine(w, context, comp);
+        writeTabsLine(w, context, component);
         writeTabsLineSeparator(w);
     }
 
@@ -212,7 +212,6 @@ public class TabPanelRenderer extends TogglePanelRenderer {
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
         Map<String, Object> options = super.getScriptObjectOptions(context, component);
         options.put("isKeepHeight", attributeAsString(component, height).length() > 0);
-        options.remove("items");
 
         return options;
     }

@@ -22,18 +22,6 @@
 
 package org.richfaces.renderkit.html;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSObject;
 import org.ajax4jsf.javascript.JSReference;
@@ -46,6 +34,15 @@ import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 import org.richfaces.renderkit.util.FormUtil;
 import org.richfaces.renderkit.util.HandlersChain;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author akolonitsky
@@ -105,18 +102,20 @@ public class TogglePanelRenderer extends DivPanelRenderer {
     }
 
     @Override
-    protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent comp) throws IOException {
-        FormUtil.throwEnclFormReqExceptionIfNeed(context, comp);
+    protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+        FormUtil.throwEnclFormReqExceptionIfNeed(context, component);
 
-        super.doEncodeBegin(writer, context, comp);
-        AbstractTogglePanel panel = (AbstractTogglePanel) comp;
+        super.doEncodeBegin(writer, context, component);
+        AbstractTogglePanel panel = (AbstractTogglePanel) component;
 
-        writer.startElement(HtmlConstants.INPUT_ELEM, comp);
+        writer.startElement(HtmlConstants.INPUT_ELEM, component);
         writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.INPUT_TYPE_HIDDEN, null);
         writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, panel.getActiveItem(), "activeItem");
-        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, getValueRequestParamName(context, comp), null);
-        writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, getValueRequestParamName(context, comp), null);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, getValueRequestParamName(context, component), null);
+        writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, getValueRequestParamName(context, component), null);
         writer.endElement(HtmlConstants.INPUT_ELEM);
+
+        writeJavaScript(writer, context, component);
     }
 
     @Override
@@ -132,6 +131,11 @@ public class TogglePanelRenderer extends DivPanelRenderer {
     }
 
     @Override
+    protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+        writer.endElement(HtmlConstants.DIV_ELEM);
+    }
+
+    @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
         return new JSObject("RichFaces.ui.TogglePanel",
             component.getClientId(), getScriptObjectOptions(context, component));
@@ -144,7 +148,6 @@ public class TogglePanelRenderer extends DivPanelRenderer {
         Map<String, Object> options = new HashMap<String, Object>();
         options.put("activeItem", panel.getActiveItem());
         options.put("cycledSwitching", panel.isCycledSwitching());
-        options.put("items", getChildrenScriptObjects(context, panel));
         options.put("ajax", getAjaxOptions(context, panel));
 
         addEventOption(context, panel, options, ITEM_CHANGE);
@@ -170,19 +173,6 @@ public class TogglePanelRenderer extends DivPanelRenderer {
 
     public static AjaxOptions getAjaxOptions(FacesContext context, UIComponent panel) {
         return AjaxRendererUtils.buildEventOptions(context, panel);
-    }
-
-    protected List<JSObject> getChildrenScriptObjects(FacesContext context, UIComponent component) {
-        List<JSObject> res = new ArrayList<JSObject>(component.getChildCount());
-        for (UIComponent child : component.getChildren()) {
-            res.add(getChildScriptObject(context, (AbstractTogglePanelItem) child));
-        }
-        return res;
-    }
-
-    private JSObject getChildScriptObject(FacesContext context, AbstractTogglePanelItem child) {
-        return ((TogglePanelItemRenderer) child.getRenderer(context))
-                            .getScriptObject(context, child);
     }
 
     @Override
