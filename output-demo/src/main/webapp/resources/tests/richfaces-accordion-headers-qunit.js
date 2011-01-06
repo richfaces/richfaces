@@ -25,32 +25,37 @@ RichFaces.QUnit.run(function() {
 
     var ACCORDION_ID = "f:panel";
 
-    function testFirst(items) {
-        ok(items[0].__header("act").is(":visible"), "1 item: active visible");
-        ok(!items[0].__header("inact").is(":visible"), "1 item: inactive unvisible");
-        ok(!items[0].__header("dis").is(":visible"), "1 item: disabled unvisible");
-
-        ok(!items[1].__header("act").is(":visible"), "2 item: active visible");
-        ok(!items[1].__header("inact").is(":visible"), "2 item: inactive unvisible");
-        ok(items[1].__header("dis").is(":visible"), "2 item: disabled unvisible");
-
-        ok(!items[2].__header("act").is(":visible"), "3 item: active unvisible");
-        ok(items[2].__header("inact").is(":visible"), "3 item: inactive visible");
-        ok(!items[2].__header("dis").is(":visible"), "3 item: disabled unvisible");
+    function isLabelVisible(item, state) {
+        return item.__header().find(".rf-ac-itm-lbl-" + state).is(":visible");
     }
-    
+
+    function testFirst(items) {
+
+        ok( isLabelVisible(items[0], "act"), "1 item: active visible");
+        ok(!isLabelVisible(items[0], "inact"), "1 item: inactive unvisible");
+        ok(!isLabelVisible(items[0],"dis"), "1 item: disabled unvisible");
+
+        ok(!isLabelVisible(items[1],"act"), "2 item: active visible");
+        ok(!isLabelVisible(items[1],"inact"), "2 item: inactive unvisible");
+        ok( isLabelVisible(items[1],"dis"), "2 item: disabled unvisible");
+
+        ok(!isLabelVisible(items[2], "act"), "3 item: active unvisible");
+        ok( isLabelVisible(items[2], "inact"), "3 item: inactive visible");
+        ok(!isLabelVisible(items[2], "dis"), "3 item: disabled unvisible");
+    }
+
     function testLast(items) {
-        ok(!items[0].__header("act").is(":visible"), "1 item: active unvisible");
-        ok(items[0].__header("inact").is(":visible"), "1 item: inactive visible");
-        ok(!items[0].__header("dis").is(":visible"), "1 item: disabled unvisible");
+        ok(!isLabelVisible(items[0], "act"), "1 item: active unvisible");
+        ok( isLabelVisible(items[0], "inact"), "1 item: inactive visible");
+        ok(!isLabelVisible(items[0], "dis"), "1 item: disabled unvisible");
 
-        ok(!items[1].__header("act").is(":visible"), "2 item: active visible");
-        ok(!items[1].__header("inact").is(":visible"), "2 item: inactive unvisible");
-        ok(items[1].__header("dis").is(":visible"), "2 item: disabled unvisible");
+        ok(!isLabelVisible(items[1], "act"), "2 item: active visible");
+        ok(!isLabelVisible(items[1], "inact"), "2 item: inactive unvisible");
+        ok( isLabelVisible(items[1], "dis"), "2 item: disabled unvisible");
 
-        ok(items[2].__header("act").is(":visible"), "3 item: active visible");
-        ok(!items[2].__header("inact").is(":visible"), "3 item: inactive unvisible");
-        ok(!items[2].__header("dis").is(":visible"), "3 item: disabled unvisible");
+        ok( isLabelVisible(items[2], "act"), "3 item: active visible");
+        ok(!isLabelVisible(items[2], "inact"), "3 item: inactive unvisible");
+        ok(!isLabelVisible(items[2], "dis"), "3 item: disabled unvisible");
     }
 
     test("RichFaces.ui.Accordion change headers", function () {
