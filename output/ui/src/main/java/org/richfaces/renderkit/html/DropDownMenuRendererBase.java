@@ -28,6 +28,8 @@ import org.richfaces.renderkit.RendererBase;
     @ResourceDependency(name = "richfaces-event.js"),
     @ResourceDependency(library = "org.richfaces", name = "popup.js"),
     @ResourceDependency(library = "org.richfaces", name = "dropdownmenu.ecss", target="head"),
+    @ResourceDependency(library = "org.richfaces", name = "menuKeyNavigation.js"),
+    @ResourceDependency(library = "org.richfaces", name = "menu-base.js"),
     @ResourceDependency(library = "org.richfaces", name = "menu.js"),
     @ResourceDependency(library = "org.richfaces", name = "popupList.js")})
 public abstract class DropDownMenuRendererBase extends RendererBase {
@@ -86,6 +88,11 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
                 map.put("id", group.getClientId());
                 RenderKitUtils.addToScriptHash(map, "onhide", group.getOnhide(), null, ScriptHashVariableWrapper.eventHandler);
                 RenderKitUtils.addToScriptHash(map, "onshow", group.getOnshow(), null, ScriptHashVariableWrapper.eventHandler);
+                RenderKitUtils.addToScriptHash(map, "verticalOffset", group.getVerticalOffset(), "0");
+                RenderKitUtils.addToScriptHash(map, "horizontalOffset", group.getHorizontalOffset(), "0");
+                RenderKitUtils.addToScriptHash(map, "jointPoint", group.getJointPoint(), org.richfaces.component.Positioning.DEFAULT);
+                RenderKitUtils.addToScriptHash(map, "direction", group.getDirection(), org.richfaces.component.Positioning.DEFAULT);
+                
                 results.add(map);
             }
         }

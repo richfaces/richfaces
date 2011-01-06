@@ -27,13 +27,9 @@
     	<cdk:object name="isDisabled" type="boolean" value="#{isDisabled(facesContext, component)}" />
 		<cdk:object name="iconFacet" value="#{getIconFacet(facesContext, component)}" type="javax.faces.component.UIComponent" />
 		<cdk:object name="iconAttribute" value="#{getIconAttribute(facesContext, component)}" type="java.lang.String" />
-    	
-    	<cdk:object name="onmouseover" type="java.lang.String" value="this.className='rf-ddm-itm rf-ddm-itm-sel #{selectedClass}'" />
-    	<cdk:object name="onmouseout" type="java.lang.String" value="this.className='rf-ddm-itm rf-ddm-itm-unsel'" />
+        
     	
 		<div id="#{clientId}" class="rf-ddm-itm #{isDisabled ? 'rf-ddm-itm-dis '+disabledClass : 'rf-ddm-itm-unsel '+styleClass}" style="#{style}" 
-			onmouseover="#{isDisabled ? '' : onmouseover}" 
-			onmouseout="#{isDisabled ? '' : onmouseout}"
 			cdk:passThroughWithExclusions="" >
 			<span class="rf-ddm-itm-ic #{iconClass}">
 				<c:choose>

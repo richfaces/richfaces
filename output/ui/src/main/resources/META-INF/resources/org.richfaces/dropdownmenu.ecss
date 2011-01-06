@@ -28,6 +28,7 @@
 	min-width:250px; 	
 	position:absolute;
 	z-index:10;
+	outline: none;
 }
 .rf-ddm-sublst {
 	position:absolute;

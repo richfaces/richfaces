@@ -19,7 +19,7 @@ public abstract class AbstractDropDownMenu extends UIComponentBase {
 
     public static final String COMPONENT_FAMILY = "org.richfaces.DropDownMenu";
 
-    @Attribute
+    @Attribute (defaultValue = "click")
     public abstract String getShowEvent();
 
     @Attribute(defaultValue = "server")
@@ -36,6 +36,12 @@ public abstract class AbstractDropDownMenu extends UIComponentBase {
     
     @Attribute(defaultValue = "250")
     public abstract int getPopupWith();
+    
+    @Attribute(defaultValue = "0")
+    public abstract int getHorizontalOffset();
+    
+    @Attribute(defaultValue = "0")
+    public abstract int getVerticalOffset();
     
     //TODO is it correct or cdk issue
     @Attribute(defaultValue = "org.richfaces.component.Positioning.DEFAULT")
