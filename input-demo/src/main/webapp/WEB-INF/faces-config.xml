@@ -34,7 +34,11 @@
         <navigation-case>
             <from-outcome>fileUpload</from-outcome>
             <to-view-id>/examples/fileupload.xhtml</to-view-id>
-        </navigation-case>		
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>select</from-outcome>
+            <to-view-id>/examples/select.xhtml</to-view-id>
+        </navigation-case>        		
         		
 		
         <!-- QUnit -->
