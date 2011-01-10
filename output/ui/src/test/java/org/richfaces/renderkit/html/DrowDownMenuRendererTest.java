@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.richfaces.component.DropDownMenuBean;
 import org.xml.sax.SAXException;
@@ -36,6 +37,7 @@ import org.xml.sax.SAXException;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+@Ignore
 public class DrowDownMenuRendererTest extends RendererTestBase {
    
     @Override
