@@ -72,7 +72,7 @@ public abstract class AbstractList extends UISequence {
         return getFacetsIterator(NON_TERM_PREDICATE);
     }
 
-    @Attribute(required = true)
+    @Attribute(defaultValue = "ListType.unordered")
     public abstract ListType getType();
 
     public UIComponent getTerm() {
