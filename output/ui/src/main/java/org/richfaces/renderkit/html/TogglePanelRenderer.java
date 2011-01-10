@@ -46,7 +46,6 @@ import java.util.Map;
 
 /**
  * @author akolonitsky
- * @since -4712-01-01
  */
 @ResourceDependencies({
     @ResourceDependency(library = "javax.faces", name = "jsf.js"),

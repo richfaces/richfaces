@@ -22,6 +22,7 @@
 
 package org.richfaces.component;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -138,6 +139,20 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
 
     // ----------------------------------------------------- UIComponent Methods
 
+
+    @Override
+    public void encodeBegin(FacesContext context) throws IOException {
+        AbstractTogglePanelItem item = this.getItem(getActiveItem());
+        if (item == null || !item.isRendered()) {
+            List<AbstractTogglePanelItem> renderedItems = this.getRenderedItems();
+            if (!renderedItems.isEmpty()) {
+                setActiveItem(renderedItems.get(0).getName());
+            }
+        }
+
+        super.encodeBegin(context);
+    }
+
     /**
      * <p>Specialized decode behavior on top of that provided by the
      * superclass.  In addition to the standard
@@ -212,6 +227,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
 
         Application app = context.getApplication();
         app.publishEvent(context, PreValidateEvent.class, this);
+
         // Process all the facets and children of this component
         Iterator<UIComponent> kids = getFacetsAndChildren();
         String activeItem = getActiveItemValue();
@@ -456,20 +472,24 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
 
     public AbstractTogglePanelItem getItemByIndex(final int index) {
         List<AbstractTogglePanelItem> children = getRenderedItems();
-        if (isCycledSwitching()) {
+        if (index < 0 || index >= children.size()) {
+            return null;
+        } else if (isCycledSwitching()) {
             int size = getRenderedItems().size();
             return children.get((size + index) % size);
-        } else if (index < 0 || index >= children.size()) {
-            return null;
         } else {
             return children.get(index);
         }
     }
 
     public List<AbstractTogglePanelItem> getRenderedItems() {
+        return getItems(false);
+    }
+
+    public List<AbstractTogglePanelItem> getItems(boolean isRendered) {
         List<AbstractTogglePanelItem> res = new ArrayList<AbstractTogglePanelItem>(getChildCount());
         for (UIComponent child : getChildren()) {
-            if (child.isRendered() && child instanceof AbstractTogglePanelItem) {
+            if ((isRendered || child.isRendered()) && child instanceof AbstractTogglePanelItem) {
                 res.add((AbstractTogglePanelItem) child);
             }
         }
