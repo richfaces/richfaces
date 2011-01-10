@@ -37,7 +37,6 @@ import org.xml.sax.SAXException;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-@Ignore
 public class DrowDownMenuRendererTest extends RendererTestBase {
    
     @Override
@@ -49,7 +48,7 @@ public class DrowDownMenuRendererTest extends RendererTestBase {
     }
     
     @Test
-    public void testDoEncodeServerMode() throws IOException, SAXException {
+    public void testDoEncodeServerMode() throws IOException, SAXException {   
         doTest("dropDownMenu_serverMode", "form:ddmenu");
     }
     

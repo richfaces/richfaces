@@ -1,7 +1,4 @@
-      <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:menuItem" 
-       onclick="RichFaces.ajax(&quot;form:menuItem&quot;,event,{&quot;incId&quot;:&quot;1&quot;} );return false;" 
-       onmouseout="this.className=&apos;rf-ddm-itm rf-ddm-itm-unsel &apos;" 
-       onmouseover="this.className=&apos;rf-ddm-itm rf-ddm-itm-sel &apos;">
+      <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:menuItem">
         <span class="rf-ddm-itm-ic ">
           <div class="rf-ddm-emptyIcon">
           </div>
@@ -9,4 +6,9 @@
         <span class="rf-ddm-itm-lbl ">
           Test
         </span>
+              <script type="text/javascript">
+//<![CDATA[
+    new RichFaces.ui.MenuItem("form:menuItem",{"submitFunction":function(event){RichFaces.ajax("form:menuItem",event,{"incId":"1"} );return false;}} );
+ //]]>
+      </script>
       </div>

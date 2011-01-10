@@ -37,7 +37,6 @@ import org.xml.sax.SAXException;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-@Ignore
 public class MenuItemRendererTest extends RendererTestBase {
     
     @Override

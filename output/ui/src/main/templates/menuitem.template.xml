@@ -17,6 +17,7 @@
         <cdk:resource-dependency name="ajax.reslib" library="org.richfaces" />
         <cdk:resource-dependency name="base-component.reslib" library="org.richfaces" />
         
+        <cdk:resource-dependency name="richfaces-event.js" />
         <cdk:resource-dependency name="menuitem.js" library="org.richfaces" />
         
     </cc:interface>
@@ -75,8 +76,6 @@
 					</c:choose>	
 				</c:otherwise>
 			</c:choose>			
-
-		</div>
 		<c:choose>
 		 <c:when test="#{not isDisabled}">
 		  <script type="text/javascript">
@@ -91,5 +90,7 @@
 	      <c:otherwise>
 	      </c:otherwise>
 		</c:choose>
+		</div>
+		
     </cc:implementation>
 </cdk:root>

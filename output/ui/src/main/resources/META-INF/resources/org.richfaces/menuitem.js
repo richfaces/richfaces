@@ -50,10 +50,10 @@
 			__clickHandler : function (e) {
 				parentMenu = this.__getParentMenu();
 				if (parentMenu){
-					this.__getParentMenu().processItem(this.element);
-					if (this.options.submitFunction){
-						this.options.submitFunction.call(this,e);
-					}
+					this.__getParentMenu().processItem(this.element);					
+				}
+				if (this.options.submitFunction){
+					this.options.submitFunction.call(this,e);
 				}
 			},
 			

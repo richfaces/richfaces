@@ -4,9 +4,9 @@
           File
         </div>
         <div class="rf-ddm-pos">
-          <div class="rf-ddm-lst" id="form:ddmenu_list" style="display:none;min-width:250px;">
+          <div class="rf-ddm-lst" id="form:ddmenu_list" style="display:none;min-width:250px;" tabindex="-1">
             <div class="rf-ddm-lst-bg">
-              <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:open" onclick="RichFaces.submitForm(&quot;form&quot;,{&quot;form:open&quot;:&quot;form:open&quot;} )" onmouseout="this.className=&apos;rf-ddm-itm rf-ddm-itm-unsel &apos;" onmouseover="this.className=&apos;rf-ddm-itm rf-ddm-itm-sel &apos;">
+              <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:open">
                 <span class="rf-ddm-itm-ic ">
                   <div class="rf-ddm-emptyIcon">
                   </div>
@@ -14,8 +14,14 @@
                 <span class="rf-ddm-itm-lbl ">
                   Open
                 </span>
+                              	<script type="text/javascript">
+//<![CDATA[
+new RichFaces.ui.MenuItem("form:open", {"submitFunction": function(event){RichFaces.submitForm("form", {"form:open":"form:open"})}});
+//]]>
+			  </script>
               </div>
-              <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:group" onmouseout="this.className=&apos;rf-ddm-itm rf-ddm-itm-unsel&apos;" onmouseover="this.className=&apos;rf-ddm-itm rf-ddm-itm-sel &apos;">
+
+              <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:group">
                 <span class="rf-ddm-itm-ic ">
                   <div class="rf-ddm-emptyIcon">
                   </div>
@@ -24,19 +30,25 @@
                   Save As...
                 </span>
                 <div class="rf-ddm-nd">
-                  <div class="rf-ddm-lst rf-ddm-sublst" id="form:group_list" style="display:none;min-width:250px;">
+                  <div class="rf-ddm-lst rf-ddm-sublst" id="form:group_list" style="display:none;min-width:250px;" tabindex="-1">
                     <div class="rf-ddm-lst-bg">
-                      <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:save" onclick="RichFaces.submitForm(&quot;form&quot;,{&quot;form:save&quot;:&quot;form:save&quot;} )" onmouseout="this.className=&apos;rf-ddm-itm rf-ddm-itm-unsel &apos;" onmouseover="this.className=&apos;rf-ddm-itm rf-ddm-itm-sel &apos;">
+                      <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:save">
                         <span class="rf-ddm-itm-ic ">
                           <img src="/images/ddmenu/save.gif"/>
                         </span>
                         <span class="rf-ddm-itm-lbl ">
                           Save
                         </span>
+                                              <script type="text/javascript">
+//<![CDATA[
+new RichFaces.ui.MenuItem("form:save",{"submitFunction":function(event){RichFaces.submitForm("form",{"form:save":"form:save"} )}} );
+//]]>
+                       </script>  
                       </div>
+                    
                       <div class="rf-ddm-sep">
                       </div>
-                      <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:saveAll" onclick="RichFaces.submitForm(&quot;form&quot;,{&quot;form:saveAll&quot;:&quot;form:saveAll&quot;} )" onmouseout="this.className=&apos;rf-ddm-itm rf-ddm-itm-unsel &apos;" onmouseover="this.className=&apos;rf-ddm-itm rf-ddm-itm-sel &apos;">
+                      <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:saveAll">
                         <span class="rf-ddm-itm-ic ">
                           <div class="rf-ddm-emptyIcon">
                           </div>
@@ -44,7 +56,13 @@
                         <span class="rf-ddm-itm-lbl ">
                           SaveAll
                         </span>
+						<script type="text/javascript">
+//<![CDATA[
+new RichFaces.ui.MenuItem("form:saveAll",{"submitFunction":function(event){RichFaces.submitForm("form",{"form:saveAll":"form:saveAll"} )}} );
+//]]>
+                       </script>   
                       </div>
+    
                     </div>
                   </div>
                 </div>
@@ -54,7 +72,7 @@
         </div>
         <script type="text/javascript">
 //<![CDATA[
-new RichFaces.ui.Menu("form:ddmenu").initiateGroups([{"id":"form:group"} ] );
+new RichFaces.ui.Menu("form:ddmenu", {"direction":"AA","jointPoint":"AA"}).initiateGroups([{"id":"form:group"} ] );
 //]]>
         </script>
       </div>
