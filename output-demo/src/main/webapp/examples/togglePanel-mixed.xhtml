@@ -15,9 +15,10 @@
     <ui:define name="body">
         <h:form id="f">
             <pn:togglePanel id="panel" activeItem="name1" switchType="client" lang="en" cycledSwitching="true" >
-                <pn:togglePanelItem name="name1" >hello name1 client</pn:togglePanelItem>
+                <pn:togglePanelItem name="name1" rendered="false" >hello name1 client</pn:togglePanelItem>
                 <pn:togglePanelItem name="name2" onenter="alert('onenter ajax');" switchType="ajax">hello name2 ajax</pn:togglePanelItem>
                 <pn:togglePanelItem name="name3" switchType="server">hello name3 server</pn:togglePanelItem>
+                <pn:togglePanelItem name="name4" >hello name4</pn:togglePanelItem>
             </pn:togglePanel>
 
             <h:outputLink>
@@ -33,6 +34,11 @@
             <h:outputLink>
                 <ou:toggleControl targetPanel="panel" targetItem="name3" event="click" />
                 name3 server
+            </h:outputLink>
+            |
+            <h:outputLink>
+                <ou:toggleControl targetPanel="panel" targetItem="name4" event="click" />
+                name4 client disabled
             </h:outputLink>
 
             <br />
