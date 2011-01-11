@@ -49,15 +49,15 @@ public class DataScrollerRenderTest {
         // first/fastRewind/previous buttons with arrows
         HtmlElement first = getFirstButton(page, scrollerId);
         assertEquals("span", first.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-lft rf-ds-dis", first.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-first rf-ds-dis", first.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         
         HtmlElement fastRewind = getFastRewindButton(page, scrollerId);
         assertEquals("span", fastRewind.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-lft rf-ds-dis", fastRewind.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-fastrwd rf-ds-dis", fastRewind.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         
         HtmlElement previous = getPreviousButton(page, scrollerId);
         assertEquals("span", previous.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-lft rf-ds-dis", previous.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-prev rf-ds-dis", previous.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         
         // currently selected digital button
         HtmlElement dc1 = getDigitalButton(page, scrollerId, 1);
@@ -88,17 +88,17 @@ public class DataScrollerRenderTest {
         // next/fastForward/last buttons with arrows
         HtmlElement next = getNextButton(page, scrollerId);
         assertEquals("a", next.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-rgh", next.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-next", next.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         assertEquals("javascript:void(0);", next.getAttribute(HtmlConstants.HREF_ATTR));
         
         HtmlElement fastForward = getFastForwardButton(page, scrollerId);
         assertEquals("a", fastForward.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-rgh", fastForward.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-fastfwd", fastForward.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         assertEquals("javascript:void(0);", fastForward.getAttribute(HtmlConstants.HREF_ATTR));
         
         HtmlElement last = getLastButton(page, scrollerId);
         assertEquals("a", last.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-rgh", last.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-last", last.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         assertEquals("javascript:void(0);", last.getAttribute(HtmlConstants.HREF_ATTR));
     }
         
@@ -437,26 +437,26 @@ public class DataScrollerRenderTest {
         
         //check right buttons
         assertEquals("a", fastForward.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-rgh", fastForward.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-fastfwd", fastForward.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         
         assertEquals("a", last.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-rgh", last.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-last", last.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         
         assertEquals("a", next.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-rgh", next.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-next", next.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         
         fastForward = getFastForwardButton(page, secondScrollerId);
-        last = getFastForwardButton(page, secondScrollerId);
+        last = getLastButton(page, secondScrollerId);
         next = getNextButton(page, secondScrollerId);
          
         assertEquals("a", fastForward.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-rgh", fastForward.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-fastfwd", fastForward.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         
         assertEquals("a", last.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-rgh", last.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-last", last.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         
         assertEquals("a", next.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-rgh", next.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-next", next.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         
         //check if left buttons is disabled
         HtmlElement fastRewind = getFastRewindButton(page, firstScrollerId);
@@ -464,26 +464,26 @@ public class DataScrollerRenderTest {
         HtmlElement previous = getPreviousButton(page, firstScrollerId);
         
         assertEquals("span", fastRewind.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-lft rf-ds-dis", fastRewind.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-fastrwd rf-ds-dis", fastRewind.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         
         assertEquals("span", first.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-lft rf-ds-dis", first.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-first rf-ds-dis", first.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         
         assertEquals("span", previous.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-lft rf-ds-dis", previous.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-prev rf-ds-dis", previous.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         
         fastRewind = getFastRewindButton(page, secondScrollerId);
         first = getFirstButton(page, secondScrollerId);
         next = getNextButton(page, secondScrollerId);
         
         assertEquals("span", fastRewind.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-lft rf-ds-dis", fastRewind.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-fastrwd rf-ds-dis", fastRewind.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         
         assertEquals("span", first.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-lft rf-ds-dis", first.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-first rf-ds-dis", first.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         
         assertEquals("span", previous.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-lft rf-ds-dis", previous.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-prev rf-ds-dis", previous.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
     }
     
     private void  checkLastPageButtons(HtmlPage page, String firstScrollerId, String secondScrollerId) throws Exception {
@@ -493,13 +493,13 @@ public class DataScrollerRenderTest {
         HtmlElement next = getNextButton(page, firstScrollerId);
         
         assertEquals("span", fastForward.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-rgh rf-ds-dis", fastForward.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-fastfwd rf-ds-dis", fastForward.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         
         assertEquals("span", last.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-rgh rf-ds-dis", last.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-last rf-ds-dis", last.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         
         assertEquals("span", next.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-rgh rf-ds-dis", next.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-next rf-ds-dis", next.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
 
         
         fastForward = getFastForwardButton(page, secondScrollerId);
@@ -507,13 +507,13 @@ public class DataScrollerRenderTest {
         next = getNextButton(page, secondScrollerId);
         
         assertEquals("span", fastForward.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-rgh rf-ds-dis", fastForward.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-fastfwd rf-ds-dis", fastForward.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         
         assertEquals("span", last.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-rgh rf-ds-dis", last.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-fastfwd rf-ds-dis", last.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         
         assertEquals("span", next.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-rgh rf-ds-dis", next.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-next rf-ds-dis", next.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         
         //check if left buttons is enabled
         HtmlElement fastRewind = getFastRewindButton(page, firstScrollerId);
@@ -521,26 +521,26 @@ public class DataScrollerRenderTest {
         HtmlElement previous = getPreviousButton(page, firstScrollerId);
         
         assertEquals("a", fastRewind.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-lft", fastRewind.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-fastrwd", fastRewind.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         
         assertEquals("a", first.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-lft", first.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-first", first.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         
         assertEquals("a", previous.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-lft", previous.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-prev", previous.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         
         fastRewind = getFastRewindButton(page, secondScrollerId);
         first = getFirstButton(page, secondScrollerId);
         previous = getPreviousButton(page, secondScrollerId);
         
         assertEquals("a", fastRewind.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-lft", fastRewind.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-fastrwd", fastRewind.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         
         assertEquals("a", first.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-lft", first.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-first", first.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
         
         assertEquals("a", previous.getNodeName());
-        assertEquals("rf-ds-btn rf-ds-lft", previous.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
+        assertEquals("rf-ds-btn rf-ds-btn-prev", previous.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());
     }
     
     private String getCurrentPageContent(HtmlPage page, int i) throws Exception {

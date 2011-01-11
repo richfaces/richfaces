@@ -50,11 +50,11 @@ a.rf-ds-btn {
 	font-weight: normal;
 }
 
-.rf-ds-lft { 
+.rf-ds-btn-first, .rf-ds-btn-fastrwd, .rf-ds-btn-prev {
 	margin-right: 1px;
 }
 
-.rf-ds-rgh { 
+.rf-ds-btn-next, .rf-ds-btn-fastfwd, .rf-ds-btn-last {
 	margin-left: 1px;
 }
 
