@@ -34,7 +34,7 @@ public class DataBean {
     private String operation = "operation";
 
     private boolean rendered = true;
-
+    private boolean renderIfSinglePage = true;
     private List<Employee> employeeList;
     private boolean state = true;
 
@@ -151,5 +151,13 @@ public class DataBean {
 
     public Collection<Object> getSelectedRowKeys() {
         return selectedRowKeys;
+    }
+
+    public boolean isRenderIfSinglePage() {
+        return renderIfSinglePage;
+    }
+
+    public void setRenderIfSinglePage(boolean renderIfSinglePage) {
+        this.renderIfSinglePage = renderIfSinglePage;
     }
 }
