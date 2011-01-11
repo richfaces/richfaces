@@ -88,6 +88,9 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
     
     private Integer page;
 
+    @Attribute(defaultValue = "true")
+    public abstract boolean isRenderIfSinglePage();
+
     @Attribute
     public abstract String getLastPageMode();
 
@@ -127,7 +130,7 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
     public String getFor() {
         return (String)getStateHelper().eval("for");
     }
-    
+
     public void setFor(String forId) {
         getStateHelper().put("for", forId);
     }
