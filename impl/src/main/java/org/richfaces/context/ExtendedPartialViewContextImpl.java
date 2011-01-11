@@ -218,9 +218,10 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
         Collection <String> executeIds = pvc.getExecuteIds();
         
         if (executeIds == null || executeIds.isEmpty()) {
-            if (phaseId == PhaseId.APPLY_REQUEST_VALUES) {
-                LOG.warn("Partial execute won't happen - executeIds were not specified");
-            }
+            //TODO - review
+            //if (phaseId == PhaseId.APPLY_REQUEST_VALUES) {
+            //    LOG.warn("Partial execute won't happen - executeIds were not specified");
+            //}
             return;
         }
 
