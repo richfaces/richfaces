@@ -121,52 +121,49 @@ public class DataTablePreRenderListener implements SystemEventListener {
         }
         
         String scrollerStateKey  = dataTable.getClientId(facesContext) + AbstractDataScroller.SCROLLER_STATE_ATTRIBUTE; 
-        boolean processed = dataTable.getAttributes().containsKey(scrollerStateKey);
-        if(!processed) {
-            if ((activeDataScroller != null) && (dataTable != null)) {
-                int rowCount = DataScrollerUtils.getRowCount(dataTable);
-                int rows = DataScrollerUtils.getRows(dataTable);
-                int pageCount = DataScrollerUtils.getPageCount(dataTable, rowCount, rows);
-                
-                int page = activeDataScroller.getPage();
-                int newPage = -1;
+        if ((activeDataScroller != null) && (dataTable != null)) {
+            int rowCount = DataScrollerUtils.getRowCount(dataTable);
+            int rows = DataScrollerUtils.getRows(dataTable);
+            int pageCount = DataScrollerUtils.getPageCount(dataTable, rowCount, rows);
+            
+            int page = activeDataScroller.getPage();
+            int newPage = -1;
 
-                if (page < 1) {
-                    newPage = 1;
-                } else if (page > pageCount) {
-                    newPage = (pageCount != 0 ? pageCount : 1);
-                }
-
-                if (newPage != -1) {
-                    Object label = MessageUtil.getLabel(facesContext, activeDataScroller);
-                    String formattedMessage = Messages.getMessage(Messages.DATASCROLLER_PAGE_MISSING, new Object[] { label,
-                        page, pageCount, newPage });
-
-                    LOG.warn(formattedMessage);
-                    page = newPage;
-                    dataTable.getAttributes().put(scrollerStateKey, page);
-                }
-
-                int first;
-                String lastPageMode = activeDataScroller.getLastPageMode();
-
-                if (lastPageMode == null) {
-                    lastPageMode = AbstractDataScroller.PAGEMODE_SHORT;
-                } else if (!AbstractDataScroller.PAGEMODE_SHORT.equals(lastPageMode)
-                    && !AbstractDataScroller.PAGEMODE_FULL.equals(lastPageMode)) {
-                    throw new IllegalArgumentException("Illegal value of 'lastPageMode' attribute: '" + lastPageMode + "'");
-                }
-
-                if (page != pageCount || AbstractDataScroller.PAGEMODE_SHORT.equals(lastPageMode)) {
-                    first = (page - 1) * rows;
-                } else {
-                    first = rowCount - rows;
-                    if (first < 0) {
-                        first = 0;
-                    }
-                }
-                dataTable.getAttributes().put("first", first);
+            if (page < 1) {
+                newPage = 1;
+            } else if (page > pageCount) {
+                newPage = (pageCount != 0 ? pageCount : 1);
             }
+
+            if (newPage != -1) {
+                Object label = MessageUtil.getLabel(facesContext, activeDataScroller);
+                String formattedMessage = Messages.getMessage(Messages.DATASCROLLER_PAGE_MISSING, new Object[] { label,
+                    page, pageCount, newPage });
+
+                LOG.warn(formattedMessage);
+                page = newPage;
+                dataTable.getAttributes().put(scrollerStateKey, page);
+            }
+
+            int first;
+            String lastPageMode = activeDataScroller.getLastPageMode();
+
+            if (lastPageMode == null) {
+                lastPageMode = AbstractDataScroller.PAGEMODE_SHORT;
+            } else if (!AbstractDataScroller.PAGEMODE_SHORT.equals(lastPageMode)
+                && !AbstractDataScroller.PAGEMODE_FULL.equals(lastPageMode)) {
+                throw new IllegalArgumentException("Illegal value of 'lastPageMode' attribute: '" + lastPageMode + "'");
+            }
+
+            if (page != pageCount || AbstractDataScroller.PAGEMODE_SHORT.equals(lastPageMode)) {
+                first = (page - 1) * rows;
+            } else {
+                first = rowCount - rows;
+                if (first < 0) {
+                    first = 0;
+                }
+            }
+            dataTable.getAttributes().put("first", first);
         }
     }
 
