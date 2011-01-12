@@ -1,7 +1,8 @@
 package org.richfaces.validator;
 
-import static org.easymock.EasyMock.*;
-import static org.junit.Assert.*;
+import static org.easymock.EasyMock.expect;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -52,7 +53,7 @@ public class FacesConverterServiceTest {
         serviceImpl = new ConverterServiceImpl();
         expect(environment.getFacesContext().getViewRoot()).andStubReturn(viewRoot);
         expect(viewRoot.getLocale()).andStubReturn(Locale.ENGLISH);
-        expect(environment.getApplication().getMessageBundle()).andStubReturn("com.sun.faces.resources.Messages");
+        expect(environment.getApplication().getMessageBundle()).andStubReturn("javax.faces.Messages");
         HashMap<String, Object> attributes = new HashMap<String, Object>();
         attributes.put("label", "foo");
         expect(input.getAttributes()).andStubReturn(attributes);
