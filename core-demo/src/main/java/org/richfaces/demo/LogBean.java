@@ -34,6 +34,10 @@ import org.richfaces.component.LogMode;
 @SessionScoped
 public class LogBean {
 
+    private static final LogMode[] LOG_MODES = new LogMode[] {
+        LogMode.inline, LogMode.popup
+    };
+    
     private LogMode mode = LogMode.inline;
 
     private Character hotkey = 'l';
@@ -54,4 +58,7 @@ public class LogBean {
         this.hotkey = hotkey;
     }
     
+    public LogMode[] getLogModes() {
+        return LOG_MODES;
+    }
 }

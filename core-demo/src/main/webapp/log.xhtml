@@ -18,8 +18,7 @@
 			<h:panelGrid columns="2">
 				<h:outputText value="Mode: "/>
 				<h:selectOneMenu value="#{logBean.mode}" onchange="submit()">
-					<f:selectItem itemValue="popup" />
-					<f:selectItem itemValue="inline" />
+					<f:selectItems value="#{logBean.logModes}" />
 				</h:selectOneMenu>
 			
 				<h:outputText value="Hotkey: "/>
