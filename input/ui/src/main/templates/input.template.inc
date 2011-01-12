@@ -25,6 +25,6 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 <span class="rf-insl-inp-cntr">
 	<input xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core" name="#{clientId}" type="text"
 		class="rf-insl-inp #{component.attributes['inputClass']}" value="#{getInputValue(facesContext, component)}"
-		cdk:passThrough="accesskey disabled maxlength size:inputSize tabindex" readonly="#{!component.attributes['enableManualInput']}"
-		style="#{component.attributes['showInput'] ? null : 'display: none;'}" />
+		cdk:passThrough="accesskey disabled size:inputSize tabindex" readonly="#{!component.attributes['enableManualInput']}"
+		style="#{component.attributes['showInput'] ? null : 'display: none;'}" maxlength="#{maxlength > 0 ? maxlength : null}"/>
 </span>
