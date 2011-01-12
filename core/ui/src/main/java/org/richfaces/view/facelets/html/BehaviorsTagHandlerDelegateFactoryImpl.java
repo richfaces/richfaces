@@ -23,9 +23,7 @@
 
 package org.richfaces.view.facelets.html;
 
-import java.util.Locale;
-
-import javax.faces.application.Application;
+import javax.faces.FacesWrapper;
 import javax.faces.view.facelets.BehaviorHandler;
 import javax.faces.view.facelets.ComponentHandler;
 import javax.faces.view.facelets.ConverterHandler;
@@ -33,40 +31,17 @@ import javax.faces.view.facelets.TagHandlerDelegate;
 import javax.faces.view.facelets.TagHandlerDelegateFactory;
 import javax.faces.view.facelets.ValidatorHandler;
 
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.log.Logger;
-
 /**
  * @author Nick Belaevski
  */
-public class BehaviorsTagHandlerDelegateFactoryImpl extends TagHandlerDelegateFactory {
+public class BehaviorsTagHandlerDelegateFactoryImpl extends TagHandlerDelegateFactory implements FacesWrapper<TagHandlerDelegateFactory> {
 
-    private static final Logger LOGGER = RichfacesLogger.WEBAPP.getLogger();
-    
     private TagHandlerDelegateFactory factory;
 
-    private boolean isMyFaces = false;
-    
     public BehaviorsTagHandlerDelegateFactoryImpl(TagHandlerDelegateFactory factory) {
         this.factory = factory;
-        detectMyFaces();
     }
 
-    private void detectMyFaces() {
-        String implementationTitle = Application.class.getPackage().getImplementationTitle();
-        if (implementationTitle != null) {
-            isMyFaces = implementationTitle.toLowerCase(Locale.US).contains("myfaces");
-            
-            if (isMyFaces) {
-                //TODO - RF M3 workaround for https://jira.jboss.org/browse/RF-9025 / https://issues.apache.org/jira/browse/MYFACES-2888
-                LOGGER.warn("MyFaces implementation of JavaServer Faces detected. "
-                    + "Wrapping of components using RichFaces behaviors (a4j:ajax etc.) won't work!");
-            }
-        } else {
-            LOGGER.warn("Cannot detect Mojarra vs MyFaces implementation of JavaServer Faces");
-        }
-    }
-    
     /*
      *  (non-Javadoc)
      * @see javax.faces.view.facelets.TagHandlerDelegateFactory#createBehaviorHandlerDelegate(javax.faces.view.facelets.BehaviorHandler)
@@ -86,13 +61,14 @@ public class BehaviorsTagHandlerDelegateFactoryImpl extends TagHandlerDelegateFa
         // TagHandlers structure is created when view is compiled
         // so there's no need to check for BehaviorsStack
         
-        ComponentHandler handler = owner;
-
-        if (!isMyFaces) {
-            handler = new BehaviorsAddingComponentHandlerWrapper(owner);
+        if (owner instanceof BehaviorsAddingComponentHandlerWrapper) {
+            //this is to avoid StackOverflowError because of ComponentHandler constructor call
+            return null;
         }
         
-        return factory.createComponentHandlerDelegate(handler);
+        ComponentHandler wrappedHandler = new BehaviorsAddingComponentHandlerWrapper(owner);
+        
+        return factory.createComponentHandlerDelegate(wrappedHandler);
     }
 
     /*
@@ -111,5 +87,9 @@ public class BehaviorsTagHandlerDelegateFactoryImpl extends TagHandlerDelegateFa
     @Override
     public TagHandlerDelegate createValidatorHandlerDelegate(ValidatorHandler owner) {
         return factory.createValidatorHandlerDelegate(owner);
+    }
+
+    public TagHandlerDelegateFactory getWrapped() {
+        return factory;
     }
 }

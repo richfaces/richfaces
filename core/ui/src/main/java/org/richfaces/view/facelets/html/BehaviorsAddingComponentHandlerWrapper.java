@@ -27,6 +27,7 @@ import java.io.IOException;
 
 import javax.el.ELException;
 import javax.faces.FacesException;
+import javax.faces.FacesWrapper;
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
@@ -38,7 +39,7 @@ import javax.faces.view.facelets.TagAttribute;
 /**
  * @author Nick Belaevski
  */
-public class BehaviorsAddingComponentHandlerWrapper extends ComponentHandler {
+public class BehaviorsAddingComponentHandlerWrapper extends ComponentHandler implements FacesWrapper<ComponentHandler> {
     private ComponentHandler componentHandler;
 
     public BehaviorsAddingComponentHandlerWrapper(ComponentHandler componentHandler) {
@@ -63,6 +64,11 @@ public class BehaviorsAddingComponentHandlerWrapper extends ComponentHandler {
     }
 
     public TagAttribute getTagAttribute(String localName) {
+        //workaround for MyFaces
+        if (componentHandler == null) {
+            return getComponentConfig().getTag().getAttributes().get(localName);
+        }
+        
         return componentHandler.getTagAttribute(localName);
     }
 
@@ -107,5 +113,9 @@ public class BehaviorsAddingComponentHandlerWrapper extends ComponentHandler {
 
     public void setAttributes(FaceletContext ctx, Object instance) {
         componentHandler.setAttributes(ctx, instance);
+    }
+    
+    public ComponentHandler getWrapped() {
+        return componentHandler;
     }
 }
