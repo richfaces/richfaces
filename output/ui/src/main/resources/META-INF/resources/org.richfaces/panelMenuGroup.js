@@ -120,14 +120,13 @@
          * @param {Hash} options - params
          * */
         init : function (componentId, options) {
-            $super.constructor.call(this, componentId);
-            this.options = $.extend(this.options, __DEFAULT_OPTIONS, options || {});
+            $super.constructor.call(this, componentId, $.extend({}, __DEFAULT_OPTIONS, options || {}));
 
             if (!this.options.disabled) {
                 var menuGroup = this;
 
                 if (!this.options.selectable) {
-                	//TODO nick - this can be replaced by jQuery.delegate on menu itself
+                    //TODO nick - this can be replaced by jQuery.delegate on menu itself
                     this.__header().bind("click", function () {
                         return menuGroup.switchExpantion();
                     });
@@ -248,6 +247,10 @@
          *
          * */
         onCompleteHandler : function () {
+            if (this.options.selectable) {
+                $super.onCompleteHandler.call(this);
+            }
+
             EXPAND_ITEM.execClient(this, this.expanded());
         },
 
@@ -341,14 +344,14 @@
         },
 
         __fireCollapse : function () {
-        	//TODO nick - 'new' should be removed
+            //TODO nick - 'new' should be removed
             return new rf.Event.fireById(this.id, "collapse", {
                 id: this.id
             });
         },
 
         __fireExpand : function () {
-        	//TODO nick - 'new' should be removed
+            //TODO nick - 'new' should be removed
             return new rf.Event.fireById(this.id, "expand", {
                 id: this.id
             });

@@ -160,6 +160,8 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
         options.put("expandSingle", panelMenuGroup.isExpandSingle());
         options.put("bubbleSelection", panelMenuGroup.isBubbleSelection());
         options.put("expanded", panelMenuGroup.isExpanded());
+        options.put("selectable", panelMenuGroup.isSelectable());
+        options.put("unselectable", panelMenuGroup.isUnselectable());
 
         addEventOption(context, panelMenuGroup, options, COLLAPSE);
         addEventOption(context, panelMenuGroup, options, EXPAND);

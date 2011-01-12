@@ -28,9 +28,9 @@
     var __DEFAULT_OPTIONS = {
         disabled : false,
         selectable: true,
-        mode: "client",
         unselectable: false,
         highlight: true,
+        mode: "client",
         stylePrefix: "rf-pm-itm",
         itemStep: 20
     };

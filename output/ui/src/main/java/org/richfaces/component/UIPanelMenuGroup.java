@@ -43,6 +43,11 @@ public class UIPanelMenuGroup extends AbstractPanelMenuGroup {
     }
 
     @Override
+    public Boolean isSelectable() {
+        return (Boolean) getStateHelper().eval(UIPanelMenuItem.PropertyKeys.selectable, Boolean.FALSE);
+    }
+
+    @Override
     public PanelMenuMode getMode() {
         return (PanelMenuMode) getStateHelper().eval(UIPanelMenuItem.PropertyKeys.mode, getPanelMenu().getGroupMode());
     }

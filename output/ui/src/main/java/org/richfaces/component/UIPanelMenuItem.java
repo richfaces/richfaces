@@ -32,6 +32,9 @@ import org.richfaces.PanelMenuMode;
 public class UIPanelMenuItem extends AbstractPanelMenuItem {
 
     public enum PropertyKeys {
+        selectable,
+        unselectable,
+
         mode,
         label,
         name,
@@ -42,6 +45,22 @@ public class UIPanelMenuItem extends AbstractPanelMenuItem {
         status,
         execute,
         render
+    }
+
+    public Boolean isSelectable() {
+        return (Boolean) getStateHelper().eval(PropertyKeys.selectable, Boolean.TRUE);
+    }
+
+    public void setSelectable(Boolean selectable) {
+        getStateHelper().put(PropertyKeys.selectable, selectable);
+    }
+
+    public Boolean isUnselectable() {
+        return (Boolean) getStateHelper().eval(PropertyKeys.unselectable, Boolean.FALSE);
+    }
+
+    public void setUnselectable(Boolean unselectable) {
+        getStateHelper().put(PropertyKeys.unselectable, unselectable);
     }
 
     public PanelMenuMode getMode() {

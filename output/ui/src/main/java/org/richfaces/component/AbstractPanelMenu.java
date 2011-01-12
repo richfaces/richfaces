@@ -197,8 +197,8 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
         return getItem(itemName, this);
     }
 
-    private static AbstractPanelMenuItem getItem(String itemName, UIComponent comp) {
-        if (comp instanceof AbstractPanelMenu) {
+    private AbstractPanelMenuItem getItem(String itemName, UIComponent comp) {
+        if (this != comp && comp instanceof AbstractPanelMenu) {
             return null;
         }
 
