@@ -30,7 +30,6 @@ import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
-import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.ComponentHandler;
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.Tag;
@@ -57,10 +56,6 @@ public class BehaviorsAddingComponentHandlerWrapper extends ComponentHandler {
 
     public TagAttribute getBinding() {
         return componentHandler.getBinding();
-    }
-
-    public ComponentConfig getComponentConfig() {
-        return componentHandler.getComponentConfig();
     }
 
     public Tag getTag() {
