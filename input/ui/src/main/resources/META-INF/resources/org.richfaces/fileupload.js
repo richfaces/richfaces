@@ -25,6 +25,8 @@
     
     var UID_ALT = "rf_fu_uid_alt";
 
+    var FAKE_PATH = "C:\\fakepath\\";
+
     var ITEM_HTML = '<div class="rf-fu-itm">'
     	+ '<span class="rf-fu-itm-lft"><span class="rf-fu-itm-lbl"/><span class="rf-fu-itm-st"/></span>'
 		+ '<span class="rf-fu-itm-rgh"><a href="javascript:void(0)" class="rf-fu-itm-lnk"/></span></div>';
@@ -101,10 +103,19 @@
 	    
 	    __addItem: function() {
 	    	var fileName = this.input.val();
+	    	if (!navigator.platform.indexOf("Win")) {
+	    		fileName = fileName.match(/[^\\]*$/)[0];
+	    	} else {
+		    	if (!fileName.indexOf(FAKE_PATH)) {
+		    		fileName = fileName.substr(FAKE_PATH.length);
+		    	} else {
+		    		fileName = fileName.match(/[^\/]*$/)[0];
+		    	}
+	    	}
 	    	if (this.__accept(fileName) && (!this.noDuplicate || !this.__isFileAlreadyAdded(fileName))) {
 		    	this.input.hide();
 		        this.input.unbind("change", this.addProxy);
-		    	var item = new Item(this);
+		    	var item = new Item(this, fileName);
 		    	this.list.append(item.getJQuery());
 		    	this.items.push(item);
 		    	this.input = this.cleanInput.clone();
@@ -222,10 +233,10 @@
 	    }
 	});
 	
-	var Item = function(fileUpload) {
+	var Item = function(fileUpload, fileName) {
 		this.fileUpload = fileUpload;
 		this.input = fileUpload.input;
-		this.model = {name: this.input.val(), state: ITEM_STATE.NEW};
+		this.model = {name: fileName, state: ITEM_STATE.NEW};
 	};
 	
 	jQuery.extend(Item.prototype, {
