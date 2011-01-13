@@ -121,7 +121,7 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
     public void encodeFirstRowStart(ResponseWriter writer, FacesContext context, String parentId, int currentRow, UIComponent component) throws IOException {
         writer.startElement(HtmlConstants.TR_ELEMENT, component);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, parentId + ":" + currentRow + ":b", null);
-        String styleClass = getFirstRowClass(context, parentId);
+        String styleClass = concatClasses(getFirstRowClass(context, parentId), component.getAttributes().get(ROW_CLASS));
         encodeStyleClass(writer, context, component, HtmlConstants.STYLE_CLASS_ATTR, styleClass);
     }
     
@@ -129,7 +129,7 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
     public void encodeRowStart(ResponseWriter writer, FacesContext context, String parentId, int currentRow, UIComponent component) throws IOException {
         writer.startElement(HtmlConstants.TR_ELEMENT, component);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, parentId + ":" + currentRow + ":b", null);
-        String styleClass = getRowClass(context, parentId);
+        String styleClass = concatClasses(getRowClass(context, parentId), component.getAttributes().get(ROW_CLASS));
         encodeStyleClass(writer, context, component, HtmlConstants.STYLE_CLASS_ATTR, styleClass);
     }
     
@@ -192,12 +192,14 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
             partialStart(facesContext,((AbstractCollapsibleSubTable) row).getRelativeClientId(facesContext) + ":b");
         }
         
+        int columnNumber = 0;
         while (components.hasNext()) {
             UIComponent component = components.next();
             if(component.isRendered()) {
                 if(component instanceof UIColumn ) {
+                    component.getAttributes().put(COLUMN_CLASS, getColumnClass(rowHolder, columnNumber));
                     encodeColumn(facesContext, writer, (UIColumn)component , rowHolder);
-                
+                    columnNumber++;
                 } else if (component instanceof AbstractCollapsibleSubTable) {
                     if(component.isRendered()) {
                         encodeRowEnd(writer);

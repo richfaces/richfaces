@@ -154,6 +154,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
         rowHolder.setRowStart(true);
 
         Iterator<UIComponent> components = row.columns();
+        int columnNumber = 0;
         while (components.hasNext()) {
             UIComponent child = components.next();
             if (child.isRendered()) {
@@ -198,8 +199,10 @@ public class DataTableRenderer extends AbstractTableRenderer {
                         tbodyStart = true;
                     }
 
+                    child.getAttributes().put(COLUMN_CLASS, getColumnClass(rowHolder, columnNumber));
                     encodeColumn(facesContext, writer, (UIColumn) child, rowHolder);
-
+                    columnNumber++;
+                    
                     if (!components.hasNext()) {
                         encodeRowEnd(writer);
 

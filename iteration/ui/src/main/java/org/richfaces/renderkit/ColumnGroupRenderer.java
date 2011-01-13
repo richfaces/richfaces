@@ -50,11 +50,13 @@ public class ColumnGroupRenderer extends AbstractTableBaseRenderer {
         rowHolder.setRowStart(true);
         
         Iterator<UIComponent> components = row.columns();
-
+        int columnNumber = 0;
         while(components.hasNext()){
             UIColumn column = (UIColumn)components.next();
             if(column.isRendered()) {
-                encodeColumn(facesContext,  writer, column,rowHolder);
+                column.getAttributes().put(COLUMN_CLASS, getColumnClass(rowHolder, columnNumber));
+                encodeColumn(facesContext,  writer, column, rowHolder);
+                columnNumber++;
             }    
         }
         encodeRowEnd(writer);

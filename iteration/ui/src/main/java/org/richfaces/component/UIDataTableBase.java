@@ -112,6 +112,30 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
     
     @Attribute
     public abstract String getFilterVar();
+    
+    @Attribute
+    public abstract String getRowClass();
+    
+    @Attribute
+    public abstract String getCaptionClass();
+    
+    @Attribute
+    public abstract String getHeaderClass();
+    
+    @Attribute
+    public abstract String getFooterClass();
+    
+    @Attribute
+    public abstract String getColumnClasses();
+    
+    @Attribute
+    public abstract String getRowClasses();
+    
+    @Attribute
+    public abstract String getStyle();
+    
+    @Attribute
+    public abstract String getStyleClass();
 
     @Attribute
     public abstract Collection<Object> getSelection();
@@ -121,7 +145,7 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
     
     @Attribute
     public abstract SortMode getSortMode();
-
+    
     public Iterator<UIComponent> columns() {
         return new DataTableColumnsIterator(this);
     }
