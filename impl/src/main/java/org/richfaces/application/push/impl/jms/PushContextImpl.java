@@ -32,9 +32,9 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.PreDestroyApplicationEvent;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
-import javax.naming.CompositeName;
 import javax.naming.InitialContext;
 import javax.naming.Name;
+import javax.naming.NameParser;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -81,8 +81,11 @@ public class PushContextImpl implements PushContext, SystemEventListener, Atmosp
             ConfigurationService configurationService = ServiceTracker.getService(ConfigurationService.class);
             
             InitialContext initialContext = new InitialContext();
-            Name cnfName = new CompositeName(configurationService.getStringValue(facesContext, pushJMSConnectionFactory));
-            Name topicsNamespace = new CompositeName(configurationService.getStringValue(facesContext, pushJMSTopicsNamespace));
+            
+            NameParser nameParser = initialContext.getNameParser("");
+            
+            Name cnfName = nameParser.parse(configurationService.getStringValue(facesContext, pushJMSConnectionFactory));
+            Name topicsNamespace = nameParser.parse(configurationService.getStringValue(facesContext, pushJMSTopicsNamespace));
 
             messagingContext = new MessagingContext(initialContext, cnfName, topicsNamespace, 
                 getApplicationName(facesContext),

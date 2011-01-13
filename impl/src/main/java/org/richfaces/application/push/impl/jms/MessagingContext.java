@@ -115,7 +115,7 @@ public class MessagingContext {
     }
 
     public void stop() throws Exception {
-        connection.stop();
+        connection.close();
         connection = null;
     }
 
