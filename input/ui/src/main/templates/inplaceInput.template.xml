@@ -51,7 +51,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 				<input id="#{clientId}Focus" type="image" style="position: absolute; top: 0px; left: 0px; outline-style: none;" class="rf-ii-none"/>
 				<span id="#{clientId}Edit" class="#{getEditStyleClass(component, inplaceState)}">
 					<input id="#{clientId}Input" autocomplete="off" name="#{clientId}" 
-						   type="text" value="#{getInputValue(facesContext, component)}" class="rf-ii-fld" style="width: #{component.attributes['inputWidth']};"  cdk:passThrough="tabindex">
+						   type="text" value="#{getInputValue(facesContext, component)}" class="rf-ii-fld" style="width: #{getInputWidth(component)};"  cdk:passThrough="tabindex">
 						    <cdk:call expression="renderInputHandlers(facesContext, component);"/>
 					</input>
 					<c:if test="#{component.attributes['showControls']}">
@@ -87,7 +87,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 						<cdk:scriptOption name="noneCss" value="#{concatClasses('rf-ii-none', component.attributes['noneStateClass'])}"/>
 						<cdk:scriptOption name="changedCss" value="#{concatClasses('rf-ii-c-s', component.attributes['changedStateClass'])}"/>
 						<cdk:scriptOption name="editCss" value="#{concatClasses('rf-ii-e-s', component.attributes['editStateClass'])}"/>
-					  	<cdk:scriptOption attributes="editEvent state defaultLabel saveOnBlur showControls" />
+						<cdk:scriptOption name="editEvent" value="#{getEditEvent(component)}"/>
+					  	<cdk:scriptOption attributes="state defaultLabel saveOnBlur showControls" />
 					  	<cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onselectitem onchange onblur onfocus" wrapper="eventHandler"/>
                 	</cdk:scriptObject>
 					new RichFaces.ui.InplaceInput("#{clientId}", #{toScriptArgs(options)});

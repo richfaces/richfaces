@@ -127,7 +127,11 @@ public class InplaceInputRendererBase extends InputRendererBase {
     }
 
     public InplaceState getInplaceState(UIComponent component) {
-        return ((InplaceComponent) component).getState();
+        InplaceState state = ((InplaceComponent) component).getState();
+        if (state == null) {
+            state = InplaceState.ready;
+        }
+        return state;
     }
 
     public String getValue(FacesContext facesContext, UIComponent component) throws IOException {
@@ -196,5 +200,21 @@ public class InplaceInputRendererBase extends InputRendererBase {
     public String getNoneCss(InplaceComponent component) {
         String css = component.getNoneClass();
         return concatClasses("rf-ii-none", css);
+    }
+    
+    protected String getInputWidth(UIComponent component) {
+        String value = ((AbstractInplaceInput) component).getInputWidth();
+        if (value == null || "".equals(value)) {
+            value = "100%";
+        }
+        return value;
+    }
+    
+    protected String getEditEvent(UIComponent component) {
+        String value = ((AbstractInplaceInput) component).getEditEvent();
+        if (value == null || "".equals(value)) {
+            value = "click";
+        }
+        return value;
     }
 }
