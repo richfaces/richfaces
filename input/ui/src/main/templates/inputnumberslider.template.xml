@@ -39,7 +39,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	</cc:interface>
 	<cc:implementation>
 		<span id="#{clientId}" class="rf-insl #{component.attributes['styleClass']}" cdk:passThroughWithExclusions="id class">
-			<cdk:call expression='int maxlength  = (Integer) component.getAttributes().get("maxlength");' />
+			<cdk:object name="maxlength" type="Integer" cast="true" value="#{component.attributes['maxlength']}" />
+			<cdk:object name="inputSize" type="Integer" cast="true" value="#{component.attributes['inputSize']}" />
             <c:if test="#{isInputPosition(component, 'left') || isInputPosition(component, 'top')}">
 				<xi:include xpointer="xpointer(/*)" href="input.template.inc" />
 				<c:if test="#{isInputPosition(component, 'top') and component.attributes['showInput']}">
