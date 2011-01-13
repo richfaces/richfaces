@@ -22,7 +22,7 @@
 				<h:panelGroup>
 					<h:outputText value="Process Done" />
 					<a4j:commandButton action="#{progressBarBean.startProcess}"
-						value="Restart Process" execute="@form"
+						value="Restart Process" execute="@form" render="pb"
 						rendered="#{progressBarBean.buttonRendered}"
 						style="margin: 9px 0px 5px;" />
 				</h:panelGroup>
