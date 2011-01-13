@@ -17,6 +17,10 @@
     	this.openOnEdit = mergedOptions.openOnEdit;
     	this.saveOnSelect = mergedOptions.saveOnSelect;
     	this.savedIndex = -1;
+
+        this.inputItem = $(document.getElementById(id + "Input"));
+        this.inputItemWidth = this.inputItem.width();
+        this.inputWidthDefined = options.inputWidth !== undefined;
     }
 	
     rf.ui.InplaceInput.extend(rf.ui.InplaceSelect);
@@ -62,6 +66,7 @@
 			
 			showPopup: function() {
 				this.popupList.show();
+                this.__hideLabel();
 			},
 			
 			hidePopup: function() {
@@ -128,6 +133,7 @@
 			
 			saveItemValue: function(value) {
 				this.selValueInput.val(value);
+                this.__showLabel();
 			},
 			
 			getItemLabel: function(item) {
@@ -207,7 +213,21 @@
        		__onListMouseUp: function(e) {
        			this.isMouseDown = false;
        			this.__setInputFocus();
-       		}
+       		},
+
+            __showLabel: function(e) {
+                this.label.show();
+                this.editContainer.css("position", "absolute");
+                this.inputItem.width(this.inputItemWidth);
+            },
+
+            __hideLabel: function(e) {
+                this.label.hide();
+                this.editContainer.css("position", "static");
+                if(!this.inputWidthDefined) {
+                    this.inputItem.width(this.label.width());
+                }
+            }
 		}
 		
 	})());
