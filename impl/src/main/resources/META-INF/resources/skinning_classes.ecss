@@ -311,53 +311,6 @@ selector names conversion:
 	color: '#{richSkin.selectControlColor}';
 }
 
-	/*gradient styles*/
-
-.rfs-gradient-header-inverse{
-	background-image : "url(#{resource['org.richfaces.renderkit.html.gradientimages.HeaderInverseGradientImage']})";
-	background-repeat : repeat-x;
-}
-
-.rfs-gradient-header{
-	background-image : "url(#{resource['org.richfaces.renderkit.html.gradientimages.HeaderGradientImage']})";
-	background-repeat : repeat-x;
-}
-
-.rfs-gradient-tab{
-	background-image : "url(#{resource['org.richfaces.renderkit.html.gradientimages.TabGradientImage']})";
-	background-repeat : repeat-x;
-}
-
-.rfs-gradient-tab-inverse{
-	background-image : "url(#{resource['org.richfaces.renderkit.html.gradientimages.TabInverseGradientImage']})";
-	background-repeat : repeat-x;
-}
-
-.rfs-gradient-input{
-	background-image : "url(#{resource['org.richfaces.renderkit.html.gradientimages.InputGradientImage']})";
-	background-repeat : repeat-x;
-}
-
-.rfs-gradient-menu-inverse{
-	background-image : "url(#{resource['org.richfaces.renderkit.html.gradientimages.MenuInverseGradientImage']})";
-	background-repeat : repeat-x;
-}
-
-.rfs-gradient-menu{
-	background-image : "url(#{resource['org.richfaces.renderkit.html.gradientimages.MenuGradientImage']})";
-	background-repeat : repeat-x;
-}
-
-.rfs-gradient-btn-inverse{
-	background-image : "url(#{resource['org.richfaces.renderkit.html.gradientimages.ButtonInverseGradientImage']})";
-	background-repeat : repeat-x;
-}
-
-.rfs-gradient-btn{
-	background-image : "url(#{resource['org.richfaces.renderkit.html.gradientimages.ButtonGradientImage']})";
-	background-repeat : repeat-x;
-}
-
 /* extended skinning styles */
 
 .rfs-ctn input, .rfs-input, 
