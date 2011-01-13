@@ -244,7 +244,7 @@ public abstract class ToolbarRendererBase extends RendererBase {
 
             writer.startElement(HtmlConstants.TD_ELEM, component);
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, concatClasses("rf-tb-emp", itemClass), null);
-            writer.write("&nbsp;");
+            writer.writeText("\u00a0", null);
             writer.endElement(HtmlConstants.TD_ELEM);
 
             for (Iterator<UIComponent> it = childrenToTheRight.iterator(); it.hasNext();) {
@@ -326,7 +326,7 @@ public abstract class ToolbarRendererBase extends RendererBase {
                 String itemSeparatorClass = "rf-tb-sep-" + separator.toString().toLowerCase();
                 writer.startElement(HtmlConstants.DIV_ELEM, component);
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, itemSeparatorClass, null);
-                writer.write("&nbsp;");
+                writer.writeText("\u00a0", null);
                 writer.endElement(HtmlConstants.DIV_ELEM);
             } else {
                 
