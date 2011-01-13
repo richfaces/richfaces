@@ -117,6 +117,10 @@
         		this.btn = $(document.getElementById(id+"Button"));
         	   	this.btn.bind("mousedown", $.proxy(this.__onBtnMouseDown, this));
         	   	this.btn.bind("mouseup", $.proxy(this.__onMouseUp, this));
+        	   	
+    	   		this.fld = $(document.getElementById(id+"Field"));
+    	   		this.fld.bind("mousedown", $.proxy(this.__onBtnMouseDown, this));
+    	   		this.fld.bind("mouseup", $.proxy(this.__onMouseUp, this));
         	}
             
         	this.selectFirst = mergedOptions.selectFirst;
