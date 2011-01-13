@@ -243,6 +243,7 @@ public abstract class ToolbarRendererBase extends RendererBase {
             }
 
             writer.startElement(HtmlConstants.TD_ELEM, component);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, concatClasses("rf-tb-emp", itemClass), null);
             writer.write("&nbsp;");
             writer.endElement(HtmlConstants.TD_ELEM);
 
