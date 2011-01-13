@@ -25,7 +25,6 @@ package org.richfaces.renderkit;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.component.Row;
-import org.richfaces.component.UIDataTableBase;
 
 /**
  * @author Anton Belevich
@@ -43,10 +42,6 @@ public class RowHolder extends RowHolderBase {
     
     private boolean encodeParentTBody;
     
-    private String[] rowClasses = new String[0];
-    
-    private String[] columnClasses = new String[0];
-    
     public RowHolder(FacesContext context, Row row) {
         this(context, row, 0, true);
     }
@@ -55,17 +50,6 @@ public class RowHolder extends RowHolderBase {
         super(context);
         this.row = row;
         this.parentClientId = row.getClientId(context);
-        
-        if (row instanceof UIDataTableBase) {
-            String classes = ((UIDataTableBase)row).getRowClasses();
-            if(null != classes){
-                rowClasses=classes.split(",");
-            }
-            classes = (String) ((UIDataTableBase)row).getColumnClasses();
-            if(null != classes){
-                columnClasses=classes.split(",");
-            }
-        }
     }
     
     public boolean isEncodeParentTBody() {
@@ -102,13 +86,5 @@ public class RowHolder extends RowHolderBase {
 
     public void setRowStart(boolean isRowStart) {
         this.isRowStart = isRowStart;
-    }
-    
-    public String[] getRowClasses() {
-        return this.rowClasses;
-    }
-    
-    public String[] getColumnClasses() {
-        return this.columnClasses;
     }
 }

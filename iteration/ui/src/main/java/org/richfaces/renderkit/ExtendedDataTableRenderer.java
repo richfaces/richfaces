@@ -759,6 +759,12 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         RendererState state = (RendererState) rowHolder;
         UIDataTableBase table = state.getRow();
         writer.startElement(HtmlConstants.TR_ELEMENT, table);
+
+        String rowClass = getRowClass(rowHolder);
+        if (!"".equals(rowClass)) {
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, rowClass, null);
+        }
+        
         StringBuilder builder = new StringBuilder();
         Collection<Object> selection = table.getSelection();
         if (selection != null && selection.contains(table.getRowKey())) {
@@ -784,10 +790,18 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE,
             table.getClientId(facesContext) + ":" + part.getName().getId(), null);
         columns = part.getColumns().iterator();
+        int columnNumber = 0;
         while (columns.hasNext()) {
             UIComponent column = (UIComponent) columns.next();
             if (column.isRendered()) {
                 writer.startElement(HtmlConstants.TD_ELEM, table);
+                
+                String columnClass = getColumnClass(rowHolder, columnNumber);
+                if (!"".equals(columnClass)) {
+                    writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, columnClass, null);
+                }
+                columnNumber++;
+                
                 writer.startElement(HtmlConstants.DIV_ELEM, table);
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-c rf-edt-c-"
                     + column.getId(), null);

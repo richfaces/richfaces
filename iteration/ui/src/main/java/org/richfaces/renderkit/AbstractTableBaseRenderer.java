@@ -54,15 +54,6 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
     
     protected static final String CELL_CLASS_KEY = "cellClass";    
     
-    public String getColumnClass(RowHolder rowHolder, int columnNumber) {
-        String styleClass = ""; 
-        if (rowHolder.getColumnClasses().length > columnNumber) {
-            styleClass = rowHolder.getColumnClasses()[columnNumber];
-        }
-        
-        return styleClass;
-    }
-    
     public void encodeColumn(FacesContext context, ResponseWriter writer, UIColumn component, RowHolder rowHolder) throws IOException {
         String parentId = rowHolder.getParentClientId();
         
@@ -77,9 +68,10 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
 
         if (rowHolder.isRowStart()) {
             int currentRow = rowHolder.getCurrentRow();
-            if (rowHolder.getRowClasses().length > 0) {
-                int indeStyleClass = currentRow % rowHolder.getRowClasses().length;
-                String rowClass = rowHolder.getRowClasses()[indeStyleClass];
+            String[] rowClasses = getRowClasses(rowHolder);
+            if (rowClasses.length > 0) {
+                int indeStyleClass = currentRow % rowClasses.length;
+                String rowClass = rowClasses[indeStyleClass];
                 component.getAttributes().put(ROW_CLASS, rowClass);    
             }
             if (rowHolder.getCurrentRow() == 0) {
