@@ -55,8 +55,8 @@ public class AutocompleteRendererTest extends RendererTestBase {
         Assert.assertNotNull(input);
         input.type("al");
 
-        //try 5 times to wait .5 second each for filling the page.
-        for (int i = 0; i < 5; i++) {
+        //try 7 times to wait .5 second each for filling the page.
+        for (int i = 0; i < 7; i++) {
             synchronized (page) {
                 page.wait(500);
             }
