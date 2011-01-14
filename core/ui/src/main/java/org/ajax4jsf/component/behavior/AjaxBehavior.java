@@ -127,14 +127,8 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
     private Set<String> toSet(Serializable propertyName, Object value) {
 
         Set<String> result = null;
-
-        if (value instanceof String) {
-            result = toSingletonSet(propertyName.toString(), (String) value);
-        }
-
-        if (result == null) {
-            result = CoreAjaxRendererUtils.asIdsSet(value);
-        }
+        
+        result = CoreAjaxRendererUtils.asIdsSet(value);       
 
         if (result == null) {
             throw new FacesException(
