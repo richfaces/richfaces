@@ -91,7 +91,7 @@ public final class HtmlDimensions {
     public static String formatSize(String size) {
         if (size != null) {
             String incomingSize = size.trim();
-            if (!incomingSize.isEmpty()) {
+            if (incomingSize.length() > 0) {
                 char lastChar = incomingSize.charAt(incomingSize.length() - 1);
                 if (Character.isDigit(lastChar)) {
                     return incomingSize + "px";
