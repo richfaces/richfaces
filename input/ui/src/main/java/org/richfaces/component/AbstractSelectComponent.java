@@ -34,10 +34,10 @@ import org.richfaces.cdk.annotations.EventName;
 
 public abstract class AbstractSelectComponent extends UISelectOne {
     
-    @Attribute(defaultValue="200px")
+    @Attribute()
     public abstract String getListWidth();
     
-    @Attribute(defaultValue="100px")
+    @Attribute()
     public abstract String getListHeight();
     
     @Attribute

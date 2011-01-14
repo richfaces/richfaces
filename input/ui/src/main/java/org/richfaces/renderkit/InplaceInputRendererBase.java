@@ -211,7 +211,7 @@ public class InplaceInputRendererBase extends InputRendererBase {
     }
     
     protected String getEditEvent(UIComponent component) {
-        String value = ((AbstractInplaceInput) component).getEditEvent();
+        String value = ((InplaceComponent) component).getEditEvent();
         if (value == null || "".equals(value)) {
             value = "click";
         }

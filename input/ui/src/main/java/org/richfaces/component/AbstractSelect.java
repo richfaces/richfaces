@@ -24,7 +24,7 @@ public abstract class AbstractSelect extends AbstractSelectComponent {
     public static final String COMPONENT_FAMILY = "org.richfaces.Select";
 
     
-    @Attribute(defaultValue="false")
+    @Attribute()
     public abstract boolean isEnableManualInput();
 
     @Attribute(defaultValue="true")
@@ -33,13 +33,13 @@ public abstract class AbstractSelect extends AbstractSelectComponent {
     @Attribute(defaultValue="true")
     public abstract boolean isShowButton();
     
-    @Attribute(defaultValue="20px")
+    @Attribute()
     public abstract String getMinListHeight();
     
-    @Attribute(defaultValue="100px")
+    @Attribute()
     public abstract String getMaxListHeight();
 
-    @Attribute(defaultValue="auto")
+    @Attribute()
     public abstract String getListHeight();
 
 }

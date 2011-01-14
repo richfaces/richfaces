@@ -32,6 +32,7 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.component.AbstractSelect;
 import org.richfaces.component.AbstractSelectComponent;
+import org.richfaces.renderkit.util.HtmlDimensions;
 
 /**
  * @author abelevich
@@ -65,26 +66,58 @@ public class SelectRendererBase extends InputRendererBase {
     
     public String getListWidth(UIComponent component) {
         AbstractSelect select = (AbstractSelect)component;
-        String width = select.getListWidth();
+        String width = getListWidth(select);
         return (width != null && width.trim().length() != 0) ? ("width: " + width) : "";
+    }
+    
+    protected String getMinListHeight(AbstractSelect select) {
+        String height = HtmlDimensions.formatSize(select.getMinListHeight());
+        if (height == null || height.length() == 0) {
+            height = "20px";
+        }
+        return height;
+    }
+    
+    protected String getMaxListHeight(AbstractSelect select) {
+        String height = HtmlDimensions.formatSize(select.getMaxListHeight());
+        if (height == null || height.length() == 0) {
+            height = "100px";
+        }
+        return height;
+    }
+    
+    protected String getListHeight(AbstractSelect select) {
+        String height = HtmlDimensions.formatSize(select.getListHeight());
+        if (height == null || height.length() == 0) {
+            height = "auto";
+        }
+        return height;
+    }
+    
+    protected String getListWidth(AbstractSelect select) {
+        String width = HtmlDimensions.formatSize(select.getListWidth());
+        if (width == null || width.length() == 0) {
+            width = "200px";
+        }
+        return width;
     }
     
     public String encodeHeightAndWidth(UIComponent component) {
         AbstractSelect select = (AbstractSelect)component;
         
-        String height = select.getListHeight();
+        String height = getListHeight(select);
         if(!"auto".equals(height)) {
             height = (height != null && height.trim().length() != 0) ? ("height: " + height) : "";
         } else {
-            String minHeight = select.getMinListHeight();
+            String minHeight = getMinListHeight(select);
             minHeight = (minHeight != null && minHeight.trim().length() != 0) ? ("min-height: " + minHeight) : "";
 
-            String maxHeight = select.getMaxListHeight();
+            String maxHeight = getMaxListHeight(select);
             maxHeight = (maxHeight != null && maxHeight.trim().length() != 0) ? ("max-height: " + maxHeight) : "";
             height = concatStyles(minHeight, maxHeight);
         }
 
-        String width = select.getListWidth();
+        String width = getListWidth(select);
         width = (width != null && width.trim().length() != 0) ? ("width: " + width) : "";
 
         return concatStyles(height, width);

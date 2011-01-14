@@ -104,7 +104,8 @@
 						<cdk:scriptOption name="changedCss" value="#{concatClasses('rf-is-c-s', component.attributes['changedStateClass'])}"/>
 						<cdk:scriptOption name="editCss" value="#{concatClasses('rf-is-e-s', component.attributes['editStateClass'])}"/>
 						<cdk:scriptOption name="selectItemCss" value="#{concatClasses('rf-is-sel', component.attributes['selectItemClass'])}"/>
-					  	<cdk:scriptOption attributes="editEvent state defaultLabel saveOnBlur showControls openOnEdit saveOnSelect inputWidth" />
+						<cdk:scriptOption name="editEvent" value="#{getEditEvent(component)}"/>
+					  	<cdk:scriptOption attributes="state defaultLabel saveOnBlur showControls openOnEdit saveOnSelect inputWidth" />
 					  	<cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onselectitem onchange onblur onfocus" wrapper="eventHandler"/>
                 	</cdk:scriptObject>
 					new RichFaces.ui.InplaceSelect("#{clientId}", #{toScriptArgs(options)});

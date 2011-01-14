@@ -47,7 +47,7 @@ public abstract class AbstractInplaceSelect extends AbstractSelectComponent impl
     
     public static final String COMPONENT_FAMILY = "org.richfaces.Select";
     
-    @Attribute(defaultValue="InplaceState.ready")
+    @Attribute()
     public abstract InplaceState getState();
     
     @Attribute
@@ -62,7 +62,7 @@ public abstract class AbstractInplaceSelect extends AbstractSelectComponent impl
     @Attribute(defaultValue="true")
     public abstract boolean isSaveOnBlur();
 
-    @Attribute(defaultValue="false")
+    @Attribute()
     public abstract boolean isShowControls();
     
     @Attribute
@@ -80,7 +80,7 @@ public abstract class AbstractInplaceSelect extends AbstractSelectComponent impl
     @Attribute
     public abstract String getListClass();
     
-    @Attribute(defaultValue="click")
+    @Attribute()
     public abstract String getEditEvent();
 
     @Attribute(events=@EventName("inputclick"))

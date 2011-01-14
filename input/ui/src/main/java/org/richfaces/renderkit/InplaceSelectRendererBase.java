@@ -32,6 +32,7 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.component.AbstractInplaceSelect;
 import org.richfaces.component.InplaceComponent;
+import org.richfaces.renderkit.util.HtmlDimensions;
 
 /**
  * @author Anton Belevich
@@ -88,13 +89,29 @@ public class InplaceSelectRendererBase extends InplaceInputRendererBase {
     
     public String getListWidth(UIComponent component) {
         AbstractInplaceSelect select = (AbstractInplaceSelect)component;
-        String width = select.getListWidth();
+        String width = getListWidth(select);
         return (width != null && width.trim().length() != 0) ? ("width: " + width) : "";
+    }
+    
+    protected String getListWidth(AbstractInplaceSelect select) {
+        String width = HtmlDimensions.formatSize(select.getListWidth());
+        if (width == null || width.length() == 0) {
+            width = "200px";
+        }
+        return width;
+    }
+    
+    protected String getListHeight(AbstractInplaceSelect select) {
+        String height = HtmlDimensions.formatSize(select.getListHeight());
+        if (height == null || height.length() == 0) {
+            height = "100px";
+        }
+        return height;
     }
     
     public String getListHeight(UIComponent component) {
         AbstractInplaceSelect select = (AbstractInplaceSelect)component;
-        String height = select.getListHeight();
+        String height = getListHeight(select);
         return (height != null && height.trim().length() != 0) ? ("height: " + height) : "";
     }
     
