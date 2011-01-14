@@ -47,17 +47,6 @@ public class HtmlUtilTest extends TestCase {
         super.tearDown();
     }
 
-    public void testQualifySize() throws Exception {
-        assertEquals("", HtmlUtil.qualifySize(""));
-        assertEquals("100px", HtmlUtil.qualifySize("100px"));
-        assertEquals("100px", HtmlUtil.qualifySize("100"));
-        assertEquals("100pt", HtmlUtil.qualifySize("100pt"));
-        assertEquals("100in", HtmlUtil.qualifySize("100in"));
-        assertEquals("100cm", HtmlUtil.qualifySize("100cm"));
-        assertEquals("100em", HtmlUtil.qualifySize("100em"));
-        assertEquals("100%", HtmlUtil.qualifySize("100%"));
-    }
-
     public void testAddToSize() throws Exception {
         assertEquals("120px", HtmlUtil.addToSize("100", "20px"));
         assertEquals("120px", HtmlUtil.addToSize("100px", "20"));

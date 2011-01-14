@@ -48,20 +48,6 @@ public final class HtmlUtil {
     private HtmlUtil() {
     }
 
-    public static String qualifySize(String sizeDeclaration) {
-        String trimmedValue = sizeDeclaration.trim();
-
-        if (trimmedValue.length() != 0) {
-            char lastChar = trimmedValue.charAt(trimmedValue.length() - 1);
-
-            if (Character.isDigit(lastChar)) {
-                return sizeDeclaration + "px";
-            }
-        }
-
-        return sizeDeclaration;
-    }
-
     public static String addToSize(String declaration, String delta) {
         Double doubleDelta = HtmlDimensions.decode(delta);
         Double decoded = HtmlDimensions.decode(declaration);
