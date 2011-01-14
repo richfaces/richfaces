@@ -39,12 +39,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	</cc:interface>
 	<cc:implementation>
 		<span id="#{clientId}" class="rf-insp #{component.attributes['styleClass']}" cdk:passThroughWithExclusions="id class" >
+			<cdk:object name="inputSize" type="Integer" cast="true" value="#{component.attributes['inputSize']}" />
 			<input name="#{clientId}" type="text"
 				class="rf-insp-inp #{component.attributes['inputClass']}" value="#{getInputValue(facesContext, component)}"
 				cdk:passThrough="accesskey disabled maxlength onblur onfocus onclick:oninputclick ondblclick:oninputdblclick onkeydown:oninputkeydown
 				onkeypress:oninputkeypress onkeyup:oninputkeyup onmousedown:oninputmousedown onmousemove:oninputmousemove onmouseout:oninputmouseout
-				onmouseover:oninputmouseover onmouseup:oninputmouseup onselect size:inputSize tabindex"
-				readonly="#{!component.attributes['enableManualInput']}" autocomplete="#{component.attributes['disableBrowserAutoComplete'] ? 'off' : ''}" />
+				onmouseover:oninputmouseover onmouseup:oninputmouseup onselect tabindex"
+				readonly="#{!component.attributes['enableManualInput']}" autocomplete="#{component.attributes['disableBrowserAutoComplete'] ? 'off' : ''}"
+				size="#{inputSize > 0 ? inputSize : null}"/>
 			<span class="rf-insp-btns">
 				<span class="rf-insp-inc#{component.attributes['disabled'] ? '-dis' : ''}" cdk:passThrough="onclick:onupclick" />
 				<span class="rf-insp-dec#{component.attributes['disabled'] ? '-dis' : ''}" cdk:passThrough="onclick:ondownclick" />
