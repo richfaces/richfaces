@@ -398,7 +398,7 @@ if (!window.RichFaces) {
 		};
 	};
 
-	var setGlobalStatusNameVariable = function(statusName) {
+	richfaces.setGlobalStatusNameVariable = function(statusName) {
 		//TODO: parallel requests
 		if (statusName) {
 			richfaces['statusName'] = statusName;
@@ -412,10 +412,6 @@ if (!window.RichFaces) {
 			options.requestDelay = 0;
 		}
 	};
-
-	var getGlobalStatusNameVariable = function() {
-		return richfaces.statusName;
-	}
 
 	var chain = function() {
 		var functions = arguments;
@@ -518,7 +514,7 @@ if (!window.RichFaces) {
 		}
 
 		if (options.status) {
-			var namedStatusEventHandler = function() { setGlobalStatusNameVariable(options.status); };
+			var namedStatusEventHandler = function() { richfaces.setGlobalStatusNameVariable(options.status); };
 
 			//TODO add support for options.submit
 			eventHandlers = eventHandlers || {};
@@ -546,159 +542,7 @@ if (!window.RichFaces) {
 		jsf.ajax.request(source, event, parameters);
 	};
 
-	var RICHFACES_AJAX_STATUS = "richfaces:ajaxStatus";
 
-	var getStatusDataAttributeName = function(statusName) {
-		return statusName ? (RICHFACES_AJAX_STATUS + "@" + statusName) : RICHFACES_AJAX_STATUS;
-	};
-
-	var statusAjaxEventHandler = function(data, methodName) {
-		if (methodName) {
-			//global status name
-			var statusName = getGlobalStatusNameVariable();
-			var source = data.source;
-
-			var statusApplied = false;
-			var statusDataAttribute = getStatusDataAttributeName(statusName);
-
-			var statusContainers;
-			if (statusName) {
-				statusContainers = [jQuery(document)];
-			} else {
-				statusContainers = [jQuery(source).parents('form'), jQuery(document)];
-			}
-
-			for (var containerIdx = 0; containerIdx < statusContainers.length && !statusApplied;
-				containerIdx++) {
-
-				var statusContainer = statusContainers[containerIdx];
-				var statuses = statusContainer.data(statusDataAttribute);
-				if (statuses) {
-					for (var statusId in statuses) {
-						var status = statuses[statusId];
-						var result = status[methodName].apply(status, arguments);
-						if (result) {
-							statusApplied = true;
-						} else {
-							delete statuses[statusId];
-						}
-					}
-
-					if (!statusApplied) {
-						statusContainer.removeData(statusDataAttribute);
-					}
-				}
-			}
-		}
-	};
-
-	var initializeStatuses = function() {
-		var thisFunction = arguments.callee;
-		if (!thisFunction.initialized) {
-			thisFunction.initialized = true;
-
-			var jsfEventsListener = richfaces.createJSFEventsAdapter({
-				begin: function(event) { statusAjaxEventHandler(event, 'start'); },
-				error: function(event) { statusAjaxEventHandler(event, 'error'); },
-				success: function(event) { statusAjaxEventHandler(event, 'success'); },
-				complete: function() { setGlobalStatusNameVariable(null); }
-			});
-
-			jsf.ajax.addOnEvent(jsfEventsListener);
-			//TODO blocks default alert error handler
-			jsf.ajax.addOnError(jsfEventsListener);
-		}
-	};
-
-	richfaces.status = function(statusId, options) {
-		this.statusId = statusId;
-		this.options = options || {};
-		this.register();
-	};
-
-	jQuery.extend(richfaces.status.prototype, (function() {
-		//TODO - support for parallel requests
-
-		var getElement = function() {
-			var elt = document.getElementById(this.statusId);
-			return elt ? jQuery(elt) : null;
-		};
-
-		var showHide = function(selector) {
-			var element = getElement.call(this);
-			if (element) {
-				var statusElts = element.children();
-				statusElts.each(function() {
-					var t = jQuery(this);
-					t.css('display', t.is(selector) ? '': 'none');
-				});
-
-				return true;
-			}
-
-			return false;
-		};
-
-		return {
-			register: function() {
-				initializeStatuses();
-
-				var statusName = this.options.statusName;
-				var dataStatusAttribute = getStatusDataAttributeName(statusName);
-
-				var container;
-				if (statusName) {
-					container = jQuery(document);
-				} else {
-					container = getElement.call(this).parents('form');
-					if (container.length == 0) {
-						container = jQuery(document);
-					};
-				}
-
-				var statuses = container.data(dataStatusAttribute);
-				if (!statuses) {
-					statuses = {};
-					container.data(dataStatusAttribute, statuses);
-				}
-
-				statuses[this.statusId] = this;
-			},
-
-			start: function() {
-				if (this.options.onstart) {
-					this.options.onstart.apply(this, arguments);
-				}
-
-				return showHide.call(this, '.rich-status-start');
-			},
-
-			stop: function() {
-				if (this.options.onstop) {
-					this.options.onstop.apply(this, arguments);
-				}
-			},
-
-			success: function() {
-				if (this.options.onsuccess) {
-					this.options.onsuccess.apply(this, arguments);
-				}
-				this.stop();
-
-				return showHide.call(this, '.rich-status-stop');
-			},
-
-			error: function() {
-				if (this.options.onerror) {
-					this.options.onerror.apply(this, arguments);
-				}
-				this.stop();
-
-				return showHide.call(this, ':not(.rich-status-error) + .rich-status-stop, .rich-status-error');
-			}
-		};
-	}()));
-	
 	//keys codes
 	richfaces.KEYS = { 
 				BACKSPACE: 8,	
