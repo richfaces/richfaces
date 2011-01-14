@@ -106,7 +106,7 @@ input.rf-is-fld {
 
 .rf-is-lst-cord {
 	display : block;
-	position : relative; 
+	position : absolute;
 	color: '#{richSkin.generalTextColor}';
 	font-family: '#{richSkin.generalFamilyFont}'; 
 	font-size : '#{richSkin.generalSizeFont}';
