@@ -35,7 +35,7 @@
             	</div>
                 <c:if test="#{component.attributes['showButton']}">
 	                <c:if test="#{component.attributes['disabled']}">
-		                <div id="#{clientId}Button" class="rf-sel-btn">
+		                <div id="#{clientId}Button" class="rf-sel-btn rf-sel-btn-dis">
 		                    <div class="rf-sel-btn-arrow"></div>
 		                </div>
 	                </c:if>
@@ -70,7 +70,7 @@
                     <cdk:scriptOption name="itemCss" value="rf-sel-opt" />
                     <cdk:scriptOption name="selectItemCss" value="#{concatClasses('rf-sel-sel', component.attributes['selectItemClass'])}" />
                     <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onblur onselectitem onfocus" wrapper="eventHandler"/>
-					<cdk:scriptOption attributes="showControl defaultLabel enableManualInput selectFirst" />
+					<cdk:scriptOption attributes="showControl defaultLabel enableManualInput selectFirst disabled" />
                 </cdk:scriptObject>
             	new RichFaces.ui.Select("#{clientId}", #{toScriptArgs(options)});
             </script>

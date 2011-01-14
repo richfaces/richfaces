@@ -60,6 +60,15 @@ input.rf-sel-inp {
 	height: 15px;
 }
 
+.rf-sel-btn-dis {
+    
+}
+
+.rf-sel-btn-dis .rf-sel-btn-arrow {
+    cursor: default;
+    background-image: "url(#{resource['org.richfaces:combo_down_button_dis.gif']})";
+}
+
 .rf-sel-lst-cord{
 	position: absolute;
 	/* TODO nick - review: font-size: 0px; */

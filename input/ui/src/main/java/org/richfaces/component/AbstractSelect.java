@@ -23,6 +23,8 @@ public abstract class AbstractSelect extends AbstractSelectComponent {
     
     public static final String COMPONENT_FAMILY = "org.richfaces.Select";
 
+    @Attribute
+    public abstract boolean isDisabled();
     
     @Attribute()
     public abstract boolean isEnableManualInput();

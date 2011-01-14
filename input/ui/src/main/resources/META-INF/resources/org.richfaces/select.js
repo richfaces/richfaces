@@ -113,7 +113,7 @@
             this.clientItems = mergedOptions.items;
             
 
-            if(mergedOptions.showControl) {
+            if(mergedOptions.showControl && !mergedOptions.disabled) {
         		this.btn = $(document.getElementById(id+"Button"));
         	   	this.btn.bind("mousedown", $.proxy(this.__onBtnMouseDown, this));
         	   	this.btn.bind("mouseup", $.proxy(this.__onMouseUp, this));
@@ -150,7 +150,8 @@
     		itemCss: "rf-sel-opt",
     		selectItemCss: "rf-sel-sel", 
     		listCss: "rf-sel-lst-cord",
-    		changeDelay: 8
+    		changeDelay: 8,
+    		disabled: false
   		};
     	
     	var REGEXP_TRIM = /^[\n\s]*(.*)[\n\s]*$/;
