@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -45,7 +46,9 @@ import org.richfaces.renderkit.util.HandlersChain;
 /**
  * @author Nick Belaevski
  */
-@ResourceDependency(library = "org.richfaces", name = "ajax.reslib")
+@ResourceDependencies({@ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
+    @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+    @ResourceDependency(library = "org.richfaces", name = "status.js")})
 @JsfRenderer(type = "org.richfaces.StatusRenderer", family = AbstractAjaxStatus.COMPONENT_FAMILY)
 public class AjaxStatusRenderer extends RendererBase {
 
@@ -189,7 +192,7 @@ public class AjaxStatusRenderer extends RendererBase {
         writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
         writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.TEXT_JAVASCRIPT_TYPE, null);
 
-        JSFunction statusConstructor = new JSFunction("new RichFaces.status",
+        JSFunction statusConstructor = new JSFunction("new RichFaces.ui.Status",
             clientId);
 
         Map<String, Object> options = new HashMap<String, Object>();
