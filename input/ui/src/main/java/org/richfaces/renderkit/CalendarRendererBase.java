@@ -266,7 +266,7 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
             Object value = calendar.getValue();
             date = CalendarHelper.getAsDate(facesContext, calendar, value);
             if (date != null) {
-                returnValue = formatSelectedDate(calendar.getTimeZone(), date);  
+                returnValue = formatSelectedDate(CalendarHelper.getTimeZoneOrDefault(calendar), date);  
             }
         }
         return returnValue;    
@@ -471,7 +471,8 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         RenderKitUtils.addToScriptHash(map, MONTH_LABELS_SHORT, monthLabelsShort);
         
         int minDaysInFirstWeek = calendarComponent.getMinDaysInFirstWeek();
-        if (minDaysInFirstWeek == Integer.MIN_VALUE) {
+        
+        if (1 > minDaysInFirstWeek || minDaysInFirstWeek > 7) {
             minDaysInFirstWeek = calendar.getMinimalDaysInFirstWeek();
         }
 
@@ -480,8 +481,7 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         }
         
         int day = calendarComponent.getFirstWeekDay();
-        if (day == Integer.MIN_VALUE) {
-            day = calendar.getFirstDayOfWeek();
+        if (day < 0 || 6 < day) {
             day = calendar.getFirstDayOfWeek() - calendar.getActualMinimum(Calendar.DAY_OF_WEEK);
         }
         
@@ -507,7 +507,12 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
     
     public String getStyleWithZindex(FacesContext facesContext, UIComponent component) {
         AbstractCalendar calendar = (AbstractCalendar) component;
-        String style =  HtmlUtil.concatStyles("z-index: " + calendar.getZindex(), calendar.getStyle());
+        int zindex = calendar.getZindex();
+        if (zindex < 0) {
+            zindex = 3;
+        }
+        
+        String style =  HtmlUtil.concatStyles("z-index: " + zindex, calendar.getStyle());
         return style;
     }
     
@@ -541,9 +546,9 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         
         if (converter instanceof DateTimeConverter) {
             DateTimeConverter defaultConverter = (DateTimeConverter) converter;
-            defaultConverter.setPattern(calendar.getDatePattern());
+            defaultConverter.setPattern(CalendarHelper.getDatePatternOrDefault(calendar));
             defaultConverter.setLocale( CalendarHelper.getAsLocale(facesContext, calendar));
-            defaultConverter.setTimeZone(calendar.getTimeZone());
+            defaultConverter.setTimeZone(CalendarHelper.getTimeZoneOrDefault(calendar));
         }
         return converter;
     }
@@ -563,5 +568,49 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
 
     public void decodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) {
         throw new UnsupportedOperationException();
+    }
+    
+    protected String getTodayControlModeOrDefault(UIComponent component) {
+        String value = "";
+        if (component instanceof AbstractCalendar) {
+            value = ((AbstractCalendar) component).getTodayControlMode();
+            if (value == null || value.length() == 0) {
+                value = "select";
+            }
+        }
+        return value;
+    }
+    
+    protected String getJointPointOrDefault(UIComponent component) {
+        String value = "";
+        if (component instanceof AbstractCalendar) {
+            value = ((AbstractCalendar) component).getJointPoint();
+            if (value == null || value.length() == 0) {
+                value = "AA";
+            }
+        }
+        return value;
+    }
+    
+    protected String getDirectionOrDefault(UIComponent component) {
+        String value = "";
+        if (component instanceof AbstractCalendar) {
+            value = ((AbstractCalendar) component).getDirection();
+            if (value == null || value.length() == 0) {
+                value = "AA";
+            }
+        }
+        return value;
+    }
+    
+    protected String getBoundaryDatesModeOrDefault(UIComponent component) {
+        String value = "";
+        if (component instanceof AbstractCalendar) {
+            value = ((AbstractCalendar) component).getBoundaryDatesMode();
+            if (value == null || value.length() == 0) {
+                value = "inactive";
+            }
+        }
+        return value;
     }
 }

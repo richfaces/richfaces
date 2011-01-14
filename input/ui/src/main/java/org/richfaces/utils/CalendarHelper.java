@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -80,6 +81,9 @@ public final class CalendarHelper {
 
         }
         Object defaultTime = calendar.getDefaultTime();
+        if (defaultTime == null) {
+            defaultTime = AbstractCalendar.getDefaultValueOfDefaultTime(null,null);
+        }
         Date result = null;
 
         if (defaultTime instanceof Calendar) {
@@ -90,7 +94,7 @@ public final class CalendarHelper {
 
         } else {
             String defaultTimeString = defaultTime.toString();
-            String datePattern = calendar.getDatePattern();
+            String datePattern = getDatePatternOrDefault(calendar);
 
             Pattern pattern = Pattern.compile(AbstractCalendar.SUB_TIME_PATTERN);
             Matcher matcher = pattern.matcher(datePattern);
@@ -194,14 +198,14 @@ public final class CalendarHelper {
         if (calendar == null || facesContext == null) {
             return Calendar.getInstance();
         }
-        return Calendar.getInstance(calendar.getTimeZone(), getAsLocale(facesContext, calendar));
+        return Calendar.getInstance(getTimeZoneOrDefault(calendar), getAsLocale(facesContext, calendar));
     }
 
     public static Date convertStringToDate(FacesContext facesContext, AbstractCalendar calendar, String date) {
         DateTimeConverter converter = new DateTimeConverter();
-        converter.setPattern(calendar.getDatePattern());
+        converter.setPattern(getDatePatternOrDefault(calendar));
         converter.setLocale(getAsLocale(facesContext, calendar));
-        converter.setTimeZone(calendar.getTimeZone());
+        converter.setTimeZone(getTimeZoneOrDefault(calendar));
         return (Date) converter.getAsObject(facesContext, calendar, date);
     }
 
@@ -219,5 +223,21 @@ public final class CalendarHelper {
             date = getCalendar(facesContext, calendar).getTime();
         }
         return date;
+    }
+    
+    public static TimeZone getTimeZoneOrDefault(AbstractCalendar calendar) {
+        TimeZone value = calendar.getTimeZone();
+        if (value == null) {
+            value = TimeZone.getDefault();
+        }
+        return value;
+    }
+    
+    public static String getDatePatternOrDefault(AbstractCalendar calendar) {
+        String value = calendar.getDatePattern();
+        if (value == null || "".equals(value)) {
+            value = "MMM d, yyyy";
+        }
+        return value;
     }
 }

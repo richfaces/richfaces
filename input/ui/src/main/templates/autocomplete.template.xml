@@ -74,8 +74,10 @@
 		<cdk:object name="mode" type="Object" value="#{component.attributes['mode']}" />
                 <cdk:scriptObject name="options">
                     <cdk:scriptOption name="buttonId" value="#{clientId}Button" />
-                    <cdk:scriptOption attributes="selectedItemClass minChars filterFunction autofill disabled selectFirst tokens" /> 
-                    <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onselectitem onfocus onblur" wrapper="eventHandler"/> 
+                    <cdk:scriptOption attributes="filterFunction autofill disabled selectFirst tokens" />
+                    <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onselectitem onfocus onblur" wrapper="eventHandler"/>
+                    <cdk:scriptOption name="minChars" value="#{getMinCharsOrDefault(component)}" />
+                    <cdk:scriptOption name="selectedItemClass" value="#{getSelectedItemClassOrDefault(component)}" /> 
                     <cdk:scriptOption name="filterFunction" value="#{getClientFilterFunction(component)}" />
                     <cdk:scriptOption name="isCachedAjax" value="#{'ajax'==mode ? false : true}" defaultValue="true" />
 		    		<cdk:scriptOption name="ajaxMode" value="#{'client'==mode||'lazyClient'==mode ? false : true}" defaultValue="true" />

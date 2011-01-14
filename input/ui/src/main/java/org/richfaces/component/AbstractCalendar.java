@@ -88,26 +88,26 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
         locale
     }
 
-    public enum Modes {
+    public enum Mode {
         client,
         ajax
     }
     
     private Object submittedCurrentDate = null;
     
-    @Attribute(defaultValue = "MMM d, yyyy")
+    @Attribute
     public abstract String getDatePattern();
 
-    @Attribute(defaultValue = "TimeZone.getDefault()")
+    @Attribute
     public abstract TimeZone getTimeZone();
 
-    @Attribute(defaultValue = "Integer.MIN_VALUE")
+    @Attribute
     public abstract int getFirstWeekDay();
 
-    @Attribute(defaultValue = "Integer.MIN_VALUE")
+    @Attribute
     public abstract int getMinDaysInFirstWeek();
 
-    @Attribute(defaultValue = "select")
+    @Attribute
     public abstract String getTodayControlMode();
 
     @Attribute(defaultValue = "true")
@@ -129,43 +129,43 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     public abstract boolean isPopup();
 
     @Attribute(defaultValue = "true")
-    public abstract String getHidePopupOnScroll();
+    public abstract boolean isHidePopupOnScroll();
 
-    @Attribute(defaultValue = "false")
+    @Attribute
     public abstract boolean isDisabled();
 
-    @Attribute(defaultValue = "false")
+    @Attribute
     public abstract boolean isEnableManualInput();
 
     @Attribute
     public abstract String getDayDisableFunction();
 
-    @Attribute(defaultValue = "false")
+    @Attribute
     public abstract boolean isShowApplyButton();
 
-    @Attribute(defaultValue = "false")
+    @Attribute
     public abstract boolean isResetTimeOnDateSelect();
 
-    @Attribute(defaultValue = "AA")
+    @Attribute
     public abstract String getJointPoint();
 
-    @Attribute(defaultValue = "AA")
+    @Attribute
     public abstract String getDirection();
 
-    @Attribute(defaultValue = "inactive")
+    @Attribute
     public abstract String getBoundaryDatesMode();
 
-    @Attribute(defaultValue = "0")
+    @Attribute
     public abstract int getHorizontalOffset();
 
-    @Attribute(defaultValue = "0")
+    @Attribute
     public abstract int getVerticalOffset();
 
-    @Attribute(defaultValue = "3")
+    @Attribute
     public abstract int getZindex();
     
-    @Attribute(defaultValue = "client")
-    public abstract String getMode();
+    @Attribute
+    public abstract Mode getMode();
     
     @Attribute
     public abstract String getDefaultLabel(); 
@@ -218,15 +218,15 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     @Attribute
     public abstract String getButtonIconDisabled();
 
-    @Attribute(defaultValue = "getDefaultValueOfDefaultTime(null,null)")
+    @Attribute
     public abstract Object getDefaultTime();
     
-    @Attribute(defaultValue = "getDefaultPreloadBegin(getCurrentDateOrDefault())")
+    @Attribute
     public abstract Object getPreloadDateRangeBegin();
     
     public abstract void setPreloadDateRangeBegin(Object date);
     
-    @Attribute(defaultValue = "getDefaultPreloadEnd(getCurrentDateOrDefault())")
+    @Attribute
     public abstract Object getPreloadDateRangeEnd();
     
     public abstract void setPreloadDateRangeEnd(Object date);
@@ -387,7 +387,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
                 if (ve.getType(elContext).equals(String.class)) {
                     DateTimeConverter convert = new DateTimeConverter();
                     convert.setLocale(CalendarHelper.getAsLocale(facesContext, this, getLocale()));
-                    convert.setPattern(getDatePattern());
+                    convert.setPattern(CalendarHelper.getDatePatternOrDefault(this));
                     ve.setValue(facesContext.getELContext(), convert.getAsString(facesContext, this, currentDate));
                     return;
                 } else if (ve.getType(elContext).equals(Calendar.class)) {
@@ -442,7 +442,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     
     protected Date getDefaultPreloadBegin(Date date) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        Calendar calendar = Calendar.getInstance(getTimeZone(),
+        Calendar calendar = Calendar.getInstance(CalendarHelper.getTimeZoneOrDefault(this),
             CalendarHelper.getAsLocale(facesContext, this, getLocale()));
         calendar.setTime(date);
         calendar.set(Calendar.DATE, calendar.getActualMinimum(Calendar.DATE));
@@ -451,7 +451,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
 
     protected Date getDefaultPreloadEnd(Date date) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        Calendar calendar = Calendar.getInstance(getTimeZone(),
+        Calendar calendar = Calendar.getInstance(CalendarHelper.getTimeZoneOrDefault(this),
             CalendarHelper.getAsLocale(facesContext, this, getLocale()));
         calendar.setTime(date);
         calendar.set(Calendar.DATE, calendar.getActualMaximum(Calendar.DATE));
@@ -474,7 +474,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
             if (value != null) {
                 return value;
             } else {
-                return java.util.Calendar.getInstance(getTimeZone()).getTime();
+                return java.util.Calendar.getInstance(CalendarHelper.getTimeZoneOrDefault(this)).getTime();
             }
         }
     }
@@ -592,14 +592,29 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
         Date dateRangeBegin = null;
         Date dateRangeEnd = null;
         
-        if (Modes.ajax.toString().equalsIgnoreCase(getMode())) {
+        Mode mode = getMode();
+        if (mode == null) {
+            mode = Mode.client;
+        }
+        
+        if (Mode.ajax.equals(mode)) {
             dateRangeBegin = CalendarHelper.getAsDate(facesContext, this, 
                 getDefaultPreloadBegin((Date) getCurrentDateOrDefault()));
             dateRangeEnd = CalendarHelper.getAsDate(facesContext, this, 
                 getDefaultPreloadEnd((Date) getCurrentDateOrDefault()));                
         } else {
-            dateRangeBegin = CalendarHelper.getAsDate(facesContext, this, getPreloadDateRangeBegin());
-            dateRangeEnd = CalendarHelper.getAsDate(facesContext, this, getPreloadDateRangeEnd());            
+            
+            Object date = getPreloadDateRangeBegin();
+            if (date == null) {
+                date = getDefaultPreloadBegin(getCurrentDateOrDefault());
+            }
+            dateRangeBegin = CalendarHelper.getAsDate(facesContext, this, date);
+            
+            date = getPreloadDateRangeEnd();
+            if (date == null) {
+                date = getDefaultPreloadEnd(getCurrentDateOrDefault());
+            }
+            dateRangeEnd = CalendarHelper.getAsDate(facesContext, this, date);            
         }
 
         if (dateRangeBegin == null && dateRangeEnd == null) {
@@ -616,7 +631,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
 
             List<Date> dates = new ArrayList<Date>();
 
-            Calendar calendar = Calendar.getInstance(this.getTimeZone(), CalendarHelper.getAsLocale(facesContext, this, this.getLocale()));
+            Calendar calendar = Calendar.getInstance(CalendarHelper.getTimeZoneOrDefault(this), CalendarHelper.getAsLocale(facesContext, this, this.getLocale()));
             Calendar calendar2 = (Calendar) calendar.clone();
             calendar.setTime(dateRangeBegin);
             calendar2.setTime(dateRangeEnd);

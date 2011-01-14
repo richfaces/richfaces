@@ -307,4 +307,26 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
     public void decodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) {
         throw new UnsupportedOperationException();
     }
+    
+    protected String getSelectedItemClassOrDefault(UIComponent component) {
+        String value = "";
+        if (component instanceof AbstractAutocomplete) {
+            value = ((AbstractAutocomplete) component).getSelectedItemClass();
+            if (value == null || value.length() == 0) {
+                value = "rf-au-sel";
+            }
+        }
+        return value;
+    }
+    
+    protected int getMinCharsOrDefault(UIComponent component) {
+        int value = 1;
+        if (component instanceof AbstractAutocomplete) {
+            value = ((AbstractAutocomplete) component).getMinChars();
+            if (value < 1) {
+                value = 1;
+            }
+        }
+        return value;
+    }
 }

@@ -77,13 +77,13 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     @Attribute(literal = false)
     public abstract Object getFetchValue();
 
-    @Attribute(defaultValue = "1")
+    @Attribute
     public abstract int getMinChars();
 
     @Attribute
     public abstract String getFilterFunction();
 	
-    @Attribute(defaultValue = "rf-au-sel")
+    @Attribute
     public abstract String getSelectedItemClass();
 
     @Attribute
@@ -101,10 +101,10 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     @Attribute(defaultValue = "true")
     public abstract boolean isAutofill();
 
-    @Attribute(defaultValue = "false")
+    @Attribute
     public abstract boolean isDisabled();
 
-    @Attribute(defaultValue = "false")
+    @Attribute
     public abstract boolean isShowButton();
 
     @Attribute(defaultValue = "true")

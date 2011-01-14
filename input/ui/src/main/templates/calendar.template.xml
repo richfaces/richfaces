@@ -69,8 +69,12 @@
 			<script type="text/javascript">
 				
 				<cdk:scriptObject name="options">
-					<cdk:scriptOption attributes="enableManualInput disabled readonly resetTimeOnDateSelect showApplyButton popup showInput showHeader showFooter showWeeksBar todayControlMode datePattern jointPoint direction boundaryDatesMode horizontalOffset verticalOffset hidePopupOnScrol showWeekDaysBar styleClass mode defaultLabel" />
-					<cdk:scriptOption attributes="onchange ondateselect onbeforedateselect onbeforecurrentdateselect onhide onshow ondatemouseover ondatemouseout onclean ontimeselect onbeforetimeselect" wrapper="eventHandler" /> 
+					<cdk:scriptOption attributes="enableManualInput disabled readonly resetTimeOnDateSelect showApplyButton popup showInput showHeader showFooter showWeeksBar datePattern horizontalOffset verticalOffset hidePopupOnScrol showWeekDaysBar styleClass mode defaultLabel" />
+					<cdk:scriptOption attributes="onchange ondateselect onbeforedateselect onbeforecurrentdateselect onhide onshow ondatemouseover ondatemouseout onclean ontimeselect onbeforetimeselect" wrapper="eventHandler" />
+					<cdk:scriptOption name="todayControlMode" value="#{getTodayControlModeOrDefault(component)}" />
+					<cdk:scriptOption name="jointPoint" value="#{getJointPointOrDefault(component)}" />
+					<cdk:scriptOption name="direction" value="#{getDirectionOrDefault(component)}" />
+					<cdk:scriptOption name="boundaryDatesMode" value="#{getBoundaryDatesModeOrDefault(component)}" />
 					<cdk:scriptOption name="currentDate" value="#{getCurrentDate(facesContext, component)}" />
 					<cdk:scriptOption name="selectedDate" value="#{getSelectedDate(facesContext, component)}" />
 					<cdk:scriptOption name="dayCellClass" value="#{getDayCellClass(facesContext, component)}" />
