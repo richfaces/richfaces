@@ -125,9 +125,13 @@
 					this.displayed = false;
 					this.__deselectCurrentItem();
 					this.currentSelectedItemIndex = -1;
+					jqueryParentMenu=this.__getParentMenu();
 					parentMenu = rf.$(this.__getParentMenu());
-					parentMenu.popupElement.focus();
-					rf.ui.MenuManager.setActiveSubMenu(parentMenu);
+					if  (this.id != parentMenu.id)
+					{						
+						parentMenu.popupElement.focus();
+						rf.ui.MenuManager.setActiveSubMenu(parentMenu);
+					}
 				}
 
 			},

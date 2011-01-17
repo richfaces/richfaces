@@ -91,10 +91,8 @@
 				var item = this.__getItemByIndex(this.currentSelectedItemIndex);
 				var menu;
 				menu = this.__getParentMenu()||this.__getParentMenuFromItem(item);
-				if (menu != null){					
+				if (menu != null && this.id != rf.$(menu).id){					
 					this.hide();
-//					this.active=false;
-//					rf.$(menu).active=true;
 					rf.$(menu).popupElement.focus();
 				} else {
 					this.hide();
