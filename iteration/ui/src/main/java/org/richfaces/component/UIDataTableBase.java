@@ -117,9 +117,6 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
     public abstract String getRowClass();
     
     @Attribute
-    public abstract String getCaptionClass();
-    
-    @Attribute
     public abstract String getHeaderClass();
     
     @Attribute
@@ -133,9 +130,6 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
     
     @Attribute
     public abstract String getStyle();
-    
-    @Attribute
-    public abstract String getStyleClass();
 
     @Attribute
     public abstract Collection<Object> getSelection();

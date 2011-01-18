@@ -77,6 +77,12 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
     @Attribute
     public abstract int getFrozenColumns();
     
+    @Attribute
+    public abstract String getCaptionClass();
+    
+    @Attribute
+    public abstract String getStyleClass();
+    
     @Attribute(events=@EventName(value="selectionchange", defaultEvent=true))
     public abstract String getOnselectionchange();
 
