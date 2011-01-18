@@ -7,7 +7,7 @@
 
         var fn = function(e) {
             e.data.fn.call(e.data.component, e);
-        }
+        };
 
         var data = {};
         data.component = component;
@@ -35,6 +35,14 @@
         return eventData;
     };
 
+    var addToggledClasses = function(el, event) {
+        if (event.type == 'mousedown' || event.type == 'mouseup') {
+            el.toggleClass('rf-ds-press');
+        } else if(event.type == 'mouseover' || event.type == 'mouseout') {
+            el.toggleClass('rf-ds-hov');
+        }
+    };
+
     richfaces.ui.DataScroller = function(id, submit, options) {
 
         $super.constructor.call(this, id);
@@ -43,8 +51,6 @@
 
         this.options = options;
         this.currentPage = options.currentPage;
-        var buttons = options.buttons;
-        var digitals = options.digitals;
 
         if (submit && typeof submit == 'function') {
             RichFaces.Event.bindById(id, this.getScrollEventName(), submit);
@@ -52,40 +58,35 @@
 
         var css = {};
 
-        if (buttons) {
+        if (options.buttons) {
 
-            $(dataScrollerElement).delegate('.rf-ds-btn', 'mouseover mouseup mouseout mousedown', function(event) {
-                if (event.type == 'mousedown') {
-                    $(this).addClass('rf-ds-hov');
-                } else {
+            $(dataScrollerElement).delegate('.rf-ds-btn', 'mouseover mouseout mouseup mousedown', function(event) {
+                if ($(this).hasClass('rf-ds-dis')) {
                     $(this).removeClass('rf-ds-hov');
+                    $(this).removeClass('rf-ds-press');
+                } else {
+                    addToggledClasses($(this), event);
                 }
             });
 
-            initButtons(buttons.left, css, this);
-            initButtons(buttons.right, css, this);
+            initButtons(options.buttons.left, css, this);
+            initButtons(options.buttons.right, css, this);
         }
 
-        if (digitals) {
+        if (options.digitals) {
 
-            $(dataScrollerElement).delegate('.rf-ds-nmb-btn', 'mouseover mouseup mouseout mousedown', function(event) {
-                if (event.type == 'mouseover' || event.type == 'mouseup') {
-                    $(this).addClass('rf-ds-hov');
-                } else if (event.type == 'mouseout') {
-                    $(this).removeClass('rf-ds-hov');
-                } else if (event.type == 'mousedown')  {
-                    $(this).toggleClass('rf-ds-press');
-                }
+            $(dataScrollerElement).delegate('.rf-ds-nmb-btn', 'mouseover mouseout mouseup mousedown', function(event) {
+                addToggledClasses($(this), event);
             });
 
-            initButtons(digitals, css, this);
+            initButtons(options.digitals, css, this);
         }
     };
 
     richfaces.BaseComponent.extend(richfaces.ui.DataScroller);
     var $super = richfaces.ui.DataScroller.$super;
 
-    $.extend(richfaces.ui.DataScroller.prototype, (function (options) {
+    $.extend(richfaces.ui.DataScroller.prototype, (function () {
 
         var scrollEventName = "rich:datascroller:onscroll";
 
