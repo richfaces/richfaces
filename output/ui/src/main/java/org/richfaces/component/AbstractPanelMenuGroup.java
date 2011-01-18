@@ -23,6 +23,7 @@
 
 package org.richfaces.component;
 
+import org.richfaces.PanelMenuMode;
 import org.richfaces.cdk.annotations.*;
 import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.event.PanelToggleEvent;
@@ -154,12 +155,8 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
     @Attribute(defaultValue = "Boolean.FALSE")
     public abstract Boolean isSelectable();
 
-/*
-    @Override
-    public PanelMenuMode getMode() {
-        return (PanelMenuMode) getStateHelper().eval(UIPanelMenuItem.PropertyKeys.mode, getPanelMenu().getGroupMode());
-    }
-*/
+    @Attribute(defaultValue = "getPanelMenu().getGroupMode()")
+    public abstract PanelMenuMode getMode();
 
     @Attribute(defaultValue = "getPanelMenu().isExpandSingle()")
     public abstract boolean isExpandSingle();

@@ -313,7 +313,11 @@
         },
 
         destroy: function () {
-            delete this.__rfPanelMenu().getItems()[this.itemName];
+            var panelMenu = this.__rfPanelMenu();
+            if (panelMenu.getItems && panelMenu.getItems()[this.itemName]) {
+                delete panelMenu.getItems()[this.itemName];
+            }
+
             $super.destroy.call(this);
         }
     });

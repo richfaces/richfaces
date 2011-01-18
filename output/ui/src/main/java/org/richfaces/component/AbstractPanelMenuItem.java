@@ -86,7 +86,7 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent {
     @Attribute(defaultValue = "Boolean.TRUE")
     public abstract Boolean isSelectable();
 
-    @Attribute(defaultValue = "Boolean.FALSE")
+    @Attribute(defaultValue = "Boolean.FALSE", hidden = true)
     public abstract Boolean isUnselectable();
 
     @Attribute(defaultValue = "getPanelMenu().getItemMode()")
