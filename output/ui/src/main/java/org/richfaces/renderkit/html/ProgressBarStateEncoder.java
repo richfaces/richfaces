@@ -79,8 +79,8 @@ class ProgressBarStateEncoder {
 
     protected String getWidth(UIComponent component) {
         Number value = NumberUtils.getNumber(component.getAttributes().get("value"));
-        Number minValue = NumberUtils.getNumber(component.getAttributes().get("minValue"));
-        Number maxValue = NumberUtils.getNumber(component.getAttributes().get("maxValue"));
+        Number minValue = NumberUtils.getNumber(component.getAttributes().get("minValue") == null ? 0 : component.getAttributes().get("minValue"));
+        Number maxValue = NumberUtils.getNumber(component.getAttributes().get("maxValue") == null ? 100 : component.getAttributes().get("maxValue"));
         Number percent = calculatePercent(value, minValue, maxValue);
 
         return String.valueOf(percent.intValue());

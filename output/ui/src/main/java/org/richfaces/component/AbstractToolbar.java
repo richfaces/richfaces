@@ -44,7 +44,7 @@ public abstract class AbstractToolbar extends UIComponentBase {
     @Attribute
     public abstract String getHeight();
     
-    @Attribute(defaultValue = "100%")
+    @Attribute
     public abstract String getWidth();
     
     @Attribute

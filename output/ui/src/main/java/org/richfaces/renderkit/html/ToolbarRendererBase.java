@@ -355,7 +355,11 @@ public abstract class ToolbarRendererBase extends RendererBase {
     
     protected String getWidthToolbar(UIComponent component) {
         if (component instanceof AbstractToolbar) {
-            return HtmlDimensions.formatSize(((AbstractToolbar)component).getWidth());
+            String width = ((AbstractToolbar)component).getWidth();
+            if (width == null || width.length() == 0) {
+                return "100%";
+            }
+            return HtmlDimensions.formatSize(width);
         } else {
             return "";
         }

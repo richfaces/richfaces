@@ -96,10 +96,10 @@ public abstract class AbstractProgressBar extends UIComponentBase implements Met
 
     public abstract void setData(Object data); 
 
-    @Attribute(defaultValue = "1000")
+    @Attribute
     public abstract int getInterval();
 
-    @Attribute(defaultValue = "false")
+    @Attribute
     public abstract boolean isEnabled();
 
     @Attribute(events = @EventName("beforedomupdate"))
@@ -123,13 +123,13 @@ public abstract class AbstractProgressBar extends UIComponentBase implements Met
     @Attribute
     public abstract String getFinishClass();
 
-    @Attribute(defaultValue = "SwitchType.DEFAULT")
+    @Attribute
     public abstract SwitchType getMode();
 
-    @Attribute(defaultValue = "100")
+    @Attribute
     public abstract int getMaxValue();
 
-    @Attribute(defaultValue = "0")
+    @Attribute
     public abstract int getMinValue();
 
     @Attribute

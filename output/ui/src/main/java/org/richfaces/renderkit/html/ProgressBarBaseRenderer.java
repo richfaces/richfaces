@@ -74,6 +74,10 @@ public class ProgressBarBaseRenderer extends RendererBase implements MetaCompone
     private static final ProgressBarStateEncoder FULL_ENCODER = new ProgressBarStateEncoder(false);
     
     private static final ProgressBarStateEncoder PARTIAL_ENCODER = new ProgressBarStateEncoder(true);
+    
+    private static final int DEFAULT_MIN_VALUE = 0;
+    
+    private static final int DEFAULT_MAX_VALUE = 100;
 
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
@@ -98,7 +102,7 @@ public class ProgressBarBaseRenderer extends RendererBase implements MetaCompone
             return false;
         }
          
-        SwitchType mode = (SwitchType) component.getAttributes().get("mode");
+        SwitchType mode = getModeOrDefault(component);
         
         if (mode == SwitchType.server) {
             throw new IllegalArgumentException("Progress bar doesn't support 'server' mode");
@@ -189,5 +193,29 @@ public class ProgressBarBaseRenderer extends RendererBase implements MetaCompone
     
     protected ProgressBarStateEncoder getEncoder(FacesContext facesContext, UIComponent component) {
         return isAjaxMode(component) ? PARTIAL_ENCODER : FULL_ENCODER;
+    }
+    
+    protected int getMaxValueOrDefault(UIComponent component) {
+        int maxValue = ((AbstractProgressBar) component).getMaxValue();
+        if (maxValue == 0) {
+            maxValue = DEFAULT_MAX_VALUE;
+        }
+        return maxValue;
+    }
+    
+    protected int getMinValueOrDefault(UIComponent component) {
+        int maxValue = ((AbstractProgressBar) component).getMinValue();
+        if (maxValue == 0) {
+            maxValue = DEFAULT_MIN_VALUE;
+        }
+        return maxValue;
+    }    
+    
+    protected SwitchType getModeOrDefault(UIComponent component) {
+        SwitchType mode = ((AbstractProgressBar) component).getMode();
+        if (mode == null) {
+            mode = SwitchType.DEFAULT;
+        }
+        return mode;
     }
 }
