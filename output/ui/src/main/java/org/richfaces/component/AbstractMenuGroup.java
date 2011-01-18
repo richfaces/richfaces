@@ -41,17 +41,17 @@ public abstract class AbstractMenuGroup extends UIOutput {
     @Attribute
     public abstract String getStyle();
     
-    @Attribute(defaultValue = "org.richfaces.component.Positioning.DEFAULT")
+    @Attribute
     public abstract Positioning getDirection();
     
     //TODO is it correct or cdk issue
-    @Attribute(defaultValue = "org.richfaces.component.Positioning.DEFAULT")
+    @Attribute
     public abstract Positioning getJointPoint();
     
-    @Attribute(defaultValue = "0")
+    @Attribute
     public abstract String getVerticalOffset();
     
-    @Attribute(defaultValue = "0")
+    @Attribute
     public abstract String getHorizontalOffset();    
     
     @Attribute(events = @EventName("show"))

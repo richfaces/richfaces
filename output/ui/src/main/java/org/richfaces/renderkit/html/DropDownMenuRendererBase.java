@@ -15,6 +15,8 @@ import org.richfaces.component.AbstractDropDownMenu;
 import org.richfaces.component.AbstractMenuGroup;
 import org.richfaces.component.AbstractMenuItem;
 import org.richfaces.component.AbstractMenuSeparator;
+import org.richfaces.component.Mode;
+import org.richfaces.component.Positioning;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 import org.richfaces.renderkit.RendererBase;
@@ -30,8 +32,7 @@ import org.richfaces.renderkit.RendererBase;
     @ResourceDependency(library = "org.richfaces", name = "dropdownmenu.ecss", target="head"),
     @ResourceDependency(library = "org.richfaces", name = "menuKeyNavigation.js"),
     @ResourceDependency(library = "org.richfaces", name = "menu-base.js"),
-    @ResourceDependency(library = "org.richfaces", name = "menu.js"),
-    @ResourceDependency(library = "org.richfaces", name = "popupList.js")})
+    @ResourceDependency(library = "org.richfaces", name = "menu.js")})
 public abstract class DropDownMenuRendererBase extends RendererBase {
 	 
     public static final String RENDERER_TYPE = "org.richfaces.DropDownMenuRenderer";
@@ -90,13 +91,55 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
                 RenderKitUtils.addToScriptHash(map, "onshow", group.getOnshow(), null, ScriptHashVariableWrapper.eventHandler);
                 RenderKitUtils.addToScriptHash(map, "verticalOffset", group.getVerticalOffset(), "0");
                 RenderKitUtils.addToScriptHash(map, "horizontalOffset", group.getHorizontalOffset(), "0");
-                RenderKitUtils.addToScriptHash(map, "jointPoint", group.getJointPoint(), org.richfaces.component.Positioning.DEFAULT);
-                RenderKitUtils.addToScriptHash(map, "direction", group.getDirection(), org.richfaces.component.Positioning.DEFAULT);
+
+                Positioning jointPoint = group.getJointPoint();
+                if (jointPoint == null) {
+                    jointPoint = org.richfaces.component.Positioning.DEFAULT;
+                }
+                RenderKitUtils.addToScriptHash(map, "jointPoint", jointPoint, org.richfaces.component.Positioning.DEFAULT);
+                
+                Positioning direction = group.getDirection();
+                if (direction == null) {
+                    direction = org.richfaces.component.Positioning.DEFAULT;
+                }
+                RenderKitUtils.addToScriptHash(map, "direction", direction, org.richfaces.component.Positioning.DEFAULT);
                 
                 results.add(map);
             }
         }
         return results;
+    }
+
+    protected int getPopupWidth(UIComponent component) {
+        int width = ((AbstractDropDownMenu) component).getPopupWidth(); 
+        if (width <= 0) {
+            width = DEFAULT_MIN_POPUP_WIDTH;
+        }
+        return width;
+    }    
+    
+    protected Mode getMode(UIComponent component) {
+        Mode mode = ((AbstractDropDownMenu) component).getMode(); 
+        if (mode == null) {
+            mode = Mode.server;
+        }
+        return mode;
+    }
+    
+    protected Positioning getJointPoint(UIComponent component) {
+        Positioning jointPoint = ((AbstractDropDownMenu) component).getJointPoint(); 
+        if (jointPoint == null) {
+            jointPoint = org.richfaces.component.Positioning.DEFAULT;
+        }
+        return jointPoint;
+    }
+    
+    protected Positioning getDirection(UIComponent component) {
+        Positioning direction = ((AbstractDropDownMenu) component).getDirection(); 
+        if (direction == null) {
+            direction = org.richfaces.component.Positioning.DEFAULT;
+        }
+        return direction;
     }
     
     private void getMenuGroups(UIComponent component, List<AbstractMenuGroup> list) {
@@ -110,10 +153,11 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
         }
     }
     
-    protected int getMinPopupWidth(FacesContext facesContext, UIComponent component) {
-        if (component instanceof AbstractDropDownMenu) {
-            ((AbstractDropDownMenu) component).getPopupWith();
+    protected String getShowEvent(UIComponent component) {
+        String value = ((AbstractDropDownMenu) component).getShowEvent();
+        if (value == null || "".equals(value)) {
+            value = "click";
         }
-        return DEFAULT_MIN_POPUP_WIDTH;
+        return value;
     }    
 }

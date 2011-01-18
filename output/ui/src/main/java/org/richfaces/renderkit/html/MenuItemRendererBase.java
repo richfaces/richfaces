@@ -56,7 +56,6 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
     @Override
     public void doDecode(FacesContext context, UIComponent component) {
         AbstractMenuItem menuItem = (AbstractMenuItem) component;
-
         if (menuItem != null) {
             Mode mode = resolveSubmitMode(menuItem);
             if (!Mode.client.equals(mode)) {
@@ -111,13 +110,13 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
     }
     
     protected Mode resolveSubmitMode(AbstractMenuItem menuItem) {
-        String submitMode = menuItem.getMode();
+        Mode submitMode = menuItem.getMode();
         if (null != submitMode) {
-            return Mode.valueOf(submitMode);
+            return submitMode;
         }
         AbstractDropDownMenu parent = getDDMenu(menuItem);
         if (parent != null) {
-            return Mode.valueOf(parent.getMode());
+            return parent.getMode();
         }
         return Mode.server;
     } 
@@ -135,7 +134,13 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
 
         return concatClasses(styleClass, component.getAttributes().get(menuItemStyle));
     }
-    
+
+    /**
+     * Finds a parent of given UI <code>component</code>.
+     * @param component <code>UIComponent</code>
+     * @param parentClass <code>Class</code> of desired parent
+     * @return <code>UIComponent</code>
+     */
     private UIComponent getParent(UIComponent component, Class<?> parentClass) {
         if (component != null && parentClass != null) {
             UIComponent parent = component.getParent();

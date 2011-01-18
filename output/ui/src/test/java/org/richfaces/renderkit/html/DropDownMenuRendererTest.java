@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.richfaces.component.DropDownMenuBean;
 import org.xml.sax.SAXException;
@@ -37,7 +36,7 @@ import org.xml.sax.SAXException;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-public class DrowDownMenuRendererTest extends RendererTestBase {
+public class DropDownMenuRendererTest extends RendererTestBase {
    
     @Override
     public void setUp() throws URISyntaxException {
@@ -48,7 +47,7 @@ public class DrowDownMenuRendererTest extends RendererTestBase {
     }
     
     @Test
-    public void testDoEncodeServerMode() throws IOException, SAXException {   
+    public void testDoEncodeServerMode() throws IOException, SAXException {
         doTest("dropDownMenu_serverMode", "form:ddmenu");
     }
     

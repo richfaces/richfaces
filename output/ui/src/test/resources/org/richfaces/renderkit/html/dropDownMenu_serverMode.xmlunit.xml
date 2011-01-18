@@ -16,7 +16,7 @@
                 </span>
                               	<script type="text/javascript">
 //<![CDATA[
-new RichFaces.ui.MenuItem("form:open", {"submitFunction": function(event){RichFaces.submitForm("form", {"form:open":"form:open"})}});
+new RichFaces.ui.MenuItem("form:open",{"submitFunction":function(event){RichFaces.submitForm("form",{"form:open":"form:open"} )}} );
 //]]>
 			  </script>
               </div>
@@ -72,7 +72,7 @@ new RichFaces.ui.MenuItem("form:saveAll",{"submitFunction":function(event){RichF
         </div>
         <script type="text/javascript">
 //<![CDATA[
-new RichFaces.ui.Menu("form:ddmenu", {"direction":"AA","jointPoint":"AA"}).initiateGroups([{"id":"form:group"} ] );
+new RichFaces.ui.Menu("form:ddmenu",{"direction":"auto","jointPoint":"auto","showEvent":"click","mode":"server"} ).initiateGroups([{"id":"form:group"} ] );
 //]]>
         </script>
       </div>

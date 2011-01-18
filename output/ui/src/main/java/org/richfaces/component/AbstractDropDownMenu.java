@@ -19,35 +19,35 @@ public abstract class AbstractDropDownMenu extends UIComponentBase {
 
     public static final String COMPONENT_FAMILY = "org.richfaces.DropDownMenu";
 
-    @Attribute (defaultValue = "click")
+    @Attribute
     public abstract String getShowEvent();
 
-    @Attribute(defaultValue = "server")
-    public abstract String getMode();
+    @Attribute
+    public abstract Mode getMode();
     
     @Attribute
     public abstract boolean isDisabled();
     
-    @Attribute(defaultValue = "300")
+    @Attribute
     public abstract int getHideDelay();
     
-    @Attribute(defaultValue = "50")
+    @Attribute
     public abstract int getShowDelay();
     
-    @Attribute(defaultValue = "250")
-    public abstract int getPopupWith();
+    @Attribute
+    public abstract int getPopupWidth();
     
-    @Attribute(defaultValue = "0")
+    @Attribute
     public abstract int getHorizontalOffset();
     
-    @Attribute(defaultValue = "0")
+    @Attribute
     public abstract int getVerticalOffset();
     
     //TODO is it correct or cdk issue
-    @Attribute(defaultValue = "org.richfaces.component.Positioning.DEFAULT")
+    @Attribute
     public abstract Positioning getJointPoint();
     
-    @Attribute(defaultValue = "org.richfaces.component.Positioning.DEFAULT")
+    @Attribute
     public abstract Positioning getDirection();
     
     @Attribute(events = @EventName("groupshow"))

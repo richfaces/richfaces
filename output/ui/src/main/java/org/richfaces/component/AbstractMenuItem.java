@@ -17,7 +17,7 @@ public abstract class AbstractMenuItem extends AbstractActionComponent {
     public static final String COMPONENT_TYPE = "org.richfaces.MenuItem";
     
     @Attribute
-    public abstract String getMode();
+    public abstract Mode getMode();
 
     @Attribute
     public abstract Object getLabel();

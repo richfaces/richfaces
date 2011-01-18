@@ -86,10 +86,14 @@ public abstract class MenuGroupRendererBase extends RendererBase {
     
     protected int getMinPopupWidth(FacesContext facesContext, UIComponent component) {
         UIComponent parent = getDDMenu(facesContext, component);
+        int width = 0; 
         if (parent != null) {
-            return ((AbstractDropDownMenu) parent).getPopupWith();
+            width = ((AbstractDropDownMenu) parent).getPopupWidth();
+            if (width <= 0) {
+                width = DEFAULT_MIN_POPUP_WIDTH; 
+            }
         }
-        return DEFAULT_MIN_POPUP_WIDTH;
+        return width;
     }
     
     /**
