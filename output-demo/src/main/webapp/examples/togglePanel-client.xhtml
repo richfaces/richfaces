@@ -3,8 +3,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:pn="http://richfaces.org/pn"
-      xmlns:ou="http://richfaces.org/output">
+      xmlns:pn="http://richfaces.org/output">
 
 <body>
 <ui:composition template="/templates/template.xhtml">
@@ -21,38 +20,38 @@
             </pn:togglePanel>
 
             <h:outputLink>
-                <ou:toggleControl targetPanel="panel" targetItem="name1" event="click" />
+                <pn:toggleControl targetPanel="panel" targetItem="name1" event="click" />
                 name1
             </h:outputLink>
             |
             <h:outputLink>
-                <ou:toggleControl targetPanel="panel" targetItem="name2" event="click" />
+                <pn:toggleControl targetPanel="panel" targetItem="name2" event="click" />
                 name2
             </h:outputLink>
             |
             <h:outputLink>
-                <ou:toggleControl targetPanel="panel" targetItem="name3" event="click" />
+                <pn:toggleControl targetPanel="panel" targetItem="name3" event="click" />
                 name3
             </h:outputLink>
 
             <br />
             <h:outputLink>
-                <ou:toggleControl targetPanel="panel" targetItem="@first" event="click" />
+                <pn:toggleControl targetPanel="panel" targetItem="@first" event="click" />
                 |&lt; first
             </h:outputLink>
             |
             <h:outputLink>
-                <ou:toggleControl targetPanel="panel" targetItem="@prev" event="click" />
+                <pn:toggleControl targetPanel="panel" targetItem="@prev" event="click" />
                 &lt;- prev
             </h:outputLink>
             |
             <h:outputLink>
-                <ou:toggleControl targetPanel="panel" targetItem="@next" event="click" />
+                <pn:toggleControl targetPanel="panel" targetItem="@next" event="click" />
                 next ->
             </h:outputLink>
             |
             <h:outputLink>
-                <ou:toggleControl targetPanel="panel" targetItem="@last" event="click" />
+                <pn:toggleControl targetPanel="panel" targetItem="@last" event="click" />
                 last >|
             </h:outputLink>
         </h:form>

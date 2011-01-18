@@ -3,8 +3,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:pn="http://richfaces.org/pn"
-      xmlns:ou="http://richfaces.org/output">
+      xmlns:pn="http://richfaces.org/output">
 
 <body>
 <ui:composition template="/templates/template.xhtml">
@@ -24,12 +23,12 @@
             </pn:togglePanel>
 
             <h:outputLink>
-                <ou:toggleControl targetPanel="my_id" targetItem="name2" event="click" />
+                <pn:toggleControl targetPanel="my_id" targetItem="name2" event="click" />
                 
                 Click me :) it is toggle control
             </h:outputLink>
             <h:outputLink>
-                <ou:toggleControl targetPanel="my_id" targetItem="name1" event="click" />
+                <pn:toggleControl targetPanel="my_id" targetItem="name1" event="click" />
                 
                 Click me :) it another toggle control
             </h:outputLink>

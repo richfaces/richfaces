@@ -202,6 +202,10 @@ public class ModalPanel {
         this.domElementAttachment = domElementAttachment;
     }
 
+    public void itemChangeEventListener() {
+
+    }
+
     public void itemChangeEventListener(ItemChangeEvent event) {
         System.out.println("item was changed from '" + event.getOldItem() + "' to '" + event.getNewItem() + "'");
     }
