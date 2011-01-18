@@ -41,4 +41,5 @@
     border-color : '#{richSkin.tipBorderColor}';
     font-family: '#{richSkin.generalFamilyFont}';
     font-size: '#{richSkin.generalSizeFont}';
+    display: inline-block;
 }
