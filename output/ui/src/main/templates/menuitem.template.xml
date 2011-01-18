@@ -80,7 +80,8 @@
 		 <c:when test="#{not isDisabled}">
 		  <script type="text/javascript">
 	                <cdk:scriptObject name="options">
-	                	<cdk:scriptOption name="submitFunction" value="#{getOnClickFunction(facesContext, component)}" wrapper="eventHandler"/>	                    
+                        <cdk:scriptOption name="mode" value="#{getSubmitMode(component)}" />
+	                	<cdk:scriptOption name="submitFunction" value="#{getOnClickFunction(facesContext, component)}" wrapper="eventHandler"/>
 	                </cdk:scriptObject>
 	                                
 					new RichFaces.ui.MenuItem(#{toScriptArgs(clientId, options)});

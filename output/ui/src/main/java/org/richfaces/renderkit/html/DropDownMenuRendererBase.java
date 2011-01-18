@@ -96,13 +96,13 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
                 if (jointPoint == null) {
                     jointPoint = org.richfaces.component.Positioning.DEFAULT;
                 }
-                RenderKitUtils.addToScriptHash(map, "jointPoint", jointPoint, org.richfaces.component.Positioning.DEFAULT);
+                RenderKitUtils.addToScriptHash(map, "jointPoint", jointPoint.getValue(), org.richfaces.component.Positioning.DEFAULT.getValue());
                 
                 Positioning direction = group.getDirection();
                 if (direction == null) {
                     direction = org.richfaces.component.Positioning.DEFAULT;
                 }
-                RenderKitUtils.addToScriptHash(map, "direction", direction, org.richfaces.component.Positioning.DEFAULT);
+                RenderKitUtils.addToScriptHash(map, "direction", direction.getValue(), org.richfaces.component.Positioning.DEFAULT.getValue());
                 
                 results.add(map);
             }

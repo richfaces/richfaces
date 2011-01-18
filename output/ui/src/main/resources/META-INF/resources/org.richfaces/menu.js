@@ -19,7 +19,7 @@
 		disabledItemCss : "rf-ddm-itm-dis",
 		listCss : "rf-ddm-lst",
 		listContainerCss : "rf-ddm-lst-bg"
-	}
+	};
 
 	// constructor definition
 	rf.ui.Menu = function(componentId, options) {
@@ -53,35 +53,23 @@
 							var groupId = groupOptions[i].id;
 							var positionOffset = [
 									groupOptions[i].horizontalOffset,
-									groupOptions[i].verticalOffset]
+									groupOptions[i].verticalOffset];
 							var onshow = groupOptions[i].onshow;
 							var onhide = groupOptions[i].onhide;
 
-							var eventType = "mouseover";
+							//var eventType = "mouseover";
 
 							if (null != groupId) {
 								// var popup = new RichFaces.ui.Popup(groupId +
 								// '_list', options);
-								var group = new RichFaces.ui.MenuGroup(groupId,
-										{
-											rootMenuId : this.id,
-											onshow : onshow,
-											onhide : onhide
-										});
-								this.groupList[groupId] = group;
+                                this.groupList[groupId] = new RichFaces.ui.MenuGroup(groupId,
+                                {
+                                    rootMenuId : this.id,
+                                    onshow : onshow,
+                                    onhide : onhide,
+                                    positionOffset: positionOffset
+                                });
 							}
-						}
-					},
-
-					submitForm : function(item) {
-						var form = this.__getParentForm(item);
-						if (this.options.mode == "server") {
-							rf.submitForm(form, {
-										selectedMenuItem : item.id
-									});
-						}
-						if (this.options.mode == "ajax") {
-							rf.ajax(item.id);
 						}
 					},
 
@@ -91,16 +79,11 @@
 							this.menuManager.addMenuId(this.id);
 							this.__showPopup();
 						}
-						this.popupElement.focus();
 					},
 
 					hide : function() {
 						this.__hidePopup();
 						this.menuManager.deletedMenuId();
-					},
-
-					__getParentForm : function(item) {
-						return item.parents("form")[0];
 					},
 
 					destroy : function() {
@@ -142,4 +125,4 @@
 		}
 
 	}
-})(jQuery, RichFaces)
+})(jQuery, RichFaces);

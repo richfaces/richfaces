@@ -92,30 +92,23 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
 
         return "";
     }
-    
+
     protected String getOnClickFunction(FacesContext facesContext, UIComponent component) {
         AbstractMenuItem menuItem = (AbstractMenuItem) component;
         Mode subminMode = resolveSubmitMode(menuItem);
-        if (menuItem.isDisabled()) {
-            return "";
-        } else if (subminMode == null || Mode.server.equals(subminMode)) {
-            return getServerSubmitFunction(menuItem);
-        } else if (Mode.ajax.equals(subminMode)) {
+        if (Mode.ajax.equals(subminMode)) {
             return getOnClick(facesContext, menuItem);
-        } else  if (Mode.client.equals(subminMode)) {
+        } else {
             return "";
         }
-        
-        return "";
     }
     
     protected Mode resolveSubmitMode(AbstractMenuItem menuItem) {
-        Mode submitMode = menuItem.getMode();
-        if (null != submitMode) {
-            return submitMode;
+        if (menuItem.getMode() != null) {
+            return menuItem.getMode();
         }
         AbstractDropDownMenu parent = getDDMenu(menuItem);
-        if (parent != null) {
+        if (parent != null && parent.getMode() != null) {
             return parent.getMode();
         }
         return Mode.server;
@@ -182,5 +175,9 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
             return false;
         }
         return true;
-    }    
+    }
+
+    public String getSubmitMode(UIComponent component){
+        return this.resolveSubmitMode((AbstractMenuItem) component).name();
+    }
 }

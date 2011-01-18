@@ -70,7 +70,7 @@
 		navEventHandlers["keydown" + this.namespace] = this.__keydownHandler;
 
 		rf.Event.bind(this.popupElement, navEventHandlers, this);
-	}
+	};
 
 	rf.BaseComponent.extend(rf.ui.MenuBase);
 
@@ -111,45 +111,41 @@
 					rf.ui.MenuManager.setActiveSubMenu(rf.$(this.element));
 				}
 				this.popupElement.focus();
-
 			},
 
-			__hidePopup : function() {
-				/*
-				 * for (var i in this.groupList) { this.groupList[i].hide(); }
-				 */
-				if (this.__isShown()) {
-					this.invokeEvent("hide", rf.getDomElement(this.id), null);
-					this.__closeChildGroups();
-					this.popup.hide();
-					this.displayed = false;
-					this.__deselectCurrentItem();
-					this.currentSelectedItemIndex = -1;
-					jqueryParentMenu=this.__getParentMenu();
-					parentMenu = rf.$(this.__getParentMenu());
-					if  (this.id != parentMenu.id)
-					{						
-						parentMenu.popupElement.focus();
-						rf.ui.MenuManager.setActiveSubMenu(parentMenu);
-					}
-				}
+            __hidePopup : function() {
+                if (this.__isShown()) {
+                    this.invokeEvent("hide", rf.getDomElement(this.id), null);
+                    this.__closeChildGroups();
+                    this.popup.hide();
+                    this.displayed = false;
+                    this.__deselectCurrentItem();
+                    this.currentSelectedItemIndex = -1;
+                    jqueryParentMenu = this.__getParentMenu();
+                    parentMenu = rf.$(this.__getParentMenu());
+                    if (this.id != parentMenu.id) {
+                        parentMenu.popupElement.focus();
+                        rf.ui.MenuManager.setActiveSubMenu(parentMenu);
+                    }
+                }
+            },
 
-			},
-
-			__closeChildGroups : function() {
+            __closeChildGroups : function() {
 				var i = 0;
-				for (i in this.items) {
-					menuItem = this.items.eq(i);
-					if (this.__isGroup(menuItem)) {
-						rf.$(menuItem).hide();
-					}
-				}
+                var menuItem;
+                for (i in this.items) {
+                    menuItem = this.items.eq(i);
+                    if (this.__isGroup(menuItem)) {
+                        rf.$(menuItem).hide();
+                    }
+                }
 			},
 
 			__getParentMenuFromItem : function(item) {
-				if (item)
-					menu = item.parents('div.rf-ddm-itm')
-							.has('div.rf-ddm-lst-bg').eq(1);
+                var menu;
+                if (item)
+                    menu = item.parents('div.rf-ddm-itm')
+                            .has('div.rf-ddm-lst-bg').eq(1);
 				if (menu && menu.length > 0)
 					return menu;
 				else {
@@ -162,8 +158,8 @@
 			},
 
 			__getParentMenu : function() {
-				menu = $(this.element).parents('div.rf-ddm-itm')
-						.has('div.rf-ddm-lst-bg').eq(0);
+                var menu = $(this.element).parents('div.rf-ddm-itm')
+                        .has('div.rf-ddm-lst-bg').eq(0);
 				if (menu && menu.length > 0)
 					return menu;
 				else {
@@ -174,10 +170,7 @@
 
 			__isGroup : function(item) {
 				var group = item.find('div.' + this.options.listCss);
-				if (group.length > 0) {
-					return true;
-				}
-				return false;
+				return group.length > 0;
 			},
 
 			__isDisabled : function(item) {
@@ -218,14 +211,14 @@
 								}, this), this.options.showDelay);
 			},
 
-			__leaveHandler : function(e) {
+			__leaveHandler : function() {
 				window.clearTimeout(this.showTimeoutId);
 				this.hideTimeoutId = window.setTimeout($.proxy(function() {
 									this.hide();
 								}, this), this.options.hideDelay);
 			},
 
-			__overHandler : function(e) {
+			__overHandler : function() {
 				window.clearTimeout(this.hideTimeoutId);
 			},
 
@@ -239,4 +232,4 @@
 		};
 	})());
 
-})(jQuery, RichFaces)
+})(jQuery, RichFaces);

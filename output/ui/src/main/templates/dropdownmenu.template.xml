@@ -50,8 +50,8 @@
 			
 		      <script type="text/javascript">
 	                <cdk:scriptObject name="options">
-	                	<cdk:scriptOption name="direction" value="#{getDirection(component)}"/>
-	                	<cdk:scriptOption name="jointPoint" value="#{getJointPoint(component)}"/>
+	                	<cdk:scriptOption name="direction" value="#{getDirection(component).getValue()}"/>
+	                	<cdk:scriptOption name="jointPoint" value="#{getJointPoint(component).getValue()}"/>
 	                	<cdk:scriptOption name="showEvent" value="#{getShowEvent(component)}"/>
 	                	<cdk:scriptOption name="mode" value="#{getMode(component)}"/>
 	                	<cdk:scriptOption attributes="hideDelay showEvent showDelay horizontalOffset verticalOffset" />
