@@ -23,8 +23,9 @@
 package org.richfaces.renderkit.html;
 
 import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractTogglePanelTitledItem;
-import org.richfaces.component.html.HtmlTab;
+import org.richfaces.component.AbstractTab;
 import org.richfaces.renderkit.HtmlConstants;
 
 import javax.faces.application.ResourceDependencies;
@@ -50,6 +51,7 @@ import static org.richfaces.renderkit.HtmlConstants.*;
     @ResourceDependency(library = "org.richfaces", name = "togglePanelItem.js"),
     @ResourceDependency(library = "org.richfaces", name = "tab.js")
 })
+@JsfRenderer(type = "org.richfaces.TabRenderer", family = AbstractTab.COMPONENT_FAMILY)
 public class TabRenderer extends TogglePanelItemRenderer {
 
     @Override
@@ -108,9 +110,9 @@ public class TabRenderer extends TogglePanelItemRenderer {
     @Override
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
         Map<String, Object> res = super.getScriptObjectOptions(context, component);
-        res.put("disabled", ((HtmlTab) component).isDisabled());
-        res.put("enter", ((HtmlTab) component).getOnenter());
-        res.put("leave", ((HtmlTab) component).getOnleave());
+        res.put("disabled", ((AbstractTab) component).isDisabled());
+        res.put("enter", ((AbstractTab) component).getOnenter());
+        res.put("leave", ((AbstractTab) component).getOnleave());
 
         return res;
     }

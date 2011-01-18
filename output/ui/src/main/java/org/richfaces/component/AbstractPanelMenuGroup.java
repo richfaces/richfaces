@@ -23,20 +23,22 @@
 
 package org.richfaces.component;
 
+import org.richfaces.cdk.annotations.*;
+import org.richfaces.event.ItemChangeEvent;
+import org.richfaces.event.PanelToggleEvent;
+
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 
-import org.richfaces.event.ItemChangeEvent;
-import org.richfaces.event.PanelToggleEvent;
-
 /**
  * @author akolonitsky
  * @since 2010-10-25
  */
-public abstract class AbstractPanelMenuGroup extends UIPanelMenuItem {
+@JsfComponent(tag = @Tag(type = TagType.Facelets))
+public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
 
     public static final String COMPONENT_TYPE = "org.richfaces.PanelMenuGroup";
 
@@ -44,11 +46,11 @@ public abstract class AbstractPanelMenuGroup extends UIPanelMenuItem {
     private Boolean submittedExpanded;
 
     private enum PropertyKeys {
-        immediate
+        selectable, immediate
     }
 
     protected AbstractPanelMenuGroup() {
-        setRendererType("org.richfaces.PanelMenuGroup");
+        setRendererType("org.richfaces.PanelMenuGroupRenderer");
     }
 
     @Override
@@ -147,13 +149,180 @@ public abstract class AbstractPanelMenuGroup extends UIPanelMenuItem {
         getStateHelper().put(PropertyKeys.immediate, immediate);
     }
 
+    // ------------------------------------------------ Component Attributes
+
+    @Attribute(defaultValue = "Boolean.FALSE")
+    public abstract Boolean isSelectable();
+
+/*
+    @Override
+    public PanelMenuMode getMode() {
+        return (PanelMenuMode) getStateHelper().eval(UIPanelMenuItem.PropertyKeys.mode, getPanelMenu().getGroupMode());
+    }
+*/
+
+    @Attribute(defaultValue = "getPanelMenu().isExpandSingle()")
     public abstract boolean isExpandSingle();
 
+    @Attribute(defaultValue = "click")
     public abstract String getCollapseEvent();
 
+    @Attribute(defaultValue = "click")
     public abstract String getExpandEvent();
 
+    @Attribute(defaultValue = "getPanelMenu().isBubbleSelection()")
     public abstract boolean isBubbleSelection();
 
+    @Attribute
     public abstract MethodExpression getChangeExpandListener();
+
+    // ------------------------------------------------ Html Attributes
+
+    enum Properties {
+        iconLeftDisabled, iconLeftExpanded, iconRightCollapsed, iconRightDisabled, iconRightExpanded, disabledClass, styleClass, iconLeftCollapsed
+
+    }
+
+    @Attribute(generate = false)
+    public String getIconLeftCollapsed() {
+        return (String) getStateHelper().eval(Properties.iconLeftCollapsed,
+                isTopItem() ? getPanelMenu().getTopGroupCollapseIconLeft() : getPanelMenu().getGroupCollapseIconLeft());
+    }
+
+    public void setIconLeftCollapsed(String iconLeftCollapsed) {
+        getStateHelper().put(Properties.iconLeftCollapsed, iconLeftCollapsed);
+    }
+
+
+    @Attribute(generate = false)
+    public String getIconLeftDisabled() {
+        return (String) getStateHelper().eval(Properties.iconLeftDisabled,
+                isTopItem() ? getPanelMenu().getTopGroupDisableIconLeft() : getPanelMenu().getGroupDisableIconLeft());
+    }
+
+    public void setIconLeftDisabled(String iconLeftDisabled) {
+        getStateHelper().put(Properties.iconLeftDisabled, iconLeftDisabled);
+    }
+
+    @Attribute(generate = false)
+    public String getIconLeftExpanded() {
+        return (String) getStateHelper().eval(Properties.iconLeftExpanded,
+                isTopItem() ? getPanelMenu().getTopGroupExpandIconLeft() : getPanelMenu().getGroupExpandIconLeft());
+    }
+
+    public void setIconLeftExpanded(String iconLeftExpanded) {
+        getStateHelper().put(Properties.iconLeftExpanded, iconLeftExpanded);
+    }
+
+    @Attribute(generate = false)
+    public String getIconRightCollapsed() {
+        return (String) getStateHelper().eval(Properties.iconRightCollapsed,
+                isTopItem() ? getPanelMenu().getTopGroupCollapseIconRight() : getPanelMenu().getGroupCollapseIconRight());
+    }
+
+    public void setIconRightCollapsed(String iconRightCollapsed) {
+        getStateHelper().put(Properties.iconRightCollapsed, iconRightCollapsed);
+    }
+
+    @Attribute(generate = false)
+    public String getIconRightDisabled() {
+        return (String) getStateHelper().eval(Properties.iconRightDisabled,
+                isTopItem() ? getPanelMenu().getTopGroupDisableIconRight() : getPanelMenu().getGroupDisableIconRight());
+    }
+
+    public void setIconRightDisabled(String iconRightDisabled) {
+        getStateHelper().put(Properties.iconRightDisabled, iconRightDisabled);
+    }
+
+    @Attribute(generate = false)
+    public String getIconRightExpanded() {
+        return (String) getStateHelper().eval(Properties.iconRightExpanded,
+                isTopItem() ? getPanelMenu().getTopGroupExpandIconRight() : getPanelMenu().getGroupExpandIconRight());
+    }
+
+    public void setIconRightExpanded(String iconRightExpanded) {
+        getStateHelper().put(Properties.iconRightExpanded, iconRightExpanded);
+    }
+
+    @Attribute(events = @EventName("collapse"))
+    public abstract String getOncollapse();
+
+    @Attribute(events = @EventName("expand"))
+    public abstract String getOnexpand();
+
+    @Attribute(events = @EventName("switch"))
+    public abstract String getOnswitch();
+
+    @Attribute(events = @EventName("beforecollapse"))
+    public abstract String getOnbeforecollapse();
+
+    @Attribute(events = @EventName("beforeexpand"))
+    public abstract String getOnbeforeexpand();
+
+    @Attribute(events = @EventName("beforeswitch"))
+    public abstract String getOnbeforeswitch();
+
+    @Attribute(generate = false)
+    public String getDisabledClass() {
+        return (String) getStateHelper().eval(Properties.disabledClass,
+                isTopItem() ? getPanelMenu().getTopGroupDisableClass() : getPanelMenu().getGroupDisableClass());
+    }
+
+    public void setDisabledClass(String disabledClass) {
+        getStateHelper().put(Properties.disabledClass, disabledClass);
+    }
+
+    public abstract String getHoverClass();
+
+    public abstract String getIconLeftClass();
+
+    public abstract String getIconRightClass();
+
+    public abstract String getStyle();
+
+    @Attribute(generate = false)
+    public String getStyleClass() {
+        return (String) getStateHelper().eval(Properties.styleClass,
+                isTopItem() ? getPanelMenu().getTopGroupClass() : getPanelMenu().getGroupClass());
+    }
+
+    public void setStyleClass(String styleClass) {
+        getStateHelper().put(Properties.styleClass, styleClass);
+    }
+
+    @Attribute(events = @EventName("beforedomupdate"))
+    public abstract String getOnbeforedomupdate();
+
+    @Attribute(events = @EventName("complete"))
+    public abstract String getOncomplete();
+
+    @Attribute(events = @EventName("click"))
+    public abstract String getOnclick();
+
+    @Attribute(events = @EventName("dblclick"))
+    public abstract String getOndblclick();
+
+    @Attribute(events = @EventName("mousedown"))
+    public abstract String getOnmousedown();
+
+    @Attribute(events = @EventName("mousemove"))
+    public abstract String getOnmousemove();
+
+    @Attribute(events = @EventName("mouseout"))
+    public abstract String getOnmouseout();
+
+    @Attribute(events = @EventName("mouseover"))
+    public abstract String getOnmouseover();
+
+    @Attribute(events = @EventName("mouseup"))
+    public abstract String getOnmouseup();
+
+    @Attribute(events = @EventName("unselect"))
+    public abstract String getOnunselect();
+
+    @Attribute(events = @EventName("select"))
+    public abstract String getOnselect();
+
+    @Attribute(events = @EventName("beforeselect"))
+    public abstract String getOnbeforeselect();
 }

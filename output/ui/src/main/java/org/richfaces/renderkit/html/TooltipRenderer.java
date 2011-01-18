@@ -23,15 +23,13 @@
 
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
-import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.TooltipMode;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractTooltip;
+import org.richfaces.context.ExtendedPartialViewContext;
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.MetaComponentRenderer;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -39,14 +37,15 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.TooltipMode;
-import org.richfaces.component.AbstractTooltip;
-import org.richfaces.component.html.HtmlTooltip;
-import org.richfaces.context.ExtendedPartialViewContext;
-import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.renderkit.MetaComponentRenderer;
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
 
 /**
  * @author amarkhel
@@ -62,6 +61,7 @@ import org.richfaces.renderkit.MetaComponentRenderer;
     @ResourceDependency(library = "org.richfaces", name = "popup.js"),
     @ResourceDependency(library = "org.richfaces", name = "tooltip.js"),
     @ResourceDependency(library = "org.richfaces", name = "tooltip.ecss") })
+@JsfRenderer(type = "org.richfaces.TooltipRenderer", family = AbstractTooltip.COMPONENT_FAMILY)
 public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRenderer {
 
     public static final String HIDE = "hide";
@@ -156,7 +156,7 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
 
     @Override
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
-        HtmlTooltip tooltip = (HtmlTooltip) component;
+        AbstractTooltip tooltip = (AbstractTooltip) component;
 
         Map<String, Object> options = new HashMap<String, Object>();
         options.put("ajax", getAjaxOptions(context, tooltip));
@@ -181,7 +181,7 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
         return options;
     }
 
-    public Integer[] getOffset(HtmlTooltip tooltip) {
+    public Integer[] getOffset(AbstractTooltip tooltip) {
         return new Integer[] {tooltip.getHorizontalOffset(), tooltip.getVerticalOffset()};
     }
 

@@ -32,6 +32,7 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.TooltipLayout;
 import org.richfaces.TooltipMode;
+import org.richfaces.cdk.annotations.*;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.renderkit.MetaComponentRenderer;
@@ -40,6 +41,8 @@ import org.richfaces.renderkit.MetaComponentRenderer;
  * @author amarkhel
  * @since 2010-10-24
  */
+@JsfComponent(tag = @Tag(type = TagType.Facelets),
+        renderer = @JsfRenderer(type = "org.richfaces.TooltipRenderer"))
 public abstract class AbstractTooltip extends AbstractDivPanel implements MetaComponentResolver, MetaComponentEncoder {
 
     public static final String COMPONENT_TYPE = "org.richfaces.Tooltip";
@@ -49,7 +52,7 @@ public abstract class AbstractTooltip extends AbstractDivPanel implements MetaCo
     public static final String CONTENT_META_COMPONENT_ID = "content";
 
     protected AbstractTooltip() {
-        setRendererType("org.richfaces.Tooltip");
+        setRendererType("org.richfaces.TooltipRenderer");
     }
 
     @Override
@@ -57,45 +60,105 @@ public abstract class AbstractTooltip extends AbstractDivPanel implements MetaCo
         return COMPONENT_FAMILY;
     }
 
-    public abstract String getTarget();
+    // ------------------------------------------------ Component Attributes
+    enum Properties {
+        target
+    }
 
+    public String getTarget() {
+        return (String) getStateHelper().eval(Properties.target, getParent().getClientId());
+    }
+
+    public void setTarget(String target) {
+        getStateHelper().put(Properties.target, target);
+    }
+
+/*
+    @Attribute
     public abstract String getValue();
+*/
 
+    @Attribute(defaultValue = "TooltipLayout.DEFAULT")
     public abstract TooltipLayout getLayout();
 
+    @Attribute(defaultValue = "true")
     public abstract boolean isAttached();
 
+    @Attribute(defaultValue = "Positioning.DEFAULT")
+    public abstract Positioning getJointPoint();
+
+    @Attribute(defaultValue = "Positioning.DEFAULT")
     public abstract Positioning getDirection();
 
+    @Attribute
     public abstract boolean isDisabled();
 
+    @Attribute(defaultValue = "true")
     public abstract boolean isFollowMouse();
 
+    @Attribute(defaultValue = "0")
     public abstract int getHideDelay();
 
+    @Attribute(defaultValue = "mouseleave")
     public abstract String getHideEvent();
 
+    @Attribute(defaultValue = "10")
     public abstract int getHorizontalOffset();
 
+    @Attribute(defaultValue = "TooltipMode.DEFAULT")
     public abstract TooltipMode getMode();
 
+    @Attribute(defaultValue = "0")
     public abstract int getShowDelay();
 
+    @Attribute(defaultValue = "mouseenter")
     public abstract String getShowEvent();
 
+    @Attribute(defaultValue = "10")
     public abstract int getVerticalOffset();
 
+    @Attribute
     public abstract boolean isBypassUpdates();
 
+    @Attribute
     public abstract boolean isLimitRender();
 
+    @Attribute
     public abstract Object getData();
 
+    @Attribute
     public abstract String getStatus();
 
+    @Attribute
     public abstract Object getExecute();
 
+    @Attribute
     public abstract Object getRender();
+
+    // ------------------------------------------------ Html Attributes
+
+    @Attribute
+    public abstract String getStyle();
+
+    @Attribute
+    public abstract String getStyleClass();
+
+    @Attribute
+    public abstract int getZindex();
+
+    @Attribute(events = @EventName("hide"))
+    public abstract String getOnhide();
+
+    @Attribute(events = @EventName("show"))
+    public abstract String getOnshow();
+
+    @Attribute(events = @EventName("beforehide"))
+    public abstract String getOnbeforehide();
+
+    @Attribute(events = @EventName("beforeshow"))
+    public abstract String getOnbeforeshow();
+
+    // ------------------------------------------------ Html Attributes End
 
     @Override
     public void encodeAll(FacesContext context) throws IOException {

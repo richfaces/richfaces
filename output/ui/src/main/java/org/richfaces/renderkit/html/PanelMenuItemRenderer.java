@@ -36,8 +36,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractPanelMenuItem;
-import org.richfaces.component.html.HtmlPanelMenuItem;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.util.PanelIcons;
@@ -46,6 +46,7 @@ import org.richfaces.renderkit.util.PanelIcons;
  * @author akolonitsky
  * @since 2010-10-25
  */
+@JsfRenderer(type = "org.richfaces.PanelMenuItemRenderer", family = AbstractPanelMenuItem.COMPONENT_FAMILY)
 public class PanelMenuItemRenderer extends DivPanelRenderer {
 
     public static final String UNSELECT = "unselect";
@@ -59,11 +60,11 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         super.doEncodeBegin(writer, context, component);
 
-        HtmlPanelMenuItem menuItem = (HtmlPanelMenuItem) component;
+        AbstractPanelMenuItem menuItem = (AbstractPanelMenuItem) component;
         encodeHeaderGroupBegin(writer, context, menuItem, getCssClass(menuItem, ""));
     }
 
-    private void encodeHeaderGroupBegin(ResponseWriter writer, FacesContext context, HtmlPanelMenuItem menuItem, String classPrefix) throws IOException {
+    private void encodeHeaderGroupBegin(ResponseWriter writer, FacesContext context, AbstractPanelMenuItem menuItem, String classPrefix) throws IOException {
         writer.startElement("table", null);
         writer.writeAttribute(CLASS_ATTRIBUTE, classPrefix + "-gr", null);
         writer.startElement(TBODY_ELEMENT, null);
@@ -80,7 +81,7 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
         }
     }
     
-    private void encodeHeaderGroupEnd(ResponseWriter writer, FacesContext context, HtmlPanelMenuItem menuItem, String classPrefix) throws IOException {
+    private void encodeHeaderGroupEnd(ResponseWriter writer, FacesContext context, AbstractPanelMenuItem menuItem, String classPrefix) throws IOException {
         writer.endElement(TD_ELEM);
 
         encodeHeaderGroupRightIcon(writer, context, menuItem, classPrefix);
@@ -90,14 +91,14 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
         writer.endElement("table");
     }
 
-    private void encodeHeaderGroupRightIcon(ResponseWriter writer, FacesContext context, HtmlPanelMenuItem menuItem, String classPrefix) throws IOException {
+    private void encodeHeaderGroupRightIcon(ResponseWriter writer, FacesContext context, AbstractPanelMenuItem menuItem, String classPrefix) throws IOException {
         String icon = menuItem.isDisabled() ? menuItem.getIconRightDisabled() : menuItem.getIconRight();
         String cssClasses = concatClasses(classPrefix + "-exp-ico", menuItem.getIconLeftClass());
         
         encodeTdIcon(writer, context, cssClasses, icon);
     }
 
-    private void encodeHeaderGroupLeftIcon(ResponseWriter writer, FacesContext context, HtmlPanelMenuItem menuItem, String classPrefix) throws IOException {
+    private void encodeHeaderGroupLeftIcon(ResponseWriter writer, FacesContext context, AbstractPanelMenuItem menuItem, String classPrefix) throws IOException {
         String icon = menuItem.isDisabled() ? menuItem.getIconLeftDisabled() : menuItem.getIconLeft();
         String cssClasses = concatClasses(classPrefix + "-ico", menuItem.getIconLeftClass());
 
@@ -144,7 +145,7 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
 
     @Override
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
-        HtmlPanelMenuItem panelMenuItem = (HtmlPanelMenuItem) component;
+        AbstractPanelMenuItem panelMenuItem = (AbstractPanelMenuItem) component;
 
         Map<String, Object> options = new HashMap<String, Object>();
         //TODO nick - ajax options should not be rendered in client mode
@@ -164,7 +165,7 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
 
     @Override
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        HtmlPanelMenuItem menuItem = (HtmlPanelMenuItem) component;
+        AbstractPanelMenuItem menuItem = (AbstractPanelMenuItem) component;
         encodeHeaderGroupEnd(writer, context, menuItem, getCssClass(menuItem, ""));
 
         super.doEncodeEnd(writer, context, component);

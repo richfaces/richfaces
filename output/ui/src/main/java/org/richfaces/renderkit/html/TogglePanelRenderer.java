@@ -25,6 +25,7 @@ package org.richfaces.renderkit.html;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSObject;
 import org.ajax4jsf.javascript.JSReference;
+import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.component.AbstractTogglePanelItem;
 import org.richfaces.component.util.HtmlUtil;
@@ -54,6 +55,7 @@ import java.util.Map;
     @ResourceDependency(name = "richfaces-event.js"),
     @ResourceDependency(name = "richfaces-base-component.js"),
     @ResourceDependency(library = "org.richfaces", name = "togglePanel.js") })
+@JsfRenderer(type = "org.richfaces.TogglePanelRenderer", family = AbstractTogglePanel.COMPONENT_FAMILY)
 public class TogglePanelRenderer extends DivPanelRenderer {
 
     public static final String VALUE_POSTFIX = "-value";

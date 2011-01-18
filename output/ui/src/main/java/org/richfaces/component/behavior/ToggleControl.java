@@ -29,9 +29,7 @@ import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.component.behavior.ClientBehavior;
-import org.richfaces.cdk.annotations.JsfBehavior;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.cdk.annotations.*;
 import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.renderkit.util.RendererUtils;
 
@@ -40,7 +38,11 @@ import org.richfaces.renderkit.util.RendererUtils;
  *
  */
 
-@JsfBehavior(id = "org.richfaces.component.behavior.ToggleControl", tag = @Tag(name = "toggleControl", handler = "org.richfaces.view.facelets.html.CustomBehaviorHandler", type = TagType.Facelets))
+@JsfBehavior(
+        id = "org.richfaces.component.behavior.ToggleControl",
+        tag = @Tag(name = "toggleControl", handler = "org.richfaces.view.facelets.html.CustomBehaviorHandler", type = TagType.Facelets),
+        renderer = @JsfBehaviorRenderer(type = "org.richfaces.component.behavior.ToggleControl")
+)
 public class ToggleControl extends ClientBehavior {
 
     public static final String BEHAVIOR_ID = "org.richfaces.component.behavior.ToggleControl";

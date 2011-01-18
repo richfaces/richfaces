@@ -23,9 +23,9 @@
 package org.richfaces.renderkit.html;
 
 import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractAccordionItem;
 import org.richfaces.component.AbstractTogglePanelTitledItem;
-import org.richfaces.component.html.HtmlAccordionItem;
-import org.richfaces.component.html.HtmlAccordionItem.PropertyKeys;
 import org.richfaces.renderkit.RenderKitUtils;
 
 import javax.faces.application.ResourceDependencies;
@@ -44,6 +44,7 @@ import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes
  * @author akolonitsky
  * @since 2010-08-05
  */
+
 @ResourceDependencies({
     @ResourceDependency(library = "javax.faces", name = "jsf.js"),
     @ResourceDependency(name = "jquery.js"),
@@ -53,23 +54,24 @@ import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes
     @ResourceDependency(library = "org.richfaces", name = "togglePanelItem.js"),
     @ResourceDependency(library = "org.richfaces", name = "accordionItem.js")
     })
+@JsfRenderer(type = "org.richfaces.AccordionItemRenderer", family = AbstractAccordionItem.COMPONENT_FAMILY)
 public class AccordionItemRenderer extends TogglePanelItemRenderer {
 
     private static final RenderKitUtils.Attributes HEADER_ATTRIBUTES = RenderKitUtils.attributes()
-        .generic("style", PropertyKeys.headerStyle.toString())
-        .generic("onclick", PropertyKeys.onheaderclick.toString(), "headerclick")
-        .generic("ondblclick", PropertyKeys.onheaderdblclick.toString(), "headerdblclick")
-        .generic("onmousedown", PropertyKeys.onheadermousedown.toString(), "headermousedown")
-        .generic("onmousemove", PropertyKeys.onheadermousemove.toString(), "headermousemove")
-        .generic("onmouseup", PropertyKeys.onheadermouseup.toString(), "headermouseup");
+        .generic("style", "headerStyle")
+        .generic("onclick", "onheaderclick", "headerclick")
+        .generic("ondblclick", "onheaderdblclick", "headerdblclick")
+        .generic("onmousedown", "onheadermousedown", "headermousedown")
+        .generic("onmousemove", "onheadermousemove", "headermousemove")
+        .generic("onmouseup", "onheadermouseup", "headermouseup");
 
-    private final TableIconsRendererHelper<HtmlAccordionItem> headerRenderer = new AccordionItemHeaderRenderer();
+    private final TableIconsRendererHelper<AbstractAccordionItem> headerRenderer = new AccordionItemHeaderRenderer();
 
     @Override
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         super.doEncodeBegin(writer, context, component);
 
-        encodeHeader(writer, context, (HtmlAccordionItem) component);
+        encodeHeader(writer, context, (AbstractAccordionItem) component);
 
         encodeContentBegin(component, writer);
     }
@@ -101,11 +103,11 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
         writer.endElement(DIV_ELEM);
     }
 
-    private void encodeHeader(ResponseWriter writer, FacesContext context, HtmlAccordionItem component) throws IOException {
+    private void encodeHeader(ResponseWriter writer, FacesContext context, AbstractAccordionItem component) throws IOException {
         writer.startElement(DIV_ELEM, component);
 
         String stateCssClass = "rf-ac-itm-hdr-" + (component.isDisabled() ? "dis" : (component.isActive() ? "act" : "inact"));
-        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-ac-itm-hdr", stateCssClass, attributeAsString(component, PropertyKeys.headerClass)), null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-ac-itm-hdr", stateCssClass, attributeAsString(component, "headerClass")), null);
 
         writer.writeAttribute(ID_ATTRIBUTE, component.getClientId() + ":header", null);
         renderPassThroughAttributes(context, component, HEADER_ATTRIBUTES);

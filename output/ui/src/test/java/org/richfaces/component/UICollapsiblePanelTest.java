@@ -26,9 +26,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.faces.component.UIComponent;
-import java.util.List;
-
 /**
  * @author akolonitsky
  * @since 2010-08-27

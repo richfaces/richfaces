@@ -23,6 +23,7 @@
 package org.richfaces.renderkit.html;
 
 import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractAccordion;
 import org.richfaces.component.util.HtmlUtil;
 
@@ -31,9 +32,6 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.util.Map;
-
-import static org.richfaces.component.html.HtmlAccordion.PropertyKeys.height;
-import static org.richfaces.component.html.HtmlAccordion.PropertyKeys.width;
 
 /**
  * @author akolonitsky
@@ -47,11 +45,12 @@ import static org.richfaces.component.html.HtmlAccordion.PropertyKeys.width;
     @ResourceDependency(library = "org.richfaces", name = "icons.ecss"),
     @ResourceDependency(library = "org.richfaces", name = "togglePanel.js"),
     @ResourceDependency(library = "org.richfaces", name = "accordion.js") })
+@JsfRenderer(type = "org.richfaces.AccordionRenderer", family = AbstractAccordion.COMPONENT_FAMILY)
 public class AccordionRenderer extends TogglePanelRenderer {
 
     @Override
     protected String getStyle(UIComponent component) {
-        return HtmlUtil.concatStyles(attributeAsStyle(component, height), attributeAsStyle(component, width),
+        return HtmlUtil.concatStyles(attributeAsStyle(component, "height"), attributeAsStyle(component, "width"),
                 super.getStyle(component));
     }
 
@@ -74,7 +73,7 @@ public class AccordionRenderer extends TogglePanelRenderer {
     @Override
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
         Map<String, Object> options = super.getScriptObjectOptions(context, component);
-        options.put("isKeepHeight", attributeAsString(component, height).length() > 0);
+        options.put("isKeepHeight", attributeAsString(component, "height").length() > 0);
 
         return options;
     }

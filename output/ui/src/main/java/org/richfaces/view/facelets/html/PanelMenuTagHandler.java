@@ -54,7 +54,7 @@ public class PanelMenuTagHandler extends ComponentHandler {
         return metaRuleset;
     }
 
-    private static class PanelMenuMetaRule extends MetaRule{
+    private static class PanelMenuMetaRule extends MetaRule {
 
         @Override
         public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {

@@ -22,31 +22,27 @@
 
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.renderkit.HtmlConstants.*;
-import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.active;
-import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.disabled;
-import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.inactive;
-import static org.richfaces.component.html.HtmlAccordion.PropertyKeys.height;
-import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
-
-import java.io.IOException;
-import java.util.Map;
+import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractTabPanel;
+import org.richfaces.component.AbstractTogglePanel;
+import org.richfaces.component.AbstractTogglePanelItem;
+import org.richfaces.component.AbstractTogglePanelTitledItem;
+import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.RenderKitUtils;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.Map;
 
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.component.AbstractTabPanel;
-import org.richfaces.component.AbstractTogglePanel;
-import org.richfaces.component.AbstractTogglePanelItem;
-import org.richfaces.component.AbstractTogglePanelTitledItem;
-import org.richfaces.component.html.HtmlTab;
-import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.renderkit.RenderKitUtils;
+import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.*;
+import static org.richfaces.renderkit.HtmlConstants.*;
+import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 
 /**
  * @author akolonitsky
@@ -62,14 +58,15 @@ import org.richfaces.renderkit.RenderKitUtils;
     @ResourceDependency(library = "org.richfaces", name = "togglePanel.js"),
     @ResourceDependency(library = "org.richfaces", name = "tabPanel.js")
 })
+@JsfRenderer(type = "org.richfaces.TabPanelRenderer", family = AbstractTabPanel.COMPONENT_FAMILY)
 public class TabPanelRenderer extends TogglePanelRenderer {
 
     private static final RenderKitUtils.Attributes HEADER_ATTRIBUTES = RenderKitUtils.attributes()
-        .generic("onclick", HtmlTab.PropertyKeys.onheaderclick.toString(), "headerclick")
-        .generic("ondblclick", HtmlTab.PropertyKeys.onheaderdblclick.toString(), "headerdblclick")
-        .generic("onmousedown", HtmlTab.PropertyKeys.onheadermousedown.toString(), "headermousedown")
-        .generic("onmousemove", HtmlTab.PropertyKeys.onheadermousemove.toString(), "headermousemove")
-        .generic("onmouseup", HtmlTab.PropertyKeys.onheadermouseup.toString(), "headermouseup");
+        .generic("onclick", "onheaderclick", "headerclick")
+        .generic("ondblclick", "onheaderdblclick", "headerdblclick")
+        .generic("onmousedown", "onheadermousedown", "headermousedown")
+        .generic("onmousemove", "onheadermousemove", "headermousemove")
+        .generic("onmouseup", "onheadermouseup", "headermouseup");
 
     private static final String DIV = DIV_ELEM;
     private static final String STYLE = STYLE_ATTRIBUTE;
@@ -147,8 +144,8 @@ public class TabPanelRenderer extends TogglePanelRenderer {
         writer.writeAttribute(ID_ATTRIBUTE, tab.getClientId() + ":header:" + state.toString(), null);
         renderPassThroughAttributes(context, tab, HEADER_ATTRIBUTES);
         writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-tb-hdr rf-tb-hdr-" + state.abbreviation(),
-            attributeAsString(tab, HtmlTab.PropertyKeys.headerClass), attributeAsString(tab, state.headerClass())), null);
-        writer.writeAttribute(STYLE_ATTRIBUTE, concatStyles(isDisplay ? "" : "display : none", attributeAsString(tab, HtmlTab.PropertyKeys.headerStyle.toString())), null);
+                attributeAsString(tab, "headerClass"), attributeAsString(tab, state.headerClass())), null);
+        writer.writeAttribute(STYLE_ATTRIBUTE, concatStyles(isDisplay ? "" : "display : none", attributeAsString(tab, "headerStyle")), null);
 
         writer.startElement("span", tab);
         writer.writeAttribute(CLASS_ATTRIBUTE, "rf-tb-lbl", null);
@@ -211,7 +208,7 @@ public class TabPanelRenderer extends TogglePanelRenderer {
     @Override
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
         Map<String, Object> options = super.getScriptObjectOptions(context, component);
-        options.put("isKeepHeight", attributeAsString(component, height).length() > 0);
+        options.put("isKeepHeight", attributeAsString(component, "height").length() > 0);
 
         return options;
     }

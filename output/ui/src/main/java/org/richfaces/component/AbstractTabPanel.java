@@ -23,19 +23,24 @@
 package org.richfaces.component;
 
 
+import org.richfaces.HeaderAlignment;
+import org.richfaces.HeaderPosition;
+import org.richfaces.cdk.annotations.*;
 
 /**
  * @author akolonitsky
  * @since 2010-08-24
  */
-public abstract class AbstractTabPanel extends UITogglePanel {
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"),
+        renderer = @JsfRenderer(type = "org.richfaces.TabPanelRenderer"))
+public abstract class AbstractTabPanel extends AbstractTogglePanel {
 
     public static final String COMPONENT_TYPE = "org.richfaces.TabPanel";
 
     public static final String COMPONENT_FAMILY = "org.richfaces.TabPanel";
 
     protected AbstractTabPanel() {
-        setRendererType("org.richfaces.TabPanel");
+        setRendererType("org.richfaces.TabPanelRenderer");
     }
 
     @Override
@@ -51,4 +56,69 @@ public abstract class AbstractTabPanel extends UITogglePanel {
         }
         return res;
     }
+
+    // ------------------------------------------------ Html Attributes
+
+    @Attribute
+    public abstract HeaderPosition getHeaderPosition();
+
+    @Attribute
+    public abstract HeaderAlignment getHeaderAlignment();
+
+    @Attribute
+    public abstract String getTabHeaderClassActive();
+
+    @Attribute
+    public abstract String getTabHeaderClassDisabled();
+
+    @Attribute
+    public abstract String getTabHeaderClassInactive();
+
+    @Attribute
+    public abstract String getTabContentClass();
+
+    @Attribute
+    public abstract String getTabHeaderClass();
+
+    @Attribute(events = @EventName("itemchange"))
+    public abstract String getOnitemchange();
+
+    @Attribute(events = @EventName("beforeitemchange"))
+    public abstract String getOnbeforeitemchange();
+
+    @Attribute
+    public abstract String getLang();
+
+    @Attribute
+    public abstract String getTitle();
+
+    @Attribute
+    public abstract String getStyle();
+
+    @Attribute
+    public abstract String getStyleClass();
+
+    @Attribute
+    public abstract String getDir();
+
+    @Attribute(events = @EventName("click"))
+    public abstract String getOnclick();
+
+    @Attribute(events = @EventName("dblclick"))
+    public abstract String getOndblclick();
+
+    @Attribute(events = @EventName("mousedown"))
+    public abstract String getOnmousedown();
+
+    @Attribute(events = @EventName("mousemove"))
+    public abstract String getOnmousemove();
+
+    @Attribute(events = @EventName("mouseout"))
+    public abstract String getOnmouseout();
+
+    @Attribute(events = @EventName("mouseover"))
+    public abstract String getOnmouseover();
+
+    @Attribute(events = @EventName("mouseup"))
+    public abstract String getOnmouseup();
 }

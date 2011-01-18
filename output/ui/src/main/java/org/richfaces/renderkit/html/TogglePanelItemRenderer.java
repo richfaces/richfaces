@@ -23,6 +23,7 @@
 package org.richfaces.renderkit.html;
 
 import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.component.AbstractTogglePanelItem;
 
@@ -46,6 +47,7 @@ import java.util.Map;
     @ResourceDependency(name = "richfaces-event.js"),
     @ResourceDependency(name = "richfaces-base-component.js"),
     @ResourceDependency(library = "org.richfaces", name = "togglePanelItem.js") })
+@JsfRenderer(type = "org.richfaces.TogglePanelItemRenderer", family = AbstractTogglePanelItem.COMPONENT_FAMILY)
 public class TogglePanelItemRenderer extends DivPanelRenderer {
     
     private static final String LEAVE = "leave";

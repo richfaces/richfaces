@@ -24,9 +24,9 @@
 package org.richfaces.renderkit.html;
 
 import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractPanelMenuGroup;
 import org.richfaces.component.AbstractPanelMenuItem;
-import org.richfaces.component.html.HtmlPanelMenuGroup;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -43,6 +43,7 @@ import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
  * @author akolonitsky
  * @since 2010-10-25
  */
+@JsfRenderer(type = "org.richfaces.PanelMenuGroupRenderer", family = AbstractPanelMenuGroup.COMPONENT_FAMILY)
 public class PanelMenuGroupRenderer extends DivPanelRenderer {
 
     public static final String COLLAPSE = "collapse";
@@ -56,8 +57,8 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
     //TODO nick - shouldn't this be rf-pm-gr-top?
     private static final String TOP_CSS_CLASS_PREFIX = "rf-pm-top-gr";
 
-    private final TableIconsRendererHelper<HtmlPanelMenuGroup> headerRenderer = new PanelMenuGroupHeaderRenderer(CSS_CLASS_PREFIX);
-    private final TableIconsRendererHelper<HtmlPanelMenuGroup> topHeaderRenderer = new PanelMenuGroupHeaderRenderer(TOP_CSS_CLASS_PREFIX);
+    private final TableIconsRendererHelper<AbstractPanelMenuGroup> headerRenderer = new PanelMenuGroupHeaderRenderer(CSS_CLASS_PREFIX);
+    private final TableIconsRendererHelper<AbstractPanelMenuGroup> topHeaderRenderer = new PanelMenuGroupHeaderRenderer(TOP_CSS_CLASS_PREFIX);
 
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
@@ -86,7 +87,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         super.doEncodeBegin(writer, context, component);
 
-        HtmlPanelMenuGroup menuGroup = (HtmlPanelMenuGroup) component;
+        AbstractPanelMenuGroup menuGroup = (AbstractPanelMenuGroup) component;
 
         writer.startElement(INPUT_ELEM, component);
 
@@ -102,7 +103,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
         encodeContentBegin(writer, context, menuGroup);
     }
 
-    private void encodeHeader(ResponseWriter writer, FacesContext context, HtmlPanelMenuGroup menuGroup) throws IOException {
+    private void encodeHeader(ResponseWriter writer, FacesContext context, AbstractPanelMenuGroup menuGroup) throws IOException {
         writer.startElement(DIV_ELEM, null);
         writer.writeAttribute(ID_ATTRIBUTE, menuGroup.getClientId(context) + ":hdr", null);
         writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses(getCssClass(menuGroup, "-hdr"),
@@ -117,7 +118,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
         return (item.isTopItem() ? TOP_CSS_CLASS_PREFIX : CSS_CLASS_PREFIX) + postfix;
     }
 
-    private void encodeContentBegin(ResponseWriter writer, FacesContext context, HtmlPanelMenuGroup menuGroup) throws IOException {
+    private void encodeContentBegin(ResponseWriter writer, FacesContext context, AbstractPanelMenuGroup menuGroup) throws IOException {
         writer.startElement(DIV_ELEM, null);
         writer.writeAttribute(ID_ATTRIBUTE, menuGroup.getClientId(context) + ":cnt", null);
         writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses(getCssClass(menuGroup, "-cnt"), menuGroup.isExpanded() ? "rf-pm-exp" : "rf-pm-colps"), null);
@@ -147,7 +148,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
 
     @Override
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
-        HtmlPanelMenuGroup panelMenuGroup = (HtmlPanelMenuGroup) component;
+        AbstractPanelMenuGroup panelMenuGroup = (AbstractPanelMenuGroup) component;
 
         Map<String, Object> options = new HashMap<String, Object>();
         //TODO nick - non-default values should not be rendered

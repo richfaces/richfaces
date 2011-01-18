@@ -22,6 +22,7 @@
 
 package org.richfaces.component;
 
+import org.richfaces.cdk.annotations.*;
 import org.richfaces.renderkit.html.TogglePanelItemRenderer;
 
 import javax.faces.component.UIComponent;
@@ -34,16 +35,19 @@ import java.util.Map;
 /**
  * @author akolonitsky
  * @version 1.0
- * @since -4712-01-01
  */
+@JsfComponent(
+        tag = @Tag(type = TagType.Facelets),
+        renderer = @JsfRenderer(type = "org.richfaces.TogglePanelItemRenderer"))
 public abstract class AbstractTogglePanelItem extends AbstractDivPanel {
 
     public static final String COMPONENT_TYPE = "org.richfaces.TogglePanelItem";
 
     public static final String COMPONENT_FAMILY = "org.richfaces.TogglePanelItem";
+    private static final String NAME = "name";
 
     protected AbstractTogglePanelItem() {
-        setRendererType("org.richfaces.TogglePanelItem");
+        setRendererType("org.richfaces.TogglePanelItemRenderer");
     }
 
     @Override
@@ -118,9 +122,64 @@ public abstract class AbstractTogglePanelItem extends AbstractDivPanel {
         attrs.put("style", "display:none; " + style);
     }
 
-    public abstract String getName();
+    // ------------------------------------------------ Component Attributes
 
+    @Attribute(defaultValue = "getId()", generate = false)
+    public String getName() {
+        return (String) getStateHelper().eval(NAME, getId());
+    }
+
+    public void setName(String name) {
+        getStateHelper().put(NAME, name);
+    }
+
+    @Attribute(defaultValue = "getParent().getSwitchType()")
     public abstract SwitchType getSwitchType();
+
+    // ------------------------------------------------ Html Attributes
+
+    @Attribute(events = @EventName("enter"))
+    public abstract String getOnenter();
+
+    @Attribute(events = @EventName("leave"))
+    public abstract String getOnleave();
+
+    @Attribute
+    public abstract String getLang();
+
+    @Attribute
+    public abstract String getTitle();
+
+    @Attribute
+    public abstract String getStyle();
+
+    @Attribute
+    public abstract String getStyleClass();
+
+    @Attribute
+    public abstract String getDir();
+
+    @Attribute(events = @EventName("click"))
+    public abstract String getOnclick();
+
+    @Attribute(events = @EventName("dblclick"))
+    public abstract String getOndblclick();
+
+    @Attribute(events = @EventName("mousedown"))
+    public abstract String getOnmousedown();
+
+    @Attribute(events = @EventName("mousemove"))
+    public abstract String getOnmousemove();
+
+    @Attribute(events = @EventName("mouseout"))
+    public abstract String getOnmouseout();
+
+    @Attribute(events = @EventName("mouseover"))
+    public abstract String getOnmouseover();
+
+    @Attribute(events = @EventName("mouseup"))
+    public abstract String getOnmouseup();
+
 
     public String toString() {
         return "TogglePanelItem {name: " + getName() + ", switchType: " + getSwitchType() + '}';

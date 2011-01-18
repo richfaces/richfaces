@@ -35,7 +35,6 @@ import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.Map;
 
-import static org.richfaces.component.html.HtmlDivPanel.PropertyKeys.*;
 import static org.richfaces.renderkit.RenderKitUtils.attributes;
 import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 
@@ -46,20 +45,24 @@ import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes
 public class DivPanelRenderer extends RendererBase {
 
     private static final RenderKitUtils.Attributes PASS_THROUGH_ATTRIBUTES = attributes(
-        lang,
-        onclick,
-        ondblclick,
-        onmousedown,
-        onmousemove,
-        onmouseout,
-        onmouseover,
-        onmouseup,
-        title,
-        dir
+        "lang",
+        "onclick",
+        "ondblclick",
+        "onmousedown",
+        "onmousemove",
+        "onmouseout",
+        "onmouseover",
+        "onmouseup",
+        "title",
+        "dir"
     );
 
     protected static String attributeAsStyle(UIComponent comp, Enum attr) {
-        String value = attributeAsString(comp, attr.toString());
+        return attributeAsStyle(comp, attr.toString());
+    }
+
+    protected static String attributeAsStyle(UIComponent comp, String attr) {
+        String value = attributeAsString(comp, attr);
         if (value.length() == 0) {
             return "";
         }

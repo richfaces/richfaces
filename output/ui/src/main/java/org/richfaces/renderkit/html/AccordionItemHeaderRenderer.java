@@ -1,7 +1,7 @@
 package org.richfaces.renderkit.html;
 
+import org.richfaces.component.AbstractAccordionItem;
 import org.richfaces.component.AbstractTogglePanelTitledItem;
-import org.richfaces.component.html.HtmlAccordionItem;
 import org.richfaces.renderkit.RendererBase;
 
 import javax.faces.context.FacesContext;
@@ -11,20 +11,20 @@ import java.io.IOException;
 import static org.richfaces.renderkit.HtmlConstants.*;
 import static org.richfaces.renderkit.html.DivPanelRenderer.attributeAsString;
 
-class AccordionItemHeaderRenderer extends TableIconsRendererHelper<HtmlAccordionItem> {
+class AccordionItemHeaderRenderer extends TableIconsRendererHelper<AbstractAccordionItem> {
 
     public AccordionItemHeaderRenderer() {
         super("header", "rf-ac-itm");
     }
 
-    protected void encodeHeaderIconLeft(ResponseWriter writer, FacesContext context, HtmlAccordionItem panel) throws IOException {
+    protected void encodeHeaderIconLeft(ResponseWriter writer, FacesContext context, AbstractAccordionItem panel) throws IOException {
         String iconInactive = panel.isDisabled() ? panel.getLeftIconDisabled() : panel.getLeftIconInactive();
         String iconActive = panel.isDisabled() ? panel.getLeftIconDisabled() : panel.getLeftIconActive();
 
         encodeTdIcon(writer, context, cssClassPrefix + "-ico", iconInactive, iconActive);
     }
 
-    protected void encodeHeaderIconRight(ResponseWriter writer, FacesContext context, HtmlAccordionItem panel) throws IOException {
+    protected void encodeHeaderIconRight(ResponseWriter writer, FacesContext context, AbstractAccordionItem panel) throws IOException {
         String iconInactive = panel.isDisabled() ? panel.getRightIconDisabled() : panel.getRightIconInactive();
         String iconActive = panel.isDisabled() ? panel.getRightIconDisabled() : panel.getRightIconActive();
 
@@ -44,7 +44,7 @@ class AccordionItemHeaderRenderer extends TableIconsRendererHelper<HtmlAccordion
     }
 
     @Override
-    protected void encodeHeaderTextValue(ResponseWriter writer, FacesContext context, HtmlAccordionItem titledItem) throws IOException {
+    protected void encodeHeaderTextValue(ResponseWriter writer, FacesContext context, AbstractAccordionItem titledItem) throws IOException {
         if (titledItem.isDisabled()) {
             encodeHeader(writer, context, titledItem, AbstractTogglePanelTitledItem.HeaderStates.disabled);
         } else {

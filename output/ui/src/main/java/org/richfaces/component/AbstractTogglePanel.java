@@ -46,6 +46,7 @@ import javax.faces.event.PreValidateEvent;
 import org.richfaces.application.MessageFactory;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.appplication.FacesMessages;
+import org.richfaces.cdk.annotations.*;
 import org.richfaces.component.util.MessageUtil;
 import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.event.ItemChangeListener;
@@ -55,6 +56,8 @@ import org.richfaces.event.ItemChangeSource;
  * @author akolonitsky
  * @version 1.0
  */
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"),
+        renderer = @JsfRenderer(type = "org.richfaces.TogglePanelRenderer"))
 public abstract class AbstractTogglePanel extends AbstractDivPanel implements ItemChangeSource {
 
     public static final String COMPONENT_TYPE = "org.richfaces.TogglePanel";
@@ -79,7 +82,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
     }
 
     protected AbstractTogglePanel() {
-        setRendererType("org.richfaces.TogglePanel");
+        setRendererType("org.richfaces.TogglePanelRenderer");
     }
 
 
@@ -588,24 +591,77 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
         }
     }
 
+    @Attribute(defaultValue = "SwitchType.DEFAULT")
     public abstract SwitchType getSwitchType();
 
+    @Attribute
     public abstract boolean isBypassUpdates();
 
+    @Attribute
     public abstract boolean isLimitRender();
 
+    @Attribute
     public abstract boolean isCycledSwitching();
 
+    @Attribute
     public abstract Object getData();
 
+    @Attribute
     public abstract String getStatus();
 
+    @Attribute
     public abstract Object getExecute();
 
+    @Attribute
     public abstract Object getRender();
 
+    @Attribute
     public abstract MethodExpression getItemChangeListener();
 
+
+    // ------------------------------------------------ Html Attributes
+
+    @Attribute(events = @EventName("itemchange"))
+    public abstract String getOnitemchange();
+
+    @Attribute(events = @EventName("beforeitemchange"))
+    public abstract String getOnbeforeitemchange();
+
+    @Attribute
+    public abstract String getLang();
+
+    @Attribute
+    public abstract String getTitle();
+
+    @Attribute
+    public abstract String getStyle();
+
+    @Attribute
+    public abstract String getStyleClass();
+
+    @Attribute
+    public abstract String getDir();
+
+    @Attribute(events = @EventName("click"))
+    public abstract String getOnclick();
+
+    @Attribute(events = @EventName("dblclick"))
+    public abstract String getOndblclick();
+
+    @Attribute(events = @EventName("mousedown"))
+    public abstract String getOnmousedown();
+
+    @Attribute(events = @EventName("mousemove"))
+    public abstract String getOnmousemove();
+
+    @Attribute(events = @EventName("mouseout"))
+    public abstract String getOnmouseout();
+
+    @Attribute(events = @EventName("mouseover"))
+    public abstract String getOnmouseover();
+
+    @Attribute(events = @EventName("mouseup"))
+    public abstract String getOnmouseup();
 
     // ------------------------------------------------ Event Processing Methods
 

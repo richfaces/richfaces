@@ -23,9 +23,9 @@
 package org.richfaces.renderkit.html;
 
 import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractCollapsiblePanel;
 import org.richfaces.component.AbstractTogglePanel;
-import org.richfaces.component.html.HtmlCollapsiblePanel;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -54,26 +54,27 @@ import static org.richfaces.renderkit.HtmlConstants.*;
     @ResourceDependency(library = "org.richfaces", name = "collapsiblePanelItem.js"),
     @ResourceDependency(library = "org.richfaces", name = "icons.ecss"),
     @ResourceDependency(library = "org.richfaces", name = "collapsiblePanel.ecss") })
+@JsfRenderer(type = "org.richfaces.CollapsiblePanelRenderer", family = AbstractCollapsiblePanel.COMPONENT_FAMILY)
 public class CollapsiblePanelRenderer extends TogglePanelRenderer {
 
     public static final String SWITCH = "switch";
     public static final String BEFORE_SWITCH = "beforeswitch";
 
-    private final TableIconsRendererHelper<HtmlCollapsiblePanel> headerRenderer = new TableIconsRendererHelper<HtmlCollapsiblePanel>("header", "rf-cp") {
+    private final TableIconsRendererHelper<AbstractCollapsiblePanel> headerRenderer = new TableIconsRendererHelper<AbstractCollapsiblePanel>("header", "rf-cp") {
 
-        protected void encodeHeaderIconLeft(ResponseWriter writer, FacesContext context, HtmlCollapsiblePanel panel) throws IOException {
+        protected void encodeHeaderIconLeft(ResponseWriter writer, FacesContext context, AbstractCollapsiblePanel panel) throws IOException {
             encodeTdIcon(writer, context, cssClassPrefix + "-ico",
                     panel.getLeftCollapsedIcon(), panel.getLeftExpandedIcon());
         }
 
-        protected void encodeHeaderIconRight(ResponseWriter writer, FacesContext context, HtmlCollapsiblePanel panel) throws IOException {
+        protected void encodeHeaderIconRight(ResponseWriter writer, FacesContext context, AbstractCollapsiblePanel panel) throws IOException {
             //TODO nick - should this be "-ico-exp"? also why expanded icon state is connected with right icon alignment?
             encodeTdIcon(writer, context, cssClassPrefix + "-exp-ico",
                     panel.getRightCollapsedIcon(), panel.getRightExpandedIcon());
         }
 
         @Override
-        protected void encodeHeaderTextValue(ResponseWriter writer, FacesContext context, HtmlCollapsiblePanel component) throws IOException {
+        protected void encodeHeaderTextValue(ResponseWriter writer, FacesContext context, AbstractCollapsiblePanel component) throws IOException {
             writer.startElement(DIV_ELEM, null);
             writer.writeAttribute(CLASS_ATTRIBUTE, cssClassPrefix + "-lbl-exp", null);
             writeFacetOrAttr(writer, context, component, text, text + "Expanded");
@@ -117,7 +118,7 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         super.doEncodeBegin(writer, context, component);
 
-        encodeHeader(writer, context, (HtmlCollapsiblePanel) component);
+        encodeHeader(writer, context, (AbstractCollapsiblePanel) component);
     }
 
     @Override
@@ -146,7 +147,7 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
         return options;
     }
 
-    private void encodeHeader(ResponseWriter writer, FacesContext context, HtmlCollapsiblePanel component) throws IOException {
+    private void encodeHeader(ResponseWriter writer, FacesContext context, AbstractCollapsiblePanel component) throws IOException {
         writer.startElement(DIV_ELEM, null);
         writer.writeAttribute(ID_ATTRIBUTE, component.getClientId(context) + ":header", null);
         writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-cp-hdr",

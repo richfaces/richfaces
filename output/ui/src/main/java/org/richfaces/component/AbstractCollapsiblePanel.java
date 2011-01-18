@@ -22,6 +22,7 @@
 
 package org.richfaces.component;
 
+import org.richfaces.cdk.annotations.*;
 import org.richfaces.event.PanelToggleEvent;
 import org.richfaces.event.PanelToggleListener;
 import org.richfaces.event.PanelToggleSource;
@@ -35,7 +36,9 @@ import javax.faces.event.FacesEvent;
  * @author akolonitsky
  * @since 2010-08-27
  */
-public abstract class AbstractCollapsiblePanel extends UITogglePanel implements PanelToggleSource {
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.CollapsiblePanelTagHandler"),
+        renderer = @JsfRenderer(type = "org.richfaces.CollapsiblePanelRenderer"))
+public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel implements PanelToggleSource {
 
     public static final String COMPONENT_TYPE = "org.richfaces.CollapsiblePanel";
 
@@ -57,7 +60,7 @@ public abstract class AbstractCollapsiblePanel extends UITogglePanel implements 
     }
 
     protected AbstractCollapsiblePanel() {
-        setRendererType("org.richfaces.CollapsiblePanel");
+        setRendererType("org.richfaces.CollapsiblePanelRenderer");
     }
 
     @Override
@@ -90,10 +93,6 @@ public abstract class AbstractCollapsiblePanel extends UITogglePanel implements 
         setActiveItem(String.valueOf(isExpanded));
     }
 
-    public abstract String getHeader();
-
-    public abstract MethodExpression getPanelToggleListener();
-
     @Override
     public void queueEvent(FacesEvent facesEvent) {
         PanelToggleEvent event = null;
@@ -105,6 +104,85 @@ public abstract class AbstractCollapsiblePanel extends UITogglePanel implements 
 
         super.queueEvent(event != null ? event : facesEvent);
     }
+
+    // ------------------------------------------------ Component Attributes
+
+    @Attribute
+    public abstract String getHeader();
+
+    @Attribute
+    public abstract MethodExpression getPanelToggleListener();
+
+    // ------------------------------------------------ Html Attributes
+
+    @Attribute
+    public abstract String getLeftCollapsedIcon();
+
+    @Attribute
+    public abstract String getLeftExpandedIcon();
+
+    @Attribute
+    public abstract String getRightCollapsedIcon();
+
+    @Attribute
+    public abstract String getRightExpandedIcon();
+
+    @Attribute
+    public abstract String getBodyClass();
+
+    @Attribute
+    public abstract String getHeaderClass();
+
+    @Attribute
+    public abstract String getHeaderControlClass();
+
+    @Attribute
+    public abstract String getOncomplete();
+
+    @Attribute
+    public abstract String getOnbeforedomupdate();
+
+    @Attribute(events = @EventName("switch"))
+    public abstract String getOnswitch();
+
+    @Attribute(events = @EventName("beforeswitch"))
+    public abstract String getOnbeforeswitch();
+
+    @Attribute
+    public abstract String getLang();
+
+    @Attribute
+    public abstract String getTitle();
+
+    @Attribute
+    public abstract String getStyle();
+
+    @Attribute
+    public abstract String getStyleClass();
+
+    @Attribute
+    public abstract String getDir();
+
+    @Attribute(events = @EventName("click"))
+    public abstract String getOnclick();
+
+    @Attribute(events = @EventName("dblclick"))
+    public abstract String getOndblclick();
+
+    @Attribute(events = @EventName("mousedown"))
+    public abstract String getOnmousedown();
+
+    @Attribute(events = @EventName("mousemove"))
+    public abstract String getOnmousemove();
+
+    @Attribute(events = @EventName("mouseout"))
+    public abstract String getOnmouseout();
+
+    @Attribute(events = @EventName("mouseover"))
+    public abstract String getOnmouseover();
+
+    @Attribute(events = @EventName("mouseup"))
+    public abstract String getOnmouseup();
 
     // ------------------------------------------------ Event Processing Methods
 

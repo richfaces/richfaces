@@ -22,11 +22,13 @@
 
 package org.richfaces.component;
 
+import org.richfaces.cdk.annotations.*;
 import org.richfaces.renderkit.html.DivPanelRenderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.Properties;
 
 import static org.richfaces.renderkit.html.DivPanelRenderer.capitalize;
 
@@ -34,7 +36,7 @@ import static org.richfaces.renderkit.html.DivPanelRenderer.capitalize;
  * @author akolonitsky
  * @since 2010-08-05
  */
-public abstract class AbstractTogglePanelTitledItem extends UITogglePanelItem {
+public abstract class AbstractTogglePanelTitledItem extends AbstractTogglePanelItem {
 
     public static final String COMPONENT_TYPE = "org.richfaces.TogglePanelTitledItem";
 
@@ -60,22 +62,9 @@ public abstract class AbstractTogglePanelTitledItem extends UITogglePanelItem {
         }
     }
 
-    protected AbstractTogglePanelTitledItem() {
-        setRendererType("org.richfaces.TogglePanelTitledItem");
-    }
-
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
-    }
-
-    public abstract boolean isDisabled();
-
-    public abstract String getHeader();
-
-    @Override
-    public String getName() {
-        return (String) getStateHelper().eval(PropertyKeys.name, getId());
     }
 
     @Override
@@ -113,4 +102,98 @@ public abstract class AbstractTogglePanelTitledItem extends UITogglePanelItem {
         }
         return headerFacet;
     }
+
+    // ------------------------------------------------ Component Attributes
+    enum Properties {
+        header
+    }
+
+    @Attribute
+    public abstract boolean isDisabled();
+
+    @Attribute(generate = false)
+    public String getHeader() {
+        return (String) getStateHelper().eval(Properties.header, getName());
+    }
+
+    public void setHeader(String header) {
+        getStateHelper().put(Properties.header, header);
+    }
+    // ------------------------------------------------ Html Attributes
+
+    @Attribute
+    public abstract String getHeaderClassActive();
+
+    @Attribute
+    public abstract String getHeaderClassDisabled();
+
+    @Attribute
+    public abstract String getHeaderClassInactive();
+
+    @Attribute
+    public abstract String getHeaderClass();
+
+    @Attribute
+    public abstract String getHeaderStyle();
+
+    @Attribute
+    public abstract String getContentClass();
+
+    @Attribute(events = @EventName("headerclick"))
+    public abstract String getOnheaderclick();
+
+    @Attribute(events = @EventName("headerdblclick"))
+    public abstract String getOnheaderdblclick();
+
+    @Attribute(events = @EventName("headermousedown"))
+    public abstract String getOnheadermousedown();
+
+    @Attribute(events = @EventName("headermousemove"))
+    public abstract String getOnheadermousemove() ;
+
+    @Attribute(events = @EventName("headermouseup"))
+    public abstract String getOnheadermouseup();
+
+    @Attribute(events = @EventName("enter"))
+    public abstract String getOnenter();
+
+    @Attribute(events = @EventName("leave"))
+    public abstract String getOnleave();
+
+    @Attribute
+    public abstract String getLang();
+
+    @Attribute
+    public abstract String getTitle();
+
+    @Attribute
+    public abstract String getStyle();
+
+    @Attribute
+    public abstract String getStyleClass();
+
+    @Attribute
+    public abstract String getDir();
+
+    @Attribute(events = @EventName("click"))
+    public abstract String getOnclick();
+
+    @Attribute(events = @EventName("dblclick"))
+    public abstract String getOndblclick();
+
+    @Attribute(events = @EventName("mousedown"))
+    public abstract String getOnmousedown();
+
+    @Attribute(events = @EventName("mousemove"))
+    public abstract String getOnmousemove();
+
+    @Attribute(events = @EventName("mouseout"))
+    public abstract String getOnmouseout();
+
+    @Attribute(events = @EventName("mouseover"))
+    public abstract String getOnmouseover();
+
+    @Attribute(events = @EventName("mouseup"))
+    public abstract String getOnmouseup();
+
 }

@@ -23,12 +23,12 @@
 
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.getValueRequestParamName;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractPanelMenu;
+import org.richfaces.component.AbstractPanelMenuItem;
+import org.richfaces.context.ExtendedPartialViewContext;
+import org.richfaces.renderkit.HtmlConstants;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -36,18 +36,18 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionEvent;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.component.AbstractPanelMenu;
-import org.richfaces.component.AbstractPanelMenuItem;
-import org.richfaces.component.html.HtmlPanelMenu;
-import org.richfaces.context.ExtendedPartialViewContext;
-import org.richfaces.renderkit.HtmlConstants;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.getValueRequestParamName;
 
 /**
  * @author akolonitsky
  * @since 2010-10-25
  */
+@JsfRenderer(type = "org.richfaces.PanelMenuRenderer", family = AbstractPanelMenu.COMPONENT_FAMILY)
 @ResourceDependencies( { // TODO review
     @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
     @ResourceDependency(name = "richfaces-event.js"),
@@ -122,7 +122,7 @@ public class PanelMenuRenderer extends DivPanelRenderer {
 
     @Override
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
-        HtmlPanelMenu panelMenu = (HtmlPanelMenu) component;
+        AbstractPanelMenu panelMenu = (AbstractPanelMenu) component;
 
         Map<String, Object> options = new HashMap<String, Object>();
         //TODO nick - only options with non-default values should be rendered
