@@ -53,16 +53,16 @@ public abstract class AbstractPopupPanel extends UIComponentBase {
     @Attribute
     public abstract int getWidth();
 
-    @Attribute
+    @Attribute(defaultValue = "0")
     public abstract int getMinHeight();
 
-    @Attribute
+    @Attribute(defaultValue = "0")
     public abstract int getMinWidth();
 
-    @Attribute
+    @Attribute(defaultValue = "0")
     public abstract int getMaxHeight();
 
-    @Attribute
+    @Attribute(defaultValue = "0")
     public abstract int getMaxWidth();
 
     @Attribute

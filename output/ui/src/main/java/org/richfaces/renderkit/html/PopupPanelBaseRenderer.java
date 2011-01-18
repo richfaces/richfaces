@@ -113,18 +113,16 @@ public class PopupPanelBaseRenderer extends RendererBase {
             }
         }
 
-        if (panel.getMinHeight() != -1) {
-            if (panel.getMinHeight() < SIZE) {
-                throw new FacesException("Attribbute minWidth should be greater then 10px");
-            }
-
-        }
-
-        if (panel.getMinWidth() != -1) {
+        if (panel.getMinWidth() != 0) {
             if (panel.getMinWidth() < SIZE) {
                 throw new FacesException("Attribbute minHeight should be greater then 10px");
             }
+        }
 
+        if (panel.getMinHeight() != 0) {
+            if (panel.getMinHeight() < SIZE) {
+                throw new FacesException("Attribbute minWidth should be greater then 10px");
+            }
         }
     }
 
@@ -188,8 +186,6 @@ public class PopupPanelBaseRenderer extends RendererBase {
         return result;
     }
     
-   
-    
     private Map<String, Object> prepareVisualOptions(Object value, AbstractPopupPanel panel) {
         if (null == value) {
             return new HashMap<String, Object>();
@@ -225,21 +221,5 @@ public class PopupPanelBaseRenderer extends RendererBase {
             topProperty = DEFAULT_PROPERTY_TOP; 
         }
         return topProperty;
-    }    
-    
-    protected int getMaxWidthOrDefault(UIComponent component) {
-        int maxWidth = ((AbstractPopupPanel) component).getMaxWidth();
-        if (maxWidth == 0) {
-            maxWidth = Integer.MAX_VALUE; 
-        }
-        return maxWidth;
-    } 
-    
-    protected int getMaxHeightOrDefault(UIComponent component) {
-        int maxHeight = ((AbstractPopupPanel) component).getMaxHeight();
-        if (maxHeight == 0) {
-            maxHeight = Integer.MAX_VALUE; 
-        }
-        return maxHeight;
     }    
 }

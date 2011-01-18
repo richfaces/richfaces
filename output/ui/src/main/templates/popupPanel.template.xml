@@ -75,9 +75,7 @@
 		<cdk:scriptObject name="options">
 		    <cdk:scriptOption name="left" value="#{getLeftOrDefault(component)}"/>
 		    <cdk:scriptOption name="top" value="#{getTopOrDefault(component)}"/>
-		    <cdk:scriptOption name="maxWidth" value="#{getMaxWidthOrDefault(component)}"/>
-		    <cdk:scriptOption name="maxHeight" value="#{getMaxHeightOrDefault(component)}"/>
-	        <cdk:scriptOption attributes="width height minWidth minHeight moveable followByScroll zindex shadowDepth shadowOpacity domElementAttachment show keepVisualState autosized resizeable modal overlapEmbedObjects visualOptions " />
+	        <cdk:scriptOption attributes="minHeight minWidth maxHeight maxWidth width height moveable followByScroll zindex shadowDepth shadowOpacity domElementAttachment show keepVisualState autosized resizeable modal overlapEmbedObjects visualOptions " />
 	        <cdk:scriptOption attributes="onshow onhide onresize onmove onbeforeshow onbeforehide" wrapper="eventHandler"/>
 	    </cdk:scriptObject>
 			
@@ -88,8 +86,6 @@
 				</c:if>
 			</script>			
 </div>
-
-
 
 	</cc:implementation>
 </cdk:root>
