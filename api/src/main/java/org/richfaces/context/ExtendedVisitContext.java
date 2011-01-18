@@ -21,8 +21,6 @@
  */
 package org.richfaces.context;
 
-import static org.richfaces.component.MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR;
-
 import java.util.Collection;
 import java.util.Map;
 
@@ -32,6 +30,10 @@ import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
+import org.richfaces.component.MetaComponentResolver;
+
+import com.google.common.base.Joiner;
+
 /**
  * @author Nick Belaevski
  *
@@ -40,6 +42,8 @@ public abstract class ExtendedVisitContext extends VisitContext {
 
     public static final String META_COMPONENT_ID = "org.richfaces.MetaComponentId";
 
+    private static final Joiner META_COMPONENT_SEPARATOR_JOINER = Joiner.on(MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR).skipNulls();
+    
     private final FacesContext facesContext;
 
     private final ExtendedVisitContextMode visitMode;
@@ -76,37 +80,13 @@ public abstract class ExtendedVisitContext extends VisitContext {
     }
 
     public String buildExtendedClientId(UIComponent component) {
-        String extendedClientId = component.getClientId(facesContext);
-        String subComponentId = (String) facesContext.getAttributes().get(META_COMPONENT_ID);
-        if (subComponentId != null) {
-            StringBuilder sb = new StringBuilder(extendedClientId.length() + 1 /* separator length */ +
-                subComponentId.length());
-
-            sb.append(extendedClientId);
-            sb.append(META_COMPONENT_SEPARATOR_CHAR);
-            sb.append(subComponentId);
-
-            extendedClientId = sb.toString();
-        }
-
-        return extendedClientId;
+        String metaComponentId = (String) facesContext.getAttributes().get(META_COMPONENT_ID);
+        return META_COMPONENT_SEPARATOR_JOINER.join(component.getClientId(facesContext), metaComponentId);
     }
 
     public String buildExtendedComponentId(UIComponent component) {
-        String componentId = component.getId();
-        String subComponentId = (String) facesContext.getAttributes().get(META_COMPONENT_ID);
-        if (subComponentId != null) {
-            StringBuilder sb = new StringBuilder(componentId.length() + 1 /* separator length */ +
-                subComponentId.length());
-
-            sb.append(componentId);
-            sb.append(META_COMPONENT_SEPARATOR_CHAR);
-            sb.append(subComponentId);
-
-            componentId = sb.toString();
-        }
-
-        return componentId;
+        String metaComponentId = (String) facesContext.getAttributes().get(META_COMPONENT_ID);
+        return META_COMPONENT_SEPARATOR_JOINER.join(component.getId(), metaComponentId);
     }
 
     @Override

@@ -22,6 +22,8 @@
 package org.richfaces.context;
 
 import static org.richfaces.component.MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR;
+import static org.richfaces.util.Util.NamingContainerDataHolder.SEPARATOR_CHAR;
+import static org.richfaces.util.Util.NamingContainerDataHolder.SEPARATOR_CHAR_JOINER;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -33,14 +35,15 @@ import java.util.Set;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.component.AjaxContainer;
 import org.richfaces.component.ComponentIterators;
 import org.richfaces.component.MetaComponentResolver;
+import org.richfaces.context.IdParser.Node;
 import org.richfaces.renderkit.util.CoreRendererUtils;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Iterators;
 
 /**
@@ -65,10 +68,6 @@ public final class ComponentIdResolver {
 
     private LinkedList<UIComponent> componentsStack = null;
 
-    private IdParser idParser;
-
-    private char namingContainerSeparator;
-
     private FacesContext facesContext;
 
     private ComponentIdResolverNode rootNode;
@@ -81,8 +80,6 @@ public final class ComponentIdResolver {
         this.resolvedIds = new HashSet<String>();
         this.unresolvedIds = new HashSet<String>();
         this.rootNode = new ComponentIdResolverNode(null, null);
-        this.namingContainerSeparator = UINamingContainer.getSeparatorChar(facesContext);
-        this.idParser = new IdParser(namingContainerSeparator, MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR);
     }
 
     private static boolean isNotEmpty(Collection<?> c) {
@@ -166,43 +163,38 @@ public final class ComponentIdResolver {
         }
 
         if (containerClientId != null && containerClientId.length() != 0) {
-            StringBuilder builder = new StringBuilder(containerClientId.length() + 1 /* separator */ + id.length());
-            builder.append(containerClientId);
-            builder.append(namingContainerSeparator);
-            builder.append(id);
-            return builder.toString();
+            return SEPARATOR_CHAR_JOINER.join(containerClientId, id);
         } else {
             return id;
         }
     }
 
     protected void addIdImmediately(String id) {
-        idParser.setId(id);
+        Node[] nodes = IdParser.parse(id);
+        
+        ComponentIdResolverNode resolverNode = rootNode;
 
-        ComponentIdResolverNode node = rootNode;
-
-        while (idParser.findNext()) {
-            String componentId = idParser.getComponentId();
-
-            if (componentId.length() == 0) {
+        for (Node node : nodes) {
+            if (node.getFunction() != null) {
                 continue;
             }
-
-            if (BaseExtendedVisitContext.ANY_WILDCARD.equals(componentId)) {
-                continue;
+            
+            String image = node.getImage();
+            
+            int metaSepIdx = image.indexOf(META_COMPONENT_SEPARATOR_CHAR);
+            if (metaSepIdx >= 0) {
+                image = image.substring(0, metaSepIdx);
             }
 
-            if (componentId.length() > 2 && componentId.charAt(0) == '[' &&
-                componentId.charAt(componentId.length() - 1) == ']') {
-
+            if (Strings.isNullOrEmpty(image)) {
                 continue;
             }
-
-            node = node.getOrCreateChild(componentId);
+            
+            resolverNode = resolverNode.getOrCreateChild(image);
         }
-
+        
         unresolvedIds.add(id);
-        node.addFullId(id);
+        resolverNode.addFullId(id);
     }
 
     public void addId(String id) {
@@ -238,7 +230,7 @@ public final class ComponentIdResolver {
     }
 
     private boolean isAbsolute(String id) {
-        return id.charAt(0) == namingContainerSeparator;
+        return id.charAt(0) == SEPARATOR_CHAR;
     }
 
     private void buildInversedFilteredTreeRecursively(ComponentIdResolverNode directNode) {

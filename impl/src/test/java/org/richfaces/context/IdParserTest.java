@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -21,163 +21,76 @@
  */
 package org.richfaces.context;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.easymock.EasyMock.expect;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.fail;
+import static org.richfaces.context.IdParser.parse;
 
-import org.junit.After;
+import java.util.HashMap;
+
+import javax.faces.context.FacesContext;
+
+import org.jboss.test.faces.mock.Environment;
+import org.jboss.test.faces.mock.Mock;
+import org.jboss.test.faces.mock.MockFacesEnvironment;
+import org.jboss.test.faces.mock.MockTestRunner;
 import org.junit.Before;
 import org.junit.Test;
-
+import org.junit.runner.RunWith;
+import org.richfaces.context.IdParser.Node;
 
 /**
  * @author Nick Belaevski
- *
+ * 
  */
+@RunWith(MockTestRunner.class)
 public class IdParserTest {
 
-    private IdParser idParser;
-
+    @Mock
+    @Environment({Environment.Feature.EXTERNAL_CONTEXT})
+    private MockFacesEnvironment environment;
+    
     @Before
     public void setUp() throws Exception {
-        idParser = new IdParser(':', '@');
+        environment.resetToNice();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        expect(facesContext.getAttributes()).andStubReturn(new HashMap<Object, Object>());
+        environment.replay();
     }
-
-    @After
-    public void tearDown() throws Exception {
-        idParser = null;
-    }
-
-    @Test
-    public void testIncorrectIds() throws Exception {
-        idParser.setId("");
-
-        idParser.findNext();
-        assertFalse(idParser.findNext());
-
-        idParser.setId(":test");
-
-        idParser.findNext();
-        idParser.findNext();
-        assertFalse(idParser.findNext());
-
-        idParser.setId("test:");
-
-        idParser.findNext();
-        idParser.findNext();
-        assertFalse(idParser.findNext());
-
-        idParser.setId("@head");
-
-        idParser.findNext();
-        assertFalse(idParser.findNext());
-
-        idParser.setId("head@");
-
-        idParser.findNext();
-        assertFalse(idParser.findNext());
-    }
-
+    
     @Test
     public void testSimpleId() throws Exception {
-        idParser.setId("simpleId");
-
-        assertTrue(idParser.findNext());
-        assertEquals("simpleId", idParser.getComponentId());
-        assertNull(idParser.getMetadataComponentId());
-
-        assertFalse(idParser.findNext());
+        assertArrayEquals(new Node[0], parse(""));
+        assertArrayEquals(new Node[] { new Node("test") }, parse("test"));
+        assertArrayEquals(new Node[] { new Node("form"), new Node("table") }, parse("form:table"));
     }
 
     @Test
-    public void testSubComponentId() throws Exception {
-        idParser.setId("table@head");
-
-        assertTrue(idParser.findNext());
-        assertEquals("@head", idParser.getMetadataComponentId());
-        assertEquals("table", idParser.getComponentId());
-
-        assertFalse(idParser.findNext());
+    public void testRowsFunction() throws Exception {
+        try {
+            parse("form:table:@rows(");
+            fail();
+        } catch (IllegalArgumentException e) {
+            //ignore
+        }
+        
+        try {
+            parse("form:table:@rows(12");
+            fail();
+        } catch (IllegalArgumentException e) {
+            //ignore
+        }
+        
+        assertArrayEquals(new Node[] { new Node("form"), new Node("table"), new Node("", "rows"), new Node("@row") }, parse("form:table:@rows():@row"));
+        assertArrayEquals(new Node[] { new Node("form"), new Node("table"), new Node("12", "rows") }, parse("form:table:@rows(12)"));
+        assertArrayEquals(new Node[] { new Node("form"), new Node("table"), new Node("", "rows"), new Node("subtable") }, 
+            parse("form:table:@rows():subtable"));
+        
+        assertArrayEquals(new Node[] {
+            new Node("form"), new Node("table"), new Node("12", "rows"), new Node("subtable"), 
+            new Node("a", "rows"), new Node("cell") }, 
+            parse("form:table:@rows(12):subtable:@rows(a):cell"));
+        
     }
-
-    @Test
-    public void testSeries() throws Exception {
-        idParser.setId("form:table:0:nestedTable@body");
-
-        assertTrue(idParser.findNext());
-        assertEquals("form", idParser.getComponentId());
-        assertNull(idParser.getMetadataComponentId());
-
-        assertTrue(idParser.findNext());
-        assertEquals("table", idParser.getComponentId());
-        assertNull(idParser.getMetadataComponentId());
-
-        assertTrue(idParser.findNext());
-        assertEquals("0", idParser.getComponentId());
-        assertNull(idParser.getMetadataComponentId());
-
-        assertTrue(idParser.findNext());
-        assertEquals("@body", idParser.getMetadataComponentId());
-        assertEquals("nestedTable", idParser.getComponentId());
-
-        assertFalse(idParser.findNext());
-
-        idParser.setId("myBigTable@header");
-
-        assertTrue(idParser.findNext());
-        assertEquals("@header", idParser.getMetadataComponentId());
-        assertEquals("myBigTable", idParser.getComponentId());
-
-        assertFalse(idParser.findNext());
-
-        idParser.setId("tree:0-12-28:node@status:table:10:tab@label");
-
-        assertTrue(idParser.findNext());
-        assertEquals("tree", idParser.getComponentId());
-        assertNull(idParser.getMetadataComponentId());
-
-        assertTrue(idParser.findNext());
-        assertEquals("0-12-28", idParser.getComponentId());
-        assertNull(idParser.getMetadataComponentId());
-
-        assertTrue(idParser.findNext());
-        assertEquals("@status", idParser.getMetadataComponentId());
-        assertEquals("node", idParser.getComponentId());
-
-        assertTrue(idParser.findNext());
-        assertEquals("table", idParser.getComponentId());
-        assertNull(idParser.getMetadataComponentId());
-
-        assertTrue(idParser.findNext());
-        assertEquals("10", idParser.getComponentId());
-        assertNull(idParser.getMetadataComponentId());
-
-        assertTrue(idParser.findNext());
-        assertEquals("@label", idParser.getMetadataComponentId());
-        assertEquals("tab", idParser.getComponentId());
-
-        assertFalse(idParser.findNext());
-    }
-
-    @Test
-    public void testNestedSubcomponents() throws Exception {
-        //TODO - review this test - behavior is not clear for now
-
-        idParser.setId("form:table@head@x-head:child");
-
-        assertTrue(idParser.findNext());
-        assertEquals("form", idParser.getComponentId());
-        assertNull(idParser.getMetadataComponentId());
-
-        assertTrue(idParser.findNext());
-        assertEquals("@head@x-head", idParser.getMetadataComponentId());
-        assertEquals("table", idParser.getComponentId());
-
-        assertTrue(idParser.findNext());
-        assertEquals("child", idParser.getComponentId());
-        assertNull(idParser.getMetadataComponentId());
-
-        assertFalse(idParser.findNext());
-    }
+    
 }

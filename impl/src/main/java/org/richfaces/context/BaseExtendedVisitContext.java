@@ -21,37 +21,75 @@
  */
 package org.richfaces.context;
 
+import static org.richfaces.component.MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR;
+import static org.richfaces.util.Util.NamingContainerDataHolder.SEPARATOR_CHAR_JOINER;
+
 import java.util.AbstractCollection;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UINamingContainer;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitHint;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.component.MetaComponentResolver;
-
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.ListMultimap;
+import com.google.common.collect.SetMultimap;
+import com.google.common.collect.Sets;
 /**
  * @author Nick Belaevski
  *
  */
 public class BaseExtendedVisitContext extends ExtendedVisitContext {
 
-    static final String ANY_WILDCARD = "*";
+    protected static interface ClientIdVisitor {
 
-    private static final int SHORT_ID_IN_CLIENTID_SEGMENTS_NUMBER = 2;
+        public abstract void visitSubtreeId(String baseId, String clientId);
+
+        public abstract void visitDirectSubtreeId(String baseId, String shortId);
+
+        public abstract void visitShortId(String shortId);
+
+    }
+
+    protected final ClientIdVisitor addNodeVisitor = new ClientIdVisitor() {
+
+        public void visitSubtreeId(String baseId, String clientId) {
+            subtreeIds.put(baseId, clientId);
+        }
+
+        public void visitDirectSubtreeId(String baseId, String shortId) {
+            directSubtreeIds.put(baseId, shortId);
+        }
+
+        public void visitShortId(String shortId) {
+            shortIds.add(shortId);
+        }
+    };
+
+    protected final ClientIdVisitor removeNodeVisitor = new ClientIdVisitor() {
+        
+        public void visitSubtreeId(String baseId, String clientId) {
+            subtreeIds.remove(baseId, clientId);
+        }
+
+        public void visitShortId(String shortId) {
+            //do nothing
+        }
+
+        public void visitDirectSubtreeId(String baseId, String shortId) {
+            directSubtreeIds.remove(baseId, shortId);
+        }
+    };
 
     private final class CollectionProxy extends AbstractCollection<String> {
 
@@ -60,17 +98,17 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
 
         @Override
         public boolean isEmpty() {
-            return directNodesMap.isEmpty();
+            return clientIds.isEmpty();
         }
 
         @Override
         public int size() {
-            return directNodesMap.size();
+            return clientIds.size();
         }
 
         @Override
         public Iterator<String> iterator() {
-            return new IteratorProxy(directNodesMap.keySet().iterator());
+            return new IteratorProxy(clientIds.iterator());
         }
 
         @Override
@@ -106,8 +144,7 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
 
         public void remove() {
             if (current != null) {
-                ComponentMatcherNode node = directNodesMap.get(current);
-                removeNode(node);
+                removeNode(current, false);
 
                 current = null;
             }
@@ -116,85 +153,19 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
         }
     }
 
-    private interface NodeOperationCommand {
-
-        public ComponentMatcherNode getNextNode(ComponentMatcherNode currentNode, String nodeId, boolean isPattern);
-
-        public boolean processLastNode(ComponentMatcherNode lastNode, String fullId);
-    }
-
-    private NodeOperationCommand addNodeOperation = new NodeOperationCommand() {
-
-        public boolean processLastNode(ComponentMatcherNode lastNode, String fullId) {
-            if (!directNodesMap.containsKey(fullId)) {
-                directNodesMap.put(fullId, lastNode);
-                lastNode.markAdded();
-
-                ComponentMatcherNode n = lastNode;
-                int addedSegmentsCount = 0;
-                while (n != null && addedSegmentsCount < SHORT_ID_IN_CLIENTID_SEGMENTS_NUMBER) {
-                    if (!n.isPatternNode() && !n.isMetaComponentNode()) {
-                        String shortId = n.getSource();
-                        if (shortId != null) {
-                            addedSegmentsCount++;
-                            //TODO filter meta component ids
-                            shortIds.add(shortId);
-                        }
-                    }
-
-                    n = n.getParentNode();
-                }
-
-                if (!lastNode.hasPatternNodeInChain()) {
-                    lastNode.addSubtreeId(fullId);
-                }
-
-                return true;
-            }
-
-            return false;
-        }
-
-        public ComponentMatcherNode getNextNode(ComponentMatcherNode currentNode, String nodeId, boolean isPattern) {
-            return currentNode.getOrCreateChild(nodeId, isPattern);
-        }
-    };
-
-    private NodeOperationCommand removeNodeOperation = new NodeOperationCommand() {
-
-        public boolean processLastNode(ComponentMatcherNode lastNode, String fullId) {
-            ComponentMatcherNode node = directNodesMap.remove(fullId);
-            if (node != null) {
-                if (!node.hasPatternNodeInChain()) {
-                    node.removeSubtreeId(fullId);
-                }
-
-                removeNode(node);
-
-                return true;
-            }
-
-            return false;
-        }
-
-        public ComponentMatcherNode getNextNode(ComponentMatcherNode currentNode, String nodeId, boolean isPattern) {
-            return currentNode.getChild(nodeId, isPattern);
-        }
-    };
-
-    private IdParser idParser;
-
     // The client ids to visit
     private Collection<String> clientIds;
 
     private Collection<String> shortIds;
 
+    private SetMultimap<String, String> subtreeIds;
+
+    private ListMultimap<String, String> directSubtreeIds;
+
     // Our visit hints
     private Set<VisitHint> hints;
 
-    private ComponentMatcherNode rootNode;
-
-    private Map<String, ComponentMatcherNode> directNodesMap;
+    private CollectionProxy proxiedClientIds;
 
     /**
      * Creates a PartialVisitorContext instance with the specified hints.
@@ -223,142 +194,51 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
         this.hints = Collections.unmodifiableSet(hintsEnumSet);
     }
 
-    private IdParser setupIdParser(String id) {
-        if (idParser == null) {
-            idParser = new IdParser(UINamingContainer.getSeparatorChar(getFacesContext()),
-                MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR);
-        }
+    protected void visitClientId(String clientId, ClientIdVisitor visitor) {
+        IdSplitIterator splitIterator = new IdSplitIterator(clientId);
+        
+        boolean isFirstIteration = true;
+        
+        while (splitIterator.hasNext()) {
+            String shortId = splitIterator.next();
+            String subtreeId = splitIterator.getSubtreeId();
 
-        idParser.setId(id);
-
-        return idParser;
-    }
-
-    private ComponentMatcherNode findMatchingNode(String clientId) {
-        ComponentMatcherNode node = rootNode;
-
-        IdParser idParser = setupIdParser(clientId);
-
-        while (node != null && idParser.findNext()) {
-            String componentId = idParser.getComponentId();
-            String metadataComponentId = idParser.getMetadataComponentId();
-
-            if (metadataComponentId != null) {
-                node = node.getChild(componentId, false);
-                if (node != null) {
-                    node = node.getChild(metadataComponentId, false);
-                }
-            } else {
-                node = node.getMatchedChild(componentId);
+            int metaSepIdx = shortId.indexOf(META_COMPONENT_SEPARATOR_CHAR);
+            
+            if (subtreeId != null) {
+                visitor.visitSubtreeId(subtreeId, clientId);
+                visitor.visitDirectSubtreeId(subtreeId, shortId);
             }
-        }
 
-        return node;
-    }
-
-    private ComponentMatcherNode findAddedNode(String clientId) {
-        ComponentMatcherNode node = findMatchingNode(clientId);
-
-        if (node != null && !node.isAdded()) {
-            node = null;
-        }
-
-        return node;
-    }
-
-    private void removeNode(ComponentMatcherNode nodeToRemove) {
-        nodeToRemove.markRemoved();
-
-        ComponentMatcherNode node = nodeToRemove;
-        while (node != null && !node.hasDirectChildren()) {
-            ComponentMatcherNode parentNode = node.getParentNode();
-            if (parentNode != null) {
-                parentNode.removeChild(node);
-                node = parentNode;
-            } else {
-                break;
+            if (metaSepIdx >= 0) {
+                String componentId = shortId.substring(0, metaSepIdx);
+                
+                String extraBaseId = SEPARATOR_CHAR_JOINER.join(subtreeId, componentId);
+                visitor.visitDirectSubtreeId(extraBaseId, shortId);
+                visitor.visitSubtreeId(extraBaseId, clientId);
+            }
+            
+            if (isFirstIteration) {
+                isFirstIteration = false;
+                visitor.visitShortId(shortId);
             }
         }
     }
+    
+    private boolean addNode(String clientId) {
+        if (clientIds.add(clientId)) {
+            visitClientId(clientId, addNodeVisitor);
 
-    private boolean invokeNodeOperation(NodeOperationCommand command, ComponentMatcherNode currentNode,
-        IdTreeNode idTreeNode, StringBuilder sb) {
-
-        String componentId = idTreeNode.getComponentId();
-        String metadataComponentId = idTreeNode.getMetadataComponentId();
-
-        ComponentMatcherNode nextNode;
-
-        if (metadataComponentId != null) {
-            nextNode = command.getNextNode(currentNode, componentId, false);
-            if (nextNode != null) {
-                nextNode = command.getNextNode(nextNode, metadataComponentId, false);
-                nextNode.setMetaComponentNode(true);
-            }
-        } else {
-            boolean isPattern = ANY_WILDCARD.equals(componentId);
-            nextNode = command.getNextNode(currentNode, componentId, isPattern);
+            return true;
         }
-
-        boolean result = false;
-
-        if (nextNode != null) {
-            final int bufferLength = sb.length();
-            if (bufferLength != 0) {
-                //TODO replace with constant
-                sb.append(':');
-            }
-            sb.append(componentId);
-            if (metadataComponentId != null) {
-                sb.append(metadataComponentId);
-            }
-
-            List<IdTreeNode> idTreeChildNodes = idTreeNode.getChildNodes();
-            if (idTreeChildNodes != null) {
-                final int newBufferLength = sb.length();
-
-                for (IdTreeNode idTreeChildNode : idTreeChildNodes) {
-                    result |= invokeNodeOperation(command, nextNode, idTreeChildNode, sb);
-
-                    sb.setLength(newBufferLength);
-                }
-            } else {
-                result |= command.processLastNode(nextNode, sb.toString());
-            }
-
-            sb.setLength(bufferLength);
-        }
-
-        return result;
+        
+        return false;
     }
 
-    private boolean invokeRootNodeOperation(NodeOperationCommand command, IdTreeNode idTreeNode) {
-        boolean result = false;
-
-        List<IdTreeNode> idTreeChildNodes = idTreeNode.getChildNodes();
-        if (idTreeChildNodes != null) {
-            StringBuilder sb = new StringBuilder();
-
-            for (IdTreeNode idTreeChildNode : idTreeChildNodes) {
-                result |= invokeNodeOperation(command, rootNode, idTreeChildNode, sb);
-            }
+    private void removeNode(String clientId, boolean removeFromClientIds) {
+        if (!removeFromClientIds || clientIds.remove(clientId)) {
+            visitClientId(clientId, removeNodeVisitor);
         }
-
-        return result;
-    }
-
-    private boolean addNode(String patternId) {
-        IdTreeNode idTreeNode = new IdTreeNode();
-        idTreeNode.appendNodesFromParser(setupIdParser(patternId));
-
-        return invokeRootNodeOperation(addNodeOperation, idTreeNode);
-    }
-
-    private boolean removeNode(String patternId) {
-        IdTreeNode idTreeNode = new IdTreeNode();
-        idTreeNode.appendNodesFromParser(setupIdParser(patternId));
-
-        return invokeRootNodeOperation(removeNodeOperation, idTreeNode);
     }
 
     /**
@@ -378,13 +258,13 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
         // We just return our clientIds collection. This is
         // the modifiable (but proxied) collection of all of
         // the client ids to visit.
-        return clientIds;
+        return proxiedClientIds;
     }
 
     protected boolean hasImplicitSubtreeIdsToVisit(UIComponent component) {
         return false;
     }
-    
+
     /**
      * @see VisitContext#getSubtreeIdsToVisit VisitContext.getSubtreeIdsToVisit()
      */
@@ -402,28 +282,13 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
 
         String clientId = buildExtendedClientId(component);
 
-        ComponentMatcherNode node = findMatchingNode(clientId);
+        Collection<String> result;
 
-        Collection<String> result = null;
-
-
-        if (node != null) {
-            if (node.hasKidPatternNodes()) {
-                result = VisitContext.ALL_IDS;
-            } else {
-                Collection<String> subtreeIds = node.getSubtreeIds();
-                if (subtreeIds != null) {
-                    result = Collections.unmodifiableCollection(subtreeIds);
-                } else {
-                    //TODO nick - this code addresses the case of parent pattern nodes, and can be optimized
-                    if (node.hasDirectIdChildren()) {
-                        result = VisitContext.ALL_IDS;
-                    } else {
-                        result = Collections.emptySet();
-                    }
-                }
-            }
+        Set<String> ids = subtreeIds.get(clientId);
+        if (!ids.isEmpty()) {
+            result = Collections.unmodifiableCollection(ids);
         } else {
+            //returned collection should be non-modifiable
             result = Collections.emptySet();
         }
 
@@ -440,16 +305,8 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
         }
 
         String clientId = component.getClientId(getFacesContext());
-        ComponentMatcherNode node = findMatchingNode(clientId);
 
-        if (node != null && node.hasDirectPatternChildren()) {
-            return VisitContext.ALL_IDS;
-        }
-
-        Set<String> result = new HashSet<String>();
-        if (node != null && node.hasDirectIdChildren()) {
-            result.addAll(node.getIdChildren().keySet());
-        }
+        Set<String> result = new HashSet<String>(directSubtreeIds.get(clientId));
 
         addDirectSubtreeIdsToVisitForImplicitComponents(component, result);
 
@@ -467,19 +324,19 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
     protected boolean shouldCompleteOnEmptyIds() {
         return true;
     }
-    
+
     /**
      * @see VisitContext#invokeVisitCallback VisitContext.invokeVisitCallback()
      */
     @Override
     public VisitResult invokeVisitCallback(UIComponent component, VisitCallback callback) {
-        if (shortIds.contains(component.getId())) {
+        if (shortIds.contains(buildExtendedComponentId(component))) {
             String clientId = buildExtendedClientId(component);
-            ComponentMatcherNode node = findAddedNode(clientId);
-            if (node != null) {
+
+            if (clientIds.contains(clientId)) {
                 VisitResult visitResult = callback.visit(this, component);
 
-                removeNode(clientId);
+                removeNode(clientId, true);
 
                 if (clientIds.isEmpty() && shouldCompleteOnEmptyIds()) {
                     return VisitResult.COMPLETE;
@@ -494,11 +351,15 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
 
     // Called to initialize our various collections.
     private void initializeCollections(Collection<String> clientIds) {
-        this.rootNode = new ComponentMatcherNode();
-        this.directNodesMap = new HashMap<String, ComponentMatcherNode>();
+        this.subtreeIds = HashMultimap.create();
+        this.directSubtreeIds = ArrayListMultimap.create();
+
         this.shortIds = new HashSet<String>();
-        this.clientIds = new CollectionProxy();
-        this.clientIds.addAll(clientIds);
+
+        this.clientIds = Sets.newHashSet();
+
+        this.proxiedClientIds = new CollectionProxy();
+        this.proxiedClientIds.addAll(clientIds);
     }
 
     public VisitContext createNamingContainerVisitContext(UIComponent component, Collection<String> directIds) {

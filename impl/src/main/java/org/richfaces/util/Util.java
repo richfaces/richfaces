@@ -76,6 +76,7 @@ import java.util.zip.Inflater;
 import javax.faces.FacesException;
 import javax.faces.application.ViewHandler;
 import javax.faces.component.StateHolder;
+import javax.faces.component.UINamingContainer;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -85,6 +86,8 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.StateHolderResource;
 
+import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 
 /**
@@ -96,14 +99,6 @@ public final class Util {
     private static final Pattern RESOURCE_PARAMS_SPLIT_PATTERN = Pattern.compile("\\s*(\\s|,)\\s*");
     private static final Pattern RESOURCE_PARAMS = Pattern.compile("\\{([^\\}]*)\\}\\s*$");
     
-    private static final String DATA_BYTES_SEPARATOR = "/DATB/";
-    private static final String DATA_SEPARATOR = "/DATA/";
-
-    // index of capturing group denoting version
-    private static final int DATA_SEPARATOR_DATA_GROUP_INDEX = 2;
-
-    // index of capturing group denoting data type encoded
-    private static final int DATA_SEPARATOR_TYPE_GROUP_INDEX = 1;
     private static final Logger RESOURCE_LOGGER = RichfacesLogger.RESOURCE.getLogger();
 
     /* HTTP Date format required by the HTTP/1.1 RFC */
@@ -111,13 +106,23 @@ public final class Util {
 
     // TODO codec have settings
     private static final Codec CODEC = new Codec();
-    private static final String VERSION_SEPARATOR = "/VER";
-    private static final Pattern DATA_SEPARATOR_PATTERN = Pattern.compile("/DAT(A|B)/([^/]*)");
     private static final SimpleDateFormat RFC1123_DATE_FORMATTER;
     private static final String QUESTION_SIGN = "?";
     private static final String EQUALS_SIGN = "=";
 
     private static final Pattern CHARSET_IN_CONTENT_TYPE_PATTERN = Pattern.compile(";\\s*charset\\s*=\\s*([^\\s;]+)", Pattern.CASE_INSENSITIVE);
+    
+    public static final class NamingContainerDataHolder {
+        
+        public static final char SEPARATOR_CHAR = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
+        
+        public static final Joiner SEPARATOR_CHAR_JOINER = Joiner.on(SEPARATOR_CHAR).skipNulls();
+
+        public static final Splitter SEPARATOR_CHAR_SPLITTER = Splitter.on(SEPARATOR_CHAR);
+        
+        private NamingContainerDataHolder() {}
+        
+    }
     
     static {
         SimpleDateFormat format = new SimpleDateFormat(RFC1123_DATE_PATTERN, Locale.US);
@@ -285,104 +290,6 @@ public final class Util {
         }
         
         return null;
-    }
-    
-    public static String legacyEncodeResourceData(String resourceName, Object storeData, String resourceVersion) {
-        StringBuilder uri = new StringBuilder(); // ResourceServlet.DEFAULT_SERVLET_PATH).append("/");
-
-        uri.append(resourceName);
-
-        // append serialized data as Base-64 encoded request string.
-        if (storeData != null) {
-            String encodedData;
-            if (storeData instanceof byte[]) {
-                encodedData = encodeBytesData((byte[]) storeData);
-                
-                if (encodedData != null) {
-                    uri.append(DATA_BYTES_SEPARATOR);
-                    uri.append(encodedData);
-                }
-                
-            } else {
-                encodedData = encodeObjectData(storeData);
-
-                if (encodedData != null) {
-                    uri.append(DATA_SEPARATOR);
-                    uri.append(encodedData);
-                }
-            }
-        }
-
-        if ((resourceVersion != null) && (resourceVersion.length() != 0)) {
-            uri.append(VERSION_SEPARATOR);
-            uri.append(resourceVersion);
-        }
-
-//      boolean isGlobal = !resource.isSessionAware();
-//      String resourceURL = getFacesResourceURL(context,
-//              uri.toString(), false /*isGlobal*/);// context.getApplication().getViewHandler()
-// .getResourceURL(context,uri.toString());
-        // if (!isGlobal) {
-        // resourceURL = context.getExternalContext().encodeResourceURL(
-        // resourceURL);
-        // }
-//      if (log.isDebugEnabled()) {
-//          log.debug(Messages.getMessage(Messages.BUILD_RESOURCE_URI_INFO,
-//                  resource.getKey(), resourceURL));
-//      }
-        return uri.toString(); // context.getExternalContext().encodeResourceURL(resourceURL);
-    }
-
-    public static String legacyDecodeResourceName(String resourceUri) {
-        String resourceName = resourceUri;
-        Matcher matcher = DATA_SEPARATOR_PATTERN.matcher(resourceName);
-
-        if (matcher.find()) {
-            int data = matcher.start();
-
-            resourceName = resourceName.substring(0, data);
-        } else {
-            int idx = resourceName.indexOf(VERSION_SEPARATOR);
-
-            if (idx > 0) {
-                resourceName = resourceName.substring(0, idx);
-            }
-        }
-
-        return resourceName;
-    }
-
-    public static String legacyDecodeResourceVersion(String resourceUri) {
-        int idx = resourceUri.indexOf(VERSION_SEPARATOR);
-
-        if (idx > 0) {
-            return resourceUri.substring(idx + VERSION_SEPARATOR.length());
-        }
-
-        return null;
-    }
-
-    public static Object legacyDecodeResourceData(String resourceUri) {
-        Object data = null;
-        Matcher matcher = DATA_SEPARATOR_PATTERN.matcher(resourceUri);
-
-        if (!matcher.find()) {
-            return data;
-        }
-
-        if (RESOURCE_LOGGER.isDebugEnabled()) {
-            RESOURCE_LOGGER.debug(Messages.getMessage(Messages.RESTORE_DATA_FROM_RESOURCE_URI_INFO, resourceUri, null));
-        }
-
-        String dataString = matcher.group(DATA_SEPARATOR_DATA_GROUP_INDEX);
-
-        if ("B".equals(matcher.group(DATA_SEPARATOR_TYPE_GROUP_INDEX))) {
-            data = decodeBytesData(dataString);
-        } else {
-            data = decodeObjectData(dataString);
-        }
-
-        return data;
     }
 
     public static String encodeJSFURL(FacesContext context, String url) {

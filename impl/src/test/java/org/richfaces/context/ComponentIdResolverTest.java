@@ -146,27 +146,25 @@ public class ComponentIdResolverTest {
     @Test
     public void testFindByWildcardId() throws Exception {
         ComponentIdResolver resolver = createComponentIdResolver();
-        resolver.addId("table:*:input");
-        resolver.addId("table:[*]:header");
-        resolver.addId("table:[1 2]:column");
+        resolver.addId("table:@rows(inputKeys):input");
 
         resolver.resolve(evaluateComponentExpression("#{testBean.table}"));
 
         Set<String> resolvedIds = resolver.getResolvedIds();
-        assertEquals(asSet("form:table:*:input", "form:table:[*]:header", "form:table:[1 2]:column"), resolvedIds);
+        assertEquals(asSet("form:table:@rows(inputKeys):input"), resolvedIds);
     }
 
     @Test
     public void testFindByMetaComponentId() throws Exception {
         ComponentIdResolver resolver = createComponentIdResolver();
         resolver.addId("input@text");
-        resolver.addId("table:[*]:header@head");
-        resolver.addId("table:[*]:header@footer");
+        resolver.addId("table:@rows(headerKeys):header@head");
+        resolver.addId("table:@rows(footerKeys):header@footer");
 
         resolver.resolve(viewRoot);
 
         Set<String> resolvedIds = resolver.getResolvedIds();
-        assertEquals(asSet("form:table:[*]:header@footer", "form:table:[*]:header@head", "form:table:input@text"), resolvedIds);
+        assertEquals(asSet("form:table:@rows(footerKeys):header@footer", "form:table:@rows(headerKeys):header@head", "form:table:input@text"), resolvedIds);
     }
 
     @Test

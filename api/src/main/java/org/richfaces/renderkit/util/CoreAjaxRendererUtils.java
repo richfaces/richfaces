@@ -165,15 +165,6 @@ public final class CoreAjaxRendererUtils {
     }
 
     /**
-     * Split parameter string into array of strings.
-     * @param valuesSet
-     * @return
-     */
-    public static String[] asIdsArray(String valuesSet) {
-        return IdSplitBuilder.split(valuesSet);
-    }
-
-    /**
      * Get list of clientId's for given component
      *
      * @param uiComponent
@@ -198,15 +189,15 @@ public final class CoreAjaxRendererUtils {
     }
     
     public static Set<String> asSimpleSet(Object valueToSet) {
-        return asSet(valueToSet, false);
+        return asSet(valueToSet);
     }
 
     public static Set<String> asIdsSet(Object valueToSet) {
-        return asSet(valueToSet, true);
+        return asSet(valueToSet);
     }
     
     @SuppressWarnings("unchecked")
-    private static Set<String> asSet(Object valueToSet, boolean idsSet) {
+    private static Set<String> asSet(Object valueToSet) {
         if (null != valueToSet) {
 
             // Simplest case - set.
@@ -220,12 +211,7 @@ public final class CoreAjaxRendererUtils {
                 String areasString = ((String) valueToSet).trim();
 
                 if (areasString.contains(",") || areasString.contains(" ")) {
-                    String[] values;
-                    if (idsSet) {
-                        values = IdSplitBuilder.split(areasString);
-                    } else {
-                        values = ID_SPLIT_PATTERN.split(areasString);
-                    }
+                    String[] values = ID_SPLIT_PATTERN.split(areasString);
                     
                     Set<String> result = new LinkedHashSet<String>(values.length);
                     for (String value : values) {
