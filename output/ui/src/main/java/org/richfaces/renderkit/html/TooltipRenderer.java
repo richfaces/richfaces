@@ -30,6 +30,7 @@ import org.richfaces.component.AbstractTooltip;
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.MetaComponentRenderer;
+import org.richfaces.renderkit.util.RendererUtils;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -68,6 +69,8 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
     public static final String SHOW = "show";
     public static final String BEFORE_HIDE = "beforehide";
     public static final String BEFORE_SHOW = "beforeshow";
+
+    private static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
 
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
@@ -171,7 +174,7 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
         options.put("showDelay", tooltip.getShowDelay());
         options.put("showEvent", tooltip.getShowEvent());
         options.put("followMouse", tooltip.isFollowMouse());
-        options.put("target", tooltip.getTarget());
+        options.put("target", RENDERER_UTILS.findComponentFor(component, tooltip.getTarget()).getClientId(context));
 
         addEventOption(context, tooltip, options, HIDE);
         addEventOption(context, tooltip, options, SHOW);

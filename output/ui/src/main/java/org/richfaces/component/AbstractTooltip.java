@@ -66,7 +66,7 @@ public abstract class AbstractTooltip extends AbstractDivPanel implements MetaCo
     }
 
     public String getTarget() {
-        return (String) getStateHelper().eval(Properties.target, getParent().getClientId());
+        return (String) getStateHelper().eval(Properties.target, getParent().getId());
     }
 
     public void setTarget(String target) {
