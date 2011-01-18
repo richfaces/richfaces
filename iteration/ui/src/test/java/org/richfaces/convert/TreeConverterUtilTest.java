@@ -47,9 +47,6 @@ import org.junit.runner.RunWith;
 public class TreeConverterUtilTest {
 
     @Mock
-    private FacesContext context;
-    
-    @Mock
     @Environment({Environment.Feature.EXTERNAL_CONTEXT})
     private MockFacesEnvironment environment;
     
