@@ -33,8 +33,7 @@ import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.ResourceKey;
 import org.richfaces.resource.ResourceLibrary;
 import org.richfaces.resource.ResourceLibraryFactory;
-
-import com.google.common.base.Joiner;
+import org.richfaces.util.FastJoiner;
 
 /**
  * @author Nick Belaevski
@@ -48,7 +47,7 @@ public class ResourceLibraryRenderer extends ResourceRenderer {
     
     private static final Logger LOGGER = RichfacesLogger.RENDERKIT.getLogger();
 
-    private static final Joiner COLON_JOINER = Joiner.on(':').skipNulls();
+    private static final FastJoiner COLON_JOINER = FastJoiner.on(':');
     
     public ResourceLibraryRenderer() {
         super();

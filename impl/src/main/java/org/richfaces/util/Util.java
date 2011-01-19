@@ -86,7 +86,6 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.resource.StateHolderResource;
 
-import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 
@@ -116,7 +115,7 @@ public final class Util {
         
         public static final char SEPARATOR_CHAR = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
         
-        public static final Joiner SEPARATOR_CHAR_JOINER = Joiner.on(SEPARATOR_CHAR).skipNulls();
+        public static final FastJoiner SEPARATOR_CHAR_JOINER = FastJoiner.on(SEPARATOR_CHAR);
 
         public static final Splitter SEPARATOR_CHAR_SPLITTER = Splitter.on(SEPARATOR_CHAR);
         

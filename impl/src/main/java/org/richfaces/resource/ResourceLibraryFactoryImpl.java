@@ -25,10 +25,10 @@ import java.util.Map;
 
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.util.FastJoiner;
 import org.richfaces.util.PropertiesUtil;
 
 import com.google.common.base.Function;
-import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.MapMaker;
@@ -41,7 +41,7 @@ public class ResourceLibraryFactoryImpl implements ResourceLibraryFactory {
 
     private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
     
-    private static final Joiner SLASH_JOINER = Joiner.on('/').skipNulls();
+    private static final FastJoiner SLASH_JOINER = FastJoiner.on('/');
 
     private static final Splitter COMA_SPLITTER = Splitter.on(',').omitEmptyStrings().trimResults();
     

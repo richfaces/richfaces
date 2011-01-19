@@ -33,8 +33,7 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.application.CoreConfiguration;
 import org.richfaces.skin.SkinFactory;
-
-import com.google.common.base.Joiner;
+import org.richfaces.util.FastJoiner;
 
 /**
  * @author Nick Belaevski
@@ -44,7 +43,7 @@ public class ExternalStaticResource extends Resource {
 
     public static final String STATIC_RESOURCE_LOCATION_VARIABLE = "resourceLocation";
 
-    private static final Joiner RESOURCE_PATH_JOINER = Joiner.on('/').skipNulls();
+    private static final FastJoiner RESOURCE_PATH_JOINER = FastJoiner.on('/');
     
     private String location;
     

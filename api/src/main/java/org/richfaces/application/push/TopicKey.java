@@ -24,8 +24,9 @@ package org.richfaces.application.push;
 import java.io.Serializable;
 import java.util.regex.Pattern;
 
+import org.richfaces.util.FastJoiner;
+
 import com.google.common.base.Function;
-import com.google.common.base.Joiner;
 
 /**
  * @author Nick Belaevski
@@ -51,7 +52,7 @@ public class TopicKey implements Serializable {
 
     private static final Pattern NAME_PATTERN = Pattern.compile("[a-zA-Z0-9_]+");
     
-    private static final Joiner AT_JOINER = Joiner.on(SUBCHANNEL_SEPARATOR).skipNulls();
+    private static final FastJoiner AT_JOINER = FastJoiner.on(SUBCHANNEL_SEPARATOR);
     
     private final String topicName;
     

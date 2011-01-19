@@ -31,8 +31,7 @@ import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.component.MetaComponentResolver;
-
-import com.google.common.base.Joiner;
+import org.richfaces.util.FastJoiner;
 
 /**
  * @author Nick Belaevski
@@ -42,7 +41,7 @@ public abstract class ExtendedVisitContext extends VisitContext {
 
     public static final String META_COMPONENT_ID = "org.richfaces.MetaComponentId";
 
-    private static final Joiner META_COMPONENT_SEPARATOR_JOINER = Joiner.on(MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR).skipNulls();
+    private static final FastJoiner META_COMPONENT_SEPARATOR_JOINER = FastJoiner.on(MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR);
     
     private final FacesContext facesContext;
 
