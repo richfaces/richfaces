@@ -356,8 +356,6 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
             
             String id = dataTable.getClientId(facesContext);
             
-            setCellElement(facesContext, id, HtmlConstants.TH_ELEM);
-            
             boolean partialUpdateEncoded = false;
 
             String clientId = dataTable.getClientId(facesContext);
@@ -370,6 +368,8 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
                 }
                 
                 writer.startElement(HtmlConstants.THEAD_ELEMENT, dataTable);
+                setCellElement(facesContext, id, HtmlConstants.TH_ELEM);
+                
                 writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, headerClientId, null);
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dt-thd", null);
             }
@@ -424,6 +424,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
             }
 
             if (encodeThead) {
+                setCellElement(facesContext, id, null);
                 writer.endElement(HtmlConstants.THEAD_ELEMENT);
                 
                 if (partialUpdateEncoded) {
@@ -431,7 +432,6 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
                 }
             }
             
-            setCellElement(facesContext, id, null);
         }
 
     }
