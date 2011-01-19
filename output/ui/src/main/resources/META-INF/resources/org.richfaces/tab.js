@@ -137,7 +137,9 @@
 
         destroy: function () {
             var parent = this.getTogglePanel();
-            delete parent.getItems()[this.index];
+            if (parent && parent.getItems && parent.getItems()[this.index]) {
+                delete parent.getItems()[this.index];
+            }
 
             rf.Event.unbindById(this.id);
             

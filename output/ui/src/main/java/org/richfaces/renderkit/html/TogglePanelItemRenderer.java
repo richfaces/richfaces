@@ -75,7 +75,7 @@ public class TogglePanelItemRenderer extends DivPanelRenderer {
         options.put("switchMode", panelItem.getSwitchType());
 
         AbstractTogglePanelItem item = (AbstractTogglePanelItem) component;
-        AbstractTogglePanel panel = item.getParent();
+        AbstractTogglePanel panel = item.getParentPanel();
         options.put("index", panel.getChildIndex(item.getName()));
 
         TogglePanelRenderer.addEventOption(context, component, options, LEAVE);

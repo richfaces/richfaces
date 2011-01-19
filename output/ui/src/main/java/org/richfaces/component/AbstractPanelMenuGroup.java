@@ -200,7 +200,6 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
 
     enum Properties {
         iconLeftDisabled, iconLeftExpanded, iconRightCollapsed, iconRightDisabled, iconRightExpanded, disabledClass, styleClass, expandEvent, collapseEvent, iconLeftCollapsed
-
     }
 
     @Attribute(generate = false)

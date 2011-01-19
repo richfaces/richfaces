@@ -55,13 +55,19 @@ public abstract class AbstractTogglePanelItem extends AbstractDivPanel {
         return COMPONENT_FAMILY;
     }
 
+/*
     @Override
     public AbstractTogglePanel getParent() {
         return (AbstractTogglePanel) super.getParent();
     }
+*/
+
+    public AbstractTogglePanel getParentPanel() {
+        return ComponentIterators.getParent(this, AbstractTogglePanel.class);
+    }
 
     public boolean isActive() {
-        return getParent().isActiveItem(this);
+        return getParentPanel().isActiveItem(this);
     }
 
     @Override
@@ -71,7 +77,7 @@ public abstract class AbstractTogglePanelItem extends AbstractDivPanel {
 
     @Override
     public void encodeAll(FacesContext context) throws IOException {
-        if (getParent().isActiveItem(this)) {
+        if (isActive()) {
             super.encodeAll(context);
         } else {
             switch (getSwitchType()) {
@@ -133,7 +139,7 @@ public abstract class AbstractTogglePanelItem extends AbstractDivPanel {
         getStateHelper().put(NAME, name);
     }
 
-    @Attribute(defaultValue = "getParent().getSwitchType()")
+    @Attribute(defaultValue = "getParentPanel().getSwitchType()")
     public abstract SwitchType getSwitchType();
 
     // ------------------------------------------------ Html Attributes
@@ -185,6 +191,3 @@ public abstract class AbstractTogglePanelItem extends AbstractDivPanel {
         return "TogglePanelItem {name: " + getName() + ", switchType: " + getSwitchType() + '}';
     }
 }
-
-
-
