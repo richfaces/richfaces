@@ -762,6 +762,10 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         }
     }
     
+    public String getContainerClientId() {
+        return getContainerClientId(getFacesContext());
+    }
+    
     @Override
     public String getContainerClientId(FacesContext facesContext) {
         if (facesContext == null) {
@@ -1148,7 +1152,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
             throw new NullPointerException();
         }
 
-        String baseId = super.getClientId(context);
+        String baseId = getClientId(context);
 
         if (!matchesBaseId(clientId, baseId, UINamingContainer.getSeparatorChar(context))) {
             return false;

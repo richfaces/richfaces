@@ -560,8 +560,8 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                 encodeSelectionInput(writer, context, component);
                 writer.endUpdate();
                 writer.startEval();
-                writer.write("jQuery('#" + ScriptUtils.escapeCSSMetachars(clientId)
-                    + "').triggerHandler('rich:onajaxcomplete', {first: " + table.getClientFirst() + "});");
+                writer.write("jQuery(" + ScriptUtils.toScript('#' + ScriptUtils.escapeCSSMetachars(clientId))
+                    + ").triggerHandler('rich:onajaxcomplete', {first: " + table.getClientFirst() + "});");
                 writer.endEval();
                 table.setRowKey(context, key);
                 table.restoreOrigValue(context);
@@ -582,8 +582,8 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                 if (UIDataTableBase.HEADER.equals(metaComponentId)) {
                     encodeHeader(state);
                     writer.startEval();
-                    writer.write("jQuery('#" + ScriptUtils.escapeCSSMetachars(table.getClientId(context))
-                        + "').triggerHandler('rich:onajaxcomplete', {reinitializeHeader: true});");
+                    writer.write("jQuery(" + ScriptUtils.toScript('#' + ScriptUtils.escapeCSSMetachars(table.getClientId(context)))
+                        + ").triggerHandler('rich:onajaxcomplete', {reinitializeHeader: true});");
                     writer.endEval();
                 } else if (UIDataTableBase.FOOTER.equals(metaComponentId)) {
                     encodeFooter(state);
@@ -594,8 +594,8 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                     encodeSelectionInput(writer, context, component);
                     writer.endUpdate();
                     writer.startEval();
-                    writer.write("jQuery('#" + ScriptUtils.escapeCSSMetachars(clientId)
-                        + "').triggerHandler('rich:onajaxcomplete', {first: " + table.getClientFirst() + ", rowCount: "
+                    writer.write("jQuery(" + ScriptUtils.toScript('#' + ScriptUtils.escapeCSSMetachars(clientId))
+                        + ").triggerHandler('rich:onajaxcomplete', {first: " + table.getClientFirst() + ", rowCount: "
                         + getRowCount(component) + ", reinitializeBody: true});");
                     writer.endEval();
                 } else {
