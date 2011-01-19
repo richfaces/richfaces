@@ -161,11 +161,34 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
     @Attribute(defaultValue = "getPanelMenu().isExpandSingle()")
     public abstract boolean isExpandSingle();
 
-    @Attribute(defaultValue = "click")
-    public abstract String getCollapseEvent();
+    @Attribute(generate = false)
+    public String getCollapseEvent() {
+        String value = (String) getStateHelper().eval(Properties.collapseEvent);
+        if (value != null) {
+            return value;
+        }
 
-    @Attribute(defaultValue = "click")
-    public abstract String getExpandEvent();
+        return getPanelMenu().getCollapseEvent();
+    }
+
+    public void setCollapseEvent(String collapseEvent) {
+        getStateHelper().put(Properties.collapseEvent, collapseEvent);
+    }
+
+
+    @Attribute(generate = false)
+    public String getExpandEvent() {
+        String value = (String) getStateHelper().eval(Properties.expandEvent);
+        if (value != null) {
+            return value;
+        }
+
+        return getPanelMenu().getExpandEvent();
+    }
+
+    public void setExpandEvent(String expandEvent) {
+        getStateHelper().put(Properties.expandEvent, expandEvent);
+    }
 
     @Attribute(defaultValue = "getPanelMenu().isBubbleSelection()")
     public abstract boolean isBubbleSelection();
@@ -176,7 +199,7 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
     // ------------------------------------------------ Html Attributes
 
     enum Properties {
-        iconLeftDisabled, iconLeftExpanded, iconRightCollapsed, iconRightDisabled, iconRightExpanded, disabledClass, styleClass, iconLeftCollapsed
+        iconLeftDisabled, iconLeftExpanded, iconRightCollapsed, iconRightDisabled, iconRightExpanded, disabledClass, styleClass, expandEvent, collapseEvent, iconLeftCollapsed
 
     }
 

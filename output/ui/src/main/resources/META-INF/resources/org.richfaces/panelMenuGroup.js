@@ -30,6 +30,8 @@
         expandSingle : true,
         bubbleSelection : true,
         stylePrefix : "rf-pm-gr",
+        expandEvent: "click",
+        collapseEvent: "click",
 
         // TODO we should use selectionType = {none, selectable, unselectable}
         selectable : false,
@@ -127,9 +129,24 @@
 
                 if (!this.options.selectable) {
                     //TODO nick - this can be replaced by jQuery.delegate on menu itself
-                    this.__header().bind("click", function () {
-                        return menuGroup.switchExpantion();
-                    });
+                    if (this.options.expandEvent == this.options.collapseEvent) {
+                        this.__header().bind(this.options.expandEvent, function () {
+                            menuGroup.switchExpantion();
+                        });
+
+                    } else {
+                        this.__header().bind(this.options.expandEvent, function () {
+                            if (menuGroup.collapsed()) {
+                                return menuGroup.expand();
+                            }
+                        });
+
+                        this.__header().bind(this.options.collapseEvent, function () {
+                            if (menuGroup.expanded()) {
+                                return menuGroup.collapse();
+                            }
+                        });
+                    }
                 }
 
                 if (this.options.selectable || this.options.bubbleSelection) {
