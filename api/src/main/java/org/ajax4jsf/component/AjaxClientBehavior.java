@@ -51,6 +51,10 @@ public interface AjaxClientBehavior extends ClientBehavior {
 
     public void setOnbeforedomupdate(String onbeforedomupdate);
 
+    public String getOnbeforesubmit();
+    
+    public void setOnbeforesubmit(String onbeforesubmit);
+    
     public Object getData();
     
     public void setData(Object data);
