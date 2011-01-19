@@ -23,6 +23,7 @@ package org.richfaces.renderkit;
 
 import java.io.IOException;
 
+import org.ajax4jsf.javascript.JSChainJSFFunction;
 import org.ajax4jsf.javascript.JSReference;
 import org.ajax4jsf.javascript.ScriptStringBase;
 import org.ajax4jsf.javascript.ScriptUtils;
@@ -71,7 +72,7 @@ public class AjaxFunction extends ScriptStringBase {
         this.options = eventOptions;
     }
     
-    public void appendScript(Appendable target) throws IOException {
+    private void appendAjaxFunctionCall(Appendable target) throws IOException {
         target.append(FUNCTION_NAME);
         target.append('(');
         
@@ -85,6 +86,17 @@ public class AjaxFunction extends ScriptStringBase {
         }
         
         target.append(")");
+    }
+    
+    public void appendScript(Appendable target) throws IOException {
+        if (options.getBeforesubmitHandler() == null) {
+            appendAjaxFunctionCall(target);
+        } else {
+            StringBuilder ajaxCall = new StringBuilder();
+            appendAjaxFunctionCall(ajaxCall);
+            
+            ScriptUtils.appendScript(target, new JSChainJSFFunction(options.getBeforesubmitHandler(), ajaxCall.toString()));
+        }
     }
 
 

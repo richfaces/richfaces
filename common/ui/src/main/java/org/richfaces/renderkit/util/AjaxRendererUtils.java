@@ -43,6 +43,7 @@ import com.google.common.base.Strings;
  */
 public final class AjaxRendererUtils {
 
+    public static final String BEGIN_EVENT_NAME = "begin";
     public static final String AJAX_ABORT_ATTR = "ignoreDupResponses";
     public static final String AJAX_AREAS_RENDERED = "org.ajax4jsf.areas.rendered";
     public static final String AJAX_DELAY_ATTR = "requestDelay";
@@ -231,6 +232,7 @@ public final class AjaxRendererUtils {
 
     private static void appenAjaxBehaviorOptions(ClientBehaviorContext behaviorContext, AjaxClientBehavior behavior, AjaxOptions ajaxOptions) {
         ajaxOptions.setParameter(AjaxConstants.BEHAVIOR_EVENT_PARAMETER, behaviorContext.getEventName());
+        ajaxOptions.setBeforesubmitHandler(behavior.getOnbeforesubmit());
         
         for (BehaviorOptionsData optionsData : BehaviorOptionsData.values()) {
             String optionValue = optionsData.getAttributeValue(behavior);
@@ -240,20 +242,22 @@ public final class AjaxRendererUtils {
             }
         }
     }
+    
+    private static String getHandlerScript(FacesContext facesContext, UIComponent component, String attributeName, String eventName) {
+        HandlersChain handlersChain = new HandlersChain(facesContext, component);
+        String inlineHandler = (String) component.getAttributes().get(attributeName);
+
+        handlersChain.addInlineHandlerAsValue(inlineHandler);
+        handlersChain.addBehaviors(eventName);
+
+        return handlersChain.toScript();
+    }
 
     private static void appendComponentOptions(FacesContext facesContext, UIComponent component,
                                                AjaxOptions ajaxOptions) {
-        String behaviorName = "begin";
-        HandlersChain handlersChain = new HandlersChain(facesContext, component);
-        String inlineHandler = getAjaxOnBegin(component);
-
-        handlersChain.addInlineHandlerAsValue(inlineHandler);
-        handlersChain.addBehaviors(behaviorName);
-
-        String handlerScript = handlersChain.toScript();
-
+        String handlerScript = getHandlerScript(facesContext, component, ONBEGIN_ATTR_NAME, BEGIN_EVENT_NAME);
         if (isNotEmpty(handlerScript)) {
-            ajaxOptions.set(behaviorName, handlerScript);
+            ajaxOptions.set(BEGIN_EVENT_NAME, handlerScript);
         }
 
         String queueId = getQueueId(component);
@@ -583,11 +587,6 @@ public final class AjaxRendererUtils {
         function.addToBody(body);
 
         return function;
-    }
-
-    //TODO nick - refactor - remove this method?
-    public static String getAjaxOnBegin(UIComponent component) {
-        return (String) component.getAttributes().get(ONBEGIN_ATTR_NAME);
     }
 
 }

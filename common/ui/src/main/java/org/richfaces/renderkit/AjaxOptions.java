@@ -41,6 +41,8 @@ public class AjaxOptions extends ScriptStringBase {
 
     private Map<String, Object> options = new HashMap<String, Object>();
 
+    private Object beforesubmitHandler;
+    
     public void appendScript(Appendable target) throws IOException {
         ScriptUtils.appendScript(target, options);
     }
@@ -124,5 +126,13 @@ public class AjaxOptions extends ScriptStringBase {
     
     public void setAjaxComponent(Object ajaxComponent) {
         getParameters().put(AjaxConstants.AJAX_COMPONENT_ID_PARAMETER, ajaxComponent);
+    }
+
+    public Object getBeforesubmitHandler() {
+        return beforesubmitHandler;
+    }
+    
+    public void setBeforesubmitHandler(Object beforesubmitHandler) {
+        this.beforesubmitHandler = beforesubmitHandler;
     }
 }

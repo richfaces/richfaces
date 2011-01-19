@@ -22,12 +22,6 @@
 
 package org.ajax4jsf.component.behavior;
 
-import static org.richfaces.renderkit.AjaxConstants.ALL;
-import static org.richfaces.renderkit.AjaxConstants.FORM;
-import static org.richfaces.renderkit.AjaxConstants.NONE;
-import static org.richfaces.renderkit.AjaxConstants.REGION;
-import static org.richfaces.renderkit.AjaxConstants.THIS;
-
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
@@ -67,15 +61,9 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
     private static final Set<ClientBehaviorHint> HINTS = Collections.unmodifiableSet(EnumSet
         .of(ClientBehaviorHint.SUBMITTING));
     
-    private static final Set<String> ALL_SINGLETON_SET = Collections.singleton(ALL);
-    private static final Set<String> FORM_SINGLETON_SET = Collections.singleton(FORM);
-    private static final Set<String> THIS_SINGLETON_SET = Collections.singleton(THIS);
-    private static final Set<String> REGION_SINGLETON_SET = Collections.singleton(REGION);
-    private static final Set<String> NONE_SINGLETON_SET = Collections.singleton(NONE);
-    
     enum PropertyKeys {
         data, execute, onbeforedomupdate, onbegin, oncomplete, onerror, queueId, render,
-        status, disabled, limitRender, immediate, bypassUpdates
+        status, disabled, limitRender, immediate, bypassUpdates, onbeforesubmit
     }
     
     private Set<String> execute;
@@ -121,6 +109,8 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         } else if (compare(PropertyKeys.bypassUpdates, name)) {
             value = expFactory.coerceToType(value, Boolean.class);
             setBypassUpdates((Boolean) value);
+        } else if (compare(PropertyKeys.onbeforesubmit, name)) {
+            setOnbeforesubmit((String) value);
         }
     }
 
@@ -139,36 +129,6 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         return result;
     }
    
-    private Set<String> toSingletonSet(String propertyName, String value) {
-        
-        if(value == null) {
-            return null;
-        }
-        
-        if(value.trim().length() == 0) {
-            return null;
-        }
-        
-        if(value.charAt(0) == '@') {
-            if (ALL.equals(value)) {
-                return ALL_SINGLETON_SET;
-            } else if (FORM.equals(value)) {
-                return FORM_SINGLETON_SET;
-            } else if (THIS.equals(value)) {
-                return THIS_SINGLETON_SET;
-            } else if (REGION.equals(value)) {
-                return REGION_SINGLETON_SET;
-            } else if (NONE.equals(value)) {
-                return NONE_SINGLETON_SET;
-            } else {
-                throw new FacesException(value + " : Invalid id keyword specified for '"
-                    + propertyName + "' attribute");
-            }
-        }
-        
-        return null;
-    }
-    
     @Attribute
     public Object getData() {
         return getStateHelper().eval(PropertyKeys.data);
@@ -206,6 +166,15 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         getStateHelper().put(PropertyKeys.onbegin, onbegin);
     }
 
+    @Attribute
+    public String getOnbeforesubmit() {
+        return (String) getStateHelper().eval(PropertyKeys.onbeforesubmit);
+    }
+    
+    public void setOnbeforesubmit(String onbeforesubmit) {
+        getStateHelper().put(PropertyKeys.onbeforesubmit, onbeforesubmit);
+    }
+    
     @Attribute
     public String getOncomplete() {
         return (String) getStateHelper().eval(PropertyKeys.oncomplete);
