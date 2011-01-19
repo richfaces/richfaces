@@ -52,7 +52,10 @@ public abstract class AbstractMenuGroup extends UIOutput {
     public abstract String getVerticalOffset();
     
     @Attribute
-    public abstract String getHorizontalOffset();    
+    public abstract String getHorizontalOffset();
+    
+    @Attribute(hidden = true)
+    public abstract Object getValue();
     
     @Attribute(events = @EventName("show"))
     public abstract String getOnshow();

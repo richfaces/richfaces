@@ -31,6 +31,9 @@ public abstract class AbstractMenuItem extends AbstractActionComponent {
     @Attribute
     public abstract boolean isDisabled();
     
+    @Attribute(hidden = true)
+    public abstract Object getValue();
+    
     public enum Facets {
         icon, 
         iconDisabled
