@@ -25,7 +25,13 @@ package org.richfaces.component.util;
 
 import java.util.NoSuchElementException;
 
+import javax.faces.component.UINamingContainer;
+import javax.faces.context.FacesContext;
+
+import org.richfaces.util.FastJoiner;
+
 import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
 
 
 /**
@@ -36,6 +42,18 @@ import com.google.common.base.Joiner;
 public final class Strings {
     
     public static final Joiner DOT_JOINER = Joiner.on('.');
+    
+    public static final class NamingContainerDataHolder {
+        
+        public static final char SEPARATOR_CHAR = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
+        
+        public static final FastJoiner SEPARATOR_CHAR_JOINER = FastJoiner.on(SEPARATOR_CHAR);
+
+        public static final Splitter SEPARATOR_CHAR_SPLITTER = Splitter.on(SEPARATOR_CHAR);
+        
+        private NamingContainerDataHolder() {}
+        
+    }
     
     private Strings() {
 

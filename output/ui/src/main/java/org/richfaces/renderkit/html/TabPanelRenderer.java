@@ -22,6 +22,27 @@
 
 package org.richfaces.renderkit.html;
 
+import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.active;
+import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.disabled;
+import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.inactive;
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.STYLE_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.TBODY_ELEMENT;
+import static org.richfaces.renderkit.HtmlConstants.TD_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.TR_ELEMENT;
+import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
+
+import java.io.IOException;
+import java.util.Map;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractTabPanel;
@@ -31,18 +52,6 @@ import org.richfaces.component.AbstractTogglePanelTitledItem;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Map;
-
-import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.*;
-import static org.richfaces.renderkit.HtmlConstants.*;
-import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 
 /**
  * @author akolonitsky
@@ -141,7 +150,7 @@ public class TabPanelRenderer extends TogglePanelRenderer {
 
         
         writer.startElement(TD_ELEM, tab);
-        writer.writeAttribute(ID_ATTRIBUTE, tab.getClientId() + ":header:" + state.toString(), null);
+        writer.writeAttribute(ID_ATTRIBUTE, tab.getClientId(context) + ":header:" + state.toString(), null);
         renderPassThroughAttributes(context, tab, HEADER_ATTRIBUTES);
         writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-tb-hdr rf-tb-hdr-" + state.abbreviation(),
                 attributeAsString(tab, "headerClass"), attributeAsString(tab, state.headerClass())), null);
@@ -202,7 +211,7 @@ public class TabPanelRenderer extends TogglePanelRenderer {
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
         return new JSObject("RichFaces.ui.TabPanel",
-            component.getClientId(), getScriptObjectOptions(context, component));
+            component.getClientId(context), getScriptObjectOptions(context, component));
     }
 
     @Override

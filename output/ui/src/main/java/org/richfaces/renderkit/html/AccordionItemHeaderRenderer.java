@@ -1,15 +1,18 @@
 package org.richfaces.renderkit.html;
 
-import org.richfaces.component.AbstractAccordionItem;
-import org.richfaces.component.AbstractTogglePanelTitledItem;
-import org.richfaces.renderkit.RendererBase;
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.TD_ELEM;
+import static org.richfaces.renderkit.html.DivPanelRenderer.attributeAsString;
+
+import java.io.IOException;
 
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
 
-import static org.richfaces.renderkit.HtmlConstants.*;
-import static org.richfaces.renderkit.html.DivPanelRenderer.attributeAsString;
+import org.richfaces.component.AbstractAccordionItem;
+import org.richfaces.component.AbstractTogglePanelTitledItem;
+import org.richfaces.component.util.HtmlUtil;
 
 class AccordionItemHeaderRenderer extends TableIconsRendererHelper<AbstractAccordionItem> {
 
@@ -56,7 +59,7 @@ class AccordionItemHeaderRenderer extends TableIconsRendererHelper<AbstractAccor
     private static void encodeHeader(ResponseWriter writer, FacesContext context, AbstractTogglePanelTitledItem component,
                                      AbstractTogglePanelTitledItem.HeaderStates state) throws IOException {
         writer.startElement(DIV_ELEM, component);
-        writer.writeAttribute(CLASS_ATTRIBUTE, RendererBase.concatClasses("rf-ac-itm-lbl-" + state.abbreviation(), attributeAsString(component, state.headerClass())), null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, HtmlUtil.concatClasses("rf-ac-itm-lbl-" + state.abbreviation(), attributeAsString(component, state.headerClass())), null);
 
         writeFacetOrAttr(writer, context, component, "header", component.getHeaderFacet(state));
 

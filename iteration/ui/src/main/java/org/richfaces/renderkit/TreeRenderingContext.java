@@ -148,7 +148,7 @@ public final class TreeRenderingContext {
         super();
         this.context = context;
         this.tree = tree;
-        this.baseClientId = tree.getBaseClientId(context);
+        this.baseClientId = tree.getClientId(context);
     }
 
     public static TreeRenderingContext create(FacesContext context, AbstractTree tree) {

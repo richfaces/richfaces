@@ -38,8 +38,8 @@ import javax.faces.event.AbortProcessingException;
 
 import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractDataTable;
 import org.richfaces.component.AbstractCollapsibleSubTable;
+import org.richfaces.component.AbstractDataTable;
 import org.richfaces.component.Row;
 import org.richfaces.component.UIDataTableBase;
 import org.richfaces.event.ToggleEvent;
@@ -72,7 +72,7 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
         public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params) throws IOException {
             AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable)component;
             writer.startElement(HtmlConstants.TR_ELEMENT, subTable);
-            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, subTable.getClientId(context) + HIDDEN_CONTAINER_ID, null);
+            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, subTable.getContainerClientId(context) + HIDDEN_CONTAINER_ID, null);
             writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, DISPLAY_NONE, null);
             writer.startElement(HtmlConstants.TD_ELEM, subTable);
         }
@@ -146,7 +146,7 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
         cellClass = mergeStyleClasses("cellClass", cellClass, subTable);
         firstClass = mergeStyleClasses("firstRowClass", firstClass, subTable);
         
-        saveRowStyles(context, subTable.getClientId(context), firstClass, rowClass, cellClass);
+        saveRowStyles(context, subTable.getContainerClientId(context), firstClass, rowClass, cellClass);
     }
     
     @Override
@@ -169,14 +169,13 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
         AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable)dataTableBase;
         encodeTableBodyStart(writer, facesContext, subTable);
         encodeSubTableDomElement(writer, facesContext, subTable);
-        setupTableStartElement(facesContext, subTable);
         encodeHeaderFacet(writer, facesContext, subTable, false);
     }
 
     private void encodeSubTableDomElement(ResponseWriter writer, FacesContext facesContext, AbstractCollapsibleSubTable subTable) throws IOException{
         writer.startElement(HtmlConstants.TR_ELEMENT, subTable);
         writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, DISPLAY_NONE, null);
-        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, subTable.getClientId(facesContext), null);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, subTable.getContainerClientId(facesContext), null);
         writer.startElement(HtmlConstants.TD_ELEM, subTable);
         writer.endElement(HtmlConstants.TD_ELEM);
         writer.endElement(HtmlConstants.TR_ELEMENT);
@@ -387,7 +386,6 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
     public void encodeMetaComponent(FacesContext facesContext, UIComponent component, String metaComponentId)
         throws IOException {
         AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable)component;
-        setupTableStartElement(facesContext, subTable);
         
         if(AbstractCollapsibleSubTable.BODY.equals(metaComponentId)) {
             ResponseWriter writer = facesContext.getResponseWriter();
@@ -404,10 +402,6 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
     @Override
     public EncodeStrategy getHiddenContainerStrategy(UIDataTableBase dataTableBase) {
         return new CollapsibleSubTableHiddenEncodeStrategy();
-    }
-
-    protected void setupTableStartElement(FacesContext context, UIComponent component) {
-        setupTableStartElement(context, component, HtmlConstants.TD_ELEM);
     }
 
     protected UIDataTableBase findParent(AbstractCollapsibleSubTable subTable) {

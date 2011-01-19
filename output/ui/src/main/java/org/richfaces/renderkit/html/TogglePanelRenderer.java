@@ -22,6 +22,16 @@
 
 package org.richfaces.renderkit.html;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSObject;
 import org.ajax4jsf.javascript.JSReference;
@@ -35,15 +45,6 @@ import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 import org.richfaces.renderkit.util.FormUtil;
 import org.richfaces.renderkit.util.HandlersChain;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author akolonitsky
@@ -85,7 +86,7 @@ public class TogglePanelRenderer extends DivPanelRenderer {
                 context.getPartialViewContext().getRenderIds().add(panelItem.getClientId(context));
                 
                 //TODO nick - this should be done on encode, not on decode
-                addOnCompleteParam(context, newValue, panel.getClientId());
+                addOnCompleteParam(context, newValue, panel.getClientId(context));
             }
         }
     }
@@ -139,7 +140,7 @@ public class TogglePanelRenderer extends DivPanelRenderer {
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
         return new JSObject("RichFaces.ui.TogglePanel",
-            component.getClientId(), getScriptObjectOptions(context, component));
+            component.getClientId(context), getScriptObjectOptions(context, component));
     }
 
     @Override

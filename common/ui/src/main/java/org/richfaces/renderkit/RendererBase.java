@@ -280,11 +280,11 @@ public abstract class RendererBase extends Renderer {
         }
     }
 
-    public static String concatClasses(Object... objects) {
+    public String concatClasses(Object... objects) {
         return HtmlUtil.concatClasses(objects);
     }
 
-    public static String concatStyles(Object... objects) {
+    public String concatStyles(Object... objects) {
         return HtmlUtil.concatStyles(objects);
     }
 }

@@ -42,8 +42,6 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
 
     public static final String ROW_CLASS_KEY = "rowClass";
     
-    public static final String CELL_ELEMENT_KEY = "cellElement";
-    
     public static final String BREAK_ROW_BEFORE = "breakRowBefore";
     
     public static final String COLUMN_CLASS = "userColumnClass";
@@ -91,8 +89,7 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
     }
     
     public void encodeColumnStart(ResponseWriter writer, FacesContext context, String parentId, UIComponent component) throws  IOException {
-        String element = getCellElement(context, parentId);
-        writer.startElement(element, component);
+        writer.startElement(HtmlConstants.TD_ELEM, component);
         getUtils().encodeId(context, component);
         String cellClass = getCellClass(context, parentId);
         cellClass = concatClasses(cellClass, component.getAttributes().get(COLUMN_CLASS));
@@ -114,7 +111,7 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
     }
     
     public void encodeColumnEnd(ResponseWriter writer, FacesContext context, String parentId) throws  IOException {
-        writer.endElement(getCellElement(context, parentId));
+        writer.endElement(HtmlConstants.TD_ELEM);
     }
     
     public void encodeFirstRowStart(ResponseWriter writer, FacesContext context, String parentId, int currentRow, UIComponent component) throws  IOException {
@@ -149,8 +146,8 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
         return get(context, id + CELL_CLASS_KEY);
     }
     
-    protected String getCellElement(FacesContext context, String id) {
-        return get(context, id + CELL_ELEMENT_KEY);
+    protected String getFacetElement(FacesContext context, String id, String facetName) {
+        return HtmlConstants.TD_ELEM;
     }
     
     protected void saveRowStyles(FacesContext context, String id, String firstRowClass, String rowClass, String cellClass) {

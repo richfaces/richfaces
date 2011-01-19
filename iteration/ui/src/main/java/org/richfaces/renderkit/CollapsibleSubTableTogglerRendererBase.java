@@ -71,6 +71,7 @@ public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
 
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
+        //TODO - review
         context.getPartialViewContext().getRenderIds().add(component.getClientId(context));
     }
 
@@ -109,7 +110,7 @@ public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
             writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, DISPLAY_NONE, null);
         }
 
-        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, control.getClientId() + ":" + state, null);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, control.getClientId(context) + ":" + state, null);
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, styleClass, null);
         writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, style, null);
 

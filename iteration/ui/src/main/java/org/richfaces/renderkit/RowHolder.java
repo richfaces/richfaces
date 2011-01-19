@@ -22,6 +22,7 @@
 
 package org.richfaces.renderkit;
 
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.richfaces.component.Row;
@@ -49,7 +50,7 @@ public class RowHolder extends RowHolderBase {
     public RowHolder(FacesContext context, Row row, int processCell, boolean isRowStart) {
         super(context);
         this.row = row;
-        this.parentClientId = row.getClientId(context);
+        this.parentClientId = ((UIComponent) row).getClientId(context);
     }
     
     public boolean isEncodeParentTBody() {

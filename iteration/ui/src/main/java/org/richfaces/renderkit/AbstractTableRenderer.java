@@ -133,9 +133,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         
         encodeTableStructure(writer, context, dataTable);
         
-        setupTableStartElement(context, dataTable);
         encodeHeaderFacet(writer, context, dataTable, false);
-        setupTableStartElement(context, dataTable, HtmlConstants.TD_ELEM);
         encodeFooterFacet(writer, context, dataTable, false);
         dataTable.setRowKey(context, key);
         dataTable.restoreOrigValue(context);
@@ -146,8 +144,6 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         
         int rowCount = dataTableBase.getRowCount();
        
-        put(facesContext, dataTableBase.getClientId(facesContext) + CELL_ELEMENT_KEY, HtmlConstants.TD_ELEM);
-        
         Object key = dataTableBase.getRowKey();
         dataTableBase.captureOrigValue(facesContext);
         dataTableBase.setRowKey(facesContext, null);
@@ -212,7 +208,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
     
     public void encodeTableStart(ResponseWriter writer, FacesContext context, UIDataTableBase component) throws IOException {
         writer.startElement(HtmlConstants.TABLE_ELEMENT, component);
-        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(), null);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context), null);
         String styleClass = getTableSkinClass();
         encodeStyleClass(writer, context, component, HtmlConstants.STYLE_CLASS_ATTR, styleClass);
     }
@@ -241,7 +237,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         throws IOException {
            
         writer.startElement(HtmlConstants.TBODY_ELEMENT, dataTableBase);
-        String clientId = (dataTableBase.getRelativeRowIndex() < 0) ? dataTableBase.getClientId(facesContext) : dataTableBase.getRelativeClientId(facesContext);
+        String clientId = (dataTableBase.getRelativeRowIndex() < 0) ? dataTableBase.getContainerClientId(facesContext) : dataTableBase.getRelativeClientId(facesContext);
        
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE,  clientId + ":tb", null);
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, getTableBodySkinClass(), null);
@@ -261,9 +257,10 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         if ((footer != null && footer.isRendered()) || columnFacetPresent) {
             boolean partialUpdateEncoded = false;
 
+            String clientId = dataTable.getClientId(facesContext);
             boolean encodeTfoot = containsThead();
             if (encodeTfoot) {
-                String footerClientId = dataTable.getClientId(facesContext) + ":tf";
+                String footerClientId = clientId + ":tf";
 
                 if (encodePartialUpdate) {
                     partialUpdateEncoded = true;
@@ -276,7 +273,6 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
             }
      
             int columns = getColumnsCount(dataTable);
-            String id = dataTable.getClientId(facesContext);
 
             boolean encodePartialUpdateForChildren = (encodePartialUpdate && !partialUpdateEncoded);
             
@@ -291,9 +287,9 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
                 cellClass = mergeStyleClasses("columnFooterCellClass", cellClass, dataTable);
                 firstClass = mergeStyleClasses("firstColumnFooterClass", firstClass, dataTable);
                                 
-                saveRowStyles(facesContext,id, firstClass, rowClass, cellClass);
+                saveRowStyles(facesContext, clientId, firstClass, rowClass, cellClass);
                 
-                String targetId = id + ":cf";
+                String targetId = clientId + ":cf";
                 
                 if (encodePartialUpdateForChildren) {
                     partialStart(facesContext, targetId);
@@ -321,8 +317,8 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
                 cellClass = mergeStyleClasses("footerCellClass", cellClass, dataTable);
                 firstClass = mergeStyleClasses("footerFirstClass", firstClass, dataTable);
                 // TODO nick - rename method "encodeTableHeaderFacet"
-                saveRowStyles(facesContext, id, firstClass, rowClass, cellClass);
-                encodeTableFacet(facesContext, writer, id, columns, footer, UIDataTableBase.FOOTER, rowClass, cellClass, 
+                saveRowStyles(facesContext, clientId, firstClass, rowClass, cellClass);
+                encodeTableFacet(facesContext, writer, clientId, columns, footer, UIDataTableBase.FOOTER, rowClass, cellClass, 
                     encodePartialUpdateForChildren);
             }
 
@@ -359,8 +355,9 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         if ((header != null && header.isRendered()) || isEncodeHeaders) {
             boolean partialUpdateEncoded = false;
 
+            String clientId = dataTable.getClientId(facesContext);
             if (encodeThead) {
-                String headerClientId = dataTable.getClientId(facesContext) + ":th";
+                String headerClientId = clientId + ":th";
 
                 if (encodePartialUpdate) {
                     partialUpdateEncoded = true;
@@ -373,7 +370,6 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
             }
             
             int columns = getColumnsCount(dataTable);
-            String id = dataTable.getClientId(facesContext); 
             
             boolean encodePartialUpdateForChildren = (encodePartialUpdate && !partialUpdateEncoded);
             
@@ -386,9 +382,9 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
                 rowClass = mergeStyleClasses("headerClass", rowClass, dataTable);
                 cellClass = mergeStyleClasses("headerCellClass", cellClass, dataTable);
                 firstClass = mergeStyleClasses("headerFirstClass", firstClass, dataTable);
-                saveRowStyles(facesContext, id, firstClass, rowClass, cellClass);
+                saveRowStyles(facesContext, clientId, firstClass, rowClass, cellClass);
 
-                encodeTableFacet(facesContext, writer, id, columns, header, UIDataTableBase.HEADER, rowClass, cellClass, 
+                encodeTableFacet(facesContext, writer, clientId, columns, header, UIDataTableBase.HEADER, rowClass, cellClass, 
                     encodePartialUpdateForChildren);
             }
 
@@ -401,9 +397,9 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
                 rowClass = mergeStyleClasses("columnHeaderClass", rowClass, dataTable);
                 cellClass = mergeStyleClasses("columnHeaderCellClass", cellClass, dataTable);
                 firstClass = mergeStyleClasses("columnHeaderFirstClass", firstClass, dataTable);
-                saveRowStyles(facesContext, id, firstClass, rowClass, cellClass);
+                saveRowStyles(facesContext, clientId, firstClass, rowClass, cellClass);
                  
-                String targetId = id + ":ch";
+                String targetId = clientId + ":ch";
                 
                 if (encodePartialUpdateForChildren) {
                     partialStart(facesContext, targetId);
@@ -436,7 +432,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
     protected void encodeColumnFacet(FacesContext context, ResponseWriter writer, UIDataTableBase dataTableBase,  String facetName, int colCount, String cellClass) throws IOException {
         int tColCount = 0;
         String id  = dataTableBase.getClientId(context);
-        String element = getCellElement(context, id);
+        String element = getFacetElement(context, id, facetName);
         
         Iterator<UIComponent> headers = dataTableBase.columns();
         
@@ -484,7 +480,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         UIComponent footer, String facetName, String rowClass, String cellClass, boolean encodePartialUpdate) throws IOException {
         
         boolean isColumnGroup = (footer instanceof Row);
-        String element = getCellElement(facesContext, id);
+        String element = getFacetElement(facesContext, id, facetName);
         
         boolean partialUpdateEncoded = false;
         
@@ -574,12 +570,6 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
     
     public abstract String getNoDataCellClass();
 
-    protected abstract void setupTableStartElement(FacesContext context, UIComponent component);
-    
-    protected void setupTableStartElement(FacesContext context, UIComponent component, String elementName) {
-        put(context, component.getClientId(context) + CELL_ELEMENT_KEY, elementName);
-    }
-
     public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId)
         throws IOException {
 
@@ -587,13 +577,10 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         
         
         if (UIDataTableBase.HEADER.equals(metaComponentId)) {
-            setupTableStartElement(context, component);
             encodeHeaderFacet(context.getResponseWriter(), context, table, true);
         } else if (UIDataTableBase.FOOTER.equals(metaComponentId)) {
-            setupTableStartElement(context, component, HtmlConstants.TD_ELEM);
             encodeFooterFacet(context.getResponseWriter(), context, table, true);
         } else if(UIDataTableBase.BODY.equals(metaComponentId)) {
-            setupTableStartElement(context, component, HtmlConstants.TD_ELEM);
             encodeTableRows(context.getResponseWriter(), context, table, true);
         } else {
             throw new IllegalArgumentException("Unsupported metaComponentIdentifier: " + metaComponentId);

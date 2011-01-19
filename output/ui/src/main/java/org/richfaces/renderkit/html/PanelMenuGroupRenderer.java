@@ -23,21 +23,29 @@
 
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractPanelMenuGroup;
-import org.richfaces.component.AbstractPanelMenuItem;
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.INPUT_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.INPUT_TYPE_HIDDEN;
+import static org.richfaces.renderkit.HtmlConstants.NAME_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.TYPE_ATTR;
+import static org.richfaces.renderkit.HtmlConstants.VALUE_ATTRIBUTE;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.richfaces.renderkit.HtmlConstants.*;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+
+import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractPanelMenuGroup;
+import org.richfaces.component.AbstractPanelMenuItem;
 
 /**
  * @author akolonitsky
@@ -69,7 +77,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
 
         // Don't overwrite the value unless you have to!
         //TODO! nick - ":expanded" suffix is not necessary
-        String newValue = requestMap.get(component.getClientId() + ":expanded");
+        String newValue = requestMap.get(component.getClientId(context) + ":expanded");
         if (newValue != null) {
             menuGroup.setSubmittedExpanded(newValue);
         }
@@ -143,7 +151,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
         return new JSObject("RichFaces.ui.PanelMenuGroup",
-            component.getClientId(), getScriptObjectOptions(context, component));
+            component.getClientId(context), getScriptObjectOptions(context, component));
     }
 
     @Override

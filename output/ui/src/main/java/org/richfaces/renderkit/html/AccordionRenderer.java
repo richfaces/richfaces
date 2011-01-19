@@ -22,16 +22,17 @@
 
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractAccordion;
-import org.richfaces.component.util.HtmlUtil;
+import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.util.Map;
+
+import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractAccordion;
+import org.richfaces.component.util.HtmlUtil;
 
 /**
  * @author akolonitsky
@@ -67,7 +68,7 @@ public class AccordionRenderer extends TogglePanelRenderer {
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
         return new JSObject("RichFaces.ui.Accordion",
-            component.getClientId(), getScriptObjectOptions(context, component));
+            component.getClientId(context), getScriptObjectOptions(context, component));
     }
 
     @Override

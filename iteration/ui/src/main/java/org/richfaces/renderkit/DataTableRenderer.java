@@ -36,8 +36,8 @@ import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractDataTable;
 import org.richfaces.component.AbstractCollapsibleSubTable;
+import org.richfaces.component.AbstractDataTable;
 import org.richfaces.component.Row;
 import org.richfaces.component.UIDataTableBase;
 import org.richfaces.component.util.HtmlUtil;
@@ -60,7 +60,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
             AbstractDataTable dataTable = (AbstractDataTable)component;
             
             writer.startElement(HtmlConstants.TBODY_ELEMENT, dataTable);
-            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, dataTable.getClientId(context) + HIDDEN_CONTAINER_ID, null);
+            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, dataTable.getContainerClientId(context) + HIDDEN_CONTAINER_ID, null);
             writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display: none", null);
             writer.startElement(HtmlConstants.TR_ELEMENT, dataTable);
             writer.startElement(HtmlConstants.TD_ELEM, dataTable);
@@ -124,7 +124,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
     public void encodeBeforeRows(ResponseWriter writer, FacesContext facesContext,UIDataTableBase dataTableBase, boolean encodeParentTBody, boolean partialUpdate) throws IOException {
         if(encodeParentTBody) {
             if(partialUpdate) {
-                partialStart(facesContext, dataTableBase.getClientId(facesContext) +":tb");
+                partialStart(facesContext, dataTableBase.getContainerClientId(facesContext) +":tb");
             }
             encodeTableBodyStart(writer, facesContext, dataTableBase);
         }    
@@ -394,8 +394,9 @@ public class DataTableRenderer extends AbstractTableRenderer {
         return "rf-dt-b";
     }
 
-    protected void setupTableStartElement(FacesContext context, UIComponent component) {
-        setupTableStartElement(context, component, HtmlConstants.TH_ELEM);
+    @Override
+    protected String getFacetElement(FacesContext context, String id, String facetName) {
+        return facetName.equals(UIDataTableBase.HEADER) ? HtmlConstants.TH_ELEM : HtmlConstants.TD_ELEM;
     }
     
     public EncodeStrategy getHiddenContainerStrategy(UIDataTableBase dataTableBase) {

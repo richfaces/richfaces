@@ -86,7 +86,7 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
         for (AbstractMenuGroup group : groups) {
             if (group.isRendered() && !group.isDisabled()) {
                 Map<String, Object> map = new HashMap<String, Object>();
-                map.put("id", group.getClientId());
+                map.put("id", group.getClientId(facesContext));
                 RenderKitUtils.addToScriptHash(map, "onhide", group.getOnhide(), null, ScriptHashVariableWrapper.eventHandler);
                 RenderKitUtils.addToScriptHash(map, "onshow", group.getOnshow(), null, ScriptHashVariableWrapper.eventHandler);
                 RenderKitUtils.addToScriptHash(map, "verticalOffset", group.getVerticalOffset(), "0");

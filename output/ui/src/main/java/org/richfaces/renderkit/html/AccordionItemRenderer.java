@@ -22,22 +22,26 @@
 
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractAccordionItem;
-import org.richfaces.component.AbstractTogglePanelTitledItem;
-import org.richfaces.renderkit.RenderKitUtils;
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.STYLE_ATTRIBUTE;
+import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
+
+import java.io.IOException;
+import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Map;
 
-import static org.richfaces.renderkit.HtmlConstants.*;
-import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
+import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractAccordionItem;
+import org.richfaces.component.AbstractTogglePanelTitledItem;
+import org.richfaces.renderkit.RenderKitUtils;
 
 /**
  *
@@ -71,9 +75,9 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         super.doEncodeBegin(writer, context, component);
 
-        encodeHeader(writer, context, (AbstractAccordionItem) component);
+        encodeHeader(context, (AbstractAccordionItem) component);
 
-        encodeContentBegin(component, writer);
+        encodeContentBegin(context, component);
     }
 
     @Override
@@ -88,10 +92,11 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
         super.doEncodeEnd(writer, context, component);
     }
 
-    private void encodeContentBegin(UIComponent component, ResponseWriter writer) throws IOException {
+    private void encodeContentBegin(FacesContext context, UIComponent component) throws IOException {
+        ResponseWriter writer = context.getResponseWriter();
         writer.startElement(DIV_ELEM, component);
         writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-ac-itm-cnt", attributeAsString(component, "contentClass")), null);
-        writer.writeAttribute("id", component.getClientId() + ":content", null);
+        writer.writeAttribute("id", component.getClientId(context) + ":content", null);
 
         AbstractTogglePanelTitledItem item = (AbstractTogglePanelTitledItem) component;
         if (!item.isActive() || item.isDisabled()) {
@@ -103,13 +108,14 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
         writer.endElement(DIV_ELEM);
     }
 
-    private void encodeHeader(ResponseWriter writer, FacesContext context, AbstractAccordionItem component) throws IOException {
+    private void encodeHeader(FacesContext context, AbstractAccordionItem component) throws IOException {
+        ResponseWriter writer = context.getResponseWriter();
         writer.startElement(DIV_ELEM, component);
 
         String stateCssClass = "rf-ac-itm-hdr-" + (component.isDisabled() ? "dis" : (component.isActive() ? "act" : "inact"));
         writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-ac-itm-hdr", stateCssClass, attributeAsString(component, "headerClass")), null);
 
-        writer.writeAttribute(ID_ATTRIBUTE, component.getClientId() + ":header", null);
+        writer.writeAttribute(ID_ATTRIBUTE, component.getClientId(context) + ":header", null);
         renderPassThroughAttributes(context, component, HEADER_ATTRIBUTES);
 
         headerRenderer.encodeHeader(writer, context, component);
@@ -119,7 +125,7 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
 
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
-        return new JSObject("RichFaces.ui.AccordionItem", component.getClientId(),
+        return new JSObject("RichFaces.ui.AccordionItem", component.getClientId(context),
             getScriptObjectOptions(context, component));
     }
 

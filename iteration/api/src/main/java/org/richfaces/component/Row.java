@@ -22,11 +22,12 @@
 
 package org.richfaces.component;
 
-import org.ajax4jsf.model.DataVisitor;
+import java.util.Iterator;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.util.Iterator;
+
+import org.ajax4jsf.model.DataVisitor;
 
 /**
  * Marker interface for table columns, rendered as entire row.
@@ -41,8 +42,6 @@ public interface Row {
     public Iterator<UIComponent> columns();
 
     public void setRowKey(FacesContext context, Object rowKey);
-    
-    public String getClientId(FacesContext context);
     
     public void walk(FacesContext context, DataVisitor visitor, Object argument);
 

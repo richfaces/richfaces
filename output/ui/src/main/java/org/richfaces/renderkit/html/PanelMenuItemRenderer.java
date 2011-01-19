@@ -23,7 +23,10 @@
 
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.renderkit.HtmlConstants.*;
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.TBODY_ELEMENT;
+import static org.richfaces.renderkit.HtmlConstants.TD_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.TR_ELEMENT;
 import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
 import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
 
@@ -140,7 +143,7 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
         return new JSObject("RichFaces.ui.PanelMenuItem",
-            component.getClientId(), getScriptObjectOptions(context, component));
+            component.getClientId(context), getScriptObjectOptions(context, component));
     }
 
     @Override

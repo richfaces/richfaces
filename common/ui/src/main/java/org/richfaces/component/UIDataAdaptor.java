@@ -22,6 +22,8 @@
 
 package org.richfaces.component;
 
+import static org.richfaces.component.util.Strings.NamingContainerDataHolder.SEPARATOR_CHAR_JOINER;
+
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.MessageFormat;
@@ -61,7 +63,6 @@ import javax.faces.event.PhaseId;
 import javax.faces.event.PostValidateEvent;
 import javax.faces.event.PreRenderComponentEvent;
 import javax.faces.event.PreValidateEvent;
-import javax.faces.render.Renderer;
 
 import org.ajax4jsf.component.IterationStateHolder;
 import org.ajax4jsf.model.DataComponentState;
@@ -236,7 +237,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     
     private Object rowKey = null;
 
-    private String clientId;
+    private String containerClientId;
 
     private Object originalVarValue;
 
@@ -374,7 +375,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         
         getExtendedDataModel().setRowKey(rowKey);
         
-        this.clientId = null;
+        this.containerClientId = null;
 
         boolean rowSelected = (rowKey != null) && isRowAvailable();
 
@@ -739,61 +740,46 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         return Boolean.TRUE.equals(value);
     }
 
+    private String getRowKeyAsString(FacesContext facesContext, Object rowKey) {
+        assert rowKey != null;
+        
+        Converter rowKeyConverter = getRowKeyConverter();
+        if (rowKeyConverter == null) {
+            // Create default converter for a row key.
+            rowKeyConverter = facesContext.getApplication().createConverter(rowKey.getClass());
+
+            // Store converter for a invokeOnComponents call.
+            if (rowKeyConverter != null) {
+                // TODO - review
+                setRowKeyConverter(rowKeyConverter);
+            }
+        }
+        
+        if (rowKeyConverter != null) {
+            return rowKeyConverter.getAsString(facesContext, this, rowKey);
+        } else {
+            return rowKey.toString();
+        }
+    }
+    
     @Override
-    public String getClientId(FacesContext facesContext) {
+    public String getContainerClientId(FacesContext facesContext) {
         if (facesContext == null) {
             throw new NullPointerException("context");
         }
 
-        if (null == clientId) {
-            StringBuilder id = new StringBuilder(super.getClientId(facesContext));
+        if (null == containerClientId) {
+            containerClientId = super.getContainerClientId(facesContext);
+            
             Object rowKey = getRowKey();
-
+            
             if (rowKey != null) {
-
-                // Use converter to get String representation ot the row key.
-                Converter rowKeyConverter = getRowKeyConverter();
-
-                if (null == rowKeyConverter) {
-
-                    // Create default converter for a row key.
-                    rowKeyConverter = facesContext.getApplication().createConverter(rowKey.getClass());
-
-                    // Store converter for a invokeOnComponents call.
-                    if (null != rowKeyConverter) {
-                        // TODO - review
-                        setRowKeyConverter(rowKeyConverter);
-                    }
-                }
-
-                String rowKeyString;
-
-                if (null != rowKeyConverter) {
-
-                    // Temporary set clientId, to avoid infinite calls from converter.
-                    clientId = id.toString();
-                    rowKeyString = rowKeyConverter.getAsString(facesContext, this, rowKey);
-                } else {
-                    rowKeyString = rowKey.toString();
-                }
-
-                id.append(UINamingContainer.getSeparatorChar(facesContext)).append(rowKeyString);
-            }
-
-            Renderer renderer = getRenderer(facesContext);
-
-            if (null != renderer) {
-                clientId = renderer.convertClientId(facesContext, id.toString());
-            } else {
-                clientId = id.toString();
-            }
+                String rowKeyString = getRowKeyAsString(facesContext, rowKey);
+                containerClientId = SEPARATOR_CHAR_JOINER.join(containerClientId, rowKeyString);
+            }            
         }
 
-        return clientId;
-    }
-
-    public String getBaseClientId(FacesContext context) {
-        return super.getClientId(context);
+        return containerClientId;
     }
     
     /**
@@ -968,7 +954,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     @Override
     public void setId(String id) {
         super.setId(id);
-        this.clientId = null;
+        this.containerClientId = null;
     }
 
     /*

@@ -22,21 +22,25 @@
 
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractTogglePanelTitledItem;
-import org.richfaces.component.AbstractTab;
-import org.richfaces.renderkit.HtmlConstants;
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.STYLE_ATTRIBUTE;
+
+import java.io.IOException;
+import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Map;
 
-import static org.richfaces.renderkit.HtmlConstants.*;
+import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractTab;
+import org.richfaces.component.AbstractTogglePanelTitledItem;
+import org.richfaces.renderkit.HtmlConstants;
 
 /**
  * @author akolonitsky
@@ -58,7 +62,7 @@ public class TabRenderer extends TogglePanelItemRenderer {
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         super.doEncodeBegin(writer, context, component);
 
-        encodeContentBegin(component, writer);
+        encodeContentBegin(context, component, writer);
     }
 
     @Override
@@ -86,10 +90,10 @@ public class TabRenderer extends TogglePanelItemRenderer {
         writer.endElement(HtmlConstants.SCRIPT_ELEM);
     }
 
-    private void encodeContentBegin(UIComponent component, ResponseWriter writer) throws IOException {
+    private void encodeContentBegin(FacesContext context, UIComponent component, ResponseWriter writer) throws IOException {
         writer.startElement(DIV_ELEM, component);
         writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-tb-cnt", attributeAsString(component, "contentClass")), null);
-        writer.writeAttribute(ID_ATTRIBUTE, component.getClientId() + ":content", null);
+        writer.writeAttribute(ID_ATTRIBUTE, component.getClientId(context) + ":content", null);
 
         AbstractTogglePanelTitledItem item = (AbstractTogglePanelTitledItem) component;
         if (!item.isActive() || item.isDisabled()) {
@@ -103,7 +107,7 @@ public class TabRenderer extends TogglePanelItemRenderer {
 
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
-        return new JSObject("RichFaces.ui.Tab", component.getClientId(),
+        return new JSObject("RichFaces.ui.Tab", component.getClientId(context),
             getScriptObjectOptions(context, component));
     }
 

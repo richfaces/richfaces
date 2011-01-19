@@ -74,7 +74,7 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
 
             PartialViewContext pvc = context.getPartialViewContext();
             if (pvc.isAjaxRequest() && map.get(component.getClientId(context) + TRIGGER_NODE_AJAX_UPDATE) != null) {
-                pvc.getRenderIds().add(treeNode.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + AbstractTreeNode.SUBTREE_META_COMPONENT_ID);
+                pvc.getRenderIds().add(component.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + AbstractTreeNode.SUBTREE_META_COMPONENT_ID);
             
                 context.getAttributes().put(AJAX_TOGGLED_NODE_ATTRIBUTE, component.getClientId(context));
                 context.getAttributes().put(AJAX_TOGGLED_NODE_STATE_ATTRIBUTE, initialState ? TreeNodeState.expanded : TreeNodeState.collapsed);

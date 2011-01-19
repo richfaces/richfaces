@@ -1,13 +1,9 @@
 package org.richfaces.renderkit.html;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.component.AbstractDropDownMenu;
 import org.richfaces.component.AbstractMenuGroup;
 import org.richfaces.component.AbstractMenuItem;
@@ -77,22 +73,6 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
         return null;
     }
     
-    private String getServerSubmitFunction(UIComponent component) {
-        UIComponent form = getUIForm(component);
-        if (component != null && form != null) {
-            Map<String, Object> param = new HashMap<String, Object>();
-            param.put(component.getClientId(), component.getClientId());
-            
-            JSFunction submitFunction = new JSFunction("RichFaces.submitForm");
-            submitFunction.addParameter(form.getClientId());
-            submitFunction.addParameter(param);
-            
-            return submitFunction.toScript();
-        }
-
-        return "";
-    }
-
     protected String getOnClickFunction(FacesContext facesContext, UIComponent component) {
         AbstractMenuItem menuItem = (AbstractMenuItem) component;
         Mode subminMode = resolveSubmitMode(menuItem);

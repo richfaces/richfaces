@@ -29,7 +29,10 @@ import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.component.behavior.ClientBehavior;
-import org.richfaces.cdk.annotations.*;
+import org.richfaces.cdk.annotations.JsfBehavior;
+import org.richfaces.cdk.annotations.JsfBehaviorRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.renderkit.util.RendererUtils;
 
@@ -89,7 +92,7 @@ public class ToggleControl extends ClientBehavior {
     }
 
     public String getPanelId(ClientBehaviorContext behaviorContext) throws FacesException {
-        return getPanel(behaviorContext.getComponent()).getClientId();
+        return getPanel(behaviorContext.getComponent()).getClientId(behaviorContext.getFacesContext());
     }
 
     public AbstractTogglePanel getPanel(UIComponent comp) throws FacesException {

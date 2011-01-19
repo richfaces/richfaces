@@ -22,21 +22,25 @@
 
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractCollapsiblePanel;
-import org.richfaces.component.AbstractTogglePanel;
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.STYLE_ATTRIBUTE;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
-import static org.richfaces.renderkit.HtmlConstants.*;
+import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractCollapsiblePanel;
+import org.richfaces.component.AbstractTogglePanel;
 
 /**
  * @author akolonitsky
@@ -110,7 +114,7 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
             context.getPartialViewContext().getRenderIds().add(clientId);
 
             //TODO nick - this should be done on encode, not on decode
-            addOnCompleteParam(context, newValue, panel.getClientId());
+            addOnCompleteParam(context, newValue, panel.getClientId(context));
         }
     }
 
@@ -129,7 +133,7 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
         return new JSObject("RichFaces.ui.CollapsiblePanel",
-            component.getClientId(), getScriptObjectOptions(context, component));
+            component.getClientId(context), getScriptObjectOptions(context, component));
     }
 
     @Override
@@ -179,7 +183,7 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
                     break;
 
                 case ajax:
-                    context.getResponseWriter().write(getPlaceHolder(panel.getClientId() + ":content"));
+                    context.getResponseWriter().write(getPlaceHolder(panel.getClientId(context) + ":content"));
                     break;
 
                 case server:
@@ -202,7 +206,7 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
                     break;
 
                 case ajax:
-                    writer.write(getPlaceHolder(panel.getClientId() + ":empty"));
+                    writer.write(getPlaceHolder(panel.getClientId(context) + ":empty"));
                     break;
 
                 case server:
@@ -221,7 +225,7 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
 
     private void encodeContent(ResponseWriter writer, FacesContext context, UIComponent component, boolean visible) throws IOException {
         writer.startElement(DIV_ELEM, component);
-        writer.writeAttribute(ID_ATTRIBUTE, component.getClientId() + ":content", null);
+        writer.writeAttribute(ID_ATTRIBUTE, component.getClientId(context) + ":content", null);
         writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-cp-b", attributeAsString(component, "bodyClass")), null);
         writer.writeAttribute(STYLE_ATTRIBUTE, concatStyles(styleElement("display", visible ? "block" : "none"),
                                                     attributeAsString(component, "style")), null);
@@ -233,7 +237,7 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
 
     private void encodeEmptyDiv(ResponseWriter writer, FacesContext context, UIComponent component, boolean visible) throws IOException {
         writer.startElement(DIV_ELEM, component);
-        writer.writeAttribute(ID_ATTRIBUTE, component.getClientId() + ":empty", null);
+        writer.writeAttribute(ID_ATTRIBUTE, component.getClientId(context) + ":empty", null);
         writer.writeAttribute(CLASS_ATTRIBUTE, "rf-cp-empty", null);
         writer.writeAttribute(STYLE_ATTRIBUTE, styleElement("display", visible ? "block" : "none"), null);
         writer.endElement(DIV_ELEM);

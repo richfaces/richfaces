@@ -73,7 +73,7 @@ public class ColumnGroupRenderer extends AbstractTableBaseRenderer {
         }
         
         RowHolder rowHolder = new RowHolder(context, (AbstractColumnGroup)component); 
-        rowHolder.setParentClientId(parent.getClientId());
+        rowHolder.setParentClientId(parent.getClientId(context));
         return rowHolder;
     }
 }

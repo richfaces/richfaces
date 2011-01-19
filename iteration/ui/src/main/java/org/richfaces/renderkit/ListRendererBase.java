@@ -96,7 +96,7 @@ public abstract class ListRendererBase extends Renderer {
             writer.startElement(HtmlConstants.LI_ELEMENT, sequence);
 
             if (rendererUtils.hasExplicitId(sequence)) {
-                writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, sequence.getClientId(context), null);
+                writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, sequence.getContainerClientId(context), null);
             }
 
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
@@ -129,7 +129,7 @@ public abstract class ListRendererBase extends Renderer {
                 writer.startElement(HtmlConstants.DT_ELEMENT, sequence);
 
                 if (rendererUtils.hasExplicitId(sequence)) {
-                    writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, sequence.getClientId(context) + ".dt", null);
+                    writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, sequence.getContainerClientId(context) + ".dt", null);
                 }
 
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
@@ -142,7 +142,7 @@ public abstract class ListRendererBase extends Renderer {
             writer.startElement(HtmlConstants.DD_ELEMENT, sequence);
 
             if (rendererUtils.hasExplicitId(sequence)) {
-                writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, sequence.getClientId(context), null);
+                writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, sequence.getContainerClientId(context), null);
             }
 
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
@@ -243,7 +243,7 @@ public abstract class ListRendererBase extends Renderer {
 
     protected String getElementId(FacesContext facesContext, UIComponent component) {
         if (rendererUtils.hasExplicitId(component)) {
-            return component.getClientId(facesContext);
+            return component.getContainerClientId(facesContext);
         }
 
         return null;

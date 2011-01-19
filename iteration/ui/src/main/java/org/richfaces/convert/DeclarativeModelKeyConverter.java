@@ -21,21 +21,20 @@
  */
 package org.richfaces.convert;
 
+import static org.richfaces.component.util.Strings.NamingContainerDataHolder.SEPARATOR_CHAR_JOINER;
+import static org.richfaces.component.util.Strings.NamingContainerDataHolder.SEPARATOR_CHAR_SPLITTER;
 import static org.richfaces.convert.TreeConverterUtil.escape;
 import static org.richfaces.convert.TreeConverterUtil.unescape;
 
 import java.util.Iterator;
 
 import javax.faces.component.UIComponent;
-import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 
 import org.richfaces.model.DeclarativeModelKey;
 
-import com.google.common.base.Joiner;
-import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 
 /**
@@ -44,22 +43,6 @@ import com.google.common.base.Strings;
  */
 public class DeclarativeModelKeyConverter implements Converter {
 
-    private static final class StaticHolder {
-        
-        static final Joiner JOINER;
-        
-        static final Splitter SPLITTER;
-        
-        static {
-            char separatorChar = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
-            JOINER = Joiner.on(separatorChar);
-            SPLITTER = Splitter.on(separatorChar);
-        }
-        
-        private StaticHolder() {}
-
-    }
-    
     private Converter delegateConverter;
 
     public DeclarativeModelKeyConverter(Converter delegateConverter) {
@@ -74,7 +57,7 @@ public class DeclarativeModelKeyConverter implements Converter {
         
         String s = unescape(value);
         
-        Iterator<String> split = StaticHolder.SPLITTER.split(s).iterator();
+        Iterator<String> split = SEPARATOR_CHAR_SPLITTER.split(s).iterator();
 
         String modelId = (String) split.next();
         Object modelKey = delegateConverter.getAsObject(context, component, split.next());
@@ -94,7 +77,7 @@ public class DeclarativeModelKeyConverter implements Converter {
         DeclarativeModelKey declarativeModelKey = (DeclarativeModelKey) value;
         
         String convertedModelKey = delegateConverter.getAsString(context, component, declarativeModelKey.getModelKey());
-        String keyString = StaticHolder.JOINER.join(declarativeModelKey.getModelId(), convertedModelKey);
+        String keyString = SEPARATOR_CHAR_JOINER.join(declarativeModelKey.getModelId(), convertedModelKey);
         
         return escape(keyString);
     }
