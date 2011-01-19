@@ -100,7 +100,7 @@
 		$super.constructor.call(this, componentId, componentId+ID.SELECT, fieldId, options);
 		this.attachToDom();
 		this.options = $.extend(this.options, defaultOptions, options);
-		this.value = this.__getSubValue();
+		this.value = "";
 		this.index = -1;
 		this.isFirstAjax = true;
 		updateTokenOptions.call(this);
@@ -205,17 +205,17 @@
 		if( this.options.autofill && value.toLowerCase().indexOf(inputValue)==0) {
 			var field = rf.getDomElement(this.fieldId);
 			var start = rf.Selection.getStart(field);
-			this.setInputValue(inputValue + value.substring(inputValue.length));
+			this.__setInputValue(inputValue + value.substring(inputValue.length));
 			var end = start+value.length - inputValue.length;
 			rf.Selection.set(field, start, end);
 		}
 	};
 
-	var callAjax = function(event, value, callback) {
+	var callAjax = function(event, callback) {
 		
 		clearItems.call(this);
 		
-		rf.getDomElement(this.id+ID.VALUE).value = value;
+		rf.getDomElement(this.id+ID.VALUE).value = this.value;
 		
 		var _this = this;
 		var _event = event;
@@ -224,7 +224,7 @@
 			if (_this.options.lazyClientMode && _this.value.length!=0) {
 				updateItemsFromCache.call(_this, _this.value);
 			}
-			if (_this.focused && _this.items.length!=0 && callback) {
+			if ((_this.focused || _this.isMouseDown) && _this.items.length!=0 && callback) {
 				callback.call(_this, _event);
 			}
 			if (!callback && _this.isVisible && _this.options.selectFirst) {
@@ -317,17 +317,17 @@
 				callback.call(this, event);
 			}
 			if (event.which == rf.KEYS.RETURN || event.type == "click") {
-				this.setInputValue(subValue);
+				this.__setInputValue(subValue);
 			} else if (this.options.selectFirst) {
 				selectItem.call(this, event, 0);
 			}
 		} else {
 			if (event.which == rf.KEYS.RETURN || event.type == "click") {
-				this.setInputValue(subValue);
+				this.__setInputValue(subValue);
 			}
 			if (subValue.length>=this.options.minChars) {
 				if ((this.options.ajaxMode || this.options.lazyClientMode) && oldValue!=subValue) {
-					callAjax.call(this, event, subValue, callback);
+					callAjax.call(this, event, callback);
 				}
 			} else {
 				if (this.options.ajaxMode) {
@@ -365,7 +365,7 @@
 
 			return result;
 		} else {
-			return this.getInputValue();
+			return this.getValue();
 		}
 	};
 	
@@ -407,7 +407,9 @@
 				// called from AutocompleteBase when not actually value changed
 				if (this.items.length==0 && this.isFirstAjax) {
 					if ((this.options.ajaxMode && subValue.length>=this.options.minChars) || this.options.lazyClientMode) {
-						callAjax.call(this, event, subValue);
+						this.value = subValue;
+						callAjax.call(this, event, this.show);
+						return true;
 					}
 				}
 				return;
@@ -419,6 +421,9 @@
 				} else {
 					return $super.__updateInputValue.call(this, value);
 				}
+ 			},
+ 			__setInputValue: function (value) {
+ 				this.currentValue = this.__updateInputValue(value);
  			},
  			__onChangeValue: onChangeValue,
  			/*

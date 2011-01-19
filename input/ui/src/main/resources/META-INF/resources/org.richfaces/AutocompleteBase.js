@@ -26,7 +26,8 @@
 		this.fieldId = fieldId;
 		this.options = $.extend({}, defaultOptions, options);
 		this.namespace = this.namespace || "."+rf.Event.createNamespace(this.name, this.selectId);
-		this.currentValue = this.getInputValue();
+		this.currentValue = "";
+		this.isChanged = this.getValue().length!=0;
 		bindEventHandlers.call(this);
 	};
 	
@@ -88,7 +89,7 @@
 	
 	var onFocus = function (event) {
 		if (!this.focused) {
-			this.__focusValue = this.getInputValue();
+			this.__focusValue = this.getValue();
 			this.focused = true;
 			this.invokeEvent("focus", rf.getDomElement(this.fieldId), event);
 		}
@@ -106,7 +107,7 @@
 			if (this.focused) {
 				this.focused=false;
 				this.invokeEvent("blur", rf.getDomElement(this.fieldId), event);
-				if (this.__focusValue != this.getInputValue()) {
+				if (this.__focusValue != this.getValue()) {
 					this.invokeEvent("change", rf.getDomElement(this.fieldId), event);
 				}
 			}
@@ -117,14 +118,14 @@
 	};
 	
 	var onChange = function (event) {
-		var value = this.getInputValue();
+		var value = this.getValue();
 		var flag = value != this.currentValue;
 		//TODO: is it needed to chesk keys?
 		//TODO: we need to set value when autoFill used when LEFT or RIGHT was pressed
 		if (event.which == rf.KEYS.LEFT || event.which == rf.KEYS.RIGHT || flag) {
 			if (flag) {
+				this.currentValue = this.getValue();
 				this.__onChangeValue(event, undefined, (!this.isVisible ? this.show : undefined));
-				this.currentValue = this.getInputValue();
 			} else if (this.isVisible) {
 				this.__onChangeValue(event);
 			}
@@ -132,8 +133,12 @@
 	};
 	
 	var onShow = function (event) {
-		this.__updateState(event);
-		this.show(event);
+		if (this.isChanged) {
+			this.isChanged = false;
+			onChange.call(this,{});
+		} else {
+			!this.__updateState(event) && this.show(event);
+		}
 	};
 	
 	var onKeyDown = function (event) {
@@ -218,6 +223,15 @@
 		}
 	};
 	
+	var updateInputValue = function (value) {
+		if (this.fieldId) {
+			 rf.getDomElement(this.fieldId).value = value;
+			 return value;
+		} else {
+			return "";
+		}
+	}
+	
 	/*
 	 * Prototype definition
 	 */
@@ -232,23 +246,18 @@
  			getNamespace: function () {
  				return this.namespace;
  			},
- 			getInputValue: function () {
+ 			getValue: function () {
  				return this.fieldId ? rf.getDomElement(this.fieldId).value : "";
  			},
- 			setInputValue: function (value) {
- 				this.currentValue = this.__updateInputValue(value); 
+ 			setValue: function (value) {
+				if (value==this.currentValue) return;
+				updateInputValue.call(this, value);
+				this.isChanged = true;
  			},
  			/*
  			 * Protected methods
  			 */
- 			__updateInputValue: function (value) {
- 				if (this.fieldId) {
- 					 rf.getDomElement(this.fieldId).value = value;
- 					 return value;
- 				} else {
- 					return "";
- 				}
- 			},
+ 			__updateInputValue: updateInputValue,
  			/*
  			 * abstract protected methods
  			 */
