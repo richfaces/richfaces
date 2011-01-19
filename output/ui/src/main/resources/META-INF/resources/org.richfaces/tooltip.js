@@ -28,17 +28,16 @@
     rf.ui.TooltipMode = {
         client : "client",
         ajax : "ajax",
-
         DEFAULT: "client"
     };
+
     var TooltipMode = rf.ui.TooltipMode;
 
     var DEFAULT_OPTIONS = {
         jointPoint : "AA",
         direction : "AA",
-        offset: [0,0],
-        attached : true,
         offset : [10, 10],
+        attached : true,
         mode : TooltipMode.DEFAULT,
         disabled : false,
         hideDelay : 0,
@@ -104,7 +103,6 @@
          *
          * @constructor
          * @param {String} componentId - component id
-         * @param {Hash} options - params
          * */
         init : function (componentId, options) {
             $super.constructor.call(this, componentId);
@@ -141,7 +139,7 @@
                 }
             });
 
-            $(document.getElementById(tooltip.target)).bind(this.options.hideEvent, function (event) {
+            $(document.getElementById(tooltip.target)).bind(this.options.hideEvent, function () {
                 tooltip.hide();
 
                 if (tooltip.options.followMouse) {
