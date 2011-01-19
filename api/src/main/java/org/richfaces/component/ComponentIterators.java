@@ -25,12 +25,13 @@ import java.util.Iterator;
 
 import javax.faces.component.UIComponent;
 
+import com.google.common.base.Predicate;
 import com.google.common.collect.AbstractIterator;
 import com.google.common.collect.Iterators;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public final class ComponentIterators {
 
@@ -41,29 +42,65 @@ public final class ComponentIterators {
         if (component == null) {
             return Iterators.<UIComponent>emptyIterator();
         }
-        
+
         return new AbstractIterator<UIComponent>() {
 
             private UIComponent currentComponent = component;
-            
+
             @Override
             protected UIComponent computeNext() {
                 currentComponent = currentComponent.getParent();
-                
+
                 if (currentComponent == null) {
                     endOfData();
                 }
-                
+
                 return currentComponent;
             }
         };
     }
-    
+
     public static Iterator<UIComponent> parentsAndSelf(final UIComponent component) {
         if (component == null) {
             return Iterators.<UIComponent>emptyIterator();
         }
 
         return Iterators.concat(Iterators.singletonIterator(component), parents(component));
+    }
+
+    public static UIComponent getParent(UIComponent component, Predicate<UIComponent> predicat) {
+        if (component == null || predicat == null) {
+            return null;
+        }
+
+        UIComponent parent = component.getParent();
+        while (parent != null) {
+            if (predicat.apply(parent)) {
+                return parent;
+            }
+            parent = parent.getParent();
+        }
+        return null;
+    }
+
+    /**
+     * Finds a parent of given UI <code>component</code>.
+     * @param component <code>UIComponent</code>
+     * @param parentClass <code>Class</code> of desired parent
+     * @return <code>UIComponent</code>
+     */
+    public static <T extends UIComponent> T getParent(UIComponent component, Class<T> parentClass) {
+        if (component == null || parentClass == null) {
+            return null;
+        }
+
+        UIComponent parent = component.getParent();
+        while (parent != null) {
+            if (parentClass.isInstance(parent)) {
+                return (T) parent;
+            }
+            parent = parent.getParent();
+        }
+        return null;
     }
 }
