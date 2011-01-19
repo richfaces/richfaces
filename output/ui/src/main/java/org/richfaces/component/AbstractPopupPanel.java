@@ -44,34 +44,34 @@ public abstract class AbstractPopupPanel extends UIComponentBase {
     @Attribute
     public abstract String getVisualOptions();
 
-    @Attribute
+    @Attribute(defaultValue = "100")
     public abstract int getZindex();
 
-    @Attribute
+    @Attribute(defaultValue = "-1")
     public abstract int getHeight();
 
-    @Attribute
+    @Attribute(defaultValue = "-1")
     public abstract int getWidth();
 
-    @Attribute(defaultValue = "0")
+    @Attribute(defaultValue = "-1")
     public abstract int getMinHeight();
 
-    @Attribute(defaultValue = "0")
+    @Attribute(defaultValue = "-1")
     public abstract int getMinWidth();
 
-    @Attribute(defaultValue = "0")
+    @Attribute(defaultValue = "" + Integer.MAX_VALUE)
     public abstract int getMaxHeight();
 
-    @Attribute(defaultValue = "0")
+    @Attribute(defaultValue = "" + Integer.MAX_VALUE)
     public abstract int getMaxWidth();
 
-    @Attribute
+    @Attribute(defaultValue = "auto")
     public abstract String getTop();
 
-    @Attribute
+    @Attribute(defaultValue = "auto")
     public abstract String getLeft();
 
-    @Attribute
+    @Attribute(defaultValue = "false")
     public abstract boolean isShow();
 
     public abstract void setShow(boolean show);
@@ -79,22 +79,22 @@ public abstract class AbstractPopupPanel extends UIComponentBase {
     @Attribute(defaultValue = "true")
     public abstract boolean isMoveable();
 
-    @Attribute
+    @Attribute(defaultValue = "false")
     public abstract boolean isAutosized();
 
     @Attribute(defaultValue = "true")
     public abstract boolean isModal();
 
-    @Attribute
+    @Attribute(defaultValue = "false")
     public abstract boolean isKeepVisualState();
 
-    @Attribute
+    @Attribute(defaultValue = "false")
     public abstract boolean isOverlapEmbedObjects();
 
-    @Attribute
+    @Attribute(defaultValue = "false")
     public abstract boolean isResizeable();
 
-    @Attribute
+    @Attribute(defaultValue = "false")
     public abstract boolean isTrimOverlayedElements();
 
     @Attribute

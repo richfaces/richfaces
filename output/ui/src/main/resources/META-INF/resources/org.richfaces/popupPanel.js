@@ -31,10 +31,10 @@
 	}
 	
 	var defaultOptions = {
-		width:0,
-		height:0,
-		minWidth:0,
-		minHeight:0,
+		width:-1,
+		height:-1,
+		minWidth:-1,
+		minHeight:-1,
 		modal:true,
 		moveable:true,
 		resizeable: false,
@@ -280,35 +280,39 @@
 					var eContentElt = this.getContentElement();
 	
 					if (!this.options.autosized) {
-						if (options.width && options.width == 0) 
+						if (options.width && options.width == -1) 
 							options.width = 300;
-						if (options.height && options.height == 0) 
+						if (options.height && options.height == -1) 
 							options.height = 200;
 					}
 				
-					if (options.width && options.width != 0) {
+					if (options.width && options.width != -1) {
 						if (this.currentMinWidth > options.width) {
 							options.width = this.currentMinWidth;
 						}
-						if (this.maxWidth && options.width > this.maxWidth) {
+						if (options.width > this.maxWidth) {
 							options.width = this.maxWidth;
 						}
 						$(richfaces.getDomElement(eContentElt)).css('width', options.width + (/px/.test(options.width) ? '' : 'px'));
 						this.shadowDiv.css('width', options.width + (/px/.test(options.width) ? '' : 'px'));
 						this.scrollerDiv.css('width', options.width + (/px/.test(options.width) ? '' : 'px'));
+						
+						
 					}
 	
-					if (options.height && options.height != 0) {
+					if (options.height && options.height != -1) {
 						if (this.currentMinHeight > options.height) {
 							options.height = this.currentMinHeight;
 						}
-						if (this.maxHeigh && options.height > this.maxHeight) {
+						if (options.height > this.maxHeight) {
 							options.height = this.maxHeight;
 						}
 						$(richfaces.getDomElement(eContentElt)).css('height', options.height + (/px/.test(options.height) ? '' : 'px'));
 						this.shadowDiv.css('height', options.height + (/px/.test(options.height) ? '' : 'px'));
 						var headerHeight = $(richfaces.getDomElement(this.markerId +"_header"))[0] ? $(richfaces.getDomElement(this.markerId +"_header"))[0].clientHeight : 0;
 						this.scrollerDiv.css('height', options.height - headerHeight + (/px/.test(options.height) ? '' : 'px'));
+						
+						
 					}
 					var eIframe;
 					if (this.options.overlapEmbedObjects && !this.iframe) {
