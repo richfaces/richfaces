@@ -84,6 +84,10 @@
 	    	this.setValue(this.value + this.step, event);
 	    },
 	    
+	    getValue: function () {
+	    	return this.value;
+	    },
+
 	    setValue: function (value, event) {
 	    	if (!this.disabled) {
 	    		this.__setValue(value, event);
