@@ -353,6 +353,11 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         boolean encodeThead = containsThead();
 
         if ((header != null && header.isRendered()) || isEncodeHeaders) {
+            
+            String id = dataTable.getClientId(facesContext);
+            
+            setCellElement(facesContext, id, HtmlConstants.TH_ELEM);
+            
             boolean partialUpdateEncoded = false;
 
             String clientId = dataTable.getClientId(facesContext);
@@ -425,6 +430,8 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
                     partialEnd(facesContext);
                 }
             }
+            
+            setCellElement(facesContext, id, null);
         }
 
     }
@@ -432,7 +439,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
     protected void encodeColumnFacet(FacesContext context, ResponseWriter writer, UIDataTableBase dataTableBase,  String facetName, int colCount, String cellClass) throws IOException {
         int tColCount = 0;
         String id  = dataTableBase.getClientId(context);
-        String element = getFacetElement(context, id, facetName);
+        String element = getCellElement(context, id);
         
         Iterator<UIComponent> headers = dataTableBase.columns();
         
@@ -480,7 +487,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         UIComponent footer, String facetName, String rowClass, String cellClass, boolean encodePartialUpdate) throws IOException {
         
         boolean isColumnGroup = (footer instanceof Row);
-        String element = getFacetElement(facesContext, id, facetName);
+        String element = getCellElement(facesContext, id);
         
         boolean partialUpdateEncoded = false;
         

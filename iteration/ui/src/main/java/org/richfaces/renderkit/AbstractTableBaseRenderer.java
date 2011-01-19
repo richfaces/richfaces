@@ -50,7 +50,9 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
     
     protected static final String FIRST_ROW_CLASS_KEY = "firstRowClass";
     
-    protected static final String CELL_CLASS_KEY = "cellClass";    
+    protected static final String CELL_CLASS_KEY = "cellClass";
+
+    private static final String CELL_ELEMENT_KEY = "cellElement";
     
     public void encodeColumn(FacesContext context, ResponseWriter writer, UIColumn component, RowHolder rowHolder) throws IOException {
         String parentId = rowHolder.getParentClientId();
@@ -89,8 +91,8 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
     }
     
     public void encodeColumnStart(ResponseWriter writer, FacesContext context, String parentId, UIComponent component) throws  IOException {
-        writer.startElement(HtmlConstants.TD_ELEM, component);
-        getUtils().encodeId(context, component);
+        writer.startElement(getCellElement(context, parentId), component);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getContainerClientId(context), HtmlConstants.ID_ATTRIBUTE);
         String cellClass = getCellClass(context, parentId);
         cellClass = concatClasses(cellClass, component.getAttributes().get(COLUMN_CLASS));
         encodeStyleClass(writer, context, component, HtmlConstants.STYLE_CLASS_ATTR, cellClass);
@@ -111,7 +113,7 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
     }
     
     public void encodeColumnEnd(ResponseWriter writer, FacesContext context, String parentId) throws  IOException {
-        writer.endElement(HtmlConstants.TD_ELEM);
+        writer.endElement(getCellElement(context, parentId));
     }
     
     public void encodeFirstRowStart(ResponseWriter writer, FacesContext context, String parentId, int currentRow, UIComponent component) throws  IOException {
@@ -146,10 +148,20 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
         return get(context, id + CELL_CLASS_KEY);
     }
     
-    protected String getFacetElement(FacesContext context, String id, String facetName) {
-        return HtmlConstants.TD_ELEM;
+    protected String getCellElement(FacesContext context, String id) {
+        String elementName = get(context, id + CELL_ELEMENT_KEY);
+
+        if (elementName == null) {
+            elementName = HtmlConstants.TD_ELEM;
+        }
+        
+        return elementName;
     }
     
+    protected void setCellElement(FacesContext context, String id, String element) {
+        put(context, id + CELL_ELEMENT_KEY, element);
+    }
+
     protected void saveRowStyles(FacesContext context, String id, String firstRowClass, String rowClass, String cellClass) {
         put(context, id + FIRST_ROW_CLASS_KEY, firstRowClass);
         put(context, id + ROW_CLASS_KEY, rowClass);

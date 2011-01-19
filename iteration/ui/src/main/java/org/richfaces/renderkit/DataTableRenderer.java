@@ -394,11 +394,6 @@ public class DataTableRenderer extends AbstractTableRenderer {
         return "rf-dt-b";
     }
 
-    @Override
-    protected String getFacetElement(FacesContext context, String id, String facetName) {
-        return facetName.equals(UIDataTableBase.HEADER) ? HtmlConstants.TH_ELEM : HtmlConstants.TD_ELEM;
-    }
-    
     public EncodeStrategy getHiddenContainerStrategy(UIDataTableBase dataTableBase) {
         return new DataTableHiddenEncodeStrategy();
     }
