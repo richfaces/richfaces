@@ -49,6 +49,10 @@ final class RowsFunctionContextCallback implements ContextCallback {
 
         Collection<?> keys = (Collection<?>) context.getApplication().evaluateExpressionGet(context, "#{" + image + "}", Object.class);
 
+        if (keys == null) {
+            return;
+        }
+        
         for (Object key : keys) {
             String convertedKey;
 

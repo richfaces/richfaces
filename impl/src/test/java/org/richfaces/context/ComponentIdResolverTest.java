@@ -23,6 +23,7 @@ package org.richfaces.context;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -82,6 +83,8 @@ public class ComponentIdResolverTest {
         facesContext = FacesContext.getCurrentInstance();
         viewRoot = facesContext.getViewRoot();
 
+        facesContext.getExternalContext().getRequestMap().put("one", Arrays.asList(1));
+        
         ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
         ViewDeclarationLanguage vdl = viewHandler.getViewDeclarationLanguage(facesContext, viewRoot.getViewId());
         vdl.buildView(facesContext, viewRoot);
@@ -144,38 +147,38 @@ public class ComponentIdResolverTest {
     }
 
     @Test
-    public void testFindByWildcardId() throws Exception {
+    public void testFindByRowsId() throws Exception {
         ComponentIdResolver resolver = createComponentIdResolver();
-        resolver.addId("table:@rows(inputKeys):input");
+        resolver.addId("table:@rows(one):input");
 
         resolver.resolve(evaluateComponentExpression("#{testBean.table}"));
 
         Set<String> resolvedIds = resolver.getResolvedIds();
-        assertEquals(asSet("form:table:@rows(inputKeys):input"), resolvedIds);
+        assertEquals(asSet("form:table:1:input"), resolvedIds);
     }
 
     @Test
     public void testFindByMetaComponentId() throws Exception {
         ComponentIdResolver resolver = createComponentIdResolver();
         resolver.addId("input@text");
-        resolver.addId("table:@rows(headerKeys):header@head");
-        resolver.addId("table:@rows(footerKeys):header@footer");
+        resolver.addId("table:@rows(one):header@head");
+        resolver.addId("table:@rows(one):header@footer");
 
         resolver.resolve(viewRoot);
 
         Set<String> resolvedIds = resolver.getResolvedIds();
-        assertEquals(asSet("form:table:@rows(footerKeys):header@footer", "form:table:@rows(headerKeys):header@head", "form:table:input@text"), resolvedIds);
+        assertEquals(asSet("form:table:1:header@footer", "form:table:1:header@head", "form:table:input@text"), resolvedIds);
     }
 
     @Test
     public void testFindWithNoParentContainer() throws Exception {
         ComponentIdResolver resolver = createComponentIdResolver();
-        resolver.addId("form:table:[*]:column");
+        resolver.addId("form:table:@rows(one):column");
 
         resolver.resolve(evaluateComponentExpression("#{testBean.table}"));
 
         Set<String> resolvedIds = resolver.getResolvedIds();
-        assertEquals(asSet("form:table:[*]:column"), resolvedIds);
+        assertEquals(asSet("form:table:1:column"), resolvedIds);
     }
 
     @Test
@@ -231,12 +234,12 @@ public class ComponentIdResolverTest {
         ComponentIdResolver resolver = createComponentIdResolver();
         resolver.addId(":form:table:input");
         resolver.addId(":form:table:column@head");
-        resolver.addId(":form:table:[1]:column");
+        resolver.addId(":form:table:@rows(one):column");
 
         resolver.resolve(viewRoot);
 
         Set<String> resolvedIds = resolver.getResolvedIds();
-        assertEquals(asSet("form:table:input", "form:table:column@head", "form:table:[1]:column"), resolvedIds);
+        assertEquals(asSet("form:table:input", "form:table:column@head", "form:table:1:column"), resolvedIds);
     }
     
     @Test

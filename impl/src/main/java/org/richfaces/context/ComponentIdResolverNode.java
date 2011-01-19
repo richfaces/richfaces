@@ -82,7 +82,7 @@ final class ComponentIdResolverNode {
 
     public void addFullId(String fullId) {
         if (fullIds == null) {
-            fullIds = new HashSet<String>();
+            fullIds = new HashSet<String>(2);
         }
 
         fullIds.add(fullId);

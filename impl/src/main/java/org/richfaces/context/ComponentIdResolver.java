@@ -26,6 +26,7 @@ import static org.richfaces.util.Util.NamingContainerDataHolder.SEPARATOR_CHAR;
 import static org.richfaces.util.Util.NamingContainerDataHolder.SEPARATOR_CHAR_JOINER;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -150,22 +151,41 @@ public final class ComponentIdResolver {
     static void setMetaComponentSubstitutions(Map<String, String> substitutionsMap) {
         metaComponentSubstitutions = substitutionsMap;
     }
+  
+    private boolean hasFunctionNodes(Node[] nodes) {
+        for (Node node : nodes) {
+            if (node.getFunction() != null) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
     
-    private String computeClientId(FacesContext context,
+    private Collection<String> computeClientIds(FacesContext context,
         UIComponent topMatchComponent, String id) {
 
-        UIComponent container = findContainer(topMatchComponent.getParent());
-
-        String containerClientId = null;
-
-        if (container instanceof NamingContainer) {
-            containerClientId = container.getContainerClientId(context);
-        }
-
-        if (containerClientId != null && containerClientId.length() != 0) {
-            return SEPARATOR_CHAR_JOINER.join(containerClientId, id);
+        String clientId;
+        
+        int idx = id.indexOf(SEPARATOR_CHAR);
+        if (idx < 0) {
+            int metaSepIdx = id.indexOf(META_COMPONENT_SEPARATOR_CHAR);
+            if (metaSepIdx > 0) {
+                clientId = topMatchComponent.getClientId(facesContext) + id.substring(metaSepIdx); 
+            } else {
+                clientId = topMatchComponent.getClientId(facesContext);
+            }
         } else {
-            return id;
+            clientId = SEPARATOR_CHAR_JOINER.join(topMatchComponent.getClientId(facesContext), id.substring(idx + 1));
+        }
+        
+        Node[] nodes = IdParser.parse(clientId);
+        if (hasFunctionNodes(nodes)) {
+            ClientIdFunctionEvaluator evaluator = new ClientIdFunctionEvaluator(context, nodes);
+            
+            return evaluator.evaluate(topMatchComponent);
+        } else {
+            return Collections.singleton(clientId);
         }
     }
 
@@ -335,8 +355,7 @@ public final class ComponentIdResolver {
                         }
                         resolvedIds.add(resolvedId);
                     } else {
-                        String computedId = computeClientId(facesContext, topMatch, fullId);
-                        resolvedIds.add(computedId);
+                        resolvedIds.addAll(computeClientIds(facesContext, topMatch, fullId));
                     }
                 }
             }

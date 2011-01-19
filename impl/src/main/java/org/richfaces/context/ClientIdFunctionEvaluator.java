@@ -34,20 +34,23 @@ import org.richfaces.context.IdParser.Node;
 
 import com.google.common.collect.Lists;
 
-class ClientIdWalker {
+class ClientIdFunctionEvaluator {
 
-    private Node[] parsedId;
+    private FacesContext context;
 
     private UIComponent functionTarget;
+    
+    private Node[] parsedId;
 
-    private Collection<String> resolvedIds = Lists.newArrayList();
+    private Collection<String> resolvedIds = Lists.newArrayListWithCapacity(1);
 
-    public ClientIdWalker(Node[] parsedId) {
+    public ClientIdFunctionEvaluator(FacesContext context, Node[] parsedId) {
         super();
+        this.context = context;
         this.parsedId = parsedId;
     }
 
-    private void walk(FacesContext facesContext, UIComponent component, String baseId, int nodeIdx) {
+    private void walk(UIComponent component, String baseId, int nodeIdx) {
 
         boolean isLastNode = (nodeIdx == parsedId.length - 1);
 
@@ -60,7 +63,7 @@ class ClientIdWalker {
             directSubtreeIds = Collections.singleton(node.getImage());
             childComponent = component;
         } else {
-            directSubtreeIds = evaluateFunction(facesContext, component, baseId, node);
+            directSubtreeIds = evaluateFunction(component, baseId, node);
             //functionTarget is set inside evaluateFunction(...) call!
             childComponent = functionTarget;
         }
@@ -71,12 +74,12 @@ class ClientIdWalker {
             if (isLastNode) {
                 resolvedIds.add(clientId);
             } else {
-                walk(facesContext, childComponent, clientId, nodeIdx + 1);
+                walk(childComponent, clientId, nodeIdx + 1);
             }
         }
     }
 
-    private Collection<String> evaluateFunction(FacesContext facesContext, UIComponent component, String baseId, Node node) {
+    private Collection<String> evaluateFunction(UIComponent component, String baseId, Node node) {
         Collection<String> directSubtreeIds;
         String function = node.getFunction();
         String image = node.getImage();
@@ -87,7 +90,7 @@ class ClientIdWalker {
 
         RowsFunctionContextCallback rowsFunctionCallback = new RowsFunctionContextCallback(image);
 
-        if (!component.invokeOnComponent(facesContext, baseId, rowsFunctionCallback)) {
+        if (!component.invokeOnComponent(context, baseId, rowsFunctionCallback)) {
             throw new IllegalStateException(MessageFormat.format("Failed to visit {0}", baseId));
         }
 
@@ -96,11 +99,8 @@ class ClientIdWalker {
         return directSubtreeIds;
     }
 
-    public void walk(FacesContext facesContext) {
-        walk(facesContext, facesContext.getViewRoot(), null, 0);
-    }
-
-    public Collection<String> getResolvedIds() {
+    public Collection<String> evaluate(UIComponent component) {
+        walk(component, null, 0);
         return resolvedIds;
     }
 }
