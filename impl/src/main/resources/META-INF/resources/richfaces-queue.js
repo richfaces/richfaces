@@ -34,6 +34,12 @@
 	jsf.ajax.request = function request(source, event, options) {
 		richfaces.queue.push(source, event, options);
 	};
+		
+	richfaces.ajax.jsfResponse = jsf.ajax.response;
+	
+	jsf.ajax.response = function request(request, context) {
+		richfaces.queue.response(request, context);
+	};
 	
 	var QUEUE_MODE_PULL = 'pull';
 	var QUEUE_MODE_PUSH = 'push';
@@ -119,7 +125,7 @@
 			};
 	
 			$.extend(QueueEntry.prototype, {
-				// now unused functions: isIgnoreDupResponses, ondrop, clearEntry
+				// now unused functions: ondrop, clearEntry
 				isIgnoreDupResponses: function() {
 					return this.queueOptions.ignoreDupResponses;
 				},
@@ -381,6 +387,16 @@
 				
 			},
 			
+			response: function (request, context) {
+				var lastEntry = getLastEntry();
+				if (!lastEntry || !lastRequestedEntry.isIgnoreDupResponses() || lastRequestedEntry.getRequestGroupId() != lastEntry.getRequestGroupId()) {
+					richfaces.ajax.jsfResponse(request, context);
+				} else {
+					lastRequestedEntry = null;
+					submitFirstEntry();
+				}
+			},
+
 			/** 
 			  * Remove all QueueEntry from the queue
 			  * @function
