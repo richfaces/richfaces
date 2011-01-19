@@ -78,7 +78,7 @@ public class SyntaxHighlighter extends UIComponentBase {
     public void encodeEnd(FacesContext context) throws IOException {
         ResponseWriter writer = context.getResponseWriter();
         writer.startElement("div", null);
-        writer.writeAttribute("id", this.getClientId(), null);
+        writer.writeAttribute("id", this.getClientId(context), null);
         writer.writeAttribute("class", this.getStyleClass(), null);
         writer.writeAttribute("style", this.getStyle(), null);
         writer.startElement("pre", null);
