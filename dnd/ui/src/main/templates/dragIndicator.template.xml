@@ -35,11 +35,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	</cc:interface>
 
 	<cc:implementation>
-		<div id="#{clientId}" class="rf-ind #{component.attributes['styleClass']}" style="display: none;"> 
+		<div id="#{clientId}" class="rf-ind #{component.attributes['styleClass']}" style="display: none;"> 			
+			<cdk:body />
 			<cdk:scriptObject name="options">
-				<cdk:scriptOption name="acceptClass" value="#{concatClasses('rf-ind-acpt', component.attributes['acceptClass'])}"/>
-				<cdk:scriptOption name="rejectClass" value="#{concatClasses('rf-ind-rejt', component.attributes['rejectClass'])}"/>
-				<cdk:scriptOption name="draggingClass" value="#{concatClasses('rf-ind-drag', component.attributes['draggingClass'])}"/>
+				<cdk:scriptOption name="acceptClass" value="#{this.concatClasses('rf-ind-acpt', component.attributes['acceptClass'])}"/>
+				<cdk:scriptOption name="rejectClass" value="#{this.concatClasses('rf-ind-rejt', component.attributes['rejectClass'])}"/>
+				<cdk:scriptOption name="draggingClass" value="#{this.concatClasses('rf-ind-drag', component.attributes['draggingClass'])}"/>
 			</cdk:scriptObject>
 			<script type="text/javascript">
 				new RichFaces.ui.DragIndicator("#{clientId}", #{toScriptArgs(options)});
