@@ -21,8 +21,7 @@
 	<h:form>
 		<h:panelGrid columns="2" columnClasses="top,top">
 			<rich:fileUpload fileUploadListener="#{fileUploadBean.listener}"
-				maxFilesQuantity="#{fileUploadBean.uploadsAvailable}" id="upload"
-				acceptedTypes="jpg, gif, png, bmp">
+				id="upload" acceptedTypes="jpg, gif, png, bmp">
 				<a4j:ajax event="uploadcomplete" execute="@none" render="info" />
 			</rich:fileUpload>
 			<h:panelGroup id="info">
