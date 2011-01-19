@@ -9,10 +9,19 @@
 (function ($, rf) {
 	
 	rf.ui = rf.ui || {};
+	
+	var defaultIndicatorClasses = {
+			rejectClass : "rf-ind-rejt",
+			acceptClass : "rf-ind-acpt",
+			draggingClass : "rf-ind-drag"		
+		};
       
 	rf.ui.Draggable =  function(id, options) {
 		this.id = id;
 		this.options = options;
+		
+		this.namespace = this.namespace || "."
+		+ rf.Event.createNamespace(this.name, this.id);
 		
 		this.dragElement = $(document.getElementById(this.options.parentId));
 		this.dragElement.draggable();
@@ -61,6 +70,8 @@
 						var indicator = rf.$(this.options.indicator);
 						if(indicator) {
 							ui.helper.addClass(indicator.draggingClass());
+						} else {
+							ui.helper.addClass(defaultIndicatorClasses.draggingClass);
 						}
 					}
 					this.__clearDraggableCss(ui.helper);
