@@ -71,7 +71,7 @@ public class TreeBean implements Serializable {
         public void processSelectionChange(TreeSelectionChangeEvent event) throws AbortProcessingException {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             
-            facesContext.addMessage(getTree(event).getBaseClientId(facesContext), createEventMessage(event, fromExpression));
+            facesContext.addMessage(getTree(event).getClientId(facesContext), createEventMessage(event, fromExpression));
         }
         
     }
@@ -90,7 +90,7 @@ public class TreeBean implements Serializable {
 
         public void processToggle(TreeToggleEvent event) throws AbortProcessingException {
             FacesContext facesContext = FacesContext.getCurrentInstance();
-            facesContext.addMessage(getTree(event).getBaseClientId(facesContext), createEventMessage(event, fromExpression));
+            facesContext.addMessage(getTree(event).getClientId(facesContext), createEventMessage(event, fromExpression));
         }
         
     }

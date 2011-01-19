@@ -30,6 +30,7 @@ import java.util.Locale;
 import javax.swing.tree.TreeNode;
 
 import org.richfaces.model.SwingTreeNodeImpl;
+import org.richfaces.util.FastJoiner;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
@@ -38,7 +39,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
-import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.io.Closeables;
 
@@ -48,7 +48,7 @@ import com.google.common.io.Closeables;
  */
 public class TreeNodeParser implements ContentHandler {
 
-    private static final Joiner JOINER = Joiner.on("").skipNulls();
+    private static final FastJoiner JOINER = FastJoiner.on("");
     
     private XMLReader reader;
 
