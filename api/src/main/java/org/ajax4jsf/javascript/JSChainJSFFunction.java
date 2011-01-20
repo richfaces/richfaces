@@ -28,6 +28,10 @@ package org.ajax4jsf.javascript;
  */
 public class JSChainJSFFunction extends JSFunction {
 
+    public JSChainJSFFunction(Object... parameters) {
+        super("jsf.util.chain", (Object[]) createFunctionArgs(parameters));
+    }
+
     private static Object[] createFunctionArgs(Object[] sourceParams) {
         Object[] result = new Object[sourceParams.length + 2];
         
@@ -40,8 +44,4 @@ public class JSChainJSFFunction extends JSFunction {
         return result;
     }
     
-    public JSChainJSFFunction(Object... parameters) {
-        super("jsf.util.chain", (Object[]) createFunctionArgs(parameters));
-    }
-
 }
