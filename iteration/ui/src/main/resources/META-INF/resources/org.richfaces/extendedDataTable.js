@@ -607,7 +607,7 @@
 			if ("u" == this.shiftIndex) {
 				range = [0, index];
 			} else if ("d" == this.shiftIndex) {
-				range = [index, rows - 1];
+				range = [index, this.rows - 1];
 			} else if (index >= this.shiftIndex) {
 				range = [this.shiftIndex, index];
 			} else {
