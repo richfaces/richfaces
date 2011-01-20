@@ -73,11 +73,11 @@
 		
 	</div>
 		<cdk:scriptObject name="options">
-		    <cdk:scriptOption name="left" value="#{getLeftOrDefault(component)}" defaultValue="auto"/>
-		    <cdk:scriptOption name="top" value="#{getTopOrDefault(component)}" defaultValue="auto"/>
-	        <cdk:scriptOption attributes="minHeight minWidth maxHeight maxWidth width height moveable followByScroll zindex shadowDepth shadowOpacity domElementAttachment show keepVisualState autosized resizeable modal overlapEmbedObjects visualOptions " />
-	        <cdk:scriptOption attributes="onshow onhide onresize onmove onbeforeshow onbeforehide" wrapper="eventHandler"/>
-	    </cdk:scriptObject>
+						<cdk:scriptOption name="left" value="#{getLeftOrDefault(component)}" />
+						<cdk:scriptOption name="top" value="#{getTopOrDefault(component)}" />
+	                	<cdk:scriptOption attributes="width height minWidth minHeight maxWidth maxHeight moveable followByScroll left top zindex shadowDepth shadowOpacity domElementAttachment show keepVisualState autosized resizeable modal overlapEmbedObjects visualOptions " />
+	                    <cdk:scriptOption attributes="onshow onhide onresize onmove onbeforeshow onbeforehide" wrapper="eventHandler"/>
+	                </cdk:scriptObject>
 			
 			<script type="text/javascript">	
 				new RichFaces.ui.PopupPanel(#{toScriptArgs(clientId, options)});
@@ -86,6 +86,8 @@
 				</c:if>
 			</script>			
 </div>
+
+
 
 	</cc:implementation>
 </cdk:root>
