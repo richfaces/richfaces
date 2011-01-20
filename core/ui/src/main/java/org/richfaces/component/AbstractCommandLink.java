@@ -39,7 +39,7 @@ import org.richfaces.renderkit.AjaxConstants;
 @JsfComponent (
     renderer = @JsfRenderer(type = "org.richfaces.CommandLinkRenderer"),
     tag = @Tag(type = TagType.Facelets),
-    attributes = { "ajax-props.xml", "link-props.xml", "core-props.xml" }
+    attributes = {"commandLink-target-prop.xml", "ajax-props.xml", "link-props.xml", "core-props.xml"}
 )
 public abstract class AbstractCommandLink extends AbstractActionComponent implements MetaComponentResolver {
 

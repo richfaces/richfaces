@@ -16,7 +16,7 @@
 		<c:choose>
 			<c:when test="#{not component.attributes['disabled']}">
 				<a id="#{clientId}" name="#{clientId}"
-					cdk:passThroughWithExclusions="value" onclick="#{this.getOnClick(facesContext, component)}"
+					cdk:passThroughWithExclusions="value target" onclick="#{this.getOnClick(facesContext, component)}"
 					href="#">
 					#{component.attributes['value']}
 					<cdk:call expression="renderChildren(facesContext, component)" />
