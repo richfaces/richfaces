@@ -613,4 +613,12 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         }
         return value;
     }
+    
+    protected AbstractCalendar.Mode getModeOrDefault(UIComponent component) {
+        AbstractCalendar.Mode value = ((AbstractCalendar) component).getMode();
+        if (value == null) {
+            value = AbstractCalendar.Mode.client;
+        }
+        return value;
+    }
 }
