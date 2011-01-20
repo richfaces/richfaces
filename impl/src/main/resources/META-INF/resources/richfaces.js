@@ -15,6 +15,23 @@ if (!window.RichFaces) {
 
 	richfaces.RICH_CONTAINER = "rf";
 	
+	//keys codes
+	richfaces.KEYS = { 
+		BACKSPACE: 8,	
+		TAB: 9,
+		RETURN: 13,
+		ESC: 27,
+		PAGEUP: 33,
+		PAGEDOWN: 34,
+		END: 35,
+		HOME: 36,
+		LEFT: 37,
+		UP: 38,
+		RIGHT: 39,
+		DOWN: 40,
+		DEL: 46
+	};
+	
 	// get DOM element by id or DOM element or jQuery object
 	richfaces.getDomElement = function (source) {
 		var type = typeof source;
@@ -541,22 +558,6 @@ if (!window.RichFaces) {
 
 		jsf.ajax.request(source, event, parameters);
 	};
-
-
-	//keys codes
-	richfaces.KEYS = { 
-				BACKSPACE: 8,	
-				TAB: 9,
-				RETURN: 13,
-				ESC: 27,
-				PAGEUP: 33,
-				PAGEDOWN: 34,
-				LEFT: 37,
-				UP: 38,
-				RIGHT: 39,
-				DOWN: 40,
-				DEL: 46
-			};
 
 	var ajaxOnComplete = function (data) {
 		var type = data.type;
