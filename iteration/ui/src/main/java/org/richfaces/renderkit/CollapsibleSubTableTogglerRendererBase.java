@@ -135,6 +135,7 @@ public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
             && (expandIcon.trim().length() > 0 && collapseIcon.trim().length() > 0)) {
 
             String image = expanded ? expandIcon : collapseIcon;
+            image = RenderKitUtils.getResourceURL(image, context);
             if (image != null && image.trim().length() > 0) {
                 writer.startElement(HtmlConstants.IMG_ELEMENT, control);
                 writer.writeAttribute(HtmlConstants.SRC_ATTRIBUTE, image, null);
