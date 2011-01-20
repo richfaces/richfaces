@@ -3,7 +3,7 @@
 
 	rf.utils.Cache = function (key, items, values, useCache) {
 		this.key = key.toLowerCase();
-		this.cache = {}
+		this.cache = {};
 		this.cache[this.key] = items || [];
 		this.originalValues = typeof values == "function" ? values(items) : values || this.cache[this.key];
 		this.values = processValues(this.originalValues);
@@ -16,7 +16,7 @@
 			processedValues.push(values[i].toLowerCase());
 		}
 		return processedValues;
-	}
+	};
 	
 	var checkValuesPrefix = function () {
 		var result = true;
@@ -27,7 +27,7 @@
 			}
 		}
 		return result;
-	}
+	};
 
 	var getItems = function (key, filterFunction) {
 		key = key.toLowerCase();
@@ -101,7 +101,7 @@
 		this.attachToDom();
 		this.options = $.extend(this.options, defaultOptions, options);
 		this.value = "";
-		this.index = -1;
+		this.index = null;
 		this.isFirstAjax = true;
 		updateTokenOptions.call(this);
 		bindEventHandlers.call(this);
@@ -140,7 +140,7 @@
 	
 	var getData = function (nodeList) {
 		var data = [];
-		nodeList.each(function () {;
+		nodeList.each(function () {
 			data.push($(this).text().replace(REGEXP_TRIM, "$1"));
 		});
 		return data;
@@ -153,7 +153,7 @@
 			this.REGEXP_TOKEN_LEFT = new RegExp('[^'+escapedTokens+']+$','i');
 			this.REGEXP_TOKEN_RIGHT = new RegExp('['+escapedTokens+']','i');
 			this.hasSpaceToken = this.options.tokens.indexOf(' ')!=-1;
-		};
+		}
 	};
 
 	var bindEventHandlers = function () {
@@ -194,8 +194,8 @@
         if(offset < parentContainer.scrollTop()) {
         	parentContainer.scrollTop(offset);
         } else {
-        	offset+=this.items.get(this.index).offsetHeight;
-        	if(offset - parentContainer.scrollTop() > parentContainer.get(0).clientHeight) {
+        	offset+=this.items.eq(this.index).outerHeight();
+        	if(offset - parentContainer.scrollTop() > parentContainer.innerHeight()) {
         		parentContainer.scrollTop(offset - parentContainer.innerHeight());
             }
         }
@@ -230,11 +230,11 @@
 			if (!callback && _this.isVisible && _this.options.selectFirst) {
 				selectItem.call(_this, _event, 0);
 			}
-		}
+		};
 		
 		var ajaxError = function (event) {
 			//alert("error");
-		}
+		};
 		
 		this.isFirstAjax = false;
 		//caution: JSF submits inputs with empty names causing "WARNING: Parameters: Invalid chunk ignored." in Tomcat log
@@ -243,36 +243,37 @@
 		rf.ajax(this.id, event, {parameters: params, error: ajaxError, complete:ajaxSuccess});
 	};
 	
-	var selectItem = function(event, index, isOffset) {
-		if (this.items.length==0 || (!isOffset && this.index == index)) return;
-	
-		if (this.index!=-1) {
-			var element = this.items.eq(this.index)
+	var clearSelection = function () {
+		if (this.index != null) {
+			var element = this.items.eq(this.index);
 			if (element.removeClass(this.options.selectedItemClass).hasClass(this.options.subItemClass)){
 				element.removeClass(this.options.selectedSubItemClass);
 			}
+			this.index = null;
 		}
+	};
+	
+	var selectItem = function(event, index, isOffset) {
+		if (this.items.length==0 || (!isOffset && index == this.index)) return;
 
-		if (index==undefined) {
-			this.index = -1;
+		if (index == null) {
+			clearSelection.call(this);
 			return;
 		}
-
+		
 		if (isOffset) {
-			this.index += index;
-			if ( this.index<0 ) {
-				this.index = this.items.length - 1;
-			} else if (this.index >= this.items.length) {
-				this.index = 0;
-			}
-		} else {
-			if (index<0) {
-				index = 0;
-			} else if (index>=this.items.length) {
-				index = this.items.length - 1;
-			}
-			this.index = index;
+			index = this.index + index;
 		}
+		if (index<0) {
+			index = 0;
+		} else if (index>=this.items.length) {
+			index = this.items.length - 1;
+		}
+		if (index == this.index) return;
+		
+		clearSelection.call(this);
+		this.index = index;
+
 		var item = this.items.eq(this.index);
 		if (item.addClass(this.options.selectedItemClass).hasClass(this.options.subItemClass)) {
 			item.addClass(this.options.selectedSubItemClass);
@@ -339,7 +340,7 @@
 	};
 	
 	var getSelectedItemValue = function () {
-		if ( this.index>=0) {
+		if ( this.index != null ) {
 			var element = this.items.eq(this.index);
 			return this.cache.getItemValue(element);
 		}
@@ -390,6 +391,58 @@
 		return field.value;
 	};
 	
+	var getPageLastItem = function() {
+		if (this.items.length==0) return -1;
+		var parentContainer = $(rf.getDomElement(this.id+ID.ITEMS)).parent();
+		var h = parentContainer.scrollTop() + parentContainer.innerHeight() + this.items[0].offsetTop;
+		var item;
+		var i= (this.index!=null && this.items[this.index].offsetTop<=h) ? this.index : 0;
+		for (i;i<this.items.length;i++) {
+			item = this.items[i];
+			if (item.offsetTop+item.offsetHeight>h) {
+				i--;
+				break;
+			}
+		}
+		if (i!=this.items.length-1 && i==this.index) {
+			h += this.items[i].offsetTop - parentContainer.scrollTop();
+			for (++i;i<this.items.length;i++) {
+				item = this.items[i];
+				if (item.offsetTop+item.offsetHeight>h) {
+					break;
+				}
+			}
+		}
+		return i;
+	};
+	
+	var getPageFirstItem = function() {
+		if (this.items.length==0) return -1;
+		var parentContainer = $(rf.getDomElement(this.id+ID.ITEMS)).parent();
+		var h = parentContainer.scrollTop() + this.items[0].offsetTop;
+		var item;
+		var i= (this.index!=null && this.items[this.index].offsetTop>=h) ? this.index - 1 : this.items.length-1;
+		for (i;i>=0;i--) {
+			item = this.items[i];
+			if (item.offsetTop<h) {
+				i++;
+				break;
+			}
+		}
+		if (i!=0 && i==this.index) {
+			h = this.items[i].offsetTop - parentContainer.innerHeight();
+			if (h < this.items[0].offsetTop) h = this.items[0].offsetTop;
+			for (--i;i>=0;i--) {
+				item = this.items[i];
+				if (item.offsetTop<h) {
+					i++;
+					break;
+				}
+			}
+		}
+		return i;
+	};
+	
 	/*
 	 * Prototype definition
 	 */
@@ -412,7 +465,7 @@
 						return true;
 					}
 				}
-				return;
+				return false;
 			},
  			__getSubValue: getSubValue,
  			__updateInputValue: function (value) {
@@ -436,10 +489,16 @@
  				selectItem.call(this, event, 1, true);
  			},
  			__onPageUp: function (event) {
-
+ 				selectItem.call(this, event, getPageFirstItem.call(this));
  			},
  			__onPageDown: function (event) {
-
+ 				selectItem.call(this, event, getPageLastItem.call(this));
+ 			},
+ 			__onKeyHome: function (event) {
+ 				selectItem.call(this, event, 0);
+ 			},
+ 			__onKeyEnd: function (event) {
+ 				selectItem.call(this, event, this.items.length-1);
  			},
  			__onBeforeShow: function (event) {
  			},

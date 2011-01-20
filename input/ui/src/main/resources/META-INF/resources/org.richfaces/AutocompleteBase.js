@@ -1,19 +1,3 @@
-(function (rf) {
-	rf.KEYS = {
-		BACKSPACE: 8,	
-		TAB: 9,
-		RETURN: 13,
-		ESC: 27,
-		PAGEUP: 33,
-		PAGEDOWN: 34,
-		LEFT: 37,
-		UP: 38,
-		RIGHT: 39,
-		DOWN: 40,
-		DEL: 46
-	};
-})(RichFaces);
-
 (function ($, rf) {
 
 	rf.ui = rf.ui || {}; 
@@ -27,7 +11,8 @@
 		this.options = $.extend({}, defaultOptions, options);
 		this.namespace = this.namespace || "."+rf.Event.createNamespace(this.name, this.selectId);
 		this.currentValue = "";
-		this.isChanged = this.getValue().length!=0;
+		this.tempValue = this.getValue();
+		this.isChanged = this.tempValue.length!=0;
 		bindEventHandlers.call(this);
 	};
 	
@@ -77,9 +62,9 @@
 		if (this.timeoutId) {
 			window.clearTimeout(this.timeoutId);
 			this.timeoutId = null;
-			rf.getDomElement(this.fieldId).focus();
 		}
 		
+		rf.getDomElement(this.fieldId).focus();
 		if (this.isVisible) {
 			this.hide(event);
 		} else {
@@ -118,6 +103,10 @@
 	};
 	
 	var onChange = function (event) {
+		if (this.isChanged) {
+			if (this.getValue()==this.tempValue) return;
+		}
+		this.isChanged=false;
 		var value = this.getValue();
 		var flag = value != this.currentValue;
 		//TODO: is it needed to chesk keys?
@@ -167,6 +156,18 @@
 				event.preventDefault();
 				if (this.isVisible) {
 					this.__onPageDown(event);
+				}
+				break;
+			case rf.KEYS.HOME:
+				event.preventDefault();
+				if (this.isVisible) {
+					this.__onKeyHome(event);
+				}
+				break;
+			case rf.KEYS.END:
+				event.preventDefault();
+				if (this.isVisible) {
+					this.__onKeyEnd(event);
 				}
 				break;
 			case rf.KEYS.RETURN:
@@ -230,7 +231,7 @@
 		} else {
 			return "";
 		}
-	}
+	};
 	
 	/*
 	 * Prototype definition
@@ -263,19 +264,23 @@
  			 */
  			__onChangeValue: function (event) {
  			},			
- 			__onKeyUp: function () {
+ 			__onKeyUp: function (event) {
  			},
- 			__onKeyDown: function () {
+ 			__onKeyDown: function (event) {
  			},
- 			__onPageUp: function () {
+ 			__onPageUp: function (event) {
  			},
- 			__onPageDown: function () {
+ 			__onPageDown: function (event) {
  			},
- 			__onBeforeShow: function () {
+ 			__onKeyHome: function (event) {
  			},
- 			__onShow: function () {
+ 			__onKeyEnd: function (event) {
  			},
- 			__onHide: function () {
+ 			__onBeforeShow: function (event) {
+ 			},
+ 			__onShow: function (event) {
+ 			},
+ 			__onHide: function (event) {
  			},
  			/*
  			 * Destructor
