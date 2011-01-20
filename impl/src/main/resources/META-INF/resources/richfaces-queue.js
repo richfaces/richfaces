@@ -31,13 +31,13 @@
 	  * @param {object} [event] - The DOM event that triggered this ajax request
 	  * @param {object} [options] - The set name/value pairs that can be sent as request parameters to control client and/or server side request processing
 	  * */
-	jsf.ajax.request = function request(source, event, options) {
+	jsf.ajax.request = function(source, event, options) {
 		richfaces.queue.push(source, event, options);
 	};
 		
 	richfaces.ajax.jsfResponse = jsf.ajax.response;
 	
-	jsf.ajax.response = function request(request, context) {
+	jsf.ajax.response = function(request, context) {
 		richfaces.queue.response(request, context);
 	};
 	
