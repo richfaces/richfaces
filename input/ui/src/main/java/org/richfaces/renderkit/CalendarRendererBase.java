@@ -202,7 +202,7 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         // in case the converter hasn't been set, try to use default 
         // DateTimeConverter
         if (converter == null) {
-            converter = createDefaultConverter();
+            converter = createDefaultConverter(facesContext);
         }
         
         setupConverter(facesContext, converter, calendar);
@@ -222,7 +222,7 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
             Converter converter = SelectUtils.findConverter(facesContext, calendar, "value");
             
             if (converter == null) {
-                converter = createDefaultConverter();
+                converter = createDefaultConverter(facesContext);
             }
             
             setupConverter(facesContext, converter, calendar);
@@ -535,8 +535,11 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         return (label == null || ((String)label).trim().length() == 0);        
     }
     
-    protected Converter createDefaultConverter() {
-        return new DateTimeConverter();
+    protected Converter createDefaultConverter(FacesContext facesContext) {
+        if (facesContext == null) {
+            return null;
+        }
+        return facesContext.getApplication().createConverter(DateTimeConverter.CONVERTER_ID);
     }
     
     protected Converter setupConverter(FacesContext facesContext, Converter converter, AbstractCalendar calendar) {
