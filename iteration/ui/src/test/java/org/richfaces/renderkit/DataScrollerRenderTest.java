@@ -27,7 +27,7 @@ public class DataScrollerRenderTest {
     @Before
     public void setUp() {
         environment = new HtmlUnitEnvironment();
-        environment.withWebRoot(new File("src/test/resources"));
+        //environment.withWebRoot(new File("src/test/resources"));
         environment.withResource("/WEB-INF/faces-config.xml", "org/richfaces/renderkit/faces-config.xml");
         environment.withResource("/test.xhtml", "org/richfaces/renderkit/dataTableTest.xhtml");
         environment.start();
@@ -244,7 +244,7 @@ public class DataScrollerRenderTest {
             HtmlElement ff = getFastForwardButton(page, firstScrollerId);
             
             ff.click();
-            
+
             HtmlElement currentDigital1 = getDigitalButton(page, firstScrollerId, i);
             assertEquals("span", currentDigital1.getNodeName());
             assertEquals("rf-ds-nmb-btn rf-ds-act", currentDigital1.getAttribute(HtmlConstants.CLASS_ATTRIBUTE).trim());

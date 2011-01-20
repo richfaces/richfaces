@@ -20,6 +20,7 @@
 		<cdk:superclass>org.richfaces.renderkit.CalendarRendererBase
 		</cdk:superclass>
 		<cdk:renderer-type>org.richfaces.CalendarRenderer</cdk:renderer-type>
+         <cdk:import package="org.richfaces.component" names="Positioning" />
 	</cc:interface>
 	<cc:implementation>
 	<span id="#{clientId}">
@@ -73,9 +74,9 @@
 					<cdk:scriptOption attributes="onchange ondateselect onbeforedateselect onbeforecurrentdateselect onhide onshow ondatemouseover ondatemouseout onclean ontimeselect onbeforetimeselect" wrapper="eventHandler" />
 					<cdk:scriptOption name="mode" value="#{getModeOrDefault(component)}" defaultValue="org.richfaces.component.AbstractCalendar.Mode.client"/>
 					<cdk:scriptOption name="todayControlMode" value="#{getTodayControlModeOrDefault(component)}" defaultValue='"select"'/>
-					<cdk:scriptOption name="jointPoint" value="#{getJointPointOrDefault(component)}" />
-					<cdk:scriptOption name="direction" value="#{getDirectionOrDefault(component)}" />
-					<cdk:scriptOption name="horizontalOffset" value="#{component.attributes['horizontalOffset']}" defaultValue="0"/>
+                    <cdk:scriptOption name="direction" value="#{getDirection(component)}" defaultValue="Positioning.DEFAULT.getValue()" />
+                    <cdk:scriptOption name="jointPoint" value="#{getJointPoint(component)}" defaultValue="Positioning.DEFAULT.getValue()" />
+                    <cdk:scriptOption name="horizontalOffset" value="#{component.attributes['horizontalOffset']}" defaultValue="0"/>
 					<cdk:scriptOption name="verticalOffset" value="#{component.attributes['verticalOffset']}" defaultValue="0"/>
 					<cdk:scriptOption name="boundaryDatesMode" value="#{getBoundaryDatesModeOrDefault(component)}" defaultValue='"inactive"'/>
 					<cdk:scriptOption name="currentDate" value="#{getCurrentDate(facesContext, component)}" />

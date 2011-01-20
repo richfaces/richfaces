@@ -49,6 +49,7 @@ import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractCalendar;
 import org.richfaces.component.MetaComponentResolver;
+import org.richfaces.component.Positioning;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.component.util.MessageUtil;
 import org.richfaces.component.util.SelectUtils;
@@ -162,10 +163,10 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         Map<String, String> requestParameterMap = context.getExternalContext().getRequestParameterMap();
 
         String clientId = calendar.getClientId(context);
-        String currentDateString = (String) requestParameterMap.get(clientId + CURRENT_DATE_INPUT);
+        String currentDateString = requestParameterMap.get(clientId + CURRENT_DATE_INPUT);
         calendar.setSubmittedCurrentDate(currentDateString);
 
-        String selectedDateString = (String) requestParameterMap.get(clientId + "InputDate");
+        String selectedDateString = requestParameterMap.get(clientId + "InputDate");
         if (selectedDateString != null) {
             calendar.setSubmittedValue(selectedDateString);
         }
@@ -190,7 +191,7 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
 
         // skip conversion of already converted date
         if (submittedValue instanceof Date) {
-            return (Date) submittedValue;
+            return submittedValue;
         }
 
         // Store submitted value in the local variable as a string
@@ -278,12 +279,12 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         calendar.setTime(date);
       
         JSFunction result = new JSFunction("new Date");
-        result.addParameter(Integer.valueOf(calendar.get(Calendar.YEAR)));
-        result.addParameter(Integer.valueOf(calendar.get(Calendar.MONTH)));
-        result.addParameter(Integer.valueOf(calendar.get(Calendar.DATE)));
-        result.addParameter(Integer.valueOf(calendar.get(Calendar.HOUR_OF_DAY)));
-        result.addParameter(Integer.valueOf(calendar.get(Calendar.MINUTE)));
-        result.addParameter(new Integer(0));
+        result.addParameter(calendar.get(Calendar.YEAR));
+        result.addParameter(calendar.get(Calendar.MONTH));
+        result.addParameter(calendar.get(Calendar.DATE));
+        result.addParameter(calendar.get(Calendar.HOUR_OF_DAY));
+        result.addParameter(calendar.get(Calendar.MINUTE));
+        result.addParameter(0);
         
         return result;
     }
@@ -306,9 +307,9 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         JSFunction result = new JSFunction("new Date");
-        result.addParameter(Integer.valueOf(calendar.get(Calendar.YEAR)));
-        result.addParameter(Integer.valueOf(calendar.get(Calendar.MONTH)));
-        result.addParameter(Integer.valueOf(calendar.get(Calendar.DATE)));
+        result.addParameter(calendar.get(Calendar.YEAR));
+        result.addParameter(calendar.get(Calendar.MONTH));
+        result.addParameter(calendar.get(Calendar.DATE));
 
         return result;
     }
@@ -511,9 +512,8 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         if (zindex < 0) {
             zindex = 3;
         }
-        
-        String style =  HtmlUtil.concatStyles("z-index: " + zindex, calendar.getStyle());
-        return style;
+
+        return HtmlUtil.concatStyles("z-index: " + zindex, calendar.getStyle());
     }
     
     public Locale getAsLocale(FacesContext facesContext, UIComponent component) {
@@ -583,29 +583,29 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         }
         return value;
     }
-    
-    protected String getJointPointOrDefault(UIComponent component) {
-        String value = "";
+
+    protected String getJointPoint(UIComponent component) {
         if (component instanceof AbstractCalendar) {
-            value = ((AbstractCalendar) component).getJointPoint();
-            if (value == null || value.length() == 0) {
-                value = "AA";
+            Positioning jointPoint = ((AbstractCalendar) component).getJointPoint();
+            if (jointPoint != null) {
+                return jointPoint.getValue();
             }
         }
-        return value;
+        // return null to use default value on client
+        return null;
     }
-    
-    protected String getDirectionOrDefault(UIComponent component) {
-        String value = "";
+
+    protected String getDirection(UIComponent component) {
         if (component instanceof AbstractCalendar) {
-            value = ((AbstractCalendar) component).getDirection();
-            if (value == null || value.length() == 0) {
-                value = "AA";
+            Positioning direction = ((AbstractCalendar) component).getDirection();
+            if (direction != null) {
+                return direction.getValue();
             }
         }
-        return value;
+        // return null to use default value on client
+        return null;
     }
-    
+
     protected String getBoundaryDatesModeOrDefault(UIComponent component) {
         String value = "";
         if (component instanceof AbstractCalendar) {

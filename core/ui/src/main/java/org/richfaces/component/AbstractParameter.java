@@ -44,8 +44,8 @@ import org.richfaces.component.util.PartialStateHolderUtil;
  * @author shura (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.2 $ $Date: 2007/02/01 15:31:55 $
  */
-@JsfComponent(tag = @Tag(name = "param", handler = "org.richfaces.view.facelets.html.ParameterHandler", generate = false, type = TagType.Facelets), 
-    attributes = "param-assignTo-prop.xml"
+@JsfComponent(tag = @Tag(name = "param", handler = "org.richfaces.view.facelets.html.ParameterHandler", generate = false, type = TagType.Facelets),
+        attributes = "param-assignTo-prop.xml"
 )
 public abstract class AbstractParameter extends UIParameter implements ActionListener, JavaScriptParameter {
 
@@ -62,7 +62,9 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
      */
     private Converter converter = null;
 
-    /** ********************************************************* */
+    /**
+     * ********************************************************
+     */
 
     @Attribute
     public abstract boolean isNoEscape();
@@ -87,15 +89,13 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
         return converter;
     }
 
-    public void processAction(ActionEvent actionEvent)
-    throws AbortProcessingException {
+    public void processAction(ActionEvent actionEvent) throws AbortProcessingException {
         FacesContext context = getFacesContext();
         ELContext elContext = context.getELContext();
         ValueExpression updateBinding = getAssignToExpression();
 
         if (updateBinding != null && (!updateBinding.isReadOnly(elContext))) {
-            String requestValue = context.getExternalContext()
-            .getRequestParameterMap().get(getName());
+            String requestValue = context.getExternalContext().getRequestParameterMap().get(getName());
 
             Object convertedValue = requestValue;
 
@@ -151,22 +151,21 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
     /** ********************************************************* */
 
     /**
-     * @param context
-     * @param type
-     * @return
-     * @throws FacesException
+     * @param context Faces Context
+     * @param type    Type of class
+     * @return converter
+     * @throws FacesException if something goes wrong
      */
-    private Converter createConverter(FacesContext context, Class<?> type)
-    throws FacesException {
+    private Converter createConverter(FacesContext context, Class<?> type) throws FacesException {
         Converter converter = getConverter();
 
         if (converter == null && type != null && !type.equals(String.class)
-            && !type.equals(Object.class)) {
+                && !type.equals(Object.class)) {
             try {
                 converter = context.getApplication().createConverter(type);
             } catch (Exception e) {
                 throw new FacesException(Messages.getMessage(
-                    Messages.NO_CONVERTER_REGISTERED, type.getName()), e);
+                        Messages.NO_CONVERTER_REGISTERED, type.getName()), e);
             }
         }
 
@@ -210,8 +209,8 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
             return null;
         }
 
-        return new Object[] {
-            superState, 
+        return new Object[]{
+            superState,
             converterState
         };
     }

@@ -147,10 +147,10 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     public abstract boolean isResetTimeOnDateSelect();
 
     @Attribute
-    public abstract String getJointPoint();
+    public abstract Positioning getJointPoint();
 
     @Attribute
-    public abstract String getDirection();
+    public abstract Positioning getDirection();
 
     @Attribute
     public abstract String getBoundaryDatesMode();
