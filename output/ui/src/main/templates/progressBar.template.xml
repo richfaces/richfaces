@@ -37,8 +37,8 @@
 			<script type="text/javascript">
                 <cdk:scriptObject name="options">
                     <cdk:scriptOption name="submitFunction" value="#{getSubmitFunction(facesContext, component)}" />
-                    <cdk:scriptOption name="minValue" value="#{getMinValueOrDefault(component)}" />
-                    <cdk:scriptOption name="maxValue" value="#{getMaxValueOrDefault(component)}" />
+                    <cdk:scriptOption name="minValue" value="#{getMinValueOrDefault(component)}" defaultValue="0"/>
+                    <cdk:scriptOption name="maxValue" value="#{getMaxValueOrDefault(component)}" defaultValue="100"/>
                     
                     <cdk:scriptOption attributes="interval enabled value onfinish resource" />
                 </cdk:scriptObject>

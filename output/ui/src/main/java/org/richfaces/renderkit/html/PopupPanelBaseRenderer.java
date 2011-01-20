@@ -37,6 +37,9 @@ public class PopupPanelBaseRenderer extends RendererBase {
     private static final int SIZE = 10;
     private static final String STATE_OPTION_SUFFIX = "StateOption_";
     
+    private static final String DEFAULT_LEFT = "auto";
+    private static final String DEFAULT_TOP = "auto";
+    
     //TODO nick - use enums
     private static final Set<String> ALLOWED_ATTACHMENT_OPTIONS = new HashSet<String>();
     static {
@@ -185,8 +188,6 @@ public class PopupPanelBaseRenderer extends RendererBase {
         return result;
     }
     
-   
-    
     private Map<String, Object> prepareVisualOptions(Object value, AbstractPopupPanel panel) {
         if (null == value) {
             return new HashMap<String, Object>();
@@ -207,4 +208,20 @@ public class PopupPanelBaseRenderer extends RendererBase {
                 + "] must be instance of Map or String, but its type is " + value.getClass().getSimpleName());
         }
     }
+    
+    protected String getLeftOrDefault(UIComponent component) {
+        String leftProperty = ((AbstractPopupPanel) component).getLeft();
+        if (leftProperty == null || leftProperty.length() == 0) {
+            leftProperty = DEFAULT_LEFT; 
+        }
+        return leftProperty;
+    }
+    
+    protected String getTopOrDefault(UIComponent component) {
+        String topProperty = ((AbstractPopupPanel) component).getTop();
+        if (topProperty == null || topProperty.length() == 0) {
+            topProperty = DEFAULT_TOP; 
+        }
+        return topProperty;
+    }    
 }

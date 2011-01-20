@@ -59,19 +59,19 @@ public abstract class AbstractPopupPanel extends UIComponentBase {
     @Attribute(defaultValue = "-1")
     public abstract int getMinWidth();
 
-    @Attribute(defaultValue = "" + Integer.MAX_VALUE)
+    @Attribute
     public abstract int getMaxHeight();
 
-    @Attribute(defaultValue = "" + Integer.MAX_VALUE)
+    @Attribute
     public abstract int getMaxWidth();
 
-    @Attribute(defaultValue = "auto")
+    @Attribute
     public abstract String getTop();
 
-    @Attribute(defaultValue = "auto")
+    @Attribute
     public abstract String getLeft();
 
-    @Attribute(defaultValue = "false")
+    @Attribute
     public abstract boolean isShow();
 
     public abstract void setShow(boolean show);
@@ -79,22 +79,22 @@ public abstract class AbstractPopupPanel extends UIComponentBase {
     @Attribute(defaultValue = "true")
     public abstract boolean isMoveable();
 
-    @Attribute(defaultValue = "false")
+    @Attribute
     public abstract boolean isAutosized();
 
     @Attribute(defaultValue = "true")
     public abstract boolean isModal();
 
-    @Attribute(defaultValue = "false")
+    @Attribute
     public abstract boolean isKeepVisualState();
 
-    @Attribute(defaultValue = "false")
+    @Attribute
     public abstract boolean isOverlapEmbedObjects();
 
-    @Attribute(defaultValue = "false")
+    @Attribute
     public abstract boolean isResizeable();
 
-    @Attribute(defaultValue = "false")
+    @Attribute
     public abstract boolean isTrimOverlayedElements();
 
     @Attribute
