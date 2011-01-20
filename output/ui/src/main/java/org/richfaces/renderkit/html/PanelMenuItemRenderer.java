@@ -95,15 +95,15 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
     }
 
     private void encodeHeaderGroupRightIcon(ResponseWriter writer, FacesContext context, AbstractPanelMenuItem menuItem, String classPrefix) throws IOException {
-        String icon = menuItem.isDisabled() ? menuItem.getIconRightDisabled() : menuItem.getIconRight();
-        String cssClasses = concatClasses(classPrefix + "-exp-ico", menuItem.getIconLeftClass());
+        String icon = menuItem.isDisabled() ? menuItem.getRightIconDisabled() : menuItem.getRightIcon();
+        String cssClasses = concatClasses(classPrefix + "-exp-ico", menuItem.getLeftIconClass());
         
         encodeTdIcon(writer, context, cssClasses, icon);
     }
 
     private void encodeHeaderGroupLeftIcon(ResponseWriter writer, FacesContext context, AbstractPanelMenuItem menuItem, String classPrefix) throws IOException {
-        String icon = menuItem.isDisabled() ? menuItem.getIconLeftDisabled() : menuItem.getIconLeft();
-        String cssClasses = concatClasses(classPrefix + "-ico", menuItem.getIconLeftClass());
+        String icon = menuItem.isDisabled() ? menuItem.getLeftIconDisabled() : menuItem.getLeftIcon();
+        String cssClasses = concatClasses(classPrefix + "-ico", menuItem.getLeftIconClass());
 
         encodeTdIcon(writer, context, cssClasses, icon);
     }

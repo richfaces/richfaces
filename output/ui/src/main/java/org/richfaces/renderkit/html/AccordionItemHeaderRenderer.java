@@ -20,14 +20,14 @@ class AccordionItemHeaderRenderer extends TableIconsRendererHelper<AbstractAccor
         super("header", "rf-ac-itm");
     }
 
-    protected void encodeHeaderIconLeft(ResponseWriter writer, FacesContext context, AbstractAccordionItem panel) throws IOException {
+    protected void encodeHeaderLeftIcon(ResponseWriter writer, FacesContext context, AbstractAccordionItem panel) throws IOException {
         String iconInactive = panel.isDisabled() ? panel.getLeftIconDisabled() : panel.getLeftIconInactive();
         String iconActive = panel.isDisabled() ? panel.getLeftIconDisabled() : panel.getLeftIconActive();
 
         encodeTdIcon(writer, context, cssClassPrefix + "-ico", iconInactive, iconActive);
     }
 
-    protected void encodeHeaderIconRight(ResponseWriter writer, FacesContext context, AbstractAccordionItem panel) throws IOException {
+    protected void encodeHeaderRightIcon(ResponseWriter writer, FacesContext context, AbstractAccordionItem panel) throws IOException {
         String iconInactive = panel.isDisabled() ? panel.getRightIconDisabled() : panel.getRightIconInactive();
         String iconActive = panel.isDisabled() ? panel.getRightIconDisabled() : panel.getRightIconActive();
 

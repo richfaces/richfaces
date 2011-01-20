@@ -1,4 +1,4 @@
-<div id="f:panelMenuItem-topDis" class="rf-pm-top-itm topItemClass rf-pm-top-itm-dis topItemDisableClass">
+<div id="f:panelMenuItem-topDis" class="rf-pm-top-itm topItemClass rf-pm-top-itm-dis topItemClassDisabled">
   <table class="rf-pm-top-itm-gr">
       <tbody>
           <tr>

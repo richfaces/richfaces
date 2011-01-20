@@ -314,7 +314,7 @@
 
         destroy: function () {
             var panelMenu = this.__rfPanelMenu();
-            if (panelMenu.getItems && panelMenu.getItems()[this.itemName]) {
+            if (panelMenu && panelMenu.getItems && panelMenu.getItems()[this.itemName]) {
                 delete panelMenu.getItems()[this.itemName];
             }
 

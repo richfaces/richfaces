@@ -66,15 +66,15 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
 
     private final TableIconsRendererHelper<AbstractCollapsiblePanel> headerRenderer = new TableIconsRendererHelper<AbstractCollapsiblePanel>("header", "rf-cp") {
 
-        protected void encodeHeaderIconLeft(ResponseWriter writer, FacesContext context, AbstractCollapsiblePanel panel) throws IOException {
+        protected void encodeHeaderLeftIcon(ResponseWriter writer, FacesContext context, AbstractCollapsiblePanel panel) throws IOException {
             encodeTdIcon(writer, context, cssClassPrefix + "-ico",
-                    panel.getLeftCollapsedIcon(), panel.getLeftExpandedIcon());
+                    panel.getLeftIconCollapsed(), panel.getLeftIconExpanded());
         }
 
-        protected void encodeHeaderIconRight(ResponseWriter writer, FacesContext context, AbstractCollapsiblePanel panel) throws IOException {
+        protected void encodeHeaderRightIcon(ResponseWriter writer, FacesContext context, AbstractCollapsiblePanel panel) throws IOException {
             //TODO nick - should this be "-ico-exp"? also why expanded icon state is connected with right icon alignment?
             encodeTdIcon(writer, context, cssClassPrefix + "-exp-ico",
-                    panel.getRightCollapsedIcon(), panel.getRightExpandedIcon());
+                    panel.getRightIconCollapsed(), panel.getRightIconExpanded());
         }
 
         @Override

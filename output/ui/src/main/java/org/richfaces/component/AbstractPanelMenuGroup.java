@@ -199,68 +199,68 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
     // ------------------------------------------------ Html Attributes
 
     enum Properties {
-        iconLeftDisabled, iconLeftExpanded, iconRightCollapsed, iconRightDisabled, iconRightExpanded, disabledClass, styleClass, expandEvent, collapseEvent, iconLeftCollapsed
+        leftIconDisabled, leftIconExpanded, rightIconCollapsed, rightIconDisabled, rightIconExpanded, disabledClass, styleClass, expandEvent, collapseEvent, leftIconCollapsed
     }
 
     @Attribute(generate = false)
-    public String getIconLeftCollapsed() {
-        return (String) getStateHelper().eval(Properties.iconLeftCollapsed,
-                isTopItem() ? getPanelMenu().getTopGroupCollapseIconLeft() : getPanelMenu().getGroupCollapseIconLeft());
+    public String getLeftIconCollapsed() {
+        return (String) getStateHelper().eval(Properties.leftIconCollapsed,
+                isTopItem() ? getPanelMenu().getTopGroupLeftIconCollapsed() : getPanelMenu().getGroupLeftIconCollapsed());
     }
 
-    public void setIconLeftCollapsed(String iconLeftCollapsed) {
-        getStateHelper().put(Properties.iconLeftCollapsed, iconLeftCollapsed);
+    public void setLeftIconCollapsed(String leftIconCollapsed) {
+        getStateHelper().put(Properties.leftIconCollapsed, leftIconCollapsed);
     }
 
 
     @Attribute(generate = false)
-    public String getIconLeftDisabled() {
-        return (String) getStateHelper().eval(Properties.iconLeftDisabled,
-                isTopItem() ? getPanelMenu().getTopGroupDisableIconLeft() : getPanelMenu().getGroupDisableIconLeft());
+    public String getLeftIconDisabled() {
+        return (String) getStateHelper().eval(Properties.leftIconDisabled,
+                isTopItem() ? getPanelMenu().getTopGroupLeftIconDisabled() : getPanelMenu().getGroupLeftIconDisabled());
     }
 
-    public void setIconLeftDisabled(String iconLeftDisabled) {
-        getStateHelper().put(Properties.iconLeftDisabled, iconLeftDisabled);
-    }
-
-    @Attribute(generate = false)
-    public String getIconLeftExpanded() {
-        return (String) getStateHelper().eval(Properties.iconLeftExpanded,
-                isTopItem() ? getPanelMenu().getTopGroupExpandIconLeft() : getPanelMenu().getGroupExpandIconLeft());
-    }
-
-    public void setIconLeftExpanded(String iconLeftExpanded) {
-        getStateHelper().put(Properties.iconLeftExpanded, iconLeftExpanded);
+    public void setLeftIconDisabled(String leftIconDisabled) {
+        getStateHelper().put(Properties.leftIconDisabled, leftIconDisabled);
     }
 
     @Attribute(generate = false)
-    public String getIconRightCollapsed() {
-        return (String) getStateHelper().eval(Properties.iconRightCollapsed,
-                isTopItem() ? getPanelMenu().getTopGroupCollapseIconRight() : getPanelMenu().getGroupCollapseIconRight());
+    public String getLeftIconExpanded() {
+        return (String) getStateHelper().eval(Properties.leftIconExpanded,
+                isTopItem() ? getPanelMenu().getTopGroupLeftIconExpanded() : getPanelMenu().getGroupLeftIconExpanded());
     }
 
-    public void setIconRightCollapsed(String iconRightCollapsed) {
-        getStateHelper().put(Properties.iconRightCollapsed, iconRightCollapsed);
-    }
-
-    @Attribute(generate = false)
-    public String getIconRightDisabled() {
-        return (String) getStateHelper().eval(Properties.iconRightDisabled,
-                isTopItem() ? getPanelMenu().getTopGroupDisableIconRight() : getPanelMenu().getGroupDisableIconRight());
-    }
-
-    public void setIconRightDisabled(String iconRightDisabled) {
-        getStateHelper().put(Properties.iconRightDisabled, iconRightDisabled);
+    public void setLeftIconExpanded(String leftIconExpanded) {
+        getStateHelper().put(Properties.leftIconExpanded, leftIconExpanded);
     }
 
     @Attribute(generate = false)
-    public String getIconRightExpanded() {
-        return (String) getStateHelper().eval(Properties.iconRightExpanded,
-                isTopItem() ? getPanelMenu().getTopGroupExpandIconRight() : getPanelMenu().getGroupExpandIconRight());
+    public String getRightIconCollapsed() {
+        return (String) getStateHelper().eval(Properties.rightIconCollapsed,
+                isTopItem() ? getPanelMenu().getTopGroupRightIconCollapsed() : getPanelMenu().getGroupRightIconCollapsed());
     }
 
-    public void setIconRightExpanded(String iconRightExpanded) {
-        getStateHelper().put(Properties.iconRightExpanded, iconRightExpanded);
+    public void setRightIconCollapsed(String rightIconCollapsed) {
+        getStateHelper().put(Properties.rightIconCollapsed, rightIconCollapsed);
+    }
+
+    @Attribute(generate = false)
+    public String getRightIconDisabled() {
+        return (String) getStateHelper().eval(Properties.rightIconDisabled,
+                isTopItem() ? getPanelMenu().getTopGroupRightIconDisabled() : getPanelMenu().getGroupRightIconDisabled());
+    }
+
+    public void setRightIconDisabled(String rightIconDisabled) {
+        getStateHelper().put(Properties.rightIconDisabled, rightIconDisabled);
+    }
+
+    @Attribute(generate = false)
+    public String getRightIconExpanded() {
+        return (String) getStateHelper().eval(Properties.rightIconExpanded,
+                isTopItem() ? getPanelMenu().getTopGroupRightIconExpanded() : getPanelMenu().getGroupRightIconExpanded());
+    }
+
+    public void setRightIconExpanded(String rightIconExpanded) {
+        getStateHelper().put(Properties.rightIconExpanded, rightIconExpanded);
     }
 
     @Attribute(events = @EventName("collapse"))
@@ -284,7 +284,7 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
     @Attribute(generate = false)
     public String getDisabledClass() {
         return (String) getStateHelper().eval(Properties.disabledClass,
-                isTopItem() ? getPanelMenu().getTopGroupDisableClass() : getPanelMenu().getGroupDisableClass());
+                isTopItem() ? getPanelMenu().getTopGroupClassDisabled() : getPanelMenu().getGroupDisableClass());
     }
 
     public void setDisabledClass(String disabledClass) {
@@ -293,9 +293,9 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
 
     public abstract String getHoverClass();
 
-    public abstract String getIconLeftClass();
+    public abstract String getLeftIconClass();
 
-    public abstract String getIconRightClass();
+    public abstract String getRightIconClass();
 
     public abstract String getStyle();
 

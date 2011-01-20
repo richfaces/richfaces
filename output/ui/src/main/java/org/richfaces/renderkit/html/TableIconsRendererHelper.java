@@ -33,9 +33,9 @@ public abstract class TableIconsRendererHelper<T extends UIComponent> {
         writer.startElement(TBODY_ELEMENT, null);
         writer.startElement(TR_ELEMENT, null);
 
-        encodeHeaderIconLeft(writer, context, component);
+        encodeHeaderLeftIcon(writer, context, component);
         encodeHeaderText(writer, context, component);
-        encodeHeaderIconRight(writer, context, component);
+        encodeHeaderRightIcon(writer, context, component);
 
         writer.endElement(TR_ELEMENT);
         writer.endElement(TBODY_ELEMENT);
@@ -70,9 +70,9 @@ public abstract class TableIconsRendererHelper<T extends UIComponent> {
         }
     }
 
-    protected abstract void encodeHeaderIconLeft(ResponseWriter writer, FacesContext context, T component) throws IOException;
+    protected abstract void encodeHeaderLeftIcon(ResponseWriter writer, FacesContext context, T component) throws IOException;
 
-    protected abstract void encodeHeaderIconRight(ResponseWriter writer, FacesContext context, T menuItem) throws IOException;
+    protected abstract void encodeHeaderRightIcon(ResponseWriter writer, FacesContext context, T menuItem) throws IOException;
 
     protected void encodeTdIcon(ResponseWriter writer, FacesContext context, String cssClass, String attrIconCollapsedValue, String attrIconExpandedValue) throws IOException {
         writer.startElement(TD_ELEM, null);

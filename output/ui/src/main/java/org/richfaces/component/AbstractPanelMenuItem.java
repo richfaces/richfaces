@@ -124,14 +124,14 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent {
 
     // ------------------------------------------------ Html Attributes
     enum Properties {
-        iconLeft, iconLeftDisabled, iconRight, iconRightDisabled, styleClass, disabledClass, name
+        leftIcon, leftIconDisabled, iconRight, rightIconDisabled, styleClass, disabledClass, name
 
     }
 
     @Attribute(generate = false)
     public String getDisabledClass() {
         return (String) getStateHelper().eval(Properties.disabledClass,
-                isTopItem() ? getPanelMenu().getTopItemDisableClass() : getPanelMenu().getItemDisableClass());
+                isTopItem() ? getPanelMenu().getTopItemClassDisabled() : getPanelMenu().getItemDisableClass());
     }
 
     public void setDisabledClass(String disabledClass) {
@@ -142,49 +142,49 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent {
     public abstract String getHoverClass();
 
     @Attribute(generate = false)
-    public String getIconLeft() {
-        return (String) getStateHelper().eval(Properties.iconLeft,
-                isTopItem() ? getPanelMenu().getTopItemIconLeft() : getPanelMenu().getItemIconLeft());
+    public String getLeftIcon() {
+        return (String) getStateHelper().eval(Properties.leftIcon,
+                isTopItem() ? getPanelMenu().getTopItemLeftIcon() : getPanelMenu().getItemLeftIcon());
     }
 
-    public void setIconLeft(String iconLeft) {
-        getStateHelper().put(Properties.iconLeft, iconLeft);
+    public void setLeftIcon(String leftIcon) {
+        getStateHelper().put(Properties.leftIcon, leftIcon);
     }
 
     @Attribute
-    public abstract String getIconLeftClass();
+    public abstract String getLeftIconClass();
 
     @Attribute(generate = false)
-    public String getIconLeftDisabled() {
-        return (String) getStateHelper().eval(Properties.iconLeftDisabled,
-                isTopItem() ? getPanelMenu().getTopItemDisableIconLeft() : getPanelMenu().getItemDisableIconLeft());
+    public String getLeftIconDisabled() {
+        return (String) getStateHelper().eval(Properties.leftIconDisabled,
+                isTopItem() ? getPanelMenu().getTopItemLeftIconDisabled() : getPanelMenu().getItemLeftIconDisabled());
     }
 
-    public void setIconLeftDisabled(String iconLeftDisabled) {
-        getStateHelper().put(Properties.iconLeftDisabled, iconLeftDisabled);
+    public void setLeftIconDisabled(String leftIconDisabled) {
+        getStateHelper().put(Properties.leftIconDisabled, leftIconDisabled);
     }
 
     @Attribute(generate = false)
-    public String getIconRight() {
+    public String getRightIcon() {
         return (String) getStateHelper().eval(Properties.iconRight,
-                isTopItem() ? getPanelMenu().getTopItemIconRight() : getPanelMenu().getItemIconRight());
+                isTopItem() ? getPanelMenu().getTopItemRightIcon() : getPanelMenu().getItemRightIcon());
     }
 
-    public void setIconRight(String iconRight) {
+    public void setRightIcon(String iconRight) {
         getStateHelper().put(Properties.iconRight, iconRight);
     }
 
     @Attribute
-    public abstract String getIconRightClass();
+    public abstract String getRightIconClass();
 
     @Attribute(generate = false)
-    public String getIconRightDisabled() {
-        return (String) getStateHelper().eval(Properties.iconRightDisabled,
-                isTopItem() ? getPanelMenu().getTopItemDisableIconRight() : getPanelMenu().getItemDisableIconRight());
+    public String getRightIconDisabled() {
+        return (String) getStateHelper().eval(Properties.rightIconDisabled,
+                isTopItem() ? getPanelMenu().getTopItemRightIconDisabled() : getPanelMenu().getItemRightIconDisabled());
     }
 
-    public void setIconRightDisabled(String iconRightDisabled) {
-        getStateHelper().put(Properties.iconRightDisabled, iconRightDisabled);
+    public void setRightIconDisabled(String rightIconDisabled) {
+        getStateHelper().put(Properties.rightIconDisabled, rightIconDisabled);
     }
 
     @Attribute
