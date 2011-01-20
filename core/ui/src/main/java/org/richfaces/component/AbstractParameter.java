@@ -34,6 +34,7 @@ import javax.faces.event.ActionListener;
 
 import org.ajax4jsf.Messages;
 import org.ajax4jsf.component.JavaScriptParameter;
+import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
@@ -43,7 +44,8 @@ import org.richfaces.component.util.PartialStateHolderUtil;
  * @author shura (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.2 $ $Date: 2007/02/01 15:31:55 $
  */
-@JsfComponent(tag = @Tag(name = "param", handler = "org.richfaces.view.facelets.html.ParameterHandler", generate = false, type = TagType.Facelets))
+@JsfComponent(tag = @Tag(name = "param", handler = "org.richfaces.view.facelets.html.ParameterHandler", generate = false, 
+    type = TagType.Facelets), attributes = "param-assignTo-prop.xml")
 public abstract class AbstractParameter extends UIParameter implements ActionListener, JavaScriptParameter {
     
     public static final String COMPONENT_TYPE = "org.richfaces.Parameter";
@@ -61,7 +63,9 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
 
     /** ********************************************************* */
 
+    @Attribute
     public abstract boolean isNoEscape();
+
     public abstract void setNoEscape(boolean noEscape);
     
     public void setAssignToExpression(ValueExpression ve) {
