@@ -44,14 +44,15 @@ import org.richfaces.component.util.PartialStateHolderUtil;
  * @author shura (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.2 $ $Date: 2007/02/01 15:31:55 $
  */
-@JsfComponent(tag = @Tag(name = "param", handler = "org.richfaces.view.facelets.html.ParameterHandler", generate = false, 
-    type = TagType.Facelets), attributes = "param-assignTo-prop.xml")
+@JsfComponent(tag = @Tag(name = "param", handler = "org.richfaces.view.facelets.html.ParameterHandler", generate = false, type = TagType.Facelets), 
+    attributes = "param-assignTo-prop.xml"
+)
 public abstract class AbstractParameter extends UIParameter implements ActionListener, JavaScriptParameter {
-    
+
     public static final String COMPONENT_TYPE = "org.richfaces.Parameter";
 
     public static final String COMPONENT_FAMILY = UIParameter.COMPONENT_FAMILY;
-    
+
     private static final String ASSIGN_TO = "assignTo";
 
     /** ********************************************************* */
@@ -67,7 +68,7 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
     public abstract boolean isNoEscape();
 
     public abstract void setNoEscape(boolean noEscape);
-    
+
     public void setAssignToExpression(ValueExpression ve) {
         setValueExpression(ASSIGN_TO, ve);
     }
@@ -78,7 +79,7 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
 
     public void setConverter(Converter converter) {
         clearInitialState();
-        
+
         this.converter = converter;
     }
 
@@ -87,17 +88,17 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
     }
 
     public void processAction(ActionEvent actionEvent)
-        throws AbortProcessingException {
+    throws AbortProcessingException {
         FacesContext context = getFacesContext();
         ELContext elContext = context.getELContext();
         ValueExpression updateBinding = getAssignToExpression();
 
         if (updateBinding != null && (!updateBinding.isReadOnly(elContext))) {
             String requestValue = context.getExternalContext()
-                .getRequestParameterMap().get(getName());
+            .getRequestParameterMap().get(getName());
 
             Object convertedValue = requestValue;
-            
+
             if (requestValue != null) {
                 Class<?> type = updateBinding.getType(elContext);
                 Converter converter = createConverter(context, type);
@@ -114,10 +115,10 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
     }
 
     /*
-      * (non-Javadoc)
-      *
-      * @see javax.faces.component.UIParameter#getName()
-      */
+     * (non-Javadoc)
+     *
+     * @see javax.faces.component.UIParameter#getName()
+     */
 
     public String getName() {
         String name = super.getName();
@@ -156,7 +157,7 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
      * @throws FacesException
      */
     private Converter createConverter(FacesContext context, Class<?> type)
-        throws FacesException {
+    throws FacesException {
         Converter converter = getConverter();
 
         if (converter == null && type != null && !type.equals(String.class)
@@ -175,7 +176,7 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
     @Override
     public void markInitialState() {
         super.markInitialState();
-        
+
         Converter c = getConverter();
         if (c instanceof PartialStateHolder) {
             ((PartialStateHolder) c).markInitialState();
@@ -187,7 +188,7 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
     public void clearInitialState() {
         if (initialStateMarked()) {
             super.clearInitialState();
-            
+
             Converter c = getConverter();
             if (c instanceof PartialStateHolder) {
                 ((PartialStateHolder) c).clearInitialState();
@@ -201,21 +202,21 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
         if (context == null) {
             throw new NullPointerException();
         }
-        
+
         Object superState = super.saveState(context);
         Object converterState = PartialStateHolderUtil.saveState(context, this, converter);
-        
+
         if (superState == null && converterState == null) {
             return null;
         }
-        
+
         return new Object[] {
             superState, 
             converterState
         };
     }
 
-    
+
     @Override
     public void restoreState(FacesContext context, Object state) {
         if (context == null) {
@@ -225,7 +226,7 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
         if (state == null) {
             return;
         }
-        
+
         Object[] values = (Object[]) state;
         super.restoreState(context, values[0]);
         converter = (Converter) PartialStateHolderUtil.restoreState(context, values[1], converter);
