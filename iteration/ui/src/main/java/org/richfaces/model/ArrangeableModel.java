@@ -324,12 +324,12 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
                 stringComparator = createStringComparator(context);
             }
             result = stringComparator.compare(((String) value1).trim(), ((String) value2).trim());
-        } else if (value1 instanceof Comparable<?>) {
-            result = ((Comparable) value1).compareTo(value2);
         } else if (value1 == null && value2 != null) {
             result = -1;
         } else if (value2 == null && value1 != null) {
             result = 1;
+        } else if (value1 instanceof Comparable<?>) {
+            result = ((Comparable) value1).compareTo(value2);
         }
         return result;
     }
