@@ -73,8 +73,8 @@
 		
 	</div>
 		<cdk:scriptObject name="options">
-						<cdk:scriptOption name="left" value="#{getLeftOrDefault(component)}" defaultValue='String.valueOf("auto")'/>
-						<cdk:scriptOption name="top" value="#{getTopOrDefault(component)}" defaultValue='String.valueOf("auto")'/>
+						<cdk:scriptOption name="left" value="#{getLeftOrDefault(component)}" defaultValue='"auto"'/>
+						<cdk:scriptOption name="top" value="#{getTopOrDefault(component)}" defaultValue='"auto"'/>
 	                	<cdk:scriptOption attributes="width height minWidth minHeight maxWidth maxHeight moveable followByScroll left top zindex shadowDepth shadowOpacity domElementAttachment show keepVisualState autosized resizeable modal overlapEmbedObjects visualOptions " />
 	                    <cdk:scriptOption attributes="onshow onhide onresize onmove onbeforeshow onbeforehide" wrapper="eventHandler"/>
 	                </cdk:scriptObject>
@@ -86,8 +86,5 @@
 				</c:if>
 			</script>			
 </div>
-
-
-
 	</cc:implementation>
 </cdk:root>
