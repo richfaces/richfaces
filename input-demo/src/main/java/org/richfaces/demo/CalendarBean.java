@@ -7,6 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.event.ValueChangeEvent;
 
+import org.richfaces.component.Positioning;
 import org.richfaces.event.CurrentDateChangeEvent;
 
 @ManagedBean
@@ -20,11 +21,12 @@ public class CalendarBean {
     private boolean showApply = true;
     private boolean useCustomDayLabels;
     private String mode = "client";
-    private String jointPoint = "auto-auto";
-    private String direction = "auto-auto";
+    private Positioning jointPoint = Positioning.DEFAULT;
+    private Positioning direction = Positioning.DEFAULT;
     private int horizontalOffset = 0;
     private int verticalOffset = 0;
-    
+    private Positioning[] positioningValues = Positioning.values();
+
     public CalendarBean() {
 
         locale = Locale.US;
@@ -98,19 +100,19 @@ public class CalendarBean {
         this.showApply = showApply;
     }
 
-    public void setJointPoint(String jointPoint) {
+    public void setJointPoint(Positioning jointPoint) {
         this.jointPoint = jointPoint;
     }
 
-    public String getJointPoint() {
+    public Positioning getJointPoint() {
         return jointPoint;
     }
 
-    public void setDirection(String direction) {
+    public void setDirection(Positioning direction) {
         this.direction = direction;
     }
 
-    public String getDirection() {
+    public Positioning getDirection() {
         return direction;
     }
 
@@ -136,5 +138,9 @@ public class CalendarBean {
     
     public void doCurrentDataChangeListener(CurrentDateChangeEvent event) {
         System.out.println("doCurrentDataChangeListener: "+event.getCurrentDateString());
+    }
+
+    public Positioning[] getPositioningValues() {
+        return positioningValues;
     }
 }
