@@ -84,7 +84,7 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
         return isExpanded();
     }
     
-
+    @Attribute
     public boolean isExpanded() {
         return Boolean.parseBoolean(getActiveItem());
     }

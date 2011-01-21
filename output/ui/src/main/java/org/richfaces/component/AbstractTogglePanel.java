@@ -132,6 +132,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
         getStateHelper().put(PropertyKeys.required, required);
     }
 
+    @Attribute
     public boolean isImmediate() {
         return (Boolean) getStateHelper().eval(PropertyKeys.immediate, false);
     }
@@ -574,6 +575,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
         setLocalValueSet(true);
     }
 
+    @Attribute
     public String getActiveItem() {
         return (String) getValue();
     }

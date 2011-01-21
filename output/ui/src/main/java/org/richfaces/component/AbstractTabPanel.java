@@ -49,6 +49,7 @@ public abstract class AbstractTabPanel extends AbstractTogglePanel {
     }
 
     @Override
+    @Attribute(generate = false)
     public String getActiveItem() {
         String res = super.getActiveItem();
         if (res == null) {

@@ -47,6 +47,7 @@ public abstract class AbstractAccordion extends AbstractTogglePanel {
     }
 
     @Override
+    @Attribute
     public String getActiveItem() {
         String res = super.getActiveItem();
         if (res == null) {
