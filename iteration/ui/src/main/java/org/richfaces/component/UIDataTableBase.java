@@ -62,6 +62,7 @@ import org.richfaces.model.SortField;
 import org.richfaces.model.SortMode;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
+
 public abstract class UIDataTableBase extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder {
 
     public static final String COMPONENT_FAMILY = "org.richfaces.Data";
@@ -369,5 +370,27 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
     public static Set<String> getSupportedMetaComponents() {
         return SUPPORTED_META_COMPONENTS;
     }
-  
+
+    protected Iterator<UIComponent> statefulChildren() {
+        return new StatefulDataTableChildrenIterator(this.dataChildren());
+    }
+    
+    @Override
+    protected void saveChildState(FacesContext facesContext) {
+        Iterator<UIComponent> iterator = statefulChildren();
+        while (iterator.hasNext()) {
+            UIComponent c = iterator.next();
+            saveChildState(facesContext, c);
+        }
+    }
+    
+    @Override
+    protected void restoreChildState(FacesContext facesContext) {
+        Iterator<UIComponent> iterator = statefulChildren();
+        while (iterator.hasNext()) {
+            UIComponent c = iterator.next();
+            restoreChildState(facesContext, c);
+        }
+    }
+    
 }
