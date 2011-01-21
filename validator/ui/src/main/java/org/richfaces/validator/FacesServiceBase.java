@@ -52,7 +52,7 @@ public abstract class FacesServiceBase<T> {
      * @param component
      * @return
      */
-    protected FacesMessage getMessage(FacesContext context, T component) {
+    public FacesMessage getMessage(FacesContext context, T component) {
         String messageId = getMessageId(component);
         return MessageFactory.createMessage(context, messageId);
     }

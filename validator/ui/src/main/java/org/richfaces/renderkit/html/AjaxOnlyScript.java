@@ -1,32 +1,30 @@
 package org.richfaces.renderkit.html;
 
+import java.io.IOException;
 import java.util.Collections;
 
 import org.richfaces.resource.ResourceKey;
 
 public class AjaxOnlyScript extends ValidatorScriptBase {
 
+    public static final Iterable<ResourceKey> AJAX_LIBRARIES = Collections.singleton(ResourceKey.create("ajax.reslib",
+        "org.richfaces"));
 
-    public static final Iterable<ResourceKey> AJAX_LIBRARIES=Collections.singleton(ResourceKey.create("ajax.reslib", "org.richfaces"));
-    
     private final String ajaxScript;
 
     public AjaxOnlyScript(String ajaxScript) {
         super();
         this.ajaxScript = ajaxScript;
-        
+
     }
 
     public Iterable<ResourceKey> getResources() {
         return AJAX_LIBRARIES;
     }
 
-    @Override
-    protected Object buildBody() {
-        return ajaxScript;
-    }
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -37,7 +35,9 @@ public class AjaxOnlyScript extends ValidatorScriptBase {
         return result;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -61,5 +61,12 @@ public class AjaxOnlyScript extends ValidatorScriptBase {
         }
         return true;
     }
-    
+
+    @Override
+    protected void appendBody(Appendable target) throws IOException {
+        target.append("if(!").append(DISABLE_AJAX).append("){(");
+        appendAjaxFunction(target, ajaxScript);
+        target.append(").call(").append(ELEMENT).append(",").append(EVENT).append(",").append(CLIENT_ID).append(");");
+        target.append(("}"));
+    }
 }

@@ -1,8 +1,8 @@
 package org.richfaces.renderkit.html;
 
+import java.io.IOException;
 import java.util.Collection;
 
-import org.ajax4jsf.javascript.ScriptWithDependencies;
 import org.richfaces.resource.ResourceKey;
 
 import com.google.common.collect.Iterables;
@@ -12,26 +12,27 @@ public class ClientAndAjaxScript extends ClientOnlyScript{
     
     
     
-    final String ajaxScript;
+    private final String ajaxScript;
+    private final Iterable<ResourceKey> resources;
     
-    public ClientAndAjaxScript(ScriptWithDependencies clientSideConverterScript,
-        Collection<? extends ScriptWithDependencies> validatorScripts, String ajaxScript) {
+    public ClientAndAjaxScript(LibraryScriptFunction clientSideConverterScript,
+        Collection<? extends LibraryScriptFunction> validatorScripts, String ajaxScript) {
         super(clientSideConverterScript,validatorScripts);
         this.ajaxScript = ajaxScript;
+        resources = Iterables.concat(AjaxOnlyScript.AJAX_LIBRARIES,super.getResources());
     }
 
 
     @Override
     public Iterable<ResourceKey> getResources() {
-        return Iterables.concat(AjaxOnlyScript.AJAX_LIBRARIES,super.getResources());
+        return resources;
     }
     
-    protected void finishValidation(StringBuilder body) {
-        // AJAX callback
-        body.append("if(!").append(DISABLE_AJAX).append("){\n");
-        body.append(ajaxScript).append(EOL).append("}\n");
-    }
 
+    @Override
+    protected void appendAjaxParameter(Appendable target) throws IOException {
+        appendAjaxParameter(target, ajaxScript);
+    }
     /* (non-Javadoc)
      * @see java.lang.Object#hashCode()
      */

@@ -19,7 +19,6 @@ import javax.faces.render.ClientBehaviorRenderer;
 
 import org.ajax4jsf.javascript.JSReference;
 import org.ajax4jsf.javascript.ScriptUtils;
-import org.ajax4jsf.javascript.ScriptWithDependencies;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.component.behavior.ClientValidatorBehavior;
 import org.richfaces.component.behavior.ConverterNotFoundException;
@@ -37,7 +36,6 @@ import com.google.common.collect.Lists;
  * Renderer for component class org.richfaces.renderkit.html.AjaxValidatorRenderer
  */
 public class ClientValidatorRenderer extends ClientBehaviorRenderer {
-
 
     public static final String RENDERER_TYPE = "org.richfaces.ClientValidatorRenderer";
 
@@ -80,48 +78,46 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
             throw new IllegalArgumentException(
                 "Instance of org.ruchvaces.component.behaviot.ClientValidatorBehavior required: " + behavior);
         }
-        ClientValidatorBehavior ajaxBehavior = (ClientValidatorBehavior)behavior;
+        ClientValidatorBehavior ajaxBehavior = (ClientValidatorBehavior) behavior;
 
         // First things first - if AjaxBehavior is disabled, we are done.
         if (!ajaxBehavior.isDisabled()) {
             component.queueEvent(createEvent(component, ajaxBehavior));
-        }        
+        }
     }
 
     // Creates an AjaxBehaviorEvent for the specified component/behavior
-    private static AjaxBehaviorEvent createEvent(UIComponent component,
-        ClientValidatorBehavior ajaxBehavior) {
+    private static AjaxBehaviorEvent createEvent(UIComponent component, ClientValidatorBehavior ajaxBehavior) {
 
         AjaxBehaviorEvent event = new AjaxBehaviorEvent(component, ajaxBehavior);
 
-        PhaseId phaseId = isImmediate(component, ajaxBehavior) ?
-                              PhaseId.APPLY_REQUEST_VALUES :
-                              PhaseId.PROCESS_VALIDATIONS;
+        PhaseId phaseId =
+            isImmediate(component, ajaxBehavior) ? PhaseId.APPLY_REQUEST_VALUES : PhaseId.PROCESS_VALIDATIONS;
 
         event.setPhaseId(phaseId);
 
         return event;
     }
 
-
-    // Tests whether we should perform immediate processing.  Note
+    // Tests whether we should perform immediate processing. Note
     // that we "inherit" immediate from the parent if not specified
     // on the behavior.
-    private static boolean isImmediate(UIComponent component,
-        ClientValidatorBehavior ajaxBehavior) {
+    private static boolean isImmediate(UIComponent component, ClientValidatorBehavior ajaxBehavior) {
 
         boolean immediate = false;
 
         if (ajaxBehavior.isImmediateSet()) {
             immediate = ajaxBehavior.isImmediate();
         } else if (component instanceof EditableValueHolder) {
-            immediate = ((EditableValueHolder)component).isImmediate();
+            immediate = ((EditableValueHolder) component).isImmediate();
         } else if (component instanceof ActionSource) {
-            immediate = ((ActionSource)component).isImmediate();
+            immediate = ((ActionSource) component).isImmediate();
         }
 
         return immediate;
-    }    /**
+    }
+
+    /**
      * <p class="changed_added_4_0">
      * This method builds client-side validation script and stores it in View resource component
      * </p>
@@ -136,13 +132,12 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
             FacesContext facesContext = behaviorContext.getFacesContext();
             JavaScriptService javaScriptService = ServiceTracker.getService(JavaScriptService.class);
             validatorScript = javaScriptService.addScript(facesContext, validatorScript);
-            return validatorScript.createCallScript(behaviorContext.getComponent().getClientId(facesContext),behaviorContext.getSourceId());
+            return validatorScript.createCallScript(behaviorContext.getComponent().getClientId(facesContext),
+                behaviorContext.getSourceId());
         } else {
             return null;
         }
     }
-
-
 
     ComponentValidatorScript createValidatorScript(ClientBehaviorContext behaviorContext,
         ClientValidatorBehavior behavior) {
@@ -153,9 +148,10 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
                 ConverterDescriptor converter = behavior.getConverter(behaviorContext);
                 if (null != converter) {
                     try {
-                        ScriptWithDependencies clientSideConverterScript =
+                        LibraryScriptFunction clientSideConverterScript =
                             getClientSideConverterScript(behaviorContext.getFacesContext(), converter);
-                        validatorScript = createValidatorScript(behaviorContext, behavior, validators, clientSideConverterScript);
+                        validatorScript =
+                            createValidatorScript(behaviorContext, behavior, validators, clientSideConverterScript);
                     } catch (ScriptNotFoundException e) {
                         // ajax-only validation
                         validatorScript = new AjaxOnlyScript(createAjaxScript(behaviorContext, behavior));
@@ -167,7 +163,7 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
                 throw new FacesException(e);
             }
             String clientId = getComponentClientId(behaviorContext);
-            String name = ScriptUtils.getValidJavascriptName(clientId+":v");
+            String name = ScriptUtils.getValidJavascriptName(clientId + ":v");
             validatorScript.setName(name);
             return validatorScript;
         } else {
@@ -182,13 +178,14 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
 
     private ValidatorScriptBase createValidatorScript(ClientBehaviorContext behaviorContext,
         ClientValidatorBehavior behavior, Collection<ValidatorDescriptor> validators,
-        ScriptWithDependencies clientSideConverterScript) {
-        Collection<? extends ScriptWithDependencies> validatorScripts = getClientSideValidatorScript(behaviorContext.getFacesContext(), validators);
+        LibraryScriptFunction clientSideConverterScript) {
+        Collection<? extends LibraryScriptFunction> validatorScripts =
+            getClientSideValidatorScript(behaviorContext.getFacesContext(), validators);
         if (validatorScripts.isEmpty()) {
             return new AjaxOnlyScript(createAjaxScript(behaviorContext, behavior));
         } else if (validatorScripts.size() < validators.size()) {
-            return new ClientAndAjaxScript(clientSideConverterScript, validatorScripts,
-                createAjaxScript(behaviorContext, behavior));
+            return new ClientAndAjaxScript(clientSideConverterScript, validatorScripts, createAjaxScript(
+                behaviorContext, behavior));
         } else {
             return new ClientOnlyScript(clientSideConverterScript, validatorScripts);
         }
@@ -196,19 +193,19 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
 
     private String createAjaxScript(ClientBehaviorContext behaviorContext, ClientValidatorBehavior behavior) {
         String ajaxScript = behavior.getAjaxScript(behaviorContext);
-        ajaxScript=ajaxScript.replace("this", ValidatorScriptBase.ELEMENT);
         String clientId = getComponentClientId(behaviorContext);
         ajaxScript = replaceTextToVariable(ajaxScript, clientId, ValidatorScriptBase.CLIENT_ID);
         String sourceId = behaviorContext.getSourceId();
-        if(null != sourceId){
+        if (null != sourceId) {
+            // TODO - send sourceId as separate parameter.
             ajaxScript = replaceTextToVariable(ajaxScript, sourceId, ValidatorScriptBase.ELEMENT);
         }
         return ajaxScript;
     }
 
     private String replaceTextToVariable(String ajaxScript, String clientId, String variableName) {
-        ajaxScript=ajaxScript.replace("'"+clientId+"'",variableName);
-        ajaxScript=ajaxScript.replace("\""+clientId+"\"",variableName);
+        ajaxScript = ajaxScript.replace("'" + clientId + "'", variableName);
+        ajaxScript = ajaxScript.replace("\"" + clientId + "\"", variableName);
         return ajaxScript;
     }
 
@@ -231,17 +228,16 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
      * @return
      * @throws ScriptNotFoundException
      */
-    ScriptWithDependencies getClientSideConverterScript(FacesContext facesContext,
-        ConverterDescriptor converter) throws ScriptNotFoundException {
-        ClientScriptService clientScriptService =
-            ServiceTracker.getService(facesContext, ClientScriptService.class);
-        return createClientFunction(facesContext, converter, VALUE_LITERAL, clientScriptService);
+    LibraryScriptFunction getClientSideConverterScript(FacesContext facesContext, ConverterDescriptor converter)
+        throws ScriptNotFoundException {
+        ClientScriptService clientScriptService = ServiceTracker.getService(facesContext, ClientScriptService.class);
+        return createClientFunction(facesContext, converter, clientScriptService);
     }
 
-    private ScriptWithDependencies createClientFunction(FacesContext facesContext, FacesObjectDescriptor descriptor,
-        JSReference variable, ClientScriptService clientScriptService) throws ScriptNotFoundException {
+    private LibraryScriptFunction createClientFunction(FacesContext facesContext, FacesObjectDescriptor descriptor,
+        ClientScriptService clientScriptService) throws ScriptNotFoundException {
         LibraryFunction script = clientScriptService.getScript(facesContext, descriptor.getImplementationClass());
-        return new LibraryScriptFunction(script, variable, descriptor.getMessage(), descriptor.getAdditionalParameters());
+        return new LibraryScriptFunction(script, descriptor.getMessage(), descriptor.getAdditionalParameters());
     }
 
     /**
@@ -254,14 +250,14 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
      * @return
      * @throws ScriptNotFoundException
      */
-    Collection<? extends ScriptWithDependencies> getClientSideValidatorScript(FacesContext facesContext,
+    Collection<? extends LibraryScriptFunction> getClientSideValidatorScript(FacesContext facesContext,
         Collection<ValidatorDescriptor> validators) {
-        ClientScriptService clientScriptService =
-            ServiceTracker.getService(facesContext, ClientScriptService.class);
-        List<ScriptWithDependencies> scripts = Lists.newArrayList();
+        ClientScriptService clientScriptService = ServiceTracker.getService(facesContext, ClientScriptService.class);
+        List<LibraryScriptFunction> scripts = Lists.newArrayList();
         for (FacesObjectDescriptor validator : validators) {
             try {
-                scripts.add(createClientFunction(facesContext, validator, CONVERTED_VALUE_LITERAL, clientScriptService));
+                scripts
+                    .add(createClientFunction(facesContext, validator, clientScriptService));
             } catch (ScriptNotFoundException e) {
                 // Skip this validator for AJAX call.
             }

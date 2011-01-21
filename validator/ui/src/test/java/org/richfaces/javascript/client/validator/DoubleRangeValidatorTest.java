@@ -6,7 +6,7 @@ package org.richfaces.javascript.client.validator;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.validator.LengthValidator;
+import javax.faces.validator.DoubleRangeValidator;
 import javax.faces.validator.Validator;
 
 import org.junit.runners.Parameterized.Parameters;
@@ -16,14 +16,14 @@ import org.richfaces.javascript.client.RunParameters;
  * @author asmirnov
  *
  */
-public class LengthValidatorTest extends ValidatorTestBase {
+public class DoubleRangeValidatorTest extends ValidatorTestBase {
 
     private static final String MINIMUM = "minimum";
     private static final String MAXIMUM = "maximum";
     /**
      * @param criteria
      */
-    public LengthValidatorTest(RunParameters criteria) {
+    public DoubleRangeValidatorTest(RunParameters criteria) {
         super(criteria);
     }
     
@@ -32,13 +32,13 @@ public class LengthValidatorTest extends ValidatorTestBase {
      */
     @Override
     protected Validator createValidator() {
-        LengthValidator validator = new LengthValidator();
+        DoubleRangeValidator validator = new DoubleRangeValidator();
         Map<String, Object> options = getOptions();
         if(options.containsKey(MINIMUM)){
-            validator.setMinimum((Integer) options.get(MINIMUM));
+            validator.setMinimum((Double) options.get(MINIMUM));
         }
         if(options.containsKey(MAXIMUM)){
-            validator.setMaximum((Integer) options.get(MAXIMUM));
+            validator.setMaximum((Double) options.get(MAXIMUM));
         }
         return validator;
     }
@@ -48,14 +48,14 @@ public class LengthValidatorTest extends ValidatorTestBase {
      */
     @Override
     protected String getJavaScriptFunctionName() {
-        return "validateLength";
+        return "validateDoubleRange";
     }
 
     @Parameters
     public static List<RunParameters[]> parameters() {
-        return options(pass(""),pass("aaa"),pass("123"),
-            pass("",MINIMUM,2),pass("vv",MINIMUM,2),pass("vvv",MINIMUM,2),
-            pass("",MAXIMUM,2),pass("vv",MAXIMUM,2),pass("123",MAXIMUM,2),
-            pass("",MINIMUM,3,MAXIMUM,5,IGNORE_MESSAGE,true),pass("ddd",MINIMUM,3,MAXIMUM,5),pass("dddd",MINIMUM,3,MAXIMUM,5),pass("abcdefg",MINIMUM,3,MAXIMUM,5,IGNORE_MESSAGE,true));
+        return options(pass(0L),pass(3L),pass(Double.MAX_VALUE),
+            pass(0.0D,MINIMUM,2.0D,IGNORE_MESSAGE,true),pass(2.0D,MINIMUM,2.0D),pass(3.0D,MINIMUM,2.0D),pass(-3.0D,MINIMUM,2.0D,IGNORE_MESSAGE,true),
+            pass(0.0D,MAXIMUM,2.0D),pass(2.0D,MAXIMUM,2.0D),pass(3.0D,MAXIMUM,2.0D,IGNORE_MESSAGE,true),pass(-3.0D,MAXIMUM,2.0D),
+            pass(0.0D,MINIMUM,3.0D,MAXIMUM,5.0D,IGNORE_MESSAGE,true),pass(3.0D,MINIMUM,3.0D,MAXIMUM,5.0D),pass(4.0D,MINIMUM,3.0D,MAXIMUM,5.0D),pass(7.0D,MINIMUM,3.0D,MAXIMUM,5.0D,IGNORE_MESSAGE,true));
     }
 }

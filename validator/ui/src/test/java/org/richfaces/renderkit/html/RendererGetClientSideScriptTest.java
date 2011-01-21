@@ -10,7 +10,6 @@ import java.util.Map;
 import javax.faces.convert.NumberConverter;
 import javax.faces.validator.RegexValidator;
 
-import org.ajax4jsf.javascript.ScriptWithDependencies;
 import org.jboss.test.faces.mock.Mock;
 import org.jboss.test.faces.mock.MockTestRunner;
 import org.junit.After;
@@ -62,7 +61,7 @@ public class RendererGetClientSideScriptTest extends RendererTestBase {
         expect(scriptService.getScript(environment.getFacesContext(), RegexValidator.class)).andThrow(new ScriptNotFoundException());
         
         controller.replay();
-        Collection<? extends ScriptWithDependencies> clientSideValidatorScript = renderer.getClientSideValidatorScript(
+        Collection<? extends LibraryScriptFunction> clientSideValidatorScript = renderer.getClientSideValidatorScript(
             environment.getFacesContext(), descriptors);
         assertTrue(clientSideValidatorScript.isEmpty());
         controller.verify();
@@ -87,11 +86,10 @@ public class RendererGetClientSideScriptTest extends RendererTestBase {
         expect(script.getName()).andReturn(REGEX_VALIDATOR).atLeastOnce();
         expect(script.getResources()).andReturn(CLIENT_VALIDATOR_LIBRARY);
         controller.replay();
-        Collection<? extends ScriptWithDependencies> clientSideScripts = renderer.getClientSideValidatorScript(environment.getFacesContext(), descriptors);
+        Collection<? extends LibraryScriptFunction> clientSideScripts = renderer.getClientSideValidatorScript(environment.getFacesContext(), descriptors);
         LibraryScriptFunction clientSideScript = (LibraryScriptFunction) Iterables.getOnlyElement(clientSideScripts);
-        assertEquals(ClientValidatorRenderer.CONVERTED_VALUE_LITERAL, clientSideScript.getParameters().get(0));
-        assertEquals(VALIDATOR_MESSAGE, clientSideScript.getParameters().get(1));
-        assertEquals(VALIDATOR_PARAMS, clientSideScript.getParameters().get(2));
+        assertEquals(VALIDATOR_MESSAGE, clientSideScript.getMessage());
+        assertEquals(VALIDATOR_PARAMS, clientSideScript.getParameters());
         assertEquals(CLIENT_VALIDATOR_LIBRARY, clientSideScript.getResources());
         controller.verify();
     }
@@ -108,9 +106,8 @@ public class RendererGetClientSideScriptTest extends RendererTestBase {
         controller.replay();
         LibraryScriptFunction clientSideScript =
             (LibraryScriptFunction) renderer.getClientSideConverterScript(environment.getFacesContext(), converterDescriptor);
-        assertEquals(ClientValidatorRenderer.VALUE_LITERAL, clientSideScript.getParameters().get(0));
-        assertEquals(VALIDATOR_MESSAGE, clientSideScript.getParameters().get(1));
-        assertEquals(VALIDATOR_PARAMS, clientSideScript.getParameters().get(2));
+        assertEquals(VALIDATOR_MESSAGE, clientSideScript.getMessage());
+        assertEquals(VALIDATOR_PARAMS, clientSideScript.getParameters());
         assertEquals(CLIENT_VALIDATOR_LIBRARY, clientSideScript.getResources());
         controller.verify();
     }

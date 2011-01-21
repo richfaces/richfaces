@@ -43,5 +43,51 @@ public final class Message {
     public String getSummary() {
         return summary;
     }
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.detail == null) ? 0 : this.detail.hashCode());
+        result = prime * result + this.severity;
+        result = prime * result + ((this.summary == null) ? 0 : this.summary.hashCode());
+        return result;
+    }
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Message other = (Message) obj;
+        if (this.detail == null) {
+            if (other.detail != null) {
+                return false;
+            }
+        } else if (!this.detail.equals(other.detail)) {
+            return false;
+        }
+        if (this.severity != other.severity) {
+            return false;
+        }
+        if (this.summary == null) {
+            if (other.summary != null) {
+                return false;
+            }
+        } else if (!this.summary.equals(other.summary)) {
+            return false;
+        }
+        return true;
+    }
 
 }

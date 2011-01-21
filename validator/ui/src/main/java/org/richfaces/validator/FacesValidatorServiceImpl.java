@@ -35,13 +35,47 @@ public class FacesValidatorServiceImpl extends FacesServiceBase<Validator> imple
 
     @Override
     protected String getMessageId(Validator component) {
+    	// TODO: all messages should be passed to client side using js function RichFaces.csv.addMessage
         String messageId;
         if (component instanceof DoubleRangeValidator) {
-            messageId = DoubleRangeValidator.NOT_IN_RANGE_MESSAGE_ID;
+            DoubleRangeValidator validator = (DoubleRangeValidator) component;
+            if(validator.getMaximum() > Double.MIN_VALUE){
+                if(validator.getMinimum()> Double.MIN_VALUE){
+                    messageId = DoubleRangeValidator.NOT_IN_RANGE_MESSAGE_ID;
+                } else {
+                    messageId = DoubleRangeValidator.MAXIMUM_MESSAGE_ID;
+                }
+            } else if( validator.getMinimum()>Double.MIN_VALUE){
+                messageId = DoubleRangeValidator.MINIMUM_MESSAGE_ID;
+            } else {
+                messageId = DoubleRangeValidator.NOT_IN_RANGE_MESSAGE_ID;// What to use for that case ( no min/max set, validator always pass ).
+            }
         } else if (component instanceof LengthValidator) {
-            messageId = DoubleRangeValidator.NOT_IN_RANGE_MESSAGE_ID;
+            LengthValidator validator = (LengthValidator) component;
+            if(validator.getMaximum() >0){
+                if(validator.getMinimum()>0){
+                    messageId = DoubleRangeValidator.NOT_IN_RANGE_MESSAGE_ID;
+                } else {
+                    messageId = LengthValidator.MAXIMUM_MESSAGE_ID;
+                }
+            } else if( validator.getMinimum()>0){
+                messageId = LengthValidator.MINIMUM_MESSAGE_ID;
+            } else {
+                messageId = DoubleRangeValidator.NOT_IN_RANGE_MESSAGE_ID;// What to use for that case ( no min/max set, validator always pass ).
+            }
         } else if (component instanceof LongRangeValidator) {
-            messageId = LongRangeValidator.NOT_IN_RANGE_MESSAGE_ID;
+            LongRangeValidator validator = (LongRangeValidator) component;
+            if(validator.getMaximum() >0){
+                if(validator.getMinimum()>0){
+                    messageId = DoubleRangeValidator.NOT_IN_RANGE_MESSAGE_ID;
+                } else {
+                    messageId = LongRangeValidator.MAXIMUM_MESSAGE_ID;
+                }
+            } else if( validator.getMinimum()>0){
+                messageId = LongRangeValidator.MINIMUM_MESSAGE_ID;
+            } else {
+                messageId = DoubleRangeValidator.NOT_IN_RANGE_MESSAGE_ID;// What to use for that case ( no min/max set, validator always pass ).
+            }
         } else if (component instanceof RegexValidator) {
             messageId = RegexValidator.NOT_MATCHED_MESSAGE_ID;
         } else if (component instanceof RequiredValidator) {

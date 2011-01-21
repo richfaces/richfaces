@@ -23,10 +23,14 @@
 
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.javascript.ScriptWithDependencies;
+import java.util.Map;
+
 import org.richfaces.javascript.LibraryFunction;
+import org.richfaces.javascript.Message;
 import org.richfaces.resource.ResourceKey;
+import org.richfaces.resource.ResourceLibrary;
+
+import com.google.common.collect.ImmutableSet;
 
 /**
  * <p class="changed_added_4_0">
@@ -36,14 +40,17 @@ import org.richfaces.resource.ResourceKey;
  * @author asmirnov@exadel.com
  * 
  */
-public class LibraryScriptFunction extends JSFunction implements ScriptWithDependencies {
+public class LibraryScriptFunction implements ResourceLibrary {
 
-    private final Iterable<ResourceKey> resources;
+    private final ImmutableSet<ResourceKey> resources;
     private final String name;
+    private final Message message;
+    private final Map<String, ? extends Object> parameters;
 
-    public LibraryScriptFunction(LibraryFunction libraryScript, Object... parameters) {
-        super(libraryScript.getName(), parameters);
-        this.resources = libraryScript.getResources();
+    public LibraryScriptFunction(LibraryFunction libraryScript, Message message, Map<String, ? extends Object> parameters) {
+        this.message = message;
+        this.parameters = parameters;
+        this.resources = ImmutableSet.copyOf(libraryScript.getResources());
         this.name = libraryScript.getName();
     }
 
@@ -60,6 +67,26 @@ public class LibraryScriptFunction extends JSFunction implements ScriptWithDepen
         return resources;
     }
 
+    /**
+     * <p class="changed_added_4_0">
+     * </p>
+     * 
+     * @return the message
+     */
+    public Message getMessage() {
+        return this.message;
+    }
+
+    /**
+     * <p class="changed_added_4_0">
+     * </p>
+     * 
+     * @return the parameters
+     */
+    public Map<String, ? extends Object> getParameters() {
+        return this.parameters;
+    }
+    
     /*
      * (non-Javadoc)
      * 
@@ -69,9 +96,10 @@ public class LibraryScriptFunction extends JSFunction implements ScriptWithDepen
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((resources == null) ? 0 : resources.hashCode());
-        result = prime * result + getParameters().hashCode();
+        result = prime * result + ((this.message == null) ? 0 : this.message.hashCode());
+        result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
+        result = prime * result + ((this.parameters == null) ? 0 : this.parameters.hashCode());
+        result = prime * result + ((this.resources == null) ? 0 : this.resources.hashCode());
         return result;
     }
 
@@ -92,29 +120,35 @@ public class LibraryScriptFunction extends JSFunction implements ScriptWithDepen
             return false;
         }
         LibraryScriptFunction other = (LibraryScriptFunction) obj;
-        if (name == null) {
+        if (this.message == null) {
+            if (other.message != null) {
+                return false;
+            }
+        } else if (!this.message.equals(other.message)) {
+            return false;
+        }
+        if (this.name == null) {
             if (other.name != null) {
                 return false;
             }
-        } else if (!name.equals(other.name)) {
+        } else if (!this.name.equals(other.name)) {
             return false;
         }
-        if (resources == null) {
+        if (this.parameters == null) {
+            if (other.parameters != null) {
+                return false;
+            }
+        } else if (!this.parameters.equals(other.parameters)) {
+            return false;
+        }
+        if (this.resources == null) {
             if (other.resources != null) {
                 return false;
             }
-        } else if (!resources.equals(other.resources)) {
-            return false;
-        } else if (!getParameters().equals(other.getParameters())) {
+        } else if (!this.resources.equals(other.resources)) {
             return false;
         }
         return true;
     }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#hashCode()
-     */
 
 }
