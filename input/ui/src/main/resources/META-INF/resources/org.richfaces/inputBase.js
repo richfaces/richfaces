@@ -12,7 +12,7 @@
         	this.attachToDom();
 
         	var inputEventHandlers = {};
-        	inputEventHandlers["keydown"+this.namespace] = this.__keydownHandler;
+        	inputEventHandlers[($.browser.opera || $.browser.mozilla ? "keypress" : "keydown")+this.namespace] = this.__keydownHandler;
         	inputEventHandlers["blur"+this.namespace] = this.__blurHandler;
         	inputEventHandlers["change"+this.namespace] = this.__changeHandler;
         	inputEventHandlers["focus"+this.namespace] = this.__focusHandler;
