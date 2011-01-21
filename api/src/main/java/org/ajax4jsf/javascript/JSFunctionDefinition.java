@@ -79,9 +79,14 @@ public class JSFunctionDefinition extends ScriptStringBase implements ScriptStri
             first = false;
         }
 
-        target.append("){").append(body).append("}");
+        target.append("){");appendBody(target);
+        target.append("}");
     }
     
+    protected void appendBody(Appendable target) throws IOException {
+        target.append(body);        
+    }
+
     /**
      * @return the name
      */
