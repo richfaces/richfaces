@@ -29,10 +29,7 @@ import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.component.behavior.ClientBehavior;
-import org.richfaces.cdk.annotations.JsfBehavior;
-import org.richfaces.cdk.annotations.JsfBehaviorRenderer;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.cdk.annotations.*;
 import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.renderkit.util.RendererUtils;
 
@@ -59,6 +56,7 @@ public class ToggleControl extends ClientBehavior {
         disableDefault
     }
 
+    @Attribute
     public String getEvent() {
         return (String) getStateHelper().eval(PropertyKeys.event);
     }
@@ -67,6 +65,7 @@ public class ToggleControl extends ClientBehavior {
         getStateHelper().eval(PropertyKeys.event, eventName);
     }
 
+    @Attribute
     public String getTargetItem() {
         return (String) getStateHelper().eval(PropertyKeys.targetItem, AbstractTogglePanel.META_NAME_NEXT);
     }
@@ -75,6 +74,7 @@ public class ToggleControl extends ClientBehavior {
         getStateHelper().put(PropertyKeys.targetItem, target);
     }
 
+    @Attribute
     public String getTargetPanel() {
         return (String) getStateHelper().eval(PropertyKeys.targetPanel);
     }
@@ -83,6 +83,7 @@ public class ToggleControl extends ClientBehavior {
         getStateHelper().put(PropertyKeys.targetPanel, selector);
     }
 
+    @Attribute
     public void setDisableDefault(Boolean disableDefault) {
         getStateHelper().put(PropertyKeys.disableDefault, disableDefault);
     }
