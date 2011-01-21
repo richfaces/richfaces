@@ -69,7 +69,7 @@
 					if(this.__isCustomDragIndicator()) {
 						var indicator = rf.$(this.options.indicator);
 						if(indicator) {
-							ui.helper.addClass(indicator.draggingClass());
+							ui.helper.addClass(indicator.getDraggingClass());
 						} else {
 							ui.helper.addClass(defaultIndicatorClasses.draggingClass);
 						}

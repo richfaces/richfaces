@@ -39,8 +39,8 @@
 
 				var dragIndicatorObj = rf.$(ui.helper.attr("id"));
 				if (dragIndicatorObj) {
-					ui.helper.removeClass(dragIndicatorObj.acceptClass());
-					ui.helper.removeClass(dragIndicatorObj.rejectClass());
+					ui.helper.removeClass(dragIndicatorObj.getAcceptClass());
+					ui.helper.removeClass(dragIndicatorObj.getRejectClass());
 				} else {
 					ui.helper.removeClass(defaultIndicatorClasses.acceptClass);
 					ui.helper.removeClass(defaultIndicatorClasses.rejectClass);
@@ -52,11 +52,11 @@
 				var dragIndicatorObj = rf.$(ui.helper.attr("id"));
 				if (dragIndicatorObj) {
 					if (this.accept(draggable)) {
-						ui.helper.removeClass(dragIndicatorObj.rejectClass());
-						ui.helper.addClass(dragIndicatorObj.acceptClass());
+						ui.helper.removeClass(dragIndicatorObj.getRejectClass());
+						ui.helper.addClass(dragIndicatorObj.getAcceptClass());
 					} else {
-						ui.helper.removeClass(dragIndicatorObj.acceptClass());
-						ui.helper.addClass(dragIndicatorObj.rejectClass());
+						ui.helper.removeClass(dragIndicatorObj.getAcceptClass());
+						ui.helper.addClass(dragIndicatorObj.getRejectClass());
 					}
 				} else {
 					if (this.accept(draggable)) {
@@ -73,8 +73,8 @@
 				var draggable = ui.draggable;
 				var dragIndicatorObj = rf.$(ui.helper.attr("id"));
 				if (dragIndicatorObj) {
-					ui.helper.removeClass(dragIndicatorObj.acceptClass());
-					ui.helper.removeClass(dragIndicatorObj.rejectClass());
+					ui.helper.removeClass(dragIndicatorObj.getAcceptClass());
+					ui.helper.removeClass(dragIndicatorObj.getRejectClass());
 					
 				} else {
 					ui.helper.removeClass(defaultIndicatorClasses.acceptClass);

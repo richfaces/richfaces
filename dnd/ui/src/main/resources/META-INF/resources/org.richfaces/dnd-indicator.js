@@ -36,15 +36,15 @@
 					this.indicator.hide();
 				},
 				
-				acceptClass: function() {
+				getAcceptClass: function() {
 					return this.options.acceptClass;
 				},
 				
-				rejectClass: function() {
+				getRejectClass: function() {
 					return this.options.rejectClass;
 				},
 				
-				draggingClass: function() {
+				getDraggingClass: function() {
 					return this.options.draggingClass;
 				},
 				
