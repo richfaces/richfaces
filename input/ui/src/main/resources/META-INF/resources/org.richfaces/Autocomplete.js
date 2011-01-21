@@ -280,10 +280,10 @@
 		}
 		scrollToSelectedItem.call(this);
 		if (event &&
-			event.which != rf.KEYS.BACKSPACE &&
-			event.which != rf.KEYS.DEL &&
-			event.which != rf.KEYS.LEFT &&
-			event.which != rf.KEYS.RIGHT) {
+			event.keyCode != rf.KEYS.BACKSPACE &&
+			event.keyCode != rf.KEYS.DEL &&
+			event.keyCode != rf.KEYS.LEFT &&
+			event.keyCode != rf.KEYS.RIGHT) {
 				autoFill.call(this, this.value, getSelectedItemValue.call(this));
 		}
 	};
@@ -317,13 +317,13 @@
 			if (this.items.length!=0 && callback) {
 				callback.call(this, event);
 			}
-			if (event.which == rf.KEYS.RETURN || event.type == "click") {
+			if (event.keyCode == rf.KEYS.RETURN || event.type == "click") {
 				this.__setInputValue(subValue);
 			} else if (this.options.selectFirst) {
 				selectItem.call(this, event, 0);
 			}
 		} else {
-			if (event.which == rf.KEYS.RETURN || event.type == "click") {
+			if (event.keyCode == rf.KEYS.RETURN || event.type == "click") {
 				this.__setInputValue(subValue);
 			}
 			if (subValue.length>=this.options.minChars) {

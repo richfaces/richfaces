@@ -40,7 +40,7 @@
 		inputEventHandlers["focus"+this.namespace] = onFocus;
 		inputEventHandlers["blur"+this.namespace] = onBlur;
 		inputEventHandlers["click"+this.namespace] = onClick;
-		inputEventHandlers[($.browser.opera ? "keypress" : "keydown")+this.namespace] = onKeyDown;
+		inputEventHandlers[($.browser.opera || $.browser.mozilla ? "keypress" : "keydown")+this.namespace] = onKeyDown;
 		inputEventHandlers["change"+this.namespace] = function (event) {if (this.focused) {event.stopPropagation()}};
 		rf.Event.bindById(this.fieldId, inputEventHandlers, this);
 		
@@ -111,7 +111,7 @@
 		var flag = value != this.currentValue;
 		//TODO: is it needed to chesk keys?
 		//TODO: we need to set value when autoFill used when LEFT or RIGHT was pressed
-		if (event.which == rf.KEYS.LEFT || event.which == rf.KEYS.RIGHT || flag) {
+		if (event.keyCode == rf.KEYS.LEFT || event.keyCode == rf.KEYS.RIGHT || flag) {
 			if (flag) {
 				this.currentValue = this.getValue();
 				this.__onChangeValue(event, undefined, (!this.isVisible ? this.show : undefined));
@@ -131,7 +131,7 @@
 	};
 	
 	var onKeyDown = function (event) {
-		switch(event.which) {
+		switch(event.keyCode) {
 			case rf.KEYS.UP:
 				event.preventDefault();
 				if (this.isVisible) {
