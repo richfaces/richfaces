@@ -72,26 +72,45 @@ public class ToolbarGroupRenderer extends ToolbarRendererBase {
         writer.endElement(HtmlConstants.TD_ELEM);
     }
 
+    /**
+     * If toolBarGroup has "style" defined than parent toolBar attribute "style" will be ignored.
+     * Otherwise toolBarGroup will inherit the value of the parent toolBar "style" attribute.
+     * @param toolbarGroup ToolBar Group to render
+     * @param writer just writer
+     * @throws IOException if something goes wrong with attribute writing
+     */
     private void writeStyleValue(AbstractToolbarGroup toolbarGroup, ResponseWriter writer) throws IOException {
+        String value;
         String style = getStringAttribute(toolbarGroup, HtmlConstants.STYLE_ATTRIBUTE);
-        String itemStyle = getStringAttribute(getParentToolBar(toolbarGroup), "itemStyle");
 
-        String value = concatStyles(itemStyle, style);
+        String toolbarStyle = getStringAttribute(getParentToolBar(toolbarGroup), "itemStyle");
+        String tooolbarGroupStyle = getStringAttribute(toolbarGroup, "itemStyle");
+
+        if (tooolbarGroupStyle != null && !tooolbarGroupStyle.equals("")) {
+            value = concatStyles(tooolbarGroupStyle, style);
+        } else {
+            value = concatStyles(toolbarStyle, style);
+        }
 
         if (isPropertyRendered(value)) {
             writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, value, null);
         }
     }
 
+    /**
+     * If toolBarGroup has "class" defined than parent toolBar attribute "class" will be ignored.
+     * Otherwise toolBarGroup will inherit the value of the parent toolBar "class" attribute.
+     * @param toolbarGroup  ToolBar Group to render
+     * @param writer just writer
+     * @throws IOException if something goes wrong with attribute writing
+     */
     private void writeClassValue(AbstractToolbarGroup toolbarGroup, ResponseWriter writer) throws IOException {
         String styleClass = getStringAttribute(toolbarGroup, HtmlConstants.STYLE_CLASS_ATTR);
-        AbstractToolbar toolbar = getParentToolBar(toolbarGroup);
-        String itemClass = null;
-        
-        if(toolbar != null) {
-            itemClass = getStringAttribute(toolbar, "itemClass");
-        }
-        
+
+        String toolbarClass = getStringAttribute(getParentToolBar(toolbarGroup), "itemClass");
+        String toolbarGroupClass = getStringAttribute(toolbarGroup, "itemClass");
+
+        String itemClass = (toolbarGroupClass != null && !toolbarGroupClass.equals("")) ? toolbarGroupClass : toolbarClass;
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, concatClasses("rf-tb-itm", itemClass, styleClass), null);
     }
 
