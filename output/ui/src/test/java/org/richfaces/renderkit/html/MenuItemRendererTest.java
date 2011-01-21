@@ -77,11 +77,9 @@ public class MenuItemRendererTest extends RendererTestBase {
         HtmlPage page =  environment.getPage("/menuItem_ajaxMode.jsf");
         System.out.print(page.asXml());
         HtmlDivision item = (HtmlDivision) page.getElementById("form:menuItem");
-        System.out.print("item.asXml()"+item.asXml());
         assertNotNull(item);
         DropDownMenuBean.setCurrent("none");
         item.click();
-        System.out.print(item.asXml());
         item = (HtmlDivision) page.getElementById("form:menuItem");
         System.out.print(item.asXml());
         assertNotNull(item);
