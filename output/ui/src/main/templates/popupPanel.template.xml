@@ -32,7 +32,7 @@
 
 </c:if>
 	<div id="#{clientId}_shadow" style="position: #{component.attributes['followByScroll'] ? 'fixed' : 'absolute'};" class="rf-pp-shdw"/>
-	<div id="#{clientId}_container" style="position: #{component.attributes['followByScroll'] ? 'fixed' : 'absolute'}; #{not empty zindex ? 'z-index:'+zindex+';':''}" cdk:passThroughWithExclusions="id style class styleClass" class="rf-pp-cntr #{component.attributes['styleClass']}">
+	<div id="#{clientId}_container" style="#{getContainerStyle(component)}" cdk:passThroughWithExclusions="id style class styleClass" class="rf-pp-cntr #{component.attributes['styleClass']}">
 
 		<c:if test="#{component.getFacet('header')!=null and component.getFacet('header').rendered}">
 		<div id="#{clientId}_header" class="rf-pp-hdr #{component.attributes['headerClass']}" >

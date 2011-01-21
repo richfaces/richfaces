@@ -169,6 +169,24 @@ public class PopupPanelBaseRenderer extends RendererBase {
     	}
     	return "";
     }
+
+    public String getContainerStyle(UIComponent panel){
+        StringBuilder res = new StringBuilder();
+        Map<String, Object> attrs = panel.getAttributes();
+        res.append("position: ").append(((Boolean) attrs.get("followByScroll")) ? "fixed" : "absolute").append("; ");
+
+        Integer zindex = (Integer) attrs.get("zindex");
+        if (zindex != null) {
+            res.append("z-index:").append(zindex).append("; ");
+        }
+
+        String style = (String) attrs.get("style");
+        if (style != null && style.length() > 0) {
+            res.append(style);
+        }
+
+    	return res.toString();
+    }
     private Object buildEventFunction(Object eventFunction) {
         if(eventFunction != null && eventFunction.toString().length() > 0) {
             return "new Function(\"" + eventFunction.toString() + "\");";

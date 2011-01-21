@@ -42,6 +42,12 @@ public abstract class AbstractPopupPanel extends UIComponentBase {
     public static final String COMPONENT_FAMILY = "org.richfaces.PopupPanel";
 
     @Attribute
+    public abstract String getStyle();
+
+    @Attribute
+    public abstract String getStyleClass();
+    
+    @Attribute
     public abstract String getVisualOptions();
 
     @Attribute(defaultValue = "100")
