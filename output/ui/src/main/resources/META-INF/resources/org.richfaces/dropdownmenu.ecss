@@ -20,6 +20,7 @@
 }
 .rf-ddm-lbl-dec {
 	font-weight:bold;
+	cursor : pointer;
 }
 .rf-ddm-lst { 
 	border:1px solid; /*#bfbfc0*/  /*panelBorderColor*/

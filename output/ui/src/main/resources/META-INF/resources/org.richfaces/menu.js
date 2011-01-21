@@ -8,7 +8,7 @@
 		hideDelay : 300,
 		verticalOffset : 0,
 		horisantalOffset : 0,
-		showEvent : 'click',
+		showEvent : 'mouseover',
 		positionOffset : [0, 0],
 		direction : "AA",
 		jointPoint : "AA",

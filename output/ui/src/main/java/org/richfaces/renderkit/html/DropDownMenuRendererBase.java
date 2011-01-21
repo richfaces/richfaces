@@ -37,7 +37,8 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
 	 
     public static final String RENDERER_TYPE = "org.richfaces.DropDownMenuRenderer";
     
-    public static final int DEFAULT_MIN_POPUP_WIDTH = 250;    
+    public static final int DEFAULT_MIN_POPUP_WIDTH = 250;
+    public static final String DEFAULT_SHOWEVENT = "mouseover";
     
     @Override
     public void renderChildren(FacesContext facesContext, UIComponent component) throws IOException {
@@ -156,7 +157,7 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
     protected String getShowEvent(UIComponent component) {
         String value = ((AbstractDropDownMenu) component).getShowEvent();
         if (value == null || "".equals(value)) {
-            value = "click";
+            value = DEFAULT_SHOWEVENT;
         }
         return value;
     }    

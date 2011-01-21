@@ -1,10 +1,15 @@
 (function($, rf) {
     rf.ui = rf.ui || {};
+    
+    var defaultOptions = {
+    		mode : "server"    		
+    }
 
     // constructor definition
 
     rf.ui.MenuItem = function(componentId, options) {
-        this.options = options;
+    	this.options = {};
+		$.extend(this.options, defaultOptions, options || {});
         $super.constructor.call(this, componentId);
         this.attachToDom(componentId);
         this.element = $(rf.getDomElement(componentId));
