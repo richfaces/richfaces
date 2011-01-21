@@ -71,7 +71,7 @@ public class MenuItemRendererTest extends RendererTestBase {
         doTest("menuItem_ajaxMode", "form:menuItem");
     }
     
-    @Ignore
+   
     @Test
     public void testAjaxClick() throws IOException, SAXException {
         HtmlPage page =  environment.getPage("/menuItem_ajaxMode.jsf");

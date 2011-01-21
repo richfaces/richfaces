@@ -69,7 +69,7 @@ public class DropDownMenuRendererTest extends RendererTestBase {
         assertNotNull(item);
         assertEquals("action", DropDownMenuBean.getCurrent());
     }  
-    @Ignore
+
     @Test
     public void testAjaxClick() throws IOException, SAXException {
         HtmlPage page =  environment.getPage("/dropDownMenu_ajaxMode.jsf");        
