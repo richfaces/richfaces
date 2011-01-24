@@ -39,7 +39,6 @@
         offset : [10, 10],
         attached : true,
         mode : TooltipMode.DEFAULT,
-        disabled : false,
         hideDelay : 0,
         hideEvent : "mouseleave",
         showDelay : 0,

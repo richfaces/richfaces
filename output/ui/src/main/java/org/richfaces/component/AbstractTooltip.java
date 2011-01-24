@@ -32,7 +32,12 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.TooltipLayout;
 import org.richfaces.TooltipMode;
-import org.richfaces.cdk.annotations.*;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.renderkit.MetaComponentRenderer;
@@ -89,9 +94,6 @@ public abstract class AbstractTooltip extends AbstractDivPanel implements MetaCo
 
     @Attribute(defaultValue = "Positioning.DEFAULT")
     public abstract Positioning getDirection();
-
-    @Attribute
-    public abstract boolean isDisabled();
 
     @Attribute(defaultValue = "true")
     public abstract boolean isFollowMouse();

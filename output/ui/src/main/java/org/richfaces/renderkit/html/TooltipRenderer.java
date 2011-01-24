@@ -169,7 +169,6 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
         options.put("attached", tooltip.isAttached());
         options.put("offset", getOffset(tooltip));
         options.put("mode", tooltip.getMode());
-        options.put("disabled", tooltip.isDisabled());
         options.put("hideDelay", tooltip.getHideDelay());
         options.put("hideEvent", tooltip.getHideEvent());
         options.put("showDelay", tooltip.getShowDelay());
