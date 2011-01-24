@@ -75,6 +75,8 @@ public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
     private static final String PARAM_TARGET = "target";
 
     private static final String PARAM_SELECTOR = "selector";
+    
+    private static final String PARAM_ONBEFOREOPERATION = "onbeforeoperation";
 
     private static final Pattern COMMA_SEPARATED_STRING = Pattern.compile("\\s*,\\s*");
     
@@ -106,6 +108,13 @@ public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
         parameters.put(PARAM_CALLBACK, callback);
         parameters.put(PARAM_TARGET, resolveTargets(facesContext, targetSourceString));
         parameters.put(PARAM_SELECTOR, selector);
+        
+        String onBeforeOperation = controlBehavior.getOnbeforeoperation();
+        if (null!=onBeforeOperation && !onBeforeOperation.isEmpty()) {
+            JSFunctionDefinition onBeforeOperationFunction = new JSFunctionDefinition(new JSReference(REF_EVENT));
+            onBeforeOperationFunction.addToBody(onBeforeOperation);
+            parameters.put(PARAM_ONBEFOREOPERATION, onBeforeOperationFunction);
+        }
 
         // execution function
         JSFunction eventFunction = new JSFunction(FUNC_NAME);

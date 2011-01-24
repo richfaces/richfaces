@@ -11,6 +11,11 @@
     		var selector = parameters.selector;
     		var callback = parameters.callback;
     		
+    		if (parameters.onbeforeoperation && typeof parameters.onbeforeoperation == "function") {
+    			var result = parameters.onbeforeoperation(event);
+    			if (result=="false" || result==0) return;
+    		}
+    		
     		if (targetList) {
     			for (var i = 0; i < targetList.length; i++) {
     				var component = document.getElementById(targetList[i]);

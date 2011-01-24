@@ -49,7 +49,7 @@ public class ComponentControlBehavior extends ClientBehavior {
     private List<UIComponent> children;
 
     enum PropertyKeys {
-        event, target, selector, operation
+        event, target, selector, operation, onbeforeoperation
     }
 
     public List<UIComponent> getChildren() {
@@ -94,6 +94,15 @@ public class ComponentControlBehavior extends ClientBehavior {
     public void setOperation(String operation) {
         getStateHelper().put(PropertyKeys.operation, operation);
     }
+    
+    @Attribute
+    public String getOnbeforeoperation() {
+        return (String) getStateHelper().eval(PropertyKeys.onbeforeoperation);
+    }
+    
+    public void setOnbeforeoperation(String onbeforeoperation) {
+        getStateHelper().put(PropertyKeys.onbeforeoperation, onbeforeoperation);
+    }
 
     @Override
     public String getRendererType() {
@@ -108,6 +117,8 @@ public class ComponentControlBehavior extends ClientBehavior {
             setTarget((String) value);
         } else if (compare(PropertyKeys.selector, name)) {
             setSelector((String) value);
+        } else if (compare(PropertyKeys.onbeforeoperation, name)) {
+            setOnbeforeoperation((String) value);
         }
     }
 }
