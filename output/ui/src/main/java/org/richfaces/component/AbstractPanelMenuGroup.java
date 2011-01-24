@@ -23,16 +23,20 @@
 
 package org.richfaces.component;
 
-import org.richfaces.PanelMenuMode;
-import org.richfaces.cdk.annotations.*;
-import org.richfaces.event.ItemChangeEvent;
-import org.richfaces.event.PanelToggleEvent;
-
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
+
+import org.richfaces.PanelMenuMode;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.event.ItemChangeEvent;
+import org.richfaces.event.PanelToggleEvent;
 
 /**
  * @author akolonitsky
@@ -161,34 +165,11 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
     @Attribute(defaultValue = "getPanelMenu().isExpandSingle()")
     public abstract boolean isExpandSingle();
 
-    @Attribute(generate = false)
-    public String getCollapseEvent() {
-        String value = (String) getStateHelper().eval(Properties.collapseEvent);
-        if (value != null) {
-            return value;
-        }
+    @Attribute
+    public abstract String getCollapseEvent();
 
-        return getPanelMenu().getCollapseEvent();
-    }
-
-    public void setCollapseEvent(String collapseEvent) {
-        getStateHelper().put(Properties.collapseEvent, collapseEvent);
-    }
-
-
-    @Attribute(generate = false)
-    public String getExpandEvent() {
-        String value = (String) getStateHelper().eval(Properties.expandEvent);
-        if (value != null) {
-            return value;
-        }
-
-        return getPanelMenu().getExpandEvent();
-    }
-
-    public void setExpandEvent(String expandEvent) {
-        getStateHelper().put(Properties.expandEvent, expandEvent);
-    }
+    @Attribute
+    public abstract String getExpandEvent();
 
     @Attribute(defaultValue = "getPanelMenu().isBubbleSelection()")
     public abstract boolean isBubbleSelection();
@@ -199,7 +180,7 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
     // ------------------------------------------------ Html Attributes
 
     enum Properties {
-        leftIconDisabled, leftIconExpanded, rightIconCollapsed, rightIconDisabled, rightIconExpanded, disabledClass, styleClass, expandEvent, collapseEvent, leftIconCollapsed
+        leftIconDisabled, leftIconExpanded, rightIconCollapsed, rightIconDisabled, rightIconExpanded, disabledClass, styleClass, leftIconCollapsed
     }
 
     @Attribute(generate = false)

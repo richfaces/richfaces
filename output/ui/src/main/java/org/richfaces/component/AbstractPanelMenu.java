@@ -23,13 +23,6 @@
 
 package org.richfaces.component;
 
-import org.richfaces.PanelMenuMode;
-import org.richfaces.cdk.annotations.*;
-import org.richfaces.event.ItemChangeEvent;
-import org.richfaces.event.ItemChangeListener;
-import org.richfaces.event.ItemChangeSource;
-import org.richfaces.renderkit.util.PanelIcons;
-
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
@@ -38,6 +31,18 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
+
+import org.richfaces.PanelMenuMode;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.event.ItemChangeEvent;
+import org.richfaces.event.ItemChangeListener;
+import org.richfaces.event.ItemChangeSource;
+import org.richfaces.renderkit.util.PanelIcons;
 
 /**
  * @author akolonitsky
@@ -174,10 +179,10 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
     @Attribute
     public abstract boolean isDisabled();
 
-    @Attribute(defaultValue = "click")
+    @Attribute
     public abstract String getExpandEvent();
 
-    @Attribute(defaultValue = "click")
+    @Attribute
     public abstract String getCollapseEvent();
 
     @Attribute(defaultValue = "PanelMenuMode.client")

@@ -47,6 +47,8 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractPanelMenuGroup;
 import org.richfaces.component.AbstractPanelMenuItem;
 
+import com.google.common.base.Strings;
+
 /**
  * @author akolonitsky
  * @since 2010-10-25
@@ -64,6 +66,8 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
 
     //TODO nick - shouldn't this be rf-pm-gr-top?
     private static final String TOP_CSS_CLASS_PREFIX = "rf-pm-top-gr";
+    private static final String DEFAULT_EXPAND_EVENT = "click";
+    private static final String DEFAULT_COLLAPSE_EVENT = "click";
 
     private final TableIconsRendererHelper<AbstractPanelMenuGroup> headerRenderer = new PanelMenuGroupHeaderRenderer(CSS_CLASS_PREFIX);
     private final TableIconsRendererHelper<AbstractPanelMenuGroup> topHeaderRenderer = new PanelMenuGroupHeaderRenderer(TOP_CSS_CLASS_PREFIX);
@@ -154,6 +158,28 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
             component.getClientId(context), getScriptObjectOptions(context, component));
     }
 
+    private String getExpandEvent(AbstractPanelMenuGroup group) {
+        String expandEvent = group.getExpandEvent();
+        if (Strings.isNullOrEmpty(expandEvent)) {
+            expandEvent = group.getPanelMenu().getExpandEvent();
+        }
+        if (Strings.isNullOrEmpty(expandEvent)) {
+            expandEvent = DEFAULT_EXPAND_EVENT;
+        }
+        return expandEvent;
+    }
+
+    private String getCollapseEvent(AbstractPanelMenuGroup group) {
+        String collapseEvent = group.getCollapseEvent();
+        if (Strings.isNullOrEmpty(collapseEvent)) {
+            collapseEvent = group.getPanelMenu().getCollapseEvent();
+        }
+        if (Strings.isNullOrEmpty(collapseEvent)) {
+            collapseEvent = DEFAULT_COLLAPSE_EVENT;
+        }
+        return collapseEvent;
+    }
+    
     @Override
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
         AbstractPanelMenuGroup panelMenuGroup = (AbstractPanelMenuGroup) component;
@@ -164,8 +190,8 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
         options.put("name", panelMenuGroup.getName());
         options.put("mode", panelMenuGroup.getMode());
         options.put("disabled", panelMenuGroup.isDisabled());
-        options.put("expandEvent", panelMenuGroup.getExpandEvent());
-        options.put("collapseEvent", panelMenuGroup.getCollapseEvent());
+        options.put("expandEvent", getExpandEvent(panelMenuGroup));
+        options.put("collapseEvent", getCollapseEvent(panelMenuGroup));
         options.put("expandSingle", panelMenuGroup.isExpandSingle());
         options.put("bubbleSelection", panelMenuGroup.isBubbleSelection());
         options.put("expanded", panelMenuGroup.isExpanded());
