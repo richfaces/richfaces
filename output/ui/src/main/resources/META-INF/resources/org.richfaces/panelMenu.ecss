@@ -79,8 +79,6 @@
     border-top-width: 1px;
     border-top-style: solid;
     border-top-color: '#{richSkin.panelBorderColor}';
-
-    margin-bottom: 3px
 }
 
 .rf-pm-gr-dis {
