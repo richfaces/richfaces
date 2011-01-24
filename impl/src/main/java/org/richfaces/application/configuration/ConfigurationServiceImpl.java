@@ -23,6 +23,7 @@ package org.richfaces.application.configuration;
 
 import java.beans.PropertyEditor;
 import java.beans.PropertyEditorManager;
+import java.text.MessageFormat;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -45,16 +46,17 @@ public class ConfigurationServiceImpl implements ConfigurationService {
 
     private final ConfigurationItem getConfigurationItemAnnotation(Enum<?> enumKey) {
         try {
-            return enumKey.getClass().getField(enumKey.name()).getAnnotation(ConfigurationItem.class);
-        } catch (SecurityException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            ConfigurationItem item = enumKey.getClass().getField(enumKey.name()).getAnnotation(ConfigurationItem.class);
+            if (item != null) {
+                return item;
+            }
+        } catch (Exception e) {
+            throw new IllegalStateException(MessageFormat.format("Cannot read @ConfigurationItem annotation from {0}.{1} because of {2}", 
+                enumKey.getClass().getName(), enumKey.name(), e.getMessage()));
         }
 
-        return null;
+        throw new IllegalStateException(MessageFormat.format("Annotation @ConfigurationItem is not set at {0}.{1}", 
+            enumKey.getClass().getName(), enumKey.name()));
     }
     
     private <T> T coerce(FacesContext context, Object value, Class<T> targetType) {
@@ -81,15 +83,11 @@ public class ConfigurationServiceImpl implements ConfigurationService {
             }
         }
         
-        //TODO message
-        throw new IllegalArgumentException();
+        throw new IllegalArgumentException(MessageFormat.format("Cannot convert {0} to object of {1} type", value, targetType.getName()));
     }
     
     protected ValueExpressionHolder createValueExpressionHolder(FacesContext context, Enum<?> key, Class<?> targetType) {
         ConfigurationItem annotation = getConfigurationItemAnnotation(key);
-        if (annotation == null) {
-            //TODO - handle this
-        }
 
         ValueExpression expression = createValueExpression(context, annotation, targetType);
         
@@ -109,26 +107,18 @@ public class ConfigurationServiceImpl implements ConfigurationService {
         ConfigurationItemSource source = annotation.source();
         
         if (source == ConfigurationItemSource.contextInitParameter) {
-            Map initMap = context.getExternalContext().getInitParameterMap();
-
             for (String name : annotation.names()) {
-                String value = (String) initMap.get(name);
+                String value = (String) context.getExternalContext().getInitParameter(name);
                 
                 if (Strings.isNullOrEmpty(value)) {
                     continue;
                 }
             
-                if (ELUtils.isValueReference(value)) {
+                if (!annotation.literal() && ELUtils.isValueReference(value)) {
                     ExpressionFactory expressionFactory = context.getApplication().getExpressionFactory();
                     
                     if (expressionFactory == null) {
-                        //TODO message
-                        throw new IllegalStateException();
-                    }
-                    
-                    if (annotation.literal()) {
-                        //TODO message
-                        throw new IllegalArgumentException();
+                        throw new IllegalStateException("ExpressionFactory is null");
                     }
                     
                     return expressionFactory.createValueExpression(context.getELContext(), value, targetType);

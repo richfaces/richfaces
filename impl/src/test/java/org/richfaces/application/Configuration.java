@@ -71,6 +71,6 @@ public enum Configuration {
     @ConfigurationItem(names = "org.richfaces.LiteralOnlyValue", literal = true)
     literalOnly,
     
-    @ConfigurationItem(names = "org.richfaces.LiteralOnlyFailingValue", literal = true)
-    literalOnlyFailing
+    @ConfigurationItem(names = "org.richfaces.LiteralOnlyWithEl", literal = true)
+    literalOnlyWithEl
 }

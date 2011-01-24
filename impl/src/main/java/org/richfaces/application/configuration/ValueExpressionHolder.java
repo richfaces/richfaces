@@ -21,7 +21,6 @@
  */
 package org.richfaces.application.configuration;
 
-import javax.el.ELException;
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 
@@ -43,14 +42,10 @@ final class ValueExpressionHolder {
 
     public Object getValue(FacesContext context) {
         if (valueExpression != null) {
-            try {
-                Object result = valueExpression.getValue(context.getELContext());
+            Object result = valueExpression.getValue(context.getELContext());
 
-                if (result != null) {
-                    return result;
-                }
-            } catch (ELException e) {
-                // TODO: handle exception
+            if (result != null) {
+                return result;
             }
         }
         

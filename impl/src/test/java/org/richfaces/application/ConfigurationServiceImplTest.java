@@ -23,7 +23,6 @@ package org.richfaces.application;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.fail;
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getConfigurationValue;
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getEnumConfigurationValue;
@@ -102,18 +101,12 @@ public class ConfigurationServiceImplTest {
     @Test
     @ContextInitParameters({
         @ContextInitParameter(name = "org.richfaces.LiteralOnlyValue", value = "pure literal"),
-        @ContextInitParameter(name = "org.richfaces.LiteralOnlyFailingValue", value = "#{someEl}")
+        @ContextInitParameter(name = "org.richfaces.LiteralOnlyWithEl", value = "#{someEl}")
     })
     public void testLiteral() throws Exception {
         FacesContext context = FacesContext.getCurrentInstance();
         
         assertEquals("pure literal", getConfigurationValue(context, Configuration.literalOnly));
-        try {
-            getConfigurationValue(context, Configuration.literalOnlyFailing);
-            
-            fail();
-        } catch (IllegalArgumentException e) {
-            // TODO: handle exception
-        }
+        assertEquals("#{someEl}", getConfigurationValue(context, Configuration.literalOnlyWithEl));
     }
 }
