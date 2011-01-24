@@ -6,21 +6,34 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
 	<h:form>
-		<rich:panel header="User information">
-			<h:panelGrid columns="3">
+		<rich:panel>
+			<f:facet name="header">
+				<h:panelGroup>
+					<h:outputText value="User information" />
+					<a4j:status>
+					<f:facet name="start">
+						<h:graphicImage value="/images/ai.gif" style="height:12px;width:12px;"/>
+					</f:facet>
+				</a4j:status>
+				</h:panelGroup>
+			</f:facet>
+			<h:panelGrid columns="3"> 
 				<h:outputText value="Name:" />
 				<h:inputText value="#{validationBean.name}" id="name">
-					<f:validateLength minimum="1" maximum="3"/>
+					<f:validateLength minimum="3" maximum="8"/>
+					<f:validateRequired />
 					<rich:validator />
 				</h:inputText>
 				<rich:message for="name" />
 				<h:outputText value="Email" />
-				<h:inputText value="#{validationBean.email}" id="email">
+				<h:inputText value="#{validationBean.email}" id="email" validatorMessage="bad email">
+					<f:validateRegex pattern="^(([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+([;.](([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})+)*$" ></f:validateRegex>
 					<rich:validator />
 				</h:inputText>
 				<rich:message for="email" />
 				<h:outputText value="Age" />
 				<h:inputText value="#{validationBean.age}" id="age">
+					<f:validateLongRange minimum="3" maximum="18"/>
 					<rich:validator />
 				</h:inputText>
 				<rich:message for="age" />
