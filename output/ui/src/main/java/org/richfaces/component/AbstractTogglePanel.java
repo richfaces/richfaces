@@ -569,6 +569,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
 
 
     @Override
+    @Attribute(hidden=true)
     public void setValue(Object value) {
         super.setValue(value);
 
