@@ -2,23 +2,13 @@ package org.richfaces.demo.validation;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.validation.constraints.Min;
-
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
 
 @ManagedBean
 @RequestScoped
 public class ValidationBean {
 
-    @NotBlank
-    @Length(min = 3, max = 12)
-    private String name;
-    @Email
-    @NotBlank
-    private String email;
-    @Min(value = 18)
+    private String name = null;
+    private String email = null;
     private Integer age;
     private String country;
     private String jobTitle;
