@@ -54,20 +54,15 @@
 							var positionOffset = [
 									groupOptions[i].horizontalOffset,
 									groupOptions[i].verticalOffset];
-							var onshow = groupOptions[i].onshow;
-							var onhide = groupOptions[i].onhide;
-
-							//var eventType = "mouseover";
-
 							if (null != groupId) {
-								// var popup = new RichFaces.ui.Popup(groupId +
-								// '_list', options);
                                 this.groupList[groupId] = new RichFaces.ui.MenuGroup(groupId,
                                 {
                                     rootMenuId : this.id,
-                                    onshow : onshow,
-                                    onhide : onhide,
-                                    positionOffset: positionOffset
+                                    onshow : groupOptions[i].onshow,
+                                    onhide : groupOptions[i].onhide,
+                                    positionOffset: positionOffset,
+                                    jointPoint : groupOptions[i].jointPoint,
+                                    direction : groupOptions[i].direction
                                 });
 							}
 						}
