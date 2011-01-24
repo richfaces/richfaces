@@ -1449,6 +1449,11 @@
 				{
 					var dataDays=event.componentData[_this.id]
 					_this.load(dataDays, true);
+				} else {
+					// https://issues.jboss.org/browse/RF-10233
+					// if calendar DataModel is empty and month is scrolled, so 
+					// calendar should be rendered
+					_this.render();
 				}
 			}
 			var ajaxError = function (event) {

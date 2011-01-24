@@ -43,7 +43,8 @@ import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.DateTimeConverter;
-import javax.faces.event.PhaseId;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.FacesEvent;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
@@ -92,8 +93,6 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
         client,
         ajax
     }
-    
-    private Object submittedCurrentDate = null;
     
     @Attribute
     public abstract String getDatePattern();
@@ -331,48 +330,37 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     public void setLocale(Object locale) {
         getStateHelper().put(PropertyKeys.locale, locale);
     }
-    
-    public Object getSubmittedCurrentDate() {
-        return submittedCurrentDate;
-    }
-
-    public void setSubmittedCurrentDate(Object submittedCurrentDate) {
-        this.submittedCurrentDate = submittedCurrentDate;
-    }
 
     @Override
-    public void validate(FacesContext context) {
-        super.validate(context);
+    public void broadcast(FacesEvent event) throws AbortProcessingException {
+        if (event instanceof CurrentDateChangeEvent) {
+            FacesContext facesContext = getFacesContext();
+            CurrentDateChangeEvent currentDateChangeEvent = (CurrentDateChangeEvent) event;
+            String currentDateString = currentDateChangeEvent.getCurrentDateString();
+            try {
+                // we should use datePattern attribute-based converter only for
+                // selectedDate
+                // current date string always has predefined format: m/y
+                Date currentDate = CalendarHelper.getAsDate(facesContext, this, getCurrentDate());
+                Date submittedCurrentDate = CalendarHelper.convertCurrentDate(currentDateString);
+                currentDateChangeEvent.setCurrentDate(submittedCurrentDate);
 
-        try {
-            // we should use datePattern attribute-based converter only for
-            // selectedDate
-            // current date string always has predefined format: m/y
-            String submittedCurrentDateString = (String) this.getSubmittedCurrentDate();
-            Date currentDate = CalendarHelper.getAsDate(context, this, getCurrentDate());
-            Date submittedCurrentDate = CalendarHelper.convertCurrentDate(submittedCurrentDateString);
-
-            if (!submittedCurrentDate.equals(currentDate)) {
-                updateCurrentDate(context, submittedCurrentDate);
+                if (!submittedCurrentDate.equals(currentDate)) {
+                    updateCurrentDate(facesContext, submittedCurrentDate);
+                }
+            } catch (Exception e) {
+                if (log.isDebugEnabled()) {
+                    log.debug(" currentDate convertion fails with following exception: " + e.toString(), e);
+                }
+                setValid(false);
+                String messageString = e.toString();
+                FacesMessage message = new FacesMessage(messageString);
+                message.setSeverity(FacesMessage.SEVERITY_ERROR);
+                facesContext.addMessage(getClientId(facesContext), message);
+                facesContext.renderResponse();
             }
-            
-            CurrentDateChangeEvent currentDateChangeEvent = new CurrentDateChangeEvent(this, submittedCurrentDateString);
-            currentDateChangeEvent.setCurrentDate(submittedCurrentDate);
-            currentDateChangeEvent.setPhaseId(PhaseId.INVOKE_APPLICATION);
-            queueEvent(currentDateChangeEvent);
-
-        } catch (Exception e) {
-            if (log.isDebugEnabled()) {
-                log.debug(" currentDate convertion fails with following exception: " + e.toString(), e);
-            }
-            setValid(false);
-            String messageString = e.toString();
-            FacesMessage message = new FacesMessage(messageString);
-            message.setSeverity(FacesMessage.SEVERITY_ERROR);
-            context.addMessage(getClientId(context), message);
-            context.renderResponse();
-        }        
-        
+        }
+        super.broadcast(event);
     }
     
     public void updateCurrentDate(FacesContext facesContext, Object currentDate) {

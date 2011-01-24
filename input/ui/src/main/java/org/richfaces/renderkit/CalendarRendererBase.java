@@ -54,6 +54,7 @@ import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.component.util.MessageUtil;
 import org.richfaces.component.util.SelectUtils;
 import org.richfaces.context.ExtendedPartialViewContext;
+import org.richfaces.event.CurrentDateChangeEvent;
 import org.richfaces.utils.CalendarHelper;
 
 /**
@@ -163,8 +164,10 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         Map<String, String> requestParameterMap = context.getExternalContext().getRequestParameterMap();
 
         String clientId = calendar.getClientId(context);
-        String currentDateString = requestParameterMap.get(clientId + CURRENT_DATE_INPUT);
-        calendar.setSubmittedCurrentDate(currentDateString);
+        String currentDateString = (String) requestParameterMap.get(clientId + CURRENT_DATE_INPUT);
+        if (currentDateString != null) {
+            calendar.queueEvent(new CurrentDateChangeEvent(calendar, currentDateString));
+        }
 
         String selectedDateString = requestParameterMap.get(clientId + "InputDate");
         if (selectedDateString != null) {
@@ -176,6 +179,8 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
             pvc.getRenderIds().add(
                 component.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
                     + AbstractCalendar.DAYSDATA_META_COMPONENT_ID);
+            
+            context.renderResponse();
         }
     }
     
