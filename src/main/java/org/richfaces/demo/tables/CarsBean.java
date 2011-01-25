@@ -32,12 +32,18 @@ public class CarsBean implements Serializable {
     private static final int ROUNDING_MODE = BigDecimal.ROUND_HALF_UP;
     private List<InventoryItem> allInventoryItems = null;
     private List<InventoryVendorList> inventoryVendorLists = null;
-    private InventoryItem currentCar;
+    private int currentCarIndex;
+    private InventoryItem editedCar;
+    private int page;
 
     public void remove() {
-        allInventoryItems.remove(currentCar);
+        allInventoryItems.remove(allInventoryItems.get(currentCarIndex));
     }
-    
+
+    public void store() {
+        allInventoryItems.set(currentCarIndex, editedCar);
+    }
+
     public List<SelectItem> getVendorOptions() {
         List<SelectItem> result = new ArrayList<SelectItem>();
         result.add(new SelectItem("", ""));
@@ -197,12 +203,27 @@ public class CarsBean implements Serializable {
         return iiList;
     }
 
-    public InventoryItem getCurrentCar() {
-        return currentCar;
+    public int getCurrentCarIndex() {
+        return currentCarIndex;
     }
 
-    public void setCurrentCar(InventoryItem currentCar) {
-        this.currentCar = currentCar;
+    public void setCurrentCarIndex(int currentCarIndex) {
+        this.currentCarIndex = currentCarIndex;
     }
 
+    public InventoryItem getEditedCar() {
+        return editedCar;
+    }
+
+    public void setEditedCar(InventoryItem editedCar) {
+        this.editedCar = editedCar;
+    }
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
 }

@@ -5,12 +5,24 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
+
+	<style>
+a.no-decor>img {
+	border: none;
+}
+</style>
+	<a4j:status onstart="#{rich:component('statPane')}.show()"
+		onstop="#{rich:component('statPane')}.hide()" />
 	<h:form id="form">
 		<rich:dataTable value="#{carsBean.allInventoryItems}" var="car"
-			id="table" rows="15">
+			iterationStatusVar="it" id="table" rows="15">
 			<f:facet name="noData">
 				Nothing found
 			</f:facet>
+			<rich:column>
+				<f:facet name="header">#</f:facet>
+				#{it.index}
+			</rich:column>
 			<rich:column>
 				<f:facet name="header">Vendor</f:facet>
 				<h:outputText value="#{car.vendor}" />
@@ -32,47 +44,66 @@
 				<h:outputText value="#{car.vin}" />
 			</rich:column>
 			<rich:column>
-				<f:facet name="header">Actions</f:facet>
-				<h:commandLink action="#{carsBean.remove}">
-					<h:graphicImage value="/images/icons/delete.gif"/>
-					<a4j:ajax render="table" execute="@this" />
-					<f:setPropertyActionListener target="#{carsBean.currentCar}"
+				<a4j:commandLink styleClass="no-decor" execute="@this"
+					render="@none" oncomplete="#{rich:component('confirmPane')}.show()">
+					<h:graphicImage value="/images/icons/delete.gif" />
+					<a4j:param value="#{it.index}"
+						assignTo="#{carsBean.currentCarIndex}" />
+				</a4j:commandLink>
+				<a4j:commandLink styleClass="no-decor" render="editGrid"
+					execute="@this" oncomplete="#{rich:component('editPane')}.show()">
+					<h:graphicImage value="/images/icons/edit.gif" />
+					<a4j:param value="#{it.index}"
+						assignTo="#{carsBean.currentCarIndex}" />
+					<f:setPropertyActionListener target="#{carsBean.editedCar}"
 						value="#{car}" />
-				</h:commandLink>
-				<h:commandLink>
-					<h:graphicImage value="/images/icons/edit.gif"/>
-					<a4j:ajax render="edit" execute="@this"
-						oncomplete="#{rich:component('editPane')}.show()" />
-					<f:setPropertyActionListener target="#{carsBean.currentCar}"
-						value="#{car}" />
-				</h:commandLink>
+				</a4j:commandLink>
 			</rich:column>
 			<f:facet name="footer">
-				<rich:dataScroller/>
+				<rich:dataScroller page="#{carsBean.page}"/>
 			</f:facet>
 		</rich:dataTable>
+
+		<a4j:jsFunction name="remove" action="#{carsBean.remove}"
+			render="table" execute="@this"
+			oncomplete="#{rich:component('confirmPane')}.hide();" />
 	</h:form>
+
+	<rich:popupPanel id="statPane" autosized="true">
+		<h:graphicImage value="/images/ai.gif" />
+		Wait please...
+	</rich:popupPanel>
+
+	<rich:popupPanel id="confirmPane" autosized="true"> 
+		Sure to delete row?
+		<a4j:commandButton value="Cancel"
+			onclick="#{rich:component('confirmPane')}.hide(); return false;" />
+		<a4j:commandButton value="Delete" onclick="remove(); return false;" />
+	</rich:popupPanel>
+
 	<rich:popupPanel header="Edit Car Details" id="editPane">
 		<h:form>
-		<h:panelGrid columns="3">
-			<h:outputText value="Vendor" />
-			<h:outputText value="#{carsBean.currentCar.vendor}" />
-			<h:panelGroup />
-			<h:outputText value="Model" />
-			<h:outputText value="#{carsBean.currentCar.model}" />
-			<h:panelGroup />
-			<h:outputText value="Price" />
-			<h:inputText value="#{carsBean.currentCar.price}" id="price" />
-			<rich:message for="price" />
-			<h:outputText value="Mileage" />
-			<h:inputText value="#{carsBean.currentCar.mileage}" id="mage" />
-			<rich:message for="mage" />
-			<h:outputText value="VIN" />
-			<h:inputText value="#{carsBean.currentCar.vin}" id="vin" />
-			<rich:message for="vin" />
-		</h:panelGrid>
-		<a4j:commandButton value="Store"/>
-		<a4j:commandButton value="Cancel" onclick="#{rich:component('editPane')}.hide(); return false;"/>
+			<h:panelGrid columns="3" id="editGrid">
+				<h:outputText value="Vendor" />
+				<h:outputText value="#{carsBean.editedCar.vendor}" />
+				<h:panelGroup />
+				<h:outputText value="Model" />
+				<h:outputText value="#{carsBean.editedCar.model}" />
+				<h:panelGroup />
+				<h:outputText value="Price" />
+				<h:inputText value="#{carsBean.editedCar.price}" id="price" />
+				<rich:message for="price" />
+				<h:outputText value="Mileage" />
+				<h:inputText value="#{carsBean.editedCar.mileage}" id="mage" />
+				<rich:message for="mage" />
+				<h:outputText value="VIN" />
+				<h:inputText value="#{carsBean.editedCar.vin}" id="vin" />
+				<rich:message for="vin" />
+			</h:panelGrid>
+			<a4j:commandButton value="Store"  action="#{carsBean.store}"
+				render="table" execute="@form"
+				oncomplete="#{rich:component('editPane')}.hide();" />
+			<a4j:commandButton value="Cancel" onclick="#{rich:component('editPane')}.hide(); return false;"/>
 		</h:form>
 	</rich:popupPanel>
 </ui:composition>
