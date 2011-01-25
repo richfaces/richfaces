@@ -47,7 +47,7 @@ import org.richfaces.renderkit.MetaComponentRenderer;
  * @since 2010-10-24
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets),
-        renderer = @JsfRenderer(type = "org.richfaces.TooltipRenderer"))
+        renderer = @JsfRenderer(type = "org.richfaces.TooltipRenderer"), attributes = {"ajax-props.xml"})
 public abstract class AbstractTooltip extends AbstractDivPanel implements MetaComponentResolver, MetaComponentEncoder {
 
     public static final String COMPONENT_TYPE = "org.richfaces.Tooltip";
@@ -118,21 +118,6 @@ public abstract class AbstractTooltip extends AbstractDivPanel implements MetaCo
 
     @Attribute(defaultValue = "10")
     public abstract int getVerticalOffset();
-
-    @Attribute
-    public abstract boolean isLimitRender();
-
-    @Attribute
-    public abstract Object getData();
-
-    @Attribute
-    public abstract String getStatus();
-
-    @Attribute
-    public abstract Object getExecute();
-
-    @Attribute
-    public abstract Object getRender();
 
     // ------------------------------------------------ Html Attributes
 
