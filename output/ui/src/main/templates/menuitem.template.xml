@@ -19,7 +19,7 @@
         
         <cdk:resource-dependency name="richfaces-event.js" />
         <cdk:resource-dependency name="menuitem.js" library="org.richfaces" />
-        
+        <cdk:import package="org.richfaces.renderkit.util" names="RendererUtils" />        
     </cc:interface>
 
     <cc:implementation>
@@ -80,6 +80,7 @@
 		 <c:when test="#{not isDisabled}">
 		  <script type="text/javascript">
 	                <cdk:scriptObject name="options">
+	                    <cdk:scriptOption name="params" value="${RendererUtils.getInstance().createParametersMap(facesContext, component)}"/>
                         <cdk:scriptOption name="mode" value="#{getSubmitMode(component)}" defaultValue="org.richfaces.component.Mode.server"/>
 	                	<cdk:scriptOption name="submitFunction" value="#{getOnClickFunction(facesContext, component)}" wrapper="eventHandler"/>
 	                </cdk:scriptObject>

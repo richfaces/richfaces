@@ -52,17 +52,18 @@
                     this.__getParentMenu().processItem(this.element);
                 }
 
-                this.__submitForm(rf.getDomElement(this.id), e);
+                this.__submitForm(rf.getDomElement(this.id), e, this.options.params);
             },
 
             /**
              *
              * @param item DOM element
              */
-            __submitForm : function(item, e) {
+            __submitForm : function(item, e, params) {
                 var form = this.__getParentForm(item);
                 var itemId = {};
                 itemId[item.id] = item.id;
+                $.extend(itemId, params || {});
                 if (this.options.mode == "server") {
                     rf.submitForm(form, itemId);
                 }
