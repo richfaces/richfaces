@@ -6,35 +6,7 @@
       xmlns:a4j="http://richfaces.org/a4j">
 
 	<ui:composition>
-		<h:form>
-			<h:dataTable value="#{carsBean.allCars}" var="car" id="table">
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Make" />
-					</f:facet>
-					<h:outputText value="#{car.make}"/>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Model" />
-					</f:facet>
-					<h:outputText value="#{car.model}"/>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Price" />
-					</f:facet>
-					<h:outputText value="#{car.price}"/>
-				</h:column>
-				<h:column>
-					<f:facet name="header">
-						Actions
-					</f:facet>
-					<a4j:commandLink value="Edit" action="#{carsBean.edit}" render="table"/>
-					<h:outputText value="  " />
-					<a4j:commandLink value="Remove" action="#{carsBean.remove}" render="table"/> 
-				</h:column>
-			</h:dataTable>
-		</h:form>
+	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
+
 	</ui:composition>
 </html>

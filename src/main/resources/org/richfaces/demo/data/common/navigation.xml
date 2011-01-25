@@ -200,7 +200,7 @@
 					</sample>
 				</samples>
 			</demo>
-			<demo>
+			<demo new="true">
 				<id>dataTable</id>
 				<name>rich:dataTable</name>
 				<samples>
@@ -226,6 +226,10 @@
 					<sample>
 						<id>tableFiltering</id>
 						<name>Data Table Filtering</name>
+					</sample>
+					<sample new="true">
+						<id>dataTableEdit</id>
+						<name>Data Table Edit</name>
 					</sample>
 				</samples>
 			</demo>
@@ -607,6 +611,16 @@
 					</sample>
 				</samples>
 			</demo>
+			<demo new="true">
+				<id>hashParam</id>
+				<name>rich:hashParam</name>
+				<samples>
+					<sample>
+						<id>hashOptionsPopup</id>
+						<name>Passing hash options to rich:popupPanel</name>
+					</sample>
+				</samples>
+			</demo>			
 			<demo>
 				<id>jquery</id>
 				<name>rich:jQuery</name>

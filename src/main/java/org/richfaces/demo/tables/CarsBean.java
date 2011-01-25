@@ -32,7 +32,12 @@ public class CarsBean implements Serializable {
     private static final int ROUNDING_MODE = BigDecimal.ROUND_HALF_UP;
     private List<InventoryItem> allInventoryItems = null;
     private List<InventoryVendorList> inventoryVendorLists = null;
+    private InventoryItem currentCar;
 
+    public void remove() {
+        allInventoryItems.remove(currentCar);
+    }
+    
     public List<SelectItem> getVendorOptions() {
         List<SelectItem> result = new ArrayList<SelectItem>();
         result.add(new SelectItem("", ""));
@@ -191,4 +196,13 @@ public class CarsBean implements Serializable {
 
         return iiList;
     }
+
+    public InventoryItem getCurrentCar() {
+        return currentCar;
+    }
+
+    public void setCurrentCar(InventoryItem currentCar) {
+        this.currentCar = currentCar;
+    }
+
 }
