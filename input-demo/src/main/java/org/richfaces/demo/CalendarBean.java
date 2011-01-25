@@ -2,6 +2,7 @@ package org.richfaces.demo;
 
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -26,6 +27,7 @@ public class CalendarBean {
     private int horizontalOffset = 0;
     private int verticalOffset = 0;
     private Positioning[] positioningValues = Positioning.values();
+    private TimeZone timeZone = TimeZone.getTimeZone("EST");
 
     public CalendarBean() {
 
@@ -142,5 +144,13 @@ public class CalendarBean {
 
     public Positioning[] getPositioningValues() {
         return positioningValues;
+    }
+
+    public void setTimeZone(TimeZone timeZone) {
+        this.timeZone = timeZone;
+    }
+
+    public TimeZone getTimeZone() {
+        return timeZone;
     }
 }
