@@ -46,7 +46,10 @@
                 <h:outputText style="font-weight:bold" value="#{menuBean.current}"></h:outputText>
             </a4j:outputPanel>
             <br />
-            <ddm:dropDownMenu hideDelay="600" showEvent="click" jointPoint="bottomLeft" direction="autoRight" id="ddmenu" disabled="#{menuBean.disabled}" mode="#{menuBean.mode}">
+            <ddm:dropDownMenu hideDelay="600" showEvent="click" 
+            jointPoint="bottomLeft" direction="autoRight" 
+            id="ddmenu" disabled="#{menuBean.disabled}"
+             mode="#{menuBean.mode}">
                 <f:facet name="label"> 
                     <h:panelGroup>
                         <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic"/>
@@ -64,6 +67,8 @@
                     <f:facet name="icon">
                         <h:selectBooleanCheckbox id="checkbox" value="#{menuBean.checkbox}"/>
                     </f:facet>
+                    <f:param name="myParam" value="12345"/>
+                    <f:param name="myParam2" value="${222}"/>
                 </ddm:menuItem>
                 <ddm:menuItem label="Open" action="#{menuBean.doOpen}">
                     <f:facet name="icon">
