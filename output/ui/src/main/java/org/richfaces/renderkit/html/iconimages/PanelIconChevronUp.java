@@ -26,7 +26,7 @@ import org.richfaces.resource.DynamicUserResource;
 import java.awt.geom.GeneralPath;
 
 @DynamicUserResource
-public class PanelMenuIconChevronUp extends PanelMenuIconChevronBasic {
+public class PanelIconChevronUp extends PanelIconChevronBasic {
 
     protected void draw(GeneralPath path) {
 

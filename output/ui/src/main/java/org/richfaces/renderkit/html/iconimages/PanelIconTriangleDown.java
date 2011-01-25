@@ -23,20 +23,22 @@ package org.richfaces.renderkit.html.iconimages;
 
 import org.richfaces.resource.DynamicUserResource;
 
+import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
 
 @DynamicUserResource
-public class PanelMenuIconChevronDown extends PanelMenuIconChevronBasic {
+public class PanelIconTriangleDown extends PanelIconTriangleBasic {
 
-    protected void draw(GeneralPath path) {
+    void draw(GeneralPath path, Graphics2D g2d) {
 
-        path.moveTo(1, 0);
-        path.lineTo(31, 30);
-        path.lineTo(61, 0);
-        path.lineTo(61, 16);
-        path.lineTo(31, 46);
-        path.lineTo(1, 16);
+        g2d.translate(31, 54);
+
+        path.moveTo(0, 0);
+        path.lineTo(33, 33);
+        path.lineTo(34, 33);
+        path.lineTo(67, 0);
         path.closePath();
 
     }
+
 }

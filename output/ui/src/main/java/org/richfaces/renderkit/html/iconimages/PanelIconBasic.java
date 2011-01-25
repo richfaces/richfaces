@@ -40,13 +40,13 @@ import org.richfaces.skin.SkinFactory;
 /**
  * @author Alex.Kolonitsky
  */
-public abstract class PanelMenuIconBasic extends AbstractJava2DUserResource implements StateHolderResource {
+public abstract class PanelIconBasic extends AbstractJava2DUserResource implements StateHolderResource {
 
     private static final Dimension DIMENSION = new Dimension(16, 16);
 
     private Color color;
 
-    protected PanelMenuIconBasic() {
+    protected PanelIconBasic() {
         super(DIMENSION);
     }
 

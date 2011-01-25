@@ -29,7 +29,7 @@ import java.awt.geom.GeneralPath;
 /**
  * @author Anton Belevich
  */
-public abstract class PanelMenuIconTriangleBasic extends PanelMenuIconBasic {
+public abstract class PanelIconTriangleBasic extends PanelIconBasic {
 
     protected void paintImage(Graphics2D g2d, Color color) {
 

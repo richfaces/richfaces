@@ -27,14 +27,15 @@ import java.awt.Graphics2D;
 import java.awt.geom.GeneralPath;
 
 @DynamicUserResource
-public class PanelMenuIconTriangleLeft extends PanelMenuIconTriangleBasic {
+public class PanelIconTriangleUp extends PanelIconTriangleBasic {
 
     void draw(GeneralPath path, Graphics2D g2d) {
-        g2d.translate(47, 30);
-        path.moveTo(33, 0);
-        path.lineTo(0, 33);
-        path.lineTo(0, 34);
-        path.lineTo(33, 67);
+        g2d.translate(31, 47);
+
+        path.moveTo(0, 33);
+        path.lineTo(33, 0);
+        path.lineTo(34, 0);
+        path.lineTo(67, 33);
         path.closePath();
     }
 

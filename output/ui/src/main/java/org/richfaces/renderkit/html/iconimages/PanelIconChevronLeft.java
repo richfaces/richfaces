@@ -26,16 +26,15 @@ import org.richfaces.resource.DynamicUserResource;
 import java.awt.geom.GeneralPath;
 
 @DynamicUserResource
-public class PanelMenuIconChevron extends PanelMenuIconChevronBasic {
+public class PanelIconChevronLeft extends PanelIconChevronBasic {
 
-    protected void draw(GeneralPath path) {
-        path.moveTo(1, 1);
-
-        path.lineTo(17, 1);
-        path.lineTo(47, 31);
-        path.lineTo(17, 61);
-        path.lineTo(1, 61);
-        path.lineTo(31, 31);
+    void draw(GeneralPath path) {
+        path.moveTo(61, 1);
+        path.lineTo(45, 1);
+        path.lineTo(15, 31);
+        path.lineTo(45, 61);
+        path.lineTo(61, 61);
+        path.lineTo(30, 31);
         path.closePath();
     }
 

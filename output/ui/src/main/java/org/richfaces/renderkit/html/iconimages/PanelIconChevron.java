@@ -23,13 +23,20 @@ package org.richfaces.renderkit.html.iconimages;
 
 import org.richfaces.resource.DynamicUserResource;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
+import java.awt.geom.GeneralPath;
 
 @DynamicUserResource
-public class PanelMenuIconSpacer extends PanelMenuIconBasic {
+public class PanelIconChevron extends PanelIconChevronBasic {
 
-    protected void paintImage(Graphics2D g2d, Color color) {
+    protected void draw(GeneralPath path) {
+        path.moveTo(1, 1);
+
+        path.lineTo(17, 1);
+        path.lineTo(47, 31);
+        path.lineTo(17, 61);
+        path.lineTo(1, 61);
+        path.lineTo(31, 31);
+        path.closePath();
     }
 
 }

@@ -34,7 +34,7 @@ import java.awt.image.BufferedImage;
 /**
  * @author Alex.Kolonitsky
  */
-public abstract class PanelMenuIconChevronBasic extends PanelMenuIconBasic {
+public abstract class PanelIconChevronBasic extends PanelIconBasic {
     private static final int BUFFER_IMAGE_SIZE = 128;
 
     @Override
@@ -60,8 +60,8 @@ public abstract class PanelMenuIconChevronBasic extends PanelMenuIconBasic {
         draw(path);
 
         g2d.fill(path);
-        if (this instanceof PanelMenuIconChevron
-            || this instanceof PanelMenuIconChevronLeft) {
+        if (this instanceof PanelIconChevron
+            || this instanceof PanelIconChevronLeft) {
             g2d.translate(24, 0);
         } else {
             g2d.translate(0, 24);

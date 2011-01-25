@@ -23,26 +23,20 @@ package org.richfaces.renderkit.html.iconimages;
 
 import org.richfaces.resource.DynamicUserResource;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.geom.Ellipse2D;
+import java.awt.geom.GeneralPath;
 
 @DynamicUserResource
-public class PanelMenuIconDisc extends PanelMenuIconBasic {
+public class PanelIconChevronDown extends PanelIconChevronBasic {
 
-    @Override
-    protected void paintImage(Graphics2D g2d, Color color) {
+    protected void draw(GeneralPath path) {
 
-        Dimension dimension = getDimension();
-        long dim = Math.round(dimension.getWidth() / 3);
+        path.moveTo(1, 0);
+        path.lineTo(31, 30);
+        path.lineTo(61, 0);
+        path.lineTo(61, 16);
+        path.lineTo(31, 46);
+        path.lineTo(1, 16);
+        path.closePath();
 
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setColor(color);
-        g2d.translate(dim, dim);
-
-        g2d.fill(new Ellipse2D.Double(0, 0, dim, dim));
     }
-
 }

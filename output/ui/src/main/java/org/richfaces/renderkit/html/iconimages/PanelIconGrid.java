@@ -31,7 +31,7 @@ import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
 
 @DynamicUserResource
-public class PanelMenuIconGrid extends PanelMenuIconBasic {
+public class PanelIconGrid extends PanelIconBasic {
 
     @Override
     protected void paintImage(Graphics2D g2d, Color color) {
