@@ -1,0 +1,14 @@
+.rf-msg {
+}
+.rf-msg-err {
+	list-style-image: url(#{resource['org.richfaces:error.png']});
+}
+.rf-msg-ftl {
+    list-style-image: url(#{resource['org.richfaces:error.png']});
+}
+.rf-msg-inf {
+    list-style-image: url(#{resource['org.richfaces:error.png']});
+}
+.rf-msg-ftl {
+    list-style-image: url(#{resource['org.richfaces:error.png']});
+}
