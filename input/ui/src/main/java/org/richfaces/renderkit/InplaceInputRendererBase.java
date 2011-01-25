@@ -33,6 +33,7 @@ import javax.faces.context.FacesContext;
 import org.richfaces.component.AbstractInplaceInput;
 import org.richfaces.component.InplaceComponent;
 import org.richfaces.component.InplaceState;
+import org.richfaces.renderkit.util.HtmlDimensions;
 
 /**
  * @author Anton Belevich
@@ -207,7 +208,7 @@ public class InplaceInputRendererBase extends InputRendererBase {
         if (value == null || "".equals(value)) {
             value = "100%";
         }
-        return value;
+        return HtmlDimensions.formatSize(value);
     }
     
     protected String getEditEvent(UIComponent component) {

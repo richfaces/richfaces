@@ -160,4 +160,13 @@ public class InplaceSelectRendererBase extends InplaceInputRendererBase {
         css = (css != null) ? concatClasses("rf-is-lst-cord", css) : "rf-is-lst-cord";
         return css; 
     }
+    
+    protected String getInputWidthStyle(UIComponent component) {
+        String value = ((AbstractInplaceSelect) component).getInputWidth();
+        if (value == null || "".equals(value)) {
+            return "";
+        } else {
+            return "width: "+HtmlDimensions.formatSize(value)+";";
+        }
+    }
 }

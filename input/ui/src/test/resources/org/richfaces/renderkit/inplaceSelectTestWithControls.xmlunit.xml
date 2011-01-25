@@ -3,7 +3,7 @@
 	<input class="rf-is-none" id="form:inplaceSelectWithControlsFocus" name="form:inplaceSelectWithControlsFocus" style="position: absolute; top: 0px; left: 0px; outline-style: none;" type="image" />
 	<span class="rf-is-edit rf-is-none" id="form:inplaceSelectWithControlsEdit">
 		<input id="form:inplaceSelectWithControlsselValue" name="form:inplaceSelectWithControls" type="hidden" />
-		<input autocomplete="off" class="rf-is-fld" id="form:inplaceSelectWithControlsInput" name="form:inplaceSelectWithControlsInput" readonly="readonly" style="width: ;" type="text" />
+		<input autocomplete="off" class="rf-is-fld" id="form:inplaceSelectWithControlsInput" name="form:inplaceSelectWithControlsInput" readonly="readonly" type="text" />
 		<span class="rf-is-btn-prepos">
 			<span class="rf-is-btn-pos">
 				<span class="rf-is-shdw" id="form:inplaceSelectWithControlsBtnshadow">

@@ -50,7 +50,7 @@
 					<input id="#{clientId}selValue" name="#{clientId}" type="hidden" value="#{getInputValue(facesContext, component)}"/>
 					<input id="#{clientId}Input" name="#{clientId}Input" autocomplete="off" 
 						type="text" value="#{getSelectInputLabel(facesContext, component)}"
-						class="rf-is-fld" style="width: #{component.attributes['inputWidth']};" readonly="readonly"
+						class="rf-is-fld" style="#{getInputWidthStyle(component)}" readonly="readonly"
 						cdk:passThrough="tabindex">
 						<cdk:call expression="renderInputHandlers(facesContext, component);" />
 					</input>

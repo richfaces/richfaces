@@ -55,16 +55,16 @@ public abstract class AbstractInplaceInput extends UIInput implements InplaceCom
     @Attribute(defaultValue="true")
     public abstract boolean isSaveOnBlur();
     
-    @Attribute()
+    @Attribute
     public abstract InplaceState getState();
     
-    @Attribute()
+    @Attribute
     public abstract String getEditEvent();
     
-    @Attribute()
+    @Attribute
     public abstract boolean isShowControls();
     
-    @Attribute()
+    @Attribute
     public abstract String getInputWidth();
     
     @Attribute

@@ -3,7 +3,7 @@
 	<input class="rf-is-none" id="form:inplaceSelectDefaultFocus" name="form:inplaceSelectDefaultFocus" style="position: absolute; top: 0px; left: 0px; outline-style: none;" type="image" />
 	<span class="rf-is-edit rf-is-none" id="form:inplaceSelectDefaultEdit">
 		<input id="form:inplaceSelectDefaultselValue" name="form:inplaceSelectDefault" type="hidden" />
-		<input autocomplete="off" class="rf-is-fld" id="form:inplaceSelectDefaultInput" name="form:inplaceSelectDefaultInput" readonly="readonly" style="width: ;" type="text" />
+		<input autocomplete="off" class="rf-is-fld" id="form:inplaceSelectDefaultInput" name="form:inplaceSelectDefaultInput" readonly="readonly" type="text" />
 		<span class="rf-is-lst-cord" id="form:inplaceSelectDefaultList" style="display: none">
 			<span class="rf-is-lst-pos" style="width: 200px">
 				<span class="rf-is-shdw">
