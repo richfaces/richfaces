@@ -87,6 +87,7 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
 
             //TODO nick - this should be done on encode, not on decode
             addOnCompleteParam(context, tooltip.getClientId(context));
+            context.renderResponse();
         }
     }
 

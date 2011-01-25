@@ -120,9 +120,6 @@ public abstract class AbstractTooltip extends AbstractDivPanel implements MetaCo
     public abstract int getVerticalOffset();
 
     @Attribute
-    public abstract boolean isBypassUpdates();
-
-    @Attribute
     public abstract boolean isLimitRender();
 
     @Attribute
