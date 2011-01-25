@@ -43,6 +43,12 @@ public abstract class AbstractToolbarGroup extends UIComponentBase {
     public static final String COMPONENT_TYPE = "org.richfaces.ToolbarGroup";
     
     @Attribute
+    public abstract String getItemClass();
+    
+    @Attribute
+    public abstract String getItemStyle();
+        
+    @Attribute
     public abstract String getItemSeparator();
     
     @Attribute
