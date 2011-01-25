@@ -243,9 +243,9 @@
 				
 						if (newParent != this.parent) {
 							this.saveInputValues(element);
-							this.shadeDiv.insertAfter(newParent.lastChild);
-							this.shadowDiv.insertAfter(newParent.lastChild);
-							this.cdiv.insertAfter(newParent.lastChild);
+                            this.shadeDiv.insertAfter($(newParent).children().last());
+                            this.shadowDiv.insertAfter($(newParent).children().last());
+							this.cdiv.insertAfter($(newParent).children().last());
 							this.domReattached = true;
 						} else {
 							this.parent.show();
@@ -352,10 +352,10 @@
 						if (options.top != "auto") {
 							_top = parseInt(options.top, 10);
 						} else {
-							var cw = this.getSizeElement().clientHeight;
+							var ch = this.getSizeElement().clientHeight;
 							var _height = this.height();
-							if (cw >= _height) {
-								_top = (cw - _height) / 2;
+							if (ch >= _height) {
+								_top = (ch - _height) / 2;
 							} else {
 								_top = 0;
 							}
