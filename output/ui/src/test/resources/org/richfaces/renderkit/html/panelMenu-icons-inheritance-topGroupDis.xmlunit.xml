@@ -5,13 +5,13 @@
           <tbody>
               <tr>
                   <td class="rf-pm-top-gr-ico">
-                      <div class="rf-pm-ico-colps rf-ico-chevron"></div>
-                      <div class="rf-pm-ico-exp rf-ico-chevron"></div>
+                      <div class="rf-pm-ico-colps rf-ico-hdr-chevron"></div>
+                      <div class="rf-pm-ico-exp rf-ico-hdr-chevron"></div>
                   </td>
                   <td class="rf-pm-top-gr-lbl"></td>
                   <td class="rf-pm-top-gr-exp-ico">
-                      <div class="rf-pm-ico-colps rf-ico-chevron"></div>
-                      <div class="rf-pm-ico-exp rf-ico-chevron"></div>
+                      <div class="rf-pm-ico-colps rf-ico-hdr-chevron"></div>
+                      <div class="rf-pm-ico-exp rf-ico-hdr-chevron"></div>
                   </td>
               </tr>
           </tbody>

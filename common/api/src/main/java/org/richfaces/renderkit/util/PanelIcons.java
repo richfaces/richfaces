@@ -1,7 +1,7 @@
 package org.richfaces.renderkit.util;
 
 public enum PanelIcons {
-    none("rf-ico-none", null),
+    none("rf-ico-none", "rf-ico-none"),
     chevron("rf-ico-chevron", "rf-ico-hdr-chevron"),
     chevronLeft("rf-ico-chevron-left", "rf-ico-hdr-chevron-left"),
     chevronUp("rf-ico-chevron-up", "rf-ico-hdr-chevron-up"),
