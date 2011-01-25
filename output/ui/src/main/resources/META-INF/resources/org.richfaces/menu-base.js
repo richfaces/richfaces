@@ -49,7 +49,6 @@
 
 		this.selectedGroup = null;
 
-		
 		rf.Event.bindById(this.id, "mouseenter", $.proxy(this.__overHandler,
 						this), this);
 		rf.Event.bindById(this.id, "mouseleave", $.proxy(this.__leaveHandler,
@@ -112,41 +111,40 @@
 				this.popupElement.focus();
 			},
 
-            __hidePopup : function() {
-                window.clearTimeout(this.showTimeoutId);
-                this.showTimeoutId=null;
-                if (this.__isShown()) {
-                    this.invokeEvent("hide", rf.getDomElement(this.id), null);
-                    this.__closeChildGroups();
-                    this.popup.hide();
-                    this.displayed = false;                    
-                    this.__deselectCurrentItem();
-                    this.currentSelectedItemIndex = -1;
-                    jqueryParentMenu = this.__getParentMenu();
-                    parentMenu = rf.$(this.__getParentMenu());
-                    if (this.id != parentMenu.id) {
-                        parentMenu.popupElement.focus();
-                        rf.ui.MenuManager.setActiveSubMenu(parentMenu);
-                    }
-                }
-            },
+			__hidePopup : function() {
+				window.clearTimeout(this.showTimeoutId);
+				this.showTimeoutId = null;
+				if (this.__isShown()) {
+					this.invokeEvent("hide", rf.getDomElement(this.id), null);
+					this.__closeChildGroups();
+					this.popup.hide();
+					this.displayed = false;
+					this.__deselectCurrentItem();
+					this.currentSelectedItemIndex = -1;
+					parentMenu = rf.$(this.__getParentMenu());
+					if (this.id != parentMenu.id) {
+						parentMenu.popupElement.focus();
+						rf.ui.MenuManager.setActiveSubMenu(parentMenu);
+					}
+				}
+			},
 
-            __closeChildGroups : function() {
+			__closeChildGroups : function() {
 				var i = 0;
-                var menuItem;
-                for (i in this.items) {
-                    menuItem = this.items.eq(i);
-                    if (this.__isGroup(menuItem)) {
-                        rf.$(menuItem).hide();
-                    }
-                }
+				var menuItem;
+				for (i in this.items) {
+					menuItem = this.items.eq(i);
+					if (this.__isGroup(menuItem)) {
+						rf.$(menuItem).hide();
+					}
+				}
 			},
 
 			__getParentMenuFromItem : function(item) {
-                var menu;
-                if (item)
-                    menu = item.parents('div.rf-ddm-itm')
-                            .has('div.rf-ddm-lst-bg').eq(1);
+				var menu;
+				if (item)
+					menu = item.parents('div.rf-ddm-itm')
+							.has('div.rf-ddm-lst-bg').eq(1);
 				if (menu && menu.length > 0)
 					return menu;
 				else {
@@ -159,8 +157,8 @@
 			},
 
 			__getParentMenu : function() {
-                var menu = $(this.element).parents('div.rf-ddm-itm')
-                        .has('div.rf-ddm-lst-bg').eq(0);
+				var menu = $(this.element).parents('div.rf-ddm-itm')
+						.has('div.rf-ddm-lst-bg').eq(0);
 				if (menu && menu.length > 0)
 					return menu;
 				else {
@@ -170,8 +168,7 @@
 			},
 
 			__isGroup : function(item) {
-				var group = item.find('div.' + this.options.listCss);
-				return group.length > 0;
+				return item.find('div.' + this.options.listCss).length > 0;
 			},
 
 			__isDisabled : function(item) {
@@ -206,13 +203,11 @@
 			},
 
 			__showHandler : function(e) {
-				if (!this.__isShown()){					
+				if (!this.__isShown()) {
 					this.showTimeoutId = window.setTimeout($.proxy(function() {
-						this.show();
-					}, this), this.options.showDelay);
+										this.show();
+									}, this), this.options.showDelay);
 				}
-				
-				
 			},
 
 			__leaveHandler : function() {
@@ -224,11 +219,14 @@
 
 			__overHandler : function() {
 				window.clearTimeout(this.hideTimeoutId);
+				this.hideTimeoutId = null;
 			},
 
 			destroy : function() {
 				// clean up code here
 				this.detach(this.id);
+
+				rf.Event.unbind(this.popupElement, "keydown" + this.namespace)
 
 				// call parent's destroy method
 				$super.destroy.call(this);

@@ -75,13 +75,11 @@ public class MenuItemRendererTest extends RendererTestBase {
     @Test
     public void testAjaxClick() throws IOException, SAXException {
         HtmlPage page =  environment.getPage("/menuItem_ajaxMode.jsf");
-        System.out.print(page.asXml());
         HtmlDivision item = (HtmlDivision) page.getElementById("form:menuItem");
         assertNotNull(item);
         DropDownMenuBean.setCurrent("none");
         item.click();
         item = (HtmlDivision) page.getElementById("form:menuItem");
-        System.out.print(item.asXml());
         assertNotNull(item);
         assertEquals("action", DropDownMenuBean.getCurrent());
     }  

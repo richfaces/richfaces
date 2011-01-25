@@ -3,16 +3,9 @@
 	var defaultOptions = {
 		showEvent : 'mouseenter',
 		showDelay : 300,
-		attachToBody : false,
-		positionOffset : [0, 0],
-
-		selectItemCss : "rf-ddm-itm-sel",
-		itemCss : "rf-ddm-itm",
-		disabledItemCss : "rf-ddm-itm-dis",
-		listCss : "rf-ddm-lst",
-		listContainerCss : "rf-ddm-lst-bg"
+		itemCss : "rf-ddm-itm"
 	}
-	//constructor definition
+	// constructor definition
 	rf.ui.MenuGroup = function(componentId, options) {
 		this.id = componentId;
 		this.options = {};
@@ -21,10 +14,10 @@
 		this.namespace = this.namespace || "."
 				+ rf.Event.createNamespace(this.name, this.id);
 		this.attachToDom(componentId);
-		
+
 		rf.Event.bindById(this.id, this.options.showEvent, $.proxy(
-				this.__showHandler, this), this);
-		
+						this.__showHandler, this), this);
+
 		this.rootMenu = rf.$(this.options.rootMenuId);
 
 		this.shown = false;
@@ -53,7 +46,6 @@
 						}
 					},
 					hide : function() {
-						var id = this.id;
 						var menu = this.rootMenu;
 						if (menu.groupList[this.id] && this.shown) {
 							menu.invokeEvent("grouphide", rf
@@ -78,6 +70,7 @@
 					},
 					__leaveHandler : function() {
 						window.clearTimeout(this.showTimeoutId);
+						this.showTimeoutId = null;
 						this.hideTimeoutId = window.setTimeout($.proxy(
 										function() {
 											this.hide();

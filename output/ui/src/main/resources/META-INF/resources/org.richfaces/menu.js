@@ -2,23 +2,9 @@
 	rf.ui = rf.ui || {};
 
 	var defaultOptions = {
-		mode : 'server',
-		attachToBody : false,
-		showDelay : 50,
-		hideDelay : 300,
-		verticalOffset : 0,
-		horisantalOffset : 0,
-		showEvent : 'mouseover',
-		positionOffset : [0, 0],
 		direction : "AA",
 		jointPoint : "AA",
-		positionType : "DROPDOWN",
-		itemCss : "rf-ddm-itm",
-		selectItemCss : "rf-ddm-itm-sel",
-		unselectItemCss : "rf-ddm-itm-unsel",
-		disabledItemCss : "rf-ddm-itm-dis",
-		listCss : "rf-ddm-lst",
-		listContainerCss : "rf-ddm-lst-bg"
+		positionType : "DROPDOWN"
 	};
 
 	// constructor definition
@@ -30,10 +16,10 @@
 		this.namespace = this.namespace || "."
 				+ rf.Event.createNamespace(this.name, this.id);
 		this.groupList = new Array();
-		
-		rf.Event.bindById(this.id+"_label", this.options.showEvent, $.proxy(
+
+		rf.Event.bindById(this.id + "_label", this.options.showEvent, $.proxy(
 						this.__showHandler, this), this);
-		
+
 		this.attachToDom(componentId);
 		if (!rf.ui.MenuManager)
 			rf.ui.MenuManager = {};
@@ -48,51 +34,52 @@
 	$.extend(rf.ui.Menu.prototype, rf.ui.MenuKeyNavigation);
 
 	$.extend(rf.ui.Menu.prototype, (function() {
-				return {
-					name : "Menu",
-					initiateGroups : function(groupOptions) {
-
-						for (var i in groupOptions) {
-							var groupId = groupOptions[i].id;
-							var positionOffset = [
-									groupOptions[i].horizontalOffset,
-									groupOptions[i].verticalOffset];
-							if (null != groupId) {
-                                this.groupList[groupId] = new RichFaces.ui.MenuGroup(groupId,
-                                {
-                                    rootMenuId : this.id,
-                                    onshow : groupOptions[i].onshow,
-                                    onhide : groupOptions[i].onhide,
-                                    positionOffset: positionOffset,
-                                    jointPoint : groupOptions[i].jointPoint,
-                                    direction : groupOptions[i].direction
-                                });
-							}
-						}
-					},
-
-					show : function(e) {
-						if (this.menuManager.openedMenu != this.id) {
-							this.menuManager.shutdownMenu();
-							this.menuManager.addMenuId(this.id);
-							this.__showPopup(e);
-						}
-					},
-
-					hide : function() {
-						this.__hidePopup();
-						this.menuManager.deletedMenuId();
-					},
-
-					destroy : function() {
-						// clean up code here
-						this.detach(this.id);
-
-						// call parent's destroy method
-						$super.destroy.call(this);
+		return {
+			name : "Menu",
+			initiateGroups : function(groupOptions) {
+				for (var i in groupOptions) {
+					var groupId = groupOptions[i].id;
+					var positionOffset = [groupOptions[i].horizontalOffset,
+							groupOptions[i].verticalOffset];
+					if (null != groupId) {
+						this.groupList[groupId] = new RichFaces.ui.MenuGroup(
+								groupId, {
+									rootMenuId : this.id,
+									onshow : groupOptions[i].onshow,
+									onhide : groupOptions[i].onhide,
+									positionOffset : positionOffset,
+									jointPoint : groupOptions[i].jointPoint,
+									direction : groupOptions[i].direction
+								});
 					}
-				};
-			})());
+				}
+			},
+
+			show : function(e) {
+				if (this.menuManager.openedMenu != this.id) {
+					this.menuManager.shutdownMenu();
+					this.menuManager.addMenuId(this.id);
+					this.__showPopup(e);
+				}
+			},
+
+			hide : function() {
+				this.__hidePopup();
+				this.menuManager.deletedMenuId();
+			},
+
+			destroy : function() {
+				// clean up code here
+				this.detach(this.id);
+
+				rf.Event.unbindById(this.id + "_label", this.options.showEvent);
+
+				// call parent's destroy method
+				$super.destroy.call(this);
+
+			}
+		};
+	})());
 
 	rf.ui.MenuManager = {
 		openedMenu : null,
