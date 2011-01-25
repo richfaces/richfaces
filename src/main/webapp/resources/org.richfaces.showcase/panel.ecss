@@ -1,4 +1,4 @@
-.rich-panel {
+.rf-p-c{
 	border-width: 1px;
 	border-style: solid;
 	padding: 1px;
@@ -9,7 +9,7 @@
 	border-color: '#{richSkin.panelBorderColor}';
 }
 
-.rich-panel-header {
+.rf-p-c .rf-p-hdr {
 	padding: 7px 20px;
 	border-width: 1px;
 	border-style: solid;
@@ -23,6 +23,6 @@
 	color: '#{richSkin.headerTextColor}';
 }
 
-.rich-panel-body {
+.rf-p-c .rf-p-b {
 	padding: 10px;
 }
