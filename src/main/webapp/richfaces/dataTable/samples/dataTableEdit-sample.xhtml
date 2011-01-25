@@ -60,7 +60,7 @@ a.no-decor>img {
 				</a4j:commandLink>
 			</rich:column>
 			<f:facet name="footer">
-				<rich:dataScroller page="#{carsBean.page}"/>
+				<rich:dataScroller page="#{carsBean.page}" />
 			</f:facet>
 		</rich:dataTable>
 
@@ -83,6 +83,9 @@ a.no-decor>img {
 
 	<rich:popupPanel header="Edit Car Details" id="editPane">
 		<h:form>
+			<a4j:outputPanel ajaxRendered="true">
+				<h:messages />
+			</a4j:outputPanel>
 			<h:panelGrid columns="3" id="editGrid">
 				<h:outputText value="Vendor" />
 				<h:outputText value="#{carsBean.editedCar.vendor}" />
@@ -91,19 +94,27 @@ a.no-decor>img {
 				<h:outputText value="#{carsBean.editedCar.model}" />
 				<h:panelGroup />
 				<h:outputText value="Price" />
-				<h:inputText value="#{carsBean.editedCar.price}" id="price" />
+				<h:inputText value="#{carsBean.editedCar.price}" required="true"
+					requiredMessage="Price is required" id="price"
+					validatorMessage="Should be a valid price" label="Price field" />
 				<rich:message for="price" />
 				<h:outputText value="Mileage" />
-				<h:inputText value="#{carsBean.editedCar.mileage}" id="mage" />
+				<h:inputText value="#{carsBean.editedCar.mileage}" id="mage"
+					validatorMessage="Should be a valid mileage" label="Mileage field" />
 				<rich:message for="mage" />
 				<h:outputText value="VIN" />
-				<h:inputText value="#{carsBean.editedCar.vin}" id="vin" />
+				<h:inputText value="#{carsBean.editedCar.vin}" id="vin"
+					required="true" validatorMessage="Not a valid 17-digit VIN"
+					requiredMessage="VIN is required">
+					<f:validateLength minimum="17" maximum="17" />
+				</h:inputText>
 				<rich:message for="vin" />
 			</h:panelGrid>
-			<a4j:commandButton value="Store"  action="#{carsBean.store}"
+			<a4j:commandButton value="Store" action="#{carsBean.store}"
 				render="table" execute="@form"
-				oncomplete="#{rich:component('editPane')}.hide();" />
-			<a4j:commandButton value="Cancel" onclick="#{rich:component('editPane')}.hide(); return false;"/>
+				oncomplete="if (#{facesContext.maximumSeverity==null}) {#{rich:component('editPane')}.hide();}" />
+			<a4j:commandButton value="Cancel"
+				onclick="#{rich:component('editPane')}.hide(); return false;" />
 		</h:form>
 	</rich:popupPanel>
 </ui:composition>

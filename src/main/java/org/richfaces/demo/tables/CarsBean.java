@@ -180,7 +180,7 @@ public class CarsBean implements Serializable {
                 ii.setVendor(vendor);
                 ii.setModel(model);
                 ii.setStock(RandomHelper.randomstring(6, 7));
-                ii.setVin(RandomHelper.randomstring(14, 15));
+                ii.setVin(RandomHelper.randomstring(17, 17));
                 ii.setMileage(new BigDecimal(RandomHelper.rand(5000, 80000)).setScale(DECIMALS, ROUNDING_MODE));
                 ii.setMileageMarket(new BigDecimal(RandomHelper.rand(25000, 45000)).setScale(DECIMALS, ROUNDING_MODE));
                 ii.setPrice(new Integer(RandomHelper.rand(15000, 55000)));
