@@ -402,7 +402,7 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         Date date = CalendarHelper.getFormattedDefaultTime(abstractCalendar);
         Map<String, Object> result = new HashMap<String, Object>();
         if (date != null) {
-            Calendar calendar = CalendarHelper.getCalendar(facesContext, abstractCalendar);
+            Calendar calendar = CalendarHelper.getCalendar(null, null);
             calendar.setTime(date);
             int hours = calendar.get(Calendar.HOUR_OF_DAY);
             int minutes = calendar.get(Calendar.MINUTE);
