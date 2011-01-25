@@ -24,7 +24,7 @@ class AccordionItemHeaderRenderer extends TableIconsRendererHelper<AbstractAccor
         String iconInactive = panel.isDisabled() ? panel.getLeftIconDisabled() : panel.getLeftIconInactive();
         String iconActive = panel.isDisabled() ? panel.getLeftIconDisabled() : panel.getLeftIconActive();
 
-        encodeTdIcon(writer, context, cssClassPrefix + "-ico", iconInactive, iconActive);
+        encodeTdIcon(writer, context, cssClassPrefix + "-ico", iconInactive, iconActive, true);
     }
 
     protected void encodeHeaderRightIcon(ResponseWriter writer, FacesContext context, AbstractAccordionItem panel) throws IOException {
@@ -32,16 +32,16 @@ class AccordionItemHeaderRenderer extends TableIconsRendererHelper<AbstractAccor
         String iconActive = panel.isDisabled() ? panel.getRightIconDisabled() : panel.getRightIconActive();
 
         //TODO nick - should this be "-ico-exp"? also why expanded icon state is connected with right icon alignment?
-        encodeTdIcon(writer, context, cssClassPrefix + "-exp-ico", iconInactive, iconActive);
+        encodeTdIcon(writer, context, cssClassPrefix + "-exp-ico", iconInactive, iconActive, true);
     }
 
     @Override
-    protected void encodeTdIcon(ResponseWriter writer, FacesContext context, String cssClass, String attrIconCollapsedValue, String attrIconExpandedValue) throws IOException {
+    protected void encodeTdIcon(ResponseWriter writer, FacesContext context, String cssClass, String attrIconCollapsedValue, String attrIconExpandedValue, boolean header) throws IOException {
         writer.startElement(TD_ELEM, null);
         writer.writeAttribute(CLASS_ATTRIBUTE, cssClass, null);
 
-        encodeIdIcon(writer, context, attrIconCollapsedValue, cssIconsClassPrefix + "-act");
-        encodeIdIcon(writer, context, attrIconExpandedValue, cssIconsClassPrefix + "-inact");
+        encodeIdIcon(writer, context, attrIconCollapsedValue, cssIconsClassPrefix + "-act", header);
+        encodeIdIcon(writer, context, attrIconExpandedValue, cssIconsClassPrefix + "-inact", header);
 
         writer.endElement(TD_ELEM);
     }

@@ -1,15 +1,24 @@
 package org.richfaces.renderkit.html;
 
-import org.richfaces.renderkit.RenderKitUtils;
-import org.richfaces.renderkit.util.PanelIcons;
+import static org.richfaces.component.util.HtmlUtil.concatClasses;
+import static org.richfaces.renderkit.HtmlConstants.ALT_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.IMG_ELEMENT;
+import static org.richfaces.renderkit.HtmlConstants.SRC_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.TABLE_ELEMENT;
+import static org.richfaces.renderkit.HtmlConstants.TBODY_ELEMENT;
+import static org.richfaces.renderkit.HtmlConstants.TD_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.TR_ELEMENT;
+
+import java.io.IOException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
 
-import static org.richfaces.component.util.HtmlUtil.concatClasses;
-import static org.richfaces.renderkit.HtmlConstants.*;
+import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.renderkit.util.PanelIcons;
 
 public abstract class TableIconsRendererHelper<T extends UIComponent> {
 
@@ -74,32 +83,32 @@ public abstract class TableIconsRendererHelper<T extends UIComponent> {
 
     protected abstract void encodeHeaderRightIcon(ResponseWriter writer, FacesContext context, T menuItem) throws IOException;
 
-    protected void encodeTdIcon(ResponseWriter writer, FacesContext context, String cssClass, String attrIconCollapsedValue, String attrIconExpandedValue) throws IOException {
+    protected void encodeTdIcon(ResponseWriter writer, FacesContext context, String cssClass, String attrIconCollapsedValue, String attrIconExpandedValue, boolean header) throws IOException {
         writer.startElement(TD_ELEM, null);
         writer.writeAttribute(CLASS_ATTRIBUTE, cssClass, null);
 
-        encodeIdIcon(writer, context, attrIconCollapsedValue, cssIconsClassPrefix + "-colps");
-        encodeIdIcon(writer, context, attrIconExpandedValue, cssIconsClassPrefix + "-exp");
+        encodeIdIcon(writer, context, attrIconCollapsedValue, cssIconsClassPrefix + "-colps", header);
+        encodeIdIcon(writer, context, attrIconExpandedValue, cssIconsClassPrefix + "-exp", header);
 
         writer.endElement(TD_ELEM);
     }
 
-    protected void encodeIdIcon(ResponseWriter writer, FacesContext context, String attrIconValue, String styleClass) throws IOException {
+    protected void encodeIdIcon(ResponseWriter writer, FacesContext context, String attrIconValue, String styleClass, boolean header) throws IOException {
         if (attrIconValue == null || attrIconValue.trim().length() <= 0) {
-            encodeDivIcon(writer, PanelIcons.none, styleClass);
+            encodeDivIcon(writer, PanelIcons.none, styleClass, header);
         } else {
             PanelIcons icon = PanelIcons.getIcon(attrIconValue);
             if (icon != null) {
-                encodeDivIcon(writer, icon, styleClass);
+                encodeDivIcon(writer, icon, styleClass, header);
             } else {
                 encodeImage(writer, context, attrIconValue);
             }
         }
     }
 
-    public static void encodeDivIcon(ResponseWriter writer, PanelIcons icon, String styleClass) throws IOException {
+    public static void encodeDivIcon(ResponseWriter writer, PanelIcons icon, String styleClass, boolean header) throws IOException {
         writer.startElement(DIV_ELEM, null);
-        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses(styleClass, icon.cssClass()), null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses(styleClass, header ? icon.headerClass() : icon.cssClass()), null);
         writer.endElement(DIV_ELEM);
     }
 

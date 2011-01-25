@@ -1,13 +1,95 @@
+.rf-ico-none,
+.rf-ico-chevron, .rf-ico-hdr-chevron, 
+.rf-ico-chevron-down, .rf-ico-hdr-chevron-down, 
+.rf-ico-chevron-left, .rf-ico-hdr-chevron-left, 
+.rf-ico-chevron-up, .rf-ico-hdr-chevron-up, 
+.rf-ico-disc, .rf-ico-hdr-disc, 
+.rf-ico-grid, .rf-ico-hdr-grid, 
+.rf-ico-transparent, .rf-ico-hdr-transparent, 
+.rf-ico-triangle, .rf-ico-hdr-triangle, 
+.rf-ico-triangle-down, .rf-ico-hdr-triangle-down, 
+.rf-ico-triangle-left, .rf-ico-hdr-triangle-left, 
+.rf-ico-triangle-up, .rf-ico-hdr-triangle-up {
+	width: 16px;
+	height: 16px;
+}
 
-.rf-ico-none          { width: 16px; height: 16px; }
-.rf-ico-chevron       { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:Chevron.png']})" }
-.rf-ico-chevron-down  { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:ChevronDown.png']})" }
-.rf-ico-chevron-left  { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:ChevronLeft.png']})" }
-.rf-ico-chevron-up    { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:ChevronUp.png']})" }
-.rf-ico-disc          { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:Disc.png']})" }
-.rf-ico-grid          { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:Grid.png']})" }
-.rf-ico-spacer        { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:Spacer.png']})" }
-.rf-ico-triangle      { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:Triangle.png']})" }
-.rf-ico-triangle-down { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:TriangleDown.png']})" }
-.rf-ico-triangle-left { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:TriangleLeft.png']})" }
-.rf-ico-triangle-up   { width: 16px; height: 16px; background-image: "url(#{resource['org.richfaces.images:TriangleUp.png']})" }
+.rf-ico-chevron {
+	background-image: "url(#{resource['org.richfaces.images:Chevron.png']})"
+}
+
+.rf-ico-hdr-chevron {
+	background-image: "url(#{resource['org.richfaces.images:HeaderChevron.png']})"
+}
+
+.rf-ico-chevron-down {
+	background-image: "url(#{resource['org.richfaces.images:ChevronDown.png']})"
+}
+
+.rf-ico-hdr-chevron-down {
+	background-image: "url(#{resource['org.richfaces.images:HeaderChevronDown.png']})"
+}
+
+.rf-ico-chevron-left {
+	background-image: "url(#{resource['org.richfaces.images:ChevronLeft.png']})"
+}
+
+.rf-ico-hdr-chevron-left {
+	background-image: "url(#{resource['org.richfaces.images:HeaderChevronLeft.png']})"
+}
+
+.rf-ico-chevron-up {
+	background-image: "url(#{resource['org.richfaces.images:ChevronUp.png']})"
+}
+
+.rf-ico-hdr-chevron-up {
+	background-image: "url(#{resource['org.richfaces.images:HeaderChevronUp.png']})"
+}
+
+.rf-ico-disc {
+	background-image: "url(#{resource['org.richfaces.images:Disc.png']})"
+}
+
+.rf-ico-hdr-disc {
+	background-image: "url(#{resource['org.richfaces.images:HeaderDisc.png']})"
+}
+
+.rf-ico-grid {
+	background-image: "url(#{resource['org.richfaces.images:Grid.png']})"
+}
+
+.rf-ico-hdr-grid {
+	background-image: "url(#{resource['org.richfaces.images:HeaderGrid.png']})"
+}
+
+.rf-ico-triangle {
+	background-image: "url(#{resource['org.richfaces.images:Triangle.png']})"
+}
+
+.rf-ico-hdr-triangle {
+	background-image: "url(#{resource['org.richfaces.images:HeaderTriangle.png']})"
+}
+
+.rf-ico-triangle-down {
+	background-image: "url(#{resource['org.richfaces.images:TriangleDown.png']})"
+}
+
+.rf-ico-hdr-triangle-down {
+	background-image: "url(#{resource['org.richfaces.images:HeaderTriangleDown.png']})"
+}
+
+.rf-ico-triangle-left {
+	background-image: "url(#{resource['org.richfaces.images:TriangleLeft.png']})"
+}
+
+.rf-ico-hdr-triangle-left {
+	background-image: "url(#{resource['org.richfaces.images:HeaderTriangleLeft.png']})"
+}
+
+.rf-ico-triangle-up {
+	background-image: "url(#{resource['org.richfaces.images:TriangleUp.png']})"
+}
+
+.rf-ico-hdr-triangle-up {
+	background-image: "url(#{resource['org.richfaces.images:HeaderTriangleUp.png']})"
+}

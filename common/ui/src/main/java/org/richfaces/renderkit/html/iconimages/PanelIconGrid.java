@@ -21,28 +21,19 @@
 
 package org.richfaces.renderkit.html.iconimages;
 
-import org.richfaces.resource.DynamicUserResource;
-
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
+
+import org.richfaces.resource.DynamicUserResource;
 
 @DynamicUserResource
 public class PanelIconGrid extends PanelIconBasic {
 
     @Override
     protected void paintImage(Graphics2D g2d, Color color) {
-
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE);
-        g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-        g2d.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
-        g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-        g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-        g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
         Rectangle2D.Float path = new Rectangle2D.Float();
         Dimension dimension = getDimension();

@@ -24,7 +24,6 @@ package org.richfaces.renderkit.html.iconimages;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
@@ -33,6 +32,7 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.resource.AbstractJava2DUserResource;
 import org.richfaces.resource.PostConstructResource;
+import org.richfaces.resource.ResourceParameter;
 import org.richfaces.resource.StateHolderResource;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
@@ -46,6 +46,9 @@ public abstract class PanelIconBasic extends AbstractJava2DUserResource implemen
 
     private Color color;
 
+    @ResourceParameter(defaultValue = "false")
+    private boolean headerIcon;
+    
     protected PanelIconBasic() {
         super(DIMENSION);
     }
@@ -55,12 +58,6 @@ public abstract class PanelIconBasic extends AbstractJava2DUserResource implemen
             return;
         }
         
-        graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        graphics2D.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
-        graphics2D.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
-        graphics2D.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-        graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-
         paintImage(graphics2D, color);
     }
 
@@ -74,7 +71,11 @@ public abstract class PanelIconBasic extends AbstractJava2DUserResource implemen
     public void initialize() {
         FacesContext context = FacesContext.getCurrentInstance();
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
-        color = new Color(skin.getColorParameter(context, "tabDisabledTextColor"));
+        color = new Color(skin.getColorParameter(context, headerIcon ? Skin.HEADER_TEXT_COLOR : "tabDisabledTextColor"));
+    }
+
+    public void setHeaderIcon(boolean topIcon) {
+        this.headerIcon = topIcon;
     }
     
     public void writeState(FacesContext context, DataOutput dataOutput) throws IOException {

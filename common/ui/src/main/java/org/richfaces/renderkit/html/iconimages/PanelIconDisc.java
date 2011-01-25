@@ -21,13 +21,12 @@
 
 package org.richfaces.renderkit.html.iconimages;
 
-import org.richfaces.resource.DynamicUserResource;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
+
+import org.richfaces.resource.DynamicUserResource;
 
 @DynamicUserResource
 public class PanelIconDisc extends PanelIconBasic {
@@ -38,7 +37,6 @@ public class PanelIconDisc extends PanelIconBasic {
         Dimension dimension = getDimension();
         long dim = Math.round(dimension.getWidth() / 3);
 
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setColor(color);
         g2d.translate(dim, dim);
 

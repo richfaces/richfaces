@@ -23,7 +23,6 @@ package org.richfaces.renderkit.html.iconimages;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.geom.GeneralPath;
 
 /**
@@ -32,10 +31,6 @@ import java.awt.geom.GeneralPath;
 public abstract class PanelIconTriangleBasic extends PanelIconBasic {
 
     protected void paintImage(Graphics2D g2d, Color color) {
-
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
-        g2d.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
 
         GeneralPath path = new GeneralPath();
 
