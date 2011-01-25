@@ -21,12 +21,6 @@
 
 package org.richfaces.renderkit.html.iconimages;
 
-import org.richfaces.resource.AbstractJava2DUserResource;
-import org.richfaces.resource.StateHolderResource;
-import org.richfaces.skin.Skin;
-import org.richfaces.skin.SkinFactory;
-
-import javax.faces.context.FacesContext;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -35,18 +29,22 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
+import javax.faces.context.FacesContext;
+
+import org.richfaces.resource.AbstractJava2DUserResource;
+import org.richfaces.resource.PostConstructResource;
+import org.richfaces.resource.StateHolderResource;
+import org.richfaces.skin.Skin;
+import org.richfaces.skin.SkinFactory;
+
 /**
  * @author Alex.Kolonitsky
  */
 public abstract class PanelMenuIconBasic extends AbstractJava2DUserResource implements StateHolderResource {
-    private static final String TOP_BULLET_COLOR = Skin.HEADER_TEXT_COLOR;
-    private static final String ORDINAL_BULLET_COLOR = Skin.HEADER_BACKGROUND_COLOR;
 
     private static final Dimension DIMENSION = new Dimension(16, 16);
 
     private Color color;
-    private Color topBulletColor;
-    private Color ordinalBulletColor;
 
     protected PanelMenuIconBasic() {
         super(DIMENSION);
@@ -72,17 +70,19 @@ public abstract class PanelMenuIconBasic extends AbstractJava2DUserResource impl
         return false;
     }
 
-    public void writeState(FacesContext context, DataOutput dataOutput) throws IOException {
+    @PostConstructResource
+    public void initialize() {
+        FacesContext context = FacesContext.getCurrentInstance();
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
-        dataOutput.writeInt(skin.getColorParameter(context, Skin.SELECT_CONTROL_COLOR));
-        dataOutput.writeInt(skin.getColorParameter(context, TOP_BULLET_COLOR));
-        dataOutput.writeInt(skin.getColorParameter(context, ORDINAL_BULLET_COLOR));
+        color = new Color(skin.getColorParameter(context, "tabDisabledTextColor"));
+    }
+    
+    public void writeState(FacesContext context, DataOutput dataOutput) throws IOException {
+        dataOutput.writeInt(color.getRGB());
     }
 
     public void readState(FacesContext context, DataInput dataInput) throws IOException {
         color = new Color(dataInput.readInt());
-        topBulletColor = new Color(dataInput.readInt());
-        ordinalBulletColor = new Color(dataInput.readInt());
     }
 
 }
