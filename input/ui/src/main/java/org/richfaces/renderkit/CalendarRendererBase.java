@@ -565,10 +565,8 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         throws IOException {
         if (AbstractCalendar.DAYSDATA_META_COMPONENT_ID.equals(metaComponentId)) {
             Object preload = ((AbstractCalendar) component).getPreload();
-            if (preload != null) {
-                Map<String, Object> dataMap = ExtendedPartialViewContext.getInstance(context).getResponseComponentDataMap();
-                dataMap.put(component.getClientId(context), preload);
-            }
+            Map<String, Object> dataMap = ExtendedPartialViewContext.getInstance(context).getResponseComponentDataMap();
+            dataMap.put(component.getClientId(context), preload);
         } else {
             throw new IllegalArgumentException(metaComponentId);
         }
