@@ -49,8 +49,7 @@
 
 		this.selectedGroup = null;
 
-		rf.Event.bindById(this.id, this.options.showEvent, $.proxy(
-						this.__showHandler, this), this);
+		
 		rf.Event.bindById(this.id, "mouseenter", $.proxy(this.__overHandler,
 						this), this);
 		rf.Event.bindById(this.id, "mouseleave", $.proxy(this.__leaveHandler,
@@ -114,11 +113,13 @@
 			},
 
             __hidePopup : function() {
+                window.clearTimeout(this.showTimeoutId);
+                this.showTimeoutId=null;
                 if (this.__isShown()) {
                     this.invokeEvent("hide", rf.getDomElement(this.id), null);
                     this.__closeChildGroups();
                     this.popup.hide();
-                    this.displayed = false;
+                    this.displayed = false;                    
                     this.__deselectCurrentItem();
                     this.currentSelectedItemIndex = -1;
                     jqueryParentMenu = this.__getParentMenu();
@@ -195,7 +196,6 @@
 
 			__selectItem : function(item) {
 				if (!rf.$(item).isSelected) {
-
 					rf.$(item).select();
 				}
 			},
@@ -205,14 +205,18 @@
 						e.currentTarget).eq(0);
 			},
 
-			__showHandler : function() {
-				this.showTimeoutId = window.setTimeout($.proxy(function() {
-									this.show();
-								}, this), this.options.showDelay);
+			__showHandler : function(e) {
+				if (!this.__isShown()){					
+					this.showTimeoutId = window.setTimeout($.proxy(function() {
+						this.show();
+					}, this), this.options.showDelay);
+				}
+				
+				
 			},
 
 			__leaveHandler : function() {
-				window.clearTimeout(this.showTimeoutId);
+				//console.log('__leaveHandler showTimeoutId:'+ this.showTimeoutId);				
 				this.hideTimeoutId = window.setTimeout($.proxy(function() {
 									this.hide();
 								}, this), this.options.hideDelay);

@@ -23,7 +23,7 @@
 
 		<div id="#{clientId}" class="rf-ddm-lbl #{isDisabled ? 'rf-ddm-lbl-dis' : 'rf-ddm-lbl-unsel '+styleClass} " style="#{style}" 
 		 cdk:passThroughWithExclusions="">
-			<div class="#{isDisabled ? 'rf-ddm-lbl-dis' : 'rf-ddm-lbl-dec'}">
+			<div id="#{clientId}_label" class="#{isDisabled ? 'rf-ddm-lbl-dis' : 'rf-ddm-lbl-dec'}">
 				
 				<c:choose>
 					<c:when test="#{label != null and label.isRendered()}">

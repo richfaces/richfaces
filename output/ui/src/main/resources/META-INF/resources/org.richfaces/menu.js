@@ -30,7 +30,10 @@
 		this.namespace = this.namespace || "."
 				+ rf.Event.createNamespace(this.name, this.id);
 		this.groupList = new Array();
-
+		
+		rf.Event.bindById(this.id+"_label", this.options.showEvent, $.proxy(
+						this.__showHandler, this), this);
+		
 		this.attachToDom(componentId);
 		if (!rf.ui.MenuManager)
 			rf.ui.MenuManager = {};
@@ -68,11 +71,11 @@
 						}
 					},
 
-					show : function() {
+					show : function(e) {
 						if (this.menuManager.openedMenu != this.id) {
 							this.menuManager.shutdownMenu();
 							this.menuManager.addMenuId(this.id);
-							this.__showPopup();
+							this.__showPopup(e);
 						}
 					},
 

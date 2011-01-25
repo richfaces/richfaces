@@ -21,7 +21,10 @@
 		this.namespace = this.namespace || "."
 				+ rf.Event.createNamespace(this.name, this.id);
 		this.attachToDom(componentId);
-
+		
+		rf.Event.bindById(this.id, this.options.showEvent, $.proxy(
+				this.__showHandler, this), this);
+		
 		this.rootMenu = rf.$(this.options.rootMenuId);
 
 		this.shown = false;

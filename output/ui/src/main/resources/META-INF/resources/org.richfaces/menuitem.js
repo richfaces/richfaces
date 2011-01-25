@@ -49,7 +49,7 @@
             __clickHandler : function (e) {
                 var parentMenu = this.__getParentMenu();
                 if (parentMenu) {
-                    this.__getParentMenu().processItem(this.element);
+                	parentMenu.processItem(this.element);
                 }
 
                 this.__submitForm(rf.getDomElement(this.id), e, this.options.params);
