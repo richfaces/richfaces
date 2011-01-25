@@ -1,95 +1,96 @@
-.rf-ico-none,
-.rf-ico-chevron, .rf-ico-hdr-chevron, 
-.rf-ico-chevron-down, .rf-ico-hdr-chevron-down, 
-.rf-ico-chevron-left, .rf-ico-hdr-chevron-left, 
-.rf-ico-chevron-up, .rf-ico-hdr-chevron-up, 
-.rf-ico-disc, .rf-ico-hdr-disc, 
-.rf-ico-grid, .rf-ico-hdr-grid, 
-.rf-ico-transparent, .rf-ico-hdr-transparent, 
-.rf-ico-triangle, .rf-ico-hdr-triangle, 
-.rf-ico-triangle-down, .rf-ico-hdr-triangle-down, 
-.rf-ico-triangle-left, .rf-ico-hdr-triangle-left, 
-.rf-ico-triangle-up, .rf-ico-hdr-triangle-up {
+.rf-ico-none, .rf-ico-none-hdr, .rf-ico-none-dis, .rf-ico-none-hdr-dis,
+.rf-ico-chevron, .rf-ico-chevron-hdr, .rf-ico-chevron-dis, .rf-ico-chevron-hdr-dis, 
+.rf-ico-chevron-down, .rf-ico-chevron-down-hdr, .rf-ico-chevron-down-dis, .rf-ico-chevron-down-hdr-dis, 	
+.rf-ico-chevron-left, .rf-ico-chevron-left-hdr, .rf-ico-chevron-left-dis, .rf-ico-chevron-left-hdr-dis, 
+.rf-ico-chevron-up, .rf-ico-chevron-up-hdr, .rf-ico-chevron-up-dis, .rf-ico-chevron-up-hdr-dis, 	
+.rf-ico-disc, .rf-ico-disc-hdr, .rf-ico-disc-dis, .rf-ico-disc-hdr-dis, 			
+.rf-ico-grid, .rf-ico-grid-hdr, .rf-ico-grid-dis, .rf-ico-grid-hdr-dis, 			
+.rf-ico-transparent, .rf-ico-transparent-hdr, .rf-ico-transparent-dis, .rf-ico-transparent-hdr-dis, 	
+.rf-ico-triangle, .rf-ico-triangle-hdr, .rf-ico-triangle-dis, .rf-ico-triangle-hdr-dis, 	
+.rf-ico-triangle-down, .rf-ico-triangle-down-hdr, .rf-ico-triangle-down-dis, .rf-ico-triangle-down-hdr-dis, 
+.rf-ico-triangle-left, .rf-ico-triangle-left-hdr, .rf-ico-triangle-left-dis, .rf-ico-triangle-left-hdr-dis,
+.rf-ico-triangle-up, .rf-ico-triangle-up-dis, .rf-ico-triangle-up-hdr, .rf-ico-triangle-up-hdr-dis {
 	width: 16px;
 	height: 16px;
 }
 
-.rf-ico-chevron {
+.rf-ico-chevron-hdr {
 	background-image: "url(#{resource['org.richfaces.images:Chevron.png']})"
 }
 
-.rf-ico-hdr-chevron {
-	background-image: "url(#{resource['org.richfaces.images:HeaderChevron.png']})"
+.rf-ico-chevron, .rf-ico-chevron-dis, .rf-ico-chevron-hdr-dis {
+	background-image: "url(#{resource['org.richfaces.images:ChevronDisabled.png']})"
 }
 
-.rf-ico-chevron-down {
+.rf-ico-chevron-down-hdr {
 	background-image: "url(#{resource['org.richfaces.images:ChevronDown.png']})"
 }
 
-.rf-ico-hdr-chevron-down {
-	background-image: "url(#{resource['org.richfaces.images:HeaderChevronDown.png']})"
+.rf-ico-chevron-down, .rf-ico-chevron-down-dis, .rf-ico-chevron-down-hdr-dis {
+	background-image: "url(#{resource['org.richfaces.images:ChevronDownDisabled.png']})"
 }
 
-.rf-ico-chevron-left {
+.rf-ico-chevron-left-hdr {
 	background-image: "url(#{resource['org.richfaces.images:ChevronLeft.png']})"
 }
 
-.rf-ico-hdr-chevron-left {
-	background-image: "url(#{resource['org.richfaces.images:HeaderChevronLeft.png']})"
+.rf-ico-chevron-left, .rf-ico-chevron-left-dis, .rf-ico-chevron-left-hdr-dis {
+	background-image: "url(#{resource['org.richfaces.images:ChevronLeftDisabled.png']})"
 }
 
-.rf-ico-chevron-up {
+.rf-ico-chevron-up-hdr {
 	background-image: "url(#{resource['org.richfaces.images:ChevronUp.png']})"
 }
 
-.rf-ico-hdr-chevron-up {
-	background-image: "url(#{resource['org.richfaces.images:HeaderChevronUp.png']})"
+.rf-ico-chevron-up, .rf-ico-chevron-up-dis, .rf-ico-chevron-up-hdr-dis {
+	background-image: "url(#{resource['org.richfaces.images:ChevronUpDisabled.png']})"
 }
 
-.rf-ico-disc {
+.rf-ico-disc-hdr {
 	background-image: "url(#{resource['org.richfaces.images:Disc.png']})"
 }
 
-.rf-ico-hdr-disc {
-	background-image: "url(#{resource['org.richfaces.images:HeaderDisc.png']})"
+.rf-ico-disc, .rf-ico-disc-dis, .rf-ico-disc-hdr-dis {
+	background-image: "url(#{resource['org.richfaces.images:DiscDisabled.png']})"
 }
 
-.rf-ico-grid {
+.rf-ico-grid-hdr {
 	background-image: "url(#{resource['org.richfaces.images:Grid.png']})"
 }
 
-.rf-ico-hdr-grid {
-	background-image: "url(#{resource['org.richfaces.images:HeaderGrid.png']})"
+.rf-ico-grid, .rf-ico-grid-dis, .rf-ico-grid-hdr-dis {
+	background-image: "url(#{resource['org.richfaces.images:GridDisabled.png']})"
 }
 
-.rf-ico-triangle {
+.rf-ico-triangle-hdr {
 	background-image: "url(#{resource['org.richfaces.images:Triangle.png']})"
 }
 
-.rf-ico-hdr-triangle {
-	background-image: "url(#{resource['org.richfaces.images:HeaderTriangle.png']})"
+.rf-ico-triangle, .rf-ico-triangle-dis, .rf-ico-triangle-hdr-dis {
+	background-image: "url(#{resource['org.richfaces.images:TriangleDisabled.png']})"
 }
 
-.rf-ico-triangle-down {
+.rf-ico-triangle-down-hdr {
 	background-image: "url(#{resource['org.richfaces.images:TriangleDown.png']})"
 }
 
-.rf-ico-hdr-triangle-down {
-	background-image: "url(#{resource['org.richfaces.images:HeaderTriangleDown.png']})"
+.rf-ico-triangle-down, .rf-ico-triangle-down-dis, .rf-ico-triangle-down-hdr-dis {
+	background-image: "url(#{resource['org.richfaces.images:TriangleDownDisabled.png']})"
 }
 
-.rf-ico-triangle-left {
+.rf-ico-triangle-left-hdr {
 	background-image: "url(#{resource['org.richfaces.images:TriangleLeft.png']})"
 }
 
-.rf-ico-hdr-triangle-left {
-	background-image: "url(#{resource['org.richfaces.images:HeaderTriangleLeft.png']})"
+.rf-ico-triangle-left, .rf-ico-triangle-left-dis, .rf-ico-triangle-left-hdr-dis {
+	background-image: "url(#{resource['org.richfaces.images:TriangleLeftDisabled.png']})"
 }
 
-.rf-ico-triangle-up {
+.rf-ico-triangle-up-hdr {
 	background-image: "url(#{resource['org.richfaces.images:TriangleUp.png']})"
 }
 
-.rf-ico-hdr-triangle-up {
-	background-image: "url(#{resource['org.richfaces.images:HeaderTriangleUp.png']})"
+.rf-ico-triangle-up, .rf-ico-triangle-up-dis, .rf-ico-triangle-up-hdr-dis {
+	background-image: "url(#{resource['org.richfaces.images:TriangleUpDisabled.png']})"
 }
+

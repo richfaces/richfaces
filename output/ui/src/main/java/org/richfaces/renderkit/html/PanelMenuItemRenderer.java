@@ -44,6 +44,7 @@ import org.richfaces.component.AbstractPanelMenuItem;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.util.PanelIcons;
+import org.richfaces.renderkit.util.PanelIcons.State;
 
 /**
  * @author akolonitsky
@@ -94,26 +95,30 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
         writer.endElement("table");
     }
 
+    private PanelIcons.State getState(AbstractPanelMenuItem item) {
+        return item.isDisabled() ? State.commonDisabled : State.common;
+    }
+
     private void encodeHeaderGroupRightIcon(ResponseWriter writer, FacesContext context, AbstractPanelMenuItem menuItem, String classPrefix) throws IOException {
         String icon = menuItem.isDisabled() ? menuItem.getRightIconDisabled() : menuItem.getRightIcon();
         String cssClasses = concatClasses(classPrefix + "-exp-ico", menuItem.getLeftIconClass());
         
-        encodeTdIcon(writer, context, cssClasses, icon);
+        encodeTdIcon(writer, context, cssClasses, icon, getState(menuItem));
     }
 
     private void encodeHeaderGroupLeftIcon(ResponseWriter writer, FacesContext context, AbstractPanelMenuItem menuItem, String classPrefix) throws IOException {
         String icon = menuItem.isDisabled() ? menuItem.getLeftIconDisabled() : menuItem.getLeftIcon();
         String cssClasses = concatClasses(classPrefix + "-ico", menuItem.getLeftIconClass());
 
-        encodeTdIcon(writer, context, cssClasses, icon);
+        encodeTdIcon(writer, context, cssClasses, icon, getState(menuItem));
     }
 
     //TODO nick - the same as in PanelMenuGroupRenderer
-    public void encodeTdIcon(ResponseWriter writer, FacesContext context, String classPrefix, String attrIconValue) throws IOException {
+    public void encodeTdIcon(ResponseWriter writer, FacesContext context, String classPrefix, String attrIconValue, PanelIcons.State state) throws IOException {
         writer.startElement(TD_ELEM, null);
         try {
             PanelIcons icon = PanelIcons.valueOf(attrIconValue);
-            writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses(classPrefix, icon.cssClass()), null);
+            writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses(classPrefix, state.getCssClass(icon)), null);
         } catch (IllegalArgumentException e) {
             writer.writeAttribute(CLASS_ATTRIBUTE, classPrefix, null);
             if(attrIconValue != null && attrIconValue.trim().length() != 0) {

@@ -83,32 +83,32 @@ public abstract class TableIconsRendererHelper<T extends UIComponent> {
 
     protected abstract void encodeHeaderRightIcon(ResponseWriter writer, FacesContext context, T menuItem) throws IOException;
 
-    protected void encodeTdIcon(ResponseWriter writer, FacesContext context, String cssClass, String attrIconCollapsedValue, String attrIconExpandedValue, boolean header) throws IOException {
+    protected void encodeTdIcon(ResponseWriter writer, FacesContext context, String cssClass, String attrIconCollapsedValue, String attrIconExpandedValue, PanelIcons.State state) throws IOException {
         writer.startElement(TD_ELEM, null);
         writer.writeAttribute(CLASS_ATTRIBUTE, cssClass, null);
 
-        encodeIdIcon(writer, context, attrIconCollapsedValue, cssIconsClassPrefix + "-colps", header);
-        encodeIdIcon(writer, context, attrIconExpandedValue, cssIconsClassPrefix + "-exp", header);
+        encodeIdIcon(writer, context, attrIconCollapsedValue, cssIconsClassPrefix + "-colps", state);
+        encodeIdIcon(writer, context, attrIconExpandedValue, cssIconsClassPrefix + "-exp", state);
 
         writer.endElement(TD_ELEM);
     }
 
-    protected void encodeIdIcon(ResponseWriter writer, FacesContext context, String attrIconValue, String styleClass, boolean header) throws IOException {
+    protected void encodeIdIcon(ResponseWriter writer, FacesContext context, String attrIconValue, String styleClass, PanelIcons.State state) throws IOException {
         if (attrIconValue == null || attrIconValue.trim().length() <= 0) {
-            encodeDivIcon(writer, PanelIcons.none, styleClass, header);
+            encodeDivIcon(writer, PanelIcons.none, styleClass, state);
         } else {
             PanelIcons icon = PanelIcons.getIcon(attrIconValue);
             if (icon != null) {
-                encodeDivIcon(writer, icon, styleClass, header);
+                encodeDivIcon(writer, icon, styleClass, state);
             } else {
                 encodeImage(writer, context, attrIconValue);
             }
         }
     }
 
-    public static void encodeDivIcon(ResponseWriter writer, PanelIcons icon, String styleClass, boolean header) throws IOException {
+    public static void encodeDivIcon(ResponseWriter writer, PanelIcons icon, String styleClass, PanelIcons.State state) throws IOException {
         writer.startElement(DIV_ELEM, null);
-        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses(styleClass, header ? icon.headerClass() : icon.cssClass()), null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses(styleClass, state.getCssClass(icon)), null);
         writer.endElement(DIV_ELEM);
     }
 

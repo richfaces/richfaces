@@ -41,6 +41,7 @@ import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractCollapsiblePanel;
 import org.richfaces.component.AbstractTogglePanel;
+import org.richfaces.renderkit.util.PanelIcons;
 
 /**
  * @author akolonitsky
@@ -68,13 +69,13 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
 
         protected void encodeHeaderLeftIcon(ResponseWriter writer, FacesContext context, AbstractCollapsiblePanel panel) throws IOException {
             encodeTdIcon(writer, context, cssClassPrefix + "-ico",
-                    panel.getLeftIconCollapsed(), panel.getLeftIconExpanded(), true);
+                    panel.getLeftIconCollapsed(), panel.getLeftIconExpanded(), PanelIcons.State.header);
         }
 
         protected void encodeHeaderRightIcon(ResponseWriter writer, FacesContext context, AbstractCollapsiblePanel panel) throws IOException {
             //TODO nick - should this be "-ico-exp"? also why expanded icon state is connected with right icon alignment?
             encodeTdIcon(writer, context, cssClassPrefix + "-exp-ico",
-                    panel.getRightIconCollapsed(), panel.getRightIconExpanded(), true);
+                    panel.getRightIconCollapsed(), panel.getRightIconExpanded(), PanelIcons.State.header);
         }
 
         @Override

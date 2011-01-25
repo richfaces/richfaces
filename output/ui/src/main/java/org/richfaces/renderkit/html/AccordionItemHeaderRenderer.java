@@ -13,6 +13,8 @@ import javax.faces.context.ResponseWriter;
 import org.richfaces.component.AbstractAccordionItem;
 import org.richfaces.component.AbstractTogglePanelTitledItem;
 import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.renderkit.util.PanelIcons;
+import org.richfaces.renderkit.util.PanelIcons.State;
 
 class AccordionItemHeaderRenderer extends TableIconsRendererHelper<AbstractAccordionItem> {
 
@@ -24,7 +26,7 @@ class AccordionItemHeaderRenderer extends TableIconsRendererHelper<AbstractAccor
         String iconInactive = panel.isDisabled() ? panel.getLeftIconDisabled() : panel.getLeftIconInactive();
         String iconActive = panel.isDisabled() ? panel.getLeftIconDisabled() : panel.getLeftIconActive();
 
-        encodeTdIcon(writer, context, cssClassPrefix + "-ico", iconInactive, iconActive, true);
+        encodeTdIcon(writer, context, cssClassPrefix + "-ico", iconInactive, iconActive, panel.isDisabled() ? State.commonDisabled : State.common);
     }
 
     protected void encodeHeaderRightIcon(ResponseWriter writer, FacesContext context, AbstractAccordionItem panel) throws IOException {
@@ -32,16 +34,16 @@ class AccordionItemHeaderRenderer extends TableIconsRendererHelper<AbstractAccor
         String iconActive = panel.isDisabled() ? panel.getRightIconDisabled() : panel.getRightIconActive();
 
         //TODO nick - should this be "-ico-exp"? also why expanded icon state is connected with right icon alignment?
-        encodeTdIcon(writer, context, cssClassPrefix + "-exp-ico", iconInactive, iconActive, true);
+        encodeTdIcon(writer, context, cssClassPrefix + "-exp-ico", iconInactive, iconActive, panel.isDisabled() ? State.headerDisabled : State.header);
     }
 
     @Override
-    protected void encodeTdIcon(ResponseWriter writer, FacesContext context, String cssClass, String attrIconCollapsedValue, String attrIconExpandedValue, boolean header) throws IOException {
+    protected void encodeTdIcon(ResponseWriter writer, FacesContext context, String cssClass, String attrIconCollapsedValue, String attrIconExpandedValue, PanelIcons.State state) throws IOException {
         writer.startElement(TD_ELEM, null);
         writer.writeAttribute(CLASS_ATTRIBUTE, cssClass, null);
 
-        encodeIdIcon(writer, context, attrIconCollapsedValue, cssIconsClassPrefix + "-act", header);
-        encodeIdIcon(writer, context, attrIconExpandedValue, cssIconsClassPrefix + "-inact", header);
+        encodeIdIcon(writer, context, attrIconCollapsedValue, cssIconsClassPrefix + "-act", state);
+        encodeIdIcon(writer, context, attrIconExpandedValue, cssIconsClassPrefix + "-inact", state);
 
         writer.endElement(TD_ELEM);
     }

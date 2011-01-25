@@ -47,7 +47,7 @@ public abstract class PanelIconBasic extends AbstractJava2DUserResource implemen
     private Color color;
 
     @ResourceParameter(defaultValue = "false")
-    private boolean headerIcon;
+    private boolean disabled;
     
     protected PanelIconBasic() {
         super(DIMENSION);
@@ -71,11 +71,11 @@ public abstract class PanelIconBasic extends AbstractJava2DUserResource implemen
     public void initialize() {
         FacesContext context = FacesContext.getCurrentInstance();
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
-        color = new Color(skin.getColorParameter(context, headerIcon ? Skin.HEADER_TEXT_COLOR : "tabDisabledTextColor"));
+        color = new Color(skin.getColorParameter(context, disabled ? "tabDisabledTextColor" : Skin.HEADER_TEXT_COLOR));
     }
 
-    public void setHeaderIcon(boolean topIcon) {
-        this.headerIcon = topIcon;
+    public void setDisabled(boolean topIcon) {
+        this.disabled = topIcon;
     }
     
     public void writeState(FacesContext context, DataOutput dataOutput) throws IOException {

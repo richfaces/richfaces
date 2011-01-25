@@ -5,13 +5,13 @@
           <tbody>
               <tr>
                   <td class="rf-pm-top-gr-ico">
-                      <div class="rf-pm-ico-colps rf-ico-none"></div>
-                      <div class="rf-pm-ico-exp rf-ico-none"></div>
+                      <div class="rf-pm-ico-colps rf-ico-none-hdr"></div>
+                      <div class="rf-pm-ico-exp rf-ico-none-hdr"></div>
                   </td>
                   <td class="rf-pm-top-gr-lbl">Group Label</td>
                   <td class="rf-pm-top-gr-exp-ico">
-                      <div class="rf-pm-ico-colps rf-ico-none"></div>
-                      <div class="rf-pm-ico-exp rf-ico-none"></div>
+                      <div class="rf-pm-ico-colps rf-ico-none-hdr"></div>
+                      <div class="rf-pm-ico-exp rf-ico-none-hdr"></div>
                   </td>
               </tr>
           </tbody>
