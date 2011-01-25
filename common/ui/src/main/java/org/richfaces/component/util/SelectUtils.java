@@ -293,13 +293,13 @@ public final class SelectUtils {
             if (ve != null) {
                 Class<?> valueType = ve.getType(facesContext.getELContext());
 
-                if ((valueType == null) || String.class.equals(valueType) || Object.class.equals(valueType)) {
+                if ((valueType == null) || Object.class.equals(valueType)) {
 
                     // No converter needed
                 } else {
                     converter = facesContext.getApplication().createConverter(valueType);
 
-                    if (converter == null) {
+                    if (converter == null && !String.class.equals(valueType)) {
                         throw new ConverterException(Messages.getMessage(Messages.NO_CONVERTER_FOUND_ERROR,
                             valueType.getName()));
                     }
@@ -320,7 +320,7 @@ public final class SelectUtils {
             if (ve != null) {
 
                 Class<?> valueType = ve.getType(facesContext.getELContext());
-                if ((valueType == null) || String.class.equals(valueType) || Object.class.equals(valueType)) {
+                if ((valueType == null) || Object.class.equals(valueType)) {
                     // No converter needed
                 } else {
                     converter = facesContext.getApplication().createConverter(valueType);

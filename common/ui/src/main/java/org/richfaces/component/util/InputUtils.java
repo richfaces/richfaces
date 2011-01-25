@@ -72,12 +72,15 @@ public final class InputUtils {
         if ((converter == null) && (valueExpression != null)) {
             Class converterType = valueExpression.getType(context.getELContext());
 
-            if ((converterType == null) || (converterType == Object.class) || (converterType == String.class)) {
+            if ((converterType == null) || (converterType == Object.class)) {
                 return newValue;
             } else {
                 converter = context.getApplication().createConverter(converterType);
 
                 if (converter == null) {
+                    if (String.class.equals(converterType)) {
+                        return newValue;
+                    }
                     throw new ConverterException(Messages.getMessage(Messages.NO_CONVERTER_FOUND_ERROR,
                         converterType.getName()));
                 }
