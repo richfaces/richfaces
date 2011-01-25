@@ -128,6 +128,7 @@
 		tokens: "",
 		attachToBody:true,
 		filterFunction: undefined
+		//nothingLabel = "Nothing";
 	};
 
 	var ID = {
@@ -213,8 +214,6 @@
 
 	var callAjax = function(event, callback) {
 		
-		clearItems.call(this);
-		
 		rf.getDomElement(this.id+ID.VALUE).value = this.value;
 		
 		var _this = this;
@@ -224,16 +223,20 @@
 			if (_this.options.lazyClientMode && _this.value.length!=0) {
 				updateItemsFromCache.call(_this, _this.value);
 			}
-			if ((_this.focused || _this.isMouseDown) && _this.items.length!=0 && callback) {
-				callback.call(_this, _event);
-			}
-			if (!callback && _this.isVisible && _this.options.selectFirst) {
-				selectItem.call(_this, _event, 0);
+			if (_this.items.length!=0) {
+				if (callback) {
+					(_this.focused || _this.isMouseDown) && callback.call(_this, _event);
+				} else {
+					_this.isVisible && _this.options.selectFirst && selectItem.call(_this, _event, 0);
+				}
+			} else {
+				_this.hide(_event);
 			}
 		};
 		
 		var ajaxError = function (event) {
-			//alert("error");
+			_this.hide(_event);
+			clearItems.call(_this);
 		};
 		
 		this.isFirstAjax = false;
@@ -314,8 +317,10 @@
 			if (oldValue!=subValue) {
 				updateItemsFromCache.call(this, subValue);
 			}
-			if (this.items.length!=0 && callback) {
-				callback.call(this, event);
+			if (this.items.length!=0) {
+				callback && callback.call(this, event);
+			} else {
+				this.hide(event);
 			}
 			if (event.keyCode == rf.KEYS.RETURN || event.type == "click") {
 				this.__setInputValue(subValue);
@@ -333,6 +338,7 @@
 			} else {
 				if (this.options.ajaxMode) {
 					clearItems.call(this);
+					this.hide(event);
 				}
 			}
 		}
