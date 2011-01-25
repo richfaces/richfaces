@@ -7,6 +7,8 @@
 input.rf-au-inp {
 	border-width: 0px;
 	width: 100%;
+	padding-left: 0px;
+	padding-right: 0px;
 }
 
 .rf-au-fld{
@@ -20,6 +22,10 @@ input.rf-au-inp {
 	background-repeat: repeat-x;
 	background-position: top left;
 	background-color: '#{richSkin.controlBackgroundColor}';
+}
+
+.rf-au-fld-btn{
+	position : relative; overflow : hidden; text-align : left; padding-right : 21px;
 }
 
 .rf-au-btn{

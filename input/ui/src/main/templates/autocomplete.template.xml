@@ -16,8 +16,8 @@
     <cc:implementation>
     <cdk:object type="java.lang.Object" name="disabled" value="#{component.attributes['disabled']}" />
         <div id="#{clientId}" class="rf-au-fld">
-			<input id="#{clientId}Value" name="#{clientId}Value" type="hidden" class="rf-au-fnt rf-au-inp" />
-            <div style="position : relative; overflow : hidden; text-align : left; padding-right : 21px;">
+			<input id="#{clientId}Value" name="#{clientId}Value" type="hidden"/>
+			<div class="#{component.attributes['showButton'] ? 'rf-au-fld-btn' : ''}">
             	<input onclick="#{component.attributes['onclick']}"
 				ondblclick="#{component.attributes['ondblclick']}"
 				onmouseup="#{component.attributes['onmouseup']}"
