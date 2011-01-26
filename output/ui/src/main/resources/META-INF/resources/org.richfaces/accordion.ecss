@@ -41,7 +41,9 @@
 
 .rf-ac-itm-hdr-act {}
 .rf-ac-itm-hdr-inact {}
-.rf-ac-itm-hdr-dis {}
+.rf-ac-itm-hdr-dis {
+	color: '#{richSkin.tabDisabledTextColor}';
+}
 
 
 .rf-ac-itm-gr      { width: 100%}
