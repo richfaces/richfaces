@@ -1,90 +1,4 @@
 (function ($, rf) {
-	rf.utils = rf.utils || {};
-
-	rf.utils.Cache = function (key, items, values, useCache) {
-		this.key = key.toLowerCase();
-		this.cache = {};
-		this.cache[this.key] = items || [];
-		this.originalValues = typeof values == "function" ? values(items) : values || this.cache[this.key];
-		this.values = processValues(this.originalValues);
-		this.useCache = useCache || checkValuesPrefix.call(this);
-	};
-	
-	var processValues = function (values) {
-		var processedValues = [];
-		for (var i = 0; i<values.length; i++) {
-			processedValues.push(values[i].toLowerCase());
-		}
-		return processedValues;
-	};
-	
-	var checkValuesPrefix = function () {
-		var result = true;
-		for (var i = 0; i<this.values.length; i++) {
-			if (this.values[i].indexOf(this.key)!=0) {
-				result = false;
-				break;
-			}
-		}
-		return result;
-	};
-
-	var getItems = function (key, filterFunction) {
-		key = key.toLowerCase();
-		var newCache = [];
-		
-		if (key.length < this.key.length) {
-			return newCache;
-		}
-
-		if (this.cache[key]) {
-			newCache = this.cache[key];
-		} else {
-			var useCustomFilterFunction = typeof filterFunction == "function";
-			var itemsCache = this.cache[this.key];
-			for (var i = 0; i<this.values.length; i++) {
-				var value = this.values[i];
-				if (useCustomFilterFunction && filterFunction(key, value)) {
-					newCache.push(itemsCache[i]);
-				} else {
-					var p = value.indexOf(key);
-					if (p == 0) {
-						newCache.push(itemsCache[i]);
-					}
-				}
-			}
-
-			if ((!this.lastKey || key.indexOf(this.lastKey)!=0) && newCache.length > 0) {
-				this.cache[key] = newCache;
-				if (newCache.length==1) {
-					this.lastKey = key;
-				}
-			}
-		}
-
-		return newCache;
-	};
-	
-	var getItemValue = function (item) {
-		return this.originalValues[this.cache[this.key].index(item)];
-	};
-	
-	var isCached = function (key) {
-		key = key.toLowerCase();
-		return this.cache[key] || this.useCache && key.indexOf(this.key)==0;
-	};
-
-	$.extend(rf.utils.Cache.prototype, (function () {
-		return  {
-			getItems: getItems,
-			getItemValue: getItemValue,
-			isCached: isCached
-		};
-	})());
-
-})(jQuery, RichFaces);
-
-(function ($, rf) {
 
 	/*
 	 * TODO: add user's event handlers call from options
@@ -103,6 +17,8 @@
 		this.value = "";
 		this.index = null;
 		this.isFirstAjax = true;
+		this.lastMouseX = null;
+		this.lastMouseY = null;
 		updateTokenOptions.call(this);
 		bindEventHandlers.call(this);
 		updateItemsList.call(this, "");
@@ -158,7 +74,28 @@
 	};
 
 	var bindEventHandlers = function () {
-		rf.Event.bind(rf.getDomElement(this.id+ID.ITEMS).parentNode, "click"+this.namespace+" mouseover"+this.namespace, onMouseAction, this);
+		var handlers = {};
+		handlers["click"+this.namespace] = handlers["mouseover"+this.namespace] = onMouseAction;
+		if (!$.browser.msie && !$.browser.opera) {
+			handlers["mouseenter"+this.namespace] = onMouseEnter;
+			handlers["mouseleave"+this.namespace] = onMouseLeave;
+		}
+		rf.Event.bind(rf.getDomElement(this.id+ID.ITEMS).parentNode, handlers, this);
+	};
+	
+	var onMouseLeave = function(event) {
+		rf.Event.unbind(rf.getDomElement(this.id+ID.ITEMS).parentNode, "mousemove"+this.namespace);
+		this.lastMouseX = null;
+		this.lastMouseY = null;
+	};
+	
+	var onMouseMove = function(event) {
+		this.lastMouseX = event.pageX; this.lastMouseY = event.pageY;
+	};
+	
+	var onMouseEnter = function(event) {
+		this.lastMouseX = event.pageX; this.lastMouseY = event.pageY;
+		rf.Event.bind(rf.getDomElement(this.id+ID.ITEMS).parentNode, "mousemove"+this.namespace, onMouseMove, this);
 	};
 
 	var onMouseAction = function(event) {
@@ -166,8 +103,13 @@
 
 		if (element) {
 			if (event.type=="mouseover") {
-				var index = this.items.index(element);
-				selectItem.call(this, event, index);
+				if (this.lastMouseX==null || this.lastMouseX!=event.pageX || this.lastMouseY!=event.pageY)
+				{
+					//window.console && console.log && console.log("[mouseover] lastMouseX:" + this.lastMouseX+" lastMouseY:" + this.lastMouseY);
+					//window.console && console.log && console.log("[mouseover] pageX:" + event.pageX+" pageY:" + event.pageY);
+					var index = this.items.index(element);
+					selectItem.call(this, event, index);
+				}
 			} else {
 				this.__onEnter(event);
 				rf.Selection.setCaretTo(rf.getDomElement(this.fieldId));
@@ -296,7 +238,6 @@
 		this.items = $(newItems);
 		//TODO: works only with simple markup, not with <tr>
 		$(rf.getDomElement(this.id+ID.ITEMS)).empty().append(this.items);
-		window.console && console.log && console.log("updateItemsFromCache");
 	};
 	
 	var clearItems = function () {

@@ -3,6 +3,7 @@
 	rf.ui = rf.ui || {};
 		
         rf.ui.PopupList =  function(id, listener, options) {
+        	this.namespace = this.namespace || "."+rf.Event.createNamespace(this.name, id);
            	var mergedOptions = $.extend({}, defaultOptions, options);
         	$super.constructor.call(this, id, mergedOptions);
         	this.selectListener =  listener;
@@ -11,9 +12,10 @@
             this.itemCss = mergedOptions.itemCss;
             this.listCss = mergedOptions.listCss;
            	this.index = -1;
-           	this.popup.bind("mouseover", $.proxy(this.__onMouseOver, this));
-           	this.popup.bind("click", $.proxy(this.__onClick, this));
            	
+    		this.lastMouseX = null;
+    		this.lastMouseY = null;
+           	bindEventHandlers.call(this);
            	this.__updateItemsList();
         };
         
@@ -25,7 +27,48 @@
    			positionType: "DROPDOWN",
    			positionOffset: [0,0]
    		};
-
+    	
+    	var bindEventHandlers = function () {
+    		var handlers = {};
+    		handlers["click"+this.namespace] = onClick;
+    		handlers["mouseover"+this.namespace] = onMouseOver;
+    		if (!$.browser.msie && !$.browser.opera) {
+    			handlers["mouseenter"+this.namespace] = onMouseEnter;
+    			handlers["mouseleave"+this.namespace] = onMouseLeave;
+    		}
+    		rf.Event.bind(this.popup, handlers, this);
+    	};
+    	
+    	var onMouseLeave = function(e) {
+    		rf.Event.unbind(this.popup, "mousemove"+this.namespace);
+    		this.lastMouseX = null;
+    		this.lastMouseY = null;
+    	};
+    	
+    	var onMouseMove = function(e) {
+    		this.lastMouseX = e.pageX; this.lastMouseY = e.pageY;
+    	};
+    	
+    	var onMouseEnter = function(e) {
+    		this.lastMouseX = e.pageX; this.lastMouseY = e.pageY;
+    		rf.Event.bind(this.popup, "mousemove"+this.namespace, onMouseMove, this);
+    	};
+    	
+		var onMouseOver = function(e) {
+   			if (this.lastMouseX==null || this.lastMouseX!=e.pageX || this.lastMouseY!=e.pageY)
+			{
+   				var item = this.__getItem(e);
+   				if(item) {
+   					this.__select(item);
+   				}
+			}
+   		};
+   		
+   		var onClick = function(e) {
+   			var item = this.__getItem(e);
+   			this.processItem(item);
+			this.__select(item);
+   		};
         
     	$.extend(rf.ui.PopupList.prototype, ( function () {
     		
@@ -145,19 +188,6 @@
            		__selectNext: function() {
            			this.__selectByIndex(1, true);
            		},
-           		
-				__onMouseOver: function(e) {
-           			var item = this.__getItem(e);
-           			if(item) {
-           				this.__select(item);
-           			}
-           		},
-           		
-           		__onClick: function(e) {
-           			var item = this.__getItem(e);
-           			this.processItem(item);
-    				this.__select(item);
-           		}, 
 				
 				__getItem: function(e) {
 					return $(e.target).closest("."+this.itemCss, e.currentTarget).get(0);
