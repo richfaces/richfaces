@@ -1,14 +1,46 @@
+            /*--- RF Message styles ---*/
 .rf-msg {
+                font-family:'#{richSkin.generalFamilyFont}';/*generalFamilyFont*/
+                font-size:'#{richSkin.generalSizeFont}';/*generalSizeFont*/
+                height:18ex;
+        }
+          /* all messages */
+.rf-msg-err, rf-msg-ftl, rf-msg-inf, rf-msg-wrn {
+                display:inline-block;
+                padding-right:2px;
+                padding-left:20px;
+                vertical-align:middle;
+                background-repeat:no-repeat;
+                background-position:left center ;
 }
+
 .rf-msg-err {
-	list-style-image: url(#{resource['org.richfaces:error.png']});
+	background-image: url(#{resource['org.richfaces:error.png']});
+    color:'#{richSkin.errorColor}';
 }
 .rf-msg-ftl {
-    list-style-image: url(#{resource['org.richfaces:error.png']});
+    background-image: url(#{resource['org.richfaces:fatal.png']});
+    color:'#{richSkin.errorColor}';
 }
 .rf-msg-inf {
-    list-style-image: url(#{resource['org.richfaces:error.png']});
+    background-image: url(#{resource['org.richfaces:info.png']});
+    color:'#{richSkin.generalTextColor}';
 }
-.rf-msg-ftl {
-    list-style-image: url(#{resource['org.richfaces:error.png']});
+.rf-msg-wrn {
+    background-image: url(#{resource['org.richfaces:warning.png']});
+    color:'#{richSkin.warningColor}';
+}
+.rf-msg-ok {
+    background-image: url(#{resource['org.richfaces:ok.png']});
+    color:'#{richSkin.generalTextColor}';
+    width:20px;
+    display:inline-block;
+    vertical-align:middle;
+    background-repeat:no-repeat;
+    background-position:left center ;
+}
+
+.rf-msg-sum{     /*Summary*/
+}
+.rf-msg-des{     /*Description*/
 }

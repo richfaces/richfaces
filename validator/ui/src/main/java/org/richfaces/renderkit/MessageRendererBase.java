@@ -29,6 +29,7 @@ import java.util.Iterator;
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
@@ -55,15 +56,10 @@ import com.google.common.collect.UnmodifiableIterator;
  */
 public class MessageRendererBase extends Renderer {
 
-    private static final ImmutableMap<Severity, SeverityAttributes> SEVERITY_MAP = ImmutableMap
-        .of(FacesMessage.SEVERITY_INFO,
-            attrs("info", "inf", null),
-            FacesMessage.SEVERITY_WARN,
-            attrs("warn","wrn", null),
-            FacesMessage.SEVERITY_ERROR,
-            attrs("error","err", null),
-            FacesMessage.SEVERITY_FATAL,
-            attrs("fatal","ftl",null));
+    private static final ImmutableMap<Severity, SeverityAttributes> SEVERITY_MAP = ImmutableMap.of(
+        FacesMessage.SEVERITY_INFO, attrs("info", "inf", null), FacesMessage.SEVERITY_WARN, attrs("warn", "wrn", null),
+        FacesMessage.SEVERITY_ERROR, attrs("error", "err", null), FacesMessage.SEVERITY_FATAL,
+        attrs("fatal", "ftl", null));
 
     protected Iterator<FacesMessage> getMessages(FacesContext context, String forClientId, UIComponent component) {
 
@@ -92,7 +88,10 @@ public class MessageRendererBase extends Renderer {
     }
 
     /**
-     * <p class="changed_added_4_0">TODO - make Generator aware of Iterator.</p>
+     * <p class="changed_added_4_0">
+     * TODO - make Generator aware of Iterator.
+     * </p>
+     * 
      * @param context
      * @param component
      * @return
@@ -126,54 +125,81 @@ public class MessageRendererBase extends Renderer {
     protected void encodeMessage(FacesContext facesContext, UIComponent component, Object msg) throws IOException {
         // TODO fix generator to properly detect iteration variable type
         FacesMessage message = (FacesMessage) msg;
+        UIMessage uiMessage = (UIMessage) component;
         ResponseWriter responseWriter = facesContext.getResponseWriter();
-        responseWriter.writeText(message.getSummary(),"value");
+        // tooltip
+        boolean wroteTooltip = Boolean.TRUE.equals(uiMessage.getAttributes().get("tooltip"));
+        String summary = message.getSummary();
+        if(wroteTooltip && !Strings.isNullOrEmpty(summary)){
+            responseWriter.writeAttribute("title", summary,null);
+        }
+        if (!wroteTooltip && uiMessage.isShowSummary()) {
+            writeMessageLabel(responseWriter, summary, "rf-msg-sum");
+        }
+        if (uiMessage.isShowDetail()) {
+            writeMessageLabel(responseWriter, message.getDetail(), "rf-msg-des");
+        }
+    }
+
+    private void writeMessageLabel(ResponseWriter responseWriter, String label, String styleClass) throws IOException {
+        if (!Strings.isNullOrEmpty(label)) {
+            responseWriter.startElement("span", null);
+            responseWriter.writeAttribute("class", styleClass, null);
+            responseWriter.writeText(label, null);
+            responseWriter.endElement("span");
+        }
     }
 
     protected void encodeScript(FacesContext facesContext, UIComponent component) throws IOException {
         JavaScriptService javaScriptService = ServiceTracker.getService(JavaScriptService.class);
         JSFunction messageObject = new JSObject("RichFaces.ui.Message", component.getClientId(facesContext));
         String forId = (String) component.getAttributes().get("for");
-        if(!Strings.isNullOrEmpty(forId)){
+        if (!Strings.isNullOrEmpty(forId)) {
             UIComponent target = RendererUtils.getInstance().findComponentFor(component, forId);
-            if(null != target){
-                messageObject.addParameter(ImmutableMap.<String, String>of("forComponentId",target.getClientId(facesContext)));
+            if (null != target) {
+                messageObject.addParameter(ImmutableMap.<String, String> of("forComponentId",
+                    target.getClientId(facesContext)));
             }
         }
-//        RendererUtils.getInstance().writeScript(facesContext, component, messageObject);
+        // RendererUtils.getInstance().writeScript(facesContext, component, messageObject);
         javaScriptService.addPageReadyScript(facesContext, messageObject);
     }
-    
-    protected String getMsgClass(FacesContext facesContext, UIComponent component, Object msg) throws IOException{
+
+    protected String getMsgClass(FacesContext facesContext, UIComponent component, Object msg) throws IOException {
         FacesMessage message = (FacesMessage) msg;
         SeverityAttributes severityAttributes = SEVERITY_MAP.get(message.getSeverity());
-        String styleClass = buildSeverityAttribute(component, severityAttributes.skinClass, severityAttributes.classAttribute, ' ');
+        String styleClass =
+            buildSeverityAttribute(component, severityAttributes.skinClass, severityAttributes.classAttribute, ' ');
         return styleClass;
     }
-    
-    protected String getMsgStyle(FacesContext facesContext, UIComponent component, Object msg) throws IOException{
+
+    protected String getMsgStyle(FacesContext facesContext, UIComponent component, Object msg) throws IOException {
         FacesMessage message = (FacesMessage) msg;
         SeverityAttributes severityAttributes = SEVERITY_MAP.get(message.getSeverity());
-        String style = buildSeverityAttribute(component, severityAttributes.skinStyle, severityAttributes.styleAttribute, ';');
+        String style =
+            buildSeverityAttribute(component, severityAttributes.skinStyle, severityAttributes.styleAttribute, ';');
         return style;
     }
 
     private String buildSeverityAttribute(UIComponent component, String skinValue, String attrName, char delimiter) {
         StringBuilder style = new StringBuilder();
-        if(null != skinValue){
-            style.append(skinValue).append(delimiter);
+        if (!Strings.isNullOrEmpty(skinValue)) {
+            style.append(skinValue);
         }
         Object componentStyle = component.getAttributes().get(attrName);
-        if(null != componentStyle){
+        if (null != componentStyle && !Strings.isNullOrEmpty(componentStyle.toString())) {
+            if (!Strings.isNullOrEmpty(skinValue)) {
+                style.append(delimiter);
+            }
             style.append(componentStyle);
         }
         return style.toString();
     }
 
-    static SeverityAttributes attrs(String attPrefix, String skinSuffix,String skinStyle) {
+    static SeverityAttributes attrs(String attPrefix, String skinSuffix, String skinStyle) {
         SeverityAttributes attrs =
-            new SeverityAttributes(attPrefix+"Style", attPrefix+"Class", "rf-msg-"+skinSuffix, skinStyle,
-                null, null);
+            new SeverityAttributes(attPrefix + "Style", attPrefix + "Class", "rf-msg-" + skinSuffix, skinStyle, null,
+                null);
         return attrs;
     }
 
