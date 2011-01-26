@@ -241,7 +241,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     @Attribute(generate = false)
     public String getItemLeftIcon() {
-        return (String) getStateHelper().eval(Properties.itemLeftIcon, PanelIcons.DEFAULT.toString());
+        return (String) getStateHelper().eval(Properties.itemLeftIcon, PanelIcons.transparent.toString());
     }
 
     public void setItemLeftIcon(String itemLeftIcon) {
@@ -250,7 +250,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     @Attribute(generate = false)
     public String getItemRightIcon() {
-        return (String) getStateHelper().eval(Properties.itemRightIcon, PanelIcons.DEFAULT.toString());
+        return (String) getStateHelper().eval(Properties.itemRightIcon, PanelIcons.transparent.toString());
     }
 
     public void setItemRightIcon(String itemRightIcon) {
@@ -259,7 +259,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     @Attribute(generate = false)
     public String getItemLeftIconDisabled() {
-        return (String) getStateHelper().eval(Properties.itemLeftIconDisabled, PanelIcons.DEFAULT.toString());
+        return (String) getStateHelper().eval(Properties.itemLeftIconDisabled, PanelIcons.transparent.toString());
     }
 
     public void setItemLeftIconDisabled(String itemLeftIconDisabled) {
@@ -268,7 +268,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     @Attribute(generate = false)
     public String getItemRightIconDisabled() {
-        return (String) getStateHelper().eval(Properties.itemRightIconDisabled, PanelIcons.DEFAULT.toString());
+        return (String) getStateHelper().eval(Properties.itemRightIconDisabled, PanelIcons.transparent.toString());
     }
 
     public void setItemRightIconDisabled(String itemRightIconDisabled) {
@@ -283,7 +283,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     @Attribute(generate = false)
     public String getTopItemLeftIcon() {
-        return (String) getStateHelper().eval(Properties.topItemLeftIcon, PanelIcons.DEFAULT.toString());
+        return (String) getStateHelper().eval(Properties.topItemLeftIcon, PanelIcons.transparent.toString());
     }
 
     public void setTopItemLeftIcon(String topItemLeftIcon) {
@@ -292,7 +292,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     @Attribute(generate = false)
     public String getTopItemRightIcon() {
-        return (String) getStateHelper().eval(Properties.topItemRightIcon, PanelIcons.DEFAULT.toString());
+        return (String) getStateHelper().eval(Properties.topItemRightIcon, PanelIcons.transparent.toString());
     }
 
     public void setTopItemRightIcon(String topItemRightIcon) {
@@ -301,7 +301,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     @Attribute(generate = false)
     public String getTopItemLeftIconDisabled() {
-        return (String) getStateHelper().eval(Properties.topItemLeftIconDisabled, PanelIcons.DEFAULT.toString());
+        return (String) getStateHelper().eval(Properties.topItemLeftIconDisabled, PanelIcons.transparent.toString());
     }
 
     public void setTopItemLeftIconDisabled(String topItemLeftIconDisabled) {
@@ -310,7 +310,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     @Attribute(generate = false)
     public String getTopItemRightIconDisabled() {
-        return (String) getStateHelper().eval(Properties.topItemRightIconDisabled, PanelIcons.DEFAULT.toString());
+        return (String) getStateHelper().eval(Properties.topItemRightIconDisabled, PanelIcons.transparent.toString());
     }
 
     public void setTopItemRightIconDisabled(String topItemRightIconDisabled) {
@@ -325,7 +325,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     @Attribute(generate = false)
     public String getGroupLeftIconExpanded() {
-        return (String) getStateHelper().eval(Properties.groupLeftIconExpanded, PanelIcons.DEFAULT.toString());
+        return (String) getStateHelper().eval(Properties.groupLeftIconExpanded, PanelIcons.transparent.toString());
     }
 
     public void setGroupLeftIconExpanded(String groupLeftIconExpanded) {
@@ -334,7 +334,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     @Attribute(generate = false)
     public String getGroupRightIconExpanded() {
-        return (String) getStateHelper().eval(Properties.groupRightIconExpanded, PanelIcons.DEFAULT.toString());
+        return (String) getStateHelper().eval(Properties.groupRightIconExpanded, PanelIcons.transparent.toString());
     }
 
     public void setGroupRightIconExpanded(String groupRightIconExpanded) {
@@ -343,7 +343,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     @Attribute(generate = false)
     public String getGroupLeftIconCollapsed() {
-        return (String) getStateHelper().eval(Properties.groupLeftIconCollapsed, PanelIcons.DEFAULT.toString());
+        return (String) getStateHelper().eval(Properties.groupLeftIconCollapsed, PanelIcons.transparent.toString());
     }
 
     public void setGroupLeftIconCollapsed(String groupLeftIconCollapsed) {
@@ -352,7 +352,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     @Attribute(generate = false)
     public String getGroupRightIconCollapsed() {
-        return (String) getStateHelper().eval(Properties.groupRightIconCollapsed, PanelIcons.DEFAULT.toString());
+        return (String) getStateHelper().eval(Properties.groupRightIconCollapsed, PanelIcons.transparent.toString());
     }
 
     public void setGroupRightIconCollapsed(String groupRightIconCollapsed) {
@@ -361,7 +361,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     @Attribute(generate = false)
     public String getGroupLeftIconDisabled() {
-        return (String) getStateHelper().eval(Properties.groupLeftIconDisabled, PanelIcons.DEFAULT.toString());
+        return (String) getStateHelper().eval(Properties.groupLeftIconDisabled, PanelIcons.transparent.toString());
     }
 
     public void setGroupLeftIconDisabled(String groupLeftIconDisabled) {
@@ -370,7 +370,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     @Attribute(generate = false)
     public String getGroupRightIconDisabled() {
-        return (String) getStateHelper().eval(Properties.groupRightIconDisabled, PanelIcons.DEFAULT.toString());
+        return (String) getStateHelper().eval(Properties.groupRightIconDisabled, PanelIcons.transparent.toString());
     }
 
     public void setGroupRightIconDisabled(String groupRightIconDisabled) {
@@ -385,7 +385,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     @Attribute(generate = false)
     public String getTopGroupLeftIconExpanded() {
-        return (String) getStateHelper().eval(Properties.topGroupLeftIconExpanded, PanelIcons.DEFAULT.toString());
+        return (String) getStateHelper().eval(Properties.topGroupLeftIconExpanded, PanelIcons.transparent.toString());
     }
 
     public void setTopGroupLeftIconExpanded(String topGroupLeftIconExpanded) {
@@ -394,7 +394,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     @Attribute(generate = false)
     public String getTopGroupRightIconExpanded() {
-        return (String) getStateHelper().eval(Properties.topGroupRightIconExpanded, PanelIcons.DEFAULT.toString());
+        return (String) getStateHelper().eval(Properties.topGroupRightIconExpanded, PanelIcons.transparent.toString());
     }
 
     public void setTopGroupRightIconExpanded(String topGroupRightIconExpanded) {
@@ -403,7 +403,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     @Attribute(generate = false)
     public String getTopGroupLeftIconCollapsed() {
-        return (String) getStateHelper().eval(Properties.topGroupLeftIconCollapsed, PanelIcons.DEFAULT.toString());
+        return (String) getStateHelper().eval(Properties.topGroupLeftIconCollapsed, PanelIcons.transparent.toString());
     }
 
     public void setTopGroupLeftIconCollapsed(String topGroupLeftIconCollapsed) {
@@ -412,7 +412,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     @Attribute(generate = false)
     public String getTopGroupRightIconCollapsed() {
-        return (String) getStateHelper().eval(Properties.topGroupRightIconCollapsed, PanelIcons.DEFAULT.toString());
+        return (String) getStateHelper().eval(Properties.topGroupRightIconCollapsed, PanelIcons.transparent.toString());
     }
 
     public void setTopGroupRightIconCollapsed(String topGroupRightIconCollapsed) {
@@ -421,7 +421,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     @Attribute(generate = false)
     public String getTopGroupLeftIconDisabled() {
-        return (String) getStateHelper().eval(Properties.topGroupLeftIconDisabled, PanelIcons.DEFAULT.toString());
+        return (String) getStateHelper().eval(Properties.topGroupLeftIconDisabled, PanelIcons.transparent.toString());
     }
 
     public void setTopGroupLeftIconDisabled(String topGroupLeftIconDisabled) {
@@ -430,7 +430,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     @Attribute(generate = false)
     public String getTopGroupRightIconDisabled() {
-        return (String) getStateHelper().eval(Properties.topGroupRightIconDisabled, PanelIcons.DEFAULT.toString());
+        return (String) getStateHelper().eval(Properties.topGroupRightIconDisabled, PanelIcons.transparent.toString());
     }
 
     public void setTopGroupRightIconDisabled(String topGroupRightIconDisabled) {

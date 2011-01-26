@@ -36,16 +36,24 @@ class AccordionItemHeaderRenderer extends TableIconsRendererHelper<AbstractAccor
         //TODO nick - should this be "-ico-exp"? also why expanded icon state is connected with right icon alignment?
         encodeTdIcon(writer, context, cssClassPrefix + "-exp-ico", iconInactive, iconActive, panel.isDisabled() ? State.headerDisabled : State.header);
     }
-
+   
     @Override
     protected void encodeTdIcon(ResponseWriter writer, FacesContext context, String cssClass, String attrIconCollapsedValue, String attrIconExpandedValue, PanelIcons.State state) throws IOException {
-        writer.startElement(TD_ELEM, null);
-        writer.writeAttribute(CLASS_ATTRIBUTE, cssClass, null);
+        if (isIconRendered(attrIconCollapsedValue) || 
+            isIconRendered(attrIconExpandedValue)) {
+            writer.startElement(TD_ELEM, null);
+            writer.writeAttribute(CLASS_ATTRIBUTE, cssClass, null);
 
-        encodeIdIcon(writer, context, attrIconCollapsedValue, cssIconsClassPrefix + "-act", state);
-        encodeIdIcon(writer, context, attrIconExpandedValue, cssIconsClassPrefix + "-inact", state);
+            if (isIconRendered(attrIconCollapsedValue)) {
+                encodeIdIcon(writer, context, attrIconCollapsedValue, cssIconsClassPrefix + "-act", state);    
+            }
+            
+            if (isIconRendered(attrIconExpandedValue)) {
+                encodeIdIcon(writer, context, attrIconExpandedValue, cssIconsClassPrefix + "-inact", state);    
+            }
 
-        writer.endElement(TD_ELEM);
+            writer.endElement(TD_ELEM);    
+        }
     }
 
     @Override

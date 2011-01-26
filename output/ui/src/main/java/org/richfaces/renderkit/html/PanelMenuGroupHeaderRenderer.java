@@ -27,6 +27,14 @@ class PanelMenuGroupHeaderRenderer extends TableIconsRendererHelper<AbstractPane
         String iconCollapsed = group.isDisabled() ? group.getLeftIconDisabled() : group.getLeftIconCollapsed();
         String iconExpanded = group.isDisabled() ? group.getLeftIconDisabled() : group.getLeftIconExpanded();
 
+        if (iconCollapsed == null || iconCollapsed.trim().length() == 0) {
+            iconCollapsed = PanelIcons.transparent.toString();
+        }
+        
+        if (iconExpanded == null || iconExpanded.trim().length() == 0) {
+            iconExpanded = PanelIcons.transparent.toString();
+        }
+        
         encodeTdIcon(writer, context, cssClassPrefix + "-ico", iconCollapsed, iconExpanded, getState(group));
     }
 
@@ -34,6 +42,13 @@ class PanelMenuGroupHeaderRenderer extends TableIconsRendererHelper<AbstractPane
         String iconCollapsed = group.isDisabled() ? group.getRightIconDisabled() : group.getRightIconCollapsed();
         String iconExpanded = group.isDisabled() ? group.getRightIconDisabled() : group.getRightIconExpanded();
 
+        if (iconCollapsed == null || iconCollapsed.trim().length() == 0) {
+            iconCollapsed = PanelIcons.transparent.toString();
+        }
+        
+        if (iconExpanded == null || iconExpanded.trim().length() == 0) {
+            iconExpanded = PanelIcons.transparent.toString();
+        }
         //TODO nick - should this be "-ico-exp"? also why expanded icon state is connected with right icon alignment?
         encodeTdIcon(writer, context, cssClassPrefix + "-exp-ico", iconCollapsed, iconExpanded, getState(group));
     }

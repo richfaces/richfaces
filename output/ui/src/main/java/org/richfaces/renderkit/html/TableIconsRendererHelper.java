@@ -84,15 +84,31 @@ public abstract class TableIconsRendererHelper<T extends UIComponent> {
     protected abstract void encodeHeaderRightIcon(ResponseWriter writer, FacesContext context, T menuItem) throws IOException;
 
     protected void encodeTdIcon(ResponseWriter writer, FacesContext context, String cssClass, String attrIconCollapsedValue, String attrIconExpandedValue, PanelIcons.State state) throws IOException {
-        writer.startElement(TD_ELEM, null);
-        writer.writeAttribute(CLASS_ATTRIBUTE, cssClass, null);
+        if (isIconRendered(attrIconCollapsedValue) || 
+            isIconRendered(attrIconExpandedValue)) {
 
-        encodeIdIcon(writer, context, attrIconCollapsedValue, cssIconsClassPrefix + "-colps", state);
-        encodeIdIcon(writer, context, attrIconExpandedValue, cssIconsClassPrefix + "-exp", state);
-
-        writer.endElement(TD_ELEM);
+            writer.startElement(TD_ELEM, null);
+            writer.writeAttribute(CLASS_ATTRIBUTE, cssClass, null);
+    
+            if (isIconRendered(attrIconCollapsedValue)) {
+                encodeIdIcon(writer, context, attrIconCollapsedValue, cssIconsClassPrefix + "-colps", state);    
+            }
+            if (isIconRendered(attrIconExpandedValue)) {
+                encodeIdIcon(writer, context, attrIconExpandedValue, cssIconsClassPrefix + "-exp", state);    
+            }
+    
+            writer.endElement(TD_ELEM);
+        }
     }
 
+    protected boolean isIconRendered(String attrIconValue) {
+        if (attrIconValue != null && attrIconValue.trim().length() > 0 &&
+            !PanelIcons.none.toString().equals(attrIconValue)) {
+            return true;
+        }
+        return false;
+    }
+    
     protected void encodeIdIcon(ResponseWriter writer, FacesContext context, String attrIconValue, String styleClass, PanelIcons.State state) throws IOException {
         if (attrIconValue == null || attrIconValue.trim().length() <= 0) {
             encodeDivIcon(writer, PanelIcons.none, styleClass, state);

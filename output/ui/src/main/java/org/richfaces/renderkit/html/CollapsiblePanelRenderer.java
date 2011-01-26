@@ -66,16 +66,25 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
     public static final String BEFORE_SWITCH = "beforeswitch";
 
     private final TableIconsRendererHelper<AbstractCollapsiblePanel> headerRenderer = new TableIconsRendererHelper<AbstractCollapsiblePanel>("header", "rf-cp") {
-
+  
         protected void encodeHeaderLeftIcon(ResponseWriter writer, FacesContext context, AbstractCollapsiblePanel panel) throws IOException {
+            String leftIconCollapsed = panel.getLeftIconCollapsed();
+            if (leftIconCollapsed == null || leftIconCollapsed.trim().length() == 0) {
+                leftIconCollapsed = PanelIcons.chevronUp.toString();
+            }
+            String leftIconExpanded = panel.getLeftIconExpanded();
+            if (leftIconExpanded == null || leftIconExpanded.trim().length() == 0) {
+                leftIconExpanded = PanelIcons.chevronDown.toString();
+            }
+            
             encodeTdIcon(writer, context, cssClassPrefix + "-ico",
-                    panel.getLeftIconCollapsed(), panel.getLeftIconExpanded(), PanelIcons.State.header);
+                leftIconCollapsed, leftIconExpanded, PanelIcons.State.header);    
         }
 
         protected void encodeHeaderRightIcon(ResponseWriter writer, FacesContext context, AbstractCollapsiblePanel panel) throws IOException {
             //TODO nick - should this be "-ico-exp"? also why expanded icon state is connected with right icon alignment?
             encodeTdIcon(writer, context, cssClassPrefix + "-exp-ico",
-                    panel.getRightIconCollapsed(), panel.getRightIconExpanded(), PanelIcons.State.header);
+                    panel.getRightIconCollapsed(), panel.getRightIconExpanded(), PanelIcons.State.header);                
         }
 
         @Override

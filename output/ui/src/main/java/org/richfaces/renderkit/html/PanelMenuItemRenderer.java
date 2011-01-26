@@ -103,6 +103,9 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
         String icon = menuItem.isDisabled() ? menuItem.getRightIconDisabled() : menuItem.getRightIcon();
         String cssClasses = concatClasses(classPrefix + "-exp-ico", menuItem.getLeftIconClass());
         
+        if (icon == null || icon.trim().length() == 0) {
+            icon = PanelIcons.transparent.toString();
+        }
         encodeTdIcon(writer, context, cssClasses, icon, getState(menuItem));
     }
 
@@ -110,11 +113,26 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
         String icon = menuItem.isDisabled() ? menuItem.getLeftIconDisabled() : menuItem.getLeftIcon();
         String cssClasses = concatClasses(classPrefix + "-ico", menuItem.getLeftIconClass());
 
+        if (icon == null || icon.trim().length() == 0) {
+            icon = PanelIcons.transparent.toString();
+        }
         encodeTdIcon(writer, context, cssClasses, icon, getState(menuItem));
     }
-
+    
+    private boolean isIconRendered(String attrIconValue) {
+        if (attrIconValue != null && attrIconValue.trim().length() > 0 &&
+            !PanelIcons.none.toString().equals(attrIconValue)) {
+            return true;
+        }
+        return false;
+    }
+    
     //TODO nick - the same as in PanelMenuGroupRenderer
     public void encodeTdIcon(ResponseWriter writer, FacesContext context, String classPrefix, String attrIconValue, PanelIcons.State state) throws IOException {
+        if (!isIconRendered(attrIconValue)) {
+            return;
+        }
+        
         writer.startElement(TD_ELEM, null);
         try {
             PanelIcons icon = PanelIcons.valueOf(attrIconValue);
