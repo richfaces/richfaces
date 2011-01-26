@@ -32,7 +32,7 @@
 }
 
 .rf-tb-hdr-tabline-vis {
-    background:url("tabline_bg.gif") repeat-x scroll center top;
+    background:url("#{resource['org.richfaces.images:tabLineBg.png']}") repeat-x scroll center top;
     background-color: "#{richSkin.additionalBackgroundColor}";
 
     border-color: "#{richSkin.panelBorderColor}";
