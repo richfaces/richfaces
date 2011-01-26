@@ -22,21 +22,22 @@
 
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.renderkit.HtmlConstants.*;
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.renderkit.RenderKitUtils.attributes;
+import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
+
+import java.io.IOException;
+import java.util.Map;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
 
 import org.richfaces.component.AbstractDivPanel;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RendererBase;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Map;
-
-import static org.richfaces.renderkit.RenderKitUtils.attributes;
-import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 
 /**
  * @author akolonitsky
@@ -97,8 +98,10 @@ public class DivPanelRenderer extends RendererBase {
 
     @Override
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        super.doEncodeBegin(writer, context, component);
-
+        doEncodeItemBegin(writer, context, component);
+    }
+    
+    protected void doEncodeItemBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         writer.startElement(HtmlConstants.DIV_ELEM, component);
         writer.writeAttribute(ID_ATTRIBUTE, component.getClientId(context), "clientId");
         writer.writeAttribute(CLASS_ATTRIBUTE, getStyleClass(component), null);
@@ -124,8 +127,10 @@ public class DivPanelRenderer extends RendererBase {
 
     @Override
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        super.doEncodeEnd(writer, context, component);
-
+        doEncodeItemEnd(writer, context, component);
+    }
+    
+    protected void doEncodeItemEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         writeJavaScript(writer, context, component);
 
         writer.endElement(HtmlConstants.DIV_ELEM);

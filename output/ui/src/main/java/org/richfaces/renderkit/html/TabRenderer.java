@@ -25,7 +25,6 @@ package org.richfaces.renderkit.html;
 import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
 import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
 import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.STYLE_ATTRIBUTE;
 
 import java.io.IOException;
 import java.util.Map;
@@ -59,24 +58,37 @@ import org.richfaces.renderkit.HtmlConstants;
 public class TabRenderer extends TogglePanelItemRenderer {
 
     @Override
-    protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        super.doEncodeBegin(writer, context, component);
+    protected void doEncodeItemBegin(ResponseWriter writer, FacesContext context, UIComponent component)
+        throws IOException {
 
+        super.doEncodeItemBegin(writer, context, component);
         encodeContentBegin(context, component, writer);
     }
-
+    
     @Override
     protected String getStyleClass(UIComponent component) {
         return concatClasses("rf-tb", attributeAsString(component, "styleClass"));
     }
 
     @Override
-    protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        encodeContentEnd(component, writer);
+    protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component)
+        throws IOException {
 
-        super.doEncodeEnd(writer, context, component);
+        AbstractTab tab = (AbstractTab) component;
+        
+        if (!tab.isDisabled()) {
+            super.doEncodeChildren(writer, context, tab);
+        }
     }
 
+    @Override
+    protected void doEncodeItemEnd(ResponseWriter writer, FacesContext context, UIComponent component)
+        throws IOException {
+
+        encodeContentEnd(component, writer);
+        super.doEncodeItemEnd(writer, context, component);
+    }
+    
     @Override
     protected void writeJavaScript(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         Object script = getScriptObject(context, component);
@@ -94,11 +106,6 @@ public class TabRenderer extends TogglePanelItemRenderer {
         writer.startElement(DIV_ELEM, component);
         writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-tb-cnt", attributeAsString(component, "contentClass")), null);
         writer.writeAttribute(ID_ATTRIBUTE, component.getClientId(context) + ":content", null);
-
-        AbstractTogglePanelTitledItem item = (AbstractTogglePanelTitledItem) component;
-        if (!item.isActive() || item.isDisabled()) {
-            writer.writeAttribute(STYLE_ATTRIBUTE, "display: none", null);
-        }
     }
 
     private void encodeContentEnd(UIComponent component, ResponseWriter responseWriter) throws IOException {

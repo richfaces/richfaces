@@ -36,6 +36,8 @@ import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.component.AbstractTogglePanelItem;
+import org.richfaces.component.SwitchType;
+import org.richfaces.component.util.HtmlUtil;
 
 /**
  * @author akolonitsky
@@ -54,6 +56,16 @@ public class TogglePanelItemRenderer extends DivPanelRenderer {
     private static final String LEAVE = "leave";
     private static final String ENTER = "enter";
 
+    private final boolean hideInactiveItems;
+    
+    public TogglePanelItemRenderer() {
+        this(true);
+    }
+    
+    protected TogglePanelItemRenderer(boolean hideInactiveItems) {
+        this.hideInactiveItems = hideInactiveItems;
+    }
+    
     @Override
     protected String getStyleClass(UIComponent component) {
         return concatClasses("rf-tgp-itm", attributeAsString(component, "styleClass"));
@@ -89,7 +101,12 @@ public class TogglePanelItemRenderer extends DivPanelRenderer {
         return AbstractTogglePanelItem.class;
     }
 
-    public void encodePlaceHolderWithJs(FacesContext context, AbstractTogglePanelItem item) throws IOException {
+    @Override
+    public boolean getRendersChildren() {
+        return true;
+    }
+    
+    protected void encodePlaceHolderWithJs(FacesContext context, AbstractTogglePanelItem item) throws IOException {
         ResponseWriter writer = context.getResponseWriter();
 
         writer.startElement("div", null);
@@ -99,6 +116,51 @@ public class TogglePanelItemRenderer extends DivPanelRenderer {
         writeJavaScript(writer, context, item);
 
         writer.endElement("div");
+    }
+
+    private boolean shouldEncodeItem(FacesContext context, AbstractTogglePanelItem item) {
+        return item.isActive() || item.getSwitchType() == SwitchType.client;
+    }
+    
+    @Override
+    protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+        AbstractTogglePanelItem item = (AbstractTogglePanelItem) component;
+        
+        if (shouldEncodeItem(context, item)) {
+            doEncodeItemBegin(writer, context, component);
+        }
+    }
+
+    @Override
+    protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component)
+        throws IOException {
+
+        AbstractTogglePanelItem item = (AbstractTogglePanelItem) component;
+        
+        if (shouldEncodeItem(context, item)) {
+            renderChildren(context, component);
+        }
+    }
+    
+    @Override
+    protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+        AbstractTogglePanelItem item = (AbstractTogglePanelItem) component;
+        
+        if (shouldEncodeItem(context, item)) {
+            doEncodeItemEnd(writer, context, component);
+        } else {
+            encodePlaceHolderWithJs(context, item);
+        }
+    }
+    
+    @Override
+    protected String getStyle(UIComponent component) {
+        String attributeStyle = super.getStyle(component);
+        if (hideInactiveItems && !((AbstractTogglePanelItem) component).isActive()) {
+            return HtmlUtil.concatStyles(attributeStyle, "display: none");
+        } else {
+            return attributeStyle;
+        }
     }
 }
 

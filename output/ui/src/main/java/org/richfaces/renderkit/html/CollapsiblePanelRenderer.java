@@ -101,10 +101,6 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
         }
     };
 
-    public TableIconsRendererHelper getHeaderRenderer() {
-        return headerRenderer;
-    }
-
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
         AbstractTogglePanel panel = (AbstractTogglePanel) component;

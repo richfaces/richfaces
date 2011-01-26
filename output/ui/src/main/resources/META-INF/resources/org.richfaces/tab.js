@@ -72,7 +72,7 @@
          * */
         __content : function () {
             if (!this.__content_) {
-                this.__content_ = $(rf.getDomElement(this.id + ":content"));
+                this.__content_ = $(rf.getDomElement(this.id));
             }
             return this.__content_;
         },

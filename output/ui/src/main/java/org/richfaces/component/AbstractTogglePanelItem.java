@@ -22,15 +22,12 @@
 
 package org.richfaces.component;
 
-import org.richfaces.cdk.annotations.*;
-import org.richfaces.renderkit.html.TogglePanelItemRenderer;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.event.PreRenderComponentEvent;
-import javax.faces.render.Renderer;
-import java.io.IOException;
-import java.util.Map;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 
 /**
  * @author akolonitsky
@@ -68,64 +65,6 @@ public abstract class AbstractTogglePanelItem extends AbstractDivPanel {
 
     public boolean isActive() {
         return getParentPanel().isActiveItem(this);
-    }
-
-    @Override
-    public Renderer getRenderer(FacesContext context) {
-        return super.getRenderer(context);
-    }
-
-    @Override
-    public void encodeAll(FacesContext context) throws IOException {
-        if (isActive()) {
-            super.encodeAll(context);
-        } else {
-            switch (getSwitchType()) {
-                case client:
-                    hidePanelItem(this);
-
-                    super.encodeAll(context);
-                    break;
-
-                case ajax:
-                case server:
-                    this.encodePlaceHolderWithJs(context);
-                    break;
-
-                default:
-                    throw new IllegalStateException("Unknown switch type : " + getSwitchType());
-            }
-        }
-    }
-
-    public void encodePlaceHolderWithJs(FacesContext context) throws IOException {
-        if (context == null) {
-            throw new IllegalArgumentException();
-        }
-
-        if (!isRendered()) {
-            return;
-        }
-
-        pushComponentToEL(context, null);
-
-        context.getApplication().publishEvent(context, PreRenderComponentEvent.class, this);
-
-        if (this.getRendererType() != null) {
-            TogglePanelItemRenderer renderer = (TogglePanelItemRenderer) this.getRenderer(context);
-            if (renderer != null) {
-                renderer.encodePlaceHolderWithJs(context, this);
-            }
-        }
-
-        popComponentFromEL(context);
-    }
-
-    protected static void hidePanelItem(UIComponent item) {
-        // TODO move to renderer
-        Map<String,Object> attrs = item.getAttributes();
-        Object style = attrs.get("style");
-        attrs.put("style", "display:none; " + style);
     }
 
     // ------------------------------------------------ Component Attributes

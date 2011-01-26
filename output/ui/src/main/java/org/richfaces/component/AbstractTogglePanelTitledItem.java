@@ -22,15 +22,13 @@
 
 package org.richfaces.component;
 
-import org.richfaces.cdk.annotations.*;
-import org.richfaces.renderkit.html.DivPanelRenderer;
+import static org.richfaces.renderkit.html.DivPanelRenderer.capitalize;
 
 import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import java.io.IOException;
-import java.util.Properties;
 
-import static org.richfaces.renderkit.html.DivPanelRenderer.capitalize;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.renderkit.html.DivPanelRenderer;
 
 /**
  * @author akolonitsky
@@ -65,26 +63,6 @@ public abstract class AbstractTogglePanelTitledItem extends AbstractTogglePanelI
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
-    }
-
-    @Override
-    public void encodeAll(FacesContext context) throws IOException {
-        if (!isRendered()) {
-            return;
-        }
-
-        encodeBegin(context);
-        if (!isDisabled()) {
-            if (getRendersChildren()) {
-                encodeChildren(context);
-            } else if (this.getChildCount() > 0) {
-                for (UIComponent kid : getChildren()) {
-                    kid.encodeAll(context);
-                }
-            }
-        }
-            
-        encodeEnd(context);
     }
 
     public UIComponent getHeaderFacet(Enum<?> state) {

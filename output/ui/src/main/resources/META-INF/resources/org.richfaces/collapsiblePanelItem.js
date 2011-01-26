@@ -24,10 +24,12 @@
 
     rf.ui = rf.ui || {};
 
+    var DEFAULT_OPTIONS = {switchMode: 'ajax'};
+    
     rf.ui.CollapsiblePanelItem = rf.ui.TogglePanelItem.extendClass({
 
         init : function (componentId, options) {
-            rf.ui.TogglePanelItem.call(this, componentId, options);
+            rf.ui.TogglePanelItem.call(this, componentId, $.extend({}, DEFAULT_OPTIONS, options));
 
             this.headerClass = "rf-cp-hdr-" + this.__state();
         },
@@ -41,7 +43,10 @@
 
         __leave : function () {
             this.__content().hide();
-            this.__header().removeClass(this.headerClass);
+            
+            if (this.options.switchMode == 'client') {
+            	this.__header().removeClass(this.headerClass);
+            }
 
             return true;
         },

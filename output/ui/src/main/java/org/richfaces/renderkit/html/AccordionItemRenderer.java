@@ -71,25 +71,52 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
 
     private final TableIconsRendererHelper<AbstractAccordionItem> headerRenderer = new AccordionItemHeaderRenderer();
 
+    public AccordionItemRenderer() {
+        super(false);
+    }
+    
     @Override
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        super.doEncodeBegin(writer, context, component);
-
-        encodeHeader(context, (AbstractAccordionItem) component);
-
-        encodeContentBegin(context, component);
+        doEncodeItemBegin(writer, context, component);
     }
 
+    @Override
+    protected void doEncodeItemBegin(ResponseWriter writer, FacesContext context, UIComponent component)
+        throws IOException {
+
+        super.doEncodeItemBegin(writer, context, component);
+        encodeHeader(context, (AbstractAccordionItem) component);
+        encodeContentBegin(context, component);
+    }
+    
     @Override
     protected String getStyleClass(UIComponent component) {
         return concatClasses("rf-ac-itm", attributeAsString(component, "styleClass"));
     }
 
     @Override
+    protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component)
+        throws IOException {
+
+        AbstractAccordionItem item = (AbstractAccordionItem) component;
+        
+        if (!item.isDisabled()) {
+            super.doEncodeChildren(writer, context, item);
+        }
+    }
+
+    @Override
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+        doEncodeItemEnd(writer, context, component);
+    }
+    
+    @Override
+    protected void doEncodeItemEnd(ResponseWriter writer, FacesContext context, UIComponent component)
+        throws IOException {
+        
         encodeContentEnd(writer, component);
 
-        super.doEncodeEnd(writer, context, component);
+        super.doEncodeItemEnd(writer, context, component);
     }
 
     private void encodeContentBegin(FacesContext context, UIComponent component) throws IOException {
@@ -141,5 +168,6 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
     protected Class<? extends UIComponent> getComponentClass() {
         return AbstractTogglePanelTitledItem.class;
     }
+    
 }
 

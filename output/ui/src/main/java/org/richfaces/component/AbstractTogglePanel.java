@@ -46,11 +46,18 @@ import javax.faces.event.PreValidateEvent;
 import org.richfaces.application.MessageFactory;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.appplication.FacesMessages;
-import org.richfaces.cdk.annotations.*;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.util.MessageUtil;
 import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.event.ItemChangeListener;
 import org.richfaces.event.ItemChangeSource;
+
+import com.google.common.base.Strings;
 
 /**
  * @author akolonitsky
@@ -146,7 +153,13 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
 
     @Override
     public void encodeBegin(FacesContext context) throws IOException {
-        AbstractTogglePanelItem item = this.getItem(getActiveItem());
+        AbstractTogglePanelItem item = null;
+        String activeItem = getActiveItem();
+        
+        if (!Strings.isNullOrEmpty(activeItem)) {
+            item = this.getItem(activeItem);
+        }
+        
         if (item == null || !item.isRendered()) {
             List<AbstractTogglePanelItem> renderedItems = this.getRenderedItems();
             if (!renderedItems.isEmpty()) {
