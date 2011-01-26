@@ -35,11 +35,11 @@
         return eventData;
     };
 
-    var addToggledClasses = function(el, event) {
-        if (event.type == 'mousedown' || event.type == 'mouseup') {
-            el.toggleClass('rf-ds-press');
-        } else if(event.type == 'mouseover' || event.type == 'mouseout') {
-            el.toggleClass('rf-ds-hov');
+    var togglePressClass = function(el, event) {
+        if (event.type == 'mousedown'){
+            el.addClass('rf-ds-press');
+        } else if (event.type == 'mouseup' || event.type =='mouseout'){
+            el.removeClass('rf-ds-press');
         }
     };
 
@@ -60,12 +60,11 @@
 
         if (options.buttons) {
 
-            $(dataScrollerElement).delegate('.rf-ds-btn', 'mouseover mouseout mouseup mousedown', function(event) {
+            $(dataScrollerElement).delegate('.rf-ds-btn', 'mouseup mousedown mouseout', function(event) {
                 if ($(this).hasClass('rf-ds-dis')) {
-                    $(this).removeClass('rf-ds-hov');
                     $(this).removeClass('rf-ds-press');
                 } else {
-                    addToggledClasses($(this), event);
+                    togglePressClass($(this), event);
                 }
             });
 
@@ -75,8 +74,8 @@
 
         if (options.digitals) {
 
-            $(dataScrollerElement).delegate('.rf-ds-nmb-btn', 'mouseover mouseout mouseup mousedown', function(event) {
-                addToggledClasses($(this), event);
+            $(dataScrollerElement).delegate('.rf-ds-nmb-btn', 'mouseup mousedown mouseout', function(event) {
+                togglePressClass($(this), event);
             });
 
             initButtons(options.digitals, css, this);
