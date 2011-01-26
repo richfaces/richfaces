@@ -14,16 +14,20 @@
 			text-align: center;
 			padding-top: 5px;
 		}
-		.rf-ind-drag{
+		
+		.default{
 			font-size:11px;
 			cursor:pointer;
 			width:100px;
 			border:1px solid gray;
 			padding:2px
 		}
-		.rf-ind-acpt{border:2px solid green}
-		.rf-ind-rejt{border:2px solid red}
+		.accept{border:2px solid green}
+		.reject{border:2px solid red}
 	</h:outputStylesheet>
+	<rich:dragIndicator id="ind" acceptClass="accept" rejectClass="reject" draggingClass="default">
+		Drag the item to proper area..
+	</rich:dragIndicator>
 	<h:form id="form">
  
 		<h:panelGrid columnClasses="panelc valign, valign, valign, valign" columns="4" width="100%">
@@ -35,8 +39,8 @@
 				<h:dataTable id="src" columns="1" value="#{dragDropBean.source}"
 					var="fm" footerClass="footerClass">
 					<h:column>
-						<a4j:outputPanel layout="block" styleClass="rf-ind-drag">
-							<rich:dragSource type="#{fm.family}"
+						<a4j:outputPanel layout="block" styleClass="default">
+							<rich:dragSource type="#{fm.family}" dragIndicator="ind"
 								dragValue="#{fm}" />
 							<h:outputText value="#{fm.name}"></h:outputText>
 						</a4j:outputPanel>

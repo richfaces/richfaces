@@ -8,6 +8,21 @@
 	<p>The Richfaces Drag-n-Drop component suite includes three
 	components: <b>dragSource</b>, <b>dropTarget </b>and <b>dragIndicator</b>.</p>
 
+	<p>That demo shows most important feature of the RichFaces drag and
+	drop mechanism. You could mark several different components as
+	'draggable' and define different drag <b>type</b>'s for them via
+	attribute. Then you could add corresponding drop zones and use <b>acceptType</b>'s
+	attributes to define which drop zone will process corresponding dragged
+	elements.</p>
+
+	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+		<ui:param name="sourceType" value="xhtml" />
+		<ui:param name="openLabel" value="View Source" />
+		<ui:param name="hideLabel" value="Hide Source" />
+	</ui:include>
+
 	<p><b>rich:dragSource </b>is used to point to the JSF component
 	that becomes draggable. If you want to add a draggable feature to the
 	existing component, attach dragSupport as a child component to it.</p>
@@ -22,9 +37,12 @@
 	dragSupport.</p>
 
 	<p><b>rich:dragIndicator</b> is a special visual representation of
-	a dragged object. By default it creates a copy of dragged elements. But
-	the markup could be redefined(<u>not implemented in first release</u>).</p>
-
+	a dragged object. By default if the component not defined we create a
+	copy of dragged elements. But the markup could be redefined by defining
+	the markup of the indicator using nested components.</p>
+	<fieldset><legend>Note:</legend> That sample shows simple
+	usage without indicator defined. We just using predefined CSS classes
+	to customize look for different states.</fieldset>
 	<p>Note: The parent component for dragSupport and dropSupport
 	should be designed to render its children and has two attribute
 	"onmouseover" and "onmouseout". You can use &lt;a4j:outputPanel&gt; as
@@ -38,18 +56,5 @@
 	over the headers of three panels. If the draggable framework is
 	suitable for a certain framework family, it will be accepted and moved
 	from source panel to the target list.</p>
-	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
-	<ui:include src="/templates/includes/source-view.xhtml">
-		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
-		<ui:param name="sourceType" value="xhtml" />
-		<ui:param name="openLabel" value="View Source" />
-		<ui:param name="hideLabel" value="Hide Source" />
-	</ui:include>
-	<p>That demo shows most important feature of the RichFaces drag and
-	drop mechanism. You could mark several different components as
-	'draggable' and define different drag <b>type</b>'s for them via
-	attribute. Then you could add corresponding drop zones and use <b>acceptType</b>'s
-	attributes to define which drop zone will process corresponding dragged
-	elements.</p>
 </ui:composition>
 </html>
