@@ -41,6 +41,7 @@ import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+import org.richfaces.model.SelectionMode;
 
 
 /**
@@ -82,6 +83,9 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
     
     @Attribute
     public abstract String getStyleClass();
+    
+    @Attribute
+    public abstract SelectionMode getSelectionMode();
     
     @Attribute(events=@EventName(value="selectionchange", defaultEvent=true))
     public abstract String getOnselectionchange();
