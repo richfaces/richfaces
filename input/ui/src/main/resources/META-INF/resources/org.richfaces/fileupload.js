@@ -68,7 +68,7 @@
 	        this.id = id;
 	        jQuery.extend(this, options);
 	        if (this.acceptedTypes) {
-	        	this.acceptedTypes = jQuery.trim(this.acceptedTypes).split(/\s*,\s*/);
+	        	this.acceptedTypes = jQuery.trim(this.acceptedTypes).toUpperCase().split(/\s*,\s*/);
 	        }
 	        this.element = jQuery(this.attachToDom());
 	        this.form = this.element.parents("form:first");
@@ -212,6 +212,7 @@
 	    },
 	    
 	    __accept: function(fileName) {
+	    	fileName = fileName.toUpperCase();
 	    	var result = !this.acceptedTypes;
 	    	for (var i = 0; !result && i < this.acceptedTypes.length; i++) {
 	    		var extension = this.acceptedTypes[i];
