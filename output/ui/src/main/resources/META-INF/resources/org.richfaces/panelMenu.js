@@ -43,7 +43,7 @@
          * */
         init : function (componentId, options) {
             $super.constructor.call(this, componentId);
-            this.items = [];
+            this.items = {};
             this.attachToDom();
 
             this.options = $.extend(this.options, __DEFAULT_OPTIONS, options || {});
@@ -63,22 +63,22 @@
                 });
             }
 
-            if (menuGroup.activeItem) {
-                this.__panelMenu().ready(function () {
-                    var item = menuGroup.items[menuGroup.activeItem];
-                    item.__select();
-                    item.__fireSelect();
-                })
-            }
-
             this.__addUserEventHandler("collapse");
             this.__addUserEventHandler("expand");
         },
 
-        getItems: function () {
-            return this.items;
+        addItem: function(item) {
+        	this.items[item.itemName] = item;
+        },
+        
+        deleteItem: function(item) {
+        	delete this.items[item.itemName];
         },
 
+        getSelectedItem: function() {
+        	return this.getItem(this.selectedItem());
+        },
+        
         getItem: function (name) {
             return this.items[name];
         },
@@ -113,6 +113,13 @@
                 this.activeItem = id;
                 valueInput.value = id;
 
+                for (var itemName in this.items) {
+                	var item = this.items[itemName];
+                	if (item.__isSelected()) {
+                		item.__unselect();
+                	}
+                }
+                
                 return prevActiveItem;
             } else {
                 return this.activeItem;
@@ -196,6 +203,10 @@
             }
         },
 
+        __isActiveItem: function(item) {
+        	return item.itemName == this.activeItem;
+        },
+        
         destroy: function () {
             rf.Event.unbindById(this.id, "."+this.namespace);
             $super.destroy.call(this);

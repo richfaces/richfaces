@@ -42,10 +42,14 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
+import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSObject;
+import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.PanelMenuMode;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractPanelMenuGroup;
 import org.richfaces.component.AbstractPanelMenuItem;
+import org.richfaces.renderkit.HtmlConstants;
 
 import com.google.common.base.Strings;
 
@@ -219,6 +223,66 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
     @Override
     protected Class<? extends UIComponent> getComponentClass() {
         return AbstractPanelMenuGroup.class;
+    }
+    
+    @Override
+    public boolean getRendersChildren() {
+        return true;
+    }
+    
+    private boolean containsActiveItem(UIComponent component, String activeItem) {
+        if (component instanceof AbstractPanelMenuItem) {
+            AbstractPanelMenuItem item = (AbstractPanelMenuItem) component;
+            if (activeItem.equals(item.getName())) {
+                return true;
+            }
+        }
+        
+        if (component instanceof AbstractPanelMenuGroup) {
+            AbstractPanelMenuGroup group = (AbstractPanelMenuGroup) component;
+            if (!group.isBubbleSelection()) {
+                return false;
+            }
+        }
+        
+        if (component.getChildCount() > 0) {
+            for (UIComponent child : component.getChildren()) {
+                if (!child.isRendered()) {
+                    continue;
+                }
+                
+                if (!(child instanceof AbstractPanelMenuItem)) {
+                    continue;
+                }
+                
+                if (containsActiveItem(child, activeItem)) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    @Override
+    protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component)
+        throws IOException {
+
+        AbstractPanelMenuGroup group = (AbstractPanelMenuGroup) component;
+        
+        boolean isClientMode = group.getMode() == PanelMenuMode.client;
+        
+        if (isClientMode || group.isExpanded()) {
+            renderChildren(context, component);
+        } else {
+            String activeItem = group.getPanelMenu().getActiveItem();
+            if (!Strings.isNullOrEmpty(activeItem) && containsActiveItem(component, activeItem)) {
+                writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
+                writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.TEXT_JAVASCRIPT_TYPE, null);
+                writer.writeText(ScriptUtils.toScript(new JSFunction("RichFaces.$", component.getClientId(context))) + ".__restoreSelection();", null);
+                writer.endElement(HtmlConstants.SCRIPT_ELEM);
+            }
+        }
     }
 }
 

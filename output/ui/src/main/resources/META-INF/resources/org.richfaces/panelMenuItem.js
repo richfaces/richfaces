@@ -90,10 +90,12 @@
          * */
         execClient : function (item) {
             var panelMenu = item.__rfPanelMenu();
-            if (panelMenu.selectedItem()) {
-                panelMenu.getItems()[panelMenu.selectedItem()].unselect();
-            }
-            panelMenu.selectedItem(item.itemName);
+            var prevItem = panelMenu.getSelectedItem();
+        	if (prevItem) {
+        		prevItem.unselect();
+        	}
+
+        	panelMenu.selectedItem(item.itemName);
 
             item.__select();
 
@@ -122,18 +124,23 @@
          * */
         init : function (componentId, options) {
             $super.constructor.call(this, componentId);
-            this.attachToDom();
+            var rootElt = $(this.attachToDom());
 
             this.options = $.extend(this.options, __DEFAULT_OPTIONS, options || {});
 
             this.mode = this.options.mode;
             this.itemName = this.options.name;
-            this.__rfPanelMenu().getItems()[this.itemName] = this;
+            var panelMenu = this.__rfPanelMenu();
+            panelMenu.addItem(this);
 
             // todo move it
             this.selectionClass = this.options.stylePrefix + "-sel";
             this.hoverClass = this.options.stylePrefix + "-hov";
-
+            
+            if (panelMenu.__isActiveItem(this)) {
+            	rootElt.ready($.proxy(this.__restoreSelection, this));
+            }
+            
             if (!this.options.disabled) {
                 var item = this;
                 if (this.options.highlight) {
@@ -276,6 +283,15 @@
             return this.__item();
         },
 
+        __restoreSelection: function() {
+        	this.__select();
+        	this.__fireSelect();
+        },
+        
+        __isSelected: function() {
+            return this.__header().hasClass(this.selectionClass);
+        },
+        
         __select: function () {
             this.__header().addClass(this.selectionClass);
         },
@@ -314,8 +330,8 @@
 
         destroy: function () {
             var panelMenu = this.__rfPanelMenu();
-            if (panelMenu && panelMenu.getItems && panelMenu.getItems()[this.itemName]) {
-                delete panelMenu.getItems()[this.itemName];
+            if (panelMenu) {
+            	panelMenu.deleteItem(this);
             }
 
             $super.destroy.call(this);
