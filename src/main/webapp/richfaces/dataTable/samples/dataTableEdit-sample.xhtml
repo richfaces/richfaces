@@ -67,7 +67,6 @@ a.no-decor>img {
 		<a4j:jsFunction name="remove" action="#{carsBean.remove}"
 			render="table" execute="@this"
 			oncomplete="#{rich:component('confirmPane')}.hide();" />
-	</h:form>
 
 	<rich:popupPanel id="statPane" autosized="true">
 		<h:graphicImage value="/images/ai.gif" />
@@ -81,8 +80,7 @@ a.no-decor>img {
 		<a4j:commandButton value="Delete" onclick="remove(); return false;" />
 	</rich:popupPanel>
 
-	<rich:popupPanel header="Edit Car Details" id="editPane">
-		<h:form>
+	<rich:popupPanel header="Edit Car Details" id="editPane" domElementAttachment="parent">
 			<h:panelGrid columns="3" id="editGrid">
 				<h:outputText value="Vendor" />
 				<h:outputText value="#{carsBean.editedCar.vendor}" />
@@ -112,6 +110,6 @@ a.no-decor>img {
 				oncomplete="if (#{facesContext.maximumSeverity==null}) {#{rich:component('editPane')}.hide();}" />
 			<a4j:commandButton value="Cancel"
 				onclick="#{rich:component('editPane')}.hide(); return false;" />
-		</h:form>
 	</rich:popupPanel>
+	</h:form>
 </ui:composition>
