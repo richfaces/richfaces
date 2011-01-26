@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+	<p><b>RichFaces Client Validation</b> feature allows you to add
+	client side validation without writing any line of JavaScript!</p>
+	<p>All the JSF validators and JSR-303 standard validators will be
+	available on client side after just <b>&lt;rich:validator/&gt;</b> to
+	the inputs which you want to be validated at client side. If you using
+	any custom validators or some additional for example hibernate
+	validators which we not implemented in first version - Ajax fallback
+	mechanism will be used. It means that behavior will try to execute all
+	client vlidators available and then send Ajax request for unknown to
+	get results from server side.</p>
+	<p>In that sample - pay attention that no requests fired when
+	typing wrong values in first two fields. And Ajax request used to
+	validate the last one.</p>
+	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+		<ui:param name="sourceType" value="xhtml" />
+		<ui:param name="openLabel" value="View Source" />
+		<ui:param name="hideLabel" value="Hide Source" />
+	</ui:include>
+	<fieldset>
+	<legend><b>Notes:</b></legend>
+	<ul>
+		<li>Some validators still not implemented. Them will start work transparently for you after new snapshots with implementations added</li>
+		<li>We will provide information about how to provide client validation for custom validators soon!</li>
+	</ul>
+	</fieldset>
+	<fieldset>
+	<legend><b>What to expect additionally:</b></legend>
+	After we will complete all standard validators migration and instructions for custom ones we plan to work on next features:
+	<ul>
+		<li>Client Validation for submit components to perform bulk form validation.</li>
+		<li>Ways of default validation definitions without usage of <b>&lt;rich:validator/&gt;</b> tag for every input.</li>
+	</ul>
+	</fieldset>
+</ui:composition>
+</html>

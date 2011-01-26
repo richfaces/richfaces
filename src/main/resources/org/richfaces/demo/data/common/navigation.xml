@@ -177,11 +177,15 @@
 		<demos>
 			<demo new="true">
 				<id>clientValidation</id>
-				<name>Ajax/Client Validation</name>
+				<name>Client Side Validation</name>
 				<samples>
 					<sample>
-						<id>simple</id>
-						<name>Simple Ajax Validation</name>
+						<id>jsfValidators</id>
+						<name>Standard JSF Validators</name>
+					</sample>
+					<sample>
+						<id>jsr303</id>
+						<name>JSR-303 Validators</name>
 					</sample>
 				</samples>
 			</demo>

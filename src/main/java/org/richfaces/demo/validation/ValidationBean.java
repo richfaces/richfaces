@@ -2,16 +2,36 @@ package org.richfaces.demo.validation;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.validation.constraints.AssertTrue;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.Length;
 
 @ManagedBean
 @RequestScoped
 public class ValidationBean {
 
+    @Length(min = 3, max = 12)
     private String name = null;
+    @Pattern(regexp = "^[\\w\\-]([\\.\\w])+[\\w]+@([\\w\\-]+\\.)+[a-zA-Z]{2,4}$")
     private String email = null;
+    @Min(value = 18)
+    @Max(value = 99)
     private Integer age;
     private String country;
     private String jobTitle;
+    @AssertTrue
+    private boolean agreed;
+
+    public boolean isAgreed() {
+        return agreed;
+    }
+
+    public void setAgreed(boolean agreed) {
+        this.agreed = agreed;
+    }
 
     public String getName() {
         return name;
