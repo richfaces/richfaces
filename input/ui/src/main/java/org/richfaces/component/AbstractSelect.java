@@ -40,8 +40,4 @@ public abstract class AbstractSelect extends AbstractSelectComponent {
     
     @Attribute()
     public abstract String getMaxListHeight();
-
-    @Attribute()
-    public abstract String getListHeight();
-
 }
