@@ -574,6 +574,10 @@
 						<id>dragDrop</id>
 						<name>Drag and Drop usage example</name>
 					</sample>
+					<sample new="true">
+						<id>dragIndicator</id>
+						<name>Drag Indicator usage example</name>
+					</sample>
 				</samples>
 			</demo>
 		</demos>
@@ -620,7 +624,7 @@
 						<name>Passing hash options to rich:popupPanel</name>
 					</sample>
 				</samples>
-			</demo>			
+			</demo>
 			<demo>
 				<id>jquery</id>
 				<name>rich:jQuery</name>
