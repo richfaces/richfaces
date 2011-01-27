@@ -127,7 +127,9 @@
         // class stuff
         destroy: function () {
             var parent = this.getTogglePanel();
-            delete parent.getItems()[this.index];
+            if (parent) {
+            	delete parent.getItems()[this.index];
+            }
 
             $super.destroy.call(this);
         }
