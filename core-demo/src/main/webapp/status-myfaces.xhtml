@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j">
+<f:view>
+	<h:head>
+	</h:head>
+	<h:body>
+
+		<a4j:status startStyle="color: green" errorStyle="color: red" onstart="RichFaces.log.info('START')"
+			onerror="RichFaces.log.info('ERROR')" onsuccess="RichFaces.log.info('SUCCESS')" onstop="RichFaces.log.info('STOP')">
+			<f:facet name="start">...start...</f:facet>
+			<f:facet name="stop">stop</f:facet>
+			<f:facet name="error">error</f:facet>
+		</a4j:status>
+
+
+		<h:form>
+			<h:commandLink value="A4J:Ajax error" action="#{statusBean.delayWithError}">
+				<a4j:ajax />
+			</h:commandLink>
+			<h:commandLink value="F:Ajax error" action="#{statusBean.delayWithError}">
+				<f:ajax />
+			</h:commandLink>
+		</h:form>
+
+		<a4j:log />
+		
+	</h:body>
+</f:view>
+</html>
