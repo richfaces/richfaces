@@ -15,24 +15,44 @@
 		acceptClass : "rf-ind-acpt",
 		draggingClass : "rf-ind-drag"
 	};
+	
+	var defaultOptions = {
+	};
 
 	rf.ui.Droppable = function(id, options) {
-		this.options = options;
+		this.options = {};
+		$.extend(this.options, defaultOptions, options || {});
+		$super.constructor.call(this, id);
+		
+		this.namespace = this.namespace || "."
+		+ rf.Event.createNamespace(this.name, this.id);
+		
 		this.id = id;
-
-		this.dropElement = $(document.getElementById(this.options.parentId));
+		
+		this.parentId = this.options.parentId;
+		
+		this.attachToDom(this.parentId);
+		
+		this.dropElement = $(document.getElementById(this.parentId));
 		this.dropElement.droppable({
 					addClasses : false
 				});
 		this.dropElement.data("init", true);
-		this.dropElement.bind('drop', $.proxy(this.drop, this));
-		this.dropElement.bind('dropover', $.proxy(this.dropover, this));
-		this.dropElement.bind('dropout', $.proxy(this.dropout, this));
-	};
+		
+		rf.Event.bind(this.dropElement, 'drop'+this.namespace, this.drop, this);
+		rf.Event.bind(this.dropElement, 'dropover'+this.namespace, this.dropover, this);
+		rf.Event.bind(this.dropElement, 'dropout'+this.namespace, this.dropout, this);
 
+	};
+	
+	rf.BaseNonVisualComponent.extend(rf.ui.Droppable);
+	
+	var $super = rf.ui.Droppable.$super;
+	
 	$.extend(rf.ui.Droppable.prototype, (function() {
 		return {
-			drop : function(e, ui) {
+			drop : function(e) {
+				var ui = e.rf.data;
 				if (this.accept(ui.draggable)) {
 					this.__callAjax(e, ui);
 				}
@@ -47,7 +67,8 @@
 				}
 			},
 
-			dropover : function(event, ui) {
+			dropover : function(e) {
+				var ui = e.rf.data;
 				var draggable = ui.draggable;
 				var dragIndicatorObj = rf.$(ui.helper.attr("id"));
 				if (dragIndicatorObj) {
@@ -69,7 +90,8 @@
 				}
 			},
 
-			dropout : function(event, ui) {
+			dropout : function(e) {
+				var ui = e.rf.data;
 				var draggable = ui.draggable;
 				var dragIndicatorObj = rf.$(ui.helper.attr("id"));
 				if (dragIndicatorObj) {
@@ -107,7 +129,19 @@
 						ajaxFunc.call(this, e, dragSource);
 					}
 				}
+			},
+			
+			destroy : function() {
+				// clean up code here
+				this.detach(this.parentId);
+				rf.Event.unbind(this.dropElement, this.namespace);
+
+				// call parent's destroy method
+				$super.destroy.call(this);
+
 			}
+			
+			
 		}
 	})());
 
