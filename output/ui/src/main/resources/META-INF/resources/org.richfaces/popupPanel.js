@@ -240,9 +240,9 @@
 
                         if (newParent != this.parent) {
                             this.saveInputValues(element);
-                            this.shadeDiv.insertAfter($(newParent).children().last());
-                            this.shadowDiv.insertAfter($(newParent).children().last());
-                            this.cdiv.insertAfter($(newParent).children().last());
+                            newParent.appendChild(this.shadeDiv.get(0));
+                            newParent.appendChild(this.shadowDiv.get(0));
+                            newParent.appendChild(this.cdiv.get(0));
                             this.domReattached = true;
                         } else {
                             this.parent.show();
@@ -487,9 +487,10 @@
                     if (this.parent) {
                         if (this.domReattached) {
                             this.saveInputValues(element);
-                            this.div.append(this.shadeDiv);
-                            this.div.append(this.shadowDiv);
-                            this.div.append(element);
+                            var div = this.div.get(0);
+                            div.appendChild(this.shadeDiv.get(0));
+                            div.appendChild(this.shadowDiv.get(0));
+                            div.appendChild(element.get(0));
 
                             this.domReattached = false;
                         }

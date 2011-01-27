@@ -199,12 +199,12 @@
 		if (!this.isVisible) {
 			if (this.__onBeforeShow(event)!=false) {
 				this.scrollElements = rf.Event.bindScrollEventHandlers(this.selectId, this.hide, this, this.namespace);
+				var element = rf.getDomElement(this.selectId);
 				if (this.options.attachToBody) {
-					var element = rf.getDomElement(this.selectId);
 					this.parentElement = element.parentNode;
-					$(element).detach().appendTo("body");
+					document.body.appendChild(element);
 				}
-				$(rf.getDomElement(this.selectId)).setPosition({id: this.fieldId}, {type:"DROPDOWN"}).show();
+				$(element).setPosition({id: this.fieldId}, {type:"DROPDOWN"}).show();
 				this.isVisible = true;
 				this.__onShow(event);
 			}
@@ -214,10 +214,10 @@
 		if (this.isVisible) {
 			rf.Event.unbindScrollEventHandlers(this.scrollElements, this);
 			this.scrollElements = null;
-				$(rf.getDomElement(this.selectId)).hide();
-				this.isVisible = false;
-				if (this.options.attachToBody && this.parentElement) {
-				$(rf.getDomElement(this.selectId)).detach().appendTo(this.parentElement);
+			$(rf.getDomElement(this.selectId)).hide();
+			this.isVisible = false;
+			if (this.options.attachToBody && this.parentElement) {
+				this.parentElement.appendChild(rf.getDomElement(this.selectId));
 				this.parentElement = null;
 			}
 		    this.__onHide(event);

@@ -53,7 +53,7 @@
             if (!this.visible) {
                 if (this.attachToBody) {
                     this.parentElement = this.popup.parent();
-                    this.popup.detach().appendTo("body");
+                    document.body.appendChild(this.popup.get(0));
                 }
                 this.visible = true;
             }
@@ -66,7 +66,7 @@
                 this.popup.hide();
                 this.visible = false;
                 if (this.attachToBody && this.parentElement) {
-                    this.popup.detach().appendTo(this.parentElement);
+                	his.parentElement.appendChild(this.popup.get(0));
                     this.parentElement = null;
                 }
             }
