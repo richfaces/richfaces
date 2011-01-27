@@ -376,13 +376,22 @@ if (!window.RichFaces) {
 		// - success
 		// - error
 		// - complete
-		handlers = handlers || {};
+		var handlers = handlers || {};
+		var ignoreSuccess;
 
 		return function(eventData) {
 			var source = eventData.source;
 			//that's request status, not status control data
 			var status = eventData.status;
 			var type = eventData.type;
+			
+			if (type=='event' && status=='begin') {
+				ignoreSuccess = false;
+			} else if (type=='error') {
+				ignoreSuccess = true;
+			} else if (ignoreSuccess) {
+				return;
+			}
 
 			var typeHandlers = jsfEventsAdapterEventNames[type];
 			var handlerNames = (typeHandlers || {})[status] || typeHandlers;
@@ -407,7 +416,6 @@ if (!window.RichFaces) {
 								event.componentData = componentData || {};
 							}
 						}
-
 						handler.call(source, event);
 					}
 				}
