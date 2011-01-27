@@ -23,10 +23,14 @@
 
 package org.richfaces.component;
 
-import org.richfaces.PanelMenuMode;
-import org.richfaces.cdk.annotations.*;
-
 import javax.faces.component.UIComponent;
+
+import org.richfaces.PanelMenuMode;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 
 /**
  * @author akolonitsky
@@ -131,7 +135,7 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent {
     @Attribute(generate = false)
     public String getDisabledClass() {
         return (String) getStateHelper().eval(Properties.disabledClass,
-                isTopItem() ? getPanelMenu().getTopItemClassDisabled() : getPanelMenu().getItemDisableClass());
+                isTopItem() ? getPanelMenu().getTopItemDisabledClass() : getPanelMenu().getItemDisabledClass());
     }
 
     public void setDisabledClass(String disabledClass) {

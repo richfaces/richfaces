@@ -237,7 +237,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
     public abstract String getItemClass();
 
     @Attribute
-    public abstract String getItemDisableClass();
+    public abstract String getItemDisabledClass();
 
     @Attribute(generate = false)
     public String getItemLeftIcon() {
@@ -279,7 +279,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
     public abstract String getTopItemClass();
 
     @Attribute
-    public abstract String getTopItemClassDisabled();
+    public abstract String getTopItemDisabledClass();
 
     @Attribute(generate = false)
     public String getTopItemLeftIcon() {
@@ -321,7 +321,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
     public abstract String getGroupClass();
 
     @Attribute
-    public abstract String getGroupDisableClass();
+    public abstract String getGroupDisabledClass();
 
     @Attribute(generate = false)
     public String getGroupLeftIconExpanded() {
@@ -381,7 +381,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
     public abstract String getTopGroupClass();
 
     @Attribute
-    public abstract String getTopGroupClassDisabled();
+    public abstract String getTopGroupDisabledClass();
 
     @Attribute(generate = false)
     public String getTopGroupLeftIconExpanded() {

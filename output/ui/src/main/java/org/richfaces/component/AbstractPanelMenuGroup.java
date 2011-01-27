@@ -265,7 +265,7 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
     @Attribute(generate = false)
     public String getDisabledClass() {
         return (String) getStateHelper().eval(Properties.disabledClass,
-                isTopItem() ? getPanelMenu().getTopGroupClassDisabled() : getPanelMenu().getGroupDisableClass());
+                isTopItem() ? getPanelMenu().getTopGroupDisabledClass() : getPanelMenu().getGroupDisabledClass());
     }
 
     public void setDisabledClass(String disabledClass) {
