@@ -28,6 +28,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.jms.JMSException;
+import javax.jms.Session;
+import javax.jms.TopicSubscriber;
 import javax.naming.NamingException;
 
 import org.richfaces.application.push.EventAbortedException;
@@ -110,9 +112,17 @@ public class SessionImpl extends AbstractSession {
             jmsSession = messagingContext.createSession();
 
             for (Entry<TopicKey, Collection<TopicKey>> entry: rootTopicsMap.asMap().entrySet()) {
-                messagingContext.createTopicSubscriber(this, jmsSession, entry);
+                TopicSubscriber subscriber = null;
                 
-                successfulSubscriptions.putAll(entry.getKey(), entry.getValue());
+                try {
+                    subscriber = messagingContext.createTopicSubscriber(this, jmsSession, entry);
+                    successfulSubscriptions.putAll(entry.getKey(), entry.getValue());
+                } finally {
+                    if (subscriber != null) {
+                        subscriber.close();
+                    }
+                }
+                
             }
         } catch (JMSException e) {
             LOGGER.error(e.getMessage(), e);
@@ -163,4 +173,24 @@ public class SessionImpl extends AbstractSession {
         createSubscriptions(topicKeys);
     }
 
+    @Override
+    public void destroy() {
+        super.destroy();
+        Session jmsSession = null;
+        try {
+            jmsSession = messagingContext.createSession();
+            messagingContext.removeTopicSubscriber(this, jmsSession, successfulSubscriptions.keySet());
+            
+        } catch (JMSException e) {
+            LOGGER.error(e.getMessage(), e);
+        } finally {
+            if (jmsSession != null) {
+                try {
+                    jmsSession.close();
+                } catch (JMSException e) {
+                    LOGGER.error(e.getMessage(), e);
+                }
+            }
+        }
+    }
 }
