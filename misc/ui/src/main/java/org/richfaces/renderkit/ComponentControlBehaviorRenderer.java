@@ -85,12 +85,15 @@ public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
         FacesContext facesContext = behaviorContext.getFacesContext();
         
         ComponentControlBehavior controlBehavior = (ComponentControlBehavior) behavior;
+        String apiFunctionName = controlBehavior.getOperation();
+        // Fix https://issues.jboss.org/browse/RF-9745
+        if (apiFunctionName == null || apiFunctionName.trim().length() == 0) {
+            return "";
+        }
 
         JSFunctionDefinition callback = new JSFunctionDefinition();
         callback.addParameter(new JSReference(REF_EVENT));
         callback.addParameter(new JSReference(REF_COMPONENT));
-
-        String apiFunctionName = controlBehavior.getOperation();
 
         // create callback function
         StringBuffer script = new StringBuffer();
