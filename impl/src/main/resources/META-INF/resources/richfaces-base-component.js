@@ -296,6 +296,97 @@
 			}
 		};
 	})(params));
+	
+	richfaces.BaseNonVisualComponent = function(componentId) {
+		this.id = componentId;
+		this.options = this.options || {};
+	};
+	
+	richfaces.BaseNonVisualComponent.extend = function(child, h) {
+		return extend(richfaces.BaseNonVisualComponent, child, h);
+	};
+	
+	richfaces.BaseNonVisualComponent.extendClass = function (methods) {
+	    var DerivedClass = methods.init || richfaces.blankFunction;
+	    var SupperClass = this;
+    
+	    SupperClass.extend(DerivedClass);
+    
+	    DerivedClass.extendClass = SupperClass.extendClass;
+    
+	    $.extend(DerivedClass.prototype, methods);
+    
+	    return DerivedClass;
+	};
+    
+	$.extend(richfaces.BaseNonVisualComponent.prototype, (function (params) {
+		return {
+			name: "BaseNonVisualComponent",
+			
+			toString: function() {
+				var result = [];
+				if (this.constructor.$super) {
+					result[result.length] = this.constructor.$super.toString();
+				}
+				result[result.length] = this.name;
+				return result.join(', ');
+			},
+			
+			getValue: function() {
+				return;
+			},
+			/**
+			* Attach component object to DOM element by component id, DOM element or jQuery object and returns the element
+			* Its required for the client side API calls and to clean up after ajax request or document unload by
+			* calling destroy method
+			*
+			* @function
+			* @name RichFaces.BaseNonVisualComponent#attachToDom
+			* @param {string|DOMElement|jQuery} source - component id, DOM element or DOM elements wrapped by jQuery
+			*
+			* @return {DOMElement}
+			* */
+			attachToDom: function(source) {
+				source = source || this.id;
+				var element = richfaces.getDomElement(source);
+				if (element) {
+					var container = element[richfaces.RICH_CONTAINER] = element[richfaces.RICH_CONTAINER] || {};
+					if (container.attachedComponents){
+						container.attachedComponents[this.name] = this;
+					} else {
+						container.attachedComponents= {};
+						container.attachedComponents[this.name] = this;
+					}
+				}
+				return element;
+			},
+			
+			/**
+			* Detach component object from DOM element by component id, DOM element or jQuery object
+			*
+			* @function
+			* @name RichFaces.BaseNonVisualComponent#detach
+			* @param {string|DOMElement|jQuery} source - component id, DOM element or DOM elements wrapped by jQuery
+			*
+			* */
+			detach: function(source) {
+				source = source || this.id;
+				var element = richfaces.getDomElement(source);
+				element && element[richfaces.RICH_CONTAINER] && (element[richfaces.RICH_CONTAINER].attachedComponents[this.name]=null);
+			},
+			
+			/**
+			* Destroy method. Will be called before remove component from the page
+			*
+			* @function
+			* @name RichFaces.BaseNonVisualComponent#destroy
+			*
+			* */
+			destroy: function() {
+			}
+		};
+	})(params));
+	
 
 })(jQuery, window.RichFaces || (window.RichFaces={}));
 

@@ -71,6 +71,13 @@ if (!window.RichFaces) {
 				element = element.parentNode;
 	   	}
 	};
+	richfaces.findNonVisualComponents = function (source){
+		var element = richfaces.getDomElement(source);
+		
+		if (element) {
+			return (element[richfaces.RICH_CONTAINER] || {})["attachedComponents"];
+		}
+	};
 
 	// find component and call his method
 	richfaces.invokeMethod = function(source, method) {
@@ -85,8 +92,18 @@ if (!window.RichFaces) {
 	richfaces.cleanComponent = function (source) {
 		var component = richfaces.$(source);
 		if (component) {
+			//TODO fire destroy event
 			component.destroy();
 			component.detach(source);
+		}
+		var attachedComponents = richfaces.findNonVisualComponents(source);
+		if (attachedComponents) {
+			for (var i in attachedComponents)
+			{
+				if (attachedComponents[i]){
+					attachedComponents[i].destroy();
+				}
+			}
 		}
 	};
 	
