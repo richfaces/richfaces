@@ -44,12 +44,12 @@ class AccordionItemHeaderRenderer extends TableIconsRendererHelper<AbstractAccor
             writer.startElement(TD_ELEM, null);
             writer.writeAttribute(CLASS_ATTRIBUTE, cssClass, null);
 
-            if (isIconRendered(attrIconCollapsedValue)) {
-                encodeIdIcon(writer, context, attrIconCollapsedValue, cssIconsClassPrefix + "-act", state);    
+            if (isIconRendered(attrIconExpandedValue)) {
+                encodeIdIcon(writer, context, attrIconExpandedValue, cssIconsClassPrefix + "-act", state);    
             }
             
-            if (isIconRendered(attrIconExpandedValue)) {
-                encodeIdIcon(writer, context, attrIconExpandedValue, cssIconsClassPrefix + "-inact", state);    
+            if (isIconRendered(attrIconCollapsedValue)) {
+                encodeIdIcon(writer, context, attrIconCollapsedValue, cssIconsClassPrefix + "-inact", state);    
             }
 
             writer.endElement(TD_ELEM);    
