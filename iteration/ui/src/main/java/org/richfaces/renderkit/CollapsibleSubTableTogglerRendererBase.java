@@ -98,6 +98,10 @@ public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
         }
     }
 
+    private boolean isEmpty(String value) {
+        return (value == null || value.trim().length() == 0);
+    }
+    
     protected void encodeControl(FacesContext context, ResponseWriter writer, AbstractCollapsibleSubTableToggler control,
                                  boolean expanded, boolean visible) throws IOException {
         String state = getState(expanded);
@@ -114,8 +118,6 @@ public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, styleClass, null);
         writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, style, null);
 
-        boolean encodeDefault = true;
-
         UIComponent controlFacet = control.getFacet(state);
         if (controlFacet != null && controlFacet.isRendered()) {
 
@@ -125,24 +127,28 @@ public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
                 controlFacet.getAttributes().put(HtmlConstants.STYLE_ATTRIBUTE, facetStyle);
             }
             controlFacet.encodeAll(context);
-            encodeDefault = false;
         }
 
         String expandIcon = control.getExpandIcon();
+        if (isEmpty(expandIcon)) {
+            expandIcon = context.getApplication().getResourceHandler().createResource(UP_ICON_URL).getRequestPath();
+        } else {
+            expandIcon = RenderKitUtils.getResourceURL(expandIcon, context);
+        }
+        
         String collapseIcon = control.getCollapseIcon();
+        if (isEmpty(collapseIcon)) {
+            collapseIcon = context.getApplication().getResourceHandler().createResource(DOWN_ICON_URL).getRequestPath();
+        } else {
+            collapseIcon = RenderKitUtils.getResourceURL(collapseIcon, context);
+        }
 
-        if ((expandIcon != null && collapseIcon != null)
-            && (expandIcon.trim().length() > 0 && collapseIcon.trim().length() > 0)) {
-
-            String image = expanded ? expandIcon : collapseIcon;
-            image = RenderKitUtils.getResourceURL(image, context);
-            if (image != null && image.trim().length() > 0) {
-                writer.startElement(HtmlConstants.IMG_ELEMENT, control);
-                writer.writeAttribute(HtmlConstants.SRC_ATTRIBUTE, image, null);
-                writer.writeAttribute(HtmlConstants.ALT_ATTRIBUTE, "", null);
-                writer.endElement(HtmlConstants.IMG_ELEMENT);
-            }
-            encodeDefault = false;
+        String image = expanded ? expandIcon : collapseIcon;
+        if (image != null && image.trim().length() > 0) {
+            writer.startElement(HtmlConstants.IMG_ELEMENT, control);
+            writer.writeAttribute(HtmlConstants.SRC_ATTRIBUTE, image, null);
+            writer.writeAttribute(HtmlConstants.ALT_ATTRIBUTE, "", null);
+            writer.endElement(HtmlConstants.IMG_ELEMENT);
         }
 
         String label = expanded ? control.getExpandLabel() : control.getCollapseLabel();
@@ -151,20 +157,6 @@ public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
             writer.writeAttribute(HtmlConstants.HREF_ATTR, "javascript:void(0);", null);
             writer.writeText(label, null);
             writer.endElement(HtmlConstants.A_ELEMENT);
-            encodeDefault = false;
-        }
-
-        if (encodeDefault) {
-            expandIcon = context.getApplication().getResourceHandler().createResource(UP_ICON_URL).getRequestPath();
-            collapseIcon = context.getApplication().getResourceHandler().createResource(DOWN_ICON_URL).getRequestPath();
-
-            String image = expanded ? expandIcon : collapseIcon;
-            if (image != null && image.trim().length() > 0) {
-                writer.startElement(HtmlConstants.IMG_ELEMENT, control);
-                writer.writeAttribute(HtmlConstants.SRC_ATTRIBUTE, image, null);
-                writer.writeAttribute(HtmlConstants.ALT_ATTRIBUTE, "", null);
-                writer.endElement(HtmlConstants.IMG_ELEMENT);
-            }
         }
 
         writer.endElement(HtmlConstants.SPAN_ELEM);
