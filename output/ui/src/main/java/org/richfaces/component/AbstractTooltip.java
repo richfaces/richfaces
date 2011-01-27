@@ -47,7 +47,7 @@ import org.richfaces.renderkit.MetaComponentRenderer;
  * @since 2010-10-24
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets),
-        renderer = @JsfRenderer(type = "org.richfaces.TooltipRenderer"), attributes = {"ajax-props.xml"})
+        renderer = @JsfRenderer(type = "org.richfaces.TooltipRenderer"), attributes = {"tooltip-props.xml", "ajax-props.xml"})
 public abstract class AbstractTooltip extends AbstractDivPanel implements MetaComponentResolver, MetaComponentEncoder {
 
     public static final String COMPONENT_TYPE = "org.richfaces.Tooltip";
