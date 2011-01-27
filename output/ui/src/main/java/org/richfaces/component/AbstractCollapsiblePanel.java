@@ -70,8 +70,7 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
 
     @Override
     public String getActiveItem() {
-        String ai = super.getActiveItem();
-        return ai == null ? "true" : ai;
+        return String.valueOf(isExpanded());
     }
 
     @Override
@@ -84,14 +83,8 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
         return isExpanded();
     }
     
-    @Attribute
-    public boolean isExpanded() {
-        return Boolean.parseBoolean(getActiveItem());
-    }
-
-    public void setExpanded(boolean isExpanded) {
-        setActiveItem(String.valueOf(isExpanded));
-    }
+    @Attribute(defaultValue="true")
+    public abstract boolean isExpanded();
 
     @Override
     public void queueEvent(FacesEvent facesEvent) {
