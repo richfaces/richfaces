@@ -27,7 +27,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.DomElement;
+
 
 /**
  * <p class="changed_added_4_0"></p>
@@ -35,18 +36,48 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
  *
  */
 public class SendMessageTest extends MessageTestBase {
-    
+        
     @Test
-    public void testSend() throws Exception {
-        setUpMessage(",showSummary:true");
+    public void testSendDefault() throws Exception {
+        setUpMessage();
         sendMessage();
-        checkMessageContent(getErrorMessage().getSummary());
+        String messageAsText = getMessageAsText();
+        assertTrue(messageAsText.contains(getErrorMessage().getSummary()));
+        assertFalse(messageAsText.contains(getErrorMessage().getDetail()));
+        checkTitle(DomElement.ATTRIBUTE_NOT_DEFINED);
     }
 
-    protected void checkMessageContent(String summary) {
-        HtmlElement htmlElement = getMessageContentElement();
-        String text = htmlElement.asText();
-        assertTrue(text.contains(summary));
+    @Test
+    public void testSendWithDetail() throws Exception {
+        setUpMessage(",showDetail:true");
+        sendMessage();
+        String messageAsText = getMessageAsText();
+        assertTrue(messageAsText.contains(getErrorMessage().getSummary()));
+        assertTrue(messageAsText.contains(getErrorMessage().getDetail()));
+        checkTitle(DomElement.ATTRIBUTE_NOT_DEFINED);
     }
 
+    @Test
+    public void testSendWithLevel() throws Exception {
+        setUpMessage(",level:3");
+        sendMessage();
+        String messageAsText = getMessageAsText();
+        assertTrue(messageAsText.isEmpty());
+        assertTrue(getMessageContentElement().getChildNodes().isEmpty());
+    }
+
+    @Test
+    public void testSendWithTooltip() throws Exception {
+        setUpMessage(",tooltip:true");
+        sendMessage();
+        String messageAsText = getMessageAsText();
+        assertFalse(messageAsText.contains(getErrorMessage().getSummary()));
+        assertFalse(messageAsText.contains(getErrorMessage().getDetail()));
+        checkTitle(getErrorMessage().getSummary());
+    }
+
+    private void checkTitle(String title) {
+        String attribute = ((DomElement) getMessageContentElement().getFirstChild()).getAttribute("title");
+        assertEquals(title, attribute);
+    }
 }

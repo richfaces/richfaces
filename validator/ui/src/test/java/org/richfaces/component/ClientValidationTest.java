@@ -51,12 +51,12 @@ public class ClientValidationTest {
 
     @Test
     public void testSubmitTooShortValue() throws Exception {
-        submitValueAndCheckMesage("",containsString("Error"));
+        submitValueAndCheckMesage("",not(equalTo("")));
     }
 
     @Test
     public void testSubmitTooLongValue() throws Exception {
-        submitValueAndCheckMesage("123456",containsString("Error"));
+        submitValueAndCheckMesage("123456",not(equalTo("")));
     }
 
     @Test

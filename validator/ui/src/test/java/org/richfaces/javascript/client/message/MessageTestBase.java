@@ -82,4 +82,15 @@ public class MessageTestBase {
         return "new RichFaces.ui.Message(\"" + MY_MESSAGE + "\", {forComponentId:\"" + COMPONENT + "\""+messageOptions+"})";
     }
 
+    protected void checkMessageContent(String summary) {
+        String text = getMessageAsText();
+        assertTrue(text.contains(summary));
+    }
+
+    protected String getMessageAsText() {
+        HtmlElement htmlElement = getMessageContentElement();
+        String text = htmlElement.asText();
+        return text;
+    }
+
 }

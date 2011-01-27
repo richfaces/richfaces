@@ -17,4 +17,18 @@
             </cdk:tag>
         </component-extension>
 	</component>
+    <component>
+        <component-type>org.richfaces.Messages</component-type>
+        <component-class>org.richfaces.component.html.HtmlMessages</component-class>
+        <component-extension>
+            <cdk:generate>true</cdk:generate>
+            <cdk:base-class>javax.faces.component.UIMessages</cdk:base-class>
+            <cdk:component-family>javax.faces.Messages</cdk:component-family>
+            <cdk:renderer-type>org.richfaces.MessagesRenderer</cdk:renderer-type>
+            <cdk:tag>
+                <cdk:tag-name>messages</cdk:tag-name>
+                <cdk:tag-type>Facelets</cdk:tag-type>
+            </cdk:tag>
+        </component-extension>
+    </component>
 </faces-config>

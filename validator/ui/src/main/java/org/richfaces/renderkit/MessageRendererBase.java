@@ -25,11 +25,13 @@ package org.richfaces.renderkit;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIMessage;
+import javax.faces.component.UIMessages;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.Renderer;
@@ -43,6 +45,7 @@ import org.richfaces.renderkit.util.RendererUtils;
 import com.google.common.base.Predicate;
 import com.google.common.base.Strings;
 import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableMap.Builder;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 import com.google.common.collect.UnmodifiableIterator;
@@ -100,44 +103,78 @@ public class MessageRendererBase extends Renderer {
         String forId = getFor(component);
         Iterator<FacesMessage> messages = getMessages(context, forId, component);
         UnmodifiableIterator<FacesMessage> filteredMessages =
-            Iterators.filter(messages, getMessagesFilter(context, component));
+            Iterators.filter(messages, getMessagesLevelFilter(context, component));
         return Lists.newArrayList(filteredMessages);
 
     }
 
-    private Predicate<FacesMessage> getMessagesFilter(FacesContext context, UIComponent component) {
+    private Predicate<FacesMessage> getMessagesLevelFilter(FacesContext context, UIComponent component) {
 
+        final Severity level = getLevel(component);
+        final boolean displayAll = component instanceof UIMessages;
+        Predicate<FacesMessage> predicate = new Predicate<FacesMessage>() {
+            private int count = 0;
+            public boolean apply(FacesMessage input) {
+                if(input.getSeverity().compareTo(level) >= 0){
+                    return displayAll||0 == count++;
+                }
+                return false;
+            }
+        };
+        return predicate;
+    }
+
+    private Severity getLevel(UIComponent component) {
         Object levelName = component.getAttributes().get("level");
         final Severity level =
             (Severity) (FacesMessage.VALUES_MAP.containsKey(levelName) ? FacesMessage.VALUES_MAP.get(levelName)
                 : FacesMessage.SEVERITY_INFO);
-        return new Predicate<FacesMessage>() {
-            public boolean apply(FacesMessage input) {
-                return input.getSeverity().compareTo(level) >= 0;
-            }
-        };
+        return level;
     }
 
     private String getFor(UIComponent component) {
-        return (String) component.getAttributes().get("for");
+        if (component instanceof UIMessages) {
+            UIMessages messages = (UIMessages) component;
+            if(messages.isGlobalOnly()){
+                return "";
+            } else {
+                return messages.getFor();
+            }
+        } else if (component instanceof UIMessage) {
+            UIMessage message = (UIMessage) component;
+            return message.getFor();
+        } else {
+            return (String) component.getAttributes().get("for");
+        }
     }
 
     protected void encodeMessage(FacesContext facesContext, UIComponent component, Object msg) throws IOException {
         // TODO fix generator to properly detect iteration variable type
         FacesMessage message = (FacesMessage) msg;
-        UIMessage uiMessage = (UIMessage) component;
+        String summary = message.getSummary();
+        String detail = message.getDetail();
+        boolean showSummary = true;
+        boolean showDetail = false;
+        if (component instanceof UIMessage) {
+            UIMessage uiMessage = (UIMessage) component;
+            showSummary = uiMessage.isShowSummary();
+            showDetail = uiMessage.isShowDetail();
+        } else if (component instanceof UIMessages) {
+            UIMessages uiMessages = (UIMessages) component;
+            showSummary = uiMessages.isShowSummary();
+            showDetail = uiMessages.isShowDetail();
+        }
         ResponseWriter responseWriter = facesContext.getResponseWriter();
         // tooltip
-        boolean wroteTooltip = Boolean.TRUE.equals(uiMessage.getAttributes().get("tooltip"));
-        String summary = message.getSummary();
+        boolean wroteTooltip = Boolean.TRUE.equals(component.getAttributes().get("tooltip"));
         if(wroteTooltip && !Strings.isNullOrEmpty(summary)){
             responseWriter.writeAttribute("title", summary,null);
         }
-        if (!wroteTooltip && uiMessage.isShowSummary()) {
+        if (!wroteTooltip && showSummary) {
             writeMessageLabel(responseWriter, summary, "rf-msg-sum");
         }
-        if (uiMessage.isShowDetail()) {
-            writeMessageLabel(responseWriter, message.getDetail(), "rf-msg-des");
+        if (showDetail) {
+            writeMessageLabel(responseWriter, detail, "rf-msg-des");
         }
     }
 
@@ -153,14 +190,30 @@ public class MessageRendererBase extends Renderer {
     protected void encodeScript(FacesContext facesContext, UIComponent component) throws IOException {
         JavaScriptService javaScriptService = ServiceTracker.getService(JavaScriptService.class);
         JSFunction messageObject = new JSObject("RichFaces.ui.Message", component.getClientId(facesContext));
-        String forId = (String) component.getAttributes().get("for");
+        Map<String, Object> attributes = component.getAttributes();
+        Builder<String, Object> parametersBuilder = ImmutableMap.builder();
+        String forId = (String) attributes.get("for");
         if (!Strings.isNullOrEmpty(forId)) {
             UIComponent target = RendererUtils.getInstance().findComponentFor(component, forId);
             if (null != target) {
-                messageObject.addParameter(ImmutableMap.<String, String> of("forComponentId",
-                    target.getClientId(facesContext)));
+                parametersBuilder.put("forComponentId",
+                    target.getClientId(facesContext));
             }
         }
+        Severity level = getLevel(component);
+        if(FacesMessage.SEVERITY_INFO != level){
+            parametersBuilder.put("level", level.getOrdinal());
+        }
+        if(!Boolean.TRUE.equals(attributes.get("showSummary"))){
+            parametersBuilder.put("showSummary", false);
+        }
+        if(Boolean.TRUE.equals(attributes.get("showDetail"))){
+            parametersBuilder.put("showDetail", true);
+        }
+        if(Boolean.TRUE.equals(attributes.get("tooltip"))){
+            parametersBuilder.put("tooltip", true);
+        }
+        messageObject.addParameter(parametersBuilder.build());
         // RendererUtils.getInstance().writeScript(facesContext, component, messageObject);
         javaScriptService.addPageReadyScript(facesContext, messageObject);
     }
