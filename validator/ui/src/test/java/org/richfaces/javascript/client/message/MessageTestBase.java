@@ -18,7 +18,6 @@ public class MessageTestBase {
 
     public static final String MY_MESSAGE = "form:uiMessage";
 
-    public static final String MESSAGE_INIT = "new RichFaces.ui.Message(\"" + MY_MESSAGE + "\", {forComponentId:\"" + COMPONENT + "\"})";
 
     @Rule
     public final Qunit qunit;
@@ -28,19 +27,25 @@ public class MessageTestBase {
     }
 
     public void setUpMessage(){
-        qunit.runScript(MESSAGE_INIT);
+        setUpMessage("");
+    }
+
+    public void setUpMessage(String messageOptions){
+        qunit.runScript(getMessageInit(messageOptions));
     }
 
     protected Builder createQunitPage() {
         return Qunit.builder().emulate(BrowserVersion.FIREFOX_3_6).loadJsfResource("jquery.js").loadJsfResource("richfaces.js")
-        .loadJsfResource("richfaces-event.js").loadJsfResource("richfaces-base-component.js").
-        loadJsfResource("csv.js", "org.richfaces").loadJsfResource("message.js", "org.richfaces").content("<form id=\"form\" name=\"form\" method=\"post\" action=\"/client-test.jsf\" enctype=\"application/x-www-form-urlencoded\">\n" + 
+        .loadJsfResource("richfaces-event.js").loadJsfResource("richfaces-base-component.js")
+        .loadJsfResource("richfaces-csv.js", "org.richfaces").loadJsfResource("message.js", "org.richfaces")
+        .content("<form id=\"form\" name=\"form\" method=\"post\" action=\"/client-test.jsf\" enctype=\"application/x-www-form-urlencoded\">\n" + 
         		"      <input type=\"hidden\" name=\"form\" value=\"form\"/>\n" + 
         		"      <input id=\"form:text\" type=\"text\" name=\"form:text\" value=\"fooValue\" onblur=\"form_3Atext_3Av(&quot;form:text&quot;,this,event)\"/>\n" + 
         		"      <span id=\"form:out\">\n" + 
         		"        fooValue\n" + 
-        		"      </span><div id=\"foo\" ><ul id=\"" + MY_MESSAGE + "\">"+getMessageContent()+"</ul></div><input type=\"hidden\" name=\"javax.faces.ViewState\" id=\"javax.faces.ViewState\" value=\"4262028796446907996:-2607792463910755035\" autocomplete=\"off\"/>\n" 
-        				+ "    </form>");
+        		"      </span><span id=\"" + MY_MESSAGE + "\">"+getMessageContent()+"</span>"+
+        		"      <input type=\"hidden\" name=\"javax.faces.ViewState\" id=\"javax.faces.ViewState\" value=\"4262028796446907996:-2607792463910755035\" autocomplete=\"off\"/>\n"+ 
+        		"    </form>");
     }
 
     
@@ -58,7 +63,7 @@ public class MessageTestBase {
     }
     
     protected Message getErrorMessage() {
-        return new Message(2,"error","script error");
+        return new Message(2,"error summary","error description");
     }
 
     protected HtmlElement getMessageContentElement() {
@@ -66,6 +71,15 @@ public class MessageTestBase {
         HtmlElement htmlElement = page.getElementById(MY_MESSAGE);
         assertNotNull(htmlElement);
         return htmlElement;
+    }
+
+    /**
+     * <p class="changed_added_4_0"></p>
+     * @param messageOptions TODO
+     * @return the messageInit
+     */
+    public String getMessageInit(String messageOptions) {
+        return "new RichFaces.ui.Message(\"" + MY_MESSAGE + "\", {forComponentId:\"" + COMPONENT + "\""+messageOptions+"})";
     }
 
 }

@@ -50,7 +50,7 @@ public class ClearMessageTest extends MessageTestBase {
     @Override
     protected String getMessageContent() {
         
-        return "<li>Error</li>";
+        return "<span class='rf-msg-err'><span class='rf-msg-sum'>"+ERROR_MESSAGE+"</span><span>";
     }
     @Override
     protected String getJavaScriptFunctionName() {

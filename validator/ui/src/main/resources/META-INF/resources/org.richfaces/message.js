@@ -44,26 +44,51 @@
 	var $super = rf.ui.Message.$super;
 
 	var defaultOptions = {
-
+			showSummary:true,
+			level:0
 	};
 	
+	var severetyClasses=["rf-msg-inf","rf-msg-wrn","rf-msg-err","rf-msg-ftl"];
 	var componentHash = {};
 	var componentIndex = 0;
 	
 	var onMessage = function (event, element, data) {
+		var content = $(rf.getDomElement(this.id));
 		if (!this.options.forComponentId) {
 			var index = componentHash[data.sourceId];
 			if (typeof index != undefined) {
 				$(rf.getDomElement(this.id+index)).remove();
 			}
-			var content = content = $(rf.getDomElement(this.id));
-
 			componentIndex ++;
-			if (data.message) content.append('<li id="'+this.id+componentIndex+'">'+data.message.summary+'</li>');
+			renderMessage.call(this,componentIndex,data.message);
 			componentHash[data.sourceId] = componentIndex;
 			
 		} else if (this.options.forComponentId==data.sourceId) {
-			rf.getDomElement(this.id).innerHTML = data.message ? '<li>'+data.message.summary+'</li>' : '';
+			content.empty();
+			renderMessage.call(this,0,data.message);
+		}
+	}
+	
+	var renderMessage = function(index,message){
+		if(message && message.severity >= this.options.level){
+			var content = $(rf.getDomElement(this.id));
+			var msgContent = "<span class='"+severetyClasses[message.severity]+"' id='"+this.id+index+"'";
+			if(message.summary){
+				if(this.options.tooltip){
+					msgContent = msgContent+" title='"+message.summary+"'>";
+				} else if(this.options.showSummary ){
+					msgContent = msgContent + "><span class='rf-msg-sum'>"+message.summary+"</span>";
+				} else {
+					msgContent = msgContent+">";
+				}
+			} else {
+				msgContent = msgContent+">";
+			}
+			if(this.options.showDetail && message.detail){
+				msgContent = msgContent + "<span class='rf-msg-dtl'>"+message.detail+"</span>";
+			}
+			msgContent = msgContent+"</span>"
+			content.append(msgContent);
 		}
 	}
 

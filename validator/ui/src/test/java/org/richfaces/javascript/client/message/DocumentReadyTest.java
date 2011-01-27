@@ -23,12 +23,9 @@
 
 package org.richfaces.javascript.client.message;
 
-import static org.junit.Assert.*;
-
 import org.jboss.test.qunit.Qunit.Builder;
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.javascript.host.Event;
 
 /**
@@ -40,15 +37,12 @@ public class DocumentReadyTest extends MessageTestBase {
     
     @Override
     protected Builder createQunitPage() {
-        return super.createQunitPage().loadContent("$(document).ready(function(){"+MESSAGE_INIT+"});");
+        return super.createQunitPage().loadContent("$(document).ready(function(){"+getMessageInit("")+"});");
     }
 
     @Test
     public void testSend() throws Exception {
         sendMessage();
-        HtmlElement htmlElement = getMessageContentElement();
-        String text = htmlElement.asText();
-        assertTrue(text.contains(getErrorMessage().getSummary()));
     }
 
     @Test

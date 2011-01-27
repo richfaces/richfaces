@@ -53,14 +53,17 @@
 			$.extend(_messages, messagesObject);
 		},
 		getMessage: function(customMessage, messageId, values) {
-			var message = customMessage ? customMessage : _messages[messageId] || {detail:"",summary:""};
-			return {detail:__interpolateMessage(message.detail,values),summary:__interpolateMessage(message.summary,values)};
+			var message = customMessage ? customMessage : _messages[messageId] || {detail:"",summary:"",severity:0};
+			return {detail:__interpolateMessage(message.detail,values),summary:__interpolateMessage(message.summary,values),severity:message.severity};
 		},
 		interpolateMessage: function(message,values){
-			return {detail:__interpolateMessage(message.detail,values),summary:__interpolateMessage(message.summary,values)};			
+			return {detail:__interpolateMessage(message.detail,values),summary:__interpolateMessage(message.summary,values),severity:message.severity};			
 		},
 		sendMessage: function (componentId, message) {
 			rf.Event.fire(window.document, rf.Event.MESSAGE_EVENT_TYPE, {'sourceId':componentId, 'message':message});
+		},
+		clearMessage: function(componentId){
+			rf.Event.fire(window.document, rf.Event.MESSAGE_EVENT_TYPE, {'sourceId':componentId });
 		},
 		validate: function (event, id, element, params) {
 			var value = __getValue(element || id);
@@ -71,6 +74,7 @@
 					if (converter.f)
 						convertedValue = converter.f(value,id,converter.p,converter.m);
 				} catch (e){
+					e.severity=2;
 					rf.csv.sendMessage(id, e);
 					return false;
 				}
@@ -88,6 +92,7 @@
 						}
 					}
 				} catch (e) {
+					e.severity=2;
 					rf.csv.sendMessage(id, e);
 					return false;
 				}
@@ -95,7 +100,7 @@
 			if(!params.da && params.a){
 				params.a.call(element,event,id);
 			} else {
-				rf.csv.sendMessage(id, "");
+				rf.csv.clearMessage(id);
 			}
 			return true;
 		},

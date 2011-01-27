@@ -38,11 +38,15 @@ public class SendMessageTest extends MessageTestBase {
     
     @Test
     public void testSend() throws Exception {
-        setUpMessage();
+        setUpMessage(",showSummary:true");
         sendMessage();
+        checkMessageContent(getErrorMessage().getSummary());
+    }
+
+    protected void checkMessageContent(String summary) {
         HtmlElement htmlElement = getMessageContentElement();
         String text = htmlElement.asText();
-        assertTrue(text.contains(getErrorMessage().getSummary()));
+        assertTrue(text.contains(summary));
     }
 
 }
