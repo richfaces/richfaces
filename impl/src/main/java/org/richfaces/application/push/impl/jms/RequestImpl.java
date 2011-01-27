@@ -23,7 +23,6 @@ package org.richfaces.application.push.impl.jms;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map.Entry;
 import java.util.concurrent.ExecutorService;
 
@@ -33,7 +32,6 @@ import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
-import javax.jms.TopicSubscriber;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -45,8 +43,6 @@ import org.richfaces.application.push.TopicsContext;
 import org.richfaces.application.push.impl.AbstractRequest;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
-
-import com.google.common.collect.Lists;
 
 /**
  * @author Nick Belaevski
@@ -62,8 +58,6 @@ public class RequestImpl extends AbstractRequest implements MessageListener {
     
     private TopicsContext topicsContext;
     
-    private List<TopicSubscriber> subscribers = Lists.newArrayListWithCapacity(1);
-    
     public RequestImpl(AtmosphereResource<HttpServletRequest, HttpServletResponse> atmosphereResource, Session session,
         ExecutorService executorService, MessagingContext messagingContext, TopicsContext topicsContext) {
 
@@ -75,14 +69,6 @@ public class RequestImpl extends AbstractRequest implements MessageListener {
 
     private void closeSession() {
         if (jmsSession != null) {
-            for (TopicSubscriber subscriber : subscribers) {
-                try {
-                    subscriber.close();
-                } catch (JMSException e) {
-                    LOGGER.error(e.getMessage(), e);
-                }
-            }
-
             try {
                 jmsSession.close();
             } catch (JMSException e) {
@@ -104,9 +90,7 @@ public class RequestImpl extends AbstractRequest implements MessageListener {
             SessionImpl sessionImpl = (SessionImpl) getSession();
             
             for (Entry<TopicKey, Collection<TopicKey>> entry: sessionImpl.getSuccessfulSubscriptions().asMap().entrySet()) {
-                TopicSubscriber subscriber = messagingContext.createTopicSubscriber(sessionImpl, jmsSession, entry);
-                subscribers.add(subscriber);
-                subscriber.setMessageListener(this);
+                messagingContext.createTopicSubscriber(sessionImpl, jmsSession, entry).setMessageListener(this);
             }
             
         } catch (Exception e) {
