@@ -22,15 +22,14 @@
 
 package org.richfaces.renderkit;
 
-import java.util.Map;
+import org.richfaces.component.util.SelectUtils;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-
-import org.richfaces.component.util.SelectUtils;
+import java.util.Map;
 
 /**
  * @author Nick Belaevski - nbelaevski@exadel.com
@@ -60,7 +59,7 @@ public class InputRendererBase extends RendererBase {
 
         if (value == null) {
             Object curVal = input.getValue();
-            Converter converter = SelectUtils.getConverterForProperty(context, input, "value");
+            Converter converter = SelectUtils.findConverter(context, input, "value");
 
             if (converter != null) {
                 value = converter.getAsString(context, input, curVal);
