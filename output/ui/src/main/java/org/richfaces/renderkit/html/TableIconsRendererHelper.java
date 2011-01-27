@@ -117,7 +117,7 @@ public abstract class TableIconsRendererHelper<T extends UIComponent> {
             if (icon != null) {
                 encodeDivIcon(writer, icon, styleClass, state);
             } else {
-                encodeImage(writer, context, attrIconValue);
+                encodeImage(writer, context, attrIconValue, styleClass);
             }
         }
     }
@@ -128,9 +128,10 @@ public abstract class TableIconsRendererHelper<T extends UIComponent> {
         writer.endElement(DIV_ELEM);
     }
 
-    public static void encodeImage(ResponseWriter writer, FacesContext context, String attrIconValue) throws IOException {
+    public static void encodeImage(ResponseWriter writer, FacesContext context, String attrIconValue, String styleClass) throws IOException {
         writer.startElement(IMG_ELEMENT, null);
         writer.writeAttribute(ALT_ATTRIBUTE, "", null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, styleClass, null);
         writer.writeURIAttribute(SRC_ATTRIBUTE, RenderKitUtils.getResourceURL(attrIconValue, context), null);
         writer.endElement(IMG_ELEMENT);
     }
