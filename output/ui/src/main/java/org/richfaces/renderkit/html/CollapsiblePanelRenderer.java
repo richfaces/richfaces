@@ -233,8 +233,7 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
         writer.startElement(DIV_ELEM, component);
         writer.writeAttribute(ID_ATTRIBUTE, component.getClientId(context) + ":content", null);
         writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-cp-b", attributeAsString(component, "bodyClass")), null);
-        writer.writeAttribute(STYLE_ATTRIBUTE, concatStyles(styleElement("display", visible ? "block" : "none"),
-                                                    attributeAsString(component, "style")), null);
+        writer.writeAttribute(STYLE_ATTRIBUTE, styleElement("display", visible ? "block" : "none"), null);
 
         renderChildren(context, component);
 
