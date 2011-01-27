@@ -80,15 +80,22 @@ public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
 
     private static final Pattern COMMA_SEPARATED_STRING = Pattern.compile("\\s*,\\s*");
     
+    private boolean isEmpty(String value) {
+        return (value == null || value.trim().length() == 0);
+    }
+    
     @Override
     public String getScript(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
         FacesContext facesContext = behaviorContext.getFacesContext();
         
         ComponentControlBehavior controlBehavior = (ComponentControlBehavior) behavior;
         String apiFunctionName = controlBehavior.getOperation();
+        String targetSourceString = controlBehavior.getTarget();
+        String selector = controlBehavior.getSelector();
         // Fix https://issues.jboss.org/browse/RF-9745
-        if (apiFunctionName == null || apiFunctionName.trim().length() == 0) {
-            return "";
+        if (isEmpty(apiFunctionName) || 
+            (isEmpty(targetSourceString) && isEmpty(selector))) {
+            throw new IllegalArgumentException("One of the necessary attributes is null or empty. Check operation attribute and selector or target attributes.");
         }
 
         JSFunctionDefinition callback = new JSFunctionDefinition();
@@ -104,8 +111,7 @@ public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
         script.append(REF_COMPONENT).append(",").append(ScriptUtils.toScript(apiFunctionParams.toArray())).append(");");
         callback.addToBody(script);
 
-        String targetSourceString = controlBehavior.getTarget();
-        String selector = controlBehavior.getSelector();
+        
 
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put(PARAM_CALLBACK, callback);
