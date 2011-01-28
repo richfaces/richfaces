@@ -138,6 +138,38 @@ autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" fetchValue="
 			<input:autocomplete mode="cachedAjax" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" fetchValue="#{country.name}">
 			#{country.name} #{country.iso} #{country.domain}
 			</input:autocomplete>
+			<input:select id="select" enableManualInput="true" defaultLabel="Select Value ...">
+				<f:selectItem itemLabel="Label#1" itemValue="Value#1"/>
+				<f:selectItem itemLabel="Label#2" itemValue="Value#2"/>
+				<f:selectItem itemLabel="Label#3" itemValue="Value#3"/>
+				<f:selectItem itemLabel="Label#4" itemValue="Value#4"/>
+				<f:selectItem itemLabel="Label#5" itemValue="Value#5"/>
+				<f:selectItem itemLabel="Label#6" itemValue="Value#6"/>
+				<f:selectItem itemLabel="Label#7" itemValue="Value#7"/>
+				<f:selectItem itemLabel="Label#8" itemValue="Value#8"/>
+				<f:selectItem itemLabel="Label#9" itemValue="Value#9"/>
+				<f:selectItem itemLabel="Label#10" itemValue="Value#10"/>
+				<f:selectItem itemLabel="Label#11" itemValue="Value#11"/>
+				<f:selectItem itemLabel="Label#12" itemValue="Value#12"/>
+				<f:selectItem itemLabel="Label#13" itemValue="Value#13"/>
+				<f:selectItem itemLabel="Label#14" itemValue="Value#14"/>
+			</input:select>
+			<input:inplaceSelect  defaultLabel="Edit Text" openOnEdit="true" saveOnSelect="false">
+				<f:selectItem itemLabel="Label#1" itemValue="Value#1"/>
+				<f:selectItem itemLabel="Label#2" itemValue="Value#2"/>
+				<f:selectItem itemLabel="Label#3" itemValue="Value#3"/>
+				<f:selectItem itemLabel="Label#4" itemValue="Value#4"/>
+				<f:selectItem itemLabel="Label#5" itemValue="Value#5"/>
+				<f:selectItem itemLabel="Label#6" itemValue="Value#6"/>
+				<f:selectItem itemLabel="Label#7" itemValue="Value#7"/>
+				<f:selectItem itemLabel="Label#8" itemValue="Value#8"/>
+				<f:selectItem itemLabel="Label#9" itemValue="Value#9"/>
+				<f:selectItem itemLabel="Label#10" itemValue="Value#10"/>
+				<f:selectItem itemLabel="Label#11" itemValue="Value#11"/>
+				<f:selectItem itemLabel="Label#12" itemValue="Value#12"/>
+				<f:selectItem itemLabel="Label#13" itemValue="Value#13"/>
+				<f:selectItem itemLabel="Label#14" itemValue="Value#14"/>
+			</input:inplaceSelect>
 		</h:form>
 	</output:popupPanel>
 	</ui:define>
