@@ -45,7 +45,7 @@
 			<plugin>
 				<groupId>org.jboss.test-jsf</groupId>
 				<artifactId>maven-mockgenerator-plugin</artifactId>
-				<version>1.0.5</version>
+				<version>1.0.6</version>
 				<executions>
 					<execution>
 						<id>generateTestMocks</id>
@@ -111,25 +111,21 @@
         <dependency>
             <groupId>org.jboss.test-jsf</groupId>
             <artifactId>jsf-test-stage</artifactId>
-            <version>1.0.6</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.test-jsf</groupId>
             <artifactId>jsf-mock</artifactId>
-            <version>1.0.6</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.test-jsf</groupId>
             <artifactId>htmlunit-client</artifactId>
-            <version>1.0.6</version>
             <scope>test</scope>
         </dependency>
 		<dependency>
 			<groupId>org.jboss.test-jsf</groupId>
 			<artifactId>jsf-test-qunit</artifactId>
-			<version>1.0.6</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

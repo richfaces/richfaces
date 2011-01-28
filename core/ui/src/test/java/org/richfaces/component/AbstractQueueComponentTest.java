@@ -50,6 +50,7 @@ import com.gargoylesoftware.htmlunit.ScriptPreProcessor;
 import com.gargoylesoftware.htmlunit.ScriptResult;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.javascript.host.WindowProxy;
 
 /**
  * @author Nick Belaevski
@@ -178,8 +179,8 @@ public abstract class AbstractQueueComponentTest {
     }
 
     protected void postRenderView() throws Exception {
-        ScriptableObject scriptableObject = (ScriptableObject) page.executeJavaScript("window").getJavaScriptResult();
-        scriptableObject.defineProperty("sysOut", systemOut, ScriptableObject.READONLY);
+        WindowProxy scriptableObject = (WindowProxy) page.executeJavaScript("window").getJavaScriptResult();
+        scriptableObject.getDelegee().defineProperty("sysOut", systemOut, ScriptableObject.READONLY);
     }
 
     protected void click(String id) {
@@ -473,7 +474,7 @@ class UnescapingScriptPreprocessor implements ScriptPreProcessor {
         ENTITIES_PATTERN = Pattern.compile("(" + sb.toString() + ")");
     }
 
-    public String preProcess(HtmlPage htmlPage, String sourceCode, String sourceName, HtmlElement htmlElement) {
+    public String preProcess(HtmlPage htmlPage, String sourceCode, String sourceName,  int lineNumber, HtmlElement htmlElement) {
         if (sourceName != null && !sourceName.startsWith("http:/")) {
             Matcher m = ENTITIES_PATTERN.matcher(sourceCode);
             StringBuffer sb = new StringBuffer();
@@ -491,6 +492,7 @@ class UnescapingScriptPreprocessor implements ScriptPreProcessor {
             return sourceCode;
         }
     }
+
 }
 
 
