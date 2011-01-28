@@ -65,9 +65,9 @@ public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
 
     private static final String DOWN_ICON_URL = "org.richfaces/down_icon.gif";
     
-    private static final String EXPAND_STATE = "expand";
+    private static final String EXPANDED_STATE = "expanded";
 
-    private static final String COLLAPSE_STATE = "collapse";
+    private static final String COLLAPSED_STATE = "collapsed";
 
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
@@ -83,8 +83,8 @@ public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
             boolean expanded = subTable.isExpanded();
             
             ResponseWriter writer = context.getResponseWriter();
-            encodeControl(context, writer, toggleControl, expanded, false);
-            encodeControl(context, writer, toggleControl, !expanded, true);
+            encodeControl(context, writer, toggleControl, expanded, true);
+            encodeControl(context, writer, toggleControl, !expanded, false);
 
             JSFunction jsFunction = new JSFunction("new RichFaces.ui.CollapsibleSubTableToggler");
             String toggleId = toggleControl.getClientId(context);
@@ -129,21 +129,21 @@ public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
             controlFacet.encodeAll(context);
         }
 
-        String expandIcon = control.getExpandIcon();
-        if (isEmpty(expandIcon)) {
-            expandIcon = context.getApplication().getResourceHandler().createResource(UP_ICON_URL).getRequestPath();
+        String expandedIcon = control.getExpandedIcon();
+        if (isEmpty(expandedIcon)) {
+            expandedIcon = context.getApplication().getResourceHandler().createResource(DOWN_ICON_URL).getRequestPath();
         } else {
-            expandIcon = RenderKitUtils.getResourceURL(expandIcon, context);
+            expandedIcon = RenderKitUtils.getResourceURL(expandedIcon, context);
         }
         
-        String collapseIcon = control.getCollapseIcon();
-        if (isEmpty(collapseIcon)) {
-            collapseIcon = context.getApplication().getResourceHandler().createResource(DOWN_ICON_URL).getRequestPath();
+        String collapsedIcon = control.getCollapsedIcon();
+        if (isEmpty(collapsedIcon)) {
+            collapsedIcon = context.getApplication().getResourceHandler().createResource(UP_ICON_URL).getRequestPath();
         } else {
-            collapseIcon = RenderKitUtils.getResourceURL(collapseIcon, context);
+            collapsedIcon = RenderKitUtils.getResourceURL(collapsedIcon, context);
         }
 
-        String image = expanded ? expandIcon : collapseIcon;
+        String image = expanded ? expandedIcon : collapsedIcon;
         if (image != null && image.trim().length() > 0) {
             writer.startElement(HtmlConstants.IMG_ELEMENT, control);
             writer.writeAttribute(HtmlConstants.SRC_ATTRIBUTE, image, null);
@@ -151,7 +151,7 @@ public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
             writer.endElement(HtmlConstants.IMG_ELEMENT);
         }
 
-        String label = expanded ? control.getExpandLabel() : control.getCollapseLabel();
+        String label = expanded ? control.getExpandedLabel() : control.getCollapsedLabel();
         if (label != null && label.trim().length() > 0) {
             writer.startElement(HtmlConstants.A_ELEMENT, control);
             writer.writeAttribute(HtmlConstants.HREF_ATTR, "javascript:void(0);", null);
@@ -168,8 +168,8 @@ public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
 
         HashMap<String, Object> options = new HashMap<String, Object>();
         options.put("forId", forId);
-        options.put("expandControl", toggleControlId + ":expand");
-        options.put("collapseControl", toggleControlId + ":collapse");
+        options.put("expandedControl", toggleControlId + ":expanded");
+        options.put("collapsedControl", toggleControlId + ":collapsed");
 
         String eventName = toggleControl.getEvent();
         
@@ -202,8 +202,7 @@ public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
         return null;
     }
 
-    protected String getState(boolean expand) {
-        return expand ? EXPAND_STATE : COLLAPSE_STATE;
+    protected String getState(boolean expanded) {
+        return expanded ? EXPANDED_STATE : COLLAPSED_STATE;
     }
-
 }

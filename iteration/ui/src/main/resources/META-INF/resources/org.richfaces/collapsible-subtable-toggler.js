@@ -5,8 +5,8 @@
 	richfaces.ui.CollapsibleSubTableToggler =  function(id, options) {
 		this.id = id;
 		this.eventName = options.eventName;
-        this.expandControl = options.expandControl;
-        this.collapseControl = options.collapseControl;
+        this.expandedControl = options.expandedControl;
+        this.collapsedControl = options.collapsedControl;
         this.forId = options.forId;
         this.element = $(document.getElementById(this.id));
         
@@ -29,7 +29,7 @@
 		 			var mode = subtable.getMode();
 		 			
 		 			if(richfaces.ui.CollapsibleSubTable.MODE_CLNT == mode) {
-		 				this.toggleControl(subtable.isExpand());
+		 				this.toggleControl(subtable.isExpanded());
 		 			}
 		 			
 		 			subtable.setOption(this.id);
@@ -37,21 +37,19 @@
 		 		}
 	 	 	}, 
     	 	
-    	 	toggleControl: function(expanded) {
-    	 		var expandControl = getElementById(this.expandControl);
-    	 		var collapseControl = getElementById(this.collapseControl);
+    	 	toggleControl: function(collapse) {
+    	 		var expandedControl = getElementById(this.expandedControl);
+    	 		var collapsedControl = getElementById(this.collapsedControl);
              
-    	 		if(expanded) {
-    	 			collapseControl.hide();    
-    	 			expandControl.show();
+    	 		if(collapse) {
+    	 			expandedControl.hide();
+    	 			collapsedControl.show();
     	 		} else {
-    	 			expandControl.hide();
-    	 			collapseControl.show();
+    	 			collapsedControl.hide();    
+    	 			expandedControl.show();
     	 		}
     	 	}
-	 	 
          };
-
      })());
 
 })(jQuery, window.RichFaces);

@@ -60,9 +60,9 @@ public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implem
     
     public static final String MODE_CLIENT = "client";
     
-    public static final int EXPAND_STATE = 1;
+    public static final int EXPANDED_STATE = 1;
     
-    public static final int COLLAPSE_STATE = 0;
+    public static final int COLLAPSED_STATE = 0;
 
 
     enum PropertyKeys {
@@ -106,7 +106,6 @@ public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implem
                     getFacesContext().getPartialViewContext().getRenderIds().add(togglerId);
                 }
             }
-            
         }
         super.broadcast(event);
     }
@@ -158,5 +157,3 @@ public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implem
         return state;
     }
 }
-
-

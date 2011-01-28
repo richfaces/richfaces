@@ -103,16 +103,16 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
         String stateId = clientId + STATE;
         String state = (String)requestMap.get(stateId);
                 
-        boolean isExpand = true; 
+        boolean isExpanded = true; 
         if(state != null) {
             int newValue = Integer.parseInt(state);
             
             if(newValue < 1) {
-                isExpand = false;
+                isExpanded = false;
             } 
             
-            if(subTable.isExpanded() != isExpand) {
-                new ToggleEvent(subTable, isExpand, togglerId).queue();
+            if(subTable.isExpanded() != isExpanded) {
+                new ToggleEvent(subTable, isExpanded, togglerId).queue();
             }
         }
     }
@@ -241,7 +241,7 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
         writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, stateId, null);
         writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.INPUT_TYPE_HIDDEN, null);
         
-        int state = subTable.isExpanded() ? AbstractCollapsibleSubTable.EXPAND_STATE : AbstractCollapsibleSubTable.COLLAPSE_STATE;
+        int state = subTable.isExpanded() ? AbstractCollapsibleSubTable.EXPANDED_STATE : AbstractCollapsibleSubTable.COLLAPSED_STATE;
         
         writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, state, null);
         writer.endElement(HtmlConstants.INPUT_ELEM);

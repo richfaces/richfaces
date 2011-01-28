@@ -49,16 +49,16 @@ public abstract class AbstractCollapsibleSubTableToggler extends UIComponentBase
     public static final String DEFAULT_EVENT = "onclick"; 
     
     @Attribute
-    public abstract String getExpandLabel();
+    public abstract String getExpandedLabel();
     
     @Attribute
-    public abstract String getCollapseLabel();
+    public abstract String getCollapsedLabel();
 
     @Attribute
-    public abstract String getExpandIcon();
+    public abstract String getExpandedIcon();
 
     @Attribute
-    public abstract String getCollapseIcon();
+    public abstract String getCollapsedIcon();
     
     @Attribute
     public abstract String getEvent();

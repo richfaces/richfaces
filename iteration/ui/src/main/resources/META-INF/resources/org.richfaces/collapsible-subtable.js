@@ -50,7 +50,7 @@
 		};
 		
 		var client = function(options) {
-			if(this.isExpand()) {
+			if(this.isExpanded()) {
 				this.collapse(options);
 			} else {
 				this.expand(options);
@@ -82,12 +82,12 @@
     			element.call(this).show();
     		},
     		    		    		
-    		isExpand: function() {
+    		isExpanded: function() {
     			return (parseInt(this.getState()) == richfaces.ui.CollapsibleSubTable.expand);
            	},
            
     		switchState: function(options) {
-    			var state = this.isExpand() ? richfaces.ui.CollapsibleSubTable.collapse : richfaces.ui.CollapsibleSubTable.expand;
+    			var state = this.isExpanded() ? richfaces.ui.CollapsibleSubTable.collapse : richfaces.ui.CollapsibleSubTable.expand;
     			this.setState(state);
     		}, 
     		
