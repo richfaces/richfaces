@@ -71,6 +71,7 @@ input.rf-sel-inp {
 
 .rf-sel-lst-cord{
 	position: absolute;
+	z-index: 10000;
 	/* TODO nick - review: font-size: 0px; */
 	display: none;
 }

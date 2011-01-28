@@ -110,6 +110,7 @@ input.rf-is-fld {
 	color: '#{richSkin.generalTextColor}';
 	font-family: '#{richSkin.generalFamilyFont}'; 
 	font-size : '#{richSkin.generalSizeFont}';
+	z-index: 10000;
 }
 
 .rf-is-lst-pos {

@@ -27,7 +27,7 @@
 				onmouseout="#{component.attributes['onmouseout']}"
 				onkeyup="#{component.attributes['onkeyup']}"
 				onkeydown="#{component.attributes['onkeydown']}"
-				onkeypress="#{component.attributes['onkeypress']}" id="#{clientId}Input" value="#{component.attributes['value']}"  disabled="#{disabled}" name="#{clientId}" type="text" class="rf-au-fnt rf-au-inp" autocomplete="off"/>
+				onkeypress="#{component.attributes['onkeypress']}" id="#{clientId}Input" value="#{component.attributes['value']}"  disabled="#{disabled}" name="#{clientId}Input" type="text" class="rf-au-fnt rf-au-inp" autocomplete="off"/>
                 <c:if test="#{component.attributes['showButton']}">
                 <c:if test="#{component.attributes['disabled']}">
                 <div id="#{clientId}Button" class="rf-au-btn rf-au-btn-dis">

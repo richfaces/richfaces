@@ -61,6 +61,7 @@ input.rf-au-inp {
 
 .rf-au-lst-cord{
 	position: absolute;
+	z-index: 10000;
 	/* TODO nick - review: font-size: 0px; */
 	display: none;
 }

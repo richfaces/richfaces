@@ -201,13 +201,17 @@
 	var selectItem = function(event, index, isOffset) {
 		if (this.items.length==0 || (!isOffset && index == this.index)) return;
 
-		if (index == null) {
+		if (index == null || index == undefined) {
 			clearSelection.call(this);
 			return;
 		}
 		
 		if (isOffset) {
-			index = this.index + index;
+			if (this.index==null) {
+				index = 0;
+			} else {
+				index = this.index + index;
+			}
 		}
 		if (index<0) {
 			index = 0;
