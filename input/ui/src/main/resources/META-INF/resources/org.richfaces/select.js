@@ -91,7 +91,7 @@
 	    				}
 	    				this.focusValue = this.selValueInput.val();
 	    				this.focused = true;
-	    				this.invokeEvent.call(this, "focus", document.getElementById(this.id + 'Input'), e);
+	    				this.invokeEvent.call(this, "focus", document.getElementById(this.id), e);
     				}
     			},
     			
@@ -280,7 +280,7 @@
                		this.__save();
                		
 					if(this.focusValue != this.selValueInput.val() ) {
-						this.invokeEvent.call(this,"selectitem", document.getElementById(this.id + 'Input'));
+						this.invokeEvent.call(this,"selectitem", document.getElementById(this.id));
 					}	
     			}, 
     			
@@ -316,9 +316,9 @@
 					}	
 					
 					this.focused = false;
-					this.invokeEvent.call(this,"blur", document.getElementById(this.id + 'Input'), e);
+					this.invokeEvent.call(this,"blur", document.getElementById(this.id), e);
 					if(this.focusValue != this.selValueInput.val() ) {
-						this.invokeEvent.call(this, "change", document.getElementById(this.id + 'Input'), e);
+						this.invokeEvent.call(this, "change", document.getElementById(this.id), e);
 					}
     			}
     		}
