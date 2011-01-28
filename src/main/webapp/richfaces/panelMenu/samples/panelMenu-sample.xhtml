@@ -13,10 +13,10 @@
 	<h:form id="form">
 		<h:panelGrid columns="2" columnClasses="cols,cols" width="400">
 			<rich:panelMenu style="width:200px" mode="ajax" groupMode="ajax"
-				groupLeftIconExpanded="triangleUp"
-				groupLeftIconCollapsed="triangleDown"
-				topGroupRightIconExpanded="chevronUp"
-				topGroupRightIconCollapsed="chevronDown" itemLeftIcon="disc"
+				groupExpandedLeftIcon="triangleUp"
+				groupCollapsedLeftIcon="triangleDown"
+				topGroupExpandedRightIcon="chevronUp"
+				topGroupCollapsedRightIcon="chevronDown" itemLeftIcon="disc"
 				itemChangeListener="#{panelMenuBean.updateCurrent}">
 				<rich:panelMenuGroup label="Group 1">
 					<rich:panelMenuItem label="Item 1.1" name="Item_1_1" />
