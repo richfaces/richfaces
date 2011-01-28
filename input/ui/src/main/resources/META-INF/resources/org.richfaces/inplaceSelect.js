@@ -56,21 +56,34 @@
 			onshow: function() {
 				$super.onshow.call(this);
 				if(this.openOnEdit) {
-					this.showPopup();
+					this.__showPopup();
 				}
 			},
 			
 			onhide: function() {
-				this.hidePopup();
+				this.__hidePopup();
 			},
 			
 			showPopup: function() {
-				this.popupList.show();
-                this.__hideLabel();
+				this.editState = true;
+				this.scrollElements = rf.Event.bindScrollEventHandlers(this.id, this.__scrollHandler, this);
+				this.__setInputFocus();
+				this.__setFocused(true);
+	    		this.focusValue = this.getValue();
+				this.invokeEvent.call(this, "focus", document.getElementById(this.id + 'Input'));
+				this.__showPopup();
+				
+				
 			},
 			
-			hidePopup: function() {
+			__showPopup: function() {
+				this.popupList.show();
+                this.__hideLabel();                
+			},
+			
+			__hidePopup: function() {
 				this.popupList.hide();
+				this.__showLabel();
 			},
 			
        		onsave: function() {
@@ -91,7 +104,7 @@
        		},
        		
 			onblur: function(e) {
-				this.hidePopup();
+				this.__hidePopup();
 				$super.onblur.call(this);
 			},
 			
@@ -108,7 +121,7 @@
 				this.setValue(label);
 				
 				this.__setInputFocus();
-           		this.hidePopup();
+           		this.__hidePopup();
            		
            		if(this.saveOnSelect) {
        				this.save();
@@ -133,7 +146,7 @@
 			
 			saveItemValue: function(value) {
 				this.selValueInput.val(value);
-                this.__showLabel();
+                
 			},
 			
 			getItemLabel: function(item) {
@@ -203,7 +216,7 @@
        		}, 
        		
        		__clickHandler: function(e) {
-       			this.showPopup();
+       			this.__showPopup();
        		},
 
        		__onListMouseDown: function(e) {
