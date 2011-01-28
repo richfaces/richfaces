@@ -15,8 +15,8 @@
         <p>Page</p>
 
         <h:form id="f">
-            <pn:tabPanel id="panel" switchType="ajax" tabHeaderClassDisabled="myClass_01" itemChangeListener="#{togglePanelBean.itemChangeActionListener}">
-                <pn:tab header="tab1 header" headerClassDisabled="myClass_02" onenter="alert('onenter 01')">
+            <pn:tabPanel id="panel" switchType="ajax" tabDisabledHeaderClass="myClass_01" itemChangeListener="#{togglePanelBean.itemChangeActionListener}">
+                <pn:tab header="tab1 header" headerDisabledClass="myClass_02" onenter="alert('onenter 01')">
                     Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here.
                 </pn:tab>
                 <pn:tab header="tab 1a (disabled) header" disabled="true">

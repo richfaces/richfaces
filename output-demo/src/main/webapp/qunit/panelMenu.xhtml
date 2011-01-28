@@ -52,10 +52,10 @@
                     itemMode="server"
                     groupMode="server"
                     activeItem="myFavariteIten"
-                    itemLeftIconDisabled="disc"
-                    groupLeftIconDisabled="disc"
-                    topItemLeftIconDisabled="disc"
-                    topGroupLeftIconDisabled="disc"
+                    itemDisabledLeftIcon="disc"
+                    groupDisabledLeftIcon="disc"
+                    topItemDisabledLeftIcon="disc"
+                    topGroupDisabledLeftIcon="disc"
                     itemChangeListener="#{modalPanel.itemChangeEventListener}"
                     expandEvent="dblclick"
                     collapseEvent="dblclick"
@@ -68,13 +68,13 @@
                 </pn:panelMenuGroup>
                 <pn:panelMenuGroup
                         label="Group 2"
-                        leftIconCollapsed="triangle"
-                        leftIconExpanded="triangleDown">
+                        leftCollapsedIcon="triangle"
+                        leftExpandedIcon="triangleDown">
                     <pn:panelMenuItem label="Item 2.1" />
                     <pn:panelMenuGroup
                             label="Group 2.2"
-                            leftIconCollapsed="chevron"
-                            leftIconExpanded="chevronDown">
+                            leftCollapsedIcon="chevron"
+                            leftExpandedIcon="chevronDown">
                         <pn:panelMenuItem label="Item 2.2.1" action="#{modalPanel.action}"/>
                         <pn:panelMenuItem label="Item 2.2.2" name="myFavariteIten" />
                         <pn:panelMenuItem label="Item 2.2.3"/>
