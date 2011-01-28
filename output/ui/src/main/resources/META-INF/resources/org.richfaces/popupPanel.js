@@ -240,7 +240,7 @@
 
                         if (newParent != this.parent) {
                             this.saveInputValues(element);
-                            newParent.appendChild(this.shadeDiv.get(0));
+                            this.shadeDiv.length && newParent.appendChild(this.shadeDiv.get(0));
                             newParent.appendChild(this.shadowDiv.get(0));
                             newParent.appendChild(this.cdiv.get(0));
                             this.domReattached = true;
@@ -488,7 +488,7 @@
                         if (this.domReattached) {
                             this.saveInputValues(element);
                             var div = this.div.get(0);
-                            div.appendChild(this.shadeDiv.get(0));
+                            this.shadeDiv.length && div.appendChild(this.shadeDiv.get(0));
                             div.appendChild(this.shadowDiv.get(0));
                             div.appendChild(element.get(0));
 
