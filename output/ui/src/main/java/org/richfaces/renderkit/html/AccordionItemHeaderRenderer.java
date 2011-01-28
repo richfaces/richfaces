@@ -1,20 +1,17 @@
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
-import static org.richfaces.renderkit.HtmlConstants.TD_ELEM;
-import static org.richfaces.renderkit.html.DivPanelRenderer.attributeAsString;
-
-import java.io.IOException;
-
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-
 import org.richfaces.component.AbstractAccordionItem;
 import org.richfaces.component.AbstractTogglePanelTitledItem;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.renderkit.util.PanelIcons;
 import org.richfaces.renderkit.util.PanelIcons.State;
+
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+
+import static org.richfaces.renderkit.HtmlConstants.*;
+import static org.richfaces.renderkit.html.DivPanelRenderer.attributeAsString;
 
 class AccordionItemHeaderRenderer extends TableIconsRendererHelper<AbstractAccordionItem> {
 
@@ -23,15 +20,15 @@ class AccordionItemHeaderRenderer extends TableIconsRendererHelper<AbstractAccor
     }
 
     protected void encodeHeaderLeftIcon(ResponseWriter writer, FacesContext context, AbstractAccordionItem panel) throws IOException {
-        String iconInactive = panel.isDisabled() ? panel.getLeftIconDisabled() : panel.getLeftIconInactive();
-        String iconActive = panel.isDisabled() ? panel.getLeftIconDisabled() : panel.getLeftIconActive();
+        String iconInactive = panel.isDisabled() ? panel.getLeftDisabledIcon() : panel.getLeftInactiveIcon();
+        String iconActive = panel.isDisabled() ? panel.getLeftDisabledIcon() : panel.getLeftActiveIcon();
 
         encodeTdIcon(writer, context, cssClassPrefix + "-ico", iconInactive, iconActive, panel.isDisabled() ? State.commonDisabled : State.common);
     }
 
     protected void encodeHeaderRightIcon(ResponseWriter writer, FacesContext context, AbstractAccordionItem panel) throws IOException {
-        String iconInactive = panel.isDisabled() ? panel.getRightIconDisabled() : panel.getRightIconInactive();
-        String iconActive = panel.isDisabled() ? panel.getRightIconDisabled() : panel.getRightIconActive();
+        String iconInactive = panel.isDisabled() ? panel.getRightDisabledIcon() : panel.getRightInactiveIcon();
+        String iconActive = panel.isDisabled() ? panel.getRightDisabledIcon() : panel.getRightActiveIcon();
 
         //TODO nick - should this be "-ico-exp"? also why expanded icon state is connected with right icon alignment?
         encodeTdIcon(writer, context, cssClassPrefix + "-exp-ico", iconInactive, iconActive, panel.isDisabled() ? State.headerDisabled : State.header);

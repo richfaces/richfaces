@@ -22,29 +22,6 @@
 
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-import java.text.DateFormatSymbols;
-import java.text.Format;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
-import java.util.TimeZone;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialViewContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
-import javax.faces.convert.DateTimeConverter;
-
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractCalendar;
@@ -56,6 +33,20 @@ import org.richfaces.component.util.SelectUtils;
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.event.CurrentDateChangeEvent;
 import org.richfaces.utils.CalendarHelper;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialViewContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
+import javax.faces.convert.DateTimeConverter;
+import java.io.IOException;
+import java.text.DateFormatSymbols;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @author amarkhel
@@ -252,7 +243,7 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         boolean disable  = (Boolean)component.getAttributes().get(OPTION_DISABLED);
         String buttonIcon = (String)component.getAttributes().get("buttonIcon");
         if (disable) {
-            buttonIcon = (String)component.getAttributes().get("buttonIconDisabled");
+            buttonIcon = (String)component.getAttributes().get("buttonDisabledIcon");
         }
         
         if(buttonIcon != null && buttonIcon.trim().length() != 0) {

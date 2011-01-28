@@ -67,13 +67,13 @@ public abstract class AbstractTabPanel extends AbstractTogglePanel {
     public abstract HeaderAlignment getHeaderAlignment();
 
     @Attribute
-    public abstract String getTabHeaderClassActive();
+    public abstract String getTabActiveHeaderClass();
 
     @Attribute
-    public abstract String getTabHeaderClassDisabled();
+    public abstract String getTabDisabledHeaderClass();
 
     @Attribute
-    public abstract String getTabHeaderClassInactive();
+    public abstract String getTabInactiveHeaderClass();
 
     @Attribute
     public abstract String getTabContentClass();

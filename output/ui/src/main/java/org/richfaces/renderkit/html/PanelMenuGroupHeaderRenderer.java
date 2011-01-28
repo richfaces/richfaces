@@ -1,13 +1,12 @@
 package org.richfaces.renderkit.html;
 
-import java.io.IOException;
-
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-
 import org.richfaces.component.AbstractPanelMenuGroup;
 import org.richfaces.renderkit.util.PanelIcons;
 import org.richfaces.renderkit.util.PanelIcons.State;
+
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
 
 class PanelMenuGroupHeaderRenderer extends TableIconsRendererHelper<AbstractPanelMenuGroup> {
 
@@ -24,8 +23,8 @@ class PanelMenuGroupHeaderRenderer extends TableIconsRendererHelper<AbstractPane
     }
     
     protected void encodeHeaderLeftIcon(ResponseWriter writer, FacesContext context, AbstractPanelMenuGroup group) throws IOException {
-        String iconCollapsed = group.isDisabled() ? group.getLeftIconDisabled() : group.getLeftIconCollapsed();
-        String iconExpanded = group.isDisabled() ? group.getLeftIconDisabled() : group.getLeftIconExpanded();
+        String iconCollapsed = group.isDisabled() ? group.getLeftDisabledIcon() : group.getLeftCollapsedIcon();
+        String iconExpanded = group.isDisabled() ? group.getLeftDisabledIcon() : group.getLeftExpandedIcon();
 
         if (iconCollapsed == null || iconCollapsed.trim().length() == 0) {
             iconCollapsed = PanelIcons.transparent.toString();
@@ -39,8 +38,8 @@ class PanelMenuGroupHeaderRenderer extends TableIconsRendererHelper<AbstractPane
     }
 
     protected void encodeHeaderRightIcon(ResponseWriter writer, FacesContext context, AbstractPanelMenuGroup group) throws IOException {
-        String iconCollapsed = group.isDisabled() ? group.getRightIconDisabled() : group.getRightIconCollapsed();
-        String iconExpanded = group.isDisabled() ? group.getRightIconDisabled() : group.getRightIconExpanded();
+        String iconCollapsed = group.isDisabled() ? group.getRightDisabledIcon() : group.getRightCollapsedIcon();
+        String iconExpanded = group.isDisabled() ? group.getRightDisabledIcon() : group.getRightExpandedIcon();
 
         if (iconCollapsed == null || iconCollapsed.trim().length() == 0) {
             iconCollapsed = PanelIcons.transparent.toString();

@@ -47,51 +47,51 @@ public abstract class AbstractTab extends AbstractTogglePanelTitledItem implemen
 
     // ------------------------------------------------ Html Attributes
     enum Properties {
-        headerClassDisabled, headerClassInactive, headerClass, contentClass, headerClassActive
+        headerDisabledClass, headerInactiveClass, headerClass, contentClass, headerActiveClass
 
     }
 
     @Attribute(generate = false)
-    public String getHeaderClassActive() {
-        String value = (String) getStateHelper().eval(Properties.headerClassActive);
+    public String getHeaderActiveClass() {
+        String value = (String) getStateHelper().eval(Properties.headerActiveClass);
         if (value != null) {
             return value;
         }
 
-        return getTabPanel().getTabHeaderClassActive();
+        return getTabPanel().getTabActiveHeaderClass();
     }
 
-    public void setHeaderClassActive(String headerClassActive) {
-        getStateHelper().put(Properties.headerClassActive, headerClassActive);
+    public void setHeaderActiveClass(String headerActiveClass) {
+        getStateHelper().put(Properties.headerActiveClass, headerActiveClass);
     }
 
 
     @Attribute(generate = false)
-    public String getHeaderClassDisabled() {
-        String value = (String) getStateHelper().eval(Properties.headerClassDisabled);
+    public String getHeaderDisabledClass() {
+        String value = (String) getStateHelper().eval(Properties.headerDisabledClass);
         if (value != null) {
             return value;
         }
 
-        return getTabPanel().getTabHeaderClassDisabled();
+        return getTabPanel().getTabDisabledHeaderClass();
     }
 
-    public void setHeaderClassDisabled(String headerClassDisabled) {
-        getStateHelper().put(Properties.headerClassDisabled, headerClassDisabled);
+    public void setHeaderDisabledClass(String headerDisabledClass) {
+        getStateHelper().put(Properties.headerDisabledClass, headerDisabledClass);
     }
 
     @Attribute(generate = false)
-    public String getHeaderClassInactive() {
-        String value = (String) getStateHelper().eval(Properties.headerClassInactive);
+    public String getHeaderInactiveClass() {
+        String value = (String) getStateHelper().eval(Properties.headerInactiveClass);
         if (value != null) {
             return value;
         }
 
-        return getTabPanel().getTabHeaderClassInactive();
+        return getTabPanel().getTabInactiveHeaderClass();
     }
 
-    public void setHeaderClassInactive(String headerClassInactive) {
-        getStateHelper().put(Properties.headerClassInactive, headerClassInactive);
+    public void setHeaderInactiveClass(String headerInactiveClass) {
+        getStateHelper().put(Properties.headerInactiveClass, headerInactiveClass);
     }
 
     @Attribute(generate = false)

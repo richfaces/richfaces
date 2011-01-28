@@ -23,20 +23,16 @@
 
 package org.richfaces.component;
 
+import org.richfaces.PanelMenuMode;
+import org.richfaces.cdk.annotations.*;
+import org.richfaces.event.ItemChangeEvent;
+import org.richfaces.event.PanelToggleEvent;
+
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
-
-import org.richfaces.PanelMenuMode;
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.EventName;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.event.ItemChangeEvent;
-import org.richfaces.event.PanelToggleEvent;
 
 /**
  * @author akolonitsky
@@ -180,68 +176,68 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
     // ------------------------------------------------ Html Attributes
 
     enum Properties {
-        leftIconDisabled, leftIconExpanded, rightIconCollapsed, rightIconDisabled, rightIconExpanded, disabledClass, styleClass, leftIconCollapsed
+        leftDisabledIcon, leftExpandedIcon, rightCollapsedIcon, rightDisabledIcon, rightExpandedIcon, disabledClass, styleClass, leftCollapsedIcon
     }
 
     @Attribute(generate = false)
-    public String getLeftIconCollapsed() {
-        return (String) getStateHelper().eval(Properties.leftIconCollapsed,
-                isTopItem() ? getPanelMenu().getTopGroupLeftIconCollapsed() : getPanelMenu().getGroupLeftIconCollapsed());
+    public String getLeftCollapsedIcon() {
+        return (String) getStateHelper().eval(Properties.leftCollapsedIcon,
+                isTopItem() ? getPanelMenu().getTopGroupCollapsedLeftIcon() : getPanelMenu().getGroupCollapsedLeftIcon());
     }
 
-    public void setLeftIconCollapsed(String leftIconCollapsed) {
-        getStateHelper().put(Properties.leftIconCollapsed, leftIconCollapsed);
+    public void setLeftCollapsedIcon(String leftCollapsedIcon) {
+        getStateHelper().put(Properties.leftCollapsedIcon, leftCollapsedIcon);
     }
 
 
     @Attribute(generate = false)
-    public String getLeftIconDisabled() {
-        return (String) getStateHelper().eval(Properties.leftIconDisabled,
-                isTopItem() ? getPanelMenu().getTopGroupLeftIconDisabled() : getPanelMenu().getGroupLeftIconDisabled());
+    public String getLeftDisabledIcon() {
+        return (String) getStateHelper().eval(Properties.leftDisabledIcon,
+                isTopItem() ? getPanelMenu().getTopGroupDisabledLeftIcon() : getPanelMenu().getGroupDisabledLeftIcon());
     }
 
-    public void setLeftIconDisabled(String leftIconDisabled) {
-        getStateHelper().put(Properties.leftIconDisabled, leftIconDisabled);
-    }
-
-    @Attribute(generate = false)
-    public String getLeftIconExpanded() {
-        return (String) getStateHelper().eval(Properties.leftIconExpanded,
-                isTopItem() ? getPanelMenu().getTopGroupLeftIconExpanded() : getPanelMenu().getGroupLeftIconExpanded());
-    }
-
-    public void setLeftIconExpanded(String leftIconExpanded) {
-        getStateHelper().put(Properties.leftIconExpanded, leftIconExpanded);
+    public void setLeftDisabledIcon(String leftDisabledIcon) {
+        getStateHelper().put(Properties.leftDisabledIcon, leftDisabledIcon);
     }
 
     @Attribute(generate = false)
-    public String getRightIconCollapsed() {
-        return (String) getStateHelper().eval(Properties.rightIconCollapsed,
-                isTopItem() ? getPanelMenu().getTopGroupRightIconCollapsed() : getPanelMenu().getGroupRightIconCollapsed());
+    public String getLeftExpandedIcon() {
+        return (String) getStateHelper().eval(Properties.leftExpandedIcon,
+                isTopItem() ? getPanelMenu().getTopGroupExpandedLeftIcon() : getPanelMenu().getGroupExpandedLeftIcon());
     }
 
-    public void setRightIconCollapsed(String rightIconCollapsed) {
-        getStateHelper().put(Properties.rightIconCollapsed, rightIconCollapsed);
-    }
-
-    @Attribute(generate = false)
-    public String getRightIconDisabled() {
-        return (String) getStateHelper().eval(Properties.rightIconDisabled,
-                isTopItem() ? getPanelMenu().getTopGroupRightIconDisabled() : getPanelMenu().getGroupRightIconDisabled());
-    }
-
-    public void setRightIconDisabled(String rightIconDisabled) {
-        getStateHelper().put(Properties.rightIconDisabled, rightIconDisabled);
+    public void setLeftExpandedIcon(String leftExpandedIcon) {
+        getStateHelper().put(Properties.leftExpandedIcon, leftExpandedIcon);
     }
 
     @Attribute(generate = false)
-    public String getRightIconExpanded() {
-        return (String) getStateHelper().eval(Properties.rightIconExpanded,
-                isTopItem() ? getPanelMenu().getTopGroupRightIconExpanded() : getPanelMenu().getGroupRightIconExpanded());
+    public String getRightCollapsedIcon() {
+        return (String) getStateHelper().eval(Properties.rightCollapsedIcon,
+                isTopItem() ? getPanelMenu().getTopGroupCollapsedRightIcon() : getPanelMenu().getGroupCollapsedRightIcon());
     }
 
-    public void setRightIconExpanded(String rightIconExpanded) {
-        getStateHelper().put(Properties.rightIconExpanded, rightIconExpanded);
+    public void setRightCollapsedIcon(String rightCollapsedIcon) {
+        getStateHelper().put(Properties.rightCollapsedIcon, rightCollapsedIcon);
+    }
+
+    @Attribute(generate = false)
+    public String getRightDisabledIcon() {
+        return (String) getStateHelper().eval(Properties.rightDisabledIcon,
+                isTopItem() ? getPanelMenu().getTopGroupDisabledRightIcon() : getPanelMenu().getGroupDisabledRightIcon());
+    }
+
+    public void setRightDisabledIcon(String rightDisabledIcon) {
+        getStateHelper().put(Properties.rightDisabledIcon, rightDisabledIcon);
+    }
+
+    @Attribute(generate = false)
+    public String getRightExpandedIcon() {
+        return (String) getStateHelper().eval(Properties.rightExpandedIcon,
+                isTopItem() ? getPanelMenu().getTopGroupExpandedRightIcon() : getPanelMenu().getGroupExpandedRightIcon());
+    }
+
+    public void setRightExpandedIcon(String rightExpandedIcon) {
+        getStateHelper().put(Properties.rightExpandedIcon, rightExpandedIcon);
     }
 
     @Attribute(events = @EventName("collapse"))

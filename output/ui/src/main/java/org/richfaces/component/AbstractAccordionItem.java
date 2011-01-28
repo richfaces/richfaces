@@ -39,7 +39,17 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelTitledIte
     public static final String COMPONENT_FAMILY = "org.richfaces.AccordionItem";
 
     enum Properties {
-        contentClass, leftIconActive, leftIconInactive, leftIconDisabled, rightIconActive, rightIconDisabled, rightIconInactive, headerClassActive, headerClassDisabled, headerClassInactive, headerClass;
+        contentClass,
+        leftActiveIcon,
+        leftInactiveIcon,
+        leftDisabledIcon,
+        rightActiveIcon,
+        rightDisabledIcon,
+        rightInactiveIcon,
+        headerActiveClass,
+        headerDisabledClass,
+        headerInactiveClass,
+        headerClass
     }
 
     public AbstractAccordionItem() {
@@ -50,86 +60,86 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelTitledIte
         return (AbstractAccordion) ToggleControl.getEnclosedPanel(this);
     }
 
-    @Attribute(defaultValue = "getAccordion().getItemLeftIconActive()", generate = false)
-    public String getLeftIconActive() {
-        return (String) getStateHelper().eval(Properties.leftIconActive, getAccordion().getItemLeftIconActive());
+    @Attribute(defaultValue = "getAccordion().getItemActiveLeftIcon()", generate = false)
+    public String getLeftActiveIcon() {
+        return (String) getStateHelper().eval(Properties.leftActiveIcon, getAccordion().getItemActiveLeftIcon());
     }
 
-    public void setLeftIconActive(String leftIconActive) {
-        getStateHelper().put(Properties.leftIconActive, leftIconActive);
+    public void setLeftActiveIcon(String leftActiveIcon) {
+        getStateHelper().put(Properties.leftActiveIcon, leftActiveIcon);
     }
 
-    @Attribute(defaultValue = "getAccordion().getItemLeftIconDisabled()", generate = false)
-    public String getLeftIconDisabled() {
-        return (String) getStateHelper().eval(Properties.leftIconDisabled, getAccordion().getItemLeftIconDisabled());
+    @Attribute(defaultValue = "getAccordion().getItemDisabledLeftIcon()", generate = false)
+    public String getLeftDisabledIcon() {
+        return (String) getStateHelper().eval(Properties.leftDisabledIcon, getAccordion().getItemDisabledLeftIcon());
     }
 
-    public void setLeftIconDisabled(String leftIconDisabled) {
-        getStateHelper().put(Properties.leftIconDisabled, leftIconDisabled);
+    public void setLeftDisabledIcon(String leftDisabledIcon) {
+        getStateHelper().put(Properties.leftDisabledIcon, leftDisabledIcon);
     }
 
 
-    @Attribute(defaultValue = "getAccordion().getItemLeftIconInactive()", generate = false)
-    public String getLeftIconInactive() {
-        return (String) getStateHelper().eval(Properties.leftIconInactive, getAccordion().getItemLeftIconInactive());
+    @Attribute(defaultValue = "getAccordion().getItemInactiveLeftIcon()", generate = false)
+    public String getLeftInactiveIcon() {
+        return (String) getStateHelper().eval(Properties.leftInactiveIcon, getAccordion().getItemInactiveLeftIcon());
     }
 
-    public void setLeftIconInactive(String leftIconInactive) {
-        getStateHelper().put(Properties.leftIconInactive, leftIconInactive);
+    public void setLeftInactiveIcon(String leftInactiveIcon) {
+        getStateHelper().put(Properties.leftInactiveIcon, leftInactiveIcon);
     }
 
-    @Attribute(defaultValue = "getAccordion().getItemRightIconActive()", generate = false)
-    public String getRightIconActive() {
-        return (String) getStateHelper().eval(Properties.rightIconActive, getAccordion().getItemRightIconActive());
+    @Attribute(defaultValue = "getAccordion().getItemActiveRightIcon()", generate = false)
+    public String getRightActiveIcon() {
+        return (String) getStateHelper().eval(Properties.rightActiveIcon, getAccordion().getItemActiveRightIcon());
     }
 
-    public void setRightIconActive(String rightIconActive) {
-        getStateHelper().put(Properties.rightIconActive, rightIconActive);
+    public void setRightActiveIcon(String rightActiveIcon) {
+        getStateHelper().put(Properties.rightActiveIcon, rightActiveIcon);
     }
 
-    @Attribute(defaultValue = "getAccordion().getItemRightIconDisabled()", generate = false)
-    public String getRightIconDisabled() {
-        return (String) getStateHelper().eval(Properties.rightIconDisabled, getAccordion().getItemRightIconDisabled());
+    @Attribute(defaultValue = "getAccordion().getItemDisabledRightIcon()", generate = false)
+    public String getRightDisabledIcon() {
+        return (String) getStateHelper().eval(Properties.rightDisabledIcon, getAccordion().getItemDisabledRightIcon());
     }
 
-    public void setRightIconDisabled(String rightIconDisabled) {
-        getStateHelper().put(Properties.rightIconDisabled, rightIconDisabled);
+    public void setRightDisabledIcon(String rightDisabledIcon) {
+        getStateHelper().put(Properties.rightDisabledIcon, rightDisabledIcon);
     }
 
-    @Attribute(defaultValue = "getAccordion().getItemRightIconInactive()", generate = false)
-    public String getRightIconInactive() {
-        return (String) getStateHelper().eval(Properties.rightIconInactive, getAccordion().getItemRightIconInactive());
+    @Attribute(defaultValue = "getAccordion().getItemRightInactiveIcon()", generate = false)
+    public String getRightInactiveIcon() {
+        return (String) getStateHelper().eval(Properties.rightInactiveIcon, getAccordion().getItemRightInactiveIcon());
     }
 
-    public void setRightIconInactive(String rightIconInactive) {
-        getStateHelper().put(Properties.rightIconInactive, rightIconInactive);
+    public void setRightInactiveIcon(String rightInactiveIcon) {
+        getStateHelper().put(Properties.rightInactiveIcon, rightInactiveIcon);
     }
 
-    @Attribute(defaultValue = "getAccordion().getItemHeaderClassActive()", generate = false)
-    public String getHeaderClassActive() {
-        return (String) getStateHelper().eval(Properties.headerClassActive, getAccordion().getItemHeaderClassActive());
+    @Attribute(defaultValue = "getAccordion().getItemHeaderActiveClass()", generate = false)
+    public String getHeaderActiveClass() {
+        return (String) getStateHelper().eval(Properties.headerActiveClass, getAccordion().getItemActiveHeaderClass());
     }
 
-    public void setHeaderClassActive(String headerClassActive) {
-        getStateHelper().put(Properties.headerClassActive, headerClassActive);
+    public void setHeaderActiveClass(String headerActiveClass) {
+        getStateHelper().put(Properties.headerActiveClass, headerActiveClass);
     }
 
-    @Attribute(defaultValue = "getAccordion().getItemHeaderClassDisabled()", generate = false)
-    public String getHeaderClassDisabled() {
-        return (String) getStateHelper().eval(Properties.headerClassDisabled, getAccordion().getItemHeaderClassDisabled());
+    @Attribute(defaultValue = "getAccordion().getItemDisabledHeaderClass()", generate = false)
+    public String getHeaderDisabledClass() {
+        return (String) getStateHelper().eval(Properties.headerDisabledClass, getAccordion().getItemDisabledHeaderClass());
     }
 
-    public void setHeaderClassDisabled(String headerClassDisabled) {
-        getStateHelper().put(Properties.headerClassDisabled, headerClassDisabled);
+    public void setHeaderDisabledClass(String headerDisabledClass) {
+        getStateHelper().put(Properties.headerDisabledClass, headerDisabledClass);
     }
 
-    @Attribute(defaultValue = "getAccordion().getItemHeaderClassInactive()", generate = false)
-    public String getHeaderClassInactive() {
-        return (String) getStateHelper().eval(Properties.headerClassInactive, getAccordion().getItemHeaderClassInactive());
+    @Attribute(defaultValue = "getAccordion().getItemInactiveHeaderClass()", generate = false)
+    public String getHeaderInactiveClass() {
+        return (String) getStateHelper().eval(Properties.headerInactiveClass, getAccordion().getItemInactiveHeaderClass());
     }
 
-    public void setHeaderClassInactive(String headerClassInactive) {
-        getStateHelper().put(Properties.headerClassInactive, headerClassInactive);
+    public void setHeaderInactiveClass(String headerInactiveClass) {
+        getStateHelper().put(Properties.headerInactiveClass, headerInactiveClass);
     }
 
     @Attribute(defaultValue = "getAccordion().getItemHeaderClass()")

@@ -59,22 +59,22 @@ public abstract class AbstractAccordion extends AbstractTogglePanel {
     // ------------------------------------------------ Html Attributes
 
     @Attribute
-    public abstract String getItemLeftIconActive();
+    public abstract String getItemActiveLeftIcon();
 
     @Attribute
-    public abstract String getItemLeftIconInactive();
+    public abstract String getItemInactiveLeftIcon();
 
     @Attribute
-    public abstract String getItemLeftIconDisabled();
+    public abstract String getItemDisabledLeftIcon();
 
     @Attribute
-    public abstract String getItemRightIconActive();
+    public abstract String getItemActiveRightIcon();
 
     @Attribute
-    public abstract String getItemRightIconInactive();
+    public abstract String getItemRightInactiveIcon();
 
     @Attribute
-    public abstract String getItemRightIconDisabled();
+    public abstract String getItemDisabledRightIcon();
 
     @Attribute
     public abstract String getWidth();
@@ -83,13 +83,13 @@ public abstract class AbstractAccordion extends AbstractTogglePanel {
     public abstract String getHeight();
 
     @Attribute
-    public abstract String getItemHeaderClassActive();
+    public abstract String getItemActiveHeaderClass();
 
     @Attribute
-    public abstract String getItemHeaderClassDisabled();
+    public abstract String getItemDisabledHeaderClass();
 
     @Attribute
-    public abstract String getItemHeaderClassInactive();
+    public abstract String getItemInactiveHeaderClass();
 
     @Attribute
     public abstract String getItemContentClass();

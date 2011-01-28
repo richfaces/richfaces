@@ -22,26 +22,22 @@
 
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
-import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.STYLE_ATTRIBUTE;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractCollapsiblePanel;
+import org.richfaces.component.AbstractTogglePanel;
+import org.richfaces.renderkit.util.PanelIcons;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractCollapsiblePanel;
-import org.richfaces.component.AbstractTogglePanel;
-import org.richfaces.renderkit.util.PanelIcons;
+import static org.richfaces.renderkit.HtmlConstants.*;
 
 /**
  * @author akolonitsky
@@ -68,23 +64,23 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
     private final TableIconsRendererHelper<AbstractCollapsiblePanel> headerRenderer = new TableIconsRendererHelper<AbstractCollapsiblePanel>("header", "rf-cp") {
   
         protected void encodeHeaderLeftIcon(ResponseWriter writer, FacesContext context, AbstractCollapsiblePanel panel) throws IOException {
-            String leftIconCollapsed = panel.getLeftIconCollapsed();
-            if (leftIconCollapsed == null || leftIconCollapsed.trim().length() == 0) {
-                leftIconCollapsed = PanelIcons.chevronUp.toString();
+            String leftCollapsedIcon = panel.getLeftCollapsedIcon();
+            if (leftCollapsedIcon == null || leftCollapsedIcon.trim().length() == 0) {
+                leftCollapsedIcon = PanelIcons.chevronUp.toString();
             }
-            String leftIconExpanded = panel.getLeftIconExpanded();
-            if (leftIconExpanded == null || leftIconExpanded.trim().length() == 0) {
-                leftIconExpanded = PanelIcons.chevronDown.toString();
+            String leftExpandedIcon = panel.getLeftExpandedIcon();
+            if (leftExpandedIcon == null || leftExpandedIcon.trim().length() == 0) {
+                leftExpandedIcon = PanelIcons.chevronDown.toString();
             }
             
             encodeTdIcon(writer, context, cssClassPrefix + "-ico",
-                leftIconCollapsed, leftIconExpanded, PanelIcons.State.header);    
+                leftCollapsedIcon, leftExpandedIcon, PanelIcons.State.header);
         }
 
         protected void encodeHeaderRightIcon(ResponseWriter writer, FacesContext context, AbstractCollapsiblePanel panel) throws IOException {
             //TODO nick - should this be "-ico-exp"? also why expanded icon state is connected with right icon alignment?
             encodeTdIcon(writer, context, cssClassPrefix + "-exp-ico",
-                    panel.getRightIconCollapsed(), panel.getRightIconExpanded(), PanelIcons.State.header);                
+                    panel.getRightCollapsedIcon(), panel.getRightExpandedIcon(), PanelIcons.State.header);
         }
 
         @Override

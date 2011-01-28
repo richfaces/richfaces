@@ -215,7 +215,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     public abstract String getButtonIcon();
 
     @Attribute
-    public abstract String getButtonIconDisabled();
+    public abstract String getButtonDisabledIcon();
 
     @Attribute
     public abstract Object getDefaultTime();

@@ -22,13 +22,13 @@
 
 package org.richfaces.component;
 
-import static org.richfaces.renderkit.html.DivPanelRenderer.capitalize;
-
-import javax.faces.component.UIComponent;
-
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.renderkit.html.DivPanelRenderer;
+
+import javax.faces.component.UIComponent;
+
+import static org.richfaces.renderkit.html.DivPanelRenderer.capitalize;
 
 /**
  * @author akolonitsky
@@ -100,13 +100,13 @@ public abstract class AbstractTogglePanelTitledItem extends AbstractTogglePanelI
     // ------------------------------------------------ Html Attributes
 
     @Attribute
-    public abstract String getHeaderClassActive();
+    public abstract String getHeaderActiveClass();
 
     @Attribute
-    public abstract String getHeaderClassDisabled();
+    public abstract String getHeaderDisabledClass();
 
     @Attribute
-    public abstract String getHeaderClassInactive();
+    public abstract String getHeaderInactiveClass();
 
     @Attribute
     public abstract String getHeaderClass();

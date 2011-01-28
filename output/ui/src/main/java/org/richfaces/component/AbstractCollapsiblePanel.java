@@ -109,16 +109,16 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
     // ------------------------------------------------ Html Attributes
 
     @Attribute
-    public abstract String getLeftIconCollapsed();
+    public abstract String getLeftCollapsedIcon();
 
     @Attribute
-    public abstract String getLeftIconExpanded();
+    public abstract String getLeftExpandedIcon();
 
     @Attribute
-    public abstract String getRightIconCollapsed();
+    public abstract String getRightCollapsedIcon();
 
     @Attribute
-    public abstract String getRightIconExpanded();
+    public abstract String getRightExpandedIcon();
 
     @Attribute
     public abstract String getBodyClass();

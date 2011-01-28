@@ -100,7 +100,7 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
     }
 
     private void encodeHeaderGroupRightIcon(ResponseWriter writer, FacesContext context, AbstractPanelMenuItem menuItem, String classPrefix) throws IOException {
-        String icon = menuItem.isDisabled() ? menuItem.getRightIconDisabled() : menuItem.getRightIcon();
+        String icon = menuItem.isDisabled() ? menuItem.getRightDisabledIcon() : menuItem.getRightIcon();
         String cssClasses = concatClasses(classPrefix + "-exp-ico", menuItem.getLeftIconClass());
         
         if (icon == null || icon.trim().length() == 0) {
@@ -110,7 +110,7 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
     }
 
     private void encodeHeaderGroupLeftIcon(ResponseWriter writer, FacesContext context, AbstractPanelMenuItem menuItem, String classPrefix) throws IOException {
-        String icon = menuItem.isDisabled() ? menuItem.getLeftIconDisabled() : menuItem.getLeftIcon();
+        String icon = menuItem.isDisabled() ? menuItem.getLeftDisabledIcon() : menuItem.getLeftIcon();
         String cssClasses = concatClasses(classPrefix + "-ico", menuItem.getLeftIconClass());
 
         if (icon == null || icon.trim().length() == 0) {

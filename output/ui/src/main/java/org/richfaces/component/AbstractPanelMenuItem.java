@@ -23,14 +23,10 @@
 
 package org.richfaces.component;
 
-import javax.faces.component.UIComponent;
-
 import org.richfaces.PanelMenuMode;
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.EventName;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.cdk.annotations.*;
+
+import javax.faces.component.UIComponent;
 
 /**
  * @author akolonitsky
@@ -128,7 +124,7 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent {
 
     // ------------------------------------------------ Html Attributes
     enum Properties {
-        leftIcon, leftIconDisabled, iconRight, rightIconDisabled, styleClass, disabledClass, name
+        leftIcon, leftDisabledIcon, iconRight, rightDisabledIcon, styleClass, disabledClass, name
 
     }
 
@@ -159,13 +155,13 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent {
     public abstract String getLeftIconClass();
 
     @Attribute(generate = false)
-    public String getLeftIconDisabled() {
-        return (String) getStateHelper().eval(Properties.leftIconDisabled,
-                isTopItem() ? getPanelMenu().getTopItemLeftIconDisabled() : getPanelMenu().getItemLeftIconDisabled());
+    public String getLeftDisabledIcon() {
+        return (String) getStateHelper().eval(Properties.leftDisabledIcon,
+                isTopItem() ? getPanelMenu().getTopItemDisabledLeftIcon() : getPanelMenu().getItemDisabledLeftIcon());
     }
 
-    public void setLeftIconDisabled(String leftIconDisabled) {
-        getStateHelper().put(Properties.leftIconDisabled, leftIconDisabled);
+    public void setLeftDisabledIcon(String leftDisabledIcon) {
+        getStateHelper().put(Properties.leftDisabledIcon, leftDisabledIcon);
     }
 
     @Attribute(generate = false)
@@ -182,13 +178,13 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent {
     public abstract String getRightIconClass();
 
     @Attribute(generate = false)
-    public String getRightIconDisabled() {
-        return (String) getStateHelper().eval(Properties.rightIconDisabled,
-                isTopItem() ? getPanelMenu().getTopItemRightIconDisabled() : getPanelMenu().getItemRightIconDisabled());
+    public String getRightDisabledIcon() {
+        return (String) getStateHelper().eval(Properties.rightDisabledIcon,
+                isTopItem() ? getPanelMenu().getTopItemDisabledRightIcon() : getPanelMenu().getItemDisabledRightIcon());
     }
 
-    public void setRightIconDisabled(String rightIconDisabled) {
-        getStateHelper().put(Properties.rightIconDisabled, rightIconDisabled);
+    public void setRightDisabledIcon(String rightDisabledIcon) {
+        getStateHelper().put(Properties.rightDisabledIcon, rightDisabledIcon);
     }
 
     @Attribute
