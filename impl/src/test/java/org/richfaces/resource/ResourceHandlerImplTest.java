@@ -55,6 +55,7 @@ import org.richfaces.application.configuration.ConfigurationServiceImpl;
 import org.richfaces.util.Util;
 
 import com.gargoylesoftware.htmlunit.Cache;
+import com.gargoylesoftware.htmlunit.WebRequest;
 import com.gargoylesoftware.htmlunit.WebRequestSettings;
 import com.gargoylesoftware.htmlunit.WebResponse;
 
@@ -88,8 +89,9 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
          */
         private static final long serialVersionUID = -1788422188914461469L;
 
+        
         @Override
-        protected boolean isCacheable(WebRequestSettings request, WebResponse response) {
+        protected boolean isCacheable(WebRequest request, WebResponse response) {
             return false;
         }
     }
