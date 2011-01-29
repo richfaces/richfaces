@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:csv="http://richfaces.org/csv"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/layout/template.xhtml">
+	<ui:param name="title" value="JSF validators on client" />
+	<!-- Page header -->
+	<ui:define name="header">
+		<h1>&lt;csv:validator&gt; usage</h1>
+	</ui:define>
+	<!-- content -->
+	<ui:define name="content">
+		<h:form id="form">
+            <h:panelGrid columns="4">
+            <h:outputLabel for="text" value="Text length from 1 to 3:" />
+			<h:inputText id="text" value="#{test.value}">
+				<f:validateLength minimum="1" maximum="3" />
+				<csv:validator event="blur" />
+			</h:inputText>
+			<h:outputText id="out" value="#{test.value}"></h:outputText>
+			<csv:message id="uiMessage" for="text" />
+			</h:panelGrid>
+			<h:commandButton value="Submit">
+                <csv:validator/>
+			</h:commandButton>
+		</h:form>
+		<csv:messages />
+	</ui:define>
+</ui:composition>
+</html>

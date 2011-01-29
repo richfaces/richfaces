@@ -24,7 +24,7 @@ import javax.faces.context.FacesContext;
 
 public class Pages {
 
-	public static final String DEFAULT_TITLE_PATTERN = "<h2>(.*)</h2>";
+	public static final String DEFAULT_TITLE_PATTERN = "<ui\\:param\\s+name=\"title\"\\s+value=\"([^\"]*)\"";
 
 	private static final Pattern JSP_PATTERN = Pattern.compile(".*\\.jspx?");
 
@@ -32,13 +32,13 @@ public class Pages {
 
 	private Pattern titlePattern = compilePattern(DEFAULT_TITLE_PATTERN);
 
-	private volatile List<PageDescriptionBean> _jspPages;
+	private volatile List<PageDescriptionBean> jspPages;
 
 	private Object jspMutex = new Object();
 
-	private String _path = "/pages";
+	private String path = "/examples";
 
-	private volatile List<PageDescriptionBean> _xhtmlPages;
+	private volatile List<PageDescriptionBean> xhtmlPages;
 
 	private Object xhtmlMutex = new Object();
 
@@ -46,7 +46,7 @@ public class Pages {
 	 * @return the path
 	 */
 	public String getPath() {
-		return _path;
+		return path;
 	}
 
 	public Pattern compilePattern(String titlePattern) {
@@ -59,19 +59,19 @@ public class Pages {
 	 *            the path to set
 	 */
 	public void setPath(String path) {
-		_path = path;
+		this.path = path;
 	}
 
 	public List<PageDescriptionBean> getJspPages() {
-		if (_jspPages == null && null != getExternalContext()) {
+		if (jspPages == null && null != getExternalContext()) {
 			synchronized (jspMutex) {
-				if (_jspPages == null) {
-					_jspPages = getPagesByPattern(JSP_PATTERN);
+				if (jspPages == null) {
+					jspPages = getPagesByPattern(JSP_PATTERN);
 				}
 			}
 		}
 
-		return _jspPages;
+		return jspPages;
 	}
 
 	private ExternalContext getExternalContext() {
@@ -85,15 +85,15 @@ public class Pages {
 	}
 
 	public List<PageDescriptionBean> getXhtmlPages() {
-		if (_xhtmlPages == null && null != getExternalContext()) {
+		if (xhtmlPages == null && null != getExternalContext()) {
 			synchronized (xhtmlMutex) {
-				if (_xhtmlPages == null) {
-					_xhtmlPages = getPagesByPattern(XHTML_PATTERN);
+				if (xhtmlPages == null) {
+					xhtmlPages = getPagesByPattern(XHTML_PATTERN);
 				}
 			}
 		}
 
-		return _xhtmlPages;
+		return xhtmlPages;
 	}
 
 	/**

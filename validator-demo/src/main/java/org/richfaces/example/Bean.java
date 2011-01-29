@@ -5,6 +5,16 @@ public class Bean {
     public static final String FOO_VALUE = "fooValue";
 
     private String value=FOO_VALUE;
+    
+    private String required;
+    
+    private int intValue;
+    
+    private long longValue;
+    
+    private double doubleValue;
+    
+    private String email;
 
     /**
      * @return the value
@@ -17,6 +27,76 @@ public class Bean {
      */
     public void setValue(String value) {
         this.value = value;
+    }
+    /**
+     * <p class="changed_added_4_0"></p>
+     * @return the required
+     */
+    public String getRequired() {
+        return this.required;
+    }
+    /**
+     * <p class="changed_added_4_0"></p>
+     * @param required the required to set
+     */
+    public void setRequired(String required) {
+        this.required = required;
+    }
+    /**
+     * <p class="changed_added_4_0"></p>
+     * @return the intValue
+     */
+    public int getIntValue() {
+        return this.intValue;
+    }
+    /**
+     * <p class="changed_added_4_0"></p>
+     * @param intValue the intValue to set
+     */
+    public void setIntValue(int intValue) {
+        this.intValue = intValue;
+    }
+    /**
+     * <p class="changed_added_4_0"></p>
+     * @return the longValue
+     */
+    public long getLongValue() {
+        return this.longValue;
+    }
+    /**
+     * <p class="changed_added_4_0"></p>
+     * @param longValue the longValue to set
+     */
+    public void setLongValue(long longValue) {
+        this.longValue = longValue;
+    }
+    /**
+     * <p class="changed_added_4_0"></p>
+     * @return the doubleValue
+     */
+    public double getDoubleValue() {
+        return this.doubleValue;
+    }
+    /**
+     * <p class="changed_added_4_0"></p>
+     * @param doubleValue the doubleValue to set
+     */
+    public void setDoubleValue(double doubleValue) {
+        this.doubleValue = doubleValue;
+    }
+    /**
+     * <p class="changed_added_4_0"></p>
+     * @return the email
+     */
+    public String getEmail() {
+        return this.email;
+    }
+    /**
+     * <p class="changed_added_4_0"></p>
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }

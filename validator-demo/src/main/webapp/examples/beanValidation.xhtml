@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<ui:composition template="/layout/template.xhtml">
+	<ui:param name="title" value="&lt;rich:beanValidator&gt; usage" />
+	<ui:param name="javaBean" value="org/richfaces/example/Bean.java" />
+	<!-- Page header -->
+	<ui:define name="header">
+		<h1>&lt;rich:beanValidator&gt; usage</h1>
+	</ui:define>
+	<!-- content -->
+	<ui:define name="content">
+	<h:form id="form">
+			<h:panelGrid columns="3">
+			<h:outputLabel for="email" value="Email Address:" />
+			<h:inputText id="email" value="#{bean.email}" label="Email">
+				<rich:beanValidator summary="Invalid Email address"/>
+			</h:inputText>
+			<rich:message for="email"/>
+			<h:outputLabel for="card" value="Credit card number:" />
+			<h:inputText id="card" value="#{bean.creditCardNumber}" label="Credit card">
+				<rich:beanValidator summary="Invalid credit card number"/>
+			</h:inputText>
+			<rich:message for="card"/>
+			</h:panelGrid>
+					<h:commandButton value="Submit"></h:commandButton>
+			<rich:messages/>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
