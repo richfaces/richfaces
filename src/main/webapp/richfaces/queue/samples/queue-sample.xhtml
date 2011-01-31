@@ -4,11 +4,11 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:rich="http://richfaces.org/rich"
-	xmlns:r="http://java.sun.com/jsf/composite/org.richfaces.showcase">
+	xmlns:rich="http://richfaces.org/rich">
 	<rich:panel>
+			<a4j:queue requestDelay="#{queueBean.requestDelay}"
+				ignoreDupResponses="#{queueBean.ignoreDupResponces}" /> 
 		<h:form id="form">
-			<a4j:queue requestDelay="#{queueBean.requestDelay}" />
 			<h:panelGrid columns="1" width="100%">
 				<h:panelGrid columns="2">
 					<h:outputText value="Type here:" />
@@ -28,13 +28,15 @@
 					<h:outputText value="DOM updates count:" />
 					<h:outputText value="0" id="updates" />
 				</h:panelGrid>
-				<r:message for="form:delay" style="color:red;" />
+				<rich:message for="form:delay" style="color:red;" />
 				<h:panelGrid columns="2">
 					<h:outputText value="Request delay:" />
 					<h:inputText value="#{queueBean.requestDelay}" id="delay"
 						converterMessage="Delay field should be a number (Demo input disabled till this resolved)">
 						<f:convertNumber integerOnly="true" />
 					</h:inputText>
+					<h:outputText value="Ignore Duplicated Responces" />
+					<h:selectBooleanCheckbox value="#{queueBean.ignoreDupResponces}" />
 					<f:facet name="footer">
 						<h:commandButton value="Apply" action="#{queueBean.resetText}" />
 					</f:facet>
