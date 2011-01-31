@@ -189,6 +189,36 @@
 					</sample>
 				</samples>
 			</demo>
+			<!-- demo new="true">
+				<id>graphValidator</id>
+				<name>rich:graphValidator</name>
+				<samples>
+					<sample>
+						<id>graphValidator</id>
+						<name>Object validation using rich:graphValidator</name>
+					</sample>
+				</samples>
+			</demo-->
+			<demo new="true">
+				<id>message</id>
+				<name>rich:message</name>
+				<samples>
+					<sample>
+						<id>message</id>
+						<name>Simple rich:message sample</name>
+					</sample>
+				</samples>
+			</demo>
+			<demo new="true">
+				<id>messages</id>
+				<name>rich:messages</name>
+				<samples>
+					<sample>
+						<id>messages</id>
+						<name>Simple rich:messages sample</name>
+					</sample>
+				</samples>
+			</demo>
 		</demos>
 	</group>
 	<group>

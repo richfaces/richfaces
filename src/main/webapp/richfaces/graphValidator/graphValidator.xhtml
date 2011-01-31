@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+	<p>rich:graphValidator is a component which allows to perform
+	Object validation. value attribute should be defined with the value
+	binding to bean. In the result all the bean properties will be
+	validated during validation phase. That allows you to validate all the
+	object properties and not just ones which are submitted with the
+	current request.</p>
+
+	<p>Simple example of such kind of usage is shown below. Just write
+	some activities of the day and the time you spend on each one in a day.</p>
+	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+		<ui:param name="sourceType" value="xhtml" />
+		<ui:param name="openLabel" value="View Source" />
+		<ui:param name="hideLabel" value="Hide Source" />
+	</ui:include>
+	<p>In this case only properties of each passTime(values of the
+	inputs) is validated at validation phase. But after the model is
+	updated (Each explicit passtime was validated ok) all the properties
+	including "TotalTime" are validated again. And total validation could
+	fail if the sum of the hours in a day more than 24.</p>
+</ui:composition>
+</html>

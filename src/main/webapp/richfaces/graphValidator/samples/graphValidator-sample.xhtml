@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<style>
+.red {
+	color: red;
+}
+
+.green {
+	color: green;
+}
+</style>
+	<h:form id="graphValidatorForm2">
+		<a4j:region renderRegionOnly="true">
+			<rich:graphValidator summary="Invalid values: "
+				value="#{dayStatistics}">
+				<table>
+					<thead>
+						<tr>
+							<th>Activity</th>
+							<th>Time</th>
+						</tr>
+					</thead>
+					<tbody>
+						<a4j:repeat value="#{dayStatistics.dayPasstimes}" var="pt"
+							id="table">
+							<tr>
+								<td align="center" width="100px"><h:outputText
+									value="#{pt.title}" /></td>
+								<td align="center" width="100px"><rich:inputNumberSpinner
+									minValue="0" maxValue="24" value="#{pt.time}" id="time">
+								</rich:inputNumberSpinner></td>
+								<td><rich:message for="time" /></td>
+							</tr>
+						</a4j:repeat>
+					</tbody>
+				</table>
+			</rich:graphValidator>
+			<a4j:commandButton value="Store my details"
+				actionListener="#{dayStatistics.store}" reRender="panel" />
+			<rich:messages infoClass="green" errorClass="red" />
+		</a4j:region>
+	</h:form>
+</ui:composition>

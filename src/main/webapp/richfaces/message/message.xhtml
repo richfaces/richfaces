@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+	<p>rich:message is an extension for a standard h:message component.
+	In addition to what the standard component provides, rich:message:</p>
+	<ul>
+		<li>does not require to be wrapped with a4j:outputPanel in order
+		to be rendered during the Ajax requests</li>
+		<li>allows to define different "failed" markers before the text
+		labels</li>
+		<li>has a predefined css class names for different kinds of
+		message severities</li>
+	</ul>
+	<p>The message marker is defined with a facet. There are several
+	facets names available to design the marker for different kind of
+	message severities. The following example shows how the markers might
+	be used to mark the "passed" and "failed" form fields. Fill the form
+	and click "Validate" button to see the entered data passing the defined
+	validation rules.</p>
+
+	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+		<ui:param name="sourceType" value="xhtml" />
+		<ui:param name="openLabel" value="View Source" />
+		<ui:param name="hideLabel" value="Hide Source" />
+	</ui:include>
+
+</ui:composition>
+</html>
