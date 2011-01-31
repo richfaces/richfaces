@@ -55,13 +55,21 @@
            			this.input.focus();
            		},
            		
-           		getValue: function() {
+           		__getValue: function() {
     				return this.input.val();
            		},
            		
-           		setValue: function(value){
+           		__setValue: function(value){
            			this.input.val(value);
            		},
+           		
+    			getValue: function() {
+    				return this.__getValue();
+    			},
+    			
+    			setValue: function(value) {
+    				this.__setValue(value);
+    			},
            		
            		getInput: function() {
            			return this.input;

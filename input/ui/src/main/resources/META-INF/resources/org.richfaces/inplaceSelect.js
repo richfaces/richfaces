@@ -69,7 +69,7 @@
 				this.scrollElements = rf.Event.bindScrollEventHandlers(this.id, this.__scrollHandler, this);
 				this.__setInputFocus();
 				this.__setFocused(true);
-	    		this.focusValue = this.getValue();
+	    		this.focusValue = this.__getValue();
 				this.invokeEvent.call(this, "focus", document.getElementById(this.id + 'Input'));
 				this.__showPopup();
 				
@@ -118,7 +118,7 @@
 		
 			processItem: function(item) {
 				var label = this.getItemLabel(item);
-				this.setValue(label);
+				this.__setValue(label);
 				
 				this.__setInputFocus();
            		this.__hidePopup();
@@ -240,7 +240,23 @@
                 if(!this.inputWidthDefined) {
                     this.inputItem.width(this.label.width());
                 }
-            }
+            },
+            
+       		getValue: function() {
+       			return this.selValueInput.val();
+       		},
+       		
+       		setValue: function(value) {
+       			var item;
+				for (var i=0; i<this.items.length; i++) {
+					item = this.items[i];
+					if (item.value == value) {
+						this.__setValue(item.label);
+						this.save();
+						this.popupList.__selectByIndex(i);
+					}
+				}	
+       		}
 		}
 		
 	})());

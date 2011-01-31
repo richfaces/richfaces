@@ -60,7 +60,7 @@
 			},
 			
 			save: function() {
-				var value = this.getValue()
+				var value = this.__getValue()
        			if(value.length > 0) {
        				this.setLabel(value);
        			} else {
@@ -79,7 +79,7 @@
    				if(!this.useDefaultLabel) {
    					text = this.getLabel()
    				} 
-       			this.setValue(text);
+       			this.__setValue(text);
        			this.isSaved = true;
            		this.oncancel();
 			},

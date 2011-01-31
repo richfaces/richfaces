@@ -7,7 +7,7 @@
         	$super.constructor.call(this, id, mergedOptions);
             this.label = $(document.getElementById(id+"Label"));
             var labelText = this.label.text();
-            var inputLabel = this.getValue();
+            var inputLabel = this.__getValue();
             this.initialValue = (labelText == inputLabel) ? labelText : "";
             this.saveOnBlur = mergedOptions.saveOnBlur;
             this.showControls = mergedOptions.showControls;
@@ -95,14 +95,14 @@
           		
            		getLabel: function() {
            			return this.label.text();
-           		}, 
+           		},
 
            		setLabel: function(value) {
            			this.label.text(value);
            		}, 
            		
            		isValueChanged: function () {
-           			return (this.getValue() != this.initialValue);
+           			return (this.__getValue() != this.initialValue);
            		},
     			
            		onshow: function(){
@@ -116,7 +116,7 @@
     			onfocus: function(e) {
     				if(!this.__isFocused()) {
     					this.__setFocused(true);
-	    				this.focusValue = this.getValue();
+	    				this.focusValue = this.__getValue();
 						this.invokeEvent.call(this, "focus", document.getElementById(this.id + 'Input'), e);
     				}
     			},
@@ -144,7 +144,7 @@
     			}, 
     			
     			__isValueChanged: function() {
-    				return (this.focusValue != this.getValue());
+    				return (this.focusValue != this.__getValue());
     			},
     			
     			__setFocused: function(focused) {
