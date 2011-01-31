@@ -75,7 +75,7 @@ public class PushResource extends AbstractUserResource {
         if (forgetPushSessionId != null) {
             Session oldSession = pushContext.getSessionManager().getPushSession(forgetPushSessionId);
             if (oldSession != null) {
-                oldSession.destroy();
+                oldSession.invalidate();
             }
         }
         
