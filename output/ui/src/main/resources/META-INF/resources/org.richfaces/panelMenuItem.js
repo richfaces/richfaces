@@ -62,7 +62,11 @@
         execServer : function (item) {
             item.__changeState();
             //TODO nick - 'target' attribute?
-            rf.submitForm(this.__getParentForm(item));
+            
+            var params = {};
+            params[item.__panelMenu().id] = item.itemName;
+            
+            rf.submitForm(this.__getParentForm(item), params);
 
             return false;
         },
