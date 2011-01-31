@@ -78,7 +78,7 @@
 			return (!context.calendar.options.disabled && !context.calendar.options.readonly && context.calendar.options.showApplyButton ? CalendarView.getControl(context.controlLabels.apply, CalendarView.toolButtonAttributes, "close", "true") : "");
 		},
 		cleanControl: function (context) {
-			return (!context.calendar.options.disabled && !context.calendar.options.readonly && context.calendar.selectedDate ? CalendarView.getControl(context.controlLabels.clean, CalendarView.toolButtonAttributes, "resetSelectedDate") : "");
+			return (!context.calendar.options.disabled && !context.calendar.options.readonly && context.calendar.selectedDate ? CalendarView.getControl(context.controlLabels.clean, CalendarView.toolButtonAttributes, "__resetSelectedDate") : "");
 		},
 	
 		selectedDateControl: function (context) {	return CalendarView.getSelectedDateControl(context.calendar);},
@@ -504,7 +504,7 @@
 		// add onclick event handlers to input field and popup button
 		if (this.options.popup && !this.options.disabled)
 		{
-			var handler = new Function ('event', "RichFaces.$('"+this.id+"').doSwitch();");
+			var handler = new Function ('event', "RichFaces.$('"+this.id+"').switchPopup();");
 			rf.Event.bindById(this.POPUP_BUTTON_ID, "click"+this.namespace, handler, this);
 			if (!this.options.enableManualInput) 
 			{
@@ -886,10 +886,10 @@
 		},
 		
 		eventOnScroll: function (e) {
-			this.doCollapse();
+			this.hidePopup();
 		},
 		
-		doCollapse: function() {
+		hidePopup: function() {
 			
 			if (!this.options.popup || !this.isVisible) return;
 			
@@ -907,12 +907,8 @@
 				}
 			}
 		},
-
-		collapse: function() {
-			this.doCollapse();
-		},
 		
-		doExpand: function(e) {
+		showPopup: function(e) {
 			if (!this.isRendered) {
 				this.isRendered = true;
 				this.render();
@@ -933,7 +929,7 @@
 					if (!this.isFocused) updateDefaultLabel.call(this, "");
 				} else if (baseInput.value!=undefined)
 				{
-					this.selectDate(baseInput.value, false, {event:e, element:element});
+					this.__selectDate(baseInput.value, false, {event:e, element:element});
 				}
 				
 				//rect calculation
@@ -958,17 +954,9 @@
 				}
 			}
 		},
-
-		expand: function(e) {
-			this.doExpand(e);
-		},
 		
-		doSwitch: function(e) {
-			this.isVisible ? this.doCollapse() : this.doExpand(e);
-		},
-
-		switchState: function(e) {
-			this.doSwitch(e);
+		switchPopup: function(e) {
+			this.isVisible ? this.hidePopup() : this.showPopup(e);
 		},
 		
 		eventOnCollapse: function (e) {
@@ -980,7 +968,7 @@
 
 			if (e.target.id == this.POPUP_BUTTON_ID || (!this.options.enableManualInput && e.target.id == this.INPUT_DATE_ID) ) return true;
 			
-			this.doCollapse();
+			this.hidePopup();
 			
 			return true;
 		},
@@ -998,10 +986,10 @@
 		getCurrentDate: function() {
 			return this.currentDate;
 		},	
-		getSelectedDate: function() {
+		__getSelectedDate: function() {
 			if (!this.selectedDate) return null; else return this.selectedDate;
 		},
-		getSelectedDateString: function(pattern) {
+		__getSelectedDateString: function(pattern) {
 			if (!this.selectedDate) return "";
 			if (!pattern) pattern = this.options.datePattern;
 			return rf.calendarUtils.formatDate(this.selectedDate, pattern, this.options.monthLabels, this.options.monthLabelsShort);
@@ -1074,9 +1062,9 @@
 					this.setupTimeForDate(date);
 				}
 				
-				if (this.selectDate(date,true, {event:e, element:obj}) && !this.options.showApplyButton)
+				if (this.__selectDate(date,true, {event:e, element:obj}) && !this.options.showApplyButton)
 				{
-					this.doCollapse();
+					this.hidePopup();
 				}
 					
 			} else if (daydata._month!=0){
@@ -1090,9 +1078,9 @@
 						this.setupTimeForDate(date);
 					}
 					
-					if (this.selectDate(date, false, {event:e, element:obj}) && !this.options.showApplyButton)
+					if (this.__selectDate(date, false, {event:e, element:obj}) && !this.options.showApplyButton)
 					{
-					 	this.doCollapse();
+					 	this.hidePopup();
 					}
 				}
 			}
@@ -1569,14 +1557,14 @@
 				{
 					this.setupTimeForDate(date);
 				}
-				if (daydata.enabled && this.selectDate(date,true) && !this.options.showApplyButton)
+				if (daydata.enabled && this.__selectDate(date,true) && !this.options.showApplyButton)
 				{
-					this.doCollapse();
+					this.hidePopup();
 				}
 			}		
 		},
 		
-		selectDate: function(date, noUpdate, eventData) {
+		__selectDate: function(date, noUpdate, eventData) {
 			
 			if (!eventData)
 			{
@@ -1676,7 +1664,7 @@
 					this.invokeEvent("dateselect", eventData.element, eventData.event, this.selectedDate);
 					if (!this.options.showApplyButton)
 					{
-						this.setInputField(this.selectedDate!=null ? this.getSelectedDateString(this.options.datePattern) : "", eventData.event);
+						this.setInputField(this.selectedDate!=null ? this.__getSelectedDateString(this.options.datePattern) : "", eventData.event);
 					}
 				}
 			}
@@ -1684,7 +1672,7 @@
 			return isDateChange;			
 		},
 		
-		resetSelectedDate: function()
+		__resetSelectedDate: function()
 		{
 			if (!this.selectedDate) return;
 			if (this.invokeEvent("beforedateselect", null, null, null))
@@ -1698,7 +1686,7 @@
 				if (!this.options.showApplyButton)
 				{
 					this.setInputField("", null);
-					this.doCollapse();
+					this.hidePopup();
 				}
 			}
 		},
@@ -1731,9 +1719,9 @@
 		{
 			if (updateDate)
 			{
-				this.setInputField(this.getSelectedDateString(this.options.datePattern), null);
+				this.setInputField(this.__getSelectedDateString(this.options.datePattern), null);
 			}		
-			this.doCollapse();
+			this.hidePopup();
 		},
 		
 		clonePosition: function (source, elements, offset)
@@ -1811,7 +1799,7 @@
 				{
 					this.selectedDate = date;
 					this.renderHF();
-					if (!this.options.popup || !this.options.showApplyButton) this.setInputField(this.getSelectedDateString(this.options.datePattern), null);
+					if (!this.options.popup || !this.options.showApplyButton) this.setInputField(this.__getSelectedDateString(this.options.datePattern), null);
 					this.invokeEvent("timeselect",null, null, this.selectedDate);
 				}
 			}
@@ -1846,6 +1834,25 @@
 			if (updateCurrentDate)
 			{
 				this.changeCurrentDate(this.dateEditorYear, this.dateEditorMonth);
+			}
+		},
+		
+		getValue: function() {
+			return this.__getSelectedDate();
+		},
+		
+		getValueAsString: function(pattern) {
+			return this.__getSelectedDateString(pattern);
+		},
+		
+		setValue: function(value) {
+			this.__selectDate(value);
+		},
+		
+		resetValue: function() {
+			this.__resetSelectedDate();
+			if (this.options.defaultLabel && !this.isFocused) {
+				updateDefaultLabel.call(this, this.options.defaultLabel);
 			}
 		},
 		
