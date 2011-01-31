@@ -127,9 +127,6 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
     public abstract String getHeaderClass();
 
     @Attribute
-    public abstract String getHeaderControlClass();
-
-    @Attribute
     public abstract String getOncomplete();
 
     @Attribute
