@@ -213,6 +213,10 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
         } finally {
             popComponentFromEL(context);
         }
+
+        if (isImmediate()) {
+            executeValidate(context);
+        }
     }
 
     /**
