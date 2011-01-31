@@ -31,7 +31,7 @@
                 <c:if test="#{component.attributes['showButton']}">
                 <c:if test="#{component.attributes['disabled']}">
                 <div id="#{clientId}Button" class="rf-au-btn rf-au-btn-dis">
-                    <div class="rf-au-btn-arrow"></div>
+                    <div class="rf-au-btn-arrow-dis"></div>
                 </div>
                 </c:if>
                 <c:if test="#{!component.attributes['disabled']}">

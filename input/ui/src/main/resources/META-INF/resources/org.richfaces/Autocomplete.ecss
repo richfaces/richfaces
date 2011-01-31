@@ -54,9 +54,17 @@ input.rf-au-inp {
 .rf-au-btn-arrow{
 	background-position: center;
 	background-repeat: no-repeat;
-	background-image: "url(#{resource['org.richfaces:combo_down_button.gif']})";
+	background-image: "url(#{resource['org.richfaces.renderkit.html.images.ComboDownButton']})";
 	width: 15px;
 	height: 15px;
+}
+
+.rf-au-btn-arrow-dis{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: "url(#{resource['org.richfaces.renderkit.html.images.ComboDisabledDownButton']})";
+    width: 15px;
+    height: 15px;
 }
 
 .rf-au-lst-cord{
