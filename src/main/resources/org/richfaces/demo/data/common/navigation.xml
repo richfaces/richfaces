@@ -283,11 +283,11 @@
 			</demo>
 			<demo>
 				<id>subTableToggleControl</id>
-				<name>rich:subTableToggleControl</name>
+				<name>rich:collapsibleSubTableToggler</name>
 				<samples>
 					<sample>
 						<id>subTableToggleControl</id>
-						<name>rich:subTableToggleControl Basic Usage</name>
+						<name>rich:collapsibleSubTableToggler Basic Usage</name>
 					</sample>
 				</samples>
 			</demo>
