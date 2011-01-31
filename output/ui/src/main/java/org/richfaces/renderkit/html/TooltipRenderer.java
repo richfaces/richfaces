@@ -102,7 +102,12 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
         writer.startElement(getMarkupElement(tooltip), component);
         writer.writeAttribute(ID_ATTRIBUTE, component.getClientId(context), "clientId");
         writer.writeAttribute(CLASS_ATTRIBUTE, getStyleClass(component), null);
-        String style = getStyle(component);
+        int zindex = tooltip.getZindex();
+        if (zindex == Integer.MIN_VALUE) {
+            zindex = 1000;
+        }
+        String style = concatStyles("z-index:"+zindex, getStyle(component));
+        
         if (style != null && style.trim().length() > 0) {
             writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, style, null);
         }
