@@ -68,9 +68,6 @@ public abstract class AbstractAttachQueue extends UIComponentBase implements Com
     public abstract int getRequestDelay();
 
     @Attribute
-    public abstract int getTimeout();
-
-    @Attribute
     public abstract boolean isIgnoreDupResponses();
 
     @Attribute

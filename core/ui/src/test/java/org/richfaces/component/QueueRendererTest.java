@@ -57,11 +57,11 @@ public class QueueRendererTest{
     private @interface DisableQueue {}
 
     private static final String EXPECTED_QUEUE_SCRIPT = "RichFaces.queue.setQueueOptions({" +
-    		"\"first\": {\"requestDelay\": 400, \"timeout\": 100, \"ignoreDupResponses\": true}," +
+    		"\"first\": {\"requestDelay\": 400, \"ignoreDupResponses\": true}," +
     		"\"form\": {\"requestDelay\": 400}," +
-    		"\"form:firstAttach\": {\"timeout\": 300, \"requestGroupingId\": \"request\"}," +
-    		"\"second\": {\"requestDelay\": 400, \"timeout\": 100, \"ignoreDupResponses\": true}," +
-    		"\"form:linkAttach\": {\"timeout\": 500, \"queueId\": \"second\"}," +
+    		"\"form:firstAttach\": {\"requestGroupingId\": \"request\"}," +
+    		"\"second\": {\"requestDelay\": 400, \"ignoreDupResponses\": true}," +
+    		"\"form:linkAttach\": {\"queueId\": \"second\"}," +
     		"\"form:secondAttach\": {}" +
 		"});";
 

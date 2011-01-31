@@ -7,22 +7,22 @@
 		<title>Test queue page</title>
 	</h:head>
 	<h:body>
-		<a4j:queue name="first" ignoreDupResponses="true" timeout="100" requestDelay="400"/>
+		<a4j:queue name="first" ignoreDupResponses="true" requestDelay="400"/>
 		<h:form id="form">
 		<a4j:queue ignoreDupResponses="false" requestDelay="400"/>
 			<a4j:ajax>
 				<h:inputText />
 
-				<a4j:attachQueue requestGroupingId="request" timeout="300" id="firstAttach" />
+				<a4j:attachQueue requestGroupingId="request" id="firstAttach" />
 			</a4j:ajax>
-			<a4j:queue name="second" ignoreDupResponses="true" timeout="100" requestDelay="400"/>
+			<a4j:queue name="second" ignoreDupResponses="true" requestDelay="400"/>
 			<a4j:ajax event="valueChange">
 				<h:panelGroup>
 					<a4j:ajax event="valueChange">
 						<h:inputText />
 
 						<a4j:commandLink value="Link">
-							<a4j:attachQueue name="second" timeout="500" id="linkAttach" />
+							<a4j:attachQueue name="second" id="linkAttach" />
 						</a4j:commandLink>
 
 						<a4j:attachQueue id="secondAttach" />

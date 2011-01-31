@@ -54,7 +54,7 @@ public class QueueResourceComponentRenderer extends Renderer {
 
     private enum QueueOptions {
         onbeforedomupdate, oncomplete, onerror, onevent, onrequestdequeue, onrequestqueue, onsubmit, 
-        requestDelay, timeout, status, queueId, ignoreDupResponses, requestGroupingId
+        requestDelay, queueId, ignoreDupResponses, requestGroupingId
     }
 
     private void appendOptions(UIComponent queue, Map<String, Object> optionsHash) {

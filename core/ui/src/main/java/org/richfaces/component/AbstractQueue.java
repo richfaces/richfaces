@@ -48,9 +48,6 @@ public abstract class AbstractQueue extends UIComponentBase {
     public abstract int getRequestDelay();
 
     @Attribute
-    public abstract String getStatus();
-
-    @Attribute
     public abstract String getOnsubmit();
 
     @Attribute
@@ -70,9 +67,6 @@ public abstract class AbstractQueue extends UIComponentBase {
 
     @Attribute
     public abstract String getOnrequestdequeue();
-    
-    @Attribute
-    public abstract int getTimeout();
     
     @Attribute
     public abstract boolean isIgnoreDupResponses();
