@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -21,30 +21,14 @@
  */
 package org.richfaces.application.push;
 
-import java.io.IOException;
-
+import java.util.EventListener;
 
 /**
  * @author Nick Belaevski
  * 
  */
-public interface Request {
+public interface MessageListener extends EventListener {
 
-    //TODO expose request/session/application maps
-    
-    public void flushMessages() throws IOException;
-    
-    //TODO suspend with timeout?
-    public void suspend() throws IOException;
-   
-    public void resume() throws IOException;
-
-    public Session getSession();
-    
-    public boolean isSuspended();
- 
-    public boolean isPolling();
-    
-    public MessageListener getMessageListener();
+    public void onMessage(Object message) throws MessageException;
     
 }

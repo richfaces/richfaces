@@ -26,12 +26,16 @@ import java.io.IOException;
 import org.richfaces.application.push.Request;
 import org.richfaces.application.push.Session;
 import org.richfaces.application.push.SessionManager;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * @author Nick Belaevski
  * 
  */
 public abstract class AbstractSession implements Session {
+
+    private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
 
     private static final int MAX_INACTIVE_INTERVAL = 5 * 60 * 1000;
 
@@ -43,8 +47,11 @@ public abstract class AbstractSession implements Session {
     
     private volatile Request request;
 
+    private volatile boolean active = true;
+    
     public AbstractSession(String id, SessionManager sessionManager) {
         super();
+        
         this.id = id;
         this.sessionManager = sessionManager;
 
@@ -55,33 +62,61 @@ public abstract class AbstractSession implements Session {
         lastAccessedTime = System.currentTimeMillis();
     }
     
-    private void requeue() {
-        resetLastAccessedTimeToCurrent();
+    public synchronized void connect(Request request) throws Exception {
+        releaseRequest();
+
+        if (active) {
+            processConnect(request);
+        } else {
+            request.resume();
+        }
+    }
+
+    protected Request getRequest() {
+        return request;
+    }
+    
+    protected void processConnect(Request request) throws Exception {
+        this.request = request;
+        
         sessionManager.requeue(this);
     }
     
-    public void connect(Request request) throws Exception {
-        if (this.request != null) {
-            this.request.resume();
-        }
+    private void releaseRequest() {
+        Request localRequestCopy = this.request;
         
-        this.request = request;
+        if (localRequestCopy != null) {
+            resetLastAccessedTimeToCurrent();
+            this.request = null;
 
-        requeue();
-
-        request.suspend();
+            try {
+                localRequestCopy.resume();
+            } catch (IOException e) {
+                // TODO: handle exception
+                e.printStackTrace();
+            }
+        }
     }
     
-    public void disconnect() throws Exception {
-        this.request = null;
+    public synchronized void disconnect() throws Exception {
+        processDisconnect();
+    }
+    
+    protected void processDisconnect() throws Exception {
+        releaseRequest();
     }
     
     public long getLastAccessedTime() {
-        if (request != null) {
-            return System.currentTimeMillis();
+        if (!active) {
+            return -1;
         }
-
-        return lastAccessedTime;
+        
+        if (this.request != null) {
+            //being accessed right now
+            return System.currentTimeMillis();
+        } else {
+            return lastAccessedTime;
+        }
     }
     
     public int getMaxInactiveInterval() {
@@ -92,24 +127,19 @@ public abstract class AbstractSession implements Session {
         return id;
     }
     
-    public Request getRequest() {
-        return request;
-    }
-
-    public void destroy() {
-        if (request != null) {
-            try {
-                request.resume();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            request = null;
-            //TODO - clean up request
-        }
-
-        sessionManager.removePushSession(this);
-        // TODO Auto-generated method stub
+    public void invalidate() {
+        active = false;
         
+        sessionManager.requeue(this);
+    }
+    
+    public synchronized void destroy() {
+        active = false;
+
+        try {
+            disconnect();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
     }
 }

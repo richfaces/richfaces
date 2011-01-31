@@ -28,9 +28,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageListener;
+import javax.jms.Session;
+import javax.jms.TopicSubscriber;
 import javax.naming.NamingException;
 
 import org.richfaces.application.push.EventAbortedException;
+import org.richfaces.application.push.Request;
 import org.richfaces.application.push.SessionManager;
 import org.richfaces.application.push.SessionPreSubscriptionEvent;
 import org.richfaces.application.push.Topic;
@@ -52,6 +57,24 @@ import com.google.common.collect.Multimap;
  */
 public class SessionImpl extends AbstractSession {
 
+    private static final class JMSToPushListenerAdaptor implements MessageListener {
+
+        private final org.richfaces.application.push.MessageListener messageListener;
+
+        private JMSToPushListenerAdaptor(org.richfaces.application.push.MessageListener messageListener) {
+            this.messageListener = messageListener;
+        }
+
+        public void onMessage(Message message) {
+            try {
+                messageListener.onMessage(message);
+                message.acknowledge();
+            } catch (Exception e) {
+                LOGGER.error(e.getMessage(), e);
+            }
+        }
+    }
+
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
 
     private final MessagingContext messagingContext;
@@ -62,36 +85,15 @@ public class SessionImpl extends AbstractSession {
     
     private final Map<TopicKey, String> failedSubscriptions = Maps.newHashMap();
 
+    private Session jmsSession;
+
+    private Collection<TopicSubscriber> subscribers = Lists.newArrayListWithCapacity(1);
+    
     public SessionImpl(String id, SessionManager sessionManager, MessagingContext messagingContext, TopicsContext topicsContext) {
         super(id, sessionManager);
 
         this.messagingContext = messagingContext;
         this.topicsContext = topicsContext;
-    }
-
-    public void onRequestSuspended() {
-        // TODO Auto-generated method stub
-    }
-
-    public void onRequestDisconnected() {
-        // TODO Auto-generated method stub
-        // TODO Auto-generated method stub
-        try {
-            disconnect();
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-    public void onRequestResumed() {
-        // TODO Auto-generated method stub
-        try {
-            disconnect();
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
     public Map<TopicKey, String> getFailedSubscriptions() {
@@ -110,9 +112,17 @@ public class SessionImpl extends AbstractSession {
             jmsSession = messagingContext.createSession();
 
             for (Entry<TopicKey, Collection<TopicKey>> entry: rootTopicsMap.asMap().entrySet()) {
-                messagingContext.createTopicSubscriber(this, jmsSession, entry);
+                TopicSubscriber subscriber = null;
                 
-                successfulSubscriptions.putAll(entry.getKey(), entry.getValue());
+                try {
+                    subscriber = messagingContext.createTopicSubscriber(this, jmsSession, entry);
+                    successfulSubscriptions.putAll(entry.getKey(), entry.getValue());
+                } finally {
+                    if (subscriber != null) {
+                        subscriber.close();
+                    }
+                }
+                
             }
         } catch (JMSException e) {
             LOGGER.error(e.getMessage(), e);
@@ -156,6 +166,53 @@ public class SessionImpl extends AbstractSession {
         }
     }
     
+    @Override
+    protected void processConnect(Request request) throws Exception {
+        super.processConnect(request);
+        
+        jmsSession = messagingContext.createSession();
+        
+        MessageListener jmsListener = new JMSToPushListenerAdaptor(request.getMessageListener());
+        
+        for (Entry<TopicKey, Collection<TopicKey>> entry: getSuccessfulSubscriptions().asMap().entrySet()) {
+            TopicSubscriber subscriber = messagingContext.createTopicSubscriber(this, jmsSession, entry);
+            subscribers.add(subscriber);
+            subscriber.setMessageListener(jmsListener);
+        }
+    }
+    
+    private void clearSubscribers() {
+        if (jmsSession != null) {
+            for (TopicSubscriber subscriber : subscribers) {
+                try {
+                    subscriber.close();
+                } catch (JMSException e) {
+                    LOGGER.error(e.getMessage(), e);
+                }
+            }
+            subscribers.clear();
+
+            try {
+                jmsSession.close();
+            } catch (JMSException e) {
+                LOGGER.error(e.getMessage(), e);
+            }
+            
+            jmsSession = null;
+        }
+    }
+    
+    @Override
+    protected void processDisconnect() throws Exception {
+        try {
+            clearSubscribers();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        
+        super.processDisconnect();
+    }
+    
     public void subscribe(String[] topics) {
         Iterable<TopicKey> topicKeys = Iterables.transform(Lists.newLinkedList(Arrays.asList(topics)), TopicKey.factory());
 
@@ -163,4 +220,27 @@ public class SessionImpl extends AbstractSession {
         createSubscriptions(topicKeys);
     }
 
+    @Override
+    public synchronized void destroy() {
+        super.destroy();
+        
+        //we need to create new JMS session, as this method can be called from another thread - see javax.jms.Session JavaDoc
+        //for multi-threading limitations
+        Session localJMSSession = null;
+        try {
+            localJMSSession = messagingContext.createSession();
+            messagingContext.removeTopicSubscriber(this, localJMSSession, successfulSubscriptions.keySet());
+            
+        } catch (JMSException e) {
+            LOGGER.error(e.getMessage(), e);
+        } finally {
+            if (localJMSSession != null) {
+                try {
+                    localJMSSession.close();
+                } catch (JMSException e) {
+                    LOGGER.error(e.getMessage(), e);
+                }
+            }
+        }
+    }
 }

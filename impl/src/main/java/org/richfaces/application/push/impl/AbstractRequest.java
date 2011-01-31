@@ -44,6 +44,8 @@ import org.atmosphere.websocket.WebSocketSupport;
 import org.richfaces.application.push.Request;
 import org.richfaces.application.push.Session;
 import org.richfaces.application.push.TopicKey;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * @author Nick Belaevski
@@ -51,6 +53,8 @@ import org.richfaces.application.push.TopicKey;
  */
 public abstract class AbstractRequest implements Request {
 
+    private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
+    
     private static final String TOPIC_KEY = "topic";
 
     private static final String DATA_KEY = "data";
@@ -110,8 +114,7 @@ public abstract class AbstractRequest implements Request {
             try {
                 request.flushMessages();
             } catch (Throwable e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         }
         
@@ -178,7 +181,7 @@ public abstract class AbstractRequest implements Request {
         submitted.compareAndSet(true, false);
 
         if (isPolling()) {
-            atmosphereResource.resume();
+            resume();
         } else if (!messagesQueue.isEmpty()) {
             submitToWorker();
         }
@@ -194,6 +197,12 @@ public abstract class AbstractRequest implements Request {
     }
 
     public void resume() throws IOException {
+        //TODO - review
+        try {
+            getSession().disconnect();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
         atmosphereResource.resume();
     }
 
@@ -219,14 +228,18 @@ public abstract class AbstractRequest implements Request {
     }
     
     protected void onSuspend() {
+        try {
+            getSession().connect(this);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
     }
     
     protected void onResume() {
         try {
             session.disconnect();
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
     
@@ -234,8 +247,7 @@ public abstract class AbstractRequest implements Request {
         try {
             session.disconnect();
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
     

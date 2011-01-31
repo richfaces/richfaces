@@ -42,10 +42,10 @@ final class SessionQueue {
     private static final Comparator<? super Session> SESSIONS_COMPARATOR = new Comparator<Session>() {
 
         public int compare(Session o1, Session o2) {
-            Long delay1 = Long.valueOf(o1.getLastAccessedTime() + o1.getMaxInactiveInterval());
-            Long delay2 = Long.valueOf(o2.getLastAccessedTime() + o2.getMaxInactiveInterval());
+            Long expTime1 = getExpirationTime(o1);
+            Long expTime2 = getExpirationTime(o2);
             
-            return delay1.compareTo(delay2);
+            return expTime1.compareTo(expTime2);
         }
         
     };
@@ -56,9 +56,22 @@ final class SessionQueue {
     
     private final Condition available = lock.newCondition();
 
+    private static long getExpirationTime(Session session) {
+        long lastAccessedTime = session.getLastAccessedTime();
+        if (lastAccessedTime < 0) {
+            return Long.MIN_VALUE;
+        }
+        
+        return lastAccessedTime + session.getMaxInactiveInterval();
+    }
+    
     private long getDelay(Session session, TimeUnit unit) {
-        return unit.convert(session.getLastAccessedTime() + session.getMaxInactiveInterval() - System.currentTimeMillis(), 
-            TimeUnit.MILLISECONDS);
+        long expirationTime = getExpirationTime(session);
+        if (expirationTime < 0) {
+            return Long.MIN_VALUE;
+        }
+        
+        return unit.convert(expirationTime - System.currentTimeMillis(), TimeUnit.MILLISECONDS);
     }
     
     public Session take() throws InterruptedException {
@@ -99,17 +112,20 @@ final class SessionQueue {
         }
     }
     
-    public void requeue(Session session) {
+    public void requeue(Session session, boolean addIfNotExists) {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
-            queue.remove(session);
+            boolean exists = queue.remove(session);
             
-            Session first = queue.peek();
-            queue.offer(session);
-            if (first == null || SESSIONS_COMPARATOR.compare(session, first) < 0) {
-                available.signalAll();
+            if (exists || addIfNotExists) {
+                Session first = queue.peek();
+                queue.offer(session);
+                if (first == null || SESSIONS_COMPARATOR.compare(session, first) < 0) {
+                    available.signalAll();
+                }
             }
+            
         } finally {
             lock.unlock();
         }

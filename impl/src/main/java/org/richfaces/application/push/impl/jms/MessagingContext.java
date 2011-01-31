@@ -39,6 +39,8 @@ import javax.servlet.ServletContext;
 
 import org.richfaces.application.push.Session;
 import org.richfaces.application.push.TopicKey;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
@@ -54,6 +56,8 @@ public class MessagingContext {
     static final String SUBTOPIC_ATTRIBUTE_NAME = "rf_push_subtopic";
     
     private static final Joiner OR_JOINER = Joiner.on(" OR ").skipNulls();
+
+    private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
 
     private static final Function<TopicKey, String> TOPIC_KEY_TO_MESSAGE_SELECTOR = new Function<TopicKey, String>() {
         public String apply(TopicKey from) {
@@ -159,7 +163,7 @@ public class MessagingContext {
     public TopicSubscriber createTopicSubscriber(Session pushSession, javax.jms.Session jmsSession, 
         Entry<TopicKey, Collection<TopicKey>> entry) 
         throws JMSException, NamingException {
-
+        
         TopicKey rootTopicKey = entry.getKey();
 
         String subscriptionClientId = getSubscriptionClientId(pushSession, rootTopicKey);
@@ -167,6 +171,21 @@ public class MessagingContext {
         javax.jms.Topic jmsTopic = lookup(rootTopicKey);
 
         return jmsSession.createDurableSubscriber(jmsTopic, subscriptionClientId, createMessageSelector(entry.getValue()), true);
+    }
+
+    /**
+     * @param session
+     * @param jmsSession
+     * @param rootTopicKeys 
+     */
+    public void removeTopicSubscriber(Session session, javax.jms.Session jmsSession, Collection<TopicKey> rootTopicKeys) {
+        for (TopicKey rootTopicKey : rootTopicKeys) {
+            try {
+                jmsSession.unsubscribe(getSubscriptionClientId(session, rootTopicKey));
+            } catch (JMSException e) {
+                LOGGER.error(e.getMessage(), e);
+            }
+        }
     }
 
 }

@@ -67,14 +67,6 @@ public class SessionManagerImpl implements SessionManager {
         return sessionMap.get(id);
     }
 
-    public void removePushSession(Session session) {
-        // XXX - possible null pointer exception
-        if (session != null) {
-            sessionMap.remove(session.getId());
-            sessionQueue.remove(session);
-        }
-    }
-    
     public void destroy() {
         //TODO notify all session
         sessionQueue.clear();
@@ -82,7 +74,6 @@ public class SessionManagerImpl implements SessionManager {
         while (!sessionMap.isEmpty()) {
             for (Iterator<Session> sessionsItr = sessionMap.values().iterator(); sessionsItr.hasNext(); ) {
                 Session session = sessionsItr.next();
-                sessionsItr.remove();
                 
                 session.destroy();
             }
@@ -97,10 +88,10 @@ public class SessionManagerImpl implements SessionManager {
             throw new IllegalStateException();
         }
         
-        requeue(session);
+        sessionQueue.requeue(session, true);
     }
 
     public void requeue(Session session) {
-        sessionQueue.requeue(session);
+        sessionQueue.requeue(session, false);
     }
 }

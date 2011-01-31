@@ -49,14 +49,8 @@ public interface Session {
     
     public void disconnect() throws Exception;
     
-    public void onRequestSuspended();
-    
-    public void onRequestDisconnected();
+    public void invalidate();
 
-    public void onRequestResumed();
-    
     public void destroy();
-    
-    public Request getRequest();
     
 }

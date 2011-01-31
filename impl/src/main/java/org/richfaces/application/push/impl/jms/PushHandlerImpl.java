@@ -59,6 +59,6 @@ public class PushHandlerImpl extends AtmospherePushHandler implements SessionFac
     @Override
     protected Request createRequest(AtmosphereResource<HttpServletRequest, HttpServletResponse> resource,
         Session session) {
-        return new RequestImpl(resource, session, getWorker(), messagingContext, topicsContext);
+        return new RequestImpl(resource, session, getWorker(), topicsContext);
     }
 }

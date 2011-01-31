@@ -21,14 +21,10 @@
  */
 package org.richfaces.application.push.impl.jms;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Map.Entry;
 import java.util.concurrent.ExecutorService;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
-import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
@@ -37,6 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.atmosphere.cpr.AtmosphereResource;
 import org.richfaces.application.push.MessageDataSerializer;
+import org.richfaces.application.push.MessageException;
 import org.richfaces.application.push.Session;
 import org.richfaces.application.push.TopicKey;
 import org.richfaces.application.push.TopicsContext;
@@ -48,79 +45,20 @@ import org.richfaces.log.RichfacesLogger;
  * @author Nick Belaevski
  * 
  */
-public class RequestImpl extends AbstractRequest implements MessageListener {
+public class RequestImpl extends AbstractRequest implements org.richfaces.application.push.MessageListener {
 
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
-    
-    private javax.jms.Session jmsSession;
-    
-    private MessagingContext messagingContext;
     
     private TopicsContext topicsContext;
     
     public RequestImpl(AtmosphereResource<HttpServletRequest, HttpServletResponse> atmosphereResource, Session session,
-        ExecutorService executorService, MessagingContext messagingContext, TopicsContext topicsContext) {
+        ExecutorService executorService, TopicsContext topicsContext) {
 
         super(atmosphereResource, session, executorService);
         
-        this.messagingContext = messagingContext;
         this.topicsContext = topicsContext;
     }
 
-    private void closeSession() {
-        if (jmsSession != null) {
-            try {
-                jmsSession.close();
-            } catch (JMSException e) {
-                LOGGER.error(e.getMessage(), e);
-            }
-            
-            jmsSession = null;
-        }
-    }
-    
-    @Override
-    public void onSuspend() {
-        super.onSuspend();
-
-        try {
-            jmsSession = messagingContext.createSession();
-            
-            //TODO - remove this case
-            SessionImpl sessionImpl = (SessionImpl) getSession();
-            
-            for (Entry<TopicKey, Collection<TopicKey>> entry: sessionImpl.getSuccessfulSubscriptions().asMap().entrySet()) {
-                messagingContext.createTopicSubscriber(sessionImpl, jmsSession, entry).setMessageListener(this);
-            }
-            
-        } catch (Exception e) {
-            // TODO: handle exception
-            e.printStackTrace();
-        }
-        
-    }
-    
-    @Override
-    public void flushMessages() throws IOException {
-        if (isPolling()) {
-            closeSession();
-        }
-        
-        super.flushMessages();
-    }
-    
-    @Override
-    public void onDisconnect() {
-        closeSession();
-        super.onDisconnect();
-    }
-
-    @Override
-    public void onResume() {
-        closeSession();
-        super.onResume();
-    }
-    
     private String serializeMessage(org.richfaces.application.push.Topic topic, Message message) {
         String serializedMessageData = null;
         Object messageData = null;
@@ -157,12 +95,10 @@ public class RequestImpl extends AbstractRequest implements MessageListener {
         return null;
     }
 
-    /* (non-Javadoc)
-     * @see javax.jms.MessageListener#onMessage(javax.jms.Message)
-     */
-    public void onMessage(Message message) {
+    public void onMessage(Object message) throws MessageException {
+        Message jmsMessage = (Message) message;
         try {
-            String topicName = ((Topic) message.getJMSDestination()).getTopicName();
+            String topicName = ((Topic) jmsMessage.getJMSDestination()).getTopicName();
             
             org.richfaces.application.push.Topic topic = topicsContext.getTopic(new TopicKey(topicName));
             if (topic == null) {
@@ -170,17 +106,20 @@ public class RequestImpl extends AbstractRequest implements MessageListener {
                 return;
             }
             
-            String serializedMessageData = serializeMessage(topic, message);
+            String serializedMessageData = serializeMessage(topic, jmsMessage);
             if (serializedMessageData == null) {
                 //TODO log
                 return;
             }
         
-            postMessage(new TopicKey(topicName, message.getStringProperty(MessagingContext.SUBTOPIC_ATTRIBUTE_NAME)), serializedMessageData);
-
-            message.acknowledge();
+            postMessage(new TopicKey(topicName, jmsMessage.getStringProperty(MessagingContext.SUBTOPIC_ATTRIBUTE_NAME)), serializedMessageData);
         } catch (JMSException e) {
-            LOGGER.error(e.getMessage(), e);
+            throw new MessageException(e.getMessage(), e);
         }
-    }    
+    }
+    
+    
+    public org.richfaces.application.push.MessageListener getMessageListener() {
+        return this;
+    }
 }

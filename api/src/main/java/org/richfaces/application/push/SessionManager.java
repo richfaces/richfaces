@@ -32,8 +32,6 @@ public interface SessionManager {
 
     public Session getPushSession(String id);
 
-    public void removePushSession(Session session);
-    
     public void requeue(Session session);
 
     public void destroy();
