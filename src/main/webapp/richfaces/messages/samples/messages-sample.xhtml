@@ -5,39 +5,14 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
-	<style type="text/css">
-.rich-messages-marker img {
-	padding-right: 7px;
-}
-
-.rich-message-label {
-	color: red;
-}
-
-.top {
-	vertical-align: top;
-}
-</style>
-<a4j:region>
 	<rich:panel style="width:400px">
 		<f:facet name="header">
 			<h:outputText value="Validation Form" />
 		</f:facet>
-
 		<h:form>
-			<rich:messages passedLabel="Data is allowed to be stored."
-				layout="list" showSummary="true" showDetails="true">
-				<f:facet name="header">
-					<h:outputText value="Entered Data Status:"></h:outputText>
-				</f:facet>
-				<f:facet name="passedMarker">
-					<h:graphicImage value="/images/ajax/passed.gif" />
-				</f:facet>
-				<f:facet name="errorMarker">
-					<h:graphicImage value="/images/ajax/error.gif" />
-				</f:facet>
-			</rich:messages>
-
+			
+			<rich:messages 
+				showSummary="true" showDetail="true"/>
 			<h:panelGrid columns="2">
 				<h:outputText value="Name:" />
 				<h:inputText label="Name" id="name" required="true"
@@ -66,5 +41,4 @@
 			</h:panelGrid>
 		</h:form>
 	</rich:panel>
-</a4j:region>
 </ui:composition>
