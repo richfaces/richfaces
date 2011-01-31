@@ -145,30 +145,6 @@ public abstract class AbstractTooltip extends AbstractDivPanel implements MetaCo
     // ------------------------------------------------ Html Attributes End
 
     @Override
-    public void encodeAll(FacesContext context) throws IOException {
-        if (context == null) {
-            throw new NullPointerException();
-        }
-
-        if (!isRendered()) {
-            return;
-        }
-
-        encodeBegin(context);
-        if (getMode() == TooltipMode.client) {
-            if (getRendersChildren()) {
-                encodeChildren(context);
-            } else if (this.getChildCount() > 0) {
-                for (UIComponent kid : getChildren()) {
-                    kid.encodeAll(context);
-                }
-            }
-        }
-
-        encodeEnd(context);
-    }
-
-    @Override
     public boolean visitTree(VisitContext context, VisitCallback callback) {
         if (context instanceof ExtendedVisitContext) {
             ExtendedVisitContext extendedVisitContext = (ExtendedVisitContext) context;
