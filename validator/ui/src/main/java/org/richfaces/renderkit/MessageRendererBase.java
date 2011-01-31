@@ -64,9 +64,9 @@ public class MessageRendererBase extends Renderer {
         FacesMessage.SEVERITY_ERROR, attrs("error", "err", null), FacesMessage.SEVERITY_FATAL,
         attrs("fatal", "ftl", null));
 
-    protected Iterator<FacesMessage> getMessages(FacesContext context, String forClientId, UIComponent component) {
+    protected Iterator<MessageForRender> getMessages(FacesContext context, String forClientId, UIComponent component) {
 
-        Iterator<FacesMessage> msgIter;
+        Iterator<MessageForRender> msgIter;
 
         if (forClientId != null) {
 
@@ -76,17 +76,29 @@ public class MessageRendererBase extends Renderer {
                 if (result == null) {
                     msgIter = Iterators.emptyIterator();
                 } else {
-                    msgIter = context.getMessages(result.getClientId(context));
+                    String clientId = result.getClientId(context);
+                    msgIter = getMessagesForId(context, clientId);
                 }
 
             } else {
-                msgIter = context.getMessages(null);
+                msgIter = getMessagesForId(context, null);
             }
 
         } else {
-            msgIter = context.getMessages();
+            msgIter = Iterators.emptyIterator();
+            Iterator<String> clientIdsWithMessages = context.getClientIdsWithMessages();
+            while (clientIdsWithMessages.hasNext()) {
+                String clientId = (String) clientIdsWithMessages.next();
+                msgIter = Iterators.concat(msgIter,getMessagesForId(context, clientId));
+            }
         }
 
+        return msgIter;
+    }
+
+    private Iterator<MessageForRender> getMessagesForId(FacesContext context, String clientId) {
+        Iterator<MessageForRender> msgIter;
+        msgIter = Iterators.transform(context.getMessages(clientId),new MessageTransformer(null==clientId?"":clientId));
         return msgIter;
     }
 
@@ -99,24 +111,29 @@ public class MessageRendererBase extends Renderer {
      * @param component
      * @return
      */
-    protected Iterable<FacesMessage> getVisibleMessages(FacesContext context, UIComponent component) {
+    protected Iterable<MessageForRender> getVisibleMessages(FacesContext context, UIComponent component) {
         String forId = getFor(component);
-        Iterator<FacesMessage> messages = getMessages(context, forId, component);
-        UnmodifiableIterator<FacesMessage> filteredMessages =
+        Iterator<MessageForRender> messages = getMessages(context, forId, component);
+        UnmodifiableIterator<MessageForRender> filteredMessages =
             Iterators.filter(messages, getMessagesLevelFilter(context, component));
         return Lists.newArrayList(filteredMessages);
 
     }
 
-    private Predicate<FacesMessage> getMessagesLevelFilter(FacesContext context, UIComponent component) {
+    private Predicate<MessageForRender> getMessagesLevelFilter(FacesContext context, UIComponent component) {
 
         final Severity level = getLevel(component);
         final boolean displayAll = component instanceof UIMessages;
-        Predicate<FacesMessage> predicate = new Predicate<FacesMessage>() {
+        final boolean redisplay = Boolean.TRUE.equals(component.getAttributes().get("redisplay"));
+        Predicate<MessageForRender> predicate = new Predicate<MessageForRender>() {
             private int count = 0;
-            public boolean apply(FacesMessage input) {
-                if(input.getSeverity().compareTo(level) >= 0){
-                    return displayAll||0 == count++;
+
+            public boolean apply(MessageForRender input) {
+                if (redisplay || !input.isRendered()) {
+                    if (input.getSeverity().compareTo(level) >= 0) {
+                        return displayAll || 0 == count++;
+                    }
+
                 }
                 return false;
             }
@@ -150,7 +167,7 @@ public class MessageRendererBase extends Renderer {
 
     protected void encodeMessage(FacesContext facesContext, UIComponent component, Object msg) throws IOException {
         // TODO fix generator to properly detect iteration variable type
-        FacesMessage message = (FacesMessage) msg;
+        MessageForRender message = (MessageForRender) msg;
         String summary = message.getSummary();
         String detail = message.getDetail();
         boolean showSummary = true;
@@ -165,6 +182,8 @@ public class MessageRendererBase extends Renderer {
             showDetail = uiMessages.isShowDetail();
         }
         ResponseWriter responseWriter = facesContext.getResponseWriter();
+        // Message id
+        responseWriter.writeAttribute("id", component.getClientId()+':'+message.getSourceId(),null);
         // tooltip
         boolean wroteTooltip = Boolean.TRUE.equals(component.getAttributes().get("tooltip"));
         if(wroteTooltip && !Strings.isNullOrEmpty(summary)){
@@ -176,6 +195,7 @@ public class MessageRendererBase extends Renderer {
         if (showDetail) {
             writeMessageLabel(responseWriter, detail, "rf-msg-des");
         }
+        message.rendered();
     }
 
     private void writeMessageLabel(ResponseWriter responseWriter, String label, String styleClass) throws IOException {
@@ -219,7 +239,7 @@ public class MessageRendererBase extends Renderer {
     }
 
     protected String getMsgClass(FacesContext facesContext, UIComponent component, Object msg) throws IOException {
-        FacesMessage message = (FacesMessage) msg;
+        MessageForRender message = (MessageForRender) msg;
         SeverityAttributes severityAttributes = SEVERITY_MAP.get(message.getSeverity());
         String styleClass =
             buildSeverityAttribute(component, severityAttributes.skinClass, severityAttributes.classAttribute, ' ');
@@ -227,7 +247,7 @@ public class MessageRendererBase extends Renderer {
     }
 
     protected String getMsgStyle(FacesContext facesContext, UIComponent component, Object msg) throws IOException {
-        FacesMessage message = (FacesMessage) msg;
+        MessageForRender message = (MessageForRender) msg;
         SeverityAttributes severityAttributes = SEVERITY_MAP.get(message.getSeverity());
         String style =
             buildSeverityAttribute(component, severityAttributes.skinStyle, severityAttributes.styleAttribute, ';');
@@ -251,7 +271,7 @@ public class MessageRendererBase extends Renderer {
 
     static SeverityAttributes attrs(String attPrefix, String skinSuffix, String skinStyle) {
         SeverityAttributes attrs =
-            new SeverityAttributes(attPrefix + "Style", attPrefix + "Class", "rf-msg-" + skinSuffix, skinStyle, null,
+            new SeverityAttributes(attPrefix + "Style", attPrefix + "Class", skinStyle, "rf-msg-" + skinSuffix, null,
                 null);
         return attrs;
     }

@@ -69,6 +69,7 @@
 			var value = __getValue(element || id);
 			var convertedValue;
 			var converter = params.c;
+			rf.csv.clearMessage(id);
 			if (converter) {
 				try {
 					if (converter.f)
@@ -99,8 +100,6 @@
 			}
 			if(!params.da && params.a){
 				params.a.call(element,event,id);
-			} else {
-				rf.csv.clearMessage(id);
 			}
 			return true;
 		},
@@ -162,8 +161,8 @@
 	});
 	
 	var validateRange = function(value,label,params,msg) {
-		var isMinSet = typeof params.minimum == "number" ;//&& params.minimum >0;
-		var isMaxSet = typeof params.maximum == "number" ;//&& params.maximum >0;
+		var isMinSet = typeof params.minimum === "number" ;//&& params.minimum >0;
+		var isMaxSet = typeof params.maximum === "number" ;//&& params.maximum >0;
 
 		if (isMaxSet && value > params.maximum) {
 			throw rf.csv.interpolateMessage(msg,isMinSet?[params.minimum,params.maximum,label]:[params.maximum,label]);

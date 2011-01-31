@@ -49,30 +49,28 @@
 	};
 	
 	var severetyClasses=["rf-msg-inf","rf-msg-wrn","rf-msg-err","rf-msg-ftl"];
-	var componentHash = {};
-	var componentIndex = 0;
 	
 	var onMessage = function (event, element, data) {
 		var content = $(rf.getDomElement(this.id));
+		var sourceId = data.sourceId;
+		var message = data.message;
 		if (!this.options.forComponentId) {
-			var index = componentHash[data.sourceId];
-			if (typeof index != undefined) {
-				$(rf.getDomElement(this.id+index)).remove();
+			if (!message) {
+				// rf.csv.clearMessage
+				$(rf.getDomElement(this.id+':'+sourceId)).remove();
+			} else {
+				renderMessage.call(this,sourceId,message);
 			}
-			componentIndex ++;
-			renderMessage.call(this,componentIndex,data.message);
-			componentHash[data.sourceId] = componentIndex;
-			
-		} else if (this.options.forComponentId==data.sourceId) {
+		} else if (this.options.forComponentId === sourceId) {
 			content.empty();
-			renderMessage.call(this,0,data.message);
+			renderMessage.call(this,sourceId,message);
 		}
 	}
 	
 	var renderMessage = function(index,message){
 		if(message && message.severity >= this.options.level){
 			var content = $(rf.getDomElement(this.id));
-			var msgContent = "<span class='"+severetyClasses[message.severity]+"' id='"+this.id+index+"'";
+			var msgContent = "<span class='"+severetyClasses[message.severity]+"' id='"+this.id+':'+index+"'";
 			if(message.summary){
 				if(this.options.tooltip){
 					msgContent = msgContent+" title='"+message.summary+"'>";
