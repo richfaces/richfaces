@@ -121,7 +121,7 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
     public void encodeFirstRowStart(ResponseWriter writer, FacesContext context, String parentId, int currentRow, UIComponent component) throws IOException {
         writer.startElement(HtmlConstants.TR_ELEMENT, component);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, parentId + ":" + currentRow + ":b", null);
-        String styleClass = concatClasses(getFirstRowClass(context, parentId), component.getAttributes().get(ROW_CLASS));
+        String styleClass = concatClasses(getRowClass(context, parentId), getFirstRowClass(context, parentId), component.getAttributes().get(ROW_CLASS));
         encodeStyleClass(writer, context, component, HtmlConstants.STYLE_CLASS_ATTR, styleClass);
     }
     
