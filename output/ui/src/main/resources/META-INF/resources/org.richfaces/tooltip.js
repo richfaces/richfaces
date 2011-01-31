@@ -244,7 +244,7 @@
         },
 
         __content : function () {
-            return $(document.getElementById(this.id + "@content"));
+            return $(document.getElementById(this.id + ":content"));
         },
 
         __fireHide : function () {

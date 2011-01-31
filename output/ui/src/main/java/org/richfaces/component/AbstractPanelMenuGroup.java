@@ -125,6 +125,7 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
         this.submittedExpanded = Boolean.parseBoolean(String.valueOf(submittedValue));
     }
 
+    @Attribute
     public boolean isExpanded() {
         return getValue() == null ? false : (Boolean) getValue();
     }

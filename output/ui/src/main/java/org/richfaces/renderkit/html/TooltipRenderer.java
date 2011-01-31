@@ -23,23 +23,6 @@
 
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
-import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialResponseWriter;
-import javax.faces.context.ResponseWriter;
-
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.TooltipMode;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -48,6 +31,22 @@ import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.renderkit.util.RendererUtils;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialResponseWriter;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
 
 /**
  * @author amarkhel
@@ -123,7 +122,7 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
 
     private void encodeContentBegin(ResponseWriter writer, FacesContext context, AbstractTooltip tooltip) throws IOException {
         writer.startElement(getMarkupElement(tooltip), tooltip);
-        writer.writeAttribute(ID_ATTRIBUTE, tooltip.getClientId(context) + "@content", null);
+        writer.writeAttribute(ID_ATTRIBUTE, tooltip.getClientId(context) + ":content", null);
         writer.writeAttribute(CLASS_ATTRIBUTE, "rf-tt-cnt", null);
     }
 
@@ -213,7 +212,7 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
         if (AbstractTooltip.CONTENT_META_COMPONENT_ID.equals(metaComponentId)) {
             AbstractTooltip tooltip = (AbstractTooltip) component;
             PartialResponseWriter writer = context.getPartialViewContext().getPartialResponseWriter();
-            writer.startUpdate(((AbstractTooltip) component).getContentClientId(context));
+            writer.startUpdate(tooltip.getClientId(context) + ":" + AbstractTooltip.CONTENT_META_COMPONENT_ID);
             
             encodeContentBegin(writer, context, tooltip);
             for (UIComponent child : tooltip.getChildren()) {
