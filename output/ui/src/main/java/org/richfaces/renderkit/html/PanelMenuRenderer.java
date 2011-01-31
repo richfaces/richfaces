@@ -80,11 +80,14 @@ public class PanelMenuRenderer extends DivPanelRenderer {
             if (panelItem != null) {
                 new ActionEvent(panelItem).queue();
                 
-                //TODO nick - why render item by default?
-                context.getPartialViewContext().getRenderIds().add(panelItem.getClientId(context));
-
-                //TODO nick - this should be done on encode, not on decode
-                addOnCompleteParam(context, panelItem.getClientId(context));
+                if (context.getPartialViewContext().isPartialRequest()) {
+                    
+                    //TODO nick - why render item by default?
+                    context.getPartialViewContext().getRenderIds().add(panelItem.getClientId(context));
+                    
+                    //TODO nick - this should be done on encode, not on decode
+                    addOnCompleteParam(context, panelItem.getClientId(context));
+                }
             }
         }
     }
