@@ -143,6 +143,17 @@
             getMinimumSize : function(size) {
                 return Math.max(size, 2 * this.getInitialSize() + 2);
             },
+            
+            __getParsedOption: function(options, name) {
+                var value = parseInt(options[name], 10);
+                
+                if (value < 0 || isNaN(value)) {
+                	value = this[name];
+                }
+                
+                return value;
+            },
+            
             destroy: function() {
 
                 this._contentElement = null;
@@ -268,8 +279,8 @@
                         $.extend(this.userOptions, opts);
                     }
 
-                    this.currentMinHeight = this.getMinimumSize((options.minHeight || options.minHeight == 0) ? options.minHeight : this.minHeight);
-                    this.currentMinWidth = this.getMinimumSize((options.minWidth || options.minWidth == 0) ? options.minWidth : this.minWidth);
+                    this.currentMinHeight = this.getMinimumSize(this.__getParsedOption(options, 'minHeight'));
+                    this.currentMinWidth = this.getMinimumSize(this.__getParsedOption(options, 'minWidth'));
 
                     var eContentElt = this.getContentElement();
 
