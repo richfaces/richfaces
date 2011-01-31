@@ -302,6 +302,7 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
         this.page = newPage;
     }
 
+    @Attribute
     public int getPage() {
 
         UIComponent dataTable = getDataTable();
