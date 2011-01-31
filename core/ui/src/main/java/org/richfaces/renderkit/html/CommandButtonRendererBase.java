@@ -24,12 +24,15 @@
 package org.richfaces.renderkit.html;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.richfaces.renderkit.AjaxCommandRendererBase;
+
+import com.google.common.base.Strings;
 
 /**
  * @author Nick Belaevski
@@ -54,8 +57,8 @@ public abstract class CommandButtonRendererBase extends AjaxCommandRendererBase 
                 writer.writeAttribute("alt", value, "value");
             }
         } else {
-            if (null != type) {
-                writer.writeAttribute("type", type.toLowerCase(), "type");
+            if (!Strings.isNullOrEmpty(type)) {
+                writer.writeAttribute("type", type.toLowerCase(Locale.US), "type");
             } else {
                 writer.writeAttribute("type", "submit", "type");
             }
