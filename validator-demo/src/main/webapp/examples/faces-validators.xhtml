@@ -14,13 +14,30 @@
 	<ui:define name="content">
 		<h:form id="form">
             <h:panelGrid columns="4">
-            <h:outputLabel for="text" value="Text length from 1 to 3:" />
-			<h:inputText id="text" value="#{test.value}">
+            <h:outputLabel for="length" value="Text length from 1 to 3:" />
+			<h:inputText id="length" value="#{test.value}">
 				<f:validateLength minimum="1" maximum="3" />
 				<csv:validator event="blur" />
 			</h:inputText>
-			<h:outputText id="out" value="#{test.value}"></h:outputText>
-			<csv:message id="uiMessage" for="text" />
+			<h:outputText id="lengthOut" value="#{test.value}"></h:outputText>
+			<csv:message for="length" />
+
+            <h:outputLabel for="dblrange" value="Text dblrange from 1.0 to 3.0:" />
+            <h:inputText id="dblrange" value="#{test.doubleValue}">
+                <f:validateDoubleRange minimum="1" maximum="3" />
+                <csv:validator event="blur" />
+            </h:inputText>
+            <h:outputText id="dblrangeOut" value="#{test.doubleValue}"></h:outputText>
+            <csv:message for="dblrange" />
+
+            <h:outputLabel for="longrange" value="Text long range from 2 to 5:" />
+            <h:inputText id="longrange" value="#{test.longValue}">
+                <f:validateLongRange minimum="2" maximum="5" />
+                <csv:validator event="blur" />
+            </h:inputText>
+            <h:outputText id="longrangeOut" value="#{test.longValue}"></h:outputText>
+            <csv:message for="longrange" />
+
 			</h:panelGrid>
 			<h:commandButton value="Submit">
                 <csv:validator/>
