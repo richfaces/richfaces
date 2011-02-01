@@ -46,7 +46,7 @@
             getName: function() {
                 return this.name;
             },
-            geNamespace: function() {
+            getNamespace: function() {
                 return this.namespace;
             },
             onshow: function() {
@@ -228,6 +228,7 @@
                         this.__setValue(item.label);
                         this.save();
                         this.popupList.__selectByIndex(i);
+                        break;
                     }
                 }
             }

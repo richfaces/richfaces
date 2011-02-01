@@ -40,11 +40,11 @@
 
     			name : "inplaceInput",
     			
-    			geName: function() {
+    			getName: function() {
     				return this.name;
     			},
     			
-    			geNamespace: function() {
+    			getNamespace: function() {
     				return this.namespace;
     			},
            		

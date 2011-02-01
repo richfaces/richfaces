@@ -12,7 +12,7 @@
 
            	this.options = mergedOptions;
            	this.defaultLabel = mergedOptions.defaultLabel;
-            var inputLabel = this.getValue() ;
+            var inputLabel = this.__getValue() ;
             this.initialValue = (inputLabel != this.defaultLabel) ? inputLabel : "";
             this.selValueInput = $(document.getElementById(id+"selValue"));
             this.field = $(document.getElementById(id+"Field"));
@@ -86,8 +86,8 @@
     			
     			__focusHandler: function(e) {
     				if (!this.focused) {
-	    				if(this.getValue() == this.defaultLabel) {
-	    					this.setValue("");
+	    				if(this.__getValue() == this.defaultLabel) {
+	    					this.__setValue("");
 	    				}
 	    				this.focusValue = this.selValueInput.val();
 	    				this.focused = true;
@@ -152,7 +152,7 @@
     			
     			__onChangeValue: function(e) {
     				this.popupList.__selectByIndex();
-    				var newValue = this.getValue();
+    				var newValue = this.__getValue();
     				if(this.cache && this.cache.isCached(newValue)) {
     					this.__updateItems();
     					
@@ -190,7 +190,7 @@
            		},
            		
            		__updateItems: function() {
-					var newValue = this.getValue();
+					var newValue = this.__getValue();
 					newValue = (newValue != this.defaultLabel) ? newValue : "";
 					this.__updateItemsFromCache(newValue);
 
@@ -274,7 +274,7 @@
     						return false;
     					}
     				});
-    				this.setValue(label);
+    				this.__setValue(label);
                		this.hidePopup();
                		this.__setInputFocus();
                		this.__save();
@@ -287,7 +287,7 @@
     			__save: function() {
 					var value = "";
 					var label = "";
-					var inputLabel = this.getValue();
+					var inputLabel = this.__getValue();
 
 					if(inputLabel && inputLabel != "") {
 						if(this.enableManualInput) {
@@ -302,16 +302,16 @@
 						}
 					}	
 
-					this.setValue(label);
+					this.__setValue(label);
 					this.selValueInput.val(value);
     			},
     			
     			onblur: function(e) {
     				this.hidePopup();
-					var inputLabel = this.getValue();
+					var inputLabel = this.__getValue();
 					
 					if(!inputLabel || inputLabel == "") {
-						this.setValue(this.defaultLabel);
+						this.__setValue(this.defaultLabel);
 						this.selValueInput.val("");
 					}	
 					
@@ -320,7 +320,28 @@
 					if(this.focusValue != this.selValueInput.val() ) {
 						this.invokeEvent.call(this, "change", document.getElementById(this.id), e);
 					}
-    			}
+    			},
+    			
+           		getValue: function() {
+           			return this.selValueInput.val();
+           		},
+           		
+           		setValue: function(value) {
+           			var item;
+    				for (var i=0; i<this.clientItems.length; i++) {
+    					item = this.clientItems[i];
+    					if (item.value == value) {
+    						this.__setValue(item.label);
+    						this.__save();
+        					this.popupList.__selectByIndex(i);
+    						return;
+    					}
+    				}
+           		},
+           		
+           		getLabel: function() {
+           			return this.__getValue();
+           		}
     		}
     	})());
 
