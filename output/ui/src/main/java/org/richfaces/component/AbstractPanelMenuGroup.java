@@ -271,6 +271,12 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
 
     public abstract String getStyle();
 
+    @Attribute(hidden = true)
+    public abstract String getLeftIcon();
+
+    @Attribute(hidden = true)
+    public abstract String getRightIcon();
+
     @Attribute(generate = false)
     public String getStyleClass() {
         return (String) getStateHelper().eval(Properties.styleClass,
