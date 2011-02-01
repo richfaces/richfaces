@@ -32,6 +32,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.richfaces.component.Row;
+import org.richfaces.component.UIDataTableBase;
 
 
 /**
@@ -79,7 +80,7 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
             } else {
                 encodeRowStart(writer, context, parentId, currentRow, component);
             }
-            
+            renderRowHandlers(context, (UIDataTableBase)rowHolder.getRow());
             rowHolder.setRowStart(false);
         }
 

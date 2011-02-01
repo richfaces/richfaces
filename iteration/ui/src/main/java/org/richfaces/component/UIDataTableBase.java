@@ -45,6 +45,7 @@ import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.event.FilteringEvent;
@@ -140,6 +141,36 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
     
     @Attribute
     public abstract SortMode getSortMode();
+    
+    @Attribute(events = @EventName("rowclick"))
+    public abstract String getOnrowclick();
+
+    @Attribute(events = @EventName("rowdblclick"))
+    public abstract String getOnrowdblclick();
+
+    @Attribute(events = @EventName("rowmousedown"))
+    public abstract String getOnrowmousedown();
+
+    @Attribute(events = @EventName("rowmouseup"))
+    public abstract String getOnrowmouseup();
+
+    @Attribute(events = @EventName("rowmouseover"))
+    public abstract String getOnrowmouseover();
+
+    @Attribute(events = @EventName("rowmousemove"))
+    public abstract String getOnrowmousemove();
+
+    @Attribute(events = @EventName("rowmouseout"))
+    public abstract String getOnrowmouseout();
+
+    @Attribute(events = @EventName("rowkeypress"))
+    public abstract String getOnrowkeypress();
+
+    @Attribute(events = @EventName("rowkeydown"))
+    public abstract String getOnrowkeydown();
+
+    @Attribute(events = @EventName("rowkeyup"))
+    public abstract String getOnrowkeyup();    
     
     public Iterator<UIComponent> columns() {
         return new DataTableColumnsIterator(this);

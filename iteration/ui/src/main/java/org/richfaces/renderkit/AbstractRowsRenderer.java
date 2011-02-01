@@ -23,6 +23,8 @@
 package org.richfaces.renderkit;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Map;
 
 import javax.faces.FacesException;
 import javax.faces.application.ResourceDependencies;
@@ -48,6 +50,30 @@ import org.richfaces.component.UIDataTableBase;
 })
 public abstract class AbstractRowsRenderer extends RendererBase implements DataVisitor {
   
+    private static final Map<String, ComponentAttribute> ROW_HANDLER_ATTRIBUTES = Collections
+    .unmodifiableMap(ComponentAttribute.createMap(
+        new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("rowclick").
+            setComponentAttributeName("onrowclick"),
+        new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE).setEventNames("rowdblclick").
+            setComponentAttributeName("onrowdblclick"),
+        new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE).setEventNames("rowmousedown").
+            setComponentAttributeName("onrowmousedown"),
+        new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE).setEventNames("rowmouseup").
+            setComponentAttributeName("onrowmouseup"),
+        new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE).setEventNames("rowmouseover").
+            setComponentAttributeName("onrowmouseover"),
+        new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE).setEventNames("rowmousemove").
+            setComponentAttributeName("onrowmousemove"),
+        new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE).setEventNames("rowmouseout").
+            setComponentAttributeName("onrowmouseout"),
+        new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE).setEventNames("rowkeypress").
+            setComponentAttributeName("onrowkeypress"),
+        new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE).setEventNames("rowkeydown").
+            setComponentAttributeName("onrowkeydown"),
+        new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE).setEventNames("rowkeyup").
+            setComponentAttributeName("onrowkeyup")
+    ));
+    
     public abstract void encodeRow(ResponseWriter writer, FacesContext facesContext, RowHolderBase rowHolder) throws IOException;
     
     public abstract RowHolderBase createRowHolder(FacesContext context, UIComponent component, Object [] options);
@@ -76,6 +102,10 @@ public abstract class AbstractRowsRenderer extends RendererBase implements DataV
     public void encodeFakeRow(FacesContext facesContext, RowHolderBase rowHolder) throws IOException {
     }
 
+    protected void renderRowHandlers(FacesContext context, UIDataTableBase dataTable) throws IOException {
+        RenderKitUtils.renderPassThroughAttributesOptimized(context, dataTable, ROW_HANDLER_ATTRIBUTES);
+    }
+    
     public void processRows(ResponseWriter writer, FacesContext facesContext, UIComponent component, Object[] options) throws IOException {
         RowHolderBase rowHolder = createRowHolder(facesContext, component, options);
         encodeRows(facesContext, rowHolder);
