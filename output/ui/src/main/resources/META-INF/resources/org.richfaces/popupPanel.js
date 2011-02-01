@@ -243,7 +243,7 @@
                         if ('parent' == domElementAttachment) {
                             newParent = this.parent;
                         } else if ('form' == domElementAttachment) {
-                            newParent = this.findForm(element) || document.body;
+                            newParent = this.findForm(element)[0] || document.body;
                         } else {
                             //default - body
                             newParent = document.body;
