@@ -47,7 +47,6 @@
 }
 
 .rf-pm-itm-lbl {
-    display: inline-block;
     padding: 2px 0px 3px 0px;
     font-size: '#{richSkin.generalSizeFont}';
     font-family: '#{richSkin.generalFamilyFont}';
