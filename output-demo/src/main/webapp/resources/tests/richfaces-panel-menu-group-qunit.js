@@ -35,8 +35,6 @@ RichFaces.QUnit.run(function() {
         // test default options
         same(c.options.expandEvent, "click", "Expand Event");
         same(c.options.collapseEvent, "click", "Collapse Event");
-        same(c.options.expandSingle, false, "Expand Single");
-        same(c.options.bubbleSelection, {}, "Bubble Selection");
 
     });
 
