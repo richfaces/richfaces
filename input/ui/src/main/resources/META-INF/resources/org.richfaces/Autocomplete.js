@@ -113,7 +113,7 @@
 			} else {
 				this.__onEnter(event);
 				rf.Selection.setCaretTo(rf.getDomElement(this.fieldId));
-				this.hide(event);
+				this.__hide(event);
 			}
 		}
 	};
@@ -172,12 +172,12 @@
 					_this.isVisible && _this.options.selectFirst && selectItem.call(_this, _event, 0);
 				}
 			} else {
-				_this.hide(_event);
+				_this.__hide(_event);
 			}
 		};
 		
 		var ajaxError = function (event) {
-			_this.hide(_event);
+			_this.__hide(_event);
 			clearItems.call(_this);
 		};
 		
@@ -265,7 +265,7 @@
 			if (this.items.length!=0) {
 				callback && callback.call(this, event);
 			} else {
-				this.hide(event);
+				this.__hide(event);
 			}
 			if (event.keyCode == rf.KEYS.RETURN || event.type == "click") {
 				this.__setInputValue(subValue);
@@ -283,7 +283,7 @@
 			} else {
 				if (this.options.ajaxMode) {
 					clearItems.call(this);
-					this.hide(event);
+					this.__hide(event);
 				}
 			}
 		}
@@ -412,7 +412,7 @@
 				if (this.items.length==0 && this.isFirstAjax) {
 					if ((this.options.ajaxMode && subValue.length>=this.options.minChars) || this.options.lazyClientMode) {
 						this.value = subValue;
-						callAjax.call(this, event, this.show);
+						callAjax.call(this, event, this.__show);
 						return true;
 					}
 				}

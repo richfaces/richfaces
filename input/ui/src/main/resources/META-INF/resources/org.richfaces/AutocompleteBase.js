@@ -66,7 +66,7 @@
 		
 		rf.getDomElement(this.fieldId).focus();
 		if (this.isVisible) {
-			this.hide(event);
+			this.__hide(event);
 		} else {
 			onShow.call(this, event);
 		}
@@ -87,7 +87,7 @@
 		} else if (!this.isMouseDown) {
 			if (this.isVisible) {
 				var _this = this;
-				this.timeoutId = window.setTimeout(function(){_this.hide();}, 200);
+				this.timeoutId = window.setTimeout(function(){_this.__hide(event);}, 200);
 			}
 			if (this.focused) {
 				this.focused=false;
@@ -114,7 +114,7 @@
 		if (event.keyCode == rf.KEYS.LEFT || event.keyCode == rf.KEYS.RIGHT || flag) {
 			if (flag) {
 				this.currentValue = this.getValue();
-				this.__onChangeValue(event, undefined, (!this.isVisible ? this.show : undefined));
+				this.__onChangeValue(event, undefined, (!this.isVisible ? this.__show : undefined));
 			} else if (this.isVisible) {
 				this.__onChangeValue(event);
 			}
@@ -126,7 +126,7 @@
 			this.isChanged = false;
 			onChange.call(this,{});
 		} else {
-			!this.__updateState(event) && this.show(event);
+			!this.__updateState(event) && this.__show(event);
 		}
 	};
 	
@@ -176,11 +176,11 @@
 				this.__onEnter(event);
 				//TODO: bind form submit event handler to cancel form submit under the opera
 				//cancelSubmit = true;
-				this.hide();
+				this.__hide(event);
 				return false;
 				break;
 			case rf.KEYS.ESC:
-				this.hide();
+				this.__hide(event);
 				break;
 			default:
 				if (!this.options.selectOnly) {
@@ -198,7 +198,7 @@
 	var show = function (event) {
 		if (!this.isVisible) {
 			if (this.__onBeforeShow(event)!=false) {
-				this.scrollElements = rf.Event.bindScrollEventHandlers(this.selectId, this.hide, this, this.namespace);
+				this.scrollElements = rf.Event.bindScrollEventHandlers(this.selectId, this.__hide, this, this.namespace);
 				var element = rf.getDomElement(this.selectId);
 				if (this.options.attachToBody) {
 					this.parentElement = element.parentNode;
@@ -242,8 +242,15 @@
 			 * public API functions
 			 */
  			name:"AutocompleteBase",
- 			show: show,
- 			hide: hide,
+ 			showPopup: function (event) {
+				if (!this.focused) {
+					rf.getDomElement(this.fieldId).focus();
+				}
+				onShow.call(this, event);
+			},
+ 			hidePopup: function (event) {
+				this.__hide(event)
+			},
  			getNamespace: function () {
  				return this.namespace;
  			},
@@ -259,6 +266,8 @@
  			 * Protected methods
  			 */
  			__updateInputValue: updateInputValue,
+ 			__show: show,
+ 			__hide: hide,
  			/*
  			 * abstract protected methods
  			 */
