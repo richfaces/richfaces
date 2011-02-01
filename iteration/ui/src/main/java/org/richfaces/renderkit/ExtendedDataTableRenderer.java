@@ -765,7 +765,9 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         UIDataTableBase table = state.getRow();
         writer.startElement(HtmlConstants.TR_ELEMENT, table);
         
-        renderRowHandlers(facesContext, (UIDataTableBase)rowHolder.getRow());
+        if (rowHolder.getRow() instanceof UIDataTableBase) {
+            renderRowHandlers(facesContext, (UIDataTableBase)rowHolder.getRow());
+        }
         
         String rowClass = getRowClass(rowHolder);
         if (!"".equals(rowClass)) {
