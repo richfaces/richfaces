@@ -756,11 +756,11 @@
     $.extend(richfaces.ui.PopupPanel, {
 
         showPopupPanel : function (id, opts, event) {
-            richface.Event.ready(richfaces.$(id).show());
+            richfaces.Event.ready(richfaces.$(id).show());
         },
 
         hidePopupPanel : function (id, opts, event) {
-            richface.Event.ready(richfaces.$(id).hide());
+            richfaces.Event.ready(richfaces.$(id).hide());
         }
     });
 

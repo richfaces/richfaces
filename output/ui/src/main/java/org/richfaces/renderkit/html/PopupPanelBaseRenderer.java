@@ -27,6 +27,7 @@ import org.richfaces.renderkit.RendererBase;
     @ResourceDependency(library = "org.richfaces", name = "popupPanel.js"),
     @ResourceDependency(library = "org.richfaces", name = "popupPanelBorders.js"), 
     @ResourceDependency(library = "org.richfaces", name = "popupPanelSizer.js"),
+    @ResourceDependency(name="richfaces-event.js",library="",target=""),
     @ResourceDependency(library = "org.richfaces", name = "popupPanel.ecss")
 
 })
