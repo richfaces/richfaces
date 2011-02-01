@@ -173,6 +173,14 @@ public abstract class AbstractRowsRenderer extends RendererBase implements DataV
         return styleClass;
     }
     
+    protected String getRowClassAttribute(RowHolderBase rowHolder) {
+        String rowClass = "";
+        if (rowHolder.getRow() instanceof UIDataTableBase) {
+            rowClass = ((UIDataTableBase)rowHolder.getRow()).getRowClass();
+        }
+        return rowClass;
+    }
+    
     protected String getRowClass(RowHolderBase rowHolder) {
         String styleClass = ""; 
         String[] rowClasses = getRowClasses(rowHolder);
@@ -180,6 +188,6 @@ public abstract class AbstractRowsRenderer extends RendererBase implements DataV
             int styleIndex = rowHolder.getCurrentRow() % rowClasses.length;
             styleClass = rowClasses[styleIndex];
         }
-        return styleClass;
+        return concatClasses(getRowClassAttribute(rowHolder), styleClass);
     }    
 }
