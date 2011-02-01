@@ -46,6 +46,7 @@ import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.event.BypassUpdatesAjaxBehaviorEvent;
 import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
 
 /**
@@ -245,7 +246,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
     }
 
     public void setImmediate(boolean immediate) {
-        getStateHelper().put(PropertyKeys.limitRender, immediate);
+        getStateHelper().put(PropertyKeys.immediate, immediate);
     }
 
     @Attribute
@@ -277,7 +278,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
 
     @Override
     public void broadcast(BehaviorEvent event) throws AbortProcessingException {
-        if (this.equals(event.getBehavior()) && isBypassUpdates()) {
+        if (this.equals(event.getBehavior()) && event instanceof BypassUpdatesAjaxBehaviorEvent) {
             FacesContext.getCurrentInstance().renderResponse();
         }
         

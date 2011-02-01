@@ -36,6 +36,7 @@ import javax.faces.render.FacesBehaviorRenderer;
 import javax.faces.render.RenderKitFactory;
 
 import org.ajax4jsf.component.behavior.AjaxBehavior;
+import org.richfaces.event.BypassUpdatesAjaxBehaviorEvent;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 import org.richfaces.renderkit.util.RendererUtils;
 
@@ -68,6 +69,10 @@ public class AjaxBehaviorRenderer extends ClientBehaviorRenderer {
         }
 
         component.queueEvent(createEvent(component, ajaxBehavior));
+        
+        if (isBypassUpdates(component, ajaxBehavior)) {
+            component.queueEvent(new BypassUpdatesAjaxBehaviorEvent(component, ajaxBehavior));
+        }
     }
 
     private AjaxBehaviorEvent createEvent(UIComponent component, AjaxBehavior ajaxBehavior) {
@@ -77,7 +82,6 @@ public class AjaxBehaviorRenderer extends ClientBehaviorRenderer {
         if (isImmediate(component, ajaxBehavior)) {
             phaseId = PhaseId.APPLY_REQUEST_VALUES;
         } else if (isBypassUpdates(component, ajaxBehavior)) {
-            //TODO nick - what if behavior is immediate & bypassUpdates in the same time?
             phaseId = PhaseId.PROCESS_VALIDATIONS;
         } else {
             phaseId = PhaseId.INVOKE_APPLICATION;
