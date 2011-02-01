@@ -67,16 +67,11 @@ public final class SelectUtils {
         private static final String ITEM_DISABLED = "itemDisabled";
         private static final String NO_SELECTION_OPTION = "noSelectionOption";
 
-        private String var;
-
-        private UIComponent sourceComponent;
-
-        private GenericObjectSelectItem(UIComponent sourceComponent) {
-            this.var = (String) sourceComponent.getAttributes().get(VAR);
-            this.sourceComponent = sourceComponent;
+        private GenericObjectSelectItem() {
         }
 
-        private void updateItem(FacesContext facesContext, Object value) {
+        private void updateItem(FacesContext facesContext, UIComponent sourceComponent, Object value) {
+            String var = (String) sourceComponent.getAttributes().get(VAR);
 
             Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
             Object oldVarValue = null;
@@ -146,8 +141,6 @@ public final class SelectUtils {
         
         private Iterator<?> data;
 
-        private GenericObjectSelectItem genericItem;
-        
         public GenericItemsIterator(FacesContext facesContext, UIComponent component, Iterator<?> data) {
             super();
             this.facesContext = facesContext;
@@ -163,11 +156,8 @@ public final class SelectUtils {
                 if (next instanceof SelectItem) {
                     return (SelectItem) next;
                 } else {
-                    if (genericItem == null) {
-                        genericItem = new GenericObjectSelectItem(component);
-                    }
-                    
-                    genericItem.updateItem(facesContext, next);
+                    GenericObjectSelectItem genericItem = new GenericObjectSelectItem();
+                    genericItem.updateItem(facesContext, component, next);
                     
                     return genericItem;
                 }
