@@ -23,7 +23,7 @@ class AccordionItemHeaderRenderer extends TableIconsRendererHelper<AbstractAccor
         String iconInactive = panel.isDisabled() ? panel.getLeftDisabledIcon() : panel.getLeftInactiveIcon();
         String iconActive = panel.isDisabled() ? panel.getLeftDisabledIcon() : panel.getLeftActiveIcon();
 
-        encodeTdIcon(writer, context, cssClassPrefix + "-ico", iconInactive, iconActive, panel.isDisabled() ? State.commonDisabled : State.common);
+        encodeTdIcon(writer, context, cssClassPrefix + "-ico", iconInactive, iconActive, panel.isDisabled() ? State.headerDisabled : State.header);
     }
 
     protected void encodeHeaderRightIcon(ResponseWriter writer, FacesContext context, AbstractAccordionItem panel) throws IOException {
