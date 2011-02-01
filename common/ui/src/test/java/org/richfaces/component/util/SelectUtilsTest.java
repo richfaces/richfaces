@@ -1,13 +1,18 @@
 package org.richfaces.component.util;
 
-import org.jboss.test.faces.AbstractFacesTest;
-import org.junit.Assert;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.faces.component.UIParameter;
 import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectOne;
 import javax.faces.model.SelectItem;
-import java.util.List;
+
+import org.jboss.test.faces.AbstractFacesTest;
+import org.junit.Assert;
+
+import com.google.common.collect.Iterators;
+import com.google.common.collect.Lists;
 
 /**
  * @author Gleb Galkin
@@ -26,6 +31,13 @@ public class SelectUtilsTest extends AbstractFacesTest {
         super.tearDown();
     }
 
+    
+    private static final <T> List<T> asList(Iterator<T> itr) {
+        List<T> result = Lists.newArrayList();
+        Iterators.addAll(result, itr);
+        return result;
+    }
+    
     /**
      * The aim of this test is to check first part of {@link SelectUtils#getSelectItems}, for {@link UISelectOne}
      */
@@ -44,14 +56,14 @@ public class SelectUtilsTest extends AbstractFacesTest {
         param.setValue("paramValue");
         selectOne.getChildren().add(param);
 
-        checkSelectItems(SelectUtils.getSelectItems(facesContext, selectOne));
+        checkSelectItems(asList(SelectUtils.getSelectItems(facesContext, selectOne)));
 
         // non select item in middle
         selectOne = new UISelectOne();
         selectOne.getChildren().add(new UISelectItemStub("value1", "label1", "description1", false, false, false));
         selectOne.getChildren().add(param);
         selectOne.getChildren().add(new UISelectItemStub("value2", "label2", "description2", false, true, true));
-        checkTwoSelectItems(SelectUtils.getSelectItems(facesContext, selectOne));
+        checkTwoSelectItems(asList(SelectUtils.getSelectItems(facesContext, selectOne)));
 
         // non select item as value cause IllegalArgumentException
         item = new UISelectItem();

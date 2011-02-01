@@ -25,6 +25,7 @@ package org.richfaces.renderkit;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -93,10 +94,12 @@ public final class SelectHelper {
     
     public static List<ClientSelectItem> getConvertedSelectItems(FacesContext facesContext, UIComponent component) {
         AbstractSelectComponent select = (AbstractSelectComponent) component;
-        List<SelectItem> selectItems = SelectUtils.getSelectItems(facesContext, select);
+        Iterator<SelectItem> selectItems = SelectUtils.getSelectItems(facesContext, select);
         List<ClientSelectItem> clientSelectItems = new ArrayList<ClientSelectItem>();
         
-        for (SelectItem selectItem : selectItems) {
+        while (selectItems.hasNext()) {
+            SelectItem selectItem = selectItems.next();
+
             String convertedStringValue = InputUtils.getConvertedStringValue(facesContext, select, selectItem.getValue());
             String label = selectItem.getLabel();
             clientSelectItems.add(new ClientSelectItem(convertedStringValue,label));
@@ -139,9 +142,12 @@ public final class SelectHelper {
         if (value == null) {
             value = select.getValue();
             if (value != null) {
-                List<SelectItem> items = SelectUtils.getSelectItems(
+                Iterator<SelectItem> items = SelectUtils.getSelectItems(
                         facesContext, component);
-                for (SelectItem item : items) {
+                
+                while (items.hasNext()) {
+                    SelectItem item = items.next();
+
                     if (value.equals(item.getValue())) {
                         label = item.getLabel();
                     }
