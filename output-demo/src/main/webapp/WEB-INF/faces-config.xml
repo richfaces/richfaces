@@ -103,6 +103,10 @@
             <from-outcome>qunit/panelMenu</from-outcome>
             <to-view-id>/qunit/panelMenu.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>RF-10153</from-outcome>
+            <to-view-id>/examples/panelMenu/RF-10153.xhtml</to-view-id>
+        </navigation-case>
 
         <!-- Tooltip navigation -->
         <navigation-case>
@@ -128,3 +132,5 @@
 
     </navigation-rule>
 </faces-config>
+
+
