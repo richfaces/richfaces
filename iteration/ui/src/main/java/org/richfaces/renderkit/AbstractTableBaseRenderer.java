@@ -80,7 +80,9 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
             } else {
                 encodeRowStart(writer, context, parentId, currentRow, component);
             }
-            renderRowHandlers(context, (UIDataTableBase)rowHolder.getRow());
+            if (rowHolder.getRow() instanceof UIDataTableBase) {
+                renderRowHandlers(context, (UIDataTableBase)rowHolder.getRow());
+            }
             rowHolder.setRowStart(false);
         }
 
