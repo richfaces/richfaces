@@ -75,7 +75,6 @@ public class TabPanelRenderer extends TogglePanelRenderer {
     @Override
     protected void doEncodeBegin(ResponseWriter w, FacesContext context, UIComponent component) throws IOException {
         super.doEncodeBegin(w, context, component);
-        writeJavaScript(w, context, component);
 
         writeTabsLine(w, context, component);
         writeTabsLineSeparator(w);
