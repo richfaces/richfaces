@@ -159,17 +159,11 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
     @Attribute(defaultValue = "getPanelMenu().getGroupMode()")
     public abstract PanelMenuMode getMode();
 
-    @Attribute(defaultValue = "getPanelMenu().isExpandSingle()")
-    public abstract boolean isExpandSingle();
-
     @Attribute
     public abstract String getCollapseEvent();
 
     @Attribute
     public abstract String getExpandEvent();
-
-    @Attribute(defaultValue = "getPanelMenu().isBubbleSelection()")
-    public abstract boolean isBubbleSelection();
 
     @Attribute
     public abstract MethodExpression getChangeExpandListener();

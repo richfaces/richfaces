@@ -27,8 +27,6 @@
 
     var __DEFAULT_OPTIONS = {
         expanded : false,
-        expandSingle : true,
-        bubbleSelection : true,
         stylePrefix : "rf-pm-gr",
         expandEvent: "click",
         collapseEvent: "click",
@@ -123,6 +121,9 @@
          * */
         init : function (componentId, options) {
             $super.constructor.call(this, componentId, $.extend({}, __DEFAULT_OPTIONS, options || {}));
+
+            this.options.bubbleSelection = this.__rfPanelMenu().options.bubbleSelection;
+            this.options.expandSingle = this.__rfPanelMenu().options.expandSingle;
 
             if (!this.options.disabled) {
                 var menuGroup = this;

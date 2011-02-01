@@ -23,12 +23,12 @@
 
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.getValueRequestParamName;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractPanelMenu;
+import org.richfaces.component.AbstractPanelMenuItem;
+import org.richfaces.context.ExtendedPartialViewContext;
+import org.richfaces.renderkit.HtmlConstants;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -36,13 +36,12 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionEvent;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractPanelMenu;
-import org.richfaces.component.AbstractPanelMenuItem;
-import org.richfaces.context.ExtendedPartialViewContext;
-import org.richfaces.renderkit.HtmlConstants;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.getValueRequestParamName;
 
 /**
  * @author akolonitsky
@@ -133,7 +132,7 @@ public class PanelMenuRenderer extends DivPanelRenderer {
         options.put("ajax", getAjaxOptions(context, panelMenu));
         options.put("disabled", panelMenu.isDisabled());
         options.put("expandSingle", panelMenu.isExpandSingle());
-
+        options.put("bubbleSelection", panelMenu.isBubbleSelection());
         return options;
     }
 

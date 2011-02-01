@@ -26,7 +26,8 @@
     rf.ui = rf.ui || {};
 
     var __DEFAULT_OPTIONS = {
-        expandSingle : true
+        expandSingle : true,
+        bubbleSelection : true
     };
 
     rf.ui.PanelMenu = rf.BaseComponent.extendClass({
