@@ -98,7 +98,7 @@
            				item.removeClass(this.selectItemCss);
            			}
            		},
-           		
+
            		currentSelectItem: function() {
            			if(this.items && this.index != -1) {
            				return this.items[this.index];
@@ -110,19 +110,17 @@
            		},
            		
            		getItemByIndex: function(i) {
-           			if(i >= 0 && i <= this.items.length) {
+           			if(i >= 0 && i < this.items.length) {
            				return this.items[i];
            			}
            		},
            		
-           		resetItemsSelection: function() {
-           			if(this.items) {
-           				var popup = this; 
-           				this.items.each(function(i,item){ 
-           						popup.unselectItem($(item));
-           					}
-           				);
+           		resetSelection: function() {
+           			var item = this.currentSelectItem();
+           			if(item) {
+           				this.unselectItem($(item));
            			}
+           			this.index = -1;
            		},
            		
            		isPopupList: function(target) {
@@ -172,7 +170,7 @@
            			item = this.items.eq(this.index);
            			this.selectItem(item);
            		},
-           		
+
            		__selectCurrent: function() {
            			var item;
            			if(this.items && this.index >= 0) {

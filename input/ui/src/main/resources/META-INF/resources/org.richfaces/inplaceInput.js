@@ -8,7 +8,8 @@
             this.label = $(document.getElementById(id+"Label"));
             var labelText = this.label.text();
             var inputLabel = this.__getValue();
-            this.initialValue = (labelText == inputLabel) ? labelText : "";
+            this.initialLabel = (labelText == inputLabel) ? labelText : "";
+            this.useDefaultLabel = labelText != inputLabel
             this.saveOnBlur = mergedOptions.saveOnBlur;
             this.showControls = mergedOptions.showControls;
            	this.getInput().bind("focus", $.proxy(this.__editHandler, this));
@@ -102,7 +103,7 @@
            		}, 
            		
            		isValueChanged: function () {
-           			return (this.__getValue() != this.initialValue);
+           			return (this.__getValue() != this.initialLabel);
            		},
     			
            		onshow: function(){
@@ -153,7 +154,11 @@
     			
     			__isFocused: function() {
     				return this.focused;
-    			}
+    			},
+                setValue: function(value) {
+    				this.__setValue(value);
+    				this.save();
+                }
     		}
     	})());
 

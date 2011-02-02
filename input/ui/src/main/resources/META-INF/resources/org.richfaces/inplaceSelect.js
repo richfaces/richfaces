@@ -11,6 +11,7 @@
         this.popupList = new rf.ui.PopupList(id+"List", this, mergedOptions);
         this.items = mergedOptions.items;
         this.selValueInput = $(document.getElementById(id+"selValue"));
+        this.initialValue = this.selValueInput.val();
         this.list = $(document.getElementById(id+"List"));
         this.list.bind("mousedown", $.proxy(this.__onListMouseDown, this));
         this.list.bind("mouseup", $.proxy(this.__onListMouseUp, this));
@@ -79,19 +80,42 @@
                 this.popupList.hide();
                 this.__showLabel();
             },
+            
+            __selectItemByValue: function(value) {
+                var item;
+                for (var i=0; i<this.items.length; i++) {
+                    item = this.items[i];
+                    if (item.value == value) {
+                        this.popupList.__selectByIndex(i);
+                        return;
+                    }
+                }
+                this.popupList.resetSelection();
+            },
+            
             onsave: function() {
                 var item = this.popupList.currentSelectItem();
                 if(item) {
-                    this.savedIndex = this.popupList.getSelectedItemIndex();
-                    var value = this.getItemValue(item);
-                    this.saveItemValue(value);
+                    var index = this.popupList.getSelectedItemIndex();
+                    if (this.items[index].label == this.__getValue()) {
+                    	this.savedIndex = index;
+                    	var value = this.getItemValue(item);
+                    	this.saveItemValue(value);
+                    	this.popupList.__selectByIndex(this.savedIndex);
+                    } else {
+                    	this.__selectItemByValue(this.getValue());
+                    }
                 }
             },
             oncancel: function() {
                 var prevItem = this.popupList.getItemByIndex(this.savedIndex);
-                if(prevItem) {
+                if (prevItem) {
                     var value = this.getItemValue(prevItem);
                     this.saveItemValue(value);
+                    this.popupList.__selectByIndex(this.savedIndex);
+                } else {
+                	this.saveItemValue(this.initialValue);
+                	this.__selectItemByValue(this.initialValue);
                 }
             },
             onblur: function(e) {
@@ -226,8 +250,8 @@
                     item = this.items[i];
                     if (item.value == value) {
                         this.__setValue(item.label);
-                        this.save();
                         this.popupList.__selectByIndex(i);
+                        this.save();
                         break;
                     }
                 }

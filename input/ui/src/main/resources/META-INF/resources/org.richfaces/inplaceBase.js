@@ -63,6 +63,7 @@
 				var value = this.__getValue()
        			if(value.length > 0) {
        				this.setLabel(value);
+       				this.useDefaultLabel = false;
        			} else {
        				this.setLabel(this.defaultLabel);
        				this.useDefaultLabel = true;
@@ -77,8 +78,8 @@
 			cancel: function(){
 				var text = "";
    				if(!this.useDefaultLabel) {
-   					text = this.getLabel()
-   				} 
+   					text = this.getLabel();
+   				}
        			this.__setValue(text);
        			this.isSaved = true;
            		this.oncancel();

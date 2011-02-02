@@ -62,7 +62,7 @@ public class InplaceInputRendererTest extends InplaceRendererTestBase {
                 
         HtmlElement span = page.getFirstByXPath("//*[@id = '"+ withControlsComponentId +"']");
         assertNotNull(span);
-        assertEquals("rf-ii-d-s rf-ii-c-s", span.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
+        assertEquals("rf-ii-d-s", span.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         
         edit(page, withControlsComponentId,  "Another Test String");
                 
