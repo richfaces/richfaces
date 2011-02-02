@@ -33,6 +33,62 @@
        <function>RichFaces.csv.convertShort</function>
    </component>
    <component>
+       <type>javax.faces.convert.CharacterConverter</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+       <function>RichFaces.csv.convertCharacter</function>
+   </component>
+   <component>
+       <type>javax.faces.convert.IntegerConverter</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+       <function>RichFaces.csv.convertInteger</function>
+   </component>
+   <component>
+       <type>javax.faces.convert.LongConverter</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+       <function>RichFaces.csv.convertLong</function>
+   </component>
+   <component>
+       <type>javax.faces.convert.FloatConverter</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+       <function>RichFaces.csv.convertFloat</function>
+   </component>
+   <component>
+       <type>javax.faces.convert.DoubleConverter</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+       <function>RichFaces.csv.convertDouble</function>
+   </component>
+   <component>
+       <type>javax.faces.convert.DateConverter</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+       <function>RichFaces.csv.convertDate</function>
+   </component>
+   <component>
+       <type>javax.faces.convert.ShortConverter</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+       <function>RichFaces.csv.convertShort</function>
+   </component>
+   <component>
        <type>javax.faces.validator.LengthValidator</type>
         <resource>
             <name>csv.reslib</name>

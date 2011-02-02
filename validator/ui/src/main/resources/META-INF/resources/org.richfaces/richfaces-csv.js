@@ -22,15 +22,6 @@
 		}
 	}
 	
-	var _interpolateFacesMessage = function(msg,id,value){
-		var d = msg.detail?_substitute(msg.detail,id,value):"";
-		var s = msg.summary?_substitute(msg.summary,id,value):"";
-		return {detail:d,summary:s};
-	}
-	
-	var _substitute = function(msg,id,value){
-		return msg.replace("{id}",id).replace("{value}",value);
-	}
 
 	var __getValue = function(id) {
 		var value;
@@ -44,6 +35,7 @@
 		}
 		return value;
 	}
+	
 	
 	$.extend(rf.csv, {
 		RE_DIGITS: /^-?\d+$/,
@@ -103,29 +95,27 @@
 			}
 			return true;
 		},
-		/*
-			function form_3Atext_3Av(clientId,element,event,disableAjax){var value=RichFaces.csv.getValue(clientId,element);
-			try {
-			var convertedValue=value;
-			RichFaces.csv.validateLength(convertedValue,{"detail":"{2}: Validation Error: Specified attribute is not between the expected values of {0} and {1}.","severity":0,"summary":"{2}: Validation Error: Specified attribute is not between the expected values of {0} and {1}."} ,{"minimum":1,"maximum":3} );
-			if(!disableAjax){
-			RichFaces.csv.clearMessage(clientId);
-			}
-			return true;
-			} catch(e) {
-			RichFaces.csv.sendMessage(clientId,e);
-			return false;
-			}}
-		 */
-		/*
-		 *  c: {name:, params:}
-		 	v: [{f:, customMessage:, [validator params]}]
-		 	function form_3Atext_3Av(id, el, e, c, v, p) {
-		 		RichFaces.csv.validate(e, id, el, c, v, p);
-		 	}
-		 */
 	});
 	
+	/* convert all natural number formats
+	 * 
+	 */
+	var _convertNatural = function(value,label,msg,min,max,sample){
+		var result; value = $.trim(value);
+		if (!rf.csv.RE_DIGITS.test(value) || (result=parseInt(value,10))<min || result>max) {
+			throw rf.csv.interpolateMessage(msg,  sample?[value, sample, label]:[value,label]);
+		}
+		return result;
+	}
+
+	var _convertReal = function(value,label,msg,sample){
+		var result; value = $.trim(value);
+		if (!rf.csv.RE_FLOAT.test(value) || isNaN(result=parseFloat(value)) ) {
+			// TODO - check Float limits.
+			throw rf.csv.interpolateMessage(msg,  sample?[value, sample, label]:[value,label]);
+		}
+		return result;
+	}
 	/*
 	 * Converters implementation
 	 */	
@@ -136,12 +126,14 @@
 			
 			return result;
 		},
-		"convertByte": function (value,label,params,msg) {
+		"convertDate": function (value,label,params,msg) {
 			var result; value = $.trim(value);
-			if (!rf.csv.RE_DIGITS.test(value) || (result=parseInt(value,10))<-128 || result>127) {
-				throw rf.csv.interpolateMessage(msg,  [value, 254, label]);
-			}
+			// TODO - JSF date converter options.
+			result=Date.parse(value);
 			return result;
+		},
+		"convertByte": function (value,label,params,msg) {
+			return _convertNatural(value,label,msg,-128,127,254);
 		},
 		"convertNumber": function (value,label,params,msg) {
 			var result; value=$.trim(value);
@@ -151,12 +143,23 @@
 			}
 			return result;
 		},
+		"convertFloat": function (value,label,params,msg) {
+			return _convertReal(value,label,msg,2000000000);
+		},
+		"convertDouble": function (value,label,params,msg) {
+			return _convertReal(value,label,msg,1999999);
+		},
 		"convertShort": function (value,label,params,msg) {
-			var result; value = $.trim(value);
-			if (!rf.csv.RE_DIGITS.test(value) || (result=parseInt(value,10))<-32768 || result>32767) {
-				throw rf.csv.interpolateMessage(msg,  [value, 32456, label]);
-			}
-			return result;
+			return _convertNatural(value,label,msg,-32768,32767,32456);
+		},
+		"convertInteger": function (value,label,params,msg) {
+			return _convertNatural(value,label,msg, -2147483648,2147483648,9346);
+		},
+		"convertCharacter": function (value,label,params,msg) {
+			return _convertNatural(value,label,msg, 0,65535);
+		},
+		"convertLong": function (value,label,params,msg) {
+			return _convertNatural(value,label,msg, -9223372036854775808,9223372036854775807,98765432);
 		}
 	});
 	
