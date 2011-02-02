@@ -1,5 +1,20 @@
 .rf-csttg {
     cursor: pointer;
+    vertical-align: middle;
+    margin:0px;
+    padding:0px;
+}
+
+.rf-csttg-exp {
+    vertical-align: middle;
+    margin:0px;
+    padding:0px;
+}
+
+.rf-csttg-colps {
+    vertical-align: middle;
+    margin:0px;
+    padding:0px;
 }
 
 .rf-cst {
