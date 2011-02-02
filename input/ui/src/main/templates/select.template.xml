@@ -20,32 +20,30 @@
    		<cdk:object type="java.lang.Object" name="disabled" value="#{component.attributes['disabled']}" />
         
         <div id="#{clientId}" class="rf-sel">
-            <div style="position : relative; overflow : hidden; text-align : left; padding-right : 18px;">
+            <span class="rf-sel-cntr">
             	<input id="#{clientId}selValue" name="#{clientId}" type="hidden" value="#{getInputValue(facesContext, component)}"/>
-            	<div id="#{clientId}Field"  class="rf-sel-fld">
-	            	<input cdk:passThroughWithExclusions="class autocomplete id value disabled name type readonly onchange onblur onfocus" 
-						id="#{clientId}Input" 
-						value="#{getSelectLabel(facesContext, component)}"  
-						disabled="#{disabled}" 
-						name="#{clientId}Input"
-						type="text" 
-						class="rf-sel-inp" 
-						autocomplete="off"
-						readonly="#{component.attributes['enableManualInput'] ? '' : 'readonly'}"/>
-            	</div>
+            	<input cdk:passThroughWithExclusions="class autocomplete id value disabled name type readonly onchange onblur onfocus" 
+					id="#{clientId}Input" 
+					value="#{getSelectLabel(facesContext, component)}"  
+					disabled="#{disabled}" 
+					name="#{clientId}Input"
+					type="text" 
+					class="rf-sel-inp" 
+					autocomplete="off"
+					readonly="#{component.attributes['enableManualInput'] ? '' : 'readonly'}"/>
                 <c:if test="#{component.attributes['showButton']}">
 	                <c:if test="#{component.attributes['disabled']}">
-		                <div id="#{clientId}Button" class="rf-sel-btn rf-sel-btn-dis">
-		                    <div class="rf-sel-btn-arrow"></div>
-		                </div>
+		                <span id="#{clientId}Button" class="rf-sel-btn rf-sel-btn-dis">
+		                    <span class="rf-sel-btn-arrow"></span>
+		                </span>
 	                </c:if>
 	                <c:if test="#{!component.attributes['disabled']}">
-		                <div id="#{clientId}Button" class="rf-sel-btn">
-		                    <div class="rf-sel-btn-arrow"></div>
-		                </div>
+		                <span id="#{clientId}Button" class="rf-sel-btn">
+		                    <span class="rf-sel-btn-arrow"></span>
+		                </span>
 	                </c:if>
                 </c:if>
-            </div>
+            </span>
 
             <div id="#{clientId}List" class="#{getListCss(component)}">
 				<cdk:call expression="renderListHandlers(facesContext, component);"/>

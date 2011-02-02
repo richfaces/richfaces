@@ -15,18 +15,13 @@
             var inputLabel = this.__getValue() ;
             this.initialValue = (inputLabel != this.defaultLabel) ? inputLabel : "";
             this.selValueInput = $(document.getElementById(id+"selValue"));
-            this.field = $(document.getElementById(id+"Field"));
+            this.container = this.selValueInput.parent();
             this.clientItems = mergedOptions.items;
             
 
             if(mergedOptions.showControl && !mergedOptions.disabled) {
-        		this.btn = $(document.getElementById(id+"Button"));
-        	   	this.btn.bind("mousedown", $.proxy(this.__onBtnMouseDown, this));
-        	   	this.btn.bind("mouseup", $.proxy(this.__onMouseUp, this));
-        	   	
-    	   		this.fld = $(document.getElementById(id+"Field"));
-    	   		this.fld.bind("mousedown", $.proxy(this.__onBtnMouseDown, this));
-    	   		this.fld.bind("mouseup", $.proxy(this.__onMouseUp, this));
+    	   		this.container.bind("mousedown", $.proxy(this.__onBtnMouseDown, this))
+    	   			.bind("mouseup", $.proxy(this.__onMouseUp, this));
         	}
             
         	this.selectFirst = mergedOptions.selectFirst;
@@ -158,9 +153,9 @@
     					
     					var items = this.popupList.__getItems();
     					if(items.length != 0) {
-    						this.field.removeClass("rf-sel-fld-err");
+    						this.container.removeClass("rf-sel-fld-err");
     					} else {
-    						this.field.addClass("rf-sel-fld-err");
+    						this.container.addClass("rf-sel-fld-err");
     					}
     					
     					if(!this.popupList.isVisible()) {
@@ -223,7 +218,7 @@
 								}
 							});
 						} else {
-    						this.field.removeClass("rf-sel-fld-err");
+    						this.container.removeClass("rf-sel-fld-err");
 
     						var prevValue =	this.selValueInput.val();
 							if(prevValue && prevValue != "") {

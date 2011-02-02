@@ -4,29 +4,30 @@
 	font-family: '#{richSkin.generalFamilyFont}';
 }
 
-input.rf-sel-inp {
-	border-width: 0px;
-	width: 100%;
-	color: '#{richSkin.generalTextColor}';
-	font-size: '#{richSkin.generalSizeFont}';
-	font-family: '#{richSkin.generalFamilyFont}';
-}
-
-.rf-sel{
-	width:200px;
-	display:inline-block;
-}	
-
-.rf-sel-fld{
+.rf-sel-cntr {
 	border-width: 1px;
 	border-style: solid;
 	border-color: '#{richSkin.panelBorderColor}';
-	background-image: "url(#{resource['org.richfaces.renderkit.html.images.AutocompleteFieldGradient']})";
-	background-repeat: repeat-x;
-	background-position: top left;
-	background-color: '#{richSkin.controlBackgroundColor}';
-	width: 100%;
+	display: inline-block;
+	font-size: 1px;
+	white-space: nowrap;
 }
+
+input.rf-sel-inp {
+	background-color: '#{richSkin.controlBackgroundColor}';
+	background-image: url("#{resource['org.richfaces.renderkit.html.images.InputBackgroundImage']}");
+	background-position:1px 1px;
+	background-repeat:no-repeat;
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	vertical-align: top;
+	width: 182px;
+}
+
+.rf-sel{
+	display:inline-block;
+}	
 
 .rf-sel-fld-err input{
 	color: #FF0000;
@@ -37,18 +38,11 @@ input.rf-sel-inp {
 	background-repeat: repeat-x;
 	background-position: top left;
 	background-color: '#{richSkin.headerBackgroundColor}';
-	text-align: center;
-	border-style: solid;
-	border-width: 1px;
-	border-color: '#{richSkin.panelBorderColor}';
-	border-left-width: 0px;
-			
-	width: 15px;
-	position: absolute;
-	top: 0px;
-	right: 0px;
-	height: 200px;
-	padding-top: 1px
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-left-color: '#{richSkin.panelBorderColor}';
+	display: inline-block;
+	vertical-align: top;
 }
 
 .rf-sel-btn-arrow{
@@ -57,7 +51,8 @@ input.rf-sel-inp {
 	background-image: "url(#{resource['org.richfaces:combo_down_button.gif']})";
 	cursor: pointer;
 	width: 15px;
-	height: 15px;
+	height: 16px;
+	display: inline-block;
 }
 
 .rf-sel-btn-dis {
@@ -87,7 +82,6 @@ input.rf-sel-inp {
 .rf-sel-lst-scrl{
 	overflow: auto;
 	overflow-x: hidden;
-	width: 200px;
 }
 
 .rf-sel-opt{
