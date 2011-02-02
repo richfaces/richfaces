@@ -61,9 +61,9 @@ public class DataTableRenderer extends AbstractTableRenderer {
             
             writer.startElement(HtmlConstants.TBODY_ELEMENT, dataTable);
             writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, dataTable.getContainerClientId(context) + HIDDEN_CONTAINER_ID, null);
-            writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display: none", null);
             writer.startElement(HtmlConstants.TR_ELEMENT, dataTable);
             writer.startElement(HtmlConstants.TD_ELEM, dataTable);
+            writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display: none", null);
         }
 
         public void end(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params) throws IOException {
