@@ -53,21 +53,21 @@
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
         </dependency>
-	<dependency>
-	     <groupId>org.hibernate</groupId>
-	     <artifactId>hibernate-validator</artifactId>
-	     <version>4.1.0.Final</version>
-	</dependency>
-	<dependency>
-	     <groupId>javax.validation</groupId>
-	     <artifactId>validation-api</artifactId>
-	     <version>1.0.0.GA</version>
-	</dependency>
-	<dependency>
-	     <groupId>org.slf4j</groupId>
-	     <artifactId>slf4j-log4j12</artifactId>
-	     <version>1.5.6</version>
-	</dependency>
+    	<dependency>
+    	     <groupId>org.hibernate</groupId>
+    	     <artifactId>hibernate-validator</artifactId>
+    	     <version>4.1.0.Final</version>
+    	</dependency>
+    	<dependency>
+    	     <groupId>javax.validation</groupId>
+    	     <artifactId>validation-api</artifactId>
+    	     <version>1.0.0.GA</version>
+    	</dependency>
+    	<dependency>
+    	     <groupId>org.slf4j</groupId>
+    	     <artifactId>slf4j-jdk14</artifactId>
+    	     <version>1.5.6</version>
+    	</dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>
@@ -307,8 +307,8 @@
                                 <configuration>
                                     <webappDirectory>${project.build.directory}/${project.build.finalName}-jee6</webappDirectory>
                                     <classifier>jee6</classifier>
-                                    <packagingExcludes>WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*</packagingExcludes>
-                                    <warSourceExcludes>WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*</warSourceExcludes>
+                                    <packagingExcludes>WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-validator-*,WEB-INF/lib/slf4j-*</packagingExcludes>
+                                    <warSourceExcludes>WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-validator-*,WEB-INF/lib/slf4j-*</warSourceExcludes>
                                     <webResources>
                                         <resource>
                                             <directory>${basedir}/src/main/java</directory>
@@ -403,6 +403,17 @@
                     <groupId>javax.servlet</groupId>
                     <artifactId>jstl</artifactId>
                     <scope>provided</scope>
+                </dependency>
+                <dependency>
+                     <groupId>org.hibernate</groupId>
+                     <artifactId>hibernate-validator</artifactId>
+                     <version>4.1.0.Final</version>
+                     <scope>provided</scope>
+                </dependency>
+                <dependency>
+                     <groupId>javax.validation</groupId>
+                     <artifactId>validation-api</artifactId>
+                     <scope>provided</scope>
                 </dependency>
             </dependencies>
         </profile>
