@@ -1,4 +1,8 @@
-.rf-cst{
+.rf-csttg {
+    cursor: pointer;
+}
+
+.rf-cst {
 }
 
 .rf-cst-r{
