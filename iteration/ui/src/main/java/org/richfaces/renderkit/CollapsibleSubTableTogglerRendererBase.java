@@ -50,6 +50,7 @@ import com.google.common.base.Strings;
     {@ResourceDependency(library = "javax.faces", name = "jsf.js"),
     @ResourceDependency(name = "richfaces.js"), 
     @ResourceDependency(name = "richfaces-event.js"),
+    @ResourceDependency(library="org.richfaces", name = "collapsible-subtable-toggler.ecss"),
     @ResourceDependency(library="org.richfaces", name = "collapsible-subtable-toggler.js")
 })
 public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
@@ -115,7 +116,7 @@ public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
         }
 
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, control.getClientId(context) + ":" + state, null);
-        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, styleClass, null);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, concatClasses(getIconClass(expanded), styleClass), null);
         writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, style, null);
 
         UIComponent controlFacet = control.getFacet(state);
@@ -204,5 +205,17 @@ public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
 
     protected String getState(boolean expanded) {
         return expanded ? EXPANDED_STATE : COLLAPSED_STATE;
+    }
+    
+    protected String getIconClass(boolean expanded) {
+        return expanded ? getExpandedIconClass() : getCollapsedIconClass();
+    }
+    
+    public String getExpandedIconClass() {
+        return "rf-csttg-exp";
+    }
+    
+    public String getCollapsedIconClass() {
+        return "rf-csttg-colps";
     }
 }
