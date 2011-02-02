@@ -1,4 +1,4 @@
-.rf-tb-hdr { 
+.rf-tab-hdr { 
     white-space: nowrap;
     border: "1px solid #{richSkin.panelBorderColor}";
     cursor : pointer;
@@ -12,7 +12,7 @@
 }
 
 
-.rf-tb-hdr-act {
+.rf-tab-hdr-act {
     border-bottom: 0px;
     font-weight: bold;
     vertical-align: top;
@@ -23,15 +23,15 @@
     cursor: default;
 }
 
-.rf-tb-hdr-inact {
+.rf-tab-hdr-inact {
 }
 
-.rf-tb-hdr-dis {
+.rf-tab-hdr-dis {
     color: "#{richSkin.tabDisabledTextColor}";
     cursor: default;
 }
 
-.rf-tb-hdr-tabline-vis {
+.rf-tab-hdr-tabline-vis {
     background:url("#{resource['org.richfaces.images:tabLineBg.png']}") repeat-x scroll center top;
     background-color: "#{richSkin.additionalBackgroundColor}";
 
@@ -48,31 +48,31 @@
     position: relative;
 }
 
-.rf-tb-hdr-tabs {
+.rf-tab-hdr-tabs {
     border: 0px;
     width: 100%;
     height: 100%;
 }
 
-.rf-tb-hdr-spcr {
+.rf-tab-hdr-spcr {
     border-bottom: "1px solid #{richSkin.panelBorderColor}";
 }
 
-.rf-tb-hortab-tabspcr_wdh {
+.rf-tab-hortab-tabspcr-wdh {
     padding-left: 1px;
 }
 
-.rf-tb-lbl {
+.rf-tab-lbl {
     white-space: nowrap;
     font-family: '#{richSkin.generalFamilyFont}';
     font-size: '#{richSkin.generalSizeFont}';
 }
 
-.rf-tb-hdn {
+.rf-tab-hdn {
     display: none
 }
 
-.rf-tb-hdr-scrl_l {
+.rf-tab-hdr-scrl-lft {
     background: "url(#{resource['org.richfaces.images:actTabBg.png']}) top repeat-x #{richSkin.additionalBackgroundColor}";
     position: absolute;
     top: 1px;
@@ -87,7 +87,7 @@
     padding-top: 6px;
 }
 
-.rf-tb-hdr-scrl_r {
+.rf-tab-hdr-scrl-rgh {
     background: "url(#{resource['org.richfaces.images:actTabBg.png']}) top repeat-x #{richSkin.additionalBackgroundColor}";
     position: absolute;
     top: 1px;
@@ -102,7 +102,7 @@
     padding-top: 6px;
 }
 
-.rf-tb-hdr-tablst {
+.rf-tab-hdr-tablst {
     background: "url(#{resource['org.richfaces.images:actTabBg.png']}) top repeat-x #{richSkin.additionalBackgroundColor}";
     position: absolute;
     top: 1px;
@@ -117,14 +117,14 @@
     padding-top: 2px;
 }
 
-.rf-tb-hdr_brd {
+.rf-tab-hdr-brd {
     border: "1px solid #{richSkin.panelBorderColor}";
     border-top: 0px;
     height: 2px;
     background: '#{richSkin.tabBackgroundColor}';
 }
 
-.rf-tb-cnt {
+.rf-tab-cnt {
     border: "1px solid #{richSkin.panelBorderColor}";
     border-top: 0px;
     font-family: '#{richSkin.generalFamilyFont}';

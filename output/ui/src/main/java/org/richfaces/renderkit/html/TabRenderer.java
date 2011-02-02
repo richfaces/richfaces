@@ -67,7 +67,7 @@ public class TabRenderer extends TogglePanelItemRenderer {
     
     @Override
     protected String getStyleClass(UIComponent component) {
-        return concatClasses("rf-tb", attributeAsString(component, "styleClass"));
+        return concatClasses("rf-tab", attributeAsString(component, "styleClass"));
     }
 
     @Override
@@ -104,7 +104,7 @@ public class TabRenderer extends TogglePanelItemRenderer {
 
     private void encodeContentBegin(FacesContext context, UIComponent component, ResponseWriter writer) throws IOException {
         writer.startElement(DIV_ELEM, component);
-        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-tb-cnt", attributeAsString(component, "contentClass")), null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-tab-cnt", attributeAsString(component, "contentClass")), null);
         writer.writeAttribute(ID_ATTRIBUTE, component.getClientId(context) + ":content", null);
     }
 

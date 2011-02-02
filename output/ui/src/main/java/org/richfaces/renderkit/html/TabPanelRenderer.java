@@ -22,6 +22,28 @@
 
 package org.richfaces.renderkit.html;
 
+import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.active;
+import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.disabled;
+import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.inactive;
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.SPAN_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.STYLE_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.TBODY_ELEMENT;
+import static org.richfaces.renderkit.HtmlConstants.TD_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.TR_ELEMENT;
+import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
+
+import java.io.IOException;
+import java.util.Map;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractTabPanel;
@@ -31,18 +53,6 @@ import org.richfaces.component.AbstractTogglePanelTitledItem;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Map;
-
-import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.*;
-import static org.richfaces.renderkit.HtmlConstants.*;
-import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 
 /**
  * @author akolonitsky
@@ -77,19 +87,21 @@ public class TabPanelRenderer extends TogglePanelRenderer {
         super.doEncodeBegin(w, context, component);
 
         writeTabsLine(w, context, component);
-        writeTabsLineSeparator(w);
+        writeTabsLineSeparator(w, component);
     }
 
-    private void writeTabsLineSeparator(ResponseWriter writer) throws IOException {
-        writer.write("<div class='rf-tb-hdr_brd'></div>");
+    private void writeTabsLineSeparator(ResponseWriter writer, UIComponent component) throws IOException {
+        writer.startElement(DIV, component);
+        writer.writeAttribute(CLASS_ATTRIBUTE, "rf-tab-hdr-brd", null);
+        writer.endElement(DIV);
     }
 
     private void writeTabsLine(ResponseWriter w, FacesContext context, UIComponent comp) throws IOException {
         w.startElement(DIV, comp);
-        w.writeAttribute(CLASS, "rf-tb-hdr-tabline-vis", null);
+        w.writeAttribute(CLASS, "rf-tab-hdr-tabline-vis", null);
 
         w.startElement("table", comp);
-        w.writeAttribute(CLASS_ATTRIBUTE, "rf-tb-hdr-tabs", null);
+        w.writeAttribute(CLASS_ATTRIBUTE, "rf-tab-hdr-tabs", null);
         w.writeAttribute("cellspacing", "0", null);
         w.startElement(TBODY_ELEMENT, comp);
         w.startElement(TR_ELEMENT, comp);
@@ -108,9 +120,9 @@ public class TabPanelRenderer extends TogglePanelRenderer {
         w.endElement(TBODY_ELEMENT);
         w.endElement("table");
 
-        writeTopTabsControl(w, comp, "rf-tb-hdr-scrl_l rf-tb-hdn", "\u00AB");
-        writeTopTabsControl(w, comp, "rf-tb-hdr-tablst rf-tb-hdn", "\u2193");
-        writeTopTabsControl(w, comp, "rf-tb-hdr-scrl_r rf-tb-hdn", "\u00BB");
+        writeTopTabsControl(w, comp, "rf-tab-hdr-scrl-lft rf-tab-hdn", "\u00AB");
+        writeTopTabsControl(w, comp, "rf-tab-hdr-tablst rf-tab-hdn", "\u2193");
+        writeTopTabsControl(w, comp, "rf-tab-hdr-scrl-rgh rf-tab-hdn", "\u00BB");
 
         w.endElement(DIV_ELEM);
     }
@@ -142,12 +154,12 @@ public class TabPanelRenderer extends TogglePanelRenderer {
         writer.startElement(TD_ELEM, tab);
         writer.writeAttribute(ID_ATTRIBUTE, tab.getClientId(context) + ":header:" + state.toString(), null);
         renderPassThroughAttributes(context, tab, HEADER_ATTRIBUTES);
-        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-tb-hdr rf-tb-hdr-" + state.abbreviation(),
+        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-tab-hdr rf-tab-hdr-" + state.abbreviation(),
                 attributeAsString(tab, "headerClass"), attributeAsString(tab, state.headerClass())), null);
         writer.writeAttribute(STYLE_ATTRIBUTE, concatStyles(isDisplay ? "" : "display : none", attributeAsString(tab, "headerStyle")), null);
 
-        writer.startElement("span", tab);
-        writer.writeAttribute(CLASS_ATTRIBUTE, "rf-tb-lbl", null);
+        writer.startElement(SPAN_ELEM, tab);
+        writer.writeAttribute(CLASS_ATTRIBUTE, "rf-tab-lbl", null);
 
         UIComponent headerFacet = tab.getHeaderFacet(state);
         if (headerFacet != null && headerFacet.isRendered()) {
@@ -159,7 +171,7 @@ public class TabPanelRenderer extends TogglePanelRenderer {
             }
         }
 
-        writer.endElement("span");
+        writer.endElement(SPAN_ELEM);
 
         writer.endElement(TD_ELEM);
     }
@@ -174,15 +186,15 @@ public class TabPanelRenderer extends TogglePanelRenderer {
     }
 
     private void writeTopTabFirstSpacer(ResponseWriter w, UIComponent comp) throws IOException {
-        writeTopTabSpacer(w, comp, "padding-left: 5px;", "rf-tb-hdr-spcr");
+        writeTopTabSpacer(w, comp, "padding-left: 5px;", "rf-tab-hdr-spcr");
     }
 
     private void writeTopTabSpacer(ResponseWriter w, UIComponent comp) throws IOException {
-        writeTopTabSpacer(w, comp, "", "rf-tb-hdr-spcr rf-tb-hortab-tabspcr_wdh");
+        writeTopTabSpacer(w, comp, "", "rf-tab-hdr-spcr rf-tab-hortab-tabspcr-wdh");
     }
 
     private void writeTopTabLastSpacer(ResponseWriter w, UIComponent comp) throws IOException {
-        writeTopTabSpacer(w, comp, "padding-right: 5px; width: 100%;", "rf-tb-hdr-spcr");
+        writeTopTabSpacer(w, comp, "padding-right: 5px; width: 100%;", "rf-tab-hdr-spcr");
     }
 
     private void writeTopTabSpacer(ResponseWriter w, UIComponent comp, String style, String styleClass) throws IOException {
