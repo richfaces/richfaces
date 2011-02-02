@@ -17,6 +17,55 @@ public class DataBean {
     private String dragValue2 = "dragValue 2";
     private String dragValue3 = "dragValue 3";
     private String acceptedTypes = "drg1, drg2";
+    private String phaseId = "none";
+
+    private boolean immediate = false;
+    private boolean bypassUpdates = false;
+    private Object execute;
+    private String executeTest = "none";
+
+    public String getExecuteTest() {
+        return executeTest;
+    }
+
+    public void setExecuteTest(String executeTest) {
+        this.executeTest = executeTest;
+    }
+    public Object getExecute() {
+        return execute;
+    }
+
+    public void setExecute(Object execute) {
+        this.execute = execute;
+    }
+
+
+
+    public boolean isImmediate() {
+        return immediate;
+    }
+
+    public void setImmediate(boolean immediate) {
+        this.immediate = immediate;
+    }
+
+    public boolean isBypassUpdates() {
+        return bypassUpdates;
+    }
+
+    public void setBypassUpdates(boolean bypassUpdates) {
+        this.bypassUpdates = bypassUpdates;
+    }
+
+    public String getPhaseId() {
+        return phaseId;
+    }
+
+    public void setPhaseId(String phaseId) {
+        this.phaseId = phaseId;
+    }
+
+
 
     public List<String> getDropValues(){
         return dropValues;
@@ -58,10 +107,8 @@ public class DataBean {
         this.acceptedTypes = acceptedTypes;
     }
 
-    public void processEvent(DropEvent event) {
-        String value = (String)event.getDragValue();
-        dropValues.add(value);
-        System.out.println("DataBean.processEvent()");
+    public void  addDropValues(String value){
+          dropValues.add(value);
     }
 
     public void makeAcceptedTypesNullable(){

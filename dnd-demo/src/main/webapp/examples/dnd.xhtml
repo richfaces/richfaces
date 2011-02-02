@@ -83,19 +83,36 @@
                                              action="#{dataBean.makeAcceptedTypesNullable}"
                                              render="drp"/>
                         </li>
+                        <li>
+                            <h:outputText value="Immediate:"/>
+                            <h:selectBooleanCheckbox value="#{dataBean.immediate}">
+                                <a4j:ajax render="drp @this"/>
+                            </h:selectBooleanCheckbox>
+                        </li>
+                        <li>
+                            <h:outputText value="bypassUpdates:"/>
+                            <h:selectBooleanCheckbox value="#{dataBean.bypassUpdates}">
+                                <a4j:ajax render="drp @this"/>
+                            </h:selectBooleanCheckbox>
+                        </li>
                     </ul>
                 </td>
             </tr>
         </table>
 
         <a4j:outputPanel id="drp" layout="block" styleClass="droppable">
-            <dnd:dropTarget acceptedTypes="#{dataBean.acceptedTypes}" dropListener="#{dataBean.processEvent}"
-                            render="grid"/>
+            <dnd:dropTarget acceptedTypes="#{dataBean.acceptedTypes}" dropListener="#{dropListenerBean.processDrop}"
+                            render="grid executeOut" execute="executeIn" immediate="#{dataBean.immediate}" bypassUpdates="#{dataBean.bypassUpdates}"/>
             <h:dataTable id="grid" var="dropValue" value="#{dataBean.dropValues}">
                 <h:column>
-                    <h:outputText value="#{dropValue}"/>
+                    <h:outputText value="#{dropValue}"/> : <h:outputText value="#{dataBean.phaseId}" />;
                 </h:column>
             </h:dataTable>
+        </a4j:outputPanel>
+
+        <a4j:outputPanel id="execute" layout="block">
+          <h:inputText id="executeIn" value="#{dataBean.executeTest}"/> <br/>
+          <h:outputText id="executeOut" value="#{dataBean.executeTest}"/> <br/>
         </a4j:outputPanel>
     </h:form>
 </h:body>
