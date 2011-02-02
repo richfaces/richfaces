@@ -47,29 +47,50 @@ import org.richfaces.event.DropListener;
         tag = @Tag(name="dropTarget" ,handler="org.richfaces.view.facelets.DropHandler", type = TagType.Facelets)
 )
 public abstract class AbstractDropTarget extends UIComponentBase {
-    
+
     public static final String COMPONENT_TYPE = "org.richfaces.DropTarget";
 
-    public static final String COMPONENT_FAMILY = "org.richfaces.DropTarget";    
-    
-    
+    public static final String COMPONENT_FAMILY = "org.richfaces.DropTarget";
+
+
     @Attribute
     public abstract Object getDropValue();
-    
+
+    @Attribute
+    public abstract boolean isImmediate();
+
+    @Attribute
+    public abstract boolean isBypassUpdates();
+
+    @Attribute
+    public abstract Object getExecute();
+
     public abstract Object getAcceptedTypes();
-    
+
     public void addDropListener(DropListener listener) {
         addFacesListener(listener);
+    }
+
+    public DropListener[] getDropListeners() {
+        return (DropListener[]) getFacesListeners(DropListener.class);
     }
     
     public void removeDropListener(DropListener listener) {
         removeFacesListener(listener);
     }
-    
+
     @Override
     public void queueEvent(FacesEvent event) {
-        if(event instanceof DropEvent) {
-            event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+        if (event instanceof DropEvent) {
+
+            if (isImmediate()) {
+                event.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
+            } else if (isBypassUpdates()) {
+                event.setPhaseId(PhaseId.PROCESS_VALIDATIONS);
+            } else {
+                event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+            }
+
         }
         super.queueEvent(event);
     }
