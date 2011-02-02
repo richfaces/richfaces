@@ -86,6 +86,9 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
     @Attribute(defaultValue="true")
     public abstract boolean isExpanded();
 
+    @Attribute(hidden = true)
+    public abstract boolean isCycledSwitching();
+
     @Override
     public void queueEvent(FacesEvent facesEvent) {
         PanelToggleEvent event = null;
@@ -105,6 +108,9 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
 
     @Attribute
     public abstract MethodExpression getToggleListener();
+
+    @Attribute(hidden = true)
+    public abstract MethodExpression getItemChangeListener();
 
     // ------------------------------------------------ Html Attributes
 
@@ -137,6 +143,12 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
 
     @Attribute(events = @EventName("beforeswitch"))
     public abstract String getOnbeforeswitch();
+
+    @Attribute(events = @EventName("beforeitemchange"), hidden = true)
+    public abstract String getOnbeforeitemchange();
+
+    @Attribute(events = @EventName("itemchange"), hidden = true)
+    public abstract String getOnitemchange();
 
     @Attribute
     public abstract String getLang();
