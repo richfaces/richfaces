@@ -33,16 +33,20 @@
             }
 //]]> 
       </script>
-    <h:form id="form2">
-          <rich:progressBar mode="client" id="progressBar">
-            <f:facet name="initial">
-                <h:outputText value="Process doesn't started yet"/>
-            </f:facet>
-            <f:facet name="complete"> 
-                <h:outputText value="Process Done"/>
-            </f:facet>
-          </rich:progressBar>
-          <h:commandButton type="button" onclick="startProgress(); return false;" style="margin: 9px 0px 5px;" id="start" value="Start Progress"/>
-          <h:commandButton type="button" onclick="pauseProgress(); return false;" style="margin: 9px 0px 5px;" id="pause" disabled="true" value="Pause Progress"/>
-    </h:form>
+	<h:form id="form2">
+		<rich:progressBar mode="client" id="progressBar" value="-1">
+			<f:facet name="initial">
+				<h:outputText value="Process doesn't started yet" />
+			</f:facet>
+			<f:facet name="complete">
+				<h:outputText value="Process Done" />
+			</f:facet>
+		</rich:progressBar>
+		<h:commandButton type="button"
+			onclick="startProgress(); return false;" style="margin: 9px 0px 5px;"
+			id="start" value="Start Progress" />
+		<h:commandButton type="button"
+			onclick="pauseProgress(); return false;" style="margin: 9px 0px 5px;"
+			id="pause" disabled="true" value="Pause Progress" />
+	</h:form>
 </ui:composition>
