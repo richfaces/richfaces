@@ -70,6 +70,10 @@ public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
 
     private static final String COLLAPSED_STATE = "collapsed";
 
+    private static final String EXPANDED_CONTROL_CLASS = "rf-csttg-exp";
+    
+    private static final String COLLAPSED_CONTROL_CLASS = "rf-csttg-colps";
+
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
         //TODO - review
@@ -116,7 +120,8 @@ public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
         }
 
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, control.getClientId(context) + ":" + state, null);
-        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, concatClasses(getIconClass(expanded), styleClass), null);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, concatClasses(styleClass, 
+            expanded ? EXPANDED_CONTROL_CLASS : COLLAPSED_CONTROL_CLASS), null);
         writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, style, null);
 
         UIComponent controlFacet = control.getFacet(state);
@@ -207,15 +212,4 @@ public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
         return expanded ? EXPANDED_STATE : COLLAPSED_STATE;
     }
     
-    protected String getIconClass(boolean expanded) {
-        return expanded ? getExpandedIconClass() : getCollapsedIconClass();
-    }
-    
-    public String getExpandedIconClass() {
-        return "rf-csttg-exp";
-    }
-    
-    public String getCollapsedIconClass() {
-        return "rf-csttg-colps";
-    }
 }

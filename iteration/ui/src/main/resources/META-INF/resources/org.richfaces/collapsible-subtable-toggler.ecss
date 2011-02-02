@@ -1,7 +1,3 @@
-.rf-csttg-exp {
-    cursor:pointer;
-}
-
-.rf-csttg-colps {
-    cursor:pointer;
+.rf-csttg {
+    cursor: pointer;
 }

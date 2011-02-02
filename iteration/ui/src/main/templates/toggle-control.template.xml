@@ -13,7 +13,7 @@
 	</cc:interface>
 
 	<cc:implementation>
-		<span id="#{clientId}" 	class="#{component.attributes['styleClass']}">
+		<span id="#{clientId}" class="#{concatClasses(component.attributes['styleClass'], 'rf-csttg')}">
 			<cdk:call expression="encodeControl(facesContext, component);" />
 		</span>
 	</cc:implementation>
