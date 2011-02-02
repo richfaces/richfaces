@@ -104,7 +104,7 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
     public abstract String getHeader();
 
     @Attribute
-    public abstract MethodExpression getPanelToggleListener();
+    public abstract MethodExpression getToggleListener();
 
     // ------------------------------------------------ Html Attributes
 
