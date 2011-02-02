@@ -33,6 +33,7 @@ import javax.faces.context.ResponseWriter;
 import org.ajax4jsf.model.DataVisitResult;
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.SequenceRange;
+import org.richfaces.component.AbstractExtendedDataTable;
 import org.richfaces.component.UIDataTableBase;
 
 /**
@@ -170,7 +171,7 @@ public abstract class SelectionRenderer extends SortingFilteringRowsRenderer {
         if (selectionString != null && selectionString.length() > 0) {
             final ClientSelection clientSelection = new ClientSelection(selectionString);
             final Map<String, Object> attributes = component.getAttributes();
-            UIDataTableBase table = (UIDataTableBase) component;
+            AbstractExtendedDataTable table = (AbstractExtendedDataTable) component;
             Collection<Object> selection = table.getSelection();
             if (selection == null) {
                 selection = new HashSet<Object>();
@@ -209,7 +210,7 @@ public abstract class SelectionRenderer extends SortingFilteringRowsRenderer {
     }
 
 
-    private void encodeSelectionOutsideCurrentRange(FacesContext context, UIDataTableBase table, String selectionFlag) { //TODO Rename method
+    private void encodeSelectionOutsideCurrentRange(FacesContext context, AbstractExtendedDataTable table, String selectionFlag) { //TODO Rename method
         Object key = table.getRowKey();
         table.captureOrigValue(context);
         SequenceRange range = (SequenceRange) table.getComponentState().getRange();

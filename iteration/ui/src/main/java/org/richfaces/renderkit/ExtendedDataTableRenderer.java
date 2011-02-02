@@ -762,7 +762,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
     public void encodeRow(ResponseWriter writer, FacesContext facesContext, RowHolderBase rowHolder)
         throws IOException {
         RendererState state = (RendererState) rowHolder;
-        UIDataTableBase table = state.getRow();
+        AbstractExtendedDataTable table = (AbstractExtendedDataTable) state.getRow();
         writer.startElement(HtmlConstants.TR_ELEMENT, table);
         
         if (rowHolder.getRow() instanceof UIDataTableBase) {

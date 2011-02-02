@@ -56,7 +56,8 @@ import org.richfaces.renderkit.MetaComponentRenderer;
     family = AbstractDataGrid.COMPONENT_FAMILY, 
     generate = "org.richfaces.component.UIDataGrid",
     renderer = @JsfRenderer(type = "org.richfaces.DataGridRenderer"),
-    tag = @Tag(name="dataGrid", handler="org.richfaces.taglib.DataGridHandler", type=TagType.Facelets)
+    tag = @Tag(name="dataGrid", handler="org.richfaces.taglib.DataGridHandler", type=TagType.Facelets),
+    attributes = {"dataGrid-rows-props.xml"}
 )
 public abstract class AbstractDataGrid extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder {
     

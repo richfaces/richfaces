@@ -23,6 +23,7 @@
 package org.richfaces.component;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Map;
 
 import javax.el.ValueExpression;
@@ -77,9 +78,6 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
     
     @Attribute
     public abstract int getFrozenColumns();
-    
-    @Attribute
-    public abstract String getCaptionClass();
     
     @Attribute
     public abstract String getStyleClass();
@@ -208,4 +206,8 @@ public abstract class AbstractExtendedDataTable extends UIDataTableBase implemen
             updateState();
         }
     }
+
+    @Attribute
+    public abstract Collection<Object> getSelection();
+
 }

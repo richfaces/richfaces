@@ -107,9 +107,6 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
     }
 
     @Attribute
-    public abstract int getColumns();
-    
-    @Attribute
     public abstract String getNoDataLabel();
     
     @Attribute
@@ -132,9 +129,6 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
     
     @Attribute
     public abstract String getStyle();
-
-    @Attribute
-    public abstract Collection<Object> getSelection();
 
     @Attribute
     public abstract Collection<Object> getSortPriority();

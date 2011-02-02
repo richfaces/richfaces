@@ -108,11 +108,6 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
             || isColumnAttributeSet(table, "filterBy");
     }
 
-    protected int getColumnsCount(UIDataTableBase table) {
-        int columns = table.getColumns();
-        return (columns > 0) ? columns : getColumnsCount(table.columns());
-    }
-    
     public void encodeTableStructure(ResponseWriter writer, FacesContext context, UIDataTableBase dataTable) throws IOException {
         //DataTableRenderer override this method   
     }
@@ -272,7 +267,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dt-tft", null);
             }
      
-            int columns = getColumnsCount(dataTable);
+            int columns = getColumnsCount(dataTable.columns());
 
             boolean encodePartialUpdateForChildren = (encodePartialUpdate && !partialUpdateEncoded);
             
@@ -374,7 +369,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dt-thd", null);
             }
             
-            int columns = getColumnsCount(dataTable);
+            int columns = getColumnsCount(dataTable.columns());
             
             boolean encodePartialUpdateForChildren = (encodePartialUpdate && !partialUpdateEncoded);
             

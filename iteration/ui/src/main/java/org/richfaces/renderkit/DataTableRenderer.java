@@ -101,7 +101,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
             // TODO nick - do we need this element if "columnsWidth" is absent?
             writer.startElement(HtmlConstants.COLGROUP_ELEMENT, dataTable);
            
-            int columns = getColumnsCount(dataTable);
+            int columns = getColumnsCount(dataTable.columns());
             writer.writeAttribute(HtmlConstants.SPAN_ELEM, String.valueOf(columns), null);
             String columnsWidth = (String) dataTable.getAttributes().get("columnsWidth");
 
