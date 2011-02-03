@@ -66,10 +66,8 @@ public abstract class DropDownMenuRendererBase extends RendererBase {
         UIComponent facet = null;
         AbstractDropDownMenu ddmenu = (AbstractDropDownMenu) component; 
         if (ddmenu != null) {
-            
-            if (ddmenu.isDisabled()) {
-                facet = ddmenu.getFacet(AbstractDropDownMenu.Facets.labelDisabled.toString());
-            } else {
+            facet = ddmenu.getFacet(AbstractDropDownMenu.Facets.labelDisabled.toString());
+            if (!ddmenu.isDisabled() || facet == null) {
                 facet = ddmenu.getFacet(AbstractDropDownMenu.Facets.label.toString());
             }
         }

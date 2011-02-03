@@ -18,6 +18,11 @@
 	left:0;
 	position:absolute;
 }
+
+.rf-ddm-dis {
+    color:'#{richSkin.tabDisabledTextColor}'; /* #8DB7F3*/
+    cursor: default;
+}
 .rf-ddm-lbl-dec {
 	font-weight:bold;
 	cursor : pointer;
