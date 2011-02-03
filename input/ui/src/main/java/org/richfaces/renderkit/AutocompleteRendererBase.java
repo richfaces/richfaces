@@ -32,6 +32,7 @@ import javax.el.ELException;
 import javax.el.ExpressionFactory;
 import javax.el.MethodExpression;
 import javax.el.MethodNotFoundException;
+import javax.el.ValueExpression;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
@@ -39,6 +40,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.PartialResponseWriter;
 import javax.faces.context.PartialViewContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
 import javax.faces.model.ArrayDataModel;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
@@ -48,11 +51,14 @@ import javax.servlet.jsp.jstl.sql.Result;
 
 import org.ajax4jsf.javascript.JSObject;
 import org.ajax4jsf.javascript.JSReference;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.component.AbstractAutocomplete;
 import org.richfaces.component.AutocompleteLayout;
+import org.richfaces.component.AutocompleteMode;
 import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.component.util.InputUtils;
 import org.richfaces.context.ExtendedPartialViewContext;
+import org.richfaces.el.GenericsIntrospectionService;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
@@ -193,8 +199,8 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
 
     protected void encodeItemsContainer(FacesContext facesContext, UIComponent component) throws IOException {
         AutocompleteEncodeStrategy strategy = getStrategy(component);
-        Object mode = component.getAttributes().get("mode");
-        if (mode != null && mode.equals("client")) {
+        AutocompleteMode mode = (AutocompleteMode) component.getAttributes().get("mode");
+        if (mode != null && mode == AutocompleteMode.client) {
             List<Object> fetchValues = new ArrayList<Object>();
             this.encodeItems(facesContext, component, fetchValues);
             this.encodeFetchValues(facesContext, component, fetchValues);
@@ -264,15 +270,10 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
             return;
         }
         Map<String, String> requestParameters = context.getExternalContext().getRequestParameterMap();
-        Object value = requestParameters.get(component.getClientId(context) + "Value");
+        String value = requestParameters.get(component.getClientId(context) + "Value");
         if (value != null) {
-            if (autocomplete.getConverter() != null) {
-                value = autocomplete.getConverter().getAsObject(context, component, value.toString());
-            }
             autocomplete.setSubmittedValue(value);
         }
-        super.doDecode(context, component);
-
 
         if (requestParameters.get(component.getClientId(context) + ".ajax") != null) {
             PartialViewContext pvc = context.getPartialViewContext();
@@ -317,5 +318,29 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
             }
         }
         return value;
+    }
+    
+    private Converter getConverterForValue(FacesContext context, UIComponent component) {
+        Converter converter = null;
+        ValueExpression expression = component.getValueExpression("value");
+
+        if (expression != null) {
+            Class<?> containerClass = ServiceTracker.getService(context, GenericsIntrospectionService.class).getContainerClass(context, expression);
+
+            converter = InputUtils.getConverterForType(context, containerClass);
+        }
+
+        return converter;
+    }
+
+    @Override
+    public Object getConvertedValue(FacesContext context, UIComponent component, Object val) throws ConverterException {
+        String s = (String) val;
+        Converter converter = getConverterForValue(context, component);
+        if (converter != null) {
+            return converter.getAsObject(context, component, s);
+        } else {
+            return s;
+        }
     }
 }

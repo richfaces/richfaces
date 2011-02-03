@@ -11,6 +11,8 @@
         <cdk:renderer-type>org.richfaces.AutocompleteRenderer
         </cdk:renderer-type>
         <cdk:renders-children>true</cdk:renders-children>
+
+        <cdk:import package="org.richfaces.component" names="AutocompleteMode.*" static="true" />
     </cc:interface>
 
     <cc:implementation>
@@ -78,9 +80,9 @@
                     <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onselectitem onfocus onblur" wrapper="eventHandler"/>
                     <cdk:scriptOption name="minChars" value="#{getMinCharsOrDefault(component)}" />
                     <cdk:scriptOption name="filterFunction" value="#{getClientFilterFunction(component)}" />
-                    <cdk:scriptOption name="isCachedAjax" value="#{'ajax'==mode ? false : true}" defaultValue="true" />
-		    		<cdk:scriptOption name="ajaxMode" value="#{'client'==mode||'lazyClient'==mode ? false : true}" defaultValue="true" />
-		    		<cdk:scriptOption name="lazyClientMode" value="#{'lazyClient'==mode ? true : false}" defaultValue="false" /> 
+                    <cdk:scriptOption name="isCachedAjax" value="#{ajax == mode ? false : true}" defaultValue="true" />
+		    		<cdk:scriptOption name="ajaxMode" value="#{client == mode || lazyClient == mode ? false : true}" defaultValue="true" />
+		    		<cdk:scriptOption name="lazyClientMode" value="#{lazyClient == mode ? true : false}" defaultValue="false" /> 
                 </cdk:scriptObject>
                 new RichFaces.ui.Autocomplete("#{clientId}",
                 "#{clientId}Input", #{toScriptArgs(options)}

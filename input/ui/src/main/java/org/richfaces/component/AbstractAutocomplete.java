@@ -24,8 +24,6 @@ package org.richfaces.component;
 import java.io.IOException;
 
 import javax.el.MethodExpression;
-import javax.el.ValueExpression;
-import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.component.visit.VisitCallback;
@@ -34,7 +32,6 @@ import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
-import org.richfaces.application.ServiceTracker;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -44,7 +41,6 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
-import org.richfaces.el.GenericsIntrospectionService;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
 /**
@@ -87,7 +83,7 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     public abstract String getSelectedItemClass();
 
     @Attribute
-    public abstract String getMode();
+    public abstract AutocompleteMode getMode();
 
     @Attribute
     public abstract String getLayout();
@@ -196,39 +192,6 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     
     @Attribute
     public abstract String getClientFilterFunction();
-
-    @Override
-    public Converter getConverter() {
-        Converter converter = super.getConverter();
-        if (converter == null) {
-            converter = getConverterForValue(FacesContext.getCurrentInstance());
-        }
-
-        return converter;
-    }
-
-    private Converter getConverterForType(FacesContext context, Class<?> type) {
-
-        if (!Object.class.equals(type) && type != null) {
-            Application application = context.getApplication();
-            return application.createConverter(type);
-        }
-
-        return null;
-    }
-
-    public Converter getConverterForValue(FacesContext context) {
-        Converter converter = null;
-        ValueExpression expression = this.getValueExpression("value");
-
-        if (expression != null) {
-            Class<?> containerClass = ServiceTracker.getService(context, GenericsIntrospectionService.class).getContainerClass(context, expression);
-
-            converter = getConverterForType(context, containerClass);
-        }
-
-        return converter;
-    }
 
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
         if (ITEMS_META_COMPONENT_ID.equals(metaComponentId)) {

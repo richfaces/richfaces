@@ -21,7 +21,7 @@
 
 package org.richfaces.component.util;
 
-import org.ajax4jsf.Messages;
+import java.io.Serializable;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
@@ -29,7 +29,8 @@ import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-import java.io.Serializable;
+
+import org.ajax4jsf.Messages;
 
 /**
  * @author Maksim Kaszynski
@@ -59,6 +60,15 @@ public final class InputUtils {
         return isTrue(component.getAttributes().get("readonly"));
     }
 
+    public static Converter getConverterForType(FacesContext context, Class<?> type) {
+        //see getConvertedValue
+        if (type == null || Object.class.equals(type)) {
+            return null;
+        }
+        
+        return context.getApplication().createConverter(type);
+    }
+    
     public static Object getConvertedValue(FacesContext context, UIComponent component, Object submittedValue)
         throws ConverterException {
         String newValue = (String) submittedValue;
@@ -72,6 +82,7 @@ public final class InputUtils {
         if ((converter == null) && (valueExpression != null)) {
             Class converterType = valueExpression.getType(context.getELContext());
 
+            //see getConverterForType
             if ((converterType == null) || (converterType == Object.class)) {
                 return newValue;
             } else {
