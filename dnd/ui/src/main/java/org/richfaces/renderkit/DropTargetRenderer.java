@@ -22,8 +22,10 @@
 
 package org.richfaces.renderkit;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.faces.component.ContextCallback;
 import javax.faces.component.UIComponent;
@@ -51,6 +53,15 @@ import com.google.common.base.Strings;
 @JsfRenderer(type = "org.richfaces.DropTargetRenderer", family = AbstractDropTarget.COMPONENT_FAMILY)
 public class DropTargetRenderer extends DnDRenderBase {
     
+    /**
+     * 
+     */
+    private static final Set<String> ALL_SET = Collections.singleton("@all");
+    /**
+     * 
+     */
+    private static final Set<String> NONE_SET = Collections.singleton("@none");
+
     @Override
     protected void doDecode(FacesContext facesContext, UIComponent component) {
         Map<String, String> requestParamMap = facesContext.getExternalContext().getRequestParameterMap();
@@ -121,7 +132,15 @@ public class DropTargetRenderer extends DnDRenderBase {
             function.addToBody(ajaxFunction);
             
             AbstractDropTarget dropTarget = (AbstractDropTarget)component;
-            options.put("acceptedTypes", CoreAjaxRendererUtils.asSimpleSet(dropTarget.getAcceptedTypes()));
+            Set<String> acceptedTypes = CoreAjaxRendererUtils.asSimpleSet(dropTarget.getAcceptedTypes());
+            
+            if (acceptedTypes.contains("@none")) {
+                acceptedTypes = NONE_SET;
+            } else if (acceptedTypes.contains("@all")) {
+                acceptedTypes = ALL_SET;
+            }
+            
+            options.put("acceptedTypes", acceptedTypes);
             options.put("ajaxFunction", function);
             options.put("parentId", getParentClientId(facesContext, component));
         }

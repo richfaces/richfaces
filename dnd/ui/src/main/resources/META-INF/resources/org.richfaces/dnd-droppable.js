@@ -105,17 +105,18 @@
 			},
 
 			accept : function(draggable) {
-				// since acceptedTypes is optional it could be null.
-				// In this case all types are accepted
-				if (!this.options.acceptedTypes)
-					return true;
-
-				var accept;
+				var accept = false;
 				var acceptType = draggable.data("type");
 				if (acceptType) {
 					$.each(this.options.acceptedTypes, function() {
-								accept = (acceptType == this);
-								return !(accept);
+								if (this == "@none") {
+									return false;
+								}
+						
+								if (this == acceptType || this == "@all") {
+									accept = true;
+									return false;
+								}
 							});
 				}
 				return accept;
