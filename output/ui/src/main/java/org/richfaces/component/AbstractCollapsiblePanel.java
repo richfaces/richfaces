@@ -22,15 +22,20 @@
 
 package org.richfaces.component;
 
-import org.richfaces.cdk.annotations.*;
-import org.richfaces.event.PanelToggleEvent;
-import org.richfaces.event.PanelToggleListener;
-import org.richfaces.event.PanelToggleSource;
-import org.richfaces.event.ItemChangeEvent;
-
 import javax.el.MethodExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.event.FacesEvent;
+
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.event.ItemChangeEvent;
+import org.richfaces.event.PanelToggleEvent;
+import org.richfaces.event.PanelToggleListener;
+import org.richfaces.event.PanelToggleSource;
 
 /**
  * @author akolonitsky
@@ -85,6 +90,7 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
     
     @Attribute(defaultValue="true")
     public abstract boolean isExpanded();
+    public abstract void setExpanded(boolean expanded);
 
     @Attribute(hidden = true)
     public abstract boolean isCycledSwitching();
@@ -198,5 +204,15 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
 
     public void removePanelToggleListener(PanelToggleListener listener) {
         removeFacesListener(listener);
+    }
+    
+    @Override
+    public Object getValue() {
+        return String.valueOf(isExpanded());
+    }
+    
+    @Override
+    public void setValue(Object value) {
+        setExpanded(Boolean.parseBoolean((String) value));
     }
 }
