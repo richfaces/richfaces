@@ -4,6 +4,7 @@
 package org.richfaces.validator;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -22,12 +23,15 @@ import javax.validation.metadata.PropertyDescriptor;
 import org.richfaces.el.ValueDescriptor;
 import org.richfaces.el.ValueExpressionAnalayser;
 
+import com.google.common.collect.ImmutableSet;
+
 /**
  * @author asmirnov
  * 
  */
 public class BeanValidatorServiceImpl implements BeanValidatorService {
 
+    private static final Collection<String> HIDDEN_PARAMS = ImmutableSet.of("message","payload","groups");
     private final ValueExpressionAnalayser analayser;
     private final BeanValidatorFactory validatorFactory;
 
@@ -88,13 +92,42 @@ public class BeanValidatorServiceImpl implements BeanValidatorService {
             // TODO if cd.isReportedAsSingleConstraint() make sure than only the root constraint raises an error message
             // if one or several of the composing constraints are invalid)
             FacesMessage message = validatorFactory.interpolateMessage(context, cd);
-            BeanValidatorDescriptor beanValidatorDescriptor = new BeanValidatorDescriptor(a.getClass(), message);
+            Class<? extends Annotation> validatorClass = findAnnotationClass(a);
+            BeanValidatorDescriptor beanValidatorDescriptor = new BeanValidatorDescriptor(validatorClass, message);
             for (Map.Entry<String, Object> entry : parameters.entrySet()) {
-                beanValidatorDescriptor.addParameter(entry.getKey(), entry.getValue());
+                String key = entry.getKey();
+                if (!HIDDEN_PARAMS.contains(key)) {
+                    Object value = entry.getValue();
+                    try {
+                        Method method = validatorClass.getDeclaredMethod(key);
+                        Object defaultValue = method.getDefaultValue();
+                        if(!value.equals(defaultValue)){
+                            beanValidatorDescriptor.addParameter(key, value);
+                        }
+                    } catch (SecurityException e) {
+                        beanValidatorDescriptor.addParameter(key, value);
+                    } catch (NoSuchMethodException e) {
+                        beanValidatorDescriptor.addParameter(key, value);
+                    }
+                }
             }
             beanValidatorDescriptor.makeImmutable();
             descriptors.add(beanValidatorDescriptor);
             processConstraints(context, cd.getComposingConstraints(), descriptors); // process the composing constraints
         }
+    }
+
+    private Class<? extends Annotation> findAnnotationClass(Annotation a) {
+        Class<? extends Annotation> annotationClass = a.getClass();
+        // RF-10311, Hibernate validator wraps annotation class with proxy;
+        if (!annotationClass.isAnnotation()) {
+            Class<?>[] interfaces = annotationClass.getInterfaces();
+            for (Class<?> implemented : interfaces) {
+                if (implemented.isAnnotation()) {
+                    annotationClass = (Class<? extends Annotation>) implemented;
+                }
+            }
+        }
+        return annotationClass;
     }
 }

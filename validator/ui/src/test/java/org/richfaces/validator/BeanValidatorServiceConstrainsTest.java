@@ -109,7 +109,7 @@ public class BeanValidatorServiceConstrainsTest {
         for (final Class<? extends Annotation> class1 : validators) {
             Iterables.find(constrains, new Predicate<ValidatorDescriptor>(){
                 public boolean apply(ValidatorDescriptor input) {
-                    return class1.isAssignableFrom(input.getImplementationClass());
+                    return class1.equals(input.getImplementationClass());
                 }
                 
             });
