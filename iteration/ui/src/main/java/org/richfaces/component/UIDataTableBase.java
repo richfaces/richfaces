@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
@@ -41,6 +42,7 @@ import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PreRenderComponentEvent;
 
+import org.ajax4jsf.component.IterationStateHolder;
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
@@ -396,26 +398,50 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
         return SUPPORTED_META_COMPONENTS;
     }
 
-    protected Iterator<UIComponent> statefulChildren() {
-        return new StatefulDataTableChildrenIterator(this.dataChildren());
+    private boolean isStateful(UIComponent component) {
+        if (component instanceof IterationStateHolder) {
+            return true;
+        }
+        
+        if (component instanceof UIColumn || component instanceof Column) {
+            return false;
+        }
+        
+        return true;
     }
     
     @Override
     protected void saveChildState(FacesContext facesContext) {
-        Iterator<UIComponent> iterator = statefulChildren();
-        while (iterator.hasNext()) {
-            UIComponent c = iterator.next();
-            saveChildState(facesContext, c);
+        Iterator<UIComponent> dataChildren = dataChildren();
+        while (dataChildren.hasNext()) {
+            UIComponent child = dataChildren.next();
+            
+            if (isStateful(child)) {
+                saveChildState(facesContext, child);
+            } else {
+                for (UIComponent grandKid: child.getChildren()) {
+                    saveChildState(facesContext, grandKid);
+                }
+            }
         }
     }
     
     @Override
     protected void restoreChildState(FacesContext facesContext) {
-        Iterator<UIComponent> iterator = statefulChildren();
-        while (iterator.hasNext()) {
-            UIComponent c = iterator.next();
-            restoreChildState(facesContext, c);
+        Iterator<UIComponent> dataChildren = dataChildren();
+        while (dataChildren.hasNext()) {
+            UIComponent child = dataChildren.next();
+            
+            if (isStateful(child)) {
+                restoreChildState(facesContext, child);
+            } else {
+                //reset cached clientId
+                child.setId(child.getId());
+                
+                for (UIComponent grandKid: child.getChildren()) {
+                    restoreChildState(facesContext, grandKid);
+                }
+            }
         }
     }
-    
 }
