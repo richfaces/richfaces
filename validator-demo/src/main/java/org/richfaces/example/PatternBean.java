@@ -10,14 +10,14 @@ import javax.validation.constraints.Pattern;
  * @author asmirnov
  *
  */
-public class PatternBean implements Validable<String> {
+public class PatternBean extends Validable<String> {
 	
 	private String value;
 	
 	/**
 	 * @return the text
 	 */
-	@Pattern(regexp="^[a-Z][a-Z1-9_]$")
+	@Pattern(regexp="[a-z].*")
 	public String getValue() {
 		return value;
 	}
@@ -30,7 +30,7 @@ public class PatternBean implements Validable<String> {
 	}
 
 	public String getDescription() {
-		return "Text Value, Pattern '^[a-Z][a-Z1-9_]$' Validation";
+		return "Text Value, Pattern '[a-Z].*' Validation";
 	}
     public String getLabel() {
         return "pattern";

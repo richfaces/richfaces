@@ -13,19 +13,15 @@
 	<!-- content -->
 	<ui:define name="content">
 		<h:form id="form">
-			<h:dataTable value="#{dataBean.beans}" var="bean">
-				<h:column>
-					<h:outputLabel for="value" value="#{bean.description}" />
-				</h:column>
-				<h:column>
-					<h:inputText id="value" value="#{bean.value}" label="#{bean.label}">
+            <h:panelGrid columns="3">
+			<c:forEach items="#{dataBean.beans}" var="bean">
+					<h:outputLabel for="#{bean.label}" value="#{bean.description}" />
+					<h:inputText id="#{bean.label}" value="#{bean.value}" label="#{bean.label}" converter="#{bean.converter}">
 						<csv:validator summary="Invalid value" />
 					</h:inputText>
-				</h:column>
-				<h:column>
-					<csv:message for="value" />
-				</h:column>
-			</h:dataTable>
+					<csv:message for="#{bean.label}" />
+			</c:forEach>
+			</h:panelGrid>
 			<h:commandButton value="Submit"></h:commandButton>
 			<csv:messages />
 		</h:form>

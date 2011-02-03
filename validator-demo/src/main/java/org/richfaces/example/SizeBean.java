@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
  * @author asmirnov
  *
  */
-public class SizeBean implements Validable<String> {
+public class SizeBean extends Validable<String> {
 	
 	@Size(max=10,min=2,message="incorrect field length")
 	private String value;

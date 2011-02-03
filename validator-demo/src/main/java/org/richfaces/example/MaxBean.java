@@ -5,14 +5,12 @@ package org.richfaces.example;
 
 import javax.validation.constraints.Max;
 
-import org.hibernate.validator.constraints.Email;
-
 
 /**
  * @author asmirnov
  *
  */
-public class MaxBean implements Validable<Integer> {
+public class MaxBean extends Validable<Integer> {
 	
 	@Max(10)
 	private Integer value = 0;

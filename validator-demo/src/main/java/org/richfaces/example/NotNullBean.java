@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
  * @author asmirnov
  *
  */
-public class NotNullBean implements Validable<String> {
+public class NotNullBean extends Validable<String> {
 	
 	@NotNull
 	private String value;

@@ -11,7 +11,7 @@ import javax.validation.constraints.Min;
  * @author asmirnov
  *
  */
-public class MinMaxBean implements Validable<Integer> {
+public class MinMaxBean extends Validable<Integer> {
 	
 	@Min(2)
 	@Max(10)

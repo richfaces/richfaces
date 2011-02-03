@@ -10,7 +10,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author asmirnov
  *
  */
-public class NotEmptyBean implements Validable<String> {
+public class NotEmptyBean extends Validable<String> {
 	
 	@NotEmpty
 	private String value;
