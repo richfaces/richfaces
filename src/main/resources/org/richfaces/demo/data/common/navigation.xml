@@ -417,7 +417,7 @@
 					</sample>
 				</samples>
 			</demo>
-			<demo>
+			<demo new="true">
 				<id>popup</id>
 				<name>rich:popupPanel</name>
 				<samples>
@@ -428,6 +428,10 @@
 					<sample>
 						<id>modalPopup</id>
 						<name>Modal panel example</name>
+					</sample>
+					<sample new="true">
+						<id>login</id>
+						<name>Login panel positioning</name>
 					</sample>
 				</samples>
 			</demo>

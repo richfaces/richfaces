@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+	<p>In RichFaces 3.3.x many developers used <b>rich:dropDownMenu</b>
+	component for creation of Search/Login popups attached to toolbars. And
+	there were two reasons for that:</p>
+	<ul>
+		<li>Simplicity of usage. No script positioning required.
+		rich:dropDownMenu performs popup positioning on its own and simply
+		customizable by using <b>jointPoint</b> and <b>direction</b>
+		attributes.</li>
+		<li>RichFaces 3.3.x has no lightweight popup panel and <b>rich:modalPanel</b>
+		usage for such cases required workarounds in order to make it
+		non-modal</li>
+	</ul>
+	<p>But that approach has some disadvantages as well:</p>
+	<ul>
+		<li><b>rich:dropDownMenu</b> component was added with additional
+		JavaScript code for inputs processing inside the <b>rich:menuItem</b>'s.
+		That not really native task for menu so that code was really
+		superfluous from simple menus point of view.</li>
+		<li>Developer still has to work on styling of menu item removing
+		hover effects and making it looks like panel rather than menuItem</li>
+	</ul>
+	<p>RichFaces 4.x provides clean api for popup panel and added
+	non-modal state, so for now it's really easier and looking more native
+	to use modal panel for such tasks. Below you could see two samples:</p>
+	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+		<ui:param name="sourceType" value="xhtml" />
+		<ui:param name="openLabel" value="View Source" />
+		<ui:param name="hideLabel" value="Hide Source" />
+	</ui:include>
+	<p>rich:popup panel allows you to pass next options to show method:
+	<b>min and max width and height</b>, actual <b>width and height</b>, <b>top
+	and left</b> positions for the panel. So with <b>rich:hashParam</b> it's
+	really simple to build declarative call for the panel which uses
+	dynamic properties.</p>
+</ui:composition>
+
+</html>
