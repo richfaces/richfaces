@@ -40,12 +40,12 @@
     	};
     	
     	var ajax = function(e, options) {
-			this.switchState();
+			this.__switchState();
 			richfaces.ajax(this.id, e, options);
 		};
 		
 		var server = function(options) {
-			this.switchState();
+			this.__switchState();
 			$(document.getElementById(this.formId)).submit();
 		};
 		
@@ -62,7 +62,7 @@
     		
     		name: "CollapsibleSubTable",
 
-    		toggle: function(e, options) {
+    		switchState: function(e, options) {
     			if(this.expandMode == richfaces.ui.CollapsibleSubTable.MODE_AJAX) {
            			ajax.call(this, e, this.eventOptions, options);
            		}else if(this.expandMode == richfaces.ui.CollapsibleSubTable.MODE_SRV) {
@@ -86,7 +86,7 @@
     			return (parseInt(this.getState()) == richfaces.ui.CollapsibleSubTable.expand);
            	},
            
-    		switchState: function(options) {
+    		__switchState: function(options) {
     			var state = this.isExpanded() ? richfaces.ui.CollapsibleSubTable.collapse : richfaces.ui.CollapsibleSubTable.expand;
     			this.setState(state);
     		}, 

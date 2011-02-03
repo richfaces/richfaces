@@ -15,7 +15,7 @@
     	$.extend(richfaces.ui.DataTable, {
     		SORTING: "rich:sorting",
     		FILTERING: "rich:filtering",
-    		SUBTABLE_SELECTOR:".rich-subtable"
+    		SUBTABLE_SELECTOR:".rf-cst"
     	});
     	
     	$.extend(richfaces.ui.DataTable.prototype, ( function () {
@@ -60,7 +60,7 @@
             	},
             	
             	switchSubTable: function(id) {
-            		this.getSubTable(id).toggle();
+            		this.getSubTable(id).switchState();
             	}, 
             	
             	getSubTable: function(id) {
@@ -72,9 +72,9 @@
             		var invokeOnComponent = this.invokeOnComponent;
             		elements.each(
             				function(){
-            					if(this.richfaces && this.richfaces.component) {
-            						var component = this.richfaces.component;
-            						if(component instanceof RichFaces.ui.SubTable) {
+            					if(this.firstChild && this.firstChild[richfaces.RICH_CONTAINER] && this.firstChild[richfaces.RICH_CONTAINER].component) {
+            						var component = this.firstChild[richfaces.RICH_CONTAINER].component;
+            						if(component instanceof RichFaces.ui.CollapsibleSubTable) {
                 	        			invokeOnComponent(component, funcName);
                 					}
             					}

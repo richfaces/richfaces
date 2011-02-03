@@ -11,7 +11,7 @@
         this.element = $(document.getElementById(this.id));
         
         if(this.element && this.eventName) {
-        	this.element.bind(this.eventName, $.proxy(this.toggle, this));
+        	this.element.bind(this.eventName, $.proxy(this.switchState , this));
         }	
      };
      
@@ -23,7 +23,7 @@
     	            	 
 	 	 return {
 	 			 		 
-	 	 	toggle: function(e) {
+	 		switchState: function(e) {
 	 	 		var subtable = richfaces.$(this.forId);
 		 		if(subtable) {
 		 			var mode = subtable.getMode();
@@ -33,7 +33,7 @@
 		 			}
 		 			
 		 			subtable.setOption(this.id);
-		 			subtable.toggle(e);
+		 			subtable.switchState(e);
 		 		}
 	 	 	}, 
     	 	
