@@ -36,48 +36,34 @@ public class DropEvent extends FacesEvent {
 
     private UIComponent dragSource;
     
-    private UIComponent dropTarget;
-    
     private Object dropValue;
     
     private Object dragValue;
 
-    public DropEvent(UIComponent dragSource, UIComponent dropTarget) {
+    public DropEvent(UIComponent dropTarget, Object dropValue, UIComponent dragSource, Object dragValue) {
         super(dropTarget);
+        
+        this.dropValue = dropValue;
+        this.dragSource = dragSource;
+        this.dragValue = dragValue;
     }
    
     public UIComponent getDragSource() {
         return dragSource;
     }
 
-    public void setDragSource(UIComponent dragSource) {
-        this.dragSource = dragSource;
-    }
-
     public UIComponent getDropTarget() {
-        return dropTarget;
-    }
-
-    public void setDropTarget(UIComponent dropTarget) {
-        this.dropTarget = dropTarget;
+        return getComponent();
     }
 
     public Object getDropValue() {
         return dropValue;
     }
 
-    public void setDropValue(Object dropValue) {
-        this.dropValue = dropValue;
-    }
-
     public Object getDragValue() {
         return dragValue;
     }
 
-    public void setDragValue(Object dragValue) {
-        this.dragValue = dragValue;
-    }
-    
     @Override
     public boolean isAppropriateListener(FacesListener listener) {
         return (listener instanceof DropListener);

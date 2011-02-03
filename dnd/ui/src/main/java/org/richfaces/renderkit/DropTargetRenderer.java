@@ -60,10 +60,8 @@ public class DropTargetRenderer extends DnDRenderBase {
                 facesContext.getViewRoot().invokeOnComponent(facesContext, dragSourceId, dragSourceContextCallBack);
                 
                 AbstractDropTarget dropTarget = (AbstractDropTarget)component;
-                DropEvent dropEvent = new DropEvent(dragSourceContextCallBack.getDragSource(), dropTarget);
-                dropEvent.setDragValue(dragSourceContextCallBack.getDragValue());
-                dropEvent.setDropValue(dropTarget.getDropValue());
-                dropEvent.queue();
+                new DropEvent(dropTarget, dropTarget.getDropValue(), 
+                    dragSourceContextCallBack.getDragSource(), dragSourceContextCallBack.getDragValue()).queue();
             }
         }
     }
