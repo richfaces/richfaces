@@ -29,7 +29,6 @@
         disabled : false,
         selectable: true,
         unselectable: false,
-        highlight: true,
         mode: "client",
         stylePrefix: "rf-pm-itm",
         itemStep: 20
@@ -139,22 +138,13 @@
 
             // todo move it
             this.selectionClass = this.options.stylePrefix + "-sel";
-            this.hoverClass = this.options.stylePrefix + "-hov";
-            
+
             if (panelMenu.__isActiveItem(this)) {
             	rootElt.ready($.proxy(this.__restoreSelection, this));
             }
             
             if (!this.options.disabled) {
                 var item = this;
-                if (this.options.highlight) {
-                    this.__item().bind("mouseenter", function() {
-                        item.highlight(true);
-                    });
-                    this.__item().bind("mouseleave", function() {
-                        item.highlight(false);
-                    });
-                }
 
                 if (this.options.selectable) {
                     this.__header().bind("click", function() {
@@ -180,13 +170,6 @@
         },
 
         /***************************** Public Methods  ****************************************************************/
-        highlight : function (highlight) {
-            if (highlight && !this.selected()) {
-                this.__header().addClass(this.hoverClass);
-            } else {
-                this.__header().removeClass(this.hoverClass);
-            }
-        },
 
         selected : function () {
             return this.__header().hasClass(this.selectionClass);

@@ -138,9 +138,6 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent {
         getStateHelper().put(Properties.disabledClass, disabledClass);
     }
 
-    @Attribute
-    public abstract String getHoverClass();
-
     @Attribute(generate = false)
     public String getLeftIcon() {
         return (String) getStateHelper().eval(Properties.leftIcon,

@@ -61,12 +61,11 @@
     margin: 0px 3px;
 }
 
-.rf-pm-itm-hov {
+.rf-pm-itm:hover {
     background-color: '#{richSkin.additionalBackgroundColor}';
 }
 
 .rf-pm-itm-sel {
-    background-color: '#{richSkin.additionalBackgroundColor}';
     font-style:italic;
 }
 
@@ -76,14 +75,12 @@
     border-top-color: '#{richSkin.panelBorderColor}';
 }
 
-.rf-pm-gr-hov {
+.rf-pm-gr-hdr:hover {
     background: '#{richSkin.additionalBackgroundColor}';
-
     color: white; /*TODO skin?*/
 }
 
 .rf-pm-gr-sel {
-    background: '#{richSkin.additionalBackgroundColor}';
     font-style:italic;
 }
 
@@ -166,12 +163,12 @@
     margin: 0px 3px;
 }
 
-.rf-pm-top-itm-hov {
+.rf-pm-top-itm:hover {
+    color: '#{richSkin.headerTextColor}';
     background-color:#ffd700;
 }
 
 .rf-pm-top-itm-sel {
-    background: '#{richSkin.additionalBackgroundColor}';
     font-style:italic;
 }
 
@@ -183,15 +180,11 @@
     padding: 1px;
 }
 
-.rf-pm-top-gr-hov {
-    background-color: green;
-    color: white; /*TODO skin?*/
+.rf-pm-top-gr-hdr:hover {
+    background-color: '#{richSkin.additionalBackgroundColor}';
 }
 
 .rf-pm-top-gr-sel {
-    background-color: blue;
-    color: #f5f5f5;
-
     font-style:italic;
 }
 
@@ -228,6 +221,10 @@
 .rf-pm-gr-hdr-dis, .rf-pm-itm-dis, .rf-pm-top-itm-dis {
 	color: '#{richSkin.tabDisabledTextColor}';
 	cursor: default;
+}
+
+.rf-pm-itm.rf-pm-itm-dis:hover{
+    background-color: inherit;
 }
 
 .rf-pm-top-gr-cnt {
