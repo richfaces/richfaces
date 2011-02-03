@@ -121,9 +121,9 @@ public class ProgressBarBaseRenderer extends RendererBase implements MetaCompone
         if (isResourceMode(component)) {
             result = ProgressBarState.initialState;
         } else {
-            Number minValue = NumberUtils.getNumber(component.getAttributes().get("minValue"));
-            Number maxValue = NumberUtils.getNumber(component.getAttributes().get("maxValue"));
-            Number value = NumberUtils.getNumber(component.getAttributes().get("value"));
+            Number minValue = NumberUtils.getNumber(getMinValueOrDefault(component));
+            Number maxValue = NumberUtils.getNumber(getMaxValueOrDefault(component));
+            Number value = NumberUtils.getNumber(((AbstractProgressBar) component).getValue());
             
             if (value.doubleValue() < minValue.doubleValue()) {
                 result = ProgressBarState.initialState;
@@ -197,7 +197,7 @@ public class ProgressBarBaseRenderer extends RendererBase implements MetaCompone
     
     protected int getMaxValueOrDefault(UIComponent component) {
         int maxValue = ((AbstractProgressBar) component).getMaxValue();
-        if (maxValue == 0) {
+        if (maxValue == Integer.MIN_VALUE) {
             maxValue = DEFAULT_MAX_VALUE;
         }
         return maxValue;
@@ -205,7 +205,7 @@ public class ProgressBarBaseRenderer extends RendererBase implements MetaCompone
     
     protected int getMinValueOrDefault(UIComponent component) {
         int maxValue = ((AbstractProgressBar) component).getMinValue();
-        if (maxValue == 0) {
+        if (maxValue == Integer.MIN_VALUE) {
             maxValue = DEFAULT_MIN_VALUE;
         }
         return maxValue;

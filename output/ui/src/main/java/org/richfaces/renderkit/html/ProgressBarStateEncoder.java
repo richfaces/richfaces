@@ -27,6 +27,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
+import org.richfaces.component.AbstractProgressBar;
 import org.richfaces.component.NumberUtils;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.renderkit.HtmlConstants;
@@ -37,6 +38,10 @@ import org.richfaces.renderkit.HtmlConstants;
  */
 class ProgressBarStateEncoder {
 
+    private static final int DEFAULT_MIN_VALUE = 0;
+    
+    private static final int DEFAULT_MAX_VALUE = 100;
+    
     private boolean renderContentAsPlaceHolders;
     
     public ProgressBarStateEncoder(boolean renderContentAsPlaceHolders) {
@@ -78,9 +83,9 @@ class ProgressBarStateEncoder {
     }
 
     protected String getWidth(UIComponent component) {
-        Number value = NumberUtils.getNumber(component.getAttributes().get("value"));
-        Number minValue = NumberUtils.getNumber(component.getAttributes().get("minValue") == null ? 0 : component.getAttributes().get("minValue"));
-        Number maxValue = NumberUtils.getNumber(component.getAttributes().get("maxValue") == null ? 100 : component.getAttributes().get("maxValue"));
+        Number value = NumberUtils.getNumber(((AbstractProgressBar) component).getValue());
+        Number minValue = NumberUtils.getNumber(getMinValueOrDefault(component));
+        Number maxValue = NumberUtils.getNumber(getMaxValueOrDefault(component));
         Number percent = calculatePercent(value, minValue, maxValue);
 
         return String.valueOf(percent.intValue());
@@ -169,4 +174,20 @@ class ProgressBarStateEncoder {
         throws IOException {
         encodeStateFacet(context, component, ProgressBarState.finishState, currentState);
     }
+    
+    protected int getMaxValueOrDefault(UIComponent component) {
+        int maxValue = ((AbstractProgressBar) component).getMaxValue();
+        if (maxValue == Integer.MIN_VALUE) {
+            maxValue = DEFAULT_MAX_VALUE;
+        }
+        return maxValue;
+    }
+    
+    protected int getMinValueOrDefault(UIComponent component) {
+        int maxValue = ((AbstractProgressBar) component).getMinValue();
+        if (maxValue == Integer.MIN_VALUE) {
+            maxValue = DEFAULT_MIN_VALUE;
+        }
+        return maxValue;
+    }  
 }

@@ -133,7 +133,7 @@ public abstract class AbstractProgressBar extends UIComponentBase implements Met
     public abstract int getMinValue();
 
     @Attribute
-    public abstract Object getValue();
+    public abstract int getValue();
 
     @Attribute(hidden = true)
     public abstract String getResource();
