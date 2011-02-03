@@ -3,18 +3,19 @@
  */
 package org.richfaces.example;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 
 /**
  * @author asmirnov
  *
  */
-public class NotEmptyBean implements Validable<String> {
+public class SizeBean implements Validable<String> {
 	
-	@NotEmpty
+	@Size(max=10,min=2,message="incorrect field length")
 	private String value;
 	
+
 	/**
 	 * @return the text
 	 */
@@ -29,11 +30,14 @@ public class NotEmptyBean implements Validable<String> {
 		this.value = text;
 	}
 
+
 	public String getDescription() {
-		return "Text value, Not Empty Validation";
+		return "Validate String Length, for a range 2-10 chars";
 	}
+
     public String getLabel() {
-        return "notEmpty";
+        return "size";
     }
+
 
 }

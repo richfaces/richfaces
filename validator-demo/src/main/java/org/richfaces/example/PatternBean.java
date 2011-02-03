@@ -3,21 +3,21 @@
  */
 package org.richfaces.example;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 
 /**
  * @author asmirnov
  *
  */
-public class NotEmptyBean implements Validable<String> {
+public class PatternBean implements Validable<String> {
 	
-	@NotEmpty
 	private String value;
 	
 	/**
 	 * @return the text
 	 */
+	@Pattern(regexp="^[a-Z][a-Z1-9_]$")
 	public String getValue() {
 		return value;
 	}
@@ -30,10 +30,10 @@ public class NotEmptyBean implements Validable<String> {
 	}
 
 	public String getDescription() {
-		return "Text value, Not Empty Validation";
+		return "Text Value, Pattern '^[a-Z][a-Z1-9_]$' Validation";
 	}
     public String getLabel() {
-        return "notEmpty";
+        return "pattern";
     }
 
 }

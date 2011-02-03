@@ -7,15 +7,13 @@ package org.richfaces.example;
  * @author asmirnov
  *
  */
-public interface Validable {
+public interface Validable<T> {
 	
-	public String getText();
+	T getValue();
 	
-	public String getTextDescription();
+	void setValue(T value);
+    
+	String getDescription();
 	
-	public String getTextSummary();
-
-	public int getIntValue();
-
-	public String getIntSummary();
+	String getLabel();
 }
