@@ -123,7 +123,7 @@ public class ProgressBarBaseRenderer extends RendererBase implements MetaCompone
         } else {
             Number minValue = NumberUtils.getNumber(getMinValueOrDefault(component));
             Number maxValue = NumberUtils.getNumber(getMaxValueOrDefault(component));
-            Number value = NumberUtils.getNumber(((AbstractProgressBar) component).getValue());
+            Number value = NumberUtils.getNumber(getValueOrDefault(component));
             
             if (value.doubleValue() < minValue.doubleValue()) {
                 result = ProgressBarState.initialState;
@@ -195,21 +195,29 @@ public class ProgressBarBaseRenderer extends RendererBase implements MetaCompone
         return isAjaxMode(component) ? PARTIAL_ENCODER : FULL_ENCODER;
     }
     
-    protected int getMaxValueOrDefault(UIComponent component) {
-        int maxValue = ((AbstractProgressBar) component).getMaxValue();
-        if (maxValue == Integer.MIN_VALUE) {
+    protected Object getMaxValueOrDefault(UIComponent component) {
+        Object maxValue = ((AbstractProgressBar) component).getMaxValue();
+        if (maxValue == null) {
             maxValue = DEFAULT_MAX_VALUE;
         }
         return maxValue;
     }
     
-    protected int getMinValueOrDefault(UIComponent component) {
-        int maxValue = ((AbstractProgressBar) component).getMinValue();
-        if (maxValue == Integer.MIN_VALUE) {
+    protected Object getMinValueOrDefault(UIComponent component) {
+        Object maxValue = ((AbstractProgressBar) component).getMinValue();
+        if (maxValue == null) {
             maxValue = DEFAULT_MIN_VALUE;
         }
         return maxValue;
     }    
+    
+    protected Object getValueOrDefault(UIComponent component) {
+        Object value = ((AbstractProgressBar) component).getValue();
+        if (value == null) {
+            value = Integer.MIN_VALUE;
+        }
+        return value;
+    } 
     
     protected SwitchType getModeOrDefault(UIComponent component) {
         SwitchType mode = ((AbstractProgressBar) component).getMode();

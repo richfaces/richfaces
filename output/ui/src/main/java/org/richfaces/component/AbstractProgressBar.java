@@ -127,13 +127,13 @@ public abstract class AbstractProgressBar extends UIComponentBase implements Met
     public abstract SwitchType getMode();
 
     @Attribute
-    public abstract int getMaxValue();
+    public abstract Object getMaxValue();
 
     @Attribute
-    public abstract int getMinValue();
+    public abstract Object getMinValue();
 
     @Attribute
-    public abstract int getValue();
+    public abstract Object getValue();
 
     @Attribute(hidden = true)
     public abstract String getResource();

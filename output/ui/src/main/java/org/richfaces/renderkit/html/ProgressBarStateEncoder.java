@@ -83,7 +83,7 @@ class ProgressBarStateEncoder {
     }
 
     protected String getWidth(UIComponent component) {
-        Number value = NumberUtils.getNumber(((AbstractProgressBar) component).getValue());
+        Number value = NumberUtils.getNumber(getValueOrDefault(component));
         Number minValue = NumberUtils.getNumber(getMinValueOrDefault(component));
         Number maxValue = NumberUtils.getNumber(getMaxValueOrDefault(component));
         Number percent = calculatePercent(value, minValue, maxValue);
@@ -175,19 +175,27 @@ class ProgressBarStateEncoder {
         encodeStateFacet(context, component, ProgressBarState.finishState, currentState);
     }
     
-    protected int getMaxValueOrDefault(UIComponent component) {
-        int maxValue = ((AbstractProgressBar) component).getMaxValue();
-        if (maxValue == Integer.MIN_VALUE) {
+    protected Object getMaxValueOrDefault(UIComponent component) {
+        Object maxValue = ((AbstractProgressBar) component).getMaxValue();
+        if (maxValue == null) {
             maxValue = DEFAULT_MAX_VALUE;
         }
         return maxValue;
     }
     
-    protected int getMinValueOrDefault(UIComponent component) {
-        int maxValue = ((AbstractProgressBar) component).getMinValue();
-        if (maxValue == Integer.MIN_VALUE) {
+    protected Object getMinValueOrDefault(UIComponent component) {
+        Object maxValue = ((AbstractProgressBar) component).getMinValue();
+        if (maxValue == null) {
             maxValue = DEFAULT_MIN_VALUE;
         }
         return maxValue;
     }  
+    
+    protected Object getValueOrDefault(UIComponent component) {
+        Object value = ((AbstractProgressBar) component).getValue();
+        if (value == null) {
+            value = Integer.MIN_VALUE;
+        }
+        return value;
+    }
 }
