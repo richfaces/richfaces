@@ -46,7 +46,7 @@ import org.richfaces.renderkit.RenderKitUtils;
  */
 @JsfComponent(tag = @Tag(handler = "org.richfaces.view.facelets.FileUploadHandler"),
     renderer = @JsfRenderer(type = "org.richfaces.FileUploadRenderer"),
-    attributes = {"events-props.xml", "core-props.xml", "i18n-props.xml"})
+    attributes = {"events-props.xml", "core-props.xml", "ajax-props.xml", "i18n-props.xml"})
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractFileUpload extends UIComponentBase {
     
