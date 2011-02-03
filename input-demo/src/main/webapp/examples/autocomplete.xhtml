@@ -25,10 +25,7 @@
 
 	<h:form id="form">
 		<h:selectOneMenu value="#{autoCompleteBean.mode}" onchange="submit()">
-			<f:selectItem itemValue="lazyClient"/>
-			<f:selectItem itemValue="client"/>
-			<f:selectItem itemValue="cachedAjax"/>
-			<f:selectItem itemValue="ajax"/>
+			<f:selectItems value="#{autoCompleteBean.modes}" />
 		</h:selectOneMenu><br/>
 		<div style="height: 300px; width: 300px; overflow: auto; float:left;">Text
 		block text block text block text block text block text block text
