@@ -71,7 +71,7 @@ public abstract class AbstractAccordion extends AbstractTogglePanel {
     public abstract String getItemActiveRightIcon();
 
     @Attribute
-    public abstract String getItemRightInactiveIcon();
+    public abstract String getItemInactiveRightIcon();
 
     @Attribute
     public abstract String getItemDisabledRightIcon();

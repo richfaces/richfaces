@@ -33,14 +33,17 @@
         >
 
 <h:head>
-    <title>Richfaces MenuItem Test</title>
+    <title>Richfaces Accordion Test</title>
 </h:head>
 
 <h:body>
     <h:form id="f">
-        <pn:accordion id="accordion">
-            <pn:accordionItem id="item" headerActiveClass="my-ac-it-active-header-class"  headerInactiveClass="my-ac-it-inactive-header-class"/>
-            <pn:accordionItem id="item2" disabled="true" headerDisabledClass="my-ac-it-disabled-header-class"/>
+        <pn:accordion id="accordion"
+                      itemActiveHeaderClass="my-ac-active-header-class"
+                      itemInactiveHeaderClass="my-ac-inactive-header-class"
+                      itemDisabledHeaderClass="my-ac-disabled-header-class">
+            <pn:accordionItem id="item"/>
+            <pn:accordionItem id="item2" disabled="true"/>
         </pn:accordion>
     </h:form>
 </h:body>

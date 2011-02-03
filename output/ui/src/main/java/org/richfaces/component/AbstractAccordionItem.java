@@ -106,12 +106,12 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelTitledIte
         getStateHelper().put(Properties.rightDisabledIcon, rightDisabledIcon);
     }
 
-    @Attribute(defaultValue = "getAccordion().getItemRightInactiveIcon()", generate = false)
+    @Attribute(defaultValue = "getAccordion().getItemInactiveRightIcon()", generate = false)
     public String getRightInactiveIcon() {
-        return (String) getStateHelper().eval(Properties.rightInactiveIcon, getAccordion().getItemRightInactiveIcon());
+        return (String) getStateHelper().eval(Properties.rightInactiveIcon, getAccordion().getItemInactiveRightIcon());
     }
 
-    public void setRightInactiveIcon(String rightInactiveIcon) {
+    public void setInactiveRightIcon(String rightInactiveIcon) {
         getStateHelper().put(Properties.rightInactiveIcon, rightInactiveIcon);
     }
 

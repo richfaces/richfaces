@@ -56,7 +56,10 @@ public abstract class AbstractTogglePanelTitledItem extends AbstractTogglePanelI
         }
 
         public String headerClass() {
-            return "headerClass" + capitalize(this.toString());
+            return new StringBuilder("header")
+                    .append(capitalize(this.toString()))
+                    .append("Class")
+                    .toString();
         }
     }
 

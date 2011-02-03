@@ -1,0 +1,55 @@
+<div id="f:accordion" class="rf-ac">
+    <input type="hidden" value="item" id="f:accordion-value" name="f:accordion-value"/>
+    <script type="text/javascript">
+        //<![CDATA[
+new RichFaces.ui.Accordion("f:accordion",{"ajax":{"incId":"1"} ,"activeItem":"item","isKeepHeight":false,"cycledSwitching":false} )
+//]]>
+    </script>
+    <div id="f:item" class="rf-ac-itm">
+        <div class="rf-ac-itm-hdr rf-ac-itm-hdr-act" id="f:item:header">
+            <table class="rf-ac-itm-gr">
+                <tbody>
+                    <tr>
+                        <td class="rf-ac-itm-lbl">
+                            <div class="rf-ac-itm-lbl-act my-ac-active-header-class">
+                                item
+                            </div>
+                            <div class="rf-ac-itm-lbl-inact my-ac-inactive-header-class">
+                                item
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="rf-ac-itm-cnt" id="f:item:content">
+        </div>
+        <script type="text/javascript">
+            //<![CDATA[
+new RichFaces.ui.AccordionItem("f:item",{"index":0,"togglePanelId":"f:accordion","switchMode":"ajax","name":"item","disabled":false} )
+//]]>
+        </script>
+    </div>
+    <div id="f:item2" class="rf-ac-itm">
+        <div class="rf-ac-itm-hdr rf-ac-itm-hdr-dis" id="f:item2:header">
+            <table class="rf-ac-itm-gr">
+                <tbody>
+                    <tr>
+                        <td class="rf-ac-itm-lbl">
+                            <div class="rf-ac-itm-lbl-dis my-ac-disabled-header-class">
+                                item2
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="rf-ac-itm-cnt" id="f:item2:content" style="display: none">
+        </div>
+        <script type="text/javascript">
+            //<![CDATA[
+new RichFaces.ui.AccordionItem("f:item2",{"index":1,"togglePanelId":"f:accordion","switchMode":"ajax","name":"item2","disabled":true} )
+//]]>
+        </script>
+    </div>
+</div>

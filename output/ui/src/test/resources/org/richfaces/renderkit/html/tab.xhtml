@@ -25,23 +25,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:pn="http://richfaces.org/output"
-        >
+      xmlns:pn="http://richfaces.org/output">
 
 <h:head>
-    <title>Richfaces MenuItem Test</title>
+    <title>Richfaces Tab Test</title>
 </h:head>
 
 <h:body>
     <h:form id="f">
-        <pn:accordion id="accordion">
-            <pn:accordionItem id="item" headerActiveClass="my-ac-it-active-header-class"  headerInactiveClass="my-ac-it-inactive-header-class"/>
-            <pn:accordionItem id="item2" disabled="true" headerDisabledClass="my-ac-it-disabled-header-class"/>
-        </pn:accordion>
+        <pn:tabPanel id="tabPanel">
+            <pn:tab id="tab" headerActiveClass="my-tab-active-header-class"  headerInactiveClass="my-tab-inactive-header-class" />
+            <pn:tab id="tab2" disabled="true" headerDisabledClass="my-tab-disabled-header-class"/>
+        </pn:tabPanel>
     </h:form>
 </h:body>
 </html>
