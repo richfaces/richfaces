@@ -73,7 +73,7 @@
     			__onBtnMouseDown: function(e) {
     				if(!this.popupList.isVisible()) {
 						this.__updateItems();
-    					this.showPopup();
+    					this.__showPopup();
     				} else {
     					this.hidePopup();
     				}
@@ -107,7 +107,7 @@
     						e.preventDefault();
     						if(!visible) {
     							this.__updateItems();
-    							this.showPopup();
+    							this.__showPopup();
     						} else {
     							this.popupList.__selectNext() ;
     						}	
@@ -160,7 +160,7 @@
     					}
     					
     					if(!this.popupList.isVisible()) {
-    						this.showPopup();
+    						this.__showPopup();
     					}
     				}	
     			},
@@ -253,7 +253,7 @@
     				}
     			},
     			
-    			showPopup: function() {
+    			__showPopup: function() {
     				this.popupList.show();
     			},
     			
