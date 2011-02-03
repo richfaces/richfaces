@@ -22,7 +22,8 @@
 -->
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:fn="http://java.sun.com/jsp/jstl/functions"
       xmlns:h="http://java.sun.com/jsf/html"
@@ -31,13 +32,23 @@
       xmlns:pn="http://richfaces.org/output"
       xmlns:rich="http://richfaces.org/rich">
 
-    <h:head>
-        <title>Richfaces PanelMenu Test</title>
-    </h:head>
+<h:head>
+    <title>Richfaces PanelMenu Test</title>
+</h:head>
 
 <h:body>
     <h:form id="f" style="border:blue solid thin;">
-        <pn:panelMenu id="panelMenu"></pn:panelMenu>
+        <pn:panelMenu id="panelMenu" itemClass="my-item-class" itemDisabledClass="my-item-disabled-class">
+            <pn:panelMenuGroup>
+                <pn:panelMenuItem id="item">
+                    My Item
+                </pn:panelMenuItem>
+                <pn:panelMenuItem id="item_disabled" disabled="true">
+                    My Disabled Item
+                </pn:panelMenuItem>
+            </pn:panelMenuGroup>
+
+        </pn:panelMenu>
     </h:form>
 </h:body>
 </html>
