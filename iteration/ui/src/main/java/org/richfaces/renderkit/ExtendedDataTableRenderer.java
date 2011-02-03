@@ -397,6 +397,8 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-b", null);
         if (table.getRowCount() == 0) {
             UIComponent facet = table.getFacet("noData");
+            writer.startElement(HtmlConstants.DIV_ELEM, table);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-ndt", null);
             if (facet != null && facet.isRendered()) {
                 facet.encodeAll(context);
             } else {
@@ -405,6 +407,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                     writer.writeText(noDataLabel, "noDataLabel");
                 }
             }
+            writer.endElement(HtmlConstants.DIV_ELEM);
         } else {
             table.getAttributes().put("clientFirst", 0);
             writer.startElement(HtmlConstants.DIV_ELEM, table);

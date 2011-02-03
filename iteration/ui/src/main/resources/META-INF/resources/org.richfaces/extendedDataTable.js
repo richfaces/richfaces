@@ -361,7 +361,7 @@
 			this.bodyElement.tabIndex = -1; //TODO don't use tabIndex.
 			this.normalPartStyle = richfaces.utils.getCSSRule("div.rf-edt-cnt").style;
 			var bodyJQuery = jQuery(this.bodyElement);
-			this.contentElement = bodyJQuery.children("div:first")[0];
+			this.contentElement = bodyJQuery.children("div:not(.rf-edt-ndt):first")[0];
 			if (this.contentElement) {
 				this.spacerElement = this.contentElement.firstChild;//TODO this.marginElement = Richfaces.firstDescendant(this.contentElement);
 				this.dataTableElement = this.contentElement.lastChild;//TODO this.dataTableElement = Richfaces.lastDescendant(this.contentElement);
