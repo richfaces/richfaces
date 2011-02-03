@@ -73,7 +73,7 @@
        <function>RichFaces.csv.convertDouble</function>
    </component>
    <component>
-       <type>javax.faces.convert.DateConverter</type>
+       <type>javax.faces.convert.DateTimeConverter</type>
         <resource>
             <name>csv.reslib</name>
             <library>org.richfaces</library>
@@ -130,6 +130,14 @@
    </component>
    <component>
        <type>javax.validation.constraints.NotNull</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+       <function>RichFaces.csv.validateRequired</function>
+   </component>
+   <component>
+       <type>org.hibernate.validator.constraints.NotEmpty</type>
         <resource>
             <name>csv.reslib</name>
             <library>org.richfaces</library>
