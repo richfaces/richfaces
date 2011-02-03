@@ -61,6 +61,13 @@
            		
            		__setValue: function(value){
            			this.input.val(value);
+           			if (this.defaultLabelClass) {
+	           			if (value == this.defaultLabel) {
+	           				this.input.addClass(this.defaultLabelClass);
+	           			} else {
+	           				this.input.removeClass(this.defaultLabelClass);
+	           			}
+           			}
            		},
            		
     			getValue: function() {

@@ -154,3 +154,7 @@ input.rf-sel-inp {
 	margin: 0px;
 	padding: 0px;
 }
+
+input.rf-sel-dflt-lbl {
+	color:#b3b3b3;
+}

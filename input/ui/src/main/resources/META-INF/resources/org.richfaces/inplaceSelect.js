@@ -43,6 +43,7 @@
 
         return{
             name : "inplaceSelect",
+			defaultLabelClass : "rf-is-dflt-lbl", 
 
             getName: function() {
                 return this.name;

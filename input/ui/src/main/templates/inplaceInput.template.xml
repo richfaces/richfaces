@@ -43,7 +43,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 		<cdk:object type="java.lang.String" name="inplaceValue" value="#{getValue(facesContext, component)}" />
 		
 		<span id="#{clientId}" class="#{getStateStyleClass(component, inplaceState)}" cdk:passThroughWithExclusions="id class">
-			<span id="#{clientId}Label" class="rf-ii-lbl">
+			<span id="#{clientId}Label" class="rf-ii-lbl#{inplaceValue == component.attributes['defaultLabel'] ? ' rf-ii-dflt-lbl' : ''}">
 				#{inplaceValue}
 			</span>
 			

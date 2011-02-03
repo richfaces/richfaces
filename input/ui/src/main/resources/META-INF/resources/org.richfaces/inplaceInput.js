@@ -40,6 +40,7 @@
     		return {
 
     			name : "inplaceInput",
+    			defaultLabelClass : "rf-ii-dflt-lbl", 
     			
     			getName: function() {
     				return this.name;
@@ -100,6 +101,11 @@
 
            		setLabel: function(value) {
            			this.label.text(value);
+           			if (value == this.defaultLabel) {
+           				this.label.addClass(this.defaultLabelClass);
+           			} else {
+           				this.label.removeClass(this.defaultLabelClass);
+           			}
            		}, 
            		
            		isValueChanged: function () {

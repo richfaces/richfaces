@@ -190,3 +190,7 @@ input.rf-ii-fld {
 .rf-ii-none {
 	clip: rect(0px, 0px, 1px, 1px);
 }
+
+.rf-ii-dflt-lbl {
+	color:#b3b3b3;
+}

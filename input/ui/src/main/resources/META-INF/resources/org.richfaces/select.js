@@ -68,6 +68,7 @@
     	$.extend(rf.ui.Select.prototype, ( function () {
     		return{
     			name : "select", 
+    			defaultLabelClass : "rf-sel-dflt-lbl", 
     			
     			__onBtnMouseDown: function(e) {
     				if(!this.popupList.isVisible()) {

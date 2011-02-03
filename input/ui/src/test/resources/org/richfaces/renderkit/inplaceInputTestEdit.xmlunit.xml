@@ -1,5 +1,5 @@
 <span class="rf-ii-d-s rf-ii-e-s" id="form:inplaceInputEdit">
-	<span class="rf-ii-lbl" id="form:inplaceInputEditLabel">Edit Text</span>
+	<span class="rf-ii-lbl rf-ii-dflt-lbl" id="form:inplaceInputEditLabel">Edit Text</span>
 	<input class="rf-ii-none" id="form:inplaceInputEditFocus"
 		style="position: absolute; top: 0px; left: 0px; outline-style: none;"
 		type="image" />

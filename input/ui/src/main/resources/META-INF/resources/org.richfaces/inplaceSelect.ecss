@@ -230,3 +230,7 @@ input.rf-is-fld {
 	left : 6px;
 	right : 0px;
 }
+
+.rf-is-dflt-lbl {
+	color:#b3b3b3;
+}

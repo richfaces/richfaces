@@ -404,3 +404,7 @@
 	border-right-color: '#{richSkin.tableBackgroundColor}';
 	border-bottom-color: '#{richSkin.tableBackgroundColor}';
 }
+
+input.rf-cal-dflt-lbl {
+	color:#b3b3b3;
+}

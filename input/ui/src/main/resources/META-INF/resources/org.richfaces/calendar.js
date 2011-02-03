@@ -276,6 +276,11 @@
 		if (!this.selectedDate) {
 			var field = rf.getDomElement(this.INPUT_DATE_ID);
 			field.value = value;
+			if (value) {
+				$(field).addClass("rf-cal-dflt-lbl");
+			} else {
+				$(field).removeClass("rf-cal-dflt-lbl");
+			}
 		}
 	}
 	

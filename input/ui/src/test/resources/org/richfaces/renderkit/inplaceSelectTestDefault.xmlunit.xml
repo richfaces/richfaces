@@ -1,5 +1,5 @@
 <span class="rf-is-d-s" id="form:inplaceSelectDefault">
-	<span class="rf-is-lbl" id="form:inplaceSelectDefaultLabel">Edit Text</span>
+	<span class="rf-is-lbl rf-is-dflt-lbl" id="form:inplaceSelectDefaultLabel">Edit Text</span>
 	<input class="rf-is-none" id="form:inplaceSelectDefaultFocus" name="form:inplaceSelectDefaultFocus" style="position: absolute; top: 0px; left: 0px; outline-style: none;" type="image" />
 	<span class="rf-is-edit rf-is-none" id="form:inplaceSelectDefaultEdit">
 		<input id="form:inplaceSelectDefaultselValue" name="form:inplaceSelectDefault" type="hidden" />
