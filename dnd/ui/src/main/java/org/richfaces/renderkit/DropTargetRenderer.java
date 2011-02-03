@@ -134,10 +134,12 @@ public class DropTargetRenderer extends DnDRenderBase {
             AbstractDropTarget dropTarget = (AbstractDropTarget)component;
             Set<String> acceptedTypes = CoreAjaxRendererUtils.asSimpleSet(dropTarget.getAcceptedTypes());
             
-            if (acceptedTypes.contains("@none")) {
-                acceptedTypes = NONE_SET;
-            } else if (acceptedTypes.contains("@all")) {
-                acceptedTypes = ALL_SET;
+            if (acceptedTypes != null) {
+                if (acceptedTypes.contains("@none")) {
+                    acceptedTypes = NONE_SET;
+                } else if (acceptedTypes.contains("@all")) {
+                    acceptedTypes = ALL_SET;
+                }
             }
             
             options.put("acceptedTypes", acceptedTypes);

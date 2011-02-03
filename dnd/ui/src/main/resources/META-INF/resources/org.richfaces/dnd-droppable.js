@@ -107,7 +107,7 @@
 			accept : function(draggable) {
 				var accept = false;
 				var acceptType = draggable.data("type");
-				if (acceptType) {
+				if (acceptType && this.options.acceptedTypes) {
 					$.each(this.options.acceptedTypes, function() {
 								if (this == "@none") {
 									return false;
