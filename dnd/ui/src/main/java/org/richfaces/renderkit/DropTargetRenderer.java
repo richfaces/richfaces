@@ -40,6 +40,8 @@ import org.richfaces.javascript.DropScript;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
 
+import com.google.common.base.Strings;
+
 
 /**
  * @author abelevich
@@ -51,19 +53,29 @@ public class DropTargetRenderer extends DnDRenderBase {
     
     @Override
     protected void doDecode(FacesContext facesContext, UIComponent component) {
-        if(component instanceof AbstractDropTarget) {
-            Map<String, String> requestParamMap = facesContext.getExternalContext().getRequestParameterMap();
-            String dragSourceId = (String) requestParamMap.get("dragSource");
-
-            if(dragSourceId !=null && !"".equals(dragSourceId)) {
-                DragSourceContextCallBack dragSourceContextCallBack = new DragSourceContextCallBack();
-                facesContext.getViewRoot().invokeOnComponent(facesContext, dragSourceId, dragSourceContextCallBack);
-                
-                AbstractDropTarget dropTarget = (AbstractDropTarget)component;
-                new DropEvent(dropTarget, dropTarget.getDropValue(), 
-                    dragSourceContextCallBack.getDragSource(), dragSourceContextCallBack.getDragValue()).queue();
-            }
+        Map<String, String> requestParamMap = facesContext.getExternalContext().getRequestParameterMap();
+        
+        if (requestParamMap.get(component.getClientId(facesContext)) == null) {
+            return;
         }
+        
+        String dragSourceId = (String) requestParamMap.get("dragSource");
+        if (Strings.isNullOrEmpty(dragSourceId)) {
+            return;
+        }
+        
+        
+        DragSourceContextCallBack dragSourceContextCallBack = new DragSourceContextCallBack();
+        boolean invocationResult = facesContext.getViewRoot().invokeOnComponent(facesContext, dragSourceId, dragSourceContextCallBack);
+        
+        if (!invocationResult) {
+            //TODO - log
+            return;
+        }
+        
+        AbstractDropTarget dropTarget = (AbstractDropTarget) component;
+        new DropEvent(dropTarget, dropTarget.getDropValue(), 
+            dragSourceContextCallBack.getDragSource(), dragSourceContextCallBack.getDragValue()).queue();
     }
     
     private final class DragSourceContextCallBack implements ContextCallback {
@@ -103,6 +115,7 @@ public class DropTargetRenderer extends DnDRenderBase {
 
             AjaxFunction ajaxFunction = AjaxRendererUtils.buildAjaxFunction(facesContext, component);
             ajaxFunction.getOptions().setParameter("dragSource", dragSourceId);
+            ajaxFunction.getOptions().setParameter(component.getClientId(facesContext), component.getClientId(facesContext));
             ajaxFunction.setSource(new JSReference("event", "target"));
             ajaxFunction.getOptions().setAjaxComponent(component.getClientId(facesContext));
             function.addToBody(ajaxFunction);
