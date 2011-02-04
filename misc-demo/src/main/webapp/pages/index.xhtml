@@ -28,6 +28,8 @@
 		<br />
 		<h:outputText value="#{fn:findComponent('input').value}" />
 		<br />
+		<h:outputText value="#{fn:toScript('input')}" />
+		<br />
 				
 		Roles:
 		<h:outputText rendered="#{fn:isUserInRole('admin, user')}"
