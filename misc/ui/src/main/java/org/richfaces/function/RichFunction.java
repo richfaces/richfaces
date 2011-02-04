@@ -27,6 +27,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.cdk.annotations.Function;
 import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
 import org.richfaces.renderkit.util.RendererUtils;
@@ -138,5 +139,10 @@ public final class RichFunction {
         }
 
         return false;
+    }
+    
+    @Function
+    public static String toScript(Object o) {
+        return ScriptUtils.toScript(o);
     }
 }
