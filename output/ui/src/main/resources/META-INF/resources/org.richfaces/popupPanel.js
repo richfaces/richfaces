@@ -143,17 +143,17 @@
             getMinimumSize : function(size) {
                 return Math.max(size, 2 * this.getInitialSize() + 2);
             },
-            
+
             __getParsedOption: function(options, name) {
                 var value = parseInt(options[name], 10);
-                
+
                 if (value < 0 || isNaN(value)) {
-                	value = this[name];
+                    value = this[name];
                 }
-                
+
                 return value;
             },
-            
+
             destroy: function() {
 
                 this._contentElement = null;
@@ -403,18 +403,16 @@
                 }
             },
 
-
-            formElements: "|a|input|select|button|textarea|",
-
             processAllFocusElements: function(root, callback) {
                 var idx = -1;
                 var tagName;
+                var formElements = "|a|input|select|button|textarea|";
 
                 if (root.focus && root.nodeType == 1 && (tagName = root.tagName) &&
                     // Many not visible elements have focus method, we is had to avoid processing them.
-                        (idx = this.formElements.indexOf(tagName.toLowerCase())) != -1 &&
-                        this.formElements.charAt(idx - 1) === '|' &&
-                        this.formElements.charAt(idx + tagName.length) === '|' &&
+                        (idx = formElements.indexOf(tagName.toLowerCase())) != -1 &&
+                        formElements.charAt(idx - 1) === '|' &&
+                        formElements.charAt(idx + tagName.length) === '|' &&
                         !root.disabled && root.type != "hidden") {
                     callback.call(this, root);
                 } else {
@@ -434,24 +432,33 @@
                 if (!this.firstOutside) {
                     this.firstOutside = input;
                 }
-                if (input.tabIndex && !input.prevTabIndex) {
+                if (!input.prevTabIndex) {
                     input.prevTabIndex = input.tabIndex;
+                    input.tabIndex = -1;
                 }
-                input.tabIndex = undefined;
-                if (input.accesskey && !input.prevAccesskey) {
-                    input.prevAccesskey = input.accesskey;
+
+                if (!input.prevAccessKey) {
+                    input.prevAccessKey = input.accessKey;
+                    input.accessKey = "";
                 }
-                input.accesskey = undefined;
             },
 
             restoreTabindexes:    function(input) {
-                if (input.prevTabIndex) {
-                    input.tabIndex = input.prevTabIndex;
+                if (input.prevTabIndex != undefined) {
+                    if (input.prevTabIndex == 0) {
+                        $(input).removeAttr('tabindex');
+                    } else {
+                        input.tabIndex = input.prevTabIndex;
+                    }
                     input.prevTabIndex = undefined;
                 }
-                if (input.prevAccesskey) {
-                    input.accesskey = input.prevAccesskey;
-                    input.prevAccesskey = undefined;
+                if (input.prevAccessKey != undefined) {
+                    if (input.prevAccessKey == "") {
+                        $(input).removeAttr('accesskey');
+                    } else {
+                        input.accessKey = input.prevAccessKey;
+                    }
+                    input.prevAccessKey = undefined;
                 }
             },
 
