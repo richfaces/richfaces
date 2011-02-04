@@ -75,7 +75,7 @@
 						this.__updateItems();
     					this.__showPopup();
     				} else {
-    					this.hidePopup();
+    					this.__hidePopup();
     				}
            			this.isMouseDown = true;
     			},
@@ -134,7 +134,7 @@
     					case rf.KEYS.ESC:
     						e.preventDefault();
     						if(visible) {
-    							this.hidePopup();
+    							this.__hidePopup();
     						}
     						break;
 
@@ -257,9 +257,43 @@
     				this.popupList.show();
     			},
     			
-    			hidePopup: function() {
+    			__hidePopup: function() {
     				this.popupList.hide();
     			},
+
+                showPopup: function() {
+                    if (!this.popupList.isVisible()) {
+                        this.__updateItems();
+                        this.__showPopup();
+                    }
+                    this.__setInputFocus();
+                    if (!this.focused) {
+	    				if(this.__getValue() == this.defaultLabel) {
+	    					this.__setValue("");
+	    				}
+	    				this.focusValue = this.selValueInput.val();
+	    				this.focused = true;
+	    				this.invokeEvent.call(this, "focus", document.getElementById(this.id));
+    				}
+                },
+
+                hidePopup: function() {
+                    if (this.popupList.isVisible()){
+                        this.__hidePopup();
+                        var inputLabel = this.__getValue();
+
+                        if (!inputLabel || inputLabel == "") {
+                            this.__setValue(this.defaultLabel);
+                            this.selValueInput.val("");
+                        }
+
+                        this.focused = false;
+                        this.invokeEvent.call(this, "blur", document.getElementById(this.id));
+                        if (this.focusValue != this.selValueInput.val()) {
+                            this.invokeEvent.call(this, "change", document.getElementById(this.id));
+                        }
+                    }
+                },
            		
     			processItem: function(item) {
     				var key = $(item).attr("id");
@@ -271,7 +305,7 @@
     					}
     				});
     				this.__setValue(label);
-               		this.hidePopup();
+               		this.__hidePopup();
                		this.__setInputFocus();
                		this.__save();
                		
@@ -303,7 +337,7 @@
     			},
     			
     			onblur: function(e) {
-    				this.hidePopup();
+    				this.__hidePopup();
 					var inputLabel = this.__getValue();
 					
 					if(!inputLabel || inputLabel == "") {
