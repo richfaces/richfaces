@@ -94,6 +94,9 @@ rich:togglePanelItem
 rich:itemChangeListener
 rich:accordion
 rich:accordionItem
+rich:panelMenu
+rich:panelMenuGroup
+rich:panelMenuItem
 rich:progressBar
 rich:tooltip
 rich:message
@@ -140,6 +143,11 @@ rich:dragSource
 rich:dropTarget
 rich:dragIndicator
 
+---------------------------------
+Validation:
+---------------------------------
+rich:validator
+rich:graphValidator
 
 Learn more
 ----------
