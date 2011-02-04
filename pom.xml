@@ -215,10 +215,13 @@
                         <configuration>
                             <webResources>
                                 <resource>
-                                    <directory>src/main/webapp-gae</directory>
+                                    <directory>src/main/webapp</directory>
+                                    <excludes>
+                                    	<exclude>WEB-INF/web.xml</exclude>
+                                    </excludes>
                                 </resource>
                                 <resource>
-                                    <directory>src/main/webapp</directory>
+                                    <directory>src/main/webapp-gae</directory>
                                 </resource>
                                 <resource>
                                     <directory>${project.build.directory}/generated-resources</directory>
