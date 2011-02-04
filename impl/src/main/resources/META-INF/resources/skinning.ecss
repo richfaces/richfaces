@@ -48,11 +48,18 @@ button, input[type="reset"], input[type="submit"], input[type="button"] {
 	background-image: "url(#{resource['org.richfaces.renderkit.html.images.ButtonBackgroundImage']})";
 }
 
+button:hover, input[type="reset"]:hover, input[type="submit"]:hover, input[type="button"]:hover {
+    background-position: bottom left;
+    background-repeat: repeat-x;
+	background-image: "url(#{resource['org.richfaces.renderkit.html.images.ButtonHoverBackgroundImage']})";
+}
+
 button[disabled], input[type="reset"][disabled], input[type="submit"][disabled], input[type="button"][disabled] {
 	color: '#{richSkin.tabDisabledTextColor}';
 	border-color: '#{richSkin.tableFooterBackgroundColor}';
 	background-color: '#{richSkin.tableFooterBackgroundColor}';
 	background-image: "url(#{resource['org.richfaces.renderkit.html.images.ButtonDisabledBackgroundImage']})";
+	background-position: top left;
 }
 
 textarea, input[type="text"], input[type="password"], select {

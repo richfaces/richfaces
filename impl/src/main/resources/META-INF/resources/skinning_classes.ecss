@@ -344,17 +344,30 @@ selector names conversion:
 	color:'#{richSkin.headerTextColor}';
 }
 
+.rfs-ctn button:hover, .rfs-btn:hover, 
+.rfs-btn-btn:hover,
+.rfs-btn-reset:hover,
+.rfs-btn-submit:hover,
+.rfs-ctn input[type="reset"]:hover, .rfs-input-reset:hover,
+.rfs-ctn input[type="submit"]:hover, .rfs-input-submit:hover,
+.rfs-ctn input[type="button"]:hover, .rfs-input-btn:hover {
+    background-position: bottom left;
+    background-repeat: repeat-x;
+	background-image: "url(#{resource['org.richfaces.renderkit.html.images.ButtonHoverBackgroundImage']})";
+}
+
 .rfs-ctn button[disabled], .rfs-btn-disabled, 
-.rfs-btn-btn-disabled, 
-.rfs-btn-reset-disabled, 
-.rfs-btn-submit-disabled, 
-.rfs-ctn input[type="reset"][disabled], .rfs-input-reset-disabled, 
-.rfs-ctn input[type="submit"][disabled], .rfs-input-submit-disabled, 
-.rfs-ctn input[type="button"][disabled], .rfs-input-btn-disabled {
-	color:'#{richSkin.tabDisabledTextColor}';
-	background-color:'#{richSkin.tableFooterBackgroundColor}';
-	border-color:'#{richSkin.tableFooterBackgroundColor}';
-	background-image:"url(#{resource['org.richfaces.renderkit.html.images.ButtonDisabledBackgroundImage']})";
+.rfs-btn-btn[disabled], .rfs-btn-btn-disabled, 
+.rfs-btn-reset[disabled], .rfs-btn-reset-disabled, 
+.rfs-btn-submit[disabled], .rfs-btn-submit-disabled, 
+.rfs-ctn input[type="reset"][disabled], .rfs-input-reset[disabled], .rfs-input-reset-disabled, 
+.rfs-ctn input[type="submit"][disabled], .rfs-input-submit[disabled], .rfs-input-submit-disabled, 
+.rfs-ctn input[type="button"][disabled], .rfs-input-btn[disabled], .rfs-input-btn-disabled {
+	color: '#{richSkin.tabDisabledTextColor}';
+	background-color: '#{richSkin.tableFooterBackgroundColor}';
+	border-color: '#{richSkin.tableFooterBackgroundColor}';
+	background-image: "url(#{resource['org.richfaces.renderkit.html.images.ButtonDisabledBackgroundImage']})";
+	background-position: top left;
 }
 
 		
