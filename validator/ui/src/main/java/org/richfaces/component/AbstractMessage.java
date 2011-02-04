@@ -23,8 +23,14 @@
 
 package org.richfaces.component;
 
-import javax.faces.component.UIMessages;
-import javax.faces.context.FacesContext;
+import javax.faces.component.UIMessage;
+
+import org.ajax4jsf.component.AjaxOutput;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.RendererSpecificComponent;
+import org.richfaces.cdk.annotations.Tag;
 
 /**
  * <p class="changed_added_4_0">
@@ -33,11 +39,24 @@ import javax.faces.context.FacesContext;
  * @author asmirnov@exadel.com
  * 
  */
-public class UIRichMessages extends UIMessages {
+@JsfComponent(
+    generate="org.richfaces.component.UIRichMessage",
+    type="org.richfaces.Message",
+    components=@RendererSpecificComponent(
+        tag=@Tag(name="message"),
+        generate="org.richfaces.component.html.HtmlMessage",
+        attributes={"core-props.xml","events-props.xml","i18n-props.xml"},
+        renderer=@JsfRenderer(template="/message.template.xml")
+        )
+    )
+public abstract class AbstractMessage extends UIMessage implements AjaxOutput {
 
-    public void updateMessages(FacesContext context, String clientId) {
-        // TODO Auto-generated method stub
+    @Attribute
+    public abstract boolean isAjaxRendered();
 
-    }
+    @Attribute
+    public abstract boolean isKeepTransient();
+
+    
 
 }

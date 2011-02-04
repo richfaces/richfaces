@@ -23,6 +23,7 @@
 package org.richfaces.component.behavior;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -52,7 +53,7 @@ import org.richfaces.application.ServiceTracker;
 import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.component.UIRichMessages;
+import org.richfaces.component.ClientSideMessage;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.html.ClientValidatorRenderer;
@@ -76,6 +77,10 @@ import com.google.common.collect.Lists;
 @JsfBehavior(id = "org.richfaces.behavior.ClientValidator", tag = @Tag(name = "validator", handler = "org.richfaces.view.facelets.html.ClientValidatorHandler", type = TagType.Facelets))
 public class ClientValidatorImpl extends AjaxBehavior implements ClientValidatorBehavior {
     
+
+    private static final Set<String> NONE = Collections.singleton("@none");
+
+    private static final Set<String> THIS = Collections.singleton("@this");
 
     private static final Class<?>[] EMPTY_GROUPS = new Class<?>[0];
 
@@ -141,11 +146,11 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
         Iterator<UIComponent> facetsAndChildren = component.getFacetsAndChildren();
         while (facetsAndChildren.hasNext()) {
             UIComponent child = (UIComponent) facetsAndChildren.next();
-            if (child instanceof UIRichMessages) {
-                UIRichMessages richMessage = (UIRichMessages) child;
+            if (child instanceof ClientSideMessage) {
+                ClientSideMessage richMessage = (ClientSideMessage) child;
                 if (null == richMessage.getFor()) {
                     richMessage.updateMessages(context, id);
-                    messages.add(richMessage);
+                    messages.add(child);
                 }
             } else {
                 findRichMessages(context, child, id, messages);
@@ -374,4 +379,24 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
         return false;
     }
 
+    // Disable processing for any component except validated input.
+    @Override
+    public boolean isLimitRender() {
+        return true;
+    }
+    
+    @Override
+    public boolean isBypassUpdates() {
+        return true;
+    }
+    
+    @Override
+    public Collection<String> getExecute() {
+        return THIS;
+    }
+    
+    @Override
+    public Collection<String> getRender() {
+        return NONE;
+    }
 }
