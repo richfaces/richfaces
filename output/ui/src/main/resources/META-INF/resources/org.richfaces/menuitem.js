@@ -47,6 +47,10 @@
 			},
 
 			__clickHandler : function(e) {
+				if ($(e.target).is(":input:not(:button):not(:reset):not(:submit)")) {
+					return;
+				}
+				
 				var parentMenu = this.__getParentMenu();
 				if (parentMenu) {
 					parentMenu.processItem(this.element);
