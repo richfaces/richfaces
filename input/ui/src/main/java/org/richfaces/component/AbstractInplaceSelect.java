@@ -51,7 +51,6 @@ public abstract class AbstractInplaceSelect extends AbstractSelectComponent impl
     @Attribute
     public abstract String getInputWidth();
     
-    @Attribute
     public abstract InplaceState getState();
     
     @Attribute
