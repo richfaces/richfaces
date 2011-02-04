@@ -176,13 +176,13 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
 
             this.encodeItem(facesContext, comboBox, nextItem, strategy);
             if (comboBox.getFetchValue() != null) {
-                fetchValues.add(comboBox.getFetchValue());
+                fetchValues.add(comboBox.getFetchValue().toString());
             } else {
                 // TODO use converter
                 if (comboBox.getItemConverter() != null) {
                     fetchValues.add(comboBox.getItemConverter().getAsString(facesContext, component, nextItem));
                 } else {
-                    fetchValues.add(nextItem);
+                    fetchValues.add(nextItem.toString());
                 }
 
             }
