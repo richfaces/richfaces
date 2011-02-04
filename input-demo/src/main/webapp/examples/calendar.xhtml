@@ -46,7 +46,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					jointPoint="#{calendarBean.jointPoint}"  direction="#{calendarBean.direction}"
 					locale="#{calendarBean.locale}" popup="#{calendarBean.popup}"
 					datePattern="#{calendarBean.pattern}"
-					dataModel="#{calendarDataModel}"
+					
 					mode="#{calendarBean.mode}"
 					disabled="false"
 					cellWidth="24px"
@@ -65,7 +65,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					ondatemouseover="return onEvent.call(this, event);"			
 					firstWeekDay="4"
 					horizontalOffset="#{calendarBean.horizontalOffset}"
-					verticalOffset="#{calendarBean.verticalOffset}"  defaultTime="21:22:01" timeZone="#{calendarBean.timeZone}"
+					verticalOffset="#{calendarBean.verticalOffset}"  defaultTime="00:00:00" timeZone="#{calendarBean.timeZone}"
 					valueChangeListener="#{calendarBean.doValueChangeListener}"
 					currentDataChangeListener="#{calendarBean.doCurrentDataChangeListener}"
 					onbeforedateselect="myFunction(event)"
@@ -105,8 +105,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					<f:selectItem itemLabel="d/M/yy HH:mm" itemValue="d/M/yy HH:mm" />
 					<f:selectItem itemLabel="dd/M/yy hh:mm a"
 						itemValue="dd/M/yy hh:mm a" />
-					<f:selectItem itemLabel="dd/M/yy hh:mm:ss"
-						itemValue="dd/M/yy hh:mm:ss" />
+					<f:selectItem itemLabel="dd/M/yy HH:mm:ss"
+						itemValue="dd/M/yy HH:mm:ss" />
 					<f:selectItem itemLabel="d/MMM/y" itemValue="d/MMM/y" />
 					<f:selectItem itemLabel="MMM d, yyyy" itemValue="MMM d, yyyy" />
 				</h:selectOneMenu>
