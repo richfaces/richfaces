@@ -24,9 +24,6 @@ package org.richfaces.component;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
-import org.richfaces.renderkit.html.DivPanelRenderer;
-
-import javax.faces.component.UIComponent;
 
 import static org.richfaces.renderkit.html.DivPanelRenderer.capitalize;
 
@@ -34,11 +31,7 @@ import static org.richfaces.renderkit.html.DivPanelRenderer.capitalize;
  * @author akolonitsky
  * @since 2010-08-05
  */
-public abstract class AbstractTogglePanelTitledItem extends AbstractTogglePanelItem {
-
-    public static final String COMPONENT_TYPE = "org.richfaces.TogglePanelTitledItem";
-
-    public static final String COMPONENT_FAMILY = "org.richfaces.TogglePanelTitledItem";
+public interface AbstractTogglePanelTitledItem extends AbstractTogglePanelItemInterface {
 
     public enum HeaderStates {
         active("act"),
@@ -63,43 +56,13 @@ public abstract class AbstractTogglePanelTitledItem extends AbstractTogglePanelI
         }
     }
 
-    @Override
-    public String getFamily() {
-        return COMPONENT_FAMILY;
-    }
-
-    public UIComponent getHeaderFacet(Enum<?> state) {
-        return getHeaderFacet(this, state);
-    }
-
-    public static UIComponent getHeaderFacet(UIComponent component, Enum<?> state) {
-        UIComponent headerFacet = null;
-        if (state != null) {
-            headerFacet = component.getFacet("header" + DivPanelRenderer.capitalize(state.toString()));
-        }
-
-        if (headerFacet == null) {
-            headerFacet = component.getFacet("header");
-        }
-        return headerFacet;
-    }
-
     // ------------------------------------------------ Component Attributes
-    enum Properties {
-        header
-    }
 
     @Attribute
-    public abstract boolean isDisabled();
+    boolean isDisabled();
 
-    @Attribute(generate = false)
-    public String getHeader() {
-        return (String) getStateHelper().eval(Properties.header, getName());
-    }
+    String getHeader();
 
-    public void setHeader(String header) {
-        getStateHelper().put(Properties.header, header);
-    }
     // ------------------------------------------------ Html Attributes
 
     @Attribute
@@ -134,47 +97,4 @@ public abstract class AbstractTogglePanelTitledItem extends AbstractTogglePanelI
 
     @Attribute(events = @EventName("headermouseup"))
     public abstract String getOnheadermouseup();
-
-    @Attribute(events = @EventName("enter"))
-    public abstract String getOnenter();
-
-    @Attribute(events = @EventName("leave"))
-    public abstract String getOnleave();
-
-    @Attribute
-    public abstract String getLang();
-
-    @Attribute
-    public abstract String getTitle();
-
-    @Attribute
-    public abstract String getStyle();
-
-    @Attribute
-    public abstract String getStyleClass();
-
-    @Attribute
-    public abstract String getDir();
-
-    @Attribute(events = @EventName("click"))
-    public abstract String getOnclick();
-
-    @Attribute(events = @EventName("dblclick"))
-    public abstract String getOndblclick();
-
-    @Attribute(events = @EventName("mousedown"))
-    public abstract String getOnmousedown();
-
-    @Attribute(events = @EventName("mousemove"))
-    public abstract String getOnmousemove();
-
-    @Attribute(events = @EventName("mouseout"))
-    public abstract String getOnmouseout();
-
-    @Attribute(events = @EventName("mouseover"))
-    public abstract String getOnmouseover();
-
-    @Attribute(events = @EventName("mouseup"))
-    public abstract String getOnmouseup();
-
 }

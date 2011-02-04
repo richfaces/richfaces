@@ -23,6 +23,7 @@
 
 package org.richfaces.component;
 
+import com.google.common.base.Predicate;
 import org.richfaces.PanelMenuMode;
 import org.richfaces.cdk.annotations.*;
 
@@ -33,11 +34,13 @@ import javax.faces.component.UIComponent;
  * @since 2010-10-25
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets))
-public abstract class AbstractPanelMenuItem extends AbstractActionComponent {
+public abstract class AbstractPanelMenuItem extends AbstractActionComponent implements AjaxProps {
 
     public static final String COMPONENT_TYPE = "org.richfaces.PanelMenuItem";
 
     public static final String COMPONENT_FAMILY = "org.richfaces.PanelMenuItem";
+
+    private static final ParentItemPredicate PARENT_ITEM_PREDICATE = new ParentItemPredicate();
 
     protected AbstractPanelMenuItem() {
         setRendererType("org.richfaces.PanelMenuItemRenderer");
@@ -47,33 +50,12 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent {
         return getParentItem() instanceof AbstractPanelMenu;
     }
 
-    //TODO nick - this can be replaced with ComponentIterators.parents(UIComponent) + Iterators.find(...)
-    public AbstractPanelMenu getPanelMenu() { // TODO refactor
-        UIComponent parentItem = getParent();
-        while (parentItem != null) {
-            if (parentItem instanceof AbstractPanelMenu) {
-                return (AbstractPanelMenu) parentItem;
-            }
-
-            parentItem = parentItem.getParent();
-        }
-
-        return null;
+    public AbstractPanelMenu getPanelMenu() {
+        return ComponentIterators.getParent(this, AbstractPanelMenu.class);
     }
 
-    //TODO nick - this can be replaced with ComponentIterators.parents(UIComponent) + Iterators.find(...)
     public UIComponent getParentItem() {
-        UIComponent parentItem = getParent();
-        while (parentItem != null) {
-            if (parentItem instanceof AbstractPanelMenuGroup
-                || parentItem instanceof AbstractPanelMenu) {
-                return parentItem;
-            }
-
-            parentItem = parentItem.getParent();
-        }
-
-        return null;
+        return ComponentIterators.getParent(this, PARENT_ITEM_PREDICATE);
     }
 
     @Override
@@ -107,24 +89,22 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent {
     @Attribute
     public abstract boolean isDisabled();
 
-    @Attribute
-    public abstract boolean isLimitRender();
+    @Attribute(generate = false)
+    public Object getExecute() {
+        Object execute = getStateHelper().eval(Properties.execute);
+        if (execute == null) {
+            execute = "";
+        }
+        return execute + " " + getPanelMenu().getId();
+    }
 
-    @Attribute
-    public abstract Object getData();
-
-    @Attribute
-    public abstract String getStatus();
-
-    @Attribute
-    public abstract Object getExecute();
-
-    @Attribute
-    public abstract Object getRender();
+    public void setExecute(Object execute) {
+        getStateHelper().put(Properties.execute, execute);
+    }
 
     // ------------------------------------------------ Html Attributes
     enum Properties {
-        leftIcon, leftDisabledIcon, iconRight, rightDisabledIcon, styleClass, disabledClass, name
+        leftIcon, leftDisabledIcon, iconRight, rightDisabledIcon, styleClass, disabledClass, execute, name
 
     }
 
@@ -197,12 +177,6 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent {
         getStateHelper().put(Properties.styleClass, styleClass);
     }
 
-    @Attribute(events = @EventName("beforedomupdate"))
-    public abstract String getOnbeforedomupdate();
-
-    @Attribute(events = @EventName("complete"))
-    public abstract String getOncomplete();
-
     @Attribute(events = @EventName("click"))
     public abstract String getOnclick();
 
@@ -232,4 +206,10 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent {
 
     @Attribute(events = @EventName("beforeselect"))
     public abstract String getOnbeforeselect();
+
+    private static class ParentItemPredicate implements Predicate<UIComponent> {
+        public boolean apply(UIComponent comp) {
+            return comp instanceof AbstractPanelMenuGroup || comp instanceof AbstractPanelMenu;
+        }
+    }
 }

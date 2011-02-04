@@ -22,28 +22,26 @@
 
 package org.richfaces.renderkit.html;
 
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.renderkit.RendererBase;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.Map;
+
 import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
 import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
 import static org.richfaces.renderkit.RenderKitUtils.attributes;
 import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 
-import java.io.IOException;
-import java.util.Map;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-
-import org.richfaces.component.AbstractDivPanel;
-import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.renderkit.RenderKitUtils;
-import org.richfaces.renderkit.RendererBase;
-
 /**
  * @author akolonitsky
  * 
  */
-public class DivPanelRenderer extends RendererBase {
+public abstract class DivPanelRenderer extends RendererBase {
 
     private static final RenderKitUtils.Attributes PASS_THROUGH_ATTRIBUTES = attributes(
         "lang",
@@ -154,11 +152,6 @@ public class DivPanelRenderer extends RendererBase {
 
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
         return null;
-    }
-
-    @Override
-    protected Class<? extends UIComponent> getComponentClass() {
-        return AbstractDivPanel.class;
     }
 }
 

@@ -23,7 +23,9 @@
 package org.richfaces.component;
 
 import org.richfaces.cdk.annotations.*;
+import org.richfaces.renderkit.html.DivPanelRenderer;
 
+import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 
 /**
@@ -31,7 +33,7 @@ import javax.faces.component.behavior.ClientBehaviorHolder;
  * @since 2010-10-19
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.TabRenderer"))
-public abstract class AbstractTab extends AbstractTogglePanelTitledItem implements ClientBehaviorHolder {
+public abstract class AbstractTab extends AbstractActionComponent implements AbstractTogglePanelTitledItem, AjaxProps, ClientBehaviorHolder {
 
     public static final String COMPONENT_TYPE = "org.richfaces.Tab";
 
@@ -41,14 +43,9 @@ public abstract class AbstractTab extends AbstractTogglePanelTitledItem implemen
         setRendererType("org.richfaces.TabRenderer");
     }
 
-    public AbstractTabPanel getTabPanel() {
-        return (AbstractTabPanel) this.getParent();
-    }
-
     // ------------------------------------------------ Html Attributes
     enum Properties {
-        headerDisabledClass, headerInactiveClass, headerClass, contentClass, headerActiveClass
-
+        headerDisabledClass, headerInactiveClass, headerClass, contentClass, execute, headerActiveClass, header
     }
 
     @Attribute(generate = false)
@@ -108,10 +105,6 @@ public abstract class AbstractTab extends AbstractTogglePanelTitledItem implemen
         getStateHelper().put(Properties.headerClass, headerClass);
     }
 
-
-    @Attribute
-    public abstract String getHeaderStyle();
-
     @Attribute(generate = false)
     public String getContentClass() {
         String value = (String) getStateHelper().eval(Properties.contentClass);
@@ -126,62 +119,78 @@ public abstract class AbstractTab extends AbstractTogglePanelTitledItem implemen
         getStateHelper().put(Properties.contentClass, contentClass);
     }
 
-    @Attribute(events = @EventName("headerclick"))
-    public abstract String getOnheaderclick();
+    @Attribute(generate = false)
+    public Object getExecute() {
+        Object execute = getStateHelper().eval(Properties.execute);
+        if (execute == null) {
+            execute = "";
+        }
+        return execute + " " + getTabPanel().getId();
+    }
 
-    @Attribute(events = @EventName("headerdblclick"))
-    public abstract String getOnheaderdblclick();
+    public void setExecute(Object execute) {
+        getStateHelper().put(Properties.execute, execute);
+    }
 
-    @Attribute(events = @EventName("headermousedown"))
-    public abstract String getOnheadermousedown();
 
-    @Attribute(events = @EventName("headermousemove"))
-    public abstract String getOnheadermousemove();
+    /////////////////////////////////////////////////////////////////////////
 
-    @Attribute(events = @EventName("headermouseup"))
-    public abstract String getOnheadermouseup();
+    public UIComponent getHeaderFacet(Enum<?> state) {
+        return getHeaderFacet(this, state);
+    }
 
-    @Attribute(events = @EventName("enter"))
-    public abstract String getOnenter();
+    public static UIComponent getHeaderFacet(UIComponent component, Enum<?> state) {
+        UIComponent headerFacet = null;
+        if (state != null) {
+            headerFacet = component.getFacet("header" + DivPanelRenderer.capitalize(state.toString()));
+        }
 
-    @Attribute(events = @EventName("leave"))
-    public abstract String getOnleave();
+        if (headerFacet == null) {
+            headerFacet = component.getFacet("header");
+        }
+        return headerFacet;
+    }
 
-    @Attribute
-    public abstract String getLang();
+    // ------------------------------------------------ Component Attributes
 
-    @Attribute
-    public abstract String getTitle();
+    @Attribute(generate = false)
+    public String getHeader() {
+        return (String) getStateHelper().eval(Properties.header, getName());
+    }
 
-    @Attribute
-    public abstract String getStyle();
+    public void setHeader(String header) {
+        getStateHelper().put(Properties.header, header);
+    }
 
-    @Attribute
-    public abstract String getStyleClass();
+    // ------------------------------------------------ AbstractTogglePanelItemInterface
 
-    @Attribute
-    public abstract String getDir();
+    public AbstractTabPanel getParentPanel() {
+        return ComponentIterators.getParent(this, AbstractTabPanel.class);
+    }
 
-    @Attribute(events = @EventName("click"))
-    public abstract String getOnclick();
+    public AbstractTabPanel getTabPanel() {
+        return getParentPanel();
+    }
 
-    @Attribute(events = @EventName("dblclick"))
-    public abstract String getOndblclick();
+    public boolean isActive() {
+        return getTabPanel().isActiveItem(this);
+    }
 
-    @Attribute(events = @EventName("mousedown"))
-    public abstract String getOnmousedown();
+    public boolean shouldProcess() {
+        return isActive() || getSwitchType() == SwitchType.client;
+    }
 
-    @Attribute(events = @EventName("mousemove"))
-    public abstract String getOnmousemove();
+    @Attribute(generate = false)
+    public String getName() {
+        return (String) getStateHelper().eval(AbstractTogglePanelItem.NAME, getId());
+    }
 
-    @Attribute(events = @EventName("mouseout"))
-    public abstract String getOnmouseout();
+    public void setName(String name) {
+        getStateHelper().put(AbstractTogglePanelItem.NAME, name);
+    }
 
-    @Attribute(events = @EventName("mouseover"))
-    public abstract String getOnmouseover();
-
-    @Attribute(events = @EventName("mouseup"))
-    public abstract String getOnmouseup();
-
+    public String toString() {
+        return "TogglePanelItem {name: " + getName() + ", switchType: " + getSwitchType() + '}';
+    }
 }
 

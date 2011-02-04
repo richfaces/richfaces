@@ -166,7 +166,7 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
 
     @Override
     protected Class<? extends UIComponent> getComponentClass() {
-        return AbstractTogglePanelTitledItem.class;
+        return AbstractAccordionItem.class;
     }
     
 }

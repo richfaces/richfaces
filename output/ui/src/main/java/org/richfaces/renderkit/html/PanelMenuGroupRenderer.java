@@ -86,7 +86,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
             context.getPartialViewContext().getRenderIds().add(clientId);
 
             //TODO nick - this should be done on encode, not on decode
-            PanelMenuRenderer.addOnCompleteParam(context, clientId);
+            PanelMenuItemRenderer.addOnCompleteParam(context, clientId);
         }
     }
 

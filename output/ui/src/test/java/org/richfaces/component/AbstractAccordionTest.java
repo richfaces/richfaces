@@ -43,9 +43,9 @@ public class AbstractAccordionTest {
     private static final String ITEM3 = "item3";
 
     private AbstractAccordion accordion;
-    private AbstractTogglePanelTitledItem item1;
-    private AbstractTogglePanelTitledItem item2;
-    private AbstractTogglePanelTitledItem item3;
+    private AbstractAccordionItem item1;
+    private AbstractAccordionItem item2;
+    private AbstractAccordionItem item3;
 
     @Before
     public void setUp () {
@@ -72,8 +72,8 @@ public class AbstractAccordionTest {
         Assert.assertEquals(ITEM2, accordion.getActiveItem());
     }
 
-    private static AbstractTogglePanelTitledItem createItem(String name) {
-        AbstractTogglePanelTitledItem item = createNiceMock(AbstractTogglePanelTitledItem.class); //new AbstractTogglePanelTitledItem();
+    private static AbstractAccordionItem createItem(String name) {
+        AbstractAccordionItem item = createNiceMock(AbstractAccordionItem.class);
         expect(item.getName()).andReturn(name);
 
         return item;

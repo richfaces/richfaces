@@ -23,28 +23,26 @@
 
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.TBODY_ELEMENT;
-import static org.richfaces.renderkit.HtmlConstants.TD_ELEM;
-import static org.richfaces.renderkit.HtmlConstants.TR_ELEMENT;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractPanelMenuItem;
+import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.util.PanelIcons;
 import org.richfaces.renderkit.util.PanelIcons.State;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.event.ActionEvent;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.richfaces.renderkit.HtmlConstants.*;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
 
 /**
  * @author akolonitsky
@@ -59,6 +57,33 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
     
     private static final String CSS_CLASS_PREFIX = "rf-pm-itm";
     private static final String TOP_CSS_CLASS_PREFIX = "rf-pm-top-itm";
+
+    @Override
+    protected void doDecode(FacesContext context, UIComponent component) {
+
+        Map<String, String> requestMap =
+              context.getExternalContext().getRequestParameterMap();
+
+        String compClientId = component.getClientId(context);
+        if (requestMap.get(compClientId) != null) {
+            AbstractPanelMenuItem panelItem = (AbstractPanelMenuItem) component;
+            new ActionEvent(panelItem).queue();
+
+            if (context.getPartialViewContext().isPartialRequest()) {
+
+                //TODO nick - why render item by default?
+                context.getPartialViewContext().getRenderIds().add(panelItem.getClientId(context));
+
+                //TODO nick - this should be done on encode, not on decode
+                addOnCompleteParam(context, panelItem.getClientId(context));
+            }
+        }
+    }
+
+    protected static void addOnCompleteParam(FacesContext context, String itemId) {
+        ExtendedPartialViewContext.getInstance(context).appendOncomplete(new StringBuilder()
+            .append("RichFaces.$('").append(itemId).append("').onCompleteHandler();").toString());
+    }
 
     @Override
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {

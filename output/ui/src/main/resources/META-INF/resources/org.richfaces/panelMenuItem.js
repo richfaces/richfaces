@@ -78,7 +78,7 @@
         execAjax : function (item) {
             var oldItem = item.__changeState();
             //TODO nick - check for interaction with queue
-            rf.ajax(item.__panelMenu().id, null, $.extend({}, item.options["ajax"], {}));
+            rf.ajax(item.id, null, $.extend({}, item.options["ajax"], {}));
             item.__restoreState(oldItem);
 
             return true;

@@ -23,8 +23,8 @@
 package org.richfaces.component;
 
 import org.richfaces.cdk.annotations.*;
-import org.richfaces.component.behavior.ToggleControl;
 
+import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 
 /**
@@ -32,13 +32,15 @@ import javax.faces.component.behavior.ClientBehaviorHolder;
  * @since 2010-08-13
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.AccordionItemRenderer"))
-public abstract class AbstractAccordionItem extends AbstractTogglePanelTitledItem implements ClientBehaviorHolder {
+public abstract class AbstractAccordionItem extends AbstractTogglePanelItem implements AbstractTogglePanelTitledItem, ClientBehaviorHolder {
 
     public static final String COMPONENT_TYPE = "org.richfaces.AccordionItem";
 
     public static final String COMPONENT_FAMILY = "org.richfaces.AccordionItem";
 
     enum Properties {
+        header,
+
         contentClass,
         leftActiveIcon,
         leftInactiveIcon,
@@ -56,11 +58,31 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelTitledIte
         setRendererType("org.richfaces.AccordionItemRenderer");
     }
 
-    public AbstractAccordion getAccordion() {
-        return (AbstractAccordion) ToggleControl.getEnclosedPanel(this);
+    @Override
+    public AbstractAccordion getParentPanel() {
+        return ComponentIterators.getParent(this, AbstractAccordion.class);
     }
 
-    @Attribute(defaultValue = "getAccordion().getItemActiveLeftIcon()", generate = false)
+    public AbstractAccordion getAccordion() {
+        return getParentPanel();
+    }
+
+    public UIComponent getHeaderFacet(Enum<?> state) {
+        return AbstractTab.getHeaderFacet(this, state);
+    }
+
+    // ------------------------------------------------ Component Attributes
+
+    @Attribute(generate = false)
+    public String getHeader() {
+        return (String) getStateHelper().eval(Properties.header, getName());
+    }
+
+    public void setHeader(String header) {
+        getStateHelper().put(Properties.header, header);
+    }
+
+    @Attribute(generate = false)
     public String getLeftActiveIcon() {
         return (String) getStateHelper().eval(Properties.leftActiveIcon, getAccordion().getItemActiveLeftIcon());
     }
@@ -69,7 +91,7 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelTitledIte
         getStateHelper().put(Properties.leftActiveIcon, leftActiveIcon);
     }
 
-    @Attribute(defaultValue = "getAccordion().getItemDisabledLeftIcon()", generate = false)
+    @Attribute(generate = false)
     public String getLeftDisabledIcon() {
         return (String) getStateHelper().eval(Properties.leftDisabledIcon, getAccordion().getItemDisabledLeftIcon());
     }
@@ -79,7 +101,7 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelTitledIte
     }
 
 
-    @Attribute(defaultValue = "getAccordion().getItemInactiveLeftIcon()", generate = false)
+    @Attribute(generate = false)
     public String getLeftInactiveIcon() {
         return (String) getStateHelper().eval(Properties.leftInactiveIcon, getAccordion().getItemInactiveLeftIcon());
     }
@@ -88,7 +110,7 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelTitledIte
         getStateHelper().put(Properties.leftInactiveIcon, leftInactiveIcon);
     }
 
-    @Attribute(defaultValue = "getAccordion().getItemActiveRightIcon()", generate = false)
+    @Attribute(generate = false)
     public String getRightActiveIcon() {
         return (String) getStateHelper().eval(Properties.rightActiveIcon, getAccordion().getItemActiveRightIcon());
     }
@@ -97,7 +119,7 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelTitledIte
         getStateHelper().put(Properties.rightActiveIcon, rightActiveIcon);
     }
 
-    @Attribute(defaultValue = "getAccordion().getItemDisabledRightIcon()", generate = false)
+    @Attribute(generate = false)
     public String getRightDisabledIcon() {
         return (String) getStateHelper().eval(Properties.rightDisabledIcon, getAccordion().getItemDisabledRightIcon());
     }
@@ -106,16 +128,16 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelTitledIte
         getStateHelper().put(Properties.rightDisabledIcon, rightDisabledIcon);
     }
 
-    @Attribute(defaultValue = "getAccordion().getItemInactiveRightIcon()", generate = false)
-    public String getRightInactiveIcon() {
+    @Attribute(generate = false)
+    public String getInactiveRightIcon() {
         return (String) getStateHelper().eval(Properties.rightInactiveIcon, getAccordion().getItemInactiveRightIcon());
     }
 
-    public void setInactiveRightIcon(String rightInactiveIcon) {
-        getStateHelper().put(Properties.rightInactiveIcon, rightInactiveIcon);
+    public void setInactiveRightIcon(String inactiveRightIcon) {
+        getStateHelper().put(Properties.rightInactiveIcon, inactiveRightIcon);
     }
 
-    @Attribute(defaultValue = "getAccordion().getItemHeaderActiveClass()", generate = false)
+    @Attribute(generate = false)
     public String getHeaderActiveClass() {
         return (String) getStateHelper().eval(Properties.headerActiveClass, getAccordion().getItemActiveHeaderClass());
     }
@@ -124,7 +146,7 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelTitledIte
         getStateHelper().put(Properties.headerActiveClass, headerActiveClass);
     }
 
-    @Attribute(defaultValue = "getAccordion().getItemDisabledHeaderClass()", generate = false)
+    @Attribute(generate = false)
     public String getHeaderDisabledClass() {
         return (String) getStateHelper().eval(Properties.headerDisabledClass, getAccordion().getItemDisabledHeaderClass());
     }
@@ -133,7 +155,7 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelTitledIte
         getStateHelper().put(Properties.headerDisabledClass, headerDisabledClass);
     }
 
-    @Attribute(defaultValue = "getAccordion().getItemInactiveHeaderClass()", generate = false)
+    @Attribute(generate = false)
     public String getHeaderInactiveClass() {
         return (String) getStateHelper().eval(Properties.headerInactiveClass, getAccordion().getItemInactiveHeaderClass());
     }
@@ -151,9 +173,6 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelTitledIte
         getStateHelper().put(Properties.headerClass, headerClass);
     }
 
-    @Attribute
-    public abstract String getHeaderStyle();
-
     @Attribute(defaultValue = "getAccordion().getItemContentClass()")
     public String getContentClass() {
         return (String) getStateHelper().eval(Properties.contentClass, getAccordion().getItemContentClass());
@@ -162,63 +181,5 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelTitledIte
     public void setContentClass(String contentClass) {
         getStateHelper().put(Properties.contentClass, contentClass);
     }
-
-    @Attribute(events = @EventName("headerclick"))
-    public abstract String getOnheaderclick();
-
-    @Attribute(events = @EventName("headerdblclick"))
-    public abstract String getOnheaderdblclick();
-
-    @Attribute(events = @EventName("headermousedown"))
-    public abstract String getOnheadermousedown();
-
-    @Attribute(events = @EventName("headermousemove"))
-    public abstract String getOnheadermousemove();
-
-    @Attribute(events = @EventName("headermouseup"))
-    public abstract String getOnheadermouseup();
-
-    @Attribute(events = @EventName("enter"))
-    public abstract String getOnenter();
-
-    @Attribute(events = @EventName("leave"))
-    public abstract String getOnleave();
-
-    @Attribute
-    public abstract String getLang();
-
-    @Attribute
-    public abstract String getTitle();
-
-    @Attribute
-    public abstract String getStyle();
-
-    @Attribute
-    public abstract String getStyleClass();
-
-    @Attribute
-    public abstract String getDir();
-
-    @Attribute(events = @EventName("click"))
-    public abstract String getOnclick();
-
-    @Attribute(events = @EventName("dblclick"))
-    public abstract String getOndblclick();
-
-    @Attribute(events = @EventName("mousedown"))
-    public abstract String getOnmousedown();
-
-    @Attribute(events = @EventName("mousemove"))
-    public abstract String getOnmousemove();
-
-    @Attribute(events = @EventName("mouseout"))
-    public abstract String getOnmouseout();
-
-    @Attribute(events = @EventName("mouseover"))
-    public abstract String getOnmouseover();
-
-    @Attribute(events = @EventName("mouseup"))
-    public abstract String getOnmouseup();
-
 }
 

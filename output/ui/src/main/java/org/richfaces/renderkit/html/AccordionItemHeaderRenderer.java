@@ -27,7 +27,7 @@ class AccordionItemHeaderRenderer extends TableIconsRendererHelper<AbstractAccor
     }
 
     protected void encodeHeaderRightIcon(ResponseWriter writer, FacesContext context, AbstractAccordionItem panel) throws IOException {
-        String iconInactive = panel.isDisabled() ? panel.getRightDisabledIcon() : panel.getRightInactiveIcon();
+        String iconInactive = panel.isDisabled() ? panel.getRightDisabledIcon() : panel.getInactiveRightIcon();
         String iconActive = panel.isDisabled() ? panel.getRightDisabledIcon() : panel.getRightActiveIcon();
 
         //TODO nick - should this be "-ico-exp"? also why expanded icon state is connected with right icon alignment?
@@ -63,9 +63,9 @@ class AccordionItemHeaderRenderer extends TableIconsRendererHelper<AbstractAccor
         }
     }
 
-    private static void encodeHeader(ResponseWriter writer, FacesContext context, AbstractTogglePanelTitledItem component,
+    private static void encodeHeader(ResponseWriter writer, FacesContext context, AbstractAccordionItem component,
                                      AbstractTogglePanelTitledItem.HeaderStates state) throws IOException {
-        writer.startElement(DIV_ELEM, component);
+        writer.startElement(DIV_ELEM, null);
         writer.writeAttribute(CLASS_ATTRIBUTE, HtmlUtil.concatClasses("rf-ac-itm-lbl-" + state.abbreviation(), attributeAsString(component, state.headerClass())), null);
 
         writeFacetOrAttr(writer, context, component, "header", component.getHeaderFacet(state));

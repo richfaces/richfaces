@@ -110,8 +110,6 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
     protected void setEventPhase(FacesEvent event) {
         if (isImmediate()) {
             event.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
-        } else if (isBypassUpdates()) {
-            event.setPhaseId(PhaseId.PROCESS_VALIDATIONS);
         } else {
             event.setPhaseId(PhaseId.INVOKE_APPLICATION);
         }
@@ -121,8 +119,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
     public void broadcast(FacesEvent event) throws AbortProcessingException {
         super.broadcast(event);
 
-        //TODO nick - check for (isBypassUpdates() || isImmediate()) can be removed
-        if (event instanceof ItemChangeEvent && (isBypassUpdates() || isImmediate())) {
+        if (event instanceof ItemChangeEvent) {
             getFacesContext().renderResponse();
         }
     }
@@ -194,24 +191,6 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     @Attribute
     public abstract MethodExpression getItemChangeListener();
-
-    @Attribute
-    public abstract boolean isBypassUpdates();
-
-    @Attribute
-    public abstract boolean isLimitRender();
-
-    @Attribute
-    public abstract Object getData();
-
-    @Attribute
-    public abstract String getStatus();
-
-    @Attribute
-    public abstract Object getExecute();
-
-    @Attribute
-    public abstract Object getRender();
 
     // ------------------------------------------------ Html Attributes
     enum Properties {

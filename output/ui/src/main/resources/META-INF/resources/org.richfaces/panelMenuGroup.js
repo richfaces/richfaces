@@ -129,6 +129,7 @@
                 var menuGroup = this;
 
                 if (!this.options.selectable) {
+
                     //TODO nick - this can be replaced by jQuery.delegate on menu itself
                     if (this.options.expandEvent == this.options.collapseEvent) {
                         this.__header().bind(this.options.expandEvent, function () {

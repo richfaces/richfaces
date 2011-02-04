@@ -25,6 +25,7 @@ package org.richfaces.component;
 import java.io.IOException;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIOutput;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
@@ -48,7 +49,7 @@ import org.richfaces.renderkit.MetaComponentRenderer;
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets),
         renderer = @JsfRenderer(type = "org.richfaces.TooltipRenderer"), attributes = {"tooltip-props.xml", "ajax-props.xml"})
-public abstract class AbstractTooltip extends AbstractDivPanel implements MetaComponentResolver, MetaComponentEncoder {
+public abstract class AbstractTooltip extends UIOutput implements AbstractDivPanel, MetaComponentResolver, MetaComponentEncoder {
 
     public static final String COMPONENT_TYPE = "org.richfaces.Tooltip";
 

@@ -201,7 +201,7 @@
                 return false
             }
 
-            return new SwitchItems(this).exec(oldPanel, newPanel);
+            return this.__itemsSwitcher().exec(oldPanel, newPanel);
         },
 
         /**
@@ -233,7 +233,7 @@
             var newItem = this.__getItemByName(newItemName);
 
             // Don't do like this and remove it ASAP
-            new SwitchItems(this).execClient(oldItem, newItem);
+            this.__itemsSwitcher().execClient(oldItem, newItem);
         },
 
         /**
@@ -319,6 +319,10 @@
         /////////////////////////////////////////////////////////////////////////////////
 
         /********************* Methods *************************/
+
+        __itemsSwitcher : function () {
+            return new SwitchItems(this);
+        },
 
         __ITEMS_META_NAMES : (function () {
             function goFrom (comp, ind, step) {

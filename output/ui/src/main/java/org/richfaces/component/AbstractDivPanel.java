@@ -25,63 +25,46 @@ package org.richfaces.component;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 
-import javax.faces.component.UIOutput;
-
 /**
  * @author akolonitsky
  * @version 1.0
  *
  */
-public abstract class AbstractDivPanel extends UIOutput {
-
-    public static final String COMPONENT_TYPE = "org.richfaces.DivPanel";
-
-    public static final String COMPONENT_FAMILY = "org.richfaces.DivPanel";
-
-    protected AbstractDivPanel() {
-        setRendererType("org.richfaces.DivPanelRenderer");
-    }
-
-    @Override
-    public String getFamily() {
-        return COMPONENT_FAMILY;
-    }
-
-    // ------------------------------------------------ Html Attributes
+public interface AbstractDivPanel {
 
     @Attribute
-    public abstract String getLang();
+    String getLang();
 
     @Attribute
-    public abstract String getTitle();
+    String getTitle();
 
     @Attribute
-    public abstract String getStyle();
+    String getStyle();
 
     @Attribute
-    public abstract String getStyleClass();
+    String getStyleClass();
 
     @Attribute
-    public abstract String getDir();
+    String getDir();
 
     @Attribute(events = @EventName("click"))
-    public abstract String getOnclick();
+    String getOnclick();
 
     @Attribute(events = @EventName("dblclick"))
-    public abstract String getOndblclick();
+    String getOndblclick();
 
     @Attribute(events = @EventName("mousedown"))
-    public abstract String getOnmousedown();
+    String getOnmousedown();
 
     @Attribute(events = @EventName("mousemove"))
-    public abstract String getOnmousemove();
+    String getOnmousemove();
 
     @Attribute(events = @EventName("mouseout"))
-    public abstract String getOnmouseout();
+    String getOnmouseout();
 
     @Attribute(events = @EventName("mouseover"))
-    public abstract String getOnmouseover();
+    String getOnmouseover();
 
     @Attribute(events = @EventName("mouseup"))
-    public abstract String getOnmouseup();
+    String getOnmouseup();
 }

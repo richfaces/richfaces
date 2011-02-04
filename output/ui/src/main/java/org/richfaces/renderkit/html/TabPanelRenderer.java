@@ -46,11 +46,9 @@ import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractTabPanel;
-import org.richfaces.component.AbstractTogglePanel;
-import org.richfaces.component.AbstractTogglePanelItem;
-import org.richfaces.component.AbstractTogglePanelTitledItem;
+import org.richfaces.component.*;
 import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
 
@@ -82,6 +80,42 @@ public class TabPanelRenderer extends TogglePanelRenderer {
     private static final String STYLE = STYLE_ATTRIBUTE;
     private static final String CLASS = CLASS_ATTRIBUTE;
 
+//    @Override
+//    protected void doDecode(FacesContext context, UIComponent component) {
+//        AbstractTogglePanel panel = (AbstractTogglePanel) component;
+//
+//        Map<String, String> requestMap =
+//              context.getExternalContext().getRequestParameterMap();
+//
+//        // Don't overwrite the value unless you have to!
+//        String newValue = requestMap.get(getValueRequestParamName(context, component));
+//        if (newValue != null) {
+//            panel.setSubmittedActiveItem(newValue);
+//        }
+//
+//        String tabClientId = component.getClientId(context);
+//        if (requestMap.get(tabClientId) != null) {
+//            new ActionEvent(component).queue();
+//
+//            if (context.getPartialViewContext().isPartialRequest()) {
+//                //TODO nick - why render item by default?
+//                context.getPartialViewContext().getRenderIds().add(tabClientId);
+//
+//                //TODO nick - this should be done on encode, not on decode
+//                AbstractTab tab = (AbstractTab) component;
+//                addOnCompleteParam(context, tab.getName(), tab.getTabPanel().getClientId(context));
+//            }
+//        }
+//    }
+
+    protected static void addOnCompleteParam(FacesContext context, String newValue, String panelId) {
+        StringBuilder onComplete = new StringBuilder();
+        onComplete.append("RichFaces.$('").append(panelId)
+                    .append("').onCompleteHandler('").append(newValue).append("');");
+
+        ExtendedPartialViewContext.getInstance(context).appendOncomplete(onComplete.toString());
+    }
+
     @Override
     protected void doEncodeBegin(ResponseWriter w, FacesContext context, UIComponent component) throws IOException {
         super.doEncodeBegin(w, context, component);
@@ -108,8 +142,8 @@ public class TabPanelRenderer extends TogglePanelRenderer {
 
         writeTopTabFirstSpacer(w, comp);
 
-        for (AbstractTogglePanelItem item : ((AbstractTogglePanel) comp).getRenderedItems()) {
-            AbstractTogglePanelTitledItem tab = (AbstractTogglePanelTitledItem) item;
+        for (AbstractTogglePanelItemInterface item : ((AbstractTogglePanel) comp).getRenderedItems()) {
+            AbstractTab tab = (AbstractTab) item;
             writeTopTabHeader(context, w, tab);
             writeTopTabSpacer(w, comp);
         }
@@ -137,7 +171,7 @@ public class TabPanelRenderer extends TogglePanelRenderer {
         return HtmlUtil.concatClasses("rf-tbp", attributeAsString(component, "styleClass"));
     }
 
-    private void writeTopTabHeader(FacesContext context, ResponseWriter writer, AbstractTogglePanelTitledItem tab) throws IOException {
+    private void writeTopTabHeader(FacesContext context, ResponseWriter writer, AbstractTab tab) throws IOException {
         boolean isActive = tab.isActive();
         boolean isDisabled = tab.isDisabled();
         
@@ -147,7 +181,7 @@ public class TabPanelRenderer extends TogglePanelRenderer {
         
     }    
 
-    private void encodeTabHeader(FacesContext context, AbstractTogglePanelTitledItem tab, ResponseWriter writer,
+    private void encodeTabHeader(FacesContext context, AbstractTab tab, ResponseWriter writer,
                               AbstractTogglePanelTitledItem.HeaderStates state, Boolean isDisplay) throws IOException {
 
         

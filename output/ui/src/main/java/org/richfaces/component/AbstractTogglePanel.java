@@ -33,6 +33,7 @@ import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIOutput;
 import javax.faces.component.UpdateModelException;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
@@ -65,7 +66,7 @@ import com.google.common.base.Strings;
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"),
         renderer = @JsfRenderer(type = "org.richfaces.TogglePanelRenderer"))
-public abstract class AbstractTogglePanel extends AbstractDivPanel implements ItemChangeSource {
+public abstract class AbstractTogglePanel extends UIOutput implements AbstractDivPanel, ItemChangeSource {
 
     public static final String COMPONENT_TYPE = "org.richfaces.TogglePanel";
 
@@ -153,15 +154,15 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
 
     @Override
     public void encodeBegin(FacesContext context) throws IOException {
-        AbstractTogglePanelItem item = null;
+        AbstractTogglePanelItemInterface item = null;
         String activeItem = getActiveItem();
         
         if (!Strings.isNullOrEmpty(activeItem)) {
             item = this.getItem(activeItem);
         }
         
-        if (item == null || !item.isRendered()) {
-            List<AbstractTogglePanelItem> renderedItems = this.getRenderedItems();
+        if (item == null || !((UIComponent) item).isRendered()) {
+            List<AbstractTogglePanelItemInterface> renderedItems = this.getRenderedItems();
             if (!renderedItems.isEmpty()) {
                 setActiveItem(renderedItems.get(0).getName());
             }
@@ -484,15 +485,15 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
             return null;
         }
 
-        if (!(item instanceof AbstractTogglePanelItem)) {
+        if (!(item instanceof AbstractTogglePanelItemInterface)) {
             throw new IllegalArgumentException();
         }
 
-        return ((AbstractTogglePanelItem) item).getName();
+        return ((AbstractTogglePanelItemInterface) item).getName();
     }
 
-    public AbstractTogglePanelItem getItemByIndex(final int index) {
-        List<AbstractTogglePanelItem> children = getRenderedItems();
+    public AbstractTogglePanelItemInterface getItemByIndex(final int index) {
+        List<AbstractTogglePanelItemInterface> children = getRenderedItems();
         if (index < 0 || index >= children.size()) {
             return null;
         } else if (isCycledSwitching()) {
@@ -503,22 +504,22 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
         }
     }
 
-    public List<AbstractTogglePanelItem> getRenderedItems() {
+    public List<AbstractTogglePanelItemInterface> getRenderedItems() {
         return getItems(false);
     }
 
-    public List<AbstractTogglePanelItem> getItems(boolean isRendered) {
-        List<AbstractTogglePanelItem> res = new ArrayList<AbstractTogglePanelItem>(getChildCount());
+    public List<AbstractTogglePanelItemInterface> getItems(boolean isRendered) {
+        List<AbstractTogglePanelItemInterface> res = new ArrayList<AbstractTogglePanelItemInterface>(getChildCount());
         for (UIComponent child : getChildren()) {
-            if ((isRendered || child.isRendered()) && child instanceof AbstractTogglePanelItem) {
-                res.add((AbstractTogglePanelItem) child);
+            if ((isRendered || child.isRendered()) && child instanceof AbstractTogglePanelItemInterface) {
+                res.add((AbstractTogglePanelItemInterface) child);
             }
         }
 
         return res;
     }
 
-    public AbstractTogglePanelItem getItem(String name) {
+    public AbstractTogglePanelItemInterface getItem(String name) {
         if (META_NAME_FIRST.equals(name)) {
             return getFirstItem();
         } else if (META_NAME_PREV.equals(name)) {
@@ -532,27 +533,27 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
         }
     }
 
-    public AbstractTogglePanelItem getFirstItem() {
+    public AbstractTogglePanelItemInterface getFirstItem() {
         return getItemByIndex(0);
     }
 
-    public AbstractTogglePanelItem getPrevItem() {
+    public AbstractTogglePanelItemInterface getPrevItem() {
         return getPrevItem(getActiveItem());
     }
 
-    public AbstractTogglePanelItem getPrevItem(String name) {
+    public AbstractTogglePanelItemInterface getPrevItem(String name) {
         return getItemByIndex(getChildIndex(name) - 1);
     }
 
-    public AbstractTogglePanelItem getNextItem() {
+    public AbstractTogglePanelItemInterface getNextItem() {
         return getNextItem(getActiveItem());
     }
 
-    public AbstractTogglePanelItem getNextItem(String name) {
+    public AbstractTogglePanelItemInterface getNextItem(String name) {
         return getItemByIndex(getChildIndex(name) + 1);
     }
 
-    public AbstractTogglePanelItem getLastItem() {
+    public AbstractTogglePanelItemInterface getLastItem() {
         return getItemByIndex(getRenderedItems().size() - 1);
     }
 
@@ -561,7 +562,7 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
             throw new IllegalArgumentException("Name is required parameter.");
         }
 
-        List<AbstractTogglePanelItem> items = getRenderedItems();
+        List<AbstractTogglePanelItemInterface> items = getRenderedItems();
         for (int ind = 0; ind < items.size(); ind++) {
             if (name.equals(items.get(ind).getName())) {
                 return ind;
@@ -646,42 +647,6 @@ public abstract class AbstractTogglePanel extends AbstractDivPanel implements It
 
     @Attribute(events = @EventName("beforeitemchange"))
     public abstract String getOnbeforeitemchange();
-
-    @Attribute
-    public abstract String getLang();
-
-    @Attribute
-    public abstract String getTitle();
-
-    @Attribute
-    public abstract String getStyle();
-
-    @Attribute
-    public abstract String getStyleClass();
-
-    @Attribute
-    public abstract String getDir();
-
-    @Attribute(events = @EventName("click"))
-    public abstract String getOnclick();
-
-    @Attribute(events = @EventName("dblclick"))
-    public abstract String getOndblclick();
-
-    @Attribute(events = @EventName("mousedown"))
-    public abstract String getOnmousedown();
-
-    @Attribute(events = @EventName("mousemove"))
-    public abstract String getOnmousemove();
-
-    @Attribute(events = @EventName("mouseout"))
-    public abstract String getOnmouseout();
-
-    @Attribute(events = @EventName("mouseover"))
-    public abstract String getOnmouseover();
-
-    @Attribute(events = @EventName("mouseup"))
-    public abstract String getOnmouseup();
 
     // ------------------------------------------------ Event Processing Methods
 

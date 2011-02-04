@@ -22,22 +22,12 @@
 
 package org.richfaces.renderkit.html;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSObject;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractTogglePanel;
-import org.richfaces.component.AbstractTogglePanelItem;
+import org.richfaces.component.AbstractTogglePanelItemInterface;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.renderkit.AjaxOptions;
@@ -46,16 +36,25 @@ import org.richfaces.renderkit.util.AjaxRendererUtils;
 import org.richfaces.renderkit.util.FormUtil;
 import org.richfaces.renderkit.util.HandlersChain;
 
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author akolonitsky
  */
 @ResourceDependencies({
-    @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-    @ResourceDependency(name = "jquery.js"),
-    @ResourceDependency(name = "richfaces.js"),
-    @ResourceDependency(name = "richfaces-event.js"),
-    @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(library = "org.richfaces", name = "togglePanel.js") })
+        @ResourceDependency(library = "javax.faces", name = "jsf.js"),
+        @ResourceDependency(name = "jquery.js"),
+        @ResourceDependency(name = "richfaces.js"),
+        @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(name = "richfaces-base-component.js"),
+        @ResourceDependency(library = "org.richfaces", name = "togglePanel.js")})
 @JsfRenderer(type = "org.richfaces.TogglePanelRenderer", family = AbstractTogglePanel.COMPONENT_FAMILY)
 public class TogglePanelRenderer extends DivPanelRenderer {
 
@@ -68,9 +67,9 @@ public class TogglePanelRenderer extends DivPanelRenderer {
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
         AbstractTogglePanel panel = (AbstractTogglePanel) component;
-        
+
         Map<String, String> requestMap =
-              context.getExternalContext().getRequestParameterMap();
+                context.getExternalContext().getRequestParameterMap();
 
         // Don't overwrite the value unless you have to!
         String newValue = requestMap.get(getValueRequestParamName(context, component));
@@ -79,22 +78,22 @@ public class TogglePanelRenderer extends DivPanelRenderer {
         }
 
         String compClientId = component.getClientId(context);
-        String clientId = requestMap.get(compClientId);
-        if (clientId != null && clientId.equals(compClientId)) {
-            AbstractTogglePanelItem panelItem = panel.getItem(newValue);
-            if (panelItem != null) {
-                context.getPartialViewContext().getRenderIds().add(panelItem.getClientId(context));
-                
-                //TODO nick - this should be done on encode, not on decode
-                addOnCompleteParam(context, newValue, panel.getClientId(context));
-            }
+//        String clientId = requestMap.get(compClientId);
+//        if (clientId != null && clientId.equals(compClientId)) {
+        AbstractTogglePanelItemInterface panelItem = panel.getItem(newValue);
+        if (panelItem != null) {
+            context.getPartialViewContext().getRenderIds().add(((UIComponent) panelItem).getClientId(context));
+
+            //TODO nick - this should be done on encode, not on decode
+            addOnCompleteParam(context, newValue, panel.getClientId(context));
         }
+//        }
     }
 
     protected static void addOnCompleteParam(FacesContext context, String newValue, String panelId) {
         StringBuilder onComplete = new StringBuilder();
         onComplete.append("RichFaces.$('").append(panelId)
-                    .append("').onCompleteHandler('").append(newValue).append("');");
+                .append("').onCompleteHandler('").append(newValue).append("');");
 
         ExtendedPartialViewContext.getInstance(context).appendOncomplete(onComplete.toString());
     }
@@ -140,7 +139,7 @@ public class TogglePanelRenderer extends DivPanelRenderer {
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
         return new JSObject("RichFaces.ui.TogglePanel",
-            component.getClientId(context), getScriptObjectOptions(context, component));
+                component.getClientId(context), getScriptObjectOptions(context, component));
     }
 
     @Override
@@ -159,7 +158,7 @@ public class TogglePanelRenderer extends DivPanelRenderer {
     }
 
     public static void addEventOption(FacesContext context, UIComponent component, Map<String, Object> options,
-                                String eventName) {
+                                      String eventName) {
 
         HandlersChain handlersChain = new HandlersChain(context, component);
         handlersChain.addInlineHandlerFromAttribute(ON + eventName);
@@ -169,7 +168,7 @@ public class TogglePanelRenderer extends DivPanelRenderer {
         String handler = handlersChain.toScript();
         if (handler != null) {
             options.put(ON + eventName,
-                new JSFunctionDefinition(JSReference.EVENT).addToBody(handler));
+                    new JSFunctionDefinition(JSReference.EVENT).addToBody(handler));
         }
     }
 

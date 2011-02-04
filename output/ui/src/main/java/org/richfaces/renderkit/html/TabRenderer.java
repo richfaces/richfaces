@@ -22,24 +22,21 @@
 
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
-import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
-
-import java.io.IOException;
-import java.util.Map;
+import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractTab;
+import org.richfaces.component.AbstractTogglePanelItemInterface;
+import org.richfaces.renderkit.HtmlConstants;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.Map;
 
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractTab;
-import org.richfaces.component.AbstractTogglePanelTitledItem;
-import org.richfaces.renderkit.HtmlConstants;
+import static org.richfaces.renderkit.HtmlConstants.*;
 
 /**
  * @author akolonitsky
@@ -76,7 +73,7 @@ public class TabRenderer extends TogglePanelItemRenderer {
 
         AbstractTab tab = (AbstractTab) component;
         
-        if (!tab.isDisabled()) {
+        if (tab.shouldProcess() && !tab.isDisabled()) {
             super.doEncodeChildren(writer, context, tab);
         }
     }
@@ -122,15 +119,15 @@ public class TabRenderer extends TogglePanelItemRenderer {
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
         Map<String, Object> res = super.getScriptObjectOptions(context, component);
         res.put("disabled", ((AbstractTab) component).isDisabled());
-        res.put("enter", ((AbstractTab) component).getOnenter());
-        res.put("leave", ((AbstractTab) component).getOnleave());
+        res.put("enter", ((AbstractTogglePanelItemInterface) component).getOnenter());
+        res.put("leave", ((AbstractTogglePanelItemInterface) component).getOnleave());
 
         return res;
     }
 
     @Override
     protected Class<? extends UIComponent> getComponentClass() {
-        return AbstractTogglePanelTitledItem.class;
+        return AbstractTab.class;
     }
 }
 

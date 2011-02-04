@@ -31,6 +31,7 @@ import javax.faces.context.FacesContext;
 import org.ajax4jsf.component.behavior.ClientBehavior;
 import org.richfaces.cdk.annotations.*;
 import org.richfaces.component.AbstractTogglePanel;
+import org.richfaces.component.ComponentIterators;
 import org.richfaces.renderkit.util.RendererUtils;
 
 /**
@@ -119,17 +120,13 @@ public class ToggleControl extends ClientBehavior {
             return null;
         }
 
-        UIComponent control = comp;
-        while (control != null) {
-            if (control instanceof AbstractTogglePanel) {
-                return (AbstractTogglePanel) control;
-            }
-
-            control = control.getParent();
+        AbstractTogglePanel panel = ComponentIterators.getParent(comp, AbstractTogglePanel.class);
+        if (panel == null) {
+            throw new FacesException("Parent panel for control (id="
+                    + comp.getClientId(FacesContext.getCurrentInstance()) + ") has not been found.");
         }
-        
-        throw new FacesException("Parent panel for control (id="
-                + comp.getClientId(FacesContext.getCurrentInstance()) + ") has not been found.");
+
+        return panel;
     }
 
     @Override
