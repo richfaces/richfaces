@@ -59,6 +59,7 @@ import org.richfaces.renderkit.html.ClientValidatorRenderer;
 import org.richfaces.renderkit.html.FormClientValidatorRenderer;
 import org.richfaces.validator.BeanValidatorService;
 import org.richfaces.validator.ConverterDescriptor;
+import org.richfaces.validator.FacesBeanValidator;
 import org.richfaces.validator.FacesConverterService;
 import org.richfaces.validator.FacesValidatorService;
 import org.richfaces.validator.ValidatorDescriptor;
@@ -279,7 +280,7 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
                 FacesValidatorService facesValidatorService = ServiceTracker.getService(facesContext,
                     FacesValidatorService.class);
                 for (Validator validator : facesValidators) {
-                    if (validator instanceof BeanValidator) {
+                    if (validator instanceof BeanValidator || validator instanceof FacesBeanValidator) {
                         ValueExpression valueExpression = component.getValueExpression(VALUE);
                         if (null != valueExpression) {
                             BeanValidatorService beanValidatorService = ServiceTracker.getService(facesContext,

@@ -26,7 +26,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Set;
 
 import javax.el.ELContext;
 import javax.el.ValueExpression;
@@ -38,6 +37,10 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.el.CapturingELResolver;
 import org.richfaces.el.ELContextWrapper;
 import org.richfaces.validator.FacesBeanValidator;
@@ -48,7 +51,8 @@ import org.richfaces.validator.GraphValidatorState;
  * JSF component class
  * 
  */
-public abstract class UIGraphValidator extends UIComponentBase {
+@JsfComponent(tag=@Tag(name="graphValidator",type=TagType.Facelets))
+public abstract class AbstractGraphValidator extends UIComponentBase {
 
     public static final String COMPONENT_TYPE = "org.richfaces.GraphValidator";
 
@@ -59,6 +63,7 @@ public abstract class UIGraphValidator extends UIComponentBase {
      * 
      * @return
      */
+    @Attribute
     public abstract Object getValue();
 
     /**
@@ -73,6 +78,7 @@ public abstract class UIGraphValidator extends UIComponentBase {
      * 
      * @return
      */
+    @Attribute
     public abstract String getSummary();
 
     /**
@@ -87,20 +93,22 @@ public abstract class UIGraphValidator extends UIComponentBase {
      * 
      * @return
      */
-    public abstract Set<String> getProfiles();
+    @Attribute
+    public abstract Class<?>[] getGroups();
 
     /**
      * Set set of profiles for validation
      * 
      * @param newvalue
      */
-    public abstract void setProfiles(Object newvalue);
+    public abstract void setGroups(Class<?>[] newvalue);
 
     /**
      * Get graph validator Id.
      * 
      * @return
      */
+    @Attribute(defaultValue="org.richfaces.BeanValidator")
     public abstract String getType();
 
     /**
@@ -203,7 +211,7 @@ public abstract class UIGraphValidator extends UIComponentBase {
             Validator validator = context.getApplication().createValidator(getType());
             if (validator instanceof GraphValidator) {
                 GraphValidator graphValidator = (GraphValidator) validator;
-                Collection<String> messages = graphValidator.validateGraph(context, this, value, getProfiles());
+                Collection<String> messages = graphValidator.validateGraph(context, this, value, getGroups());
                 if (null != messages) {
                     context.renderResponse();
                     // send all validation messages.
@@ -228,11 +236,11 @@ public abstract class UIGraphValidator extends UIComponentBase {
         super.encodeBegin(context);
         FacesBeanValidator validator = (FacesBeanValidator) context.getApplication().createValidator(getType());
         validator.setSummary(getSummary());
-        ValueExpression expression = getValueExpression("profiles");
+        ValueExpression expression = getValueExpression("groups");
         if (null != expression) {
-            validator.setProfiles(expression);
+            validator.setGroups(expression);
         } else {
-            validator.setProfiles(getProfiles());
+            validator.setGroups(getGroups());
         }
         setupValidators(this, validator);
     }
@@ -266,7 +274,7 @@ public abstract class UIGraphValidator extends UIComponentBase {
     private void setupValidator(EditableValueHolder input, Validator validator) {
         Validator[] validators = input.getValidators();
         for (int i = 0; i < validators.length; i++) {
-            if (validators[i] instanceof FacesBeanValidator) {
+            if (validators[i].getClass().equals(validator.getClass())) {
                 return;
             }
         }

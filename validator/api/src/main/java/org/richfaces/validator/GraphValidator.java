@@ -4,7 +4,6 @@
 package org.richfaces.validator;
 
 import java.util.Collection;
-import java.util.Set;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -19,6 +18,6 @@ import javax.faces.validator.ValidatorException;
 public interface GraphValidator {
 
     public Collection<String> validateGraph(FacesContext context, UIComponent component, Object value,
-        Set<String> profiles) throws ValidatorException;
+        Class<?>[] groups) throws ValidatorException;
 
 }

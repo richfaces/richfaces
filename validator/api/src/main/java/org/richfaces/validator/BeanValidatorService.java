@@ -21,7 +21,23 @@ public interface BeanValidatorService {
      */
     Collection<ValidatorDescriptor> getConstrains(FacesContext context, ValueExpression expression,Class<?> ...groups);
     
-//    Collection<String> validateExpression(FacesContext context,ValueExpression expression, Object newValue,Class<?> ...groups);
+    /**
+     * <p class="changed_added_4_0">Validate  expression for a new value.</p>
+     * @param context
+     * @param expression
+     * @param newValue
+     * @param groups
+     * @return
+     */
+    Collection<String> validateExpression(FacesContext context,ValueExpression expression, Object newValue,Class<?> ...groups);
     
-//    Collection<String> validateObject(FacesContext context,Object object, Object newValue,Class<?> ...groups);
+    /**
+     * <p class="changed_added_4_0">Validate entire object.</p>
+     * @param context
+     * @param object
+     * @param groups
+     * @return
+     */
+    Collection<String> validateObject(FacesContext context,Object object, Class<?> ...groups);
+    
 }

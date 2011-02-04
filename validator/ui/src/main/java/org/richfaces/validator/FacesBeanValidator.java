@@ -24,7 +24,6 @@ import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Locale;
-import java.util.Set;
 
 import javax.el.ELException;
 import javax.el.ValueExpression;
@@ -36,12 +35,20 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.cdk.annotations.JsfValidator;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+
+import com.google.common.base.Strings;
+
 /**
  * Implementation of the JSF validator to use with Bean Validation / Hibernate validator
  * 
  * @author asmirnov
  * 
  */
+@JsfValidator(id=FacesBeanValidator.BEAN_VALIDATOR_TYPE,tag=@Tag(name="beanValidator",type=TagType.Facelets))
 public class FacesBeanValidator implements Serializable, Validator, GraphValidator {
 
     public static final String BEAN_VALIDATOR_TYPE = "org.richfaces.BeanValidator";
@@ -53,10 +60,14 @@ public class FacesBeanValidator implements Serializable, Validator, GraphValidat
 
     private String summary = null;
 
-    private ValueExpression profilesExpression = null;
+    private ValueExpression groupsExpression = null;
 
-    private Set<String> profiles = null;
+    private Class<?>[] groups = null;
+    private BeanValidatorService validatorService;
 
+    public FacesBeanValidator() {
+        this.validatorService = ServiceTracker.getService(BeanValidatorService.class);
+    }
     /**
      * @return the summary
      */
@@ -100,9 +111,9 @@ public class FacesBeanValidator implements Serializable, Validator, GraphValidat
                 ValueExpression valueExpression = component.getValueExpression("value");
                 if (null != valueExpression) {
                     Collection<String> messages =
-                        ObjectValidator.getInstance(context).validate(context, valueExpression, convertedValue,
-                            getProfiles());
-                    if (null != messages) {
+                        validatorService.validateExpression(context, valueExpression, convertedValue,
+                            getGroups());
+                    if (!messages.isEmpty()) {
                         input.setValid(false);
                         Object label = getLabel(context, component);
                         Locale locale = context.getViewRoot().getLocale();
@@ -111,10 +122,10 @@ public class FacesBeanValidator implements Serializable, Validator, GraphValidat
                             // https://jira.jboss.org/jira/browse/RF-7636 -
                             // format values.
                             String formattedMessage = formatMessage(msg, locale, label, convertedValue); // create Summary message ?
-                            String summaryString = getSummary() != null ? getSummary() : formattedMessage;
-                            summaryString = formatMessage(summaryString, locale, label, convertedValue);
+                            String summary = getSummary();
+                            String formattedSummary = Strings.isNullOrEmpty(summary) ? formattedMessage:formatMessage(summary, locale, label, convertedValue);
                             context.addMessage(component.getClientId(context), new FacesMessage(
-                                FacesMessage.SEVERITY_ERROR, summaryString, formattedMessage));
+                                FacesMessage.SEVERITY_ERROR, formattedSummary, formattedMessage));
                         }
                     }
                 }
@@ -145,21 +156,20 @@ public class FacesBeanValidator implements Serializable, Validator, GraphValidat
     }
 
     public Collection<String> validateGraph(FacesContext context, UIComponent component, Object value,
-        Set<String> profiles) throws ValidatorException {
-        ObjectValidator beanValidator = ObjectValidator.getInstance(context);
-        Collection<String> messages = beanValidator.validateGraph(context, value, profiles);
+        Class<?>[] groups) throws ValidatorException {
+        Collection<String> messages = validatorService.validateObject(context, value, groups);
         return messages;
     }
 
     /**
      * @return the profiles
      */
-    public Set<String> getProfiles() {
-        Set<String> profiles;
-        if (null != profilesExpression) {
-            profiles = (Set<String>) profilesExpression.getValue(FacesContext.getCurrentInstance().getELContext());
+    public Class<?>[] getGroups() {
+        Class<?>[] profiles;
+        if (null != groupsExpression) {
+            profiles = (Class<?>[]) groupsExpression.getValue(FacesContext.getCurrentInstance().getELContext());
         } else {
-            profiles = this.profiles;
+            profiles = this.groups;
         }
         return profiles;
     }
@@ -168,11 +178,11 @@ public class FacesBeanValidator implements Serializable, Validator, GraphValidat
      * @param profiles
      *            the profiles to set
      */
-    public void setProfiles(Set<String> profiles) {
-        this.profiles = profiles;
+    public void setGroups(Class<?>... profiles) {
+        this.groups = profiles;
     }
 
-    public void setProfiles(ValueExpression profilesExpression) {
-        this.profilesExpression = profilesExpression;
+    public void setGroups(ValueExpression profilesExpression) {
+        this.groupsExpression = profilesExpression;
     }
 }

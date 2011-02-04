@@ -23,4 +23,13 @@ public class DummyBeanValidatorService implements BeanValidatorService {
         return Collections.emptySet();
     }
 
+    public Collection<String> validateExpression(FacesContext context, ValueExpression expression, Object newValue,
+        Class<?>... groups) {
+        return Collections.emptySet();
+    }
+
+    public Collection<String> validateObject(FacesContext context, Object object, Class<?>... groups) {
+        return Collections.emptySet();
+    }
+
 }

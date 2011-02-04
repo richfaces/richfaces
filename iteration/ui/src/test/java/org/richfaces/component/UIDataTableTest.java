@@ -161,7 +161,7 @@ public class UIDataTableTest extends AbstractFacesTest {
     @Test
     public void testCreateExtendedDataModel() {
         Assert.assertFalse(table.createExtendedDataModel() instanceof Arrangeable);        
-        List<String> sortPriority = Arrays.asList("id2", "id0", "id1"); 
+        List<Object> sortPriority = Arrays.<Object>asList("id2", "id0", "id1"); 
         List<UIComponent> children = table.getChildren();
         ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
         ELContext elContext = facesContext.getELContext();
@@ -240,8 +240,8 @@ public class UIDataTableTest extends AbstractFacesTest {
      */
     @Test
     public void testSortPriority() {
-        table.setSortPriority(Collections.EMPTY_LIST);
-        Assert.assertEquals(Collections.EMPTY_LIST, table.getSortPriority());
+        table.setSortPriority(Collections.emptyList());
+        Assert.assertEquals(0, table.getSortPriority().size());
     }
 
     /**
