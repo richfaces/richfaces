@@ -26,7 +26,7 @@
 				onmousedown="#{component.attributes['onmaskmousedown']}"
 				onmousemove="#{component.attributes['onmaskmousemove']}"
 				onmouseover="#{component.attributes['onmaskmouseover']}"
-				onmouseout="#{component.attributes['onmaskmouseout']}" class="rf-pp-shade">
+				onmouseout="#{component.attributes['onmaskmouseout']}" class="rf-pp-shade" style="z-index:#{zindex};">
 				<button class="rf-pp-btn" id="#{clientId}FirstHref"></button>
 				</div>
 
