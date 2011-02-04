@@ -97,12 +97,6 @@
                             <maxIdleTime>60000</maxIdleTime>
                         </connector>
                     </connectors>
-                    <webResources>
-                        <resource>
-                            <directory>${basedir}/src/main/java</directory>
-                            <targetPath>/WEB-INF/src</targetPath>
-                        </resource>
-                    </webResources>
                 </configuration>
             </plugin>
             <plugin>
