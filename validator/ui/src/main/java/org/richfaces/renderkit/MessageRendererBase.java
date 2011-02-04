@@ -193,7 +193,7 @@ public class MessageRendererBase extends Renderer {
             writeMessageLabel(responseWriter, summary, "rf-msg-sum");
         }
         if (showDetail) {
-            writeMessageLabel(responseWriter, detail, "rf-msg-des");
+            writeMessageLabel(responseWriter, detail, "rf-msg-det");
         }
         message.rendered();
     }
