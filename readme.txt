@@ -9,7 +9,7 @@ just to re-use some code to implement the same cases for your applications.
 1.1. Requirements
 
 - Maven 2.1.0 or later
-- Apache Tomcat 6.0
+- Servers: Apache Tomcat 6.0 or any JEE6 application server (e.g. JBoss AS 6)
 - JDK 1.6
 
 1.2 Optional Additional Software
@@ -17,8 +17,9 @@ just to re-use some code to implement the same cases for your applications.
 - You're free to use any other IDE also but we haven't tested an application in other environments. 
 
 
-1.3 Building the application
+1.3 Build/Deploy
 
+1.3.1) Tomcat 
 To build the project you need to navigate to the /examples/richfaces-showcase and run
 
 mvn clean package
@@ -26,6 +27,34 @@ mvn clean package
 When you see the BUILD SUCCESSFUL message you can deploy the application on the server. You can deploy it on the server by copying .war file from 'target' folder to 
 the TOMCAT_HOME/webapps folder. Then, launch the startup.sh or startup.bat script from TOMCAT_HOME/bin/ directory to start the server.
 
+1.3.2) JEE6 server(JBoss AS 6)
+To build the project you need to navigate to the /examples/richfaces-showcase and run
+
+mvn clean package -Pjee6
+
+When you see the BUILD SUCCESSFUL message you can deploy the application on the server. You can deploy it on the server by copying .war file from 'target' folder to 
+the JBOSS_HOME/server/default/deploy folder(or change "default/" to used profile folder). Then, launch the run.sh or run.bat script from JBOSS_HOME/bin/ directory to start the server.
+
+2) Publishing to Google Application Engine
+ 
+In M2 we completed resource plugin which generates static resources and that allow us to create Google App Engine compatible application using RichFaces.
+
+just execute 
+	* mvn clean package -Pgae -Denforcer.skip=true
+(enforcer skipped as resource plugin using snapshot plugin, and required only if you using snapshots sources)
+
+And now you're ready to publish the application to GAE. just use appcfg as for any other one like described at google documentation. Do not forget to register your 
+own application name and rename the demo application accordingly. 
+
+more details about the resource plugin(it could be highly usefull not only in case of GAE usage but for general cases like serving resources at separate content systems) - 
+will be published at our wiki and announced at RichFaces usage space. 
+
+There are some additional changes were made in order to make richfaces-showcase GAE compatible:
+	* WebConfiguration class from com.sun.faces were patched removing code which is not compatible with GAE
+	* web.xml with additional properties for GAE created and placed at src\main\webapp-gae\WEB-INF\ (it replaces common one durinf build with GAE profile)
+	* check pom.xml GAE profile section in order to check additional dependencies for that configuration.
+
+3) Working with the project in Eclipse IDE:
 In order to explore, run and deploy the application in Eclipse IDE you can use one of the following options:
 
 	* Just import as maven project if using m2eclipse plugin.
@@ -38,21 +67,3 @@ In order to explore, run and deploy the application in Eclipse IDE you can use o
 
 You can find more details in the RichFaces Getting Started Guide (visit documentation page at http://jboss.org/richfaces)
 
-2) Publishing to Google Application Engine
- 
-In M2 we completed resource plugin which generates static resources and that allow us to create Google App Engine compatible application using RichFaces.
-
-just execute 
-	* mvn clean package -Pgae -Denforcer.skip=true
-(enforcer skipped as resource plugin using snapshot plugin)
-
-And now you're ready to publish the application to GAE. just use appcfg as for any other one like described at google documentation. Do not forget to register your 
-own application name and rename the demo application accordingly. 
-
-more details about the resource plugin(it could be highly usefull not only in case of GAE usage but for general cases like serving resources at separate content systems) - 
-will be published at our wiki and announced at RichFaces usage space. 
-
-There are some additional changes were made in order to make richfaces-showcase GAE compatible:
-	* WebConfiguration class from com.sun.faces were patched removing code which is not compatible with GAE
-	* web.xml with additional properties for GAE created and placed at src\main\webapp-gae\WEB-INF\ (it replaces common one durinf build with GAE profile)
-	* check pom.xml GAE profile section in order to check additional dependencies for that configuration.
