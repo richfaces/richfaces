@@ -38,7 +38,8 @@ import org.richfaces.cdk.annotations.Tag;
     family = AbstractInplaceInput.COMPONENT_FAMILY, 
     generate = "org.richfaces.component.UIInplaceInput",
     renderer = @JsfRenderer(type = "org.richfaces.InplaceInputRenderer"),
-    tag = @Tag(name="inplaceInput")
+    tag = @Tag(name="inplaceInput"),
+    attributes = "core-props.xml"
 )
 public abstract class AbstractInplaceInput extends UIInput implements InplaceComponent {
     

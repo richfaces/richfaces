@@ -39,7 +39,8 @@ import org.richfaces.cdk.annotations.Tag;
     family = AbstractInplaceSelect.COMPONENT_FAMILY, 
     generate = "org.richfaces.component.UIInplaceSelect",
     renderer = @JsfRenderer(type = "org.richfaces.InplaceSelectRenderer"),
-    tag = @Tag(name="inplaceSelect")
+    tag = @Tag(name="inplaceSelect"),
+    attributes = "core-props.xml"
 )
 public abstract class AbstractInplaceSelect extends AbstractSelectComponent implements InplaceComponent {
     
@@ -82,6 +83,21 @@ public abstract class AbstractInplaceSelect extends AbstractSelectComponent impl
     @Override
     @Attribute
     public abstract String getListClass();
+
+    @Attribute
+    public abstract String getChangedStateClass();
+    
+    @Attribute
+    public abstract String getDefaultLabel();
+    
+    @Attribute
+    public abstract String getDisabledStateClass();
+    
+    @Attribute
+    public abstract String getEditStateClass();
+    
+    @Attribute
+    public abstract String getReadyStateClass();
     
     @Attribute()
     public abstract String getEditEvent();
