@@ -198,6 +198,8 @@
                 this.__addUserEventHandler("collapse");
                 this.__addUserEventHandler("beforeexpand");
                 this.__addUserEventHandler("expand");
+                this.__addUserEventHandler("beforeswitch");
+                this.__addUserEventHandler("switch");
             }
         },
 
