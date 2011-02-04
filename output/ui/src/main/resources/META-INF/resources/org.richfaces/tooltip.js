@@ -118,34 +118,22 @@
 
             this.popup = new RichFaces.ui.Popup(this.id, {
                 attachTo: this.target,
-                attachToBody: false,
+                attachToBody: true,
                 positionType: "TOOLTIP",
                 positionOffset: this.options.offset,
                 jointPoint: this.options.jointPoint,
                 direction: this.options.direction
             });
 
-            var tooltip = this;
-            function mouseMoveHandler(event) {
-                tooltip.popup.show(event);
+            var targetElt = $(document.getElementById(this.target));
+            
+            targetElt.bind(this.options.showEvent, $.proxy(this.__showHandler, this));
+
+            var hideFunction = $.proxy(this.__hideHandler, this);
+            targetElt.bind(this.options.hideEvent, hideFunction);
+            if (this.options.hideEvent == 'mouseleave') {
+            	$(document.getElementById(this.id)).bind(this.options.hideEvent, hideFunction);
             }
-
-            $(document.getElementById(this.target)).bind(this.options.showEvent, function (event) {
-                tooltip.show(event);
-
-                if (tooltip.options.followMouse) {
-                    $(document.getElementById(tooltip.target)).bind("mousemove", mouseMoveHandler);
-                }
-            });
-
-            $(document.getElementById(tooltip.target)).bind(this.options.hideEvent, function () {
-                tooltip.hide();
-
-                if (tooltip.options.followMouse) {
-                    $(document.getElementById(tooltip.target)).unbind("mousemove", mouseMoveHandler);
-                }
-            });
-
         },
 
         /***************************** Public Methods  ****************************************************************/
@@ -168,6 +156,18 @@
             return this.__fireHide()
         },
 
+        __hideHandler: function(event) {
+        	if (event.type == 'mouseleave' && this.__isInside(event.relatedTarget)) {
+        		return;
+        	}
+        	
+            this.hide();
+
+            if (this.options.followMouse) {
+                $(document.getElementById(this.target)).unbind("mousemove", this.__mouseMoveHandler);
+            }
+        },
+        
         /**
          * @private
          * @return {void} TODO ...
@@ -179,6 +179,18 @@
             });
         },
 
+        __mouseMoveHandler: function(event) {
+            this.popup.show(event);
+        },
+        
+        __showHandler: function(event) {
+            this.show(event);
+
+            if (this.options.followMouse) {
+                $(document.getElementById(this.target)).bind("mousemove", $.proxy(this.__mouseMoveHandler, this));
+            }
+        },
+        
         /**
          * @methodOf
          * @name PanelMenuItem#show
@@ -275,6 +287,22 @@
             }
         },
 
+        __contains: function(id, elt) {
+        	while (elt) {
+        		if (id == elt.id) {
+        			return true;
+        		}
+        		
+        		elt = elt.parentNode;
+        	}
+        	
+        	return false;
+        },
+        
+        __isInside: function(elt) {
+        	return this.__contains(this.target, elt) || this.__contains(this.id, elt);
+        },
+        
         destroy: function () {
             $super.destroy.call(this);
         }
