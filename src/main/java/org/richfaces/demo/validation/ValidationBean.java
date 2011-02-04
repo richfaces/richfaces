@@ -6,16 +6,15 @@ import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
-
-import org.hibernate.validator.constraints.Length;
+import javax.validation.constraints.Size;
 
 @ManagedBean
 @RequestScoped
 public class ValidationBean {
 
-    @Length(min = 3, max = 12)
+    @Size(min=3, max=12)
     private String name = null;
-    @Pattern(regexp = "^[\\w\\-]([\\.\\w])+[\\w]+@([\\w\\-]+\\.)+[a-zA-Z]{2,4}$")
+    @Pattern(regexp = "^[\\w\\-]([\\.\\w])+[\\w]+@([\\w\\-]+\\.)+[a-zA-Z]{2,4}$" , message="Bad email")
     private String email = null;
     @Min(value = 18)
     @Max(value = 99)
@@ -23,7 +22,7 @@ public class ValidationBean {
     private String country;
     private String jobTitle;
     @AssertTrue
-    private boolean agreed;
+    private boolean agreed = true;
 
     public boolean isAgreed() {
         return agreed;

@@ -16,8 +16,8 @@
 	client vlidators available and then send Ajax request for unknown to
 	get results from server side.</p>
 	<p>In that sample - pay attention that no requests fired when
-	typing wrong values in first two fields. And Ajax request used to
-	validate the last one.</p>
+	typing wrong values in all the fields and only checkbox activation
+	causes Ajax fallback.</p>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
 		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
@@ -25,19 +25,29 @@
 		<ui:param name="openLabel" value="View Source" />
 		<ui:param name="hideLabel" value="Hide Source" />
 	</ui:include>
-	<fieldset>
-	<legend><b>Notes:</b></legend>
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/validation/ValidationBean.java" />
+		<ui:param name="sourceType" value="java" />
+		<ui:param name="openLabel" value="View ValidationBean Source" />
+		<ui:param name="hideLabel" value="Hide ValidationBean Source" />
+	</ui:include>	
+	<fieldset><legend><b>Notes:</b></legend>
 	<ul>
-		<li>Some validators still not implemented. Them will start work transparently for you after new snapshots with implementations added</li>
-		<li>We will provide information about how to provide client validation for custom validators soon!</li>
+		<li>Some JSR-303 validators still not implemented. Them will
+		start work transparently for you after new snapshots with
+		implementations added</li>
+		<li>We will provide information about how to provide client
+		validation for custom validators soon!</li>
 	</ul>
 	</fieldset>
-	<fieldset>
-	<legend><b>What to expect additionally:</b></legend>
-	After we will complete all standard validators migration and instructions for custom ones we plan to work on next features:
+	<fieldset><legend><b>What to expect
+	additionally:</b></legend> After we will complete all standard validators migration
+	and instructions for custom ones we plan to work on next features:
 	<ul>
-		<li>Client Validation for submit components to perform bulk form validation.</li>
-		<li>Ways of default validation definitions without usage of <b>&lt;rich:validator/&gt;</b> tag for every input.</li>
+		<li>Client Validation for submit components to perform bulk form
+		validation.</li>
+		<li>Ways of default validation definitions without usage of <b>&lt;rich:validator/&gt;</b>
+		tag for every input.</li>
 	</ul>
 	</fieldset>
 </ui:composition>

@@ -16,8 +16,7 @@
 	client vlidators available and then send Ajax request for unknown to
 	get results from server side.</p>
 	<p>In that sample - pay attention that no requests fired when
-	typing wrong values in first two fields. And Ajax request used to
-	validate the last one.</p>
+	typing wrong values in first the fields. </p>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
 		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
@@ -28,7 +27,7 @@
 	<fieldset>
 	<legend><b>Notes:</b></legend>
 	<ul>
-		<li>Some validators still not implemented. Them will start work transparently for you after new snapshots with implementations added</li>
+		<li>Some JSR-303 validators still not implemented. Them will start work transparently for you after new snapshots with implementations added</li>
 		<li>We will provide information about how to provide client validation for custom validators soon!</li>
 	</ul>
 	</fieldset>
