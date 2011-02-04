@@ -96,7 +96,7 @@
                 group.collapse();
             }
 
-            return group.__fireSwitch();
+            return group.__fireEvent("switch");
         },
 
         /**
@@ -194,7 +194,9 @@
                     });
                 }
 
+                this.__addUserEventHandler("beforecollapse");
                 this.__addUserEventHandler("collapse");
+                this.__addUserEventHandler("beforeexpand");
                 this.__addUserEventHandler("expand");
             }
         },
@@ -207,9 +209,13 @@
         },
 
         expand : function () {
+        	if (!this.__fireEvent("beforeexpand")) {
+        		return false;
+        	}
+        	
             this.__expand();
 
-            return this.__fireExpand();
+            return this.__fireEvent("expand");
         },
 
         __expand : function () {
@@ -226,14 +232,18 @@
         },
 
         collapse : function () {
-            this.__collapse();
+        	if (!this.__fireEvent("beforecollapse")) {
+        		return false;
+        	}
+
+        	this.__collapse();
 
             this.__childGroups().each (function(index, group) {
             	//TODO nick - why not group.collapse()?
                 rf.$(group.id).__collapse();
             });
 
-            this.__fireCollapse();
+            this.__fireEvent("collapse");
         },
 
         __collapse : function () {
@@ -253,7 +263,7 @@
          * @return {void} TODO ...
          */
         switchExpantion : function () { // TODO rename
-            var continueProcess = this.__fireBeforeSwitch();
+            var continueProcess = this.__fireEvent("beforeswitch");
             if (!continueProcess) {
                 return false;
             }
@@ -346,36 +356,15 @@
             }
         },
 
-        __fireSwitch : function () {
-            return new rf.Event.fireById(this.id, "switch", {
-                id: this.id
-            });
-        },
-
         __isMyEvent: function (event) {
             return this.id == event.target.id; 
         },
 
-        __fireBeforeSwitch : function () {
-            return rf.Event.fireById(this.id, "beforeswitch", {
-                id: this.id
-            });
+        __fireEvent: function(eventName) {
+        	var data = {id: this.id};
+            return rf.Event.fireById(this.id, eventName, data);
         },
-
-        __fireCollapse : function () {
-            //TODO nick - 'new' should be removed
-            return new rf.Event.fireById(this.id, "collapse", {
-                id: this.id
-            });
-        },
-
-        __fireExpand : function () {
-            //TODO nick - 'new' should be removed
-            return new rf.Event.fireById(this.id, "expand", {
-                id: this.id
-            });
-        },
-
+        
         destroy: function () {
             rf.Event.unbindById(this.id, "."+this.namespace);
 
