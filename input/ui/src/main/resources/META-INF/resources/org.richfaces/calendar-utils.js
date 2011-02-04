@@ -79,6 +79,17 @@
 		        i++;
 		    }
 		},
+		
+		createDate: function (yy,mm,dd,h,m,s) {
+			h=h||0; m=m||0; s=s||0;
+			var date = new Date(yy, mm, dd, h, m, s);
+			if (date.getDate()!=dd) {
+				date = new Date(yy, mm);
+				date.setHours(h); date.setMinutes(m); date.setSeconds(s);
+				date.setUTCDate(dd);
+			}
+			return date;
+		},
 
 		/* Year:
 		 *	y,yy - 00-99
@@ -165,7 +176,7 @@
 				var addDay = correctYear ? 1 : 0;
 				var dd = parseInt(match[d],10); if (isNaN(dd) || dd<1 || dd>this.daysInMonth(yy, mm) + addDay) return null;
 				
-				var date = new Date(yy, mm, dd);
+				var date;
 
 				// time parsing
 				if (min!=undefined && h!=undefined)
@@ -186,12 +197,14 @@
 					}
 					else if (hh<0 || hh>23) return null;
 					
-					date.setHours(hh); date.setMinutes(mmin);
+					date = this.createDate(yy, mm, dd, hh, mmin);
 					if (s!=undefined)
 					{
 						sec = parseInt(match[s], 10); if (isNaN(sec) || sec<0 || sec>59) return null;
 						date.setSeconds(sec);
 					}
+				} else {
+					date = this.createDate(yy, mm, dd);
 				}
 				
 				if (correctYear) {

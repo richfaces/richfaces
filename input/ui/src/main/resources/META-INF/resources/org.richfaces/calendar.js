@@ -932,7 +932,8 @@
 				
 				if (this.options.defaultLabel) {
 					if (!this.isFocused) updateDefaultLabel.call(this, "");
-				} else if (baseInput.value!=undefined)
+				}
+				if (baseInput.value)
 				{
 					this.__selectDate(baseInput.value, false, {event:e, element:element});
 				}
@@ -1040,20 +1041,17 @@
 		},
 		
 		setupTimeForDate: function (date) {
+			var result = new Date(date);
 			if (this.selectedDate && (!this.options.resetTimeOnDateSelect || 
 				(this.selectedDate.getFullYear() == date.getFullYear() && 
 				this.selectedDate.getMonth() == date.getMonth() &&
 				this.selectedDate.getDate() == date.getDate())))
 			{
-				date.setHours(this.selectedDate.getHours());
-				date.setMinutes(this.selectedDate.getMinutes());
-				date.setSeconds(this.selectedDate.getSeconds());
-			} else
-			{
-				date.setHours(this.options.defaultTime.hours);
-				date.setMinutes(this.options.defaultTime.minutes);
-				date.setSeconds(this.options.defaultTime.seconds);
+				result = rf.calendarUtils.createDate(date.getFullYear(), date.getMonth(), date.getDate(), this.selectedDate.getHours(), this.selectedDate.getMinutes(), this.selectedDate.getSeconds());
+			} else {
+				result = rf.calendarUtils.createDate(date.getFullYear(), date.getMonth(), date.getDate(), this.options.defaultTime.hours, this.options.defaultTime.minutes, this.options.defaultTime.seconds);
 			}
+			return result;
 		},
 		
 		eventCellOnClick: function (e, obj) {
@@ -1061,10 +1059,10 @@
 			if (daydata.enabled && daydata._month==0)
 			{
 				var date=new Date(this.currentDate);
-				date.setDate(daydata.day);
+				date.setUTCDate(daydata.day);
 				if (this.timeType)
 				{
-					this.setupTimeForDate(date);
+					date = this.setupTimeForDate(date);
 				}
 				
 				if (this.__selectDate(date,true, {event:e, element:obj}) && !this.options.showApplyButton)
@@ -1080,7 +1078,7 @@
 					var date = new Date(daydata.date);
 					if (this.timeType)
 					{
-						this.setupTimeForDate(date);
+						date = this.setupTimeForDate(date);
 					}
 					
 					if (this.__selectDate(date, false, {event:e, element:obj}) && !this.options.showApplyButton)
@@ -1557,10 +1555,11 @@
 			{
 				var daydata = this.days[parseInt(this.todayCellId.substr(this.DATE_ELEMENT_ID.length),10)];
 				var today = new Date();
-				var date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+				var date = new Date(today.getFullYear(), today.getMonth());
+				date.setUTCDate(today.getDate());
 				if (this.timeType)
 				{
-					this.setupTimeForDate(date);
+					date = this.setupTimeForDate(date);
 				}
 				if (daydata.enabled && this.__selectDate(date,true) && !this.options.showApplyButton)
 				{
@@ -1799,7 +1798,7 @@
 						if (h!=12) h+=12;
 					}
 				}
-				var date = new Date(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), this.selectedDate.getDate(), h, m, s);
+				var date = rf.calendarUtils.createDate(this.selectedDate.getFullYear(), this.selectedDate.getMonth(), this.selectedDate.getDate(), h, m, s);
 				if (date-this.selectedDate && this.invokeEvent("beforetimeselect",null, null, date))
 				{
 					this.selectedDate = date;
