@@ -4,6 +4,7 @@ import org.richfaces.event.ItemChangeEvent;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import java.util.Date;
 
 @ManagedBean
 @SessionScoped
@@ -27,6 +28,7 @@ public class ModalPanel {
     private boolean resizeable;
     private String inputTextTest;
     private String domElementAttachment;
+    private Date date;
 
     public String getInputTextTest() {
         return inputTextTest;
@@ -212,5 +214,14 @@ public class ModalPanel {
 
     public void action() {
         System.out.println("ModalPanel.action");
+    }
+
+    public Date getDate() {
+        date = new Date();
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

@@ -45,12 +45,16 @@
     <ui:define name="body">
         <p>Page</p>
 
+        <h:outputText id="date-g1" value="Current date-g1 #{modalPanel.date}" /><br />
+        <h:outputText id="date-i"  value="Current date-i  #{modalPanel.date}" /><br />
+        <h:outputText id="date-p"  value="Current date-p  #{modalPanel.date}" /><br />
+
         <h:form id="f" style="border:blue solid thin;">
             <pn:panelMenu
                     id="panelMenu"
                     expandSingle="true"
-                    itemMode="server"
-                    groupMode="server"
+                    itemMode="ajax"
+                    groupMode="ajax"
                     activeItem="myFavariteIten"
                     itemDisabledLeftIcon="disc"
                     groupDisabledLeftIcon="disc"
@@ -59,12 +63,13 @@
                     itemChangeListener="#{modalPanel.itemChangeEventListener}"
                     expandEvent="dblclick"
                     collapseEvent="dblclick"
+                    execute="date-p" render="date-p"
                     >
                 
-                <pn:panelMenuGroup label="Group 1" selectable="true">
-                    <pn:panelMenuItem>Item 1.1</pn:panelMenuItem>
-                    <pn:panelMenuItem>Item 1.2</pn:panelMenuItem>
-                    <pn:panelMenuItem>Item 1.3</pn:panelMenuItem>
+                <pn:panelMenuGroup label="Group 1" selectable="true" execute="date-g1" render="date-g1">
+                    <pn:panelMenuItem execute="date-i" render="date-i">Item 1.1</pn:panelMenuItem>
+                    <pn:panelMenuItem execute="date-i" render="date-i">Item 1.2</pn:panelMenuItem>
+                    <pn:panelMenuItem execute="date-i" render="date-i">Item 1.3</pn:panelMenuItem>
                 </pn:panelMenuGroup>
                 <pn:panelMenuGroup
                         label="Group 2"
