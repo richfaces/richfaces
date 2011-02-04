@@ -35,7 +35,6 @@ import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.component.AjaxClientBehavior;
 import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
-import org.richfaces.renderkit.util.CoreRendererUtils;
 
 /**
  * User: akolonitsky
@@ -77,19 +76,14 @@ abstract class ComponentCallback implements VisitCallback {
         return null;
     }
 
-    protected Collection<String> resolveComponents(Object value, UIComponent target, String defaultValue) {
+    protected Collection<String> toCollection(Object value) {
         //TODO - unit tests check for "@none" element
-        Collection<String> ids = CoreAjaxRendererUtils.asIdsSet(value);
-        if (ids == null) {
-            ids = new LinkedHashSet<String>(1);
+        Collection<String> result = CoreAjaxRendererUtils.asIdsSet(value);
+        if (result == null) {
+            result = new LinkedHashSet<String>(1);
         }
 
-        if (ids.isEmpty() && defaultValue != null) {
-            // asSet() returns copy of original set and we're free to modify it
-            ids.add(defaultValue);
-        }
-
-        return CoreRendererUtils.INSTANCE.findComponentsFor(facesContext, target, ids);
+        return result;
     }
     
     protected abstract void doVisit(UIComponent target, AjaxClientBehavior behavior);

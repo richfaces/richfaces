@@ -29,6 +29,8 @@ import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.component.AjaxClientBehavior;
 import org.richfaces.component.AjaxContainer;
+import org.richfaces.renderkit.AjaxConstants;
+import org.richfaces.renderkit.util.CoreRendererUtils;
 
 /**
  * @author akolonitsky
@@ -53,7 +55,15 @@ class ExecuteComponentCallback extends RenderComponentCallback {
             value = target.getAttributes().get("execute");
         }
         
-        executeIds = resolveComponents(value, target, AjaxContainer.META_CLIENT_ID);
+        Collection<String> unresolvedExecuteIds = toCollection(value);
+        //toCollection() returns copy of original set and we're free to modify it
+        if (unresolvedExecuteIds.isEmpty()) {
+            unresolvedExecuteIds.add(AjaxContainer.META_CLIENT_ID);
+        } else if (!unresolvedExecuteIds.contains(AjaxContainer.META_CLIENT_ID)) {
+            unresolvedExecuteIds.add(AjaxConstants.THIS);
+        }
+        
+        executeIds = CoreRendererUtils.INSTANCE.findComponentsFor(facesContext, target, unresolvedExecuteIds);
     }
     
     public Collection<String> getExecuteIds() {

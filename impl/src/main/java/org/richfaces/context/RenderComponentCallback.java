@@ -29,6 +29,7 @@ import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.component.AjaxClientBehavior;
 import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
+import org.richfaces.renderkit.util.CoreRendererUtils;
 
 /**
  * @author akolonitsky
@@ -87,7 +88,9 @@ class RenderComponentCallback extends ComponentCallback {
             data = CoreAjaxRendererUtils.getAjaxData(target);
         }
         
-        renderIds = resolveComponents(renderValue, target, null);
+        Collection<String> unresolvedRenderIds = toCollection(renderValue);
+        //NB: toCollection() returns copy of original set and we're free to modify it - not used here
+        renderIds = CoreRendererUtils.INSTANCE.findComponentsFor(facesContext, target, unresolvedRenderIds);
     }
 
 }
