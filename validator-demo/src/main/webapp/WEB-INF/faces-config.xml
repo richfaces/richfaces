@@ -7,6 +7,11 @@
   <managed-bean-scope>request</managed-bean-scope>
 </managed-bean>
 <managed-bean>
+  <managed-bean-name>graphValidatorBean</managed-bean-name>
+  <managed-bean-class>org.richfaces.example.GraphValidatorBean</managed-bean-class>
+  <managed-bean-scope>request</managed-bean-scope>
+</managed-bean>
+<managed-bean>
   <managed-bean-name>dataBean</managed-bean-name>
   <managed-bean-class>org.richfaces.example.DataBean</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
