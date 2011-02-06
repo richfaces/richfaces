@@ -51,10 +51,10 @@
     </dependencies>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/4.0.0.M6/ui/output/panels/api</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/4.0.0.M6/ui/output/panels/api
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/output/panels/api</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/output/panels/api
         </developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/branches/4.0.0.M6/ui/output/panels/api</url>
+        <url>http://fisheye.jboss.org/browse/richfaces</url>
     </scm>
 
 </project>
