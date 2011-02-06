@@ -400,11 +400,11 @@
 
 	<!-- SCM and distribution management -->
 	<scm>
-		<connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/4.0.0.M6/parent
+		<connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/parent
         </connection>
-		<developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/4.0.0.M6/parent
+		<developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/parent
         </developerConnection>
-		<url>http://fisheye.jboss.org/browse/richfaces/branches/4.0.0.M6/parent</url>
+		<url>http://fisheye.jboss.org/browse/richfaces/trunk/parent</url>
 	</scm>
 
 </project>
