@@ -55,9 +55,9 @@
     </modules>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/examples</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/examples</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/trunk/examples</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/4.0.0.M6/examples</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/4.0.0.M6/examples</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/branches/4.0.0.M6/examples</url>
     </scm>
 
 </project>

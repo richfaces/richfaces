@@ -196,8 +196,8 @@
 	</profiles>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/examples/push-demo</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/examples/push-demo</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/4.0.0.M6/examples/push-demo</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/4.0.0.M6/examples/push-demo</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/branches/4.0.0.M6/examples/push-demo</url>
     </scm>
 </project>
