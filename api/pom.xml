@@ -80,8 +80,8 @@
     </build>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/core/api</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/core/api</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/trunk/core/api</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/4.0.0.M6/core/api</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/4.0.0.M6/core/api</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/branches/4.0.0.M6/core/api</url>
     </scm>
 </project>
