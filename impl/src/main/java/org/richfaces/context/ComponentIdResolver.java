@@ -23,7 +23,6 @@ package org.richfaces.context;
 
 import static org.richfaces.component.MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR;
 import static org.richfaces.util.Util.NamingContainerDataHolder.SEPARATOR_CHAR;
-import static org.richfaces.util.Util.NamingContainerDataHolder.SEPARATOR_CHAR_JOINER;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -44,6 +43,7 @@ import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.context.IdParser.Node;
 import org.richfaces.renderkit.util.CoreRendererUtils;
 
+import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
 import com.google.common.collect.Iterators;
 
@@ -53,6 +53,8 @@ import com.google.common.collect.Iterators;
  */
 public final class ComponentIdResolver {
 
+    private static final Joiner EMPTY_STRING_JOINER = Joiner.on("").skipNulls();
+    
     private static Map<String, String> metaComponentSubstitutions = new HashMap<String, String>();
 
     static {
@@ -162,30 +164,37 @@ public final class ComponentIdResolver {
         return false;
     }
     
-    private Collection<String> computeClientIds(FacesContext context,
-        UIComponent topMatchComponent, String id) {
+    private String getMetaComponentId(String s) {
+        int metaComponentIdx = s.indexOf(META_COMPONENT_SEPARATOR_CHAR);
 
-        String clientId;
-        
-        int idx = id.indexOf(SEPARATOR_CHAR);
-        if (idx < 0) {
-            int metaSepIdx = id.indexOf(META_COMPONENT_SEPARATOR_CHAR);
-            if (metaSepIdx > 0) {
-                clientId = topMatchComponent.getClientId(facesContext) + id.substring(metaSepIdx); 
-            } else {
-                clientId = topMatchComponent.getClientId(facesContext);
-            }
+        if (metaComponentIdx < 0) {
+            return null;
         } else {
-            clientId = SEPARATOR_CHAR_JOINER.join(topMatchComponent.getClientId(facesContext), id.substring(idx + 1));
+            return s.substring(metaComponentIdx);
         }
-        
-        Node[] nodes = IdParser.parse(clientId);
-        if (hasFunctionNodes(nodes)) {
-            ClientIdFunctionEvaluator evaluator = new ClientIdFunctionEvaluator(context, nodes);
+    }
+    
+    private Collection<String> computeClientIds(FacesContext context,
+        UIComponent topMatchComponent, UIComponent bottomMatchComponent, String id) {
+
+        Node[] nodes = IdParser.parse(id);
+        if (!hasFunctionNodes(nodes)) {
+            return Collections.singleton(EMPTY_STRING_JOINER.join(bottomMatchComponent.getClientId(facesContext), getMetaComponentId(id)));
+        } else {
+            String topMatchClientId = topMatchComponent.getClientId(facesContext);
+            Node[] topMatchNodes = IdParser.parse(topMatchClientId);
+            
+            //topMatchNodes & nodes have 1 element overlap
+            Node[] mergedNodes = new Node[topMatchNodes.length + nodes.length - 1];
+            
+            int destPos = topMatchNodes.length;
+            
+            System.arraycopy(topMatchNodes, 0, mergedNodes, 0, destPos);
+            System.arraycopy(nodes, 1, mergedNodes, destPos, nodes.length - 1);
+            
+            ClientIdFunctionEvaluator evaluator = new ClientIdFunctionEvaluator(context, mergedNodes);
             
             return evaluator.evaluate(topMatchComponent);
-        } else {
-            return Collections.singleton(clientId);
         }
     }
 
@@ -355,7 +364,7 @@ public final class ComponentIdResolver {
                         }
                         resolvedIds.add(resolvedId);
                     } else {
-                        resolvedIds.addAll(computeClientIds(facesContext, topMatch, fullId));
+                        resolvedIds.addAll(computeClientIds(facesContext, topMatch, bottomMatch, fullId));
                     }
                 }
             }
