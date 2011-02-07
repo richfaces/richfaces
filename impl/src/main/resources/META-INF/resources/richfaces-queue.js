@@ -37,6 +37,11 @@
 		
 	richfaces.ajax.jsfResponse = jsf.ajax.response;
 	
+	richfaces.ajax.isIgnoreResponse = function() {
+		return richfaces.queue.isIgnoreResponse();
+	};
+	
+	
 	jsf.ajax.response = function(request, context) {
 		richfaces.queue.response(request, context);
 	};
@@ -388,13 +393,17 @@
 			},
 			
 			response: function (request, context) {
-				var lastEntry = getLastEntry();
-				if (!lastEntry || !lastRequestedEntry.isIgnoreDupResponses() || lastRequestedEntry.getRequestGroupId() != lastEntry.getRequestGroupId()) {
-					richfaces.ajax.jsfResponse(request, context);
-				} else {
+				if (this.isIgnoreResponse()) {
 					lastRequestedEntry = null;
 					submitFirstEntry();
+				} else {
+					richfaces.ajax.jsfResponse(request, context);
 				}
+			},
+
+			isIgnoreResponse: function () {
+				var lastEntry = getLastEntry();
+				return lastEntry && lastRequestedEntry.isIgnoreDupResponses() && lastRequestedEntry.getRequestGroupId() == lastEntry.getRequestGroupId();
 			},
 
 			/** 

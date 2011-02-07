@@ -408,6 +408,8 @@ if (!window.RichFaces) {
 				ignoreSuccess = true;
 			} else if (ignoreSuccess) {
 				return;
+			} else if (status == 'complete' && richfaces.ajax.isIgnoreResponse && richfaces.ajax.isIgnoreResponse()) {
+				return;
 			}
 
 			var typeHandlers = jsfEventsAdapterEventNames[type];
