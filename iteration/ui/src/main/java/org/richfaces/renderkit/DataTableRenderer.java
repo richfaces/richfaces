@@ -22,18 +22,6 @@
 
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIColumn;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-
 import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractCollapsibleSubTable;
@@ -42,6 +30,17 @@ import org.richfaces.component.Row;
 import org.richfaces.component.UIDataTableBase;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIColumn;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * @author Anton Belevich
@@ -97,6 +96,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
     public void encodeTableStructure(ResponseWriter writer, FacesContext context, UIDataTableBase dataTable)
         throws IOException {
         if (dataTable instanceof AbstractDataTable) {
+            encodeStyle(writer, context, dataTable, null);
             encodeCaption(writer, context, (AbstractDataTable) dataTable);
             // TODO nick - do we need this element if "columnsWidth" is absent?
             writer.startElement(HtmlConstants.COLGROUP_ELEMENT, dataTable);

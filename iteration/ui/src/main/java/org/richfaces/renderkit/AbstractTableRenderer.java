@@ -22,18 +22,17 @@
 
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-import java.util.Iterator;
+import org.richfaces.component.Row;
+import org.richfaces.component.UIDataTableBase;
+import org.richfaces.component.util.HtmlUtil;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-
-import org.richfaces.component.Row;
-import org.richfaces.component.UIDataTableBase;
-import org.richfaces.component.util.HtmlUtil;
+import java.io.IOException;
+import java.util.Iterator;
 
 /**
  * @author Anton Belevich
@@ -125,7 +124,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         Object key = dataTable.getRowKey();
         dataTable.captureOrigValue(context);
         dataTable.setRowKey(context, null);
-        
+
         encodeTableStructure(writer, context, dataTable);
         
         encodeHeaderFacet(writer, context, dataTable, false);
@@ -236,7 +235,6 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
        
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE,  clientId + ":tb", null);
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, getTableBodySkinClass(), null);
-        encodeStyle(writer, facesContext, dataTableBase, null);
     }
     
     public void encodeTableBodyEnd(ResponseWriter writer) throws IOException {
