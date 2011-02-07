@@ -189,7 +189,7 @@
 					</sample>
 				</samples>
 			</demo>
-			<!-- demo new="true">
+			<demo new="true">
 				<id>graphValidator</id>
 				<name>rich:graphValidator</name>
 				<samples>
@@ -198,7 +198,7 @@
 						<name>Object validation using rich:graphValidator</name>
 					</sample>
 				</samples>
-			</demo-->
+			</demo>
 			<demo new="true">
 				<id>message</id>
 				<name>rich:message</name>

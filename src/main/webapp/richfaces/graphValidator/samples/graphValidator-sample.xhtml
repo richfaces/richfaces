@@ -16,34 +16,33 @@
 }
 </style>
 	<h:form id="graphValidatorForm2">
-		<a4j:region renderRegionOnly="true">
-			<rich:graphValidator summary="Invalid values: "
-				value="#{dayStatistics}">
-				<table>
-					<thead>
+		<rich:graphValidator summary="Invalid values: "
+			value="#{dayStatistics}">
+			<table>
+				<thead>
+					<tr>
+						<th>Activity</th>
+						<th>Time</th>
+					</tr>
+				</thead>
+				<tbody>
+					<a4j:repeat value="#{dayStatistics.dayPasstimes}" var="pt"
+						id="table">
 						<tr>
-							<th>Activity</th>
-							<th>Time</th>
+							<td align="center" width="100px"><h:outputText
+								value="#{pt.title}" /></td>
+							<td align="center" width="100px"><rich:inputNumberSpinner
+								minValue="0" maxValue="24" value="#{pt.time}" id="time">
+							</rich:inputNumberSpinner></td>
+							<td><rich:message for="time" ajaxRendered="true"/></td>
 						</tr>
-					</thead>
-					<tbody>
-						<a4j:repeat value="#{dayStatistics.dayPasstimes}" var="pt"
-							id="table">
-							<tr>
-								<td align="center" width="100px"><h:outputText
-									value="#{pt.title}" /></td>
-								<td align="center" width="100px"><rich:inputNumberSpinner
-									minValue="0" maxValue="24" value="#{pt.time}" id="time">
-								</rich:inputNumberSpinner></td>
-								<td><rich:message for="time" /></td>
-							</tr>
-						</a4j:repeat>
-					</tbody>
-				</table>
-			</rich:graphValidator>
-			<a4j:commandButton value="Store my details"
-				actionListener="#{dayStatistics.store}" reRender="panel" />
-			<rich:messages infoClass="green" errorClass="red" />
-		</a4j:region>
+					</a4j:repeat>
+				</tbody>
+			</table>
+		</rich:graphValidator>
+		<a4j:commandButton value="Store my details"
+			actionListener="#{dayStatistics.store}" />
+		<br />
+		<rich:messages infoClass="green" errorClass="red" ajaxRendered="true" />
 	</h:form>
 </ui:composition>

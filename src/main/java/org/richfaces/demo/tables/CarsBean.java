@@ -34,7 +34,7 @@ public class CarsBean implements Serializable {
     private List<InventoryVendorList> inventoryVendorLists = null;
     private int currentCarIndex;
     private InventoryItem editedCar;
-    private int page;
+    private int page = 1;
 
     public void remove() {
         allInventoryItems.remove(allInventoryItems.get(currentCarIndex));

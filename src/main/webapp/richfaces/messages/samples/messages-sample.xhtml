@@ -11,8 +11,7 @@
 		</f:facet>
 		<h:form>
 			
-			<rich:messages 
-				showSummary="true" showDetail="true"/>
+			<rich:messages ajaxRendered="true"/>
 			<h:panelGrid columns="2">
 				<h:outputText value="Name:" />
 				<h:inputText label="Name" id="name" required="true"
@@ -35,8 +34,7 @@
 					<f:validateLength minimum="4" maximum="9" />
 				</h:inputText>
 				<f:facet name="footer">
-					<a4j:commandButton value="Ajax Validate" render="@form"/>
-					<h:commandButton value="Common Validate"/>
+					<a4j:commandButton value="Ajax Validate"/>
 				</f:facet>
 			</h:panelGrid>
 		</h:form>

@@ -16,9 +16,6 @@ a.no-decor>img {
 	<h:form id="form">
 		<rich:dataTable value="#{carsBean.allInventoryItems}" var="car"
 			iterationStatusVar="it" id="table" rows="15">
-			<f:facet name="noData">
-				Nothing found
-			</f:facet>
 			<rich:column>
 				<f:facet name="header">#</f:facet>
 				#{it.index}
@@ -80,7 +77,7 @@ a.no-decor>img {
 		<a4j:commandButton value="Delete" onclick="remove(); return false;" />
 	</rich:popupPanel>
 
-	<rich:popupPanel header="Edit Car Details" id="editPane" domElementAttachment="parent">
+	<rich:popupPanel header="Edit Car Details" id="editPane" domElementAttachment="parent" width="400" height="170">
 			<h:panelGrid columns="3" id="editGrid">
 				<h:outputText value="Vendor" />
 				<h:outputText value="#{carsBean.editedCar.vendor}" />
@@ -91,22 +88,29 @@ a.no-decor>img {
 				<h:outputText value="Price" />
 				<h:inputText value="#{carsBean.editedCar.price}" required="true"
 					requiredMessage="Price is required" id="price"
-					validatorMessage="Should be a valid price" label="Price field" />
+					converterMessage="Should be a valid price"
+					validatorMessage="Should be a valid price" label="Price field">
+					<f:validateDoubleRange/>
+				</h:inputText>
 				<rich:message id="priceMsg" for="price" ajaxRendered="true"/>
 				<h:outputText value="Mileage" />
 				<h:inputText value="#{carsBean.editedCar.mileage}" id="mage"
-					validatorMessage="Should be a valid mileage" label="Mileage field" />
+					converterMessage="Should be a valid mileage"
+					validatorMessage="Should be a valid mileage" label="Mileage field" >
+					<f:validateDoubleRange/>
+				</h:inputText>
 				<rich:message id="madeMsg" for="mage" ajaxRendered="true"/>
 				<h:outputText value="VIN" />
 				<h:inputText value="#{carsBean.editedCar.vin}" id="vin"
 					required="true" validatorMessage="Not a valid 17-digit VIN"
+					converterMessage="Not a valid 17-digit VIN"
 					requiredMessage="VIN is required">
 					<f:validateLength minimum="17" maximum="17" />
 				</h:inputText>
 				<rich:message id="vinMsg" for="vin" ajaxRendered="true"/>
 			</h:panelGrid>
 			<a4j:commandButton value="Store" action="#{carsBean.store}"
-				render="#{facesContext.maximumSeverity==null?'table':'priceMsg,vinMsg,madeMsg'}" execute="@form"
+				render="table" execute="editPane"
 				oncomplete="if (#{facesContext.maximumSeverity==null}) {#{rich:component('editPane')}.hide();}" />
 			<a4j:commandButton value="Cancel"
 				onclick="#{rich:component('editPane')}.hide(); return false;" />
