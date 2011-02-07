@@ -1,13 +1,8 @@
 package org.richfaces.renderkit;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.net.URISyntaxException;
-import java.util.List;
-
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlInput;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.DifferenceListener;
@@ -18,9 +13,9 @@ import org.junit.Test;
 import org.richfaces.renderkit.html.RendererTestBase;
 import org.xml.sax.SAXException;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import java.io.*;
+import java.net.URISyntaxException;
+import java.util.List;
 
 public class AutocompleteRendererTest extends RendererTestBase {
     
@@ -55,10 +50,10 @@ public class AutocompleteRendererTest extends RendererTestBase {
         Assert.assertNotNull(input);
         input.type("al");
 
-        //try 7 times to wait .5 second each for filling the page.
+        //try 7 times to wait 5 second each for filling the page.
         for (int i = 0; i < 7; i++) {
             synchronized (page) {
-                page.wait(500);
+                page.wait(5000);
             }
         }
         
