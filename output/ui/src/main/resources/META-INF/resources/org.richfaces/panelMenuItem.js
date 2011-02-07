@@ -64,6 +64,7 @@
             
             var params = {};
             params[item.__panelMenu().id] = item.itemName;
+            $.extend(params, item.options["ajax"]["parameters"] || {});
             
             rf.submitForm(this.__getParentForm(item), params);
 

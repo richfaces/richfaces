@@ -62,7 +62,7 @@
          * */
         execServer : function (group) {
             group.__changeState();
-            rf.submitForm(this.__getParentForm(group));
+            rf.submitForm(this.__getParentForm(group), group.options["ajax"]["parameters"] || {});
 
             return false;
         },
