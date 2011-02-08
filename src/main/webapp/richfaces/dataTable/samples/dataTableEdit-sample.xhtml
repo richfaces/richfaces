@@ -92,14 +92,14 @@ a.no-decor>img {
 					validatorMessage="Should be a valid price" label="Price field">
 					<f:validateDoubleRange/>
 				</h:inputText>
-				<rich:message id="priceMsg" for="price" ajaxRendered="true"/>
+				<rich:message id="priceMsg" for="price" />
 				<h:outputText value="Mileage" />
 				<h:inputText value="#{carsBean.editedCar.mileage}" id="mage"
 					converterMessage="Should be a valid mileage"
 					validatorMessage="Should be a valid mileage" label="Mileage field" >
 					<f:validateDoubleRange/>
 				</h:inputText>
-				<rich:message id="madeMsg" for="mage" ajaxRendered="true"/>
+				<rich:message id="madeMsg" for="mage" />
 				<h:outputText value="VIN" />
 				<h:inputText value="#{carsBean.editedCar.vin}" id="vin"
 					required="true" validatorMessage="Not a valid 17-digit VIN"
@@ -107,7 +107,7 @@ a.no-decor>img {
 					requiredMessage="VIN is required">
 					<f:validateLength minimum="17" maximum="17" />
 				</h:inputText>
-				<rich:message id="vinMsg" for="vin" ajaxRendered="true"/>
+				<rich:message id="vinMsg" for="vin" />
 			</h:panelGrid>
 			<a4j:commandButton value="Store" action="#{carsBean.store}"
 				render="table" execute="editPane"
