@@ -44,7 +44,7 @@ import com.google.common.base.Strings;
 
 /**
  * Implementation of the JSF validator to use with Bean Validation / Hibernate validator
- * 
+ * TODO - implement partial state saving.
  * @author asmirnov
  * 
  */
@@ -63,10 +63,8 @@ public class FacesBeanValidator implements Serializable, Validator, GraphValidat
     private ValueExpression groupsExpression = null;
 
     private Class<?>[] groups = null;
-    private BeanValidatorService validatorService;
 
     public FacesBeanValidator() {
-        this.validatorService = ServiceTracker.getService(BeanValidatorService.class);
     }
     /**
      * @return the summary
@@ -110,6 +108,7 @@ public class FacesBeanValidator implements Serializable, Validator, GraphValidat
             try {
                 ValueExpression valueExpression = component.getValueExpression("value");
                 if (null != valueExpression) {
+                    BeanValidatorService validatorService = ServiceTracker.getService(BeanValidatorService.class);
                     Collection<String> messages =
                         validatorService.validateExpression(context, valueExpression, convertedValue,
                             getGroups());
@@ -157,6 +156,7 @@ public class FacesBeanValidator implements Serializable, Validator, GraphValidat
 
     public Collection<String> validateGraph(FacesContext context, UIComponent component, Object value,
         Class<?>[] groups) throws ValidatorException {
+        BeanValidatorService validatorService = ServiceTracker.getService(BeanValidatorService.class);
         Collection<String> messages = validatorService.validateObject(context, value, groups);
         return messages;
     }
