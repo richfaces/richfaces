@@ -21,10 +21,6 @@
 
 package org.richfaces.component.util;
 
-import java.io.IOException;
-import java.io.NotSerializableException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -32,13 +28,9 @@ import java.util.Map.Entry;
 import javax.el.ValueExpression;
 import javax.faces.application.ProjectStage;
 import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.component.UIOutput;
 import javax.faces.component.UISelectItem;
 import javax.faces.component.UISelectItems;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
 import javax.faces.model.SelectItem;
 
 import org.richfaces.log.Logger;
@@ -57,6 +49,8 @@ public final class SelectUtils {
 
     private static final class GenericObjectSelectItem extends SelectItem {
         
+        private static final long serialVersionUID = -714217221281952395L;
+
         private static final RendererUtils UTILS = RendererUtils.getInstance();
         
         private static final String VAR = "var";
@@ -100,14 +94,6 @@ public final class SelectUtils {
                 }
             }
 
-        }
-
-        private void writeObject(ObjectOutputStream out) throws IOException {
-            throw new NotSerializableException();
-        }
-
-        private void readObject(ObjectInputStream in) throws IOException {
-            throw new NotSerializableException();
         }
 
     } 
@@ -282,41 +268,6 @@ public final class SelectUtils {
      */
     public static Iterator<SelectItem> getSelectItems(FacesContext context, UIComponent component) {
         return new SelectItemsIterator(context, component.getChildren().iterator());
-    }
-
-    public static Object getConvertedUIInputValue(FacesContext facesContext, UIInput component, String submittedValue) throws ConverterException {
-        if (InputUtils.EMPTY_STRING.equals(submittedValue)) {
-            return null;
-        }
-
-        Converter converter = SelectUtils.findConverter(facesContext, component, "value");
-        if (converter != null) {
-            return converter.getAsObject(facesContext, component, submittedValue);
-        }
-
-        return submittedValue;
-    }
-
-    public static Converter findConverter(FacesContext facesContext, UIOutput component, String property) {
-        Converter converter = component.getConverter();
-
-        if (converter == null) {
-
-            ValueExpression ve = component.getValueExpression(property);
-
-            if (ve != null) {
-
-                Class<?> valueType = ve.getType(facesContext.getELContext());
-                if ((valueType == null) || Object.class.equals(valueType)) {
-                    // No converter needed
-                } else {
-                    converter = facesContext.getApplication().createConverter(valueType);
-                }
-
-            }
-        }
-
-        return converter;
     }
 
 }

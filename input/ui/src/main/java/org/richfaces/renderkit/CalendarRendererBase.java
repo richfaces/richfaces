@@ -22,17 +22,19 @@
 
 package org.richfaces.renderkit;
 
-import org.ajax4jsf.javascript.JSFunction;
-import org.ajax4jsf.javascript.JSReference;
-import org.richfaces.component.AbstractCalendar;
-import org.richfaces.component.MetaComponentResolver;
-import org.richfaces.component.Positioning;
-import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.component.util.MessageUtil;
-import org.richfaces.component.util.SelectUtils;
-import org.richfaces.context.ExtendedPartialViewContext;
-import org.richfaces.event.CurrentDateChangeEvent;
-import org.richfaces.utils.CalendarHelper;
+import java.io.IOException;
+import java.text.DateFormatSymbols;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -42,11 +44,19 @@ import javax.faces.context.PartialViewContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.DateTimeConverter;
-import java.io.IOException;
-import java.text.DateFormatSymbols;
-import java.text.Format;
-import java.text.SimpleDateFormat;
-import java.util.*;
+
+import org.ajax4jsf.javascript.JSFunction;
+import org.ajax4jsf.javascript.JSReference;
+import org.richfaces.component.AbstractCalendar;
+import org.richfaces.component.MetaComponentResolver;
+import org.richfaces.component.Positioning;
+import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.component.util.InputUtils;
+import org.richfaces.component.util.InputUtils.ConverterLookupStrategy;
+import org.richfaces.component.util.MessageUtil;
+import org.richfaces.context.ExtendedPartialViewContext;
+import org.richfaces.event.CurrentDateChangeEvent;
+import org.richfaces.utils.CalendarHelper;
 
 /**
  * @author amarkhel
@@ -142,6 +152,41 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
     
     private static final String SECONDS_VALUE = "seconds";
 
+    protected final ConverterLookupStrategy calendarConverterLookupStrategy = new ConverterLookupStrategy() {
+        
+        public Converter getConverterByValue(FacesContext context, UIComponent component, Object value) throws ConverterException {
+            AbstractCalendar calendar = (AbstractCalendar) component;
+            Converter converter = calendar.getConverter();
+            
+            if (converter == null && value != null) {
+                converter = InputUtils.getConverterForType(context, value.getClass());
+            }
+
+            // in case the converter hasn't been set, try to use default 
+            // DateTimeConverter
+            if (converter == null) {
+                converter = createDefaultConverter(context);
+            }
+            
+            setupConverter(context, converter, (AbstractCalendar) component);
+            return converter;
+        }
+    
+        public Converter getConverterByProperty(FacesContext context, UIComponent component) throws ConverterException {
+            AbstractCalendar calendar = (AbstractCalendar) component;
+            Converter converter = InputUtils.findConverter(context, calendar, "value"); 
+
+            // in case the converter hasn't been set, try to use default 
+            // DateTimeConverter
+            if (converter == null) {
+                converter = createDefaultConverter(context);
+            }
+            
+            setupConverter(context, converter, calendar);
+            return converter;
+        }
+    };
+    
     protected void doDecode(FacesContext context, UIComponent component) {
         if (!(component instanceof AbstractCalendar)) {
             return;
@@ -190,53 +235,16 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
             return submittedValue;
         }
 
-        // Store submitted value in the local variable as a string
-        String newValue = (String) submittedValue;
-        // if we have no local value, try to get the valueExpression.
-        AbstractCalendar calendar = (AbstractCalendar) component;
-        Converter converter = SelectUtils.findConverter(facesContext, calendar, "value"); 
-
-        // in case the converter hasn't been set, try to use default 
-        // DateTimeConverter
-        if (converter == null) {
-            converter = createDefaultConverter(facesContext);
-        }
-        
-        setupConverter(facesContext, converter, calendar);
-        return converter.getAsObject(facesContext, component, newValue);
+        return InputUtils.getConvertedValue(facesContext, component, calendarConverterLookupStrategy, submittedValue);
     }
-    
+
     @Override
     public String getInputValue(FacesContext facesContext, UIComponent component) {
         if (!(component instanceof AbstractCalendar)) {
             return null;
         }
         
-        AbstractCalendar calendar = (AbstractCalendar) component;
-        String value = (String) calendar.getSubmittedValue();
-        if (value == null) {
-            Object curVal = calendar.getValue();
-            Converter converter = SelectUtils.findConverter(facesContext, calendar, "value");
-            
-            if (converter == null) {
-                converter = createDefaultConverter(facesContext);
-            }
-            
-            setupConverter(facesContext, converter, calendar);
-                        
-            if (converter != null) {
-                value = converter.getAsString(facesContext, calendar, curVal);
-            } else {
-                value = curVal != null ? curVal.toString() : ""; 
-            }
-        }
-
-        if (value == null) {
-            value = "";
-        }
-
-        return value;
-
+        return InputUtils.getInputValue(facesContext, component, calendarConverterLookupStrategy);
     }
     
     public String getButtonIcon(FacesContext facesContext, UIComponent component) {

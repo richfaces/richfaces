@@ -32,20 +32,16 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import javax.faces.FacesException;
 import javax.faces.application.ViewHandler;
-import javax.faces.component.EditableValueHolder;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIForm;
 import javax.faces.component.UIParameter;
 import javax.faces.component.UIViewRoot;
-import javax.faces.component.ValueHolder;
 import javax.faces.component.behavior.ClientBehaviorContext.Parameter;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import javax.faces.convert.Converter;
 
 import org.ajax4jsf.Messages;
 import org.ajax4jsf.component.JavaScriptParameter;
@@ -487,77 +483,6 @@ public final class RendererUtils {
         }
 
         return result;
-    }
-
-    /**
-     * Return converted value for {@link javax.faces.component.ValueHolder} as
-     * String, perform nessesary convertions.
-     *
-     * @param context
-     * @param component
-     * @return
-     */
-    public String getValueAsString(FacesContext context, UIComponent component) {
-
-        // First - get submitted value for input components
-        if (component instanceof EditableValueHolder) {
-            EditableValueHolder input = (EditableValueHolder) component;
-            String submittedValue = (String) input.getSubmittedValue();
-
-            if (null != submittedValue) {
-                return submittedValue;
-            }
-        }
-
-        // If no submitted value presented - convert same for UIInput/UIOutput
-        if (component instanceof ValueHolder) {
-            return formatValue(context, component, ((ValueHolder) component).getValue());
-        } else {
-            throw new IllegalArgumentException(
-                Messages.getMessage(Messages.CONVERTING_NON_VALUE_HOLDER_COMPONENT_ERROR, component.getId()));
-        }
-    }
-
-    /**
-     * Convert any object value to string. If component instance of
-     * {@link ValueHolder } got {@link Converter} for formatting. If not,
-     * attempt to use converter based on value type.
-     *
-     * @param context
-     * @param component
-     * @return
-     */
-    public String formatValue(FacesContext context, UIComponent component, Object value) {
-        if (value instanceof String) {
-            return (String) value;
-        }
-
-        Converter converter = null;
-
-        if (component instanceof ValueHolder) {
-            ValueHolder holder = (ValueHolder) component;
-
-            converter = holder.getConverter();
-        }
-
-        if ((null == converter) && (null != value)) {
-            try {
-                converter = context.getApplication().createConverter(value.getClass());
-            } catch (FacesException e) {
-
-                // TODO - log converter exception.
-            }
-        }
-
-        if (null == converter) {
-            if (null != value) {
-                return value.toString();
-            }
-        } else {
-            return converter.getAsString(context, component, value);
-        }
-
-        return "";
     }
 
     public String encodePx(String value) {

@@ -22,14 +22,14 @@
 
 package org.richfaces.renderkit;
 
-import org.richfaces.component.util.SelectUtils;
+import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-import java.util.Map;
+
+import org.richfaces.component.util.InputUtils;
 
 /**
  * @author Nick Belaevski - nbelaevski@exadel.com
@@ -50,32 +50,10 @@ public class InputRendererBase extends RendererBase {
     }
 
     public Object getConvertedValue(FacesContext context, UIComponent component, Object val) throws ConverterException {
-        return SelectUtils.getConvertedUIInputValue(context, (UIInput) component, (String) val);
+        return InputUtils.getConvertedValue(context, component, val);
     }
 
-    public String getInputValue(FacesContext context, UIComponent component) {
-        UIInput input = (UIInput) component;
-        String value = (String) input.getSubmittedValue();
-
-        if (value == null) {
-            Object curVal = input.getValue();
-            Converter converter = SelectUtils.findConverter(context, input, "value");
-
-            if (converter != null) {
-                value = converter.getAsString(context, input, curVal);
-            } else {
-                if (curVal == null) {
-                    value = "";
-                } else {
-                    value = curVal.toString();
-                }
-            }
-        }
-
-        if (value == null) {
-            value = "";
-        }
-
-        return value;
+    public String getInputValue(FacesContext context, UIComponent component) throws ConverterException {
+        return InputUtils.getInputValue(context, component);
     }
 }
