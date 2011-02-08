@@ -78,7 +78,7 @@ import com.google.common.collect.Lists;
 public class ClientValidatorImpl extends AjaxBehavior implements ClientValidatorBehavior {
     
 
-    private static final Set<String> NONE = Collections.singleton("@none");
+    private static final Set<String> NONE = Collections.emptySet();
 
     private static final Set<String> THIS = Collections.singleton("@this");
 

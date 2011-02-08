@@ -52,7 +52,7 @@ import org.richfaces.cdk.annotations.Tag;
     )
 public abstract class AbstractMessages extends UIMessages implements AjaxOutput, ClientSideMessage {
 
-    @Attribute
+    @Attribute(defaultValue="true")
     public abstract boolean isAjaxRendered();
 
     @Attribute
