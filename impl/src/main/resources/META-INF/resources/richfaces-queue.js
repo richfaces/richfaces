@@ -9,18 +9,22 @@
 	  * @class
 	  * @memberOf RichFaces
 	  * @static
-	  * @name ajax
+	  * @name ajaxContainer
 	  * */
-	richfaces.ajax = richfaces.ajax || {};
+	richfaces.ajaxContainer = richfaces.ajaxContainer || {};
 	
+	if (richfaces.ajaxContainer.jsfRequest) {
+		return;
+	}
+
 	/** 
 	  * JSF 2.0 original method that sends an asynchronous ajax request to the server
 	  * see jsf.ajax.request method for parameter's description
 	  * @function
-	  * @name RichFaces.ajax.jsfRequest
+	  * @name RichFaces.ajaxContainer.jsfRequest
 	  *
 	  * */
-	richfaces.ajax.jsfRequest = jsf.ajax.request;
+	richfaces.ajaxContainer.jsfRequest = jsf.ajax.request;
 	
 	/** 
 	  * RichFaces wrapper function of JSF 2.0 original method jsf.ajax.request
@@ -35,9 +39,9 @@
 		richfaces.queue.push(source, event, options);
 	};
 		
-	richfaces.ajax.jsfResponse = jsf.ajax.response;
+	richfaces.ajaxContainer.jsfResponse = jsf.ajax.response;
 	
-	richfaces.ajax.isIgnoreResponse = function() {
+	richfaces.ajaxContainer.isIgnoreResponse = function() {
 		return richfaces.queue.isIgnoreResponse();
 	};
 	
@@ -257,7 +261,7 @@
 				log.debug("richfaces.queue: will submit request NOW");
 				var o = lastRequestedEntry.options;
 				o["AJAX:EVENTS_COUNT"] = lastRequestedEntry.eventsCount;
-				richfaces.ajax.jsfRequest(lastRequestedEntry.source, lastRequestedEntry.event, o);
+				richfaces.ajaxContainer.jsfRequest(lastRequestedEntry.source, lastRequestedEntry.event, o);
 				
 				// call event handlers
 				if (o.queueonsubmit) {
@@ -285,7 +289,7 @@
 		};
 		
 		var callEventHandler = function (handlerName, entry) {
-			handler = entry.queueOptions[handlerName];
+			var handler = entry.queueOptions[handlerName];
 			if (handler) {
 				// what is a context should be??
 				handler.call(null, entry);
@@ -397,7 +401,7 @@
 					lastRequestedEntry = null;
 					submitFirstEntry();
 				} else {
-					richfaces.ajax.jsfResponse(request, context);
+					richfaces.ajaxContainer.jsfResponse(request, context);
 				}
 			},
 

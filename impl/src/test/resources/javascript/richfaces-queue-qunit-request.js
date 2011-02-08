@@ -9,7 +9,7 @@ RichFaces.QUnit.run(function(){
 	// reference to original jsf.ajax.request function
 	test("Reference to origional jsf.ajax.request function", function() {
 		expect(1);
-		equals(RichFaces.ajax.jsfRequest, jsf_ajax_request);
+		equals(RichFaces.ajaxContainer.jsfRequest, jsf_ajax_request);
 	});
 
 	// default queue id
@@ -66,7 +66,7 @@ RichFaces.QUnit.run(function(){
 	test("jsf.ajax.request - parameters", function() {
 		expect(5);
 
-		RichFaces.ajax.jsfRequest = function (source, event, options) {
+		RichFaces.ajaxContainer.jsfRequest = function (source, event, options) {
 			for (var i=0; i<jsf.ajax.eventHandlers.length;i++) {
 				jsf.ajax.eventHandlers[i]({type:"event", status:"success"});
 			}
@@ -91,7 +91,7 @@ RichFaces.QUnit.run(function(){
 	test("jsf.ajax.request - queueId", function() {
 		expect(3);
 
-		RichFaces.ajax.jsfRequest = function (source, event, options) {
+		RichFaces.ajaxContainer.jsfRequest = function (source, event, options) {
 			for (var i=0; i<jsf.ajax.eventHandlers.length;i++) {
 				jsf.ajax.eventHandlers[i]({type:"event", status:"success"});
 			}
@@ -116,7 +116,7 @@ RichFaces.QUnit.run(function(){
 	test("jsf.ajax.request - 2 x queueId", function() {
 		expect(3);
 
-		RichFaces.ajax.jsfRequest = function (source, event, options) {
+		RichFaces.ajaxContainer.jsfRequest = function (source, event, options) {
 			for (var i=0; i<jsf.ajax.eventHandlers.length;i++) {
 				jsf.ajax.eventHandlers[i]({type:"event", status:"success"});
 			}
@@ -158,7 +158,7 @@ RichFaces.QUnit.run(function(){
 				RichFaces.queue.clear();
 			}
 		}
-		RichFaces.ajax.jsfRequest = function (source, event, options) {
+		RichFaces.ajaxContainer.jsfRequest = function (source, event, options) {
 			for (var i=0; i<jsf.ajax.eventHandlers.length;i++) {
 				jsf.ajax.eventHandlers[i]({type:"event", status:"success"});
 			}
@@ -202,7 +202,7 @@ RichFaces.QUnit.run(function(){
 				RichFaces.queue.clear();
 			}
 		}
-		RichFaces.ajax.jsfRequest = function (source, event, options) {
+		RichFaces.ajaxContainer.jsfRequest = function (source, event, options) {
 			for (var i=0; i<jsf.ajax.eventHandlers.length;i++) {
 				jsf.ajax.eventHandlers[i]({type:"event", status:"success"});
 			}
@@ -256,7 +256,7 @@ RichFaces.QUnit.run(function(){
 				RichFaces.queue.clear();
 			}
 		}
-		RichFaces.ajax.jsfRequest = function (source, event, options) {
+		RichFaces.ajaxContainer.jsfRequest = function (source, event, options) {
 			for (var i=0; i<jsf.ajax.eventHandlers.length;i++) {
 				jsf.ajax.eventHandlers[i]({type:"event", status:"success"});
 			}
