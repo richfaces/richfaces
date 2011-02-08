@@ -1058,8 +1058,7 @@
 			var daydata = this.days[parseInt(obj.id.substr(this.DATE_ELEMENT_ID.length),10)];
 			if (daydata.enabled && daydata._month==0)
 			{
-				var date=new Date(this.currentDate);
-				date.setUTCDate(daydata.day);
+				var date = rf.calendarUtils.createDate(this.currentDate.getFullYear(), this.currentDate.getMonth(), daydata.day);
 				if (this.timeType)
 				{
 					date = this.setupTimeForDate(date);
@@ -1555,8 +1554,7 @@
 			{
 				var daydata = this.days[parseInt(this.todayCellId.substr(this.DATE_ELEMENT_ID.length),10)];
 				var today = new Date();
-				var date = new Date(today.getFullYear(), today.getMonth());
-				date.setUTCDate(today.getDate());
+				var date = new Date(today);
 				if (this.timeType)
 				{
 					date = this.setupTimeForDate(date);
