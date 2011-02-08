@@ -43,10 +43,10 @@ public abstract class AbstractMenuGroup extends UIOutput {
     public abstract Positioning getJointPoint();
     
     @Attribute
-    public abstract String getVerticalOffset();
+    public abstract int getVerticalOffset();
     
     @Attribute
-    public abstract String getHorizontalOffset();
+    public abstract int getHorizontalOffset();
     
     @Attribute(hidden = true)
     public abstract Object getValue();

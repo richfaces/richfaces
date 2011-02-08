@@ -2,6 +2,9 @@
 	rf.ui = rf.ui || {};
 	var defaultOptions = {
 		showEvent : 'mouseenter',
+        direction : "AA",
+		jointPoint : "AA",
+        positionType : "DDMENUGROUP",
 		showDelay : 300,
 		itemCss : "rf-ddm-itm"
 	}

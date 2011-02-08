@@ -2,9 +2,9 @@
 	rf.ui = rf.ui || {};
 
 	var defaultOptions = {
-		direction : "AA",
-		jointPoint : "AA",
-		positionType : "DROPDOWN"
+		positionType : "DROPDOWN",
+        direction : "AA",
+		jointPoint : "AA"
 	};
 
 	// constructor definition
@@ -39,15 +39,14 @@
 			initiateGroups : function(groupOptions) {
 				for (var i in groupOptions) {
 					var groupId = groupOptions[i].id;
-					var positionOffset = [groupOptions[i].horizontalOffset,
-							groupOptions[i].verticalOffset];
 					if (null != groupId) {
 						this.groupList[groupId] = new RichFaces.ui.MenuGroup(
 								groupId, {
 									rootMenuId : this.id,
 									onshow : groupOptions[i].onshow,
 									onhide : groupOptions[i].onhide,
-									positionOffset : positionOffset,
+                                    horizontalOffset: groupOptions[i].horizontalOffset,
+                                    verticalOffset: groupOptions[i].verticalOffset,
 									jointPoint : groupOptions[i].jointPoint,
 									direction : groupOptions[i].direction
 								});

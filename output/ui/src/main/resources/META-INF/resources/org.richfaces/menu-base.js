@@ -8,7 +8,7 @@
 		showDelay : 50,
 		hideDelay : 300,
 		verticalOffset : 0,
-		horisantalOffset : 0,
+		horizontalOffset : 0,
 		showEvent : 'mouseover',
 		positionOffset : [0, 0],
 		itemCss : "rf-ddm-itm",
@@ -36,7 +36,7 @@
 		this.options.attachTo = this.id;
 		this.options.attachToBody = false;
 
-		this.options.positionOffset = [this.options.horisantalOffset,
+		this.options.positionOffset = [this.options.horizontalOffset,
 				this.options.verticalOffset];
 		this.popup = new RichFaces.ui.Popup(this.id + "_list", {
 					attachTo : this.id,
@@ -121,7 +121,7 @@
 					this.displayed = false;
 					this.__deselectCurrentItem();
 					this.currentSelectedItemIndex = -1;
-					parentMenu = rf.$(this.__getParentMenu());
+					var parentMenu = rf.$(this.__getParentMenu());
 					if (this.id != parentMenu.id) {
 						parentMenu.popupElement.focus();
 						rf.ui.MenuManager.setActiveSubMenu(parentMenu);
@@ -211,7 +211,6 @@
 			},
 
 			__leaveHandler : function() {
-				//console.log('__leaveHandler showTimeoutId:'+ this.showTimeoutId);				
 				this.hideTimeoutId = window.setTimeout($.proxy(function() {
 									this.hide();
 								}, this), this.options.hideDelay);
@@ -226,7 +225,7 @@
 				// clean up code here
 				this.detach(this.id);
 
-				rf.Event.unbind(this.popupElement, "keydown" + this.namespace)
+				rf.Event.unbind(this.popupElement, "keydown" + this.namespace);
 
 				// call parent's destroy method
 				$super.destroy.call(this);
