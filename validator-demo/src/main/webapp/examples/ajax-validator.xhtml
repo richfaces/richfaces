@@ -3,6 +3,7 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:csv="http://richfaces.org/csv"
+	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 <ui:composition template="/layout/template.xhtml">
 	<ui:param name="title" value="JSF validator by AJAX" />
@@ -19,6 +20,8 @@
 			</h:inputText>
 			<h:outputText id="out" value="#{test.value}"></h:outputText>
 			<csv:message id="uiMessage" for="text" />
+			<h:commandButton value="Submit form"/>
+            <a4j:commandButton value="AJAX Submit" render="out"/>
 		</h:form>
 		<csv:messages />
 	</ui:define>

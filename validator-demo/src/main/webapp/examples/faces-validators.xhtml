@@ -39,9 +39,12 @@
             <csv:message for="longrange" />
 
 			</h:panelGrid>
-			<h:commandButton value="Submit">
+			<h:commandButton value="Submit form with client-side validation">
                 <csv:validator/>
 			</h:commandButton>
+            <a4j:commandButton value="AJAX Submit with client-side validation" render="lengthOut,dblrangeOut,longrangeOut">
+                <csv:validator/>
+            </a4j:commandButton>
 		</h:form>
 		<csv:messages />
 	</ui:define>
