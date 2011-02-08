@@ -81,45 +81,39 @@ public abstract class AbstractTabPanel extends AbstractTogglePanel {
     @Attribute
     public abstract String getTabHeaderClass();
 
-    @Attribute(events = @EventName("itemchange"))
-    public abstract String getOnitemchange();
+    @Attribute(hidden = true)
+    public boolean isBypassUpdates() {
+        throw new IllegalStateException("this method shouldn't be used");
+    }
 
-    @Attribute(events = @EventName("beforeitemchange"))
-    public abstract String getOnbeforeitemchange();
+    @Attribute(hidden = true)
+    public boolean isLimitRender() {
+        throw new IllegalStateException("this method shouldn't be used");
+    }
 
-    @Attribute
-    public abstract String getLang();
+    @Attribute(hidden = true)
+    public boolean isCycledSwitching() {
+        throw new IllegalStateException("this method shouldn't be used");
+    }
 
-    @Attribute
-    public abstract String getTitle();
+    @Attribute(hidden = true)
+    public Object getData() {
+        throw new IllegalStateException("this method shouldn't be used");
+    }
 
-    @Attribute
-    public abstract String getStyle();
+    @Attribute(hidden = true)
+    public String getStatus() {
+        throw new IllegalStateException("this method shouldn't be used");
+    }
 
-    @Attribute
-    public abstract String getStyleClass();
+    @Attribute(hidden = true)
+    public Object getExecute() {
+        throw new IllegalStateException("this method shouldn't be used");
+    }
 
-    @Attribute
-    public abstract String getDir();
+    @Attribute(hidden = true)
+    public Object getRender() {
+        throw new IllegalStateException("this method shouldn't be used");
+    }
 
-    @Attribute(events = @EventName("click"))
-    public abstract String getOnclick();
-
-    @Attribute(events = @EventName("dblclick"))
-    public abstract String getOndblclick();
-
-    @Attribute(events = @EventName("mousedown"))
-    public abstract String getOnmousedown();
-
-    @Attribute(events = @EventName("mousemove"))
-    public abstract String getOnmousemove();
-
-    @Attribute(events = @EventName("mouseout"))
-    public abstract String getOnmouseout();
-
-    @Attribute(events = @EventName("mouseover"))
-    public abstract String getOnmouseover();
-
-    @Attribute(events = @EventName("mouseup"))
-    public abstract String getOnmouseup();
 }
