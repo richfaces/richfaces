@@ -92,11 +92,6 @@ public abstract class AbstractTabPanel extends AbstractTogglePanel {
     }
 
     @Attribute(hidden = true)
-    public boolean isCycledSwitching() {
-        throw new IllegalStateException("this method shouldn't be used");
-    }
-
-    @Attribute(hidden = true)
     public Object getData() {
         throw new IllegalStateException("this method shouldn't be used");
     }

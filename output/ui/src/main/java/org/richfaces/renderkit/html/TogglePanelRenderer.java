@@ -60,9 +60,10 @@ public class TogglePanelRenderer extends DivPanelRenderer {
 
     public static final String VALUE_POSTFIX = "-value";
 
+    protected static final String ITEM_CHANGE = "itemchange";
+    protected static final String BEFORE_ITEM_CHANGE = "beforeitemchange";
+
     private static final String ON = "on";
-    private static final String ITEM_CHANGE = "itemchange";
-    private static final String BEFORE_ITEM_CHANGE = "beforeitemchange";
 
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
