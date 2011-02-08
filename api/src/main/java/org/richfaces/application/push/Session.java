@@ -51,6 +51,4 @@ public interface Session {
     
     public void invalidate();
 
-    public void destroy();
-    
 }

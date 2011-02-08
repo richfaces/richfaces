@@ -40,13 +40,21 @@ public class SessionManagerImpl implements SessionManager {
 
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
     
+    interface DestroyableSession {
+        
+        public void destroy();
+        
+    }
+    
     private final class SessionsExpirationRunnable implements Runnable {
         public void run() {
             while (true) {
                 try {
                     Session session = sessionQueue.take();
                     sessionMap.remove(session.getId());
-                    session.destroy();
+                    if (session instanceof DestroyableSession) {
+                        ((DestroyableSession) session).destroy();
+                    }
                 } catch (InterruptedException e) {
                     LOGGER.error(e.getMessage(), e);
                 }
@@ -75,7 +83,9 @@ public class SessionManagerImpl implements SessionManager {
             for (Iterator<Session> sessionsItr = sessionMap.values().iterator(); sessionsItr.hasNext(); ) {
                 Session session = sessionsItr.next();
                 
-                session.destroy();
+                if (session instanceof DestroyableSession) {
+                    ((DestroyableSession) session).destroy();
+                }
             }
         }
         

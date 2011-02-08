@@ -96,7 +96,8 @@ public abstract class AtmospherePushHandler implements AtmosphereHandler<HttpSer
         resp.setContentType("text/plain");
         
         try {
-            session.connect(createRequest(resource, session));
+            Request request = createRequest(resource, session);
+            request.suspend();
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

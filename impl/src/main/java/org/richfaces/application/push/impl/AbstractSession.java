@@ -26,6 +26,7 @@ import java.io.IOException;
 import org.richfaces.application.push.Request;
 import org.richfaces.application.push.Session;
 import org.richfaces.application.push.SessionManager;
+import org.richfaces.application.push.impl.SessionManagerImpl.DestroyableSession;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
@@ -33,7 +34,7 @@ import org.richfaces.log.RichfacesLogger;
  * @author Nick Belaevski
  * 
  */
-public abstract class AbstractSession implements Session {
+public abstract class AbstractSession implements Session, DestroyableSession {
 
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
 
