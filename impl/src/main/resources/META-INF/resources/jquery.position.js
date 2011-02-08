@@ -122,7 +122,8 @@
 		// vertical constants:   T-top, B-bottom, M-middle, A-auto
 		// for auto: list of joinPoint-Direction pairs
 		TOOLTIP: {from:"AA", to:"AA", auto:["RTRT", "RBRT", "LTRT", "RTLT", "LTLT", "LBLT", "RTRB", "RBRB", "LBRB", "RBLB"]},
-		DROPDOWN:{from:"AA", to:"AA", auto:["LBRB", "LTRT", "RBLB", "RTLT"]}
+		DROPDOWN:{from:"AA", to:"AA", auto:["LBRB", "LTRT", "RBLB", "RTLT"]},
+        DDMENUGROUP:{from:"AA", to:"AA", auto:["RTRB", "RBRT", "LTLB", "LBLT"]}
 	};
 	
 	/** 
