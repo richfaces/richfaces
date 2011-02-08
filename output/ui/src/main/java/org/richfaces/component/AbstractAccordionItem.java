@@ -129,11 +129,11 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
     }
 
     @Attribute(generate = false)
-    public String getInactiveRightIcon() {
+    public String getRightInactiveIcon() {
         return (String) getStateHelper().eval(Properties.rightInactiveIcon, getAccordion().getItemInactiveRightIcon());
     }
 
-    public void setInactiveRightIcon(String inactiveRightIcon) {
+    public void setRightInactiveIcon(String inactiveRightIcon) {
         getStateHelper().put(Properties.rightInactiveIcon, inactiveRightIcon);
     }
 

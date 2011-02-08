@@ -27,7 +27,7 @@ class AccordionItemHeaderRenderer extends TableIconsRendererHelper<AbstractAccor
     }
 
     protected void encodeHeaderRightIcon(ResponseWriter writer, FacesContext context, AbstractAccordionItem panel) throws IOException {
-        String iconInactive = panel.isDisabled() ? panel.getRightDisabledIcon() : panel.getInactiveRightIcon();
+        String iconInactive = panel.isDisabled() ? panel.getRightDisabledIcon() : panel.getRightInactiveIcon();
         String iconActive = panel.isDisabled() ? panel.getRightDisabledIcon() : panel.getRightActiveIcon();
 
         //TODO nick - should this be "-ico-exp"? also why expanded icon state is connected with right icon alignment?
