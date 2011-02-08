@@ -488,10 +488,7 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
 
         private void logException(Exception e) {
             if (LOG.isErrorEnabled()) {
-                LOG.error(e.getMessage());
-            }
-            if (LOG.isDebugEnabled()) {
-                LOG.debug(e.getMessage(), e);
+                LOG.error(e.getMessage(), e);
             }
         }
 
