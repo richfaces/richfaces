@@ -25,7 +25,7 @@
 	<cc:implementation>
 	<span id="#{clientId}">
 		<span id="#{clientId}Popup"
-			style="#{component.attributes['popup'] ? '' : 'display: none'}">
+			style="#{component.attributes['popup'] ? 'white-space: nowrap;' : 'display: none;'}">
 			<c:choose>
 				<c:when test="#{!component.attributes['popup']}">
 					<input id="#{clientId}InputDate" autocomplete="off" style="display:none"
