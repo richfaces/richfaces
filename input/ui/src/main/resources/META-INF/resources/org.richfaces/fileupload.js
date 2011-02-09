@@ -126,8 +126,8 @@
 	    },
 	    
 	    __removeItem: function(item) {
-	    	this.items.splice(this.items.indexOf(item), 1);
-	    	this.submitedItems.splice(this.submitedItems.indexOf(item), 1);
+	    	this.items.splice(jQuery.inArray(item, this.items), 1);
+	    	this.submitedItems.splice(jQuery.inArray(item, this.submitedItems), 1);
 	    	this.__updateButtons();
 	    },
 	    
