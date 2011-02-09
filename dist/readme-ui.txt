@@ -1,6 +1,6 @@
 RichFaces - Ajax enabled JSF 2.0 component library
 =========================================================
-Version 4.0.0.M5
+Version 4.0.0.M6
 
 This software is distributed under the terms of the FSF Lesser Gnu Public License (see lgpl.txt). 
 
