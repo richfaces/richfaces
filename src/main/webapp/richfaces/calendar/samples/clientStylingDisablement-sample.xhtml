@@ -25,7 +25,7 @@
             if (curDt.getTime() - day.date.getTime() &lt; 0) return true; else return false;  
         }
         function disabledClassesProv(day){
-            if (curDt.getTime() - day.date.getTime() &gt;= 0) return 'rf-ca-boundary-dates';
+            if (curDt.getTime() - day.date.getTime() &gt;= 0) return 'rf-cal-boundary-day';
             var res = '';
             if (day.isWeekend) res+='weekendBold ';
             if (day.day%3==0) res+='everyThirdDay';
