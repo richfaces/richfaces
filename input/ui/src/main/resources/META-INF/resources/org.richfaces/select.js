@@ -371,7 +371,13 @@
            		
            		getLabel: function() {
            			return this.__getValue();
-           		}
+           		},
+           		
+                destroy: function() {
+                	this.popupList.destroy();
+                	this.popupList = null;
+                	$super.destroy.call(this);
+                }
     		}
     	})());
 

@@ -226,6 +226,9 @@
 				this.detach(this.id);
 
 				rf.Event.unbind(this.popupElement, "keydown" + this.namespace);
+				
+	        	this.popup.destroy();
+	        	this.popup = null;
 
 				// call parent's destroy method
 				$super.destroy.call(this);

@@ -105,6 +105,7 @@
          * */
         init : function (componentId, options) {
             $super.constructor.call(this, componentId);
+            this.namespace = "."+rf.Event.createNamespace(this.name, this.id);
             this.options = $.extend(this.options, DEFAULT_OPTIONS, options || {});
             this.attachToDom();
 
@@ -116,7 +117,7 @@
             this.__addUserEventHandler("beforehide");
             this.__addUserEventHandler("beforeshow");
 
-            this.popup = new RichFaces.ui.Popup(this.id, {
+            this.popup = new rf.ui.Popup(this.id, {
                 attachTo: this.target,
                 attachToBody: true,
                 positionType: "TOOLTIP",
@@ -125,14 +126,14 @@
                 direction: this.options.direction
             });
 
-            var targetElt = $(document.getElementById(this.target));
+            var handlers = {};
+            handlers[this.options.showEvent + this.namespace] = this.__showHandler;
+            handlers[this.options.hideEvent + this.namespace] = this.__hideHandler;
             
-            targetElt.bind(this.options.showEvent, $.proxy(this.__showHandler, this));
+            rf.Event.bindById(this.target, handlers, this);
 
-            var hideFunction = $.proxy(this.__hideHandler, this);
-            targetElt.bind(this.options.hideEvent, hideFunction);
             if (this.options.hideEvent == 'mouseleave') {
-            	$(document.getElementById(this.id)).bind(this.options.hideEvent, hideFunction);
+            	rf.Event.bindById(this.id, this.options.hideEvent + this.namespace, this.__hideHandler, this);
             }
         },
 
@@ -164,7 +165,7 @@
             this.hide();
 
             if (this.options.followMouse) {
-                $(document.getElementById(this.target)).unbind("mousemove", this.__mouseMoveHandler);
+            	rf.Event.unbindById(this.target, "mousemove" + this.namespace);
             }
         },
         
@@ -187,7 +188,7 @@
             this.show(event);
 
             if (this.options.followMouse) {
-                $(document.getElementById(this.target)).bind("mousemove", $.proxy(this.__mouseMoveHandler, this));
+            	rf.Event.bindById(this.target, "mousemove"+ this.namespace, this.__mouseMoveHandler, this);
             }
         },
         
@@ -283,7 +284,7 @@
         __addUserEventHandler : function (name) {
             var handler = this.options["on" + name];
             if (handler) {
-                rf.Event.bindById(this.id, name, handler);
+                rf.Event.bindById(this.id, name + this.namespace, handler);
             }
         },
 
@@ -304,6 +305,10 @@
         },
         
         destroy: function () {
+        	rf.Event.unbindById(this.id, this.namespace);
+        	rf.Event.unbindById(this.target, this.namespace);
+        	this.popup.destroy();
+        	this.popup = null;
             $super.destroy.call(this);
         }
     });

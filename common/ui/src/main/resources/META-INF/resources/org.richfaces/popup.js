@@ -78,6 +78,13 @@
 
         getId: function() {
             return this.id;
+        },
+        
+        destroy: function() {
+        	if (this.attachToBody && this.parentElement) {
+            	this.parentElement.appendChild(this.popup.get(0));
+                this.parentElement = null;
+            }
         }
     });
 
