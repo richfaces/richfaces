@@ -4,7 +4,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:in="http://richfaces.org/input"
-    xmlns:misc="http://richfaces.org/misc">
+    xmlns:misc="http://richfaces.org/misc"
+    xmlns:a4j="http://richfaces.org/a4j">
 <f:view contentType="text/html" />
 
 <h:head>
@@ -14,7 +15,7 @@
 
 <h:body>
 	<h:form id="form">
-		<div id="scroll" style="width: 500px; height:400px; overflow:auto;"  >
+		<div id="scroll" style="width: 500px; height:260px; overflow:auto;"  >
 			<fieldset>
 				<legend>InplaceSelect Test App</legend>
 				Fresh off his victory in the Florida primary, Sen. John McCain is poised to take another big prize. Former
@@ -47,6 +48,12 @@
 		<h:panelGroup id="out">
 			<h:outputText value="Entered Value: #{inputBean.value}"/>
 		</h:panelGroup>
+		
+		<!--a4j:poll render="is" interval="2000" />
+		<in:inplaceSelect id='is'  defaultLabel="Edit Text" value="#{inputBean.value}" openOnEdit="true" saveOnSelect="false">
+			<f:selectItem itemLabel="Label#1" itemValue="Value#1"/>
+			<f:selectItem itemLabel="Label#2" itemValue="Value#2"/>
+		</in:inplaceSelect-->
 	</h:form>
 </h:body>
 </html>
