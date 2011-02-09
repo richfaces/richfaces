@@ -273,8 +273,11 @@
 			"datemouseout", "datemouseover", "show", "hide", "timeselect", "beforetimeselect"];
 	
 	var updateDefaultLabel = function (value) {
-		if (!this.selectedDate) {
-			var field = rf.getDomElement(this.INPUT_DATE_ID);
+		var field = rf.getDomElement(this.INPUT_DATE_ID);
+		if (
+				(field.value == this.options.defaultLabel && !value) ||
+				(value == this.options.defaultLabel && !field.value)
+			) {
 			field.value = value;
 			if (value) {
 				$(field).addClass("rf-cal-dflt-lbl");
