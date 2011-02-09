@@ -408,7 +408,7 @@ if (!window.RichFaces) {
 				ignoreSuccess = true;
 			} else if (ignoreSuccess) {
 				return;
-			} else if (status == 'complete' && richfaces.ajaxContainer.isIgnoreResponse && richfaces.ajaxContainer.isIgnoreResponse()) {
+			} else if (status == 'complete' && richfaces.ajaxContainer && richfaces.ajaxContainer.isIgnoreResponse && richfaces.ajaxContainer.isIgnoreResponse()) {
 				return;
 			}
 
