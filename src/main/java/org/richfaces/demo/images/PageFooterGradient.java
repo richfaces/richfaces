@@ -13,7 +13,7 @@ public class PageFooterGradient extends BaseGradient {
         Dimension halfHeightDim = new Dimension();
         halfHeightDim.setSize(dim.getWidth(), dim.getHeight() / 2); 
         super.paintGradient(g2d, halfHeightDim);
-        AffineTransform transform = new AffineTransform(1, 0, 0, -1, 0, getHeight());
+        AffineTransform transform = new AffineTransform(1, 0, 0, -1, 0, getSafeHeight());
         g2d.transform(transform);
         super.paintGradient(g2d, halfHeightDim);
     }
