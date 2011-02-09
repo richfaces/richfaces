@@ -46,7 +46,7 @@ import org.richfaces.skin.SkinFactory;
 @DynamicUserResource
 public abstract class ArrowBase extends AbstractJava2DUserResource implements StateHolderResource {
 
-    private int color;
+    private Integer color;
     private String colorName = Skin.GENERAL_TEXT_COLOR;
 
     public ArrowBase(Dimension dimension) {
@@ -57,7 +57,12 @@ public abstract class ArrowBase extends AbstractJava2DUserResource implements St
     public void initialize() {
         FacesContext context = FacesContext.getCurrentInstance();
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
+        Skin defaultSkin = SkinFactory.getInstance(context).getDefaultSkin(context);
+        
         this.color = skin.getColorParameter(context, colorName);
+        if (this.color == null) {
+            this.color = defaultSkin.getColorParameter(context, colorName);
+        }
     }
 
     protected final void setColorName(String colorName) {
@@ -80,5 +85,4 @@ public abstract class ArrowBase extends AbstractJava2DUserResource implements St
     public boolean isTransient() {
         return false;
     }
-
 }

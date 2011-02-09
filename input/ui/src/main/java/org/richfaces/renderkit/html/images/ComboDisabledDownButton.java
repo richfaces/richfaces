@@ -22,19 +22,11 @@
 
 package org.richfaces.renderkit.html.images;
 
-import javax.faces.context.FacesContext;
-
-import org.richfaces.resource.PostConstructResource;
 import org.richfaces.skin.Skin;
-import org.richfaces.skin.SkinFactory;
 
 public class ComboDisabledDownButton extends ComboButtonBase {
 
-    @PostConstructResource
-    public final void initialize() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        Skin skin = SkinFactory.getInstance(context).getSkin(context);
-
-        this.arrowColor = skin.getColorParameter(context, Skin.TABLE_BORDER_COLOR);
+    public ComboDisabledDownButton() {
+        setColorName(Skin.TABLE_BORDER_COLOR);
     }
 }

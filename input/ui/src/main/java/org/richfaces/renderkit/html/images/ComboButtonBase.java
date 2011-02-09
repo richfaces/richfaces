@@ -33,19 +33,40 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.resource.AbstractJava2DUserResource;
 import org.richfaces.resource.DynamicUserResource;
+import org.richfaces.resource.PostConstructResource;
 import org.richfaces.resource.StateHolderResource;
+import org.richfaces.skin.Skin;
+import org.richfaces.skin.SkinFactory;
 
 @DynamicUserResource
 public abstract class ComboButtonBase  extends AbstractJava2DUserResource implements StateHolderResource {
 
     private static final Dimension DIMENSION = new Dimension(15, 15);
     
-    protected Integer arrowColor;
+    private Integer arrowColor;
+    private String colorName = Skin.GENERAL_TEXT_COLOR;
     
     public ComboButtonBase() {
         super(DIMENSION);
     }
    
+    @PostConstructResource
+    public final void initialize() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Skin skin = SkinFactory.getInstance(context).getSkin(context);
+        Skin defaultSkin = SkinFactory.getInstance(context).getDefaultSkin(context);
+        
+        this.arrowColor = skin.getColorParameter(context, Skin.TABLE_BORDER_COLOR);
+        this.arrowColor = skin.getColorParameter(context, colorName);
+        if (this.arrowColor == null) {
+            this.arrowColor = defaultSkin.getColorParameter(context, colorName);
+        }
+    }
+    
+    protected final void setColorName(String colorName) {
+        this.colorName = colorName;
+    }
+    
     public boolean isTransient() {
         return false;
     }

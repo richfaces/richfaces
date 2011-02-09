@@ -33,5 +33,4 @@ public class AutocompleteButtonGradient extends AutocompleteBaseGradient {
         setTopColorSkinParameter(Skin.HEADER_GRADIENT_COLOR);
         setBottomColorSkinParameter(Skin.HEADER_BACKGROUND_COLOR);
     }
-    
 }

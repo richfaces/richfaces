@@ -34,6 +34,7 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.resource.AbstractJava2DUserResource;
 import org.richfaces.resource.DynamicUserResource;
+import org.richfaces.resource.PostConstructResource;
 import org.richfaces.resource.StateHolderResource;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
@@ -51,35 +52,52 @@ public abstract class AutocompleteBaseGradient extends AbstractJava2DUserResourc
     
     private String bottomColorSkinParameter;
     
-    private Color topColor;
+    private Integer topColor;
     
-    private Color bottomColor;
+    private Integer bottomColor;
     
     public AutocompleteBaseGradient() {
         super(DIMENSION);
     }
     
+    @PostConstructResource
+    public void initialize() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Skin skin = SkinFactory.getInstance(context).getSkin(context);
+        
+        topColor = skin.getColorParameter(context, topColorSkinParameter);
+        bottomColor = skin.getColorParameter(context, bottomColorSkinParameter);
+    }
+    
     public void paint(Graphics2D graphics2d) {
+        if (topColor == null || bottomColor == null) {
+            return;
+        }
         Dimension dimension = getDimension();
         
-        GradientPaint paint = new GradientPaint(0, 0, topColor, 0, dimension.height, bottomColor);
+        GradientPaint paint = new GradientPaint(0, 0, new Color(topColor), 0, dimension.height, new Color(bottomColor));
         graphics2d.setPaint(paint);
         graphics2d.fill(new Rectangle(dimension));
     }
 
     public void writeState(FacesContext context, DataOutput dataOutput) throws IOException {
-        Skin skin = SkinFactory.getInstance(context).getSkin(context);
-        
-        Integer topColor = skin.getColorParameter(context, topColorSkinParameter);
-        Integer bottomColor = skin.getColorParameter(context, bottomColorSkinParameter);
-        
-        dataOutput.writeInt(topColor);
-        dataOutput.writeInt(bottomColor);
+        if (topColor != null && bottomColor != null) {
+            dataOutput.writeBoolean(true);
+            dataOutput.writeInt(topColor);
+            dataOutput.writeInt(bottomColor);    
+        } else {
+            dataOutput.writeBoolean(false);
+        }
     }
     
     public void readState(FacesContext context, DataInput dataInput) throws IOException {
-        topColor = new Color(dataInput.readInt());
-        bottomColor = new Color(dataInput.readInt());
+        if (dataInput.readBoolean()) {
+            topColor = dataInput.readInt();
+            bottomColor = dataInput.readInt();
+        } else {
+            topColor = null;
+            bottomColor = null;    
+        }
     }
  
     public boolean isTransient() {

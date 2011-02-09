@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.renderkit.html;
+package org.richfaces.renderkit.html.images;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -38,6 +38,7 @@ import org.richfaces.resource.AbstractJava2DUserResource;
 import org.richfaces.resource.DynamicUserResource;
 import org.richfaces.resource.ImageType;
 import org.richfaces.resource.Java2DAnimatedUserResource;
+import org.richfaces.resource.PostConstructResource;
 import org.richfaces.resource.StateHolderResource;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
@@ -56,7 +57,7 @@ public class ProgressBarAnimatedBackgroundImage extends AbstractJava2DUserResour
 
     private int frameNumber = 0;
 
-    private Color basicColor;
+    private Integer basicColor;
 
     public ProgressBarAnimatedBackgroundImage() {
         super(ImageType.GIF, DIMENSION);
@@ -78,6 +79,17 @@ public class ProgressBarAnimatedBackgroundImage extends AbstractJava2DUserResour
         return frameNumber < NUMBER_OF_FRAMES;
     }
 
+    @PostConstructResource
+    public void initialize() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Skin skin = SkinFactory.getInstance(context).getSkin(context);
+        Skin defaultSkin = SkinFactory.getInstance(context).getDefaultSkin(context);
+        basicColor = skin.getColorParameter(context, Skin.SELECT_CONTROL_COLOR);
+        if (basicColor == null) {
+            basicColor = defaultSkin.getColorParameter(context, Skin.SELECT_CONTROL_COLOR);
+        }
+    }
+    
     /**
      * Creates a main stage for progress bar background.
      * 
@@ -86,8 +98,8 @@ public class ProgressBarAnimatedBackgroundImage extends AbstractJava2DUserResour
      * @return a <code>BufferedImage</code> object
      */
     private BufferedImage createMainStage() {
-        Color progressbarBackgroundColor = basicColor;
-        Color progressbarSpiralColor = ColorUtils.adjustLightness(basicColor, 0.2f);
+        Color progressbarBackgroundColor = new Color(basicColor);
+        Color progressbarSpiralColor = ColorUtils.adjustLightness(progressbarBackgroundColor, 0.2f);
         
         Dimension dimension = getDimension();
         BufferedImage retVal = getImageType().createImage(dimension.width, dimension.height * 2);
@@ -116,8 +128,9 @@ public class ProgressBarAnimatedBackgroundImage extends AbstractJava2DUserResour
         BufferedImage mainStage = createMainStage();
         BufferedImage frame = mainStage.getSubimage(0, 48 - frameNumber * 2, dimension.width, dimension.height);
         g2d.drawImage(frame, null, null);
-        Color progressbarShadowStartColor = ColorUtils.overwriteAlpha(ColorUtils.adjustLightness(basicColor, 0.7f), 0.6f);
-        Color progressbarShadowEndColor = ColorUtils.overwriteAlpha(ColorUtils.adjustLightness(basicColor, 0.3f), 0.6f);
+        Color progressbarBackgroundColor = new Color(basicColor);
+        Color progressbarShadowStartColor = ColorUtils.overwriteAlpha(ColorUtils.adjustLightness(progressbarBackgroundColor, 0.7f), 0.6f);
+        Color progressbarShadowEndColor = ColorUtils.overwriteAlpha(ColorUtils.adjustLightness(progressbarBackgroundColor, 0.3f), 0.6f);
         // paint a shadow in the form of semi-transparent gradient
         g2d.setPaint(new GradientPaint(0, 0, progressbarShadowStartColor, 0, 7, progressbarShadowEndColor));
         g2d.fillRect(0, 0, dimension.width, 7);
@@ -128,14 +141,10 @@ public class ProgressBarAnimatedBackgroundImage extends AbstractJava2DUserResour
     }
 
     public void writeState(FacesContext context, DataOutput dataOutput) throws IOException {
-        // TODO Auto-generated method stub
-        Skin skin = SkinFactory.getInstance(context).getSkin(context);
-        Integer color = skin.getColorParameter(context, Skin.SELECT_CONTROL_COLOR);
-        dataOutput.writeInt(color.intValue());
+        dataOutput.writeInt(basicColor);
     }
     
     public void readState(FacesContext context, DataInput dataInput) throws IOException {
-        basicColor = new Color(dataInput.readInt());
+        basicColor = dataInput.readInt();
     }
-
 }

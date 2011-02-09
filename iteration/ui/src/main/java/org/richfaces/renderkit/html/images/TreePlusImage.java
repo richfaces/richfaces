@@ -60,13 +60,21 @@ public class TreePlusImage extends AbstractJava2DUserResource implements StateHo
 
     @PostConstructResource
     public void init() {
+        generalColorValue = getColorParameter(Skin.GENERAL_TEXT_COLOR);
+        controlColorValue = getColorParameter(Skin.CONTROL_BACKGROUND_COLOR);
+        trimColorValue = getColorParameter(Skin.TRIM_COLOR);
+    }
+    
+    protected Integer getColorParameter(String property) {
         FacesContext context = FacesContext.getCurrentInstance();
-
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
+        Skin defaultSkin = SkinFactory.getInstance(context).getDefaultSkin(context);
 
-        generalColorValue = skin.getColorParameter(context, Skin.GENERAL_TEXT_COLOR);
-        controlColorValue = skin.getColorParameter(context, Skin.CONTROL_BACKGROUND_COLOR);
-        trimColorValue = skin.getColorParameter(context, Skin.TRIM_COLOR);
+        Integer value = skin.getColorParameter(context, property);
+        if (value == null) {
+            value = defaultSkin.getColorParameter(context, property);
+        }
+        return value;
     }
 
     protected void drawFrame(Graphics2D g2d) {
@@ -108,7 +116,7 @@ public class TreePlusImage extends AbstractJava2DUserResource implements StateHo
     }
 
     public void readState(FacesContext context, DataInput dataInput) throws IOException {
-        generalColorValue = dataInput.readInt();
+        generalColorValue =  dataInput.readInt();
         controlColorValue = dataInput.readInt();
         trimColorValue = dataInput.readInt();
     }
@@ -116,5 +124,4 @@ public class TreePlusImage extends AbstractJava2DUserResource implements StateHo
     public boolean isTransient() {
         return false;
     }
-
 }

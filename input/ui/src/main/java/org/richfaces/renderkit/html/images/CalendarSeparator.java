@@ -58,8 +58,12 @@ public class CalendarSeparator extends AbstractJava2DUserResource implements Sta
     public void initialize() {
         FacesContext context = FacesContext.getCurrentInstance();
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
+        Skin defaultSkin = SkinFactory.getInstance(context).getDefaultSkin(context);
         
         this.headerTextColor = skin.getColorParameter(context, Skin.HEADER_TEXT_COLOR);
+        if (this.headerTextColor == null) {
+            this.headerTextColor = defaultSkin.getColorParameter(context, Skin.HEADER_TEXT_COLOR);
+        }
     }
 
     public boolean isTransient() {

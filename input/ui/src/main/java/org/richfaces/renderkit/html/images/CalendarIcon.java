@@ -66,9 +66,17 @@ public class CalendarIcon extends AbstractJava2DUserResource implements StateHol
     public final void initialize() {
         FacesContext context = FacesContext.getCurrentInstance();
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
+        Skin defaultSkin = SkinFactory.getInstance(context).getDefaultSkin(context);
         
         this.headerTextColor = skin.getColorParameter(context, Skin.HEADER_BACKGROUND_COLOR);
+        if (this.headerTextColor == null) {
+            this.headerTextColor = defaultSkin.getColorParameter(context, Skin.HEADER_BACKGROUND_COLOR);
+        }
+        
         this.headerBackgroundColor = skin.getColorParameter(context, Skin.SELECT_CONTROL_COLOR);
+        if (this.headerBackgroundColor == null) {
+            this.headerBackgroundColor = defaultSkin.getColorParameter(context, Skin.SELECT_CONTROL_COLOR);
+        }
     }
     
     public boolean isTransient() {

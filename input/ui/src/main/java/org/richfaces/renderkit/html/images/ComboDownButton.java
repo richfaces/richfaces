@@ -22,19 +22,11 @@
 
 package org.richfaces.renderkit.html.images;
 
-import javax.faces.context.FacesContext;
-
-import org.richfaces.resource.PostConstructResource;
 import org.richfaces.skin.Skin;
-import org.richfaces.skin.SkinFactory;
 
 public class ComboDownButton extends ComboButtonBase {
 
-    @PostConstructResource
-    public final void initialize() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        Skin skin = SkinFactory.getInstance(context).getSkin(context);
-
-        this.arrowColor = skin.getColorParameter(context, Skin.GENERAL_TEXT_COLOR);
+    public ComboDownButton() {
+        setColorName(Skin.GENERAL_TEXT_COLOR);
     }
 }

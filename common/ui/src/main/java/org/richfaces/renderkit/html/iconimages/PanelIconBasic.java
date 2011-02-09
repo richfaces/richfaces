@@ -71,7 +71,12 @@ public abstract class PanelIconBasic extends AbstractJava2DUserResource implemen
     public void initialize() {
         FacesContext context = FacesContext.getCurrentInstance();
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
-        color = new Color(skin.getColorParameter(context, disabled ? "tabDisabledTextColor" : Skin.HEADER_TEXT_COLOR));
+        Skin defaultSkin = SkinFactory.getInstance(context).getDefaultSkin(context);
+        Integer colorParameter = skin.getColorParameter(context, disabled ? "tabDisabledTextColor" : Skin.HEADER_TEXT_COLOR);
+        if (colorParameter == null) {
+            colorParameter = defaultSkin.getColorParameter(context, disabled ? "tabDisabledTextColor" : Skin.HEADER_TEXT_COLOR);
+        }
+        color = new Color(colorParameter);
     }
 
     public void setDisabled(boolean topIcon) {

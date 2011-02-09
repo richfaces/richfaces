@@ -19,32 +19,32 @@ import org.richfaces.skin.SkinFactory;
 
 public abstract class ToolbarSeparatorImage implements Java2DUserResource, StateHolderResource {
 
-    private int headerBackgroundColor;
-    private int separatorHeight;
-    private int headerGradientColor;
+    private Integer headerBackgroundColor;
+    private Integer separatorHeight;
+    private Integer headerGradientColor;
 
-    public int getHeaderBackgroundColor() {
+    public Integer getHeaderBackgroundColor() {
         return headerBackgroundColor;
     }
 
-    public void setHeaderBackgroundColor(int bgColor) {
+    public void setHeaderBackgroundColor(Integer bgColor) {
         this.headerBackgroundColor = bgColor;
     }
 
-    public int getSeparatorHeight() {
+    public Integer getSeparatorHeight() {
         return separatorHeight;
     }
 
     @ResourceParameter(defaultValue = "9")
-    public void setSeparatorHeight(int separatorHeight) {
+    public void setSeparatorHeight(Integer separatorHeight) {
         this.separatorHeight = separatorHeight;
     }
 
-    public int getHeaderGradientColor() {
+    public Integer getHeaderGradientColor() {
         return headerGradientColor;
     }
 
-    public void setHeaderGradientColor(int headerGradientColor) {
+    public void setHeaderGradientColor(Integer headerGradientColor) {
         this.headerGradientColor = headerGradientColor;
     }
 
@@ -95,5 +95,9 @@ public abstract class ToolbarSeparatorImage implements Java2DUserResource, State
             tmp = (String) defaultSkin.getParameter(context, skinParameter);
         }
         this.setHeaderGradientColor(Color.decode(tmp == null ? "#CCCCFF" : tmp).getRGB());
+        
+        if (getSeparatorHeight() == null) {
+            setSeparatorHeight(0);
+        }
     }
 }

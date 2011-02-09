@@ -61,13 +61,16 @@ public class TreeLineImage extends AbstractJava2DUserResource implements StateHo
         FacesContext context = FacesContext.getCurrentInstance();
         
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
+        Skin defaultSkin = SkinFactory.getInstance(context).getDefaultSkin(context);
 
         trimColorValue = skin.getColorParameter(context, Skin.TRIM_COLOR);
+        if (trimColorValue == null) {
+            trimColorValue = defaultSkin.getColorParameter(context, Skin.TRIM_COLOR);
+        }
     }
     
     public void paint(Graphics2D g2d) {
         g2d.setColor(new Color(trimColorValue));
-        
         g2d.drawLine(7, 0, 7, 15);
     }
 
@@ -82,5 +85,4 @@ public class TreeLineImage extends AbstractJava2DUserResource implements StateHo
     public boolean isTransient() {
         return false;
     }
-
 }
