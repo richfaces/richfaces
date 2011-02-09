@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
       <div class="rf-au-fld" id="form:myAutocomplete">
         <input id="form:myAutocompleteValue" name="form:myAutocompleteValue" type="hidden"/>
-        <div class="rf-au-fld-btn">
+        <span class="rf-au-fld-btn">
           <input autocomplete="off" class="rf-au-fnt rf-au-inp" id="form:myAutocompleteInput" name="form:myAutocomplete" type="text"/>
-          <div class="rf-au-btn" id="form:myAutocompleteButton">
-            <div class="rf-au-btn-arrow">
-            </div>
-          </div>
-        </div>
+          <span class="rf-au-btn" id="form:myAutocompleteButton">
+            <span class="rf-au-btn-arrow">
+            </span>
+          </span>
+        </span>
         <div class="rf-au-lst-cord" id="form:myAutocompleteList">
           <div class="rf-au-shdw">
             <div class="rf-au-shdw-t">

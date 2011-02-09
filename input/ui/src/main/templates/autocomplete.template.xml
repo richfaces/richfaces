@@ -19,7 +19,7 @@
     <cdk:object type="java.lang.Object" name="disabled" value="#{component.attributes['disabled']}" />
         <div id="#{clientId}" class="rf-au-fld">
 			<input id="#{clientId}Value" name="#{clientId}Value" type="hidden"/>
-			<div class="#{component.attributes['showButton'] ? 'rf-au-fld-btn' : ''}">
+			<span class="#{component.attributes['showButton'] ? 'rf-au-fld-btn' : ''}">
             	<input onclick="#{component.attributes['onclick']}"
 				ondblclick="#{component.attributes['ondblclick']}"
 				onmouseup="#{component.attributes['onmouseup']}"
@@ -31,18 +31,11 @@
 				onkeydown="#{component.attributes['onkeydown']}"
 				onkeypress="#{component.attributes['onkeypress']}" id="#{clientId}Input" value="#{component.attributes['value']}"  disabled="#{disabled}" name="#{clientId}Input" type="text" class="rf-au-fnt rf-au-inp" autocomplete="off"/>
                 <c:if test="#{component.attributes['showButton']}">
-                <c:if test="#{component.attributes['disabled']}">
-                <div id="#{clientId}Button" class="rf-au-btn rf-au-btn-dis">
-                    <div class="rf-au-btn-arrow-dis"></div>
-                </div>
+                <span id="#{clientId}Button" class="rf-au-btn">
+                    <span class="rf-au-btn-arrow#{component.attributes['disabled'] ? '-dis' : ''}"></span>
+                </span>
                 </c:if>
-                <c:if test="#{!component.attributes['disabled']}">
-                <div id="#{clientId}Button" class="rf-au-btn">
-                    <div class="rf-au-btn-arrow"></div>
-                </div>
-                </c:if>
-                </c:if>
-            </div>
+            </span>
 
             <div onclick="#{component.attributes['onlistclick']}" 
 				ondblclick="#{component.attributes['onlistdblclick']}"

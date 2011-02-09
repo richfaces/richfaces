@@ -5,15 +5,18 @@
 }
 
 input.rf-au-inp {
-	border-width: 0px;
-	width: 100%;
-	padding-left: 0px;
-	padding-right: 0px;
+	background-color: '#{richSkin.controlBackgroundColor}';
+	background-image: url("#{resource['org.richfaces.renderkit.html.images.InputBackgroundImage']}");
+	background-position:1px 1px;
+	background-repeat:no-repeat;
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	vertical-align: top;
+	width: 182px;
 }
 
 .rf-au-fld{
-	width: 200px;
-	position: inline-block;
 	border-width: 1px;
 	border-style: solid;
 	border-color: '#{richSkin.panelBorderColor}';
@@ -25,7 +28,9 @@ input.rf-au-inp {
 }
 
 .rf-au-fld-btn{
-	position : relative; overflow : hidden; text-align : left; padding-right : 21px;
+	display: inline-block;
+	font-size: 1px;
+	white-space: nowrap;
 }
 
 .rf-au-btn{
@@ -33,38 +38,26 @@ input.rf-au-inp {
 	background-repeat: repeat-x;
 	background-position: top left;
 	background-color: '#{richSkin.headerBackgroundColor}';
-	text-align: center;
-	border-left-style: solid;
 	border-left-width: 1px;
+	border-left-style: solid;
 	border-left-color: '#{richSkin.panelBorderColor}';
-	width: 15px;
-	position: absolute;
-	top: 0px;
-	right: 0px;
-	height: 15px;
-	padding-top: 1px;
-	cursor: pointer;
+	display: inline-block;
+	vertical-align: top;
 }
 
-.rf-au-btn-dis{
-	background-color: '#{richSkin.headerBackgroundColor}';
-	cursor: default;
-}
-
-.rf-au-btn-arrow{
+.rf-au-btn-arrow, .rf-au-btn-arrow-dis{
 	background-position: center;
 	background-repeat: no-repeat;
-	background-image: "url(#{resource['org.richfaces.renderkit.html.images.ComboDownButton']})";
+	background-image: "url(#{resource['org.richfaces:combo_down_button.gif']})";
+	cursor: pointer;
 	width: 15px;
-	height: 15px;
+	height: 16px;
+	display: inline-block;
 }
 
 .rf-au-btn-arrow-dis{
-    background-position: center;
-    background-repeat: no-repeat;
     background-image: "url(#{resource['org.richfaces.renderkit.html.images.ComboDisabledDownButton']})";
-    width: 15px;
-    height: 15px;
+    cursor: default;
 }
 
 .rf-au-lst-cord{
