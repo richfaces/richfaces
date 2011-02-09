@@ -47,10 +47,18 @@
            			invoke.call(this,null,createParameters.call(this,richfaces.ui.DataTable.SORTING, columnId, direction, isClear));
             	},
            	
+				clearSorting: function() {
+					this.sort("", "", true);
+				},
+				
             	filter: function(columnId, filterValue, isClear) {
             		invoke.call(this,null,createParameters.call(this,richfaces.ui.DataTable.FILTERING, columnId, filterValue, isClear));
             	},
             	
+        		clearFiltering: function() {
+        			this.filter("", "", true);
+        		},
+        		
             	expandAllSubTables: function() {
            			this.invokeOnSubTables('expand');
             	}, 

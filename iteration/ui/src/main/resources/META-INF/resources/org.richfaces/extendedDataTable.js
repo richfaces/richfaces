@@ -227,7 +227,7 @@
 				filterValue = "";
 			}
 			var map = {};
-			map[id + "rich:filtering"] = colunmId + ":" + filterValue + ":" + isClear;
+			map[this.id + "rich:filtering"] = colunmId + ":" + filterValue + ":" + isClear;
 			this.ajaxFunction(null, map); // TODO Maybe, event model should be used here.
 		},
 		
@@ -237,7 +237,7 @@
 		
 		sort: function(colunmId, sortOrder, isClear) {
 			if (typeof(sortOrder) == "string") {
-				sortOrder = sortOrder.toUpperCase();
+				sortOrder = sortOrder.toLowerCase();
 			}
 			var map = {}
 			map[this.id + "rich:sorting"] = colunmId + ":" + sortOrder + ":" + isClear;
