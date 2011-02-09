@@ -36,6 +36,7 @@ import static org.richfaces.renderkit.HtmlConstants.TR_ELEMENT;
 import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
@@ -252,8 +253,15 @@ public class TabPanelRenderer extends TogglePanelRenderer {
 
     @Override
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
-        Map<String, Object> options = super.getScriptObjectOptions(context, component);
+        AbstractTogglePanel panel = (AbstractTogglePanel) component;
+
+        Map<String, Object> options = new HashMap<String, Object>();
+        options.put("activeItem", panel.getActiveItem());
+        options.put("cycledSwitching", panel.isCycledSwitching());
         options.put("isKeepHeight", attributeAsString(component, "height").length() > 0);
+
+        addEventOption(context, panel, options, ITEM_CHANGE);
+        addEventOption(context, panel, options, BEFORE_ITEM_CHANGE);
 
         return options;
     }
