@@ -63,7 +63,12 @@ public abstract class OneColorBasedResource extends AbstractJava2DUserResource i
 
     public void writeState(FacesContext context, DataOutput dataOutput) throws IOException {
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
-        dataOutput.writeInt(skin.getColorParameter(context, basicColorParamName));
+        Integer colorParameter = skin.getColorParameter(context, basicColorParamName);
+        if (colorParameter == null) {
+            Skin defaultSkin = SkinFactory.getInstance(context).getDefaultSkin(context);
+            colorParameter = defaultSkin.getColorParameter(context, basicColorParamName);
+        }   
+        dataOutput.writeInt(colorParameter);    
     }
 
     public void readState(FacesContext context, DataInput dataInput) throws IOException {

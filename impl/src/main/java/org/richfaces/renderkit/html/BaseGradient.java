@@ -55,9 +55,9 @@ public class BaseGradient extends AbstractJava2DUserResource implements StateHol
     protected Integer headerGradientColor;
     protected GradientType gradientType;
 
-    private int width;
-    private int height;
-    private int gradientHeight;
+    private Integer width;
+    private Integer height;
+    private Integer gradientHeight;
     private String baseColor;
     private String gradientColor;
     private boolean horizontal;
@@ -142,17 +142,17 @@ public class BaseGradient extends AbstractJava2DUserResource implements StateHol
     }
 
     @ResourceParameter(defaultValue = "30")
-    public final void setWidth(int width) {
+    public final void setWidth(Integer width) {
         this.width = width;
     }
     
     @ResourceParameter(defaultValue = "50")
-    public final void setHeight(int height) {
+    public final void setHeight(Integer height) {
         this.height = height;
     }
     
     @ResourceParameter(defaultValue = "20")
-    public final void setGradientHeight(int gradientHeight) {
+    public final void setGradientHeight(Integer gradientHeight) {
         this.gradientHeight = gradientHeight;
     }
     
@@ -176,22 +176,34 @@ public class BaseGradient extends AbstractJava2DUserResource implements StateHol
     }
     
     public Dimension getDimension() {
-        return new Dimension(getWidth(), getHeight());
+        return new Dimension(getSafeWidth(), getSafeHeight());
     }
 
     /**
      * @return the gradientHeight
      */
-    protected int getGradientHeight() {
+    protected Integer getGradientHeight() {
         return gradientHeight;
     }
 
-    protected int getHeight() {
+    protected Integer getHeight() {
         return height;
     }
     
-    protected int getWidth() {
+    protected Integer getWidth() {
         return width;
+    }
+    
+    protected Integer getSafeGradientHeight() {
+        return gradientHeight == null ? 0 : gradientHeight;
+    }
+
+    protected Integer getSafeHeight() {
+        return height == null ? 0 : height;
+    }
+    
+    protected Integer getSafeWidth() {
+        return width == null ? 0 : width;
     }
     
     /**
@@ -240,7 +252,7 @@ public class BaseGradient extends AbstractJava2DUserResource implements StateHol
      * @param dim
      */
     protected void paintGradient(Graphics2D g2d, Dimension dim) {
-        if ((headerBackgroundColor != null || headerGradientColor != null) && gradientType != null) {
+        if (headerBackgroundColor != null && headerGradientColor != null && gradientType != null) {
             BiColor biColor = new GradientType.BiColor(headerBackgroundColor, headerGradientColor);
 
             BiColor firstLayer = gradientType.getFirstLayerColors(biColor);
@@ -278,29 +290,62 @@ public class BaseGradient extends AbstractJava2DUserResource implements StateHol
     }
 
     public void readState(FacesContext context, DataInput dataInput) throws IOException {
-        this.width = dataInput.readShort();
-        this.height = dataInput.readShort();
-        this.gradientHeight = dataInput.readShort();
-        this.horizontal = dataInput.readBoolean();
+        this.width = readIntegerParameterAsShort(dataInput);
+        this.height = readIntegerParameterAsShort(dataInput);
+        this.gradientHeight = readIntegerParameterAsShort(dataInput);
+        this.headerBackgroundColor = readIntegerParameter(dataInput);
+        this.headerGradientColor = readIntegerParameter(dataInput);
         
-        this.headerBackgroundColor = dataInput.readInt();
-        this.headerGradientColor = dataInput.readInt();
+        this.horizontal = dataInput.readBoolean();
         this.gradientType = GradientType.values()[dataInput.readByte()];
     }
     
     public void writeState(FacesContext context, DataOutput dataOutput) throws IOException {
-        dataOutput.writeShort((short) width);
-        dataOutput.writeShort((short) height);
-        dataOutput.writeShort((short) gradientHeight);
-        dataOutput.writeBoolean(horizontal);
+        writeIntegerParameterAsShort(dataOutput, this.width);
+        writeIntegerParameterAsShort(dataOutput, this.height);
+        writeIntegerParameterAsShort(dataOutput, this.gradientHeight);
+        writeIntegerParameter(dataOutput, this.headerBackgroundColor);
+        writeIntegerParameter(dataOutput, this.headerGradientColor);
         
-        dataOutput.writeInt(this.headerBackgroundColor);
-        dataOutput.writeInt(this.headerGradientColor);
+        dataOutput.writeBoolean(this.horizontal);
         dataOutput.writeByte((byte) this.gradientType.ordinal());
     }
 
+    protected void writeIntegerParameterAsShort(DataOutput dataOutput, Integer parameter) throws IOException {
+        if (parameter != null) {
+            dataOutput.writeBoolean(true);
+            dataOutput.writeShort(parameter);
+        } else {
+            dataOutput.writeBoolean(false);
+        }
+    }
+    
+    protected Integer readIntegerParameterAsShort(DataInput dataInput) throws IOException {
+        if (dataInput.readBoolean()) {
+            return (int) dataInput.readShort();
+        } else {
+            return null;
+        }
+    }
+    
+    protected void writeIntegerParameter(DataOutput dataOutput, Integer parameter) throws IOException {
+        if (parameter != null) {
+            dataOutput.writeBoolean(true);
+            dataOutput.writeInt(parameter);
+        } else {
+            dataOutput.writeBoolean(false);
+        }
+    }
+    
+    protected Integer readIntegerParameter(DataInput dataInput) throws IOException {
+        if (dataInput.readBoolean()) {
+            return dataInput.readInt();
+        } else {
+            return null;
+        }
+    }
+    
     public boolean isTransient() {
         return false;
     }
-
 }
