@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +36,10 @@ import org.atmosphere.cpr.AtmosphereResourceEvent;
 import org.richfaces.application.push.Request;
 import org.richfaces.application.push.Session;
 import org.richfaces.application.push.SessionManager;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 /**
  * @author Nick Belaevski
@@ -44,17 +47,13 @@ import org.richfaces.application.push.SessionManager;
  */
 public abstract class AtmospherePushHandler implements AtmosphereHandler<HttpServletRequest, HttpServletResponse> {
 
-    private static final ThreadFactory DAEMON_THREADS_FACTORY = new ThreadFactory() {
+    private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
+    
+    private static final ThreadFactory BROADCASTER_THREADS_FACTORY = new ThreadFactoryBuilder().
+        setDaemon(true).setNameFormat("rf-push-worker-thread-%1$s").build();
 
-        private final AtomicInteger threadsCounter = new AtomicInteger();
-
-        public Thread newThread(Runnable r) {
-            Thread t = new Thread(r, "rf-push-worker-thread-" + threadsCounter.getAndIncrement());
-            t.setDaemon(true);
-
-            return t;
-        }
-    };
+    private static final ThreadFactory SESSION_MANAGER_THREADS_FACTORY = new ThreadFactoryBuilder().
+        setDaemon(true).setNameFormat("rf-push-session-manager-thread-%1$s").build();
 
     private static final String PUSH_SESSION_ID_PARAM = "pushSessionId";
     
@@ -65,8 +64,8 @@ public abstract class AtmospherePushHandler implements AtmosphereHandler<HttpSer
     public AtmospherePushHandler() {
         super();
         
-        sessionManager = new SessionManagerImpl(DAEMON_THREADS_FACTORY);
-        worker = Executors.newCachedThreadPool(DAEMON_THREADS_FACTORY);
+        sessionManager = new SessionManagerImpl(SESSION_MANAGER_THREADS_FACTORY);
+        worker = Executors.newCachedThreadPool(BROADCASTER_THREADS_FACTORY);
     }
 
     public SessionManager getSessionManager() {
@@ -119,7 +118,17 @@ public abstract class AtmospherePushHandler implements AtmosphereHandler<HttpSer
     }
     
     public void destroy() throws Exception {
-        sessionManager.destroy();
+        try {
+            worker.shutdown();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        
+        try {
+            sessionManager.destroy();
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
     }
     
 }

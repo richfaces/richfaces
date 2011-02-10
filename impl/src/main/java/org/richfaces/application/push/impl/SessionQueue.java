@@ -56,6 +56,8 @@ final class SessionQueue {
     
     private final Condition available = lock.newCondition();
 
+    private boolean active = true;
+    
     private static long getExpirationTime(Session session) {
         long lastAccessedTime = session.getLastAccessedTime();
         if (lastAccessedTime < 0) {
@@ -78,7 +80,7 @@ final class SessionQueue {
         final ReentrantLock lock = this.lock;
         lock.lockInterruptibly();
         try {
-            while (true) {
+            while (active) {
                 Session first = queue.peek();
                 if (first == null) {
                     available.await();
@@ -96,15 +98,19 @@ final class SessionQueue {
                     }
                 }
             }
+            
+            throw new InterruptedException("Session queue is stopping");
         } finally {
             lock.unlock();
         }
-        
     }
     
     public void remove(Session session) {
         final ReentrantLock lock = this.lock;
         lock.lock();
+
+        checkActiveState();
+        
         try {
             queue.remove(session);
         } finally {
@@ -115,6 +121,9 @@ final class SessionQueue {
     public void requeue(Session session, boolean addIfNotExists) {
         final ReentrantLock lock = this.lock;
         lock.lock();
+        
+        checkActiveState();
+        
         try {
             boolean exists = queue.remove(session);
             
@@ -130,14 +139,23 @@ final class SessionQueue {
             lock.unlock();
         }
     }
+
+    private void checkActiveState() {
+        if (!active) {
+            throw new IllegalStateException("Queue is not active");
+        }
+    }
     
-    public void clear() {
+    public void shutdown() {
         final ReentrantLock lock = this.lock;
         lock.lock();
         try {
             queue.clear();
+            active = false;
+            available.signalAll();
         } finally {
             lock.unlock();
         }
     }
+
 }

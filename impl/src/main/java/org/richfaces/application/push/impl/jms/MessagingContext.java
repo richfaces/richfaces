@@ -118,17 +118,19 @@ public class MessagingContext {
         connection.start();
     }
 
-    public void stop() throws Exception {
-        connection.close();
-        connection = null;
-    }
-
-    public Connection getConnection() {
+    protected Connection getConnection() {
         if (connection == null) {
             throw new IllegalStateException("connection is absent");
         }
 
         return connection;
+    }
+
+    public void stop() throws Exception {
+        if (connection != null) {
+            connection.close();
+            connection = null;
+        }
     }
 
     public Topic lookup(TopicKey topicKey) throws NamingException {
@@ -138,7 +140,7 @@ public class MessagingContext {
     }
 
     public javax.jms.Session createSession() throws JMSException {
-        return connection.createSession(false, javax.jms.Session.AUTO_ACKNOWLEDGE);
+        return getConnection().createSession(false, javax.jms.Session.CLIENT_ACKNOWLEDGE);
     }
 
     public String getSubscriptionClientId(Session session, TopicKey topicKey) {

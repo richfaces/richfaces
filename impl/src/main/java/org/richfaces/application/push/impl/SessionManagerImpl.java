@@ -21,8 +21,9 @@
  */
 package org.richfaces.application.push.impl;
 
-import java.util.Iterator;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 
 import org.richfaces.application.push.Session;
@@ -47,28 +48,34 @@ public class SessionManagerImpl implements SessionManager {
     }
     
     private final class SessionsExpirationRunnable implements Runnable {
+        
         public void run() {
-            while (true) {
-                try {
-                    Session session = sessionQueue.take();
-                    sessionMap.remove(session.getId());
-                    if (session instanceof DestroyableSession) {
-                        ((DestroyableSession) session).destroy();
-                    }
-                } catch (InterruptedException e) {
-                    LOGGER.error(e.getMessage(), e);
+            try {
+                Session session = sessionQueue.take();
+                
+                if (session instanceof DestroyableSession) {
+                    ((DestroyableSession) session).destroy();
                 }
-            }
 
+                sessionMap.remove(session.getId());
+                
+                executorService.submit(this);
+            } catch (InterruptedException e) {
+                LOGGER.debug(e.getMessage(), e);
+            }
         }
+
     }
     
     private ConcurrentMap<String, Session> sessionMap = new MapMaker().makeMap();
     
     private SessionQueue sessionQueue = new SessionQueue();
-    
+
+    private ExecutorService executorService;
+
     public SessionManagerImpl(ThreadFactory threadFactory) {
-        threadFactory.newThread(new SessionsExpirationRunnable()).start();
+        executorService = Executors.newSingleThreadExecutor(threadFactory);
+        executorService.submit(new SessionsExpirationRunnable());
     }
     
     public Session getPushSession(String id) {
@@ -76,16 +83,12 @@ public class SessionManagerImpl implements SessionManager {
     }
 
     public void destroy() {
-        //TODO notify all session
-        sessionQueue.clear();
+        executorService.shutdown();
+        sessionQueue.shutdown();
         
-        while (!sessionMap.isEmpty()) {
-            for (Iterator<Session> sessionsItr = sessionMap.values().iterator(); sessionsItr.hasNext(); ) {
-                Session session = sessionsItr.next();
-                
-                if (session instanceof DestroyableSession) {
-                    ((DestroyableSession) session).destroy();
-                }
+        for (Session session: sessionMap.values()) {
+            if (session instanceof DestroyableSession) {
+                ((DestroyableSession) session).destroy();
             }
         }
         

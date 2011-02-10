@@ -105,17 +105,17 @@ public class PushContextImpl implements PushContext, SystemEventListener, Atmosp
     }
 
     public void destroy() {
-        if (messagingContext != null) {
+        if (pushHandlerImpl != null) { 
             try {
-                messagingContext.stop();
+                pushHandlerImpl.destroy();
             } catch (Exception e) {
                 LOGGER.error(e.getMessage(), e);
             }
         }
 
-        if (pushHandlerImpl != null) { 
+        if (messagingContext != null) {
             try {
-                pushHandlerImpl.destroy();
+                messagingContext.stop();
             } catch (Exception e) {
                 LOGGER.error(e.getMessage(), e);
             }
