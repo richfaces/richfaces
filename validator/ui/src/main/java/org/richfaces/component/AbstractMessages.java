@@ -47,7 +47,7 @@ import org.richfaces.cdk.annotations.Tag;
         tag=@Tag(name="messages"),
         generate="org.richfaces.component.html.HtmlMessages",
         attributes={"core-props.xml","events-props.xml","i18n-props.xml"},
-        renderer=@JsfRenderer(template="/messages.template.xml")
+        renderer=@JsfRenderer(template="messages.template.xml")
         )
     )
 public abstract class AbstractMessages extends UIMessages implements AjaxOutput, ClientSideMessage {
