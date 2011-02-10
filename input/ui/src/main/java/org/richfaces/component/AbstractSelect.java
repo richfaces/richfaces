@@ -40,4 +40,17 @@ public abstract class AbstractSelect extends AbstractSelectComponent {
     
     @Attribute()
     public abstract String getMaxListHeight();
+
+    @Attribute(hidden = true)
+    public abstract String getReadyStateClass();
+
+    @Attribute(hidden = true)
+    public abstract String getEditStateClass();
+
+    @Attribute(hidden = true)
+    public abstract String getChangedStateClass();
+
+    @Attribute(hidden = true)
+    public abstract String getDisabledStateClass();
+
 }
