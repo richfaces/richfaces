@@ -9,7 +9,7 @@
 		<c:forEach items="#{demoNavigator.groups}" var="gr">
 			<rich:panelMenuGroup label="#{gr.name}">
 				<c:forEach items="#{gr.demos}" var="d">
-					<rich:panelMenuItem label="#{d.name}" action="#{d.id}"
+					<rich:panelMenuItem label="#{d.name}" action="#{d.id}" rightIcon="none"
 						mode="client" name="#{d.id}"
 						onclick="document.location='#{facesContext.externalContext.requestContextPath}/richfaces/component-sample.jsf?demo=#{d.id}&amp;skin=#{skinBean.skin}'">
 					</rich:panelMenuItem>
