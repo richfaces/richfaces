@@ -269,8 +269,6 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
 
     public abstract String getRightIconClass();
 
-    public abstract String getStyle();
-
     @Attribute(hidden = true)
     public abstract String getLeftIcon();
 
