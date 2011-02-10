@@ -48,6 +48,10 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+	<mime-mapping>
+		<extension>xcss</extension>
+		<mime-type>text/css</mime-type>
+	</mime-mapping>
 	<login-config>
 		<auth-method>BASIC</auth-method>
 	</login-config>

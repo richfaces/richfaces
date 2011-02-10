@@ -86,6 +86,10 @@
         <param-name>org.richfaces.executeAWTInitializer</param-name>
         <param-value>false</param-value>
     </context-param>
+	<mime-mapping>
+		<extension>xcss</extension>
+		<mime-type>text/css</mime-type>
+	</mime-mapping>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
