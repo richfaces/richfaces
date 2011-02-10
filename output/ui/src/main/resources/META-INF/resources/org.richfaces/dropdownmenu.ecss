@@ -94,7 +94,7 @@
 	margin : 2px 0px 2px 24px;
 }
 .rf-ddm-nd {			
-	background-image: "url(#{resource['org.richfaces.renderkit.html.images.MenuNodeImage']})";
+	background-image: "url(#{resource['org.richfaces.images:menuNodeImage.gif']})";
 	background-repeat: no-repeat;
 	background-position: top;
 	font-size: 1px;

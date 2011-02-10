@@ -22,11 +22,79 @@
 
 package org.richfaces.renderkit.html.images;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.io.IOException;
+
+import javax.faces.context.FacesContext;
+
+import org.richfaces.resource.AbstractJava2DUserResource;
+import org.richfaces.resource.DynamicUserResource;
+import org.richfaces.resource.PostConstructResource;
+import org.richfaces.resource.ResourceParameter;
+import org.richfaces.resource.StateHolderResource;
 import org.richfaces.skin.Skin;
+import org.richfaces.skin.SkinFactory;
 
-public class ComboDownButton extends ComboButtonBase {
+@DynamicUserResource
+public class ComboDownButton extends AbstractJava2DUserResource implements StateHolderResource {
 
+    private static final Dimension DIMENSION = new Dimension(15, 15);
+    
+    private Integer arrowColor;
+    
+    private boolean disabled;
+    
     public ComboDownButton() {
-        setColorName(Skin.GENERAL_TEXT_COLOR);
+        super(DIMENSION);
+    }
+    
+    @PostConstructResource
+    public final void initialize() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Skin skin = SkinFactory.getInstance(context).getSkin(context);
+        Skin defaultSkin = SkinFactory.getInstance(context).getDefaultSkin(context);
+        
+        this.arrowColor = skin.getColorParameter(context, disabled ? Skin.TABLE_BORDER_COLOR : Skin.GENERAL_TEXT_COLOR);
+        if (this.arrowColor == null) {
+            this.arrowColor = defaultSkin.getColorParameter(context, disabled ? Skin.TABLE_BORDER_COLOR : Skin.GENERAL_TEXT_COLOR);
+        }
+    }
+    
+    @ResourceParameter(defaultValue = "false")
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
+    }
+    
+    public boolean isTransient() {
+        return false;
+    }
+
+    public void writeState(FacesContext context, DataOutput dataOutput) throws IOException {
+        dataOutput.writeInt(this.arrowColor);
+    }
+
+    public void readState(FacesContext context, DataInput dataInput) throws IOException {
+        this.arrowColor = dataInput.readInt();
+    }
+
+    public void paint(Graphics2D graphics2d) {
+        graphics2d.setColor(Color.WHITE);
+        graphics2d.drawLine(4, 5, 10, 5);
+        graphics2d.drawLine(3, 6, 11, 6);
+        graphics2d.drawLine(4, 7, 10, 7);
+        graphics2d.drawLine(5, 8, 9, 8);
+        graphics2d.drawLine(6, 9, 8, 9);
+        graphics2d.drawLine(7, 10, 7, 10);
+        
+        Color arrowColor = new Color(this.arrowColor);
+        graphics2d.setColor(arrowColor);
+        graphics2d.drawLine(4, 6, 10, 6);
+        graphics2d.drawLine(5, 7, 9, 7);
+        graphics2d.drawLine(6, 8, 8, 8);
+        graphics2d.drawLine(7, 9, 7, 9);
     }
 }

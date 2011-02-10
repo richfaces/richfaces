@@ -35,6 +35,7 @@ import javax.faces.context.FacesContext;
 import org.richfaces.resource.AbstractJava2DUserResource;
 import org.richfaces.resource.DynamicUserResource;
 import org.richfaces.resource.PostConstructResource;
+import org.richfaces.resource.ResourceParameter;
 import org.richfaces.resource.StateHolderResource;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
@@ -44,19 +45,19 @@ import org.richfaces.skin.SkinFactory;
  * 
  */
 @DynamicUserResource
-public abstract class AutocompleteBaseGradient extends AbstractJava2DUserResource implements StateHolderResource {
+public class AutocompleteGradient extends AbstractJava2DUserResource implements StateHolderResource {
 
     private static final Dimension DIMENSION = new Dimension(18, 8);
   
-    private String topColorSkinParameter;
+    private String topColorParam;
     
-    private String bottomColorSkinParameter;
+    private String bottomColorParam;
     
     private Integer topColor;
     
     private Integer bottomColor;
     
-    public AutocompleteBaseGradient() {
+    public AutocompleteGradient() {
         super(DIMENSION);
     }
     
@@ -65,8 +66,8 @@ public abstract class AutocompleteBaseGradient extends AbstractJava2DUserResourc
         FacesContext context = FacesContext.getCurrentInstance();
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
         
-        topColor = skin.getColorParameter(context, topColorSkinParameter);
-        bottomColor = skin.getColorParameter(context, bottomColorSkinParameter);
+        topColor = skin.getColorParameter(context, topColorParam);
+        bottomColor = skin.getColorParameter(context, bottomColorParam);
     }
     
     public void paint(Graphics2D graphics2d) {
@@ -103,12 +104,14 @@ public abstract class AutocompleteBaseGradient extends AbstractJava2DUserResourc
     public boolean isTransient() {
         return false;
     }
-    
-    protected void setTopColorSkinParameter(String topColorSkinParameter) {
-        this.topColorSkinParameter = topColorSkinParameter;
+
+    @ResourceParameter(defaultValue = Skin.HEADER_GRADIENT_COLOR)
+    public void setTopColorParam(String topColorSkinParameter) {
+        this.topColorParam = topColorSkinParameter;
     }
-    
-    protected void setBottomColorSkinParameter(String bottomColorSkinParameter) {
-        this.bottomColorSkinParameter = bottomColorSkinParameter;
+
+    @ResourceParameter(defaultValue = Skin.HEADER_BACKGROUND_COLOR)
+    public void setBottomColorParam(String bottomColorSkinParameter) {
+        this.bottomColorParam = bottomColorSkinParameter;
     }
 }

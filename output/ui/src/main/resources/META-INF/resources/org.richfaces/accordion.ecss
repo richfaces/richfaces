@@ -10,7 +10,7 @@
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: '#{richSkin.panelBorderColor}';
-    background-image: "url(#{resource['org.richfaces.renderkit.html.GradientA']})";
+    background-image: "url(#{resource['org.richfaces.images:gradientA.png']})";
     background-repeat: repeat-x;
     background-position: top left; 
     background-color: '#{richSkin.headerBackgroundColor}';

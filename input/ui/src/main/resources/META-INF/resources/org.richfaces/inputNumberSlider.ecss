@@ -109,37 +109,37 @@ input.rf-insl-inp {
 
 
 .rf-insl-hnd {
-	background-image: url("#{resource['org.richfaces.renderkit.html.images.SliderArrowBottom']}");
+	background-image: url("#{resource['org.richfaces.images:sliderArrowBottom.png']}");
 }
 
 .rf-insl-hnd-sel {
-	background-image: url("#{resource['org.richfaces.renderkit.html.images.SliderSelectedArrowBottom']}");
+	background-image: url("#{resource['org.richfaces.images:sliderSelectedArrowBottom.png']}");
 }
 
 .rf-insl-hnd-dis {
-	background-image: url("#{resource['org.richfaces.renderkit.html.images.SliderDisabledArrowBottom']}");
+	background-image: url("#{resource['org.richfaces.images:sliderDisabledArrowBottom.png']}");
 }
 
 .rf-insl-dec {
-	background-image: url("#{resource['org.richfaces.renderkit.html.images.SliderArrowLeft']}");
+	background-image: url("#{resource['org.richfaces.images:sliderArrowLeft.png']}");
 }
 
 .rf-insl-dec-sel {
-	background-image: url("#{resource['org.richfaces.renderkit.html.images.SliderSelectedArrowLeft']}");
+	background-image: url("#{resource['org.richfaces.images:sliderSelectedArrowLeft.png']}");
 }
 
 .rf-insl-dec-dis {
-	background-image: url("#{resource['org.richfaces.renderkit.html.images.SliderDisabledArrowLeft']}");
+	background-image: url("#{resource['org.richfaces.images:sliderDisabledArrowLeft.png']}");
 }
 
 .rf-insl-inc {
-	background-image: url("#{resource['org.richfaces.renderkit.html.images.SliderArrowRight']}");
+	background-image: url("#{resource['org.richfaces.images:sliderArrowRight.png']}");
 }
 
 .rf-insl-inc-sel {
-	background-image: url("#{resource['org.richfaces.renderkit.html.images.SliderSelectedArrowRight']}");
+	background-image: url("#{resource['org.richfaces.images:sliderSelectedArrowRight.png']}");
 }
 
 .rf-insl-inc-dis {
-	background-image: url("#{resource['org.richfaces.renderkit.html.images.SliderDisabledArrowRight']}");
+	background-image: url("#{resource['org.richfaces.images:sliderDisabledArrowRight.png']}");
 }

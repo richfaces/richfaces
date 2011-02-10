@@ -15,7 +15,7 @@
 
 input.rf-sel-inp {
 	background-color: '#{richSkin.controlBackgroundColor}';
-	background-image: url("#{resource['org.richfaces.renderkit.html.images.InputBackgroundImage']}");
+	background-image: url("#{resource['org.richfaces.images:inputBackgroundImage.png']}");
 	background-position:1px 1px;
 	background-repeat:no-repeat;
 	border: 0px;
@@ -34,7 +34,7 @@ input.rf-sel-inp {
 }
 
 .rf-sel-btn{
-	background-image: "url(#{resource['org.richfaces.renderkit.html.images.AutocompleteButtonGradient']})";
+	background-image: "url(#{resource['org.richfaces.images:autocompleteButtonGradient.png']})";
 	background-repeat: repeat-x;
 	background-position: top left;
 	background-color: '#{richSkin.headerBackgroundColor}';

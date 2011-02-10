@@ -35,6 +35,7 @@ import javax.faces.context.FacesContext;
 import org.richfaces.resource.AbstractJava2DUserResource;
 import org.richfaces.resource.DynamicUserResource;
 import org.richfaces.resource.PostConstructResource;
+import org.richfaces.resource.ResourceParameter;
 import org.richfaces.resource.StateHolderResource;
 import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
@@ -47,7 +48,7 @@ import org.richfaces.skin.SkinFactory;
 public abstract class ArrowBase extends AbstractJava2DUserResource implements StateHolderResource {
 
     private Integer color;
-    private String colorName = Skin.GENERAL_TEXT_COLOR;
+    private String colorParam;
 
     public ArrowBase(Dimension dimension) {
         super(dimension);
@@ -59,14 +60,15 @@ public abstract class ArrowBase extends AbstractJava2DUserResource implements St
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
         Skin defaultSkin = SkinFactory.getInstance(context).getDefaultSkin(context);
         
-        this.color = skin.getColorParameter(context, colorName);
+        this.color = skin.getColorParameter(context, colorParam);
         if (this.color == null) {
-            this.color = defaultSkin.getColorParameter(context, colorName);
+            this.color = defaultSkin.getColorParameter(context, colorParam);
         }
     }
 
-    protected final void setColorName(String colorName) {
-        this.colorName = colorName;
+    @ResourceParameter(defaultValue = Skin.GENERAL_TEXT_COLOR)
+    public void setColorParam(String colorParam) {
+        this.colorParam = colorParam;
     }
 
     public void paint(Graphics2D graphics2d) {
