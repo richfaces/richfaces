@@ -96,7 +96,7 @@ RichFaces.QUnit.run(function(){
 				jsf.ajax.eventHandlers[i]({type:"event", status:"success"});
 			}
 			equals(typeof options.queueId, "undefined", "options.queueId");
-			equals(typeof options.requestGroupId, "undefined", "options.requestGroupId");
+			equals(typeof options.requestGroupingId, "undefined", "options.requestGroupingId");
 			equals(options.param, "value", "options.param");
 		}
 		
@@ -106,7 +106,7 @@ RichFaces.QUnit.run(function(){
 			'</table>'+
 			'</form>');
 
-		var options1 = {param:"value1", requestGroupId: 999};
+		var options1 = {param:"value1", requestGroupingId: 999};
 		RichFaces.queue.setQueueOptions({'testQueueId1': options1});
 		document.getElementById("testButton2").click({type:"onclick"});
 		RichFaces.queue.clear();
@@ -121,7 +121,7 @@ RichFaces.QUnit.run(function(){
 				jsf.ajax.eventHandlers[i]({type:"event", status:"success"});
 			}
 			equals(typeof options.queueId, "undefined", "options.queueId");
-			equals(typeof options.requestGroupId, "undefined", "options.requestGroupId");
+			equals(typeof options.requestGroupingId, "undefined", "options.requestGroupingId");
 			equals(options.param, "newValue", "options.param");
 		}
 		
@@ -131,8 +131,8 @@ RichFaces.QUnit.run(function(){
 			'</table>'+
 			'</form>');
 
-		var options1 = {queueId: 'testQueueId2', param:"value1", requestGroupId: 888};
-		var options2 = {param:"value1", requestGroupId: 777};
+		var options1 = {queueId: 'testQueueId2', param:"value1", requestGroupingId: 888};
+		var options2 = {param:"value1", requestGroupingId: 777};
 
 		RichFaces.queue.setQueueOptions({'testQueueId1': options1, 'testQueueId2': options2});
 		document.getElementById("testButton3").click({type:"onclick"});
@@ -181,8 +181,8 @@ RichFaces.QUnit.run(function(){
 		Timer.endSimulation();
 	});
 
-	//jsf.ajax.request - equal requestGroupId
-	test("jsf.ajax.request - equal requestGroupId", function() {
+	//jsf.ajax.request - equal requestGroupingId
+	test("jsf.ajax.request - equal requestGroupingId", function() {
 		Timer.beginSimulation();
 		var time;
 		var newTime;
@@ -217,7 +217,7 @@ RichFaces.QUnit.run(function(){
 			'</table>'+
 			'</form>');
 
-		var options1 = {requestGroupId: 888, requestDelay:1000};
+		var options1 = {requestGroupingId: 888, requestDelay:1000};
 
 		RichFaces.queue.setQueueOptions({'testQueueId1': options1});
 		window.setTimeout(onTimeOut, 2000);
@@ -228,8 +228,8 @@ RichFaces.QUnit.run(function(){
 		Timer.endSimulation();
 	});
 
-	//jsf.ajax.request - not equal requestGroupId
-	test("jsf.ajax.request - not equal requestGroupId", function() {
+	//jsf.ajax.request - not equal requestGroupingId
+	test("jsf.ajax.request - not equal requestGroupingId", function() {
 		Timer.beginSimulation();
 		var time;
 		var newTime;
@@ -275,8 +275,8 @@ RichFaces.QUnit.run(function(){
 			'</table>'+
 			'</form>');
 
-		var options1 = {requestGroupId: 888, requestDelay:1000};
-		var options2 = {requestGroupId: 999, requestDelay:1000};
+		var options1 = {requestGroupingId: 888, requestDelay:1000};
+		var options2 = {requestGroupingId: 999, requestDelay:1000};
 
 		RichFaces.queue.setQueueOptions({'testQueueId1': options1, 'testQueueId2': options2});
 		window.setTimeout(onTimeOut, 2000);

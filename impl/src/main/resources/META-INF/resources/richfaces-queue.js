@@ -121,15 +121,15 @@
 					}
 				}
 				
-				if (typeof this.queueOptions.requestGroupId == "undefined") {
-					this.queueOptions.requestGroupId = typeof this.source == "string" ? this.source : this.source.id;
+				if (typeof this.queueOptions.requestGroupingId == "undefined") {
+					this.queueOptions.requestGroupingId = typeof this.source == "string" ? this.source : this.source.id;
 				}
 
 				// copy of event should be created otherwise IE will fail
 				this.event = $.extend({}, event);
 		
-				//requestGroupId is mutable, thus we need special field for it
-				this.requestGroupId = this.queueOptions.requestGroupId;
+				//requestGroupingId is mutable, thus we need special field for it
+				this.requestGroupingId = this.queueOptions.requestGroupingId;
 				this.eventsCount = 1;
 			};
 	
@@ -140,15 +140,15 @@
 				},
 				
 				getRequestGroupId: function() {
-					return this.requestGroupId;
+					return this.requestGroupingId;
 				},
 				
 				setRequestGroupId: function(id) {
-					this.requestGroupId = id;
+					this.requestGroupingId = id;
 				},
 				
 				resetRequestGroupId: function() {
-					this.requestGroupId = undefined;					
+					this.requestGroupingId = undefined;
 				},
 				
 				setReadyToSubmit: function(isReady) {
@@ -306,7 +306,7 @@
 		
 		var pushEntry = function (entry) {
 			items.push(entry);
-			log.debug("New request added to queue. Queue requestGroupId changed to " + entry.getRequestGroupId());
+			log.debug("New request added to queue. Queue requestGroupingId changed to " + entry.getRequestGroupId());
 			// call event handlers
 			callEventHandler("onrequestqueue", entry);
 		}
@@ -362,12 +362,12 @@
 			  * */
 			push: function (source, event, options) {
 				var entry = new QueueEntry(this, source, event, options);
-				var requestGroupId = entry.getRequestGroupId();
+				var requestGroupingId = entry.getRequestGroupId();
 				
 				var lastEntry = getLastEntry();
 				
 				if (lastEntry) {
-					if (lastEntry.getRequestGroupId() == requestGroupId) {
+					if (lastEntry.getRequestGroupId() == requestGroupingId) {
 						log.debug("Similar request currently in queue");
 
 						log.debug("Combine similar requests and reset timer");
