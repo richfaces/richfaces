@@ -621,9 +621,9 @@
 		</demos>
 	</group>
 	<group>
-		<name>Misc Components/Features</name>
+		<name>Miscellaneous</name>
 		<demos>
-			<demo>
+			<demo> 
 				<id>standardSkinning</id>
 				<name>Standard elements skinning</name>
 				<samples>
