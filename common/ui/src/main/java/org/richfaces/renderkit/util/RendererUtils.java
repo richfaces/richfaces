@@ -558,7 +558,6 @@ public final class RendererUtils {
 
         writer.startElement(HtmlConstants.FORM_ELEMENT, component);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId, null);
-        writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, clientId, null);
         writer.writeAttribute(HtmlConstants.METHOD_ATTRIBUTE, "post", null);
         writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "margin:0; padding:0; display: inline;", null);
         writer.writeURIAttribute(HtmlConstants.ACTION_ATTRIBUTE, encodeActionURL, "action");
@@ -596,6 +595,12 @@ public final class RendererUtils {
      * @throws IOException
      */
     public void encodeEndForm(FacesContext context, ResponseWriter writer) throws IOException {
+
+        UIViewRoot viewRoot = context.getViewRoot();
+        for (UIComponent resource: viewRoot.getComponentResources(context, "form")) {
+            resource.encodeAll(context);
+        }
+
         writeState(context);
         writer.endElement(HtmlConstants.FORM_ELEMENT);
     }
