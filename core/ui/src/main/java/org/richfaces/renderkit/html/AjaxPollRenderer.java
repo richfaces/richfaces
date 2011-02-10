@@ -21,6 +21,17 @@
 
 package org.richfaces.renderkit.html;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialViewContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.event.ActionEvent;
+
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSReference;
@@ -30,16 +41,7 @@ import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.renderkit.util.HandlersChain;
-
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialViewContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.event.ActionEvent;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import org.richfaces.renderkit.util.RendererUtils;
 
 /**
  * @author shura
@@ -77,11 +79,21 @@ public class AjaxPollRenderer extends RendererBase {
 
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context,
                                UIComponent component) throws IOException {
+        
+        RendererUtils utils = getUtils();
+        boolean shouldRenderForm = utils.getNestingForm(context, component) == null;
+        String rootElementName = shouldRenderForm ? HtmlConstants.DIV_ELEM : HtmlConstants.SPAN_ELEM;
+        
         AbstractPoll poll = (AbstractPoll) component;
-        writer.startElement(HtmlConstants.SPAN_ELEM, component);
+        writer.startElement(rootElementName, component);
         writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display:none;", null);
-        getUtils().encodeId(context, component);
-        getUtils().encodeBeginFormIfNessesary(context, component);
+        utils.encodeId(context, component);
+        
+        if (shouldRenderForm) {
+            String clientId = component.getClientId(context) + RendererUtils.DUMMY_FORM_ID;
+            utils.encodeBeginForm(context, component, writer, clientId);
+        }
+        
         // polling script.
         writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
         writer.writeAttribute(HtmlConstants.TYPE_ATTR, "text/javascript", null);
@@ -112,8 +124,12 @@ public class AjaxPollRenderer extends RendererBase {
         script.append(";\n");
         writer.writeText(script.toString(), null);
         writer.endElement(HtmlConstants.SCRIPT_ELEM);
-        getUtils().encodeEndFormIfNessesary(context, component);
-        writer.endElement(HtmlConstants.SPAN_ELEM);
+        
+        if (shouldRenderForm) {
+            utils.encodeEndForm(context, writer);
+        }
+        
+        writer.endElement(rootElementName);
     }
 
     /*
