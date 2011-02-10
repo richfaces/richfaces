@@ -137,25 +137,22 @@
 		},
 
 		stop: function() {
-			if (this.options.onstop) {
-				this.options.onstop.apply(this, arguments);
-			}
+			this.__stop();
+			return this.__showHide('.rich-status-stop');
 		},
 
 		success: function() {
 			if (this.options.onsuccess) {
 				this.options.onsuccess.apply(this, arguments);
 			}
-			this.stop();
-
-			return this.__showHide('.rich-status-stop');
+			return this.stop();
 		},
 
 		error: function() {
 			if (this.options.onerror) {
 				this.options.onerror.apply(this, arguments);
 			}
-			this.stop();
+			this.__stop();
 
 			return this.__showHide(':not(.rich-status-error) + .rich-status-stop, .rich-status-error');
 		},
@@ -172,6 +169,12 @@
 				return true;
 			}
 			return false;
+		},
+		
+		__stop: function () {
+			if (this.options.onstop) {
+				this.options.onstop.apply(this, arguments);
+			}
 		}
 	});
 }(window.RichFaces, jQuery));
