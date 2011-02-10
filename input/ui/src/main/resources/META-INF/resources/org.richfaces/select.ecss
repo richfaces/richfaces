@@ -48,7 +48,7 @@ input.rf-sel-inp {
 .rf-sel-btn-arrow{
 	background-position: center;
 	background-repeat: no-repeat;
-	background-image: "url(#{resource['org.richfaces:combo_down_button.gif']})";
+	background-image: "url(#{resource['org.richfaces.images:comboDownButton.png']})";
 	cursor: pointer;
 	width: 15px;
 	height: 16px;
@@ -61,7 +61,7 @@ input.rf-sel-inp {
 
 .rf-sel-btn-dis .rf-sel-btn-arrow {
     cursor: default;
-    background-image: "url(#{resource['org.richfaces:combo_down_button_dis.gif']})";
+    background-image: "url(#{resource['org.richfaces.images:comboDisabledDownButton.png']})";
 }
 
 .rf-sel-lst-cord{
