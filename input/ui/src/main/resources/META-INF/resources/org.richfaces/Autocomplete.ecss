@@ -6,7 +6,7 @@
 
 input.rf-au-inp {
 	background-color: '#{richSkin.controlBackgroundColor}';
-	background-image: url("#{resource['org.richfaces.images.inputBackgroundImage.png']}");
+	background-image: url("#{resource['org.richfaces.images:inputBackgroundImage.png']}");
 	background-position:1px 1px;
 	background-repeat:no-repeat;
 	border: 0px;
