@@ -40,7 +40,11 @@ import org.hornetq.core.remoting.impl.netty.NettyConnectorFactory;
 import org.hornetq.core.server.HornetQServer;
 import org.hornetq.core.server.HornetQServers;
 import org.hornetq.jms.server.JMSServerManager;
+import org.hornetq.jms.server.config.ConnectionFactoryConfiguration;
+import org.hornetq.jms.server.config.impl.ConnectionFactoryConfigurationImpl;
 import org.hornetq.jms.server.impl.JMSServerManagerImpl;
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.application.push.PushContextFactory;
 
 /**
  * @author Nick Belaevski
@@ -58,6 +62,9 @@ public class HornetQInitializer implements SystemEventListener {
                 throw new AbortProcessingException(e);
             }
 
+            //force push context initialization so that its PreDestroyApplicationevent listener is added before HornetQ stopper
+            ServiceTracker.getService(PushContextFactory.class).getPushContext();
+            
             Application application = FacesContext.getCurrentInstance().getApplication();
             application.subscribeToEvent(PreDestroyApplicationEvent.class, this);
         } else {
@@ -101,11 +108,15 @@ public class HornetQInitializer implements SystemEventListener {
         serverManager = new JMSServerManagerImpl(server);  
 
         //if you want to use JNDI, simple inject a context here or don't call this method and make sure the JNDI parameters are set.  
-        serverManager.setContext(new InitialContext());  
+        InitialContext context = new InitialContext();
+        serverManager.setContext(context);  
         serverManager.start();  
 
-        serverManager.createConnectionFactory("ConnectionFactory", new TransportConfiguration(NettyConnectorFactory.class.getName()), 
-            "ConnectionFactory");
+        ConnectionFactoryConfiguration connectionFactoryConfiguration = new ConnectionFactoryConfigurationImpl("ConnectionFactory", new TransportConfiguration(NettyConnectorFactory.class.getName()), 
+            (String) null);
+        connectionFactoryConfiguration.setUseGlobalPools(false);
+        
+        serverManager.createConnectionFactory(false, connectionFactoryConfiguration, "ConnectionFactory");
         
         serverManager.createTopic(false, "chat", "/topic/chat");
         serverManager.createTopic(false, "info", "/topic/info");
