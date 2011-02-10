@@ -9,7 +9,28 @@
 	<h:head>
 	</h:head>
 	<h:body>
+        <a4j:queue requestDelay="750"></a4j:queue>
 		<h:form id="form">
+
+            <h:panelGrid columns="2">
+                <a4j:commandButton value="Set Name to Alex" render="rep ">
+                    <a4j:attachQueue requestGroupingId="group1" requestDelay="5000"/>
+                    <a4j:param name="username" value="Alex" assignTo="#{attachQueueBean.name}" />
+                    <a4j:param name="username" value="Alex" assignTo="#{attachQueueBean.name1}" />
+                </a4j:commandButton>
+
+                <a4j:commandButton value="Set Name to John" render="rep ">
+                    <a4j:attachQueue requestGroupingId="group1" requestDelay="5000" />
+                    <a4j:param name="username" value="John" assignTo="#{attachQueueBean.name1}" />
+                </a4j:commandButton>
+            </h:panelGrid>
+
+            <div>
+               <h:outputText id="rep" value="Selected Name:#{attachQueueBean.name}" />
+                <h:outputText id="rep" value="Selected Name:#{attachQueueBean.name}" />
+                <h:outputText id="rep" value="Selected Name:#{attachQueueBean.name}" />
+
+            </div>
 
 			<a4j:ajax>
 				<h:inputText />
