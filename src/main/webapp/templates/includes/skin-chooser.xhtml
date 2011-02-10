@@ -7,14 +7,11 @@
 	xmlns:rich="http://richfaces.org/rich">
 
 <ui:composition>
-	<ul id="skin-menu">
+	<ul id="skin-menu" class="layout">
 		<a4j:repeat var="skin" value="#{skinBean.skins}"
 			iterationStatusVar="iterStatus">
 			<li class="#{(skin==skinBean.skin) ? 'current-skin' : ''}"><h:link
-				includeViewParams="true">
-				<a4j:outputPanel>
-				#{skin}
-				</a4j:outputPanel>
+				includeViewParams="true"><a4j:outputPanel>#{skin}</a4j:outputPanel>
 				<f:param name="skin" value="#{skin}" />
 			</h:link></li>
 		</a4j:repeat>

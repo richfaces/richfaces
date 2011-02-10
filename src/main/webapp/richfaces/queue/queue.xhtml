@@ -19,9 +19,11 @@
 
 	<p>Pay attention to next point in the example:</p>
 	<ul>
-		<li>Setting request delay to greater value reduces the greatly
+		<li>Setting <b>requestDelay</b> to greater value reduces the greatly
 		requests count on fast typing. (More similar requests are combined in
 		the result)</li>
+		<li>Setting requestDelay to smaller value(just for easier exploration) but using <b>ignoreDupResponse</b> flag set to true 
+		- reduces greatly DOM updates count.</li>
 	</ul>
 	<p>Also pay your attention to the queue definition. Such definition
 	(inside some form without a name) means that the queue options becomes

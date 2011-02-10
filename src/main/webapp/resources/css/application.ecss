@@ -1,16 +1,17 @@
-* {
-    margin:0;
-    padding:0;
-}
 html{
     height:100%;
 }
 body{
+    margin:0;
+    padding:0;
     background:#94aebc url('#{facesContext.externalContext.requestContextPath}/images/body-bg.jpg') left bottom repeat;
     font:normal 12px 'Lucida Sans Unicode, Lucida Grande, Geneva,Verdana,Arial,sans-serif';
     height:100%;
 }
-ul{
+fieldset{
+	margin:0;
+}
+ul.layout{
     list-style:none;
 }
 a{
@@ -56,6 +57,7 @@ p{
     background:url('#{facesContext.externalContext.requestContextPath}/images/sep.gif') center right no-repeat;
     color:#fff;
     padding:0 8px 0 3px;
+    font:11px 'Lucida Sans Unicode, Lucida Grande, Geneva,Verdana,Arial,sans-serif';
 }
 #header ul.top-links li.last a{
     background:none;
@@ -83,7 +85,9 @@ p{
     height:25px;
     padding:3px 5px 0 0;
     display:inline-block;
+    font:normal 12px 'Lucida Sans Unicode, Lucida Grande, Geneva,Verdana,Arial,sans-serif';
 }
+
 #header ul#skin-menu li span:hover{
     text-decoration:underline;
 }
