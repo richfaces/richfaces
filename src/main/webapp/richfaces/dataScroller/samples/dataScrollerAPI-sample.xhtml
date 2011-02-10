@@ -17,7 +17,7 @@
 					onclick="#{rich:component('ds')}.previous()" />
 				<a4j:repeat rows="3" value="#{slidesBean.pictures}" var="pic"
 					id="pics">
-					<h:graphicImage value="#{pic.uri}" style="padding:5px;" />
+					<h:graphicImage value="#{pic.uri}" style="" />
 				</a4j:repeat>
 				<h:graphicImage value="/images/icons/scroller/arr_right.png"
 					onclick="#{rich:component('ds')}.next()" />

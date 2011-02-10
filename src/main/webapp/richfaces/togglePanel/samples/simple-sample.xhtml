@@ -11,9 +11,11 @@
 	padding:5px;
 }
 .tabDiv {
-	border: 1px solid #{   richSkin.panelBorderColor};
+	margin-right:5px;
+	border: 1px solid #{richSkin.panelBorderColor};
+	background-color: #{richSkin.headerBackgroundColor};
 	cursor:pointer;
-	width:110px;
+	width:115px;
 	padding-left:5px;
 	float:left;
 	}
@@ -32,7 +34,7 @@
 				<p>For now you are at Panel 2</p>
 			</rich:togglePanelItem>
 		</rich:togglePanel>
-		<a4j:outputPanel id="tabs">
+		<a4j:outputPanel id="tabs" layout="block">
 		<a4j:outputPanel layout="block" styleClass="tabDiv">
 			<rich:toggleControl event="click" targetPanel="panel1"
 				targetItem="item1" />
