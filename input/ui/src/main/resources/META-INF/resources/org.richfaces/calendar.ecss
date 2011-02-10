@@ -2,6 +2,11 @@
 	border : 1px solid;
 	border-color: '#{richSkin.panelBorderColor}';
 }
+
+.rf-cal-popup{
+	cursor:default;
+}
+
 .rf-cal-btn{
 	cursor : pointer;
 }
