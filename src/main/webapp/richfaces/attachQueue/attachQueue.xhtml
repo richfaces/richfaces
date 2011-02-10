@@ -5,14 +5,12 @@
 	xmlns:a4j="http://richfaces.org/a4j">
 	<p>In RichFaces 4 all request settings related to queue was moved
 	out of components attributes and now customization available using new
-	a4j:attachQueue tag. Next sample shows how requestGroupingId (former
-	similarityGroupingId) could be set for different components making the
-	requests from them similar. Besides setting requestGroupingId - attach
-	queue tag at second button redefines default queue request delay from
-	500ms to 1500ms.</p>
-
-	<p>If you will click the buttons fast - requests will be combined
-	and only last click will be processed</p>
+	<b>a4j:attachQueue</b> tag. Next sample shows how <b>requestDelay</b>
+	could be changed for single component.</p>
+	<p>Note that when you typing in input - status appears with two
+	seconds delay because <b>default queue contains requestDelay="2000"</b>.
+	And when you clicking save button - it appears immediately because <b>requestDelay
+	changed to 0 for the button</b>.</p>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
 		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
