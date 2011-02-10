@@ -66,16 +66,15 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
 
         String compClientId = component.getClientId(context);
         if (requestMap.get(compClientId) != null) {
-            AbstractPanelMenuItem panelItem = (AbstractPanelMenuItem) component;
-            new ActionEvent(panelItem).queue();
+            new ActionEvent(component).queue();
 
             if (context.getPartialViewContext().isPartialRequest()) {
 
                 //TODO nick - why render item by default?
-                context.getPartialViewContext().getRenderIds().add(panelItem.getClientId(context));
+                context.getPartialViewContext().getRenderIds().add(component.getClientId(context));
 
                 //TODO nick - this should be done on encode, not on decode
-                addOnCompleteParam(context, panelItem.getClientId(context));
+                addOnCompleteParam(context, component.getClientId(context));
             }
         }
     }

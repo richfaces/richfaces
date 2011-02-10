@@ -63,7 +63,9 @@
             //TODO nick - 'target' attribute?
             
             var params = {};
-            params[item.__panelMenu().id] = item.itemName;
+            params[item.__panelMenu().id] = item.itemName; // TODO
+            params[item.id] = item.id;
+
             $.extend(params, item.options["ajax"]["parameters"] || {});
             
             rf.submitForm(this.__getParentForm(item), params);

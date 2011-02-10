@@ -36,6 +36,7 @@ import org.richfaces.renderkit.HtmlConstants;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.event.ActionEvent;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -83,6 +84,8 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
 
         String clientId = component.getClientId(context);
         if (requestMap.get(clientId) != null) {
+            new ActionEvent(component).queue();
+
             context.getPartialViewContext().getRenderIds().add(clientId);
 
             //TODO nick - this should be done on encode, not on decode
