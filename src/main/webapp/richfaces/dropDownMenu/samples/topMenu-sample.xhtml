@@ -61,18 +61,13 @@
 						<h:outputText value="Links" />
 					</h:panelGrid>
 				</f:facet>
-				<rich:menuItem submitMode="none"
+				<rich:menuItem submitMode="client"
 					onclick="document.location.href='http://labs.jboss.com/jbossrichfaces/'">
-					<h:outputLink value="http://labs.jboss.com/jbossrichfaces/">
-						<h:outputText value="RichFaces Home Page"></h:outputText>
-					</h:outputLink>
+						<h:outputText value="RichFaces Home Page" />
 				</rich:menuItem>
-				<rich:menuItem submitMode="none"
+				<rich:menuItem submitMode="client"
 					onclick="document.location.href='http://jboss.com/index.html?module=bb&amp;op=viewforum&amp;f=261'">
-					<h:outputLink
-						value="http://jboss.com/index.html?module=bb&amp;op=viewforum&amp;f=261">
-						<h:outputText value="RichFaces Forum"></h:outputText>
-					</h:outputLink>
+						<h:outputText value="RichFaces Forum" />
 				</rich:menuItem>
 			</rich:dropDownMenu>
 		</rich:toolbar>
