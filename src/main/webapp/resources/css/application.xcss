@@ -15,7 +15,6 @@ ul.layout{
     list-style:none;
 }
 a{
-    color:#5a8eba;
     outline:none;
     text-decoration:none;
 }
