@@ -23,7 +23,26 @@
 
 package org.richfaces.renderkit.html;
 
-import com.google.common.base.Strings;
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.INPUT_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.INPUT_TYPE_HIDDEN;
+import static org.richfaces.renderkit.HtmlConstants.NAME_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.TYPE_ATTR;
+import static org.richfaces.renderkit.HtmlConstants.VALUE_ATTRIBUTE;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.event.ActionEvent;
+
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSObject;
 import org.ajax4jsf.javascript.ScriptUtils;
@@ -33,17 +52,7 @@ import org.richfaces.component.AbstractPanelMenuGroup;
 import org.richfaces.component.AbstractPanelMenuItem;
 import org.richfaces.renderkit.HtmlConstants;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.event.ActionEvent;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.richfaces.renderkit.HtmlConstants.*;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
+import com.google.common.base.Strings;
 
 /**
  * @author akolonitsky
@@ -118,7 +127,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
         writer.writeAttribute(ID_ATTRIBUTE, menuGroup.getClientId(context) + ":hdr", null);
         writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses(getCssClass(menuGroup, "-hdr"),
                 "rf-pm-hdr-" + (menuGroup.isExpanded() ? "exp" : "colps"), 
-                menuGroup.isDisabled() ? getCssClass(menuGroup, "-hdr-dis") : null), null);
+                PanelMenuItemRenderer.isParentPanelMenuDisabled(menuGroup) || menuGroup.isDisabled() ? getCssClass(menuGroup, "-hdr-dis") : null), null);
 
         (menuGroup.isTopItem() ? topHeaderRenderer : headerRenderer).encodeHeader(writer, context, menuGroup);
 
@@ -147,8 +156,8 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
 
         return concatClasses(getCssClass(menuItem, ""),
             attributeAsString(component, "styleClass"),
-            menuItem.isDisabled() ? getCssClass(menuItem, "-dis") : "",
-            menuItem.isDisabled() ? attributeAsString(component, "disabledClass") : "");
+            PanelMenuItemRenderer.isParentPanelMenuDisabled(menuItem) || menuItem.isDisabled() ? getCssClass(menuItem, "-dis") : "",
+                PanelMenuItemRenderer.isParentPanelMenuDisabled(menuItem) || menuItem.isDisabled() ? attributeAsString(component, "disabledClass") : "");
     }
 
     @Override
@@ -188,7 +197,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
         options.put("ajax", getAjaxOptions(context, panelMenuGroup));
         options.put("name", panelMenuGroup.getName());
         options.put("mode", panelMenuGroup.getMode());
-        options.put("disabled", panelMenuGroup.isDisabled());
+        options.put("disabled", PanelMenuItemRenderer.isParentPanelMenuDisabled(panelMenuGroup) || panelMenuGroup.isDisabled());
         options.put("expandEvent", getExpandEvent(panelMenuGroup));
         options.put("collapseEvent", getCollapseEvent(panelMenuGroup));
         options.put("expanded", panelMenuGroup.isExpanded());

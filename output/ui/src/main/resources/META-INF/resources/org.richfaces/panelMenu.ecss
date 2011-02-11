@@ -223,8 +223,13 @@
 	cursor: default;
 }
 
-.rf-pm-itm.rf-pm-itm-dis:hover{
+.rf-pm-itm, .rf-pm-itm-dis:hover {
     background-color: inherit;
+}
+
+.rf-pm-top-itm-dis:hover {
+    background-color: inherit;
+    color: '#{richSkin.tabDisabledTextColor}';
 }
 
 .rf-pm-top-gr-cnt {

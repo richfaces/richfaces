@@ -1,12 +1,13 @@
 package org.richfaces.renderkit.html;
 
-import org.richfaces.component.AbstractPanelMenuGroup;
-import org.richfaces.renderkit.util.PanelIcons;
-import org.richfaces.renderkit.util.PanelIcons.State;
+import java.io.IOException;
 
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
+
+import org.richfaces.component.AbstractPanelMenuGroup;
+import org.richfaces.renderkit.util.PanelIcons;
+import org.richfaces.renderkit.util.PanelIcons.State;
 
 class PanelMenuGroupHeaderRenderer extends TableIconsRendererHelper<AbstractPanelMenuGroup> {
 
@@ -16,15 +17,15 @@ class PanelMenuGroupHeaderRenderer extends TableIconsRendererHelper<AbstractPane
 
     private PanelIcons.State getState(AbstractPanelMenuGroup group) {
         if (group.isTopItem()) {
-            return group.isDisabled() ? State.headerDisabled : State.header;
+            return PanelMenuItemRenderer.isParentPanelMenuDisabled(group) || group.isDisabled() ? State.headerDisabled : State.header;
         } else {
-            return group.isDisabled() ? State.commonDisabled : State.common;
+            return PanelMenuItemRenderer.isParentPanelMenuDisabled(group) || group.isDisabled() ? State.commonDisabled : State.common;
         }
     }
     
     protected void encodeHeaderLeftIcon(ResponseWriter writer, FacesContext context, AbstractPanelMenuGroup group) throws IOException {
-        String iconCollapsed = group.isDisabled() ? group.getLeftDisabledIcon() : group.getLeftCollapsedIcon();
-        String iconExpanded = group.isDisabled() ? group.getLeftDisabledIcon() : group.getLeftExpandedIcon();
+        String iconCollapsed = PanelMenuItemRenderer.isParentPanelMenuDisabled(group) || group.isDisabled() ? group.getLeftDisabledIcon() : group.getLeftCollapsedIcon();
+        String iconExpanded = PanelMenuItemRenderer.isParentPanelMenuDisabled(group) || group.isDisabled() ? group.getLeftDisabledIcon() : group.getLeftExpandedIcon();
 
         if (iconCollapsed == null || iconCollapsed.trim().length() == 0) {
             iconCollapsed = PanelIcons.transparent.toString();
@@ -38,8 +39,8 @@ class PanelMenuGroupHeaderRenderer extends TableIconsRendererHelper<AbstractPane
     }
 
     protected void encodeHeaderRightIcon(ResponseWriter writer, FacesContext context, AbstractPanelMenuGroup group) throws IOException {
-        String iconCollapsed = group.isDisabled() ? group.getRightDisabledIcon() : group.getRightCollapsedIcon();
-        String iconExpanded = group.isDisabled() ? group.getRightDisabledIcon() : group.getRightExpandedIcon();
+        String iconCollapsed = PanelMenuItemRenderer.isParentPanelMenuDisabled(group) || group.isDisabled() ? group.getRightDisabledIcon() : group.getRightCollapsedIcon();
+        String iconExpanded = PanelMenuItemRenderer.isParentPanelMenuDisabled(group) || group.isDisabled() ? group.getRightDisabledIcon() : group.getRightExpandedIcon();
 
         if (iconCollapsed == null || iconCollapsed.trim().length() == 0) {
             iconCollapsed = PanelIcons.transparent.toString();

@@ -23,26 +23,34 @@
 
 package org.richfaces.renderkit.html;
 
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.TBODY_ELEMENT;
+import static org.richfaces.renderkit.HtmlConstants.TD_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.TR_ELEMENT;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.event.ActionEvent;
+
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractPanelMenu;
 import org.richfaces.component.AbstractPanelMenuItem;
+import org.richfaces.component.ComponentIterators;
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.util.PanelIcons;
 import org.richfaces.renderkit.util.PanelIcons.State;
 
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.event.ActionEvent;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.richfaces.renderkit.HtmlConstants.*;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.addEventOption;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
+import com.google.common.base.Predicate;
 
 /**
  * @author akolonitsky
@@ -57,7 +65,9 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
     
     private static final String CSS_CLASS_PREFIX = "rf-pm-itm";
     private static final String TOP_CSS_CLASS_PREFIX = "rf-pm-top-itm";
-
+    
+    private static final ParentPanelMenuPredicate PARENT_PANEL_MENU_PREDICATE = new ParentPanelMenuPredicate();
+    
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
 
@@ -120,11 +130,11 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
     }
 
     private PanelIcons.State getState(AbstractPanelMenuItem item) {
-        return item.isDisabled() ? State.commonDisabled : State.common;
+        return PanelMenuItemRenderer.isParentPanelMenuDisabled(item) || item.isDisabled() ? State.commonDisabled : State.common;
     }
 
     private void encodeHeaderGroupRightIcon(ResponseWriter writer, FacesContext context, AbstractPanelMenuItem menuItem, String classPrefix) throws IOException {
-        String icon = menuItem.isDisabled() ? menuItem.getRightDisabledIcon() : menuItem.getRightIcon();
+        String icon = PanelMenuItemRenderer.isParentPanelMenuDisabled(menuItem) || menuItem.isDisabled() ? menuItem.getRightDisabledIcon() : menuItem.getRightIcon();
         String cssClasses = concatClasses(classPrefix + "-exp-ico", menuItem.getLeftIconClass());
         
         if (icon == null || icon.trim().length() == 0) {
@@ -134,7 +144,7 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
     }
 
     private void encodeHeaderGroupLeftIcon(ResponseWriter writer, FacesContext context, AbstractPanelMenuItem menuItem, String classPrefix) throws IOException {
-        String icon = menuItem.isDisabled() ? menuItem.getLeftDisabledIcon() : menuItem.getLeftIcon();
+        String icon = PanelMenuItemRenderer.isParentPanelMenuDisabled(menuItem) || menuItem.isDisabled() ? menuItem.getLeftDisabledIcon() : menuItem.getLeftIcon();
         String cssClasses = concatClasses(classPrefix + "-ico", menuItem.getLeftIconClass());
 
         if (icon == null || icon.trim().length() == 0) {
@@ -179,8 +189,8 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
         AbstractPanelMenuItem menuItem = (AbstractPanelMenuItem) component;
         return concatClasses(getCssClass(menuItem, ""),
             attributeAsString(component, "styleClass"),
-            menuItem.isDisabled() ? getCssClass(menuItem, "-dis") : "",
-            menuItem.isDisabled() ? attributeAsString(component, "disabledClass") : "");
+            PanelMenuItemRenderer.isParentPanelMenuDisabled(menuItem) || menuItem.isDisabled() ? getCssClass(menuItem, "-dis") : "",
+                PanelMenuItemRenderer.isParentPanelMenuDisabled(menuItem) || menuItem.isDisabled() ? attributeAsString(component, "disabledClass") : "");
     }
 
     public String getCssClass(AbstractPanelMenuItem item, String postfix) {
@@ -200,7 +210,7 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
         Map<String, Object> options = new HashMap<String, Object>();
         //TODO nick - ajax options should not be rendered in client mode
         options.put("ajax", getAjaxOptions(context, panelMenuItem));
-        options.put("disabled", panelMenuItem.isDisabled());
+        options.put("disabled", PanelMenuItemRenderer.isParentPanelMenuDisabled(panelMenuItem) || panelMenuItem.isDisabled());
         options.put("mode", panelMenuItem.getMode());
         options.put("name", panelMenuItem.getName());
         options.put("selectable", panelMenuItem.isSelectable());
@@ -224,6 +234,20 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
     @Override
     protected Class<? extends UIComponent> getComponentClass() {
         return AbstractPanelMenuItem.class;
+    }
+    
+    static boolean isParentPanelMenuDisabled(AbstractPanelMenuItem menuItem) {
+        AbstractPanelMenu parentPanelMenu = (AbstractPanelMenu) ComponentIterators.getParent(menuItem, PARENT_PANEL_MENU_PREDICATE);
+        if (parentPanelMenu != null) {
+            return parentPanelMenu.isDisabled();
+        }
+        return false;
+    }
+    
+    private static class ParentPanelMenuPredicate implements Predicate<UIComponent> {
+        public boolean apply(UIComponent comp) {
+            return comp instanceof AbstractPanelMenu;
+        }
     }
 }
 
