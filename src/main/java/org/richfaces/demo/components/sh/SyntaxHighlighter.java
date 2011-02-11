@@ -87,6 +87,8 @@ public class SyntaxHighlighter extends UIComponentBase {
         writer.endElement("pre");
         JSFunction function = new JSFunction("SyntaxHighlighter.all");
         writer.startElement("script", null);
+        writer.write("var brs = $('#" + this.getClientId(context).replaceAll(":", "\\\\\\\\:") + "').find('br');");
+        writer.write("brs.length && brs.replaceWith('\\n');");
         writer.write(function.toScript());
         writer.endElement("script");
         writer.endElement("div");
