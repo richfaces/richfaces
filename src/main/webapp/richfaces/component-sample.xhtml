@@ -28,7 +28,7 @@
 					onheaderclick="document.location='#{facesContext.externalContext.requestContextPath}/richfaces/component-sample.jsf?demo=#{d.id}&amp;sample=#{s.id}&amp;skin=#{skinBean.skin}'" />
 			</c:forEach>
 		</rich:tabPanel>
-		<fieldset><ui:include src="#{demoNavigator.sampleURI}" /></fieldset>
+		<fieldset class="example-cnt"><ui:include src="#{demoNavigator.sampleURI}" /></fieldset>
 	</ui:define>
 </ui:composition>
 
