@@ -72,7 +72,13 @@ public abstract class AbstractTooltip extends UIOutput implements AbstractDivPan
     }
 
     public String getTarget() {
-        return (String) getStateHelper().eval(Properties.target, getParent().getId());
+        UIComponent parent2 = getParent();
+        String id2 = parent2.getId();
+        if (id2 == null) {
+            parent2.getClientId();
+            id2 = parent2.getId();
+        }
+        return (String) getStateHelper().eval(Properties.target, id2);
     }
 
     public void setTarget(String target) {
