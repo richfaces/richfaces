@@ -86,7 +86,8 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         localValueSet,
         required,
         valid,
-        immediate
+        immediate,
+        switchType
     }
 
     protected AbstractTogglePanel() {
@@ -612,8 +613,19 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         }
     }
 
-    @Attribute(defaultValue = "SwitchType.DEFAULT")
-    public abstract SwitchType getSwitchType();
+    
+    @Attribute
+    public SwitchType getSwitchType() {
+        SwitchType switchType = (SwitchType) getStateHelper().eval(PropertyKeys.switchType, SwitchType.DEFAULT); 
+        if (switchType == null) {
+            switchType = SwitchType.DEFAULT;
+        }
+        return switchType; 
+    }
+
+    public void setSwitchType(SwitchType switchType) {
+        getStateHelper().put(PropertyKeys.switchType, switchType);
+    }
 
     @Attribute
     public abstract boolean isBypassUpdates();
