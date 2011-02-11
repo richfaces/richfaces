@@ -31,10 +31,12 @@
 				</div>
 
 </c:if>
-	<div id="#{clientId}_shadow" style="position: #{component.attributes['followByScroll'] ? 'fixed' : 'absolute'};" class="rf-pp-shdw"/>
+
 	<div id="#{clientId}_container" style="#{getContainerStyle(component)}" cdk:passThroughWithExclusions="id style class styleClass" class="rf-pp-cntr #{component.attributes['styleClass']}">
 
-		<c:if test="#{component.getFacet('header')!=null and component.getFacet('header').rendered}">
+        <div id="#{clientId}_shadow" class="rf-pp-shdw" />
+
+        <c:if test="#{component.getFacet('header')!=null and component.getFacet('header').rendered}">
 		<div id="#{clientId}_header" class="rf-pp-hdr #{component.attributes['headerClass']}" >
 			<div id="#{clientId}_header_content" class="rf-pp-hdr-cnt">
 				<cdk:call expression="renderHeaderFacet(facesContext, component)"/>

@@ -26,11 +26,15 @@
  	background-color: #000000;
  	opacity: 0.1;
 	filter: 'alpha(opacity=10)';
+    position: absolute;
+	top: 6px;
+	left: 6px;
+    bottom: -6px;
 }
 
 .rf-pp-cntr {
  	border : '1px solid #{richSkin.panelBorderColor}';
- 	background : '#{richSkin.generalBackgroundColor}';
+    background: '#{richSkin.generalBackgroundColor}';
  	z-index:100;
 }
 .rf-pp-hdr {
@@ -69,6 +73,8 @@
  	top : 0px;
  	left : 0px;
  	overflow : auto;
+    position: relative;
+    background : '#{richSkin.generalBackgroundColor}';
 }
 .rf-pp-cnt {	
  	padding : 10px;
@@ -99,12 +105,12 @@
 }
 
 .rf-pp-ifr {
-			position: absolute; 
-			left: 0px; 
-			top: 0px; 
-			background-color: white; 
-			overflow-y: hidden; 
-			z-index: -1;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	background-color: white;
+	overflow-y: hidden;
+	z-index: -1;
 }
 		
 .rf-pp-hndlr-t {

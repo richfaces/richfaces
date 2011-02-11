@@ -210,14 +210,12 @@
             setLeft: function(pos) {
                 if (!isNaN(pos)) {
                     this.cdiv.css('left', pos + "px");
-                    this.shadowDiv.css('left', pos + parseInt(this.options.shadowDepth) + "px");
                 }
             },
 
             setTop: function(pos) {
                 if (!isNaN(pos)) {
                     this.cdiv.css('top', pos + "px");
-                    this.shadowDiv.css('top', pos + parseInt(this.options.shadowDepth) + "px");
                 }
             },
 
@@ -252,7 +250,6 @@
                         if (newParent != this.parent) {
                             this.saveInputValues(element);
                             this.shadeDiv.length && newParent.appendChild(this.shadeDiv.get(0));
-                            newParent.appendChild(this.shadowDiv.get(0));
                             newParent.appendChild(this.cdiv.get(0));
                             this.domReattached = true;
                         } else {
@@ -313,7 +310,6 @@
                             options.height = this.maxHeight;
                         }
                         $(richfaces.getDomElement(eContentElt)).css('height', options.height + (/px/.test(options.height) ? '' : 'px'));
-                        this.shadowDiv.css('height', options.height + (/px/.test(options.height) ? '' : 'px'));
                         var headerHeight = $(richfaces.getDomElement(this.markerId + "_header"))[0] ? $(richfaces.getDomElement(this.markerId + "_header"))[0].clientHeight : 0;
                         this.scrollerDiv.css('height', options.height - headerHeight + (/px/.test(options.height) ? '' : 'px'));
 
@@ -366,13 +362,10 @@
                         this.setTop(Math.round(_top));
                     }
 
-                    this.shadowDiv.css('opacity', this.options.shadowOpacity);
-                    this.shadowDiv.css('filter ', 'alpha(opacity=' + this.options.shadowOpacity * 100 + ');');
 
                     this.div.css('visibility', '');
                     this.div.css('display', 'block');
                     if (this.options.autosized) {
-                        this.shadowDiv.css('height', this.cdiv[0].clientHeight);
                         this.shadowDiv.css('width', this.cdiv[0].clientWidth);
 
                     }
@@ -507,7 +500,6 @@
                             this.saveInputValues(element);
                             var div = this.div.get(0);
                             this.shadeDiv.length && div.appendChild(this.shadeDiv.get(0));
-                            div.appendChild(this.shadowDiv.get(0));
                             div.appendChild(element.get(0));
 
                             this.domReattached = false;
@@ -554,20 +546,16 @@
 
 
                 if (newSize >= this.currentMinWidth || this.options.autosized) {
-                    if (diff.deltaWidth) {
                         cssHashWH.width = newSize + 'px';
                         shadowHashWH.width = newSize + 'px';
                         contentHashWH.width = newSize - scrollerWidth + 'px';
                         scrollerHashWH.width = newSize - scrollerWidth + 'px';
-                    }
                 } else {
-                    if (diff.deltaWidth) {
                         cssHashWH.width = this.currentMinWidth + 'px';
                         shadowHashWH.width = this.currentMinWidth + 'px';
                         contentHashWH.width = this.currentMinWidth - scrollerWidth + 'px';
                         scrollerHashWH.width = this.currentMinWidth - scrollerWidth + 'px';
                         vetoes.vx = oldWidthSize - this.currentMinWidth;
-                    }
 
                     vetoes.x = true;
                 }
@@ -599,7 +587,6 @@
                     newLeftPos += diff.deltaX;
                     cssHash.left = newLeftPos + 'px';
 
-                    shadowHash.left = newLeftPos + shadowDepth + "px";
                 }
 
                 newSize = this.getStyle(eContentElt, "height");
@@ -653,7 +640,6 @@
                     var newTopPos = this.getStyle(eCdiv, "top");
                     newTopPos += diff.deltaY;
                     cssHash.top = newTopPos + 'px';
-                    shadowHash.top = newTopPos + shadowDepth + "px";
                 }
                 eContentElt.css(cssHashWH);
                 this.scrollerDiv.css(scrollerHashWH);
@@ -700,11 +686,8 @@
             },
 
             moveTo : function (top, left) {
-                var shadowDepth = parseInt(this.options.shadowDepth);
                 this.cdiv.css('top', top);
                 this.cdiv.css('left', left);
-                this.shadowDiv.css('top', top + shadowDepth);
-                this.shadowDiv.css('left', left + shadowDepth);
             },
 
             move : function (dx, dy) {
