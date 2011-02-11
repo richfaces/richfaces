@@ -33,7 +33,7 @@
 				<rich:message for="email" />
 				<h:outputText value="Age" />
 				<h:inputText value="#{userBean.age}" id="age">
-					<f:validateLongRange minimum="3" maximum="18"/>
+					<f:validateLongRange minimum="18" maximum="99"/>
 					<rich:validator />
 				</h:inputText>
 				<rich:message for="age" />
