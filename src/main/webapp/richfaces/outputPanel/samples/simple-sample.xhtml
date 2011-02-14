@@ -37,7 +37,7 @@
 					<h:inputText id="text1" label="text1" value="#{opBean1.text}">
 						<f:validateLength maximum="10" />
 						<a4j:ajax event="keyup" execute="@this" render="out1"
-							onerror="function(){return false}" />
+							onerror="return false;" />
 					</h:inputText>
 
 					<h:outputText id="out1" rendered="#{not empty opBean1.text}"
