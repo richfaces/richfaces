@@ -126,13 +126,14 @@
 
 .rf-pm-top-itm {
     color: '#{richSkin.generalTextColor}';
-    padding: 2px 1px 2px 2px;
     cursor: pointer;
     white-space: nowrap;
 
-    border-top-width: 1px;
-    border-top-style: solid;
-    border-top-color: '#{richSkin.panelBorderColor}';
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{richSkin.panelBorderColor}';
+    margin-bottom: 3px;
+    padding: 1px;
 }
 
 .rf-pm-top-itm-gr {
@@ -177,11 +178,6 @@
     border-style: solid;
     border-color: '#{richSkin.panelBorderColor}';
     margin-bottom: 3px;
-    padding: 1px;
-}
-
-.rf-pm-top-gr-hdr:hover {
-    background-color: '#{richSkin.additionalBackgroundColor}';
 }
 
 .rf-pm-top-gr-sel {
