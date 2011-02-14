@@ -247,7 +247,7 @@
                 rf.$(group.id).__collapse();
             });
 
-            this.__fireEvent("collapse");
+            return this.__fireEvent("collapse");
         },
 
         __collapse : function () {
