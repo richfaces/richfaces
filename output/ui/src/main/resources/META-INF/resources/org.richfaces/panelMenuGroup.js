@@ -211,11 +211,12 @@
         },
 
         expand : function () {
+        	if (this.expanded()) return;
         	if (!this.__fireEvent("beforeexpand")) {
         		return false;
         	}
         	
-            this.__expand();
+        	EXPAND_ITEM.exec(this, true);
 
             return this.__fireEvent("expand");
         },
@@ -234,11 +235,12 @@
         },
 
         collapse : function () {
+        	if (!this.expanded()) return;
         	if (!this.__fireEvent("beforecollapse")) {
         		return false;
         	}
 
-        	this.__collapse();
+        	EXPAND_ITEM.exec(this, true);
 
             this.__childGroups().each (function(index, group) {
             	//TODO nick - why not group.collapse()?
