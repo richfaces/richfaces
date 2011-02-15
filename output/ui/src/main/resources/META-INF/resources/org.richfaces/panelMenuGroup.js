@@ -91,9 +91,9 @@
          * */
         execClient : function (group, expand) {
             if (expand) {
-                group.expand();
+                group.__expand();
             } else {
-                group.collapse();
+                group.__collapse();
             }
 
             return group.__fireEvent("switch");
@@ -209,23 +209,19 @@
             // return this.__content().hasClass("rf-pm-exp")
             return this.__getExpandValue();
         },
-
+        
         expand : function () {
         	if (this.expanded()) return;
         	if (!this.__fireEvent("beforeexpand")) {
         		return false;
         	}
-        	
-        	EXPAND_ITEM.exec(this, true);
 
-            return this.__fireEvent("expand");
+        	EXPAND_ITEM.exec(this, true);
         },
 
         __expand : function () {
-            this.__content().removeClass("rf-pm-colps").addClass("rf-pm-exp");
-            this.__header().removeClass("rf-pm-hdr-colps").addClass("rf-pm-hdr-exp");
-
-            this.__setExpandValue(true);
+    		this.__updateStyles(true);
+    		return this.__fireEvent("expand");
         },
 
         collapsed : function () {
@@ -233,28 +229,40 @@
             // return this.__content().hasClass("rf-pm-colps")
             return !this.__getExpandValue();
         },
-
+        
         collapse : function () {
         	if (!this.expanded()) return;
-        	if (!this.__fireEvent("beforecollapse")) {
+    		if (!this.__fireEvent("beforecollapse")) {
         		return false;
         	}
 
-        	EXPAND_ITEM.exec(this, true);
-
+        	EXPAND_ITEM.exec(this, false);
+        },
+        
+        __collapse : function () {
+    		this.__updateStyles(false);
+    		
             this.__childGroups().each (function(index, group) {
             	//TODO nick - why not group.collapse()?
                 rf.$(group.id).__collapse();
             });
-
-            return this.__fireEvent("collapse");
+    		
+    		return this.__fireEvent("collapse");
         },
 
-        __collapse : function () {
-            this.__content().addClass("rf-pm-colps").removeClass("rf-pm-exp");
-            this.__header().addClass("rf-pm-hdr-colps").removeClass("rf-pm-hdr-exp");
+        __updateStyles : function (expand) {
+        	if (expand) {
+                //expand
+                this.__content().removeClass("rf-pm-colps").addClass("rf-pm-exp");
+                this.__header().removeClass("rf-pm-hdr-colps").addClass("rf-pm-hdr-exp");
 
-            this.__setExpandValue(false);
+                this.__setExpandValue(true);
+        	} else {
+                this.__content().addClass("rf-pm-colps").removeClass("rf-pm-exp");
+                this.__header().addClass("rf-pm-hdr-colps").removeClass("rf-pm-hdr-exp");
+
+                this.__setExpandValue(false);
+        	}
         },
 
         /**
@@ -272,7 +280,11 @@
                 return false;
             }
 
-            EXPAND_ITEM.exec(this, !this.expanded());
+            if (this.expanded()) {
+            	this.collapse();
+            } else {
+            	this.expand();
+            }
         },
 
         /**

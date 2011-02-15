@@ -56,7 +56,7 @@
                 menuGroup.__panelMenu().bind("expand", function (event) {
                     menuGroup.__childGroups().each (function (index, group) {
                         if (event.target.id != group.id) {
-                            rf.$(group.id).collapse();
+                            rf.$(group.id).__collapse();
                         }
                     });
 
