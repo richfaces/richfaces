@@ -1,7 +1,6 @@
 (function($, rf) {
     rf.ui = rf.ui || {};
     var defaultOptions = {
-
     };
     rf.ui.Poll = function(componentId, options) {
         $super.constructor.call(this, componentId, options);
@@ -17,8 +16,6 @@
         if (options.enabled){
             this.startPoll();
         }
-
-
     }
 
     rf.BaseComponent.extend(rf.ui.Poll);
@@ -30,7 +27,6 @@
             startPoll: function() {
                 this.stopPoll();
                 var poll=this;
-                //this.setZeroRequestDelay(options);
                 rf.ui.pollTracker[poll.id] = window.setTimeout(function() {
                     try {
                        poll.ontimer.call(poll.pollElement || window);
