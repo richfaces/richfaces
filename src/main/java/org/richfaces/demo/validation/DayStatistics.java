@@ -41,7 +41,7 @@ public class DayStatistics {
     }
 
     @NotNull
-    @Min(value = 1, message = "Please feel at list one entry")
+    @Min(value = 1, message = "Please fill at list one entry")
     @Max(value = 24, message = "Only 24h in a day!")
     public Integer getTotalTime() {
         Integer result = new Integer(0);
