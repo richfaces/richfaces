@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -46,14 +47,18 @@ import org.richfaces.renderkit.util.RendererUtils;
 /**
  * @author shura
  */
-@ResourceDependency(library = "org.richfaces", name = "ajax.reslib")
+@ResourceDependencies({@ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
+    @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+    @ResourceDependency(library = "org.richfaces", name = "poll.js")})
 @JsfRenderer
 public class AjaxPollRenderer extends RendererBase {
 
     public static final String COMPONENT_FAMILY = "org.richfaces.Poll";
 
     public static final String RENDERER_TYPE = "org.richfaces.PollRenderer";
-    private static final String AJAX_POLL_FUNCTION = "RichFaces.startPoll";
+    private static final String AJAX_POLL_FUNCTION = "new RichFaces.ui.Poll";
+    private static final String ENABLED = "enabled";
+
 
     private void addComponentToAjaxRender(FacesContext context, UIComponent component) {
         PartialViewContext pvc = context.getPartialViewContext();
@@ -92,44 +97,42 @@ public class AjaxPollRenderer extends RendererBase {
         if (shouldRenderForm) {
             String clientId = component.getClientId(context) + RendererUtils.DUMMY_FORM_ID;
             utils.encodeBeginForm(context, component, writer, clientId);
+            utils.encodeEndForm(context, writer);
         }
+        writer.endElement(rootElementName);
         
         // polling script.
         writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
         writer.writeAttribute(HtmlConstants.TYPE_ATTR, "text/javascript", null);
-        StringBuffer script = new StringBuffer("\n");
+        StringBuffer script = new StringBuffer("");
+
+        JSFunction function = new JSFunction(AJAX_POLL_FUNCTION);
+        Map<String, Object> options = new HashMap<String, Object>();
+
+        RenderKitUtils.addToScriptHash(options, "interval", poll.getInterval(), "1000");
+        //RenderKitUtils.addToScriptHash(options, "pollId", component.getClientId(context));
+        HandlersChain handlersChain = new HandlersChain(context, poll);
+        handlersChain.addInlineHandlerFromAttribute(AbstractPoll.ON_TIMER);
+        handlersChain.addBehaviors(AbstractPoll.TIMER);
+        handlersChain.addAjaxSubmitFunction();
+
+        String handler = handlersChain.toScript();
+
+        if (handler != null) {
+            JSFunctionDefinition timerHandler = new JSFunctionDefinition(JSReference.EVENT);
+            timerHandler.addToBody(handler);
+            options.put(AbstractPoll.ON_TIMER, timerHandler);
+        }
         if (poll.isEnabled()) {
-            JSFunction function = new JSFunction(AJAX_POLL_FUNCTION);
-            Map<String, Object> options = new HashMap<String, Object>();
-            
-            RenderKitUtils.addToScriptHash(options, "interval", poll.getInterval(), "1000");
-            RenderKitUtils.addToScriptHash(options, "pollId", component.getClientId(context));
-            HandlersChain handlersChain = new HandlersChain(context, poll);
-            handlersChain.addInlineHandlerFromAttribute(AbstractPoll.ON_TIMER);
-            handlersChain.addBehaviors(AbstractPoll.TIMER);
-            handlersChain.addAjaxSubmitFunction();
-
-            String handler = handlersChain.toScript();
-
-            if (handler != null) {
-                JSFunctionDefinition timerHandler = new JSFunctionDefinition(JSReference.EVENT);
-                timerHandler.addToBody(handler);
-                options.put(AbstractPoll.ON_TIMER, timerHandler);
-            }
-            function.addParameter(options);
-            function.appendScript(script);
-        } else {
-            script.append("RichFaces.stopPoll('").append(component.getClientId(context)).append("')");
+            options.put(ENABLED, true);
         }
-        script.append(";\n");
-        writer.writeText(script.toString(), null);
+        function.addParameter(component.getClientId(context));
+        function.addParameter(options);
+        //function.appendScript(script);
+        writer.writeText(function.toScript(), null);
+
         writer.endElement(HtmlConstants.SCRIPT_ELEM);
-        
-        if (shouldRenderForm) {
-            utils.encodeEndForm(context, writer);
-        }
-        
-        writer.endElement(rootElementName);
+
     }
 
     /*
