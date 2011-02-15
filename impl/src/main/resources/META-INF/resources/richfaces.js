@@ -321,33 +321,6 @@ if (!window.RichFaces) {
 	};
 	//
 
-	var pollTracker = {};
-	richfaces.startPoll = function(options) {
-		var pollId = options.pollId;
-		var interval = options.interval || 1000;
-		var ontimer = options.ontimer;
-		richfaces.stopPoll(pollId);
-
-		richfaces.setZeroRequestDelay(options);
-
-		pollTracker[pollId] = window.setTimeout(function(){
-			var pollElement = document.getElementById(pollId);
-				try {
-					ontimer.call(pollElement || window);
-					richfaces.startPoll(options);
-				} catch (e) {
-					// TODO: handle exception
-				}
-		},interval);
-	};
-
-	richfaces.stopPoll =  function(id) {
-		if(pollTracker[id]){
-			window.clearTimeout(pollTracker[id]);
-			delete pollTracker[id];
-		}
-	};
-
 	var jsfEventsAdapterEventNames = {
 		event: {
 			'begin': ['begin'],
