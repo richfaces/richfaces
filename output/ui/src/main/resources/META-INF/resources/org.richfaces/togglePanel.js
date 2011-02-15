@@ -254,8 +254,8 @@
          */
         getItemsNames: function () {
             var res = [];
-            for (var item in this.items) {
-                res.push(this.items[item].getName());
+            for (var i=0; i<this.items.length; i++) {
+                res.push(this.items[i].getName());
             }
 
             return res;
@@ -357,9 +357,11 @@
          * @private
          * */
         __getItemIndex : function (itemName) {
-            for (var i in this.items) {
-                if (!this.items[i].disabled && this.items[i].getName() === itemName) {
-                    return parseInt(i);
+        	var item;
+            for (var i=0; i<this.items.length; i++) {
+            	item = this.items[i];
+                if (!item.disabled && item.getName() === itemName) {
+                    return i;
                 }
             }
 
