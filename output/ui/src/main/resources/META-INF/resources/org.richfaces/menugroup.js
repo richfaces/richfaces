@@ -5,8 +5,7 @@
         direction : "AA",
 		jointPoint : "AA",
         positionType : "DDMENUGROUP",
-		showDelay : 300,
-		itemCss : "rf-ddm-itm"
+		showDelay : 300
 	}
 	// constructor definition
 	rf.ui.MenuGroup = function(componentId, options) {
@@ -59,12 +58,12 @@
 					},
 
 					select : function() {
-						this.jqueryElement.removeClass('rf-ddm-itm-unsel');
-						this.jqueryElement.addClass('rf-ddm-itm-sel');
+						this.jqueryElement.removeClass(this.options.unselectItemCss);
+						this.jqueryElement.addClass(this.options.selectItemCss);
 					},
 					unselect : function() {
-						this.jqueryElement.removeClass('rf-ddm-itm-sel');
-						this.jqueryElement.addClass('rf-ddm-itm-unsel');
+						this.jqueryElement.removeClass(this.options.selectItemCss);
+						this.jqueryElement.addClass(this.options.unselectItemCss);
 					},
 
 					__showHandler : function() {

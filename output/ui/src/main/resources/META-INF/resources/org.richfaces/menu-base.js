@@ -15,6 +15,7 @@
 		selectItemCss : "rf-ddm-itm-sel",
 		unselectItemCss : "rf-ddm-itm-unsel",
 		disabledItemCss : "rf-ddm-itm-dis",
+        labelCss: "rf-ddm-lbl",
 		listCss : "rf-ddm-lst",
 		listContainerCss : "rf-ddm-lst-bg"
 	};
@@ -143,12 +144,12 @@
 			__getParentMenuFromItem : function(item) {
 				var menu;
 				if (item)
-					menu = item.parents('div.rf-ddm-itm')
-							.has('div.rf-ddm-lst-bg').eq(1);
+					menu = item.parents('div.'+this.options.itemCss)
+							.has('div.'+this.options.listContainerCss).eq(1);
 				if (menu && menu.length > 0)
 					return menu;
 				else {
-					menu = item.parents('div.rf-ddm-lbl');
+					menu = item.parents('div.'+this.options.labelCss);
 					if (menu && menu.length > 0)
 						return menu;
 					else
@@ -157,8 +158,8 @@
 			},
 
 			__getParentMenu : function() {
-				var menu = $(this.element).parents('div.rf-ddm-itm')
-						.has('div.rf-ddm-lst-bg').eq(0);
+				var menu = $(this.element).parents('div.'+this.options.itemCss)
+						.has('div.'+this.options.listContainerCss).eq(0);
 				if (menu && menu.length > 0)
 					return menu;
 				else {

@@ -1,9 +1,13 @@
 (function($, rf) {
 	rf.ui = rf.ui || {};
 
-	var defaultOptions = {
-		mode : "server"
-	}
+    var defaultOptions = {
+        itemCss : "rf-ddm-itm",
+        selectItemCss : "rf-ddm-itm-sel",
+        unselectItemCss : "rf-ddm-itm-unsel",
+        labelCss: "rf-ddm-lbl",
+        mode : "server"
+    }
 
 	// constructor definition
 
@@ -29,13 +33,13 @@
 		return {
 			name : "MenuItem",
 			select : function() {
-				this.element.removeClass('rf-ddm-itm-unsel');
-				this.element.addClass('rf-ddm-itm-sel');
+				this.element.removeClass(this.options.unselectItemCss);
+				this.element.addClass(this.options.selectItemCss);
 				this.selected = true;
 			},
 			unselect : function() {
-				this.element.removeClass('rf-ddm-itm-sel');
-				this.element.addClass('rf-ddm-itm-unsel');
+				this.element.removeClass(this.options.selectItemCss);
+				this.element.addClass(this.options.unselectItemCss);
 				this.selected = false;
 			},
 			activate : function() {
@@ -82,7 +86,7 @@
 			},
 
 			__getParentMenu : function() {
-				var menu = this.element.parents('div.rf-ddm-lbl');
+				var menu = this.element.parents('div.'+this.options.labelCss);
 				if (menu && menu.length > 0)
 					return rf.$(menu);
 				else
