@@ -91,53 +91,57 @@ public class FileUploadPartialViewContextFactory extends PartialViewContextFacto
     public PartialViewContext getPartialViewContext(FacesContext facesContext) {
         PartialViewContext partialViewContext = parentFactory.getPartialViewContext(facesContext);
         ExternalContext externalContext = facesContext.getExternalContext();
-        HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
-        Map<String, String> queryParamMap = parseQueryString(request.getQueryString());
-        String uid = queryParamMap.get(UID_KEY);
-        if (uid != null) {
-            long contentLength = Long.parseLong(externalContext.getRequestHeaderMap().get("Content-Length"));
-            if (maxRequestSize != 0 && contentLength > maxRequestSize) {
-                printResponse(facesContext, uid, ResponseState.sizeExceeded);
-            } else {
-                final MultipartRequest multipartRequest = new MultipartRequest(request, createTempFiles,
-                    tempFilesDirectory, uid);
-                try {
-                    final PartialViewContext viewContext = partialViewContext;
-                    partialViewContext = new PartialViewContextWrapper() {
-                        @Override
-                        public void processPartial(PhaseId phaseId) {
-                            try {
-                                super.processPartial(phaseId);
-                            } finally {
-                                if (PhaseId.RENDER_RESPONSE.equals(phaseId)) {
-                                    multipartRequest.cancel();
-                                    //TODO PartialViewContext.release isn't invoked by JSF. Maybe it's a bug.
-                                    //So we should use PartialViewContext.processPartial instead of.
+        Object request = externalContext.getRequest();
+        if (request instanceof HttpServletRequest) {
+            HttpServletRequest httpRequest = (HttpServletRequest) request;
+            Map<String, String> queryParamMap = parseQueryString(httpRequest.getQueryString());
+            String uid = queryParamMap.get(UID_KEY);
+            if (uid != null) {
+                long contentLength = Long.parseLong(externalContext.getRequestHeaderMap().get("Content-Length"));
+                if (maxRequestSize != 0 && contentLength > maxRequestSize) {
+                    printResponse(facesContext, uid, ResponseState.sizeExceeded);
+                } else {
+                    final MultipartRequest multipartRequest =
+                        new MultipartRequest(httpRequest, createTempFiles, tempFilesDirectory, uid);
+                    try {
+                        final PartialViewContext viewContext = partialViewContext;
+                        partialViewContext = new PartialViewContextWrapper() {
+                            @Override
+                            public void processPartial(PhaseId phaseId) {
+                                try {
+                                    super.processPartial(phaseId);
+                                } finally {
+                                    if (PhaseId.RENDER_RESPONSE.equals(phaseId)) {
+                                        multipartRequest.cancel();
+                                        // TODO PartialViewContext.release isn't invoked by JSF. Maybe it's a bug.
+                                        // So we should use PartialViewContext.processPartial instead of.
+                                    }
                                 }
                             }
+
+                            // TODO This method can be removed from here when PartialViewContextWrapper will implement
+                            // it.
+                            @Override
+                            public void setPartialRequest(boolean isPartialRequest) {
+                                viewContext.setPartialRequest(isPartialRequest);
+                            }
+
+                            @Override
+                            public PartialViewContext getWrapped() {
+                                return viewContext;
+                            }
+                        };
+                        multipartRequest.parseRequest();
+                        if (!multipartRequest.isDone()) {
+                            printResponse(facesContext, uid, ResponseState.stopped);
+                        } else {
+                            externalContext.setRequest(multipartRequest);
                         }
-                        
-                        //TODO This method can be removed from here when PartialViewContextWrapper will implement it.
-                        @Override
-                        public void setPartialRequest(boolean isPartialRequest) {
-                            viewContext.setPartialRequest(isPartialRequest);
-                        }
-                        
-                        @Override
-                        public PartialViewContext getWrapped() {
-                            return viewContext;
-                        }
-                    };
-                    multipartRequest.parseRequest();
-                    if (!multipartRequest.isDone()) {
-                        printResponse(facesContext, uid, ResponseState.stopped);
-                    } else {
-                        externalContext.setRequest(multipartRequest);
+                    } catch (FileUploadException e) {
+                        printResponse(facesContext, uid, ResponseState.serverError);
+                    } finally {
+                        multipartRequest.clearRequestData();
                     }
-                } catch (FileUploadException e) {
-                    printResponse(facesContext, uid, ResponseState.serverError);
-                } finally {
-                    multipartRequest.clearRequestData();
                 }
             }
         }
