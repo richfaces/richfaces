@@ -22,10 +22,11 @@
 
 package org.richfaces.renderkit.html;
 
+import com.google.common.base.Predicate;
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractTab;
-import org.richfaces.component.AbstractTogglePanelItemInterface;
+import org.richfaces.component.*;
+import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.renderkit.HtmlConstants;
 
 import javax.faces.application.ResourceDependencies;
@@ -33,6 +34,7 @@ import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
+import javax.faces.event.ActionEvent;
 import java.io.IOException;
 import java.util.Map;
 
@@ -53,6 +55,37 @@ import static org.richfaces.renderkit.HtmlConstants.*;
 })
 @JsfRenderer(type = "org.richfaces.TabRenderer", family = AbstractTab.COMPONENT_FAMILY)
 public class TabRenderer extends TogglePanelItemRenderer {
+
+    @Override
+    protected void doDecode(FacesContext context, UIComponent component) {
+
+        Map<String, String> requestMap =
+                context.getExternalContext().getRequestParameterMap();
+
+        AbstractTab tab = (AbstractTab) component;
+        String compClientId = component.getClientId(context);
+        if (requestMap.get(compClientId) != null) {
+            AbstractTabPanel parentTabPanel = getParentTabPanel(tab);
+
+            if (parentTabPanel.isImmediate()) {
+                tab.setImmediate(true);
+            }
+            new ActionEvent(tab).queue();
+
+            if (context.getPartialViewContext().isPartialRequest()) {
+                context.getPartialViewContext().getRenderIds().add(component.getClientId(context));
+                addOnCompleteParam(context, tab.getName(), tab.getTabPanel().getClientId(context));
+            }
+        }
+    }
+
+    protected static void addOnCompleteParam(FacesContext context, String newValue, String panelId) {
+        StringBuilder onComplete = new StringBuilder();
+        onComplete.append("RichFaces.$('").append(panelId)
+                    .append("').onCompleteHandler('").append(newValue).append("');");
+
+        ExtendedPartialViewContext.getInstance(context).appendOncomplete(onComplete.toString());
+    }
 
     @Override
     protected void doEncodeItemBegin(ResponseWriter writer, FacesContext context, UIComponent component)
@@ -129,5 +162,14 @@ public class TabRenderer extends TogglePanelItemRenderer {
     protected Class<? extends UIComponent> getComponentClass() {
         return AbstractTab.class;
     }
+
+    private static AbstractTabPanel getParentTabPanel(AbstractTab menuItem) {
+        return (AbstractTabPanel) ComponentIterators.getParent(menuItem, new Predicate<UIComponent>() {
+            public boolean apply(UIComponent component) {
+                return component instanceof AbstractTabPanel;
+            }
+        });
+    }
+
 }
 

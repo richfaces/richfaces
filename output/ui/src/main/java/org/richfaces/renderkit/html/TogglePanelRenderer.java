@@ -111,10 +111,10 @@ public class TogglePanelRenderer extends DivPanelRenderer {
         AbstractTogglePanel panel = (AbstractTogglePanel) component;
 
         writer.startElement(HtmlConstants.INPUT_ELEM, component);
-        writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.INPUT_TYPE_HIDDEN, null);
-        writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, panel.getActiveItem(), "activeItem");
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, getValueRequestParamName(context, component), null);
         writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, getValueRequestParamName(context, component), null);
+        writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.INPUT_TYPE_HIDDEN, null);
+        writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, panel.getActiveItem(), null);
         writer.endElement(HtmlConstants.INPUT_ELEM);
 
         writeJavaScript(writer, context, component);

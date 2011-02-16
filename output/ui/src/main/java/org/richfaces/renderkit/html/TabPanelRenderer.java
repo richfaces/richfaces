@@ -22,29 +22,6 @@
 
 package org.richfaces.renderkit.html;
 
-import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.active;
-import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.disabled;
-import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.inactive;
-import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
-import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.SPAN_ELEM;
-import static org.richfaces.renderkit.HtmlConstants.STYLE_ATTRIBUTE;
-import static org.richfaces.renderkit.HtmlConstants.TBODY_ELEMENT;
-import static org.richfaces.renderkit.HtmlConstants.TD_ELEM;
-import static org.richfaces.renderkit.HtmlConstants.TR_ELEMENT;
-import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.*;
@@ -52,6 +29,18 @@ import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import java.io.IOException;
+import java.util.Map;
+
+import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.*;
+import static org.richfaces.renderkit.HtmlConstants.*;
+import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 
 /**
  * @author akolonitsky
@@ -253,15 +242,9 @@ public class TabPanelRenderer extends TogglePanelRenderer {
 
     @Override
     protected Map<String, Object> getScriptObjectOptions(FacesContext context, UIComponent component) {
-        AbstractTogglePanel panel = (AbstractTogglePanel) component;
+        Map<String, Object> options = super.getScriptObjectOptions(context, component);
 
-        Map<String, Object> options = new HashMap<String, Object>();
-        options.put("activeItem", panel.getActiveItem());
-        options.put("cycledSwitching", panel.isCycledSwitching());
         options.put("isKeepHeight", attributeAsString(component, "height").length() > 0);
-
-        addEventOption(context, panel, options, ITEM_CHANGE);
-        addEventOption(context, panel, options, BEFORE_ITEM_CHANGE);
 
         return options;
     }

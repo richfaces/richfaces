@@ -61,7 +61,14 @@
 
             this.__setActiveItem(newPanel);
 
-            rf.submitForm(this.__getParentForm(newPanel));
+            var params = {};
+
+            params[newPanel.getTogglePanel().id] = newPanel.name;
+            params[newPanel.id] = newPanel.id;
+
+            $.extend(params, newPanel.getTogglePanel().options["ajax"] || {});
+
+            rf.submitForm(this.__getParentForm(newPanel), params);
 
             return false;
         },
