@@ -179,17 +179,17 @@ public final class CalendarHelper {
         }
     }
 
-    public static Date convertCurrentDate(String currentDateString) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.clear();
-        calendar.set(Calendar.DATE, 1);
+    public static Date convertCurrentDate(String currentDateString, FacesContext facesContext, AbstractCalendar calendar) {
+        Calendar calendarInner = getCalendar(facesContext, calendar);
+        calendarInner.clear();
+        calendarInner.set(Calendar.DATE, 1);
         int idx = currentDateString.indexOf('/');
 
         Date date = null;
         if (idx != -1) {
-            calendar.set(Calendar.MONTH, Integer.parseInt(currentDateString.substring(0, idx)) - 1);
-            calendar.set(Calendar.YEAR, Integer.parseInt(currentDateString.substring(idx + 1)));
-            date = calendar.getTime();
+            calendarInner.set(Calendar.MONTH, Integer.parseInt(currentDateString.substring(0, idx)) - 1);
+            calendarInner.set(Calendar.YEAR, Integer.parseInt(currentDateString.substring(idx + 1)));
+            date = calendarInner.getTime();
         }
         return date;
     }

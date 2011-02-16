@@ -342,7 +342,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
                 // selectedDate
                 // current date string always has predefined format: m/y
                 Date currentDate = CalendarHelper.getAsDate(facesContext, this, getCurrentDate());
-                Date submittedCurrentDate = CalendarHelper.convertCurrentDate(currentDateString);
+                Date submittedCurrentDate = CalendarHelper.convertCurrentDate(currentDateString, facesContext, this);
                 currentDateChangeEvent.setCurrentDate(submittedCurrentDate);
 
                 if (!submittedCurrentDate.equals(currentDate)) {
@@ -379,7 +379,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
                     ve.setValue(facesContext.getELContext(), convert.getAsString(facesContext, this, currentDate));
                     return;
                 } else if (ve.getType(elContext).equals(Calendar.class)) {
-                    Calendar c = Calendar.getInstance();
+                    Calendar c = CalendarHelper.getCalendar(facesContext, this);
                     c.setTime((Date) currentDate);
                     ve.setValue(elContext, c);
                     return;
@@ -549,7 +549,9 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     }
 
     public static Object formatStartDate(Date date) {
-        Calendar calendar = Calendar.getInstance();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        AbstractCalendar calendarInstance=(AbstractCalendar) AbstractCalendar.getCurrentComponent(facesContext);
+        Calendar calendar = CalendarHelper.getCalendar(facesContext, calendarInstance);
         calendar.setTime(date);
         HashMap <String, Object> hashDate = new HashMap<String,Object>();
         hashDate.put("month", calendar.get(Calendar.MONTH));

@@ -278,7 +278,10 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
     }
     
     public static Object formatSelectedDate(TimeZone timeZone, Date date) {
-        Calendar calendar = Calendar.getInstance();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        AbstractCalendar calendarInstance = (AbstractCalendar) AbstractCalendar.getCurrentComponent(facesContext);
+        Calendar calendar = CalendarHelper.getCalendar(facesContext, calendarInstance);
+
         calendar.setTimeZone(timeZone);
         calendar.setTime(date);
       
@@ -308,7 +311,10 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
     }
     
     public static Object formatDate(Date date) {
-        Calendar calendar = Calendar.getInstance();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        AbstractCalendar calendarInstance = (AbstractCalendar) AbstractCalendar.getCurrentComponent(facesContext);
+        Calendar calendar = CalendarHelper.getCalendar(facesContext, calendarInstance);
+
         calendar.setTime(date);
         JSFunction result = new JSFunction("new Date");
         result.addParameter(calendar.get(Calendar.YEAR));
