@@ -91,6 +91,11 @@ input.rf-insl-inp {
 	text-align: left;
 	/* outline style fix for chrome */
 	font-size: 0px;
+    max-width: 100%;
+}
+
+.rf-insl-hnd-cntr {
+    min-width: 0;
 }
 
 .rf-insl-hnd, .rf-insl-hnd-dis, .rf-insl-dec, .rf-insl-inc, .rf-insl-dec-dis, .rf-insl-inc-dis {

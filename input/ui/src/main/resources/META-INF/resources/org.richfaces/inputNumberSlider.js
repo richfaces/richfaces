@@ -44,15 +44,15 @@
 	        this.element = jQuery(this.attachToDom());
 	        this.input = this.element.children(".rf-insl-inp-cntr").children(".rf-insl-inp");
 	        this.track = this.element.children(".rf-insl-trc-cntr").children(".rf-insl-trc");
-	        var handleContainer = this.track.children("span");
-	        this.handle = handleContainer.children(".rf-insl-hnd, .rf-insl-hnd-dis");
+	        this.handleContainer = this.track.children("span");
+	        this.handle = this.handleContainer.children(".rf-insl-hnd, .rf-insl-hnd-dis");
 	        this.tooltip = this.element.children(".rf-insl-tt");
 	        
 	    	var value = Number(this.input.val());
 	    	if (isNaN(value)) {
 	    		value = this.minValue;
 	    	}
-	    	handleContainer.css("display", "block");
+	    	this.handleContainer.css("display", "block");
 	    	this.track.css("padding-right", this.handle.width() + "px");
 	    	this.__setValue(value, null, true);
 	        
@@ -104,7 +104,7 @@
 		        if (value != this.value) {
 		        	this.input.val(value);
 		        	var left = 100 * (value - this.minValue) / this.range;
-		        	this.handle.css("margin-left", left + "%");
+		        	this.handleContainer.css("padding-left", left + "%");
 		        	this.tooltip.text(value);
 		        	this.tooltip.setPosition(this.handle,{from: 'LT', offset: [0, 5]}); //TODO Seems offset doesn't work now.
 		        	this.value = value;
