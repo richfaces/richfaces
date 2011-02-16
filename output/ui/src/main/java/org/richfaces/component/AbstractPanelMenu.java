@@ -23,13 +23,6 @@
 
 package org.richfaces.component;
 
-import org.richfaces.PanelMenuMode;
-import org.richfaces.cdk.annotations.*;
-import org.richfaces.event.ItemChangeEvent;
-import org.richfaces.event.ItemChangeListener;
-import org.richfaces.event.ItemChangeSource;
-import org.richfaces.renderkit.util.PanelIcons;
-
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
@@ -38,6 +31,18 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
+
+import org.richfaces.PanelMenuMode;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.event.ItemChangeEvent;
+import org.richfaces.event.ItemChangeListener;
+import org.richfaces.event.ItemChangeSource;
+import org.richfaces.renderkit.util.PanelIcons;
 
 /**
  * @author akolonitsky
@@ -90,28 +95,21 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
             setSubmittedActiveItem(null);
 
             if (previous == null || !previous.equalsIgnoreCase(activeItem)) {
-                queueEvent(new ItemChangeEvent(this, previous, activeItem));
+                AbstractPanelMenuItem prevItm = getItem(previous);
+                AbstractPanelMenuItem actItm = getItem(activeItem);
+                ItemChangeEvent event = new ItemChangeEvent(this, previous, activeItem); 
+                if (isImmediate() || (prevItm.isImmediate() || actItm.isImmediate())) {
+                    event.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
+                } else if (prevItm.isBypassUpdates() || actItm.isBypassUpdates()) {
+                    event.setPhaseId(PhaseId.PROCESS_VALIDATIONS);
+                } else {
+                    event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+                }
+                event.queue();
             }
         } catch (RuntimeException e) {
             context.renderResponse();
             throw e;
-        }
-    }
-
-    @Override
-    public void queueEvent(FacesEvent event) {
-        if ((event instanceof ItemChangeEvent) && (event.getComponent() == this)) {
-            setEventPhase(event);
-        }
-
-        super.queueEvent(event);
-    }
-
-    protected void setEventPhase(FacesEvent event) {
-        if (isImmediate()) {
-            event.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
-        } else {
-            event.setPhaseId(PhaseId.INVOKE_APPLICATION);
         }
     }
 
@@ -123,8 +121,6 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
             getFacesContext().renderResponse();
         }
     }
-
-
 
     public String getSubmittedActiveItem() {
         return this.submittedActiveItem;

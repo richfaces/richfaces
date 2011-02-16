@@ -74,9 +74,15 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
         Map<String, String> requestMap =
               context.getExternalContext().getRequestParameterMap();
 
+        AbstractPanelMenuItem menuItem = (AbstractPanelMenuItem) component;
         String compClientId = component.getClientId(context);
         if (requestMap.get(compClientId) != null) {
-            new ActionEvent(component).queue();
+            AbstractPanelMenu pm = getParentPanelMenu(menuItem);
+
+            if (pm.isImmediate()) {
+                menuItem.setImmediate(true);
+            }
+            new ActionEvent(menuItem).queue();
 
             if (context.getPartialViewContext().isPartialRequest()) {
 
@@ -234,6 +240,10 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
     @Override
     protected Class<? extends UIComponent> getComponentClass() {
         return AbstractPanelMenuItem.class;
+    }
+    
+    private static AbstractPanelMenu getParentPanelMenu(AbstractPanelMenuItem menuItem) {
+        return (AbstractPanelMenu) ComponentIterators.getParent(menuItem, PARENT_PANEL_MENU_PREDICATE);
     }
     
     static boolean isParentPanelMenuDisabled(AbstractPanelMenuItem menuItem) {
