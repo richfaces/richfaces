@@ -26,6 +26,7 @@ package org.richfaces.renderkit.html;
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractPanelMenu;
+import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.renderkit.HtmlConstants;
 
 import javax.faces.application.ResourceDependencies;
@@ -118,6 +119,11 @@ public class PanelMenuRenderer extends DivPanelRenderer {
     @Override
     protected Class<? extends UIComponent> getComponentClass() {
         return AbstractPanelMenu.class;
+    }
+
+    @Override
+    protected String getStyle(UIComponent component) {
+        return HtmlUtil.concatStyles(super.getStyle(component), attributeAsStyle(component, "width"));
     }
 }
 
