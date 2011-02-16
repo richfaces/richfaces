@@ -39,9 +39,6 @@
             <source>readme-examples.txt</source>
             <destName>examples/readme.txt</destName>
         </file>
-        <file>
-            <source>JBossORG-EULA.txt</source>
-        </file>
     </files>
 
     <fileSets>

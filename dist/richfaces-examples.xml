@@ -11,9 +11,6 @@
             <source>readme-examples.txt</source>
             <destName>readme.txt</destName>
         </file>
-        <file>
-            <source>JBossORG-EULA.txt</source>
-        </file>
     </files>
 
     <moduleSets>
