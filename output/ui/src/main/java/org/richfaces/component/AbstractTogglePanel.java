@@ -630,22 +630,22 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     @Attribute
     public abstract boolean isBypassUpdates();
 
-    @Attribute
+    @Attribute(hidden = true)
     public abstract boolean isLimitRender();
 
     @Attribute
     public abstract boolean isCycledSwitching();
 
-    @Attribute
+    @Attribute(hidden = true)
     public abstract Object getData();
 
-    @Attribute
+    @Attribute(hidden = true)
     public abstract String getStatus();
 
-    @Attribute
+    @Attribute(hidden = true)
     public abstract Object getExecute();
 
-    @Attribute
+    @Attribute(hidden = true)
     public abstract Object getRender();
 
     @Attribute

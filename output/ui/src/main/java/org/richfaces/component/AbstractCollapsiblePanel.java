@@ -138,10 +138,10 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
     @Attribute
     public abstract String getHeaderClass();
 
-    @Attribute
+    @Attribute(hidden = true)
     public abstract String getOncomplete();
 
-    @Attribute
+    @Attribute(hidden = true)
     public abstract String getOnbeforedomupdate();
 
     @Attribute(events = @EventName("switch"))
