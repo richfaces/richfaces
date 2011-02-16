@@ -97,8 +97,11 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
             if (previous == null || !previous.equalsIgnoreCase(activeItem)) {
                 AbstractPanelMenuItem prevItm = getItem(previous);
                 AbstractPanelMenuItem actItm = getItem(activeItem);
+                
                 ItemChangeEvent event = new ItemChangeEvent(this, previous, activeItem); 
-                if (isImmediate() || (prevItm.isImmediate() || actItm.isImmediate())) {
+                if (isImmediate() || 
+                    ((prevItm != null && prevItm.isImmediate()) || 
+                     (actItm != null && actItm.isImmediate()))) {
                     event.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
                 } else if (prevItm.isBypassUpdates() || actItm.isBypassUpdates()) {
                     event.setPhaseId(PhaseId.PROCESS_VALIDATIONS);
