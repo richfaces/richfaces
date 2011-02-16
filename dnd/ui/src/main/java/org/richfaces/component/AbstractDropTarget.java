@@ -23,6 +23,8 @@
 package org.richfaces.component;
 
 import javax.faces.component.UIComponentBase;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 
@@ -93,5 +95,15 @@ public abstract class AbstractDropTarget extends UIComponentBase {
 
         }
         super.queueEvent(event);
+    }
+
+    @Override
+    public void broadcast(FacesEvent event) throws AbortProcessingException {
+        super.broadcast(event);
+
+        if (event instanceof DropEvent
+                && (isBypassUpdates() || isImmediate())) {
+            FacesContext.getCurrentInstance().renderResponse();
+        }
     }
 }
