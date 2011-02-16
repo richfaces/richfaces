@@ -82,33 +82,20 @@ public abstract class AbstractTabPanel extends AbstractTogglePanel {
     public abstract String getTabHeaderClass();
 
     @Attribute(hidden = true)
-    public boolean isBypassUpdates() {
-        throw new IllegalStateException("this method shouldn't be used");
-    }
+    public abstract boolean isBypassUpdates();
 
     @Attribute(hidden = true)
-    public boolean isLimitRender() {
-        throw new IllegalStateException("this method shouldn't be used");
-    }
+    public abstract boolean isLimitRender();
 
     @Attribute(hidden = true)
-    public Object getData() {
-        throw new IllegalStateException("this method shouldn't be used");
-    }
+    public abstract Object getData();
+    
+    @Attribute(hidden = true)
+    public abstract String getStatus();
 
     @Attribute(hidden = true)
-    public String getStatus() {
-        throw new IllegalStateException("this method shouldn't be used");
-    }
+    public abstract Object getExecute();
 
     @Attribute(hidden = true)
-    public Object getExecute() {
-        throw new IllegalStateException("this method shouldn't be used");
-    }
-
-    @Attribute(hidden = true)
-    public Object getRender() {
-        throw new IllegalStateException("this method shouldn't be used");
-    }
-
+    public abstract Object getRender();
 }
