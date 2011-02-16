@@ -195,7 +195,16 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
-					<version>2.2</version>
+                    <version>2.7</version>
+                    <configuration>
+                        <keywords>true</keywords>
+                        <quiet>true</quiet>
+                        <!-- Solves issues related to link lookups for all
+                             modules, even those that do not need it, that 
+                             was slowing builds down.  If removed review 
+                             full build. -->
+                        <detectOfflineLinks>false</detectOfflineLinks>
+                    </configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -215,17 +224,12 @@
 			<build>
 				<plugins>
 					<plugin>
-						<!-- TODO move to doc profile? -->
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
-						<configuration>
-							<javadocVersion>1.5</javadocVersion>
-							<aggregate>true</aggregate>
-						</configuration>
 						<executions>
 							<execution>
 								<id>generate-javadoc</id>
-								<phase>generate-sources</phase>
+								<phase>package</phase>
 								<goals>
 									<goal>jar</goal>
 								</goals>
@@ -234,12 +238,6 @@
 					</plugin>
 				</plugins>
 			</build>
-		</profile>
-		<profile>
-			<!-- Triggers generated documentation as part of builds ( javadoc, jsdoc, 
-				etc... -->
-			<id>doc</id>
-			<!-- TODO -->
 		</profile>
 		<profile>
 			<!-- Triggers clover reports to be generated -->
