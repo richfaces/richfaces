@@ -174,8 +174,7 @@
                                     <classifier>sources</classifier>
 
                                     <includeGroupIds>
-                                        ${assembly.projects.group}.core, ${assembly.projects.group}.common, ${assembly.projects.group}.misc, ${assembly.projects.group}.iteration, 
-                                        ${assembly.projects.group}.output, ${assembly.projects.group}.input, ${assembly.projects.group}.dnd, ${assembly.projects.group}.validator
+                                        ${assembly.projects.group}.core,${assembly.projects.group}.common,${assembly.projects.group}.misc,${assembly.projects.group}.iteration,${assembly.projects.group}.output,${assembly.projects.group}.input,${assembly.projects.group}.dnd,${assembly.projects.group}.validator
                                     </includeGroupIds>
                                     <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
                                     <excludeTransitive>true</excludeTransitive>
@@ -183,59 +182,13 @@
                             </execution>
                         </executions>
                     </plugin>
-<!--                    <plugin>
-                        &lt;!&ndash; collecting jsdoc &ndash;&gt;
-                        <groupId>gr.abiss.mvn.plugins</groupId>
-                        <artifactId>maven-jstools-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>jsdoc</id>
-                                <phase>prepare-package</phase>
-                                <configuration>
-                                    <outputBaseDirectory>${basedir}/target</outputBaseDirectory>
-                                    <jsDir>${basedir}/target/dependency</jsDir>
-                                    <includes>**/*.js</includes>
-                                    <caseSensitive>true</caseSensitive>
-                                </configuration>
-                                <goals>
-                                    <goal>jsdoc</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
                     <plugin>
-                        &lt;!&ndash; pack jsdoc to jar &ndash;&gt;
-                        <artifactId>maven-jar-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>pack-jsodcs</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                                <configuration>
-                                    <classesDirectory>${basedir}/target/jsdoc</classesDirectory>
-                                    <classifier>jsdoc</classifier>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>-->
-                    <plugin>
-                        <!-- collecting javadoc -->
+                        <!-- Generate a single javadoc jar from all of the sources 
+                             expanded in /target/dependency directory -->
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.7</version>
-                        <executions>
-                            <execution>
-                                <id>javadoc-jar</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                                <configuration>
-                                    <sourcepath>${basedir}/target/dependency</sourcepath>
-                                </configuration>
-                            </execution>
-                        </executions>
+                        <configuration>
+                            <sourcepath>${basedir}/target/dependency</sourcepath>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>

@@ -149,8 +149,7 @@
                                     <classifier>sources</classifier>
 
                                     <includeGroupIds>
-                                        org.richfaces.ui.core, org.richfaces.ui.common, org.richfaces.ui.misc, org.richfaces.ui.iteration, 
-                                        org.richfaces.ui.output, org.richfaces.ui.input, org.richfaces.ui.dnd, org.richfaces.ui.validator
+                                        org.richfaces.ui.core,org.richfaces.ui.common,org.richfaces.ui.misc,org.richfaces.ui.iteration,org.richfaces.ui.output,org.richfaces.ui.input,org.richfaces.ui.dnd,org.richfaces.ui.validator
                                     </includeGroupIds>
                                     <useSubDirectoryPerArtifact>true</useSubDirectoryPerArtifact>
                                     <excludeTransitive>true</excludeTransitive>
@@ -159,20 +158,12 @@
                         </executions>
                     </plugin>
                     <plugin>
+                        <!-- Generate a single javadoc jar from all of the sources 
+                             expanded in /target/dependency directory -->
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.7</version>
-                        <executions>
-                            <execution>
-                                <id>javadoc-jar</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                                <configuration>
-                                    <sourcepath>${basedir}/target/dependency</sourcepath>
-                                </configuration>
-                            </execution>
-                        </executions>
+                        <configuration>
+                            <sourcepath>${basedir}/target/dependency</sourcepath>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
