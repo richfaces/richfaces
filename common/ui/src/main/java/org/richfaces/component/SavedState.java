@@ -22,10 +22,11 @@
 
 package org.richfaces.component;
 
-import java.io.Serializable;
-
 import javax.faces.component.EditableValueHolder;
+import javax.faces.component.StateHolder;
+import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIForm;
+import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.component.IterationStateHolder;
 
@@ -37,7 +38,7 @@ import org.ajax4jsf.component.IterationStateHolder;
  *
  * @author shura
  */
-final class SavedState implements Serializable {
+public final class SavedState implements StateHolder {
 
     public static final SavedState EMPTY = new SavedState();
 
@@ -114,6 +115,14 @@ final class SavedState implements Serializable {
         this.iterationState = iterationState;
     }
 
+    boolean isSubmitted() {
+        return submitted;
+    }
+
+    void setSubmitted(boolean submitted) {
+        this.submitted = submitted;
+    }
+
     @Override
     public String toString() {
         if (iterationState != null) {
@@ -138,4 +147,75 @@ final class SavedState implements Serializable {
     public void apply(UIForm form) {
         form.setSubmitted(this.submitted);
     }
+    
+    private boolean isObjectTransient(Object o) {
+        if (o == null) {
+            return true;
+        }
+        
+        if (o instanceof StateHolder) {
+            return ((StateHolder) o).isTransient();
+        }
+        
+        return false;
+    }
+    
+    public void setTransient(boolean newTransientValue) {
+        throw new UnsupportedOperationException();
+    }
+    
+    public boolean isTransient() {
+        if (iterationState != null) {
+            return isObjectTransient(iterationState);
+        }
+        
+        if (!valid) {
+            return false;
+        }
+        
+        if (localValueSet || submitted) {
+            return false;
+        }
+        
+        return isObjectTransient(submittedValue) && isObjectTransient(value);
+    }
+    
+    public Object saveState(FacesContext context) {
+        if (isTransient()) {
+            return null;
+        }
+        
+        if (iterationState != null) {
+            return new Object[] {
+                UIComponentBase.saveAttachedState(context, iterationState)
+            };
+        } else {
+            return new Object[] {
+                valid ? Boolean.TRUE : Boolean.FALSE,
+                localValueSet ? Boolean.TRUE : Boolean.FALSE,
+                submitted ? Boolean.TRUE : Boolean.FALSE,
+                UIComponentBase.saveAttachedState(context, submittedValue),
+                UIComponentBase.saveAttachedState(context, value)
+            };
+        }
+    }
+    
+    public void restoreState(FacesContext context, Object stateObject) {
+        if (stateObject == null) {
+            return;
+        }
+        
+        Object[] state = (Object[]) stateObject;
+
+        if (state.length == 1) {
+            iterationState = UIComponentBase.restoreAttachedState(context, state[0]);
+        } else {
+            valid = Boolean.TRUE.equals(state[0]);
+            localValueSet = Boolean.TRUE.equals(state[1]);
+            submitted = Boolean.TRUE.equals(state[2]);
+            submittedValue = UIComponentBase.restoreAttachedState(context, state[3]);
+            value = UIComponentBase.restoreAttachedState(context, state[4]);
+        }
+    }
+    
 }

@@ -24,8 +24,6 @@ package org.richfaces.component;
 
 import static org.richfaces.component.util.Strings.NamingContainerDataHolder.SEPARATOR_CHAR_JOINER;
 
-import java.io.IOException;
-import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Collections;
@@ -95,103 +93,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
      */
     public static final String COMPONENT_TYPE = "org.richfaces.Data";
 
-    private static final class IterationState implements Serializable {
-        
-        private static final long serialVersionUID = -3502645160277416066L;
-
-        private DataComponentState componentState;
-        
-        private Object savedComponentState;
-        
-        private boolean componentStateIsStateHolder;
-        
-        private transient ExtendedDataModel<?> dataModel;
-
-        public IterationState() {
-            super();
-        }
-        
-        public IterationState(DataComponentState componentState, ExtendedDataModel<?> dataModel) {
-            super();
-            this.componentState = componentState;
-            this.dataModel = dataModel;
-        }
-
-        public ExtendedDataModel<?> getDataModel() {
-            return dataModel;
-        }
-        
-        public DataComponentState getComponentState() {
-            return componentState;
-        }
-
-        /**
-         * @param uiDataAdaptor
-         */
-        public void restoreComponentState(UIDataAdaptor uiDataAdaptor) {
-            if (savedComponentState != null && componentStateIsStateHolder) {
-                componentState = uiDataAdaptor.createComponentState();
-                ((StateHolder) componentState).restoreState(FacesContext.getCurrentInstance(), savedComponentState);
-                savedComponentState = null;
-            }
-        }
-        
-        final Object saveState() {
-            boolean localComponentStateIsHolder = false;
-            Object localSavedComponentState = null;
-            
-            if (componentState != null) {
-                if (componentState instanceof StateHolder) {
-                    localComponentStateIsHolder = true;
-
-                    StateHolder stateHolder = (StateHolder) componentState;
-                    if (!stateHolder.isTransient()) {
-                        localSavedComponentState = stateHolder.saveState(FacesContext.getCurrentInstance());
-                    }
-                } else {
-                    if (componentState instanceof Serializable) {
-                        localSavedComponentState = componentState;
-                    }
-                }
-            }
-
-            if (localSavedComponentState != null) {
-                return new Object[] {
-                    localComponentStateIsHolder,
-                    localSavedComponentState
-                };
-            } else {
-                return null;
-            }
-        }
-        
-        final void restoreState(Object stateObject) {
-            if (stateObject != null) {
-                Object[] state = (Object[]) stateObject;
-                componentStateIsStateHolder = Boolean.TRUE.equals(state[0]);
-                Object localSavedComponentState = state[1];
-
-                if (componentStateIsStateHolder) {
-                    savedComponentState = localSavedComponentState;
-                } else {
-                    componentState = (DataComponentState) localSavedComponentState;
-                }
-            }
-        }
-        
-        private void writeObject(java.io.ObjectOutputStream out)
-            throws IOException {
-            
-            out.writeObject(saveState());
-        }
-        
-        private void readObject(java.io.ObjectInputStream in)
-            throws IOException, ClassNotFoundException {
-           
-            restoreState(in.readObject());
-        }
-    }
-    
     private static final VisitCallback STUB_CALLBACK = new VisitCallback() {
 
         public VisitResult visit(VisitContext context, UIComponent target) {
@@ -968,7 +869,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     public Object getIterationState() {
         assert rowKey == null;
 
-        return new IterationState(this.componentState, this.extendedDataModel);
+        return new DataAdaptorIterationState(this.componentState, this.extendedDataModel);
     }
 
     /*
@@ -982,7 +883,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         // TODO - ?
         // restoreChildState(getFacesContext());
         if (stateObject != null) {
-            IterationState iterationState = (IterationState) stateObject;
+            DataAdaptorIterationState iterationState = (DataAdaptorIterationState) stateObject;
             iterationState.restoreComponentState(this);
             
             this.componentState = iterationState.getComponentState();
@@ -1053,7 +954,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     @Override
     public Object saveState(FacesContext context) {
         Object parentState = super.saveState(context);
-        Object savedComponentState = new IterationState(componentState, extendedDataModel).saveState();
+        Object savedComponentState = new DataAdaptorIterationState(componentState, extendedDataModel).saveState(context);
 
         Object converterState = null;
         boolean nullDelta = true;
@@ -1112,8 +1013,8 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         super.restoreState(context, state[0]);
 
         if (state[1] != null) {
-            IterationState iterationState = new IterationState();
-            iterationState.restoreState(state[1]);
+            DataAdaptorIterationState iterationState = new DataAdaptorIterationState();
+            iterationState.restoreState(context, state[1]);
             iterationState.restoreComponentState(this);
 
             // TODO update state model binding
