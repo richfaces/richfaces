@@ -614,7 +614,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     }
 
     
-    @Attribute
+    @Attribute(generate = false)
     public SwitchType getSwitchType() {
         SwitchType switchType = (SwitchType) getStateHelper().eval(PropertyKeys.switchType, SwitchType.DEFAULT); 
         if (switchType == null) {

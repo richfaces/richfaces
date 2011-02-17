@@ -30,6 +30,7 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.AbstractAccordionItem.Properties;
 import org.richfaces.renderkit.html.DivPanelRenderer;
 
 /**
@@ -49,7 +50,14 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
 
     // ------------------------------------------------ Html Attributes
     enum Properties {
-        headerDisabledClass, headerInactiveClass, headerClass, contentClass, execute, headerActiveClass, header
+        headerDisabledClass, 
+        headerInactiveClass, 
+        headerClass, 
+        contentClass, 
+        execute, 
+        headerActiveClass, 
+        header,
+        switchType
     }
 
     @Attribute(generate = false)
@@ -196,5 +204,21 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
     public String toString() {
         return "TogglePanelItem {name: " + getName() + ", switchType: " + getSwitchType() + '}';
     }
+    
+    @Attribute(generate = false)
+    public SwitchType getSwitchType() {
+        SwitchType switchType = (SwitchType) getStateHelper().eval(Properties.switchType, SwitchType.DEFAULT); 
+        if (switchType == null) {
+            switchType = getParentPanel().getSwitchType();
+        }
+        if (switchType == null) {
+            switchType = SwitchType.DEFAULT;
+        }
+        return switchType; 
+    }
+
+    public void setSwitchType(SwitchType switchType) {
+        getStateHelper().put(Properties.switchType, switchType);
+    }    
 }
 

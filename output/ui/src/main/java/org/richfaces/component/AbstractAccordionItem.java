@@ -22,10 +22,14 @@
 
 package org.richfaces.component;
 
-import org.richfaces.cdk.annotations.*;
-
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorHolder;
+
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 
 /**
  * @author akolonitsky
@@ -40,7 +44,7 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
 
     enum Properties {
         header,
-
+        
         contentClass,
         leftActiveIcon,
         leftInactiveIcon,
@@ -51,7 +55,8 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
         headerActiveClass,
         headerDisabledClass,
         headerInactiveClass,
-        headerClass
+        headerClass,
+        switchType
     }
 
     public AbstractAccordionItem() {
@@ -180,6 +185,22 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
 
     public void setContentClass(String contentClass) {
         getStateHelper().put(Properties.contentClass, contentClass);
+    }
+    
+    @Attribute(generate = false)
+    public SwitchType getSwitchType() {
+        SwitchType switchType = (SwitchType) getStateHelper().eval(Properties.switchType, SwitchType.DEFAULT); 
+        if (switchType == null) {
+            switchType = getParentPanel().getSwitchType();
+        }
+        if (switchType == null) {
+            switchType = SwitchType.DEFAULT;
+        }
+        return switchType; 
+    }
+
+    public void setSwitchType(SwitchType switchType) {
+        getStateHelper().put(Properties.switchType, switchType);
     }
 }
 

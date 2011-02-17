@@ -15,7 +15,6 @@ public interface AbstractTogglePanelItemInterface extends AbstractDivPanel {
 
     String getName();
 
-    @Attribute(defaultValue = "getParentPanel().getSwitchType()")
     SwitchType getSwitchType();
 
     // ------------------------------------------------ Html Attributes
