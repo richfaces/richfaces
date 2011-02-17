@@ -290,10 +290,13 @@
 		
 		var callEventHandler = function (handlerName, entry) {
 			var handler = entry.queueOptions[handlerName];
-			if (handler) {
-				// what is a context should be??
-				handler.call(null, entry);
-			}
+            if (handler) {
+                if (typeof(handler) == "string") {
+                    new Function(handler).call(null, entry);
+                } else {
+                    handler.call(null, entry);
+                }
+            }
 			var opts, handler2;
 			if (entry.queueOptions.queueId && 
 				(opts=defaultQueueOptions[entry.queueOptions.queueId]) &&
