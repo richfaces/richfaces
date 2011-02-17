@@ -619,6 +619,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         }
     }
 
+    @Attribute
     public Converter getRowKeyConverter() {
         if (this.rowKeyConverter != null) {
             return this.rowKeyConverter;

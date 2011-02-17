@@ -108,6 +108,7 @@ public abstract class AbstractDataGrid extends UISequence implements Row, MetaCo
         return getFacets().get(NODATA_FACET_NAME);
     }
 
+    @Attribute
     public int getColumns() {
         int columns = (Integer)getStateHelper().eval(PropertyKeys.columns, 1);
         return (columns < 1 ? 1 : columns);
