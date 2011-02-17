@@ -28,11 +28,7 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
 
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.cdk.annotations.*;
 import org.richfaces.event.DropEvent;
 import org.richfaces.event.DropListener;
 
@@ -67,7 +63,27 @@ public abstract class AbstractDropTarget extends UIComponentBase {
     @Attribute
     public abstract Object getExecute();
 
+    @Attribute
     public abstract Object getAcceptedTypes();
+
+    @Attribute
+    public abstract boolean isLimitRender();
+
+    @Attribute
+    public abstract Object getData();
+
+    @Attribute
+    public abstract String getStatus();
+
+    @Attribute(events = @EventName("beforedomupdate"))
+    public abstract String getOnbeforedomupdate();
+
+    @Attribute(events = @EventName("complete"))
+    public abstract String getOncomplete();
+
+    @Attribute(events = @EventName("begin"))
+    public abstract String getOnbegin();
+
 
     public void addDropListener(DropListener listener) {
         addFacesListener(listener);
