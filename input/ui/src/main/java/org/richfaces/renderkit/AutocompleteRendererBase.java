@@ -67,6 +67,7 @@ import org.richfaces.log.RichfacesLogger;
  */
 @ResourceDependencies({
     @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
+    @ResourceDependency(name = "richfaces-utils.js"),
     @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
     @ResourceDependency(name = "jquery.position.js"), @ResourceDependency(name = "richfaces-event.js"),
     @ResourceDependency(name = "richfaces-selection.js"),
