@@ -187,24 +187,6 @@
                 </resources>
                 <plugins>
                     <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>build-helper-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>add-source</id>
-                                <phase>generate-sources</phase>
-                                <goals>
-                                    <goal>add-source</goal>
-                                </goals>
-                                <configuration>
-                                    <sources>
-                                        <source>src/main/java-gae-jsf-ri</source>
-                                    </sources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
                         <artifactId>maven-war-plugin</artifactId>
                         <configuration>
                             <webResources>
@@ -249,6 +231,10 @@
                                         <skin>ruby</skin>
                                         <skin>wine</skin>
                                     </skins>
+                                    <excludedFiles>
+                                        <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
+                                        <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
+                                    </excludedFiles>
                                     <includedContentTypes>
                                         <include>application/javascript</include>
                                         <include>text/css</include>
