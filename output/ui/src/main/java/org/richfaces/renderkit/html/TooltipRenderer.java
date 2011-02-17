@@ -31,6 +31,7 @@ import org.richfaces.component.Positioning;
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.MetaComponentRenderer;
+import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.util.RendererUtils;
 
 import javax.faces.application.ResourceDependencies;
@@ -176,18 +177,29 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
         AbstractTooltip tooltip = (AbstractTooltip) component;
 
         Map<String, Object> options = new HashMap<String, Object>();
-        options.put("ajax", getAjaxOptions(context, tooltip));
-        options.put("jointPoint", tooltip.getJointPoint() != null ? tooltip.getJointPoint().getValue() : Positioning.DEFAULT);
-        options.put("direction", tooltip.getDirection() != null ? tooltip.getDirection().getValue() : Positioning.DEFAULT);
-        options.put("attached", tooltip.isAttached());
-        options.put("offset", getOffset(tooltip));
-        options.put("mode", tooltip.getMode());
-        options.put("hideDelay", tooltip.getHideDelay());
-        options.put("hideEvent", tooltip.getHideEvent());
-        options.put("showDelay", tooltip.getShowDelay());
-        options.put("showEvent", tooltip.getShowEvent());
-        options.put("followMouse", tooltip.isFollowMouse());
-        options.put("target", RENDERER_UTILS.findComponentFor(component, tooltip.getTarget()).getClientId(context));
+
+        RenderKitUtils.addToScriptHash(options, "ajax", getAjaxOptions(context, tooltip), TooltipMode.DEFAULT);
+
+        Positioning jointPoint = tooltip.getJointPoint();
+        if (jointPoint == null) {
+            jointPoint = org.richfaces.component.Positioning.DEFAULT;
+        }
+        Positioning direction =tooltip.getDirection();
+        if (direction == null) {
+            direction = org.richfaces.component.Positioning.DEFAULT;
+        }
+
+        RenderKitUtils.addToScriptHash(options, "jointPoint",  jointPoint.getValue(), Positioning.DEFAULT.getValue());
+        RenderKitUtils.addToScriptHash(options, "direction",  direction.getValue(), Positioning.DEFAULT.getValue());
+        RenderKitUtils.addToScriptHash(options, "attached",  tooltip.isAttached(), true);
+        RenderKitUtils.addToScriptHash(options, "offset",  getOffset(tooltip));
+        RenderKitUtils.addToScriptHash(options, "mode",  tooltip.getMode(), TooltipMode.DEFAULT);
+        RenderKitUtils.addToScriptHash(options, "hideDelay", tooltip.getHideDelay(), 0);
+        RenderKitUtils.addToScriptHash(options, "hideEvent", tooltip.getHideEvent(), "mouseleave");
+        RenderKitUtils.addToScriptHash(options, "showDelay", tooltip.getShowDelay(), 0);
+        RenderKitUtils.addToScriptHash(options, "showEvent", tooltip.getShowEvent(), "mouseenter");
+        RenderKitUtils.addToScriptHash(options, "followMouse",  tooltip.isFollowMouse(), true);
+        RenderKitUtils.addToScriptHash(options, "target",  RENDERER_UTILS.findComponentFor(component, tooltip.getTarget()).getClientId(context));
 
         addEventOption(context, tooltip, options, HIDE);
         addEventOption(context, tooltip, options, SHOW);
@@ -198,7 +210,15 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
     }
 
     public Integer[] getOffset(AbstractTooltip tooltip) {
-        return new Integer[] {tooltip.getHorizontalOffset(), tooltip.getVerticalOffset()};
+        int horizontalOffset=tooltip.getHorizontalOffset();
+        int verticalOffset=tooltip.getVerticalOffset();
+        if (horizontalOffset == Integer.MIN_VALUE){
+            horizontalOffset = 10;
+        }
+        if (verticalOffset == Integer.MIN_VALUE) {
+            verticalOffset = 10;
+        }
+        return new Integer[] {horizontalOffset, verticalOffset};
     }
 
     private void encodeContentEnd(ResponseWriter writer, FacesContext context, AbstractTooltip tooltip) throws IOException {
