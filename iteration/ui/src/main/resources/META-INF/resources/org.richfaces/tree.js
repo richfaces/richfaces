@@ -354,12 +354,16 @@
 			
 			this.__treeRootElt.delegate(".rf-trn-cnt", "mousedown", this, this.__nodeSelectionActivated);
 			
-			this.__selectionInput = $(" > .rf-tr-sel-inp", this.__treeRootElt);
+			this.__findSelectionInput();
 			this.__selection = new richfaces.ui.TreeNodeSet(this.__selectionInput.val());
 			
 			$(document).ready($.proxy(this.__updateSelectionFromInput, this));
 		},
 
+		__findSelectionInput: function () {
+			this.__selectionInput = $(" > .rf-tr-sel-inp", this.__treeRootElt);
+		},
+		
 		__addLastNodeClass: function() {
 			//stub function overriding parent class method
 		},
@@ -468,6 +472,7 @@
 		},
 		
 		__updateSelectionFromInput: function() {
+			this.__findSelectionInput();
 			this.__updateSelection(new richfaces.ui.TreeNodeSet(this.__selectionInput.val()));
 		},
 		
