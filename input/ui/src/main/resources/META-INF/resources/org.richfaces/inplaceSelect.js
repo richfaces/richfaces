@@ -127,7 +127,7 @@
                 if(!this.__isFocused()) {
                     this.__setFocused(true);
                     this.focusValue = this.selValueInput.val();
-                    this.invokeEvent.call(this, "focus", document.getElementById(this.id + 'Input'), e);
+                    this.invokeEvent.call(this, "focus", document.getElementById(this.id), e);
                 }
             },
             processItem: function(item) {
@@ -141,7 +141,7 @@
                     this.save();
                 }
 
-                this.invokeEvent.call(this,"selectitem", document.getElementById(this.id + 'Input'));
+                this.invokeEvent.call(this,"selectitem", document.getElementById(this.id));
             },
             getItemValue: function(item) {
                 var key = $(item).attr("id");

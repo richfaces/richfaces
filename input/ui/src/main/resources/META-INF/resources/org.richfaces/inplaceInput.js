@@ -124,14 +124,14 @@
     				if(!this.__isFocused()) {
     					this.__setFocused(true);
 	    				this.focusValue = this.__getValue();
-						this.invokeEvent.call(this, "focus", document.getElementById(this.id + 'Input'), e);
+						this.invokeEvent.call(this, "focus", document.getElementById(this.id), e);
     				}
     			},
     			
     			onblur: function(e) { 
     				if(this.__isFocused()) {
     					this.__setFocused(false);
-	    				this.invokeEvent.call(this, "blur", document.getElementById(this.id + 'Input'), e);
+	    				this.invokeEvent.call(this, "blur", document.getElementById(this.id), e);
 	    				
 	    				if(this.isValueSaved() || this.__isSaveOnBlur()) {
 	           				this.save();
@@ -143,7 +143,7 @@
 	    				
 	    				if(!this.cancelButton) {
 	       					if(this.__isValueChanged()) {
-	    						this.invokeEvent.call(this, "change", document.getElementById(this.id + 'Input'), e);
+	    						this.invokeEvent.call(this, "change", document.getElementById(this.id), e);
 	       					}
 	       				}
 	           			this.getInput().bind("focus", $.proxy(this.__editHandler, this));
