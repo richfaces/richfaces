@@ -149,6 +149,33 @@
                             }
                         });
                     }
+                } else {
+                	
+                	if (this.options.expandEvent == this.options.collapseEvent) {
+                		if (this.options.expandEvent != 'click') {
+	                        this.__header().bind(this.options.expandEvent, function () {
+	                            menuGroup.switchExpantion();
+	                        });
+                		}
+
+                    } else {
+                    	if (this.options.expandEvent != 'click') {
+	                        this.__header().bind(this.options.expandEvent, function () {
+	                            if (menuGroup.collapsed()) {
+	                                return menuGroup.expand();
+	                            }
+	                        });
+                    	}
+
+                    	if (this.options.collapseEvent != 'click') {
+	                        this.__header().bind(this.options.collapseEvent, function () {
+	                            if (menuGroup.expanded()) {
+	                                return menuGroup.collapse();
+	                            }
+	                        });
+                    	}
+                    }
+                	
                 }
 
                 if (this.options.selectable || this.options.bubbleSelection) {
@@ -301,10 +328,11 @@
 
         __switch : function (expand) {
             if (expand) {
-                this.expand();
+                this.__expand();
             } else {
-                this.collapse();
+                this.__collapse();
             }
+            return this.__fireEvent("switch");
         },
 
         /***************************** Private Methods ****************************************************************/

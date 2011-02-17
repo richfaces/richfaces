@@ -41,6 +41,17 @@
          * @return {void}
          * */
         exec : function (item) {
+    	
+    		if (item.expanded) {
+    			var flag = item.options.expandEvent == item.options.collapseEvent && item.options.collapseEvent == "click";
+    			if (flag && item.__fireEvent("beforeswitch")==false) return false;
+    			if (!item.expanded()) {	
+    				if ( item.options.expandEvent == "click" && item.__fireEvent("beforeexpand")==false) return false;
+    			} else {
+    				if ( item.options.collapseEvent == "click" && item.__fireEvent("beforecollapse")==false) return false;
+    			}
+    		}
+    	
             var mode = item.mode;
             if (mode == "server") {
                 return this.execServer(item);
@@ -104,8 +115,16 @@
         	panelMenu.selectedItem(item.itemName);
 
             item.__select();
-
-            return item.__fireSelect();
+            var result = item.__fireSelect();
+            
+            if (item.__switch) {
+	        	var mode = item.mode;
+	            if (mode == "client" || mode == "none") {
+	            	item.__switch(!item.expanded());
+	            }
+            }
+            
+            return result;
         },
 
         /**
@@ -275,7 +294,7 @@
 
         __restoreSelection: function() {
         	this.__select();
-        	this.__fireSelect();
+        	//this.__fireSelect();
         },
         
         __isSelected: function() {
