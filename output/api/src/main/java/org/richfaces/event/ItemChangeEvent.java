@@ -38,8 +38,11 @@ public class ItemChangeEvent extends FacesEvent {
 
     private static final long serialVersionUID = -4747704006016875163L;
     
-    private final String oldItem;
-    private final String newItem;
+    private final String oldItemName;
+    private final String newItemName;
+    
+    private final UIComponent oldItem;
+    private final UIComponent newItem;
 
     // ------------------------------------------------------------ Constructors
 
@@ -52,28 +55,38 @@ public class ItemChangeEvent extends FacesEvent {
      *
      * @param component Source {@link UIComponent} for this event
      *
-     * @param oldItem
-     * @param newItem
+     * @param oldItemName
+     * @param newItemName
      * 
      * @throws IllegalArgumentException if <code>component</code> is
      *  <code>null</code>
      */
-    public ItemChangeEvent(UIComponent component, String oldItem, String newItem) {
+    public ItemChangeEvent(UIComponent component, String oldItemName, UIComponent oldItem,
+        String newItemName, UIComponent newItem) {
         super(component);
+        this.oldItemName = oldItemName;
+        this.newItemName = newItemName;
         this.oldItem = oldItem;
         this.newItem = newItem;
     }
 
-
     // -------------------------------------------------------------- Properties
 
-    public String getOldItem() {
+    public String getOldItemName() {
+        return oldItemName;
+    }
+
+    public String getNewItemName() {
+        return newItemName;
+    }
+    
+    public UIComponent getOldItem() {
         return oldItem;
     }
 
-    public String getNewItem() {
+    public UIComponent getNewItem() {
         return newItem;
-    }
+    }    
 
     // ------------------------------------------------- Event Broadcast Methods
 

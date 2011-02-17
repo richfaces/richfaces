@@ -57,6 +57,7 @@ import org.richfaces.component.util.MessageUtil;
 import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.event.ItemChangeListener;
 import org.richfaces.event.ItemChangeSource;
+import org.richfaces.renderkit.util.RendererUtils;
 
 import com.google.common.base.Strings;
 
@@ -215,10 +216,8 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         } finally {
             popComponentFromEL(context);
         }
-
-        if (isImmediate()) {
-            executeValidate(context);
-        }
+        
+        createItemChangeEvent(context);
     }
 
     /**
@@ -303,7 +302,6 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
 
         popComponentFromEL(context);
 
-        executeValidate(context);
         try {
             updateModel(context);
         } catch (RuntimeException e) {
@@ -387,21 +385,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         }
     }
 
-    private void executeValidate(FacesContext context) {
-        try {
-            validate(context);
-        } catch (RuntimeException e) {
-            context.renderResponse();
-            throw e;
-        }
-
-        if (!isValid()) {
-            context.validationFailed();
-            context.renderResponse();
-        }
-    }
-
-    public void validate(FacesContext context) {
+    private void createItemChangeEvent(FacesContext context) {
         if (context == null) {
             throw new NullPointerException();
         }
@@ -416,19 +400,36 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         setValue(activeItem);
         setSubmittedActiveItem(null);
         if (previous == null || !previous.equalsIgnoreCase(activeItem)) {
-            queueEvent(new ItemChangeEvent(this, previous, activeItem));
+            UIComponent prevComp = null;
+            UIComponent actvComp = (UIComponent)getItem(activeItem);
+
+            if (previous != null) {
+                prevComp = (UIComponent)getItem(previous);
+            }
+            new ItemChangeEvent(this, previous, prevComp, activeItem, actvComp).queue();
         }
     }
-
+    
     @Override
     public void queueEvent(FacesEvent event) {
         if ((event instanceof ItemChangeEvent) && (event.getComponent() == this)) {
-            setEventPhase(event);
+            setEventPhase((ItemChangeEvent)event);
         }
-
         super.queueEvent(event);
     }
 
+    protected void setEventPhase(ItemChangeEvent event) {
+        if (isImmediate() || (event.getNewItem() != null &&
+            RendererUtils.getInstance().isBooleanAttribute(event.getNewItem(), "immediate"))) {
+            event.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
+        } else if (isBypassUpdates() || (event.getNewItem() != null &&
+            RendererUtils.getInstance().isBooleanAttribute(event.getNewItem(), "bypassUpdates"))) {
+            event.setPhaseId(PhaseId.PROCESS_VALIDATIONS);
+        } else {
+            event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+        }
+    }
+    
     protected void setEventPhase(FacesEvent event) {
         if (isImmediate()) {
             event.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
@@ -443,8 +444,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     public void broadcast(FacesEvent event) throws AbortProcessingException {
         super.broadcast(event);
 
-        if (event instanceof ItemChangeEvent
-            && (isBypassUpdates() || isImmediate())) {
+        if (event instanceof ItemChangeEvent) {
             FacesContext.getCurrentInstance().renderResponse();
         }
     }

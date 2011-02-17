@@ -22,11 +22,15 @@
 
 package org.richfaces.component;
 
-import org.richfaces.cdk.annotations.*;
-import org.richfaces.renderkit.html.DivPanelRenderer;
-
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorHolder;
+
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.renderkit.html.DivPanelRenderer;
 
 /**
  * @author akolonitsky

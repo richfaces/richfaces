@@ -24,6 +24,8 @@ package org.richfaces.component;
 
 import javax.el.MethodExpression;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 
 import org.richfaces.cdk.annotations.Attribute;
@@ -99,11 +101,9 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
     public void queueEvent(FacesEvent facesEvent) {
         PanelToggleEvent event = null;
         if ((facesEvent instanceof ItemChangeEvent) && (facesEvent.getComponent() == this)) {
-            event = new PanelToggleEvent(this, Boolean.valueOf(((ItemChangeEvent) facesEvent).getNewItem()));
-
+            event = new PanelToggleEvent(this, Boolean.valueOf(((ItemChangeEvent) facesEvent).getNewItemName()));
             setEventPhase(event);
         }
-
         super.queueEvent(event != null ? event : facesEvent);
     }
 
@@ -214,5 +214,15 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
     @Override
     public void setValue(Object value) {
         setExpanded(Boolean.parseBoolean((String) value));
+    }
+    
+    @Override
+    public void broadcast(FacesEvent event) throws AbortProcessingException {
+        super.broadcast(event);
+
+        if (event instanceof PanelToggleEvent
+            && (isBypassUpdates() || isImmediate())) {
+            FacesContext.getCurrentInstance().renderResponse();
+        }
     }
 }
