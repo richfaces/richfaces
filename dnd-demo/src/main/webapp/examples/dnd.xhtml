@@ -79,8 +79,8 @@
                                              render="drp"/>
                         </li>
                         <li>
-                            <a4j:commandLink value="Make acceptedTypes nullable. Every type will be accepted."
-                                             action="#{dataBean.makeAcceptedTypesNullable}"
+                            <a4j:commandLink value="Make every type be accepted."
+                                             action="#{dataBean.makeAcceptedTypeIsAny}"
                                              render="drp"/>
                         </li>
                         <li>
@@ -101,8 +101,8 @@
         </table>
 
         <a4j:outputPanel id="drp" layout="block" styleClass="droppable">
-            <dnd:dropTarget acceptedTypes="#{dataBean.acceptedTypes}" dropListener="#{dropListenerBean.processDrop}"
-                            render="grid executeOut" execute="executeIn" immediate="#{dataBean.immediate}" bypassUpdates="#{dataBean.bypassUpdates}"/>
+            <dnd:dropTarget acceptedTypes="#{dataBean.acceptedTypes}" dropListener="#{dataBean.processDrop}"
+                            render="grid executeOut" execute="executeIn" immediate="#{dataBean.immediate}" onbeforedomupdate="alert('onbeforedomupdate')" oncomplete="alert('oncomlete')" status="dndstatus" bypassUpdates="#{dataBean.bypassUpdates}"/>
             <h:dataTable id="grid" var="dropValue" value="#{dataBean.dropValues}">
                 <h:column>
                     <h:outputText value="#{dropValue}"/> : <h:outputText value="#{dataBean.phaseId}" />;
@@ -113,6 +113,11 @@
         <a4j:outputPanel id="execute" layout="block">
           <h:inputText id="executeIn" value="#{dataBean.executeTest}"/> <br/>
           <h:outputText id="executeOut" value="#{dataBean.executeTest}"/> <br/>
+           <a4j:status name="dndstatus" startText="...named status request start...">
+           </a4j:status>
+
+
+
         </a4j:outputPanel>
     </h:form>
 </h:body>
