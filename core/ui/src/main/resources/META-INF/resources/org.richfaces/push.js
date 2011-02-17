@@ -51,7 +51,7 @@
 
 		var pushSessionId = null;
 
-		var suspendMessageEndMarker = /(<!--[^>]+-->\s*)+/;
+		var suspendMessageEndMarker = /^(<!--[^>]+-->\s*)+/;
 
 		var messageCallback = function(response) {
 			var dataString = response.responseBody.replace(suspendMessageEndMarker, "");
