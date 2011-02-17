@@ -28,6 +28,6 @@ public class PanelMenuBean {
     }
 
     public void updateCurrent(ItemChangeEvent event) {
-        setCurrent(event.getNewItem());
+        setCurrent(event.getNewItemName());
     }
 }
