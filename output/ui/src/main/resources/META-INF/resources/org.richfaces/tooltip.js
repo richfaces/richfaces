@@ -111,6 +111,7 @@
 
             this.mode = this.options.mode;
             this.target = this.options.target;
+            this.shown = false;
 
             this.__addUserEventHandler("hide");
             this.__addUserEventHandler("show");
@@ -131,6 +132,8 @@
             handlers[this.options.hideEvent + this.namespace] = this.__hideHandler;
             
             rf.Event.bindById(this.target, handlers, this);
+
+
 
             if (this.options.hideEvent == 'mouseleave') {
             	rf.Event.bindById(this.id, this.options.hideEvent + this.namespace, this.__hideHandler, this);
@@ -165,8 +168,9 @@
             this.hide();
 
             if (this.options.followMouse) {
-            	rf.Event.unbindById(this.target, "mousemove" + this.namespace);
+                rf.Event.unbindById(this.target, "mousemove" + this.namespace);
             }
+
         },
         
         /**
@@ -177,18 +181,23 @@
             var tooltip = this;
             this.__delay(this.options.hideDelay, function () {
                 tooltip.popup.hide();
+                tooltip.shown = false;
             });
         },
 
         __mouseMoveHandler: function(event) {
-            this.popup.show(event);
+            this.saveShowEvent=event;
+            if(this.shown){
+               this.popup.show(this.saveShowEvent);
+            }
         },
         
         __showHandler: function(event) {
             this.show(event);
+            var tooltip = this;
 
-            if (this.options.followMouse) {
-            	rf.Event.bindById(this.target, "mousemove"+ this.namespace, this.__mouseMoveHandler, this);
+            if (tooltip.options.followMouse) {
+                rf.Event.bindById(tooltip.target, "mousemove" + tooltip.namespace, tooltip.__mouseMoveHandler, tooltip);
             }
         },
         
@@ -223,19 +232,31 @@
         __show: function (event) {
             var tooltip = this;
             this.__delay(this.options.showDelay, function () {
-                tooltip.popup.show(event);
+                if (!tooltip.options.followMouse) {
+                    tooltip.popup.show(event);
+                } else if (!tooltip.shown) {
+                    {
+                        tooltip.popup.show(tooltip.saveShowEvent);
+                    }
+                }
+                tooltip.shown = true;
             });
         },
 
         /***************************** Private Methods ****************************************************************/
         __delay : function (delay, action) {
+            var tooltip = this;
+            if (tooltip.hidingTimerHandle) {
+                window.clearTimeout(tooltip.hidingTimerHandle);
+                tooltip.hidingTimerHandle = undefined;
+            }
             if (delay > 0) {
-                var hidingTimerHandle = window.setTimeout(function() {
+                tooltip.hidingTimerHandle = window.setTimeout(function() {
                     action();
 
-                    if (hidingTimerHandle) {
-                        window.clearTimeout(hidingTimerHandle);
-                        hidingTimerHandle = undefined;
+                    if (tooltip.hidingTimerHandle) {
+                        window.clearTimeout(tooltip.hidingTimerHandle);
+                        tooltip.hidingTimerHandle = undefined;
                     }
                 }, delay);
             } else {
