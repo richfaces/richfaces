@@ -72,23 +72,21 @@ public class TogglePanelRenderer extends DivPanelRenderer {
         Map<String, String> requestMap =
                 context.getExternalContext().getRequestParameterMap();
 
-        // Don't overwrite the value unless you have to!
+        // Get the new panel value to show
         String newValue = requestMap.get(getValueRequestParamName(context, component));
         if (newValue != null) {
             panel.setSubmittedActiveItem(newValue);
-        }
+            
+            //Retrieve the child item from the panel
+            AbstractTogglePanelItemInterface panelItem = panel.getItem(newValue);
+            if (panelItem != null) {
+            	//Set the active panel to be rendered
+                context.getPartialViewContext().getRenderIds().add(((UIComponent) panelItem).getClientId(context));
 
-        String compClientId = component.getClientId(context);
-//        String clientId = requestMap.get(compClientId);
-//        if (clientId != null && clientId.equals(compClientId)) {
-        AbstractTogglePanelItemInterface panelItem = panel.getItem(newValue);
-        if (panelItem != null) {
-            context.getPartialViewContext().getRenderIds().add(((UIComponent) panelItem).getClientId(context));
-
-            //TODO nick - this should be done on encode, not on decode
-            addOnCompleteParam(context, newValue, panel.getClientId(context));
+                //TODO nick - this should be done on encode, not on decode
+                addOnCompleteParam(context, newValue, panel.getClientId(context));
+            }
         }
-//        }
     }
 
     protected static void addOnCompleteParam(FacesContext context, String newValue, String panelId) {
