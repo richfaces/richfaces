@@ -27,6 +27,10 @@ import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectio
 import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionUsername;
 import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionUsernameEnvRef;
 import static org.richfaces.application.CoreConfiguration.Items.pushJMSTopicsNamespace;
+import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSConnectionFactory;
+import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSConnectionPassword;
+import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSConnectionUsername;
+import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSTopicsNamespace;
 
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
@@ -77,22 +81,15 @@ public class PushContextImpl implements PushContext, SystemEventListener, Atmosp
         return servletContext.getContextPath();
     }
 
-    private String getConnectionUserName(FacesContext facesContext, ConfigurationService service) {
-        String userName = service.getStringValue(facesContext, pushJMSConnectionUsername);
-        if (Strings.isNullOrEmpty(userName)) {
-            userName = service.getStringValue(facesContext, pushJMSConnectionUsernameEnvRef);
+    private String getFirstNonEmptyConfgirutationValue(FacesContext facesContext, ConfigurationService service, Enum<?>... keys) {
+        for (Enum<?> key : keys) {
+            String value = service.getStringValue(facesContext, key);
+            if (!Strings.isNullOrEmpty(value)) {
+                return value;
+            }
         }
         
-        return userName;
-    }
-    
-    private String getConnectionPassword(FacesContext facesContext, ConfigurationService service) {
-        String password = service.getStringValue(facesContext, pushJMSConnectionPassword);
-        if (Strings.isNullOrEmpty(password)) {
-            password = service.getStringValue(facesContext, pushJMSConnectionPasswordEnvRef);
-        }
-        
-        return password;
+        return "";
     }
     
     public void init(FacesContext facesContext) {
@@ -106,13 +103,14 @@ public class PushContextImpl implements PushContext, SystemEventListener, Atmosp
             
             NameParser nameParser = initialContext.getNameParser("");
             
-            Name cnfName = nameParser.parse(configurationService.getStringValue(facesContext, pushJMSConnectionFactory));
-            Name topicsNamespace = nameParser.parse(configurationService.getStringValue(facesContext, pushJMSTopicsNamespace));
+            Name cnfName = nameParser.parse(getConnectionFactory(facesContext, configurationService));
+            Name topicsNamespace = nameParser.parse(getTopicsNamespace(facesContext, configurationService));
 
             messagingContext = new MessagingContext(initialContext, cnfName, topicsNamespace, 
                 getApplicationName(facesContext),
-                getConnectionUserName(facesContext, configurationService),
-                getConnectionPassword(facesContext, configurationService));
+                getUserName(facesContext, configurationService),
+                getPassword(facesContext, configurationService)
+            );
 
             messagingContext.shareInstance(facesContext);
 
@@ -124,6 +122,26 @@ public class PushContextImpl implements PushContext, SystemEventListener, Atmosp
         } catch (Exception e) {
             throw new FacesException(e.getMessage(), e);
         }        
+    }
+
+    private String getPassword(FacesContext facesContext, ConfigurationService configurationService) {
+        return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, 
+            pushPropertiesJMSConnectionPassword, pushJMSConnectionPasswordEnvRef, pushJMSConnectionPassword);
+    }
+
+    private String getUserName(FacesContext facesContext, ConfigurationService configurationService) {
+        return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, 
+            pushPropertiesJMSConnectionUsername, pushJMSConnectionUsernameEnvRef, pushJMSConnectionUsername);
+    }
+    
+    private String getConnectionFactory(FacesContext facesContext, ConfigurationService configurationService) {
+        return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, 
+            pushPropertiesJMSConnectionFactory, pushJMSConnectionFactory);
+    }
+    
+    private String getTopicsNamespace(FacesContext facesContext, ConfigurationService configurationService) {
+        return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, 
+            pushPropertiesJMSTopicsNamespace, pushJMSTopicsNamespace);
     }
 
     public void destroy() {

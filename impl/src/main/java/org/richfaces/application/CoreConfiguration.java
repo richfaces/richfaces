@@ -23,6 +23,7 @@ package org.richfaces.application;
 
 import org.richfaces.application.configuration.ConfigurationItem;
 import org.richfaces.application.configuration.ConfigurationItemSource;
+import org.richfaces.application.configuration.ConfigurationItemsBundle;
 
 /**
  * @author Nick Belaevski
@@ -93,6 +94,23 @@ public final class CoreConfiguration {
         
         @ConfigurationItem(defaultValue = "", names = "org.richfaces.push.jms.connectionPassword", source = ConfigurationItemSource.webEnvironmentEntry)
         pushJMSConnectionPasswordEnvRef        
+        
+    }
+    
+    @ConfigurationItemsBundle(propertiesFile = "org/richfaces/push.properties")
+    public enum PushPropertiesItems {
+        
+        @ConfigurationItem(names = "jms.connectionFactory")
+        pushPropertiesJMSConnectionFactory,
+        
+        @ConfigurationItem(names = "jms.topicsNamespace")
+        pushPropertiesJMSTopicsNamespace,
+        
+        @ConfigurationItem(names = "jms.connectionUsername")
+        pushPropertiesJMSConnectionUsername,
+        
+        @ConfigurationItem(names = "jms.connectionPassword")
+        pushPropertiesJMSConnectionPassword        
         
     }
 }

@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -27,23 +27,15 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-
-
 /**
  * @author Nick Belaevski
  * 
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
+@Target(ElementType.TYPE)
 @Documented
-public @interface ConfigurationItem {
+public @interface ConfigurationItemsBundle {
 
-    public ConfigurationItemSource source() default ConfigurationItemSource.defaultSource;
+    public String propertiesFile() default "";
     
-    public String[] names();
-    
-    public boolean literal() default false;
-    
-    public String defaultValue() default "";
-
 }

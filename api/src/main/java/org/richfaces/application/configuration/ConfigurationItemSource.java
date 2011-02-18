@@ -27,6 +27,8 @@ package org.richfaces.application.configuration;
  */
 public enum ConfigurationItemSource {
 
+    defaultSource,
+    
     contextInitParameter,
     
     webEnvironmentEntry

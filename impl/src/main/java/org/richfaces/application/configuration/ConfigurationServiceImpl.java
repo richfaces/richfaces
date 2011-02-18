@@ -23,8 +23,14 @@ package org.richfaces.application.configuration;
 
 import java.beans.PropertyEditor;
 import java.beans.PropertyEditorManager;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.text.MessageFormat;
+import java.util.EnumSet;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -35,11 +41,13 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import org.ajax4jsf.resource.util.URLToStreamHelper;
 import org.richfaces.el.util.ELUtils;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
 import com.google.common.base.Strings;
+import com.google.common.io.Closeables;
 import com.google.common.primitives.Primitives;
 
 /**
@@ -56,7 +64,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
 
     private AtomicBoolean webEnvironmentUnavailableLogged = new AtomicBoolean();
     
-    private final ConfigurationItem getConfigurationItemAnnotation(Enum<?> enumKey) {
+    private final ConfigurationItem getConfigurationItem(Enum<?> enumKey) {
         try {
             ConfigurationItem item = enumKey.getClass().getField(enumKey.name()).getAnnotation(ConfigurationItem.class);
             if (item != null) {
@@ -98,17 +106,12 @@ public class ConfigurationServiceImpl implements ConfigurationService {
         throw new IllegalArgumentException(MessageFormat.format("Cannot convert {0} to object of {1} type", value, targetType.getName()));
     }
     
-    protected ValueExpressionHolder createValueExpressionHolder(FacesContext context, Enum<?> key, Class<?> targetType) {
-        ConfigurationItem annotation = getConfigurationItemAnnotation(key);
-
-        ValueExpression expression = createValueExpression(context, annotation, targetType);
-        
+    protected ValueExpressionHolder createValueExpressionHolder(FacesContext context, ValueExpression expression, String defaultValueString, Class<?> returnType) {
         Object defaultValue = null;
         
         if (expression == null || !expression.isLiteralText()) {
-            String defaultValueString = annotation.defaultValue();
             if (!Strings.isNullOrEmpty(defaultValueString)) {
-                defaultValue = coerce(context, defaultValueString, targetType);
+                defaultValue = coerce(context, defaultValueString, returnType);
             }
         }
         
@@ -167,8 +170,12 @@ public class ConfigurationServiceImpl implements ConfigurationService {
         return null;
     }
     
-    private final ValueExpression createValueExpression(FacesContext context, ConfigurationItem annotation, Class<?> targetType) {
+    private final ValueExpression createContextValueExpression(FacesContext context, ConfigurationItem annotation, Class<?> targetType) {
         ConfigurationItemSource source = annotation.source();
+        
+        if (source == ConfigurationItemSource.defaultSource) {
+            source = ConfigurationItemSource.contextInitParameter;
+        }
         
         String parameterValue = null;
         
@@ -181,34 +188,123 @@ public class ConfigurationServiceImpl implements ConfigurationService {
         }
         
         if (!Strings.isNullOrEmpty(parameterValue)) {
-            if (!annotation.literal() && ELUtils.isValueReference(parameterValue)) {
-                ExpressionFactory expressionFactory = context.getApplication().getExpressionFactory();
-                
-                if (expressionFactory == null) {
-                    throw new IllegalStateException("ExpressionFactory is null");
-                }
-                
-                return expressionFactory.createValueExpression(context.getELContext(), parameterValue, targetType);
-            } else {
-                Object coercedValue = coerce(context, parameterValue, targetType);
-                if (coercedValue != null) {
-                    return new ConstantValueExpression(coercedValue);
-                }
-            }
+            return createValueExpression(context, parameterValue, annotation.literal(), targetType);
         }
         
         return null;
+    }
+
+    private ValueExpression createValueExpression(FacesContext context, String parameterValue, boolean literal,
+        Class<?> targetType) {
+        
+        ValueExpression result = null;
+        
+        if (!literal && ELUtils.isValueReference(parameterValue)) {
+            ExpressionFactory expressionFactory = context.getApplication().getExpressionFactory();
+            
+            if (expressionFactory == null) {
+                throw new IllegalStateException("ExpressionFactory is null");
+            }
+            
+            result = expressionFactory.createValueExpression(context.getELContext(), parameterValue, targetType);
+        } else {
+            Object coercedValue = coerce(context, parameterValue, targetType);
+            if (coercedValue != null) {
+                result = new ConstantValueExpression(coercedValue);
+            }
+        }
+        
+        return result;
     }
     
     protected <T> T getValue(FacesContext facesContext, Enum<?> key, Class<T> returnType) {
         ValueExpressionHolder holder = itemsMap.get(key);
 
         if (holder == null) {
-            holder = createValueExpressionHolder(facesContext, key, returnType);
-            itemsMap.put(key, holder);
+            ConfigurationItemsBundle configurationItemsBundle = getConfigurationItemsBundle(key);
+            
+            if (configurationItemsBundle == null) {
+                ConfigurationItem item = getConfigurationItem(key);
+                ValueExpression expression = createContextValueExpression(facesContext, item, returnType);
+                holder = createValueExpressionHolder(facesContext, expression, item.defaultValue(), returnType);
+                itemsMap.put(key, holder);
+            } else {
+                synchronized (key.getClass()) {
+                    Properties properties = loadProperties(configurationItemsBundle.propertiesFile());
+                    
+                    Iterator<Object> keys = EnumSet.allOf(key.getClass()).iterator();
+                    while (keys.hasNext()) {
+                        Enum<?> nextBundleKey = (Enum<?>) keys.next();
+                        
+                        ConfigurationItem item = getConfigurationItem(nextBundleKey);
+
+                        if (item.source() != ConfigurationItemSource.defaultSource) {
+                            throw new IllegalArgumentException(item.toString());
+                        }
+                        
+                        String parameterValue = null;
+                        
+                        for (String propertyName: item.names()) {
+                            parameterValue = properties.getProperty(propertyName);
+                            
+                            if (parameterValue != null) {
+                                break;
+                            }
+                        }
+                        
+                        ValueExpression expression = null;
+                        
+                        if (parameterValue != null) {
+                            expression = createValueExpression(facesContext, parameterValue, item.literal(), returnType);
+                        }
+                        
+                        ValueExpressionHolder siblingHolder = createValueExpressionHolder(facesContext, expression, item.defaultValue(), 
+                            returnType);
+                        
+                        itemsMap.put(nextBundleKey, siblingHolder);
+                        
+                        if (key == nextBundleKey) {
+                            holder = siblingHolder;
+                        }
+                    }
+                }
+            }
         }
         
         return returnType.cast(holder.getValue(facesContext));
+    }
+
+    private Properties loadProperties(String resourceName) {
+        Properties properties = new Properties();
+        
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        if (classLoader != null) {
+            URL url = classLoader.getResource(resourceName);
+            if (url != null) {
+                InputStream is = null;
+                try {
+                    is = URLToStreamHelper.urlToStream(url);
+                    properties.load(is);
+                } catch (IOException e) {
+                    LOGGER.error(e.getMessage(), e);
+                } finally {
+                    Closeables.closeQuietly(is);
+                }
+            }
+        }
+        
+        return properties;
+    }
+    
+    private ConfigurationItemsBundle getConfigurationItemsBundle(Enum<?> key) {
+        ConfigurationItem item = getConfigurationItem(key);
+        ConfigurationItemSource source = item.source();
+        if (source == ConfigurationItemSource.defaultSource) {
+            Class<?> enclosingClass = key.getClass();
+            return enclosingClass.getAnnotation(ConfigurationItemsBundle.class);
+        }
+        
+        return null;
     }
 
     public Boolean getBooleanValue(FacesContext facesContext, Enum<?> key) {
