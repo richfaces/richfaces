@@ -388,11 +388,15 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         setSubmittedActiveItem(null);
         if (previous == null || !previous.equalsIgnoreCase(activeItem)) {
             UIComponent prevComp = null;
-            UIComponent actvComp = (UIComponent)getItem(activeItem);
+            UIComponent actvComp = null;
 
             if (previous != null) {
                 prevComp = (UIComponent)getItem(previous);
             }
+            if (activeItem != null) {
+                actvComp = (UIComponent)getItem(activeItem);
+            }
+            
             new ItemChangeEvent(this, previous, prevComp, activeItem, actvComp).queue();
         }
     }
