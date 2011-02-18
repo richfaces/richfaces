@@ -67,6 +67,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
     public static final String BEFORE_COLLAPSE = "beforecollapse";
     public static final String BEFORE_EXPAND = "beforeexpand";
     public static final String BEFORE_SWITCH = "beforeswitch";
+    public static final String BEFORE_SELECT = "beforeselect";
     public static final String SELECT = "select";
     private static final String CSS_CLASS_PREFIX = "rf-pm-gr";
 
@@ -211,6 +212,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
         addEventOption(context, panelMenuGroup, options, BEFORE_COLLAPSE);
         addEventOption(context, panelMenuGroup, options, BEFORE_EXPAND);
         addEventOption(context, panelMenuGroup, options, BEFORE_SWITCH);
+        addEventOption(context, panelMenuGroup, options, BEFORE_SELECT);
         addEventOption(context, panelMenuGroup, options, SELECT);
 
         return options;

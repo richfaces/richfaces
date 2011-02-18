@@ -189,6 +189,7 @@
             });
 
             this.__addUserEventHandler("select");
+            this.__addUserEventHandler("beforeselect");
         },
 
         /***************************** Public Methods  ****************************************************************/
