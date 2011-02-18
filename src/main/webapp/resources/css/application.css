@@ -141,7 +141,7 @@ p{
 
 #footer{
     background:url('#{facesContext.externalContext.requestContextPath}/images/footer.png') top left no-repeat;
-    color:#2d4351;
+    color:#000000;
     text-align:center;
     padding:15px 20px 10px;
 }
