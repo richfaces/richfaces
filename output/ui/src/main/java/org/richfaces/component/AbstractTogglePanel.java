@@ -22,10 +22,16 @@
 
 package org.richfaces.component;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import com.google.common.base.Strings;
+import org.richfaces.application.MessageFactory;
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.appplication.FacesMessages;
+import org.richfaces.cdk.annotations.*;
+import org.richfaces.component.util.MessageUtil;
+import org.richfaces.event.ItemChangeEvent;
+import org.richfaces.event.ItemChangeListener;
+import org.richfaces.event.ItemChangeSource;
+import org.richfaces.renderkit.util.RendererUtils;
 
 import javax.el.ELException;
 import javax.el.MethodExpression;
@@ -36,30 +42,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.component.UpdateModelException;
 import javax.faces.context.FacesContext;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ExceptionQueuedEvent;
-import javax.faces.event.ExceptionQueuedEventContext;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.PhaseId;
-import javax.faces.event.PostValidateEvent;
-import javax.faces.event.PreValidateEvent;
-
-import org.richfaces.application.MessageFactory;
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.appplication.FacesMessages;
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.EventName;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.component.util.MessageUtil;
-import org.richfaces.event.ItemChangeEvent;
-import org.richfaces.event.ItemChangeListener;
-import org.richfaces.event.ItemChangeSource;
-import org.richfaces.renderkit.util.RendererUtils;
-
-import com.google.common.base.Strings;
+import javax.faces.event.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author akolonitsky
@@ -616,7 +603,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     
     @Attribute(generate = false)
     public SwitchType getSwitchType() {
-        SwitchType switchType = (SwitchType) getStateHelper().eval(PropertyKeys.switchType, SwitchType.DEFAULT); 
+        SwitchType switchType = (SwitchType) getStateHelper().eval(PropertyKeys.switchType);
         if (switchType == null) {
             switchType = SwitchType.DEFAULT;
         }

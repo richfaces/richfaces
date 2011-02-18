@@ -22,12 +22,7 @@
 
 package org.richfaces.component;
 
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.component.AbstractAccordionItem.Properties;
+import org.richfaces.cdk.annotations.*;
 
 import javax.faces.component.UIOutput;
 
@@ -87,7 +82,7 @@ public abstract class AbstractTogglePanelItem extends UIOutput implements Abstra
     
     @Attribute(generate = false)
     public SwitchType getSwitchType() {
-        SwitchType switchType = (SwitchType) getStateHelper().eval(Properties.switchType, SwitchType.DEFAULT); 
+        SwitchType switchType = (SwitchType) getStateHelper().eval(Properties.switchType);
         if (switchType == null) {
             switchType = getParentPanel().getSwitchType();
         }

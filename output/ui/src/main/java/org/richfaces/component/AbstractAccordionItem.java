@@ -22,14 +22,10 @@
 
 package org.richfaces.component;
 
+import org.richfaces.cdk.annotations.*;
+
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorHolder;
-
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
 
 /**
  * @author akolonitsky
@@ -189,7 +185,7 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
     
     @Attribute(generate = false)
     public SwitchType getSwitchType() {
-        SwitchType switchType = (SwitchType) getStateHelper().eval(Properties.switchType, SwitchType.DEFAULT); 
+        SwitchType switchType = (SwitchType) getStateHelper().eval(Properties.switchType);
         if (switchType == null) {
             switchType = getParentPanel().getSwitchType();
         }
