@@ -99,6 +99,7 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
         String cellClass = getCellClass(context, parentId);
         cellClass = concatClasses(cellClass, component.getAttributes().get(COLUMN_CLASS));
         encodeStyleClass(writer, context, component, HtmlConstants.STYLE_CLASS_ATTR, cellClass);
+        encodeStyle(writer, context, component, null);
 
         if (component instanceof org.richfaces.component.AbstractColumn) {
             Map<String, Object> attributes = component.getAttributes();

@@ -85,6 +85,12 @@ public abstract class AbstractColumn extends javax.faces.component.UIColumn impl
 
     @Attribute
     public abstract String getWidth();
+    
+    @Attribute
+    public abstract String getStyle();
+    
+    @Attribute
+    public abstract String getStyleClass();
 
     public FilterField getFilterField() {
         FilterField field = null;
