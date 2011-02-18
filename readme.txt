@@ -1,10 +1,6 @@
-'richfaces-showcase' is an application intended to show RichFaces components in action. It contains set of small use-cases implemented using RichFaces components.
-Except basic samples - use-cases for demo choosen from most popular questions at user forums - so you will be able to find much useful information there and will be able
-just to re-use some code to implement the same cases for your applications. 
-
+RichFaces showcase is an application intended to show RichFaces components in action. It contains set of small use-cases implemented using RichFaces components.  These use-cases for the demo are chosen from most popular questions on the user forums.  You will be able to find a lot of useful information and will be able to re-use some of it to implement the same cases for your applications. 
 
 1 Building and Running the application
-
 
 1.1. Requirements
 
@@ -15,7 +11,6 @@ just to re-use some code to implement the same cases for your applications.
 1.2 Optional Additional Software
 - Eclipse IDE + JBoss Tools (to explore and run the application in IDE).
 - You're free to use any other IDE also but we haven't tested an application in other environments. 
-
 
 1.3 Build/Deploy
 
@@ -37,21 +32,27 @@ the JBOSS_HOME/server/default/deploy folder(or change "default/" to used profile
 
 2) Publishing to Google Application Engine
  
-In M2 we completed resource plugin which generates static resources and that allow us to create Google App Engine compatible application using RichFaces.
+We have completed a resource plugin which generates static resources which allow us to create Google App Engine compatible applications using RichFaces.  This means deploying to and working with GAE is a piece of cake.  Here is how you can deploy your own RichFaces showcase example.
 
-just execute 
-	* mvn clean package -Pgae -Denforcer.skip=true
-(enforcer skipped as resource plugin using snapshot plugin, and required only if you using snapshots sources)
+--) Update the GAE application name, and register it with google.  Do this by updating the /webapp-gae/WEB-INF/appengine-web.xml following the GAE standard documentation.
 
-And now you're ready to publish the application to GAE. just use appcfg as for any other one like described at google documentation. Do not forget to register your 
-own application name and rename the demo application accordingly. 
+--) Only if using MyFaces: Configure the MyFaces encryption secret values in the /webapp-gae/WEB-INF/web.xml.  Replace the "-- Insert some secret here --" with a base64 encoded password.  This is important because otherwise MyFaces will generate random keys, and this causes issues in a cluster environment like GAE.
 
-more details about the resource plugin(it could be highly usefull not only in case of GAE usage but for general cases like serving resources at separate content systems) - 
-will be published at our wiki and announced at RichFaces usage space. 
+See below for more information:
+  MyFaces - http://wiki.apache.org/myfaces/Secure_Your_Application
+  Mojarra - http://wikis.sun.com/display/GlassFish/JavaServerFacesRI#JavaServerFacesRI-HowcanIsecureviewstatewhenusingclientsidestatesaving%3F
 
-There are some additional changes were made in order to make richfaces-showcase GAE compatible:
+--) Build using: 
+
+mvn clean package -Pgae -Denforcer.skip=true
+
+note: The enforcer.skip property is only needed if building from SNAPSHOT sources
+
+--) Use GAE SDK and the appcfg script just as you would for any other GAE application.
+
+There are some additional changes that were made in order to make richfaces-showcase GAE compatible:
 	* WebConfiguration class from com.sun.faces were patched removing code which is not compatible with GAE
-	* web.xml with additional properties for GAE created and placed at src\main\webapp-gae\WEB-INF\ (it replaces common one durinf build with GAE profile)
+	* web.xml with additional properties for GAE created and placed at src\main\webapp-gae\WEB-INF\ (it replaces common one during build with GAE profile)
 	* check pom.xml GAE profile section in order to check additional dependencies for that configuration.
 
 3) Working with the project in Eclipse IDE:
