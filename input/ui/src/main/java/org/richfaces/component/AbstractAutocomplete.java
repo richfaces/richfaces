@@ -81,6 +81,9 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
 	
     @Attribute(defaultValue = "rf-au-itm-sel")
     public abstract String getSelectedItemClass();
+    
+    @Attribute()
+    public abstract String getPopupClass();
 
     @Attribute
     public abstract AutocompleteMode getMode();

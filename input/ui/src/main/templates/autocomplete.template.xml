@@ -55,7 +55,7 @@
                     <div class="rf-au-shdw-r"></div>
                     <div class="rf-au-shdw-b"></div>
 
-                    <div class="rf-au-lst-dcrtn">
+                    <div class="rf-au-lst-dcrtn #{component.attributes['popupClass']}">
                         <div class="rf-au-lst-scrl">
                             <cdk:body>
                                 <cdk:call expression="encodeItemsContainer(facesContext, component)"/>
