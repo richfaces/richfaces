@@ -141,7 +141,7 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
 
     private void encodeHeaderGroupRightIcon(ResponseWriter writer, FacesContext context, AbstractPanelMenuItem menuItem, String classPrefix) throws IOException {
         String icon = PanelMenuItemRenderer.isParentPanelMenuDisabled(menuItem) || menuItem.isDisabled() ? menuItem.getRightDisabledIcon() : menuItem.getRightIcon();
-        String cssClasses = concatClasses(classPrefix + "-exp-ico", menuItem.getLeftIconClass());
+        String cssClasses = concatClasses(classPrefix + "-exp-ico", menuItem.getRightIconClass());
         
         if (icon == null || icon.trim().length() == 0) {
             icon = PanelIcons.transparent.toString();

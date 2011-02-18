@@ -104,7 +104,7 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
 
     // ------------------------------------------------ Html Attributes
     enum Properties {
-        leftIcon, leftDisabledIcon, iconRight, rightDisabledIcon, styleClass, disabledClass, execute, name
+        leftIcon, leftDisabledIcon, rightIcon, rightDisabledIcon, styleClass, disabledClass, execute, name
 
     }
 
@@ -143,12 +143,12 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
 
     @Attribute(generate = false)
     public String getRightIcon() {
-        return (String) getStateHelper().eval(Properties.iconRight,
+        return (String) getStateHelper().eval(Properties.rightIcon,
                 isTopItem() ? getPanelMenu().getTopItemRightIcon() : getPanelMenu().getItemRightIcon());
     }
 
     public void setRightIcon(String iconRight) {
-        getStateHelper().put(Properties.iconRight, iconRight);
+        getStateHelper().put(Properties.rightIcon, iconRight);
     }
 
     @Attribute
