@@ -67,6 +67,9 @@
         this.shadeDiv = $(richfaces.getDomElement(id + "_shade"));
         this.scrollerDiv = $(richfaces.getDomElement(id + "_content_scroller"));
 
+        $(this.shadowDiv).css("opacity", this.options.shadowOpacity);
+        this.shadowDepth = parseInt(this.options.shadowDepth);
+
         this.borders = new Array();
         this.firstHref = $(richfaces.getDomElement(id + "FirstHref"));
         if (this.options.resizeable) {
@@ -298,8 +301,6 @@
                         $(richfaces.getDomElement(eContentElt)).css('width', options.width + (/px/.test(options.width) ? '' : 'px'));
                         this.shadowDiv.css('width', options.width + (/px/.test(options.width) ? '' : 'px'));
                         this.scrollerDiv.css('width', options.width + (/px/.test(options.width) ? '' : 'px'));
-
-
                     }
 
                     if (options.height && options.height != -1) {
@@ -312,9 +313,8 @@
                         $(richfaces.getDomElement(eContentElt)).css('height', options.height + (/px/.test(options.height) ? '' : 'px'));
                         var headerHeight = $(richfaces.getDomElement(this.markerId + "_header"))[0] ? $(richfaces.getDomElement(this.markerId + "_header"))[0].clientHeight : 0;
                         this.scrollerDiv.css('height', options.height - headerHeight + (/px/.test(options.height) ? '' : 'px'));
-
-
                     }
+
                     var eIframe;
                     if (this.options.overlapEmbedObjects && !this.iframe) {
                         this.iframe = this.markerId + "IFrame";
@@ -343,6 +343,7 @@
                         }
 
                         this.setLeft(Math.round(_left));
+                        $(this.shadowDiv).css("left", this.shadowDepth);
                     }
 
                     if (options.top) {
@@ -360,6 +361,8 @@
                         }
 
                         this.setTop(Math.round(_top));
+                        $(this.shadowDiv).css("top", this.shadowDepth);
+                        $(this.shadowDiv).css("bottom", -this.shadowDepth);
                     }
 
 
@@ -369,6 +372,7 @@
                         this.shadowDiv.css('width', this.cdiv[0].clientWidth);
 
                     }
+
                     var showEvent = {};
                     showEvent.parameters = opts || {};
                     this.shown = true;
@@ -534,7 +538,6 @@
                 var contentHashWH = {};
                 var scrollerHashWH = {};
                 var newSize;
-                var shadowDepth = parseInt(this.options.shadowDepth);
                 var scrollerHeight = 22;
                 var scrollerWidth = 0;
                 var eContentElt = this.getContentElement();
