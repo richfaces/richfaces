@@ -14,7 +14,8 @@
     FSF site: http://www.fsf.org. -->
 <faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
     xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+    xmlns:cdk="http://jboss.org/schema/richfaces/cdk/extensions">
     <component>
         <component-type>org.richfaces.InputNumberSlider</component-type>
         <component-class>org.richfaces.component.html.HtmlInputNumberSlider</component-class>
@@ -286,14 +287,6 @@
             <property-name>maxValue</property-name>
             <property-class>java.lang.String</property-class>
             <default-value>"100"</default-value>
-            <property-extension>
-                <cdk:generate>true</cdk:generate>
-            </property-extension>
-        </property>
-        <property>
-            <property-name>minValue</property-name>
-            <property-class>java.lang.String</property-class>
-            <default-value>"0"</default-value>
             <property-extension>
                 <cdk:generate>true</cdk:generate>
             </property-extension>
