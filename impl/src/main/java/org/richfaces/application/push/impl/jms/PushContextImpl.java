@@ -23,7 +23,9 @@ package org.richfaces.application.push.impl.jms;
 
 import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionFactory;
 import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionPassword;
+import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionPasswordEnvRef;
 import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionUsername;
+import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionUsernameEnvRef;
 import static org.richfaces.application.CoreConfiguration.Items.pushJMSTopicsNamespace;
 
 import javax.faces.FacesException;
@@ -50,6 +52,8 @@ import org.richfaces.application.push.impl.AtmosphereHandlerProvider;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
+import com.google.common.base.Strings;
+
 /**
  * @author Nick Belaevski
  * 
@@ -73,6 +77,24 @@ public class PushContextImpl implements PushContext, SystemEventListener, Atmosp
         return servletContext.getContextPath();
     }
 
+    private String getConnectionUserName(FacesContext facesContext, ConfigurationService service) {
+        String userName = service.getStringValue(facesContext, pushJMSConnectionUsername);
+        if (Strings.isNullOrEmpty(userName)) {
+            userName = service.getStringValue(facesContext, pushJMSConnectionUsernameEnvRef);
+        }
+        
+        return userName;
+    }
+    
+    private String getConnectionPassword(FacesContext facesContext, ConfigurationService service) {
+        String password = service.getStringValue(facesContext, pushJMSConnectionPassword);
+        if (Strings.isNullOrEmpty(password)) {
+            password = service.getStringValue(facesContext, pushJMSConnectionPasswordEnvRef);
+        }
+        
+        return password;
+    }
+    
     public void init(FacesContext facesContext) {
         try {
             facesContext.getApplication().subscribeToEvent(PreDestroyApplicationEvent.class, this);
@@ -89,8 +111,8 @@ public class PushContextImpl implements PushContext, SystemEventListener, Atmosp
 
             messagingContext = new MessagingContext(initialContext, cnfName, topicsNamespace, 
                 getApplicationName(facesContext),
-                configurationService.getStringValue(facesContext, pushJMSConnectionUsername),
-                configurationService.getStringValue(facesContext, pushJMSConnectionPassword));
+                getConnectionUserName(facesContext, configurationService),
+                getConnectionPassword(facesContext, configurationService));
 
             messagingContext.shareInstance(facesContext);
 

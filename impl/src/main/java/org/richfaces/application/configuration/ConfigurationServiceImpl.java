@@ -26,12 +26,18 @@ import java.beans.PropertyEditorManager;
 import java.text.MessageFormat;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 import org.richfaces.el.util.ELUtils;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 import com.google.common.base.Strings;
 import com.google.common.primitives.Primitives;
@@ -42,8 +48,14 @@ import com.google.common.primitives.Primitives;
  */
 public class ConfigurationServiceImpl implements ConfigurationService {
 
+    private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
+    
+    private static final String JNDI_COMP_PREFIX = "java:comp/env/";
+
     private Map<Enum<?>, ValueExpressionHolder> itemsMap = new ConcurrentHashMap<Enum<?>, ValueExpressionHolder>();
 
+    private AtomicBoolean webEnvironmentUnavailableLogged = new AtomicBoolean();
+    
     private final ConfigurationItem getConfigurationItemAnnotation(Enum<?> enumKey) {
         try {
             ConfigurationItem item = enumKey.getClass().getField(enumKey.name()).getAnnotation(ConfigurationItem.class);
@@ -103,37 +115,89 @@ public class ConfigurationServiceImpl implements ConfigurationService {
         return new ValueExpressionHolder(expression, defaultValue);
     }
     
+    private String getInitParameterValue(FacesContext context, ConfigurationItem configurationItem) {
+        for (String name : configurationItem.names()) {
+            String value = (String) context.getExternalContext().getInitParameter(name);
+            
+            if (!Strings.isNullOrEmpty(value)) {
+                return value;
+            }
+        }
+        
+        return null;
+    }
+    
+    private String getWebEnvironmentEntryValue(ConfigurationItem configurationItem) {
+        Context context = null;
+        
+        try {
+            context = new InitialContext();
+        } catch (Throwable e) {
+            //Throwable is caught here due to GAE requirements
+            if (!webEnvironmentUnavailableLogged.getAndSet(true)) {
+                LOGGER.error(e.getMessage(), e);
+            }
+        }
+        
+        if (context != null) {
+            for (String envName: configurationItem.names()) {
+                String qualifiedName;
+                
+                if (!envName.startsWith(JNDI_COMP_PREFIX)) {
+                    qualifiedName = JNDI_COMP_PREFIX + envName;
+                } else {
+                    qualifiedName = envName;
+                }
+                
+                String value = null;
+                try {
+                    value = (String) context.lookup(qualifiedName);
+                } catch (NamingException e) {
+                    if (LOGGER.isDebugEnabled()) {
+                        LOGGER.debug(e.getMessage(), e);
+                    }
+                }
+
+                if (!Strings.isNullOrEmpty(value)) {
+                    return value;
+                }
+            }
+        }
+        
+        return null;
+    }
+    
     private final ValueExpression createValueExpression(FacesContext context, ConfigurationItem annotation, Class<?> targetType) {
         ConfigurationItemSource source = annotation.source();
         
+        String parameterValue = null;
+        
         if (source == ConfigurationItemSource.contextInitParameter) {
-            for (String name : annotation.names()) {
-                String value = (String) context.getExternalContext().getInitParameter(name);
-                
-                if (Strings.isNullOrEmpty(value)) {
-                    continue;
-                }
-            
-                if (!annotation.literal() && ELUtils.isValueReference(value)) {
-                    ExpressionFactory expressionFactory = context.getApplication().getExpressionFactory();
-                    
-                    if (expressionFactory == null) {
-                        throw new IllegalStateException("ExpressionFactory is null");
-                    }
-                    
-                    return expressionFactory.createValueExpression(context.getELContext(), value, targetType);
-                } else {
-                    Object coercedValue = coerce(context, value, targetType);
-                    if (coercedValue != null) {
-                        return new ConstantValueExpression(coercedValue);
-                    }
-                }
-            }
-            
-            return null;
+            parameterValue = getInitParameterValue(context, annotation);
+        } else if (source == ConfigurationItemSource.webEnvironmentEntry) {
+            parameterValue = getWebEnvironmentEntryValue(annotation);
         } else {
             throw new IllegalArgumentException(source.toString());
         }
+        
+        if (!Strings.isNullOrEmpty(parameterValue)) {
+            if (!annotation.literal() && ELUtils.isValueReference(parameterValue)) {
+                ExpressionFactory expressionFactory = context.getApplication().getExpressionFactory();
+                
+                if (expressionFactory == null) {
+                    throw new IllegalStateException("ExpressionFactory is null");
+                }
+                
+                return expressionFactory.createValueExpression(context.getELContext(), parameterValue, targetType);
+            } else {
+                Object coercedValue = coerce(context, parameterValue, targetType);
+                if (coercedValue != null) {
+                    return new ConstantValueExpression(coercedValue);
+                }
+            }
+        }
+        
+        return null;
     }
     
     protected <T> T getValue(FacesContext facesContext, Enum<?> key, Class<T> returnType) {

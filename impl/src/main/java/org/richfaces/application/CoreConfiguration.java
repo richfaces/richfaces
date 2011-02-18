@@ -22,6 +22,7 @@
 package org.richfaces.application;
 
 import org.richfaces.application.configuration.ConfigurationItem;
+import org.richfaces.application.configuration.ConfigurationItemSource;
 
 /**
  * @author Nick Belaevski
@@ -84,8 +85,14 @@ public final class CoreConfiguration {
         @ConfigurationItem(defaultValue = "", names = "org.richfaces.push.jms.connectionUsername")
         pushJMSConnectionUsername,
         
+        @ConfigurationItem(defaultValue = "", names = "org.richfaces.push.jms.connectionUsername", source = ConfigurationItemSource.webEnvironmentEntry)
+        pushJMSConnectionUsernameEnvRef,
+        
         @ConfigurationItem(defaultValue = "", names = "org.richfaces.push.jms.connectionPassword")
-        pushJMSConnectionPassword        
+        pushJMSConnectionPassword,        
+        
+        @ConfigurationItem(defaultValue = "", names = "org.richfaces.push.jms.connectionPassword", source = ConfigurationItemSource.webEnvironmentEntry)
+        pushJMSConnectionPasswordEnvRef        
         
     }
 }
