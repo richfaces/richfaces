@@ -49,7 +49,7 @@
 				itemDisabledLeftIcon="triangleLeft"
 				topItemDisabledLeftIcon="triangleUp"
 				topItemLeftIcon="triangleDown"
-				groupMode="server" activeItem="item41"
+				groupMode="client" activeItem="item41"
                 bubbleSelection="true"
                 expandSingle="true">
 				<rich:panelMenuGroup id="group1" label="Group 1" selectable="true"
@@ -62,9 +62,10 @@
 				onswitch="alert('onswitch')"
 				onbeforeswitch="alert('onbeforeswitch')">
 					<rich:panelMenuItem id="item11" label="Item 1.1" 
-					onbeforeselect="alert('onbeforeselect')"
-					onselect="alert('onselectItem')"/>
-					<rich:panelMenuItem id="item12" label="Item 1.2" />
+					onbeforeselect="alert('onbeforeselect-Item')"
+					onselect="alert('onselect-Item')"/>
+					<rich:panelMenuItem id="item12" label="Item 1.2"
+					rightIcon="chevron" rightIconClass="rightIconClass" leftIconClass="aaaa"/>
 				</rich:panelMenuGroup>
 				<rich:panelMenuItem id="item2" label="Item 2" disabled="true" />
 				<rich:panelMenuItem id="item3" label="Item 3" />
