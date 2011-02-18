@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.faces.application.Application;
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
 import javax.faces.component.UIComponent;
@@ -709,11 +710,16 @@ public final class RenderKitUtils {
             return null;
         }
 
+        Application application = context.getApplication();
+        ExternalContext externalContext = context.getExternalContext();
+
         String value = url;
 
-        value = context.getApplication().getViewHandler().getResourceURL(context, value);
+        if (value.length() == 0 || value.charAt(0) != '/' || !value.startsWith(externalContext.getRequestContextPath())) {
+            value = application.getViewHandler().getResourceURL(context, value);
+        }
 
-        return context.getExternalContext().encodeResourceURL(value);
+        return externalContext.encodeResourceURL(value);
     }
 
     public static Object getFirstNonEmptyAttribute(String attributeName, UIComponent component) {
