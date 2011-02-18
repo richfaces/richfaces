@@ -105,13 +105,18 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
 
         writer.startElement(getMarkupElement(tooltip), component);
         writer.writeAttribute(ID_ATTRIBUTE, component.getClientId(context), "clientId");
+
+        writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display: none;", null);
+        writer.startElement(getMarkupElement(tooltip), component);
+        writer.writeAttribute(ID_ATTRIBUTE, component.getClientId(context) + ":wrp", null);
         writer.writeAttribute(CLASS_ATTRIBUTE, getStyleClass(component), null);
+
         int zindex = tooltip.getZindex();
         if (zindex == Integer.MIN_VALUE) {
             zindex = DEFAULT_ZINDEX_VALUE;
         }
+
         String style = concatStyles("z-index:"+zindex, getStyle(component));
-        
         if (style != null && style.trim().length() > 0) {
             writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, style, null);
         }
@@ -228,6 +233,8 @@ public class TooltipRenderer extends DivPanelRenderer implements MetaComponentRe
     @Override
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         encodeContentEnd(writer, context, (AbstractTooltip) component);
+
+        writer.endElement(getMarkupElement((AbstractTooltip) component));
 
         writer.endElement(getMarkupElement((AbstractTooltip) component));
 

@@ -117,8 +117,8 @@
             this.__addUserEventHandler("show");
             this.__addUserEventHandler("beforehide");
             this.__addUserEventHandler("beforeshow");
-
-            this.popup = new rf.ui.Popup(this.id, {
+            this.popupId = this.id+':wrp';
+            this.popup = new rf.ui.Popup(this.popupId, {
                 attachTo: this.target,
                 attachToBody: true,
                 positionType: "TOOLTIP",
@@ -133,10 +133,8 @@
             
             rf.Event.bindById(this.target, handlers, this);
 
-
-
             if (this.options.hideEvent == 'mouseleave') {
-            	rf.Event.bindById(this.id, this.options.hideEvent + this.namespace, this.__hideHandler, this);
+            	rf.Event.bindById(this.popupId, this.options.hideEvent + this.namespace, this.__hideHandler, this);
             }
         },
 
@@ -150,21 +148,22 @@
          * @return {void} TODO ...
          */
         hide: function () {
-            var continueProcess = this.__fireBeforeHide();
-            if (!continueProcess) {
-                return false;
+
+            var tooltip = this;
+            if (tooltip.hidingTimerHandle) {
+                window.clearTimeout(tooltip.hidingTimerHandle);
+                tooltip.hidingTimerHandle = undefined;
             }
-
-            this.__hide();
-
-            return this.__fireHide()
+            if (this.shown) {
+                this.__hide();
+            }
         },
 
         __hideHandler: function(event) {
         	if (event.type == 'mouseleave' && this.__isInside(event.relatedTarget)) {
         		return;
         	}
-        	
+
             this.hide();
 
             if (this.options.followMouse) {
@@ -180,8 +179,10 @@
         __hide: function () {
             var tooltip = this;
             this.__delay(this.options.hideDelay, function () {
+                tooltip.__fireBeforeHide();
                 tooltip.popup.hide();
                 tooltip.shown = false;
+                tooltip.__fireHide();
             });
         },
 
@@ -210,12 +211,16 @@
          * @return {void} TODO ...
          */
         show: function (event) {
-            var continueProcess = this.__fireBeforeShow();
-            if (!continueProcess) {
-                return false;
+            var tooltip = this;
+            if (tooltip.hidingTimerHandle) {
+                window.clearTimeout(tooltip.hidingTimerHandle);
+                tooltip.hidingTimerHandle = undefined;
             }
 
-            SHOW_ACTION.exec(this, event);
+            if (!this.shown) {
+                SHOW_ACTION.exec(this, event);
+            }
+
         },
 
         onCompleteHandler : function () {
@@ -233,12 +238,13 @@
             var tooltip = this;
             this.__delay(this.options.showDelay, function () {
                 if (!tooltip.options.followMouse) {
-                    tooltip.popup.show(event);
-                } else if (!tooltip.shown) {
-                    {
-                        tooltip.popup.show(tooltip.saveShowEvent);
-                    }
+                    tooltip.saveShowEvent = event;
                 }
+                if (!tooltip.shown) {
+                    tooltip.__fireBeforeShow();
+                    tooltip.popup.show(tooltip.saveShowEvent);
+                }
+                //for showing tooltip in followMouse mode
                 tooltip.shown = true;
             });
         },
@@ -246,10 +252,7 @@
         /***************************** Private Methods ****************************************************************/
         __delay : function (delay, action) {
             var tooltip = this;
-            if (tooltip.hidingTimerHandle) {
-                window.clearTimeout(tooltip.hidingTimerHandle);
-                tooltip.hidingTimerHandle = undefined;
-            }
+
             if (delay > 0) {
                 tooltip.hidingTimerHandle = window.setTimeout(function() {
                     action();
@@ -297,8 +300,6 @@
             return rf.Event.fireById(this.id, "beforeshow", { id: this.id });
         },
 
-
-
         /**
          * @private
          * */
@@ -317,16 +318,15 @@
         		
         		elt = elt.parentNode;
         	}
-        	
         	return false;
         },
         
         __isInside: function(elt) {
-        	return this.__contains(this.target, elt) || this.__contains(this.id, elt);
+        	return this.__contains(this.target, elt) || this.__contains(this.popupId, elt);
         },
         
         destroy: function () {
-        	rf.Event.unbindById(this.id, this.namespace);
+        	rf.Event.unbindById(this.popupId, this.namespace);
         	rf.Event.unbindById(this.target, this.namespace);
         	this.popup.destroy();
         	this.popup = null;
