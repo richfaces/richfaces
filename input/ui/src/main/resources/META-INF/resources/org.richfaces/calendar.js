@@ -988,7 +988,7 @@
 			if (field.value!=dateStr)
 			{
 				field.value=dateStr;
-				this.invokeEvent("change",field, event, this.selectedDate);
+				this.invokeEvent("change", rf.$(this.id), event, this.selectedDate);
 			}
 		},
 		
