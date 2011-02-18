@@ -773,9 +773,6 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         }
         
         String rowClass = getRowClass(rowHolder);
-        if (!"".equals(rowClass)) {
-            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, rowClass, null);
-        }
         
         StringBuilder builder = new StringBuilder();
         Collection<Object> selection = table.getSelection();
@@ -794,8 +791,9 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             }
             builder.append("rf-edt-r-sht");
         }
-        if (builder.length() > 0) {
-            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, builder.toString(), null);
+        rowClass = concatClasses(builder.toString(), rowClass); 
+        if (rowClass.length() > 0) {
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, rowClass, null);
         }
         Iterator<UIComponent> columns = null;
         Part part = state.getPart();
