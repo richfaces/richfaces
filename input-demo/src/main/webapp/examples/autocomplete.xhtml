@@ -22,6 +22,13 @@
     <ui:define name="body_head">Autocomplete Example</ui:define>
 
     <ui:define name="body">
+    
+    <style type="text/css">
+		.myPopupClass .rf-au-lst-scrl {
+			border: 1px solid red;
+			width: 400px;
+		}
+	</style>
 
 	<h:form id="form">
 		<h:selectOneMenu value="#{autoCompleteBean.mode}" onchange="submit()">
@@ -37,7 +44,7 @@
 			}
 		</script>
 
-		<input:autocomplete autofill="false" id="myAutocomplete" clientFilterFunction="customFilterFunction" mode="#{autoCompleteBean.mode}" minChars="2" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" fetchValue="#{country.name}" showButton="true"
+		<input:autocomplete popupClass="myPopupClass" autofill="false" id="myAutocomplete" clientFilterFunction="customFilterFunction" mode="#{autoCompleteBean.mode}" minChars="2" autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country" fetchValue="#{country.name}" showButton="true"
 		 value = "#{autoCompleteBean.value}" layout="list"
 		 onchange="return onEvent.call(this, event);" onselectitem="return onEvent.call(this, event);" onblur="return onEvent.call(this, event);" onfocus="return onEvent.call(this, event);">
 			#{country.name} #{country.iso} #{country.domain}
