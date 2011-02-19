@@ -35,7 +35,7 @@
     <name>Richfaces UI Components UI</name>
 
     <properties>
-        <faces-shade-transformers.version>3</faces-shade-transformers.version>
+        <faces-shade-transformers.version>4</faces-shade-transformers.version>
         <assembly.projects.group>org.richfaces.ui</assembly.projects.group>
     </properties>
 
