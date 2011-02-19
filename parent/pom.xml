@@ -137,6 +137,19 @@
                         </connectors>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <configuration>
+                        <rules>
+                            <requirePluginVersions>
+                                <!-- During development SNAPSHOT versions of the CDK plugins are used.
+                                     This setting ignores the no SNAPSHOT rule for the CDK plugins -->
+                                <unCheckedPluginList>org.richfaces.cdk:maven-resources-plugin</unCheckedPluginList>
+                            </requirePluginVersions>
+                        </rules>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
