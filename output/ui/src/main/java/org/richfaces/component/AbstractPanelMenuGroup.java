@@ -262,11 +262,14 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
     public void setDisabledClass(String disabledClass) {
         getStateHelper().put(Properties.disabledClass, disabledClass);
     }
-
+    
+    @Attribute
     public abstract String getHoverClass();
-
+    
+    @Attribute
     public abstract String getLeftIconClass();
-
+    
+    @Attribute
     public abstract String getRightIconClass();
 
     @Attribute(hidden = true)
