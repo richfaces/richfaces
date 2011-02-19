@@ -69,16 +69,19 @@
         </pluginManagement>
 
         <plugins>
-            <!-- Trigger checkstyle checking for this module -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>1.0-beta-1</version>
                 <configuration>
-                    <fail>false</fail>
+                    <rules>
+                        <requirePluginVersions>
+                            <!-- During development SNAPSHOT versions of the CDK plugin are used.
+                                 This setting ignores the no SNAPSHOT rule for the CDK  -->
+                            <unCheckedPluginList>org.richfaces.cdk:maven-cdk-plugin</unCheckedPluginList>
+                        </requirePluginVersions>
+                    </rules>
                 </configuration>
             </plugin>
-
         </plugins>
 
     </build>
