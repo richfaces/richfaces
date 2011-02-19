@@ -44,9 +44,7 @@ See below for more information:
 
 --) Build using: 
 
-mvn clean package -Pgae -Denforcer.skip=true
-
-note: The enforcer.skip property is only needed if building from SNAPSHOT sources
+mvn clean package -Pgae
 
 --) Use GAE SDK and the appcfg script just as you would for any other GAE application.
 
