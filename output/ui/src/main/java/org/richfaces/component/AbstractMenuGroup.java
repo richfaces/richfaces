@@ -4,12 +4,14 @@ import javax.faces.component.UIOutput;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.renderkit.html.MenuGroupRendererBase;
 
 @JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractMenuGroup.COMPONENT_TYPE, 
+    facets={@Facet(name="icon",generate=false),@Facet(name="iconDisabled",generate=false)},
     renderer=@JsfRenderer(type = MenuGroupRendererBase.RENDERER_TYPE), 
     tag = @Tag(name="menuGroup"),
     attributes = {"events-props.xml", "core-props.xml", "i18n-props.xml"})

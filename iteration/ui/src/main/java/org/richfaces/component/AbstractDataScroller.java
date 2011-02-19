@@ -41,6 +41,7 @@ import org.richfaces.application.MessageFactory;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.appplication.FacesMessages;
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -258,33 +259,23 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
     }
 
     // facet getter methods
+    @Facet
     public UIComponent getFirst() {
         return getFacet(FIRST_FACET_NAME);
     }
 
-    public UIComponent getLast() {
-        return getFacetByKey(LAST_FACET_NAME);
-    }
-    
-    public UIComponent getNext() {
-        return getFacetByKey(NEXT_FACET_NAME);
-    }
+    @Facet
+    public abstract UIComponent getLast();
+    @Facet
+    public abstract UIComponent getNext();
 
-    public UIComponent getPrevious() {
-        return getFacetByKey(PREVIOUS_FACET_NAME);
-    }
+    @Facet
+    public abstract UIComponent getPrevious();
+    @Facet
+    public abstract UIComponent getFastForward();
+    @Facet
+    public abstract UIComponent getFastRewind();
 
-    public UIComponent getFastForward() {
-        return getFacetByKey(FAST_FORWARD_FACET_NAME);
-    }
-
-    public UIComponent getFastRewind() {
-        return getFacetByKey(FAST_REWIND_FACET_NAME);
-    }
-
-    private UIComponent getFacetByKey(String key) {
-        return getFacet(key.toString());
-    }
 
     private static boolean isRendered(UIComponent component) {
         UIComponent c = component;

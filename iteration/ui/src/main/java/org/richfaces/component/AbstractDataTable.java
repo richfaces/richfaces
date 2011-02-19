@@ -25,6 +25,7 @@ package org.richfaces.component;
 import javax.faces.component.UIComponent;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -56,9 +57,8 @@ public abstract class AbstractDataTable extends UIDataTableBase {
     @Attribute
     public abstract String getStyleClass();
     
-    public UIComponent getCaption() {
-        return getFacets().get(CAPTION_FACET_NAME);
-    }
+    @Facet
+    public abstract UIComponent getCaption();
     
 }
 

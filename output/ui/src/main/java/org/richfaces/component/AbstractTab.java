@@ -32,7 +32,9 @@ import javax.faces.component.behavior.ClientBehaviorHolder;
  * @author akolonitsky
  * @since 2010-10-19
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.TabRenderer"))
+@JsfComponent(tag = @Tag(type = TagType.Facelets),
+    facets={@Facet(name="header",generate=false)},
+    renderer = @JsfRenderer(type = "org.richfaces.TabRenderer"))
 public abstract class AbstractTab extends AbstractActionComponent implements AbstractTogglePanelTitledItem, AjaxProps, ClientBehaviorHolder {
 
     public static final String COMPONENT_TYPE = "org.richfaces.Tab";

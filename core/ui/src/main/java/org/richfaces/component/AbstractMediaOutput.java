@@ -25,6 +25,7 @@ package org.richfaces.component;
 
 import java.util.Date;
 
+import javax.el.MethodExpression;
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
 import javax.faces.component.UIOutput;
@@ -127,6 +128,9 @@ public abstract class AbstractMediaOutput extends UIOutput implements ResourceCo
 
     @Attribute
     public abstract String getMimeType();
+
+    @Attribute
+    public abstract MethodExpression getCreateContent();
 
     @Attribute
     public abstract String getRel();

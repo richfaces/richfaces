@@ -4,12 +4,14 @@ import javax.faces.component.UIComponentBase;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.renderkit.html.DropDownMenuRendererBase;
 
-@JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractDropDownMenu.COMPONENT_TYPE, 
+@JsfComponent(family = AbstractDropDownMenu.COMPONENT_FAMILY, type = AbstractDropDownMenu.COMPONENT_TYPE,
+        facets={@Facet(name="label",generate=false),@Facet(name="labelDisabled",generate=false)},
         renderer=@JsfRenderer(type = DropDownMenuRendererBase.RENDERER_TYPE), 
         tag = @Tag(name="dropDownMenu"),
         attributes = {"events-props.xml", "core-props.xml", "i18n-props.xml"})

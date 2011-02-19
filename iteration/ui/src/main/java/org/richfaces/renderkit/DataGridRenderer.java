@@ -186,22 +186,22 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
     }
     
     public void encodeHeader(ResponseWriter writer, FacesContext facesContext,  AbstractDataGrid dataGrid, boolean partial) throws IOException {
-        UIComponent headerFacet = dataGrid.getHeaderFacet();
+        UIComponent headerFacet = dataGrid.getHeader();
         encodeFacet(writer, facesContext, headerFacet, THEAD, dataGrid, new Object[] {partial});
     }
     
     public void encodeFooter(ResponseWriter writer, FacesContext facesContext, AbstractDataGrid dataGrid, boolean partial) throws IOException  {
-        UIComponent footerFacet = dataGrid.getFooterFacet();
+        UIComponent footerFacet = dataGrid.getFooter();
         encodeFacet(writer, facesContext, footerFacet, TFOOT, dataGrid, new Object[] {partial});
     }
     
     public void encodeCaption(ResponseWriter writer, FacesContext facesContext, AbstractDataGrid dataGrid) throws IOException {
-        UIComponent captionFacet = dataGrid.getCaptionFacet();
+        UIComponent captionFacet = dataGrid.getCaption();
         encodeFacet(writer, facesContext, captionFacet, CAPTION, dataGrid, null);
     }
     
     public void encodeNoData(ResponseWriter writer, FacesContext facesContext, AbstractDataGrid dataGrid) throws IOException {
-        UIComponent noDataFacet = dataGrid.getNoDataFacet();
+        UIComponent noDataFacet = dataGrid.getNoData();
         encodeFacet(writer, facesContext, noDataFacet, NODATA, dataGrid, null);
     }
     

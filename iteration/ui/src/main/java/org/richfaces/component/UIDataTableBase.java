@@ -48,6 +48,7 @@ import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
 import org.richfaces.event.FilteringEvent;
@@ -96,17 +97,12 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
         filterVar, sortPriority, sortMode, first, rows, noDataLabel, selection, header
     }
 
-    public UIComponent getHeader() {
-        return getFacet(HEADER_FACET_NAME);
-    }
-    
-    public UIComponent getFooter() {
-        return getFacet(FOOTER_FACET_NAME);
-    }
-    
-    public UIComponent getNoData() {
-        return getFacet(NODATA_FACET_NAME);
-    }
+    @Facet
+    public abstract UIComponent getHeader();
+    @Facet
+    public abstract UIComponent getFooter();
+    @Facet
+    public abstract UIComponent getNoData();
 
     @Attribute
     public abstract String getNoDataLabel();

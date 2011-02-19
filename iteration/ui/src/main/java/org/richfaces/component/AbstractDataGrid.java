@@ -36,6 +36,7 @@ import javax.faces.event.PreRenderComponentEvent;
 
 import org.richfaces.cdk.annotations.Alias;
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -92,21 +93,14 @@ public abstract class AbstractDataGrid extends UISequence implements Row, MetaCo
     @Attribute(aliases = @Alias(value="rows"))
     public abstract int getElements();
 
-    public UIComponent getHeaderFacet() {
-        return getFacets().get(HEADER_FACET_NAME);
-    }
-    
-    public UIComponent getFooterFacet() {
-        return getFacets().get(FOOTER_FACET_NAME);
-    }
-    
-    public UIComponent getCaptionFacet() {
-        return getFacets().get(CAPTION_FACET_NAME);
-    }
-    
-    public UIComponent getNoDataFacet() {
-        return getFacets().get(NODATA_FACET_NAME);
-    }
+    @Facet
+    public abstract UIComponent getHeader();
+    @Facet
+    public abstract UIComponent getFooter();
+    @Facet
+    public abstract UIComponent getCaption();
+    @Facet
+    public abstract UIComponent getNoData();
 
     @Attribute
     public int getColumns() {

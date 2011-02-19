@@ -27,6 +27,8 @@ import java.util.Comparator;
 import javax.el.ValueExpression;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Description;
+import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.model.Filter;
@@ -41,6 +43,7 @@ import org.richfaces.model.SortField;
 @JsfComponent(
     type = AbstractColumn.COMPONENT_TYPE,
     family = AbstractColumn.COMPONENT_FAMILY, 
+    facets={@Facet(name="header",description=@Description("Column header")),@Facet(name="footer",description=@Description("Column footer"))},
     generate = "org.richfaces.component.UIColumn",
     tag = @Tag(name="column")
 )

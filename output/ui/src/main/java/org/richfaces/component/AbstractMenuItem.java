@@ -1,6 +1,7 @@
 package org.richfaces.component;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -9,6 +10,7 @@ import org.richfaces.renderkit.html.MenuItemRendererBase;
 @JsfComponent(
     family = AbstractDropDownMenu.COMPONENT_FAMILY, 
     type = AbstractMenuItem.COMPONENT_TYPE, 
+    facets={@Facet(name="icon",generate=false),@Facet(name="iconDisabled",generate=false)},
     renderer=@JsfRenderer(type = MenuItemRendererBase.RENDERER_TYPE), 
     tag = @Tag(name="menuItem"),
     attributes = {"events-props.xml", "core-props.xml", "i18n-props.xml", "ajax-props.xml"})
