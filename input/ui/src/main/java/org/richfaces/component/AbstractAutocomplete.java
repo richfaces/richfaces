@@ -57,6 +57,7 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     public static final String COMPONENT_FAMILY = UIInput.COMPONENT_FAMILY;
 
     // TODO nick - change to Object - https://jira.jboss.org/browse/RF-8897
+    @Attribute()
     public abstract Object getAutocompleteList();
 
     @Attribute(signature = @Signature(returnType = Object.class, parameters = {FacesContext.class, UIComponent.class, String.class}))

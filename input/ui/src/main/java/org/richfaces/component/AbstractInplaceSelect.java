@@ -51,6 +51,7 @@ public abstract class AbstractInplaceSelect extends AbstractSelectComponent impl
     @Attribute
     public abstract String getInputWidth();
     
+    @Attribute(hidden=true)
     public abstract InplaceState getState();
     
     @Attribute
@@ -98,9 +99,15 @@ public abstract class AbstractInplaceSelect extends AbstractSelectComponent impl
     @Attribute
     public abstract String getReadyStateClass();
     
+    @Attribute
+    public abstract String getNoneClass();
+    
     @Attribute()
     public abstract String getEditEvent();
-
+    
+    @Attribute
+    public abstract String getEditClass();
+    
     @Attribute(events=@EventName("inputclick"))
     public abstract String getOninputclick();
     
