@@ -1,6 +1,6 @@
 RichFaces - Ajax enabled JSF 2.0 component library
 =========================================================
-Version 4.0.0.M6
+Version 4.0.0.CR1
 
 This software is distributed under the terms of the FSF Lesser Gnu Public License (see lgpl.txt). 
 
@@ -13,11 +13,12 @@ Getting up and running quickly
 	1.3)  richfaces-components-api.jar
 	1.4)  richfaces-components-ui.jar
 	1.5)  sac-1.3, cssparser-0.9.5 - required for components CSS work
-	1.6)  google-guava-r06 - core runtime dependency.
+	1.6)  google-guava-r08 - core runtime dependency.
 	1.7)  annotations.jar from org.richfaces.cdk
 	    - It's optional and only needs to be added if RichFaces components will be 
 	      created/accessed dynamically in your apps actions/listeners. 
-	1.8)  validation-api.jar and any implementation like hibernate-validators.jar - It's optional and should be added if you using Client or Graph Validation. Should be added only if it's not provided by server(Java EE 6 servers)  
+	1.8)  validation-api.jar and any implementation like hibernate-validators.jar 
+	    - It's optional and should be added if you using Client or Graph Validation. Should be added only if it's not provided by server(Java EE 6 servers)  
 
 For optimal performance it's recommended to add one of these caching frameworks to application classpath: EhCache, JBoss Cache, OsCache. 	
 
@@ -29,8 +30,11 @@ please refer to the documentation)
    Use xmlns:a4j="http://richfaces.org/a4j" namespace for core components
    Use xmlns:rich="http://richfaces.org/rich" namespace for rich components
 
-4) Add one of the available RichFaces 4.0.M5 components to your page and try it!
+4) Add one of the available RichFaces components to your page and try it!
 4.1) Take a look at the RichFaces examples for assistance with usage.
+
+For more information on getting started with, or without maven, take a look at wiki's Getting Started Guide.
+  - http://community.jboss.org/wiki/GettingstartedwithRichFaces4x
 
 Available Components/Behaviors/Tags/Functions
 
