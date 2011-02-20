@@ -46,8 +46,8 @@
     </dependencyManagement>
     
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/core/parent</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/core/parent</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/trunk/core/parent</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/4.0.X/core/parent</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/4.0.X/core/parent</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/branches/4.0.X/core/parent</url>
     </scm>
 </project>

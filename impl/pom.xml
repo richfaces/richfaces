@@ -220,8 +220,8 @@
 	</profiles>
 
 	<scm>
-		<connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/core/impl</connection>
-		<developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/core/impl</developerConnection>
-		<url>http://fisheye.jboss.org/browse/richfaces/trunk/core/impl</url>
+		<connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/4.0.X/core/impl</connection>
+		<developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/4.0.X/core/impl</developerConnection>
+		<url>http://fisheye.jboss.org/browse/richfaces/branches/4.0.X/core/impl</url>
 	</scm>
 </project>
