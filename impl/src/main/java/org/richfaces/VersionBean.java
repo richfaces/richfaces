@@ -64,7 +64,7 @@ public final class VersionBean {
         private String implementationVendor = UNKNOWN;
 
         //TODO nick - default value for manifest file absense - review
-        private String implementationVersion = "4.0.0-SNAPSHOT";
+        private String implementationVersion = "4.1.0-SNAPSHOT";
         
         private String implementationTitle = UNKNOWN;
         
