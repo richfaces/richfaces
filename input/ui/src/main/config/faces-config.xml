@@ -21,6 +21,9 @@
         <component-class>org.richfaces.component.html.HtmlInputNumberSlider</component-class>
 		<xi:include
 			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+			href="urn:attributes:javax.faces.component.UIInput.xml" />
+		<xi:include
+			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
 			href="urn:attributes:events-props.xml" />
 		<xi:include
 			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
@@ -227,6 +230,9 @@
     <component>
         <component-type>org.richfaces.InputNumberSpinner</component-type>
         <component-class>org.richfaces.component.html.HtmlInputNumberSpinner</component-class>
+		<xi:include
+			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+			href="urn:attributes:javax.faces.component.UIInput.xml" />
 		<xi:include
 			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
 			href="urn:attributes:events-props.xml" />
