@@ -263,8 +263,8 @@
     </profiles>
     
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/examples/parent</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/examples/parent</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/trunk/examples/parent</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/4.0.X/examples/parent</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/4.0.X/examples/parent</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/branches/4.0.X/examples/parent</url>
     </scm>
 </project>
