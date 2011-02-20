@@ -171,8 +171,8 @@
     </profiles>
     
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/4.0.0.CR1/ui/dist/richfaces-components-api</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/4.0.0.CR1/ui/dist/richfaces-components-api</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/branches/4.0.0.CR1/ui/dist/richfaces-components-api</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/dist/richfaces-components-api</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/dist/richfaces-components-api</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces</url>
     </scm>
 </project>
