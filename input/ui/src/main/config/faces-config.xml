@@ -19,17 +19,29 @@
     <component>
         <component-type>org.richfaces.InputNumberSlider</component-type>
         <component-class>org.richfaces.component.html.HtmlInputNumberSlider</component-class>
-        <property>
-            <property-name>accesskey</property-name>
-            <property-class>java.lang.String</property-class>
-            <property-extension>
-                <cdk:generate>true</cdk:generate>
-            </property-extension>
-        </property>
+		<xi:include
+			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+			href="urn:attributes:events-props.xml" />
+		<xi:include
+			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+			href="urn:attributes:base-props.xml" />
+		<xi:include
+			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+			href="urn:attributes:core-props.xml" />
+		<xi:include
+			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+			href="urn:attributes:input-props.xml" />
+		<xi:include
+			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+			href="urn:attributes:focus-props.xml" />
+		<xi:include
+			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+			href="urn:attributes:i18n-props.xml" />
         <property>
             <property-name>decreaseClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
+			<cdk:pass-through>true</cdk:pass-through>
                 <cdk:generate>true</cdk:generate>
             </property-extension>
         </property>
@@ -37,6 +49,7 @@
             <property-name>decreaseSelectedClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
+			<cdk:pass-through>true</cdk:pass-through>
                 <cdk:generate>true</cdk:generate>
             </property-extension>
         </property>
@@ -68,6 +81,7 @@
             <property-name>handleClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
+			<cdk:pass-through>true</cdk:pass-through>
                 <cdk:generate>true</cdk:generate>
             </property-extension>
         </property>
@@ -75,6 +89,7 @@
             <property-name>handleSelectedClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
+			<cdk:pass-through>true</cdk:pass-through>
                 <cdk:generate>true</cdk:generate>
             </property-extension>
         </property>
@@ -82,6 +97,7 @@
             <property-name>increaseClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
+			<cdk:pass-through>true</cdk:pass-through>
                 <cdk:generate>true</cdk:generate>
             </property-extension>
         </property>
@@ -89,6 +105,7 @@
             <property-name>increaseSelectedClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
+			<cdk:pass-through>true</cdk:pass-through>
                 <cdk:generate>true</cdk:generate>
             </property-extension>
         </property>
@@ -96,6 +113,7 @@
             <property-name>inputClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
+			<cdk:pass-through>true</cdk:pass-through>
                 <cdk:generate>true</cdk:generate>
             </property-extension>
         </property>
@@ -140,14 +158,6 @@
             </property-extension>
         </property>
         <property>
-            <property-name>onchange</property-name>
-            <property-class>java.lang.String</property-class>
-            <property-extension>
-                <cdk:generate>true</cdk:generate>
-                <cdk:event-name default="true">change</cdk:event-name>
-            </property-extension>
-        </property>
-        <property>
             <property-name>showArrows</property-name>
             <property-class>boolean</property-class>
             <default-value>false</default-value>
@@ -188,31 +198,10 @@
             </property-extension>
         </property>
         <property>
-            <property-name>style</property-name>
-            <property-class>java.lang.String</property-class>
-            <property-extension>
-                <cdk:generate>true</cdk:generate>
-            </property-extension>
-        </property>
-        <property>
-            <property-name>styleClass</property-name>
-            <property-class>java.lang.String</property-class>
-            <property-extension>
-                <cdk:generate>true</cdk:generate>
-            </property-extension>
-        </property>
-        <property>
-            <property-name>tabindex</property-name>
-            <property-class>int</property-class>
-            <default-value>Integer.MIN_VALUE</default-value>
-            <property-extension>
-                <cdk:generate>true</cdk:generate>
-            </property-extension>
-        </property>
-        <property>
             <property-name>tooltipClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
+			<cdk:pass-through>true</cdk:pass-through>
                 <cdk:generate>true</cdk:generate>
             </property-extension>
         </property>
@@ -220,6 +209,7 @@
             <property-name>trackClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
+			<cdk:pass-through>true</cdk:pass-through>
                 <cdk:generate>true</cdk:generate>
             </property-extension>
         </property>
@@ -237,13 +227,24 @@
     <component>
         <component-type>org.richfaces.InputNumberSpinner</component-type>
         <component-class>org.richfaces.component.html.HtmlInputNumberSpinner</component-class>
-        <property>
-            <property-name>accesskey</property-name>
-            <property-class>java.lang.String</property-class>
-            <property-extension>
-                <cdk:generate>true</cdk:generate>
-            </property-extension>
-        </property>
+		<xi:include
+			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+			href="urn:attributes:events-props.xml" />
+		<xi:include
+			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+			href="urn:attributes:base-props.xml" />
+		<xi:include
+			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+			href="urn:attributes:core-props.xml" />
+		<xi:include
+			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+			href="urn:attributes:input-props.xml" />
+		<xi:include
+			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+			href="urn:attributes:focus-props.xml" />
+		<xi:include
+			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+			href="urn:attributes:i18n-props.xml" />
         <property>
             <property-name>disabled</property-name>
             <property-class>boolean</property-class>
@@ -297,54 +298,6 @@
             <default-value>"0"</default-value>
             <property-extension>
                 <cdk:generate>true</cdk:generate>
-            </property-extension>
-        </property>
-        <property>
-            <property-name>onblur</property-name>
-            <property-class>java.lang.String</property-class>
-            <property-extension>
-                <cdk:generate>true</cdk:generate>
-                <cdk:event-name>blur</cdk:event-name>
-            </property-extension>
-        </property>
-        <property>
-            <property-name>onchange</property-name>
-            <property-class>java.lang.String</property-class>
-            <property-extension>
-                <cdk:generate>true</cdk:generate>
-                <cdk:event-name default="true">change</cdk:event-name>
-            </property-extension>
-        </property>
-        <property>
-            <property-name>onclick</property-name>
-            <property-class>java.lang.String</property-class>
-            <property-extension>
-                <cdk:generate>true</cdk:generate>
-                <cdk:event-name>click</cdk:event-name>
-            </property-extension>
-        </property>
-        <property>
-            <property-name>ondblclick</property-name>
-            <property-class>java.lang.String</property-class>
-            <property-extension>
-                <cdk:generate>true</cdk:generate>
-                <cdk:event-name>dblclick</cdk:event-name>
-            </property-extension>
-        </property>
-        <property>
-            <property-name>ondownclick</property-name>
-            <property-class>java.lang.String</property-class>
-            <property-extension>
-                <cdk:generate>true</cdk:generate>
-                <cdk:event-name>downclick</cdk:event-name>
-            </property-extension>
-        </property>
-        <property>
-            <property-name>onfocus</property-name>
-            <property-class>java.lang.String</property-class>
-            <property-extension>
-                <cdk:generate>true</cdk:generate>
-                <cdk:event-name>focus</cdk:event-name>
             </property-extension>
         </property>
         <property>
@@ -428,46 +381,6 @@
             </property-extension>
         </property>
         <property>
-            <property-name>onmousedown</property-name>
-            <property-class>java.lang.String</property-class>
-            <property-extension>
-                <cdk:generate>true</cdk:generate>
-                <cdk:event-name>mousedown</cdk:event-name>
-            </property-extension>
-        </property>
-        <property>
-            <property-name>onmousemove</property-name>
-            <property-class>java.lang.String</property-class>
-            <property-extension>
-                <cdk:generate>true</cdk:generate>
-                <cdk:event-name>mousemove</cdk:event-name>
-            </property-extension>
-        </property>
-        <property>
-            <property-name>onmouseout</property-name>
-            <property-class>java.lang.String</property-class>
-            <property-extension>
-                <cdk:generate>true</cdk:generate>
-                <cdk:event-name>mouseout</cdk:event-name>
-            </property-extension>
-        </property>
-        <property>
-            <property-name>onmouseover</property-name>
-            <property-class>java.lang.String</property-class>
-            <property-extension>
-                <cdk:generate>true</cdk:generate>
-                <cdk:event-name>mouseover</cdk:event-name>
-            </property-extension>
-        </property>
-        <property>
-            <property-name>onmouseup</property-name>
-            <property-class>java.lang.String</property-class>
-            <property-extension>
-                <cdk:generate>true</cdk:generate>
-                <cdk:event-name>mouseup</cdk:event-name>
-            </property-extension>
-        </property>
-        <property>
             <property-name>onselect</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
@@ -487,28 +400,6 @@
             <property-name>step</property-name>
             <property-class>java.lang.String</property-class>
             <default-value>"1"</default-value>
-            <property-extension>
-                <cdk:generate>true</cdk:generate>
-            </property-extension>
-        </property>
-        <property>
-            <property-name>style</property-name>
-            <property-class>java.lang.String</property-class>
-            <property-extension>
-                <cdk:generate>true</cdk:generate>
-            </property-extension>
-        </property>
-        <property>
-            <property-name>styleClass</property-name>
-            <property-class>java.lang.String</property-class>
-            <property-extension>
-                <cdk:generate>true</cdk:generate>
-            </property-extension>
-        </property>
-        <property>
-            <property-name>tabindex</property-name>
-            <property-class>int</property-class>
-            <default-value>Integer.MIN_VALUE</default-value>
             <property-extension>
                 <cdk:generate>true</cdk:generate>
             </property-extension>
