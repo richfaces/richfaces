@@ -227,9 +227,9 @@
 	</dependencyManagement>
 
 	<scm>
-		<connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/4.0.X/build/bom</connection>
-		<developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/4.0.X/build/bom</developerConnection>
-		<url>http://fisheye.jboss.org/browse/richfaces/branches/4.0.X/build/bom</url>
+		<connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/build/bom</connection>
+		<developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/build/bom</developerConnection>
+		<url>http://fisheye.jboss.org/browse/richfaces/trunk/build/bom</url>
 	</scm>
 
 </project>
