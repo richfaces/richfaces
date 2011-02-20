@@ -398,11 +398,11 @@
 
 	<!-- SCM and distribution management -->
 	<scm>
-		<connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/parent
+		<connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/4.0.X/parent
         </connection>
-		<developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/parent
+		<developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/4.0.X/parent
         </developerConnection>
-		<url>http://fisheye.jboss.org/browse/richfaces/trunk/parent</url>
+		<url>http://fisheye.jboss.org/browse/richfaces/branches/4.0.X/parent</url>
 	</scm>
 
 </project>

@@ -57,8 +57,8 @@
         </profile></profiles>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/trunk</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/4.0.X</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/4.0.X</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/branches/4.0.X</url>
     </scm>
 </project>
