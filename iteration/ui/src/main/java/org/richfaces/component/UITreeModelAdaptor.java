@@ -21,6 +21,7 @@
  */
 package org.richfaces.component;
 
+import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 
@@ -46,6 +47,7 @@ public class UITreeModelAdaptor extends AbstractTreeModelAdaptor implements Tree
         return COMPONENT_FAMILY;
     }
 
+    @Attribute
     public Object getNodes() {
         Object nodes = getStateHelper().eval(PropertyKeys.nodes);
         
@@ -58,6 +60,7 @@ public class UITreeModelAdaptor extends AbstractTreeModelAdaptor implements Tree
         getStateHelper().put(PropertyKeys.nodes, nodes);
     }
 
+    @Attribute
     public boolean isLeaf() {
         return (Boolean) getStateHelper().eval(PropertyKeys.leaf, false);
     }

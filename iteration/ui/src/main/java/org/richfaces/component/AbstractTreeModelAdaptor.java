@@ -31,6 +31,7 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
+import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.convert.ConverterUtil;
 
 /**
@@ -45,6 +46,7 @@ public abstract class AbstractTreeModelAdaptor extends UIComponentBase {
     
     private Converter rowKeyConverter;
     
+    @Attribute
     public Converter getRowKeyConverter() {
         if (this.rowKeyConverter != null) {
             return this.rowKeyConverter;

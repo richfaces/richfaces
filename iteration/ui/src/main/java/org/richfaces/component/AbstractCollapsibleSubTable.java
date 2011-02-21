@@ -46,7 +46,8 @@ import org.richfaces.event.ToggleListener;
     family = AbstractCollapsibleSubTable.COMPONENT_FAMILY, 
     generate = "org.richfaces.component.UICollapsibleSubTable",
     renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableRenderer"),
-    tag = @Tag(name = "collapsibleSubTable", handler = "org.richfaces.taglib.CollapsibleSubTableHandler", type = TagType.Facelets)
+    tag = @Tag(name = "collapsibleSubTable", handler = "org.richfaces.taglib.CollapsibleSubTableHandler", type = TagType.Facelets),
+    attributes = "rowKeyConverter-prop.xml"
 )
 public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implements Column, Expandable {
     

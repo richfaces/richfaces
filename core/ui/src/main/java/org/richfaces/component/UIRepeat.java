@@ -30,7 +30,8 @@ import org.richfaces.cdk.annotations.TagType;
  * @author Nick Belaevski
  * 
  */
-@JsfComponent(tag = @Tag(name = "repeat", type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.RepeatRenderer"))
+@JsfComponent(tag = @Tag(name = "repeat", type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.RepeatRenderer"),
+attributes = "rowKeyConverter-prop.xml")
 public class UIRepeat extends UISequence {
 
     public static final String COMPONENT_TYPE = "org.richfaces.Repeat";

@@ -42,7 +42,9 @@ import com.google.common.collect.Maps;
  * 
  */
 @JsfComponent(type = "org.richfaces.List", family = "org.richfaces.List", facets = @Facet(name = AbstractList.TERM),tag=@Tag(name="list"),
-    renderer = @JsfRenderer(type = "org.richfaces.ListRenderer"))
+    renderer = @JsfRenderer(type = "org.richfaces.ListRenderer"),
+    attributes = "rowKeyConverter-prop.xml"
+)
 public abstract class AbstractList extends UISequence {
 
     public static final String TERM = "term";

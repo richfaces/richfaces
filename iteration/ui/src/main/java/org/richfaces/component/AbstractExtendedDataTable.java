@@ -56,7 +56,8 @@ import org.richfaces.model.SelectionMode;
     family = AbstractExtendedDataTable.COMPONENT_FAMILY, 
     generate = "org.richfaces.component.UIExtendedDataTable",
     renderer = @JsfRenderer(type = "org.richfaces.ExtendedDataTableRenderer"),
-    tag = @Tag(name = "extendedDataTable")
+    tag = @Tag(name = "extendedDataTable"),
+    attributes = "rowKeyConverter-prop.xml"
 )
 public abstract class AbstractExtendedDataTable extends UIDataTableBase implements MetaComponentResolver, MetaComponentEncoder {
     
