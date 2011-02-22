@@ -307,6 +307,14 @@
             </property-extension>
         </property>
         <property>
+            <property-name>ondownclick</property-name>
+            <property-class>java.lang.String</property-class>
+            <property-extension>
+                <cdk:generate>true</cdk:generate>
+                <cdk:event-name>downclick</cdk:event-name>
+            </property-extension>
+        </property>
+        <property>
             <property-name>oninputclick</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
