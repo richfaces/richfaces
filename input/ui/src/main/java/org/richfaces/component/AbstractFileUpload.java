@@ -65,6 +65,30 @@ public abstract class AbstractFileUpload extends UIComponentBase {
     @Attribute(events = @EventName("uploadcomplete"))
     public abstract String getOnuploadcomplete();
 
+    @Attribute
+    public abstract String getAddLabel();
+
+    @Attribute
+    public abstract String getUploadLabel();
+
+    @Attribute
+    public abstract String getClearAllLabel();
+
+    @Attribute
+    public abstract String getDoneLabel();
+
+    @Attribute
+    public abstract String getSizeExceededLabel();
+
+    @Attribute
+    public abstract String getServerErrorLabel();
+
+    @Attribute
+    public abstract String getClearLabel();
+
+    @Attribute
+    public abstract String getDeleteLabel();
+
     @Override
     public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
         super.processEvent(event);
