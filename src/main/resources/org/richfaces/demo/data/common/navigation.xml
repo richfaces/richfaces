@@ -172,10 +172,10 @@
 			</demo>
 		</demos>
 	</group>
-	<group>
+	<group new="true">
 		<name>Validation</name>
 		<demos>
-			<demo new="true">
+			<demo>
 				<id>clientValidation</id>
 				<name>Client Side Validation</name>
 				<samples>
@@ -189,7 +189,7 @@
 					</sample>
 				</samples>
 			</demo>
-			<demo new="true">
+			<demo>
 				<id>graphValidator</id>
 				<name>rich:graphValidator</name>
 				<samples>
@@ -199,7 +199,7 @@
 					</sample>
 				</samples>
 			</demo>
-			<demo new="true">
+			<demo>
 				<id>message</id>
 				<name>rich:message</name>
 				<samples>
@@ -209,7 +209,7 @@
 					</sample>
 				</samples>
 			</demo>
-			<demo new="true">
+			<demo>
 				<id>messages</id>
 				<name>rich:messages</name>
 				<samples>
@@ -464,7 +464,7 @@
 	<group>
 		<name>Menus</name>
 		<demos>
-			<demo new="true">
+			<demo>
 				<id>panelMenu</id>
 				<name>rich:panelMenu</name>
 				<samples>
@@ -474,7 +474,7 @@
 					</sample>
 				</samples>
 			</demo>
-			<demo new="true">
+			<demo>
 				<id>toolBar</id>
 				<name>rich:toolBar</name>
 				<samples>
@@ -488,7 +488,7 @@
 					</sample>
 				</samples>
 			</demo>
-			<demo new="true">
+			<demo>
 				<id>dropDownMenu</id>
 				<name>rich:dropDownMenu</name>
 				<samples>
@@ -521,19 +521,19 @@
 					</sample>
 				</samples>
 			</demo>
-			<demo new="true">
+			<demo> 
 				<id>calendar</id>
 				<name>rich:calendar</name>
 				<samples>
-					<sample new="true">
+					<sample>
 						<id>calendar</id>
 						<name>Simple Calendar</name>
 					</sample>
-					<sample new="true">
+					<sample>
 						<id>clientStylingDisablement</id>
 						<name>Client Side Styling/Disablement</name>
 					</sample>
-					<sample new="true">
+					<sample>
 						<id>dataModel</id>
 						<name>Data Model Support</name>
 					</sample>
@@ -589,7 +589,7 @@
 					</sample>
 				</samples>
 			</demo>
-			<demo new="true">
+			<demo>
 				<id>fileUpload</id>
 				<name>rich:fileUpload</name>
 				<samples>
@@ -605,7 +605,7 @@
 		<name>Drag and Drop</name>
 		<demos>
 			<demo new="true">
-				<id>dragDrop</id>
+				<id>dragDrop</id> 
 				<name>Drag and Drop</name>
 				<samples>
 					<sample>
