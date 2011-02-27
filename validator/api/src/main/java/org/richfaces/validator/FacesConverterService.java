@@ -1,5 +1,6 @@
 package org.richfaces.validator;
 
+import javax.faces.component.EditableValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 
@@ -11,6 +12,6 @@ import javax.faces.convert.Converter;
  */
 public interface FacesConverterService {
 
-    ConverterDescriptor getConverterDescription(FacesContext context,Converter converter);
+    ConverterDescriptor getConverterDescription(FacesContext context,EditableValueHolder input, Converter converter);
     
 }

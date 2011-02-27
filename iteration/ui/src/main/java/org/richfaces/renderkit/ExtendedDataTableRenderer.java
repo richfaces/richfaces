@@ -806,10 +806,17 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             if (column.isRendered()) {
                 writer.startElement(HtmlConstants.TD_ELEM, table);
                 
-                String columnClass = getColumnClass(rowHolder, columnNumber);
+                String columnClass = concatClasses(getColumnClass(rowHolder, columnNumber), 
+                    column.getAttributes().get(HtmlConstants.STYLE_CLASS_ATTR));
                 if (!"".equals(columnClass)) {
                     writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, columnClass, null);
                 }
+                
+                String columnStyle = (String)column.getAttributes().get(HtmlConstants.STYLE_ATTRIBUTE);
+                if (!"".equals(columnStyle)) {
+                    writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, columnStyle, null);
+                }
+                
                 columnNumber++;
                 
                 writer.startElement(HtmlConstants.DIV_ELEM, table);

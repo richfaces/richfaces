@@ -45,6 +45,10 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
     protected AbstractPanelMenuItem() {
         setRendererType("org.richfaces.PanelMenuItemRenderer");
     }
+    
+    public boolean isActiveItem() {
+        return this.getName().equals(this.getPanelMenu().getActiveItem());
+    }
 
     public boolean isTopItem() {
         return getParentItem() instanceof AbstractPanelMenu;

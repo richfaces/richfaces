@@ -37,8 +37,6 @@ import javax.faces.validator.ValidatorException;
 
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.cdk.annotations.JsfValidator;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.cdk.annotations.TagType;
 
 import com.google.common.base.Strings;
 
@@ -48,7 +46,7 @@ import com.google.common.base.Strings;
  * @author asmirnov
  * 
  */
-@JsfValidator(id=FacesBeanValidator.BEAN_VALIDATOR_TYPE,tag=@Tag(name="beanValidator",type=TagType.Facelets))
+@JsfValidator(id=FacesBeanValidator.BEAN_VALIDATOR_TYPE)
 public class FacesBeanValidator implements Serializable, Validator, GraphValidator {
 
     public static final String BEAN_VALIDATOR_TYPE = "org.richfaces.BeanValidator";

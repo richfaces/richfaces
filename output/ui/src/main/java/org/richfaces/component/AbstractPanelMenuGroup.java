@@ -30,6 +30,7 @@ import org.richfaces.event.PanelToggleEvent;
 
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
@@ -126,8 +127,8 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
     }
 
     @Attribute
-    public boolean isExpanded() {
-        return getValue() == null ? false : (Boolean) getValue();
+    public Boolean isExpanded() {
+        return (Boolean) getValue();
     }
 
     public void setExpanded(boolean expanded) {
@@ -323,4 +324,46 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
 
     @Attribute(events = @EventName("beforeselect"))
     public abstract String getOnbeforeselect();
+    
+    public boolean hasActiveItem(UIComponent component, String activeItem) {
+        if (activeItem == null) {
+            return false;
+        }
+        if (component instanceof AbstractPanelMenuItem) {
+            AbstractPanelMenuItem item = (AbstractPanelMenuItem) component;
+            if (activeItem.equals(item.getName())) {
+                return true;
+            }
+        }
+        
+        if (component instanceof AbstractPanelMenuGroup) {
+            AbstractPanelMenuGroup group = (AbstractPanelMenuGroup) component;
+            if (!group.getPanelMenu().isBubbleSelection()) {
+                return false;
+            }
+        }
+
+        if (component.getChildCount() > 0) {
+            for (UIComponent child : component.getChildren()) {
+                if (!child.isRendered()) {
+                    continue;
+                }
+                
+                if (!(child instanceof AbstractPanelMenuItem)) {
+                    continue;
+                }
+                
+                if (hasActiveItem(child, activeItem)) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    public boolean getState() {
+        Boolean flag = this.isExpanded();
+        return (flag == null ? this.hasActiveItem(this, this.getPanelMenu().getActiveItem()) : flag);
+    }
 }

@@ -23,23 +23,24 @@
 
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractPanelMenu;
-import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.renderkit.HtmlConstants;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
+import static org.richfaces.renderkit.html.TogglePanelRenderer.getValueRequestParamName;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
-import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
-import static org.richfaces.renderkit.html.TogglePanelRenderer.getValueRequestParamName;
+import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractPanelMenu;
+import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.renderkit.HtmlConstants;
 
 /**
  * @author akolonitsky

@@ -275,7 +275,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     @Attribute(events = @EventName("inputblur"))
     public abstract String getOninputblur();
     
-    @Attribute(events = @EventName("change"))
+    @Attribute(events = @EventName(value="change", defaultEvent=true))
     public abstract String getOnchange();
     
     @Attribute(events = @EventName("dateselect"))

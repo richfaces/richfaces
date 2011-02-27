@@ -15,7 +15,7 @@ import com.google.common.collect.UnmodifiableIterator;
 
 public class ClientOnlyScript extends ValidatorScriptBase {
 
-    private static final ResourceKey CSV_RESOURCE = ResourceKey.create("csv.reslib", "org.richfaces");
+    public static final ResourceKey CSV_RESOURCE = ResourceKey.create("csv.reslib", "org.richfaces");
     protected final LibraryScriptFunction converter;
     protected final ImmutableList<? extends LibraryScriptFunction> validators;
     private final ImmutableSet<ResourceKey> resources;
@@ -26,13 +26,13 @@ public class ClientOnlyScript extends ValidatorScriptBase {
         this.converter = clientSideConverterScript;
         this.validators = ImmutableList.copyOf(validatorScripts);
         LinkedHashSet<ResourceKey> resources = Sets.newLinkedHashSet();
+        resources.add(CSV_RESOURCE);
         if (null != converter) {
             Iterables.addAll(resources, converter.getResources());
         }
         for (LibraryScriptFunction scriptString : validators) {
             Iterables.addAll(resources, scriptString.getResources());
         }
-        resources.add(CSV_RESOURCE);
         this.resources = ImmutableSet.copyOf(resources);
     }
 

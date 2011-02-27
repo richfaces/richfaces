@@ -161,10 +161,6 @@
             // todo move it
             this.selectionClass = this.options.stylePrefix + "-sel";
 
-            if (panelMenu.__isActiveItem(this)) {
-            	rootElt.ready($.proxy(this.__restoreSelection, this));
-            }
-            
             if (!this.options.disabled) {
                 var item = this;
 
@@ -207,7 +203,7 @@
          * @return {void} TODO ...
          */
         select: function () {
-            var continueProcess = this.__fireBeforeSelect();
+            var continueProcess = this.__fireEvent("beforeSelect");
             if (!continueProcess) {
                 return false;
             }
@@ -292,11 +288,6 @@
         __header : function () {
             return this.__item();
         },
-
-        __restoreSelection: function() {
-        	this.__select();
-        	//this.__fireSelect();
-        },
         
         __isSelected: function() {
             return this.__header().hasClass(this.selectionClass);
@@ -309,13 +300,7 @@
         __unselect: function () {
             this.__header().removeClass(this.selectionClass);
         },
-
-        __fireBeforeSelect : function () {
-            return rf.Event.fireById(this.id, "beforeselect", {
-                item: this
-            });
-        },
-
+        
         __fireSelect : function () {
             return rf.Event.fireById(this.id, "select", {
                 item: this
@@ -326,6 +311,10 @@
             return rf.Event.fireById(this.id, "unselect", {
                 item: this
             });
+        },
+        
+        __fireEvent : function (eventType, event) {
+        	return this.invokeEvent(eventType, rf.getDomElement(this.id), event, {id: this.id, item: this});
         },
 
         /**

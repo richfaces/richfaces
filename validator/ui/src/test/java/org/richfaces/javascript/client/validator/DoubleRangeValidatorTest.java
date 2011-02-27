@@ -18,8 +18,8 @@ import org.richfaces.javascript.client.RunParameters;
  */
 public class DoubleRangeValidatorTest extends ValidatorTestBase {
 
-    private static final String MINIMUM = "minimum";
-    private static final String MAXIMUM = "maximum";
+    private static final String MINIMUM = "min";
+    private static final String MAXIMUM = "max";
     /**
      * @param criteria
      */

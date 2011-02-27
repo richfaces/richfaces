@@ -31,6 +31,7 @@ import java.util.Set;
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.application.Application;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.ActionSource;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.NamingContainer;
@@ -54,6 +55,7 @@ import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.ClientSideMessage;
+import org.richfaces.javascript.JavaScriptService;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.renderkit.html.ClientValidatorRenderer;
@@ -116,12 +118,10 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
         if(partialViewContext.isAjaxRequest()){
             UIComponent component = event.getComponent();
             if(component instanceof EditableValueHolder){
-                EditableValueHolder input = (EditableValueHolder) component;
-                Set<UIComponent> messages = getMessages(facesContext, component);
-                Collection<String> renderIds = partialViewContext.getRenderIds();
-                for (UIComponent uiComponent : messages) {
-                    renderIds.add(uiComponent.getClientId(facesContext));
-                }
+                String clientId = component.getClientId(facesContext);
+                Iterator<FacesMessage> messages = facesContext.getMessages(clientId);
+                JavaScriptService javaScriptService = ServiceTracker.getService(JavaScriptService.class);
+                javaScriptService.addPageReadyScript(facesContext, new MessageUpdateScript(clientId,messages));
             }
         }
         super.broadcast(event);
@@ -245,7 +245,7 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
             }
             if(null != converter){
                 FacesConverterService converterService = ServiceTracker.getService(facesContext, FacesConverterService.class);
-                return converterService.getConverterDescription(facesContext, converter);
+                return converterService.getConverterDescription(facesContext, input, converter);
             } else {
                 return null;
             }
@@ -282,18 +282,20 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
             Validator[] facesValidators = input.getValidators();
             FacesContext facesContext = context.getFacesContext();
             if (facesValidators.length > 0) {
+                boolean beanValidatorsProcessed = false;
                 FacesValidatorService facesValidatorService = ServiceTracker.getService(facesContext,
                     FacesValidatorService.class);
                 for (Validator validator : facesValidators) {
                     if (validator instanceof BeanValidator || validator instanceof FacesBeanValidator) {
                         ValueExpression valueExpression = component.getValueExpression(VALUE);
-                        if (null != valueExpression) {
+                        if (null != valueExpression && !beanValidatorsProcessed) {
                             BeanValidatorService beanValidatorService = ServiceTracker.getService(facesContext,
                                 BeanValidatorService.class);
                             validators.addAll(beanValidatorService.getConstrains(facesContext, valueExpression, getGroups()));
+                            beanValidatorsProcessed = true;
                         }
                     } else {
-                        validators.add(facesValidatorService.getValidatorDescription(facesContext, validator));
+                        validators.add(facesValidatorService.getValidatorDescription(facesContext, input, validator));
                     }
                 }
             }

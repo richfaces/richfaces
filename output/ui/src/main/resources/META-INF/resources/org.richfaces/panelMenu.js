@@ -107,7 +107,7 @@
          * @return {String} TODO ...
          */
         selectedItem: function (id) {
-            if (id != undefined) {
+            if (typeof id != "undefined") {
                 var valueInput = this.__getValueInput();
                 var prevActiveItem = valueInput.value;
 

@@ -176,4 +176,20 @@
         </resource>
        <function>RichFaces.csv.validateMax</function>
    </component>
+   <component>
+       <type>javax.validation.constraints.AssertTrue</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+       <function>RichFaces.csv.validateTrue</function>
+   </component>
+   <component>
+       <type>javax.validation.constraints.AssertFalse</type>
+        <resource>
+            <name>csv.reslib</name>
+            <library>org.richfaces</library>
+        </resource>
+       <function>RichFaces.csv.validateFalse</function>
+   </component>
 </scripts>

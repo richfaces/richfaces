@@ -27,6 +27,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
+import javax.faces.event.PhaseId;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
@@ -212,11 +213,13 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
     
     @Override
     public void broadcast(FacesEvent event) throws AbortProcessingException {
-        super.broadcast(event);
-
-        if (event instanceof PanelToggleEvent
-            && (isBypassUpdates() || isImmediate())) {
-            FacesContext.getCurrentInstance().renderResponse();
+        if (event instanceof PanelToggleEvent) {
+            setExpanded(((PanelToggleEvent)event).getExpanded());
+            setSubmittedActiveItem(null);
+            if (event.getPhaseId() != PhaseId.UPDATE_MODEL_VALUES) {
+                FacesContext.getCurrentInstance().renderResponse();
+            }
         }
+        super.broadcast(event);
     }
 }

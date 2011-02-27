@@ -22,28 +22,32 @@
 
 package org.richfaces.renderkit.html;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialViewContext;
+import javax.faces.context.ResponseWriter;
+
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSObject;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.component.AbstractTogglePanelItemInterface;
+import org.richfaces.component.MetaComponentResolver;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.renderkit.AjaxOptions;
 import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.MetaComponentRenderer;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 import org.richfaces.renderkit.util.FormUtil;
 import org.richfaces.renderkit.util.HandlersChain;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author akolonitsky
@@ -56,7 +60,7 @@ import java.util.Map;
         @ResourceDependency(name = "richfaces-base-component.js"),
         @ResourceDependency(library = "org.richfaces", name = "togglePanel.js")})
 @JsfRenderer(type = "org.richfaces.TogglePanelRenderer", family = AbstractTogglePanel.COMPONENT_FAMILY)
-public class TogglePanelRenderer extends DivPanelRenderer {
+public class TogglePanelRenderer extends DivPanelRenderer implements MetaComponentRenderer {
 
     public static final String VALUE_POSTFIX = "-value";
 
@@ -76,16 +80,13 @@ public class TogglePanelRenderer extends DivPanelRenderer {
         String newValue = requestMap.get(getValueRequestParamName(context, component));
         if (newValue != null) {
             panel.setSubmittedActiveItem(newValue);
-            
-            //Retrieve the child item from the panel
-            AbstractTogglePanelItemInterface panelItem = panel.getItem(newValue);
-            if (panelItem != null) {
-            	//Set the active panel to be rendered
-                context.getPartialViewContext().getRenderIds().add(((UIComponent) panelItem).getClientId(context));
-
-                //TODO nick - this should be done on encode, not on decode
-                addOnCompleteParam(context, newValue, panel.getClientId(context));
-            }
+        }
+        
+        if (requestMap.get("javax.faces.partial.ajax") != null) {
+            PartialViewContext pvc = context.getPartialViewContext();
+            pvc.getRenderIds().add(
+                component.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
+                    + AbstractTogglePanel.ACTIVE_ITEM_META_COMPONENT);
         }
     }
 
@@ -100,7 +101,7 @@ public class TogglePanelRenderer extends DivPanelRenderer {
     static String getValueRequestParamName(FacesContext context, UIComponent component) {
         return component.getClientId(context) + VALUE_POSTFIX;
     }
-
+    
     @Override
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         FormUtil.throwEnclFormReqExceptionIfNeed(context, component);
@@ -114,7 +115,7 @@ public class TogglePanelRenderer extends DivPanelRenderer {
         writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.INPUT_TYPE_HIDDEN, null);
         writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, panel.getActiveItem(), null);
         writer.endElement(HtmlConstants.INPUT_ELEM);
-
+        
         writeJavaScript(writer, context, component);
     }
 
@@ -179,5 +180,39 @@ public class TogglePanelRenderer extends DivPanelRenderer {
     protected Class<? extends UIComponent> getComponentClass() {
         return AbstractTogglePanel.class;
     }
+
+    public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId)
+        throws IOException {
+        if (AbstractTogglePanel.ACTIVE_ITEM_META_COMPONENT.equals(metaComponentId)) {
+            AbstractTogglePanel panel = (AbstractTogglePanel)component;
+            AbstractTogglePanelItemInterface item = panel.getItem(panel.getActiveItem());
+            
+            if (item != null) {
+                partialStart(context, ((UIComponent)item).getClientId(context));
+                ((UIComponent)item).encodeAll(context);
+                partialEnd(context);
+                addOnCompleteParam(context, item.getName(), panel.getClientId(context));
+            } else {
+                partialStart(context, component.getClientId(context));
+                component.encodeAll(context);
+                partialEnd(context);
+                addOnCompleteParam(context, panel.getActiveItem(), panel.getClientId(context));
+            }
+        } else {
+            throw new IllegalArgumentException(metaComponentId);
+        }
+    }
+
+    public void decodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) {
+        // TODO Auto-generated method stub
+    }
+    
+    protected void partialStart(FacesContext facesContext, String id) throws IOException {
+        facesContext.getPartialViewContext().getPartialResponseWriter().startUpdate(id);
+    }
+    
+    protected void partialEnd(FacesContext facesContext) throws IOException {
+        facesContext.getPartialViewContext().getPartialResponseWriter().endUpdate();   
+    }    
 }
 

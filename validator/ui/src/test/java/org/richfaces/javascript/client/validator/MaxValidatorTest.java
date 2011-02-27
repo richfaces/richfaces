@@ -4,10 +4,7 @@
 package org.richfaces.javascript.client.validator;
 
 import java.util.List;
-import java.util.Map;
 
-import javax.faces.validator.LengthValidator;
-import javax.faces.validator.Validator;
 import javax.validation.constraints.Max;
 
 import org.junit.runners.Parameterized.Parameters;
@@ -38,9 +35,8 @@ public class MaxValidatorTest extends BeanValidatorTestBase {
 
     @Parameters
     public static List<RunParameters[]> parameters() {
-        return options(
-            pass(0,PROP,"number",MAXIMUM,2),pass(2,PROP,"number",MAXIMUM,2),pass(123,PROP,"number",MAXIMUM,2)
-           );
+        return options(pass(0, PROP, "number", MAXIMUM, 2), pass(2, PROP, "number", MAXIMUM, 2),
+            pass(123, PROP, "number", MAXIMUM, 2));
     }
     
     public static final class Bean {

@@ -189,13 +189,14 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
 
         writer.endElement(TD_ELEM);
     }
-
+    
     @Override
     protected String getStyleClass(UIComponent component) {
         AbstractPanelMenuItem menuItem = (AbstractPanelMenuItem) component;
         return concatClasses(getCssClass(menuItem, ""),
             attributeAsString(component, "styleClass"),
             PanelMenuItemRenderer.isParentPanelMenuDisabled(menuItem) || menuItem.isDisabled() ? getCssClass(menuItem, "-dis") : "",
+                (menuItem.isActiveItem() ? getCssClass(menuItem, "-sel") : ""),
                 PanelMenuItemRenderer.isParentPanelMenuDisabled(menuItem) || menuItem.isDisabled() ? attributeAsString(component, "disabledClass") : "");
     }
 
@@ -221,6 +222,7 @@ public class PanelMenuItemRenderer extends DivPanelRenderer {
         options.put("name", panelMenuItem.getName());
         options.put("selectable", panelMenuItem.isSelectable());
         options.put("unselectable", panelMenuItem.isUnselectable());
+        options.put("stylePrefix", getCssClass(panelMenuItem, ""));
 
         addEventOption(context, panelMenuItem, options, UNSELECT);
         addEventOption(context, panelMenuItem, options, SELECT);

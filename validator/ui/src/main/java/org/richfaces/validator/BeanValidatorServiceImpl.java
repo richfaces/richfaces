@@ -450,13 +450,15 @@ public class BeanValidatorServiceImpl implements BeanValidatorService {
     }
 
     private Collection<String> extractMessages(Set<ConstraintViolation<Object>> violations) {
-        Collection<String> messages = null;
+        Collection<String> messages;
         if (null != violations && violations.size() > 0) {
             messages = new ArrayList<String>(violations.size());
             for (ConstraintViolation<? extends Object> constraintViolation : violations) {
                 messages.add(constraintViolation.getMessage());
             }
 
+        } else {
+            messages = Collections.emptySet();
         }
         return messages;
     }

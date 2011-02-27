@@ -22,25 +22,39 @@
 
 package org.richfaces.renderkit.html;
 
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.*;
-import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.context.ExtendedPartialViewContext;
-import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.renderkit.RenderKitUtils;
+import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.active;
+import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.disabled;
+import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.inactive;
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.SPAN_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.STYLE_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.TBODY_ELEMENT;
+import static org.richfaces.renderkit.HtmlConstants.TD_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.TR_ELEMENT;
+import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
+
+import java.io.IOException;
+import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Map;
 
-import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.*;
-import static org.richfaces.renderkit.HtmlConstants.*;
-import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
+import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractTab;
+import org.richfaces.component.AbstractTabPanel;
+import org.richfaces.component.AbstractTogglePanel;
+import org.richfaces.component.AbstractTogglePanelItemInterface;
+import org.richfaces.component.AbstractTogglePanelTitledItem;
+import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.context.ExtendedPartialViewContext;
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.RenderKitUtils;
 
 /**
  * @author akolonitsky
@@ -70,33 +84,6 @@ public class TabPanelRenderer extends TogglePanelRenderer {
     private static final String STYLE = STYLE_ATTRIBUTE;
     private static final String CLASS = CLASS_ATTRIBUTE;
 
-//    @Override
-//    protected void doDecode(FacesContext context, UIComponent component) {
-//        AbstractTogglePanel panel = (AbstractTogglePanel) component;
-//
-//        Map<String, String> requestMap =
-//              context.getExternalContext().getRequestParameterMap();
-//
-//        // Don't overwrite the value unless you have to!
-//        String newValue = requestMap.get(getValueRequestParamName(context, component));
-//        if (newValue != null) {
-//            panel.setSubmittedActiveItem(newValue);
-//        }
-//
-//        String tabClientId = component.getClientId(context);
-//        if (requestMap.get(tabClientId) != null) {
-//            new ActionEvent(component).queue();
-//
-//            if (context.getPartialViewContext().isPartialRequest()) {
-//                //TODO nick - why render item by default?
-//                context.getPartialViewContext().getRenderIds().add(tabClientId);
-//
-//                //TODO nick - this should be done on encode, not on decode
-//                AbstractTab tab = (AbstractTab) component;
-//                addOnCompleteParam(context, tab.getName(), tab.getTabPanel().getClientId(context));
-//            }
-//        }
-//    }
 
     protected static void addOnCompleteParam(FacesContext context, String newValue, String panelId) {
         StringBuilder onComplete = new StringBuilder();

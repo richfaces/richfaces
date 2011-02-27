@@ -44,12 +44,16 @@ import org.richfaces.renderkit.RenderKitUtils;
  * @author Konstantin Mishin
  * 
  */
-@JsfComponent(tag = @Tag(handler = "org.richfaces.view.facelets.FileUploadHandler"),
+@JsfComponent(tag = @Tag(generate = false, handler = "org.richfaces.view.facelets.FileUploadHandler"),
     renderer = @JsfRenderer(type = "org.richfaces.FileUploadRenderer"),
     attributes = {"events-props.xml", "core-props.xml", "ajax-props.xml", "i18n-props.xml", "fileUploadListener-props.xml"})
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractFileUpload extends UIComponentBase {
     
+    public static final String COMPONENT_TYPE = "org.richfaces.FileUpload";
+
+    public static final String COMPONENT_FAMILY = "org.richfaces.FileUpload";
+
     @Attribute
     public abstract String getAcceptedTypes();
 

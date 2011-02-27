@@ -22,16 +22,10 @@
 
 package org.richfaces.component;
 
-import com.google.common.base.Strings;
-import org.richfaces.application.MessageFactory;
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.appplication.FacesMessages;
-import org.richfaces.cdk.annotations.*;
-import org.richfaces.component.util.MessageUtil;
-import org.richfaces.event.ItemChangeEvent;
-import org.richfaces.event.ItemChangeListener;
-import org.richfaces.event.ItemChangeSource;
-import org.richfaces.renderkit.util.RendererUtils;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.el.ELException;
 import javax.el.MethodExpression;
@@ -41,12 +35,37 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIOutput;
 import javax.faces.component.UpdateModelException;
+import javax.faces.component.visit.VisitCallback;
+import javax.faces.component.visit.VisitContext;
+import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
-import javax.faces.event.*;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ExceptionQueuedEvent;
+import javax.faces.event.ExceptionQueuedEventContext;
+import javax.faces.event.FacesEvent;
+import javax.faces.event.PhaseId;
+import javax.faces.event.PostValidateEvent;
+import javax.faces.event.PreValidateEvent;
+
+import org.richfaces.application.MessageFactory;
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.appplication.FacesMessages;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.util.MessageUtil;
+import org.richfaces.context.ExtendedVisitContext;
+import org.richfaces.context.ExtendedVisitContextMode;
+import org.richfaces.event.ItemChangeEvent;
+import org.richfaces.event.ItemChangeListener;
+import org.richfaces.event.ItemChangeSource;
+import org.richfaces.renderkit.MetaComponentRenderer;
+import org.richfaces.renderkit.util.RendererUtils;
+
+import com.google.common.base.Strings;
 
 /**
  * @author akolonitsky
@@ -54,8 +73,10 @@ import java.util.List;
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"),
         renderer = @JsfRenderer(type = "org.richfaces.TogglePanelRenderer"))
-public abstract class AbstractTogglePanel extends UIOutput implements AbstractDivPanel, ItemChangeSource {
+public abstract class AbstractTogglePanel extends UIOutput implements AbstractDivPanel, ItemChangeSource, MetaComponentResolver, MetaComponentEncoder {
 
+    public static final String ACTIVE_ITEM_META_COMPONENT = "activeItem";
+    
     public static final String COMPONENT_TYPE = "org.richfaces.TogglePanel";
 
     public static final String COMPONENT_FAMILY = "org.richfaces.TogglePanel";
@@ -204,7 +225,10 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
             popComponentFromEL(context);
         }
         
-        createItemChangeEvent(context);
+        ItemChangeEvent event = createItemChangeEvent(context);
+        if (event != null) {
+            event.queue();
+        }
     }
 
     /**
@@ -372,7 +396,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         }
     }
 
-    private void createItemChangeEvent(FacesContext context) {
+    private ItemChangeEvent createItemChangeEvent(FacesContext context) {
         if (context == null) {
             throw new NullPointerException();
         }
@@ -380,12 +404,10 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         // Submitted value == null means "the component was not submitted at all".
         String activeItem = getSubmittedActiveItem();
         if (activeItem == null) {
-            return;
+            return null;
         }
 
         String previous = (String) getValue();
-        setValue(activeItem);
-        setSubmittedActiveItem(null);
         if (previous == null || !previous.equalsIgnoreCase(activeItem)) {
             UIComponent prevComp = null;
             UIComponent actvComp = null;
@@ -397,8 +419,9 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
                 actvComp = (UIComponent)getItem(activeItem);
             }
             
-            new ItemChangeEvent(this, previous, prevComp, activeItem, actvComp).queue();
+            return new ItemChangeEvent(this, previous, prevComp, activeItem, actvComp);
         }
+        return null;
     }
     
     @Override
@@ -413,19 +436,14 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         if (isImmediate() || (event.getNewItem() != null &&
             RendererUtils.getInstance().isBooleanAttribute(event.getNewItem(), "immediate"))) {
             event.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
-        } else if (isBypassUpdates() || (event.getNewItem() != null &&
-            RendererUtils.getInstance().isBooleanAttribute(event.getNewItem(), "bypassUpdates"))) {
-            event.setPhaseId(PhaseId.PROCESS_VALIDATIONS);
         } else {
-            event.setPhaseId(PhaseId.INVOKE_APPLICATION);
+            event.setPhaseId(PhaseId.UPDATE_MODEL_VALUES);
         }
     }
-    
+
     protected void setEventPhase(FacesEvent event) {
         if (isImmediate()) {
             event.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
-        } else if (isBypassUpdates()) {
-            event.setPhaseId(PhaseId.PROCESS_VALIDATIONS);
         } else {
             event.setPhaseId(PhaseId.INVOKE_APPLICATION);
         }
@@ -433,11 +451,14 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
 
     @Override
     public void broadcast(FacesEvent event) throws AbortProcessingException {
-        super.broadcast(event);
-
         if (event instanceof ItemChangeEvent) {
-            FacesContext.getCurrentInstance().renderResponse();
+            setValue(((ItemChangeEvent) event).getNewItemName());
+            setSubmittedActiveItem(null);
+            if (event.getPhaseId() != PhaseId.UPDATE_MODEL_VALUES) {
+                FacesContext.getCurrentInstance().renderResponse();
+            }
         }
+        super.broadcast(event);
     }
 
     // -------------------------------------------------- Panel Items Managing
@@ -618,9 +639,6 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         getStateHelper().put(PropertyKeys.switchType, switchType);
     }
 
-    @Attribute
-    public abstract boolean isBypassUpdates();
-
     @Attribute(hidden = true)
     public abstract boolean isLimitRender();
 
@@ -665,4 +683,66 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         removeFacesListener(listener);
     }
 
+    public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
+        if (ACTIVE_ITEM_META_COMPONENT.equals(metaComponentId)) {
+            return getClientId(facesContext) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + metaComponentId;
+        }
+        return null;
+    }
+
+    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
+        String metaComponentId) {
+        return null;
+    }
+    
+    public void encodeMetaComponent(FacesContext context, String metaComponentId) throws IOException {
+        ((MetaComponentRenderer) getRenderer(context)).encodeMetaComponent(context, this, metaComponentId);
+    }
+    
+    @Override
+    public boolean visitTree(VisitContext context, VisitCallback callback) {
+        if (!isVisitable(context)) {
+            return false;
+        }
+
+        FacesContext facesContext = context.getFacesContext();
+        pushComponentToEL(facesContext, null);
+
+        try {
+            VisitResult result = context.invokeVisitCallback(this, callback);
+
+            if (result == VisitResult.COMPLETE) {
+                return true;
+            }
+
+            if (result == VisitResult.ACCEPT) {
+                if (context instanceof ExtendedVisitContext) {
+                    ExtendedVisitContext extendedVisitContext = (ExtendedVisitContext) context;
+                    if (extendedVisitContext.getVisitMode() == ExtendedVisitContextMode.RENDER) {
+    
+                        result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback, ACTIVE_ITEM_META_COMPONENT);
+                        if (result == VisitResult.COMPLETE) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            
+            if (result == VisitResult.ACCEPT) {
+                Iterator<UIComponent> kids = this.getFacetsAndChildren();
+
+                while(kids.hasNext()) {
+                    boolean done = kids.next().visitTree(context, callback);
+
+                    if (done) {
+                        return true;
+                    }
+                }
+            }
+        } finally {
+            popComponentFromEL(facesContext);
+        }
+
+        return false;
+    }    
 }

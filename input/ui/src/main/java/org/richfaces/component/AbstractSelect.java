@@ -10,8 +10,8 @@ import org.richfaces.cdk.annotations.Tag;
  *
  */
 @JsfComponent(
-        type = AbstractSelectComponent.COMPONENT_TYPE,
-        family = AbstractSelectComponent.COMPONENT_FAMILY, 
+        type = AbstractSelect.COMPONENT_TYPE,
+        family = AbstractSelect.COMPONENT_FAMILY, 
         generate = "org.richfaces.component.UISelect",
         renderer = @JsfRenderer(type = "org.richfaces.SelectRenderer"),
         tag = @Tag(name="select")
