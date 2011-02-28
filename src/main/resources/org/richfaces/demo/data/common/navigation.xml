@@ -194,8 +194,12 @@
 				<name>rich:graphValidator</name>
 				<samples>
 					<sample>
-						<id>graphValidator</id>
-						<name>Object validation using rich:graphValidator</name>
+						<id>passwordValidation</id>
+						<name>Password Validation</name>
+					</sample>
+					<sample>
+						<id>dayStatisticValidation</id>
+						<name>Day pass-times validation</name>
 					</sample>
 				</samples>
 			</demo>
