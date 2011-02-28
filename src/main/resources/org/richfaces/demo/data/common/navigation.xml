@@ -193,13 +193,9 @@
 				<id>graphValidator</id>
 				<name>rich:graphValidator</name>
 				<samples>
-					<sample>
+					<sample new="true">
 						<id>passwordValidation</id>
 						<name>Password Validation</name>
-					</sample>
-					<sample>
-						<id>dayStatisticValidation</id>
-						<name>Day pass-times validation</name>
 					</sample>
 				</samples>
 			</demo>
@@ -381,6 +377,10 @@
 						<id>simple</id>
 						<name>Simple Toggle Panel</name>
 					</sample>
+					<sample new="true">
+						<id>wizard</id>
+						<name>Wizard creation</name>
+					</sample>					
 				</samples>
 			</demo>
 			<demo>
