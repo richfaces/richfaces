@@ -247,3 +247,7 @@ a.show, a.hide{
 .navigation .rf-tab-lbl{
 	font:normal 12px "Lucida Sans Unicode", "Lucida Grande", Geneva,Verdana,Arial,sans-serif;
 }
+
+textarea[disabled], input[type="text"][disabled], input[type="password"][disabled], select[disabled] {
+    -webkit-text-fill-color: #B6AD84;
+}
