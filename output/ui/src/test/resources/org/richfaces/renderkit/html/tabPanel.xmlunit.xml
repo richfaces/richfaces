@@ -1,4 +1,4 @@
-<div id="f:tabPanel" class="rf-tbp" style="width: 100%;">
+<div id="f:tabPanel" class="rf-tbp">
     <input type="hidden" value="tab" id="f:tabPanel-value" name="f:tabPanel-value"/>
     <script type="text/javascript">
         //<![CDATA[

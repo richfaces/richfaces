@@ -140,7 +140,7 @@ public class TabPanelRenderer extends TogglePanelRenderer {
 
     @Override
     protected String getStyle(UIComponent component) {
-        return concatStyles(attributeAsString(component, "style"), "width: 100%;");
+        return attributeAsString(component, "style");
     }
 
     @Override
