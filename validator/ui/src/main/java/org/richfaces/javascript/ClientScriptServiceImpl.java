@@ -3,10 +3,12 @@
  */
 package org.richfaces.javascript;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
+import javax.faces.FacesException;
 import javax.faces.application.Resource;
 import javax.faces.application.ResourceDependency;
 import javax.faces.application.ResourceHandler;
@@ -29,6 +31,17 @@ public class ClientScriptServiceImpl implements ClientScriptService {
     private static final String TEXT_JAVASCRIPT = "text/javascript";
 
     private static final String ORG_RICHFACES_CSV = "org.richfaces.csv";
+    
+    private static final LibraryFunction NO_SCRIPT = new LibraryFunction() {
+        
+        public Iterable<ResourceKey> getResources() {
+            return Collections.emptySet();
+        }
+        
+        public String getName() {
+            return null;
+        }
+    };
 
     private static final Function<Class<?>, ? extends LibraryFunction> RESOURCE_SCRIPT_FUNCTION = new Function<Class<?>, LibraryFunction>() {
 
@@ -65,33 +78,30 @@ public class ClientScriptServiceImpl implements ClientScriptService {
         if (null == facesContext || null == javaClass) {
             throw new NullPointerException();
         }
-        LibraryFunction function;
-        try {
-            function = getFromComputationMap(resourcesMapping, javaClass);
-        } catch (ScriptNotFoundException e) {
+        LibraryFunction function = getFromComputationMap(resourcesMapping, javaClass);
+        if(NO_SCRIPT == function) {
             if (defaultMapping.containsKey(javaClass)) {
                 function = defaultMapping.get(javaClass);
             } else {
                 function = getFromComputationMap(annotationsMapping, javaClass);
             }
         }
+        if(NO_SCRIPT == function) {
+            throw new ScriptNotFoundException("No client-side script for class "+javaClass.getName());
+        }
         return function;
     }
     
-    private LibraryFunction getFromComputationMap(ConcurrentMap<Class<?>, LibraryFunction> map, Class<?> clazz) throws ScriptNotFoundException {
+    private LibraryFunction getFromComputationMap(ConcurrentMap<Class<?>, LibraryFunction> map, Class<?> clazz){
         try {
             return map.get(clazz);
         } catch (ComputationException e) {
             Throwable cause = e.getCause();
-            if (cause instanceof ScriptNotFoundException) {
-                ScriptNotFoundException snfe = (ScriptNotFoundException) cause;
-                throw snfe;
-            }
-            throw e;
+            throw new FacesException(cause);
         }
     }
 
-    private static LibraryFunction getScriptFromAnnotation(Class<?> javaClass) throws ScriptNotFoundException {
+    private static LibraryFunction getScriptFromAnnotation(Class<?> javaClass) {
         if (javaClass.isAnnotationPresent(ClientSideScript.class)) {
             ClientSideScript clientSideScript = javaClass.getAnnotation(ClientSideScript.class);
             List<ResourceKey> resources = Lists.newArrayList();
@@ -100,12 +110,11 @@ public class ClientScriptServiceImpl implements ClientScriptService {
             }
             return new LibraryFunctionImplementation(clientSideScript.function(), resources);
         } else {
-            throw new ScriptNotFoundException();
+            return NO_SCRIPT;
         }
     }
 
-    private static LibraryFunction getScriptResource(FacesContext facesContext, Class<?> javaClass)
-        throws ScriptNotFoundException {
+    private static LibraryFunction getScriptResource(FacesContext facesContext, Class<?> javaClass){
         ResourceHandler resourceHandler = facesContext.getApplication().getResourceHandler();
         String resourceName = javaClass.getSimpleName() + ".js";
         Resource facesResource = resourceHandler.createResource(resourceName, ORG_RICHFACES_CSV, TEXT_JAVASCRIPT);
@@ -113,7 +122,7 @@ public class ClientScriptServiceImpl implements ClientScriptService {
             final String functionName = Strings.firstToLowerCase(javaClass.getSimpleName());
             return new LibraryFunctionImplementation(functionName,resourceName,  ORG_RICHFACES_CSV);
         } else {
-            throw new ScriptNotFoundException();
+            return NO_SCRIPT;
         }
     }
 
