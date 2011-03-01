@@ -26,6 +26,6 @@ public class BooleanConverterTest extends ConverterTestBase {
 
     @Parameters
     public static List<RunParameters[]> getRunParameterss() {
-        return options(pass("true"), pass("ok"), pass("123"),pass("0"),pass("1"));
+        return options(pass("true"), pass("ok"), pass("123"),pass("0"),pass("1"),pass("no"));
     }
 }

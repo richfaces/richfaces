@@ -3,12 +3,10 @@
 	rf.csv = rf.csv || {};
 	
 	var _messages = {};
-	var _validators = {};
-	var _converters = {};
 
 	var RE_MESSAGE_PATTERN = /\'?\{(\d+)\}\'?/g;
 	
-	var __interpolateMessage = function (message, values) {
+	var interpolateMessage = function (message, values) {
 		if (message) {
 			var msgObject = message.replace(RE_MESSAGE_PATTERN,"\n$1\n").split("\n");
 			var value;
@@ -21,17 +19,105 @@
 		    return "";
 		}
 	}
-	
 
-	var __getValue = function(id) {
+	 var _value_query = function(control){
+			if(null !== control.value && undefined != control.value){
+		 	 	return control.value;
+			} else {
+				return "";
+			}
+	 	 };
+	 	 
+	var	 _check_query = function(control){
+	 	 	if( control.checked ) {
+	 	 		return true;
+	 	 	} else {
+	 	 		return false;
+	 	 	}
+	 	 };
+
+	var	 _addOption = function(value,option){
+				if ( option.selected ){
+					return value[value.length]=option.value;
+				}
+		 		
+		 	};
+
+   var valueExtractors = {
+		 	 hidden : function(control){
+		 	 		return _value_query(control);
+		 	 },
+		 	 
+		 	 text : function(control){
+		 	 		return _value_query(control);
+		 	 },
+
+		 	 textarea : function(control){
+		 	 		return _value_query(control);
+		 	 },
+
+		 	 'select-one' : function(control){
+		 	 	if (control.selectedIndex != -1) {
+		    		return _value_query(control);
+				}
+		 	 },
+
+		 	 password : function(control){
+		 	 		return _value_query(control);
+		 	 },
+
+		 	 file : function(control){
+		 	 		return _value_query(control);
+		 	 },
+
+		 	 radio : function(control){
+		 	 		return _check_query(control);
+		 	 },
+
+		 	 checkbox : function(control){
+		 	 		return _check_query(control);
+		 	 },
+
+		 	 
+		 	 'select-multiple' : function(control){
+		 		var cname = control.name;
+		 		var childs = control.childNodes;
+		 		var value = [];
+			 	for( var i=0 ;i< childs.length;i++ ){
+		 		  var child=childs[i];
+		 		  if( child.tagName === 'OPTGROUP' ){
+		 			var options = child.childNodes;
+					for(var j=0; j < options.length; j++){
+						value = _addOption(value, options[j]);
+					}
+		 		  } else {
+		 			  value =_addOption(value, child);
+				  }
+		 		}
+			 	return value;
+		 	},
+		 	
+		// command inputs
+
+		 	 
+			// same as link, but have additional field - control, for input
+			// submit.
+		 	 input : function(control){
+		 	 		return _value_query(control);
+		 	 }	
+	};
+
+	var getValue = function(id) {
 		var value;
 		var element = rf.getDomElement(id);
-		if (element.value) {
+		if (valueExtractors[element.type]) {
+			value = valueExtractors[element.type](element);
+		} else if(undefined !== element.value ){
 			value = element.value;
 		} else {
 			var component = rf.$(element);
 			// TODO: add getValue to baseComponent and change jsdocs
-			value = component && typeof component["getValue"] == "function" ? component.getValue() : "";
+			value = component && typeof component["getValue"] === "function" ? component.getValue() : "";
 		}
 		return value;
 	}
@@ -52,10 +138,10 @@
 		},
 		getMessage: function(customMessage, messageId, values) {
 			var message = customMessage ? customMessage : _messages[messageId] || {detail:"",summary:"",severity:0};
-			return {detail:__interpolateMessage(message.detail,values),summary:__interpolateMessage(message.summary,values),severity:message.severity};
+			return {detail:interpolateMessage(message.detail,values),summary:interpolateMessage(message.summary,values),severity:message.severity};
 		},
 		interpolateMessage: function(message,values){
-			return {detail:__interpolateMessage(message.detail,values),summary:__interpolateMessage(message.summary,values),severity:message.severity};			
+			return {detail:interpolateMessage(message.detail,values),summary:interpolateMessage(message.summary,values),severity:message.severity};			
 		},
 		sendMessage: function (componentId, message) {
 			rf.Event.fire(window.document, rf.Event.MESSAGE_EVENT_TYPE, {'sourceId':componentId, 'message':message});
@@ -64,7 +150,7 @@
 			rf.Event.fire(window.document, rf.Event.MESSAGE_EVENT_TYPE, {'sourceId':componentId });
 		},
 		validate: function (event, id, element, params) {
-			var value = __getValue(element || id);
+			var value = getValue(element || id);
 			var convertedValue;
 			var converter = params.c;
 			rf.csv.clearMessage(id);
@@ -131,10 +217,15 @@
 	 */	
 	$.extend(rf.csv, {	
 		"convertBoolean": function (value,label,params,msg) {
-			var result; value = $.trim(value).toLowerCase();
-			result = value=='true' ? true : value.length<1 ? null : false;
-			
-			return result;
+			if( typeof value === "string"){
+				var lcvalue = $.trim(value).toLowerCase();
+				if(lcvalue === 'on' || lcvalue==='true' || lcvalue=== 'yes'){
+					return true;
+				}
+			} else if(true === value){
+				return true;
+			}
+			return false;
 		},
 		"convertDate": function (value,label,params,msg) {
 			var result; value = $.trim(value);
@@ -207,7 +298,7 @@
 	$.extend(rf.csv, {	
 		"validateLongRange": function (value,label,params,msg) {
 			var type = typeof value;
-			if (type != "number") {
+			if (type !== "number") {
 				if (type != "string") {
 					throw rf.csv.getMessage(msg, 'LONG_RANGE_VALIDATOR_TYPE', [componentId, ""]);
 				} else {
@@ -222,8 +313,8 @@
 		},
 		"validateDoubleRange": function (value,label,params,msg) {
 			var type = typeof value;
-			if (type != "number") {
-				if (type != "string") {
+			if (type !== "number") {
+				if (type !== "string") {
 					throw rf.csv.getMessage(msg, 'DOUBLE_RANGE_VALIDATOR_TYPE', [componentId, ""]);
 				} else {
 					value = $.trim(value);
@@ -255,12 +346,12 @@
 	        }
 		},
 		"validateTrue": function (value,label,params,msg) {
-	        if (!value ) {
+	        if ( value !== true ) {
 	        	throw msg;
 	        }
 		},
 		"validateFalse": function (value,label,params,msg) {
-	        if (value ) {
+	        if (value !== false) {
 	        	throw msg;
 	        }
 		},
