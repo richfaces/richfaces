@@ -1,6 +1,6 @@
 package org.richfaces.javascript;
 
-public class ScriptNotFoundException extends RuntimeException {
+public class ScriptNotFoundException extends Exception {
 
     public ScriptNotFoundException() {
         super();
