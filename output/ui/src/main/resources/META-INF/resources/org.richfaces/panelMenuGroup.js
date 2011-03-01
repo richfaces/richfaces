@@ -204,20 +204,10 @@
                 }
 
                 if (menuGroup.options.expandSingle) {
+                	var component = this;
                     menuGroup.__group().bind("expand", function (event) {
-                        if (menuGroup.__isMyEvent(event)) {
-                            return;
-                        }
-
-                        menuGroup.__childGroups().each (function (index, group) {
-                            var rfGroup = rf.$(group);
-                            if (!rfGroup.__isMyEvent(event)) {
-                                rfGroup.collapse();
-                            }
-                        });
-                        
-                        //TODO nick - why?
-                        event.stopPropagation();
+                    	component.__rfPanelMenu().__collapseGroups(event);
+                    	event.stopPropagation();
                     });
                 }
 

@@ -326,6 +326,11 @@
                 rf.Event.bindById(this.id, name, handler);
             }
         },
+        
+        __rfTopGroup : function () {
+            var res = this.__item().parents(".rf-pm-top-gr")[0];
+            return res ? res : null;
+        },
 
         destroy: function () {
             var panelMenu = this.__rfPanelMenu();
