@@ -166,7 +166,7 @@
 
 .rf-pm-top-itm:hover {
     color: '#{richSkin.headerTextColor}';
-    background-color:#ffd700;
+    background-color: '#{richSkin.additionalBackgroundColor}';
 }
 
 .rf-pm-top-itm-sel {
