@@ -146,8 +146,8 @@ p{
     padding:15px 20px 10px;
 }
 
-.source .syntaxhighlighter .line{
-	white-space: normal !important;
+.source {
+	width: 650px;
 }
 
 a.show, a.hide{
