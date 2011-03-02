@@ -4,27 +4,29 @@
 	var defaultOptions = {
 		positionType : "DROPDOWN",
         direction : "AA",
-		jointPoint : "AA"
+		jointPoint : "AA",
+        selectMenuCss : "rf-ddm-sel",
+		unselectMenuCss : "rf-ddm-unsel"
 	};
 
 	// constructor definition
-	rf.ui.Menu = function(componentId, options) {
-		this.options = {};
-		$.extend(this.options, defaultOptions, options || {});
-		$super.constructor.call(this, componentId, this.options);
-		this.id = componentId;
-		this.namespace = this.namespace || "."
-				+ rf.Event.createNamespace(this.name, this.id);
-		this.groupList = new Array();
+    rf.ui.Menu = function(componentId, options) {
+        this.options = {};
+        $.extend(this.options, defaultOptions, options || {});
+        $super.constructor.call(this, componentId, this.options);
+        this.id = componentId;
+        this.namespace = this.namespace || "."
+                + rf.Event.createNamespace(this.name, this.id);
+        this.groupList = new Array();
 
-		rf.Event.bindById(this.id + "_label", this.options.showEvent, $.proxy(
-						this.__showHandler, this), this);
+        rf.Event.bindById(this.id + "_label", this.options.showEvent, $.proxy(
+                this.__showHandler, this), this);
+        this.element = $(rf.getDomElement(this.id));
 
-		this.attachToDom(componentId);
-		if (!rf.ui.MenuManager)
-			rf.ui.MenuManager = {};
-		this.menuManager = rf.ui.MenuManager;
-	};
+        if (!rf.ui.MenuManager)
+            rf.ui.MenuManager = {};
+        this.menuManager = rf.ui.MenuManager;
+    };
 
 	rf.ui.MenuBase.extend(rf.ui.Menu);
 
@@ -67,13 +69,32 @@
 				this.menuManager.deletedMenuId();
 			},
 
-			destroy : function() {
-				// clean up code here
-				this.detach(this.id);
+            select : function() {
+				this.element.removeClass(this.options.unselectMenuCss);
+                this.element.addClass(this.options.selectMenuCss);
+            },
+            unselect : function() {
+                this.element.removeClass(this.options.selectMenuCss);
+                this.element.addClass(this.options.unselectMenuCss);
+            },
 
-				rf.Event.unbindById(this.id + "_label", this.options.showEvent);
+            __overHandler : function() {
+                $super.__overHandler.call(this);
+                this.select();
+            },
 
-				// call parent's destroy method
+            __leaveHandler : function() {
+                $super.__leaveHandler.call(this);
+                this.unselect();
+            },
+
+            destroy : function() {
+                // clean up code here
+                this.detach(this.id);
+
+                rf.Event.unbindById(this.id + "_label", this.options.showEvent);
+
+                // call parent's destroy method
 				$super.destroy.call(this);
 
 			}
@@ -107,6 +128,5 @@
 		getActiveSubMenu : function() {
 			return this.activeSubMenu;
 		}
-
 	}
 })(jQuery, RichFaces);

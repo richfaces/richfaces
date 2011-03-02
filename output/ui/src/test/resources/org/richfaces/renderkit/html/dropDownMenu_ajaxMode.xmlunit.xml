@@ -1,4 +1,4 @@
-      <div class="rf-ddm-lbl rf-ddm-lbl-unsel  " id="form:ddmenu">
+      <div class="rf-ddm-lbl rf-ddm-unsel  " id="form:ddmenu">
         <div id="form:ddmenu_label" class="rf-ddm-lbl-dec">
           <img src="/images/ddmenu/copy.gif" class="pic"/>
           File

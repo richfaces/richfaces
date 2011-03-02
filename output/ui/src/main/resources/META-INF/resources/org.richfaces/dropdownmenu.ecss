@@ -3,10 +3,22 @@
 	font-size:11px;
 	position:relative;
 }
-.rf-ddm-lbl-unsel {
-	border:0 solid transparent;
+.rf-ddm-unsel {
+	border:1px solid transparent;
 	padding:3px 6px;
 }
+.rf-ddm-sel {
+    background-image: "url(#{resource['org.richfaces.images:menu_item_bg.gif']})";
+    background-repeat: repeat-x;
+    background-position: bottom left;
+    background-color: '#{richSkin.additionalBackgroundColor}';
+    /*from additionalBackgroundColor (top) to tabBackgroundColor (bottom) additionalBackgroundColor*/
+    border : 1px solid; /*headerBackgroundColor*/
+    border-color: '#{richSkin.headerBackgroundColor}';
+    cursor:pointer;
+    padding:3px 6px;
+}
+
 .rf-ddm-lbl, .rf-ddm-lbl-dis {
 	height:auto;
 	padding:2px 5px;
@@ -65,9 +77,9 @@
 	border-color: '#{richSkin.headerBackgroundColor}';
 	cursor : pointer; 
 	padding : 1px 36px 2px 2px;
-	background-color: '#{richSkin.tabBackgroundColor}';
+	background-color: '#{richSkin.additionalBackgroundColor}';
 	background-repeat: repeat-x;
-	background-position: top;
+	background-position: bottom left;
 	background-image: "url(#{resource['org.richfaces.images:menu_item_bg.gif']})";	
 	z-index:10;
 }
@@ -89,7 +101,7 @@
 }
 .rf-ddm-sep {
 	font-size : 0px; 
-	border-top: 1px solid; /*  #bfbfc0;*/   /*panelBorderColor*/
+	border-top: 1px solid; /*  #BED6F8;*/   /*panelBorderColor*/
 	border-top-color: '#{richSkin.panelBorderColor}';
 	margin : 2px 0px 2px 24px;
 }
