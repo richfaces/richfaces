@@ -117,7 +117,7 @@ public class AjaxBehaviorRenderer extends ClientBehaviorRenderer {
     @Override
     public String getScript(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
         String script = null;
-        if (behavior instanceof AjaxBehavior) {
+        if (behavior instanceof AjaxBehavior && !((AjaxBehavior)behavior).isDisabled()) {
             script = buildAjaxCommand(behaviorContext, (AjaxBehavior) behavior);
         }
 
