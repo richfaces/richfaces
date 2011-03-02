@@ -146,7 +146,7 @@ p{
     padding:15px 20px 10px;
 }
 
-.source {
+.source, div.rf-log {
 	width: 650px;
 }
 
