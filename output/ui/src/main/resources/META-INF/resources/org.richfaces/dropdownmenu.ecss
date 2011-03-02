@@ -1,6 +1,7 @@
 .rf-ddm-lbl, .rf-ddm-lbl-dis {	
-	font-family: '#{richSkin.headerFamilyFont}';	
-	font-size:11px;
+	font-family: '#{richSkin.generalFamilyFont}';
+	font-size:'#{richSkin.generalSizeFont}';
+    font-weight: '#{richSkin.headerWeightFont}';
 	position:relative;
 }
 .rf-ddm-unsel {
@@ -36,7 +37,7 @@
     cursor: default;
 }
 .rf-ddm-lbl-dec {
-	font-weight:bold;
+	font-weight:'#{richSkin.headerWeightFont}';
 	cursor : pointer;
 }
 .rf-ddm-lst { 
@@ -97,6 +98,7 @@
 	color : '#{richSkin.generalTextColor}'; /*#000000;*/  /*generalTextColor*/
 	display:inline-block;
 	text-decoration : none;
+    vertical-align:middle;
 	z-index:2;
 }
 .rf-ddm-sep {
