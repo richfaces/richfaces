@@ -1,5 +1,7 @@
 package org.richfaces.demo.validation;
 
+import java.io.Serializable;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -9,7 +11,11 @@ import javax.validation.constraints.Size;
 
 @ManagedBean
 @SessionScoped
-public class PasswordValidationBean implements Cloneable{
+public class PasswordValidationBean implements Cloneable, Serializable{
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1952428504080910113L;
     @Size(min = 5, max = 15, message = "Wrong size for password")
     private String password="";
     @Size(min = 5, max = 15, message = "Wrong size for confirmation")
