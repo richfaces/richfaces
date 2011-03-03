@@ -49,7 +49,7 @@ import javax.faces.event.PreValidateEvent;
 
 import org.richfaces.application.MessageFactory;
 import org.richfaces.application.ServiceTracker;
-import org.richfaces.appplication.FacesMessages;
+import org.richfaces.application.FacesMessages;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
