@@ -245,6 +245,7 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
         String classes = concatClasses("rf-dg", attributes.get(HtmlConstants.STYLE_CLASS_ATTR));
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, classes, null);
         RenderKitUtils.renderAttribute(facesContext, "style", attributes.get(HtmlConstants.STYLE_ATTRIBUTE));
+        RenderKitUtils.renderAttribute(facesContext, HtmlConstants.TITLE_ATTRIBUTE, attributes.get(HtmlConstants.TITLE_ATTRIBUTE));
         encodeCaption(writer, facesContext, dataGrid);
         encodeHeader(writer, facesContext, dataGrid, false);
         encodeFooter(writer, facesContext, dataGrid, false);
