@@ -6,6 +6,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.richfaces.component.AbstractPanelMenuGroup;
+import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.renderkit.util.PanelIcons;
 import org.richfaces.renderkit.util.PanelIcons.State;
 
@@ -35,7 +36,7 @@ class PanelMenuGroupHeaderRenderer extends TableIconsRendererHelper<AbstractPane
             iconExpanded = PanelIcons.transparent.toString();
         }
         
-        encodeTdIcon(writer, context, cssClassPrefix + "-ico", iconCollapsed, iconExpanded, getState(group));
+        encodeTdIcon(writer, context, HtmlUtil.concatClasses(cssClassPrefix + "-ico", group.getLeftIconClass()), iconCollapsed, iconExpanded, getState(group));
     }
 
     protected void encodeHeaderRightIcon(ResponseWriter writer, FacesContext context, AbstractPanelMenuGroup group) throws IOException {
@@ -50,6 +51,6 @@ class PanelMenuGroupHeaderRenderer extends TableIconsRendererHelper<AbstractPane
             iconExpanded = PanelIcons.transparent.toString();
         }
         //TODO nick - should this be "-ico-exp"? also why expanded icon state is connected with right icon alignment?
-        encodeTdIcon(writer, context, cssClassPrefix + "-exp-ico", iconCollapsed, iconExpanded, getState(group));
+        encodeTdIcon(writer, context, HtmlUtil.concatClasses(cssClassPrefix + "-exp-ico", group.getRightIconClass()), iconCollapsed, iconExpanded, getState(group));
     }
 }
