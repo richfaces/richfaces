@@ -23,11 +23,16 @@
 
 package org.richfaces.component;
 
-import com.google.common.base.Predicate;
-import org.richfaces.PanelMenuMode;
-import org.richfaces.cdk.annotations.*;
-
 import javax.faces.component.UIComponent;
+
+import org.richfaces.PanelMenuMode;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+
+import com.google.common.base.Predicate;
 
 /**
  * @author akolonitsky
@@ -108,8 +113,15 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
 
     // ------------------------------------------------ Html Attributes
     enum Properties {
-        leftIcon, leftDisabledIcon, rightIcon, rightDisabledIcon, styleClass, disabledClass, execute, name
-
+        leftIcon, 
+        leftDisabledIcon, 
+        rightIcon, 
+        rightDisabledIcon, 
+        styleClass, 
+        disabledClass, 
+        execute, 
+        name,
+        value
     }
 
     @Attribute(generate = false)
@@ -215,5 +227,14 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
         public boolean apply(UIComponent comp) {
             return comp instanceof AbstractPanelMenuGroup || comp instanceof AbstractPanelMenu;
         }
+    }
+    
+    @Attribute(generate = false, hidden = true)
+    public Object getValue() {
+        return getStateHelper().eval(Properties.value);
+    }
+
+    public void setValue(Object value) {
+        getStateHelper().put(Properties.value, value);
     }
 }
