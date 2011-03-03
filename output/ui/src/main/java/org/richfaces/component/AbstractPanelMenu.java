@@ -225,7 +225,8 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
         topGroupCollapsedRightIcon,
         topGroupDisabledLeftIcon,
         topGroupDisabledRightIcon,
-        itemLeftIcon
+        itemLeftIcon,
+        value
     }
 
     @Attribute
@@ -503,4 +504,13 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
     public void removeItemChangeListener(ItemChangeListener listener) {
         removeFacesListener(listener);
     }
+    
+    @Attribute(generate = false, hidden = true)
+    public Object getValue() {
+        return getStateHelper().eval(Properties.value);
+    }
+
+    public void setValue(Object value) {
+        getStateHelper().put(Properties.value, value);
+    }    
 }
