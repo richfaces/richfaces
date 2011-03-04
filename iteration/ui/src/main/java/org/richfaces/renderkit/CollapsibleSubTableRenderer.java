@@ -217,7 +217,7 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
             partialEnd(facesContext);
         }
     }
-    
+
     @Override
     public void encodeAfterRows(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase,
         boolean encodeParentTBody, boolean partialUpdate) throws IOException {
