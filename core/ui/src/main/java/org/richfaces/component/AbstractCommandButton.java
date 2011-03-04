@@ -25,6 +25,7 @@ import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
+import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -45,6 +46,9 @@ public abstract class AbstractCommandButton extends AbstractActionComponent impl
 
     public static final String COMPONENT_FAMILY = UICommand.COMPONENT_FAMILY;
 
+    @Attribute
+    public abstract String getImage();
+    
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
         return null;
     }
