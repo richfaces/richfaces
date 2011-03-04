@@ -146,35 +146,10 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         encodeBeforeRows(writer, facesContext, dataTableBase, encodeParentTBody, encodePartialUpdate);
 
         if (rowCount > 0) {
-            processRows(writer, facesContext, dataTableBase, new Object[] {encodePartialUpdate, encodeParentTBody});
+            processRows(writer, facesContext, dataTableBase, new Object[]{encodePartialUpdate, encodeParentTBody});
         } else {
-            int columns = getColumnsCount(dataTableBase.columns());
-
-            writer.startElement(HtmlConstants.TR_ELEMENT, dataTableBase);
-            String styleClass = (String) dataTableBase.getAttributes().get("noDataStyleClass");
-            styleClass = concatClasses(getNoDataClass(), styleClass);
-            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, styleClass, null);
-
-            writer.startElement(HtmlConstants.TD_ELEM, dataTableBase);
-            writer.writeAttribute(HtmlConstants.COLSPAN_ATTRIBUTE, columns, null);
-
-            String cellStyleClass = (String) dataTableBase.getAttributes().get("noDataCellStyleClass");
-            cellStyleClass = concatClasses( getNoDataCellClass(), cellStyleClass);
-            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, cellStyleClass, null);
-
-            UIComponent noDataFacet = dataTableBase.getNoData();
-            if (noDataFacet != null && noDataFacet.isRendered()) {
-                noDataFacet.encodeAll(facesContext);
-            } else {
-                String noDataLabel = dataTableBase.getNoDataLabel();
-                if (noDataLabel != null) {
-                    writer.writeText(noDataLabel, "noDataLabel");
-                }
-            }
-
-            writer.endElement(HtmlConstants.TD_ELEM);
-            writer.endElement(HtmlConstants.TR_ELEMENT);
-        }      
+            encodeNoDataFacetOrLabel(writer,facesContext,dataTableBase);
+        }
        
         
         encodeAfterRows(writer, facesContext, dataTableBase, encodeParentTBody, encodePartialUpdate);
@@ -192,6 +167,37 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
 
         dataTableBase.setRowKey(facesContext, key);
         dataTableBase.restoreOrigValue(facesContext);
+    }
+
+    public void encodeNoDataFacetOrLabel(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase)
+        throws IOException {
+
+        int columns = getColumnsCount(dataTableBase.columns());
+        UIComponent noDataFacet = dataTableBase.getNoData();
+        String noDataLabel = dataTableBase.getNoDataLabel();
+
+        writer.startElement(HtmlConstants.TR_ELEMENT, dataTableBase);
+        String styleClass = (String) dataTableBase.getAttributes().get("noDataStyleClass");
+        styleClass = concatClasses(getNoDataClass(), styleClass);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, styleClass, null);
+
+        writer.startElement(HtmlConstants.TD_ELEM, dataTableBase);
+        writer.writeAttribute(HtmlConstants.COLSPAN_ATTRIBUTE, columns, null);
+
+        String cellStyleClass = (String) dataTableBase.getAttributes().get("noDataCellStyleClass");
+        cellStyleClass = concatClasses(getNoDataCellClass(), cellStyleClass);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, cellStyleClass, null);
+
+        if (noDataFacet != null && noDataFacet.isRendered()) {
+            noDataFacet.encodeAll(facesContext);
+        } else if (noDataLabel != null && noDataLabel.length() > 0) {
+            writer.writeText(noDataLabel, "noDataLabel");
+        } else {
+            writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display: none;", null);
+        }
+        writer.endElement(HtmlConstants.TD_ELEM);
+        writer.endElement(HtmlConstants.TR_ELEMENT);
+
     }
            
     protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
