@@ -37,7 +37,8 @@
 		<cdk:object type="java.util.List" type-arguments="InplaceSelectBaseRenderer.ClientSelectItem" name="clientSelectItems"
 			value="#{getConvertedSelectItems(facesContext, component)}" />
 		
-		<span id="#{clientId}" class="#{getStateStyleClass(component, inplaceState)}" cdk:passThroughWithExclusions="id class">
+		<span id="#{clientId}" cdk:passThroughWithExclusions="id class"
+		class="#{concatClasses(getStateStyleClass(component, inplaceState), component.attributes['styleClass'])}" >
 
 			<span id="#{clientId}Label" class="rf-is-lbl#{inplaceValue == component.attributes['defaultLabel'] ? ' rf-is-dflt-lbl' : ''}">
 				#{inplaceValue}
