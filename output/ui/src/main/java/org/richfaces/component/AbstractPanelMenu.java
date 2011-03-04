@@ -145,6 +145,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
         this.submittedActiveItem = String.valueOf(submittedValue);
     }
 
+    @Attribute(generate = false)
     public String getActiveItem() {
         return (String) getValue();
     }
