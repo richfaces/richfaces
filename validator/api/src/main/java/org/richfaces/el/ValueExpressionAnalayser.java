@@ -3,6 +3,7 @@
  */
 package org.richfaces.el;
 
+import javax.el.ELException;
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 
@@ -13,6 +14,8 @@ import javax.faces.context.FacesContext;
  */
 public interface ValueExpressionAnalayser {
     
-    ValueDescriptor getPropertyDescriptor(FacesContext context, ValueExpression expression);
+    ValueDescriptor getPropertyDescriptor(FacesContext context, ValueExpression expression) throws ELException;
 
+    ValueDescriptor updateValueAndGetPropertyDescriptor(FacesContext context, ValueExpression expression, Object newValue) throws ELException;
+    
 }

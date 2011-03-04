@@ -1,12 +1,21 @@
 package org.richfaces.validator;
 
+import java.util.IdentityHashMap;
+import java.util.Map;
+
+import javax.faces.context.FacesContext;
+
 
 public final class GraphValidatorState {
-    public static final String STATE_ATTRIBUTE_PREFIX = "org.richfaces.GraphValidator:";
-    boolean active = false;
-    Object cloned;
-    Object base;
-    Object property;
+    public static final String STATE_ATTRIBUTE = "org.richfaces.GraphValidator:";
+    private boolean active = false;
+    private final Object cloned;
+    
+    
+    public GraphValidatorState(Object cloned) {
+        this.cloned = cloned;
+    }
+    
     /**
      * @return the active
      */
@@ -29,57 +38,28 @@ public final class GraphValidatorState {
         return cloned;
     }
 
-    /**
-     * @param cloned
-     *            the cloned to set
-     */
-    public void setCloned(Object cloned) {
-        this.cloned = cloned;
-    }
-
-    /**
-     * @return the base
-     */
-    public Object getBase() {
-        return base;
-    }
-
-    /**
-     * @param base
-     *            the base to set
-     */
-    public void setBase(Object base) {
-        this.base = base;
-    }
-
-    /**
-     * @return the property
-     */
-    public Object getProperty() {
-        return property;
-    }
-
-    /**
-     * @param property
-     *            the property to set
-     */
-    public void setProperty(Object property) {
-        this.property = property;
-    }
-
-    public boolean isSameBase(Object base) {
-        return (null == base && null == this.base) || (base == this.base);
-    }
-
-    public boolean isSameProperty(Object property) {
-        if (null == this.property) {
-            return null == property;
-        } else {
-            return this.property.equals(property);
+    public static Object getActiveClone(FacesContext context,Object base){
+        GraphValidatorState state = getState(context, base);
+        if(null == state || !state.isActive()){
+            return null;
         }
+        return state.getCloned();
     }
 
-    public boolean isSame(Object base, Object property) {
-        return isSameBase(base) && isSameProperty(property) && active;
+    public static GraphValidatorState getState(FacesContext context,Object base){
+        return getStateMap(context).get(base);
+    }
+
+    public static void setState(FacesContext context,Object base,GraphValidatorState state){
+        getStateMap(context).put(base, state);
+    }
+    
+    private static Map<Object, GraphValidatorState> getStateMap(FacesContext context){
+        IdentityHashMap<Object, GraphValidatorState> statesMap = (IdentityHashMap<Object, GraphValidatorState>) context.getAttributes().get(STATE_ATTRIBUTE);
+        if(null == statesMap){
+            statesMap = new IdentityHashMap<Object, GraphValidatorState>();
+            context.getAttributes().put(STATE_ATTRIBUTE, statesMap);
+        }
+        return statesMap;
     }
 }
