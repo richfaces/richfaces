@@ -127,9 +127,6 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     @Attribute(defaultValue = "true")
     public abstract boolean isPopup();
 
-    @Attribute(defaultValue = "true")
-    public abstract boolean isHidePopupOnScroll();
-
     @Attribute
     public abstract boolean isDisabled();
 
