@@ -5,7 +5,8 @@ import java.util.Collection;
 
 import org.richfaces.resource.ResourceKey;
 
-import com.google.common.collect.Iterables;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.ImmutableSet.Builder;
 
 
 public class ClientAndAjaxScript extends ClientOnlyScript{
@@ -19,7 +20,10 @@ public class ClientAndAjaxScript extends ClientOnlyScript{
         Collection<? extends LibraryScriptFunction> validatorScripts, String ajaxScript) {
         super(clientSideConverterScript,validatorScripts);
         this.ajaxScript = ajaxScript;
-        resources = Iterables.concat(AjaxOnlyScript.AJAX_LIBRARIES,super.getResources());
+        Builder<ResourceKey> builder = ImmutableSet.<ResourceKey>builder();
+        builder.add(AjaxOnlyScript.AJAX_RESOURCE);
+        builder.addAll(super.getResources());
+        resources = builder.build();
     }
 
 

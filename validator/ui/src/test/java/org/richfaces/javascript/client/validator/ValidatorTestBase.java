@@ -49,7 +49,7 @@ public abstract class ValidatorTestBase extends MockTestBase {
     public void testValidator() throws Exception {
         Validator validator = createValidator();
         try {
-            validator.validate(facesEnvironment.getFacesContext(), component, criteria.getValue());
+            validator.validate(facesEnvironment.getFacesContext(), input, criteria.getValue());
             validateOnClient(validator);
         } catch (ValidatorException e) {
             // client-side script has to throw exception too.
@@ -80,7 +80,7 @@ public abstract class ValidatorTestBase extends MockTestBase {
 
     private Object getErrorMessage(Validator validator) {
         FacesValidatorServiceImpl validatorService = new FacesValidatorServiceImpl();
-        FacesMessage message = validatorService.getMessage(facesEnvironment.getFacesContext(), validator);
+        FacesMessage message = validatorService.getMessage(facesEnvironment.getFacesContext(), validator, input);
         return new Message(message);
     }
 

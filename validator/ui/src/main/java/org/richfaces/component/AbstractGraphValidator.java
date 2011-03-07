@@ -20,43 +20,41 @@
  */
 package org.richfaces.component;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Collection;
-import java.util.Iterator;
 
-import javax.el.ELContext;
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.application.FacesMessage;
-import javax.faces.component.EditableValueHolder;
-import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.el.CapturingELResolver;
-import org.richfaces.el.ELContextWrapper;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.validator.BeanValidatorService;
 import org.richfaces.validator.FacesBeanValidator;
-import org.richfaces.validator.GraphValidator;
 import org.richfaces.validator.GraphValidatorState;
 
 /**
  * JSF component class
  * 
  */
-@JsfComponent(tag=@Tag(name="graphValidator",type=TagType.Facelets))
+@JsfComponent(tag=@Tag(name="graphValidator",type=TagType.Facelets, handler = "org.richfaces.view.facelets.html.GraphValidatorHandler"))
 public abstract class AbstractGraphValidator extends UIComponentBase {
 
     public static final String COMPONENT_TYPE = "org.richfaces.GraphValidator";
 
     public static final String COMPONENT_FAMILY = "org.richfaces.GraphValidator";
+    
+    private static final Logger LOG = RichfacesLogger.COMPONENTS.getLogger();
 
     /**
      * Get object for validation
@@ -121,38 +119,26 @@ public abstract class AbstractGraphValidator extends UIComponentBase {
     @Override
     public void processDecodes(FacesContext context) {
         GraphValidatorState validatorState = null;
-        // Detect value EL-expression.
-        ValueExpression valueExpression = getValueExpression("value");
-        if (null != valueExpression) {
-
-            Object value = getValue();
-            if (null != value && value instanceof Cloneable) {
+        boolean wasActive = false;
+        Object value = getValue();
+        if (null != value) {
+            validatorState = GraphValidatorState.getState(context, value);
+            if (null != validatorState) {
+                // Reuse old value, if any.
+                wasActive = validatorState.isActive();
+                validatorState.setActive(true);
+            } else if (value instanceof Cloneable) {
                 try {
-                    ELContext initialELContext = context.getELContext();
-
-                    CapturingELResolver capturingELResolver = new CapturingELResolver(initialELContext.getELResolver());
-                    Class<?> type =
-                        valueExpression.getType(new ELContextWrapper(initialELContext, capturingELResolver));
-                    if (null != type) {
-                        validatorState = new GraphValidatorState();
-                        Method method = getCloneMethod(value.getClass());
-                        if (!Modifier.isPublic(method.getModifiers())) {
-                            // Method Object#clone() is protected by default. Make it public
-                            // unless developer did it.
-                            method.setAccessible(true);
-                        }
-                        validatorState.setCloned(method.invoke(value));
-                        validatorState.setBase(capturingELResolver.getBase());
-                        validatorState.setProperty(capturingELResolver.getProperty());
-                        validatorState.setActive(true);
-                        context.getExternalContext().getRequestMap().put(getStateId(context), validatorState);
-                    }
+                    Method method = getCloneMethod(value.getClass());
+                    validatorState = new GraphValidatorState(method.invoke(value));
+                    validatorState.setActive(true);
+                    GraphValidatorState.setState(context, value, validatorState);
                 } catch (NoSuchMethodException e) {
-                    // do nothing, that is really not possible.
+                    // do nothing, that is really not possible - clone() impemented in Object.
                 } catch (InvocationTargetException e) {
                     throw new FacesException(e);
                 } catch (IllegalArgumentException e) {
-                    // do nothing, that is really not possible.
+                    // do nothing, that is really not possible - method has no arguments.
                 } catch (IllegalAccessException e) {
                     throw new FacesException(e);
                 }
@@ -160,7 +146,7 @@ public abstract class AbstractGraphValidator extends UIComponentBase {
         }
         super.processDecodes(context);
         if (null != validatorState) {
-            validatorState.setActive(false);
+            validatorState.setActive(wasActive);
         }
     }
 
@@ -169,71 +155,78 @@ public abstract class AbstractGraphValidator extends UIComponentBase {
             return clazz.getDeclaredMethod("clone");
         } catch (NoSuchMethodException e) {
             if (null != clazz.getSuperclass()) {
-                return getCloneMethod(clazz.getSuperclass());
+                Method method = getCloneMethod(clazz.getSuperclass());
+                if (!Modifier.isPublic(method.getModifiers())) {
+                    // Method Object#clone() is protected by default. Make it public
+                    // unless developer did it.
+                    method.setAccessible(true);
+                }
+                return method;
             } else {
                 throw e;
             }
         }
     }
 
-    protected String getStateId(FacesContext context) {
-        String stateId = GraphValidatorState.STATE_ATTRIBUTE_PREFIX + getClientId(context);
-        return stateId;
-    }
 
     protected GraphValidatorState getValidatorState(FacesContext context) {
-        return (GraphValidatorState) context.getExternalContext().getRequestMap().get(getStateId(context));
+        Object value = getValue();
+        if (null != value) {
+            return GraphValidatorState.getState(context, value);
+        } else {
+            return null;
+        }
     }
 
     @Override
     public void processValidators(FacesContext context) {
         GraphValidatorState validatorState = getValidatorState(context);
         if (null != validatorState) {
+            boolean wasActive = validatorState.isActive();
             validatorState.setActive(true);
-        }
-        super.processValidators(context);
-        if (null != validatorState) {
-            validatorState.setActive(false);
-            validateObject(context, validatorState.getCloned());
-            context.getExternalContext().getRequestMap().remove(getStateId(context));
+            super.processValidators(context);
+            validatorState.setActive(wasActive);
+            if(!context.isValidationFailed()){
+                validateObject(context, validatorState.getCloned());
+            }
+        } else {
+            super.processValidators(context);
         }
     }
 
     @Override
     public void processUpdates(FacesContext context) {
         super.processUpdates(context);
-        Object value = getValue();
-        validateObject(context, value);
+        // Validate updated object if it was not done on clone.
+        if (!context.isValidationFailed()) {
+            Object value = getValue();
+            if (null != value) {
+                if (null == GraphValidatorState.getState(context, value)) {
+                    validateObject(context, value);
+                }
+            }
+        }
     }
 
     private void validateObject(FacesContext context, Object value) {
         if (null != value) {
-            Validator validator = context.getApplication().createValidator(getType());
-            if (validator instanceof GraphValidator) {
-                GraphValidator graphValidator = (GraphValidator) validator;
-                Collection<String> messages = graphValidator.validateGraph(context, this, value, getGroups());
-                if (null != messages) {
-                    context.renderResponse();
-                    // send all validation messages.
-                    String clientId = getClientId(context);
-                    for (String msg : messages) {
-                        // TODO - create Summary message ?
-                        String summary = null != getSummary() ? getSummary() + msg : msg;
-                        context.addMessage(clientId, new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, msg));
-                    }
+            Collection<String> messages;
+            BeanValidatorService validatorService = ServiceTracker.getService(BeanValidatorService.class);
+            messages = validatorService.validateObject(context, value, getGroups());
+            if (!messages.isEmpty()) {
+                context.renderResponse();
+                // send all validation messages.
+                String clientId = getClientId(context);
+                for (String msg : messages) {
+                    String summary = null != getSummary() ? getSummary() : msg;
+                    context.addMessage(clientId, new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, msg));
                 }
-
-            } else {
-                throw new FacesException("Validator " + FacesBeanValidator.BEAN_VALIDATOR_TYPE
-                    + " does not implement GraphValidator");
             }
 
         }
     }
 
-    @Override
-    public void encodeBegin(FacesContext context) throws IOException {
-        super.encodeBegin(context);
+    public Validator createChildrenValidator(FacesContext context) {
         FacesBeanValidator validator = (FacesBeanValidator) context.getApplication().createValidator(getType());
         validator.setSummary(getSummary());
         ValueExpression expression = getValueExpression("groups");
@@ -242,48 +235,7 @@ public abstract class AbstractGraphValidator extends UIComponentBase {
         } else {
             validator.setGroups(getGroups());
         }
-        setupValidators(this, validator);
+        return validator;
     }
-
-    @Override
-    public void encodeChildren(FacesContext context) throws IOException {
-        if (isRendered()) {
-            for (UIComponent child : getChildren()) {
-                if (child.isRendered()) {
-                    child.encodeAll(context);
-                }
-            }
-        }
-    }
-
-    private void setupValidators(UIComponent component, Validator validator) {
-        Iterator<UIComponent> facetsAndChildren = component.getFacetsAndChildren();
-        while (facetsAndChildren.hasNext()) {
-            UIComponent child = facetsAndChildren.next();
-            if (child instanceof EditableValueHolder) {
-                EditableValueHolder input = (EditableValueHolder) child;
-                setupValidator(input, validator);
-            }
-            setupValidators(child, validator);
-        }
-    }
-
-    /**
-     * @param input
-     */
-    private void setupValidator(EditableValueHolder input, Validator validator) {
-        Validator[] validators = input.getValidators();
-        for (int i = 0; i < validators.length; i++) {
-            if (validators[i].getClass().equals(validator.getClass())) {
-                return;
-            }
-        }
-        input.addValidator(validator);
-    }
-
-    @Override
-    public boolean getRendersChildren() {
-        return true;
-    }
-
+    
 }

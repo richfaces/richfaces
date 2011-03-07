@@ -14,22 +14,15 @@ public class ValueDescriptor {
         
     private final Class<?> beanType;
     
-    private final Class<?> propertyType;
-
     /**
      * @param beanType
      * @param name
      * @param propertyType
      * @param readOnly
      */
-    public ValueDescriptor(Class<?> beanType, String name, Class<?> propertyType) {
+    public ValueDescriptor(Class<?> beanType, String name) {
         this.beanType = beanType;
         this.name = name;
-        this.propertyType = propertyType;
-    }
-
-    public ValueDescriptor(Class<?> beanType, String name) {
-        this(beanType,name,Object.class);
     }
 
     /**
@@ -45,13 +38,6 @@ public class ValueDescriptor {
      */
     public Class<?> getBeanType() {
         return beanType;
-    }
-
-    /**
-     * @return the propertyType
-     */
-    public Class<?> getPropertyType() {
-        return propertyType;
     }
 
     /* (non-Javadoc)

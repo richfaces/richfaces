@@ -107,7 +107,7 @@ public class BehaviorGetValidatorTest extends BehaviorTestBase {
             ValidatorDescriptor validatorDescriptor = environment.createMock(ValidatorDescriptor.class);
             expect((Class) validatorDescriptor.getImplementationClass()).andStubReturn(validator.getClass());
             expect(validatorDescriptor.getMessage()).andStubReturn(VALIDATION_ERROR);
-            expect(facesValidatorService.getValidatorDescription(environment.getFacesContext(), validator))
+            expect(facesValidatorService.getValidatorDescription(environment.getFacesContext(), input, validator))
                 .andStubReturn(validatorDescriptor);
         }
     }

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.component.UIViewRoot;
 
 import org.jboss.test.faces.mock.MockFacesEnvironment;
@@ -32,7 +32,7 @@ public abstract class MockTestBase {
 
     protected final RunParameters criteria;
     protected MockFacesEnvironment facesEnvironment;
-    protected UIComponent component;
+    protected UIInput input;
 
     public MockTestBase(RunParameters criteria) {
         this.criteria = criteria;
@@ -42,7 +42,7 @@ public abstract class MockTestBase {
     @Before
     public void setUp() {
         this.facesEnvironment = MockFacesEnvironment.createEnvironment().withApplication().resetToNice();        
-        component = facesEnvironment.createMock(UIComponent.class);
+        input = facesEnvironment.createMock(UIInput.class);
         recordMocks();
         facesEnvironment.replay();
     }
@@ -51,8 +51,8 @@ public abstract class MockTestBase {
         UIViewRoot viewRoot = facesEnvironment.createMock(UIViewRoot.class);
         expect(viewRoot.getLocale()).andStubReturn(Locale.ENGLISH);
         expect(facesEnvironment.getFacesContext().getViewRoot()).andStubReturn(viewRoot);
-        expect(component.getAttributes()).andStubReturn(Collections.EMPTY_MAP);
-        expect(component.getClientId(facesEnvironment.getFacesContext())).andStubReturn(TEST_COMPONENT_ID);
+        expect(input.getAttributes()).andStubReturn(Collections.EMPTY_MAP);
+        expect(input.getClientId(facesEnvironment.getFacesContext())).andStubReturn(TEST_COMPONENT_ID);
     }
 
     @After

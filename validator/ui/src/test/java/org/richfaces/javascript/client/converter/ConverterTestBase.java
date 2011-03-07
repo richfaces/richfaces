@@ -1,13 +1,10 @@
 package org.richfaces.javascript.client.converter;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.*;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-import javax.faces.validator.Validator;
 
 import net.sourceforge.htmlunit.corejs.javascript.JavaScriptException;
 import net.sourceforge.htmlunit.corejs.javascript.NativeObject;
@@ -33,7 +30,7 @@ public abstract class ConverterTestBase extends MockTestBase {
         Converter converter = createConverter();
         try {
             Object convertedValue =
-                converter.getAsObject(facesEnvironment.getFacesContext(), component, criteria.getValue().toString());
+                converter.getAsObject(facesEnvironment.getFacesContext(), input, criteria.getValue().toString());
             Object jsConvertedValue =
                 convertOnClient(converter);
             if(null != convertedValue || null != jsConvertedValue){
@@ -66,7 +63,7 @@ public abstract class ConverterTestBase extends MockTestBase {
 
     private Object getErrorMessage(Converter converter) {
         ConverterServiceImpl converterService = new ConverterServiceImpl();
-        FacesMessage message = converterService.getMessage(facesEnvironment.getFacesContext(), converter);
+        FacesMessage message = converterService.getMessage(facesEnvironment.getFacesContext(), converter, input);
         return new Message(message);
     }
 

@@ -45,7 +45,7 @@ public class BehaviorGetConverterTest extends BehaviorTestBase {
     public void setupService() {
         expect(factory.getInstance(FacesConverterService.class)).andStubReturn(converterService);
         converterCapture = new Capture<Converter>();
-        expect(converterService.getConverterDescription(eq(environment.getFacesContext()), capture(converterCapture)))
+        expect(converterService.getConverterDescription(same(environment.getFacesContext()), same(input), capture(converterCapture)))
             .andStubReturn(descriptor);
         ServiceTracker.setFactory(factory);
     }

@@ -15,6 +15,7 @@ import javax.el.ListELResolver;
 import javax.el.MapELResolver;
 import javax.el.ValueExpression;
 import javax.el.VariableMapper;
+import javax.faces.context.FacesContext;
 
 import org.jboss.el.ExpressionFactoryImpl;
 import org.junit.After;
@@ -89,6 +90,10 @@ public class ELTestBase {
 
     class DummyELContext extends ELContext {
 
+        public DummyELContext() {
+            putContext(FacesContext.class, FacesContext.getCurrentInstance());
+        }
+        
         @Override
         public ELResolver getELResolver() {
             return elResolver;

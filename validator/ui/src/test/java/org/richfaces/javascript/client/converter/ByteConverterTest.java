@@ -5,7 +5,6 @@ import static junit.framework.Assert.assertTrue;
 
 import java.util.List;
 
-import javax.faces.convert.BooleanConverter;
 import javax.faces.convert.ByteConverter;
 import javax.faces.convert.Converter;
 

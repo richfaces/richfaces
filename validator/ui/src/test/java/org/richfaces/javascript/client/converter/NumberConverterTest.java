@@ -4,7 +4,6 @@ package org.richfaces.javascript.client.converter;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.convert.BooleanConverter;
 import javax.faces.convert.NumberConverter;
 import javax.faces.convert.Converter;
 

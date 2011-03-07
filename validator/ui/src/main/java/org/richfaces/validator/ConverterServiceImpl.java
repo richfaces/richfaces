@@ -5,6 +5,7 @@ package org.richfaces.validator;
 
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.BigDecimalConverter;
@@ -37,9 +38,9 @@ public class ConverterServiceImpl extends FacesServiceBase<Converter> implements
      * @see org.richfaces.validator.FacesConverterService#getConverterDescription(javax.faces.context.FacesContext,
      * javax.faces.convert.Converter)
      */
-    public ConverterDescriptor getConverterDescription(FacesContext context, Converter converter) {
+    public ConverterDescriptor getConverterDescription(FacesContext context, EditableValueHolder input, Converter converter) {
         // determine converter message.
-        FacesMessage message = getMessage(context, converter);
+        FacesMessage message = getMessage(context, converter, input);
         ConverterDescriptorImpl descriptor = new ConverterDescriptorImpl(converter.getClass(), message);
         fillParameters(descriptor, converter);
         descriptor.makeImmutable();

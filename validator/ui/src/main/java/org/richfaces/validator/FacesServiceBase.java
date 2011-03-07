@@ -7,6 +7,8 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.component.EditableValueHolder;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import com.google.common.collect.ImmutableSet;
@@ -50,11 +52,23 @@ public abstract class FacesServiceBase<T> {
      * 
      * @param context
      * @param component
+     * @param input TODO
      * @return
      */
-    public FacesMessage getMessage(FacesContext context, T component) {
+    public FacesMessage getMessage(FacesContext context, T component, EditableValueHolder input) {
         String messageId = getMessageId(component);
         return MessageFactory.createMessage(context, messageId);
+    }
+
+
+    protected void setLabelParameter(EditableValueHolder input, FacesValidatorDescriptor descriptor) {
+        if (input instanceof UIComponent) {
+            UIComponent component = (UIComponent) input;
+            Object label = component.getAttributes().get("label");
+            if(null!=label){
+                descriptor.addParameter("label", label);
+            }
+        }
     }
 
 }
