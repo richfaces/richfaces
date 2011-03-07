@@ -15,12 +15,17 @@
 		<h:form id="form">
             <h:panelGrid columns="3">
 			<c:forEach items="#{dataBean.beans}" var="bean">
-					<h:outputLabel for="#{bean.label}" value="#{bean.description}" />
-					<h:inputText id="#{bean.label}" value="#{bean.value}" label="#{bean.label}" converter="#{bean.converter}">
+					<h:outputLabel for="${bean.label}" value="#{bean.description}" />
+					<h:inputText id="${bean.label}" value="#{bean.value}" label="#{bean.label}" converter="#{bean.converter}">
 						<csv:validator summary="Invalid value" />
 					</h:inputText>
-					<csv:message for="#{bean.label}" />
+					<csv:message for="${bean.label}" />
 			</c:forEach>
+                    <h:outputLabel for="assertTrue" value="#{booleanBean.description}" />
+                    <h:selectBooleanCheckbox id="assertTrue" value="#{booleanBean.value}" label="#{booleanBean.label}" >
+                        <csv:validator summary="Required checkbox" />
+                    </h:selectBooleanCheckbox>
+                    <csv:message for="assertTrue" />
 			</h:panelGrid>
 			<h:commandButton value="Submit"></h:commandButton>
 			<csv:messages />
