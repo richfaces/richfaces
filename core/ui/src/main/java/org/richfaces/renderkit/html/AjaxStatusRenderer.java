@@ -93,7 +93,7 @@ public class AjaxStatusRenderer extends RendererBase {
             this.styleAttributeName = stateName + "Style";
             this.styleClassAttributeName = stateName + "StyleClass";
             this.textAttributeName = stateName + "Text";
-            this.defaultStyleClass = "rich-status-" + stateName;
+            this.defaultStyleClass = "rf-st-" + stateName;
         }
 
         public String getStyleAttributeName() {
