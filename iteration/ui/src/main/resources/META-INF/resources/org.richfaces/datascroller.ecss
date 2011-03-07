@@ -117,7 +117,7 @@ a.rf-ds-btn {
     cursor: default;
     font-weight: bold;
     border-width: 1px;
-    bordr-style: solid;
+    border-style: solid;
     border-color: transparent;
     border-bottom-width: 1px;
     border-bottom-style: solid;
