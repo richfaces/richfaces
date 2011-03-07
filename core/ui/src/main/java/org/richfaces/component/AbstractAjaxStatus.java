@@ -23,7 +23,7 @@
 
 package org.richfaces.component;
 
-import javax.faces.component.UIOutput;
+import javax.faces.component.UIComponentBase;
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
@@ -37,7 +37,7 @@ import org.richfaces.cdk.annotations.TagType;
  *
  */
 @JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.StatusRenderer"), tag = @Tag(type = TagType.Facelets))
-public abstract class AbstractAjaxStatus extends UIOutput {
+public abstract class AbstractAjaxStatus extends UIComponentBase {
 
     public static final String COMPONENT_TYPE = "org.richfaces.Status";
 
@@ -54,4 +54,35 @@ public abstract class AbstractAjaxStatus extends UIOutput {
 
     @Attribute(events = @EventName("success"))
     public abstract String getOnsuccess();
+    
+    @Attribute
+    public abstract String getName();
+
+    @Attribute
+    public abstract String getStartText();
+    
+    @Attribute
+    public abstract String getStopText();
+    
+    @Attribute
+    public abstract String getErrorText();
+    
+    @Attribute
+    public abstract String getStartStyle();
+    
+    @Attribute
+    public abstract String getStopStyle();
+    
+    @Attribute
+    public abstract String getErrorStyle();
+    
+    @Attribute
+    public abstract String getStartStyleClass();
+    
+    @Attribute
+    public abstract String getStopStyleClass();
+    
+    @Attribute
+    public abstract String getErrorStyleClass();
+    
 }
