@@ -1,68 +1,170 @@
-RichFaces showcase is an application intended to show RichFaces components in action. It contains set of small use-cases implemented using RichFaces components.  These use-cases for the demo are chosen from most popular questions on the user forums.  You will be able to find a lot of useful information and will be able to re-use some of it to implement the same cases for your applications. 
+========================================================================
 
-1 Building and Running the application
+                      RichFaces - Ajax enabled JSF 2.0 component library
 
-1.1. Requirements
+                                              RichFaces 4.0.CR1 SHOWCASE
+					      	    http://richfaces.org
+                                                              March 2011
+                     This software is distributed under the terms of the 
+                            FSF Lesser Gnu Public License (see lgpl.txt)
 
-- Maven 2.1.0 or later
-- Servers: Apache Tomcat 6.0 or any JEE6 application server (e.g. JBoss AS 6)
-- JDK 1.6
+========================================================================
 
-1.2 Optional Additional Software
-- Eclipse IDE + JBoss Tools (to explore and run the application in IDE).
-- You're free to use any other IDE also but we haven't tested an application in other environments. 
+RichFaces showcase is an application created to show RichFaces components
+in action. It contains a set of small use-cases implemented using RichFaces
+components. 
 
-1.3 Build/Deploy
+The examples shown in the application were chosen from the most popular
+questions at the user forum. You will find a lot of useful information on 
+how to implement RichFaces components and re-use the code to implement the 
+components in your own application.
 
-1.3.1) Tomcat 
-To build the project you need to navigate to the /examples/richfaces-showcase and run
+This file explains how to build and execute the showcase application on
+your own server.
 
-mvn clean package
 
-When you see the BUILD SUCCESSFUL message you can deploy the application on the server. You can deploy it on the server by copying .war file from 'target' folder to 
-the TOMCAT_HOME/webapps folder. Then, launch the startup.sh or startup.bat script from TOMCAT_HOME/bin/ directory to start the server.
+BUILDING AND RUNNING THE APPLICATION
+------------------------------------
 
-1.3.2) JEE6 server(JBoss AS 6)
-To build the project you need to navigate to the /examples/richfaces-showcase and run
+    1. Requirements
+    
+    In order to build the Showcase application you will need:
 
-mvn clean package -Pjee6
+        - Maven 2.1.0 or later
+        - Servers: Apache Tomcat 6.0 or any JEE6 application server 
+       	  (e.g. JBoss AS 6)
+        - JDK 1.6
 
-When you see the BUILD SUCCESSFUL message you can deploy the application on the server. You can deploy it on the server by copying .war file from 'target' folder to 
-the JBOSS_HOME/server/default/deploy folder(or change "default/" to used profile folder). Then, launch the run.sh or run.bat script from JBOSS_HOME/bin/ directory to start the server.
+    Also optional Additional Software would make it easy for you to work 
+    with the sources of the application:
+    	
+	- Eclipse IDE + JBoss Tools (to explore and run the application 
+	  in IDE). You're obviously free to use any other IDE you wish, but
+	  JBoss Tools is recommended. 
 
-2) Publishing to Google Application Engine
- 
-We have completed a resource plugin which generates static resources which allow us to create Google App Engine compatible applications using RichFaces.  This means deploying to and working with GAE is a piece of cake.  Here is how you can deploy your own RichFaces showcase example.
+    2. Build/Deploy
 
---) Update the GAE application name, and register it with google.  Do this by updating the /webapp-gae/WEB-INF/appengine-web.xml following the GAE standard documentation.
+       - Deploying on Tomcat
 
---) Only if using MyFaces: Configure the MyFaces encryption secret values in the /webapp-gae/WEB-INF/web.xml.  Replace the "-- Insert some secret here --" with a base64 encoded password.  This is important because otherwise MyFaces will generate random keys, and this causes issues in a cluster environment like GAE.
-
-See below for more information:
-  MyFaces - http://wiki.apache.org/myfaces/Secure_Your_Application
-  Mojarra - http://wikis.sun.com/display/GlassFish/JavaServerFacesRI#JavaServerFacesRI-HowcanIsecureviewstatewhenusingclientsidestatesaving%3F
-
---) Build using: 
-
-mvn clean package -Pgae
-
---) Use GAE SDK and the appcfg script just as you would for any other GAE application.
-
-There are some additional changes that were made in order to make richfaces-showcase GAE compatible:
-	* WebConfiguration class from com.sun.faces were patched removing code which is not compatible with GAE
-	* web.xml with additional properties for GAE created and placed at src\main\webapp-gae\WEB-INF\ (it replaces common one during build with GAE profile)
-	* check pom.xml GAE profile section in order to check additional dependencies for that configuration.
-
-3) Working with the project in Eclipse IDE:
-In order to explore, run and deploy the application in Eclipse IDE you can use one of the following options:
-
-	* Just import as maven project if using m2eclipse plugin.
+       	 To build the project for Tomcat you need to navigate to the 
+      	 /examples/richfaces-showcase and run:
+	 
+		mvn clean package
 	
-	* without m2eclipse - build it with the
+	 When you see the BUILD SUCCESSFUL message you can deploy the 
+	 application on the server. To deploy it on Tomcat, copy the .war 
+	 file from 'target' folder to TOMCAT_HOME/webapps folder. Then, 
+	 launch the startup.sh or startup.bat script from TOMCAT_HOME/bin/ 
+	 directory to start the server.
 
-		 mvn clean install eclipse:clean eclipse:eclipse 
+       - Deploying on JEE6 server (JBoss AS 6)
+       	 
+	 To build the project for a JEE6 server you need to navigate to the 
+	 /examples/richfaces-showcase and run
 
-	  comand and just import as existent project.
+	 	mvn clean package -Pjee6
 
-You can find more details in the RichFaces Getting Started Guide (visit documentation page at http://jboss.org/richfaces)
+	 When you see the BUILD SUCCESSFUL message you can deploy the 
+	 application on the server. To deploy it on the application server 
+	 copy the .war file from 'target' folder to the JBOSS_HOME/server/default/deploy 
+	 folder (or change "default/" to used profile folder). Then, launch 
+	 the run.sh or run.bat script from JBOSS_HOME/bin/ directory to start 
+	 the server.
 
+
+After deploying the examples to your server open a browser and type 
+http://localhost:8080/richfaces-showcase to view the examples.
+
+       - Publishing to Google Application Engine (GAE)
+       	 
+	 We have completed a resource plugin which generates static resources 
+	 allowing us to create Google App Engine compatible applications 
+	 using RichFaces.  This means deploying to and working with GAE is 
+	 a piece of cake.  Here is how you can deploy your own RichFaces showcase 
+	 example:
+
+	     * Update the GAE application name, and register it with google.  
+	       Do this by updating the /webapp-gae/WEB-INF/appengine-web.xml 
+	       following the GAE standard documentation.
+
+	     * if using MyFaces: Configure the MyFaces encryption secret values 
+	       in the /webapp-gae/WEB-INF/web.xml. Replace the "-- Insert some secret here --" 
+	       with a base64 encoded password. This is important because 
+	       otherwise MyFaces will generate random keys, and this causes 
+	       issues in a cluster environment like GAE.
+		  
+	       For more information on JSF encryption check:
+	           MyFaces - http://wiki.apache.org/myfaces/Secure_Your_Applicatio
+		   Mojarra - http://wikis.sun.com/display/GlassFish/JavaServerFacesRI#JavaServerFacesRI-HowcanIsecureviewstatewhenusingclientsidestatesaving%3F
+		  
+	     * Build using: mvn clean package -Pgae
+
+             * Use GAE SDK and the appcfg script just as you would for any other 
+	       GAE application.
+
+        There are some additional changes that were made in order to make 
+	richfaces-showcase GAE compatible:
+	     
+	     * WebConfiguration class from com.sun.faces were patched removing 
+	       code which is not compatible with GAE
+
+	     * web.xml with additional properties for GAE created and placed 
+	       at src\main\webapp-gae\WEB-INF\ (it replaces common one during 
+	       build with GAE profile)
+
+	     * check pom.xml GAE profile section in order to check additional 
+	       dependencies for that configuration
+
+
+SETTING UP ECLIPSE TO WORK WITH THE SHOWCASE
+--------------------------------------------
+
+In order to explore, run and deploy the Showcase using Eclipse IDE you can use 
+one of the following options:
+
+    - You could use JBoss Tools with m2eclipse plugin and just import 
+      the examples as maven-based projects.
+      	  * Open Eclipse and go to File > Import
+	  * Expand the project type named Maven and select Import Maven 
+	    Project
+	  * Browse the directory in which you placed the examples, select 
+	    it and press OK.
+	  * Press next on the import wizard to finish importing the 
+	    examples.
+
+    - Or if you are not using m2eclipse execute use Maven to convert the 
+      project to an Eclipse project:
+      	 * Open a terminal inside the RichFaces examples directory
+	 * execute mvn eclipse:ecllipse
+	 * Open Eclipse and select File > Import
+	 * Select Import as existing project into workspace after build 
+	   is complete.
+	 * Follow the instructions on the import wizard.
+
+You are now able to work with the Showcase within Eclipse.
+
+
+MORE INFORMATION AND RESOURCES
+------------------------------
+
+For more information on RichFaces 4, please visit RichFaces 
+website at:
+
+    - http://www.jboss.org/richfaces.
+
+Or check the Wiki for more information on build instructions for the examples at:
+
+    - http://community.jboss.org/wiki/HowtoworkwithRichFaces4xexamplessources
+
+To report or check the status of issues related to RichFaces Examples 
+use the project's Jira at:
+    
+    - https://issues.jboss.org/browse/RF
+
+Community support and help can be obtained from the RichFaces forums at:
+
+    - http://community.jboss.org/en/richfaces?view=discussions
+
+
+
+###
