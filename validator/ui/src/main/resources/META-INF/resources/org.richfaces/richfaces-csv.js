@@ -189,7 +189,7 @@
 				params.a.call(element,event,id);
 			}
 			return result;
-		},
+		}
 	});
 	
 	/*
