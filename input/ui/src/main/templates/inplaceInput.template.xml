@@ -41,11 +41,12 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	<cc:implementation>
 		<cdk:object type="org.richfaces.component.InplaceState" name="inplaceState" value="#{getInplaceState(component)}" />
 		<cdk:object type="java.lang.String" name="inplaceValue" value="#{getValue(facesContext, component)}" />
-		
+        <cdk:object type="java.lang.String" name="defaultLabel" value="#{inplaceValue != null and inplaceValue.length() != 0 ? inplaceValue : '&#160;&#160;&#160;'}" />
+
 		<span id="#{clientId}" cdk:passThroughWithExclusions="id class" 
 		class="#{concatClasses(getStateStyleClass(component, inplaceState), component.attributes['styleClass'])}">
 			<span id="#{clientId}Label" class="rf-ii-lbl#{inplaceValue == component.attributes['defaultLabel'] ? ' rf-ii-dflt-lbl' : ''}">
-				#{inplaceValue}
+				#{defaultLabel}
 			</span>
 			
 			<c:if test="#{!component.attributes['disabled']}">
@@ -89,7 +90,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 						<cdk:scriptOption name="changedCss" value="#{concatClasses('rf-ii-c-s', component.attributes['changedStateClass'])}"/>
 						<cdk:scriptOption name="editCss" value="#{concatClasses('rf-ii-e-s', component.attributes['editStateClass'])}"/>
 						<cdk:scriptOption name="editEvent" value="#{getEditEvent(component)}"/>
-					  	<cdk:scriptOption attributes="state defaultLabel saveOnBlur showControls" />
+                        <cdk:scriptOption name="defaultLabel" value="#{defaultLabel}" />
+					  	<cdk:scriptOption attributes="state saveOnBlur showControls" />
 					  	<cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onselectitem onchange onblur onfocus" wrapper="eventHandler"/>
                 	</cdk:scriptObject>
 					new RichFaces.ui.InplaceInput("#{clientId}", #{toScriptArgs(options)});

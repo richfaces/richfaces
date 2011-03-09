@@ -21,19 +21,18 @@
  */
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.Map;
+import org.richfaces.component.AbstractInplaceInput;
+import org.richfaces.component.InplaceComponent;
+import org.richfaces.component.InplaceState;
+import org.richfaces.renderkit.util.HtmlDimensions;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-
-import org.richfaces.component.AbstractInplaceInput;
-import org.richfaces.component.InplaceComponent;
-import org.richfaces.component.InplaceState;
-import org.richfaces.renderkit.util.HtmlDimensions;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Map;
 
 /**
  * @author Anton Belevich
@@ -51,38 +50,6 @@ import org.richfaces.renderkit.util.HtmlDimensions;
         @ResourceDependency(library = "org.richfaces", name = "inplaceInput.ecss") })
 public class InplaceInputRendererBase extends InputRendererBase {
 
-    public static final String OPTIONS_EDIT_EVENT = "editEvent";
-    
-    public static final String OPTIONS_STATE = "state";
-
-    public static final String OPTIONS_EDIT_CONTAINER = "editContainer";
-
-    public static final String OPTIONS_INPUT = "input";
-
-    public static final String OPTIONS_FOCUS = "focusElement";
-
-    public static final String OPTIONS_BUTTON_OK = "okbtn";
-
-    public static final String OPTIONS_LABEL = "label";
-
-    public static final String OPTIONS_DEFAULT_LABEL = "defaultLabel";
-
-    public static final String OPTIONS_BUTTON_CANCEL = "cancelbtn";
-
-    public static final String OPTIONS_SHOWCONTROLS = "showControls";
-
-    public static final String OPTIONS_NONE_CSS = "noneCss";
-
-    public static final String OPTIONS_CHANGED_CSS = "changedCss";
-    
-    public static final String OPTIONS_EDIT_CSS = "editCss";
-
-    public static final String OPTIONS_INITIAL_VALUE = "initialValue";
-
-    public static final String OPTIONS_SAVE_ON_BLUR = "saveOnBlur";
-    
-    
-    
         
     //TODO: anton - move to RenderUtils (we use the same in the calendar base renderer) ? 
     protected static final Map<String, ComponentAttribute> INPLACE_INPUT_HANDLER_ATTRIBUTES = Collections

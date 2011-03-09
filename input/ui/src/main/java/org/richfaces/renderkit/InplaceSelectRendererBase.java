@@ -22,17 +22,16 @@
 
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-import java.util.List;
+import org.richfaces.component.AbstractInplaceSelect;
+import org.richfaces.component.InplaceComponent;
+import org.richfaces.renderkit.util.HtmlDimensions;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-
-import org.richfaces.component.AbstractInplaceSelect;
-import org.richfaces.component.InplaceComponent;
-import org.richfaces.renderkit.util.HtmlDimensions;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * @author Anton Belevich
@@ -55,16 +54,8 @@ import org.richfaces.renderkit.util.HtmlDimensions;
         @ResourceDependency(library = "org.richfaces", name = "inplaceSelect.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceSelect.ecss") })
 public class InplaceSelectRendererBase extends InplaceInputRendererBase {
-    
-    public static final String OPTIONS_OPEN_ON_EDIT = "openOnEdit";
-    
-    public static final String OPTIONS_SAVE_ON_SELECT = "saveOnSelect";
-    
-    public static final String ITEM_CSS = "rf-is-opt"; 
-    
-    public static final String SELECT_ITEM_CSS = "rf-is-sel";    
 
-    public static final String LIST_CSS = "rf-is-lst-cord";
+    public static final String ITEM_CSS = "rf-is-opt"; 
 
     public List<ClientSelectItem> getConvertedSelectItems(FacesContext facesContext, UIComponent component) {
         return SelectHelper.getConvertedSelectItems(facesContext, component);
