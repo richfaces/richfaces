@@ -54,7 +54,8 @@ import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
  * 
  */
 
-@JsfBehavior(id = "org.ajax4jsf.behavior.Ajax", tag = @Tag(name = "ajax", handler = "org.richfaces.view.facelets.html.AjaxHandler", type = TagType.Facelets))
+@JsfBehavior(id = "org.ajax4jsf.behavior.Ajax", tag = @Tag(name = "ajax", handler = "org.richfaces.view.facelets.html.AjaxHandler", type = TagType.Facelets),
+			attributes = {"ajaxBehavior-prop.xml"})
 public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
 
     public static final String BEHAVIOR_ID = "org.ajax4jsf.behavior.Ajax";
@@ -64,7 +65,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
     
     enum PropertyKeys {
         data, execute, onbeforedomupdate, onbegin, oncomplete, onerror, queueId, render,
-        status, disabled, limitRender, immediate, bypassUpdates, onbeforesubmit, event, listener
+        status, disabled, limitRender, immediate, bypassUpdates, onbeforesubmit
     }
     
     private Set<String> execute;
@@ -90,8 +91,6 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
             setOnbeforedomupdate((String) value);
         } else if (compare(PropertyKeys.onbegin, name)) {
             setOnbegin((String) value);
-        } else if (compare(PropertyKeys.event, name)) {
-            setEvent((String) value);            
         } else if (compare(PropertyKeys.oncomplete, name)) {
             setOncomplete((String) value);
         } else if (compare(PropertyKeys.onerror, name)) {
@@ -103,9 +102,6 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         } else if (compare(PropertyKeys.disabled, name)) {
             value = expFactory.coerceToType(value, Boolean.class);
             setDisabled((Boolean)value);
-        } else if (compare(PropertyKeys.listener, name)) {
-            value = expFactory.coerceToType(value, MethodExpression.class);
-            setListener((MethodExpression) value);            
         } else if (compare(PropertyKeys.limitRender, name)) {
             value = expFactory.coerceToType(value, Boolean.class);
             setLimitRender((Boolean) value);
@@ -143,24 +139,6 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
     public void setData(Object data) {
         getStateHelper().put(PropertyKeys.data, data);
     }
-    
-    @Attribute
-    public MethodExpression getListener() {
-        return (MethodExpression) getStateHelper().eval(PropertyKeys.listener);
-    }
-
-    public void setListener(MethodExpression listener) {
-        getStateHelper().put(PropertyKeys.listener, listener);
-    }
-    
-    @Attribute
-    public String getEvent() {
-        return (String) getStateHelper().eval(PropertyKeys.event);
-    }
-
-    public void setEvent(String event) {
-        getStateHelper().put(PropertyKeys.event, event);
-    }    
 
     @Attribute
     public Collection<String> getExecute() {
