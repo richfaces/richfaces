@@ -49,7 +49,7 @@ public class ComponentControlBehavior extends ClientBehavior {
     private List<UIComponent> children;
 
     enum PropertyKeys {
-        target, selector, operation, onbeforeoperation
+        target, selector, operation, onbeforeoperation, event
     }
 
     public List<UIComponent> getChildren() {
@@ -59,6 +59,15 @@ public class ComponentControlBehavior extends ClientBehavior {
         return children;
     }
 
+    @Attribute
+    public String getEvent() {
+        return (String) getStateHelper().eval(PropertyKeys.event);
+    }
+
+    public void setEvent(String event) {
+        getStateHelper().put(PropertyKeys.event, event);
+    }
+    
     @Attribute
     public String getTarget() {
         return (String) getStateHelper().eval(PropertyKeys.target);
