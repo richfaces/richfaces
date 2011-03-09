@@ -22,17 +22,16 @@
 
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-import java.util.List;
+import org.richfaces.component.AbstractSelect;
+import org.richfaces.component.AbstractSelectComponent;
+import org.richfaces.renderkit.util.HtmlDimensions;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-
-import org.richfaces.component.AbstractSelect;
-import org.richfaces.component.AbstractSelectComponent;
-import org.richfaces.renderkit.util.HtmlDimensions;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * @author abelevich
@@ -64,13 +63,7 @@ public class SelectRendererBase extends InputRendererBase {
     public String getSelectInputLabel(FacesContext facesContext, UIComponent component) {
         return SelectHelper.getSelectInputLabel(facesContext, component);
     }
-    
-    public String getListWidth(UIComponent component) {
-        AbstractSelect select = (AbstractSelect)component;
-        String width = getListWidth(select);
-        return (width != null && width.trim().length() != 0) ? ("width: " + width) : "";
-    }
-    
+
     protected String getMinListHeight(AbstractSelect select) {
         String height = HtmlDimensions.formatSize(select.getMinListHeight());
         if (height == null || height.length() == 0) {

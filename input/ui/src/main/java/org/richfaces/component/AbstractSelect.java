@@ -53,4 +53,12 @@ public abstract class AbstractSelect extends AbstractSelectComponent {
     @Attribute(hidden = true)
     public abstract String getDisabledStateClass();
 
+    @Attribute
+    public abstract String getStyle();
+
+    @Attribute
+    public abstract String getStyleClass();
+
+    @Attribute
+    public abstract String getTitle();
 }

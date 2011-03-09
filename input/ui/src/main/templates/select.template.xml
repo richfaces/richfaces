@@ -19,7 +19,7 @@
     	
    		<cdk:object type="java.lang.Object" name="disabled" value="#{component.attributes['disabled']}" />
         
-        <div id="#{clientId}" class="rf-sel">
+        <div id="#{clientId}" class="#{concatClasses('rf-sel', component.attributes['styleClass'])}" style="#{component.attributes['style']}">
             <span class="rf-sel-cntr">
             	<input id="#{clientId}selValue" name="#{clientId}" type="hidden" value="#{getInputValue(facesContext, component)}"/>
             	<cdk:object type="java.lang.String" name="label" value="#{getSelectLabel(facesContext, component)}" />
