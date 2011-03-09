@@ -1,35 +1,4 @@
 (function($, rf) {
-
-	rf.ui = rf.ui || {};
-	
-	// Constructor definition
-	rf.ui.Base = function(componentId, options, defaultOptions) {
-		this.namespace = "."+rf.Event.createNamespace(this.name, componentId);
-		// call constructor of parent class
-		$super.constructor.call(this, componentId);
-		this.options = $.extend(this.options, defaultOptions, options);
-		this.attachToDom();
-		this.__bindEventHandlers();
-	};
-
-	// Extend component class and add protected methods from parent class to our container
-	rf.BaseComponent.extend(rf.ui.Base);
-
-	// define super class link
-	var $super = rf.ui.Base.$super;
-
-	$.extend(rf.ui.Base.prototype, {
-		__bindEventHandlers: function () {
-		},
-		destroy: function () {
-			rf.Event.unbindById(this.id, this.namespace);
-			$super.destroy.call(this);
-		}
-	});
-	
-})(jQuery, window.RichFaces || (window.RichFaces={}));
-
-(function($, rf) {
 	
 	// Constructor definition
 	rf.ui.Message = function(componentId, options) {
@@ -90,11 +59,13 @@
 		}
 	}
 
+	var bindEventHandlers = function () {
+		rf.Event.bind(window.document, rf.Event.MESSAGE_EVENT_TYPE+this.namespace, onMessage, this);
+	};
+	
 	$.extend(rf.ui.Message.prototype, {
 		name: "Message",
-		__bindEventHandlers: function () {
-			rf.Event.bind(window.document, rf.Event.MESSAGE_EVENT_TYPE+this.namespace, onMessage, this);
-		}
+		__bindEventHandlers: bindEventHandlers
 	});
 	
 })(jQuery, window.RichFaces || (window.RichFaces={}));
