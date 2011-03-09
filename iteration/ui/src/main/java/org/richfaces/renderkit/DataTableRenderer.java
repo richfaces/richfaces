@@ -181,8 +181,26 @@ public class DataTableRenderer extends AbstractTableRenderer {
                         partialStart(facesContext, id);
                     }
 
+                    if (!isSubtable && !parentTbodyStart && !tbodyStart) {
+                        encodeTableBodyStart(writer, facesContext, dataTable);
+                        rowHolder.setRowStart(true);
+                        tbodyStart = true;
+                    }
+
                     child.encodeAll(facesContext);
 
+                    if (!isSubtable) {
+                        encodeRowEnd(writer);
+                        if (!components.hasNext()) {
+                            if (!parentTbodyStart && tbodyStart) {
+                                encodeTableBodyEnd(writer);
+                                tbodyStart = false;
+                            }
+                        } 
+                        rowHolder.setRowStart(true);
+                        rowHolder.resetProcessCell();
+                    }
+                    
                     if (isSubtable && partialUpdate) {
                         partialEnd(facesContext);
                     }
