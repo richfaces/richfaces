@@ -9,6 +9,7 @@ import org.richfaces.component.AbstractMenuGroup;
 import org.richfaces.component.AbstractMenuItem;
 import org.richfaces.component.Mode;
 import org.richfaces.renderkit.AjaxCommandRendererBase;
+import org.richfaces.renderkit.util.HandlersChain;
 
 public class MenuItemRendererBase extends AjaxCommandRendererBase {
     
@@ -82,7 +83,40 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
             return "";
         }
     }
-    
+
+    /** overridden due to {@link https://issues.jboss.org/browse/RF-10695}
+     *
+     * @param context
+     * @param component
+     * @return
+     */
+
+    @Override
+    public String getOnClick(FacesContext context, UIComponent component) {
+        StringBuffer onClick = new StringBuffer();
+
+        if (!getUtils().isBooleanAttribute(component, "disabled")) {
+            HandlersChain handlersChain = new HandlersChain(context, component);
+
+            handlersChain.addBehaviors("click", "action");
+            handlersChain.addAjaxSubmitFunction();
+
+            String handlerScript = handlersChain.toScript();
+
+            if (handlerScript != null) {
+                onClick.append(handlerScript);
+            }
+
+            if (!"reset".equals(component.getAttributes().get("type"))) {
+                onClick.append(";return false;");
+            }
+        } else {
+            onClick.append("return false;");
+        }
+
+        return onClick.toString();
+    }
+
     protected Mode resolveSubmitMode(AbstractMenuItem menuItem) {
         if (menuItem.getMode() != null) {
             return menuItem.getMode();
@@ -92,7 +126,7 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
             return parent.getMode();
         }
         return Mode.server;
-    } 
+    }
     
     protected String getStyleClass(FacesContext facesContext, UIComponent component, String ddMenuStyle, String menuGroupStyle, String menuItemStyle) {
         UIComponent ddMenu = getDDMenu(component);
