@@ -60,9 +60,9 @@ import com.google.common.collect.UnmodifiableIterator;
 public class MessageRendererBase extends Renderer {
 
     private static final ImmutableMap<Severity, SeverityAttributes> SEVERITY_MAP = ImmutableMap.of(
-        FacesMessage.SEVERITY_INFO, attrs("info", "inf", null), FacesMessage.SEVERITY_WARN, attrs("warn", "wrn", null),
-        FacesMessage.SEVERITY_ERROR, attrs("error", "err", null), FacesMessage.SEVERITY_FATAL,
-        attrs("fatal", "ftl", null));
+        FacesMessage.SEVERITY_INFO, attrs("info", "inf"), FacesMessage.SEVERITY_WARN, attrs("warn", "wrn"),
+        FacesMessage.SEVERITY_ERROR, attrs("error", "err"), FacesMessage.SEVERITY_FATAL,
+        attrs("fatal", "ftl"));
 
     protected Iterator<MessageForRender> getMessages(FacesContext context, String forClientId, UIComponent component) {
 
@@ -172,6 +172,7 @@ public class MessageRendererBase extends Renderer {
         String detail = message.getDetail();
         boolean showSummary = true;
         boolean showDetail = false;
+        boolean isMessages = false;
         if (component instanceof UIMessage) {
             UIMessage uiMessage = (UIMessage) component;
             showSummary = uiMessage.isShowSummary();
@@ -180,6 +181,7 @@ public class MessageRendererBase extends Renderer {
             UIMessages uiMessages = (UIMessages) component;
             showSummary = uiMessages.isShowSummary();
             showDetail = uiMessages.isShowDetail();
+            isMessages = true;
         }
         ResponseWriter responseWriter = facesContext.getResponseWriter();
         // Message id
@@ -190,10 +192,10 @@ public class MessageRendererBase extends Renderer {
             responseWriter.writeAttribute("title", summary,null);
         }
         if (!wroteTooltip && showSummary) {
-            writeMessageLabel(responseWriter, summary, "rf-msg-sum");
+            writeMessageLabel(responseWriter, summary, isMessages ?  "rf-msgs-sum" : "rf-msg-sum");
         }
         if (showDetail) {
-            writeMessageLabel(responseWriter, detail, "rf-msg-det");
+            writeMessageLabel(responseWriter, detail, isMessages ? "rf-msgs-det" : "rf-msg-det");
         }
         message.rendered();
     }
@@ -233,6 +235,9 @@ public class MessageRendererBase extends Renderer {
         if(Boolean.TRUE.equals(attributes.get("tooltip"))){
             parametersBuilder.put("tooltip", true);
         }
+        if (component instanceof UIMessages) {
+            parametersBuilder.put("isMessages", true);
+        }
         messageObject.addParameter(parametersBuilder.build());
         // RendererUtils.getInstance().writeScript(facesContext, component, messageObject);
         javaScriptService.addPageReadyScript(facesContext, messageObject);
@@ -241,8 +246,12 @@ public class MessageRendererBase extends Renderer {
     protected String getMsgClass(FacesContext facesContext, UIComponent component, Object msg) throws IOException {
         MessageForRender message = (MessageForRender) msg;
         SeverityAttributes severityAttributes = SEVERITY_MAP.get(message.getSeverity());
+        
+        boolean isMessages = (component instanceof UIMessages);
+        
         String styleClass =
-            buildSeverityAttribute(component, severityAttributes.skinClass, severityAttributes.classAttribute, ' ');
+            buildSeverityAttribute(component, (isMessages ? severityAttributes.messagesSkinClass : severityAttributes.messageSkinClass), 
+                severityAttributes.classAttribute, ' ');
         return styleClass;
     }
 
@@ -250,7 +259,7 @@ public class MessageRendererBase extends Renderer {
         MessageForRender message = (MessageForRender) msg;
         SeverityAttributes severityAttributes = SEVERITY_MAP.get(message.getSeverity());
         String style =
-            buildSeverityAttribute(component, severityAttributes.skinStyle, severityAttributes.styleAttribute, ';');
+            buildSeverityAttribute(component, null, severityAttributes.styleAttribute, ';');
         return style;
     }
 
@@ -269,29 +278,22 @@ public class MessageRendererBase extends Renderer {
         return style.toString();
     }
 
-    static SeverityAttributes attrs(String attPrefix, String skinSuffix, String skinStyle) {
-        SeverityAttributes attrs =
-            new SeverityAttributes(attPrefix + "Style", attPrefix + "Class", skinStyle, "rf-msg-" + skinSuffix, null,
-                null);
+    static SeverityAttributes attrs(String attPrefix, String skinSuffix) {
+        SeverityAttributes attrs = new SeverityAttributes(attPrefix, skinSuffix);
         return attrs;
     }
 
     private static final class SeverityAttributes {
         private final String styleAttribute;
         private final String classAttribute;
-        private final String skinStyle;
-        private final String skinClass;
-        private final String labelStyleAttribute;
-        private final String labelClassAttribute;
+        private final String messageSkinClass;
+        private final String messagesSkinClass;
 
-        private SeverityAttributes(String styleAttribute2, String classAttribute2, String markerStyleAttribute2,
-            String markerClassAttribute2, String labelStyleAttribute2, String labelClassAttribute2) {
-            this.styleAttribute = styleAttribute2;
-            this.classAttribute = classAttribute2;
-            this.skinStyle = markerStyleAttribute2;
-            this.skinClass = markerClassAttribute2;
-            this.labelStyleAttribute = labelStyleAttribute2;
-            this.labelClassAttribute = labelClassAttribute2;
+        private SeverityAttributes(String attPrefix, String skinSuffix) {
+            this.styleAttribute = attPrefix + "Style";
+            this.classAttribute = attPrefix + "Class";
+            this.messageSkinClass = "rf-msg-" + skinSuffix;
+            this.messagesSkinClass = "rf-msgs-" + skinSuffix;
         }
     }
 }

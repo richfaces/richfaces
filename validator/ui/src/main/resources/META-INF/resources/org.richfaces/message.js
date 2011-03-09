@@ -13,12 +13,23 @@
 	var $super = rf.ui.Message.$super;
 
 	var defaultOptions = {
-			showSummary:true,
-			level:0
+		showSummary:true,
+		level:0,
+		isMessages: false
 	};
 	
-	var severetyClasses=["rf-msg-inf","rf-msg-wrn","rf-msg-err","rf-msg-ftl"];
+	var messageSeverityClasses = ["rf-msg-inf", "rf-msg-wrn", "rf-msg-err", "rf-msg-ftl"];
 	
+	var messagesSeverityClasses = ["rf-msgs-inf", "rf-msgs-wrn", "rf-msgs-err", "rf-msgs-ftl"];
+
+	var messageSummaryClass = "rf-msg-sum";
+	
+	var messagesSummaryClass = "rf-msgs-sum";
+	
+	var messageDetailClass = "rf-msg-dtl";
+
+	var messagesDetailClass = "rf-msgs-dtl";
+
 	var onMessage = function (event, element, data) {
 		var content = $(rf.getDomElement(this.id));
 		var sourceId = data.sourceId;
@@ -38,13 +49,15 @@
 	
 	var renderMessage = function(index,message){
 		if(message && message.severity >= this.options.level){
+			var isMessages = this.options.isMessages;
+			
 			var content = $(rf.getDomElement(this.id));
-			var msgContent = "<span class='"+severetyClasses[message.severity]+"' id='"+this.id+':'+index+"'";
+			var msgContent = "<span class='"+(isMessages ? messagesSeverityClasses : messageSeverityClasses)[message.severity]+"' id='"+this.id+':'+index+"'";
 			if(message.summary){
 				if(this.options.tooltip){
 					msgContent = msgContent+" title='"+message.summary+"'>";
 				} else if(this.options.showSummary ){
-					msgContent = msgContent + "><span class='rf-msg-sum'>"+message.summary+"</span>";
+					msgContent = msgContent + "><span class='"+(isMessages ? messagesSummaryClass : messageSummaryClass)+"'>"+message.summary+"</span>";
 				} else {
 					msgContent = msgContent+">";
 				}
@@ -52,7 +65,7 @@
 				msgContent = msgContent+">";
 			}
 			if(this.options.showDetail && message.detail){
-				msgContent = msgContent + "<span class='rf-msg-dtl'>"+message.detail+"</span>";
+				msgContent = msgContent + "<span class='"+(isMessages ? messagesDetailClass : messageDetailClass)+"'>"+message.detail+"</span>";
 			}
 			msgContent = msgContent+"</span>"
 			content.append(msgContent);
