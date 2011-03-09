@@ -170,6 +170,9 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     public abstract String getStyle();
 
     @Attribute
+    public abstract String getStyleClass();
+
+    @Attribute
     public abstract Object getMonthLabels();
 
     @Attribute

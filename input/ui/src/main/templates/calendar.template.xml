@@ -23,7 +23,7 @@
          <cdk:import package="org.richfaces.component" names="Positioning" />
 	</cc:interface>
 	<cc:implementation>
-	<span id="#{clientId}">
+	<span id="#{clientId}" class="#{component.attributes['styleClass']}">
 		<span id="#{clientId}Popup"
 			style="#{component.attributes['popup'] ? 'white-space: nowrap;' : 'display: none;'}">
 			<c:choose>
