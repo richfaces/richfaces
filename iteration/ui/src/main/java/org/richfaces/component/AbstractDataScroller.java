@@ -96,6 +96,9 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
     public abstract String getLastPageMode();
 
     @Attribute
+    public  abstract Object getRender();
+
+    @Attribute
     public abstract int getMaxPages();
 
     public int getMaxPagesOrDefault() {
