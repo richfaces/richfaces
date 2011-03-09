@@ -10,7 +10,7 @@
 	<ui:define name="demoSampleParameters">
 		<f:metadata>
 			<f:viewParam name="sample" value="#{demoNavigator.sample}" />
-			<f:viewParam name="demo" value="#{demoNavigator.demo}" />
+			<f:viewParam name="demo" value="#{demoNavigator.currentDemo.id}" />
 			<f:viewParam name="skin" value="#{skinBean.skin}" />
 		</f:metadata>
 	</ui:define>
@@ -25,9 +25,9 @@
 			onbeforeitemchange="return false;">
 			<c:forEach items="#{demoNavigator.currentDemo.samples}" var="s">
 				<rich:tab header="#{s.name}" name="#{s.id}"
-					onheaderclick="document.location='#{facesContext.externalContext.requestContextPath}/richfaces/component-sample.jsf?demo=#{d.id}&amp;sample=#{s.id}&amp;skin=#{skinBean.skin}'" />
+					onheaderclick="document.location='#{facesContext.externalContext.requestContextPath}/richfaces/component-sample.jsf?demo=#{demoNavigator.currentDemo.id}&amp;sample=#{s.id}&amp;skin=#{skinBean.skin}'" />
 			</c:forEach>
-		</rich:tabPanel>
+		</rich:tabPanel> 
 		<fieldset class="example-cnt"><ui:include src="#{demoNavigator.sampleURI}" /></fieldset>
 	</ui:define>
 </ui:composition>
