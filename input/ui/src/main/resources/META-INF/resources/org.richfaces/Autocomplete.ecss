@@ -16,7 +16,7 @@ input.rf-au-inp {
 	width: 182px;
 }
 
-.rf-au-fld{
+.rf-au{
 	border-width: 1px;
 	border-style: solid;
 	border-color: '#{richSkin.panelBorderColor}';

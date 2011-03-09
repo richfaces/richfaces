@@ -17,7 +17,7 @@
 
     <cc:implementation>
     <cdk:object type="java.lang.Object" name="disabled" value="#{component.attributes['disabled']}" />
-        <span id="#{clientId}" class="rf-au-fld">
+        <span id="#{clientId}" class="rf-au">
 			<input id="#{clientId}Value" name="#{clientId}Value" type="hidden"/>
 			<span class="#{component.attributes['showButton'] ? 'rf-au-fld-btn' : ''}">
             	<input onclick="#{component.attributes['onclick']}"
