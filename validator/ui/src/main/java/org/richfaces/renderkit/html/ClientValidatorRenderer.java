@@ -160,7 +160,8 @@ public class ClientValidatorRenderer extends ClientBehaviorRenderer {
                     validatorScript = createValidatorScript(behaviorContext, behavior, validators, null);
                 }
             } catch (ConverterNotFoundException e) {
-                throw new FacesException(e);
+                // fallback to ajax-only validation
+                validatorScript = new AjaxOnlyScript(createAjaxScript(behaviorContext, behavior));
             }
             String clientId = getComponentClientId(behaviorContext);
             String name = ScriptUtils.getValidJavascriptName(clientId + ":v");
