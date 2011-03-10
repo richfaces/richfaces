@@ -49,9 +49,9 @@ import javax.faces.event.PhaseId;
 import org.ajax4jsf.model.DataComponentState;
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
+import org.richfaces.application.FacesMessages;
 import org.richfaces.application.MessageFactory;
 import org.richfaces.application.ServiceTracker;
-import org.richfaces.application.FacesMessages;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -66,6 +66,7 @@ import org.richfaces.event.TreeSelectionChangeSource;
 import org.richfaces.event.TreeToggleEvent;
 import org.richfaces.event.TreeToggleListener;
 import org.richfaces.event.TreeToggleSource;
+import org.richfaces.model.ClassicTreeNodeDataModelImpl;
 import org.richfaces.model.DeclarativeModelKey;
 import org.richfaces.model.DeclarativeTreeDataModelImpl;
 import org.richfaces.model.DeclarativeTreeModel;
@@ -73,6 +74,7 @@ import org.richfaces.model.SwingTreeNodeDataModelImpl;
 import org.richfaces.model.TreeDataModel;
 import org.richfaces.model.TreeDataModelTuple;
 import org.richfaces.model.TreeDataVisitor;
+import org.richfaces.model.TreeNode;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
 import com.google.common.base.Predicate;
@@ -473,9 +475,12 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         Object value = getValue();
         if (value == null) {
             dataModel = new DeclarativeTreeDataModelImpl(this);
+        } else if (value instanceof TreeNode) {
+            dataModel = new ClassicTreeNodeDataModelImpl();
+            dataModel.setWrappedData(value);
         } else {
             dataModel = new SwingTreeNodeDataModelImpl();
-            dataModel.setWrappedData(getValue());
+            dataModel.setWrappedData(value);
         }
         
         return dataModel;
