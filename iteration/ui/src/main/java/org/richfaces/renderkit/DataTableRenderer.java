@@ -77,19 +77,9 @@ public class DataTableRenderer extends AbstractTableRenderer {
         public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object [] params) throws IOException {
             org.richfaces.component.AbstractColumn column = (org.richfaces.component.AbstractColumn) component;
             writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, column.getClientId(context), null);
-
-            if (isSortable(column)) {
-                //TODO :anton -> should component be selfSorted
-                writer.startElement(HtmlConstants.SPAN_ELEM, column);
-                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rich-table-sortable-header", null);
-            }
         }
 
         public void end(ResponseWriter writer, FacesContext context, UIComponent component, Object [] params) throws IOException {
-            org.richfaces.component.AbstractColumn column = (org.richfaces.component.AbstractColumn) component;
-            if (isSortable(column)) {
-                writer.endElement(HtmlConstants.SPAN_ELEM);
-            }
         }
     }
     
@@ -299,14 +289,6 @@ public class DataTableRenderer extends AbstractTableRenderer {
 
     public boolean containsThead() {
         return true;
-    }
-
-    public boolean isSortable(UIColumn column) {
-        if (column instanceof org.richfaces.component.AbstractColumn) {
-            //TODO: anton - add check for the "comparator" property
-            return ((org.richfaces.component.AbstractColumn) column).getValueExpression("sortBy") != null;
-        }
-        return false;
     }
 
     public void encodeClientScript(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase) throws IOException {
