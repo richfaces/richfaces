@@ -3,11 +3,17 @@
 	font-size:'#{richSkin.generalSizeFont}';
     font-weight: '#{richSkin.headerWeightFont}';
 	position:relative;
+	white-space:nowrap;
 }
+
+.rf-ddm-lbl {
+    padding: 2px 5px;
+}
+
 .rf-ddm-unsel {
-	border:1px solid transparent;
-	padding:3px 6px;
+	border: 1px solid transparent;
 }
+
 .rf-ddm-sel {
     background-image: "url(#{resource['org.richfaces.images:menu_item_bg.gif']})";
     background-repeat: repeat-x;
@@ -17,15 +23,8 @@
     border : 1px solid; /*headerBackgroundColor*/
     border-color: '#{richSkin.headerBackgroundColor}';
     cursor:pointer;
-    padding:3px 6px;
 }
 
-.rf-ddm-lbl, .rf-ddm-lbl-dis {
-	height:auto;
-	padding:2px 5px;
-	white-space:nowrap;
-	width:auto;
-}
 .rf-ddm-pos{
 	top:20px;
 	left:0;
