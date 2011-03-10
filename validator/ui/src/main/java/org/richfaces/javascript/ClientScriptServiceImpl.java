@@ -78,7 +78,7 @@ public class ClientScriptServiceImpl implements ClientScriptService {
         if (null == facesContext || null == javaClass) {
             throw new NullPointerException();
         }
-        LibraryFunction function = getFromComputationMap(resourcesMapping, javaClass);
+        LibraryFunction function = NO_SCRIPT;// RF-10719, temporary disable. getFromComputationMap(resourcesMapping, javaClass);
         if(NO_SCRIPT == function) {
             if (defaultMapping.containsKey(javaClass)) {
                 function = defaultMapping.get(javaClass);
