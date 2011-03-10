@@ -103,8 +103,8 @@
 					<cdk:scriptObject name="options">
 						<cdk:scriptOption name="items" value="#{clientSelectItems}" />
 						<cdk:scriptOption name="noneCss" value="#{concatClasses('rf-is-none', component.attributes['noneStateClass'])}"/>
-						<cdk:scriptOption name="changedCss" value="#{concatClasses('rf-is-c-s', component.attributes['changedStateClass'])}"/>
-						<cdk:scriptOption name="editCss" value="#{concatClasses('rf-is-e-s', component.attributes['editStateClass'])}"/>
+						<cdk:scriptOption name="changedCss" value="#{concatClasses('rf-is-chng', component.attributes['changedStateClass'])}"/>
+						<cdk:scriptOption name="editCss" value="#{concatClasses('rf-is-act', component.attributes['editStateClass'])}"/>
 						<cdk:scriptOption name="selectItemCss" value="#{concatClasses('rf-is-sel', component.attributes['selectItemClass'])}"/>
 						<cdk:scriptOption name="editEvent" value="#{getEditEvent(component)}"/>
                         <cdk:scriptOption name="defaultLabel" value="#{defaultLabel}" />

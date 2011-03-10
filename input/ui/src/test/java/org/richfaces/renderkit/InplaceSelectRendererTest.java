@@ -66,7 +66,7 @@ public class InplaceSelectRendererTest extends InplaceRendererTestBase  {
         
         HtmlElement edit = page.getFirstByXPath("//*[@id = '" + inplaceSelectId + "Edit']");
         assertNotNull(edit);
-        assertEquals("rf-is-edit", edit.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
+        assertEquals("rf-is-fld-cntr", edit.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         
         HtmlElement list = page.getFirstByXPath("//*[@id = '" + inplaceSelectId + "List']");
         assertNotNull(list);

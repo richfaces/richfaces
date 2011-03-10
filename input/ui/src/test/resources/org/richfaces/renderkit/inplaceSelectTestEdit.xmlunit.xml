@@ -1,7 +1,7 @@
-<span class="rf-is-d-s rf-is-e-s" id="form:inplaceSelectEdit">
+<span class="rf-is rf-is-act" id="form:inplaceSelectEdit">
 	<span class="rf-is-lbl rf-is-dflt-lbl" id="form:inplaceSelectEditLabel">Edit Text</span>
 	<input class="rf-is-none" id="form:inplaceSelectEditFocus" name="form:inplaceSelectEditFocus" style="position: absolute; top: 0px; left: 0px; outline-style: none;" type="image" />
-	<span class="rf-is-edit" id="form:inplaceSelectEditEdit">
+	<span class="rf-is-fld-cntr" id="form:inplaceSelectEditEdit">
 		<input id="form:inplaceSelectEditselValue" name="form:inplaceSelectEdit" type="hidden" />
 		<input autocomplete="off" class="rf-is-fld" id="form:inplaceSelectEditInput" name="form:inplaceSelectEditInput" readonly="readonly" type="text" />
 		<span class="rf-is-btn-prepos">

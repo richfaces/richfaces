@@ -130,7 +130,7 @@ public class InplaceInputRendererBase extends InputRendererBase {
                     break; 
             }
         } else {
-            style = getDisableStateCss(inplaceComponent);
+            style = concatClasses(style, getDisableStateCss(inplaceComponent));
         }
         return style;
     }
@@ -142,27 +142,27 @@ public class InplaceInputRendererBase extends InputRendererBase {
   
     public String getReadyStateCss(InplaceComponent component) {
         String css = component.getReadyStateClass();
-        return concatClasses("rf-ii-d-s", css);
+        return concatClasses("rf-ii", css);
     }
 
     public String getEditStateCss(InplaceComponent component) {
         String css = component.getEditStateClass();
-        return concatClasses("rf-ii-e-s", css);
+        return concatClasses("rf-ii-act", css);
     }
 
     public String getChangedStateCss(InplaceComponent component) {
         String css = component.getChangedStateClass();
-        return concatClasses("rf-ii-c-s", css);
+        return concatClasses("rf-ii-chng", css);
     }
 
     public String getDisableStateCss(InplaceComponent component) {
         String css = component.getDisabledStateClass();
-        return concatClasses("rf-ii-dis-s", css);
+        return concatClasses("rf-ii-dis", css);
     }
     
     public String getEditCss(InplaceComponent component) {
         String css = component.getEditClass();
-        return concatClasses("rf-ii-edit", css);
+        return concatClasses("rf-ii-fld-cntr", css);
     }
 
     public String getNoneCss(InplaceComponent component) {

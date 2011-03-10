@@ -35,8 +35,8 @@
         selectItemCss: "rf-is-sel",
         listCss: "rf-is-lst-cord",
         noneCss: "rf-is-none",
-        editCss: "rf-is-edit",
-        changedCss: "rf-is-c-s"
+        editCss: "rf-is-fld-cntr",
+        changedCss: "rf-is-chng"
     };
 
     $.extend(rf.ui.InplaceSelect.prototype, (function () {

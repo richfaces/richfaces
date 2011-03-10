@@ -1,9 +1,9 @@
-<span class="rf-ii-d-s rf-ii-e-s" id="form:inplaceInputEdit">
+<span class="rf-ii rf-ii-act" id="form:inplaceInputEdit">
 	<span class="rf-ii-lbl rf-ii-dflt-lbl" id="form:inplaceInputEditLabel">Edit Text</span>
 	<input class="rf-ii-none" id="form:inplaceInputEditFocus"
 		style="position: absolute; top: 0px; left: 0px; outline-style: none;"
 		type="image" />
-	<span class="rf-ii-edit" id="form:inplaceInputEditEdit">
+	<span class="rf-ii-fld-cntr" id="form:inplaceInputEditEdit">
 		<input autocomplete="off" class="rf-ii-fld" id="form:inplaceInputEditInput"
 			name="form:inplaceInputEdit" style="width: 100%;" type="text" />
 		<span class="rf-ii-btn-prepos">

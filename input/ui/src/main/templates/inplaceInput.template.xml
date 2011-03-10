@@ -85,10 +85,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 				</span>
 				<script type="text/javascript">	
 					<cdk:scriptObject name="options">
-						<cdk:scriptOption name="readyCss" value="#{concatClasses('rf-ii-d-s', component.attributes['readyStateClass'])}"/>
+						<cdk:scriptOption name="readyCss" value="#{concatClasses('rf-ii', component.attributes['readyStateClass'])}"/>
 						<cdk:scriptOption name="noneCss" value="#{concatClasses('rf-ii-none', component.attributes['noneStateClass'])}"/>
-						<cdk:scriptOption name="changedCss" value="#{concatClasses('rf-ii-c-s', component.attributes['changedStateClass'])}"/>
-						<cdk:scriptOption name="editCss" value="#{concatClasses('rf-ii-e-s', component.attributes['editStateClass'])}"/>
+						<cdk:scriptOption name="changedCss" value="#{concatClasses('rf-ii-chng', component.attributes['changedStateClass'])}"/>
+						<cdk:scriptOption name="editCss" value="#{concatClasses('rf-ii-act', component.attributes['editStateClass'])}"/>
 						<cdk:scriptOption name="editEvent" value="#{getEditEvent(component)}"/>
                         <cdk:scriptOption name="defaultLabel" value="#{defaultLabel}" />
 					  	<cdk:scriptOption attributes="state saveOnBlur showControls" />

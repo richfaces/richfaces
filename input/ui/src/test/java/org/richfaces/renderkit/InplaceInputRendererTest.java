@@ -43,7 +43,7 @@ public class InplaceInputRendererTest extends InplaceRendererTestBase {
         DomText text = page.getFirstByXPath("//*[@id = '" + BASE_ID  + "DefaultLabel']/text()");
         assertEquals("Another Test String", text.getTextContent());
         HtmlElement span = page.getFirstByXPath("//*[@id = '"+ BASE_ID + DEFAULT +"']");
-        assertEquals("rf-ii-d-s rf-ii-c-s", span.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
+        assertEquals("rf-ii rf-ii-chng", span.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
     }
     
     @Test
@@ -62,7 +62,7 @@ public class InplaceInputRendererTest extends InplaceRendererTestBase {
                 
         HtmlElement span = page.getFirstByXPath("//*[@id = '"+ withControlsComponentId +"']");
         assertNotNull(span);
-        assertEquals("rf-ii-d-s", span.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
+        assertEquals("rf-ii", span.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         
         edit(page, withControlsComponentId,  "Another Test String");
                 
@@ -76,7 +76,7 @@ public class InplaceInputRendererTest extends InplaceRendererTestBase {
         
         span = page.getFirstByXPath("//*[@id = '"+ withControlsComponentId +"']");
         assertNotNull(span);
-        assertEquals("rf-ii-d-s rf-ii-c-s", span.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
+        assertEquals("rf-ii rf-ii-chng", span.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         
         edit(page, withControlsComponentId, "Test String");
         
@@ -93,7 +93,7 @@ public class InplaceInputRendererTest extends InplaceRendererTestBase {
         span.click();
         HtmlElement edit = page.getFirstByXPath("//*[@id = '" + inplaceInputId + "Edit']");
         assertNotNull(edit);
-        assertEquals("rf-ii-edit", edit.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
+        assertEquals("rf-ii-fld-cntr", edit.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         typeNewValue(page, inplaceInputId, value);
     }
 

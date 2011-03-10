@@ -30,9 +30,9 @@
     	    saveOnBlur: true,
     	    showControl: true,
     	    noneCss: "rf-ii-none",
-    	    readyCss: "rf-ii-d-s",
-    	    editCss: "rf-ii-e-s", 
-    	    changedCss: "rf-ii-c-s"
+    	    readyCss: "rf-ii",
+    	    editCss: "rf-ii-act", 
+    	    changedCss: "rf-ii-chng"
     	};
 
     	$.extend(rf.ui.InplaceInput.prototype, ( function () {
