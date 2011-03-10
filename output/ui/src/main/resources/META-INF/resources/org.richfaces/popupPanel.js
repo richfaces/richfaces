@@ -311,7 +311,7 @@
                             options.height = this.maxHeight;
                         }
                         $(richfaces.getDomElement(eContentElt)).css('height', options.height + (/px/.test(options.height) ? '' : 'px'));
-                        var headerHeight = $(richfaces.getDomElement(this.markerId + "_header"))[0] ? $(richfaces.getDomElement(this.markerId + "_header"))[0].clientHeight : 0;
+                        var headerHeight = $(richfaces.getDomElement(this.markerId + "_header")) ? $(richfaces.getDomElement(this.markerId + "_header")).innerHeight() : 0;
                         this.scrollerDiv.css('height', options.height - headerHeight + (/px/.test(options.height) ? '' : 'px'));
                     }
 
