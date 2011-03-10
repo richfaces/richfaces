@@ -185,7 +185,7 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
     public void encodeRow(ResponseWriter writer, FacesContext facesContext, RowHolderBase holder) throws IOException {
         RowHolder rowHolder = (RowHolder)holder;
         Row row = rowHolder.getRow();
-            
+        putRowStylesIntoContext(facesContext, rowHolder);    
         rowHolder.setRowStart(true);
         Iterator<UIComponent> components = row.columns();
         if (rowHolder.isUpdatePartial()) {

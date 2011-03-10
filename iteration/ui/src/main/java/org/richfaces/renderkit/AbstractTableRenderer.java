@@ -22,17 +22,18 @@
 
 package org.richfaces.renderkit;
 
-import org.richfaces.component.Row;
-import org.richfaces.component.UIDataTableBase;
-import org.richfaces.component.util.HtmlUtil;
+import java.io.IOException;
+import java.util.Iterator;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Iterator;
+
+import org.richfaces.component.Row;
+import org.richfaces.component.UIDataTableBase;
+import org.richfaces.component.util.HtmlUtil;
 
 /**
  * @author Anton Belevich
@@ -84,8 +85,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         decodeSortingFiltering(context, component);
     }
     
-    @Override
-    protected void encodeRows(FacesContext facesContext, RowHolderBase rowHolder) {
+    protected void putRowStylesIntoContext(FacesContext facesContext, RowHolderBase rowHolder) {
         UIDataTableBase dataTableBase = (UIDataTableBase)rowHolder.getRow();
 
         String rowClass = getRowSkinClass();
@@ -96,9 +96,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         cellClass = mergeStyleClasses(CELL_CLASS_KEY, cellClass, dataTableBase);
         firstClass = mergeStyleClasses(FIRST_ROW_CLASS_KEY, firstClass, dataTableBase);
 
-        saveRowStyles(facesContext, dataTableBase.getClientId(facesContext), firstClass, rowClass, cellClass);
-
-        super.encodeRows(facesContext, rowHolder);
+        saveRowStyles(facesContext, dataTableBase.getClientId(facesContext), firstClass, rowClass, cellClass);    	
     }
 
     protected boolean isEncodeHeaders(UIDataTableBase table) {

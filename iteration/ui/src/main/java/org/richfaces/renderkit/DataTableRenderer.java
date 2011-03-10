@@ -147,6 +147,8 @@ public class DataTableRenderer extends AbstractTableRenderer {
 
         AbstractDataTable dataTable = (AbstractDataTable) row;
 
+        putRowStylesIntoContext(facesContext, rowHolder);
+
         boolean partialUpdate = rowHolder.isUpdatePartial();
         boolean parentTbodyStart = rowHolder.isEncodeParentTBody();
         boolean tbodyStart = parentTbodyStart;
