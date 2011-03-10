@@ -187,7 +187,7 @@ public class MessageRendererBase extends Renderer {
         // Message id
         responseWriter.writeAttribute("id", component.getClientId()+':'+message.getSourceId(),null);
         // tooltip
-        boolean wroteTooltip = Boolean.TRUE.equals(component.getAttributes().get("tooltip"));
+        boolean wroteTooltip = RendererUtils.getInstance().isBooleanAttribute(component, "tooltip");
         if(wroteTooltip && !Strings.isNullOrEmpty(summary)){
             responseWriter.writeAttribute("title", summary,null);
         }
@@ -215,8 +215,9 @@ public class MessageRendererBase extends Renderer {
         Map<String, Object> attributes = component.getAttributes();
         Builder<String, Object> parametersBuilder = ImmutableMap.builder();
         String forId = (String) attributes.get("for");
+        RendererUtils rendererUtils = RendererUtils.getInstance();
         if (!Strings.isNullOrEmpty(forId)) {
-            UIComponent target = RendererUtils.getInstance().findComponentFor(component, forId);
+            UIComponent target = rendererUtils.findComponentFor(component, forId);
             if (null != target) {
                 parametersBuilder.put("forComponentId",
                     target.getClientId(facesContext));
@@ -226,13 +227,13 @@ public class MessageRendererBase extends Renderer {
         if(FacesMessage.SEVERITY_INFO != level){
             parametersBuilder.put("level", level.getOrdinal());
         }
-        if(!Boolean.TRUE.equals(attributes.get("showSummary"))){
+        if(!rendererUtils.isBooleanAttribute(component, "showSummary")){
             parametersBuilder.put("showSummary", false);
         }
-        if(Boolean.TRUE.equals(attributes.get("showDetail"))){
+        if(rendererUtils.isBooleanAttribute(component, "showDetail")){
             parametersBuilder.put("showDetail", true);
         }
-        if(Boolean.TRUE.equals(attributes.get("tooltip"))){
+        if(rendererUtils.isBooleanAttribute(component, "tooltip")){
             parametersBuilder.put("tooltip", true);
         }
         if (component instanceof UIMessages) {

@@ -8,8 +8,9 @@
 .rf-msg-err, .rf-msgs-err, 
 .rf-msg-ftl, .rf-msgs-ftl, 
 .rf-msg-inf, .rf-msgs-inf,
-.rf-msg-wrn, .rf-msgs-wrn {
-                display:inline-block;
+.rf-msg-wrn, .rf-msgs-wrn, 
+.rf-msg-ok, .rf-msgs-ok {
+                display:block;
                 padding-right:2px;
                 padding-left:20px;
                 vertical-align:middle;
@@ -36,15 +37,12 @@
 .rf-msg-ok, .rf-msgs-ok {
     background-image: "url(#{resource['org.richfaces:ok.png']})";
     color:'#{richSkin.generalTextColor}';
-    width:20px;
-    display:inline-block;
-    vertical-align:middle;
-    background-repeat:no-repeat;
-    background-position:left center ;
 }
 
 .rf-msg-sum, .rf-msgs-sum {     /*Summary*/
+                display:inline;
 }
 
 .rf-msg-det, .rf-msgs-det {     /*Description*/
+                display:inline;
 }
