@@ -749,11 +749,11 @@
     $.extend(richfaces.ui.PopupPanel, {
 
         showPopupPanel : function (id, opts, event) {
-            richfaces.Event.ready(richfaces.$(id).show());
+            richfaces.Event.ready(function(){richfaces.$(id).show()});
         },
 
         hidePopupPanel : function (id, opts, event) {
-            richfaces.Event.ready(richfaces.$(id).hide());
+            richfaces.Event.ready(function(){richfaces.$(id).hide()});
         }
     });
 
