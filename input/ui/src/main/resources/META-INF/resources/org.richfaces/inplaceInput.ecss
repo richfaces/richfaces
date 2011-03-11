@@ -95,7 +95,7 @@ input.rf-ii-fld {
 
 .rf-ii-btn-prepos {
 	position : absolute; 
-	bottom : 0px; 
+	top : -4px; 
 	right : 0px; 
 	width : 1px; 
 	height : 1px;
@@ -104,7 +104,7 @@ input.rf-ii-fld {
 .rf-ii-btn-pos { 
 	position : absolute; 
 	top : 1px; 
-	right : 0px;
+	left : 0px;
 	white-space : nowrap;
 }
 
