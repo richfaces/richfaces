@@ -147,26 +147,26 @@
 				}
 				break;
 			case rf.KEYS.PAGEUP:
-				event.preventDefault();
 				if (this.isVisible) {
+					event.preventDefault();
 					this.__onPageUp(event);
 				}
 				break;
 			case rf.KEYS.PAGEDOWN:
-				event.preventDefault();
 				if (this.isVisible) {
+					event.preventDefault();
 					this.__onPageDown(event);
 				}
 				break;
 			case rf.KEYS.HOME:
-				event.preventDefault();
 				if (this.isVisible) {
+					event.preventDefault();
 					this.__onKeyHome(event);
 				}
 				break;
 			case rf.KEYS.END:
-				event.preventDefault();
 				if (this.isVisible) {
+					event.preventDefault();
 					this.__onKeyEnd(event);
 				}
 				break;
