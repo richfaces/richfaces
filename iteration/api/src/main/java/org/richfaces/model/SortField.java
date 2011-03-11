@@ -34,6 +34,8 @@ import org.richfaces.component.SortOrder;
  */
 public class SortField extends Field {
 
+    private static final long serialVersionUID = 654268763477658266L;
+
     private Comparator<?> comparator;
 
     private SortOrder sortOrder;
