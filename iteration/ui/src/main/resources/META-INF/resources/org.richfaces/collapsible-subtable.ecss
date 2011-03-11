@@ -17,6 +17,10 @@
     padding:0px;
 }
 
+.rf-csttg-lnk {
+    vertical-align: top;
+}
+
 .rf-cst, .rf-cst-nd {
     border-bottom-width:'#{richSkin.tableBorderWidth}';
 	border-bottom-style:solid;
