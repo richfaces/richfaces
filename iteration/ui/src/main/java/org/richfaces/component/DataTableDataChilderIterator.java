@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright ${year}, Red Hat, Inc. and individual contributors
+ * Copyright 2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import java.util.Iterator;
@@ -28,34 +27,43 @@ import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 
 import com.google.common.collect.AbstractIterator;
-
+import com.google.common.collect.Iterators;
 
 /**
- * Iterator for all children table columns.
- * 
- * @author asmirnov
+ * @author Nick Belaevski
  * 
  */
-class DataTableColumnsIterator extends AbstractIterator<UIComponent> {
+class DataTableDataChilderIterator extends AbstractIterator<UIComponent> {
 
-    private Iterator<UIComponent> childrenIterator;
+    private Iterator<UIComponent> dataTableChildren;
     
-    public DataTableColumnsIterator(UIComponent component) {
+    private Iterator<UIComponent> columnChildren = Iterators.emptyIterator();
+    
+    public DataTableDataChilderIterator(UIComponent dataTable) {
         super();
-        this.childrenIterator = component.getChildren().iterator();
+        this.dataTableChildren = dataTable.getChildren().iterator();
     }
 
     @Override
     protected UIComponent computeNext() {
-        while (childrenIterator.hasNext()) {
-            UIComponent child = childrenIterator.next();
+        while (columnChildren.hasNext() || dataTableChildren.hasNext()) {
+            if (columnChildren.hasNext()) {
+                return columnChildren.next();
+            }
             
-            if (child instanceof UIColumn || child instanceof Column) {
+            UIComponent child = dataTableChildren.next();
+            if (child instanceof UIColumn || child instanceof AbstractColumn) {
+                columnChildren = child.getChildren().iterator();
+            } else {
+                columnChildren = Iterators.emptyIterator();
                 return child;
             }
         }
-        
+
+        dataTableChildren = Iterators.emptyIterator();
+        columnChildren = Iterators.emptyIterator();
+    
         return endOfData();
     }
-    
+
 }

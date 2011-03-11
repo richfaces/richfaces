@@ -27,56 +27,45 @@ import java.util.Iterator;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 
+import com.google.common.collect.AbstractIterator;
+import com.google.common.collect.Iterators;
 
-class DataTableFixedChildrenIterator extends DataTableDataIterator {
 
-    private Iterator<UIComponent> currentColumnIterator;
+class DataTableFixedChildrenIterator extends AbstractIterator<UIComponent> {
 
-    public DataTableFixedChildrenIterator(UIDataTableBase dataTable) {
-        super(dataTable);
+    private Iterator<UIComponent> facetsIterator;
+    
+    private Iterator<UIComponent> dataTableChildren;
+    
+    private Iterator<UIComponent> columnFacets = Iterators.emptyIterator();
+    
+    public DataTableFixedChildrenIterator(UIComponent dataTable) {
+        super();
+        
+        this.facetsIterator = dataTable.getFacets().values().iterator();
+        this.dataTableChildren = dataTable.getChildren().iterator();
     }
 
-    protected UIComponent nextItem() {
-        UIComponent next = null;
-
-        if (currentColumnIterator != null && currentColumnIterator.hasNext()) {
-            next = currentColumnIterator.next();
-            checkColumnIterator();
+    @Override
+    protected UIComponent computeNext() {
+        if (facetsIterator.hasNext()) {
+            return facetsIterator.next();
         }
-
-        if (next == null) {
-            Iterator<UIComponent> childrenIterator = getChildrenIterator();
-            while (next == null && childrenIterator.hasNext()) {
-                UIComponent child = childrenIterator.next();
-                if ((child instanceof UIColumn) && child.isRendered()) {
-                    currentColumnIterator = getChildFacetIterator(child);
-                    next = nextItem();
-                } 
+        
+        while (columnFacets.hasNext() || dataTableChildren.hasNext()) {
+            if (columnFacets.hasNext()) {
+                return columnFacets.next();
+            }
+            
+            UIComponent child = dataTableChildren.next();
+            if (child instanceof UIColumn || child instanceof AbstractColumn) {
+                columnFacets = child.getFacets().values().iterator();
             }
         }
 
-        if (next == null) {
-            next = getNextFacet();
-        }
-        return next;
-    }
+        dataTableChildren = Iterators.emptyIterator();
+        columnFacets = Iterators.emptyIterator();
 
-    protected UIComponent getNextFacet() {
-        Iterator<UIComponent> facetsIterator = getFacetsIterator();
-        if(facetsIterator.hasNext()) {
-            return facetsIterator.next();
-        }
-        return null;
+        return endOfData();
     }
-
-    protected void checkColumnIterator() {
-        if (!currentColumnIterator.hasNext()) {
-            currentColumnIterator = null;
-        }
-    }
-
-    protected Iterator<UIComponent> getChildFacetIterator(UIComponent component) {
-        return component.getFacets().values().iterator();
-    }
-
 }
