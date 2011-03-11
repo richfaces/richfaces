@@ -150,7 +150,7 @@ MORE INFORMATION AND RESOURCES
 For more information on RichFaces 4, please visit RichFaces 
 website at:
 
-    - http://www.jboss.org/richfaces.
+    - http://richfaces.org
 
 Or check the Wiki for more information on build instructions for the examples at:
 
