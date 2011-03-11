@@ -54,6 +54,8 @@ public class UISequence extends UIDataAdaptor {
 
     private Object iterationStatusVarObject;
 
+    private Converter defaultRowKeyConverter;
+    
     protected enum PropertyKeys {
         first, rows, value, iterationStatusVar
     }
@@ -137,7 +139,17 @@ public class UISequence extends UIDataAdaptor {
 
     @Override
     public Converter getRowKeyConverter() {
-        return getFacesContext().getApplication().createConverter(Integer.class);
+        Converter converter = super.getRowKeyConverter();
+
+        if (converter == null) {
+            if (defaultRowKeyConverter == null) {
+                defaultRowKeyConverter = getFacesContext().getApplication().createConverter(Integer.class);
+            }
+            
+            converter = defaultRowKeyConverter;
+        }
+        
+        return converter;
     }
 
     @Attribute
