@@ -478,6 +478,14 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         } else if (value instanceof TreeNode) {
             dataModel = new ClassicTreeNodeDataModelImpl();
             dataModel.setWrappedData(value);
+        } else if (value instanceof TreeDataModel<?>) {
+            if (value instanceof ExtendedDataModel<?>) {
+                dataModel = (ExtendedDataModel<?>) value;
+            } else {
+                throw new IllegalArgumentException(
+                    MessageFormat.format("TreeDataModel implementation {0} is not a subclass of ExtendedDataModel", 
+                            value.getClass().getName()));
+            }
         } else {
             dataModel = new SwingTreeNodeDataModelImpl();
             dataModel.setWrappedData(value);
