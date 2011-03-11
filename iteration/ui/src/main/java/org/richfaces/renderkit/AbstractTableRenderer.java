@@ -461,7 +461,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
 
             writer.startElement(element, column);
 
-            encodeStyleClass(writer, context, column, null, cellClass);
+            encodeStyleClass(writer, context, column, facetName + "Class", cellClass);
 
             writer.writeAttribute(HtmlConstants.SCOPE_ATTRIBUTE, HtmlConstants.COL_ELEMENT, null);
             getUtils().encodeAttribute(context, column, HtmlConstants.COLSPAN_ATTRIBUTE);
