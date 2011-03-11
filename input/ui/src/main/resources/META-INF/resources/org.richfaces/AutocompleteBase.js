@@ -171,13 +171,14 @@
 				}
 				break;
 			case rf.KEYS.RETURN:
-
-				event.preventDefault();
-				this.__onEnter(event);
-				//TODO: bind form submit event handler to cancel form submit under the opera
-				//cancelSubmit = true;
-				this.__hide(event);
-				return false;
+				if (this.isVisible) {
+					event.preventDefault();
+					this.__onEnter(event);
+					//TODO: bind form submit event handler to cancel form submit under the opera
+					//cancelSubmit = true;
+					this.__hide(event);
+					return false;
+				}
 				break;
 			case rf.KEYS.ESC:
 				this.__hide(event);
