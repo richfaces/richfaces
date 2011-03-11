@@ -1,12 +1,9 @@
 .rf-dt{
 	background-color:'#{richSkin.tableBackgroundColor}';
 	border-collapse:collapse;
-	border-left-width:'#{richSkin.tableBorderWidth}';
-	border-left-style:solid; 
-	border-left-color:'#{richSkin.tableBorderColor}';
-	border-top-width:'#{richSkin.tableBorderWidth}';
-	border-top-style:solid;
-	border-top-color:'#{richSkin.tableBorderColor}';	
+	border-width:'#{richSkin.tableBorderWidth}';
+	border-style:solid;
+	border-color:'#{richSkin.tableBorderColor}';	
 	empty-cells:show;
 }
 
