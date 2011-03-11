@@ -23,16 +23,10 @@
 
 package org.richfaces.taglib;
 
-import javax.faces.view.facelets.ComponentConfig;
-import javax.faces.view.facelets.ComponentHandler;
-import javax.faces.view.facelets.FaceletContext;
-import javax.faces.view.facelets.MetaRule;
-import javax.faces.view.facelets.MetaRuleset;
-import javax.faces.view.facelets.Metadata;
-import javax.faces.view.facelets.MetadataTarget;
-import javax.faces.view.facelets.TagAttribute;
-
 import org.richfaces.component.AbstractCollapsibleSubTable;
+import org.richfaces.view.facelets.RowKeyConverterRule;
+
+import javax.faces.view.facelets.*;
 
 /**
  * @author Anton Belevich
@@ -40,20 +34,20 @@ import org.richfaces.component.AbstractCollapsibleSubTable;
  */
 public class CollapsibleSubTableHandler extends ComponentHandler {
 
-    private static final CollapsibleSubTableHandlerMetaRule METARULE = new CollapsibleSubTableHandlerMetaRule();
-
-
     public CollapsibleSubTableHandler(ComponentConfig config) {
         super(config);
     }
 
     protected MetaRuleset createMetaRuleset(Class type) {
         MetaRuleset m = super.createMetaRuleset(type);
-        m.addRule(METARULE);
+        m.addRule(CollapsibleSubTableHandlerMetaRule.INSTANCE);
+        m.addRule(RowKeyConverterRule.INSTANCE);
         return m;
     }
 
     static class CollapsibleSubTableHandlerMetaRule extends MetaRule {
+
+        public static final CollapsibleSubTableHandlerMetaRule INSTANCE = new CollapsibleSubTableHandlerMetaRule();
 
         public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
             if (meta.isTargetInstanceOf(AbstractCollapsibleSubTable.class) && "toggleListener".equals(name)) {

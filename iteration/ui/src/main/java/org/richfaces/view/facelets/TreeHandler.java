@@ -21,26 +21,18 @@
  */
 package org.richfaces.view.facelets;
 
-import static org.richfaces.component.AbstractTree.DEFAULT_TREE_NODE_FACET_NAME;
-import static org.richfaces.component.AbstractTree.DEFAULT_TREE_NODE_ID;
+import com.google.common.base.Strings;
+import org.richfaces.component.AbstractTree;
+import org.richfaces.component.AbstractTreeNode;
 
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
-import javax.faces.view.facelets.ComponentConfig;
-import javax.faces.view.facelets.ComponentHandler;
-import javax.faces.view.facelets.FaceletContext;
-import javax.faces.view.facelets.MetaRule;
-import javax.faces.view.facelets.MetaRuleset;
-import javax.faces.view.facelets.Metadata;
-import javax.faces.view.facelets.MetadataTarget;
-import javax.faces.view.facelets.TagAttribute;
+import javax.faces.view.facelets.*;
 
-import org.richfaces.component.AbstractTree;
-import org.richfaces.component.AbstractTreeNode;
-
-import com.google.common.base.Strings;
+import static org.richfaces.component.AbstractTree.DEFAULT_TREE_NODE_FACET_NAME;
+import static org.richfaces.component.AbstractTree.DEFAULT_TREE_NODE_ID;
 
 /**
  * @author Nick Belaevski
@@ -72,6 +64,7 @@ public class TreeHandler extends ComponentHandler {
     protected MetaRuleset createMetaRuleset(Class type) {
         MetaRuleset metaRuleset = super.createMetaRuleset(type);
         metaRuleset.addRule(RULE);
+        metaRuleset.addRule(RowKeyConverterRule.INSTANCE);
         return metaRuleset;
     }
     

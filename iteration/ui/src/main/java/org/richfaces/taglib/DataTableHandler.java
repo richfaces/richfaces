@@ -23,16 +23,10 @@
 
 package org.richfaces.taglib;
 
-import javax.faces.view.facelets.ComponentConfig;
-import javax.faces.view.facelets.ComponentHandler;
-import javax.faces.view.facelets.FaceletContext;
-import javax.faces.view.facelets.MetaRule;
-import javax.faces.view.facelets.MetaRuleset;
-import javax.faces.view.facelets.Metadata;
-import javax.faces.view.facelets.MetadataTarget;
-import javax.faces.view.facelets.TagAttribute;
-
 import org.richfaces.component.AbstractDataTable;
+import org.richfaces.view.facelets.RowKeyConverterRule;
+
+import javax.faces.view.facelets.*;
 
 /**
  * @author Anton Belevich
@@ -40,19 +34,19 @@ import org.richfaces.component.AbstractDataTable;
  */
 public class DataTableHandler extends ComponentHandler {
 
-    private static final SortingFilteringRule METARULE = new SortingFilteringRule();
-
     public DataTableHandler(ComponentConfig config) {
         super(config);
     }
     
     protected MetaRuleset createMetaRuleset(Class type) {
         MetaRuleset m = super.createMetaRuleset(type);
-        m.addRule(METARULE);
+        m.addRule(SortingFilteringRule.INSTANCE);
+        m.addRule(RowKeyConverterRule.INSTANCE);
         return m;
     }
     
     static class SortingFilteringRule extends MetaRule {
+        private static final SortingFilteringRule INSTANCE = new SortingFilteringRule();
 
         public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
             if(meta.isTargetInstanceOf(AbstractDataTable.class)) {
