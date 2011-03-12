@@ -25,12 +25,14 @@ input.rf-au-inp {
 	background-repeat: repeat-x;
 	background-position: top left;
 	background-color: '#{richSkin.controlBackgroundColor}';
+	font-size: 1px;
 }
 
 .rf-au-fld-btn{
 	display: inline-block;
 	font-size: 1px;
 	white-space: nowrap;
+	vertical-align: top;
 }
 
 .rf-au-btn{
