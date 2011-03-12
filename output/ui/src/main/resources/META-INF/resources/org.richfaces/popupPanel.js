@@ -175,12 +175,9 @@
                 this.borders = null;
 
                 if (this.domReattached) {
-                    var element = this.div;
-                    var parent = element.parent();
-                    if (parent) {
-                        parent.remove(element);
-                    }
+                    this.div.remove();
                 }
+
                 this.markerId = null;
                 this.options = null;
 
