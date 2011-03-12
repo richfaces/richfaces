@@ -19,7 +19,14 @@
     <component>
         <component-type>org.richfaces.InputNumberSlider</component-type>
         <component-class>org.richfaces.component.html.HtmlInputNumberSlider</component-class>
-		<xi:include
+        <property>
+			<property-name>readonly</property-name>
+			<property-class>boolean</property-class>
+			<property-extension>
+	        	<cdk:hidden>true</cdk:hidden>
+			</property-extension>
+        </property>
+ 		<xi:include
 			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
 			href="urn:attributes:javax.faces.component.UIInput.xml" />
 		<xi:include
@@ -230,6 +237,13 @@
     <component>
         <component-type>org.richfaces.InputNumberSpinner</component-type>
         <component-class>org.richfaces.component.html.HtmlInputNumberSpinner</component-class>
+        <property>
+			<property-name>readonly</property-name>
+			<property-class>boolean</property-class>
+			<property-extension>
+	        	<cdk:hidden>true</cdk:hidden>
+			</property-extension>
+        </property>
 		<xi:include
 			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
 			href="urn:attributes:javax.faces.component.UIInput.xml" />
@@ -410,7 +424,7 @@
                 <cdk:event-name>upclick</cdk:event-name>
             </property-extension>
         </property>
-        <property>
+       <property>
             <property-name>step</property-name>
             <property-class>java.lang.String</property-class>
             <default-value>"1"</default-value>
