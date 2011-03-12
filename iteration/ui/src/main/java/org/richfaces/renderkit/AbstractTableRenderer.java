@@ -22,18 +22,17 @@
 
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-import java.util.Iterator;
+import org.richfaces.component.Row;
+import org.richfaces.component.UIDataTableBase;
+import org.richfaces.component.util.HtmlUtil;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-
-import org.richfaces.component.Row;
-import org.richfaces.component.UIDataTableBase;
-import org.richfaces.component.util.HtmlUtil;
+import java.io.IOException;
+import java.util.Iterator;
 
 /**
  * @author Anton Belevich
@@ -522,7 +521,9 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
             partialEnd(facesContext);
         }
 
-        if (!isColumnGroup){
+        if (isColumnGroup){
+            writer.endElement(HtmlConstants.TR_ELEMENT);
+        } else {
             writer.endElement(element);
             writer.endElement(HtmlConstants.TR_ELEMENT);
             
