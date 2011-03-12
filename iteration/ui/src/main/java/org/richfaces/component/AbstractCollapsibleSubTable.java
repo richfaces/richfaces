@@ -34,8 +34,8 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.event.ToggleEvent;
-import org.richfaces.event.ToggleListener;
+import org.richfaces.event.CollapsibleSubTableToggleEvent;
+import org.richfaces.event.CollapsibleSubTableToggleListener;
 
 
 /**
@@ -84,8 +84,8 @@ public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implem
     public abstract String getExpandMode();
 
     public void broadcast(FacesEvent event) throws AbortProcessingException {
-        if (event instanceof ToggleEvent) {
-            ToggleEvent toggleEvent = (ToggleEvent) event;
+        if (event instanceof CollapsibleSubTableToggleEvent) {
+            CollapsibleSubTableToggleEvent toggleEvent = (CollapsibleSubTableToggleEvent) event;
             boolean newValue = toggleEvent.isExpanded();
 
             getStateHelper().put(PropertyKeys.expanded, newValue);
@@ -129,16 +129,16 @@ public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implem
         throw new IllegalArgumentException("subtable is not sortable element");
     }
     
-    public void addToggleListener(ToggleListener listener) {
+    public void addCollapsibleSubTableToggleListener(CollapsibleSubTableToggleListener listener) {
         addFacesListener(listener);
     }
     
-    public void removeToggleListener(ToggleListener listener) {
+    public void removeCollapsibleSubTableToggleListener(CollapsibleSubTableToggleListener listener) {
         removeFacesListener(listener);
     }
 
-    public ToggleListener[] getToggleListeners() {
-        return (ToggleListener[]) getFacesListeners(ToggleListener.class);
+    public CollapsibleSubTableToggleListener[] getCollapsibleSubTableToggleListener() {
+        return (CollapsibleSubTableToggleListener[]) getFacesListeners(CollapsibleSubTableToggleListener.class);
     }
     
     public void setIterationState(Object stateObject) {

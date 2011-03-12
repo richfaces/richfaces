@@ -17,14 +17,14 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee">
 
     <property>
-        <property-name>selectionChangeListener</property-name>
+        <property-name>treeSelectionChangeListener</property-name>
         <property-class>javax.el.MethodExpression</property-class>
         <property-extension>
             <cdk:generate>false</cdk:generate>
         </property-extension>
     </property>
     <property>
-        <property-name>toggleListener</property-name>
+        <property-name>treeToggleListener</property-name>
         <property-class>javax.el.MethodExpression</property-class>
         <property-extension>
             <cdk:generate>false</cdk:generate>

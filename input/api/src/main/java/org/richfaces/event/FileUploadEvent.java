@@ -46,7 +46,7 @@ public class FileUploadEvent extends FacesEvent {
     }
 
     public void processListener(FacesListener listener) {
-        ((FileUploadListener) listener).processUpload(this);
+        ((FileUploadListener) listener).processFileUpload(this);
     }
 
     public UploadedFile getUploadedFile() {

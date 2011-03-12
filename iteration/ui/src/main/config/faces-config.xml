@@ -26,7 +26,7 @@
             <cdk:event-class>org.richfaces.event.TreeToggleEvent</cdk:event-class>
             <cdk:listener-class>org.richfaces.event.TreeToggleListener</cdk:listener-class>
             <cdk:source-class>org.richfaces.event.TreeToggleSource</cdk:source-class>
-            <cdk:listener-method>processToggle</cdk:listener-method>
+            <cdk:listener-method>processTreeToggle</cdk:listener-method>
             <cdk:tag>
                 <cdk:tag-name>treeToggleListener</cdk:tag-name>
                 <cdk:tag-type>Facelets</cdk:tag-type>
@@ -39,7 +39,7 @@
             <cdk:event-class>org.richfaces.event.TreeSelectionChangeEvent</cdk:event-class>
             <cdk:listener-class>org.richfaces.event.TreeSelectionChangeListener</cdk:listener-class>
             <cdk:source-class>org.richfaces.event.TreeSelectionChangeSource</cdk:source-class>
-            <cdk:listener-method>processSelectionChange</cdk:listener-method>
+            <cdk:listener-method>processTreeSelectionChange</cdk:listener-method>
             <cdk:tag>
                 <cdk:tag-name>treeSelectionChangeListener</cdk:tag-name>
                 <cdk:tag-type>Facelets</cdk:tag-type>

@@ -28,7 +28,7 @@ import javax.faces.event.FacesListener;
 /**
  * @author Wesley Hales
  */
-public class DataScrollerEvent extends ActionEvent {
+public class DataScrollEvent extends ActionEvent {
 
     /**
      * 
@@ -48,7 +48,7 @@ public class DataScrollerEvent extends ActionEvent {
      * @param thisNewScrolVal
      *            the currently showing item identifier
      */
-    public DataScrollerEvent(UIComponent component, String thisOldScrolVal, String thisNewScrolVal, int page) {
+    public DataScrollEvent(UIComponent component, String thisOldScrolVal, String thisNewScrolVal, int page) {
         super(component);
         oldScrolVal = thisOldScrolVal;
         newScrolVal = thisNewScrolVal;
@@ -72,7 +72,7 @@ public class DataScrollerEvent extends ActionEvent {
     }
 
     public boolean isAppropriateListener(FacesListener listener) {
-        return super.isAppropriateListener(listener) || (listener instanceof DataScrollerListener);
+        return super.isAppropriateListener(listener) || (listener instanceof DataScrollListener);
     }
 
     /**
@@ -82,9 +82,9 @@ public class DataScrollerEvent extends ActionEvent {
      *            the slider listener
      */
     public void processListener(FacesListener listener) {
-        if (listener instanceof DataScrollerListener) {
-            DataScrollerListener dataScrollerListener = (DataScrollerListener) listener;
-            dataScrollerListener.processScroller(this);
+        if (listener instanceof DataScrollListener) {
+            DataScrollListener dataScrollerListener = (DataScrollListener) listener;
+            dataScrollerListener.processDataScroll(this);
         }
 
         if (super.isAppropriateListener(listener)) {

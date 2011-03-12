@@ -29,7 +29,7 @@ import org.richfaces.component.AbstractCollapsibleSubTable;
 import org.richfaces.component.AbstractDataTable;
 import org.richfaces.component.Row;
 import org.richfaces.component.UIDataTableBase;
-import org.richfaces.event.ToggleEvent;
+import org.richfaces.event.CollapsibleSubTableToggleEvent;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 
 import javax.faces.application.ResourceDependencies;
@@ -111,7 +111,7 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
             } 
             
             if(subTable.isExpanded() != isExpanded) {
-                new ToggleEvent(subTable, isExpanded, togglerId).queue();
+                new CollapsibleSubTableToggleEvent(subTable, isExpanded, togglerId).queue();
             }
         }
     }

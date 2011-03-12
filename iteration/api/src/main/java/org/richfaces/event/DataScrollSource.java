@@ -21,28 +21,28 @@
 
 package org.richfaces.event;
 
-public interface DataScrollerSource {
+public interface DataScrollSource {
 
     /**
-     * Adds a DataScrollerListener to this DataScrollerSource.
+     * Adds a DataScrollListener to this DataScrollSource.
      * 
      * @param listener
-     *            the Scroler listener to be added
+     *            the Scroll listener to be added
      */
-    public void addScrollerListener(org.richfaces.event.DataScrollerListener listener);
+    public void addScrollListener(org.richfaces.event.DataScrollListener listener);
 
     /**
-     * Removes a DataFilterSliderListener from this DataScrollerSourceSource.
+     * Removes a DataFilterSliderListener from this DataScrollSource.
      * 
-     * @param listener  the Scroler listener to be removed
+     * @param listener  the Scroll listener to be removed
      */
-    public void removeScrollerListener(DataScrollerListener listener);
+    public void removeScrollListener(DataScrollListener listener);
 
     /**
-     * Returns all ScrollerListeners for this DataScrollerSource.
+     * Returns all ScrollListeners for this DataScrollSource.
      * 
-     * @return the Scroler listener array
+     * @return the Scroll listener array
      */
-    public DataScrollerListener[] getScrollerListeners();
+    public DataScrollListener[] getScrollListeners();
 
 }

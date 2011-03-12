@@ -70,7 +70,7 @@ public class DataScrollerHandler extends ComponentHandler {
 
     private static final class ScrollListenerMapper extends Metadata {
 
-        private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.DataScrollerEvent.class };
+        private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.DataScrollEvent.class };
 
         private final TagAttribute attribute;
 
@@ -81,7 +81,7 @@ public class DataScrollerHandler extends ComponentHandler {
         @Override
         public void applyMetadata(FaceletContext ctx, Object instance) {
                                                                     
-            ((AbstractDataScroller) instance).addScrollerListener((new MethodExpressionScrollListener(this.attribute
+            ((AbstractDataScroller) instance).addScrollListener((new MethodExpressionScrollListener(this.attribute
                 .getMethodExpression(ctx, null, SIGNATURE))));
         }
     }

@@ -23,7 +23,7 @@
 
 package org.richfaces.component;
 
-import org.richfaces.event.ToggleListener;
+import org.richfaces.event.CollapsibleSubTableToggleListener;
 
 public interface Expandable {
 
@@ -31,9 +31,9 @@ public interface Expandable {
     
     public void setExpanded(boolean expand);
 
-    public void addToggleListener(ToggleListener listener);
+    public void addCollapsibleSubTableToggleListener(CollapsibleSubTableToggleListener listener);
 
-    public void removeToggleListener(ToggleListener listener);
+    public void removeCollapsibleSubTableToggleListener(CollapsibleSubTableToggleListener listener);
 
-    public ToggleListener[] getToggleListeners();
+    public CollapsibleSubTableToggleListener[] getCollapsibleSubTableToggleListener();
 }

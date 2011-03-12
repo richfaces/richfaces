@@ -60,7 +60,7 @@ public class CollapsibleSubTableHandler extends ComponentHandler {
 
     static class CollapsibleSubTableMapper extends Metadata {
 
-        private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.ToggleEvent.class };
+        private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.CollapsibleSubTableToggleEvent.class };
 
         private final TagAttribute attribute;
 
@@ -69,7 +69,7 @@ public class CollapsibleSubTableHandler extends ComponentHandler {
         }
 
         public void applyMetadata(FaceletContext ctx, Object instance) {
-            ((AbstractCollapsibleSubTable) instance).addToggleListener((new MethodExpressionToggleListener(this.attribute.getMethodExpression(ctx, null, SIGNATURE))));
+            ((AbstractCollapsibleSubTable) instance).addCollapsibleSubTableToggleListener((new MethodExpressionToggleListener(this.attribute.getMethodExpression(ctx, null, SIGNATURE))));
         }
     }
 }

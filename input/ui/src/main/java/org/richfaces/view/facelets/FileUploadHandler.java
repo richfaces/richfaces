@@ -53,7 +53,7 @@ public class FileUploadHandler extends ComponentHandler {
             super(expression);
         }
 
-        public void processUpload(FileUploadEvent event) throws AbortProcessingException {
+        public void processFileUpload(FileUploadEvent event) throws AbortProcessingException {
             processEvent(event);
         }
     }

@@ -25,10 +25,10 @@ package org.richfaces.taglib;
 import javax.el.MethodExpression;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.event.ToggleEvent;
-import org.richfaces.event.ToggleListener;
+import org.richfaces.event.CollapsibleSubTableToggleEvent;
+import org.richfaces.event.CollapsibleSubTableToggleListener;
 
-public class MethodExpressionToggleListener implements ToggleListener {
+public class MethodExpressionToggleListener implements CollapsibleSubTableToggleListener {
     
     private MethodExpression methodExpression;
     
@@ -41,7 +41,7 @@ public class MethodExpressionToggleListener implements ToggleListener {
         this.methodExpression = methodExpression;
     }
     
-    public void processToggle(ToggleEvent toggleEvent) {
+    public void processCollapsibleSubTableToggle(CollapsibleSubTableToggleEvent toggleEvent) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         methodExpression.invoke(facesContext.getELContext(), new Object[]{toggleEvent});
     }
