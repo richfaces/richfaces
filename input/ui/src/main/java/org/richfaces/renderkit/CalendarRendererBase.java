@@ -516,14 +516,14 @@ public class CalendarRendererBase extends InputRendererBase implements MetaCompo
         return true;
     }
     
-    public String getStyleWithZindex(FacesContext facesContext, UIComponent component) {
+    public String getPopupStyle(FacesContext facesContext, UIComponent component) {
         AbstractCalendar calendar = (AbstractCalendar) component;
         int zindex = calendar.getZindex();
         if (zindex < 0) {
             zindex = 3;
         }
 
-        return HtmlUtil.concatStyles("z-index: " + zindex, calendar.getStyle());
+        return HtmlUtil.concatStyles("z-index: " + zindex, calendar.getPopupStyle());
     }
     
     public Locale getAsLocale(FacesContext facesContext, UIComponent component) {
