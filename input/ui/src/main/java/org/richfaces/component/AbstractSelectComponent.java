@@ -48,18 +48,15 @@ public abstract class AbstractSelectComponent extends UISelectOne {
     
     @Attribute
     public abstract String getSelectItemClass();
-    
-    @Attribute
-    public abstract String getReadyStateClass();
 
     @Attribute
-    public abstract String getEditStateClass();
+    public abstract String getActiveClass();
 
     @Attribute
-    public abstract String getChangedStateClass();
+    public abstract String getChangedClass();
 
     @Attribute
-    public abstract String getDisabledStateClass();
+    public abstract String getDisabledClass();
     
     @Attribute
     public abstract String getListClass();

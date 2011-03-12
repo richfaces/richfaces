@@ -44,7 +44,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <cdk:object type="java.lang.String" name="defaultLabel" value="#{inplaceValue != null and inplaceValue.length() != 0 ? inplaceValue : '&#160;&#160;&#160;'}" />
 
 		<span id="#{clientId}" cdk:passThroughWithExclusions="id class" 
-		class="#{concatClasses(getStateStyleClass(component, inplaceState), component.attributes['styleClass'])}">
+		class="#{concatClasses(getContainerStyleClasses(component), component.attributes['styleClass'])}">
 			<span id="#{clientId}Label" class="rf-ii-lbl#{inplaceValue == component.attributes['defaultLabel'] ? ' rf-ii-dflt-lbl' : ''}">
 				#{defaultLabel}
 			</span>
@@ -89,8 +89,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 					<cdk:scriptObject name="options">
 						<cdk:scriptOption name="readyCss" value="#{concatClasses('rf-ii', component.attributes['readyStateClass'])}"/>
 						<cdk:scriptOption name="noneCss" value="#{concatClasses('rf-ii-none', component.attributes['noneStateClass'])}"/>
-						<cdk:scriptOption name="changedCss" value="#{concatClasses('rf-ii-chng', component.attributes['changedStateClass'])}"/>
-						<cdk:scriptOption name="editCss" value="#{concatClasses('rf-ii-act', component.attributes['editStateClass'])}"/>
+						<cdk:scriptOption name="changedCss" value="#{concatClasses('rf-ii-chng', component.attributes['changedClass'])}"/>
+						<cdk:scriptOption name="editCss" value="#{concatClasses('rf-ii-act', component.attributes['activeClass'])}"/>
 						<cdk:scriptOption name="editEvent" value="#{getEditEvent(component)}"/>
                         <cdk:scriptOption name="defaultLabel" value="#{defaultLabel}" />
 					  	<cdk:scriptOption attributes="state saveOnBlur showControls" />

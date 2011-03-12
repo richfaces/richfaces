@@ -70,25 +70,16 @@ public abstract class AbstractInplaceInput extends UIInput implements InplaceCom
     
     @Attribute
     public abstract int getTabindex();
-    
-    @Attribute
-    public abstract String getReadyStateClass();
 
     @Attribute
-    public abstract String getEditStateClass();
+    public abstract String getActiveClass();
 
     @Attribute
-    public abstract String getChangedStateClass();
+    public abstract String getChangedClass();
 
     @Attribute
-    public abstract String getDisabledStateClass();
-   
-    @Attribute
-    public abstract String getEditClass();
-    
-    @Attribute
-    public abstract String getNoneClass();
-    
+    public abstract String getDisabledClass();
+
     @Attribute(events=@EventName("click"))
     public abstract String getOnclick();
     

@@ -114,35 +114,42 @@ public class InplaceSelectRendererBase extends InplaceInputRendererBase {
         }
         return label;
     }
-    
-    public String getReadyStateCss(InplaceComponent component) {
-        String css = component.getReadyStateClass();
-        return concatClasses("rf-is", css);
+
+    public String getContainerStyleClasses(UIComponent component) {
+        InplaceComponent inplaceComponent = (InplaceComponent) component;
+        String style = concatClasses("rf-is", component.getAttributes().get("styleClass"));
+        if (inplaceComponent.isDisabled()) {
+            style = concatClasses(style, getDisableStateCss(inplaceComponent));
+        }
+        return style;
     }
 
     public String getEditStateCss(InplaceComponent component) {
-        String css = component.getEditStateClass();
+        String css = component.getActiveClass();
         return concatClasses("rf-is-act", css);
     }
 
     public String getChangedStateCss(InplaceComponent component) {
-        String css = component.getChangedStateClass();
+        String css = component.getChangedClass();
         return concatClasses("rf-is-chng", css);
     }
 
     public String getDisableStateCss(InplaceComponent component) {
-        String css = component.getDisabledStateClass();
+        String css = component.getDisabledClass();
         return concatClasses("rf-is-dis", css);
+    }
+
+    public String getDisabledCss(UIComponent component) {
+        AbstractInplaceSelect inplaceSelect = (AbstractInplaceSelect) component;
+        return getDisableStateCss(inplaceSelect);
     }
     
     public String getEditCss(InplaceComponent component) {
-        String css = component.getEditClass();
-        return concatClasses("rf-is-fld-cntr", css);
+        return "rf-is-fld-cntr";
     }
 
     public String getNoneCss(InplaceComponent component) {
-        String css = component.getNoneClass();
-        return concatClasses("rf-is-none", css);
+        return "rf-is-none";
     }
     
     public String getListCss(UIComponent component) {

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
@@ -28,12 +29,6 @@ public class InplaceInputRendererTest extends InplaceRendererTestBase {
     public void testDefaultWithControlsEncode() throws IOException, SAXException {
         doTestDefaultWithControlsEncode(PAGE_NAME, BASE_ID);
     }
-
-    @Test
-    public void testEditEncode() throws IOException, SAXException {
-        doTestEditEncode(PAGE_NAME, BASE_ID);
-    }
-    
     
     @Test
     public void testEdit() throws Exception {

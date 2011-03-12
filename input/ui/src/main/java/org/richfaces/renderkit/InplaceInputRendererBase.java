@@ -134,40 +134,46 @@ public class InplaceInputRendererBase extends InputRendererBase {
         }
         return style;
     }
+
+    public String getContainerStyleClasses(UIComponent component) {
+        InplaceComponent inplaceComponent = (InplaceComponent) component;
+        String style = "rf-ii";
+        if (inplaceComponent.isDisabled()) {
+            style = concatClasses(style, getDisableStateCss(inplaceComponent));
+        }
+        return style;
+    }
     
     public String getEditStyleClass(UIComponent component,  InplaceState inplaceState) {
         InplaceComponent inplaceComponent = (InplaceComponent)component;
         return (InplaceState.edit != inplaceState) ? concatClasses(getEditCss(inplaceComponent), getNoneCss(inplaceComponent)) : getEditCss(inplaceComponent);
     }
-  
+
     public String getReadyStateCss(InplaceComponent component) {
-        String css = component.getReadyStateClass();
-        return concatClasses("rf-ii", css);
+        return "rf-ii";
     }
 
     public String getEditStateCss(InplaceComponent component) {
-        String css = component.getEditStateClass();
+        String css = component.getActiveClass();
         return concatClasses("rf-ii-act", css);
     }
 
     public String getChangedStateCss(InplaceComponent component) {
-        String css = component.getChangedStateClass();
+        String css = component.getChangedClass();
         return concatClasses("rf-ii-chng", css);
     }
 
     public String getDisableStateCss(InplaceComponent component) {
-        String css = component.getDisabledStateClass();
+        String css = component.getDisabledClass();
         return concatClasses("rf-ii-dis", css);
     }
-    
+
     public String getEditCss(InplaceComponent component) {
-        String css = component.getEditClass();
-        return concatClasses("rf-ii-fld-cntr", css);
+        return "rf-ii-fld-cntr";
     }
 
     public String getNoneCss(InplaceComponent component) {
-        String css = component.getNoneClass();
-        return concatClasses("rf-ii-none", css);
+        return "rf-ii-none";
     }
     
     protected String getInputWidth(UIComponent component) {
