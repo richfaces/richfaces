@@ -9,12 +9,12 @@
 			style="width: 100%;" type="text" />
 		<span class="rf-ii-btn-prepos">
 			<span class="rf-ii-btn-pos">
-				<span class="rf-ii-btn-shadow" id="form:inplaceInputWithControlsBtnshadow">
+				<span class="rf-ii-btn-shdw" id="form:inplaceInputWithControlsBtnshadow">
 					<span class="rf-ii-btn-shdw-t"></span>
 					<span class="rf-ii-btn-shdw-l"></span>
 					<span class="rf-ii-btn-shdw-r"></span>
 					<span class="rf-ii-btn-shdw-b"></span>
-					<span id="form:inplaceInputWithControlsBtn" style="position : relative" tabindex="-1">
+					<span id="form:inplaceInputWithControlsBtn" class="rf-ii-btn-cntr" tabindex="-1">
 						<input class="rf-ii-btn" id="form:inplaceInputWithControlsOkbtn"
 							onmousedown="this.className='rf-ii-btn-p'" onmouseout="this.className='rf-ii-btn'"
 							onmouseup="this.className='rf-ii-btn'"
@@ -27,7 +27,6 @@
 							src="/javax.faces.resource/ico_cancel.gif.jsf?ln=org.richfaces"
 							type="image"
 							tabindex="-1" />
-						<br />
 					</span>
 				</span>
 			</span>

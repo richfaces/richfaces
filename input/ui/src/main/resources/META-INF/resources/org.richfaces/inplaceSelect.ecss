@@ -176,6 +176,12 @@ input.rf-is-fld {
 	left : -6px;
 }
 
+.rf-is-btn-cntr {
+    position : relative;
+    display: block;
+    font-size: 0px; 
+}
+
 .rf-is-shdw-t {
 	display : block;
 	background-image :  "url(#{resource['org.richfaces:bg_shadow.png']})";

@@ -113,7 +113,13 @@ input.rf-ii-fld {
 	position: relative; 
 	padding : 6px 6px 6px 6px; 
 	top : -6px; 
-	right : -6px;
+	left : -6px;
+}
+
+.rf-ii-btn-cntr {
+    position : relative;
+    display: block;
+    font-size: 0px; 
 }
 
 .rf-ii-btn-shdw-t {
