@@ -50,9 +50,9 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 			</span>
 			
 			<c:if test="#{!component.attributes['disabled']}">
-				<input id="#{clientId}Focus" type="image" style="position: absolute; top: 0px; left: 0px; outline-style: none;" class="rf-ii-none"/>
+				<input id="#{clientId}Focus" type="image" tabindex="-1" style="position: absolute; top: 0px; left: 0px; outline-style: none;" class="rf-ii-none"/>
 				<span id="#{clientId}Edit" class="#{getEditStyleClass(component, inplaceState)}">
-					<input id="#{clientId}Input" autocomplete="off" name="#{clientId}" 
+					<input id="#{clientId}Input" autocomplete="off" name="#{clientId}"
 						   type="text" value="#{getInputValue(facesContext, component)}" class="rf-ii-fld" style="width: #{getInputWidth(component)};"  cdk:passThrough="tabindex">
 						    <cdk:call expression="renderInputHandlers(facesContext, component);"/>
 					</input>
@@ -70,12 +70,14 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 											id="#{clientId}Okbtn"
 											src="#{getResourcePath(facesContext, 'org.richfaces', 'ico_ok.gif')}"
 											class="rf-ii-btn" onmousedown="this.className='rf-ii-btn-p'"
-											onmouseout="this.className='rf-ii-btn'" onmouseup="this.className='rf-ii-btn'" />
+											onmouseout="this.className='rf-ii-btn'" onmouseup="this.className='rf-ii-btn'"
+											tabindex="-1" />
 										<input type="image"
 											id="#{clientId}Cancelbtn"
 											src="#{getResourcePath(facesContext,'org.richfaces', 'ico_cancel.gif')}"
 											class="rf-ii-btn" onmousedown="this.className='rf-ii-btn-press'"
-											onmouseout="this.className='rf-ii-btn'" onmouseup="this.className='rf-ii-btn'" />
+											onmouseout="this.className='rf-ii-btn'" onmouseup="this.className='rf-ii-btn'"
+											tabindex="-1" />
 										<br />
 									</span>
 								</span>

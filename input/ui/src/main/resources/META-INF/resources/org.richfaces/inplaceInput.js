@@ -14,12 +14,15 @@
             this.showControls = mergedOptions.showControls;
            	this.getInput().bind("focus", $.proxy(this.__editHandler, this));
         	if(this.showControls) {
+        		var btnContainer = document.getElementById(id+"Btn");
+        		if (btnContainer) {
+        			btnContainer.tabIndex=-1;
+        		}
             	this.okbtn = $(document.getElementById(id+"Okbtn"));
             	this.cancelbtn = $(document.getElementById(id+"Cancelbtn"));
             	this.okbtn.bind("mousedown", $.proxy(this.__saveBtnHandler, this));
             	this.cancelbtn.bind("mousedown", $.proxy(this.__cancelBtnHandler, this));
             }
-        	this.focusElement = $(document.getElementById(id+"Focus"));
         };
 
         rf.ui.InplaceBase.extend(rf.ui.InplaceInput);
@@ -51,6 +54,7 @@
     			},
            		
            		__keydownHandler: function(e) {
+    				this.tabBlur = false;
            			switch(e.keyCode || e.which) {
            				case rf.KEYS.ESC: 
 	       					e.preventDefault();
@@ -61,6 +65,9 @@
 	       					e.preventDefault();
            					this.save(); 
                    			this.onblur(e);
+           					break;
+           				case rf.KEYS.TAB:
+           					this.tabBlur = true;
            					break;
            			}
     			},
@@ -117,7 +124,11 @@
     			}, 
     			
     			onhide: function() {
-    				this.focusElement.focus();
+    				if (this.tabBlur) {
+    					this.tabBlur = false;
+    				}else {
+    					this.getInput().focus();
+    				}
     			},
     			
     			onfocus: function(e) {
@@ -128,7 +139,7 @@
     				}
     			},
     			
-    			onblur: function(e) { 
+    			onblur: function(e) {
     				if(this.__isFocused()) {
     					this.__setFocused(false);
 	    				this.invokeEvent.call(this, "blur", document.getElementById(this.id), e);

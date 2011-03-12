@@ -2,7 +2,7 @@
 	<span class="rf-ii-lbl rf-ii-dflt-lbl" id="form:inplaceInputEditLabel">Edit Text</span>
 	<input class="rf-ii-none" id="form:inplaceInputEditFocus"
 		style="position: absolute; top: 0px; left: 0px; outline-style: none;"
-		type="image" />
+		type="image" tabindex="-1" />
 	<span class="rf-ii-fld-cntr" id="form:inplaceInputEditEdit">
 		<input autocomplete="off" class="rf-ii-fld" id="form:inplaceInputEditInput"
 			name="form:inplaceInputEdit" style="width: 100%;" type="text" />
@@ -13,17 +13,19 @@
 					<span class="rf-ii-btn-shdw-l"></span>
 					<span class="rf-ii-btn-shdw-r"></span>
 					<span class="rf-ii-btn-shdw-b"></span>
-					<span id="form:inplaceInputEditBtn" style="position : relative">
+					<span id="form:inplaceInputEditBtn" style="position : relative" tabindex="-1">
 						<input class="rf-ii-btn" id="form:inplaceInputEditOkbtn"
 							onmousedown="this.className='rf-ii-btn-p'" onmouseout="this.className='rf-ii-btn'"
 							onmouseup="this.className='rf-ii-btn'"
 							src="/javax.faces.resource/ico_ok.gif.jsf?ln=org.richfaces"
-							type="image" />
+							type="image"
+							tabindex="-1" />
 						<input class="rf-ii-btn" id="form:inplaceInputEditCancelbtn"
 							onmousedown="this.className='rf-ii-btn-press'" onmouseout="this.className='rf-ii-btn'"
 							onmouseup="this.className='rf-ii-btn'"
 							src="/javax.faces.resource/ico_cancel.gif.jsf?ln=org.richfaces"
-							type="image" />
+							type="image"
+							tabindex="-1" />
 						<br />
 					</span>
 				</span>
