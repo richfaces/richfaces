@@ -24,13 +24,13 @@
     <parent>
         <groupId>org.richfaces.ui</groupId>
         <artifactId>richfaces-ui-parent</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.0.0.Final</version>
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.ui.misc</groupId>
     <artifactId>richfaces-ui-misc-ui</artifactId>
-    <version>4.0.0-SNAPSHOT</version>
+    <version>4.0.0.Final</version>
     <packaging>jar</packaging>
     <name>Richfaces UI Misc UI</name>
 
@@ -58,10 +58,10 @@
     </dependencies>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/4.0.X/ui/misc/dist/richfaces-ui-misc-ui
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/tags/4.0.0.20110313-Final/ui/misc/dist/richfaces-ui-misc-ui
         </connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/4.0.X/ui/misc/dist/richfaces-ui-misc-ui
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/tags/4.0.0.20110313-Final/ui/misc/dist/richfaces-ui-misc-ui
         </developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/branches/4.0.X/ui/misc/dist/richfaces-ui-misc-ui</url>
+        <url>http://fisheye.jboss.org/browse/richfaces/tags/4.0.0.20110313-Final/ui/misc/dist/richfaces-ui-misc-ui</url>
     </scm>
 </project>
