@@ -25,13 +25,13 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-root-parent</artifactId>
-        <version>4.0.0.Final</version>
+        <version>4.0.0-SNAPSHOT</version>
         <relativePath>../../build/parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.ui.output</groupId>
     <artifactId>richfaces-ui-output-aggregator</artifactId>
-    <version>4.0.0.Final</version>
+    <version>4.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Richfaces UI Components: Output Aggregator</name>
 
@@ -41,8 +41,8 @@
     </modules>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/tags/4.0.0.20110313-Final/ui/output</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/tags/4.0.0.20110313-Final/ui/output</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/tags/4.0.0.20110313-Final/ui/output</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/4.0.X/ui/output</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/4.0.X/ui/output</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/branches/4.0.X/ui/output</url>
     </scm>
 </project>
