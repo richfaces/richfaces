@@ -7,13 +7,13 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-root-parent</artifactId>
-        <version>4.0.0.Final</version>
+        <version>4.0.0-SNAPSHOT</version>
         <relativePath>../build/parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.examples</groupId>
     <artifactId>richfaces-showcase</artifactId>
-    <version>4.0.0.Final</version>
+    <version>4.0.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Richfaces Examples: Richfaces Showcase Application</name>
 
@@ -445,8 +445,8 @@
     </profiles>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/tags/4.0.0.20110313-Final/examples/richfaces-showcase</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/tags/4.0.0.20110313-Final/examples/richfaces-showcase</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/tags/4.0.0.20110313-Final/examples/richfaces-showcase</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/4.0.X/examples/richfaces-showcase</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/4.0.X/examples/richfaces-showcase</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/branches/4.0.X/examples/richfaces-showcase</url>
     </scm>
 </project>
