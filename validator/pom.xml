@@ -38,8 +38,8 @@
     </modules>
     
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/4.0.X/ui/validator</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/4.0.X/ui/validator</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/branches/4.0.X/ui/validator</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/RF-10753/ui/validator</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/RF-10753/ui/validator</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/branches/RF-10753/ui/validator</url>
     </scm>
 </project>

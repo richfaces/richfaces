@@ -41,8 +41,8 @@
     </modules>
 
   <scm>
-    <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/4.0.X/ui/core</connection>
-    <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/4.0.X/ui/core</developerConnection>
-    <url>http://fisheye.jboss.org/browse/richfaces/branches/4.0.X/ui/core</url>
+    <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/RF-10753/ui/core</connection>
+    <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/RF-10753/ui/core</developerConnection>
+    <url>http://fisheye.jboss.org/browse/richfaces/branches/RF-10753/ui/core</url>
   </scm>
 </project>

@@ -41,8 +41,8 @@
     </modules>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/4.0.X/ui/iteration</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/4.0.X/ui/iteration</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/branches/4.0.X/ui/iteration</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/RF-10753/ui/iteration</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/RF-10753/ui/iteration</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/branches/RF-10753/ui/iteration</url>
     </scm>
 </project>
