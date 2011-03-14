@@ -76,9 +76,9 @@
     </dependencies>
     
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/RF-10753/ui/output/panels/ui</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/RF-10753/ui/output/panels/ui</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/branches/RF-10753/ui/output/panels/ui</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/4.0.X/ui/output/panels/ui</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/4.0.X/ui/output/panels/ui</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/branches/4.0.X/ui/output/panels/ui</url>
     </scm>
 	
 </project>
