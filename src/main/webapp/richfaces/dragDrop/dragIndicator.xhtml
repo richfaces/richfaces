@@ -5,10 +5,11 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
-	<p>This sample uses the same code but also there is custom
-	indicator defined. That custom indicator uses styling attributes for look customization.
-	However it's still possible to use the same predefined classes as for
-	previous sample.'</p>
+	<p>This sample uses the same code as the basic example, but additionally defines a custom
+	indicator using the <b>rich:dragIndicator</b> component. The custom indicator uses 
+	styling attributes for a customized appearance.</p>
+	<p>It is still possible to use the same predefined classes as for the
+	previous sample.</p>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
 		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
