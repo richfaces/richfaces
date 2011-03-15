@@ -5,18 +5,16 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
-<p>This sample shows the selection management using built-in selection functionality.</p>
-<p><b>selectionMode</b> attribute which controls selection mode has three values:</p>
-<p>
+<p>This example demonstrates selection management using the built-in selection functionality.</p>
+<p>The <b>selectionMode</b> attribute, which controls the selection mode, has three possible values:</p>
 <ul>
-<li>multi</li>
+<li>multiple</li>
 <li>single</li>
 <li>none</li>
 </ul>
-</p>
-<p>And in order to manage your selection - use <b>selection</b> attribute which should be pointed to 
-some <b>collection of objects</b>. It will <b>hold rowKeys</b> of currently selected rows.</p>
-<p>Look to next simple sample:</p>
+<p>To manage your selection, use the <b>selection</b> attribute, which points to 
+a collection of objects. The collection holds <b>rowKey</b> identifiers of the currently selected rows.</p>
+
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
 		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />

@@ -5,14 +5,13 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
-	<p>Here is simple example of sorting feature of RichFaces Table
-	component.</p>
-	<p>Object property which should be used for sorting should be
-	defined in sortBy attribute.</p>
-	<p>Currently you could only control sortOrder in your actions, and
-	in near versions we're planning to add special sort controls</p>
-	<p>Also you could use #
-	{rich:component('tableId')}.sort('columnId', ['sortOrder']) JS api</p>
+	<p>This example demonstrates the sorting feature for the RichFaces table
+	components.</p>
+	<p>The object property which is used for sorting should be
+	defined for each column with the <b>sortBy</b> attribute.</p>
+	<p>Use the <b>sortOrder</b> attribute together with user actions 
+	to determine the sorting order. Alternatively, you can use 
+	<b>#{rich:component('tableId')}.sort('columnId', ['sortOrder'])</b> with the JavaScript API.</p>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
 		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
