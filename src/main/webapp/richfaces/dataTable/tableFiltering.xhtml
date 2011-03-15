@@ -5,6 +5,11 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
+	<p>This example demonstrates content filtering for RichFaces table components.
+	A variety of controls are used in the header facet of the table to filter the contents
+	of the columns below them. The <b>value</b> attributes of these controls adjust the 
+	values linked to the <b>filterValue</b> attribute of the columns.
+	The <b>filterExpression</b> attribute defines the expression used to filter the column.</p>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
 		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />

@@ -67,11 +67,11 @@ a.no-decor>img {
 
 	<rich:popupPanel id="statPane" autosized="true">
 		<h:graphicImage value="/images/ai.gif" />
-		Wait please...
+		Please wait...
 	</rich:popupPanel>
 
 	<rich:popupPanel id="confirmPane" autosized="true"> 
-		Sure to delete row?
+		Are you sure you want to delete the row?
 		<a4j:commandButton value="Cancel"
 			onclick="#{rich:component('confirmPane')}.hide(); return false;" />
 		<a4j:commandButton value="Delete" onclick="remove(); return false;" />
