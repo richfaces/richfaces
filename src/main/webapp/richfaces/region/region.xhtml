@@ -4,27 +4,23 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<ui:composition>
-	<p><b>a4j:region</b> component designed for marking zones which
-	should be processed during Ajax requests without using execute
-	definitions at Ajax behaviors/components. This allow to decouple the
-	processing definitions from components id's and use declarative
-	wrapping by this tag instead.</p>
-	<p>In <b>RichFaces 3.3</b> all the view was processed if no regions
-	specified as <b>ViewRoot itself was region by default</b>. And in <b>RichFaces
-	4.x</b> - all the controls except some specific ones(<i>e.g.
-	a4j:command* normally used to submit whole form so has @form by default</i>)
-	has <b>execute="@this" by default</b> according to JSF 2
-	specifications. But if the <b>controls wrapped with a4j:region</b>
-	component and has no explicit execute definitions - them uses<b>
-	execute="@region"</b></p>
-	<p>Look to the simple example below. There are two similar user
-	info panels. But the <b><u>button with &lt;a4j:ajax/&gt; inside
-	the first panel will not works</u> </b> as not uses execute declarations and by
-	default execute equals to @this. Separate definition needed to start
-	working properly. And the <b>second panel with the same button and
-	inputs just wrapped to region and works</b> without any additional execute
-	definitions.</p>
+<ui:composition> 
+	<p>The <b>a4j:region</b> component is used to mark zones which
+	should be processed during Ajax requests without using <b>execute</b>
+	definitions for Ajax behaviors or components. This allows the
+	processing definitions and component identifiers to be decoupled, 
+	and declarative wrapping with the <b>a4j:region</b> tag is used instead.</p>
+	<p>In <i>RichFaces 3.3</i>, the whole view was processed if no regions were
+	specified, as <b>ViewRoot</b> itself was the region by default. In <i>RichFaces
+	4.x</i>, all the controls have <b>execute="@this"</b> by default according
+	to JSF 2 specifications. However, if the controls wrapped with the
+	<b>a4j:region</b> tag and have no execute definitions, they use <b>
+	execute="@region"</b> instead.</p>
+	<p>The example below contains two similar user
+	info panels. The button inside the first panel will not work, as it does not use execute
+	declarations; by default it uses <b>execute="@this"</b>. A separate definition is needed 
+	to make the button work properly. The second panel inputs
+	are wrapped in a region with the <b>commandButton</b>, and input works without any additional execute definitions.</p>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
 		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
@@ -32,8 +28,5 @@
 		<ui:param name="openLabel" value="View Source" />
 		<ui:param name="hideLabel" value="Hide Source" />
 	</ui:include>
-	<p><i>Again, as it was mentioned if you will use
-	&lt;a4j:commandButton&gt; both panels will start to work properly as
-	command controls has specific execute = @form by default. </i></p>
 </ui:composition>
 </html>
