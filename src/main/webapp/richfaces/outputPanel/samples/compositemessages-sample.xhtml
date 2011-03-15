@@ -7,7 +7,7 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:r="http://java.sun.com/jsf/composite/org.richfaces.showcase">
 	<h:form>
-		<rich:panel id="psnel">
+		<rich:panel id="panel">
 			<f:facet name="header">
 				<h:outputText value="User Details Panel" />
 			</f:facet>
@@ -17,8 +17,8 @@
 					<h:inputText value="#{userBean.name}" required="true" label="Name">
 						<f:validateLength minimum="3" maximum="12" />
 					</h:inputText>
-					<h:outputText value="Adress:" />
-					<h:inputTextarea value="#{userBean.address}" label="Adress"
+					<h:outputText value="Address:" />
+					<h:inputTextarea value="#{userBean.address}" label="Address"
 						required="true">
 						<f:validateLength maximum="100" />
 					</h:inputTextarea>

@@ -6,7 +6,7 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
 	<h:form>
-		<rich:panel id="psnel">
+		<rich:panel id="panel">
 			<f:facet name="header">
 				<h:outputText value="Panel with status" />
 			</f:facet>
@@ -15,7 +15,7 @@
 					<a4j:ajax event="keyup">
 						<h:outputText value="User name:" />
 						<h:inputText value="#{userBean.name}" />
-						<h:outputText value="Adress:" />
+						<h:outputText value="Address:" />
 						<h:inputText value="#{userBean.address}" />
 					</a4j:ajax>
 				</h:panelGrid>
