@@ -5,11 +5,10 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
-	<p>a4j:actionparam is a component which extends regular f:param
-	with the possibility to assign the value to the property of the manager
-	bean directly using the assignTo attribute. Using this feature you can
-	update model values without invoking even a single line of java code on
-	the server side.</p>
+	<p>The <b>a4j:param</b> component extends the regular f:param
+	tag.  The primary extension is the ability to assign a value to a property
+	on a managed bean directly using the assignTo attribute. Using this feature you can
+	update model values without invoking a single line code.</p>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
 		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />

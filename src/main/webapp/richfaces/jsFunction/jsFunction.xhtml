@@ -6,11 +6,17 @@
 
 <ui:composition>
 
-	<p><b>a4j:jsFunction</b> component also designed to send Ajax
-	requests, but allows to perform an the requests from a Javascript code
-	directly. The component sends a request using a standard JSF approach,
-	so the JSF form is required. The following example shows how the part
-	of a page is re-rendered when a user hovers over the names.</p>
+	<p>The <b>a4j:jsFunction</b> component creates a JavaScript function that
+	allows you to send JSF Ajax requests from any JavaScript.  You define the 
+	Ajax and JSF properties just like a4j:ajax, or a4j:commandButton, and 
+	<b>a4j:jsFunction</b> creates the JavaScript for you. The component sends a 
+	request using the standard JSF mechanisms.  Note that this means a JSF form 
+	is required.</p>
+	
+	<p> The following example shows how to use <b>a4j:jsFunction</b> to create a
+	function named updateName.  This is then called on mouseover of the 
+	different names.  This triggers the full round trip Ajax request and renders
+	the updated name.</p>
 
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
