@@ -5,7 +5,11 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
-	<p>ProgressBar worked in "ajax" mode </p>
+	<p>The <b>rich:progressBar</b> displays a standard progress widget, and allows
+	for additional facets such as initial, and finish state customizations.  In
+	Ajax mode you simply bind the bar to a bean property that returns a value between the 
+	'minValue' and 'maxValue'.  This value is then polled from the browser using
+	the specified interval.</p>
 	<br/>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">

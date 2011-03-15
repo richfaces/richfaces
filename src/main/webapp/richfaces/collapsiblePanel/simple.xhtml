@@ -5,12 +5,13 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
-	<p><b>collapsiblePanel</b> representation is fully analogous to simple
-	<b>rich:panel</b> component. Additionally that component could be toggled
-	between two representations. In collapsed state only header shown and
-	in expanded state there is complete panel.</p>
-	<p>As most of switchable components it has three <b>switch types</b> for
-	switching between states - <b>ajax</b>, <b>server</b> and <b>client</b>
+	<p>The <b>rich:collapsiblePanel</b> component is fully analogous to a simple
+	<b>rich:panel</b> component. Except that it can be collapsed, and expanded.
+	In the collapsed state only the header is shown and in expanded state the 
+	complete panel.</p>
+	<p>As with most of switchable components it has three <b>switch types</b> for
+	switching between states - <b>ajax</b>, <b>server</b> and <b>client</b>.
+	See the rich:togglePanel for details.
 	</p>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
@@ -19,7 +20,7 @@
 		<ui:param name="openLabel" value="View Source" />
 		<ui:param name="hideLabel" value="Hide Source" />
 	</ui:include>
-	<p>In ajax and server mode <b>PanelToggleEvent</b> queued and could be handled
-	using <b>Listener</b> defined via <b>toggleListener</b> attribute</p>
+	<p><b>Note: </b>In ajax and server modes the <b>PanelToggleEvent</b> is queued and can be handled
+	using a <b>Listener</b> defined via the <b>toggleListener</b> attribute</p>
 </ui:composition>
 </html>

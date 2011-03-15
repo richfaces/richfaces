@@ -5,14 +5,11 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
-	<p>The <b>Accordion</b> (<i>panelBar from 3.3.x</i>) is a set of panels when one panel is expanded, 
-	but other ones are collapsed. </p>
-	<p>
-		<b>Main addition</b> to previous 3.3.x functionality - accordion in 4.x was finally added with
-		different switching <b>switchType</b>'s. So as all the switchable panels it could be used with next modes -
-		"<i>client</i>", "<i>ajax</i>" and "<i>server</i>".
-	</p>
-	<p>The following demo shows the simple example of usage for the Accordion in client mode:</p>
+	<p>The <b>rich:accordion</b> component is a set of panels where one panel is expanded, 
+	while the other ones are collapsed.  This is similar to, and inherits much of
+	the features from the rich:togglePanel, and rich:tabPanel.  See the descriptions
+	of these components for details on switch-types, and shortcuts.</p>
+	<p>The following example shows the usage of the rich:accordion in client mode:</p>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
 		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />

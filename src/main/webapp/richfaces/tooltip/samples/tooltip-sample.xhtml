@@ -32,20 +32,20 @@
 	<h:panelGrid columns="2">
 		<rich:panel id="sample1" styleClass="tooltip-text"
 			bodyClass="rich-laguna-panel-no-header">
-			<p>Here you can see <b>default client-side</b> tool-tip</p>
+			<p>Here you can see a <b>default client-side</b> tool-tip</p>
 			<rich:tooltip id="tt1" styleClass="tooltip" layout="block">
 				<span style="white-space: nowrap"> This tool-tip content was
 				<strong>pre-rendered</strong> to the page.<br />
-				Also the tooltip following mouse by default </span>
+				The tool-tip is also following mouse around.</span>
 			</rich:tooltip>
 		</rich:panel>
 		<rich:panel id="sample2" styleClass="tooltip-text"
 			bodyClass="rich-laguna-panel-no-header">
-			<p>This tool-tip will not <b>follow mouse</b>. Also this tool-tip
-			has a <b>delay 1.5 sec</b>, so be patient!</p>
+			<p>This tool-tip will not <b>follow the mouse</b>, and 
+			has a <b>delay of 1.5 seconds</b>, so be patient!</p>
 			<rich:tooltip followMouse="false" showDelay="1500"
 				styleClass="tooltip-custom-body" layout="block">
-				<span style="white-space: nowrap"> This tool-tip content also
+				<span style="white-space: nowrap"> This tool-tip content is also
 				<strong>pre-rendered</strong> to the page.<br />
 				</span>
 			</rich:tooltip>
@@ -53,11 +53,11 @@
 		<h:form>
 			<rich:panel id="sample3" styleClass="tooltip-text"
 				bodyClass="rich-laguna-panel-no-header">
-				<p>This tool-tip rendered on server <b>in separate request</b>.
+				<p>This tool-tip was rendered on the server using an Ajax request.
 				</p>
 				<rich:tooltip mode="ajax" styleClass="tooltip" layout="block">
 					<span style="white-space: nowrap">This tool-tip content was
-					<strong>rendered on server</strong> </span>
+					<strong>rendered on the server</strong> </span>
 					<h:panelGrid columns="2">
 						<h:outputText style="white-space:nowrap"
 							value="tooltips requested:" />
@@ -70,7 +70,8 @@
 		<h:form>
 			<rich:panel id="sample4" styleClass="tooltip-text"
 				bodyClass="rich-laguna-panel-no-header">
-				<p>This tool-tip will be <b>activated on mouse click</b>.</p>
+				<p>This tool-tip will be <b>activated on a mouse click</b>, and
+				has default content defined.</p>
 				<rich:tooltip showEvent="click" mode="ajax" styleClass="tooltip"
 					layout="block">
 					<f:facet name="defaultContent">

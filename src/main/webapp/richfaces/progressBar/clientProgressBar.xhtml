@@ -5,7 +5,10 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
-	<p>ProgressBar worked in "client" mode </p>
+	<p>The <b>rich:progressBar</b> in client mode is strictly based on values in
+	the client browser, and so is not determined by server-state.  Using 
+	JavaScript component API calls trigger the start, stop, and progress of 
+	the component.  Take a look at the source code below for an example.</p>
 	<br/>
 
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />

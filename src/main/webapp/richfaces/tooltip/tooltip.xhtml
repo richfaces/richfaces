@@ -5,18 +5,21 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
-	<p>Tooltip is a small non-modal pop-up that could be used to
-	display additional information, that is usually hidden.<br />
+	<p>The <b>rich:tooltip</b> component creates a small non-modal pop-up that 
+	can be used to display additional information for nearly anything on the page.
 	</p>
-	<p>Major tooltip features:</p>
+	<p>Major features:</p>
 	<ul>
-		<li>Tool-tip content may be <b>pre-rendered</b> on a page (client
-		mode) or <b>loaded on separate Ajax request</b> (ajax mode)</li>
-		<li>In "ajax" mode <b>default content</b> could be shown while
-		request is executed</li>
-		<li>Tooltip <b>look is fully customizable</b> using both -
+		<li>Tool-tip content may be <b>pre-rendered</b> on a page using client
+		mode or <b>loaded dynamically</b> using separate Ajax requests via Ajax 
+		mode.</li>
+		<li>In Ajax mode <b>default content</b> can be shown while the
+		request is being executed</li>
+		<li>Tool-tip's <b>look-n-feel is fully customizable</b> using both
 		Richfaces skins and CSS style classes</li>
 	</ul>
+	<p>There are various other options available such as delays, follow modes, 
+	and more that are in the example below:</p>
 
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">

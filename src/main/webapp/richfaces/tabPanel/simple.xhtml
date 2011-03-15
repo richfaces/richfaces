@@ -5,12 +5,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
-	<p>Tab panel is used to create "tabbed" pages. 
-	RichFaces tab panel can be switched in 3 ways: using "normal" server-side 
-	update, using "ajax" style update, when only tab panel area is updated 
-	on the page, and using "client" type, without any interaction with the 
-	server. Note, that in case of a "client" switch type, all tabs are 
-	rendered at the same time. </p>
+	<p>The <b>rich:tabPanel</b> component is used to create "tabbed" sections or pages. 
+	RichFaces tab panel can be switched in the 3 ways detailed in the 
+	<b>rich:togglePanel</b> example.</p>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
 		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
