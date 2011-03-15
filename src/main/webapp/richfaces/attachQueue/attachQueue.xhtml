@@ -3,14 +3,16 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a4j="http://richfaces.org/a4j">
-	<p>In RichFaces 4 all request settings related to queue was moved
-	out of components attributes and now customization available using new
-	<b>a4j:attachQueue</b> tag. Next sample shows how <b>requestDelay</b>
-	could be changed for single component.</p>
-	<p>Note that when you typing in input - status appears with two
-	seconds delay because <b>default queue contains requestDelay="2000"</b>.
-	And when you clicking save button - it appears immediately because <b>requestDelay
-	changed to 0 for the button</b>.</p>
+	<p>The <b>a4j:attachQueue</b> component allow you to funnel requests 
+	from specific components or behaviors through a 'named' queue (see queue 
+	example), but also allows you to override queue settings right from the 
+	component.  </p>
+	<p>This sample shows how <b>requestDelay</b>
+	can be changed for single component.</p>
+	<p>Note that when you are typing in the input - the status appears with a two
+	seconds delay because the <b>default queue contains requestDelay="2000"</b>.
+	However when you are clicking the save button - it appears immediately 
+	because <b>requestDelay changed to 0 for the button</b>.</p>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
 		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
