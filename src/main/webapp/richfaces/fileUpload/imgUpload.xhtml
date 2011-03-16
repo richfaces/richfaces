@@ -5,16 +5,14 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
-	<p><b>rich:fileUpload</b> is a component which provides files
-	upload functionality and extends functionality of standard <b>input</b>
-	with <b>type="file"</b>.</p>
-	<p>The next example shows you File Upload which allows you to
-	upload files to the server. Files number allowed to upload is managed
-	with <b>maxFilesQuantity</b> attribute. Every uploaded file should be
-	managed with <b>fileUploadListener</b> which is called after every
-	single file upload is finished.</p>
-	<fieldset><legend><b>Sample limitations</b></legend>This
-	example allows to download <b>up to 5 files</b>. The file extension is
+	<p>The <b>rich:fileUpload</b> component allows you to upload files from the users
+	machine to the server with various options.</p>
+	<p>This example allows you to upload files to the demo server. The number of 
+	files allowed at once is managed with the <b>maxFilesQuantity</b> attribute. 
+	Every uploaded file will be processed with a <b>fileUploadListener</b> which 
+	is called after every single file upload operation is finished.</p>
+	<fieldset><legend><b>Example limitations</b></legend>This
+	example allows you to upload <b>up to 5 files</b>. The file extension is
 	limited to <b>GIF, JPG, BMP, PNG</b> and the maximum size of each file
 	must not exceed 100kB</fieldset>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
@@ -34,10 +32,10 @@
 	web.xml:</b></p>
 	<ul>
 		<li><b>createTempFiles</b> boolean attribute which defines whether the
-		uploaded files are stored in temporary files or available in listener
-		just as byte[] data (false for this example).</li>
+		uploaded files are stored in temporary files or available in the listener
+		directly as byte[] data (false for this example).</li>
 		<li><b>maxRequestSize</b> attribute defines max size in bytes of the
-		uploaded files (<u>1000000 for this example</u>).</li>
+		uploaded files (<i>1000000 for this example</i>).</li>
 	</ul>
 </ui:composition>
 

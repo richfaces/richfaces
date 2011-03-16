@@ -6,9 +6,9 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
 	<h:form>
-		<p>Try the simplest example below. Just click on a label to edit
+		<p>In the example below click on the label to edit
 		the value and click somewhere outside the component to store this
-		value(Or just press ENTER button).</p>
+		value.</p>
 		<rich:panel style="width:220px;">
 			<f:facet name="header">
 				<h:outputText value="Simples select"></h:outputText>
@@ -22,23 +22,18 @@
 				<f:selectItem itemValue="4" itemLabel="Option 5" />
 			</rich:inplaceSelect>
 		</rich:panel>
-		<p>In that sample component customized in next way:</p>
+		<p>In the next example we have customized the component in the following ways:</p>
 		<ul>
 			<li><b>f:selectItems</b> tag is used to define a list of items
 			to use.</li>
-			<li>Controls "save" and "cancel" are turned on with <b>showControls</b>
+			<li>Controls "save" and "cancel" are turned on with the <b>showControls</b>
 			attribute</li>
-			<li><b>editEvent</b> set to dblclick and used to switch to edit
-			state.</li>
-			<li><b>saveOnSelect</b> defined as false causes component not to store
-			value right after choosing but wait till buttons will be used or
-			focus lost.</li>
-			<li><b>saveOnBlur</b> defined as false causes component to cancel new
-			value if it was chosen and focus was lost without save button
-			activation. That could be useful on interfaces where every change
-			causes long processing. And if use true value - it will works like in
-			spreadsheets where leaving the changed field causes new value to be
-			applied.</li>
+			<li><b>editEvent</b> is set to dblclick to trigger to edit the mode.</li>
+			<li><b>saveOnSelect</b> is set to 'false' so that the value will 
+			not be stored until the "save" button is clicked.</li>
+			<li><b>saveOnBlur</b> is set to 'false' so that the value will
+			not be stored unless until the "save" button is clicked.  This could
+			be useful on pages where every change could cause extended processing.</li>
 		</ul>
 		<rich:panel style="width:220px;">
 			<f:facet name="header">
