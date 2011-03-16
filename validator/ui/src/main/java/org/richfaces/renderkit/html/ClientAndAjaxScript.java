@@ -35,6 +35,7 @@ public class ClientAndAjaxScript extends ClientOnlyScript{
 
     @Override
     protected void appendAjaxParameter(Appendable target) throws IOException {
+        target.append(',');
         appendAjaxParameter(target, ajaxScript);
     }
     /* (non-Javadoc)
