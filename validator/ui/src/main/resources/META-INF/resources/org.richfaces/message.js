@@ -37,7 +37,10 @@
 		if (!this.options.forComponentId) {
 			if (!message) {
 				// rf.csv.clearMessage
-				$(rf.getDomElement(this.id+':'+sourceId)).remove();
+				var element;
+				while(element=rf.getDomElement(this.id+':'+sourceId)){
+					$(element).remove();
+				}
 			} else {
 				renderMessage.call(this,sourceId,message);
 			}

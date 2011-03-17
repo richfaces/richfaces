@@ -185,7 +185,7 @@
 						}
 					}
 			}
-			if(!result && !params.da && params.a){
+			if(result && !params.da && params.a){
 				params.a.call(element,event,id);
 			}
 			return result;
@@ -197,18 +197,24 @@
 	 * 
 	 */
 	var _convertNatural = function(value,label,msg,min,max,sample){
-		var result; value = $.trim(value);
-		if (!rf.csv.RE_DIGITS.test(value) || (result=parseInt(value,10))<min || result>max) {
+		var result = null;
+		if(value){
+		 value = $.trim(value);
+		 if (!rf.csv.RE_DIGITS.test(value) || (result=parseInt(value,10))<min || result>max) {
 			throw rf.csv.interpolateMessage(msg,  sample?[value, sample, label]:[value,label]);
+		 }
 		}
 		return result;
 	}
 
 	var _convertReal = function(value,label,msg,sample){
-		var result; value = $.trim(value);
-		if (!rf.csv.RE_FLOAT.test(value) || isNaN(result=parseFloat(value)) ) {
+		var result = null; 
+		if(value){
+		 value = $.trim(value);
+ 		 if (!rf.csv.RE_FLOAT.test(value) || isNaN(result=parseFloat(value)) ) {
 			// TODO - check Float limits.
 			throw rf.csv.interpolateMessage(msg,  sample?[value, sample, label]:[value,label]);
+		 }
 		}
 		return result;
 	}
@@ -341,7 +347,7 @@
 			validateRegex(value,label,params.regexp,msg);
 		},
 		"validateRequired": function (value,label,params,msg) {
-	        if (!value ) {
+	        if (undefined === value || null===value || "" === value ) {
 	        	throw rf.csv.interpolateMessage(msg, [label]);
 	        }
 		},
