@@ -332,6 +332,16 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
         return super.visitFixedChildren(visitContext, callback);
     }
     
+    @Override
+    protected void restoreChildState(FacesContext facesContext) {
+        // Forces client id to be reset
+        for (UIComponent child : getChildren()) {
+            child.setId(child.getId());
+        }
+        
+        super.restoreChildState(facesContext);
+    }
+    
     protected boolean visitDataChildren(VisitContext visitContext, final VisitCallback callback, boolean visitRows) {
         if (visitContext instanceof ExtendedVisitContext && visitRows) {
             ExtendedVisitContext extendedVisitContext = (ExtendedVisitContext) visitContext;
