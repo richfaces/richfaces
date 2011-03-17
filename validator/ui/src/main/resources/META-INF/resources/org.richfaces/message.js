@@ -4,6 +4,15 @@
 	rf.ui.Message = function(componentId, options) {
 		// call constructor of parent class
 		$super.constructor.call(this, componentId, options, defaultOptions);
+		if(this.options.isMessages){
+			this.severityClasses = ["rf-msgs-inf", "rf-msgs-wrn", "rf-msgs-err", "rf-msgs-ftl"];
+			this.summaryClass = "rf-msgs-sum";
+			this.detailClass = "rf-msgs-dtl";
+		} else {
+			this.severityClasses = ["rf-msg-inf", "rf-msg-wrn", "rf-msg-err", "rf-msg-ftl"];
+			this.summaryClass = "rf-msg-sum";
+			this.detailClass = "rf-msg-dtl";
+		}
 	};
 
 	// Extend component class and add protected methods from parent class to our container
@@ -18,17 +27,6 @@
 		isMessages: false
 	};
 	
-	var messageSeverityClasses = ["rf-msg-inf", "rf-msg-wrn", "rf-msg-err", "rf-msg-ftl"];
-	
-	var messagesSeverityClasses = ["rf-msgs-inf", "rf-msgs-wrn", "rf-msgs-err", "rf-msgs-ftl"];
-
-	var messageSummaryClass = "rf-msg-sum";
-	
-	var messagesSummaryClass = "rf-msgs-sum";
-	
-	var messageDetailClass = "rf-msg-dtl";
-
-	var messagesDetailClass = "rf-msgs-dtl";
 
 	var onMessage = function (event, element, data) {
 		var content = $(rf.getDomElement(this.id));
@@ -52,25 +50,19 @@
 	
 	var renderMessage = function(index,message){
 		if(message && message.severity >= this.options.level){
-			var isMessages = this.options.isMessages;
 			
 			var content = $(rf.getDomElement(this.id));
-			var msgContent = "<span class='"+(isMessages ? messagesSeverityClasses : messageSeverityClasses)[message.severity]+"' id='"+this.id+':'+index+"'";
+			var msgContent = $("<span/>",{'class':(this.severityClasses)[message.severity],"id":this.id+':'+index});
 			if(message.summary){
 				if(this.options.tooltip){
-					msgContent = msgContent+" title='"+message.summary+"'>";
+					msgContent.attr("title",message.summary);
 				} else if(this.options.showSummary ){
-					msgContent = msgContent + "><span class='"+(isMessages ? messagesSummaryClass : messageSummaryClass)+"'>"+message.summary+"</span>";
-				} else {
-					msgContent = msgContent+">";
+					msgContent.append($("<span/>",{"class":(this.summaryClass)}).text(message.summary));
 				}
-			} else {
-				msgContent = msgContent+">";
 			}
 			if(this.options.showDetail && message.detail){
-				msgContent = msgContent + "<span class='"+(isMessages ? messagesDetailClass : messageDetailClass)+"'>"+message.detail+"</span>";
+				msgContent.append($("<span/>",{"class":(this.detailClass)}).text(message.detail));
 			}
-			msgContent = msgContent+"</span>"
 			content.append(msgContent);
 		}
 	}
