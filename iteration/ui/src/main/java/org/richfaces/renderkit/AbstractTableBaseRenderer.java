@@ -123,7 +123,9 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
     public void encodeFirstRowStart(ResponseWriter writer, FacesContext context, String parentId, int currentRow, UIComponent component) throws  IOException {
         writer.startElement(HtmlConstants.TR_ELEMENT, component);
         String styleClass = concatClasses(getRowClass(context, parentId), getFirstRowClass(context, parentId), component.getAttributes().get(ROW_CLASS));
-        encodeStyleClass(writer, context, component, HtmlConstants.STYLE_CLASS_ATTR, styleClass);
+        if (styleClass.length() > 0) {
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, styleClass, null);
+        }
     }
     
     public void encodeFirstRowEnd(ResponseWriter writer)throws  IOException {
