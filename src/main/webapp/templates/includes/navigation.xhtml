@@ -14,7 +14,7 @@
 					<rich:panelMenuItem label="#{d.name}" action="#{d.id}"
 						mode="client" name="#{d.id}"
 						rightIcon="#{(d.newItems || gr.newItem) ? '/images/icons/new-small-ic.gif' : null}"
-						onclick="document.location='#{facesContext.externalContext.requestContextPath}/richfaces/component-sample.jsf?demo=#{d.id}&amp;skin=#{skinBean.skin}'">
+						onclick="document.location.href='#{facesContext.externalContext.requestContextPath}/richfaces/component-sample.jsf?demo=#{d.id}&amp;skin=#{skinBean.skin}'">
 					</rich:panelMenuItem>
 				</c:forEach>
 			</rich:panelMenuGroup>
