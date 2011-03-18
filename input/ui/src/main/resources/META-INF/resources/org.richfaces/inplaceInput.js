@@ -157,7 +157,10 @@
 	    						this.invokeEvent.call(this, "change", document.getElementById(this.id), e);
 	       					}
 	       				}
-	           			this.getInput().bind("focus", $.proxy(this.__editHandler, this));
+	    				var _this = this;
+	    				window.setTimeout( function() {
+	    						_this.getInput().bind("focus", $.proxy(_this.__editHandler, _this));
+	    				}, 1);
     				}
     			}, 
     			
