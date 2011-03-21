@@ -30,10 +30,26 @@ package org.richfaces.application;
  */
 public interface ServicesFactory {
     
+    /**
+     * <p class="changed_added_4_0">Get service instance associated with given type, usually service interface or base abstract class.</p>
+     * @param <T> service type.
+     * @param type Base class implemented by service.
+     * @return Current service implementation.
+     * @throws ServiceException if factory cannot create requested service.
+     */
     public <T> T getInstance(Class<T> type) throws ServiceException;
 
+    /**
+     * <p class="changed_added_4_0">Associate concrete instance with service.</p>
+     * @param <T> service type.
+     * @param type Base class implemented by service.
+     * @param instance service instance.
+     */
     public <T> void setInstance(Class<T> type, T instance);
     
+    /**
+     * <p class="changed_added_4_0">Release all services. </p>
+     */
     public void release();
 
 }

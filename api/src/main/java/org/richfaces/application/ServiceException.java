@@ -26,7 +26,7 @@ package org.richfaces.application;
 import javax.faces.FacesException;
 
 /**
- * <p class="changed_added_4_0"></p>
+ * <p class="changed_added_4_0">Exception fired by service tracker if it cannot create requested service.</p>
  * @author asmirnov@exadel.com
  *
  */

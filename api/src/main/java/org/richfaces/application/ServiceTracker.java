@@ -31,10 +31,11 @@ import javax.faces.context.FacesContext;
  * <p>Tracker class to provide access to various framework implementation services.
  * Examples of such services are: {@link org.richfaces.skin.SkinFactory}, TBD.</p>
  * 
- * <p>Supports JSR-330 dependency injection.</p>
  * 
- * <p>This class represents application-scoped object that is stored in the map with {@link Thread#currentThread()} Context classloader. Therefore, there is
- * only one instance perr JEE application in the current JVM.</p>
+ * <p>This class managess application-scoped service factories that are stored in the map with {@link Thread#currentThread()} Context classloader as the key. Therefore, there is
+ * only one instance per JEE application in the current JVM.</p>
+ * <p> actuall cal for the service instance delegated to the current factory</p>
+ * <img src="services.png" alt="services tracking class diagramm"/>
  * 
  * 
  * <p><b>Note:</b> in initial state this class is not synchronized and presumes that all 
@@ -54,14 +55,31 @@ public final class ServiceTracker {
     private static final Map<ClassLoader, ServicesFactory> INSTANCES =
         new ConcurrentHashMap<ClassLoader, ServicesFactory>();
 
+    /**
+     * <p class="changed_added_4_0">This class supposed to use with static methods only and cannot be instantiated.</p>
+     */
     private ServiceTracker() {
     }
 
 
+    /**
+     * <p class="changed_added_4_0">Get service instance for given type. This is a wrapper method for {@link #getService(FacesContext, Class)} that
+     * gets faces context by {@link FacesContext#getCurrentInstance()} call, if needed.</p>
+     * @param <T> The service type, usually interface.
+     * @param target Service type class.
+     * @return service implementation instance.
+     */
     public static <T> T getService(Class<T> target) {
         return getServicesFactory().getInstance(target);
     }
 
+    /**
+     * <p class="changed_added_4_0">Get service instance for given type.</p>
+     * @param <T> The service type, usually interface.
+     * @param context current {@link FacesContext}.
+     * @param target Service type class.
+     * @return service instance.
+     */
     public static <T> T getService(FacesContext context, Class<T> target) {
         return getServicesFactory().getInstance(target);
     }
@@ -85,7 +103,7 @@ public final class ServiceTracker {
     }
 
     /**
-     * <p class="changed_added_4_0">Set dependency injection service implementation.</p>
+     * <p class="changed_added_4_0">Set service factory implementation for the current context.</p>
      * @param factory
      */
     public static void setFactory(ServicesFactory factory) {
@@ -93,7 +111,7 @@ public final class ServiceTracker {
     }
     
     /**
-     * <p class="changed_added_4_0">Remove dependency injection service associated with current context.</p>
+     * <p class="changed_added_4_0">Release factory service associated with current context.</p>
      */
     public static void release() {
         ServicesFactory servicesFactory = INSTANCES.remove(getCurrentLoader());
