@@ -5,8 +5,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
-	<p>The combination similar to h:commandButton with f:ajax. Inherits
-	all a4j:ajax special options.</p>
+	<p>The <b>a4j:commandButton</b> combines the standard h:commandButton with our own
+	a4j:ajax.  This not only reduces typing, but also inherits all a4j:ajax 
+	special options.</p>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
 		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />

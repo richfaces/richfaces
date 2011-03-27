@@ -1,26 +1,32 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
-	<p>Autocomplete component - simple Input component which provides suggestions during input.</p>
-	<p>Could works using three modes:
-		<ul>
-			<li>Client - preloads data to the client side and makes suggestions according to entered prefix on the client</li>
-			<li>Ajax - fetches the data on every input change using ajax requests</li>
-			<li>Cached Ajax - loads data via ajax to make suggestions when the prefix length satisfies minchars attribute. Then all the suggestions done at client side except the case when initial prefix changed or token entered. Then loads data again.</li>
-		</ul> 
-	</p>
-	<p>Here is the sample for new cachedAjax mode. </p>
-	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
-	<ui:include src="/templates/includes/source-view.xhtml">
-		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
-		<ui:param name="sourceType" value="xhtml" />
-		<ui:param name="openLabel" value="View Source" />
-		<ui:param name="hideLabel" value="Hide Source" />
-	</ui:include>
+    <p>The <b>rich:autocomplete</b> component looks like a simple input component,
+        but has advanced options and features to provide suggestions to the user during input.</p>
+
+    <p>There are three different <i>modes</i> for how it fetches suggestions:</p>
+    <ul>
+        <li>
+            <b>Client</b> - preloads data to the client and makes suggestions according to the entered prefix on the client
+        </li>
+        <li><b>Ajax</b> - fetches the data on every input change using Ajax requests</li>
+        <li><b>Cached Ajax</b> - loads data via Ajax to make suggestions when the prefix length satisfies
+            <i>minChars</i> attribute value. Then all the suggestions are handled at the client until the initial prefix is changed. At that point it will reload with the new prefix.
+        </li>
+    </ul>
+    <p><b>1)</b> Autocomplete American state names using the cached Ajax mode with <i>minChars="2"</i>.</p>
+    <ui:include src="#{demoNavigator.sampleIncludeURI}"/>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}"/>
+        <ui:param name="sourceType" value="xhtml"/>
+        <ui:param name="openLabel" value="View Source"/>
+        <ui:param name="hideLabel" value="Hide Source"/>
+    </ui:include>
 </ui:composition>
 
 </html>

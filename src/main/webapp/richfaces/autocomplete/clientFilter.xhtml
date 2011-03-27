@@ -5,17 +5,18 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
-	<p>Except the server-side <b>"autocomplete"</b> method which could
-	be used to collect suggestion strings according to entered prefix, <b>rich:autocomplete</b>
-	allows to define similar method for filtering at client side. It should
-	be defined using <b>clientFilterFunction</b> attribute which accepts
-	custom filter function name. Function should accepts two parameters <b>subString</b>(current
-	input value considering tokens) and <b>value</b>(currently iterated
-	item value) and return boolean flag which means if the value satisfies
+    <p>When a suggestion request is sent to the server via an Ajax call you
+    have full control over the suggestion list.  Once that data is on the 
+    client the default filter is <i>startsWith</i>.  This
+    can be changed to any custom JavaScript filter you wish.  This example
+    shows you how to define and call a custom filter for <i>contains</i> instead
+    of <i>startsWith</i>.</p>
+	<p>The <b>clientFilterFunction</b> attribute accepts
+	a custom JavaScript function name. This function should have two parameters; 
+	<b>subString</b>(current input value considering tokens) and <b>value</b>
+	(currently iterated item value) and return boolean flag which means if the value satisfies
 	the substring passed. The function will be called for every available
-	suggestion in order to construct new list of suggestions.</p>
-	<p>This sample shows how to change the client filtering to <b>"contains"</b>
-	instead of <b>"startsWith"</b></p>
+	suggestion in order to construct a new list of suggestions.</p>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
 		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />

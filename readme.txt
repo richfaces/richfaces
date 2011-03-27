@@ -2,8 +2,8 @@
 
                       RichFaces - Ajax enabled JSF 2.0 component library
 
-                                              RichFaces 4.0.CR1 SHOWCASE
-					      	    http://richfaces.org
+                                          RichFaces 4.0.0.Final SHOWCASE
+                                                    http://richfaces.org
                                                               March 2011
                      This software is distributed under the terms of the 
                             FSF Lesser Gnu Public License (see lgpl.txt)
@@ -150,7 +150,7 @@ MORE INFORMATION AND RESOURCES
 For more information on RichFaces 4, please visit RichFaces 
 website at:
 
-    - http://www.jboss.org/richfaces.
+    - http://richfaces.org
 
 Or check the Wiki for more information on build instructions for the examples at:
 

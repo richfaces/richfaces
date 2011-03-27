@@ -6,9 +6,10 @@
 	xmlns:a4j="http://richfaces.org/a4j">
 
 <ui:composition>
-	<p>Typical use-case of dependent select components. When you
-	choosing the type in the first select - corresponding items appears in
-	second one.</p>
+	<p>This is a slightly more complex use-case for <b>arj:ajax</b> involving 
+	dependent select components. When you choose a value from the first select 
+	component, the second select component is rendered with dynamic content 
+	based on you first choice.  </p>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
 		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />

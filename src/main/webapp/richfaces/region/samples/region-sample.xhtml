@@ -18,7 +18,9 @@
 					<h:outputText value="User email: " />
 					<h:inputText value="#{regionBean.user1.email}"/>
 				</h:panelGrid>
-				<a4j:commandButton render="echopanel1" value="submit"/>
+				<h:commandButton value="broken submit">
+				    <a4j:ajax render="echopanel1"/>
+				</h:commandButton>
 			</h:panelGrid>
 			<h:panelGrid columns="2" id="echopanel1">
 				<f:facet name="header">
@@ -44,7 +46,9 @@
 						<h:outputText value="User email: " />
 						<h:inputText value="#{regionBean.user2.email}"/>
 					</h:panelGrid>
-					<a4j:commandButton render="echopanel2" value="submit"/>
+					<h:commandButton value="submit">
+					   <a4j:ajax render="echopanel2"/>
+					</h:commandButton>
 				</a4j:region>
 			</h:panelGrid>
 			<h:panelGrid columns="2" id="echopanel2">

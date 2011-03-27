@@ -10,8 +10,21 @@ public class DemoDescriptor extends BaseDescriptor {
     private static final long serialVersionUID = 6822187362271025752L;
 
     private static final String BASE_SAMPLES_DIR = "/richfaces/";
-    
+
     private List<SampleDescriptor> samples;
+
+    private boolean containsNewSamples() {
+        for (SampleDescriptor sample : samples) {
+            if (sample.isNewItem()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isNewItems() {
+        return (isNewItem() || containsNewSamples());
+    }
 
     public SampleDescriptor getSampleById(String id) {
         for (SampleDescriptor sample : getSamples()) {

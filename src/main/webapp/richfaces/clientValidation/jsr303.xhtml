@@ -5,19 +5,20 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
-	<p><b>RichFaces Client Validation</b> feature allows you to add
-	client side validation without writing any line of JavaScript!</p>
-	<p>All the JSF validators and JSR-303 standard validators will be
-	available on client side after just <b>&lt;rich:validator/&gt;</b> to
-	the inputs which you want to be validated at client side. If you using
-	any custom validators or some additional for example hibernate
-	validators which we not implemented in first version - Ajax fallback
-	mechanism will be used. It means that behavior will try to execute all
-	client vlidators available and then send Ajax request for unknown to
-	get results from server side.</p>
-	<p>In that sample - pay attention that no requests fired when
-	typing wrong values in all the fields and only checkbox activation
-	causes Ajax fallback.</p>
+	<p>The <b>RichFaces Client Validation</b> feature allows you to have true
+    client side validation without writing a single line of JavaScript!</p>
+	<p>The standard JSF validators and JSR-303 (bean validation) constraints will 
+    be available on the client side just by adding <b>&lt;rich:validator/&gt;</b> to
+    the desired inputs. If you are using any custom validators or extensions
+    such as from hibernate an Ajax fallback mechanism will be used triggered.  
+    This will be basically seamless to the user, as an Ajax request will handle
+    that specific validation.  In future versions we plan to implement additional 
+    extensions such as these including custom client side validation. 
+    The behavior will try to execute all client validators available and then 
+    send an Ajax request to get results from server side if needed.</p>
+	<p>In this example we are using Bean Validation constraints and checking
+	them at the client, so no requests are fired when typing values
+	in the fields. </p>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
 		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
@@ -31,24 +32,16 @@
 		<ui:param name="openLabel" value="View ValidationBean Source" />
 		<ui:param name="hideLabel" value="Hide ValidationBean Source" />
 	</ui:include>	
-	<fieldset><legend><b>Notes:</b></legend>
-	<ul>
-		<li>Some JSR-303 validators still not implemented. Them will
-		start work transparently for you after new snapshots with
-		implementations added</li>
-		<li>We will provide information about how to provide client
-		validation for custom validators soon!</li>
-	</ul>
-	</fieldset>
-	<fieldset><legend><b>What to expect
-	additionally:</b></legend> After we will complete all standard validators migration
-	and instructions for custom ones we plan to work on next features:
-	<ul>
-		<li>Client Validation for submit components to perform bulk form
-		validation.</li>
-		<li>Ways of default validation definitions without usage of <b>&lt;rich:validator/&gt;</b>
-		tag for every input.</li>
-	</ul>
-	</fieldset>
+	<fieldset>
+    <legend><b>Notes:</b></legend>
+    <ul>
+        <li>Some JSR-303 validators are not yet implemented for various reasons
+        (localization primarily).  As we complete these implementations they 
+        will work transparently after upgrading, plus Ajax fallbacks will work fine
+        for these, so there is no reason not to start using them now!</li>
+        <li>In future versions custom client side validators will be possible, and we'll
+        update our examples to showcase them.</li>
+    </ul>
+    </fieldset>
 </ui:composition>
 </html>

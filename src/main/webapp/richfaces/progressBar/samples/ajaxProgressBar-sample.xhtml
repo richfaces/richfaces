@@ -11,7 +11,7 @@
 			minValue="0" maxValue="100" reRenderAfterComplete="progressPanel">
 			<f:facet name="initial">
 				<h:panelGroup>
-					<h:outputText value="Process doesn't started yet" />
+					<h:outputText value="Process hasn't started yet" />
 					<a4j:commandButton action="#{progressBarBean.startProcess}"
 						value="Start Process" execute="@form" render="pb"
 						rendered="#{progressBarBean.buttonRendered}"

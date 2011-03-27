@@ -11,16 +11,16 @@
 	processing definitions and component identifiers to be decoupled, 
 	and declarative wrapping with the <b>a4j:region</b> tag is used instead.</p>
 	<p>In <i>RichFaces 3.3</i>, the whole view was processed if no regions were
-	specified, as <b>ViewRoot</b> itself was the region by default. In <i>RichFaces
-	4.x</i>, all the controls have <b>execute="@this"</b> by default according
+	specified, as the <b>ViewRoot</b> itself was the region by default. In <i>RichFaces
+	4.x</i>, all the controls are set to <b>execute="@this"</b> by default according
 	to JSF 2 specifications. However, if the controls wrapped with the
-	<b>a4j:region</b> tag and have no execute definitions, they use <b>
-	execute="@region"</b> instead.</p>
+	<b>a4j:region</b> tag and have no execute definitions, they use <i>
+	execute="@region"</i> instead.</p>
 	<p>The example below contains two similar user
 	info panels. The button inside the first panel will not work, as it does not use execute
-	declarations; by default it uses <b>execute="@this"</b>. A separate definition is needed 
-	to make the button work properly. The second panel inputs
-	are wrapped in a region with the <b>commandButton</b>, and input works without any additional execute definitions.</p>
+	declarations; by default it uses <i>execute="@this"</i>. A separate definition is needed 
+	to make the button work properly. The second panel has its inputs and button
+	 wrapped in an <b>a4j:region</b>.  This means that the <b>h:commandButton</b> works without any additional execute definitions.</p>
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
 		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
@@ -28,5 +28,8 @@
 		<ui:param name="openLabel" value="View Source" />
 		<ui:param name="hideLabel" value="Hide Source" />
 	</ui:include>
+	<p>Note: <b>a4j:commandButton/Link</b> use <i>execute="@form""</i> as their
+	default and so would work as expected in both panels.  They also integrate
+	in the core Ajax functionality, and do not require additional <b>a4j:ajax</b> tags.</p>
 </ui:composition>
 </html>

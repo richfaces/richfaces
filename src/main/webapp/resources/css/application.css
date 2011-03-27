@@ -146,8 +146,8 @@ p{
     padding:15px 20px 10px;
 }
 
-.source .syntaxhighlighter .line{
-	white-space: normal !important;
+.source, div.rf-log {
+	width: 650px;
 }
 
 a.show, a.hide{
@@ -246,4 +246,8 @@ a.show, a.hide{
 }
 .navigation .rf-tab-lbl{
 	font:normal 12px "Lucida Sans Unicode", "Lucida Grande", Geneva,Verdana,Arial,sans-serif;
+}
+
+textarea[disabled], input[type="text"][disabled], input[type="password"][disabled], select[disabled] {
+    -webkit-text-fill-color: #B6AD84;
 }

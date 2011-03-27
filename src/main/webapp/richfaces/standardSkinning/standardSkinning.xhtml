@@ -7,23 +7,20 @@
 	xmlns:rich="http://richfaces.org/rich">
 
 <ui:composition>
-	<p>This section overviews main principles of standard components
-	skinning with the Rich Faces framework.</p>
-	<p>This feature provides styling for standard HTML form elements in
-	order to be highly compilant with RichFaces common look'n'feel. There
-	should be two ways of applying skins to elements:</p>
+	<p>RichFaces provides a mechanism to apply <b>RichFaces skinning principles</b>
+	to <b>standard components</b>!</p>
+	<p>This feature provides styling for standard HTML form elements so that
+	the share a commmon look'n'feel with RichFaces component skins.  There
+	are two general approaches to apply skins to these elements:</p>
 	<ul>
-		<li>Skinning style classes are applied to elements by element
-		name and type attribute (where applicable). No additional steps are
-		required from an application developer. Application initialization
-		parameter serves for enabling/disabling the feature.</li>
-		<li>Several style classes are provided for different types of
-		elements. That style classes have predefined names. Application
-		developer should manually assign classes to controls that need
-		skinning or assign a class to an element that contains controls.</li>
+		<li><b>Automatic:</b> Toggled via a <i>context param</i> this approach
+		will attempt to skin many standard components using element names and
+		type attributes where possible.  No additional steps are
+		required from an application developer. </li>
+		<li><b>Manual:</b> RichFaces also provides a set of CSS style classes
+		that can be manually assigned to controls.</li>
 	</ul>
-	<p>Standard controls skinning feature provides 2 levels of
-	skinning:</p>
+	<p>The automatic approach also has 2 levels of support:</p>
 	<ol>
 		<li><b>Standard</b> - customization of only basic style
 		properties.</li>
@@ -39,14 +36,14 @@
 	standards compilant mode) or CSS 3 draft namespace selectors (e.g.
 	Mozilla Firefox).</rich:panel>
 
-	<p>Here is the skinned form example. Note there is no styling in
+	<p>Here is a skinned form example. Note there is no styling in
 	sources of that form</p>
 
 	<rich:panel id="panel" width="300" height="230">
 		<f:facet name="header">
 				Standard components skinning
 			</f:facet>
-		<i> All the controls below is just standard JSF components skinned
+		<i> All the controls below are just standard JSF components skinned
 		with Rich Faces: </i>
 		<hr />
 		<h:form>
@@ -68,27 +65,9 @@
 			<h:commandLink value="Action Link" />
 		</h:form>
 	</rich:panel>
-
-	<p>There three ways of applying skinning to application:</p>
-	<ul>
-		<li>By default <b>org.richfaces.ENABLE_CONTROL_SKINNING</b> context
-		param is set to <b>true</b> and it means that all standard elements
-		on the page will be skinned. (CSS style classes for elements based on
-		their names and type attribute values will be applied). You may
-		redefine it to <b>disable</b> in order to turn it off.</li>
-		<li>By default <b>org.richfaces.ENABLE_CONTROL_SKINNING_CLASSES</b>
-		context param is set to <b>false</b> and it means that basic elements
-		nested to element having <i>rich-container</i> class will be skinned.
-		It could be also turned off using <b>disable</b> value.</li>
-		<li>RichFaces also provides predefined classes which can be
-		applied by an end developer to elements need to be skinned separately.
-		This classes added to the page also according to <b>org.richfaces.ENABLE_CONTROL_SKINNING_CLASSES</b>
-		context-param.</li>
-	</ul>
-
-	<p>To get a better idea of standard component skinning we recommend
-	to explore CSS files located in
-	ui/core/ui/src/main/resources/org/richfaces/ folder of RichFaces svn.</p>
+	
+	<p>For more details on this setup and cofiguration of these features
+	please review <a href="http://www.jboss.org/richfaces/docs">RichFaces documentation</a>.</p>
 </ui:composition>
 
 </html>

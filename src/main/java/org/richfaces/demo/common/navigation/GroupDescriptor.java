@@ -11,6 +11,19 @@ public class GroupDescriptor extends BaseDescriptor {
 
     private List<DemoDescriptor> demos;
 
+    private boolean containsNewDemos() {
+        for (DemoDescriptor demo : demos) {
+            if (demo.isNewItems()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isNewItems() {
+        return isNewItem() || containsNewDemos();
+    }
+
     @XmlElementWrapper(name = "demos")
     @XmlElement(name = "demo")
     public List<DemoDescriptor> getDemos() {

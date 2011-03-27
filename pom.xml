@@ -18,7 +18,7 @@
     <name>Richfaces Examples: Richfaces Showcase Application</name>
 
     <properties>
-        <gae.version>1.4.0</gae.version>
+        <gae.version>1.4.2</gae.version>
     </properties>
 
     <dependencies>
@@ -175,6 +175,16 @@
                     <version>2.9.1</version>
                     <scope>runtime</scope>
                 </dependency>
+                <dependency>
+                    <groupId>com.sun.faces</groupId>
+                    <artifactId>jsf-api</artifactId>
+                    <version>2.0.3-b03</version>
+                </dependency>
+                <dependency>
+                    <groupId>com.sun.faces</groupId>
+                    <artifactId>jsf-impl</artifactId>
+                    <version>2.0.3-b03</version>
+                </dependency>
             </dependencies>
             <build>
                 <resources>
@@ -194,6 +204,7 @@
                                     <directory>src/main/webapp</directory>
                                     <excludes>
                                     	<exclude>WEB-INF/web.xml</exclude>
+                                    	<exclude>WEB-INF/faces-config.xml</exclude>
                                     </excludes>
                                 </resource>
                                 <resource>
@@ -435,8 +446,8 @@
     </profiles>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/examples/richfaces-showcase</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/examples/richfaces-showcase</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces</url>
+        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/4.0.X/examples/richfaces-showcase</connection>
+        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/4.0.X/examples/richfaces-showcase</developerConnection>
+        <url>http://fisheye.jboss.org/browse/richfaces/branches/4.0.X/examples/richfaces-showcase</url>
     </scm>
 </project>

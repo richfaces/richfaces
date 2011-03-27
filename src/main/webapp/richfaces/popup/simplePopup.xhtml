@@ -5,17 +5,17 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
-	<p>Popup panel component used to create any kind of popups on the page.</p>
+	<p>The <b>rich:popupPanel</b> component is used to create any kind of popups on the page.</p>
 	<p>Main features:</p>
 	<ul>
-	<li>Has two states modal and non-modal</li>
-	<li>Could be defined as resizable</li>
-	<li>Could be autosized according to content</li>
-	<li>Could be moved across the screen</li>
-	<li>Could be automatically positioned as centered or use user defined position</li>
+	<li>Two states; modal and non-modal</li>
+	<li>Can be defined as resizable</li>
+	<li>Can be autosized according to content</li>
+	<li>Can be moved across the screen</li>
+	<li>Can be automatically positioned as centered or use a defined position</li>
 	</ul>
-	<p>This sample shows simple <b>non-modal popup</b> which are <b>movable</b> but not resizable 
-	as defined to use <b>autosizing</b> according to it's content</p>
+	<p>This example shows a simple <b>non-modal popup</b> which is movable but not resizable 
+	and defined to use <b>autosizing</b> according to it's content</p>
 
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
 	<ui:include src="/templates/includes/source-view.xhtml">
@@ -25,10 +25,10 @@
 		<ui:param name="hideLabel" value="Hide Source" />
 	</ui:include>
 
-	<p>Besides this sample shows two variants of working with the component JS API:</p>
+	<p>This example also shows two variants of working with the component JavaScript API:</p>
 	<ul>
 		<li>The popup is called by the <b>rich:componentControl</b> attached to button</li>
-		<li>The popup is closed by simple JS calls which defined using <b>rich:component</b> function</li>
+		<li>The popup is closed by a simple JavaScript call which is defined using the <b>rich:component</b> function</li>
 	</ul>
 </ui:composition>
 

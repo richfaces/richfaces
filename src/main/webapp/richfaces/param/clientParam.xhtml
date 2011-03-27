@@ -5,12 +5,14 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <ui:composition>
-	<p>It is possible to use javascript variable of custom function for
-	the 'value' attribute. In this case the 'noEscape' attribute should be
-	set to true. When noEscape="true", the 'value' can contain any
-	javascript expression or javascript function invocation and the result
-	of them will be send to the server as a value of a4j:actionparam. The
-	following example demonstrates how to assign the backing bean with
+	<p>Another great feature for the <b>a4j:param</b> component is the 
+	ability to use JavaScript to assign the 'value' attribute. In this case the 
+	'noEscape' attribute should be set to true. When noEscape="true", the 'value'
+	can contain any JavaScript expression or JavaScript function.  This will be
+	executed and the result will be sent to the server as the value of 
+	a4j:param.</p>
+	
+	<p>The following example demonstrates how to assign the backing bean with
 	browser screen size values.</p>
 
 	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
