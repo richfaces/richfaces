@@ -42,46 +42,6 @@ public class SequenceDataModel<E> extends ExtendedDataModel<E> {
         this.wrappedModel = wrapped;
     }
 
-    /*
-     *  (non-Javadoc)
-     * @see org.ajax4jsf.ajax.repeat.ExtendedDataModel#dataIterator(org.ajax4jsf.ajax.repeat.Range)
-     */
-
-/*  public Iterator dataIterator(Range range) {
-        final SequenceRange seqRange = (SequenceRange) range;
-        int rows = seqRange.getRows();
-        int rowCount = wrapped.getRowCount();
-        final int firstRow = seqRange.getFirstRow();
-        if(rows > 0){
-            rows += firstRow;
-            if(rowCount >=0){
-                rows = Math.min(rows, rowCount);
-            }
-        } else if(rowCount >=0 ){
-            rows = rowCount;
-        }
-        final int maxRow = rows;
-        return new Iterator(){
-
-            int rowIndex = firstRow;
-
-            public boolean hasNext() {
-                // TODO Auto-generated method stub
-                return maxRow < 0 || rowIndex < maxRow;
-            }
-
-            public Object next() {
-                // TODO Auto-generated method stub
-                return new Integer(rowIndex++);
-            }
-
-            public void remove() {
-                throw new IllegalStateException();
-            }
-
-        };
-    }
-*/
     public void walk(FacesContext context, DataVisitor visitor, Range range, Object argument) {
         final SequenceRange seqRange = (SequenceRange) range;
         int rows = seqRange.getRows();
@@ -152,8 +112,6 @@ public class SequenceDataModel<E> extends ExtendedDataModel<E> {
      * @see javax.faces.model.DataModel#getRowCount()
      */
     public int getRowCount() {
-
-        // TODO Auto-generated method stub
         return wrappedModel.getRowCount();
     }
 
@@ -162,8 +120,6 @@ public class SequenceDataModel<E> extends ExtendedDataModel<E> {
      * @see javax.faces.model.DataModel#getRowData()
      */
     public E getRowData() {
-
-        // TODO Auto-generated method stub
         return wrappedModel.getRowData();
     }
 
@@ -172,8 +128,6 @@ public class SequenceDataModel<E> extends ExtendedDataModel<E> {
      * @see javax.faces.model.DataModel#getRowIndex()
      */
     public int getRowIndex() {
-
-        // TODO Auto-generated method stub
         return wrappedModel.getRowIndex();
     }
 
@@ -182,8 +136,6 @@ public class SequenceDataModel<E> extends ExtendedDataModel<E> {
      * @see javax.faces.model.DataModel#getWrappedData()
      */
     public Object getWrappedData() {
-
-        // TODO Auto-generated method stub
         return wrappedModel.getWrappedData();
     }
 
@@ -192,8 +144,6 @@ public class SequenceDataModel<E> extends ExtendedDataModel<E> {
      * @see javax.faces.model.DataModel#isRowAvailable()
      */
     public boolean isRowAvailable() {
-
-        // TODO Auto-generated method stub
         return wrappedModel.isRowAvailable();
     }
 

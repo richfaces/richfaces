@@ -118,9 +118,6 @@ public final class CoreRendererUtils {
      */
     public Collection<String> findComponentsFor(FacesContext context, UIComponent component,
             Collection<String> shortIds) {
-
-        // TODO - implement
-        // TODO add support for @*
         Set<String> result = new LinkedHashSet<String>(shortIds.size());
 
         if (checkKeyword(shortIds, ALL)) {

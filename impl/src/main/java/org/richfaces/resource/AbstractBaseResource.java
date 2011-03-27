@@ -56,7 +56,6 @@ public abstract class AbstractBaseResource extends Resource {
         super();
     }
 
-    // TODO remove FacesContext argument?
     protected int getContentLength(FacesContext context) {
         return -1;
     }
@@ -116,9 +115,7 @@ public abstract class AbstractBaseResource extends Resource {
                     }
                 }
             } catch (IOException e) {
-
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         } else {
             if (LOGGER.isDebugEnabled()) {
@@ -140,7 +137,6 @@ public abstract class AbstractBaseResource extends Resource {
         return classLoader;
     }
 
-    //TODO nick - review
     private String getResourceVersion() {
         if (this instanceof VersionedResource) {
             return ((VersionedResource) this).getVersion();
@@ -151,8 +147,6 @@ public abstract class AbstractBaseResource extends Resource {
     
     @Override
     public String getRequestPath() {
-
-        // TODO - cache resource request path in request scope
         FacesContext context = FacesContext.getCurrentInstance();
         ResourceCodec resourceCodec = ServiceTracker.getService(context, ResourceCodec.class);
         String libraryName = getLibraryName();
@@ -207,8 +201,6 @@ public abstract class AbstractBaseResource extends Resource {
             String contentType = getContentType();
 
             if (contentType != null) {
-
-                // TODO add content-encoding?
                 headers.put("Content-Type", contentType);
             }
 

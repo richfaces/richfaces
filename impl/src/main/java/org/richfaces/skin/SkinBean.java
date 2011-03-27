@@ -39,8 +39,6 @@ public class SkinBean extends AbstractMap implements Skin {
      * @see org.richfaces.skin.Skin#hashCode(javax.faces.context.FacesContext)
      */
     public int hashCode(FacesContext context) {
-
-        // TODO Auto-generated method stub
         return getSkin().hashCode(context);
     }
 
@@ -50,8 +48,6 @@ public class SkinBean extends AbstractMap implements Skin {
      */
     @Override
     public Set entrySet() {
-
-        // TODO Auto-generated method stub
         return Collections.EMPTY_SET;
     }
 
@@ -84,7 +80,7 @@ public class SkinBean extends AbstractMap implements Skin {
     private Skin getSkin() {
         FacesContext context = FacesContext.getCurrentInstance();
 
-        return SkinFactory.getInstance().getSkin(context);
+        return SkinFactory.getInstance(context).getSkin(context);
     }
 
     /*
@@ -102,8 +98,6 @@ public class SkinBean extends AbstractMap implements Skin {
      */
     @Override
     public boolean isEmpty() {
-
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -130,7 +124,7 @@ public class SkinBean extends AbstractMap implements Skin {
     /* Static methods for manipulate skins */
     public static Object skinHashCode() {
         FacesContext context = FacesContext.getCurrentInstance();
-        int hashCode = SkinFactory.getInstance().getSkin(context).hashCode(context);
+        int hashCode = SkinFactory.getInstance(context).getSkin(context).hashCode(context);
         byte[] bs = ByteBuffer.allocate(4).putInt(hashCode).array();
 
         return bs;

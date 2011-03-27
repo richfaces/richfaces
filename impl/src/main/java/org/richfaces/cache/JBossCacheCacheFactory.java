@@ -82,9 +82,7 @@ public class JBossCacheCacheFactory implements CacheFactory {
                     try {
                         stream.close();
                     } catch (IOException e) {
-
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
+                        LOG.debug(e.getMessage(), e);
                     }
                 }
             }

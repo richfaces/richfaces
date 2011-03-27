@@ -27,6 +27,7 @@ import static org.easymock.EasyMock.capture;
 import static org.easymock.EasyMock.eq;
 import static org.easymock.EasyMock.expectLastCall;
 import static org.easymock.EasyMock.isNull;
+import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,6 +37,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
@@ -47,6 +49,7 @@ import org.easymock.Capture;
 import org.easymock.CaptureType;
 import org.jboss.test.faces.mock.MockFacesEnvironment;
 import org.junit.Test;
+import org.junit.internal.matchers.StringContains;
 
 /**
  * @author shura
@@ -471,5 +474,28 @@ public class ScriptUtilsTest extends TestCase {
 
         assertEquals("test\\#", ScriptUtils.escapeCSSMetachars("test#"));
         assertEquals("test\\#\\=", ScriptUtils.escapeCSSMetachars("test#="));
+    }
+    
+    @Test
+    public void testTimezoneSerialization() throws Exception {
+        TimeZone utcPlusTwoTZ = TimeZone.getTimeZone("GMT+02:00");
+        
+        String serializedUTCPlusTwoTZ = dehydrate(ScriptUtils.toScript(utcPlusTwoTZ));
+        
+        assertThat(serializedUTCPlusTwoTZ, StringContains.containsString("\"DSTSavings\":0"));
+        assertThat(serializedUTCPlusTwoTZ, StringContains.containsString("\"ID\":\"GMT+02:00\""));
+        assertThat(serializedUTCPlusTwoTZ, StringContains.containsString("\"rawOffset\":7200000"));
+        
+        TimeZone pstTimeZone = TimeZone.getTimeZone("PST");
+        String serializedPSTTimeZone = dehydrate(ScriptUtils.toScript(pstTimeZone));
+        
+        assertThat(serializedPSTTimeZone, StringContains.containsString("\"ID\":\"PST\""));
+        assertThat(serializedPSTTimeZone, StringContains.containsString("\"rawOffset\":-28800000"));
+
+        TimeZone sfTimeZone = TimeZone.getTimeZone("America/New_York");
+        String serializedSFTimeZone = dehydrate(ScriptUtils.toScript(sfTimeZone));
+        
+        assertThat(serializedSFTimeZone, StringContains.containsString("\"ID\":\"America\\/New_York\""));
+        assertThat(serializedSFTimeZone, StringContains.containsString("\"rawOffset\":-18000000"));
     }
 }

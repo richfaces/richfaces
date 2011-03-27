@@ -303,7 +303,6 @@ public class ResourceFactoryImpl implements ResourceFactory {
      * @return
      */
     protected Resource createHandlerDependentResource(ResourceKey resourceKey, Map<String, String> parameters) {
-        // TODO nick - libraryName as package name?
         if (!Strings.isNullOrEmpty(resourceKey.getLibraryName())) {
             return null;
         }
@@ -357,7 +356,6 @@ public class ResourceFactoryImpl implements ResourceFactory {
     private boolean checkResourceMarker(String resourceName) {
         ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
 
-        // TODO resource marker extension name?
         URL resourceMarkerUrl = contextClassLoader.getResource("META-INF/" + resourceName
             + ".resource.properties");
 

@@ -203,8 +203,6 @@ public abstract class BaseCacheTest extends AbstractFacesTest {
                         try {
                             thread.join();
                         } catch (InterruptedException e) {
-
-                            // TODO Auto-generated catch block
                             failure.set(true);
                         }
                     }

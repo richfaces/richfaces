@@ -38,7 +38,7 @@ public class CapturingELResolver extends ELResolverWrapper {
 
     @Override
     public Object getValue(ELContext context, Object base, Object property) {
-        if ((base != null) && (property != null)) {
+        if (property != null) {
             this.base = base;
             this.property = property;
         }
@@ -48,7 +48,7 @@ public class CapturingELResolver extends ELResolverWrapper {
 
     @Override
     public Class<?> getType(ELContext context, Object base, Object property) {
-        if ((base != null) && (property != null)) {
+        if (property != null) {
             this.base = base;
             this.property = property;
         }

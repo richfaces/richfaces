@@ -65,10 +65,6 @@ public class AjaxTableComponentImpl extends UIData {
 
         assert idsToVisit != null;
 
-        if (idsToVisit == VisitContext.ALL_IDS) {
-            // TODO
-        }
-
         // All ids or non-empty collection means we need to visit our children.
         return !idsToVisit.isEmpty();
     }
@@ -124,8 +120,6 @@ public class AjaxTableComponentImpl extends UIData {
             try {
                 setRowIndex(oldRowIndex);
             } catch (Exception e) {
-
-                // TODO: handle exception
                 LOG.error(e.getMessage(), e);
             }
         }

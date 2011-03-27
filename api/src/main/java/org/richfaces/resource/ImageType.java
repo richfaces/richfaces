@@ -50,8 +50,6 @@ public enum ImageType {
             return new BufferedImage(width, height, BufferedImage.TYPE_BYTE_INDEXED, SAFE_WEB_COLORS_MODEL);
         }
     },
-
-    // TODO - add common png8
     JPEG("jpeg") {
         @Override
         public BufferedImage createImage(int width, int height) {

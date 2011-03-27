@@ -167,9 +167,7 @@ public final class Util {
             try {
                 result = (Date) ((Format) RFC1123_DATE_FORMATTER.clone()).parseObject(s);
             } catch (ParseException e) {
-
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                RESOURCE_LOGGER.error(e.getMessage(), e);
             }
         }
 

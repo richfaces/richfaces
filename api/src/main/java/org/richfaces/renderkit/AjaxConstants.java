@@ -35,7 +35,6 @@ public interface AjaxConstants {
 
     public static final String BEHAVIOR_EVENT_PARAMETER = "javax.faces.behavior.event";
 
-    //TODO - review
     public static final String AJAX_COMPONENT_ID_PARAMETER = "org.richfaces.ajax.component";
 
 }

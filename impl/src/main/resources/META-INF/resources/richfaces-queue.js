@@ -409,8 +409,9 @@
 			},
 
 			isIgnoreResponse: function () {
-				var lastEntry = getLastEntry();
-				return lastEntry && lastRequestedEntry.isIgnoreDupResponses() && lastRequestedEntry.getRequestGroupId() == lastEntry.getRequestGroupId();
+				var entry = items[0];
+				return entry && lastRequestedEntry.isIgnoreDupResponses()
+						&& lastRequestedEntry.queueOptions.requestGroupingId == entry.queueOptions.requestGroupingId;
 			},
 
 			/** 

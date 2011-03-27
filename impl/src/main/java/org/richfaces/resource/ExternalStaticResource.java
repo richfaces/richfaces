@@ -98,7 +98,6 @@ public class ExternalStaticResource extends Resource {
 
     @Override
     public URL getURL() {
-        //TODO - review
         throw new UnsupportedOperationException();
     }
 

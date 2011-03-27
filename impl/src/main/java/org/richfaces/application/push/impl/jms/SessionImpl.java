@@ -21,6 +21,7 @@
  */
 package org.richfaces.application.push.impl.jms;
 
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
@@ -156,12 +157,26 @@ public class SessionImpl extends AbstractSession {
             TopicKey rootTopicKey = topicKey.getRootTopicKey();
             Topic pushTopic = topicsContext.getTopic(rootTopicKey);
             
-            try {
-                //TODO - publish another events
-                pushTopic.publishEvent(new SessionPreSubscriptionEvent(pushTopic, topicKey, this));
-            } catch (EventAbortedException e) {
+            String errorMessage = null;
+            
+            if (pushTopic == null) {
+                errorMessage = MessageFormat.format("Topic ''{0}'' is not configured", topicKey.getTopicAddress()); 
+            } else {
+                try {
+                    //TODO - publish another events
+                    pushTopic.publishEvent(new SessionPreSubscriptionEvent(pushTopic, topicKey, this));
+                } catch (EventAbortedException e) {
+                    if (e.getMessage() != null) {
+                        errorMessage = e.getMessage();
+                    } else {
+                        errorMessage = MessageFormat.format("Unknown error connecting to ''{0}'' topic", topicKey.getTopicAddress());
+                    }
+                }
+            }
+
+            if (errorMessage != null) {
                 itr.remove();
-                failedSubscriptions.put(topicKey, e.getMessage());
+                failedSubscriptions.put(topicKey, errorMessage);
             }
         }
     }

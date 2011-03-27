@@ -34,25 +34,17 @@ public class SkinNotFoundException extends FacesException {
 
     public SkinNotFoundException() {
         super();
-
-        // TODO Auto-generated constructor stub
     }
 
     public SkinNotFoundException(String arg0) {
         super(arg0);
-
-        // TODO Auto-generated constructor stub
     }
 
     public SkinNotFoundException(Throwable arg0) {
         super(arg0);
-
-        // TODO Auto-generated constructor stub
     }
 
     public SkinNotFoundException(String arg0, Throwable arg1) {
         super(arg0, arg1);
-
-        // TODO Auto-generated constructor stub
     }
 }

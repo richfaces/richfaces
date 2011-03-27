@@ -38,8 +38,6 @@ public class JSObject extends JSFunction {
      */
     public JSObject(String name, Object... parameters) {
         super(name, parameters);
-
-        // TODO Auto-generated constructor stub
     }
 
     public void appendScript(Appendable target) throws IOException {

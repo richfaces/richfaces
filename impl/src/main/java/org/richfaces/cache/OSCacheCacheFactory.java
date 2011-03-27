@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.resource.util.URLToStreamHelper;
@@ -75,8 +76,7 @@ public class OSCacheCacheFactory implements CacheFactory {
                 try {
                     stream.close();
                 } catch (IOException e) {
-
-                    // TODO: handle exception
+                    LOG.debug(e.getMessage(), e);
                 }
             }
         }
@@ -91,17 +91,13 @@ public class OSCacheCacheFactory implements CacheFactory {
         try {
             cacheProperties.putAll(loadProperties());
         } catch (IOException e) {
-
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new FacesException(e.getMessage(), e);
         }
 
         try {
             cacheProperties.putAll(loadProperties());
         } catch (IOException e) {
-
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            throw new FacesException(e.getMessage(), e);
         }
 
         cacheProperties.putAll(env);

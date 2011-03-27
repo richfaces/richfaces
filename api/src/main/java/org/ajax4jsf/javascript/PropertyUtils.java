@@ -56,8 +56,6 @@ final class PropertyUtils {
         PropertyDescriptor[] descriptors = null;
 
         try {
-
-            // TODO - cache introspection info?
             BeanInfo beanInfo = Introspector.getBeanInfo(bean.getClass());
 
             descriptors = beanInfo.getPropertyDescriptors();

@@ -28,22 +28,13 @@ import org.richfaces.application.ServiceTracker;
 /**
  * Base factory class ( implement Singleton design pattern ). Produce self
  * instance to build current skin configuration. At present, realised as lazy
- * creation factory. TODO - select point to initialize.
+ * creation factory.
  *
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:59:43 $
  */
 public abstract class SkinFactory {
 
-    /**
-     * Initialize skin factory. TODO - make call from init() method of any
-     * servlet or custom faces element method ??? If exist resource
-     * META-INF/services/org.richfaces.skin.SkinFactory , create
-     * instance of class by name from first line of this file. If such class
-     * have constructor with {@link SkinFactory} parameter, instantiate it with
-     * instance of default factory ( as usual in JSF ). If any error occurs in
-     * instantiate custom factory, return default.
-     */
     @Deprecated
     public static final SkinFactory getInstance() {
         return getInstance(FacesContext.getCurrentInstance());

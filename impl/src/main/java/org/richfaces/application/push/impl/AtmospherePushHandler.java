@@ -22,6 +22,7 @@
 package org.richfaces.application.push.impl;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
@@ -73,8 +74,6 @@ public abstract class AtmospherePushHandler implements AtmosphereHandler<HttpSer
     }
     
     public void onRequest(AtmosphereResource<HttpServletRequest, HttpServletResponse> resource) throws IOException {
-        // TODO Auto-generated method stub
-
         HttpServletRequest req = resource.getRequest();
         HttpServletResponse resp = resource.getResponse();
         
@@ -87,7 +86,9 @@ public abstract class AtmospherePushHandler implements AtmosphereHandler<HttpSer
         }
         
         if (session == null) {
-            //TODO - debug log
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug(MessageFormat.format("Session {0} was not found", pushSessionId));
+            }
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
             return;
         }
@@ -98,8 +99,7 @@ public abstract class AtmospherePushHandler implements AtmosphereHandler<HttpSer
             Request request = createRequest(resource, session);
             request.suspend();
         } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 

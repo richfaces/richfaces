@@ -53,13 +53,7 @@ public abstract class TopicsContext {
     }
 
     public Topic getTopic(TopicKey key) {
-        Topic topic = topics.get(key.getTopicName());
-        
-        if (topic == null) {
-            //TODO
-        }
-        
-        return topic;
+        return topics.get(key.getTopicName());
     }
 
     public void removeTopic(TopicKey key) {

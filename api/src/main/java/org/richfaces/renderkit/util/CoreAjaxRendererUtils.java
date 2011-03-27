@@ -50,25 +50,6 @@ import com.google.common.base.Strings;
 public final class CoreAjaxRendererUtils {
 
     /**
-     * Attribute for keep JavaScript function name for call before updating
-     * DOM tree.
-     */
-    public static final String ONBEFOREDOMUPDATE_ATTR_NAME = "onbeforedomupdate";
-
-    /**
-     * Attribute for keep JavaScript function name for call after complete
-     * request.
-     */
-    public static final String ONCOMPLETE_ATTR_NAME = "oncomplete";
-
-    public static final String DATA_ATTR_NAME = "data";
-
-    /**
-     * Attribute to keep
-     */
-    public static final String LIMITRENDER_ATTR_NAME = "limitRender";
-
-    /**
      * @since 3.3.0
      */
     public static final String AJAX_PROCESS_ATTRIBUTE = "process";
@@ -236,59 +217,6 @@ public final class CoreAjaxRendererUtils {
         }
 
         return null;
-    }
-
-
-    /**
-     * Calculate, must be component render only given areas, or all sended from
-     * server.
-     *
-     * @param component
-     * @return <code>true</code> if client must render ONLY given areas.
-     */
-    public static boolean isAjaxLimitRender(UIComponent component) {
-        boolean result = false;
-
-        Object limitRenderObject = component.getAttributes().get(LIMITRENDER_ATTR_NAME);
-        if (limitRenderObject instanceof Boolean) {
-            result = ((Boolean) limitRenderObject).booleanValue();
-        } else {
-            result = Boolean.valueOf(String.valueOf(limitRenderObject));
-        }
-
-        return result;
-    }
-
-
-    /**
-     * Get function name for call on completed ajax request.
-     *
-     * @param component for wich calculate function name
-     * @return name of JavaScript function or <code>null</code>
-     */
-    //TODO nick - refactor - remove this method?
-    public static String getAjaxOncomplete(UIComponent component) {
-        return (String) component.getAttributes().get(ONCOMPLETE_ATTR_NAME);
-    }
-
-    /**
-     * Get function name for call before update DOM.
-     *
-     * @param component for wich calculate function name
-     * @return name of JavaScript function or <code>null</code>
-     */
-    //TODO nick - refactor - remove this method?
-    public static String getAjaxOnBeforeDomUpdate(UIComponent component) {
-        return (String) component.getAttributes().get(ONBEFOREDOMUPDATE_ATTR_NAME);
-    }
-
-    /**
-     * @param component
-     * @return
-     * @since 4.0
-     */
-    public static Object getAjaxData(UIComponent component) {
-        return component.getAttributes().get(DATA_ATTR_NAME);
     }
 
 }

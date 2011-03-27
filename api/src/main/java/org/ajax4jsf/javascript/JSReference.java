@@ -54,8 +54,6 @@ public class JSReference extends ScriptStringBase {
      * @param index
      */
     public JSReference(String name, Object index) {
-
-        // TODO Auto-generated constructor stub
         this.name = name;
         this.index = index;
     }

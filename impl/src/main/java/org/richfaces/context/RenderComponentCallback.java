@@ -28,7 +28,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 
 import org.ajax4jsf.component.AjaxClientBehavior;
-import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
 import org.richfaces.renderkit.util.CoreRendererUtils;
 
 /**
@@ -82,15 +81,27 @@ class RenderComponentCallback extends ComponentCallback {
             data = behavior.getData();
         } else {
             renderValue = target.getAttributes().get("render");
-            limitRender = CoreAjaxRendererUtils.isAjaxLimitRender(target);
-            onbeforedomupdate = CoreAjaxRendererUtils.getAjaxOnBeforeDomUpdate(target);
-            oncomplete = CoreAjaxRendererUtils.getAjaxOncomplete(target);
-            data = CoreAjaxRendererUtils.getAjaxData(target);
+            limitRender = isTrue(target.getAttributes().get("limitRender"));
+            onbeforedomupdate = (String) target.getAttributes().get("onbeforedomupdate");
+            oncomplete = (String) target.getAttributes().get("oncomplete");
+            data = target.getAttributes().get("data");
         }
         
         Collection<String> unresolvedRenderIds = toCollection(renderValue);
         //NB: toCollection() returns copy of original set and we're free to modify it - not used here
         renderIds = CoreRendererUtils.INSTANCE.findComponentsFor(facesContext, target, unresolvedRenderIds);
+    }
+
+    private boolean isTrue(Object value) {
+        boolean result = false;
+
+        if (value instanceof Boolean) {
+            result = ((Boolean) value).booleanValue();
+        } else {
+            result = Boolean.valueOf(String.valueOf(value));
+        }
+
+        return result;
     }
 
 }

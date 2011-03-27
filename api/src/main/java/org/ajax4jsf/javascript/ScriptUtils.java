@@ -35,6 +35,7 @@ import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.MissingResourceException;
+import java.util.SimpleTimeZone;
 
 import javax.faces.FacesException;
 import javax.faces.context.ResponseWriter;
@@ -173,7 +174,7 @@ public final class ScriptUtils {
                 throw new FacesException("Error in conversion Java Object to JavaScript", e);
             }
 
-            boolean ignorePropertyReadException = obj.getClass().getName().startsWith("java.sql.");
+            boolean ignorePropertyReadException = obj.getClass().getName().startsWith("java.sql.") || obj.getClass().equals(SimpleTimeZone.class);
             boolean first = true;
 
             for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {

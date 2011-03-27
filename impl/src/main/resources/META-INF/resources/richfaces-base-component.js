@@ -415,7 +415,7 @@
 		__bindEventHandlers: function () {
 		},
 		destroy: function () {
-			rf.Event.unbind(this.id, this.namespace);
+			rf.Event.unbindById(this.id, this.namespace);
 			$super.destroy.call(this);
 		}
 	});

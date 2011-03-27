@@ -17,12 +17,17 @@ import javax.transaction.Transaction;
 import org.jboss.cache.Cache;
 import org.jboss.cache.Fqn;
 import org.jboss.cache.eviction.ExpirationAlgorithmConfig;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * @author Nick Belaevski
  * @since 4.0
  */
 public class JBossCacheCache implements org.richfaces.cache.Cache {
+    
+    private static final Logger LOGGER = RichfacesLogger.CACHE.getLogger();
+    
     private static final String RESOURCE = "resource";
     private Cache<String, Object> cache;
 
@@ -59,29 +64,17 @@ public class JBossCacheCache implements org.richfaces.cache.Cache {
                 transaction.commit();
             }
         } catch (SystemException e) {
-
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (SecurityException e) {
-
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (IllegalStateException e) {
-
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (RollbackException e) {
-
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (HeuristicMixedException e) {
-
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (HeuristicRollbackException e) {
-
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
