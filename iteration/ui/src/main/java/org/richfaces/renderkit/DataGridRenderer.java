@@ -23,6 +23,7 @@
 package org.richfaces.renderkit;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.faces.FacesException;
 import javax.faces.application.ResourceDependencies;
@@ -240,8 +241,11 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
         AbstractDataGrid dataGrid = (AbstractDataGrid)component;
         writer.startElement(HtmlConstants.TABLE_ELEMENT, dataGrid);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, dataGrid.getClientId(facesContext), null);
-        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg", null);
-
+        Map<String, Object> attributes = dataGrid.getAttributes();
+        String classes = concatClasses("rf-dg", attributes.get(HtmlConstants.STYLE_CLASS_ATTR));
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, classes, null);
+        RenderKitUtils.renderAttribute(facesContext, "style", attributes.get(HtmlConstants.STYLE_ATTRIBUTE));
+        RenderKitUtils.renderAttribute(facesContext, HtmlConstants.TITLE_ATTRIBUTE, attributes.get(HtmlConstants.TITLE_ATTRIBUTE));
         encodeCaption(writer, facesContext, dataGrid);
         encodeHeader(writer, facesContext, dataGrid, false);
         encodeFooter(writer, facesContext, dataGrid, false);
@@ -288,14 +292,12 @@ public class DataGridRenderer extends AbstractRowsRenderer implements MetaCompon
         int columns = dataGrid.getColumns();
         int rest = columns - cell;
         
-        if(rest != 0) {
-            for (int i = 0; i < rest; i++) {
-                writer.startElement(HtmlConstants.TD_ELEM, dataGrid);
-                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-c", null);
-                writer.endElement(HtmlConstants.TD_ELEM);
-            }
-            writer.endElement(HtmlConstants.TR_ELEMENT);
+        for (int i = 0; i < rest; i++) {
+            writer.startElement(HtmlConstants.TD_ELEM, dataGrid);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dg-c", null);
+            writer.endElement(HtmlConstants.TD_ELEM);
         }
+        writer.endElement(HtmlConstants.TR_ELEMENT);
     }
     
     public DataVisitResult process(FacesContext facesContext, Object rowKey, Object argument) {

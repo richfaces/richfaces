@@ -161,6 +161,7 @@ public class CollapsibleSubTableTogglerRendererBase extends RendererBase {
         if (label != null && label.trim().length() > 0) {
             writer.startElement(HtmlConstants.A_ELEMENT, control);
             writer.writeAttribute(HtmlConstants.HREF_ATTR, "javascript:void(0);", null);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-csttg-lnk", null); 
             writer.writeText(label, null);
             writer.endElement(HtmlConstants.A_ELEMENT);
         }

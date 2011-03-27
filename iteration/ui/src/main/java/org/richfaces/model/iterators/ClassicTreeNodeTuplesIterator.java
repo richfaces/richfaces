@@ -34,8 +34,6 @@ public class ClassicTreeNodeTuplesIterator extends BaseTupleIterator {
 
     private TreeNode treeNode;
 
-    private SequenceRowKey baseKey;
-    
     private Iterator<Object> childrenKeysIterator = null;
     
     public ClassicTreeNodeTuplesIterator(TreeNode treeNode, SequenceRowKey baseKey) {

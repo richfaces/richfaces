@@ -26,7 +26,7 @@
 			name="message.reslib" />
 	</cc:interface>
 	<cc:implementation>
-		<span id="#{clientId}" class="rf-msg #{component.attributes['styleClass']}"
+		<span id="#{clientId}" class="rf-msgs #{component.attributes['styleClass']}"
 			cdk:passThroughWithExclusions="id class">
 			<c:forEach var="msg"
 				items="#{getVisibleMessages(facesContext,component)}">

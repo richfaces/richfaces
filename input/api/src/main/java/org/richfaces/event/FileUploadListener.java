@@ -25,5 +25,5 @@ import javax.faces.event.FacesListener;
 
 public interface FileUploadListener extends FacesListener {
 
-    public void processUpload(FileUploadEvent event);
+    public void processFileUpload(FileUploadEvent event);
 }

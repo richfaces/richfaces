@@ -23,7 +23,12 @@
 package org.richfaces.component;
 
 
-import org.richfaces.cdk.annotations.*;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 
 /**
  * @author akolonitsky
@@ -52,6 +57,12 @@ public abstract class AbstractAccordion extends AbstractTogglePanel {
         String res = super.getActiveItem();
         if (res == null) {
             res = getFirstItem().getName();
+        } else {
+            AbstractTogglePanelTitledItem item =
+                    (AbstractTogglePanelTitledItem) super.getItemByIndex(super.getChildIndex(res));
+            if (item.isDisabled()) {
+                res = getFirstItem().getName();
+            }
         }
         return res;
     }

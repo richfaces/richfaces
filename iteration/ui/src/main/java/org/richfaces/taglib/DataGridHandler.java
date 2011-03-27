@@ -22,6 +22,8 @@
 
 package org.richfaces.taglib;
 
+import org.richfaces.view.facelets.RowKeyConverterRule;
+
 import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.ComponentHandler;
 import javax.faces.view.facelets.MetaRuleset;
@@ -44,6 +46,7 @@ public class DataGridHandler extends ComponentHandler {
     protected MetaRuleset createMetaRuleset(Class type) {
         MetaRuleset metaRuleset = super.createMetaRuleset(type);
         metaRuleset.alias(ELEMENTS, ROWS);
+        metaRuleset.addRule(RowKeyConverterRule.INSTANCE);
         return metaRuleset; 
     }
     

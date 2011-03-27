@@ -17,7 +17,7 @@
 
     <cc:implementation>
     <cdk:object type="java.lang.Object" name="disabled" value="#{component.attributes['disabled']}" />
-        <div id="#{clientId}" class="rf-au-fld">
+        <span id="#{clientId}" class="rf-au">
 			<input id="#{clientId}Value" name="#{clientId}Value" type="hidden"/>
 			<span class="#{component.attributes['showButton'] ? 'rf-au-fld-btn' : ''}">
             	<input onclick="#{component.attributes['onclick']}"
@@ -29,7 +29,12 @@
 				onmouseout="#{component.attributes['onmouseout']}"
 				onkeyup="#{component.attributes['onkeyup']}"
 				onkeydown="#{component.attributes['onkeydown']}"
-				onkeypress="#{component.attributes['onkeypress']}" id="#{clientId}Input" value="#{component.attributes['value']}"  disabled="#{disabled}" name="#{clientId}Input" type="text" class="rf-au-fnt rf-au-inp" autocomplete="off"/>
+				onkeypress="#{component.attributes['onkeypress']}"
+				id="#{clientId}Input" value="#{getInputValue(facesContext, component)}"
+				disabled="#{disabled}" name="#{clientId}Input"
+				type="text"
+				class="rf-au-fnt rf-au-inp #{component.attributes['inputClass']}"
+				autocomplete="off"/>
                 <c:if test="#{component.attributes['showButton']}">
                 <span id="#{clientId}Button" class="rf-au-btn">
                     <span class="rf-au-btn-arrow#{component.attributes['disabled'] ? '-dis' : ''}"></span>
@@ -82,7 +87,7 @@
                  );
             </script>
 			</c:if>
-        </div>
+        </span>
     </cc:implementation>
 
 </cdk:root>

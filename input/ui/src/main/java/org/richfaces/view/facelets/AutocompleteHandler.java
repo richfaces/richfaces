@@ -21,20 +21,13 @@
  */
 package org.richfaces.view.facelets;
 
+import org.richfaces.component.AbstractAutocomplete;
+
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
-import javax.faces.view.facelets.ComponentConfig;
-import javax.faces.view.facelets.ComponentHandler;
-import javax.faces.view.facelets.FaceletContext;
-import javax.faces.view.facelets.MetaRule;
-import javax.faces.view.facelets.MetaRuleset;
-import javax.faces.view.facelets.Metadata;
-import javax.faces.view.facelets.MetadataTarget;
-import javax.faces.view.facelets.TagAttribute;
-
-import org.richfaces.component.AbstractAutocomplete;
+import javax.faces.view.facelets.*;
 
 /**
  * @author Nick Belaevski
@@ -66,17 +59,6 @@ public class AutocompleteHandler extends ComponentHandler {
                         }
                     };
                 }
-
-                if ("itemConverter".equals(name)) {
-                    return new ConverterMetadata(attribute) {
-                        public void applyMetadata(FaceletContext ctx, Object instance) {
-                            ((AbstractAutocomplete) instance).setItemConverter(this.getConverter(ctx,
-                                (AbstractAutocomplete) instance,
-                                this.getAttr().getValueExpression(ctx, Converter.class)));
-                        }
-                    };
-                }
-
             }
 
             return null;

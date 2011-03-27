@@ -10,8 +10,8 @@ import org.richfaces.cdk.annotations.Tag;
  *
  */
 @JsfComponent(
-        type = AbstractSelectComponent.COMPONENT_TYPE,
-        family = AbstractSelectComponent.COMPONENT_FAMILY, 
+        type = AbstractSelect.COMPONENT_TYPE,
+        family = AbstractSelect.COMPONENT_FAMILY, 
         generate = "org.richfaces.component.UISelect",
         renderer = @JsfRenderer(type = "org.richfaces.SelectRenderer"),
         tag = @Tag(name="select")
@@ -42,15 +42,20 @@ public abstract class AbstractSelect extends AbstractSelectComponent {
     public abstract String getMaxListHeight();
 
     @Attribute(hidden = true)
-    public abstract String getReadyStateClass();
+    public abstract String getActiveClass();
 
     @Attribute(hidden = true)
-    public abstract String getEditStateClass();
+    public abstract String getChangedClass();
 
     @Attribute(hidden = true)
-    public abstract String getChangedStateClass();
+    public abstract String getDisabledClass();
 
-    @Attribute(hidden = true)
-    public abstract String getDisabledStateClass();
+    @Attribute
+    public abstract String getStyle();
 
+    @Attribute
+    public abstract String getStyleClass();
+
+    @Attribute
+    public abstract String getTitle();
 }

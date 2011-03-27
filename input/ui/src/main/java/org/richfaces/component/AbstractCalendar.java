@@ -127,9 +127,6 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     @Attribute(defaultValue = "true")
     public abstract boolean isPopup();
 
-    @Attribute(defaultValue = "true")
-    public abstract boolean isHidePopupOnScroll();
-
     @Attribute
     public abstract boolean isDisabled();
 
@@ -171,6 +168,15 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
 
     @Attribute
     public abstract String getStyle();
+
+    @Attribute
+    public abstract String getStyleClass();
+    
+    @Attribute
+    public abstract String getPopupStyle();
+
+    @Attribute
+    public abstract String getPopupClass();
 
     @Attribute
     public abstract Object getMonthLabels();
@@ -275,7 +281,7 @@ public abstract class AbstractCalendar extends UIInput implements MetaComponentR
     @Attribute(events = @EventName("inputblur"))
     public abstract String getOninputblur();
     
-    @Attribute(events = @EventName("change"))
+    @Attribute(events = @EventName(value="change", defaultEvent=true))
     public abstract String getOnchange();
     
     @Attribute(events = @EventName("dateselect"))

@@ -26,10 +26,10 @@ input.rf-is-fld {
 	clip: rect(0px, 0px, 1px, 1px);
 }
 
-.rf-is-dis-s {
+.rf-is-dis {
 }
 
-.rf-is-edit {
+.rf-is-fld-cntr {
 	position : absolute; 
 	top : 0px; 
 	left : 0px; 
@@ -40,7 +40,7 @@ input.rf-is-fld {
 .rf-is-fnt {
 }
 
-.rf-is-d-s {
+.rf-is {
 	display : inline-block; 
 	position : relative; 
 	white-space : nowrap; 
@@ -52,25 +52,14 @@ input.rf-is-fld {
 	padding-right : 3px;
 }
 
-.rf-is-c-s {
+.rf-is-chng {
 	display : inline-block;
 	background-image : "url(#{resource['org.richfaces:mark_changed.gif']})"; 
 	background-position : top left; 
 	background-repeat : no-repeat;
 }
 
-.rf-is-e-s {  
-}
-
-.rf-is-fld { 
-	background-color : '#{richSkin.editBackgroundColor}'; 
-	padding : 0px 0px 0px 0px; 
-	border : 0px; 
-	margin : 0px; 
-	width : 112px; 
-	background-image: "url(#{resource['org.richfaces:mark_list.gif']})"; 
-	background-position : center right; 
-	background-repeat : no-repeat;
+.rf-is-act {  
 }
 
 .rf-is-btn {
@@ -185,6 +174,12 @@ input.rf-is-fld {
 	padding : 6px 6px 6px 6px; 
 	top : -6px; 
 	left : -6px;
+}
+
+.rf-is-btn-cntr {
+    position : relative;
+    display: block;
+    font-size: 0px; 
 }
 
 .rf-is-shdw-t {

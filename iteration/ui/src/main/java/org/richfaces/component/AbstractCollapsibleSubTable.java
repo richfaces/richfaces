@@ -28,13 +28,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 
+import org.richfaces.StateHolderArray;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.event.ToggleEvent;
-import org.richfaces.event.ToggleListener;
+import org.richfaces.event.CollapsibleSubTableToggleEvent;
+import org.richfaces.event.CollapsibleSubTableToggleListener;
 
 
 /**
@@ -46,7 +47,8 @@ import org.richfaces.event.ToggleListener;
     family = AbstractCollapsibleSubTable.COMPONENT_FAMILY, 
     generate = "org.richfaces.component.UICollapsibleSubTable",
     renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableRenderer"),
-    tag = @Tag(name = "collapsibleSubTable", handler = "org.richfaces.taglib.CollapsibleSubTableHandler", type = TagType.Facelets)
+    tag = @Tag(name = "collapsibleSubTable", handler = "org.richfaces.taglib.CollapsibleSubTableHandler", type = TagType.Facelets),
+    attributes = "rowKeyConverter-prop.xml"
 )
 public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implements Column, Expandable {
     
@@ -82,8 +84,8 @@ public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implem
     public abstract String getExpandMode();
 
     public void broadcast(FacesEvent event) throws AbortProcessingException {
-        if (event instanceof ToggleEvent) {
-            ToggleEvent toggleEvent = (ToggleEvent) event;
+        if (event instanceof CollapsibleSubTableToggleEvent) {
+            CollapsibleSubTableToggleEvent toggleEvent = (CollapsibleSubTableToggleEvent) event;
             boolean newValue = toggleEvent.isExpanded();
 
             getStateHelper().put(PropertyKeys.expanded, newValue);
@@ -127,23 +129,24 @@ public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implem
         throw new IllegalArgumentException("subtable is not sortable element");
     }
     
-    public void addToggleListener(ToggleListener listener) {
+    public void addCollapsibleSubTableToggleListener(CollapsibleSubTableToggleListener listener) {
         addFacesListener(listener);
     }
     
-    public void removeToggleListener(ToggleListener listener) {
+    public void removeCollapsibleSubTableToggleListener(CollapsibleSubTableToggleListener listener) {
         removeFacesListener(listener);
     }
 
-    public ToggleListener[] getToggleListeners() {
-        return (ToggleListener[]) getFacesListeners(ToggleListener.class);
+    public CollapsibleSubTableToggleListener[] getCollapsibleSubTableToggleListener() {
+        return (CollapsibleSubTableToggleListener[]) getFacesListeners(CollapsibleSubTableToggleListener.class);
     }
     
     public void setIterationState(Object stateObject) {
-        Object[] state = (Object[]) stateObject;
-        if (state != null) {
-            super.setIterationState(state[0]);
-            getStateHelper().put(PropertyKeys.expanded, state[1]);
+        StateHolderArray stateHolderList = (StateHolderArray) stateObject;
+        
+        if (stateHolderList != null && !stateHolderList.isEmpty()) {
+            super.setIterationState(stateHolderList.get(0));
+            getStateHelper().put(PropertyKeys.expanded, (Boolean) stateHolderList.get(1));
         } else {
             super.setIterationState(null);
             getStateHelper().put(PropertyKeys.expanded, null);
@@ -151,9 +154,11 @@ public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implem
     }
     
     public Object getIterationState() {
-        Object [] state = new Object[2];
-        state[0] = super.getIterationState();
-        state[1] = getStateHelper().get(PropertyKeys.expanded); 
-        return state;
+        StateHolderArray holderList = new StateHolderArray();
+        
+        holderList.add(super.getIterationState());
+        holderList.add(getStateHelper().get(PropertyKeys.expanded));
+        
+        return holderList;
     }
 }

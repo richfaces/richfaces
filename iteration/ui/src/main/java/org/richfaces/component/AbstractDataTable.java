@@ -41,7 +41,8 @@ import org.richfaces.cdk.annotations.TagType;
     family = AbstractDataTable.COMPONENT_FAMILY, 
     generate = "org.richfaces.component.UIDataTable",
     renderer = @JsfRenderer(type = "org.richfaces.DataTableRenderer"),
-    tag = @Tag(name="dataTable", handler="org.richfaces.taglib.DataTableHandler", type=TagType.Facelets)
+    tag = @Tag(name="dataTable", handler="org.richfaces.taglib.DataTableHandler", type=TagType.Facelets),
+    attributes = "rowKeyConverter-prop.xml"
 )
 public abstract class AbstractDataTable extends UIDataTableBase {
     

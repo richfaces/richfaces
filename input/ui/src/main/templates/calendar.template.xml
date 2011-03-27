@@ -23,7 +23,7 @@
          <cdk:import package="org.richfaces.component" names="Positioning" />
 	</cc:interface>
 	<cc:implementation>
-	<span id="#{clientId}">
+	<span id="#{clientId}" class="#{component.attributes['styleClass']}" style="#{component.attributes['style']}">
 		<span id="#{clientId}Popup"
 			style="#{component.attributes['popup'] ? 'white-space: nowrap;' : 'display: none;'}">
 			<c:choose>
@@ -70,7 +70,7 @@
 			<script type="text/javascript">
 				
 				<cdk:scriptObject name="options">
-					<cdk:scriptOption attributes="enableManualInput disabled readonly resetTimeOnDateSelect showApplyButton popup showInput showHeader showFooter showWeeksBar datePattern hidePopupOnScrol showWeekDaysBar styleClass defaultLabel" />
+					<cdk:scriptOption attributes="enableManualInput disabled readonly resetTimeOnDateSelect showApplyButton popup showInput showHeader showFooter showWeeksBar datePattern hidePopupOnScrol showWeekDaysBar defaultLabel" />
 					<cdk:scriptOption attributes="onchange ondateselect onbeforedateselect onbeforecurrentdateselect onhide onshow ondatemouseover ondatemouseout onclean ontimeselect onbeforetimeselect" wrapper="eventHandler" />
 					<cdk:scriptOption name="mode" value="#{getModeOrDefault(component)}" defaultValue="org.richfaces.component.AbstractCalendar.Mode.client"/>
 					<cdk:scriptOption name="todayControlMode" value="#{getTodayControlModeOrDefault(component)}" defaultValue='"select"'/>
@@ -86,7 +86,8 @@
 					<cdk:scriptOption name="isDayEnabled" value="#{getDayEnabled(facesContext, component)}" />
 					<cdk:scriptOption name="labels" value="#{getLabels(facesContext, component)}" />
 					<cdk:scriptOption name="defaultTime" value="#{getPreparedDefaultTime(facesContext, component)}" />
-					<cdk:scriptOption name="style" value="#{getStyleWithZindex(facesContext, component)}" />
+					<cdk:scriptOption name="style" value="#{getPopupStyle(facesContext, component)}" />
+					<cdk:scriptOption name="styleClass" value="#{component.attributes['popupClass']}" />
 				</cdk:scriptObject>
 				 
 				RichFaces.ui.Calendar.addLocale("#{getAsLocale(facesContext, component).toString()}", 

@@ -204,29 +204,19 @@
                 }
 
                 if (menuGroup.options.expandSingle) {
+                	var component = this;
                     menuGroup.__group().bind("expand", function (event) {
-                        if (menuGroup.__isMyEvent(event)) {
-                            return;
-                        }
-
-                        menuGroup.__childGroups().each (function (index, group) {
-                            var rfGroup = rf.$(group);
-                            if (!rfGroup.__isMyEvent(event)) {
-                                rfGroup.collapse();
-                            }
-                        });
-                        
-                        //TODO nick - why?
-                        event.stopPropagation();
+                    	component.__rfPanelMenu().__collapseGroups(event);
+                    	event.stopPropagation();
                     });
                 }
 
-                this.__addUserEventHandler("beforecollapse");
+                /*this.__addUserEventHandler("beforecollapse");
                 this.__addUserEventHandler("collapse");
                 this.__addUserEventHandler("beforeexpand");
                 this.__addUserEventHandler("expand");
                 this.__addUserEventHandler("beforeswitch");
-                this.__addUserEventHandler("switch");
+                this.__addUserEventHandler("switch");*/
             }
         },
 
@@ -402,11 +392,6 @@
 
         __isMyEvent: function (event) {
             return this.id == event.target.id; 
-        },
-
-        __fireEvent: function(eventName) {
-        	var data = {id: this.id};
-            return rf.Event.fireById(this.id, eventName, data);
         },
         
         destroy: function () {

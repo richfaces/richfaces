@@ -75,58 +75,66 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
         //TODO nick - is component immediate = true only?
         //TODO nick - processValue should be executed in context of component, i.e. when 'component' EL variable is set
 
-        processValue(context);
+        ItemChangeEvent event = createItemChangeEvent(context);
+        if (event != null) {
+            event.queue();
+        }
+    }
+    
+    public void queueEvent(FacesEvent event) {
+        if ((event instanceof ItemChangeEvent) && (event.getComponent() == this)) {
+            setEventPhase((ItemChangeEvent)event);
+        }
+        super.queueEvent(event);
+    }
+    
+    public void setEventPhase(FacesEvent event) {
+        if (event instanceof ItemChangeEvent) {
+            AbstractPanelMenuItem actItm = (AbstractPanelMenuItem) ((ItemChangeEvent)event).getNewItem(); 
+            if (isImmediate() || (actItm != null && actItm.isImmediate())) {
+                event.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
+            } else if (actItm!= null && actItm.isBypassUpdates()) {
+                event.setPhaseId(PhaseId.PROCESS_VALIDATIONS);
+            } else {
+                event.setPhaseId(PhaseId.UPDATE_MODEL_VALUES);
+            }
+        }
     }
 
-    private void processValue(FacesContext context) {
-        try {
-            if (context == null) {
-                throw new NullPointerException();
-            }
+    private ItemChangeEvent createItemChangeEvent(FacesContext context) {
 
-            // Submitted value == null means "the component was not submitted at all".
-            String activeItem = getSubmittedActiveItem();
-            if (activeItem == null) {
-                return;
-            }
-
-            String previous = (String) getValue();
-            setActiveItem(activeItem);
-            setSubmittedActiveItem(null);
-
-            if (previous == null || !previous.equalsIgnoreCase(activeItem)) {
-                AbstractPanelMenuItem prevItm = null;
-                AbstractPanelMenuItem actItm = null;
-                if (previous != null) {
-                    prevItm = getItem(previous);
-                }
-                if (activeItem != null) {
-                    actItm = getItem(activeItem);
-                }
-                
-                ItemChangeEvent event = new ItemChangeEvent(this, previous,prevItm, activeItem, actItm); 
-                if (isImmediate() || (actItm != null && actItm.isImmediate())) {
-                    event.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
-                } else if (actItm!= null && actItm.isBypassUpdates()) {
-                    event.setPhaseId(PhaseId.PROCESS_VALIDATIONS);
-                } else {
-                    event.setPhaseId(PhaseId.INVOKE_APPLICATION);
-                }
-                event.queue();
-            }
-        } catch (RuntimeException e) {
-            context.renderResponse();
-            throw e;
+        // Submitted value == null means "the component was not submitted at all".
+        String activeItem = getSubmittedActiveItem();
+        if (activeItem == null) {
+            return null;
         }
+
+        String previous = (String) getValue();
+        if (previous == null || !previous.equalsIgnoreCase(activeItem)) {
+            AbstractPanelMenuItem prevItm = null;
+            AbstractPanelMenuItem actItm = null;
+            if (previous != null) {
+                prevItm = getItem(previous);
+            }
+            if (activeItem != null) {
+                actItm = getItem(activeItem);
+            }
+            
+            return new ItemChangeEvent(this, previous, prevItm, activeItem, actItm);
+        }
+        return null;
     }
 
     @Override
     public void broadcast(FacesEvent event) throws AbortProcessingException {
-        super.broadcast(event);
-
         if (event instanceof ItemChangeEvent) {
-            getFacesContext().renderResponse();
+            setValue(((ItemChangeEvent) event).getNewItemName());
+            setSubmittedActiveItem(null);
+            if (event.getPhaseId() != PhaseId.UPDATE_MODEL_VALUES) {
+                FacesContext.getCurrentInstance().renderResponse();
+            }
         }
+        super.broadcast(event);
     }
 
     public String getSubmittedActiveItem() {
@@ -137,6 +145,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
         this.submittedActiveItem = String.valueOf(submittedValue);
     }
 
+    @Attribute(generate = false)
     public String getActiveItem() {
         return (String) getValue();
     }
@@ -155,6 +164,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
         }
     }
 
+    @Attribute(generate = false)
     public boolean isImmediate() {
         return (Boolean) getStateHelper().eval(PropertyKeys.immediate, false);
     }
@@ -216,7 +226,8 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
         topGroupCollapsedRightIcon,
         topGroupDisabledLeftIcon,
         topGroupDisabledRightIcon,
-        itemLeftIcon
+        itemLeftIcon,
+        value
     }
 
     @Attribute
@@ -494,4 +505,13 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
     public void removeItemChangeListener(ItemChangeListener listener) {
         removeFacesListener(listener);
     }
+    
+    @Attribute(generate = false, hidden = true)
+    public Object getValue() {
+        return getStateHelper().eval(Properties.value);
+    }
+
+    public void setValue(Object value) {
+        getStateHelper().put(Properties.value, value);
+    }    
 }

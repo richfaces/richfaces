@@ -67,6 +67,9 @@ public abstract class AbstractDropDownMenu extends UIComponentBase {
     @Attribute(events = @EventName("itemclick"))
     public abstract String getOnitemclick();    
     
+    @Attribute
+    public abstract String getLabel();
+    
     public enum Facets {
         label, 
         labelDisabled

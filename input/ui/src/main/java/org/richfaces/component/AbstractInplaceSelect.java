@@ -85,29 +85,20 @@ public abstract class AbstractInplaceSelect extends AbstractSelectComponent impl
     public abstract String getListClass();
 
     @Attribute
-    public abstract String getChangedStateClass();
+    public abstract String getChangedClass();
     
     @Attribute
     public abstract String getDefaultLabel();
     
     @Attribute
-    public abstract String getDisabledStateClass();
+    public abstract String getDisabledClass();
     
     @Attribute
-    public abstract String getEditStateClass();
-    
-    @Attribute
-    public abstract String getReadyStateClass();
-    
-    @Attribute
-    public abstract String getNoneClass();
-    
+    public abstract String getActiveClass();
+
     @Attribute()
     public abstract String getEditEvent();
-    
-    @Attribute
-    public abstract String getEditClass();
-    
+
     @Attribute(events=@EventName("inputclick"))
     public abstract String getOninputclick();
     

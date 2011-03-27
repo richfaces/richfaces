@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-      <div class="rf-au-fld" id="form:myAutocomplete">
+      <span class="rf-au" id="form:myAutocomplete">
         <input id="form:myAutocompleteValue" name="form:myAutocompleteValue" type="hidden"/>
         <span class="rf-au-fld-btn">
           <input autocomplete="off" class="rf-au-fnt rf-au-inp" id="form:myAutocompleteInput" name="form:myAutocomplete" type="text"/>
@@ -188,4 +188,4 @@ new RichFaces.ui.Autocomplete("form:myAutocomplete",
                  );
 //]]>
         </script>
-      </div>
+      </span>

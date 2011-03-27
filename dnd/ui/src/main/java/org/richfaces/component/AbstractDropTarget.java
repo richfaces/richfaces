@@ -42,6 +42,7 @@ import org.richfaces.event.DropListener;
         family = AbstractDropTarget.COMPONENT_FAMILY, 
         generate = "org.richfaces.component.UIDropTarget",
         renderer = @JsfRenderer(type = "org.richfaces.DropTargetRenderer"),
+        attributes = {"dropListener-props.xml"},
         tag = @Tag(name="dropTarget" ,handler="org.richfaces.view.facelets.DropHandler", type = TagType.Facelets)
 )
 public abstract class AbstractDropTarget extends UIComponentBase {
@@ -62,6 +63,9 @@ public abstract class AbstractDropTarget extends UIComponentBase {
 
     @Attribute
     public abstract Object getExecute();
+
+    @Attribute
+    public abstract  Object getRender();
 
     @Attribute
     public abstract Object getAcceptedTypes();

@@ -164,7 +164,8 @@
 	    	var originalEncoding = this.form.attr("encoding");
 	    	var originalEnctype = this.form.attr("enctype");
 	    	try {
-	    		this.form.attr("action", originalAction + "?" + UID + "=" + this.loadableItem.uid);
+	    		var delimiter = originalAction.indexOf("?") == -1 ? "?" : "&";
+	    		this.form.attr("action", originalAction + delimiter + UID + "=" + this.loadableItem.uid);
 	    		this.form.attr("encoding", "multipart/form-data");
 	    		this.form.attr("enctype", "multipart/form-data");
 	    		richfaces.submitForm(this.form, {"org.richfaces.ajax.component": this.id}, this.id);

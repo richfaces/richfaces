@@ -21,18 +21,6 @@
 
 package org.richfaces.renderkit.html;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialViewContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.event.ActionEvent;
-
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSReference;
@@ -43,6 +31,17 @@ import org.richfaces.renderkit.RenderKitUtils;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.renderkit.util.HandlersChain;
 import org.richfaces.renderkit.util.RendererUtils;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialViewContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.event.ActionEvent;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author shura
@@ -99,7 +98,6 @@ public class AjaxPollRenderer extends RendererBase {
             utils.encodeBeginForm(context, component, writer, clientId);
             utils.encodeEndForm(context, writer);
         }
-        writer.endElement(rootElementName);
         
         // polling script.
         writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
@@ -133,6 +131,7 @@ public class AjaxPollRenderer extends RendererBase {
 
         writer.endElement(HtmlConstants.SCRIPT_ELEM);
 
+        writer.endElement(rootElementName);
     }
 
     /*

@@ -56,7 +56,7 @@ public class TreeToggleEvent extends FacesEvent {
 
     @Override
     public void processListener(FacesListener listener) {
-        ((TreeToggleListener) listener).processToggle(this);
+        ((TreeToggleListener) listener).processTreeToggle(this);
     }
 
 }

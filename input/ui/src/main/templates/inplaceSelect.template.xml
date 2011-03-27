@@ -36,11 +36,12 @@
 
 		<cdk:object type="java.util.List" type-arguments="InplaceSelectBaseRenderer.ClientSelectItem" name="clientSelectItems"
 			value="#{getConvertedSelectItems(facesContext, component)}" />
-		
-		<span id="#{clientId}" class="#{getStateStyleClass(component, inplaceState)}" cdk:passThroughWithExclusions="id class">
+        <cdk:object type="java.lang.String" name="defaultLabel" value="#{inplaceValue != null and inplaceValue.length() != 0 ? inplaceValue : '&#160;&#160;&#160;'}" />
+
+		<span id="#{clientId}" cdk:passThroughWithExclusions="id class" class="#{ getContainerStyleClasses(component) }" >
 
 			<span id="#{clientId}Label" class="rf-is-lbl#{inplaceValue == component.attributes['defaultLabel'] ? ' rf-is-dflt-lbl' : ''}">
-				#{inplaceValue}
+				#{defaultLabel}
 			</span>
 			
 			<c:if test="#{!component.attributes['disabled']}">			
@@ -63,16 +64,15 @@
 									<span class="rf-is-shdw-r"></span>
 									<span class="rf-is-shdw-b"></span>
 	
-									<span id="#{clientId}Btn" style="position : relative;">
+									<span id="#{clientId}Btn" class="rf-is-btn-cntr">
 										<input type="image" id="#{clientId}Okbtn"
 											src="#{getResourcePath(facesContext, 'org.richfaces', 'ico_ok.gif')}"
 											class="rf-is-btn" onmousedown="this.className='rf-is-btn-press'"
 											onmouseout="this.className='rf-is-btn'" onmouseup="this.className='rf-is-btn'" />
-										<input type="image" id="#{clientId}Cancelbtn"
+									    <input type="image" id="#{clientId}Cancelbtn"
 											src="#{getResourcePath(facesContext,'org.richfaces', 'ico_cancel.gif')}"
 											class="rf-is-btn" onmousedown="this.className='rf-is-btn-press'"
 											onmouseout="this.className='rf-is-btn'" onmouseup="this.className='rf-is-btn'" />
-										<br />
 									</span>
 								</span>
 							</span>
@@ -101,11 +101,12 @@
 					<cdk:scriptObject name="options">
 						<cdk:scriptOption name="items" value="#{clientSelectItems}" />
 						<cdk:scriptOption name="noneCss" value="#{concatClasses('rf-is-none', component.attributes['noneStateClass'])}"/>
-						<cdk:scriptOption name="changedCss" value="#{concatClasses('rf-is-c-s', component.attributes['changedStateClass'])}"/>
-						<cdk:scriptOption name="editCss" value="#{concatClasses('rf-is-e-s', component.attributes['editStateClass'])}"/>
+						<cdk:scriptOption name="changedCss" value="#{concatClasses('rf-is-chng', component.attributes['changedClass'])}"/>
+						<cdk:scriptOption name="editCss" value="#{concatClasses('rf-is-act', component.attributes['activeClass'])}"/>
 						<cdk:scriptOption name="selectItemCss" value="#{concatClasses('rf-is-sel', component.attributes['selectItemClass'])}"/>
 						<cdk:scriptOption name="editEvent" value="#{getEditEvent(component)}"/>
-					  	<cdk:scriptOption attributes="state defaultLabel saveOnBlur showControls openOnEdit saveOnSelect inputWidth" />
+                        <cdk:scriptOption name="defaultLabel" value="#{defaultLabel}" />
+					  	<cdk:scriptOption attributes="state saveOnBlur showControls openOnEdit saveOnSelect inputWidth" />
 					  	<cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onselectitem onchange onblur onfocus" wrapper="eventHandler"/>
                 	</cdk:scriptObject>
 					new RichFaces.ui.InplaceSelect("#{clientId}", #{toScriptArgs(options)});

@@ -23,7 +23,6 @@ package org.richfaces.component;
 
 import java.io.IOException;
 
-import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
@@ -40,7 +39,6 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.context.ExtendedVisitContext;
 import org.richfaces.context.ExtendedVisitContextMode;
@@ -58,7 +56,7 @@ import org.richfaces.renderkit.MetaComponentRenderer;
     family = AbstractTreeNode.COMPONENT_FAMILY, 
     tag = @Tag(name = "treeNode", handler = "org.richfaces.view.facelets.TreeNodeHandler"),
     renderer = @JsfRenderer(type = "org.richfaces.TreeNodeRenderer"),
-    attributes = {"events-props.xml", "core-props.xml", "i18n-props.xml", "tree-common-props.xml"}
+    attributes = {"events-props.xml", "core-props.xml", "i18n-props.xml", "tree-common-props.xml", "treeNode-serverEventListeners-props.xml"}
 )
 public abstract class AbstractTreeNode extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder, IterationStateHolder, TreeToggleSource {
 
@@ -71,9 +69,6 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
     enum PropertyKeys {
         expanded
     }
-
-    @Attribute(generate = false, signature = @Signature(returnType = Void.class, parameters = TreeToggleEvent.class))
-    private MethodExpression toggleListener;
 
     public AbstractTreeNode() {
         setRendererType("org.richfaces.TreeNodeRenderer");

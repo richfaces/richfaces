@@ -70,9 +70,9 @@ public class MethodExpressionAjaxBehaviorListener implements AjaxBehaviorListene
         ELContext elContext = context.getELContext();
         
         try {
-            methodExpressionZeroArg.invoke(elContext, new Object[] {});
-        } catch (MethodNotFoundException mnfe) {
             methodExpressionOneArg.invoke(elContext, new Object[] { event});
+        } catch (MethodNotFoundException mnfe) {
+            methodExpressionZeroArg.invoke(elContext, new Object[] {});
         } 
     }
 

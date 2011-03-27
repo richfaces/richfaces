@@ -51,19 +51,6 @@
             this.activeItem = this.__getValueInput().value;
             this.nestingLevel = 0;
 
-            var menuGroup = this;
-            if (menuGroup.options.expandSingle) {
-                menuGroup.__panelMenu().bind("expand", function (event) {
-                    menuGroup.__childGroups().each (function (index, group) {
-                        if (event.target.id != group.id) {
-                            rf.$(group.id).__collapse();
-                        }
-                    });
-
-                    event.stopPropagation();
-                });
-            }
-
             this.__addUserEventHandler("collapse");
             this.__addUserEventHandler("expand");
         },
@@ -107,7 +94,7 @@
          * @return {String} TODO ...
          */
         selectedItem: function (id) {
-            if (id != undefined) {
+            if (typeof id != "undefined") {
                 var valueInput = this.__getValueInput();
                 var prevActiveItem = valueInput.value;
 
@@ -206,6 +193,16 @@
 
         __isActiveItem: function(item) {
         	return item.itemName == this.activeItem;
+        },
+        
+        __collapseGroups : function (event) {
+        	var topGroup = rf.$(event.target.id).__rfTopGroup();
+            this.__childGroups().each (function (index, group) {
+            	if (group.id != event.target.id && (!topGroup || group.id != topGroup.id)) {
+	                    rf.$(group.id).__collapse();
+            	}
+            });
+            
         },
         
         destroy: function () {

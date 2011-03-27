@@ -23,11 +23,11 @@ package org.richfaces.component;
 
 import javax.faces.component.UIComponentBase;
 
+import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
-import org.richfaces.cdk.annotations.Attribute; 
 /**
  * JSF component class
  * 
@@ -38,7 +38,9 @@ import org.richfaces.cdk.annotations.Attribute;
 )
 public abstract class AbstractPanel extends UIComponentBase {
     
-    private static final String COMPONENT_FAMILY = "org.richfaces.Panel";    
+    public static final String COMPONENT_TYPE = "org.richfaces.Panel";
+    
+    public static final String COMPONENT_FAMILY = "org.richfaces.Panel";    
 
     @Attribute
     public abstract String getHeader();

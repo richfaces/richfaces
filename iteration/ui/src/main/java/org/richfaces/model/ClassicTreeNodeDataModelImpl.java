@@ -36,8 +36,6 @@ public class ClassicTreeNodeDataModelImpl extends NodesTreeSequenceKeyModel<Tree
 
     private static final Converter DEFAULT_CONVERTER = new StringSequenceRowKeyConverter();
     
-    private TreeNode rootNode;
-    
     public boolean isLeaf() {
         return getData().isLeaf();
     }
@@ -53,12 +51,12 @@ public class ClassicTreeNodeDataModelImpl extends NodesTreeSequenceKeyModel<Tree
     
     @Override
     public Object getWrappedData() {
-        return rootNode;
+        return getRootNode();
     }
 
     @Override
     public void setWrappedData(Object data) {
-        this.rootNode = (TreeNode) data;
+        setRootNode((TreeNode) data);
     }
 
     public Converter getRowKeyConverter() {

@@ -41,22 +41,9 @@ public class InplaceSelectRendererTest extends InplaceRendererTestBase  {
     }
 
     @Test
+    @Ignore
     public void testEditEncode() throws IOException, SAXException {
         doTestEditEncode(PAGE_NAME, BASE_ID);
-    }
-    
-    @Test
-    @Ignore
-    public void testEdit() throws Exception {
-        HtmlPage page =  environment.getPage("/inplaceSelectTest.jsf");
-        String defaultComponentId = BASE_ID + DEFAULT; 
-        edit(page, defaultComponentId, 1);  
-        
-        HtmlElement input = page.getFirstByXPath("//*[@id = '" + defaultComponentId + "Input']");
-        assertNotNull(input);
-        
-        String label = input.getAttribute(HtmlConstants.VALUE_ATTRIBUTE);
-        assertTrue("Label#3".equals(label));
     }
     
     private void edit(HtmlPage page, String inplaceSelectId, int selectIndex) throws Exception {
@@ -66,7 +53,7 @@ public class InplaceSelectRendererTest extends InplaceRendererTestBase  {
         
         HtmlElement edit = page.getFirstByXPath("//*[@id = '" + inplaceSelectId + "Edit']");
         assertNotNull(edit);
-        assertEquals("rf-is-edit", edit.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
+        assertEquals("rf-is-fld-cntr", edit.getAttribute(HtmlConstants.CLASS_ATTRIBUTE));
         
         HtmlElement list = page.getFirstByXPath("//*[@id = '" + inplaceSelectId + "List']");
         assertNotNull(list);

@@ -30,6 +30,8 @@ import javax.el.ValueExpression;
  */
 public class FilterField extends Field{
 
+    private static final long serialVersionUID = -935655586515863809L;
+
     private Filter<?> filter;
 
     private Object filterValue;

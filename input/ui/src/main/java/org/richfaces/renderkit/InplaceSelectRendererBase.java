@@ -22,17 +22,16 @@
 
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-import java.util.List;
+import org.richfaces.component.AbstractInplaceSelect;
+import org.richfaces.component.InplaceComponent;
+import org.richfaces.renderkit.util.HtmlDimensions;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-
-import org.richfaces.component.AbstractInplaceSelect;
-import org.richfaces.component.InplaceComponent;
-import org.richfaces.renderkit.util.HtmlDimensions;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * @author Anton Belevich
@@ -55,16 +54,8 @@ import org.richfaces.renderkit.util.HtmlDimensions;
         @ResourceDependency(library = "org.richfaces", name = "inplaceSelect.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceSelect.ecss") })
 public class InplaceSelectRendererBase extends InplaceInputRendererBase {
-    
-    public static final String OPTIONS_OPEN_ON_EDIT = "openOnEdit";
-    
-    public static final String OPTIONS_SAVE_ON_SELECT = "saveOnSelect";
-    
-    public static final String ITEM_CSS = "rf-is-opt"; 
-    
-    public static final String SELECT_ITEM_CSS = "rf-is-sel";    
 
-    public static final String LIST_CSS = "rf-is-lst-cord";
+    public static final String ITEM_CSS = "rf-is-opt"; 
 
     public List<ClientSelectItem> getConvertedSelectItems(FacesContext facesContext, UIComponent component) {
         return SelectHelper.getConvertedSelectItems(facesContext, component);
@@ -123,35 +114,42 @@ public class InplaceSelectRendererBase extends InplaceInputRendererBase {
         }
         return label;
     }
-    
-    public String getReadyStateCss(InplaceComponent component) {
-        String css = component.getReadyStateClass();
-        return concatClasses("rf-is-d-s", css);
+
+    public String getContainerStyleClasses(UIComponent component) {
+        InplaceComponent inplaceComponent = (InplaceComponent) component;
+        String style = concatClasses("rf-is", component.getAttributes().get("styleClass"));
+        if (inplaceComponent.isDisabled()) {
+            style = concatClasses(style, getDisableStateCss(inplaceComponent));
+        }
+        return style;
     }
 
     public String getEditStateCss(InplaceComponent component) {
-        String css = component.getEditStateClass();
-        return concatClasses("rf-is-e-s", css);
+        String css = component.getActiveClass();
+        return concatClasses("rf-is-act", css);
     }
 
     public String getChangedStateCss(InplaceComponent component) {
-        String css = component.getChangedStateClass();
-        return concatClasses("rf-is-c-s", css);
+        String css = component.getChangedClass();
+        return concatClasses("rf-is-chng", css);
     }
 
     public String getDisableStateCss(InplaceComponent component) {
-        String css = component.getDisabledStateClass();
-        return concatClasses("rf-is-dis-s", css);
+        String css = component.getDisabledClass();
+        return concatClasses("rf-is-dis", css);
+    }
+
+    public String getDisabledCss(UIComponent component) {
+        AbstractInplaceSelect inplaceSelect = (AbstractInplaceSelect) component;
+        return getDisableStateCss(inplaceSelect);
     }
     
     public String getEditCss(InplaceComponent component) {
-        String css = component.getEditClass();
-        return concatClasses("rf-is-edit", css);
+        return "rf-is-fld-cntr";
     }
 
     public String getNoneCss(InplaceComponent component) {
-        String css = component.getNoneClass();
-        return concatClasses("rf-is-none", css);
+        return "rf-is-none";
     }
     
     public String getListCss(UIComponent component) {

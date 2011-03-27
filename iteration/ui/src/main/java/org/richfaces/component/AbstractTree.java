@@ -30,7 +30,6 @@ import java.util.Map;
 
 import javax.el.ELContext;
 import javax.el.ELException;
-import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -50,14 +49,13 @@ import javax.faces.event.PhaseId;
 import org.ajax4jsf.model.DataComponentState;
 import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
+import org.richfaces.application.FacesMessages;
 import org.richfaces.application.MessageFactory;
 import org.richfaces.application.ServiceTracker;
-import org.richfaces.appplication.FacesMessages;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.component.util.MessageUtil;
 import org.richfaces.context.ExtendedVisitContext;
@@ -68,6 +66,7 @@ import org.richfaces.event.TreeSelectionChangeSource;
 import org.richfaces.event.TreeToggleEvent;
 import org.richfaces.event.TreeToggleListener;
 import org.richfaces.event.TreeToggleSource;
+import org.richfaces.model.ClassicTreeNodeDataModelImpl;
 import org.richfaces.model.DeclarativeModelKey;
 import org.richfaces.model.DeclarativeTreeDataModelImpl;
 import org.richfaces.model.DeclarativeTreeModel;
@@ -75,6 +74,7 @@ import org.richfaces.model.SwingTreeNodeDataModelImpl;
 import org.richfaces.model.TreeDataModel;
 import org.richfaces.model.TreeDataModelTuple;
 import org.richfaces.model.TreeDataVisitor;
+import org.richfaces.model.TreeNode;
 import org.richfaces.renderkit.MetaComponentRenderer;
 
 import com.google.common.base.Predicate;
@@ -92,7 +92,8 @@ import com.google.common.collect.Maps;
     family = AbstractTree.COMPONENT_FAMILY, 
     tag = @Tag(name = "tree", handler = "org.richfaces.view.facelets.TreeHandler"),
     renderer = @JsfRenderer(type = "org.richfaces.TreeRenderer"),
-    attributes = {"ajax-props.xml", "events-props.xml", "core-props.xml", "i18n-props.xml", "tree-common-props.xml"}
+    attributes = {"ajax-props.xml", "events-props.xml", "core-props.xml", "i18n-props.xml", "tree-common-props.xml", 
+        "rowKeyConverter-prop.xml", "tree-serverEventListeners-props.xml"}
 )
 //TODO add rowData caching for wrapper events
 public abstract class AbstractTree extends UIDataAdaptor implements MetaComponentResolver, MetaComponentEncoder, TreeSelectionChangeSource, TreeToggleSource {
@@ -138,14 +139,6 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         selection
     }
     
-    @SuppressWarnings("unused")
-    @Attribute(generate = false, signature = @Signature(returnType = Void.class, parameters = TreeSelectionChangeEvent.class))
-    private MethodExpression selectionChangeListener;
-
-    @SuppressWarnings("unused")
-    @Attribute(generate = false, signature = @Signature(returnType = Void.class, parameters = TreeToggleListener.class))
-    private MethodExpression toggleListener;
-
     private transient TreeRange treeRange;
     
     private transient UIComponent currentComponent = this;
@@ -203,6 +196,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         return COMPONENT_FAMILY;
     }
 
+    @Attribute
     public Collection<Object> getSelection() {
         @SuppressWarnings("unchecked")
         Collection<Object> selection = (Collection<Object>) getStateHelper().eval(PropertyKeys.selection);
@@ -481,9 +475,20 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         Object value = getValue();
         if (value == null) {
             dataModel = new DeclarativeTreeDataModelImpl(this);
+        } else if (value instanceof TreeNode) {
+            dataModel = new ClassicTreeNodeDataModelImpl();
+            dataModel.setWrappedData(value);
+        } else if (value instanceof TreeDataModel<?>) {
+            if (value instanceof ExtendedDataModel<?>) {
+                dataModel = (ExtendedDataModel<?>) value;
+            } else {
+                throw new IllegalArgumentException(
+                    MessageFormat.format("TreeDataModel implementation {0} is not a subclass of ExtendedDataModel", 
+                            value.getClass().getName()));
+            }
         } else {
             dataModel = new SwingTreeNodeDataModelImpl();
-            dataModel.setWrappedData(getValue());
+            dataModel.setWrappedData(value);
         }
         
         return dataModel;

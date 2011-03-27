@@ -40,19 +40,13 @@ public interface InplaceComponent {
     public boolean isSaveOnBlur();
     
     public InplaceState getState();
-    
-    public String getReadyStateClass();
 
-    public String getEditStateClass();
+    public String getActiveClass();
 
-    public String getChangedStateClass();
+    public String getChangedClass();
 
-    public String getDisabledStateClass();
+    public String getDisabledClass();
 
-    public String getEditClass();
-
-    public String getNoneClass();
-    
     public abstract int getTabindex();
 
 }

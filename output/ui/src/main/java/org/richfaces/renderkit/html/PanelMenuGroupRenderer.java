@@ -43,14 +43,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionEvent;
 
-import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSObject;
-import org.ajax4jsf.javascript.ScriptUtils;
 import org.richfaces.PanelMenuMode;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.component.AbstractPanelMenuGroup;
 import org.richfaces.component.AbstractPanelMenuItem;
-import org.richfaces.renderkit.HtmlConstants;
 
 import com.google.common.base.Strings;
 
@@ -117,7 +114,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
         writer.writeAttribute(ID_ATTRIBUTE, expanded, null);
         writer.writeAttribute(NAME_ATTRIBUTE, expanded, null);
         writer.writeAttribute(TYPE_ATTR, INPUT_TYPE_HIDDEN, null);
-        writer.writeAttribute(VALUE_ATTRIBUTE, String.valueOf(menuGroup.isExpanded()), null);
+        writer.writeAttribute(VALUE_ATTRIBUTE, String.valueOf(menuGroup.getState()), null);
         writer.endElement(INPUT_ELEM);
 
         encodeHeader(writer, context, menuGroup);
@@ -128,7 +125,8 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
         writer.startElement(DIV_ELEM, null);
         writer.writeAttribute(ID_ATTRIBUTE, menuGroup.getClientId(context) + ":hdr", null);
         writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses(getCssClass(menuGroup, "-hdr"),
-                "rf-pm-hdr-" + (menuGroup.isExpanded() ? "exp" : "colps"), 
+                "rf-pm-hdr-" + (menuGroup.getState() ? "exp" : "colps"), 
+                (menuGroup.getPanelMenu().isBubbleSelection() && menuGroup.hasActiveItem(menuGroup, menuGroup.getPanelMenu().getActiveItem()) ? getCssClass(menuGroup, "-sel") : ""),
                 PanelMenuItemRenderer.isParentPanelMenuDisabled(menuGroup) || menuGroup.isDisabled() ? getCssClass(menuGroup, "-hdr-dis") : null), null);
 
         (menuGroup.isTopItem() ? topHeaderRenderer : headerRenderer).encodeHeader(writer, context, menuGroup);
@@ -143,7 +141,7 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
     private void encodeContentBegin(ResponseWriter writer, FacesContext context, AbstractPanelMenuGroup menuGroup) throws IOException {
         writer.startElement(DIV_ELEM, null);
         writer.writeAttribute(ID_ATTRIBUTE, menuGroup.getClientId(context) + ":cnt", null);
-        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses(getCssClass(menuGroup, "-cnt"), menuGroup.isExpanded() ? "rf-pm-exp" : "rf-pm-colps"), null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses(getCssClass(menuGroup, "-cnt"), menuGroup.getState() ? "rf-pm-exp" : "rf-pm-colps"), null);
 
         writeJavaScript(writer, context, menuGroup);
     }
@@ -202,9 +200,10 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
         options.put("disabled", PanelMenuItemRenderer.isParentPanelMenuDisabled(panelMenuGroup) || panelMenuGroup.isDisabled());
         options.put("expandEvent", getExpandEvent(panelMenuGroup));
         options.put("collapseEvent", getCollapseEvent(panelMenuGroup));
-        options.put("expanded", panelMenuGroup.isExpanded());
+        options.put("expanded", panelMenuGroup.getState());
         options.put("selectable", panelMenuGroup.isSelectable());
         options.put("unselectable", panelMenuGroup.isUnselectable());
+        options.put("stylePrefix", getCssClass(panelMenuGroup, ""));
 
         addEventOption(context, panelMenuGroup, options, COLLAPSE);
         addEventOption(context, panelMenuGroup, options, EXPAND);
@@ -235,40 +234,6 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
         return true;
     }
     
-    private boolean containsActiveItem(UIComponent component, String activeItem) {
-        if (component instanceof AbstractPanelMenuItem) {
-            AbstractPanelMenuItem item = (AbstractPanelMenuItem) component;
-            if (activeItem.equals(item.getName())) {
-                return true;
-            }
-        }
-        
-        if (component instanceof AbstractPanelMenuGroup) {
-            AbstractPanelMenuGroup group = (AbstractPanelMenuGroup) component;
-            if (!group.getPanelMenu().isBubbleSelection()) {
-                return false;
-            }
-        }
-
-        if (component.getChildCount() > 0) {
-            for (UIComponent child : component.getChildren()) {
-                if (!child.isRendered()) {
-                    continue;
-                }
-                
-                if (!(child instanceof AbstractPanelMenuItem)) {
-                    continue;
-                }
-                
-                if (containsActiveItem(child, activeItem)) {
-                    return true;
-                }
-            }
-        }
-        
-        return false;
-    }
-    
     @Override
     protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component)
         throws IOException {
@@ -277,16 +242,8 @@ public class PanelMenuGroupRenderer extends DivPanelRenderer {
         
         boolean isClientMode = group.getMode() == PanelMenuMode.client;
         
-        if (isClientMode || group.isExpanded()) {
+        if (isClientMode || group.getState()) {
             renderChildren(context, component);
-        } else {
-            String activeItem = group.getPanelMenu().getActiveItem();
-            if (!Strings.isNullOrEmpty(activeItem) && containsActiveItem(component, activeItem)) {
-                writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
-                writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.TEXT_JAVASCRIPT_TYPE, null);
-                writer.writeText(ScriptUtils.toScript(new JSFunction("RichFaces.$", component.getClientId(context))) + ".__restoreSelection();", null);
-                writer.endElement(HtmlConstants.SCRIPT_ELEM);
-            }
         }
     }
 }

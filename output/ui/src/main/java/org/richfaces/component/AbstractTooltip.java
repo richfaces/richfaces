@@ -71,6 +71,7 @@ public abstract class AbstractTooltip extends UIOutput implements AbstractDivPan
         target
     }
 
+    @Attribute(generate = false)
     public String getTarget() {
         UIComponent parent2 = getParent();
         String id2 = parent2.getId();

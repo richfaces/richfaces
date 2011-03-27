@@ -297,8 +297,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         boolean columnFacetPresent = table.isColumnFacetPresent(name);
         if (columnFacetPresent || "footer".equals(name)) {
             writer.startElement(HtmlConstants.DIV_ELEM, table);
-            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, HtmlUtil.concatClasses("rf-edt-" + getFacetClassName(name), 
-                (String) table.getAttributes().get(name + "Class")), null);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-" + getFacetClassName(name), null);
             writer.startElement(HtmlConstants.TABLE_ELEMENT, table);
             writer.writeAttribute(HtmlConstants.CELLPADDING_ATTRIBUTE, "0", null);
             writer.writeAttribute(HtmlConstants.CELLSPACING_ATTRIBUTE, "0", null);
@@ -374,7 +373,8 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
 
             writer.startElement(HtmlConstants.DIV_ELEM, table);
             writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, elementId, null);
-            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-tbl-hdr", null);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
+                HtmlUtil.concatClasses("rf-edt-tbl-hdr", table.getHeaderClass()), null);
             header.encodeAll(context);
             writer.endElement(HtmlConstants.DIV_ELEM);
 
@@ -467,7 +467,8 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
 
             writer.startElement(HtmlConstants.DIV_ELEM, table);
             writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, elementId, null);
-            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-tbl-ftr", null);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
+                HtmlUtil.concatClasses("rf-edt-tbl-ftr", table.getFooterClass()), null);
             footer.encodeAll(context);
             writer.endElement(HtmlConstants.DIV_ELEM);
 
@@ -806,10 +807,17 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             if (column.isRendered()) {
                 writer.startElement(HtmlConstants.TD_ELEM, table);
                 
-                String columnClass = getColumnClass(rowHolder, columnNumber);
+                String columnClass = concatClasses(getColumnClass(rowHolder, columnNumber), 
+                    column.getAttributes().get(HtmlConstants.STYLE_CLASS_ATTR));
                 if (!"".equals(columnClass)) {
                     writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, columnClass, null);
                 }
+                
+                String columnStyle = (String)column.getAttributes().get(HtmlConstants.STYLE_ATTRIBUTE);
+                if (!"".equals(columnStyle)) {
+                    writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, columnStyle, null);
+                }
+                
                 columnNumber++;
                 
                 writer.startElement(HtmlConstants.DIV_ELEM, table);

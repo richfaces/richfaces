@@ -42,7 +42,7 @@ import org.ajax4jsf.javascript.JSLiteral;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.component.AbstractDataScroller;
 import org.richfaces.component.DataScrollerControlsMode;
-import org.richfaces.event.DataScrollerEvent;
+import org.richfaces.event.DataScrollEvent;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 
 @ResourceDependencies( { 
@@ -68,7 +68,7 @@ public class DataScrollerBaseRenderer extends RendererBase {
             int page = scroller.getPage();
 
             if (newPage != 0 && newPage != page) {
-                new DataScrollerEvent(scroller, String.valueOf(page), param, newPage).queue();
+                new DataScrollEvent(scroller, String.valueOf(page), param, newPage).queue();
             }
         }
     }

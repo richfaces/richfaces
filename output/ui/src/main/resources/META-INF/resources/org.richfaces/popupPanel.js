@@ -175,12 +175,9 @@
                 this.borders = null;
 
                 if (this.domReattached) {
-                    var element = this.div;
-                    var parent = element.parent();
-                    if (parent) {
-                        parent.remove(element);
-                    }
+                    this.div.remove();
                 }
+
                 this.markerId = null;
                 this.options = null;
 
@@ -311,7 +308,7 @@
                             options.height = this.maxHeight;
                         }
                         $(richfaces.getDomElement(eContentElt)).css('height', options.height + (/px/.test(options.height) ? '' : 'px'));
-                        var headerHeight = $(richfaces.getDomElement(this.markerId + "_header"))[0] ? $(richfaces.getDomElement(this.markerId + "_header"))[0].clientHeight : 0;
+                        var headerHeight = $(richfaces.getDomElement(this.markerId + "_header")) ? $(richfaces.getDomElement(this.markerId + "_header")).innerHeight() : 0;
                         this.scrollerDiv.css('height', options.height - headerHeight + (/px/.test(options.height) ? '' : 'px'));
                     }
 
@@ -749,11 +746,11 @@
     $.extend(richfaces.ui.PopupPanel, {
 
         showPopupPanel : function (id, opts, event) {
-            richfaces.Event.ready(richfaces.$(id).show());
+            richfaces.Event.ready(function(){richfaces.$(id).show()});
         },
 
         hidePopupPanel : function (id, opts, event) {
-            richfaces.Event.ready(richfaces.$(id).hide());
+            richfaces.Event.ready(function(){richfaces.$(id).hide()});
         }
     });
 

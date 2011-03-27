@@ -26,19 +26,47 @@ import javax.faces.component.UIComponent;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
 
-public class PagingEvent extends FacesEvent {
+/**
+ * @author Anton Belevich
+ * 
+ */
+public class CollapsibleSubTableToggleEvent extends FacesEvent {
 
-    private static final long serialVersionUID = -8176111805839316345L;
+    private static final long serialVersionUID = 2916560585918250885L;
+    
+    private String togglerId;
 
-    public PagingEvent(UIComponent component) {
-        super(component);
+    private boolean expanded;
+    
+    
+   
+    public CollapsibleSubTableToggleEvent(UIComponent source, boolean expanded) {
+        this(source, expanded, null);
+    }
+    
+    public CollapsibleSubTableToggleEvent(UIComponent source, boolean expanded, String toggerId) {
+        super(source);
+        this.expanded = expanded;
+        this.togglerId = toggerId;
+    }
+  
+    public String getTogglerId() {
+        return togglerId;
+    }
+
+    public void setTogglerId(String togglerId) {
+        this.togglerId = togglerId;
+    }
+
+    public boolean isExpanded() {
+        return this.expanded;
     }
 
     public boolean isAppropriateListener(FacesListener listener) {
-        return listener instanceof PagingListener;
+        return (listener instanceof CollapsibleSubTableToggleListener);
     }
 
     public void processListener(FacesListener listener) {
-        ((PagingListener) listener).processPaging(this);   
+        ((CollapsibleSubTableToggleListener) listener).processCollapsibleSubTableToggle(this);
     }
 }

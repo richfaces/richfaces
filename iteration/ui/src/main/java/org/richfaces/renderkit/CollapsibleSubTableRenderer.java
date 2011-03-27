@@ -29,7 +29,7 @@ import org.richfaces.component.AbstractCollapsibleSubTable;
 import org.richfaces.component.AbstractDataTable;
 import org.richfaces.component.Row;
 import org.richfaces.component.UIDataTableBase;
-import org.richfaces.event.ToggleEvent;
+import org.richfaces.event.CollapsibleSubTableToggleEvent;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 
 import javax.faces.application.ResourceDependencies;
@@ -111,7 +111,7 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
             } 
             
             if(subTable.isExpanded() != isExpanded) {
-                new ToggleEvent(subTable, isExpanded, togglerId).queue();
+                new CollapsibleSubTableToggleEvent(subTable, isExpanded, togglerId).queue();
             }
         }
     }
@@ -185,7 +185,7 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
     public void encodeRow(ResponseWriter writer, FacesContext facesContext, RowHolderBase holder) throws IOException {
         RowHolder rowHolder = (RowHolder)holder;
         Row row = rowHolder.getRow();
-            
+        putRowStylesIntoContext(facesContext, rowHolder);    
         rowHolder.setRowStart(true);
         Iterator<UIComponent> components = row.columns();
         if (rowHolder.isUpdatePartial()) {
@@ -217,7 +217,7 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
             partialEnd(facesContext);
         }
     }
-    
+
     @Override
     public void encodeAfterRows(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase,
         boolean encodeParentTBody, boolean partialUpdate) throws IOException {

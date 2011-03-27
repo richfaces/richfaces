@@ -107,9 +107,8 @@
 		 	 }	
 	};
 
-	var getValue = function(id) {
+	var getValue = function(element) {
 		var value;
-		var element = rf.getDomElement(id);
 		if (valueExtractors[element.type]) {
 			value = valueExtractors[element.type](element);
 		} else if(undefined !== element.value ){
@@ -150,7 +149,8 @@
 			rf.Event.fire(window.document, rf.Event.MESSAGE_EVENT_TYPE, {'sourceId':componentId });
 		},
 		validate: function (event, id, element, params) {
-			var value = getValue(element || id);
+			var element = rf.getDomElement(element || id);
+			var value = getValue(element);
 			var convertedValue;
 			var converter = params.c;
 			rf.csv.clearMessage(id);
@@ -185,7 +185,7 @@
 						}
 					}
 			}
-			if(!result && !params.da && params.a){
+			if(result && !params.da && params.a){
 				params.a.call(element,event,id);
 			}
 			return result;
@@ -197,18 +197,24 @@
 	 * 
 	 */
 	var _convertNatural = function(value,label,msg,min,max,sample){
-		var result; value = $.trim(value);
-		if (!rf.csv.RE_DIGITS.test(value) || (result=parseInt(value,10))<min || result>max) {
+		var result = null;
+		if(value){
+		 value = $.trim(value);
+		 if (!rf.csv.RE_DIGITS.test(value) || (result=parseInt(value,10))<min || result>max) {
 			throw rf.csv.interpolateMessage(msg,  sample?[value, sample, label]:[value,label]);
+		 }
 		}
 		return result;
 	}
 
 	var _convertReal = function(value,label,msg,sample){
-		var result; value = $.trim(value);
-		if (!rf.csv.RE_FLOAT.test(value) || isNaN(result=parseFloat(value)) ) {
+		var result = null; 
+		if(value){
+		 value = $.trim(value);
+ 		 if (!rf.csv.RE_FLOAT.test(value) || isNaN(result=parseFloat(value)) ) {
 			// TODO - check Float limits.
 			throw rf.csv.interpolateMessage(msg,  sample?[value, sample, label]:[value,label]);
+		 }
 		}
 		return result;
 	}
@@ -341,7 +347,7 @@
 			validateRegex(value,label,params.regexp,msg);
 		},
 		"validateRequired": function (value,label,params,msg) {
-	        if (!value ) {
+	        if (undefined === value || null===value || "" === value ) {
 	        	throw rf.csv.interpolateMessage(msg, [label]);
 	        }
 		},

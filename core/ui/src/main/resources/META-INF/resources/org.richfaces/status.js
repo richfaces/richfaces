@@ -133,12 +133,12 @@
 				this.options.onstart.apply(this, arguments);
 			}
 
-			return this.__showHide('.rich-status-start');
+			return this.__showHide('.rf-st-start');
 		},
 
 		stop: function() {
 			this.__stop();
-			return this.__showHide('.rich-status-stop');
+			return this.__showHide('.rf-st-stop');
 		},
 
 		success: function() {
@@ -154,7 +154,7 @@
 			}
 			this.__stop();
 
-			return this.__showHide(':not(.rich-status-error) + .rich-status-stop, .rich-status-error');
+			return this.__showHide(':not(.rf-st-error) + .rf-st-stop, .rf-st-error');
 		},
 		
 		__showHide: function(selector) {

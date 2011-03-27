@@ -42,7 +42,7 @@ public class MethodExpressionTreeToggleListener extends MethodExpressionEventLis
         super(methodExpressionOneArg);
     }
 
-    public void processToggle(TreeToggleEvent event) throws AbortProcessingException {
+    public void processTreeToggle(TreeToggleEvent event) throws AbortProcessingException {
         processEvent(event);
     }
 

@@ -22,9 +22,12 @@
 
 package org.richfaces.component;
 
-import java.io.IOException;
-import java.util.Collection;
-import java.util.Map;
+import org.richfaces.cdk.annotations.*;
+import org.richfaces.context.ExtendedVisitContext;
+import org.richfaces.context.ExtendedVisitContextMode;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
+import org.richfaces.model.SelectionMode;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
@@ -32,17 +35,9 @@ import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
-
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.cdk.annotations.EventName;
-import org.richfaces.cdk.annotations.JsfComponent;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.cdk.annotations.Tag;
-import org.richfaces.context.ExtendedVisitContext;
-import org.richfaces.context.ExtendedVisitContextMode;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
-import org.richfaces.model.SelectionMode;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Map;
 
 
 /**
@@ -56,7 +51,8 @@ import org.richfaces.model.SelectionMode;
     family = AbstractExtendedDataTable.COMPONENT_FAMILY, 
     generate = "org.richfaces.component.UIExtendedDataTable",
     renderer = @JsfRenderer(type = "org.richfaces.ExtendedDataTableRenderer"),
-    tag = @Tag(name = "extendedDataTable")
+    tag = @Tag(name = "extendedDataTable", handler = "org.richfaces.taglib.ExtendedDataTableHandler", type = TagType.Facelets),
+    attributes = "rowKeyConverter-prop.xml"
 )
 public abstract class AbstractExtendedDataTable extends UIDataTableBase implements MetaComponentResolver, MetaComponentEncoder {
     

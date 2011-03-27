@@ -43,7 +43,7 @@ public class MethodExpressionTreeSelectionChangeListener extends MethodExpressio
         super(methodExpressionOneArg);
     }
 
-    public void processSelectionChange(TreeSelectionChangeEvent event) throws AbortProcessingException {
+    public void processTreeSelectionChange(TreeSelectionChangeEvent event) throws AbortProcessingException {
         processEvent(event);
     }
 

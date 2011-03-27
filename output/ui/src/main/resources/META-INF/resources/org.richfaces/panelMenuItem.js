@@ -161,10 +161,6 @@
             // todo move it
             this.selectionClass = this.options.stylePrefix + "-sel";
 
-            if (panelMenu.__isActiveItem(this)) {
-            	rootElt.ready($.proxy(this.__restoreSelection, this));
-            }
-            
             if (!this.options.disabled) {
                 var item = this;
 
@@ -292,11 +288,6 @@
         __header : function () {
             return this.__item();
         },
-
-        __restoreSelection: function() {
-        	this.__select();
-        	//this.__fireSelect();
-        },
         
         __isSelected: function() {
             return this.__header().hasClass(this.selectionClass);
@@ -315,7 +306,7 @@
                 item: this
             });
         },
-
+        
         __fireSelect : function () {
             return rf.Event.fireById(this.id, "select", {
                 item: this
@@ -327,6 +318,10 @@
                 item: this
             });
         },
+        
+        __fireEvent : function (eventType, event) {
+        	return this.invokeEvent(eventType, rf.getDomElement(this.id), event, {id: this.id, item: this});
+        },
 
         /**
          * @private
@@ -336,6 +331,11 @@
             if (handler) {
                 rf.Event.bindById(this.id, name, handler);
             }
+        },
+        
+        __rfTopGroup : function () {
+            var res = this.__item().parents(".rf-pm-top-gr")[0];
+            return res ? res : null;
         },
 
         destroy: function () {

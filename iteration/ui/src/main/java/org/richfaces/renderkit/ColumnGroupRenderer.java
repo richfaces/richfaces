@@ -59,7 +59,6 @@ public class ColumnGroupRenderer extends AbstractTableBaseRenderer {
                 columnNumber++;
             }    
         }
-        encodeRowEnd(writer);
     }
 
     public RowHolderBase createRowHolder(FacesContext context, UIComponent component, Object[] options) {

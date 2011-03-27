@@ -17,7 +17,14 @@
     padding:0px;
 }
 
-.rf-cst {
+.rf-csttg-lnk {
+    vertical-align: top;
+}
+
+.rf-cst, .rf-cst-nd {
+    border-bottom-width:'#{richSkin.tableBorderWidth}';
+	border-bottom-style:solid;
+    border-bottom-color:'#{richSkin.tableBorderColor}';
 }
 
 .rf-cst-r{
@@ -32,7 +39,7 @@
 .rf-cst-hdr-fst-r{
 }
 
-.rf-cst-c{
+.rf-cst-c, .rf-cst-nd-c{
 	border-bottom-width:'#{richSkin.tableBorderWidth}';
 	border-bottom-style:solid;
 	border-bottom-color:'#{richSkin.tableBorderColor}';

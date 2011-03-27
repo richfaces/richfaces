@@ -102,29 +102,6 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
     };
 
     @Override
-    protected void doDecode(FacesContext context, UIComponent component) {
-        AbstractTogglePanel panel = (AbstractTogglePanel) component;
-
-        Map<String, String> requestMap =
-              context.getExternalContext().getRequestParameterMap();
-
-        // Don't overwrite the value unless you have to!
-        String newValue = requestMap.get(getValueRequestParamName(context, component));
-        if (newValue != null) {
-            panel.setSubmittedActiveItem(newValue);
-        }
-
-        String compClientId = component.getClientId(context);
-        String clientId = requestMap.get(compClientId);
-        if (clientId != null && clientId.equals(compClientId)) {
-            context.getPartialViewContext().getRenderIds().add(clientId);
-
-            //TODO nick - this should be done on encode, not on decode
-            addOnCompleteParam(context, newValue, panel.getClientId(context));
-        }
-    }
-
-    @Override
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         super.doEncodeBegin(writer, context, component);
 

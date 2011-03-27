@@ -30,6 +30,7 @@
 	top: 6px;
 	left: 6px;
     bottom: -6px;
+    z-index: -1;
 }
 
 .rf-pp-cntr {
@@ -73,7 +74,6 @@
  	top : 0px;
  	left : 0px;
  	overflow : auto;
-    position: relative;
     background : '#{richSkin.generalBackgroundColor}';
 }
 .rf-pp-cnt {	

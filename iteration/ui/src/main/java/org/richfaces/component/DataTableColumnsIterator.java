@@ -24,7 +24,10 @@ package org.richfaces.component;
 
 import java.util.Iterator;
 
+import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
+
+import com.google.common.collect.AbstractIterator;
 
 
 /**
@@ -33,25 +36,26 @@ import javax.faces.component.UIComponent;
  * @author asmirnov
  * 
  */
-class DataTableColumnsIterator extends DataTableIteratorBase<UIComponent> {
+class DataTableColumnsIterator extends AbstractIterator<UIComponent> {
 
-    protected Iterator<UIComponent> childrenIterator;
-
-    public DataTableColumnsIterator(UIComponent dataTable) {
-        this.childrenIterator = dataTable.getChildren().iterator();
+    private Iterator<UIComponent> childrenIterator;
+    
+    public DataTableColumnsIterator(UIComponent component) {
+        super();
+        this.childrenIterator = component.getChildren().iterator();
     }
 
-    protected UIComponent nextItem() {
-        while (childrenIterator != null && childrenIterator.hasNext()) {
+    @Override
+    protected UIComponent computeNext() {
+        while (childrenIterator.hasNext()) {
             UIComponent child = childrenIterator.next();
-            if (child instanceof javax.faces.component.UIColumn || child instanceof Column) {
+            
+            if (child instanceof UIColumn || child instanceof Column) {
                 return child;
             }
         }
-
-        // TODO nick - free childrenIterator field
-
-        return null;
+        
+        return endOfData();
     }
-
+    
 }

@@ -39,7 +39,7 @@ import org.ajax4jsf.component.IterationStateHolder;
 import org.richfaces.DataScrollerUtils;
 import org.richfaces.application.MessageFactory;
 import org.richfaces.application.ServiceTracker;
-import org.richfaces.appplication.FacesMessages;
+import org.richfaces.application.FacesMessages;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -47,9 +47,9 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.util.MessageUtil;
-import org.richfaces.event.DataScrollerEvent;
-import org.richfaces.event.DataScrollerListener;
-import org.richfaces.event.DataScrollerSource;
+import org.richfaces.event.DataScrollEvent;
+import org.richfaces.event.DataScrollListener;
+import org.richfaces.event.DataScrollSource;
 
 
 @JsfComponent(
@@ -59,7 +59,7 @@ import org.richfaces.event.DataScrollerSource;
     renderer = @JsfRenderer(type = "org.richfaces.DataScrollerRenderer"),
     tag = @Tag(name="dataScroller", handler="org.richfaces.taglib.DataScrollerHandler", type=TagType.Facelets)
 )
-public abstract class AbstractDataScroller extends UIComponentBase implements DataScrollerSource, IterationStateHolder {
+public abstract class AbstractDataScroller extends UIComponentBase implements DataScrollSource, IterationStateHolder {
 
     public static final String COMPONENT_TYPE = "org.richfaces.DataScroller";
 
@@ -94,6 +94,9 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
 
     @Attribute
     public abstract String getLastPageMode();
+
+    @Attribute
+    public  abstract Object getRender();
 
     @Attribute
     public abstract int getMaxPages();
@@ -136,21 +139,21 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
         getStateHelper().put("for", forId);
     }
 
-    public void addScrollerListener(DataScrollerListener listener) {
+    public void addScrollListener(DataScrollListener listener) {
         addFacesListener(listener);
     }
 
-    public DataScrollerListener[] getScrollerListeners() {
-        return (DataScrollerListener[]) getFacesListeners(DataScrollerListener.class);
+    public DataScrollListener[] getScrollListeners() {
+        return (DataScrollListener[]) getFacesListeners(DataScrollListener.class);
     }
 
-    public void removeScrollerListener(DataScrollerListener listener) {
+    public void removeScrollListener(DataScrollListener listener) {
         removeFacesListener(listener);
     }
 
     public void broadcast(FacesEvent event) throws AbortProcessingException {
-        if (event instanceof DataScrollerEvent) {
-            DataScrollerEvent dataScrollerEvent = (DataScrollerEvent) event;
+        if (event instanceof DataScrollEvent) {
+            DataScrollEvent dataScrollerEvent = (DataScrollEvent) event;
 
             updateModel(dataScrollerEvent.getPage());
 

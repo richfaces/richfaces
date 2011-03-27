@@ -21,34 +21,6 @@
  */
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.el.ELException;
-import javax.el.ExpressionFactory;
-import javax.el.MethodExpression;
-import javax.el.MethodNotFoundException;
-import javax.el.ValueExpression;
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialResponseWriter;
-import javax.faces.context.PartialViewContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.convert.Converter;
-import javax.faces.convert.ConverterException;
-import javax.faces.model.ArrayDataModel;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
-import javax.faces.model.ResultDataModel;
-import javax.faces.model.ResultSetDataModel;
-import javax.servlet.jsp.jstl.sql.Result;
-
 import org.ajax4jsf.javascript.JSObject;
 import org.ajax4jsf.javascript.JSReference;
 import org.richfaces.application.ServiceTracker;
@@ -61,6 +33,26 @@ import org.richfaces.context.ExtendedPartialViewContext;
 import org.richfaces.el.GenericsIntrospectionService;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
+
+import javax.el.*;
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.component.ValueHolder;
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialResponseWriter;
+import javax.faces.context.PartialViewContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
+import javax.faces.model.*;
+import javax.servlet.jsp.jstl.sql.Result;
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Nick Belaevski
@@ -159,41 +151,32 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
         }
     }
 
-    protected void encodeItems(FacesContext facesContext, UIComponent component, List<Object> fetchValues)
-        throws IOException {
+    protected void encodeItems(FacesContext facesContext, UIComponent component, List<Object> fetchValues) throws IOException {
         AbstractAutocomplete comboBox = (AbstractAutocomplete) component;
         AutocompleteEncodeStrategy strategy = getStrategy(component);
         strategy.encodeItemsContainerBegin(facesContext, component);
 
-        boolean hasEncodedElements = false;
-
         Object savedVar = saveVar(facesContext, comboBox.getVar());
-        DataModel<Object> model = getItems(facesContext, comboBox);
-        for (Iterator<Object> items = model.iterator(); items.hasNext();) {
-            hasEncodedElements = true;
+        Iterator<Object> itemsIterator = getItems(facesContext, comboBox).iterator();
 
-            Object nextItem = items.next();
-            setVar(facesContext, comboBox.getVar(), nextItem);
+        if (!itemsIterator.hasNext()) {
+            strategy.encodeFakeItem(facesContext, component);
+        } else {
+            while (itemsIterator.hasNext()) {
+                Object item = itemsIterator.next();
 
-            this.encodeItem(facesContext, comboBox, nextItem, strategy);
-            if (comboBox.getFetchValue() != null) {
-                fetchValues.add(comboBox.getFetchValue().toString());
-            } else {
-                // TODO use converter
-                if (comboBox.getItemConverter() != null) {
-                    fetchValues.add(comboBox.getItemConverter().getAsString(facesContext, component, nextItem));
-                } else {
-                    fetchValues.add(nextItem.toString());
+                setVar(facesContext, comboBox.getVar(), item);
+                this.encodeItem(facesContext, comboBox, item, strategy);
+
+                if (comboBox.getFetchValue() != null) {
+                    fetchValues.add(comboBox.getFetchValue().toString());
+                } else if(item != null) {
+                    fetchValues.add(item.toString());
                 }
-
             }
         }
 
         setVar(facesContext, comboBox.getVar(), savedVar);
-
-        if (!hasEncodedElements) {
-            strategy.encodeFakeItem(facesContext, component);
-        }
 
         strategy.encodeItemsContainerEnd(facesContext, component);
     }
@@ -226,26 +209,17 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
 
     public void encodeItem(FacesContext facesContext, AbstractAutocomplete comboBox, Object item,
                            AutocompleteEncodeStrategy strategy) throws IOException {
-    	ResponseWriter writer = facesContext.getResponseWriter();
+        ResponseWriter writer = facesContext.getResponseWriter();
         if (comboBox.getChildCount() > 0) {
             strategy.encodeItem(facesContext, comboBox);
         } else {
             if (item != null) {
-            	strategy.encodeItemBegin(facesContext, comboBox);
-            	writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-au-itm rf-au-opt rf-au-fnt rf-au-inp", null);
-                // TODO nick - use converter
-                String value = null;
-                if (comboBox.getItemConverter() != null) {
-                    value = comboBox.getItemConverter().getAsString(facesContext, comboBox, item);
-                }
-                if (value != null) {
-                    writer.writeText(value, null);
-                }
+                strategy.encodeItemBegin(facesContext, comboBox);
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-au-itm rf-au-opt rf-au-fnt rf-au-inp", null);
                 writer.writeText(item, null);
                 strategy.encodeItemEnd(facesContext, comboBox);
             }
         }
-        
     }
 
     private AutocompleteEncodeStrategy getStrategy(UIComponent component) {
@@ -271,7 +245,7 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
             return;
         }
         Map<String, String> requestParameters = context.getExternalContext().getRequestParameterMap();
-        String value = requestParameters.get(component.getClientId(context) + "Value");
+        String value = requestParameters.get(component.getClientId(context) + "Input");
         if (value != null) {
             autocomplete.setSubmittedValue(value);
         }
@@ -320,17 +294,18 @@ public abstract class AutocompleteRendererBase extends InputRendererBase impleme
         }
         return value;
     }
-    
+
     private Converter getConverterForValue(FacesContext context, UIComponent component) {
-        Converter converter = null;
-        ValueExpression expression = component.getValueExpression("value");
+        Converter converter = ((ValueHolder) component).getConverter();
+        if (converter == null) {
+            ValueExpression expression = component.getValueExpression("value");
 
-        if (expression != null) {
-            Class<?> containerClass = ServiceTracker.getService(context, GenericsIntrospectionService.class).getContainerClass(context, expression);
+            if (expression != null) {
+                Class<?> containerClass = ServiceTracker.getService(context, GenericsIntrospectionService.class).getContainerClass(context, expression);
 
-            converter = InputUtils.getConverterForType(context, containerClass);
+                converter = InputUtils.getConverterForType(context, containerClass);
+            }
         }
-
         return converter;
     }
 

@@ -41,40 +41,43 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	<cc:implementation>
 		<cdk:object type="org.richfaces.component.InplaceState" name="inplaceState" value="#{getInplaceState(component)}" />
 		<cdk:object type="java.lang.String" name="inplaceValue" value="#{getValue(facesContext, component)}" />
-		
-		<span id="#{clientId}" class="#{getStateStyleClass(component, inplaceState)}" cdk:passThroughWithExclusions="id class">
+        <cdk:object type="java.lang.String" name="defaultLabel" value="#{inplaceValue != null and inplaceValue.length() != 0 ? inplaceValue : '&#160;&#160;&#160;'}" />
+
+		<span id="#{clientId}" cdk:passThroughWithExclusions="id class" 
+		class="#{concatClasses(getContainerStyleClasses(component), component.attributes['styleClass'])}">
 			<span id="#{clientId}Label" class="rf-ii-lbl#{inplaceValue == component.attributes['defaultLabel'] ? ' rf-ii-dflt-lbl' : ''}">
-				#{inplaceValue}
+				#{defaultLabel}
 			</span>
 			
 			<c:if test="#{!component.attributes['disabled']}">
-				<input id="#{clientId}Focus" type="image" style="position: absolute; top: 0px; left: 0px; outline-style: none;" class="rf-ii-none"/>
+				<input id="#{clientId}Focus" type="image" tabindex="-1" style="position: absolute; top: 0px; left: 0px; outline-style: none;" class="rf-ii-none"/>
 				<span id="#{clientId}Edit" class="#{getEditStyleClass(component, inplaceState)}">
-					<input id="#{clientId}Input" autocomplete="off" name="#{clientId}" 
+					<input id="#{clientId}Input" autocomplete="off" name="#{clientId}"
 						   type="text" value="#{getInputValue(facesContext, component)}" class="rf-ii-fld" style="width: #{getInputWidth(component)};"  cdk:passThrough="tabindex">
 						    <cdk:call expression="renderInputHandlers(facesContext, component);"/>
 					</input>
 					<c:if test="#{component.attributes['showControls']}">
 						<span class="rf-ii-btn-prepos">
 							<span class="rf-ii-btn-pos">
-								<span id="#{clientId}Btnshadow" class="rf-ii-btn-shadow">
+								<span id="#{clientId}Btnshadow" class="rf-ii-btn-shdw">
 									<span class="rf-ii-btn-shdw-t"></span>
 									<span class="rf-ii-btn-shdw-l"></span>
 									<span class="rf-ii-btn-shdw-r"></span>
 									<span class="rf-ii-btn-shdw-b"></span>
 			
-									<span id="#{clientId}Btn" style="position : relative">
+									<span id="#{clientId}Btn" class="rf-ii-btn-cntr">
 										<input type="image"
 											id="#{clientId}Okbtn"
 											src="#{getResourcePath(facesContext, 'org.richfaces', 'ico_ok.gif')}"
 											class="rf-ii-btn" onmousedown="this.className='rf-ii-btn-p'"
-											onmouseout="this.className='rf-ii-btn'" onmouseup="this.className='rf-ii-btn'" />
+											onmouseout="this.className='rf-ii-btn'" onmouseup="this.className='rf-ii-btn'"
+											tabindex="-1" />
 										<input type="image"
 											id="#{clientId}Cancelbtn"
 											src="#{getResourcePath(facesContext,'org.richfaces', 'ico_cancel.gif')}"
 											class="rf-ii-btn" onmousedown="this.className='rf-ii-btn-press'"
-											onmouseout="this.className='rf-ii-btn'" onmouseup="this.className='rf-ii-btn'" />
-										<br />
+											onmouseout="this.className='rf-ii-btn'" onmouseup="this.className='rf-ii-btn'"
+											tabindex="-1" />
 									</span>
 								</span>
 							</span>
@@ -83,12 +86,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 				</span>
 				<script type="text/javascript">	
 					<cdk:scriptObject name="options">
-						<cdk:scriptOption name="readyCss" value="#{concatClasses('rf-ii-d-s', component.attributes['readyStateClass'])}"/>
+						<cdk:scriptOption name="readyCss" value="#{concatClasses('rf-ii', component.attributes['readyStateClass'])}"/>
 						<cdk:scriptOption name="noneCss" value="#{concatClasses('rf-ii-none', component.attributes['noneStateClass'])}"/>
-						<cdk:scriptOption name="changedCss" value="#{concatClasses('rf-ii-c-s', component.attributes['changedStateClass'])}"/>
-						<cdk:scriptOption name="editCss" value="#{concatClasses('rf-ii-e-s', component.attributes['editStateClass'])}"/>
+						<cdk:scriptOption name="changedCss" value="#{concatClasses('rf-ii-chng', component.attributes['changedClass'])}"/>
+						<cdk:scriptOption name="editCss" value="#{concatClasses('rf-ii-act', component.attributes['activeClass'])}"/>
 						<cdk:scriptOption name="editEvent" value="#{getEditEvent(component)}"/>
-					  	<cdk:scriptOption attributes="state defaultLabel saveOnBlur showControls" />
+                        <cdk:scriptOption name="defaultLabel" value="#{defaultLabel}" />
+					  	<cdk:scriptOption attributes="state saveOnBlur showControls" />
 					  	<cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onselectitem onchange onblur onfocus" wrapper="eventHandler"/>
                 	</cdk:scriptObject>
 					new RichFaces.ui.InplaceInput("#{clientId}", #{toScriptArgs(options)});

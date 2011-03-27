@@ -28,8 +28,8 @@ import javax.faces.event.FacesListener;
  * @author Anton Belevich
  * 
  */
-public interface ToggleListener extends FacesListener {
+public interface CollapsibleSubTableToggleListener extends FacesListener {
 
-    public void processToggle(ToggleEvent event);
+    public void processCollapsibleSubTableToggle(CollapsibleSubTableToggleEvent event);
 
 }
