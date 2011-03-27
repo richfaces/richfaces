@@ -8,7 +8,7 @@
        <h:form>
          <h:dataTable value="#{pages.xhtmlPages}" var="page">
            <h:column>
-              <h:outputLink value="#{page.url}" >#{page.title}</h:outputLink>
+              <h:outputLink value="#{page.url}" ><h:outputText value="#{page.title}" escape="false"/></h:outputLink>
            </h:column>
          </h:dataTable>
        </h:form>

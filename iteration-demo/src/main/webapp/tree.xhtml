@@ -107,10 +107,14 @@
 
 	<h:form id="form">
 		Base tree:
-		<it:tree id="tree" nodeType="#{node.parent == null ? 'rootNode': 'childNode'}" var="node" value="#{treeBean.rootNodes}" 
+		<it:tree id="tree" nodeType="#{node.parent == null ? 'rootNode': 'childNode'}" var="node" value="#{treeBean.rootNodes}"
 			selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}" selection="#{treeBean.selection}">
-			<it:treeNode type="rootNode">
-				<h:panelGroup id="rootNodeGroup">
+
+            <it:treeToggleListener listener="#{treeBean.toggleActionListenerImpl.processToggleAction}" />
+            <it:treeSelectionChangeListener binding="#{treeBean.selectionChangeActionListener}" type="org.richfaces.demo.SelectionChangeActionListenerImpl" />
+
+            <it:treeNode type="rootNode">
+                <h:panelGroup id="rootNodeGroup">
 					Root node: #{node.data} - 
 					<h:commandLink value="link" action="#{treeBean.clickNode}">
 						<f:ajax render=":messages" />						
@@ -130,6 +134,30 @@
 		<h:commandLink value="Re-render">
 			<f:ajax render=":form:tree" execute="@all" />
 		</h:commandLink>
+
+		org.richfaces.model.TreeNode support:
+		<it:tree id="treeNodeSupport" value="#{treeBean.classicTreeNode}" var="node" 
+		selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}"
+		rowKeyConverter="#{treeBean.integerSequenceKeyConveter}">
+			<it:treeNode>
+				#{node.data} - 
+				<h:commandLink value="link" action="#{treeBean.clickNode}">
+					<f:ajax render=":messages" />						
+				</h:commandLink>
+			</it:treeNode>
+		</it:tree>
+		
+		org.richfaces.model.TreeDataModel support:
+		<it:tree id="treeDataModelSupport" value="#{treeBean.treeDataModel}" var="node" 
+		selectionType="#{treeBean.selectionType}" toggleType="#{treeBean.toggleType}"
+		rowKeyConverter="#{treeBean.integerSequenceKeyConveter}">
+			<it:treeNode>
+				#{node.data} - 
+				<h:commandLink value="link" action="#{treeBean.clickNode}">
+					<f:ajax render=":messages" />						
+				</h:commandLink>
+			</it:treeNode>
+		</it:tree>
 
 		Tree with customized look:
 		<it:tree id="customizedTree" var="node" value="#{treeBean.rootNodes}" 

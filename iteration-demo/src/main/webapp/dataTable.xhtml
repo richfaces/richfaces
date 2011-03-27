@@ -18,7 +18,8 @@
         <it:dataScroller id="scroller1" for="richTable" page="#{dataBean.page}" maxPages="7"></it:dataScroller>
 
         <it:dataTable keepSaved="true" id="richTable" var="record" rowKeyVar="rowKey" value="#{dataBean.employeeList}"
-                      rows="20" sortMode="single">
+                      rows="20" sortMode="single" rowClass='#{record}'
+                      cellClass="cellClQwerty" firstRowClass="firstRowClass123">
             <f:facet name="caption">
                 <h:outputText id="captioFacet1" value="Caption Facet"/>
             </f:facet>
@@ -60,7 +61,7 @@
 
             <it:collapsibleSubTable id="collapsibleSubTable" var="company"
                                     value="#{record.companies}" rows="1" switchType="ajax"
-                                    expanded="true">
+                                    expanded="true" rowClass="#{company}">
                 <f:facet name="header">
                     <it:dataScroller id="subscroller" for="collapsibleSubTable"
                                      maxPages="3"></it:dataScroller>

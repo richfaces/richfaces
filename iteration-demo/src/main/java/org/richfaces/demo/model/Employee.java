@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.richfaces.event.ToggleEvent;
+import org.richfaces.event.CollapsibleSubTableToggleEvent;
 
 public class Employee {
 
@@ -100,7 +100,7 @@ public class Employee {
         return hash;
     }
 
-    public void toggle(ToggleEvent event) {
+    public void toggle(CollapsibleSubTableToggleEvent event) {
         this.expand = event.isExpanded();
     }
 

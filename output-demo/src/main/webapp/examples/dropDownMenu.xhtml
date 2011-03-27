@@ -130,7 +130,7 @@
                 <ddm:menuItem label="Close" disabled="true"/>
                 <ddm:menuSeparator id="menuSeparator11" />
                 <ddm:menuItem label="Exit" action="#{menuBean.doExit}"/>
-                <ddm:menuItem action="#{menuBean.doExit}">
+                <ddm:menuItem >
                 <h:inputText />
                 </ddm:menuItem>
                 <ddm:menuItem label="Add user!" mode="client">
@@ -155,9 +155,13 @@
                     <f:selectItem itemValue="ajax"/>
                     <f:selectItem itemValue="client"/>
                 </h:selectOneMenu><br/>
-            </h:panelGrid>  
+                <h:outputText value="Set skin to 'myskin' with custom font size and font weight:"/>
+                <h:commandButton value="myskin">
+                    <f:setPropertyActionListener target="#{skinBean.skin}" value="myskin"/>
+                </h:commandButton>
+            </h:panelGrid>
 
-        </h:panelGrid>  
+            </h:panelGrid>
         </h:form>
 		<br/>        
 		<br/>
@@ -246,6 +250,14 @@
 				<br/>
 				<br/>
 				<ddm:toolbar >
+                    <ddm:dropDownMenu id="ddmenuToolbar" horizontalOffset="10" verticalOffset="20" jointPoint="topRight" direction="bottomRight" style="border:0px solid #{a4jSkin.panelBorderColor}">
+                           <f:facet name="label">
+                               <h:panelGroup>
+                                   <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic"/>
+                                   <h:outputText value="File"/>
+                               </h:panelGroup>
+                           </f:facet>
+                    </ddm:dropDownMenu>
 				`	<ddm:menuItem id="menuItemToolbar1"/>
 					<ddm:menuItem id="menuItemFacet1" label="Open" action="#{menuBean.doOpen}">
                     <f:facet name="icon">

@@ -19,16 +19,16 @@
 					<h:inputText id="${bean.label}" value="#{bean.value}" label="#{bean.label}" converter="#{bean.converter}">
 						<csv:validator summary="Invalid value" />
 					</h:inputText>
-					<csv:message for="${bean.label}" />
+					<csv:message for="${bean.label}" tooltip="true"/>
 			</c:forEach>
                     <h:outputLabel for="assertTrue" value="#{booleanBean.description}" />
                     <h:selectBooleanCheckbox id="assertTrue" value="#{booleanBean.value}" label="#{booleanBean.label}" >
                         <csv:validator summary="Required checkbox" />
                     </h:selectBooleanCheckbox>
-                    <csv:message for="assertTrue" />
+                    <csv:message for="assertTrue" showDetail="true" showSummary="true"/>
 			</h:panelGrid>
 			<h:commandButton value="Submit"></h:commandButton>
-			<csv:messages />
+			<csv:messages showDetail="true" showSummary="true"/>
 		</h:form>
 	</ui:define>
 </ui:composition>

@@ -95,7 +95,25 @@
 				<h:commandLink value="Link">
 					<a:ajax bypassUpdates="#{true}" />
 				</h:commandLink>
+
+
 			</h:panelGrid>
 		</h:form>
+
+        <!-- https://issues.jboss.org/browse/RF-10728 -->
+        <h:form>
+           <h:panelGrid columns="2">
+               f:ajax with  h:commandLink
+                <h:commandLink value="commandLink">
+                    <f:ajax disabled="false"/>
+                </h:commandLink>
+               disabled   f:ajax with  h:commandLink
+                <h:commandLink value="commandLink">
+                    <f:ajax disabled="true"/>
+                </h:commandLink>
+           </h:panelGrid>
+
+
+        </h:form>
 	</h:body>
 </html>

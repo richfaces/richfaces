@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:input="http://richfaces.org/input">
+<f:view contentType="text/html"/>
+
+<h:head>
+    <title>Richfaces Autocomplete</title>
+</h:head>
+
+<h:body style="margin: 30px;">
+
+    <ui:composition template="/templates/template.xhtml">
+
+        <ui:define name="title">Autocomplete Converter Example</ui:define>
+        <ui:define name="body_head">Autocomplete Converter Example</ui:define>
+
+        <ui:define name="body">
+            <h:form>
+                <h:outputLabel for="autocompleteConverter">Autocomplete with converter:</h:outputLabel>
+                <input:autocomplete autocompleteMethod="#{autoCompleteBean.autocomplete}" var="country"
+                                    fetchValue="#{country.name}"
+                                    mode="ajax" layout="list"
+                                    converter="autocompleteBeanConverter" value="#{autoCompleteBean.value}"
+                                    id="autocompleteConverter">
+                    #{country.name}
+                </input:autocomplete>
+                <h:commandButton value="Submit Country"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</h:body>
+</html>

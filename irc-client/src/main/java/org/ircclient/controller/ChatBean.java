@@ -2,7 +2,7 @@ package org.ircclient.controller;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.text.MessageFormat;
+import java.text.DateFormat;
 import java.util.Date;
 
 import javax.faces.application.FacesMessage;
@@ -35,9 +35,10 @@ public class ChatBean extends PircBot implements Serializable {
 
     private String channelName;
     private String message;
+
     private transient TopicsContext topicsContext;
 
-    public void connect() {
+    public String connect() {
         try {
             this.connect(SERVER_URL, SERVER_PORT);
             this.joinChannel(CHANNEL_PREFIX + DEFAULT_CHANNEL);
@@ -47,22 +48,27 @@ public class ChatBean extends PircBot implements Serializable {
                 null,
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, this.getName() + " nick already in use", this.getName()
                     + " nick already in use"));
+            return null;
         } catch (IOException e) {
             FacesContext.getCurrentInstance().addMessage(
                 null,
                 new FacesMessage(FacesMessage.SEVERITY_ERROR, "Sorry, server unresponsible. Try again later.",
                     "Sorry, server unresponsible. Try again later."));
+            return null;
         } catch (IrcException e) {
             FacesContext.getCurrentInstance().addMessage(
                 null,
                 new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Sorry, we encountered IRC services problems. Try again later.",
                     "Sorry, we encountered IRC services problems. Try again later."));
+            return null;
         }
+        return "chat";
     }
 
-    public void leave() {
+    public String leave() {
         this.disconnect();
+        return "welcome";
     }
 
     private TopicsContext getTopicsContext() {
@@ -72,12 +78,19 @@ public class ChatBean extends PircBot implements Serializable {
         return topicsContext;
     }
 
+    public String getMessagesSubtopic() {
+        return this.getUserName() + SUBTOPIC_SEPARATOR + channelName;
+    }
+
+    public String getListSubtopic() {
+        return this.getUserName() + SUBTOPIC_SEPARATOR + channelName + "List";
+    }
+
     @Override
     protected void onMessage(String channel, String sender, String login, String hostname, String message) {
-        String channelName = channel.replace(CHANNEL_PREFIX, "");
         try {
-            getTopicsContext().publish(new TopicKey("chat", this.getUserName() + SUBTOPIC_SEPARATOR + channelName),
-                MessageFormat.format("{0,time,medium} {1}: {2}", new Date(), sender, message));
+            Message messageObject = new Message(message, sender, DateFormat.getInstance().format(new Date()));
+            getTopicsContext().publish(new TopicKey("chat", getMessagesSubtopic()), messageObject);
         } catch (MessageException e) {
             LOGGER.error(e.getMessage(), e);
         }
@@ -86,7 +99,7 @@ public class ChatBean extends PircBot implements Serializable {
     @Override
     protected void onUserList(String channel, User[] users) {
         try {
-            getTopicsContext().publish(new TopicKey("chat", this.getUserName() + SUBTOPIC_SEPARATOR + channelName + "List"), null);
+            getTopicsContext().publish(new TopicKey("chat", getListSubtopic()), null);
         } catch (MessageException e) {
             LOGGER.error(e.getMessage(), e);
         }
@@ -95,9 +108,9 @@ public class ChatBean extends PircBot implements Serializable {
     @Override
     protected void onJoin(String channel, String sender, String login, String hostname) {
         try {
-            getTopicsContext().publish(new TopicKey("chat", this.getUserName() + SUBTOPIC_SEPARATOR + channelName + "List"), null);
-            getTopicsContext().publish(new TopicKey("chat", this.getUserName() + SUBTOPIC_SEPARATOR + channelName),
-                MessageFormat.format("{0,time,medium} {1}: {2}", new Date(), sender, "joined channel"));
+            getTopicsContext().publish(new TopicKey("chat", getListSubtopic()), null);
+            Message messageObject = new Message("joined channel", sender, DateFormat.getInstance().format(new Date()));
+            getTopicsContext().publish(new TopicKey("chat", getMessagesSubtopic()), messageObject);
         } catch (MessageException e) {
             LOGGER.error(e.getMessage(), e);
         }
@@ -106,9 +119,9 @@ public class ChatBean extends PircBot implements Serializable {
     @Override
     protected void onPart(String channel, String sender, String login, String hostname) {
         try {
-            getTopicsContext().publish(new TopicKey("chat", this.getUserName() + SUBTOPIC_SEPARATOR + channelName + "List"), null);
-            getTopicsContext().publish(new TopicKey("chat", this.getUserName() + SUBTOPIC_SEPARATOR + channelName),
-                MessageFormat.format("{0,time,medium} {1}: {2}", new Date(), sender, "left channel"));
+            getTopicsContext().publish(new TopicKey("chat", getListSubtopic()), null);
+            Message messageObject = new Message("left channel", sender, DateFormat.getInstance().format(new Date()));
+            getTopicsContext().publish(new TopicKey("chat", getMessagesSubtopic()), messageObject);
         } catch (MessageException e) {
             LOGGER.error(e.getMessage(), e);
         }
@@ -117,9 +130,10 @@ public class ChatBean extends PircBot implements Serializable {
     @Override
     protected void onNickChange(String oldNick, String login, String hostname, String newNick) {
         try {
-            getTopicsContext().publish(new TopicKey("chat", this.getUserName() + SUBTOPIC_SEPARATOR + channelName + "List"), null);
-            getTopicsContext().publish(new TopicKey("chat", this.getUserName() + SUBTOPIC_SEPARATOR + channelName),
-                MessageFormat.format("{0,time,medium} {1}", new Date(), oldNick + " changed nick to " + newNick));
+            getTopicsContext().publish(new TopicKey("chat", getListSubtopic()), null);
+            Message messageObject = new Message(" changed nick to " + newNick, oldNick, DateFormat.getInstance()
+                .format(new Date()));
+            getTopicsContext().publish(new TopicKey("chat", getMessagesSubtopic()), messageObject);
         } catch (MessageException e) {
             LOGGER.error(e.getMessage(), e);
         }
@@ -128,9 +142,10 @@ public class ChatBean extends PircBot implements Serializable {
     @Override
     protected void onQuit(String sourceNick, String sourceLogin, String sourceHostname, String reason) {
         try {
-            getTopicsContext().publish(new TopicKey("chat", this.getUserName() + SUBTOPIC_SEPARATOR + channelName + "List"), null);
-            getTopicsContext().publish(new TopicKey("chat", this.getUserName() + SUBTOPIC_SEPARATOR + channelName),
-                MessageFormat.format("{0,time,medium} {1}: {2} {3}", new Date(), sourceNick, "joined channel", reason));
+            getTopicsContext().publish(new TopicKey("chat", getListSubtopic()), null);
+            Message messageObject = new Message("left channel" + reason, sourceNick, DateFormat.getInstance().format(
+                new Date()));
+            getTopicsContext().publish(new TopicKey("chat", getMessagesSubtopic()), messageObject);
         } catch (MessageException e) {
             LOGGER.error(e.getMessage(), e);
         }
@@ -143,8 +158,8 @@ public class ChatBean extends PircBot implements Serializable {
     public void send() {
         this.sendMessage(CHANNEL_PREFIX + channelName, message);
         try {
-            getTopicsContext().publish(new TopicKey("chat", this.getUserName() + SUBTOPIC_SEPARATOR + channelName),
-                MessageFormat.format("{0,time,medium} {1}: {2}", new Date(), this.getName(), message));
+            Message messageObject = new Message(message, this.getName(), DateFormat.getInstance().format(new Date()));
+            getTopicsContext().publish(new TopicKey("chat", getMessagesSubtopic()), messageObject);
         } catch (MessageException e) {
             LOGGER.error(e.getMessage(), e);
         }
@@ -185,4 +200,5 @@ public class ChatBean extends PircBot implements Serializable {
     public void setMessage(String message) {
         this.message = message;
     }
+
 }

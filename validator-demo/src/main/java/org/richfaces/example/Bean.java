@@ -1,5 +1,11 @@
 package org.richfaces.example;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class Bean {
     
     public static final String FOO_VALUE = "fooValue";
@@ -15,6 +21,8 @@ public class Bean {
     private double doubleValue;
     
     private String email;
+
+    private String numbers;
 
     /**
      * @return the value
@@ -98,5 +106,18 @@ public class Bean {
     public void setEmail(String email) {
         this.email = email;
     }
+    @NotNull
+    @NotEmpty
+    @Digits(fraction = 0, integer = 2)
+    @Pattern(regexp = "^[0-9-]+$", message = "must contain only numbers")
+    public String getNumbers()
+    {
+       return this.numbers;
+    }
+    
+    public void setNumbers(String numbers) {
+        this.numbers = numbers;
+    }
+
 
 }

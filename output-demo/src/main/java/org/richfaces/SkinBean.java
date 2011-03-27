@@ -22,10 +22,11 @@ public class SkinBean implements Serializable {
         new SelectItem("NULL"),
         new SelectItem("plain"),
         new SelectItem("ruby"),
-        new SelectItem("wine")
+        new SelectItem("wine"),
+        new SelectItem("myskin")
     };
 
-    private String skin = "classic";
+    private String skin = "myskin";
 
     private boolean enableElementsSkinning = true;
 

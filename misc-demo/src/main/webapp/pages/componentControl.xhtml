@@ -9,16 +9,7 @@
 	<h:head></h:head>
 	<h:body>
 		<h:form>
-			<input:autocomplete id="myInput" value="aaaaaa"/>
-			<h:commandButton value="getValue">
-				<misc:componentControl target="myInput" operation="getValue" event="click"/>
-	        </h:commandButton>
-	        <h:commandButton value="setValue">
-				<misc:componentControl target="myInput" operation="setValue"
-	                                event="click" onbeforeoperation="alert(event.type+': cancel operation');return false;">
-	                                <f:param value="bla-bla-bla" />
-	                            </misc:componentControl>
-	        </h:commandButton>
+		 <h:inputText value="${not true}"/>
 		</h:form>
 	</h:body>
 </f:view>

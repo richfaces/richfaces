@@ -19,21 +19,21 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.demo;
+package org.richfaces.demo.autocomplete;
 
-import java.io.Serializable;
-import java.util.Locale;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import org.richfaces.component.AutocompleteMode;
+import org.richfaces.demo.CountriesBean;
+import org.richfaces.demo.Country;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-
-import org.richfaces.component.AutocompleteMode;
-
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
+import java.io.Serializable;
+import java.util.Locale;
 
 /**
  * @author Nick Belaevski
@@ -63,14 +63,14 @@ public class AutoCompleteBean implements Serializable {
         }
     }
     
-    private String value;
+    private Object value;
     
 
-    public void setValue(String value) {
+    public void setValue(Object value) {
         this.value = value;
     }
 
-    public String getValue() {
+    public Object getValue() {
         return value;
     }
     
@@ -92,15 +92,10 @@ public class AutoCompleteBean implements Serializable {
     }
 
     public Object autocomplete(FacesContext facesContext, UIComponent component, String value) {
-        // for tests when value does not starts with prefix 
-        /*String str = value;
-        if (str.charAt(0)=='i') {
-            str = str.substring(1);
-        }*/
-        
         AutocompleteMode mode = (AutocompleteMode) component.getAttributes().get("mode");
         boolean isClient = mode == AutocompleteMode.client || mode == AutocompleteMode.lazyClient;
-        String v = isClient ? "" : value;
+        String v = isClient || value ==null ? "" : value;
+
         return Collections2.filter(countriesBean.getCountries(), new CountryNamePredicate(v.toLowerCase(Locale.US)));
     }
 
