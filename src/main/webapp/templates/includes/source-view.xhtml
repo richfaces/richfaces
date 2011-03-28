@@ -9,11 +9,11 @@
 
 <ui:composition>
 	<f:subview>
-	<style>
+	<h:outputStylesheet>
 		.sourceView{
 			padding-top: 10px;
 		}
-	</style>
+	</h:outputStylesheet>
 	<a4j:outputPanel styleClass="sourceView" layout="block">
 		<a4j:outputPanel layout="block" id="show">
 			<h:outputLink value="#"
@@ -35,7 +35,7 @@
 				<h:outputText value="#{empty hideLabel?'Hide Source' : hideLabel }" />
 			</h:outputLink>
 		</a4j:outputPanel>
-	</a4j:outputPanel>	
+	</a4j:outputPanel>
 	</f:subview>
 </ui:composition>
 </html>

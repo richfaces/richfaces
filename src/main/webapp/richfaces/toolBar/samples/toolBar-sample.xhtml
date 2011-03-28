@@ -5,7 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
-	<style>
+	<h:outputStylesheet>
 .pic {
 	margin-right: 2px;
 }
@@ -21,19 +21,19 @@
 }
 ;
 }
-</style>
+</h:outputStylesheet>
 
 	<rich:toolbar height="26" itemSeparator="grid">
 		<rich:toolbarGroup>
-			<h:graphicImage value="/images/icons/create_doc.gif" styleClass="pic" />
+			<h:graphicImage value="/images/icons/create_doc.gif" styleClass="pic" alt="create_doc" />
 			<h:graphicImage value="/images/icons/create_folder.gif"
-				styleClass="pic" />
-			<h:graphicImage value="/images/icons/copy.gif" styleClass="pic" />
+				styleClass="pic" alt="create_folder" />
+			<h:graphicImage value="/images/icons/copy.gif" styleClass="pic" alt="copy" />
 		</rich:toolbarGroup>
 		<rich:toolbarGroup>
-			<h:graphicImage value="/images/icons/save.gif" styleClass="pic" />
-			<h:graphicImage value="/images/icons/save_as.gif" styleClass="pic" />
-			<h:graphicImage value="/images/icons/save_all.gif" styleClass="pic" />
+			<h:graphicImage value="/images/icons/save.gif" styleClass="pic" alt="save" />
+			<h:graphicImage value="/images/icons/save_as.gif" styleClass="pic" alt="save_all" />
+			<h:graphicImage value="/images/icons/save_all.gif" styleClass="pic" alt="save_all" />
 		</rich:toolbarGroup>
 		<rich:toolbarGroup location="right">
 			<h:inputText styleClass="barsearch" />

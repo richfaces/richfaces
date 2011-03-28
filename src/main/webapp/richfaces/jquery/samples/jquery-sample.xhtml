@@ -5,7 +5,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:rich="http://richfaces.org/rich">
-	<style type="text/css">
+	<h:outputStylesheet>
 .pic-normal {
 	width: 120px;
 	border: 2px solid #ACBECE;
@@ -16,21 +16,21 @@
 	height: 130px;
 	float: left;
 }
-</style>
+</h:outputStylesheet>
 
 
 	<br />
 
 	<a4j:outputPanel id="gallery">
-		<h:graphicImage value="/images/nature/pic1.jpg" />
-		<h:graphicImage value="/images/nature/pic2.jpg" />
-		<h:graphicImage value="/images/nature/pic3.jpg" />
-		<h:graphicImage value="/images/nature/pic4.jpg" />
-		<h:graphicImage value="/images/nature/pic5.jpg" />
-		<h:graphicImage value="/images/nature/pic6.jpg" />
-		<h:graphicImage value="/images/nature/pic7.jpg" />
-		<h:graphicImage value="/images/nature/pic8.jpg" />
-		<h:graphicImage value="/images/nature/pic9.jpg" />
+		<h:graphicImage value="/images/nature/pic1.jpg" alt="pic" />
+		<h:graphicImage value="/images/nature/pic2.jpg" alt="pic" />
+		<h:graphicImage value="/images/nature/pic3.jpg" alt="pic" />
+		<h:graphicImage value="/images/nature/pic4.jpg" alt="pic" />
+		<h:graphicImage value="/images/nature/pic5.jpg" alt="pic" />
+		<h:graphicImage value="/images/nature/pic6.jpg" alt="pic" />
+		<h:graphicImage value="/images/nature/pic7.jpg" alt="pic" />
+		<h:graphicImage value="/images/nature/pic8.jpg" alt="pic" />
+		<h:graphicImage value="/images/nature/pic9.jpg" alt="pic" />
 	</a4j:outputPanel>
 
 	<br style="clear: both" />

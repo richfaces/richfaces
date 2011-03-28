@@ -44,7 +44,7 @@
 			</h:panelGrid>
 		</h:form>
 	</rich:panel>
-	<script type="text/javascript">
+	<h:outputScript>
 		var events = 0;
 		var updates = 0;
 		var outEvents = #{rich:element('events')};
@@ -67,5 +67,5 @@
 			outUpdates.innerHTML=updates;
 			outRequests.innerHTML=requests;
 		}
-	</script>
+	</h:outputScript>
 </ui:composition>

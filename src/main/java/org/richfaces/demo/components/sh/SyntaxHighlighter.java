@@ -1,8 +1,6 @@
 package org.richfaces.demo.components.sh;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import org.ajax4jsf.javascript.JSFunction;
 
 import javax.faces.FacesException;
 import javax.faces.application.ResourceDependencies;
@@ -12,8 +10,9 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-
-import org.ajax4jsf.javascript.JSFunction;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 @FacesComponent(value = "syntaxHighlighter")
 @ResourceDependencies({ @ResourceDependency(library = "js", name = "shCore.js"),
@@ -87,6 +86,7 @@ public class SyntaxHighlighter extends UIComponentBase {
         writer.endElement("pre");
         JSFunction function = new JSFunction("SyntaxHighlighter.all");
         writer.startElement("script", null);
+        writer.writeAttribute("type", "text/javascript", null);
         writer.write("var brs = $('#" + this.getClientId(context).replaceAll(":", "\\\\\\\\:") + "').find('br');");
         writer.write("brs.length && brs.replaceWith('\\n');");
         writer.write(function.toScript());

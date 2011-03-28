@@ -8,7 +8,7 @@
 
 <ui:composition>
 
-	<style>
+	<h:outputStylesheet>
 .top {
 	vertical-align: top;
 }
@@ -17,14 +17,14 @@
 	height: 202px;
 	overflow: auto;
 }
-</style>
+</h:outputStylesheet>
 	<h:form>
 		<h:panelGrid columns="2" columnClasses="top,top">
 			<rich:fileUpload fileUploadListener="#{fileUploadBean.listener}"
 				id="upload" acceptedTypes="jpg, gif, png, bmp">
 				<a4j:ajax event="uploadcomplete" execute="@none" render="info" />
 			</rich:fileUpload>
-			<h:panelGroup id="info">
+			<h:panelGroup id="info" layout="block">
 				<rich:panel bodyClass="info">
 					<f:facet name="header">
 						<h:outputText value="Uploaded Files Info" />

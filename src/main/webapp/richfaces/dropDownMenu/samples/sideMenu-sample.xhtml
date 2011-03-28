@@ -7,7 +7,7 @@
 	xmlns:rich="http://richfaces.org/rich">
 
 <ui:composition>
-	<style>
+	<h:outputStylesheet>
 .optionList {
 	height: 22px;
 }
@@ -15,7 +15,7 @@
 .vertical-menu-cell {
 	padding: 0px 4px 0px 4px;
 }
-</style>
+</h:outputStylesheet>
 	<h:panelGrid styleClass="vertical-menu-cell" columnClasses="optionList"
 		columns="1" cellspacing="0" cellpadding="0">
 		<rich:dropDownMenu
@@ -24,7 +24,7 @@
 			<rich:menuItem label="Suboption 1-1" />
 			<rich:menuItem label="Suboption 1-2">
 				<f:facet name="icon">
-					<h:graphicImage value="/images/icons/print.gif" />
+					<h:graphicImage value="/images/icons/print.gif" alt="print"/>
 				</f:facet>
 			</rich:menuItem>
 			<rich:menuItem label="Suboption 1-3" />

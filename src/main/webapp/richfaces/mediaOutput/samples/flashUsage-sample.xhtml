@@ -21,12 +21,12 @@
 				alt="Get Adobe Flash player" /> </a>
 		</a4j:outputPanel>
 
-		<script type="text/javascript">
+		<h:outputScript>
 			var flashvars = {};
 			var params = {};
 			var attributes = {};
 			swfobject.embedSWF(document.getElementById('page:swfLink').href, document.getElementById('myFlashContent'), "200", "200", "9.0.0", false, flashvars, params, attributes);
-		</script>
+		</h:outputScript>
 
 	</a4j:outputPanel>
 </ui:composition>

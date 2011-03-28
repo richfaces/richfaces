@@ -8,7 +8,7 @@
 
 <ui:composition>
 
-	<style>
+	<h:outputStylesheet>
 .pic {
 	margin-bottom: -4px;
 	margin-right: 2px;
@@ -20,14 +20,14 @@
 	border-color: transparent;
 	cursor: default;
 }
-</style>
+</h:outputStylesheet>
 
 	<h:form>
 		<rich:toolbar height="26px">
 			<rich:dropDownMenu mode="ajax">
 				<f:facet name="label">
 					<h:panelGroup>
-						<h:graphicImage value="/images/icons/copy.gif" styleClass="pic" />
+						<h:graphicImage value="/images/icons/copy.gif" styleClass="pic" alt="copy" />
 						<h:outputText value="File" />
 					</h:panelGroup>
 				</f:facet>
@@ -42,7 +42,7 @@
 					<rich:menuItem  label="Save All"
 						action="#{dropDownMenuBean.doSaveAll}">
 						<f:facet name="icon">
-							<h:graphicImage value="/images/icons/save_all.gif" />
+							<h:graphicImage value="/images/icons/save_all.gif" alt="save_all"/>
 						</f:facet>
 					</rich:menuItem>
 				</rich:menuGroup>
