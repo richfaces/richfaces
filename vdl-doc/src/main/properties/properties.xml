@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<properties>
+	<window-title>VDL Documentation</window-title>
+	<doc-title>Tag Library Documentation Generator - Generated Documentation</doc-title>
+
+	<taglibs>
+		<taglib short-name="a4j">
+			<display-name>Ajax4JSF</display-name>
+			<doc-title>Ajax4JSF VDL Documentation</doc-title>
+			<path>../../../target/taglibs/META-INF/a4j.taglib.xml</path>
+			<description>description</description>
+		</taglib>
+		<taglib short-name="rich">
+			<display-name>RichFaces</display-name>
+			<doc-title>RichFaces VDL Documentation</doc-title>
+			<path>../../../target/taglibs/META-INF/rich.taglib.xml</path>
+			<description>description</description>
+		</taglib>		
+	</taglibs>
+</properties>
