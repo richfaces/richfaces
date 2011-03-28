@@ -264,6 +264,27 @@
                                 </td>
                             </tr>
                         </table>
+                        
+   
+                        <!--xsl:choose>
+                            <xsl:when test="javaee:component/javaee:component-extension/cdk:extension/cdk:facets">
+                                <table border="1" cellpadding="3" cellspacing="0" width="100%">
+                                    <tr bgcolor="#CCCCFF" class="TableHeadingColor">
+                                        <td colspan="5">
+                                            <font size="+2">
+                                                <b>Supported Facets</b>
+                                            </font>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5"><xsl:value-of select="javaee:component/javaee:component-extension/cdk:extension/cdk:facets" /></td>
+                                    </tr>
+                                </table>
+                                <br/>
+                                <p/>
+                            </xsl:when>
+                        </xsl:choose-->
+                        
                     </xsl:when>
                     <xsl:when test="javaee:behavior">
                         <xsl:value-of select="javaee:behavior/javaee:description" disable-output-escaping="yes"/>
@@ -333,26 +354,8 @@
                         </table>
                     </xsl:when>
                 </xsl:choose>
-
-
                 <br/>
-                <p/>
-                <table border="1" cellpadding="3" cellspacing="0" width="100%">
-                    <tr bgcolor="#CCCCFF" class="TableHeadingColor">
-                        <td colspan="5">
-                            <font size="+2">
-                                <b>Supported Facets</b>
-                            </font>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="5">No facets</td>
-                    </tr>
-
-                </table>
-                <br/>
-                <p/>
-
+                <p/>               
 
                 <table border="1" cellpadding="3" cellspacing="0" width="100%">
                     <tr bgcolor="#CCCCFF" class="TableHeadingColor">

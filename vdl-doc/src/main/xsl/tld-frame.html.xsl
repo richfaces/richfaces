@@ -47,7 +47,7 @@
     xmlns:fo="http://www.w3.org/1999/XSL/Format">
 
     <xsl:output method="html" indent="yes" name="html"/>
-    <!--<xsl:param name="facelet-taglib-shortNamespace">default</xsl:param>-->
+
     <xsl:param name="output-dir" />
     <xsl:variable name="window-title">
     	<xsl:value-of select="properties/window-title"/>
@@ -97,7 +97,7 @@
             <title>
               <xsl:value-of select="$taglibfull"/>
             </title>
-            <meta name="keywords" content="$taglibfull"/>
+            <meta name="keywords" content="$taglibname"/>
             <link rel="stylesheet" type="text/css" href="../stylesheet.css" 
                   title="Style"/>
             <script>
@@ -110,7 +110,7 @@
           <body bgcolor="white" onload="asd();">
             <font size="+1" class="FrameTitleFont">
               <a href="tld-summary.html" target="tagFrame">
-                <xsl:value-of select="$taglibfull"/>
+                <xsl:value-of select="$taglibname"/>
               </a>
             </font>
               <table border="0" width="100%">
