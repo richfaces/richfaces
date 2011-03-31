@@ -56,18 +56,19 @@
 
 
     <!-- template rule matching source root element -->
-    <xsl:template match="/">
-        <xsl:for-each select="/properties/taglibs/taglib">
-            <xsl:apply-templates select="document(path)/javaee:facelet-taglib">
-                <xsl:with-param name="display-name" select="display-name" />
-                <xsl:with-param name="description" select="description" />
-            </xsl:apply-templates>
-        </xsl:for-each>
-    </xsl:template>
+    <!--<xsl:template match="/">-->
+        <!--<xsl:for-each select="/properties/taglibs/taglib">-->
+            <!--<xsl:apply-templates select="document(path)/javaee:facelet-taglib">-->
+                <!--<xsl:with-param name="display-name" select="display-name" />-->
+                <!--<xsl:with-param name="description" select="description" />-->
+            <!--</xsl:apply-templates>-->
+        <!--</xsl:for-each>-->
+    <!--</xsl:template>-->
 
-    <xsl:template match="javaee:facelet-taglib">
+    <xsl:template name="tldsummary" match="javaee:facelet-taglib">
         <xsl:param name="display-name" />
         <xsl:param name="description" />
+        <xsl:param name="short-name" />
         <xsl:variable name="taglibname">
             <xsl:choose>
                 <xsl:when test="$display-name!=''">
@@ -79,14 +80,14 @@
             </xsl:choose>
         </xsl:variable>
         <xsl:variable name="taglibshortname">
-            <xsl:value-of select="@id"/>
+            <xsl:value-of select="$short-name"/>
         </xsl:variable>
         <xsl:variable name="title">
             <xsl:value-of select="$taglibname"/>
             (<xsl:value-of select="$description" />)
         </xsl:variable>
         <xsl:variable name="filename"
-                      select="concat($output-dir,'/', @id, '/tld-summary.html')"/>
+                      select="concat($output-dir,'/', $short-name, '/tld-summary.html')"/>
         <xsl:value-of select="$filename"/>
         <xsl:result-document href="{$filename}" format="html">
             <html>
@@ -94,7 +95,7 @@
                     <title>
                         <xsl:value-of select="$title"/>
                     </title>
-                    <link rel="stylesheet" type="text/css" href="../stylesheet.css"
+                    <link rel="stylesheet" type="text/css" href="../css/stylesheet.css"
                           title="styie"/>
                 </head>
                 <script>
@@ -288,7 +289,37 @@
                                     </font>
                                 </td>
                             </tr>
-                            <xsl:apply-templates select="javaee:tag"/>
+                            <!--<xsl:apply-templates select="javaee:tag"/>-->
+                           <xsl:for-each select="javaee:tag" >
+                                                           <tr bgcolor="white" class="TableRowColor">
+                                <td width="15%">
+                                    <b>
+                                        <xsl:element name="a">
+                                            <xsl:attribute name="href"><xsl:value-of select="javaee:tag-name"/>.html</xsl:attribute>
+                                            <xsl:value-of select="javaee:tag-name"/>
+                                        </xsl:element>
+                                    </b>
+                                </td>
+                                <td>
+                                    <xsl:choose>
+                                        <xsl:when test="javaee:component/javaee:description!=''">
+                                            <xsl:value-of select="javaee:component/javaee:description"
+                                                          disable-output-escaping="yes"/>
+                                        </xsl:when>
+                                        <xsl:when test="javaee:behavior/javaee:description!=''">
+                                            <xsl:value-of select="javaee:behavior/javaee:description"
+                                                          disable-output-escaping="yes"/>
+                                        </xsl:when>
+
+                                        <xsl:otherwise>
+                                            <i>No Description</i>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </td>
+                            </tr>
+
+                           </xsl:for-each>
+
                         </table>
                         &#160;
                         <p/>
@@ -303,8 +334,42 @@
                                     </font>
                                 </td>
                             </tr>
-                            <xsl:apply-templates select="javaee:function"/>
-                        </table>
+                            <!--<xsl:apply-templates select="javaee:function"/>-->
+                            <xsl:for-each select="javaee:function" >
+                                <tr bgcolor="white" class="TableRowColor">
+                                                               <td width="15%" nowrap="" align="right">
+                                                                   <code>
+                                                                       <xsl:value-of
+                                                                               select='substring-before(normalize-space(javaee:function-signature)," ")'/>
+                                                                   </code>
+                                                               </td>
+                                                               <td width="15%" nowrap="">
+                                                                   <code>
+                                                                       <b>
+                                                                           <xsl:element name="a">
+                                                                               <xsl:attribute name="href"><xsl:value-of select="javaee:function-name"/>.fn.html</xsl:attribute>
+                                                                               <xsl:value-of select="javaee:function-name"/>
+                                                                           </xsl:element>
+                                                                       </b>
+                                                                       (
+                                                                       <xsl:value-of
+                                                                               select='substring-after(normalize-space(javaee:function-signature),"(")'/>
+                                                                   </code>
+                                                               </td>
+                                                               <td>
+                                                                   <xsl:choose>
+                                                                       <xsl:when test="javaee:description!=''">
+                                                                           <xsl:value-of select="javaee:description" disable-output-escaping="yes"/>
+                                                                       </xsl:when>
+                                                                       <xsl:otherwise>
+                                                                           <i>No Description</i>
+                                                                       </xsl:otherwise>
+                                                                   </xsl:choose>
+                                                               </td>
+                                                           </tr>
+
+                            </xsl:for-each>
+                           </table>
                         &#160;
                         <p/>
                     </xsl:if>
@@ -400,59 +465,13 @@
         </xsl:result-document>
     </xsl:template>
     
-    <xsl:template match="javaee:tag">
-      <tr bgcolor="white" class="TableRowColor">
-        <td width="15%">
-          <b>
-            <xsl:element name="a">
-              <xsl:attribute name="href"><xsl:value-of select="javaee:tag-name"/>.html</xsl:attribute>
-              <xsl:value-of select="javaee:tag-name"/>
-            </xsl:element>
-          </b>
-        </td>
-        <td>
-          <xsl:choose>
-            <xsl:when test="javaee:component/javaee:description!=''">
-              <xsl:value-of select="javaee:component/javaee:description" disable-output-escaping="yes"/>
-            </xsl:when>
-              <xsl:when test="javaee:behavior/javaee:description!=''">
-              <xsl:value-of select="javaee:behavior/javaee:description" disable-output-escaping="yes"/>
-            </xsl:when>
+    <!--<xsl:template name="tldsummary-tag" match="javaee:tag">-->
 
-            <xsl:otherwise>
-              <i>No Description</i>
-            </xsl:otherwise>
-          </xsl:choose>
-        </td>
-      </tr>
-    </xsl:template>
+    <!--</xsl:template>-->
 
-    <xsl:template match="javaee:function">
-      <tr bgcolor="white" class="TableRowColor">
-        <td width="15%" nowrap="" align="right">
-          <code><xsl:value-of select='substring-before(normalize-space(javaee:function-signature)," ")'/></code>
-        </td>
-        <td width="15%" nowrap="">
-          <code><b>
-            <xsl:element name="a">
-              <xsl:attribute name="href"><xsl:value-of select="javaee:function-name"/>.fn.html</xsl:attribute>
-              <xsl:value-of select="javaee:function-name"/>
-            </xsl:element>
-            </b>( <xsl:value-of select='substring-after(normalize-space(javaee:function-signature),"(")'/>            
-          </code>
-        </td>
-        <td>
-          <xsl:choose>
-            <xsl:when test="javaee:description!=''">
-              <xsl:value-of select="javaee:description" disable-output-escaping="yes"/>
-            </xsl:when>
-            <xsl:otherwise>
-              <i>No Description</i>
-            </xsl:otherwise>
-          </xsl:choose>
-        </td>
-      </tr>
-    </xsl:template>
-        
+    <!--<xsl:template name="tldsummary-function" match="javaee:function">-->
+
+    <!--</xsl:template>-->
+        <!---->
 
 </xsl:stylesheet> 

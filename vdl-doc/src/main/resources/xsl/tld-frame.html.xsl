@@ -48,24 +48,25 @@
 
     <xsl:output method="html" indent="yes" name="html"/>
 
-    <xsl:param name="output-dir" />
-    <xsl:variable name="window-title">
-    	<xsl:value-of select="properties/window-title"/>
-    </xsl:variable>
+    <!--<xsl:param name="output-dir" />-->
+    <!--<xsl:variable name="window-title">-->
+    	<!--<xsl:value-of select="properties/window-title"/>-->
+    <!--</xsl:variable>-->
 
 
-    <xsl:template match="/">
-        <xsl:for-each select="/properties/taglibs/taglib">
-            <xsl:apply-templates select="document(path)/javaee:facelet-taglib">
-                <xsl:with-param name="display-name" select="display-name" />
-                <xsl:with-param name="description" select="description" />
-            </xsl:apply-templates>
-        </xsl:for-each>
-    </xsl:template>
+    <!--<xsl:template match="/">-->
+        <!--<xsl:for-each select="/properties/taglibs/taglib">-->
+            <!--<xsl:apply-templates select="document(path)/javaee:facelet-taglib">-->
+                <!--<xsl:with-param name="display-name" select="display-name" />-->
+                <!--<xsl:with-param name="description" select="description" />-->
+            <!--</xsl:apply-templates>-->
+        <!--</xsl:for-each>-->
+    <!--</xsl:template>-->
     
-    <xsl:template match="javaee:facelet-taglib">
+    <xsl:template name="tldframe" match="javaee:facelet-taglib">
         <xsl:param name="display-name" />
         <xsl:param name="description" />
+        <xsl:param name="short-name" />
         <xsl:variable name="taglibname">
           <xsl:choose>
             <xsl:when test="$display-name!=''">
@@ -88,7 +89,7 @@
           </xsl:choose>
         </xsl:variable>
         <xsl:variable name="filename"
-                          select="concat($output-dir,'/', @id, '/tld-frame.html')"/>
+                          select="concat($output-dir,'/', $short-name, '/tld-frame.html')"/>
         <xsl:value-of select="$filename"/>
 
         <xsl:result-document href="{$filename}" format="html">
@@ -98,7 +99,7 @@
               <xsl:value-of select="$taglibfull"/>
             </title>
             <meta name="keywords" content="$taglibname"/>
-            <link rel="stylesheet" type="text/css" href="../stylesheet.css" 
+            <link rel="stylesheet" type="text/css" href="../css/stylesheet.css"
                   title="Style"/>
             <script>
               function asd()
@@ -122,7 +123,15 @@
                     </font>&#160;
                     <font class="FrameItemFont">
                       <!--<xsl:apply-templates select="javaee:tag|javaee:tag-file"/>-->
-                        <xsl:apply-templates select="javaee:tag"/>
+                        <!--<xsl:apply-templates select="javaee:tag"/>-->
+                        <xsl:for-each select="javaee:tag">
+                            <br/>
+                              <xsl:element name="a">
+                                <xsl:attribute name="href"><xsl:value-of select="javaee:tag-name"/>.html</xsl:attribute>
+                                <xsl:attribute name="target">tagFrame</xsl:attribute>
+                                <xsl:value-of select="../@id"/>:<xsl:value-of select="javaee:tag-name"/>
+                              </xsl:element>
+                        </xsl:for-each>
                     </font>
                   </td>
                 </tr>
@@ -133,36 +142,36 @@
                     <font size="+1" class="FrameHeadingFont">
                       Functions
                     </font>&#160;
-                    <font class="FrameItemFont">
-                      <xsl:apply-templates select="javaee:function"/>
-                    </font>
+                      <font class="FrameItemFont">
+                          <!--<xsl:apply-templates select="javaee:function"/>-->
+                          <xsl:for-each select="javaee:function">
+                                                <br/>
+                          <xsl:element name="a">
+                              <xsl:attribute name="href"><xsl:value-of select="javaee:function-name"/>.fn.html</xsl:attribute>
+                              <xsl:attribute name="target">tagFrame</xsl:attribute>
+                              <i><xsl:value-of select="../@id"/>:<xsl:value-of select="javaee:function-name"/>()</i>
+                          </xsl:element>
+
+                          </xsl:for-each>
+
+                      </font>
                   </td>
                 </tr>
               </xsl:if>
 
-            </table>
+              </table>
             <!-- <table ... -->
           </body>
         </html>
         </xsl:result-document>
     </xsl:template>
 
-     <xsl:template match="javaee:tag">
-      <br/>
-      <xsl:element name="a">
-        <xsl:attribute name="href"><xsl:value-of select="javaee:tag-name"/>.html</xsl:attribute>
-        <xsl:attribute name="target">tagFrame</xsl:attribute>
-        <xsl:value-of select="../@id"/>:<xsl:value-of select="javaee:tag-name"/>
-      </xsl:element>
-    </xsl:template>
+     <!--<xsl:template name="tldframe-tag" match="javaee:tag">-->
+      <!---->
+    <!--</xsl:template>-->
 
-    <xsl:template match="javaee:function">
-      <br/>
-      <xsl:element name="a">
-        <xsl:attribute name="href"><xsl:value-of select="javaee:function-name"/>.fn.html</xsl:attribute>
-        <xsl:attribute name="target">tagFrame</xsl:attribute>
-        <i><xsl:value-of select="../@id"/>:<xsl:value-of select="javaee:function-name"/>()</i>
-      </xsl:element>
-    </xsl:template>
+    <!--<xsl:template name="tldframe-function" match="javaee:function">-->
+      <!---->
+    <!--</xsl:template>-->
 
 </xsl:stylesheet> 
