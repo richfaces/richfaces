@@ -118,7 +118,7 @@
 	<managed-bean>
 		<managed-bean-name>carsBean</managed-bean-name>
 		<managed-bean-class>org.richfaces.demo.tables.CarsBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
+		<managed-bean-scope>view</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>carsFilteringBean</managed-bean-name>
