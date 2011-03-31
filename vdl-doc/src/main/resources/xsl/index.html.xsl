@@ -45,10 +45,15 @@
     xmlns:fo="http://www.w3.org/1999/XSL/Format">
     
     <xsl:output method="html" indent="yes"/>
+    <xsl:param name="output-dir"/>
 
     <!-- template rule matching source root element -->
-    <xsl:template match="/">
-      <html>
+    <xsl:template name="index" match="/">
+        <xsl:variable name="filename"
+                          select="concat($output-dir,'/index.html')"/>
+        <xsl:result-document href="{$filename}" format="html">
+
+            <html>
         <head>
           <title>
             <xsl:value-of select="properties/window-title"/>
@@ -64,12 +69,16 @@
         <noframes>
           <h2>Frame Alert</h2>
           <p/>
-          This document is designed to be viewed using the frames feature.  
-          If you see this message, you are using a non-frame-capable web 
+          This document is designed to be viewed using the frames feature.
+          If you see this message, you are using a non-frame-capable web
           client.
           <br/>
           Link to <a href="overview-summary.html">Non-frame version.</a>
         </noframes>
       </html>
+
+        </xsl:result-document>
+
+
     </xsl:template>
 </xsl:stylesheet> 

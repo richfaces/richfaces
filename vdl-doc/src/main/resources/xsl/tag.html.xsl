@@ -47,21 +47,22 @@
 
     <xsl:output method="html" indent="yes" name="html"/>
 
-    <xsl:param name="output-dir"/>
+    <!--<xsl:param name="output-dir"/>-->
 
-    <xsl:variable name="window-title">
-        <xsl:value-of select="properties/window-title"/>
-    </xsl:variable>
+    <!--<xsl:variable name="window-title">-->
+        <!--<xsl:value-of select="properties/window-title"/>-->
+    <!--</xsl:variable>-->
 
-    <xsl:template match="/">
-        <xsl:for-each select="/properties/taglibs/taglib">
-            <xsl:apply-templates select="document(path)/javaee:facelet-taglib"/>
-        </xsl:for-each>
-    </xsl:template>
+    <!--<xsl:template match="/">-->
+        <!--<xsl:for-each select="/properties/taglibs/taglib">-->
+            <!--&lt;!&ndash;<xsl:apply-templates name="tag" select="document(path)/javaee:facelet-taglib"/>&ndash;&gt;-->
+            <!--<xsl:call-template name="tag" />-->
+        <!--</xsl:for-each>-->
+    <!--</xsl:template>-->
 
-    <xsl:template match="javaee:facelet-taglib">
-
-        <xsl:variable name="namespace" select="/javaee:facelet-taglib/@id"/>
+    <xsl:template name="tag" match="javaee:facelet-taglib">
+         <xsl:param name="short-name" />
+        <xsl:variable name="namespace" select="$short-name"/>
 
         <xsl:for-each select="//javaee:tag">
             <xsl:variable name="tagname">
@@ -72,15 +73,18 @@
             <!--<xsl:value-of select="$filename"/>-->
             <!-- Creating  -->
             <xsl:result-document href="{$filename}" format="html">
-                <xsl:apply-templates select=".">
+                <!--<xsl:apply-templates select=".">-->
+                    <!---->
+                <!--</xsl:apply-templates>-->
+                <xsl:call-template name="tag-in-detail">
                     <xsl:with-param name="namespace" select="$namespace"/>
                     <xsl:with-param name="tagname" select="$tagname"/>
-                </xsl:apply-templates>
+                </xsl:call-template>
             </xsl:result-document>
         </xsl:for-each>
     </xsl:template>
 
-    <xsl:template match="javaee:tag">
+    <xsl:template name="tag-in-detail" match="javaee:tag">
         <xsl:param name="namespace"/>
         <xsl:param name="tagname"/>
         <xsl:variable name="title">
@@ -93,7 +97,7 @@
                     <xsl:value-of select="$title"/>
                 </title>
                 <meta name="keywords" content="$tagname"/>
-                <link rel="stylesheet" type="text/css" href="../stylesheet.css"
+                <link rel="stylesheet" type="text/css" href="../css/stylesheet.css"
                       title="Style"/>
             </head>
             <script>
@@ -454,8 +458,7 @@
                                 &#160;
                                 &#160;
                                 <xsl:element name="a">
-                                    <xsl:attribute name="href"><xsl:value-of select="javaee:tag-name"/>.html
-                                    </xsl:attribute>
+                                    <xsl:attribute name="href"><xsl:value-of select="javaee:tag-name"/>.html</xsl:attribute>
                                     <xsl:attribute name="target">_top</xsl:attribute>
                                     <b>NO FRAMES</b>
                                 </xsl:element>
