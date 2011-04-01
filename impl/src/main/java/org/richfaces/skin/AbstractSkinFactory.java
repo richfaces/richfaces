@@ -166,9 +166,9 @@ public abstract class AbstractSkinFactory extends SkinFactory {
             skinFuture.run();
             return skinFuture.get();
         } catch (InterruptedException e) {
-            throw new SkinNotFoundException(Messages.getMessage(Messages.SKIN_NOT_FOUND_ERROR), e);
+            throw new SkinNotFoundException(Messages.getMessage(Messages.SKIN_NOT_FOUND_ERROR, name), e);
         } catch (ExecutionException e) {
-            throw new SkinNotFoundException(Messages.getMessage(Messages.SKIN_NOT_FOUND_ERROR), e);
+            throw new SkinNotFoundException(Messages.getMessage(Messages.SKIN_NOT_FOUND_ERROR, name), e);
         }
     }
 
