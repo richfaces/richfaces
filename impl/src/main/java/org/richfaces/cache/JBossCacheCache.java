@@ -14,7 +14,6 @@ import javax.transaction.Status;
 import javax.transaction.SystemException;
 import javax.transaction.Transaction;
 
-import org.jboss.cache.Cache;
 import org.jboss.cache.Fqn;
 import org.jboss.cache.eviction.ExpirationAlgorithmConfig;
 import org.richfaces.log.Logger;
@@ -24,14 +23,14 @@ import org.richfaces.log.RichfacesLogger;
  * @author Nick Belaevski
  * @since 4.0
  */
-public class JBossCacheCache implements org.richfaces.cache.Cache {
+public class JBossCacheCache implements Cache {
     
     private static final Logger LOGGER = RichfacesLogger.CACHE.getLogger();
     
     private static final String RESOURCE = "resource";
-    private Cache<String, Object> cache;
+    private org.jboss.cache.Cache<String, Object> cache;
 
-    public JBossCacheCache(Cache<String, Object> cache) {
+    public JBossCacheCache(org.jboss.cache.Cache<String, Object> cache) {
         super();
         this.cache = cache;
     }

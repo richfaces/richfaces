@@ -70,6 +70,7 @@ public class SkinFactoryImpl extends AbstractSkinFactory {
             if (mainSkin != null || baseSkin != null) {
                 skin = new CompositeSkinImpl(mainSkin, baseSkin);
             } else {
+                //CompositeSkinImpl caches hash code
                 skin = new CompositeSkinImpl(getDefaultSkin(context));
             }
 
@@ -87,6 +88,7 @@ public class SkinFactoryImpl extends AbstractSkinFactory {
             if (baseSkin != null) {
                 skin = new CompositeSkinImpl(baseSkin);
             } else {
+                //CompositeSkinImpl caches hash code
                 skin = new CompositeSkinImpl(getDefaultSkin(context));
             }
 

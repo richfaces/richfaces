@@ -52,19 +52,6 @@ public class ResourceLibraryRenderer extends ResourceRenderer {
     public ResourceLibraryRenderer() {
         super();
     }
-
-    private void setupResourceAttributes(UIComponent component, ResourceKey resourceKey) {
-        Map<String, Object> attributes = component.getAttributes();
-        
-        attributes.put("name", resourceKey.getResourceName());
-        
-        String libraryName = resourceKey.getLibraryName();
-        if (libraryName != null) {
-            attributes.put("library", libraryName);
-        } else {
-            attributes.remove("library");
-        }
-    }
     
     @Override
     public void encodeEnd(FacesContext context, UIComponent component) throws IOException {

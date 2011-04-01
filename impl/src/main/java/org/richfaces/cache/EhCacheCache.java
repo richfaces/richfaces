@@ -12,7 +12,7 @@ import net.sf.ehcache.Element;
  * @author Nick Belaevski
  * @since 4.0
  */
-public class EhCacheCache implements org.richfaces.cache.Cache {
+public class EhCacheCache implements Cache {
     
     private net.sf.ehcache.Ehcache cache;
     private boolean preconfiguredCache;
