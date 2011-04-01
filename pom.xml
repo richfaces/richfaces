@@ -41,7 +41,7 @@
     <modules>
         <module>parent</module>
         <module>template</module>
-	<module>core-demo</module>
+        <module>core-demo</module>
         <module>misc-demo</module>
         <module>output-demo</module>
         <module>input-demo</module>
@@ -50,8 +50,8 @@
         <module>push-demo</module>
         
         <module>validator-demo</module>
-	<module>dnd-demo</module>
-	<module>irc-client</module>
+        <module>dnd-demo</module>
+        <module>irc-client</module>
     </modules>
 
     <scm>
