@@ -27,7 +27,6 @@ import java.util.List;
 
 import javax.faces.component.UIComponent;
 
-import org.ajax4jsf.component.behavior.ClientBehavior;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Tag;

@@ -27,7 +27,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.richfaces.renderkit.RenderKitUtils.addToScriptHash;
-import static org.richfaces.renderkit.RenderKitUtils.concat;
 import static org.richfaces.renderkit.RenderKitUtils.toScriptArgs;
 
 import java.util.ArrayList;
@@ -121,17 +120,6 @@ public class RenderKitUtilsTest {
 
         assertTrue(RenderKitUtils.shouldRenderAttribute(Boolean.TRUE));
         assertFalse(RenderKitUtils.shouldRenderAttribute(Boolean.FALSE));
-    }
-
-    @Test
-    public void testConcat() throws Exception {
-        assertEquals("", concat());
-        assertEquals("", concat((String) null));
-        assertEquals("", concat((String[]) null));
-        assertEquals("", concat(""));
-        assertEquals("test", concat("test"));
-        assertEquals("build a string", concat("build", " a ", "string"));
-        assertEquals("omit nulls", concat(null, "omit", null, " ", null, "nulls", null));
     }
 
     private static String dehydrate(String s) {

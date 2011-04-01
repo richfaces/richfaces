@@ -645,22 +645,6 @@ public final class RenderKitUtils {
         }
     }    
     
-    public static String concat(String... strings) {
-        if (strings == null) {
-            return "";
-        }
-        
-        StringBuilder sb = new StringBuilder();
-        for (String s : strings) {
-            if (s == null || s.length() == 0) {
-                continue;
-            }
-            
-            sb.append(s);
-        }
-        return sb.toString();
-    }
-    
     public static String toScriptArgs(Object... objects) {
         if (objects == null) {
             return "";

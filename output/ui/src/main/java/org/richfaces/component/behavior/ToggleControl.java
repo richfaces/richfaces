@@ -28,7 +28,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.component.behavior.ClientBehavior;
 import org.richfaces.cdk.annotations.*;
 import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.component.ComponentIterators;
