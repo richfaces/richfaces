@@ -20,7 +20,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.ajax4jsf.component.behavior;
+package org.richfaces.component.behavior;
 
 import java.io.Serializable;
 import java.util.HashMap;

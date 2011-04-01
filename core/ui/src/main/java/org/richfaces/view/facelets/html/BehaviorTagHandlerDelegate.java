@@ -34,7 +34,7 @@ import javax.faces.view.facelets.MetaRule;
 import javax.faces.view.facelets.MetaRuleset;
 import javax.faces.view.facelets.TagHandlerDelegate;
 
-import org.ajax4jsf.component.behavior.ClientBehavior;
+import org.richfaces.component.behavior.ClientBehavior;
 
 /**
  * @author Anton Belevich

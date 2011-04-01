@@ -46,6 +46,7 @@ import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Signature;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.component.behavior.ClientBehavior;
 import org.richfaces.event.BypassUpdatesAjaxBehaviorEvent;
 import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
 
