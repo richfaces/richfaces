@@ -23,9 +23,9 @@
 			</h:inputText>
 			<h:outputText id="out" value="#{test.value}"></h:outputText>
 			<csv:message id="uiMessage" for="text" />
-            <h:outputLabel for="number" value="Four annotations for number"/>
-            <h:inputText id="number" value="#{test.numbers}">
-                <csv:validator  onbeforesubmit="alert('Before')"/>
+            <h:outputLabel for="number" value="Four annotations for number, with custom msg"/>
+            <h:inputText id="number" value="#{test.numbers}" converterMessage="Nor a number" validatorMessage="Wrong number">
+                <csv:validator event="blur"/>
             </h:inputText>
             <h:outputText id="outNum" value="#{test.numbers}"></h:outputText>
             <csv:message id="uiNumMessage" for="number" />

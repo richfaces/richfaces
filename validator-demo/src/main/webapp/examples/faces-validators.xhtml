@@ -31,8 +31,8 @@
             <h:outputText id="dblrangeOut" value="#{test.doubleValue}"></h:outputText>
             <csv:message for="dblrange" />
 
-            <h:outputLabel for="longrange" value="Text long range from 2 to 5:" />
-            <h:inputText id="longrange" value="#{test.longValue}">
+            <h:outputLabel for="longrange" value="Text long range from 2 to 5, custom msg:" />
+            <h:inputText id="longrange" value="#{test.longValue}" converterMessage="Nor a number" validatorMessage="Wrong number">
                 <f:validateLongRange minimum="2" maximum="5" />
                 <csv:validator event="blur" />
             </h:inputText>
@@ -44,7 +44,7 @@
                 <csv:validator/>
 			</h:commandButton>
             <a4j:commandButton value="AJAX Submit with client-side validation" render="lengthOut,dblrangeOut,longrangeOut">
-                <csv:validator/>
+                <csv:validator event="click"/>
             </a4j:commandButton>
 		</h:form>
 		<csv:messages />
