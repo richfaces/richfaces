@@ -245,7 +245,8 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
             }
             if(null != converter){
                 FacesConverterService converterService = ServiceTracker.getService(facesContext, FacesConverterService.class);
-                return converterService.getConverterDescription(facesContext, input, converter);
+                String converterMessage = (String) component.getAttributes().get("converterMessage");
+                return converterService.getConverterDescription(facesContext, input, converter, converterMessage);
             } else {
                 return null;
             }
@@ -282,6 +283,7 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
             Validator[] facesValidators = input.getValidators();
             FacesContext facesContext = context.getFacesContext();
             if (facesValidators.length > 0) {
+                String validatorMessage = (String) component.getAttributes().get("validatorMessage");
                 boolean beanValidatorsProcessed = false;
                 FacesValidatorService facesValidatorService = ServiceTracker.getService(facesContext,
                     FacesValidatorService.class);
@@ -291,11 +293,11 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
                         if (null != valueExpression && !beanValidatorsProcessed) {
                             BeanValidatorService beanValidatorService = ServiceTracker.getService(facesContext,
                                 BeanValidatorService.class);
-                            validators.addAll(beanValidatorService.getConstrains(facesContext, valueExpression, getGroups()));
+                            validators.addAll(beanValidatorService.getConstrains(facesContext, valueExpression, validatorMessage, getGroups()));
                             beanValidatorsProcessed = true;
                         }
                     } else {
-                        validators.add(facesValidatorService.getValidatorDescription(facesContext, input, validator));
+                        validators.add(facesValidatorService.getValidatorDescription(facesContext, input, validator, validatorMessage));
                     }
                 }
             }

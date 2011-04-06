@@ -65,7 +65,7 @@ public class FacesValidatorServiceTest {
     public void getConverterClass() throws Exception {
         validator = new LengthValidator();
         controller.replay();
-        ValidatorDescriptor validatorDescription = serviceImpl.getValidatorDescription(environment.getFacesContext(), input, validator);
+        ValidatorDescriptor validatorDescription = serviceImpl.getValidatorDescription(environment.getFacesContext(), input, validator, null);
         assertEquals(validator.getClass(), validatorDescription.getImplementationClass());
     }
 
@@ -80,7 +80,7 @@ public class FacesValidatorServiceTest {
             facesMessage = e.getFacesMessage();
         }
         assertNotNull(facesMessage);
-        ValidatorDescriptor validatorDescription = serviceImpl.getValidatorDescription(environment.getFacesContext(), input, validator);
+        ValidatorDescriptor validatorDescription = serviceImpl.getValidatorDescription(environment.getFacesContext(), input, validator, null);
         String summary = validatorDescription.getMessage().getSummary();
         summary = summary.replace("{0}", "foo");
         assertEquals(facesMessage.getSummary(), summary);

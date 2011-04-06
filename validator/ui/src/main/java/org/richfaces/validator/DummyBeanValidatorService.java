@@ -19,7 +19,7 @@ public class DummyBeanValidatorService implements BeanValidatorService {
      * @see org.richfaces.validator.BeanValidatorService#getConstrains(javax.faces.context.FacesContext, javax.el.ValueExpression, java.lang.Class<?>[])
      */
     public Collection<ValidatorDescriptor> getConstrains(FacesContext context, ValueExpression expression,
-        Class<?>... groups) {
+        String message, Class<?>... groups) {
         return Collections.emptySet();
     }
 

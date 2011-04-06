@@ -4,6 +4,7 @@ import static org.easymock.EasyMock.*;
 import static org.junit.Assert.*;
 
 import java.util.Collection;
+import java.util.Collections;
 
 import javax.el.ValueExpression;
 import javax.faces.validator.BeanValidator;
@@ -96,7 +97,7 @@ public class BehaviorGetValidatorTest extends BehaviorTestBase {
 
     private void setupBeanValidator(ValidatorDescriptor... validators) {
         expect(input.getValidators()).andStubReturn(new Validator[]{new BeanValidator()});
-        expect(validatorService.getConstrains(environment.getFacesContext(), expression, DEFAULT_GROUP)).andStubReturn(
+        expect(validatorService.getConstrains(environment.getFacesContext(), expression, null, DEFAULT_GROUP)).andStubReturn(
             Lists.newArrayList(validators));
 
     }
@@ -107,7 +108,7 @@ public class BehaviorGetValidatorTest extends BehaviorTestBase {
             ValidatorDescriptor validatorDescriptor = environment.createMock(ValidatorDescriptor.class);
             expect((Class) validatorDescriptor.getImplementationClass()).andStubReturn(validator.getClass());
             expect(validatorDescriptor.getMessage()).andStubReturn(VALIDATION_ERROR);
-            expect(facesValidatorService.getValidatorDescription(environment.getFacesContext(), input, validator))
+            expect(facesValidatorService.getValidatorDescription(environment.getFacesContext(), input, validator, null))
                 .andStubReturn(validatorDescriptor);
         }
     }
@@ -123,6 +124,7 @@ public class BehaviorGetValidatorTest extends BehaviorTestBase {
     public void testComponentValidator() throws Exception {
         setupComponentValidator(validator);
         setupBeanValidator();
+        expect(input.getAttributes()).andStubReturn(Collections.<String,Object>emptyMap());
         Collection<ValidatorDescriptor> validators = checkValidator();
         assertEquals(1, validators.size());
         ValidatorDescriptor validatorDescriptor = Iterables.getOnlyElement(validators);
@@ -134,6 +136,7 @@ public class BehaviorGetValidatorTest extends BehaviorTestBase {
     @Test
     public void testBeanValidators() throws Exception {
         setupBeanValidator(beanValidatorDescriptor);
+        expect(input.getAttributes()).andStubReturn(Collections.<String,Object>emptyMap());
         Collection<ValidatorDescriptor> validators = checkValidator();
         assertEquals(1, validators.size());
         ValidatorDescriptor validatorDescriptor = Iterables.getOnlyElement(validators);

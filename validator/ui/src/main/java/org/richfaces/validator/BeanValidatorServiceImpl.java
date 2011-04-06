@@ -24,6 +24,7 @@ import javax.validation.metadata.ConstraintDescriptor;
 import javax.validation.metadata.ElementDescriptor.ConstraintFinder;
 import javax.validation.metadata.PropertyDescriptor;
 
+import org.richfaces.component.util.Strings;
 import org.richfaces.el.ValueDescriptor;
 import org.richfaces.el.ValueExpressionAnalayser;
 
@@ -54,7 +55,7 @@ public class BeanValidatorServiceImpl implements BeanValidatorService {
      * javax.el.ValueExpression, java.lang.Class<?>[])
      */
     public Collection<ValidatorDescriptor> getConstrains(FacesContext context, ValueExpression expression,
-        Class<?>... groups) {
+        String message, Class<?>... groups) {
         try {
             ValueDescriptor propertyDescriptor = analayser.getPropertyDescriptor(context, expression);
             
@@ -62,7 +63,7 @@ public class BeanValidatorServiceImpl implements BeanValidatorService {
                 return Collections.emptySet();
             }
             
-            return processBeanAttribute(context, propertyDescriptor, groups);
+            return processBeanAttribute(context, propertyDescriptor, message, groups);
         } catch (ELException e) {
             return Collections.emptySet();
         }
@@ -73,7 +74,7 @@ public class BeanValidatorServiceImpl implements BeanValidatorService {
     }
 
     Collection<ValidatorDescriptor> processBeanAttribute(FacesContext context, ValueDescriptor descriptor,
-        Class<?>... groups) {
+        String msg, Class<?>... groups) {
         PropertyDescriptor constraintsForProperty =
             getValidator(context).getConstraintsForClass(descriptor.getBeanType()).getConstraintsForProperty(
                 descriptor.getName());
@@ -87,23 +88,23 @@ public class BeanValidatorServiceImpl implements BeanValidatorService {
                 .getConstraintDescriptors();
 
             // ContextHolder is an arbitrary object, it will depend on the implementation
-            Set<ValidatorDescriptor> descriptors = new HashSet<ValidatorDescriptor>(constraints.size());
-            processConstraints(context, constraints, descriptors);
-            return descriptors;
+            FacesMessage message = Strings.isEmpty(msg)?null:new FacesMessage(FacesMessage.SEVERITY_ERROR,msg,msg);
+            return processConstraints(context, constraints, message);
 
         } else {
             return Collections.emptySet();
         }
     }
 
-    void processConstraints(FacesContext context, Set<ConstraintDescriptor<?>> constraints,
-        Collection<ValidatorDescriptor> descriptors) {
+    Collection<ValidatorDescriptor> processConstraints(FacesContext context, Set<ConstraintDescriptor<?>> constraints,
+        FacesMessage msg) {
+        Set<ValidatorDescriptor> descriptors = new HashSet<ValidatorDescriptor>(constraints.size());
         for (ConstraintDescriptor<?> cd : constraints) {
             Annotation a = cd.getAnnotation();
             Map<String, Object> parameters = cd.getAttributes();
             // TODO if cd.isReportedAsSingleConstraint() make sure than only the root constraint raises an error message
             // if one or several of the composing constraints are invalid)
-            FacesMessage message = validatorFactory.interpolateMessage(context, cd);
+            FacesMessage message = null == msg?validatorFactory.interpolateMessage(context, cd):msg;
             Class<? extends Annotation> validatorClass = findAnnotationClass(a);
             BeanValidatorDescriptor beanValidatorDescriptor = new BeanValidatorDescriptor(validatorClass, message);
             for (Map.Entry<String, Object> entry : parameters.entrySet()) {
@@ -125,8 +126,9 @@ public class BeanValidatorServiceImpl implements BeanValidatorService {
             }
             beanValidatorDescriptor.makeImmutable();
             descriptors.add(beanValidatorDescriptor);
-            processConstraints(context, cd.getComposingConstraints(), descriptors); // process the composing constraints
+            descriptors.addAll(processConstraints(context, cd.getComposingConstraints(), msg)); // process the composing constraints
         }
+        return descriptors;
     }
 
     private Class<? extends Annotation> findAnnotationClass(Annotation a) {

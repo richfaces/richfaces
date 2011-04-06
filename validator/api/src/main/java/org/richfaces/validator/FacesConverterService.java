@@ -12,6 +12,6 @@ import javax.faces.convert.Converter;
  */
 public interface FacesConverterService {
 
-    ConverterDescriptor getConverterDescription(FacesContext context,EditableValueHolder input, Converter converter);
+    ConverterDescriptor getConverterDescription(FacesContext context,EditableValueHolder input, Converter converter, String converterMessage);
     
 }

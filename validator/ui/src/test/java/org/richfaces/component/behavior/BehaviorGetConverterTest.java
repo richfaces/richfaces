@@ -3,10 +3,13 @@ package org.richfaces.component.behavior;
 import static org.easymock.EasyMock.*;
 import static org.junit.Assert.*;
 
+import java.util.Collections;
+
 import javax.faces.convert.Converter;
 import javax.faces.convert.NumberConverter;
 
 import org.easymock.Capture;
+import org.easymock.EasyMock;
 import org.jboss.test.faces.mock.Mock;
 import org.jboss.test.faces.mock.MockTestRunner;
 import org.jboss.test.faces.mock.Stub;
@@ -45,7 +48,7 @@ public class BehaviorGetConverterTest extends BehaviorTestBase {
     public void setupService() {
         expect(factory.getInstance(FacesConverterService.class)).andStubReturn(converterService);
         converterCapture = new Capture<Converter>();
-        expect(converterService.getConverterDescription(same(environment.getFacesContext()), same(input), capture(converterCapture)))
+        expect(converterService.getConverterDescription(same(environment.getFacesContext()), same(input), capture(converterCapture), EasyMock.<String>isNull()))
             .andStubReturn(descriptor);
         ServiceTracker.setFactory(factory);
     }
@@ -66,6 +69,7 @@ public class BehaviorGetConverterTest extends BehaviorTestBase {
     public void testGetClientConverterFromComponent() throws Exception {
         NumberConverter converter = new NumberConverter();
         expect(input.getConverter()).andReturn(converter);
+        expect(input.getAttributes()).andStubReturn(Collections.<String,Object>emptyMap());
         checkConverter(converter);
     }
 
@@ -79,6 +83,7 @@ public class BehaviorGetConverterTest extends BehaviorTestBase {
     @Test
     public void testGetClientConverterByType() throws Exception {
         setupConverterFromApplication(converter);
+        expect(input.getAttributes()).andStubReturn(Collections.<String,Object>emptyMap());
         checkConverter(converter);
     }
 

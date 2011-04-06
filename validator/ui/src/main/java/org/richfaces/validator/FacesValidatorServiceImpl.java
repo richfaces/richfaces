@@ -30,8 +30,8 @@ public class FacesValidatorServiceImpl extends FacesServiceBase<Validator> imple
      * @see org.richfaces.validator.FacesValidatorService#getValidatorDescription(javax.faces.context.FacesContext,
      * javax.faces.validator.Validator)
      */
-    public ValidatorDescriptor getValidatorDescription(FacesContext context, EditableValueHolder input, Validator validator) {
-        FacesMessage message = getMessage(context, validator, input);
+    public ValidatorDescriptor getValidatorDescription(FacesContext context, EditableValueHolder input, Validator validator, String validatorMessage) {
+        FacesMessage message = getMessage(context, validator, input,validatorMessage);
         FacesValidatorDescriptor descriptor = new FacesValidatorDescriptor(validator.getClass(), message);
         setLabelParameter(input, descriptor);
         fillParameters(descriptor, validator);

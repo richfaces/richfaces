@@ -38,9 +38,9 @@ public class ConverterServiceImpl extends FacesServiceBase<Converter> implements
      * @see org.richfaces.validator.FacesConverterService#getConverterDescription(javax.faces.context.FacesContext,
      * javax.faces.convert.Converter)
      */
-    public ConverterDescriptor getConverterDescription(FacesContext context, EditableValueHolder input, Converter converter) {
+    public ConverterDescriptor getConverterDescription(FacesContext context, EditableValueHolder input, Converter converter, String converterMessage) {
         // determine converter message.
-        FacesMessage message = getMessage(context, converter, input);
+        FacesMessage message = getMessage(context, converter, input,converterMessage);
         ConverterDescriptorImpl descriptor = new ConverterDescriptorImpl(converter.getClass(), message);
         fillParameters(descriptor, converter);
         descriptor.makeImmutable();

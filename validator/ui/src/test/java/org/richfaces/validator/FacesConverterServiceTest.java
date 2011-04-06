@@ -70,7 +70,7 @@ public class FacesConverterServiceTest {
     public void getConverterClass() throws Exception {
         converter = new BooleanConverter();
         controller.replay();
-        ConverterDescriptor converterDescription = serviceImpl.getConverterDescription(environment.getFacesContext(), input, converter);
+        ConverterDescriptor converterDescription = serviceImpl.getConverterDescription(environment.getFacesContext(), input, converter, null);
         assertEquals(converter.getClass(), converterDescription.getImplementationClass());
     }
 
@@ -85,7 +85,7 @@ public class FacesConverterServiceTest {
             facesMessage = e.getFacesMessage();
         }
         assertNotNull(facesMessage);
-        ConverterDescriptor converterDescription = serviceImpl.getConverterDescription(environment.getFacesContext(), input, converter);
+        ConverterDescriptor converterDescription = serviceImpl.getConverterDescription(environment.getFacesContext(), input, converter, null);
         String summary = converterDescription.getMessage().getSummary();
         summary = summary.replace("{2}", "foo");
         summary = summary.replace("'{0}'", "abc");
@@ -102,7 +102,7 @@ public class FacesConverterServiceTest {
         converter.setType("both");
         converter.setTimeZone(TimeZone.getTimeZone("EST"));
         controller.replay();
-        ConverterDescriptor converterDescription = serviceImpl.getConverterDescription(environment.getFacesContext(), input, converter);
+        ConverterDescriptor converterDescription = serviceImpl.getConverterDescription(environment.getFacesContext(), input, converter, null);
         Map<String, ? extends Object> additionalParameters = converterDescription.getAdditionalParameters();
         assertEquals("short", additionalParameters.get("dateStyle"));
         assertEquals("MM/DD/YYYY", additionalParameters.get("pattern"));

@@ -103,7 +103,7 @@ public class BeanValidatorServiceConstrainsTest {
 
     private Collection<ValidatorDescriptor> expectValidatorsWithGroups(Class<?>[] groups, Class<? extends Annotation>... validators) {
         controller.replay();
-        Collection<ValidatorDescriptor> constrains = validatorService.getConstrains(environment.getFacesContext(), expression,groups);
+        Collection<ValidatorDescriptor> constrains = validatorService.getConstrains(environment.getFacesContext(), expression,null, groups);
         controller.verify();
         assertEquals(validators.length, constrains.size());
         for (final Class<? extends Annotation> class1 : validators) {

@@ -80,7 +80,7 @@ public abstract class ValidatorTestBase extends MockTestBase {
 
     private Object getErrorMessage(Validator validator) {
         FacesValidatorServiceImpl validatorService = new FacesValidatorServiceImpl();
-        FacesMessage message = validatorService.getMessage(facesEnvironment.getFacesContext(), validator, input);
+        FacesMessage message = validatorService.getMessage(facesEnvironment.getFacesContext(), validator, input,null);
         return new Message(message);
     }
 

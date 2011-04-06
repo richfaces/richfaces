@@ -53,13 +53,17 @@ public abstract class FacesServiceBase<T> {
      * @param context
      * @param component
      * @param input TODO
+     * @param msg 
      * @return
      */
-    public FacesMessage getMessage(FacesContext context, T component, EditableValueHolder input) {
-        String messageId = getMessageId(component);
-        return MessageFactory.createMessage(context, messageId);
+    public FacesMessage getMessage(FacesContext context, T component, EditableValueHolder input, String msg) {
+        if (null == msg) {
+            String messageId = getMessageId(component);
+            return MessageFactory.createMessage(context, messageId);
+        } else {
+            return new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
+        }
     }
-
 
     protected void setLabelParameter(EditableValueHolder input, FacesValidatorDescriptor descriptor) {
         if (input instanceof UIComponent) {

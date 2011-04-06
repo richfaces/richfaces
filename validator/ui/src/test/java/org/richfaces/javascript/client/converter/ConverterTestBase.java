@@ -63,7 +63,7 @@ public abstract class ConverterTestBase extends MockTestBase {
 
     private Object getErrorMessage(Converter converter) {
         ConverterServiceImpl converterService = new ConverterServiceImpl();
-        FacesMessage message = converterService.getMessage(facesEnvironment.getFacesContext(), converter, input);
+        FacesMessage message = converterService.getMessage(facesEnvironment.getFacesContext(), converter, input,null);
         return new Message(message);
     }
 
