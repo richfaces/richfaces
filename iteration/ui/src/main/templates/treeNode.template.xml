@@ -26,7 +26,7 @@
         <cdk:call expression="addClientEventHandlers(facesContext, component)" />
         
         <div class="#{concatClasses('rf-trn', component.attributes['styleClass'], tree.attributes['nodeClass'])}"
-            cdk:passThroughWithExclusions="">
+            cdk:passThroughWithExclusions="id">
             <cdk:object name="loadingFacet" type="UIComponent" value="#{getHandleLoadingFacetIfApplicable(component)}" />
             
             <c:if test="#{not empty loadingFacet and loadingFacet.isRendered()}">
