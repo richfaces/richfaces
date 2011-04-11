@@ -36,6 +36,7 @@
 
     <properties>
         <faces-shade-transformers.version>4-SNAPSHOT</faces-shade-transformers.version>
+        <faces-vdl-documentation.version>1-SNAPSHOT</faces-vdl-documentation.version>
         <assembly.projects.group>org.richfaces.ui</assembly.projects.group>
     </properties>
 
@@ -104,11 +105,6 @@
         </dependency>
 
 
-        <dependency>
-            <groupId>org.richfaces.build.resources</groupId>
-            <artifactId>faces-vdl-documentation</artifactId>
-            <version>1-SNAPSHOT</version>
-        </dependency>
 
     </dependencies>
 
@@ -199,6 +195,7 @@
                                         <artifactItem>
                                             <groupId>org.richfaces.build.resources</groupId>
                                             <artifactId>faces-vdl-documentation</artifactId>
+                                            <version>${faces-vdl-documentation.version}</version>
                                             <outputDirectory>${project.build.directory}/resources/</outputDirectory>
                                             <includes>**/*.xsl</includes>
                                         </artifactItem>
@@ -236,7 +233,7 @@
                         <configuration>
                             <transformationSets>
                                 <transformationSet>
-				    <dir>src/main/properties</dir>
+                                    <dir>src/main/properties</dir>
                                     <stylesheet>target/resources/xsl/common.xsl</stylesheet>
                                     <parameters>
                                         <parameter>
@@ -267,15 +264,13 @@
                         <version>2.2.1</version>
                         <configuration>
                             <descriptors>
-				<descriptor>src/main/assembly/vdldoc-assembly.xml</descriptor>
+                                <descriptor>src/main/assembly/vdldoc-assembly.xml</descriptor>
                             </descriptors>
                         </configuration>
                         <executions>
                             <execution>
                                 <id>make-assembly</id>
-                                <!-- this is used for inheritance merges -->
                                 <phase>package</phase>
-                                <!-- bind to the packaging phase -->
                                 <goals>
                                     <goal>single</goal>
                                 </goals>
@@ -283,8 +278,16 @@
                         </executions>
                     </plugin>
                 </plugins>
-		
+
             </build>
+            <dependencies>
+                <dependency>
+                    <groupId>org.richfaces.build.resources</groupId>
+                    <artifactId>faces-vdl-documentation</artifactId>
+                    <version>${faces-vdl-documentation.version}</version>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
         </profile>
     </profiles>
     
