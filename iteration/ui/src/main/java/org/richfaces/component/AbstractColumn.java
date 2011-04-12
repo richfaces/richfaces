@@ -75,7 +75,7 @@ public abstract class AbstractColumn extends javax.faces.component.UIColumn impl
     public abstract Comparator<?> getComparator();
 
     @Attribute
-    public abstract Boolean isFilterExpression();
+    public abstract Object getFilterExpression();
 
     @Attribute
     public abstract Object getSortBy();
