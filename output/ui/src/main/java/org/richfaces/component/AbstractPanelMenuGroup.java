@@ -23,17 +23,21 @@
 
 package org.richfaces.component;
 
-import org.richfaces.PanelMenuMode;
-import org.richfaces.cdk.annotations.*;
-import org.richfaces.event.ItemChangeEvent;
-import org.richfaces.event.PanelToggleEvent;
-
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.PhaseId;
+
+import org.richfaces.PanelMenuMode;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.event.ItemChangeEvent;
+import org.richfaces.event.PanelToggleEvent;
 
 /**
  * @author akolonitsky
@@ -82,8 +86,41 @@ public abstract class AbstractPanelMenuGroup extends AbstractPanelMenuItem {
         Boolean previous = (Boolean) getValue();
         setExpanded(expanded);
         setSubmittedExpanded(null);
+        
         if (previous != null && !previous.equals(expanded)) {
+            if (expanded && getMode() == PanelMenuMode.server && getPanelMenu().isExpandSingle()) {
+                collapseOtherTopGroups();
+            }
+
             queueEvent(new PanelToggleEvent(this, previous));
+        }
+    }
+
+    private AbstractPanelMenuGroup getTopGroup() {
+        AbstractPanelMenuGroup c = this;
+
+        while (c.getParent() instanceof AbstractPanelMenuGroup) {
+            c = (AbstractPanelMenuGroup) c.getParent();
+        }
+
+        return c;
+    }
+    
+    private void collapseOtherTopGroups() {
+        UIComponent topGroup = getTopGroup();
+        for (UIComponent child: getPanelMenu().getChildren()) {
+            if (!(child instanceof AbstractPanelMenuGroup)) {
+                continue;
+            }
+            
+            AbstractPanelMenuGroup group = (AbstractPanelMenuGroup) child;
+            
+            if (group == topGroup) {
+                continue;
+            }
+            
+            group.setSubmittedExpanded(null);
+            group.setExpanded(false);
         }
     }
 

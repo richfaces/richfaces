@@ -195,11 +195,11 @@
         	return item.itemName == this.activeItem;
         },
         
-        __collapseGroups : function (event) {
-        	var topGroup = rf.$(event.target.id).__rfTopGroup();
+        __collapseGroups : function (source) {
+        	var topGroup = source.__rfTopGroup();
             this.__childGroups().each (function (index, group) {
-            	if (group.id != event.target.id && (!topGroup || group.id != topGroup.id)) {
-	                    rf.$(group.id).__collapse();
+            	if (group.id != source.getEventElement() && (!topGroup || group.id != topGroup.id)) {
+            		rf.$(group).__collapse();
             	}
             });
             

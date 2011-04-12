@@ -203,14 +203,6 @@
                     });
                 }
 
-                if (menuGroup.options.expandSingle) {
-                	var component = this;
-                    menuGroup.__group().bind("expand", function (event) {
-                    	component.__rfPanelMenu().__collapseGroups(event);
-                    	event.stopPropagation();
-                    });
-                }
-
                 /*this.__addUserEventHandler("beforecollapse");
                 this.__addUserEventHandler("collapse");
                 this.__addUserEventHandler("beforeexpand");
@@ -238,7 +230,9 @@
 
         __expand : function () {
     		this.__updateStyles(true);
-    		return this.__fireEvent("expand");
+    		this.__collapseForExpandSingle();
+
+        	return this.__fireEvent("expand");
         },
 
         collapsed : function () {
@@ -350,6 +344,12 @@
             return this.__expandValueInput().value == "true"; 
         },
 
+        __collapseForExpandSingle: function() {
+        	if (this.options.expandSingle) {
+        		this.__rfPanelMenu().__collapseGroups(this);
+        	}
+        },
+        
         /**
          * @methodOf
          * @name PanelMenuGroup#__setExpandValue
@@ -367,6 +367,10 @@
         },
 
         __changeState : function () {
+        	if (!this.__getExpandValue()) {
+        		this.__collapseForExpandSingle();
+        	}
+        	
             var state = {};
             state["expanded"] = this.__setExpandValue(!this.__getExpandValue());
             if (this.options.selectable) {
