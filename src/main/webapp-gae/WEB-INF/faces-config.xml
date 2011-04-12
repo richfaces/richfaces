@@ -133,7 +133,7 @@
 	<managed-bean>
 		<managed-bean-name>extTableSelectionBean</managed-bean-name>
 		<managed-bean-class>org.richfaces.demo.tables.ExtTableSelectionBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
+		<managed-bean-scope>view</managed-bean-scope>
 	    <managed-property>
 			<property-name>inventoryItems</property-name>
 			<value>#{carsBean.allInventoryItems}</value>
