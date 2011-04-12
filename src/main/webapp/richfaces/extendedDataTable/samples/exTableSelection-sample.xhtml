@@ -7,10 +7,18 @@
 	xmlns:rich="http://richfaces.org/rich">
 	<h:panelGrid columns="2">
 		<h:form>
+			<fieldset style="margin-bottom: 10px;"><legend><h:outputText value="Selection Mode " /></legend>
+			<h:selectOneRadio value="#{extTableSelectionBean.selectionMode}">
+				<f:selectItem itemLabel="Single" itemValue="single"/>
+				<f:selectItem itemLabel="Multiple" itemValue="multiple"/>
+				<f:selectItem itemLabel="Multiple Keyboard-free" itemValue="multipleKeyboardFree"/>
+				<a4j:ajax render="table, res"/>
+			</h:selectOneRadio>
+			</fieldset>
 			<rich:extendedDataTable
 				value="#{extTableSelectionBean.inventoryItems}" var="car"
 				selection="#{extTableSelectionBean.selection}" id="table"
-				frozenColumns="2" style="height:300px; width:500px;">
+				frozenColumns="2" style="height:300px; width:500px;" selectionMode="#{extTableSelectionBean.selectionMode}">
 				<a4j:ajax execute="@form"
 				event="selectionchange"
 				listener="#{extTableSelectionBean.selectionListener}" render=":res" />
