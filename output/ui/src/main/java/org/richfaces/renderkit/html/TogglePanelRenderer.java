@@ -73,23 +73,30 @@ public class TogglePanelRenderer extends DivPanelRenderer implements MetaCompone
     protected void doDecode(FacesContext context, UIComponent component) {
         AbstractTogglePanel panel = (AbstractTogglePanel) component;
 
-        Map<String, String> requestMap =
+        Map<String, String> requestParameterMap =
                 context.getExternalContext().getRequestParameterMap();
 
         // Get the new panel value to show
-        String newValue = requestMap.get(getValueRequestParamName(context, component));
+        String newValue = requestParameterMap.get(getValueRequestParamName(context, component));
         if (newValue != null) {
             panel.setSubmittedActiveItem(newValue);
-        }
-        
-        if (requestMap.get("javax.faces.partial.ajax") != null) {
-            PartialViewContext pvc = context.getPartialViewContext();
-            pvc.getRenderIds().add(
-                component.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
+            
+            if (isSubmitted(context, panel)) {
+                PartialViewContext pvc = context.getPartialViewContext();
+                
+                pvc.getRenderIds().add(
+                    component.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
                     + AbstractTogglePanel.ACTIVE_ITEM_META_COMPONENT);
+            }
+            
         }
     }
 
+    protected boolean isSubmitted(FacesContext context, AbstractTogglePanel panel) {
+        Map<String, String> parameterMap = context.getExternalContext().getRequestParameterMap();
+        return parameterMap.get(panel.getClientId(context)) != null;
+    }
+    
     protected static void addOnCompleteParam(FacesContext context, String newValue, String panelId) {
         StringBuilder onComplete = new StringBuilder();
         onComplete.append("RichFaces.$('").append(panelId)

@@ -94,6 +94,18 @@ public class TabPanelRenderer extends TogglePanelRenderer {
     }
 
     @Override
+    protected boolean isSubmitted(FacesContext context, AbstractTogglePanel panel) {
+        UIComponent item = (UIComponent) panel.getItem(panel.getSubmittedActiveItem());
+
+        if (item == null) {
+            return false;
+        }
+
+        Map<String, String> parameterMap = context.getExternalContext().getRequestParameterMap();
+        return parameterMap.get(item.getClientId(context)) != null;
+    }
+
+    @Override
     protected void doEncodeBegin(ResponseWriter w, FacesContext context, UIComponent component) throws IOException {
         super.doEncodeBegin(w, context, component);
 
@@ -151,17 +163,17 @@ public class TabPanelRenderer extends TogglePanelRenderer {
     private void writeTopTabHeader(FacesContext context, ResponseWriter writer, AbstractTab tab) throws IOException {
         boolean isActive = tab.isActive();
         boolean isDisabled = tab.isDisabled();
-        
+
         encodeTabHeader(context, tab, writer, inactive, !isActive && !isDisabled);
         encodeTabHeader(context, tab, writer, active, isActive && !isDisabled);
         encodeTabHeader(context, tab, writer, disabled, isDisabled);
-        
+
     }    
 
     private void encodeTabHeader(FacesContext context, AbstractTab tab, ResponseWriter writer,
-                              AbstractTogglePanelTitledItem.HeaderStates state, Boolean isDisplay) throws IOException {
+        AbstractTogglePanelTitledItem.HeaderStates state, Boolean isDisplay) throws IOException {
 
-        
+
         writer.startElement(TD_ELEM, tab);
         writer.writeAttribute(ID_ATTRIBUTE, tab.getClientId(context) + ":header:" + state.toString(), null);
         renderPassThroughAttributes(context, tab, HEADER_ATTRIBUTES);
