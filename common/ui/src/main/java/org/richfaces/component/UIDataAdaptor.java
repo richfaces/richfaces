@@ -922,7 +922,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     protected void preEncodeBegin(FacesContext context) {
-        resetDataModel();
+        DataComponentsContextUtil.resetDataModelOncePerPhase(context, this);
 
         if (!isKeepSaved()) {
             //TODO - this also resets state for the nested iteration components - is it correct?

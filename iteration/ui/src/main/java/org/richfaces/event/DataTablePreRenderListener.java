@@ -38,10 +38,11 @@ import javax.faces.event.SystemEventListener;
 import org.ajax4jsf.Messages;
 import org.richfaces.DataScrollerUtils;
 import org.richfaces.component.AbstractDataScroller;
+import org.richfaces.component.DataComponentsContextUtil;
 import org.richfaces.component.UIDataAdaptor;
 import org.richfaces.component.util.MessageUtil;
-import org.richfaces.log.RichfacesLogger;
 import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 
 public class DataTablePreRenderListener implements SystemEventListener {
@@ -120,8 +121,10 @@ public class DataTablePreRenderListener implements SystemEventListener {
             dataTable = activeDataScroller.getDataTable();
         }
         
-        String scrollerStateKey  = dataTable.getClientId(facesContext) + AbstractDataScroller.SCROLLER_STATE_ATTRIBUTE; 
         if ((activeDataScroller != null) && (dataTable != null)) {
+            DataComponentsContextUtil.resetDataModelOncePerPhase(facesContext, dataTable);
+            
+            String scrollerStateKey  = dataTable.getClientId(facesContext) + AbstractDataScroller.SCROLLER_STATE_ATTRIBUTE; 
             int rowCount = DataScrollerUtils.getRowCount(dataTable);
             int rows = DataScrollerUtils.getRows(dataTable);
             int pageCount = DataScrollerUtils.getPageCount(dataTable, rowCount, rows);
