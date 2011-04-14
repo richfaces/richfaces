@@ -10,4 +10,8 @@
         <converter-id>org.richfaces.demo.PackageKeyConverter</converter-id>
         <converter-class>org.richfaces.demo.model.tree.adaptors.PackageKeyConverter</converter-class>
     </converter>
+    
+    <factory>
+        <lifecycle-factory>org.richfaces.demo.PersistenceLifecycleFactory</lifecycle-factory>
+    </factory>
 </faces-config>
