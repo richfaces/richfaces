@@ -33,13 +33,13 @@ import com.google.common.collect.Iterators;
  * @author Nick Belaevski
  * 
  */
-class DataTableDataChilderIterator extends AbstractIterator<UIComponent> {
+class DataTableDataChildrenIterator extends AbstractIterator<UIComponent> {
 
     private Iterator<UIComponent> dataTableChildren;
     
     private Iterator<UIComponent> columnChildren = Iterators.emptyIterator();
     
-    public DataTableDataChilderIterator(UIComponent dataTable) {
+    public DataTableDataChildrenIterator(UIComponent dataTable) {
         super();
         this.dataTableChildren = dataTable.getChildren().iterator();
     }

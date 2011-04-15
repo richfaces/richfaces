@@ -144,7 +144,7 @@ public class UIDataTableTest extends AbstractFacesTest {
      */
     @Test
     public void testDataChildren() {
-        Assert.assertTrue(table.dataChildren() instanceof DataTableDataChilderIterator);
+        Assert.assertTrue(table.dataChildren() instanceof DataTableDataChildrenIterator);
     }
 
     /**

@@ -171,7 +171,7 @@ public abstract class UIDataTableBase extends UISequence implements Row, MetaCom
     }
 
     protected Iterator<UIComponent> dataChildren() {
-        return new DataTableDataChilderIterator(this);
+        return new DataTableDataChildrenIterator(this);
     }
 
     public boolean isColumnFacetPresent(String facetName) {
