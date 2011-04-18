@@ -74,7 +74,13 @@ public class SwingTreeNodeDataModelImpl extends NodesTreeSequenceKeyModel<TreeNo
     }
 
     protected TreeNode findChild(TreeNode parent, Integer simpleKey) {
-        return parent.getChildAt(simpleKey.intValue());
+        int childIdx = simpleKey.intValue();
+        
+        if (childIdx < parent.getChildCount()) {
+            return parent.getChildAt(childIdx);
+        }
+
+        return null;
     }
 
     public Iterator<TreeDataModelTuple> children() {

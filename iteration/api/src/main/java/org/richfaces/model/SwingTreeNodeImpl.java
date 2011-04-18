@@ -67,7 +67,11 @@ public class SwingTreeNodeImpl<T> implements TreeNode, Serializable {
     }
 
     public TreeNode getChildAt(int childIndex) {
-        return Iterables.get(children, childIndex);
+        if (childIndex < getChildCount()) {
+            return Iterables.get(children, childIndex);
+        }
+
+        return null;
     }
 
     public int getChildCount() {

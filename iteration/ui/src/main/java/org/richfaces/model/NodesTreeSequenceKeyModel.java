@@ -45,6 +45,11 @@ public abstract class NodesTreeSequenceKeyModel<V> extends TreeSequenceKeyModel<
             
             for (Object simpleKey: key.getSimpleKeys()) {
                 data = setupChildContext(simpleKey);
+                
+                if (data == null) {
+                    break;
+                }
+                
                 setData(data);
             }
             

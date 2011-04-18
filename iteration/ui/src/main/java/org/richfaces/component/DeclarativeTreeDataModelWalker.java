@@ -83,10 +83,21 @@ public class DeclarativeTreeDataModelWalker {
     private void setupDataModelContext(Object key) {
         if (modelData instanceof Iterable<?>) {
             Iterable<?> iterable = (Iterable<?>) modelData;
-            data = Iterables.get(iterable, (Integer) key);
+            Integer index = (Integer) key;
+            
+            if (index < Iterables.size(iterable)) {
+                data = Iterables.get(iterable, index);
+            } else {
+                data = null;
+            }
         } else {
             data = ((Map<?, ?>) modelData).get(key);
         }
+    }
+    
+    private void resetForDataNotAvailable() {
+        data = null;
+        currentComponent = rootComponent;
     }
     
     protected FacesContext getFacesContext() {
@@ -120,7 +131,18 @@ public class DeclarativeTreeDataModelWalker {
                 }
                 
                 setupModelComponentContext(declarativeKey.getModelId());
+                
+                if (modelData == null) {
+                    resetForDataNotAvailable();
+                    break;
+                }
+                
                 setupDataModelContext(declarativeKey.getModelKey());
+                
+                if (data == null) {
+                    resetForDataNotAvailable();
+                    break;
+                }
             }
         } finally {
             if (var != null) {
