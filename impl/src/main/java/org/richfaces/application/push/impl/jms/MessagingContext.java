@@ -113,6 +113,10 @@ public class MessagingContext {
             connection.setClientID(UUID.randomUUID().toString());
         } catch (IllegalStateException e) {
             //ignore - clientId has already been set
+            LOGGER.debug(e.getMessage(), e);
+        } catch (JMSException e) {
+            //ignore - clientId has already been set
+            LOGGER.debug(e.getMessage(), e);
         }
 
         connection.start();
@@ -172,7 +176,7 @@ public class MessagingContext {
 
         javax.jms.Topic jmsTopic = lookup(rootTopicKey);
 
-        return jmsSession.createDurableSubscriber(jmsTopic, subscriptionClientId, createMessageSelector(entry.getValue()), true);
+        return jmsSession.createDurableSubscriber(jmsTopic, subscriptionClientId, createMessageSelector(entry.getValue()), false);
     }
 
     /**
