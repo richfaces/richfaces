@@ -246,10 +246,15 @@
 				var element = richfaces.getDomElement(source);
 				element && element[richfaces.RICH_CONTAINER] && (element[richfaces.RICH_CONTAINER].component=null);
 			},
-			
-			/** TODO: add jsdocs and qunit tests
-			 * 
-			 */
+
+            /**
+             * Invokes event on on the DOM element
+             * @param eventType event type, e.g. "click"
+             * @param element DOM element object
+             * @param event jQuery Event
+             * @param data additional data used for event handler
+             * @return true if an event is successfully invoked
+             */
 			invokeEvent: function(eventType, element, event, data) {
 				var handlerResult, result;
 				var eventObj = $.extend({}, event, {type: eventType});
