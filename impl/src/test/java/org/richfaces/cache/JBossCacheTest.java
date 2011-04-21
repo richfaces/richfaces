@@ -23,7 +23,6 @@
 
 package org.richfaces.cache;
 
-import org.richfaces.cache.JBossCacheCacheFactory;
 
 /**
  * @author Nick Belaevski

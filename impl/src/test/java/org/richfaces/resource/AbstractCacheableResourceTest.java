@@ -226,7 +226,7 @@ public class AbstractCacheableResourceTest extends AbstractFacesTest {
         assertTrue(resource.userAgentNeedsUpdate(facesContext));
     }
 
-    private static abstract class AbstractTestResource extends AbstractCacheableResource {
+    private abstract static class AbstractTestResource extends AbstractCacheableResource {
         @Override
         public String toString() {
             return "mock";

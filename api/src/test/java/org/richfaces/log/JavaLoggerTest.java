@@ -158,7 +158,7 @@ public class JavaLoggerTest {
 
             Logger.class.getMethod(levelName, Throwable.class, Enum.class, Object[].class).invoke(logger, 
                 new UnsupportedOperationException(levelName), LoggerTestMessages.TEST_MESSAGE, new Object[] {levelName, 
-                ANOTHER_DUMMY_MESSAGE});
+                    ANOTHER_DUMMY_MESSAGE});
         }
         
         Iterator<LogRecord> iterator = publishedRecords.iterator();

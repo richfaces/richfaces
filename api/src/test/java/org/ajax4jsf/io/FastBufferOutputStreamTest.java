@@ -25,9 +25,6 @@ package org.ajax4jsf.io;
 
 import junit.framework.TestCase;
 
-import org.ajax4jsf.io.ByteBuffer;
-import org.ajax4jsf.io.FastBufferOutputStream;
-
 /**
  * @author Nick Belaevski
  * @since 3.3.0

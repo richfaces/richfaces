@@ -25,10 +25,6 @@ package org.ajax4jsf.io;
 
 import junit.framework.TestCase;
 
-import org.ajax4jsf.io.CharBuffer;
-import org.ajax4jsf.io.FastBufferReader;
-import org.ajax4jsf.io.FastBufferWriter;
-
 /**
  * @author Nick Belaevski
  * @since 3.3.0

@@ -263,4 +263,14 @@ public class ByteBuffer {
             next.compact();
         }
     }
+    
+    public ByteBuffer getLast() {
+        ByteBuffer result = this;
+        
+        while (result.next != null) {
+            result = result.next;
+        }
+        
+        return result;
+    }
 }

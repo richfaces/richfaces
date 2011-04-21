@@ -26,8 +26,6 @@ package org.richfaces.util;
 import java.util.Iterator;
 import java.util.Map.Entry;
 
-import org.richfaces.util.LRUMap;
-
 import junit.framework.TestCase;
 
 /**
