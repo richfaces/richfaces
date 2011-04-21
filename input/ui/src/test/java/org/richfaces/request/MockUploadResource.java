@@ -101,7 +101,7 @@ public class MockUploadResource extends FileUploadResource implements MockObject
 
     @Override
     public long getSize() {
-        return invokeMethod(this.control, this, getSizeMethod0);
+        return (Long) invokeMethod(this.control, this, getSizeMethod0);
     }
 
     private static final Method writeMethod0 = findMethod(FileUploadResource.class, "write", String.class);

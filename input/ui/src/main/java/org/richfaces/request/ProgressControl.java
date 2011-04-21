@@ -34,12 +34,12 @@ public final class ProgressControl {
 
     private static final String UPLOAD_PROGRESS_PREFIX = "_richfaces_upload_percents";
     
+    long totalBytesRead = 0;
+    
     private Map<String, Object> contextMap;
     
     private String attributeName;
 
-    private long totalBytesRead = 0;
-    
     private long length;
     
     private byte lastUpdatedPercentValue;
@@ -60,7 +60,7 @@ public final class ProgressControl {
         return 0;
     }
 
-    private static String getContextAttributeName(String uploadId) {
+    static String getContextAttributeName(String uploadId) {
         return UPLOAD_PROGRESS_PREFIX + uploadId;
     }
 

@@ -72,5 +72,29 @@ class ProgressServletInputStream extends ServletInputStream {
         }
         return read;
     }
+
+    public long skip(long n) throws IOException {
+        return wrappedStream.skip(n);
+    }
+
+    public int available() throws IOException {
+        return wrappedStream.available();
+    }
+
+    public void close() throws IOException {
+        wrappedStream.close();
+    }
+
+    public void mark(int readlimit) {
+        wrappedStream.mark(readlimit);
+    }
+
+    public void reset() throws IOException {
+        wrappedStream.reset();
+    }
+
+    public boolean markSupported() {
+        return wrappedStream.markSupported();
+    }
     
 }
