@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright ${year}, Red Hat, Inc. and individual contributors
+ * Copyright 2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -26,9 +26,21 @@ import java.io.IOException;
 import org.richfaces.request.ByteSequenceMatcher.BytesHandler;
 
 /**
- * @author Konstantin Mishin
+ * @author Nick Belaevski
  * 
  */
-interface Param extends BytesHandler {
-    void complete() throws IOException;
+interface FileUploadParam extends BytesHandler {
+
+    public void create() throws IOException;
+    
+    public void complete();
+    
+    public String getName();
+    
+    public boolean isFileParam();
+    
+    public String getValue();
+    
+    public FileUploadResource getResource();
+    
 }

@@ -21,12 +21,9 @@
  */
 package org.richfaces.resource;
 
-import java.util.Map;
-
 import javax.faces.context.FacesContext;
 
-import org.richfaces.context.FileUploadPartialViewContextFactory;
-import org.richfaces.request.MultipartRequest;
+import org.richfaces.request.ProgressControl;
 
 /**
  * @author Nick Belaevski
@@ -34,19 +31,12 @@ import org.richfaces.request.MultipartRequest;
  */
 public class FileUploadProgressResource extends AbstractJSONResource {
 
+    private static final Object UID_ALT_KEY = "rf_fu_uid_alt";
+
     @Override
     protected Object getData(FacesContext context) {
-        Map<String, Object> sessionMap = context.getExternalContext().getSessionMap();
-        Map<String, Number> percentMap = (Map<String, Number>) sessionMap.get(MultipartRequest.PERCENT_BEAN_NAME);
-
-        Number result = null;
-        
-        if (percentMap != null) {
-            String uploadId = context.getExternalContext().getRequestParameterMap().get(FileUploadPartialViewContextFactory.UID_ALT_KEY);
-            result = (Number) percentMap.get(uploadId);
-        }
-        
-        return result != null ? result : 0;
+        String uploadId = context.getExternalContext().getRequestParameterMap().get(UID_ALT_KEY);
+        return ProgressControl.getProgress(context, uploadId);
     }
 
 }

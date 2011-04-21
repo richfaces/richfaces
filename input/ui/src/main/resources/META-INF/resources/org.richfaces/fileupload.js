@@ -191,7 +191,15 @@
 					responseStatus = id.split(":")[1];
 				}
 				if (responseStatus) {
-					responseStatus == ITEM_STATE.DONE && jsf.ajax.response({responseXML: contentDocument}, {}); 
+					var responseContext = {
+						source: this.element[0],
+						/* hack for MyFaces */
+						_mfInternal: {
+							_mfSourceControlId: this.element.attr('id')
+						}
+					};
+
+					responseStatus == ITEM_STATE.DONE && jsf.ajax.response({responseXML: contentDocument}, responseContext); 
 					this.loadableItem.finishUploading(responseStatus);
 					this.submitedItems.push(this.loadableItem);
 					if (responseStatus == ITEM_STATE.DONE && this.items.length) {
