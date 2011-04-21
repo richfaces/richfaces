@@ -44,8 +44,7 @@ public final class ProgressControl {
     
     private byte lastUpdatedPercentValue;
     
-    public ProgressControl(Map<String, Object> contextMap, String uploadId, long length) {
-        this.contextMap = contextMap;
+    public ProgressControl(String uploadId, long length) {
         this.attributeName = getContextAttributeName(uploadId);
         this.length = length;
     }
@@ -65,7 +64,9 @@ public final class ProgressControl {
     }
 
     void clearProgress() {
-        contextMap.remove(attributeName);
+        if (contextMap != null) {
+            contextMap.remove(attributeName);
+        }
     }
     
     public void advance(long bytesRead) {
@@ -78,10 +79,14 @@ public final class ProgressControl {
             percent = 100;
         }
         
-        if (percent > lastUpdatedPercentValue) {
+        if (percent > lastUpdatedPercentValue && contextMap != null) {
             lastUpdatedPercentValue = percent;
             contextMap.put(attributeName, lastUpdatedPercentValue);
         }
+    }
+    
+    public void setContextMap(Map<String, Object> contextMap) {
+        this.contextMap = contextMap;
     }
     
     public ServletInputStream wrapStream(ServletInputStream inputStream) {

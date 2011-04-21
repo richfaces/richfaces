@@ -29,6 +29,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<factory>
         <faces-context-factory>org.richfaces.context.FileUploadFacesContextFactory</faces-context-factory>
-        <external-context-factory>org.richfaces.context.FileUploadExternalContextFactory</external-context-factory>
 	</factory>
+    <lifecycle>
+        <phase-listener>org.richfaces.context.FileUploadPhaseListener</phase-listener>
+    </lifecycle>
 </faces-config>

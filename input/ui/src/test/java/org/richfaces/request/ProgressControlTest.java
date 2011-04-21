@@ -44,7 +44,8 @@ public class ProgressControlTest {
     @Test
     public void testAdvance() throws Exception {
         Map<String, Object> contextMap = Maps.newHashMap();
-        ProgressControl control = new ProgressControl(contextMap, UPLOAD_ID, 400);
+        ProgressControl control = new ProgressControl(UPLOAD_ID, 400);
+        control.setContextMap(contextMap);
         
         assertNull(contextMap.get(ATTRIBUTE_NAME));
         control.advance(1);
@@ -63,7 +64,8 @@ public class ProgressControlTest {
     @Test
     public void testClearProgress() throws Exception {
         Map<String, Object> contextMap = Maps.newHashMap();
-        ProgressControl control = new ProgressControl(contextMap, UPLOAD_ID, 100);
+        ProgressControl control = new ProgressControl(UPLOAD_ID, 100);
+        control.setContextMap(contextMap);
         
         assertNull(contextMap.get(ATTRIBUTE_NAME));
         control.advance(50);

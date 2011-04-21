@@ -21,30 +21,33 @@
  */
 package org.richfaces.context;
 
-import java.io.IOException;
-import java.io.Writer;
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.util.regex.Pattern;
 
 import javax.faces.FacesException;
 import javax.faces.FacesWrapper;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.FacesContextFactory;
 import javax.faces.context.FacesContextWrapper;
 import javax.faces.lifecycle.Lifecycle;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 import org.richfaces.request.MultipartRequest;
-import org.richfaces.request.MultipartRequest.ResponseState;
+import org.richfaces.request.MultipartRequest25;
+import org.richfaces.request.MultipartRequestParser;
+import org.richfaces.request.MultipartRequestSizeExceeded;
+import org.richfaces.request.ProgressControl;
 
 /**
  * @author Nick Belaevski
  * 
  */
 public class FileUploadFacesContextFactory extends FacesContextFactory implements FacesWrapper<FacesContextFactory> {
-
-    private static final Logger LOGGER = RichfacesLogger.CONTEXT.getLogger();
 
     private static final class FileUploadFacesContext extends FacesContextWrapper {
 
@@ -72,6 +75,12 @@ public class FileUploadFacesContextFactory extends FacesContextFactory implement
         }
     }
 
+    public static final String UID_KEY = "rf_fu_uid";
+
+    private static final Logger LOGGER = RichfacesLogger.CONTEXT.getLogger();
+
+    private static final Pattern AMPERSAND = Pattern.compile("&+");
+
     private FacesContextFactory wrappedFactory;
 
     public FileUploadFacesContextFactory(FacesContextFactory wrappedFactory) {
@@ -84,36 +93,114 @@ public class FileUploadFacesContextFactory extends FacesContextFactory implement
         return wrappedFactory;
     }
 
+    private String getParameterValueFromQueryString(String queryString, String paramName) {
+        if (queryString != null) {
+            String[] nvPairs = AMPERSAND.split(queryString);
+            for (String nvPair : nvPairs) {
+                if (nvPair.length() == 0) {
+                    continue;
+                }
+
+                int eqIdx = nvPair.indexOf('=');
+                if (eqIdx >= 0) {
+                    try {
+                        String name = URLDecoder.decode(nvPair.substring(0, eqIdx), "UTF-8");
+
+                        if (paramName.equals(name)) {
+                            return URLDecoder.decode(nvPair.substring(eqIdx + 1), "UTF-8");
+                        }
+                    } catch (UnsupportedEncodingException e) {
+                        // log warning and skip this parameter
+                        LOGGER.debug(e.getMessage(), e);
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
     @Override
     public FacesContext getFacesContext(Object context, Object request, Object response, Lifecycle lifecycle)
         throws FacesException {
 
-        FacesContext facesContext = wrappedFactory.getFacesContext(context, request, response, lifecycle);
+        if (request instanceof HttpServletRequest) {
+            HttpServletRequest httpRequest = (HttpServletRequest) request;
+            if (httpRequest.getContentType() != null && httpRequest.getContentType().startsWith("multipart/")) {
+                String uid = getParameterValueFromQueryString(httpRequest.getQueryString(), UID_KEY);
+                
+                if (uid != null) {
+                    long contentLength = Long.parseLong(httpRequest.getHeader("Content-Length"));
+                    
+                    ProgressControl progressControl = new ProgressControl(uid, contentLength);
+                    
+                    HttpServletRequest wrappedRequest = wrapMultipartRequestServlet25((ServletContext) context, httpRequest, uid, 
+                        contentLength, progressControl);
+                    
+                    FacesContext facesContext = wrappedFactory.getFacesContext(context, wrappedRequest, response, lifecycle);
+                    progressControl.setContextMap(facesContext.getExternalContext().getSessionMap());
+                    return new FileUploadFacesContext(facesContext);
+                }
+            }
+            
+        }
         
-        MultipartRequest multipartRequest = (MultipartRequest) facesContext.getExternalContext().getRequestMap().get(MultipartRequest.REQUEST_ATTRIBUTE_NAME);
-        if (multipartRequest != null) {
-            facesContext = new FileUploadFacesContext(facesContext);
-
-            if (multipartRequest.getResponseState() != ResponseState.ok) {
-                printResponse(facesContext, multipartRequest);
+        return wrappedFactory.getFacesContext(context, request, response, lifecycle);
+    }
+    
+    private boolean isCreateTempFiles(ServletContext servletContext) {
+        String param = servletContext.getInitParameter("org.richfaces.fileUpload.createTempFiles");
+        if (param != null) {
+            return Boolean.parseBoolean(param);
+        }
+        
+        return true;
+    }
+    
+    private String getTempFilesDirectory(ServletContext servletContext) {
+        String result = servletContext.getInitParameter("org.richfaces.fileUpload.tempFilesDirectory");
+        if (result == null) {
+            File servletTempDir = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
+            if (servletTempDir != null) {
+                result = servletTempDir.getAbsolutePath();
             }
         }
-        
-        return facesContext;
-    }
-    
-    
-    private void printResponse(FacesContext facesContext, MultipartRequest multipartRequest) {
-        facesContext.responseComplete();
-        ExternalContext externalContext = facesContext.getExternalContext();
-        externalContext.setResponseStatus(HttpServletResponse.SC_OK);
-        externalContext.setResponseContentType("text/html");
-        try {
-            Writer writer = externalContext.getResponseOutputWriter();
-            writer.write("<html id=\"" + FileUploadExternalContextFactory.UID_KEY + multipartRequest.getUploadId() + ":" + multipartRequest.getResponseState() + "\"/>");
-            writer.close();
-        } catch (IOException e) {
-            LOGGER.error(e.getMessage(), e);
+        if (result == null) {
+            result = new File(System.getProperty("java.io.tmpdir")).getAbsolutePath();
         }
+        
+        return result;
     }
+    
+    private long getMaxRequestSize(ServletContext servletContext) {
+        String param = servletContext.getInitParameter("org.richfaces.fileUpload.maxRequestSize");
+        if (param != null) {
+            return Long.parseLong(param);
+        }
+        
+        return 0;
+    }
+
+    private HttpServletRequest wrapMultipartRequestServlet25(ServletContext servletContext, HttpServletRequest request, 
+        String uploadId, long contentLength, ProgressControl progressControl) {
+        
+        HttpServletRequest multipartRequest;
+        
+        long maxRequestSize = getMaxRequestSize(servletContext);
+        if (maxRequestSize == 0 || contentLength <= maxRequestSize) {
+            boolean createTempFiles = isCreateTempFiles(servletContext);
+            String tempFilesDirectory = getTempFilesDirectory(servletContext);
+            
+            MultipartRequestParser requestParser = new MultipartRequestParser(request, createTempFiles, tempFilesDirectory, progressControl);
+            
+            multipartRequest = new MultipartRequest25(request, uploadId, progressControl, requestParser);
+        } else {
+            multipartRequest = new MultipartRequestSizeExceeded(request, uploadId, progressControl);
+        }
+
+        request.setAttribute(MultipartRequest.REQUEST_ATTRIBUTE_NAME, multipartRequest);
+        
+        return multipartRequest;
+    }
+
 }
