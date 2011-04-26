@@ -234,7 +234,7 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         throws IOException {
            
         writer.startElement(HtmlConstants.TBODY_ELEMENT, dataTableBase);
-        String clientId = (dataTableBase.getRelativeRowIndex() < 0) ? dataTableBase.getContainerClientId(facesContext) : dataTableBase.getRelativeClientId(facesContext);
+        String clientId = (dataTableBase.getRowKey() == null) ? dataTableBase.getContainerClientId(facesContext) : dataTableBase.getRelativeClientId(facesContext);
        
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE,  clientId + ":tb", null);
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, getTableBodySkinClass(), null);
