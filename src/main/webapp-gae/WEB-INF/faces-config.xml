@@ -1,20 +1,23 @@
-<?xml version='1.0' encoding='UTF-8'?>
-
-<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
-              version="2.0" metadata-complete="true">
-
-	<application>
-		<!-- system-event-listener>
-			<system-event-listener-class>org.richfaces.resource.MapBasedResourceCodecListener</system-event-listener-class>
-			<system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
-		</system-event-listener -->
-	</application>
-
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config metadata-complete="true" version="2.0"
+    xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
     <component>
         <component-type>syntaxHighlighter</component-type>
         <component-class>org.richfaces.demo.components.sh.SyntaxHighlighter</component-class>
 	</component>
 
+    <managed-bean>
+        <managed-bean-name>personBean</managed-bean-name>
+        <managed-bean-class>org.richfaces.demo.arrangeablemodel.PersonBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean eager="true">
+        <managed-bean-name>persistenceService</managed-bean-name>
+        <managed-bean-class>org.richfaces.demo.arrangeablemodel.PersistenceService</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
 	<managed-bean>
 		<managed-bean-name>functionBean</managed-bean-name>
 		<managed-bean-class>org.richfaces.demo.function.FunctionBean</managed-bean-class>
@@ -253,4 +256,7 @@
 		<managed-bean-class>org.richfaces.demo.outputPanel.OutputPanelBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+    <factory>
+        <lifecycle-factory>org.richfaces.demo.arrangeablemodel.PersistenceLifecycleFactory</lifecycle-factory>
+    </factory>
 </faces-config>

@@ -265,6 +265,10 @@
 						<id>dataTableEdit</id>
 						<name>Data Table Edit</name>
 					</sample>
+					<sample new="true">
+						<id>arrangeableModel</id>
+						<name>Arrangeable Model Sample</name>
+					</sample>
 				</samples>
 			</demo>
 			<demo>
