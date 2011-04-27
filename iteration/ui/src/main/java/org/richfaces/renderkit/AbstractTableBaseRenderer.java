@@ -22,17 +22,16 @@
 
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.Map;
+import org.richfaces.component.Row;
+import org.richfaces.component.UIDataTableBase;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-
-import org.richfaces.component.Row;
-import org.richfaces.component.UIDataTableBase;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
 
 
 /**
@@ -122,6 +121,7 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
     
     public void encodeFirstRowStart(ResponseWriter writer, FacesContext context, String parentId, int currentRow, UIComponent component) throws  IOException {
         writer.startElement(HtmlConstants.TR_ELEMENT, component);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, parentId + ":" + currentRow, null);
         String styleClass = concatClasses(getRowClass(context, parentId), getFirstRowClass(context, parentId), component.getAttributes().get(ROW_CLASS));
         if (styleClass.length() > 0) {
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, styleClass, null);
@@ -134,6 +134,8 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
     
     public void encodeRowStart(ResponseWriter writer, FacesContext context, String parentId, int currentRow, UIComponent component) throws  IOException {
         writer.startElement(HtmlConstants.TR_ELEMENT, component);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, parentId + ":" + currentRow, null);
+
         String styleClass = concatClasses(getRowClass(context, parentId), component.getAttributes().get(ROW_CLASS));
         if (styleClass.length() > 0) {
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, styleClass, null);

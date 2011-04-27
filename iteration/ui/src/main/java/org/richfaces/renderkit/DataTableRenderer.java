@@ -24,22 +24,23 @@ package org.richfaces.renderkit;
 
 import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.AbstractCollapsibleSubTable;
-import org.richfaces.component.AbstractDataTable;
-import org.richfaces.component.Row;
-import org.richfaces.component.UIDataTableBase;
+import org.richfaces.component.*;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
+import javax.faces.component.ContextCallback;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehavior;
+import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,6 +54,9 @@ import java.util.Map;
     @ResourceDependency(library="org.richfaces", name = "datatable.ecss")
 })
 public class DataTableRenderer extends AbstractTableRenderer {
+
+    private static final String BEHAVIOR_EVENT_NAME = "javax.faces.behavior.event";
+    private static final String ROW = "row";
 
     private class  DataTableHiddenEncodeStrategy implements EncodeStrategy {
         public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params) throws IOException {
@@ -82,7 +86,48 @@ public class DataTableRenderer extends AbstractTableRenderer {
         public void end(ResponseWriter writer, FacesContext context, UIComponent component, Object [] params) throws IOException {
         }
     }
-    
+
+    protected void doDecode(FacesContext context, final UIComponent component) {
+        super.doDecode(context, component);
+
+        if ((null == context) || (null == component)) {
+            throw new NullPointerException();
+        }
+
+        if (component instanceof ClientBehaviorHolder) {
+            final Map<String, List<ClientBehavior>> behaviors = ((ClientBehaviorHolder) component).getClientBehaviors();
+
+            if (behaviors == null || behaviors.isEmpty()) {
+                return;
+            }
+
+            Map<String, String> parametersMap = context.getExternalContext().getRequestParameterMap();
+            final String behaviorEvent = parametersMap.get(BEHAVIOR_EVENT_NAME);
+
+            if (!behaviorEvent.startsWith(ROW)){
+                return;
+            }
+
+            String behaviorSourceId = RenderKitUtils.getBehaviorSourceId(context);
+
+            ((UIDataAdaptor) component).invokeOnRow(context, behaviorSourceId, new ContextCallback() {
+
+                public void invokeContextCallback(FacesContext context, UIComponent target) {
+                    if (target.equals(component)) {
+                        List<ClientBehavior> behaviorsForEvent = behaviors.get(behaviorEvent);
+                        if (behaviorsForEvent != null && !behaviorsForEvent.isEmpty()) {
+                            for (ClientBehavior behavior : behaviorsForEvent) {
+                                behavior.decode(context, component);
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+
+
     public void encodeTableStructure(ResponseWriter writer, FacesContext context, UIDataTableBase dataTable)
         throws IOException {
         if (dataTable instanceof AbstractDataTable) {

@@ -21,12 +21,7 @@
 
 package org.richfaces.renderkit.util;
 
-import java.util.Map;
-
-import javax.faces.component.UIComponent;
-import javax.faces.component.behavior.ClientBehaviorContext;
-import javax.faces.context.FacesContext;
-
+import com.google.common.base.Strings;
 import org.ajax4jsf.component.AjaxClientBehavior;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSReference;
@@ -35,7 +30,10 @@ import org.richfaces.renderkit.AjaxFunction;
 import org.richfaces.renderkit.AjaxOptions;
 import org.richfaces.renderkit.HtmlConstants;
 
-import com.google.common.base.Strings;
+import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.ClientBehaviorContext;
+import javax.faces.context.FacesContext;
+import java.util.Map;
 /**
  * @author shura
  *         <p/>
@@ -461,30 +459,31 @@ public final class AjaxRendererUtils {
      * Create call to Ajax Submit function with first two parameters
      *
      * @param facesContext
-     * @param uiComponent
-     * @param functionName
+     * @param component
      * @return
      */
     public static AjaxFunction buildAjaxFunction(FacesContext facesContext, UIComponent component) {
         return new AjaxFunction(component.getClientId(facesContext), buildEventOptions(facesContext, component));
     }
 
+
     public static AjaxFunction buildAjaxFunction(ClientBehaviorContext behaviorContext, AjaxClientBehavior behavior) {
         Object source;
-        
+
         AjaxOptions options = buildAjaxOptions(behaviorContext, behavior);
 
         if (behaviorContext.getSourceId() != null) {
             source = behaviorContext.getSourceId();
         } else {
             source = JSReference.THIS;
-            
+
             FacesContext facesContext = behaviorContext.getFacesContext();
             UIComponent component = behaviorContext.getComponent();
-            
-            options.set("sourceId", component.getClientId(facesContext));
+
+            options.setAjaxComponent(component.getClientId(facesContext));
+            options.set("sourceId", source);
         }
-        
+
         return new AjaxFunction(source, options);
     }
     

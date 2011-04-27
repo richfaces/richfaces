@@ -21,17 +21,9 @@
  */
 package org.richfaces.renderkit;
 
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import org.ajax4jsf.javascript.JSFunctionDefinition;
+import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.renderkit.ComponentAttribute.Kind;
 
 import javax.faces.application.Application;
 import javax.faces.application.Resource;
@@ -45,10 +37,9 @@ import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-
-import org.ajax4jsf.javascript.JSFunctionDefinition;
-import org.ajax4jsf.javascript.ScriptUtils;
-import org.richfaces.renderkit.ComponentAttribute.Kind;
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.*;
 
 /**
  * @author Nick Belaevski
@@ -779,6 +770,10 @@ public final class RenderKitUtils {
             last.setDefaultValue(value);
             return this;
         }
+    }
+
+    public static String getBehaviorSourceId(FacesContext facesContext) {
+        return facesContext.getExternalContext().getRequestParameterMap().get(BEHAVIOR_SOURCE_ID);
     }
 
 }

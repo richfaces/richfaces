@@ -22,56 +22,29 @@
 
 package org.richfaces.component;
 
-import static org.richfaces.component.util.Strings.NamingContainerDataHolder.SEPARATOR_CHAR_JOINER;
-
-import java.text.MessageFormat;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Map;
+import org.ajax4jsf.component.IterationStateHolder;
+import org.ajax4jsf.model.*;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.context.ExtendedVisitContext;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
-import javax.faces.component.ContextCallback;
-import javax.faces.component.EditableValueHolder;
-import javax.faces.component.NamingContainer;
-import javax.faces.component.PartialStateHolder;
-import javax.faces.component.StateHelper;
-import javax.faces.component.StateHolder;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIComponentBase;
-import javax.faces.component.UIForm;
-import javax.faces.component.UINamingContainer;
-import javax.faces.component.UIViewRoot;
-import javax.faces.component.UniqueIdVendor;
+import javax.faces.component.*;
 import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.event.ComponentSystemEventListener;
-import javax.faces.event.FacesEvent;
-import javax.faces.event.ListenerFor;
-import javax.faces.event.PhaseId;
-import javax.faces.event.PostValidateEvent;
-import javax.faces.event.PreRenderComponentEvent;
-import javax.faces.event.PreValidateEvent;
+import javax.faces.event.*;
+import java.text.MessageFormat;
+import java.util.*;
 
-import org.ajax4jsf.component.IterationStateHolder;
-import org.ajax4jsf.model.DataComponentState;
-import org.ajax4jsf.model.DataVisitResult;
-import org.ajax4jsf.model.DataVisitor;
-import org.ajax4jsf.model.ExtendedDataModel;
-import org.ajax4jsf.model.Range;
-import org.richfaces.cdk.annotations.Attribute;
-import org.richfaces.context.ExtendedVisitContext;
-import org.richfaces.log.Logger;
-import org.richfaces.log.RichfacesLogger;
+import static org.richfaces.component.util.Strings.NamingContainerDataHolder.SEPARATOR_CHAR_JOINER;
 
 /**
  * Base class for iterable components, like dataTable, Tomahawk dataList, Facelets repeat, tree etc., with support for
@@ -81,7 +54,7 @@ import org.richfaces.log.RichfacesLogger;
  */
 @ListenerFor(systemEventClass = PreRenderComponentEvent.class)
 public abstract class UIDataAdaptor extends UIComponentBase implements NamingContainer,
-    UniqueIdVendor, IterationStateHolder, ComponentSystemEventListener {
+        UniqueIdVendor, IterationStateHolder, ComponentSystemEventListener {
 
     /**
      * <p>The standard component family for this component.</p>
@@ -135,7 +108,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     //TODO nick - PSH support?
     private DataComponentState componentState = null;
     private ExtendedDataModel<?> extendedDataModel = null;
-    
+
     private Object rowKey = null;
 
     private String containerClientId;
@@ -146,7 +119,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
     /**
      * @author Nick Belaevski
-     *
      */
     private final class DataVisitorForVisitTree implements DataVisitor {
         /**
@@ -184,12 +156,12 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
                         return DataVisitResult.STOP;
                     }
-                    
+
                     if (result == VisitResult.ACCEPT) {
                         result = visitDataChildrenMetaComponents((ExtendedVisitContext) visitContext, callback);
                         if (VisitResult.COMPLETE.equals(result)) {
                             visitResult = true;
-                            
+
                             return DataVisitResult.STOP;
                         }
                     }
@@ -265,23 +237,23 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
      * row number in sequence data, but, for example - path to current node in
      * tree.
      *
-     * @param faces -
+     * @param facesContext -
      *              current FacesContext
-     * @param key   new key value.
+     * @param rowKey   new key value.
      */
     public void setRowKey(FacesContext facesContext, Object rowKey) {
         this.saveChildState(facesContext);
-        
+
         this.rowKey = rowKey;
-        
+
         getExtendedDataModel().setRowKey(rowKey);
-        
+
         this.containerClientId = null;
 
         boolean rowSelected = (rowKey != null) && isRowAvailable();
 
         setupVariable(facesContext, rowSelected);
-        
+
         this.restoreChildState(facesContext);
     }
 
@@ -289,7 +261,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
      * Save values of {@link EditableValueHolder} fields before change current
      * row.
      *
-     * @param faces
+     * @param facesContext
      */
     protected void saveChildState(FacesContext facesContext) {
         Iterator<UIComponent> itr = dataChildren();
@@ -301,8 +273,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
     /**
      * @param facesContext
-     * @param next
-     * @param childState
      */
     protected void saveChildState(FacesContext facesContext, UIComponent component) {
 
@@ -362,6 +332,16 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         }
     }
 
+    protected Iterator<UIComponent> allFixedChildren() {
+        if (getFacetCount() > 0) {
+            List<UIComponent> children = new ArrayList<UIComponent>();
+
+            return getFacets().values().iterator();
+        } else {
+            return Collections.<UIComponent>emptyList().iterator();
+        }
+    }
+
     /**
      * @param facesContext
      */
@@ -378,8 +358,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
      * row.
      *
      * @param facesContext
-     * @param next
-     * @param childState
      */
     protected void restoreChildState(FacesContext facesContext, UIComponent component) {
         String id = component.getId();
@@ -389,7 +367,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         SavedState savedState = null;
         @SuppressWarnings("unchecked")
         Map<String, SavedState> savedStatesMap = (Map<String, SavedState>) getStateHelper()
-            .get(PropertyKeys.childState);
+                .get(PropertyKeys.childState);
 
         if (savedStatesMap != null) {
             savedState = savedStatesMap.get(component.getClientId(facesContext));
@@ -433,7 +411,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     protected FacesEvent wrapEvent(FacesEvent event) {
         return new RowKeyContextEventWrapper(this, event, getRowKey());
     }
-    
+
     @Override
     public void queueEvent(FacesEvent event) {
         super.queueEvent(wrapEvent(event));
@@ -447,7 +425,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     public void broadcast(FacesEvent event) throws AbortProcessingException {
         if (event instanceof RowKeyContextEventWrapper) {
             RowKeyContextEventWrapper eventWrapper = (RowKeyContextEventWrapper) event;
-            
+
             eventWrapper.broadcast(getFacesContext());
         } else {
             super.broadcast(event);
@@ -520,9 +498,10 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     /**
      * Boolean attribute that defines whether this iteration component will reset saved children's state
      * before rendering. By default state is reset if there are no faces messages with severity error or higher.
+     *
      * @return
      */
-    
+
     @Attribute
     public boolean isKeepSaved() {
         Object value = getStateHelper().eval(PropertyKeys.keepSaved);
@@ -546,7 +525,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
      * Changed: does not check for row availability now
      *
      * @param faces       current faces context
-     * @param localModel
      * @param rowSelected
      */
     protected void setupVariable(FacesContext faces, boolean rowSelected) {
@@ -587,7 +565,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
             componentState = createComponentState();
 
             if ((componentStateExpression != null)
-                && !componentStateExpression.isReadOnly(getFacesContext().getELContext())) {
+                    && !componentStateExpression.isReadOnly(getFacesContext().getELContext())) {
                 componentStateExpression.setValue(getFacesContext().getELContext(), componentState);
             }
         }
@@ -611,7 +589,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     /**
      * @param var
      * @param attrs
-     * @param rowData
      */
     private void removeVariable(String var, Map<String, Object> attrs) {
         if (var != null) {
@@ -644,7 +621,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
     private String getRowKeyAsString(FacesContext facesContext, Object rowKey) {
         assert rowKey != null;
-        
+
         Converter rowKeyConverter = getRowKeyConverter();
         if (rowKeyConverter == null) {
             // Create default converter for a row key.
@@ -656,18 +633,18 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
                 setRowKeyConverter(rowKeyConverter);
             }
         }
-        
+
         if (rowKeyConverter != null) {
             return rowKeyConverter.getAsString(facesContext, this, rowKey);
         } else {
             return rowKey.toString();
         }
     }
-    
+
     public String getContainerClientId() {
         return getContainerClientId(getFacesContext());
     }
-    
+
     @Override
     public String getContainerClientId(FacesContext facesContext) {
         if (facesContext == null) {
@@ -676,18 +653,18 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
         if (null == containerClientId) {
             containerClientId = super.getContainerClientId(facesContext);
-            
+
             Object rowKey = getRowKey();
-            
+
             if (rowKey != null) {
                 String rowKeyString = getRowKeyAsString(facesContext, rowKey);
                 containerClientId = SEPARATOR_CHAR_JOINER.join(containerClientId, rowKeyString);
-            }            
+            }
         }
 
         return containerClientId;
     }
-    
+
     /**
      * Save current state of data variable.
      *
@@ -820,7 +797,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
         pushComponentToEL(faces, this);
         preDecode(faces);
-        this.iterate(faces, decodeVisitor);
+        processDecodesChildren(faces);
         this.decode(faces);
         popComponentFromEL(faces);
     }
@@ -834,7 +811,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         Application app = faces.getApplication();
         app.publishEvent(faces, PreValidateEvent.class, this);
         preValidate(faces);
-        this.iterate(faces, validateVisitor);
+        processValidatesChildren(faces);
         app.publishEvent(faces, PostValidateEvent.class, this);
         popComponentFromEL(faces);
     }
@@ -846,7 +823,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
         pushComponentToEL(faces, this);
         preUpdate(faces);
-        this.iterate(faces, updateVisitor);
+        processUpdatesChildren(faces);
 
         doUpdate();
 
@@ -854,9 +831,21 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     protected void doUpdate() {
-        
+
     }
-    
+
+    protected void processDecodesChildren(FacesContext faces) {
+        this.iterate(faces, decodeVisitor);
+    }
+
+    protected void processValidatesChildren(FacesContext faces) {
+        this.iterate(faces, validateVisitor);
+    }
+
+    protected void processUpdatesChildren(FacesContext faces) {
+        this.iterate(faces, updateVisitor);
+    }
+
     @Override
     public void setId(String id) {
         super.setId(id);
@@ -886,7 +875,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         if (stateObject != null) {
             DataAdaptorIterationState iterationState = (DataAdaptorIterationState) stateObject;
             iterationState.restoreComponentState(this);
-            
+
             this.componentState = iterationState.getComponentState();
             this.extendedDataModel = iterationState.getDataModel();
         } else {
@@ -1006,7 +995,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     @Override
     public void restoreState(FacesContext context, Object stateObject) {
         if (stateObject == null) {
-            return ;
+            return;
         }
 
         Object[] state = (Object[]) stateObject;
@@ -1039,7 +1028,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
         // if clientId.startsWith(baseId + separatorChar)
         if (clientId.startsWith(baseId) && (clientId.length() > baseId.length())
-            && (clientId.charAt(baseId.length()) == separatorChar)) {
+                && (clientId.charAt(baseId.length()) == separatorChar)) {
             return true;
         }
 
@@ -1047,8 +1036,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     @Override
-    public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
-        throws FacesException {
+    public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback) throws FacesException {
 
         if ((null == context) || (null == clientId) || (null == callback)) {
             throw new NullPointerException();
@@ -1138,6 +1126,91 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         return found;
     }
 
+    public boolean invokeOnRow(FacesContext context, String clientId, ContextCallback callback) {
+        if ((null == context) || (null == clientId) || (null == callback)) {
+            throw new NullPointerException();
+        }
+
+        String baseId = getClientId(context);
+
+        if (!matchesBaseId(clientId, baseId, UINamingContainer.getSeparatorChar(context))) {
+            return false;
+        }
+
+        String rowId = clientId.substring(baseId.length() + 1);
+        if (rowId.indexOf(UINamingContainer.getSeparatorChar(context)) >= 0) {
+            return false;
+        }
+
+
+        Object oldRowKey = getRowKey();
+
+        captureOrigValue(context);
+
+        try {
+
+            setRowKey(context, null);
+
+            Iterator<UIComponent> fixedChildrenItr = fixedChildren();
+
+            while (fixedChildrenItr.hasNext()) {
+                if (checkAllFixedChildren(fixedChildrenItr.next(), rowId)) {
+                    return false;
+                }
+            }
+
+            Object newRowKey = null;
+
+            if (rowId != null) {
+                Converter keyConverter = getRowKeyConverter();
+
+                if (null != keyConverter) {
+                    try {
+                        newRowKey = keyConverter.getAsObject(context, this, rowId);
+                    } catch (ConverterException e) {
+                        LOG.warn(e);
+                    }
+                }
+            }
+
+            setRowKey(context, newRowKey);
+            callback.invokeContextCallback(context, this);
+        } catch (Exception e) {
+            throw new FacesException(e);
+        } finally {
+            try {
+                setRowKey(context, oldRowKey);
+                restoreOrigValue(context);
+            } catch (Exception e) {
+                LOG.error(e.getMessage(), e);
+            }
+        }
+
+        return true;
+
+    }
+
+    private boolean checkAllFixedChildren(UIComponent fixedChild, String id) {
+        if(fixedChild.getId().equals(id)) {
+            return true;
+        }
+
+        if (fixedChild instanceof NamingContainer) {
+            return false;
+        }
+
+        for (UIComponent uiComponent : fixedChild.getChildren()) {
+            if (checkAllFixedChildren(uiComponent, id)) {
+                return true;
+            }
+        }
+        for (UIComponent uiComponent : fixedChild.getFacets().values()) {
+            if (checkAllFixedChildren(uiComponent, id)) {
+                return true;
+            }
+        }
+        return false;
+    }
     // Tests whether we need to visit our children as part of
     // a tree visit
     private boolean doVisitChildren(VisitContext context, boolean visitRows) {
@@ -1185,7 +1258,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     protected VisitResult visitDataChildrenMetaComponents(ExtendedVisitContext extendedVisitContext, VisitCallback callback) {
         return VisitResult.ACCEPT;
     }
-    
+
     protected boolean visitDataChildren(VisitContext visitContext, VisitCallback callback, boolean visitRows) {
 
         if (visitRows) {
@@ -1244,7 +1317,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
                 if (visitRows) {
                     setRowKey(facesContext, null);
                 }
-                
+
                 if (visitFixedChildren(visitContext, callback)) {
                     return true;
                 }
@@ -1258,7 +1331,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
                             return false;
                         } else {
                             VisitContext directChildrenVisitContext =
-                                extendedVisitContext.createNamingContainerVisitContext(this, directSubtreeIdsToVisit);
+                                    extendedVisitContext.createNamingContainerVisitContext(this, directSubtreeIdsToVisit);
 
                             if (visitRows) {
                                 setRowKey(facesContext, null);
@@ -1296,7 +1369,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     /**
-     * @param facesContext
+     * @param context
      * @return
      */
     private boolean requiresRowIteration(FacesContext context) {
