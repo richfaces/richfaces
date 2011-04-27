@@ -26,7 +26,6 @@ package org.ajax4jsf.javascript;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -35,6 +34,18 @@ import java.util.List;
  *
  */
 public class JSFunctionDefinition extends ScriptStringBase implements ScriptString {
+    protected static final String FUNCTION = "function";
+    protected static final String EQUALS = "=";
+    protected static final String DOT = ".";
+    protected static final String COMMA = ",";
+    protected static final String EMPTY_STRING = " ";
+    protected static final String LEFT_CURLY_BRACKET = "{";
+    protected static final String RIGHT_CURLY_BRACKET = "}";
+    protected static final String LEFT_ROUND_BRACKET = "(";
+    protected static final String RIGHT_ROUND_BRACKET = ")";
+    protected static final String LEFT_SQUARE_BRACKET = "[";
+    protected static final String RIGHT_SQUARE_BRACKET = "]";
+    protected static final String COLON = ":";
     private List<Object> parameters = new ArrayList<Object>();
     private StringBuffer body = new StringBuffer();
     private String name;
@@ -58,33 +69,11 @@ public class JSFunctionDefinition extends ScriptStringBase implements ScriptStri
     }
 
     public void appendScript(Appendable target) throws IOException {
-        target.append("function");
-
-        if (null != name) {
-            target.append(" ").append(name);
-        }
-
-        target.append("(");
-
-        boolean first = true;
-
-        for (Iterator<Object> param = parameters.iterator(); param.hasNext(); ) {
-            Object element = param.next();
-
-            if (!first) {
-                target.append(',');
-            }
-
-            target.append(element.toString());
-            first = false;
-        }
-
-        target.append("){");appendBody(target);
-        target.append("}");
-    }
-    
-    protected void appendBody(Appendable target) throws IOException {
-        target.append(body);        
+        appendFunctionName(target);
+        appendParameters(target);
+        target.append(LEFT_CURLY_BRACKET);
+        appendBody(target);
+        target.append(RIGHT_CURLY_BRACKET);
     }
 
     /**
@@ -101,4 +90,32 @@ public class JSFunctionDefinition extends ScriptStringBase implements ScriptStri
         this.name = name;
     }
 
+    protected void appendFunctionName(Appendable target) throws IOException {
+        target.append(FUNCTION);
+
+        if (null != name) {
+            target.append(EMPTY_STRING).append(name);
+        }
+    }
+
+    protected void appendBody(Appendable target) throws IOException {
+        target.append(body);
+    }
+
+    private void appendParameters(Appendable target) throws IOException {
+        target.append(LEFT_ROUND_BRACKET);
+
+        boolean first = true;
+
+        for (Object element : parameters) {
+            if (!first) {
+                target.append(COMMA);
+            }
+
+            target.append(element.toString());
+            first = false;
+        }
+
+        target.append(RIGHT_ROUND_BRACKET);
+    }
 }
