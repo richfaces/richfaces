@@ -73,6 +73,10 @@ public final class PushServlet extends MeteorServlet {
             String parameter = config.getInitParameter(name);
 
             if (parameter == null) {
+                parameter = config.getServletContext().getInitParameter(name);
+            }
+            
+            if (parameter == null) {
                 parameter = DEFAULT_INIT_PARAMETERS.get(name);
             }
             
@@ -85,6 +89,7 @@ public final class PushServlet extends MeteorServlet {
             
             Iterators.addAll(result, (Iterator<? extends String>) DEFAULT_INIT_PARAMETERS.keySet());
             Iterators.addAll(result, Iterators.forEnumeration(config.getInitParameterNames()));
+            Iterators.addAll(result, Iterators.forEnumeration(config.getServletContext().getInitParameterNames()));
 
             return Iterators.asEnumeration(result.iterator());
         }
