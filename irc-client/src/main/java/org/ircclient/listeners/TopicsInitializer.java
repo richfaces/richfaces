@@ -31,7 +31,7 @@ import javax.faces.event.SystemEventListener;
 import javax.servlet.http.HttpServletRequest;
 
 import org.ircclient.controller.ChatBean;
-import org.richfaces.application.push.SubscriptionAbortedException;
+import org.richfaces.application.push.EventAbortedException;
 import org.richfaces.application.push.Session;
 import org.richfaces.application.push.SessionPreSubscriptionEvent;
 import org.richfaces.application.push.SessionSubscriptionEvent;
@@ -57,14 +57,14 @@ public class TopicsInitializer implements SystemEventListener {
 
         topic.addTopicListener(new SessionTopicListener() {
 
-            public void processUnsubscriptionEvent(SessionUnsubscriptionEvent event) throws SubscriptionAbortedException {
+            public void processUnsubscriptionEvent(SessionUnsubscriptionEvent event) throws EventAbortedException {
                 TopicKey topicKey = event.getTopicKey();
                 Session session = event.getSession();
                 System.out.println(MessageFormat.format("Session {0} disconnected from {1}", session.getId(),
                     topicKey.getTopicAddress()));
             }
 
-            public void processSubscriptionEvent(SessionSubscriptionEvent event) throws SubscriptionAbortedException {
+            public void processSubscriptionEvent(SessionSubscriptionEvent event) throws EventAbortedException {
                 TopicKey topicKey = event.getTopicKey();
                 Session session = event.getSession();
 
@@ -75,11 +75,11 @@ public class TopicsInitializer implements SystemEventListener {
                     topicKey.getTopicAddress(), hsr.getRemoteAddr()));
             }
 
-            public void processPreSubscriptionEvent(SessionPreSubscriptionEvent event) throws SubscriptionAbortedException {
+            public void processPreSubscriptionEvent(SessionPreSubscriptionEvent event) throws EventAbortedException {
                 ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
                 ChatBean chatBean = (ChatBean) externalContext.getSessionMap().get("chatBean");
                 if (chatBean == null || !(chatBean.isConnected())) {
-                    throw new SubscriptionAbortedException("We are not connected to IRC");
+                    throw new EventAbortedException("We are not connected to IRC");
                 }
             }
         });

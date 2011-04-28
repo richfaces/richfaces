@@ -28,6 +28,10 @@
 					overflow: auto;
 				}
 			</h:outputStylesheet>
+			<h:outputScript>
+				RichFaces.Push.transport = "websocket";
+				RichFaces.Push.fallbackTransport = "long-polling";
+			</h:outputScript>
 		</h:head>
 		<h:body>
 			<h:form id="form">

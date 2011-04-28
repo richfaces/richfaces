@@ -9,32 +9,9 @@
         <param-value>Development</param-value>
     </context-param>
 
-    <listener>
-        <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
-    </listener>
-    <filter>
-        <filter-name>PushFilter</filter-name>
-        <filter-class>org.richfaces.webapp.PushFilter</filter-class>
-        <async-supported>true</async-supported>
-    </filter>
-    
-    <filter-mapping>
-        <filter-name>PushFilter</filter-name>
-        <url-pattern>/faces/*</url-pattern>
-    </filter-mapping>
-
-    <!-- context-param>
+    <context-param>
         <param-name>org.atmosphere.useWebSocket</param-name>
         <param-value>true</param-value>
-    </context-param-->
-
-    <servlet>
-        <servlet-name>Faces Servlet</servlet-name>
-        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/faces/*</url-pattern>
-    </servlet-mapping>
+    </context-param>
+    
 </web-app>
