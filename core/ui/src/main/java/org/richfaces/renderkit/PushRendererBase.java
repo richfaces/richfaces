@@ -31,6 +31,9 @@ import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 
 import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.application.push.PushContext;
+import org.richfaces.application.push.PushContextFactory;
 import org.richfaces.component.AbstractPush;
 import org.richfaces.resource.PushResource;
 
@@ -42,13 +45,19 @@ public class PushRendererBase extends Renderer {
 
     private static final String PUSH_URL_ENCODED_ATTRIBUTE = PushRendererBase.class.getName();
     
-    protected String getPushUrl(FacesContext context) {
+    protected String getPushResourceUrl(FacesContext context) {
         ResourceHandler resourceHandler = context.getApplication().getResourceHandler();
         Resource pushResource = resourceHandler.createResource(PushResource.class.getName());
         
         return pushResource.getRequestPath();
     }
     
+    protected String getPushHandlerUrl(FacesContext context) {
+        PushContext pushContext = ServiceTracker.getService(PushContextFactory.class).getPushContext();
+
+        return pushContext.getPushHandlerUrl();
+    }
+
     protected boolean shouldEncodePushUrl(FacesContext context) {
         Map<Object, Object> attributes = context.getAttributes();
         

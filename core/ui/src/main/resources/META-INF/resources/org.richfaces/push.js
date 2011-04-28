@@ -47,22 +47,45 @@
 
 		var handlersCounter = {};
 
-		var pushUrl = null;
+		var pushResourceUrl = null;
+
+		var pushHandlerUrl = null;
 
 		var pushSessionId = null;
 
 		var suspendMessageEndMarker = /^(<!--[^>]+-->\s*)+/;
 
+		var messageTokenExpr = /<([^>]*)>/g;
+		
+		var lastMessageNumber = -1;
+		
+		var qualifyUrl = function(url) {
+			var result = url;
+
+			if (url.charAt(0) == '/') {
+				result = location.protocol + '//' + location.host + url;
+			}
+			
+			return result;
+		};
+		
 		var messageCallback = function(response) {
 			var dataString = response.responseBody.replace(suspendMessageEndMarker, "");
 			if (dataString) {
-				var messages = _$.parseJSON(dataString);
-				if (messages) {
-					for (var i = 0; i < messages.length; i++) {
-						var message = messages[i];
-
-						richfaces.Event.fire(document, getDataEventNamespace(message.topic), message.data);
+				var messageToken;
+				while (messageToken = messageTokenExpr.exec(dataString)) {
+					if (!messageToken[1]) {
+						continue;
 					}
+					
+					var message = _$.parseJSON('{' + messageToken[1] + '}');
+					
+					if (message.number <= lastMessageNumber) {
+						continue;
+					}
+					
+					richfaces.Event.fire(document, getDataEventNamespace(message.topic), message.data);
+					lastMessageNumber = message.number;
 				}
 			}
 
@@ -86,8 +109,9 @@
 				if (subscriptionData.sessionId) {
 					pushSessionId = subscriptionData.sessionId;
 
-					_$.atmosphere.subscribe(pushUrl + "?__richfacesPushAsync=1&pushSessionId=" + pushSessionId, messageCallback, {
-						/*transport: 'websocket'*/
+					_$.atmosphere.subscribe((pushHandlerUrl || pushResourceUrl) + "?__richfacesPushAsync=1&pushSessionId=" + pushSessionId, messageCallback, {
+						transport: richfaces.Push.transport,
+						fallbackTransport: richfaces.Push.fallbackTransport
 					});
 				}
 			};
@@ -98,7 +122,7 @@
 			}
 
 			var data = {
-					"pushTopic": topics	
+				"pushTopic": topics	
 			};
 
 			if (pushSessionId) {
@@ -112,7 +136,7 @@
 				success: pushSessionIdRequestHandler,
 				traditional: true,
 				type: 'POST',
-				url: pushUrl
+				url: pushResourceUrl
 			});
 		};
 
@@ -135,12 +159,12 @@
 				}
 			},
 
-			setPushUrl: function(argPushUrl) {
-				if (argPushUrl.charAt(0) == '/') {
-					pushUrl = location.protocol + '//' + location.host + argPushUrl;
-				} else {
-					pushUrl = argPushUrl;
-				}
+			setPushResourceUrl: function(url) {
+				pushResourceUrl = qualifyUrl(url);
+			},
+
+			setPushHandlerUrl: function(url) {
+				pushHandlerUrl = qualifyUrl(url);
 			},
 
 			updateConnection: function() {
@@ -160,6 +184,9 @@
 
 	_$(document).ready(richfaces.Push.updateConnection);
 
+	richfaces.Push.transport = "websocket";
+	richfaces.Push.fallbackTransport = "long-polling";
+	
 	var ajaxEventHandler = function(event) {
 		if (event.type == 'event') {
 			if (event.status != 'success') {
