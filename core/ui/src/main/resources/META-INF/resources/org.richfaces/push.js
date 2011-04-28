@@ -184,8 +184,8 @@
 
 	_$(document).ready(richfaces.Push.updateConnection);
 
-	richfaces.Push.transport = "websocket";
-	richfaces.Push.fallbackTransport = "long-polling";
+	richfaces.Push.transport = "long-polling";// "websocket";
+	richfaces.Push.fallbackTransport = undefined;//"long-polling";
 	
 	var ajaxEventHandler = function(event) {
 		if (event.type == 'event') {
