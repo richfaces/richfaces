@@ -25,6 +25,7 @@ package org.richfaces.application.push;
  * @author Nick Belaevski
  * 
  */
+@Deprecated
 public class EventAbortedException extends Exception {
 
     private static final long serialVersionUID = -1546282468438542993L;

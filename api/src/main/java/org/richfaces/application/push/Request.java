@@ -21,7 +21,7 @@
  */
 package org.richfaces.application.push;
 
-import java.io.IOException;
+
 
 
 /**
@@ -32,19 +32,15 @@ public interface Request {
 
     //TODO expose request/session/application maps
     
-    public void flushMessages() throws IOException;
-    
     //TODO suspend with timeout?
-    public void suspend() throws IOException;
+    public void suspend();
    
-    public void resume() throws IOException;
+    public void resume();
 
     public Session getSession();
     
-    public boolean isSuspended();
- 
     public boolean isPolling();
-    
-    public MessageListener getMessageListener();
+
+    public void postMessages();
     
 }

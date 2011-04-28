@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,19 +19,18 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.application.push.impl;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.atmosphere.cpr.AtmosphereHandler;
+package org.richfaces.application.push;
 
 /**
  * @author Nick Belaevski
  * 
  */
-public interface AtmosphereHandlerProvider {
+public interface SessionTopicListener2 extends TopicListener {
 
-    public AtmosphereHandler<HttpServletRequest, HttpServletResponse> getHandler();
+    public void processPreSubscriptionEvent(SessionPreSubscriptionEvent event) throws SubscriptionFailureException;
+    
+    public void processSubscriptionEvent(SessionSubscriptionEvent event);
+    
+    public void processUnsubscriptionEvent(SessionUnsubscriptionEvent event);
     
 }

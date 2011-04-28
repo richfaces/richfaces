@@ -21,14 +21,36 @@
  */
 package org.richfaces.application.push;
 
-import java.util.EventListener;
 
 /**
  * @author Nick Belaevski
  * 
  */
-public interface MessageListener extends EventListener {
+public final class MessageData {
 
-    public void onMessage(Object message) throws MessageException;
+    private final TopicKey topicKey;
+    
+    private final String serializedMessage;
+
+    private final long sequenceNumber;
+
+    public MessageData(TopicKey topicKey, String serializedMessageData, long sequenceNumber) {
+        super();
+        this.topicKey = topicKey;
+        this.serializedMessage = serializedMessageData;
+        this.sequenceNumber = sequenceNumber;
+    }
+
+    public TopicKey getTopicKey() {
+        return topicKey;
+    }
+    
+    public String getSerializedMessage() {
+        return serializedMessage;
+    }
+
+    public long getSequenceNumber() {
+        return sequenceNumber;
+    }
     
 }

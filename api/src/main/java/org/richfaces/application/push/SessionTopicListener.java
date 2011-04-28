@@ -23,9 +23,11 @@ package org.richfaces.application.push;
 
 
 /**
- * @author Nick Belaevski
+ * Deprecated by {@link SessionTopicListener2}
  * 
+ * @author Nick Belaevski
  */
+@Deprecated
 public interface SessionTopicListener extends TopicListener {
 
     public void processPreSubscriptionEvent(SessionPreSubscriptionEvent event) throws EventAbortedException;

@@ -21,6 +21,8 @@
  */
 package org.richfaces.application.push;
 
+import java.util.EventListener;
+
 
 /**
  * @author Nick Belaevski
@@ -35,7 +37,7 @@ public class SessionUnsubscriptionEvent extends SessionTopicEvent {
     }
 
     @Override
-    public void invokeListener(TopicListener listener) throws EventAbortedException {
-        ((SessionTopicListener) listener).processUnsubscriptionEvent(this);
+    public void invokeListener(EventListener listener) {
+        ((SessionTopicListener2) listener).processUnsubscriptionEvent(this);
     }
 }

@@ -21,6 +21,7 @@
  */
 package org.richfaces.application.push;
 
+import java.util.EventListener;
 import java.util.EventObject;
 
 /**
@@ -39,11 +40,11 @@ public class TopicEvent extends EventObject {
         return (Topic) source;
     }
     
-    public boolean isAppropriateListener(TopicListener listener) {
+    public boolean isAppropriateListener(EventListener listener) {
         return false;
     }
     
-    public void invokeListener(TopicListener listener) throws EventAbortedException {
+    public void invokeListener(EventListener listener) throws SubscriptionFailureException {
         throw new IllegalArgumentException(listener.getClass().getName());
     }
 }

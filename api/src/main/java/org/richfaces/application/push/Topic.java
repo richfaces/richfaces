@@ -39,8 +39,10 @@ public interface Topic {
     
     public void removeTopicListener(TopicListener topicListener);
 
-    public void publishEvent(TopicEvent event) throws EventAbortedException;
+    public void checkSubscription(TopicKey key, Session session) throws SubscriptionFailureException;
+    
+    public void publishEvent(TopicEvent event);
 
-    public void publish(String subtopic, Object messageData) throws MessageException;
+    public void publish(TopicKey key, Object messageData) throws MessageException;
     
 }

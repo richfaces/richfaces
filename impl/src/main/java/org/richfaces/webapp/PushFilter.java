@@ -37,9 +37,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.atmosphere.cpr.AtmosphereServlet;
 import org.richfaces.application.push.PushContext;
-import org.richfaces.application.push.impl.AtmosphereHandlerProvider;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Sets;
@@ -48,26 +48,16 @@ import com.google.common.collect.Sets;
  * @author Nick Belaevski
  * 
  */
-//TODO override broadcaster
 public class PushFilter implements Filter {
-
-    private static final String PUSH_HUB_MAPPING = "/*";
 
     private static final long serialVersionUID = 7616370505508715222L;
 
-    /**
-     * @author Nick Belaevski
-     * 
-     */
+    private static final Logger LOGGER = RichfacesLogger.WEBAPP.getLogger();
+    
     private final class ServletConfigFacade implements ServletConfig {
-        /**
-         * 
-         */
+
         private final FilterConfig filterConfig;
 
-        /**
-         * @param filterConfig
-         */
         private ServletConfigFacade(FilterConfig filterConfig) {
             this.filterConfig = filterConfig;
         }
@@ -90,7 +80,6 @@ public class PushFilter implements Filter {
             return result;
         }
 
-        @SuppressWarnings("unchecked")
         public Enumeration<String> getInitParameterNames() {
             Set<String> result = Sets.newLinkedHashSet();
             
@@ -101,59 +90,51 @@ public class PushFilter implements Filter {
         }
     }
 
-    private AtmosphereServlet atmosphereServlet;
+    private PushServlet pushServlet;
 
     public void init(FilterConfig filterConfig) throws ServletException {
-        AtmosphereHandlerProvider handlerProvider = (AtmosphereHandlerProvider) filterConfig.getServletContext().getAttribute(PushContext.INSTANCE_KEY_NAME);
-
-        if (handlerProvider == null) {
-            return;
-        }
+        PushContext handlerProvider = (PushContext) filterConfig.getServletContext().getAttribute(PushContext.INSTANCE_KEY_NAME);
         
-        atmosphereServlet = new AtmosphereServlet() {
-
-            private static final long serialVersionUID = -8719394110408476331L;
-
-            protected boolean detectSupportedFramework(ServletConfig sc) throws ClassNotFoundException, IllegalAccessException, InstantiationException ,NoSuchMethodException ,java.lang.reflect.InvocationTargetException {
-                return false;
-            };
-        };
-        ServletConfigFacade servletConfig = new ServletConfigFacade(filterConfig);
-        atmosphereServlet.init(servletConfig);
-
-        atmosphereServlet.addAtmosphereHandler(PUSH_HUB_MAPPING, handlerProvider.getHandler());
+        if (handlerProvider != null) {
+            logPushFilterWarning(filterConfig.getServletContext());
+            
+            pushServlet = new PushServlet();
+            ServletConfigFacade servletConfig = new ServletConfigFacade(filterConfig);
+            pushServlet.init(servletConfig);
+        }
     }
 
-    /* (non-Javadoc)
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
-     */
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
-    ServletException {
+    private void logPushFilterWarning(ServletContext servletContext) {
+        String message;
         
-        if (atmosphereServlet != null && request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
+        if (servletContext.getMajorVersion() >= 3) {
+            message = "PushFilter has been deprecated, you can remove its declaration in Servlets 3 environment";
+        } else {
+            message = "PushFilter has been deprecated, you should use PushServlet instead";
+        }
+        
+        LOGGER.warn(message);
+    }
+
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        if (pushServlet != null && request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
             HttpServletRequest httpReq = (HttpServletRequest) request;
             HttpServletResponse httpResp = (HttpServletResponse) response;
             
             if ("GET".equals(httpReq.getMethod()) && httpReq.getQueryString() != null && httpReq.getQueryString().contains("__richfacesPushAsync")) {
-                atmosphereServlet.doGet(httpReq, httpResp);
+                pushServlet.doGet(httpReq, httpResp);
                 return;
             }
         }
         
-        // TODO Auto-generated method stub
         chain.doFilter(request, response);
     }
 
-    /* (non-Javadoc)
-     * @see javax.servlet.Filter#destroy()
-     */
     public void destroy() {
-        if (atmosphereServlet != null) {
-            atmosphereServlet.removeAtmosphereHandler(PUSH_HUB_MAPPING);
-            atmosphereServlet.destroy();
-            atmosphereServlet = null;
+        if (pushServlet != null) {
+            pushServlet.destroy();
+            pushServlet = null;
         }
-        // TODO Auto-generated method stub
     }
 
 }

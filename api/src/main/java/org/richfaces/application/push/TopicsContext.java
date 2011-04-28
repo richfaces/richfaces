@@ -64,10 +64,10 @@ public abstract class TopicsContext {
         Topic topic = getTopic(key);
         
         if (topic == null) {
-            throw new MessageException(MessageFormat.format("Topic {0} not found", key.getTopicAddress()));
+            throw new MessageException(MessageFormat.format("Topic {0} not found", key.getTopicName()));
         }
 
-        topic.publish(key.getSubtopicName(), data);
+        topic.publish(key, data);
     }
 
     public static TopicsContext lookup() {

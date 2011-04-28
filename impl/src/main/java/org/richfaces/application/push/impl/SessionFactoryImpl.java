@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,46 +19,34 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.application.push.impl.jms;
+package org.richfaces.application.push.impl;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.atmosphere.cpr.AtmosphereResource;
-import org.richfaces.application.push.Request;
 import org.richfaces.application.push.Session;
 import org.richfaces.application.push.SessionFactory;
 import org.richfaces.application.push.SessionManager;
 import org.richfaces.application.push.TopicsContext;
-import org.richfaces.application.push.impl.AtmospherePushHandler;
 
 /**
  * @author Nick Belaevski
  * 
  */
-public class PushHandlerImpl extends AtmospherePushHandler implements SessionFactory {
+public class SessionFactoryImpl implements SessionFactory {
 
-    private MessagingContext messagingContext;
-
-    private TopicsContext topicsContext;
-
-    public PushHandlerImpl(MessagingContext messagingContext, TopicsContext topicsContext) {
+    private final SessionManager sessionManager;
+    
+    private final TopicsContext topicsContext;
+    
+    public SessionFactoryImpl(SessionManager sessionManager, TopicsContext topicsContext) {
         super();
-        this.messagingContext = messagingContext;
+        this.sessionManager = sessionManager;
         this.topicsContext = topicsContext;
     }
 
-    public Session createSession(String key) {
-        SessionManager sessionManager = getSessionManager();
-        Session session = new SessionImpl(key, sessionManager, messagingContext, topicsContext);
+    public Session createSession(String pushSessionId) {
+        Session session = new SessionImpl(pushSessionId, sessionManager, topicsContext);
         sessionManager.putPushSession(session);
-
+        
         return session;
     }
 
-    @Override
-    protected Request createRequest(AtmosphereResource<HttpServletRequest, HttpServletResponse> resource,
-        Session session) {
-        return new RequestImpl(resource, session, getWorker(), topicsContext);
-    }
 }

@@ -21,9 +21,8 @@
  */
 package org.richfaces.application.push;
 
+import java.util.Collection;
 import java.util.Map;
-
-import com.google.common.collect.Multimap;
 
 
 
@@ -39,7 +38,7 @@ public interface Session {
     
     public String getId();
     
-    public Multimap<TopicKey, TopicKey> getSuccessfulSubscriptions();
+    public Collection<TopicKey> getSuccessfulSubscriptions();
     
     public Map<TopicKey, String> getFailedSubscriptions();
 
@@ -51,4 +50,10 @@ public interface Session {
     
     public void invalidate();
 
+    public void push(TopicKey topicKey, String serializedData);
+    
+    public Collection<MessageData> getMessages();
+    
+    public void clearBroadcastedMessages(long sequenceNumber);
+    
 }

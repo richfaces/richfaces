@@ -21,6 +21,8 @@
  */
 package org.richfaces.application.push;
 
+import java.util.EventListener;
+
 /**
  * @author Nick Belaevski
  * 
@@ -48,7 +50,7 @@ public abstract class SessionTopicEvent extends TopicEvent {
     }
     
     @Override
-    public boolean isAppropriateListener(TopicListener listener) {
+    public boolean isAppropriateListener(EventListener listener) {
         return (listener instanceof SessionTopicListener);
     }
 }

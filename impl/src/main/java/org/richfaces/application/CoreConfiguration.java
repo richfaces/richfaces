@@ -76,7 +76,10 @@ public final class CoreConfiguration {
         
         @ConfigurationItem(defaultValue = "true", names = "org.richfaces.executeAWTInitializer", literal = true)
         executeAWTInitializer,
-        
+
+        @ConfigurationItem(names = "org.richfaces.push.handlerMapping", literal = true)
+        pushHandlerMapping,
+
         @ConfigurationItem(defaultValue = "/ConnectionFactory", names = "org.richfaces.push.jms.connectionFactory")
         pushJMSConnectionFactory,
         

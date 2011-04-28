@@ -37,6 +37,8 @@ public interface PushContext {
     
     public SessionManager getSessionManager();
     
+    public String getPushHandlerUrl();
+    
     public void init(FacesContext facesContext);
     
     public void destroy();

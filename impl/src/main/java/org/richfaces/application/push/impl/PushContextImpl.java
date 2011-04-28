@@ -1,6 +1,6 @@
 /*
  * JBoss, Home of Professional Open Source
- * Copyright 2010, Red Hat, Inc. and individual contributors
+ * Copyright 2011, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
  *
@@ -19,7 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-package org.richfaces.application.push.impl.jms;
+package org.richfaces.application.push.impl;
 
 import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionFactory;
 import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionPassword;
@@ -32,6 +32,8 @@ import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pu
 import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSConnectionUsername;
 import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSTopicsNamespace;
 
+import java.util.concurrent.ThreadFactory;
+
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
@@ -41,44 +43,44 @@ import javax.faces.event.SystemEventListener;
 import javax.naming.InitialContext;
 import javax.naming.Name;
 import javax.naming.NameParser;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.atmosphere.cpr.AtmosphereHandler;
 import org.richfaces.application.ServiceTracker;
 import org.richfaces.application.configuration.ConfigurationService;
 import org.richfaces.application.push.PushContext;
 import org.richfaces.application.push.SessionFactory;
 import org.richfaces.application.push.SessionManager;
 import org.richfaces.application.push.TopicsContext;
-import org.richfaces.application.push.impl.AtmosphereHandlerProvider;
+import org.richfaces.application.push.impl.jms.JMSTopicsContextImpl;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
 import com.google.common.base.Strings;
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+
 
 /**
  * @author Nick Belaevski
  * 
  */
-public class PushContextImpl implements PushContext, SystemEventListener, AtmosphereHandlerProvider {
+public class PushContextImpl implements PushContext, SystemEventListener {
+    
+    private static final ThreadFactory PUBLISH_THREAD_FACTORY = new ThreadFactoryBuilder().setDaemon(true).setNameFormat("push-publish-thread-%1$s").build();
+    
+    private static final ThreadFactory SESSION_MANAGER_THREAD_FACTORY = new ThreadFactoryBuilder().setDaemon(true).setNameFormat("push-session-manager-thread-%1$s").build();
 
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
 
-    private MessagingContext messagingContext;
+    private String pushHandlerUrl;
+    
+    private TopicsContextImpl topicsContext;
 
-    private TopicsContext topicsContext;
+    private SessionManager sessionManager;
 
-    private PushHandlerImpl pushHandlerImpl;
-
-    public TopicsContext getTopicsContext() {
-        return topicsContext;
-    }
-
-    private String getApplicationName(FacesContext facesContext) {
-        ServletContext servletContext = (ServletContext) facesContext.getExternalContext().getContext();
-        return servletContext.getContextPath();
+    private SessionFactory sessionFactory;
+    
+    public PushContextImpl(String pushHandlerUrl) {
+        super();
+        this.pushHandlerUrl = pushHandlerUrl;
     }
 
     private String getFirstNonEmptyConfgirutationValue(FacesContext facesContext, ConfigurationService service, Enum<?>... keys) {
@@ -92,36 +94,14 @@ public class PushContextImpl implements PushContext, SystemEventListener, Atmosp
         return "";
     }
     
-    public void init(FacesContext facesContext) {
-        try {
-            facesContext.getApplication().subscribeToEvent(PreDestroyApplicationEvent.class, this);
-            facesContext.getExternalContext().getApplicationMap().put(PushContext.INSTANCE_KEY_NAME, this);
-
-            ConfigurationService configurationService = ServiceTracker.getService(ConfigurationService.class);
-            
-            InitialContext initialContext = new InitialContext();
-            
-            NameParser nameParser = initialContext.getNameParser("");
-            
-            Name cnfName = nameParser.parse(getConnectionFactory(facesContext, configurationService));
-            Name topicsNamespace = nameParser.parse(getTopicsNamespace(facesContext, configurationService));
-
-            messagingContext = new MessagingContext(initialContext, cnfName, topicsNamespace, 
-                getApplicationName(facesContext),
-                getUserName(facesContext, configurationService),
-                getPassword(facesContext, configurationService)
-            );
-
-            messagingContext.shareInstance(facesContext);
-
-            messagingContext.start();
-
-            topicsContext = new TopicsContextImpl(messagingContext);
-
-            pushHandlerImpl = new PushHandlerImpl(messagingContext, topicsContext);
-        } catch (Exception e) {
-            throw new FacesException(e.getMessage(), e);
-        }        
+    private String getConnectionFactory(FacesContext facesContext, ConfigurationService configurationService) {
+        return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, 
+            pushPropertiesJMSConnectionFactory, pushJMSConnectionFactory);
+    }
+    
+    private String getTopicsNamespace(FacesContext facesContext, ConfigurationService configurationService) {
+        return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, 
+            pushPropertiesJMSTopicsNamespace, pushJMSTopicsNamespace);
     }
 
     private String getPassword(FacesContext facesContext, ConfigurationService configurationService) {
@@ -134,31 +114,45 @@ public class PushContextImpl implements PushContext, SystemEventListener, Atmosp
             pushPropertiesJMSConnectionUsername, pushJMSConnectionUsernameEnvRef, pushJMSConnectionUsername);
     }
     
-    private String getConnectionFactory(FacesContext facesContext, ConfigurationService configurationService) {
-        return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, 
-            pushPropertiesJMSConnectionFactory, pushJMSConnectionFactory);
-    }
-    
-    private String getTopicsNamespace(FacesContext facesContext, ConfigurationService configurationService) {
-        return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, 
-            pushPropertiesJMSTopicsNamespace, pushJMSTopicsNamespace);
+    public void init(FacesContext facesContext) {
+        try {
+            facesContext.getApplication().subscribeToEvent(PreDestroyApplicationEvent.class, this);
+            
+            ConfigurationService configurationService = ServiceTracker.getService(ConfigurationService.class);
+            
+            InitialContext initialContext = new InitialContext();
+            
+            NameParser nameParser = initialContext.getNameParser("");
+            
+            Name cnfName = nameParser.parse(getConnectionFactory(facesContext, configurationService));
+            Name topicsNamespace = nameParser.parse(getTopicsNamespace(facesContext, configurationService));
+            
+            sessionManager = new SessionManagerImpl(SESSION_MANAGER_THREAD_FACTORY);
+            topicsContext = new JMSTopicsContextImpl(PUBLISH_THREAD_FACTORY, initialContext, cnfName, topicsNamespace, 
+                getUserName(facesContext, configurationService),
+                getPassword(facesContext, configurationService)
+            );
+            sessionFactory = new SessionFactoryImpl(sessionManager, topicsContext);
+            
+            facesContext.getExternalContext().getApplicationMap().put(INSTANCE_KEY_NAME, this);
+        } catch (Exception e) {
+            throw new FacesException(e.getMessage(), e);
+        }        
     }
 
     public void destroy() {
-        if (pushHandlerImpl != null) { 
-            try {
-                pushHandlerImpl.destroy();
-            } catch (Exception e) {
-                LOGGER.error(e.getMessage(), e);
-            }
+        try {
+            sessionManager.destroy();
+            sessionManager = null;
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
         }
-
-        if (messagingContext != null) {
-            try {
-                messagingContext.stop();
-            } catch (Exception e) {
-                LOGGER.error(e.getMessage(), e);
-            }
+        
+        try {
+            topicsContext.destroy();
+            topicsContext = null;
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -174,15 +168,19 @@ public class PushContextImpl implements PushContext, SystemEventListener, Atmosp
         return true;
     }
 
-    public SessionFactory getSessionFactory() {
-        return pushHandlerImpl;
+    public TopicsContext getTopicsContext() {
+        return topicsContext;
     }
 
-    public AtmosphereHandler<HttpServletRequest, HttpServletResponse> getHandler() {
-        return pushHandlerImpl;
+    public SessionFactory getSessionFactory() {
+        return sessionFactory;
     }
-    
+
     public SessionManager getSessionManager() {
-        return pushHandlerImpl.getSessionManager();
+        return sessionManager;
+    }
+
+    public String getPushHandlerUrl() {
+        return pushHandlerUrl;
     }
 }
