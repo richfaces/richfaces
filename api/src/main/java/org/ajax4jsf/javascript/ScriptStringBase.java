@@ -34,6 +34,19 @@ import javax.faces.FacesException;
  *
  */
 public abstract class ScriptStringBase implements ScriptString {
+    public static final String FUNCTION = "function";
+    public static final String EQUALS = "=";
+    public static final String DOT = ".";
+    public static final String COMMA = ",";
+    public static final String EMPTY_STRING = " ";
+    public static final String LEFT_CURLY_BRACKET = "{";
+    public static final String RIGHT_CURLY_BRACKET = "}";
+    public static final String LEFT_ROUND_BRACKET = "(";
+    public static final String RIGHT_ROUND_BRACKET = ")";
+    public static final String LEFT_SQUARE_BRACKET = "[";
+    public static final String RIGHT_SQUARE_BRACKET = "]";
+    public static final String COLON = ":";
+
     public String toScript() {
         StringBuilder builder = new StringBuilder();
 
