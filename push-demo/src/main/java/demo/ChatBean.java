@@ -21,11 +21,11 @@
  */
 package demo;
 
+
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.Date;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -54,16 +54,16 @@ public class ChatBean implements Serializable {
     
     private boolean chatJoined;
     
-    private transient TopicsContext topicsContext;
-    
     private String subchannel;
-    
+
     @ManagedProperty("#{channelsBean}")
     private ChannelsBean channelsBean;
-    
-    @PostConstruct
-    public void init() {
-        topicsContext = TopicsContext.lookup();
+
+    @ManagedProperty("#{jmsBean}")
+    private JMSBean jmsBean;
+
+    private TopicsContext lookupTopicsContext() {
+        return TopicsContext.lookup();
     }
     
     public String getMessage() {
@@ -82,13 +82,26 @@ public class ChatBean implements Serializable {
         this.userName = userName;
     }
     
-    private void publishStateChangeMessage(String name, String action) {
+    private void sendJMSMessage(TopicKey key, String text) {
+        jmsBean.publish(key, text);
+    }
+    
+    private void sendMessage(TopicKey key, String text) {
+        sendJMSMessage(key, text);
+        //sendSimpleMessage(key, text);
+    }
+
+    private void sendSimpleMessage(TopicKey key, String text) {
         try {
-            topicsContext.publish(new TopicKey("chat", name), MessageFormat.format("*** {0} {1} chat in {2,time,medium}", 
-                userName, action, new Date()));
+            lookupTopicsContext().publish(key, text);
         } catch (MessageException e) {
             LOGGER.error(e.getMessage(), e);
         }
+    }
+    
+    private void publishStateChangeMessage(String name, String action) {
+        sendMessage(new TopicKey("chat", name), MessageFormat.format("*** {0} {1} chat in {2,time,medium}", 
+            userName, action, new Date()));
     }
     
     public void joinChat() {
@@ -117,16 +130,8 @@ public class ChatBean implements Serializable {
     }
 
     public void say() {
-        try {
-            topicsContext.publish(new TopicKey("chat", subchannel), MessageFormat.format("{0,time,medium} {1}: {2}", new Date(), 
-                userName, message));
-        } catch (MessageException e) {
-            LOGGER.error(e.getMessage(), e);
-        }
-    }
-    
-    public void setTopicsContext(TopicsContext topicsContext) {
-        this.topicsContext = topicsContext;
+        sendMessage(new TopicKey("chat", subchannel), MessageFormat.format("{0,time,medium} {1}: {2}", new Date(), 
+            userName, message));
     }
     
     /**
@@ -150,4 +155,10 @@ public class ChatBean implements Serializable {
         this.channelsBean = channelsBean;
     }
 
+    /**
+     * @param jmsBean the jmsBean to set
+     */
+    public void setJmsBean(JMSBean jmsBean) {
+        this.jmsBean = jmsBean;
+    }
 }
