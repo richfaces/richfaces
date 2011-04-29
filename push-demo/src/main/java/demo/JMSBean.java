@@ -70,6 +70,8 @@ public class JMSBean {
 
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
     
+    private static final PublishTask SHUTDOWN_TASK = new PublishTask(null, null);
+    
     private Connection connection;
     
     private final class PublishRunnable implements Runnable {
@@ -91,7 +93,7 @@ public class JMSBean {
                 while (true) {
                     PublishTask task = tasks.take();
                     
-                    if (task == null) {
+                    if (task == SHUTDOWN_TASK) {
                         break;
                     }
                     
@@ -230,7 +232,7 @@ public class JMSBean {
     
     @PreDestroy
     public void destroy() {
-        tasks.add(null);
+        tasks.add(SHUTDOWN_TASK);
         if (connection != null) {
             try {
                 connection.close();
