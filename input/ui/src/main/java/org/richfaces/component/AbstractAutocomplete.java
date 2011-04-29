@@ -160,7 +160,7 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     @Attribute(events = @EventName("listkeyup"))
     public abstract String getOnlistkeyup();
 
-    @Attribute(events = @EventName("change"))
+    @Attribute(events = @EventName(value = "change", defaultEvent = true))
     public abstract String getOnchange();
 
     @Attribute(events = @EventName("blur"))
