@@ -33,6 +33,8 @@ import javax.servlet.ServletRegistration;
 import javax.servlet.ServletRegistration.Dynamic;
 
 import org.richfaces.application.push.impl.PushContextFactoryImpl;
+import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 import com.google.common.collect.Iterables;
 
@@ -41,6 +43,12 @@ import com.google.common.collect.Iterables;
  * 
  */
 public class PushServletContainerInitializer implements ServletContainerInitializer {
+
+    private static final Logger LOGGER = RichfacesLogger.WEBAPP.getLogger();
+    
+    private static final String ATMOSPHERE_SERVLET_CLASS = "org.atmosphere.cpr.AtmosphereServlet";
+    
+    private static final String SKIP_SERVLET_REGISTRATION_PARAM = "org.richfaces.push.skipPushServletRegistration";
 
     private static final String PUSH_CONTEXT_DEFAULT_MAPPING = '/' + PushContextFactoryImpl.PUSH_CONTEXT_RESOURCE_NAME;
 
@@ -75,6 +83,14 @@ public class PushServletContainerInitializer implements ServletContainerInitiali
     }
 
     public void onStartup(Set<Class<?>> clasess, ServletContext servletContext) throws ServletException {
+        if (Boolean.valueOf(servletContext.getInitParameter(SKIP_SERVLET_REGISTRATION_PARAM))) {
+            return;
+        }
+        
+        if (!isAtmospherePresent()) {
+            return;
+        }
+        
         if (hasPushFilterMapping(servletContext)) {
             return;
         }
@@ -94,6 +110,22 @@ public class PushServletContainerInitializer implements ServletContainerInitiali
         } catch (Exception e) {
             servletContext.log(MessageFormat.format("Exception registering RichFaces Push Servlet: {0]", e.getMessage()), e);
         }
+    }
+
+    private boolean isAtmospherePresent() {
+        try {
+            Class.forName(ATMOSPHERE_SERVLET_CLASS, false, Thread.currentThread().getContextClassLoader());
+            
+            return true;
+        } catch (ClassNotFoundException e) {
+            //no atmosphere present - no push then
+            LOGGER.debug("AtmosphereServlet class is not present in classpath, PushServlet won't be registered automatically");
+        } catch (LinkageError e) {
+            //atmosphere is missing some dependency - no push too
+            LOGGER.error(e.getMessage(), e);
+        }
+        
+        return false;
     }
 
 }
