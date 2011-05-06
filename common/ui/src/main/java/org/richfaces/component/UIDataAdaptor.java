@@ -52,7 +52,9 @@ import static org.richfaces.component.util.Strings.NamingContainerDataHolder.SEP
  *
  * @author shura
  */
-@ListenerFor(systemEventClass = PreRenderComponentEvent.class)
+@ListenersFor({ @ListenerFor(systemEventClass = PostAddToViewEvent.class),
+    @ListenerFor(systemEventClass = PostRestoreStateEvent.class),
+    @ListenerFor(systemEventClass = PreRenderViewEvent.class) })
 public abstract class UIDataAdaptor extends UIComponentBase implements NamingContainer,
         UniqueIdVendor, IterationStateHolder, ComponentSystemEventListener {
 
@@ -796,7 +798,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         }
 
         pushComponentToEL(faces, this);
-        preDecode(faces);
         processDecodesChildren(faces);
         this.decode(faces);
         popComponentFromEL(faces);
@@ -891,15 +892,17 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     protected void resetChildState() {
         getStateHelper().remove(PropertyKeys.childState);
     }
+    
+    private void resetState() {
+        DataComponentsContextUtil.resetDataModelOncePerPhase(getFacesContext(), this);
 
-    protected void preDecode(FacesContext context) {
-        resetDataModel();
-
-        Object savedChildState = getStateHelper().get(PropertyKeys.childState);
-        // TODO - verify the check for null: savedChildState == null
-        if (savedChildState == null || !isKeepSaved()) {
+        if (!isKeepSaved()) {
             resetChildState();
         }
+    }
+
+    protected void preDecode(FacesContext context) {
+        resetState();
     }
 
     // TODO - do we need this method?
@@ -911,12 +914,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     protected void preEncodeBegin(FacesContext context) {
-        DataComponentsContextUtil.resetDataModelOncePerPhase(context, this);
-
-        if (!isKeepSaved()) {
-            //TODO - this also resets state for the nested iteration components - is it correct?
-            resetChildState();
-        }
+        resetState();
     }
 
     @Override
@@ -1417,12 +1415,21 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
         public abstract void processComponent(FacesContext context, UIComponent c, Object argument);
     }
-
+    
     @Override
     public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
         super.processEvent(event);
 
-        if (event instanceof PreRenderComponentEvent) {
+        if (event instanceof PostAddToViewEvent) {
+            getFacesContext().getViewRoot().subscribeToEvent(PreRenderViewEvent.class, this);
+        }
+        
+        if (event instanceof PostRestoreStateEvent) {
+            getFacesContext().getViewRoot().subscribeToEvent(PreRenderViewEvent.class, this);
+            preDecode(getFacesContext());
+        }
+        
+        if (event instanceof PreRenderViewEvent) {
             preEncodeBegin(getFacesContext());
         }
     }
