@@ -12,9 +12,8 @@
 		sortOrder="#{bean.sortOrders[property]}"
 		filterValue="#{bean.filterValues[property]}"
 		filterExpression="#{property}">
-		
 		<f:facet name="header">
-			<h:commandLink style="color: white;" action="#{bean.toggleSort}">
+			<h:commandLink action="#{bean.toggleSort}">
             	#{bean.sortOrders[property]}	
             	<a4j:ajax render="richTable" />
             	<f:setPropertyActionListener target="#{bean.sortProperty}" value="#{property}" />
@@ -24,7 +23,6 @@
 				<a4j:ajax render="richTable@body scroller" event="keyup" />
 			</h:inputText>
 		</f:facet>
-
 		<h:outputText value="#{record[property]}" />
 	</rich:column>
 </ui:composition>
