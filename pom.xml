@@ -46,9 +46,9 @@
     
     <!-- SCM and distribution management -->
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/modules/build/resources/trunk/checkstyle</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/modules/build/resources/trunk/checkstyle</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/modules/build/resources/trunk/checkstyle</url>
+        <connection>scm:git:git://github.com/richfaces/checkstyle.git</connection>
+        <developerConnection>scm:git:git@github.com:richfaces/checkstyle.git</developerConnection>
+        <url>https://github.com/richfaces/checkstyle</url>
     </scm>
 
 </project>
