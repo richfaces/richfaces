@@ -131,8 +131,8 @@
 	</dependencies>
 
 	<scm>
-		<connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/ui/validator/ui</connection>
-		<developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/ui/validator/ui</developerConnection>
-		<url>http://fisheye.jboss.org/browse/richfaces</url>
+		<connection>scm:git:git://github.com/richfaces/components.git</connection>
+		<developerConnection>scm:git:git@github.com:richfaces/components.git</developerConnection>
+		<url>https://github.com/richfaces/components</url>
 	</scm>
 </project>

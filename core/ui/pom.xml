@@ -61,10 +61,8 @@
     </build>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/branches/4.0.X/ui/core/ui
-        </connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/branches/4.0.X/ui/core/ui
-        </developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/branches/4.0.X/ui/core/ui</url>
+        <connection>scm:git:git://github.com/richfaces/components.git</connection>
+        <developerConnection>scm:git:git@github.com:richfaces/components.git</developerConnection>
+        <url>https://github.com/richfaces/components</url>
     </scm>
 </project>
