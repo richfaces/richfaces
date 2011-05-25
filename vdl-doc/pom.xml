@@ -7,7 +7,7 @@
     <version>1-SNAPSHOT</version>
 
     <name>RichFaces VDl Documentation</name>
-    <url>http://richfaces.org</url>
+    <url>https://github.com/richfaces/build</url>
 
     <description>Richfaces Resources for VDL generation</description>
 

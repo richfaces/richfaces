@@ -398,11 +398,9 @@
 
 	<!-- SCM and distribution management -->
 	<scm>
-		<connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/parent
-        </connection>
-		<developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/parent
-        </developerConnection>
-		<url>http://fisheye.jboss.org/browse/richfaces/trunk/parent</url>
+		<connection>scm:git:git://github.com/richfaces/build.git</connection>
+		<developerConnection>scm:git:git@github.com:richfaces/build.git</developerConnection>
+		<url>https://github.com/richfaces/build</url>
 	</scm>
 
 </project>
