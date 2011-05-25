@@ -43,9 +43,9 @@
     </modules>
     
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/trunk/core</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/trunk/core</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/trunk/core</url>
+        <connection>scm:git:git://github.com/richfaces/core.git</connection>
+        <developerConnection>scm:git:git@github.com:richfaces/core.git</developerConnection>
+        <url>https://github.com/richfaces/core</url>
     </scm>
 </project>
 
