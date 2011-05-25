@@ -158,9 +158,9 @@
 
     <!-- SCM and distribution management -->
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/modules/build/parent/trunk</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/modules/build/parent/trunk</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/modules/build/parent/trunk</url>
+        <connection>scm:git:git://github.com/richfaces/parent.git</connection>
+        <developerConnection>scm:git:git@github.com:richfaces/parent.git</developerConnection>
+        <url>https://github.com/richfaces/parent</url>
     </scm>
 
 </project>
