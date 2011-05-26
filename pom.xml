@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -19,12 +20,15 @@
 
     <properties>
         <gae.version>1.4.2</gae.version>
+        <dependency.scope>compile</dependency.scope>
+        <container.resources>src/main/resources-tomcat</container.resources>
+        <container.resources.exclude></container.resources.exclude>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.richfaces.core</groupId>
-             <artifactId>richfaces-core-impl</artifactId>
+            <artifactId>richfaces-core-impl</artifactId>
         </dependency>
         <dependency>
             <groupId>org.richfaces.ui</groupId>
@@ -33,6 +37,16 @@
         <dependency>
             <groupId>org.richfaces.ui</groupId>
             <artifactId>richfaces-components-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <scope>${dependency.scope}</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <scope>${dependency.scope}</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -52,27 +66,30 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
+            <scope>${dependency.scope}</scope>
         </dependency>
-    	<dependency>
-    	     <groupId>org.hibernate</groupId>
-    	     <artifactId>hibernate-validator</artifactId>
-    	     <version>4.1.0.Final</version>
-    	</dependency>
-    	<dependency>
-    	     <groupId>javax.validation</groupId>
-    	     <artifactId>validation-api</artifactId>
-    	     <version>1.0.0.GA</version>
-    	</dependency>
         <dependency>
-             <groupId>org.slf4j</groupId>
-             <artifactId>slf4j-api</artifactId>
-             <version>1.5.8</version>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>4.1.0.Final</version>
+            <scope>${dependency.scope}</scope>
         </dependency>
-    	<dependency>
-    	     <groupId>org.slf4j</groupId>
-    	     <artifactId>slf4j-jdk14</artifactId>
-    	     <version>1.5.8</version>
-    	</dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>1.0.0.GA</version>
+            <scope>${dependency.scope}</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.5.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-jdk14</artifactId>
+            <version>1.5.8</version>
+        </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>
@@ -81,16 +98,30 @@
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb-j5</artifactId>
             <version>2.0.0</version>
+            <scope>${dependency.scope}</scope>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>3.6.3.Final</version>
+            <scope>${dependency.scope}</scope>
         </dependency>
     </dependencies>
 
     <build>
         <finalName>richfaces-showcase</finalName>
+
+        <resources>
+        	<resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>${container.resources}</directory>
+                <excludes>
+                    <exclude>${container.resources.exclude}</exclude>
+                </excludes>
+            </resource>
+        </resources>
 
         <plugins>
             <plugin>
@@ -106,7 +137,8 @@
                 <configuration>
                     <scanIntervalSeconds>10</scanIntervalSeconds>
                     <connectors>
-                        <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+                        <connector
+                            implementation="org.mortbay.jetty.nio.SelectChannelConnector">
                             <port>${jetty.port}</port>
                             <maxIdleTime>60000</maxIdleTime>
                         </connector>
@@ -118,7 +150,8 @@
                 <configuration>
                     <webResources>
                         <resource>
-                            <directory>${basedir}/src/main/java</directory>
+                            <directory>${basedir}/src/main/java
+                            </directory>
                             <targetPath>/WEB-INF/src</targetPath>
                         </resource>
                     </webResources>
@@ -136,7 +169,8 @@
                         <type>pom</type>
                         <exclusions>
                             <exclusion>
-                                <groupId>com.google.appengine.orm</groupId>
+                                <groupId>com.google.appengine.orm
+                                </groupId>
                                 <artifactId>jdo2-api</artifactId>
                             </exclusion>
                         </exclusions>
@@ -148,7 +182,25 @@
 
     <profiles>
         <profile>
+            <id>jee6</id>
+            <properties>
+                <container.resources>src/main/resources-jee6</container.resources>
+                <dependency.scope>provided</dependency.scope>
+            </properties>
+        </profile>
+        <profile>
+            <id>jboss-as7</id>
+            <properties>
+                <container.resources>src/main/resources-jboss-as7</container.resources>
+                <dependency.scope>provided</dependency.scope>
+            </properties>
+        </profile>
+        <profile>
             <id>gae</id>
+            <properties>
+                <container.resources>src/main/resources-gae</container.resources>
+                <dependency.scope>provided</dependency.scope>
+            </properties>
             <dependencies>
                 <dependency>
                     <groupId>net.sf.ehcache</groupId>
@@ -194,18 +246,11 @@
                 </dependency>
             </dependencies>
             <build>
-                <resources>
-                    <resource>
-                        <directory>src/main/resources</directory>
-                    </resource>
-                    <resource>
-                        <directory>src/main/resources-gae</directory>
-                    </resource>
-                </resources>
                 <plugins>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <artifactId>build-helper-maven-plugin
+                        </artifactId>
                         <executions>
                             <execution>
                                 <id>add-source</id>
@@ -215,7 +260,8 @@
                                 </goals>
                                 <configuration>
                                     <sources>
-                                        <source>src/main/java-gae</source>
+                                        <source>src/main/java-gae
+                                        </source>
                                     </sources>
                                 </configuration>
                             </execution>
@@ -226,22 +272,30 @@
                         <configuration>
                             <webResources>
                                 <resource>
-                                    <directory>src/main/webapp</directory>
+                                    <directory>src/main/webapp
+                                    </directory>
                                     <excludes>
-                                    	<exclude>WEB-INF/web.xml</exclude>
-                                    	<exclude>WEB-INF/faces-config.xml</exclude>
+                                        <exclude>WEB-INF/web.xml
+                                        </exclude>
+                                        <exclude>WEB-INF/faces-config.xml
+                                        </exclude>
                                     </excludes>
                                 </resource>
                                 <resource>
-                                    <directory>src/main/webapp-gae</directory>
+                                    <directory>src/main/webapp-gae
+                                    </directory>
                                 </resource>
                                 <resource>
-                                    <directory>${project.build.directory}/generated-resources</directory>
-                                    <targetPath>static-resources</targetPath>
+                                    <directory>${project.build.directory}/generated-resources
+                                    </directory>
+                                    <targetPath>static-resources
+                                    </targetPath>
                                 </resource>
                                 <resource>
-                                    <directory>${basedir}/src/main/java</directory>
-                                    <targetPath>/WEB-INF/src</targetPath>
+                                    <directory>${basedir}/src/main/java
+                                    </directory>
+                                    <targetPath>/WEB-INF/src
+                                    </targetPath>
                                 </resource>
                             </webResources>
                         </configuration>
@@ -257,7 +311,8 @@
                                     <goal>process</goal>
                                 </goals>
                                 <configuration>
-                                    <outputDir>generated-resources</outputDir>
+                                    <outputDir>generated-resources
+                                    </outputDir>
                                     <skins>
                                         <skin>blueSky</skin>
                                         <skin>classic</skin>
@@ -268,26 +323,35 @@
                                         <skin>wine</skin>
                                     </skins>
                                     <excludedFiles>
-                                        <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*</exclude>
-                                        <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*</exclude>
+                                        <exclude>^\Qorg.richfaces.renderkit.html.images.\E.*
+                                        </exclude>
+                                        <exclude>^\Qorg.richfaces.renderkit.html.iconimages.\E.*
+                                        </exclude>
                                     </excludedFiles>
                                     <includedContentTypes>
-                                        <include>application/javascript</include>
+                                        <include>application/javascript
+                                        </include>
                                         <include>text/css</include>
                                         <include>image/.+</include>
                                     </includedContentTypes>
                                     <fileNameMappings>
                                         <property>
-                                            <name>^.*showcase.*/([^/]+\.css)$</name>
-                                            <value>org.richfaces.showcase.css/$1</value>
+                                            <name>^.*showcase.*/([^/]+\.css)$
+                                            </name>
+                                            <value>org.richfaces.showcase.css/$1
+                                            </value>
                                         </property>
                                         <property>
-                                            <name>^.+/([^/]+\.(png|gif|jpg))$</name>
-                                            <value>org.richfaces.images/$1</value>
+                                            <name>^.+/([^/]+\.(png|gif|jpg))$
+                                            </name>
+                                            <value>org.richfaces.images/$1
+                                            </value>
                                         </property>
                                         <property>
-                                            <name>^.+/([^/]+\.css)$</name>
-                                            <value>org.richfaces.css/$1</value>
+                                            <name>^.+/([^/]+\.css)$
+                                            </name>
+                                            <value>org.richfaces.css/$1
+                                            </value>
                                         </property>
                                     </fileNameMappings>
                                 </configuration>
@@ -312,33 +376,14 @@
         </profile>
         <profile>
             <id>release</id>
+            <properties>
+                <container.resources.exclude>**</container.resources.exclude>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
                         <artifactId>maven-war-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>jee6</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>war</goal>
-                                </goals>
-                                <configuration>
-                                    <webappDirectory>${project.build.directory}/${project.build.finalName}-jee6</webappDirectory>
-                                    <classifier>jee6</classifier>
-                                    <packagingExcludes>WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-validator-*,WEB-INF/lib/slf4j-*</packagingExcludes>
-                                    <warSourceExcludes>WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-validator-*,WEB-INF/lib/slf4j-*</warSourceExcludes>
-                                    <webResources>
-                                        <resource>
-                                            <directory>${basedir}/src/main/java</directory>
-                                            <targetPath>/WEB-INF/src</targetPath>
-                                        </resource>
-                                    </webResources>
-                                </configuration>
-                            </execution>
-                        </executions>
                         <configuration>
-                            <classifier>tomcat6</classifier>
                             <webResources>
                                 <resource>
                                     <directory>${basedir}/src/main/java</directory>
@@ -346,6 +391,45 @@
                                 </resource>
                             </webResources>
                         </configuration>
+                        <executions>
+                        	<execution>
+                        		<id>default-war</id>
+                        		<configuration>
+                        			<classifier>tomcat6</classifier>
+                        			<webappDirectory>${project.build.directory}/${project.build.finalName}-tomcat6
+                                    </webappDirectory>
+                                    <webResources>
+	                        			<resource>
+		                                    <directory>src/main/resources-tomcat</directory>
+		                                    <targetPath>/WEB-INF/classes</targetPath>
+		                                </resource>
+                                    </webResources>
+                        		</configuration>
+                        	</execution>
+                            <execution>
+                                <id>jee6</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>war</goal>
+                                </goals>
+                                <configuration>
+                                	<classifier>jee6</classifier>
+                                    <webappDirectory>${project.build.directory}/${project.build.finalName}-jee6
+                                    </webappDirectory>
+                                    
+                                    <packagingExcludes>WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-validator-*,WEB-INF/lib/slf4j-*
+                                    </packagingExcludes>
+                                    <warSourceExcludes>WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-validator-*,WEB-INF/lib/slf4j-*
+                                    </warSourceExcludes>
+                                    <webResources>
+	                                    <resource>
+		                                    <directory>src/main/resources-jee6</directory>
+		                                    <targetPath>/WEB-INF/classes</targetPath>
+		                                </resource>
+	                                </webResources>
+                                </configuration>
+                            </execution>
+                        </executions>
                     </plugin>
 
                     <plugin>
@@ -359,7 +443,8 @@
                                 <phase>package</phase>
                                 <configuration>
                                     <finalName>sources</finalName>
-                                    <descriptor>assembler.xml</descriptor>
+                                    <descriptor>assembler.xml
+                                    </descriptor>
                                 </configuration>
                             </execution>
                         </executions>
@@ -373,7 +458,8 @@
                                 </goals>
                                 <phase>package</phase>
                                 <configuration>
-                                    <classesDirectory>${basedir}/target/sources/sources</classesDirectory>
+                                    <classesDirectory>${basedir}/target/sources/sources
+                                    </classesDirectory>
                                     <classifier>sources</classifier>
                                 </configuration>
                             </execution>
@@ -381,60 +467,6 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-        <profile>
-            <id>jee6</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-war-plugin</artifactId>
-                        <configuration>
-                            <webappDirectory>${project.build.directory}/${project.build.finalName}-jee6</webappDirectory>
-                            <webResources>
-                                <resource>
-                                    <directory>${basedir}/src/main/java</directory>
-                                    <targetPath>/WEB-INF/src</targetPath>
-                                </resource>
-                            </webResources>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-
-            <dependencies>
-                <dependency>
-                    <groupId>com.sun.faces</groupId>
-                    <artifactId>jsf-api</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>com.sun.faces</groupId>
-                    <artifactId>jsf-impl</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>javax.transaction</groupId>
-                    <artifactId>jta</artifactId>
-                    <version>1.1</version>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>jstl</artifactId>
-                    <scope>provided</scope>
-                </dependency>
-                <dependency>
-                     <groupId>org.hibernate</groupId>
-                     <artifactId>hibernate-validator</artifactId>
-                     <version>4.1.0.Final</version>
-                     <scope>provided</scope>
-                </dependency>
-                <dependency>
-                     <groupId>javax.validation</groupId>
-                     <artifactId>validation-api</artifactId>
-                     <scope>provided</scope>
-                </dependency>
-            </dependencies>
         </profile>
         <profile>
             <id>unpack-gae-sdk</id>
@@ -471,8 +503,10 @@
     </profiles>
 
     <scm>
-        <connection>scm:git:git://github.com/richfaces/showcase.git</connection>
-        <developerConnection>scm:git:git@github.com:richfaces/showcase.git</developerConnection>
+        <connection>scm:git:git://github.com/richfaces/showcase.git
+        </connection>
+        <developerConnection>scm:git:git@github.com:richfaces/showcase.git
+        </developerConnection>
         <url>https://github.com/richfaces/showcase</url>
     </scm>
 </project>
