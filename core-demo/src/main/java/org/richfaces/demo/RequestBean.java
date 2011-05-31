@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.demo;
 
 import javax.faces.bean.ManagedBean;
@@ -46,8 +43,7 @@ public class RequestBean {
     }
 
     public void setupIdsToRender() {
-        this.idsToRender =
-            FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idsToRender");
+        this.idsToRender = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("idsToRender");
     }
 
     public Object getItems() {

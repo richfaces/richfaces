@@ -11,11 +11,8 @@ import javax.faces.event.AjaxBehaviorEvent;
 @ManagedBean(name = "commandBean")
 @SessionScoped
 public class CommandBean implements Serializable {
-
     private static final long serialVersionUID = 3485896940723796437L;
-
     private String name;
-
     private boolean pollEnabled;
 
     public boolean isPollEnabled() {

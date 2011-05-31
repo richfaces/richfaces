@@ -1,7 +1,6 @@
 package org.ircclient.controller;
 
 public class Message {
-
     private String text;
     private String author;
     private String timestamp;
@@ -36,5 +35,4 @@ public class Message {
     public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
-
 }

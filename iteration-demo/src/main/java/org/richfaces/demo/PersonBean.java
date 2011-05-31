@@ -21,7 +21,6 @@
  */
 package org.richfaces.demo;
 
-
 import java.util.Map;
 
 import javax.faces.bean.ManagedBean;
@@ -33,18 +32,14 @@ import org.richfaces.component.SortOrder;
 
 import com.google.common.collect.Maps;
 
-
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @ManagedBean
 @SessionScoped
 public class PersonBean {
-    
     private static final class PersonDataModel extends JPADataModel<Person> {
-
         private PersonDataModel(EntityManager entityManager) {
             super(entityManager, Person.class);
         }
@@ -55,13 +50,11 @@ public class PersonBean {
         }
     }
 
-    @ManagedProperty(value = "#{persistenceService}") 
+    @ManagedProperty(value = "#{persistenceService}")
     private PersistenceService persistenceService;
-
     private Map<String, SortOrder> sortOrders = Maps.newHashMapWithExpectedSize(1);
-    
     private Map<String, String> filterValues = Maps.newHashMap();
-    
+
     public void setPersistenceService(PersistenceService persistenceService) {
         this.persistenceService = persistenceService;
     }
@@ -69,24 +62,24 @@ public class PersonBean {
     public Map<String, SortOrder> getSortOrders() {
         return sortOrders;
     }
-    
+
     public Map<String, String> getFilterValues() {
         return filterValues;
     }
-    
+
     public SortOrder getSortOrder(String name) {
         SortOrder sortOrder = getSortOrders().get(name);
 
         if (sortOrder == null) {
             sortOrder = SortOrder.unsorted;
         }
-        
+
         return sortOrder;
     }
-    
+
     public void switchSortOrder(String name) {
         SortOrder newSortOrder = null;
-        
+
         switch (getSortOrder(name)) {
             case unsorted:
                 newSortOrder = SortOrder.ascending;
@@ -100,11 +93,11 @@ public class PersonBean {
             default:
                 throw new IllegalStateException();
         }
-        
+
         sortOrders.clear();
         sortOrders.put(name, newSortOrder);
     }
-    
+
     public Object getDataModel() {
         return new PersonDataModel(persistenceService.getEntityManager());
     }

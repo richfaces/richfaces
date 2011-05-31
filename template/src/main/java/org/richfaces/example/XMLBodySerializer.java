@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.example;
 
 import java.io.StringWriter;
@@ -34,44 +33,38 @@ import org.w3c.dom.Document;
 import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.NodeList;
 
-
 /**
  * @author Maksim Kaszynski
  *
  */
 public class XMLBodySerializer {
-	public String serialize(NodeList childNodes, Document xmlDocument) throws ParsingException {
-		try {
-			StringWriter out;
-			DocumentFragment fragment = xmlDocument.createDocumentFragment();
-			for (int i = 0; i < childNodes.getLength(); i++) {
-				fragment.appendChild(childNodes.item(i).cloneNode(true));
-			}
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
-			transformer.setErrorListener(new ErrorListener(){
+    public String serialize(NodeList childNodes, Document xmlDocument) throws ParsingException {
+        try {
+            StringWriter out;
+            DocumentFragment fragment = xmlDocument.createDocumentFragment();
+            for (int i = 0; i < childNodes.getLength(); i++) {
+                fragment.appendChild(childNodes.item(i).cloneNode(true));
+            }
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setErrorListener(new ErrorListener() {
+                public void error(TransformerException exception) throws TransformerException {
+                }
 
-				public void error(TransformerException exception)
-						throws TransformerException {
-				}
+                public void fatalError(TransformerException exception) throws TransformerException {
+                }
 
-				public void fatalError(TransformerException exception)
-						throws TransformerException {
-				}
-
-				public void warning(TransformerException exception)
-						throws TransformerException {
-				}
-				
-			});
-			transformer.setOutputProperty("indent", "yes");
-			transformer.setOutputProperty("omit-xml-declaration", "yes");
-			out = new StringWriter();
-			StreamResult result = new StreamResult(out);
-			transformer.transform(new DOMSource(fragment), result);
-			return out.toString();
-		} catch (Exception e) {
-			throw new ParsingException(e);
-		}
-	}
+                public void warning(TransformerException exception) throws TransformerException {
+                }
+            });
+            transformer.setOutputProperty("indent", "yes");
+            transformer.setOutputProperty("omit-xml-declaration", "yes");
+            out = new StringWriter();
+            StreamResult result = new StreamResult(out);
+            transformer.transform(new DOMSource(fragment), result);
+            return out.toString();
+        } catch (Exception e) {
+            throw new ParsingException(e);
+        }
+    }
 }

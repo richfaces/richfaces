@@ -25,18 +25,13 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 
-
 /**
- * @author Nick Belaevski
- *         mailto:nbelaevski@exadel.com
- *         created 24.07.2007
+ * @author Nick Belaevski mailto:nbelaevski@exadel.com created 24.07.2007
  *
  */
 public class Project extends Entry {
-
     @XmlElement(name = "sourceDirectory")
     private List<SourceDirectory> sourceDirectories;
-
     @XmlElement(name = "directory")
     private List<Directory> commonDirectories;
 

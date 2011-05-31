@@ -44,22 +44,18 @@ import com.google.common.io.Closeables;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class TreeNodeParser implements ContentHandler {
-
     private static final FastJoiner JOINER = FastJoiner.on("");
-    
     private XMLReader reader;
-
     private List<TreeNode> rootNodes = Lists.newArrayList();
-    
     private SwingTreeNodeImpl<String> currentNode;
-    
+
     public TreeNodeParser() throws SAXException {
         reader = XMLReaderFactory.createXMLReader();
     }
-    
+
     public void parse(URL url) throws IOException, SAXException {
         InputStream is = null;
         try {
@@ -98,9 +94,9 @@ public class TreeNodeParser implements ContentHandler {
         } else {
             currentNode.addChild(newNode);
         }
-        
+
         newNode.setData(JOINER.join(newNode.getData(), localName.toLowerCase(Locale.US), " ["));
-        
+
         currentNode = newNode;
     }
 
@@ -121,5 +117,4 @@ public class TreeNodeParser implements ContentHandler {
 
     public void skippedEntity(String name) throws SAXException {
     }
-    
 }

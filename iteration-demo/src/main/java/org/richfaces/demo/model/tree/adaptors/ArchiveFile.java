@@ -28,18 +28,14 @@ import javax.xml.bind.annotation.XmlElement;
 import com.google.common.collect.Lists;
 
 /**
- * @author Nick Belaevski
- *         mailto:nbelaevski@exadel.com
- *         created 04.08.2007
+ * @author Nick Belaevski mailto:nbelaevski@exadel.com created 04.08.2007
  *
  */
 public class ArchiveFile extends File {
-
     @XmlElement(name = "archiveEntry")
     private List<ArchiveEntry> archiveEntries = Lists.newArrayList();
 
     public List<ArchiveEntry> getArchiveEntries() {
         return archiveEntries;
     }
-
 }

@@ -28,16 +28,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @XmlRootElement(name = "root")
 public class Root {
-
     @XmlElement(name = "project")
     private List<Project> projects;
-    
+
     public List<Project> getProjects() {
         return projects;
     }
-
 }

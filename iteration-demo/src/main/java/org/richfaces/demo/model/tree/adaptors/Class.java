@@ -21,7 +21,6 @@
  */
 package org.richfaces.demo.model.tree.adaptors;
 
-
 /**
  * @author Nick Belaevski
  */

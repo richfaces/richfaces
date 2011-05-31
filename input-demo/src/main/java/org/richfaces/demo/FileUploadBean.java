@@ -32,25 +32,24 @@ import org.richfaces.model.UploadedFile;
 
 /**
  * @author Konstantin Mishin
- * 
+ *
  */
 @ManagedBean
 @SessionScoped
 public class FileUploadBean {
-    
     private String acceptedTypes;
     private boolean disabled = false;
     private boolean noDuplicate = false;
     private UploadedFile file;
-    
+
     public UploadedFile getFile() {
         return file;
     }
 
-//    public void paint(OutputStream stream, Object object) throws IOException {
-//        stream.write(item.getData());
-//    }
-    
+    // public void paint(OutputStream stream, Object object) throws IOException {
+    // stream.write(item.getData());
+    // }
+
     public void listener(FileUploadEvent event) throws Exception {
         file = event.getUploadedFile();
     }
@@ -84,5 +83,5 @@ public class FileUploadBean {
         String attributeName = (String) component.findComponent("name").getAttributes().get("value");
         Object attributeValue = component.findComponent("value").getAttributes().get("value");
         component.findComponent("fu").getAttributes().put(attributeName, attributeValue);
-    }  
+    }
 }

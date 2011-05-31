@@ -29,15 +29,14 @@ import com.google.common.base.Strings;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class PackageKeyConverter implements Converter {
-
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         if (Strings.isNullOrEmpty(value)) {
             return null;
         }
-        
+
         return new PackageKey(value);
     }
 
@@ -45,8 +44,7 @@ public class PackageKeyConverter implements Converter {
         if (value == null) {
             return "";
         }
-        
+
         return ((PackageKey) value).getPackageName();
     }
-
 }

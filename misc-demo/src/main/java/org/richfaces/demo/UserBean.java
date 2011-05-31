@@ -28,14 +28,13 @@ import javax.faces.bean.SessionScoped;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @ManagedBean
 @SessionScoped
 public class UserBean {
-
     private String rolename;
-    
+
     public String getRolename() {
         return rolename;
     }
@@ -48,23 +47,22 @@ public class UserBean {
         if (rolename != null) {
             return new PrincipalImpl(rolename);
         }
-        
+
         return null;
     }
 
     public boolean isUserInRole(String role) {
         Principal principal = getPrincipal();
         if (principal != null) {
-            //username & principal's name & role name are considered the same
+            // username & principal's name & role name are considered the same
             return principal.getName().equals(role);
         }
-        
+
         return false;
     }
 }
 
 class PrincipalImpl implements Principal {
-
     private String name;
 
     public PrincipalImpl(String name) {
@@ -75,5 +73,4 @@ class PrincipalImpl implements Principal {
     public String getName() {
         return name;
     }
-    
 }

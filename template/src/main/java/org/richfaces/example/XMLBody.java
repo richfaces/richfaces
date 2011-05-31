@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.example;
 
 import java.io.IOException;
@@ -45,175 +44,168 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- * This class must read XML file from input stream and can extract body of root
- * element for include into target in generation.
- * 
+ * This class must read XML file from input stream and can extract body of root element for include into target in generation.
+ *
  * @author shura
- * 
+ *
  */
 public class XMLBody {
-	private Document xmlDocument;
+    private Document xmlDocument;
+    private Element rootElement;
 
-	private Element rootElement;
+    /**
+     * Load XML document and parse it into DOM.
+     *
+     * @param input
+     * @throws ParsingException
+     */
+    public void loadXML(InputStream input) throws ParsingException {
+        loadXML(input, false);
+    }
 
-	/**
-	 * Load XML document and parse it into DOM.
-	 * 
-	 * @param input
-	 * @throws ParsingException
-	 */
-	public void loadXML(InputStream input) throws ParsingException {
-		loadXML(input,false);
-	}
+    /**
+     * Load XML document and parse it into DOM.
+     *
+     * @param input
+     * @throws ParsingException
+     */
+    public void loadXML(InputStream input, boolean namespaceAware) throws ParsingException {
+        try {
+            // Create Document Builder Factory
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+            docFactory.setIgnoringElementContentWhitespace(true);
+            docFactory.setValidating(false);
+            docFactory.setNamespaceAware(namespaceAware);
+            // Create Document Builder
+            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+            // docBuilder.
+            // docBuilder.isValidating();
 
-	
-	/**
-	 * Load XML document and parse it into DOM.
-	 * 
-	 * @param input
-	 * @throws ParsingException
-	 */
-	public void loadXML(InputStream input, boolean namespaceAware) throws ParsingException {
-		try {
-			// Create Document Builder Factory
-			DocumentBuilderFactory docFactory = DocumentBuilderFactory
-					.newInstance();
-			docFactory.setIgnoringElementContentWhitespace(true);
-			docFactory.setValidating(false);
-			docFactory.setNamespaceAware(namespaceAware);
-			// Create Document Builder
-			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-			//docBuilder.
-			//docBuilder.isValidating();
-			
-			// Disable loading of external Entityes
-			docBuilder.setEntityResolver(new EntityResolver() {
-				// Dummi resolver - alvays do nothing
-				public InputSource resolveEntity(String publicId, String systemId)
-						throws SAXException, IOException {
-					return new InputSource(new StringReader(""));
-				}
+            // Disable loading of external Entityes
+            docBuilder.setEntityResolver(new EntityResolver() {
+                // Dummi resolver - alvays do nothing
+                public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
+                    return new InputSource(new StringReader(""));
+                }
+            });
 
-			});
+            // open and parse XML-file
+            xmlDocument = docBuilder.parse(input);
 
-			// open and parse XML-file
-			xmlDocument = docBuilder.parse(input);
+            // Get Root xmlElement
+            rootElement = xmlDocument.getDocumentElement();
+        } catch (Exception e) {
+            throw new ParsingException("Error load XML ", e);
+        }
+    }
 
-			// Get Root xmlElement
-			rootElement = xmlDocument.getDocumentElement();
-		} catch (Exception e) {
-			throw new ParsingException("Error load XML ", e);
-		}
+    /**
+     * Check name of root element is as expected.
+     *
+     * @param name
+     * @return
+     */
+    public boolean isRootName(String name) {
+        return rootElement.getNodeName().equals(name);
+    }
 
-	}
+    public String getDoctype() {
+        DocumentType doctype = xmlDocument.getDoctype();
+        if (null != doctype) {
+            return doctype.getName();
+        }
+        return null;
+    }
 
-	/**
-	 * Check name of root element is as expected.
-	 * 
-	 * @param name
-	 * @return
-	 */
-	public boolean isRootName(String name) {
-		return rootElement.getNodeName().equals(name);
-	}
+    public String getPiblicId() {
+        DocumentType doctype = xmlDocument.getDoctype();
+        if (null != doctype) {
+            return doctype.getPublicId();
+        }
+        return null;
+    }
 
-	public String getDoctype() {
-		DocumentType doctype = xmlDocument.getDoctype();
-		if (null != doctype) {
-			return doctype.getName();
-		}
-		return null;
-	}
+    public String getRootTypeName() {
+        return rootElement.getSchemaTypeInfo().getTypeName();
+    }
 
-	public String getPiblicId() {
-		DocumentType doctype = xmlDocument.getDoctype();
-		if (null != doctype) {
-			return doctype.getPublicId();
-		}
-		return null;
-	}
+    public String getContent() throws ParsingException {
+        NodeList childNodes = rootElement.getChildNodes();
+        return serializeNodes(childNodes);
+    }
 
-	public String getRootTypeName() {
-		return rootElement.getSchemaTypeInfo().getTypeName();
-	}
+    private String serializeNodes(NodeList childNodes) throws ParsingException {
+        try {
+            return new XMLBodySerializer().serialize(childNodes, xmlDocument);
+        } catch (Exception e) {
+            throw new ParsingException(e);
+        }
+    }
 
-	public String getContent() throws ParsingException {
-		NodeList childNodes = rootElement.getChildNodes();
-		return serializeNodes(childNodes);
-	}
+    public String getContent(String xpath) throws ParsingException {
+        return serializeNodes(getByXpath(xpath));
+    }
 
-	private String serializeNodes(NodeList childNodes) throws ParsingException {
-		try {
-			return new XMLBodySerializer().serialize(childNodes, xmlDocument);
-		} catch (Exception e) {
-			throw new ParsingException(e);
-		}
-	}
-	
-	public String getContent(String xpath) throws ParsingException{
-		return serializeNodes(getByXpath(xpath));
-	}
+    public NodeList getByXpath(String xpath) throws ParsingException {
+        XPath path = XPathFactory.newInstance().newXPath();
+        NodeList childNodes;
+        try {
+            childNodes = (NodeList) path.evaluate(xpath, xmlDocument, XPathConstants.NODESET);
+        } catch (XPathExpressionException e) {
+            throw new ParsingException("Error evaluate xpath", e);
+        }
+        return childNodes;
+    }
 
-	public NodeList getByXpath(String xpath) throws ParsingException {
-		XPath path = XPathFactory.newInstance().newXPath();
-		NodeList childNodes;
-		try {
-			childNodes = (NodeList) path.evaluate(xpath, xmlDocument, XPathConstants.NODESET);
-		} catch (XPathExpressionException e) {
-			throw new ParsingException("Error evaluate xpath",e);
-		}
-		return childNodes;
-	}
-	
-	public NodeList getByXpathUnique(String xpath, String keyXPath, Set<String> keySet) throws ParsingException {
-		if (keyXPath == null) {
-			return getByXpath(xpath);
-		} else {
-			XPath path = XPathFactory.newInstance().newXPath();
-			NodeList childNodes;
-			try {
-				childNodes = getByXpath(xpath);
-				
-				List<Node> nodeSet = new ArrayList<Node>();
-				
-				for (int i = 0; i < childNodes.getLength(); i++) {
-					Node node = childNodes.item(i).cloneNode(true);
-					
-					String key = serializeNodes((NodeList) path.evaluate(keyXPath, node, XPathConstants.NODESET));
-					if (!keySet.contains(key)) {
-						keySet.add(key);
-						nodeSet.add(node);
-					}
-				}
-				return new ArrayNodeList(nodeSet.toArray(new Node[nodeSet.size()]));
-			} catch (XPathExpressionException e) {
-				throw new ParsingException("Error evaluate xpath",e);
-			}
+    public NodeList getByXpathUnique(String xpath, String keyXPath, Set<String> keySet) throws ParsingException {
+        if (keyXPath == null) {
+            return getByXpath(xpath);
+        } else {
+            XPath path = XPathFactory.newInstance().newXPath();
+            NodeList childNodes;
+            try {
+                childNodes = getByXpath(xpath);
 
-		}
-	}
-	public String getContentUnique(String xpath, String keyXPath, Set<String> keySet) throws ParsingException{
-		return serializeNodes(getByXpathUnique(xpath, keyXPath, keySet));
-	}
+                List<Node> nodeSet = new ArrayList<Node>();
+
+                for (int i = 0; i < childNodes.getLength(); i++) {
+                    Node node = childNodes.item(i).cloneNode(true);
+
+                    String key = serializeNodes((NodeList) path.evaluate(keyXPath, node, XPathConstants.NODESET));
+                    if (!keySet.contains(key)) {
+                        keySet.add(key);
+                        nodeSet.add(node);
+                    }
+                }
+                return new ArrayNodeList(nodeSet.toArray(new Node[nodeSet.size()]));
+            } catch (XPathExpressionException e) {
+                throw new ParsingException("Error evaluate xpath", e);
+            }
+        }
+    }
+
+    public String getContentUnique(String xpath, String keyXPath, Set<String> keySet) throws ParsingException {
+        return serializeNodes(getByXpathUnique(xpath, keyXPath, keySet));
+    }
 }
 
 class ArrayNodeList implements NodeList {
-	private Node[] nodes;
+    private Node[] nodes;
 
-	public ArrayNodeList(Node[] nodes) {
-		super();
-		this.nodes = nodes;
-	}
+    public ArrayNodeList(Node[] nodes) {
+        super();
+        this.nodes = nodes;
+    }
 
-	public int getLength() {
-		return nodes.length;
-	}
+    public int getLength() {
+        return nodes.length;
+    }
 
-	public Node item(int index) {
-		if (index < nodes.length) {
-			return this.nodes[index];
-		}
-		
-		return null;
-	}
+    public Node item(int index) {
+        if (index < nodes.length) {
+            return this.nodes[index];
+        }
+
+        return null;
+    }
 }

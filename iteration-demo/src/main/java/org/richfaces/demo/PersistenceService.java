@@ -47,33 +47,31 @@ import com.google.common.io.Closeables;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @ManagedBean(eager = true)
 @ApplicationScoped
 public class PersistenceService {
-
     private static final Logger LOGGER = Logger.getLogger(PersistenceService.class.getName());
-    
     private EntityManagerFactory entityManagerFactory;
-    
+
     public EntityManager getEntityManager() {
         Map<Object, Object> attributes = FacesContext.getCurrentInstance().getAttributes();
-        
+
         EntityManager manager = (EntityManager) attributes.get(PersistenceService.class);
-        
+
         if (manager == null) {
             manager = entityManagerFactory.createEntityManager();
             attributes.put(PersistenceService.class, manager);
             manager.getTransaction().begin();
         }
-        
+
         return manager;
     }
 
     void closeEntityManager() {
         Map<Object, Object> attributes = FacesContext.getCurrentInstance().getAttributes();
-        
+
         EntityManager entityManager = (EntityManager) attributes.remove(PersistenceService.class);
 
         if (entityManager != null) {
@@ -91,23 +89,22 @@ public class PersistenceService {
             }
         }
     }
-    
+
     @PostConstruct
     public void init() {
         entityManagerFactory = Persistence.createEntityManagerFactory("iterationDemo", new Properties());
-        
-        
+
         EntityManager em = entityManagerFactory.createEntityManager();
-        
+
         EntityTransaction transaction = em.getTransaction();
 
         try {
             transaction.begin();
-            
-            for (Person person: parseTestData()) {
+
+            for (Person person : parseTestData()) {
                 em.persist(person);
             }
-            
+
             transaction.commit();
         } catch (Exception e) {
             transaction.rollback();
@@ -123,22 +120,23 @@ public class PersistenceService {
             dataStream = PersistenceService.class.getResourceAsStream("data.xml");
             DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Node node = documentBuilder.parse(dataStream).getDocumentElement();
-            
+
             List<Person> persons = Lists.newArrayList();
 
             for (Node personNode = node.getFirstChild(); personNode != null; personNode = personNode.getNextSibling()) {
                 if (personNode.getNodeType() != Node.ELEMENT_NODE) {
                     continue;
                 }
-                
+
                 Person person = new Person();
                 persons.add(person);
-                
-                for (Node personDataNode = personNode.getFirstChild(); personDataNode != null; personDataNode = personDataNode.getNextSibling()) {
+
+                for (Node personDataNode = personNode.getFirstChild(); personDataNode != null; personDataNode = personDataNode
+                        .getNextSibling()) {
                     if (personDataNode.getNodeType() != Node.ELEMENT_NODE) {
                         continue;
                     }
-                    
+
                     String nodeName = personDataNode.getNodeName();
                     String text = personDataNode.getTextContent();
                     if ("name".equals(nodeName)) {
@@ -150,7 +148,7 @@ public class PersistenceService {
                     }
                 }
             }
-            
+
             return persons;
         } finally {
             Closeables.closeQuietly(dataStream);
@@ -162,5 +160,4 @@ public class PersistenceService {
         entityManagerFactory.close();
         entityManagerFactory = null;
     }
-
 }

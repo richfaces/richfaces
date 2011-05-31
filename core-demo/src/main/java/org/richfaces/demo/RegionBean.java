@@ -36,27 +36,17 @@ import javax.faces.model.SelectItem;
 @ManagedBean
 @SessionScoped
 public class RegionBean implements Serializable {
-
     private static final long serialVersionUID = -6371272297263012554L;
-
-    private static final SelectItem[] AVAILABLE_EXECUTE_OPTIONS = new SelectItem[] {
-        new SelectItem(null, "default"), new SelectItem("@region"), new SelectItem("@all"), new SelectItem("@this")
-    };
-
+    private static final SelectItem[] AVAILABLE_EXECUTE_OPTIONS = new SelectItem[] { new SelectItem(null, "default"),
+            new SelectItem("@region"), new SelectItem("@all"), new SelectItem("@this") };
     private String execute = null;
-
     private String nestedExecute = null;
-
     private String outerExecute = null;
-
     private String outerValue;
-
     private String regionValue;
-
     private String nestedRegionValue;
-
     private String lastExecutedLinkValue;
-    
+
     public SelectItem[] getExecuteOptions() {
         return AVAILABLE_EXECUTE_OPTIONS;
     }
@@ -112,14 +102,14 @@ public class RegionBean implements Serializable {
     public void handleBehavior(AjaxBehaviorEvent event) {
         lastExecutedLinkValue = (String) event.getComponent().getAttributes().get("value");
     }
-    
+
     public String getLastExecutedLinkValue() {
         return lastExecutedLinkValue;
     }
-    
+
     public void handleDefaultsValueChange(ValueChangeEvent event) {
         String newValue = (String) event.getNewValue();
-        
+
         setOuterExecute(newValue);
         setExecute(newValue);
         setNestedExecute(newValue);

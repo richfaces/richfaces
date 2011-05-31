@@ -23,10 +23,9 @@ package org.richfaces.demo.model.tree.adaptors;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class PackageKey {
-
     private String packageName;
 
     public PackageKey(String packageName) {
@@ -37,7 +36,7 @@ public class PackageKey {
     public String getPackageName() {
         return packageName;
     }
-    
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -67,6 +66,4 @@ public class PackageKey {
         }
         return true;
     }
-
-    
 }

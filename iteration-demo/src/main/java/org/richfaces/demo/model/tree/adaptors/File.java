@@ -22,11 +22,8 @@
 package org.richfaces.demo.model.tree.adaptors;
 
 /**
- * @author Nick Belaevski
- *         mailto:nbelaevski@exadel.com
- *         created 25.07.2007
+ * @author Nick Belaevski mailto:nbelaevski@exadel.com created 25.07.2007
  *
  */
 public class File extends Entry {
-
 }

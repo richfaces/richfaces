@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.demo;
 
 import java.util.Date;
@@ -31,42 +30,41 @@ import org.richfaces.model.CalendarDataModel;
 import org.richfaces.model.CalendarDataModelItem;
 
 /**
- * @author Nick Belaevski - mailto:nbelaevski@exadel.com
- * created 30.06.2007
+ * @author Nick Belaevski - mailto:nbelaevski@exadel.com created 30.06.2007
  *
  */
-@ManagedBean(name="calendarDataModel")
+@ManagedBean(name = "calendarDataModel")
 @ApplicationScoped
 public class CalendarDataModelImpl implements CalendarDataModel {
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.component.CalendarDataModel#getData(java.util.Date[])
+     */
+    public CalendarDataModelItem[] getData(Date[] dateArray) {
+        if (dateArray == null) {
+            return null;
+        }
 
-	/* (non-Javadoc)
-	 * @see org.richfaces.component.CalendarDataModel#getData(java.util.Date[])
-	 */
-	public CalendarDataModelItem[] getData(Date[] dateArray) {
-		if (dateArray == null) {
-			return null;
-		}
-		
-		CalendarDataModelItem[] items = new CalendarDataModelItem[dateArray.length];
-		for (int i = 0; i < dateArray.length; i++) {
-			items[i] = createDataModelItem(dateArray[i]);
-		}
+        CalendarDataModelItem[] items = new CalendarDataModelItem[dateArray.length];
+        for (int i = 0; i < dateArray.length; i++) {
+            items[i] = createDataModelItem(dateArray[i]);
+        }
 
-		return items;
-	}
+        return items;
+    }
 
-	protected CalendarDataModelItem createDataModelItem(Date date) {
-		CalendarDataModelItemImpl item = new CalendarDataModelItemImpl();
-		
-		if (new Random().nextInt(10) > 5) {
-			item.setEnabled(true);			
-			
-		} else {
-			item.setEnabled(false);
-		}
-		
-		return item;
-	}
+    protected CalendarDataModelItem createDataModelItem(Date date) {
+        CalendarDataModelItemImpl item = new CalendarDataModelItemImpl();
+
+        if (new Random().nextInt(10) > 5) {
+            item.setEnabled(true);
+        } else {
+            item.setEnabled(false);
+        }
+
+        return item;
+    }
 
     public Object getToolTip(Date date) {
         return null;

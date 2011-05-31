@@ -1,10 +1,11 @@
 package org.richfaces;
 
-import org.richfaces.event.ItemChangeEvent;
+import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import java.util.Date;
+
+import org.richfaces.event.ItemChangeEvent;
 
 @ManagedBean
 @SessionScoped
@@ -66,8 +67,8 @@ public class ModalPanel {
 
     public void setZindex(int zindex) {
         this.zindex = zindex;
-    }    
-    
+    }
+
     public int getHeight() {
         return height;
     }

@@ -29,16 +29,15 @@ import org.richfaces.resource.AbstractJSONResource;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class ProgressBarResource extends AbstractJSONResource {
-
     private static final String ATTRIBUTE_NAME = ProgressBarResource.class.getName();
-    
+
     @Override
     protected Object getData(FacesContext context) {
         Map<String, Object> sessionMap = context.getExternalContext().getSessionMap();
-        
+
         Integer value = (Integer) sessionMap.get(ATTRIBUTE_NAME);
         if (value == null) {
             value = Integer.valueOf(0);
@@ -47,8 +46,7 @@ public class ProgressBarResource extends AbstractJSONResource {
         }
 
         sessionMap.put(ATTRIBUTE_NAME, value);
-        
+
         return value;
     }
-
 }

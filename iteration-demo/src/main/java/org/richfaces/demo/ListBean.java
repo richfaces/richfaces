@@ -28,18 +28,17 @@ import org.richfaces.component.ListType;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @ManagedBean
 @SessionScoped
 public class ListBean {
-
     private String listType = ListType.unordered.name();
-    
+
     public String getListType() {
         return listType;
     }
-    
+
     public void setListType(String listType) {
         this.listType = listType;
     }

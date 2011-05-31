@@ -18,40 +18,38 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.demo;
 
 import org.richfaces.model.CalendarDataModelItem;
 
 /**
- * @author Nick Belaevski - mailto:nbelaevski@exadel.com
- * created 04.07.2007
+ * @author Nick Belaevski - mailto:nbelaevski@exadel.com created 04.07.2007
  *
  */
 public class CalendarDataModelItemImpl implements CalendarDataModelItem {
+    private boolean enabled = true;
+    private String styleClass = "";
 
-	private boolean enabled = true;
-	private String styleClass = "";
-	
-			
-	/* (non-Javadoc)
-	 * @see org.richfaces.component.CalendarDataModelItem#isEnabled()
-	 */
-	public boolean isEnabled() {
-		return enabled;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.component.CalendarDataModelItem#isEnabled()
+     */
+    public boolean isEnabled() {
+        return enabled;
+    }
 
-	/**
-	 * @param enabled the enabled to set
-	 */
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
+    /**
+     * @param enabled the enabled to set
+     */
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     public String getStyleClass() {
         return styleClass;
     }
-    
+
     public void setStyleClass(String styleClass) {
         this.styleClass = styleClass;
     }
@@ -70,5 +68,5 @@ public class CalendarDataModelItemImpl implements CalendarDataModelItem {
 
     public int getDay() {
         return 0;
-    }    
+    }
 }

@@ -1,15 +1,9 @@
 package org.richfaces.demo.model;
 
-
-
 public class Company {
-
     private String name;
-
     private String state;
-
     private String phone;
-
 
     public Company(String name) {
         this.name = name;
@@ -55,5 +49,4 @@ public class Company {
     public int hashCode() {
         return 31 + 17 * name.hashCode();
     }
-
 }

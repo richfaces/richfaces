@@ -7,19 +7,12 @@ import java.util.Random;
 import org.richfaces.event.CollapsibleSubTableToggleEvent;
 
 public class Employee {
-
-    private static String[] phoneNames = {"Cell phone", "Work phone", "Home phone"};
-
+    private static String[] phoneNames = { "Cell phone", "Work phone", "Home phone" };
     private String name;
-
     private String title;
-
-    private List <Company> companies;
-
+    private List<Company> companies;
     private String eMail;
-
     private boolean expand;
-
     private List<String[]> phones = new ArrayList<String[]>();
 
     public Employee(String name, String title) {
@@ -32,7 +25,7 @@ public class Employee {
         Random random = new Random();
         int count = random.nextInt(phoneNames.length + 1);
         for (int i = 0; i < count; i++) {
-            phones.add(new String[]{phoneNames[i], "+" + random.nextInt(1000) + "-" + random.nextInt(1000000000)});
+            phones.add(new String[] { phoneNames[i], "+" + random.nextInt(1000) + "-" + random.nextInt(1000000000) });
         }
     }
 
@@ -52,7 +45,7 @@ public class Employee {
         this.name = name;
     }
 
-    public List <Company> getCompanies() {
+    public List<Company> getCompanies() {
         return companies;
     }
 
@@ -85,10 +78,8 @@ public class Employee {
             return false;
         }
         Employee employee = (Employee) obj;
-        return name.equals(employee.getName())
-            && title.equals(employee.getTitle())
-            && (companies == null ? employee.getCompanies() == null : companies
-                .equals(employee.getCompanies()));
+        return name.equals(employee.getName()) && title.equals(employee.getTitle())
+                && (companies == null ? employee.getCompanies() == null : companies.equals(employee.getCompanies()));
     }
 
     @Override
@@ -111,5 +102,4 @@ public class Employee {
     public void setExpand(boolean expand) {
         this.expand = expand;
     }
-
 }

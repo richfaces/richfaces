@@ -32,39 +32,34 @@ import javax.xml.bind.annotation.XmlAttribute;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 
-
 /**
- * @author Nick Belaevski
- *         mailto:nbelaevski@exadel.com
- *         created 29.07.2007
+ * @author Nick Belaevski mailto:nbelaevski@exadel.com created 29.07.2007
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class Entry {
-
     @XmlAttribute
     private String name;
-
     private Entry parent;
-    
+
     public String getPath() {
         List<Entry> entries = Lists.newLinkedList();
-        
+
         Entry entry = this;
         while (entry != null) {
             entries.add(0, entry);
             entry = entry.getParent();
         }
-        
+
         return Joiner.on(" -> ").join(entries);
     }
-    
+
     public void processClick() {
         FacesContext context = FacesContext.getCurrentInstance();
-        
+
         context.addMessage(null, new FacesMessage(getPath()));
     }
-    
+
     public String toString() {
         return getClass().getSimpleName() + " [" + getName() + "]";
     }
@@ -83,9 +78,8 @@ public abstract class Entry {
     public Entry getParent() {
         return parent;
     }
-    
+
     public void setParent(Entry parent) {
         this.parent = parent;
     }
-
 }

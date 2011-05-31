@@ -43,35 +43,34 @@ import org.richfaces.application.push.impl.DefaultMessageDataSerializer;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class TopicsInitializer implements SystemEventListener {
-
     public void processEvent(SystemEvent event) throws AbortProcessingException {
         TopicsContext topicsContext = TopicsContext.lookup();
-        
+
         Topic topic = topicsContext.getOrCreateTopic(new TopicKey("chat"));
         topic.setMessageDataSerializer(DefaultMessageDataSerializer.instance());
-        
+
         topic.addTopicListener(new SessionTopicListener2() {
-            
             public void processUnsubscriptionEvent(SessionUnsubscriptionEvent event) {
                 TopicKey topicKey = event.getTopicKey();
                 Session session = event.getSession();
-                System.out.println(MessageFormat.format("Session {0} disconnected from {1}", session.getId(), topicKey.getTopicAddress()));
+                System.out.println(MessageFormat.format("Session {0} disconnected from {1}", session.getId(),
+                        topicKey.getTopicAddress()));
             }
-            
+
             public void processSubscriptionEvent(SessionSubscriptionEvent event) {
                 TopicKey topicKey = event.getTopicKey();
                 Session session = event.getSession();
-                
+
                 FacesContext facesContext = FacesContext.getCurrentInstance();
                 HttpServletRequest hsr = (HttpServletRequest) facesContext.getExternalContext().getRequest();
-                
-                System.out.println(MessageFormat.format("Session {0} connected to {1} from {2}", session.getId(), 
-                    topicKey.getTopicAddress(), hsr.getRemoteAddr()));
+
+                System.out.println(MessageFormat.format("Session {0} connected to {1} from {2}", session.getId(),
+                        topicKey.getTopicAddress(), hsr.getRemoteAddr()));
             }
-            
+
             public void processPreSubscriptionEvent(SessionPreSubscriptionEvent event) throws SubscriptionFailureException {
                 ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
                 ChatBean chatBean = (ChatBean) externalContext.getSessionMap().get("chatBean");
@@ -85,5 +84,4 @@ public class TopicsInitializer implements SystemEventListener {
     public boolean isListenerForSource(Object source) {
         return true;
     }
-
 }

@@ -2,7 +2,6 @@
  * @author Pavel Yaschenko
  *
  */
-
 package org.richfaces;
 
 import java.io.Serializable;
@@ -17,7 +16,7 @@ import org.richfaces.component.Positioning;
 @SessionScoped
 public class TooltipBean implements Serializable {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -2860886265782541618L;
     private int tooltipCounter = 0;
@@ -34,7 +33,7 @@ public class TooltipBean implements Serializable {
     public Date getTooltipDate() {
         return new Date();
     }
-    
+
     public void setJointPoint(Positioning jointPoint) {
         this.jointPoint = jointPoint;
     }
@@ -66,7 +65,7 @@ public class TooltipBean implements Serializable {
     public int getVerticalOffset() {
         return verticalOffset;
     }
-    
+
     public Positioning[] getPositioningValues() {
         return positioningValues;
     }

@@ -36,10 +36,9 @@ import javax.servlet.http.HttpSession;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class TestIdentityFilter implements Filter {
-
     public void init(FilterConfig filterConfig) throws ServletException {
     }
 
@@ -47,39 +46,38 @@ public class TestIdentityFilter implements Filter {
     }
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
-        ServletException {
+            ServletException {
 
         HttpServletRequestWrapper wrapper = new HttpServletRequestWrapper((HttpServletRequest) request) {
-
             private UserBean getUserBean() {
                 HttpSession session = getSession(false);
                 if (session != null) {
                     return (UserBean) session.getAttribute("userBean");
                 }
-                
+
                 return null;
             }
-            
+
             @Override
             public boolean isUserInRole(String role) {
                 UserBean userBean = getUserBean();
                 if (userBean != null) {
                     return userBean.isUserInRole(role);
                 }
-                
+
                 return false;
             }
-            
+
             @Override
             public Principal getUserPrincipal() {
                 UserBean userBean = getUserBean();
                 if (userBean != null) {
                     return userBean.getPrincipal();
                 }
-                
+
                 return null;
             }
-            
+
             @Override
             public String getRemoteUser() {
                 UserBean userBean = getUserBean();
@@ -89,8 +87,7 @@ public class TestIdentityFilter implements Filter {
                 return null;
             }
         };
-        
+
         chain.doFilter(wrapper, response);
     }
-
 }

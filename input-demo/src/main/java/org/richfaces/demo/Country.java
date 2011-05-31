@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.demo;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -32,13 +31,9 @@ import com.google.common.base.Objects.ToStringHelper;
  *
  */
 public class Country {
-
     public static final String NAMESPACE = "http://richfaces.org/demos/countries";
-
     private String name;
-
     private String iso;
-
     private String domain;
 
     @XmlElement(namespace = Country.NAMESPACE)

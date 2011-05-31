@@ -44,10 +44,9 @@ import org.richfaces.application.push.impl.DefaultMessageDataSerializer;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class TopicsInitializer implements SystemEventListener {
-
     public void processEvent(SystemEvent event) throws AbortProcessingException {
         TopicsContext topicsContext = TopicsContext.lookup();
 
@@ -56,12 +55,11 @@ public class TopicsInitializer implements SystemEventListener {
         topic.setMessageDataSerializer(DefaultMessageDataSerializer.instance());
 
         topic.addTopicListener(new SessionTopicListener() {
-
             public void processUnsubscriptionEvent(SessionUnsubscriptionEvent event) throws EventAbortedException {
                 TopicKey topicKey = event.getTopicKey();
                 Session session = event.getSession();
                 System.out.println(MessageFormat.format("Session {0} disconnected from {1}", session.getId(),
-                    topicKey.getTopicAddress()));
+                        topicKey.getTopicAddress()));
             }
 
             public void processSubscriptionEvent(SessionSubscriptionEvent event) throws EventAbortedException {
@@ -72,7 +70,7 @@ public class TopicsInitializer implements SystemEventListener {
                 HttpServletRequest hsr = (HttpServletRequest) facesContext.getExternalContext().getRequest();
 
                 System.out.println(MessageFormat.format("Session {0} connected to {1} from {2}", session.getId(),
-                    topicKey.getTopicAddress(), hsr.getRemoteAddr()));
+                        topicKey.getTopicAddress(), hsr.getRemoteAddr()));
             }
 
             public void processPreSubscriptionEvent(SessionPreSubscriptionEvent event) throws EventAbortedException {
@@ -88,5 +86,4 @@ public class TopicsInitializer implements SystemEventListener {
     public boolean isListenerForSource(Object source) {
         return true;
     }
-
 }

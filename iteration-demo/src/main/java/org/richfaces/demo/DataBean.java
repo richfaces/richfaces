@@ -15,33 +15,23 @@ import org.richfaces.demo.utils.EmployeeUtils;
 import org.richfaces.event.SortingEvent;
 import org.richfaces.model.SelectionMode;
 
-@ManagedBean(name="dataBean")
+@ManagedBean(name = "dataBean")
 @SessionScoped
 public class DataBean {
-
     DataComponentState dataTableState;
-
-    Map<Object,Integer> stateMap = new HashMap<Object, Integer>(); 
-
-    int page = 1; 
-
+    Map<Object, Integer> stateMap = new HashMap<Object, Integer>();
+    int page = 1;
     private String test1 = "test1";
-
     private String test2 = "test2";
-
     private String target = "targetId";
-
     private String operation = "operation";
-
     private boolean rendered = true;
     private boolean renderIfSinglePage = true;
     private List<Employee> employeeList;
     private boolean state = true;
-
     private SelectionMode selectionMode = SelectionMode.multiple;
-    
     private Collection<Object> selectedRowKeys;
-    
+
     public String getTarget() {
         return target;
     }
@@ -103,7 +93,7 @@ public class DataBean {
     }
 
     public List<Employee> getEmployeeList() {
-        if(employeeList == null){
+        if (employeeList == null) {
             employeeList = EmployeeUtils.obtainDefaultEmployeeList();
         }
         return employeeList;
@@ -140,7 +130,7 @@ public class DataBean {
     public SelectionMode getSelectionMode() {
         return selectionMode;
     }
-    
+
     public SelectionMode[] getSelectionModes() {
         return SelectionMode.values();
     }

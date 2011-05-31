@@ -18,19 +18,13 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.examples;
 
-import junit.framework.Test;
 import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 /**
  */
 public class BeanTest extends TestCase {
-
     /**
      * Create the test case
      *
@@ -40,5 +34,6 @@ public class BeanTest extends TestCase {
         super(testName);
     }
 
-    public void testStub() throws Exception {}
+    public void testStub() throws Exception {
+    }
 }
