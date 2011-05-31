@@ -22,6 +22,9 @@
     <build>
         <finalName>validator-demo</finalName>
         <plugins>
+        	<plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
