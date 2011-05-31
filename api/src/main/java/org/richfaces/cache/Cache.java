@@ -18,19 +18,16 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.cache;
 
 import java.util.Date;
 
 public interface Cache {
-    public Object get(Object key);
+    Object get(Object key);
 
-    public void put(Object key, Object value, Date expired);
+    void put(Object key, Object value, Date expired);
 
-    public void start();
+    void start();
 
-    public void stop();
+    void stop();
 }

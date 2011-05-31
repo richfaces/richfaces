@@ -18,9 +18,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.el.util;
-
 
 /**
  * @author asmirnov
@@ -32,13 +30,10 @@ public final class ELUtils {
     }
 
     /**
-     * Get EL-enabled value. Return same string, if not el-expression.
-     * Otherthise, return parsed and evaluated expression.
+     * Get EL-enabled value. Return same string, if not el-expression. Otherthise, return parsed and evaluated expression.
      *
-     * @param context -
-     *                current Faces Context.
-     * @param value   -
-     *                string to parse.
+     * @param context - current Faces Context.
+     * @param value - string to parse.
      * @return - interpreted el or unmodified value.
      */
     public static boolean isValueReference(String value) {
@@ -58,5 +53,4 @@ public final class ELUtils {
 
         return false;
     }
-
 }

@@ -23,9 +23,10 @@ package org.richfaces.application;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public enum Enumeration {
 
-    foo, bar
+    foo,
+    bar
 }

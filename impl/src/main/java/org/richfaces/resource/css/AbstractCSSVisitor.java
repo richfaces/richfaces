@@ -38,7 +38,6 @@ import org.w3c.dom.css.CSSUnknownRule;
  *
  */
 public abstract class AbstractCSSVisitor {
-
     public void visitStyleSheet(CSSStyleSheet styleSheet) {
         startStyleSheet(styleSheet);
 
@@ -118,7 +117,6 @@ public abstract class AbstractCSSVisitor {
             visitRule(childRule);
         }
 
-
         endMediaRule(rule);
     }
 
@@ -149,5 +147,4 @@ public abstract class AbstractCSSVisitor {
     protected abstract void endPageRule(CSSPageRule rule);
 
     public abstract void visitStyleDeclaration(CSSStyleDeclaration styleDeclaration);
-
 }

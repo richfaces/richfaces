@@ -29,31 +29,29 @@ import javax.faces.context.ExternalContextWrapper;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class SkinningExternalContextFactory extends ExternalContextFactory implements FacesWrapper<ExternalContextFactory> {
-
     private ExternalContextFactory factory;
 
     private static final class ExternalContextWrapperImpl extends ExternalContextWrapper {
-        
         private ExternalContext externalContext;
 
         public ExternalContextWrapperImpl(ExternalContext externalContext) {
             super();
             this.externalContext = externalContext;
         }
-        
+
         @Override
         public String getMimeType(String file) {
             String mimeType;
-            
+
             if (file != null && file.endsWith(".ecss")) {
                 mimeType = "text/vnd.richfaces.css";
             } else {
                 mimeType = super.getMimeType(file);
             }
-            
+
             return mimeType;
         }
 
@@ -61,14 +59,13 @@ public class SkinningExternalContextFactory extends ExternalContextFactory imple
         public ExternalContext getWrapped() {
             return externalContext;
         }
-        
     }
-    
+
     public SkinningExternalContextFactory(ExternalContextFactory factory) {
         super();
         this.factory = factory;
     }
-    
+
     @Override
     public ExternalContextFactory getWrapped() {
         return factory;
@@ -77,12 +74,11 @@ public class SkinningExternalContextFactory extends ExternalContextFactory imple
     @Override
     public ExternalContext getExternalContext(Object context, Object request, Object response) throws FacesException {
         ExternalContext externalContext = factory.getExternalContext(context, request, response);
-        
+
         return wrap(externalContext);
     }
 
     private ExternalContext wrap(ExternalContext externalContext) {
         return new ExternalContextWrapperImpl(externalContext);
     }
-    
 }

@@ -29,14 +29,12 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface StateHolderResource {
+    boolean isTransient();
 
-    public boolean isTransient();
-    
-    public void writeState(FacesContext context, DataOutput dataOutput) throws IOException;
-    
-    public void readState(FacesContext context, DataInput dataInput) throws IOException;
-    
+    void writeState(FacesContext context, DataOutput dataOutput) throws IOException;
+
+    void readState(FacesContext context, DataInput dataInput) throws IOException;
 }

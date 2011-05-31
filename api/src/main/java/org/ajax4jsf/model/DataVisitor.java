@@ -18,26 +18,24 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.model;
 
 import javax.faces.context.FacesContext;
 
 /**
  * Interface for classes, able to receive visitor processing calls from ExtendedDataModel
+ *
  * @author shura
  *
  */
 public interface DataVisitor {
-
     /**
-     * This method called back ( as visitor ) from {@link ExtendedDataModel#walk(FacesContext, DataVisitor, Range)} for
-     * each row.
+     * This method called back ( as visitor ) from {@link ExtendedDataModel#walk(FacesContext, DataVisitor, Range)} for each
+     * row.
+     *
      * @param context current JSF context.
      * @param rowKey current row key of DataModel
      * @param argument Implementation-specific argument
      */
-    public DataVisitResult process(FacesContext context, Object rowKey, Object argument);
+    DataVisitResult process(FacesContext context, Object rowKey, Object argument);
 }

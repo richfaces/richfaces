@@ -18,14 +18,14 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.el;
+
+import java.util.Locale;
 
 import javax.el.ELContext;
 import javax.el.ELResolver;
 import javax.el.FunctionMapper;
 import javax.el.VariableMapper;
-import java.util.Locale;
 
 /**
  * @author asmirnov
@@ -44,7 +44,8 @@ public class ELContextWrapper extends ELContext {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see javax.el.ELContext#getELResolver()
      */
     @Override

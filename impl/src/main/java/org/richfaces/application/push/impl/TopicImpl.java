@@ -38,34 +38,28 @@ import org.richfaces.application.push.TopicKey;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class TopicImpl extends AbstractTopic {
-
     private static final class PublishTask implements Runnable {
-
         private final TopicContext topicContext;
 
         public PublishTask(TopicContext topicContext) {
             super();
             this.topicContext = topicContext;
         }
-        
+
         public void run() {
             topicContext.publishMessages();
         }
     }
 
     private final class TopicContext {
-        
         private final List<Session> sessions = new CopyOnWriteArrayList<Session>();
-        
         private final Queue<String> serializedMessages = new ConcurrentLinkedQueue<String>();
-
         private final TopicKey key;
-        
         private boolean submittedForPublishing;
-        
+
         public TopicContext(TopicKey key) {
             super();
             this.key = key;
@@ -74,17 +68,17 @@ public class TopicImpl extends AbstractTopic {
         public void addSession(Session session) {
             sessions.add(session);
         }
-        
+
         public void removeSession(Session session) {
             sessions.remove(session);
         }
-        
+
         public void addMessage(String serializedMessageData) {
             serializedMessages.add(serializedMessageData);
-            
+
             submitForPublishing();
         }
-        
+
         public void publishMessages() {
             Iterator<String> itr = serializedMessages.iterator();
             while (itr.hasNext()) {
@@ -93,10 +87,10 @@ public class TopicImpl extends AbstractTopic {
                 for (Session session : sessions) {
                     session.push(key, message);
                 }
-                
+
                 itr.remove();
             }
-            
+
             synchronized (this) {
                 submittedForPublishing = false;
 
@@ -105,30 +99,29 @@ public class TopicImpl extends AbstractTopic {
                 }
             }
         }
-        
+
         private synchronized void submitForPublishing() {
             if (!submittedForPublishing) {
                 submittedForPublishing = true;
-                
+
                 topicsContext.getPublisherService().submit(new PublishTask(this));
             }
         }
     }
-    
-    private ConcurrentMap<TopicKey, TopicContext> sessions = new ConcurrentHashMap<TopicKey, TopicContext>();
 
+    private ConcurrentMap<TopicKey, TopicContext> sessions = new ConcurrentHashMap<TopicKey, TopicContext>();
     private TopicsContextImpl topicsContext;
-    
+
     public TopicImpl(TopicKey key, TopicsContextImpl topicsContext) {
         super(key);
-        
+
         this.topicsContext = topicsContext;
     }
 
     private TopicContext getTopicContext(TopicKey key) {
         return sessions.get(key);
     }
-    
+
     private TopicContext getOrCreateTopicContext(TopicKey key) {
         TopicContext result = sessions.get(key);
         if (result == null) {
@@ -140,7 +133,7 @@ public class TopicImpl extends AbstractTopic {
         }
         return result;
     }
-    
+
     @Override
     public void publish(TopicKey key, Object messageData) throws MessageException {
         String serializedData = getMessageDataSerializer().serialize(messageData);
@@ -152,11 +145,11 @@ public class TopicImpl extends AbstractTopic {
             }
         }
     }
-    
+
     @Override
     public void publishEvent(TopicEvent event) {
         super.publishEvent(event);
-        
+
         if (event instanceof SessionSubscriptionEvent) {
             SessionSubscriptionEvent subscriptionEvent = (SessionSubscriptionEvent) event;
 

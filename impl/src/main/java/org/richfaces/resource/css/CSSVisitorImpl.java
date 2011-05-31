@@ -51,19 +51,12 @@ import org.w3c.dom.stylesheets.MediaList;
  *
  */
 public final class CSSVisitorImpl extends AbstractCSSVisitor {
-
     private static final String RESOURCE_START_PREFIX = "resource[";
-
     private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
-    
     private static final String NEW_LINE = "\r\n";
-
     private FacesContext facesContext;
-    
     private String encoding;
-
     private StringBuilder buffer = new StringBuilder();
-
     private List<String> prefixes = new ArrayList<String>(2);
 
     public CSSVisitorImpl(FacesContext facesContext) {
@@ -74,19 +67,17 @@ public final class CSSVisitorImpl extends AbstractCSSVisitor {
     private void appendCSSText(CSSRule rule) {
         String cssText = rule.getCssText().trim();
 
-        //TODO nick - escape values
+        // TODO nick - escape values
         if (cssText.length() != 0) {
             buffer.append(cssText);
             buffer.append(NEW_LINE);
         }
     }
 
-    /*private String escape(String cssText) {
-        cssText = cssText.replaceAll("\\\\", "\\\\\\\\");
-        cssText = cssText.replaceAll("\"", "\\\\\"");
-        cssText = cssText.replaceAll("'", "\\\\'");
-        return cssText;
-    }*/
+    /*
+     * private String escape(String cssText) { cssText = cssText.replaceAll("\\\\", "\\\\\\\\"); cssText =
+     * cssText.replaceAll("\"", "\\\\\""); cssText = cssText.replaceAll("'", "\\\\'"); return cssText; }
+     */
 
     private void flushPrefixes() {
         if (!prefixes.isEmpty()) {
@@ -123,7 +114,7 @@ public final class CSSVisitorImpl extends AbstractCSSVisitor {
 
     @Override
     public void visitImportRule(CSSImportRule rule) {
-        //TODO nick - process imported stylesheet?
+        // TODO nick - process imported stylesheet?
         String resourceName = rule.getHref();
         if (ELUtils.isValueReference(resourceName)) {
             if (resourceName.indexOf(RESOURCE_START_PREFIX) == -1) {
@@ -135,8 +126,7 @@ public final class CSSVisitorImpl extends AbstractCSSVisitor {
                 resourceName = resourceName.replaceAll("\"", "").replaceAll("'", "").trim();
             }
         }
-        Resource imported = facesContext.getApplication().
-                            getResourceHandler().createResource(resourceName);
+        Resource imported = facesContext.getApplication().getResourceHandler().createResource(resourceName);
         if (imported == null) {
             LOGGER.error("Resource with name " + resourceName + "can't be found.");
             return;
@@ -153,7 +143,6 @@ public final class CSSVisitorImpl extends AbstractCSSVisitor {
         } else {
             appendCSSText(rule);
         }
-        
     }
 
     @Override
@@ -169,7 +158,7 @@ public final class CSSVisitorImpl extends AbstractCSSVisitor {
     @Override
     protected void startMediaRule(CSSMediaRule rule) {
         MediaList mediaList = rule.getMedia();
-        //String mediaText = escape(mediaList.getMediaText());
+        // String mediaText = escape(mediaList.getMediaText());
         String mediaText = mediaList.getMediaText();
         prefixes.add("@media " + mediaText);
     }
@@ -181,9 +170,9 @@ public final class CSSVisitorImpl extends AbstractCSSVisitor {
 
     @Override
     protected void startPageRule(CSSPageRule rule) {
-        //String selectorText = escape(rule.getSelectorText());
+        // String selectorText = escape(rule.getSelectorText());
         String selectorText = rule.getSelectorText();
-        //TODO nick - multiple selectors?
+        // TODO nick - multiple selectors?
         prefixes.add("@page " + selectorText);
     }
 
@@ -194,7 +183,7 @@ public final class CSSVisitorImpl extends AbstractCSSVisitor {
 
     @Override
     protected void startStyleRule(CSSStyleRule rule) {
-        //String selectorText = escape(rule.getSelectorText());
+        // String selectorText = escape(rule.getSelectorText());
         String selectorText = rule.getSelectorText();
         prefixes.add(selectorText);
     }
@@ -231,13 +220,13 @@ public final class CSSVisitorImpl extends AbstractCSSVisitor {
             if (value.length() != 0 && !value.equals("\"\"") && !value.equals("''")) {
                 flushPrefixes();
 
-                //One of properties of selector is not empty
+                // One of properties of selector is not empty
                 buffer.append('\t');
-                //buffer.append(escape(propertyName));
+                // buffer.append(escape(propertyName));
                 buffer.append(propertyName);
                 buffer.append(": ");
 
-                //buffer.append(escape(value));
+                // buffer.append(escape(value));
                 buffer.append(value);
 
                 if (priority != null && priority.length() != 0) {
@@ -262,7 +251,7 @@ public final class CSSVisitorImpl extends AbstractCSSVisitor {
     public void setEncoding(String encoding) {
         this.encoding = encoding;
     }
-    
+
     public String convertStreamToString(InputStream is, String encoding) throws IOException {
 
         if (is != null) {
@@ -278,7 +267,7 @@ public final class CSSVisitorImpl extends AbstractCSSVisitor {
                 is.close();
             }
             return sb.toString();
-        } else {       
+        } else {
             return "";
         }
     }

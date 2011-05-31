@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit.html.images;
 
 import javax.faces.context.FacesContext;
@@ -28,9 +27,7 @@ import org.richfaces.skin.Skin;
 
 /**
  */
-
 public class ButtonHoverBackgroundImage extends BaseControlBackgroundImage {
-    
     @Override
     protected void initializeProperties(FacesContext context, Skin skin) {
         super.initializeProperties(context, skin);

@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.context;
 
 import java.util.Collection;
@@ -41,7 +40,6 @@ import org.ajax4jsf.component.AjaxOutput;
  * @author Nick Belaevski
  */
 public class PartialViewContextAjaxOutputTracker implements SystemEventListener {
-
     private static final String ATTRIBUTE_NAME = "org.richfaces.AjaxOutputTracker";
 
     private static Set<String> getTrackedChildrenSet(UIComponent component, boolean create) {
@@ -77,7 +75,7 @@ public class PartialViewContextAjaxOutputTracker implements SystemEventListener 
     private static String getId(UIComponent component) {
         String id = component.getId();
         if (id == null) {
-            //TODO force clientId creation?
+            // TODO force clientId creation?
             component.getClientId();
             id = component.getId();
         }
@@ -147,5 +145,4 @@ public class PartialViewContextAjaxOutputTracker implements SystemEventListener 
     public boolean isListenerForSource(Object source) {
         return source instanceof AjaxOutput;
     }
-
 }

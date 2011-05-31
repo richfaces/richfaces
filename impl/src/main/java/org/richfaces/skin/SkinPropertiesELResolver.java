@@ -31,15 +31,14 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class SkinPropertiesELResolver extends ELResolver {
-
     @Override
     public Object getValue(ELContext context, Object base, Object property) {
         if (base instanceof Skin) {
             Skin skin = (Skin) base;
-            
+
             if (property == null) {
                 throw new PropertyNotFoundException("property name is null");
             }
@@ -48,7 +47,7 @@ public class SkinPropertiesELResolver extends ELResolver {
             FacesContext facesContext = (FacesContext) context.getContext(FacesContext.class);
             return skin.getParameter(facesContext, property.toString());
         }
-        
+
         return null;
     }
 
@@ -78,5 +77,4 @@ public class SkinPropertiesELResolver extends ELResolver {
     public Class<?> getCommonPropertyType(ELContext context, Object base) {
         return Object.class;
     }
-
 }

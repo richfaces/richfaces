@@ -23,14 +23,12 @@ package org.richfaces.application.push;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface SessionTopicListener2 extends TopicListener {
+    void processPreSubscriptionEvent(SessionPreSubscriptionEvent event) throws SubscriptionFailureException;
 
-    public void processPreSubscriptionEvent(SessionPreSubscriptionEvent event) throws SubscriptionFailureException;
-    
-    public void processSubscriptionEvent(SessionSubscriptionEvent event);
-    
-    public void processUnsubscriptionEvent(SessionUnsubscriptionEvent event);
-    
+    void processSubscriptionEvent(SessionSubscriptionEvent event);
+
+    void processUnsubscriptionEvent(SessionUnsubscriptionEvent event);
 }

@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.skin;
 
 import static org.junit.Assert.assertEquals;
@@ -44,25 +43,25 @@ import org.richfaces.FacesRequestSetupRule;
 
 /**
  * Test for Skin/skin factory methods.
+ *
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/10 14:28:13 $
  *
  */
 public class SkinTestCase {
-    
     @Rule
     public FacesRequestSetupRule rule = new FacesRequestSetupRule();
 
     private void addParameters(FacesContext facesContext, Object[][] strings) {
         Map<Object, Object> baseMap = new HashMap<Object, Object>();
-        
+
         for (Object[] objects : strings) {
             baseMap.put(objects[0], objects[1]);
         }
-        
+
         facesContext.getExternalContext().getRequestMap().put("test", baseMap);
     }
-    
+
     @Test
     public void testGetInstance() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -79,10 +78,8 @@ public class SkinTestCase {
     @ContextInitParameter(name = SKIN_PARAM_NAME, value = "test")
     public void testGetSkin() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        
-        addParameters(facesContext, new Object[][] {
-            new Object[] {"bean", "test.value"}
-        });
+
+        addParameters(facesContext, new Object[][] { new Object[] { "bean", "test.value" } });
 
         SkinFactory factory = SkinFactory.getInstance(facesContext);
 
@@ -102,10 +99,8 @@ public class SkinTestCase {
     /*
      * Test method for 'org.richfaces.skin.SkinFactory.getSkin(FacesContext)'
      */
-    @ContextInitParameters({
-        @ContextInitParameter(name = SKIN_PARAM_NAME, value = "test"),
-        @ContextInitParameter(name = BASE_SKIN_PARAM_NAME, value = "DEFAULT")
-    })
+    @ContextInitParameters({ @ContextInitParameter(name = SKIN_PARAM_NAME, value = "test"),
+            @ContextInitParameter(name = BASE_SKIN_PARAM_NAME, value = "DEFAULT") })
     public void testSkinReferences() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         SkinFactory factory = SkinFactory.getInstance(facesContext);
@@ -122,10 +117,8 @@ public class SkinTestCase {
      * Test method for 'org.richfaces.skin.SkinFactory.getSkin(FacesContext)'
      */
     @Test
-    @ContextInitParameters({
-        @ContextInitParameter(name = SKIN_PARAM_NAME, value = "style"),
-        @ContextInitParameter(name = BASE_SKIN_PARAM_NAME, value = "style_base")
-    })
+    @ContextInitParameters({ @ContextInitParameter(name = SKIN_PARAM_NAME, value = "style"),
+            @ContextInitParameter(name = BASE_SKIN_PARAM_NAME, value = "style_base") })
     public void testSkinReferences1() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         SkinFactory factory = SkinFactory.getInstance(facesContext);
@@ -141,17 +134,13 @@ public class SkinTestCase {
     }
 
     @Test
-    @ContextInitParameters({
-        @ContextInitParameter(name = SKIN_PARAM_NAME, value = "dynatest"),
-        @ContextInitParameter(name = BASE_SKIN_PARAM_NAME, value = "dynatest_base")
-    })
+    @ContextInitParameters({ @ContextInitParameter(name = SKIN_PARAM_NAME, value = "dynatest"),
+            @ContextInitParameter(name = BASE_SKIN_PARAM_NAME, value = "dynatest_base") })
     public void testBaseSkin() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         SkinFactory factory = SkinFactory.getInstance(facesContext);
 
-        addParameters(facesContext, new Object[][] {
-            new Object[] {"bean", "dynabase1"}
-        });
+        addParameters(facesContext, new Object[][] { new Object[] { "bean", "dynabase1" } });
 
         Skin skin = factory.getSkin(facesContext);
 
@@ -171,9 +160,7 @@ public class SkinTestCase {
      * Test method for 'org.richfaces.skin.SkinFactory.getSkin(FacesContext)'
      */
     @Test
-    @ContextInitParameters({
-        @ContextInitParameter(name = SKIN_PARAM_NAME, value = "cyclic")
-    })
+    @ContextInitParameters({ @ContextInitParameter(name = SKIN_PARAM_NAME, value = "cyclic") })
     public void testCyclicSkinReferences() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         SkinFactory factory = SkinFactory.getInstance(facesContext);
@@ -193,9 +180,7 @@ public class SkinTestCase {
      * Test method for 'org.richfaces.skin.SkinFactory.getSkin(FacesContext)'
      */
     @Test
-    @ContextInitParameters({
-        @ContextInitParameter(name = SKIN_PARAM_NAME, value = "noref")
-    })
+    @ContextInitParameters({ @ContextInitParameter(name = SKIN_PARAM_NAME, value = "noref") })
     public void testBadSkinReferences() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         SkinFactory factory = SkinFactory.getInstance(facesContext);
@@ -216,16 +201,13 @@ public class SkinTestCase {
      * Test method for 'org.richfaces.skin.SkinFactory.getSkin(FacesContext)'
      */
     @Test
-    @ContextInitParameters({
-        @ContextInitParameter(name = SKIN_PARAM_NAME, value = "#{test.skin}")
-    })
+    @ContextInitParameters({ @ContextInitParameter(name = SKIN_PARAM_NAME, value = "#{test.skin}") })
     public void testGetBindedSkin() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         SkinFactory factory = SkinFactory.getInstance(facesContext);
 
-        addParameters(facesContext, new Object[][] {
-            new Object[] {"skin", "bindedtest"}, new Object[] {"bean", "binded.test.value"}
-        });
+        addParameters(facesContext, new Object[][] { new Object[] { "skin", "bindedtest" },
+                new Object[] { "bean", "binded.test.value" } });
 
         // test call
         Skin skin = factory.getSkin(facesContext);
@@ -240,16 +222,13 @@ public class SkinTestCase {
     }
 
     @Test
-    @ContextInitParameters({
-        @ContextInitParameter(name = SKIN_PARAM_NAME, value = "#{test.skin}")
-    })
+    @ContextInitParameters({ @ContextInitParameter(name = SKIN_PARAM_NAME, value = "#{test.skin}") })
     public void testSkinHash() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         SkinFactory factory = SkinFactory.getInstance(facesContext);
 
-        addParameters(facesContext, new Object[][] {
-            new Object[] {"skin", "bindedtest"}, new Object[] {"bean", "binded.test.value"}
-        });
+        addParameters(facesContext, new Object[][] { new Object[] { "skin", "bindedtest" },
+                new Object[] { "bean", "binded.test.value" } });
 
         Skin skin = factory.getSkin(facesContext);
 
@@ -262,7 +241,7 @@ public class SkinTestCase {
         Map map = (Map) requestMap.get("test");
 
         ((CompositeSkinImpl) skin).resetCachedHashCode();
-        
+
         map.put("bean", "other.test.value");
         assertFalse(hash == skin.hashCode(facesContext));
     }
@@ -281,9 +260,7 @@ public class SkinTestCase {
     }
 
     @Test
-    @ContextInitParameters({
-        @ContextInitParameter(name = SKIN_PARAM_NAME, value = "plain")
-    })
+    @ContextInitParameters({ @ContextInitParameter(name = SKIN_PARAM_NAME, value = "plain") })
     public void testPlainSkin() throws Exception {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         SkinFactory factory = (SkinFactory) SkinFactory.getInstance(facesContext);
@@ -292,14 +269,11 @@ public class SkinTestCase {
     }
 
     @Test
-    @ContextInitParameters({
-        @ContextInitParameter(name = BASE_SKIN_PARAM_NAME, value = "plain")
-    })
+    @ContextInitParameters({ @ContextInitParameter(name = BASE_SKIN_PARAM_NAME, value = "plain") })
     public void testPlainSkinBase() throws Exception {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         SkinFactory factory = (SkinFactory) SkinFactory.getInstance(facesContext);
 
         assertNull(factory.getBaseSkin(facesContext).getParameter(facesContext, Skin.GENERAL_BACKGROUND_COLOR));
     }
-
 }

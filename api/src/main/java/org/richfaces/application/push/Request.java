@@ -21,26 +21,22 @@
  */
 package org.richfaces.application.push;
 
-
-
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface Request {
 
-    //TODO expose request/session/application maps
-    
-    //TODO suspend with timeout?
-    public void suspend();
-   
-    public void resume();
+    // TODO expose request/session/application maps
 
-    public Session getSession();
-    
-    public boolean isPolling();
+    // TODO suspend with timeout?
+    void suspend();
 
-    public void postMessages();
-    
+    void resume();
+
+    Session getSession();
+
+    boolean isPolling();
+
+    void postMessages();
 }

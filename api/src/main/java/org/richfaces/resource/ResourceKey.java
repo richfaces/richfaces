@@ -26,20 +26,18 @@ import com.google.common.base.Objects;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public final class ResourceKey {
-
     public static final Function<String, ResourceKey> FACTORY = new Function<String, ResourceKey>() {
         public ResourceKey apply(String from) {
             return create(from);
-        };
-    };
-    
-    private final String resourceName;
-    
-    private final String libraryName;
+        }
 
+        ;
+    };
+    private final String resourceName;
+    private final String libraryName;
 
     public ResourceKey(String resourceName, String libraryName) {
         super();
@@ -47,40 +45,39 @@ public final class ResourceKey {
         this.libraryName = libraryName;
     }
 
-    public static ResourceKey create(String resourceQualifier){
+    public static ResourceKey create(String resourceQualifier) {
         return new ResourceKey(extractResourceName(resourceQualifier), extractLibraryName(resourceQualifier));
     }
-    
-    public static ResourceKey create(String resourceName, String libraryName){
-        return new ResourceKey(resourceName,libraryName);
+
+    public static ResourceKey create(String resourceName, String libraryName) {
+        return new ResourceKey(resourceName, libraryName);
     }
-    
+
     private static String extractResourceName(String resourceQualifier) {
         int idx = resourceQualifier.lastIndexOf(':');
         if (idx < 0) {
             return resourceQualifier;
         }
-        
+
         return resourceQualifier.substring(idx + 1);
     }
-    
+
     private static String extractLibraryName(String resourceQualifier) {
         int idx = resourceQualifier.lastIndexOf(':');
         if (idx < 0) {
             return null;
         }
-        
+
         return resourceQualifier.substring(0, idx);
     }
 
     public String getResourceName() {
         return resourceName;
     }
-    
+
     public String getLibraryName() {
         return libraryName;
     }
-
 
     @Override
     public int hashCode() {
@@ -119,7 +116,7 @@ public final class ResourceKey {
         }
         return true;
     }
-    
+
     @Override
     public String toString() {
         return Objects.toStringHelper(this).add("resourceName", resourceName).add("libraryName", libraryName).toString();

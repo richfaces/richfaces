@@ -18,31 +18,30 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.model;
 
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
 
 /**
- * Extesion for {@link DataModel} , for support complex data structure, like tree, spreadsheet etc
- * in iterable components.
+ * Extesion for {@link DataModel} , for support complex data structure, like tree, spreadsheet etc in iterable components.
+ *
  * @author shura
  *
  */
 public abstract class ExtendedDataModel<E> extends DataModel<E> {
-
     /**
-     * <p>Instead of simple <code>int</code> for current state selection, this model can use any object for
-     * select current data. Implementation depend on model, with any restrictions :</p>
+     * <p>
+     * Instead of simple <code>int</code> for current state selection, this model can use any object for select current data.
+     * Implementation depend on model, with any restrictions :
+     * </p>
      * <ol>
-     * <li> key must be {@link java.io.Serializable}.</li>
+     * <li>key must be {@link java.io.Serializable}.</li>
      * <li>{@link Object#toString()} method must return representation compatible with
-     * {@link javax.faces.component.UIComponent#getClientId(javax.faces.context.FacesContext)},
-     * as far as this string will be appended to clientId of iterator component.</li>
+     * {@link javax.faces.component.UIComponent#getClientId(javax.faces.context.FacesContext)}, as far as this string will be
+     * appended to clientId of iterator component.</li>
      * </ol>
+     *
      * @param key key for select current data, or null for clear selection.
      */
     public abstract void setRowKey(Object key);
@@ -54,6 +53,7 @@ public abstract class ExtendedDataModel<E> extends DataModel<E> {
 
     /**
      * Iterate over model by "visitor" pattern, for given range
+     *
      * @param context current JSF context.
      * @param visitor instance of {@link DataVisitor}, for process each row.
      * @param range Implementation-specific range of data keys.
@@ -64,9 +64,10 @@ public abstract class ExtendedDataModel<E> extends DataModel<E> {
 
     /**
      * Create Iterator on all row keys for given range.
+     *
      * @param range - Implementation-specific range of data keys.
      * @return
      */
 
-//  public abstract Iterator dataIterator(Range range);
+    // public abstract Iterator dataIterator(Range range);
 }

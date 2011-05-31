@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.context;
 
 import java.util.Collection;
@@ -37,9 +36,8 @@ import org.richfaces.renderkit.util.CoreRendererUtils;
  * @since Oct 13, 2009
  */
 class ExecuteComponentCallback extends RenderComponentCallback {
-
     private Collection<String> executeIds = null;
-    
+
     ExecuteComponentCallback(FacesContext facesContext, String behaviorEvent) {
         super(facesContext, behaviorEvent);
     }
@@ -47,27 +45,26 @@ class ExecuteComponentCallback extends RenderComponentCallback {
     @Override
     protected void doVisit(UIComponent target, AjaxClientBehavior behavior) {
         super.doVisit(target, behavior);
-        
+
         Object value;
         if (behavior != null) {
             value = behavior.getExecute();
         } else {
             value = target.getAttributes().get("execute");
         }
-        
+
         Collection<String> unresolvedExecuteIds = toCollection(value);
-        //toCollection() returns copy of original set and we're free to modify it
+        // toCollection() returns copy of original set and we're free to modify it
         if (unresolvedExecuteIds.isEmpty()) {
             unresolvedExecuteIds.add(AjaxContainer.META_CLIENT_ID);
         } else if (!unresolvedExecuteIds.contains(AjaxContainer.META_CLIENT_ID)) {
             unresolvedExecuteIds.add(AjaxConstants.THIS);
         }
-        
+
         executeIds = CoreRendererUtils.INSTANCE.findComponentsFor(facesContext, target, unresolvedExecuteIds);
     }
-    
+
     public Collection<String> getExecuteIds() {
         return (executeIds != null) ? executeIds : Collections.<String>emptySet();
     }
-    
 }

@@ -47,19 +47,18 @@ import com.google.common.io.Closeables;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class Java2DUserResourceWrapperImpl extends BaseResourceWrapper<Java2DUserResource> {
-
     private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
-    
+
     public Java2DUserResourceWrapperImpl(Java2DUserResource resourceObject, boolean cacheable, boolean versioned) {
         super(resourceObject, cacheable, versioned);
     }
 
     public InputStream getInputStream() throws IOException {
         FastBufferOutputStream fbos = new FastBufferOutputStream();
-        
+
         ImageOutputStream imageOutputStream = ImageIO.createImageOutputStream(fbos);
         try {
             paintAndWrite(imageOutputStream);
@@ -70,13 +69,13 @@ public class Java2DUserResourceWrapperImpl extends BaseResourceWrapper<Java2DUse
                 } catch (IOException e) {
                     LOGGER.debug(e.getMessage(), e);
                 }
-                
+
                 Closeables.closeQuietly(fbos);
             }
         }
         ByteBuffer buffer = fbos.getFirstBuffer();
         buffer.compact();
-        
+
         return new FastBufferInputStream(buffer);
     }
 
@@ -142,16 +141,16 @@ public class Java2DUserResourceWrapperImpl extends BaseResourceWrapper<Java2DUse
     protected Map<String, String> getWrappedResourceResponseHeaders() {
         return getWrapped().getResponseHeaders();
     }
-    
+
     @Override
     protected Date getLastModified(FacesContext context) {
         return getWrapped().getLastModified();
     }
-    
+
     protected void paintAndWrite(ImageOutputStream outputStream) throws IOException {
         Java2DUserResource resource = getWrapped();
         ImageType imageType = resource.getImageType();
-        
+
         BufferedImage image = imageType.createImage(resource.getDimension());
         Graphics2D g2d = null;
         try {
@@ -164,14 +163,13 @@ public class Java2DUserResourceWrapperImpl extends BaseResourceWrapper<Java2DUse
             }
         }
     }
-    
+
     protected Graphics2D createGraphics(BufferedImage image) {
         Graphics2D g2d = image.createGraphics();
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
 
-        g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
-            RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+        g2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
         g2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
         g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
         return g2d;

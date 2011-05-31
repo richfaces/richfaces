@@ -18,14 +18,10 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.codec;
 
 import org.ajax4jsf.util.base64.Codec;
 import org.jboss.test.faces.AbstractThreadedTest;
-import org.jboss.test.faces.AbstractThreadedTest.TestCaseRunnable;
 
 public class CodecTest extends AbstractThreadedTest {
     Codec c;

@@ -27,10 +27,8 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface MetaComponentEncoder {
-
-    public void encodeMetaComponent(FacesContext context, String metaComponentId) throws IOException;
-
+    void encodeMetaComponent(FacesContext context, String metaComponentId) throws IOException;
 }

@@ -28,15 +28,13 @@ import org.junit.Test;
 
 import com.google.common.base.Joiner;
 
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class FastJoinerTest {
-
     private static final int PERFORMANCE_TEST_STEPS = 100000;
-    
+
     @Test
     public void testDotCharJoin() throws Exception {
         FastJoiner joiner = on('.');
@@ -50,11 +48,11 @@ public class FastJoinerTest {
 
         assertEquals("join.them", joiner.join("join", "them"));
     }
-    
+
     @Test
     public void testDotCharVarargsJoin() throws Exception {
         FastJoiner joiner = on('.');
-        
+
         assertEquals("", joiner.join(null, null, null));
 
         assertEquals("test", joiner.join("test", null, null));
@@ -66,14 +64,14 @@ public class FastJoinerTest {
 
         assertEquals(".test.abc", joiner.join("", "test", "abc"));
         assertEquals(".test.abc", joiner.join(null, "", "test", "abc"));
-        
+
         assertEquals("join.them.all", joiner.join("join", "them", "all"));
     }
-    
+
     @Test
     public void testXYStringJoin() throws Exception {
         FastJoiner joiner = on("-xy+");
-        
+
         assertEquals("", joiner.join(null, null));
 
         assertEquals("test", joiner.join("test", null));
@@ -84,7 +82,7 @@ public class FastJoinerTest {
 
         assertEquals("join-xy+them", joiner.join("join", "them"));
     }
-    
+
     @Test
     public void testEmptyStringJoin() throws Exception {
         FastJoiner joiner = on("");
@@ -114,20 +112,20 @@ public class FastJoinerTest {
 
         assertEquals("jointhemall", joiner.join("join", "them", "all"));
     }
-    
+
     @Test
     public void testGuavaJoinerPerformance() throws Exception {
         Joiner joiner = Joiner.on("-separator-").skipNulls();
-        
+
         for (int i = 0; i < PERFORMANCE_TEST_STEPS; i++) {
             joiner.join("big:table:id:string", "cell:id");
         }
     }
-    
+
     @Test
     public void testFastJoinerPerformance() throws Exception {
         FastJoiner joiner = FastJoiner.on("-separator-");
-        
+
         for (int i = 0; i < PERFORMANCE_TEST_STEPS; i++) {
             joiner.join("big:table:id:string", "cell:id");
         }

@@ -21,13 +21,10 @@
  */
 package org.richfaces.resource;
 
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface ResourceLibrary {
-
-    public Iterable<ResourceKey> getResources();
-    
+    Iterable<ResourceKey> getResources();
 }

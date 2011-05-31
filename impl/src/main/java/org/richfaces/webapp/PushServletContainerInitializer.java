@@ -40,16 +40,12 @@ import com.google.common.collect.Iterables;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class PushServletContainerInitializer implements ServletContainerInitializer {
-
     private static final Logger LOGGER = RichfacesLogger.WEBAPP.getLogger();
-    
     private static final String ATMOSPHERE_SERVLET_CLASS = "org.atmosphere.cpr.AtmosphereServlet";
-    
     private static final String SKIP_SERVLET_REGISTRATION_PARAM = "org.richfaces.push.skipPushServletRegistration";
-
     private static final String PUSH_CONTEXT_DEFAULT_MAPPING = '/' + PushContextFactoryImpl.PUSH_CONTEXT_RESOURCE_NAME;
 
     private boolean hasPushFilterMapping(ServletContext context) {
@@ -62,7 +58,7 @@ public class PushServletContainerInitializer implements ServletContainerInitiali
 
         return false;
     }
-    
+
     private ServletRegistration getPushServletRegistration(ServletContext context) {
         Collection<? extends ServletRegistration> servletRegistrations = context.getServletRegistrations().values();
         for (ServletRegistration servletRegistration : servletRegistrations) {
@@ -75,7 +71,7 @@ public class PushServletContainerInitializer implements ServletContainerInitiali
 
         return null;
     }
-    
+
     private static void registerPushServlet(ServletContext context) {
         Dynamic dynamicRegistration = context.addServlet("AutoRegisteredPushServlet", PushServlet.class);
         dynamicRegistration.addMapping(PUSH_CONTEXT_DEFAULT_MAPPING);
@@ -86,18 +82,18 @@ public class PushServletContainerInitializer implements ServletContainerInitiali
         if (Boolean.valueOf(servletContext.getInitParameter(SKIP_SERVLET_REGISTRATION_PARAM))) {
             return;
         }
-        
+
         if (!isAtmospherePresent()) {
             return;
         }
-        
+
         if (hasPushFilterMapping(servletContext)) {
             return;
         }
-        
+
         try {
             String pushHandlerMapping;
-            
+
             ServletRegistration servletRegistration = getPushServletRegistration(servletContext);
             if (servletRegistration == null) {
                 registerPushServlet(servletContext);
@@ -105,7 +101,7 @@ public class PushServletContainerInitializer implements ServletContainerInitiali
             } else {
                 pushHandlerMapping = Iterables.get(servletRegistration.getMappings(), 0);
             }
-            
+
             servletContext.setAttribute(PushContextFactoryImpl.PUSH_HANDLER_MAPPING_ATTRIBUTE, pushHandlerMapping);
         } catch (Exception e) {
             servletContext.log(MessageFormat.format("Exception registering RichFaces Push Servlet: {0]", e.getMessage()), e);
@@ -115,17 +111,16 @@ public class PushServletContainerInitializer implements ServletContainerInitiali
     private boolean isAtmospherePresent() {
         try {
             Class.forName(ATMOSPHERE_SERVLET_CLASS, false, Thread.currentThread().getContextClassLoader());
-            
+
             return true;
         } catch (ClassNotFoundException e) {
-            //no atmosphere present - no push then
+            // no atmosphere present - no push then
             LOGGER.debug("AtmosphereServlet class is not present in classpath, PushServlet won't be registered automatically");
         } catch (LinkageError e) {
-            //atmosphere is missing some dependency - no push too
+            // atmosphere is missing some dependency - no push too
             LOGGER.error(e.getMessage(), e);
         }
-        
+
         return false;
     }
-
 }

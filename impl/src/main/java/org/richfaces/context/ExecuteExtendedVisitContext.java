@@ -29,19 +29,16 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class ExecuteExtendedVisitContext extends BaseExtendedVisitContext {
-
     /**
      * @param facesContext
      * @param clientIds
      * @param hints
      */
     public ExecuteExtendedVisitContext(FacesContext facesContext, Collection<String> clientIds, Set<VisitHint> hints) {
-        
+
         super(facesContext, clientIds, hints, ExtendedVisitContextMode.EXECUTE);
     }
-
-    
 }

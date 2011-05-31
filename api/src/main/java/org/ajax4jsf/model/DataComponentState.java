@@ -18,25 +18,20 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.model;
 
 /**
- * Interface for classes keeped current iterable component state, as :
- * active data objects range
- * sorting order
- * tree nodes expanded state
+ * Interface for classes keeped current iterable component state, as : active data objects range sorting order tree nodes
+ * expanded state
  *
  * @author shura
  *
  */
 public interface DataComponentState {
-
     /**
      * Build used data objects range for iteration.
+     *
      * @return
      */
-    public abstract Range getRange();
+    Range getRange();
 }

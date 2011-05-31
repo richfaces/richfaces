@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.model;
 
 import javax.faces.context.FacesContext;
@@ -31,7 +28,6 @@ import javax.faces.model.DataModel;
  *
  */
 public class SequenceDataModel<E> extends ExtendedDataModel<E> {
-    
     private DataModel<E> wrappedModel;
 
     /**
@@ -80,7 +76,8 @@ public class SequenceDataModel<E> extends ExtendedDataModel<E> {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.ajax4jsf.ajax.repeat.ExtendedDataModel#getRowKey()
      */
     public Object getRowKey() {
@@ -94,7 +91,8 @@ public class SequenceDataModel<E> extends ExtendedDataModel<E> {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.ajax4jsf.ajax.repeat.ExtendedDataModel#setRowKey(java.lang.Object)
      */
     public void setRowKey(Object key) {
@@ -108,7 +106,8 @@ public class SequenceDataModel<E> extends ExtendedDataModel<E> {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see javax.faces.model.DataModel#getRowCount()
      */
     public int getRowCount() {
@@ -116,7 +115,8 @@ public class SequenceDataModel<E> extends ExtendedDataModel<E> {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see javax.faces.model.DataModel#getRowData()
      */
     public E getRowData() {
@@ -124,7 +124,8 @@ public class SequenceDataModel<E> extends ExtendedDataModel<E> {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see javax.faces.model.DataModel#getRowIndex()
      */
     public int getRowIndex() {
@@ -132,7 +133,8 @@ public class SequenceDataModel<E> extends ExtendedDataModel<E> {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see javax.faces.model.DataModel#getWrappedData()
      */
     public Object getWrappedData() {
@@ -140,7 +142,8 @@ public class SequenceDataModel<E> extends ExtendedDataModel<E> {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see javax.faces.model.DataModel#isRowAvailable()
      */
     public boolean isRowAvailable() {
@@ -148,7 +151,8 @@ public class SequenceDataModel<E> extends ExtendedDataModel<E> {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see javax.faces.model.DataModel#setRowIndex(int)
      */
     public void setRowIndex(int rowIndex) {
@@ -156,7 +160,8 @@ public class SequenceDataModel<E> extends ExtendedDataModel<E> {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see javax.faces.model.DataModel#setWrappedData(java.lang.Object)
      */
     public void setWrappedData(Object data) {

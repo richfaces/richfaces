@@ -31,21 +31,18 @@ import com.google.common.collect.Lists;
 
 /**
  * Helper class for parsing ids.
- * 
+ *
  * @author Nick Belaevski
  */
 final class IdParser {
-
     public static final class Node {
-
         private String image;
-
         private String function;
 
         Node(String image) {
             this(image, null);
         }
-        
+
         Node(String image, String function) {
             super();
             this.image = image;
@@ -59,7 +56,7 @@ final class IdParser {
         public String getFunction() {
             return function;
         }
-        
+
         @Override
         public String toString() {
             return Objects.toStringHelper(this).add("image", image).add("function", function).toString();
@@ -105,48 +102,45 @@ final class IdParser {
     }
 
     private static final char FUNCTION_IMAGE_START_TOKEN = '(';
-    
     private static final char FUNCTION_IMAGE_END_TOKEN = ')';
-
     private static final Node[] EMPTY_NODES_ARRAY = new Node[0];
 
-    private IdParser() {}
-    
+    private IdParser() {
+    }
+
     public static Node[] parse(String id) {
         if (id.length() == 0) {
             return EMPTY_NODES_ARRAY;
         }
-        
+
         List<Node> result = Lists.newArrayList();
-        
+
         Iterable<String> split = SEPARATOR_CHAR_SPLITTER.split(id);
         for (String s : split) {
             if (s.charAt(0) == META_COMPONENT_SEPARATOR_CHAR) {
                 int startImageIdx = s.indexOf(FUNCTION_IMAGE_START_TOKEN);
-                
+
                 if (startImageIdx < 0) {
                     result.add(new Node(s));
                 } else {
                     if (s.charAt(s.length() - 1) != FUNCTION_IMAGE_END_TOKEN) {
                         throw new IllegalArgumentException(id);
                     }
-                    
+
                     if (startImageIdx + 1 > s.length() - 1) {
                         throw new IllegalArgumentException(id);
                     }
-                    
+
                     String image = s.substring(startImageIdx + 1, s.length() - 1);
                     String functionName = s.substring(1, startImageIdx);
-                    
+
                     result.add(new Node(image, functionName));
                 }
             } else {
                 result.add(new Node(s));
             }
         }
-        
+
         return result.toArray(new Node[result.size()]);
     }
-    
-    
 }

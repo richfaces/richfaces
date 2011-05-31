@@ -27,12 +27,10 @@ import javax.el.ValueExpression;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class ConstantValueExpression extends ValueExpression {
-
     private static final long serialVersionUID = -4455404133234988782L;
-
     private Object value;
 
     public ConstantValueExpression(Object value) {
@@ -84,5 +82,4 @@ public class ConstantValueExpression extends ValueExpression {
     public boolean equals(Object obj) {
         return this == obj;
     }
-    
 }

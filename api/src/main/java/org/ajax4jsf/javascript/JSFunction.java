@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.javascript;
 
 import java.io.IOException;
@@ -60,7 +57,7 @@ public class JSFunction extends ScriptStringBase implements ScriptString {
         List<?> parameters = getParameters();
 
         if (null != parameters) {
-            for (Iterator<?> param = parameters.iterator(); param.hasNext(); ) {
+            for (Iterator<?> param = parameters.iterator(); param.hasNext();) {
                 Object element = param.next();
 
                 if (!first) {
@@ -79,12 +76,11 @@ public class JSFunction extends ScriptStringBase implements ScriptString {
 
         target.append(")");
     }
-    
+
     /**
      * @return the parameters
      */
     public List<Object> getParameters() {
         return this.parameters;
     }
-
 }

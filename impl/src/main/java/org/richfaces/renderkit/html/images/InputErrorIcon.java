@@ -24,9 +24,8 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 
 public class InputErrorIcon extends OneColorBasedResource {
-
     private static final Dimension DIMENSION = new Dimension(6, 11);
-    
+
     public InputErrorIcon() {
         super(DIMENSION, "warningColor");
     }
@@ -37,5 +36,4 @@ public class InputErrorIcon extends OneColorBasedResource {
         g2d.fillRect(3, 2, 2, 6);
         g2d.fillRect(3, 9, 2, 2);
     }
-
 }

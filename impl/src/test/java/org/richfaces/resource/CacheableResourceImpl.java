@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.resource;
 
 import java.io.ByteArrayInputStream;
@@ -40,9 +37,9 @@ import javax.faces.context.FacesContext;
  */
 @DynamicResource
 public class CacheableResourceImpl extends AbstractCacheableResource {
-
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.richfaces.resource.AbstractBaseResource#getInputStream()
      */
     @Override

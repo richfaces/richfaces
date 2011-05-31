@@ -30,38 +30,31 @@ import com.google.common.collect.Maps;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public abstract class ExtendedPartialViewContext extends PartialViewContext {
-
     private static final String ATTRIBUTE_NAME = ExtendedPartialViewContext.class.getName();
-
     private FacesContext facesContext;
-    
     private boolean limitRender = false;
-    
     private Object responseData = null;
-    
     private Map<String, Object> responseComponentDataMap = Maps.newHashMap();
-    
     private StringBuilder beforedomupdateHandler = new StringBuilder();
-    
     private StringBuilder completeHandler = new StringBuilder();
 
     public ExtendedPartialViewContext(FacesContext facesContext) {
         this.facesContext = facesContext;
-        
+
         setInstance(facesContext, this);
     }
 
     protected FacesContext getFacesContext() {
         return facesContext;
     }
-    
+
     private static void setInstance(FacesContext facesContext, ExtendedPartialViewContext instance) {
         facesContext.getAttributes().put(ATTRIBUTE_NAME, instance);
     }
-    
+
     public static ExtendedPartialViewContext getInstance(FacesContext facesContext) {
         return (ExtendedPartialViewContext) facesContext.getAttributes().get(ATTRIBUTE_NAME);
     }
@@ -71,11 +64,11 @@ public abstract class ExtendedPartialViewContext extends PartialViewContext {
         setInstance(facesContext, null);
         facesContext = null;
     }
-    
+
     public Object getResponseData() {
         return responseData;
     }
-    
+
     public void setResponseData(Object responseData) {
         this.responseData = responseData;
     }
@@ -101,7 +94,7 @@ public abstract class ExtendedPartialViewContext extends PartialViewContext {
     public Object getOnbeforedomupdate() {
         return beforedomupdateHandler.toString();
     }
-    
+
     public Map<String, Object> getResponseComponentDataMap() {
         return responseComponentDataMap;
     }
@@ -113,5 +106,4 @@ public abstract class ExtendedPartialViewContext extends PartialViewContext {
     public void setLimitRender(boolean limitRender) {
         this.limitRender = limitRender;
     }
-
 }

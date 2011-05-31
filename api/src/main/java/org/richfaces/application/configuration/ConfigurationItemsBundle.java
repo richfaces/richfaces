@@ -29,13 +29,11 @@ import java.lang.annotation.Target;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
 public @interface ConfigurationItemsBundle {
-
-    public String propertiesFile() default "";
-    
+    String propertiesFile() default "";
 }

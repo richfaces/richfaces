@@ -25,10 +25,8 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface MetaComponentProcessor {
-
-    public void processMetaComponent(FacesContext context, String metaComponentId);
-
+    void processMetaComponent(FacesContext context, String metaComponentId);
 }

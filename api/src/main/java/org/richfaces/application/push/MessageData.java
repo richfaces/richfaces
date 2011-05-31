@@ -21,17 +21,13 @@
  */
 package org.richfaces.application.push;
 
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public final class MessageData {
-
     private final TopicKey topicKey;
-    
     private final String serializedMessage;
-
     private final long sequenceNumber;
 
     public MessageData(TopicKey topicKey, String serializedMessageData, long sequenceNumber) {
@@ -44,7 +40,7 @@ public final class MessageData {
     public TopicKey getTopicKey() {
         return topicKey;
     }
-    
+
     public String getSerializedMessage() {
         return serializedMessage;
     }
@@ -52,5 +48,4 @@ public final class MessageData {
     public long getSequenceNumber() {
         return sequenceNumber;
     }
-    
 }

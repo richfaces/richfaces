@@ -29,15 +29,13 @@ import java.lang.annotation.Target;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Inherited
 public @interface DynamicUserResource {
+    boolean cacheable() default true;
 
-    public boolean cacheable() default true;
-    
-    public boolean versioned() default true;
-
+    boolean versioned() default true;
 }

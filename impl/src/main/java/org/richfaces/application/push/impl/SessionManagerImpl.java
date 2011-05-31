@@ -35,49 +35,42 @@ import com.google.common.collect.MapMaker;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class SessionManagerImpl implements SessionManager {
-
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
-    
+
     interface DestroyableSession {
-        
-        public void destroy();
-        
+        void destroy();
     }
-    
+
     private final class SessionsExpirationRunnable implements Runnable {
-        
         public void run() {
             try {
                 Session session = sessionQueue.take();
-                
+
                 if (session instanceof DestroyableSession) {
                     ((DestroyableSession) session).destroy();
                 }
 
                 sessionMap.remove(session.getId());
-                
+
                 executorService.submit(this);
             } catch (InterruptedException e) {
                 LOGGER.debug(e.getMessage(), e);
             }
         }
-
     }
-    
-    private ConcurrentMap<String, Session> sessionMap = new MapMaker().makeMap();
-    
-    private SessionQueue sessionQueue = new SessionQueue();
 
+    private ConcurrentMap<String, Session> sessionMap = new MapMaker().makeMap();
+    private SessionQueue sessionQueue = new SessionQueue();
     private ExecutorService executorService;
 
     public SessionManagerImpl(ThreadFactory threadFactory) {
         executorService = Executors.newSingleThreadExecutor(threadFactory);
         executorService.submit(new SessionsExpirationRunnable());
     }
-    
+
     public Session getPushSession(String id) {
         return sessionMap.get(id);
     }
@@ -85,13 +78,13 @@ public class SessionManagerImpl implements SessionManager {
     public void destroy() {
         executorService.shutdown();
         sessionQueue.shutdown();
-        
-        for (Session session: sessionMap.values()) {
+
+        for (Session session : sessionMap.values()) {
             if (session instanceof DestroyableSession) {
                 ((DestroyableSession) session).destroy();
             }
         }
-        
+
         sessionMap.clear();
     }
 
@@ -100,7 +93,7 @@ public class SessionManagerImpl implements SessionManager {
         if (existingSession != null) {
             throw new IllegalStateException();
         }
-        
+
         sessionQueue.requeue(session, true);
     }
 

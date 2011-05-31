@@ -25,22 +25,20 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface PushContext {
+    String INSTANCE_KEY_NAME = PushContext.class.getName();
 
-    public static final String INSTANCE_KEY_NAME = PushContext.class.getName();
-    
-    public TopicsContext getTopicsContext();
-    
-    public SessionFactory getSessionFactory();
-    
-    public SessionManager getSessionManager();
-    
-    public String getPushHandlerUrl();
-    
-    public void init(FacesContext facesContext);
-    
-    public void destroy();
-    
+    TopicsContext getTopicsContext();
+
+    SessionFactory getSessionFactory();
+
+    SessionManager getSessionManager();
+
+    String getPushHandlerUrl();
+
+    void init(FacesContext facesContext);
+
+    void destroy();
 }

@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit.html.images;
 
 import javax.faces.context.FacesContext;
@@ -32,12 +31,10 @@ import org.richfaces.skin.Skin;
  * @author Nick Belaevski
  * @since 3.2
  */
-
 public abstract class BaseControlBackgroundImage extends BaseGradient {
-
     public BaseControlBackgroundImage() {
     }
-    
+
     public BaseControlBackgroundImage(String baseColor, String gradientColor, int width) {
         super(width, -1, baseColor, gradientColor);
     }
@@ -49,5 +46,4 @@ public abstract class BaseControlBackgroundImage extends BaseGradient {
         setGradientType(GradientType.plain);
         setGradientHeight(-1);
     }
-
 }

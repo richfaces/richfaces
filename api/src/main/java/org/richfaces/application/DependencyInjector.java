@@ -23,13 +23,10 @@ package org.richfaces.application;
 
 import javax.faces.context.FacesContext;
 
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface DependencyInjector {
-
-    public void inject(FacesContext context, Object bean);
-    
+    void inject(FacesContext context, Object bean);
 }

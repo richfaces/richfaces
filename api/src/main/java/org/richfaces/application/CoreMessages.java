@@ -23,14 +23,12 @@ package org.richfaces.application;
 
 import org.richfaces.l10n.MessageBundle;
 
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @MessageBundle(baseName = "org.richfaces.Messages")
 public final class CoreMessages {
-
-    private CoreMessages() {}
-
+    private CoreMessages() {
+    }
 }

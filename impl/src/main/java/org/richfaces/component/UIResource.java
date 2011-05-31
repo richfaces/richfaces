@@ -20,7 +20,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import javax.faces.application.ResourceHandler;
@@ -30,27 +29,30 @@ import javax.faces.context.FacesContext;
 import javax.faces.render.Renderer;
 
 /**
- * <p class="changed_added_4_0"></p>
+ * <p class="changed_added_4_0">
+ * </p>
+ *
  * @author asmirnov@exadel.com
  *
  */
 public class UIResource extends UITransient {
-    
     private final String name;
     private final String library;
 
-    public UIResource(UIComponent parent,String name, String library) {
+    public UIResource(UIComponent parent, String name, String library) {
         this.name = name;
         this.library = library;
         setParent(parent);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see org.richfaces.component.UITransient#hasAttribute(java.lang.Object)
      */
     @Override
     protected boolean hasAttribute(Object key) {
-        if("name".equals(key)){
+        if ("name".equals(key)) {
             return null != getName();
         } else if ("library".equals(key)) {
             return null != getLibrary();
@@ -58,7 +60,9 @@ public class UIResource extends UITransient {
         return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see org.richfaces.component.UITransient#setAttribute(java.lang.String, java.lang.Object)
      */
     @Override
@@ -66,12 +70,14 @@ public class UIResource extends UITransient {
         return null;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see org.richfaces.component.UITransient#getAttribute(java.lang.Object)
      */
     @Override
     protected Object getAttribute(Object key) {
-        if("name".equals(key)){
+        if ("name".equals(key)) {
             return getName();
         } else if ("library".equals(key)) {
             return getLibrary();
@@ -80,7 +86,9 @@ public class UIResource extends UITransient {
     }
 
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @return the name
      */
     public String getName() {
@@ -88,21 +96,25 @@ public class UIResource extends UITransient {
     }
 
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @return the library
      */
     public String getLibrary() {
         return library;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see javax.faces.component.UIComponent#getFamily()
      */
     @Override
     public String getFamily() {
         return UIOutput.COMPONENT_FAMILY;
     }
-    
+
     @Override
     public String getRendererType() {
         return getRendererType(getFacesContext());

@@ -30,7 +30,6 @@ import org.ajax4jsf.component.AjaxOutput;
  *
  */
 public class AjaxOutputComponentImpl extends UIOutput implements AjaxOutput {
-
     private enum PropertyKeys {
         ajaxRendered
     }
@@ -55,4 +54,3 @@ public class AjaxOutputComponentImpl extends UIOutput implements AjaxOutput {
         throw new UnsupportedOperationException();
     }
 }
-

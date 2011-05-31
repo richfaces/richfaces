@@ -23,16 +23,14 @@ import org.richfaces.log.RichfacesLogger;
  * @since 4.0
  */
 public class EhCacheCacheFactory implements CacheFactory {
-    
     private static final Logger LOG = RichfacesLogger.CACHE.getLogger();
-
     private CacheManager cacheManager;
-    
+
     public EhCacheCacheFactory() {
         super();
-        
+
         URL configUrl = null;
-        
+
         ClassLoader ccl = Thread.currentThread().getContextClassLoader();
         if (ccl != null) {
             configUrl = ccl.getResource("ehcache.xml");
@@ -47,32 +45,31 @@ public class EhCacheCacheFactory implements CacheFactory {
 
         cacheManager = CacheManager.create(configUrl);
     }
-    
+
     public Cache createCache(FacesContext facesContext, String cacheName, Map<?, ?> env) {
         LOG.info("Creating EhCache cache instance");
 
         int maxCacheSize = getIntConfigurationValue(facesContext, CoreConfiguration.Items.resourcesCacheSize);
         boolean preconfiguredCache = false;
-        
+
         Ehcache ehcache = cacheManager.getEhcache(cacheName);
         if (ehcache == null) {
             ehcache = new net.sf.ehcache.Cache(cacheName, maxCacheSize, false, true, 0, 0);
         } else {
             preconfiguredCache = true;
-            
+
             if (ehcache.getCacheConfiguration().getMaxElementsInMemory() <= 0) {
                 LOG.info(MessageFormat.format("Maximum cache size hasn''t been set, resetting to {0} max items", maxCacheSize));
-                
+
                 ehcache.getCacheConfiguration().setMaxElementsInMemory(maxCacheSize);
             }
         }
-        
+
         return new EhCacheCache(ehcache, preconfiguredCache);
     }
-    
+
     public void destroy() {
         cacheManager.shutdown();
         cacheManager = null;
     }
-        
 }

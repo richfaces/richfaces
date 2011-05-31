@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.skin;
 
 import java.util.Map;
@@ -30,16 +29,13 @@ import javax.faces.context.FacesContext;
 import org.ajax4jsf.Messages;
 
 /**
- * Singleton ( in respect as collection of different skins ) for produce
- * instances properties for all used skins.
+ * Singleton ( in respect as collection of different skins ) for produce instances properties for all used skins.
  *
  * @author shura (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:59:41 $
  */
 final class SkinImpl extends AbstractSkin {
-    
     private static final Operation RESOLVE = new Operation() {
-        
         public Object executeLocal(FacesContext facesContext, SkinImpl skin, String name) {
             Object resolvedParameter = skin.getLocalParameter(facesContext, name);
 
@@ -65,11 +61,8 @@ final class SkinImpl extends AbstractSkin {
         public Object executeBase(FacesContext facesContext, Skin skin, String name) {
             return skin.getParameter(facesContext, name);
         }
-
     };
-    
     private static final Operation CONTAINS = new Operation() {
-
         public Object executeLocal(FacesContext facesContext, SkinImpl skin, String name) {
             return skin.localContainsProperty(facesContext, name) ? Boolean.TRUE : Boolean.FALSE;
         }
@@ -78,25 +71,23 @@ final class SkinImpl extends AbstractSkin {
         public Object executeBase(FacesContext facesContext, Skin skin, String name) {
             return skin.containsProperty(name);
         }
-        
     };
-    
     private final Map<Object, Object> skinParams;
-    
+
     private static class MutableInteger {
         private int value;
-        
+
         public int getAndIncrement() {
             return value++;
         }
-        
+
         public int getAndDecrement() {
             return value--;
         }
     }
-    
+
     private String name;
-    
+
     /**
      * Skin can instantiate only by factory method.
      *
@@ -106,25 +97,23 @@ final class SkinImpl extends AbstractSkin {
         this.skinParams = properties;
         this.name = name;
     }
-    
+
     private MutableInteger getCounter(FacesContext context) {
         Map<Object, Object> attr = context.getAttributes();
-        
+
         MutableInteger counter = (MutableInteger) attr.get(MutableInteger.class);
         if (counter == null) {
             counter = new MutableInteger();
             attr.put(MutableInteger.class, counter);
         }
-        
+
         return counter;
     }
-    
+
     private abstract static class Operation {
-        
         public abstract Object executeLocal(FacesContext facesContext, SkinImpl skin, String name);
 
         public abstract Object executeBase(FacesContext facesContext, Skin skin, String name);
-
     }
 
     protected Map<Object, Object> getSkinParams() {
@@ -150,8 +139,7 @@ final class SkinImpl extends AbstractSkin {
     }
 
     /**
-     * Calculate concrete value for property - if it stored as @see ValueBinding ,
-     * return interpreted value.
+     * Calculate concrete value for property - if it stored as @see ValueBinding , return interpreted value.
      *
      * @param context
      * @param property
@@ -190,22 +178,21 @@ final class SkinImpl extends AbstractSkin {
 
     protected Object executeOperation(FacesContext context, Operation operation, String name) {
         MutableInteger counter = getCounter(context);
-        
+
         try {
             if (counter.getAndIncrement() > 100) {
                 throw new FacesException(Messages.getMessage(Messages.SKIN_CYCLIC_REFERENCE, name));
             }
-            
+
             Object result = operation.executeLocal(context, this, name);
             if (result != null) {
                 return result;
             }
-            
+
             Skin baseSkin = getBaseSkin(context);
             if (baseSkin != null) {
                 return operation.executeBase(context, baseSkin, name);
             }
-            
         } finally {
             counter.getAndDecrement();
         }
@@ -229,13 +216,13 @@ final class SkinImpl extends AbstractSkin {
     public String getName() {
         return name;
     }
-    
+
     public int hashCode(FacesContext context) {
         int hash = 0;
         for (Map.Entry<Object, Object> entry : skinParams.entrySet()) {
             String key = (String) entry.getKey();
             Object value = entry.getValue();
-            
+
             Object parameter = getValueReference(context, value);
 
             hash = 31 * hash + key.hashCode();
@@ -250,5 +237,4 @@ final class SkinImpl extends AbstractSkin {
 
         return hash;
     }
-
 }

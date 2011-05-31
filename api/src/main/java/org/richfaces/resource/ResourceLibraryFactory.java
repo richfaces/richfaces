@@ -23,10 +23,8 @@ package org.richfaces.resource;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface ResourceLibraryFactory {
-
-    public ResourceLibrary getResourceLibrary(String name, String library);
-    
+    ResourceLibrary getResourceLibrary(String name, String library);
 }

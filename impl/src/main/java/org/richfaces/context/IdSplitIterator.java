@@ -27,11 +27,8 @@ import com.google.common.base.Strings;
 import com.google.common.collect.AbstractIterator;
 
 final class IdSplitIterator extends AbstractIterator<String> {
-    
     private String s;
-    
     private String subtreeId;
-    
     private int idx;
 
     public IdSplitIterator(String s) {
@@ -39,17 +36,17 @@ final class IdSplitIterator extends AbstractIterator<String> {
         this.s = s;
         this.idx = s.length();
     }
-    
+
     @Override
     protected String computeNext() {
         int oldSepIdx = idx;
         idx = s.lastIndexOf(SEPARATOR_CHAR, idx - 1);
-        
+
         String result;
-        
+
         if (idx >= 0) {
             result = s.substring(idx + 1, oldSepIdx);
-            
+
             subtreeId = s.substring(0, idx);
         } else {
             if (oldSepIdx < 0) {
@@ -59,16 +56,15 @@ final class IdSplitIterator extends AbstractIterator<String> {
 
             subtreeId = null;
         }
-        
+
         if (Strings.isNullOrEmpty(result)) {
             endOfData();
         }
-        
+
         return result;
     }
-    
+
     public String getSubtreeId() {
         return subtreeId;
     }
-    
 }

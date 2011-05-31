@@ -20,43 +20,47 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.log;
 
-
 /**
- * <p class="changed_added_4_0">This class produces loggers used by whole RichFaces library.</p>
+ * <p class="changed_added_4_0">
+ * This class produces loggers used by whole RichFaces library.
+ * </p>
+ *
  * @author asmirnov@exadel.com
  *
  */
 public final class LogFactory {
-    
     private static final Logger DEFAULT_LOGGER = new JavaLogger();
-    
-    private LogFactory(){
+
+    private LogFactory() {
         // This class is not instantiable.
     }
 
-    
     /**
-     * <p class="changed_added_4_0">This method creates default logger.</p>
+     * <p class="changed_added_4_0">
+     * This method creates default logger.
+     * </p>
+     *
      * @return
      */
-    public static Logger getLogger(){
+    public static Logger getLogger() {
         return DEFAULT_LOGGER;
     }
 
     /**
-     * <p class="changed_added_4_0">This method produces logger instance for given category.</p>
+     * <p class="changed_added_4_0">
+     * This method produces logger instance for given category.
+     * </p>
+     *
      * @param category
      * @return
      */
-    public static Logger getLogger(String category){
+    public static Logger getLogger(String category) {
         return new JavaLogger(category);
     }
-    
-    public static Logger getLogger(Class<?> clazz){
+
+    public static Logger getLogger(Class<?> clazz) {
         return getLogger(clazz.getName());
     }
-    
 }

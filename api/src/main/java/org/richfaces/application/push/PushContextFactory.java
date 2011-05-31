@@ -23,10 +23,8 @@ package org.richfaces.application.push;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface PushContextFactory {
-
-    public PushContext getPushContext();
-    
+    PushContext getPushContext();
 }

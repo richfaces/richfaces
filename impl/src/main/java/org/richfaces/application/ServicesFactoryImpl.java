@@ -5,7 +5,6 @@ import com.google.common.collect.ImmutableClassToInstanceMap;
 import com.google.common.collect.MutableClassToInstanceMap;
 
 public class ServicesFactoryImpl implements ServicesFactory {
-    
     private ClassToInstanceMap<Object> instances;
 
     public <T> T getInstance(Class<T> type) throws ServiceException {
@@ -37,7 +36,6 @@ public class ServicesFactoryImpl implements ServicesFactory {
     }
 
     public <T> void setInstance(Class<T> type, T instance) {
-        instances.putInstance(type, instance);        
+        instances.putInstance(type, instance);
     }
-
 }

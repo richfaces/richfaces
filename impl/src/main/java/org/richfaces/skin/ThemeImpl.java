@@ -3,9 +3,10 @@
  */
 package org.richfaces.skin;
 
+import java.util.Properties;
+
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
-import java.util.Properties;
 
 /**
  * @author asmirnov
@@ -21,7 +22,8 @@ public class ThemeImpl implements Theme {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.richfaces.skin.Theme#getProperty(java.lang.String)
      */
     public Object getProperty(String name) {
@@ -37,7 +39,8 @@ public class ThemeImpl implements Theme {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.richfaces.skin.Theme#getRendererType()
      */
     public String getRendererType() {
@@ -45,7 +48,8 @@ public class ThemeImpl implements Theme {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.richfaces.skin.Theme#getScript()
      */
     public String getScript() {
@@ -53,7 +57,8 @@ public class ThemeImpl implements Theme {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.richfaces.skin.Theme#getStyle()
      */
     public String getStyle() {

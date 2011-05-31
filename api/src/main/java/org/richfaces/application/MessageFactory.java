@@ -27,16 +27,14 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface MessageFactory {
+    FacesMessage createMessage(FacesContext facesContext, Enum<?> messageKey, Object... args);
 
-    public FacesMessage createMessage(FacesContext facesContext, Enum<?> messageKey, Object... args);
+    FacesMessage createMessage(FacesContext facesContext, Severity severity, Enum<?> messageKey, Object... args);
 
-    public FacesMessage createMessage(FacesContext facesContext, Severity severity, Enum<?> messageKey, Object... args);
+    String getMessageText(FacesContext facesContext, Enum<?> messageKey, Object... args);
 
-    public String getMessageText(FacesContext facesContext, Enum<?> messageKey, Object... args);
-    
-    public String getMessageFormat(FacesContext facesContext, Enum<?> messageKey);
-    
+    String getMessageFormat(FacesContext facesContext, Enum<?> messageKey);
 }

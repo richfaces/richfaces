@@ -30,58 +30,53 @@ import org.richfaces.application.push.MessageData;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class MessageDataScriptString extends ScriptStringBase {
-
     private static final String TOPIC_ATTRIBUTE = ScriptUtils.toScript("topic");
-    
     private static final String DATA_ATTRIBUTE = ScriptUtils.toScript("data");
-
     private static final String NUMBER_ATTRIBUTE = ScriptUtils.toScript("number");
-
     private final Iterable<MessageData> messages;
-
     private long lastMessageNumber;
-    
+
     public MessageDataScriptString(Iterable<MessageData> messages) {
         super();
-        
+
         this.messages = messages;
     }
-    
+
     private void appendMessageToScript(MessageData message, Appendable target) throws IOException {
         target.append('<');
-        
+
         target.append(TOPIC_ATTRIBUTE);
         target.append(':');
         ScriptUtils.appendScript(target, message.getTopicKey().getTopicAddress());
-        
+
         target.append(',');
-        
+
         target.append(DATA_ATTRIBUTE);
         target.append(':');
-        //append as is - no escaping
+        // append as is - no escaping
         target.append(message.getSerializedMessage());
-        
+
         target.append(',');
-        
+
         target.append(NUMBER_ATTRIBUTE);
         target.append(':');
         ScriptUtils.appendScript(target, message.getSequenceNumber());
-        
+
         target.append('>');
     }
-    
+
     public void appendScript(Appendable target) throws IOException {
         Iterator<MessageData> iterator = messages.iterator();
-        
+
         while (iterator.hasNext()) {
             MessageData message = iterator.next();
-            
+
             appendMessageToScript(message, target);
 
-            //TODO - synchronization aids?
+            // TODO - synchronization aids?
             lastMessageNumber = message.getSequenceNumber();
         }
     }

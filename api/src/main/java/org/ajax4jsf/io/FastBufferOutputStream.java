@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.ajax4jsf.io;
 
 import java.io.IOException;
@@ -32,17 +31,14 @@ import java.io.Writer;
  * @author glory
  */
 public class FastBufferOutputStream extends OutputStream {
-
     /**
      * The beginning of the chain of byte arrays.
      */
     ByteBuffer firstBuffer;
-
     /**
      * Currently filled link of the chain of byte arrays.
      */
     ByteBuffer lastBuffer;
-
     /**
      * Total number of written bytes.
      */

@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.io;
 
 import junit.framework.TestCase;
@@ -30,7 +27,6 @@ import junit.framework.TestCase;
  * @since 3.3.0
  */
 public class FastBufferWriterTest extends TestCase {
-
     /**
      * Test method for {@link org.ajax4jsf.io.FastBufferWriter#reset()}.
      */

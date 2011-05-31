@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.javascript;
 
 import java.io.IOException;
@@ -28,23 +25,20 @@ import java.io.Serializable;
 
 /**
  * Class provides creation of simple literal javascript to be set in ajax response data
+ *
  * @author Andrey Markavtsov
  *
  */
 @SuppressWarnings("serial")
-public class JSLiteral extends ScriptStringBase implements Serializable{
-    
+public class JSLiteral extends ScriptStringBase implements Serializable {
     public static final JSLiteral EMPTY_HASH = new JSLiteral("{}");
-    
     public static final JSLiteral EMPTY_LIST = new JSLiteral("[]");
-
-
     /** Javascript literal text */
     private final String literal;
 
-
     /**
      * Constructor using literal parameter
+     *
      * @param literal
      */
     public JSLiteral(String literal) {
@@ -55,13 +49,11 @@ public class JSLiteral extends ScriptStringBase implements Serializable{
     public void appendScript(Appendable target) throws IOException {
         target.append(literal);
     }
-    
+
     /**
      * @return the literal
      */
     public String getLiteral() {
         return literal;
     }
-
-
 }

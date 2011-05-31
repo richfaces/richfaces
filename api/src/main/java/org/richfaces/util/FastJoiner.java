@@ -23,12 +23,11 @@ package org.richfaces.util;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public final class FastJoiner {
-
     private String separator;
-    
+
     private FastJoiner(String separator) {
         super();
         this.separator = separator;
@@ -38,31 +37,31 @@ public final class FastJoiner {
         if (s != null) {
             return s;
         }
-        
+
         return "";
     }
-    
+
     public String join(String s1, String s2) {
         if (s1 == null) {
             return maskNullString(s2);
         } else if (s2 == null) {
             return maskNullString(s1);
         }
-        
+
         StringBuilder sb = new StringBuilder(s1.length() + separator.length() + s2.length());
 
         sb.append(s1);
         sb.append(separator);
         sb.append(s2);
-        
+
         return sb.toString();
     }
 
     public String join(String... strings) {
         StringBuilder sb = new StringBuilder();
-        
+
         boolean first = true;
-        
+
         for (String s : strings) {
             if (s == null) {
                 continue;
@@ -73,13 +72,13 @@ public final class FastJoiner {
             } else {
                 sb.append(separator);
             }
-            
+
             sb.append(s);
         }
-        
+
         return sb.toString();
     }
-    
+
     public static FastJoiner on(String sep) {
         return new FastJoiner(sep);
     }
@@ -87,5 +86,4 @@ public final class FastJoiner {
     public static FastJoiner on(char c) {
         return new FastJoiner(String.valueOf(c));
     }
-    
 }

@@ -26,21 +26,17 @@ import java.util.Date;
 import junit.framework.TestCase;
 
 import org.junit.Assert;
-import org.richfaces.cache.lru.CacheEntry;
-import org.richfaces.cache.lru.CacheMap;
-
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class CacheMapTest extends TestCase {
-
     private void addToCacheMap(CacheMap cacheMap, String key, String value) {
         CacheEntry entry = new CacheEntry(key, value, null);
         cacheMap.put(key, entry);
     }
-    
+
     public void testLRUEviction() throws Exception {
         CacheMap cache = new CacheMap(3);
         addToCacheMap(cache, "key1", "value1");
@@ -57,7 +53,7 @@ public class CacheMapTest extends TestCase {
         Assert.assertEquals("value3", cache.get("key3").getValue());
         Assert.assertEquals("value4", cache.get("key4").getValue());
     }
-    
+
     public void testExpirationQueue() throws Exception {
         CacheMap cacheMap = new CacheMap();
 

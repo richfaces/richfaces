@@ -18,12 +18,12 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.util;
 
-import javax.faces.context.FacesContext;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
@@ -39,7 +39,6 @@ public final class RequestStateManager {
     public static enum BooleanRequestStateVariable {
         LegacyResourceRequest("org.richfaces.LEGACY_RESOURCE_REQUEST"),
         ResourceRequest("org.richfaces.RESOURCE_REQUEST");
-
         private String attributeName;
 
         private BooleanRequestStateVariable(String attributeName) {

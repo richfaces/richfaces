@@ -26,14 +26,13 @@ import java.util.Map;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public abstract class AbstractUserResource implements UserResource {
-
     public Map<String, String> getResponseHeaders() {
         return null;
     }
-    
+
     public Date getLastModified() {
         return null;
     }
@@ -41,5 +40,4 @@ public abstract class AbstractUserResource implements UserResource {
     public int getContentLength() {
         return -1;
     }
-    
 }

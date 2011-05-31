@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit.html;
 
 import java.awt.Dimension;
@@ -45,16 +44,13 @@ import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
 
 /**
- * @author Nick Belaevski - nbelaevski@exadel.com
- *         created 02.02.2007
+ * @author Nick Belaevski - nbelaevski@exadel.com created 02.02.2007
  */
 @DynamicUserResource
 public class BaseGradient extends AbstractJava2DUserResource implements StateHolderResource {
-
     protected Integer headerBackgroundColor;
     protected Integer headerGradientColor;
     protected GradientType gradientType;
-
     private Integer width;
     private Integer height;
     private Integer gradientHeight;
@@ -62,11 +58,10 @@ public class BaseGradient extends AbstractJava2DUserResource implements StateHol
     private String gradientColor;
     private boolean horizontal;
 
-    public BaseGradient(int width, int height, int gradientHeight, String baseColor, String gradientColor,
-                        boolean horizontal) {
-        
+    public BaseGradient(int width, int height, int gradientHeight, String baseColor, String gradientColor, boolean horizontal) {
+
         super(null);
-        
+
         this.setWidth(width);
         this.setHeight(height);
         this.setGradientHeight(gradientHeight);
@@ -120,14 +115,14 @@ public class BaseGradient extends AbstractJava2DUserResource implements StateHol
     }
 
     protected void initializeProperties(FacesContext context, Skin skin) {
-        
+
     }
-    
+
     @PostConstructResource
     public final void initialize() {
         FacesContext context = FacesContext.getCurrentInstance();
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
-        
+
         String gradientTypeString = null;
         if (gradientTypeString == null || gradientTypeString.length() == 0) {
             gradientTypeString = (String) skin.getParameter(context, Skin.GRADIENT_TYPE);
@@ -145,36 +140,36 @@ public class BaseGradient extends AbstractJava2DUserResource implements StateHol
     public final void setWidth(Integer width) {
         this.width = width;
     }
-    
+
     @ResourceParameter(defaultValue = "50")
     public final void setHeight(Integer height) {
         this.height = height;
     }
-    
+
     @ResourceParameter(defaultValue = "20")
     public final void setGradientHeight(Integer gradientHeight) {
         this.gradientHeight = gradientHeight;
     }
-    
+
     @ResourceParameter(defaultValue = Skin.HEADER_BACKGROUND_COLOR)
     public final void setBaseColorParam(String paramName) {
         this.baseColor = paramName;
     }
-    
+
     @ResourceParameter(defaultValue = Skin.HEADER_GRADIENT_COLOR)
     public final void setGradientColorParam(String paramName) {
         this.gradientColor = paramName;
     }
-    
+
     @ResourceParameter(defaultValue = "false")
     public final void setHorizontal(boolean horizontal) {
         this.horizontal = horizontal;
     }
-    
+
     public final void setGradientType(GradientType gradientType) {
         this.gradientType = gradientType;
     }
-    
+
     public Dimension getDimension() {
         return new Dimension(getSafeWidth(), getSafeHeight());
     }
@@ -189,11 +184,11 @@ public class BaseGradient extends AbstractJava2DUserResource implements StateHol
     protected Integer getHeight() {
         return height;
     }
-    
+
     protected Integer getWidth() {
         return width;
     }
-    
+
     protected Integer getSafeGradientHeight() {
         return gradientHeight == null ? 0 : gradientHeight;
     }
@@ -201,11 +196,11 @@ public class BaseGradient extends AbstractJava2DUserResource implements StateHol
     protected Integer getSafeHeight() {
         return height == null ? 0 : height;
     }
-    
+
     protected Integer getSafeWidth() {
         return width == null ? 0 : width;
     }
-    
+
     /**
      * @return the baseColor
      */
@@ -239,8 +234,7 @@ public class BaseGradient extends AbstractJava2DUserResource implements StateHol
         graphics2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         graphics2d.setRenderingHint(RenderingHints.KEY_DITHERING, RenderingHints.VALUE_DITHER_ENABLE);
 
-        graphics2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
-            RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
+        graphics2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
         graphics2d.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_QUALITY);
         graphics2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
@@ -259,7 +253,7 @@ public class BaseGradient extends AbstractJava2DUserResource implements StateHol
             BiColor secondLayer = gradientType.getSecondLayerColors(biColor);
 
             if (horizontal) {
-                //x -> y, y -> x
+                // x -> y, y -> x
                 g2d.transform(new AffineTransform(0, 1, 1, 0, 0, 0));
                 dim.setSize(dim.height, dim.width);
             }
@@ -269,21 +263,13 @@ public class BaseGradient extends AbstractJava2DUserResource implements StateHol
                 localGradientHeight = dim.height;
             }
 
-            Rectangle2D rect = new Rectangle2D.Float(
-                0,
-                0,
-                dim.width,
-                dim.height);
+            Rectangle2D rect = new Rectangle2D.Float(0, 0, dim.width, dim.height);
 
             drawGradient(g2d, rect, firstLayer, localGradientHeight);
 
             int smallGradientHeight = localGradientHeight / 2;
 
-            rect = new Rectangle2D.Float(
-                0,
-                0,
-                dim.width,
-                smallGradientHeight);
+            rect = new Rectangle2D.Float(0, 0, dim.width, smallGradientHeight);
 
             drawGradient(g2d, rect, secondLayer, smallGradientHeight);
         }
@@ -295,18 +281,18 @@ public class BaseGradient extends AbstractJava2DUserResource implements StateHol
         this.gradientHeight = readIntegerParameterAsShort(dataInput);
         this.headerBackgroundColor = readIntegerParameter(dataInput);
         this.headerGradientColor = readIntegerParameter(dataInput);
-        
+
         this.horizontal = dataInput.readBoolean();
         this.gradientType = GradientType.values()[dataInput.readByte()];
     }
-    
+
     public void writeState(FacesContext context, DataOutput dataOutput) throws IOException {
         writeIntegerParameterAsShort(dataOutput, this.width);
         writeIntegerParameterAsShort(dataOutput, this.height);
         writeIntegerParameterAsShort(dataOutput, this.gradientHeight);
         writeIntegerParameter(dataOutput, this.headerBackgroundColor);
         writeIntegerParameter(dataOutput, this.headerGradientColor);
-        
+
         dataOutput.writeBoolean(this.horizontal);
         dataOutput.writeByte((byte) this.gradientType.ordinal());
     }
@@ -319,7 +305,7 @@ public class BaseGradient extends AbstractJava2DUserResource implements StateHol
             dataOutput.writeBoolean(false);
         }
     }
-    
+
     protected Integer readIntegerParameterAsShort(DataInput dataInput) throws IOException {
         if (dataInput.readBoolean()) {
             return (int) dataInput.readShort();
@@ -327,7 +313,7 @@ public class BaseGradient extends AbstractJava2DUserResource implements StateHol
             return null;
         }
     }
-    
+
     protected void writeIntegerParameter(DataOutput dataOutput, Integer parameter) throws IOException {
         if (parameter != null) {
             dataOutput.writeBoolean(true);
@@ -336,7 +322,7 @@ public class BaseGradient extends AbstractJava2DUserResource implements StateHol
             dataOutput.writeBoolean(false);
         }
     }
-    
+
     protected Integer readIntegerParameter(DataInput dataInput) throws IOException {
         if (dataInput.readBoolean()) {
             return dataInput.readInt();
@@ -344,7 +330,7 @@ public class BaseGradient extends AbstractJava2DUserResource implements StateHol
             return null;
         }
     }
-    
+
     public boolean isTransient() {
         return false;
     }

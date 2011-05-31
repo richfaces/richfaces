@@ -41,18 +41,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @RunWith(MockTestRunner.class)
 public class IdSplitIteratorTest {
-
     @Mock
-    @Environment({Environment.Feature.EXTERNAL_CONTEXT})
+    @Environment({ Environment.Feature.EXTERNAL_CONTEXT })
     private MockFacesEnvironment environment;
-    
+
     @Before
     public void setUp() throws Exception {
         environment.resetToNice();
@@ -60,18 +58,18 @@ public class IdSplitIteratorTest {
         expect(facesContext.getAttributes()).andStubReturn(new HashMap<Object, Object>());
         environment.replay();
     }
-    
+
     @Test
     public void testEmptyString() throws Exception {
         IdSplitIterator iterator = new IdSplitIterator("");
-        
+
         assertFalse(iterator.hasNext());
-        
+
         try {
             iterator.next();
             fail();
         } catch (NoSuchElementException e) {
-            //ignore
+            // ignore
         }
 
         assertNull(iterator.getSubtreeId());
@@ -80,33 +78,33 @@ public class IdSplitIteratorTest {
     @Test
     public void testSimpleString() throws Exception {
         IdSplitIterator iterator = new IdSplitIterator("id");
-        
+
         assertTrue(iterator.hasNext());
 
         assertEquals("id", iterator.next());
         assertNull(iterator.getSubtreeId());
-        
+
         assertFalse(iterator.hasNext());
 
         try {
             iterator.next();
             fail();
         } catch (NoSuchElementException e) {
-            //ignore
+            // ignore
         }
 
         assertNull(iterator.getSubtreeId());
     }
-    
+
     @Test
     public void testTwoSegmentsString() throws Exception {
         IdSplitIterator iterator = new IdSplitIterator("form:table");
-        
+
         assertTrue(iterator.hasNext());
-        
+
         assertEquals("table", iterator.next());
         assertEquals("form", iterator.getSubtreeId());
-        
+
         assertTrue(iterator.hasNext());
         assertEquals("form", iterator.next());
         assertNull(iterator.getSubtreeId());
@@ -117,14 +115,14 @@ public class IdSplitIteratorTest {
     @Test
     public void testThreeSegmentsString() throws Exception {
         IdSplitIterator iterator = new IdSplitIterator("form:table:cell");
-        
+
         assertTrue(iterator.hasNext());
-        
+
         assertEquals("cell", iterator.next());
         assertEquals("form:table", iterator.getSubtreeId());
-        
+
         assertTrue(iterator.hasNext());
-        
+
         assertEquals("table", iterator.next());
         assertEquals("form", iterator.getSubtreeId());
 
@@ -138,7 +136,7 @@ public class IdSplitIteratorTest {
     @Test
     public void testBadStrings() throws Exception {
         IdSplitIterator iterator;
-        
+
         iterator = new IdSplitIterator(":");
         assertFalse(iterator.hasNext());
 

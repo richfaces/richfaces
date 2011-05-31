@@ -27,10 +27,8 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface ContentProducerResource {
-
-    public void encode(FacesContext context) throws IOException;
-    
+    void encode(FacesContext context) throws IOException;
 }

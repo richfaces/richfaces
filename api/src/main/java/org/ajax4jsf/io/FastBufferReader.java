@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.ajax4jsf.io;
 
 import java.io.IOException;
@@ -31,17 +30,14 @@ import java.io.Writer;
  * @author glory
  */
 public class FastBufferReader extends Reader {
-
     /**
      * Currently read link.
      */
     CharBuffer current;
-
     /**
      * The first link in the chain of char arrays.
      */
     CharBuffer firstLink;
-
     /**
      * Position of next char in current link.
      */

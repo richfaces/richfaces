@@ -20,7 +20,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import java.util.Collection;
@@ -32,40 +31,37 @@ import com.google.common.collect.Lists;
 
 /**
  * <p class="changed_added_4_0">
- * This component user to render Client Validator scripts. Any ClientValidatorBehavior that requires additional scripts
- * should put them to this component, associated with "form" target in view resources.
+ * This component user to render Client Validator scripts. Any ClientValidatorBehavior that requires additional scripts should
+ * put them to this component, associated with "form" target in view resources.
  * </p>
- * 
+ *
  * @author asmirnov@exadel.com
- * 
+ *
  */
 public class UIScripts extends UITransient implements ScriptsHolder {
-
-
     public static final String COMPONENT_TYPE = "org.richfaces.Scripts";
-
     public static final String COMPONENT_FAMILY = "org.richfaces.Script";
-
     private final List<Object> scripts = Lists.newArrayList();
-    
     private final List<Object> pageReadyScripts = Lists.newArrayList();
-
     private String target = "body";
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see org.richfaces.component.ScriptsHolder#getScripts()
      */
     public Collection<Object> getScripts() {
         return scripts;
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     *
      * @see org.richfaces.component.ScriptsHolder#getPageReadyScripts()
      */
     public Collection<Object> getPageReadyScripts() {
         return this.pageReadyScripts;
     }
-
 
     @Override
     public String getFamily() {
@@ -97,10 +93,9 @@ public class UIScripts extends UITransient implements ScriptsHolder {
 
     @Override
     protected Object getAttribute(Object key) {
-        if("target".equals(key)){
+        if ("target".equals(key)) {
             return getTarget();
         }
         return null;
     }
-
 }

@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.util;
 
 import java.io.Serializable;
@@ -31,7 +30,6 @@ import java.util.Map.Entry;
  * @author asmirnov
  */
 public class LRUMap<K, V> extends LinkedHashMap<K, V> implements Serializable {
-
     /**
      *
      */
@@ -58,5 +56,4 @@ public class LRUMap<K, V> extends LinkedHashMap<K, V> implements Serializable {
         // Remove last entry if size exceeded.
         return size() > capacity;
     }
-
 }

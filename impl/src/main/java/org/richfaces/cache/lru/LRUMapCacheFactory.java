@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.cache.lru;
 
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getIntConfigurationValue;
@@ -34,22 +33,21 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
 /**
- * @author Nick - mailto:nbelaevski@exadel.com
- *         created 01.05.2007
+ * @author Nick - mailto:nbelaevski@exadel.com created 01.05.2007
  */
 public class LRUMapCacheFactory implements CacheFactory {
     private static final Logger LOG = RichfacesLogger.CACHE.getLogger();
 
     public Cache createCache(FacesContext facesContext, String cacheName, Map<?, ?> env) {
-        //TODO - handle cache name
+        // TODO - handle cache name
         LOG.info("Creating LRUMap cache instance using parameters: " + env);
 
         Integer cacheSize = getIntConfigurationValue(facesContext, CoreConfiguration.Items.lruMapCacheSize);
-        
+
         if (cacheSize == null) {
             cacheSize = getIntConfigurationValue(facesContext, CoreConfiguration.Items.resourcesCacheSize);
         }
-        
+
         LOG.info("Creating LRUMap cache instance of " + cacheSize + " items capacity");
 
         return new LRUMapCache(cacheSize);

@@ -18,14 +18,12 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.cache.lru;
 
 import java.util.Date;
 
 /**
- * User: akolonitsky
- * Date: Oct 13, 2009
+ * User: akolonitsky Date: Oct 13, 2009
  */
 public final class CacheEntry implements Comparable<CacheEntry> {
     private Date expired;

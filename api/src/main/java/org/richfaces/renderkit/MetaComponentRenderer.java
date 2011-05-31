@@ -31,10 +31,7 @@ import javax.faces.context.FacesContext;
  *
  */
 public interface MetaComponentRenderer {
+    void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) throws IOException;
 
-    public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) 
-        throws IOException;
-
-    public void decodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId);
-    
+    void decodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId);
 }

@@ -25,26 +25,18 @@ import org.richfaces.util.Util;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 final class DefaultCodecResourceRequestData implements ResourceRequestData {
-
     private DefaultResourceCodec defaultResourceCodec;
-    
     private String resourceName;
-    
     private String libraryName;
-    
     private String version;
-    
     private String dataString;
-    
     private boolean dataSerialized;
-    
-    //lazy evaluated
+    // lazy evaluated
     private String resourceKey = null;
-    
-    //lazy evaluated
+    // lazy evaluated
     private Object data = null;
 
     public DefaultCodecResourceRequestData(DefaultResourceCodec defaultResourceCodec) {
@@ -59,7 +51,7 @@ final class DefaultCodecResourceRequestData implements ResourceRequestData {
     public String getResourceName() {
         return resourceName;
     }
-    
+
     protected void setLibraryName(String libraryName) {
         this.libraryName = libraryName;
     }
@@ -67,7 +59,7 @@ final class DefaultCodecResourceRequestData implements ResourceRequestData {
     public String getLibraryName() {
         return libraryName;
     }
-    
+
     protected void setVersion(String version) {
         this.version = version;
     }
@@ -75,7 +67,7 @@ final class DefaultCodecResourceRequestData implements ResourceRequestData {
     public String getVersion() {
         return version;
     }
-    
+
     public String getResourceKey() {
         if (resourceKey == null) {
             resourceKey = defaultResourceCodec.encodeResource(this);
@@ -86,7 +78,7 @@ final class DefaultCodecResourceRequestData implements ResourceRequestData {
     protected String getDataString() {
         return dataString;
     }
-    
+
     protected void setDataString(String dataString) {
         this.dataString = dataString;
     }
@@ -94,11 +86,11 @@ final class DefaultCodecResourceRequestData implements ResourceRequestData {
     protected void setDataSerialized(boolean dataSerialized) {
         this.dataSerialized = dataSerialized;
     }
-    
+
     protected boolean isDataSerialized() {
         return dataSerialized;
     }
-    
+
     public Object getData() {
         if (data == null && dataString != null) {
             if (isDataSerialized()) {
@@ -107,7 +99,7 @@ final class DefaultCodecResourceRequestData implements ResourceRequestData {
                 data = Util.decodeBytesData(dataString);
             }
         }
-        
+
         return data;
     }
 }

@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit.html.images;
 
 import javax.faces.context.FacesContext;
@@ -26,7 +25,6 @@ import javax.faces.context.FacesContext;
 import org.richfaces.skin.Skin;
 
 public class StandardButtonPressedBgImage extends BaseControlBackgroundImage {
-
     @Override
     protected void initializeProperties(FacesContext context, Skin skin) {
         super.initializeProperties(context, skin);
@@ -35,5 +33,4 @@ public class StandardButtonPressedBgImage extends BaseControlBackgroundImage {
         setGradientColorParam(Skin.ADDITIONAL_BACKGROUND_COLOR);
         setWidth(9);
     }
-    
 }

@@ -35,13 +35,9 @@ import org.richfaces.context.IdParser.Node;
 import com.google.common.collect.Lists;
 
 class ClientIdFunctionEvaluator {
-
     private FacesContext context;
-
     private UIComponent functionTarget;
-    
     private Node[] parsedId;
-
     private Collection<String> resolvedIds = Lists.newArrayListWithCapacity(1);
 
     public ClientIdFunctionEvaluator(FacesContext context, Node[] parsedId) {
@@ -64,7 +60,7 @@ class ClientIdFunctionEvaluator {
             childComponent = component;
         } else {
             directSubtreeIds = evaluateFunction(component, baseId, node);
-            //functionTarget is set inside evaluateFunction(...) call!
+            // functionTarget is set inside evaluateFunction(...) call!
             childComponent = functionTarget;
         }
 

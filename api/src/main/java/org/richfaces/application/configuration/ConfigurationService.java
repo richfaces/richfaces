@@ -1,22 +1,21 @@
 package org.richfaces.application.configuration;
+
 import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface ConfigurationService {
+    Boolean getBooleanValue(FacesContext facesContext, Enum<?> key);
 
-    public Boolean getBooleanValue(FacesContext facesContext, Enum<?> key);
-    
-    public Integer getIntValue(FacesContext facesContext, Enum<?> key);
+    Integer getIntValue(FacesContext facesContext, Enum<?> key);
 
-    public Long getLongValue(FacesContext facesContext, Enum<?> key);
+    Long getLongValue(FacesContext facesContext, Enum<?> key);
 
-    public String getStringValue(FacesContext facesContext, Enum<?> key);
+    String getStringValue(FacesContext facesContext, Enum<?> key);
 
-    public Object getValue(FacesContext facesContext, Enum<?> key);
-    
-    public <T extends Enum<T>> T getEnumValue(FacesContext facesContext, Enum<?> key, Class<T> enumClass);
+    Object getValue(FacesContext facesContext, Enum<?> key);
 
+    <T extends Enum<T>> T getEnumValue(FacesContext facesContext, Enum<?> key, Class<T> enumClass);
 }

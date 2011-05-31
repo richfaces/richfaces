@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.resource.util;
 
 import java.io.IOException;
@@ -32,10 +29,11 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
 /**
- * Utility class to solve JAR locking issue using {@link URLConnection#setUseCaches(boolean)} method.
- * Contains one utility method that gets {@link InputStream} from {@link URL} with caching disabled.
+ * Utility class to solve JAR locking issue using {@link URLConnection#setUseCaches(boolean)} method. Contains one utility
+ * method that gets {@link InputStream} from {@link URL} with caching disabled.
  *
  * Created 07.02.2008
+ *
  * @author Nick Belaevski
  * @since 3.2
  */
@@ -47,8 +45,7 @@ public final class URLToStreamHelper {
     }
 
     /**
-     * Returns {@link InputStream} corresponding to argument {@link URL}
-     * but with caching disabled
+     * Returns {@link InputStream} corresponding to argument {@link URL} but with caching disabled
      *
      * @param url {@link URL} of the resource
      * @return {@link InputStream} instance or <code>null</code>

@@ -1,4 +1,3 @@
-
 /**
  *
  */
@@ -9,11 +8,11 @@ package org.richfaces.skin;
  *
  */
 public interface Theme {
-    public String getRendererType();
+    String getRendererType();
 
-    public String getStyle();
+    String getStyle();
 
-    public String getScript();
+    String getScript();
 
-    public Object getProperty(String name);
+    Object getProperty(String name);
 }

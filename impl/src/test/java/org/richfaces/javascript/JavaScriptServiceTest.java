@@ -20,11 +20,10 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.javascript;
 
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 import java.util.Collection;
 
@@ -49,20 +48,17 @@ import org.richfaces.resource.ResourceKey;
 import com.google.common.collect.Iterables;
 
 /**
- * <p class="changed_added_4_0"></p>
+ * <p class="changed_added_4_0">
+ * </p>
+ *
  * @author asmirnov@exadel.com
  *
  */
 @RunWith(MockTestRunner.class)
-public class JavaScriptServiceTest  {
-
-    static final ResourceKey FOO_RESOURCE = ResourceKey.create("foo","org.rf");
-
-
+public class JavaScriptServiceTest {
+    static final ResourceKey FOO_RESOURCE = ResourceKey.create("foo", "org.rf");
     protected UIScripts scriptResource;
-
     protected JavaScriptServiceImpl serviceImpl;
-
     @Mock()
     @Environment({ Feature.APPLICATION, Feature.RENDER_KIT, Feature.EL_CONTEXT })
     protected MockFacesEnvironment environment;
@@ -72,14 +68,14 @@ public class JavaScriptServiceTest  {
     @Stub
     protected ServicesFactory factory;
 
-
     @After
     public void tearDown() throws Exception {
         controller.release();
     }
+
     @Before
-    public void setUpResource(){
-        serviceImpl = new JavaScriptServiceImpl(){
+    public void setUpResource() {
+        serviceImpl = new JavaScriptServiceImpl() {
             @Override
             UIScripts getOrCreateScriptResource(FacesContext facesContext) {
                 return scriptResource;
@@ -87,47 +83,44 @@ public class JavaScriptServiceTest  {
         };
         scriptResource = new UIScripts();
     }
-    
+
     @After
-    public void cleanUpResource(){
+    public void cleanUpResource() {
         scriptResource = null;
     }
-
 
     @Test
     public void testAddOrFindScript() {
         Object script = createScript("foo bar");
-        Object script2 = serviceImpl.addScript(environment.getFacesContext(),script);
+        Object script2 = serviceImpl.addScript(environment.getFacesContext(), script);
         Collection<Object> scripts = scriptResource.getScripts();
         assertEquals(1, scripts.size());
-        assertSame(script,Iterables.getOnlyElement(scripts));
+        assertSame(script, Iterables.getOnlyElement(scripts));
     }
 
     @Test
     public void testAddOrFindScript2() {
         Object script = createScript("foo bar");
-        serviceImpl.addScript(environment.getFacesContext(),script);
+        serviceImpl.addScript(environment.getFacesContext(), script);
         Object script2 = createScript("fooz baz bar");
-        Object script3 = serviceImpl.addScript(environment.getFacesContext(),script2);
+        Object script3 = serviceImpl.addScript(environment.getFacesContext(), script2);
         Collection<Object> scripts = scriptResource.getScripts();
         assertEquals(2, scripts.size());
-        assertSame(script2,script3);
+        assertSame(script2, script3);
     }
 
     @Test
     public void testAddOrFindScript3() {
         Object script = createScript("foo bar");
-        serviceImpl.addScript(environment.getFacesContext(),script);
+        serviceImpl.addScript(environment.getFacesContext(), script);
         Object script2 = createScript("foo bar");
-        Object script3 = serviceImpl.addScript(environment.getFacesContext(),script2);
+        Object script3 = serviceImpl.addScript(environment.getFacesContext(), script2);
         Collection<Object> scripts = scriptResource.getScripts();
         assertEquals(1, scripts.size());
-        assertSame(script,script3);
+        assertSame(script, script3);
     }
 
-    
-    private Object createScript(String content){
+    private Object createScript(String content) {
         return content;
     }
-
 }

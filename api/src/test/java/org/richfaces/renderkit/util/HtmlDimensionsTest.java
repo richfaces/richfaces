@@ -21,7 +21,7 @@
  */
 package org.richfaces.renderkit.util;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -30,7 +30,6 @@ import org.junit.Test;
  *
  */
 public class HtmlDimensionsTest {
-
     @Test
     public void testFormatSize() {
         assertEquals("100px", HtmlDimensions.formatSize("100"));
@@ -38,7 +37,7 @@ public class HtmlDimensionsTest {
         assertEquals("100px", HtmlDimensions.formatSize("   100"));
         assertEquals("100px", HtmlDimensions.formatSize("   100   "));
         assertEquals("t100px", HtmlDimensions.formatSize("t100"));
-        assertEquals("r100px", HtmlDimensions.formatSize("r100  "));        
+        assertEquals("r100px", HtmlDimensions.formatSize("r100  "));
         assertEquals("100px  ", HtmlDimensions.formatSize("100px  "));
         assertEquals("  100px", HtmlDimensions.formatSize("  100px"));
         assertEquals("  100px ", HtmlDimensions.formatSize("  100px "));
@@ -51,5 +50,5 @@ public class HtmlDimensionsTest {
         assertEquals("", HtmlDimensions.formatSize(""));
         assertEquals("   ", HtmlDimensions.formatSize("   "));
         assertEquals(null, HtmlDimensions.formatSize(null));
-    }    
+    }
 }

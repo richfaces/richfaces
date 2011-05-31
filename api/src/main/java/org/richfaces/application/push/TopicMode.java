@@ -23,10 +23,12 @@ package org.richfaces.application.push;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public enum TopicMode {
 
-    flash, persistent, persistentLast
+    flash,
+    persistent,
+    persistentLast
 
 }

@@ -21,27 +21,24 @@
  */
 package org.ajax4jsf.javascript;
 
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class JSChainJSFFunction extends JSFunction {
-
     public JSChainJSFFunction(Object... parameters) {
         super("jsf.util.chain", (Object[]) createFunctionArgs(parameters));
     }
 
     private static Object[] createFunctionArgs(Object[] sourceParams) {
         Object[] result = new Object[sourceParams.length + 2];
-        
+
         result[0] = JSReference.THIS;
         result[1] = JSReference.EVENT;
-        
+
         for (int i = 0; i < sourceParams.length; i++) {
             result[i + 2] = sourceParams[i];
         }
         return result;
     }
-    
 }

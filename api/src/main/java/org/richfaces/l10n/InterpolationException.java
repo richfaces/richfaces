@@ -23,19 +23,17 @@ package org.richfaces.l10n;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class InterpolationException extends Exception {
-
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 218954633540769880L;
-
     private String messageKey;
-    
+
     /**
-     * 
+     *
      */
     public InterpolationException() {
         super();
@@ -67,7 +65,7 @@ public class InterpolationException extends Exception {
         this.messageKey = messageKey;
         return this;
     }
-    
+
     public String getMessageKey() {
         return messageKey;
     }

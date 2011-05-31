@@ -27,15 +27,14 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface CacheableResource {
+    boolean isCacheable(FacesContext context);
 
-    public boolean isCacheable(FacesContext context);
+    Date getExpires(FacesContext context);
 
-    public Date getExpires(FacesContext context);
+    int getTimeToLive(FacesContext context);
 
-    public int getTimeToLive(FacesContext context);
-
-    public String getEntityTag(FacesContext context);
+    String getEntityTag(FacesContext context);
 }

@@ -32,50 +32,44 @@ import org.richfaces.application.push.Session;
 
 /**
  * Based on DelayQueue by Doug Lea: http://gee.cs.oswego.edu/
+ *
  * @author Nick Belaevski
- * 
+ *
  */
-//TODO - optimize algorithm
+// TODO - optimize algorithm
 // TODO - use BlockingQueue ?
 final class SessionQueue {
-
     private static final Comparator<? super Session> SESSIONS_COMPARATOR = new Comparator<Session>() {
-
         public int compare(Session o1, Session o2) {
             Long expTime1 = getExpirationTime(o1);
             Long expTime2 = getExpirationTime(o2);
-            
+
             return expTime1.compareTo(expTime2);
         }
-        
     };
-    
     private final Queue<Session> queue = new PriorityQueue<Session>(1, SESSIONS_COMPARATOR);
-    
     private final ReentrantLock lock = new ReentrantLock();
-    
     private final Condition available = lock.newCondition();
-
     private boolean active = true;
-    
+
     private static long getExpirationTime(Session session) {
         long lastAccessedTime = session.getLastAccessedTime();
         if (lastAccessedTime < 0) {
             return Long.MIN_VALUE;
         }
-        
+
         return lastAccessedTime + session.getMaxInactiveInterval();
     }
-    
+
     private long getDelay(Session session, TimeUnit unit) {
         long expirationTime = getExpirationTime(session);
         if (expirationTime < 0) {
             return Long.MIN_VALUE;
         }
-        
+
         return unit.convert(expirationTime - System.currentTimeMillis(), TimeUnit.MILLISECONDS);
     }
-    
+
     public Session take() throws InterruptedException {
         final ReentrantLock lock = this.lock;
         lock.lockInterruptibly();
@@ -98,35 +92,35 @@ final class SessionQueue {
                     }
                 }
             }
-            
+
             throw new InterruptedException("Session queue is stopping");
         } finally {
             lock.unlock();
         }
     }
-    
+
     public void remove(Session session) {
         final ReentrantLock lock = this.lock;
         lock.lock();
 
         checkActiveState();
-        
+
         try {
             queue.remove(session);
         } finally {
             lock.unlock();
         }
     }
-    
+
     public void requeue(Session session, boolean addIfNotExists) {
         final ReentrantLock lock = this.lock;
         lock.lock();
-        
+
         checkActiveState();
-        
+
         try {
             boolean exists = queue.remove(session);
-            
+
             if (exists || addIfNotExists) {
                 Session first = queue.peek();
                 queue.offer(session);
@@ -134,7 +128,6 @@ final class SessionQueue {
                     available.signalAll();
                 }
             }
-            
         } finally {
             lock.unlock();
         }
@@ -145,7 +138,7 @@ final class SessionQueue {
             throw new IllegalStateException("Queue is not active");
         }
     }
-    
+
     public void shutdown() {
         final ReentrantLock lock = this.lock;
         lock.lock();
@@ -157,5 +150,4 @@ final class SessionQueue {
             lock.unlock();
         }
     }
-
 }

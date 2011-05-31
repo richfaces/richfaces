@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.cache;
 
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getIntConfigurationValue;
@@ -44,25 +43,22 @@ import com.opensymphony.oscache.base.AbstractCacheAdministrator;
 import com.opensymphony.oscache.general.GeneralCacheAdministrator;
 
 /**
- * @author Nick - mailto:nbelaevski@exadel.com
- *         created 01.05.2007
+ * @author Nick - mailto:nbelaevski@exadel.com created 01.05.2007
  */
 public class OSCacheCacheFactory implements CacheFactory {
-    
     private static final Logger LOG = RichfacesLogger.CACHE.getLogger();
-
     private List<GeneralCacheAdministrator> cacheAdministrators = new ArrayList<GeneralCacheAdministrator>(1);
-    
+
     public OSCacheCacheFactory() throws ClassNotFoundException {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         if (classLoader == null) {
             classLoader = OSCacheCacheFactory.class.getClassLoader();
         }
-        
-        //try load cache class to check its presence in classpath
+
+        // try load cache class to check its presence in classpath
         Class.forName(GeneralCacheAdministrator.class.getName(), false, classLoader);
     }
-    
+
     private static Properties loadProperties() throws IOException {
         Properties properties = new Properties();
         URL resource = OSCacheCache.class.getResource("oscache.properties");
@@ -83,9 +79,9 @@ public class OSCacheCacheFactory implements CacheFactory {
 
         return properties;
     }
-    
+
     public Cache createCache(FacesContext facesContext, String cacheName, Map<?, ?> env) {
-        //TODO - handle cache name
+        // TODO - handle cache name
         Properties cacheProperties = new Properties();
 
         try {
@@ -107,20 +103,19 @@ public class OSCacheCacheFactory implements CacheFactory {
         if (property == null) {
             int maxCacheSize = getIntConfigurationValue(facesContext, CoreConfiguration.Items.resourcesCacheSize);
             LOG.info(MessageFormat.format("Maximum cache size hasn''t been set, resetting to {0} max items", maxCacheSize));
-            cacheProperties.put(AbstractCacheAdministrator.CACHE_CAPACITY_KEY, 
-                Integer.toString(maxCacheSize));
+            cacheProperties.put(AbstractCacheAdministrator.CACHE_CAPACITY_KEY, Integer.toString(maxCacheSize));
         }
-        
+
         GeneralCacheAdministrator cacheAdministrator = new GeneralCacheAdministrator(cacheProperties);
         cacheAdministrators.add(cacheAdministrator);
         return new OSCacheCache(cacheAdministrator.getCache());
     }
-    
+
     public void destroy() {
         for (GeneralCacheAdministrator cacheAdministrator : cacheAdministrators) {
             cacheAdministrator.destroy();
         }
-        
+
         cacheAdministrators = null;
     }
 }

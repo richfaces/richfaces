@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit.html.images;
 
 import java.awt.Color;
@@ -39,9 +38,7 @@ import org.richfaces.skin.SkinFactory;
 
 @DynamicUserResource
 public abstract class OneColorBasedResource extends AbstractJava2DUserResource implements StateHolderResource {
-
     private String basicColorParamName;
-
     private Color basicColor;
 
     public OneColorBasedResource(Dimension dimension, final String basicColorParamName) {
@@ -51,6 +48,7 @@ public abstract class OneColorBasedResource extends AbstractJava2DUserResource i
 
     /**
      * Gets value of basicColor field.
+     *
      * @return value of basicColor field
      */
     protected Color getBasicColor() {
@@ -67,8 +65,8 @@ public abstract class OneColorBasedResource extends AbstractJava2DUserResource i
         if (colorParameter == null) {
             Skin defaultSkin = SkinFactory.getInstance(context).getDefaultSkin(context);
             colorParameter = defaultSkin.getColorParameter(context, basicColorParamName);
-        }   
-        dataOutput.writeInt(colorParameter);    
+        }
+        dataOutput.writeInt(colorParameter);
     }
 
     public void readState(FacesContext context, DataInput dataInput) throws IOException {
