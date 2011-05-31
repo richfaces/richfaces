@@ -32,6 +32,14 @@
 
 	<profiles>
 		<profile>
+			<id>bootstrap</id>
+			<modules>
+				<module>../parent</module>
+				<module>../checkstyle</module>
+				<module>../shade-transformers</module>
+			</modules>
+		</profile>
+		<profile>
 			<id>build</id>
 			<modules>
 				<module>../core</module>
@@ -40,14 +48,6 @@
 				<module>../archetypes</module>
 				<module>../dev-examples</module>
 				<module>../showcase</module>
-			</modules>
-		</profile>
-		<profile>
-			<id>bootstrap</id>
-			<modules>
-				<module>../parent</module>
-				<module>../checkstyle</module>
-				<module>../shade-transformers</module>
 			</modules>
 		</profile>
 		<profile>
