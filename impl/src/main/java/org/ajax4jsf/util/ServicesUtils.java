@@ -40,9 +40,9 @@ import org.richfaces.log.RichfacesLogger;
 public final class ServicesUtils {
     private static final Logger LOG = RichfacesLogger.APPLICATION.getLogger();
     private static Map<String, Map<ClassLoader, Class<?>>> services = Collections
-            .synchronizedMap(new HashMap<String, Map<ClassLoader, Class<?>>>());
+        .synchronizedMap(new HashMap<String, Map<ClassLoader, Class<?>>>());
     private static Map<String, Map<ClassLoader, Object>> instances = Collections
-            .synchronizedMap(new HashMap<String, Map<ClassLoader, Object>>());
+        .synchronizedMap(new HashMap<String, Map<ClassLoader, Object>>());
 
     private ServicesUtils() {
 

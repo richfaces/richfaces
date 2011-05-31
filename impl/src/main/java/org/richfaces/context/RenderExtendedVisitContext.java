@@ -40,7 +40,7 @@ public class RenderExtendedVisitContext extends BaseExtendedVisitContext {
     private boolean limitRender;
 
     public RenderExtendedVisitContext(FacesContext facesContext, Collection<String> clientIds, Set<VisitHint> hints,
-            boolean limitRender) {
+        boolean limitRender) {
         super(facesContext, clientIds, hints, ExtendedVisitContextMode.RENDER);
 
         this.limitRender = limitRender;

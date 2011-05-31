@@ -48,12 +48,12 @@ public class GenericsIntrospectionServiceImpl implements GenericsIntrospectionSe
     private static final class GenericsCacheEntry {
         private Class<?> beanClass;
         private Map<String, Class<?>> containerClassesMap = new MapMaker().initialCapacity(2).makeComputingMap(
-                new Function<String, Class<?>>() {
-                    public Class<?> apply(String input) {
-                        PropertyDescriptor propertyDescriptor = getPropertyDescriptor(input);
-                        return getGenericContainerClass(propertyDescriptor);
-                    }
-                });
+            new Function<String, Class<?>>() {
+                public Class<?> apply(String input) {
+                    PropertyDescriptor propertyDescriptor = getPropertyDescriptor(input);
+                    return getGenericContainerClass(propertyDescriptor);
+                }
+            });
 
         public GenericsCacheEntry(Class<?> beanClass) {
             this.beanClass = beanClass;
@@ -121,13 +121,13 @@ public class GenericsIntrospectionServiceImpl implements GenericsIntrospectionSe
     }
 
     private final Map<Class<?>, GenericsCacheEntry> cache = new MapMaker().weakKeys().softValues()
-            .makeComputingMap(new Function<Class<?>, GenericsCacheEntry>() {
-                public GenericsCacheEntry apply(java.lang.Class<?> input) {
-                    return new GenericsCacheEntry(input);
-                }
+        .makeComputingMap(new Function<Class<?>, GenericsCacheEntry>() {
+            public GenericsCacheEntry apply(java.lang.Class<?> input) {
+                return new GenericsCacheEntry(input);
+            }
 
-                ;
-            });
+            ;
+        });
 
     private Class<?> getGenericCollectionType(FacesContext context, Object base, String propertyName) {
         Class<?> genericPropertyClass = null;

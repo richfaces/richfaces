@@ -175,8 +175,8 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
 
                         if (LOGGER.isDebugEnabled()) {
                             LOGGER.debug(new MessageFormat(
-                                    "Storing {0} resource in cache until {1,date,dd MMM yyyy HH:mm:ss zzz}", Locale.US)
-                                    .format(new Object[] { data.getResourceKey(), cacheExpirationDate }));
+                                "Storing {0} resource in cache until {1,date,dd MMM yyyy HH:mm:ss zzz}", Locale.US)
+                                .format(new Object[] { data.getResourceKey(), cacheExpirationDate }));
                         }
 
                         cache.put(data.getResourceKey(), cachedResource, cacheExpirationDate);

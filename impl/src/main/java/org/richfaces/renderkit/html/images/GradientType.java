@@ -99,7 +99,7 @@ public enum GradientType {
         }
     };
     private static final BiColor WHITE = new BiColor(new Color(0xff, 0xff, 0xff, (int) (0.65f * 0xff)), new Color(0xff, 0xff,
-            0xff, (int) (0.20f * 0xff)));
+        0xff, (int) (0.20f * 0xff)));
 
     public static final GradientType getByParameter(String string) {
         if ((string == null) || (string.length() == 0)) {

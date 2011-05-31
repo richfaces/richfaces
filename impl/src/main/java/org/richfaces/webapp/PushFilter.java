@@ -91,7 +91,7 @@ public class PushFilter implements Filter {
 
     public void init(FilterConfig filterConfig) throws ServletException {
         PushContext handlerProvider = (PushContext) filterConfig.getServletContext()
-                .getAttribute(PushContext.INSTANCE_KEY_NAME);
+            .getAttribute(PushContext.INSTANCE_KEY_NAME);
 
         if (handlerProvider != null) {
             logPushFilterWarning(filterConfig.getServletContext());
@@ -115,13 +115,13 @@ public class PushFilter implements Filter {
     }
 
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
-            ServletException {
+        ServletException {
         if (pushServlet != null && request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
             HttpServletRequest httpReq = (HttpServletRequest) request;
             HttpServletResponse httpResp = (HttpServletResponse) response;
 
             if ("GET".equals(httpReq.getMethod()) && httpReq.getQueryString() != null
-                    && httpReq.getQueryString().contains("__richfacesPushAsync")) {
+                && httpReq.getQueryString().contains("__richfacesPushAsync")) {
                 pushServlet.doGet(httpReq, httpResp);
                 return;
             }

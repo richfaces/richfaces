@@ -152,7 +152,7 @@ public final class VersionBean {
                             }
                         } catch (IOException e) {
                             LOGGER.error(MessageFormat.format("Error reading META-INF/MANIFEST.MF file: {0}", e.getMessage()),
-                                    e);
+                                e);
                         } finally {
                             if (jis != null) {
                                 try {

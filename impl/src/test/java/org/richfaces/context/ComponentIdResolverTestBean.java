@@ -42,7 +42,7 @@ public class ComponentIdResolverTestBean {
         }
 
         public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
-                String metaComponentId) {
+            String metaComponentId) {
 
             return null;
         }
@@ -59,7 +59,7 @@ public class ComponentIdResolverTestBean {
         }
 
         public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
-                String metaComponentId) {
+            String metaComponentId) {
 
             if (ComponentIdResolverTest.META_COMPONENT_ID.equals(metaComponentId)) {
                 return AjaxConstants.ALL;

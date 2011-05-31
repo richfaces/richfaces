@@ -324,7 +324,7 @@ public class URL64Codec implements BinaryEncoder, BinaryDecoder {
             // we also add a separator to the end of the final chunk.
             if (chunksSoFar < nbrChunks) {
                 System.arraycopy(CHUNK_SEPARATOR, 0, encodedData, encodedDataLength - CHUNK_SEPARATOR.length,
-                        CHUNK_SEPARATOR.length);
+                    CHUNK_SEPARATOR.length);
             }
         }
 

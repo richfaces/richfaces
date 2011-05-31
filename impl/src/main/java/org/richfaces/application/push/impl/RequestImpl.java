@@ -64,7 +64,7 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
     public boolean isPolling() {
         HttpServletRequest req = meteor.getAtmosphereResource().getRequest();
         boolean isWebsocket = req.getAttribute(WebSocketSupport.WEBSOCKET_SUSPEND) != null
-                || req.getAttribute(WebSocketSupport.WEBSOCKET_RESUME) != null;
+            || req.getAttribute(WebSocketSupport.WEBSOCKET_RESUME) != null;
 
         // TODO how to detect non-polling transports?
         return !isWebsocket;

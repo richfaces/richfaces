@@ -17,7 +17,7 @@ public abstract class ResourceRenderer extends Renderer {
     }
 
     protected void encodeDependentResources(FacesContext context, UIComponent component, Collection<Object> scripts)
-            throws IOException {
+        throws IOException {
         for (Object script : scripts) {
             if (script instanceof ResourceLibrary) {
                 ResourceLibrary library = (ResourceLibrary) script;

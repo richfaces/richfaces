@@ -81,11 +81,11 @@ public class IdParserTest {
         }
 
         assertArrayEquals(new Node[] { new Node("form"), new Node("table"), new Node("", "rows"), new Node("@row") },
-                parse("form:table:@rows():@row"));
+            parse("form:table:@rows():@row"));
         assertArrayEquals(new Node[] { new Node("form"), new Node("table"), new Node("12", "rows") },
-                parse("form:table:@rows(12)"));
+            parse("form:table:@rows(12)"));
         assertArrayEquals(new Node[] { new Node("form"), new Node("table"), new Node("", "rows"), new Node("subtable") },
-                parse("form:table:@rows():subtable"));
+            parse("form:table:@rows():subtable"));
 
         assertArrayEquals(new Node[] { new Node("form"), new Node("table"), new Node("12", "rows"), new Node("subtable"),
                 new Node("a", "rows"), new Node("cell") }, parse("form:table:@rows(12):subtable:@rows(a):cell"));

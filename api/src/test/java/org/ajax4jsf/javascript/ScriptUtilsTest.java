@@ -210,7 +210,7 @@ public class ScriptUtilsTest extends TestCase {
         Bean[] obj = { new Bean(1, true, "foo"), new Bean(2, false, "bar") };
 
         assertEquals("[{\"bool\":true,\"foo\":\"foo\",\"integer\":1} ,{\"bool\":false,\"foo\":\"bar\",\"integer\":2} ] ",
-                ScriptUtils.toScript(obj));
+            ScriptUtils.toScript(obj));
     }
 
     /**
@@ -221,7 +221,7 @@ public class ScriptUtilsTest extends TestCase {
         List<Bean> obj = Arrays.asList(array);
 
         assertEquals("[{\"bool\":true,\"foo\":\"foo\",\"integer\":1} ,{\"bool\":false,\"foo\":\"bar\",\"integer\":2} ] ",
-                ScriptUtils.toScript(obj));
+            ScriptUtils.toScript(obj));
     }
 
     /**
@@ -403,7 +403,7 @@ public class ScriptUtilsTest extends TestCase {
         ReferencedBean child = new ReferencedBean("child", parent);
 
         assertEquals(dehydrate("{\"name\": \"child\", \"parent\": {\"name\": \"parent\", \"reference\": null}}"),
-                dehydrate(ScriptUtils.toScript(child)));
+            dehydrate(ScriptUtils.toScript(child)));
     }
 
     public void testCircularReferenceViaProperty() throws Exception {
@@ -413,7 +413,7 @@ public class ScriptUtilsTest extends TestCase {
         parent.setReference(child);
 
         assertEquals(dehydrate("{\"name\": \"parent\", \"reference\": {\"name\": \"child\", \"parent\": null}}"),
-                dehydrate(ScriptUtils.toScript(parent)));
+            dehydrate(ScriptUtils.toScript(parent)));
     }
 
     public void testCircularReferenceViaArray() throws Exception {
@@ -423,7 +423,7 @@ public class ScriptUtilsTest extends TestCase {
         parent.setReference(new Object[] { child });
 
         assertEquals(dehydrate("{\"name\": \"parent\", \"reference\": [{\"name\": \"child\", \"parent\": null}]}"),
-                dehydrate(ScriptUtils.toScript(parent)));
+            dehydrate(ScriptUtils.toScript(parent)));
     }
 
     public void testCircularReferenceViaCollection() throws Exception {
@@ -435,7 +435,7 @@ public class ScriptUtilsTest extends TestCase {
         parent.setReference(set);
 
         assertEquals(dehydrate("{\"name\": \"parent\", \"reference\": [{\"name\": \"child\", \"parent\": null}]}"),
-                dehydrate(ScriptUtils.toScript(parent)));
+            dehydrate(ScriptUtils.toScript(parent)));
     }
 
     public void testCircularReferenceViaMap() throws Exception {
@@ -447,7 +447,7 @@ public class ScriptUtilsTest extends TestCase {
         parent.setReference(map);
 
         assertEquals(dehydrate("{\"name\": \"parent\", \"reference\": {\"key\": {\"name\": \"child\", \"parent\": null}}}"),
-                dehydrate(ScriptUtils.toScript(parent)));
+            dehydrate(ScriptUtils.toScript(parent)));
     }
 
     @Test

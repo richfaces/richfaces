@@ -44,7 +44,7 @@ public class JBossCacheCacheFactory implements CacheFactory {
     private void setupMaxSizeEviction(FacesContext facesContext, Cache<String, Object> cache) {
         EvictionConfig evictionConfig = cache.getConfiguration().getEvictionConfig();
         EvictionAlgorithmConfig evictionAlgorithmConfig = evictionConfig.getDefaultEvictionRegionConfig()
-                .getEvictionAlgorithmConfig();
+            .getEvictionAlgorithmConfig();
 
         if (evictionAlgorithmConfig instanceof EvictionAlgorithmConfigBase) {
             EvictionAlgorithmConfigBase baseEvicitonConfig = (EvictionAlgorithmConfigBase) evictionAlgorithmConfig;

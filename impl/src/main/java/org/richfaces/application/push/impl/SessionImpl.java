@@ -194,7 +194,7 @@ public class SessionImpl implements Session, DestroyableSession {
                         errorMessage = e.getMessage();
                     } else {
                         errorMessage = MessageFormat.format("Unknown error connecting to ''{0}'' topic",
-                                topicKey.getTopicAddress());
+                            topicKey.getTopicAddress());
                     }
                 }
             }

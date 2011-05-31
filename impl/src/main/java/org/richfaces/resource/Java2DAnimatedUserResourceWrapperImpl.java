@@ -60,7 +60,7 @@ public class Java2DAnimatedUserResourceWrapperImpl extends Java2DUserResourceWra
         }
 
         throw new IllegalArgumentException(MessageFormat.format("Cannot find sequence-capable image writer for {0} format",
-                imageType.getFormatName()));
+            imageType.getFormatName()));
     }
 
     private static Node getOrCreateChild(Node root, String name) {
@@ -83,7 +83,7 @@ public class Java2DAnimatedUserResourceWrapperImpl extends Java2DUserResourceWra
     private static void checkSupportedFormat(ImageType imageType) {
         if (imageType != ImageType.GIF) {
             throw new IllegalArgumentException(MessageFormat.format("Image format {0} is not supported",
-                    imageType.getFormatName()));
+                imageType.getFormatName()));
         }
     }
 
@@ -109,7 +109,7 @@ public class Java2DAnimatedUserResourceWrapperImpl extends Java2DUserResourceWra
 
             ImageWriteParam defaultImageWriteParam = imageWriter.getDefaultWriteParam();
             IIOMetadata imageMetaData = imageWriter.getDefaultImageMetadata(
-                    ImageTypeSpecifier.createFromBufferedImageType(BufferedImage.TYPE_INT_RGB), defaultImageWriteParam);
+                ImageTypeSpecifier.createFromBufferedImageType(BufferedImage.TYPE_INT_RGB), defaultImageWriteParam);
             String metaFormatName = imageMetaData.getNativeMetadataFormatName();
             Node root = imageMetaData.getAsTree(metaFormatName);
             IIOMetadataNode graphicsControlExtensionNode = (IIOMetadataNode) getOrCreateChild(root, "GraphicControlExtension");

@@ -72,7 +72,7 @@ final class PropertyUtils {
 
         if (readMethod == null) {
             throw new NoSuchMethodException(MessageFormat.format("Read method for property ''{0}'' not found",
-                    descriptor.getName()));
+                descriptor.getName()));
         }
 
         try {

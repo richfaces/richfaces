@@ -104,7 +104,7 @@ public final class Util {
     private static final String QUESTION_SIGN = "?";
     private static final String EQUALS_SIGN = "=";
     private static final Pattern CHARSET_IN_CONTENT_TYPE_PATTERN = Pattern.compile(";\\s*charset\\s*=\\s*([^\\s;]+)",
-            Pattern.CASE_INSENSITIVE);
+        Pattern.CASE_INSENSITIVE);
 
     public static final class NamingContainerDataHolder {
         public static final char SEPARATOR_CHAR = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());

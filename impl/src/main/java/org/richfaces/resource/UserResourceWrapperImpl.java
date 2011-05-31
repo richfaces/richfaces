@@ -72,9 +72,9 @@ public class UserResourceWrapperImpl extends BaseResourceWrapper<UserResource> i
             FacesContext originalFacesContext = FacesContext.getCurrentInstance();
 
             ExternalContextWrapperImpl externalContextWrapper = new ExternalContextWrapperImpl(
-                    originalFacesContext.getExternalContext(), charset);
+                originalFacesContext.getExternalContext(), charset);
             FacesContextWrapperImpl facesContextWrapper = new FacesContextWrapperImpl(originalFacesContext,
-                    externalContextWrapper);
+                externalContextWrapper);
 
             setCurrentInstance(facesContextWrapper);
             return facesContextWrapper;

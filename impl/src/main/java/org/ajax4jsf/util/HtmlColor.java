@@ -76,7 +76,7 @@ public final class HtmlColor {
                 c = Color.decode(color.trim());
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException(Messages.getMessage(Messages.DECODE_COLOR_PARAMETER_ERROR, color,
-                        e.getMessage()));
+                    e.getMessage()));
             }
         }
 

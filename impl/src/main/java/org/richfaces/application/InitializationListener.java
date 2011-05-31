@@ -124,7 +124,7 @@ public class InitializationListener implements SystemEventListener {
                 AWTInitializer.initialize();
             } catch (NoClassDefFoundError e) {
                 LOGGER.warn(MessageFormat.format("There were problems loading class: {0} - AWTInitializer won't be run",
-                        e.getMessage()));
+                    e.getMessage()));
             }
         }
     }

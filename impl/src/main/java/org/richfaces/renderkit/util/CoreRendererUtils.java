@@ -71,7 +71,7 @@ public final class CoreRendererUtils {
             String metaComponentId = (String) facesContext.getAttributes().get(ExtendedVisitContext.META_COMPONENT_ID);
             if (metaComponentId != null) {
                 return component.getClientId(facesContext) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
-                        + metaComponentId;
+                    + metaComponentId;
             }
             return component.getClientId(facesContext);
         } else if (FORM.equals(id)) {

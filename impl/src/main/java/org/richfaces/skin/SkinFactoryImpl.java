@@ -112,7 +112,7 @@ public class SkinFactoryImpl extends AbstractSkinFactory {
      */
     protected Skin getSkinOrName(FacesContext context, boolean useBase) {
         Object skinObject = getConfigurationValue(context, useBase ? CoreConfiguration.Items.baseSkin
-                : CoreConfiguration.Items.skin);
+            : CoreConfiguration.Items.skin);
 
         Skin result = null;
 

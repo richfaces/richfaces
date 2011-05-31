@@ -91,7 +91,7 @@ public class UserResourcesTestCase {
 
     @DynamicUserResource
     public static final class SettingsOverridableResource extends BaseUserResource implements VersionedResource,
-            CacheableResource {
+        CacheableResource {
         public boolean isCacheable(FacesContext context) {
             return Boolean.TRUE.equals(context.getAttributes().get(CACHEABLE_OVERRIDE_KEY));
         }

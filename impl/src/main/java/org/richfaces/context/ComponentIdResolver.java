@@ -110,7 +110,7 @@ public final class ComponentIdResolver {
     }
 
     private static String substituteUnresolvedMetaComponentId(FacesContext context, UIComponent component,
-            String metaComponentId) {
+        String metaComponentId) {
         Iterator<MetaComponentResolver> iterator = createResolversChainIterator(component);
 
         while (iterator.hasNext()) {
@@ -168,12 +168,12 @@ public final class ComponentIdResolver {
     }
 
     private Collection<String> computeClientIds(FacesContext context, UIComponent topMatchComponent,
-            UIComponent bottomMatchComponent, String id) {
+        UIComponent bottomMatchComponent, String id) {
 
         Node[] nodes = IdParser.parse(id);
         if (!hasFunctionNodes(nodes)) {
             return Collections.singleton(EMPTY_STRING_JOINER.join(bottomMatchComponent.getClientId(facesContext),
-                    getMetaComponentId(id)));
+                getMetaComponentId(id)));
         } else {
             String topMatchClientId = topMatchComponent.getClientId(facesContext);
             Node[] topMatchNodes = IdParser.parse(topMatchClientId);
@@ -351,7 +351,7 @@ public final class ComponentIdResolver {
                 } else {
                     if (resolvedId != null) {
                         String predefinedMetaComponentId = CoreRendererUtils.INSTANCE.getPredefinedMetaComponentId(
-                                facesContext, bottomMatch, resolvedId);
+                            facesContext, bottomMatch, resolvedId);
 
                         if (predefinedMetaComponentId != null) {
                             resolvedId = predefinedMetaComponentId;

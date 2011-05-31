@@ -77,7 +77,7 @@ public class AnyComponentHandler extends ComponentHandler {
         TagAttribute componentType = attributes.get("componentType");
 
         return new ComponentConfigWrapper(getLiteralAttributeValue(componentType), getLiteralAttributeValue(rendererType),
-                config);
+            config);
     }
 
     private static String getLiteralAttributeValue(TagAttribute attr) {

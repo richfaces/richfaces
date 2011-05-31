@@ -45,7 +45,7 @@ final class RowsFunctionContextCallback implements ContextCallback {
         Converter rowKeyConverter = (Converter) target.getAttributes().get("rowKeyConverter");
 
         Collection<?> keys = (Collection<?>) context.getApplication().evaluateExpressionGet(context, "#{" + image + "}",
-                Object.class);
+            Object.class);
 
         if (keys == null) {
             return;

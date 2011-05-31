@@ -40,7 +40,7 @@ import org.richfaces.util.FastJoiner;
 public abstract class ExtendedVisitContext extends VisitContext {
     public static final String META_COMPONENT_ID = "org.richfaces.MetaComponentId";
     private static final FastJoiner META_COMPONENT_SEPARATOR_JOINER = FastJoiner
-            .on(MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR);
+        .on(MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR);
     private final FacesContext facesContext;
     private final ExtendedVisitContextMode visitMode;
 

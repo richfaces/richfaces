@@ -176,26 +176,26 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
     private final String username;
     private final String password;
     private final ConcurrentMap<String, JMSTopicContext> contextsMap = new MapMaker()
-            .makeComputingMap(new Function<String, JMSTopicContext>() {
-                public JMSTopicContext apply(String name) {
-                    JMSTopicContext topicContext = new JMSTopicContext(name);
+        .makeComputingMap(new Function<String, JMSTopicContext>() {
+            public JMSTopicContext apply(String name) {
+                JMSTopicContext topicContext = new JMSTopicContext(name);
+                try {
+                    topicContext.start();
+                } catch (Exception e) {
                     try {
-                        topicContext.start();
-                    } catch (Exception e) {
-                        try {
-                            topicContext.stop();
-                        } catch (Exception e1) {
-                            LOGGER.error(e1.getMessage(), e1);
-                        }
-
-                        throw new FacesException(e.getMessage(), e);
+                        topicContext.stop();
+                    } catch (Exception e1) {
+                        LOGGER.error(e1.getMessage(), e1);
                     }
-                    return topicContext;
+
+                    throw new FacesException(e.getMessage(), e);
                 }
-            });
+                return topicContext;
+            }
+        });
 
     public JMSTopicsContextImpl(ThreadFactory threadFactory, InitialContext initialContext, Name connectionFactoryName,
-            Name topicsNamespace, String username, String password) {
+        Name topicsNamespace, String username, String password) {
         super(threadFactory);
         this.initialContext = initialContext;
         this.connectionFactoryName = connectionFactoryName;

@@ -57,13 +57,13 @@ public class JSEncoder {
      */
     public boolean compile(char c) {
         if ((c == '\b') || (c == '\f') | (c == '\t') || (c == '\n') || (c == '\r') || (c == '"') || (c == '\\') || (c == '/')
-                || (c == ']') || // ] - to avoid conflicts in CDATA
-                (c == '<') || // - escape HTML markup characters
-                (c == '>') || // - HTML
-                (c == '&') || // - HTML
-                (c == '-') || // - HTML comments
-                (c < 0x20) || // See <http://www.w3.org/TR/REC-xml#charsets>
-                ((c > 0xd7ff) && (c < 0xe000)) || (c > 0xfffd) || (c > 0xff)) {
+            || (c == ']') || // ] - to avoid conflicts in CDATA
+            (c == '<') || // - escape HTML markup characters
+            (c == '>') || // - HTML
+            (c == '&') || // - HTML
+            (c == '-') || // - HTML comments
+            (c < 0x20) || // See <http://www.w3.org/TR/REC-xml#charsets>
+            ((c > 0xd7ff) && (c < 0xe000)) || (c > 0xfffd) || (c > 0xff)) {
             return false;
         }
 

@@ -79,8 +79,7 @@ public class QUnitTest {
 
             if (testNode.getAttribute("class").contains("fail")) {
                 sb.append(i).append(".  ")
-                        .append(testNode.<HtmlElement>getFirstByXPath("./strong").getFirstChild().getTextContent())
-                        .append("\n");
+                    .append(testNode.<HtmlElement>getFirstByXPath("./strong").getFirstChild().getTextContent()).append("\n");
 
                 int j = 1;
 
@@ -155,6 +154,6 @@ public class QUnitTest {
     @Test
     public void testBaseComponent() throws Exception {
         runTest(getClass().getClassLoader().getResource("javascript/richfaces-client-api.html"),
-                "?richfaces-base-component module");
+            "?richfaces-base-component module");
     }
 }

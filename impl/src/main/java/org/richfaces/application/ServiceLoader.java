@@ -192,7 +192,7 @@ public final class ServiceLoader {
     }
 
     private static <S> Class<? extends S> loadClass(Class<S> serviceClass, ClassLoader classLoader, String className)
-            throws ServiceException {
+        throws ServiceException {
         try {
             Class<?> implementationClass = classLoader.loadClass(className);
             if (serviceClass.isAssignableFrom(implementationClass)) {

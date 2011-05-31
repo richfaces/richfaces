@@ -38,7 +38,7 @@ import org.richfaces.util.Util;
  *
  */
 public abstract class BaseResourceWrapper<T> extends AbstractCacheableResource implements VersionedResource, StateHolder,
-        FacesWrapper<T> {
+    FacesWrapper<T> {
     private T resourceObject;
     private boolean cacheable;
     private boolean versioned;

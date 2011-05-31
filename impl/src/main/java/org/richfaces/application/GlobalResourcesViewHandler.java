@@ -86,9 +86,9 @@ public class GlobalResourcesViewHandler extends ViewHandlerWrapper {
             ConfigurationService configurationService = ServiceTracker.getService(ConfigurationService.class);
 
             boolean controls = configurationService.getBooleanValue(facesContext,
-                    CoreConfiguration.Items.standardControlsSkinning);
+                CoreConfiguration.Items.standardControlsSkinning);
             boolean classes = configurationService.getBooleanValue(facesContext,
-                    CoreConfiguration.Items.standardControlsSkinningClasses);
+                CoreConfiguration.Items.standardControlsSkinningClasses);
 
             if (controls && classes) {
                 return BOTH_SKINNING;
@@ -121,8 +121,7 @@ public class GlobalResourcesViewHandler extends ViewHandlerWrapper {
             ConfigurationService configurationService = ServiceTracker.getService(ConfigurationService.class);
 
             return configurationService.getBooleanValue(facesContext, CoreConfiguration.Items.standardControlsSkinning)
-                    || configurationService.getBooleanValue(facesContext,
-                            CoreConfiguration.Items.standardControlsSkinningClasses);
+                || configurationService.getBooleanValue(facesContext, CoreConfiguration.Items.standardControlsSkinningClasses);
         }
 
         private Object readResolve() throws ObjectStreamException {

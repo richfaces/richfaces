@@ -153,7 +153,7 @@ public final class ColorUtils {
     public static Color adjustBrightness(Color c, float difference) {
         if (difference < -1.0 || difference > 1.0) {
             throw new IllegalArgumentException("Difference parameter outside of expected range: "
-                    + "Difference parameter should be floating-point values between -1 and 1");
+                + "Difference parameter should be floating-point values between -1 and 1");
         }
 
         Color retVal = null;
@@ -180,7 +180,7 @@ public final class ColorUtils {
     public static Color adjustLightness(Color c, float difference) {
         if (difference < -1.0 || difference > 1.0) {
             throw new IllegalArgumentException("Difference parameter outside of expected range: "
-                    + "Difference parameter should be floating-point values between -1 and 1");
+                + "Difference parameter should be floating-point values between -1 and 1");
         }
 
         Color retVal = null;

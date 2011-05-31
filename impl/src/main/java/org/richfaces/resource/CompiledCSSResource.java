@@ -183,7 +183,7 @@ public class CompiledCSSResource extends AbstractCacheableResource implements St
 
         private void logException(CSSParseException e) {
             String formattedMessage = MessageFormat.format("Problem parsing ''{0}'' resource: {1}", getResourceLocator(),
-                    e.getMessage());
+                e.getMessage());
 
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug(formattedMessage, e);

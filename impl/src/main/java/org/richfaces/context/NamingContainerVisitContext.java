@@ -61,7 +61,7 @@ final class NamingContainerVisitContext extends ExtendedVisitContext {
     private UIComponent startingComponent;
 
     public NamingContainerVisitContext(FacesContext facesContext, ExtendedVisitContextMode visitMode, UIComponent component,
-            Collection<String> ids) {
+        Collection<String> ids) {
 
         super(facesContext, visitMode);
 

@@ -68,12 +68,12 @@ public class ConfigurationServiceImpl implements ConfigurationService {
             }
         } catch (Exception e) {
             throw new IllegalStateException(MessageFormat.format(
-                    "Cannot read @ConfigurationItem annotation from {0}.{1} because of {2}", enumKey.getClass().getName(),
-                    enumKey.name(), e.getMessage()));
+                "Cannot read @ConfigurationItem annotation from {0}.{1} because of {2}", enumKey.getClass().getName(),
+                enumKey.name(), e.getMessage()));
         }
 
         throw new IllegalStateException(MessageFormat.format("Annotation @ConfigurationItem is not set at {0}.{1}", enumKey
-                .getClass().getName(), enumKey.name()));
+            .getClass().getName(), enumKey.name()));
     }
 
     private <T> T coerce(FacesContext context, Object value, Class<T> targetType) {
@@ -101,11 +101,11 @@ public class ConfigurationServiceImpl implements ConfigurationService {
         }
 
         throw new IllegalArgumentException(MessageFormat.format("Cannot convert {0} to object of {1} type", value,
-                targetType.getName()));
+            targetType.getName()));
     }
 
     protected ValueExpressionHolder createValueExpressionHolder(FacesContext context, ValueExpression expression,
-            String defaultValueString, Class<?> returnType) {
+        String defaultValueString, Class<?> returnType) {
         Object defaultValue = null;
 
         if (expression == null || !expression.isLiteralText()) {
@@ -194,7 +194,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
     }
 
     private ValueExpression createValueExpression(FacesContext context, String parameterValue, boolean literal,
-            Class<?> targetType) {
+        Class<?> targetType) {
 
         ValueExpression result = null;
 
@@ -258,7 +258,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
                         }
 
                         ValueExpressionHolder siblingHolder = createValueExpressionHolder(facesContext, expression,
-                                item.defaultValue(), returnType);
+                            item.defaultValue(), returnType);
 
                         itemsMap.put(nextBundleKey, siblingHolder);
 

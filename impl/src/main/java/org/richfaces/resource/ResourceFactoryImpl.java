@@ -125,7 +125,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
         this.defaultHandler = defaultHandler;
 
         this.externalStaticResourceFactories = readMappings(EXTERNAL_MAPPINGS_FACTORY_PRODUCER,
-                ResourceFactory.STATIC_RESOURCE_MAPPINGS);
+            ResourceFactory.STATIC_RESOURCE_MAPPINGS);
         this.mappedResourceDataMap = readMappings(DYNAMIC_MAPPINGS_DATA_PRODUCER, ResourceFactory.DYNAMIC_RESOURCE_MAPPINGS);
     }
 
@@ -171,7 +171,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
 
     private Resource createCompiledCSSResource(ResourceKey resourceKey) {
         Resource sourceResource = defaultHandler.createResource(resourceKey.getResourceName(), resourceKey.getLibraryName(),
-                "text/plain");
+            "text/plain");
         if (sourceResource != null) {
             return new CompiledCSSResource(sourceResource);
         }
@@ -217,14 +217,16 @@ public class ResourceFactoryImpl implements ResourceFactory {
         if (!checkResult) {
             DynamicResource dynamicResource = loadedClass.getAnnotation(DynamicResource.class);
             if (dynamicResource != null) {
-                LOGGER.debug(MessageFormat.format("Dynamic resource annotation is present on resource class {0}", resourceName));
+                LOGGER
+                    .debug(MessageFormat.format("Dynamic resource annotation is present on resource class {0}", resourceName));
 
                 checkResult = true;
             }
         }
 
         if (!checkResult) {
-            LOGGER.debug(MessageFormat.format("Dynamic resource annotation is not present on resource class {0}", resourceName));
+            LOGGER
+                .debug(MessageFormat.format("Dynamic resource annotation is not present on resource class {0}", resourceName));
 
             checkResult = checkResourceMarker(resourceName);
         }
@@ -258,7 +260,8 @@ public class ResourceFactoryImpl implements ResourceFactory {
 
             checkResult = true;
         } else {
-            LOGGER.debug(MessageFormat.format("Dynamic resource annotation is not present on resource class {0}", resourceName));
+            LOGGER
+                .debug(MessageFormat.format("Dynamic resource annotation is not present on resource class {0}", resourceName));
         }
 
         if (!checkResult) {
@@ -368,7 +371,7 @@ public class ResourceFactoryImpl implements ResourceFactory {
 
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug(MessageFormat.format("Client requested {0} version of resource, server has {1} version",
-                        String.valueOf(requestedVersion), String.valueOf(existingVersion)));
+                    String.valueOf(requestedVersion), String.valueOf(existingVersion)));
             }
 
             if ((existingVersion != null) && (requestedVersion != null) && !existingVersion.equals(requestedVersion)) {

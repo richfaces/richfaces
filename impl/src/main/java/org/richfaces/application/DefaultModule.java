@@ -31,7 +31,7 @@ public class DefaultModule implements Module {
         factory.setInstance(MessageFactory.class, new MessageFactoryImpl(new BundleLoader()));
         factory.setInstance(ResourceLibraryFactory.class, new ResourceLibraryFactoryImpl());
         factory.setInstance(PushContextFactory.class,
-                ServiceLoader.loadService(PushContextFactory.class, PushContextFactoryImpl.class));
+            ServiceLoader.loadService(PushContextFactory.class, PushContextFactoryImpl.class));
         factory.setInstance(JavaScriptService.class, new JavaScriptServiceImpl());
         factory.setInstance(GenericsIntrospectionService.class, new GenericsIntrospectionServiceImpl());
     }

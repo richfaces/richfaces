@@ -184,7 +184,7 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
 
     private boolean isProcessedExecutePhase(PhaseId phaseId) {
         return phaseId == PhaseId.APPLY_REQUEST_VALUES || phaseId == PhaseId.PROCESS_VALIDATIONS
-                || phaseId == PhaseId.UPDATE_MODEL_VALUES;
+            || phaseId == PhaseId.UPDATE_MODEL_VALUES;
     }
 
     @Override
@@ -264,7 +264,7 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
             // Skip this processing if "none" is specified in the render list,
             // or there were no render phase client ids.
             if ((phaseIds != null && !phaseIds.isEmpty())
-                    || (!limitRender && PartialViewContextAjaxOutputTracker.hasNestedAjaxOutputs(viewRoot))) {
+                || (!limitRender && PartialViewContextAjaxOutputTracker.hasNestedAjaxOutputs(viewRoot))) {
 
                 EnumSet<VisitHint> hints = EnumSet.of(VisitHint.SKIP_UNRENDERED);
                 VisitContext visitContext = new RenderExtendedVisitContext(facesContext, phaseIds, hints, limitRender);

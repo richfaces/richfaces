@@ -89,7 +89,7 @@ public class MessageFactoryImplementationTest {
 
         // {1}: Could not convert ''{0}'' to a string.
         FacesMessage stringConverterMessage = messageFactory.createMessage(facesEnvironment.getFacesContext(),
-                Messages.CONVERTER_STRING, "something", "Message");
+            Messages.CONVERTER_STRING, "something", "Message");
 
         assertNotNull(stringConverterMessage);
         assertEquals(FacesMessage.SEVERITY_INFO, stringConverterMessage.getSeverity());
@@ -100,12 +100,12 @@ public class MessageFactoryImplementationTest {
         // javax.faces.converter.EnumConverter.ENUM_detail={2}: ''{0}'' must be convertible to an enum from the enum that
         // contains the constant ''{1}''.
         FacesMessage longConverterMessage = messageFactory.createMessage(facesEnvironment.getFacesContext(),
-                FacesMessage.SEVERITY_ERROR, Messages.ENUM_CONVERTER_ENUM, "field", "anotherField", "Failed");
+            FacesMessage.SEVERITY_ERROR, Messages.ENUM_CONVERTER_ENUM, "field", "anotherField", "Failed");
         assertNotNull(longConverterMessage);
         assertEquals(FacesMessage.SEVERITY_ERROR, longConverterMessage.getSeverity());
         assertEquals("Failed: 'field' must be convertible to an enum.", longConverterMessage.getSummary());
         assertEquals("Failed: 'field' must be convertible to an enum from the enum that contains the constant 'anotherField'.",
-                longConverterMessage.getDetail());
+            longConverterMessage.getDetail());
     }
 
     @Test
@@ -114,12 +114,12 @@ public class MessageFactoryImplementationTest {
         expect(mockViewRoot.getLocale()).andStubReturn(new Locale("ru", "RU"));
         expect(facesEnvironment.getFacesContext().getViewRoot()).andStubReturn(mockViewRoot);
         expect(facesEnvironment.getApplication().getMessageBundle()).andStubReturn(
-                "org.richfaces.application.MessageFactoryImplTest");
+            "org.richfaces.application.MessageFactoryImplTest");
         facesEnvironment.replay();
 
         // {1}: ''{0}'' ne konvertiruyetsia v stroku.
         FacesMessage stringConverterMessage = messageFactory.createMessage(facesEnvironment.getFacesContext(),
-                Messages.CONVERTER_STRING, "something", "Message");
+            Messages.CONVERTER_STRING, "something", "Message");
 
         assertNotNull(stringConverterMessage);
         assertEquals(FacesMessage.SEVERITY_INFO, stringConverterMessage.getSeverity());
@@ -130,16 +130,16 @@ public class MessageFactoryImplementationTest {
         // javax.faces.converter.EnumConverter.ENUM_detail={2}: ''{0}'' dolzhno konvertirovat''sia v enum iz enum s konstantoj
         // ''{1}''.
         FacesMessage longConverterMessage = messageFactory.createMessage(facesEnvironment.getFacesContext(),
-                FacesMessage.SEVERITY_ERROR, Messages.ENUM_CONVERTER_ENUM, "field", "anotherField", "Failed");
+            FacesMessage.SEVERITY_ERROR, Messages.ENUM_CONVERTER_ENUM, "field", "anotherField", "Failed");
         assertNotNull(longConverterMessage);
         assertEquals(FacesMessage.SEVERITY_ERROR, longConverterMessage.getSeverity());
         assertEquals("Failed: 'field' dolzhno konvertirovat'sia v enum.", longConverterMessage.getSummary());
         assertEquals("Failed: 'field' dolzhno konvertirovat'sia v enum iz enum s konstantoj 'anotherField'.",
-                longConverterMessage.getDetail());
+            longConverterMessage.getDetail());
 
         // javax.faces.component.UIInput.CONVERSION={0}: Conversion error occurred.
         FacesMessage inputConversionMessage = messageFactory.createMessage(facesEnvironment.getFacesContext(),
-                Messages.UIINPUT_CONVERSION, "Failure message");
+            Messages.UIINPUT_CONVERSION, "Failure message");
         assertNotNull(inputConversionMessage);
         assertEquals(FacesMessage.SEVERITY_INFO, inputConversionMessage.getSeverity());
         assertEquals("Failure message: Conversion error occurred.", inputConversionMessage.getSummary());

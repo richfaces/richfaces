@@ -11,7 +11,7 @@ import javax.faces.context.FacesContext;
  */
 public interface ResourceCodec {
     String encodeResourceRequestPath(FacesContext context, String libraryName, String resourceName, Object resourceData,
-            String resourceVersion);
+        String resourceVersion);
 
     String encodeJSFMapping(FacesContext context, String resourcePath);
 

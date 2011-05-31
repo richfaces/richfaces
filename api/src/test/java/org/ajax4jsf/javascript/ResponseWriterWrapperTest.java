@@ -128,7 +128,7 @@ public class ResponseWriterWrapperTest extends TestCase {
                         for (int i = 0; i < length; i++) {
                             if (argChars[i] != cs[i]) {
                                 failureMessage = "Char at offset [" + i + "] mismath: expected " + cs[i] + " but was "
-                                        + argChars[i];
+                                    + argChars[i];
 
                                 break;
                             }

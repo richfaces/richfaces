@@ -371,7 +371,7 @@ public class SAXResponseWriter extends ResponseWriter {
 
         void writeAttribute(String name, Object value, String property) throws IOException {
             attributes.addAttribute(getNamespaceURI(), name, name, "id".equalsIgnoreCase(name) ? "ID" : "CDATA",
-                    value.toString());
+                value.toString());
         }
 
         void writeURIAttribute(String name, Object value, String property) throws IOException {

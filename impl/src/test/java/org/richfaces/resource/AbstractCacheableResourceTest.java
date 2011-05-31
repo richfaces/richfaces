@@ -153,7 +153,7 @@ public class AbstractCacheableResourceTest extends AbstractFacesTest {
         Date afterBaseDate = new Date(baseDate.getTime() + MILLISECONDS_IN_HOUR);
 
         this.connection
-                .addRequestHeaders(Collections.singletonMap("If-Modified-Since", RFC1123_DATE_FORMATTER.format(baseDate)));
+            .addRequestHeaders(Collections.singletonMap("If-Modified-Since", RFC1123_DATE_FORMATTER.format(baseDate)));
 
         MockAbstractResource defaultResource = new MockAbstractResource();
 
@@ -175,7 +175,7 @@ public class AbstractCacheableResourceTest extends AbstractFacesTest {
         BooleanAnswer lastModifiedMatches = new BooleanAnswer();
         BooleanAnswer cacheable = new BooleanAnswer();
         AbstractCacheableResource resource = EasyMock.createNiceMock(AbstractTestResource.class,
-                AbstractTestResource.class.getDeclaredMethods());
+            AbstractTestResource.class.getDeclaredMethods());
 
         EasyMock.expect(resource.isCacheable(facesContext)).andStubAnswer(cacheable);
 

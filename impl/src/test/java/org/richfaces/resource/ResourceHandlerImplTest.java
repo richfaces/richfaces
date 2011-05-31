@@ -122,7 +122,7 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
 
     public void testReadCacheableResource() throws Exception {
         WebRequestSettings webRequestSettings = new WebRequestSettings(new URL(
-                "http://localhost/rfRes/org.richfaces.resource.CacheableResourceImpl.jsf"));
+            "http://localhost/rfRes/org.richfaces.resource.CacheableResourceImpl.jsf"));
 
         webRequestSettings.getAdditionalHeaders().put(ECHO_HEADER, "ping?");
 
@@ -135,7 +135,7 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
         assertEquals("max-age=1209600", webResponse.getResponseHeaderValue("Cache-Control"));
         assertTrue(webResponse.getResponseHeaderValue("Content-Type").startsWith("text/plain"));
         assertEquals("W/\"" + "ping?".length() + "-" + lastModified.getTime() + "\"",
-                webResponse.getResponseHeaderValue("ETag"));
+            webResponse.getResponseHeaderValue("ETag"));
         assertNull(webResponse.getResponseHeaderValue("Pragma"));
         assertEquals("ping?", webResponse.getContentAsString("US-ASCII"));
         webRequestSettings.getAdditionalHeaders().put(ECHO_HEADER, "pong");
@@ -153,7 +153,7 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
 
     public void testReadNonCacheableResource() throws Exception {
         WebRequestSettings webRequestSettings = new WebRequestSettings(new URL(
-                "http://localhost/rfRes/org.richfaces.resource.NonCacheableResourceImpl.jsf"));
+            "http://localhost/rfRes/org.richfaces.resource.NonCacheableResourceImpl.jsf"));
 
         webRequestSettings.getAdditionalHeaders().put(ECHO_HEADER, "ping?");
 
@@ -190,7 +190,7 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
 
     public void testDefaultMojarraResource() throws Exception {
         WebRequestSettings mojarraResourceSettings = new WebRequestSettings(new URL(
-                "http://localhost/javax.faces.resource/defaultResourceHandlerResource.js.jsf"));
+            "http://localhost/javax.faces.resource/defaultResourceHandlerResource.js.jsf"));
         WebResponse mojarraResourceNameResponse = webClient.loadWebResponse(mojarraResourceSettings);
 
         assertEquals(HttpServletResponse.SC_OK, mojarraResourceNameResponse.getStatusCode());
@@ -201,19 +201,19 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
 
         assertNotNull(Class.forName("org.richfaces.resource.MarkerFileResourceImpl", true, contextClassLoader));
         assertNotNull(contextClassLoader
-                .getResource("META-INF/org.richfaces.resource.MarkerFileResourceImpl.resource.properties"));
+            .getResource("META-INF/org.richfaces.resource.MarkerFileResourceImpl.resource.properties"));
 
         WebRequestSettings markerFileRequestSettings = new WebRequestSettings(new URL(
-                "http://localhost/rfRes/org.richfaces.resource.MarkerFileResourceImpl.jsf"));
+            "http://localhost/rfRes/org.richfaces.resource.MarkerFileResourceImpl.jsf"));
         WebResponse markerFileResponse = webClient.loadWebResponse(markerFileRequestSettings);
 
         assertEquals(HttpServletResponse.SC_OK, markerFileResponse.getStatusCode());
         assertNotNull(Class.forName("org.richfaces.resource.NoMarkerFileResourceImpl", true, contextClassLoader));
         assertNull(contextClassLoader
-                .getResource("META-INF/org.richfaces.resource.NoMarkerFileResourceImpl.resource.properties"));
+            .getResource("META-INF/org.richfaces.resource.NoMarkerFileResourceImpl.resource.properties"));
 
         WebRequestSettings noMarkerFileRequestSettings = new WebRequestSettings(new URL(
-                "http://localhost/rfRes/org.richfaces.resource.NoMarkerFileResourceImpl.jsf"));
+            "http://localhost/rfRes/org.richfaces.resource.NoMarkerFileResourceImpl.jsf"));
         WebResponse noMarkerResponse = webClient.loadWebResponse(noMarkerFileRequestSettings);
 
         assertEquals(HttpServletResponse.SC_NOT_FOUND, noMarkerResponse.getStatusCode());
@@ -233,7 +233,7 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
         expect(resourceCodecData.getResourceKey()).andStubReturn("StateHolderResource.jsf?db=1");
 
         EasyMock.expect(mockedCodec.decodeResource(EasyMock.<FacesContext>notNull(), EasyMock.eq("StateHolderResource")))
-                .andReturn(resourceCodecData);
+            .andReturn(resourceCodecData);
         EasyMock.replay(mockedCodec, resourceCodecData, mockCache);
 
         ServicesFactoryImpl injector = new ServicesFactoryImpl();
@@ -259,16 +259,16 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
 
     public void testVersionedResource() throws Exception {
         WebRequestSettings settings = new WebRequestSettings(new URL(
-                "http://localhost/rfRes/org.richfaces.resource.VersionedResourceImpl.jsf"));
+            "http://localhost/rfRes/org.richfaces.resource.VersionedResourceImpl.jsf"));
         WebResponse resourceResponse = webClient.loadWebResponse(settings);
 
         assertEquals(HttpServletResponse.SC_OK, resourceResponse.getStatusCode());
         settings = new WebRequestSettings(new URL(
-                "http://localhost/rfRes/org.richfaces.resource.VersionedResourceImpl.jsf?v=1_0_2"));
+            "http://localhost/rfRes/org.richfaces.resource.VersionedResourceImpl.jsf?v=1_0_2"));
         resourceResponse = webClient.loadWebResponse(settings);
         assertEquals(HttpServletResponse.SC_OK, resourceResponse.getStatusCode());
         settings = new WebRequestSettings(new URL(
-                "http://localhost/rfRes/org.richfaces.resource.VersionedResourceImpl.jsf?v=1_0_3"));
+            "http://localhost/rfRes/org.richfaces.resource.VersionedResourceImpl.jsf?v=1_0_3"));
         resourceResponse = webClient.loadWebResponse(settings);
         assertEquals(HttpServletResponse.SC_NOT_FOUND, resourceResponse.getStatusCode());
     }

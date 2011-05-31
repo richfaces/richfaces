@@ -20,7 +20,6 @@
  */
 package org.richfaces.cache;
 
-
 /**
  * @author Nick Belaevski
  * @since 4.0

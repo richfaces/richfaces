@@ -62,7 +62,7 @@ public final class CoreAjaxRendererUtils {
     }
 
     private static void startExtensionElementIfNecessary(PartialResponseWriter partialResponseWriter,
-            Map<String, String> attributes, boolean[] writingState) throws IOException {
+        Map<String, String> attributes, boolean[] writingState) throws IOException {
 
         if (!writingState[0]) {
             writingState[0] = true;
@@ -72,7 +72,7 @@ public final class CoreAjaxRendererUtils {
     }
 
     private static void endExtensionElementIfNecessary(PartialResponseWriter partialResponseWriter, boolean[] writingState)
-            throws IOException {
+        throws IOException {
 
         if (writingState[0]) {
             writingState[0] = false;
@@ -85,7 +85,7 @@ public final class CoreAjaxRendererUtils {
         ExtendedPartialViewContext partialContext = ExtendedPartialViewContext.getInstance(facesContext);
 
         Map<String, String> attributes = Collections.singletonMap(HtmlConstants.ID_ATTRIBUTE, facesContext.getExternalContext()
-                .encodeNamespace(EXTENSION_ID));
+            .encodeNamespace(EXTENSION_ID));
         PartialResponseWriter writer = facesContext.getPartialViewContext().getPartialResponseWriter();
         boolean[] writingState = new boolean[] { false };
 

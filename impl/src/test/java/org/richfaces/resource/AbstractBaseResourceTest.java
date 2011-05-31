@@ -131,32 +131,32 @@ public class AbstractBaseResourceTest extends AbstractFacesTest {
         final ResourceCodec resourceCodec = EasyMock.createMock(ResourceCodec.class);
 
         EasyMock.expect(
-                resourceCodec.encodeResourceRequestPath(EasyMock.same(facesContext), EasyMock.eq("custom.library"),
-                        EasyMock.eq("org.richfaces.resource.MockStateAwareResource"), EasyMock.aryEq(resourceState.getBytes()),
-                        EasyMock.eq("4_0_alpha"))).andReturn("/rfRes/Resource0/4_0_alpha/data?l=custom.library");
+            resourceCodec.encodeResourceRequestPath(EasyMock.same(facesContext), EasyMock.eq("custom.library"),
+                EasyMock.eq("org.richfaces.resource.MockStateAwareResource"), EasyMock.aryEq(resourceState.getBytes()),
+                EasyMock.eq("4_0_alpha"))).andReturn("/rfRes/Resource0/4_0_alpha/data?l=custom.library");
 
         EasyMock.expect(
-                resourceCodec.encodeJSFMapping(EasyMock.same(facesContext),
-                        EasyMock.eq("/rfRes/Resource0/4_0_alpha/data?l=custom.library"))).andReturn(
-                "/rfRes/Resource0/4_0_alpha/data.jsf?l=custom.library");
+            resourceCodec.encodeJSFMapping(EasyMock.same(facesContext),
+                EasyMock.eq("/rfRes/Resource0/4_0_alpha/data?l=custom.library"))).andReturn(
+            "/rfRes/Resource0/4_0_alpha/data.jsf?l=custom.library");
 
         EasyMock.expect(
-                resourceCodec.encodeResourceRequestPath(EasyMock.same(facesContext), EasyMock.eq("custom.library"),
-                        EasyMock.eq("org.richfaces.resource.MockStateAwareResource"), EasyMock.eq(null),
-                        EasyMock.eq("4_0_alpha"))).andReturn("/rfRes/Resource1/4_0_alpha?l=custom.library");
+            resourceCodec.encodeResourceRequestPath(EasyMock.same(facesContext), EasyMock.eq("custom.library"),
+                EasyMock.eq("org.richfaces.resource.MockStateAwareResource"), EasyMock.eq(null), EasyMock.eq("4_0_alpha")))
+            .andReturn("/rfRes/Resource1/4_0_alpha?l=custom.library");
 
         EasyMock.expect(
-                resourceCodec.encodeJSFMapping(EasyMock.same(facesContext),
-                        EasyMock.eq("/rfRes/Resource1/4_0_alpha?l=custom.library"))).andReturn(
-                "/rfRes/Resource1/4_0_alpha.jsf?l=custom.library");
+            resourceCodec.encodeJSFMapping(EasyMock.same(facesContext),
+                EasyMock.eq("/rfRes/Resource1/4_0_alpha?l=custom.library"))).andReturn(
+            "/rfRes/Resource1/4_0_alpha.jsf?l=custom.library");
 
         EasyMock.expect(
-                resourceCodec.encodeResourceRequestPath(EasyMock.same(facesContext), EasyMock.<String>isNull(),
-                        EasyMock.eq("org.richfaces.resource.MockResource"), EasyMock.eq(null), EasyMock.eq("4_0_alpha")))
-                .andReturn("/rfRes/Resource2/4_0_alpha");
+            resourceCodec.encodeResourceRequestPath(EasyMock.same(facesContext), EasyMock.<String>isNull(),
+                EasyMock.eq("org.richfaces.resource.MockResource"), EasyMock.eq(null), EasyMock.eq("4_0_alpha"))).andReturn(
+            "/rfRes/Resource2/4_0_alpha");
 
         EasyMock.expect(resourceCodec.encodeJSFMapping(EasyMock.same(facesContext), EasyMock.eq("/rfRes/Resource2/4_0_alpha")))
-                .andReturn("/rfRes/Resource2/4_0_alpha.jsf");
+            .andReturn("/rfRes/Resource2/4_0_alpha.jsf");
 
         EasyMock.replay(resourceCodec);
         ServicesFactoryImpl injector = new ServicesFactoryImpl();
@@ -272,7 +272,7 @@ public class AbstractBaseResourceTest extends AbstractFacesTest {
 
         expiredResource.setLastModified(new Date(currentTime - 10000));
         this.connection.addRequestHeaders(Collections.singletonMap("If-Modified-Since",
-                Util.formatHttpDate(new Date(currentTime - 20000))));
+            Util.formatHttpDate(new Date(currentTime - 20000))));
         assertTrue(expiredResource.userAgentNeedsUpdate(facesContext));
         assertFalse(actualResource.userAgentNeedsUpdate(facesContext));
     }

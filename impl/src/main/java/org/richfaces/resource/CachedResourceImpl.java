@@ -122,8 +122,8 @@ class CachedResourceImpl extends AbstractCacheableResource {
             // ttl = expireTime - currentTime
             // CACHE_EXPIRATION_COEFFICIENT * ttl + currentTime
             this.expired = new Date(
-                    (long) (CACHE_EXPIRATION_COEFFICIENT * expiredFromHeader.getTime() + (1 - CACHE_EXPIRATION_COEFFICIENT)
-                            * currentTime));
+                (long) (CACHE_EXPIRATION_COEFFICIENT * expiredFromHeader.getTime() + (1 - CACHE_EXPIRATION_COEFFICIENT)
+                    * currentTime));
         } else {
 
             // TODO throw exception or modify headers?

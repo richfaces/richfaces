@@ -63,9 +63,9 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
  */
 public class PushContextImpl implements PushContext, SystemEventListener {
     private static final ThreadFactory PUBLISH_THREAD_FACTORY = new ThreadFactoryBuilder().setDaemon(true)
-            .setNameFormat("push-publish-thread-%1$s").build();
+        .setNameFormat("push-publish-thread-%1$s").build();
     private static final ThreadFactory SESSION_MANAGER_THREAD_FACTORY = new ThreadFactoryBuilder().setDaemon(true)
-            .setNameFormat("push-session-manager-thread-%1$s").build();
+        .setNameFormat("push-session-manager-thread-%1$s").build();
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
     private String pushHandlerUrl;
     private TopicsContextImpl topicsContext;
@@ -90,22 +90,22 @@ public class PushContextImpl implements PushContext, SystemEventListener {
 
     private String getConnectionFactory(FacesContext facesContext, ConfigurationService configurationService) {
         return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, pushPropertiesJMSConnectionFactory,
-                pushJMSConnectionFactory);
+            pushJMSConnectionFactory);
     }
 
     private String getTopicsNamespace(FacesContext facesContext, ConfigurationService configurationService) {
         return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, pushPropertiesJMSTopicsNamespace,
-                pushJMSTopicsNamespace);
+            pushJMSTopicsNamespace);
     }
 
     private String getPassword(FacesContext facesContext, ConfigurationService configurationService) {
         return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, pushPropertiesJMSConnectionPassword,
-                pushJMSConnectionPasswordEnvRef, pushJMSConnectionPassword);
+            pushJMSConnectionPasswordEnvRef, pushJMSConnectionPassword);
     }
 
     private String getUserName(FacesContext facesContext, ConfigurationService configurationService) {
         return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, pushPropertiesJMSConnectionUsername,
-                pushJMSConnectionUsernameEnvRef, pushJMSConnectionUsername);
+            pushJMSConnectionUsernameEnvRef, pushJMSConnectionUsername);
     }
 
     public void init(FacesContext facesContext) {
@@ -123,7 +123,7 @@ public class PushContextImpl implements PushContext, SystemEventListener {
 
             sessionManager = new SessionManagerImpl(SESSION_MANAGER_THREAD_FACTORY);
             topicsContext = new JMSTopicsContextImpl(PUBLISH_THREAD_FACTORY, initialContext, cnfName, topicsNamespace,
-                    getUserName(facesContext, configurationService), getPassword(facesContext, configurationService));
+                getUserName(facesContext, configurationService), getPassword(facesContext, configurationService));
             sessionFactory = new SessionFactoryImpl(sessionManager, topicsContext);
 
             facesContext.getExternalContext().getApplicationMap().put(INSTANCE_KEY_NAME, this);

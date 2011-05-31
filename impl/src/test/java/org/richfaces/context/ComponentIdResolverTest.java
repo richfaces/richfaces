@@ -58,14 +58,14 @@ public class ComponentIdResolverTest {
     @Before
     public void setUp() throws Exception {
         ComponentIdResolver.setMetaComponentSubstitutions(Collections.singletonMap(META_COMPONENT_ID,
-                META_COMPONENT_ID_SUBSTITUTION));
+            META_COMPONENT_ID_SUBSTITUTION));
 
         environment = FacesEnvironment.createEnvironment();
 
         environment.withResource("/test.xhtml", getClass().getResource("/org/richfaces/context/ComponentIdResolver.xhtml"));
 
         environment.withResource("/WEB-INF/faces-config.xml",
-                getClass().getResource("/org/richfaces/context/ComponentIdResolver.config.xml"));
+            getClass().getResource("/org/richfaces/context/ComponentIdResolver.config.xml"));
 
         environment.start();
 

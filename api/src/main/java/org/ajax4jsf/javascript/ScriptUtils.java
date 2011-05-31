@@ -173,7 +173,7 @@ public final class ScriptUtils {
             }
 
             boolean ignorePropertyReadException = obj.getClass().getName().startsWith("java.sql.")
-                    || obj.getClass().equals(SimpleTimeZone.class);
+                || obj.getClass().equals(SimpleTimeZone.class);
             boolean first = true;
 
             for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {

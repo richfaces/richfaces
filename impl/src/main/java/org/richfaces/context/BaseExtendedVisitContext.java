@@ -164,7 +164,7 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
      * @throws NullPointerException if {@code facesContext} is {@code null}
      */
     public BaseExtendedVisitContext(FacesContext facesContext, Collection<String> clientIds, Set<VisitHint> hints,
-            ExtendedVisitContextMode contextMode) {
+        ExtendedVisitContextMode contextMode) {
 
         super(facesContext, contextMode);
 
@@ -173,7 +173,7 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
 
         // Copy and store hints - ensure unmodifiable and non-empty
         EnumSet<VisitHint> hintsEnumSet = ((hints == null) || (hints.isEmpty())) ? EnumSet.noneOf(VisitHint.class) : EnumSet
-                .copyOf(hints);
+            .copyOf(hints);
 
         this.hints = Collections.unmodifiableSet(hintsEnumSet);
     }

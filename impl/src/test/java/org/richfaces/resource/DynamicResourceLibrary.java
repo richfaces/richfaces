@@ -29,7 +29,7 @@ import com.google.common.collect.ImmutableList;
  */
 public class DynamicResourceLibrary implements ResourceLibrary {
     private ImmutableList<ResourceKey> keys = ImmutableList.of(ResourceKey.create("skinning_classes.ecss"),
-            ResourceKey.create("jquery.js", null));
+        ResourceKey.create("jquery.js", null));
 
     public Iterable<ResourceKey> getResources() {
         return keys;

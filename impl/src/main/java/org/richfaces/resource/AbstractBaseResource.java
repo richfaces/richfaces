@@ -75,7 +75,8 @@ public abstract class AbstractBaseResource extends Resource {
             lastModified = ServiceTracker.getService(Uptime.class).getStartTime();
 
             if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug(MessageFormat.format(
+                LOGGER
+                    .debug(MessageFormat.format(
                         "Using resource handler start time as last modified date: {0,date,dd MMM yyyy HH:mm:ss zzz}",
                         lastModified));
             }
@@ -152,13 +153,13 @@ public abstract class AbstractBaseResource extends Resource {
         Object resourceData = Util.saveResourceState(context, this);
         String resourceVersion = getResourceVersion();
         String resourceUri = resourceCodec.encodeResourceRequestPath(context, libraryName, resourceName, resourceData,
-                resourceVersion);
+            resourceVersion);
 
         resourceUri = resourceCodec.encodeJSFMapping(context, resourceUri);
 
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug(MessageFormat.format("Request path for {0} resource is: {1}", String.valueOf(resourceName),
-                    String.valueOf(resourceUri)));
+                String.valueOf(resourceUri)));
         }
 
         return resourceUri;

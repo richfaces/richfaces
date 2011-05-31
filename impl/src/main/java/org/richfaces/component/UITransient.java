@@ -111,7 +111,7 @@ public abstract class UITransient extends UIComponent {
             if (parentId != null) {
                 StringBuilder idBuilder = new StringBuilder(parentId.length() + 1 + clientId.length());
                 clientId = idBuilder.append(parentId).append(UINamingContainer.getSeparatorChar(context)).append(clientId)
-                        .toString();
+                    .toString();
             }
 
             // allow the renderer to convert the clientId

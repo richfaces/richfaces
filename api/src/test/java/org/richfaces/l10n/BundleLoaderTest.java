@@ -66,7 +66,7 @@ public class BundleLoaderTest {
 
         assertEquals("Hello", bundleLoader.getBundle(BundleLoaderCoreMessages.message, Locale.US).getString("message"));
         assertEquals("Zdravstvujte", bundleLoader.getBundle(BundleLoaderCoreMessages.message, new Locale("ru", "RU"))
-                .getString("message"));
+            .getString("message"));
 
         try {
             bundleLoader.getBundle(BundleLoaderCoreMessages.message, new Locale("by", "BY"));
@@ -82,18 +82,17 @@ public class BundleLoaderTest {
 
         facesEnvironment.replay();
 
+        assertEquals("Welcome to app",
+            bundleLoader.getApplicationBundle(facesEnvironment.getFacesContext(), BundleLoaderCoreMessages.message, Locale.US)
+                .getString("message"));
         assertEquals(
-                "Welcome to app",
-                bundleLoader.getApplicationBundle(facesEnvironment.getFacesContext(), BundleLoaderCoreMessages.message,
-                        Locale.US).getString("message"));
-        assertEquals(
-                "Dobro pozhalovat'",
-                bundleLoader.getApplicationBundle(facesEnvironment.getFacesContext(), BundleLoaderCoreMessages.message,
-                        new Locale("by", "BY")).getString("message"));
+            "Dobro pozhalovat'",
+            bundleLoader.getApplicationBundle(facesEnvironment.getFacesContext(), BundleLoaderCoreMessages.message,
+                new Locale("by", "BY")).getString("message"));
 
         try {
             bundleLoader.getApplicationBundle(facesEnvironment.getFacesContext(), BundleLoaderCoreMessages.message, new Locale(
-                    "ru", "RU"));
+                "ru", "RU"));
             fail();
         } catch (MissingResourceException e) {
             // ok
