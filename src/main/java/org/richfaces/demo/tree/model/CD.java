@@ -58,7 +58,6 @@ public class CD extends NamedNode implements TreeNode {
 
     public Enumeration<TreeNode> children() {
         return new Enumeration<TreeNode>() {
-
             public boolean hasMoreElements() {
                 return false;
             }

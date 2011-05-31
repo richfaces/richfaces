@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.richfaces.demo.poll;
 
@@ -11,12 +11,11 @@ import javax.faces.bean.ViewScoped;
 
 /**
  * @author Ilya Shaikovsky
- * 
+ *
  */
 @ManagedBean
 @ViewScoped
 public class PollBean implements Serializable {
-
     private static final int POLL_DISABLEMENT_INTERVAL = 60000;
     private static final long serialVersionUID = 7871292328251171957L;
     private Date pollStartTime;
@@ -56,5 +55,4 @@ public class PollBean implements Serializable {
     public void setPollStartTime(Date pollStartTime) {
         this.pollStartTime = pollStartTime;
     }
-
 }

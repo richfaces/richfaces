@@ -16,22 +16,26 @@ import javax.faces.context.ResponseWriter;
 import org.ajax4jsf.javascript.JSFunction;
 
 @FacesComponent(value = "syntaxHighlighter")
-@ResourceDependencies({ @ResourceDependency(library = "js", name = "shCore.js"),
-    @ResourceDependency(name = "jquery.js"),
-    @ResourceDependency(library = "css", name = "shCore.css"),
-    @ResourceDependency(library = "css", name = "shThemeDefault.css"),
-    @ResourceDependency(library = "js", name = "shBrushJScript.js"),
-    @ResourceDependency(library = "js", name = "shBrushJava.js"),
-    @ResourceDependency(library = "js", name = "shBrushXml.js"),
-    @ResourceDependency(library = "js", name = "shBrushCss.js"),
-    @ResourceDependency(library = "js", name = "shBrushPlain.js") })
+@ResourceDependencies({ @ResourceDependency(library = "js", name = "shCore.js"), @ResourceDependency(name = "jquery.js"),
+        @ResourceDependency(library = "css", name = "shCore.css"),
+        @ResourceDependency(library = "css", name = "shThemeDefault.css"),
+        @ResourceDependency(library = "js", name = "shBrushJScript.js"),
+        @ResourceDependency(library = "js", name = "shBrushJava.js"),
+        @ResourceDependency(library = "js", name = "shBrushXml.js"),
+        @ResourceDependency(library = "js", name = "shBrushCss.js"),
+        @ResourceDependency(library = "js", name = "shBrushPlain.js") })
 public class SyntaxHighlighter extends UIComponentBase {
     private static final String COMPONENT_FAMILY = "org.richfaces.SyntaxHighlighter";
     private static final String DEFAULT_SOURCE_TYPE = "xhtml";
 
     enum propertyKeys {
-        sourceType, src, style, styleClass
-    };
+        sourceType,
+        src,
+        style,
+        styleClass
+    }
+
+    ;
 
     @Override
     public String getFamily() {
@@ -53,12 +57,12 @@ public class SyntaxHighlighter extends UIComponentBase {
             in.close();
         }
     }
-    
-    private void renderLabel(FacesContext context, String label) throws IOException{
+
+    private void renderLabel(FacesContext context, String label) throws IOException {
         ResponseWriter writer = context.getResponseWriter();
         writer.writeText(label.toCharArray(), 0, label.length());
     }
-    
+
     private void renderContent(FacesContext context) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         String src = getSrc();

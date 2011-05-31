@@ -9,7 +9,6 @@ import javax.swing.tree.TreeNode;
 import com.google.common.collect.Iterators;
 
 public class Country extends NamedNode implements TreeNode {
-
     private List<Company> companies = new ArrayList<Company>();
 
     public Country() {
@@ -47,5 +46,4 @@ public class Country extends NamedNode implements TreeNode {
     public List<Company> getCompanies() {
         return companies;
     }
-
 }

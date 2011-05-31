@@ -3,15 +3,15 @@ package org.richfaces.demo.dragdrop;
 import java.io.Serializable;
 
 public class Framework implements Serializable {
-
     private static final long serialVersionUID = -2316100725668694225L;
 
     public enum Family {
-        php, cf, dotNet
+        php,
+        cf,
+        dotNet
     }
 
     private String name;
-
     private Family family;
 
     public Framework(String name, Family family) {
@@ -60,5 +60,4 @@ public class Framework implements Serializable {
         }
         return true;
     }
-
 }

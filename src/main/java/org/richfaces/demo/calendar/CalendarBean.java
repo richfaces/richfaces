@@ -10,8 +10,7 @@ import javax.faces.event.ValueChangeEvent;
 
 @ManagedBean
 @ViewScoped
-public class CalendarBean implements Serializable{
-
+public class CalendarBean implements Serializable {
     private Locale locale;
     private boolean popup;
     private String pattern;
@@ -92,5 +91,4 @@ public class CalendarBean implements Serializable{
     public void setDisabled(boolean disabled) {
         this.disabled = disabled;
     }
-
 }

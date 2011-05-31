@@ -2,15 +2,15 @@ package org.richfaces.demo.tables.model.slides;
 
 import java.io.Serializable;
 
-public class Picture implements Serializable{
+public class Picture implements Serializable {
     private String name;
     private String uri;
-    
+
     public Picture(String uri, String name) {
         this.name = name;
         this.uri = uri;
     }
-    
+
     public String getName() {
         return name;
     }
@@ -26,5 +26,4 @@ public class Picture implements Serializable{
     public void setUri(String uri) {
         this.uri = uri;
     }
-
 }

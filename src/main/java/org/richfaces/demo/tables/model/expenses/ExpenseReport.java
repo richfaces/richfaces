@@ -70,5 +70,4 @@ public class ExpenseReport {
         rec.getItems().add(new ExpenseReportRecordItem("28-Aug-97", 35.0, 109.0, 36.0, "Seattle"));
         records.add(rec);
     }
-
 }

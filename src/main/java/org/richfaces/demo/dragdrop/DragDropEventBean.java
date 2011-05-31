@@ -10,7 +10,6 @@ import org.richfaces.event.DropListener;
 @ManagedBean
 @RequestScoped
 public class DragDropEventBean implements DropListener {
-
     @ManagedProperty(value = "#{dragDropBean}")
     private DragDropBean dragDropBean;
 

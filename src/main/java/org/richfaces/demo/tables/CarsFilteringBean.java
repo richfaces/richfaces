@@ -12,7 +12,7 @@ import org.richfaces.model.Filter;
 @SessionScoped
 public class CarsFilteringBean implements Serializable {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -5680001353441022183L;
     private String vinFilter;

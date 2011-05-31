@@ -3,15 +3,14 @@ package org.richfaces.demo.common.data;
 import java.util.Random;
 
 public final class RandomHelper {
-    
     private RandomHelper() {
-      
+
     }
-    
+
     public static int genRand() {
         return rand(1, 10000);
-    }    
-    
+    }
+
     public static int rand(int lo, int hi) {
         Random rn2 = new Random();
         int n = hi - lo + 1;

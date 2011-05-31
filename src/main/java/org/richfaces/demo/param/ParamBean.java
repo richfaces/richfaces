@@ -8,9 +8,8 @@ import javax.faces.bean.RequestScoped;
 @ManagedBean
 @RequestScoped
 public class ParamBean implements Serializable {
-
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -5704132574704883576L;
     private String screenWidth;
