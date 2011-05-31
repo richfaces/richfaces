@@ -36,10 +36,8 @@ import org.junit.Test;
  *
  */
 public class UIExtendedDataTableTest extends AbstractFacesTest {
-
-    
     private UIExtendedDataTable table;
-    
+
     /**
      * @throws java.lang.Exception
      */
@@ -48,7 +46,7 @@ public class UIExtendedDataTableTest extends AbstractFacesTest {
         super.setUp();
         setupFacesRequest();
         table = new UIExtendedDataTable();
-        table.setValue(new Integer[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9});
+        table.setValue(new Integer[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 });
     }
 
     /**
@@ -61,12 +59,13 @@ public class UIExtendedDataTableTest extends AbstractFacesTest {
     }
 
     /**
-     * Test method for {@link org.richfaces.component.UIExtendedDataTable#visitDataChildren(javax
-     * .faces.component.visit.VisitContext, javax.faces.component.visit.VisitCallback, boolean)}.
+     * Test method for
+     * {@link org.richfaces.component.UIExtendedDataTable#visitDataChildren(javax .faces.component.visit.VisitContext, javax.faces.component.visit.VisitCallback, boolean)}
+     * .
      */
     @Test
     public final void testVisitDataChildren() {
-        //TODO fail("Not yet implemented");
+        // TODO fail("Not yet implemented");
     }
 
     /**
@@ -106,8 +105,9 @@ public class UIExtendedDataTableTest extends AbstractFacesTest {
     }
 
     /**
-     * Test method for {@link org.richfaces.component.UIExtendedDataTable#walk(javax.faces.context.FacesContext,
-     * org.ajax4jsf.model.DataVisitor, org.ajax4jsf.model.Range, java.lang.Object)}.
+     * Test method for
+     * {@link org.richfaces.component.UIExtendedDataTable#walk(javax.faces.context.FacesContext, org.ajax4jsf.model.DataVisitor, org.ajax4jsf.model.Range, java.lang.Object)}
+     * .
      */
     @Test
     public final void testWalkFacesContextDataVisitorRangeObject() {
@@ -123,8 +123,8 @@ public class UIExtendedDataTableTest extends AbstractFacesTest {
     }
 
     /**
-     * Test method for {@link org.richfaces.component.UIExtendedDataTable#getClientFirst()}
-     * and {@link org.richfaces.component.UIExtendedDataTable#setClientFirst(int)}.
+     * Test method for {@link org.richfaces.component.UIExtendedDataTable#getClientFirst()} and
+     * {@link org.richfaces.component.UIExtendedDataTable#setClientFirst(int)}.
      */
     @Test
     public final void testClientFirst() {
@@ -134,8 +134,8 @@ public class UIExtendedDataTableTest extends AbstractFacesTest {
     }
 
     /**
-     * Test method for {@link org.richfaces.component.UIExtendedDataTable#getClientRows()}
-     * and {@link org.richfaces.component.UIExtendedDataTable#setClientRows(int)}.
+     * Test method for {@link org.richfaces.component.UIExtendedDataTable#getClientRows()} and
+     * {@link org.richfaces.component.UIExtendedDataTable#setClientRows(int)}.
      */
     @Test
     public final void testClientRows() {

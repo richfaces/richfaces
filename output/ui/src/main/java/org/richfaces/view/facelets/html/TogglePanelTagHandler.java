@@ -19,23 +19,27 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.view.facelets.html;
+
+import javax.faces.view.facelets.ComponentConfig;
+import javax.faces.view.facelets.ComponentHandler;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.MetaRule;
+import javax.faces.view.facelets.MetaRuleset;
+import javax.faces.view.facelets.Metadata;
+import javax.faces.view.facelets.MetadataTarget;
+import javax.faces.view.facelets.TagAttribute;
 
 import org.richfaces.event.ItemChangeEvent;
 import org.richfaces.event.ItemChangeSource;
 import org.richfaces.event.MethodExpressionItemChangeListener;
-
-import javax.faces.view.facelets.*;
 
 /**
  * @author akolonitsky
  * @since 2010-08-13
  */
 public class TogglePanelTagHandler extends ComponentHandler {
-
     private static final MetaRule META_RULE = new TogglePanelMetaRule();
-
 
     public TogglePanelTagHandler(ComponentConfig config) {
         super(config);
@@ -48,23 +52,20 @@ public class TogglePanelTagHandler extends ComponentHandler {
         return metaRuleset;
     }
 
-    private static class TogglePanelMetaRule extends MetaRule{
-
+    private static class TogglePanelMetaRule extends MetaRule {
         @Override
         public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
             if (meta.isTargetInstanceOf(ItemChangeSource.class)) {
                 if ("itemChangeListener".equals(name)) {
                     return new ItemChangeExpressionMetadata(attribute);
                 }
-
             }
             return null;
         }
     }
 
     private static final class ItemChangeExpressionMetadata extends Metadata {
-        private static final Class<?>[] ITEM_CHANGE_SIG = new Class[] {ItemChangeEvent.class };
-
+        private static final Class<?>[] ITEM_CHANGE_SIG = new Class[] { ItemChangeEvent.class };
         private final TagAttribute attr;
 
         ItemChangeExpressionMetadata(TagAttribute attr) {
@@ -73,12 +74,8 @@ public class TogglePanelTagHandler extends ComponentHandler {
 
         @Override
         public void applyMetadata(FaceletContext ctx, Object instance) {
-            ((ItemChangeSource) instance).addItemChangeListener(new MethodExpressionItemChangeListener(
-                    this.attr.getMethodExpression(ctx, null, ITEM_CHANGE_SIG)));
+            ((ItemChangeSource) instance).addItemChangeListener(new MethodExpressionItemChangeListener(this.attr
+                .getMethodExpression(ctx, null, ITEM_CHANGE_SIG)));
         }
     }
-
-
-
 }
-

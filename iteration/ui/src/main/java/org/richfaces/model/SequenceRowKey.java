@@ -28,23 +28,21 @@ import com.google.common.collect.ObjectArrays;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class SequenceRowKey implements Serializable {
-
     private static final long serialVersionUID = 5605581090240141910L;
-
     private Object[] simpleKeys;
 
     public SequenceRowKey(Object... keys) {
         super();
         this.simpleKeys = keys;
     }
-    
+
     public Object[] getSimpleKeys() {
         return simpleKeys;
     }
-    
+
     public SequenceRowKey append(Object segment) {
         return new SequenceRowKey(ObjectArrays.concat(simpleKeys, segment));
     }
@@ -53,12 +51,12 @@ public class SequenceRowKey implements Serializable {
         if (simpleKeys.length == 0) {
             return null;
         }
-        
+
         Object[] parentSimpleKeys = ObjectArrays.newArray(simpleKeys, simpleKeys.length - 1);
         System.arraycopy(simpleKeys, 0, parentSimpleKeys, 0, parentSimpleKeys.length);
         return new SequenceRowKey(parentSimpleKeys);
     }
-    
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -84,10 +82,9 @@ public class SequenceRowKey implements Serializable {
         }
         return true;
     }
-    
+
     @Override
     public String toString() {
         return getClass().getName() + Arrays.toString(simpleKeys);
     }
-    
 }

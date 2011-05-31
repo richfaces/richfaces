@@ -29,10 +29,9 @@ import org.richfaces.model.UploadedFile;
 
 /**
  * @author Konstantin Mishin
- * 
+ *
  */
 public class FileUploadEvent extends FacesEvent {
-
     private static final long serialVersionUID = -7645197191376210068L;
     private UploadedFile uploadedFile = null;
 

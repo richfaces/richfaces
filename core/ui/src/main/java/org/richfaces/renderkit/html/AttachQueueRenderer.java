@@ -29,12 +29,10 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 /**
  * @author Nick Belaevski Renderer for attachedQueue component
  */
-@JsfRenderer(type="org.richfaces.AttachQueueRenderer", family="org.richfaces.AttachQueue")
+@JsfRenderer(type = "org.richfaces.AttachQueueRenderer", family = "org.richfaces.AttachQueue")
 public class AttachQueueRenderer extends QueueRendererBase {
-
     @Override
     protected String getQueueName(FacesContext context, UIComponent comp) {
         return comp.getClientId(context);
     }
-
 }

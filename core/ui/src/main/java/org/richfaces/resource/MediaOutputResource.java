@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.resource;
 
 import java.io.IOException;
@@ -46,31 +43,25 @@ import com.google.common.base.Strings;
  */
 @DynamicResource
 public class MediaOutputResource extends AbstractUserResource implements StateHolder, CacheableResource {
-    
     private String contentType;
-    
     private boolean cacheable;
-    
     private MethodExpression contentProducer;
     private ValueExpression expiresExpression;
-
     /*
      * TODO: add handling for expressions:
      *
-     * 1. State saving
-     * 2. Evaluation
+     * 1. State saving 2. Evaluation
      */
     private ValueExpression lastModifiedExpression;
     private ValueExpression timeToLiveExpression;
     private Object userData;
-
     private String fileName;
-    
+
     public void encode(FacesContext facesContext) throws IOException {
         OutputStream outStream = facesContext.getExternalContext().getResponseOutputStream();
-        contentProducer.invoke(facesContext.getELContext(), new Object[] {outStream, userData});
+        contentProducer.invoke(facesContext.getELContext(), new Object[] { outStream, userData });
     }
-    
+
     public boolean isTransient() {
         return false;
     }
@@ -109,7 +100,8 @@ public class MediaOutputResource extends AbstractUserResource implements StateHo
     // TODO use ResourceComponent or exchange object as argument?
     @PostConstructResource
     public void initialize() {
-        AbstractMediaOutput uiMediaOutput = (AbstractMediaOutput) UIComponent.getCurrentComponent(FacesContext.getCurrentInstance());
+        AbstractMediaOutput uiMediaOutput = (AbstractMediaOutput) UIComponent.getCurrentComponent(FacesContext
+            .getCurrentInstance());
         this.setCacheable(uiMediaOutput.isCacheable());
         this.setContentType(uiMediaOutput.getMimeType());
         this.userData = uiMediaOutput.getValue();
@@ -127,7 +119,7 @@ public class MediaOutputResource extends AbstractUserResource implements StateHo
     public void setCacheable(boolean cacheable) {
         this.cacheable = cacheable;
     }
-    
+
     public Date getExpires(FacesContext context) {
         return null;
     }
@@ -147,7 +139,7 @@ public class MediaOutputResource extends AbstractUserResource implements StateHo
     public void setContentType(String contentType) {
         this.contentType = contentType;
     }
-    
+
     @Override
     public Map<String, String> getResponseHeaders() {
         Map<String, String> headers = new HashMap<String, String>(2);
@@ -155,7 +147,7 @@ public class MediaOutputResource extends AbstractUserResource implements StateHo
         if (!Strings.isNullOrEmpty(fileName)) {
             headers.put("Content-Disposition", "inline; filename=\"" + fileName + "\"");
         }
-        
+
         return headers;
     }
 }

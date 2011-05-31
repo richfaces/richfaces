@@ -1,7 +1,6 @@
 package org.richfaces.javascript;
 
 public class ScriptNotFoundException extends Exception {
-
     public ScriptNotFoundException() {
         super();
     }
@@ -17,5 +16,4 @@ public class ScriptNotFoundException extends Exception {
     public ScriptNotFoundException(String message, Throwable cause) {
         super(message, cause);
     }
-
 }

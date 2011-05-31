@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit.util;
 
 import static org.richfaces.renderkit.util.AjaxRendererUtils.buildAjaxFunction;
@@ -46,18 +45,15 @@ import org.ajax4jsf.javascript.ScriptString;
  * @since 4.0
  */
 public final class HandlersChain {
-
     /**
-     * 
+     *
      */
     private static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
-    //  private static final Logger LOG = RichfacesLogger.RENDERKIT.getLogger();
+    // private static final Logger LOG = RichfacesLogger.RENDERKIT.getLogger();
     private boolean hasSubmittingBehavior = false;
     private boolean includeClientId = false;
-
     // TODO: review for optimization
     private List<String> handlers = new ArrayList<String>(2);
-    
     private FacesContext facesContext;
     private UIComponent component;
     private Collection<Parameter> parameters;
@@ -79,7 +75,8 @@ public final class HandlersChain {
         this.parameters = parameters;
     }
 
-    public HandlersChain(FacesContext facesContext, UIComponent component, Collection<Parameter> parameters, boolean includeClientId) {
+    public HandlersChain(FacesContext facesContext, UIComponent component, Collection<Parameter> parameters,
+        boolean includeClientId) {
         this.facesContext = facesContext;
         this.component = component;
         this.parameters = parameters;
@@ -147,8 +144,7 @@ public final class HandlersChain {
         }
 
         ClientBehaviorContext behaviorContext = ClientBehaviorContext.createClientBehaviorContext(facesContext, component,
-            name, includeClientId ? component.getClientId(facesContext) : null,
-            getParameters());
+            name, includeClientId ? component.getClientId(facesContext) : null, getParameters());
 
         for (ClientBehavior clientBehavior : behaviorsList) {
             String behaviorScript = clientBehavior.getScript(behaviorContext);
@@ -166,12 +162,12 @@ public final class HandlersChain {
     public void addAjaxSubmitFunction() {
         if (!this.hasSubmittingBehavior()) {
             hasSubmittingBehavior = true;
-            
+
             ScriptString ajaxFunction = buildAjaxFunction(facesContext, component);
             this.addInlineHandlerAsValue(ajaxFunction.toScript());
         }
     }
-    
+
     public String toScript() {
         String result = null;
 
@@ -201,5 +197,4 @@ public final class HandlersChain {
 
         return parameters;
     }
-    
 }

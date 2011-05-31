@@ -1,9 +1,8 @@
 package org.richfaces.renderkit;
 
 public class SelectBean {
-    
-    private String value; 
-    
+    private String value;
+
     public SelectBean() {
     }
 

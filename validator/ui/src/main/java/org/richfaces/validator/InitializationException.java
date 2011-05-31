@@ -20,25 +20,29 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.validator;
 
 /**
- * <p class="changed_added_4_0">Service initialization exception.</p>
+ * <p class="changed_added_4_0">
+ * Service initialization exception.
+ * </p>
+ *
  * @author asmirnov@exadel.com
  *
  */
 @SuppressWarnings("serial")
 public class InitializationException extends Exception {
-
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
      */
     public InitializationException() {
     }
 
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @param message
      */
     public InitializationException(String message) {
@@ -46,7 +50,9 @@ public class InitializationException extends Exception {
     }
 
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @param cause
      */
     public InitializationException(Throwable cause) {
@@ -54,12 +60,13 @@ public class InitializationException extends Exception {
     }
 
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @param message
      * @param cause
      */
     public InitializationException(String message, Throwable cause) {
         super(message, cause);
     }
-
 }

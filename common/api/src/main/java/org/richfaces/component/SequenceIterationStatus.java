@@ -25,31 +25,22 @@ import java.io.Serializable;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public final class SequenceIterationStatus implements Serializable {
-
     private static final long serialVersionUID = 1968212566967489719L;
-
     private Integer begin;
-
     private Integer count;
-
     private Integer end;
-
     private int index;
-
     private Integer rowCount;
-
     private boolean first;
-
     private boolean last;
-
     private boolean even;
 
     public SequenceIterationStatus(Integer begin, Integer end, int index, Integer rowCount) {
         int iBegin = (begin != null ? begin.intValue() : 0);
-        
+
         int iRowCountEnd = (rowCount != null ? rowCount.intValue() - 1 : Integer.MAX_VALUE);
         int iEnd = (end != null ? end.intValue() : iRowCountEnd);
         int iLastIdx = Math.min(iEnd, iRowCountEnd);
@@ -58,9 +49,9 @@ public final class SequenceIterationStatus implements Serializable {
         this.end = iEnd;
         this.index = index;
         this.rowCount = rowCount;
-        
+
         this.first = (index == iBegin);
-        
+
         this.last = (index >= iLastIdx);
 
         this.count = (index - iBegin) + 1;
@@ -110,7 +101,7 @@ public final class SequenceIterationStatus implements Serializable {
     public boolean isOdd() {
         return !isEven();
     }
-    
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -122,7 +113,7 @@ public final class SequenceIterationStatus implements Serializable {
         sb.append(", last= " + last);
         sb.append(", even= " + even);
         sb.append(", rowCount= " + rowCount);
-        
+
         return sb.toString();
     }
 }

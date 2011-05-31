@@ -19,44 +19,37 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit;
 
-import org.richfaces.component.Row;
-import org.richfaces.component.UIDataTableBase;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Iterator;
-import java.util.Map;
 
+import org.richfaces.component.Row;
+import org.richfaces.component.UIDataTableBase;
 
 /**
  * @author Anton Belevich
  *
  */
 public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRenderer {
-
     public static final String ROW_CLASS_KEY = "rowClass";
-    
     public static final String BREAK_ROW_BEFORE = "breakRowBefore";
-    
     public static final String COLUMN_CLASS = "userColumnClass";
-    
     public static final String ROW_CLASS = "userRowClass";
-    
     protected static final String FIRST_ROW_CLASS_KEY = "firstRowClass";
-    
     protected static final String CELL_CLASS_KEY = "cellClass";
-
     private static final String CELL_ELEMENT_KEY = "cellElement";
-    
-    public void encodeColumn(FacesContext context, ResponseWriter writer, UIColumn component, RowHolder rowHolder) throws IOException {
+
+    public void encodeColumn(FacesContext context, ResponseWriter writer, UIColumn component, RowHolder rowHolder)
+        throws IOException {
         String parentId = rowHolder.getParentClientId();
-        
+
         if (component instanceof org.richfaces.component.AbstractColumn) {
             Map<String, Object> attributes = component.getAttributes();
             if (Boolean.TRUE.equals(attributes.get(BREAK_ROW_BEFORE)) && rowHolder.getProcessCell() != 0) {
@@ -72,7 +65,7 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
             if (rowClasses.length > 0) {
                 int indeStyleClass = currentRow % rowClasses.length;
                 String rowClass = rowClasses[indeStyleClass];
-                component.getAttributes().put(ROW_CLASS, rowClass);    
+                component.getAttributes().put(ROW_CLASS, rowClass);
             }
             if (rowHolder.getCurrentRow() == 0) {
                 encodeFirstRowStart(writer, context, parentId, currentRow, component);
@@ -80,7 +73,7 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
                 encodeRowStart(writer, context, parentId, currentRow, component);
             }
             if (rowHolder.getRow() instanceof UIDataTableBase) {
-                renderRowHandlers(context, (UIDataTableBase)rowHolder.getRow());
+                renderRowHandlers(context, (UIDataTableBase) rowHolder.getRow());
             }
             rowHolder.setRowStart(false);
         }
@@ -88,11 +81,12 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
         encodeColumnStart(writer, context, parentId, component);
         renderChildren(context, component);
         encodeColumnEnd(writer, context, parentId);
-               
+
         rowHolder.nextCell();
     }
-    
-    public void encodeColumnStart(ResponseWriter writer, FacesContext context, String parentId, UIComponent component) throws  IOException {
+
+    public void encodeColumnStart(ResponseWriter writer, FacesContext context, String parentId, UIComponent component)
+        throws IOException {
         writer.startElement(getCellElement(context, parentId), component);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getContainerClientId(context), HtmlConstants.ID_ATTRIBUTE);
         String cellClass = getCellClass(context, parentId);
@@ -114,25 +108,28 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
             }
         }
     }
-    
-    public void encodeColumnEnd(ResponseWriter writer, FacesContext context, String parentId) throws  IOException {
+
+    public void encodeColumnEnd(ResponseWriter writer, FacesContext context, String parentId) throws IOException {
         writer.endElement(getCellElement(context, parentId));
     }
-    
-    public void encodeFirstRowStart(ResponseWriter writer, FacesContext context, String parentId, int currentRow, UIComponent component) throws  IOException {
+
+    public void encodeFirstRowStart(ResponseWriter writer, FacesContext context, String parentId, int currentRow,
+        UIComponent component) throws IOException {
         writer.startElement(HtmlConstants.TR_ELEMENT, component);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, parentId + ":" + currentRow, null);
-        String styleClass = concatClasses(getRowClass(context, parentId), getFirstRowClass(context, parentId), component.getAttributes().get(ROW_CLASS));
+        String styleClass = concatClasses(getRowClass(context, parentId), getFirstRowClass(context, parentId), component
+            .getAttributes().get(ROW_CLASS));
         if (styleClass.length() > 0) {
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, styleClass, null);
         }
     }
-    
-    public void encodeFirstRowEnd(ResponseWriter writer)throws  IOException {
+
+    public void encodeFirstRowEnd(ResponseWriter writer) throws IOException {
         writer.endElement(HtmlConstants.TR_ELEMENT);
     }
-    
-    public void encodeRowStart(ResponseWriter writer, FacesContext context, String parentId, int currentRow, UIComponent component) throws  IOException {
+
+    public void encodeRowStart(ResponseWriter writer, FacesContext context, String parentId, int currentRow,
+        UIComponent component) throws IOException {
         writer.startElement(HtmlConstants.TR_ELEMENT, component);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, parentId + ":" + currentRow, null);
 
@@ -141,33 +138,33 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, styleClass, null);
         }
     }
-    
-    public void encodeRowEnd(ResponseWriter writer) throws  IOException {
+
+    public void encodeRowEnd(ResponseWriter writer) throws IOException {
         writer.endElement(HtmlConstants.TR_ELEMENT);
     }
-  
+
     protected String getFirstRowClass(FacesContext context, String id) {
         return get(context, id + FIRST_ROW_CLASS_KEY);
     }
-    
+
     protected String getRowClass(FacesContext context, String id) {
         return get(context, id + ROW_CLASS_KEY);
     }
-    
+
     protected String getCellClass(FacesContext context, String id) {
         return get(context, id + CELL_CLASS_KEY);
     }
-    
+
     protected String getCellElement(FacesContext context, String id) {
         String elementName = get(context, id + CELL_ELEMENT_KEY);
 
         if (elementName == null) {
             elementName = HtmlConstants.TD_ELEM;
         }
-        
+
         return elementName;
     }
-    
+
     protected void setCellElement(FacesContext context, String id, String element) {
         put(context, id + CELL_ELEMENT_KEY, element);
     }
@@ -177,7 +174,7 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
         put(context, id + ROW_CLASS_KEY, rowClass);
         put(context, id + CELL_CLASS_KEY, cellClass);
     }
-    
+
     public void encodeStyleClass(ResponseWriter writer, FacesContext context, UIComponent component,
         String styleClassAttribute, String styleClass) throws IOException {
 
@@ -190,19 +187,19 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
             + component.getAttributes().get(styleClassAttribute);
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, componentStyleClass, null);
     }
-    
+
     protected boolean isEmptyAttr(UIComponent component, String attribute) {
         if (attribute == null) {
             return true;
         }
-        
+
         String value = (String) component.getAttributes().get(attribute);
         return !(value != null && value.trim().length() != 0);
     }
 
-    protected void encodeStyle(ResponseWriter writer, FacesContext context, UIComponent component,
-        String predefinedStyles) throws IOException {
-        
+    protected void encodeStyle(ResponseWriter writer, FacesContext context, UIComponent component, String predefinedStyles)
+        throws IOException {
+
         StringBuffer toEncode = new StringBuffer();
 
         if (!isEmptyAttr(component, HtmlConstants.STYLE_ATTRIBUTE)) {
@@ -220,12 +217,11 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
             writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, toEncode.toString(), null);
         }
     }
-    
+
     protected boolean isEmpty(String style) {
         return !((style != null) && (style.trim().length() != 0));
     }
 
-    
     protected int getColumnsCount(Iterator<UIComponent> col) {
         int count = 0;
         int currentLength = 0;
@@ -272,10 +268,10 @@ public abstract class AbstractTableBaseRenderer extends SortingFilteringRowsRend
         }
         return count;
     }
-    
+
     @Override
     public void encodeFakeRow(FacesContext facesContext, RowHolderBase rowHolder) throws IOException {
-        UIComponent component = (UIComponent)rowHolder.getRow();
+        UIComponent component = (UIComponent) rowHolder.getRow();
         ResponseWriter writer = facesContext.getResponseWriter();
         writer.startElement(HtmlConstants.TR_ELEMENT, component);
         writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display:none", null);

@@ -20,7 +20,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.javascript.client.message;
 
 import org.jboss.test.qunit.Qunit.Builder;
@@ -29,15 +28,16 @@ import org.junit.Test;
 import com.gargoylesoftware.htmlunit.javascript.host.Event;
 
 /**
- * <p class="changed_added_4_0"></p>
+ * <p class="changed_added_4_0">
+ * </p>
+ *
  * @author asmirnov@exadel.com
  *
  */
 public class DocumentReadyTest extends MessageTestBase {
-    
     @Override
     protected Builder createQunitPage() {
-        return super.createQunitPage().loadContent("$(document).ready(function(){"+getMessageInit("")+"});");
+        return super.createQunitPage().loadContent("$(document).ready(function(){" + getMessageInit("") + "});");
     }
 
     @Test

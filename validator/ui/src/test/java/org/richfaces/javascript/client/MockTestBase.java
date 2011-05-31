@@ -1,6 +1,6 @@
 package org.richfaces.javascript.client;
 
-import static org.easymock.EasyMock.*;
+import static org.easymock.EasyMock.expect;
 
 import java.util.Collections;
 import java.util.List;
@@ -24,12 +24,9 @@ import com.google.common.collect.ImmutableList.Builder;
 
 @RunWith(Parameterized.class)
 public abstract class MockTestBase {
-
     protected static final String TEST_COMPONENT_ID = "testComponent";
-
     @Rule
     public final Qunit qunit;
-
     protected final RunParameters criteria;
     protected MockFacesEnvironment facesEnvironment;
     protected UIInput input;
@@ -41,7 +38,7 @@ public abstract class MockTestBase {
 
     @Before
     public void setUp() {
-        this.facesEnvironment = MockFacesEnvironment.createEnvironment().withApplication().resetToNice();        
+        this.facesEnvironment = MockFacesEnvironment.createEnvironment().withApplication().resetToNice();
         input = facesEnvironment.createMock(UIInput.class);
         recordMocks();
         facesEnvironment.replay();
@@ -63,7 +60,7 @@ public abstract class MockTestBase {
     }
 
     protected Message getErrorMessage() {
-        return new Message(2,"error","script error");
+        return new Message(2, "error", "script error");
     }
 
     protected Object getJavaScriptOptions() {
@@ -72,17 +69,17 @@ public abstract class MockTestBase {
 
     protected org.jboss.test.qunit.Qunit.Builder createQunitPage() {
         return Qunit.builder().loadJsfResource("jquery.js").loadJsfResource("richfaces.js")
-                    .loadJsfResource("richfaces-event.js").loadJsfResource("richfaces-csv.js", "org.richfaces");
+            .loadJsfResource("richfaces-event.js").loadJsfResource("richfaces-csv.js", "org.richfaces");
     }
 
     protected abstract String getJavaScriptFunctionName();
-    
+
     protected Map<String, Object> getOptions() {
         Map<String, Object> options = criteria.getOptions();
         return options;
     }
 
-    protected static List<RunParameters[]> options(RunParameters ...criterias){
+    protected static List<RunParameters[]> options(RunParameters... criterias) {
         Builder<RunParameters[]> builder = ImmutableList.builder();
         for (RunParameters testCriteria : criterias) {
             builder.add(optionsArray(testCriteria));
@@ -102,13 +99,15 @@ public abstract class MockTestBase {
     }
 
     protected static RunParameters pass(Object value, String option1, Object value1, String option2, Object value2) {
-        RunParameters testCriteria = pass(value,option1, value1);
+        RunParameters testCriteria = pass(value, option1, value1);
         Map<String, Object> options = testCriteria.getOptions();
         options.put(option2, value2);
         return testCriteria;
     }
-    protected static RunParameters pass(Object value, String option1, Object value1, String option2, Object value2,String option3, Object value3) {
-        RunParameters testCriteria = pass(value,option1, value1,option2, value2);
+
+    protected static RunParameters pass(Object value, String option1, Object value1, String option2, Object value2,
+        String option3, Object value3) {
+        RunParameters testCriteria = pass(value, option1, value1, option2, value2);
         Map<String, Object> options = testCriteria.getOptions();
         options.put(option3, value3);
         return testCriteria;
@@ -117,5 +116,4 @@ public abstract class MockTestBase {
     private static RunParameters[] optionsArray(RunParameters testCriteria) {
         return new RunParameters[] { testCriteria };
     }
-
 }

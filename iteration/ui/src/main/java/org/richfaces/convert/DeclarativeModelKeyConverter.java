@@ -39,10 +39,9 @@ import com.google.common.base.Strings;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class DeclarativeModelKeyConverter implements Converter {
-
     private Converter delegateConverter;
 
     public DeclarativeModelKeyConverter(Converter delegateConverter) {
@@ -54,32 +53,31 @@ public class DeclarativeModelKeyConverter implements Converter {
         if (Strings.isNullOrEmpty(value)) {
             return null;
         }
-        
+
         String s = unescape(value);
-        
+
         Iterator<String> split = SEPARATOR_CHAR_SPLITTER.split(s).iterator();
 
         String modelId = (String) split.next();
         Object modelKey = delegateConverter.getAsObject(context, component, split.next());
-        
+
         if (split.hasNext()) {
             throw new ConverterException(value);
         }
-        
+
         return new DeclarativeModelKey(modelId, modelKey);
     }
-    
+
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         if (value == null) {
             return "";
         }
-        
+
         DeclarativeModelKey declarativeModelKey = (DeclarativeModelKey) value;
-        
+
         String convertedModelKey = delegateConverter.getAsString(context, component, declarativeModelKey.getModelKey());
         String keyString = SEPARATOR_CHAR_JOINER.join(declarativeModelKey.getModelId(), convertedModelKey);
-        
+
         return escape(keyString);
     }
-    
 }

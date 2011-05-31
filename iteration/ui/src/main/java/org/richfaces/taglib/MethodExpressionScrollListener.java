@@ -11,7 +11,6 @@ import org.richfaces.event.DataScrollListener;
  *
  */
 public class MethodExpressionScrollListener implements DataScrollListener {
-
     private MethodExpression methodExpression;
 
     public MethodExpressionScrollListener() {

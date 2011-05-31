@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import static org.easymock.EasyMock.expect;
@@ -43,9 +42,9 @@ import org.richfaces.model.SortField;
  *
  */
 public class UIColumnTest {
-
     private MockFacesEnvironment environment;
     private UIColumn column;
+
     /**
      * @throws java.lang.Exception
      */
@@ -78,7 +77,7 @@ public class UIColumnTest {
     }
 
     /**
-     * Test method for {@link org.richfaces.component.UIColumn#setFilter(org.richfaces.model.Filter)} and 
+     * Test method for {@link org.richfaces.component.UIColumn#setFilter(org.richfaces.model.Filter)} and
      * {@link org.richfaces.component.UIColumn#getFilter()}.
      */
     @Test
@@ -170,5 +169,4 @@ public class UIColumnTest {
         Assert.assertEquals(expression, sortField.getSortBy());
         Assert.assertSame(comparator, sortField.getComparator());
     }
-
 }

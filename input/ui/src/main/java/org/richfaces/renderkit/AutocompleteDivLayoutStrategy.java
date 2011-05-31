@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit;
 
 import java.io.IOException;
@@ -28,16 +27,12 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-
-public class AutocompleteDivLayoutStrategy extends AbstractAutocompleteLayoutStrategy implements
-    AutocompleteEncodeStrategy {
-
+public class AutocompleteDivLayoutStrategy extends AbstractAutocompleteLayoutStrategy implements AutocompleteEncodeStrategy {
     public void encodeFakeItem(FacesContext facesContext, UIComponent component) throws IOException {
         ResponseWriter responseWriter = facesContext.getResponseWriter();
         responseWriter.startElement(HtmlConstants.DIV_ELEM, component);
         responseWriter.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display:none", null);
         responseWriter.endElement(HtmlConstants.DIV_ELEM);
-
     }
 
     public void encodeItemsContainerBegin(FacesContext facesContext, UIComponent component) throws IOException {
@@ -50,12 +45,12 @@ public class AutocompleteDivLayoutStrategy extends AbstractAutocompleteLayoutStr
         ResponseWriter responseWriter = facesContext.getResponseWriter();
         responseWriter.endElement(HtmlConstants.DIV_ELEM);
     }
-    
+
     public void encodeItemBegin(FacesContext facesContext, UIComponent component) throws IOException {
         ResponseWriter writer = facesContext.getResponseWriter();
         writer.startElement(HtmlConstants.DIV_ELEM, component);
     }
-    
+
     public void encodeItemEnd(FacesContext facesContext, UIComponent component) throws IOException {
         ResponseWriter writer = facesContext.getResponseWriter();
         writer.endElement(HtmlConstants.DIV_ELEM);
@@ -69,7 +64,5 @@ public class AutocompleteDivLayoutStrategy extends AbstractAutocompleteLayoutStr
             child.encodeAll(facesContext);
         }
         encodeItemEnd(facesContext, component);
-		
     }
-
 }

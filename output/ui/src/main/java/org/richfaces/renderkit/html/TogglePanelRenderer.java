@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit.html;
 
 import java.io.IOException;
@@ -52,43 +51,35 @@ import org.richfaces.renderkit.util.HandlersChain;
 /**
  * @author akolonitsky
  */
-@ResourceDependencies({
-        @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-        @ResourceDependency(name = "jquery.js"),
-        @ResourceDependency(name = "richfaces.js"),
-        @ResourceDependency(name = "richfaces-event.js"),
+@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"), @ResourceDependency(name = "jquery.js"),
+        @ResourceDependency(name = "richfaces.js"), @ResourceDependency(name = "richfaces-event.js"),
         @ResourceDependency(name = "richfaces-base-component.js"),
-        @ResourceDependency(library = "org.richfaces", name = "togglePanel.js")})
+        @ResourceDependency(library = "org.richfaces", name = "togglePanel.js") })
 @JsfRenderer(type = "org.richfaces.TogglePanelRenderer", family = AbstractTogglePanel.COMPONENT_FAMILY)
 public class TogglePanelRenderer extends DivPanelRenderer implements MetaComponentRenderer {
-
     public static final String VALUE_POSTFIX = "-value";
-
     protected static final String ITEM_CHANGE = "itemchange";
     protected static final String BEFORE_ITEM_CHANGE = "beforeitemchange";
-
     private static final String ON = "on";
 
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
         AbstractTogglePanel panel = (AbstractTogglePanel) component;
 
-        Map<String, String> requestParameterMap =
-                context.getExternalContext().getRequestParameterMap();
+        Map<String, String> requestParameterMap = context.getExternalContext().getRequestParameterMap();
 
         // Get the new panel value to show
         String newValue = requestParameterMap.get(getValueRequestParamName(context, component));
         if (newValue != null) {
             panel.setSubmittedActiveItem(newValue);
-            
+
             if (isSubmitted(context, panel)) {
                 PartialViewContext pvc = context.getPartialViewContext();
-                
+
                 pvc.getRenderIds().add(
                     component.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
-                    + AbstractTogglePanel.ACTIVE_ITEM_META_COMPONENT);
+                        + AbstractTogglePanel.ACTIVE_ITEM_META_COMPONENT);
             }
-            
         }
     }
 
@@ -96,11 +87,10 @@ public class TogglePanelRenderer extends DivPanelRenderer implements MetaCompone
         Map<String, String> parameterMap = context.getExternalContext().getRequestParameterMap();
         return parameterMap.get(panel.getClientId(context)) != null;
     }
-    
+
     protected static void addOnCompleteParam(FacesContext context, String newValue, String panelId) {
         StringBuilder onComplete = new StringBuilder();
-        onComplete.append("RichFaces.$('").append(panelId)
-                .append("').onCompleteHandler('").append(newValue).append("');");
+        onComplete.append("RichFaces.$('").append(panelId).append("').onCompleteHandler('").append(newValue).append("');");
 
         ExtendedPartialViewContext.getInstance(context).appendOncomplete(onComplete.toString());
     }
@@ -108,7 +98,7 @@ public class TogglePanelRenderer extends DivPanelRenderer implements MetaCompone
     static String getValueRequestParamName(FacesContext context, UIComponent component) {
         return component.getClientId(context) + VALUE_POSTFIX;
     }
-    
+
     @Override
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         FormUtil.throwEnclFormReqExceptionIfNeed(context, component);
@@ -122,7 +112,7 @@ public class TogglePanelRenderer extends DivPanelRenderer implements MetaCompone
         writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.INPUT_TYPE_HIDDEN, null);
         writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, panel.getActiveItem(), null);
         writer.endElement(HtmlConstants.INPUT_ELEM);
-        
+
         writeJavaScript(writer, context, component);
     }
 
@@ -132,8 +122,7 @@ public class TogglePanelRenderer extends DivPanelRenderer implements MetaCompone
     }
 
     @Override
-    protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component)
-        throws IOException {
+    protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
 
         renderChildren(context, component);
     }
@@ -145,8 +134,8 @@ public class TogglePanelRenderer extends DivPanelRenderer implements MetaCompone
 
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
-        return new JSObject("RichFaces.ui.TogglePanel",
-                component.getClientId(context), getScriptObjectOptions(context, component));
+        return new JSObject("RichFaces.ui.TogglePanel", component.getClientId(context), getScriptObjectOptions(context,
+            component));
     }
 
     @Override
@@ -164,18 +153,16 @@ public class TogglePanelRenderer extends DivPanelRenderer implements MetaCompone
         return options;
     }
 
-    public static void addEventOption(FacesContext context, UIComponent component, Map<String, Object> options,
-                                      String eventName) {
+    public static void addEventOption(FacesContext context, UIComponent component, Map<String, Object> options, String eventName) {
 
         HandlersChain handlersChain = new HandlersChain(context, component);
         handlersChain.addInlineHandlerFromAttribute(ON + eventName);
         handlersChain.addBehaviors(eventName);
-//        handlersChain.addAjaxSubmitFunction();
+        // handlersChain.addAjaxSubmitFunction();
 
         String handler = handlersChain.toScript();
         if (handler != null) {
-            options.put(ON + eventName,
-                    new JSFunctionDefinition(JSReference.EVENT).addToBody(handler));
+            options.put(ON + eventName, new JSFunctionDefinition(JSReference.EVENT).addToBody(handler));
         }
     }
 
@@ -188,15 +175,14 @@ public class TogglePanelRenderer extends DivPanelRenderer implements MetaCompone
         return AbstractTogglePanel.class;
     }
 
-    public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId)
-        throws IOException {
+    public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) throws IOException {
         if (AbstractTogglePanel.ACTIVE_ITEM_META_COMPONENT.equals(metaComponentId)) {
-            AbstractTogglePanel panel = (AbstractTogglePanel)component;
+            AbstractTogglePanel panel = (AbstractTogglePanel) component;
             AbstractTogglePanelItemInterface item = panel.getItem(panel.getActiveItem());
-            
+
             if (item != null) {
-                partialStart(context, ((UIComponent)item).getClientId(context));
-                ((UIComponent)item).encodeAll(context);
+                partialStart(context, ((UIComponent) item).getClientId(context));
+                ((UIComponent) item).encodeAll(context);
                 partialEnd(context);
                 addOnCompleteParam(context, item.getName(), panel.getClientId(context));
             } else {
@@ -213,13 +199,12 @@ public class TogglePanelRenderer extends DivPanelRenderer implements MetaCompone
     public void decodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) {
         // TODO Auto-generated method stub
     }
-    
+
     protected void partialStart(FacesContext facesContext, String id) throws IOException {
         facesContext.getPartialViewContext().getPartialResponseWriter().startUpdate(id);
     }
-    
-    protected void partialEnd(FacesContext facesContext) throws IOException {
-        facesContext.getPartialViewContext().getPartialResponseWriter().endUpdate();   
-    }    
-}
 
+    protected void partialEnd(FacesContext facesContext) throws IOException {
+        facesContext.getPartialViewContext().getPartialResponseWriter().endUpdate();
+    }
+}

@@ -18,7 +18,6 @@ import org.richfaces.javascript.client.RunParameters;
 import com.gargoylesoftware.htmlunit.ScriptException;
 
 public abstract class BeanValidatorTestBase extends MockTestBase {
-
     protected static final String PROP = "property";
 
     public BeanValidatorTestBase(RunParameters criteria) {
@@ -28,12 +27,11 @@ public abstract class BeanValidatorTestBase extends MockTestBase {
     @Test
     public void testValidator() throws Exception {
         Validator validator = createValidator();
-        Set<?> constrains = validator.validateValue(getBeanType(), (String) getOptions()
-            .get(PROP), criteria.getValue());
+        Set<?> constrains = validator.validateValue(getBeanType(), (String) getOptions().get(PROP), criteria.getValue());
         try {
             validateOnClient(validator);
-            assertTrue("Bean validator found error for value: " + criteria.getValue() + ", validator options: "
-                + getOptions(), constrains.isEmpty());
+            assertTrue("Bean validator found error for value: " + criteria.getValue() + ", validator options: " + getOptions(),
+                constrains.isEmpty());
         } catch (ScriptException e2) {
             // both methods throws exceptions - it's ok.
             Throwable cause = e2.getCause();
@@ -44,13 +42,12 @@ public abstract class BeanValidatorTestBase extends MockTestBase {
     protected abstract Class<?> getBeanType();
 
     protected Object validateOnClient(Validator validator) throws ValidationException {
-        JSFunction clientSideFunction = new JSFunction("RichFaces.csv." + getJavaScriptFunctionName(),
-            criteria.getValue(), TEST_COMPONENT_ID, getJavaScriptOptions(), getErrorMessage());
+        JSFunction clientSideFunction = new JSFunction("RichFaces.csv." + getJavaScriptFunctionName(), criteria.getValue(),
+            TEST_COMPONENT_ID, getJavaScriptOptions(), getErrorMessage());
         return qunit.runScript(clientSideFunction.toScript());
     }
 
     protected Validator createValidator() {
         return Validation.buildDefaultValidatorFactory().usingContext().getValidator();
     }
-
 }

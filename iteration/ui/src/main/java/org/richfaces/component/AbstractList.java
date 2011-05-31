@@ -18,47 +18,43 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.component;
+
+import java.util.Iterator;
+
+import javax.faces.component.UIComponent;
+
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.Facet;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Maps;
-import org.richfaces.cdk.annotations.*;
-
-import javax.faces.component.UIComponent;
-import java.util.Iterator;
 
 /**
  * JSF component class
- * 
+ *
  */
-@JsfComponent(
-        type = "org.richfaces.List",
-        family = "org.richfaces.List",
-        facets = @Facet(name = AbstractList.TERM),
-        tag = @Tag(name = "list", handler = "org.richfaces.taglib.ListHandler", type = TagType.Facelets),
-        renderer = @JsfRenderer(type = "org.richfaces.ListRenderer"),
-        attributes = "rowKeyConverter-prop.xml"
-)
+@JsfComponent(type = "org.richfaces.List", family = "org.richfaces.List", facets = @Facet(name = AbstractList.TERM), tag = @Tag(name = "list", handler = "org.richfaces.taglib.ListHandler", type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ListRenderer"), attributes = "rowKeyConverter-prop.xml")
 public abstract class AbstractList extends UISequence {
-
     public static final String TERM = "term";
-
     private static final Predicate<String> TERM_PREDICATE = new Predicate<String>() {
-
         public boolean apply(String input) {
             return TERM.equals(input);
         }
     };
-
     private static final Predicate<String> NON_TERM_PREDICATE = Predicates.not(TERM_PREDICATE);
 
     private Iterator<UIComponent> getFacetsIterator(Predicate<? super String> namePredicate) {
         if (getFacetCount() > 0) {
             return Maps.filterKeys(getFacets(), namePredicate).values().iterator();
-        }        
+        }
 
         return Iterators.emptyIterator();
     }

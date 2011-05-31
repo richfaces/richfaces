@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.function;
 
 import java.util.Set;
@@ -34,36 +33,32 @@ import org.richfaces.renderkit.util.RendererUtils;
 
 /**
  * Created 20.03.2008
+ *
  * @author Nick Belaevski
  * @since 3.2
  */
-
 public final class RichFunction {
-
     /**
-     * 
+     *
      */
     private static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
 
-    //EasyMock requires at least protected access for the interface for calls to be delegated to
+    // EasyMock requires at least protected access for the interface for calls to be delegated to
     protected static interface ComponentLocator {
-
         UIComponent findComponent(FacesContext facesContext, UIComponent contextComponent, String id);
-
     }
 
     private static ComponentLocator locator = new ComponentLocator() {
-
         public UIComponent findComponent(FacesContext context, UIComponent contextComponent, String id) {
             return RENDERER_UTILS.findComponentFor(context, contextComponent, id);
         }
     };
 
     private RichFunction() {
-        //utility class constructor
+        // utility class constructor
     }
 
-    //used by unit tests
+    // used by unit tests
     static void setComponentLocator(ComponentLocator mockLocator) {
         locator = mockLocator;
     }
@@ -96,7 +91,7 @@ public final class RichFunction {
     public static String component(String id) {
         String clientId = clientId(id);
         if (clientId != null) {
-            //TODO nick - what if jQuery.RichFaces doesn't exist?
+            // TODO nick - what if jQuery.RichFaces doesn't exist?
             return "RichFaces.$('" + clientId + "')";
         }
 
@@ -125,7 +120,7 @@ public final class RichFunction {
      */
     @Function
     public static boolean isUserInRole(Object rolesObject) {
-        //TODO nick - AjaxRendererUtils split text by commas and whitespace, what is the right variant?
+        // TODO nick - AjaxRendererUtils split text by commas and whitespace, what is the right variant?
         Set<String> rolesSet = CoreAjaxRendererUtils.asIdsSet(rolesObject);
         if (rolesSet != null) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -140,7 +135,7 @@ public final class RichFunction {
 
         return false;
     }
-    
+
     @Function
     public static String toScript(Object o) {
         return ScriptUtils.toScript(o);

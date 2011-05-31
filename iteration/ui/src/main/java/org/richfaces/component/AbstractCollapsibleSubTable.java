@@ -1,5 +1,5 @@
 /*
-* JBoss, Home of Professional Open Source
+ * JBoss, Home of Professional Open Source
  * Copyright ${year}, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import javax.el.ELContext;
@@ -37,49 +36,33 @@ import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.event.CollapsibleSubTableToggleEvent;
 import org.richfaces.event.CollapsibleSubTableToggleListener;
 
-
 /**
  * @author Anton Belevich
  *
  */
-@JsfComponent(
-    type = AbstractCollapsibleSubTable.COMPONENT_TYPE,
-    family = AbstractCollapsibleSubTable.COMPONENT_FAMILY, 
-    generate = "org.richfaces.component.UICollapsibleSubTable",
-    renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableRenderer"),
-    tag = @Tag(name = "collapsibleSubTable", handler = "org.richfaces.taglib.CollapsibleSubTableHandler", type = TagType.Facelets),
-    attributes = "rowKeyConverter-prop.xml"
-)
+@JsfComponent(type = AbstractCollapsibleSubTable.COMPONENT_TYPE, family = AbstractCollapsibleSubTable.COMPONENT_FAMILY, generate = "org.richfaces.component.UICollapsibleSubTable", renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableRenderer"), tag = @Tag(name = "collapsibleSubTable", handler = "org.richfaces.taglib.CollapsibleSubTableHandler", type = TagType.Facelets), attributes = "rowKeyConverter-prop.xml")
 public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implements Column, Expandable {
-    
     public static final String COMPONENT_TYPE = "org.richfaces.CollapsibleSubTable";
-
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
-
-    public static final String MODE_AJAX = "ajax"; 
-    
+    public static final String MODE_AJAX = "ajax";
     public static final String MODE_SERVER = "server";
-    
     public static final String MODE_CLIENT = "client";
-    
     public static final int EXPANDED_STATE = 1;
-    
     public static final int COLLAPSED_STATE = 0;
-
 
     enum PropertyKeys {
         expanded
     }
-    
+
     @Attribute
     public boolean isExpanded() {
-        return (Boolean)getStateHelper().eval(PropertyKeys.expanded, true);
+        return (Boolean) getStateHelper().eval(PropertyKeys.expanded, true);
     }
-    
+
     public void setExpanded(boolean expanded) {
         getStateHelper().put(PropertyKeys.expanded, expanded);
     }
-    
+
     @Attribute
     public abstract String getExpandMode();
 
@@ -89,7 +72,7 @@ public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implem
             boolean newValue = toggleEvent.isExpanded();
 
             getStateHelper().put(PropertyKeys.expanded, newValue);
-            
+
             FacesContext facesContext = getFacesContext();
             ELContext elContext = facesContext.getELContext();
 
@@ -97,21 +80,21 @@ public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implem
             if (valueExpression != null && !valueExpression.isReadOnly(elContext)) {
                 valueExpression.setValue(elContext, newValue);
             }
-            
-            if(getFacesContext().getPartialViewContext().isAjaxRequest()) {
+
+            if (getFacesContext().getPartialViewContext().isAjaxRequest()) {
                 String render = resolveClientId(facesContext, this, BODY);
-                
+
                 getFacesContext().getPartialViewContext().getRenderIds().add(render);
-                
+
                 String togglerId = toggleEvent.getTogglerId();
-                if(togglerId != null) {
+                if (togglerId != null) {
                     getFacesContext().getPartialViewContext().getRenderIds().add(togglerId);
                 }
             }
         }
         super.broadcast(event);
     }
-    
+
     public boolean isBreakBefore() {
         return true;
     }
@@ -128,11 +111,11 @@ public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implem
     public void setSortExpression(String sortExpression) {
         throw new IllegalArgumentException("subtable is not sortable element");
     }
-    
+
     public void addCollapsibleSubTableToggleListener(CollapsibleSubTableToggleListener listener) {
         addFacesListener(listener);
     }
-    
+
     public void removeCollapsibleSubTableToggleListener(CollapsibleSubTableToggleListener listener) {
         removeFacesListener(listener);
     }
@@ -140,10 +123,10 @@ public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implem
     public CollapsibleSubTableToggleListener[] getCollapsibleSubTableToggleListener() {
         return (CollapsibleSubTableToggleListener[]) getFacesListeners(CollapsibleSubTableToggleListener.class);
     }
-    
+
     public void setIterationState(Object stateObject) {
         StateHolderArray stateHolderList = (StateHolderArray) stateObject;
-        
+
         if (stateHolderList != null && !stateHolderList.isEmpty()) {
             super.setIterationState(stateHolderList.get(0));
             getStateHelper().put(PropertyKeys.expanded, (Boolean) stateHolderList.get(1));
@@ -152,13 +135,13 @@ public abstract class AbstractCollapsibleSubTable extends UIDataTableBase implem
             getStateHelper().put(PropertyKeys.expanded, null);
         }
     }
-    
+
     public Object getIterationState() {
         StateHolderArray holderList = new StateHolderArray();
-        
+
         holderList.add(super.getIterationState());
         holderList.add(getStateHelper().get(PropertyKeys.expanded));
-        
+
         return holderList;
     }
 }

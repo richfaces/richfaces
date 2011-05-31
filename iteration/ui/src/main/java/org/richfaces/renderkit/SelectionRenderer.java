@@ -41,24 +41,21 @@ import org.richfaces.component.UIDataTableBase;
  *
  */
 public abstract class SelectionRenderer extends SortingFilteringRowsRenderer {
-
     private class ClientSelection {
-        
-        //TODO nick - use enum instead of constant
+        // TODO nick - use enum instead of constant
         public static final String FLAG_RESET = "x";
         public static final String FLAG_ALL = "a";
         public static final String FLAG_AFTER_RANGE = "d";
         public static final String FLAG_BEFORE_RANGE = "u";
-
-        //TODO nick - add special class that will express selection range
-        private int [][] ranges;
+        // TODO nick - add special class that will express selection range
+        private int[][] ranges;
         private int activeIndex;
         private int shiftIndex;
         private String selectionFlag;
         private int index;
-        
+
         public ClientSelection(String selectionString) {
-            //TODO nick - this code is not readable at all - lacks comments, has lot of arrays operation
+            // TODO nick - this code is not readable at all - lacks comments, has lot of arrays operation
             String[] strings = selectionString.split("\\|", -1);
             String[] rangeStrings = strings[0].split(";");
             if (strings[0].length() > 0) {
@@ -88,7 +85,7 @@ public abstract class SelectionRenderer extends SortingFilteringRowsRenderer {
             }
             index = 0;
         }
-        
+
         public boolean isSelected(int index) {
             int i = 0;
             while (i < ranges.length && index >= ranges[i][0]) {
@@ -100,6 +97,7 @@ public abstract class SelectionRenderer extends SortingFilteringRowsRenderer {
             }
             return false;
         }
+
         public boolean isActiveIndex(int index) {
             return activeIndex == index;
         }
@@ -115,16 +113,15 @@ public abstract class SelectionRenderer extends SortingFilteringRowsRenderer {
         public String getSelectionFlag() {
             return selectionFlag;
         }
-        
+
         public int nextIndex() {
             return index++;
         }
     }
-    
-    protected void encodeSelectionInput(ResponseWriter writer, FacesContext context, UIComponent component)
-        throws IOException {
+
+    protected void encodeSelectionInput(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         writer.startElement(HtmlConstants.INPUT_ELEM, component);
-        //TODO nick - selection input id should use constants/be a method
+        // TODO nick - selection input id should use constants/be a method
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context) + ":si", null);
         writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, component.getClientId(context) + ":si", null);
         writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.INPUT_TYPE_HIDDEN, null);
@@ -162,7 +159,6 @@ public abstract class SelectionRenderer extends SortingFilteringRowsRenderer {
         writer.endElement(HtmlConstants.INPUT_ELEM);
     }
 
-    
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
         super.doDecode(context, component);
@@ -175,7 +171,7 @@ public abstract class SelectionRenderer extends SortingFilteringRowsRenderer {
             Collection<Object> selection = table.getSelection();
             if (selection == null) {
                 selection = new HashSet<Object>();
-                //TODO nick - model updates should not happen on the 2nd phase
+                // TODO nick - model updates should not happen on the 2nd phase
                 updateAttribute(context, component, "selection", selection);
             }
             final Collection<Object> rowKeys = selection;
@@ -209,8 +205,9 @@ public abstract class SelectionRenderer extends SortingFilteringRowsRenderer {
         }
     }
 
-
-    private void encodeSelectionOutsideCurrentRange(FacesContext context, AbstractExtendedDataTable table, String selectionFlag) { //TODO Rename method
+    private void encodeSelectionOutsideCurrentRange(FacesContext context, AbstractExtendedDataTable table, String selectionFlag) { // TODO
+                                                                                                                                   // Rename
+                                                                                                                                   // method
         Object key = table.getRowKey();
         table.captureOrigValue(context);
         SequenceRange range = (SequenceRange) table.getComponentState().getRange();

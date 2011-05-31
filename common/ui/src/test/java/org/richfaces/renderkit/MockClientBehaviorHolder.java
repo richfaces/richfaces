@@ -34,7 +34,6 @@ import org.easymock.IMocksControl;
 import org.jboss.test.faces.mock.component.MockUIComponent;
 
 public class MockClientBehaviorHolder extends MockUIComponent implements ClientBehaviorHolder {
-
     public MockClientBehaviorHolder(IMocksControl control, String name) {
         super(control, name);
     }
@@ -54,5 +53,4 @@ public class MockClientBehaviorHolder extends MockUIComponent implements ClientB
     public Collection<String> getEventNames() {
         return invokeCurrent(this);
     }
-
 }

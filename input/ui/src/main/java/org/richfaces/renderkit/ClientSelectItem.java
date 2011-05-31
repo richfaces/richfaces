@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit;
 
 import java.io.IOException;
@@ -28,7 +27,6 @@ import org.ajax4jsf.javascript.ScriptString;
 import org.ajax4jsf.javascript.ScriptUtils;
 
 public final class ClientSelectItem implements ScriptString {
-
     private String clientId;
     private String label;
     private String convertedValue;
@@ -37,8 +35,7 @@ public final class ClientSelectItem implements ScriptString {
         this(convertedValue, label, null);
     }
 
-    public ClientSelectItem(String convertedValue, String label,
-            String clientId) {
+    public ClientSelectItem(String convertedValue, String label, String clientId) {
         super();
         this.convertedValue = convertedValue;
         this.label = label;
@@ -69,15 +66,12 @@ public final class ClientSelectItem implements ScriptString {
         try {
             appendScript(stringBuilder);
         } catch (IOException e) {
-            //ignore
+            // ignore
         }
     }
-    
-    public String toScript() {
-        return "{ 'id' : " + ScriptUtils.toScript(clientId)
-                + " , 'label' : " + ScriptUtils.toScript(label)
-                + ", 'value' : " + ScriptUtils.toScript(convertedValue)
-                + "}";
-    }
 
+    public String toScript() {
+        return "{ 'id' : " + ScriptUtils.toScript(clientId) + " , 'label' : " + ScriptUtils.toScript(label) + ", 'value' : "
+            + ScriptUtils.toScript(convertedValue) + "}";
+    }
 }

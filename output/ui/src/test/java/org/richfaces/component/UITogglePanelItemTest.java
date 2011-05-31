@@ -19,26 +19,21 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.faces.component.UIComponent;
-import java.util.List;
-
 /**
  * @author akolonitsky
  * @since 2010-08-24
  */
 public class UITogglePanelItemTest {
-
     private UITogglePanelItem togglePanelItem;
 
     @Before
-    public void setUp () {
+    public void setUp() {
         togglePanelItem = new UITogglePanelItem();
     }
 
@@ -56,4 +51,3 @@ public class UITogglePanelItemTest {
         Assert.assertEquals(togglePanelItem.getName(), name);
     }
 }
-

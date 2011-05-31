@@ -18,7 +18,6 @@ import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
 
 public abstract class ToolbarSeparatorImage implements Java2DUserResource, StateHolderResource {
-
     private Integer headerBackgroundColor;
     private Integer separatorHeight;
     private Integer headerGradientColor;
@@ -95,7 +94,7 @@ public abstract class ToolbarSeparatorImage implements Java2DUserResource, State
             tmp = (String) defaultSkin.getParameter(context, skinParameter);
         }
         this.setHeaderGradientColor(Color.decode(tmp == null ? "#CCCCFF" : tmp).getRGB());
-        
+
         if (getSeparatorHeight() == null) {
             setSeparatorHeight(0);
         }

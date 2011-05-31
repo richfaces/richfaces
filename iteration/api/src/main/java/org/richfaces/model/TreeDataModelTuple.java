@@ -26,24 +26,22 @@ import com.google.common.base.Objects.ToStringHelper;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class TreeDataModelTuple {
-
     private Object rowKey;
-    
     private Object data;
-    
+
     public TreeDataModelTuple(Object rowKey, Object data) {
         super();
         this.rowKey = rowKey;
         this.data = data;
     }
-    
+
     public Object getRowKey() {
         return rowKey;
     }
-    
+
     public Object getData() {
         return data;
     }
@@ -55,7 +53,7 @@ public class TreeDataModelTuple {
 
         return helper;
     }
-    
+
     @Override
     public String toString() {
         return createToStringHelper().toString();

@@ -29,14 +29,11 @@ import javax.faces.event.FacesListener;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class TreeSelectionChangeEvent extends FacesEvent {
-
     private static final long serialVersionUID = 6292604445872458007L;
-
     private Collection<Object> oldSelection;
-
     private Collection<Object> newSelection;
 
     public TreeSelectionChangeEvent(UIComponent component, Collection<Object> oldSelection, Collection<Object> newSelection) {
@@ -59,9 +56,8 @@ public class TreeSelectionChangeEvent extends FacesEvent {
     public Collection<Object> getOldSelection() {
         return oldSelection;
     }
-    
+
     public Collection<Object> getNewSelection() {
         return newSelection;
     }
-    
 }

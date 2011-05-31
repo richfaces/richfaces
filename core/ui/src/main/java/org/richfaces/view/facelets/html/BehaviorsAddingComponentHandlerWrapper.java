@@ -19,8 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-
 package org.richfaces.view.facelets.html;
 
 import java.io.IOException;
@@ -64,11 +62,11 @@ public class BehaviorsAddingComponentHandlerWrapper extends ComponentHandler imp
     }
 
     public TagAttribute getTagAttribute(String localName) {
-        //workaround for MyFaces
+        // workaround for MyFaces
         if (componentHandler == null) {
             return getComponentConfig().getTag().getAttributes().get(localName);
         }
-        
+
         return componentHandler.getTagAttribute(localName);
     }
 
@@ -114,7 +112,7 @@ public class BehaviorsAddingComponentHandlerWrapper extends ComponentHandler imp
     public void setAttributes(FaceletContext ctx, Object instance) {
         componentHandler.setAttributes(ctx, instance);
     }
-    
+
     public ComponentHandler getWrapped() {
         return componentHandler;
     }

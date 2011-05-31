@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit;
 
 import javax.faces.application.ResourceDependencies;
@@ -34,12 +33,9 @@ import org.richfaces.component.util.HtmlUtil;
  * @author nick
  *
  */
-@ResourceDependencies({
-    @ResourceDependency(name = "jquery.js"),
-    @ResourceDependency(library = "org.richfaces", name = "jquery.component.js")
-})
+@ResourceDependencies({ @ResourceDependency(name = "jquery.js"),
+        @ResourceDependency(library = "org.richfaces", name = "jquery.component.js") })
 public abstract class JQueryRendererBase extends Renderer {
-
     protected String getEscapedSelector(FacesContext context, UIComponent component) {
         String selector = (String) component.getAttributes().get("selector");
 
@@ -49,5 +45,4 @@ public abstract class JQueryRendererBase extends Renderer {
 
         return selector;
     }
-
 }

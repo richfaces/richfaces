@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit.html;
 
 import static org.richfaces.component.AbstractTogglePanelTitledItem.HeaderStates.active;
@@ -60,35 +59,27 @@ import org.richfaces.renderkit.RenderKitUtils;
  * @author akolonitsky
  * @since 2010-08-24
  */
-@ResourceDependencies( { // TODO review
-    @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-    @ResourceDependency(name = "jquery.js"),
-    @ResourceDependency(name = "richfaces.js"),
-    @ResourceDependency(name = "richfaces-event.js"),
-    @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(library = "org.richfaces", name = "tabPanel.ecss"),
-    @ResourceDependency(library = "org.richfaces", name = "togglePanel.js"),
-    @ResourceDependency(library = "org.richfaces", name = "tabPanel.js")
-})
+@ResourceDependencies({ // TODO review
+@ResourceDependency(library = "javax.faces", name = "jsf.js"), @ResourceDependency(name = "jquery.js"),
+        @ResourceDependency(name = "richfaces.js"), @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(name = "richfaces-base-component.js"),
+        @ResourceDependency(library = "org.richfaces", name = "tabPanel.ecss"),
+        @ResourceDependency(library = "org.richfaces", name = "togglePanel.js"),
+        @ResourceDependency(library = "org.richfaces", name = "tabPanel.js") })
 @JsfRenderer(type = "org.richfaces.TabPanelRenderer", family = AbstractTabPanel.COMPONENT_FAMILY)
 public class TabPanelRenderer extends TogglePanelRenderer {
-
     private static final RenderKitUtils.Attributes HEADER_ATTRIBUTES = RenderKitUtils.attributes()
-        .generic("onclick", "onheaderclick", "headerclick")
-        .generic("ondblclick", "onheaderdblclick", "headerdblclick")
+        .generic("onclick", "onheaderclick", "headerclick").generic("ondblclick", "onheaderdblclick", "headerdblclick")
         .generic("onmousedown", "onheadermousedown", "headermousedown")
         .generic("onmousemove", "onheadermousemove", "headermousemove")
         .generic("onmouseup", "onheadermouseup", "headermouseup");
-
     private static final String DIV = DIV_ELEM;
     private static final String STYLE = STYLE_ATTRIBUTE;
     private static final String CLASS = CLASS_ATTRIBUTE;
 
-
     protected static void addOnCompleteParam(FacesContext context, String newValue, String panelId) {
         StringBuilder onComplete = new StringBuilder();
-        onComplete.append("RichFaces.$('").append(panelId)
-                    .append("').onCompleteHandler('").append(newValue).append("');");
+        onComplete.append("RichFaces.$('").append(panelId).append("').onCompleteHandler('").append(newValue).append("');");
 
         ExtendedPartialViewContext.getInstance(context).appendOncomplete(onComplete.toString());
     }
@@ -136,7 +127,7 @@ public class TabPanelRenderer extends TogglePanelRenderer {
             writeTopTabHeader(context, w, tab);
             writeTopTabSpacer(w, comp);
         }
-        
+
         writeTopTabLastSpacer(w, comp);
 
         w.endElement(TR_ELEMENT);
@@ -167,19 +158,20 @@ public class TabPanelRenderer extends TogglePanelRenderer {
         encodeTabHeader(context, tab, writer, inactive, !isActive && !isDisabled);
         encodeTabHeader(context, tab, writer, active, isActive && !isDisabled);
         encodeTabHeader(context, tab, writer, disabled, isDisabled);
-
-    }    
+    }
 
     private void encodeTabHeader(FacesContext context, AbstractTab tab, ResponseWriter writer,
         AbstractTogglePanelTitledItem.HeaderStates state, Boolean isDisplay) throws IOException {
 
-
         writer.startElement(TD_ELEM, tab);
         writer.writeAttribute(ID_ATTRIBUTE, tab.getClientId(context) + ":header:" + state.toString(), null);
         renderPassThroughAttributes(context, tab, HEADER_ATTRIBUTES);
-        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-tab-hdr rf-tab-hdr-" + state.abbreviation(),
-                attributeAsString(tab, "headerClass"), attributeAsString(tab, state.headerClass())), null);
-        writer.writeAttribute(STYLE_ATTRIBUTE, concatStyles(isDisplay ? "" : "display : none", attributeAsString(tab, "headerStyle")), null);
+        writer.writeAttribute(
+            CLASS_ATTRIBUTE,
+            concatClasses("rf-tab-hdr rf-tab-hdr-" + state.abbreviation(), attributeAsString(tab, "headerClass"),
+                attributeAsString(tab, state.headerClass())), null);
+        writer.writeAttribute(STYLE_ATTRIBUTE,
+            concatStyles(isDisplay ? "" : "display : none", attributeAsString(tab, "headerStyle")), null);
 
         writer.startElement(SPAN_ELEM, tab);
         writer.writeAttribute(CLASS_ATTRIBUTE, "rf-tab-lbl", null);
@@ -198,8 +190,6 @@ public class TabPanelRenderer extends TogglePanelRenderer {
 
         writer.endElement(TD_ELEM);
     }
-
-
 
     private void writeTopTabsControl(ResponseWriter w, UIComponent comp, String styles, String text) throws IOException {
         w.startElement(DIV_ELEM, comp);
@@ -235,8 +225,7 @@ public class TabPanelRenderer extends TogglePanelRenderer {
 
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
-        return new JSObject("RichFaces.ui.TabPanel",
-            component.getClientId(context), getScriptObjectOptions(context, component));
+        return new JSObject("RichFaces.ui.TabPanel", component.getClientId(context), getScriptObjectOptions(context, component));
     }
 
     @Override

@@ -32,16 +32,13 @@ import org.richfaces.cdk.annotations.TagType;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
-@JsfComponent(type = AbstractPush.COMPONENT_TYPE, family = AbstractPush.COMPONENT_FAMILY, tag = @Tag(name = "push", type = TagType.Facelets), 
-    renderer = @JsfRenderer(type = "org.richfaces.PushRenderer"))
+@JsfComponent(type = AbstractPush.COMPONENT_TYPE, family = AbstractPush.COMPONENT_FAMILY, tag = @Tag(name = "push", type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.PushRenderer"))
 public abstract class AbstractPush extends UIComponentBase {
-
     public static final String COMPONENT_TYPE = "org.richfaces.Push";
-    
     public static final String COMPONENT_FAMILY = "org.richfaces.Push";
-        
+
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
@@ -50,9 +47,9 @@ public abstract class AbstractPush extends UIComponentBase {
     @Attribute(required = true)
     public abstract String getAddress();
 
-    @Attribute(events = {@EventName("dataavailable")})
+    @Attribute(events = { @EventName("dataavailable") })
     public abstract String getOndataavailable();
 
-    @Attribute(events = {@EventName("error")})
+    @Attribute(events = { @EventName("error") })
     public abstract String getOnerror();
 }

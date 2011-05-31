@@ -1,7 +1,11 @@
 package org.richfaces.component.behavior;
 
-import static org.easymock.EasyMock.*;
-import static org.junit.Assert.*;
+import static org.easymock.EasyMock.capture;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.same;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 
 import java.util.Collections;
 
@@ -23,33 +27,30 @@ import org.richfaces.validator.FacesConverterService;
 
 /**
  * <p class="changed_added_4_0">
- * This class tests client validator behavior. as it described at https://community.jboss.org/wiki/ClientSideValidation
- * # Server-side rendering algorithm
+ * This class tests client validator behavior. as it described at https://community.jboss.org/wiki/ClientSideValidation #
+ * Server-side rendering algorithm
  * </p>
- * 
+ *
  * @author asmirnov@exadel.com
- * 
+ *
  */
 @RunWith(MockTestRunner.class)
 public class BehaviorGetConverterTest extends BehaviorTestBase {
-
     @Mock
     private Converter converter;
-
     @Mock
     private FacesConverterService converterService;
-
     @Stub
     private ConverterDescriptor descriptor;
-
     private Capture<Converter> converterCapture;
 
     @Before
     public void setupService() {
         expect(factory.getInstance(FacesConverterService.class)).andStubReturn(converterService);
         converterCapture = new Capture<Converter>();
-        expect(converterService.getConverterDescription(same(environment.getFacesContext()), same(input), capture(converterCapture), EasyMock.<String>isNull()))
-            .andStubReturn(descriptor);
+        expect(
+            converterService.getConverterDescription(same(environment.getFacesContext()), same(input),
+                capture(converterCapture), EasyMock.<String>isNull())).andStubReturn(descriptor);
         ServiceTracker.setFactory(factory);
     }
 
@@ -62,14 +63,14 @@ public class BehaviorGetConverterTest extends BehaviorTestBase {
      * <p class="changed_added_4_0">
      * Server-side rendering algorithm .3 - determine client-side converter
      * </p>
-     * 
+     *
      * @throws Exception
      */
     @Test
     public void testGetClientConverterFromComponent() throws Exception {
         NumberConverter converter = new NumberConverter();
         expect(input.getConverter()).andReturn(converter);
-        expect(input.getAttributes()).andStubReturn(Collections.<String,Object>emptyMap());
+        expect(input.getAttributes()).andStubReturn(Collections.<String, Object>emptyMap());
         checkConverter(converter);
     }
 
@@ -77,13 +78,13 @@ public class BehaviorGetConverterTest extends BehaviorTestBase {
      * <p class="changed_added_4_0">
      * Server-side rendering algorithm .3 - determine client-side converter
      * </p>
-     * 
+     *
      * @throws Exception
      */
     @Test
     public void testGetClientConverterByType() throws Exception {
         setupConverterFromApplication(converter);
-        expect(input.getAttributes()).andStubReturn(Collections.<String,Object>emptyMap());
+        expect(input.getAttributes()).andStubReturn(Collections.<String, Object>emptyMap());
         checkConverter(converter);
     }
 
@@ -121,5 +122,4 @@ public class BehaviorGetConverterTest extends BehaviorTestBase {
             assertSame(converter, converterCapture.getValue());
         }
     }
-
 }

@@ -39,13 +39,10 @@ import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 
 public class DeclarativeTreeDataModelCompositeTuplesIterator extends ForwardingIterator<TreeDataModelTuple> {
-    
     private UIComponent component;
-
     private SequenceRowKey key;
-    
     private Iterator<TreeDataModelTuple> iterator;
-    
+
     public DeclarativeTreeDataModelCompositeTuplesIterator(UIComponent component, SequenceRowKey key) {
         super();
         this.component = component;
@@ -56,12 +53,12 @@ public class DeclarativeTreeDataModelCompositeTuplesIterator extends ForwardingI
     protected Iterator<TreeDataModelTuple> delegate() {
         if (iterator == null) {
             List<Iterator<TreeDataModelTuple>> list = Lists.newArrayList();
-            
+
             if (component instanceof TreeModelRecursiveAdaptor) {
                 TreeModelRecursiveAdaptor parentRecursiveAdaptor = (TreeModelRecursiveAdaptor) component;
-                
+
                 Object nodes = parentRecursiveAdaptor.getNodes();
-                
+
                 Iterator<TreeDataModelTuple> tuplesIterator = createTuplesIterator(component, nodes);
                 if (tuplesIterator != null) {
                     list.add(tuplesIterator);
@@ -74,11 +71,11 @@ public class DeclarativeTreeDataModelCompositeTuplesIterator extends ForwardingI
 
                     if (child instanceof TreeModelRecursiveAdaptor) {
                         TreeModelRecursiveAdaptor treeModelRecursiveAdaptor = (TreeModelRecursiveAdaptor) child;
-                        
+
                         nodes = treeModelRecursiveAdaptor.getRoots();
                     } else if (child instanceof TreeModelAdaptor) {
                         TreeModelAdaptor treeModelAdaptor = (TreeModelAdaptor) child;
-                        
+
                         nodes = treeModelAdaptor.getNodes();
                     }
 
@@ -88,10 +85,10 @@ public class DeclarativeTreeDataModelCompositeTuplesIterator extends ForwardingI
                     }
                 }
             }
-            
+
             iterator = Iterators.concat(list.iterator());
         }
-        
+
         return iterator;
     }
 
@@ -99,16 +96,15 @@ public class DeclarativeTreeDataModelCompositeTuplesIterator extends ForwardingI
         if (nodes != null) {
             if (nodes instanceof Iterable<?>) {
                 Iterable<?> iterable = (Iterable<?>) nodes;
-                
+
                 return new IterableDataTuplesIterator(key, iterable.iterator(), component);
             } else if (nodes instanceof Map<?, ?>) {
                 Map<?, ?> map = (Map<?, ?>) nodes;
-             
+
                 return new MapDataTuplesIterator(key, map, component);
             }
         }
-        
+
         return null;
     }
-    
 }

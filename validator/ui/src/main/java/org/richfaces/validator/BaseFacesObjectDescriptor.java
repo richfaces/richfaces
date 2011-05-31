@@ -10,11 +10,9 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 
 public class BaseFacesObjectDescriptor<T> {
-
     private final Class<? extends T> converterClass;
     private Map<String, Object> parameters = Maps.newHashMap();
     private final Message message;
-
 
     public BaseFacesObjectDescriptor(Class<? extends T> converterClass, FacesMessage message) {
         this.converterClass = converterClass;
@@ -40,5 +38,4 @@ public class BaseFacesObjectDescriptor<T> {
     protected void makeImmutable() {
         parameters = ImmutableMap.copyOf(parameters);
     }
-
 }

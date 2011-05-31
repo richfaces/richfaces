@@ -22,7 +22,9 @@
 package org.richfaces.component;
 
 public enum InputNumberSliderInputPosition {
-    top, right, bottom, left;
-    
+    top,
+    right,
+    bottom,
+    left;
     public static final InputNumberSliderInputPosition DEFAULT = right;
 }

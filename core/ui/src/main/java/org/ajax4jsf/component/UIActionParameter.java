@@ -18,15 +18,11 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.component;
 
 import javax.el.ELContext;
 import javax.el.MethodExpression;
 import javax.el.ValueExpression;
-
 import javax.faces.FacesException;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIParameter;
@@ -48,29 +44,24 @@ public class UIActionParameter extends UIParameter implements ActionListener, Ja
     private static String noEscapeAttr = "noEscape";
 
     /** ********************************************************* */
-
     /**
      * Action listener to call after binding has been updated
      */
     private MethodExpression actionListener = null;
-
     /**
      * Binding for update on ActionEvent
      */
     private ValueExpression assignToBinding = null;
 
     /** ********************************************************* */
-
     /**
      * Converter for update value with this parameter
      */
     private Converter converter = null;
 
     /** ********************************************************* */
-
     /**
-     * Skip quota escaping of parameter value - for substitute JavaScript
-     * exspression on submit
+     * Skip quota escaping of parameter value - for substitute JavaScript exspression on submit
      */
     private Boolean noEscape = null;
 
@@ -180,7 +171,7 @@ public class UIActionParameter extends UIParameter implements ActionListener, Ja
             MethodExpression listener = getActionListener();
 
             if (listener != null) {
-                listener.invoke(elContext, new Object[] {actionEvent});
+                listener.invoke(elContext, new Object[] { actionEvent });
             }
         }
     }
@@ -244,10 +235,8 @@ public class UIActionParameter extends UIParameter implements ActionListener, Ja
     }
 
     /**
-     * @param field -
-     *            value of field to get.
-     * @param name -
-     *            name of field, to get from ValueBinding
+     * @param field - value of field to get.
+     * @param name - name of field, to get from ValueBinding
      * @return boolean value, based on field or valuebinding.
      */
     private boolean isValueOrBinding(Boolean field, String name) {

@@ -27,21 +27,19 @@ import java.awt.Graphics2D;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class TreeLineLastImage extends TreeLineImage {
-
     private static final Dimension DIMENSION = new Dimension(16, 200);
-    
+
     public TreeLineLastImage() {
         super(DIMENSION);
     }
 
     public void paint(Graphics2D g2d) {
         g2d.setColor(new Color(trimColorValue));
-        
+
         g2d.drawLine(7, 0, 7, 99);
         g2d.drawLine(7, 99, 15, 99);
     }
-
 }

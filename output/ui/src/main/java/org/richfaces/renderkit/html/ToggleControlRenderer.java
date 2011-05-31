@@ -19,11 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit.html;
-
-import org.richfaces.cdk.annotations.JsfBehaviorRenderer;
-import org.richfaces.component.behavior.ToggleControl;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -31,16 +27,16 @@ import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.render.ClientBehaviorRenderer;
 
+import org.richfaces.cdk.annotations.JsfBehaviorRenderer;
+import org.richfaces.component.behavior.ToggleControl;
+
 /**
  * @author akolonitsky
  *
  */
-@ResourceDependencies({
-    @ResourceDependency(name = "jquery.js"),
-    @ResourceDependency(name = "richfaces.js") })
+@ResourceDependencies({ @ResourceDependency(name = "jquery.js"), @ResourceDependency(name = "richfaces.js") })
 @JsfBehaviorRenderer(type = "org.richfaces.component.behavior.ToggleControl")
 public class ToggleControlRenderer extends ClientBehaviorRenderer {
-
     @Override
     public String getScript(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
         ToggleControl control = (ToggleControl) behavior;
@@ -48,7 +44,7 @@ public class ToggleControlRenderer extends ClientBehaviorRenderer {
         StringBuilder builder = new StringBuilder();
         builder.append("RichFaces.$('").append(control.getPanelId(behaviorContext)).append("').switchToItem('")
             .append(control.getTargetItem()).append("'); return ").append(!control.getDisableDefault()).append(';');
-        
+
         return builder.toString();
     }
 }

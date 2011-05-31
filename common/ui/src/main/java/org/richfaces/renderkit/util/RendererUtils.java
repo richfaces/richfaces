@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.renderkit.util;
 
 import java.io.IOException;
@@ -50,25 +47,21 @@ import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RenderKitUtils;
 
 /**
- * Util class for common render operations - render passthru html attributes,
- * iterate over child components etc.
+ * Util class for common render operations - render passthru html attributes, iterate over child components etc.
  *
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.6 $ $Date: 2007/02/08 19:07:16 $
  *
  */
 public final class RendererUtils {
-
     public static final String DUMMY_FORM_ID = ":_form";
-
     // we'd better use this instance multithreadly quickly
     private static final RendererUtils INSTANCE = new RendererUtils();
-
     /**
      * Substitutions for components properies names and HTML attributes names.
      */
     private static final Map<String, String> SUBSTITUTIONS = new HashMap<String, String>();
-    
+
     static {
         SUBSTITUTIONS.put(HtmlConstants.CLASS_ATTRIBUTE, "styleClass");
 
@@ -86,6 +79,7 @@ public final class RendererUtils {
 
     /**
      * Use this method to get singleton instance of RendererUtils
+     *
      * @return singleton instance
      */
     public static RendererUtils getInstance() {
@@ -122,14 +116,12 @@ public final class RendererUtils {
         }
 
         if (null != clientId) {
-            context.getResponseWriter().writeAttribute(attribute, clientId,
-                    (String) getComponentAttributeName(attribute));
+            context.getResponseWriter().writeAttribute(attribute, clientId, (String) getComponentAttributeName(attribute));
         }
     }
 
     /**
-     * Encode id attribute with clientId component property. Encoded only if id
-     * not auto generated.
+     * Encode id attribute with clientId component property. Encoded only if id not auto generated.
      *
      * @param context
      * @param component
@@ -138,14 +130,15 @@ public final class RendererUtils {
     public void encodeCustomId(FacesContext context, UIComponent component) throws IOException {
         if (hasExplicitId(component)) {
             context.getResponseWriter().writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context),
-                    HtmlConstants.ID_ATTRIBUTE);
+                HtmlConstants.ID_ATTRIBUTE);
         }
     }
 
     /**
-     * Returns value of the parameter. If parameter is instance of 
-     * <code>JavaScriptParameter</code>, <code>NoEcape</code> attribute is applied.
-     * @param parameter instance of <code>UIParameter</code> 
+     * Returns value of the parameter. If parameter is instance of <code>JavaScriptParameter</code>, <code>NoEcape</code>
+     * attribute is applied.
+     *
+     * @param parameter instance of <code>UIParameter</code>
      * @return <code>Object</code> parameter value
      */
     public Object createParameterValue(UIParameter parameter) {
@@ -165,10 +158,10 @@ public final class RendererUtils {
         } else {
             value = new JSReference(value.toString());
         }
-        
+
         return value;
     }
-    
+
     public Map<String, Object> createParametersMap(FacesContext context, UIComponent component) {
         Map<String, Object> parameters = new LinkedHashMap<String, Object>();
 
@@ -181,7 +174,7 @@ public final class RendererUtils {
 
                     if (null == name) {
                         throw new IllegalArgumentException(Messages.getMessage(Messages.UNNAMED_PARAMETER_ERROR,
-                                component.getClientId(context)));
+                            component.getClientId(context)));
                     }
                     parameters.put(name, value);
                 }
@@ -191,13 +184,12 @@ public final class RendererUtils {
         return parameters;
     }
 
-    private void encodeBehaviors(FacesContext context, ClientBehaviorHolder behaviorHolder,
-                                 String defaultHtmlEventName, String[] attributesExclusions)
-        throws IOException {
+    private void encodeBehaviors(FacesContext context, ClientBehaviorHolder behaviorHolder, String defaultHtmlEventName,
+        String[] attributesExclusions) throws IOException {
 
-//      if (attributesExclusions != null && attributesExclusions.length != 0) {
-//          assert false : "Not supported yet";
-//      }
+        // if (attributesExclusions != null && attributesExclusions.length != 0) {
+        // assert false : "Not supported yet";
+        // }
         // TODO: disabled component check
         String defaultEventName = behaviorHolder.getDefaultEventName();
         Collection<String> eventNames = behaviorHolder.getEventNames();
@@ -205,8 +197,7 @@ public final class RendererUtils {
         if (eventNames != null) {
             UIComponent component = (UIComponent) behaviorHolder;
             ResponseWriter writer = context.getResponseWriter();
-            Collection<Parameter> parametersList = HandlersChain.createParametersList(createParametersMap(context,
-                                                       component));
+            Collection<Parameter> parametersList = HandlersChain.createParametersList(createParametersMap(context, component));
 
             for (String behaviorEventName : eventNames) {
                 if (behaviorEventName.equals(defaultEventName)) {
@@ -238,8 +229,7 @@ public final class RendererUtils {
      * @param component
      * @throws IOException
      */
-    public void encodePassThru(FacesContext context, UIComponent component, String defaultHtmlEvent)
-        throws IOException {
+    public void encodePassThru(FacesContext context, UIComponent component, String defaultHtmlEvent) throws IOException {
 
         encodeAttributesFromArray(context, component, HtmlConstants.PASS_THRU);
 
@@ -261,7 +251,7 @@ public final class RendererUtils {
      * @throws IOException
      */
     public void encodePassThruWithExclusions(FacesContext context, UIComponent component, String exclusions,
-            String defaultHtmlEvent) throws IOException {
+        String defaultHtmlEvent) throws IOException {
 
         if (null != exclusions) {
             String[] exclusionsArray = exclusions.split(",");
@@ -271,7 +261,7 @@ public final class RendererUtils {
     }
 
     public void encodePassThruWithExclusionsArray(FacesContext context, UIComponent component, String[] exclusions,
-            String defaultHtmlEvent) throws IOException {
+        String defaultHtmlEvent) throws IOException {
 
         ResponseWriter writer = context.getResponseWriter();
         Map<String, Object> attributes = component.getAttributes();
@@ -302,8 +292,7 @@ public final class RendererUtils {
     }
 
     /**
-     * Encode one pass-thru attribute, with plain/boolean/url value, got from
-     * properly component attribute.
+     * Encode one pass-thru attribute, with plain/boolean/url value, got from properly component attribute.
      *
      * @param context
      * @param writer
@@ -311,7 +300,7 @@ public final class RendererUtils {
      * @throws IOException
      */
     public void encodePassThruAttribute(FacesContext context, Map<String, Object> attributes, ResponseWriter writer,
-            String attribute) throws IOException {
+        String attribute) throws IOException {
 
         Object value = attributeValue(attribute, attributes.get(getComponentAttributeName(attribute)));
 
@@ -327,8 +316,7 @@ public final class RendererUtils {
         }
     }
 
-    public void encodeAttributesFromArray(FacesContext context, UIComponent component, String[] attrs)
-        throws IOException {
+    public void encodeAttributesFromArray(FacesContext context, UIComponent component, String[] attrs) throws IOException {
 
         ResponseWriter writer = context.getResponseWriter();
         Map<String, Object> attributes = component.getAttributes();
@@ -343,12 +331,9 @@ public final class RendererUtils {
     /**
      * Encode attributes given by comma-separated string list.
      *
-     * @param context
-     *            current JSF context
-     * @param component
-     *            for with render attributes values
-     * @param attrs
-     *            comma separated list of attributes
+     * @param context current JSF context
+     * @param component for with render attributes values
+     * @param attrs comma separated list of attributes
      * @throws IOException
      */
     public void encodeAttributes(FacesContext context, UIComponent component, String attrs) throws IOException {
@@ -383,13 +368,12 @@ public final class RendererUtils {
     }
 
     /**
-     * Checks if the argument passed in is empty or not.
-     * Object is empty if it is: <br />
-     *  - <code>null</code><br />
-     *  - zero-length string<br />
-     *  - empty collection<br />
-     *  - empty map<br />
-     *  - zero-length array<br />
+     * Checks if the argument passed in is empty or not. Object is empty if it is: <br />
+     * - <code>null</code><br />
+     * - zero-length string<br />
+     * - empty collection<br />
+     * - empty map<br />
+     * - zero-length array<br />
      *
      * @param o object to check for emptiness
      * @since 3.3.2
@@ -436,12 +420,10 @@ public final class RendererUtils {
     }
 
     /**
-     * Convert attribute value to proper object. For known html boolean
-     * attributes return name for true value, otherthise - null. For non-boolean
-     * attributes return same value.
+     * Convert attribute value to proper object. For known html boolean attributes return name for true value, otherthise -
+     * null. For non-boolean attributes return same value.
      *
-     * @param name
-     *            attribute name.
+     * @param name attribute name.
      * @param value
      * @return
      */
@@ -465,10 +447,8 @@ public final class RendererUtils {
      * Get boolean value of logical attribute
      *
      * @param component
-     * @param name
-     *            attribute name
-     * @return true if attribute is equals Boolean.TRUE or String "true" , false
-     *         otherwise.
+     * @param name attribute name
+     * @return true if attribute is equals Boolean.TRUE or String "true" , false otherwise.
      */
     public boolean isBooleanAttribute(UIComponent component, String name) {
         Object attrValue = component.getAttributes().get(name);
@@ -597,7 +577,7 @@ public final class RendererUtils {
     public void encodeEndForm(FacesContext context, ResponseWriter writer) throws IOException {
 
         UIViewRoot viewRoot = context.getViewRoot();
-        for (UIComponent resource: viewRoot.getComponentResources(context, "form")) {
+        for (UIComponent resource : viewRoot.getComponentResources(context, "form")) {
             resource.encodeAll(context);
         }
 
@@ -651,8 +631,10 @@ public final class RendererUtils {
         writer.writeText(script, null);
         writer.endElement(HtmlConstants.SCRIPT_ELEM);
     }
+
     /**
      * If target component contains generated id and for doesn't, correct for id
+     *
      * @param forAttr
      * @param component
      *
@@ -679,7 +661,7 @@ public final class RendererUtils {
             }
         }
     }
-    
+
     public boolean hasExplicitId(UIComponent component) {
         return component.getId() != null && !component.getId().startsWith(UIViewRoot.UNIQUE_ID_PREFIX);
     }
@@ -746,5 +728,4 @@ public final class RendererUtils {
 
         return target;
     }
-
 }

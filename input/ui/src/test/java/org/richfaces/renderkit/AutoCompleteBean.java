@@ -35,11 +35,9 @@ import com.google.common.collect.Collections2;
  *
  */
 public class AutoCompleteBean implements Serializable {
-    
     private static final long serialVersionUID = 3072125097847582809L;
 
     private class CountryNamePredicate implements Predicate<Country> {
-
         private String countryNamePrefix;
 
         public CountryNamePredicate(String countryNamePrefix) {
@@ -55,9 +53,8 @@ public class AutoCompleteBean implements Serializable {
             return input.getName().toLowerCase(Locale.US).startsWith(countryNamePrefix);
         }
     }
-    
+
     private String value;
-    
 
     public void setValue(String value) {
         this.value = value;
@@ -66,7 +63,7 @@ public class AutoCompleteBean implements Serializable {
     public String getValue() {
         return value;
     }
-    
+
     private String mode = "client";
 
     public String getMode() {
@@ -76,15 +73,16 @@ public class AutoCompleteBean implements Serializable {
     public void setMode(String mode) {
         this.mode = mode;
     }
-    
+
     private String layout = "list";
+
     public String getLayout() {
         return layout;
     }
 
     public void setLayout(String layout) {
         this.layout = layout;
-    }    
+    }
 
     private CountriesBean countriesBean;
 
@@ -93,13 +91,11 @@ public class AutoCompleteBean implements Serializable {
     }
 
     public Object autocomplete(FacesContext facesContext, UIComponent component, String value) {
-        // for tests when value does not starts with prefix 
-        /*String str = value;
-        if (str.charAt(0)=='i') {
-            str = str.substring(1);
-        }*/
+        // for tests when value does not starts with prefix
+        /*
+         * String str = value; if (str.charAt(0)=='i') { str = str.substring(1); }
+         */
         String v = mode.equals("lazyClient") || mode.equals("client") ? "" : value;
         return Collections2.filter(countriesBean.getCountries(), new CountryNamePredicate(v.toLowerCase()));
     }
-
 }

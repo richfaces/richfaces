@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.component;
 
 import javax.faces.component.UIForm;
@@ -51,7 +48,8 @@ public class IncludeComponentTest extends org.ajax4jsf.tests.AbstractAjax4JsfTes
         include = null;
     }
 
-    public void testState() throws Exception {}
+    public void testState() throws Exception {
+    }
 
     public void testViewId() throws Exception {
         include.setViewId(null);

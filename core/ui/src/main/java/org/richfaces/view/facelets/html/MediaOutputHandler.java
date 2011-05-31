@@ -18,8 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
 package org.richfaces.view.facelets.html;
 
 import java.io.OutputStream;
@@ -42,9 +40,7 @@ import org.richfaces.view.facelets.MethodMetadata;
  *
  */
 public class MediaOutputHandler extends ComponentHandler {
-
     private static final MediaOutputHandlerMetaRule META_RULE = new MediaOutputHandlerMetaRule();
-
 
     public MediaOutputHandler(ComponentConfig config) {
         super(config);
@@ -56,8 +52,7 @@ public class MediaOutputHandler extends ComponentHandler {
         return m;
     }
 
-    static class MediaOutputHandlerMetaRule extends MetaRule{
-
+    static class MediaOutputHandlerMetaRule extends MetaRule {
         public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
             if (meta.isTargetInstanceOf(AbstractMediaOutput.class)) {
                 if ("createContent".equals(name)) {

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.richfaces.javascript.client.validator;
 
@@ -17,29 +17,33 @@ import org.richfaces.javascript.client.RunParameters;
  *
  */
 public class RegexValidatorTest extends ValidatorTestBase {
-
     private static final String PATTERN = "pattern";
+
     /**
      * @param criteria
      */
     public RegexValidatorTest(RunParameters criteria) {
         super(criteria);
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     *
      * @see org.richfaces.javascript.client.validator.ValidatorTestBase#createValidator()
      */
     @Override
     protected Validator createValidator() {
         RegexValidator validator = new RegexValidator();
         Map<String, Object> options = getOptions();
-        if(options.containsKey(PATTERN)){
+        if (options.containsKey(PATTERN)) {
             validator.setPattern((String) options.get(PATTERN));
         }
         return validator;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see org.richfaces.javascript.client.MockTestBase#getJavaScriptFunctionName()
      */
     @Override
@@ -49,8 +53,7 @@ public class RegexValidatorTest extends ValidatorTestBase {
 
     @Parameters
     public static List<RunParameters[]> parameters() {
-        return options(/*pass(""),pass("aaa"),pass("123"),*/
-            pass("",PATTERN,".*"),pass("vv",PATTERN,"\\S*"),pass("123",PATTERN,"\\d+")
-        );
+        return options(/* pass(""),pass("aaa"),pass("123"), */
+        pass("", PATTERN, ".*"), pass("vv", PATTERN, "\\S*"), pass("123", PATTERN, "\\d+"));
     }
 }

@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.utils;
 
 import java.text.DateFormat;
@@ -43,11 +42,10 @@ import org.richfaces.component.AbstractCalendar;
 
 /**
  * @author amarkhel
- * 
+ *
  */
 public final class CalendarHelper {
-    
-    protected CalendarHelper(){
+    protected CalendarHelper() {
     }
 
     public static Date getAsDate(FacesContext facesContext, AbstractCalendar calendar, Object date) {
@@ -64,7 +62,7 @@ public final class CalendarHelper {
             value = (Date) date;
         } else if (date instanceof Calendar) {
             value = ((Calendar) date).getTime();
-        } else if (converter != null){
+        } else if (converter != null) {
             value = convertStringToDate(facesContext, calendar, converter.getAsString(facesContext, calendar, date));
         } else if (date instanceof String) {
             value = convertStringToDate(facesContext, calendar, (String) date);
@@ -73,34 +71,31 @@ public final class CalendarHelper {
         }
 
         return value;
-    }  
+    }
 
     public static Date getFormattedDefaultTime(AbstractCalendar calendar) {
         if (calendar == null || calendar.getDefaultTime() == null) {
             return null;
-
         }
         Object defaultTime = calendar.getDefaultTime();
         if (defaultTime == null) {
-            defaultTime = AbstractCalendar.getDefaultValueOfDefaultTime(null,null);
+            defaultTime = AbstractCalendar.getDefaultValueOfDefaultTime(null, null);
         }
         Date result = null;
 
         if (defaultTime instanceof Calendar) {
             result = ((Calendar) defaultTime).getTime();
-
         } else if (defaultTime instanceof Date) {
             result = (Date) defaultTime;
-
         } else {
             String defaultTimeString = defaultTime.toString();
             String datePattern = getDatePatternOrDefault(calendar);
 
             Pattern pattern = Pattern.compile(AbstractCalendar.SUB_TIME_PATTERN);
             Matcher matcher = pattern.matcher(datePattern);
-            String subTimePattern = AbstractCalendar.TIME_PATTERN;          
-           
-            if(matcher.find()) {
+            String subTimePattern = AbstractCalendar.TIME_PATTERN;
+
+            if (matcher.find()) {
                 subTimePattern = matcher.group().trim();
             }
 
@@ -117,8 +112,8 @@ public final class CalendarHelper {
     }
 
     public static Locale getAsLocale(FacesContext facesContext, UIComponent component) {
-        AbstractCalendar calendar=(AbstractCalendar) component;
-        
+        AbstractCalendar calendar = (AbstractCalendar) component;
+
         if (calendar == null || facesContext == null) {
             return null;
         }
@@ -135,10 +130,8 @@ public final class CalendarHelper {
         Locale localeValue = null;
         if (locale instanceof Locale) {
             localeValue = (Locale) locale;
-
         } else if (locale instanceof String) {
             localeValue = parseLocale((String) locale);
-
         } else if (locale != null) {
             Application application = facesContext.getApplication();
             Converter converter = application.createConverter(locale.getClass());
@@ -224,7 +217,7 @@ public final class CalendarHelper {
         }
         return date;
     }
-    
+
     public static TimeZone getTimeZoneOrDefault(AbstractCalendar calendar) {
         TimeZone value = calendar.getTimeZone();
         if (value == null) {
@@ -232,7 +225,7 @@ public final class CalendarHelper {
         }
         return value;
     }
-    
+
     public static String getDatePatternOrDefault(AbstractCalendar calendar) {
         String value = calendar.getDatePattern();
         if (value == null || "".equals(value)) {

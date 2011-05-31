@@ -20,7 +20,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.javascript;
 
 import org.richfaces.resource.ResourceLibrary;
@@ -29,17 +28,17 @@ import org.richfaces.resource.ResourceLibrary;
  * <p class="changed_added_4_0">
  * This class contains information about JavaScript function in external library ( resource )
  * </p>
- * 
+ *
  * @author asmirnov@exadel.com
- * 
+ *
  */
-public interface LibraryFunction  extends ResourceLibrary {
-
-    
+public interface LibraryFunction extends ResourceLibrary {
     /**
-     * <p class="changed_added_4_0">JavaScript function name in resource library</p>
+     * <p class="changed_added_4_0">
+     * JavaScript function name in resource library
+     * </p>
+     *
      * @return
      */
     String getName();
-
 }

@@ -48,7 +48,7 @@ import org.richfaces.l10n.MessageBundle;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @MessageBundle(baseName = FacesMessage.FACES_MESSAGES)
 public enum FacesMessages {
@@ -116,15 +116,13 @@ public enum FacesMessages {
     REGEX_VALIDATOR_MATCH_EXCEPTION(RegexValidator.MATCH_EXCEPTION_MESSAGE_ID),
     REGEX_VALIDATOR_MATCH_EXCEPTION_DETAIL(RegexValidator.MATCH_EXCEPTION_MESSAGE_ID, true),
     BEAN_VALIDATOR_MESSAGE(BeanValidator.MESSAGE_ID);
-
     private static final String DETAIL = "_detail";
-    
     private String key;
 
     private FacesMessages(String key) {
         this(key, false);
     }
-    
+
     private FacesMessages(String key, boolean isDetail) {
         this.key = isDetail ? key + DETAIL : key;
     }

@@ -18,31 +18,27 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.event;
 
 public interface DataScrollSource {
-
     /**
      * Adds a DataScrollListener to this DataScrollSource.
-     * 
-     * @param listener
-     *            the Scroll listener to be added
+     *
+     * @param listener the Scroll listener to be added
      */
-    public void addScrollListener(org.richfaces.event.DataScrollListener listener);
+    void addScrollListener(org.richfaces.event.DataScrollListener listener);
 
     /**
      * Removes a DataFilterSliderListener from this DataScrollSource.
-     * 
-     * @param listener  the Scroll listener to be removed
+     *
+     * @param listener the Scroll listener to be removed
      */
-    public void removeScrollListener(DataScrollListener listener);
+    void removeScrollListener(DataScrollListener listener);
 
     /**
      * Returns all ScrollListeners for this DataScrollSource.
-     * 
+     *
      * @return the Scroll listener array
      */
-    public DataScrollListener[] getScrollListeners();
-
+    DataScrollListener[] getScrollListeners();
 }

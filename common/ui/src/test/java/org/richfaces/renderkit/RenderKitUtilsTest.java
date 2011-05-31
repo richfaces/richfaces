@@ -44,10 +44,9 @@ import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class RenderKitUtilsTest {
-
     @Test
     public void testEscape() throws Exception {
         assertEquals("", RenderKitUtils.escape(""));
@@ -235,7 +234,7 @@ public class RenderKitUtilsTest {
 
     @Test
     public void testAsArray1() {
-        String[] strings = new String[] {"a", "b"};
+        String[] strings = new String[] { "a", "b" };
         String[] array = RenderKitUtils.asArray(strings);
 
         assertSame(strings, array);
@@ -243,9 +242,9 @@ public class RenderKitUtilsTest {
 
     @Test
     public void testAsArray2() {
-        Object[] objects = new Object[] {Integer.valueOf(12), null, Integer.valueOf(22), Integer.valueOf(42)};
+        Object[] objects = new Object[] { Integer.valueOf(12), null, Integer.valueOf(22), Integer.valueOf(42) };
         String[] array = RenderKitUtils.asArray(objects);
-        String[] etalon = new String[] {"12", null, "22", "42"};
+        String[] etalon = new String[] { "12", null, "22", "42" };
 
         assertTrue(Arrays.equals(etalon, array));
     }
@@ -260,7 +259,7 @@ public class RenderKitUtilsTest {
         list.add(new Integer(42));
 
         String[] array = RenderKitUtils.asArray(list);
-        String[] etalon = new String[] {"12", null, "22", "42"};
+        String[] etalon = new String[] { "12", null, "22", "42" };
 
         assertTrue(Arrays.equals(etalon, array));
     }
@@ -274,7 +273,7 @@ public class RenderKitUtilsTest {
         set.add(new Integer(42));
 
         String[] array = RenderKitUtils.asArray(set);
-        String[] etalon = new String[] {"12", "22", "42"};
+        String[] etalon = new String[] { "12", "22", "42" };
 
         assertTrue(Arrays.equals(etalon, array));
     }
@@ -283,7 +282,7 @@ public class RenderKitUtilsTest {
     public void testAsArray4() {
         String string = " a , \t\n b  \n , c ";
         String[] strings = RenderKitUtils.asArray(string);
-        String[] etalon = new String[] {"a", "b", "c"};
+        String[] etalon = new String[] { "a", "b", "c" };
 
         assertTrue(Arrays.equals(etalon, strings));
     }

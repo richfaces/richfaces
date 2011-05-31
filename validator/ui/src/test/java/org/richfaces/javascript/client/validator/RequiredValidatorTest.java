@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.richfaces.javascript.client.validator;
 
@@ -17,15 +17,16 @@ import org.richfaces.javascript.client.RunParameters;
  *
  */
 public class RequiredValidatorTest extends ValidatorTestBase {
-
     /**
      * @param criteria
      */
     public RequiredValidatorTest(RunParameters criteria) {
         super(criteria);
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     *
      * @see org.richfaces.javascript.client.validator.ValidatorTestBase#createValidator()
      */
     @Override
@@ -35,7 +36,9 @@ public class RequiredValidatorTest extends ValidatorTestBase {
         return validator;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see org.richfaces.javascript.client.MockTestBase#getJavaScriptFunctionName()
      */
     @Override
@@ -45,8 +48,6 @@ public class RequiredValidatorTest extends ValidatorTestBase {
 
     @Parameters
     public static List<RunParameters[]> parameters() {
-        return options(pass(""),pass("aaa"),pass("123"),
-            pass(null)
-        );
+        return options(pass(""), pass("aaa"), pass("123"), pass(null));
     }
 }

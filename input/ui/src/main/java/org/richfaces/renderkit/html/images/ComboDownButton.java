@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit.html.images;
 
 import java.awt.Color;
@@ -41,34 +40,32 @@ import org.richfaces.skin.SkinFactory;
 
 @DynamicUserResource
 public class ComboDownButton extends AbstractJava2DUserResource implements StateHolderResource {
-
     private static final Dimension DIMENSION = new Dimension(15, 15);
-    
     private Integer arrowColor;
-    
     private boolean disabled;
-    
+
     public ComboDownButton() {
         super(DIMENSION);
     }
-    
+
     @PostConstructResource
     public final void initialize() {
         FacesContext context = FacesContext.getCurrentInstance();
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
         Skin defaultSkin = SkinFactory.getInstance(context).getDefaultSkin(context);
-        
+
         this.arrowColor = skin.getColorParameter(context, disabled ? Skin.TABLE_BORDER_COLOR : Skin.GENERAL_TEXT_COLOR);
         if (this.arrowColor == null) {
-            this.arrowColor = defaultSkin.getColorParameter(context, disabled ? Skin.TABLE_BORDER_COLOR : Skin.GENERAL_TEXT_COLOR);
+            this.arrowColor = defaultSkin.getColorParameter(context, disabled ? Skin.TABLE_BORDER_COLOR
+                : Skin.GENERAL_TEXT_COLOR);
         }
     }
-    
+
     @ResourceParameter(defaultValue = "false")
     public void setDisabled(boolean disabled) {
         this.disabled = disabled;
     }
-    
+
     public boolean isTransient() {
         return false;
     }
@@ -89,7 +86,7 @@ public class ComboDownButton extends AbstractJava2DUserResource implements State
         graphics2d.drawLine(5, 8, 9, 8);
         graphics2d.drawLine(6, 9, 8, 9);
         graphics2d.drawLine(7, 10, 7, 10);
-        
+
         Color arrowColor = new Color(this.arrowColor);
         graphics2d.setColor(arrowColor);
         graphics2d.drawLine(4, 6, 10, 6);

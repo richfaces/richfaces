@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import java.util.Arrays;
@@ -51,10 +50,9 @@ import org.richfaces.model.SortMode;
  *
  */
 public class UIDataTableTest extends AbstractFacesTest {
-
     private class MockArrangeableModel extends ExtendedDataModel<Object> implements Arrangeable {
-
         private ArrangeableState state;
+
         @Override
         public Object getRowKey() {
             return null;
@@ -108,10 +106,10 @@ public class UIDataTableTest extends AbstractFacesTest {
         public ArrangeableState getState() {
             return state;
         }
-        
     }
+
     private UIDataTable table = null;
-    
+
     /**
      * @throws java.lang.Exception
      */
@@ -160,8 +158,8 @@ public class UIDataTableTest extends AbstractFacesTest {
      */
     @Test
     public void testCreateExtendedDataModel() {
-        Assert.assertFalse(table.createExtendedDataModel() instanceof Arrangeable);        
-        List<Object> sortPriority = Arrays.<Object>asList("id2", "id0", "id1"); 
+        Assert.assertFalse(table.createExtendedDataModel() instanceof Arrangeable);
+        List<Object> sortPriority = Arrays.<Object>asList("id2", "id0", "id1");
         List<UIComponent> children = table.getChildren();
         ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
         ELContext elContext = facesContext.getELContext();
@@ -171,10 +169,10 @@ public class UIDataTableTest extends AbstractFacesTest {
         for (int i = 0; i < sortPriority.size(); i++) {
             UIColumn child = new UIColumn();
             child.setId("id" + i);
-            child.setValueExpression("filterExpression", expressionFactory
-                .createValueExpression(elContext, "#{'id" + i + "'}", Object.class));
-            child.setValueExpression("sortBy", expressionFactory
-                .createValueExpression(elContext, "#{'id" + i + "'}", Object.class));
+            child.setValueExpression("filterExpression",
+                expressionFactory.createValueExpression(elContext, "#{'id" + i + "'}", Object.class));
+            child.setValueExpression("sortBy",
+                expressionFactory.createValueExpression(elContext, "#{'id" + i + "'}", Object.class));
             child.setSortOrder(SortOrder.ascending);
             children.add(child);
         }
@@ -186,7 +184,7 @@ public class UIDataTableTest extends AbstractFacesTest {
         ArrangeableState state = model.getState();
         List<FilterField> filterFields = state.getFilterFields();
         for (int i = 0; i < sortPriority.size(); i++) {
-            Assert.assertEquals("id" + i , filterFields.get(i).getFilterExpression().getValue(elContext));
+            Assert.assertEquals("id" + i, filterFields.get(i).getFilterExpression().getValue(elContext));
         }
         List<SortField> sortFields = state.getSortFields();
         for (int i = 0; i < sortPriority.size(); i++) {
@@ -245,7 +243,7 @@ public class UIDataTableTest extends AbstractFacesTest {
     }
 
     /**
-     * Test method for {@link org.richfaces.component.UIDataTableBase#getSortMode()} and 
+     * Test method for {@link org.richfaces.component.UIDataTableBase#getSortMode()} and
      * {@link org.richfaces.component.UIDataTableBase#setSortMode(org.richfaces.model.SortMode)}.
      */
     @Test
@@ -253,7 +251,7 @@ public class UIDataTableTest extends AbstractFacesTest {
         table.setSortMode(SortMode.multi);
         Assert.assertEquals(SortMode.multi, table.getSortMode());
     }
-    
+
     /**
      * Test method for {@link org.richfaces.component.UIDataTableBase#isColumnFacetPresent(java.lang.String)}.
      */

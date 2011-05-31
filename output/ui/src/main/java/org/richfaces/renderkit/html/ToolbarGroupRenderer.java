@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit.html;
 
 import java.io.IOException;
@@ -36,7 +35,6 @@ import org.richfaces.renderkit.HtmlConstants;
 
 @JsfRenderer(type = ToolbarGroupRenderer.RENDERER_TYPE, family = AbstractToolbar.COMPONENT_FAMILY)
 public class ToolbarGroupRenderer extends ToolbarRendererBase {
-
     public static final String RENDERER_TYPE = "org.richfaces.ToolbarGroupRenderer";
 
     protected Class<? extends UIComponent> getComponentClass() {
@@ -63,7 +61,7 @@ public class ToolbarGroupRenderer extends ToolbarRendererBase {
     }
 
     private void renderChild(FacesContext facesContext, AbstractToolbarGroup toolbarGroup, ResponseWriter writer,
-            UIComponent child) throws IOException {
+        UIComponent child) throws IOException {
         writer.startElement(HtmlConstants.TD_ELEM, toolbarGroup);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, encodeClientItemID(child), null);
         writeClassValue(toolbarGroup, writer);
@@ -73,8 +71,9 @@ public class ToolbarGroupRenderer extends ToolbarRendererBase {
     }
 
     /**
-     * If toolBarGroup has "style" defined than parent toolBar attribute "style" will be ignored.
-     * Otherwise toolBarGroup will inherit the value of the parent toolBar "style" attribute.
+     * If toolBarGroup has "style" defined than parent toolBar attribute "style" will be ignored. Otherwise toolBarGroup will
+     * inherit the value of the parent toolBar "style" attribute.
+     *
      * @param toolbarGroup ToolBar Group to render
      * @param writer just writer
      * @throws IOException if something goes wrong with attribute writing
@@ -98,9 +97,10 @@ public class ToolbarGroupRenderer extends ToolbarRendererBase {
     }
 
     /**
-     * If toolBarGroup has "class" defined than parent toolBar attribute "class" will be ignored.
-     * Otherwise toolBarGroup will inherit the value of the parent toolBar "class" attribute.
-     * @param toolbarGroup  ToolBar Group to render
+     * If toolBarGroup has "class" defined than parent toolBar attribute "class" will be ignored. Otherwise toolBarGroup will
+     * inherit the value of the parent toolBar "class" attribute.
+     *
+     * @param toolbarGroup ToolBar Group to render
      * @param writer just writer
      * @throws IOException if something goes wrong with attribute writing
      */
@@ -118,9 +118,8 @@ public class ToolbarGroupRenderer extends ToolbarRendererBase {
         String value = (String) toolbarGroup.getAttributes().get(attribute);
         return null == value ? "" : value;
     }
-    
+
     public AbstractToolbar getParentToolBar(UIComponent component) {
         return (component instanceof AbstractToolbarGroup) ? ((AbstractToolbarGroup) component).getToolBar() : null;
-    }    
-
+    }
 }

@@ -19,13 +19,10 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.event;
 
 import javax.faces.event.FacesListener;
 
 public interface SortingListener extends FacesListener {
-    
-    public void processSorting(SortingEvent sortingEvent);
-    
+    void processSorting(SortingEvent sortingEvent);
 }

@@ -9,14 +9,11 @@ public enum Positioning {
     topRight("RT"),
     bottomLeft("LB"),
     bottomRight("RB"),
-
     autoLeft("LA"),
     autoRight("RA"),
     topAuto("AT"),
     bottomAuto("AB");
-
     public static final Positioning DEFAULT = auto;
-
     String value;
 
     Positioning(String value) {

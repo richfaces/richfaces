@@ -39,15 +39,13 @@ import org.richfaces.skin.SkinFactory;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @DynamicUserResource
 public class TreeLineImage extends AbstractJava2DUserResource implements StateHolderResource {
-
     private static final Dimension DIMENSION = new Dimension(16, 16);
-    
     protected Integer trimColorValue;
-    
+
     public TreeLineImage() {
         this(DIMENSION);
     }
@@ -59,7 +57,7 @@ public class TreeLineImage extends AbstractJava2DUserResource implements StateHo
     @PostConstructResource
     public void init() {
         FacesContext context = FacesContext.getCurrentInstance();
-        
+
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
         Skin defaultSkin = SkinFactory.getInstance(context).getDefaultSkin(context);
 
@@ -68,7 +66,7 @@ public class TreeLineImage extends AbstractJava2DUserResource implements StateHo
             trimColorValue = defaultSkin.getColorParameter(context, Skin.TRIM_COLOR);
         }
     }
-    
+
     public void paint(Graphics2D g2d) {
         g2d.setColor(new Color(trimColorValue));
         g2d.drawLine(7, 0, 7, 15);

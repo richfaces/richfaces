@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.component;
 
 import javax.faces.component.UIPanel;
@@ -40,9 +37,7 @@ import org.richfaces.cdk.annotations.TagType;
  */
 @JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.OutputPanelRenderer"), tag = @Tag(type = TagType.Facelets))
 public abstract class AbstractOutputPanel extends UIPanel implements AjaxOutput {
-
     public static final String COMPONENT_TYPE = "org.richfaces.OutputPanel";
-
     public static final String COMPONENT_FAMILY = "javax.faces.Panel";
 
     @Attribute

@@ -29,12 +29,10 @@ import org.richfaces.model.SequenceRowKey;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class IterableDataTuplesIterator extends BaseTupleIterator {
-
     private Iterator<?> iterator;
-    
     private int counter = 0;
 
     public IterableDataTuplesIterator(SequenceRowKey baseKey, Iterator<?> children) {
@@ -49,14 +47,13 @@ public class IterableDataTuplesIterator extends BaseTupleIterator {
     public boolean hasNext() {
         return iterator.hasNext();
     }
-    
+
     @Override
     protected void proceedToNext() {
         setKeyAndData(getNextCounterValue(), iterator.next());
     }
-    
+
     private int getNextCounterValue() {
         return counter++;
     }
-
 }

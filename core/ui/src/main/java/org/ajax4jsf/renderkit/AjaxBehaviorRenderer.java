@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.ajax4jsf.renderkit;
 
 import javax.faces.application.ResourceDependency;
@@ -44,14 +43,11 @@ import org.richfaces.renderkit.util.RendererUtils;
  * @author Anton Belevich
  *
  */
-@FacesBehaviorRenderer(rendererType = "org.ajax4jsf.behavior.Ajax",
-                       renderKitId = RenderKitFactory.HTML_BASIC_RENDER_KIT)
-                       
+@FacesBehaviorRenderer(rendererType = "org.ajax4jsf.behavior.Ajax", renderKitId = RenderKitFactory.HTML_BASIC_RENDER_KIT)
 @ResourceDependency(library = "org.richfaces", name = "ajax.reslib")
 public class AjaxBehaviorRenderer extends ClientBehaviorRenderer {
-    
     private final RendererUtils utils = RendererUtils.getInstance();
-    
+
     @Override
     public void decode(FacesContext context, UIComponent component, ClientBehavior behavior) {
         if (null == context || null == component || null == behavior) {
@@ -69,7 +65,7 @@ public class AjaxBehaviorRenderer extends ClientBehaviorRenderer {
         }
 
         component.queueEvent(createEvent(component, ajaxBehavior));
-        
+
         if (isBypassUpdates(component, ajaxBehavior)) {
             component.queueEvent(new BypassUpdatesAjaxBehaviorEvent(component, ajaxBehavior));
         }
@@ -78,7 +74,7 @@ public class AjaxBehaviorRenderer extends ClientBehaviorRenderer {
     private AjaxBehaviorEvent createEvent(UIComponent component, AjaxBehavior ajaxBehavior) {
         AjaxBehaviorEvent event = new AjaxBehaviorEvent(component, ajaxBehavior);
         PhaseId phaseId;
-        
+
         if (isImmediate(component, ajaxBehavior)) {
             phaseId = PhaseId.APPLY_REQUEST_VALUES;
         } else if (isBypassUpdates(component, ajaxBehavior)) {
@@ -101,7 +97,7 @@ public class AjaxBehaviorRenderer extends ClientBehaviorRenderer {
                 immediate = ((ActionSource) component).isImmediate();
             }
         }
-        
+
         return immediate;
     }
 
@@ -110,14 +106,14 @@ public class AjaxBehaviorRenderer extends ClientBehaviorRenderer {
         if (!bypassUpdates) {
             bypassUpdates = utils.isBooleanAttribute(component, "bypassUpdates");
         }
-        
+
         return bypassUpdates;
     }
 
     @Override
     public String getScript(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
         String script = null;
-        if (behavior instanceof AjaxBehavior && !((AjaxBehavior)behavior).isDisabled()) {
+        if (behavior instanceof AjaxBehavior && !((AjaxBehavior) behavior).isDisabled()) {
             script = buildAjaxCommand(behaviorContext, (AjaxBehavior) behavior);
         }
 
@@ -127,5 +123,4 @@ public class AjaxBehaviorRenderer extends ClientBehaviorRenderer {
     public String buildAjaxCommand(ClientBehaviorContext bContext, AjaxBehavior behavior) {
         return AjaxRendererUtils.buildAjaxFunction(bContext, behavior).toString();
     }
-
 }

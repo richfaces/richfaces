@@ -33,12 +33,10 @@ import org.richfaces.component.AbstractTreeNode;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class TreeNodeHandler extends ComponentHandler {
-
     private static final MetaRule RULE = new MetaRule() {
-
         @Override
         public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
             if (meta.isTargetInstanceOf(AbstractTreeNode.class)) {

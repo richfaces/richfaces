@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component.behavior;
 
 import javax.el.ValueExpression;
@@ -29,10 +28,9 @@ import org.richfaces.component.PartialStateHolderHelper;
 
 /**
  * @author Anton Belevich
- * 
+ *
  */
 public class BehaviorStateHelper extends PartialStateHolderHelper {
-
     private ClientBehavior behavior;
 
     public BehaviorStateHelper(ClientBehavior behavior) {

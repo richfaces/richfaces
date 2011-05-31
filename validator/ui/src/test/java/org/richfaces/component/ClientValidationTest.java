@@ -1,8 +1,9 @@
 package org.richfaces.component;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-import static org.junit.matchers.JUnitMatchers.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -18,25 +19,23 @@ import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-
 /**
- * Test for dynamic add/remove {@link UIScripts} as view resource. 
+ * Test for dynamic add/remove {@link UIScripts} as view resource.
+ *
  * @author asmirnov
  *
  */
 public class ClientValidationTest {
-    
     private HtmlUnitEnvironment environment;
-    
-    
+
     @Before
     public void setUp() {
         this.environment = new HtmlUnitEnvironment();
         this.environment.withWebRoot("org/richfaces/component/client-test.xhtml").start();
     }
-    
+
     @After
-    public void thearDown() throws Exception{
+    public void thearDown() throws Exception {
         environment.release();
         environment = null;
     }
@@ -46,28 +45,27 @@ public class ClientValidationTest {
         HtmlPage page = requestPage();
         HtmlInput input = getInput(page);
         assertNotNull(input);
-
     }
 
     @Test
     public void testSubmitTooShortValue() throws Exception {
-        submitValueAndCheckMesage("",not(equalTo("")));
+        submitValueAndCheckMesage("", not(equalTo("")));
     }
 
     @Test
     public void testSubmitTooLongValue() throws Exception {
-        submitValueAndCheckMesage("123456",not(equalTo("")));
+        submitValueAndCheckMesage("123456", not(equalTo("")));
     }
 
     @Test
     public void testSubmitProperValue() throws Exception {
-        submitValueAndCheckMesage("ab",equalTo(""));
+        submitValueAndCheckMesage("ab", equalTo(""));
     }
 
     private void submitValueAndCheckMesage(String value, Matcher<String> matcher) throws Exception {
         HtmlPage page = requestPage();
         HtmlInput input = getInput(page);
-        page  = (HtmlPage) input.setValueAttribute(value);
+        page = (HtmlPage) input.setValueAttribute(value);
         input.fireEvent("blur");
         System.out.println(page.asXml());
         HtmlElement message = page.getElementById("uiMessage");
@@ -81,11 +79,9 @@ public class ClientValidationTest {
         return input;
     }
 
-    private HtmlPage requestPage() throws MalformedURLException, IOException {
+    private HtmlPage requestPage() throws IOException {
         HtmlPage page = environment.getPage("/client-test.jsf");
         System.out.println(page.asXml());
         return page;
     }
-
-
 }

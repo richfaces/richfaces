@@ -10,12 +10,10 @@ import org.richfaces.event.TreeSelectionChangeSource;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 final class TreeSelectionChangeListenerExpressionMetadata extends Metadata {
-
     private static final Class<?>[] SIGNATURE = new Class[] { TreeSelectionChangeEvent.class };
-
     private final TagAttribute attr;
 
     TreeSelectionChangeListenerExpressionMetadata(TagAttribute attr) {
@@ -27,5 +25,4 @@ final class TreeSelectionChangeListenerExpressionMetadata extends Metadata {
         ((TreeSelectionChangeSource) instance).addTreeSelectionChangeListener(new MethodExpressionTreeSelectionChangeListener(
             this.attr.getMethodExpression(ctx, null, SIGNATURE)));
     }
-
 }

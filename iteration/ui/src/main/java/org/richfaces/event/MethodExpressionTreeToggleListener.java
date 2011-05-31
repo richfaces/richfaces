@@ -26,10 +26,9 @@ import javax.faces.event.AbortProcessingException;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class MethodExpressionTreeToggleListener extends MethodExpressionEventListener implements TreeToggleListener {
-
     public MethodExpressionTreeToggleListener() {
         super();
     }
@@ -45,5 +44,4 @@ public class MethodExpressionTreeToggleListener extends MethodExpressionEventLis
     public void processTreeToggle(TreeToggleEvent event) throws AbortProcessingException {
         processEvent(event);
     }
-
 }

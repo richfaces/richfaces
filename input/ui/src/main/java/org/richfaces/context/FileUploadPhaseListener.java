@@ -38,19 +38,18 @@ import org.richfaces.request.MultipartRequest.ResponseState;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class FileUploadPhaseListener implements PhaseListener {
-
     private static final long serialVersionUID = -3130357236442351405L;
-
     private static final Logger LOGGER = RichfacesLogger.CONTEXT.getLogger();
 
     public void afterPhase(PhaseEvent event) {
     }
 
     public void beforePhase(PhaseEvent event) {
-        MultipartRequest multipartRequest = (MultipartRequest) event.getFacesContext().getExternalContext().getRequestMap().get(MultipartRequest.REQUEST_ATTRIBUTE_NAME);
+        MultipartRequest multipartRequest = (MultipartRequest) event.getFacesContext().getExternalContext().getRequestMap()
+            .get(MultipartRequest.REQUEST_ATTRIBUTE_NAME);
         if (multipartRequest != null) {
             if (multipartRequest.getResponseState() != ResponseState.ok) {
                 printResponse(event.getFacesContext(), multipartRequest);
@@ -58,7 +57,6 @@ public class FileUploadPhaseListener implements PhaseListener {
         }
     }
 
-    
     private void printResponse(FacesContext facesContext, MultipartRequest multipartRequest) {
         facesContext.responseComplete();
         ExternalContext externalContext = facesContext.getExternalContext();
@@ -66,7 +64,8 @@ public class FileUploadPhaseListener implements PhaseListener {
         externalContext.setResponseContentType("text/html");
         try {
             Writer writer = externalContext.getResponseOutputWriter();
-            writer.write("<html id=\"" + FileUploadFacesContextFactory.UID_KEY + multipartRequest.getUploadId() + ":" + multipartRequest.getResponseState() + "\"/>");
+            writer.write("<html id=\"" + FileUploadFacesContextFactory.UID_KEY + multipartRequest.getUploadId() + ":"
+                + multipartRequest.getResponseState() + "\"/>");
             writer.close();
         } catch (IOException e) {
             LOGGER.error(e.getMessage(), e);
@@ -76,5 +75,4 @@ public class FileUploadPhaseListener implements PhaseListener {
     public PhaseId getPhaseId() {
         return PhaseId.RENDER_RESPONSE;
     }
-
 }

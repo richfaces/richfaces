@@ -19,8 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-
 package org.richfaces.view.facelets;
 
 import javax.faces.view.facelets.ComponentConfig;
@@ -40,7 +38,6 @@ import org.richfaces.event.MethodExpressionCurrentDateChangeListener;
  *
  */
 public class CalendarHandler extends ComponentHandler {
-
     private static final CalendarHandlerMetaRule METARULE = new CalendarHandlerMetaRule();
 
     public CalendarHandler(ComponentConfig config) {
@@ -54,20 +51,16 @@ public class CalendarHandler extends ComponentHandler {
     }
 
     static class CalendarHandlerMetaRule extends MetaRule {
-
         public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
             if (meta.isTargetInstanceOf(AbstractCalendar.class) && "currentDataChangeListener".equals(name)) {
                 return new CalendarMapper(attribute);
             }
             return null;
         }
-
     }
 
     static class CalendarMapper extends Metadata {
-
         private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.CurrentDateChangeEvent.class };
-
         private final TagAttribute attribute;
 
         public CalendarMapper(TagAttribute attribute) {
@@ -76,7 +69,7 @@ public class CalendarHandler extends ComponentHandler {
 
         public void applyMetadata(FaceletContext ctx, Object instance) {
             ((AbstractCalendar) instance).addCurrentDateChangeListener((new MethodExpressionCurrentDateChangeListener(
-                    this.attribute.getMethodExpression(ctx, null, SIGNATURE))));
+                this.attribute.getMethodExpression(ctx, null, SIGNATURE))));
         }
     }
 }

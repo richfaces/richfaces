@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit;
 
 import java.io.IOException;
@@ -39,39 +38,37 @@ import org.richfaces.component.UIDataTableBase;
  * @author Anton Belevich
  *
  */
-
-@JsfRenderer(type="org.richfaces.ColumnGroupRenderer", family=AbstractColumnGroup.COMPONENT_FAMILY)
+@JsfRenderer(type = "org.richfaces.ColumnGroupRenderer", family = AbstractColumnGroup.COMPONENT_FAMILY)
 public class ColumnGroupRenderer extends AbstractTableBaseRenderer {
-
     public void encodeRow(ResponseWriter writer, FacesContext facesContext, RowHolderBase holder) throws IOException {
         RowHolder rowHolder = (RowHolder) holder;
 
-        AbstractColumnGroup row = (AbstractColumnGroup)rowHolder.getRow();
+        AbstractColumnGroup row = (AbstractColumnGroup) rowHolder.getRow();
         rowHolder.setRowStart(true);
-        
+
         Iterator<UIComponent> components = row.columns();
         int columnNumber = 0;
-        while(components.hasNext()){
-            UIColumn column = (UIColumn)components.next();
-            if(column.isRendered()) {
+        while (components.hasNext()) {
+            UIColumn column = (UIColumn) components.next();
+            if (column.isRendered()) {
                 column.getAttributes().put(COLUMN_CLASS, getColumnClass(rowHolder, columnNumber));
-                encodeColumn(facesContext,  writer, column, rowHolder);
+                encodeColumn(facesContext, writer, column, rowHolder);
                 columnNumber++;
-            }    
+            }
         }
     }
 
     public RowHolderBase createRowHolder(FacesContext context, UIComponent component, Object[] options) {
-        UIComponent parent = component.getParent(); 
-        while(parent != null && !(parent instanceof UIDataTableBase)) {
+        UIComponent parent = component.getParent();
+        while (parent != null && !(parent instanceof UIDataTableBase)) {
             parent = parent.getParent();
         }
-        
-        if(parent == null) {
+
+        if (parent == null) {
             throw new AbortProcessingException("UIColumnGroup should be a child of UIDataTable or UISubTable");
         }
-        
-        RowHolder rowHolder = new RowHolder(context, (AbstractColumnGroup)component); 
+
+        RowHolder rowHolder = new RowHolder(context, (AbstractColumnGroup) component);
         rowHolder.setParentClientId(parent.getClientId(context));
         return rowHolder;
     }

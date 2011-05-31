@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.model;
 
 import java.util.ArrayList;
@@ -52,12 +51,10 @@ import org.richfaces.component.SortOrder;
  *
  */
 public class ArrangeableModelTest extends AbstractFacesTest {
-    
     public class User {
-        
         private String fname;
         private String lname;
-        
+
         public User(String fname, String lname) {
             super();
             this.fname = fname;
@@ -70,18 +67,17 @@ public class ArrangeableModelTest extends AbstractFacesTest {
 
         public String getLname() {
             return lname;
-        }        
+        }
     }
-    
+
     private static final int ROWS = 2;
     private static final int ROW_KEY = 4;
     private static final List<Integer> FILTERD_AND_SORTED_ROW_KEYS = Arrays.asList(5, 3, 2, 0);
-    
-    private User[] users = {new User("C", "A"), new User("a", "a"), new User("B", "B"),
-        new User("B", "C"), new User("b", "b"), new User("A", "A") };
+    private User[] users = { new User("C", "A"), new User("a", "a"), new User("B", "B"), new User("B", "C"),
+            new User("b", "b"), new User("A", "A") };
     private ExtendedDataModel<User> extendedDataModel;
     private ArrangeableModel arrangeableModel;
-    
+
     @Before
     public void setUp() throws Exception {
         super.setUp();
@@ -90,21 +86,23 @@ public class ArrangeableModelTest extends AbstractFacesTest {
         arrangeableModel = new ArrangeableModel(extendedDataModel, "var", "filterVar");
         ExpressionFactory expressionFactory = facesContext.getApplication().getExpressionFactory();
         ELContext elContext = facesContext.getELContext();
-        FilterField[] filterFields = {new FilterField(null, new Filter<User>() {
-            public boolean accept(User t) {
-                return t.getFname().indexOf('a') == -1;
-            }
-        }, null), new FilterField(expressionFactory
-            .createValueExpression(elContext, "#{var.lname != filterVar}", Object.class), null, "b")};
-        SortField[] sortFields = {new SortField(expressionFactory
-            .createValueExpression(elContext, "#{var.fname}", Object.class), null, SortOrder.ascending),
-            new SortField(null, new Comparator<User>() { 
-                public int compare(User o1, User o2) {
-                    return o1.getLname().compareTo(o2.getLname());
-                }
-            }, SortOrder.descending)};
-        arrangeableModel.arrange(facesContext, new ArrangeableStateDefaultImpl(Arrays.asList(filterFields),
-            Arrays.asList(sortFields), null));
+        FilterField[] filterFields = {
+                new FilterField(null, new Filter<User>() {
+                    public boolean accept(User t) {
+                        return t.getFname().indexOf('a') == -1;
+                    }
+                }, null),
+                new FilterField(expressionFactory.createValueExpression(elContext, "#{var.lname != filterVar}", Object.class),
+                    null, "b") };
+        SortField[] sortFields = {
+                new SortField(expressionFactory.createValueExpression(elContext, "#{var.fname}", Object.class), null,
+                    SortOrder.ascending), new SortField(null, new Comparator<User>() {
+                    public int compare(User o1, User o2) {
+                        return o1.getLname().compareTo(o2.getLname());
+                    }
+                }, SortOrder.descending) };
+        arrangeableModel.arrange(facesContext,
+            new ArrangeableStateDefaultImpl(Arrays.asList(filterFields), Arrays.asList(sortFields), null));
     }
 
     @After
@@ -168,8 +166,9 @@ public class ArrangeableModelTest extends AbstractFacesTest {
     }
 
     /**
-     * Test method for {@link org.richfaces.model.ArrangeableModel#walk(javax.faces.context.FacesContext,
-     * org.ajax4jsf.model.DataVisitor, org.ajax4jsf.model.Range, java.lang.Object)}.
+     * Test method for
+     * {@link org.richfaces.model.ArrangeableModel#walk(javax.faces.context.FacesContext, org.ajax4jsf.model.DataVisitor, org.ajax4jsf.model.Range, java.lang.Object)}
+     * .
      */
     @Test
     public void testWalk() {
@@ -191,8 +190,7 @@ public class ArrangeableModelTest extends AbstractFacesTest {
     }
 
     /**
-     * Test method for 
-     * {@link org.richfaces.model.ArrangeableModel#addDataModelListener(javax.faces.model.DataModelListener)}
+     * Test method for {@link org.richfaces.model.ArrangeableModel#addDataModelListener(javax.faces.model.DataModelListener)}
      * {@link org.richfaces.model.ArrangeableModel#removeDataModelListener(javax.faces.model.DataModelListener)} and
      * {@link org.richfaces.model.ArrangeableModel#getDataModelListeners()}.
      */
@@ -201,14 +199,14 @@ public class ArrangeableModelTest extends AbstractFacesTest {
         Assert.assertEquals(0, extendedDataModel.getDataModelListeners().length);
         DataModelListener listener = new DataModelListener() {
             public void rowSelected(DataModelEvent event) {
-                
+
             }
         };
         arrangeableModel.addDataModelListener(listener);
         Assert.assertSame(listener, extendedDataModel.getDataModelListeners()[0]);
         Assert.assertSame(listener, arrangeableModel.getDataModelListeners()[0]);
         arrangeableModel.removeDataModelListener(listener);
-        Assert.assertEquals(0, extendedDataModel.getDataModelListeners().length);        
+        Assert.assertEquals(0, extendedDataModel.getDataModelListeners().length);
     }
 
     /**

@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.view.facelets.html;
 
 import java.io.Serializable;
@@ -42,8 +41,8 @@ import org.richfaces.view.facelets.EventListenerHandler;
  * @version 1.0
  */
 public final class ItemChangeListenerHandler extends EventListenerHandler {
-
-    private static class LazyItemChangeListener extends LazyEventListener<ItemChangeListener> implements ItemChangeListener, Serializable {
+    private static class LazyItemChangeListener extends LazyEventListener<ItemChangeListener> implements ItemChangeListener,
+        Serializable {
         private static final long serialVersionUID = 7715606467989165179L;
 
         LazyItemChangeListener(String type, ValueExpression binding) {
@@ -75,4 +74,3 @@ public final class ItemChangeListenerHandler extends EventListenerHandler {
         return comp instanceof ItemChangeSource;
     }
 }
-

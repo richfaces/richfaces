@@ -42,18 +42,14 @@ import com.google.common.base.Strings;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class TreeNodeRendererBase extends RendererBase implements MetaComponentRenderer {
-
     static final String AJAX_TOGGLED_NODE_ATTRIBUTE = TreeNodeRendererBase.class.getName() + ":AJAX_TOGGLED_NODE_ATTRIBUTE";
-    
-    static final String AJAX_TOGGLED_NODE_STATE_ATTRIBUTE = TreeNodeRendererBase.class.getName() + ":AJAX_TOGGLED_NODE_STATE_ATTRIBUTE";
-    
+    static final String AJAX_TOGGLED_NODE_STATE_ATTRIBUTE = TreeNodeRendererBase.class.getName()
+        + ":AJAX_TOGGLED_NODE_STATE_ATTRIBUTE";
     private static final String NEW_NODE_TOGGLE_STATE = "__NEW_NODE_TOGGLE_STATE";
-    
     private static final String TRIGGER_NODE_AJAX_UPDATE = "__TRIGGER_NODE_AJAX_UPDATE";
-    
     private static final String HANDLE_LOADING_FACET_NAME = "handleLoading";
 
     @Override
@@ -65,7 +61,7 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
         if (newToggleState != null) {
 
             AbstractTreeNode treeNode = (AbstractTreeNode) component;
-            
+
             boolean initialState = treeNode.isExpanded();
             boolean newState = Boolean.valueOf(newToggleState);
             if (initialState ^ newState) {
@@ -74,20 +70,22 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
 
             PartialViewContext pvc = context.getPartialViewContext();
             if (pvc.isAjaxRequest() && map.get(component.getClientId(context) + TRIGGER_NODE_AJAX_UPDATE) != null) {
-                pvc.getRenderIds().add(component.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + AbstractTreeNode.SUBTREE_META_COMPONENT_ID);
-            
+                pvc.getRenderIds().add(
+                    component.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
+                        + AbstractTreeNode.SUBTREE_META_COMPONENT_ID);
+
                 context.getAttributes().put(AJAX_TOGGLED_NODE_ATTRIBUTE, component.getClientId(context));
-                context.getAttributes().put(AJAX_TOGGLED_NODE_STATE_ATTRIBUTE, initialState ? TreeNodeState.expanded : TreeNodeState.collapsed);
+                context.getAttributes().put(AJAX_TOGGLED_NODE_STATE_ATTRIBUTE,
+                    initialState ? TreeNodeState.expanded : TreeNodeState.collapsed);
             }
         }
     }
-    
+
     public void decodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) {
         throw new UnsupportedOperationException();
     }
-    
-    public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId)
-        throws IOException {
+
+    public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) throws IOException {
 
         if (AbstractTreeNode.SUBTREE_META_COMPONENT_ID.equals(metaComponentId)) {
             AbstractTreeNode treeNode = (AbstractTreeNode) component;
@@ -96,47 +94,48 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
             throw new IllegalArgumentException(metaComponentId);
         }
     }
-    
+
     protected TreeNodeState getNodeState(FacesContext context) {
         return (TreeNodeState) context.getAttributes().get(TreeEncoderBase.TREE_NODE_STATE_ATTRIBUTE);
     }
-    
+
     protected UIComponent getTreeComponent(UIComponent treeNodeComponent) {
         return ((AbstractTreeNode) treeNodeComponent).findTreeComponent();
     }
 
     protected void encodeDefaultIcon(FacesContext context, UIComponent component, String styleClass) throws IOException {
         ResponseWriter writer = context.getResponseWriter();
-        
+
         writer.startElement(HtmlConstants.SPAN_ELEM, component);
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, styleClass, null);
         writer.endElement(HtmlConstants.SPAN_ELEM);
     }
-    
-    protected void encodeCustomIcon(FacesContext context, UIComponent component, String styleClass, String iconSource) throws IOException {
+
+    protected void encodeCustomIcon(FacesContext context, UIComponent component, String styleClass, String iconSource)
+        throws IOException {
         ResponseWriter writer = context.getResponseWriter();
-        
+
         writer.startElement(HtmlConstants.IMG_ELEMENT, component);
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, styleClass, null);
         writer.writeAttribute(HtmlConstants.ALT_ATTRIBUTE, "", null);
         writer.writeURIAttribute(HtmlConstants.SRC_ATTRIBUTE, RenderKitUtils.getResourceURL(iconSource, context), null);
         writer.endElement(HtmlConstants.IMG_ELEMENT);
     }
-    
+
     protected void encodeIcon(FacesContext context, UIComponent component) throws IOException {
         TreeNodeState nodeState = getNodeState(context);
-        
+
         AbstractTreeNode treeNode = (AbstractTreeNode) component;
 
         AbstractTree tree = treeNode.findTreeComponent();
-        
+
         if (nodeState.isLeaf()) {
             String iconLeaf = (String) getFirstNonEmptyAttribute("iconLeaf", treeNode, tree);
             encodeIconForNodeState(context, tree, treeNode, nodeState, iconLeaf);
         } else {
             String iconExpanded = (String) getFirstNonEmptyAttribute("iconExpanded", treeNode, tree);
             String iconCollapsed = (String) getFirstNonEmptyAttribute("iconCollapsed", treeNode, tree);
-            
+
             if (Strings.isNullOrEmpty(iconCollapsed) && Strings.isNullOrEmpty(iconExpanded)) {
                 encodeIconForNodeState(context, tree, treeNode, nodeState, null);
             } else {
@@ -146,28 +145,36 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
                     encodeIconForNodeState(context, tree, treeNode, TreeNodeState.collapsed, iconCollapsed);
                 }
 
-                if (toggleType == SwitchType.client || nodeState == TreeNodeState.expanded || nodeState == TreeNodeState.expandedNoChildren) {
+                if (toggleType == SwitchType.client || nodeState == TreeNodeState.expanded
+                    || nodeState == TreeNodeState.expandedNoChildren) {
                     encodeIconForNodeState(context, tree, treeNode, TreeNodeState.expanded, iconExpanded);
                 }
             }
         }
     }
 
-    protected void encodeIconForNodeState(FacesContext context, AbstractTree tree, AbstractTreeNode treeNode, TreeNodeState nodeState, String customIcon) throws IOException {
+    protected void encodeIconForNodeState(FacesContext context, AbstractTree tree, AbstractTreeNode treeNode,
+        TreeNodeState nodeState, String customIcon) throws IOException {
         if (Strings.isNullOrEmpty(customIcon)) {
-            encodeDefaultIcon(context, treeNode, concatClasses(nodeState.getIconClass(), treeNode.getAttributes().get("iconClass"), 
-                tree.getAttributes().get("iconClass")));
+            encodeDefaultIcon(
+                context,
+                treeNode,
+                concatClasses(nodeState.getIconClass(), treeNode.getAttributes().get("iconClass"),
+                    tree.getAttributes().get("iconClass")));
         } else {
-            encodeCustomIcon(context, treeNode, concatClasses(nodeState.getCustomIconClass(), treeNode.getAttributes().get("iconClass"), 
-                tree.getAttributes().get("iconClass")), customIcon);
+            encodeCustomIcon(
+                context,
+                treeNode,
+                concatClasses(nodeState.getCustomIconClass(), treeNode.getAttributes().get("iconClass"), tree.getAttributes()
+                    .get("iconClass")), customIcon);
         }
     }
-    
+
     protected void addClientEventHandlers(FacesContext facesContext, UIComponent component) {
         AbstractTreeNode treeNode = (AbstractTreeNode) component;
-        
-        //TODO check node state
-        //TODO check toggle/selection types
+
+        // TODO check node state
+        // TODO check toggle/selection types
         TreeRenderingContext renderingContext = TreeRenderingContext.get(facesContext);
         renderingContext.addHandlers(treeNode);
     }
@@ -176,21 +183,20 @@ public class TreeNodeRendererBase extends RendererBase implements MetaComponentR
         AbstractTreeNode treeNode = (AbstractTreeNode) component;
 
         AbstractTree tree = treeNode.findTreeComponent();
-        
+
         if (getToggleTypeOrDefault(tree) != SwitchType.ajax) {
             return null;
         }
-        
+
         UIComponent facet = treeNode.getFacet(HANDLE_LOADING_FACET_NAME);
         if (facet == null) {
             facet = tree.getFacet(HANDLE_LOADING_FACET_NAME);
         }
-        
+
         if (facet != null && facet.isRendered()) {
             return facet;
         }
 
         return null;
     }
-    
 }

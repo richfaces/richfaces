@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit.html.images;
 
 import java.awt.Color;
@@ -42,11 +41,10 @@ import org.richfaces.skin.SkinFactory;
 
 /**
  * @author Konstantin Mishin
- * 
+ *
  */
 @DynamicUserResource
 public abstract class ArrowBase extends AbstractJava2DUserResource implements StateHolderResource {
-
     private Integer color;
     private String colorParam;
 
@@ -59,7 +57,7 @@ public abstract class ArrowBase extends AbstractJava2DUserResource implements St
         FacesContext context = FacesContext.getCurrentInstance();
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
         Skin defaultSkin = SkinFactory.getInstance(context).getDefaultSkin(context);
-        
+
         this.color = skin.getColorParameter(context, colorParam);
         if (this.color == null) {
             this.color = defaultSkin.getColorParameter(context, colorParam);
@@ -83,7 +81,7 @@ public abstract class ArrowBase extends AbstractJava2DUserResource implements St
     public void readState(FacesContext context, DataInput dataInput) throws IOException {
         this.color = dataInput.readInt();
     }
-    
+
     public boolean isTransient() {
         return false;
     }

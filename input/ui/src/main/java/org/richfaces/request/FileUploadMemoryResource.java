@@ -34,7 +34,6 @@ import com.google.common.io.InputSupplier;
  * @author Nick Belaevski
  */
 class FileUploadMemoryResource extends FileUploadResource {
-
     private ByteBuffer buffer;
 
     public FileUploadMemoryResource(String name, String uploadLocation) {
@@ -46,11 +45,11 @@ class FileUploadMemoryResource extends FileUploadResource {
             throw new IOException("Resource has been deleted");
         }
     }
-    
+
     @Override
     public InputStream getInputStream() throws IOException {
         checkNotDeleted();
-        
+
         return new FastBufferInputStream(buffer);
     }
 
@@ -58,17 +57,17 @@ class FileUploadMemoryResource extends FileUploadResource {
     public long getSize() {
         return buffer.getLast().getTotalSize();
     }
-    
+
     @Override
     public void write(String fileName) throws IOException {
         checkNotDeleted();
-        
+
         InputSupplier<InputStream> inputSupplier = new InputSupplier<InputStream>() {
             public InputStream getInput() throws IOException {
                 return getInputStream();
             }
         };
-        
+
         Files.copy(inputSupplier, getOutputFile(fileName));
     }
 
@@ -88,5 +87,4 @@ class FileUploadMemoryResource extends FileUploadResource {
     public void complete() {
         buffer.compact();
     }
-    
 }

@@ -34,11 +34,9 @@ import com.google.common.io.Closeables;
  * @author Nick Belaevski
  */
 final class FileUploadDiscResource extends FileUploadResource {
-
     private File file;
-
     private FileOutputStream fos;
-    
+
     public FileUploadDiscResource(String name, String uploadLocation) {
         super(name, uploadLocation);
     }
@@ -52,11 +50,11 @@ final class FileUploadDiscResource extends FileUploadResource {
     public long getSize() {
         return file.length();
     }
-    
+
     @Override
     public void write(String fileName) throws IOException {
         boolean writeResult = file.renameTo(getOutputFile(fileName));
-        
+
         if (!writeResult) {
             throw new IOException(MessageFormat.format("Write to disc resource {0} failed", fileName));
         }
@@ -65,11 +63,11 @@ final class FileUploadDiscResource extends FileUploadResource {
     @Override
     public void delete() throws IOException {
         complete();
-        
+
         if (file == null || !file.exists()) {
             return;
         }
-        
+
         boolean deleteResult = file.delete();
 
         if (!deleteResult) {
@@ -91,5 +89,4 @@ final class FileUploadDiscResource extends FileUploadResource {
         Closeables.closeQuietly(fos);
         fos = null;
     }
-
 }

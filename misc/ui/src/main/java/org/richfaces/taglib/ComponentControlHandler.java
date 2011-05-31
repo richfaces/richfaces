@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.taglib;
 
 import java.io.IOException;
@@ -45,10 +44,9 @@ import org.richfaces.view.facelets.html.CustomBehaviorHandler;
 
 /**
  * @author Anton Belevich
- * 
+ *
  */
 public class ComponentControlHandler extends CustomBehaviorHandler {
-
     public ComponentControlHandler(BehaviorConfig config) {
         super(config);
     }
@@ -109,9 +107,8 @@ public class ComponentControlHandler extends CustomBehaviorHandler {
     }
 
     private boolean isUIParameter(String type) {
-        return (UIParameter.COMPONENT_TYPE.equals(type) || 
-            UIHashParameter.COMPONENT_TYPE.equals(type) ||
-            AbstractParameter.COMPONENT_TYPE.equals(type));
+        return (UIParameter.COMPONENT_TYPE.equals(type) || UIHashParameter.COMPONENT_TYPE.equals(type) || AbstractParameter.COMPONENT_TYPE
+            .equals(type));
     }
 
     @Override

@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.component;
 
 import org.jboss.test.faces.AbstractFacesTest;
@@ -35,21 +32,27 @@ public class UIRangedNumberInputTest extends AbstractFacesTest {
             private String minValue;
             private String maxValue;
             private boolean disabled;
+
             public String getMinValue() {
                 return minValue;
             }
+
             public void setMinValue(String minValue) {
                 this.minValue = minValue;
             }
+
             public String getMaxValue() {
                 return maxValue;
             }
+
             public void setMaxValue(String maxValue) {
                 this.maxValue = maxValue;
             }
+
             public boolean isDisabled() {
                 return disabled;
             }
+
             public void setDisabled(boolean disabled) {
                 this.disabled = disabled;
             }

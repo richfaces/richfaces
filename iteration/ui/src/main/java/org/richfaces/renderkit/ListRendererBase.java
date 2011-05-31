@@ -48,31 +48,26 @@ import org.richfaces.renderkit.util.RendererUtils;
  */
 @ResourceDependency(library = "org.richfaces", name = "list.ecss")
 public abstract class ListRendererBase extends Renderer {
-
     private static final Map<String, ComponentAttribute> ROW_HANDLER_ATTRIBUTES = Collections
-    .unmodifiableMap(ComponentAttribute.createMap(
-        new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("rowclick").
-            setComponentAttributeName("onrowclick"),
-        new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE).setEventNames("rowdblclick").
-            setComponentAttributeName("onrowdblclick"),
-        new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE).setEventNames("rowmousedown").
-            setComponentAttributeName("onrowmousedown"),
-        new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE).setEventNames("rowmouseup").
-            setComponentAttributeName("onrowmouseup"),
-        new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE).setEventNames("rowmouseover").
-            setComponentAttributeName("onrowmouseover"),
-        new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE).setEventNames("rowmousemove").
-            setComponentAttributeName("onrowmousemove"),
-        new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE).setEventNames("rowmouseout").
-            setComponentAttributeName("onrowmouseout"),
-        new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE).setEventNames("rowkeypress").
-            setComponentAttributeName("onrowkeypress"),
-        new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE).setEventNames("rowkeydown").
-            setComponentAttributeName("onrowkeydown"),
-        new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE).setEventNames("rowkeyup").
-            setComponentAttributeName("onrowkeyup")
-    ));
-
+        .unmodifiableMap(ComponentAttribute.createMap(
+            new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("rowclick").setComponentAttributeName(
+                "onrowclick"),
+            new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE).setEventNames("rowdblclick").setComponentAttributeName(
+                "onrowdblclick"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE).setEventNames("rowmousedown")
+                .setComponentAttributeName("onrowmousedown"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE).setEventNames("rowmouseup").setComponentAttributeName(
+                "onrowmouseup"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE).setEventNames("rowmouseover")
+                .setComponentAttributeName("onrowmouseover"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE).setEventNames("rowmousemove")
+                .setComponentAttributeName("onrowmousemove"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE).setEventNames("rowmouseout").setComponentAttributeName(
+                "onrowmouseout"),
+            new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE).setEventNames("rowkeypress").setComponentAttributeName(
+                "onrowkeypress"), new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE).setEventNames("rowkeydown")
+                .setComponentAttributeName("onrowkeydown"), new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE)
+                .setEventNames("rowkeyup").setComponentAttributeName("onrowkeyup")));
     private RendererUtils rendererUtils = RendererUtils.getInstance();
 
     /**
@@ -80,7 +75,6 @@ public abstract class ListRendererBase extends Renderer {
      *
      */
     private class SimpleItemsEncoder extends ItemsEncoder {
-
         private String itemClass;
 
         public SimpleItemsEncoder(String itemClass) {
@@ -89,8 +83,7 @@ public abstract class ListRendererBase extends Renderer {
         }
 
         @Override
-        protected void encodeRow(FacesContext context, UISequence sequence, SequenceRendererHelper helper)
-            throws IOException {
+        protected void encodeRow(FacesContext context, UISequence sequence, SequenceRendererHelper helper) throws IOException {
             ResponseWriter writer = context.getResponseWriter();
 
             writer.startElement(HtmlConstants.LI_ELEMENT, sequence);
@@ -120,8 +113,7 @@ public abstract class ListRendererBase extends Renderer {
      */
     private final class DefinitionItemsEncoder extends ItemsEncoder {
         @Override
-        protected void encodeRow(FacesContext context, UISequence sequence, SequenceRendererHelper helper)
-            throws IOException {
+        protected void encodeRow(FacesContext context, UISequence sequence, SequenceRendererHelper helper) throws IOException {
             ResponseWriter writer = context.getResponseWriter();
 
             UIComponent termFacet = sequence.getFacet(AbstractList.TERM);
@@ -161,7 +153,6 @@ public abstract class ListRendererBase extends Renderer {
     }
 
     private abstract class ItemsEncoder implements DataVisitor {
-
         protected void renderHandlers(FacesContext context, UISequence sequence) throws IOException {
             RenderKitUtils.renderPassThroughAttributesOptimized(context, sequence, ROW_HANDLER_ATTRIBUTES);
         }
@@ -189,13 +180,10 @@ public abstract class ListRendererBase extends Renderer {
         }
 
         public abstract void encodeFakeItem(FacesContext context, UIComponent component) throws IOException;
-
     }
 
     private ItemsEncoder unorderedListItemsEncoder = new SimpleItemsEncoder("rf-ulst-itm");
-
     private ItemsEncoder orderedListItemsEncoder = new SimpleItemsEncoder("rf-olst-itm");
-
     private ItemsEncoder definitionItemsEncoder = new DefinitionItemsEncoder();
 
     protected String getListClass(ListType type) {
@@ -229,7 +217,8 @@ public abstract class ListRendererBase extends Renderer {
     protected ListType getType(UIComponent component) {
         ListType type = ((AbstractList) component).getType();
         if (type == null) {
-            String exceptionMessage = MessageFormat.format("Type for rich:list {0} is required!", RichfacesLogger.getComponentPath(component));
+            String exceptionMessage = MessageFormat.format("Type for rich:list {0} is required!",
+                RichfacesLogger.getComponentPath(component));
             throw new IllegalArgumentException(exceptionMessage);
         }
 
@@ -249,8 +238,7 @@ public abstract class ListRendererBase extends Renderer {
         return null;
     }
 
-    protected void encodeListItems(FacesContext context, UIComponent component, ListType listType)
-        throws IOException {
+    protected void encodeListItems(FacesContext context, UIComponent component, ListType listType) throws IOException {
         AbstractList list = (AbstractList) component;
         try {
             ItemsEncoder itemsEncoder = getItemsEncoderByType(listType);
@@ -269,14 +257,14 @@ public abstract class ListRendererBase extends Renderer {
             }
         }
     }
-    
+
     @Override
     public void encodeBegin(FacesContext context, UIComponent component) throws IOException {
-        //do nothing
+        // do nothing
     }
-    
+
     @Override
     public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
-        //do nothing
+        // do nothing
     }
 }

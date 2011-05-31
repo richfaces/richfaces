@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import java.sql.ResultSet;
@@ -51,13 +50,14 @@ import org.richfaces.cdk.annotations.Attribute;
  * @author Nick Belaevski
  */
 public class UISequence extends UIDataAdaptor {
-
     private Object iterationStatusVarObject;
-
     private Converter defaultRowKeyConverter;
-    
+
     protected enum PropertyKeys {
-        first, rows, value, iterationStatusVar
+        first,
+        rows,
+        value,
+        iterationStatusVar
     }
 
     protected void updateState(SequenceState state) {
@@ -71,15 +71,15 @@ public class UISequence extends UIDataAdaptor {
             updateState((SequenceState) localState);
         }
     }
-    
+
     protected int getActualFirst() {
         return getFirst();
     }
-    
+
     protected int getActualRows() {
         return getRows();
     }
-    
+
     @SuppressWarnings("unchecked")
     protected DataModel<?> createFacesModel(Object value) {
         DataModel<?> model = null;
@@ -125,7 +125,7 @@ public class UISequence extends UIDataAdaptor {
         SequenceState state = new SequenceState();
 
         updateState(state);
-        
+
         return state;
     }
 
@@ -145,10 +145,10 @@ public class UISequence extends UIDataAdaptor {
             if (defaultRowKeyConverter == null) {
                 defaultRowKeyConverter = getFacesContext().getApplication().createConverter(Integer.class);
             }
-            
+
             converter = defaultRowKeyConverter;
         }
-        
+
         return converter;
     }
 
@@ -227,8 +227,8 @@ public class UISequence extends UIDataAdaptor {
     protected void setupVariable(FacesContext faces, boolean rowSelected) {
         super.setupVariable(faces, rowSelected);
 
-        //TODO nick - should iterationStatus be available out of iteration?
-        //            if yes, better name than "iterationStatusVar" is required
+        // TODO nick - should iterationStatus be available out of iteration?
+        // if yes, better name than "iterationStatusVar" is required
         String iterationStatusVar = getIterationStatusVar();
         if (iterationStatusVar != null) {
             Map<String, Object> requestMap = getVariablesMap(faces);
@@ -250,8 +250,7 @@ public class UISequence extends UIDataAdaptor {
                     }
                 }
 
-                SequenceIterationStatus iterationStatus = new SequenceIterationStatus(begin, end,
-                    getRowIndex(), getRowCount());
+                SequenceIterationStatus iterationStatus = new SequenceIterationStatus(begin, end, getRowIndex(), getRowCount());
 
                 requestMap.put(iterationStatusVar, iterationStatus);
             } else {
@@ -282,14 +281,14 @@ public class UISequence extends UIDataAdaptor {
 
         super.setValueExpression(name, binding);
     }
-    
+
     @Override
     protected void preEncodeBegin(FacesContext context) {
         super.preEncodeBegin(context);
-        
+
         updateState();
     }
-    
+
     public int getRelativeRowIndex() {
         int rowIndex = getRowIndex();
         int rows = getRows();
@@ -297,26 +296,26 @@ public class UISequence extends UIDataAdaptor {
         if (rows > 1) {
             return rowIndex % rows;
         }
-        
+
         return rowIndex;
     }
-    
+
     public String getRelativeClientId(FacesContext facesContext) {
-        
-        //save current rowKey
+
+        // save current rowKey
         Object savedRowKey = getRowKey();
-        
+
         setRowKey(null);
-        
-        //retrieve base client id without rowkey part
+
+        // retrieve base client id without rowkey part
         StringBuilder baseId = new StringBuilder(getClientId(facesContext));
-        
-        //restore rowKey
+
+        // restore rowKey
         setRowKey(savedRowKey);
-                
+
         String result = baseId.append(UINamingContainer.getSeparatorChar(facesContext)).append(getRelativeRowIndex())
             .toString();
-        
+
         return result;
     }
 }

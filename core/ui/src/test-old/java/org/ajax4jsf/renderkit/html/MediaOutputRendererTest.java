@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.renderkit.html;
 
 import javax.faces.FacesException;
@@ -30,7 +27,6 @@ import javax.faces.component.html.HtmlForm;
 
 import org.ajax4jsf.component.UIMediaOutput;
 import org.ajax4jsf.tests.AbstractAjax4JsfTestCase;
-
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
@@ -143,6 +139,7 @@ public class MediaOutputRendererTest extends AbstractAjax4JsfTestCase {
         try {
             renderView();
             assertTrue("'element' is undefined but exception was not thrown", false);
-        } catch (FacesException e) {}
+        } catch (FacesException e) {
+        }
     }
 }

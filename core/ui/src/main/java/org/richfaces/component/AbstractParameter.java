@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.component;
 
 import javax.el.ELContext;
@@ -44,19 +43,13 @@ import org.richfaces.component.util.PartialStateHolderUtil;
  * @author shura (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.2 $ $Date: 2007/02/01 15:31:55 $
  */
-@JsfComponent(tag = @Tag(name = "param", handler = "org.richfaces.view.facelets.html.ParameterHandler", generate = false, type = TagType.Facelets),
-        attributes = "param-assignTo-prop.xml"
-)
+@JsfComponent(tag = @Tag(name = "param", handler = "org.richfaces.view.facelets.html.ParameterHandler", generate = false, type = TagType.Facelets), attributes = "param-assignTo-prop.xml")
 public abstract class AbstractParameter extends UIParameter implements ActionListener, JavaScriptParameter {
-
     public static final String COMPONENT_TYPE = "org.richfaces.Parameter";
-
     public static final String COMPONENT_FAMILY = UIParameter.COMPONENT_FAMILY;
-
     private static final String ASSIGN_TO = "assignTo";
 
     /** ********************************************************* */
-
     /**
      * Converter for update value with this parameter
      */
@@ -65,7 +58,6 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
     /**
      * ********************************************************
      */
-
     @Attribute
     public abstract boolean isNoEscape();
 
@@ -149,23 +141,20 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
     }
 
     /** ********************************************************* */
-
     /**
      * @param context Faces Context
-     * @param type    Type of class
+     * @param type Type of class
      * @return converter
      * @throws FacesException if something goes wrong
      */
     private Converter createConverter(FacesContext context, Class<?> type) throws FacesException {
         Converter converter = getConverter();
 
-        if (converter == null && type != null && !type.equals(String.class)
-                && !type.equals(Object.class)) {
+        if (converter == null && type != null && !type.equals(String.class) && !type.equals(Object.class)) {
             try {
                 converter = context.getApplication().createConverter(type);
             } catch (Exception e) {
-                throw new FacesException(Messages.getMessage(
-                        Messages.NO_CONVERTER_REGISTERED, type.getName()), e);
+                throw new FacesException(Messages.getMessage(Messages.NO_CONVERTER_REGISTERED, type.getName()), e);
             }
         }
 
@@ -182,7 +171,6 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
         }
     }
 
-
     @Override
     public void clearInitialState() {
         if (initialStateMarked()) {
@@ -194,7 +182,6 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
             }
         }
     }
-
 
     @Override
     public Object saveState(FacesContext context) {
@@ -209,12 +196,8 @@ public abstract class AbstractParameter extends UIParameter implements ActionLis
             return null;
         }
 
-        return new Object[]{
-            superState,
-            converterState
-        };
+        return new Object[] { superState, converterState };
     }
-
 
     @Override
     public void restoreState(FacesContext context, Object state) {

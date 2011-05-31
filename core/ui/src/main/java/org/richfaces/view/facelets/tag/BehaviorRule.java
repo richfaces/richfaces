@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.view.facelets.tag;
 
 import javax.faces.view.facelets.FaceletContext;
@@ -32,14 +31,12 @@ import org.richfaces.component.behavior.ClientBehavior;
 
 /**
  * @author Anton Belevich
- * 
+ *
  */
 public class BehaviorRule extends MetaRule {
-
     public static final BehaviorRule INSTANCE = new BehaviorRule();
 
     static final class LiteralAttributeMetadata extends Metadata {
-
         private final String name;
         private final String value;
 
@@ -54,11 +51,8 @@ public class BehaviorRule extends MetaRule {
     }
 
     static final class ValueExpressionMetadata extends Metadata {
-
         private final String name;
-
         private final TagAttribute attr;
-
         private final Class<?> type;
 
         public ValueExpressionMetadata(String name, Class<?> type, TagAttribute attr) {
@@ -70,7 +64,6 @@ public class BehaviorRule extends MetaRule {
         public void applyMetadata(FaceletContext ctx, Object instance) {
             ((ClientBehavior) instance).setValueExpression(this.name, this.attr.getValueExpression(ctx, this.type));
         }
-
     }
 
     @Override
@@ -82,8 +75,7 @@ public class BehaviorRule extends MetaRule {
                     type = Object.class;
                 }
                 return new ValueExpressionMetadata(name, type, attribute);
-
-            } else if(meta != null && meta.getWriteMethod(name) != null) {
+            } else if (meta != null && meta.getWriteMethod(name) != null) {
                 return new LiteralAttributeMetadata(name, attribute.getValue());
             }
         }

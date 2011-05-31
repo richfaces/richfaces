@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import javax.faces.component.UISelectOne;
@@ -31,21 +30,19 @@ import org.richfaces.cdk.annotations.EventName;
  * @author abelevich
  *
  */
-
 public abstract class AbstractSelectComponent extends UISelectOne {
-    
     @Attribute()
     public abstract String getListWidth();
-    
+
     @Attribute()
     public abstract String getListHeight();
-    
+
     @Attribute
     public abstract String getDefaultLabel();
-    
+
     @Attribute
     public abstract String getItemClass();
-    
+
     @Attribute
     public abstract String getSelectItemClass();
 
@@ -57,80 +54,79 @@ public abstract class AbstractSelectComponent extends UISelectOne {
 
     @Attribute
     public abstract String getDisabledClass();
-    
+
     @Attribute
     public abstract String getListClass();
 
-    @Attribute(events=@EventName("blur"))
+    @Attribute(events = @EventName("blur"))
     public abstract String getOnblur();
 
-    @Attribute(events=@EventName("click"))
+    @Attribute(events = @EventName("click"))
     public abstract String getOnclick();
-    
-    @Attribute(events=@EventName(value="change", defaultEvent=true))
+
+    @Attribute(events = @EventName(value = "change", defaultEvent = true))
     public abstract String getOnchange();
-    
-    @Attribute(events=@EventName("dblclick"))
+
+    @Attribute(events = @EventName("dblclick"))
     public abstract String getOndblclick();
-   
-    @Attribute(events=@EventName("focus"))
+
+    @Attribute(events = @EventName("focus"))
     public abstract String getOnfocus();
-    
-    @Attribute(events=@EventName("keydown"))
+
+    @Attribute(events = @EventName("keydown"))
     public abstract String getOnkeydown();
-    
-    @Attribute(events=@EventName("keypress"))
+
+    @Attribute(events = @EventName("keypress"))
     public abstract String getOnkeypress();
-    
-    @Attribute(events=@EventName("keyup"))
+
+    @Attribute(events = @EventName("keyup"))
     public abstract String getOnkeyup();
-    
-    @Attribute(events=@EventName("mousedown"))
+
+    @Attribute(events = @EventName("mousedown"))
     public abstract String getOnmousedown();
-    
-    @Attribute(events=@EventName("mousemove"))
+
+    @Attribute(events = @EventName("mousemove"))
     public abstract String getOnmousemove();
-    
-    @Attribute(events=@EventName("mouseout"))
+
+    @Attribute(events = @EventName("mouseout"))
     public abstract String getOnmouseout();
-    
-    @Attribute(events=@EventName("mouseover"))
+
+    @Attribute(events = @EventName("mouseover"))
     public abstract String getOnmouseover();
-    
-    @Attribute(events=@EventName("mouseup"))
+
+    @Attribute(events = @EventName("mouseup"))
     public abstract String getOnmouseup();
-    
-    @Attribute(events=@EventName("listclick"))
+
+    @Attribute(events = @EventName("listclick"))
     public abstract String getOnlistclick();
 
-    @Attribute(events=@EventName("listdblclick"))
+    @Attribute(events = @EventName("listdblclick"))
     public abstract String getOnlistdblclick();
-    
-    @Attribute(events=@EventName("listmousedown"))
+
+    @Attribute(events = @EventName("listmousedown"))
     public abstract String getOnlistmousedown();
-    
-    @Attribute(events=@EventName("listmouseup"))
+
+    @Attribute(events = @EventName("listmouseup"))
     public abstract String getOnlistmouseup();
-    
-    @Attribute(events=@EventName("listmouseover"))
+
+    @Attribute(events = @EventName("listmouseover"))
     public abstract String getOnlistmouseover();
-    
-    @Attribute(events=@EventName("listmousemove"))
+
+    @Attribute(events = @EventName("listmousemove"))
     public abstract String getOnlistmousemove();
-    
-    @Attribute(events=@EventName("listmouseout"))
+
+    @Attribute(events = @EventName("listmouseout"))
     public abstract String getOnlistmouseout();
-    
-    @Attribute(events=@EventName("listkeypress"))
+
+    @Attribute(events = @EventName("listkeypress"))
     public abstract String getOnlistkeypress();
 
-    @Attribute(events=@EventName("listkeydown"))
+    @Attribute(events = @EventName("listkeydown"))
     public abstract String getOnlistkeydown();
 
-    @Attribute(events=@EventName("listkeyup"))
+    @Attribute(events = @EventName("listkeyup"))
     public abstract String getOnlistkeyup();
-    
-    @Attribute(events=@EventName("selectitem"))
-    public abstract String getOnselectitem();
 
+    @Attribute(events = @EventName("selectitem"))
+    public abstract String getOnselectitem();
 }

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.richfaces.validator;
 
@@ -14,12 +14,14 @@ import javax.faces.context.FacesContext;
  *
  */
 public class DummyBeanValidatorService implements BeanValidatorService {
-
-    /* (non-Javadoc)
-     * @see org.richfaces.validator.BeanValidatorService#getConstrains(javax.faces.context.FacesContext, javax.el.ValueExpression, java.lang.Class<?>[])
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.richfaces.validator.BeanValidatorService#getConstrains(javax.faces.context.FacesContext,
+     * javax.el.ValueExpression, java.lang.Class<?>[])
      */
-    public Collection<ValidatorDescriptor> getConstrains(FacesContext context, ValueExpression expression,
-        String message, Class<?>... groups) {
+    public Collection<ValidatorDescriptor> getConstrains(FacesContext context, ValueExpression expression, String message,
+        Class<?>... groups) {
         return Collections.emptySet();
     }
 
@@ -31,5 +33,4 @@ public class DummyBeanValidatorService implements BeanValidatorService {
     public Collection<String> validateObject(FacesContext context, Object object, Class<?>... groups) {
         return Collections.emptySet();
     }
-
 }

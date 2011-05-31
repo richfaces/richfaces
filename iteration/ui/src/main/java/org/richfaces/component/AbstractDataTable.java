@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import javax.faces.component.UIComponent;
@@ -33,33 +32,20 @@ import org.richfaces.cdk.annotations.TagType;
 
 /**
  * @author Anton Belevich
- * 
+ *
  */
-
-@JsfComponent(
-    type = AbstractDataTable.COMPONENT_TYPE,
-    family = AbstractDataTable.COMPONENT_FAMILY, 
-    generate = "org.richfaces.component.UIDataTable",
-    renderer = @JsfRenderer(type = "org.richfaces.DataTableRenderer"),
-    tag = @Tag(name="dataTable", handler="org.richfaces.taglib.DataTableHandler", type=TagType.Facelets),
-    attributes = "rowKeyConverter-prop.xml"
-)
+@JsfComponent(type = AbstractDataTable.COMPONENT_TYPE, family = AbstractDataTable.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDataTable", renderer = @JsfRenderer(type = "org.richfaces.DataTableRenderer"), tag = @Tag(name = "dataTable", handler = "org.richfaces.taglib.DataTableHandler", type = TagType.Facelets), attributes = "rowKeyConverter-prop.xml")
 public abstract class AbstractDataTable extends UIDataTableBase {
-    
     public static final String COMPONENT_TYPE = "org.richfaces.DataTable";
-    
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
-    
     public static final String CAPTION_FACET_NAME = "caption";
 
     @Attribute
     public abstract String getCaptionClass();
-    
+
     @Attribute
     public abstract String getStyleClass();
-    
+
     @Facet
     public abstract UIComponent getCaption();
-    
 }
-

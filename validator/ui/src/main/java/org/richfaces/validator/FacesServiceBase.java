@@ -14,13 +14,11 @@ import javax.faces.context.FacesContext;
 import com.google.common.collect.ImmutableSet;
 
 public abstract class FacesServiceBase<T> {
-
     private static final ImmutableSet<String> HIDDEN_PROPERTIES = ImmutableSet.of("class", "transient");
 
     protected abstract String getMessageId(T component);
 
-
-    protected  void fillParameters(BaseFacesObjectDescriptor<T> descriptor, T component) {
+    protected void fillParameters(BaseFacesObjectDescriptor<T> descriptor, T component) {
         // get bean attributes for converter, put them into parameters.
         try {
             BeanInfo beanInfo = Introspector.getBeanInfo(component.getClass());
@@ -49,11 +47,11 @@ public abstract class FacesServiceBase<T> {
 
     /**
      * Creates message for converter, using current locale.
-     * 
+     *
      * @param context
      * @param component
      * @param input TODO
-     * @param msg 
+     * @param msg
      * @return
      */
     public FacesMessage getMessage(FacesContext context, T component, EditableValueHolder input, String msg) {
@@ -69,10 +67,9 @@ public abstract class FacesServiceBase<T> {
         if (input instanceof UIComponent) {
             UIComponent component = (UIComponent) input;
             Object label = component.getAttributes().get("label");
-            if(null!=label){
+            if (null != label) {
                 descriptor.addParameter("label", label);
             }
         }
     }
-
 }

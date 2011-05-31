@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.model;
 
 import java.util.Comparator;
@@ -30,14 +29,11 @@ import org.richfaces.component.SortOrder;
 
 /**
  * @author Konstantin Mishin
- * 
+ *
  */
 public class SortField extends Field {
-
     private static final long serialVersionUID = 654268763477658266L;
-
     private Comparator<?> comparator;
-
     private SortOrder sortOrder;
 
     public SortField(ValueExpression sortBy, Comparator<?> comparator, SortOrder sortOrder) {

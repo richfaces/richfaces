@@ -31,17 +31,12 @@ import org.richfaces.cdk.annotations.TagType;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
-@JsfComponent(tag = @Tag(name = "queue",
-        generate = false, type = TagType.Facelets),
-        renderer = @JsfRenderer(type = "org.richfaces.QueueRenderer"))
+@JsfComponent(tag = @Tag(name = "queue", generate = false, type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.QueueRenderer"))
 public abstract class AbstractQueue extends UIComponentBase {
-
     public static final String GLOBAL_QUEUE_NAME = "org.richfaces.queue.global";
-
     public static final String COMPONENT_TYPE = "org.richfaces.Queue";
-
     public static final String COMPONENT_FAMILY = "org.richfaces.Queue";
 
     @Attribute
@@ -67,10 +62,10 @@ public abstract class AbstractQueue extends UIComponentBase {
 
     @Attribute
     public abstract String getOnrequestdequeue();
-    
+
     @Attribute
     public abstract boolean isIgnoreDupResponses();
-    
+
     @Attribute
     public abstract String getName();
 }

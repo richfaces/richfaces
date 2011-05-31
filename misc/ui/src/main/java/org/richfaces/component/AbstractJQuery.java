@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import javax.faces.component.UIComponentBase;
@@ -34,15 +33,12 @@ import org.richfaces.cdk.annotations.TagType;
  * @author nick
  *
  */
-@JsfComponent(type = AbstractJQuery.COMPONENT_TYPE, family = AbstractJQuery.COMPONENT_FAMILY, 
-    renderer = @JsfRenderer(type = "org.richfaces.JQueryRenderer"), tag = @Tag(type = TagType.Facelets))
+@JsfComponent(type = AbstractJQuery.COMPONENT_TYPE, family = AbstractJQuery.COMPONENT_FAMILY, renderer = @JsfRenderer(type = "org.richfaces.JQueryRenderer"), tag = @Tag(type = TagType.Facelets))
 public abstract class AbstractJQuery extends UIComponentBase {
-
     public static final String COMPONENT_TYPE = "org.richfaces.JQuery";
-
     public static final String COMPONENT_FAMILY = "org.richfaces.JQuery";
 
-    //TODO nick - CDK should be doing this
+    // TODO nick - CDK should be doing this
     public AbstractJQuery() {
         setRendererType("org.richfaces.JQueryRenderer");
     }
@@ -64,6 +60,4 @@ public abstract class AbstractJQuery extends UIComponentBase {
 
     @Attribute
     public abstract JQueryTiming getTiming();
-
 }
-

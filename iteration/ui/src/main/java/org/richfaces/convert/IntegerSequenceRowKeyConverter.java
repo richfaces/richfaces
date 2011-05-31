@@ -21,17 +21,14 @@
  */
 package org.richfaces.convert;
 
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class IntegerSequenceRowKeyConverter extends SequenceRowKeyConverter<Integer> {
-
     public static final String CONVERTER_ID = "org.richfaces.IntegerSequenceRowKeyConverter";
-    
+
     public IntegerSequenceRowKeyConverter() {
         super(Integer.class, ConverterUtil.integerConverter());
     }
-
 }

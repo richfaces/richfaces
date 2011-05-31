@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.renderkit.html;
 
 import java.io.IOException;
@@ -43,10 +40,9 @@ import org.richfaces.renderkit.RendererBase;
  * @author shura
  *
  */
-@JsfRenderer(family = AbstractMediaOutput.COMPONENT_FAMILY) 
+@JsfRenderer(family = AbstractMediaOutput.COMPONENT_FAMILY)
 public class MediaOutputRenderer extends RendererBase {
     public static final String RENDERER_TYPE = "org.richfaces.MediaOutputRenderer";
-
     /**
      * Associationd between element name and uri attributes
      */
@@ -61,7 +57,8 @@ public class MediaOutputRenderer extends RendererBase {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.ajax4jsf.renderkit.RendererBase#doEncodeEnd(javax.faces.context.ResponseWriter,
      * javax.faces.context.FacesContext, javax.faces.component.UIComponent)
      */
@@ -72,14 +69,15 @@ public class MediaOutputRenderer extends RendererBase {
 
         if (null == element) {
             throw new FacesException(Messages.getMessage(Messages.NULL_ATTRIBUTE_ERROR, "element",
-                    component.getClientId(context)));
+                component.getClientId(context)));
         }
 
         writer.endElement(element);
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.ajax4jsf.renderkit.RendererBase#getComponentClass()
      */
     @Override
@@ -90,20 +88,20 @@ public class MediaOutputRenderer extends RendererBase {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.ajax4jsf.renderkit.RendererBase#doEncodeBegin(javax.faces.context.ResponseWriter,
      * javax.faces.context.FacesContext, javax.faces.component.UIComponent)
      */
     @Override
-    protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component)
-        throws IOException {
-        
+    protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+
         AbstractMediaOutput mmedia = (AbstractMediaOutput) component;
         String element = mmedia.getElement();
 
         if (null == element) {
             throw new FacesException(Messages.getMessage(Messages.NULL_ATTRIBUTE_ERROR, "element",
-                    component.getClientId(context)));
+                component.getClientId(context)));
         }
 
         String uriAttribute = mmedia.getUriAttribute();
@@ -114,7 +112,7 @@ public class MediaOutputRenderer extends RendererBase {
 
             if (null == uriAttribute) {
                 throw new FacesException(Messages.getMessage(Messages.NULL_ATTRIBUTE_ERROR, "uriAttribute",
-                        component.getClientId(context)));
+                    component.getClientId(context)));
             }
         }
 

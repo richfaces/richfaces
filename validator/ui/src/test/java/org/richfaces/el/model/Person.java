@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.richfaces.el.model;
 
@@ -9,27 +9,18 @@ import java.util.Map;
 
 /**
  * @author asmirnov
- * 
+ *
  */
 public class Person {
-
     public static final String FOO_BAR = "http://foo.bar/baz#";
-
     public static final String FOAF = "http://xmlns.com/foaf/0.1/";
     private String id;
-
     private Collection<URI> emailAddress;
-
     private String name;
-
     private String dummy;
-
     private Double account;
-
     private String string;
-
     private String property;
-
     private Map<Integer, Object> options;
 
     public String getId() {

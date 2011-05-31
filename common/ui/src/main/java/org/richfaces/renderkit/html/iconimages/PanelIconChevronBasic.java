@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit.html.iconimages;
 
 import java.awt.BasicStroke;
@@ -60,15 +59,15 @@ public abstract class PanelIconChevronBasic extends PanelIconBasic {
         draw(path);
 
         g2d.fill(path);
-        if (this instanceof PanelIconChevron
-            || this instanceof PanelIconChevronLeft) {
+        if (this instanceof PanelIconChevron || this instanceof PanelIconChevronLeft) {
             g2d.translate(24, 0);
         } else {
             g2d.translate(0, 24);
         }
         g2d.fill(path);
 
-        AffineTransform transform = AffineTransform.getScaleInstance(dimension.getHeight() / BUFFER_IMAGE_SIZE, dimension.getHeight() / BUFFER_IMAGE_SIZE);
+        AffineTransform transform = AffineTransform.getScaleInstance(dimension.getHeight() / BUFFER_IMAGE_SIZE,
+            dimension.getHeight() / BUFFER_IMAGE_SIZE);
         AffineTransformOp transformOp = new AffineTransformOp(transform, AffineTransformOp.TYPE_BILINEAR);
 
         graphics2d.drawImage(bufferedImage, transformOp, 0, 0);

@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.component;
 
 import java.util.LinkedHashMap;
@@ -28,22 +27,19 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
-import org.richfaces.log.RichfacesLogger;
 import org.richfaces.log.Logger;
+import org.richfaces.log.RichfacesLogger;
 
 /**
  * @author Nick Belaevski
  * @since 3.3.0
  */
 public final class QueueRegistry {
-
     public static final String QUEUE_SCRIPT_ID = "_org_richfaces_queue";
-    
     private static final Logger LOGGER = RichfacesLogger.COMPONENTS.getLogger();
-    
     private static final String REGISTRY_ATTRIBUTE_NAME = QueueRegistry.class.getName();
     private Map<String, UIComponent> queuesData = new LinkedHashMap<String, UIComponent>();
-    
+
     private QueueRegistry() {
     }
 
@@ -67,7 +63,7 @@ public final class QueueRegistry {
             LOGGER.warn("Queue with name '" + clientName + "' has already been registered");
         }
     }
-    
+
     public UIComponent removeQueue(String clientName) {
         return queuesData.remove(clientName);
     }

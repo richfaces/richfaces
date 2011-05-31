@@ -7,11 +7,9 @@ import java.util.Locale;
 import javax.faces.event.ValueChangeEvent;
 
 public class CalendarBean {
-
     public static int CURRENT_YEAR = 2010;
     public static int CURRENT_MONTH = 10;
     public static int CURRENT_DAY = 16;
-    
     private Locale locale;
     private boolean popup;
     private String pattern;
@@ -26,7 +24,7 @@ public class CalendarBean {
         popup = true;
         pattern = "d/M/yy HH:mm";
         mode = "client";
-        
+
         Calendar calendar = Calendar.getInstance();
         calendar.set(CURRENT_YEAR, CURRENT_MONTH, CURRENT_DAY, 0, 0, 0);
         selectedDate = calendar.getTime();
@@ -39,7 +37,7 @@ public class CalendarBean {
     public void setMode(String mode) {
         this.mode = mode;
     }
-    
+
     public Locale getLocale() {
         return locale;
     }

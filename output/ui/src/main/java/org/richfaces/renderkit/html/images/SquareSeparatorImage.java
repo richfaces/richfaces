@@ -13,7 +13,6 @@ import org.richfaces.resource.DynamicUserResource;
 
 @DynamicUserResource
 public class SquareSeparatorImage extends ToolbarSeparatorImage {
-
     private static final Dimension DIMENSIONS = new Dimension(9, 9);
 
     public Dimension getDimension() {
@@ -26,13 +25,12 @@ public class SquareSeparatorImage extends ToolbarSeparatorImage {
         Color gradientColorStart = Color.WHITE;
         Color gradientColorEnd = new Color(this.getHeaderBackgroundColor());
         Rectangle2D inSquare = new Rectangle2D.Double(2, 2, DIMENSIONS.getWidth() - 4, DIMENSIONS.getHeight() - 4);
-        GradientPaint paint = new GradientPaint((float) 2, (float) 2, gradientColorStart,
-                (float) DIMENSIONS.getWidth() - 2, (float) DIMENSIONS.getHeight() - 2, gradientColorEnd);
+        GradientPaint paint = new GradientPaint((float) 2, (float) 2, gradientColorStart, (float) DIMENSIONS.getWidth() - 2,
+            (float) DIMENSIONS.getHeight() - 2, gradientColorEnd);
         g2d.setPaint(paint);
         g2d.fill(inSquare);
 
-        RoundRectangle2D outSquare = new RoundRectangle2D.Double(0, 0, DIMENSIONS.getWidth(), DIMENSIONS.getHeight(),
-                4, 4);
+        RoundRectangle2D outSquare = new RoundRectangle2D.Double(0, 0, DIMENSIONS.getWidth(), DIMENSIONS.getHeight(), 4, 4);
         Rectangle2D midSquare = new Rectangle2D.Double(1, 1, DIMENSIONS.getWidth() - 2, DIMENSIONS.getHeight() - 2);
 
         g2d.setColor(new Color(this.getHeaderBackgroundColor()));

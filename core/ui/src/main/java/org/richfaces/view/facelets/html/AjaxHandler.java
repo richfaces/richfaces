@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.view.facelets.html;
 
 import java.beans.BeanDescriptor;
@@ -53,10 +52,9 @@ import org.richfaces.view.facelets.tag.AjaxBehaviorRule;
 
 /**
  * @author Anton Belevich
- * 
+ *
  */
 public class AjaxHandler extends CustomBehaviorHandler {
-
     public AjaxHandler(BehaviorConfig config) {
         super(config);
     }
@@ -65,7 +63,7 @@ public class AjaxHandler extends CustomBehaviorHandler {
         if (this.nextHandler instanceof TagHandler) {
             return !(this.nextHandler instanceof AttachQueueHandler);
         }
-        
+
         if (this.nextHandler instanceof CompositeFaceletHandler) {
             FaceletHandler[] handlers = ((CompositeFaceletHandler) this.nextHandler).getHandlers();
             for (FaceletHandler handler : handlers) {
@@ -73,19 +71,19 @@ public class AjaxHandler extends CustomBehaviorHandler {
                     if (handler instanceof AttachQueueHandler) {
                         continue;
                     }
-                    
+
                     return true;
                 }
-                
+
                 if (handler instanceof CompositeFaceletHandler) {
                     return true;
                 }
             }
         }
-        
+
         return false;
     }
-    
+
     public void apply(FaceletContext ctx, UIComponent parent) throws IOException {
 
         Application application = ctx.getFacesContext().getApplication();
@@ -134,10 +132,8 @@ public class AjaxHandler extends CustomBehaviorHandler {
             } else {
                 // TODO nick - is this possible?
             }
-
         }
     }
-
 
     private void applyNested(FaceletContext ctx, UIComponent parent, AjaxBehavior behavior) {
         if (!ComponentHandler.isNew(parent)) {
@@ -155,8 +151,7 @@ public class AjaxHandler extends CustomBehaviorHandler {
             BeanDescriptor componentDescriptor = componentBeanInfo.getBeanDescriptor();
 
             if (null == componentDescriptor) {
-                throw new TagException(tag,
-                    "Error: enclosing composite component BeanInfo does not have BeanDescriptor");
+                throw new TagException(tag, "Error: enclosing composite component BeanInfo does not have BeanDescriptor");
             }
 
             @SuppressWarnings("unchecked")
@@ -220,5 +215,4 @@ public class AjaxHandler extends CustomBehaviorHandler {
     public MetaRule[] getMetaRules() {
         return new MetaRule[] { AjaxBehaviorRule.INSTANCE };
     }
-
 }

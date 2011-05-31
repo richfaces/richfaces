@@ -18,8 +18,11 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.json;
+
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Arrays;
 
 import org.ajax4jsf.Messages;
 import org.ajax4jsf.javascript.JSEncoder;
@@ -29,17 +32,11 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.LexicalHandler;
 
-import java.io.IOException;
-import java.io.Writer;
-import java.util.Arrays;
-
 /**
- * @author shura
- *         SAX content handler for serialise events as JavaScript function.
+ * @author shura SAX content handler for serialise events as JavaScript function.
  */
 public class JSContentHandler implements ContentHandler, LexicalHandler {
     public static final String DEFAULT_ENCODING = "ISO-8859-1";
-
     private static final char C_COMMA = ',';
     private static final char C_GT = '>';
     private static final char C_LT = '<';
@@ -68,32 +65,25 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
     private static final char[] S_ATTRIBUTES_START = ",{".toCharArray();
     private static final char[] S_ATTRIBUTES_END = "}".toCharArray();
     private static final boolean DEBUG = false;
-
     // protected DocType doctype = null;
     protected char[] indentBuffer;
     protected int level;
-
     protected Writer outputWriter;
-
     private boolean hangingElement = false;
-
     /**
      * True if we are processing the prolog.
      */
     private boolean beforeDocumentStart = true;
-
     /**
      * True if we are processing the DTD.
      */
     private boolean processingDtd = false;
-
     /**
      * True if we are processing the DTD.
      */
     private boolean processingCdata = false;
 
     /* ====================================================================== */
-
     /**
      * The <code>DocType</code> instance representing the document.
      */
@@ -119,7 +109,8 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
     // ContentHandler Methods
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.xml.sax.ContentHandler#characters(char[], int, int)
      */
 
@@ -154,7 +145,8 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.xml.sax.ContentHandler#endDocument()
      */
     public void endDocument() throws SAXException {
@@ -174,7 +166,8 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.xml.sax.ContentHandler#endElement(java.lang.String, java.lang.String, java.lang.String)
      */
     public void endElement(String uri, String localName, String qName) throws SAXException {
@@ -205,10 +198,9 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
     /**
      * Write the end part of a start element (if necessary).
      *
-     * @param endElement Whether this method was called because an element is being
-     *                   closed or not.
-     * @return <b>true </b> if this call successfully closed the element (and no
-     *         further <code>&lt;/element&gt;</code> is required.
+     * @param endElement Whether this method was called because an element is being closed or not.
+     * @return <b>true </b> if this call successfully closed the element (and no further <code>&lt;/element&gt;</code> is
+     *         required.
      */
     protected boolean closeElement(boolean endElement) throws SAXException {
         if (!hangingElement) {
@@ -231,14 +223,16 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.xml.sax.ContentHandler#endPrefixMapping(java.lang.String)
      */
     public void endPrefixMapping(String prefix) throws SAXException {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.xml.sax.ContentHandler#ignorableWhitespace(char[], int, int)
      */
     public void ignorableWhitespace(char[] ch, int start, int length) throws SAXException {
@@ -247,7 +241,8 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.xml.sax.ContentHandler#processingInstruction(java.lang.String, java.lang.String)
      */
     public void processingInstruction(String target, String data) throws SAXException {
@@ -267,8 +262,7 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
     /**
      * Return the public identifier for the current document event.
      *
-     * @return A <code>String</code> containing the public identifier,
-     *         or <b>null</b> if none is available.
+     * @return A <code>String</code> containing the public identifier, or <b>null</b> if none is available.
      */
     public String getPublicId() {
         return (this.locator == null) ? null : this.locator.getPublicId();
@@ -277,8 +271,7 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
     /**
      * Return the system identifier for the current document event.
      *
-     * @return A <code>String</code> containing the system identifier,
-     *         or <b>null</b> if none is available.
+     * @return A <code>String</code> containing the system identifier, or <b>null</b> if none is available.
      */
     public String getSystemId() {
         return (this.locator == null) ? null : this.locator.getSystemId();
@@ -327,7 +320,8 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
     /* ====================================================================== */
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.xml.sax.ContentHandler#skippedEntity(java.lang.String)
      */
 
@@ -337,7 +331,8 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.xml.sax.ContentHandler#startDocument()
      */
     public void startDocument() throws SAXException {
@@ -347,24 +342,25 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
 
         /* We have a document type. */
 
-//      if (this.doctype != null) {
-//
-//          String root_name = this.doctype.getName();
-//          /* Check the DTD and the root element */
-//          if (!root_name.equals(qual)) {
-//              throw new SAXException("Root element name \"" + root_name
-//                      + "\" declared by document type declaration differs "
-//                      + "from actual root element name \"" + qual + "\"");
-//          }
+        // if (this.doctype != null) {
+        //
+        // String root_name = this.doctype.getName();
+        // /* Check the DTD and the root element */
+        // if (!root_name.equals(qual)) {
+        // throw new SAXException("Root element name \"" + root_name
+        // + "\" declared by document type declaration differs "
+        // + "from actual root element name \"" + qual + "\"");
+        // }
 
         /* Output the <!DOCTYPE ...> declaration. */
 
         // this.outputWriter.write(this.doctype.toString());
-//      }
+        // }
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.xml.sax.ContentHandler#startElement(java.lang.String, java.lang.String, java.lang.String,
      * org.xml.sax.Attributes)
      */
@@ -386,7 +382,7 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
             this.outputWriter.write(qName);
             this.outputWriter.write(C_QUOTE);
 
-//          if (attributes.getLength() > 0) {
+            // if (attributes.getLength() > 0) {
             this.outputWriter.write(S_ATTRIBUTES_START);
 
             // TODO - implementing namespaces !
@@ -431,7 +427,7 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
 
             this.outputWriter.write(S_ATTRIBUTES_END);
 
-//          }
+            // }
             this.level++;
             this.hangingElement = true;
         } catch (IOException e) {
@@ -450,14 +446,16 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.xml.sax.ContentHandler#startPrefixMapping(java.lang.String, java.lang.String)
      */
     public void startPrefixMapping(String prefix, String uri) throws SAXException {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.xml.sax.ext.LexicalHandler#comment(char[], int, int)
      */
     public void comment(char[] ch, int start, int length) throws SAXException {
@@ -476,19 +474,20 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
                 this.outputWriter.write(']');
             }
 
-//          this.outputWriter.write(C_QUOTE);
+            // this.outputWriter.write(C_QUOTE);
             this.outputWriter.write(S_COMMENT_START);
             this.encode(ch, start, length);
             this.outputWriter.write(S_COMMENT_END);
 
-//          this.outputWriter.write(C_QUOTE);
+            // this.outputWriter.write(C_QUOTE);
         } catch (IOException e) {
             throw new SAXException("Write error", e);
         }
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.xml.sax.ext.LexicalHandler#endCDATA()
      */
     public void endCDATA() throws SAXException {
@@ -515,7 +514,8 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.xml.sax.ext.LexicalHandler#endDTD()
      */
     public void endDTD() throws SAXException {
@@ -524,7 +524,8 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.xml.sax.ext.LexicalHandler#endEntity(java.lang.String)
      */
     public void endEntity(String name) throws SAXException {
@@ -533,7 +534,8 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.xml.sax.ext.LexicalHandler#startCDATA()
      */
     public void startCDATA() throws SAXException {
@@ -560,7 +562,8 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.xml.sax.ext.LexicalHandler#startDTD(java.lang.String, java.lang.String, java.lang.String)
      */
     public void startDTD(String name, String publicId, String systemId) throws SAXException {
@@ -569,7 +572,8 @@ public class JSContentHandler implements ContentHandler, LexicalHandler {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.xml.sax.ext.LexicalHandler#startEntity(java.lang.String)
      */
     public void startEntity(String name) throws SAXException {

@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit;
 
 import javax.faces.application.ResourceDependencies;
@@ -29,27 +28,20 @@ import javax.faces.context.FacesContext;
 
 import org.richfaces.component.AbstractDragSource;
 
-
 /**
  * @author abelevich
  *
  */
-
-@ResourceDependencies({
-    @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-    @ResourceDependency(name = "jquery.js"),
-    @ResourceDependency(name = "richfaces.js"),
-    @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(library = "org.richfaces", name = "dnd-indicator.js"),
-    @ResourceDependency(library = "org.richfaces", name = "indicator.ecss") })
+@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"), @ResourceDependency(name = "jquery.js"),
+        @ResourceDependency(name = "richfaces.js"), @ResourceDependency(name = "richfaces-base-component.js"),
+        @ResourceDependency(library = "org.richfaces", name = "dnd-indicator.js"),
+        @ResourceDependency(library = "org.richfaces", name = "indicator.ecss") })
 public class DragIndicatorRendererBase extends RendererBase {
-
-    
     public String getDragIndicatorClientId(FacesContext facesContext, AbstractDragSource dragSource) {
         String indicatorId = dragSource.getDragIndicator();
-        if(!"".equals(indicatorId)) {
+        if (!"".equals(indicatorId)) {
             UIComponent indicator = getUtils().findComponentFor(facesContext, dragSource, indicatorId);
-            if(indicator != null) {
+            if (indicator != null) {
                 indicatorId = indicator.getClientId(facesContext);
             }
         }

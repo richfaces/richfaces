@@ -27,24 +27,22 @@ import com.google.common.base.Objects.ToStringHelper;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class DeclarativeTreeDataModelTuple extends TreeDataModelTuple {
-
     private UIComponent component;
 
     public DeclarativeTreeDataModelTuple(Object rowKey, Object data, UIComponent component) {
         super(rowKey, data);
         this.component = component;
     }
-    
+
     public UIComponent getComponent() {
         return component;
     }
- 
+
     @Override
     protected ToStringHelper createToStringHelper() {
         return super.createToStringHelper().add("component", component);
     }
-    
 }

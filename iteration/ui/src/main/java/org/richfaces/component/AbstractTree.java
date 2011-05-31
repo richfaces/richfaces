@@ -85,35 +85,23 @@ import com.google.common.collect.Maps;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
-@JsfComponent(
-    type = AbstractTree.COMPONENT_TYPE,
-    family = AbstractTree.COMPONENT_FAMILY, 
-    tag = @Tag(name = "tree", handler = "org.richfaces.view.facelets.TreeHandler"),
-    renderer = @JsfRenderer(type = "org.richfaces.TreeRenderer"),
-    attributes = {"ajax-props.xml", "events-props.xml", "core-props.xml", "i18n-props.xml", "tree-common-props.xml", 
-        "rowKeyConverter-prop.xml", "tree-serverEventListeners-props.xml"}
-)
-//TODO add rowData caching for wrapper events
-public abstract class AbstractTree extends UIDataAdaptor implements MetaComponentResolver, MetaComponentEncoder, TreeSelectionChangeSource, TreeToggleSource {
-
+@JsfComponent(type = AbstractTree.COMPONENT_TYPE, family = AbstractTree.COMPONENT_FAMILY, tag = @Tag(name = "tree", handler = "org.richfaces.view.facelets.TreeHandler"), renderer = @JsfRenderer(type = "org.richfaces.TreeRenderer"), attributes = {
+        "ajax-props.xml", "events-props.xml", "core-props.xml", "i18n-props.xml", "tree-common-props.xml",
+        "rowKeyConverter-prop.xml", "tree-serverEventListeners-props.xml" })
+// TODO add rowData caching for wrapper events
+public abstract class AbstractTree extends UIDataAdaptor implements MetaComponentResolver, MetaComponentEncoder,
+    TreeSelectionChangeSource, TreeToggleSource {
     public static final String COMPONENT_TYPE = "org.richfaces.Tree";
-
     public static final String COMPONENT_FAMILY = "org.richfaces.Tree";
-
     public static final String SELECTION_META_COMPONENT_ID = "selection";
-
     public static final String DEFAULT_TREE_NODE_ID = "__defaultTreeNode";
-    
     public static final String DEFAULT_TREE_NODE_FACET_NAME = DEFAULT_TREE_NODE_ID;
-
     private static final String COMPONENT_FOR_MODEL_UNAVAILABLE = "Component is not available for model {0}";
-
     private static final String CONVERTER_FOR_MODEL_UNAVAILABLE = "Row key converter is not available for model {0}";
 
     private static final class MatchingTreeNodePredicate implements Predicate<UIComponent> {
-
         private String type;
 
         public MatchingTreeNodePredicate(String type) {
@@ -133,18 +121,18 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
 
             return type != null && type.equals(nodeType);
         }
-    };
+    }
+
+    ;
 
     private enum PropertyKeys {
         selection
     }
-    
+
     private transient TreeRange treeRange;
-    
     private transient UIComponent currentComponent = this;
-    
     private transient Map<String, UIComponent> declatariveModelsMap = null;
-    
+
     public AbstractTree() {
         setKeepSaved(true);
         setRendererType("org.richfaces.TreeRenderer");
@@ -154,10 +142,10 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         if (treeRange == null) {
             treeRange = new TreeRange(this);
         }
-        
+
         return treeRange;
     }
-    
+
     @Attribute
     public abstract Object getValue();
 
@@ -190,7 +178,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
 
     @Attribute
     public abstract String getToggleNodeEvent();
-    
+
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
@@ -238,7 +226,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         if (parentComponent != this) {
             children = Iterators.concat(children, this.getChildren().iterator());
         }
-        
+
         return Iterators.filter(children, new MatchingTreeNodePredicate(nodeType));
     }
 
@@ -250,21 +238,20 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
             currentComponent = this;
         }
     }
-    
+
     public AbstractTreeNode findTreeNodeComponent() {
         String nodeType = getNodeType();
-        
+
         Iterator<UIComponent> nodesItr = findMatchingTreeNodeComponent(nodeType, currentComponent);
         if (nodesItr.hasNext()) {
             while (nodesItr.hasNext()) {
-                
+
                 AbstractTreeNode node = (AbstractTreeNode) nodesItr.next();
-                
+
                 if (node.isRendered()) {
                     return node;
                 }
             }
-
         } else if (Strings.isNullOrEmpty(nodeType)) {
             return (AbstractTreeNode) getFacet(DEFAULT_TREE_NODE_FACET_NAME);
         }
@@ -286,7 +273,9 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
             Iterables.removeIf(selectionCollection, new Predicate<Object>() {
                 public boolean apply(Object input) {
                     return !newSelection.contains(input);
-                };
+                }
+
+                ;
             });
 
             if (!newSelection.isEmpty()) {
@@ -299,7 +288,8 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
             boolean newExpandedValue = toggleEvent.isExpanded();
 
             FacesContext context = getFacesContext();
-            ValueExpression expression = treeNodeComponent.getValueExpression(AbstractTreeNode.PropertyKeys.expanded.toString());
+            ValueExpression expression = treeNodeComponent
+                .getValueExpression(AbstractTreeNode.PropertyKeys.expanded.toString());
             if (expression != null) {
                 ELContext elContext = context.getELContext();
                 Exception caught = null;
@@ -310,39 +300,29 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
                     caught = e;
                     String messageStr = e.getMessage();
                     Throwable result = e.getCause();
-                    while (null != result &&
-                        result.getClass().isAssignableFrom(ELException.class)) {
+                    while (null != result && result.getClass().isAssignableFrom(ELException.class)) {
                         messageStr = result.getMessage();
                         result = result.getCause();
                     }
                     if (null == messageStr) {
                         MessageFactory messageFactory = ServiceTracker.getService(MessageFactory.class);
-                        message =
-                            messageFactory.createMessage(context, FacesMessages.UIINPUT_UPDATE,
-                                MessageUtil.getLabel(context, this));
+                        message = messageFactory.createMessage(context, FacesMessages.UIINPUT_UPDATE,
+                            MessageUtil.getLabel(context, this));
                     } else {
-                        message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                            messageStr,
-                            messageStr);
+                        message = new FacesMessage(FacesMessage.SEVERITY_ERROR, messageStr, messageStr);
                     }
                 } catch (Exception e) {
                     caught = e;
                     MessageFactory messageFactory = ServiceTracker.getService(MessageFactory.class);
-                    message =
-                        messageFactory.createMessage(context, FacesMessages.UIINPUT_UPDATE,
-                            MessageUtil.getLabel(context, this));
+                    message = messageFactory.createMessage(context, FacesMessages.UIINPUT_UPDATE,
+                        MessageUtil.getLabel(context, this));
                 }
                 if (caught != null) {
-                    assert(message != null);
+                    assert (message != null);
                     UpdateModelException toQueue = new UpdateModelException(message, caught);
-                    ExceptionQueuedEventContext eventContext =
-                        new ExceptionQueuedEventContext(context,
-                            toQueue,
-                            this,
-                            PhaseId.UPDATE_MODEL_VALUES);
-                    context.getApplication().publishEvent(context,
-                        ExceptionQueuedEvent.class,
-                        eventContext);
+                    ExceptionQueuedEventContext eventContext = new ExceptionQueuedEventContext(context, toQueue, this,
+                        PhaseId.UPDATE_MODEL_VALUES);
+                    context.getApplication().publishEvent(context, ExceptionQueuedEvent.class, eventContext);
                 }
             } else {
                 treeNodeComponent.setExpanded(newExpandedValue);
@@ -356,7 +336,8 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
             ExtendedVisitContext extendedVisitContext = (ExtendedVisitContext) visitContext;
 
             if (ExtendedVisitContextMode.RENDER == extendedVisitContext.getVisitMode()) {
-                VisitResult result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback, SELECTION_META_COMPONENT_ID);
+                VisitResult result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback,
+                    SELECTION_META_COMPONENT_ID);
                 if (result != VisitResult.ACCEPT) {
                     return result == VisitResult.COMPLETE;
                 }
@@ -382,8 +363,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         return null;
     }
 
-    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
-        String metaComponentId) {
+    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
 
         return null;
     }
@@ -438,20 +418,19 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         return treeNode.isExpanded();
     }
 
-    //TODO review
+    // TODO review
     protected TreeDataModel<?> getTreeDataModel() {
         return (TreeDataModel<?>) getExtendedDataModel();
     }
-    
+
     @Attribute(hidden = true)
     public boolean isLeaf() {
         return getTreeDataModel().isLeaf();
     }
-    
+
     @Override
     public void walk(final FacesContext faces, final DataVisitor visitor, final Object argument) {
         walkModel(faces, new TreeDataVisitor() {
-            
             public void enterNode() {
                 visitor.process(faces, getRowKey(), argument);
             }
@@ -464,14 +443,13 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
 
             public void afterChildrenVisit() {
             }
-            
         });
     }
-    
+
     @Override
     protected ExtendedDataModel<?> createExtendedDataModel() {
         ExtendedDataModel<?> dataModel;
-        
+
         Object value = getValue();
         if (value == null) {
             dataModel = new DeclarativeTreeDataModelImpl(this);
@@ -482,27 +460,26 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
             if (value instanceof ExtendedDataModel<?>) {
                 dataModel = (ExtendedDataModel<?>) value;
             } else {
-                throw new IllegalArgumentException(
-                    MessageFormat.format("TreeDataModel implementation {0} is not a subclass of ExtendedDataModel", 
-                            value.getClass().getName()));
+                throw new IllegalArgumentException(MessageFormat.format(
+                    "TreeDataModel implementation {0} is not a subclass of ExtendedDataModel", value.getClass().getName()));
             }
         } else {
             dataModel = new SwingTreeNodeDataModelImpl();
             dataModel.setWrappedData(value);
         }
-        
+
         return dataModel;
     }
-    
+
     public void walkModel(FacesContext context, TreeDataVisitor dataVisitor) {
         TreeDataModel<?> model = getTreeDataModel();
 
         if (!getTreeRange().shouldProcessNode()) {
             return;
         }
-        
+
         boolean isRootNode = (getRowKey() == null);
-        
+
         if (!isRootNode) {
             dataVisitor.enterNode();
         }
@@ -518,37 +495,37 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         if (!getTreeRange().shouldIterateChildren()) {
             return;
         }
-        
+
         dataVisitor.beforeChildrenVisit();
-        
+
         Iterator<TreeDataModelTuple> childrenTuples = model.children();
         while (childrenTuples.hasNext()) {
             TreeDataModelTuple tuple = childrenTuples.next();
-            
+
             restoreFromSnapshot(context, tuple);
-            
+
             if (!getTreeRange().shouldProcessNode()) {
                 continue;
             }
-            
+
             dataVisitor.enterNode();
-            
+
             walkModelChildren(context, dataVisitor, model);
 
             dataVisitor.exitNode();
         }
-        
+
         dataVisitor.afterChildrenVisit();
     }
-    
+
     @Override
     protected void resetDataModel() {
         super.resetDataModel();
-        
+
         treeRange = null;
         declatariveModelsMap = null;
     }
-    
+
     public TreeDataModelTuple createSnapshot() {
         return getTreeDataModel().createSnapshot();
     }
@@ -568,7 +545,7 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         if (declatariveModelsMap == null) {
             declatariveModelsMap = Maps.newHashMap();
         }
-        
+
         UIComponent adaptor = declatariveModelsMap.get(modelId);
         if (adaptor == null) {
             adaptor = findComponent(modelId);
@@ -576,25 +553,26 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
                 declatariveModelsMap.put(modelId, adaptor);
             }
         }
-        
+
         if (adaptor == null) {
             throw new IllegalStateException(MessageFormat.format(COMPONENT_FOR_MODEL_UNAVAILABLE, modelId));
         }
-        
+
         return adaptor;
     }
-    
-    public String convertDeclarativeKeyToString(FacesContext context, DeclarativeModelKey declarativeKey) throws ConverterException {
+
+    public String convertDeclarativeKeyToString(FacesContext context, DeclarativeModelKey declarativeKey)
+        throws ConverterException {
         try {
             UIComponent component = findDeclarativeModel(declarativeKey.getModelId());
-            
+
             TreeModelAdaptor adaptor = (TreeModelAdaptor) component;
-            
+
             Converter rowKeyConverter = adaptor.getRowKeyConverter();
             if (rowKeyConverter == null) {
                 throw new ConverterException(MessageFormat.format(CONVERTER_FOR_MODEL_UNAVAILABLE, declarativeKey.getModelId()));
             }
-            
+
             return rowKeyConverter.getAsString(context, (UIComponent) adaptor, declarativeKey.getModelKey());
         } catch (ConverterException e) {
             throw e;
@@ -603,19 +581,19 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
         }
     }
 
-    public DeclarativeModelKey convertDeclarativeKeyFromString(FacesContext context, String modelId,
-        String modelKeyAsString) throws ConverterException {
-        
+    public DeclarativeModelKey convertDeclarativeKeyFromString(FacesContext context, String modelId, String modelKeyAsString)
+        throws ConverterException {
+
         try {
             UIComponent component = findDeclarativeModel(modelId);
-            
+
             TreeModelAdaptor adaptor = (TreeModelAdaptor) component;
-            
+
             Converter rowKeyConverter = adaptor.getRowKeyConverter();
             if (rowKeyConverter == null) {
                 throw new ConverterException(MessageFormat.format(CONVERTER_FOR_MODEL_UNAVAILABLE, modelId));
             }
-            
+
             Object modelKey = rowKeyConverter.getAsObject(context, (UIComponent) adaptor, modelKeyAsString);
             return new DeclarativeModelKey(modelId, modelKey);
         } catch (ConverterException e) {
@@ -624,5 +602,4 @@ public abstract class AbstractTree extends UIDataAdaptor implements MetaComponen
             throw new ConverterException(e.getMessage(), e);
         }
     }
-
 }

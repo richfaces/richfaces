@@ -19,13 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.view.facelets.html;
-
-import org.richfaces.component.AbstractCollapsiblePanel;
-
-import org.richfaces.event.MethodExpressionPanelToggleListener;
-import org.richfaces.event.PanelToggleEvent;
 
 import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.ComponentHandler;
@@ -36,14 +30,16 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
+import org.richfaces.component.AbstractCollapsiblePanel;
+import org.richfaces.event.MethodExpressionPanelToggleListener;
+import org.richfaces.event.PanelToggleEvent;
+
 /**
  * @author akolonitsky
  * @since 2010-08-27
  */
 public class CollapsiblePanelTagHandler extends ComponentHandler {
-
     private static final MetaRule META_RULE = new CollapsiblePanelMetaRule();
-
 
     public CollapsiblePanelTagHandler(ComponentConfig config) {
         super(config);
@@ -56,23 +52,20 @@ public class CollapsiblePanelTagHandler extends ComponentHandler {
         return metaRuleset;
     }
 
-    private static class CollapsiblePanelMetaRule extends MetaRule{
-
+    private static class CollapsiblePanelMetaRule extends MetaRule {
         @Override
         public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
             if (meta.isTargetInstanceOf(AbstractCollapsiblePanel.class)) {
                 if ("toggleListener".equals(name)) {
                     return new PanelToggleExpressionMetadata(attribute);
                 }
-
             }
             return null;
         }
     }
 
     private static final class PanelToggleExpressionMetadata extends Metadata {
-        private static final Class<?>[] CHANGE_EXPAND_SIG = new Class[] {PanelToggleEvent.class };
-
+        private static final Class<?>[] CHANGE_EXPAND_SIG = new Class[] { PanelToggleEvent.class };
         private final TagAttribute attr;
 
         PanelToggleExpressionMetadata(TagAttribute attr) {
@@ -81,12 +74,8 @@ public class CollapsiblePanelTagHandler extends ComponentHandler {
 
         @Override
         public void applyMetadata(FaceletContext ctx, Object instance) {
-            ((AbstractCollapsiblePanel) instance).addPanelToggleListener(new MethodExpressionPanelToggleListener(
-                            this.attr.getMethodExpression(ctx, null, CHANGE_EXPAND_SIG)));
+            ((AbstractCollapsiblePanel) instance).addPanelToggleListener(new MethodExpressionPanelToggleListener(this.attr
+                .getMethodExpression(ctx, null, CHANGE_EXPAND_SIG)));
         }
     }
-
-
-
 }
-
