@@ -282,10 +282,10 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
             resourceName = baseResourseURL + resource + endResourceURL;
             WebRequestSettings settings = new WebRequestSettings(new URL(resourceName));
             WebResponse resourceResponse = webClient.loadWebResponse(settings);
-
             assertEquals(resource, HttpServletResponse.SC_OK, resourceResponse.getStatusCode());
             String expected = readFileAsString(getResourceExpectedOutputFileName(resource));
-            assertEquals(resource, expected.trim(), resourceResponse.getContentAsString().trim());
+
+            assertEquals(resource, unifyWhitespace(expected), unifyWhitespace(resourceResponse.getContentAsString()));
         }
     }
 
@@ -307,6 +307,18 @@ public class ResourceHandlerImplTest extends AbstractFacesTest {
         ResourceHandler resourceHandler = facesContext.getApplication().getResourceHandler();
 
         assertTrue(resourceHandler.libraryExists("org.richfaces.resource.test"));
+    }
+
+    private String unifyWhitespace(String source) {
+        String result = source.replaceAll("(\n|\r)", "").replaceAll("\\t", " ").replaceAll(" {2,}", " ");
+
+        String[] chars = new String[] { ",", "\\{", "\\}" };
+        for (String c : chars) {
+            result = result.replaceAll(" ?" + c + " ?", c);
+        }
+
+        return result;
+
     }
 
     private static String readFileAsString(String filePath) throws java.io.IOException {
