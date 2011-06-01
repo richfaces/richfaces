@@ -20,132 +20,124 @@
     02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:pn="http://richfaces.org/output"
-      xmlns:rich="http://richfaces.org/output"
-	  xmlns:a4j="http://richfaces.org/a4j">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:pn="http://richfaces.org/output" xmlns:rich="http://richfaces.org/output"
+    xmlns:a4j="http://richfaces.org/a4j">
 
 <body>
-<ui:composition template="/templates/template.xhtml">
+    <ui:composition template="/templates/template.xhtml">
 
-    <ui:define name="scripts">
-        <h:outputScript name="Tooltip.js"/>
-    </ui:define>
+        <ui:define name="scripts">
+            <h:outputScript name="Tooltip.js" />
+        </ui:define>
 
-    <ui:define name="title">TOOLTIP JS Development</ui:define>
-    <ui:define name="body_head">TOOLTIP JS Development</ui:define>
+        <ui:define name="title">TOOLTIP JS Development</ui:define>
+        <ui:define name="body_head">TOOLTIP JS Development</ui:define>
 
-    <ui:define name="body">
-        <h:panelGrid columns="2">
-            <rich:panel id="sample1" styleClass="tooltip-text"
-                        bodyClass="rich-laguna-panel-no-header">
-                <p>Here you can see <b>default client-side</b> tool-tip</p>
-                <pn:tooltip id="tt1" styleClass="tooltip">
-                    <span style="white-space: nowrap"> This tool-tip content was
-                    <strong>pre-rendered</strong> to the page.\n
-                    Also the tooltip following mouse by default </span>
-                </pn:tooltip>
-            </rich:panel>
-            <rich:panel id="sample2" styleClass="tooltip"
-                        bodyClass="rich-laguna-panel-no-header">
-                <p>This tool-tip will not <b>follow mouse</b>. Also this tool-tip
-                    has a <b>delay 1.5 sec</b>, so be patient!</p>
-                <pn:tooltip followMouse="false" showDelay="1500"
-                            styleClass="tooltip-custom-body">
-	                <span style="white-space: nowrap"> This tool-tip content also
-	                <strong>pre-rendered</strong> to the page.
-	                </span>
-                </pn:tooltip>
-            </rich:panel>
-            <h:form>
-                <rich:panel id="sample3" styleClass="tooltip-text"
-                            bodyClass="rich-laguna-panel-no-header">
-                    <p>This tool-tip rendered on server <b>in separate request</b>.
+        <ui:define name="body">
+            <h:panelGrid columns="2">
+                <rich:panel id="sample1" styleClass="tooltip-text" bodyClass="rich-laguna-panel-no-header">
+                    <p>
+                        Here you can see <b>default client-side</b> tool-tip
                     </p>
-                    <pn:tooltip mode="ajax" styleClass="tooltip" layout="block">
-                        <f:facet name="defaultContent">
-                            <strong>Wait...</strong>
-                        </f:facet>
-	                    <span style="white-space: nowrap">This tool-tip content was
-	                    <strong>rendered on server</strong> </span>
-                        <h:panelGrid columns="2">
-                            <h:outputText style="white-space:nowrap"
-                                          value="tooltips requested"/>
-                        </h:panelGrid>
+                    <pn:tooltip id="tt1" styleClass="tooltip">
+                        <span style="white-space: nowrap"> This tool-tip content was <strong>pre-rendered</strong> to the
+                            page.\n Also the tooltip following mouse by default </span>
                     </pn:tooltip>
                 </rich:panel>
-            </h:form>
+                <rich:panel id="sample2" styleClass="tooltip" bodyClass="rich-laguna-panel-no-header">
+                    <p>
+                        This tool-tip will not <b>follow mouse</b>. Also this tool-tip has a <b>delay 1.5 sec</b>, so be
+                        patient!
+                    </p>
+                    <pn:tooltip followMouse="false" showDelay="1500" styleClass="tooltip-custom-body">
+                        <span style="white-space: nowrap"> This tool-tip content also <strong>pre-rendered</strong> to
+                            the page. </span>
+                    </pn:tooltip>
+                </rich:panel>
+                <h:form>
+                    <rich:panel id="sample3" styleClass="tooltip-text" bodyClass="rich-laguna-panel-no-header">
+                        <p>
+                            This tool-tip rendered on server <b>in separate request</b>.
+                        </p>
+                        <pn:tooltip mode="ajax" styleClass="tooltip" layout="block">
+                            <f:facet name="defaultContent">
+                                <strong>Wait...</strong>
+                            </f:facet>
+                            <span style="white-space: nowrap">This tool-tip content was <strong>rendered on
+                                    server</strong> </span>
+                            <h:panelGrid columns="2">
+                                <h:outputText style="white-space:nowrap" value="tooltips requested" />
+                            </h:panelGrid>
+                        </pn:tooltip>
+                    </rich:panel>
+                </h:form>
+                <h:form>
+                    <rich:panel id="sample4" styleClass="tooltip-text" bodyClass="rich-laguna-panel-no-header">
+                        <p>
+                            This tool-tip will be <b>activated on mouse click</b>.
+                        </p>
+                        <pn:tooltip showEvent="click" mode="ajax" styleClass="tooltip" layout="block" horizontalOffset="50"
+                            verticalOffset="50">
+                            <f:facet name="defaultContent">
+                                <strong>Wait...</strong>
+                            </f:facet>
+                            <span style="white-space: nowrap">This tool-tip content was <strong>rendered on
+                                    server</strong><br /> </span>
+                            <h:panelGrid columns="2">
+                                <h:outputText style="white-space:nowrap" value="tooltips requested:" />
+                                <h:outputText value="#{tooltipBean.tooltipCounter}" styleClass="tooltipData" />
+                            </h:panelGrid>
+                        </pn:tooltip>
+                    </rich:panel>
+                </h:form>
+            </h:panelGrid>
+            <br />
+            <br />
             <h:form>
-                <rich:panel id="sample4" styleClass="tooltip-text"
-                            bodyClass="rich-laguna-panel-no-header">
-                    <p>This tool-tip will be <b>activated on mouse click</b>.</p>
-                    <pn:tooltip showEvent="click" mode="ajax" styleClass="tooltip"
-                                layout="block" horizontalOffset="50" verticalOffset="50">
-                        <f:facet name="defaultContent">
-                            <strong>Wait...</strong>
-                        </f:facet>
-                        <span style="white-space: nowrap">This tool-tip content was
-                        <strong>rendered on server</strong><br/>
-                        </span>
-                        <h:panelGrid columns="2">
-                            <h:outputText style="white-space:nowrap"
-                                          value="tooltips requested:"/>
-                            <h:outputText value="#{tooltipBean.tooltipCounter}"
-                                          styleClass="tooltipData"/>
-                        </h:panelGrid>
+                <rich:panel id="tooltip" styleClass="tooltip-text" bodyClass="rich-laguna-panel-no-header">
+                    <p>
+                        This tool-tip rendered on server <b>in separate request</b>.
+                    </p>
+                    <pn:tooltip styleClass="tooltip" layout="block" jointPoint="#{tooltipBean.jointPoint}"
+                        direction="#{tooltipBean.direction}" horizontalOffset="#{tooltipBean.horizontalOffset}"
+                        verticalOffset="#{tooltipBean.verticalOffset}">
+                    Sample tooltip to test attributes:
+                    <ul>
+                            <li>jointPoint</li>
+                            <li>direction</li>
+                            <li>horizontalOffset</li>
+                            <li>verticalOffset</li>
+                        </ul>
                     </pn:tooltip>
                 </rich:panel>
+                <h:panelGrid columns="2">
+                    <h:outputText value="Select joint point:" />
+                    <h:selectOneMenu value="#{tooltipBean.jointPoint}">
+                        <a4j:ajax execute="@form" event="change" render="tooltip @this" />
+                        <f:selectItems value="#{tooltipBean.positioningValues}" var="v" itemLabel="#{v}" itemValue="#{v}" />
+                    </h:selectOneMenu>
+                    <h:outputText value="Select direction:" />
+                    <h:selectOneMenu value="#{tooltipBean.direction}">
+                        <f:ajax execute="@form" event="change" render="tooltip @this" />
+                        <f:selectItems value="#{tooltipBean.positioningValues}" var="v" itemLabel="#{v}" itemValue="#{v}" />
+                    </h:selectOneMenu>
+                    <h:outputText value="Horisontal offset:" />
+                    <h:inputText value="#{tooltipBean.horizontalOffset}">
+                        <a4j:ajax execute="@form" event="change" render="tooltip @this" />
+                    </h:inputText>
+                    <h:outputText value="Vertical offset:" />
+                    <h:inputText value="#{tooltipBean.verticalOffset}">
+                        <f:ajax execute="@form" event="change" render="tooltip @this" />
+                    </h:inputText>
+                </h:panelGrid>
+                <a4j:outputPanel ajaxRendered="true">
+                    <h:messages></h:messages>
+                </a4j:outputPanel>
             </h:form>
-		</h:panelGrid>
-		<br /><br />
-		<h:form>
-            <rich:panel id="tooltip" styleClass="tooltip-text"
-                        bodyClass="rich-laguna-panel-no-header">
-                <p>This tool-tip rendered on server <b>in separate request</b>.
-                </p>
-                <pn:tooltip styleClass="tooltip" layout="block" 
-				jointPoint="#{tooltipBean.jointPoint}"
-				direction="#{tooltipBean.direction}"
-				horizontalOffset="#{tooltipBean.horizontalOffset}"
-				verticalOffset="#{tooltipBean.verticalOffset}">
-                    Sample tooltip to test attributes:
-					<ul>
-						<li>jointPoint</li>
-						<li>direction</li>
-						<li>horizontalOffset</li>
-						<li>verticalOffset</li>
-					</ul>
-                </pn:tooltip>
-            </rich:panel>
-			<h:panelGrid columns="2">
-			<h:outputText value="Select joint point:" />
-			<h:selectOneMenu value="#{tooltipBean.jointPoint}">
-				<a4j:ajax execute="@form" event="change" render="tooltip @this" />
-				<f:selectItems value="#{tooltipBean.positioningValues}" var="v" itemLabel="#{v}" itemValue="#{v}"/>
-			</h:selectOneMenu>
-			<h:outputText value="Select direction:" />
-			<h:selectOneMenu value="#{tooltipBean.direction}">
-				<f:ajax execute="@form" event="change" render="tooltip @this" />
-				<f:selectItems value="#{tooltipBean.positioningValues}" var="v" itemLabel="#{v}" itemValue="#{v}"/>
-			</h:selectOneMenu>
-			<h:outputText value="Horisontal offset:" />
-			<h:inputText value="#{tooltipBean.horizontalOffset}">
-				<a4j:ajax execute="@form" event="change" render="tooltip @this" />
-			</h:inputText>
-			<h:outputText value="Vertical offset:" />
-			<h:inputText value="#{tooltipBean.verticalOffset}">
-				<f:ajax execute="@form" event="change" render="tooltip @this" />
-			</h:inputText>
-			</h:panelGrid>
-			<a4j:outputPanel ajaxRendered="true"><h:messages></h:messages></a4j:outputPanel>
-        </h:form>
-        <!-- h:form>
+            <!-- h:form>
         	<a4j:poll render="tt" interval="10000" />
 			<rich:panel id="myId1" styleClass="tooltip-text" bodyClass="rich-laguna-panel-no-header">
 				<pn:tooltip id="tt" styleClass="tooltip">
@@ -153,8 +145,8 @@
                 </pn:tooltip>
             </rich:panel>
         </h:form-->
-    </ui:define>
-</ui:composition>
+        </ui:define>
+    </ui:composition>
 </body>
 </html>
 

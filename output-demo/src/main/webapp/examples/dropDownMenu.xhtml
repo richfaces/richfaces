@@ -20,261 +20,254 @@
     02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:ddm="http://richfaces.org/output"
-	  xmlns:a4j="http://richfaces.org/a4j">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:ddm="http://richfaces.org/output" xmlns:a4j="http://richfaces.org/a4j">
 
 <body>
-<ui:composition template="/templates/template.xhtml">
-     <style>
-        .optionList {
-          height:22px;
-        }
-        .vertical-menu-cell {
-            padding:0px 4px 0px 4px;
-        }
+    <ui:composition template="/templates/template.xhtml">
+        <style>
+.optionList {
+    height: 22px;
+}
 
-    </style>
+.vertical-menu-cell {
+    padding: 0px 4px 0px 4px;
+}
+</style>
 
+        <ui:define name="title">DROPDOWN MENU Development demo</ui:define>
+        <ui:define name="body_head">DROPDOWN MENU Development demo</ui:define>
 
-    <ui:define name="title">DROPDOWN MENU Development demo</ui:define>
-    <ui:define name="body_head">DROPDOWN MENU Development demo</ui:define>
+        <ui:define name="body">
 
-    <ui:define name="body">
+            <h:form id="form">
+                <h:panelGrid id="panel" columns="2">
+                    <h:panelGroup layout="block" style="width:300px;">
 
-        <h:form id="form">
-            <h:panelGrid id="panel" columns="2">
-            <h:panelGroup layout="block" style="width:300px;">
-            
-            <a4j:outputPanel ajaxRendered="true">
-                <h:outputText value="Current Selection: "></h:outputText>
-                <h:outputText style="font-weight:bold" value="#{menuBean.current}"></h:outputText>
-            </a4j:outputPanel>
+                        <a4j:outputPanel ajaxRendered="true">
+                            <h:outputText value="Current Selection: "></h:outputText>
+                            <h:outputText style="font-weight:bold" value="#{menuBean.current}"></h:outputText>
+                        </a4j:outputPanel>
+                        <br />
+                        <ddm:dropDownMenu hideDelay="600" showEvent="click" jointPoint="bottomLeft" direction="autoRight"
+                            id="ddmenu" disabled="#{menuBean.disabled}" mode="#{menuBean.mode}">
+                            <f:facet name="label">
+                                <h:panelGroup>
+                                    <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic" />
+                                    <h:outputText value="File" />
+                                </h:panelGroup>
+                            </f:facet>
+                            <f:facet name="labelDisabled">
+                                <h:panelGroup>
+                                    <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic" />
+                                    <h:outputText value="(disabled)File" />
+                                </h:panelGroup>
+                            </f:facet>
+                            <ddm:menuItem id="menuNew1" label="New" icon="/images/ddmenu/create_doc.gif"
+                                action="#{menuBean.doNew}" execute="@form">
+                                <f:facet name="icon">
+                                    <h:selectBooleanCheckbox id="checkbox" value="#{menuBean.checkbox}" />
+                                </f:facet>
+                                <f:param name="myParam" value="12345" />
+                                <f:param name="myParam2" value="${222}" />
+                            </ddm:menuItem>
+                            <ddm:menuItem label="Open" action="#{menuBean.doOpen}">
+                                <f:facet name="icon">
+                                    <h:graphicImage value="/images/ddmenu/open.gif" />
+                                </f:facet>
+                            </ddm:menuItem>
+                            <ddm:menuGroup label="Save As..." disabled="true">
+                                <ddm:menuItem label="Save" icon="/images/ddmenu/save.gif">
+                                    <f:facet name="icon">
+                                        <h:graphicImage value="/images/ddmenu/save.gif" />
+                                    </f:facet>
+                                </ddm:menuItem>
+                                <ddm:menuItem label="Save All" icon="/images/ddmenu/save_all.gif">
+                                    <f:setPropertyActionListener target="#{menuBean.value}" value="Save All" />
+                                </ddm:menuItem>
+                            </ddm:menuGroup>
+                            <ddm:menuGroup label="Save As..." horizontalOffset="10" jointPoint="topRight"
+                                direction="bottomRight">
+                                <ddm:menuItem label="Save" icon="/images/ddmenu/save.gif">
+                                    <f:setPropertyActionListener target="#{menuBean.value}" value="Save" />
+                                </ddm:menuItem>
+                                <ddm:menuGroup label="Save All" icon="/images/ddmenu/save_all.gif" direction="bottomRight"
+                                    jointPoint="topRight" verticalOffset="10">
+                                    <ddm:menuItem label="Save All 1" icon="/images/ddmenu/save_all.gif">
+                                        <f:setPropertyActionListener target="#{menuBean.value}" value="Save All 1" />
+                                    </ddm:menuItem>
+                                    <ddm:menuItem label="Save All 2" icon="/images/ddmenu/save_all.gif">
+                                        <f:setPropertyActionListener target="#{menuBean.value}" value="Save All 2" />
+                                    </ddm:menuItem>
+                                    <ddm:menuGroup label="Deep1" icon="/images/ddmenu/save.gif">
+                                        <ddm:menuItem label="Deep All 1" icon="/images/ddmenu/save_all.gif">
+                                            <f:setPropertyActionListener target="#{menuBean.value}" value="Deep All 1" />
+                                        </ddm:menuItem>
+                                        <ddm:menuItem label="Deep All 2" icon="/images/ddmenu/save_all.gif">
+                                            <f:setPropertyActionListener target="#{menuBean.value}" value="Deep All 2" />
+                                        </ddm:menuItem>
+                                        <ddm:menuGroup label="Deep2" icon="/images/ddmenu/save.gif">
+                                            <ddm:menuItem label="Deep2 All 1" icon="/images/ddmenu/save_all.gif">
+                                                <f:setPropertyActionListener target="#{menuBean.value}" value="Deep2 All 1" />
+                                            </ddm:menuItem>
+                                            <ddm:menuItem label="Deep2 All 2" icon="/images/ddmenu/save_all.gif">
+                                                <f:setPropertyActionListener target="#{menuBean.value}" value="Deep2 All 2" />
+                                            </ddm:menuItem>
+
+                                        </ddm:menuGroup>
+
+                                    </ddm:menuGroup>
+                                </ddm:menuGroup>
+                            </ddm:menuGroup>
+                            <ddm:menuItem label="Close" action="#{menuBean.doClose}" />
+                            <ddm:menuItem label="Close" disabled="true" />
+                            <ddm:menuSeparator id="menuSeparator11" />
+                            <ddm:menuItem label="Exit" action="#{menuBean.doExit}" />
+                            <ddm:menuItem>
+                                <h:inputText />
+                            </ddm:menuItem>
+                            <ddm:menuItem label="Add user!" mode="client">
+                                <a4j:ajax event="click" execute="menuNew1" render="@this ddmenu2"
+                                    oncomplete="alert('addUser()!')"></a4j:ajax>
+                            </ddm:menuItem>
+                        </ddm:dropDownMenu>
+
+                    </h:panelGroup>
+
+                    <h:panelGrid columns="2">
+
+                        <h:outputText value="Disabled" />
+                        <h:selectBooleanCheckbox value="#{menuBean.disabled}">
+                            <f:ajax event="click" execute="@form" render="ddmenu @this" />
+                        </h:selectBooleanCheckbox>
+
+                        <h:outputText value="Mode" />
+                        <h:selectOneMenu value="#{menuBean.mode}" onchange="submit()">
+                            <f:selectItem itemValue="server" />
+                            <f:selectItem itemValue="ajax" />
+                            <f:selectItem itemValue="client" />
+                        </h:selectOneMenu>
+                        <br />
+                        <h:outputText value="Set skin to 'myskin' with custom font size and font weight:" />
+                        <h:commandButton value="myskin">
+                            <f:setPropertyActionListener target="#{skinBean.skin}" value="myskin" />
+                        </h:commandButton>
+                    </h:panelGrid>
+
+                </h:panelGrid>
+            </h:form>
             <br />
-            <ddm:dropDownMenu hideDelay="600" showEvent="click" 
-            jointPoint="bottomLeft" direction="autoRight" 
-            id="ddmenu" disabled="#{menuBean.disabled}" mode="#{menuBean.mode}">
-                <f:facet name="label"> 
-                    <h:panelGroup>
-                        <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic"/>
-                        <h:outputText value="File"/>
-                    </h:panelGroup>
-                </f:facet>
-                <f:facet name="labelDisabled">
-                    <h:panelGroup>
-                        <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic"/>
-                        <h:outputText value="(disabled)File"/>
-                    </h:panelGroup>
-                </f:facet>
-                <ddm:menuItem id="menuNew1" label="New" icon="/images/ddmenu/create_doc.gif"
-                    action="#{menuBean.doNew}" execute="@form">
-                    <f:facet name="icon">
-                        <h:selectBooleanCheckbox id="checkbox" value="#{menuBean.checkbox}"/>
-                    </f:facet>
-                    <f:param name="myParam" value="12345"/>
-                    <f:param name="myParam2" value="${222}"/>
-                </ddm:menuItem>
-                <ddm:menuItem label="Open" action="#{menuBean.doOpen}">
-                    <f:facet name="icon">
-                        <h:graphicImage value="/images/ddmenu/open.gif" />
-                    </f:facet>
-                </ddm:menuItem>
-                <ddm:menuGroup label="Save As..." disabled="true">
-                    <ddm:menuItem label="Save" icon="/images/ddmenu/save.gif" >
-                        <f:facet name="icon">
-                            <h:graphicImage value="/images/ddmenu/save.gif" />
-                        </f:facet>                    
-                    </ddm:menuItem>
-                    <ddm:menuItem label="Save All" icon="/images/ddmenu/save_all.gif" >
-                        <f:setPropertyActionListener target="#{menuBean.value}" value="Save All" />
-                    </ddm:menuItem>
-                </ddm:menuGroup>
-                <ddm:menuGroup label="Save As..." horizontalOffset="10" jointPoint="topRight" direction="bottomRight">
-                    <ddm:menuItem label="Save" icon="/images/ddmenu/save.gif" >
-                        <f:setPropertyActionListener target="#{menuBean.value}" value="Save" />
-                    </ddm:menuItem>
-                    <ddm:menuGroup label="Save All" icon="/images/ddmenu/save_all.gif" direction="bottomRight" jointPoint="topRight" verticalOffset="10">
-                        <ddm:menuItem label="Save All 1" icon="/images/ddmenu/save_all.gif">
-                            <f:setPropertyActionListener target="#{menuBean.value}" value="Save All 1" />
+            <br />
+            <br />
+            <br />
+            <br />
+            <h:form id="form2">
+                <h:panelGroup>
+                    <h:panelGrid styleClass="vertical-menu-cell" columnClasses="optionList" columns="1" cellspacing="0"
+                        cellpadding="0">
+                        <ddm:dropDownMenu id="ddmenu2" horizontalOffset="10" verticalOffset="20" jointPoint="topRight"
+                            direction="bottomRight" style="border:1px solid #{a4jSkin.panelBorderColor}">
+                            <f:facet name="label">
+                                <h:panelGroup>
+                                    <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic" />
+                                    <h:outputText value="File" />
+                                </h:panelGroup>
+                            </f:facet>
+                            <f:facet name="labelDisabled">
+                                <h:panelGroup>
+                                    <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic" />
+                                    <h:outputText value="(disabled)File" />
+                                </h:panelGroup>
+                            </f:facet>
+                            <ddm:menuItem id="menuNew2" label="New" icon="/images/ddmenu/create_doc.gif"
+                                action="#{menuBean.doNew}" execute="@form">
+                                <f:facet name="icon">
+                                    <h:selectBooleanCheckbox id="checkbox" value="#{menuBean.checkbox}" />
+                                </f:facet>
+                            </ddm:menuItem>
+                            <ddm:menuItem label="Open" action="#{menuBean.doOpen}">
+                                <f:facet name="icon">
+                                    <h:graphicImage value="/images/ddmenu/open.gif" />
+                                </f:facet>
+                            </ddm:menuItem>
+                        </ddm:dropDownMenu>
+                        <ddm:dropDownMenu id="ddmenu3">
+                            <f:facet name="label">
+                                <h:panelGroup>
+                                    <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic" />
+                                    <h:outputText value="File" />
+                                </h:panelGroup>
+                            </f:facet>
+                            <f:facet name="labelDisabled">
+                                <h:panelGroup>
+                                    <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic" />
+                                    <h:outputText value="(disabled)File" />
+                                </h:panelGroup>
+                            </f:facet>
+                            <ddm:menuItem id="menuNew3" label="New" icon="/images/ddmenu/create_doc.gif"
+                                action="#{menuBean.doNew}" execute="@form">
+
+                            </ddm:menuItem>
+                            <ddm:menuItem label="Open" action="#{menuBean.doOpen}">
+                                <f:facet name="icon">
+                                    <h:graphicImage value="/images/ddmenu/open.gif" />
+                                </f:facet>
+                            </ddm:menuItem>
+                        </ddm:dropDownMenu>
+                        <ddm:dropDownMenu id="ddmenu4">
+                            <f:facet name="label">
+                                <h:panelGroup>
+                                    <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic" />
+                                    <h:outputText value="File" />
+                                </h:panelGroup>
+                            </f:facet>
+                            <f:facet name="labelDisabled">
+                                <h:panelGroup>
+                                    <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic" />
+                                    <h:outputText value="(disabled)File" />
+                                </h:panelGroup>
+                            </f:facet>
+                            <ddm:menuItem id="menuNew" label="New" icon="/images/ddmenu/create_doc.gif"
+                                action="#{menuBean.doNew}" execute="@form">
+                            </ddm:menuItem>
+                            <ddm:menuItem label="Open" action="#{menuBean.doOpen}">
+                                <f:facet name="icon">
+                                    <h:graphicImage value="/images/ddmenu/open.gif" />
+                                </f:facet>
+                            </ddm:menuItem>
+                        </ddm:dropDownMenu>
+
+                    </h:panelGrid>
+
+                    <br />
+                    <br />
+                    <br />
+                    <ddm:toolbar>
+                        <ddm:dropDownMenu id="ddmenuToolbar" horizontalOffset="10" verticalOffset="20" jointPoint="topRight"
+                            direction="bottomRight" style="border:0px solid #{a4jSkin.panelBorderColor}">
+                            <f:facet name="label">
+                                <h:panelGroup>
+                                    <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic" />
+                                    <h:outputText value="File" />
+                                </h:panelGroup>
+                            </f:facet>
+                        </ddm:dropDownMenu>
+            `
+            <ddm:menuItem id="menuItemToolbar1" />
+                        <ddm:menuItem id="menuItemFacet1" label="Open" action="#{menuBean.doOpen}">
+                            <f:facet name="icon">
+                                <h:graphicImage value="/images/ddmenu/open.gif" />
+                            </f:facet>
                         </ddm:menuItem>
-                        <ddm:menuItem label="Save All 2" icon="/images/ddmenu/save_all.gif" >
-                            <f:setPropertyActionListener target="#{menuBean.value}" value="Save All 2" />
-                        </ddm:menuItem>
-                        <ddm:menuGroup label="Deep1" icon="/images/ddmenu/save.gif" >
-                        	<ddm:menuItem label="Deep All 1" icon="/images/ddmenu/save_all.gif">
-                            	<f:setPropertyActionListener target="#{menuBean.value}" value="Deep All 1" />
-                      		</ddm:menuItem>
-                      		<ddm:menuItem label="Deep All 2" icon="/images/ddmenu/save_all.gif">
-                            	<f:setPropertyActionListener target="#{menuBean.value}" value="Deep All 2" />
-                      		</ddm:menuItem>
-                      		<ddm:menuGroup label="Deep2" icon="/images/ddmenu/save.gif" >
-                        	<ddm:menuItem label="Deep2 All 1" icon="/images/ddmenu/save_all.gif">
-                            	<f:setPropertyActionListener target="#{menuBean.value}" value="Deep2 All 1" />
-                      		</ddm:menuItem>
-                      		<ddm:menuItem label="Deep2 All 2" icon="/images/ddmenu/save_all.gif">
-                            	<f:setPropertyActionListener target="#{menuBean.value}" value="Deep2 All 2" />
-                      		</ddm:menuItem>
-                      		
-                        
-                        	</ddm:menuGroup>
-                        
-                        </ddm:menuGroup>
-                </ddm:menuGroup>                    
-                </ddm:menuGroup>                
-                <ddm:menuItem label="Close" action="#{menuBean.doClose}"/>
-                <ddm:menuItem label="Close" disabled="true"/>
-                <ddm:menuSeparator id="menuSeparator11" />
-                <ddm:menuItem label="Exit" action="#{menuBean.doExit}"/>
-                <ddm:menuItem >
-                <h:inputText />
-                </ddm:menuItem>
-                <ddm:menuItem label="Add user!" mode="client">
-               		<a4j:ajax event="click" execute="menuNew1" render="@this ddmenu2" oncomplete="alert('addUser()!')"></a4j:ajax>
-                </ddm:menuItem>                   
-            </ddm:dropDownMenu>
-            
-            </h:panelGroup>
-         
-         
-         	
-            <h:panelGrid columns="2">
-                
-                <h:outputText value="Disabled" />
-                <h:selectBooleanCheckbox value="#{menuBean.disabled}">
-                    <f:ajax event="click" execute="@form" render="ddmenu @this" />
-                </h:selectBooleanCheckbox>
-                
-                <h:outputText value="Mode" />
-                <h:selectOneMenu value="#{menuBean.mode}" onchange="submit()">
-                    <f:selectItem itemValue="server"/>
-                    <f:selectItem itemValue="ajax"/>
-                    <f:selectItem itemValue="client"/>
-                </h:selectOneMenu><br/>
-                <h:outputText value="Set skin to 'myskin' with custom font size and font weight:"/>
-                <h:commandButton value="myskin">
-                    <f:setPropertyActionListener target="#{skinBean.skin}" value="myskin"/>
-                </h:commandButton>
-            </h:panelGrid>
 
-            </h:panelGrid>
-        </h:form>
-		<br/>        
-		<br/>
-		<br/>
-		<br/>
-		<br/>
-        <h:form id="form2">
-        	   <h:panelGroup>
-                   <h:panelGrid styleClass="vertical-menu-cell" columnClasses="optionList" columns="1" cellspacing="0" cellpadding="0">
-                       <ddm:dropDownMenu id="ddmenu2" horizontalOffset="10" verticalOffset="20" jointPoint="topRight" direction="bottomRight" style="border:1px solid #{a4jSkin.panelBorderColor}">
-                           <f:facet name="label">
-                               <h:panelGroup>
-                                   <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic"/>
-                                   <h:outputText value="File"/>
-                               </h:panelGroup>
-                           </f:facet>
-                           <f:facet name="labelDisabled">
-                               <h:panelGroup>
-                                   <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic"/>
-                                   <h:outputText value="(disabled)File"/>
-                               </h:panelGroup>
-                           </f:facet>
-                           <ddm:menuItem id="menuNew2" label="New" icon="/images/ddmenu/create_doc.gif"
-                                         action="#{menuBean.doNew}" execute="@form">
-                               <f:facet name="icon">
-                                   <h:selectBooleanCheckbox id="checkbox" value="#{menuBean.checkbox}"/>
-                               </f:facet>
-                           </ddm:menuItem>
-                           <ddm:menuItem label="Open" action="#{menuBean.doOpen}">
-                               <f:facet name="icon">
-                                   <h:graphicImage value="/images/ddmenu/open.gif" />
-                               </f:facet>
-                           </ddm:menuItem>
-                       </ddm:dropDownMenu>
-                       <ddm:dropDownMenu id="ddmenu3">
-                           <f:facet name="label">
-                               <h:panelGroup>
-                                   <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic"/>
-                                   <h:outputText value="File"/>
-                               </h:panelGroup>
-                           </f:facet>
-                           <f:facet name="labelDisabled">
-                               <h:panelGroup>
-                                   <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic"/>
-                                   <h:outputText value="(disabled)File"/>
-                               </h:panelGroup>
-                           </f:facet>
-                           <ddm:menuItem id="menuNew3" label="New" icon="/images/ddmenu/create_doc.gif"
-                                         action="#{menuBean.doNew}" execute="@form">
+                    </ddm:toolbar>
 
-                           </ddm:menuItem>
-                           <ddm:menuItem label="Open" action="#{menuBean.doOpen}">
-                               <f:facet name="icon">
-                                   <h:graphicImage value="/images/ddmenu/open.gif" />
-                               </f:facet>
-                           </ddm:menuItem>
-                       </ddm:dropDownMenu>
-                       <ddm:dropDownMenu id="ddmenu4">
-                           <f:facet name="label">
-                               <h:panelGroup>
-                                   <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic"/>
-                                   <h:outputText value="File"/>
-                               </h:panelGroup>
-                           </f:facet>
-                           <f:facet name="labelDisabled">
-                               <h:panelGroup>
-                                   <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic"/>
-                                   <h:outputText value="(disabled)File"/>
-                               </h:panelGroup>
-                           </f:facet>
-                           <ddm:menuItem id="menuNew" label="New" icon="/images/ddmenu/create_doc.gif"
-                                         action="#{menuBean.doNew}" execute="@form">
-                           </ddm:menuItem>
-                           <ddm:menuItem label="Open" action="#{menuBean.doOpen}">
-                               <f:facet name="icon">
-                                   <h:graphicImage value="/images/ddmenu/open.gif" />
-                               </f:facet>
-                           </ddm:menuItem>
-                       </ddm:dropDownMenu>
+                </h:panelGroup>
+            </h:form>
 
-
-                   </h:panelGrid>
-
-                
-                <br/>
-				<br/>
-				<br/>
-				<ddm:toolbar >
-                    <ddm:dropDownMenu id="ddmenuToolbar" horizontalOffset="10" verticalOffset="20" jointPoint="topRight" direction="bottomRight" style="border:0px solid #{a4jSkin.panelBorderColor}">
-                           <f:facet name="label">
-                               <h:panelGroup>
-                                   <h:graphicImage value="/images/ddmenu/copy.gif" styleClass="pic"/>
-                                   <h:outputText value="File"/>
-                               </h:panelGroup>
-                           </f:facet>
-                    </ddm:dropDownMenu>
-				`	<ddm:menuItem id="menuItemToolbar1"/>
-					<ddm:menuItem id="menuItemFacet1" label="Open" action="#{menuBean.doOpen}">
-                    <f:facet name="icon">
-                        <h:graphicImage value="/images/ddmenu/open.gif" />
-                    </f:facet>
-                	</ddm:menuItem>
-					
-				</ddm:toolbar>
-				                
-               
-                
-            
-            </h:panelGroup>
-        </h:form>
-        
-    </ui:define>
-</ui:composition>
+        </ui:define>
+    </ui:composition>
 </body>
 </html>
 

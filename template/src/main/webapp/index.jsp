@@ -4,8 +4,8 @@
 
 <head></head>
 
-	<body>
-		<jsp:forward page="/main.jsf" />
-	</body>
+<body>
+    <jsp:forward page="/main.jsf" />
+</body>
 
 </html>

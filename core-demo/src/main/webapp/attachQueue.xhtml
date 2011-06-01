@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:a4j="http://richfaces.org/a4j">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j">
 <f:view>
-	<h:head>
-	</h:head>
-	<h:body>
+    <h:head>
+    </h:head>
+    <h:body>
         <a4j:queue requestDelay="750"></a4j:queue>
-		<h:form id="form">
+        <h:form id="form">
 
             <h:panelGrid columns="2">
                 <a4j:commandButton value="Set Name to Alex" render="rep ">
-                    <a4j:attachQueue requestGroupingId="group1" requestDelay="5000"/>
+                    <a4j:attachQueue requestGroupingId="group1" requestDelay="5000" />
                     <a4j:param name="username" value="Alex" assignTo="#{attachQueueBean.name}" />
                     <a4j:param name="username" value="Alex" assignTo="#{attachQueueBean.name1}" />
                 </a4j:commandButton>
@@ -26,34 +23,34 @@
             </h:panelGrid>
 
             <div>
-               <h:outputText id="rep" value="Selected Name:#{attachQueueBean.name}" />
+                <h:outputText id="rep" value="Selected Name:#{attachQueueBean.name}" />
                 <h:outputText id="rep" value="Selected Name:#{attachQueueBean.name}" />
                 <h:outputText id="rep" value="Selected Name:#{attachQueueBean.name}" />
 
             </div>
 
-			<a4j:ajax>
-				<h:inputText />
+            <a4j:ajax>
+                <h:inputText />
 
-				<a4j:attachQueue id="firstAttach" />
-			</a4j:ajax>
+                <a4j:attachQueue id="firstAttach" />
+            </a4j:ajax>
 
-			<a4j:ajax event="valueChange">
-				<h:panelGroup>
-					<a4j:ajax event="valueChange">
-						<h:inputText />
+            <a4j:ajax event="valueChange">
+                <h:panelGroup>
+                    <a4j:ajax event="valueChange">
+                        <h:inputText />
 
-						<a4j:commandLink value="Link">
-							<a4j:attachQueue id="linkAttach" />
-						</a4j:commandLink>
+                        <a4j:commandLink value="Link">
+                            <a4j:attachQueue id="linkAttach" />
+                        </a4j:commandLink>
 
-						<a4j:attachQueue id="secondAttach" />
-					</a4j:ajax>
-				</h:panelGroup>
-			</a4j:ajax>
-		</h:form>
+                        <a4j:attachQueue id="secondAttach" />
+                    </a4j:ajax>
+                </h:panelGroup>
+            </a4j:ajax>
+        </h:form>
 
-		<ui:debug hotkey="L" />
-	</h:body>
+        <ui:debug hotkey="L" />
+    </h:body>
 </f:view>
 </html>

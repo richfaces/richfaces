@@ -1,71 +1,71 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:a4j="http://richfaces.org/a4j">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j">
 <f:view>
-	<h:head>
-	</h:head>
-	<h:body>
-		<script type="text/javascript">
-			function selectEventSource(source, borderStyle) {
-				jQuery(source).css('border', borderStyle);
-			}
-		</script>
+    <h:head>
+    </h:head>
+    <h:body>
+        <script type="text/javascript">
+            function selectEventSource(source, borderStyle) {
+                jQuery(source).css('border', borderStyle);
+            }
+        </script>
 
-		<a4j:status id="myStatus" name="ilStatus" startText="...named status request start..." />
-		<br />
-	
-		<a4j:status startStyle="color: green" errorStyle="color: red" onstart="selectEventSource(event.source, '3px dotted navy')"
-			onerror="selectEventSource(event.source, '2px solid red')" onsuccess="selectEventSource(event.source, '0px none white')">
-			<f:facet name="start">...start...</f:facet>
-			<f:facet name="stop">stop</f:facet>
-			<f:facet name="error">error</f:facet>
-		</a4j:status>
-		
-		<br />
-		
-		<a4j:status startStyle="color: green">
-			<f:facet name="start">...start...</f:facet>
-			<f:facet name="stop">stop</f:facet>
-		    <f:ajax event="error" listener="#{commandBean.listener}" />
-		</a4j:status>
+        <a4j:status id="myStatus" name="ilStatus" startText="...named status request start..." />
+        <br />
 
-		<h:form>
-			<a4j:jsFunction name="statusFunction" status="ilStatus" action="#{statusBean.delay}" />
+        <a4j:status startStyle="color: green" errorStyle="color: red"
+            onstart="selectEventSource(event.source, '3px dotted navy')"
+            onerror="selectEventSource(event.source, '2px solid red')"
+            onsuccess="selectEventSource(event.source, '0px none white')">
+            <f:facet name="start">...start...</f:facet>
+            <f:facet name="stop">stop</f:facet>
+            <f:facet name="error">error</f:facet>
+        </a4j:status>
 
-			<h:commandLink value="Named status" onclick="statusFunction(); return false;" />
-			&#160;
-			<h:commandLink value="Ajax" action="#{statusBean.delay}">
-				<f:ajax />
-			</h:commandLink>
-			&#160;
-			<h:commandLink value="Ajax error" action="#{statusBean.delayWithError}">
-				<f:ajax />
-			</h:commandLink>
-		</h:form>
+        <br />
 
-		Another form:
-		<h:form>
-			<a4j:status>
-				<f:facet name="start">+++</f:facet>
-				<f:facet name="stop"></f:facet>
-				<f:facet name="error">!!!</f:facet>
-			</a4j:status><br />
-		
-			<h:commandLink value="Ajax" action="#{statusBean.delay}">
-				<f:ajax />
-			</h:commandLink>
-			&#160;
-			<h:commandLink value="Ajax error" action="#{statusBean.delayWithError}">
-				<f:ajax />
-			</h:commandLink>
-		</h:form>
+        <a4j:status startStyle="color: green">
+            <f:facet name="start">...start...</f:facet>
+            <f:facet name="stop">stop</f:facet>
+            <f:ajax event="error" listener="#{commandBean.listener}" />
+        </a4j:status>
 
-		<a4j:log />
-		
-	</h:body>
+        <h:form>
+            <a4j:jsFunction name="statusFunction" status="ilStatus" action="#{statusBean.delay}" />
+
+            <h:commandLink value="Named status" onclick="statusFunction(); return false;" />
+            &#160;
+            <h:commandLink value="Ajax" action="#{statusBean.delay}">
+                <f:ajax />
+            </h:commandLink>
+            &#160;
+            <h:commandLink value="Ajax error" action="#{statusBean.delayWithError}">
+                <f:ajax />
+            </h:commandLink>
+        </h:form>
+
+        Another form:
+        <h:form>
+            <a4j:status>
+                <f:facet name="start">+++</f:facet>
+                <f:facet name="stop"></f:facet>
+                <f:facet name="error">!!!</f:facet>
+            </a4j:status>
+            <br />
+
+            <h:commandLink value="Ajax" action="#{statusBean.delay}">
+                <f:ajax />
+            </h:commandLink>
+            &#160;
+            <h:commandLink value="Ajax error" action="#{statusBean.delayWithError}">
+                <f:ajax />
+            </h:commandLink>
+        </h:form>
+
+        <a4j:log />
+
+    </h:body>
 </f:view>
 </html>

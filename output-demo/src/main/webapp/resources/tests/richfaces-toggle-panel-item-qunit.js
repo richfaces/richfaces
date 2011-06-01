@@ -6,7 +6,7 @@ RichFaces.QUnit.run(function() {
 
         ok(item, "item");
         equals(item.getName(), "name1", "item.getName()");
-        
+
         var togglePanel = item.getTogglePanel();
         ok(togglePanel, item.getTogglePanel());
         equals(togglePanel.id, "f:panel", "togglePanel.id"); // see xhtml page definition
@@ -46,7 +46,7 @@ RichFaces.QUnit.run(function() {
         var state = 1;
         var leave = RichFaces.Event.bindById(componentId, "__leave", function () {
             ok(true, "leave handler invouked");
-            
+
             return false;
         });
 

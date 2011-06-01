@@ -2,8 +2,8 @@ RichFaces.QUnit.run(function() {
     module("richfaces-toggle-panel");
 
     var TOGGLE_PANEL_ID = "f:panel";
-    
-    function handler (msg, returnValue) {
+
+    function handler(msg, returnValue) {
         return function () {
             ok(true, msg);
 
@@ -42,8 +42,8 @@ RichFaces.QUnit.run(function() {
         equals(itemsNames[1], "name2", "name2");
         equals(itemsNames[2], "name3", "name3");
 
-        equals(c.nextItem(), "name2", "c.nextItem() /*current name1*/"); 
-        equals(c.nextItem("name1"), "name2", "c.nextItem(name1)"); 
+        equals(c.nextItem(), "name2", "c.nextItem() /*current name1*/");
+        equals(c.nextItem("name1"), "name2", "c.nextItem(name1)");
         equals(c.nextItem("name2"), "name3", "c.nextItem(name2)");
         equals(c.nextItem("name3"), null, "c.nextItem(name3)");
         equals(c.nextItem("name4"), null, "c.nextItem(name4)");
@@ -84,7 +84,7 @@ RichFaces.QUnit.run(function() {
         var componentId = 'f:panel';
         var c = RichFaces.$(componentId);
         c.switchToItem("name1");
-        
+
         expect(5);
 
         var beforeitemchngeHandler = function (event, comp, data) {
@@ -139,7 +139,7 @@ RichFaces.QUnit.run(function() {
 
         c.switchToItem("name1");
     });
-    
+
     test("RichFaces.TogglePanel.Events test all 4 events and there order", function () {
         var componentId = 'f:panel';
         var c = RichFaces.$(componentId);

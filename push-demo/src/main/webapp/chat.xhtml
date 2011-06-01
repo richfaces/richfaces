@@ -1,76 +1,73 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:a4j="http://richfaces.org/a4j">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:a4j="http://richfaces.org/a4j">
 
-	<f:view>
-		<f:metadata>
-			<f:viewParam name="username" value="#{chatBean.userName}" />
- 			<f:event type="preRenderView" listener="#{chatBean.joinChat}"/>
- 		</f:metadata>
-		<h:head>
-			<h:outputStylesheet>
-				.pushBlock {
-					width: 300px;
-					float: left;
-					border: 2px dotted navy;	
-					margin: 10px;				
-				}
-				
-				.chatOutput {
-					width: 280px;
-					height: 200px;
-					overflow: auto;
-				}
-			</h:outputStylesheet>
-			<h:outputScript>
-				RichFaces.Push.transport = "websocket";
-				RichFaces.Push.fallbackTransport = "long-polling";
-			</h:outputScript>
-		</h:head>
-		<h:body>
-			<h:form id="form">
-				You are: #{chatBean.userName} <br />
+<f:view>
+    <f:metadata>
+        <f:viewParam name="username" value="#{chatBean.userName}" />
+        <f:event type="preRenderView" listener="#{chatBean.joinChat}" />
+    </f:metadata>
+    <h:head>
+        <h:outputStylesheet>
+            .pushBlock {
+            width: 300px;
+            float: left;
+            border: 2px dotted navy;
+            margin: 10px;
+            }
 
-				<script type="text/javascript">
-					function clearInput(event) {
-						if (event.status == 'success') {
-							jQuery('.messageInput').val('');
-						}
-					}
-				</script>
-			
-				<c:forEach var="channel" items="#{channelsBean.channels}">
-					<c:set var="channelName" value="#{channel.name}" />
-					
-					<h:panelGroup styleClass="pushBlock" layout="block" id="pushBlock_#{channelName}">
-						
-						Subchannel: #{channelName} 
-						
-						<h:selectBooleanCheckbox value="true" valueChangeListener="#{channel.processChannelStateChange}">
-							<f:ajax event="click" render="pushBlock_#{channelName}" />
-						</h:selectBooleanCheckbox>
-						
-						<h:panelGroup layout="block" rendered="#{channel.rendered}">
-							<a4j:push address="#{channelName}@chat" onerror="alert(event.rf.data)" ondataavailable="jQuery('&lt;div /&gt;').prependTo('.#{channelName}Output').text(event.rf.data)" />
-		
-							<h:inputText styleClass="messageInput" value="#{chatBean.message}" size="40" />
-						
-							<h:commandLink value="ajax" action="#{chatBean.say}">
-								<f:setPropertyActionListener value="#{channelName}" target="#{chatBean.subchannel}" /> 
-								<f:ajax execute="pushBlock_#{channelName}" onevent="clearInput" />
-							</h:commandLink>
-						
-							<h:panelGroup styleClass="#{channelName}Output chatOutput" layout="block" />
-						</h:panelGroup>
-					</h:panelGroup>
-				</c:forEach>
-			</h:form>
-		</h:body>
-	</f:view>
+            .chatOutput {
+            width: 280px;
+            height: 200px;
+            overflow: auto;
+            }
+        </h:outputStylesheet>
+        <h:outputScript>
+            RichFaces.Push.transport = "websocket";
+            RichFaces.Push.fallbackTransport = "long-polling";
+        </h:outputScript>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            You are: #{chatBean.userName} <br />
+
+            <script type="text/javascript">
+                function clearInput(event) {
+                    if (event.status == 'success') {
+                        jQuery('.messageInput').val('');
+                    }
+                }
+            </script>
+
+            <c:forEach var="channel" items="#{channelsBean.channels}">
+                <c:set var="channelName" value="#{channel.name}" />
+
+                <h:panelGroup styleClass="pushBlock" layout="block" id="pushBlock_#{channelName}">
+
+                    Subchannel: #{channelName}
+
+                    <h:selectBooleanCheckbox value="true" valueChangeListener="#{channel.processChannelStateChange}">
+                        <f:ajax event="click" render="pushBlock_#{channelName}" />
+                    </h:selectBooleanCheckbox>
+
+                    <h:panelGroup layout="block" rendered="#{channel.rendered}">
+                        <a4j:push address="#{channelName}@chat" onerror="alert(event.rf.data)"
+                            ondataavailable="jQuery('&lt;div /&gt;').prependTo('.#{channelName}Output').text(event.rf.data)" />
+
+                        <h:inputText styleClass="messageInput" value="#{chatBean.message}" size="40" />
+
+                        <h:commandLink value="ajax" action="#{chatBean.say}">
+                            <f:setPropertyActionListener value="#{channelName}" target="#{chatBean.subchannel}" />
+                            <f:ajax execute="pushBlock_#{channelName}" onevent="clearInput" />
+                        </h:commandLink>
+
+                        <h:panelGroup styleClass="#{channelName}Output chatOutput" layout="block" />
+                    </h:panelGroup>
+                </h:panelGroup>
+            </c:forEach>
+        </h:form>
+    </h:body>
+</f:view>
 </html>

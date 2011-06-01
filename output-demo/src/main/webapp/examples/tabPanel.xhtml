@@ -1,37 +1,40 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:pn="http://richfaces.org/output">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:pn="http://richfaces.org/output">
 
 <body>
-<ui:composition template="/templates/template.xhtml">
+    <ui:composition template="/templates/template.xhtml">
 
-    <ui:define name="title">Tab Panel Example</ui:define>
-    <ui:define name="body_head">Tab Panel Example</ui:define>
+        <ui:define name="title">Tab Panel Example</ui:define>
+        <ui:define name="body_head">Tab Panel Example</ui:define>
 
-    <ui:define name="body">
-        <p>Page</p>
+        <ui:define name="body">
+            <p>Page</p>
 
-        <h:outputText id="date-t1" value="Current date-t1 #{modalPanel.date}" /><br />
-        <h:outputText id="date-t2"  value="Current date-t2 #{modalPanel.date}" /><br />
+            <h:outputText id="date-t1" value="Current date-t1 #{modalPanel.date}" />
+            <br />
+            <h:outputText id="date-t2" value="Current date-t2 #{modalPanel.date}" />
+            <br />
 
-        <h:form id="f">
-            <pn:tabPanel id="panel" switchType="ajax" tabDisabledHeaderClass="myClass_01" itemChangeListener="#{togglePanelBean.itemChangeActionListener}">
-                <pn:tab header="tab1 header" headerDisabledClass="myClass_02" onenter="alert('onenter 01')" execute="date-t1" render="date-t1">
-                    Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here.
+            <h:form id="f">
+                <pn:tabPanel id="panel" switchType="ajax" tabDisabledHeaderClass="myClass_01"
+                    itemChangeListener="#{togglePanelBean.itemChangeActionListener}">
+                    <pn:tab header="tab1 header" headerDisabledClass="myClass_02" onenter="alert('onenter 01')"
+                        execute="date-t1" render="date-t1">
+                    Content will be here. Content will be here. Content will be here. Content will be here. Content will be
+                    here. Content will be here. Content will be here. Content will be here. Content will be here. Content will
+                    be here. Content will be here. Content will be here. Content will be here. Content will be here.
                 </pn:tab>
-                <pn:tab header="tab 1a (disabled) header" disabled="true">
-                	Disabled tab content
+                    <pn:tab header="tab 1a (disabled) header" disabled="true">
+                    Disabled tab content
                 </pn:tab>
-                <pn:tab header="tab2 header" onenter="alert('onenter 02')" execute="date-t2" render="date-t2">
+                    <pn:tab header="tab2 header" onenter="alert('onenter 02')" execute="date-t2" render="date-t2">
                     He he
                 </pn:tab>
-            </pn:tabPanel>
-        </h:form>
-    </ui:define>
-</ui:composition>
+                </pn:tabPanel>
+            </h:form>
+        </ui:define>
+    </ui:composition>
 </body>
 </html>
 

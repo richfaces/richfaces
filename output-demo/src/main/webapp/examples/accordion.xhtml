@@ -1,33 +1,38 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:pn="http://richfaces.org/output">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:pn="http://richfaces.org/output">
 
 <body>
-<ui:composition template="/templates/template.xhtml">
+    <ui:composition template="/templates/template.xhtml">
 
-    <ui:define name="title">Accordion Example</ui:define>
-    <ui:define name="body_head">Accordion Example</ui:define>
+        <ui:define name="title">Accordion Example</ui:define>
+        <ui:define name="body_head">Accordion Example</ui:define>
 
-    <ui:define name="body">
-        <p>Page</p>
+        <ui:define name="body">
+            <p>Page</p>
 
-        <h:form id="f" style="border:blue solid thin;">
-            <h:panelGroup>
-                <pn:accordion width="500px" height="300px" itemChangeListener="#{togglePanelBean.itemChangeActionListener}" switchType="ajax"
-                        itemActiveRightIcon="triangleDown" itemInactiveRightIcon="triangleUp" itemDisabledRightIcon="disc" itemDisabledLeftIcon="disc"
-                        itemActiveHeaderClass="ac-active-header">
-                    <pn:accordionItem header="label 1" >Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here. Content will be here.</pn:accordionItem>
-                    <pn:accordionItem header="label 2" >content 2</pn:accordionItem>
-                    <pn:accordionItem header="label 3" onenter="alert('hello, world!')" >content 3</pn:accordionItem>
-                    <pn:accordionItem header="label 4" disabled="true" >content 4</pn:accordionItem>
-                </pn:accordion>
-            </h:panelGroup>
-        </h:form>
-    </ui:define>
-</ui:composition>
+            <h:form id="f" style="border:blue solid thin;">
+                <h:panelGroup>
+                    <pn:accordion width="500px" height="300px" itemChangeListener="#{togglePanelBean.itemChangeActionListener}"
+                        switchType="ajax" itemActiveRightIcon="triangleDown" itemInactiveRightIcon="triangleUp"
+                        itemDisabledRightIcon="disc" itemDisabledLeftIcon="disc" itemActiveHeaderClass="ac-active-header">
+                        <pn:accordionItem header="label 1">Content will be here. Content will be here. Content will be here. Content
+                        will be here. Content will be here. Content will be here. Content will be here. Content will be here.
+                        Content will be here. Content will be here. Content will be here. Content will be here. Content will be
+                        here. Content will be here. Content will be here. Content will be here. Content will be here. Content
+                        will be here. Content will be here. Content will be here. Content will be here. Content will be here.
+                        Content will be here. Content will be here. Content will be here. Content will be here. Content will be
+                        here. Content will be here. Content will be here. Content will be here. Content will be here. Content
+                        will be here. Content will be here. Content will be here.
+                    </pn:accordionItem>
+                        <pn:accordionItem header="label 2">content 2</pn:accordionItem>
+                        <pn:accordionItem header="label 3" onenter="alert('hello, world!')">content 3</pn:accordionItem>
+                        <pn:accordionItem header="label 4" disabled="true">content 4</pn:accordionItem>
+                    </pn:accordion>
+                </h:panelGroup>
+            </h:form>
+        </ui:define>
+    </ui:composition>
 </body>
 </html>
 

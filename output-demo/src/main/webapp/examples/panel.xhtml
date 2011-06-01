@@ -1,44 +1,40 @@
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:pn="http://richfaces.org/output">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:pn="http://richfaces.org/output">
 
 <body>
-<ui:composition template="/templates/template.xhtml">
-<ui:define name="body">
-	<pn:panel>
-		<f:facet name="header">
-			Test
-		</f:facet>
-	<pn:panel>
-		<f:facet name="header">
-			Test
-		</f:facet>
-	<pn:panel>
-		<f:facet name="header">
-			Test	
-		</f:facet>
-		Body text
-	</pn:panel>
-	</pn:panel>
-	</pn:panel>
-	<br/>
-	<pn:panel>
-		<f:facet name="header">
-			Test<br/>
-			Test<br/>
-			Test<br/>
-			Test<br/>
-			Test<br/>
-		</f:facet>
-		<h:form>
-			<h:outputText value="inside the form"/>
-		</h:form>
-	</pn:panel>
-	</ui:define>
-</ui:composition>
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="body">
+            <pn:panel>
+                <f:facet name="header">
+                Test
+            </f:facet>
+                <pn:panel>
+                    <f:facet name="header">
+                    Test
+                </f:facet>
+                    <pn:panel>
+                        <f:facet name="header">
+                        Test
+                    </f:facet>
+                    Body text
+                </pn:panel>
+                </pn:panel>
+            </pn:panel>
+            <br />
+            <pn:panel>
+                <f:facet name="header">
+                Test<br />
+                Test<br />
+                Test<br />
+                Test<br />
+                Test<br />
+                </f:facet>
+                <h:form>
+                    <h:outputText value="inside the form" />
+                </h:form>
+            </pn:panel>
+        </ui:define>
+    </ui:composition>
 </body>
 </html>

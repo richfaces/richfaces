@@ -26,7 +26,7 @@ RichFaces.QUnit.run(function() {
 
     var TOOLTIP_ID = "f:tooltip";
 
-    function handler (msg, returnValue) {
+    function handler(msg, returnValue) {
         return function () {
             ok(true, msg);
 

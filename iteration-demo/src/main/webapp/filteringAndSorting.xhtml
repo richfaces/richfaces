@@ -23,82 +23,81 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:it="http://richfaces.org/iteration">
-	<f:view contentType="text/html"/>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:it="http://richfaces.org/iteration">
+<f:view contentType="text/html" />
 
-	<h:head>
-	    <title>Richfaces Filtering And Sorting Developer's Demo</title>
-	</h:head>
-	
-	<h:body>
-	    <h:form id="form1">
-	    	<h:outputText value="Show data in table" />
-	    	<h:selectBooleanCheckbox value="#{dataBean.state}">
-	    		<f:ajax render="dataTable" />
-	    	</h:selectBooleanCheckbox>
-			<it:dataTable id="dataTable" value="#{dataBean.state ? dataBean.employeeList : null}" var="record" rowKeyVar="rkv" filterVar="fv">
-				<f:facet name="noData">
-					<h:outputText value="There isn't data." style="border: solid black 1px;"/>
-				</f:facet>
-				<it:column>
-					<f:facet name="header">
-						<h:outputText value="rkv"/>
-					</f:facet>
-					<h:outputText value="#{rkv}" />
-				</it:column>
-				<it:column id="column_name" filterValue="#{filteringAndSortingBean.nameFilterValue}" 
-				filterExpression="#{fv == null || fv == '' ||fv == record.name}" 
-				comparator="#{filteringAndSortingBean.comparator}" sortOrder="#{filteringAndSortingBean.nameSortOrder}">
-					<f:facet name="header">
-						<h:outputText id="columnHeader1" value="Column Header Facet" />
-						<h:outputText value="Title"/>
-				    	<h:inputText value="#{filteringAndSortingBean.nameFilterValue}">
-				    		<f:ajax render=":form1:dataTable" />
-				    	</h:inputText>
-						<h:selectOneMenu value="#{filteringAndSortingBean.nameSortOrder}">
-							<f:selectItem itemLabel="ascending" itemValue="ascending"/>
-							<f:selectItem itemLabel="descending" itemValue="descending"/>
-							<f:selectItem itemLabel="unsorted" itemValue="unsorted"/>
-							<f:ajax render=":form1:dataTable" />
-						</h:selectOneMenu>
-					</f:facet>
-					<h:outputText value="#{record.name}" />
-					<f:facet name="footer">
-						<h:outputText  id="columnFooter1"  value="Column Footer Facet"/>
-					</f:facet>
-				</it:column>
-				
-				<it:column id="column_title" width="200px" filter="#{filteringAndSortingBean.filter}">
-					<f:facet name="header">
-						<h:outputText value="Title"/>
-				    	<h:inputText value="#{filteringAndSortingBean.titleFilterValue}">
-				    		<f:ajax render=":form1:dataTable" />
-				    	</h:inputText>
-					</f:facet>
-					<h:outputText value="#{record.title}" />
-					<f:facet name="footer">
-						<h:outputText  id="columnFooter2"  value="Column Footer Facet2"/>
-					</f:facet>
-				</it:column>
-			
-				<it:column id="column_email" width="300px"  sortBy="#{record.EMail}" sortOrder="#{filteringAndSortingBean.emailSortOrder}">
-					<f:facet name="header">
-						<h:outputText value="E-mail"/>
-						<h:selectOneMenu value="#{filteringAndSortingBean.emailSortOrder}">
-							<f:selectItem itemLabel="ascending" itemValue="ascending"/>
-							<f:selectItem itemLabel="descending" itemValue="descending"/>
-							<f:selectItem itemLabel="unsorted" itemValue="unsorted"/>
-							<f:ajax render=":form1:dataTable" />
-						</h:selectOneMenu>
-					</f:facet>
-					<h:outputText value="#{record.EMail}" />
-				</it:column>				
-			</it:dataTable>
-			<input type="submit" />
-	   </h:form>
-	</h:body>
+<h:head>
+    <title>Richfaces Filtering And Sorting Developer's Demo</title>
+</h:head>
+
+<h:body>
+    <h:form id="form1">
+        <h:outputText value="Show data in table" />
+        <h:selectBooleanCheckbox value="#{dataBean.state}">
+            <f:ajax render="dataTable" />
+        </h:selectBooleanCheckbox>
+        <it:dataTable id="dataTable" value="#{dataBean.state ? dataBean.employeeList : null}" var="record" rowKeyVar="rkv"
+            filterVar="fv">
+            <f:facet name="noData">
+                <h:outputText value="There isn't data." style="border: solid black 1px;" />
+            </f:facet>
+            <it:column>
+                <f:facet name="header">
+                    <h:outputText value="rkv" />
+                </f:facet>
+                <h:outputText value="#{rkv}" />
+            </it:column>
+            <it:column id="column_name" filterValue="#{filteringAndSortingBean.nameFilterValue}"
+                filterExpression="#{fv == null || fv == '' ||fv == record.name}"
+                comparator="#{filteringAndSortingBean.comparator}" sortOrder="#{filteringAndSortingBean.nameSortOrder}">
+                <f:facet name="header">
+                    <h:outputText id="columnHeader1" value="Column Header Facet" />
+                    <h:outputText value="Title" />
+                    <h:inputText value="#{filteringAndSortingBean.nameFilterValue}">
+                        <f:ajax render=":form1:dataTable" />
+                    </h:inputText>
+                    <h:selectOneMenu value="#{filteringAndSortingBean.nameSortOrder}">
+                        <f:selectItem itemLabel="ascending" itemValue="ascending" />
+                        <f:selectItem itemLabel="descending" itemValue="descending" />
+                        <f:selectItem itemLabel="unsorted" itemValue="unsorted" />
+                        <f:ajax render=":form1:dataTable" />
+                    </h:selectOneMenu>
+                </f:facet>
+                <h:outputText value="#{record.name}" />
+                <f:facet name="footer">
+                    <h:outputText id="columnFooter1" value="Column Footer Facet" />
+                </f:facet>
+            </it:column>
+
+            <it:column id="column_title" width="200px" filter="#{filteringAndSortingBean.filter}">
+                <f:facet name="header">
+                    <h:outputText value="Title" />
+                    <h:inputText value="#{filteringAndSortingBean.titleFilterValue}">
+                        <f:ajax render=":form1:dataTable" />
+                    </h:inputText>
+                </f:facet>
+                <h:outputText value="#{record.title}" />
+                <f:facet name="footer">
+                    <h:outputText id="columnFooter2" value="Column Footer Facet2" />
+                </f:facet>
+            </it:column>
+
+            <it:column id="column_email" width="300px" sortBy="#{record.EMail}"
+                sortOrder="#{filteringAndSortingBean.emailSortOrder}">
+                <f:facet name="header">
+                    <h:outputText value="E-mail" />
+                    <h:selectOneMenu value="#{filteringAndSortingBean.emailSortOrder}">
+                        <f:selectItem itemLabel="ascending" itemValue="ascending" />
+                        <f:selectItem itemLabel="descending" itemValue="descending" />
+                        <f:selectItem itemLabel="unsorted" itemValue="unsorted" />
+                        <f:ajax render=":form1:dataTable" />
+                    </h:selectOneMenu>
+                </f:facet>
+                <h:outputText value="#{record.EMail}" />
+            </it:column>
+        </it:dataTable>
+        <input type="submit" />
+    </h:form>
+</h:body>
 </html>

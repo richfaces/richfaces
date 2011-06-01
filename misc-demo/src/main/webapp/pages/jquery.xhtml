@@ -1,58 +1,58 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:misc="http://richfaces.org/misc">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:misc="http://richfaces.org/misc">
 <f:view>
-	<h:head></h:head>
-	<h:body>
-		<h:panelGroup id="clickTest">
-		Click here
-		</h:panelGroup>
-		<h:outputText value=" | " />
-		<h:panelGroup id="clickTestForReady">
-		Click here
-		</h:panelGroup>
+    <h:head></h:head>
+    <h:body>
+        <h:panelGroup id="clickTest">
+            Click here
+        </h:panelGroup>
+        <h:outputText value=" | " />
+        <h:panelGroup id="clickTestForReady">
+            Click here
+        </h:panelGroup>
 
-		<misc:jQuery selector="#clickTest" event="click" query="alert('immediate attachment')" timing="immediate" />
-		<misc:jQuery selector="#clickTestForReady" event="click" query="alert('onready attachment')" timing="domready" />
+        <misc:jQuery selector="#clickTest" event="click" query="alert('immediate attachment')" timing="immediate" />
+        <misc:jQuery selector="#clickTestForReady" event="click" query="alert('onready attachment')" timing="domready" />
 
-		<misc:jQuery selector="document.body" query="css({'background-color': '#AAA'})" />
+        <misc:jQuery selector="document.body" query="css({'background-color': '#AAA'})" />
 
-		<br />
+        <br />
 
-		<h:panelGroup id="clickTestOne">
-		Click here - event is attached for one click only
-		</h:panelGroup>
-		<a href="#" onclick="rebindOneClickEvent(); return false;">Re-enable one-typed click handler</a>
+        <h:panelGroup id="clickTestOne">
+            Click here - event is attached for one click only
+        </h:panelGroup>
+        <a href="#" onclick="rebindOneClickEvent(); return false;">Re-enable one-typed click handler</a>
 
-		<misc:jQuery event="click" selector="#clickTestOne" query="alert('one attachType')" attachType="one" />
-		<misc:jQuery event="click" name="rebindOneClickEvent" selector="#clickTestOne" query="alert('one attachType rebound event')" attachType="one" />
+        <misc:jQuery event="click" selector="#clickTestOne" query="alert('one attachType')" attachType="one" />
+        <misc:jQuery event="click" name="rebindOneClickEvent" selector="#clickTestOne"
+            query="alert('one attachType rebound event')" attachType="one" />
 
-		<h:panelGroup id="liveTestGroup">
-			<ui:repeat value="#{jQueryBean.componentsDataList}" var="data">
-				<h:panelGroup styleClass="liveTestComponent" layout="block" id="liveTestComponent">
-					Click me #{data}
-				</h:panelGroup>
-			</ui:repeat>
-		</h:panelGroup>
+        <h:panelGroup id="liveTestGroup">
+            <ui:repeat value="#{jQueryBean.componentsDataList}" var="data">
+                <h:panelGroup styleClass="liveTestComponent" layout="block" id="liveTestComponent">
+                    Click me #{data}
+                </h:panelGroup>
+            </ui:repeat>
+        </h:panelGroup>
 
-		<h:form>
-			<misc:jQuery selector="#liveTestGroup .liveTestComponent" attachType="live" event="click" query="alert(jQuery(this).text())" />
-			<h:commandButton value="Add component for live test" action="#{jQueryBean.addComponent}">
-				<f:ajax render=":liveTestGroup" />
-			</h:commandButton>
-		</h:form>
-		
-		<misc:jQuery name="emphasizeElement" query="siblings().css({'border-width': '0px'}).end().css({'border-width': '1px'})" />
-		
-		Click any list item to make selection (imitated by red 1px border):
-		<ul>
-			<ui:repeat value="#{jQueryBean.emphasizedElements}" var="elt">
-				<li style="border-color: red; border-style: solid; border-width: 0px;" onclick="emphasizeElement(this, {})">#{elt}</li>			
-			</ui:repeat>
-		</ul>
-	</h:body>
+        <h:form>
+            <misc:jQuery selector="#liveTestGroup .liveTestComponent" attachType="live" event="click"
+                query="alert(jQuery(this).text())" />
+            <h:commandButton value="Add component for live test" action="#{jQueryBean.addComponent}">
+                <f:ajax render=":liveTestGroup" />
+            </h:commandButton>
+        </h:form>
+
+        <misc:jQuery name="emphasizeElement" query="siblings().css({'border-width': '0px'}).end().css({'border-width': '1px'})" />
+
+        Click any list item to make selection (imitated by red 1px border):
+        <ul>
+            <ui:repeat value="#{jQueryBean.emphasizedElements}" var="elt">
+                <li style="border-color: red; border-style: solid; border-width: 0px;" onclick="emphasizeElement(this, {})">
+                    #{elt}</li>
+            </ui:repeat>
+        </ul>
+    </h:body>
 </f:view>
 </html>

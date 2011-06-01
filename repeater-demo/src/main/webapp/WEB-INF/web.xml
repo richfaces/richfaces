@@ -1,46 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns="http://java.sun.com/xml/ns/javaee"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
-   version="2.5">
- <display-name>Archetype Created Web Application</display-name>
- <context-param>
-  <param-name>javax.faces.CONFIG_FILES</param-name>
-  <param-value>/WEB-INF/faces-config.xml</param-value>
- </context-param>
- <context-param>
-  <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
-  <param-value>server</param-value>
- </context-param>
- <!-- 
- --> 
- <filter>
-  <display-name>Ajax4jsf Filter</display-name>
-  <filter-name>ajax4jsf</filter-name>
-  <filter-class>org.ajax4jsf.Filter</filter-class>
- </filter>
- <filter-mapping>
-  <filter-name>ajax4jsf</filter-name>
-  <servlet-name>Faces Servlet</servlet-name>
-  <dispatcher>REQUEST</dispatcher>
-  <dispatcher>FORWARD</dispatcher>
-  <dispatcher>INCLUDE</dispatcher>
-  <dispatcher>ERROR</dispatcher>
- </filter-mapping>
- <servlet>
-  <servlet-name>Faces Servlet</servlet-name>
-  <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-  <load-on-startup>1</load-on-startup>
- </servlet>
- <servlet-mapping>
-  <servlet-name>Faces Servlet</servlet-name>
-  <url-pattern>/faces/*</url-pattern>
- </servlet-mapping>
- <servlet-mapping>
-  <servlet-name>Faces Servlet</servlet-name>
-  <url-pattern>*.jsf</url-pattern>
- </servlet-mapping>
- <login-config>
-  <auth-method>BASIC</auth-method>
- </login-config>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+    <display-name>Archetype Created Web Application</display-name>
+    <context-param>
+        <param-name>javax.faces.CONFIG_FILES</param-name>
+        <param-value>/WEB-INF/faces-config.xml</param-value>
+    </context-param>
+    <context-param>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>server</param-value>
+    </context-param>
+    <!--
+    -->
+    <filter>
+        <display-name>Ajax4jsf Filter</display-name>
+        <filter-name>ajax4jsf</filter-name>
+        <filter-class>org.ajax4jsf.Filter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ajax4jsf</filter-name>
+        <servlet-name>Faces Servlet</servlet-name>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+        <dispatcher>ERROR</dispatcher>
+    </filter-mapping>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+    <login-config>
+        <auth-method>BASIC</auth-method>
+    </login-config>
 </web-app>

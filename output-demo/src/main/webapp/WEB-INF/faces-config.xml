@@ -117,18 +117,18 @@
             <from-outcome>qunit/tooltip</from-outcome>
             <to-view-id>/qunit/tooltip.xhtml</to-view-id>
         </navigation-case>
-        
+
         <!-- Toolbar navigation -->
         <navigation-case>
             <from-outcome>toolbar</from-outcome>
             <to-view-id>/examples/toolbar.xhtml</to-view-id>
         </navigation-case>
-		
+
         <!-- DropDown Menu navigation -->
         <navigation-case>
             <from-outcome>dropDownMenu</from-outcome>
             <to-view-id>/examples/dropDownMenu.xhtml</to-view-id>
-        </navigation-case>		
+        </navigation-case>
 
     </navigation-rule>
 </faces-config>

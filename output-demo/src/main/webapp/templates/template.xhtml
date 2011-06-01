@@ -1,45 +1,42 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets" >
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
-    <title>
-        <ui:define name="title">Application Title</ui:define>
-    </title>
+    <title><ui:define name="title">Application Title</ui:define></title>
 
     <meta http-equiv="content-type" content="text/xhtml; charset=UTF-8" />
     <h:outputScript library="javax.faces" name="jsf.js" target="head" />
     <h:outputScript name="jquery.js" target="head" />
 
     <style type="text/css">
-        .collapsed { display: none; }
-        .menu {
-            background-color:#7fffd4;
-        }
+.collapsed {
+    display: none;
+}
 
-        .selected {
-            background-color:blue;
-            color:white;
-        }
-    </style>
+.menu {
+    background-color: #7fffd4;
+}
+
+.selected {
+    background-color: blue;
+    color: white;
+}
+</style>
 </h:head>
 
-
-
 <h:body>
-    <ui:insert name="scripts" ></ui:insert>
+    <ui:insert name="scripts"></ui:insert>
 
     <h:form>
         <h:commandButton value="Classic">
-            <f:setPropertyActionListener target="#{skinBean.skin}" value="classic"/>
+            <f:setPropertyActionListener target="#{skinBean.skin}" value="classic" />
         </h:commandButton>
         <h:commandButton value="BlueSky">
-            <f:setPropertyActionListener target="#{skinBean.skin}" value="blueSky"/>
+            <f:setPropertyActionListener target="#{skinBean.skin}" value="blueSky" />
         </h:commandButton>
         <h:commandButton value="DeepMarine">
-            <f:setPropertyActionListener target="#{skinBean.skin}" value="deepMarine"/>
+            <f:setPropertyActionListener target="#{skinBean.skin}" value="deepMarine" />
         </h:commandButton>
     </h:form>
 
@@ -47,160 +44,135 @@
         <thead>
             <tr>
                 <th width="20%" align="left">Content</th>
-                <th width="80%" align="left">
-                    <ui:insert name="body_head">Example</ui:insert>
-                </th>
+                <th width="80%" align="left"><ui:insert name="body_head">Example</ui:insert></th>
             </tr>
         </thead>
         <tbody>
             <tr valign="top">
-                <td>
-                    <h:form id="nav">
-                    <p class="menu">Toggle Panel</p>
-                    <ul class="collapsed" >
-                        <li>
-                            <p>Examples</p>
-                            <ul>
-                                <li><h:link value="togglePanel" outcome="togglePanel" /></li>
-                                <li><h:link value="togglePanel Ajax" outcome="togglePanel/ajax" /></li>
-                                <li><h:link value="togglePanel Client" outcome="togglePanel/client" /></li>
-                                <li><h:link value="togglePanel Server" outcome="togglePanel/server" /></li>
-                                <li><h:link value="togglePanel Mixed" outcome="togglePanel/mixed" /></li>
-                            </ul>
-                            <p>QUnit</p>
-                            <ul>
-                                <li><h:link value="togglePanel" outcome="qunit/togglePanel" /></li>
-                                <li><h:link value="togglePanelItem" outcome="qunit/togglePanelItem" /></li>
-                            </ul>
-                        </li>
-                    </ul>
+                <td><h:form id="nav">
+                        <p class="menu">Toggle Panel</p>
+                        <ul class="collapsed">
+                            <li>
+                                <p>Examples</p>
+                                <ul>
+                                    <li><h:link value="togglePanel" outcome="togglePanel" /></li>
+                                    <li><h:link value="togglePanel Ajax" outcome="togglePanel/ajax" /></li>
+                                    <li><h:link value="togglePanel Client" outcome="togglePanel/client" /></li>
+                                    <li><h:link value="togglePanel Server" outcome="togglePanel/server" /></li>
+                                    <li><h:link value="togglePanel Mixed" outcome="togglePanel/mixed" /></li>
+                                </ul>
+                                <p>QUnit</p>
+                                <ul>
+                                    <li><h:link value="togglePanel" outcome="qunit/togglePanel" /></li>
+                                    <li><h:link value="togglePanelItem" outcome="qunit/togglePanelItem" /></li>
+                                </ul></li>
+                        </ul>
 
+                        <p class="menu">Accordion</p>
+                        <ul class="collapsed">
+                            <li>
+                                <p>Examples</p>
+                                <ul>
+                                    <li><h:link value="accordion" outcome="accordion" /></li>
+                                </ul></li>
+                            <li>
+                                <p>QUnit</p>
+                                <ul>
+                                    <li><h:link value="accordion" outcome="qunit/accordion" /></li>
+                                    <li><h:link value="accordionHeaders" outcome="qunit/accordionHeaders" /></li>
+                                </ul></li>
+                            <li>
+                                <p>Bugs</p>
+                                <ul>
+                                    <li><h:link value="RF-9364" outcome="RF-9364" /></li>
+                                    <li><h:link value="RF-9851" outcome="RF-9851" /></li>
+                                </ul></li>
+                        </ul>
 
-                    <p class="menu">Accordion</p>
-                    <ul class="collapsed" >
-                        <li>
-                            <p>Examples</p>
-                            <ul>
-                                <li><h:link value="accordion" outcome="accordion" /></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <p>QUnit</p>
-                            <ul>
-                                <li><h:link value="accordion" outcome="qunit/accordion" /></li>
-                                <li><h:link value="accordionHeaders" outcome="qunit/accordionHeaders" /></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <p>Bugs</p>
-                            <ul>
-                                <li><h:link value="RF-9364" outcome="RF-9364" /></li>
-                                <li><h:link value="RF-9851" outcome="RF-9851" /></li>
-                            </ul>
-                        </li>
-                    </ul>
+                        <p class="menu">Collapsible Panel</p>
+                        <ul class="collapsed">
+                            <li>
+                                <p>Examples</p>
+                                <ul>
+                                    <li><h:link value="Collapsible Panel" outcome="collapsiblePanel" /></li>
+                                </ul>
+                                <p>QUnit</p>
+                                <ul>
+                                    <li><h:link value="tabPanel" outcome="qunit/tabPanel" /></li>
+                                </ul></li>
+                        </ul>
 
-                    <p class="menu">Collapsible Panel</p>
-                    <ul class="collapsed">
-                        <li>
-                            <p>Examples</p>
-                            <ul>
-                                <li><h:link value="Collapsible Panel" outcome="collapsiblePanel" /></li>
-                            </ul>
-                            <p>QUnit</p>
-                            <ul>
-                                <li><h:link value="tabPanel" outcome="qunit/tabPanel" /></li>
-                            </ul>
-                        </li>
-                    </ul>
+                        <p class="menu">Tab Panel</p>
+                        <ul class="collapsed">
+                            <li>
+                                <p>Examples</p>
+                                <ul>
+                                    <li><h:link value="Tab Panel" outcome="tabPanel" /></li>
+                                </ul>
+                                <p>QUnit</p>
+                                <ul>
+                                    <li><h:link value="tabPanel" outcome="qunit/tabPanel" /></li>
+                                </ul></li>
+                        </ul>
 
-                    <p class="menu">Tab Panel</p>
-                    <ul class="collapsed">
-                        <li>
-                            <p>Examples</p>
-                            <ul>
-                                <li><h:link value="Tab Panel" outcome="tabPanel" /></li>
-                            </ul>
-                            <p>QUnit</p>
-                            <ul>
-                                <li><h:link value="tabPanel" outcome="qunit/tabPanel" /></li>
-                            </ul>
-                        </li>
-                    </ul>
+                        <p class="menu">Panel Menu</p>
+                        <ul class="collapsed">
+                            <li>
+                                <p>Examples</p>
+                                <ul>
+                                    <li><h:link value="Panel Menu" outcome="panelMenu" /></li>
+                                </ul>
+                                <p>QUnit</p>
+                                <ul>
+                                    <li><h:link value="Panel Menu" outcome="qunit/panelMenu" /></li>
+                                </ul>
+                                <p>Bugs</p>
+                                <ul>
+                                    <li><h:link value="RF-10153" outcome="RF-10153" /></li>
+                                </ul></li>
+                        </ul>
 
-                    <p class="menu">Panel Menu</p>
-                    <ul class="collapsed">
-                        <li>
-                            <p>Examples</p>
-                            <ul>
-                                <li><h:link value="Panel Menu" outcome="panelMenu" /></li>
-                            </ul>
-                            <p>QUnit</p>
-                            <ul>
-                                <li><h:link value="Panel Menu" outcome="qunit/panelMenu" /></li>
-                            </ul>
-                            <p>Bugs</p>
-                            <ul>
-                                <li><h:link value="RF-10153" outcome="RF-10153" /></li>
-                            </ul>
-                        </li>
-                    </ul>
+                        <p class="menu">Tooltip</p>
+                        <ul class="collapsed">
+                            <li>
+                                <p>Examples</p>
+                                <ul>
+                                    <li><h:link value="Tooltip" outcome="tooltip" /></li>
+                                </ul>
+                                <p>QUnit</p>
+                                <ul>
+                                    <li><h:link value="Tooltip" outcome="qunit/tooltip" /></li>
+                                </ul></li>
+                        </ul>
 
-                    <p class="menu">Tooltip</p>
-                    <ul class="collapsed">
-                        <li>
-                            <p>Examples</p>
-                            <ul>
-                                <li>
-                                    <h:link value="Tooltip" outcome="tooltip"/>
-                                </li>
-                            </ul>
-                            <p>QUnit</p>
-                            <ul>
-                                <li>
-                                    <h:link value="Tooltip" outcome="qunit/tooltip"/>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    
-                    <p class="menu">Toolbar</p>
-                    <ul class="collapsed">
-                        <li>
-                            <p>Examples</p>
-                            <ul>
-                                <li>
-                                    <h:link value="Toolbar" outcome="toolbar"/>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+                        <p class="menu">Toolbar</p>
+                        <ul class="collapsed">
+                            <li>
+                                <p>Examples</p>
+                                <ul>
+                                    <li><h:link value="Toolbar" outcome="toolbar" /></li>
+                                </ul></li>
+                        </ul>
 
-                    <p class="menu">DropDown Menu</p>
-                    <ul class="collapsed">
-                        <li>
-                            <p>Examples</p>
-                            <ul>
-                                <li>
-                                    <h:link value="DropDown Menu" outcome="dropDownMenu"/>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
+                        <p class="menu">DropDown Menu</p>
+                        <ul class="collapsed">
+                            <li>
+                                <p>Examples</p>
+                                <ul>
+                                    <li><h:link value="DropDown Menu" outcome="dropDownMenu" /></li>
+                                </ul></li>
+                        </ul>
 
-                    <script type="text/javascript">
+                        <script type="text/javascript">
                         $(".menu").click(function () {
                             $(this).toggleClass("selected");
                             $(this).next("ul").toggleClass("collapsed")
                         })
                     </script>
 
-                    </h:form>
-                </td>
+                    </h:form></td>
 
-                <td>
-                    <ui:insert name="body">Default content</ui:insert>
-                </td>
+                <td><ui:insert name="body">Default content</ui:insert></td>
             </tr>
         </tbody>
     </table>

@@ -25,7 +25,7 @@ RichFaces.QUnit.run(function() {
 
     var COLLAPSIBLE_PANEL_ID = "f:panel";
 
-    function handler (msg, returnValue) {
+    function handler(msg, returnValue) {
         return function () {
             ok(true, msg);
 
@@ -34,7 +34,7 @@ RichFaces.QUnit.run(function() {
             }
         };
     }
-    
+
     test("RichFaces.ui.CollapsiblePanel test constructor", function () {
         var c = RichFaces.$(COLLAPSIBLE_PANEL_ID);
 
