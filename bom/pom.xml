@@ -1,240 +1,240 @@
+<!-- JBoss, Home of Professional Open Source Copyright 2010, Red Hat, Inc.
+    and individual contributors by the @authors tag. See the copyright.txt in
+    the distribution for a full listing of individual contributors. This is free
+    software; you can redistribute it and/or modify it under the terms of the
+    GNU Lesser General Public License as published by the Free Software Foundation;
+    either version 2.1 of the License, or (at your option) any later version.
+    This software is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+    FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+    details. You should have received a copy of the GNU Lesser General Public
+    License along with this software; if not, write to the Free Software Foundation,
+    Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA, or see the
+    FSF site: http://www.fsf.org. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-<!-- JBoss, Home of Professional Open Source Copyright 2010, Red Hat, Inc. 
-	and individual contributors by the @authors tag. See the copyright.txt in 
-	the distribution for a full listing of individual contributors. This is free 
-	software; you can redistribute it and/or modify it under the terms of the 
-	GNU Lesser General Public License as published by the Free Software Foundation; 
-	either version 2.1 of the License, or (at your option) any later version. 
-	This software is distributed in the hope that it will be useful, but WITHOUT 
-	ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
-	FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more 
-	details. You should have received a copy of the GNU Lesser General Public 
-	License along with this software; if not, write to the Free Software Foundation, 
-	Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA, or see the 
-	FSF site: http://www.fsf.org. -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    <groupId>org.richfaces</groupId>
+    <artifactId>richfaces-bom</artifactId>
+    <packaging>pom</packaging>
+    <version>4.1.0-SNAPSHOT</version>
+    <name>RichFaces BOM</name>
 
-	<groupId>org.richfaces</groupId>
-	<artifactId>richfaces-bom</artifactId>
-	<packaging>pom</packaging>
-	<version>4.1.0-SNAPSHOT</version>
-	<name>RichFaces BOM</name>
+    <parent>
+        <groupId>org.richfaces</groupId>
+        <artifactId>richfaces-parent</artifactId>
+        <version>10</version>
+        <relativePath>../build/parent/pom.xml</relativePath>
+    </parent>
 
-	<parent>
-		<groupId>org.richfaces</groupId>
-		<artifactId>richfaces-parent</artifactId>
-		<version>10</version>
-		<relativePath>../build/parent/pom.xml</relativePath>
-	</parent>
-
-	<description>
+    <description>
         The RichFaces "Bill of Materials". This defines all runtime dependency
         versions for RichFaces.
-   </description>
+    </description>
 
-	<properties>
-	</properties>
+    <properties>
+    </properties>
 
-	<!-- Runtime dependency management -->
-	<dependencyManagement>
-		<dependencies>
-			<!-- Project Versions -->
-			<dependency>
-				<groupId>org.richfaces.core</groupId>
-				<artifactId>richfaces-core-api</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.richfaces.core</groupId>
-				<artifactId>richfaces-core-impl</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.richfaces.ui.common</groupId>
-				<artifactId>richfaces-ui-common-api</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.richfaces.ui.common</groupId>
-				<artifactId>richfaces-ui-common-ui</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.richfaces.ui.core</groupId>
-				<artifactId>richfaces-ui-core-api</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.richfaces.ui.core</groupId>
-				<artifactId>richfaces-ui-core-ui</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.richfaces.ui.iteration</groupId>
-				<artifactId>richfaces-ui-iteration-ui</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.richfaces.ui.iteration</groupId>
-				<artifactId>richfaces-ui-iteration-api</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.richfaces.ui.output</groupId>
-				<artifactId>richfaces-ui-output-api</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.richfaces.ui.output</groupId>
-				<artifactId>richfaces-ui-output-ui</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.richfaces.ui.misc</groupId>
-				<artifactId>richfaces-ui-misc-ui</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.richfaces.ui.input</groupId>
-				<artifactId>richfaces-ui-input-api</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.richfaces.ui.input</groupId>
-				<artifactId>richfaces-ui-input-ui</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.richfaces.ui.validator</groupId>
-				<artifactId>richfaces-ui-validator-api</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.richfaces.ui.validator</groupId>
-				<artifactId>richfaces-ui-validator-ui</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.richfaces.ui.dnd</groupId>
-				<artifactId>richfaces-ui-dnd-ui</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.richfaces.ui.dnd</groupId>
-				<artifactId>richfaces-ui-dnd-api</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.richfaces.ui</groupId>
-				<artifactId>richfaces-components-api</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.richfaces.ui</groupId>
-				<artifactId>richfaces-components-ui</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-			<!-- JSF 2 -->
-			<dependency>
-				<groupId>com.sun.faces</groupId>
-				<artifactId>jsf-api</artifactId>
+    <!-- Runtime dependency management -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- Project Versions -->
+            <dependency>
+                <groupId>org.richfaces.core</groupId>
+                <artifactId>richfaces-core-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.core</groupId>
+                <artifactId>richfaces-core-impl</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui.common</groupId>
+                <artifactId>richfaces-ui-common-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui.common</groupId>
+                <artifactId>richfaces-ui-common-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui.core</groupId>
+                <artifactId>richfaces-ui-core-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui.core</groupId>
+                <artifactId>richfaces-ui-core-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui.iteration</groupId>
+                <artifactId>richfaces-ui-iteration-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui.iteration</groupId>
+                <artifactId>richfaces-ui-iteration-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui.output</groupId>
+                <artifactId>richfaces-ui-output-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui.output</groupId>
+                <artifactId>richfaces-ui-output-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui.misc</groupId>
+                <artifactId>richfaces-ui-misc-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui.input</groupId>
+                <artifactId>richfaces-ui-input-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui.input</groupId>
+                <artifactId>richfaces-ui-input-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui.validator</groupId>
+                <artifactId>richfaces-ui-validator-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui.validator</groupId>
+                <artifactId>richfaces-ui-validator-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui.dnd</groupId>
+                <artifactId>richfaces-ui-dnd-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui.dnd</groupId>
+                <artifactId>richfaces-ui-dnd-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui</groupId>
+                <artifactId>richfaces-components-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces.ui</groupId>
+                <artifactId>richfaces-components-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- JSF 2 -->
+            <dependency>
+                <groupId>com.sun.faces</groupId>
+                <artifactId>jsf-api</artifactId>
                 <version>2.0.4-b09</version>
-			</dependency>
-			<dependency>
-				<groupId>com.sun.faces</groupId>
-				<artifactId>jsf-impl</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.faces</groupId>
+                <artifactId>jsf-impl</artifactId>
                 <version>2.0.4-b09</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.myfaces.core</groupId>
-				<artifactId>myfaces-api</artifactId>
-				<version>2.0.4</version>
-			</dependency>
-			<dependency>
-				<groupId>org.apache.myfaces.core</groupId>
-				<artifactId>myfaces-impl</artifactId>
-				<version>2.0.4</version>
-			</dependency>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.core</groupId>
+                <artifactId>myfaces-api</artifactId>
+                <version>2.0.4</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.myfaces.core</groupId>
+                <artifactId>myfaces-impl</artifactId>
+                <version>2.0.4</version>
+            </dependency>
 
-			<!-- Misc -->
-			<dependency>
-				<groupId>javax.el</groupId>
-				<artifactId>el-api</artifactId>
-				<version>1.0</version>
-			</dependency>
-			<dependency>
-				<groupId>javax.servlet</groupId>
-				<artifactId>servlet-api</artifactId>
-				<version>2.5</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.spec.javax.servlet</groupId>
-				<artifactId>jboss-servlet-api_3.0_spec</artifactId>
-				<version>1.0.0.Final</version>
-			</dependency>
-			<dependency>
-				<groupId>javax.servlet.jsp</groupId>
-				<artifactId>jsp-api</artifactId>
-				<version>2.1</version>
-			</dependency>
-			<dependency>
-				<groupId>javax.servlet</groupId>
-				<artifactId>jstl</artifactId>
-				<version>1.2</version>
-			</dependency>
-			<dependency>
-				<groupId>com.google.guava</groupId>
-				<artifactId>guava</artifactId>
-				<version>r08</version>
-			</dependency>
-			<dependency>
-				<groupId>javax.validation</groupId>
-				<artifactId>validation-api</artifactId>
-				<version>1.0.0.GA</version>
-			</dependency>
-			<!-- Required for EL-CSS func -->
-			<dependency>
-				<groupId>net.sourceforge.cssparser</groupId>
-				<artifactId>cssparser</artifactId>
-				<version>0.9.5</version>
-			</dependency>
+            <!-- Misc -->
+            <dependency>
+                <groupId>javax.el</groupId>
+                <artifactId>el-api</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>2.5</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.spec.javax.servlet</groupId>
+                <artifactId>jboss-servlet-api_3.0_spec</artifactId>
+                <version>1.0.0.Final</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet.jsp</groupId>
+                <artifactId>jsp-api</artifactId>
+                <version>2.1</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>jstl</artifactId>
+                <version>1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>r08</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>1.0.0.GA</version>
+            </dependency>
+            <!-- Required for EL-CSS func -->
+            <dependency>
+                <groupId>net.sourceforge.cssparser</groupId>
+                <artifactId>cssparser</artifactId>
+                <version>0.9.5</version>
+            </dependency>
 
-			<!-- Optional cache dependencies -->
-			<dependency>
-				<groupId>opensymphony</groupId>
-				<artifactId>oscache</artifactId>
-				<version>2.3</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.cache</groupId>
-				<artifactId>jbosscache-core</artifactId>
-				<version>3.2.5.GA</version>
-			</dependency>
-			<dependency>
-				<groupId>net.sf.ehcache</groupId>
-				<artifactId>ehcache</artifactId>
-				<version>1.6.0</version>
-			</dependency>
+            <!-- Optional cache dependencies -->
+            <dependency>
+                <groupId>opensymphony</groupId>
+                <artifactId>oscache</artifactId>
+                <version>2.3</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.cache</groupId>
+                <artifactId>jbosscache-core</artifactId>
+                <version>3.2.5.GA</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sf.ehcache</groupId>
+                <artifactId>ehcache</artifactId>
+                <version>1.6.0</version>
+            </dependency>
 
-			<!-- Push dependencies -->
-			<dependency>
-				<groupId>org.atmosphere</groupId>
-				<artifactId>atmosphere-runtime</artifactId>
-				<version>0.7.1</version>
-			</dependency>
-			<dependency>
-				<groupId>javax.jms</groupId>
-				<artifactId>jms</artifactId>
-				<version>1.1</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+            <!-- Push dependencies -->
+            <dependency>
+                <groupId>org.atmosphere</groupId>
+                <artifactId>atmosphere-runtime</artifactId>
+                <version>0.7.1</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.jms</groupId>
+                <artifactId>jms</artifactId>
+                <version>1.1</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
-	<scm>
-		<connection>scm:git:git://github.com/richfaces/build.git</connection>
-		<developerConnection>scm:git:git@github.com:richfaces/build.git</developerConnection>
-		<url>https://github.com/richfaces/build</url>
-	</scm>
+    <scm>
+        <connection>scm:git:git://github.com/richfaces/build.git</connection>
+        <developerConnection>scm:git:git@github.com:richfaces/build.git</developerConnection>
+        <url>https://github.com/richfaces/build</url>
+    </scm>
 
 </project>

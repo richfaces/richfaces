@@ -17,9 +17,8 @@
     Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF site:
     http://www.fsf.org.
 -->
-<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+<assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
     <formats>
         <format>zip</format>
     </formats>
@@ -90,7 +89,7 @@
             <directory>target/dependency/richfaces-core-impl-jsdoc-java-source</directory>
             <outputDirectory>docs/jsdoc/richfaces-core-impl/</outputDirectory>
         </fileSet>
-<!--        <fileSet>
+        <!--        <fileSet>
             <directory>target/dependency/richfaces-components-ui-jsdoc-java-source</directory>
             <outputDirectory>docs/jsdoc/richfaces-components-ui/</outputDirectory>
         </fileSet>-->

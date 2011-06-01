@@ -82,7 +82,7 @@
             </includes>
 
             <sources>
-                <outputDirectoryMapping/>
+                <outputDirectoryMapping />
                 <fileSets>
                     <fileSet>
                         <includes>
