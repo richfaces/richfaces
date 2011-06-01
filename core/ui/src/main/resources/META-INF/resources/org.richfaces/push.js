@@ -18,254 +18,254 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- */ 
+ */
 (function(jsf, richfaces, _$) {
 
-	var COMPONENT_NAME = "Push";
+    var COMPONENT_NAME = "Push";
 
-	var RICH_NAMESPACE = richfaces.Event.RICH_NAMESPACE;
-	
-	var EVENT_NAMESPACE_SEPARATOR = richfaces.Event.EVENT_NAMESPACE_SEPARATOR;
-	
-	var DATA_EVENT_NAME = 'dataAvailable' + EVENT_NAMESPACE_SEPARATOR + RICH_NAMESPACE + EVENT_NAMESPACE_SEPARATOR + COMPONENT_NAME;
+    var RICH_NAMESPACE = richfaces.Event.RICH_NAMESPACE;
 
-	var ERROR_EVENT_NAME = 'error' + EVENT_NAMESPACE_SEPARATOR + RICH_NAMESPACE + EVENT_NAMESPACE_SEPARATOR + COMPONENT_NAME;
+    var EVENT_NAMESPACE_SEPARATOR = richfaces.Event.EVENT_NAMESPACE_SEPARATOR;
 
-	var getDataEventNamespace = function(address) {
-		return DATA_EVENT_NAME + EVENT_NAMESPACE_SEPARATOR + address;
-	};
-	
-	var getErrorEventNamespace = function(address) {
-		return ERROR_EVENT_NAME + EVENT_NAMESPACE_SEPARATOR + address;
-	};
-	
-	richfaces.Push = (function() {
+    var DATA_EVENT_NAME = 'dataAvailable' + EVENT_NAMESPACE_SEPARATOR + RICH_NAMESPACE + EVENT_NAMESPACE_SEPARATOR + COMPONENT_NAME;
 
-		var addedTopics = {};
+    var ERROR_EVENT_NAME = 'error' + EVENT_NAMESPACE_SEPARATOR + RICH_NAMESPACE + EVENT_NAMESPACE_SEPARATOR + COMPONENT_NAME;
 
-		var removedTopics = {};
+    var getDataEventNamespace = function(address) {
+        return DATA_EVENT_NAME + EVENT_NAMESPACE_SEPARATOR + address;
+    };
 
-		var handlersCounter = {};
+    var getErrorEventNamespace = function(address) {
+        return ERROR_EVENT_NAME + EVENT_NAMESPACE_SEPARATOR + address;
+    };
 
-		var pushResourceUrl = null;
+    richfaces.Push = (function() {
 
-		var pushHandlerUrl = null;
+        var addedTopics = {};
 
-		var pushSessionId = null;
+        var removedTopics = {};
 
-		var suspendMessageEndMarker = /^(<!--[^>]+-->\s*)+/;
+        var handlersCounter = {};
 
-		var messageTokenExpr = /<([^>]*)>/g;
-		
-		var lastMessageNumber = -1;
-		
-		var qualifyUrl = function(url) {
-			var result = url;
+        var pushResourceUrl = null;
 
-			if (url.charAt(0) == '/') {
-				result = location.protocol + '//' + location.host + url;
-			}
-			
-			return result;
-		};
-		
-		var messageCallback = function(response) {
-			var dataString = response.responseBody.replace(suspendMessageEndMarker, "");
-			if (dataString) {
-				var messageToken;
-				while (messageToken = messageTokenExpr.exec(dataString)) {
-					if (!messageToken[1]) {
-						continue;
-					}
-					
-					var message = _$.parseJSON('{' + messageToken[1] + '}');
-					
-					if (message.number <= lastMessageNumber) {
-						continue;
-					}
-					
-					richfaces.Event.fire(document, getDataEventNamespace(message.topic), message.data);
-					lastMessageNumber = message.number;
-				}
-			}
+        var pushHandlerUrl = null;
 
-			//TODO - hotfix for jQuery-Atmosphere not resetting requestCount until message is pushed from client to server - review
-			jQuery.atmosphere.request.requestCount = 0;
-		};
+        var pushSessionId = null;
 
-		var connect = function() {
-			var pushSessionIdRequestHandler = function(data) {
-				var subscriptionData = _$.parseJSON(data);
+        var suspendMessageEndMarker = /^(<!--[^>]+-->\s*)+/;
+
+        var messageTokenExpr = /<([^>]*)>/g;
+
+        var lastMessageNumber = -1;
+
+        var qualifyUrl = function(url) {
+            var result = url;
+
+            if (url.charAt(0) == '/') {
+                result = location.protocol + '//' + location.host + url;
+            }
+
+            return result;
+        };
+
+        var messageCallback = function(response) {
+            var dataString = response.responseBody.replace(suspendMessageEndMarker, "");
+            if (dataString) {
+                var messageToken;
+                while (messageToken = messageTokenExpr.exec(dataString)) {
+                    if (!messageToken[1]) {
+                        continue;
+                    }
+
+                    var message = _$.parseJSON('{' + messageToken[1] + '}');
+
+                    if (message.number <= lastMessageNumber) {
+                        continue;
+                    }
+
+                    richfaces.Event.fire(document, getDataEventNamespace(message.topic), message.data);
+                    lastMessageNumber = message.number;
+                }
+            }
+
+            //TODO - hotfix for jQuery-Atmosphere not resetting requestCount until message is pushed from client to server - review
+            jQuery.atmosphere.request.requestCount = 0;
+        };
+
+        var connect = function() {
+            var pushSessionIdRequestHandler = function(data) {
+                var subscriptionData = _$.parseJSON(data);
 
 
-				for (var failedTopicKey in subscriptionData.failures) {
-					richfaces.Event.fire(
-							document,
-							getErrorEventNamespace(failedTopicKey), 
-							subscriptionData.failures[failedTopicKey]
-					);
-				}
+                for (var failedTopicKey in subscriptionData.failures) {
+                    richfaces.Event.fire(
+                        document,
+                        getErrorEventNamespace(failedTopicKey),
+                        subscriptionData.failures[failedTopicKey]
+                    );
+                }
 
-				if (subscriptionData.sessionId) {
-					pushSessionId = subscriptionData.sessionId;
+                if (subscriptionData.sessionId) {
+                    pushSessionId = subscriptionData.sessionId;
 
-					_$.atmosphere.subscribe((pushHandlerUrl || pushResourceUrl) + "?__richfacesPushAsync=1&pushSessionId=" + pushSessionId, messageCallback, {
-						transport: richfaces.Push.transport,
-						fallbackTransport: richfaces.Push.fallbackTransport
-					});
-				}
-			};
+                    _$.atmosphere.subscribe((pushHandlerUrl || pushResourceUrl) + "?__richfacesPushAsync=1&pushSessionId=" + pushSessionId, messageCallback, {
+                            transport: richfaces.Push.transport,
+                            fallbackTransport: richfaces.Push.fallbackTransport
+                        });
+                }
+            };
 
-			var topics = new Array();
-			for (var topicName in handlersCounter) {
-				topics.push(topicName);
-			}
+            var topics = new Array();
+            for (var topicName in handlersCounter) {
+                topics.push(topicName);
+            }
 
-			var data = {
-				"pushTopic": topics	
-			};
+            var data = {
+                "pushTopic": topics
+            };
 
-			if (pushSessionId) {
-				data['forgetPushSessionId'] = pushSessionId;
-			}
+            if (pushSessionId) {
+                data['forgetPushSessionId'] = pushSessionId;
+            }
 
-			//TODO handle request errors
-			_$.ajax({
-				data: data,
-				dataType: 'text',
-				success: pushSessionIdRequestHandler,
-				traditional: true,
-				type: 'POST',
-				url: pushResourceUrl
-			});
-		};
+            //TODO handle request errors
+            _$.ajax({
+                    data: data,
+                    dataType: 'text',
+                    success: pushSessionIdRequestHandler,
+                    traditional: true,
+                    type: 'POST',
+                    url: pushResourceUrl
+                });
+        };
 
-		var disconnect = function() {
-			_$.atmosphere.closeSuspendedConnection();
-		};
+        var disconnect = function() {
+            _$.atmosphere.closeSuspendedConnection();
+        };
 
-		return {
-			increaseSubscriptionCounters: function(address) {
-				if (isNaN(handlersCounter[address]++)) {
-					handlersCounter[address] = 1;
-					addedTopics[address] = true;
-				}
-			},	
+        return {
+            increaseSubscriptionCounters: function(address) {
+                if (isNaN(handlersCounter[address]++)) {
+                    handlersCounter[address] = 1;
+                    addedTopics[address] = true;
+                }
+            },
 
-			decreaseSubscriptionCounters: function(address) {
-				if (--handlersCounter[address] == 0) {
-					delete handlersCounter[address];
-					removedTopics[address] = true;
-				}
-			},
+            decreaseSubscriptionCounters: function(address) {
+                if (--handlersCounter[address] == 0) {
+                    delete handlersCounter[address];
+                    removedTopics[address] = true;
+                }
+            },
 
-			setPushResourceUrl: function(url) {
-				pushResourceUrl = qualifyUrl(url);
-			},
+            setPushResourceUrl: function(url) {
+                pushResourceUrl = qualifyUrl(url);
+            },
 
-			setPushHandlerUrl: function(url) {
-				pushHandlerUrl = qualifyUrl(url);
-			},
+            setPushHandlerUrl: function(url) {
+                pushHandlerUrl = qualifyUrl(url);
+            },
 
-			updateConnection: function() {
-				if (_$.isEmptyObject(handlersCounter)) {
-					disconnect();
-				} else if (!_$.isEmptyObject(addedTopics) || !_$.isEmptyObject(removedTopics)) {
-					disconnect();
-					connect();
-				}
+            updateConnection: function() {
+                if (_$.isEmptyObject(handlersCounter)) {
+                    disconnect();
+                } else if (!_$.isEmptyObject(addedTopics) || !_$.isEmptyObject(removedTopics)) {
+                    disconnect();
+                    connect();
+                }
 
-				addedTopics = {};
-				removedTopics = {};
-			}
-		};
+                addedTopics = {};
+                removedTopics = {};
+            }
+        };
 
-	}());
+    }());
 
-	_$(document).ready(richfaces.Push.updateConnection);
+    _$(document).ready(richfaces.Push.updateConnection);
 
-	richfaces.Push.transport = "long-polling";// "websocket";
-	richfaces.Push.fallbackTransport = undefined;//"long-polling";
-	
-	var ajaxEventHandler = function(event) {
-		if (event.type == 'event') {
-			if (event.status != 'success') {
-				return;
-			}
-		} else if (event.type != 'error') {
-			return;
-		}
+    richfaces.Push.transport = "long-polling";// "websocket";
+    richfaces.Push.fallbackTransport = undefined;//"long-polling";
 
-		richfaces.Push.updateConnection();
-	};
+    var ajaxEventHandler = function(event) {
+        if (event.type == 'event') {
+            if (event.status != 'success') {
+                return;
+            }
+        } else if (event.type != 'error') {
+            return;
+        }
 
-	jsf.ajax.addOnEvent(ajaxEventHandler);
-	jsf.ajax.addOnError(ajaxEventHandler);
+        richfaces.Push.updateConnection();
+    };
 
-	richfaces.ui = richfaces.ui || {};
+    jsf.ajax.addOnEvent(ajaxEventHandler);
+    jsf.ajax.addOnError(ajaxEventHandler);
 
-	richfaces.ui.Push = richfaces.BaseComponent.extendClass({
+    richfaces.ui = richfaces.ui || {};
 
-		name: COMPONENT_NAME,
+    richfaces.ui.Push = richfaces.BaseComponent.extendClass({
 
-		init: function (id, options) {
-			$super.constructor.call(this, id);
-			this.attachToDom();
+            name: COMPONENT_NAME,
 
-			this.__address = options.address;
-			this.__handlers = {};
+            init: function (id, options) {
+                $super.constructor.call(this, id);
+                this.attachToDom();
 
-			if (options.ondataavailable) {
-				//TODO check compatibility with f:ajax
-				this.__bindDataHandler(options.ondataavailable);
-			}
+                this.__address = options.address;
+                this.__handlers = {};
 
-			if (options.onerror) {
-				//TODO check compatibility with f:ajax
-				this.__bindErrorHandler(options.onerror);
-			}
+                if (options.ondataavailable) {
+                    //TODO check compatibility with f:ajax
+                    this.__bindDataHandler(options.ondataavailable);
+                }
 
-			richfaces.Push.increaseSubscriptionCounters(this.__address);
-		},
+                if (options.onerror) {
+                    //TODO check compatibility with f:ajax
+                    this.__bindErrorHandler(options.onerror);
+                }
 
-		__bindDataHandler: function(handlerCode) {
-			var ns = getDataEventNamespace(this.__address)
-			this.__handlers.data = richfaces.Event.bind(document, ns, new Function("event", handlerCode));
-		},
-		
-		__unbindDataHandler: function() {
-			if (this.__handlers.data) {
-				var ns = getDataEventNamespace(this.__address);
-				richfaces.Event.unbind(document, ns, this.__handlers.data);
+                richfaces.Push.increaseSubscriptionCounters(this.__address);
+            },
 
-				this.__handlers.data = null;
-			}
-		},
+            __bindDataHandler: function(handlerCode) {
+                var ns = getDataEventNamespace(this.__address)
+                this.__handlers.data = richfaces.Event.bind(document, ns, new Function("event", handlerCode));
+            },
 
-		__bindErrorHandler: function(handlerCode) {
-			var ns = getErrorEventNamespace(this.__address);
-			this.__handlers.error = richfaces.Event.bind(document, ns, new Function("event", handlerCode));
-		},
-		
-		__unbindErrorHandler: function() {
-			if (this.__handlers.error) {
-				var ns = getErrorEventNamespace(this.__address);
-				richfaces.Event.unbind(document, ns, this.__handlers.error);
-				
-				this.__handlers.error = null;
-			}
-		},
-		
-		destroy: function() {
-			this.__unbindDataHandler();
-			this.__unbindErrorHandler();
+            __unbindDataHandler: function() {
+                if (this.__handlers.data) {
+                    var ns = getDataEventNamespace(this.__address);
+                    richfaces.Event.unbind(document, ns, this.__handlers.data);
 
-			richfaces.Push.decreaseSubscriptionCounters(this.__address);
-			$super.destroy.call(this);
-		}
-	});
+                    this.__handlers.data = null;
+                }
+            },
 
-	// define super class link
-	var $super = richfaces.ui.Push.$super;
+            __bindErrorHandler: function(handlerCode) {
+                var ns = getErrorEventNamespace(this.__address);
+                this.__handlers.error = richfaces.Event.bind(document, ns, new Function("event", handlerCode));
+            },
+
+            __unbindErrorHandler: function() {
+                if (this.__handlers.error) {
+                    var ns = getErrorEventNamespace(this.__address);
+                    richfaces.Event.unbind(document, ns, this.__handlers.error);
+
+                    this.__handlers.error = null;
+                }
+            },
+
+            destroy: function() {
+                this.__unbindDataHandler();
+                this.__unbindErrorHandler();
+
+                richfaces.Push.decreaseSubscriptionCounters(this.__address);
+                $super.destroy.call(this);
+            }
+        });
+
+    // define super class link
+    var $super = richfaces.ui.Push.$super;
 
 }(jsf, window.RichFaces, jQuery));

@@ -25,42 +25,42 @@
     rf.ui = rf.ui || {};
 
     var DEFAULT_OPTIONS = {switchMode: 'ajax'};
-    
+
     rf.ui.CollapsiblePanelItem = rf.ui.TogglePanelItem.extendClass({
 
-        init : function (componentId, options) {
-            rf.ui.TogglePanelItem.call(this, componentId, $.extend({}, DEFAULT_OPTIONS, options));
+            init : function (componentId, options) {
+                rf.ui.TogglePanelItem.call(this, componentId, $.extend({}, DEFAULT_OPTIONS, options));
 
-            this.headerClass = "rf-cp-hdr-" + this.__state();
-        },
+                this.headerClass = "rf-cp-hdr-" + this.__state();
+            },
 
-        __enter : function () {
-            this.__content().show();
-            this.__header().addClass(this.headerClass);
+            __enter : function () {
+                this.__content().show();
+                this.__header().addClass(this.headerClass);
 
-            return true;
-        },
+                return true;
+            },
 
-        __leave : function () {
-            this.__content().hide();
-            
-            if (this.options.switchMode == 'client') {
-            	this.__header().removeClass(this.headerClass);
+            __leave : function () {
+                this.__content().hide();
+
+                if (this.options.switchMode == 'client') {
+                    this.__header().removeClass(this.headerClass);
+                }
+
+                return true;
+            },
+
+            __state : function () {
+                return this.getName() === "true" ? "exp" : "colps";
+            },
+
+            __content : function () {
+                return $(rf.getDomElement(this.id));
+            },
+
+            __header : function () {
+                return $(rf.getDomElement(this.togglePanelId + ":header"));
             }
-
-            return true;
-        },
-
-        __state : function () {
-            return this.getName() === "true" ? "exp" : "colps";
-        },
-
-        __content : function () {
-            return $(rf.getDomElement(this.id));
-        },
-
-        __header : function () {
-            return $(rf.getDomElement(this.togglePanelId + ":header"));
-        }
-    });
+        });
 })(jQuery, RichFaces);

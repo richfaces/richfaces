@@ -136,27 +136,27 @@
 
 
     rf.ui.TabPanel = rf.ui.TogglePanel.extendClass({
-        // class name
-        name:"TabPanel",
+            // class name
+            name:"TabPanel",
 
-        /**
-         * @class TabPanel
-         * @name TabPanel
-         *
-         * @constructor
-         * @param {String} componentId - component id
-         * @param {Hash} options - params
-         * */
-        init : function (componentId, options) {
-            rf.ui.TogglePanel.call(this, componentId, options);
-            this.items = [];
+            /**
+             * @class TabPanel
+             * @name TabPanel
+             *
+             * @constructor
+             * @param {String} componentId - component id
+             * @param {Hash} options - params
+             * */
+            init : function (componentId, options) {
+                rf.ui.TogglePanel.call(this, componentId, options);
+                this.items = [];
 
-            this.isKeepHeight = options["isKeepHeight"] || false
-        },
+                this.isKeepHeight = options["isKeepHeight"] || false
+            },
 
-        __itemsSwitcher : function () {
-            return ITEMS_SWITCHER;
-        }
+            __itemsSwitcher : function () {
+                return ITEMS_SWITCHER;
+            }
 
-    });
+        });
 })(jQuery, RichFaces);

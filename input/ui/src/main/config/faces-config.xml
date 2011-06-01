@@ -12,46 +12,38 @@
     License along with this software; if not, write to the Free Software Foundation, 
     Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA, or see the 
     FSF site: http://www.fsf.org. -->
-<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
-    xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
     xmlns:cdk="http://jboss.org/schema/richfaces/cdk/extensions">
     <component>
         <component-type>org.richfaces.InputNumberSlider</component-type>
         <component-class>org.richfaces.component.html.HtmlInputNumberSlider</component-class>
         <property>
-			<property-name>readonly</property-name>
-			<property-class>boolean</property-class>
-			<property-extension>
-	        	<cdk:hidden>true</cdk:hidden>
-			</property-extension>
+            <property-name>readonly</property-name>
+            <property-class>boolean</property-class>
+            <property-extension>
+                <cdk:hidden>true</cdk:hidden>
+            </property-extension>
         </property>
- 		<xi:include
-			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
-			href="urn:attributes:javax.faces.component.UIInput.xml" />
-		<xi:include
-			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
-			href="urn:attributes:events-props.xml" />
-		<xi:include
-			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
-			href="urn:attributes:base-props.xml" />
-		<xi:include
-			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
-			href="urn:attributes:core-props.xml" />
-		<xi:include
-			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
-			href="urn:attributes:input-props.xml" />
-		<xi:include
-			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
-			href="urn:attributes:focus-props.xml" />
-		<xi:include
-			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
-			href="urn:attributes:i18n-props.xml" />
+        <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+            href="urn:attributes:javax.faces.component.UIInput.xml" />
+        <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+            href="urn:attributes:events-props.xml" />
+        <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+            href="urn:attributes:base-props.xml" />
+        <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+            href="urn:attributes:core-props.xml" />
+        <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+            href="urn:attributes:input-props.xml" />
+        <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+            href="urn:attributes:focus-props.xml" />
+        <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+            href="urn:attributes:i18n-props.xml" />
         <property>
             <property-name>decreaseClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
-			<cdk:pass-through>true</cdk:pass-through>
+                <cdk:pass-through>true</cdk:pass-through>
                 <cdk:generate>true</cdk:generate>
             </property-extension>
         </property>
@@ -59,7 +51,7 @@
             <property-name>decreaseSelectedClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
-			<cdk:pass-through>true</cdk:pass-through>
+                <cdk:pass-through>true</cdk:pass-through>
                 <cdk:generate>true</cdk:generate>
             </property-extension>
         </property>
@@ -91,7 +83,7 @@
             <property-name>handleClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
-			<cdk:pass-through>true</cdk:pass-through>
+                <cdk:pass-through>true</cdk:pass-through>
                 <cdk:generate>true</cdk:generate>
             </property-extension>
         </property>
@@ -99,7 +91,7 @@
             <property-name>handleSelectedClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
-			<cdk:pass-through>true</cdk:pass-through>
+                <cdk:pass-through>true</cdk:pass-through>
                 <cdk:generate>true</cdk:generate>
             </property-extension>
         </property>
@@ -107,7 +99,7 @@
             <property-name>increaseClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
-			<cdk:pass-through>true</cdk:pass-through>
+                <cdk:pass-through>true</cdk:pass-through>
                 <cdk:generate>true</cdk:generate>
             </property-extension>
         </property>
@@ -115,7 +107,7 @@
             <property-name>increaseSelectedClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
-			<cdk:pass-through>true</cdk:pass-through>
+                <cdk:pass-through>true</cdk:pass-through>
                 <cdk:generate>true</cdk:generate>
             </property-extension>
         </property>
@@ -123,7 +115,7 @@
             <property-name>inputClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
-			<cdk:pass-through>true</cdk:pass-through>
+                <cdk:pass-through>true</cdk:pass-through>
                 <cdk:generate>true</cdk:generate>
             </property-extension>
         </property>
@@ -211,7 +203,7 @@
             <property-name>tooltipClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
-			<cdk:pass-through>true</cdk:pass-through>
+                <cdk:pass-through>true</cdk:pass-through>
                 <cdk:generate>true</cdk:generate>
             </property-extension>
         </property>
@@ -219,7 +211,7 @@
             <property-name>trackClass</property-name>
             <property-class>java.lang.String</property-class>
             <property-extension>
-			<cdk:pass-through>true</cdk:pass-through>
+                <cdk:pass-through>true</cdk:pass-through>
                 <cdk:generate>true</cdk:generate>
             </property-extension>
         </property>
@@ -238,33 +230,26 @@
         <component-type>org.richfaces.InputNumberSpinner</component-type>
         <component-class>org.richfaces.component.html.HtmlInputNumberSpinner</component-class>
         <property>
-			<property-name>readonly</property-name>
-			<property-class>boolean</property-class>
-			<property-extension>
-	        	<cdk:hidden>true</cdk:hidden>
-			</property-extension>
+            <property-name>readonly</property-name>
+            <property-class>boolean</property-class>
+            <property-extension>
+                <cdk:hidden>true</cdk:hidden>
+            </property-extension>
         </property>
-		<xi:include
-			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
-			href="urn:attributes:javax.faces.component.UIInput.xml" />
-		<xi:include
-			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
-			href="urn:attributes:events-props.xml" />
-		<xi:include
-			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
-			href="urn:attributes:base-props.xml" />
-		<xi:include
-			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
-			href="urn:attributes:core-props.xml" />
-		<xi:include
-			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
-			href="urn:attributes:input-props.xml" />
-		<xi:include
-			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
-			href="urn:attributes:focus-props.xml" />
-		<xi:include
-			xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
-			href="urn:attributes:i18n-props.xml" />
+        <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+            href="urn:attributes:javax.faces.component.UIInput.xml" />
+        <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+            href="urn:attributes:events-props.xml" />
+        <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+            href="urn:attributes:base-props.xml" />
+        <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+            href="urn:attributes:core-props.xml" />
+        <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+            href="urn:attributes:input-props.xml" />
+        <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+            href="urn:attributes:focus-props.xml" />
+        <xi:include xpointer="xmlns(cdk=http://jboss.org/schema/richfaces/cdk/extensions)xpointer(/cdk:properties/*)"
+            href="urn:attributes:i18n-props.xml" />
         <property>
             <property-name>disabled</property-name>
             <property-class>boolean</property-class>
@@ -424,7 +409,7 @@
                 <cdk:event-name>upclick</cdk:event-name>
             </property-extension>
         </property>
-       <property>
+        <property>
             <property-name>step</property-name>
             <property-class>java.lang.String</property-class>
             <default-value>"1"</default-value>

@@ -24,27 +24,30 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
-	xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
-	xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+    xmlns:javaee="http://java.sun.com/xml/ns/javaee">
 
-	<cc:interface>
-		<cdk:class>org.richfaces.renderkit.html.DragIndicatorRenderer</cdk:class>
-		<cdk:superclass>org.richfaces.renderkit.DragIndicatorRendererBase</cdk:superclass>
-		<cdk:component-family>org.richfaces.DragIndicator</cdk:component-family>
-		<cdk:renderer-type>org.richfaces.DragIndicatorRenderer</cdk:renderer-type>
-	</cc:interface>
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.DragIndicatorRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.DragIndicatorRendererBase</cdk:superclass>
+        <cdk:component-family>org.richfaces.DragIndicator</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.DragIndicatorRenderer</cdk:renderer-type>
+    </cc:interface>
 
-	<cc:implementation>
-		<div id="#{clientId}" class="rf-ind #{component.attributes['styleClass']}" style="display: none;"> 			
-			<cdk:body />
-			<cdk:scriptObject name="options">
-				<cdk:scriptOption name="acceptClass" value="#{this.concatClasses('rf-ind-acpt', component.attributes['acceptClass'])}"/>
-				<cdk:scriptOption name="rejectClass" value="#{this.concatClasses('rf-ind-rejt', component.attributes['rejectClass'])}"/>
-				<cdk:scriptOption name="draggingClass" value="#{this.concatClasses('rf-ind-drag', component.attributes['draggingClass'])}"/>
-			</cdk:scriptObject>
-			<script type="text/javascript">
-				new RichFaces.ui.DragIndicator("#{clientId}", #{toScriptArgs(options)});
-			</script>
-		</div>
-	</cc:implementation>
+    <cc:implementation>
+        <div id="#{clientId}" class="rf-ind #{component.attributes['styleClass']}" style="display: none;">
+            <cdk:body />
+            <cdk:scriptObject name="options">
+                <cdk:scriptOption name="acceptClass"
+                    value="#{this.concatClasses('rf-ind-acpt', component.attributes['acceptClass'])}" />
+                <cdk:scriptOption name="rejectClass"
+                    value="#{this.concatClasses('rf-ind-rejt', component.attributes['rejectClass'])}" />
+                <cdk:scriptOption name="draggingClass"
+                    value="#{this.concatClasses('rf-ind-drag', component.attributes['draggingClass'])}" />
+            </cdk:scriptObject>
+            <script type="text/javascript">
+                new RichFaces.ui.DragIndicator("#{clientId}", #{toScriptArgs(options)});
+            </script>
+        </div>
+    </cc:implementation>
 </cdk:root>

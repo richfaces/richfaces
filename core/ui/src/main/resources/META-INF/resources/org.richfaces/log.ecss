@@ -1,50 +1,53 @@
 .rf-log {
-	color: '#{richSkin.generalTextColor}';
+    color: '#{richSkin.generalTextColor}';
 }
 
 .rf-log-popup {
-	overflow: visible;
+    overflow: visible;
 }
 
 .rf-log-popup-cnt {
-	display: none;
+    display: none;
 }
 
 .rf-log-inline {
-	height: 300px;
-	overflow: auto;
-	width: 100%;
+    height: 300px;
+    overflow: auto;
+    width: 100%;
 }
 
 .rf-log-contents {
-	font-family: monospace;
+    font-family: monospace;
 }
 
 .rf-log-entry-lbl {
+    
 }
 
 .rf-log-entry-lbl-debug {
-	color: darkblue;
+    color: darkblue;
 }
 
 .rf-log-entry-lbl-info {
-	color: blue;
+    color: blue;
 }
 
 .rf-log-entry-lbl-warn {
-	color: gold;
+    color: gold;
 }
 
 .rf-log-entry-lbl-error {
-	color: red;
+    color: red;
 }
 
 .rf-log-entry-msg {
+    
 }
 
-.rf-log-entry-msg-debug, .rf-log-entry-msg-info, .rf-log-entry-msg-warn, .rf-log-entry-msg-error {
+.rf-log-entry-msg-debug,.rf-log-entry-msg-info,.rf-log-entry-msg-warn,.rf-log-entry-msg-error {
+    
 }
 
 .rf-log-entry-msg-xml {
-	color: dimgray;
+    color: dimgray;
 }

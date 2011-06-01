@@ -12,29 +12,25 @@
 	License along with this software; if not, write to the Free Software Foundation, 
 	Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA, or see the 
 	FSF site: http://www.fsf.org. -->
-<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el"
-	xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
-	xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:xi="http://www.w3.org/2001/XInclude">
-	<cc:interface>
-		<cdk:class>org.richfaces.renderkit.html.HtmlMessageRenderer</cdk:class>
-		<cdk:superclass>org.richfaces.renderkit.MessageRendererBase</cdk:superclass>
-		<cdk:component-family>javax.faces.Message</cdk:component-family>
-		<cdk:renderer-type>org.richfaces.MessageRenderer</cdk:renderer-type>
-        <cdk:resource-dependency library="org.richfaces"
-            name="msg.ecss" />
-		<cdk:resource-dependency library="org.richfaces"
-			name="message.reslib" />
-	</cc:interface>
-	<cc:implementation>
-		<span id="#{clientId}" class="rf-msg #{component.attributes['styleClass']}"
-			cdk:passThroughWithExclusions="id class">
-			<c:forEach var="msg"
-				items="#{getVisibleMessages(facesContext,component)}">
-				<span class="#{getMsgClass(facesContext,component,msg)}" style="#{getMsgStyle(facesContext,component,msg)}">
-					<cdk:call>encodeMessage(facesContext,component,msg)</cdk:call>
-				</span>
-			</c:forEach>
-			<cdk:call>encodeScript(facesContext,component)</cdk:call>
-		</span>
-	</cc:implementation>
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+    xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite" xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core"
+    xmlns:xi="http://www.w3.org/2001/XInclude">
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.HtmlMessageRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.MessageRendererBase</cdk:superclass>
+        <cdk:component-family>javax.faces.Message</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.MessageRenderer</cdk:renderer-type>
+        <cdk:resource-dependency library="org.richfaces" name="msg.ecss" />
+        <cdk:resource-dependency library="org.richfaces" name="message.reslib" />
+    </cc:interface>
+    <cc:implementation>
+        <span id="#{clientId}" class="rf-msg #{component.attributes['styleClass']}" cdk:passThroughWithExclusions="id class">
+            <c:forEach var="msg" items="#{getVisibleMessages(facesContext,component)}">
+                <span class="#{getMsgClass(facesContext,component,msg)}" style="#{getMsgStyle(facesContext,component,msg)}">
+                    <cdk:call>encodeMessage(facesContext,component,msg)</cdk:call>
+                </span>
+            </c:forEach>
+            <cdk:call>encodeScript(facesContext,component)</cdk:call>
+        </span>
+    </cc:implementation>
 </cdk:root>

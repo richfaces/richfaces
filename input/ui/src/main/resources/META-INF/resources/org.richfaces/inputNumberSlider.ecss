@@ -19,78 +19,78 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-.rf-insl, .rf-insl-trc-cntr {
-	display: inline-block;
+.rf-insl,.rf-insl-trc-cntr {
+    display: inline-block;
 }
 
 .rf-insl {
-	white-space: nowrap;
+    white-space: nowrap;
 }
 
 .rf-insl-trc-cntr {
-	width: 200px; /*TODO remove it*/
-	vertical-align: top;
+    width: 200px; /*TODO remove it*/
+    vertical-align: top;
 }
 
-.rf-insl-mn, .rf-insl-mx, input.rf-insl-inp, .rf-insl-tt {
-	font-size: '#{richSkin.generalSizeFont}';
-	font-family: '#{richSkin.generalFamilyFont}';
-	color: '#{richSkin.generalTextColor}';
+.rf-insl-mn,.rf-insl-mx,input.rf-insl-inp,.rf-insl-tt {
+    font-size: '#{richSkin.generalSizeFont}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    color: '#{richSkin.generalTextColor}';
 }
 
-.rf-insl-mn, .rf-insl-mx {
-	display: block;
-	margin-bottom: 3px;
+.rf-insl-mn,.rf-insl-mx {
+    display: block;
+    margin-bottom: 3px;
 }
 
 .rf-insl-mn {
-	border-left-width: 1px;
-	border-left-style: solid;
-	border-left-color: '#{richSkin.panelBorderColor}';
-	padding-left: 3px;
-	float: left;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: '#{richSkin.panelBorderColor}';
+    padding-left: 3px;
+    float: left;
 }
 
 .rf-insl-mx {
-	border-right-width: 1px;
-	border-right-style: solid;
-	border-right-color: '#{richSkin.panelBorderColor}';
-	padding-right: 3px;
-	float: right;
-	text-align: right;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: '#{richSkin.panelBorderColor}';
+    padding-right: 3px;
+    float: right;
+    text-align: right;
 }
 
 .rf-insl-inp-cntr {
-	margin: 0px; 
-	vertical-align: bottom;
+    margin: 0px;
+    vertical-align: bottom;
 }
 
 input.rf-insl-inp {
-	margin: 0px 10px 0px 10px;
-	vertical-align: bottom;
+    margin: 0px 10px 0px 10px;
+    vertical-align: bottom;
 }
 
 .rf-insl-tt {
-	position: absolute;
-	display: none;
-	padding: 2px;
-	border: 1px solid '#{richSkin.tipBorderColor}';
-	background-color: '#{richSkin.tipBackgroundColor}';
+    position: absolute;
+    display: none;
+    padding: 2px;
+    border: 1px solid '#{richSkin.tipBorderColor}';
+    background-color: '#{richSkin.tipBackgroundColor}';
 }
 
 .rf-insl-trc {
-	background: url("#{resource['org.richfaces.images:insldrTrackGrad.png']}") 1px 1px repeat-x;
-	background-color: '#{richSkin.controlBackgroundColor}';
-	border-width: 1px;
-	border-style: solid;
-	border-color: '#{richSkin.panelBorderColor}';
-	display: block;
-	height: 6px;
-	clear: both;
-	vertical-align: top;
-	text-align: left;
-	/* outline style fix for chrome */
-	font-size: 0px;
+    background: url("#{resource['org.richfaces.images:insldrTrackGrad.png']}") 1px 1px repeat-x;
+    background-color: '#{richSkin.controlBackgroundColor}';
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{richSkin.panelBorderColor}';
+    display: block;
+    height: 6px;
+    clear: both;
+    vertical-align: top;
+    text-align: left;
+    /* outline style fix for chrome */
+    font-size: 0px;
     max-width: 100%;
 }
 
@@ -98,53 +98,52 @@ input.rf-insl-inp {
     min-width: 0;
 }
 
-.rf-insl-hnd, .rf-insl-hnd-dis, .rf-insl-dec, .rf-insl-inc, .rf-insl-dec-dis, .rf-insl-inc-dis {
-	display: inline-block;
-	width: 7px;
-	height: 7px;
+.rf-insl-hnd,.rf-insl-hnd-dis,.rf-insl-dec,.rf-insl-inc,.rf-insl-dec-dis,.rf-insl-inc-dis {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
 }
 
-.rf-insl-hnd, .rf-insl-hnd-dis {
-	vertical-align: top;
+.rf-insl-hnd,.rf-insl-hnd-dis {
+    vertical-align: top;
 }
 
-.rf-insl-dec, .rf-insl-inc, .rf-insl-dec-dis, .rf-insl-inc-dis {
-	vertical-align: bottom;
+.rf-insl-dec,.rf-insl-inc,.rf-insl-dec-dis,.rf-insl-inc-dis {
+    vertical-align: bottom;
 }
-
 
 .rf-insl-hnd {
-	background-image: url("#{resource['org.richfaces.images:sliderArrowBottom.png']}");
+    background-image: url("#{resource['org.richfaces.images:sliderArrowBottom.png']}");
 }
 
 .rf-insl-hnd-sel {
-	background-image: url("#{resource['org.richfaces.images:sliderSelectedArrowBottom.png']}");
+    background-image: url("#{resource['org.richfaces.images:sliderSelectedArrowBottom.png']}");
 }
 
 .rf-insl-hnd-dis {
-	background-image: url("#{resource['org.richfaces.images:sliderDisabledArrowBottom.png']}");
+    background-image: url("#{resource['org.richfaces.images:sliderDisabledArrowBottom.png']}");
 }
 
 .rf-insl-dec {
-	background-image: url("#{resource['org.richfaces.images:sliderArrowLeft.png']}");
+    background-image: url("#{resource['org.richfaces.images:sliderArrowLeft.png']}");
 }
 
 .rf-insl-dec-sel {
-	background-image: url("#{resource['org.richfaces.images:sliderSelectedArrowLeft.png']}");
+    background-image: url("#{resource['org.richfaces.images:sliderSelectedArrowLeft.png']}");
 }
 
 .rf-insl-dec-dis {
-	background-image: url("#{resource['org.richfaces.images:sliderDisabledArrowLeft.png']}");
+    background-image: url("#{resource['org.richfaces.images:sliderDisabledArrowLeft.png']}");
 }
 
 .rf-insl-inc {
-	background-image: url("#{resource['org.richfaces.images:sliderArrowRight.png']}");
+    background-image: url("#{resource['org.richfaces.images:sliderArrowRight.png']}");
 }
 
 .rf-insl-inc-sel {
-	background-image: url("#{resource['org.richfaces.images:sliderSelectedArrowRight.png']}");
+    background-image: url("#{resource['org.richfaces.images:sliderSelectedArrowRight.png']}");
 }
 
 .rf-insl-inc-dis {
-	background-image: url("#{resource['org.richfaces.images:sliderDisabledArrowRight.png']}");
+    background-image: url("#{resource['org.richfaces.images:sliderDisabledArrowRight.png']}");
 }

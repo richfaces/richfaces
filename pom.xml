@@ -16,7 +16,9 @@
     write to the Free Software Foundation, Inc., 51 Franklin St,
     Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF site:
     http://www.fsf.org.
---><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!-- This aggregator pom, is not released, and is only used to make it easy to build all of the
@@ -26,7 +28,7 @@
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
         <version>10</version>
-<relativePath>../parent/pom.xml</relativePath>
+        <relativePath>../parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.ui</groupId>
@@ -46,5 +48,5 @@
         <module>dist</module>
         <module>dnd</module>
         <module>validator</module>
-  </modules>
+    </modules>
 </project>

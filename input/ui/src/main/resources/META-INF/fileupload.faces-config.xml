@@ -23,13 +23,11 @@ License along with this software; if not, write to the Free
 Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
-<faces-config version="2.0"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
-	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/extensions"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<factory>
+<faces-config version="2.0" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+    xmlns="http://java.sun.com/xml/ns/javaee" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/extensions" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <factory>
         <faces-context-factory>org.richfaces.context.FileUploadFacesContextFactory</faces-context-factory>
-	</factory>
+    </factory>
     <lifecycle>
         <phase-listener>org.richfaces.context.FileUploadPhaseListener</phase-listener>
     </lifecycle>

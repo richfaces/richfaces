@@ -25,109 +25,109 @@
     rf.ui = rf.ui || {};
 
     rf.ui.AccordionItem = rf.ui.TogglePanelItem.extendClass({
-        // class name
-        name:"AccordionItem",
+            // class name
+            name:"AccordionItem",
 
-        /**
-         * @class AccordionItem
-         * @name AccordionItem
-         *
-         * @constructor
-         * @param {String} componentId - component id
-         * @param {Hash} options - params
-         * */
-        init : function (componentId, options) {
-            $super.constructor.call(this, componentId, options);
+            /**
+             * @class AccordionItem
+             * @name AccordionItem
+             *
+             * @constructor
+             * @param {String} componentId - component id
+             * @param {Hash} options - params
+             * */
+            init : function (componentId, options) {
+                $super.constructor.call(this, componentId, options);
 
-            if (!this.disabled) {
-                rf.Event.bindById(this.id + ":header", "click", this.__onHeaderClick, this);
+                if (!this.disabled) {
+                    rf.Event.bindById(this.id + ":header", "click", this.__onHeaderClick, this);
+                }
+
+                if (this.isSelected()) {
+                    var item = this;
+                    $(document).ready(function () {
+                        item.__fitToHeight(item.getTogglePanel());
+                    });
+                }
+            },
+
+            /***************************** Public Methods  ****************************************************************/
+
+            __onHeaderClick : function (comp) {
+                this.getTogglePanel().switchToItem(this.getName());
+            },
+
+            /**
+             * @return {jQuery Object}
+             * */
+            __header : function () {
+                return $(rf.getDomElement(this.id + ":header"));
+            },
+
+            /**
+             * @return {jQuery Object}
+             * */
+            __content : function () {
+                if (!this.__content_) {
+                    this.__content_ = $(rf.getDomElement(this.id + ":content"));
+                }
+                return this.__content_;
+            },
+
+            /**
+             * @private
+             *
+             * used in TogglePanel
+             * */
+            __enter : function () {
+                var parentPanel = this.getTogglePanel();
+                if (parentPanel.isKeepHeight) {
+                    this.__content().hide(); // TODO ?
+                    this.__fitToHeight(parentPanel);
+                }
+
+                this.__content().show();
+                this.__header().addClass("rf-ac-itm-hdr-act").removeClass("rf-ac-itm-hdr-inact");
+
+                return this.__fireEnter();
+            },
+
+            __fitToHeight : function (parentPanel) {
+                var h = parentPanel.getInnerHeight();
+
+                var items = parentPanel.getItems();
+                for (var i in items) {
+                    h -= items[i].__header().outerHeight();
+                }
+
+                this.__content().height(h - 20); // 20 it is padding top and bottom
+            },
+
+            getHeight : function (recalculate) {
+                if (recalculate || !this.__height) {
+                    this.__height = $(rf.getDomElement(this.id)).outerHeight(true)
+                }
+
+                return this.__height;
+            },
+
+            /**
+             * @private
+             *
+             * used in TogglePanel
+             * */
+            __leave : function () {
+                var continueProcess = this.__fireLeave();
+                if (!continueProcess) {
+                    return false;
+                }
+
+                this.__content().hide();
+                this.__header().removeClass("rf-ac-itm-hdr-act").addClass("rf-ac-itm-hdr-inact");
+
+                return true;
             }
-
-            if (this.isSelected()) {
-                var item = this;
-                $(document).ready(function () {
-                    item.__fitToHeight(item.getTogglePanel());
-                });
-            }
-        },
-
-        /***************************** Public Methods  ****************************************************************/
-
-        __onHeaderClick : function (comp) {
-            this.getTogglePanel().switchToItem(this.getName());
-        },
-
-        /**
-         * @return {jQuery Object}
-         * */
-        __header : function () {
-            return $(rf.getDomElement(this.id + ":header"));
-        },
-
-        /**
-         * @return {jQuery Object}
-         * */
-        __content : function () {
-            if (!this.__content_) {
-                this.__content_ = $(rf.getDomElement(this.id + ":content"));
-            }
-            return this.__content_;
-        },
-
-        /**
-         * @private
-         *
-         * used in TogglePanel
-         * */
-        __enter : function () {
-            var parentPanel = this.getTogglePanel();
-            if (parentPanel.isKeepHeight) {
-                this.__content().hide(); // TODO ?
-                this.__fitToHeight(parentPanel);
-            }
-
-            this.__content().show();
-            this.__header().addClass("rf-ac-itm-hdr-act").removeClass("rf-ac-itm-hdr-inact");
-
-            return this.__fireEnter();
-        },
-
-        __fitToHeight : function (parentPanel) {
-            var h = parentPanel.getInnerHeight();
-
-            var items = parentPanel.getItems();
-            for (var i in items) {
-                h -= items[i].__header().outerHeight();
-            }
-
-            this.__content().height(h - 20); // 20 it is padding top and bottom
-        },
-
-        getHeight : function (recalculate) {
-            if (recalculate || !this.__height) {
-                this.__height = $(rf.getDomElement(this.id)).outerHeight(true)
-            }
-
-            return this.__height;
-        },
-
-        /**
-         * @private
-         *
-         * used in TogglePanel
-         * */
-        __leave : function () {
-            var continueProcess = this.__fireLeave();
-            if (!continueProcess) {
-                return false;
-            }
-
-            this.__content().hide();
-            this.__header().removeClass("rf-ac-itm-hdr-act").addClass("rf-ac-itm-hdr-inact");
-
-            return true;
-        }
-    });
+        });
 
     // define super class link
     var $super = rf.ui.AccordionItem.$super;
