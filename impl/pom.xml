@@ -1,91 +1,91 @@
+<!--
+        JBoss, Home of Professional Open Source Copyright 2010, Red Hat, Inc.
+        and individual contributors by the @authors tag. See the copyright.txt
+        in the distribution for a full listing of individual contributors.
+        This is free software; you can redistribute it and/or modify it under
+        the terms of the GNU Lesser General Public License as published by the
+        Free Software Foundation; either version 2.1 of the License, or (at
+        your option) any later version. This software is distributed in the
+        hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+        the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+        PURPOSE. See the GNU Lesser General Public License for more details.
+        You should have received a copy of the GNU Lesser General Public
+        License along with this software; if not, write to the Free Software
+        Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301
+        USA, or see the FSF site: http://www.fsf.org.
+    -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-	<!--
-		JBoss, Home of Professional Open Source Copyright 2010, Red Hat, Inc.
-		and individual contributors by the @authors tag. See the copyright.txt
-		in the distribution for a full listing of individual contributors.
-		This is free software; you can redistribute it and/or modify it under
-		the terms of the GNU Lesser General Public License as published by the
-		Free Software Foundation; either version 2.1 of the License, or (at
-		your option) any later version. This software is distributed in the
-		hope that it will be useful, but WITHOUT ANY WARRANTY; without even
-		the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
-		PURPOSE. See the GNU Lesser General Public License for more details.
-		You should have received a copy of the GNU Lesser General Public
-		License along with this software; if not, write to the Free Software
-		Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301
-		USA, or see the FSF site: http://www.fsf.org.
-	-->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.richfaces.core</groupId>
+        <artifactId>richfaces-core-parent</artifactId>
+        <version>4.1.0-SNAPSHOT</version>
+        <relativePath>../parent/pom.xml</relativePath>
+    </parent>
 
-	<parent>
-		<groupId>org.richfaces.core</groupId>
-		<artifactId>richfaces-core-parent</artifactId>
-		<version>4.1.0-SNAPSHOT</version>
-		<relativePath>../parent/pom.xml</relativePath>
-	</parent>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.richfaces.core</groupId>
+    <artifactId>richfaces-core-impl</artifactId>
+    <name>RichFaces Core Implementation</name>
 
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.richfaces.core</groupId>
-	<artifactId>richfaces-core-impl</artifactId>
-	<name>RichFaces Core Implementation</name>
+    <description>
+        The RichFaces Core Implementation.
+    </description>
 
-	<description>
-      The RichFaces Core Implementation.
-   </description>
-
-	<dependencies>
-		<!-- Runtime Dependencies -->
-		<dependency>
-			<groupId>org.richfaces.core</groupId>
-			<artifactId>richfaces-core-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>net.sourceforge.cssparser</groupId>
-			<artifactId>cssparser</artifactId>
-		</dependency>
+    <dependencies>
+        <!-- Runtime Dependencies -->
+        <dependency>
+            <groupId>org.richfaces.core</groupId>
+            <artifactId>richfaces-core-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.cssparser</groupId>
+            <artifactId>cssparser</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
         </dependency>
 
-		<!-- Provided Dependencies -->
-		<dependency>
-			<groupId>javax.el</groupId>
-			<artifactId>el-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
+        <!-- Provided Dependencies -->
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>el-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.jboss.spec.javax.servlet</groupId>
             <artifactId>jboss-servlet-api_3.0_spec</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>jsp-api</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<scope>provided</scope>
-		</dependency>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
-		<!-- Cache Impls -->
-		<dependency>
-			<groupId>org.jboss.cache</groupId>
-			<artifactId>jbosscache-core</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>net.sf.ehcache</groupId>
-			<artifactId>ehcache</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>opensymphony</groupId>
-			<artifactId>oscache</artifactId>
-			<optional>true</optional>
-		</dependency>
+        <!-- Cache Impls -->
+        <dependency>
+            <groupId>org.jboss.cache</groupId>
+            <artifactId>jbosscache-core</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>opensymphony</groupId>
+            <artifactId>oscache</artifactId>
+            <optional>true</optional>
+        </dependency>
 
         <!-- Push dependencies -->
         <dependency>
@@ -99,136 +99,136 @@
             <optional>true</optional>
         </dependency>
 
-		<!-- Test Dependencies -->
-		<dependency>
-			<groupId>org.jboss.test-jsf</groupId>
-			<artifactId>htmlunit-client</artifactId>
-			<scope>test</scope>
-            
+        <!-- Test Dependencies -->
+        <dependency>
+            <groupId>org.jboss.test-jsf</groupId>
+            <artifactId>htmlunit-client</artifactId>
+            <scope>test</scope>
+
             <exclusions>
                 <exclusion>
                     <groupId>javax.servlet</groupId>
                     <artifactId>servlet-api</artifactId>
                 </exclusion>
             </exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.test-jsf</groupId>
-			<artifactId>jsf-mock</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.easymock</groupId>
-			<artifactId>easymock</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.easymock</groupId>
-			<artifactId>easymockclassextension</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.test-jsf</groupId>
+            <artifactId>jsf-mock</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymockclassextension</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
-	<build>
-		<plugins>
-	        <plugin>
-	           <!-- Checkstyle only required here because suppressions needed -->
-	           <artifactId>maven-checkstyle-plugin</artifactId>
-	           <configuration>
-	               <suppressionsLocation>${project.basedir}/richfaces-suppressions.xml</suppressionsLocation>
-	           </configuration>
-	        </plugin>
-			
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>buildnumber-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>validate</phase>
-						<goals>
-							<goal>create</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<doCheck>false</doCheck>
-					<doUpdate>false</doUpdate>
-					<revisionOnScmFailure>unknown</revisionOnScmFailure>
-					<timestampFormat>{0,date,MM/dd/yyyy h:mm:ss a}</timestampFormat>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifestEntries>
-							<SCM-Revision>${buildNumber}</SCM-Revision>
-							<SCM-Timestamp>${timestamp}</SCM-Timestamp>
-						</manifestEntries>
-					</archive>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+    <build>
+        <plugins>
+            <plugin>
+                <!-- Checkstyle only required here because suppressions needed -->
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <suppressionsLocation>${project.basedir}/richfaces-suppressions.xml</suppressionsLocation>
+                </configuration>
+            </plugin>
 
-	<profiles>
-		<profile>
-			<id>release</id>
-			<!-- TODO need to centralize - need to research first -->
-			<build>
-				<plugins>
-					<plugin>
-						<!--
-							TODO - this can go to central, but should check settings. This is
-							also related to docs so perhaps add to a doc profile Configure
-							JavaScript Doc Tool
-						-->
-						<groupId>gr.abiss.mvn.plugins</groupId>
-						<artifactId>maven-jstools-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>jsdoc</id>
-								<configuration>
-									<jsDir>${basedir}/src/main/resources/META-INF/resources</jsDir>
-									<includes>**/*.js</includes>
-									<caseSensitive>true</caseSensitive>
-								</configuration>
-								<goals>
-									<goal>jsdoc</goal>
-								</goals>
-								<phase>process-sources</phase>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<!-- pack jsdoc to jar -->
-						<artifactId>maven-jar-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>pack-jsodcs</id>
-								<phase>package</phase>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-								<configuration>
-									<classesDirectory>${basedir}/target/site/jsdoc</classesDirectory>
-									<classifier>jsdoc</classifier>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <doCheck>false</doCheck>
+                    <doUpdate>false</doUpdate>
+                    <revisionOnScmFailure>unknown</revisionOnScmFailure>
+                    <timestampFormat>{0,date,MM/dd/yyyy h:mm:ss a}</timestampFormat>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <SCM-Revision>${buildNumber}</SCM-Revision>
+                            <SCM-Timestamp>${timestamp}</SCM-Timestamp>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <!-- TODO need to centralize - need to research first -->
+            <build>
+                <plugins>
+                    <plugin>
+                        <!--
+                                  TODO - this can go to central, but should check settings. This is
+                                  also related to docs so perhaps add to a doc profile Configure
+                                  JavaScript Doc Tool
+                              -->
+                        <groupId>gr.abiss.mvn.plugins</groupId>
+                        <artifactId>maven-jstools-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>jsdoc</id>
+                                <configuration>
+                                    <jsDir>${basedir}/src/main/resources/META-INF/resources</jsDir>
+                                    <includes>**/*.js</includes>
+                                    <caseSensitive>true</caseSensitive>
+                                </configuration>
+                                <goals>
+                                    <goal>jsdoc</goal>
+                                </goals>
+                                <phase>process-sources</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <!-- pack jsdoc to jar -->
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>pack-jsodcs</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <classesDirectory>${basedir}/target/site/jsdoc</classesDirectory>
+                                    <classifier>jsdoc</classifier>
                                     <excludes>
                                         <exclude>**/symbols/src/*</exclude>
                                     </excludes>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
-	<scm>
-		<connection>scm:git:git://github.com/richfaces/core.git</connection>
-		<developerConnection>scm:git:git@github.com:richfaces/core.git</developerConnection>
-		<url>https://github.com/richfaces/core</url>
-	</scm>
+    <scm>
+        <connection>scm:git:git://github.com/richfaces/core.git</connection>
+        <developerConnection>scm:git:git@github.com:richfaces/core.git</developerConnection>
+        <url>https://github.com/richfaces/core</url>
+    </scm>
 </project>

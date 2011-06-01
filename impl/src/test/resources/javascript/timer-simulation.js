@@ -1,84 +1,84 @@
 var Timer = {
 
-	_eventCounter: 0,	
-		
-	currentTime: 0,
-	
-	maxTime: 10000000,
-	
-	events: new Array(),
-	
-	wSetTimeout: window.setTimeout,
+    _eventCounter: 0,
 
-	wClearTimeout: window.clearTimeout,
+    currentTime: 0,
 
-	addEventToTimer: function(callback, delay) {
-		var eventTime = this.currentTime + delay;
-		
-		var i = 0;
-		
-		while (this.events[i] && (this.events[i].eventTime <= eventTime)) {
-			i++;
-		}
-		
-		var eventId = this._eventCounter++;
-		
-		this.events.splice(i, 0, {eventTime: eventTime, callback: callback, eventId: eventId});
-	
-		return eventId;
-	},
+    maxTime: 10000000,
 
-	removeEventFromTimer: function(eventId) {
-		for ( var i = 0; i < this.events.length; i++) {
-			if (this.events[i].eventId == eventId) {
-				this.events.splice(i, 1);
-				
-				break;
-			}
-		}
-	},
-	
-	execute: function() {
-		while (this.events.length > 0) {
-			
-			var eventData = this.events.shift();
-			
-			this.currentTime = eventData.eventTime;
-			if (this.currentTime > this.maxTime) {
-				throw "Maximum execution time reached, aborting timer";
-			}
-			
-			try {
-				eventData.callback();
-			} catch (e) {
-				alert(e.message);
-			}
-		}
-	},
-	
-	isEmpty: function() {
-		return this.events.length == 0;
-	},
+    events: new Array(),
 
-	clear: function() {
-		this._eventCounter = 0;
-		this.currentTime = 0;
-		this.events = [];
-	},
+    wSetTimeout: window.setTimeout,
 
-	beginSimulation: function() {
-		this.clear();
-		window.setTimeout = document.setTimeout = function(callback, delay) {
-			return Timer.addEventToTimer(callback, delay);
-		};
-		
-		window.clearTimeout = document.clearTimeout = function(timerId) {
-			Timer.removeEventFromTimer(timerId);
-		};
-	},
+    wClearTimeout: window.clearTimeout,
 
-	endSimulation: function() {
-		window.setTimeout = Timer.wSetTimeout;
-		window.clearTimeout = Timer.wClearTimeout;
-	} 
+    addEventToTimer: function(callback, delay) {
+        var eventTime = this.currentTime + delay;
+
+        var i = 0;
+
+        while (this.events[i] && (this.events[i].eventTime <= eventTime)) {
+            i++;
+        }
+
+        var eventId = this._eventCounter++;
+
+        this.events.splice(i, 0, {eventTime: eventTime, callback: callback, eventId: eventId});
+
+        return eventId;
+    },
+
+    removeEventFromTimer: function(eventId) {
+        for (var i = 0; i < this.events.length; i++) {
+            if (this.events[i].eventId == eventId) {
+                this.events.splice(i, 1);
+
+                break;
+            }
+        }
+    },
+
+    execute: function() {
+        while (this.events.length > 0) {
+
+            var eventData = this.events.shift();
+
+            this.currentTime = eventData.eventTime;
+            if (this.currentTime > this.maxTime) {
+                throw "Maximum execution time reached, aborting timer";
+            }
+
+            try {
+                eventData.callback();
+            } catch (e) {
+                alert(e.message);
+            }
+        }
+    },
+
+    isEmpty: function() {
+        return this.events.length == 0;
+    },
+
+    clear: function() {
+        this._eventCounter = 0;
+        this.currentTime = 0;
+        this.events = [];
+    },
+
+    beginSimulation: function() {
+        this.clear();
+        window.setTimeout = document.setTimeout = function(callback, delay) {
+            return Timer.addEventToTimer(callback, delay);
+        };
+
+        window.clearTimeout = document.clearTimeout = function(timerId) {
+            Timer.removeEventFromTimer(timerId);
+        };
+    },
+
+    endSimulation: function() {
+        window.setTimeout = Timer.wSetTimeout;
+        window.clearTimeout = Timer.wClearTimeout;
+    }
 };

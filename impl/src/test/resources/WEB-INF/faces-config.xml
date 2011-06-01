@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="windows-1252"?>
-<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee"
-    xmlns:bridge="http://www.apache.org/myfaces/xml/ns/bridge/bridge-extension">
+<faces-config version="2.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:bridge="http://www.apache.org/myfaces/xml/ns/bridge/bridge-extension">
     <application>
-       <application-extension>
-           <bridge:excluded-attributes>
-               <bridge:excluded-attribute>foo.bar</bridge:excluded-attribute>
-               <bridge:excluded-attribute>foo.baz.*</bridge:excluded-attribute>
-           </bridge:excluded-attributes>
-       </application-extension>    
+        <application-extension>
+            <bridge:excluded-attributes>
+                <bridge:excluded-attribute>foo.bar</bridge:excluded-attribute>
+                <bridge:excluded-attribute>foo.baz.*</bridge:excluded-attribute>
+            </bridge:excluded-attributes>
+        </application-extension>
     </application>
 </faces-config>

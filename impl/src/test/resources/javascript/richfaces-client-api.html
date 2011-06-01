@@ -1,46 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>jQuery Test Suite</title>
-		<link type="text/css" rel="Stylesheet" media="screen" href="qunit/qunit.css" />
-		<script type="text/javascript" src="../../classes/META-INF/resources/jquery.js"></script>
-		<script type="text/javascript" src="qunit/qunit.js"></script>
-		<script type="text/javascript" src="timer-simulation.js"></script>
-		<script type="text/javascript" src="richfaces-jsf-ajax-qunit.js"></script>
-		<script type="text/javascript" src="../../classes/META-INF/resources/richfaces.js"></script>
-		<script type="text/javascript" src="../../classes/META-INF/resources/jquery.position.js"></script>
-		<script type="text/javascript">
-			// save handlers counter
-			jsf.ajax.__data = {};
-			jsf.ajax.__data.beforeEventHandlers = jsf.ajax.eventHandlerCounter;
-			jsf.ajax.__data.beforeErrorHandlers = jsf.ajax.errorHandlerCounter;
-		</script>
-		<script type="text/javascript" src="../../classes/META-INF/resources/richfaces-queue.js"></script>
-		<script type="text/javascript">
-			// save handlers counter
-			jsf.ajax.__data.afterEventHandlers = jsf.ajax.eventHandlerCounter;
-			jsf.ajax.__data.afterErrorHandlers = jsf.ajax.errorHandlerCounter;
-		</script>
-		<script type="text/javascript" src="../../classes/META-INF/resources/richfaces-base-component.js"></script>
-		<script type="text/javascript" src="../../classes/META-INF/resources/richfaces-event.js"></script>
-		<script type="text/javascript" src="richfaces-qunit.js"></script>
-		<script type="text/javascript" src="richfaces-event-qunit.js"></script>
-		<script type="text/javascript" src="jquery-position-qunit.js"></script>
-		<script type="text/javascript" src="richfaces-queue-qunit-request.js"></script>
-		<script type="text/javascript" src="richfaces-queue-qunit-getSize.js"></script>
-		<script type="text/javascript" src="richfaces-queue-qunit-isEmpty.js"></script>
-		<script type="text/javascript" src="richfaces-queue-qunit-clear.js"></script>
-		<script type="text/javascript" src="richfaces-queue-qunit-submitFirst.js"></script>
-		<script type="text/javascript" src="richfaces-base-component-qunit.js"></script>
-	</head>
-	<body>
- 		<h1 id="qunit-header">Richfaces Client API Tests</h1>
- 		<h2 id="qunit-banner"></h2>
-		<h2 id="qunit-userAgent"></h2>
- 		<ol id="qunit-tests"></ol>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery Test Suite</title>
+<link type="text/css" rel="Stylesheet" media="screen" href="qunit/qunit.css" />
+<script type="text/javascript" src="../../classes/META-INF/resources/jquery.js"></script>
+<script type="text/javascript" src="qunit/qunit.js"></script>
+<script type="text/javascript" src="timer-simulation.js"></script>
+<script type="text/javascript" src="richfaces-jsf-ajax-qunit.js"></script>
+<script type="text/javascript" src="../../classes/META-INF/resources/richfaces.js"></script>
+<script type="text/javascript" src="../../classes/META-INF/resources/jquery.position.js"></script>
+<script type="text/javascript">
+        // save handlers counter
+        jsf.ajax.__data = {};
+        jsf.ajax.__data.beforeEventHandlers = jsf.ajax.eventHandlerCounter;
+        jsf.ajax.__data.beforeErrorHandlers = jsf.ajax.errorHandlerCounter;
+    </script>
+<script type="text/javascript" src="../../classes/META-INF/resources/richfaces-queue.js"></script>
+<script type="text/javascript">
+        // save handlers counter
+        jsf.ajax.__data.afterEventHandlers = jsf.ajax.eventHandlerCounter;
+        jsf.ajax.__data.afterErrorHandlers = jsf.ajax.errorHandlerCounter;
+    </script>
+<script type="text/javascript" src="../../classes/META-INF/resources/richfaces-base-component.js"></script>
+<script type="text/javascript" src="../../classes/META-INF/resources/richfaces-event.js"></script>
+<script type="text/javascript" src="richfaces-qunit.js"></script>
+<script type="text/javascript" src="richfaces-event-qunit.js"></script>
+<script type="text/javascript" src="jquery-position-qunit.js"></script>
+<script type="text/javascript" src="richfaces-queue-qunit-request.js"></script>
+<script type="text/javascript" src="richfaces-queue-qunit-getSize.js"></script>
+<script type="text/javascript" src="richfaces-queue-qunit-isEmpty.js"></script>
+<script type="text/javascript" src="richfaces-queue-qunit-clear.js"></script>
+<script type="text/javascript" src="richfaces-queue-qunit-submitFirst.js"></script>
+<script type="text/javascript" src="richfaces-base-component-qunit.js"></script>
+</head>
+<body>
+    <h1 id="qunit-header">Richfaces Client API Tests</h1>
 
-		<div id="testDiv" style="margin-top:10px; border:1px solid #a0a0a0">Main Test Div</div>
-	</body>
+    <h2 id="qunit-banner"></h2>
+
+    <h2 id="qunit-userAgent"></h2>
+    <ol id="qunit-tests"></ol>
+
+    <div id="testDiv" style="margin-top: 10px; border: 1px solid #a0a0a0">Main Test Div</div>
+</body>
 </html>
