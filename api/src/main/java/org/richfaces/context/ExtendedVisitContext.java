@@ -38,13 +38,10 @@ import org.richfaces.util.FastJoiner;
  *
  */
 public abstract class ExtendedVisitContext extends VisitContext {
-
     public static final String META_COMPONENT_ID = "org.richfaces.MetaComponentId";
-
-    private static final FastJoiner META_COMPONENT_SEPARATOR_JOINER = FastJoiner.on(MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR);
-    
+    private static final FastJoiner META_COMPONENT_SEPARATOR_JOINER = FastJoiner
+        .on(MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR);
     private final FacesContext facesContext;
-
     private final ExtendedVisitContextMode visitMode;
 
     protected ExtendedVisitContext(FacesContext facesContext, ExtendedVisitContextMode visitMode) {
@@ -62,8 +59,7 @@ public abstract class ExtendedVisitContext extends VisitContext {
         return visitMode;
     }
 
-    public VisitResult invokeMetaComponentVisitCallback(UIComponent component, VisitCallback callback,
-        String metaComponentId) {
+    public VisitResult invokeMetaComponentVisitCallback(UIComponent component, VisitCallback callback, String metaComponentId) {
 
         if (metaComponentId != null) {
             Map<Object, Object> attributes = getFacesContext().getAttributes();
@@ -93,8 +89,7 @@ public abstract class ExtendedVisitContext extends VisitContext {
         return facesContext;
     }
 
-    public abstract Collection<String>getDirectSubtreeIdsToVisit(UIComponent component);
+    public abstract Collection<String> getDirectSubtreeIdsToVisit(UIComponent component);
 
-    public abstract VisitContext createNamingContainerVisitContext(UIComponent component,
-        Collection<String> directIds);
+    public abstract VisitContext createNamingContainerVisitContext(UIComponent component, Collection<String> directIds);
 }

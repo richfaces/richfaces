@@ -30,10 +30,9 @@ import org.richfaces.renderkit.util.HtmlDimensions;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public abstract class AbstractSkin implements Skin {
-
     protected Integer decodeColor(Object value) {
         if (value instanceof Color) {
             return ((Color) value).getRGB();
@@ -61,19 +60,19 @@ public abstract class AbstractSkin implements Skin {
             }
         }
     }
-    
+
     public Integer getColorParameter(FacesContext context, String name) {
         return decodeColor(getParameter(context, name));
     }
-    
+
     public Integer getColorParameter(FacesContext context, String name, Object defaultValue) {
         return decodeColor(getParameter(context, name, defaultValue));
     }
-    
+
     public Integer getIntegerParameter(FacesContext context, String name) {
         return decodeInteger(getParameter(context, name));
     }
-    
+
     public Integer getIntegerParameter(FacesContext context, String name, Object defaultValue) {
         return decodeInteger(getParameter(context, name, defaultValue));
     }

@@ -21,20 +21,15 @@
  */
 package org.richfaces.renderkit;
 
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface AjaxConstants {
-
-    public static final String ALL = "@all";
-    public static final String FORM = "@form";
-    public static final String THIS = "@this";
-    public static final String NONE = "@none";
-
-    public static final String BEHAVIOR_EVENT_PARAMETER = "javax.faces.behavior.event";
-
-    public static final String AJAX_COMPONENT_ID_PARAMETER = "org.richfaces.ajax.component";
-
+    String ALL = "@all";
+    String FORM = "@form";
+    String THIS = "@this";
+    String NONE = "@none";
+    String BEHAVIOR_EVENT_PARAMETER = "javax.faces.behavior.event";
+    String AJAX_COMPONENT_ID_PARAMETER = "org.richfaces.ajax.component";
 }

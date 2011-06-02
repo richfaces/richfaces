@@ -33,62 +33,59 @@ import org.richfaces.application.push.PushContextFactory;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class PushContextFactoryImpl implements PushContextFactory {
-
     public static final String PUSH_HANDLER_MAPPING_ATTRIBUTE = PushContextFactoryImpl.class.getName();
-    
     public static final String PUSH_CONTEXT_RESOURCE_NAME = "__richfaces_push";
 
     private static final class PushContextHolder {
-
         static final PushContext INSTANCE = createInstance();
 
         private PushContextHolder() {
         }
-        
-    }    
+    }
 
     private static String getApplicationContextName(FacesContext facesContext) {
         Object contextObject = facesContext.getExternalContext().getContext();
         if (contextObject instanceof ServletContext) {
             return ((ServletContext) contextObject).getContextPath();
         }
-        
+
         return "/";
     }
-    
+
     private static String convertToUrl(FacesContext facesContext, String mapping) {
         if (mapping == null) {
             return mapping;
         }
-        
+
         String url = mapping.replaceAll(Pattern.quote("*"), PUSH_CONTEXT_RESOURCE_NAME);
         if (!url.startsWith("/")) {
-            url = '/' + url; 
+            url = '/' + url;
         }
-        
+
         return getApplicationContextName(facesContext) + url;
     }
-    
+
     private static PushContext createInstance() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
 
-        String pushHandlerMapping = (String) facesContext.getExternalContext().getApplicationMap().get(PUSH_HANDLER_MAPPING_ATTRIBUTE);
-        
+        String pushHandlerMapping = (String) facesContext.getExternalContext().getApplicationMap()
+            .get(PUSH_HANDLER_MAPPING_ATTRIBUTE);
+
         if (pushHandlerMapping == null) {
-            pushHandlerMapping = ConfigurationServiceHelper.getStringConfigurationValue(facesContext, CoreConfiguration.Items.pushHandlerMapping);
+            pushHandlerMapping = ConfigurationServiceHelper.getStringConfigurationValue(facesContext,
+                CoreConfiguration.Items.pushHandlerMapping);
         }
-        
+
         PushContextImpl pushContext = new PushContextImpl(convertToUrl(facesContext, pushHandlerMapping));
         pushContext.init(facesContext);
-        
+
         return pushContext;
     }
-    
+
     public PushContext getPushContext() {
         return PushContextHolder.INSTANCE;
     }
-
 }

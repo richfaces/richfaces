@@ -28,20 +28,16 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface ResourceFactory {
+    String STATIC_RESOURCE_MAPPINGS = "META-INF/richfaces/static-resource-mappings.properties";
+    String DYNAMIC_RESOURCE_MAPPINGS = "META-INF/richfaces/resource-mappings.properties";
+    String SKINNED_RESOURCE_PREFIX = "%skin%/";
 
-    public static final String STATIC_RESOURCE_MAPPINGS = "META-INF/richfaces/static-resource-mappings.properties";
+    Collection<ResourceKey> getMappedDynamicResourceKeys();
 
-    public static final String DYNAMIC_RESOURCE_MAPPINGS = "META-INF/richfaces/resource-mappings.properties";
+    Resource createResource(String resourceName, String libraryName, String contentType);
 
-    public static final String SKINNED_RESOURCE_PREFIX = "%skin%/";
-    
-    public Collection<ResourceKey> getMappedDynamicResourceKeys();
-    
-    public abstract Resource createResource(String resourceName, String libraryName, String contentType);
-
-    public abstract Resource createResource(FacesContext context, ResourceRequestData resourceData);
-
+    Resource createResource(FacesContext context, ResourceRequestData resourceData);
 }

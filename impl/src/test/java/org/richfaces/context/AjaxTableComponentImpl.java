@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.context;
 
 import java.util.Collection;
@@ -39,7 +38,6 @@ import org.richfaces.log.RichfacesLogger;
  *
  */
 public class AjaxTableComponentImpl extends UIData {
-
     private static final Logger LOG = RichfacesLogger.COMPONENTS.getLogger();
 
     private boolean visitMetaComponent(String name, ExtendedVisitContext visitContext, VisitCallback callback) {
@@ -126,7 +124,7 @@ public class AjaxTableComponentImpl extends UIData {
 
         // Return false to allow the visit to continue
         return false;
-    }    
+    }
 
     protected boolean visitFixedChildren(VisitContext visitContext, VisitCallback callback) {
 
@@ -143,7 +141,7 @@ public class AjaxTableComponentImpl extends UIData {
 
             return false;
         } else {
-            for (UIComponent facet: getFacets().values()) {
+            for (UIComponent facet : getFacets().values()) {
                 if (facet.visitTree(visitContext, callback)) {
                     return true;
                 }
@@ -167,7 +165,7 @@ public class AjaxTableComponentImpl extends UIData {
                 continue;
             }
 
-            for (UIComponent child: getChildren()) {
+            for (UIComponent child : getChildren()) {
                 if (child.visitTree(visitContext, callback)) {
                     return true;
                 }
@@ -176,5 +174,4 @@ public class AjaxTableComponentImpl extends UIData {
 
         return false;
     }
-
 }

@@ -32,12 +32,10 @@ import org.richfaces.component.MetaComponentProcessor;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 final class PartialViewExecuteVisitCallback implements VisitCallback {
-
     private FacesContext facesContext;
-    
     private PhaseId phaseId;
 
     PartialViewExecuteVisitCallback(FacesContext context, PhaseId phaseId) {
@@ -45,7 +43,7 @@ final class PartialViewExecuteVisitCallback implements VisitCallback {
         this.facesContext = context;
         this.phaseId = phaseId;
     }
-    
+
     public VisitResult visit(VisitContext context, UIComponent target) {
         String metaComponentId = (String) facesContext.getAttributes().get(ExtendedVisitContext.META_COMPONENT_ID);
         if (metaComponentId != null) {
@@ -60,7 +58,7 @@ final class PartialViewExecuteVisitCallback implements VisitCallback {
         } else {
             throw new IllegalArgumentException(phaseId.toString());
         }
-        
+
         return VisitResult.REJECT;
     }
 }

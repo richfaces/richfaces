@@ -23,10 +23,8 @@ package org.richfaces.application.push;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface SessionFactory {
-
-    public Session createSession(String pushSessionId);
-    
+    Session createSession(String pushSessionId);
 }

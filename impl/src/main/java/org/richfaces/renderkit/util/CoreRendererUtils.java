@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.renderkit.util;
 
 import static org.richfaces.renderkit.AjaxConstants.ALL;
@@ -42,15 +39,13 @@ import org.richfaces.context.ComponentIdResolver;
 import org.richfaces.context.ExtendedVisitContext;
 
 /**
- * Util class for common render operations - render passthru html attributes,
- * iterate over child components etc.
+ * Util class for common render operations - render passthru html attributes, iterate over child components etc.
  *
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.6 $ $Date: 2007/02/08 19:07:16 $
  *
  */
 public final class CoreRendererUtils {
-
     public static final Set<String> GLOBAL_META_COMPONENTS;
 
     static {
@@ -65,7 +60,7 @@ public final class CoreRendererUtils {
 
     private CoreRendererUtils() {
     }
-    
+
     public String getPredefinedMetaComponentId(FacesContext facesContext, UIComponent component, String id) {
 
         if (ALL.equals(id)) {
@@ -75,7 +70,8 @@ public final class CoreRendererUtils {
         } else if (THIS.equals(id)) {
             String metaComponentId = (String) facesContext.getAttributes().get(ExtendedVisitContext.META_COMPONENT_ID);
             if (metaComponentId != null) {
-                return component.getClientId(facesContext) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + metaComponentId;
+                return component.getClientId(facesContext) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
+                    + metaComponentId;
             }
             return component.getClientId(facesContext);
         } else if (FORM.equals(id)) {
@@ -83,13 +79,12 @@ public final class CoreRendererUtils {
             if (nestingForm != null) {
                 return nestingForm.getClientId(facesContext);
             } else {
-                //TODO nick - log warning for missing form
+                // TODO nick - log warning for missing form
             }
         }
 
         return null;
     }
-
 
     /**
      * @param ids
@@ -100,7 +95,7 @@ public final class CoreRendererUtils {
     private static boolean checkKeyword(Collection<String> ids, String keyword) {
         if (ids.contains(keyword)) {
             if (ids.size() != 1) {
-                //TODO log
+                // TODO log
             }
 
             return true;
@@ -116,14 +111,13 @@ public final class CoreRendererUtils {
      * @since 4.0
      * @return
      */
-    public Collection<String> findComponentsFor(FacesContext context, UIComponent component,
-            Collection<String> shortIds) {
+    public Collection<String> findComponentsFor(FacesContext context, UIComponent component, Collection<String> shortIds) {
         Set<String> result = new LinkedHashSet<String>(shortIds.size());
 
         if (checkKeyword(shortIds, ALL)) {
             result.add(ALL);
         } else if (checkKeyword(shortIds, NONE)) {
-            //do nothing, use empty set
+            // do nothing, use empty set
         } else {
             ComponentIdResolver locator = new ComponentIdResolver(context);
 
@@ -157,7 +151,7 @@ public final class CoreRendererUtils {
      * @param component
      * @return nested <code>UIForm</code> component, or <code>null</code>
      */
-    //TODO - remove code duplication
+    // TODO - remove code duplication
     public UIForm getNestingForm(FacesContext context, UIComponent component) {
         UIComponent parent = component.getParent();
 
@@ -175,5 +169,4 @@ public final class CoreRendererUtils {
 
         return nestingForm;
     }
-
 }

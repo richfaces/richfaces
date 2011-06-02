@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.javascript;
 
 import java.beans.PropertyDescriptor;
@@ -49,42 +46,41 @@ import org.richfaces.log.RichfacesLogger;
  * @version $Revision: 1.1.2.3 $ $Date: 2007/01/24 13:22:31 $
  */
 public final class ScriptUtils {
-
     private static final Logger LOG = RichfacesLogger.UTIL.getLogger();
-    
-    //there is the same pattern in client-side code: 
-    //richfaces.js - RichFaces.escapeCSSMetachars(s)
+    // there is the same pattern in client-side code:
+    // richfaces.js - RichFaces.escapeCSSMetachars(s)
     private static final char[] CSS_SELECTOR_CHARS_TO_ESCAPE = createSortedCharArray("#;&,.+*~':\"!^$[]()=>|/");
-    
+
     /**
      * This is utility class, don't instantiate.
      */
-    private ScriptUtils() {}
+    private ScriptUtils() {
+    }
 
     private static char[] createSortedCharArray(String s) {
         char[] cs = s.toCharArray();
         Arrays.sort(cs);
         return cs;
     }
-    
+
     private static void appendScript(Appendable appendable, Object obj, Map<Object, Boolean> cycleBusterMap) throws IOException {
         Boolean cycleBusterValue = cycleBusterMap.put(obj, Boolean.TRUE);
-        
+
         if (cycleBusterValue != null) {
             if (LOG.isDebugEnabled()) {
                 String formattedMessage;
                 try {
                     formattedMessage = Messages.getMessage(Messages.JAVASCRIPT_CIRCULAR_REFERENCE, obj);
                 } catch (MissingResourceException e) {
-                    //ignore exception: workaround for unit tests
+                    // ignore exception: workaround for unit tests
                     formattedMessage = MessageFormat.format("Circular reference serializing object to JS: {0}", obj);
                 }
 
                 LOG.debug(formattedMessage);
-            }            
+            }
             appendable.append("null");
         } else if (null == obj) {
-            //TODO nick - skip non-rendered values like Integer.MIN_VALUE
+            // TODO nick - skip non-rendered values like Integer.MIN_VALUE
             appendable.append("null");
         } else if (obj instanceof ScriptString) {
             ((ScriptString) obj).appendScript(appendable);
@@ -108,13 +104,14 @@ public final class ScriptUtils {
         } else if (obj instanceof Collection<?>) {
 
             // Collections put as JavaScript array.
-            @SuppressWarnings("unchecked") Collection<Object> collection = (Collection<Object>) obj;
+            @SuppressWarnings("unchecked")
+            Collection<Object> collection = (Collection<Object>) obj;
 
             appendable.append("[");
 
             boolean first = true;
 
-            for (Iterator<Object> iter = collection.iterator(); iter.hasNext(); ) {
+            for (Iterator<Object> iter = collection.iterator(); iter.hasNext();) {
                 Object element = iter.next();
 
                 if (!first) {
@@ -129,7 +126,8 @@ public final class ScriptUtils {
         } else if (obj instanceof Map<?, ?>) {
 
             // Maps put as JavaScript hash.
-            @SuppressWarnings("unchecked") Map<Object, Object> map = (Map<Object, Object>) obj;
+            @SuppressWarnings("unchecked")
+            Map<Object, Object> map = (Map<Object, Object>) obj;
 
             appendable.append("{");
 
@@ -174,7 +172,8 @@ public final class ScriptUtils {
                 throw new FacesException("Error in conversion Java Object to JavaScript", e);
             }
 
-            boolean ignorePropertyReadException = obj.getClass().getName().startsWith("java.sql.") || obj.getClass().equals(SimpleTimeZone.class);
+            boolean ignorePropertyReadException = obj.getClass().getName().startsWith("java.sql.")
+                || obj.getClass().equals(SimpleTimeZone.class);
             boolean first = true;
 
             for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
@@ -208,15 +207,14 @@ public final class ScriptUtils {
 
             appendable.append("} ");
         }
-        
+
         if (cycleBusterValue == null) {
             cycleBusterMap.remove(obj);
         }
     }
 
     /**
-     * Convert any Java Object to JavaScript representation ( as possible ) and write it to
-     * writer immediately
+     * Convert any Java Object to JavaScript representation ( as possible ) and write it to writer immediately
      *
      * @param responseWriter
      * @param obj
@@ -248,7 +246,7 @@ public final class ScriptUtils {
     public static void appendScript(Appendable appendable, Object obj) throws IOException {
         appendScript(appendable, obj, new IdentityHashMap<Object, Boolean>());
     }
-    
+
     public static void appendEncodedString(Appendable appendable, Object obj) throws IOException {
         appendable.append("\"");
         appendEncoded(appendable, obj);
@@ -331,13 +329,11 @@ public final class ScriptUtils {
 
         return buf == null ? s : buf.toString();
     }
-    
+
     public static boolean shouldRenderAttribute(Object attributeVal) {
         if (null == attributeVal) {
             return false;
-        } else if (attributeVal instanceof Boolean
-                && ((Boolean) attributeVal).booleanValue() == Boolean.FALSE
-                        .booleanValue()) {
+        } else if (attributeVal instanceof Boolean && ((Boolean) attributeVal).booleanValue() == Boolean.FALSE.booleanValue()) {
             return false;
         } else if (attributeVal.toString().length() == 0) {
             return false;
@@ -345,43 +341,34 @@ public final class ScriptUtils {
             return isValidProperty(attributeVal);
         }
     }
-    
+
     public static boolean shouldRenderAttribute(String attributeName, Object attributeVal) {
         return shouldRenderAttribute(attributeVal);
     }
-    
+
     /**
-     * Test for valid value of property. by default, for non-setted properties
-     * with Java primitive types of JSF component return appropriate MIN_VALUE .
-     * 
-     * @param property -
-     *            value of property returned from
-     *            {@link javax.faces.component.UIComponent#getAttributes()}
+     * Test for valid value of property. by default, for non-setted properties with Java primitive types of JSF component return
+     * appropriate MIN_VALUE .
+     *
+     * @param property - value of property returned from {@link javax.faces.component.UIComponent#getAttributes()}
      * @return true for setted property, false otherthise.
      */
     public static boolean isValidProperty(Object property) {
         if (null == property) {
             return false;
-        } else if (property instanceof Integer
-                && ((Integer) property).intValue() == Integer.MIN_VALUE) {
+        } else if (property instanceof Integer && ((Integer) property).intValue() == Integer.MIN_VALUE) {
             return false;
-        } else if (property instanceof Double
-                && ((Double) property).doubleValue() == Double.MIN_VALUE) {
+        } else if (property instanceof Double && ((Double) property).doubleValue() == Double.MIN_VALUE) {
             return false;
-        } else if (property instanceof Character
-                && ((Character) property).charValue() == Character.MIN_VALUE) {
+        } else if (property instanceof Character && ((Character) property).charValue() == Character.MIN_VALUE) {
             return false;
-        } else if (property instanceof Float
-                && ((Float) property).floatValue() == Float.MIN_VALUE) {
+        } else if (property instanceof Float && ((Float) property).floatValue() == Float.MIN_VALUE) {
             return false;
-        } else if (property instanceof Short
-                && ((Short) property).shortValue() == Short.MIN_VALUE) {
+        } else if (property instanceof Short && ((Short) property).shortValue() == Short.MIN_VALUE) {
             return false;
-        } else if (property instanceof Byte
-                && ((Byte) property).byteValue() == Byte.MIN_VALUE) {
+        } else if (property instanceof Byte && ((Byte) property).byteValue() == Byte.MIN_VALUE) {
             return false;
-        } else if (property instanceof Long
-                && ((Long) property).longValue() == Long.MIN_VALUE) {
+        } else if (property instanceof Long && ((Long) property).longValue() == Long.MIN_VALUE) {
             return false;
         }
         return true;
@@ -389,10 +376,10 @@ public final class ScriptUtils {
 
     /**
      * <p>
-     * Escapes CSS meta-characters in string according to 
-     *  <a href="http://api.jquery.com/category/selectors/">jQuery selectors</a> document.
+     * Escapes CSS meta-characters in string according to <a href="http://api.jquery.com/category/selectors/">jQuery
+     * selectors</a> document.
      * </p>
-     * 
+     *
      * @param s {@link String} to escape meta-characters in
      * @return string with escaped characters.
      */
@@ -400,30 +387,30 @@ public final class ScriptUtils {
         if (s == null || s.length() == 0) {
             return s;
         }
-        
+
         StringBuilder builder = new StringBuilder();
 
         int start = 0;
         int idx = 0;
-        
+
         int length = s.length();
-        
+
         for (; idx < length; idx++) {
             char c = s.charAt(idx);
-            
+
             int searchIdx = Arrays.binarySearch(CSS_SELECTOR_CHARS_TO_ESCAPE, c);
             if (searchIdx >= 0) {
                 builder.append(s.substring(start, idx));
 
                 builder.append("\\");
                 builder.append(c);
-                
+
                 start = idx + 1;
             }
         }
 
         builder.append(s.substring(start, idx));
-        
+
         return builder.toString();
     }
 }

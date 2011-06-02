@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.ajax4jsf.io;
 
 import java.io.UnsupportedEncodingException;
@@ -30,19 +29,16 @@ import java.io.UnsupportedEncodingException;
  */
 public class ByteBuffer {
     private static final int MAX_WASTE = 16384;
-
     /**
      * Stored bytes
      */
     private byte[] bytes;
-
     /**
      * Length of byte array.
      */
     private int cacheSize;
     private ByteBuffer next;
     private ByteBuffer prev;
-
     /**
      * Number of bytes stored in the array.
      */
@@ -71,8 +67,8 @@ public class ByteBuffer {
     }
 
     /**
-     * Appends byte to array if there are unfilled positions in it.
-     * Otherwize creates next link in the chain, and appends the byte to it.
+     * Appends byte to array if there are unfilled positions in it. Otherwize creates next link in the chain, and appends the
+     * byte to it.
      *
      * @param c
      * @return instance of ByteBuffer to which byte was appended.
@@ -96,8 +92,8 @@ public class ByteBuffer {
     }
 
     /**
-     * Appends segment of a byte array to array if there are unfilled positions in it.
-     * Otherwize creates next link in the chain, and appends data to it.
+     * Appends segment of a byte array to array if there are unfilled positions in it. Otherwize creates next link in the chain,
+     * and appends data to it.
      *
      * @param c
      * @return instance of ByteBuffer to which byte array was appended.
@@ -263,14 +259,14 @@ public class ByteBuffer {
             next.compact();
         }
     }
-    
+
     public ByteBuffer getLast() {
         ByteBuffer result = this;
-        
+
         while (result.next != null) {
             result = result.next;
         }
-        
+
         return result;
     }
 }

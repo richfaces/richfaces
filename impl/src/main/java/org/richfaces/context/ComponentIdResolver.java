@@ -52,9 +52,7 @@ import com.google.common.collect.Iterators;
  *
  */
 public final class ComponentIdResolver {
-
     private static final Joiner EMPTY_STRING_JOINER = Joiner.on("").skipNulls();
-    
     private static Map<String, String> metaComponentSubstitutions = new HashMap<String, String>();
 
     static {
@@ -62,17 +60,11 @@ public final class ComponentIdResolver {
     }
 
     private Set<String> resolvedIds;
-
     private Set<String> unresolvedIds;
-
     private Set<String> absoluteIds = null;
-
     private UIComponent containerTopMatchComponent;
-
     private LinkedList<UIComponent> componentsStack = null;
-
     private FacesContext facesContext;
-
     private ComponentIdResolverNode rootNode;
 
     public ComponentIdResolver(FacesContext facesContext) {
@@ -116,54 +108,55 @@ public final class ComponentIdResolver {
     private static Iterator<MetaComponentResolver> createResolversChainIterator(UIComponent component) {
         return Iterators.filter(ComponentIterators.parentsAndSelf(component), MetaComponentResolver.class);
     }
-    
-    private static String substituteUnresolvedMetaComponentId(FacesContext context, UIComponent component, String metaComponentId) {
+
+    private static String substituteUnresolvedMetaComponentId(FacesContext context, UIComponent component,
+        String metaComponentId) {
         Iterator<MetaComponentResolver> iterator = createResolversChainIterator(component);
-        
+
         while (iterator.hasNext()) {
             MetaComponentResolver metaComponentResolver = (MetaComponentResolver) iterator.next();
-            
+
             String resolvedId = metaComponentResolver.substituteUnresolvedClientId(context, component, metaComponentId);
 
             if (resolvedId != null) {
                 return resolvedId;
             }
         }
-        
+
         return null;
     }
-    
+
     private static String resolveMetaComponentId(FacesContext context, UIComponent component, String metaComponentId) {
         Iterator<MetaComponentResolver> iterator = createResolversChainIterator(component);
-        
+
         while (iterator.hasNext()) {
             MetaComponentResolver metaComponentResolver = (MetaComponentResolver) iterator.next();
-            
+
             String resolvedId = metaComponentResolver.resolveClientId(context, component, metaComponentId);
 
             if (resolvedId != null) {
                 return resolvedId;
             }
         }
-        
+
         return null;
     }
 
-    //used in unit tests
+    // used in unit tests
     static void setMetaComponentSubstitutions(Map<String, String> substitutionsMap) {
         metaComponentSubstitutions = substitutionsMap;
     }
-  
+
     private boolean hasFunctionNodes(Node[] nodes) {
         for (Node node : nodes) {
             if (node.getFunction() != null) {
                 return true;
             }
         }
-        
+
         return false;
     }
-    
+
     private String getMetaComponentId(String s) {
         int metaComponentIdx = s.indexOf(META_COMPONENT_SEPARATOR_CHAR);
 
@@ -173,43 +166,44 @@ public final class ComponentIdResolver {
             return s.substring(metaComponentIdx);
         }
     }
-    
-    private Collection<String> computeClientIds(FacesContext context,
-        UIComponent topMatchComponent, UIComponent bottomMatchComponent, String id) {
+
+    private Collection<String> computeClientIds(FacesContext context, UIComponent topMatchComponent,
+        UIComponent bottomMatchComponent, String id) {
 
         Node[] nodes = IdParser.parse(id);
         if (!hasFunctionNodes(nodes)) {
-            return Collections.singleton(EMPTY_STRING_JOINER.join(bottomMatchComponent.getClientId(facesContext), getMetaComponentId(id)));
+            return Collections.singleton(EMPTY_STRING_JOINER.join(bottomMatchComponent.getClientId(facesContext),
+                getMetaComponentId(id)));
         } else {
             String topMatchClientId = topMatchComponent.getClientId(facesContext);
             Node[] topMatchNodes = IdParser.parse(topMatchClientId);
-            
-            //topMatchNodes & nodes have 1 element overlap
+
+            // topMatchNodes & nodes have 1 element overlap
             Node[] mergedNodes = new Node[topMatchNodes.length + nodes.length - 1];
-            
+
             int destPos = topMatchNodes.length;
-            
+
             System.arraycopy(topMatchNodes, 0, mergedNodes, 0, destPos);
             System.arraycopy(nodes, 1, mergedNodes, destPos, nodes.length - 1);
-            
+
             ClientIdFunctionEvaluator evaluator = new ClientIdFunctionEvaluator(context, mergedNodes);
-            
+
             return evaluator.evaluate(topMatchComponent);
         }
     }
 
     protected void addIdImmediately(String id) {
         Node[] nodes = IdParser.parse(id);
-        
+
         ComponentIdResolverNode resolverNode = rootNode;
 
         for (Node node : nodes) {
             if (node.getFunction() != null) {
                 continue;
             }
-            
+
             String image = node.getImage();
-            
+
             int metaSepIdx = image.indexOf(META_COMPONENT_SEPARATOR_CHAR);
             if (metaSepIdx >= 0) {
                 image = image.substring(0, metaSepIdx);
@@ -218,10 +212,10 @@ public final class ComponentIdResolver {
             if (Strings.isNullOrEmpty(image)) {
                 continue;
             }
-            
+
             resolverNode = resolverNode.getOrCreateChild(image);
         }
-        
+
         unresolvedIds.add(id);
         resolverNode.addFullId(id);
     }
@@ -342,12 +336,12 @@ public final class ComponentIdResolver {
                     if (resolvedId == null) {
                         resolvedId = substituteUnresolvedMetaComponentId(facesContext, bottomMatch, metaComponentId);
                     }
-                    
+
                     if (resolvedId == null) {
                         resolvedId = metaComponentSubstitutions.get(metaComponentId);
                     }
                 }
-                
+
                 if (CoreRendererUtils.GLOBAL_META_COMPONENTS.contains(resolvedId)) {
                     resolvedIds.clear();
                     resolvedIds.add(resolvedId);
@@ -356,9 +350,9 @@ public final class ComponentIdResolver {
                     break;
                 } else {
                     if (resolvedId != null) {
-                        String predefinedMetaComponentId = CoreRendererUtils.INSTANCE.getPredefinedMetaComponentId(facesContext, 
-                            bottomMatch, resolvedId);
-                        
+                        String predefinedMetaComponentId = CoreRendererUtils.INSTANCE.getPredefinedMetaComponentId(
+                            facesContext, bottomMatch, resolvedId);
+
                         if (predefinedMetaComponentId != null) {
                             resolvedId = predefinedMetaComponentId;
                         }
@@ -493,17 +487,17 @@ public final class ComponentIdResolver {
 
         UIComponent c = component;
 
-        //meta-components-only IDs like "@region" are handled by this line
+        // meta-components-only IDs like "@region" are handled by this line
         resolveId(rootNode, c, c);
 
         if (hasUnresolvedIds()) {
             UIComponent container = findContainer(c);
-            while (container != null && !isRoot(container)) { 
+            while (container != null && !isRoot(container)) {
                 boolean resolutionResult = findComponentsInContainer(container, rootNode, true);
                 if (resolutionResult) {
                     break;
                 }
-                
+
                 container = findContainer(container.getParent());
             }
         }
@@ -530,7 +524,7 @@ public final class ComponentIdResolver {
             findComponentsBelow(root);
         }
 
-        //TODO nick - LOG here?
+        // TODO nick - LOG here?
         resolvedIds.addAll(unresolvedIds);
     }
 }

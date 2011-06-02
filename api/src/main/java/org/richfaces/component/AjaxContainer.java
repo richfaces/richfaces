@@ -21,16 +21,12 @@
  */
 package org.richfaces.component;
 
-
 /**
  * @author Nick Belaevski
  *
  */
 public interface AjaxContainer {
-
-    public static final String META_COMPONENT_ID = "region";
-
-    public static final String META_CLIENT_ID = MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + META_COMPONENT_ID;
-    
-    public static final String DEFAULT_RENDER_ID = "@this";
+    String META_COMPONENT_ID = "region";
+    String META_CLIENT_ID = MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + META_COMPONENT_ID;
+    String DEFAULT_RENDER_ID = "@this";
 }

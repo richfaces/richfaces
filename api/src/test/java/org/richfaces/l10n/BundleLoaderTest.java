@@ -35,12 +35,10 @@ import org.junit.Test;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class BundleLoaderTest {
-
     private MockFacesEnvironment facesEnvironment;
-
     private BundleLoader bundleLoader;
 
     @Before
@@ -76,27 +74,25 @@ public class BundleLoaderTest {
         } catch (MissingResourceException e) {
             // ok
         }
-
     }
 
     @Test
     public void testGetApplicationBundle() throws Exception {
         expect(facesEnvironment.getApplication().getMessageBundle()).andStubReturn("org.richfaces.l10n.AppMessages");
-        
+
         facesEnvironment.replay();
 
-        assertEquals(
-            "Welcome to app",
-            bundleLoader.getApplicationBundle(facesEnvironment.getFacesContext(), BundleLoaderCoreMessages.message,
-                Locale.US).getString("message"));
+        assertEquals("Welcome to app",
+            bundleLoader.getApplicationBundle(facesEnvironment.getFacesContext(), BundleLoaderCoreMessages.message, Locale.US)
+                .getString("message"));
         assertEquals(
             "Dobro pozhalovat'",
             bundleLoader.getApplicationBundle(facesEnvironment.getFacesContext(), BundleLoaderCoreMessages.message,
                 new Locale("by", "BY")).getString("message"));
 
         try {
-            bundleLoader.getApplicationBundle(facesEnvironment.getFacesContext(), BundleLoaderCoreMessages.message,
-                new Locale("ru", "RU"));
+            bundleLoader.getApplicationBundle(facesEnvironment.getFacesContext(), BundleLoaderCoreMessages.message, new Locale(
+                "ru", "RU"));
             fail();
         } catch (MissingResourceException e) {
             // ok

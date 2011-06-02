@@ -1,194 +1,201 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>jQuery Test Suite</title>
-		<link type="text/css" rel="Stylesheet" media="screen" href="qunit/qunit.css" />
-		<script type="text/javascript" src="../../classes/META-INF/resources/jquery.js"></script>
-		<script type="text/javascript" src="../../classes/META-INF/resources/richfaces.js"></script>
-		<script type="text/javascript" src="qunit/qunit.js"></script>
-		<script type="text/javascript">
-			var jsf = {};
-			jQuery(document).ready(function(){
-				test("RichFaces.submitForm test", function() {
-					expect(7);
-					var submitTarget = "target";
-					var submitParameters = {
-						name1 : "value1",
-						name2 : "value2"
-					};
-					var form = jQuery("form");
-					ok(!form.attr("target"));
-					ok(!jQuery("input[type='hidden']", form).size());
-					var trigger = form.trigger;
-					form.trigger = function(event) {
-						equals(form.attr("target"), submitTarget);
-						for (var name in submitParameters) {
-							equals(jQuery("input[name='" + name + "']", form).attr("value"), submitParameters[name]);
-						}
-					};
-					RichFaces.submitForm(form, submitParameters, submitTarget);
-					form.trigger = trigger;
-					ok(!form.attr("target"));
-					ok(!jQuery("input", form).size());
-				});
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jQuery Test Suite</title>
+<link type="text/css" rel="Stylesheet" media="screen" href="qunit/qunit.css" />
+<script type="text/javascript" src="../../classes/META-INF/resources/jquery.js"></script>
+<script type="text/javascript" src="../../classes/META-INF/resources/richfaces.js"></script>
+<script type="text/javascript" src="qunit/qunit.js"></script>
+<script type="text/javascript">
+        var jsf = {};
+        jQuery(document).ready(function() {
+            test("RichFaces.submitForm test", function() {
+                expect(7);
+                var submitTarget = "target";
+                var submitParameters = {
+                    name1 : "value1",
+                    name2 : "value2"
+                };
+                var form = jQuery("form");
+                ok(!form.attr("target"));
+                ok(!jQuery("input[type='hidden']", form).size());
+                var trigger = form.trigger;
+                form.trigger = function(event) {
+                    equals(form.attr("target"), submitTarget);
+                    for (var name in submitParameters) {
+                        equals(jQuery("input[name='" + name + "']", form).attr("value"), submitParameters[name]);
+                    }
+                };
+                RichFaces.submitForm(form, submitParameters, submitTarget);
+                form.trigger = trigger;
+                ok(!form.attr("target"));
+                ok(!jQuery("input", form).size());
+            });
 
-				test("RichFaces.log stub test", function() {
-					//none of these calls shouldn't fail
-					RichFaces.log.error("some error");
-					RichFaces.log.warn("some warn");
-					RichFaces.log.info("some info");
-					RichFaces.log.debug("some debug");
+            test("RichFaces.log stub test", function() {
+                //none of these calls shouldn't fail
+                RichFaces.log.error("some error");
+                RichFaces.log.warn("some warn");
+                RichFaces.log.info("some info");
+                RichFaces.log.debug("some debug");
 
-					RichFaces.log.clear();
-					RichFaces.log.getLevel();
-					RichFaces.log.setLevel('info');
-				});
-				
-				test("RichFaces.getValue test", function() {
-					expect(2);
-					var base = {
-						prop1:{
-							prop2: "value2"
-						}
-					};
-					equals(RichFaces.getValue(["prop1", "prop2"], base), "value2");
-					equals(RichFaces.getValue(["prop3", "prop2"], base), undefined);
-				});
-			});
-			
-			test("RichFaces.evalMacro test", function() {
-				expect(4);
-				var base = {
-					prop1:{
-						prop2: "value2",
-						function1 : function(base) { return base.prop1.prop2 }
-					},
-					eval : function(macro) { return macro.toString().length }
-				};
-				var context = {
-					prop1 : "value1",
-					prop2 : "value2"
-				};
-				equals(RichFaces.evalMacro("prop1.function1", base), "value2");
-				equals(RichFaces.evalMacro("document.title", {}), "jQuery Test Suite");
-				equals(RichFaces.evalMacro("1234", base), 4);
-				equals(RichFaces.evalMacro("1+2", {}), 3);
-			});
-			
-			test("RichFaces.interpolate test", function() {
-				var context = {
-					prop1 : "value1",
-					prop2 : "value2"
-				};
-				equals(RichFaces.interpolate("{prop1} {prop2} {prop3}", context), "value1 value2 {prop3}");
-			});
-			
-			test("RichFaces.createJSFEventsAdapter test", function() {
-				expect(2);
-				var eventData = {
-					source : "source",
-					status : "success",
-					type : "event",
-					data : "data"
-				};
-				var adapter = RichFaces.createJSFEventsAdapter({
-					complete : function(event){
-						equals(this, eventData.source);
-						equals(event.data, eventData.data);
-					}});
-				adapter(eventData);
-			});
-			
-			test("RichFaces.ajax behavior test", function() {
-				expect(1);
+                RichFaces.log.clear();
+                RichFaces.log.getLevel();
+                RichFaces.log.setLevel('info');
+            });
 
-				var ajaxSource = "source";
-				var ajaxEvent = "event";
-				var ajaxOptions = {parameters: {'param': 'value'}};
-				jsf.ajax = {
-					request : function(source, event, options) {
-						ok(!options['source']);
-					}
-				}
-				RichFaces.ajax(ajaxSource, ajaxEvent, ajaxOptions);
-			});
-			
-			test("RichFaces.ajax behavior test for sourceId option", function() {
-				expect(2);
+            test("RichFaces.getValue test", function() {
+                expect(2);
+                var base = {
+                    prop1:{
+                        prop2: "value2"
+                    }
+                };
+                equals(RichFaces.getValue(["prop1", "prop2"], base), "value2");
+                equals(RichFaces.getValue(["prop3", "prop2"], base), undefined);
+            });
+        });
 
-				var ajaxSource = "source";
-				var ajaxEvent = "event";
-				var ajaxOptions = {parameters: {'param': 'value'}, sourceId: 'someId'};
-				jsf.ajax = {
-					request : function(source, event, options) {
-						equals(source, ajaxSource);
-						equals(options['org.richfaces.ajax.component'], 'someId');
-					}
-				}
-				RichFaces.ajax(ajaxSource, ajaxEvent, ajaxOptions);
-			});
-			
-			test("RichFaces.ajax component test", function() {
-				expect(7);
-				var ajaxSource = "source";
-				var ajaxEvent = "event";
-				var ajaxOptions = {parameters: {'param': 'value'}, incId: 1};
-				jsf.ajax = {
-					request : function(source, event, options) {
-						equals(source, ajaxSource);
-						equals(event, ajaxEvent);
-						equals(options['execute'], '@component');
-						equals(options['render'], '@component');
-						equals(options['param'], 'value');
-						equals(options['org.richfaces.ajax.component'], 'source');
-						equals(options['source'], 'source');
-					}
-				}
-				RichFaces.ajax(ajaxSource, ajaxEvent, ajaxOptions);
-			});
+        test("RichFaces.evalMacro test", function() {
+            expect(4);
+            var base = {
+                prop1:{
+                    prop2: "value2",
+                    function1 : function(base) {
+                        return base.prop1.prop2
+                    }
+                },
+                eval : function(macro) {
+                    return macro.toString().length
+                }
+            };
+            var context = {
+                prop1 : "value1",
+                prop2 : "value2"
+            };
+            equals(RichFaces.evalMacro("prop1.function1", base), "value2");
+            equals(RichFaces.evalMacro("document.title", {}), "jQuery Test Suite");
+            equals(RichFaces.evalMacro("1234", base), 4);
+            equals(RichFaces.evalMacro("1+2", {}), 3);
+        });
 
-			test("RichFaces.ajax client parameters test", function() {
-				expect(7);
-				var ajaxSource = "source";
-				var ajaxEvent = "event";
-				var ajaxOptions = {clientParameters: {'param': 'value'}, incId: 1};
-				jsf.ajax = {
-					request : function(source, event, options) {
-						equals(source, ajaxSource);
-						equals(event, ajaxEvent);
-						equals(options['execute'], '@component');
-						equals(options['render'], '@component');
-						equals(options['param'], 'value');
-						equals(options['org.richfaces.ajax.component'], 'source');
-						equals(options['source'], 'source');
-					}
-				}
-				RichFaces.ajax(ajaxSource, ajaxEvent, ajaxOptions);
-			});
+        test("RichFaces.interpolate test", function() {
+            var context = {
+                prop1 : "value1",
+                prop2 : "value2"
+            };
+            equals(RichFaces.interpolate("{prop1} {prop2} {prop3}", context), "value1 value2 {prop3}");
+        });
 
-			test("RichFaces.escapeCSSMetachars test", function() {
-				expect(6);
+        test("RichFaces.createJSFEventsAdapter test", function() {
+            expect(2);
+            var eventData = {
+                source : "source",
+                status : "success",
+                type : "event",
+                data : "data"
+            };
+            var adapter = RichFaces.createJSFEventsAdapter({
+                    complete : function(event) {
+                        equals(this, eventData.source);
+                        equals(event.data, eventData.data);
+                    }});
+            adapter(eventData);
+        });
 
-				equals("", RichFaces.escapeCSSMetachars(""));
-				equals("test", RichFaces.escapeCSSMetachars("test"));
-				equals("test\\.string", RichFaces.escapeCSSMetachars("test.string"));
-				equals("test\\\"string", RichFaces.escapeCSSMetachars("test\"string"));
-				equals("some\\.test\\'string", RichFaces.escapeCSSMetachars("some.test'string"));
-				equals("\\#table\\[header\\]", RichFaces.escapeCSSMetachars("#table[header]"));
-			});
-		</script>  
-	</head>
-	<body>
- 		<h1 id="qunit-header">RichFaces QUnit tests</h1>
- 		<h2 id="qunit-banner"></h2>
-		<h2 id="qunit-userAgent"></h2>
- 		<ol id="qunit-tests"></ol>
-		<div id="main">
-			<form />
-			<span id="pushElt" />
-			<div id="richfaces.log" />
-		</div>
-	</body>
+        test("RichFaces.ajax behavior test", function() {
+            expect(1);
+
+            var ajaxSource = "source";
+            var ajaxEvent = "event";
+            var ajaxOptions = {parameters: {'param': 'value'}};
+            jsf.ajax = {
+                request : function(source, event, options) {
+                    ok(!options['source']);
+                }
+            }
+            RichFaces.ajax(ajaxSource, ajaxEvent, ajaxOptions);
+        });
+
+        test("RichFaces.ajax behavior test for sourceId option", function() {
+            expect(2);
+
+            var ajaxSource = "source";
+            var ajaxEvent = "event";
+            var ajaxOptions = {parameters: {'param': 'value'}, sourceId: 'someId'};
+            jsf.ajax = {
+                request : function(source, event, options) {
+                    equals(source, ajaxSource);
+                    equals(options['org.richfaces.ajax.component'], 'someId');
+                }
+            }
+            RichFaces.ajax(ajaxSource, ajaxEvent, ajaxOptions);
+        });
+
+        test("RichFaces.ajax component test", function() {
+            expect(7);
+            var ajaxSource = "source";
+            var ajaxEvent = "event";
+            var ajaxOptions = {parameters: {'param': 'value'}, incId: 1};
+            jsf.ajax = {
+                request : function(source, event, options) {
+                    equals(source, ajaxSource);
+                    equals(event, ajaxEvent);
+                    equals(options['execute'], '@component');
+                    equals(options['render'], '@component');
+                    equals(options['param'], 'value');
+                    equals(options['org.richfaces.ajax.component'], 'source');
+                    equals(options['source'], 'source');
+                }
+            }
+            RichFaces.ajax(ajaxSource, ajaxEvent, ajaxOptions);
+        });
+
+        test("RichFaces.ajax client parameters test", function() {
+            expect(7);
+            var ajaxSource = "source";
+            var ajaxEvent = "event";
+            var ajaxOptions = {clientParameters: {'param': 'value'}, incId: 1};
+            jsf.ajax = {
+                request : function(source, event, options) {
+                    equals(source, ajaxSource);
+                    equals(event, ajaxEvent);
+                    equals(options['execute'], '@component');
+                    equals(options['render'], '@component');
+                    equals(options['param'], 'value');
+                    equals(options['org.richfaces.ajax.component'], 'source');
+                    equals(options['source'], 'source');
+                }
+            }
+            RichFaces.ajax(ajaxSource, ajaxEvent, ajaxOptions);
+        });
+
+        test("RichFaces.escapeCSSMetachars test", function() {
+            expect(6);
+
+            equals("", RichFaces.escapeCSSMetachars(""));
+            equals("test", RichFaces.escapeCSSMetachars("test"));
+            equals("test\\.string", RichFaces.escapeCSSMetachars("test.string"));
+            equals("test\\\"string", RichFaces.escapeCSSMetachars("test\"string"));
+            equals("some\\.test\\'string", RichFaces.escapeCSSMetachars("some.test'string"));
+            equals("\\#table\\[header\\]", RichFaces.escapeCSSMetachars("#table[header]"));
+        });
+    </script>
+</head>
+<body>
+    <h1 id="qunit-header">RichFaces QUnit tests</h1>
+
+    <h2 id="qunit-banner"></h2>
+
+    <h2 id="qunit-userAgent"></h2>
+    <ol id="qunit-tests"></ol>
+    <div id="main">
+        <form />
+        <span id="pushElt" />
+
+        <div id="richfaces.log" />
+    </div>
+</body>
 </html>

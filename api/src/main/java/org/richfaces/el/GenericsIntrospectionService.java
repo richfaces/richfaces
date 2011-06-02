@@ -26,10 +26,8 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface GenericsIntrospectionService {
-
-    public Class<?> getContainerClass(FacesContext facesContext, ValueExpression expression);
-
+    Class<?> getContainerClass(FacesContext facesContext, ValueExpression expression);
 }

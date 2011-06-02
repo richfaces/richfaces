@@ -27,13 +27,9 @@ import java.util.Map;
 import java.util.Set;
 
 final class ComponentIdResolverNode {
-
     private Set<String> fullIds;
-
     private String id;
-
     private ComponentIdResolverNode parent;
-
     private Map<String, ComponentIdResolverNode> children = new HashMap<String, ComponentIdResolverNode>(2);
 
     public ComponentIdResolverNode(ComponentIdResolverNode parent, String id) {

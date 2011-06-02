@@ -30,12 +30,11 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class ResourceParameterELResolver extends ELResolver {
-
     public static final String CONTEXT_ATTRIBUTE_NAME = "rfResourceParam";
-    
+
     @Override
     public Class<?> getCommonPropertyType(ELContext context, Object base) {
         return String.class;
@@ -58,7 +57,7 @@ public class ResourceParameterELResolver extends ELResolver {
             FacesContext facesContext = (FacesContext) context.getContext(FacesContext.class);
             return facesContext.getAttributes().get(CONTEXT_ATTRIBUTE_NAME);
         }
-        
+
         return null;
     }
 
@@ -73,5 +72,4 @@ public class ResourceParameterELResolver extends ELResolver {
             throw new UnsupportedOperationException();
         }
     }
-
 }

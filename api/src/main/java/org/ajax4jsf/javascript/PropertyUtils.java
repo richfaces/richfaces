@@ -19,9 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-
-
 package org.ajax4jsf.javascript;
 
 import java.beans.BeanInfo;
@@ -75,7 +72,7 @@ final class PropertyUtils {
 
         if (readMethod == null) {
             throw new NoSuchMethodException(MessageFormat.format("Read method for property ''{0}'' not found",
-                    descriptor.getName()));
+                descriptor.getName()));
         }
 
         try {
@@ -84,9 +81,9 @@ final class PropertyUtils {
             Throwable cause = e.getCause();
 
             if (cause instanceof Exception) {
-                throw(Exception) cause;
+                throw (Exception) cause;
             } else if (cause instanceof Error) {
-                throw(Error) cause;
+                throw (Error) cause;
             } else {
                 throw e;
             }

@@ -26,16 +26,14 @@ import java.util.Map;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface UserResource extends ContentProducerResource {
+    Map<String, String> getResponseHeaders();
 
-    public Map<String, String> getResponseHeaders();
-    
-    public Date getLastModified();
+    Date getLastModified();
 
-    public String getContentType();
-    
-    public int getContentLength();
-    
+    String getContentType();
+
+    int getContentLength();
 }

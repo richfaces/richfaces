@@ -35,26 +35,21 @@ import org.richfaces.log.RichfacesLogger;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class RequestImpl implements Request, AtmosphereResourceEventListener {
-
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
-
     private static final int SUSPEND_TIMEOUT = 30 * 1000;
-    
     private Session session;
-
     private final Meteor meteor;
-    
     private boolean hasActiveBroadcaster = false;
-    
+
     public RequestImpl(Meteor meteor, Session session) {
         super();
-        
+
         this.meteor = meteor;
         meteor.addListener(this);
-        
+
         this.session = session;
     }
 
@@ -68,10 +63,10 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
 
     public boolean isPolling() {
         HttpServletRequest req = meteor.getAtmosphereResource().getRequest();
-        boolean isWebsocket = req.getAttribute(WebSocketSupport.WEBSOCKET_SUSPEND) != null || 
-            req.getAttribute(WebSocketSupport.WEBSOCKET_RESUME) != null;
-        
-        //TODO how to detect non-polling transports?
+        boolean isWebsocket = req.getAttribute(WebSocketSupport.WEBSOCKET_SUSPEND) != null
+            || req.getAttribute(WebSocketSupport.WEBSOCKET_RESUME) != null;
+
+        // TODO how to detect non-polling transports?
         return !isWebsocket;
     }
 
@@ -85,8 +80,10 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
             meteor.getBroadcaster().broadcast(new MessageDataScriptString(getSession().getMessages()));
         }
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     *
      * @see org.atmosphere.cpr.AtmosphereResourceEventListener#onSuspend(org.atmosphere.cpr.AtmosphereResourceEvent)
      */
     public void onSuspend(AtmosphereResourceEvent<HttpServletRequest, HttpServletResponse> event) {
@@ -106,7 +103,7 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
             e.printStackTrace();
         }
     }
-    
+
     public void onResume(AtmosphereResourceEvent<HttpServletRequest, HttpServletResponse> event) {
         disconnect();
     }
@@ -118,9 +115,9 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
     public synchronized void onBroadcast(AtmosphereResourceEvent<HttpServletRequest, HttpServletResponse> event) {
         MessageDataScriptString serializedMessages = (MessageDataScriptString) event.getMessage();
         getSession().clearBroadcastedMessages(serializedMessages.getLastSequenceNumber());
-        
+
         hasActiveBroadcaster = false;
-        
+
         if (isPolling()) {
             event.getResource().resume();
         } else {
@@ -133,5 +130,4 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
         Throwable throwable = event.throwable();
         LOGGER.error(throwable.getMessage(), throwable);
     }
-    
 }

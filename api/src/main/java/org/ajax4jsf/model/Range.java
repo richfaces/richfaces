@@ -18,16 +18,14 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.model;
 
 /**
- * Marker interface for building iterator over dataModel values. over {@link ExtendedDataModel} elements.
- * It can be simple min/max values for data table, but also can provide set of expanded/collapsed nodes in tree,
- * can provide sorting order,
+ * Marker interface for building iterator over dataModel values. over {@link ExtendedDataModel} elements. It can be simple
+ * min/max values for data table, but also can provide set of expanded/collapsed nodes in tree, can provide sorting order,
+ *
  * @author shura
  *
  */
-public interface Range {}
+public interface Range {
+}

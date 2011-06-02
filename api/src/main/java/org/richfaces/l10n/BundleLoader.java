@@ -31,10 +31,9 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class BundleLoader {
-
     private ClassLoader getClassLoader() {
         return Thread.currentThread().getContextClassLoader();
     }
@@ -43,9 +42,8 @@ public class BundleLoader {
         MessageBundle bundleAnnotation = messageKey.getClass().getAnnotation(MessageBundle.class);
 
         if (bundleAnnotation == null) {
-            throw new IllegalArgumentException(MessageFormat.format(
-                "Cannot detect baseName for enumeration {0} in class {1}", messageKey.toString(), messageKey.getClass()
-                    .getName()));
+            throw new IllegalArgumentException(MessageFormat.format("Cannot detect baseName for enumeration {0} in class {1}",
+                messageKey.toString(), messageKey.getClass().getName()));
         }
 
         return bundleAnnotation;
@@ -54,24 +52,24 @@ public class BundleLoader {
     public ResourceBundle getBundle(Enum<?> messageKey, Locale locale) throws MissingResourceException,
         IllegalArgumentException {
         MessageBundle bundleAnnotation = asMessageBundle(messageKey);
-        
+
         return ResourceBundle.getBundle(bundleAnnotation.baseName(), locale, getClassLoader());
     }
 
     public ResourceBundle getApplicationBundle(FacesContext facesContext, Enum<?> messageKey, Locale locale)
         throws MissingResourceException {
-        
+
         if (facesContext == null) {
             throw new MissingResourceException("FacesContext is null", getClass().getName(), messageKey.toString());
         }
 
         Application application = facesContext.getApplication();
-        
+
         if (application == null || application.getMessageBundle() == null) {
-            throw new MissingResourceException("Cannot read message bundle name from application", 
-                getClass().getName(), messageKey.toString());
+            throw new MissingResourceException("Cannot read message bundle name from application", getClass().getName(),
+                messageKey.toString());
         }
-        
+
         return ResourceBundle.getBundle(application.getMessageBundle(), locale, getClassLoader());
     }
 }

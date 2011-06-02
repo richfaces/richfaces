@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.cache;
 
 import java.util.Date;
@@ -38,9 +35,7 @@ import org.richfaces.application.CoreConfiguration;
  * @since 4.0
  */
 public abstract class BaseCacheTest extends AbstractFacesTest {
-    
     private int sizeLimit;
-    
     private CacheManager cacheManager;
     private Cache cache;
     private String cacheManagerFactoryClassName;
@@ -60,17 +55,17 @@ public abstract class BaseCacheTest extends AbstractFacesTest {
     protected Cache getCache() {
         return cache;
     }
-    
+
     @Override
     public void setUp() throws Exception {
         sizeLimit = 64;
 
         super.setUp();
-        
+
         setupFacesRequest();
 
         cacheManager = new CacheManager();
-        
+
         Map<?, ?> initParameterMap = facesContext.getExternalContext().getInitParameterMap();
 
         this.cache = cacheManager.createCache(facesContext, "test-cache", initParameterMap);
@@ -112,10 +107,9 @@ public abstract class BaseCacheTest extends AbstractFacesTest {
         Thread.sleep(sleepTime);
         assertNull(cache.get("a"));
     }
-    
+
     public void testMaxSize() throws Exception {
-        Date expirationDate = new Date(System.currentTimeMillis() + 
-            3600000 /* one hour - this should be enough for our test */);
+        Date expirationDate = new Date(System.currentTimeMillis() + 3600000 /* one hour - this should be enough for our test */);
 
         Map<String, String> data = new LinkedHashMap<String, String>();
         for (int i = 0; i < sizeLimit; i++) {
@@ -124,26 +118,26 @@ public abstract class BaseCacheTest extends AbstractFacesTest {
             data.put(key, value);
             cache.put(key, value, expirationDate);
         }
-        
+
         for (Map.Entry<String, String> entry : data.entrySet()) {
             String key = entry.getKey();
-            
+
             Object cacheValue = cache.get(key);
             assertEquals(entry.getValue(), cacheValue);
         }
-        
+
         String extraEntryKey = UUID.randomUUID().toString();
         String extraEntryValue = UUID.randomUUID().toString();
         data.put(extraEntryKey, extraEntryValue);
         cache.put(extraEntryKey, extraEntryValue, expirationDate);
 
-        //give cache time to evict
+        // give cache time to evict
         Thread.sleep(2000);
-        
+
         int nullCounter = 0;
         for (Map.Entry<String, String> entry : data.entrySet()) {
             String key = entry.getKey();
-            
+
             Object cacheValue = cache.get(key);
             if (cacheValue == null) {
                 nullCounter++;
@@ -151,7 +145,7 @@ public abstract class BaseCacheTest extends AbstractFacesTest {
                 assertEquals(entry.getValue(), cacheValue);
             }
         }
-        
+
         assertTrue(nullCounter == 1);
     }
 
@@ -207,6 +201,7 @@ public abstract class BaseCacheTest extends AbstractFacesTest {
                         }
                     }
                 }
+
                 ;
             };
         }

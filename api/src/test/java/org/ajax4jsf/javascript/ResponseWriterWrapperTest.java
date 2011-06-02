@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.javascript;
 
 import static org.easymock.EasyMock.aryEq;
@@ -44,16 +41,14 @@ import org.jboss.test.faces.mock.MockFacesEnvironment;
  * @since 3.3.2
  */
 public class ResponseWriterWrapperTest extends TestCase {
-    
-    private MockFacesEnvironment facesEnvironment; 
-    
+    private MockFacesEnvironment facesEnvironment;
     private ResponseWriter mockWriter;
     private Writer writer;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        
+
         facesEnvironment = MockFacesEnvironment.createEnvironment();
         mockWriter = facesEnvironment.createMock(ResponseWriter.class);
         writer = new ResponseWriterWrapper(mockWriter);
@@ -66,16 +61,16 @@ public class ResponseWriterWrapperTest extends TestCase {
         facesEnvironment.verify();
         facesEnvironment.release();
         facesEnvironment = null;
-        
+
         this.writer = null;
         this.mockWriter = null;
     }
 
     public void testWrite1() throws Exception {
-        char[] cs = new char[] {'a', 'b'};
+        char[] cs = new char[] { 'a', 'b' };
 
         mockWriter.writeText(cs, 0, 2);
-        
+
         facesEnvironment.replay();
 
         writer.write(cs);
@@ -84,9 +79,11 @@ public class ResponseWriterWrapperTest extends TestCase {
     private static char[] expectSingleChar(final char c) {
         reportMatcher(new IArgumentMatcher() {
             private String failureMessage;
+
             public void appendTo(StringBuffer sb) {
                 sb.append(failureMessage);
             }
+
             public boolean matches(Object o) {
                 if (!(o instanceof char[])) {
                     failureMessage = "Array of chars expected as argument";
@@ -114,9 +111,11 @@ public class ResponseWriterWrapperTest extends TestCase {
     private static char[] expectFirstChars(final char[] cs, final int length) {
         reportMatcher(new IArgumentMatcher() {
             private String failureMessage;
+
             public void appendTo(StringBuffer sb) {
                 sb.append(failureMessage);
             }
+
             public boolean matches(Object o) {
                 if (!(o instanceof char[])) {
                     failureMessage = "Array of chars expected as argument";
@@ -124,13 +123,12 @@ public class ResponseWriterWrapperTest extends TestCase {
                     char[] argChars = (char[]) o;
 
                     if (argChars.length < length) {
-                        failureMessage = "Array should have minimum " + length + " length, but has only: "
-                                         + argChars.length;
+                        failureMessage = "Array should have minimum " + length + " length, but has only: " + argChars.length;
                     } else {
                         for (int i = 0; i < length; i++) {
                             if (argChars[i] != cs[i]) {
                                 failureMessage = "Char at offset [" + i + "] mismath: expected " + cs[i] + " but was "
-                                                 + argChars[i];
+                                    + argChars[i];
 
                                 break;
                             }
@@ -150,7 +148,7 @@ public class ResponseWriterWrapperTest extends TestCase {
         mockWriter.writeText(expectSingleChar((char) 0xBA98), eq(0), eq(1));
 
         facesEnvironment.replay();
-        
+
         writer.write(0x12345678);
         writer.write(0xFECDBA98);
     }
@@ -159,7 +157,7 @@ public class ResponseWriterWrapperTest extends TestCase {
         mockWriter.writeText(eq("test"), (String) isNull());
 
         facesEnvironment.replay();
-        
+
         writer.write("test");
     }
 
@@ -180,7 +178,7 @@ public class ResponseWriterWrapperTest extends TestCase {
         mockWriter.writeText(expectFirstChars("one".toCharArray()), eq(0), eq(3));
 
         facesEnvironment.replay();
-        
+
         writer.write("string to test", 0, 9);
         writer.write("short one", 6, 3);
     }

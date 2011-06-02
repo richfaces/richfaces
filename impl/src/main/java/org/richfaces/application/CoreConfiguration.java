@@ -27,93 +27,70 @@ import org.richfaces.application.configuration.ConfigurationItemsBundle;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public final class CoreConfiguration {
-
     public static final String SKIN_PARAM_NAME = "org.richfaces.skin";
-    
     public static final String BASE_SKIN_PARAM_NAME = "org.richfaces.baseSkin";
-
     public static final String RESOURCES_CACHE_SIZE_PARAM_NAME = "org.richfaces.resourceCacheSize";
 
-    private CoreConfiguration() {}
-    
+    private CoreConfiguration() {
+    }
+
     public enum Items {
         @ConfigurationItem(defaultValue = "true", names = "org.richfaces.enableControlSkinning")
         standardControlsSkinning,
-        
         @ConfigurationItem(defaultValue = "false", names = "org.richfaces.enableControlSkinningClasses")
         standardControlsSkinningClasses,
-        
         /**
-         * Name of web application init parameter for current skin . Can be simple
-         * String for non-modified name, or EL-expression for calculate current
-         * skin. If EL evaluated to <code>String</code> - used as skin name, if to
-         * instance of {@link org.richfaces.Skin } - used this instance. by default -
-         * "org.richfaces.skin"
+         * Name of web application init parameter for current skin . Can be simple String for non-modified name, or
+         * EL-expression for calculate current skin. If EL evaluated to <code>String</code> - used as skin name, if to instance
+         * of {@link org.richfaces.Skin } - used this instance. by default - "org.richfaces.skin"
          */
         @ConfigurationItem(names = SKIN_PARAM_NAME)
         skin,
-        
         @ConfigurationItem(names = BASE_SKIN_PARAM_NAME)
         baseSkin,
-        
         @ConfigurationItem(defaultValue = "86400" /* 24 * 60 * 60 */, names = "org.richfaces.resourceDefaultTTL", literal = true)
         resourcesTTL,
-        
         @ConfigurationItem(defaultValue = "512", names = RESOURCES_CACHE_SIZE_PARAM_NAME, literal = true)
         resourcesCacheSize,
-
         @ConfigurationItem(names = "org.richfaces.resourceDefaultVersion")
         resourcesDefaultVersion,
-        
         @ConfigurationItem(names = "org.ajax4jsf.cache.LRU_MAP_CACHE_SIZE", literal = true)
         lruMapCacheSize,
-        
         @ConfigurationItem(names = "org.richfaces.staticResourceLocation")
         staticResourceLocation,
-        
         @ConfigurationItem(defaultValue = "true", names = "org.richfaces.executeAWTInitializer", literal = true)
         executeAWTInitializer,
-
         @ConfigurationItem(names = "org.richfaces.push.handlerMapping", literal = true)
         pushHandlerMapping,
-
         @ConfigurationItem(defaultValue = "/ConnectionFactory", names = "org.richfaces.push.jms.connectionFactory")
         pushJMSConnectionFactory,
-        
         @ConfigurationItem(defaultValue = "/topic", names = "org.richfaces.push.jms.topicsNamespace")
         pushJMSTopicsNamespace,
-        
         @ConfigurationItem(defaultValue = "", names = "org.richfaces.push.jms.connectionUsername")
         pushJMSConnectionUsername,
-        
         @ConfigurationItem(defaultValue = "", names = "org.richfaces.push.jms.connectionUsername", source = ConfigurationItemSource.webEnvironmentEntry)
         pushJMSConnectionUsernameEnvRef,
-        
         @ConfigurationItem(defaultValue = "", names = "org.richfaces.push.jms.connectionPassword")
-        pushJMSConnectionPassword,        
-        
+        pushJMSConnectionPassword,
         @ConfigurationItem(defaultValue = "", names = "org.richfaces.push.jms.connectionPassword", source = ConfigurationItemSource.webEnvironmentEntry)
-        pushJMSConnectionPasswordEnvRef        
-        
+        pushJMSConnectionPasswordEnvRef
+
     }
-    
+
     @ConfigurationItemsBundle(propertiesFile = "org/richfaces/push.properties")
     public enum PushPropertiesItems {
-        
+
         @ConfigurationItem(names = "jms.connectionFactory")
         pushPropertiesJMSConnectionFactory,
-        
         @ConfigurationItem(names = "jms.topicsNamespace")
         pushPropertiesJMSTopicsNamespace,
-        
         @ConfigurationItem(names = "jms.connectionUsername")
         pushPropertiesJMSConnectionUsername,
-        
         @ConfigurationItem(names = "jms.connectionPassword")
-        pushPropertiesJMSConnectionPassword        
-        
+        pushPropertiesJMSConnectionPassword
+
     }
 }

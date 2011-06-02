@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces;
 
 import java.io.IOException;
@@ -46,9 +45,8 @@ import org.richfaces.log.RichfacesLogger;
  * @version $Revision$ $Date$
  */
 public final class VersionBean {
-    
     public static final Version VERSION = new Version();
-	
+
     /**
      * Class for incapsulate version info.
      *
@@ -56,39 +54,30 @@ public final class VersionBean {
      * @version $Revision$ $Date$
      */
     public static class Version {
-        
         private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
-        
         private static final String UNKNOWN = "";
-        
         private String implementationVendor = UNKNOWN;
-
-        //TODO nick - default value for manifest file absense - review
+        // TODO nick - default value for manifest file absense - review
         private String implementationVersion = "4.1.0-SNAPSHOT";
-        
         private String implementationTitle = UNKNOWN;
-        
         private String scmRevision = UNKNOWN;
-        
         private String scmTimestamp = UNKNOWN;
-        
         private String fullVersionString = UNKNOWN;
-        
         private boolean containsDataFromManifest = false;
-        
+
         public Version() {
             initialize();
         }
-        
+
         private String getAttributeValueOrDefault(Attributes attributes, String name) {
             String value = attributes.getValue(name);
             if (value == null) {
                 value = UNKNOWN;
             }
-            
+
             return value;
         }
-        
+
         private void initialize() {
             Manifest manifest = null;
             try {
@@ -96,7 +85,7 @@ public final class VersionBean {
             } catch (Exception e) {
                 LOGGER.error(MessageFormat.format("Error reading project metadata: {0}", e.getMessage()), e);
             }
-            
+
             if (manifest != null) {
                 initializePropertiesFromManifest(manifest);
                 initializeDerivativeProperties();
@@ -105,7 +94,7 @@ public final class VersionBean {
 
         private void initializePropertiesFromManifest(Manifest manifest) {
             containsDataFromManifest = true;
-            
+
             Attributes attributes = manifest.getMainAttributes();
             implementationVendor = getAttributeValueOrDefault(attributes, "Implementation-Vendor");
             implementationVersion = getAttributeValueOrDefault(attributes, "Implementation-Version");
@@ -130,12 +119,12 @@ public final class VersionBean {
                             manifestStream = URLToStreamHelper.urlToStream(new URL(url, JarFile.MANIFEST_NAME));
                             return new Manifest(manifestStream);
                         } catch (MalformedURLException e1) {
-                            //that's ok - just log in debug
+                            // that's ok - just log in debug
                             if (LOGGER.isDebugEnabled()) {
                                 LOGGER.debug(e1.getMessage(), e1);
                             }
                         } catch (IOException e) {
-                            //that's ok - just log in debug
+                            // that's ok - just log in debug
                             if (LOGGER.isDebugEnabled()) {
                                 LOGGER.debug(e.getMessage(), e);
                             }
@@ -148,7 +137,7 @@ public final class VersionBean {
                                 }
                             }
                         }
-                        
+
                         JarInputStream jis = null;
                         try {
                             URLConnection urlConnection = url.openConnection();
@@ -162,7 +151,8 @@ public final class VersionBean {
                                 return jis.getManifest();
                             }
                         } catch (IOException e) {
-                            LOGGER.error(MessageFormat.format("Error reading META-INF/MANIFEST.MF file: {0}", e.getMessage()), e);
+                            LOGGER.error(MessageFormat.format("Error reading META-INF/MANIFEST.MF file: {0}", e.getMessage()),
+                                e);
                         } finally {
                             if (jis != null) {
                                 try {
@@ -175,14 +165,14 @@ public final class VersionBean {
                     }
                 }
             }
-            
+
             return null;
         }
-        
+
         boolean containsDataFromManifest() {
             return containsDataFromManifest;
         }
-        
+
         public String getRevision() {
             return scmRevision;
         }
@@ -190,19 +180,19 @@ public final class VersionBean {
         public String getVersion() {
             return fullVersionString;
         }
-        
+
         public String getImplementationTitle() {
             return implementationTitle;
         }
-        
+
         public String getImplementationVendor() {
             return implementationVendor;
         }
-        
+
         public String getImplementationVersion() {
             return implementationVersion;
         }
-        
+
         public String getScmRevision() {
             return scmRevision;
         }
@@ -210,7 +200,7 @@ public final class VersionBean {
         public String getScmTimestamp() {
             return scmTimestamp;
         }
-        
+
         @Override
         public String toString() {
             if (this.containsDataFromManifest()) {
@@ -220,7 +210,7 @@ public final class VersionBean {
             }
         }
     }
-    
+
     public String getVendor() {
         return VERSION.getImplementationVendor();
     }
@@ -232,18 +222,17 @@ public final class VersionBean {
     public String getRevision() {
         return VERSION.getScmRevision();
     }
-    
+
     public String getTimestamp() {
         return VERSION.getScmTimestamp();
     }
-    
+
     public Version getVersion() {
         return VERSION;
     }
-    
+
     @Override
     public String toString() {
         return VERSION.toString();
     }
-
 }

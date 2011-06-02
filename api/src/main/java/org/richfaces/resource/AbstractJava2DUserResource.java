@@ -27,12 +27,10 @@ import java.util.Map;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public abstract class AbstractJava2DUserResource implements Java2DUserResource {
-
     private ImageType imageType;
-    
     private Dimension dimension;
 
     public AbstractJava2DUserResource(Dimension dimension) {
@@ -44,19 +42,19 @@ public abstract class AbstractJava2DUserResource implements Java2DUserResource {
         this.imageType = imageType;
         this.dimension = dimension;
     }
-    
+
     public ImageType getImageType() {
         return imageType;
     }
-    
+
     public Dimension getDimension() {
         return dimension;
     }
-    
+
     public Map<String, String> getResponseHeaders() {
         return null;
     }
-    
+
     public Date getLastModified() {
         return null;
     }

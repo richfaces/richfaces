@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.context;
 
 import java.util.Collection;
@@ -35,15 +34,10 @@ import org.richfaces.renderkit.util.CoreRendererUtils;
  * @since Oct 13, 2009
  */
 class RenderComponentCallback extends ComponentCallback {
-
     private Collection<String> renderIds = null;
-    
     private boolean limitRender = false;
-
     private String oncomplete;
-
     private String onbeforedomupdate;
-
     private Object data;
 
     RenderComponentCallback(FacesContext facesContext, String behaviorEvent) {
@@ -86,9 +80,9 @@ class RenderComponentCallback extends ComponentCallback {
             oncomplete = (String) target.getAttributes().get("oncomplete");
             data = target.getAttributes().get("data");
         }
-        
+
         Collection<String> unresolvedRenderIds = toCollection(renderValue);
-        //NB: toCollection() returns copy of original set and we're free to modify it - not used here
+        // NB: toCollection() returns copy of original set and we're free to modify it - not used here
         renderIds = CoreRendererUtils.INSTANCE.findComponentsFor(facesContext, target, unresolvedRenderIds);
     }
 
@@ -103,5 +97,4 @@ class RenderComponentCallback extends ComponentCallback {
 
         return result;
     }
-
 }

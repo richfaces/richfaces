@@ -21,19 +21,16 @@
  */
 package org.richfaces.application.push;
 
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface SessionManager {
+    void putPushSession(Session pushSession) throws IllegalStateException;
 
-    public void putPushSession(Session pushSession) throws IllegalStateException;
+    Session getPushSession(String id);
 
-    public Session getPushSession(String id);
+    void requeue(Session session);
 
-    public void requeue(Session session);
-
-    public void destroy();
-    
+    void destroy();
 }

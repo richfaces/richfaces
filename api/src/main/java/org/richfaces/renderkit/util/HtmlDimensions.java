@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit.util;
 
 import java.text.DecimalFormat;
@@ -66,9 +65,8 @@ public final class HtmlDimensions {
                 }
             }
         } catch (ParseException e) {
-            throw new IllegalArgumentException(Messages.getMessage(Messages.DECODE_PARAMETER_ERROR,
-                new Object[]{"size",
-                    size, e.getMessage()}));
+            throw new IllegalArgumentException(Messages.getMessage(Messages.DECODE_PARAMETER_ERROR, new Object[] { "size",
+                    size, e.getMessage() }));
         }
 
         return new Double(d);
@@ -87,7 +85,7 @@ public final class HtmlDimensions {
 
         return v;
     }
-    
+
     public static String formatSize(String size) {
         if (size != null) {
             String incomingSize = size.trim();

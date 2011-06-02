@@ -57,27 +57,21 @@ import org.richfaces.log.RichfacesLogger;
 import com.google.common.base.Strings;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class PushContextImpl implements PushContext, SystemEventListener {
-    
-    private static final ThreadFactory PUBLISH_THREAD_FACTORY = new ThreadFactoryBuilder().setDaemon(true).setNameFormat("push-publish-thread-%1$s").build();
-    
-    private static final ThreadFactory SESSION_MANAGER_THREAD_FACTORY = new ThreadFactoryBuilder().setDaemon(true).setNameFormat("push-session-manager-thread-%1$s").build();
-
+    private static final ThreadFactory PUBLISH_THREAD_FACTORY = new ThreadFactoryBuilder().setDaemon(true)
+        .setNameFormat("push-publish-thread-%1$s").build();
+    private static final ThreadFactory SESSION_MANAGER_THREAD_FACTORY = new ThreadFactoryBuilder().setDaemon(true)
+        .setNameFormat("push-session-manager-thread-%1$s").build();
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
-
     private String pushHandlerUrl;
-    
     private TopicsContextImpl topicsContext;
-
     private SessionManager sessionManager;
-
     private SessionFactory sessionFactory;
-    
+
     public PushContextImpl(String pushHandlerUrl) {
         super();
         this.pushHandlerUrl = pushHandlerUrl;
@@ -90,54 +84,52 @@ public class PushContextImpl implements PushContext, SystemEventListener {
                 return value;
             }
         }
-        
+
         return "";
     }
-    
+
     private String getConnectionFactory(FacesContext facesContext, ConfigurationService configurationService) {
-        return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, 
-            pushPropertiesJMSConnectionFactory, pushJMSConnectionFactory);
+        return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, pushPropertiesJMSConnectionFactory,
+            pushJMSConnectionFactory);
     }
-    
+
     private String getTopicsNamespace(FacesContext facesContext, ConfigurationService configurationService) {
-        return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, 
-            pushPropertiesJMSTopicsNamespace, pushJMSTopicsNamespace);
+        return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, pushPropertiesJMSTopicsNamespace,
+            pushJMSTopicsNamespace);
     }
 
     private String getPassword(FacesContext facesContext, ConfigurationService configurationService) {
-        return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, 
-            pushPropertiesJMSConnectionPassword, pushJMSConnectionPasswordEnvRef, pushJMSConnectionPassword);
+        return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, pushPropertiesJMSConnectionPassword,
+            pushJMSConnectionPasswordEnvRef, pushJMSConnectionPassword);
     }
 
     private String getUserName(FacesContext facesContext, ConfigurationService configurationService) {
-        return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, 
-            pushPropertiesJMSConnectionUsername, pushJMSConnectionUsernameEnvRef, pushJMSConnectionUsername);
+        return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, pushPropertiesJMSConnectionUsername,
+            pushJMSConnectionUsernameEnvRef, pushJMSConnectionUsername);
     }
-    
+
     public void init(FacesContext facesContext) {
         try {
             facesContext.getApplication().subscribeToEvent(PreDestroyApplicationEvent.class, this);
-            
+
             ConfigurationService configurationService = ServiceTracker.getService(ConfigurationService.class);
-            
+
             InitialContext initialContext = new InitialContext();
-            
+
             NameParser nameParser = initialContext.getNameParser("");
-            
+
             Name cnfName = nameParser.parse(getConnectionFactory(facesContext, configurationService));
             Name topicsNamespace = nameParser.parse(getTopicsNamespace(facesContext, configurationService));
-            
+
             sessionManager = new SessionManagerImpl(SESSION_MANAGER_THREAD_FACTORY);
-            topicsContext = new JMSTopicsContextImpl(PUBLISH_THREAD_FACTORY, initialContext, cnfName, topicsNamespace, 
-                getUserName(facesContext, configurationService),
-                getPassword(facesContext, configurationService)
-            );
+            topicsContext = new JMSTopicsContextImpl(PUBLISH_THREAD_FACTORY, initialContext, cnfName, topicsNamespace,
+                getUserName(facesContext, configurationService), getPassword(facesContext, configurationService));
             sessionFactory = new SessionFactoryImpl(sessionManager, topicsContext);
-            
+
             facesContext.getExternalContext().getApplicationMap().put(INSTANCE_KEY_NAME, this);
         } catch (Exception e) {
             throw new FacesException(e.getMessage(), e);
-        }        
+        }
     }
 
     public void destroy() {
@@ -147,7 +139,7 @@ public class PushContextImpl implements PushContext, SystemEventListener {
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
-        
+
         try {
             topicsContext.destroy();
             topicsContext = null;

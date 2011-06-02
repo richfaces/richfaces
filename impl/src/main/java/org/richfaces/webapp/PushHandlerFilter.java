@@ -47,21 +47,16 @@ import org.richfaces.log.RichfacesLogger;
 
 /**
  * Serves as delegate for Atmposphere servlets - should not be used directly
+ *
  * @author Nick Belaevski
- * 
+ *
  */
 public class PushHandlerFilter implements Filter {
-
     public static final String SESSION_ATTRIBUTE_NAME = Session.class.getName();
-    
     public static final String REQUEST_ATTRIBUTE_NAME = Request.class.getName();
-    
     private static final String PUSH_SESSION_ID_PARAM = "pushSessionId";
-
     private static final long serialVersionUID = 7616370505508715222L;
-
     private static final Logger LOGGER = RichfacesLogger.WEBAPP.getLogger();
-
     private SessionManager sessionManager;
 
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -69,11 +64,12 @@ public class PushHandlerFilter implements Filter {
         sessionManager = pushContext.getSessionManager();
     }
 
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
+        ServletException {
         if (request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
             HttpServletRequest httpReq = (HttpServletRequest) request;
             HttpServletResponse httpResp = (HttpServletResponse) response;
-            
+
             chain.doFilter(request, response);
 
             if ("GET".equals(httpReq.getMethod())) {
@@ -82,11 +78,11 @@ public class PushHandlerFilter implements Filter {
                 String pushSessionId = httpReq.getParameter(PUSH_SESSION_ID_PARAM);
 
                 Session session = null;
-                
+
                 if (pushSessionId != null) {
                     session = sessionManager.getPushSession(pushSessionId);
                 }
-                
+
                 if (session == null) {
                     if (LOGGER.isDebugEnabled()) {
                         LOGGER.debug(MessageFormat.format("Session {0} was not found", pushSessionId));
@@ -94,15 +90,15 @@ public class PushHandlerFilter implements Filter {
                     httpResp.sendError(HttpServletResponse.SC_BAD_REQUEST);
                     return;
                 }
-                
+
                 httpResp.setContentType("text/plain");
-                
+
                 try {
                     Request pushRequest = new RequestImpl(meteor, session);
-                    
+
                     httpReq.setAttribute(SESSION_ATTRIBUTE_NAME, session);
                     httpReq.setAttribute(REQUEST_ATTRIBUTE_NAME, pushRequest);
-                    
+
                     pushRequest.suspend();
                 } catch (Exception e) {
                     LOGGER.error(e.getMessage(), e);
@@ -116,5 +112,4 @@ public class PushHandlerFilter implements Filter {
     public void destroy() {
         sessionManager = null;
     }
-
 }

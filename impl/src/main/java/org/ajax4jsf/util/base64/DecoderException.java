@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.ajax4jsf.util.base64;
 
 /**
@@ -23,7 +22,6 @@ package org.ajax4jsf.util.base64;
  * @version $Id: DecoderException.java,v 1.1.2.1 2007/01/09 18:59:13 alexsmirnov Exp $
  */
 public class DecoderException extends Exception {
-
     /**
      * Creates a DecoderException
      *

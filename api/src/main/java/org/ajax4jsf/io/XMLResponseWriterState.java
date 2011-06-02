@@ -18,16 +18,15 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.ajax4jsf.io;
 
-import javax.faces.component.UIComponent;
 import java.io.IOException;
 
+import javax.faces.component.UIComponent;
+
 /**
- * @author shura Class to implement state pattern for
- *         <code>ResponseWriter</code> Real states must extend this. By
- *         default, block any events, ignore output.
+ * @author shura Class to implement state pattern for <code>ResponseWriter</code> Real states must extend this. By default,
+ *         block any events, ignore output.
  */
 class XMLResponseWriterState {
 
@@ -112,8 +111,7 @@ class XMLResponseWriterState {
     }
 
     /**
-     * Main hook for realise <code>Writer</code>. In document writed as
-     * comment, outside of document do nothing ....
+     * Main hook for realise <code>Writer</code>. In document writed as comment, outside of document do nothing ....
      *
      * @param cbuf
      * @param off

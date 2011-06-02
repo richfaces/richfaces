@@ -39,26 +39,20 @@ import org.junit.Before;
 import org.junit.Test;
 import org.richfaces.log.Logger.Level;
 
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class JavaLoggerTest {
-
     private static final String ANOTHER_DUMMY_MESSAGE = "another message";
-
     private static final String DUMMY_MESSAGE = "message";
-
     private static final String TEST_MESSAGE_PATTERN = "RF-000000 Test message with arguments: {0} and {1}";
-
     private static final String CHAR_SEQUENCE_THROWABLE_PATTERN = "(CharSequence, Throwable)({0})";
-
     private static final String CHAR_SEQUENCE_PATTERN = "(CharSequence)({0})";
 
     /**
      * @author Nick Belaevski
-     * 
+     *
      */
     private final class TrackingHandler extends Handler {
         @Override
@@ -76,34 +70,33 @@ public class JavaLoggerTest {
     }
 
     private java.util.logging.Logger wrappedLogger;
-    
     private JavaLogger logger;
-
     private List<LogRecord> publishedRecords;
-    
+
     @Before
     public void setUp() throws Exception {
         LogManager.getLogManager().reset();
         publishedRecords = new ArrayList<LogRecord>();
-        
+
         wrappedLogger = java.util.logging.Logger.getLogger("org.richfaces.JavaLoggerTest");
         wrappedLogger.addHandler(new TrackingHandler());
-        
+
         logger = new JavaLogger(wrappedLogger.getName());
     }
-    
+
     @After
     public void tearDown() throws Exception {
         publishedRecords = null;
-        
+
         wrappedLogger = null;
         logger = null;
     }
-    
-    private void verifyLogRecord(LogRecord logRecord, Level level, String message, Class<? extends Throwable> thrownClass, String thrownMessage) {
+
+    private void verifyLogRecord(LogRecord logRecord, Level level, String message, Class<? extends Throwable> thrownClass,
+        String thrownMessage) {
         assertEquals(JavaLogger.LEVELS_MAP.get(level), logRecord.getLevel());
         assertEquals(message, logRecord.getMessage());
-        
+
         if (thrownClass != null && thrownMessage != null) {
             assertTrue(thrownClass.isInstance(logRecord.getThrown()));
             assertEquals(thrownMessage, logRecord.getThrown().getMessage());
@@ -111,14 +104,14 @@ public class JavaLoggerTest {
             assertNull(logRecord.getThrown());
         }
     }
-    
+
     private void verifyEnabledMethods(Level loggerLevel) throws Exception {
-        String[] levels = {"Debug", "Info", "Warn", "Error"};
-        
+        String[] levels = { "Debug", "Info", "Warn", "Error" };
+
         for (Level level : Level.values()) {
-            boolean enabledValue = (Boolean) Logger.class.getMethod(MessageFormat.format("is{0}Enabled", levels[level.ordinal()])).
-                invoke(logger);
-            
+            boolean enabledValue = (Boolean) Logger.class.getMethod(
+                MessageFormat.format("is{0}Enabled", levels[level.ordinal()])).invoke(logger);
+
             if (level.compareTo(loggerLevel) < 0) {
                 assertFalse(loggerLevel.toString(), enabledValue);
             } else {
@@ -126,11 +119,11 @@ public class JavaLoggerTest {
             }
         }
     }
-    
+
     private void verifyLoggingLevels(Level loggerLevel) {
         for (Level messageLevel : Level.values()) {
             logger.log(messageLevel, "test");
-            
+
             if (messageLevel.compareTo(loggerLevel) < 0) {
                 assertTrue(publishedRecords.isEmpty());
             } else {
@@ -143,52 +136,52 @@ public class JavaLoggerTest {
     @Test
     public void testLogging() throws Exception {
         wrappedLogger.setLevel(java.util.logging.Level.ALL);
-        
-        String[] levels = {"debug", "info", "warn", "error"};
-        
+
+        String[] levels = { "debug", "info", "warn", "error" };
+
         for (String levelName : levels) {
-            Logger.class.getMethod(levelName, CharSequence.class).invoke(logger, MessageFormat.format(CHAR_SEQUENCE_PATTERN, levelName));
-            Logger.class.getMethod(levelName, CharSequence.class, Throwable.class).invoke(logger, 
+            Logger.class.getMethod(levelName, CharSequence.class).invoke(logger,
+                MessageFormat.format(CHAR_SEQUENCE_PATTERN, levelName));
+            Logger.class.getMethod(levelName, CharSequence.class, Throwable.class).invoke(logger,
                 MessageFormat.format(CHAR_SEQUENCE_THROWABLE_PATTERN, levelName), new NullPointerException(levelName));
 
-            Logger.class.getMethod(levelName, Enum.class, Object[].class).invoke(logger, 
-                LoggerTestMessages.TEST_MESSAGE, new Object[] {levelName, DUMMY_MESSAGE});
+            Logger.class.getMethod(levelName, Enum.class, Object[].class).invoke(logger, LoggerTestMessages.TEST_MESSAGE,
+                new Object[] { levelName, DUMMY_MESSAGE });
 
             Logger.class.getMethod(levelName, Throwable.class).invoke(logger, new IllegalArgumentException(levelName));
 
-            Logger.class.getMethod(levelName, Throwable.class, Enum.class, Object[].class).invoke(logger, 
-                new UnsupportedOperationException(levelName), LoggerTestMessages.TEST_MESSAGE, new Object[] {levelName, 
-                    ANOTHER_DUMMY_MESSAGE});
+            Logger.class.getMethod(levelName, Throwable.class, Enum.class, Object[].class).invoke(logger,
+                new UnsupportedOperationException(levelName), LoggerTestMessages.TEST_MESSAGE,
+                new Object[] { levelName, ANOTHER_DUMMY_MESSAGE });
         }
-        
+
         Iterator<LogRecord> iterator = publishedRecords.iterator();
-        
-        for (Level level: Level.values()) {
+
+        for (Level level : Level.values()) {
             String levelName = levels[level.ordinal()];
-            
+
             verifyLogRecord(iterator.next(), level, MessageFormat.format(CHAR_SEQUENCE_PATTERN, levelName), null, null);
-            verifyLogRecord(iterator.next(), level, MessageFormat.format(CHAR_SEQUENCE_THROWABLE_PATTERN, levelName), 
+            verifyLogRecord(iterator.next(), level, MessageFormat.format(CHAR_SEQUENCE_THROWABLE_PATTERN, levelName),
                 NullPointerException.class, levelName);
 
-            verifyLogRecord(iterator.next(), level, MessageFormat.format(TEST_MESSAGE_PATTERN, 
-                levelName, DUMMY_MESSAGE), null, null);
+            verifyLogRecord(iterator.next(), level, MessageFormat.format(TEST_MESSAGE_PATTERN, levelName, DUMMY_MESSAGE), null,
+                null);
 
             verifyLogRecord(iterator.next(), level, null, IllegalArgumentException.class, levelName);
 
-            verifyLogRecord(iterator.next(), level, MessageFormat.format(TEST_MESSAGE_PATTERN, 
-                levelName, ANOTHER_DUMMY_MESSAGE), UnsupportedOperationException.class, levelName);
-
+            verifyLogRecord(iterator.next(), level,
+                MessageFormat.format(TEST_MESSAGE_PATTERN, levelName, ANOTHER_DUMMY_MESSAGE),
+                UnsupportedOperationException.class, levelName);
         }
     }
-    
+
     @Test
     public void testLevels() throws Exception {
         for (Level loggerLevel : Level.values()) {
             wrappedLogger.setLevel(JavaLogger.LEVELS_MAP.get(loggerLevel));
-            
+
             verifyEnabledMethods(loggerLevel);
             verifyLoggingLevels(loggerLevel);
         }
     }
-
 }

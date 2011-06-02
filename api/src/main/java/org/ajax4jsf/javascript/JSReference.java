@@ -18,15 +18,13 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.javascript;
 
 import java.io.IOException;
 
 /**
  * Create reference to JavaScript variable with optional index.
+ *
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:58:30 $
  *
@@ -37,7 +35,6 @@ public class JSReference extends ScriptStringBase {
     public static final JSReference TRUE = new JSReference("true");
     public static final JSReference NULL = new JSReference("null");
     public static final JSReference FALSE = new JSReference("false");
-    
     private final Object index;
     private final String name;
 
@@ -67,5 +64,4 @@ public class JSReference extends ScriptStringBase {
             target.append("]");
         }
     }
-
 }

@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.resource;
 
 import static org.richfaces.resource.ResourceUtils.secondToMillis;
@@ -50,7 +49,6 @@ import org.richfaces.util.Util;
  * @since 4.0
  */
 class CachedResourceImpl extends AbstractCacheableResource {
-
     // [0..1]
     private static final float CACHE_EXPIRATION_COEFFICIENT = 0.9f;
     private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
@@ -59,10 +57,9 @@ class CachedResourceImpl extends AbstractCacheableResource {
     private static final Pattern MAX_AGE = Pattern.compile("^(?:(s-maxage)|max-age)=(\\d+)$", Pattern.CASE_INSENSITIVE);
     private ByteBuffer content;
     private String entityTag;
-
     /**
-     * serves only to define server cache entry expiration time only
-     * browser cache expiration is controlled by stored HTTP headers value
+     * serves only to define server cache entry expiration time only browser cache expiration is controlled by stored HTTP
+     * headers value
      */
     private Date expired;
     private Map<String, String> headers;
@@ -124,8 +121,9 @@ class CachedResourceImpl extends AbstractCacheableResource {
 
             // ttl = expireTime - currentTime
             // CACHE_EXPIRATION_COEFFICIENT * ttl + currentTime
-            this.expired = new Date((long) (CACHE_EXPIRATION_COEFFICIENT * expiredFromHeader.getTime()
-                + (1 - CACHE_EXPIRATION_COEFFICIENT) * currentTime));
+            this.expired = new Date(
+                (long) (CACHE_EXPIRATION_COEFFICIENT * expiredFromHeader.getTime() + (1 - CACHE_EXPIRATION_COEFFICIENT)
+                    * currentTime));
         } else {
 
             // TODO throw exception or modify headers?

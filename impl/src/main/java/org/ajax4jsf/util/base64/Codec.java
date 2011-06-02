@@ -18,15 +18,15 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.ajax4jsf.util.base64;
+
+import java.security.spec.KeySpec;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESKeySpec;
 import javax.faces.FacesException;
-import java.security.spec.KeySpec;
 
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)
@@ -63,9 +63,7 @@ public class Codec {
      *
      */
     public void setPassword(String p) throws FacesException {
-        byte[] s = {
-            (byte) 0xA9, (byte) 0x9B, (byte) 0xC8, (byte) 0x32, (byte) 0x56, (byte) 0x34, (byte) 0xE3, (byte) 0x03
-        };
+        byte[] s = { (byte) 0xA9, (byte) 0x9B, (byte) 0xC8, (byte) 0x32, (byte) 0x56, (byte) 0x34, (byte) 0xE3, (byte) 0x03 };
 
         try {
             KeySpec keySpec = new DESKeySpec(p.getBytes("UTF8"));
@@ -75,7 +73,7 @@ public class Codec {
             d = Cipher.getInstance(key.getAlgorithm());
 
             // Prepare the parameters to the cipthers
-//          AlgorithmParameterSpec paramSpec = new IvParameterSpec(s);
+            // AlgorithmParameterSpec paramSpec = new IvParameterSpec(s);
             e.init(Cipher.ENCRYPT_MODE, key);
             d.init(Cipher.DECRYPT_MODE, key);
         } catch (Exception e) {
@@ -93,23 +91,23 @@ public class Codec {
 
     public String encode(String str) throws Exception {
 
-//      try {
+        // try {
         byte[] src = str.getBytes("UTF8");
 
-//      int len = (src.length/8+1)*8;
-//      byte[] block = new byte[len];
-//      Arrays.fill(block,0,len,(byte)0x20);
-//      System.arraycopy(src,0,block,0,src.length);
+        // int len = (src.length/8+1)*8;
+        // byte[] block = new byte[len];
+        // Arrays.fill(block,0,len,(byte)0x20);
+        // System.arraycopy(src,0,block,0,src.length);
         // Decrypt
         byte[] utf8 = encode(src);
 
         // Decode using utf-8
         return new String(utf8, "UTF8");
 
-//      } catch (Exception e) {
-//          // TODO: handle exception
-//          return null;
-//      }
+        // } catch (Exception e) {
+        // // TODO: handle exception
+        // return null;
+        // }
     }
 
     public byte[] decode(byte[] src) throws Exception {

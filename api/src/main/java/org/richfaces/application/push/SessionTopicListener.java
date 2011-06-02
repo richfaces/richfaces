@@ -21,19 +21,16 @@
  */
 package org.richfaces.application.push;
 
-
 /**
  * Deprecated by {@link SessionTopicListener2}
- * 
+ *
  * @author Nick Belaevski
  */
 @Deprecated
 public interface SessionTopicListener extends TopicListener {
+    void processPreSubscriptionEvent(SessionPreSubscriptionEvent event) throws EventAbortedException;
 
-    public void processPreSubscriptionEvent(SessionPreSubscriptionEvent event) throws EventAbortedException;
-    
-    public void processSubscriptionEvent(SessionSubscriptionEvent event) throws EventAbortedException;
-    
-    public void processUnsubscriptionEvent(SessionUnsubscriptionEvent event) throws EventAbortedException;
-    
+    void processSubscriptionEvent(SessionSubscriptionEvent event) throws EventAbortedException;
+
+    void processUnsubscriptionEvent(SessionUnsubscriptionEvent event) throws EventAbortedException;
 }

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.richfaces.cache;
 
 import java.io.BufferedReader;
@@ -35,19 +34,15 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
 /**
- * TODO stop caches on application stop
- * CacheManager is used in J2SE environments for looking up named caches.
+ * TODO stop caches on application stop CacheManager is used in J2SE environments for looking up named caches.
  */
 public class CacheManager {
     public static final String CACHE_MANAGER_FACTORY_CLASS = "org.ajax4jsf.cache.CACHE_MANAGER_FACTORY_CLASS";
-
-    private static final String[] DEFAULT_FACTORIES_CHAIN = {"org.ajax4jsf.cache.JBossCacheCacheFactory",
-        "org.ajax4jsf.cache.EhCacheCacheFactory"};
+    private static final String[] DEFAULT_FACTORIES_CHAIN = { "org.ajax4jsf.cache.JBossCacheCacheFactory",
+            "org.ajax4jsf.cache.EhCacheCacheFactory" };
     private static final String FACTORY_PROPERTY_NAME = "org.ajax4jsf.cache.CacheFactory";
     private static final Logger LOG = RichfacesLogger.CACHE.getLogger();
-
     private CacheFactory cacheFactory;
-    
     private final Map<String, Cache> caches = new ConcurrentHashMap<String, Cache>(1, 0.75f, 1);
 
     public Cache getCache(String cacheName) {
@@ -58,7 +53,7 @@ public class CacheManager {
         CacheFactory factory = getCacheFactory(env);
         Cache cache = factory.createCache(facesContext, cacheName, env);
         cache.start();
-        
+
         caches.put(cacheName, cache);
 
         return cache;
@@ -74,13 +69,13 @@ public class CacheManager {
         if (cacheFactory != null) {
             return cacheFactory;
         }
-        
+
         String[] factories;
         String configuredFactoryName = findFactory(FACTORY_PROPERTY_NAME, env);
 
         if (configuredFactoryName != null) {
             LOG.info(MessageFormat.format("Configured to use [{0}] cache factory", configuredFactoryName));
-            factories = new String[]{configuredFactoryName};
+            factories = new String[] { configuredFactoryName };
         } else {
             factories = DEFAULT_FACTORIES_CHAIN;
         }
@@ -104,7 +99,7 @@ public class CacheManager {
             cacheFactory = new LRUMapCacheFactory();
             LOG.info("Selected fallback cache factory");
         }
-        
+
         return cacheFactory;
     }
 
@@ -181,8 +176,7 @@ public class CacheManager {
 
     private static String searchInJcacheProperties(String factoryId) {
         try {
-            String configFile = System.getProperty("java.home") + File.separator + "lib" + File.separator
-                + "jcache.properties";
+            String configFile = System.getProperty("java.home") + File.separator + "lib" + File.separator + "jcache.properties";
             File file = new File(configFile);
 
             if (file.exists()) {
@@ -228,7 +222,7 @@ public class CacheManager {
         for (String cacheName : caches.keySet()) {
             destroyCache(cacheName);
         }
-        
+
         if (cacheFactory != null) {
             cacheFactory.destroy();
         }

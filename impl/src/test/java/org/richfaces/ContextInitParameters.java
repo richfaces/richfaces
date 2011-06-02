@@ -28,12 +28,10 @@ import java.lang.annotation.Target;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface ContextInitParameters {
-
-    public ContextInitParameter[] value();
-    
+    ContextInitParameter[] value();
 }

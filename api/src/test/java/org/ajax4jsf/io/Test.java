@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.io;
 
 import java.io.ByteArrayInputStream;
@@ -39,7 +36,8 @@ public final class Test {
     private static final boolean OUT_STRING = true;
     private static final boolean BUILD_STRING = false;
 
-    private Test() {}
+    private Test() {
+    }
 
     static void testStreams() throws IOException {
         String s = "This is a senseless text to test streams.\n";
@@ -320,14 +318,14 @@ public final class Test {
         try {
             for (int i = 0; i < 10; i++) {
 
-//              testStreams();
-//              testStandardStreams();
-//              testReaders();
-//                  testStandardReaders();
-//              testTransitionFromWriterToStream();
+                // testStreams();
+                // testStandardStreams();
+                // testReaders();
+                // testStandardReaders();
+                // testTransitionFromWriterToStream();
                 testStandardTransitionFromWriterToStream();
 
-//              testTransitionFromStreamToWriter();
+                // testTransitionFromStreamToWriter();
             }
         } catch (Exception e) {
             e.printStackTrace();

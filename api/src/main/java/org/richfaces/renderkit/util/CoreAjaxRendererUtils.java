@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit.util;
 
 import java.io.IOException;
@@ -41,22 +40,18 @@ import org.richfaces.renderkit.HtmlConstants;
 
 import com.google.common.base.Strings;
 
-
 /**
  * @author shura
  *         <p/>
  *         Some utilites for render AJAX components.
  */
 public final class CoreAjaxRendererUtils {
-
     /**
      * @since 3.3.0
      */
     public static final String AJAX_PROCESS_ATTRIBUTE = "process";
     public static final String AJAX_REGIONS_ATTRIBUTE = "reRender";
-
     private static final String EXTENSION_ID = "org.richfaces.extension";
-    
     private static final String BEFOREDOMUPDATE_ELEMENT_NAME = "beforedomupdate";
     private static final String COMPLETE_ELEMENT_NAME = "complete";
     private static final String DATA_ELEMENT_NAME = "data";
@@ -66,10 +61,8 @@ public final class CoreAjaxRendererUtils {
     private CoreAjaxRendererUtils() {
     }
 
-    private static void startExtensionElementIfNecessary(
-        PartialResponseWriter partialResponseWriter,
-        Map<String, String> attributes,
-        boolean[] writingState) throws IOException {
+    private static void startExtensionElementIfNecessary(PartialResponseWriter partialResponseWriter,
+        Map<String, String> attributes, boolean[] writingState) throws IOException {
 
         if (!writingState[0]) {
             writingState[0] = true;
@@ -78,9 +71,8 @@ public final class CoreAjaxRendererUtils {
         }
     }
 
-    private static void endExtensionElementIfNecessary(
-        PartialResponseWriter partialResponseWriter,
-        boolean[] writingState) throws IOException {
+    private static void endExtensionElementIfNecessary(PartialResponseWriter partialResponseWriter, boolean[] writingState)
+        throws IOException {
 
         if (writingState[0]) {
             writingState[0] = false;
@@ -92,10 +84,10 @@ public final class CoreAjaxRendererUtils {
     public static void renderAjaxExtensions(FacesContext facesContext, UIComponent component) throws IOException {
         ExtendedPartialViewContext partialContext = ExtendedPartialViewContext.getInstance(facesContext);
 
-        Map<String, String> attributes = Collections.singletonMap(HtmlConstants.ID_ATTRIBUTE,
-            facesContext.getExternalContext().encodeNamespace(EXTENSION_ID));
+        Map<String, String> attributes = Collections.singletonMap(HtmlConstants.ID_ATTRIBUTE, facesContext.getExternalContext()
+            .encodeNamespace(EXTENSION_ID));
         PartialResponseWriter writer = facesContext.getPartialViewContext().getPartialResponseWriter();
-        boolean[] writingState = new boolean[]{false};
+        boolean[] writingState = new boolean[] { false };
 
         Object onbeforedomupdate = partialContext.getOnbeforedomupdate();
         if (onbeforedomupdate != null) {
@@ -140,9 +132,8 @@ public final class CoreAjaxRendererUtils {
 
             writer.endElement(COMPONENT_DATA_ELEMENT_NAME);
         }
-        
-        endExtensionElementIfNecessary(writer, writingState);
 
+        endExtensionElementIfNecessary(writer, writingState);
     }
 
     /**
@@ -168,7 +159,7 @@ public final class CoreAjaxRendererUtils {
 
         return asIdsSet(areas);
     }
-    
+
     public static Set<String> asSimpleSet(Object valueToSet) {
         return asSet(valueToSet);
     }
@@ -176,7 +167,7 @@ public final class CoreAjaxRendererUtils {
     public static Set<String> asIdsSet(Object valueToSet) {
         return asSet(valueToSet);
     }
-    
+
     @SuppressWarnings("unchecked")
     private static Set<String> asSet(Object valueToSet) {
         if (null != valueToSet) {
@@ -193,7 +184,7 @@ public final class CoreAjaxRendererUtils {
 
                 if (areasString.contains(",") || areasString.contains(" ")) {
                     String[] values = ID_SPLIT_PATTERN.split(areasString);
-                    
+
                     Set<String> result = new LinkedHashSet<String>(values.length);
                     for (String value : values) {
                         if (Strings.isNullOrEmpty(value)) {
@@ -218,5 +209,4 @@ public final class CoreAjaxRendererUtils {
 
         return null;
     }
-
 }

@@ -13,20 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.ajax4jsf.util.base64;
 
 /**
- * Thrown when there is a failure condition during the encoding process.  This
- * exception is thrown when an Encoder encounters a encoding specific exception
- * such as invalid data, inability to calculate a checksum, characters outside of the
- * expected range.
+ * Thrown when there is a failure condition during the encoding process. This exception is thrown when an Encoder encounters a
+ * encoding specific exception such as invalid data, inability to calculate a checksum, characters outside of the expected
+ * range.
  *
  * @author Apache Software Foundation
  * @version $Id: EncoderException.java,v 1.1.2.1 2007/01/09 18:59:12 alexsmirnov Exp $
  */
 public class EncoderException extends Exception {
-
     /**
      * Creates a new instance of this exception with an useful message.
      *

@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.ajax4jsf.util.base64;
 
 import org.ajax4jsf.Messages;
 
 /**
- * Provides Base64 encoding and decoding like defined by RFC 2045, but with little difference :
- * chars '=' '+' and '/' , incorrectly processed in URL by any browsers, replaced by '_' '-' '!',
+ * Provides Base64 encoding and decoding like defined by RFC 2045, but with little difference : chars '=' '+' and '/' ,
+ * incorrectly processed in URL by any browsers, replaced by '_' '-' '!',
  *
  * @author Apache Software Foundation
  * @version $Id: URL64Codec.java,v 1.1.2.1 2007/01/09 18:59:11 alexsmirnov Exp $
@@ -28,64 +27,55 @@ import org.ajax4jsf.Messages;
  * @since 1.0-dev
  */
 public class URL64Codec implements BinaryEncoder, BinaryDecoder {
-
     /**
      * The base length.
      */
     static final int BASELENGTH = 255;
-
     /**
      * Chunk size per RFC 2045 section 6.8.
      * <p/>
-     * <p>The {@value} character limit does not count the trailing CRLF, but counts
-     * all other characters, including any equal signs.</p>
+     * <p>
+     * The {@value} character limit does not count the trailing CRLF, but counts all other characters, including any equal
+     * signs.
+     * </p>
      *
      * @see <a href="http://www.ietf.org/rfc/rfc2045.txt">RFC 2045 section 6.8</a>
      */
     static final int CHUNK_SIZE = 76;
-
     /**
      * Chunk separator per RFC 2045 section 2.1.
      *
      * @see <a href="http://www.ietf.org/rfc/rfc2045.txt">RFC 2045 section 2.1</a>
      */
     static final byte[] CHUNK_SEPARATOR = "\r\n".getBytes();
-
     /**
      * Used to calculate the number of bits in a byte.
      */
     static final int EIGHTBIT = 8;
-
     /**
      * Used to get the number of Quadruples.
      */
     static final int FOURBYTE = 4;
-
     /**
      * Lookup length.
      */
     static final int LOOKUPLENGTH = 64;
-
     /**
      * Byte used to pad output. instesd of '=' in base64, used '_'
      */
     static final byte PAD = (byte) '_';
-
     /**
      * Used to test the sign of a byte.
      */
     static final int SIGN = -128;
-
     /**
      * Used when encoding something which has fewer than 24 bits.
      */
     static final int SIXTEENBIT = 16;
-
     /**
      * Used to determine how many bits data contains.
      */
     static final int TWENTYFOURBITGROUP = 24;
-
     // Create arrays to hold the base64 characters and a
     // lookup for base64 chars
     private static byte[] base64Alphabet = new byte[BASELENGTH];
@@ -143,12 +133,10 @@ public class URL64Codec implements BinaryEncoder, BinaryDecoder {
     }
 
     /**
-     * Tests a given byte array to see if it contains
-     * only valid characters within the Base64 alphabet.
+     * Tests a given byte array to see if it contains only valid characters within the Base64 alphabet.
      *
      * @param arrayOctect byte array to test
-     * @return true if all bytes are valid characters in the Base64
-     *         alphabet or if the byte array is empty; false, otherwise
+     * @return true if all bytes are valid characters in the Base64 alphabet or if the byte array is empty; false, otherwise
      */
     public static boolean isArrayByteBase64(byte[] arrayOctect) {
         arrayOctect = discardWhitespace(arrayOctect);
@@ -172,8 +160,7 @@ public class URL64Codec implements BinaryEncoder, BinaryDecoder {
     }
 
     /**
-     * Encodes binary data using the base64 algorithm but
-     * does not chunk the output.
+     * Encodes binary data using the base64 algorithm but does not chunk the output.
      *
      * @param binaryData binary data to encode
      * @return Base64 characters
@@ -183,8 +170,7 @@ public class URL64Codec implements BinaryEncoder, BinaryDecoder {
     }
 
     /**
-     * Encodes binary data using the base64 algorithm and chunks
-     * the encoded output into 76 character blocks
+     * Encodes binary data using the base64 algorithm and chunks the encoded output into 76 character blocks
      *
      * @param binaryData binary data to encode
      * @return Base64 characters chunked in 76 character blocks
@@ -194,16 +180,12 @@ public class URL64Codec implements BinaryEncoder, BinaryDecoder {
     }
 
     /**
-     * Decodes an Object using the base64 algorithm.  This method
-     * is provided in order to satisfy the requirements of the
-     * Decoder interface, and will throw a DecoderException if the
-     * supplied object is not of type byte[].
+     * Decodes an Object using the base64 algorithm. This method is provided in order to satisfy the requirements of the Decoder
+     * interface, and will throw a DecoderException if the supplied object is not of type byte[].
      *
      * @param pObject Object to decode
-     * @return An object (of type byte[]) containing the
-     *         binary data which corresponds to the byte[] supplied.
-     * @throws DecoderException if the parameter supplied is not
-     *                          of type byte[]
+     * @return An object (of type byte[]) containing the binary data which corresponds to the byte[] supplied.
+     * @throws DecoderException if the parameter supplied is not of type byte[]
      */
     public Object decode(Object pObject) throws DecoderException {
         if (!(pObject instanceof byte[])) {
@@ -214,8 +196,7 @@ public class URL64Codec implements BinaryEncoder, BinaryDecoder {
     }
 
     /**
-     * Decodes a byte[] containing containing
-     * characters in the Base64 alphabet.
+     * Decodes a byte[] containing containing characters in the Base64 alphabet.
      *
      * @param pArray A byte array containing Base64 character data
      * @return a byte array containing binary data
@@ -225,12 +206,10 @@ public class URL64Codec implements BinaryEncoder, BinaryDecoder {
     }
 
     /**
-     * Encodes binary data using the base64 algorithm, optionally
-     * chunking the output into 76 character blocks.
+     * Encodes binary data using the base64 algorithm, optionally chunking the output into 76 character blocks.
      *
      * @param binaryData Array containing binary data to encode.
-     * @param isChunked  if isChunked is true this encoder will chunk
-     *                   the base64 output into 76 character blocks
+     * @param isChunked if isChunked is true this encoder will chunk the base64 output into 76 character blocks
      * @return Base64-encoded data.
      */
     public static byte[] encodeBase64(byte[] binaryData, boolean isChunked) {
@@ -291,7 +270,7 @@ public class URL64Codec implements BinaryEncoder, BinaryDecoder {
 
             // log.debug( "val2 = " + val2 );
             // log.debug( "k4   = " + (k<<4) );
-            // log.debug(  "vak  = " + (val2 | (k<<4)) );
+            // log.debug( "vak  = " + (val2 | (k<<4)) );
             encodedData[encodedIndex + 1] = lookUpBase64Alphabet[val2 | (k << 4)];
             encodedData[encodedIndex + 2] = lookUpBase64Alphabet[(l << 2) | val3];
             encodedData[encodedIndex + 3] = lookUpBase64Alphabet[b3 & 0x3f];
@@ -429,8 +408,7 @@ public class URL64Codec implements BinaryEncoder, BinaryDecoder {
     /**
      * Discards any whitespace from a base-64 encoded block.
      *
-     * @param data The base-64 encoded data to discard the whitespace
-     *             from.
+     * @param data The base-64 encoded data to discard the whitespace from.
      * @return The data, less whitespace (see RFC 2045).
      */
     static byte[] discardWhitespace(byte[] data) {
@@ -458,10 +436,8 @@ public class URL64Codec implements BinaryEncoder, BinaryDecoder {
     }
 
     /**
-     * Discards any characters outside of the base64 alphabet, per
-     * the requirements on page 25 of RFC 2045 - "Any characters
-     * outside of the base64 alphabet are to be ignored in base64
-     * encoded data."
+     * Discards any characters outside of the base64 alphabet, per the requirements on page 25 of RFC 2045 - "Any characters
+     * outside of the base64 alphabet are to be ignored in base64 encoded data."
      *
      * @param data The base-64 encoded data to groom
      * @return The data, less non-base64 characters (see RFC 2045).
@@ -486,16 +462,12 @@ public class URL64Codec implements BinaryEncoder, BinaryDecoder {
     // Implementation of the Encoder Interface
 
     /**
-     * Encodes an Object using the base64 algorithm.  This method
-     * is provided in order to satisfy the requirements of the
-     * Encoder interface, and will throw an EncoderException if the
-     * supplied object is not of type byte[].
+     * Encodes an Object using the base64 algorithm. This method is provided in order to satisfy the requirements of the Encoder
+     * interface, and will throw an EncoderException if the supplied object is not of type byte[].
      *
      * @param pObject Object to encode
-     * @return An object (of type byte[]) containing the
-     *         base64 encoded data which corresponds to the byte[] supplied.
-     * @throws EncoderException if the parameter supplied is not
-     *                          of type byte[]
+     * @return An object (of type byte[]) containing the base64 encoded data which corresponds to the byte[] supplied.
+     * @throws EncoderException if the parameter supplied is not of type byte[]
      */
     public Object encode(Object pObject) throws EncoderException {
         if (!(pObject instanceof byte[])) {
@@ -506,8 +478,7 @@ public class URL64Codec implements BinaryEncoder, BinaryDecoder {
     }
 
     /**
-     * Encodes a byte[] containing binary data, into a byte[] containing
-     * characters in the Base64 alphabet.
+     * Encodes a byte[] containing binary data, into a byte[] containing characters in the Base64 alphabet.
      *
      * @param pArray a byte array containing binary data
      * @return A byte array containing only Base64 character data

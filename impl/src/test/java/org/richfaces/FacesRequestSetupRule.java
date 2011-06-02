@@ -34,16 +34,13 @@ import com.google.common.collect.Maps;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class FacesRequestSetupRule implements MethodRule {
-
     private FacesEnvironment environment;
-
     private FacesRequest facesRequest;
 
-    public Statement apply(final Statement base, final FrameworkMethod method,
-        Object target) {
+    public Statement apply(final Statement base, final FrameworkMethod method, Object target) {
         return new Statement() {
             @Override
             public void evaluate() throws Throwable {
@@ -61,12 +58,12 @@ public class FacesRequestSetupRule implements MethodRule {
 
     private Map<String, String> getInitParameters(FrameworkMethod method) {
         Map<String, String> result = Maps.newHashMap();
-        
+
         ContextInitParameter parameter = method.getAnnotation(ContextInitParameter.class);
         if (parameter != null) {
             result.put(parameter.name(), parameter.value());
         }
-        
+
         ContextInitParameters parameters = method.getAnnotation(ContextInitParameters.class);
         if (parameters != null) {
             for (ContextInitParameter param : parameters.value()) {
@@ -75,10 +72,10 @@ public class FacesRequestSetupRule implements MethodRule {
                 }
             }
         }
-        
+
         return result;
     }
-    
+
     protected void starting(FrameworkMethod method) throws Exception {
         createFacesEnvironment();
         setUpFacesEnvironment(method);
@@ -101,10 +98,10 @@ public class FacesRequestSetupRule implements MethodRule {
     }
 
     protected void setUpFacesEnvironment(FrameworkMethod method) {
-        for (Entry<String, String> paramEntry: getInitParameters(method).entrySet()) {
+        for (Entry<String, String> paramEntry : getInitParameters(method).entrySet()) {
             environment.getServer().addInitParameter(paramEntry.getKey(), paramEntry.getValue());
         }
-        
+
         environment.start();
     }
 
@@ -129,5 +126,4 @@ public class FacesRequestSetupRule implements MethodRule {
     public FacesRequest getFacesRequest() {
         return facesRequest;
     }
-    
 }

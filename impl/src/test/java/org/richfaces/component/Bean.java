@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.richfaces.component;
 
@@ -18,9 +18,7 @@ import org.richfaces.resource.ResourceLibrary;
  *
  */
 public class Bean {
-    
     private static final class TestScript extends JSLiteral implements ResourceLibrary {
-        
         public TestScript() {
             super(TEST_SCRIPT);
         }
@@ -28,24 +26,16 @@ public class Bean {
         public Iterable<ResourceKey> getResources() {
             return Collections.singleton(TEST_RESOURCE);
         }
-
     }
 
     public static final String TEST_SCRIPT_NAME = "test_script";
-
     public static final String FOO_BAR = "foo.bar";
-
     public static final String FOO = "foo";
-
     public static final String FOO_VALUE = "fooValue";
-    
     public static final String TEST_SCRIPT = "function " + FOO + "(id){alert(id);}";
-    
-    private static final ResourceKey TEST_RESOURCE = ResourceKey.create(TEST_SCRIPT_NAME + ".js",FOO_BAR);
-
+    private static final ResourceKey TEST_RESOURCE = ResourceKey.create(TEST_SCRIPT_NAME + ".js", FOO_BAR);
     private static final ResourceLibrary SCRIPT = new TestScript();
-
-    private String value=FOO_VALUE;
+    private String value = FOO_VALUE;
 
     /**
      * @return the value
@@ -60,13 +50,11 @@ public class Bean {
     public void setValue(String value) {
         this.value = value;
     }
-    
+
     public String action() {
         JavaScriptService javaScriptService = ServiceTracker.getService(JavaScriptService.class);
         FacesContext facesContext = FacesContext.getCurrentInstance();
         javaScriptService.addPageReadyScript(facesContext, SCRIPT);
         return null;
     }
-    
-
 }

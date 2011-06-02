@@ -23,10 +23,9 @@ package org.richfaces.application.push;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class MessageException extends Exception {
-
     private static final long serialVersionUID = -8684363449647232385L;
 
     public MessageException() {
@@ -44,5 +43,4 @@ public class MessageException extends Exception {
     public MessageException(Throwable cause) {
         super(cause);
     }
-
 }

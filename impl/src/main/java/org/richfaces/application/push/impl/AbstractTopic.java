@@ -41,30 +41,25 @@ import org.richfaces.log.RichfacesLogger;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public abstract class AbstractTopic implements Topic {
-
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
-    
     private TopicKey key;
-    
     private volatile MessageDataSerializer serializer;
-    
     private volatile boolean allowSubtopics;
-    
     private List<TopicListener> listeners = new CopyOnWriteArrayList<TopicListener>();
-    
+
     public AbstractTopic(TopicKey key) {
         super();
         this.key = key;
     }
-    
+
     public MessageDataSerializer getMessageDataSerializer() {
         if (serializer == null) {
             return DefaultMessageDataSerializer.instance();
         }
-        
+
         return serializer;
     }
 
@@ -75,31 +70,31 @@ public abstract class AbstractTopic implements Topic {
     public boolean isAllowSubtopics() {
         return allowSubtopics;
     }
-    
+
     public void setAllowSubtopics(boolean allowSubtopics) {
         this.allowSubtopics = allowSubtopics;
     }
-    
+
     public TopicKey getKey() {
         return key;
     }
-    
+
     public void addTopicListener(TopicListener topicListener) {
         TopicListener listener = topicListener;
-        
+
         if (listener instanceof SessionTopicListener) {
             listener = new SessionTopicListenerWrapper((SessionTopicListener) listener);
         }
-        
+
         listeners.add(listener);
     }
-    
+
     public void removeTopicListener(TopicListener topicListener) {
         if (topicListener instanceof SessionTopicListener) {
             Iterator<TopicListener> iterator = listeners.iterator();
             while (iterator.hasNext()) {
                 TopicListener next = iterator.next();
-                
+
                 if (next instanceof SessionTopicListenerWrapper) {
                     SessionTopicListenerWrapper listenerWrapper = (SessionTopicListenerWrapper) next;
                     if (topicListener.equals(listenerWrapper.getWrappedListener())) {
@@ -115,7 +110,7 @@ public abstract class AbstractTopic implements Topic {
 
     public void checkSubscription(TopicKey key, Session session) throws SubscriptionFailureException {
         SessionPreSubscriptionEvent event = new SessionPreSubscriptionEvent(this, key, session);
-        for (TopicListener listener: listeners) {
+        for (TopicListener listener : listeners) {
             if (event.isAppropriateListener(listener)) {
                 try {
                     event.invokeListener(listener);
@@ -131,9 +126,9 @@ public abstract class AbstractTopic implements Topic {
     private void logError(Exception e) {
         LOGGER.error(MessageFormat.format("Exception invoking listener: {0}", e.getMessage()), e);
     }
-    
+
     public void publishEvent(TopicEvent event) {
-        for (TopicListener listener: listeners) {
+        for (TopicListener listener : listeners) {
             if (event.isAppropriateListener(listener)) {
                 try {
                     event.invokeListener(listener);
@@ -143,7 +138,6 @@ public abstract class AbstractTopic implements Topic {
             }
         }
     }
-    
+
     public abstract void publish(TopicKey key, Object messageData) throws MessageException;
-    
 }

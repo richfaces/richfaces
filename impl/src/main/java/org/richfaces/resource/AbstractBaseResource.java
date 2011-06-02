@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.resource;
 
 import java.io.IOException;
@@ -76,8 +75,8 @@ public abstract class AbstractBaseResource extends Resource {
             lastModified = ServiceTracker.getService(Uptime.class).getStartTime();
 
             if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug(
-                    MessageFormat.format(
+                LOGGER
+                    .debug(MessageFormat.format(
                         "Using resource handler start time as last modified date: {0,date,dd MMM yyyy HH:mm:ss zzz}",
                         lastModified));
             }
@@ -141,10 +140,10 @@ public abstract class AbstractBaseResource extends Resource {
         if (this instanceof VersionedResource) {
             return ((VersionedResource) this).getVersion();
         }
-        
+
         return null;
     }
-    
+
     @Override
     public String getRequestPath() {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -153,9 +152,9 @@ public abstract class AbstractBaseResource extends Resource {
         String resourceName = getResourceName();
         Object resourceData = Util.saveResourceState(context, this);
         String resourceVersion = getResourceVersion();
-        String resourceUri = resourceCodec.encodeResourceRequestPath(context, libraryName, resourceName, 
-            resourceData, resourceVersion);
-        
+        String resourceUri = resourceCodec.encodeResourceRequestPath(context, libraryName, resourceName, resourceData,
+            resourceVersion);
+
         resourceUri = resourceCodec.encodeJSFMapping(context, resourceUri);
 
         if (LOGGER.isDebugEnabled()) {
@@ -175,17 +174,17 @@ public abstract class AbstractBaseResource extends Resource {
     long getCurrentTime() {
         return System.currentTimeMillis();
     }
-    
+
     protected void addNoCacheResponseHeaders(FacesContext facesContext, Map<String, String> headers) {
         headers.put("Expires", "0");
         headers.put("Cache-Control", "max-age=0, no-store, no-cache");
         headers.put("Pragma", "no-cache");
     }
-    
+
     protected void addCacheControlResponseHeaders(FacesContext facesContext, Map<String, String> headers) {
         addNoCacheResponseHeaders(facesContext, headers);
     }
-    
+
     @Override
     public Map<String, String> getResponseHeaders() {
         Map<String, String> headers = new HashMap<String, String>();
@@ -240,7 +239,7 @@ public abstract class AbstractBaseResource extends Resource {
     public boolean userAgentNeedsUpdate(FacesContext context) {
         return true;
     }
-    
+
     private class MyURLConnection extends URLConnection {
         MyURLConnection(URL u) {
             super(u);
@@ -291,5 +290,4 @@ public abstract class AbstractBaseResource extends Resource {
             return new MyURLConnection(u);
         }
     }
-
 }

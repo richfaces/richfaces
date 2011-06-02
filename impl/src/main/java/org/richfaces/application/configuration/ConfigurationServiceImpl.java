@@ -52,106 +52,105 @@ import com.google.common.primitives.Primitives;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class ConfigurationServiceImpl implements ConfigurationService {
-
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
-    
     private static final String JNDI_COMP_PREFIX = "java:comp/env/";
-
     private Map<Enum<?>, ValueExpressionHolder> itemsMap = new ConcurrentHashMap<Enum<?>, ValueExpressionHolder>();
-
     private AtomicBoolean webEnvironmentUnavailableLogged = new AtomicBoolean();
-    
-    private final ConfigurationItem getConfigurationItem(Enum<?> enumKey) {
+
+    private ConfigurationItem getConfigurationItem(Enum<?> enumKey) {
         try {
             ConfigurationItem item = enumKey.getClass().getField(enumKey.name()).getAnnotation(ConfigurationItem.class);
             if (item != null) {
                 return item;
             }
         } catch (Exception e) {
-            throw new IllegalStateException(MessageFormat.format("Cannot read @ConfigurationItem annotation from {0}.{1} because of {2}", 
-                enumKey.getClass().getName(), enumKey.name(), e.getMessage()));
+            throw new IllegalStateException(MessageFormat.format(
+                "Cannot read @ConfigurationItem annotation from {0}.{1} because of {2}", enumKey.getClass().getName(),
+                enumKey.name(), e.getMessage()));
         }
 
-        throw new IllegalStateException(MessageFormat.format("Annotation @ConfigurationItem is not set at {0}.{1}", 
-            enumKey.getClass().getName(), enumKey.name()));
+        throw new IllegalStateException(MessageFormat.format("Annotation @ConfigurationItem is not set at {0}.{1}", enumKey
+            .getClass().getName(), enumKey.name()));
     }
-    
+
     private <T> T coerce(FacesContext context, Object value, Class<T> targetType) {
         if (value == null) {
             return null;
         }
-        
+
         if (targetType.isInstance(value)) {
             return targetType.cast(value);
         }
-        
+
         if (value instanceof String) {
             PropertyEditor editor = PropertyEditorManager.findEditor(targetType);
             if (editor == null && Primitives.isWrapperType(targetType)) {
                 editor = PropertyEditorManager.findEditor(Primitives.unwrap(targetType));
             }
-            
+
             if (editor != null) {
-                
+
                 editor.setAsText((String) value);
                 return targetType.cast(editor.getValue());
             } else if (targetType.isEnum()) {
                 return targetType.cast(Enum.valueOf((Class<Enum>) targetType, (String) value));
             }
         }
-        
-        throw new IllegalArgumentException(MessageFormat.format("Cannot convert {0} to object of {1} type", value, targetType.getName()));
+
+        throw new IllegalArgumentException(MessageFormat.format("Cannot convert {0} to object of {1} type", value,
+            targetType.getName()));
     }
-    
-    protected ValueExpressionHolder createValueExpressionHolder(FacesContext context, ValueExpression expression, String defaultValueString, Class<?> returnType) {
+
+    protected ValueExpressionHolder createValueExpressionHolder(FacesContext context, ValueExpression expression,
+        String defaultValueString, Class<?> returnType) {
         Object defaultValue = null;
-        
+
         if (expression == null || !expression.isLiteralText()) {
             if (!Strings.isNullOrEmpty(defaultValueString)) {
                 defaultValue = coerce(context, defaultValueString, returnType);
             }
         }
-        
+
         return new ValueExpressionHolder(expression, defaultValue);
     }
-    
+
     private String getInitParameterValue(FacesContext context, ConfigurationItem configurationItem) {
         for (String name : configurationItem.names()) {
             String value = (String) context.getExternalContext().getInitParameter(name);
-            
+
             if (!Strings.isNullOrEmpty(value)) {
                 return value;
             }
         }
-        
+
         return null;
     }
-    
+
     private String getWebEnvironmentEntryValue(ConfigurationItem configurationItem) {
         Context context = null;
-        
+
         try {
             context = new InitialContext();
         } catch (Throwable e) {
-            //Throwable is caught here due to GAE requirements
+            // Throwable is caught here due to GAE requirements
             if (!webEnvironmentUnavailableLogged.getAndSet(true)) {
                 LOGGER.error(e.getMessage(), e);
             }
         }
-        
+
         if (context != null) {
-            for (String envName: configurationItem.names()) {
+            for (String envName : configurationItem.names()) {
                 String qualifiedName;
-                
+
                 if (!envName.startsWith(JNDI_COMP_PREFIX)) {
                     qualifiedName = JNDI_COMP_PREFIX + envName;
                 } else {
                     qualifiedName = envName;
                 }
-                
+
                 String value = null;
                 try {
                     value = (String) context.lookup(qualifiedName);
@@ -166,19 +165,19 @@ public class ConfigurationServiceImpl implements ConfigurationService {
                 }
             }
         }
-        
+
         return null;
     }
-    
-    private final ValueExpression createContextValueExpression(FacesContext context, ConfigurationItem annotation, Class<?> targetType) {
+
+    private ValueExpression createContextValueExpression(FacesContext context, ConfigurationItem annotation, Class<?> targetType) {
         ConfigurationItemSource source = annotation.source();
-        
+
         if (source == ConfigurationItemSource.defaultSource) {
             source = ConfigurationItemSource.contextInitParameter;
         }
-        
+
         String parameterValue = null;
-        
+
         if (source == ConfigurationItemSource.contextInitParameter) {
             parameterValue = getInitParameterValue(context, annotation);
         } else if (source == ConfigurationItemSource.webEnvironmentEntry) {
@@ -186,26 +185,26 @@ public class ConfigurationServiceImpl implements ConfigurationService {
         } else {
             throw new IllegalArgumentException(source.toString());
         }
-        
+
         if (!Strings.isNullOrEmpty(parameterValue)) {
             return createValueExpression(context, parameterValue, annotation.literal(), targetType);
         }
-        
+
         return null;
     }
 
     private ValueExpression createValueExpression(FacesContext context, String parameterValue, boolean literal,
         Class<?> targetType) {
-        
+
         ValueExpression result = null;
-        
+
         if (!literal && ELUtils.isValueReference(parameterValue)) {
             ExpressionFactory expressionFactory = context.getApplication().getExpressionFactory();
-            
+
             if (expressionFactory == null) {
                 throw new IllegalStateException("ExpressionFactory is null");
             }
-            
+
             result = expressionFactory.createValueExpression(context.getELContext(), parameterValue, targetType);
         } else {
             Object coercedValue = coerce(context, parameterValue, targetType);
@@ -213,16 +212,16 @@ public class ConfigurationServiceImpl implements ConfigurationService {
                 result = new ConstantValueExpression(coercedValue);
             }
         }
-        
+
         return result;
     }
-    
+
     protected <T> T getValue(FacesContext facesContext, Enum<?> key, Class<T> returnType) {
         ValueExpressionHolder holder = itemsMap.get(key);
 
         if (holder == null) {
             ConfigurationItemsBundle configurationItemsBundle = getConfigurationItemsBundle(key);
-            
+
             if (configurationItemsBundle == null) {
                 ConfigurationItem item = getConfigurationItem(key);
                 ValueExpression expression = createContextValueExpression(facesContext, item, returnType);
@@ -231,38 +230,38 @@ public class ConfigurationServiceImpl implements ConfigurationService {
             } else {
                 synchronized (key.getClass()) {
                     Properties properties = loadProperties(configurationItemsBundle.propertiesFile());
-                    
+
                     Iterator<Object> keys = EnumSet.allOf(key.getClass()).iterator();
                     while (keys.hasNext()) {
                         Enum<?> nextBundleKey = (Enum<?>) keys.next();
-                        
+
                         ConfigurationItem item = getConfigurationItem(nextBundleKey);
 
                         if (item.source() != ConfigurationItemSource.defaultSource) {
                             throw new IllegalArgumentException(item.toString());
                         }
-                        
+
                         String parameterValue = null;
-                        
-                        for (String propertyName: item.names()) {
+
+                        for (String propertyName : item.names()) {
                             parameterValue = properties.getProperty(propertyName);
-                            
+
                             if (parameterValue != null) {
                                 break;
                             }
                         }
-                        
+
                         ValueExpression expression = null;
-                        
+
                         if (parameterValue != null) {
                             expression = createValueExpression(facesContext, parameterValue, item.literal(), returnType);
                         }
-                        
-                        ValueExpressionHolder siblingHolder = createValueExpressionHolder(facesContext, expression, item.defaultValue(), 
-                            returnType);
-                        
+
+                        ValueExpressionHolder siblingHolder = createValueExpressionHolder(facesContext, expression,
+                            item.defaultValue(), returnType);
+
                         itemsMap.put(nextBundleKey, siblingHolder);
-                        
+
                         if (key == nextBundleKey) {
                             holder = siblingHolder;
                         }
@@ -270,13 +269,13 @@ public class ConfigurationServiceImpl implements ConfigurationService {
                 }
             }
         }
-        
+
         return returnType.cast(holder.getValue(facesContext));
     }
 
     private Properties loadProperties(String resourceName) {
         Properties properties = new Properties();
-        
+
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         if (classLoader != null) {
             URL url = classLoader.getResource(resourceName);
@@ -292,10 +291,10 @@ public class ConfigurationServiceImpl implements ConfigurationService {
                 }
             }
         }
-        
+
         return properties;
     }
-    
+
     private ConfigurationItemsBundle getConfigurationItemsBundle(Enum<?> key) {
         ConfigurationItem item = getConfigurationItem(key);
         ConfigurationItemSource source = item.source();
@@ -303,7 +302,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
             Class<?> enclosingClass = key.getClass();
             return enclosingClass.getAnnotation(ConfigurationItemsBundle.class);
         }
-        
+
         return null;
     }
 
@@ -326,7 +325,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
     public <T extends Enum<T>> T getEnumValue(FacesContext facesContext, Enum<?> key, Class<T> enumClass) {
         return getValue(facesContext, key, enumClass);
     }
-    
+
     public Object getValue(FacesContext facesContext, Enum<?> key) {
         return getValue(facesContext, key, Object.class);
     }

@@ -28,21 +28,20 @@ import java.util.ResourceBundle;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class MessageInterpolator {
-
     private BundleLoader bundleLoader;
-    
+
     public MessageInterpolator(BundleLoader bundleLoader) {
         super();
         this.bundleLoader = bundleLoader;
     }
-    
+
     protected String getMessageKey(Enum<?> key) {
         return key.toString();
     }
-    
+
     protected String getPattern(Locale locale, Enum<?> key) {
         String messageKey = getMessageKey(key);
 
@@ -50,15 +49,15 @@ public class MessageInterpolator {
             ResourceBundle bundle = bundleLoader.getBundle(key, locale);
             return bundle.getString(messageKey);
         } catch (MissingResourceException e) {
-            //do nothing
+            // do nothing
         }
-        
+
         return null;
     }
-    
+
     public String interpolate(Locale locale, Enum<?> key, Object... args) throws InterpolationException {
         String messagePattern = getPattern(locale, key);
-        
+
         if (messagePattern == null) {
             Locale defaultLocale = Locale.getDefault();
             if (!defaultLocale.equals(locale)) {
@@ -72,5 +71,4 @@ public class MessageInterpolator {
             throw new InterpolationException().initMessageKey(key.toString());
         }
     }
-    
 }

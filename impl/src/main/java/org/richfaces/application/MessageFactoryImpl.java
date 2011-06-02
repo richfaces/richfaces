@@ -38,23 +38,18 @@ import com.google.common.base.Strings;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class MessageFactoryImpl implements MessageFactory {
-
     protected static interface Factory<T> {
-        
-        public T create(ResourceBundle bundle, Enum<?> messageKey, Object... args) throws MissingResourceException;
-        
+        T create(ResourceBundle bundle, Enum<?> messageKey, Object... args) throws MissingResourceException;
     }
-    
-    private static final Factory<FacesMessage> MESSAGE_FACTORY = new Factory<FacesMessage>() {
 
-        public FacesMessage create(ResourceBundle bundle, Enum<?> messageKey, Object... args)
-            throws MissingResourceException {
+    private static final Factory<FacesMessage> MESSAGE_FACTORY = new Factory<FacesMessage>() {
+        public FacesMessage create(ResourceBundle bundle, Enum<?> messageKey, Object... args) throws MissingResourceException {
 
             String messageId = messageKey.toString();
-            
+
             String summary = null;
             String detail = null;
 
@@ -79,24 +74,18 @@ public class MessageFactoryImpl implements MessageFactory {
             return null;
         }
     };
-    
     private static final Factory<String> LABEL_FACTORY = new Factory<String>() {
-
         public String create(ResourceBundle bundle, Enum<?> messageKey, Object... args) throws MissingResourceException {
             String pattern = bundle.getString(messageKey.toString());
             return MessageFormat.format(pattern, args);
         }
-        
     };
-    
-    
     private static final Factory<String> FORMAT_FACTORY = new Factory<String>() {
-    	public String create(ResourceBundle bundle, Enum<?> messageKey, Object... args) throws MissingResourceException {
+        public String create(ResourceBundle bundle, Enum<?> messageKey, Object... args) throws MissingResourceException {
             String format = bundle.getString(messageKey.toString());
             return format;
-    	}
+        }
     };
-    
     private BundleLoader bundleLoader;
 
     public MessageFactoryImpl(BundleLoader bundleLoader) {
@@ -121,15 +110,15 @@ public class MessageFactoryImpl implements MessageFactory {
         if (facesContext == null) {
             throw new NullPointerException("context");
         }
-        
+
         if (severity == null) {
             throw new NullPointerException("severity");
         }
-        
+
         if (messageKey == null) {
             throw new NullPointerException("messageKey");
         }
-        
+
         FacesMessage result = detectLocalesAndCreate(facesContext, MESSAGE_FACTORY, messageKey, args);
 
         if (result != null) {
@@ -147,20 +136,20 @@ public class MessageFactoryImpl implements MessageFactory {
 
         return text;
     }
-    
+
     public String getMessageFormat(FacesContext facesContext, Enum<?> messageKey) {
         String text = detectLocalesAndCreate(facesContext, FORMAT_FACTORY, messageKey);
         if (Strings.isNullOrEmpty(text)) {
             throw new IllegalStateException("Format not found");
         }
-        
-    	return text;
+
+        return text;
     }
-    
+
     protected <T> T detectLocalesAndCreate(FacesContext context, Factory<T> factory, Enum<?> messageKey, Object... args) {
-        
+
         T result = null;
-        
+
         Locale locale = detectLocale(context);
         if (locale != null) {
             result = create(context, factory, locale, messageKey, args);
@@ -168,19 +157,17 @@ public class MessageFactoryImpl implements MessageFactory {
 
         if (result == null) {
             Locale defaultLocale = Locale.getDefault();
-            
+
             if (!defaultLocale.equals(locale)) {
                 result = create(context, factory, defaultLocale, messageKey, args);
             }
-            
         }
-        
+
         return result;
     }
-    
-    protected <T> T create(FacesContext context, Factory<T> factory, Locale locale, Enum<?> messageKey,
-        Object... args) {
-        
+
+    protected <T> T create(FacesContext context, Factory<T> factory, Locale locale, Enum<?> messageKey, Object... args) {
+
         MessageBundle messageBundle = messageKey.getClass().getAnnotation(MessageBundle.class);
 
         if (messageBundle == null) {
@@ -207,5 +194,4 @@ public class MessageFactoryImpl implements MessageFactory {
 
         return result;
     }
-
 }

@@ -21,17 +21,15 @@
  */
 package org.richfaces.resource;
 
-
 import com.google.common.collect.ImmutableList;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 class StaticResourceLibrary implements ResourceLibrary {
-
     private final ImmutableList<ResourceKey> keys;
-    
+
     public StaticResourceLibrary(ResourceKey[] keys) {
         super();
         this.keys = ImmutableList.copyOf(keys);
@@ -40,5 +38,4 @@ class StaticResourceLibrary implements ResourceLibrary {
     public Iterable<ResourceKey> getResources() {
         return keys;
     }
-
 }

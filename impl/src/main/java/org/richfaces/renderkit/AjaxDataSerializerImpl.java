@@ -25,12 +25,10 @@ import org.ajax4jsf.javascript.ScriptUtils;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class AjaxDataSerializerImpl implements AjaxDataSerializer {
-
     public String asString(Object data) {
         return ScriptUtils.toScript(data);
     }
-
 }

@@ -26,20 +26,14 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterators;
 
 public abstract class UITransient extends UIComponent {
-
     private String id;
-    
     private UIComponent parent;
-    
     private final Map<String, Object> attributesMap = new AttributesMap();
-    
-    
     private String clientId;
 
     public UITransient() {
         super();
     }
-
 
     public Object saveState(FacesContext context) {
         // This is transient component
@@ -48,7 +42,7 @@ public abstract class UITransient extends UIComponent {
 
     public void restoreState(FacesContext context, Object state) {
         // Do nothing, this component never saved
-    
+
     }
 
     public boolean isTransient() {
@@ -56,7 +50,7 @@ public abstract class UITransient extends UIComponent {
     }
 
     public void setTransient(boolean newTransientValue) {
-    
+
     }
 
     @Override
@@ -74,7 +68,7 @@ public abstract class UITransient extends UIComponent {
     @Override
     public void setValueBinding(String name, ValueBinding binding) {
         // do nothing
-    
+
     }
 
     @Override
@@ -92,18 +86,18 @@ public abstract class UITransient extends UIComponent {
         if (context == null) {
             throw new NullPointerException();
         }
-    
+
         // if the clientId is not yet set
         if (this.clientId == null) {
             UIComponent namingContainerAncestor = this.getNamingContainer();
             String parentId = null;
-    
+
             // give the parent the opportunity to first
             // grab a unique clientId
             if (namingContainerAncestor != null) {
                 parentId = namingContainerAncestor.getContainerClientId(context);
             }
-    
+
             // now resolve our own client id
             String clientId = getId();
             if (clientId == null) {
@@ -116,10 +110,10 @@ public abstract class UITransient extends UIComponent {
             }
             if (parentId != null) {
                 StringBuilder idBuilder = new StringBuilder(parentId.length() + 1 + clientId.length());
-                clientId = idBuilder.append(parentId).append(UINamingContainer.getSeparatorChar(context))
-                    .append(clientId).toString();
+                clientId = idBuilder.append(parentId).append(UINamingContainer.getSeparatorChar(context)).append(clientId)
+                    .toString();
             }
-    
+
             // allow the renderer to convert the clientId
             Renderer renderer = this.getRenderer(context);
             if (renderer != null) {
@@ -170,7 +164,7 @@ public abstract class UITransient extends UIComponent {
     @Override
     public void setRendererType(String rendererType) {
         // do nothing
-    
+
     }
 
     @Override
@@ -222,7 +216,7 @@ public abstract class UITransient extends UIComponent {
     @Override
     public void encodeBegin(FacesContext context) throws IOException {
         Renderer renderer = getRenderer(context);
-        if(null != renderer){
+        if (null != renderer) {
             renderer.encodeBegin(context, this);
         }
     }
@@ -230,7 +224,7 @@ public abstract class UITransient extends UIComponent {
     @Override
     public void encodeChildren(FacesContext context) throws IOException {
         Renderer renderer = getRenderer(context);
-        if(null != renderer){
+        if (null != renderer) {
             renderer.encodeChildren(context, this);
         }
     }
@@ -238,7 +232,7 @@ public abstract class UITransient extends UIComponent {
     @Override
     public void encodeEnd(FacesContext context) throws IOException {
         Renderer renderer = getRenderer(context);
-        if(null != renderer){
+        if (null != renderer) {
             renderer.encodeEnd(context, this);
         }
     }
@@ -261,25 +255,24 @@ public abstract class UITransient extends UIComponent {
         if (null != getParent()) {
             getParent().queueEvent(event);
         }
-    
     }
 
     @Override
     public void processRestoreState(FacesContext context, Object state) {
         // Do nothing, this component does not have state.
-    
+
     }
 
     @Override
     public void processDecodes(FacesContext context) {
         // Do nothing
-    
+
     }
 
     @Override
     public void processValidators(FacesContext context) {
         // Do nothing
-    
+
     }
 
     @Override
@@ -309,15 +302,14 @@ public abstract class UITransient extends UIComponent {
     }
 
     final class AttributesMap implements Map<String, Object> {
-        
         public void clear() {
             // do nothing
-            
+
         }
 
         public boolean containsKey(Object key) {
-            
-            return "target".equals(key)||"id".equals(key)||"clientId".equals(key)||hasAttribute(key);
+
+            return "target".equals(key) || "id".equals(key) || "clientId".equals(key) || hasAttribute(key);
         }
 
         public boolean containsValue(Object value) {
@@ -343,7 +335,7 @@ public abstract class UITransient extends UIComponent {
         }
 
         public Set<String> keySet() {
-            return ImmutableSet.of("target","id","clientId");
+            return ImmutableSet.of("target", "id", "clientId");
         }
 
         public Object put(String key, Object value) {
@@ -357,8 +349,7 @@ public abstract class UITransient extends UIComponent {
         }
 
         public void putAll(Map<? extends String, ? extends Object> m) {
-            
-            
+
         }
 
         public Object remove(Object key) {
@@ -370,16 +361,13 @@ public abstract class UITransient extends UIComponent {
         }
 
         public Collection<Object> values() {
-            return ImmutableList.<Object>of(getId(),getClientId());
+            return ImmutableList.<Object>of(getId(), getClientId());
         }
     }
 
     protected abstract boolean hasAttribute(Object key);
 
-
     protected abstract Object setAttribute(String key, Object value);
 
-
     protected abstract Object getAttribute(Object key);
-
 }

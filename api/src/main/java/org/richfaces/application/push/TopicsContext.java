@@ -29,18 +29,17 @@ import org.richfaces.application.ServiceTracker;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
-//TODO annotations for declarative topics registration
+// TODO annotations for declarative topics registration
 public abstract class TopicsContext {
-
     private ConcurrentMap<String, Topic> topics = new ConcurrentHashMap<String, Topic>();
-    
+
     protected abstract Topic createTopic(TopicKey key);
-    
+
     public Topic getOrCreateTopic(TopicKey key) {
         Topic result = topics.get(key.getTopicName());
-        
+
         if (result == null) {
             Topic newTopic = createTopic(key);
             result = topics.putIfAbsent(key.getTopicName(), newTopic);
@@ -48,7 +47,7 @@ public abstract class TopicsContext {
                 result = newTopic;
             }
         }
-        
+
         return result;
     }
 
@@ -62,7 +61,7 @@ public abstract class TopicsContext {
 
     public void publish(TopicKey key, Object data) throws MessageException {
         Topic topic = getTopic(key);
-        
+
         if (topic == null) {
             throw new MessageException(MessageFormat.format("Topic {0} not found", key.getTopicName()));
         }
@@ -73,5 +72,4 @@ public abstract class TopicsContext {
     public static TopicsContext lookup() {
         return ServiceTracker.getService(PushContextFactory.class).getPushContext().getTopicsContext();
     }
-    
 }

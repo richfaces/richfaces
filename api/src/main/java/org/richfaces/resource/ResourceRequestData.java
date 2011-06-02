@@ -23,17 +23,16 @@ package org.richfaces.resource;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface ResourceRequestData {
+    String getResourceName();
 
-    public String getResourceName();
-    
-    public String getLibraryName();
-    
-    public String getVersion();
-    
-    public Object getData();
-    
-    public String getResourceKey();
+    String getLibraryName();
+
+    String getVersion();
+
+    Object getData();
+
+    String getResourceKey();
 }

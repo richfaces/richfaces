@@ -39,33 +39,24 @@ import org.richfaces.el.BaseReadOnlyValueExpression;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class GlobalResourcesViewHandler extends ViewHandlerWrapper {
-
     private static final String SKINNING_RESOURCE_ID = "__rf_skinning_resource";
-
     private static final String CLASSES_ECSS = "_classes.ecss";
-
     private static final String ECSS = ".ecss";
-
     private static final String BOTH_ECSS = "_both.ecss";
-
     private static final String CONTROLS_SKINNING;
-
     private static final String BOTH_SKINNING;
-
     private static final String CLASSES_SKINNING;
-
     private static final String HEAD = "head";
-    
+
     static {
         String skinningName = "skinning";
-        
+
         CONTROLS_SKINNING = skinningName + ECSS;
         BOTH_SKINNING = skinningName + BOTH_ECSS;
         CLASSES_SKINNING = skinningName + CLASSES_ECSS;
-
     }
 
     private ViewHandler viewHandler;
@@ -74,18 +65,16 @@ public class GlobalResourcesViewHandler extends ViewHandlerWrapper {
         super();
         this.viewHandler = viewHandler;
     }
-    
+
     @Override
     public ViewHandler getWrapped() {
         return viewHandler;
     }
 
     private static final class SkinningResourceNameExpression extends BaseReadOnlyValueExpression {
-
         public static final ValueExpression INSTANCE = new SkinningResourceNameExpression();
-
         private static final long serialVersionUID = 7520575496522682120L;
-        
+
         private SkinningResourceNameExpression() {
             super(String.class);
         }
@@ -95,33 +84,32 @@ public class GlobalResourcesViewHandler extends ViewHandlerWrapper {
             FacesContext facesContext = getFacesContext(context);
 
             ConfigurationService configurationService = ServiceTracker.getService(ConfigurationService.class);
-            
-            boolean controls = configurationService.getBooleanValue(facesContext, CoreConfiguration.Items.standardControlsSkinning);
-            boolean classes = configurationService.getBooleanValue(facesContext, CoreConfiguration.Items.standardControlsSkinningClasses);
-            
+
+            boolean controls = configurationService.getBooleanValue(facesContext,
+                CoreConfiguration.Items.standardControlsSkinning);
+            boolean classes = configurationService.getBooleanValue(facesContext,
+                CoreConfiguration.Items.standardControlsSkinningClasses);
+
             if (controls && classes) {
                 return BOTH_SKINNING;
             }
-            
+
             if (classes) {
                 return CLASSES_SKINNING;
             }
-            
+
             return CONTROLS_SKINNING;
         }
-        
+
         private Object readResolve() throws ObjectStreamException {
             return INSTANCE;
         }
-        
     }
 
     private static final class SkinningResourceRenderedExpression extends BaseReadOnlyValueExpression {
-
         public static final ValueExpression INSTANCE = new SkinningResourceRenderedExpression();
-
         private static final long serialVersionUID = -1579256471133808739L;
-        
+
         private SkinningResourceRenderedExpression() {
             super(Boolean.TYPE);
         }
@@ -131,11 +119,11 @@ public class GlobalResourcesViewHandler extends ViewHandlerWrapper {
             FacesContext facesContext = getFacesContext(context);
 
             ConfigurationService configurationService = ServiceTracker.getService(ConfigurationService.class);
-            
-            return configurationService.getBooleanValue(facesContext, CoreConfiguration.Items.standardControlsSkinning) ||
-                configurationService.getBooleanValue(facesContext, CoreConfiguration.Items.standardControlsSkinningClasses);
+
+            return configurationService.getBooleanValue(facesContext, CoreConfiguration.Items.standardControlsSkinning)
+                || configurationService.getBooleanValue(facesContext, CoreConfiguration.Items.standardControlsSkinningClasses);
         }
-        
+
         private Object readResolve() throws ObjectStreamException {
             return INSTANCE;
         }
@@ -143,9 +131,9 @@ public class GlobalResourcesViewHandler extends ViewHandlerWrapper {
 
     private UIComponent createComponentResource(FacesContext context) {
         Application application = context.getApplication();
-        
-        //renderkit id is not set on FacesContext at this point, so calling 
-        //application.createComponent(context, componentType, rendererType) causes NPE
+
+        // renderkit id is not set on FacesContext at this point, so calling
+        // application.createComponent(context, componentType, rendererType) causes NPE
         UIComponent resourceComponent = application.createComponent(UIOutput.COMPONENT_TYPE);
 
         String rendererType = application.getResourceHandler().getRendererTypeForResourceName(BOTH_SKINNING);
@@ -153,11 +141,11 @@ public class GlobalResourcesViewHandler extends ViewHandlerWrapper {
 
         return resourceComponent;
     }
-    
+
     @Override
     public UIViewRoot createView(FacesContext context, String viewId) {
         UIViewRoot viewRoot = super.createView(context, viewId);
-        
+
         boolean skinningResourceFound = false;
         List<UIComponent> resources = viewRoot.getComponentResources(context, HEAD);
         for (UIComponent resource : resources) {
@@ -168,14 +156,14 @@ public class GlobalResourcesViewHandler extends ViewHandlerWrapper {
         }
 
         if (!skinningResourceFound) {
-            //it's important for skinning resources to come *before* any users/components stylesheet, 
-            //that's why they are *always* added here
+            // it's important for skinning resources to come *before* any users/components stylesheet,
+            // that's why they are *always* added here
             UIComponent basic = createComponentResource(context);
             basic.setValueExpression("name", SkinningResourceNameExpression.INSTANCE);
             basic.setValueExpression("rendered", SkinningResourceRenderedExpression.INSTANCE);
             basic.setId(SKINNING_RESOURCE_ID);
-            
-            //workaround for Mojarra: RF-8937
+
+            // workaround for Mojarra: RF-8937
             boolean initialProcessingEvents = context.isProcessingEvents();
             context.setProcessingEvents(false);
             viewRoot.addComponentResource(context, basic);

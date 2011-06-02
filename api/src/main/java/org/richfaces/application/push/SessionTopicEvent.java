@@ -25,16 +25,13 @@ import java.util.EventListener;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public abstract class SessionTopicEvent extends TopicEvent {
-
     private static final long serialVersionUID = 6339351737472180503L;
-
     private Session session;
-
     private TopicKey topicKey;
-    
+
     public SessionTopicEvent(Topic topic, TopicKey topicKey, Session session) {
         super(topic);
         this.topicKey = topicKey;
@@ -48,7 +45,7 @@ public abstract class SessionTopicEvent extends TopicEvent {
     public TopicKey getTopicKey() {
         return topicKey;
     }
-    
+
     @Override
     public boolean isAppropriateListener(EventListener listener) {
         return (listener instanceof SessionTopicListener);

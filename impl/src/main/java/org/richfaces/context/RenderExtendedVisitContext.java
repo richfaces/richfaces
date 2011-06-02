@@ -34,10 +34,9 @@ import org.ajax4jsf.component.AjaxOutput;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class RenderExtendedVisitContext extends BaseExtendedVisitContext {
-
     private boolean limitRender;
 
     public RenderExtendedVisitContext(FacesContext facesContext, Collection<String> clientIds, Set<VisitHint> hints,
@@ -66,7 +65,7 @@ public class RenderExtendedVisitContext extends BaseExtendedVisitContext {
             if (component instanceof AjaxOutput) {
                 AjaxOutput ajaxOutput = (AjaxOutput) component;
                 if (ajaxOutput.isAjaxRendered()) {
-    
+
                     // TODO - remove explicit nested IDs from update
                     return callback.visit(this, component);
                 }

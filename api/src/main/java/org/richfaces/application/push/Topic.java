@@ -21,28 +21,24 @@
  */
 package org.richfaces.application.push;
 
-
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface Topic {
+    TopicKey getKey();
 
-    public TopicKey getKey();
-    
-    public MessageDataSerializer getMessageDataSerializer();
-    
-    public void setMessageDataSerializer(MessageDataSerializer serializer);
-    
-    public void addTopicListener(TopicListener topicListener);
-    
-    public void removeTopicListener(TopicListener topicListener);
+    MessageDataSerializer getMessageDataSerializer();
 
-    public void checkSubscription(TopicKey key, Session session) throws SubscriptionFailureException;
-    
-    public void publishEvent(TopicEvent event);
+    void setMessageDataSerializer(MessageDataSerializer serializer);
 
-    public void publish(TopicKey key, Object messageData) throws MessageException;
-    
+    void addTopicListener(TopicListener topicListener);
+
+    void removeTopicListener(TopicListener topicListener);
+
+    void checkSubscription(TopicKey key, Session session) throws SubscriptionFailureException;
+
+    void publishEvent(TopicEvent event);
+
+    void publish(TopicKey key, Object messageData) throws MessageException;
 }

@@ -20,7 +20,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.javascript;
 
 import java.util.Collection;
@@ -37,18 +36,18 @@ import org.richfaces.component.UIScripts;
 /**
  * <p class="changed_added_4_0">
  * </p>
- * 
+ *
  * @author asmirnov@exadel.com
- * 
+ *
  */
 public class JavaScriptServiceImpl implements JavaScriptService {
-
     /**
-     * <p class="changed_added_4_0">'Special Case' object to return if no Component with scripts added to View Root.</p>
-     * 
+     * <p class="changed_added_4_0">
+     * 'Special Case' object to return if no Component with scripts added to View Root.
+     * </p>
+     *
      */
-    private static final ScriptsHolder EMPTY_SCRIPTS_HOLDER = new ScriptsHolder(){
-
+    private static final ScriptsHolder EMPTY_SCRIPTS_HOLDER = new ScriptsHolder() {
         public Collection<Object> getScripts() {
             return Collections.emptySet();
         }
@@ -56,11 +55,11 @@ public class JavaScriptServiceImpl implements JavaScriptService {
         public Collection<Object> getPageReadyScripts() {
             return Collections.emptySet();
         }
-        
     };
+
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.richfaces.javascript.JavaScriptService#addScript(org.ajax4jsf.javascript.ScriptString)
      */
     public <S> S addScript(FacesContext facesContext, S script) {
@@ -71,7 +70,7 @@ public class JavaScriptServiceImpl implements JavaScriptService {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.richfaces.javascript.JavaScriptService#addPageReadyScript(org.ajax4jsf.javascript.ScriptString)
      */
     public <S> S addPageReadyScript(FacesContext facesContext, S script) {
@@ -93,10 +92,10 @@ public class JavaScriptServiceImpl implements JavaScriptService {
 
     /**
      * <p class="changed_added_4_0">
-     * This method looks for {@link UIScripts} component in view resource. If such resource not found, it creates a new
-     * instance and stores it in {@link UIViewRoot} view resource with default target.
+     * This method looks for {@link UIScripts} component in view resource. If such resource not found, it creates a new instance
+     * and stores it in {@link UIViewRoot} view resource with default target.
      * </p>
-     * 
+     *
      * @param facesContext
      * @return
      */
@@ -135,14 +134,13 @@ public class JavaScriptServiceImpl implements JavaScriptService {
 
     public ScriptsHolder getScriptsHolder(FacesContext context) {
         UIViewRoot viewRoot = context.getViewRoot();
-        ScriptsHolder result=null;
+        ScriptsHolder result = null;
         if (null != viewRoot) {
             result = findScriptResource(context, viewRoot);
         }
-        if(null == result){
+        if (null == result) {
             result = EMPTY_SCRIPTS_HOLDER;
         }
         return result;
     }
-
 }

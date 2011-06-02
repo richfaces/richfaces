@@ -18,17 +18,15 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.log;
 
 /**
- * That interface hides current logging system from classes. Concrete implementation should provide appropriate logger
- * instance that delegates messages to the current log system.
- * 
+ * That interface hides current logging system from classes. Concrete implementation should provide appropriate logger instance
+ * that delegates messages to the current log system.
+ *
  * @author shura
  */
 public interface Logger {
-
     public enum Level {
         DEBUG,
         INFO,
@@ -39,273 +37,272 @@ public interface Logger {
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
      * @return
      */
-    public boolean isDebugEnabled();
+    boolean isDebugEnabled();
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
      * @param content
      */
-    public void debug(CharSequence content);
+    void debug(CharSequence content);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
      * @param messageKey
      * @param args
      */
-    public void debug(Enum<?> messageKey, Object... args);
-    
-    /**
-     * <p class="changed_added_4_0">
-     * </p>
-     * 
-     * @param content
-     * @param error
-     */
-    public void debug(CharSequence content, Throwable error);
+    void debug(Enum<?> messageKey, Object... args);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
+     * @param content
+     * @param error
+     */
+    void debug(CharSequence content, Throwable error);
+
+    /**
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @param error
      * @param messageKey
      * @param args
      */
-    public void debug(Throwable error, Enum<?> messageKey, Object... args);
-    
-    /**
-     * <p class="changed_added_4_0">
-     * </p>
-     * 
-     * @param error
-     */
-    /**
-     * <p class="changed_added_4_0">
-     * </p>
-     * 
-     * @param error
-     */
-    public void debug(Throwable error);
+    void debug(Throwable error, Enum<?> messageKey, Object... args);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
+     * @param error
+     */
+    /**
+     * <p class="changed_added_4_0">
+     * </p>
+     *
+     * @param error
+     */
+    void debug(Throwable error);
+
+    /**
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @return
      */
-    public boolean isInfoEnabled();
+    boolean isInfoEnabled();
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
      * @param content
      */
-    public void info(CharSequence content);
+    void info(CharSequence content);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
      * @param messageKey
      * @param args
      */
-    public void info(Enum<?> messageKey, Object... args);
-    
-    /**
-     * <p class="changed_added_4_0">
-     * </p>
-     * 
-     * @param content
-     * @param error
-     */
-    public void info(CharSequence content, Throwable error);
+    void info(Enum<?> messageKey, Object... args);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
+     * @param content
+     * @param error
+     */
+    void info(CharSequence content, Throwable error);
+
+    /**
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @param error
      * @param messageKey
      * @param args
      */
-    public void info(Throwable error, Enum<?> messageKey, Object... args);
-    
-    /**
-     * <p class="changed_added_4_0">
-     * </p>
-     * 
-     * @param error
-     */
-    public void info(Throwable error);
+    void info(Throwable error, Enum<?> messageKey, Object... args);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
+     * @param error
+     */
+    void info(Throwable error);
+
+    /**
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @return
      */
-    public boolean isWarnEnabled();
+    boolean isWarnEnabled();
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
      * @param content
      */
-    public void warn(CharSequence content);
-    
+    void warn(CharSequence content);
+
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
      * @param messageKey
      * @param args
      */
-    public void warn(Enum<?> messageKey, Object... args);
-    
-    /**
-     * <p class="changed_added_4_0">
-     * </p>
-     * 
-     * @param content
-     * @param error
-     */
-    public void warn(CharSequence content, Throwable error);
+    void warn(Enum<?> messageKey, Object... args);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
+     * @param content
+     * @param error
+     */
+    void warn(CharSequence content, Throwable error);
+
+    /**
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @param error
      * @param messageKey
      * @param args
      */
-    public void warn(Throwable error, Enum<?> messageKey, Object... args);
-    
-    /**
-     * <p class="changed_added_4_0">
-     * </p>
-     * 
-     * @param error
-     */
-    public void warn(Throwable error);
+    void warn(Throwable error, Enum<?> messageKey, Object... args);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
+     * @param error
+     */
+    void warn(Throwable error);
+
+    /**
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @return
      */
-    public boolean isErrorEnabled();
+    boolean isErrorEnabled();
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
      * @param content
      */
-    public void error(CharSequence content);
+    void error(CharSequence content);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
      * @param messageKey
      * @param args
      */
-    public void error(Enum<?> messageKey, Object... args);
-    
-    /**
-     * <p class="changed_added_4_0">
-     * </p>
-     * 
-     * @param content
-     * @param error
-     */
-    public void error(CharSequence content, Throwable error);
+    void error(Enum<?> messageKey, Object... args);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
+     * @param content
+     * @param error
+     */
+    void error(CharSequence content, Throwable error);
+
+    /**
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @param error
      * @param messageKey
      * @param args
      */
-    public void error(Throwable error, Enum<?> messageKey, Object... args);
-    
-    /**
-     * <p class="changed_added_4_0">
-     * </p>
-     * 
-     * @param error
-     */
-    public void error(Throwable error);
+    void error(Throwable error, Enum<?> messageKey, Object... args);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
+     * @param error
+     */
+    void error(Throwable error);
+
+    /**
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @param level
      * @return
      */
-    public boolean isLogEnabled(Level level);
+    boolean isLogEnabled(Level level);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
      * @param level
      * @param content
      */
-    public void log(Level level, CharSequence content);
+    void log(Level level, CharSequence content);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
      * @param level
      * @param content
      * @param error
      */
-    public void log(Level level, CharSequence content, Throwable error);
+    void log(Level level, CharSequence content, Throwable error);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
      * @param level
      * @param error
      */
-    public void log(Level level, Throwable error);
+    void log(Level level, Throwable error);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
      * @param level
      * @param messageKey
      * @param args
      */
-    public void log(Level level, Enum<?> messageKey, Object... args);
+    void log(Level level, Enum<?> messageKey, Object... args);
 
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
      * @param level
      * @param error
      * @param messageKey
      * @param args
      */
-    public void log(Level level, Throwable error, Enum<?> messageKey, Object... args);
-    
+    void log(Level level, Throwable error, Enum<?> messageKey, Object... args);
 }

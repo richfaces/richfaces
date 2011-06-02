@@ -18,20 +18,18 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.component;
 
 /**
- * Interface for extend {@link javax.faces.component.UIParameter} component by
- * handling isertion parameters into JavaScript code as references, not string literals.
+ * Interface for extend {@link javax.faces.component.UIParameter} component by handling isertion parameters into JavaScript code
+ * as references, not string literals.
+ *
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:57:40 $
  *
  */
 public interface JavaScriptParameter {
-    public void setNoEscape(boolean noEscape);
+    void setNoEscape(boolean noEscape);
 
-    public boolean isNoEscape();
+    boolean isNoEscape();
 }

@@ -37,16 +37,12 @@ import org.richfaces.util.FastJoiner;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class ExternalStaticResource extends Resource {
-
     public static final String STATIC_RESOURCE_LOCATION_VARIABLE = "resourceLocation";
-
     private static final FastJoiner RESOURCE_PATH_JOINER = FastJoiner.on('/');
-    
     private String location;
-    
     private boolean skinDependent;
 
     public ExternalStaticResource(String location, boolean skinDependent) {
@@ -57,15 +53,15 @@ public class ExternalStaticResource extends Resource {
 
     private String getResourceLocation(FacesContext facesContext) {
         String skinName = null;
-        
+
         if (skinDependent) {
             SkinFactory skinFactory = SkinFactory.getInstance(facesContext);
             skinName = skinFactory.getSkin(facesContext).getName();
         }
-        
+
         return RESOURCE_PATH_JOINER.join(skinName, location);
     }
-    
+
     @Override
     public InputStream getInputStream() throws IOException {
         throw new UnsupportedOperationException();
@@ -85,8 +81,8 @@ public class ExternalStaticResource extends Resource {
             String resourceLocation = getResourceLocation(facesContext);
 
             requestMap.put(STATIC_RESOURCE_LOCATION_VARIABLE, resourceLocation);
-            
-            //TODO pass via ViewHandler?
+
+            // TODO pass via ViewHandler?
             return getStringConfigurationValue(facesContext, CoreConfiguration.Items.staticResourceLocation);
         } finally {
             requestMap.remove(STATIC_RESOURCE_LOCATION_VARIABLE);
@@ -105,5 +101,4 @@ public class ExternalStaticResource extends Resource {
     public boolean userAgentNeedsUpdate(FacesContext context) {
         throw new UnsupportedOperationException();
     }
-
 }

@@ -31,11 +31,8 @@ import javax.faces.convert.Converter;
 import com.google.common.collect.Lists;
 
 final class RowsFunctionContextCallback implements ContextCallback {
-
     private final String image;
-
     private UIComponent component;
-
     private Collection<String> convertedKeys = Lists.newArrayList();
 
     RowsFunctionContextCallback(String image) {
@@ -47,12 +44,13 @@ final class RowsFunctionContextCallback implements ContextCallback {
 
         Converter rowKeyConverter = (Converter) target.getAttributes().get("rowKeyConverter");
 
-        Collection<?> keys = (Collection<?>) context.getApplication().evaluateExpressionGet(context, "#{" + image + "}", Object.class);
+        Collection<?> keys = (Collection<?>) context.getApplication().evaluateExpressionGet(context, "#{" + image + "}",
+            Object.class);
 
         if (keys == null) {
             return;
         }
-        
+
         for (Object key : keys) {
             String convertedKey;
 
@@ -64,7 +62,6 @@ final class RowsFunctionContextCallback implements ContextCallback {
 
             convertedKeys.add(convertedKey);
         }
-
     }
 
     public UIComponent getComponent() {

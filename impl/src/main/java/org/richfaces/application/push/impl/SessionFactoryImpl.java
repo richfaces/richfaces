@@ -28,14 +28,12 @@ import org.richfaces.application.push.TopicsContext;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class SessionFactoryImpl implements SessionFactory {
-
     private final SessionManager sessionManager;
-    
     private final TopicsContext topicsContext;
-    
+
     public SessionFactoryImpl(SessionManager sessionManager, TopicsContext topicsContext) {
         super();
         this.sessionManager = sessionManager;
@@ -45,8 +43,7 @@ public class SessionFactoryImpl implements SessionFactory {
     public Session createSession(String pushSessionId) {
         Session session = new SessionImpl(pushSessionId, sessionManager, topicsContext);
         sessionManager.putPushSession(session);
-        
+
         return session;
     }
-
 }

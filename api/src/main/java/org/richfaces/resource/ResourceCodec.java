@@ -10,11 +10,10 @@ import javax.faces.context.FacesContext;
  * @since 4.0
  */
 public interface ResourceCodec {
-    
-    public String encodeResourceRequestPath(FacesContext context, String libraryName, String resourceName, 
-        Object resourceData, String resourceVersion);
-    
-    public String encodeJSFMapping(FacesContext context, String resourcePath);
-    
-    public ResourceRequestData decodeResource(FacesContext context, String requestPath);
+    String encodeResourceRequestPath(FacesContext context, String libraryName, String resourceName, Object resourceData,
+        String resourceVersion);
+
+    String encodeJSFMapping(FacesContext context, String resourcePath);
+
+    ResourceRequestData decodeResource(FacesContext context, String requestPath);
 }

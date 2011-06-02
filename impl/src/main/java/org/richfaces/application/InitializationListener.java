@@ -48,12 +48,12 @@ import org.richfaces.log.RichfacesLogger;
  * @since 4.0
  */
 public class InitializationListener implements SystemEventListener {
-
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
-    
+
     private static final class AWTInitializer {
-        private AWTInitializer() { } 
-        
+        private AWTInitializer() {
+        }
+
         private static boolean checkGetSystemClassLoaderAccess() {
             try {
                 ClassLoader.getSystemClassLoader();
@@ -63,7 +63,7 @@ public class InitializationListener implements SystemEventListener {
                 return false;
             }
         }
-        
+
         public static void initialize() {
             if (!checkGetSystemClassLoaderAccess()) {
                 LOGGER.warn("Access to system class loader restricted - AWTInitializer won't be run");
@@ -73,14 +73,14 @@ public class InitializationListener implements SystemEventListener {
             Thread thread = Thread.currentThread();
             ClassLoader initialTCCL = thread.getContextClassLoader();
             ImageInputStream testStream = null;
-            
+
             try {
                 ClassLoader systemCL = ClassLoader.getSystemClassLoader();
                 thread.setContextClassLoader(systemCL);
                 // set in-memory caching ImageIO
                 ImageIO.setUseCache(false);
-                
-                //force Disposer/AWT threads initialization
+
+                // force Disposer/AWT threads initialization
                 testStream = ImageIO.createImageInputStream(new ByteArrayInputStream(new byte[0]));
                 Toolkit.getDefaultToolkit().getSystemEventQueue();
             } catch (IOException e) {
@@ -99,15 +99,17 @@ public class InitializationListener implements SystemEventListener {
         }
     }
 
-    /* (non-Javadoc)
-      * @see javax.faces.event.SystemEventListener#isListenerForSource(java.lang.Object)
-      */
+    /*
+     * (non-Javadoc)
+     *
+     * @see javax.faces.event.SystemEventListener#isListenerForSource(java.lang.Object)
+     */
     public boolean isListenerForSource(Object source) {
         return true;
     }
 
     protected void onStart() {
-        ServicesFactory injector = createFactory(); 
+        ServicesFactory injector = createFactory();
 
         if (LOGGER.isInfoEnabled()) {
             String versionString = VersionBean.VERSION.toString();
@@ -121,7 +123,8 @@ public class InitializationListener implements SystemEventListener {
             try {
                 AWTInitializer.initialize();
             } catch (NoClassDefFoundError e) {
-                LOGGER.warn(MessageFormat.format("There were problems loading class: {0} - AWTInitializer won't be run", e.getMessage()));
+                LOGGER.warn(MessageFormat.format("There were problems loading class: {0} - AWTInitializer won't be run",
+                    e.getMessage()));
             }
         }
     }
@@ -144,9 +147,11 @@ public class InitializationListener implements SystemEventListener {
         ServiceTracker.release();
     }
 
-    /* (non-Javadoc)
-      * @see javax.faces.event.SystemEventListener#processEvent(javax.faces.event.SystemEvent)
-      */
+    /*
+     * (non-Javadoc)
+     *
+     * @see javax.faces.event.SystemEventListener#processEvent(javax.faces.event.SystemEvent)
+     */
     public void processEvent(SystemEvent event) throws AbortProcessingException {
         if (event instanceof PostConstructApplicationEvent) {
             onStart();
@@ -156,5 +161,4 @@ public class InitializationListener implements SystemEventListener {
             throw new IllegalArgumentException(MessageFormat.format("Event {0} is not supported!", event));
         }
     }
-
 }

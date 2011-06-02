@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit.html.images;
 
 import static java.lang.Math.max;
@@ -37,6 +36,7 @@ public enum GradientAlignment {
         public int getBottomRectangleHeight(int imageHeight, int gradientHeight) {
             return max(imageHeight - gradientHeight, 0);
         }
+
         @Override
         public int getTopRectangleHeight(int imageHeight, int gradientHeight) {
             return 0;
@@ -47,6 +47,7 @@ public enum GradientAlignment {
         public int getBottomRectangleHeight(int imageHeight, int gradientHeight) {
             return max((imageHeight - gradientHeight) / 2, 0);
         }
+
         @Override
         public int getTopRectangleHeight(int imageHeight, int gradientHeight) {
             return getBottomRectangleHeight(imageHeight, gradientHeight);
@@ -57,6 +58,7 @@ public enum GradientAlignment {
         public int getBottomRectangleHeight(int imageHeight, int gradientHeight) {
             return 0;
         }
+
         @Override
         public int getTopRectangleHeight(int imageHeight, int gradientHeight) {
             return max(imageHeight - gradientHeight, 0);

@@ -26,12 +26,10 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 final class ValueExpressionHolder {
-
     private ValueExpression valueExpression;
-    
     private Object defaultValue;
 
     public ValueExpressionHolder(ValueExpression valueExpression, Object defaultValue) {
@@ -48,8 +46,7 @@ final class ValueExpressionHolder {
                 return result;
             }
         }
-        
+
         return defaultValue;
     }
-    
 }

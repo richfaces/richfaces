@@ -35,15 +35,12 @@ import org.richfaces.util.Util;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
-public abstract class BaseResourceWrapper<T> extends AbstractCacheableResource implements VersionedResource, StateHolder, 
+public abstract class BaseResourceWrapper<T> extends AbstractCacheableResource implements VersionedResource, StateHolder,
     FacesWrapper<T> {
-
     private T resourceObject;
-
     private boolean cacheable;
-    
     private boolean versioned;
 
     public BaseResourceWrapper(T resourceObject, boolean cacheable, boolean versioned) {
@@ -53,31 +50,31 @@ public abstract class BaseResourceWrapper<T> extends AbstractCacheableResource i
         this.cacheable = cacheable;
         this.versioned = versioned;
     }
-    
+
     protected abstract Map<String, String> getWrappedResourceResponseHeaders();
-    
+
     @Override
     public Map<String, String> getResponseHeaders() {
         Map<String, String> headers = super.getResponseHeaders();
-        
+
         Map<String, String> userHeaders = getWrappedResourceResponseHeaders();
         if (userHeaders != null) {
             headers.putAll(userHeaders);
         }
-        
+
         return headers;
     }
-    
+
     private String getPackageVersion() {
         Package pkg = resourceObject.getClass().getPackage();
-        
+
         if (pkg != null) {
             return pkg.getImplementationVersion();
         }
-        
+
         return null;
     }
-    
+
     public String getVersion() {
         if (resourceObject instanceof VersionedResource) {
             return ((VersionedResource) resourceObject).getVersion();
@@ -88,13 +85,13 @@ public abstract class BaseResourceWrapper<T> extends AbstractCacheableResource i
             if (packageVersion != null) {
                 return packageVersion;
             }
-            
+
             return getStringConfigurationValue(FacesContext.getCurrentInstance(), resourcesDefaultVersion);
         }
-        
+
         return null;
     }
-    
+
     @Override
     public boolean isCacheable(FacesContext context) {
         if (resourceObject instanceof CacheableResource) {
@@ -103,7 +100,7 @@ public abstract class BaseResourceWrapper<T> extends AbstractCacheableResource i
 
         return cacheable;
     }
-    
+
     @Override
     public Date getExpires(FacesContext context) {
         if (resourceObject instanceof CacheableResource) {
@@ -112,22 +109,22 @@ public abstract class BaseResourceWrapper<T> extends AbstractCacheableResource i
 
         return null;
     }
-    
+
     @Override
     public String getEntityTag(FacesContext context) {
         if (resourceObject instanceof CacheableResource) {
             return ((CacheableResource) resourceObject).getEntityTag(context);
         }
-        
+
         return null;
     }
-    
+
     @Override
     public int getTimeToLive(FacesContext context) {
         if (resourceObject instanceof CacheableResource) {
             return ((CacheableResource) resourceObject).getTimeToLive(context);
         }
-        
+
         return 0;
     }
 
@@ -139,7 +136,7 @@ public abstract class BaseResourceWrapper<T> extends AbstractCacheableResource i
         if (resourceObject instanceof StateHolder) {
             return ((StateHolder) resourceObject).isTransient();
         }
-        
+
         return true;
     }
 
@@ -148,11 +145,11 @@ public abstract class BaseResourceWrapper<T> extends AbstractCacheableResource i
             ((StateHolder) resourceObject).setTransient(newTransientValue);
         }
     }
-    
+
     public Object saveState(FacesContext context) {
         return Util.saveResourceState(context, resourceObject);
     }
-    
+
     public void restoreState(FacesContext context, Object state) {
         Util.restoreResourceState(context, resourceObject, state);
     }
@@ -160,5 +157,4 @@ public abstract class BaseResourceWrapper<T> extends AbstractCacheableResource i
     public T getWrapped() {
         return resourceObject;
     }
-    
 }

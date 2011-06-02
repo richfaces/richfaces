@@ -41,36 +41,30 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class UserResourcesTestCase {
-
     protected static class BaseUserResource extends AbstractUserResource {
-
         public void encode(FacesContext facesContext) throws IOException {
             facesContext.getResponseWriter().write(getClass().getSimpleName());
         }
-        
+
         public String getContentType() {
             return "text/plain";
         }
-
     }
 
     protected static class BaseJava2DUserResource extends AbstractJava2DUserResource {
-
         public BaseJava2DUserResource() {
             super(new Dimension(10, 5));
         }
 
         public void paint(Graphics2D graphics2d) {
         }
-        
     }
-    
+
     @DynamicUserResource(versioned = false)
     public static final class NonVersionedUserResource extends BaseUserResource {
     }
@@ -96,8 +90,8 @@ public class UserResourcesTestCase {
     }
 
     @DynamicUserResource
-    public static final class SettingsOverridableResource extends BaseUserResource implements VersionedResource, CacheableResource {
-
+    public static final class SettingsOverridableResource extends BaseUserResource implements VersionedResource,
+        CacheableResource {
         public boolean isCacheable(FacesContext context) {
             return Boolean.TRUE.equals(context.getAttributes().get(CACHEABLE_OVERRIDE_KEY));
         }
@@ -117,19 +111,13 @@ public class UserResourcesTestCase {
         public String getVersion() {
             return (String) FacesContext.getCurrentInstance().getAttributes().get(VERSION_OVERRIDE_KEY);
         }
-        
     }
-    
+
     private static final String PACKAGE_VERSION = "test-package-1.0";
-    
     private static final String CACHEABLE_OVERRIDE_KEY = "org.richfaces.test.CacheableOverrideKey";
-
     private static final String VERSION_OVERRIDE_KEY = "org.richfaces.test.VersionOverrideKey";
-
     private FacesEnvironment environment;
-
     private FacesRequest facesRequest;
-    
     private ResourceHandler resourceHandler;
 
     @Before
@@ -138,33 +126,31 @@ public class UserResourcesTestCase {
         environment.getServer().addInitParameter("org.richfaces.resourceDefaultVersion", PACKAGE_VERSION);
         environment.start();
 
-        
         facesRequest = environment.createFacesRequest();
         facesRequest.start();
-        
+
         resourceHandler = FacesContext.getCurrentInstance().getApplication().getResourceHandler();
     }
-    
+
     @After
     public void tearDown() throws Exception {
         resourceHandler = null;
-        
+
         facesRequest.release();
         facesRequest = null;
-        
+
         environment.release();
         environment = null;
-
     }
-    
+
     private void checkResource(Resource resource, boolean cacheable, String version) {
         assertTrue(resource instanceof VersionedResource);
         assertEquals(version, ((VersionedResource) resource).getVersion());
-        
+
         assertTrue(resource instanceof CacheableResource);
         assertEquals(cacheable, ((CacheableResource) resource).isCacheable(FacesContext.getCurrentInstance()));
     }
-    
+
     @Test
     @Ignore
     public void testResources() throws Exception {
@@ -172,7 +158,7 @@ public class UserResourcesTestCase {
         checkResource(resourceHandler.createResource(NonCacheableUserResource.class.getName()), false, PACKAGE_VERSION);
         checkResource(resourceHandler.createResource(NonVersionedUserResource.class.getName()), true, null);
     }
-    
+
     @Test
     @Ignore
     public void testJava2DResources() throws Exception {
@@ -180,11 +166,11 @@ public class UserResourcesTestCase {
         checkResource(resourceHandler.createResource(NonCacheableJava2DUserResource.class.getName()), false, PACKAGE_VERSION);
         checkResource(resourceHandler.createResource(NonVersionedJava2DUserResource.class.getName()), true, null);
     }
-    
+
     @Test
     public void testSettingsOverridableResource() throws Exception {
         Map<Object, Object> attributes = FacesContext.getCurrentInstance().getAttributes();
-        
+
         attributes.put(CACHEABLE_OVERRIDE_KEY, true);
         attributes.put(VERSION_OVERRIDE_KEY, "some.version");
 

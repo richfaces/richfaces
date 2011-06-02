@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.resource;
 
 import java.io.ByteArrayInputStream;
@@ -38,14 +35,14 @@ import javax.faces.context.FacesContext;
  * @since 4.0
  */
 @DynamicResource
-//TODO add tests for StateHolder
+// TODO add tests for StateHolder
 public class StateHolderResourceImpl extends AbstractCacheableResource implements StateHolderResource {
     private Object state = "";
 
     public StateHolderResourceImpl() {
         setResourceName(StateHolderResourceImpl.class.getName());
     }
-    
+
     @Override
     public InputStream getInputStream() throws IOException {
         try {

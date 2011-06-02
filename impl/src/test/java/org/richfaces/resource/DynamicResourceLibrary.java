@@ -21,19 +21,17 @@
  */
 package org.richfaces.resource;
 
-
 import com.google.common.collect.ImmutableList;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class DynamicResourceLibrary implements ResourceLibrary {
+    private ImmutableList<ResourceKey> keys = ImmutableList.of(ResourceKey.create("skinning_classes.ecss"),
+        ResourceKey.create("jquery.js", null));
 
-    private ImmutableList<ResourceKey> keys = ImmutableList.of(ResourceKey.create("skinning_classes.ecss"),  ResourceKey.create("jquery.js", null));
-    
     public Iterable<ResourceKey> getResources() {
         return keys;
     }
-
 }

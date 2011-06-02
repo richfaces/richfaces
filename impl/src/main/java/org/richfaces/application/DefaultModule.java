@@ -20,20 +20,19 @@ import org.richfaces.skin.SkinFactory;
 import org.richfaces.skin.SkinFactoryImpl;
 
 public class DefaultModule implements Module {
-
     public void configure(ServicesFactory factory) {
         factory.setInstance(ConfigurationService.class, new ConfigurationServiceImpl());
         factory.setInstance(SkinFactory.class, new SkinFactoryImpl());
         factory.setInstance(AjaxDataSerializer.class, new AjaxDataSerializerImpl());
-        factory.setInstance(ResourceCodec.class,ServiceLoader.loadService(ResourceCodec.class, DefaultResourceCodec.class));
-        factory.setInstance(Cache.class,new CacheProvider());
+        factory.setInstance(ResourceCodec.class, ServiceLoader.loadService(ResourceCodec.class, DefaultResourceCodec.class));
+        factory.setInstance(Cache.class, new CacheProvider());
         factory.setInstance(Uptime.class, new Uptime());
         factory.setInstance(DependencyInjector.class, new DependencyInjectionServiceImpl());
         factory.setInstance(MessageFactory.class, new MessageFactoryImpl(new BundleLoader()));
         factory.setInstance(ResourceLibraryFactory.class, new ResourceLibraryFactoryImpl());
-        factory.setInstance(PushContextFactory.class, ServiceLoader.loadService(PushContextFactory.class, PushContextFactoryImpl.class));
+        factory.setInstance(PushContextFactory.class,
+            ServiceLoader.loadService(PushContextFactory.class, PushContextFactoryImpl.class));
         factory.setInstance(JavaScriptService.class, new JavaScriptServiceImpl());
         factory.setInstance(GenericsIntrospectionService.class, new GenericsIntrospectionServiceImpl());
     }
-
 }

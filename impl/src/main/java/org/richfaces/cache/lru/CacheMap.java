@@ -18,16 +18,14 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.cache.lru;
-
-import org.richfaces.util.LRUMap;
 
 import java.util.PriorityQueue;
 
+import org.richfaces.util.LRUMap;
+
 /**
- * User: akolonitsky
- * Date: Oct 13, 2009
+ * User: akolonitsky Date: Oct 13, 2009
  */
 public final class CacheMap extends LRUMap<Object, CacheEntry> {
     private static final long serialVersionUID = -5422668357346537621L;

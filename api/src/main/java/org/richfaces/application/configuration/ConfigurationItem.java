@@ -27,23 +27,19 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 @Documented
 public @interface ConfigurationItem {
+    ConfigurationItemSource source() default ConfigurationItemSource.defaultSource;
 
-    public ConfigurationItemSource source() default ConfigurationItemSource.defaultSource;
-    
-    public String[] names();
-    
-    public boolean literal() default false;
-    
-    public String defaultValue() default "";
+    String[] names();
 
+    boolean literal() default false;
+
+    String defaultValue() default "";
 }

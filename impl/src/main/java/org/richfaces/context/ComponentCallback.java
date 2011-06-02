@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.context;
 
 import java.util.Collection;
@@ -37,13 +36,10 @@ import org.ajax4jsf.component.AjaxClientBehavior;
 import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
 
 /**
- * User: akolonitsky
- * Date: Oct 13, 2009
+ * User: akolonitsky Date: Oct 13, 2009
  */
 abstract class ComponentCallback implements VisitCallback {
-
     protected final FacesContext facesContext;
-
     private final String behaviorEvent;
 
     ComponentCallback(FacesContext facesContext, String behaviorEvent) {
@@ -77,7 +73,7 @@ abstract class ComponentCallback implements VisitCallback {
     }
 
     protected Collection<String> toCollection(Object value) {
-        //TODO - unit tests check for "@none" element
+        // TODO - unit tests check for "@none" element
         Collection<String> result = CoreAjaxRendererUtils.asIdsSet(value);
         if (result == null) {
             result = new LinkedHashSet<String>(1);
@@ -85,7 +81,7 @@ abstract class ComponentCallback implements VisitCallback {
 
         return result;
     }
-    
+
     protected abstract void doVisit(UIComponent target, AjaxClientBehavior behavior);
 
     public final VisitResult visit(VisitContext visitContext, UIComponent target) {
@@ -99,5 +95,4 @@ abstract class ComponentCallback implements VisitCallback {
 
         return VisitResult.COMPLETE;
     }
-
 }

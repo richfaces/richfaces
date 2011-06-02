@@ -18,16 +18,13 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit.html.images;
 
 import java.awt.Color;
 import java.util.Locale;
 
 /**
- * @author Nick Belaevski
- *         mailto:nbelaevski@exadel.com
- *         created 16.04.2008
+ * @author Nick Belaevski mailto:nbelaevski@exadel.com created 16.04.2008
  */
 public enum GradientType {
     glass {
@@ -48,6 +45,7 @@ public enum GradientType {
                 return null;
             }
         }
+
         @Override
         public BiColor getSecondLayerColors(BiColor biColor) {
             if (biColor.getBottomColor() != null) {
@@ -75,6 +73,7 @@ public enum GradientType {
                 return null;
             }
         }
+
         @Override
         public BiColor getSecondLayerColors(BiColor biColor) {
             if (biColor.getBottomColor() != null) {
@@ -93,14 +92,14 @@ public enum GradientType {
                 return null;
             }
         }
+
         @Override
         public BiColor getSecondLayerColors(BiColor biColor) {
             return null;
         }
     };
-
-    private static final BiColor WHITE = new BiColor(new Color(0xff, 0xff, 0xff, (int) (0.65f * 0xff)),
-        new Color(0xff, 0xff, 0xff, (int) (0.20f * 0xff)));
+    private static final BiColor WHITE = new BiColor(new Color(0xff, 0xff, 0xff, (int) (0.65f * 0xff)), new Color(0xff, 0xff,
+        0xff, (int) (0.20f * 0xff)));
 
     public static final GradientType getByParameter(String string) {
         if ((string == null) || (string.length() == 0)) {

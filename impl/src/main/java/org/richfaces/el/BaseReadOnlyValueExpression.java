@@ -27,15 +27,13 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public abstract class BaseReadOnlyValueExpression extends ValueExpression {
-
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -1094028009026806965L;
-
     private Class<?> type;
 
     public BaseReadOnlyValueExpression(Class<?> type) {
@@ -85,7 +83,7 @@ public abstract class BaseReadOnlyValueExpression extends ValueExpression {
     public boolean isLiteralText() {
         return false;
     }
-    
+
     protected FacesContext getFacesContext(ELContext elContext) {
         return (FacesContext) elContext.getContext(FacesContext.class);
     }

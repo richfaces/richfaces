@@ -41,10 +41,9 @@ import org.w3c.dom.Node;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class Java2DAnimatedUserResourceWrapperImpl extends Java2DUserResourceWrapperImpl {
-
     public Java2DAnimatedUserResourceWrapperImpl(Java2DAnimatedUserResource resourceObject, boolean cacheable, boolean versioned) {
         super(resourceObject, cacheable, versioned);
     }
@@ -60,7 +59,7 @@ public class Java2DAnimatedUserResourceWrapperImpl extends Java2DUserResourceWra
             }
         }
 
-        throw new IllegalArgumentException(MessageFormat.format("Cannot find sequence-capable image writer for {0} format", 
+        throw new IllegalArgumentException(MessageFormat.format("Cannot find sequence-capable image writer for {0} format",
             imageType.getFormatName()));
     }
 
@@ -83,13 +82,14 @@ public class Java2DAnimatedUserResourceWrapperImpl extends Java2DUserResourceWra
 
     private static void checkSupportedFormat(ImageType imageType) {
         if (imageType != ImageType.GIF) {
-            throw new IllegalArgumentException(MessageFormat.format("Image format {0} is not supported", imageType.getFormatName()));
+            throw new IllegalArgumentException(MessageFormat.format("Image format {0} is not supported",
+                imageType.getFormatName()));
         }
     }
 
     @Override
     public String getRequestPath() {
-        //detect unsupported types early
+        // detect unsupported types early
         checkSupportedFormat(getWrapped().getImageType());
         return super.getRequestPath();
     }
@@ -97,7 +97,7 @@ public class Java2DAnimatedUserResourceWrapperImpl extends Java2DUserResourceWra
     @Override
     protected void paintAndWrite(ImageOutputStream outputStream) throws IOException {
         Java2DAnimatedUserResource userResource = (Java2DAnimatedUserResource) getWrapped();
-        
+
         ImageType imageType = userResource.getImageType();
         checkSupportedFormat(imageType);
         ImageWriter imageWriter = getSequenceCapableImageWriter(imageType);
@@ -108,9 +108,8 @@ public class Java2DAnimatedUserResourceWrapperImpl extends Java2DUserResourceWra
             imageWriter.setOutput(outputStream);
 
             ImageWriteParam defaultImageWriteParam = imageWriter.getDefaultWriteParam();
-            IIOMetadata imageMetaData = imageWriter.getDefaultImageMetadata(ImageTypeSpecifier.createFromBufferedImageType(
-                BufferedImage.TYPE_INT_RGB),
-                defaultImageWriteParam);
+            IIOMetadata imageMetaData = imageWriter.getDefaultImageMetadata(
+                ImageTypeSpecifier.createFromBufferedImageType(BufferedImage.TYPE_INT_RGB), defaultImageWriteParam);
             String metaFormatName = imageMetaData.getNativeMetadataFormatName();
             Node root = imageMetaData.getAsTree(metaFormatName);
             IIOMetadataNode graphicsControlExtensionNode = (IIOMetadataNode) getOrCreateChild(root, "GraphicControlExtension");
@@ -130,21 +129,20 @@ public class Java2DAnimatedUserResourceWrapperImpl extends Java2DUserResourceWra
 
             byte numLoops = (byte) (userResource.isLooped() ? 0x0 : 0x1);
 
-            netscapeExtension.setUserObject(new byte[]{0x1, numLoops, 0x0});
+            netscapeExtension.setUserObject(new byte[] { 0x1, numLoops, 0x0 });
             applicationExtensionsNode.appendChild(netscapeExtension);
             imageMetaData.setFromTree(metaFormatName, root);
 
             imageWriter.prepareWriteSequence(null);
 
             userResource.startFramesSequence();
-            
+
             while (userResource.hasNextFrame()) {
                 Graphics2D g2d = null;
                 try {
                     g2d = createGraphics(image);
                     userResource.paint(g2d);
-                    imageWriter.writeToSequence(new IIOImage(image, null, imageMetaData),
-                        defaultImageWriteParam);
+                    imageWriter.writeToSequence(new IIOImage(image, null, imageMetaData), defaultImageWriteParam);
                 } finally {
                     if (g2d != null) {
                         g2d.dispose();
@@ -157,5 +155,4 @@ public class Java2DAnimatedUserResourceWrapperImpl extends Java2DUserResourceWra
             imageWriter.dispose();
         }
     }
-    
 }

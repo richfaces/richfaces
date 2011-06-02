@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.skin;
 
 import java.nio.ByteBuffer;
@@ -33,9 +32,9 @@ import javax.faces.context.FacesContext;
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:59:40 $
  */
 public class SkinBean extends AbstractMap implements Skin {
-
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.richfaces.skin.Skin#hashCode(javax.faces.context.FacesContext)
      */
     public int hashCode(FacesContext context) {
@@ -43,7 +42,8 @@ public class SkinBean extends AbstractMap implements Skin {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see java.util.AbstractMap#entrySet()
      */
     @Override
@@ -52,7 +52,8 @@ public class SkinBean extends AbstractMap implements Skin {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see java.util.AbstractMap#containsKey(java.lang.Object)
      */
     @Override
@@ -65,7 +66,8 @@ public class SkinBean extends AbstractMap implements Skin {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see java.util.AbstractMap#get(java.lang.Object)
      */
     @Override
@@ -84,7 +86,8 @@ public class SkinBean extends AbstractMap implements Skin {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see java.util.AbstractMap#toString()
      */
     @Override
@@ -93,7 +96,8 @@ public class SkinBean extends AbstractMap implements Skin {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see java.util.AbstractMap#isEmpty()
      */
     @Override
@@ -102,7 +106,8 @@ public class SkinBean extends AbstractMap implements Skin {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.richfaces.skin.Skin#getParameter(javax.faces.context.FacesContext, java.lang.String)
      */
     public Object getParameter(FacesContext context, String name) {
@@ -114,7 +119,8 @@ public class SkinBean extends AbstractMap implements Skin {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.richfaces.skin.Skin#containsProperty(java.lang.String)
      */
     public boolean containsProperty(String name) {
@@ -130,28 +136,36 @@ public class SkinBean extends AbstractMap implements Skin {
         return bs;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see org.richfaces.skin.Skin#getColorParameter(javax.faces.context.FacesContext, java.lang.String)
      */
     public Integer getColorParameter(FacesContext context, String name) {
         return getSkin().getColorParameter(context, name);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see org.richfaces.skin.Skin#getColorParameter(javax.faces.context.FacesContext, java.lang.String, java.lang.Object)
      */
     public Integer getColorParameter(FacesContext context, String name, Object defaultValue) {
         return getSkin().getColorParameter(context, name, defaultValue);
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     *
      * @see org.richfaces.skin.Skin#getIntegerParameter(javax.faces.context.FacesContext, java.lang.String)
      */
     public Integer getIntegerParameter(FacesContext context, String name) {
         return getSkin().getIntegerParameter(context, name);
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     *
      * @see org.richfaces.skin.Skin#getIntegerParameter(javax.faces.context.FacesContext, java.lang.String, java.lang.Object)
      */
     public Integer getIntegerParameter(FacesContext context, String name, Object defaultValue) {

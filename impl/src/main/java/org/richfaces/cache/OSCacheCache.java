@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.cache;
 
 import java.util.Date;
@@ -28,8 +27,7 @@ import com.opensymphony.oscache.base.NeedsRefreshException;
 import com.opensymphony.oscache.web.filter.ExpiresRefreshPolicy;
 
 /**
- * @author Nick - mailto:nbelaevski@exadel.com
- *         created 01.05.2007
+ * @author Nick - mailto:nbelaevski@exadel.com created 01.05.2007
  */
 public class OSCacheCache implements Cache {
     private com.opensymphony.oscache.base.Cache cache;

@@ -46,16 +46,13 @@ import com.google.common.collect.Sets;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class PushFilter implements Filter {
-
     private static final long serialVersionUID = 7616370505508715222L;
-
     private static final Logger LOGGER = RichfacesLogger.WEBAPP.getLogger();
-    
-    private final class ServletConfigFacade implements ServletConfig {
 
+    private final class ServletConfigFacade implements ServletConfig {
         private final FilterConfig filterConfig;
 
         private ServletConfigFacade(FilterConfig filterConfig) {
@@ -76,16 +73,16 @@ public class PushFilter implements Filter {
             if (result == null) {
                 result = filterConfig.getServletContext().getInitParameter(name);
             }
-            
+
             return result;
         }
 
         public Enumeration<String> getInitParameterNames() {
             Set<String> result = Sets.newLinkedHashSet();
-            
+
             result.addAll(Collections.list(filterConfig.getInitParameterNames()));
             result.addAll(Collections.list(filterConfig.getServletContext().getInitParameterNames()));
-            
+
             return Iterators.asEnumeration(result.iterator());
         }
     }
@@ -93,11 +90,12 @@ public class PushFilter implements Filter {
     private PushServlet pushServlet;
 
     public void init(FilterConfig filterConfig) throws ServletException {
-        PushContext handlerProvider = (PushContext) filterConfig.getServletContext().getAttribute(PushContext.INSTANCE_KEY_NAME);
-        
+        PushContext handlerProvider = (PushContext) filterConfig.getServletContext()
+            .getAttribute(PushContext.INSTANCE_KEY_NAME);
+
         if (handlerProvider != null) {
             logPushFilterWarning(filterConfig.getServletContext());
-            
+
             pushServlet = new PushServlet();
             ServletConfigFacade servletConfig = new ServletConfigFacade(filterConfig);
             pushServlet.init(servletConfig);
@@ -106,27 +104,29 @@ public class PushFilter implements Filter {
 
     private void logPushFilterWarning(ServletContext servletContext) {
         String message;
-        
+
         if (servletContext.getMajorVersion() >= 3) {
             message = "PushFilter has been deprecated, you can remove its declaration in Servlets 3 environment";
         } else {
             message = "PushFilter has been deprecated, you should use PushServlet instead";
         }
-        
+
         LOGGER.warn(message);
     }
 
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
+        ServletException {
         if (pushServlet != null && request instanceof HttpServletRequest && response instanceof HttpServletResponse) {
             HttpServletRequest httpReq = (HttpServletRequest) request;
             HttpServletResponse httpResp = (HttpServletResponse) response;
-            
-            if ("GET".equals(httpReq.getMethod()) && httpReq.getQueryString() != null && httpReq.getQueryString().contains("__richfacesPushAsync")) {
+
+            if ("GET".equals(httpReq.getMethod()) && httpReq.getQueryString() != null
+                && httpReq.getQueryString().contains("__richfacesPushAsync")) {
                 pushServlet.doGet(httpReq, httpResp);
                 return;
             }
         }
-        
+
         chain.doFilter(request, response);
     }
 
@@ -136,5 +136,4 @@ public class PushFilter implements Filter {
             pushServlet = null;
         }
     }
-
 }

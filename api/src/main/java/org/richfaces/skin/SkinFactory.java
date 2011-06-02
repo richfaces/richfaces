@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.skin;
 
 import javax.faces.context.FacesContext;
@@ -26,15 +25,13 @@ import javax.faces.context.FacesContext;
 import org.richfaces.application.ServiceTracker;
 
 /**
- * Base factory class ( implement Singleton design pattern ). Produce self
- * instance to build current skin configuration. At present, realised as lazy
- * creation factory.
+ * Base factory class ( implement Singleton design pattern ). Produce self instance to build current skin configuration. At
+ * present, realised as lazy creation factory.
  *
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:59:43 $
  */
 public abstract class SkinFactory {
-
     @Deprecated
     public static final SkinFactory getInstance() {
         return getInstance(FacesContext.getCurrentInstance());
@@ -76,5 +73,4 @@ public abstract class SkinFactory {
     public abstract Theme getTheme(FacesContext facesContext, String name);
 
     public abstract Skin getSkin(FacesContext context, String name);
-
 }

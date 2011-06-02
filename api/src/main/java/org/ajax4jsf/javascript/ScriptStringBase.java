@@ -18,15 +18,11 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.javascript;
 
 import java.io.IOException;
 
 import javax.faces.FacesException;
-
 
 /**
  * @author shura (latest modification by $Author: alexsmirnov $)
@@ -62,16 +58,16 @@ public abstract class ScriptStringBase implements ScriptString {
         try {
             appendScript(stringBuilder);
         } catch (IOException e) {
-            //ignore
+            // ignore
         }
     }
-    
+
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see java.lang.Object#toString()
      */
     public String toString() {
         return toScript();
     }
-
 }

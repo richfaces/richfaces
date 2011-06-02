@@ -38,7 +38,6 @@
  * Exadel. Inc, elects to include this software in this distribution under the
  * GPL Version 2 license.
  */
-
 package org.richfaces.util;
 
 import java.io.ByteArrayInputStream;
@@ -94,35 +93,28 @@ import com.google.common.base.Strings;
  * @since 4.0
  */
 public final class Util {
-    
     private static final Pattern RESOURCE_PARAMS_SPLIT_PATTERN = Pattern.compile("\\s*(\\s|,)\\s*");
     private static final Pattern RESOURCE_PARAMS = Pattern.compile("\\{([^\\}]*)\\}\\s*$");
-    
     private static final Logger RESOURCE_LOGGER = RichfacesLogger.RESOURCE.getLogger();
-
     /* HTTP Date format required by the HTTP/1.1 RFC */
     private static final String RFC1123_DATE_PATTERN = "EEE, dd MMM yyyy HH:mm:ss zzz";
-
     // TODO codec have settings
     private static final Codec CODEC = new Codec();
     private static final SimpleDateFormat RFC1123_DATE_FORMATTER;
     private static final String QUESTION_SIGN = "?";
     private static final String EQUALS_SIGN = "=";
+    private static final Pattern CHARSET_IN_CONTENT_TYPE_PATTERN = Pattern.compile(";\\s*charset\\s*=\\s*([^\\s;]+)",
+        Pattern.CASE_INSENSITIVE);
 
-    private static final Pattern CHARSET_IN_CONTENT_TYPE_PATTERN = Pattern.compile(";\\s*charset\\s*=\\s*([^\\s;]+)", Pattern.CASE_INSENSITIVE);
-    
     public static final class NamingContainerDataHolder {
-        
         public static final char SEPARATOR_CHAR = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
-        
         public static final FastJoiner SEPARATOR_CHAR_JOINER = FastJoiner.on(SEPARATOR_CHAR);
-
         public static final Splitter SEPARATOR_CHAR_SPLITTER = Splitter.on(SEPARATOR_CHAR);
-        
-        private NamingContainerDataHolder() {}
-        
+
+        private NamingContainerDataHolder() {
+        }
     }
-    
+
     static {
         SimpleDateFormat format = new SimpleDateFormat(RFC1123_DATE_PATTERN, Locale.US);
 
@@ -233,13 +225,13 @@ public final class Util {
 
             // default encoding always presented.
         }
-        
+
         return objectArray;
     }
-    
+
     public static Object decodeObjectData(String encodedData) {
         byte[] objectArray = decodeBytesData(encodedData);
-        
+
         try {
             ObjectInputStream in = new ObjectInputStreamImpl(new ByteArrayInputStream(objectArray));
 
@@ -251,7 +243,7 @@ public final class Util {
         } catch (ClassNotFoundException e) {
             RESOURCE_LOGGER.error(Messages.getMessage(Messages.DATA_CLASS_NOT_FOUND_ERROR), e);
         }
-        
+
         return null;
     }
 
@@ -265,7 +257,7 @@ public final class Util {
                 RESOURCE_LOGGER.error(Messages.getMessage(Messages.QUERY_STRING_BUILDING_ERROR), e);
             }
         }
-        
+
         return null;
     }
 
@@ -279,13 +271,13 @@ public final class Util {
                 objStream.flush();
                 objStream.close();
                 dataStream.close();
-                
+
                 return encodeBytesData(dataStream.toByteArray());
             } catch (Exception e) {
                 RESOURCE_LOGGER.error(Messages.getMessage(Messages.QUERY_STRING_BUILDING_ERROR), e);
             }
         }
-        
+
         return null;
     }
 
@@ -301,11 +293,11 @@ public final class Util {
             int paramsSeparator = resourcePath.indexOf(QUESTION_SIGN);
             if (paramsSeparator >= 0) {
                 StringBuilder resourcePathBuilder = new StringBuilder(resourcePath.length() + mapping.length());
-                
+
                 resourcePathBuilder.append(resourcePath.substring(0, paramsSeparator));
                 resourcePathBuilder.append(mapping);
                 resourcePathBuilder.append(resourcePath.substring(paramsSeparator));
-                
+
                 resourcePath = resourcePathBuilder.toString();
             } else {
                 resourcePath += mapping;
@@ -323,7 +315,7 @@ public final class Util {
         Matcher matcher = RESOURCE_PARAMS.matcher(resourceName);
         if (matcher.find()) {
             String paramsString = matcher.group(1);
-            
+
             String[] paramsSplit = RESOURCE_PARAMS_SPLIT_PATTERN.split(paramsString);
 
             try {
@@ -338,7 +330,6 @@ public final class Util {
             } catch (UnsupportedEncodingException e) {
                 RESOURCE_LOGGER.debug("Cannot parse resource parameters");
             }
-           
         }
 
         return params;
@@ -385,48 +376,49 @@ public final class Util {
     }
 
     private static boolean isLegalURIQueryChar(char c) {
-        //http://java.sun.com/j2se/1.5.0/docs/api/java/net/URI.html
-        
-        //alphanum
+        // http://java.sun.com/j2se/1.5.0/docs/api/java/net/URI.html
+
+        // alphanum
         if (('a' <= c && c <= 'z') || ('A' <= c && c <= 'Z') || ('0' <= c && c <= '9')) {
             return true;
         }
-        
-        //reserved
-        //if (c == ';' || c == '/' || c == '?' || c == ':' || c == '@' || c == '&' || c == '=' || c == '+' || c == ',' || c == '$' ) {
-        //    return true;
-        //}
-        
-        //mark
-        if (c  == '-' || c == '_' || c == '.' || c == '!' || c == '~' || c == '*' || c == '\'' || c == '(' || c == ')') {
+
+        // reserved
+        // if (c == ';' || c == '/' || c == '?' || c == ':' || c == '@' || c == '&' || c == '=' || c == '+' || c == ',' || c ==
+        // '$' ) {
+        // return true;
+        // }
+
+        // mark
+        if (c == '-' || c == '_' || c == '.' || c == '!' || c == '~' || c == '*' || c == '\'' || c == '(' || c == ')') {
             return true;
         }
-        
+
         return false;
     }
-    
-    private static final String escapeURIByte(int b) {
+
+    private static String escapeURIByte(int b) {
         if (0x10 <= b) {
             return "%" + Integer.toHexString(b);
         } else {
             return "%0" + Integer.toHexString(b);
         }
     }
-    
+
     public static String encodeURIQueryPart(String s) {
         StringBuilder builder = new StringBuilder();
 
         int start = 0;
         int idx = 0;
-        
+
         int length = s.length();
         CharsetEncoder encoder = null;
         ByteBuffer byteBuffer = null;
         CharBuffer buffer = null;
-        
+
         for (; idx < length; idx++) {
             char c = s.charAt(idx);
-            
+
             if (!isLegalURIQueryChar(c)) {
                 builder.append(s.substring(start, idx));
 
@@ -435,31 +427,31 @@ public final class Util {
                 }
                 if (buffer == null) {
                     buffer = CharBuffer.allocate(1);
-                    byteBuffer = ByteBuffer.allocate(6); //max bytes size in UTF-8
+                    byteBuffer = ByteBuffer.allocate(6); // max bytes size in UTF-8
                 } else {
                     byteBuffer.limit(6);
                 }
-                
+
                 buffer.put(0, c);
-                
+
                 buffer.rewind();
                 byteBuffer.rewind();
                 encoder.encode(buffer, byteBuffer, true);
 
                 byteBuffer.flip();
-                
+
                 int limit = byteBuffer.limit();
                 for (int i = 0; i < limit; i++) {
                     int b = (0xFF & byteBuffer.get());
                     builder.append(escapeURIByte(b));
                 }
-                
+
                 start = idx + 1;
             }
         }
 
         builder.append(s.substring(start, idx));
-        
+
         return builder.toString();
     }
 
@@ -483,7 +475,7 @@ public final class Util {
                     RESOURCE_LOGGER.debug(e.getMessage(), e);
                 }
             }
-            
+
             return baos.toByteArray();
         } else if (resource instanceof StateHolder) {
             StateHolder stateHolder = (StateHolder) resource;
@@ -493,16 +485,16 @@ public final class Util {
 
             return stateHolder.saveState(context);
         }
-        
+
         return null;
     }
-    
+
     public static void restoreResourceState(FacesContext context, Object resource, Object state) {
         if (state == null) {
-            //transient resource hasn't provided any data
+            // transient resource hasn't provided any data
             return;
         }
-        
+
         if (resource instanceof StateHolderResource) {
             StateHolderResource stateHolderResource = (StateHolderResource) resource;
 
@@ -527,15 +519,14 @@ public final class Util {
 
     public static Charset getCharsetFromContentType(String contentType) {
         String charsetName = null;
-        
+
         if (contentType != null) {
             Matcher matcher = CHARSET_IN_CONTENT_TYPE_PATTERN.matcher(contentType);
             if (matcher.find()) {
                 charsetName = matcher.group(1);
             }
         }
-        
+
         return Strings.isNullOrEmpty(charsetName) ? Charset.defaultCharset() : Charset.forName(charsetName);
     }
-
 }

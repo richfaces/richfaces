@@ -20,7 +20,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.application;
 
 import java.util.Date;
@@ -33,17 +32,20 @@ import org.richfaces.cache.CacheManager;
 import org.richfaces.resource.ResourceHandlerImpl;
 
 /**
- * <p class="changed_added_4_0"></p>
+ * <p class="changed_added_4_0">
+ * </p>
+ *
  * @author asmirnov@exadel.com
  *
  */
-
-public class CacheProvider implements Initializable,Cache {
-    
+public class CacheProvider implements Initializable, Cache {
     private Cache instance;
     private CacheManager cacheManager;
+
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @param key
      * @return
      * @see org.richfaces.cache.Cache#get(java.lang.Object)
@@ -53,7 +55,9 @@ public class CacheProvider implements Initializable,Cache {
     }
 
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @param key
      * @param value
      * @param expired
@@ -64,7 +68,9 @@ public class CacheProvider implements Initializable,Cache {
     }
 
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @see org.richfaces.cache.Cache#start()
      */
     public void start() {
@@ -72,21 +78,27 @@ public class CacheProvider implements Initializable,Cache {
     }
 
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @see org.richfaces.cache.Cache#stop()
      */
     public void stop() {
         this.instance.stop();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see org.richfaces.jsr330.Initializable#destroy()
      */
     public void release() {
         cacheManager.destroy();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see org.richfaces.jsr330.Initializable#init(org.richfaces.jsr330.Binders)
      */
     public void init() {
@@ -99,5 +111,4 @@ public class CacheProvider implements Initializable,Cache {
     public Cache get() {
         return instance;
     }
-
 }

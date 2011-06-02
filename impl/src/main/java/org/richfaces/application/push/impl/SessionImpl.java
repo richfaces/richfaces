@@ -51,37 +51,25 @@ import com.google.common.collect.Sets;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class SessionImpl implements Session, DestroyableSession {
-
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
-
     private static final int MAX_INACTIVE_INTERVAL = 5 * 60 * 1000;
-
     private final String id;
-
     private final SessionManager sessionManager;
-    
     private volatile long lastAccessedTime;
-    
     private volatile Request request;
-
     private volatile boolean active = true;
-    
     private final Queue<MessageData> messagesQueue = new ConcurrentLinkedQueue<MessageData>();
-    
     private final Set<TopicKey> successfulSubscriptions = Sets.newHashSet();
-    
     private final Map<TopicKey, String> failedSubscriptions = Maps.newHashMap();
-
     private TopicsContext topicsContext;
-
     private AtomicLong sequenceCounter = new AtomicLong();
-    
+
     public SessionImpl(String id, SessionManager sessionManager, TopicsContext topicsContext) {
         super();
-        
+
         this.id = id;
         this.sessionManager = sessionManager;
         this.topicsContext = topicsContext;
@@ -92,7 +80,7 @@ public class SessionImpl implements Session, DestroyableSession {
     private void resetLastAccessedTimeToCurrent() {
         lastAccessedTime = System.currentTimeMillis();
     }
-    
+
     public synchronized void connect(Request request) throws Exception {
         releaseRequest();
 
@@ -106,17 +94,17 @@ public class SessionImpl implements Session, DestroyableSession {
     protected Request getRequest() {
         return request;
     }
-    
+
     protected void processConnect(Request request) throws Exception {
         this.request = request;
         sessionManager.requeue(this);
-        
+
         request.postMessages();
     }
-    
+
     private void releaseRequest() {
         Request localRequestCopy = this.request;
-        
+
         if (localRequestCopy != null) {
             resetLastAccessedTimeToCurrent();
             this.request = null;
@@ -124,42 +112,42 @@ public class SessionImpl implements Session, DestroyableSession {
             localRequestCopy.resume();
         }
     }
-    
+
     public synchronized void disconnect() throws Exception {
         releaseRequest();
     }
-    
+
     public long getLastAccessedTime() {
         if (!active) {
             return -1;
         }
-        
+
         if (this.request != null) {
-            //being accessed right now
+            // being accessed right now
             return System.currentTimeMillis();
         } else {
             return lastAccessedTime;
         }
     }
-    
+
     public int getMaxInactiveInterval() {
         return MAX_INACTIVE_INTERVAL;
     }
-    
+
     public String getId() {
         return id;
     }
-    
+
     public void invalidate() {
         active = false;
-        
+
         sessionManager.requeue(this);
     }
-    
+
     public synchronized void destroy() {
         active = false;
 
-        for (TopicKey key: successfulSubscriptions) {
+        for (TopicKey key : successfulSubscriptions) {
             Topic topic = topicsContext.getTopic(key);
             topic.publishEvent(new SessionUnsubscriptionEvent(topic, key, this));
         }
@@ -170,7 +158,7 @@ public class SessionImpl implements Session, DestroyableSession {
             LOGGER.error(e.getMessage(), e);
         }
     }
-    
+
     public Collection<MessageData> poll() {
         return messagesQueue;
     }
@@ -178,11 +166,11 @@ public class SessionImpl implements Session, DestroyableSession {
     public Map<TopicKey, String> getFailedSubscriptions() {
         return failedSubscriptions;
     }
-    
+
     public Collection<TopicKey> getSuccessfulSubscriptions() {
         return successfulSubscriptions;
     }
-    
+
     public void subscribe(String[] topics) {
         Iterable<TopicKey> topicKeys = Iterables.transform(Lists.newLinkedList(Arrays.asList(topics)), TopicKey.factory());
 
@@ -192,20 +180,21 @@ public class SessionImpl implements Session, DestroyableSession {
     private void createSubscriptions(Iterable<TopicKey> topicKeys) {
         for (TopicKey topicKey : topicKeys) {
             Topic pushTopic = topicsContext.getTopic(topicKey);
-            
+
             String errorMessage = null;
-            
+
             if (pushTopic == null) {
-                errorMessage = MessageFormat.format("Topic ''{0}'' is not configured", topicKey.getTopicAddress()); 
+                errorMessage = MessageFormat.format("Topic ''{0}'' is not configured", topicKey.getTopicAddress());
             } else {
                 try {
-                    //TODO - publish another events
+                    // TODO - publish another events
                     pushTopic.checkSubscription(topicKey, this);
                 } catch (SubscriptionFailureException e) {
                     if (e.getMessage() != null) {
                         errorMessage = e.getMessage();
                     } else {
-                        errorMessage = MessageFormat.format("Unknown error connecting to ''{0}'' topic", topicKey.getTopicAddress());
+                        errorMessage = MessageFormat.format("Unknown error connecting to ''{0}'' topic",
+                            topicKey.getTopicAddress());
                     }
                 }
             }
@@ -230,12 +219,14 @@ public class SessionImpl implements Session, DestroyableSession {
             if (message == null || sequenceNumber < message.getSequenceNumber()) {
                 break;
             }
-            
+
             queue.remove();
         }
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     *
      * @see org.richfaces.application.push.Session#push(org.richfaces.application.push.TopicKey, java.lang.String)
      */
     public void push(TopicKey topicKey, String serializedData) {
@@ -247,5 +238,4 @@ public class SessionImpl implements Session, DestroyableSession {
             }
         }
     }
-
 }

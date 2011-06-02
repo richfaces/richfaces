@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.resource;
 
 import java.io.IOException;
@@ -45,7 +42,6 @@ import org.jboss.test.faces.AbstractFacesTest;
  */
 public class AbstractCacheableResourceTest extends AbstractFacesTest {
     private static final int MILLISECONDS_IN_HOUR = 60 * 60 * 1000;
-
     /* HTTP Date format required by the HTTP/1.1 RFC */
     private static final String RFC1123_DATE_PATTERN = "EEE, dd MMM yyyy HH:mm:ss zzz";
     private static final SimpleDateFormat RFC1123_DATE_FORMATTER;
@@ -64,7 +60,8 @@ public class AbstractCacheableResourceTest extends AbstractFacesTest {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.richfaces.test.AbstractFacesTest#tearDown()
      */
     @Override
@@ -155,8 +152,8 @@ public class AbstractCacheableResourceTest extends AbstractFacesTest {
         Date beforeBaseDate = new Date(baseDate.getTime() - MILLISECONDS_IN_HOUR);
         Date afterBaseDate = new Date(baseDate.getTime() + MILLISECONDS_IN_HOUR);
 
-        this.connection.addRequestHeaders(Collections.singletonMap("If-Modified-Since",
-                RFC1123_DATE_FORMATTER.format(baseDate)));
+        this.connection
+            .addRequestHeaders(Collections.singletonMap("If-Modified-Since", RFC1123_DATE_FORMATTER.format(baseDate)));
 
         MockAbstractResource defaultResource = new MockAbstractResource();
 
@@ -178,7 +175,7 @@ public class AbstractCacheableResourceTest extends AbstractFacesTest {
         BooleanAnswer lastModifiedMatches = new BooleanAnswer();
         BooleanAnswer cacheable = new BooleanAnswer();
         AbstractCacheableResource resource = EasyMock.createNiceMock(AbstractTestResource.class,
-                                                 AbstractTestResource.class.getDeclaredMethods());
+            AbstractTestResource.class.getDeclaredMethods());
 
         EasyMock.expect(resource.isCacheable(facesContext)).andStubAnswer(cacheable);
 
@@ -190,8 +187,7 @@ public class AbstractCacheableResourceTest extends AbstractFacesTest {
         String modifiedCondition = "\"1234\"";
 
         this.connection.addRequestHeaders(Collections.singletonMap("If-Modified-Since", modifiedCondition));
-        EasyMock.expect(resource.isMatchesLastModified(facesContext,
-                modifiedCondition)).andStubAnswer(lastModifiedMatches);
+        EasyMock.expect(resource.isMatchesLastModified(facesContext, modifiedCondition)).andStubAnswer(lastModifiedMatches);
         EasyMock.replay(resource);
         cacheable.setValue(false);
         assertTrue(resource.userAgentNeedsUpdate(facesContext));
@@ -248,7 +244,6 @@ public class AbstractCacheableResourceTest extends AbstractFacesTest {
         }
     }
 
-
     private static class BooleanAnswer implements IAnswer<Boolean> {
         private Boolean value;
 
@@ -261,7 +256,6 @@ public class AbstractCacheableResourceTest extends AbstractFacesTest {
         }
     }
 }
-
 
 class MockAbstractResource extends AbstractCacheableResource {
     private String entityTag;

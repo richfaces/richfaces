@@ -30,32 +30,28 @@ import com.google.common.base.Function;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class TopicKey implements Serializable {
-
     public static final char SUBCHANNEL_SEPARATOR = '@';
-    
     private static final Function<String, TopicKey> FACTORY = new Function<String, TopicKey>() {
         public TopicKey apply(String from) {
             return new TopicKey(from);
-        };
+        }
+
+        ;
     };
-    
     private static final Function<TopicKey, String> TO_ADDRESS = new Function<TopicKey, String>() {
         public String apply(TopicKey from) {
             return from.getTopicAddress();
-        };
+        }
+
+        ;
     };
-
     private static final long serialVersionUID = -6967010810728932698L;
-
     private static final Pattern NAME_PATTERN = Pattern.compile("[a-zA-Z0-9_]+");
-    
     private static final FastJoiner AT_JOINER = FastJoiner.on(SUBCHANNEL_SEPARATOR);
-    
     private final String topicName;
-    
     private final String subtopicName;
 
     public TopicKey(String topicAddress) {
@@ -64,23 +60,23 @@ public class TopicKey implements Serializable {
 
     public TopicKey(String topicName, String subtopicName) {
         super();
-        
+
         if (topicName == null) {
             throw new NullPointerException();
         }
 
         this.topicName = topicName;
         this.subtopicName = subtopicName;
-        
+
         if (!NAME_PATTERN.matcher(topicName).matches()) {
             throw new IllegalArgumentException(topicName);
         }
-        
+
         if (subtopicName != null && !NAME_PATTERN.matcher(subtopicName).matches()) {
             throw new IllegalArgumentException(subtopicName);
         }
     }
-    
+
     public static Function<String, TopicKey> factory() {
         return FACTORY;
     }
@@ -91,24 +87,24 @@ public class TopicKey implements Serializable {
 
     private static String getTopicName(String topicAddress) {
         int idx = topicAddress.indexOf(SUBCHANNEL_SEPARATOR);
-        
+
         if (idx < 0) {
             return topicAddress;
         }
-        
+
         return topicAddress.substring(idx + 1);
     }
 
     private static String getSubtopicName(String topicAddress) {
         int idx = topicAddress.indexOf(SUBCHANNEL_SEPARATOR);
-        
+
         if (idx < 0) {
             return null;
         }
-        
+
         return topicAddress.substring(0, idx);
     }
-    
+
     public String getTopicName() {
         return topicName;
     }
@@ -120,7 +116,7 @@ public class TopicKey implements Serializable {
     public String getTopicAddress() {
         return AT_JOINER.join(subtopicName, topicName);
     }
-    
+
     public TopicKey getRootTopicKey() {
         if (getSubtopicName() == null) {
             return this;
@@ -128,7 +124,7 @@ public class TopicKey implements Serializable {
             return new TopicKey(getTopicName(), null);
         }
     }
-    
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -166,5 +162,4 @@ public class TopicKey implements Serializable {
         }
         return true;
     }
-    
 }

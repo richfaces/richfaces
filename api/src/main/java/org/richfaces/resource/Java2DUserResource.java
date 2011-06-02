@@ -28,18 +28,16 @@ import java.util.Map;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface Java2DUserResource {
+    Map<String, String> getResponseHeaders();
 
-    public Map<String, String> getResponseHeaders();
-    
-    public Date getLastModified();
+    Date getLastModified();
 
-    public ImageType getImageType();
-    
-    public Dimension getDimension();
-    
-    public void paint(Graphics2D graphics2D);
+    ImageType getImageType();
 
+    Dimension getDimension();
+
+    void paint(Graphics2D graphics2D);
 }

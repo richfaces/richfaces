@@ -31,14 +31,12 @@ import org.richfaces.application.push.TopicsContext;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class TopicsContextImpl extends TopicsContext {
-
     private final ExecutorService publishService;
-    
     private final ThreadFactory threadFactory;
-    
+
     public TopicsContextImpl(ThreadFactory threadFactory) {
         super();
 
@@ -53,13 +51,12 @@ public class TopicsContextImpl extends TopicsContext {
     protected ExecutorService getPublisherService() {
         return publishService;
     }
- 
+
     protected ThreadFactory getThreadFactory() {
         return threadFactory;
     }
-    
+
     public void destroy() {
         publishService.shutdown();
     }
-    
 }

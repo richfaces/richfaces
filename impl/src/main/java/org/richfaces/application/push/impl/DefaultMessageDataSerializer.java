@@ -1,4 +1,5 @@
 package org.richfaces.application.push.impl;
+
 /*
  * JBoss, Home of Professional Open Source
  * Copyright 2010, Red Hat, Inc. and individual contributors
@@ -26,14 +27,14 @@ import org.richfaces.application.push.MessageDataSerializer;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public final class DefaultMessageDataSerializer implements MessageDataSerializer {
-
     private static final MessageDataSerializer INSTANCE = new DefaultMessageDataSerializer();
-    
-    private DefaultMessageDataSerializer() {}
-    
+
+    private DefaultMessageDataSerializer() {
+    }
+
     public static MessageDataSerializer instance() {
         return INSTANCE;
     }

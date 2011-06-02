@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.ajax4jsf;
 
 import java.text.MessageFormat;
@@ -40,14 +39,12 @@ public final class Messages {
     public static final String AJAX_SUPPORT_REQUEST_PARAMETER_INFO = "AJAX_SUPPORT_REQUEST_PARAMETER_INFO";
     public static final String AJAX_VIEW_EXPIRED = "AJAX_VIEW_EXPIRED";
     public static final String ALTERNATE_HANDLER_CONSTRUCTOR_WARNING = "ALTERNATE_HANDLER_CONSTRUCTOR_WARNING";
-    public static final String APPENDING_AJAX_REGION_TO_NON_AJAX_CONTAINER_WARNING =
-        "APPENDING_AJAX_REGION_TO_NON_AJAX_CONTAINER_WARNING";
+    public static final String APPENDING_AJAX_REGION_TO_NON_AJAX_CONTAINER_WARNING = "APPENDING_AJAX_REGION_TO_NON_AJAX_CONTAINER_WARNING";
     public static final String ARGUMENT_IS_NOT_AJAX_REGION_ERROR = "ARGUMENT_IS_NOT_AJAX_REGION_ERROR";
     public static final String BREAKPOINTS_UNSUPPORTED_ERROR = "BREAKPOINTS_UNSUPPORTED_ERROR";
     public static final String BREAKPOINTS_UNSUPPORTED_ERROR_2 = "BREAKPOINTS_UNSUPPORTED_ERROR_2";
     public static final String BREAKPOINTS_UNSUPPORTED_ERROR_3 = "BREAKPOINTS_UNSUPPORTED_ERROR_3";
-    public static final String BREAKPOINTS_UNSUPPORTED_INSIDE_ATTRIBUTE_ERROR =
-        "BREAKPOINTS_UNSUPPORTED_INSIDE_ATTRIBUTE_ERROR";
+    public static final String BREAKPOINTS_UNSUPPORTED_INSIDE_ATTRIBUTE_ERROR = "BREAKPOINTS_UNSUPPORTED_INSIDE_ATTRIBUTE_ERROR";
     public static final String BREAKPOINT_NOT_REGISTERED_ERROR = "BREAKPOINT_NOT_REGISTERED_ERROR";
     public static final String BUFFER_TYPE_ERROR = "BUFFER_TYPE_ERROR";
     public static final String BUILD_ONCLICK_INFO = "BUILD_ONCLICK_INFO";
@@ -75,8 +72,7 @@ public final class Messages {
     public static final String CONTENT_TYPE_ENCODING = "CONTENT_TYPE_ENCODING";
     public static final String CONTENT_TYPE_NO_ENCODING = "CONTENT_TYPE_NO_ENCODING";
     public static final String CONTEXT_NULL_ERROR = "CONTEXT_NULL_ERROR";
-    public static final String CONVERTING_NON_VALUE_HOLDER_COMPONENT_ERROR =
-        "CONVERTING_NON_VALUE_HOLDER_COMPONENT_ERROR";
+    public static final String CONVERTING_NON_VALUE_HOLDER_COMPONENT_ERROR = "CONVERTING_NON_VALUE_HOLDER_COMPONENT_ERROR";
     public static final String COULD_NOT_LOAD_RESOURCE_BUNDLE = "COULD_NOT_LOAD_RESOURCE_BUNDLE";
     public static final String CREATE_AJAX_AREAS_SET_TO_RENDER = "CREATE_AJAX_AREAS_SET_TO_RENDER";
     public static final String CREATE_ALTERNATE_HANDLER = "CREATE_ALTERNATE_HANDLER";
@@ -195,8 +191,7 @@ public final class Messages {
     public static final String NO_FACET_NAME_ATTRIBUTE = "NO_FACET_NAME_ATTRIBUTE";
     public static final String NO_INPUT_STREAM_ERROR = "NO_INPUT_STREAM_ERROR";
     public static final String NO_NAME_ATTRIBUTE_ERROR = "NO_NAME_ATTRIBUTE_ERROR";
-    public static final String NO_PREFIX_OR_SUFFIX_IN_FILTER_MAPPING_ERROR =
-        "NO_PREFIX_OR_SUFFIX_IN_FILTER_MAPPING_ERROR";
+    public static final String NO_PREFIX_OR_SUFFIX_IN_FILTER_MAPPING_ERROR = "NO_PREFIX_OR_SUFFIX_IN_FILTER_MAPPING_ERROR";
     public static final String NO_RESOURCE_EXISTS_ERROR = "NO_RESOURCE_EXISTS_ERROR";
     public static final String NO_RESOURCE_REGISTERED_ERROR = "NO_RESOURCE_REGISTERED_ERROR";
     public static final String NO_RESOURCE_REGISTERED_ERROR_2 = "NO_RESOURCE_REGISTERED_ERROR_2";
@@ -294,7 +289,6 @@ public final class Messages {
     public static final String VIEW_HANDLER_INSTANTIATION_ERROR = "VIEW_HANDLER_INSTANTIATION_ERROR";
     public static final String WRAPPED_RULES_NULL_ERROR = "WRAPPED_RULES_NULL_ERROR";
     public static final String JAVASCRIPT_CIRCULAR_REFERENCE = "JAVASCRIPT_CIRCULAR_REFERENCE";
-    
     private static final String BUNDLE_NAME = "org.ajax4jsf.messages";
     private static Map<ClassLoader, ResourceBundle> bundles = new HashMap<ClassLoader, ResourceBundle>();
 
@@ -310,8 +304,7 @@ public final class Messages {
                 bundle = ResourceBundle.getBundle(BUNDLE_NAME, Locale.getDefault(), contextClassLoader);
             } catch (MissingResourceException e) {
                 try {
-                    bundle = ResourceBundle.getBundle(BUNDLE_NAME, Locale.getDefault(),
-                        Messages.class.getClassLoader());
+                    bundle = ResourceBundle.getBundle(BUNDLE_NAME, Locale.getDefault(), Messages.class.getClassLoader());
                 } catch (MissingResourceException e2) {
                     bundle = new EmptyResourceBundle();
                 }
@@ -336,7 +329,7 @@ public final class Messages {
             return "%" + name + "%";
         }
 
-        return MessageFormat.format(pattern, new Object[]{param});
+        return MessageFormat.format(pattern, new Object[] { param });
     }
 
     public static String getMessage(String name, Object param1, Object param2) {
@@ -346,7 +339,7 @@ public final class Messages {
             return "%" + name + "%";
         }
 
-        return MessageFormat.format(pattern, new Object[]{param1, param2});
+        return MessageFormat.format(pattern, new Object[] { param1, param2 });
     }
 
     public static String getMessage(String name, Object[] params) {
@@ -363,9 +356,9 @@ public final class Messages {
      * @author asmirnov
      */
     public static final class EmptyResourceBundle extends ResourceBundle {
-
         /*
-         *  (non-Javadoc)
+         * (non-Javadoc)
+         *
          * @see java.util.ResourceBundle#getKeys()
          */
         @Override
@@ -374,7 +367,8 @@ public final class Messages {
         }
 
         /*
-         *  (non-Javadoc)
+         * (non-Javadoc)
+         *
          * @see java.util.ResourceBundle#handleGetObject(java.lang.String)
          */
         @Override

@@ -47,33 +47,25 @@ import org.richfaces.renderkit.AjaxConstants;
  *
  */
 public class ComponentIdResolverTest {
-
     static final String META_COMPONENT_ID = "testId";
-    
     static final String META_COMPONENT_ID_SUBSTITUTION = "@substitutedTestId";
-
     private static final String META_CLIENT_ID = MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + META_COMPONENT_ID;
-
     private FacesEnvironment environment;
-
     private FacesRequest facesRequest;
-
     private FacesContext facesContext;
-
     private UIViewRoot viewRoot;
 
     @Before
     public void setUp() throws Exception {
-        ComponentIdResolver.setMetaComponentSubstitutions(
-            Collections.singletonMap(META_COMPONENT_ID, META_COMPONENT_ID_SUBSTITUTION));
-        
+        ComponentIdResolver.setMetaComponentSubstitutions(Collections.singletonMap(META_COMPONENT_ID,
+            META_COMPONENT_ID_SUBSTITUTION));
+
         environment = FacesEnvironment.createEnvironment();
 
-        environment.withResource("/test.xhtml", getClass().getResource(
-            "/org/richfaces/context/ComponentIdResolver.xhtml"));
+        environment.withResource("/test.xhtml", getClass().getResource("/org/richfaces/context/ComponentIdResolver.xhtml"));
 
-        environment.withResource("/WEB-INF/faces-config.xml", getClass().getResource(
-            "/org/richfaces/context/ComponentIdResolver.config.xml"));
+        environment.withResource("/WEB-INF/faces-config.xml",
+            getClass().getResource("/org/richfaces/context/ComponentIdResolver.config.xml"));
 
         environment.start();
 
@@ -84,7 +76,7 @@ public class ComponentIdResolverTest {
         viewRoot = facesContext.getViewRoot();
 
         facesContext.getExternalContext().getRequestMap().put("one", Arrays.asList(1));
-        
+
         ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
         ViewDeclarationLanguage vdl = viewHandler.getViewDeclarationLanguage(facesContext, viewRoot.getViewId());
         vdl.buildView(facesContext, viewRoot);
@@ -117,8 +109,7 @@ public class ComponentIdResolverTest {
     }
 
     private UIComponent evaluateComponentExpression(String expression) {
-        return (UIComponent) facesContext.getApplication().
-            evaluateExpressionGet(facesContext, expression, UIComponent.class);
+        return (UIComponent) facesContext.getApplication().evaluateExpressionGet(facesContext, expression, UIComponent.class);
     }
 
     @Test
@@ -241,11 +232,11 @@ public class ComponentIdResolverTest {
         Set<String> resolvedIds = resolver.getResolvedIds();
         assertEquals(asSet("form:table:input", "form:table:column@head", "form:table:1:column"), resolvedIds);
     }
-    
+
     @Test
     public void testUnresolvedMetaComponentSubstitutionCompatibility() throws Exception {
         ComponentIdResolver resolver = createComponentIdResolver();
-        
+
         resolver.addId(META_CLIENT_ID);
 
         resolver.resolve(evaluateComponentExpression("#{testBean.linkInRegion}"));
@@ -257,7 +248,7 @@ public class ComponentIdResolverTest {
     @Test
     public void testUnresolvedMetaComponentSubstitution() throws Exception {
         ComponentIdResolver resolver = createComponentIdResolver();
-        
+
         resolver.addId(META_CLIENT_ID);
 
         resolver.resolve(evaluateComponentExpression("#{testBean.linkOutRegion}"));

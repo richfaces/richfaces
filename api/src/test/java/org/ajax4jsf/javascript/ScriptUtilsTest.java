@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.javascript;
 
 import static org.easymock.EasyMock.capture;
@@ -55,7 +52,6 @@ import org.junit.internal.matchers.StringContains;
  * @author shura
  */
 public class ScriptUtilsTest extends TestCase {
-
     /**
      * @param name
      */
@@ -64,7 +60,9 @@ public class ScriptUtilsTest extends TestCase {
     }
 
     private static enum TestEnum {
-        A, B, C;
+        A,
+        B,
+        C;
 
         @Override
         public String toString() {
@@ -73,9 +71,7 @@ public class ScriptUtilsTest extends TestCase {
     }
 
     public static class ReferencedBean {
-
         private String name;
-
         private ReferenceHolderBean parent;
 
         public ReferencedBean(String name, ReferenceHolderBean parent) {
@@ -94,9 +90,7 @@ public class ScriptUtilsTest extends TestCase {
     }
 
     public static class ReferenceHolderBean {
-
         private String name;
-
         private Object reference;
 
         public ReferenceHolderBean(String name) {
@@ -115,7 +109,6 @@ public class ScriptUtilsTest extends TestCase {
         public void setReference(Object reference) {
             this.reference = reference;
         }
-
     }
 
     private static String dehydrate(String s) {
@@ -135,7 +128,7 @@ public class ScriptUtilsTest extends TestCase {
      * Test method for {@link org.ajax4jsf.javascript.ScriptUtils#toScript(java.lang.Object)}.
      */
     public void testArrayToScript() {
-        int[] obj = {1, 2, 3, 4, 5};
+        int[] obj = { 1, 2, 3, 4, 5 };
 
         assertEquals("[1,2,3,4,5] ", ScriptUtils.toScript(obj));
     }
@@ -162,9 +155,7 @@ public class ScriptUtilsTest extends TestCase {
      * Test method for {@link org.ajax4jsf.javascript.ScriptUtils#toScript(java.lang.Object)}.
      */
     public void testTwoDimentionalArrayToScript() {
-        int[][] obj = {
-            {1, 2}, {3, 4}
-        };
+        int[][] obj = { { 1, 2 }, { 3, 4 } };
 
         assertEquals("[[1,2] ,[3,4] ] ", ScriptUtils.toScript(obj));
     }
@@ -173,9 +164,7 @@ public class ScriptUtilsTest extends TestCase {
      * Test method for {@link org.ajax4jsf.javascript.ScriptUtils#toScript(java.lang.Object)}.
      */
     public void testTwoDimentionalStringArrayToScript() {
-        String[][] obj = {
-            {"one", "two"}, {"three", "four"}
-        };
+        String[][] obj = { { "one", "two" }, { "three", "four" } };
 
         assertEquals("[[\"one\",\"two\"] ,[\"three\",\"four\"] ] ", ScriptUtils.toScript(obj));
 
@@ -218,21 +207,21 @@ public class ScriptUtilsTest extends TestCase {
      * Test method for {@link org.ajax4jsf.javascript.ScriptUtils#toScript(java.lang.Object)}.
      */
     public void testObjectArrayToScript() {
-        Bean[] obj = {new Bean(1, true, "foo"), new Bean(2, false, "bar")};
+        Bean[] obj = { new Bean(1, true, "foo"), new Bean(2, false, "bar") };
 
         assertEquals("[{\"bool\":true,\"foo\":\"foo\",\"integer\":1} ,{\"bool\":false,\"foo\":\"bar\",\"integer\":2} ] ",
-                     ScriptUtils.toScript(obj));
+            ScriptUtils.toScript(obj));
     }
 
     /**
      * Test method for {@link org.ajax4jsf.javascript.ScriptUtils#toScript(java.lang.Object)}.
      */
     public void testObjectListToScript() {
-        Bean[] array = {new Bean(1, true, "foo"), new Bean(2, false, "bar")};
+        Bean[] array = { new Bean(1, true, "foo"), new Bean(2, false, "bar") };
         List<Bean> obj = Arrays.asList(array);
 
         assertEquals("[{\"bool\":true,\"foo\":\"foo\",\"integer\":1} ,{\"bool\":false,\"foo\":\"bar\",\"integer\":2} ] ",
-                     ScriptUtils.toScript(obj));
+            ScriptUtils.toScript(obj));
     }
 
     /**
@@ -249,7 +238,8 @@ public class ScriptUtilsTest extends TestCase {
 
     /**
      * Test method for {@link org.ajax4jsf.javascript.ScriptUtils#addEncodedString(java.lang.StringBuffer, java.lang.Object)}.
-     * @throws Exception 
+     *
+     * @throws Exception
      */
     public void testAddEncodedString() throws Exception {
         StringBuilder buff = new StringBuilder();
@@ -260,7 +250,8 @@ public class ScriptUtilsTest extends TestCase {
 
     /**
      * Test method for {@link org.ajax4jsf.javascript.ScriptUtils#addEncoded(java.lang.StringBuffer, java.lang.Object)}.
-     * @throws Exception 
+     *
+     * @throws Exception
      */
     public void testAddEncoded() throws Exception {
         StringBuilder buff = new StringBuilder();
@@ -293,7 +284,7 @@ public class ScriptUtilsTest extends TestCase {
     public void testCharacter() throws Exception {
         assertEquals("\"N\"", ScriptUtils.toScript('N'));
     }
-    
+
     private void assertCaptureEquals(Capture<? extends Object> capture, String expected) {
         StringBuilder sb = new StringBuilder();
         List<? extends Object> list = capture.getValues();
@@ -311,14 +302,14 @@ public class ScriptUtilsTest extends TestCase {
      */
     public void testWriteToStream() throws Exception {
         MockFacesEnvironment environment = MockFacesEnvironment.createEnvironment();
-        
+
         ResponseWriter mockWriter = environment.createMock(ResponseWriter.class);
         Capture<? extends Object> capture = new Capture<Object>(CaptureType.ALL) {
-
             /**
              *
              */
             private static final long serialVersionUID = -4915440411892856583L;
+
             @Override
             public void setValue(Object value) {
                 if (value instanceof char[]) {
@@ -350,7 +341,8 @@ public class ScriptUtilsTest extends TestCase {
         private Object foo;
         private int integer;
 
-        public Bean() {}
+        public Bean() {
+        }
 
         /**
          * @param ineger
@@ -411,7 +403,7 @@ public class ScriptUtilsTest extends TestCase {
         ReferencedBean child = new ReferencedBean("child", parent);
 
         assertEquals(dehydrate("{\"name\": \"child\", \"parent\": {\"name\": \"parent\", \"reference\": null}}"),
-                dehydrate(ScriptUtils.toScript(child)));
+            dehydrate(ScriptUtils.toScript(child)));
     }
 
     public void testCircularReferenceViaProperty() throws Exception {
@@ -421,17 +413,17 @@ public class ScriptUtilsTest extends TestCase {
         parent.setReference(child);
 
         assertEquals(dehydrate("{\"name\": \"parent\", \"reference\": {\"name\": \"child\", \"parent\": null}}"),
-                dehydrate(ScriptUtils.toScript(parent)));
+            dehydrate(ScriptUtils.toScript(parent)));
     }
 
     public void testCircularReferenceViaArray() throws Exception {
         ReferenceHolderBean parent = new ReferenceHolderBean("parent");
         ReferencedBean child = new ReferencedBean("child", parent);
 
-        parent.setReference(new Object[] {child});
+        parent.setReference(new Object[] { child });
 
         assertEquals(dehydrate("{\"name\": \"parent\", \"reference\": [{\"name\": \"child\", \"parent\": null}]}"),
-                dehydrate(ScriptUtils.toScript(parent)));
+            dehydrate(ScriptUtils.toScript(parent)));
     }
 
     public void testCircularReferenceViaCollection() throws Exception {
@@ -443,7 +435,7 @@ public class ScriptUtilsTest extends TestCase {
         parent.setReference(set);
 
         assertEquals(dehydrate("{\"name\": \"parent\", \"reference\": [{\"name\": \"child\", \"parent\": null}]}"),
-                dehydrate(ScriptUtils.toScript(parent)));
+            dehydrate(ScriptUtils.toScript(parent)));
     }
 
     public void testCircularReferenceViaMap() throws Exception {
@@ -455,14 +447,14 @@ public class ScriptUtilsTest extends TestCase {
         parent.setReference(map);
 
         assertEquals(dehydrate("{\"name\": \"parent\", \"reference\": {\"key\": {\"name\": \"child\", \"parent\": null}}}"),
-                dehydrate(ScriptUtils.toScript(parent)));
+            dehydrate(ScriptUtils.toScript(parent)));
     }
 
     @Test
     public void testEscapeStringForCSSSelector() throws Exception {
         assertNull(ScriptUtils.escapeCSSMetachars(null));
         assertEquals("", ScriptUtils.escapeCSSMetachars(""));
-        
+
         assertEquals("test", ScriptUtils.escapeCSSMetachars("test"));
         assertEquals("test\\.string", ScriptUtils.escapeCSSMetachars("test.string"));
         assertEquals("test\\.\\=string", ScriptUtils.escapeCSSMetachars("test.=string"));
@@ -475,26 +467,26 @@ public class ScriptUtilsTest extends TestCase {
         assertEquals("test\\#", ScriptUtils.escapeCSSMetachars("test#"));
         assertEquals("test\\#\\=", ScriptUtils.escapeCSSMetachars("test#="));
     }
-    
+
     @Test
     public void testTimezoneSerialization() throws Exception {
         TimeZone utcPlusTwoTZ = TimeZone.getTimeZone("GMT+02:00");
-        
+
         String serializedUTCPlusTwoTZ = dehydrate(ScriptUtils.toScript(utcPlusTwoTZ));
-        
+
         assertThat(serializedUTCPlusTwoTZ, StringContains.containsString("\"DSTSavings\":0"));
         assertThat(serializedUTCPlusTwoTZ, StringContains.containsString("\"ID\":\"GMT+02:00\""));
         assertThat(serializedUTCPlusTwoTZ, StringContains.containsString("\"rawOffset\":7200000"));
-        
+
         TimeZone pstTimeZone = TimeZone.getTimeZone("PST");
         String serializedPSTTimeZone = dehydrate(ScriptUtils.toScript(pstTimeZone));
-        
+
         assertThat(serializedPSTTimeZone, StringContains.containsString("\"ID\":\"PST\""));
         assertThat(serializedPSTTimeZone, StringContains.containsString("\"rawOffset\":-28800000"));
 
         TimeZone sfTimeZone = TimeZone.getTimeZone("America/New_York");
         String serializedSFTimeZone = dehydrate(ScriptUtils.toScript(sfTimeZone));
-        
+
         assertThat(serializedSFTimeZone, StringContains.containsString("\"ID\":\"America\\/New_York\""));
         assertThat(serializedSFTimeZone, StringContains.containsString("\"rawOffset\":-18000000"));
     }

@@ -21,16 +21,13 @@
  */
 package org.richfaces.application.push;
 
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
-//TODO - byte message serializer?
+// TODO - byte message serializer?
 public interface MessageDataSerializer {
+    String MESSAGE_ATTRIBUTE_NAME = MessageDataSerializer.class.getName();
 
-    public static final String MESSAGE_ATTRIBUTE_NAME = MessageDataSerializer.class.getName();
-    
-    public String serialize(Object data);
-    
+    String serialize(Object data);
 }

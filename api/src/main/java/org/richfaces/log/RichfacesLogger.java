@@ -8,10 +8,17 @@ import javax.faces.component.UIViewRoot;
  *
  */
 public enum RichfacesLogger {
-    RESOURCE("Resource"), RENDERKIT("Renderkit"), CONFIG("Config"), CONNECTION("Connection"), 
-    APPLICATION("Application"), CACHE("Cache"), CONTEXT("Context"), COMPONENTS("Components"), 
-    WEBAPP("Webapp"), UTIL("Util"), MODEL("Model");
-
+    RESOURCE("Resource"),
+    RENDERKIT("Renderkit"),
+    CONFIG("Config"),
+    CONNECTION("Connection"),
+    APPLICATION("Application"),
+    CACHE("Cache"),
+    CONTEXT("Context"),
+    COMPONENTS("Components"),
+    WEBAPP("Webapp"),
+    UTIL("Util"),
+    MODEL("Model");
     private static final String LOGGER_NAME_PREFIX = "org.richfaces.log.";
     private String loggerName;
 
@@ -26,10 +33,11 @@ public enum RichfacesLogger {
     public Logger getLogger() {
         return LogFactory.getLogger(loggerName);
     }
-    
+
     /**
-     * 
+     *
      * Return string which contains formated path from view root to component.
+     *
      * @param component
      * @return string
      */

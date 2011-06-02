@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.resource;
 
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getLongConfigurationValue;
@@ -41,15 +40,13 @@ import org.richfaces.util.Util;
  * @since 4.0
  */
 public abstract class AbstractCacheableResource extends AbstractBaseResource implements CacheableResource {
-    
     private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
-
     private boolean cacheable = true;
-    
+
     public boolean isCacheable(FacesContext context) {
         return cacheable;
     }
-    
+
     // TODO add getExpired(FacesContext) for HTTP matching headers?
     private static boolean isUserCopyActual(Date lastModified, Date modifiedCondition) {
 

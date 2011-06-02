@@ -39,23 +39,21 @@ import com.google.common.collect.Sets;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public final class PushServlet extends MeteorServlet {
-
     private static final long serialVersionUID = 2483746935231439236L;
 
     private static final class ServletConfigDefaultsWrapper implements ServletConfig {
-
         private static final Map<String, String> DEFAULT_INIT_PARAMETERS = Maps.newHashMap();
-        
+
         static {
             DEFAULT_INIT_PARAMETERS.put("org.atmosphere.filter", PushHandlerFilter.class.getName());
             DEFAULT_INIT_PARAMETERS.put(AtmosphereServlet.DISABLE_ONSTATE_EVENT, "true");
         }
-        
+
         private final ServletConfig config;
-        
+
         public ServletConfigDefaultsWrapper(ServletConfig config) {
             super();
             this.config = config;
@@ -75,18 +73,18 @@ public final class PushServlet extends MeteorServlet {
             if (parameter == null) {
                 parameter = config.getServletContext().getInitParameter(name);
             }
-            
+
             if (parameter == null) {
                 parameter = DEFAULT_INIT_PARAMETERS.get(name);
             }
-            
+
             return parameter;
         }
 
         @SuppressWarnings({ "unchecked", "rawtypes" })
         public Enumeration getInitParameterNames() {
             Set<String> result = Sets.newHashSet();
-            
+
             Iterators.addAll(result, (Iterator<? extends String>) DEFAULT_INIT_PARAMETERS.keySet());
             Iterators.addAll(result, Iterators.forEnumeration(config.getInitParameterNames()));
             Iterators.addAll(result, Iterators.forEnumeration(config.getServletContext().getInitParameterNames()));
@@ -94,10 +92,9 @@ public final class PushServlet extends MeteorServlet {
             return Iterators.asEnumeration(result.iterator());
         }
     }
-    
+
     @Override
     public void init(ServletConfig sc) throws ServletException {
         super.init(new ServletConfigDefaultsWrapper(sc));
     }
-    
 }

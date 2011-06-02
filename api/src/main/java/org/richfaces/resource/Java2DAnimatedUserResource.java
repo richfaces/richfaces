@@ -25,18 +25,16 @@ import java.awt.Graphics2D;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface Java2DAnimatedUserResource extends Java2DUserResource {
+    boolean isLooped();
 
-    public boolean isLooped();
-    
-    public int getFrameDelay();
-    
-    public void startFramesSequence();
+    int getFrameDelay();
 
-    public boolean hasNextFrame();
-    
-    public void paint(Graphics2D graphics2d);
+    void startFramesSequence();
 
+    boolean hasNextFrame();
+
+    void paint(Graphics2D graphics2d);
 }

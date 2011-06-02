@@ -41,15 +41,14 @@ import org.richfaces.context.IdParser.Node;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @RunWith(MockTestRunner.class)
 public class IdParserTest {
-
     @Mock
-    @Environment({Environment.Feature.EXTERNAL_CONTEXT})
+    @Environment({ Environment.Feature.EXTERNAL_CONTEXT })
     private MockFacesEnvironment environment;
-    
+
     @Before
     public void setUp() throws Exception {
         environment.resetToNice();
@@ -57,7 +56,7 @@ public class IdParserTest {
         expect(facesContext.getAttributes()).andStubReturn(new HashMap<Object, Object>());
         environment.replay();
     }
-    
+
     @Test
     public void testSimpleId() throws Exception {
         assertArrayEquals(new Node[0], parse(""));
@@ -71,26 +70,24 @@ public class IdParserTest {
             parse("form:table:@rows(");
             fail();
         } catch (IllegalArgumentException e) {
-            //ignore
+            // ignore
         }
-        
+
         try {
             parse("form:table:@rows(12");
             fail();
         } catch (IllegalArgumentException e) {
-            //ignore
+            // ignore
         }
-        
-        assertArrayEquals(new Node[] { new Node("form"), new Node("table"), new Node("", "rows"), new Node("@row") }, parse("form:table:@rows():@row"));
-        assertArrayEquals(new Node[] { new Node("form"), new Node("table"), new Node("12", "rows") }, parse("form:table:@rows(12)"));
-        assertArrayEquals(new Node[] { new Node("form"), new Node("table"), new Node("", "rows"), new Node("subtable") }, 
+
+        assertArrayEquals(new Node[] { new Node("form"), new Node("table"), new Node("", "rows"), new Node("@row") },
+            parse("form:table:@rows():@row"));
+        assertArrayEquals(new Node[] { new Node("form"), new Node("table"), new Node("12", "rows") },
+            parse("form:table:@rows(12)"));
+        assertArrayEquals(new Node[] { new Node("form"), new Node("table"), new Node("", "rows"), new Node("subtable") },
             parse("form:table:@rows():subtable"));
-        
-        assertArrayEquals(new Node[] {
-            new Node("form"), new Node("table"), new Node("12", "rows"), new Node("subtable"), 
-            new Node("a", "rows"), new Node("cell") }, 
-            parse("form:table:@rows(12):subtable:@rows(a):cell"));
-        
+
+        assertArrayEquals(new Node[] { new Node("form"), new Node("table"), new Node("12", "rows"), new Node("subtable"),
+                new Node("a", "rows"), new Node("cell") }, parse("form:table:@rows(12):subtable:@rows(a):cell"));
     }
-    
 }

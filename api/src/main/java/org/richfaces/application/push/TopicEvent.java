@@ -26,10 +26,9 @@ import java.util.EventObject;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class TopicEvent extends EventObject {
-
     private static final long serialVersionUID = 1986841627148973279L;
 
     public TopicEvent(Topic topic) {
@@ -39,11 +38,11 @@ public class TopicEvent extends EventObject {
     public Topic getTopic() {
         return (Topic) source;
     }
-    
+
     public boolean isAppropriateListener(EventListener listener) {
         return false;
     }
-    
+
     public void invokeListener(EventListener listener) throws SubscriptionFailureException {
         throw new IllegalArgumentException(listener.getClass().getName());
     }

@@ -34,17 +34,16 @@ import com.google.common.collect.Iterators;
  *
  */
 public final class ComponentIterators {
+    private ComponentIterators() {
+    }
 
-    private ComponentIterators() {}
-
-    //TODO nick - convert to filter/find functions
+    // TODO nick - convert to filter/find functions
     public static Iterator<UIComponent> parents(final UIComponent component) {
         if (component == null) {
             return Iterators.<UIComponent>emptyIterator();
         }
 
         return new AbstractIterator<UIComponent>() {
-
             private UIComponent currentComponent = component;
 
             @Override
@@ -85,6 +84,7 @@ public final class ComponentIterators {
 
     /**
      * Finds a parent of given UI <code>component</code>.
+     *
      * @param component <code>UIComponent</code>
      * @param parentClass <code>Class</code> of desired parent
      * @return <code>UIComponent</code>

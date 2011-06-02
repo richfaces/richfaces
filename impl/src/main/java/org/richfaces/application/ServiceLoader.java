@@ -20,7 +20,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.application;
 
 import java.io.BufferedReader;
@@ -45,12 +44,11 @@ import com.google.common.collect.Iterables;
  * <p class="changed_added_4_0">
  * This class loads services from files placed to the META-INF/services in classpath.
  * </p>
- * 
+ *
  * @author asmirnov@exadel.com
- * 
+ *
  */
 public final class ServiceLoader {
-
     private static final String META_INF_SERVICES = "META-INF/services/";
     private static final Pattern LEGAL_JAVA_NAME = Pattern.compile("^(([A-Za-z0-9_])+\\.)+[A-Z]([A-Za-z0-9_]*)$");
 
@@ -62,7 +60,7 @@ public final class ServiceLoader {
      * <p class="changed_added_4_0">
      * Load and instantiate all service implementations.
      * </p>
-     * 
+     *
      * @param <S>
      * @param serviceClass
      * @return
@@ -100,7 +98,7 @@ public final class ServiceLoader {
      * <p class="changed_added_4_0">
      * Load service implementation classes.
      * </p>
-     * 
+     *
      * @param <S>
      * @param serviceClass
      * @return
@@ -123,7 +121,6 @@ public final class ServiceLoader {
             instanceClasses.add(loadClass(serviceClass, classLoader, className));
         }
         return instanceClasses;
-
     }
 
     static Collection<String> parse(URL url) throws ServiceException, IOException {
@@ -154,7 +151,7 @@ public final class ServiceLoader {
      * <p class="changed_added_4_0">
      * Parse a single line from service description. Skips empty lines and comments started with #
      * </p>
-     * 
+     *
      * @param line
      * @param names
      * @throws ServiceException
@@ -181,7 +178,7 @@ public final class ServiceLoader {
      * <p class="changed_added_4_0">
      * Get class loader
      * </p>
-     * 
+     *
      * @param <S>
      * @param serviceClass
      * @return context class loader or loader with which service class has been loaded.
@@ -207,5 +204,4 @@ public final class ServiceLoader {
             throw new ServiceException("Class " + className + " not found", e);
         }
     }
-
 }

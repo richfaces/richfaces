@@ -7,393 +7,351 @@ selector names conversion:
 */
 
 /* basic skinning styles */
-
-.rfs-ctn input, .rfs-input, .rfs-ctn select, .rfs-select,
-.rfs-ctn textarea, .rfs-textarea, .rfs-ctn button, .rfs-btn,
-.rfs-ctn keygen, .rfs-keygen,.rfs-ctn isindex, .rfs-isindex,
-.rfs-ctn legend, .rfs-legend,.rfs-ctn a, .rfs-link,
-.rfs-ctn fieldset, .rfs-fieldset,.rfs-field, .rfs-field-edit, .rfs-field-error,
-.rfs-btn, .rfs-btn-disabled, .rfs-btn-over, .rfs-btn-press {
-	font-size : '#{richSkin.generalSizeFont}';
-	font-family : '#{richSkin.generalFamilyFont}';
-	color : '#{richSkin.controlTextColor}';
+.rfs-ctn input,.rfs-input,.rfs-ctn select,.rfs-select,.rfs-ctn textarea,.rfs-textarea,.rfs-ctn button,.rfs-btn,.rfs-ctn keygen,.rfs-keygen,.rfs-ctn isindex,.rfs-isindex,.rfs-ctn legend,.rfs-legend,.rfs-ctn a,.rfs-link,.rfs-ctn fieldset,.rfs-fieldset,.rfs-field,.rfs-field-edit,.rfs-field-error,.rfs-btn,.rfs-btn-disabled,.rfs-btn-over,.rfs-btn-press
+    {
+    font-size: '#{richSkin.generalSizeFont}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    color: '#{richSkin.controlTextColor}';
 }
 
-.rfs-ctn fieldset, .rfs-fieldset {
-	border-width: 1px; 
-	border-style: solid;
-	padding: 10px;
+.rfs-ctn fieldset,.rfs-fieldset {
+    border-width: 1px;
+    border-style: solid;
+    padding: 10px;
 }
 
-.rfs-ctn hr, .rfs-hr {
-	border-width: 1px; 
-	border-style: solid;
+.rfs-ctn hr,.rfs-hr {
+    border-width: 1px;
+    border-style: solid;
 }
 
-.rfs-ctn legend, .rfs-legend {
-	font-weight : bold;
+.rfs-ctn legend,.rfs-legend {
+    font-weight: bold;
 }
 
-.rfs-ctn form, .rfs-form {
-	padding : 0px;
-	margin : 0px;
+.rfs-ctn form,.rfs-form {
+    padding: 0px;
+    margin: 0px;
 }
 
-.rfs-ctn fieldset, .rfs-fieldset{
-	border-color : '#{richSkin.panelBorderColor}';
+.rfs-ctn fieldset,.rfs-fieldset {
+    border-color: '#{richSkin.panelBorderColor}';
 }
 
-.rfs-ctn hr, .rfs-hr{
-	border-color : '#{richSkin.panelBorderColor}';
+.rfs-ctn hr,.rfs-hr {
+    border-color: '#{richSkin.panelBorderColor}';
 }
 
-.rfs-ctn a, .rfs-link{
-	color: '#{richSkin.generalLinkColor}';
-}
-	
-.rfs-ctn a:hover, .rfs-link:hover{
-	color : '#{richSkin.hoverLinkColor}';
-}
-	
-.rfs-ctn a:visited, .rfs-link:visited{
-	color : '#{richSkin.visitedLinkColor}';
+.rfs-ctn a,.rfs-link {
+    color: '#{richSkin.generalLinkColor}';
 }
 
-.rfs-field, .rfs-field-edit, .rfs-field-error{
-	border-width: 1px;
-	border-style: inset;
-	border-color: '#{richSkin.panelBorderColor}';
+.rfs-ctn a:hover,.rfs-link:hover {
+    color: '#{richSkin.hoverLinkColor}';
 }
 
-.rfs-field{
-	background-color : '#{richSkin.controlBackgroundColor}';
-	background-image : "url(#{resource['org.richfaces.images:buttonBackgroundImage.png']})";
-	background-repeat : no-repeat;
-	background-position : 1px 1px;
+.rfs-ctn a:visited,.rfs-link:visited {
+    color: '#{richSkin.visitedLinkColor}';
 }
 
-.rfs-field-edit{
-	background-color : '#{richSkin.editBackgroundColor}';
+.rfs-field,.rfs-field-edit,.rfs-field-error {
+    border-width: 1px;
+    border-style: inset;
+    border-color: '#{richSkin.panelBorderColor}';
 }
 
-.rfs-field-error{
-	background-color : '#{richSkin.warningBackgroundColor}';
-	background-image : "url(#{resource['org.richfaces.images:inputErrorIcon.png']})";
-	background-repeat : no-repeat;
-	background-position : center left;
-	padding-left : 7px;
+.rfs-field {
+    background-color: '#{richSkin.controlBackgroundColor}';
+    background-image: "url(#{resource['org.richfaces.images:buttonBackgroundImage.png']})";
+    background-repeat: no-repeat;
+    background-position: 1px 1px;
 }
 
-.rfs-btn, .rfs-btn-disabled, .rfs-btn-over, .rfs-btn-press{
-	border-width : 1px;
-	border-style : solid;
-	border-color : '#{richSkin.panelBorderColor}';
-	background-color : '#{richSkin.trimColor}';
-	padding : 2px 10px 2px 10px;
-	text-align : center;
-	cursor : pointer;
-	background-repeat : repeat-x;
-	background-position : top left;
+.rfs-field-edit {
+    background-color: '#{richSkin.editBackgroundColor}';
 }
 
-.rfs-btn{
-	background-image : "url(#{resource['org.richfaces.images:standardButtonBgImage.png']})";
+.rfs-field-error {
+    background-color: '#{richSkin.warningBackgroundColor}';
+    background-image: "url(#{resource['org.richfaces.images:inputErrorIcon.png']})";
+    background-repeat: no-repeat;
+    background-position: center left;
+    padding-left: 7px;
 }
 
-.rfs-btn-disabled{
-	background-image : "url(#{resource['org.richfaces.images:standardButtonBgImage.png']})";
+.rfs-btn,.rfs-btn-disabled,.rfs-btn-over,.rfs-btn-press {
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{richSkin.panelBorderColor}';
+    background-color: '#{richSkin.trimColor}';
+    padding: 2px 10px 2px 10px;
+    text-align: center;
+    cursor: pointer;
+    background-repeat: repeat-x;
+    background-position: top left;
 }
 
-.rfs-btn-over{
-	background-image : "url(#{resource['org.richfaces.images:standardButtonBgImage.png']})";
+.rfs-btn {
+    background-image: "url(#{resource['org.richfaces.images:standardButtonBgImage.png']})";
 }
 
-.rfs-btn-press{
-	background-image : "url(#{resource['org.richfaces.images:standardButtonPressedBgImage.png']})";
-	background-position : bottom left;
+.rfs-btn-disabled {
+    background-image: "url(#{resource['org.richfaces.images:standardButtonBgImage.png']})";
 }
 
-	/*border color styles*/
-
-.rfs-box-border-color-control-select{
-	border-color : '#{richSkin.selectControlColor}';
+.rfs-btn-over {
+    background-image: "url(#{resource['org.richfaces.images:standardButtonBgImage.png']})";
 }
 
-.rfs-box-border-color-subborder{
-	border-color : '#{richSkin.subBorderColor}';
+.rfs-btn-press {
+    background-image: "url(#{resource['org.richfaces.images:standardButtonPressedBgImage.png']})";
+    background-position: bottom left;
 }
 
-.rfs-box-border-color-header{
-	border-color : '#{richSkin.headerBackgroundColor}';
+/*border color styles*/
+.rfs-box-border-color-control-select {
+    border-color: '#{richSkin.selectControlColor}';
 }
 
-.rfs-box-border-color-general{
-	border-color : '#{richSkin.generalBackgroundColor}';
+.rfs-box-border-color-subborder {
+    border-color: '#{richSkin.subBorderColor}';
 }
 
-.rfs-box-border-color-additional{
-	border-color : '#{richSkin.additionalBackgroundColor}';
+.rfs-box-border-color-header {
+    border-color: '#{richSkin.headerBackgroundColor}';
 }
 
-.rfs-box-border-color-panel{
-	border-color : '#{richSkin.panelBorderColor}';
+.rfs-box-border-color-general {
+    border-color: '#{richSkin.generalBackgroundColor}';
 }
 
-.rfs-box-border-color-tip{
-	border-color : '#{richSkin.tipBorderColor}';
+.rfs-box-border-color-additional {
+    border-color: '#{richSkin.additionalBackgroundColor}';
 }
 
-.rfs-box-border-color-table{
-	border-color : '#{richSkin.tableBorderColor}';
+.rfs-box-border-color-panel {
+    border-color: '#{richSkin.panelBorderColor}';
 }
 
-.rfs-box-border-control-select, .rfs-box-border-subborder, .rfs-box-border-header,
-			.rfs-box-border-general, .rfs-box-border-additional, .rfs-box-border-panel, .rfs-box-border-tip, .rfs-box-border-table{
-	border-style : solid;
-	border-width : 1px;
+.rfs-box-border-color-tip {
+    border-color: '#{richSkin.tipBorderColor}';
 }
 
-.rfs-box-border-control-select{
-	border-color : '#{richSkin.selectControlColor}';
+.rfs-box-border-color-table {
+    border-color: '#{richSkin.tableBorderColor}';
 }
 
-.rfs-box-border-subborder{
-	border-color : '#{richSkin.subBorderColor}';
+.rfs-box-border-control-select,.rfs-box-border-subborder,.rfs-box-border-header,.rfs-box-border-general,.rfs-box-border-additional,.rfs-box-border-panel,.rfs-box-border-tip,.rfs-box-border-table
+    {
+    border-style: solid;
+    border-width: 1px;
 }
 
-.rfs-box-border-header{
-	border-color : '#{richSkin.headerBackgroundColor}';
+.rfs-box-border-control-select {
+    border-color: '#{richSkin.selectControlColor}';
 }
 
-.rfs-box-border-general{
-	border-color : '#{richSkin.generalBackgroundColor}';
+.rfs-box-border-subborder {
+    border-color: '#{richSkin.subBorderColor}';
 }
 
-.rfs-box-border-additional{
-	border-color : '#{richSkin.additionalBackgroundColor}';
+.rfs-box-border-header {
+    border-color: '#{richSkin.headerBackgroundColor}';
 }
 
-.rfs-box-border-panel{
-	border-color : '#{richSkin.panelBorderColor}';
+.rfs-box-border-general {
+    border-color: '#{richSkin.generalBackgroundColor}';
 }
 
-.rfs-box-border-tip{
-	border-color : '#{richSkin.tipBorderColor}';
+.rfs-box-border-additional {
+    border-color: '#{richSkin.additionalBackgroundColor}';
 }
 
-.rfs-box-border-table{
-	border-color : '#{richSkin.tableBorderColor}';
-}
-	
-	/*background color styles*/
-
-.rfs-box-bgcolor-header{
-	background-color : '#{richSkin.headerBackgroundColor}';
+.rfs-box-border-panel {
+    border-color: '#{richSkin.panelBorderColor}';
 }
 
-.rfs-box-bgcolor-general{
-	background-color : '#{richSkin.generalBackgroundColor}';
+.rfs-box-border-tip {
+    border-color: '#{richSkin.tipBorderColor}';
 }
 
-.rfs-box-bgcolor-additional{
-	background-color : '#{richSkin.additionalBackgroundColor}';
+.rfs-box-border-table {
+    border-color: '#{richSkin.tableBorderColor}';
 }
 
-.rfs-box-bgcolor-panel{
-	background-color : '#{richSkin.panelBorderColor}';
+/*background color styles*/
+.rfs-box-bgcolor-header {
+    background-color: '#{richSkin.headerBackgroundColor}';
 }
 
-.rfs-box-bgcolor-tab{
-	background-color : '#{richSkin.tabBackgroundColor}';
+.rfs-box-bgcolor-general {
+    background-color: '#{richSkin.generalBackgroundColor}';
 }
 
-.rfs-box-bgcolor-trim{
-	background-color : '#{richSkin.trimColor}';
+.rfs-box-bgcolor-additional {
+    background-color: '#{richSkin.additionalBackgroundColor}';
 }
 
-.rfs-box-bgcolor-tip{
-	background-color : '#{richSkin.tipBackgroundColor}';
+.rfs-box-bgcolor-panel {
+    background-color: '#{richSkin.panelBorderColor}';
 }
 
-.rfs-box-bgcolor-table{
-	background-color : '#{richSkin.tableBackgroundColor}';
+.rfs-box-bgcolor-tab {
+    background-color: '#{richSkin.tabBackgroundColor}';
 }
 
-.rfs-box-bgcolor-table-footer{
-	background-color : '#{richSkin.tableFooterBackgroundColor}';
+.rfs-box-bgcolor-trim {
+    background-color: '#{richSkin.trimColor}';
 }
 
-.rfs-box-bgcolor-table-subfooter{
-	background-color : '#{richSkin.tableSubfooterBackgroundColor}';
+.rfs-box-bgcolor-tip {
+    background-color: '#{richSkin.tipBackgroundColor}';
 }
 
-.rfs-box-bgcolor-editor{
-	background-color : '#{richSkin.editorBackgroundColor}';
+.rfs-box-bgcolor-table {
+    background-color: '#{richSkin.tableBackgroundColor}';
 }
 
-.rfs-box-bgcolor-edit{
-	background-color : '#{richSkin.editBackgroundColor}';
+.rfs-box-bgcolor-table-footer {
+    background-color: '#{richSkin.tableFooterBackgroundColor}';
 }
 
-	/*text color styles*/
-
-.rfs-txt-color-header{
-	color : '#{richSkin.headerTextColor}';
+.rfs-box-bgcolor-table-subfooter {
+    background-color: '#{richSkin.tableSubfooterBackgroundColor}';
 }
 
-.rfs-txt-color-general{
-	color : '#{richSkin.generalTextColor}';
+.rfs-box-bgcolor-editor {
+    background-color: '#{richSkin.editorBackgroundColor}';
 }
 
-.rfs-txt-color-tab-disabled{
-	color : '#{richSkin.tabDisabledTextColor}';
+.rfs-box-bgcolor-edit {
+    background-color: '#{richSkin.editBackgroundColor}';
 }
 
-.rfs-txt-color-select{
-	color : '#{richSkin.selectControlColor}';
+/*text color styles*/
+.rfs-txt-color-header {
+    color: '#{richSkin.headerTextColor}';
 }
 
-.rfs-txt-color-link-general{
-	color : '#{richSkin.generalLinkColor}';
+.rfs-txt-color-general {
+    color: '#{richSkin.generalTextColor}';
 }
 
-.rfs-txt-color-link-hover{
-	color : '#{richSkin.hoverLinkColor}';
+.rfs-txt-color-tab-disabled {
+    color: '#{richSkin.tabDisabledTextColor}';
 }
 
-.rfs-txt-color-link-visited{
-	color : '#{richSkin.visitedLinkColor}';
-}
-	
-	/*font size styles*/
-
-.rfs-font-size-general{
-	font-size : '#{richSkin.generalSizeFont}';
+.rfs-txt-color-select {
+    color: '#{richSkin.selectControlColor}';
 }
 
-.rfs-font-size-header{
-	font-size : '#{richSkin.headerSizeFont}';
-}
-	
-	/*font family styles*/
-
-.rfs-font-family-general{
-	font-family : '#{richSkin.generalFamilyFont}';
+.rfs-txt-color-link-general {
+    color: '#{richSkin.generalLinkColor}';
 }
 
-.rfs-font-family-header{
-	font-family : '#{richSkin.headerFamilyFont}';
+.rfs-txt-color-link-hover {
+    color: '#{richSkin.hoverLinkColor}';
 }
 
-	/* text styles */
-
-.rfs-txt-general{
-	font-size : '#{richSkin.generalSizeFont}';
-	font-family : '#{richSkin.generalFamilyFont}';
-	color : '#{richSkin.generalTextColor}';
+.rfs-txt-color-link-visited {
+    color: '#{richSkin.visitedLinkColor}';
 }
 
-.rfs-txt-header{
-	font-size : '#{richSkin.generalSizeFont}';
-	font-family : '#{richSkin.headerFamilyFont}';
-	color : '#{richSkin.headerTextColor}';
+/*font size styles*/
+.rfs-font-size-general {
+    font-size: '#{richSkin.generalSizeFont}';
 }
 
-.rfs-txt-tab-disabled{
-	font-size : '#{richSkin.generalSizeFont}';
-	font-family : '#{richSkin.generalFamilyFont}';
-	color : '#{richSkin.tabDisabledTextColor}';
+.rfs-font-size-header {
+    font-size: '#{richSkin.headerSizeFont}';
 }
 
-.rfs-txt-control-select{
-	font-size : '#{richSkin.generalSizeFont}';
-	font-family : '#{richSkin.headerFamilyFont}';
-	color: '#{richSkin.selectControlColor}';
+/*font family styles*/
+.rfs-font-family-general {
+    font-family: '#{richSkin.generalFamilyFont}';
+}
+
+.rfs-font-family-header {
+    font-family: '#{richSkin.headerFamilyFont}';
+}
+
+/* text styles */
+.rfs-txt-general {
+    font-size: '#{richSkin.generalSizeFont}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    color: '#{richSkin.generalTextColor}';
+}
+
+.rfs-txt-header {
+    font-size: '#{richSkin.generalSizeFont}';
+    font-family: '#{richSkin.headerFamilyFont}';
+    color: '#{richSkin.headerTextColor}';
+}
+
+.rfs-txt-tab-disabled {
+    font-size: '#{richSkin.generalSizeFont}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    color: '#{richSkin.tabDisabledTextColor}';
+}
+
+.rfs-txt-control-select {
+    font-size: '#{richSkin.generalSizeFont}';
+    font-family: '#{richSkin.headerFamilyFont}';
+    color: '#{richSkin.selectControlColor}';
 }
 
 /* extended skinning styles */
-
-.rfs-ctn input, .rfs-input, 
-.rfs-ctn select, .rfs-select, 
-.rfs-ctn textarea, .rfs-textarea, 
-.rfs-ctn button, .rfs-btn, 
-.rfs-ctn keygen, .rfs-keygen, 
-.rfs-ctn isindex, .rfs-isindex {
-	border-width:1px;
-	border-color:'#{richSkin.panelBorderColor}';
-	color:'#{richSkin.controlTextColor}';
+.rfs-ctn input,.rfs-input,.rfs-ctn select,.rfs-select,.rfs-ctn textarea,.rfs-textarea,.rfs-ctn button,.rfs-btn,.rfs-ctn keygen,.rfs-keygen,.rfs-ctn isindex,.rfs-isindex
+    {
+    border-width: 1px;
+    border-color: '#{richSkin.panelBorderColor}';
+    color: '#{richSkin.controlTextColor}';
 }
 
-.rfs-ctn button, .rfs-btn, 
-.rfs-btn-btn,
-.rfs-btn-reset,
-.rfs-btn-submit,
-.rfs-ctn input[type="reset"], .rfs-input-reset,
-.rfs-ctn input[type="submit"], .rfs-input-submit,
-.rfs-ctn input[type="button"], .rfs-input-btn {
-	border-width: 1px; 
-	border-color:'#{richSkin.panelBorderColor}';
-	
-	background-repeat : repeat-x;
-	background-position : top left;
-	background-color:'#{richSkin.headerBackgroundColor}';
-	background-image:"url(#{resource['org.richfaces.images:buttonBackgroundImage.png']})";
-	
-	font-size:'#{richSkin.generalSizeFont}';
-	font-family:'#{richSkin.generalFamilyFont}';
-	color:'#{richSkin.headerTextColor}';
+.rfs-ctn button,.rfs-btn,.rfs-btn-btn,.rfs-btn-reset,.rfs-btn-submit,.rfs-ctn input[type="reset"],.rfs-input-reset,.rfs-ctn input[type="submit"],.rfs-input-submit,.rfs-ctn input[type="button"],.rfs-input-btn
+    {
+    border-width: 1px;
+    border-color: '#{richSkin.panelBorderColor}';
+    background-repeat: repeat-x;
+    background-position: top left;
+    background-color: '#{richSkin.headerBackgroundColor}';
+    background-image: "url(#{resource['org.richfaces.images:buttonBackgroundImage.png']})";
+    font-size: '#{richSkin.generalSizeFont}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    color: '#{richSkin.headerTextColor}';
 }
 
-.rfs-ctn button:hover, .rfs-btn:hover, 
-.rfs-btn-btn:hover,
-.rfs-btn-reset:hover,
-.rfs-btn-submit:hover,
-.rfs-ctn input[type="reset"]:hover, .rfs-input-reset:hover,
-.rfs-ctn input[type="submit"]:hover, .rfs-input-submit:hover,
-.rfs-ctn input[type="button"]:hover, .rfs-input-btn:hover {
+.rfs-ctn button:hover,.rfs-btn:hover,.rfs-btn-btn:hover,.rfs-btn-reset:hover,.rfs-btn-submit:hover,.rfs-ctn input[type="reset"]:hover,.rfs-input-reset:hover,.rfs-ctn input[type="submit"]:hover,.rfs-input-submit:hover,.rfs-ctn input[type="button"]:hover,.rfs-input-btn:hover
+    {
     background-position: bottom left;
     background-repeat: repeat-x;
-	background-image: "url(#{resource['org.richfaces.images:buttonHoverBackgroundImage.png']})";
+    background-image: "url(#{resource['org.richfaces.images:buttonHoverBackgroundImage.png']})";
 }
 
-.rfs-ctn button[disabled], .rfs-btn-disabled, 
-.rfs-btn-btn[disabled], .rfs-btn-btn-disabled, 
-.rfs-btn-reset[disabled], .rfs-btn-reset-disabled, 
-.rfs-btn-submit[disabled], .rfs-btn-submit-disabled, 
-.rfs-ctn input[type="reset"][disabled], .rfs-input-reset[disabled], .rfs-input-reset-disabled, 
-.rfs-ctn input[type="submit"][disabled], .rfs-input-submit[disabled], .rfs-input-submit-disabled, 
-.rfs-ctn input[type="button"][disabled], .rfs-input-btn[disabled], .rfs-input-btn-disabled {
-	color: '#{richSkin.tabDisabledTextColor}';
-	background-color: '#{richSkin.tableFooterBackgroundColor}';
-	border-color: '#{richSkin.tableFooterBackgroundColor}';
-	background-image: "url(#{resource['org.richfaces.images:buttonDisabledBackgroundImage.png']})";
-	background-position: top left;
+.rfs-ctn button[disabled],.rfs-btn-disabled,.rfs-btn-btn[disabled],.rfs-btn-btn-disabled,.rfs-btn-reset[disabled],.rfs-btn-reset-disabled,.rfs-btn-submit[disabled],.rfs-btn-submit-disabled,.rfs-ctn input[type="reset"][disabled],.rfs-input-reset[disabled],.rfs-input-reset-disabled,.rfs-ctn input[type="submit"][disabled],.rfs-input-submit[disabled],.rfs-input-submit-disabled,.rfs-ctn input[type="button"][disabled],.rfs-input-btn[disabled],.rfs-input-btn-disabled
+    {
+    color: '#{richSkin.tabDisabledTextColor}';
+    background-color: '#{richSkin.tableFooterBackgroundColor}';
+    border-color: '#{richSkin.tableFooterBackgroundColor}';
+    background-image: "url(#{resource['org.richfaces.images:buttonDisabledBackgroundImage.png']})";
+    background-position: top left;
 }
 
-		
-.rfs-ctn textarea, .rfs-textarea, 
-.rfs-textarea-textarea, 
-.rfs-ctn input[type="text"], .rfs-input-txt, 
-.rfs-ctn input[type="password"], .rfs-input-password, 
-.rfs-ctn select, .rfs-select {
-	border-width: 1px; 
-	border-style : inset;
-	border-color:'#{richSkin.panelBorderColor}';
-	
-	background-repeat : no-repeat;
-	background-position : 1px 1px;
-	background-color:'#{richSkin.controlBackgroundColor}';
-	background-image:"url(#{resource['org.richfaces.images:inputBackgroundImage.png']})";
-	
-	font-size:'#{richSkin.generalSizeFont}';
-	font-family:'#{richSkin.generalFamilyFont}';
-	color:'#{richSkin.controlTextColor}';
+.rfs-ctn textarea,.rfs-textarea,.rfs-textarea-textarea,.rfs-ctn input[type="text"],.rfs-input-txt,.rfs-ctn input[type="password"],.rfs-input-password,.rfs-ctn select,.rfs-select
+    {
+    border-width: 1px;
+    border-style: inset;
+    border-color: '#{richSkin.panelBorderColor}';
+    background-repeat: no-repeat;
+    background-position: 1px 1px;
+    background-color: '#{richSkin.controlBackgroundColor}';
+    background-image: "url(#{resource['org.richfaces.images:inputBackgroundImage.png']})";
+    font-size: '#{richSkin.generalSizeFont}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    color: '#{richSkin.controlTextColor}';
 }
 
-.rfs-ctn textarea[disabled], .rfs-textarea-disabled, 
-.rfs-textarea-textarea-disabled, 
-.rfs-ctn input[type="text"][disabled], .rfs-input-txt-disabled, 
-.rfs-ctn input[type="password"][disabled], .rfs-input-password-disabled, 
-.rfs-ctn select[disabled], .rfs-select-disabled {
-	color:'#{richSkin.panelBorderColor}';
+.rfs-ctn textarea[disabled],.rfs-textarea-disabled,.rfs-textarea-textarea-disabled,.rfs-ctn input[type="text"][disabled],.rfs-input-txt-disabled,.rfs-ctn input[type="password"][disabled],.rfs-input-password-disabled,.rfs-ctn select[disabled],.rfs-select-disabled
+    {
+    color: '#{richSkin.panelBorderColor}';
 }

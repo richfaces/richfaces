@@ -13,10 +13,9 @@ import net.sf.ehcache.Element;
  * @since 4.0
  */
 public class EhCacheCache implements Cache {
-    
     private net.sf.ehcache.Ehcache cache;
     private boolean preconfiguredCache;
-    
+
     public EhCacheCache(Ehcache cache, boolean preconfiguredCache) {
         super();
         this.cache = cache;

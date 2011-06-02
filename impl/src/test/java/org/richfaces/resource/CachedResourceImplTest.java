@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.resource;
 
 import java.io.BufferedReader;
@@ -48,17 +45,14 @@ import org.jboss.test.faces.AbstractFacesTest;
  * @since 4.0
  */
 public class CachedResourceImplTest extends AbstractFacesTest {
-
     /**
      *
      */
     private static final String CACHE_CONTROL = "Cache-Control";
-
     /**
      *
      */
     private static final String EXPIRES = "Expires";
-
     /**
      *
      */
@@ -83,9 +77,8 @@ public class CachedResourceImplTest extends AbstractFacesTest {
         return createCachedResource(headers, null);
     }
 
-    private CachedResourceImpl createCachedResource(Map<String, String> headers, InputStream stream)
-        throws IOException {
-        
+    private CachedResourceImpl createCachedResource(Map<String, String> headers, InputStream stream) throws IOException {
+
         MockHeadersResourceImpl mockResource = new MockHeadersResourceImpl(headers, stream);
         CachedResourceImpl cachedResource = new MockCachedResourceImpl();
 
@@ -246,16 +239,14 @@ public class CachedResourceImplTest extends AbstractFacesTest {
     public void testUserAgentNeedsUpdate() throws Exception {
         CachedResourceImpl cachedResource = createCachedResource();
 
-        this.connection.addRequestHeaders(Collections.singletonMap("If-Modified-Since",
-                "Tue, 21 Jul 2009 14:45:09 GMT"));
+        this.connection.addRequestHeaders(Collections.singletonMap("If-Modified-Since", "Tue, 21 Jul 2009 14:45:09 GMT"));
         assertFalse(cachedResource.userAgentNeedsUpdate(facesContext));
     }
 
     public void testUserAgentNeedsUpdate2() throws Exception {
         CachedResourceImpl cachedResource = createCachedResource();
 
-        this.connection.addRequestHeaders(Collections.singletonMap("If-Modified-Since",
-                "Tue, 21 Jul 2009 09:45:09 GMT"));
+        this.connection.addRequestHeaders(Collections.singletonMap("If-Modified-Since", "Tue, 21 Jul 2009 09:45:09 GMT"));
         assertTrue(cachedResource.userAgentNeedsUpdate(facesContext));
     }
 
@@ -272,7 +263,6 @@ public class CachedResourceImplTest extends AbstractFacesTest {
             return currentTime;
         }
     }
-
 
     private class MockHeadersResourceImpl extends Resource {
         private Map<String, String> headers;
@@ -311,7 +301,6 @@ public class CachedResourceImplTest extends AbstractFacesTest {
             throw new UnsupportedOperationException();
         }
     }
-
 
     ;
 }

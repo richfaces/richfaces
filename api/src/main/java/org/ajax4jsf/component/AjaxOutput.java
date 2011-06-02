@@ -18,41 +18,42 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.component;
 
 /**
- * Marker interface for all JSF components, encoded ( or not ) on rendering
- * Ajax request , depend on it self properties ( such as messages, help or like components )
+ * Marker interface for all JSF components, encoded ( or not ) on rendering Ajax request , depend on it self properties ( such
+ * as messages, help or like components )
+ *
  * @author shura (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:57:39 $
  *
  */
 public interface AjaxOutput {
-
     /**
      * getter for ajax-rendered flag property.
+     *
      * @return
      */
-    public boolean isAjaxRendered();
+    boolean isAjaxRendered();
 
     /**
      * Setter for ajax rendered property.
+     *
      * @param ajaxRendered
      */
-    public void setAjaxRendered(boolean ajaxRendered);
+    void setAjaxRendered(boolean ajaxRendered);
 
     /**
      * getter for ajax-rendered flag property.
+     *
      * @return
      */
-    public boolean isKeepTransient();
+    boolean isKeepTransient();
 
     /**
      * Setter for ajax rendered property.
+     *
      * @param ajaxRendered
      */
-    public void setKeepTransient(boolean ajaxRendered);
+    void setKeepTransient(boolean ajaxRendered);
 }

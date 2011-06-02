@@ -20,27 +20,31 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.application;
 
 import javax.faces.FacesException;
 
 /**
- * <p class="changed_added_4_0">Exception fired by service tracker if it cannot create requested service.</p>
+ * <p class="changed_added_4_0">
+ * Exception fired by service tracker if it cannot create requested service.
+ * </p>
+ *
  * @author asmirnov@exadel.com
  *
  */
 @SuppressWarnings("serial")
 public class ServiceException extends FacesException {
-
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
      */
     public ServiceException() {
     }
 
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @param message
      */
     public ServiceException(String message) {
@@ -48,7 +52,9 @@ public class ServiceException extends FacesException {
     }
 
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @param cause
      */
     public ServiceException(Throwable cause) {
@@ -56,12 +62,13 @@ public class ServiceException extends FacesException {
     }
 
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @param message
      * @param cause
      */
     public ServiceException(String message, Throwable cause) {
         super(message, cause);
     }
-
 }

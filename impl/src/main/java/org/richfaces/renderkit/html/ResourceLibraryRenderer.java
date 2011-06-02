@@ -37,48 +37,42 @@ import org.richfaces.util.FastJoiner;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class ResourceLibraryRenderer extends ResourceRenderer {
-
     public static final String RENDERER_TYPE = "org.richfaces.renderkit.ResourceLibraryRenderer";
-
     public static final String RESOURCE_LIBRARY_EXTENSION = ".reslib";
-    
     private static final Logger LOGGER = RichfacesLogger.RENDERKIT.getLogger();
-
     private static final FastJoiner COLON_JOINER = FastJoiner.on(':');
-    
+
     public ResourceLibraryRenderer() {
         super();
     }
-    
+
     @Override
     public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
         Map<String, Object> attributes = component.getAttributes();
-        
+
         String name = (String) attributes.get("name");
-        
+
         if (!name.endsWith(RESOURCE_LIBRARY_EXTENSION)) {
             throw new IllegalArgumentException("Resource library name: " + name + " is incorrect");
         }
-        
+
         name = name.substring(0, name.length() - RESOURCE_LIBRARY_EXTENSION.length());
-        
+
         String library = (String) attributes.get("library");
-        
+
         ResourceLibraryFactory factory = ServiceTracker.getService(ResourceLibraryFactory.class);
         ResourceLibrary resourceLibrary = factory.getResourceLibrary(name, library);
-        
+
         if (resourceLibrary == null) {
             LOGGER.error("Resource library is null: " + COLON_JOINER.join(library, name));
             return;
         }
-        
-        
-        for (ResourceKey resourceKey: resourceLibrary.getResources()) {
+
+        for (ResourceKey resourceKey : resourceLibrary.getResources()) {
             encodeResource(component, context, resourceKey);
         }
     }
-
 }

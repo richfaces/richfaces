@@ -5,93 +5,94 @@
 
 (function ($, richfaces, params) {
 
-	richfaces.blankFunction = function (){}; //TODO: add it to global library
+    richfaces.blankFunction = function () {
+    }; //TODO: add it to global library
 
     /**
      * @class Base class for all components.
      * All RichFaces components should use this class as base or another RichFaces class which based on it.
-	 *
-		<pre><code>
-		//Inheritance example:
-		(function ($, richfaces, params) {
+     *
+     <pre><code>
+     //Inheritance example:
+     (function ($, richfaces, params) {
 
-			// Constructor definition
-			richfaces.MyComponent = function(componentId, [options]) {
-				// call constructor of parent class
-				$super.constructor.call(this, componentId, [options]);
-				
-				<span style="color:red">
-				// call this.attachToDom method to attach component to dom element
-				// its required for the client side API calls and to clean up after ajax request or page unload:
-				// destroy method will be called if component attached to dom
-				this.attachToDom(componentId);
-				</span>
-			};
+     // Constructor definition
+     richfaces.MyComponent = function(componentId, [options]) {
+     // call constructor of parent class
+     $super.constructor.call(this, componentId, [options]);
 
-			// define private method
-			var myPrivateMethod = function () {
-			}
+     <span style="color:red">
+     // call this.attachToDom method to attach component to dom element
+     // its required for the client side API calls and to clean up after ajax request or page unload:
+     // destroy method will be called if component attached to dom
+     this.attachToDom(componentId);
+     </span>
+     };
 
-			// Extend component class and add protected methods from parent class to our container
-			richfaces.BaseComponent.extend(richfaces.BaseComponent, richfaces.MyComponent);
+     // define private method
+     var myPrivateMethod = function () {
+     }
 
-			// define super class link
-			var $super = richfaces.MyComponent.$super;
+     // Extend component class and add protected methods from parent class to our container
+     richfaces.BaseComponent.extend(richfaces.BaseComponent, richfaces.MyComponent);
 
-			// Add new properties and methods
-			$.extend(richfaces.MyComponent.prototype, (function (params) {
-				return {
-		 				name:"MyComponent",
-						f:function (){alert("hello"),
-						// destroy method definition for clean up
-						destroy: function () {
-							// clean up code here
-							
-							// call parent's destroy method
-							$super.destroy.call(this);
-						}
-					}
-				};
-			})(params));
-		})(jQuery, RichFaces);
-		</code></pre>
-	 *
+     // define super class link
+     var $super = richfaces.MyComponent.$super;
+
+     // Add new properties and methods
+     $.extend(richfaces.MyComponent.prototype, (function (params) {
+     return {
+     name:"MyComponent",
+     f:function (){alert("hello"),
+     // destroy method definition for clean up
+     destroy: function () {
+     // clean up code here
+
+     // call parent's destroy method
+     $super.destroy.call(this);
+     }
+     }
+     };
+     })(params));
+     })(jQuery, RichFaces);
+     </code></pre>
+     *
      * @memberOf RichFaces
      * @name BaseComponent
      *
      * @constructor
      * @param {String} componentId - component id
      * */
-	richfaces.BaseComponent = function(componentId) {
-		this.id = componentId;
-		this.options = this.options || {};
-	};
+    richfaces.BaseComponent = function(componentId) {
+        this.id = componentId;
+        this.options = this.options || {};
+    };
 
-	var $p = {};
+    var $p = {};
 
-	var extend = function (parent, child, h) {
-		h = h || {};
-		var F = richfaces.blankFunction;
-		F.prototype = parent.prototype;
-	    child.prototype = new F();
-	    child.prototype.constructor = child;
-	    child.$super = parent.prototype;
-	    if (child.$super == richfaces.BaseComponent.prototype) {
-	    	var r = jQuery.extend({}, $p, h||{});
-	    }
+    var extend = function (parent, child, h) {
+        h = h || {};
+        var F = richfaces.blankFunction;
+        F.prototype = parent.prototype;
+        child.prototype = new F();
+        child.prototype.constructor = child;
+        child.$super = parent.prototype;
+        if (child.$super == richfaces.BaseComponent.prototype) {
+            var r = jQuery.extend({}, $p, h || {});
+        }
 
-	    var _parent = child;
+        var _parent = child;
 
-	    // create wrapper with protected methods and variables
-	    child.extend = function (_child, _h) {
-	    		_h = _h || {};
-	    		var _r = jQuery.extend({}, r||h||{}, _h||{});
-				return extend(_parent, _child, _r);
-		}
-	    return r||h;
-	};
+        // create wrapper with protected methods and variables
+        child.extend = function (_child, _h) {
+            _h = _h || {};
+            var _r = jQuery.extend({}, r || h || {}, _h || {});
+            return extend(_parent, _child, _r);
+        }
+        return r || h;
+    };
 
-	/**
+    /**
      * Method extends child class prototype with parent prototype
      * and return the object with parent's protected methods
      *
@@ -100,9 +101,9 @@
      *
      * @return {object}
      * */
-	richfaces.BaseComponent.extend = function(child, h) {
-		return extend(richfaces.BaseComponent, child, h);
-	};
+    richfaces.BaseComponent.extend = function(child, h) {
+        return extend(richfaces.BaseComponent, child, h);
+    };
 
 
     /**
@@ -148,7 +149,7 @@
      *     init : function (...) {
      *         // ...
      *     }
-     * 
+     *
      * })
      *
      * */
@@ -165,17 +166,17 @@
         return DerivedClass;
     };
 
-	$.extend(richfaces.BaseComponent.prototype, (function (params) {
-		return {
-			/**
+    $.extend(richfaces.BaseComponent.prototype, (function (params) {
+        return {
+            /**
              * Component name.
              *
              * @name RichFaces.BaseComponent#name
              * @type String
              * */
-			name: "BaseComponent",
-			
-			/**
+            name: "BaseComponent",
+
+            /**
              * Method for converting object to string
              *
              * @function
@@ -183,23 +184,23 @@
              *
              * @return {String}
              * */
-			toString: function() {
-				var result = [];
-				if (this.constructor.$super) {
-					result[result.length] = this.constructor.$super.toString();
-				}
-				result[result.length] = this.name;
-				return result.join(', ');
-			},
-			
-			/** TODO: add jsdocs and qunit tests
-			 * 
-			 */
-			getValue: function() {
-				return;
-			},
+            toString: function() {
+                var result = [];
+                if (this.constructor.$super) {
+                    result[result.length] = this.constructor.$super.toString();
+                }
+                result[result.length] = this.name;
+                return result.join(', ');
+            },
 
-			/**
+            /** TODO: add jsdocs and qunit tests
+             *
+             */
+            getValue: function() {
+                return;
+            },
+
+            /**
              * Method returns element's id for event handlers binding.
              * Event API calls this method when binding by component object as selector was used.
              *
@@ -208,44 +209,44 @@
              *
              * @return {String}
              * */
-			getEventElement: function() {
-				return this.id;
-			},
+            getEventElement: function() {
+                return this.id;
+            },
 
-			/**
-		     * Attach component object to DOM element by component id, DOM element or jQuery object and returns the element
-		     * Its required for the client side API calls and to clean up after ajax request or document unload by
-		     * calling destroy method
-		     *
-		     * @function
-		     * @name RichFaces.BaseComponent#attachToDom
-		     * @param {string|DOMElement|jQuery} source - component id, DOM element or DOM elements wrapped by jQuery
-		     *
-		     * @return {DOMElement}
-		     * */
-			attachToDom: function(source) {
-				source = source || this.id;
-				var element = richfaces.getDomElement(source);
-				if (element) {
-					var container = element[richfaces.RICH_CONTAINER] = element[richfaces.RICH_CONTAINER] || {};
-					container.component = this;
-				}
-				return element;
-			},
-			
-			/**
-		     * Detach component object from DOM element by component id, DOM element or jQuery object
-		     *
-		     * @function
-		     * @name RichFaces.BaseComponent#detach
-		     * @param {string|DOMElement|jQuery} source - component id, DOM element or DOM elements wrapped by jQuery
-		     *
-		     * */
-			detach: function(source) {
-				source = source || this.id;
-				var element = richfaces.getDomElement(source);
-				element && element[richfaces.RICH_CONTAINER] && (element[richfaces.RICH_CONTAINER].component=null);
-			},
+            /**
+             * Attach component object to DOM element by component id, DOM element or jQuery object and returns the element
+             * Its required for the client side API calls and to clean up after ajax request or document unload by
+             * calling destroy method
+             *
+             * @function
+             * @name RichFaces.BaseComponent#attachToDom
+             * @param {string|DOMElement|jQuery} source - component id, DOM element or DOM elements wrapped by jQuery
+             *
+             * @return {DOMElement}
+             * */
+            attachToDom: function(source) {
+                source = source || this.id;
+                var element = richfaces.getDomElement(source);
+                if (element) {
+                    var container = element[richfaces.RICH_CONTAINER] = element[richfaces.RICH_CONTAINER] || {};
+                    container.component = this;
+                }
+                return element;
+            },
+
+            /**
+             * Detach component object from DOM element by component id, DOM element or jQuery object
+             *
+             * @function
+             * @name RichFaces.BaseComponent#detach
+             * @param {string|DOMElement|jQuery} source - component id, DOM element or DOM elements wrapped by jQuery
+             *
+             * */
+            detach: function(source) {
+                source = source || this.id;
+                var element = richfaces.getDomElement(source);
+                element && element[richfaces.RICH_CONTAINER] && (element[richfaces.RICH_CONTAINER].component = null);
+            },
 
             /**
              * Invokes event on on the DOM element
@@ -255,174 +256,170 @@
              * @param data additional data used for event handler
              * @return true if an event is successfully invoked
              */
-			invokeEvent: function(eventType, element, event, data) {
-				var handlerResult, result;
-				var eventObj = $.extend({}, event, {type: eventType});
+            invokeEvent: function(eventType, element, event, data) {
+                var handlerResult, result;
+                var eventObj = $.extend({}, event, {type: eventType});
 
-				if (!eventObj)
-				{
-					if( document.createEventObject ) 
-					{
-						eventObj = document.createEventObject();
-						eventObj.type = eventType;
-					}
-					else if( document.createEvent )
-					{
-						eventObj = document.createEvent('Events');
-						eventObj.initEvent( eventType, true, false );
-					}
-				}
-				eventObj[richfaces.RICH_CONTAINER] = {component:this, data: data};
-				
-				var eventHandler = this.options['on'+eventType];
+                if (!eventObj) {
+                    if (document.createEventObject) {
+                        eventObj = document.createEventObject();
+                        eventObj.type = eventType;
+                    }
+                    else if (document.createEvent) {
+                        eventObj = document.createEvent('Events');
+                        eventObj.initEvent(eventType, true, false);
+                    }
+                }
+                eventObj[richfaces.RICH_CONTAINER] = {component:this, data: data};
 
-				if (typeof eventHandler == "function")
-				{	
-					handlerResult = eventHandler.call(element, eventObj);
-				}
-				
-				if (richfaces.Event) {
-					result = richfaces.Event.callHandler(this, eventType, data);
-				}
-				
-				if (result!=false && handlerResult!=false) result=true;
-				
-				return result;
-			},
+                var eventHandler = this.options['on' + eventType];
 
-			/**
+                if (typeof eventHandler == "function") {
+                    handlerResult = eventHandler.call(element, eventObj);
+                }
+
+                if (richfaces.Event) {
+                    result = richfaces.Event.callHandler(this, eventType, data);
+                }
+
+                if (result != false && handlerResult != false) result = true;
+
+                return result;
+            },
+
+            /**
              * Destroy method. Will be called before remove component from the page
              *
              * @function
              * @name RichFaces.BaseComponent#destroy
              *
              * */
-			destroy: function() {
-			}
-		};
-	})(params));
-	
-	richfaces.BaseNonVisualComponent = function(componentId) {
-		this.id = componentId;
-		this.options = this.options || {};
-	};
-	
-	richfaces.BaseNonVisualComponent.extend = function(child, h) {
-		return extend(richfaces.BaseNonVisualComponent, child, h);
-	};
-	
-	richfaces.BaseNonVisualComponent.extendClass = function (methods) {
-	    var DerivedClass = methods.init || richfaces.blankFunction;
-	    var SupperClass = this;
-    
-	    SupperClass.extend(DerivedClass);
-    
-	    DerivedClass.extendClass = SupperClass.extendClass;
-    
-	    $.extend(DerivedClass.prototype, methods);
-    
-	    return DerivedClass;
-	};
-    
-	$.extend(richfaces.BaseNonVisualComponent.prototype, (function (params) {
-		return {
-			name: "BaseNonVisualComponent",
-			
-			toString: function() {
-				var result = [];
-				if (this.constructor.$super) {
-					result[result.length] = this.constructor.$super.toString();
-				}
-				result[result.length] = this.name;
-				return result.join(', ');
-			},
-			
-			getValue: function() {
-				return;
-			},
-			/**
-			* Attach component object to DOM element by component id, DOM element or jQuery object and returns the element
-			* Its required for the client side API calls and to clean up after ajax request or document unload by
-			* calling destroy method
-			*
-			* @function
-			* @name RichFaces.BaseNonVisualComponent#attachToDom
-			* @param {string|DOMElement|jQuery} source - component id, DOM element or DOM elements wrapped by jQuery
-			*
-			* @return {DOMElement}
-			* */
-			attachToDom: function(source) {
-				source = source || this.id;
-				var element = richfaces.getDomElement(source);
-				if (element) {
-					var container = element[richfaces.RICH_CONTAINER] = element[richfaces.RICH_CONTAINER] || {};
-					if (container.attachedComponents){
-						container.attachedComponents[this.name] = this;
-					} else {
-						container.attachedComponents= {};
-						container.attachedComponents[this.name] = this;
-					}
-				}
-				return element;
-			},
-			
-			/**
-			* Detach component object from DOM element by component id, DOM element or jQuery object
-			*
-			* @function
-			* @name RichFaces.BaseNonVisualComponent#detach
-			* @param {string|DOMElement|jQuery} source - component id, DOM element or DOM elements wrapped by jQuery
-			*
-			* */
-			detach: function(source) {
-				source = source || this.id;
-				var element = richfaces.getDomElement(source);
-				element && element[richfaces.RICH_CONTAINER] && (element[richfaces.RICH_CONTAINER].attachedComponents[this.name]=null);
-			},
-			
-			/**
-			* Destroy method. Will be called before remove component from the page
-			*
-			* @function
-			* @name RichFaces.BaseNonVisualComponent#destroy
-			*
-			* */
-			destroy: function() {
-			}
-		};
-	})(params));
-	
+            destroy: function() {
+            }
+        };
+    })(params));
 
-})(jQuery, window.RichFaces || (window.RichFaces={}));
+    richfaces.BaseNonVisualComponent = function(componentId) {
+        this.id = componentId;
+        this.options = this.options || {};
+    };
+
+    richfaces.BaseNonVisualComponent.extend = function(child, h) {
+        return extend(richfaces.BaseNonVisualComponent, child, h);
+    };
+
+    richfaces.BaseNonVisualComponent.extendClass = function (methods) {
+        var DerivedClass = methods.init || richfaces.blankFunction;
+        var SupperClass = this;
+
+        SupperClass.extend(DerivedClass);
+
+        DerivedClass.extendClass = SupperClass.extendClass;
+
+        $.extend(DerivedClass.prototype, methods);
+
+        return DerivedClass;
+    };
+
+    $.extend(richfaces.BaseNonVisualComponent.prototype, (function (params) {
+        return {
+            name: "BaseNonVisualComponent",
+
+            toString: function() {
+                var result = [];
+                if (this.constructor.$super) {
+                    result[result.length] = this.constructor.$super.toString();
+                }
+                result[result.length] = this.name;
+                return result.join(', ');
+            },
+
+            getValue: function() {
+                return;
+            },
+            /**
+             * Attach component object to DOM element by component id, DOM element or jQuery object and returns the element
+             * Its required for the client side API calls and to clean up after ajax request or document unload by
+             * calling destroy method
+             *
+             * @function
+             * @name RichFaces.BaseNonVisualComponent#attachToDom
+             * @param {string|DOMElement|jQuery} source - component id, DOM element or DOM elements wrapped by jQuery
+             *
+             * @return {DOMElement}
+             * */
+            attachToDom: function(source) {
+                source = source || this.id;
+                var element = richfaces.getDomElement(source);
+                if (element) {
+                    var container = element[richfaces.RICH_CONTAINER] = element[richfaces.RICH_CONTAINER] || {};
+                    if (container.attachedComponents) {
+                        container.attachedComponents[this.name] = this;
+                    } else {
+                        container.attachedComponents = {};
+                        container.attachedComponents[this.name] = this;
+                    }
+                }
+                return element;
+            },
+
+            /**
+             * Detach component object from DOM element by component id, DOM element or jQuery object
+             *
+             * @function
+             * @name RichFaces.BaseNonVisualComponent#detach
+             * @param {string|DOMElement|jQuery} source - component id, DOM element or DOM elements wrapped by jQuery
+             *
+             * */
+            detach: function(source) {
+                source = source || this.id;
+                var element = richfaces.getDomElement(source);
+                element && element[richfaces.RICH_CONTAINER] && (element[richfaces.RICH_CONTAINER].attachedComponents[this.name] = null);
+            },
+
+            /**
+             * Destroy method. Will be called before remove component from the page
+             *
+             * @function
+             * @name RichFaces.BaseNonVisualComponent#destroy
+             *
+             * */
+            destroy: function() {
+            }
+        };
+    })(params));
+
+
+})(jQuery, window.RichFaces || (window.RichFaces = {}));
 
 // RichFaces Base class for ui components
 (function($, rf) {
 
-	rf.ui = rf.ui || {};
-	
-	// Constructor definition
-	rf.ui.Base = function(componentId, options, defaultOptions) {
-		this.namespace = "."+rf.Event.createNamespace(this.name, componentId);
-		// call constructor of parent class
-		$super.constructor.call(this, componentId);
-		this.options = $.extend(this.options, defaultOptions, options);
-		this.attachToDom();
-		this.__bindEventHandlers();
-	};
+    rf.ui = rf.ui || {};
 
-	// Extend component class and add protected methods from parent class to our container
-	rf.BaseComponent.extend(rf.ui.Base);
+    // Constructor definition
+    rf.ui.Base = function(componentId, options, defaultOptions) {
+        this.namespace = "." + rf.Event.createNamespace(this.name, componentId);
+        // call constructor of parent class
+        $super.constructor.call(this, componentId);
+        this.options = $.extend(this.options, defaultOptions, options);
+        this.attachToDom();
+        this.__bindEventHandlers();
+    };
 
-	// define super class link
-	var $super = rf.ui.Base.$super;
+    // Extend component class and add protected methods from parent class to our container
+    rf.BaseComponent.extend(rf.ui.Base);
 
-	$.extend(rf.ui.Base.prototype, {
-		__bindEventHandlers: function () {
-		},
-		destroy: function () {
-			rf.Event.unbindById(this.id, this.namespace);
-			$super.destroy.call(this);
-		}
-	});
-	
-})(jQuery, window.RichFaces || (window.RichFaces={}));
+    // define super class link
+    var $super = rf.ui.Base.$super;
+
+    $.extend(rf.ui.Base.prototype, {
+            __bindEventHandlers: function () {
+            },
+            destroy: function () {
+                rf.Event.unbindById(this.id, this.namespace);
+                $super.destroy.call(this);
+            }
+        });
+
+})(jQuery, window.RichFaces || (window.RichFaces = {}));

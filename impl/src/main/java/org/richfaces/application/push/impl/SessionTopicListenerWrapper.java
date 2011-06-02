@@ -33,15 +33,13 @@ import org.richfaces.log.RichfacesLogger;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @SuppressWarnings("deprecation")
 final class SessionTopicListenerWrapper implements SessionTopicListener2 {
-
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
-    
     private SessionTopicListener listener;
-    
+
     public SessionTopicListenerWrapper(SessionTopicListener listener) {
         super();
         this.listener = listener;

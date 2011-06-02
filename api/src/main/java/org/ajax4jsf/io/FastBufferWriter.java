@@ -18,13 +18,13 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.ajax4jsf.io;
 
-import javax.servlet.ServletOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+
+import javax.servlet.ServletOutputStream;
 
 /**
  * Class for writing to chain of char arrays extending Writer.
@@ -32,17 +32,14 @@ import java.io.Writer;
  * @author glory
  */
 public class FastBufferWriter extends Writer {
-
     /**
      * The beginning of the chain of char arrays.
      */
     CharBuffer firstBuffer;
-
     /**
      * Currently filled link of the chain of char arrays.
      */
     CharBuffer lastBuffer;
-
     /**
      * Total number of written chars.
      */

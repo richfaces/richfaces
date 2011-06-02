@@ -20,25 +20,26 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.javascript;
 
 import javax.faces.context.FacesContext;
-
 
 /**
  * <p class="changed_added_4_0">
  * This service stores JavaScript objects for deffered rendering, as described on
  * http://community.jboss.org/wiki/RichFacesJavaScripthandling
  * </p>
- * 
+ *
  * @author asmirnov@exadel.com
- * 
+ *
  */
 public interface JavaScriptService {
-
     /**
-     * <p class="changed_added_4_0">Adds new script to render at the end of page. Is the same script already set to render ( lookup by equals() method ), no new object added.</p>
+     * <p class="changed_added_4_0">
+     * Adds new script to render at the end of page. Is the same script already set to render ( lookup by equals() method ), no
+     * new object added.
+     * </p>
+     *
      * @param facesContext TODO
      * @param script
      * @return actual object that will be rendered at the end of page.
@@ -46,19 +47,24 @@ public interface JavaScriptService {
     <S> S addScript(FacesContext facesContext, S script);
 
     /**
-     * <p class="changed_added_4_0">This method adds script that has to be executed in page.onready event listener, as required by jQuery components.</p>
+     * <p class="changed_added_4_0">
+     * This method adds script that has to be executed in page.onready event listener, as required by jQuery components.
+     * </p>
+     *
      * @param facesContext TODO
      * @param script
      * @param <S>
      * @return
      */
     <S> S addPageReadyScript(FacesContext facesContext, S script);
-    
+
     /**
-     * <p class="changed_added_4_0">Get object with collection of scripts designeted for deffered rendering.</p>
+     * <p class="changed_added_4_0">
+     * Get object with collection of scripts designeted for deffered rendering.
+     * </p>
+     *
      * @param context
      * @return ViewResource component that holds contect of all scripts, or special case object with empty collections.
      */
     ScriptsHolder getScriptsHolder(FacesContext context);
-    
 }

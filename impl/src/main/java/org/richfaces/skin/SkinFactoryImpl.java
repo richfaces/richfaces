@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.skin;
 
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getConfigurationValue;
@@ -33,28 +32,21 @@ import org.ajax4jsf.Messages;
 import org.richfaces.application.CoreConfiguration;
 
 /**
- * Implementation of {@link SkinFactory} with building skins from properties
- * files.
+ * Implementation of {@link SkinFactory} with building skins from properties files.
  *
  * @author shura
  */
 public class SkinFactoryImpl extends AbstractSkinFactory {
-
     private static final String SKIN_KEY = SkinFactoryImpl.class.getName() + ":skin";
-    
     private static final String BASE_SKIN_KEY = SkinFactoryImpl.class.getName() + ":baseSkin";
 
     // private static final String DEFAULT_CONFIGURATION_RESOURCE = "META-INF/skins/DEFAULT.configuration.properties";
-
     /**
      * Name of default skin . "DEFAULT" in this realisation.
      */
     private static final String DEFAULT_SKIN_NAME = "DEFAULT";
-
-    private static final String[] THEME_PATHS = {"META-INF/themes/%s.theme.properties", "%s.theme.properties"};
-
-    //  private Properties defaultSkinProperties = null;
-
+    private static final String[] THEME_PATHS = { "META-INF/themes/%s.theme.properties", "%s.theme.properties" };
+    // private Properties defaultSkinProperties = null;
     private Map<String, Theme> themes = new HashMap<String, Theme>();
 
     public Skin getDefaultSkin(FacesContext context) {
@@ -66,17 +58,17 @@ public class SkinFactoryImpl extends AbstractSkinFactory {
         if (skin == null) {
             Skin mainSkin = getSkinOrName(context, false);
             Skin baseSkin = getSkinOrName(context, true);
-            
+
             if (mainSkin != null || baseSkin != null) {
                 skin = new CompositeSkinImpl(mainSkin, baseSkin);
             } else {
-                //CompositeSkinImpl caches hash code
+                // CompositeSkinImpl caches hash code
                 skin = new CompositeSkinImpl(getDefaultSkin(context));
             }
 
             context.getAttributes().put(SKIN_KEY, skin);
         }
-        
+
         return skin;
     }
 
@@ -88,13 +80,13 @@ public class SkinFactoryImpl extends AbstractSkinFactory {
             if (baseSkin != null) {
                 skin = new CompositeSkinImpl(baseSkin);
             } else {
-                //CompositeSkinImpl caches hash code
+                // CompositeSkinImpl caches hash code
                 skin = new CompositeSkinImpl(getDefaultSkin(context));
             }
 
             context.getAttributes().put(BASE_SKIN_KEY, skin);
         }
-        
+
         return skin;
     }
 
@@ -102,35 +94,34 @@ public class SkinFactoryImpl extends AbstractSkinFactory {
         context.getAttributes().remove(BASE_SKIN_KEY);
         context.getAttributes().remove(SKIN_KEY);
     }
-    
-//  protected Properties getDefaultSkinProperties() {
-//      if (defaultSkinProperties == null) {
-//          defaultSkinProperties = loadProperties(DEFAULT_SKIN_NAME,DEFAULT_SKIN_PATHS);
-//      }
-//      return defaultSkinProperties;
-//  }
+
+    // protected Properties getDefaultSkinProperties() {
+    // if (defaultSkinProperties == null) {
+    // defaultSkinProperties = loadProperties(DEFAULT_SKIN_NAME,DEFAULT_SKIN_PATHS);
+    // }
+    // return defaultSkinProperties;
+    // }
 
     /**
-     * Calculate name for current skin. For EL init parameter store value
-     * binding for speed calculations.
+     * Calculate name for current skin. For EL init parameter store value binding for speed calculations.
      *
      * @param context
      * @param useBase
-     * @return name of currens skin from init parameter ( "DEFAULT" if no
-     *         parameter ) or {@link Skin } as result of evaluation EL
+     * @return name of currens skin from init parameter ( "DEFAULT" if no parameter ) or {@link Skin } as result of evaluation EL
      *         expression.
      */
     protected Skin getSkinOrName(FacesContext context, boolean useBase) {
-        Object skinObject = getConfigurationValue(context, useBase ? CoreConfiguration.Items.baseSkin : CoreConfiguration.Items.skin);
-        
+        Object skinObject = getConfigurationValue(context, useBase ? CoreConfiguration.Items.baseSkin
+            : CoreConfiguration.Items.skin);
+
         Skin result = null;
-        
+
         if (skinObject instanceof Skin) {
             result = (Skin) skinObject;
         } else if (skinObject != null) {
             result = getSkin(context, (String) skinObject);
         }
-        
+
         return result;
     }
 
@@ -144,8 +135,7 @@ public class SkinFactoryImpl extends AbstractSkinFactory {
             try {
                 properties = loadProperties(name, THEME_PATHS);
             } catch (SkinNotFoundException e) {
-                throw new ThemeNotFoundException(Messages.getMessage(Messages.THEME_NOT_FOUND_ERROR, name),
-                    e.getCause());
+                throw new ThemeNotFoundException(Messages.getMessage(Messages.THEME_NOT_FOUND_ERROR, name), e.getCause());
             }
 
             processProperties(facesContext, properties);

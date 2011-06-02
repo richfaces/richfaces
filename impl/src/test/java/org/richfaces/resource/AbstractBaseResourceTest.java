@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.resource;
 
 import java.io.ByteArrayInputStream;
@@ -133,39 +130,41 @@ public class AbstractBaseResourceTest extends AbstractFacesTest {
         String resourceState = "data";
         final ResourceCodec resourceCodec = EasyMock.createMock(ResourceCodec.class);
 
-        EasyMock.expect(resourceCodec.encodeResourceRequestPath(EasyMock.same(facesContext), 
-            EasyMock.eq("custom.library"),
-            EasyMock.eq("org.richfaces.resource.MockStateAwareResource"),
-            EasyMock.aryEq(resourceState.getBytes()), EasyMock.eq("4_0_alpha"))).andReturn("/rfRes/Resource0/4_0_alpha/data?l=custom.library");
-        
-        EasyMock.expect(resourceCodec.encodeJSFMapping(EasyMock.same(facesContext), EasyMock.eq("/rfRes/Resource0/4_0_alpha/data?l=custom.library"))).
-            andReturn("/rfRes/Resource0/4_0_alpha/data.jsf?l=custom.library");
-        
-        EasyMock.expect(resourceCodec.encodeResourceRequestPath(EasyMock.same(facesContext), 
-            EasyMock.eq("custom.library"),
-            EasyMock.eq("org.richfaces.resource.MockStateAwareResource"),
-            EasyMock.eq(null), EasyMock.eq("4_0_alpha"))).andReturn("/rfRes/Resource1/4_0_alpha?l=custom.library");
+        EasyMock.expect(
+            resourceCodec.encodeResourceRequestPath(EasyMock.same(facesContext), EasyMock.eq("custom.library"),
+                EasyMock.eq("org.richfaces.resource.MockStateAwareResource"), EasyMock.aryEq(resourceState.getBytes()),
+                EasyMock.eq("4_0_alpha"))).andReturn("/rfRes/Resource0/4_0_alpha/data?l=custom.library");
 
-        EasyMock.expect(resourceCodec.encodeJSFMapping(EasyMock.same(facesContext), EasyMock.eq("/rfRes/Resource1/4_0_alpha?l=custom.library"))).
-            andReturn("/rfRes/Resource1/4_0_alpha.jsf?l=custom.library");
+        EasyMock.expect(
+            resourceCodec.encodeJSFMapping(EasyMock.same(facesContext),
+                EasyMock.eq("/rfRes/Resource0/4_0_alpha/data?l=custom.library"))).andReturn(
+            "/rfRes/Resource0/4_0_alpha/data.jsf?l=custom.library");
 
-        EasyMock.expect(resourceCodec.encodeResourceRequestPath(EasyMock.same(facesContext), 
-            EasyMock.<String>isNull(),
-            EasyMock.eq("org.richfaces.resource.MockResource"),
-            EasyMock.eq(null), EasyMock.eq("4_0_alpha"))).andReturn("/rfRes/Resource2/4_0_alpha");
+        EasyMock.expect(
+            resourceCodec.encodeResourceRequestPath(EasyMock.same(facesContext), EasyMock.eq("custom.library"),
+                EasyMock.eq("org.richfaces.resource.MockStateAwareResource"), EasyMock.eq(null), EasyMock.eq("4_0_alpha")))
+            .andReturn("/rfRes/Resource1/4_0_alpha?l=custom.library");
 
-        EasyMock.expect(resourceCodec.encodeJSFMapping(EasyMock.same(facesContext), EasyMock.eq("/rfRes/Resource2/4_0_alpha"))).
-            andReturn("/rfRes/Resource2/4_0_alpha.jsf");
+        EasyMock.expect(
+            resourceCodec.encodeJSFMapping(EasyMock.same(facesContext),
+                EasyMock.eq("/rfRes/Resource1/4_0_alpha?l=custom.library"))).andReturn(
+            "/rfRes/Resource1/4_0_alpha.jsf?l=custom.library");
+
+        EasyMock.expect(
+            resourceCodec.encodeResourceRequestPath(EasyMock.same(facesContext), EasyMock.<String>isNull(),
+                EasyMock.eq("org.richfaces.resource.MockResource"), EasyMock.eq(null), EasyMock.eq("4_0_alpha"))).andReturn(
+            "/rfRes/Resource2/4_0_alpha");
+
+        EasyMock.expect(resourceCodec.encodeJSFMapping(EasyMock.same(facesContext), EasyMock.eq("/rfRes/Resource2/4_0_alpha")))
+            .andReturn("/rfRes/Resource2/4_0_alpha.jsf");
 
         EasyMock.replay(resourceCodec);
         ServicesFactoryImpl injector = new ServicesFactoryImpl();
-        injector.init(Collections.<Module>singletonList(new Module(){
-
+        injector.init(Collections.<Module>singletonList(new Module() {
             public void configure(ServicesFactory injector) {
-                injector.setInstance(ResourceCodec.class,resourceCodec);
+                injector.setInstance(ResourceCodec.class, resourceCodec);
                 injector.setInstance(Uptime.class, new Uptime());
             }
-            
         }));
         ServiceTracker.setFactory(injector);
 
@@ -248,12 +247,15 @@ public class AbstractBaseResourceTest extends AbstractFacesTest {
 
         ResourceImpl defaultETagResource = new ResourceImpl() {
             protected Date getLastModified(FacesContext context) {
-                return new Date(12471234567890l);
+                return new Date(12471234567890L);
             }
+
             ;
+
             protected int getContentLength(FacesContext context) {
                 return 1297;
             }
+
             ;
         };
 
@@ -270,7 +272,7 @@ public class AbstractBaseResourceTest extends AbstractFacesTest {
 
         expiredResource.setLastModified(new Date(currentTime - 10000));
         this.connection.addRequestHeaders(Collections.singletonMap("If-Modified-Since",
-                Util.formatHttpDate(new Date(currentTime - 20000))));
+            Util.formatHttpDate(new Date(currentTime - 20000))));
         assertTrue(expiredResource.userAgentNeedsUpdate(facesContext));
         assertFalse(actualResource.userAgentNeedsUpdate(facesContext));
     }
@@ -370,11 +372,8 @@ public class AbstractBaseResourceTest extends AbstractFacesTest {
         }
     }
 
-
     private class MockStateAwareResourceImpl extends MockResourceImpl implements StateHolderResource {
-
         private boolean _transient;
-        
         private String resourceState;
 
         public MockStateAwareResourceImpl() {
@@ -389,7 +388,7 @@ public class AbstractBaseResourceTest extends AbstractFacesTest {
         public void setTransient(boolean transient1) {
             _transient = transient1;
         }
-        
+
         public boolean isTransient() {
             return _transient;
         }
@@ -401,9 +400,7 @@ public class AbstractBaseResourceTest extends AbstractFacesTest {
         public void writeState(FacesContext context, DataOutput objectOutput) throws IOException {
             objectOutput.writeBytes(resourceState);
         }
-
     }
-
 
     private class ResourceImpl extends AbstractCacheableResource {
         public ResourceImpl() {

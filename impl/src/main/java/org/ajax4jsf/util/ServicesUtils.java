@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.ajax4jsf.util;
 
 import java.io.BufferedReader;
@@ -40,10 +39,10 @@ import org.richfaces.log.RichfacesLogger;
 @Deprecated
 public final class ServicesUtils {
     private static final Logger LOG = RichfacesLogger.APPLICATION.getLogger();
-    private static Map<String, Map<ClassLoader, Class<?>>> services = Collections.synchronizedMap(new HashMap<String,
-        Map<ClassLoader, Class<?>>>());
-    private static Map<String, Map<ClassLoader, Object>> instances = Collections.synchronizedMap(new HashMap<String,
-        Map<ClassLoader, Object>>());
+    private static Map<String, Map<ClassLoader, Class<?>>> services = Collections
+        .synchronizedMap(new HashMap<String, Map<ClassLoader, Class<?>>>());
+    private static Map<String, Map<ClassLoader, Object>> instances = Collections
+        .synchronizedMap(new HashMap<String, Map<ClassLoader, Object>>());
 
     private ServicesUtils() {
 

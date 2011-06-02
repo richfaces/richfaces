@@ -27,34 +27,33 @@ import org.richfaces.application.ServiceTracker;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public final class ConfigurationServiceHelper {
+    private ConfigurationServiceHelper() {
+    }
 
-    private ConfigurationServiceHelper() {}
-    
-    public static final Boolean getBooleanConfigurationValue(FacesContext facesContext, Enum<?> key) {
+    public static Boolean getBooleanConfigurationValue(FacesContext facesContext, Enum<?> key) {
         return ServiceTracker.getService(ConfigurationService.class).getBooleanValue(facesContext, key);
     }
-    
-    public static final Integer getIntConfigurationValue(FacesContext facesContext, Enum<?> key) {
+
+    public static Integer getIntConfigurationValue(FacesContext facesContext, Enum<?> key) {
         return ServiceTracker.getService(ConfigurationService.class).getIntValue(facesContext, key);
     }
 
-    public static final Long getLongConfigurationValue(FacesContext facesContext, Enum<?> key) {
+    public static Long getLongConfigurationValue(FacesContext facesContext, Enum<?> key) {
         return ServiceTracker.getService(ConfigurationService.class).getLongValue(facesContext, key);
     }
 
-    public static final String getStringConfigurationValue(FacesContext facesContext, Enum<?> key) {
+    public static String getStringConfigurationValue(FacesContext facesContext, Enum<?> key) {
         return ServiceTracker.getService(ConfigurationService.class).getStringValue(facesContext, key);
     }
 
-    public static final Object getConfigurationValue(FacesContext facesContext, Enum<?> key) {
+    public static Object getConfigurationValue(FacesContext facesContext, Enum<?> key) {
         return ServiceTracker.getService(ConfigurationService.class).getValue(facesContext, key);
     }
-    
-    public static final <T extends Enum<T>> T getEnumConfigurationValue(FacesContext facesContext, Enum<?> key, Class<T> enumClass) {
+
+    public static <T extends Enum<T>> T getEnumConfigurationValue(FacesContext facesContext, Enum<?> key, Class<T> enumClass) {
         return ServiceTracker.getService(ConfigurationService.class).getEnumValue(facesContext, key, enumClass);
     }
-    
 }

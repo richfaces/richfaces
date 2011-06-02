@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
-              version="2.0">
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee" version="2.0">
 
-	<managed-bean>
-		<managed-bean-name>testBean</managed-bean-name>
-		<managed-bean-class>org.richfaces.context.ComponentIdResolverTestBean</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
-	</managed-bean>
+    <managed-bean>
+        <managed-bean-name>testBean</managed-bean-name>
+        <managed-bean-class>org.richfaces.context.ComponentIdResolverTestBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 
 </faces-config>

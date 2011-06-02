@@ -33,9 +33,7 @@ import org.richfaces.renderkit.AjaxConstants;
  *
  */
 public class ComponentIdResolverTestBean {
-
     private static class UIRegion extends UIComponentBase implements MetaComponentResolver {
-
         public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
             if (ComponentIdResolverTest.META_COMPONENT_ID.equals(metaComponentId)) {
                 return getClientId(facesContext);
@@ -48,7 +46,7 @@ public class ComponentIdResolverTestBean {
 
             return null;
         }
-        
+
         @Override
         public String getFamily() {
             return null;
@@ -56,7 +54,6 @@ public class ComponentIdResolverTestBean {
     }
 
     private static class UICommandLink extends UIComponentBase implements MetaComponentResolver {
-
         public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
             return null;
         }
@@ -70,25 +67,19 @@ public class ComponentIdResolverTestBean {
 
             return null;
         }
-        
+
         @Override
         public String getFamily() {
             return null;
         }
     }
 
-    private String[] data = {"1", "2", "3"};
-
+    private String[] data = { "1", "2", "3" };
     private UIComponent table;
-
     private UIComponent firstRegion = new UIRegion();
-
     private UIComponent outputInRegion;
-
     private UIComponent outputOutRegion;
-
     private UIComponent linkInRegion = new UICommandLink();
-
     private UIComponent linkOutRegion = new UICommandLink();
 
     public Object getData() {
@@ -126,11 +117,11 @@ public class ComponentIdResolverTestBean {
     public void setOutputOutRegion(UIComponent outputOutRegion) {
         this.outputOutRegion = outputOutRegion;
     }
-    
+
     public UIComponent getLinkInRegion() {
         return linkInRegion;
     }
-    
+
     public UIComponent getLinkOutRegion() {
         return linkOutRegion;
     }

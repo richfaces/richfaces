@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.context;
 
 import java.util.AbstractCollection;
@@ -38,35 +37,31 @@ import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
 final class NamingContainerVisitContext extends ExtendedVisitContext {
-
     private final class IdsProxyCollection extends AbstractCollection<String> {
-
         @Override
         public Iterator<String> iterator() {
-            throw new UnsupportedOperationException(
-                "iterator() method is not supported by this collection implementation");
+            throw new UnsupportedOperationException("iterator() method is not supported by this collection implementation");
         }
 
         @Override
         public int size() {
-            throw new UnsupportedOperationException(
-                "size() method is not supported by this collection implementation");
+            throw new UnsupportedOperationException("size() method is not supported by this collection implementation");
         }
 
         @Override
         public boolean isEmpty() {
             return ids.isEmpty();
         }
-    };
+    }
+
+    ;
 
     private Set<String> ids;
-
     private IdsProxyCollection idsToVisit;
-
     private UIComponent startingComponent;
 
-    public NamingContainerVisitContext(FacesContext facesContext, ExtendedVisitContextMode visitMode,
-        UIComponent component, Collection<String> ids) {
+    public NamingContainerVisitContext(FacesContext facesContext, ExtendedVisitContextMode visitMode, UIComponent component,
+        Collection<String> ids) {
 
         super(facesContext, visitMode);
 
@@ -107,8 +102,8 @@ final class NamingContainerVisitContext extends ExtendedVisitContext {
             throw new IllegalArgumentException(component.toString());
         }
 
-        //TODO nick - check clientId, e.g. to avoid visiting components with client ids like
-        //            "table:0:nested" ("table" is a starting component)
+        // TODO nick - check clientId, e.g. to avoid visiting components with client ids like
+        // "table:0:nested" ("table" is a starting component)
         if (startingComponent.equals(component)) {
             return VisitContext.ALL_IDS;
         }

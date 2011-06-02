@@ -6,61 +6,59 @@ import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.event.AjaxBehaviorListener;
 
 /**
- * @author Anton Belevich
- * interface for our ajax behaviors
+ * @author Anton Belevich interface for our ajax behaviors
  *
  */
 public interface AjaxClientBehavior extends ClientBehavior {
-    public boolean isLimitRender();
+    boolean isLimitRender();
 
-    public void setLimitRender(boolean limitRender);
+    void setLimitRender(boolean limitRender);
 
-    public void setExecute(Collection<String> execute);
+    void setExecute(Collection<String> execute);
 
-    public Collection<String> getExecute();
+    Collection<String> getExecute();
 
-    public void setRender(Collection<String> render);
+    void setRender(Collection<String> render);
 
-    public Collection<String> getRender();
+    Collection<String> getRender();
 
-    public boolean isDisabled();
+    boolean isDisabled();
 
-    public void setDisabled(boolean disabled);
+    void setDisabled(boolean disabled);
 
-    public void setQueueId(String queueId);
+    void setQueueId(String queueId);
 
-    public String getQueueId();
+    String getQueueId();
 
-    public void setStatus(String statusId);
+    void setStatus(String statusId);
 
-    public String getStatus();
+    String getStatus();
 
-    public String getOnerror();
+    String getOnerror();
 
-    public void setOnerror(String onerror);
+    void setOnerror(String onerror);
 
-    public String getOncomplete();
+    String getOncomplete();
 
-    public void setOncomplete(String oncomplete);
+    void setOncomplete(String oncomplete);
 
-    public String getOnbegin();
+    String getOnbegin();
 
-    public void setOnbegin(String onbegin);
+    void setOnbegin(String onbegin);
 
-    public String getOnbeforedomupdate();
+    String getOnbeforedomupdate();
 
-    public void setOnbeforedomupdate(String onbeforedomupdate);
+    void setOnbeforedomupdate(String onbeforedomupdate);
 
-    public String getOnbeforesubmit();
-    
-    public void setOnbeforesubmit(String onbeforesubmit);
-    
-    public Object getData();
-    
-    public void setData(Object data);
-    
-    public void addAjaxBehaviorListener(AjaxBehaviorListener listener);
-    
-    public void removeAjaxBehaviorListener(AjaxBehaviorListener listener);
+    String getOnbeforesubmit();
 
+    void setOnbeforesubmit(String onbeforesubmit);
+
+    Object getData();
+
+    void setData(Object data);
+
+    void addAjaxBehaviorListener(AjaxBehaviorListener listener);
+
+    void removeAjaxBehaviorListener(AjaxBehaviorListener listener);
 }

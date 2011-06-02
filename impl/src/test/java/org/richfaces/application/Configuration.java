@@ -25,52 +25,38 @@ import org.richfaces.application.configuration.ConfigurationItem;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public enum Configuration {
 
     @ConfigurationItem(names = "org.richfaces.LongValue")
     longValue,
-    
     @ConfigurationItem(names = "org.richfaces.LongValueWithDefault", defaultValue = "-100")
     longValueWithDefault,
-    
     @ConfigurationItem(names = "org.richfaces.IntValue")
     intValue,
-    
     @ConfigurationItem(names = "org.richfaces.IntValueWithDefault", defaultValue = "-1")
-    intValueWithDefault, 
-
+    intValueWithDefault,
     @ConfigurationItem(names = "org.richfaces.StringValue")
     stringValue,
-    
     @ConfigurationItem(names = "org.richfaces.StringValueWithDefault", defaultValue = "default name")
-    stringValueWithDefault, 
-    
+    stringValueWithDefault,
     @ConfigurationItem(names = "org.richfaces.EnumValue")
     enumValue,
-    
     @ConfigurationItem(names = "org.richfaces.EnumValue", defaultValue = "foo")
-    enumValueWithDefault, 
-
+    enumValueWithDefault,
     @ConfigurationItem(names = "org.richfaces.BooleanValue")
     booleanValue,
-    
     @ConfigurationItem(names = "org.richfaces.BooleanValue", defaultValue = "false")
-    booleanValueWithDefault, 
-    
-    @ConfigurationItem(names = {"org.richfaces.MultiValue1", "org.richfaces.MultiValue2"})
-    multiValue, 
-    
+    booleanValueWithDefault,
+    @ConfigurationItem(names = { "org.richfaces.MultiValue1", "org.richfaces.MultiValue2" })
+    multiValue,
     @ConfigurationItem(names = "org.richfaces.FacesContextReference")
     facesContext,
-    
     @ConfigurationItem(names = "org.richfaces.DynamicValueWithDefault", defaultValue = "<something>")
     dynamicValueWithDefault,
-    
     @ConfigurationItem(names = "org.richfaces.LiteralOnlyValue", literal = true)
     literalOnly,
-    
     @ConfigurationItem(names = "org.richfaces.LiteralOnlyWithEl", literal = true)
     literalOnlyWithEl
 }

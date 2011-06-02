@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.ajax4jsf.io;
 
 import java.io.UnsupportedEncodingException;
@@ -31,19 +30,16 @@ import java.io.UnsupportedEncodingException;
 public class CharBuffer {
     private static final int MAX_WASTE = 16384;
     private static final int MIN_CACHE_SIZE = 64;
-
     /**
      * Length of char array.
      */
     private int cacheSize;
-
     /**
      * Stored characters
      */
     private char[] chars;
     private CharBuffer next;
     private CharBuffer prev;
-
     /**
      * number of characters stored in the array.
      */
@@ -77,8 +73,8 @@ public class CharBuffer {
     }
 
     /**
-     * Appends character to array chars if there are unfilled positions in it.
-     * Otherwise creates next link in the chain, and appends the character to it.
+     * Appends character to array chars if there are unfilled positions in it. Otherwise creates next link in the chain, and
+     * appends the character to it.
      *
      * @param c
      * @return instance of CharBuffer to which character was appended.
@@ -102,8 +98,8 @@ public class CharBuffer {
     }
 
     /**
-     * Appends segment of a char array to array if there are unfilled positions in it.
-     * Otherwise creates next link in the chain, and appends data to it.
+     * Appends segment of a char array to array if there are unfilled positions in it. Otherwise creates next link in the chain,
+     * and appends data to it.
      *
      * @param c
      * @return instance of CharBuffer to which char array was appended.

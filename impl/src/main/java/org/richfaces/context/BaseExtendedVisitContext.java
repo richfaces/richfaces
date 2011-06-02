@@ -45,24 +45,21 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.SetMultimap;
 import com.google.common.collect.Sets;
+
 /**
  * @author Nick Belaevski
  *
  */
 public class BaseExtendedVisitContext extends ExtendedVisitContext {
-
     protected static interface ClientIdVisitor {
+        void visitSubtreeId(String baseId, String clientId);
 
-        public abstract void visitSubtreeId(String baseId, String clientId);
+        void visitDirectSubtreeId(String baseId, String shortId);
 
-        public abstract void visitDirectSubtreeId(String baseId, String shortId);
-
-        public abstract void visitShortId(String shortId);
-
+        void visitShortId(String shortId);
     }
 
     protected final ClientIdVisitor addNodeVisitor = new ClientIdVisitor() {
-
         public void visitSubtreeId(String baseId, String clientId) {
             subtreeIds.put(baseId, clientId);
         }
@@ -75,15 +72,13 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
             shortIds.add(shortId);
         }
     };
-
     protected final ClientIdVisitor removeNodeVisitor = new ClientIdVisitor() {
-        
         public void visitSubtreeId(String baseId, String clientId) {
             subtreeIds.remove(baseId, clientId);
         }
 
         public void visitShortId(String shortId) {
-            //do nothing
+            // do nothing
         }
 
         public void visitDirectSubtreeId(String baseId, String shortId) {
@@ -92,7 +87,6 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
     };
 
     private final class CollectionProxy extends AbstractCollection<String> {
-
         private CollectionProxy() {
         }
 
@@ -116,6 +110,7 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
             return addNode(o);
         }
     }
+
     // Little proxy collection implementation. We proxy the id
     // collection so that we can detect modifications and update
     // our internal state when ids to visit are added or removed.
@@ -123,9 +118,7 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
     // Little proxy iterator implementation used by CollectionProxy
     // so that we can catch removes.
     private final class IteratorProxy implements Iterator<String> {
-
         private Iterator<String> wrapped;
-
         private String current = null;
 
         private IteratorProxy(Iterator<String> wrapped) {
@@ -155,29 +148,20 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
 
     // The client ids to visit
     private Collection<String> clientIds;
-
     private Collection<String> shortIds;
-
     private SetMultimap<String, String> subtreeIds;
-
     private ListMultimap<String, String> directSubtreeIds;
-
     // Our visit hints
     private Set<VisitHint> hints;
-
     private CollectionProxy proxiedClientIds;
 
     /**
      * Creates a PartialVisitorContext instance with the specified hints.
      *
-     * @param facesContext
-     *            the FacesContext for the current request
-     * @param clientIds
-     *            the client ids of the components to visit
-     * @param hints
-     *            a the VisitHints for this visit
-     * @throws NullPointerException
-     *             if {@code facesContext} is {@code null}
+     * @param facesContext the FacesContext for the current request
+     * @param clientIds the client ids of the components to visit
+     * @param hints a the VisitHints for this visit
+     * @throws NullPointerException if {@code facesContext} is {@code null}
      */
     public BaseExtendedVisitContext(FacesContext facesContext, Collection<String> clientIds, Set<VisitHint> hints,
         ExtendedVisitContextMode contextMode) {
@@ -188,23 +172,23 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
         initializeCollections(clientIds);
 
         // Copy and store hints - ensure unmodifiable and non-empty
-        EnumSet<VisitHint> hintsEnumSet = ((hints == null) || (hints.isEmpty())) ? EnumSet.noneOf(VisitHint.class)
-            : EnumSet.copyOf(hints);
+        EnumSet<VisitHint> hintsEnumSet = ((hints == null) || (hints.isEmpty())) ? EnumSet.noneOf(VisitHint.class) : EnumSet
+            .copyOf(hints);
 
         this.hints = Collections.unmodifiableSet(hintsEnumSet);
     }
 
     protected void visitClientId(String clientId, ClientIdVisitor visitor) {
         IdSplitIterator splitIterator = new IdSplitIterator(clientId);
-        
+
         boolean isFirstIteration = true;
-        
+
         while (splitIterator.hasNext()) {
             String shortId = splitIterator.next();
             String subtreeId = splitIterator.getSubtreeId();
 
             int metaSepIdx = shortId.indexOf(META_COMPONENT_SEPARATOR_CHAR);
-            
+
             if (subtreeId != null) {
                 visitor.visitSubtreeId(subtreeId, clientId);
                 visitor.visitDirectSubtreeId(subtreeId, shortId);
@@ -212,26 +196,26 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
 
             if (metaSepIdx >= 0) {
                 String componentId = shortId.substring(0, metaSepIdx);
-                
+
                 String extraBaseId = SEPARATOR_CHAR_JOINER.join(subtreeId, componentId);
                 visitor.visitDirectSubtreeId(extraBaseId, shortId);
                 visitor.visitSubtreeId(extraBaseId, clientId);
             }
-            
+
             if (isFirstIteration) {
                 isFirstIteration = false;
                 visitor.visitShortId(shortId);
             }
         }
     }
-    
+
     private boolean addNode(String clientId) {
         if (clientIds.add(clientId)) {
             visitClientId(clientId, addNodeVisitor);
 
             return true;
         }
-        
+
         return false;
     }
 
@@ -288,7 +272,7 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
         if (!ids.isEmpty()) {
             result = Collections.unmodifiableCollection(ids);
         } else {
-            //returned collection should be non-modifiable
+            // returned collection should be non-modifiable
             result = Collections.emptySet();
         }
 
@@ -298,7 +282,7 @@ public class BaseExtendedVisitContext extends ExtendedVisitContext {
     protected void addDirectSubtreeIdsToVisitForImplicitComponents(UIComponent component, Set<String> result) {
     }
 
-    public Collection<String>getDirectSubtreeIdsToVisit(UIComponent component) {
+    public Collection<String> getDirectSubtreeIdsToVisit(UIComponent component) {
         // Make sure component is a NamingContainer
         if (!(component instanceof NamingContainer)) {
             throw new IllegalArgumentException("Component is not a NamingContainer: " + component);

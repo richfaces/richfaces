@@ -60,38 +60,26 @@ import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
  * @since 4.0
  */
 public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
-
     private static final Logger LOG = RichfacesLogger.CONTEXT.getLogger();
-
     private static final String ORIGINAL_WRITER = "org.richfaces.PartialViewContextImpl.ORIGINAL_WRITER";
 
     private enum ContextMode {
-        WRAPPED, DIRECT
+        WRAPPED,
+        DIRECT
     }
 
     private ContextMode contextMode = null;
-
     private Collection<String> executeIds = null;
-
     private Collection<String> renderIds = null;
-
     private Collection<String> componentRenderIds = null;
-    
     private Boolean renderAll = null;
-
     private String activatorComponentId = null;
     private String behaviorEvent = null;
-
     private boolean released = false;
-
     private boolean limitRender = false;
-
     private PartialViewContext wrappedViewContext;
-
     private String onbeforedomupdate;
-
     private String oncomplete;
-
     private Object responseData;
 
     public ExtendedPartialViewContextImpl(PartialViewContext wrappedViewContext, FacesContext facesContext) {
@@ -195,10 +183,10 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
     }
 
     private boolean isProcessedExecutePhase(PhaseId phaseId) {
-        return phaseId == PhaseId.APPLY_REQUEST_VALUES || phaseId == PhaseId.PROCESS_VALIDATIONS 
+        return phaseId == PhaseId.APPLY_REQUEST_VALUES || phaseId == PhaseId.PROCESS_VALIDATIONS
             || phaseId == PhaseId.UPDATE_MODEL_VALUES;
-    } 
-    
+    }
+
     @Override
     public void processPartial(PhaseId phaseId) {
         if (detectContextMode() == ContextMode.DIRECT) {
@@ -215,13 +203,13 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
     protected void processPartialExecutePhase(PhaseId phaseId) {
         FacesContext facesContext = getFacesContext();
         PartialViewContext pvc = facesContext.getPartialViewContext();
-        Collection <String> executeIds = pvc.getExecuteIds();
-        
+        Collection<String> executeIds = pvc.getExecuteIds();
+
         if (executeIds == null || executeIds.isEmpty()) {
-            //TODO - review
-            //if (phaseId == PhaseId.APPLY_REQUEST_VALUES) {
-            //    LOG.warn("Partial execute won't happen - executeIds were not specified");
-            //}
+            // TODO - review
+            // if (phaseId == PhaseId.APPLY_REQUEST_VALUES) {
+            // LOG.warn("Partial execute won't happen - executeIds were not specified");
+            // }
             return;
         }
 
@@ -232,15 +220,15 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
         }
 
         if (phaseId == PhaseId.APPLY_REQUEST_VALUES) {
-            //fix for MyFaces
+            // fix for MyFaces
             ExternalContext externalContext = facesContext.getExternalContext();
             externalContext.setResponseCharacterEncoding(externalContext.getRequestCharacterEncoding());
-            
+
             PartialResponseWriter writer = pvc.getPartialResponseWriter();
             facesContext.setResponseWriter(writer);
         }
     }
-    
+
     protected void executeComponents(PhaseId phaseId, Collection<String> executeIds) {
         FacesContext facesContext = getFacesContext();
         EnumSet<VisitHint> hints = EnumSet.of(VisitHint.SKIP_UNRENDERED);
@@ -248,7 +236,7 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
         PartialViewExecuteVisitCallback callback = new PartialViewExecuteVisitCallback(facesContext, phaseId);
         facesContext.getViewRoot().visitTree(visitContext, callback);
     }
-    
+
     protected void processPartialRenderPhase() {
         FacesContext facesContext = getFacesContext();
         PartialViewContext pvc = facesContext.getPartialViewContext();
@@ -275,8 +263,8 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
 
             // Skip this processing if "none" is specified in the render list,
             // or there were no render phase client ids.
-            if ((phaseIds != null && !phaseIds.isEmpty()) ||
-                (!limitRender && PartialViewContextAjaxOutputTracker.hasNestedAjaxOutputs(viewRoot))) {
+            if ((phaseIds != null && !phaseIds.isEmpty())
+                || (!limitRender && PartialViewContextAjaxOutputTracker.hasNestedAjaxOutputs(viewRoot))) {
 
                 EnumSet<VisitHint> hints = EnumSet.of(VisitHint.SKIP_UNRENDERED);
                 VisitContext visitContext = new RenderExtendedVisitContext(facesContext, phaseIds, hints, limitRender);
@@ -286,16 +274,16 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
 
             renderState(facesContext);
 
-            //TODO - render extensions for renderAll?
+            // TODO - render extensions for renderAll?
             renderExtensions(facesContext, viewRoot);
 
             writer.endDocument();
         } catch (IOException ex) {
             this.cleanupAfterView();
-            //TODO - review?
+            // TODO - review?
             ex.printStackTrace();
         } catch (RuntimeException ex) {
-            //TODO - review?
+            // TODO - review?
             this.cleanupAfterView();
             // Throw the exception
             throw ex;
@@ -307,7 +295,7 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
 
         setupRenderCallbackData(callback);
     }
-    
+
     private void setupRenderCallbackData(RenderComponentCallback callback) {
         componentRenderIds = callback.getRenderIds();
         onbeforedomupdate = callback.getOnbeforedomupdate();
@@ -315,19 +303,19 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
         responseData = callback.getData();
         limitRender = callback.isLimitRender();
     }
-    
+
     private void visitActivatorAtExecute() {
         ExecuteComponentCallback callback = new ExecuteComponentCallback(getFacesContext(), behaviorEvent);
 
         if (visitActivatorComponent(activatorComponentId, callback, EnumSet.of(VisitHint.SKIP_UNRENDERED))) {
             setupExecuteCallbackData(callback);
-            
+
             if (!executeIds.contains(ALL)) {
                 addImplicitExecuteIds(executeIds);
             }
         } else {
-            //TODO - log or exception?
-            //TODO - process default execute value
+            // TODO - log or exception?
+            // TODO - process default execute value
         }
     }
 
@@ -338,17 +326,17 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
             if (visitActivatorComponent(activatorComponentId, callback, EnumSet.noneOf(VisitHint.class))) {
                 setupRenderCallbackData(callback);
             } else {
-                //TODO - the same as for "execute"
+                // TODO - the same as for "execute"
             }
 
-            //take collection value stored during execute
+            // take collection value stored during execute
             if (componentRenderIds != null) {
                 ids.addAll(componentRenderIds);
             }
 
             if (!Boolean.TRUE.equals(renderAll) && !ids.contains(ALL)) {
                 addImplicitRenderIds(ids, limitRender);
-        
+
                 appendOnbeforedomupdate(onbeforedomupdate);
                 appendOncomplete(oncomplete);
                 setResponseData(responseData);
@@ -359,7 +347,7 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
     private void renderAll(FacesContext context, UIViewRoot viewRoot) throws IOException {
         // If this is a "render all via ajax" request,
         // make sure to wrap the entire page in a <render> elemnt
-        // with the special id of VIEW_ROOT_ID.  This is how the client
+        // with the special id of VIEW_ROOT_ID. This is how the client
         // JavaScript knows how to replace the entire document with
         // this response.
         PartialViewContext pvc = context.getPartialViewContext();
@@ -392,7 +380,7 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
         super.release();
 
         assertNotReleased();
-        
+
         released = true;
 
         wrappedViewContext.release();
@@ -414,9 +402,9 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
             UIViewRoot root = getFacesContext().getViewRoot();
             if (root.getFacetCount() > 0) {
                 if (root.getFacet(UIViewRoot.METADATA_FACET_NAME) != null) {
-                    //TODO nick - does ordering matter?
+                    // TODO nick - does ordering matter?
                     ids.add(UIViewRoot.METADATA_FACET_NAME);
-                    //ids.add(0, UIViewRoot.METADATA_FACET_NAME);
+                    // ids.add(0, UIViewRoot.METADATA_FACET_NAME);
                 }
             }
         }
@@ -426,7 +414,7 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
     }
 
     protected void renderExtensions(FacesContext context, UIComponent component) throws IOException {
-        // ADD deffered scripts 
+        // ADD deffered scripts
         ScriptsHolder scriptsHolder = ServiceTracker.getService(JavaScriptService.class).getScriptsHolder(context);
         for (Object script : scriptsHolder.getScripts()) {
             appendOncomplete(ScriptUtils.toScript(script));
@@ -445,7 +433,7 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
 
     private boolean visitActivatorComponent(String componentActivatorId, VisitCallback visitCallback, Set<VisitHint> visitHints) {
         FacesContext facesContext = getFacesContext();
-        
+
         Set<String> idsToVisit = Collections.singleton(componentActivatorId);
         VisitContext visitContext = new ExecuteExtendedVisitContext(facesContext, idsToVisit, visitHints);
 
@@ -479,7 +467,6 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
     }
 
     private static final class RenderVisitCallback implements VisitCallback {
-
         private FacesContext ctx;
 
         private RenderVisitCallback(FacesContext ctx) {
@@ -492,8 +479,11 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
             }
         }
 
-        /* (non-Javadoc)
-         * @see javax.faces.component.visit.VisitCallback#visit(javax.faces.component.visit.VisitContext, javax.faces.component.UIComponent)
+        /*
+         * (non-Javadoc)
+         *
+         * @see javax.faces.component.visit.VisitCallback#visit(javax.faces.component.visit.VisitContext,
+         * javax.faces.component.UIComponent)
          */
         public VisitResult visit(VisitContext context, UIComponent target) {
             String metaComponentId = (String) ctx.getAttributes().get(ExtendedVisitContext.META_COMPONENT_ID);
@@ -521,10 +511,10 @@ public class ExtendedPartialViewContextImpl extends ExtendedPartialViewContext {
                     logException(e);
                 }
             }
-            
+
             // Once we visit a component, there is no need to visit
             // its children, since processDecodes/Validators/Updates and
-            // encodeAll() already traverse the subtree.  We return
+            // encodeAll() already traverse the subtree. We return
             // VisitResult.REJECT to supress the subtree visit.
             return VisitResult.REJECT;
         }

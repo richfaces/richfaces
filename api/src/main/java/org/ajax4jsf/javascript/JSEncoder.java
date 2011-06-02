@@ -18,17 +18,12 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.javascript;
 
 /**
- * @author shura
- * Encode chars as JavaScript sequences
+ * @author shura Encode chars as JavaScript sequences
  */
 public class JSEncoder {
-
     // private char APOSTROPHE[] = { '\\', '\'' };
     private static final char[] ENCODE_HEX = "0123456789ABCDEF".toCharArray();
     private static final char[] ENCODE_QUOT = "\\\"".toCharArray();
@@ -45,11 +40,11 @@ public class JSEncoder {
     /**
      * Create a new instance of this <code>XMLEncoder</code>.
      */
-    public JSEncoder() {}
+    public JSEncoder() {
+    }
 
     /**
-     * Return true or false whether this encoding/format can encode the specified
-     * character or not.
+     * Return true or false whether this encoding/format can encode the specified character or not.
      * <p>
      * This method will return true for the following character range: <br />
      * <code>
@@ -61,21 +56,14 @@ public class JSEncoder {
      * @see <a href="http://json.org/">JSON.org</a>
      */
     public boolean compile(char c) {
-        if ((c == '\b') ||
-                (c == '\f') |
-                    (c == '\t') ||
-                        (c == '\n') ||
-                            (c == '\r') ||
-                                (c == '"') ||
-                                    (c == '\\') ||
-                                        (c == '/') ||
-                                            (c == ']') || // ] - to avoid conflicts in CDATA
-                                            (c == '<') || // - escape HTML markup characters
-                                            (c == '>') || // - HTML
-                                            (c == '&') || // - HTML
-                                            (c == '-') || // - HTML comments
-                                            (c < 0x20) || // See <http://www.w3.org/TR/REC-xml#charsets>
-                                            ((c > 0xd7ff) && (c < 0xe000)) || (c > 0xfffd) || (c > 0xff)) {
+        if ((c == '\b') || (c == '\f') | (c == '\t') || (c == '\n') || (c == '\r') || (c == '"') || (c == '\\') || (c == '/')
+            || (c == ']') || // ] - to avoid conflicts in CDATA
+            (c == '<') || // - escape HTML markup characters
+            (c == '>') || // - HTML
+            (c == '&') || // - HTML
+            (c == '-') || // - HTML comments
+            (c < 0x20) || // See <http://www.w3.org/TR/REC-xml#charsets>
+            ((c > 0xd7ff) && (c < 0xe000)) || (c > 0xfffd) || (c > 0xff)) {
             return false;
         }
 
@@ -83,40 +71,37 @@ public class JSEncoder {
     }
 
     /**
-     * Return an array of characters representing the encoding for the specified
-     * character.
+     * Return an array of characters representing the encoding for the specified character.
      */
     public char[] encode(char c) {
         switch (c) {
-            case '\b' :
+            case '\b':
                 return ENCODE_BC;
-                
-            case '\f' :
+
+            case '\f':
                 return ENCODE_FF;
 
-            case '\t' :
+            case '\t':
                 return ENCODE_TAB;
 
-            case '\n' :
+            case '\n':
                 return ENCODE_LF;
 
-            case '\r' :
+            case '\r':
                 return ENCODE_CR;
 
-            case '"' :
+            case '"':
                 return ENCODE_QUOT;
 
-            case '\\' :
+            case '\\':
                 return ENCODE_BS;
 
-            case '/' :
+            case '/':
                 return ENCODE_FS;
-                
-            default : {
-                char[] ret = {
-                    '\\', 'u', ENCODE_HEX[c >> 0xc & 0xf], ENCODE_HEX[c >> 0x8 & 0xf], ENCODE_HEX[c >> 0x4 & 0xf],
-                    ENCODE_HEX[c & 0xf]
-                };
+
+            default: {
+                char[] ret = { '\\', 'u', ENCODE_HEX[c >> 0xc & 0xf], ENCODE_HEX[c >> 0x8 & 0xf], ENCODE_HEX[c >> 0x4 & 0xf],
+                        ENCODE_HEX[c & 0xf] };
 
                 return ret;
             }

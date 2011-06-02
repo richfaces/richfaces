@@ -1,26 +1,31 @@
 @charset "iso-8859-1";
+
 body2 {
-	padding: 10px !important;
-	border: 1px solid green;
-	background-image: url(image.png);
+    padding: 10px !important;
+    border: 1px solid green;
+    background-image: url(image.png);
 }
 
 @font-face {
-	font-family: Scarborough Light;
-	src: url(http://www.font.site/s/scarbo-lt);
+    font-family: Scarborough Light;
+    src: url(http://www.font.site/s/scarbo-lt);
 }
+
 @page :right {
-	margin-left: 3cm;
-	margin-right: 4cm;
+    margin-left: 3cm;
+    margin-right: 4cm;
 }
-@media screen, print {
+
+@media screen , print {
+    body {
+        line-height: 3;
+    }
+}
+
 body {
-	line-height: 3;
-}
-}
-body {
-	padding: 10px !important;
-	border: 1px solid green;
-	background-image: url(image.png);
-	background: red url(/rfRes/org.richfaces.renderkit.html.images.ButtonBackgroundImage.jsf?db=eAFjZGBkZOBm!P-f8f!bV88Y!185f5yBCQBPWAk3);
+    padding: 10px !important;
+    border: 1px solid green;
+    background-image: url(image.png);
+    background: red
+        url(/rfRes/org.richfaces.renderkit.html.images.ButtonBackgroundImage.jsf?db=eAFjZGBkZOBm!P-f8f!bV88Y!185f5yBCQBPWAk3);
 }

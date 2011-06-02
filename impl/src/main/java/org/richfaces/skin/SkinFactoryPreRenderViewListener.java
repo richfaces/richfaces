@@ -28,10 +28,9 @@ import javax.faces.event.SystemEventListener;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class SkinFactoryPreRenderViewListener implements SystemEventListener {
-
     public void processEvent(SystemEvent event) throws AbortProcessingException {
         SkinFactoryImpl.clearSkinCaches(FacesContext.getCurrentInstance());
     }
@@ -39,5 +38,4 @@ public class SkinFactoryPreRenderViewListener implements SystemEventListener {
     public boolean isListenerForSource(Object source) {
         return true;
     }
-
 }

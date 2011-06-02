@@ -50,14 +50,11 @@ import com.steadystate.css.parser.CSSOMParser;
  * @author amarkhel Class, that represented dynamic CSS resource.
  */
 public class CompiledCSSResource extends AbstractCacheableResource implements StateHolderResource {
-
     private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
-
     private static final String NULL_STYLESHEET = "Parsed stylesheet for ''{0}'':''{1}'' resource is null.";
-
-    //TODO handle sourceResources headers, etc.
+    // TODO handle sourceResources headers, etc.
     private Resource sourceResource;
-    
+
     public CompiledCSSResource(Resource sourceResource) {
         assert sourceResource != null;
 
@@ -73,7 +70,7 @@ public class CompiledCSSResource extends AbstractCacheableResource implements St
     public void setLibraryName(String libraryName) {
         sourceResource.setLibraryName(libraryName);
     }
-    
+
     @Override
     public String getResourceName() {
         return sourceResource.getResourceName();
@@ -83,7 +80,7 @@ public class CompiledCSSResource extends AbstractCacheableResource implements St
     public void setResourceName(String resourceName) {
         sourceResource.setResourceName(resourceName);
     }
-    
+
     public InputStream getResourceInputStream() throws IOException {
         return sourceResource.getInputStream();
     }
@@ -158,12 +155,9 @@ public class CompiledCSSResource extends AbstractCacheableResource implements St
     }
 
     private static final class ErrorHandlerImpl implements ErrorHandler {
-
         // TODO nick - sort out logging between stages
         private boolean productionStage;
-
         private Resource resource;
-
         private String resourceLocator;
 
         public ErrorHandlerImpl(Resource resource, boolean productionStage) {
@@ -188,8 +182,8 @@ public class CompiledCSSResource extends AbstractCacheableResource implements St
         }
 
         private void logException(CSSParseException e) {
-            String formattedMessage = MessageFormat.format("Problem parsing ''{0}'' resource: {1}",
-                getResourceLocator(), e.getMessage());
+            String formattedMessage = MessageFormat.format("Problem parsing ''{0}'' resource: {1}", getResourceLocator(),
+                e.getMessage());
 
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug(formattedMessage, e);
@@ -209,7 +203,6 @@ public class CompiledCSSResource extends AbstractCacheableResource implements St
         public void warning(CSSParseException e) throws CSSException {
             logException(e);
         }
-
     }
 
     public boolean isTransient() {
@@ -217,7 +210,7 @@ public class CompiledCSSResource extends AbstractCacheableResource implements St
     }
 
     public void readState(FacesContext context, DataInput dataInput) throws IOException {
-        //do nothing
+        // do nothing
     }
 
     public void writeState(FacesContext context, DataOutput dataOutput) throws IOException {

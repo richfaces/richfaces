@@ -1,6 +1,6 @@
 body {
-	padding: 10px !important;
-	border: 1px solid green;
-	background-image: url(image.png);
-	color: "#{richSkin.generalLinkColor}"
+    padding: 10px !important;
+    border: 1px solid green;
+    background-image: url(image.png);
+    color: "#{richSkin.generalLinkColor}"
 }

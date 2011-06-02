@@ -40,25 +40,20 @@ import javax.faces.context.FacesContext;
 import com.google.common.base.Function;
 import com.google.common.collect.MapMaker;
 
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class GenericsIntrospectionServiceImpl implements GenericsIntrospectionService {
-
     private static final class GenericsCacheEntry {
-
         private Class<?> beanClass;
-
-        private Map<String, Class<?>> containerClassesMap = new MapMaker().initialCapacity(2).makeComputingMap(new Function<String, Class<?>>() {
-
-            public Class<?> apply(String input) {
-                PropertyDescriptor propertyDescriptor = getPropertyDescriptor(input);
-                return getGenericContainerClass(propertyDescriptor);
-            }
-
-        });
+        private Map<String, Class<?>> containerClassesMap = new MapMaker().initialCapacity(2).makeComputingMap(
+            new Function<String, Class<?>>() {
+                public Class<?> apply(String input) {
+                    PropertyDescriptor propertyDescriptor = getPropertyDescriptor(input);
+                    return getGenericContainerClass(propertyDescriptor);
+                }
+            });
 
         public GenericsCacheEntry(Class<?> beanClass) {
             this.beanClass = beanClass;
@@ -123,14 +118,16 @@ public class GenericsIntrospectionServiceImpl implements GenericsIntrospectionSe
         public Class<?> getContainerClass(String propertyName) {
             return containerClassesMap.get(propertyName);
         }
-
     }
 
-    private final Map<Class<?>, GenericsCacheEntry> cache = new MapMaker().weakKeys().softValues().makeComputingMap(new Function<Class<?>, GenericsCacheEntry>() {
-        public GenericsCacheEntry apply(java.lang.Class<?> input) {
-            return new GenericsCacheEntry(input);
-        };
-    });
+    private final Map<Class<?>, GenericsCacheEntry> cache = new MapMaker().weakKeys().softValues()
+        .makeComputingMap(new Function<Class<?>, GenericsCacheEntry>() {
+            public GenericsCacheEntry apply(java.lang.Class<?> input) {
+                return new GenericsCacheEntry(input);
+            }
+
+            ;
+        });
 
     private Class<?> getGenericCollectionType(FacesContext context, Object base, String propertyName) {
         Class<?> genericPropertyClass = null;
@@ -166,5 +163,4 @@ public class GenericsIntrospectionServiceImpl implements GenericsIntrospectionSe
 
         return containerType;
     }
-
 }

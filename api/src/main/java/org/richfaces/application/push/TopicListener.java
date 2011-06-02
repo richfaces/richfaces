@@ -25,8 +25,7 @@ import java.util.EventListener;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface TopicListener extends EventListener {
-
 }

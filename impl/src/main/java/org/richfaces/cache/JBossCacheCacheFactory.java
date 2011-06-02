@@ -33,9 +33,7 @@ import org.richfaces.log.RichfacesLogger;
  * @since 4.0
  */
 public class JBossCacheCacheFactory implements CacheFactory {
-
     private static final Logger LOG = RichfacesLogger.CACHE.getLogger();
-
     private org.jboss.cache.CacheFactory<String, Object> cacheFactory;
 
     public JBossCacheCacheFactory() {
@@ -45,9 +43,9 @@ public class JBossCacheCacheFactory implements CacheFactory {
 
     private void setupMaxSizeEviction(FacesContext facesContext, Cache<String, Object> cache) {
         EvictionConfig evictionConfig = cache.getConfiguration().getEvictionConfig();
-        EvictionAlgorithmConfig evictionAlgorithmConfig = evictionConfig.getDefaultEvictionRegionConfig().
-            getEvictionAlgorithmConfig();
-        
+        EvictionAlgorithmConfig evictionAlgorithmConfig = evictionConfig.getDefaultEvictionRegionConfig()
+            .getEvictionAlgorithmConfig();
+
         if (evictionAlgorithmConfig instanceof EvictionAlgorithmConfigBase) {
             EvictionAlgorithmConfigBase baseEvicitonConfig = (EvictionAlgorithmConfigBase) evictionAlgorithmConfig;
             if (baseEvicitonConfig.getMaxNodes() <= 0) {
@@ -57,9 +55,9 @@ public class JBossCacheCacheFactory implements CacheFactory {
             }
         }
     }
-    
+
     public org.richfaces.cache.Cache createCache(FacesContext facesContext, String cacheName, Map<?, ?> env) {
-        //TODO - handle cache name
+        // TODO - handle cache name
         ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
         Cache<String, Object> cache = null;
         URL cacheConfigurationURL = null;
@@ -92,7 +90,7 @@ public class JBossCacheCacheFactory implements CacheFactory {
             ExpirationAlgorithmConfig expirationAlgorithm = new ExpirationAlgorithmConfig();
             int maxCacheSize = getIntConfigurationValue(facesContext, CoreConfiguration.Items.resourcesCacheSize);
             expirationAlgorithm.setMaxNodes(maxCacheSize);
-            
+
             evictionRegionConfig.setEvictionAlgorithmConfig(expirationAlgorithm);
 
             EvictionConfig evictionConfig = new EvictionConfig(evictionRegionConfig);
@@ -101,10 +99,10 @@ public class JBossCacheCacheFactory implements CacheFactory {
             configuration.setEvictionConfig(evictionConfig);
             cache = cacheFactory.createCache(configuration);
         }
-        
+
         return new JBossCacheCache(cache);
     }
-    
+
     public void destroy() {
         cacheFactory = null;
     }

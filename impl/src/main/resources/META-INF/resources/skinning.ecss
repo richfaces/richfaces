@@ -1,83 +1,82 @@
 /* basic skinning styles */
+input,select,textarea,button,keygen,isindex,legend,a {
+    font-size: '#{richSkin.generalSizeFont}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    color: '#{richSkin.controlTextColor}';
+}
 
-input, select, textarea, button, keygen, isindex, legend, a {
-	font-size : '#{richSkin.generalSizeFont}';
-	font-family : '#{richSkin.generalFamilyFont}';
-	color : '#{richSkin.controlTextColor}';
-}
 fieldset {
-	border-width: 1px; 
-	border-style: solid;
-	padding: 10px;
-	border-color : '#{richSkin.panelBorderColor}';
+    border-width: 1px;
+    border-style: solid;
+    padding: 10px;
+    border-color: '#{richSkin.panelBorderColor}';
 }
+
 hr {
-	border-width: 1px; 
-	border-style: solid;
-	border-color : '#{richSkin.panelBorderColor}';
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{richSkin.panelBorderColor}';
 }
+
 a {
-	color : '#{richSkin.generalLinkColor}';
+    color: '#{richSkin.generalLinkColor}';
 }
+
 a:hover {
-	color : '#{richSkin.hoverLinkColor}';
+    color: '#{richSkin.hoverLinkColor}';
 }
+
 a:visited {
-	color : '#{richSkin.visitedLinkColor}';
+    color: '#{richSkin.visitedLinkColor}';
 }
 
 /* extended skinning styles */
-
-input, select, textarea, button, keygen, isindex {
-	border-width: 1px;
-	border-color: '#{richSkin.panelBorderColor}';
-	color: '#{richSkin.controlTextColor}';
+input,select,textarea,button,keygen,isindex {
+    border-width: 1px;
+    border-color: '#{richSkin.panelBorderColor}';
+    color: '#{richSkin.controlTextColor}';
 }
 
-button, input[type="reset"], input[type="submit"], input[type="button"] {
-	border-width: 1px;
-	border-color: '#{richSkin.panelBorderColor}';
-	
-	font-size: '#{richSkin.generalSizeFont}';
-	font-family: '#{richSkin.generalFamilyFont}';
-	color: '#{richSkin.headerTextColor}';
-	
-	background-repeat: repeat-x;
-	background-position: top left;
-	background-color: '#{richSkin.headerBackgroundColor}';
-	background-image: "url(#{resource['org.richfaces.images:buttonBackgroundImage.png']})";
+button,input[type="reset"],input[type="submit"],input[type="button"] {
+    border-width: 1px;
+    border-color: '#{richSkin.panelBorderColor}';
+    font-size: '#{richSkin.generalSizeFont}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    color: '#{richSkin.headerTextColor}';
+    background-repeat: repeat-x;
+    background-position: top left;
+    background-color: '#{richSkin.headerBackgroundColor}';
+    background-image: "url(#{resource['org.richfaces.images:buttonBackgroundImage.png']})";
 }
 
-button:hover, input[type="reset"]:hover, input[type="submit"]:hover, input[type="button"]:hover {
+button:hover,input[type="reset"]:hover,input[type="submit"]:hover,input[type="button"]:hover {
     background-position: bottom left;
     background-repeat: repeat-x;
-	background-image: "url(#{resource['org.richfaces.images:buttonHoverBackgroundImage.png']})";
+    background-image: "url(#{resource['org.richfaces.images:buttonHoverBackgroundImage.png']})";
 }
 
-button[disabled], input[type="reset"][disabled], input[type="submit"][disabled], input[type="button"][disabled] {
-	color: '#{richSkin.tabDisabledTextColor}';
-	border-color: '#{richSkin.tableFooterBackgroundColor}';
-	background-color: '#{richSkin.tableFooterBackgroundColor}';
-	background-image: "url(#{resource['org.richfaces.images:buttonDisabledBackgroundImage.png']})";
-	background-position: top left;
+button[disabled],input[type="reset"][disabled],input[type="submit"][disabled],input[type="button"][disabled] {
+    color: '#{richSkin.tabDisabledTextColor}';
+    border-color: '#{richSkin.tableFooterBackgroundColor}';
+    background-color: '#{richSkin.tableFooterBackgroundColor}';
+    background-image: "url(#{resource['org.richfaces.images:buttonDisabledBackgroundImage.png']})";
+    background-position: top left;
 }
 
-textarea, input[type="text"], input[type="password"], select {
-	border-width: 1px;
-	border-style: solid;
-	border-color: '#{richSkin.panelBorderColor}';
-	
-	font-size: '#{richSkin.generalSizeFont}';
-	font-family: '#{richSkin.generalFamilyFont}';
-	color: '#{richSkin.controlTextColor}';
-
-	background-repeat: no-repeat;
-	background-position: 1px 1px;
-	background-color: '#{richSkin.controlBackgroundColor}';
-	background-image: "url(#{resource['org.richfaces.images:inputBackgroundImage.png']})";
+textarea,input[type="text"],input[type="password"],select {
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{richSkin.panelBorderColor}';
+    font-size: '#{richSkin.generalSizeFont}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    color: '#{richSkin.controlTextColor}';
+    background-repeat: no-repeat;
+    background-position: 1px 1px;
+    background-color: '#{richSkin.controlBackgroundColor}';
+    background-image: "url(#{resource['org.richfaces.images:inputBackgroundImage.png']})";
 }
 
-textarea[disabled], input[type="text"][disabled], input[type="password"][disabled], select[disabled] {
-	color: '#{richSkin.panelBorderColor}';
-	cursor:default;
+textarea[disabled],input[type="text"][disabled],input[type="password"][disabled],select[disabled] {
+    color: '#{richSkin.panelBorderColor}';
+    cursor: default;
 }

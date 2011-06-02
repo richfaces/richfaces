@@ -49,31 +49,23 @@ import com.google.common.collect.MapMaker;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class JMSTopicsContextImpl extends TopicsContextImpl {
-
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
-    
-    private class JMSTopicContext {
 
+    private class JMSTopicContext {
         /**
-         * 
+         *
          */
         private static final String SUBTOPIC_PROPERTY = "rf_push_subtopic";
-
         private static final String SERIALIZED_DATA_INDICATOR = "org_richfaces_push_SerializedData";
-        
         private final String name;
-
         private Connection connection;
-        
         private Session session;
-        
         private Thread pollingThread;
-        
         private MessageConsumer consumer;
-        
+
         public JMSTopicContext(String name) {
             super();
 
@@ -85,7 +77,7 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
 
             return (Topic) initialContext.lookup(topicName);
         }
-        
+
         private Connection createConnection() throws JMSException, NamingException {
             ConnectionFactory connectionFactory = (ConnectionFactory) initialContext.lookup(connectionFactoryName);
             Connection connection = connectionFactory.createConnection(username, password);
@@ -95,12 +87,12 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
 
         private Object getMessageData(Message message) throws JMSException {
             Object messageData = null;
-            
+
             if (message instanceof ObjectMessage) {
                 messageData = ((ObjectMessage) message).getObject();
             } else if (message instanceof TextMessage) {
                 TextMessage textMessage = (TextMessage) message;
-                
+
                 if (message.getBooleanProperty(SERIALIZED_DATA_INDICATOR)) {
                     messageData = new JSLiteral(textMessage.getText());
                 } else {
@@ -115,9 +107,8 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
             connection = createConnection();
             session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
             consumer = session.createConsumer(lookupTopic(), null, false);
-            
+
             pollingThread = getThreadFactory().newThread(new Runnable() {
-             
                 public void run() {
                     try {
                         while (true) {
@@ -145,10 +136,10 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
                     }
                 }
             });
-            
+
             pollingThread.start();
         }
-        
+
         public synchronized void stop() {
             if (consumer != null) {
                 try {
@@ -158,7 +149,7 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
                     LOGGER.error(e.getMessage(), e);
                 }
             }
-            
+
             if (session != null) {
                 try {
                     session.close();
@@ -167,7 +158,7 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
                     LOGGER.error(e.getMessage(), e);
                 }
             }
-            
+
             if (connection != null) {
                 try {
                     connection.close();
@@ -177,39 +168,32 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
                 }
             }
         }
-        
     }
 
     private final InitialContext initialContext;
-
     private final Name connectionFactoryName;
-
     private final Name topicsNamespace;
-
     private final String username;
-
     private final String password;
-
-    private final ConcurrentMap<String, JMSTopicContext> contextsMap = new MapMaker().makeComputingMap(new Function<String, JMSTopicContext> () {
-
-        public JMSTopicContext apply(String name) {
-            JMSTopicContext topicContext = new JMSTopicContext(name);
-            try {
-                topicContext.start();
-            } catch (Exception e) {
+    private final ConcurrentMap<String, JMSTopicContext> contextsMap = new MapMaker()
+        .makeComputingMap(new Function<String, JMSTopicContext>() {
+            public JMSTopicContext apply(String name) {
+                JMSTopicContext topicContext = new JMSTopicContext(name);
                 try {
-                    topicContext.stop();
-                } catch (Exception e1) {
-                    LOGGER.error(e1.getMessage(), e1);
+                    topicContext.start();
+                } catch (Exception e) {
+                    try {
+                        topicContext.stop();
+                    } catch (Exception e1) {
+                        LOGGER.error(e1.getMessage(), e1);
+                    }
+
+                    throw new FacesException(e.getMessage(), e);
                 }
-                
-                throw new FacesException(e.getMessage(), e);
+                return topicContext;
             }
-            return topicContext;
-        }
-        
-    });
-    
+        });
+
     public JMSTopicsContextImpl(ThreadFactory threadFactory, InitialContext initialContext, Name connectionFactoryName,
         Name topicsNamespace, String username, String password) {
         super(threadFactory);
@@ -231,19 +215,17 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
         contextsMap.get(key.getTopicName());
         return topic;
     }
-    
+
     @Override
     public void destroy() {
-        for (JMSTopicContext topicContext: contextsMap.values()) {
+        for (JMSTopicContext topicContext : contextsMap.values()) {
             try {
                 topicContext.stop();
             } catch (Exception e) {
                 LOGGER.error(e.getMessage(), e);
             }
         }
-        
+
         super.destroy();
     }
-    
-
 }

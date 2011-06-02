@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.resource;
 
 import java.io.IOException;
@@ -49,22 +48,19 @@ import org.richfaces.util.Util;
  * @author Nick Belaevski
  * @since 4.0
  */
-//TODO extract caching
+// TODO extract caching
 public class ResourceHandlerImpl extends ResourceHandlerWrapper {
     public static final String RICHFACES_RESOURCE_IDENTIFIER = "/rfRes/";
     public static final String RESOURCE_CACHE_NAME = "org.richfaces.ResourcesCache";
     public static final String HANDLER_START_TIME_ATTRIBUTE = ResourceHandlerImpl.class.getName() + ":StartTime";
-
     private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
-
     private ResourceFactory resourceFactory;
-    
     private ResourceHandler defaultHandler;
 
     public ResourceHandlerImpl(ResourceHandler defaultHandler) {
         this.defaultHandler = defaultHandler;
         this.resourceFactory = new ResourceFactoryImpl(defaultHandler);
-        
+
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug(MessageFormat.format("Instance of {0} resource handler created", getClass().getName()));
         }
@@ -153,12 +149,12 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
             if (resource == null) {
                 resource = resourceFactory.createResource(context, data);
             }
-            
+
             if (resource == null) {
                 sendResourceNotFound(context);
                 return;
             }
-            
+
             if (resource instanceof CacheableResource) {
                 CacheableResource cacheableResource = (CacheableResource) resource;
 
@@ -179,8 +175,8 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
 
                         if (LOGGER.isDebugEnabled()) {
                             LOGGER.debug(new MessageFormat(
-                                "Storing {0} resource in cache until {1,date,dd MMM yyyy HH:mm:ss zzz}", Locale.US).
-                                format(new Object[]{data.getResourceKey(), cacheExpirationDate}));
+                                "Storing {0} resource in cache until {1,date,dd MMM yyyy HH:mm:ss zzz}", Locale.US)
+                                .format(new Object[] { data.getResourceKey(), cacheExpirationDate }));
                         }
 
                         cache.put(data.getResourceKey(), cachedResource, cacheExpirationDate);
@@ -228,7 +224,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
                     // TODO setup output buffer size according to configuration parameter
                     InputStream is = resource.getInputStream();
                     OutputStream os = externalContext.getResponseOutputStream();
-                    
+
                     try {
                         Util.copyStreamContent(is, os);
                     } finally {
@@ -241,12 +237,11 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
                                 }
                             }
                         }
-                        
+
                         // TODO flush resource
                         // TODO dispose resource
                     }
                 }
-                
 
                 if (LOGGER.isDebugEnabled()) {
                     LOGGER.debug("Resource succesfully encoded");
@@ -269,7 +264,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
         if (resource == null) {
             resource = defaultHandler.createResource(resourceName, libraryName, contentType);
         }
-        
+
         return resource;
     }
 
@@ -293,7 +288,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
         if (resourceName.endsWith(ResourceLibraryRenderer.RESOURCE_LIBRARY_EXTENSION)) {
             return ResourceLibraryRenderer.RENDERER_TYPE;
         }
-        
+
         return defaultHandler.getRendererTypeForResourceName(resourceName);
     }
 

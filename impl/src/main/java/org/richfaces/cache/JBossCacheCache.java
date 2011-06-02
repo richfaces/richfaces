@@ -24,9 +24,7 @@ import org.richfaces.log.RichfacesLogger;
  * @since 4.0
  */
 public class JBossCacheCache implements Cache {
-    
     private static final Logger LOGGER = RichfacesLogger.CACHE.getLogger();
-    
     private static final String RESOURCE = "resource";
     private org.jboss.cache.Cache<String, Object> cache;
 

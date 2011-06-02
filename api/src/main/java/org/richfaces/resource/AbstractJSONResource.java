@@ -29,11 +29,10 @@ import org.ajax4jsf.javascript.ScriptUtils;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @DynamicResource
 public abstract class AbstractJSONResource extends AbstractUserResource {
-
     public String getContentType() {
         return "text/javascript; charset=utf-8";
     }
@@ -43,5 +42,4 @@ public abstract class AbstractJSONResource extends AbstractUserResource {
     }
 
     protected abstract Object getData(FacesContext context);
-
 }
