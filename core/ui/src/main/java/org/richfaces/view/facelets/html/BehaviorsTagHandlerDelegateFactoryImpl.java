@@ -19,8 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-
 package org.richfaces.view.facelets.html;
 
 import javax.faces.FacesWrapper;
@@ -34,8 +32,8 @@ import javax.faces.view.facelets.ValidatorHandler;
 /**
  * @author Nick Belaevski
  */
-public class BehaviorsTagHandlerDelegateFactoryImpl extends TagHandlerDelegateFactory implements FacesWrapper<TagHandlerDelegateFactory> {
-
+public class BehaviorsTagHandlerDelegateFactoryImpl extends TagHandlerDelegateFactory implements
+    FacesWrapper<TagHandlerDelegateFactory> {
     private TagHandlerDelegateFactory factory;
 
     public BehaviorsTagHandlerDelegateFactoryImpl(TagHandlerDelegateFactory factory) {
@@ -43,8 +41,11 @@ public class BehaviorsTagHandlerDelegateFactoryImpl extends TagHandlerDelegateFa
     }
 
     /*
-     *  (non-Javadoc)
-     * @see javax.faces.view.facelets.TagHandlerDelegateFactory#createBehaviorHandlerDelegate(javax.faces.view.facelets.BehaviorHandler)
+     * (non-Javadoc)
+     *
+     * @see
+     * javax.faces.view.facelets.TagHandlerDelegateFactory#createBehaviorHandlerDelegate(javax.faces.view.facelets.BehaviorHandler
+     * )
      */
     @Override
     public TagHandlerDelegate createBehaviorHandlerDelegate(BehaviorHandler owner) {
@@ -52,28 +53,34 @@ public class BehaviorsTagHandlerDelegateFactoryImpl extends TagHandlerDelegateFa
     }
 
     /*
-     *  (non-Javadoc)
-     * @see javax.faces.view.facelets.TagHandlerDelegateFactory#createComponentHandlerDelegate(javax.faces.view.facelets.ComponentHandler)
+     * (non-Javadoc)
+     *
+     * @see
+     * javax.faces.view.facelets.TagHandlerDelegateFactory#createComponentHandlerDelegate(javax.faces.view.facelets.ComponentHandler
+     * )
      */
     @Override
     public TagHandlerDelegate createComponentHandlerDelegate(ComponentHandler owner) {
 
         // TagHandlers structure is created when view is compiled
         // so there's no need to check for BehaviorsStack
-        
+
         if (owner instanceof BehaviorsAddingComponentHandlerWrapper) {
-            //this is to avoid StackOverflowError because of ComponentHandler constructor call
+            // this is to avoid StackOverflowError because of ComponentHandler constructor call
             return null;
         }
-        
+
         ComponentHandler wrappedHandler = new BehaviorsAddingComponentHandlerWrapper(owner);
-        
+
         return factory.createComponentHandlerDelegate(wrappedHandler);
     }
 
     /*
-     *  (non-Javadoc)
-     * @see javax.faces.view.facelets.TagHandlerDelegateFactory#createConverterHandlerDelegate(javax.faces.view.facelets.ConverterHandler)
+     * (non-Javadoc)
+     *
+     * @see
+     * javax.faces.view.facelets.TagHandlerDelegateFactory#createConverterHandlerDelegate(javax.faces.view.facelets.ConverterHandler
+     * )
      */
     @Override
     public TagHandlerDelegate createConverterHandlerDelegate(ConverterHandler owner) {
@@ -81,8 +88,11 @@ public class BehaviorsTagHandlerDelegateFactoryImpl extends TagHandlerDelegateFa
     }
 
     /*
-     *  (non-Javadoc)
-     * @see javax.faces.view.facelets.TagHandlerDelegateFactory#createValidatorHandlerDelegate(javax.faces.view.facelets.ValidatorHandler)
+     * (non-Javadoc)
+     *
+     * @see
+     * javax.faces.view.facelets.TagHandlerDelegateFactory#createValidatorHandlerDelegate(javax.faces.view.facelets.ValidatorHandler
+     * )
      */
     @Override
     public TagHandlerDelegate createValidatorHandlerDelegate(ValidatorHandler owner) {

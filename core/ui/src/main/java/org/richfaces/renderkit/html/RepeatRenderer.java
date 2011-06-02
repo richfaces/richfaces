@@ -38,7 +38,6 @@ import org.richfaces.component.UIRepeat;
  */
 @JsfRenderer(type = "org.richfaces.RepeatRenderer", family = UIRepeat.COMPONENT_FAMILY)
 public class RepeatRenderer extends Renderer {
-
     @Override
     public boolean getRendersChildren() {
         return true;
@@ -48,7 +47,6 @@ public class RepeatRenderer extends Renderer {
         final UIRepeat repeater = (UIRepeat) component;
         try {
             DataVisitor visitor = new DataVisitor() {
-
                 public DataVisitResult process(FacesContext context, Object rowKey, Object argument) {
                     repeater.setRowKey(context, rowKey);
 
@@ -74,5 +72,4 @@ public class RepeatRenderer extends Renderer {
             repeater.setRowKey(context, null);
         }
     }
-
 }

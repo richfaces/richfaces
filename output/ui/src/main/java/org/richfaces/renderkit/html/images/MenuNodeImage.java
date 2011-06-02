@@ -42,69 +42,73 @@ import org.richfaces.skin.SkinFactory;
 
 @DynamicUserResource
 public class MenuNodeImage implements Java2DUserResource, StateHolderResource {
-
     private static final Dimension DIMENSIONS = new Dimension(7, 14);
-    
     private Integer disabledColor;
     private Integer generalColor;
-    
+
     public Integer getDisabledColor() {
         return disabledColor;
     }
-    
+
     public void setDisabledColor(Integer disabledColor) {
         this.disabledColor = disabledColor;
     }
-    
+
     public Integer getGeneralColor() {
         return generalColor;
     }
-    
+
     public void setGeneralColor(Integer generalColor) {
         this.generalColor = generalColor;
     }
-    
+
     public boolean isTransient() {
         return false;
     }
-    
+
     public void writeState(FacesContext context, DataOutput dataOutput) throws IOException {
         dataOutput.writeInt(disabledColor);
         dataOutput.writeInt(generalColor);
     }
+
     public void readState(FacesContext context, DataInput dataInput) throws IOException {
         this.disabledColor = dataInput.readInt();
         this.generalColor = dataInput.readInt();
     }
+
     public Map<String, String> getResponseHeaders() {
         return null;
     }
+
     public Date getLastModified() {
         return null;
     }
+
     public ImageType getImageType() {
         return ImageType.GIF;
     }
+
     public Dimension getDimension() {
         return DIMENSIONS;
     }
+
     public void paint(Graphics2D g2d) {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         g2d.setColor(new Color(getGeneralColor().intValue()));
         drawTriangle(g2d, 2, 0);
-        
+
         g2d.setColor(new Color(getDisabledColor().intValue()));
         drawTriangle(g2d, 2, DIMENSIONS.height / 2);
     }
-    
+
     private void drawTriangle(Graphics2D g2d, int startPosX, int startPosY) {
         int dTriangle = 6;
         for (int i = 0; i < 4; i++) {
-            g2d.drawLine(startPosX + i, startPosY + i, startPosX + i, startPosY + dTriangle - i);    
+            g2d.drawLine(startPosX + i, startPosY + i, startPosX + i, startPosY + dTriangle - i);
         }
     }
-    
+
     @PostConstructResource
     public final void initialize() {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -116,7 +120,7 @@ public class MenuNodeImage implements Java2DUserResource, StateHolderResource {
         if (null == tmp || "".equals(tmp)) {
             tmp = (String) defaultSkin.getParameter(context, skinParameter);
         }
-        
+
         this.setGeneralColor(Color.decode(tmp == null ? "#4A75B5" : tmp).getRGB());
 
         skinParameter = "tabDisabledTextColor";
@@ -125,5 +129,5 @@ public class MenuNodeImage implements Java2DUserResource, StateHolderResource {
             tmp = (String) defaultSkin.getParameter(context, skinParameter);
         }
         this.setDisabledColor(Color.decode(tmp == null ? "#6A92CF" : tmp).getRGB());
-    }    
+    }
 }

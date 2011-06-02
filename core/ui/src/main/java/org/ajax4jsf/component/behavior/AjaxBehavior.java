@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.ajax4jsf.component.behavior;
 
 import java.io.Serializable;
@@ -52,36 +51,41 @@ import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
 
 /**
  * @author Anton Belevich
- * 
+ *
  */
-
-@JsfBehavior(id = "org.ajax4jsf.behavior.Ajax", tag = @Tag(name = "ajax", handler = "org.richfaces.view.facelets.html.AjaxHandler", type = TagType.Facelets),
-			attributes = {"ajaxBehavior-prop.xml"})
+@JsfBehavior(id = "org.ajax4jsf.behavior.Ajax", tag = @Tag(name = "ajax", handler = "org.richfaces.view.facelets.html.AjaxHandler", type = TagType.Facelets), attributes = { "ajaxBehavior-prop.xml" })
 public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
-
     public static final String BEHAVIOR_ID = "org.ajax4jsf.behavior.Ajax";
+    private static final Set<ClientBehaviorHint> HINTS = Collections.unmodifiableSet(EnumSet.of(ClientBehaviorHint.SUBMITTING));
 
-    private static final Set<ClientBehaviorHint> HINTS = Collections.unmodifiableSet(EnumSet
-        .of(ClientBehaviorHint.SUBMITTING));
-    
     enum PropertyKeys {
-        data, execute, onbeforedomupdate, onbegin, oncomplete, onerror, queueId, render,
-        status, disabled, limitRender, immediate, bypassUpdates, onbeforesubmit
+        data,
+        execute,
+        onbeforedomupdate,
+        onbegin,
+        oncomplete,
+        onerror,
+        queueId,
+        render,
+        status,
+        disabled,
+        limitRender,
+        immediate,
+        bypassUpdates,
+        onbeforesubmit
     }
-    
+
     private Set<String> execute;
-         
     private Set<String> render;
-    
     @SuppressWarnings("unused")
     @Attribute(generate = false, signature = @Signature(returnType = Void.class, parameters = AjaxBehaviorEvent.class))
     private MethodExpression listener;
-    
+
     @Override
     public void setLiteralAttribute(String name, Object value) {
-        
+
         ExpressionFactory expFactory = getFacesContext().getApplication().getExpressionFactory();
-        
+
         if (compare(PropertyKeys.data, name)) {
             setData(value);
         } else if (compare(PropertyKeys.execute, name)) {
@@ -102,7 +106,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
             setStatus((String) value);
         } else if (compare(PropertyKeys.disabled, name)) {
             value = expFactory.coerceToType(value, Boolean.class);
-            setDisabled((Boolean)value);
+            setDisabled((Boolean) value);
         } else if (compare(PropertyKeys.limitRender, name)) {
             value = expFactory.coerceToType(value, Boolean.class);
             setLimitRender((Boolean) value);
@@ -120,8 +124,8 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
     private Set<String> toSet(Serializable propertyName, Object value) {
 
         Set<String> result = null;
-        
-        result = CoreAjaxRendererUtils.asIdsSet(value);       
+
+        result = CoreAjaxRendererUtils.asIdsSet(value);
 
         if (result == null) {
             throw new FacesException(
@@ -131,7 +135,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
 
         return result;
     }
-   
+
     @Attribute
     public Object getData() {
         return getStateHelper().eval(PropertyKeys.data);
@@ -150,7 +154,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         this.execute = copyToSet(execute);
         clearInitialState();
     }
-    
+
     @Attribute
     public String getOnbeforedomupdate() {
         return (String) getStateHelper().eval(PropertyKeys.onbeforedomupdate);
@@ -173,11 +177,11 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
     public String getOnbeforesubmit() {
         return (String) getStateHelper().eval(PropertyKeys.onbeforesubmit);
     }
-    
+
     public void setOnbeforesubmit(String onbeforesubmit) {
         getStateHelper().put(PropertyKeys.onbeforesubmit, onbeforesubmit);
     }
-    
+
     @Attribute
     public String getOncomplete() {
         return (String) getStateHelper().eval(PropertyKeys.oncomplete);
@@ -214,7 +218,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         this.render = copyToSet(render);
         clearInitialState();
     }
-    
+
     @Attribute
     public String getStatus() {
         return (String) getStateHelper().eval(PropertyKeys.status);
@@ -259,7 +263,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
     public void setBypassUpdates(boolean bypassUpdates) {
         getStateHelper().put(PropertyKeys.bypassUpdates, bypassUpdates);
     }
-    
+
     @Override
     public String getRendererType() {
         return BEHAVIOR_ID;
@@ -283,11 +287,11 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         if (this.equals(event.getBehavior()) && event instanceof BypassUpdatesAjaxBehaviorEvent) {
             FacesContext.getCurrentInstance().renderResponse();
         }
-        
+
         super.broadcast(event);
     }
-    
-    private  Object saveSet(Serializable propertyName, Set<String> set) {
+
+    private Object saveSet(Serializable propertyName, Set<String> set) {
         if ((set == null) || set.isEmpty()) {
             return null;
         }
@@ -305,17 +309,17 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         if (state == null) {
             return null;
         }
-        
+
         Set<String> set = toSet(propertyName, state);
         return set;
     }
-    
+
     private Set<String> copyToSet(Collection<String> collection) {
         return Collections.unmodifiableSet(new HashSet<String>(collection));
     }
-    
+
     private Collection<String> getCollectionValue(Serializable propertyName, Collection<String> collection) {
-        if (collection!= null) {
+        if (collection != null) {
             return collection;
         }
 
@@ -329,7 +333,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
             if (value != null) {
 
                 if (value instanceof Collection) {
-                    return (Collection<String>)value;
+                    return (Collection<String>) value;
                 }
 
                 result = toSet(propertyName, value);
@@ -337,7 +341,7 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
         }
         return result == null ? Collections.<String>emptyList() : result;
     }
-    
+
     @Override
     public void restoreState(FacesContext context, Object state) {
         if (state != null) {
@@ -352,28 +356,26 @@ public class AjaxBehavior extends ClientBehavior implements AjaxClientBehavior {
             }
         }
     }
-    
+
     @Override
     public Object saveState(FacesContext context) {
         Object parentState = super.saveState(context);
         Object state = null;
-        
+
         if (initialStateMarked()) {
-            
+
             if (parentState != null) {
                 state = new Object[] { parentState };
             }
-            
         } else {
-            Object [] values = new Object[3];
+            Object[] values = new Object[3];
             values[0] = parentState;
             values[1] = saveSet(PropertyKeys.execute, execute);
             values[2] = saveSet(PropertyKeys.render, render);
-            
+
             state = values;
-        }    
+        }
 
         return state;
     }
-
 }

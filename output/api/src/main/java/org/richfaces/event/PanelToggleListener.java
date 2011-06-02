@@ -19,17 +19,17 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.event;
 
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesListener;
 
 /**
- * <p>A listener interface for receiving {@link PanelToggleEvent}s.  A class
- * that is interested in receiving such events implements this interface, and
- * then registers itself with the source {@link javax.faces.component.UIComponent} of interest, by
- * calling <code>addPanelToggleListener()</code>.</p>
+ * <p>
+ * A listener interface for receiving {@link PanelToggleEvent}s. A class that is interested in receiving such events implements
+ * this interface, and then registers itself with the source {@link javax.faces.component.UIComponent} of interest, by calling
+ * <code>addPanelToggleListener()</code>.
+ * </p>
  *
  * @author akolonitsky
  * @version 1.0
@@ -37,18 +37,15 @@ import javax.faces.event.FacesListener;
  *
  */
 public interface PanelToggleListener extends FacesListener {
-
-
     /**
-     * <p>Invoked when {@link PanelToggleEvent} occurs.</p>
+     * <p>
+     * Invoked when {@link PanelToggleEvent} occurs.
+     * </p>
      *
      * @param event The {@link PanelToggleEvent} that has occurred
      *
-     * @throws AbortProcessingException Signal the JavaServer Faces
-     *  implementation that no further processing on the current event
-     *  should be performed
+     * @throws AbortProcessingException Signal the JavaServer Faces implementation that no further processing on the current
+     *         event should be performed
      */
-    public void processPanelToggle(PanelToggleEvent event)
-        throws AbortProcessingException;
-
+    void processPanelToggle(PanelToggleEvent event) throws AbortProcessingException;
 }

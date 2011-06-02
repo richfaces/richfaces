@@ -27,10 +27,9 @@ import javax.faces.view.facelets.MetaRuleset;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class TreeModelAdaptorHandler extends ComponentHandler {
-
     public TreeModelAdaptorHandler(ComponentConfig config) {
         super(config);
     }

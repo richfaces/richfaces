@@ -32,25 +32,15 @@ import org.richfaces.cdk.annotations.Tag;
  * @author Anton Belevich
  *
  */
-
-@JsfComponent(
-    type = AbstractCollapsibleSubTableToggler.COMPONENT_TYPE,
-    family = AbstractCollapsibleSubTableToggler.COMPONENT_FAMILY, 
-    generate = "org.richfaces.component.UICollapsibleSubTableToggleControl",
-    renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableTogglerRenderer"),
-    tag = @Tag( name = "collapsibleSubTableToggler")
- )
+@JsfComponent(type = AbstractCollapsibleSubTableToggler.COMPONENT_TYPE, family = AbstractCollapsibleSubTableToggler.COMPONENT_FAMILY, generate = "org.richfaces.component.UICollapsibleSubTableToggleControl", renderer = @JsfRenderer(type = "org.richfaces.CollapsibleSubTableTogglerRenderer"), tag = @Tag(name = "collapsibleSubTableToggler"))
 public abstract class AbstractCollapsibleSubTableToggler extends UIComponentBase {
-
     public static final String COMPONENT_TYPE = "org.richfaces.CollapsibleSubTableToggler";
-
     public static final String COMPONENT_FAMILY = "org.richfaces.CollapsibleSubTableToggler";
-    
-    public static final String DEFAULT_EVENT = "onclick"; 
-    
+    public static final String DEFAULT_EVENT = "onclick";
+
     @Attribute
     public abstract String getExpandedLabel();
-    
+
     @Attribute
     public abstract String getCollapsedLabel();
 
@@ -59,15 +49,15 @@ public abstract class AbstractCollapsibleSubTableToggler extends UIComponentBase
 
     @Attribute
     public abstract String getCollapsedIcon();
-    
+
     @Attribute
     public abstract String getEvent();
-    
+
     @Attribute
     public String getFor() {
-        return (String)getStateHelper().eval("for");
+        return (String) getStateHelper().eval("for");
     }
-    
+
     public void setFor(String forId) {
         getStateHelper().put("for", forId);
     }

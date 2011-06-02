@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.view.facelets;
 
 import javax.faces.view.facelets.ComponentConfig;
@@ -38,9 +37,7 @@ import org.richfaces.event.MethodExpressionDropListener;
  * @author abelevich
  *
  */
-public class DropHandler extends ComponentHandler{
-
-
+public class DropHandler extends ComponentHandler {
     private static final DropHandlerMetaRule METARULE = new DropHandlerMetaRule();
 
     public DropHandler(ComponentConfig config) {
@@ -54,20 +51,16 @@ public class DropHandler extends ComponentHandler{
     }
 
     static class DropHandlerMetaRule extends MetaRule {
-
         public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
             if (meta.isTargetInstanceOf(AbstractDropTarget.class) && "dropListener".equals(name)) {
                 return new DropTargetMapper(attribute);
             }
             return null;
         }
-
     }
 
     static class DropTargetMapper extends Metadata {
-
         private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.DropEvent.class };
-
         private final TagAttribute attribute;
 
         public DropTargetMapper(TagAttribute attribute) {
@@ -75,8 +68,8 @@ public class DropHandler extends ComponentHandler{
         }
 
         public void applyMetadata(FaceletContext ctx, Object instance) {
-            ((AbstractDropTarget) instance).addDropListener((new MethodExpressionDropListener(
-                    this.attribute.getMethodExpression(ctx, null, SIGNATURE))));
+            ((AbstractDropTarget) instance).addDropListener((new MethodExpressionDropListener(this.attribute
+                .getMethodExpression(ctx, null, SIGNATURE))));
         }
     }
 }

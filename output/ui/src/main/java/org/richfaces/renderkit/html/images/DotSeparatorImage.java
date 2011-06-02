@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit.html.images;
 
 import java.awt.Color;
@@ -33,11 +32,10 @@ import org.richfaces.resource.DynamicUserResource;
 
 /**
  * @author Maksim Kaszynski
- * 
+ *
  */
 @DynamicUserResource
 public class DotSeparatorImage extends ToolbarSeparatorImage {
-
     private static final Dimension DIMENSIONS = new Dimension(9, 9);
 
     public Dimension getDimension() {
@@ -50,8 +48,8 @@ public class DotSeparatorImage extends ToolbarSeparatorImage {
         Color gradientColorStart = Color.WHITE;
         Color gradientColorEnd = new Color(this.getHeaderBackgroundColor());
         Ellipse2D inSquare = new Ellipse2D.Double(2, 2, DIMENSIONS.getWidth() - 4, DIMENSIONS.getHeight() - 4);
-        GradientPaint paint = new GradientPaint((float) 3, (float) 3, gradientColorStart,
-                (float) DIMENSIONS.getWidth() - 2, (float) DIMENSIONS.getHeight() - 2, gradientColorEnd);
+        GradientPaint paint = new GradientPaint((float) 3, (float) 3, gradientColorStart, (float) DIMENSIONS.getWidth() - 2,
+            (float) DIMENSIONS.getHeight() - 2, gradientColorEnd);
         g2d.setPaint(paint);
         g2d.fill(inSquare);
 

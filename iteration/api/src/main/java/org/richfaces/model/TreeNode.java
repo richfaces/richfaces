@@ -25,22 +25,20 @@ import java.util.Iterator;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface TreeNode {
+    TreeNode getChild(Object key);
 
-    public TreeNode getChild(Object key);
-    
-    public int indexOf(Object key);
-    
-    public Iterator<Object> getChildrenKeysIterator();
-    
-    public boolean isLeaf();
-    
-    public void addChild(Object key, TreeNode child);
-    
-    public void insertChild(int idx, Object key, TreeNode child);
-    
-    public void removeChild(Object key);
-    
+    int indexOf(Object key);
+
+    Iterator<Object> getChildrenKeysIterator();
+
+    boolean isLeaf();
+
+    void addChild(Object key, TreeNode child);
+
+    void insertChild(int idx, Object key, TreeNode child);
+
+    void removeChild(Object key);
 }

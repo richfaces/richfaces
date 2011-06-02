@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.event;
 
 import javax.faces.component.UIComponent;
@@ -29,26 +28,22 @@ import javax.faces.event.FacesListener;
 import org.richfaces.component.SortOrder;
 
 public class SortingEvent extends FacesEvent {
-
     private static final long serialVersionUID = 2125258204996535522L;
-   
     private SortOrder sortOrder;
-    
     private String columnId;
-    
-   
-    public SortingEvent(UIComponent source, String columnId,  SortOrder sortOrder) {
+
+    public SortingEvent(UIComponent source, String columnId, SortOrder sortOrder) {
         super(source);
         this.sortOrder = sortOrder;
         this.setColumnId(columnId);
     }
-    
+
     public boolean isAppropriateListener(FacesListener listener) {
         return (listener instanceof SortingListener);
     }
 
     public void processListener(FacesListener listener) {
-        ((SortingListener)listener).processSorting(this);
+        ((SortingListener) listener).processSorting(this);
     }
 
     public void setSortOrder(SortOrder sortOrder) {

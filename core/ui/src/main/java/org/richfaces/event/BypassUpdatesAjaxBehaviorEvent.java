@@ -29,15 +29,14 @@ import javax.faces.event.PhaseId;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class BypassUpdatesAjaxBehaviorEvent extends BehaviorEvent {
-
     private static final long serialVersionUID = 154803120133655033L;
 
     public BypassUpdatesAjaxBehaviorEvent(UIComponent component, Behavior behavior) {
         super(component, behavior);
-        
+
         setPhaseId(PhaseId.PROCESS_VALIDATIONS);
     }
 
@@ -50,5 +49,4 @@ public class BypassUpdatesAjaxBehaviorEvent extends BehaviorEvent {
     public void processListener(FacesListener listener) {
         throw new UnsupportedOperationException();
     }
-
 }

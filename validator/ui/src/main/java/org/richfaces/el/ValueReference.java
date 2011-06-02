@@ -1,11 +1,11 @@
 /**
- * 
+ *
  */
 package org.richfaces.el;
 
 /**
  * @author asmirnov
- * 
+ *
  */
 public class ValueReference {
     private final Object base;
@@ -33,5 +33,4 @@ public class ValueReference {
     public ValueReference next() {
         return parent;
     }
-
 }

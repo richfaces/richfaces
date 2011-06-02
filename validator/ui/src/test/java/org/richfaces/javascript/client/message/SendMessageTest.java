@@ -20,23 +20,24 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.javascript.client.message;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import com.gargoylesoftware.htmlunit.html.DomElement;
 
-
 /**
- * <p class="changed_added_4_0"></p>
+ * <p class="changed_added_4_0">
+ * </p>
+ *
  * @author asmirnov@exadel.com
  *
  */
 public class SendMessageTest extends MessageTestBase {
-        
     @Test
     public void testSendDefault() throws Exception {
         setUpMessage();

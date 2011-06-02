@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.event;
 
 import javax.faces.event.FacesListener;
@@ -29,7 +28,5 @@ import javax.faces.event.FacesListener;
  *
  */
 public interface CurrentDateChangeListener extends FacesListener {
-
-    public void processCurrentDateChange(CurrentDateChangeEvent event);
-
+    void processCurrentDateChange(CurrentDateChangeEvent event);
 }

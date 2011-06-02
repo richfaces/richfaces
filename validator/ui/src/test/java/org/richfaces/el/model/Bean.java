@@ -7,11 +7,8 @@ import java.util.Map;
 import javax.validation.constraints.Size;
 
 public class Bean {
-
     private List<String> list;
-
     private Map<String, String> map = new HashMap<String, String>();
-
     private String string;
 
     public List<String> getList() {
@@ -30,7 +27,7 @@ public class Bean {
         this.map = map;
     }
 
-    @Size(max=2)
+    @Size(max = 2)
     public String getString() {
         return string;
     }
@@ -38,5 +35,4 @@ public class Bean {
     public void setString(String string) {
         this.string = string;
     }
-
 }

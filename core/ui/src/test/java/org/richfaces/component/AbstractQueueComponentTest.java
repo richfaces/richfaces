@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.component;
 
 import static org.junit.Assert.assertEquals;
@@ -57,14 +56,11 @@ import com.gargoylesoftware.htmlunit.javascript.host.WindowProxy;
  * @since 3.3.0
  */
 public abstract class AbstractQueueComponentTest {
-
     private static final String AJAX_SUBMIT = "ajaxSubmit";
     public static final int DEFAULT_REQUEST_TIME = 1000;
     private static final String SIMULATION_SCRIPT_NAME = "simulation.js";
     private static final String QUEUEAJAX_SCRIPT_NAME = "queue-ajax.js";
-
     private static final ScriptableObject systemOut = new ScriptableObject() {
-
         /**
          *
          */
@@ -83,8 +79,8 @@ public abstract class AbstractQueueComponentTest {
 
     static {
         try {
-            systemOut.defineProperty("println", new FunctionObject(null, systemOut.getClass().getMethod("println",
-                String.class), systemOut), ScriptableObject.READONLY);
+            systemOut.defineProperty("println", new FunctionObject(null, systemOut.getClass()
+                .getMethod("println", String.class), systemOut), ScriptableObject.READONLY);
         } catch (SecurityException e) {
             throw new IllegalStateException(e.getMessage(), e);
         } catch (NoSuchMethodException e) {
@@ -93,9 +89,7 @@ public abstract class AbstractQueueComponentTest {
     }
 
     protected HtmlPage page;
-    
     protected HtmlUnitEnvironment facesEnvironment;
-    
     private StringBuilder loggedJavaScript = new StringBuilder();
 
     @Before
@@ -106,7 +100,7 @@ public abstract class AbstractQueueComponentTest {
         facesServer.addResource("/resources/" + SIMULATION_SCRIPT_NAME, "org/ajax4jsf/component/" + SIMULATION_SCRIPT_NAME);
         facesServer.addResource("/resources/" + QUEUEAJAX_SCRIPT_NAME, "org/ajax4jsf/component/" + QUEUEAJAX_SCRIPT_NAME);
         facesServer.addResource("/test.xhtml", "org/ajax4jsf/component/test.xhtml");
-        
+
         facesEnvironment.start();
     }
 
@@ -121,8 +115,7 @@ public abstract class AbstractQueueComponentTest {
         return new ParametersBuilder();
     }
 
-    protected void checkRequestData(RequestData requestData, String data, double startTime, double endTime,
-        boolean aborted) {
+    protected void checkRequestData(RequestData requestData, String data, double startTime, double endTime, boolean aborted) {
         assertEquals("Data check failed for " + requestData, data, requestData.getData());
         assertEquals("Start time check failed for " + requestData, startTime, requestData.getStartTime());
         assertEquals("End time check failed for " + requestData, endTime, requestData.getEndTime());
@@ -134,11 +127,11 @@ public abstract class AbstractQueueComponentTest {
         postRenderView();
         return page;
     }
-    
+
     /**
-     * Execute simulated ajax request starting on given time and having data and paramaters passed as arguments. For
-     * simulated requests defaut value of data is id of the element firing request and default request time is 1000
-     * 
+     * Execute simulated ajax request starting on given time and having data and paramaters passed as arguments. For simulated
+     * requests defaut value of data is id of the element firing request and default request time is 1000
+     *
      * @param time
      * @param data
      * @param builder
@@ -149,8 +142,8 @@ public abstract class AbstractQueueComponentTest {
     }
 
     protected void executeOnTime(int time, String expression) {
-        JSFunction function = new JSFunction("simulationContext.executeOnTime", time, new JSFunctionDefinition()
-            .addToBody(expression));
+        JSFunction function = new JSFunction("simulationContext.executeOnTime", time,
+            new JSFunctionDefinition().addToBody(expression));
 
         executeJavaScriptLogged(function.toScript());
     }
@@ -160,8 +153,8 @@ public abstract class AbstractQueueComponentTest {
     }
 
     protected void clickOnTime(int time, String id) {
-        JSFunction function = new JSFunction("simulationContext.executeOnTime", time, new JSFunctionDefinition()
-            .addToBody(buildClickExpression(id)));
+        JSFunction function = new JSFunction("simulationContext.executeOnTime", time,
+            new JSFunctionDefinition().addToBody(buildClickExpression(id)));
 
         executeJavaScriptLogged(function.toScript());
     }
@@ -195,7 +188,7 @@ public abstract class AbstractQueueComponentTest {
         if (!expression.endsWith(";")) {
             loggedJavaScript.append(";");
         }
-        
+
         return page.executeJavaScript(expression).getJavaScriptResult();
     }
 
@@ -241,11 +234,11 @@ public abstract class AbstractQueueComponentTest {
         System.out.println(loggedJavaScript.toString());
         System.out.println("*****************************");
         loggedJavaScript.setLength(0);
-        
+
         System.out.println("Test execution result:");
         System.out.println(result);
         System.out.println();
-        
+
         return result;
     }
 
@@ -285,7 +278,7 @@ public abstract class AbstractQueueComponentTest {
 
         /**
          * Sets value of requestDelay parameter
-         * 
+         *
          * @param value
          * @return
          */
@@ -295,7 +288,7 @@ public abstract class AbstractQueueComponentTest {
 
         /**
          * Sets value of similarityGroupingId parameter
-         * 
+         *
          * @param id
          * @return
          */
@@ -305,7 +298,7 @@ public abstract class AbstractQueueComponentTest {
 
         /**
          * Defines how long this request will be executed on server
-         * 
+         *
          * @param value
          * @return
          */
@@ -315,7 +308,7 @@ public abstract class AbstractQueueComponentTest {
 
         /**
          * Sets value of timeout parameter
-         * 
+         *
          * @param value
          * @return
          */
@@ -325,7 +318,7 @@ public abstract class AbstractQueueComponentTest {
 
         /**
          * Sets value of eventsQueue parameter
-         * 
+         *
          * @param name
          * @return
          */
@@ -335,7 +328,7 @@ public abstract class AbstractQueueComponentTest {
 
         /**
          * Sets value of implicitEventsQueue parameter
-         * 
+         *
          * @param name
          * @return
          */
@@ -345,7 +338,7 @@ public abstract class AbstractQueueComponentTest {
 
         /**
          * Sets value of ignoreDupResponses parameter
-         * 
+         *
          * @param value
          * @return
          */
@@ -474,7 +467,7 @@ class UnescapingScriptPreprocessor implements ScriptPreProcessor {
         ENTITIES_PATTERN = Pattern.compile("(" + sb.toString() + ")");
     }
 
-    public String preProcess(HtmlPage htmlPage, String sourceCode, String sourceName,  int lineNumber, HtmlElement htmlElement) {
+    public String preProcess(HtmlPage htmlPage, String sourceCode, String sourceName, int lineNumber, HtmlElement htmlElement) {
         if (sourceName != null && !sourceName.startsWith("http:/")) {
             Matcher m = ENTITIES_PATTERN.matcher(sourceCode);
             StringBuffer sb = new StringBuffer();
@@ -492,7 +485,4 @@ class UnescapingScriptPreprocessor implements ScriptPreProcessor {
             return sourceCode;
         }
     }
-
 }
-
-

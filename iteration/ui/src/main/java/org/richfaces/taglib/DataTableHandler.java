@@ -19,55 +19,57 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-
 package org.richfaces.taglib;
+
+import javax.faces.view.facelets.ComponentConfig;
+import javax.faces.view.facelets.ComponentHandler;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.MetaRule;
+import javax.faces.view.facelets.MetaRuleset;
+import javax.faces.view.facelets.Metadata;
+import javax.faces.view.facelets.MetadataTarget;
+import javax.faces.view.facelets.TagAttribute;
 
 import org.richfaces.component.AbstractDataTable;
 import org.richfaces.view.facelets.RowKeyConverterRule;
-
-import javax.faces.view.facelets.*;
 
 /**
  * @author Anton Belevich
  *
  */
 public class DataTableHandler extends ComponentHandler {
-
     public DataTableHandler(ComponentConfig config) {
         super(config);
     }
-    
+
     protected MetaRuleset createMetaRuleset(Class type) {
         MetaRuleset m = super.createMetaRuleset(type);
         m.addRule(SortingFilteringRule.INSTANCE);
         m.addRule(RowKeyConverterRule.INSTANCE);
         return m;
     }
-    
+
     static class SortingFilteringRule extends MetaRule {
         private static final SortingFilteringRule INSTANCE = new SortingFilteringRule();
 
         public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
-            if(meta.isTargetInstanceOf(AbstractDataTable.class)) {
-              
-                if("sortingListener".equals(name)) {
+            if (meta.isTargetInstanceOf(AbstractDataTable.class)) {
+
+                if ("sortingListener".equals(name)) {
                     return new SortingListenerMapper(attribute);
                 }
-                
-                if("filteringListener".equals(name)) {
+
+                if ("filteringListener".equals(name)) {
                     return new FilteringListenerMapper(attribute);
                 }
             }
-            
+
             return null;
         }
     }
-    
+
     static final class SortingListenerMapper extends Metadata {
-
         private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.SortingEvent.class };
-
         private final TagAttribute attribute;
 
         public SortingListenerMapper(TagAttribute attribute) {
@@ -75,14 +77,13 @@ public class DataTableHandler extends ComponentHandler {
         }
 
         public void applyMetadata(FaceletContext ctx, Object instance) {
-            ((AbstractDataTable) instance).addSortingListener(new MethodExpressionSortingListener(this.attribute.getMethodExpression(ctx, null, SIGNATURE)));
+            ((AbstractDataTable) instance).addSortingListener(new MethodExpressionSortingListener(this.attribute
+                .getMethodExpression(ctx, null, SIGNATURE)));
         }
     }
-    
+
     static final class FilteringListenerMapper extends Metadata {
-
         private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.FilteringEvent.class };
-
         private final TagAttribute attribute;
 
         public FilteringListenerMapper(TagAttribute attribute) {
@@ -90,7 +91,8 @@ public class DataTableHandler extends ComponentHandler {
         }
 
         public void applyMetadata(FaceletContext ctx, Object instance) {
-            ((AbstractDataTable) instance).addFilteringListener(new MethodExpressionFilteringListener(this.attribute.getMethodExpression(ctx, null, SIGNATURE)));
+            ((AbstractDataTable) instance).addFilteringListener(new MethodExpressionFilteringListener(this.attribute
+                .getMethodExpression(ctx, null, SIGNATURE)));
         }
     }
 }

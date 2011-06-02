@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import java.util.ArrayList;
@@ -36,66 +35,64 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.renderkit.html.ToolbarGroupRenderer;
 
-@JsfComponent(family = AbstractToolbar.COMPONENT_FAMILY, type = AbstractToolbarGroup.COMPONENT_TYPE,
-        renderer=@JsfRenderer(type = ToolbarGroupRenderer.RENDERER_TYPE), tag = @Tag(name="toolbarGroup"))
+@JsfComponent(family = AbstractToolbar.COMPONENT_FAMILY, type = AbstractToolbarGroup.COMPONENT_TYPE, renderer = @JsfRenderer(type = ToolbarGroupRenderer.RENDERER_TYPE), tag = @Tag(name = "toolbarGroup"))
 public abstract class AbstractToolbarGroup extends UIComponentBase {
-    
     public static final String COMPONENT_TYPE = "org.richfaces.ToolbarGroup";
-    
+
     @Attribute
     public abstract String getItemClass();
-    
+
     @Attribute
     public abstract String getItemStyle();
-        
+
     @Attribute
     public abstract String getItemSeparator();
-    
+
     @Attribute
     public abstract String getLocation();
-    
-    @Attribute(events=@EventName("itemclick"))
+
+    @Attribute(events = @EventName("itemclick"))
     public abstract String getOnitemclick();
 
-    @Attribute(events=@EventName("itemdblclick"))
+    @Attribute(events = @EventName("itemdblclick"))
     public abstract String getOnitemdblclick();
-    
-    @Attribute(events=@EventName("itemmousedown"))
+
+    @Attribute(events = @EventName("itemmousedown"))
     public abstract String getOnitemmousedown();
-    
-    @Attribute(events=@EventName("itemmouseup"))
+
+    @Attribute(events = @EventName("itemmouseup"))
     public abstract String getOnitemmouseup();
-    
-    @Attribute(events=@EventName("itemmouseover"))
+
+    @Attribute(events = @EventName("itemmouseover"))
     public abstract String getOnitemmouseover();
-    
-    @Attribute(events=@EventName("itemmousemove"))
+
+    @Attribute(events = @EventName("itemmousemove"))
     public abstract String getOnitemmousemove();
-    
-    @Attribute(events=@EventName("itemmouseout"))
+
+    @Attribute(events = @EventName("itemmouseout"))
     public abstract String getOnitemmouseout();
-    
-    @Attribute(events=@EventName("itemkeypress"))
+
+    @Attribute(events = @EventName("itemkeypress"))
     public abstract String getOnitemkeypress();
 
-    @Attribute(events=@EventName("itemkeydown"))
+    @Attribute(events = @EventName("itemkeydown"))
     public abstract String getOnitemkeydown();
 
-    @Attribute(events=@EventName("itemkeyup"))
+    @Attribute(events = @EventName("itemkeyup"))
     public abstract String getOnitemkeyup();
-    
+
     public AbstractToolbar getToolBar() {
         UIComponent component = this.getParent();
         if (component == null) {
-            throw new FacesException("The component: " + this.getClientId(getFacesContext()) + 
-                    " is not nested within " + AbstractToolbar.class.getSimpleName());
+            throw new FacesException("The component: " + this.getClientId(getFacesContext()) + " is not nested within "
+                + AbstractToolbar.class.getSimpleName());
         } else if (!(component instanceof AbstractToolbar)) {
-            throw new FacesException("The component: " + this.getClientId(getFacesContext()) + 
-                    " is not a direct child of " + AbstractToolbar.class.getSimpleName());
+            throw new FacesException("The component: " + this.getClientId(getFacesContext()) + " is not a direct child of "
+                + AbstractToolbar.class.getSimpleName());
         }
         return (AbstractToolbar) component;
     }
-    
+
     public List<UIComponent> getRenderedChildren() {
         List<UIComponent> children = this.getChildren();
         List<UIComponent> renderedChildren = new ArrayList<UIComponent>(children.size());
@@ -105,8 +102,7 @@ public abstract class AbstractToolbarGroup extends UIComponentBase {
                 renderedChildren.add(child);
             }
         }
-        
-        return renderedChildren;
-    } 
 
+        return renderedChildren;
+    }
 }

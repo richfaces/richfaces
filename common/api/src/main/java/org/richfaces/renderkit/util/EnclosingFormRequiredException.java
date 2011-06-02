@@ -18,17 +18,14 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit.util;
 
 import javax.faces.FacesException;
 
 /**
- * @author Filip Antonov - mailto:fantonov@exadel.com
- *         created 08.02.2007
+ * @author Filip Antonov - mailto:fantonov@exadel.com created 08.02.2007
  */
 public class EnclosingFormRequiredException extends FacesException {
-
     /**
      *
      */

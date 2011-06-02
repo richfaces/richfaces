@@ -23,12 +23,13 @@ package org.richfaces.component;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public enum DataScrollerControlsMode {
 
-    show, auto, hide;
-    
+    show,
+    auto,
+    hide;
     public static final DataScrollerControlsMode DEFAULT = show;
-    
+
 }

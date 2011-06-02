@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.richfaces.validator;
 
@@ -13,11 +13,11 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author asmirnov
- * 
+ *
  */
 public final class MessageFactory {
-    
-    private MessageFactory(){}
+    private MessageFactory() {
+    }
 
     public static FacesMessage createMessage(FacesContext context, String messageId) {
         Locale locale = getCurrentLocale(context);
@@ -71,5 +71,4 @@ public final class MessageFactory {
         }
         return loader;
     }
-
 }

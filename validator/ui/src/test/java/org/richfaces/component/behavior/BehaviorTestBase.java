@@ -1,6 +1,6 @@
 package org.richfaces.component.behavior;
 
-import static org.easymock.EasyMock.*;
+import static org.easymock.EasyMock.expect;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -12,7 +12,6 @@ import org.junit.Before;
 import org.richfaces.ValidatorTestBase;
 
 public class BehaviorTestBase extends ValidatorTestBase {
-
     @Mock
     protected UIInput input;
     @Mock
@@ -20,6 +19,7 @@ public class BehaviorTestBase extends ValidatorTestBase {
     @Mock
     protected ClientBehaviorRenderer behaviorRenderer;
     protected ClientValidatorBehavior behavior;
+
     public BehaviorTestBase() {
         super();
     }
@@ -29,7 +29,6 @@ public class BehaviorTestBase extends ValidatorTestBase {
         behavior = createBehavior();
     }
 
-    
     protected ClientBehaviorContext setupBehaviorContext(UIComponent component) {
         expect(behaviorContext.getComponent()).andStubReturn(component);
         expect(behaviorContext.getFacesContext()).andStubReturn(environment.getFacesContext());
@@ -39,5 +38,4 @@ public class BehaviorTestBase extends ValidatorTestBase {
     protected ClientValidatorBehavior createBehavior() {
         return new ClientValidatorImpl();
     }
-
 }

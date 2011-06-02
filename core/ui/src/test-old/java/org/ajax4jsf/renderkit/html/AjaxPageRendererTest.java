@@ -18,13 +18,9 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.renderkit.html;
 
 import java.io.IOException;
-
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
@@ -35,7 +31,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.tests.AbstractAjax4JsfTestCase;
-
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
@@ -56,7 +51,7 @@ public class AjaxPageRendererTest extends AbstractAjax4JsfTestCase {
     public void setUp() throws Exception {
         super.setUp();
         ajaxPage = (org.ajax4jsf.component.html.HtmlPage) application.createComponent(
-            org.ajax4jsf.component.html.HtmlPage.COMPONENT_TYPE);
+                org.ajax4jsf.component.html.HtmlPage.COMPONENT_TYPE);
         ajaxPage.setId("page");
 
         UIOutput head = new UIOutput();
@@ -117,7 +112,7 @@ public class AjaxPageRendererTest extends AbstractAjax4JsfTestCase {
 
         assertNotNull(page);
         assertEquals(getCountValidScripts(page, javaScripts, IS_PAGE_AVAILABILITY_CHECK).intValue(),
-                     javaScripts.size());
+                javaScripts.size());
     }
 
     @Override

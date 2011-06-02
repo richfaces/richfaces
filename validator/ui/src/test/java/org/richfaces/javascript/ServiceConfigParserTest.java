@@ -1,6 +1,7 @@
 package org.richfaces.javascript;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
 
@@ -15,7 +16,6 @@ import org.richfaces.resource.ResourceKey;
 import com.google.common.collect.Iterables;
 
 public class ServiceConfigParserTest {
-
     @Before
     public void setUp() throws Exception {
     }
@@ -36,12 +36,12 @@ public class ServiceConfigParserTest {
         assertEquals("org.richfaces", resource.getLibraryName());
     }
 
-    @Test(expected=FacesException.class)
+    @Test(expected = FacesException.class)
     @Ignore("parser log errors instead of exception")
     public void testParseBadConfig() {
         Map<Class<?>, LibraryFunction> parseConfig = ClientServiceConfigParser.parseConfig("badcsv.xml");
     }
-    
+
     @Test()
     public void testParseNoConfig() {
         Map<Class<?>, LibraryFunction> parseConfig = ClientServiceConfigParser.parseConfig("non-exists-csv.xml");

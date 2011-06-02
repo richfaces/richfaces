@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.renderkit.html;
 
 import java.util.HashSet;
@@ -33,9 +30,7 @@ import javax.faces.component.html.HtmlForm;
 
 import org.ajax4jsf.component.UIPush;
 import org.ajax4jsf.tests.AbstractAjax4JsfTestCase;
-
 import org.apache.commons.lang.StringUtils;
-
 import com.gargoylesoftware.htmlunit.html.DomText;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -112,7 +107,7 @@ public class AjaxPushRendererTest extends AbstractAjax4JsfTestCase {
         List scripts = page.getDocumentElement().getHtmlElementsByTagName("script");
 
         assertEquals(getCountValidScripts(page, javaScripts, IS_PAGE_AVAILABILITY_CHECK).intValue(),
-                     javaScripts.size());
+                javaScripts.size());
 
         HtmlElement span1 = page.getHtmlElementById(push1.getClientId(facesContext));
 

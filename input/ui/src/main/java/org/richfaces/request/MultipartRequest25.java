@@ -41,34 +41,28 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 
 public class MultipartRequest25 extends BaseMultipartRequest {
-    
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
-    
     private static final Function<Collection<String>, Object> MULTIMAP_VALUE_TRANSFORMER = new Function<Collection<String>, Object>() {
         public Object apply(Collection<String> input) {
             if (input.isEmpty()) {
                 return null;
             }
-            
+
             if (input.size() == 1) {
                 return Iterables.get(input, 0);
             }
-            
+
             return input.toArray(new String[input.size()]);
         }
     };
-
     private MultipartRequestParser requestParser;
-
     private ResponseState responseState;
-
     private Iterable<UploadedFile> uploadedFiles;
-
     private Multimap<String, String> params;
 
-    public MultipartRequest25(HttpServletRequest request, String uploadId, ProgressControl progressControl, 
+    public MultipartRequest25(HttpServletRequest request, String uploadId, ProgressControl progressControl,
         MultipartRequestParser requestParser) {
-        
+
         super(request, uploadId, progressControl);
 
         this.requestParser = requestParser;
@@ -78,10 +72,10 @@ public class MultipartRequest25 extends BaseMultipartRequest {
         if (responseState != null) {
             return;
         }
-        
+
         try {
             requestParser.parse();
-            
+
             uploadedFiles = requestParser.getUploadedFiles();
             params = requestParser.getParameters();
             responseState = ResponseState.ok;
@@ -90,25 +84,25 @@ public class MultipartRequest25 extends BaseMultipartRequest {
             responseState = ResponseState.serverError;
         }
     }
-    
+
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Override
     public Enumeration getParameterNames() {
         Collection<Object> result = Sets.newHashSet();
-        
+
         Enumeration names = super.getParameterNames();
         while (names.hasMoreElements()) {
             String name = (String) names.nextElement();
 
             result.add(name);
         }
-        
+
         parseIfNecessary();
         result.addAll(params.keySet());
-        
+
         return Iterators.asEnumeration(result.iterator());
     }
-    
+
     @Override
     public String getParameter(String name) {
 
@@ -116,31 +110,31 @@ public class MultipartRequest25 extends BaseMultipartRequest {
         if (parameter != null) {
             return parameter;
         }
-        
+
         parseIfNecessary();
         Collection<String> values = params.get(name);
-        
+
         if (values.isEmpty()) {
             return null;
         }
-        
+
         return Iterables.get(values, 0);
     }
-    
+
     @Override
     public String[] getParameterValues(String name) {
         String[] parameterValues = super.getParameterValues(name);
         if (parameterValues != null) {
             return parameterValues;
-        } 
-        
+        }
+
         parseIfNecessary();
         Collection<String> values = params.get(name);
-        
+
         if (values.isEmpty()) {
             return null;
         }
-        
+
         return values.toArray(new String[values.size()]);
     }
 
@@ -150,19 +144,19 @@ public class MultipartRequest25 extends BaseMultipartRequest {
         Map parameterMap = Maps.newHashMap(super.getParameterMap());
         parseIfNecessary();
         parameterMap.putAll(Maps.transformValues(params.asMap(), MULTIMAP_VALUE_TRANSFORMER));
-        
+
         return parameterMap;
     }
-    
+
     public Iterable<UploadedFile> getUploadedFiles() {
         parseIfNecessary();
-        
+
         return uploadedFiles;
     }
-    
+
     public void release() {
         super.release();
-        
+
         if (uploadedFiles != null) {
             for (UploadedFile uploadedFile : uploadedFiles) {
                 try {
@@ -173,11 +167,10 @@ public class MultipartRequest25 extends BaseMultipartRequest {
             }
         }
     }
-    
+
     public ResponseState getResponseState() {
         parseIfNecessary();
-        
+
         return responseState;
     }
-    
 }

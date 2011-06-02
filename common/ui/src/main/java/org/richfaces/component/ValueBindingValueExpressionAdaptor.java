@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.component;
 
 import javax.el.ELException;
@@ -48,11 +47,12 @@ public class ValueBindingValueExpressionAdaptor extends ValueBinding implements 
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see javax.faces.el.ValueBinding#getType(javax.faces.context.FacesContext)
      */
     @Override
-    public Class<?> getType(FacesContext context) throws EvaluationException, PropertyNotFoundException {
+    public Class<?> getType(FacesContext context) throws EvaluationException {
         try {
             return expression.getType(context.getELContext());
         } catch (javax.el.PropertyNotFoundException e) {
@@ -63,11 +63,12 @@ public class ValueBindingValueExpressionAdaptor extends ValueBinding implements 
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see javax.faces.el.ValueBinding#getValue(javax.faces.context.FacesContext)
      */
     @Override
-    public Object getValue(FacesContext context) throws EvaluationException, PropertyNotFoundException {
+    public Object getValue(FacesContext context) throws EvaluationException {
         try {
             return expression.getValue(context.getELContext());
         } catch (javax.el.PropertyNotFoundException e) {
@@ -78,11 +79,12 @@ public class ValueBindingValueExpressionAdaptor extends ValueBinding implements 
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see javax.faces.el.ValueBinding#isReadOnly(javax.faces.context.FacesContext)
      */
     @Override
-    public boolean isReadOnly(FacesContext context) throws EvaluationException, PropertyNotFoundException {
+    public boolean isReadOnly(FacesContext context) throws EvaluationException {
         try {
             return expression.isReadOnly(context.getELContext());
         } catch (javax.el.PropertyNotFoundException e) {
@@ -93,11 +95,12 @@ public class ValueBindingValueExpressionAdaptor extends ValueBinding implements 
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see javax.faces.el.ValueBinding#setValue(javax.faces.context.FacesContext, java.lang.Object)
      */
     @Override
-    public void setValue(FacesContext context, Object value) throws EvaluationException, PropertyNotFoundException {
+    public void setValue(FacesContext context, Object value) throws EvaluationException {
         try {
             expression.setValue(context.getELContext(), value);
         } catch (javax.el.PropertyNotFoundException e) {

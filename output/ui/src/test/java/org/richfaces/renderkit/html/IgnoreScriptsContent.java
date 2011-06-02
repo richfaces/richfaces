@@ -18,23 +18,18 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit.html;
 
 import org.custommonkey.xmlunit.Difference;
 import org.custommonkey.xmlunit.DifferenceConstants;
 import org.custommonkey.xmlunit.DifferenceListener;
-import org.custommonkey.xmlunit.IgnoreTextAndAttributeValuesDifferenceListener;
 import org.w3c.dom.Node;
-
-import java.util.Arrays;
 
 /**
  * @author akolonitsky
  * @since Oct 22, 2010
  */
 public class IgnoreScriptsContent implements DifferenceListener {
-
     public int differenceFound(Difference difference) {
         if (DifferenceConstants.TEXT_VALUE_ID == difference.getId()
             && !"script".equalsIgnoreCase(difference.getTestNodeDetail().getNode().getLocalName())) {

@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit;
 
 import java.util.Collection;
@@ -43,40 +42,33 @@ import org.richfaces.model.SortMode;
  * @author Anton Belevich
  *
  */
-
 public abstract class SortingFilteringRowsRenderer extends AbstractRowsRenderer {
-    
     private static final String FILTERING_STRING = "rich:filtering";
-    
     private static final String SORTING_STRING = "rich:sorting";
-    
     private static final String FILTER_VALUE_STRING = "filterValue";
-    
     private static final String SORT_ORDER_STRING = "sortOrder";
-
     private static final String SORT_PRIORITY_STRING = "sortPriority";
-
     private static final String SEPARATOR = ":";
 
     protected void decodeSortingFiltering(FacesContext context, UIComponent component) {
-        if(component instanceof UIDataTableBase) {
-        
-            UIDataTableBase dataTableBase = (UIDataTableBase)component;
+        if (component instanceof UIDataTableBase) {
+
+            UIDataTableBase dataTableBase = (UIDataTableBase) component;
             Map<String, String> requestMap = context.getExternalContext().getRequestParameterMap();
             String clientId = dataTableBase.getClientId(context);
-            
+
             String filtering = requestMap.get(clientId + FILTERING_STRING);
-            if(filtering != null && filtering.trim().length() > 0) {
+            if (filtering != null && filtering.trim().length() > 0) {
                 decodeFiltering(context, dataTableBase, filtering);
             }
-    
+
             String sorting = requestMap.get(clientId + SORTING_STRING);
-            if(sorting != null && sorting.trim().length() > 0) {
+            if (sorting != null && sorting.trim().length() > 0) {
                 decodeSorting(context, dataTableBase, sorting);
             }
         }
     }
-    
+
     protected void decodeFiltering(FacesContext context, UIDataTableBase dataTableBase, String value) {
         String[] values = value.split(SEPARATOR);
         if (Boolean.parseBoolean(values[2])) {
@@ -91,17 +83,18 @@ public abstract class SortingFilteringRowsRenderer extends AbstractRowsRenderer 
         } else {
             updateAttribute(context, dataTableBase.findComponent(values[0]), FILTER_VALUE_STRING, values[1]);
         }
-        context.getPartialViewContext().getRenderIds().add(dataTableBase.getClientId(context)); // TODO Use partial re-rendering here.
+        context.getPartialViewContext().getRenderIds().add(dataTableBase.getClientId(context)); // TODO Use partial re-rendering
+                                                                                                // here.
     }
-    
+
     protected void decodeSorting(FacesContext context, UIDataTableBase dataTableBase, String value) {
         Set<Object> sortPriority = new LinkedHashSet<Object>();
-       
+
         String[] values = value.split(SEPARATOR);
         String columnId = values[0];
         String sortOrder = values[1];
         boolean isClear = Boolean.parseBoolean(values[2]);
-        
+
         if (isClear || SortMode.single.equals(dataTableBase.getSortMode())) {
             for (Iterator<UIComponent> iterator = dataTableBase.columns(); iterator.hasNext();) {
                 UIComponent column = iterator.next();
@@ -122,9 +115,9 @@ public abstract class SortingFilteringRowsRenderer extends AbstractRowsRenderer 
             sortPriority.add(columnId);
         }
         updateAttribute(context, dataTableBase, SORT_PRIORITY_STRING, sortPriority);
-        context.getPartialViewContext().getRenderIds().add(dataTableBase.getClientId(context)); 
-    }    
-    
+        context.getPartialViewContext().getRenderIds().add(dataTableBase.getClientId(context));
+    }
+
     private void updateSortOrder(FacesContext context, UIComponent component, String value) {
         SortOrder sortOrder = SortOrder.ascending;
         try {
@@ -137,7 +130,7 @@ public abstract class SortingFilteringRowsRenderer extends AbstractRowsRenderer 
         }
         updateAttribute(context, component, SORT_ORDER_STRING, sortOrder);
     }
-    
+
     protected void updateAttribute(FacesContext context, UIComponent component, String attribute, Object value) {
         Object oldValue = component.getAttributes().get(attribute);
         if ((oldValue != null && !oldValue.equals(value)) || (oldValue == null && value != null)) {
@@ -155,5 +148,4 @@ public abstract class SortingFilteringRowsRenderer extends AbstractRowsRenderer 
             }
         }
     }
-   
 }

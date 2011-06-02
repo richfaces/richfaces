@@ -44,54 +44,49 @@ import org.richfaces.component.QueueRegistry;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
-
 /**
  * @author Nick Belaevski Base class for rendering Queue
  */
 @ResourceDependency(library = "org.richfaces", name = "ajax.reslib")
-@ListenersFor({ 
-    @ListenerFor(systemEventClass = PostAddToViewEvent.class),
-    @ListenerFor(systemEventClass = PreRemoveFromViewEvent.class) 
-})
+@ListenersFor({ @ListenerFor(systemEventClass = PostAddToViewEvent.class),
+        @ListenerFor(systemEventClass = PreRemoveFromViewEvent.class) })
 public abstract class QueueRendererBase extends Renderer implements ComponentSystemEventListener {
-
     protected static final String QUEUE_ID_ATTRIBBUTE = "queueId";
     protected static final String NAME_ATTRIBBUTE = "name";
     protected static final Logger LOGGER = RichfacesLogger.COMPONENTS.getLogger();
-
     private static final String QUEUE_RESOURCE_COMPONENT_RENDERER_TYPE = "org.richfaces.QueueResourceComponentRenderer";
     private static final String QUEUE_RESOURCE_COMPONENT_TARGET = "head";
 
     private void addQueueResourceComponent(FacesContext context) {
         List<UIComponent> resources = context.getViewRoot().getComponentResources(context, QUEUE_RESOURCE_COMPONENT_TARGET);
-        
-        for (UIComponent resource: resources) {
+
+        for (UIComponent resource : resources) {
             if (QUEUE_RESOURCE_COMPONENT_RENDERER_TYPE.equals(resource.getRendererType())) {
                 return;
             }
         }
-        
+
         Application application = context.getApplication();
-        UIComponent queueResourceComponent = application.createComponent(context, 
-            UIOutput.COMPONENT_TYPE, QUEUE_RESOURCE_COMPONENT_RENDERER_TYPE);
-        
-        //fix for JSF duplicate ID exception
+        UIComponent queueResourceComponent = application.createComponent(context, UIOutput.COMPONENT_TYPE,
+            QUEUE_RESOURCE_COMPONENT_RENDERER_TYPE);
+
+        // fix for JSF duplicate ID exception
         queueResourceComponent.setId(QueueRegistry.QUEUE_SCRIPT_ID);
-        
+
         context.getViewRoot().addComponentResource(context, queueResourceComponent, QUEUE_RESOURCE_COMPONENT_TARGET);
     }
-    
+
     public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
         FacesContext context = FacesContext.getCurrentInstance();
-        
+
         if (!getBooleanConfigurationValue(context, CommonComponentsConfiguration.Items.queueEnabled)) {
             return;
         }
-        
+
         UIComponent comp = event.getComponent();
         String queueName = getQueueName(context, comp);
         QueueRegistry queueRegistry = QueueRegistry.getInstance(context);
-        
+
         if (event instanceof PostAddToViewEvent) {
             queueRegistry.addQueue(queueName, comp);
             addQueueResourceComponent(context);
@@ -101,5 +96,4 @@ public abstract class QueueRendererBase extends Renderer implements ComponentSys
     }
 
     protected abstract String getQueueName(FacesContext context, UIComponent comp);
-
 }

@@ -49,23 +49,17 @@ import org.richfaces.renderkit.MetaComponentRenderer;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
-@JsfComponent(
-    type = AbstractTreeNode.COMPONENT_TYPE,
-    family = AbstractTreeNode.COMPONENT_FAMILY, 
-    tag = @Tag(name = "treeNode", handler = "org.richfaces.view.facelets.TreeNodeHandler"),
-    renderer = @JsfRenderer(type = "org.richfaces.TreeNodeRenderer"),
-    attributes = {"events-props.xml", "core-props.xml", "i18n-props.xml", "tree-common-props.xml", "treeNode-serverEventListeners-props.xml"}
-)
-public abstract class AbstractTreeNode extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder, IterationStateHolder, TreeToggleSource {
-
+@JsfComponent(type = AbstractTreeNode.COMPONENT_TYPE, family = AbstractTreeNode.COMPONENT_FAMILY, tag = @Tag(name = "treeNode", handler = "org.richfaces.view.facelets.TreeNodeHandler"), renderer = @JsfRenderer(type = "org.richfaces.TreeNodeRenderer"), attributes = {
+        "events-props.xml", "core-props.xml", "i18n-props.xml", "tree-common-props.xml",
+        "treeNode-serverEventListeners-props.xml" })
+public abstract class AbstractTreeNode extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder,
+    IterationStateHolder, TreeToggleSource {
     public static final String COMPONENT_TYPE = "org.richfaces.TreeNode";
-    
     public static final String COMPONENT_FAMILY = "org.richfaces.TreeNode";
-
     public static final String SUBTREE_META_COMPONENT_ID = "subtree";
-    
+
     enum PropertyKeys {
         expanded
     }
@@ -73,24 +67,24 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
     public AbstractTreeNode() {
         setRendererType("org.richfaces.TreeNodeRenderer");
     }
-    
+
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
     }
-    
+
     @Attribute
     public abstract boolean isImmediate();
-    
+
     @Attribute
     public abstract String getType();
-    
+
     @Attribute(events = @EventName("toggle"))
     public abstract String getOntoggle();
-    
+
     @Attribute(events = @EventName("beforetoggle"))
     public abstract String getOnbeforetoggle();
-    
+
     protected Boolean getLocalExpandedValue(FacesContext facesContext) {
         return (Boolean) getStateHelper().get(PropertyKeys.expanded);
     }
@@ -118,7 +112,7 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
     public Object getIterationState() {
         return getStateHelper().get(PropertyKeys.expanded);
     }
-    
+
     public void setIterationState(Object state) {
         getStateHelper().put(PropertyKeys.expanded, state);
     }
@@ -128,26 +122,27 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
         while (c != null && !(c instanceof AbstractTree)) {
             c = c.getParent();
         }
-        
+
         return (AbstractTree) c;
     }
-    
+
     @Override
     public void queueEvent(FacesEvent event) {
         if (this.equals(event.getComponent())) {
             if (event instanceof TreeToggleEvent) {
-                PhaseId targetPhase = (isImmediate() || findTreeComponent().isImmediate()) ? PhaseId.APPLY_REQUEST_VALUES : PhaseId.PROCESS_VALIDATIONS;
+                PhaseId targetPhase = (isImmediate() || findTreeComponent().isImmediate()) ? PhaseId.APPLY_REQUEST_VALUES
+                    : PhaseId.PROCESS_VALIDATIONS;
                 event.setPhaseId(targetPhase);
             }
         }
-        
+
         super.queueEvent(event);
     }
-    
+
     @Override
     public void broadcast(FacesEvent event) throws AbortProcessingException {
         super.broadcast(event);
-        
+
         if (event instanceof TreeToggleEvent) {
             TreeToggleEvent toggleEvent = (TreeToggleEvent) event;
             new TreeToggleEvent(findTreeComponent(), toggleEvent.isExpanded()).queue();
@@ -162,41 +157,41 @@ public abstract class AbstractTreeNode extends UIComponentBase implements MetaCo
     public TreeToggleListener[] getTreeToggleListeners() {
         return (TreeToggleListener[]) getFacesListeners(TreeToggleListener.class);
     }
-    
+
     public void removeTreeToggleListener(TreeToggleListener listener) {
         removeFacesListener(listener);
     }
-    
+
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
         if (SUBTREE_META_COMPONENT_ID.equals(metaComponentId)) {
             return getClientId(facesContext) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + metaComponentId;
         }
-        
-        return null;
-    }
-    
-    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
-        String metaComponentId) {
 
         return null;
     }
-    
+
+    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
+
+        return null;
+    }
+
     @Override
     public boolean visitTree(VisitContext context, VisitCallback callback) {
         if (context instanceof ExtendedVisitContext) {
             ExtendedVisitContext extendedVisitContext = (ExtendedVisitContext) context;
             if (extendedVisitContext.getVisitMode() == ExtendedVisitContextMode.RENDER) {
-                VisitResult result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback, SUBTREE_META_COMPONENT_ID);
-                
+                VisitResult result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback,
+                    SUBTREE_META_COMPONENT_ID);
+
                 if (result != VisitResult.ACCEPT) {
                     return result == VisitResult.COMPLETE;
                 }
             }
         }
-        
+
         return super.visitTree(context, callback);
     }
-    
+
     public void encodeMetaComponent(FacesContext context, String metaComponentId) throws IOException {
         ((MetaComponentRenderer) getRenderer(context)).encodeMetaComponent(context, this, metaComponentId);
     }

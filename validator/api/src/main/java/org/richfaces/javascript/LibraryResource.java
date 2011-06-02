@@ -2,19 +2,16 @@ package org.richfaces.javascript;
 
 import java.util.LinkedHashSet;
 
-
 import com.google.common.collect.Sets;
 
 /**
  * This class represent information about external JavaScript library as JSF resource
- * 
+ *
  * @author asmirnov
- * 
+ *
  */
 public class LibraryResource {
-
     private final String library;
-
     private final String resourceName;
 
     /**
@@ -42,7 +39,7 @@ public class LibraryResource {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -56,7 +53,7 @@ public class LibraryResource {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -87,13 +84,13 @@ public class LibraryResource {
         }
         return true;
     }
-    
+
     @Override
     public String toString() {
-        return getLibrary()+':'+getResourceName();
+        return getLibrary() + ':' + getResourceName();
     }
 
-    public static Iterable<LibraryResource> of(Iterable<LibraryScriptString> scripts){
+    public static Iterable<LibraryResource> of(Iterable<LibraryScriptString> scripts) {
         LinkedHashSet<LibraryResource> resources = Sets.newLinkedHashSet();
         for (LibraryScriptString scriptString : scripts) {
             resources.add(scriptString.getResource());

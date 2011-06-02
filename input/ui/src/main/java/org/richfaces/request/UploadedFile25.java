@@ -33,18 +33,15 @@ import com.google.common.collect.Multimap;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class UploadedFile25 extends BaseUploadedFile {
-
     private FileUploadResource uploadResource;
-    
     private Multimap<String, String> headersMap;
 
-    public UploadedFile25(String parameterName, FileUploadResource uploadResource,
-        Multimap<String, String> headersMap) {
+    public UploadedFile25(String parameterName, FileUploadResource uploadResource, Multimap<String, String> headersMap) {
         super(parameterName);
-        
+
         this.uploadResource = uploadResource;
         this.headersMap = headersMap;
     }
@@ -64,11 +61,11 @@ public class UploadedFile25 extends BaseUploadedFile {
     public String getHeader(String headerName) {
         String lcHeaderName = headerName.toLowerCase(Locale.US);
         Collection<String> headers = headersMap.get(lcHeaderName);
-        
+
         if (headers.isEmpty()) {
             return null;
         }
-        
+
         return Iterables.get(headers, 0);
     }
 
@@ -79,12 +76,11 @@ public class UploadedFile25 extends BaseUploadedFile {
     public Collection<String> getHeaders(String headerName) {
         String lcHeaderName = headerName.toLowerCase(Locale.US);
         Collection<String> headers = headersMap.get(lcHeaderName);
-        
+
         return new ArrayList<String>(headers);
     }
 
     public long getSize() {
         return uploadResource.getSize();
     }
-
 }

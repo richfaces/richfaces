@@ -19,8 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-
 package org.richfaces.renderkit;
 
 import java.io.IOException;
@@ -34,9 +32,7 @@ import javax.faces.context.ResponseWriter;
  *
  */
 public interface EncodeStrategy {
-    
-    public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params) throws IOException;
-    
-    public void end(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params) throws IOException;
-    
+    void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params) throws IOException;
+
+    void end(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params) throws IOException;
 }

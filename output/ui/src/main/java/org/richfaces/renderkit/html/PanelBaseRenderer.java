@@ -18,16 +18,16 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit.html;
 
-import org.richfaces.component.AbstractPanel;
-import org.richfaces.renderkit.RendererBase;
+import java.io.IOException;
 
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.io.IOException;
+
+import org.richfaces.component.AbstractPanel;
+import org.richfaces.renderkit.RendererBase;
 
 /**
  * @author amarkhel
@@ -35,7 +35,6 @@ import java.io.IOException;
  */
 @ResourceDependency(library = "org.richfaces", name = "panel.ecss")
 public class PanelBaseRenderer extends RendererBase {
-
     public PanelBaseRenderer() {
     }
 

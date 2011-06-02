@@ -48,36 +48,22 @@ import com.google.common.collect.Multimap;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public final class MultipartRequestParser {
-
     static final String PARAM_NAME = "name";
-    
     static final String PARAM_FILENAME = "filename";
-    
     static final String PARAM_CONTENT_TYPE = "Content-Type";
-    
     private static final byte CR = 0x0d;
-    
     private static final byte LF = 0x0a;
-
-    private static final byte[] CR_LF = {CR, LF};
-
-    private static final byte[] HYPHENS = {0x2d, 0x2d}; // '--'
-    
+    private static final byte[] CR_LF = { CR, LF };
+    private static final byte[] HYPHENS = { 0x2d, 0x2d }; // '--'
     private static final int BUFFER_SIZE = 2048;
-
     private static final int CHUNK_SIZE = 1024;
-    
     private static final int MAX_HEADER_SIZE = 32768;
-    
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
-
     private static final Pattern FILE_NAME_PATTERN = Pattern.compile(".*filename=\"(.*)\"");
-
     private static final Pattern PARAM_VALUE_PATTERN = Pattern.compile("^\\s*([^\\s=]+)\\s*[=:]\\s*(.+)\\s*$");
-
     private static final BytesHandler NOOP_HANDLER = new BytesHandler() {
         public void handle(byte[] bytes, int length) {
             // do nothing
@@ -85,7 +71,6 @@ public final class MultipartRequestParser {
     };
 
     private class HeadersHandler implements BytesHandler {
-
         private ByteArrayOutputStream baos = new ByteArrayOutputStream(BUFFER_SIZE);
 
         public void handle(byte[] bytes, int length) throws IOException {
@@ -113,25 +98,16 @@ public final class MultipartRequestParser {
         public void reset() {
             baos.reset();
         }
-
     }
-    
+
     private HttpServletRequest request;
-    
     private boolean createTempFiles;
-    
     private String tempFilesDirectory;
-
     private Multimap<String, String> parametersMap = LinkedListMultimap.create();
-    
     private List<UploadedFile> uploadedFiles = Lists.newArrayList();
-
     private byte[] boundaryMarker;
-
     private ByteSequenceMatcher sequenceMatcher;
-
     private HeadersHandler headersHandler;
-
     private ProgressControl progressControl;
 
     /**
@@ -140,9 +116,9 @@ public final class MultipartRequestParser {
      * @param tempFilesDirectory
      * @param uploadId
      */
-    public MultipartRequestParser(HttpServletRequest request, boolean createTempFiles, String tempFilesDirectory, 
+    public MultipartRequestParser(HttpServletRequest request, boolean createTempFiles, String tempFilesDirectory,
         ProgressControl progressControl) {
-        
+
         this.request = request;
         this.createTempFiles = createTempFiles;
         this.tempFilesDirectory = tempFilesDirectory;
@@ -158,7 +134,7 @@ public final class MultipartRequestParser {
             }
         }
     }
-    
+
     public Multimap<String, String> getParameters() {
         return parametersMap;
     }
@@ -198,14 +174,14 @@ public final class MultipartRequestParser {
 
     private String getFirstParameterValue(Multimap<String, String> multimap, String key) {
         Collection<String> values = multimap.get(key);
-        
+
         if (values.isEmpty()) {
             return null;
         }
-        
+
         return Iterables.get(values, 0);
     }
-    
+
     private byte[] getBoundaryMarker(String contentType) {
         Multimap<String, String> params = parseParams(contentType, ";");
         String boundaryStr = getFirstParameterValue(params, "boundary");
@@ -249,7 +225,7 @@ public final class MultipartRequestParser {
         }
     }
 
-    //TODO - URI decoder?
+    // TODO - URI decoder?
     private String decodeFileName(String name) {
         String fileName = null;
         try {
@@ -307,11 +283,11 @@ public final class MultipartRequestParser {
     private void readNext() throws IOException {
         Multimap<String, String> headers = readHeaders();
         FileUploadParam param = createParam(headers);
-        
+
         if (param == null) {
             return;
         }
-        
+
         param.create();
 
         try {
@@ -331,17 +307,17 @@ public final class MultipartRequestParser {
         if (headers == null) {
             return null;
         }
-        
+
         String parameterName = getFirstParameterValue(headers, PARAM_NAME);
-        
+
         if (Strings.isNullOrEmpty(parameterName)) {
             return null;
         }
-        
+
         boolean isFile = !Strings.isNullOrEmpty(getFirstParameterValue(headers, PARAM_FILENAME));
-        
+
         FileUploadParam param;
-        
+
         if (isFile) {
             if (createTempFiles) {
                 param = new FileUploadDiscResource(parameterName, tempFilesDirectory);
@@ -351,7 +327,7 @@ public final class MultipartRequestParser {
         } else {
             param = new FileUploadValueParam(parameterName, request.getCharacterEncoding());
         }
-        
+
         return param;
     }
 
@@ -390,5 +366,4 @@ public final class MultipartRequestParser {
 
         return null;
     }
-
 }

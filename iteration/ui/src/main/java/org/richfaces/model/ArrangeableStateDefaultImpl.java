@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.model;
 
 import java.util.List;
@@ -30,11 +29,8 @@ import java.util.Locale;
  *
  */
 public class ArrangeableStateDefaultImpl implements ArrangeableState {
-
     private List<FilterField> filterFields;
-    
     private List<SortField> sortFields;
-    
     private Locale locale;
 
     public ArrangeableStateDefaultImpl(List<FilterField> filterFields, List<SortField> sortFields, Locale locale) {
@@ -50,7 +46,7 @@ public class ArrangeableStateDefaultImpl implements ArrangeableState {
     public List<SortField> getSortFields() {
         return sortFields;
     }
-    
+
     public Locale getLocale() {
         return locale;
     }

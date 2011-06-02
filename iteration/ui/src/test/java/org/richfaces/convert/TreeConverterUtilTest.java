@@ -41,15 +41,14 @@ import org.junit.runner.RunWith;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @RunWith(MockTestRunner.class)
 public class TreeConverterUtilTest {
-
     @Mock
-    @Environment({Environment.Feature.EXTERNAL_CONTEXT})
+    @Environment({ Environment.Feature.EXTERNAL_CONTEXT })
     private MockFacesEnvironment environment;
-    
+
     @Before
     public void setUp() throws Exception {
         environment.resetToNice();
@@ -57,14 +56,13 @@ public class TreeConverterUtilTest {
         expect(facesContext.getAttributes()).andStubReturn(new HashMap<Object, Object>());
         environment.replay();
     }
-    
+
     @Test
     public void testUnescape() throws Exception {
         assertEquals("", unescape(""));
         assertEquals("a", unescape("a"));
         assertEquals("abc", unescape("abc"));
 
-    
         assertEquals("_", unescape("__"));
         assertEquals("__", unescape("____"));
 
@@ -83,7 +81,7 @@ public class TreeConverterUtilTest {
         assertEquals("\u00A9", unescape("_xa9"));
         assertEquals("\u00FF", unescape("_xFF"));
         assertEquals("\u00FF", unescape("_xff"));
-        
+
         assertEquals(".", unescape("_x2e"));
 
         assertEquals("\u0000", unescape("_u0000"));
@@ -92,22 +90,21 @@ public class TreeConverterUtilTest {
         assertEquals("\uF000", unescape("_uF000"));
         assertEquals("\uFFFF", unescape("_uFFFF"));
 
-    
         assertEquals(".", unescape("_u002E"));
 
         assertEquals("Embedded_underscores\u0312unicode\u0045etc", unescape("Embedded__underscores_u0312unicode_x45etc"));
 
         try {
             unescape("_");
-            
+
             fail();
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
-    
+
         try {
             unescape("some _a string");
-            
+
             fail();
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -115,7 +112,7 @@ public class TreeConverterUtilTest {
 
         try {
             unescape("_x");
-            
+
             fail();
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -123,7 +120,7 @@ public class TreeConverterUtilTest {
 
         try {
             unescape("_x0");
-            
+
             fail();
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -131,7 +128,7 @@ public class TreeConverterUtilTest {
 
         try {
             unescape("_u");
-            
+
             fail();
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -139,7 +136,7 @@ public class TreeConverterUtilTest {
 
         try {
             unescape("_u-1aaa");
-            
+
             fail();
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -147,7 +144,7 @@ public class TreeConverterUtilTest {
 
         try {
             unescape("_u1zaa");
-            
+
             fail();
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -155,7 +152,7 @@ public class TreeConverterUtilTest {
 
         try {
             unescape("embedded _x 00 into string");
-            
+
             fail();
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -163,7 +160,7 @@ public class TreeConverterUtilTest {
 
         try {
             unescape("embedded _x0 into string");
-            
+
             fail();
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
@@ -171,13 +168,13 @@ public class TreeConverterUtilTest {
 
         try {
             unescape("embedded _u012 into string");
-            
+
             fail();
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
     }
-    
+
     @Test
     public void testEscape() throws Exception {
         assertEquals("", escape(""));

@@ -33,24 +33,22 @@ import com.google.common.collect.Maps;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class ProgressControlTest {
-
     private static final String UPLOAD_ID = "testId";
-
     private static final String ATTRIBUTE_NAME = ProgressControl.getContextAttributeName(UPLOAD_ID);
-    
+
     @Test
     public void testAdvance() throws Exception {
         Map<String, Object> contextMap = Maps.newHashMap();
         ProgressControl control = new ProgressControl(UPLOAD_ID, 400);
         control.setContextMap(contextMap);
-        
+
         assertNull(contextMap.get(ATTRIBUTE_NAME));
         control.advance(1);
         assertNull(contextMap.get(ATTRIBUTE_NAME));
-        
+
         control.advance(3);
         assertEquals((byte) 1, contextMap.get(ATTRIBUTE_NAME));
 
@@ -60,13 +58,13 @@ public class ProgressControlTest {
         control.advance(200);
         assertEquals((byte) 100, contextMap.get(ATTRIBUTE_NAME));
     }
-    
+
     @Test
     public void testClearProgress() throws Exception {
         Map<String, Object> contextMap = Maps.newHashMap();
         ProgressControl control = new ProgressControl(UPLOAD_ID, 100);
         control.setContextMap(contextMap);
-        
+
         assertNull(contextMap.get(ATTRIBUTE_NAME));
         control.advance(50);
         assertNotNull(contextMap.get(ATTRIBUTE_NAME));

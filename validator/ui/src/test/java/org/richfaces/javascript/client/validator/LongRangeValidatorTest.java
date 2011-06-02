@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.richfaces.javascript.client.validator;
 
@@ -17,33 +17,37 @@ import org.richfaces.javascript.client.RunParameters;
  *
  */
 public class LongRangeValidatorTest extends ValidatorTestBase {
-
     private static final String MINIMUM = "min";
     private static final String MAXIMUM = "max";
+
     /**
      * @param criteria
      */
     public LongRangeValidatorTest(RunParameters criteria) {
         super(criteria);
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     *
      * @see org.richfaces.javascript.client.validator.ValidatorTestBase#createValidator()
      */
     @Override
     protected Validator createValidator() {
         LongRangeValidator validator = new LongRangeValidator();
         Map<String, Object> options = getOptions();
-        if(options.containsKey(MINIMUM)){
+        if (options.containsKey(MINIMUM)) {
             validator.setMinimum((Long) options.get(MINIMUM));
         }
-        if(options.containsKey(MAXIMUM)){
+        if (options.containsKey(MAXIMUM)) {
             validator.setMaximum((Long) options.get(MAXIMUM));
         }
         return validator;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see org.richfaces.javascript.client.MockTestBase#getJavaScriptFunctionName()
      */
     @Override
@@ -53,9 +57,9 @@ public class LongRangeValidatorTest extends ValidatorTestBase {
 
     @Parameters
     public static List<RunParameters[]> parameters() {
-        return options(pass(0L),pass(3L),pass(Long.MAX_VALUE),
-            pass(0L,MINIMUM,2L),pass(2L,MINIMUM,2L),pass(3L,MINIMUM,2L),pass(-3L,MINIMUM,2L),
-            pass(0L,MAXIMUM,2L),pass(2L,MAXIMUM,2L),pass(3L,MAXIMUM,2L),pass(-3L,MAXIMUM,2L),
-            pass(0L,MINIMUM,3L,MAXIMUM,5L),pass(3L,MINIMUM,3L,MAXIMUM,5L),pass(4L,MINIMUM,3L,MAXIMUM,5L),pass(7L,MINIMUM,3L,MAXIMUM,5L));
+        return options(pass(0L), pass(3L), pass(Long.MAX_VALUE), pass(0L, MINIMUM, 2L), pass(2L, MINIMUM, 2L),
+            pass(3L, MINIMUM, 2L), pass(-3L, MINIMUM, 2L), pass(0L, MAXIMUM, 2L), pass(2L, MAXIMUM, 2L), pass(3L, MAXIMUM, 2L),
+            pass(-3L, MAXIMUM, 2L), pass(0L, MINIMUM, 3L, MAXIMUM, 5L), pass(3L, MINIMUM, 3L, MAXIMUM, 5L),
+            pass(4L, MINIMUM, 3L, MAXIMUM, 5L), pass(7L, MINIMUM, 3L, MAXIMUM, 5L));
     }
 }

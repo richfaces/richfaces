@@ -18,8 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
 package org.richfaces.component;
 
 import javax.faces.component.UICommand;
@@ -36,31 +34,24 @@ import org.richfaces.renderkit.AjaxConstants;
 /**
  * @author Nick Belaevski
  */
-@JsfComponent (
-    renderer = @JsfRenderer(type = "org.richfaces.CommandLinkRenderer"),
-    tag = @Tag(type = TagType.Facelets),
-    attributes = {"commandLink-target-prop.xml", "ajax-props.xml", "link-props.xml", "core-props.xml"}
-)
+@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.CommandLinkRenderer"), tag = @Tag(type = TagType.Facelets), attributes = {
+        "commandLink-target-prop.xml", "ajax-props.xml", "link-props.xml", "core-props.xml" })
 public abstract class AbstractCommandLink extends AbstractActionComponent implements MetaComponentResolver {
-
     public static final String COMPONENT_TYPE = "org.richfaces.CommandLink";
-
     public static final String COMPONENT_FAMILY = UICommand.COMPONENT_FAMILY;
-    
     @Attribute(hidden = true)
     private String target;
-    
+
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
         return null;
     }
-    
-    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
-        String metaComponentId) {
-        
+
+    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
+
         if (AjaxContainer.META_COMPONENT_ID.equals(metaComponentId)) {
             return AjaxConstants.FORM;
         }
-        
+
         return null;
     }
 }

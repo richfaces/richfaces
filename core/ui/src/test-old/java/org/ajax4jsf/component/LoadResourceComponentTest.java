@@ -18,15 +18,11 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.component;
 
 import static org.ajax4jsf.resource.InternetResource.RESOURCE_URI_PREFIX;
 
 import java.io.IOException;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -43,7 +39,6 @@ import org.ajax4jsf.resource.InternetResource;
 import org.ajax4jsf.resource.InternetResourceBuilder;
 import org.ajax4jsf.resource.ResourceNotFoundException;
 import org.ajax4jsf.tests.AbstractAjax4JsfTestCase;
-
 import com.gargoylesoftware.htmlunit.html.HtmlLink;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlScript;
@@ -79,7 +74,7 @@ public class LoadResourceComponentTest extends AbstractAjax4JsfTestCase {
     public void setUp() throws Exception {
         super.setUp();
         renderKit.addRenderer(ResourceDependentComponent.COMPONENT_FAMILY, ResourceDependentComponent.COMPONENT_TYPE,
-                              new ResourceDependentComponentRenderer());
+                new ResourceDependentComponentRenderer());
 
         String resourcePackage = getClass().getPackage().getName().replace('.', '/') + "/";
 
@@ -112,14 +107,14 @@ public class LoadResourceComponentTest extends AbstractAjax4JsfTestCase {
 
     private List<HtmlScript> selectScriptsBySrc(HtmlPage page, String src) throws Exception {
         return Collections.checkedList(page.getByXPath("//script[@src[contains(string(.), '" + src + "')]]"),
-                                       HtmlScript.class);
+                HtmlScript.class);
     }
 
     private List<HtmlLink> selectStylesByHhref(HtmlPage page, String src) throws Exception {
         return Collections.checkedList(
-            page.getByXPath(
-                "//link[@type = 'text/css'][@rel = 'stylesheet'][@href[contains(string(.), '" + src
-                + "')]]"), HtmlLink.class);
+                page.getByXPath(
+                        "//link[@type = 'text/css'][@rel = 'stylesheet'][@href[contains(string(.), '" + src
+                                + "')]]"), HtmlLink.class);
     }
 
     protected UIResource createAndAddScriptResource(Object src) {
@@ -214,7 +209,7 @@ public class LoadResourceComponentTest extends AbstractAjax4JsfTestCase {
 
     public void testRenderMedia() throws Exception {
         createAndAddStyleResource(RESOURCE_URI_PREFIX + userXcss).getAttributes().put(HTML.media_ATTRIBUTE,
-                                  "screen print");
+                "screen print");
 
         HtmlPage page = renderView();
         List<HtmlLink> styles = selectStylesByHhref(page, userXcss);
@@ -304,7 +299,6 @@ public class LoadResourceComponentTest extends AbstractAjax4JsfTestCase {
     }
 }
 
-
 class ResourceDependentComponent extends UIComponentBase {
     static String COMPONENT_TYPE = "org.ajax4jsf.component.Test$ResourceDependentComponent";
     static String COMPONENT_FAMILY = COMPONENT_TYPE;
@@ -334,7 +328,6 @@ class ResourceDependentComponent extends UIComponentBase {
         return useScripts ? null : resources;
     }
 }
-
 
 class ResourceDependentComponentRenderer extends RendererBase implements HeaderResourceProducer2 {
     @Override

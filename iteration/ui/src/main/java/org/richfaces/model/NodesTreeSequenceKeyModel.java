@@ -23,42 +23,41 @@ package org.richfaces.model;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public abstract class NodesTreeSequenceKeyModel<V> extends TreeSequenceKeyModel<V> {
-
     private V rootNode;
-    
+
     protected V getRootNode() {
         return rootNode;
     }
-    
+
     protected void setRootNode(V rootNode) {
         this.rootNode = rootNode;
     }
-    
+
     protected void setupKey(SequenceRowKey key) {
         setRowKeyAndData(null, rootNode);
 
         if (key != null) {
             V data = getRootNode();
-            
-            for (Object simpleKey: key.getSimpleKeys()) {
+
+            for (Object simpleKey : key.getSimpleKeys()) {
                 data = setupChildContext(simpleKey);
-                
+
                 if (data == null) {
                     break;
                 }
-                
+
                 setData(data);
             }
-            
+
             setRowKeyAndData(key, data);
         }
     }
 
     protected abstract V setupChildContext(Object segment);
-    
+
     public TreeDataModelTuple createSnapshot() {
         return new TreeDataModelTuple(getRowKey(), getData());
     }
@@ -66,5 +65,4 @@ public abstract class NodesTreeSequenceKeyModel<V> extends TreeSequenceKeyModel<
     public void restoreFromSnapshot(TreeDataModelTuple tuple) {
         setRowKeyAndData((SequenceRowKey) tuple.getRowKey(), (V) tuple.getData());
     }
-
 }

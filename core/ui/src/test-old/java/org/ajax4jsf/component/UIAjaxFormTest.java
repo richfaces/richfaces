@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.component;
 
 import java.io.Serializable;
@@ -36,10 +33,8 @@ import javax.faces.validator.Validator;
 import org.ajax4jsf.component.ActionListenerTest.Bean;
 import org.ajax4jsf.event.AjaxEvent;
 import org.ajax4jsf.tests.AbstractAjax4JsfTestCase;
-
 import org.richfaces.event.DataScrollerEvent;
 import org.richfaces.event.DataScrollerListener;
-
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class UIAjaxFormTest extends AbstractAjax4JsfTestCase {

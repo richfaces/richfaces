@@ -18,23 +18,14 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
 package org.richfaces.renderkit.html;
+
 /*
  *  Remove after test moved to the test-jsf project
- * 
+ *
  */
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import org.custommonkey.xmlunit.Diff;
-import org.custommonkey.xmlunit.XMLUnit;
-import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.xml.sax.SAXException;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -43,21 +34,29 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.URISyntaxException;
 
-import static org.junit.Assert.assertNotNull;
+import org.custommonkey.xmlunit.Diff;
+import org.custommonkey.xmlunit.XMLUnit;
+import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.xml.sax.SAXException;
+
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * @author akolonitsky
  * @since Oct 22, 2010
  */
 public abstract class RendererTestBase {
-
     static {
         XMLUnit.setNormalizeWhitespace(true);
         XMLUnit.setIgnoreDiffBetweenTextAndCDATA(true);
         XMLUnit.setIgnoreWhitespace(true);
         XMLUnit.setIgnoreComments(true);
     }
-    
+
     protected HtmlUnitEnvironment environment;
 
     @Before
@@ -72,7 +71,7 @@ public abstract class RendererTestBase {
         environment.release();
         environment = null;
     }
-    
+
     protected void doTest(String pageName, String pageElementToTest) throws IOException, SAXException {
         doTest(pageName, null, pageElementToTest);
     }
@@ -84,9 +83,9 @@ public abstract class RendererTestBase {
 
         checkXmlStructure(pageName, xmlunitPageName, panel.asXml());
     }
-    
+
     protected void checkXmlStructure(String pageName, String xmlunitPageName, String pageCode) throws SAXException, IOException {
-        if(xmlunitPageName == null) {
+        if (xmlunitPageName == null) {
             xmlunitPageName = pageName + ".xmlunit.xml";
         }
         InputStream expectedPageCode = this.getClass().getResourceAsStream(xmlunitPageName + ".xmlunit.xml");
@@ -98,5 +97,4 @@ public abstract class RendererTestBase {
         xmlDiff.overrideDifferenceListener(new IgnoreScriptsContent());
         Assert.assertTrue("XML was not similar:" + xmlDiff.toString(), xmlDiff.similar());
     }
-    
 }

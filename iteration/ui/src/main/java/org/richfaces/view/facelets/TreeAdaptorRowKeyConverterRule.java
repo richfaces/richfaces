@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.view.facelets;
 
 import javax.faces.component.UIComponent;
@@ -35,7 +34,6 @@ import org.richfaces.component.TreeModelAdaptor;
 /**
  */
 public class TreeAdaptorRowKeyConverterRule extends MetaRule {
-
     public static final TreeAdaptorRowKeyConverterRule INSTANCE = new TreeAdaptorRowKeyConverterRule();
 
     @Override
@@ -63,8 +61,7 @@ public class TreeAdaptorRowKeyConverterRule extends MetaRule {
 
         @Override
         public void applyMetadata(FaceletContext ctx, Object instance) {
-            ((UIComponent) instance).setValueExpression("rowKeyConverter",
-                attribute.getValueExpression(ctx, Converter.class));
+            ((UIComponent) instance).setValueExpression("rowKeyConverter", attribute.getValueExpression(ctx, Converter.class));
         }
     }
 

@@ -1,7 +1,6 @@
 package org.richfaces.renderkit.html;
 
 public class NoSuchComponentException extends Exception {
-
     public NoSuchComponentException() {
         // TODO Auto-generated constructor stub
     }
@@ -20,5 +19,4 @@ public class NoSuchComponentException extends Exception {
         super(message, cause);
         // TODO Auto-generated constructor stub
     }
-
 }

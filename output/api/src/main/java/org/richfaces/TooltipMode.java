@@ -4,7 +4,7 @@ package org.richfaces;
  * @author amarkhel
  */
 public enum TooltipMode {
-    client, ajax;
-
+    client,
+    ajax;
     public static final TooltipMode DEFAULT = TooltipMode.client;
 }

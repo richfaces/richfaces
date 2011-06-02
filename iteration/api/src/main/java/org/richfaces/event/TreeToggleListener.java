@@ -26,10 +26,8 @@ import javax.faces.event.FacesListener;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface TreeToggleListener extends FacesListener {
-
-    public void processTreeToggle(TreeToggleEvent event) throws AbortProcessingException;
-    
+    void processTreeToggle(TreeToggleEvent event) throws AbortProcessingException;
 }

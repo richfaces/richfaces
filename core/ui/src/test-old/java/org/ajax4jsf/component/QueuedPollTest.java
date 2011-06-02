@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.component;
 
 import java.util.List;
@@ -31,7 +28,6 @@ import java.util.Map;
  * @since 3.3.0
  */
 public class QueuedPollTest extends AbstractQueueComponentTest {
-
     /**
      * @param name
      */
@@ -131,7 +127,7 @@ public class QueuedPollTest extends AbstractQueueComponentTest {
 
         // poll has been kicked from queue at 2500, requeued in 2000
         checkRequestData(dataList.get(2), "firstForm:poll", 2500 + 2000, 2500 + 2000 + 1000 /* default request time */,
-                         false);
+                false);
     }
 
     public void testDropNextDroppedPollSingle() throws Exception {

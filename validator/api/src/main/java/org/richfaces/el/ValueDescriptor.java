@@ -1,19 +1,18 @@
 /**
- * 
+ *
  */
 package org.richfaces.el;
 
 /**
  * This class describes bean property.
+ *
  * @author asmirnov
  *
  */
 public class ValueDescriptor {
-    
     private final String name;
-        
     private final Class<?> beanType;
-    
+
     /**
      * @param beanType
      * @param name
@@ -32,7 +31,6 @@ public class ValueDescriptor {
         return name;
     }
 
-
     /**
      * @return the beanType
      */
@@ -40,7 +38,9 @@ public class ValueDescriptor {
         return beanType;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -52,7 +52,9 @@ public class ValueDescriptor {
         return result;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -83,6 +85,4 @@ public class ValueDescriptor {
         }
         return true;
     }
-    
-    
 }

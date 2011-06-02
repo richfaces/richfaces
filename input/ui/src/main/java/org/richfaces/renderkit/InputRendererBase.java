@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit;
 
 import java.util.Map;
@@ -32,11 +31,9 @@ import javax.faces.convert.ConverterException;
 import org.richfaces.component.util.InputUtils;
 
 /**
- * @author Nick Belaevski - nbelaevski@exadel.com
- *         created 23.01.2007
+ * @author Nick Belaevski - nbelaevski@exadel.com created 23.01.2007
  */
 public class InputRendererBase extends RendererBase {
-
     protected void doDecode(FacesContext context, UIComponent component) {
         String clientId = component.getClientId(context);
         Map<String, String> requestParameterMap = context.getExternalContext().getRequestParameterMap();

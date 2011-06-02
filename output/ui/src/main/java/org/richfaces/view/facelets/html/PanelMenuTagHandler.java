@@ -18,12 +18,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.view.facelets.html;
-
-import org.richfaces.event.ItemChangeEvent;
-import org.richfaces.event.ItemChangeSource;
-import org.richfaces.event.MethodExpressionItemChangeListener;
 
 import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.ComponentHandler;
@@ -34,14 +29,16 @@ import javax.faces.view.facelets.Metadata;
 import javax.faces.view.facelets.MetadataTarget;
 import javax.faces.view.facelets.TagAttribute;
 
+import org.richfaces.event.ItemChangeEvent;
+import org.richfaces.event.ItemChangeSource;
+import org.richfaces.event.MethodExpressionItemChangeListener;
+
 /**
  * @author akolonitsky
  * @since Dec 2, 2010
  */
 public class PanelMenuTagHandler extends ComponentHandler {
-
     private static final MetaRule META_RULE = new PanelMenuMetaRule();
-
 
     public PanelMenuTagHandler(ComponentConfig config) {
         super(config);
@@ -55,23 +52,20 @@ public class PanelMenuTagHandler extends ComponentHandler {
     }
 
     private static class PanelMenuMetaRule extends MetaRule {
-
         @Override
         public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
             if (meta.isTargetInstanceOf(ItemChangeSource.class)) {
                 if ("itemChangeListener".equals(name)) {
                     return new ItemChangeExpressionMetadata(attribute);
                 }
-
             }
-            
+
             return null;
         }
     }
 
     private static final class ItemChangeExpressionMetadata extends Metadata {
-        private static final Class<?>[] ITEM_CHANGE_SIG = new Class[] {ItemChangeEvent.class };
-
+        private static final Class<?>[] ITEM_CHANGE_SIG = new Class[] { ItemChangeEvent.class };
         private final TagAttribute attr;
 
         ItemChangeExpressionMetadata(TagAttribute attr) {
@@ -80,8 +74,8 @@ public class PanelMenuTagHandler extends ComponentHandler {
 
         @Override
         public void applyMetadata(FaceletContext ctx, Object instance) {
-            ((ItemChangeSource) instance).addItemChangeListener(new MethodExpressionItemChangeListener(
-                            this.attr.getMethodExpression(ctx, null, ITEM_CHANGE_SIG)));
+            ((ItemChangeSource) instance).addItemChangeListener(new MethodExpressionItemChangeListener(this.attr
+                .getMethodExpression(ctx, null, ITEM_CHANGE_SIG)));
         }
     }
 }

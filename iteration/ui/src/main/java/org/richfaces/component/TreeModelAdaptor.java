@@ -27,18 +27,16 @@ import org.richfaces.cdk.annotations.Attribute;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface TreeModelAdaptor {
+    @Attribute
+    Object getNodes();
 
     @Attribute
-    public Object getNodes();
-    
-    @Attribute
-    public Converter getRowKeyConverter();
+    Converter getRowKeyConverter();
 
-    public void setRowKeyConverter(Converter converter);
+    void setRowKeyConverter(Converter converter);
 
-    public boolean isLeaf();
-
+    boolean isLeaf();
 }

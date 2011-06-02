@@ -23,25 +23,23 @@ import com.google.common.collect.Maps;
 
 @RunWith(MockTestRunner.class)
 public class TestCaptureEL extends ELTestBase {
-
     @Mock
     @Environment(Feature.EXTERNAL_CONTEXT)
     private MockFacesEnvironment facesEnvironment;
 
-    
     @Before
     public void setUpEnvironment() throws Exception {
         expect(facesEnvironment.getExternalContext().getRequestMap()).andStubReturn(Maps.<String, Object>newHashMap());
         expect(facesEnvironment.getFacesContext().getAttributes()).andStubReturn(Maps.<Object, Object>newHashMap());
         FacesMock.replay(facesEnvironment);
     }
-    
+
     @After
     public void tearDownEnvironment() throws Exception {
         FacesMock.verify(facesEnvironment);
         facesEnvironment.release();
     }
-    
+
     @Test
     public void testDummyResolverString() throws Exception {
         ValueExpression expression = parse("#{bean.string}");
@@ -73,7 +71,7 @@ public class TestCaptureEL extends ELTestBase {
         assertNull(reference.getBase());
         assertNull(reference.next());
     }
-    
+
     @Test
     public void captureMap() throws Exception {
         ValueExpression expression = parse("#{bean.map['boo']}");
@@ -85,5 +83,4 @@ public class TestCaptureEL extends ELTestBase {
         assertNotNull(reference);
         assertEquals("map", reference.getProperty());
     }
-
 }

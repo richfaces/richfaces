@@ -39,19 +39,18 @@ import org.richfaces.resource.PushResource;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class PushRendererBase extends Renderer {
-
     private static final String PUSH_URL_ENCODED_ATTRIBUTE = PushRendererBase.class.getName();
-    
+
     protected String getPushResourceUrl(FacesContext context) {
         ResourceHandler resourceHandler = context.getApplication().getResourceHandler();
         Resource pushResource = resourceHandler.createResource(PushResource.class.getName());
-        
+
         return pushResource.getRequestPath();
     }
-    
+
     protected String getPushHandlerUrl(FacesContext context) {
         PushContext pushContext = ServiceTracker.getService(PushContextFactory.class).getPushContext();
 
@@ -60,24 +59,24 @@ public class PushRendererBase extends Renderer {
 
     protected boolean shouldEncodePushUrl(FacesContext context) {
         Map<Object, Object> attributes = context.getAttributes();
-        
+
         if (attributes.get(PUSH_URL_ENCODED_ATTRIBUTE) == null) {
             attributes.put(PUSH_URL_ENCODED_ATTRIBUTE, Boolean.TRUE);
             return true;
         }
-        
+
         return false;
     }
-    
+
     protected String getOptionsString(FacesContext context, UIComponent component) {
         AbstractPush push = (AbstractPush) component;
 
         Map<String, Object> options = new HashMap<String, Object>(2);
-        
+
         options.put("address", push.getAddress());
         options.put("dataHandler", push.getOndataavailable());
         options.put("errorHandler", push.getOnerror());
-        
+
         return ScriptUtils.toScript(options);
     }
 }

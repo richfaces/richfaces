@@ -18,33 +18,31 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.component;
+
+import java.util.List;
+
+import javax.faces.component.UIComponent;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import javax.faces.component.UIComponent;
-import java.util.List;
 
 /**
  * @author akolonitsky
  * @since Jul 20, 2010
  */
 public class AbstractTogglePanelTest {
-
     private static final String ITEM1 = "item1";
     private static final String ITEM2 = "item2";
     private static final String ITEM3 = "item3";
-
     private UITogglePanel panel;
     private UITogglePanelItem item1;
     private UITogglePanelItem item2;
     private UITogglePanelItem item3;
 
     @Before
-    public void setUp () {
+    public void setUp() {
         panel = new UITogglePanel();
         List<UIComponent> children = panel.getChildren();
 
@@ -77,7 +75,7 @@ public class AbstractTogglePanelTest {
         Assert.assertEquals(null, panel.getItemByIndex(3));
 
         item1.setRendered(false);
-        
+
         Assert.assertEquals(item2, panel.getItemByIndex(0));
         Assert.assertEquals(item3, panel.getItemByIndex(1));
         Assert.assertEquals(null, panel.getItemByIndex(2));
@@ -94,7 +92,7 @@ public class AbstractTogglePanelTest {
         Assert.assertEquals(item2, panel.getItem(ITEM2));
         Assert.assertEquals(item3, panel.getItem(ITEM3));
         Assert.assertEquals(null, panel.getItem("123"));
-        
+
         panel.getItem(null);
     }
 
@@ -119,7 +117,7 @@ public class AbstractTogglePanelTest {
         Assert.assertEquals(item3, panel.getLastItem());
 
         item1.setRendered(false);
-        
+
         panel.setActiveItem(ITEM1);
         Assert.assertEquals(item2, panel.getFirstItem());
         Assert.assertEquals(null, panel.getPrevItem());
@@ -138,7 +136,6 @@ public class AbstractTogglePanelTest {
         Assert.assertEquals(null, panel.getNextItem());
         Assert.assertEquals(item3, panel.getLastItem());
     }
-
 
     @Test(expected = IllegalArgumentException.class)
     public void testGetChildName() {

@@ -45,18 +45,15 @@ import org.richfaces.skin.SkinFactory;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
-//TODO - add version
+// TODO - add version
 @DynamicUserResource
-public class ProgressBarAnimatedBackgroundImage extends AbstractJava2DUserResource implements Java2DAnimatedUserResource, StateHolderResource {
-
+public class ProgressBarAnimatedBackgroundImage extends AbstractJava2DUserResource implements Java2DAnimatedUserResource,
+    StateHolderResource {
     private static final int NUMBER_OF_FRAMES = 12;
-
     private static final Dimension DIMENSION = new Dimension(24, 48);
-
     private int frameNumber = 0;
-
     private Integer basicColor;
 
     public ProgressBarAnimatedBackgroundImage() {
@@ -89,18 +86,17 @@ public class ProgressBarAnimatedBackgroundImage extends AbstractJava2DUserResour
             basicColor = defaultSkin.getColorParameter(context, Skin.SELECT_CONTROL_COLOR);
         }
     }
-    
+
     /**
      * Creates a main stage for progress bar background.
-     * 
-     * @param context
-     *            resource context
+     *
+     * @param context resource context
      * @return a <code>BufferedImage</code> object
      */
     private BufferedImage createMainStage() {
         Color progressbarBackgroundColor = new Color(basicColor);
         Color progressbarSpiralColor = ColorUtils.adjustLightness(progressbarBackgroundColor, 0.2f);
-        
+
         Dimension dimension = getDimension();
         BufferedImage retVal = getImageType().createImage(dimension.width, dimension.height * 2);
         Graphics g = retVal.getGraphics();
@@ -119,23 +115,25 @@ public class ProgressBarAnimatedBackgroundImage extends AbstractJava2DUserResour
 
         return retVal;
     }
-    
+
     public void paint(Graphics2D g2d) {
         frameNumber++;
 
         Dimension dimension = getDimension();
-        
+
         BufferedImage mainStage = createMainStage();
         BufferedImage frame = mainStage.getSubimage(0, 48 - frameNumber * 2, dimension.width, dimension.height);
         g2d.drawImage(frame, null, null);
         Color progressbarBackgroundColor = new Color(basicColor);
-        Color progressbarShadowStartColor = ColorUtils.overwriteAlpha(ColorUtils.adjustLightness(progressbarBackgroundColor, 0.7f), 0.6f);
-        Color progressbarShadowEndColor = ColorUtils.overwriteAlpha(ColorUtils.adjustLightness(progressbarBackgroundColor, 0.3f), 0.6f);
+        Color progressbarShadowStartColor = ColorUtils.overwriteAlpha(
+            ColorUtils.adjustLightness(progressbarBackgroundColor, 0.7f), 0.6f);
+        Color progressbarShadowEndColor = ColorUtils.overwriteAlpha(
+            ColorUtils.adjustLightness(progressbarBackgroundColor, 0.3f), 0.6f);
         // paint a shadow in the form of semi-transparent gradient
         g2d.setPaint(new GradientPaint(0, 0, progressbarShadowStartColor, 0, 7, progressbarShadowEndColor));
         g2d.fillRect(0, 0, dimension.width, 7);
     }
-    
+
     public boolean isTransient() {
         return false;
     }
@@ -143,7 +141,7 @@ public class ProgressBarAnimatedBackgroundImage extends AbstractJava2DUserResour
     public void writeState(FacesContext context, DataOutput dataOutput) throws IOException {
         dataOutput.writeInt(basicColor);
     }
-    
+
     public void readState(FacesContext context, DataInput dataInput) throws IOException {
         basicColor = dataInput.readInt();
     }

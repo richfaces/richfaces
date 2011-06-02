@@ -46,16 +46,12 @@ import com.google.common.io.Closeables;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class FileUploadResourcesTest {
-
     private FileUploadMemoryResource memoryResource;
-
     private FileUploadDiscResource discResource;
-
     private String memoryTempDirectory;
-    
     private String discTempDirectory;
 
     private String createTempDirectory() {
@@ -63,26 +59,26 @@ public class FileUploadResourcesTest {
         if (!tmpDir.mkdirs()) {
             fail();
         }
-        
+
         return tmpDir.getAbsolutePath();
     }
- 
+
     private void eraseDirectory(String location) {
         File file = new File(location);
-        
-        for (File f: file.listFiles()) {
+
+        for (File f : file.listFiles()) {
             f.delete();
         }
-        
+
         file.delete();
     }
-    
+
     private byte[] getRandomBytes(int size) {
         byte[] bs = new byte[size];
         new Random().nextBytes(bs);
         return bs;
     }
-    
+
     private byte[] readFully(InputStream is) throws IOException {
         try {
             return ByteStreams.toByteArray(is);
@@ -90,15 +86,15 @@ public class FileUploadResourcesTest {
             Closeables.closeQuietly(is);
         }
     }
-  
+
     private byte[] readFully(File file) throws IOException {
         assertNotNull(file);
         return readFully(new FileInputStream(file));
     }
-    
+
     private File getSingleFile(String location) {
         File root = new File(location);
-        
+
         File[] files = root.listFiles();
         switch (files.length) {
             case 0:
@@ -109,7 +105,7 @@ public class FileUploadResourcesTest {
                 throw new IllegalStateException("File is not single");
         }
     }
-    
+
     @Before
     public void setUp() throws Exception {
         memoryTempDirectory = createTempDirectory();
@@ -120,7 +116,7 @@ public class FileUploadResourcesTest {
         discResource = new FileUploadDiscResource("form:discUpload", discTempDirectory);
         discResource.create();
     }
-    
+
     @After
     public void tearDown() throws Exception {
         eraseDirectory(memoryTempDirectory);
@@ -128,27 +124,27 @@ public class FileUploadResourcesTest {
 
         memoryTempDirectory = null;
         discTempDirectory = null;
-        
+
         memoryResource = null;
         discResource = null;
     }
-    
+
     @Test
     public void testBasics() throws Exception {
         int length = 5;
         byte[] bytes = getRandomBytes(length);
-        
+
         memoryResource.handle(bytes, bytes.length);
         discResource.handle(bytes, bytes.length);
-        
+
         memoryResource.complete();
         discResource.complete();
-        
+
         assertTrue(memoryResource.isFileParam());
         assertTrue(discResource.isFileParam());
 
         InputStream is = null;
-        
+
         try {
             is = memoryResource.getInputStream();
             assertNotNull(is);
@@ -164,65 +160,65 @@ public class FileUploadResourcesTest {
 
         assertSame(memoryResource, memoryResource.getResource());
         assertSame(discResource, discResource.getResource());
-        
+
         assertNull(memoryResource.getValue());
         assertNull(discResource.getValue());
-        
+
         assertEquals("form:memoryUpload", memoryResource.getName());
         assertEquals("form:discUpload", discResource.getName());
     }
 
     @Test
     public void testSmallData() throws Exception {
-        //should be less than 128 - initial buffer size
+        // should be less than 128 - initial buffer size
         int length = 68;
         byte[] bytes = getRandomBytes(length);
-        
+
         memoryResource.handle(bytes, bytes.length);
         discResource.handle(bytes, bytes.length);
-        
+
         memoryResource.complete();
         discResource.complete();
-        
+
         checkResourcesContent(bytes);
     }
-    
+
     @Test
     public void testLargeData() throws Exception {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        
+
         int count = new Random().nextInt(256) + 256;
         for (int i = 0; i < count; i++) {
             int size = new Random().nextInt(512) + 512;
             byte[] bytes = getRandomBytes(size);
-            
+
             memoryResource.handle(bytes, bytes.length);
             discResource.handle(bytes, bytes.length);
-            
+
             baos.write(bytes);
         }
 
         memoryResource.complete();
         discResource.complete();
-        
+
         checkResourcesContent(baos.toByteArray());
     }
-    
+
     private void checkResourcesContent(byte[] expected) throws IOException {
         int length = expected.length;
-        
+
         assertEquals(length, memoryResource.getSize());
         assertEquals(length, discResource.getSize());
-        
+
         assertArrayEquals(expected, readFully(memoryResource.getInputStream()));
         assertArrayEquals(expected, readFully(discResource.getInputStream()));
-        
+
         assertNull(getSingleFile(memoryTempDirectory));
         assertArrayEquals(expected, readFully(getSingleFile(discTempDirectory)));
-        
+
         memoryResource.write("out");
         discResource.write("out");
-        
+
         File memoryOutFile = getSingleFile(memoryTempDirectory);
         File discOutFile = getSingleFile(discTempDirectory);
 
@@ -231,25 +227,25 @@ public class FileUploadResourcesTest {
 
         assertTrue(memoryOutFile.getAbsolutePath().startsWith(memoryTempDirectory));
         assertTrue(discOutFile.getAbsolutePath().startsWith(discTempDirectory));
-        
+
         assertArrayEquals(expected, readFully(memoryOutFile));
         assertArrayEquals(expected, readFully(discOutFile));
     }
-    
+
     @Test
     public void testDelete() throws Exception {
         int length = 5;
         byte[] bytes = getRandomBytes(length);
-        
+
         memoryResource.handle(bytes, bytes.length);
         discResource.handle(bytes, bytes.length);
-        
+
         memoryResource.complete();
         discResource.complete();
-        
+
         assertNull(getSingleFile(memoryTempDirectory));
         assertNotNull(getSingleFile(discTempDirectory));
-        
+
         memoryResource.delete();
         discResource.delete();
 

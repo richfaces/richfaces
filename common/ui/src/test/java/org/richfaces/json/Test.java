@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.json;
 
 import java.io.StringWriter;
@@ -33,8 +30,7 @@ import junit.framework.TestCase;
 import org.junit.Ignore;
 
 /**
- * Test class. This file is not formally a member of the org.json library.
- * It is just a casual test tool.
+ * Test class. This file is not formally a member of the org.json library. It is just a casual test tool.
  *
  * TODO Refactoring
  */
@@ -47,20 +43,19 @@ public class Test extends TestCase {
         JSONStringer jj;
         String s;
 
-//      Obj is a typical class that implements JSONString.        
+        // Obj is a typical class that implements JSONString.
         try {
-            String[] sa = {"aString", "aNumber", "aBoolean"};
+            String[] sa = { "aString", "aNumber", "aBoolean" };
             Obj obj = new Obj("A string, a number, and a boolean", 42, true);
 
             j = XML.toJSONObject("<![CDATA[This is a collection of test patterns and examples for org.json.]]>");
             System.out.println(j.toString());
             jj = new JSONStringer();
-            s = jj.object().key("foo").value("bar").key("baz").array().object().key("quux").value(
-                "Thanks, Josh!").endObject().endArray().endObject().toString();
+            s = jj.object().key("foo").value("bar").key("baz").array().object().key("quux").value("Thanks, Josh!").endObject()
+                .endArray().endObject().toString();
             System.out.println(s);
-            System.out.println(
-                new JSONStringer().object().key("a").array().array().array().value(
-                    "b").endArray().endArray().endArray().endObject().toString());
+            System.out.println(new JSONStringer().object().key("a").array().array().array().value("b").endArray().endArray()
+                .endArray().endObject().toString());
             jj = new JSONStringer();
             jj.array();
             jj.value(1);
@@ -106,8 +101,8 @@ public class Test extends TestCase {
             System.out.println("");
             j = new JSONObject(
                 "/*comment*/{foo: [true, false,9876543210,    0.0, 1.00000001,  1.000000000001, 1.00000000000000001,"
-                + " .00000000000000001, 2.00, 0.1, 2e100, -32,[],{}, \"string\"], " + "  to   : null, op : 'Good',"
-                + "ten:10} postfix comment");
+                    + " .00000000000000001, 2.00, 0.1, 2e100, -32,[],{}, \"string\"], " + "  to   : null, op : 'Good',"
+                    + "ten:10} postfix comment");
             j.put("String", "98.6");
             j.put("JSONObject", new JSONObject());
             j.put("JSONArray", new JSONArray());
@@ -137,48 +132,48 @@ public class Test extends TestCase {
             System.out.println("    op: " + j.getString("op"));
             System.out.println("   ten: " + j.getInt("ten"));
             System.out.println("  oops: " + j.optBoolean("oops"));
-            j = XML.toJSONObject(
-                "<xml one = 1 two=' \"2\" '><five></five>First \u0009&lt;content&gt;<five></five> This is \"content\". <three>  3  </three>JSON does not preserve the sequencing of elements and contents.<three>  III  </three>  <three>  T H R E E</three><four/>Content text is an implied structure in XML. <six content=\"6\"/>JSON does not have implied structure:<seven>7</seven>everything is explicit.<![CDATA[CDATA blocks<are><supported>!]]></xml>");
+            j = XML
+                .toJSONObject("<xml one = 1 two=' \"2\" '><five></five>First \u0009&lt;content&gt;<five></five> This is \"content\". <three>  3  </three>JSON does not preserve the sequencing of elements and contents.<three>  III  </three>  <three>  T H R E E</three><four/>Content text is an implied structure in XML. <six content=\"6\"/>JSON does not have implied structure:<seven>7</seven>everything is explicit.<![CDATA[CDATA blocks<are><supported>!]]></xml>");
             System.out.println(j.toString(2));
             System.out.println(XML.toString(j));
             System.out.println("");
-            j = XML.toJSONObject(
-                "<mapping><empty/>   <class name = \"Customer\">      <field name = \"ID\" type = \"string\">         <bind-xml name=\"ID\" node=\"attribute\"/>      </field>      <field name = \"FirstName\" type = \"FirstName\"/>      <field name = \"MI\" type = \"MI\"/>      <field name = \"LastName\" type = \"LastName\"/>   </class>   <class name = \"FirstName\">      <field name = \"text\">         <bind-xml name = \"text\" node = \"text\"/>      </field>   </class>   <class name = \"MI\">      <field name = \"text\">         <bind-xml name = \"text\" node = \"text\"/>      </field>   </class>   <class name = \"LastName\">      <field name = \"text\">         <bind-xml name = \"text\" node = \"text\"/>      </field>   </class></mapping>");
+            j = XML
+                .toJSONObject("<mapping><empty/>   <class name = \"Customer\">      <field name = \"ID\" type = \"string\">         <bind-xml name=\"ID\" node=\"attribute\"/>      </field>      <field name = \"FirstName\" type = \"FirstName\"/>      <field name = \"MI\" type = \"MI\"/>      <field name = \"LastName\" type = \"LastName\"/>   </class>   <class name = \"FirstName\">      <field name = \"text\">         <bind-xml name = \"text\" node = \"text\"/>      </field>   </class>   <class name = \"MI\">      <field name = \"text\">         <bind-xml name = \"text\" node = \"text\"/>      </field>   </class>   <class name = \"LastName\">      <field name = \"text\">         <bind-xml name = \"text\" node = \"text\"/>      </field>   </class></mapping>");
             System.out.println(j.toString(2));
             System.out.println(XML.toString(j));
             System.out.println("");
-            j = XML.toJSONObject(
-                "<?xml version=\"1.0\" ?><Book Author=\"Anonymous\"><Title>Sample Book</Title><Chapter id=\"1\">This is chapter 1. It is not very long or interesting.</Chapter><Chapter id=\"2\">This is chapter 2. Although it is longer than chapter 1, it is not any more interesting.</Chapter></Book>");
+            j = XML
+                .toJSONObject("<?xml version=\"1.0\" ?><Book Author=\"Anonymous\"><Title>Sample Book</Title><Chapter id=\"1\">This is chapter 1. It is not very long or interesting.</Chapter><Chapter id=\"2\">This is chapter 2. Although it is longer than chapter 1, it is not any more interesting.</Chapter></Book>");
             System.out.println(j.toString(2));
             System.out.println(XML.toString(j));
             System.out.println("");
-            j = XML.toJSONObject(
-                "<!DOCTYPE bCard 'http://www.cs.caltech.edu/~adam/schemas/bCard'><bCard><?xml default bCard        firstname = ''        lastname  = '' company   = '' email = '' homepage  = ''?><bCard        firstname = 'Rohit'        lastname  = 'Khare'        company   = 'MCI'        email     = 'khare@mci.net'        homepage  = 'http://pest.w3.org/'/><bCard        firstname = 'Adam'        lastname  = 'Rifkin'        company   = 'Caltech Infospheres Project'        email     = 'adam@cs.caltech.edu'        homepage  = 'http://www.cs.caltech.edu/~adam/'/></bCard>");
+            j = XML
+                .toJSONObject("<!DOCTYPE bCard 'http://www.cs.caltech.edu/~adam/schemas/bCard'><bCard><?xml default bCard        firstname = ''        lastname  = '' company   = '' email = '' homepage  = ''?><bCard        firstname = 'Rohit'        lastname  = 'Khare'        company   = 'MCI'        email     = 'khare@mci.net'        homepage  = 'http://pest.w3.org/'/><bCard        firstname = 'Adam'        lastname  = 'Rifkin'        company   = 'Caltech Infospheres Project'        email     = 'adam@cs.caltech.edu'        homepage  = 'http://www.cs.caltech.edu/~adam/'/></bCard>");
             System.out.println(j.toString(2));
             System.out.println(XML.toString(j));
             System.out.println("");
-            j = XML.toJSONObject(
-                "<?xml version=\"1.0\"?><customer>    <firstName>        <text>Fred</text>    </firstName>    <ID>fbs0001</ID>    <lastName> <text>Scerbo</text>    </lastName>    <MI>        <text>B</text>    </MI></customer>");
+            j = XML
+                .toJSONObject("<?xml version=\"1.0\"?><customer>    <firstName>        <text>Fred</text>    </firstName>    <ID>fbs0001</ID>    <lastName> <text>Scerbo</text>    </lastName>    <MI>        <text>B</text>    </MI></customer>");
             System.out.println(j.toString(2));
             System.out.println(XML.toString(j));
             System.out.println("");
-            j = XML.toJSONObject(
-                "<!ENTITY tp-address PUBLIC '-//ABC University::Special Collections Library//TEXT (titlepage: name and address)//EN' 'tpspcoll.sgm'><list type='simple'><head>Repository Address </head><item>Special Collections Library</item><item>ABC University</item><item>Main Library, 40 Circle Drive</item><item>Ourtown, Pennsylvania</item><item>17654 USA</item></list>");
+            j = XML
+                .toJSONObject("<!ENTITY tp-address PUBLIC '-//ABC University::Special Collections Library//TEXT (titlepage: name and address)//EN' 'tpspcoll.sgm'><list type='simple'><head>Repository Address </head><item>Special Collections Library</item><item>ABC University</item><item>Main Library, 40 Circle Drive</item><item>Ourtown, Pennsylvania</item><item>17654 USA</item></list>");
             System.out.println(j.toString());
             System.out.println(XML.toString(j));
             System.out.println("");
-            j = XML.toJSONObject(
-                "<test intertag status=ok><empty/>deluxe<blip sweet=true>&amp;&quot;toot&quot;&toot;&#x41;</blip><x>eks</x><w>bonus</w><w>bonus2</w></test>");
+            j = XML
+                .toJSONObject("<test intertag status=ok><empty/>deluxe<blip sweet=true>&amp;&quot;toot&quot;&toot;&#x41;</blip><x>eks</x><w>bonus</w><w>bonus2</w></test>");
             System.out.println(j.toString(2));
             System.out.println(XML.toString(j));
             System.out.println("");
-            j = HTTP.toJSONObject(
-                "GET / HTTP/1.0\nAccept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/vnd.ms-powerpoint, application/vnd.ms-excel, application/msword, */*\nAccept-Language: en-us\nUser-Agent: Mozilla/4.0 (compatible; MSIE 5.5; Windows 98; Win 9x 4.90; T312461; Q312461)\nHost: www.nokko.com\nConnection: keep-alive\nAccept-encoding: gzip, deflate\n");
+            j = HTTP
+                .toJSONObject("GET / HTTP/1.0\nAccept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/vnd.ms-powerpoint, application/vnd.ms-excel, application/msword, */*\nAccept-Language: en-us\nUser-Agent: Mozilla/4.0 (compatible; MSIE 5.5; Windows 98; Win 9x 4.90; T312461; Q312461)\nHost: www.nokko.com\nConnection: keep-alive\nAccept-encoding: gzip, deflate\n");
             System.out.println(j.toString(2));
             System.out.println(HTTP.toString(j));
             System.out.println("");
-            j = HTTP.toJSONObject(
-                "HTTP/1.1 200 Oki Doki\nDate: Sun, 26 May 2002 17:38:52 GMT\nServer: Apache/1.3.23 (Unix) mod_perl/1.26\nKeep-Alive: timeout=15, max=100\nConnection: Keep-Alive\nTransfer-Encoding: chunked\nContent-Type: text/html\n");
+            j = HTTP
+                .toJSONObject("HTTP/1.1 200 Oki Doki\nDate: Sun, 26 May 2002 17:38:52 GMT\nServer: Apache/1.3.23 (Unix) mod_perl/1.26\nKeep-Alive: timeout=15, max=100\nConnection: Keep-Alive\nTransfer-Encoding: chunked\nContent-Type: text/html\n");
             System.out.println(j.toString(2));
             System.out.println(HTTP.toString(j));
             System.out.println("");
@@ -191,21 +186,16 @@ public class Test extends TestCase {
             System.out.println(HTTP.toString(j));
             System.out.println("");
             j = XML.toJSONObject("<?xml version='1.0' encoding='UTF-8'?>" + "\n\n" + "<SOAP-ENV:Envelope"
-                                 + " xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\""
-                                 + " xmlns:xsi=\"http://www.w3.org/1999/XMLSchema-instance\""
-                                 + " xmlns:xsd=\"http://www.w3.org/1999/XMLSchema\">"
-                                 + "<SOAP-ENV:Body><ns1:doGoogleSearch" + " xmlns:ns1=\"urn:GoogleSearch\""
-                                 + " SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">"
-                                 + "<key xsi:type=\"xsd:string\">GOOGLEKEY</key> <q"
-                                 + " xsi:type=\"xsd:string\">'+search+'</q> <start"
-                                 + " xsi:type=\"xsd:int\">0</start> <maxResults"
-                                 + " xsi:type=\"xsd:int\">10</maxResults> <filter"
-                                 + " xsi:type=\"xsd:boolean\">true</filter> <restrict"
-                                 + " xsi:type=\"xsd:string\"></restrict> <safeSearch"
-                                 + " xsi:type=\"xsd:boolean\">false</safeSearch> <lr"
-                                 + " xsi:type=\"xsd:string\"></lr> <ie" + " xsi:type=\"xsd:string\">latin1</ie> <oe"
-                                 + " xsi:type=\"xsd:string\">latin1</oe>" + "</ns1:doGoogleSearch>"
-                                 + "</SOAP-ENV:Body></SOAP-ENV:Envelope>");
+                + " xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\""
+                + " xmlns:xsi=\"http://www.w3.org/1999/XMLSchema-instance\""
+                + " xmlns:xsd=\"http://www.w3.org/1999/XMLSchema\">" + "<SOAP-ENV:Body><ns1:doGoogleSearch"
+                + " xmlns:ns1=\"urn:GoogleSearch\"" + " SOAP-ENV:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">"
+                + "<key xsi:type=\"xsd:string\">GOOGLEKEY</key> <q" + " xsi:type=\"xsd:string\">'+search+'</q> <start"
+                + " xsi:type=\"xsd:int\">0</start> <maxResults" + " xsi:type=\"xsd:int\">10</maxResults> <filter"
+                + " xsi:type=\"xsd:boolean\">true</filter> <restrict" + " xsi:type=\"xsd:string\"></restrict> <safeSearch"
+                + " xsi:type=\"xsd:boolean\">false</safeSearch> <lr" + " xsi:type=\"xsd:string\"></lr> <ie"
+                + " xsi:type=\"xsd:string\">latin1</ie> <oe" + " xsi:type=\"xsd:string\">latin1</oe>" + "</ns1:doGoogleSearch>"
+                + "</SOAP-ENV:Body></SOAP-ENV:Envelope>");
             System.out.println(j.toString(2));
             System.out.println(XML.toString(j));
             System.out.println("");
@@ -239,8 +229,8 @@ public class Test extends TestCase {
             j = new JSONObject(jt);
             System.out.println(j.toString());
             System.out.println("");
-            a = CDL.toJSONArray(
-                "No quotes, 'Single Quotes', \"Double Quotes\"\n1,'2',\"3\"\n,'It is \"good,\"', \"It works.\"\n\n");
+            a = CDL
+                .toJSONArray("No quotes, 'Single Quotes', \"Double Quotes\"\n1,'2',\"3\"\n,'It is \"good,\"', \"It works.\"\n\n");
             System.out.println(CDL.toString(a));
             System.out.println("");
             System.out.println(a.toString(4));
@@ -260,7 +250,7 @@ public class Test extends TestCase {
             }
 
             System.out.println("");
-            j = new JSONObject(j, new String[] {"dec", "oct", "hex", "missing"});
+            j = new JSONObject(j, new String[] { "dec", "oct", "hex", "missing" });
             System.out.println(j.toString(4));
             System.out.println("");
             System.out.println(new JSONStringer().array().value(a).value(j).endArray());

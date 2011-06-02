@@ -33,21 +33,19 @@ import org.richfaces.model.iterators.IterableDataTuplesIterator;
 
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
+
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class SwingTreeNodeDataModelImpl extends NodesTreeSequenceKeyModel<TreeNode> {
-
     private static final Converter DEFAULT_CONVERTER = new IntegerSequenceRowKeyConverter();
-    
     private boolean asksAllowsChildren = false;
-    
     private Object wrappedData;
 
     private TreeNode createFakeRootNode(Object wrappedData) {
         Collection<TreeNode> nodes;
-        
+
         if (wrappedData instanceof Collection<?>) {
             nodes = (Collection<TreeNode>) wrappedData;
         } else if (wrappedData instanceof TreeNode) {
@@ -57,25 +55,25 @@ public class SwingTreeNodeDataModelImpl extends NodesTreeSequenceKeyModel<TreeNo
         } else {
             throw new IllegalArgumentException(String.valueOf(wrappedData));
         }
-        
+
         SwingTreeNodeImpl<?> treeNodeImpl = new SwingTreeNodeImpl<Object>(nodes);
         treeNodeImpl.setAllowUpdateParents(false);
         return treeNodeImpl;
     }
-    
+
     public void setWrappedData(Object data) {
         this.wrappedData = data;
-        
+
         setRootNode(createFakeRootNode(data));
     }
-    
+
     public Object getWrappedData() {
         return wrappedData;
     }
 
     protected TreeNode findChild(TreeNode parent, Integer simpleKey) {
         int childIdx = simpleKey.intValue();
-        
+
         if (childIdx < parent.getChildCount()) {
             return parent.getChildAt(childIdx);
         }
@@ -95,12 +93,12 @@ public class SwingTreeNodeDataModelImpl extends NodesTreeSequenceKeyModel<TreeNo
             return !getData().getAllowsChildren();
         }
     }
-    
+
     @Override
     protected TreeNode setupChildContext(Object segment) {
         return findChild(getData(), (Integer) segment);
     }
-    
+
     public Converter getRowKeyConverter() {
         return DEFAULT_CONVERTER;
     }

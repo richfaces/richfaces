@@ -5,5 +5,8 @@ package org.richfaces;
  * @since Aug 24, 2010
  */
 public enum HeaderPosition {
-    top, left, right, bottom
+    top,
+    left,
+    right,
+    bottom
 }

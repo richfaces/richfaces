@@ -26,16 +26,15 @@ import javax.faces.event.AbortProcessingException;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
-public class MethodExpressionTreeSelectionChangeListener extends MethodExpressionEventListener implements TreeSelectionChangeListener {
-
+public class MethodExpressionTreeSelectionChangeListener extends MethodExpressionEventListener implements
+    TreeSelectionChangeListener {
     public MethodExpressionTreeSelectionChangeListener() {
         super();
     }
 
-    public MethodExpressionTreeSelectionChangeListener(MethodExpression methodExprOneArg,
-        MethodExpression methodExprZeroArg) {
+    public MethodExpressionTreeSelectionChangeListener(MethodExpression methodExprOneArg, MethodExpression methodExprZeroArg) {
         super(methodExprOneArg, methodExprZeroArg);
     }
 
@@ -46,5 +45,4 @@ public class MethodExpressionTreeSelectionChangeListener extends MethodExpressio
     public void processTreeSelectionChange(TreeSelectionChangeEvent event) throws AbortProcessingException {
         processEvent(event);
     }
-
 }

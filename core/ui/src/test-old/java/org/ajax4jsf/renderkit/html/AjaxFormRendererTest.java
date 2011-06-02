@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.renderkit.html;
 
 import java.util.HashSet;
@@ -30,9 +27,7 @@ import java.util.Set;
 
 import org.ajax4jsf.component.UIAjaxForm;
 import org.ajax4jsf.tests.AbstractAjax4JsfTestCase;
-
 import org.apache.commons.lang.StringUtils;
-
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlScript;
@@ -80,7 +75,7 @@ public class AjaxFormRendererTest extends AbstractAjax4JsfTestCase {
         assertNotNull(page);
         System.out.println(page.asXml());
         assertEquals(getCountValidScripts(page, javaScripts, IS_PAGE_AVAILABILITY_CHECK).intValue(),
-                     javaScripts.size());
+                javaScripts.size());
     }
 
     /**

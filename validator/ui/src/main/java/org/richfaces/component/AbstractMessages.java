@@ -20,7 +20,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import javax.faces.component.UIMessages;
@@ -36,35 +35,26 @@ import org.richfaces.cdk.annotations.Tag;
 /**
  * <p class="changed_added_4_0">
  * </p>
- * 
+ *
  * @author asmirnov@exadel.com
- * 
+ *
  */
-@JsfComponent(
-    generate="org.richfaces.component.UIRichMessages",
-    type="org.richfaces.Messages",
-    components=@RendererSpecificComponent(
-        tag=@Tag(name="messages"),
-        generate="org.richfaces.component.html.HtmlMessages",
-        attributes={"core-props.xml","events-props.xml","i18n-props.xml"},
-        renderer=@JsfRenderer(template="messages.template.xml")
-        )
-    )
+@JsfComponent(generate = "org.richfaces.component.UIRichMessages", type = "org.richfaces.Messages", components = @RendererSpecificComponent(tag = @Tag(name = "messages"), generate = "org.richfaces.component.html.HtmlMessages", attributes = {
+        "core-props.xml", "events-props.xml", "i18n-props.xml" }, renderer = @JsfRenderer(template = "messages.template.xml")))
 public abstract class AbstractMessages extends UIMessages implements AjaxOutput, ClientSideMessage {
-
-    @Attribute(defaultValue="true")
+    @Attribute(defaultValue = "true")
     public abstract boolean isAjaxRendered();
 
     @Attribute
     public abstract boolean isKeepTransient();
 
-    
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see org.richfaces.component.ClientSideMessage#updateMessages(javax.faces.context.FacesContext, java.lang.String)
      */
     public void updateMessages(FacesContext context, String clientId) {
         // TODO Auto-generated method stub
 
     }
-
 }

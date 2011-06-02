@@ -34,7 +34,6 @@ public enum TreeNodeState {
         public boolean isDifferentThan(TreeNodeState anotherState) {
             return anotherState != expandedNoChildren && super.isDifferentThan(anotherState);
         }
-        
     },
     expandedNoChildren("rf-tr-nd-exp rf-tr-nd-exp-nc", "rf-trn-hnd-lf", "rf-trn-ico-exp") {
         @Override
@@ -58,15 +57,10 @@ public enum TreeNodeState {
         public boolean isLeaf() {
             return true;
         }
-
     };
-
     private String nodeClass;
-
     private String handleClass;
-
     private String iconClass;
-
     private String customIconClass;
 
     private TreeNodeState(String nodeClass, String defaultHandleClass, String iconClass) {

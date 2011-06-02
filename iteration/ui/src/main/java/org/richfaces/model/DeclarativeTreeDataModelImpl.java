@@ -40,16 +40,13 @@ import com.google.common.collect.Iterables;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Object> implements DeclarativeTreeModel<Object> {
-
     private static final Converter DEFAULT_CONVERTER = new DeclarativeModelSequenceKeyConverter();
-
-    private static final Predicate<Object> TREE_MODEL_ADAPTOR_INSTANCE_PREDICATE = Predicates.instanceOf(TreeModelAdaptor.class);
-    
+    private static final Predicate<Object> TREE_MODEL_ADAPTOR_INSTANCE_PREDICATE = Predicates
+        .instanceOf(TreeModelAdaptor.class);
     private AbstractTree tree;
-
     private UIComponent currentComponent;
 
     public DeclarativeTreeDataModelImpl(AbstractTree tree) {
@@ -63,13 +60,13 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Object> i
 
     public boolean isLeaf() {
         UIComponent currentComponent = getCurrentComponent();
-        
+
         TreeModelAdaptor adaptor = (TreeModelAdaptor) currentComponent;
-        
+
         if (adaptor.isLeaf()) {
             return true;
         }
-        
+
         if (adaptor instanceof TreeModelRecursiveAdaptor) {
             return false;
         }
@@ -108,7 +105,7 @@ public class DeclarativeTreeDataModelImpl extends TreeSequenceKeyModel<Object> i
             this.currentComponent = walker.getCurrentComponent();
         }
     }
-    
+
     public TreeDataModelTuple createSnapshot() {
         return new DeclarativeTreeDataModelTuple(getRowKey(), getData(), getCurrentComponent());
     }

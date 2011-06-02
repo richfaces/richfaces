@@ -23,12 +23,10 @@ package org.richfaces.event;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface TreeSelectionChangeSource {
+    void addTreeSelectionChangeListener(TreeSelectionChangeListener listener);
 
-    public void addTreeSelectionChangeListener(TreeSelectionChangeListener listener);
-    
-    public void removeTreeSelectionChangeListener(TreeSelectionChangeListener listener);
-    
+    void removeTreeSelectionChangeListener(TreeSelectionChangeListener listener);
 }

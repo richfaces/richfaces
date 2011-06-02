@@ -26,9 +26,7 @@ import org.richfaces.el.model.Person;
 import com.google.common.collect.Iterators;
 
 public class ELTestBase {
-
     class DummyELResolver extends ELResolver {
-
         private final ELResolver beanResolver = new BeanELResolver();
         private final ELResolver mapResolver = new MapELResolver();
         private final ELResolver listResolver = new ListELResolver();
@@ -85,15 +83,13 @@ public class ELTestBase {
             // do nothing
 
         }
-
     }
 
     class DummyELContext extends ELContext {
-
         public DummyELContext() {
             putContext(FacesContext.class, FacesContext.getCurrentInstance());
         }
-        
+
         @Override
         public ELResolver getELResolver() {
             return elResolver;
@@ -108,7 +104,6 @@ public class ELTestBase {
         public VariableMapper getVariableMapper() {
             return null;
         }
-
     }
 
     protected ExpressionFactoryImpl expressionFactory;
@@ -144,5 +139,4 @@ public class ELTestBase {
         ValueExpression expression = expressionFactory.createValueExpression(elContext, expressionString, String.class);
         return expression;
     }
-
 }

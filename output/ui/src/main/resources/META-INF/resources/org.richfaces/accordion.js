@@ -25,50 +25,50 @@
     rf.ui = rf.ui || {};
 
     rf.ui.Accordion = rf.ui.TogglePanel.extendClass({
-        // class name
-        name:"Accordion",
+            // class name
+            name:"Accordion",
 
-        /**
-         * @class Accordion
-         * @name Accordion
-         *
-         * @constructor
-         * @param {String} componentId - component id
-         * @param {Hash} options - params
-         * */
-        init : function (componentId, options) {
-            $super.constructor.call(this, componentId, options);
-            this.items = [];
+            /**
+             * @class Accordion
+             * @name Accordion
+             *
+             * @constructor
+             * @param {String} componentId - component id
+             * @param {Hash} options - params
+             * */
+            init : function (componentId, options) {
+                $super.constructor.call(this, componentId, options);
+                this.items = [];
 
-            this.isKeepHeight = options["isKeepHeight"] || false  
-        },
+                this.isKeepHeight = options["isKeepHeight"] || false
+            },
 
-        /***************************** Public Methods  ****************************************************************/
+            /***************************** Public Methods  ****************************************************************/
 
-        getHeight : function (recalculate) {
-            if (recalculate || !this.__height) {
-                this.__height = $(rf.getDomElement(this.id)).outerHeight(true)
+            getHeight : function (recalculate) {
+                if (recalculate || !this.__height) {
+                    this.__height = $(rf.getDomElement(this.id)).outerHeight(true)
+                }
+
+                return this.__height;
+            },
+
+            getInnerHeight : function (recalculate) {
+                if (recalculate || !this.__innerHeight) {
+                    this.__innerHeight = $(rf.getDomElement(this.id)).innerHeight(true)
+                }
+
+                return this.__innerHeight;
+            },
+
+            /***************************** Private Methods ********************************************************/
+
+
+            destroy: function () {
+                rf.Event.unbindById(this.id, "." + this.namespace);
+                $super.destroy.call(this);
             }
-
-            return this.__height;
-        },
-
-        getInnerHeight : function (recalculate) {
-            if (recalculate || !this.__innerHeight) {
-                this.__innerHeight = $(rf.getDomElement(this.id)).innerHeight(true)
-            }
-
-            return this.__innerHeight;
-        },
-
-        /***************************** Private Methods ********************************************************/
-
-
-        destroy: function () {
-            rf.Event.unbindById(this.id, "." + this.namespace);
-            $super.destroy.call(this);
-        }
-    });
+        });
 
     // define super class link
     var $super = rf.ui.Accordion.$super;

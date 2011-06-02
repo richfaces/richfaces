@@ -19,42 +19,31 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit.html;
-
-import org.richfaces.renderkit.HtmlConstants;
-import org.richfaces.renderkit.RenderKitUtils;
-import org.richfaces.renderkit.RendererBase;
-
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Map;
 
 import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
 import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
 import static org.richfaces.renderkit.RenderKitUtils.attributes;
 import static org.richfaces.renderkit.RenderKitUtils.renderPassThroughAttributes;
 
+import java.io.IOException;
+import java.util.Map;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+
+import org.richfaces.renderkit.HtmlConstants;
+import org.richfaces.renderkit.RenderKitUtils;
+import org.richfaces.renderkit.RendererBase;
+
 /**
  * @author akolonitsky
- * 
+ *
  */
 public abstract class DivPanelRenderer extends RendererBase {
-
-    private static final RenderKitUtils.Attributes PASS_THROUGH_ATTRIBUTES = attributes(
-        "lang",
-        "onclick",
-        "ondblclick",
-        "onmousedown",
-        "onmousemove",
-        "onmouseout",
-        "onmouseover",
-        "onmouseup",
-        "title",
-        "dir"
-    );
+    private static final RenderKitUtils.Attributes PASS_THROUGH_ATTRIBUTES = attributes("lang", "onclick", "ondblclick",
+        "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "title", "dir");
 
     protected static String attributeAsStyle(UIComponent comp, Enum attr) {
         return attributeAsStyle(comp, attr.toString());
@@ -70,8 +59,7 @@ public abstract class DivPanelRenderer extends RendererBase {
     }
 
     protected static String styleElement(Object name, Object value) {
-        return new StringBuilder()
-            .append(name).append(':').append(value).toString();
+        return new StringBuilder().append(name).append(':').append(value).toString();
     }
 
     protected static String attributeAsString(UIComponent comp, Enum attr) {
@@ -98,7 +86,7 @@ public abstract class DivPanelRenderer extends RendererBase {
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         doEncodeItemBegin(writer, context, component);
     }
-    
+
     protected void doEncodeItemBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         writer.startElement(HtmlConstants.DIV_ELEM, component);
         writer.writeAttribute(ID_ATTRIBUTE, component.getClientId(context), "clientId");
@@ -107,7 +95,7 @@ public abstract class DivPanelRenderer extends RendererBase {
         if (style != null && style.length() > 0) {
             writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, style, null);
         }
-        
+
         renderPassThroughAttributes(context, component, getPassThroughAttributes());
     }
 
@@ -127,7 +115,7 @@ public abstract class DivPanelRenderer extends RendererBase {
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         doEncodeItemEnd(writer, context, component);
     }
-    
+
     protected void doEncodeItemEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         writeJavaScript(writer, context, component);
 
@@ -154,4 +142,3 @@ public abstract class DivPanelRenderer extends RendererBase {
         return null;
     }
 }
-

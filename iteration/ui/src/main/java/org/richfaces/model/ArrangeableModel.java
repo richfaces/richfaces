@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.model;
 
 import static org.richfaces.application.configuration.ConfigurationServiceHelper.getBooleanConfigurationValue;
@@ -47,20 +46,14 @@ import org.richfaces.component.SortOrder;
 
 /**
  * @author Konstantin Mishin
- * 
+ *
  */
 public class ArrangeableModel extends ExtendedDataModel<Object> implements Arrangeable {
-
     private ArrangeableState state;
-
     private List<Object> rowKeys;
-
     private ExtendedDataModel<?> originalModel;
-
     private String var;
-
     private String filterVar;
-
     private Comparator<? super String> stringComparator;
 
     public ArrangeableModel(ExtendedDataModel<?> originalModel, String var, String filterVar) {
@@ -76,14 +69,14 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     public void removeDataModelListener(DataModelListener listener) {
         originalModel.removeDataModelListener(listener);
     }
-    
+
     public DataModelListener[] getDataModelListeners() {
         return originalModel.getDataModelListeners();
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.ajax4jsf.model.ExtendedDataModel#getRowKey()
      */
     public Object getRowKey() {
@@ -92,7 +85,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.ajax4jsf.model.ExtendedDataModel#setRowKey(java.lang.Object)
      */
     public void setRowKey(Object key) {
@@ -101,7 +94,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.ajax4jsf.model.ExtendedDataModel#walk(javax.faces.context.FacesContext, org.ajax4jsf.model.DataVisitor,
      * org.ajax4jsf.model.Range, java.lang.Object)
      */
@@ -123,7 +116,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.faces.model.DataModel#getRowCount()
      */
     public int getRowCount() {
@@ -136,7 +129,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.faces.model.DataModel#getRowData()
      */
     public Object getRowData() {
@@ -145,7 +138,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.faces.model.DataModel#getRowIndex()
      */
     public int getRowIndex() {
@@ -154,7 +147,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.faces.model.DataModel#getWrappedData()
      */
     public Object getWrappedData() {
@@ -163,7 +156,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.faces.model.DataModel#isRowAvailable()
      */
     public boolean isRowAvailable() {
@@ -172,7 +165,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.faces.model.DataModel#setRowIndex(int)
      */
     public void setRowIndex(int rowIndex) {
@@ -185,7 +178,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.faces.model.DataModel#setWrappedData(java.lang.Object)
      */
     public void setWrappedData(Object data) {
@@ -194,7 +187,7 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.richfaces.model.Modifiable#modify(org.richfaces.model.ModifiableState)
      */
     public void arrange(FacesContext context, ArrangeableState state) {
@@ -337,7 +330,8 @@ public class ArrangeableModel extends ExtendedDataModel<Object> implements Arran
     private Comparator<? super String> createStringComparator(FacesContext context) {
         Comparator<? super String> comparator = null;
         Locale locale = state.getLocale();
-        if (locale != null && getBooleanConfigurationValue(context, IterationComponentsConfiguration.Items.datatableUsesViewLocale)) {
+        if (locale != null
+            && getBooleanConfigurationValue(context, IterationComponentsConfiguration.Items.datatableUsesViewLocale)) {
             comparator = Collator.getInstance(locale);
         } else {
             comparator = new Comparator<String>() {

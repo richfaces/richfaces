@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.renderkit;
 
 import java.util.Iterator;
@@ -61,7 +58,7 @@ public abstract class AjaxFunctionRendererBase extends AjaxCommandRendererBase {
             Map<String, Object> parameters = options.getParameters();
 
             // Fill parameters.
-            for (Iterator<UIComponent> it = component.getChildren().iterator(); it.hasNext(); ) {
+            for (Iterator<UIComponent> it = component.getChildren().iterator(); it.hasNext();) {
                 UIComponent child = it.next();
 
                 if (child instanceof UIParameter) {

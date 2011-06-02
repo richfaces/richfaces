@@ -3,23 +3,22 @@
  * Copyright ${year}, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
- * 
+ *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation; either version 2.1 of
  * the License, or (at your option) any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import java.io.IOException;
@@ -47,14 +46,11 @@ import org.richfaces.renderkit.MetaComponentRenderer;
  * @author amarkhel
  * @since 2010-10-24
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets),
-        renderer = @JsfRenderer(type = "org.richfaces.TooltipRenderer"), attributes = {"tooltip-props.xml", "ajax-props.xml"})
+@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.TooltipRenderer"), attributes = {
+        "tooltip-props.xml", "ajax-props.xml" })
 public abstract class AbstractTooltip extends UIOutput implements AbstractDivPanel, MetaComponentResolver, MetaComponentEncoder {
-
     public static final String COMPONENT_TYPE = "org.richfaces.Tooltip";
-
     public static final String COMPONENT_FAMILY = "org.richfaces.Tooltip";
-
     public static final String CONTENT_META_COMPONENT_ID = "content";
 
     protected AbstractTooltip() {
@@ -86,10 +82,9 @@ public abstract class AbstractTooltip extends UIOutput implements AbstractDivPan
         getStateHelper().put(Properties.target, target);
     }
 
-/*
-    @Attribute
-    public abstract String getValue();
-*/
+    /*
+     * @Attribute public abstract String getValue();
+     */
 
     @Attribute(defaultValue = "TooltipLayout.DEFAULT")
     public abstract TooltipLayout getLayout();
@@ -186,9 +181,8 @@ public abstract class AbstractTooltip extends UIOutput implements AbstractDivPan
 
         return null;
     }
-    
-    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
-        String metaComponentId) {
+
+    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
 
         return null;
     }

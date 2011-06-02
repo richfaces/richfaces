@@ -23,11 +23,12 @@ package org.richfaces.component;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public enum LogMode {
 
-    popup, inline, console;
-    
+    popup,
+    inline,
+    console;
     public static final LogMode DEFAULT = inline;
 }

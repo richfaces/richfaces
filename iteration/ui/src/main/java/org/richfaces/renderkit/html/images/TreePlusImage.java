@@ -41,17 +41,13 @@ import org.richfaces.skin.SkinFactory;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @DynamicUserResource
 public class TreePlusImage extends AbstractJava2DUserResource implements StateHolderResource {
-
     private static final Dimension DIMENSION = new Dimension(16, 16);
-
     protected Integer generalColorValue;
-
     protected Integer controlColorValue;
-
     protected Integer trimColorValue;
 
     public TreePlusImage() {
@@ -64,7 +60,7 @@ public class TreePlusImage extends AbstractJava2DUserResource implements StateHo
         controlColorValue = getColorParameter(Skin.CONTROL_BACKGROUND_COLOR);
         trimColorValue = getColorParameter(Skin.TRIM_COLOR);
     }
-    
+
     protected Integer getColorParameter(String property) {
         FacesContext context = FacesContext.getCurrentInstance();
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
@@ -99,13 +95,13 @@ public class TreePlusImage extends AbstractJava2DUserResource implements StateHo
 
     protected void drawVerticalCrossLine(Graphics2D g2d) {
         g2d.setColor(new Color(generalColorValue));
-        //vertical cross line
+        // vertical cross line
         g2d.drawLine(7, 5, 7, 9);
     }
 
     protected void drawHorizontalCrossLine(Graphics2D g2d) {
         g2d.setColor(new Color(generalColorValue));
-        //horizontal cross line
+        // horizontal cross line
         g2d.drawLine(5, 7, 9, 7);
     }
 
@@ -116,7 +112,7 @@ public class TreePlusImage extends AbstractJava2DUserResource implements StateHo
     }
 
     public void readState(FacesContext context, DataInput dataInput) throws IOException {
-        generalColorValue =  dataInput.readInt();
+        generalColorValue = dataInput.readInt();
         controlColorValue = dataInput.readInt();
         trimColorValue = dataInput.readInt();
     }

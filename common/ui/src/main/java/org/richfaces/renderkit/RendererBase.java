@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit;
 
 import java.io.IOException;
@@ -37,22 +36,21 @@ import org.richfaces.skin.Skin;
 import org.richfaces.skin.SkinFactory;
 
 /**
- * Base Renderer for all chameleon Skin's and components.
- * At most, make all common procedures and realise concrete work in "template" methods.
+ * Base Renderer for all chameleon Skin's and components. At most, make all common procedures and realise concrete work in
+ * "template" methods.
  *
  * @author asmirnov@exadel.com (latest modification by $Author: alexsmirnov $)
  * @version $Revision: 1.1.2.1 $ $Date: 2007/01/09 18:58:51 $
  */
 public abstract class RendererBase extends Renderer {
-
     private static final Logger LOG = RichfacesLogger.RENDERKIT.getLogger();
     private static final RendererUtils UTILS = RendererUtils.getInstance();
-
     private SkinFactory skinFactory = null;
 
     /*
-     *  (non-Javadoc)
-     *  @see javax.faces.render.Renderer#decode(javax.faces.context.FacesContext, javax.faces.component.UIComponent)
+     * (non-Javadoc)
+     *
+     * @see javax.faces.render.Renderer#decode(javax.faces.context.FacesContext, javax.faces.component.UIComponent)
      */
     @Override
     public void decode(FacesContext context, UIComponent component) {
@@ -61,13 +59,13 @@ public abstract class RendererBase extends Renderer {
         checkNull(context, component, "decode");
 
         if (!getComponentClass().isInstance(component)) {
-            throw new IllegalArgumentException(Messages.getMessage(Messages.COMPONENT_CLASS_ERROR, "",
-                getComponentClass().getName()));
+            throw new IllegalArgumentException(Messages.getMessage(Messages.COMPONENT_CLASS_ERROR, "", getComponentClass()
+                .getName()));
         }
 
         if (LOG.isDebugEnabled()) {
-            LOG.debug(Messages.getMessage(Messages.START_DECODING_COMPONENT_INFO, component.getClientId(context),
-                component.getClass().getName()));
+            LOG.debug(Messages.getMessage(Messages.START_DECODING_COMPONENT_INFO, component.getClientId(context), component
+                .getClass().getName()));
         }
 
         preDecode(context, component);
@@ -78,15 +76,15 @@ public abstract class RendererBase extends Renderer {
             if (behaviorEventName != null) {
                 queueComponentEventForBehaviorEvent(context, component, behaviorEventName);
             }
-            
+
             doDecode(context, component);
         }
     }
 
     protected void queueComponentEventForBehaviorEvent(FacesContext context, UIComponent component, String eventName) {
-        
+
     }
-    
+
     protected void preDecode(FacesContext context, UIComponent component) {
     }
 
@@ -94,7 +92,8 @@ public abstract class RendererBase extends Renderer {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see javax.faces.render.Renderer#encodeBegin(javax.faces.context.FacesContext, javax.faces.component.UIComponent)
      */
     @Override
@@ -104,8 +103,8 @@ public abstract class RendererBase extends Renderer {
         checkForCorrectParams(context, component, "encodeBegin");
 
         if (LOG.isDebugEnabled()) {
-            LOG.debug(Messages.getMessage(Messages.START_ENCODING_COMPONENT_INFO, component.getClientId(context),
-                component.getClass().getName()));
+            LOG.debug(Messages.getMessage(Messages.START_ENCODING_COMPONENT_INFO, component.getClientId(context), component
+                .getClass().getName()));
         }
 
         preEncodeBegin(context, component);
@@ -137,8 +136,9 @@ public abstract class RendererBase extends Renderer {
     }
 
     /*
-     *  (non-Javadoc)
-     *  @see javax.faces.render.Renderer#encodeChildren(javax.faces.context.FacesContext, javax.faces.component.UIComponent)
+     * (non-Javadoc)
+     *
+     * @see javax.faces.render.Renderer#encodeChildren(javax.faces.context.FacesContext, javax.faces.component.UIComponent)
      */
     @Override
     public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
@@ -147,8 +147,8 @@ public abstract class RendererBase extends Renderer {
         checkForCorrectParams(context, component, "encodeBegin");
 
         if (LOG.isDebugEnabled()) {
-            LOG.debug(Messages.getMessage(Messages.CHILDREN_ENCODING_COMPONENT_INFO, component.getClientId(context),
-                component.getClass().getName()));
+            LOG.debug(Messages.getMessage(Messages.CHILDREN_ENCODING_COMPONENT_INFO, component.getClientId(context), component
+                .getClass().getName()));
         }
 
         if (component.isRendered()) {
@@ -159,7 +159,8 @@ public abstract class RendererBase extends Renderer {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see javax.faces.render.Renderer#encodeEnd(javax.faces.context.FacesContext, javax.faces.component.UIComponent)
      */
     @Override
@@ -175,8 +176,8 @@ public abstract class RendererBase extends Renderer {
         }
 
         if (LOG.isDebugEnabled()) {
-            LOG.debug(Messages.getMessage(Messages.FINISH_ENCODING_COMPONENT_INFO, component.getClientId(context),
-                component.getClass().getName()));
+            LOG.debug(Messages.getMessage(Messages.FINISH_ENCODING_COMPONENT_INFO, component.getClientId(context), component
+                .getClass().getName()));
         }
     }
 
@@ -198,11 +199,10 @@ public abstract class RendererBase extends Renderer {
     }
 
     /**
-     * Due to big number of common utility methods, base renderer divide to 2 classes - renderer and utils.
-     * since use static methods of utility class breack object paradigm, we use getter for concrete util instance.
-     * Developer can override any utility metod in 2 stages :
-     * 1) Create subclass of {@link RendererUtils} and override utility method.
-     * 2) Override this method for return instance of such subclass.
+     * Due to big number of common utility methods, base renderer divide to 2 classes - renderer and utils. since use static
+     * methods of utility class breack object paradigm, we use getter for concrete util instance. Developer can override any
+     * utility metod in 2 stages : 1) Create subclass of {@link RendererUtils} and override utility method. 2) Override this
+     * method for return instance of such subclass.
      *
      * @return Returns the utils.
      */
@@ -216,13 +216,13 @@ public abstract class RendererBase extends Renderer {
      * @return
      */
     protected Class<? extends UIComponent> getComponentClass() {
-        //TODO - do we need this function?
+        // TODO - do we need this function?
         return UIComponent.class;
     }
 
     /**
-     * Template method for custom decoding of concrete renderer.
-     * All parameters checking if performed in original {@see decode } method.
+     * Template method for custom decoding of concrete renderer. All parameters checking if performed in original {@see decode }
+     * method.
      *
      * @param context
      * @param component
@@ -231,15 +231,14 @@ public abstract class RendererBase extends Renderer {
     }
 
     /**
-     * Template method for custom start encoding of concrete renderer.
-     * All parameters checking and writer is performed in original {@link encodeBegin } method.
+     * Template method for custom start encoding of concrete renderer. All parameters checking and writer is performed in
+     * original {@link encodeBegin } method.
      *
      * @param writer
      * @param context
      * @param component
      */
-    protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component)
-        throws IOException {
+    protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
     }
 
     /**
@@ -247,15 +246,14 @@ public abstract class RendererBase extends Renderer {
      * @param context
      * @param component
      */
-    protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component)
-        throws IOException {
+    protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
 
         // Hook method, must be overriden in renderers with special children processing
     }
 
     /**
-     * Template method for custom finish encoding of concrete renderer.
-     * All parameters checking and writer is performed in original {@link encodeEnd } method.
+     * Template method for custom finish encoding of concrete renderer. All parameters checking and writer is performed in
+     * original {@link encodeEnd } method.
      *
      * @param writer
      * @param context

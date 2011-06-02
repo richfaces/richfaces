@@ -32,26 +32,23 @@ import com.google.common.collect.Maps;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 abstract class BaseMultipartRequest extends HttpServletRequestWrapper implements MultipartRequest {
-
     static final String CONTENT_TYPE = "application/x-www-form-urlencoded";
-    
     static final Map<String, String> HEADERS_MAP;
 
     static {
         HEADERS_MAP = Maps.newHashMap();
-        
+
         HEADERS_MAP.put("accept", "text/html");
         HEADERS_MAP.put("faces-request", "partial/ajax");
         HEADERS_MAP.put("content-type", CONTENT_TYPE);
     }
-    
-    private String uploadId;
 
+    private String uploadId;
     private ProgressControl progressControl;
-    
+
     /**
      * @param request
      */
@@ -64,7 +61,7 @@ abstract class BaseMultipartRequest extends HttpServletRequestWrapper implements
     public String getUploadId() {
         return uploadId;
     }
-    
+
     public void release() {
         progressControl.clearProgress();
     }
@@ -72,17 +69,16 @@ abstract class BaseMultipartRequest extends HttpServletRequestWrapper implements
     @Override
     public String getHeader(String name) {
         String headerValue = HEADERS_MAP.get(name.toLowerCase(Locale.US));
-       
+
         if (!Strings.isNullOrEmpty(headerValue)) {
             return headerValue;
         }
 
         return super.getHeader(name);
     }
-    
+
     @Override
     public String getContentType() {
         return getHeader("Content-Type");
     }
-    
 }

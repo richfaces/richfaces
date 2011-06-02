@@ -50,34 +50,29 @@ import com.google.common.io.ByteStreams;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @RunWith(MockTestRunner.class)
 public class UploadedFile25Test {
-
     private static final String TEST_DATA = "test data";
-
     private static final IAnswer<InputStream> INPUT_STREAM_SUPPLIER = new IAnswer<InputStream>() {
-
         public InputStream answer() throws Throwable {
             return new ByteArrayInputStream(TEST_DATA.getBytes());
         }
     };
-    
     private UploadedFile25 uploadedFile;
-
     private MockUploadResource uploadResource;
-    
+
     @Before
     public void setUp() throws Exception {
-        Multimap<String,String> headers = LinkedListMultimap.<String, String>create();
+        Multimap<String, String> headers = LinkedListMultimap.<String, String>create();
 
         headers.put("content-type", "image/png");
         headers.put("filename", "x.png");
         headers.put("x-rftest", "set");
         headers.put("x-rftest", "of");
         headers.put("x-rftest", "values");
-        
+
         uploadResource = new MockUploadResource();
         uploadedFile = new UploadedFile25("form:fileUpload", uploadResource, headers);
     }
@@ -87,14 +82,14 @@ public class UploadedFile25Test {
         uploadResource = null;
         uploadedFile = null;
     }
-    
+
     @Test
     public void testAttributes() throws Exception {
         assertEquals("form:fileUpload", uploadedFile.getParameterName());
         assertEquals("image/png", uploadedFile.getContentType());
         assertEquals("x.png", uploadedFile.getName());
     }
-    
+
     @Test
     public void testHeaders() throws Exception {
         assertEquals("image/png", uploadedFile.getHeader("Content-Type"));
@@ -104,11 +99,11 @@ public class UploadedFile25Test {
         assertEquals(Arrays.asList("image/png"), Lists.newArrayList(uploadedFile.getHeaders("Content-Type")));
         assertEquals(Arrays.asList("set", "of", "values"), Lists.newArrayList(uploadedFile.getHeaders("X-RFTest")));
         assertEquals(Arrays.asList(), Lists.newArrayList(uploadedFile.getHeaders("X-RFUnknown")));
-        
+
         Collection<String> sortedHeaderNames = Sets.newTreeSet(uploadedFile.getHeaderNames());
         assertEquals(Sets.newLinkedHashSet(Arrays.asList("content-type", "filename", "x-rftest")), sortedHeaderNames);
     }
-    
+
     @Test
     public void testResource() throws Exception {
         EasyMock.expect(uploadResource.getSize()).andStubReturn((long) TEST_DATA.length());
@@ -116,50 +111,50 @@ public class UploadedFile25Test {
 
         uploadResource.write(EasyMock.eq("output.png"));
         EasyMock.expectLastCall();
-        
+
         uploadResource.delete();
         EasyMock.expectLastCall();
-        
+
         uploadResource.getControl().replay();
-        
+
         assertEquals(TEST_DATA.length(), uploadedFile.getSize());
         assertNotNull(uploadedFile.getInputStream());
 
         assertEquals(TEST_DATA, new String(ByteStreams.toByteArray(uploadedFile.getInputStream()), "US-ASCII"));
         assertEquals(TEST_DATA, new String(uploadedFile.getData(), "US-ASCII"));
-        
+
         uploadedFile.write("output.png");
         uploadedFile.delete();
     }
-    
+
     @Test
     public void testGetDataExceptions() throws Exception {
         EasyMock.expect(uploadResource.getSize()).andStubReturn((long) Long.MAX_VALUE);
         EasyMock.expect(uploadResource.getInputStream()).andStubAnswer(INPUT_STREAM_SUPPLIER);
 
         uploadResource.getControl().replay();
-        
+
         try {
             uploadedFile.getData();
-            
+
             fail();
         } catch (FileUploadException e) {
-            //expected - ignore
+            // expected - ignore
         }
 
         uploadResource.getControl().reset();
 
-        EasyMock.expect(uploadResource.getSize()).andStubReturn(1l);
+        EasyMock.expect(uploadResource.getSize()).andStubReturn(1L);
         EasyMock.expect(uploadResource.getInputStream()).andStubThrow(new IOException("No stream available"));
 
         uploadResource.getControl().replay();
 
         try {
             uploadedFile.getData();
-            
+
             fail();
         } catch (FileUploadException e) {
-            //expected - ignore
+            // expected - ignore
             assertTrue(e.getCause() instanceof IOException);
         }
     }

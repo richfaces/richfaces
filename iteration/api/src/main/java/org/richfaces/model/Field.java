@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.model;
 
 import java.io.Serializable;
@@ -28,12 +27,10 @@ import javax.el.ValueExpression;
 
 /**
  * @author Konstantin Mishin
- * 
+ *
  */
-public abstract class Field implements Serializable{
-
+public abstract class Field implements Serializable {
     private static final long serialVersionUID = 1448767072411366177L;
-    
     private ValueExpression expression;
 
     public Field(ValueExpression expression) {

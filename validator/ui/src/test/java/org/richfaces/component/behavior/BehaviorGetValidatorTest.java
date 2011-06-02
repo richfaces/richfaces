@@ -1,7 +1,9 @@
 package org.richfaces.component.behavior;
 
-import static org.easymock.EasyMock.*;
-import static org.junit.Assert.*;
+import static org.easymock.EasyMock.expect;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -29,32 +31,25 @@ import com.google.common.collect.Lists;
 
 /**
  * <p class="changed_added_4_0">
- * This class tests client validator behavior. as it described at https://community.jboss.org/wiki/ClientSideValidation
- * # Server-side rendering algorithm
+ * This class tests client validator behavior. as it described at https://community.jboss.org/wiki/ClientSideValidation #
+ * Server-side rendering algorithm
  * </p>
- * 
+ *
  * @author asmirnov@exadel.com
- * 
+ *
  */
 @RunWith(MockTestRunner.class)
 public class BehaviorGetValidatorTest extends BehaviorTestBase {
-
-    private static final Message VALIDATION_ERROR = new Message(3,"Error","Validation Error");
-
+    private static final Message VALIDATION_ERROR = new Message(3, "Error", "Validation Error");
     private static final Class<?>[] DEFAULT_GROUP = { Default.class };
-
     @Mock
     private Validator validator;
-
     @Mock
     private ValidatorDescriptor beanValidatorDescriptor;
-
     @Mock
     private BeanValidatorService validatorService;
-
     @Mock
     private FacesValidatorService facesValidatorService;
-
     @Stub
     private ValueExpression expression;
 
@@ -77,7 +72,7 @@ public class BehaviorGetValidatorTest extends BehaviorTestBase {
      * <p class="changed_added_4_0">
      * Component does not define any validators.
      * </p>
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -96,10 +91,9 @@ public class BehaviorGetValidatorTest extends BehaviorTestBase {
     }
 
     private void setupBeanValidator(ValidatorDescriptor... validators) {
-        expect(input.getValidators()).andStubReturn(new Validator[]{new BeanValidator()});
+        expect(input.getValidators()).andStubReturn(new Validator[] { new BeanValidator() });
         expect(validatorService.getConstrains(environment.getFacesContext(), expression, null, DEFAULT_GROUP)).andStubReturn(
             Lists.newArrayList(validators));
-
     }
 
     private void setupComponentValidator(Validator... validators) {
@@ -117,14 +111,14 @@ public class BehaviorGetValidatorTest extends BehaviorTestBase {
      * <p class="changed_added_4_0">
      * Component defines JSF validator only.
      * </p>
-     * 
+     *
      * @throws Exception
      */
     @Test
     public void testComponentValidator() throws Exception {
         setupComponentValidator(validator);
         setupBeanValidator();
-        expect(input.getAttributes()).andStubReturn(Collections.<String,Object>emptyMap());
+        expect(input.getAttributes()).andStubReturn(Collections.<String, Object>emptyMap());
         Collection<ValidatorDescriptor> validators = checkValidator();
         assertEquals(1, validators.size());
         ValidatorDescriptor validatorDescriptor = Iterables.getOnlyElement(validators);
@@ -136,7 +130,7 @@ public class BehaviorGetValidatorTest extends BehaviorTestBase {
     @Test
     public void testBeanValidators() throws Exception {
         setupBeanValidator(beanValidatorDescriptor);
-        expect(input.getAttributes()).andStubReturn(Collections.<String,Object>emptyMap());
+        expect(input.getAttributes()).andStubReturn(Collections.<String, Object>emptyMap());
         Collection<ValidatorDescriptor> validators = checkValidator();
         assertEquals(1, validators.size());
         ValidatorDescriptor validatorDescriptor = Iterables.getOnlyElement(validators);

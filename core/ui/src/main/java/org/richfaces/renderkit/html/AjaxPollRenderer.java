@@ -18,8 +18,19 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit.html;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.PartialViewContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.event.ActionEvent;
 
 import org.ajax4jsf.javascript.JSFunction;
 import org.ajax4jsf.javascript.JSFunctionDefinition;
@@ -32,73 +43,58 @@ import org.richfaces.renderkit.RendererBase;
 import org.richfaces.renderkit.util.HandlersChain;
 import org.richfaces.renderkit.util.RendererUtils;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.PartialViewContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.event.ActionEvent;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  * @author shura
  */
-@ResourceDependencies({@ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
-    @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
-    @ResourceDependency(library = "org.richfaces", name = "poll.js")})
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "poll.js") })
 @JsfRenderer
 public class AjaxPollRenderer extends RendererBase {
-
     public static final String COMPONENT_FAMILY = "org.richfaces.Poll";
-
     public static final String RENDERER_TYPE = "org.richfaces.PollRenderer";
     private static final String AJAX_POLL_FUNCTION = "new RichFaces.ui.Poll";
     private static final String ENABLED = "enabled";
-
 
     private void addComponentToAjaxRender(FacesContext context, UIComponent component) {
         PartialViewContext pvc = context.getPartialViewContext();
         pvc.getRenderIds().add(component.getClientId(context));
     }
-    
+
     @Override
     protected void queueComponentEventForBehaviorEvent(FacesContext context, UIComponent component, String eventName) {
         super.queueComponentEventForBehaviorEvent(context, component, eventName);
-        
+
         if (AbstractPoll.TIMER.equals(eventName)) {
             new ActionEvent(component).queue();
             addComponentToAjaxRender(context, component);
-        } 
+        }
     }
 
     /*
-      * (non-Javadoc)
-      *
-      * @see org.ajax4jsf.renderkit.RendererBase#doEncodeEnd(javax.faces.context.ResponseWriter,
-      *      javax.faces.context.FacesContext, javax.faces.component.UIComponent)
-      */
+     * (non-Javadoc)
+     *
+     * @see org.ajax4jsf.renderkit.RendererBase#doEncodeEnd(javax.faces.context.ResponseWriter,
+     * javax.faces.context.FacesContext, javax.faces.component.UIComponent)
+     */
 
-    protected void doEncodeEnd(ResponseWriter writer, FacesContext context,
-                               UIComponent component) throws IOException {
-        
+    protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+
         RendererUtils utils = getUtils();
         boolean shouldRenderForm = utils.getNestingForm(context, component) == null;
         String rootElementName = shouldRenderForm ? HtmlConstants.DIV_ELEM : HtmlConstants.SPAN_ELEM;
-        
+
         AbstractPoll poll = (AbstractPoll) component;
         writer.startElement(rootElementName, component);
         writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display:none;", null);
         utils.encodeId(context, component);
-        
+
         if (shouldRenderForm) {
             String clientId = component.getClientId(context) + RendererUtils.DUMMY_FORM_ID;
             utils.encodeBeginForm(context, component, writer, clientId);
             utils.encodeEndForm(context, writer);
         }
-        
+
         // polling script.
         writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
         writer.writeAttribute(HtmlConstants.TYPE_ATTR, "text/javascript", null);
@@ -108,7 +104,7 @@ public class AjaxPollRenderer extends RendererBase {
         Map<String, Object> options = new HashMap<String, Object>();
 
         RenderKitUtils.addToScriptHash(options, "interval", poll.getInterval(), "1000");
-        //RenderKitUtils.addToScriptHash(options, "pollId", component.getClientId(context));
+        // RenderKitUtils.addToScriptHash(options, "pollId", component.getClientId(context));
         HandlersChain handlersChain = new HandlersChain(context, poll);
         handlersChain.addInlineHandlerFromAttribute(AbstractPoll.ON_TIMER);
         handlersChain.addBehaviors(AbstractPoll.TIMER);
@@ -126,7 +122,7 @@ public class AjaxPollRenderer extends RendererBase {
         }
         function.addParameter(component.getClientId(context));
         function.addParameter(options);
-        //function.appendScript(script);
+        // function.appendScript(script);
         writer.writeText(function.toScript(), null);
 
         writer.endElement(HtmlConstants.SCRIPT_ELEM);
@@ -135,10 +131,10 @@ public class AjaxPollRenderer extends RendererBase {
     }
 
     /*
-      * (non-Javadoc)
-      *
-      * @see org.ajax4jsf.renderkit.RendererBase#getComponentClass()
-      */
+     * (non-Javadoc)
+     *
+     * @see org.ajax4jsf.renderkit.RendererBase#getComponentClass()
+     */
 
     protected Class<? extends UIComponent> getComponentClass() {
         // only push component is allowed.
@@ -158,5 +154,4 @@ public class AjaxPollRenderer extends RendererBase {
             }
         }
     }
-
 }

@@ -19,26 +19,27 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
-
-import org.richfaces.cdk.annotations.*;
-import org.richfaces.renderkit.html.DivPanelRenderer;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorHolder;
+
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Facet;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.renderkit.html.DivPanelRenderer;
 
 /**
  * @author akolonitsky
  * @since 2010-10-19
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets),
-    facets={@Facet(name="header",generate=false)},
-    renderer = @JsfRenderer(type = "org.richfaces.TabRenderer"))
-public abstract class AbstractTab extends AbstractActionComponent implements AbstractTogglePanelTitledItem, AjaxProps, ClientBehaviorHolder {
-
+@JsfComponent(tag = @Tag(type = TagType.Facelets), facets = { @Facet(name = "header", generate = false) }, renderer = @JsfRenderer(type = "org.richfaces.TabRenderer"))
+public abstract class AbstractTab extends AbstractActionComponent implements AbstractTogglePanelTitledItem, AjaxProps,
+    ClientBehaviorHolder {
     public static final String COMPONENT_TYPE = "org.richfaces.Tab";
-
     public static final String COMPONENT_FAMILY = "org.richfaces.Tab";
 
     public AbstractTab() {
@@ -47,12 +48,12 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
 
     // ------------------------------------------------ Html Attributes
     enum Properties {
-        headerDisabledClass, 
-        headerInactiveClass, 
-        headerClass, 
-        contentClass, 
-        execute, 
-        headerActiveClass, 
+        headerDisabledClass,
+        headerInactiveClass,
+        headerClass,
+        contentClass,
+        execute,
+        headerActiveClass,
         header,
         switchType
     }
@@ -70,7 +71,6 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
     public void setHeaderActiveClass(String headerActiveClass) {
         getStateHelper().put(Properties.headerActiveClass, headerActiveClass);
     }
-
 
     @Attribute(generate = false)
     public String getHeaderDisabledClass() {
@@ -141,8 +141,7 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
         getStateHelper().put(Properties.execute, execute);
     }
 
-
-    /////////////////////////////////////////////////////////////////////////
+    // ///////////////////////////////////////////////////////////////////////
 
     public UIComponent getHeaderFacet(Enum<?> state) {
         return getHeaderFacet(this, state);
@@ -201,7 +200,7 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
     public String toString() {
         return "TogglePanelItem {name: " + getName() + ", switchType: " + getSwitchType() + '}';
     }
-    
+
     @Attribute(generate = false)
     public SwitchType getSwitchType() {
         SwitchType switchType = (SwitchType) getStateHelper().eval(Properties.switchType);
@@ -211,11 +210,10 @@ public abstract class AbstractTab extends AbstractActionComponent implements Abs
         if (switchType == null) {
             switchType = SwitchType.DEFAULT;
         }
-        return switchType; 
+        return switchType;
     }
 
     public void setSwitchType(SwitchType switchType) {
         getStateHelper().put(Properties.switchType, switchType);
-    }    
+    }
 }
-

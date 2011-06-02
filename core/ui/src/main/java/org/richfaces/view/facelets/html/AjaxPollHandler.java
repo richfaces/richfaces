@@ -22,18 +22,23 @@
 package org.richfaces.view.facelets.html;
 
 import javax.faces.event.ActionEvent;
-import javax.faces.view.facelets.*;
+import javax.faces.view.facelets.ComponentConfig;
+import javax.faces.view.facelets.ComponentHandler;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.MetaRule;
+import javax.faces.view.facelets.MetaRuleset;
+import javax.faces.view.facelets.Metadata;
+import javax.faces.view.facelets.MetadataTarget;
+import javax.faces.view.facelets.TagAttribute;
+
 import org.richfaces.component.AbstractPoll;
 import org.richfaces.view.facelets.MethodMetadata;
 
 public class AjaxPollHandler extends ComponentHandler {
-
     private static final AjaxPollHandlerMetaRule META_RULE = new AjaxPollHandlerMetaRule();
-
 
     public AjaxPollHandler(ComponentConfig config) {
         super(config);
-        
     }
 
     protected MetaRuleset createMetaRuleset(Class type) {
@@ -42,8 +47,7 @@ public class AjaxPollHandler extends ComponentHandler {
         return m;
     }
 
-    static class AjaxPollHandlerMetaRule extends MetaRule{
-
+    static class AjaxPollHandlerMetaRule extends MetaRule {
         public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
             if (meta.isTargetInstanceOf(AbstractPoll.class)) {
                 if ("action".equals(name)) {

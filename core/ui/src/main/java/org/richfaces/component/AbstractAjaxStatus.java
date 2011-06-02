@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.component;
 
 import javax.faces.component.UIComponentBase;
@@ -38,9 +35,7 @@ import org.richfaces.cdk.annotations.TagType;
  */
 @JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.StatusRenderer"), tag = @Tag(type = TagType.Facelets))
 public abstract class AbstractAjaxStatus extends UIComponentBase {
-
     public static final String COMPONENT_TYPE = "org.richfaces.Status";
-
     public static final String COMPONENT_FAMILY = "org.richfaces.Status";
 
     @Attribute(events = @EventName("start"))
@@ -54,35 +49,34 @@ public abstract class AbstractAjaxStatus extends UIComponentBase {
 
     @Attribute(events = @EventName("success"))
     public abstract String getOnsuccess();
-    
+
     @Attribute
     public abstract String getName();
 
     @Attribute
     public abstract String getStartText();
-    
+
     @Attribute
     public abstract String getStopText();
-    
+
     @Attribute
     public abstract String getErrorText();
-    
+
     @Attribute
     public abstract String getStartStyle();
-    
+
     @Attribute
     public abstract String getStopStyle();
-    
+
     @Attribute
     public abstract String getErrorStyle();
-    
+
     @Attribute
     public abstract String getStartStyleClass();
-    
+
     @Attribute
     public abstract String getStopStyleClass();
-    
+
     @Attribute
     public abstract String getErrorStyleClass();
-    
 }

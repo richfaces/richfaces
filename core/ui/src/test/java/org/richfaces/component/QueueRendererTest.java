@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.component;
 
 import static org.junit.Assert.assertEquals;
@@ -50,33 +47,25 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  * @author amarkhel
  * @since 3.3.0
  */
-public class QueueRendererTest{
-
-    @Target(value = {ElementType.METHOD})
+public class QueueRendererTest {
+    @Target(value = { ElementType.METHOD })
     @Retention(RetentionPolicy.RUNTIME)
-    private @interface DisableQueue {}
+    private @interface DisableQueue {
+    }
 
-    private static final String EXPECTED_QUEUE_SCRIPT = "RichFaces.queue.setQueueOptions({" +
-    		"\"first\": {\"requestDelay\": 400, \"ignoreDupResponses\": true}," +
-    		"\"form\": {\"requestDelay\": 400}," +
-    		"\"form:firstAttach\": {\"requestGroupingId\": \"request\"}," +
-    		"\"second\": {\"requestDelay\": 400, \"ignoreDupResponses\": true}," +
-    		"\"form:linkAttach\": {\"queueId\": \"second\"}," +
-    		"\"form:secondAttach\": {}" +
-		"});";
-
+    private static final String EXPECTED_QUEUE_SCRIPT = "RichFaces.queue.setQueueOptions({"
+        + "\"first\": {\"requestDelay\": 400, \"ignoreDupResponses\": true}," + "\"form\": {\"requestDelay\": 400},"
+        + "\"form:firstAttach\": {\"requestGroupingId\": \"request\"},"
+        + "\"second\": {\"requestDelay\": 400, \"ignoreDupResponses\": true},"
+        + "\"form:linkAttach\": {\"queueId\": \"second\"}," + "\"form:secondAttach\": {}" + "});";
     protected HtmlPage page;
-    
     protected HtmlUnitEnvironment facesEnvironment;
-    
     private boolean queueEnabled = true;
-
     @Rule
     public final MethodRule rule = new MethodRule() {
-        
         public Statement apply(Statement base, FrameworkMethod method, Object target) {
             QueueRendererTest test = (QueueRendererTest) target;
-            
+
             DisableQueue annotation = method.getMethod().getAnnotation(DisableQueue.class);
             if (annotation != null) {
                 test.queueEnabled = false;
@@ -85,7 +74,7 @@ public class QueueRendererTest{
             return base;
         }
     };
-    
+
     @Before
     public void setUp() throws Exception {
         facesEnvironment = new HtmlUnitEnvironment();
@@ -97,8 +86,6 @@ public class QueueRendererTest{
         facesEnvironment.getServer().addInitParameter("org.richfaces.queue.enabled", Boolean.toString(queueEnabled));
         facesEnvironment.start();
     }
-    
-    
 
     @After
     public void tearDown() throws Exception {
@@ -107,26 +94,20 @@ public class QueueRendererTest{
         this.facesEnvironment.release();
         this.facesEnvironment = null;
     }
-    
+
     @Test
     public void testQueue() throws Exception {
         page = facesEnvironment.getPage("/queue.jsf");
         String queueScript = extractQueueScript(page);
         assertNotNull(queueScript, "Queue script must be not null");
         assertEquals(dehydrate(EXPECTED_QUEUE_SCRIPT), dehydrate(queueScript));
-        /*String[] queueArray = queueScript.split("},");
-        //String[] queueNames = new String[queueArray.length];
-        //String[] queueOptions = new String[queueArray.length];
-        for(int i = 0; i < queueArray.length - 1; i++){
-        	queueArray[i] = queueArray[i] + "}";
-        }
-        String expectedArray = getQueuesByView("queue.jsf");
-        for(int i = 0; i < queueArray.length; i++){
-        	String[] queues = queueArray[i].split(":");
-        	queueNames[i] = queues[0];
-        	queueOptions[i] = queues[1];
-        }*/
-        
+        /*
+         * String[] queueArray = queueScript.split("},"); //String[] queueNames = new String[queueArray.length]; //String[]
+         * queueOptions = new String[queueArray.length]; for(int i = 0; i < queueArray.length - 1; i++){ queueArray[i] =
+         * queueArray[i] + "}"; } String expectedArray = getQueuesByView("queue.jsf"); for(int i = 0; i < queueArray.length;
+         * i++){ String[] queues = queueArray[i].split(":"); queueNames[i] = queues[0]; queueOptions[i] = queues[1]; }
+         */
+
     }
 
     @Test
@@ -136,7 +117,7 @@ public class QueueRendererTest{
         String queueScript = extractQueueScript(page);
         assertNull(queueScript);
     }
-    
+
     @Test
     public void testPageWithoutQueue() throws Exception {
         page = facesEnvironment.getPage("/nonQueue.jsf");
@@ -147,23 +128,22 @@ public class QueueRendererTest{
     private String dehydrate(String s) {
         return s.replaceAll("\\s+", "");
     }
-    
+
     private String getTextContent(HtmlElement element) {
         StringBuilder sb = new StringBuilder();
 
         for (DomNode node = element.getFirstChild(); node != null; node = node.getNextSibling()) {
             sb.append(node.getNodeValue());
         }
-        
+
         return sb.toString();
     }
-    
-	private String extractQueueScript(HtmlPage page) {
-	    HtmlElement scriptElement = page.getElementById(QueueRegistry.QUEUE_SCRIPT_ID);
-	    if (scriptElement != null) {
-	        return getTextContent(scriptElement).replaceAll("(^<!--)|(//-->$)", "");
-	    }
+
+    private String extractQueueScript(HtmlPage page) {
+        HtmlElement scriptElement = page.getElementById(QueueRegistry.QUEUE_SCRIPT_ID);
+        if (scriptElement != null) {
+            return getTextContent(scriptElement).replaceAll("(^<!--)|(//-->$)", "");
+        }
         return null;
     }
-    
 }

@@ -81,22 +81,22 @@
 
         <cdk:object name="styleClass" value="#{getStyleClass(component, listType)}" />
         <cdk:object name="elementId" value="#{getElementId(facesContext, component)}" />
-        
+
         <cdk:switch key="#{listType}">
             <cdk:case values="ordered">
-            <ol id="#{elementId}" class="#{styleClass}" cdk:passThroughWithExclusions="type value">
-                <cdk:call expression="encodeListItems(facesContext, component, listType)" />
-            </ol>
+                <ol id="#{elementId}" class="#{styleClass}" cdk:passThroughWithExclusions="type value">
+                    <cdk:call expression="encodeListItems(facesContext, component, listType)" />
+                </ol>
             </cdk:case>
             <cdk:case values="unordered">
-            <ul id="#{elementId}" class="#{styleClass}" cdk:passThroughWithExclusions="type value">
-                <cdk:call expression="encodeListItems(facesContext, component, listType)" />
-            </ul>
+                <ul id="#{elementId}" class="#{styleClass}" cdk:passThroughWithExclusions="type value">
+                    <cdk:call expression="encodeListItems(facesContext, component, listType)" />
+                </ul>
             </cdk:case>
             <cdk:case values="definitions">
-            <dl id="#{elementId}" class="#{styleClass}" cdk:passThroughWithExclusions="type value">
-                <cdk:call expression="encodeListItems(facesContext, component, listType)" />
-            </dl>
+                <dl id="#{elementId}" class="#{styleClass}" cdk:passThroughWithExclusions="type value">
+                    <cdk:call expression="encodeListItems(facesContext, component, listType)" />
+                </dl>
             </cdk:case>
         </cdk:switch>
     </cc:implementation>

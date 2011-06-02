@@ -29,7 +29,7 @@ import org.richfaces.exception.FileUploadException;
 
 /**
  * @author Konstantin Mishin
- * 
+ *
  */
 public interface UploadedFile {
     String getContentType();

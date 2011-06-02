@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 
 <!DOCTYPE suppressions PUBLIC
-        "-//Puppy Crawl//DTD Suppressions 1.0//EN"
-        "http://www.puppycrawl.com/dtds/suppressions_1_0.dtd">
+    "-//Puppy Crawl//DTD Suppressions 1.0//EN"
+    "http://www.puppycrawl.com/dtds/suppressions_1_0.dtd">
 
 <!-- NOTE: Because of issues with maven checkstyle plugin each suppression
            file must have all suppressions defined.
@@ -32,6 +32,6 @@
 
     <!-- TODO it is hot fix for building process, this files belong to the ui/output/trunk/panela/ui module, 
               and must be removed from here -->
-    <suppress checks="IllegalCatch" files="AbstractTogglePanel.java" />           
-    <suppress checks="IllegalCatch" files="AbstractPanelMenu.java" />           
+    <suppress checks="IllegalCatch" files="AbstractTogglePanel.java" />
+    <suppress checks="IllegalCatch" files="AbstractPanelMenu.java" />
 </suppressions>

@@ -6,14 +6,14 @@
         $super.constructor.call(this, componentId, options);
         this.id = componentId;
         this.attachToDom();
-		this.interval = options.interval || 1000;
-		this.ontimer = options.ontimer;
+        this.interval = options.interval || 1000;
+        this.ontimer = options.ontimer;
 
         this.pollElement = rf.getDomElement(this.id);
 
         rf.ui.pollTracker = rf.ui.pollTracker || {};
 
-        if (options.enabled){
+        if (options.enabled) {
             this.startPoll();
         }
     }
@@ -26,10 +26,10 @@
 
             startPoll: function() {
                 this.stopPoll();
-                var poll=this;
+                var poll = this;
                 rf.ui.pollTracker[poll.id] = window.setTimeout(function() {
                     try {
-                       poll.ontimer.call(poll.pollElement || window);
+                        poll.ontimer.call(poll.pollElement || window);
                         poll.startPoll();
                     } catch (e) {
                         // TODO: handle exception

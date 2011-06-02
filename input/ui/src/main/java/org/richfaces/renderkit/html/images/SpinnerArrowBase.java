@@ -19,21 +19,18 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit.html.images;
 
 import java.awt.Dimension;
 
 /**
  * @author Konstantin Mishin
- * 
+ *
  */
 public abstract class SpinnerArrowBase extends ArrowBase {
-
     private static final Dimension DIMENSION = new Dimension(5, 3);
 
     public SpinnerArrowBase() {
         super(DIMENSION);
     }
-
 }

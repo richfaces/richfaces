@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit;
 
 import java.util.ArrayList;
@@ -49,53 +48,43 @@ import org.richfaces.renderkit.util.RendererUtils;
 
 /**
  * @author Anton Belevich
- * 
+ *
  */
 @FacesBehaviorRenderer(rendererType = "org.richfaces.behavior.ComponentControlBehavior", renderKitId = RenderKitFactory.HTML_BASIC_RENDER_KIT)
-@ResourceDependencies( { @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-    @ResourceDependency(name = "jquery.js"), @ResourceDependency(name = "richfaces.js"),
-    @ResourceDependency(name = "richfaces-event.js"),
-    @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(library = "org.richfaces", name = "component-control.js") })
+@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"), @ResourceDependency(name = "jquery.js"),
+        @ResourceDependency(name = "richfaces.js"), @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(name = "richfaces-base-component.js"),
+        @ResourceDependency(library = "org.richfaces", name = "component-control.js") })
 public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
-
     /**
-     * 
+     *
      */
     private static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
-
     private static final String FUNC_NAME = "RichFaces.ui.ComponentControl.execute";
-
     private static final String REF_EVENT = "event";
-
     private static final String REF_COMPONENT = "component";
-
     private static final String PARAM_CALLBACK = "callback";
-
     private static final String PARAM_TARGET = "target";
-
     private static final String PARAM_SELECTOR = "selector";
-    
     private static final String PARAM_ONBEFOREOPERATION = "onbeforeoperation";
-
     private static final Pattern COMMA_SEPARATED_STRING = Pattern.compile("\\s*,\\s*");
-    
+
     private boolean isEmpty(String value) {
         return (value == null || value.trim().length() == 0);
     }
-    
+
     @Override
     public String getScript(ClientBehaviorContext behaviorContext, ClientBehavior behavior) {
         FacesContext facesContext = behaviorContext.getFacesContext();
-        
+
         ComponentControlBehavior controlBehavior = (ComponentControlBehavior) behavior;
         String apiFunctionName = controlBehavior.getOperation();
         String targetSourceString = controlBehavior.getTarget();
         String selector = controlBehavior.getSelector();
         // Fix https://issues.jboss.org/browse/RF-9745
-        if (isEmpty(apiFunctionName) || 
-            (isEmpty(targetSourceString) && isEmpty(selector))) {
-            throw new IllegalArgumentException("One of the necessary attributes is null or empty. Check operation attribute and selector or target attributes.");
+        if (isEmpty(apiFunctionName) || (isEmpty(targetSourceString) && isEmpty(selector))) {
+            throw new IllegalArgumentException(
+                "One of the necessary attributes is null or empty. Check operation attribute and selector or target attributes.");
         }
 
         JSFunctionDefinition callback = new JSFunctionDefinition();
@@ -111,15 +100,13 @@ public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
         script.append(REF_COMPONENT).append(",").append(ScriptUtils.toScript(apiFunctionParams.toArray())).append(");");
         callback.addToBody(script);
 
-        
-
         Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put(PARAM_CALLBACK, callback);
         parameters.put(PARAM_TARGET, resolveTargets(facesContext, targetSourceString));
         parameters.put(PARAM_SELECTOR, selector);
-        
+
         String onBeforeOperation = controlBehavior.getOnbeforeoperation();
-        if (null!=onBeforeOperation && !onBeforeOperation.isEmpty()) {
+        if (null != onBeforeOperation && !onBeforeOperation.isEmpty()) {
             JSFunctionDefinition onBeforeOperationFunction = new JSFunctionDefinition(new JSReference(REF_EVENT));
             onBeforeOperationFunction.addToBody(onBeforeOperation);
             parameters.put(PARAM_ONBEFOREOPERATION, onBeforeOperationFunction);
@@ -144,7 +131,7 @@ public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
             if (child instanceof UIParameter) {
                 UIParameter parameter = (UIParameter) child;
                 Object value = RendererUtils.getInstance().createParameterValue(parameter);
-                
+
                 if (value != null) {
                     elements.add(value);
                 }
@@ -153,9 +140,9 @@ public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
             if (child instanceof UIHashParameter) {
                 UIHashParameter parameter = (UIHashParameter) child;
                 String name = parameter.getName();
-                
-                Map<String, Object> value = 
-                    RendererUtils.getInstance().createParametersMap(FacesContext.getCurrentInstance(), child);
+
+                Map<String, Object> value = RendererUtils.getInstance().createParametersMap(FacesContext.getCurrentInstance(),
+                    child);
 
                 if (value != null) {
                     if (name != null) {
@@ -170,21 +157,21 @@ public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
         }
         return elements;
     }
-    
+
     protected String[] resolveTargets(FacesContext context, String targetSourceString) {
         if (targetSourceString == null) {
             return null;
         }
-        
-        //TODO nick - externalize to utility method
+
+        // TODO nick - externalize to utility method
         String[] split = COMMA_SEPARATED_STRING.split(targetSourceString);
         UIComponent contextComponent = UIComponent.getCurrentComponent(context);
         if (contextComponent == null) {
             contextComponent = context.getViewRoot();
         }
-        
+
         List<String> resultHolder = new ArrayList<String>(split.length);
-        
+
         for (String target : split) {
             UIComponent targetComponent = RENDERER_UTILS.findComponentFor(contextComponent, target);
 
@@ -194,10 +181,10 @@ public class ComponentControlBehaviorRenderer extends ClientBehaviorRenderer {
             } else {
                 targetClientId = target;
             }
-            
+
             resultHolder.add(targetClientId);
         }
-        
+
         return resultHolder.toArray(new String[resultHolder.size()]);
     }
 }

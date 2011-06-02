@@ -19,21 +19,25 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-
 package org.richfaces.taglib;
+
+import javax.faces.view.facelets.ComponentConfig;
+import javax.faces.view.facelets.ComponentHandler;
+import javax.faces.view.facelets.FaceletContext;
+import javax.faces.view.facelets.MetaRule;
+import javax.faces.view.facelets.MetaRuleset;
+import javax.faces.view.facelets.Metadata;
+import javax.faces.view.facelets.MetadataTarget;
+import javax.faces.view.facelets.TagAttribute;
 
 import org.richfaces.component.AbstractCollapsibleSubTable;
 import org.richfaces.view.facelets.RowKeyConverterRule;
 
-import javax.faces.view.facelets.*;
-
 /**
  * @author Anton Belevich
- * 
+ *
  */
 public class CollapsibleSubTableHandler extends ComponentHandler {
-
     public CollapsibleSubTableHandler(ComponentConfig config) {
         super(config);
     }
@@ -46,7 +50,6 @@ public class CollapsibleSubTableHandler extends ComponentHandler {
     }
 
     static class CollapsibleSubTableHandlerMetaRule extends MetaRule {
-
         public static final CollapsibleSubTableHandlerMetaRule INSTANCE = new CollapsibleSubTableHandlerMetaRule();
 
         public Metadata applyRule(String name, TagAttribute attribute, MetadataTarget meta) {
@@ -55,13 +58,10 @@ public class CollapsibleSubTableHandler extends ComponentHandler {
             }
             return null;
         }
-
     }
 
     static class CollapsibleSubTableMapper extends Metadata {
-
         private static final Class[] SIGNATURE = new Class[] { org.richfaces.event.CollapsibleSubTableToggleEvent.class };
-
         private final TagAttribute attribute;
 
         public CollapsibleSubTableMapper(TagAttribute attribute) {
@@ -69,7 +69,8 @@ public class CollapsibleSubTableHandler extends ComponentHandler {
         }
 
         public void applyMetadata(FaceletContext ctx, Object instance) {
-            ((AbstractCollapsibleSubTable) instance).addCollapsibleSubTableToggleListener((new MethodExpressionToggleListener(this.attribute.getMethodExpression(ctx, null, SIGNATURE))));
+            ((AbstractCollapsibleSubTable) instance).addCollapsibleSubTableToggleListener((new MethodExpressionToggleListener(
+                this.attribute.getMethodExpression(ctx, null, SIGNATURE))));
         }
     }
 }

@@ -18,13 +18,10 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.event;
 
 import javax.faces.event.FacesListener;
 
 public interface DataScrollListener extends FacesListener {
-
-    public void processDataScroll(org.richfaces.event.DataScrollEvent event);
-
+    void processDataScroll(org.richfaces.event.DataScrollEvent event);
 }

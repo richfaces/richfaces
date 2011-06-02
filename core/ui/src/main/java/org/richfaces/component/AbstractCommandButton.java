@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.component;
 
 import javax.faces.component.UICommand;
@@ -34,27 +33,22 @@ import org.richfaces.renderkit.AjaxConstants;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
-@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.CommandButtonRenderer"), 
-    tag = @Tag(type = TagType.Facelets), 
-    attributes = { "ajax-props.xml", "command-button-props.xml", "core-props.xml" }
-)
+@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.CommandButtonRenderer"), tag = @Tag(type = TagType.Facelets), attributes = {
+        "ajax-props.xml", "command-button-props.xml", "core-props.xml" })
 public abstract class AbstractCommandButton extends AbstractActionComponent implements MetaComponentResolver {
-
     public static final String COMPONENT_TYPE = "org.richfaces.CommandButton";
-
     public static final String COMPONENT_FAMILY = UICommand.COMPONENT_FAMILY;
 
     @Attribute
     public abstract String getImage();
-    
+
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
         return null;
     }
 
-    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
-        String metaComponentId) {
+    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
 
         if (AjaxContainer.META_COMPONENT_ID.equals(metaComponentId)) {
             return AjaxConstants.FORM;

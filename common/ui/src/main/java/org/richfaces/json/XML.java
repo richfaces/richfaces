@@ -1,80 +1,70 @@
 package org.richfaces.json;
 
 /*
-Copyright (c) 2002 JSON.org
+ Copyright (c) 2002 JSON.org
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
 
-The Software shall be used for Good, not Evil.
+ The Software shall be used for Good, not Evil.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+ */
 
 import java.util.Iterator;
 
 /**
- * This provides static methods to convert an XML text into a JSONObject,
- * and to covert a JSONObject into an XML text.
+ * This provides static methods to convert an XML text into a JSONObject, and to covert a JSONObject into an XML text.
  *
  * @author JSON.org
  * @version 2
  */
 public final class XML {
-
     /**
      * The Character '&'.
      */
     public static final Character AMP = new Character('&');
-
     /**
      * The Character '''.
      */
     public static final Character APOS = new Character('\'');
-
     /**
      * The Character '!'.
      */
     public static final Character BANG = new Character('!');
-
     /**
      * The Character '='.
      */
     public static final Character EQ = new Character('=');
-
     /**
      * The Character '>'.
      */
     public static final Character GT = new Character('>');
-
-    /**
+/**
      * The Character '<'.
      */
     public static final Character LT = new Character('<');
-
     /**
      * The Character '?'.
      */
     public static final Character QUEST = new Character('?');
-
     /**
      * The Character '"'.
      */
     public static final Character QUOT = new Character('"');
-
     /**
      * The Character '/'.
      */
@@ -85,6 +75,7 @@ public final class XML {
 
     /**
      * Replace special characters with XML escapes:
+     *
      * <pre>
      * &amp; <small>(ampersand)</small> is replaced by &amp;amp;
      * &lt; <small>(less than)</small> is replaced by &amp;lt;
@@ -134,9 +125,9 @@ public final class XML {
     /**
      * Scan the content following the named tag, attaching it to the context.
      *
-     * @param x       The XMLTokener containing the source string.
+     * @param x The XMLTokener containing the source string.
      * @param context The JSONObject that will include the new material.
-     * @param name    The tag name.
+     * @param name The tag name.
      * @return true if the close tag is processed.
      * @throws JSONException
      */
@@ -148,18 +139,18 @@ public final class XML {
         String s;
         Object t;
 
-//      Test for and skip past these forms:
-//           <!-- ... -->
-//           <!   ...   >
-//           <![  ... ]]>
-//           <?   ...  ?>
-//      Report errors for these forms:
-//           <>
-//           <=
-//           <<
+        // Test for and skip past these forms:
+        // <!-- ... -->
+        // <! ... >
+        // <![ ... ]]>
+        // <? ... ?>
+        // Report errors for these forms:
+        // <>
+        // <=
+        // <<
         t = x.nextToken();
 
-//      <!
+        // <!
         if (t == BANG) {
             c = x.next();
 
@@ -206,13 +197,13 @@ public final class XML {
             return false;
         } else if (t == QUEST) {
 
-//          <?
+            // <?
             x.skipPast("?>");
 
             return false;
         } else if (t == SLASH) {
 
-//          Close tag </
+            // Close tag </
             if ((name == null) || !x.nextToken().equals(name)) {
                 throw x.syntaxError("Mismatched close tag");
             }
@@ -225,7 +216,7 @@ public final class XML {
         } else if (t instanceof Character) {
             throw x.syntaxError("Misshaped tag");
 
-//          Open tag <
+            // Open tag <
         } else {
             n = (String) t;
             t = null;
@@ -236,7 +227,7 @@ public final class XML {
                     t = x.nextToken();
                 }
 
-//              attribute = value
+                // attribute = value
                 if (t instanceof String) {
                     s = (String) t;
                     t = x.nextToken();
@@ -254,7 +245,7 @@ public final class XML {
                         o.accumulate(s, "");
                     }
 
-//                  Empty tag <.../>
+                    // Empty tag <.../>
                 } else if (t == SLASH) {
                     if (x.nextToken() != GT) {
                         throw x.syntaxError("Misshaped tag");
@@ -264,7 +255,7 @@ public final class XML {
 
                     return false;
 
-//                  Content, between <...> and </...>
+                    // Content, between <...> and </...>
                 } else if (t == GT) {
                     for (;;) {
                         t = x.nextContent();
@@ -282,7 +273,7 @@ public final class XML {
                                 o.accumulate("content", s);
                             }
 
-//                          Nested element
+                            // Nested element
                         } else if (t == LT) {
                             if (parse(x, o, n)) {
                                 if (o.length() == 0) {
@@ -305,15 +296,11 @@ public final class XML {
     }
 
     /**
-     * Convert a well-formed (but not necessarily valid) XML string into a
-     * JSONObject. Some information may be lost in this transformation
-     * because JSON is a data format and XML is a document format. XML uses
-     * elements, attributes, and content text, while JSON uses unordered
-     * collections of name/value pairs and arrays of values. JSON does not
-     * does not like to distinguish between elements and attributes.
-     * Sequences of similar elements are represented as JSONArrays. Content
-     * text may be placed in a "content" member. Comments, prologs, DTDs, and
-     * <code>&lt;[ [ ]]></code> are ignored.
+     * Convert a well-formed (but not necessarily valid) XML string into a JSONObject. Some information may be lost in this
+     * transformation because JSON is a data format and XML is a document format. XML uses elements, attributes, and content
+     * text, while JSON uses unordered collections of name/value pairs and arrays of values. JSON does not does not like to
+     * distinguish between elements and attributes. Sequences of similar elements are represented as JSONArrays. Content text
+     * may be placed in a "content" member. Comments, prologs, DTDs, and <code>&lt;[ [ ]]></code> are ignored.
      *
      * @param string The source string.
      * @return A JSONObject containing the structured data from the XML string.
@@ -345,7 +332,7 @@ public final class XML {
     /**
      * Convert a JSONObject into a well-formed, element-normal XML string.
      *
-     * @param o       A JSONObject.
+     * @param o A JSONObject.
      * @param tagName The optional name of the enclosing tag.
      * @return A string.
      * @throws JSONException
@@ -363,14 +350,14 @@ public final class XML {
 
         if (o instanceof JSONObject) {
 
-//          Emit <tagName>
+            // Emit <tagName>
             if (tagName != null) {
                 b.append('<');
                 b.append(tagName);
                 b.append('>');
             }
 
-//          Loop thru the keys.
+            // Loop thru the keys.
             jo = (JSONObject) o;
             keys = jo.keys();
 
@@ -384,7 +371,7 @@ public final class XML {
                     s = null;
                 }
 
-//              Emit content in body
+                // Emit content in body
                 if (k.equals("content")) {
                     if (v instanceof JSONArray) {
                         ja = (JSONArray) v;
@@ -401,7 +388,7 @@ public final class XML {
                         b.append(escape(v.toString()));
                     }
 
-//                  Emit an array of similar keys
+                    // Emit an array of similar keys
                 } else if (v instanceof JSONArray) {
                     ja = (JSONArray) v;
                     len = ja.length();
@@ -414,7 +401,7 @@ public final class XML {
                     b.append(k);
                     b.append("/>");
 
-//                  Emit a new tag <k>
+                    // Emit a new tag <k>
                 } else {
                     b.append(toString(v, k));
                 }
@@ -422,7 +409,7 @@ public final class XML {
 
             if (tagName != null) {
 
-//              Emit the </tagname> close tag
+                // Emit the </tagname> close tag
                 b.append("</");
                 b.append(tagName);
                 b.append('>');
@@ -430,8 +417,8 @@ public final class XML {
 
             return b.toString();
 
-//          XML does not have good support for arrays. If an array appears in a place
-//          where XML is lacking, synthesize an <array> element.
+            // XML does not have good support for arrays. If an array appears in a place
+            // where XML is lacking, synthesize an <array> element.
         } else if (o instanceof JSONArray) {
             ja = (JSONArray) o;
             len = ja.length();
@@ -444,9 +431,8 @@ public final class XML {
         } else {
             s = (o == null) ? "null" : escape(o.toString());
 
-            return (tagName == null)
-                ? "\"" + s + "\""
-                : (s.length() == 0) ? "<" + tagName + "/>" : "<" + tagName + ">" + s + "</" + tagName + ">";
+            return (tagName == null) ? "\"" + s + "\"" : (s.length() == 0) ? "<" + tagName + "/>" : "<" + tagName + ">" + s
+                + "</" + tagName + ">";
         }
     }
 }

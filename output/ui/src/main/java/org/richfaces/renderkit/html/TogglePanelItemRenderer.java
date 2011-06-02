@@ -19,8 +19,21 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit.html;
+
+import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.STYLE_ATTRIBUTE;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
 
 import org.ajax4jsf.javascript.JSObject;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -28,34 +41,18 @@ import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.component.AbstractTogglePanelItem;
 import org.richfaces.component.AbstractTogglePanelItemInterface;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.richfaces.renderkit.HtmlConstants.*;
-
 /**
  * @author akolonitsky
  * @since -4712-01-01
  */
-@ResourceDependencies({
-    @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-    @ResourceDependency(name = "jquery.js"),
-    @ResourceDependency(name = "richfaces.js"),
-    @ResourceDependency(name = "richfaces-event.js"),
-    @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(library = "org.richfaces", name = "togglePanelItem.js") })
+@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"), @ResourceDependency(name = "jquery.js"),
+        @ResourceDependency(name = "richfaces.js"), @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(name = "richfaces-base-component.js"),
+        @ResourceDependency(library = "org.richfaces", name = "togglePanelItem.js") })
 @JsfRenderer(type = "org.richfaces.TogglePanelItemRenderer", family = AbstractTogglePanelItem.COMPONENT_FAMILY)
 public class TogglePanelItemRenderer extends DivPanelRenderer {
-    
     private static final String LEAVE = "leave";
     private static final String ENTER = "enter";
-
     private final boolean hideInactiveItems;
 
     public TogglePanelItemRenderer() {
@@ -73,8 +70,8 @@ public class TogglePanelItemRenderer extends DivPanelRenderer {
 
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
-        return new JSObject("RichFaces.ui.TogglePanelItem", component.getClientId(context),
-            getScriptObjectOptions(context, component));
+        return new JSObject("RichFaces.ui.TogglePanelItem", component.getClientId(context), getScriptObjectOptions(context,
+            component));
     }
 
     @Override
@@ -104,7 +101,7 @@ public class TogglePanelItemRenderer extends DivPanelRenderer {
     public boolean getRendersChildren() {
         return true;
     }
-    
+
     protected void encodePlaceHolderWithJs(FacesContext context, UIComponent item) throws IOException {
         ResponseWriter writer = context.getResponseWriter();
 
@@ -125,14 +122,13 @@ public class TogglePanelItemRenderer extends DivPanelRenderer {
     }
 
     @Override
-    protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component)
-        throws IOException {
+    protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
 
         if (((AbstractTogglePanelItemInterface) component).shouldProcess()) {
             renderChildren(context, component);
         }
     }
-    
+
     @Override
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         if (((AbstractTogglePanelItemInterface) component).shouldProcess()) {
@@ -141,7 +137,7 @@ public class TogglePanelItemRenderer extends DivPanelRenderer {
             encodePlaceHolderWithJs(context, component);
         }
     }
-    
+
     @Override
     protected String getStyle(UIComponent component) {
         String attributeStyle = super.getStyle(component);
@@ -152,4 +148,3 @@ public class TogglePanelItemRenderer extends DivPanelRenderer {
         }
     }
 }
-

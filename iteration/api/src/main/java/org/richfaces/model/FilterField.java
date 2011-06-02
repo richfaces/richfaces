@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.model;
 
 import javax.el.ValueExpression;
@@ -28,12 +27,9 @@ import javax.el.ValueExpression;
  * @author Konstantin Mishin
  *
  */
-public class FilterField extends Field{
-
+public class FilterField extends Field {
     private static final long serialVersionUID = -935655586515863809L;
-
     private Filter<?> filter;
-
     private Object filterValue;
 
     public FilterField(ValueExpression filterExpression, Filter<?> filter, Object filterValue) {
@@ -45,11 +41,11 @@ public class FilterField extends Field{
     public ValueExpression getFilterExpression() {
         return getExpression();
     }
-    
+
     public Filter<?> getFilter() {
         return filter;
     }
-    
+
     public Object getFilterValue() {
         return filterValue;
     }

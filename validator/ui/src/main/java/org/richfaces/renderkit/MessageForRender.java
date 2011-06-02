@@ -4,7 +4,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 
 public class MessageForRender {
-
     private final FacesMessage msg;
     private final String sourceId;
 
@@ -16,7 +15,7 @@ public class MessageForRender {
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
      * @return
      * @see javax.faces.application.FacesMessage#getDetail()
      */
@@ -27,7 +26,7 @@ public class MessageForRender {
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
      * @return
      * @see javax.faces.application.FacesMessage#getSeverity()
      */
@@ -38,7 +37,7 @@ public class MessageForRender {
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
      * @return
      * @see javax.faces.application.FacesMessage#getSummary()
      */
@@ -49,7 +48,7 @@ public class MessageForRender {
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
      * @return
      * @see javax.faces.application.FacesMessage#isRendered()
      */
@@ -60,7 +59,7 @@ public class MessageForRender {
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
      * @see javax.faces.application.FacesMessage#rendered()
      */
     public void rendered() {
@@ -70,7 +69,7 @@ public class MessageForRender {
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
      * @return the sourceId
      */
     public String getSourceId() {

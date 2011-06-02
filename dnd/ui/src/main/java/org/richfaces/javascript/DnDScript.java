@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.javascript;
 
 import java.io.IOException;
@@ -34,7 +33,6 @@ import org.richfaces.resource.ResourceKey;
  *
  */
 public abstract class DnDScript implements ScriptWithDependencies {
-
     private static final Set<ResourceKey> BASE_RESOURCES = new LinkedHashSet<ResourceKey>();
 
     static {
@@ -44,7 +42,7 @@ public abstract class DnDScript implements ScriptWithDependencies {
         BASE_RESOURCES.add(new ResourceKey("richfaces-base-component.js", null));
         BASE_RESOURCES.add(new ResourceKey("richfaces-event.js", null));
         BASE_RESOURCES.add(new ResourceKey("jquery-ui-core.js", "org.richfaces"));
-        BASE_RESOURCES.add(new ResourceKey("jquery-dnd.js", "org.richfaces"));        
+        BASE_RESOURCES.add(new ResourceKey("jquery-dnd.js", "org.richfaces"));
     }
 
     private final String name;
@@ -107,5 +105,4 @@ public abstract class DnDScript implements ScriptWithDependencies {
 
         return true;
     }
-
 }

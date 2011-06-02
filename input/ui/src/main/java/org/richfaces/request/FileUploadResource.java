@@ -29,17 +29,15 @@ import com.google.common.base.Strings;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 abstract class FileUploadResource implements FileUploadParam {
-
     private String name;
-    
     private String uploadLocation;
-    
+
     public FileUploadResource(String name, String uploadLocation) {
         super();
-        
+
         this.name = name;
         this.uploadLocation = uploadLocation;
     }
@@ -47,27 +45,27 @@ abstract class FileUploadResource implements FileUploadParam {
     protected String getUploadLocation() {
         return uploadLocation;
     }
-    
+
     protected File getOutputFile(String name) {
         if (Strings.isNullOrEmpty(name)) {
             return new File(uploadLocation);
         }
-        
+
         return new File(uploadLocation, name);
     }
-    
+
     public abstract InputStream getInputStream() throws IOException;
 
     public abstract long getSize();
-    
+
     public abstract void write(String fileName) throws IOException;
-    
+
     public abstract void delete() throws IOException;
 
     public String getName() {
         return name;
     }
-    
+
     public boolean isFileParam() {
         return true;
     }
@@ -75,7 +73,7 @@ abstract class FileUploadResource implements FileUploadParam {
     public String getValue() {
         return null;
     }
-    
+
     public FileUploadResource getResource() {
         return this;
     }

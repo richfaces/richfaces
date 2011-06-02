@@ -23,13 +23,12 @@ License along with this software; if not, write to the Free
 Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
-<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
-	version="2.0">
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee" version="2.0">
 
-	<application>
-		<system-event-listener>	
-			<system-event-listener-class>org.richfaces.event.DataTablePreRenderListener</system-event-listener-class>
-			<system-event-class>javax.faces.event.PreRenderComponentEvent</system-event-class>
-		</system-event-listener>
-	</application>
+    <application>
+        <system-event-listener>
+            <system-event-listener-class>org.richfaces.event.DataTablePreRenderListener</system-event-listener-class>
+            <system-event-class>javax.faces.event.PreRenderComponentEvent</system-event-class>
+        </system-event-listener>
+    </application>
 </faces-config>

@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces;
 
 import java.io.Serializable;
@@ -39,20 +38,19 @@ import org.richfaces.component.UIDataAdaptor;
 import org.richfaces.renderkit.util.RendererUtils;
 
 public final class DataScrollerUtils {
-
     /**
-     * 
+     *
      */
     private static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
 
     protected enum PropertyKeys {
-        rowCount, rows
+        rowCount,
+        rows
     }
-    
-    private DataScrollerUtils(){
+
+    private DataScrollerUtils() {
     }
-    
-    
+
     public static int getPageCount(UIComponent data, int rowCount, int rows) {
         int pageCount;
         if (rows > 0) {
@@ -96,7 +94,7 @@ public final class DataScrollerUtils {
         }
         return parent;
     }
-    
+
     public static UIComponent findDataTable(AbstractDataScroller dataScroller) {
 
         String forAttribute = dataScroller.getFor();
@@ -110,7 +108,6 @@ public final class DataScrollerUtils {
             }
 
             throw new FacesException("could not find dataTable for  datascroller " + dataScroller.getId());
-
         } else {
             forComp = RENDERER_UTILS.findComponentFor(dataScroller, forAttribute);
         }
@@ -145,7 +142,6 @@ public final class DataScrollerUtils {
     protected static void findBelow(UIComponent component, List<AbstractDataScroller> result) {
         if ((component instanceof AbstractDataScroller) && component.isRendered()) {
             result.add((AbstractDataScroller) component);
-
         } else {
             for (UIComponent child : component.getChildren()) {
                 if (!(child instanceof NamingContainer)) {
@@ -153,6 +149,5 @@ public final class DataScrollerUtils {
                 }
             }
         }
-
     }
 }

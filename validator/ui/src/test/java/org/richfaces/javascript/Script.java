@@ -7,9 +7,7 @@ import org.ajax4jsf.javascript.ScriptWithDependencies;
 import org.richfaces.resource.ResourceKey;
 
 final class Script implements ScriptWithDependencies {
-    
-    static final ResourceKey FOO_RESOURCE = ResourceKey.create("foo","org.rf");
-
+    static final ResourceKey FOO_RESOURCE = ResourceKey.create("foo", "org.rf");
     private final String name;
 
     Script(String name) {
@@ -28,15 +26,17 @@ final class Script implements ScriptWithDependencies {
         try {
             appendScript(stringBuilder);
         } catch (IOException e) {
-            //ignore
+            // ignore
         }
     }
-    
+
     public Iterable<ResourceKey> getResources() {
         return Collections.singleton(FOO_RESOURCE);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -47,7 +47,9 @@ final class Script implements ScriptWithDependencies {
         return result;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override

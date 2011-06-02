@@ -4,15 +4,15 @@
 
     rf.ui.InplaceSelect = function(id, options) {
         var mergedOptions = $.extend({}, defaultOptions, options);
-        $super.constructor.call(this, id, mergedOptions) ;
+        $super.constructor.call(this, id, mergedOptions);
         this.getInput().bind("click", $.proxy(this.__clickHandler, this));
         mergedOptions['attachTo'] = id;
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "Items")).parent()[0];
-        this.popupList = new rf.ui.PopupList(id+"List", this, mergedOptions);
+        this.popupList = new rf.ui.PopupList(id + "List", this, mergedOptions);
         this.items = mergedOptions.items;
-        this.selValueInput = $(document.getElementById(id+"selValue"));
+        this.selValueInput = $(document.getElementById(id + "selValue"));
         this.initialValue = this.selValueInput.val();
-        this.list = $(document.getElementById(id+"List"));
+        this.list = $(document.getElementById(id + "List"));
         this.list.bind("mousedown", $.proxy(this.__onListMouseDown, this));
         this.list.bind("mouseup", $.proxy(this.__onListMouseUp, this));
         this.openOnEdit = mergedOptions.openOnEdit;
@@ -43,7 +43,7 @@
 
         return{
             name : "inplaceSelect",
-			defaultLabelClass : "rf-is-dflt-lbl", 
+            defaultLabelClass : "rf-is-dflt-lbl",
 
             getName: function() {
                 return this.name;
@@ -53,7 +53,7 @@
             },
             onshow: function() {
                 $super.onshow.call(this);
-                if(this.openOnEdit) {
+                if (this.openOnEdit) {
                     this.__showPopup();
                 }
             },
@@ -64,7 +64,7 @@
             showPopup: function() {
                 this.isSaved = false;
                 this.element.addClass(this.editCss);
-      			this.editContainer.removeClass(this.noneCss);
+                this.editContainer.removeClass(this.noneCss);
 
                 this.editState = true;
                 this.scrollElements = rf.Event.bindScrollEventHandlers(this.id, this.__scrollHandler, this);
@@ -81,10 +81,10 @@
                 this.popupList.hide();
                 this.__showLabel();
             },
-            
+
             __selectItemByValue: function(value) {
                 var item;
-                for (var i=0; i<this.items.length; i++) {
+                for (var i = 0; i < this.items.length; i++) {
                     item = this.items[i];
                     if (item.value == value) {
                         this.popupList.__selectByIndex(i);
@@ -93,18 +93,18 @@
                 }
                 this.popupList.resetSelection();
             },
-            
+
             onsave: function() {
                 var item = this.popupList.currentSelectItem();
-                if(item) {
+                if (item) {
                     var index = this.popupList.getSelectedItemIndex();
                     if (this.items[index].label == this.__getValue()) {
-                    	this.savedIndex = index;
-                    	var value = this.getItemValue(item);
-                    	this.saveItemValue(value);
-                    	this.popupList.__selectByIndex(this.savedIndex);
+                        this.savedIndex = index;
+                        var value = this.getItemValue(item);
+                        this.saveItemValue(value);
+                        this.popupList.__selectByIndex(this.savedIndex);
                     } else {
-                    	this.__selectItemByValue(this.getValue());
+                        this.__selectItemByValue(this.getValue());
                     }
                 }
             },
@@ -115,8 +115,8 @@
                     this.saveItemValue(value);
                     this.popupList.__selectByIndex(this.savedIndex);
                 } else {
-                	this.saveItemValue(this.initialValue);
-                	this.__selectItemByValue(this.initialValue);
+                    this.saveItemValue(this.initialValue);
+                    this.__selectItemByValue(this.initialValue);
                 }
             },
             onblur: function(e) {
@@ -124,7 +124,7 @@
                 $super.onblur.call(this);
             },
             onfocus: function(e) {
-                if(!this.__isFocused()) {
+                if (!this.__isFocused()) {
                     this.__setFocused(true);
                     this.focusValue = this.selValueInput.val();
                     this.invokeEvent.call(this, "focus", document.getElementById(this.id), e);
@@ -137,11 +137,11 @@
                 this.__setInputFocus();
                 this.__hidePopup();
 
-                if(this.saveOnSelect) {
+                if (this.saveOnSelect) {
                     this.save();
                 }
 
-                this.invokeEvent.call(this,"selectitem", document.getElementById(this.id));
+                this.invokeEvent.call(this, "selectitem", document.getElementById(this.id));
             },
             getItemValue: function(item) {
                 var key = $(item).attr("id");
@@ -177,14 +177,14 @@
 
                 var code;
 
-                if(e.keyCode) {
+                if (e.keyCode) {
                     code = e.keyCode;
-                } else if(e.which) {
+                } else if (e.which) {
                     code = e.which;
                 }
 
-                if(this.popupList.isVisible()) {
-                    switch(code) {
+                if (this.popupList.isVisible()) {
+                    switch (code) {
                         case rf.KEYS.DOWN:
                             e.preventDefault();
                             this.popupList.__selectNext();
@@ -206,12 +206,12 @@
                     }
                 }
 
-                $super.__keydownHandler.call(this,e);
+                $super.__keydownHandler.call(this, e);
             },
             __blurHandler: function(e) {
-                if(this.saveOnSelect || !this.isMouseDown) {
-                    if(this.isEditState()) {
-                        this.timeoutId = window.setTimeout($.proxy( function() {
+                if (this.saveOnSelect || !this.isMouseDown) {
+                    if (this.isEditState()) {
+                        this.timeoutId = window.setTimeout($.proxy(function() {
                             this.onblur(e);
                         }, this), 200);
                     }
@@ -238,7 +238,7 @@
             __hideLabel: function(e) {
                 this.label.hide();
                 this.editContainer.css("position", "static");
-                if(!this.inputWidthDefined) {
+                if (!this.inputWidthDefined) {
                     this.inputItem.width(this.label.width());
                 }
             },
@@ -247,7 +247,7 @@
             },
             setValue: function(value) {
                 var item;
-                for (var i=0; i<this.items.length; i++) {
+                for (var i = 0; i < this.items.length; i++) {
                     item = this.items[i];
                     if (item.value == value) {
                         this.__setValue(item.label);
@@ -258,9 +258,9 @@
                 }
             },
             destroy: function() {
-            	this.popupList.destroy();
-            	this.popupList = null;
-            	$super.destroy.call(this);
+                this.popupList.destroy();
+                this.popupList = null;
+                $super.destroy.call(this);
             }
         };
 

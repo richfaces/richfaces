@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import java.util.Iterator;
@@ -34,19 +33,10 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.renderkit.RowHolderBase;
 
-@JsfComponent(
-    type = AbstractColumnGroup.COMPONENT_TYPE,
-    family = AbstractColumnGroup.COMPONENT_FAMILY, 
-    generate = "org.richfaces.component.UIColumnGroup",
-    renderer = @JsfRenderer(type = "org.richfaces.ColumnGroupRenderer"),
-    tag = @Tag(name="columnGroup")
-)
+@JsfComponent(type = AbstractColumnGroup.COMPONENT_TYPE, family = AbstractColumnGroup.COMPONENT_FAMILY, generate = "org.richfaces.component.UIColumnGroup", renderer = @JsfRenderer(type = "org.richfaces.ColumnGroupRenderer"), tag = @Tag(name = "columnGroup"))
 public abstract class AbstractColumnGroup extends UIPanel implements Row, Column {
-    
     public static final String COMPONENT_TYPE = "org.richfaces.ColumnGroup";
-    
     public static final String COMPONENT_FAMILY = "org.richfaces.ColumnGroup";
-
 
     public Iterator<UIComponent> columns() {
         return new DataTableColumnsIterator(this);
@@ -65,7 +55,7 @@ public abstract class AbstractColumnGroup extends UIPanel implements Row, Column
             return;
         }
 
-        //TODO nick - implement in the proper way
+        // TODO nick - implement in the proper way
         visitor.process(context, null, argument);
     }
 }

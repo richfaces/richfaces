@@ -44,23 +44,16 @@ import org.richfaces.renderkit.util.AjaxRendererUtils;
  * @author Nick Belaevski
  *
  */
-@JsfComponent(renderer=@JsfRenderer(type="org.richfaces.AttachQueueRenderer"),
-    tag = @Tag(name = "attachQueue",
-        handler = "org.richfaces.view.facelets.html.AttachQueueHandler",
-        
-        generate = false, type = TagType.Facelets)
-)
+@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.AttachQueueRenderer"), tag = @Tag(name = "attachQueue", handler = "org.richfaces.view.facelets.html.AttachQueueHandler",
+
+generate = false, type = TagType.Facelets))
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractAttachQueue extends UIComponentBase implements ComponentSystemEventListener {
-
     public static final String COMPONENT_TYPE = "org.richfaces.AttachQueue";
-    
     public static final String COMPONENT_FAMILY = "org.richfaces.AttachQueue";
-    
     private transient List<UIComponent> componentsToAssociate;
-    
     private transient List<AjaxBehavior> behaviorsToAssociate;
-    
+
     @Attribute
     public abstract String getRequestGroupingId();
 
@@ -75,14 +68,14 @@ public abstract class AbstractAttachQueue extends UIComponentBase implements Com
 
     @Attribute
     public abstract String getOnrequestdequeue();
-    
+
     @Attribute
     public abstract String getName();
 
     public String getQueueId() {
         return getName();
     }
-    
+
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
@@ -95,12 +88,16 @@ public abstract class AbstractAttachQueue extends UIComponentBase implements Com
     private static void immediateAssociateWith(AjaxBehavior behavior, String queueId) {
         behavior.setQueueId(queueId);
     }
-    
+
     /**
-     * <p>Establishes association between attachQueue component and component passed as method argument.</p>
-     * <p>Association can be established either immediately just before returning from this method, or postponed
-     * until attachQueue component will be added to view.</p>
-     * 
+     * <p>
+     * Establishes association between attachQueue component and component passed as method argument.
+     * </p>
+     * <p>
+     * Association can be established either immediately just before returning from this method, or postponed until attachQueue
+     * component will be added to view.
+     * </p>
+     *
      * @param component
      */
     public void associateWith(UIComponent component) {
@@ -110,16 +107,20 @@ public abstract class AbstractAttachQueue extends UIComponentBase implements Com
             if (componentsToAssociate == null) {
                 componentsToAssociate = new ArrayList<UIComponent>(2);
             }
-            
+
             componentsToAssociate.add(component);
         }
     }
-    
+
     /**
-     * <p>Establishes association between attachQueue component and behavior passed as method argument.</p>
-     * <p>Association can be established either immediately just before returning from this method, or postponed
-     * until attachQueue component will be added to view.</p>
-     * 
+     * <p>
+     * Establishes association between attachQueue component and behavior passed as method argument.
+     * </p>
+     * <p>
+     * Association can be established either immediately just before returning from this method, or postponed until attachQueue
+     * component will be added to view.
+     * </p>
+     *
      * @param behavior
      */
     public void associateWith(AjaxBehavior behavior) {
@@ -133,27 +134,27 @@ public abstract class AbstractAttachQueue extends UIComponentBase implements Com
             behaviorsToAssociate.add(behavior);
         }
     }
-    
+
     @Override
     public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
         super.processEvent(event);
-        
+
         if (event instanceof PostAddToViewEvent) {
             String queueId = getClientId();
-            
+
             if (componentsToAssociate != null) {
                 for (UIComponent componentToAssociate : componentsToAssociate) {
                     immediateAssociateWith(componentToAssociate, queueId);
                 }
-                
+
                 componentsToAssociate = null;
             }
-            
+
             if (behaviorsToAssociate != null) {
                 for (AjaxBehavior ajaxBehavior : behaviorsToAssociate) {
                     immediateAssociateWith(ajaxBehavior, queueId);
                 }
-                
+
                 behaviorsToAssociate = null;
             }
         }

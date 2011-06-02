@@ -19,14 +19,13 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit;
 
-import org.ajax4jsf.javascript.JSFunction;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.*;
-import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.renderkit.util.AjaxRendererUtils;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -37,33 +36,36 @@ import javax.faces.component.behavior.ClientBehavior;
 import javax.faces.component.behavior.ClientBehaviorHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+
+import org.ajax4jsf.javascript.JSFunction;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractCollapsibleSubTable;
+import org.richfaces.component.AbstractDataTable;
+import org.richfaces.component.Row;
+import org.richfaces.component.UIDataAdaptor;
+import org.richfaces.component.UIDataTableBase;
+import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.renderkit.util.AjaxRendererUtils;
 
 /**
  * @author Anton Belevich
  */
-
 @JsfRenderer(type = "org.richfaces.DataTableRenderer", family = AbstractDataTable.COMPONENT_FAMILY)
-@ResourceDependencies({
-    @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"), 
-    @ResourceDependency(library="org.richfaces", name = "datatable.js"), 
-    @ResourceDependency(library="org.richfaces", name = "datatable.ecss")
-})
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "datatable.js"),
+        @ResourceDependency(library = "org.richfaces", name = "datatable.ecss") })
 public class DataTableRenderer extends AbstractTableRenderer {
-
     private static final String BEHAVIOR_EVENT_NAME = "javax.faces.behavior.event";
     private static final String ROW = "row";
 
-    private class  DataTableHiddenEncodeStrategy implements EncodeStrategy {
-        public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params) throws IOException {
-            AbstractDataTable dataTable = (AbstractDataTable)component;
-            
+    private class DataTableHiddenEncodeStrategy implements EncodeStrategy {
+        public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)
+            throws IOException {
+            AbstractDataTable dataTable = (AbstractDataTable) component;
+
             writer.startElement(HtmlConstants.TBODY_ELEMENT, dataTable);
-            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, dataTable.getContainerClientId(context) + HIDDEN_CONTAINER_ID, null);
+            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, dataTable.getContainerClientId(context) + HIDDEN_CONTAINER_ID,
+                null);
             writer.startElement(HtmlConstants.TR_ELEMENT, dataTable);
             writer.startElement(HtmlConstants.TD_ELEM, dataTable);
             writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display: none", null);
@@ -74,16 +76,18 @@ public class DataTableRenderer extends AbstractTableRenderer {
             writer.endElement(HtmlConstants.TR_ELEMENT);
             writer.endElement(HtmlConstants.TBODY_ELEMENT);
         }
-    };
-    
-    private class RichHeaderEncodeStrategy implements EncodeStrategy {
+    }
 
-        public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object [] params) throws IOException {
+    ;
+
+    private class RichHeaderEncodeStrategy implements EncodeStrategy {
+        public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)
+            throws IOException {
             org.richfaces.component.AbstractColumn column = (org.richfaces.component.AbstractColumn) component;
             writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, column.getClientId(context), null);
         }
 
-        public void end(ResponseWriter writer, FacesContext context, UIComponent component, Object [] params) throws IOException {
+        public void end(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params) throws IOException {
         }
     }
 
@@ -104,14 +108,13 @@ public class DataTableRenderer extends AbstractTableRenderer {
             Map<String, String> parametersMap = context.getExternalContext().getRequestParameterMap();
             final String behaviorEvent = parametersMap.get(BEHAVIOR_EVENT_NAME);
 
-            if (!behaviorEvent.startsWith(ROW)){
+            if (!behaviorEvent.startsWith(ROW)) {
                 return;
             }
 
             String behaviorSourceId = RenderKitUtils.getBehaviorSourceId(context);
 
             ((UIDataAdaptor) component).invokeOnRow(context, behaviorSourceId, new ContextCallback() {
-
                 public void invokeContextCallback(FacesContext context, UIComponent target) {
                     if (target.equals(component)) {
                         List<ClientBehavior> behaviorsForEvent = behaviors.get(behaviorEvent);
@@ -126,16 +129,13 @@ public class DataTableRenderer extends AbstractTableRenderer {
         }
     }
 
-
-
-    public void encodeTableStructure(ResponseWriter writer, FacesContext context, UIDataTableBase dataTable)
-        throws IOException {
+    public void encodeTableStructure(ResponseWriter writer, FacesContext context, UIDataTableBase dataTable) throws IOException {
         if (dataTable instanceof AbstractDataTable) {
             encodeStyle(writer, context, dataTable, null);
             encodeCaption(writer, context, (AbstractDataTable) dataTable);
             // TODO nick - do we need this element if "columnsWidth" is absent?
             writer.startElement(HtmlConstants.COLGROUP_ELEMENT, dataTable);
-           
+
             int columns = getColumnsCount(dataTable.columns());
             writer.writeAttribute(HtmlConstants.SPAN_ELEM, String.valueOf(columns), null);
             String columnsWidth = (String) dataTable.getAttributes().get("columnsWidth");
@@ -148,34 +148,34 @@ public class DataTableRenderer extends AbstractTableRenderer {
                     writer.writeAttribute(HtmlConstants.WIDTH_ATTRIBUTE, widths[i], null);
                     writer.endElement(HtmlConstants.COL_ELEMENT);
                 }
-                
             }
-            
+
             writer.endElement(HtmlConstants.COLGROUP_ELEMENT);
         }
     }
 
     @Override
-    public void encodeBeforeRows(ResponseWriter writer, FacesContext facesContext,UIDataTableBase dataTableBase, boolean encodeParentTBody, boolean partialUpdate) throws IOException {
-        if(encodeParentTBody) {
-            if(partialUpdate) {
-                partialStart(facesContext, dataTableBase.getContainerClientId(facesContext) +":tb");
+    public void encodeBeforeRows(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase,
+        boolean encodeParentTBody, boolean partialUpdate) throws IOException {
+        if (encodeParentTBody) {
+            if (partialUpdate) {
+                partialStart(facesContext, dataTableBase.getContainerClientId(facesContext) + ":tb");
             }
             encodeTableBodyStart(writer, facesContext, dataTableBase);
-        }    
+        }
     }
-    
+
     @Override
-    public void encodeAfterRows(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase, boolean encodeParentTBody, boolean partialUpdate) throws IOException {
-        if(encodeParentTBody) {
+    public void encodeAfterRows(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase,
+        boolean encodeParentTBody, boolean partialUpdate) throws IOException {
+        if (encodeParentTBody) {
             encodeTableBodyEnd(writer);
-            if(partialUpdate) {
+            if (partialUpdate) {
                 partialEnd(facesContext);
             }
         }
     }
-    
-        
+
     public void encodeRow(ResponseWriter writer, FacesContext facesContext, RowHolderBase holder) throws IOException {
         RowHolder rowHolder = (RowHolder) holder;
         Row row = rowHolder.getRow();
@@ -233,15 +233,14 @@ public class DataTableRenderer extends AbstractTableRenderer {
                                 encodeTableBodyEnd(writer);
                                 tbodyStart = false;
                             }
-                        } 
+                        }
                         rowHolder.setRowStart(true);
                         rowHolder.resetProcessCell();
                     }
-                    
+
                     if (isSubtable && partialUpdate) {
                         partialEnd(facesContext);
                     }
-
                 } else if (child instanceof UIColumn) {
 
                     if (!parentTbodyStart && !tbodyStart) {
@@ -257,7 +256,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
                     child.getAttributes().put(COLUMN_CLASS, getColumnClass(rowHolder, columnNumber));
                     encodeColumn(facesContext, writer, (UIColumn) child, rowHolder);
                     columnNumber++;
-                    
+
                     if (!components.hasNext()) {
                         encodeRowEnd(writer);
 
@@ -284,7 +283,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
         }
         return true;
     }
-  
+
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         UIDataTableBase dataTable = (UIDataTableBase) component;
         encodeTableStart(writer, context, dataTable);
@@ -317,7 +316,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
 
         captionClass = HtmlUtil.concatClasses(captionClass, captionSkinClass);
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, captionClass, "captionClass");
-        
+
         String captionStyle = (String) dataTable.getAttributes().get("captionStyle");
         if (captionStyle != null && captionStyle.trim().length() != 0) {
             writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, captionStyle, "captionStyle");
@@ -329,16 +328,18 @@ public class DataTableRenderer extends AbstractTableRenderer {
     }
 
     public EncodeStrategy getHeaderEncodeStrategy(UIComponent column, String facetName) {
-        return (column instanceof org.richfaces.component.AbstractColumn && UIDataTableBase.HEADER.equals(facetName)) ? new RichHeaderEncodeStrategy() : new SimpleHeaderEncodeStrategy();
+        return (column instanceof org.richfaces.component.AbstractColumn && UIDataTableBase.HEADER.equals(facetName)) ? new RichHeaderEncodeStrategy()
+            : new SimpleHeaderEncodeStrategy();
     }
 
     public boolean containsThead() {
         return true;
     }
 
-    public void encodeClientScript(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase) throws IOException {
+    public void encodeClientScript(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase)
+        throws IOException {
         AbstractDataTable dataTable = (AbstractDataTable) dataTableBase;
-       
+
         writer.startElement(HtmlConstants.SCRIPT_ELEM, dataTable);
         writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.JAVASCRIPT_TYPE, null);
 
@@ -358,7 +359,7 @@ public class DataTableRenderer extends AbstractTableRenderer {
     @Override
     public void encodeHiddenInput(ResponseWriter writer, FacesContext context, UIDataTableBase component) throws IOException {
     }
-    
+
     public String getTableSkinClass() {
         return "rf-dt";
     }
@@ -430,12 +431,12 @@ public class DataTableRenderer extends AbstractTableRenderer {
     public String getNoDataClass() {
         return "rf-dt-nd";
     }
-    
+
     @Override
     public String getNoDataCellClass() {
         return "rf-dt-nd-c";
     }
-    
+
     @Override
     public String getTableBodySkinClass() {
         return "rf-dt-b";
@@ -444,5 +445,4 @@ public class DataTableRenderer extends AbstractTableRenderer {
     public EncodeStrategy getHiddenContainerStrategy(UIDataTableBase dataTableBase) {
         return new DataTableHiddenEncodeStrategy();
     }
-    
 }

@@ -1,7 +1,8 @@
 package org.richfaces.javascript;
 
-import static org.easymock.EasyMock.*;
-import static org.junit.Assert.*;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.expectLastCall;
+import static org.junit.Assert.assertSame;
 
 import java.util.List;
 
@@ -22,26 +23,22 @@ import com.google.common.collect.Lists;
 
 @RunWith(MockTestRunner.class)
 public class ServiceGetOrCreateResourceTest extends ValidatorTestBase {
-
-
     @Mock
     private UIViewRoot viewRoot;
-
-
     private UIScripts scriptResource;
-
     private JavaScriptServiceImpl serviceImpl;
 
     @Before
-    public void setUpResource(){
+    public void setUpResource() {
         serviceImpl = new JavaScriptServiceImpl();
         scriptResource = new UIScripts();
     }
-    
+
     @After
-    public void cleanUpResource(){
+    public void cleanUpResource() {
         scriptResource = null;
     }
+
     /**
      * <p class="changed_added_4_0">
      * No resource exist in view, create a new one and store in "form" target.
@@ -50,8 +47,7 @@ public class ServiceGetOrCreateResourceTest extends ValidatorTestBase {
     @Test
     public void testCreateValidatorScriptResource() {
         FacesContext facesContext = recordResources(null, null);
-        expect(environment.getApplication().createComponent(UIScripts.COMPONENT_TYPE))
-            .andReturn(scriptResource);
+        expect(environment.getApplication().createComponent(UIScripts.COMPONENT_TYPE)).andReturn(scriptResource);
         viewRoot.addComponentResource(facesContext, scriptResource);
         expectLastCall();
         verifyResult(facesContext);
@@ -60,7 +56,7 @@ public class ServiceGetOrCreateResourceTest extends ValidatorTestBase {
     private FacesContext recordResources(UIComponent formResource, UIComponent bodyResource) {
         FacesContext facesContext = recordViewRoot();
         recordViewResources("form", formResource);
-        if(null == formResource || null != bodyResource){
+        if (null == formResource || null != bodyResource) {
             recordViewResources("body", bodyResource);
         }
         return facesContext;
@@ -93,7 +89,6 @@ public class ServiceGetOrCreateResourceTest extends ValidatorTestBase {
         FacesContext facesContext = recordResources(null, scriptResource);
         verifyResult(facesContext);
     }
-
 
     private void recordViewResources(String target, UIComponent resource) {
         FacesContext facesContext = environment.getFacesContext();

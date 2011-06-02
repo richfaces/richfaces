@@ -3,24 +3,22 @@
  * Copyright ${year}, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
- * 
+ *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation; either version 2.1 of
  * the License, or (at your option) any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-
 package org.richfaces.renderkit.html;
 
 import static org.richfaces.renderkit.html.TogglePanelRenderer.getAjaxOptions;
@@ -47,23 +45,20 @@ import org.richfaces.renderkit.HtmlConstants;
  * @since 2010-10-25
  */
 @JsfRenderer(type = "org.richfaces.PanelMenuRenderer", family = AbstractPanelMenu.COMPONENT_FAMILY)
-@ResourceDependencies( { // TODO review
-    @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
-    @ResourceDependency(name = "richfaces-event.js"),
-    @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(library = "org.richfaces", name = "panelMenu.js"),
-    @ResourceDependency(library = "org.richfaces", name = "panelMenuItem.js"),
-    @ResourceDependency(library = "org.richfaces", name = "panelMenuGroup.js"),
-    @ResourceDependency(library = "org.richfaces", name = "icons.ecss"),
-    @ResourceDependency(library = "org.richfaces", name = "panelMenu.ecss") })
+@ResourceDependencies({ // TODO review
+@ResourceDependency(library = "org.richfaces", name = "ajax.reslib"), @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(name = "richfaces-base-component.js"),
+        @ResourceDependency(library = "org.richfaces", name = "panelMenu.js"),
+        @ResourceDependency(library = "org.richfaces", name = "panelMenuItem.js"),
+        @ResourceDependency(library = "org.richfaces", name = "panelMenuGroup.js"),
+        @ResourceDependency(library = "org.richfaces", name = "icons.ecss"),
+        @ResourceDependency(library = "org.richfaces", name = "panelMenu.ecss") })
 public class PanelMenuRenderer extends DivPanelRenderer {
-
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
         AbstractPanelMenu panelMenu = (AbstractPanelMenu) component;
 
-        Map<String, String> requestMap =
-              context.getExternalContext().getRequestParameterMap();
+        Map<String, String> requestMap = context.getExternalContext().getRequestParameterMap();
 
         // Don't overwrite the value unless you have to!
         String newValue = requestMap.get(getValueRequestParamName(context, component));
@@ -95,8 +90,8 @@ public class PanelMenuRenderer extends DivPanelRenderer {
 
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
-        return new JSObject("RichFaces.ui.PanelMenu",
-            component.getClientId(context), getScriptObjectOptions(context, component));
+        return new JSObject("RichFaces.ui.PanelMenu", component.getClientId(context),
+            getScriptObjectOptions(context, component));
     }
 
     @Override
@@ -104,7 +99,7 @@ public class PanelMenuRenderer extends DivPanelRenderer {
         AbstractPanelMenu panelMenu = (AbstractPanelMenu) component;
 
         Map<String, Object> options = new HashMap<String, Object>();
-        //TODO nick - only options with non-default values should be rendered
+        // TODO nick - only options with non-default values should be rendered
         options.put("ajax", getAjaxOptions(context, panelMenu));
         options.put("disabled", panelMenu.isDisabled());
         options.put("expandSingle", panelMenu.isExpandSingle());
@@ -127,4 +122,3 @@ public class PanelMenuRenderer extends DivPanelRenderer {
         return HtmlUtil.concatStyles(super.getStyle(component), attributeAsStyle(component, "width"));
     }
 }
-

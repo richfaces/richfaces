@@ -1,120 +1,120 @@
 var createLog = function(log) {
-	return function(message) {
-		if (window.sysOut) {
-			window.sysOut.println(message); 
-		} else {
-			log(message);
-		}
-	}
+    return function(message) {
+        if (window.sysOut) {
+            window.sysOut.println(message);
+        } else {
+            log(message);
+        }
+    }
 }
 
 var levels = ["debug", "info", "warn", "error"];
 for (var n = 0; n < levels.length; n++) {
-	var oldLog = RichFaces.log[levels[n]];
-	RichFaces.log[levels[n]] = createLog(oldLog);
+    var oldLog = RichFaces.log[levels[n]];
+    RichFaces.log[levels[n]] = createLog(oldLog);
 }
 
 var Timer = {
 
-	_eventCounter: 0,	
-		
-	currentTime: 0,
-	
-	maxTime: 10000000,
-	
-	events: new Array(),
+    _eventCounter: 0,
 
-	addEventToTimer: function(callback, delay) {
-		var eventTime = this.currentTime + delay;
-		
-		var i = 0;
-		
-		while (this.events[i] && (this.events[i].eventTime <= eventTime)) {
-			i++;
-		}
-		
-		var eventId = this._eventCounter++;
-		
-		this.events.splice(i, 0, {eventTime: eventTime, callback: callback, eventId: eventId});
-	
-		return eventId;
-	},
+    currentTime: 0,
 
-	removeEventFromTimer: function(eventId) {
-		for ( var i = 0; i < this.events.length; i++) {
-			if (this.events[i].eventId == eventId) {
-				this.events.splice(i, 1);
-				
-				break;
-			}
-		}
-	},
-	
-	execute: function() {
-		while (this.events.length > 0) {
-			
-			var eventData = this.events.shift();
-			
-			this.currentTime = eventData.eventTime;
-			if (this.currentTime > this.maxTime) {
-				throw "Maximum execution time reached, aborting timer";
-			}
-			
-			try {
-			
-				eventData.callback();
-			} catch (e) {
-				alert(e.message);
-			}
-		}
-	},
-	
-	isEmpty: function() {
-		return this.events.length == 0;
-	}
+    maxTime: 10000000,
+
+    events: new Array(),
+
+    addEventToTimer: function(callback, delay) {
+        var eventTime = this.currentTime + delay;
+
+        var i = 0;
+
+        while (this.events[i] && (this.events[i].eventTime <= eventTime)) {
+            i++;
+        }
+
+        var eventId = this._eventCounter++;
+
+        this.events.splice(i, 0, {eventTime: eventTime, callback: callback, eventId: eventId});
+
+        return eventId;
+    },
+
+    removeEventFromTimer: function(eventId) {
+        for (var i = 0; i < this.events.length; i++) {
+            if (this.events[i].eventId == eventId) {
+                this.events.splice(i, 1);
+
+                break;
+            }
+        }
+    },
+
+    execute: function() {
+        while (this.events.length > 0) {
+
+            var eventData = this.events.shift();
+
+            this.currentTime = eventData.eventTime;
+            if (this.currentTime > this.maxTime) {
+                throw "Maximum execution time reached, aborting timer";
+            }
+
+            try {
+
+                eventData.callback();
+            } catch (e) {
+                alert(e.message);
+            }
+        }
+    },
+
+    isEmpty: function() {
+        return this.events.length == 0;
+    }
 };
 
 window.setTimeout = document.setTimeout = function(callback, delay) {
-	return Timer.addEventToTimer(callback, delay);
+    return Timer.addEventToTimer(callback, delay);
 }
 
 window.clearTimeout = document.clearTimeout = function(timerId) {
-	Timer.removeEventFromTimer(timerId);
+    Timer.removeEventFromTimer(timerId);
 }
 
 var SimulationContext = function(submitFunction) {
-	this.results = new Array();
+    this.results = new Array();
 
-	this.submitFunction = submitFunction;
+    this.submitFunction = submitFunction;
 };
 
 SimulationContext.prototype.ajax = function() {
-	var args = new Array();
-	for (var i = 1; i < arguments.length; i++) {
-		args.push(arguments[i]);
-	}
-	var _this = this;
-	
-	Timer.addEventToTimer(function() {
-		_this.submitFunction.apply(this, args);
-	}, arguments[0]);
+    var args = new Array();
+    for (var i = 1; i < arguments.length; i++) {
+        args.push(arguments[i]);
+    }
+    var _this = this;
+
+    Timer.addEventToTimer(function() {
+        _this.submitFunction.apply(this, args);
+    }, arguments[0]);
 };
 
 SimulationContext.prototype.executeOnTime = function(time, code) {
-	Timer.addEventToTimer(function() {
-		code();
-	}, time);
+    Timer.addEventToTimer(function() {
+        code();
+    }, time);
 };
 
 window.simulationContext = undefined;
 
 window.XMLHttpRequest = function() {
-	this.requestTime = XMLHttpRequest.requestTime || 0;
-	this.data = XMLHttpRequest.data;
-	this.responseText = null;
-	this.responseXML = null;
-	
-	this.readyState = 0;
+    this.requestTime = XMLHttpRequest.requestTime || 0;
+    this.data = XMLHttpRequest.data;
+    this.responseText = null;
+    this.responseXML = null;
+
+    this.readyState = 0;
 }
 
 window.XMLHttpRequest.UNSENT = 0;
@@ -124,90 +124,90 @@ window.XMLHttpRequest.LOADING = 3;
 window.XMLHttpRequest.DONE = 4;
 
 XMLHttpRequest.prototype.abort = function() {
-	if (this.timerId) {
-		clearTimeout(this.timerId);
-	}
+    if (this.timerId) {
+        clearTimeout(this.timerId);
+    }
 
-	window.simulationContext.results[this.requestId].endTime = Timer.currentTime;
-	window.simulationContext.results[this.requestId].aborted = true;
+    window.simulationContext.results[this.requestId].endTime = Timer.currentTime;
+    window.simulationContext.results[this.requestId].aborted = true;
 };
 
 XMLHttpRequest.prototype.getAllResponseHeaders = function() {
-	return "";
+    return "";
 };
 XMLHttpRequest.prototype.getResponseHeader = function(name) {
-	if ("Ajax-Response" == name) {
-		return "true";
-	}
-	
-	return "";
+    if ("Ajax-Response" == name) {
+        return "true";
+    }
+
+    return "";
 };
 XMLHttpRequest.prototype.open = function(method, url, async, user, password) {
-	this.readyState = XMLHttpRequest.OPENED;
+    this.readyState = XMLHttpRequest.OPENED;
 };
 
 XMLHttpRequest.prototype.send = function(contentType) {
-	var length = window.simulationContext.results.push({data: this.data, startTime: Timer.currentTime});
-	this.requestId = length - 1;
+    var length = window.simulationContext.results.push({data: this.data, startTime: Timer.currentTime});
+    this.requestId = length - 1;
 
-	var _this = this; 
-	this.timerId = setTimeout(function() {
-		_this.status = 200;
-		_this.statusText = "Success";
-		_this.readyState = window.XMLHttpRequest.DONE;
-		
-		var responseTextArray = new Array();
+    var _this = this;
+    this.timerId = setTimeout(function() {
+        _this.status = 200;
+        _this.statusText = "Success";
+        _this.readyState = window.XMLHttpRequest.DONE;
 
-		responseTextArray.push("<?xml version='1.0' encoding='UTF-8'?><partial-response><changes><extension>");
-		if (_this.data) {
+        var responseTextArray = new Array();
 
-			responseTextArray.push("<span id='_ajax:data'>");
-			if (typeof _this.data == 'string') {
-				responseTextArray.push("'");
-				responseTextArray.push(_this.data);
-				responseTextArray.push("'");
-			} else {
-				responseTextArray.push(_this.data);
-			}
-			responseTextArray.push("</span>");
-		}
-		responseTextArray.push("</extension></changes></partial-response>");
-		
-		_this.responseText = responseTextArray.join('');
+        responseTextArray.push("<?xml version='1.0' encoding='UTF-8'?><partial-response><changes><extension>");
+        if (_this.data) {
 
-		var doc;
-		
-		if (typeof ActiveXObject != 'undefined') {
-			doc = new ActiveXObject("MSXML.DOMDocument");
-			doc.loadXML(_this.responseText);
-			try {
-				//hack to make it work with current HTMLUnit
-				delete doc.getElementById;
-				doc.getElementById = function(id){
-					var nodes = this.selectNodes("//*");
-					for (var i = 0; i < nodes.length; i++) {
-						if (nodes[i].getAttribute("id") == id) {
-							return nodes[i];
-						}
-					}
-				};
-			} catch (e) {
-				//TODO
-			}
-		} else {
-			var parser = new DOMParser();
-			doc = parser.parseFromString(_this.responseText, "text/xml");
-		}
-		
-		_this.responseXML = doc;
-		
-		window.simulationContext.results[_this.requestId].endTime = Timer.currentTime;
-		_this.onreadystatechange();
-	}, this.requestTime);
+            responseTextArray.push("<span id='_ajax:data'>");
+            if (typeof _this.data == 'string') {
+                responseTextArray.push("'");
+                responseTextArray.push(_this.data);
+                responseTextArray.push("'");
+            } else {
+                responseTextArray.push(_this.data);
+            }
+            responseTextArray.push("</span>");
+        }
+        responseTextArray.push("</extension></changes></partial-response>");
+
+        _this.responseText = responseTextArray.join('');
+
+        var doc;
+
+        if (typeof ActiveXObject != 'undefined') {
+            doc = new ActiveXObject("MSXML.DOMDocument");
+            doc.loadXML(_this.responseText);
+            try {
+                //hack to make it work with current HTMLUnit
+                delete doc.getElementById;
+                doc.getElementById = function(id) {
+                    var nodes = this.selectNodes("//*");
+                    for (var i = 0; i < nodes.length; i++) {
+                        if (nodes[i].getAttribute("id") == id) {
+                            return nodes[i];
+                        }
+                    }
+                };
+            } catch (e) {
+                //TODO
+            }
+        } else {
+            var parser = new DOMParser();
+            doc = parser.parseFromString(_this.responseText, "text/xml");
+        }
+
+        _this.responseXML = doc;
+
+        window.simulationContext.results[_this.requestId].endTime = Timer.currentTime;
+        _this.onreadystatechange();
+    }, this.requestTime);
 };
 
 XMLHttpRequest.prototype.setRequestHeader = function(name, value) {
-	
+
 };
 
 

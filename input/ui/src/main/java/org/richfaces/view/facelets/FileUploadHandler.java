@@ -39,12 +39,10 @@ import org.richfaces.event.MethodExpressionEventListener;
 
 /**
  * @author Konstantin Mishin
- * 
+ *
  */
 public class FileUploadHandler extends ComponentHandler {
-
     public static final class FileUploadListenerImpl extends MethodExpressionEventListener implements FileUploadListener {
-        
         public FileUploadListenerImpl() {
             super();
         }

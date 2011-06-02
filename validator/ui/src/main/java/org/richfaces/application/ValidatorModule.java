@@ -20,7 +20,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.application;
 
 import java.util.Map;
@@ -44,15 +43,14 @@ import org.richfaces.validator.RichFacesBeanValidatorFactory;
  * <p class="changed_added_4_0">
  * This class initializes validator-related services
  * </p>
- * 
+ *
  * @author asmirnov@exadel.com
- * 
+ *
  */
 public class ValidatorModule implements Module {
-
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.richfaces.application.Module#configure(org.richfaces.application.ServicesFactory)
      */
     public void configure(ServicesFactory factory) {
@@ -63,16 +61,14 @@ public class ValidatorModule implements Module {
         factory.setInstance(ClientScriptService.class, clientScriptService);
     }
 
-
     private ClientScriptServiceImpl createClientScriptService() {
         Map<Class<?>, LibraryFunction> config = ClientServiceConfigParser.parseConfig("META-INF/csv.xml");
         ClientScriptServiceImpl clientScriptService = new ClientScriptServiceImpl(config);
         return clientScriptService;
     }
 
-
-    void configureBeanValidators(ServicesFactory factory){
-        BeanValidatorService service ;
+    void configureBeanValidators(ServicesFactory factory) {
+        BeanValidatorService service;
         try {
             RichFacesBeanValidatorFactory validatorFactory = new RichFacesBeanValidatorFactory();
             validatorFactory.init();
@@ -80,7 +76,7 @@ public class ValidatorModule implements Module {
         } catch (InitializationException e) {
             // JSR-303 is available but not initialised.
             service = new DummyBeanValidatorService();
-        } catch (NoClassDefFoundError e){
+        } catch (NoClassDefFoundError e) {
             // JSR-303 is not avalable.
             // log.warn("Validator implementations not found at classpath, default NullValidator will be used.");
             service = new DummyBeanValidatorService();

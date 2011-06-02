@@ -20,7 +20,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class DataGridRendererTest {
-
     private HtmlUnitEnvironment environment;
 
     @Before
@@ -42,8 +41,7 @@ public class DataGridRendererTest {
         facesRequest.start();
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ViewHandler vh = facesContext.getApplication().getViewHandler();
-        ViewDeclarationLanguage vdl = vh.getViewDeclarationLanguage(facesContext, facesContext.getViewRoot()
-            .getViewId());
+        ViewDeclarationLanguage vdl = vh.getViewDeclarationLanguage(facesContext, facesContext.getViewRoot().getViewId());
         vdl.buildView(facesContext, facesContext.getViewRoot());
         return facesRequest;
     }
@@ -53,8 +51,8 @@ public class DataGridRendererTest {
         FacesRequest facesRequest = startFacesRequest();
         FacesContext facesContext = FacesContext.getCurrentInstance();
         AbstractDataGrid component = (AbstractDataGrid) facesContext.getViewRoot().findComponent("dataGrid");
-        DataGridRenderer renderer = (DataGridRenderer) FacesContext.getCurrentInstance()
-            .getRenderKit().getRenderer(component.getFamily(), component.getRendererType());
+        DataGridRenderer renderer = (DataGridRenderer) FacesContext.getCurrentInstance().getRenderKit()
+            .getRenderer(component.getFamily(), component.getRendererType());
         assertEquals(AbstractDataGrid.class, renderer.getComponentClass());
         facesRequest.release();
     }
@@ -64,26 +62,27 @@ public class DataGridRendererTest {
         HtmlPage page = environment.getPage("/dataGridTest.jsf");
         HtmlElement dataGrid = page.getElementById("dataGrid2");
         assertEquals("rf-dg", dataGrid.getAttribute("class"));
-        assertEquals("noDataFacet", ((HtmlElement) dataGrid
+        assertEquals("noDataFacet",
+            ((HtmlElement) dataGrid
                 .getFirstByXPath("tbody/tr[@class='rf-dg-nd']/td[@class='rf-dg-nd-c']/*[@id='dataGrid2:noDataFacet']"))
-                        .getTextContent());
+                .getTextContent());
     }
 
     @Test
     public final void testEncodeRow() throws IOException {
         HtmlPage page = environment.getPage("/dataGridTest.jsf");
         HtmlElement dataGrid = page.getElementById("dataGrid");
-        assertEquals("value", ((HtmlElement) dataGrid
+        assertEquals("value",
+            ((HtmlElement) dataGrid
                 .getFirstByXPath("tbody/tr[@class='rf-dg-r']/td[@class='rf-dg-c']/*[@id='dataGrid:0:outputText']"))
-                        .getTextContent());
+                .getTextContent());
     }
 
     @Test
     public final void testEncodeHeader() throws IOException {
         HtmlPage page = environment.getPage("/dataGridTest.jsf");
         HtmlElement dataGrid = page.getElementById("dataGrid");
-        HtmlElement th = dataGrid
-            .getFirstByXPath("thead[@class='rf-dg-thead']/tr[@class='rf-dg-h']/th[@class='rf-dg-h-c']");
+        HtmlElement th = dataGrid.getFirstByXPath("thead[@class='rf-dg-thead']/tr[@class='rf-dg-h']/th[@class='rf-dg-h-c']");
         assertEquals("1", th.getAttribute("colspan"));
         assertEquals("headerFacet", th.getElementById("dataGrid:headerFacet").getTextContent());
     }
@@ -92,8 +91,7 @@ public class DataGridRendererTest {
     public final void testEncodeFooter() throws IOException {
         HtmlPage page = environment.getPage("/dataGridTest.jsf");
         HtmlElement dataGrid = page.getElementById("dataGrid");
-        HtmlElement td = dataGrid
-            .getFirstByXPath("tfoot[@class='rf-dg-tfoot']/tr[@class='rf-dg-f']/td[@class='rf-dg-f-c']");
+        HtmlElement td = dataGrid.getFirstByXPath("tfoot[@class='rf-dg-tfoot']/tr[@class='rf-dg-f']/td[@class='rf-dg-f-c']");
         assertEquals("1", td.getAttribute("colspan"));
         assertEquals("footerFacet", td.getElementById("dataGrid:footerFacet").getTextContent());
     }
@@ -102,17 +100,15 @@ public class DataGridRendererTest {
     public final void testEncodeCaption() throws IOException {
         HtmlPage page = environment.getPage("/dataGridTest.jsf");
         HtmlElement dataGrid = page.getElementById("dataGrid");
-        assertEquals("captionFacet", ((HtmlElement) dataGrid
-            .getFirstByXPath("caption[@class='rf-dg-cap']//*[@id='dataGrid:captionFacet']")).getTextContent());
+        assertEquals("captionFacet",
+            ((HtmlElement) dataGrid.getFirstByXPath("caption[@class='rf-dg-cap']//*[@id='dataGrid:captionFacet']"))
+                .getTextContent());
     }
 
     @Test
     public final void testEncodeTBody() throws IOException {
         HtmlPage page = environment.getPage("/dataGridTest.jsf");
         HtmlElement dataGrid = page.getElementById("dataGrid2");
-        assertEquals("rf-dg-body", ((HtmlElement) dataGrid.getFirstByXPath("tbody[@id='dataGrid2:dgb']"))
-            .getAttribute("class"));
+        assertEquals("rf-dg-body", ((HtmlElement) dataGrid.getFirstByXPath("tbody[@id='dataGrid2:dgb']")).getAttribute("class"));
     }
-
-    
 }

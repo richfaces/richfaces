@@ -19,36 +19,35 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
+
+import static org.easymock.EasyMock.createNiceMock;
+import static org.easymock.EasyMock.expect;
+
+import java.util.List;
+
+import javax.faces.component.UIComponent;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import javax.faces.component.UIComponent;
-import java.util.List;
-
-import static org.easymock.EasyMock.*;
-
 /**
  * @author akolonitsky
  * @since 2010-08-14
  */
 public class AbstractAccordionTest {
-
     private static final String ITEM1 = "item1";
     private static final String ITEM2 = "item2";
     private static final String ITEM3 = "item3";
-
     private AbstractAccordion accordion;
     private AbstractAccordionItem item1;
     private AbstractAccordionItem item2;
     private AbstractAccordionItem item3;
 
     @Before
-    public void setUp () {
+    public void setUp() {
         accordion = new UIAccordion();
         List<UIComponent> children = accordion.getChildren();
 
@@ -79,4 +78,3 @@ public class AbstractAccordionTest {
         return item;
     }
 }
-

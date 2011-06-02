@@ -19,31 +19,30 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
-import org.richfaces.cdk.annotations.*;
-
 import javax.faces.component.UIOutput;
+
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 
 /**
  * @author akolonitsky
  * @version 1.0
  */
-@JsfComponent(
-        tag = @Tag(type = TagType.Facelets),
-        renderer = @JsfRenderer(type = "org.richfaces.TogglePanelItemRenderer"))
+@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.TogglePanelItemRenderer"))
 public abstract class AbstractTogglePanelItem extends UIOutput implements AbstractTogglePanelItemInterface {
-
     public static final String COMPONENT_TYPE = "org.richfaces.TogglePanelItem";
-
     public static final String COMPONENT_FAMILY = "org.richfaces.TogglePanelItem";
     protected static final String NAME = "name";
 
     enum Properties {
         switchType
     }
-    
+
     protected AbstractTogglePanelItem() {
         setRendererType("org.richfaces.TogglePanelItemRenderer");
     }
@@ -79,7 +78,7 @@ public abstract class AbstractTogglePanelItem extends UIOutput implements Abstra
     public String toString() {
         return "TogglePanelItem {name: " + getName() + ", switchType: " + getSwitchType() + '}';
     }
-    
+
     @Attribute(generate = false)
     public SwitchType getSwitchType() {
         SwitchType switchType = (SwitchType) getStateHelper().eval(Properties.switchType);
@@ -89,10 +88,10 @@ public abstract class AbstractTogglePanelItem extends UIOutput implements Abstra
         if (switchType == null) {
             switchType = SwitchType.DEFAULT;
         }
-        return switchType; 
+        return switchType;
     }
 
     public void setSwitchType(SwitchType switchType) {
         getStateHelper().put(Properties.switchType, switchType);
-    }    
+    }
 }

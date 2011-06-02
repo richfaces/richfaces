@@ -30,28 +30,24 @@ import org.ajax4jsf.io.ByteBuffer;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 final class FileUploadValueParam implements FileUploadParam {
-
     private ByteBuffer buffer;
-
     private String name;
-    
     private String encoding;
-    
     private String value;
-    
+
     public FileUploadValueParam(String name, String encoding) {
         super();
-        
+
         this.name = name;
         this.encoding = encoding;
     }
 
     private byte[] getBufferBytes() {
         byte[] bs = new byte[buffer.getLast().getTotalSize()];
-        
+
         int pos = 0;
         ByteBuffer currentBuffer = buffer;
         while (currentBuffer != null) {
@@ -59,10 +55,10 @@ final class FileUploadValueParam implements FileUploadParam {
             pos += currentBuffer.getUsedSize();
             currentBuffer = currentBuffer.getNext();
         }
-        
+
         return bs;
     }
-    
+
     public void handle(byte[] bytes, int length) throws IOException {
         buffer.append(bytes, 0, length);
     }
@@ -85,11 +81,11 @@ final class FileUploadValueParam implements FileUploadParam {
     public String getName() {
         return name;
     }
-    
+
     public boolean isFileParam() {
         return false;
     }
-    
+
     public String getValue() {
         return value;
     }

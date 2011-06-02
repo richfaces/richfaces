@@ -18,16 +18,14 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit.html.iconimages;
-
-import org.richfaces.resource.DynamicUserResource;
 
 import java.awt.geom.GeneralPath;
 
+import org.richfaces.resource.DynamicUserResource;
+
 @DynamicUserResource
 public class PanelIconChevronUp extends PanelIconChevronBasic {
-
     protected void draw(GeneralPath path) {
 
         path.moveTo(0, 46);
@@ -37,7 +35,5 @@ public class PanelIconChevronUp extends PanelIconChevronBasic {
         path.lineTo(61, 46);
         path.lineTo(30, 16);
         path.closePath();
-
     }
-
 }

@@ -30,22 +30,20 @@ import javax.faces.view.AttachedObjectHandler;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public final class TagHandlerUtils {
-
     // TODO - is that implementation dependency?
     private static final String JAVAX_FACES_RETARGETABLE_HANDLERS = "javax.faces.RetargetableHandlers";
 
     private TagHandlerUtils() {
-        //utility class constructor
+        // utility class constructor
     }
-    
+
     public static List<AttachedObjectHandler> getOrCreateRetargetableHandlersList(UIComponent component) {
         Map<String, Object> attrs = component.getAttributes();
-        @SuppressWarnings({
-            "unchecked"}) List<AttachedObjectHandler> list =
-                (List<AttachedObjectHandler>) attrs.get(JAVAX_FACES_RETARGETABLE_HANDLERS);
+        @SuppressWarnings({ "unchecked" })
+        List<AttachedObjectHandler> list = (List<AttachedObjectHandler>) attrs.get(JAVAX_FACES_RETARGETABLE_HANDLERS);
 
         if (list == null) {
             list = new ArrayList<AttachedObjectHandler>();
@@ -55,13 +53,12 @@ public final class TagHandlerUtils {
         return list;
     }
 
-    public static <T> Class<? extends T> loadClass(String className, Class<T> type) 
-        throws ClassNotFoundException, ClassCastException {
-        
+    public static <T> Class<? extends T> loadClass(String className, Class<T> type) throws ClassNotFoundException,
+        ClassCastException {
+
         ClassLoader ccl = Thread.currentThread().getContextClassLoader();
         Class<?> loadedClass = Class.forName(className, false, ccl);
-    
+
         return loadedClass.asSubclass(type);
     }
-
 }

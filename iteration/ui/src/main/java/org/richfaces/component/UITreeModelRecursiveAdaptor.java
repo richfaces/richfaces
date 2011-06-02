@@ -27,21 +27,19 @@ import org.richfaces.cdk.annotations.Tag;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
-@JsfComponent(type = UITreeModelRecursiveAdaptor.COMPONENT_TYPE,
-    family = UITreeModelRecursiveAdaptor.COMPONENT_FAMILY,
-    tag = @Tag(name = "treeModelRecursiveAdaptor", handler = "org.richfaces.view.facelets.TreeModelRecursiveAdaptorHandler"))
+@JsfComponent(type = UITreeModelRecursiveAdaptor.COMPONENT_TYPE, family = UITreeModelRecursiveAdaptor.COMPONENT_FAMILY, tag = @Tag(name = "treeModelRecursiveAdaptor", handler = "org.richfaces.view.facelets.TreeModelRecursiveAdaptorHandler"))
 public class UITreeModelRecursiveAdaptor extends AbstractTreeModelAdaptor implements TreeModelRecursiveAdaptor {
-
     public static final String COMPONENT_TYPE = "org.richfaces.TreeModelRecursiveAdaptor";
-    
     public static final String COMPONENT_FAMILY = "org.richfaces.TreeModelRecursiveAdaptor";
 
     private enum PropertyKeys {
-        roots, nodes, leaf
+        roots,
+        nodes,
+        leaf
     }
-    
+
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
@@ -52,10 +50,10 @@ public class UITreeModelRecursiveAdaptor extends AbstractTreeModelAdaptor implem
         Object roots = getStateHelper().eval(PropertyKeys.roots);
 
         memoizeDefaultRowKeyConverter(roots);
-        
+
         return roots;
     }
-    
+
     public void setRoots(Object roots) {
         getStateHelper().put(PropertyKeys.roots, roots);
     }
@@ -64,7 +62,7 @@ public class UITreeModelRecursiveAdaptor extends AbstractTreeModelAdaptor implem
     public Object getNodes() {
         return getStateHelper().eval(PropertyKeys.nodes);
     }
-    
+
     public void setNodes(Object nodes) {
         getStateHelper().put(PropertyKeys.nodes, nodes);
     }
@@ -81,5 +79,4 @@ public class UITreeModelRecursiveAdaptor extends AbstractTreeModelAdaptor implem
     public void setLeaf(boolean leaf) {
         getStateHelper().put(PropertyKeys.leaf, leaf);
     }
-
 }

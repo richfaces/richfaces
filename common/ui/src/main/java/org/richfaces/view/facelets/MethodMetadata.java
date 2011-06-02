@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.view.facelets;
 
 import javax.el.MethodExpression;
@@ -33,14 +32,12 @@ import javax.faces.view.facelets.TagAttribute;
  * @author akolonitsky
  * @since Feb 24, 2010
  */
-//TODO nick - handle return type
+// TODO nick - handle return type
 public abstract class MethodMetadata extends Metadata {
-    
     protected final Class<?>[] signature;
-
     protected final TagAttribute attribute;
 
-    public MethodMetadata(TagAttribute attribute, Class<?> ... signature) {
+    public MethodMetadata(TagAttribute attribute, Class<?>... signature) {
         this.attribute = attribute;
         this.signature = signature;
     }
@@ -52,7 +49,8 @@ public abstract class MethodMetadata extends Metadata {
     protected MethodBinding getMethodBinding(FaceletContext ctx) {
         MethodExpression expression = this.attribute.getMethodExpression(ctx, null, signature);
         Application application = ctx.getFacesContext().getApplication();
-        return application.createMethodBinding(expression.getExpressionString(), signature); // TODO expression.getExpressionString() ???
+        return application.createMethodBinding(expression.getExpressionString(), signature); // TODO
+                                                                                             // expression.getExpressionString()
+                                                                                             // ???
     }
-
 }

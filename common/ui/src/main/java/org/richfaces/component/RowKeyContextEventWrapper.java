@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import javax.faces.component.UIComponent;
@@ -36,16 +35,12 @@ import org.richfaces.log.RichfacesLogger;
  * @author Nick Belaevski
  */
 public class RowKeyContextEventWrapper extends FacesEvent {
-
     private static final long serialVersionUID = -869970815228914529L;
-
     private static final Logger LOGGER = RichfacesLogger.COMPONENTS.getLogger();
-    
     private FacesEvent event;
     private Object eventRowKey;
-
     private Object initialRowKey;
-    
+
     public RowKeyContextEventWrapper(UIDataAdaptor component, FacesEvent event, Object eventRowKey) {
         super(component);
 
@@ -76,24 +71,24 @@ public class RowKeyContextEventWrapper extends FacesEvent {
     public UIDataAdaptor getComponent() {
         return (UIDataAdaptor) super.getComponent();
     }
-    
+
     public Object getEventRowKey() {
         return eventRowKey;
     }
-    
+
     protected void setupEventContext(FacesContext facesContext) {
         getComponent().setRowKey(facesContext, getEventRowKey());
     }
-    
+
     public void broadcast(FacesContext context) throws AbortProcessingException {
         // Set up the correct context and fire our wrapped event
         UIDataAdaptor dataAdaptor = getComponent();
         initialRowKey = dataAdaptor.getRowKey();
-        
+
         UIComponent compositeParent = null;
 
         UIComponent targetComponent = event.getComponent();
-        
+
         try {
             if (!UIComponent.isCompositeComponent(targetComponent)) {
                 compositeParent = UIComponent.getCompositeComponentParent(targetComponent);
@@ -104,7 +99,7 @@ public class RowKeyContextEventWrapper extends FacesEvent {
             }
 
             setupEventContext(context);
-            
+
             targetComponent.pushComponentToEL(context, null);
             targetComponent.broadcast(event);
         } finally {
@@ -113,11 +108,11 @@ public class RowKeyContextEventWrapper extends FacesEvent {
             } catch (Exception e) {
                 LOGGER.error(e.getMessage(), e);
             }
-            
+
             initialRowKey = null;
 
             targetComponent.popComponentFromEL(context);
-            
+
             if (compositeParent != null) {
                 compositeParent.popComponentFromEL(context);
             }

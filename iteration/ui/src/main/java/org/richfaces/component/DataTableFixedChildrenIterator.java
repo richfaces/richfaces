@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import java.util.Iterator;
@@ -30,18 +29,14 @@ import javax.faces.component.UIComponent;
 import com.google.common.collect.AbstractIterator;
 import com.google.common.collect.Iterators;
 
-
 class DataTableFixedChildrenIterator extends AbstractIterator<UIComponent> {
-
     private Iterator<UIComponent> facetsIterator;
-    
     private Iterator<UIComponent> dataTableChildren;
-    
     private Iterator<UIComponent> columnFacets = Iterators.emptyIterator();
-    
+
     public DataTableFixedChildrenIterator(UIComponent dataTable) {
         super();
-        
+
         this.facetsIterator = dataTable.getFacets().values().iterator();
         this.dataTableChildren = dataTable.getChildren().iterator();
     }
@@ -51,12 +46,12 @@ class DataTableFixedChildrenIterator extends AbstractIterator<UIComponent> {
         if (facetsIterator.hasNext()) {
             return facetsIterator.next();
         }
-        
+
         while (columnFacets.hasNext() || dataTableChildren.hasNext()) {
             if (columnFacets.hasNext()) {
                 return columnFacets.next();
             }
-            
+
             UIComponent child = dataTableChildren.next();
             if (child instanceof UIColumn || child instanceof AbstractColumn) {
                 columnFacets = child.getFacets().values().iterator();
