@@ -1,66 +1,66 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-	<parent>
-		<groupId>org.richfaces</groupId>
-		<artifactId>richfaces-parent</artifactId>
-		<version>10</version>
-		<relativePath>../parent/pom.xml</relativePath>
-	</parent>
+    <parent>
+        <groupId>org.richfaces</groupId>
+        <artifactId>richfaces-parent</artifactId>
+        <version>10</version>
+        <relativePath>../parent/pom.xml</relativePath>
+    </parent>
 
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.richfaces</groupId>
-	<artifactId>richfaces-root-aggregator</artifactId>
-	<version>4.1.0-SNAPSHOT</version>
-	<packaging>pom</packaging>
-	<name>Richfaces Aggregator</name>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.richfaces</groupId>
+    <artifactId>richfaces-root-aggregator</artifactId>
+    <version>4.1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>Richfaces Aggregator</name>
 
-	<build>
-		<plugins>
-			<!-- To trigger the release -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+    <build>
+        <plugins>
+            <!-- To trigger the release -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
-	<modules>
-		<module>bom</module>
-		<module>parent</module>
-	</modules>
+    <modules>
+        <module>bom</module>
+        <module>parent</module>
+    </modules>
 
-	<profiles>
-		<profile>
-			<id>build</id>
-			<modules>
-				<module>../core</module>
-				<module>../cdk</module>
-				<module>../components</module>
-				<module>../archetypes</module>
-				<module>../dev-examples</module>
-				<module>../showcase</module>
-			</modules>
-		</profile>
-		<profile>
-			<id>bootstrap</id>
-			<modules>
-				<module>../parent</module>
-				<module>../checkstyle</module>
-				<module>../shade-transformers</module>
-			</modules>
-		</profile>
-		<profile>
-			<id>release</id>
-			<modules>
-				<module>dist</module>
-			</modules>
-		</profile>
-	</profiles>
+    <profiles>
+        <profile>
+            <id>bootstrap</id>
+            <modules>
+                <module>../parent</module>
+                <module>../checkstyle</module>
+                <module>../shade-transformers</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>build</id>
+            <modules>
+                <module>../core</module>
+                <module>../cdk</module>
+                <module>../components</module>
+                <module>../archetypes</module>
+                <module>../dev-examples</module>
+                <module>../showcase</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>release</id>
+            <modules>
+                <module>dist</module>
+            </modules>
+        </profile>
+    </profiles>
 
-	<scm>
-		<connection>scm:git:git://github.com/richfaces/build.git</connection>
-		<developerConnection>scm:git:git@github.com:richfaces/build.git</developerConnection>
-		<url>https://github.com/richfaces/build</url>
-	</scm>
+    <scm>
+        <connection>scm:git:git://github.com/richfaces/build.git</connection>
+        <developerConnection>scm:git:git@github.com:richfaces/build.git</developerConnection>
+        <url>https://github.com/richfaces/build</url>
+    </scm>
 </project>

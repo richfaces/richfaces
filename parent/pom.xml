@@ -1,200 +1,199 @@
+<!-- JBoss, Home of Professional Open Source Copyright 2010, Red Hat, Inc.
+    and individual contributors by the @authors tag. See the copyright.txt in
+    the distribution for a full listing of individual contributors. This is free
+    software; you can redistribute it and/or modify it under the terms of the
+    GNU Lesser General Public License as published by the Free Software Foundation;
+    either version 2.1 of the License, or (at your option) any later version.
+    This software is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+    FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+    details. You should have received a copy of the GNU Lesser General Public
+    License along with this software; if not, write to the Free Software Foundation,
+    Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA, or see the
+    FSF site: http://www.fsf.org. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-<!-- JBoss, Home of Professional Open Source Copyright 2010, Red Hat, Inc. 
-	and individual contributors by the @authors tag. See the copyright.txt in 
-	the distribution for a full listing of individual contributors. This is free 
-	software; you can redistribute it and/or modify it under the terms of the 
-	GNU Lesser General Public License as published by the Free Software Foundation; 
-	either version 2.1 of the License, or (at your option) any later version. 
-	This software is distributed in the hope that it will be useful, but WITHOUT 
-	ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
-	FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more 
-	details. You should have received a copy of the GNU Lesser General Public 
-	License along with this software; if not, write to the Free Software Foundation, 
-	Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA, or see the 
-	FSF site: http://www.fsf.org. -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    <groupId>org.richfaces</groupId>
+    <artifactId>richfaces-root-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>4.1.0-SNAPSHOT</version>
+    <name>RichFaces Root Parent</name>
 
-	<groupId>org.richfaces</groupId>
-	<artifactId>richfaces-root-parent</artifactId>
-	<packaging>pom</packaging>
-	<version>4.1.0-SNAPSHOT</version>
-	<name>RichFaces Root Parent</name>
+    <parent>
+        <groupId>org.richfaces</groupId>
+        <artifactId>richfaces-bom</artifactId>
+        <version>4.1.0-SNAPSHOT</version>
+        <relativePath>../bom/pom.xml</relativePath>
 
-	<parent>
-		<groupId>org.richfaces</groupId>
-		<artifactId>richfaces-bom</artifactId>
-		<version>4.1.0-SNAPSHOT</version>
-		<relativePath>../bom/pom.xml</relativePath>
+    </parent>
 
-	</parent>
-
-	<description>
-        This is the root parent for the richfaces project that is released with 
-        the project, and contains pluginmangement, and common testing dependency 
+    <description>
+        This is the root parent for the richfaces project that is released with
+        the project, and contains pluginmangement, and common testing dependency
         management elements.
     </description>
 
-	<properties>
-		<richfaces.checkstyle.version>2</richfaces.checkstyle.version>
-	</properties>
+    <properties>
+        <richfaces.checkstyle.version>3-SNAPSHOT</richfaces.checkstyle.version>
+    </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <!-- Archetypes dependency -->
+            <dependency>
+                <groupId>org.apache.maven.archetype</groupId>
+                <artifactId>archetype-packaging</artifactId>
+                <version>2.0-alpha-4</version>
+            </dependency>
 
-	<dependencyManagement>
-		<dependencies>
-			<!-- Archetypes dependency -->
-			<dependency>
-				<groupId>org.apache.maven.archetype</groupId>
-				<artifactId>archetype-packaging</artifactId>
-				<version>2.0-alpha-4</version>
-			</dependency>
+            <!-- tests -->
+            <dependency>
+                <groupId>org.jboss.test-jsf</groupId>
+                <artifactId>htmlunit-client</artifactId>
+                <version>1.0.6</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.test-jsf</groupId>
+                <artifactId>jsf-mock</artifactId>
+                <version>1.0.6</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.test-jsf</groupId>
+                <artifactId>jsf-test-stage</artifactId>
+                <version>1.0.6</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.test-jsf</groupId>
+                <artifactId>jsf-test-jetty</artifactId>
+                <version>1.0.6</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.test-jsf</groupId>
+                <artifactId>jsf-test-qunit</artifactId>
+                <version>1.0.6</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.7</version>
+            </dependency>
+            <!-- Test Dependencies -->
+            <!-- These dependencies are usually provided by org.jboss.test-jsf:htmlunit-client,
+                   but the latest 2.7 HtmlUnit version has problems with jQuery, so we are overriding
+                   version back to 2.5. -->
+            <!-- <dependency> -->
+            <!-- <groupId>net.sourceforge.htmlunit</groupId> -->
+            <!-- <artifactId>htmlunit</artifactId> -->
+            <!-- <version>2.8</version> -->
+            <!-- </dependency> -->
+            <!-- <dependency> -->
+            <!-- <groupId>net.sourceforge.htmlunit</groupId> -->
+            <!-- <artifactId>htmlunit-core-js</artifactId> -->
+            <!-- <version>2.8</version> -->
+            <!-- </dependency> -->
+            <dependency>
+                <groupId>org.easymock</groupId>
+                <artifactId>easymock</artifactId>
+                <version>2.5.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.easymock</groupId>
+                <artifactId>easymockclassextension</artifactId>
+                <version>2.5.2</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
-			<!-- tests -->
-			<dependency>
-				<groupId>org.jboss.test-jsf</groupId>
-				<artifactId>htmlunit-client</artifactId>
-				<version>1.0.6</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.test-jsf</groupId>
-				<artifactId>jsf-mock</artifactId>
-				<version>1.0.6</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.test-jsf</groupId>
-				<artifactId>jsf-test-stage</artifactId>
-				<version>1.0.6</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.test-jsf</groupId>
-				<artifactId>jsf-test-jetty</artifactId>
-				<version>1.0.6</version>
-			</dependency>
-			<dependency>
-				<groupId>org.jboss.test-jsf</groupId>
-				<artifactId>jsf-test-qunit</artifactId>
-				<version>1.0.6</version>
-			</dependency>
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>4.7</version>
-			</dependency>
-			<!-- Test Dependencies -->
-			<!-- These dependencies are usually provided by org.jboss.test-jsf:htmlunit-client, 
-				but the latest 2.7 HtmlUnit version has problems with jQuery, so we are overriding 
-				version back to 2.5. -->
-			<!-- <dependency> -->
-			<!-- <groupId>net.sourceforge.htmlunit</groupId> -->
-			<!-- <artifactId>htmlunit</artifactId> -->
-			<!-- <version>2.8</version> -->
-			<!-- </dependency> -->
-			<!-- <dependency> -->
-			<!-- <groupId>net.sourceforge.htmlunit</groupId> -->
-			<!-- <artifactId>htmlunit-core-js</artifactId> -->
-			<!-- <version>2.8</version> -->
-			<!-- </dependency> -->
-			<dependency>
-				<groupId>org.easymock</groupId>
-				<artifactId>easymock</artifactId>
-				<version>2.5.2</version>
-			</dependency>
-			<dependency>
-				<groupId>org.easymock</groupId>
-				<artifactId>easymockclassextension</artifactId>
-				<version>2.5.2</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
-	<!-- Build -->
-	<build>
-		<!-- PluginManagement config, including versions to use in the build. Note: 
-			some are inherited from jboss-parent, others from richfaces-parent -->
-		<pluginManagement>
-			<plugins>
-				<!-- Build -->
-				<plugin>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<configuration>
-						<source>1.5</source>
-						<target>1.5</target>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-jar-plugin</artifactId>
-					<configuration>
-						<archive>
-							<index>true</index>
-							<manifest>
-								<addDefaultSpecificationEntries>
-									true
+    <!-- Build -->
+    <build>
+        <!-- PluginManagement config, including versions to use in the build. Note:
+              some are inherited from jboss-parent, others from richfaces-parent -->
+        <pluginManagement>
+            <plugins>
+                <!-- Build -->
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.5</source>
+                        <target>1.5</target>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <configuration>
+                        <archive>
+                            <index>true</index>
+                            <manifest>
+                                <addDefaultSpecificationEntries>
+                                    true
                                 </addDefaultSpecificationEntries>
-								<addDefaultImplementationEntries>
-									true
+                                <addDefaultImplementationEntries>
+                                    true
                                 </addDefaultImplementationEntries>
-							</manifest>
-							<manifestEntries>
-								<mode>development</mode>
-								<Build-Number>${buildNumber}
+                            </manifest>
+                            <manifestEntries>
+                                <mode>development</mode>
+                                <Build-Number>${buildNumber}
                                 </Build-Number>
-							</manifestEntries>
-						</archive>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>javacc-maven-plugin</artifactId>
-					<version>2.4</version>
-				</plugin>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>javacc-maven-plugin</artifactId>
+                    <version>2.4</version>
+                </plugin>
 
-				<!-- reporting -->
-				<plugin>
-					<groupId>com.atlassian.maven.plugins</groupId>
-					<artifactId>maven-clover2-plugin</artifactId>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-checkstyle-plugin</artifactId>
-					<version>2.5</version>
-					<configuration>
-						<configLocation>richfaces-checkstyle/richfaces-checkstyle.xml</configLocation>
-						<logViolationsToConsole>true</logViolationsToConsole>
-						<violationSeverity>error</violationSeverity>
-					</configuration>
-					<executions>
-						<execution>
-							<id>richfaces-checkstyle-report</id>
-							<phase>process-sources</phase>
-							<goals>
-								<goal>check</goal>
-							</goals>
-						</execution>
-					</executions>
-					<dependencies>
-						<dependency>
-							<groupId>org.richfaces</groupId>
-							<artifactId>richfaces-build-checkstyle</artifactId>
-							<version>${richfaces.checkstyle.version}</version>
-						</dependency>
-					</dependencies>
-				</plugin>
-				<!-- docs TODO should move to profiles probably a "doc" profile -->
-				<plugin>
-					<groupId>gr.abiss.mvn.plugins</groupId>
-					<artifactId>maven-jstools-plugin</artifactId>
-					<version>0.7</version>
-					<configuration>
-						<jsDir>${project.basedir}/src/main/resources/META-INF/resources
+                <!-- reporting -->
+                <plugin>
+                    <groupId>com.atlassian.maven.plugins</groupId>
+                    <artifactId>maven-clover2-plugin</artifactId>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>2.5</version>
+                    <configuration>
+                        <configLocation>richfaces-checkstyle/richfaces-checkstyle.xml</configLocation>
+                        <logViolationsToConsole>true</logViolationsToConsole>
+                        <violationSeverity>error</violationSeverity>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>richfaces-checkstyle-report</id>
+                            <phase>process-sources</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.richfaces</groupId>
+                            <artifactId>richfaces-build-checkstyle</artifactId>
+                            <version>${richfaces.checkstyle.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <!-- docs TODO should move to profiles probably a "doc" profile -->
+                <plugin>
+                    <groupId>gr.abiss.mvn.plugins</groupId>
+                    <artifactId>maven-jstools-plugin</artifactId>
+                    <version>0.7</version>
+                    <configuration>
+                        <jsDir>${project.basedir}/src/main/resources/META-INF/resources
                         </jsDir>
-						<includes>**/*.js</includes>
-						<caseSensitive>true</caseSensitive>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-javadoc-plugin</artifactId>
+                        <includes>**/*.js</includes>
+                        <caseSensitive>true</caseSensitive>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
                     <version>2.7</version>
                     <configuration>
                         <keywords>true</keywords>
@@ -205,202 +204,202 @@
                              full build. -->
                         <detectOfflineLinks>false</detectOfflineLinks>
                     </configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-		<plugins>
-			<!-- For the release this parent pom -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<inherited>false</inherited>
-			</plugin>
-		</plugins>
-	</build>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <!-- For the release this parent pom -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <inherited>false</inherited>
+            </plugin>
+        </plugins>
+    </build>
 
-	<profiles>
-		<profile>
-			<id>release</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-javadoc-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>generate-javadoc</id>
-								<phase>package</phase>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<!-- Triggers clover reports to be generated -->
-			<id>clover</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>com.atlassian.maven.plugins</groupId>
-						<artifactId>maven-clover2-plugin</artifactId>
-						<configuration>
-							<licenseLocation>
-								${clover.license.path}
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>generate-javadoc</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <!-- Triggers clover reports to be generated -->
+            <id>clover</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.atlassian.maven.plugins</groupId>
+                        <artifactId>maven-clover2-plugin</artifactId>
+                        <configuration>
+                            <licenseLocation>
+                                ${clover.license.path}
                             </licenseLocation>
-							<jdk>1.5</jdk>
-							<generatePdf>false</generatePdf>
-							<generateXml>true</generateXml>
-							<generateHtml>true</generateHtml>
-						</configuration>
-						<executions>
-							<execution>
-								<id>instrument</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>instrument</goal>
-									<goal>check</goal>
-									<goal>clover</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<!-- Required when in JBoss hudson env to have clover reports generate -->
-			<id>hudson</id>
-			<properties>
-				<clover.license.path>
-					/home/hudson/config_repository/resources/richfaces/richfaces-clover-license.txt
+                            <jdk>1.5</jdk>
+                            <generatePdf>false</generatePdf>
+                            <generateXml>true</generateXml>
+                            <generateHtml>true</generateHtml>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>instrument</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>instrument</goal>
+                                    <goal>check</goal>
+                                    <goal>clover</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <!-- Required when in JBoss hudson env to have clover reports generate -->
+            <id>hudson</id>
+            <properties>
+                <clover.license.path>
+                    /home/hudson/config_repository/resources/richfaces/richfaces-clover-license.txt
                 </clover.license.path>
-			</properties>
-		</profile>
+            </properties>
+        </profile>
 
-		<!-- The following profiles determine the JSF api/impl combinations that 
-			will be used in the project builds. -Djsf_profile=<profile-name> on the mvn 
-			command line -->
-		<profile>
-			<id>jsf_ri</id>
-			<activation>
-				<property>
-					<name>!jsf_profile</name>
-				</property>
-			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>com.sun.faces</groupId>
-					<artifactId>jsf-api</artifactId>
-					<scope>provided</scope>
-				</dependency>
-				<dependency>
-					<groupId>com.sun.faces</groupId>
-					<artifactId>jsf-impl</artifactId>
-					<scope>test</scope>
-				</dependency>
-			</dependencies>
-		</profile>
-		<profile>
-			<id>myfaces</id>
-			<activation>
-				<property>
-					<name>jsf_profile</name>
-					<value>myfaces</value>
-				</property>
-			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>org.apache.myfaces.core</groupId>
-					<artifactId>myfaces-api</artifactId>
-					<scope>provided</scope>
-				</dependency>
-				<dependency>
-					<groupId>org.apache.myfaces.core</groupId>
-					<artifactId>myfaces-impl</artifactId>
-					<scope>test</scope>
-				</dependency>
-			</dependencies>
-		</profile>
-		<profile>
-			<id>jsf_ri_2_1_snapshot</id>
-			<activation>
-				<property>
-					<name>jsf_profile</name>
-					<value>jsf_ri_2_1_snapshot</value>
-				</property>
-			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>com.sun.faces</groupId>
-					<artifactId>jsf-api</artifactId>
-					<version>2.1.0-SNAPSHOT</version>
-					<scope>provided</scope>
-				</dependency>
-				<dependency>
-					<groupId>com.sun.faces</groupId>
-					<artifactId>jsf-impl</artifactId>
-					<version>2.1.0-SNAPSHOT</version>
-					<scope>test</scope>
-				</dependency>
-			</dependencies>
-		</profile>
-		<profile>
-			<id>jsf_ri_2_1</id>
-			<activation>
-				<property>
-					<name>jsf_profile</name>
-					<value>jsf_ri_2_1</value>
-				</property>
-			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>com.sun.faces</groupId>
-					<artifactId>jsf-api</artifactId>
-					<version>2.1.0-b09</version>
-					<scope>provided</scope>
-				</dependency>
-				<dependency>
-					<groupId>com.sun.faces</groupId>
-					<artifactId>jsf-impl</artifactId>
-					<version>2.1.0-b09</version>
-					<scope>test</scope>
-				</dependency>
-			</dependencies>
-		</profile>
-		<profile>
-			<id>myfaces_snapshot</id>
-			<activation>
-				<property>
-					<name>jsf_profile</name>
-					<value>myfaces_snapshot</value>
-				</property>
-			</activation>
-			<dependencies>
-				<dependency>
-					<groupId>org.apache.myfaces.core</groupId>
-					<artifactId>myfaces-api</artifactId>
-					<version>2.0.4-SNAPSHOT</version>
-					<scope>provided</scope>
-				</dependency>
-				<dependency>
-					<groupId>org.apache.myfaces.core</groupId>
-					<artifactId>myfaces-impl</artifactId>
-					<version>2.0.4-SNAPSHOT</version>
-					<scope>test</scope>
-				</dependency>
-			</dependencies>
-		</profile>
-	</profiles>
+        <!-- The following profiles determine the JSF api/impl combinations that
+              will be used in the project builds. -Djsf_profile=<profile-name> on the mvn
+              command line -->
+        <profile>
+            <id>jsf_ri</id>
+            <activation>
+                <property>
+                    <name>!jsf_profile</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>com.sun.faces</groupId>
+                    <artifactId>jsf-api</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>com.sun.faces</groupId>
+                    <artifactId>jsf-impl</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>myfaces</id>
+            <activation>
+                <property>
+                    <name>jsf_profile</name>
+                    <value>myfaces</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-api</artifactId>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-impl</artifactId>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>jsf_ri_2_1_snapshot</id>
+            <activation>
+                <property>
+                    <name>jsf_profile</name>
+                    <value>jsf_ri_2_1_snapshot</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>com.sun.faces</groupId>
+                    <artifactId>jsf-api</artifactId>
+                    <version>2.1.0-SNAPSHOT</version>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>com.sun.faces</groupId>
+                    <artifactId>jsf-impl</artifactId>
+                    <version>2.1.0-SNAPSHOT</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>jsf_ri_2_1</id>
+            <activation>
+                <property>
+                    <name>jsf_profile</name>
+                    <value>jsf_ri_2_1</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>com.sun.faces</groupId>
+                    <artifactId>jsf-api</artifactId>
+                    <version>2.1.0-b09</version>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>com.sun.faces</groupId>
+                    <artifactId>jsf-impl</artifactId>
+                    <version>2.1.0-b09</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
+            <id>myfaces_snapshot</id>
+            <activation>
+                <property>
+                    <name>jsf_profile</name>
+                    <value>myfaces_snapshot</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-api</artifactId>
+                    <version>2.0.4-SNAPSHOT</version>
+                    <scope>provided</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.myfaces.core</groupId>
+                    <artifactId>myfaces-impl</artifactId>
+                    <version>2.0.4-SNAPSHOT</version>
+                    <scope>test</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 
-	<!-- SCM and distribution management -->
-	<scm>
-		<connection>scm:git:git://github.com/richfaces/build.git</connection>
-		<developerConnection>scm:git:git@github.com:richfaces/build.git</developerConnection>
-		<url>https://github.com/richfaces/build</url>
-	</scm>
+    <!-- SCM and distribution management -->
+    <scm>
+        <connection>scm:git:git://github.com/richfaces/build.git</connection>
+        <developerConnection>scm:git:git@github.com:richfaces/build.git</developerConnection>
+        <url>https://github.com/richfaces/build</url>
+    </scm>
 
 </project>
