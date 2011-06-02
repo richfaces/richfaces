@@ -1,11 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:calendar="http://richfaces.org/input">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:calendar="http://richfaces.org/input">
 <!--
 JBoss, Home of Professional Open Source
 Copyright ${year}, Red Hat, Inc. and individual contributors
@@ -31,137 +27,117 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 <h:head>
-	<title>Richfaces Calendar Demo</title>
-	<script>
-		var myFunction = function(event){
-			;
-		}
-	</script>
+    <title>Richfaces Calendar Demo</title>
+    <script>
+        var myFunction = function(event) {
+            ;
+        }
+    </script>
 </h:head>
 <h:body>
-<h:form ></h:form>
-	<h:form id="form">
-		<h:panelGrid id="panel" columns="3">
-			<h:panelGroup layout="block">
-				<calendar:calendar value="#{calendarBean.selectedDate}" id="calendar"
-					jointPoint="#{calendarBean.jointPoint}"  direction="#{calendarBean.direction}"
-					locale="#{calendarBean.locale}" popup="#{calendarBean.popup}"
-					datePattern="#{calendarBean.pattern}"
-					
-					mode="#{calendarBean.mode}"
-					disabled="false"
-					cellWidth="24px"
-					cellHeight="22px" minDaysInFirstWeek="3"
-					oncollapse="return onEvent.call(this, event);"
-					onexpand="return onEvent.call(this, event);"
-					oncurrentdateselect="return onEvent.call(this, event);"
-					oncurrentdateselected="return onEvent.call(this, event);"
-					ondateselect="return onEvent.call(this, event);"
-					ondateselected="return onEvent.call(this, event);"
-					ontimeselect="return onEvent.call(this, event);"
-					ontimeselected="return onEvent.call(this, event);"
-					oncomplete="return onEvent.call(this, event);"
-					onclean="return onEvent.call(this, event);"					
-					ondatemouseout="return onEvent.call(this, event);"
-					ondatemouseover="return onEvent.call(this, event);"			
-					firstWeekDay="4"
-					horizontalOffset="#{calendarBean.horizontalOffset}"
-					verticalOffset="#{calendarBean.verticalOffset}"  defaultTime="00:00:00" timeZone="#{calendarBean.timeZone}"
-					valueChangeListener="#{calendarBean.doValueChangeListener}"
-					currentDataChangeListener="#{calendarBean.doCurrentDataChangeListener}"
-					onbeforedateselect="myFunction(event)"
-					style="width:200px;border:10px solid #000000"
-					styleClass="hello"
-					boundaryDatesMode = "scroll"
-					defaultLabel = "bla-bla-bla"
-					enableManualInput="true"
-					showApplyButton="#{calendarBean.showApply}"
-					>
-					 <f:ajax event="change" render="output" />
-				</calendar:calendar>
-				 <h:outputText id="output" value="#{calendarBean.selectedDate}"/>
-				<h:outputText id="echo-text" value="#{calendarBean.selectedDate}" />
-			</h:panelGroup>
-			<h:panelGrid columns="2">
-				<h:outputText value="Popup Mode:" />
-				<h:selectBooleanCheckbox value="#{calendarBean.popup}">
-					<f:ajax event="click" execute="@form" render="calendar @this" />
-				</h:selectBooleanCheckbox>
-				<h:outputText value="Apply Button:" />
-				<h:selectBooleanCheckbox value="#{calendarBean.showApply}">
-					<f:ajax event="click" execute="@form" render="calendar @this" />
-				</h:selectBooleanCheckbox>
-				<h:outputText value="Select Locale" />
-				<h:selectOneRadio value="en/US"
-					valueChangeListener="#{calendarBean.selectLocale}">
-					<f:ajax execute="@form" event="click" render="calendar @this" />
-					<f:selectItem itemLabel="US" itemValue="en/US" />
-					<f:selectItem itemLabel="DE" itemValue="de/DE" />
-					<f:selectItem itemLabel="FR" itemValue="fr/FR" />
-					<f:selectItem itemLabel="RU" itemValue="ru/RU" />
-				</h:selectOneRadio>
+    <h:form></h:form>
+    <h:form id="form">
+        <h:panelGrid id="panel" columns="3">
+            <h:panelGroup layout="block">
+                <calendar:calendar value="#{calendarBean.selectedDate}" id="calendar" jointPoint="#{calendarBean.jointPoint}"
+                    direction="#{calendarBean.direction}" locale="#{calendarBean.locale}" popup="#{calendarBean.popup}"
+                    datePattern="#{calendarBean.pattern}" mode="#{calendarBean.mode}" disabled="false" cellWidth="24px"
+                    cellHeight="22px" minDaysInFirstWeek="3" oncollapse="return onEvent.call(this, event);"
+                    onexpand="return onEvent.call(this, event);" oncurrentdateselect="return onEvent.call(this, event);"
+                    oncurrentdateselected="return onEvent.call(this, event);" ondateselect="return onEvent.call(this, event);"
+                    ondateselected="return onEvent.call(this, event);" ontimeselect="return onEvent.call(this, event);"
+                    ontimeselected="return onEvent.call(this, event);" oncomplete="return onEvent.call(this, event);"
+                    onclean="return onEvent.call(this, event);" ondatemouseout="return onEvent.call(this, event);"
+                    ondatemouseover="return onEvent.call(this, event);" firstWeekDay="4"
+                    horizontalOffset="#{calendarBean.horizontalOffset}" verticalOffset="#{calendarBean.verticalOffset}"
+                    defaultTime="00:00:00" timeZone="#{calendarBean.timeZone}"
+                    valueChangeListener="#{calendarBean.doValueChangeListener}"
+                    currentDataChangeListener="#{calendarBean.doCurrentDataChangeListener}"
+                    onbeforedateselect="myFunction(event)" style="width:200px;border:10px solid #000000" styleClass="hello"
+                    boundaryDatesMode="scroll" defaultLabel="bla-bla-bla" enableManualInput="true"
+                    showApplyButton="#{calendarBean.showApply}">
+                    <f:ajax event="change" render="output" />
+                </calendar:calendar>
+                <h:outputText id="output" value="#{calendarBean.selectedDate}" />
+                <h:outputText id="echo-text" value="#{calendarBean.selectedDate}" />
+            </h:panelGroup>
+            <h:panelGrid columns="2">
+                <h:outputText value="Popup Mode:" />
+                <h:selectBooleanCheckbox value="#{calendarBean.popup}">
+                    <f:ajax event="click" execute="@form" render="calendar @this" />
+                </h:selectBooleanCheckbox>
+                <h:outputText value="Apply Button:" />
+                <h:selectBooleanCheckbox value="#{calendarBean.showApply}">
+                    <f:ajax event="click" execute="@form" render="calendar @this" />
+                </h:selectBooleanCheckbox>
+                <h:outputText value="Select Locale" />
+                <h:selectOneRadio value="en/US" valueChangeListener="#{calendarBean.selectLocale}">
+                    <f:ajax execute="@form" event="click" render="calendar @this" />
+                    <f:selectItem itemLabel="US" itemValue="en/US" />
+                    <f:selectItem itemLabel="DE" itemValue="de/DE" />
+                    <f:selectItem itemLabel="FR" itemValue="fr/FR" />
+                    <f:selectItem itemLabel="RU" itemValue="ru/RU" />
+                </h:selectOneRadio>
 
-				<h:outputText value="Select Date Pattern:" />
-				<h:selectOneMenu value="#{calendarBean.pattern}">
-					<f:ajax execute="@form" event="change" render="calendar @this" />
-					<f:selectItem itemLabel="d/M/yy HH:mm" itemValue="d/M/yy HH:mm" />
-					<f:selectItem itemLabel="dd/M/yy hh:mm a"
-						itemValue="dd/M/yy hh:mm a" />
-					<f:selectItem itemLabel="dd/M/yy HH:mm:ss"
-						itemValue="dd/M/yy HH:mm:ss" />
-					<f:selectItem itemLabel="d/MMM/y" itemValue="d/MMM/y" />
-					<f:selectItem itemLabel="MMM d, yyyy" itemValue="MMM d, yyyy" />
-				</h:selectOneMenu>
-				
-				<h:outputText value="Mode" />
-				<h:selectOneMenu value="#{calendarBean.mode}" onchange="submit()">
-					<f:selectItem itemValue="client"/>
-					<f:selectItem itemValue="ajax"/>
-				</h:selectOneMenu>
-						
-				<h:outputText value="Select joint point:" />
-				<h:selectOneMenu value="#{calendarBean.jointPoint}">
-					<f:ajax execute="@form" event="change" render="calendar @this" />
-					<f:selectItem itemLabel="auto" itemValue="auto" />
-					<f:selectItem itemLabel="top-left" itemValue="top-left" />
-					<f:selectItem itemLabel="top-right" itemValue="top-right" />
-					<f:selectItem itemLabel="bottom-left" itemValue="bottom-left" />
-					<f:selectItem itemLabel="bottom-right" itemValue="bottom-right" />
-				</h:selectOneMenu>
-				<h:outputText value="Select direction:" />
-				<h:selectOneMenu value="#{calendarBean.direction}">
-					<f:ajax execute="@form" event="change" render="calendar @this" />
-					<f:selectItem itemLabel="auto" itemValue="auto" />
-					<f:selectItem itemLabel="top-left" itemValue="top-left" />
-					<f:selectItem itemLabel="top-right" itemValue="top-right" />
-					<f:selectItem itemLabel="bottom-left" itemValue="bottom-left" />
-					<f:selectItem itemLabel="bottom-right" itemValue="bottom-right" />
-				</h:selectOneMenu>
-				<h:outputText value="Horisontal offset:" />
-				<h:inputText value="#{calendarBean.horizontalOffset}">
-					<f:ajax execute="@form" event="change" render="calendar @this" />
-				</h:inputText>
-				<h:outputText value="Vertical offset:" />
-				<h:inputText value="#{calendarBean.verticalOffset}">
-					<f:ajax execute="@form" event="change" render="calendar @this" />
-				</h:inputText>
-			</h:panelGrid>
-			<h:panelGroup layout="block">
-					<div>
-						<a4j:log mode="inline"></a4j:log>
-					</div>
-					<script type="text/javascript">
-						onEvent = function(event, element, data){
-							RichFaces.log.info("jQuery Event: "+(event instanceof jQuery.Event)+"; event: "+event.type+"; data:"+(data || (event['rich']||{})['data'])+"; this.id:"+this.id+"; component:"+ (event['rich']||{})['component']||RichFaces.$(this.id));
-						};
-						//RichFaces.Event.bindById("form:calendar", "dateselect dateselected currentdateselect currentdateselected timeselect timeselected changed clean collapse expand complete datemouseout datemouseout", onEvent);
-					</script>
-			</h:panelGroup>
-            <br/>
+                <h:outputText value="Select Date Pattern:" />
+                <h:selectOneMenu value="#{calendarBean.pattern}">
+                    <f:ajax execute="@form" event="change" render="calendar @this" />
+                    <f:selectItem itemLabel="d/M/yy HH:mm" itemValue="d/M/yy HH:mm" />
+                    <f:selectItem itemLabel="dd/M/yy hh:mm a" itemValue="dd/M/yy hh:mm a" />
+                    <f:selectItem itemLabel="dd/M/yy HH:mm:ss" itemValue="dd/M/yy HH:mm:ss" />
+                    <f:selectItem itemLabel="d/MMM/y" itemValue="d/MMM/y" />
+                    <f:selectItem itemLabel="MMM d, yyyy" itemValue="MMM d, yyyy" />
+                </h:selectOneMenu>
+
+                <h:outputText value="Mode" />
+                <h:selectOneMenu value="#{calendarBean.mode}" onchange="submit()">
+                    <f:selectItem itemValue="client" />
+                    <f:selectItem itemValue="ajax" />
+                </h:selectOneMenu>
+
+                <h:outputText value="Select joint point:" />
+                <h:selectOneMenu value="#{calendarBean.jointPoint}">
+                    <f:ajax execute="@form" event="change" render="calendar @this" />
+                    <f:selectItem itemLabel="auto" itemValue="auto" />
+                    <f:selectItem itemLabel="top-left" itemValue="top-left" />
+                    <f:selectItem itemLabel="top-right" itemValue="top-right" />
+                    <f:selectItem itemLabel="bottom-left" itemValue="bottom-left" />
+                    <f:selectItem itemLabel="bottom-right" itemValue="bottom-right" />
+                </h:selectOneMenu>
+                <h:outputText value="Select direction:" />
+                <h:selectOneMenu value="#{calendarBean.direction}">
+                    <f:ajax execute="@form" event="change" render="calendar @this" />
+                    <f:selectItem itemLabel="auto" itemValue="auto" />
+                    <f:selectItem itemLabel="top-left" itemValue="top-left" />
+                    <f:selectItem itemLabel="top-right" itemValue="top-right" />
+                    <f:selectItem itemLabel="bottom-left" itemValue="bottom-left" />
+                    <f:selectItem itemLabel="bottom-right" itemValue="bottom-right" />
+                </h:selectOneMenu>
+                <h:outputText value="Horisontal offset:" />
+                <h:inputText value="#{calendarBean.horizontalOffset}">
+                    <f:ajax execute="@form" event="change" render="calendar @this" />
+                </h:inputText>
+                <h:outputText value="Vertical offset:" />
+                <h:inputText value="#{calendarBean.verticalOffset}">
+                    <f:ajax execute="@form" event="change" render="calendar @this" />
+                </h:inputText>
+            </h:panelGrid>
+            <h:panelGroup layout="block">
+                <div>
+                    <a4j:log mode="inline"></a4j:log>
+                </div>
+                <script type="text/javascript">
+                    onEvent = function(event, element, data) {
+                        RichFaces.log.info("jQuery Event: " + (event instanceof jQuery.Event) + "; event: " + event.type + "; data:" + (data || (event['rich'] || {})['data']) + "; this.id:" + this.id + "; component:" + (event['rich'] || {})['component'] || RichFaces.$(this.id));
+                    };
+                    //RichFaces.Event.bindById("form:calendar", "dateselect dateselected currentdateselect currentdateselected timeselect timeselected changed clean collapse expand complete datemouseout datemouseout", onEvent);
+                </script>
+            </h:panelGroup>
+            <br />
             <a4j:outputPanel ajaxRendered="true">
                 <h:messages />
-            </a4j:outputPanel>			
-		</h:panelGrid>
-	</h:form>
+            </a4j:outputPanel>
+        </h:panelGrid>
+    </h:form>
 </h:body>
 </html>

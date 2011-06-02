@@ -1,4 +1,3 @@
-
 /**
  *
  */
@@ -11,17 +10,16 @@ import javax.faces.context.FacesContext;
  *
  */
 public interface BehaviorRenderer {
-
     /**
      * @param context
      * @param behavior
      */
-    public void decode(FacesContext context, ClientSideBehavior behavior);
+    void decode(FacesContext context, ClientSideBehavior behavior);
 
     /**
      * @param context
      * @param behavior
      * @return
      */
-    public String getCode(FacesContext context, ClientSideBehavior behavior);
+    String getCode(FacesContext context, ClientSideBehavior behavior);
 }

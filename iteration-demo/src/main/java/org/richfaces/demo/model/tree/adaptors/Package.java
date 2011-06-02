@@ -27,15 +27,13 @@ import javax.xml.bind.annotation.XmlElement;
 
 /**
  * @author Nick Belaevski mailto:nbelaevski@exadel.com created 25.07.2007
- * 
+ *
  */
 public class Package extends Entry {
-
     @XmlElement(name = "class")
     private List<Class> classes;
 
     public List<Class> getClasses() {
         return classes;
     }
-
 }

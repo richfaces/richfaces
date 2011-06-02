@@ -31,7 +31,6 @@ import org.richfaces.component.InputNumberSliderInputPosition;
 @ManagedBean(name = "inputNumberSliderBean")
 @SessionScoped
 public class InputNumberSliderBean {
-
     private double value;
     private String accesskey;
     private int delay = 200;
@@ -46,7 +45,7 @@ public class InputNumberSliderBean {
     private boolean showInput = true;
     private boolean showTooltip = true;
     private double step = 1;
-    
+
     public void setValue(double value) {
         this.value = value;
     }
@@ -106,7 +105,7 @@ public class InputNumberSliderBean {
     public void setMinValue(double minValue) {
         this.minValue = minValue;
     }
-    
+
     public boolean isShowArrows() {
         return showArrows;
     }
@@ -162,7 +161,7 @@ public class InputNumberSliderBean {
     public int getInputSize() {
         return inputSize;
     }
-    
+
     public Date getDate() {
         return new Date();
     }

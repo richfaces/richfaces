@@ -9,9 +9,7 @@ import javax.faces.event.AjaxBehaviorEvent;
 @SessionScoped
 @ManagedBean(name = "supportBean")
 public class SupportBean implements Serializable {
-    
     private static final long serialVersionUID = -110973149750159911L;
-
     private String text1;
     private String text2;
 

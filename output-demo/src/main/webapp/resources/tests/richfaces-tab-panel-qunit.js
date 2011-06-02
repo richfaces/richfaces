@@ -25,7 +25,7 @@ RichFaces.QUnit.run(function() {
 
     var TAB_PANEL_ID = "f:panel";
 
-    function handler (msg, returnValue) {
+    function handler(msg, returnValue) {
         return function () {
             ok(true, msg);
 

@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.demo.model.tree.adaptors;
 
 import java.util.List;
@@ -31,29 +30,24 @@ import javax.xml.bind.annotation.XmlTransient;
 import com.google.common.collect.Maps;
 
 /**
- * @author Nick Belaevski
- *         mailto:nbelaevski@exadel.com
- *         created 24.07.2007
+ * @author Nick Belaevski mailto:nbelaevski@exadel.com created 24.07.2007
  *
  */
 public class SourceDirectory extends Entry {
-
     @XmlElement(name = "package")
     private List<Package> packages;
-
     @XmlTransient
     private Map<PackageKey, Package> packagesMap;
-    
+
     public Map<PackageKey, Package> getPackages() {
         if (packagesMap == null && packages != null) {
             packagesMap = Maps.newLinkedHashMap();
-            
-            for (Package pkg: packages) {
+
+            for (Package pkg : packages) {
                 packagesMap.put(new PackageKey(pkg.getName()), pkg);
             }
         }
-        
+
         return packagesMap;
     }
-
 }

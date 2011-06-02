@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.demo;
 
 import java.net.URL;
@@ -42,12 +41,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @ManagedBean(eager = true)
 @ApplicationScoped
 public class CountriesBean {
-
     private List<Country> countries;
 
     @XmlRootElement(name = "countries", namespace = Country.NAMESPACE)
     private static class Countries {
-
         @XmlElement(name = "country", namespace = Country.NAMESPACE)
         private List<Country> countries;
 

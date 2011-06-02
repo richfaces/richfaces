@@ -1,45 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:a4j="http://richfaces.org/a4j">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j">
 <f:view>
-	<h:head>
-		<style>
-			.log {
-				border: 2px dotted navy;
-			}
-		</style>
-	</h:head>
-	<h:body>
-		<h:form>
-			<h:panelGrid columns="2">
-				<h:outputText value="Mode: "/>
-				<h:selectOneMenu value="#{logBean.mode}" onchange="submit()">
-					<f:selectItems value="#{logBean.logModes}" />
-				</h:selectOneMenu>
-			
-				<h:outputText value="Hotkey: "/>
-				<h:inputText value="#{logBean.hotkey}" size="1" onchange="submit()" />
-			</h:panelGrid>
-		</h:form>
-		<h:form>
-			<h:commandLink value="Fire ajax request">
-				<f:ajax />
-			</h:commandLink>
-		</h:form>
-	
-		<input id="input" type="text" />
-		<select id="select" class="rich-log-element">
-			<option value="debug">debug</option>
-			<option value="info">info</option>
-			<option value="warn">warn</option>
-			<option value="error">error</option>
-		</select>
-		<input type="button" value="Log" onclick="eval('RichFaces.log.' + jQuery('#select').val() + '(\'' + jQuery('#input').val() + '\')')"/>
-		<a4j:log level="debug" style="border: solid red 1px" styleClass="log" hotkey="#{logBean.hotkey}" mode="#{logBean.mode}" />
-	</h:body>
+    <h:head>
+        <style>
+.log {
+    border: 2px dotted navy;
+}
+</style>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputText value="Mode: " />
+                <h:selectOneMenu value="#{logBean.mode}" onchange="submit()">
+                    <f:selectItems value="#{logBean.logModes}" />
+                </h:selectOneMenu>
+
+                <h:outputText value="Hotkey: " />
+                <h:inputText value="#{logBean.hotkey}" size="1" onchange="submit()" />
+            </h:panelGrid>
+        </h:form>
+        <h:form>
+            <h:commandLink value="Fire ajax request">
+                <f:ajax />
+            </h:commandLink>
+        </h:form>
+
+        <input id="input" type="text" />
+        <select id="select" class="rich-log-element">
+            <option value="debug">debug</option>
+            <option value="info">info</option>
+            <option value="warn">warn</option>
+            <option value="error">error</option>
+        </select>
+        <input type="button" value="Log"
+            onclick="eval('RichFaces.log.' + jQuery('#select').val() + '(\'' + jQuery('#input').val() + '\')')" />
+        <a4j:log level="debug" style="border: solid red 1px" styleClass="log" hotkey="#{logBean.hotkey}" mode="#{logBean.mode}" />
+    </h:body>
 </f:view>
 </html>

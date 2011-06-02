@@ -9,26 +9,12 @@ import javax.faces.model.SelectItem;
 @ManagedBean(name = "skinBean")
 @SessionScoped
 public class SkinBean implements Serializable {
-
     private static final long serialVersionUID = 2744605279708632184L;
-
-    private SelectItem[] skinSetItems = {
-        new SelectItem("blueSky"),
-        new SelectItem("classic"),
-        new SelectItem("deepMarine"),
-        new SelectItem("DEFAULT"),
-        new SelectItem("emeraldTown"),
-        new SelectItem("japanCherry"),
-        new SelectItem("NULL"),
-        new SelectItem("plain"),
-        new SelectItem("ruby"),
-        new SelectItem("wine")
-    }; 
-
+    private SelectItem[] skinSetItems = { new SelectItem("blueSky"), new SelectItem("classic"), new SelectItem("deepMarine"),
+            new SelectItem("DEFAULT"), new SelectItem("emeraldTown"), new SelectItem("japanCherry"), new SelectItem("NULL"),
+            new SelectItem("plain"), new SelectItem("ruby"), new SelectItem("wine") };
     private String skin = "classic";
-
     private boolean enableElementsSkinning = true;
-
     private boolean enableClassesSkinning = false;
 
     public String getSkin() {

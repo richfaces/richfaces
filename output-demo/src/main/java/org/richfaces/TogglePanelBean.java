@@ -7,13 +7,9 @@ import org.richfaces.log.LogFactory;
 import org.richfaces.log.Logger;
 
 public class TogglePanelBean implements Serializable {
-
     private static final long serialVersionUID = -2403138958014741653L;
-    
     private static final Logger LOGGER = LogFactory.getLogger(TogglePanelBean.class);
-    
     private String name;
-
     private String value = "name2";
 
     public TogglePanelBean() {

@@ -26,12 +26,11 @@ import javax.faces.bean.ViewScoped;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @ManagedBean
 @ViewScoped
 public class TreeModelBean {
-
     private boolean projectIsLeaf = false;
 
     public boolean isProjectIsLeaf() {
@@ -41,5 +40,4 @@ public class TreeModelBean {
     public void setProjectIsLeaf(boolean projectIsLeaf) {
         this.projectIsLeaf = projectIsLeaf;
     }
-    
 }

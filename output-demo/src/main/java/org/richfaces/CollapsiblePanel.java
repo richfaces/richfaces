@@ -18,10 +18,7 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces;
-
-import org.richfaces.event.PanelToggleEvent;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -33,12 +30,10 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class CollapsiblePanel {
-
     public CollapsiblePanel() {
     }
 
     public void action() {
         System.out.println("CollapsiblePanel.action");
     }
-
 }

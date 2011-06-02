@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
-              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
-              version="2.0">
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd" version="2.0">
 
     <navigation-rule>
         <!-- Examples -->
@@ -30,7 +28,7 @@
         <navigation-case>
             <from-outcome>calendar</from-outcome>
             <to-view-id>/examples/calendar.xhtml</to-view-id>
-        </navigation-case>		
+        </navigation-case>
         <navigation-case>
             <from-outcome>fileUpload</from-outcome>
             <to-view-id>/examples/fileupload.xhtml</to-view-id>
@@ -38,9 +36,8 @@
         <navigation-case>
             <from-outcome>select</from-outcome>
             <to-view-id>/examples/select.xhtml</to-view-id>
-        </navigation-case>        		
-        		
-		
+        </navigation-case>
+
         <!-- QUnit -->
         <navigation-case>
             <from-outcome>qunit/autocomplete</from-outcome>

@@ -18,15 +18,15 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author akolonitsky
@@ -35,7 +35,6 @@ import java.util.List;
 @ManagedBean
 @SessionScoped
 public class TemplateBean implements Serializable {
-
     private static final long serialVersionUID = 5078700314562231363L;
     private List<String> dataTableModel = new ArrayList<String>();
     private boolean renderForm;
@@ -59,5 +58,4 @@ public class TemplateBean implements Serializable {
     public void setRenderForm(boolean renderForm) {
         this.renderForm = renderForm;
     }
-
 }

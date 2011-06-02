@@ -1,11 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:in="http://richfaces.org/input">
-<f:view contentType="text/html"/>
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:in="http://richfaces.org/input">
+<f:view contentType="text/html" />
 
 <h:head>
     <title>InplaceInput</title>
@@ -15,15 +12,10 @@
     <h:form id="form">
         <in:inplaceInput showControls="true" value="New York" defaultLabel="#{null}">
         </in:inplaceInput>
-        <h:commandButton value="submit"/>
+        <h:commandButton value="submit" />
         <in:inplaceInput showControls="true" defaultLabel="click to enter your name" saveOnBlur="true"
-                         onblur="RichFaces.$('form:ii').cancel()" id="ii"
-                         activeClass="activeClass"
-                         disabledClass="disabledClass"
-                         editClass="editClass"
-                         changedClass="changedClass"
-                         styleClass="styleClass"
-                         >
+            onblur="RichFaces.$('form:ii').cancel()" id="ii" activeClass="activeClass" disabledClass="disabledClass"
+            editClass="editClass" changedClass="changedClass" styleClass="styleClass">
         </in:inplaceInput>
     </h:form>
 </h:body>

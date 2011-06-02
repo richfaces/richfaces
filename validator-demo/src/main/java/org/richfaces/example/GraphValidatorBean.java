@@ -1,103 +1,99 @@
 /**
- * 
+ *
  */
 package org.richfaces.example;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
-
 /**
  * @author asmirnov
  *
  */
 public class GraphValidatorBean implements Cloneable {
+    @Min(0)
+    @Max(10)
+    private int first;
+    @Min(0)
+    @Max(10)
+    private int second;
+    @Min(0)
+    @Max(10)
+    private int third;
+    private String actionResult;
 
-	@Min(0)
-	@Max(10)
-	private int first ;
+    /**
+     * @return the actionResult
+     */
+    public String getActionResult() {
+        return actionResult;
+    }
 
-	@Min(0)
-	@Max(10)
-	private int second ;
-	@Min(0)
-	@Max(10)
-	private int third ;
+    /**
+     * @param actionResult the actionResult to set
+     */
+    public void setActionResult(String actionResult) {
+        this.actionResult = actionResult;
+    }
 
-	private String actionResult;
-	
-	/**
-	 * @return the actionResult
-	 */
-	public String getActionResult() {
-		return actionResult;
-	}
+    /**
+     * @return the first
+     */
+    public int getFirst() {
+        return first;
+    }
 
-	/**
-	 * @param actionResult the actionResult to set
-	 */
-	public void setActionResult(String actionResult) {
-		this.actionResult = actionResult;
-	}
+    /**
+     * @param first the first to set
+     */
+    public void setFirst(int first) {
+        this.first = first;
+    }
 
-	/**
-	 * @return the first
-	 */
-	public int getFirst() {
-		return first;
-	}
+    /**
+     * @return the second
+     */
+    public int getSecond() {
+        return second;
+    }
 
-	/**
-	 * @param first the first to set
-	 */
-	public void setFirst(int first) {
-		this.first = first;
-	}
+    /**
+     * @param second the second to set
+     */
+    public void setSecond(int second) {
+        this.second = second;
+    }
 
-	/**
-	 * @return the second
-	 */
-	public int getSecond() {
-		return second;
-	}
+    /**
+     * @return the third
+     */
+    public int getThird() {
+        return third;
+    }
 
-	/**
-	 * @param second the second to set
-	 */
-	public void setSecond(int second) {
-		this.second = second;
-	}
+    /**
+     * @param third the third to set
+     */
+    public void setThird(int third) {
+        this.third = third;
+    }
 
-	/**
-	 * @return the third
-	 */
-	public int getThird() {
-		return third;
-	}
+    /**
+     * @return total summ of the list values.
+     */
+    @Max(value = 20, message = "Total value should be less then 20")
+    public int getSumm() {
+        return first + second + third;
+    }
 
-	/**
-	 * @param third the third to set
-	 */
-	public void setThird(int third) {
-		this.third = third;
-	}
+    public String action() {
+        // Persist your data here
+        setActionResult("Data have been saved");
+        return null;
+    }
 
-	/**
-	 * @return total summ of the list values.
-	 */
-	@Max(value=20,message="Total value should be less then 20")
-	public int getSumm(){
-		return first+second+third;
-	}
-	
-	public String action() {
-		// Persist your data here
-		setActionResult("Data have been saved");
-		return null;
-	}
-	
-	@Override
-	public Object clone() throws CloneNotSupportedException {
-	    return super.clone();
-	}
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

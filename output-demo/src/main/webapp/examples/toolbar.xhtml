@@ -1,88 +1,84 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:tb="http://richfaces.org/output" xmlns:a4j="http://richfaces.org/a4j">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:tb="http://richfaces.org/output" xmlns:a4j="http://richfaces.org/a4j">
 <f:view contentType="application/xhtml+xml">
-<h:head>
-    <title>toolbar sample</title>
-    <style>
+    <h:head>
+        <title>toolbar sample</title>
+        <style>
+</style>
+    </h:head>
 
-    </style>
-</h:head>
+    <h:body>
+        <tb:toolbar id="tb" height="45" itemSeparator="grid" itemStyle="color:red;" itemClass="custom-item">
+            <f:facet name="itemSeparator">
+                ||
+            </f:facet>
+            <tb:toolbarGroup itemStyle="border: 1px solid green" itemClass="custom-item-group" itemSeparator="line"
+                onitemclick="22">
+                <h:graphicImage value="/images/icons/create_doc.gif" />
+                <a href="#">link 1</a> Text
+                <a href="#">link 2</a>
+                <h:graphicImage value="/images/icons/create_folder.gif" onclick="q1" />
+                <h:graphicImage value="/images/icons/copy.gif" />
+                <a href="#">link 3</a> Text
+                <a href="#">link 4</a>
+            </tb:toolbarGroup>
+            <tb:toolbarGroup itemSeparator="none">
+                <h:graphicImage value="/images/icons/save.gif" onclick="q2" />
+                <h:graphicImage value="/images/icons/save.gif" onclick="q2" />
+                <h:graphicImage value="/images/icons/save.gif" onclick="q2" />
+                <h:graphicImage value="/images/icons/save.gif" onclick="q2" />
+            </tb:toolbarGroup>
+            <tb:toolbarGroup itemSeparator="line">
+                <h:graphicImage value="/images/icons/save.gif" onclick="q2" />
+                <h:graphicImage value="/images/icons/save.gif" onclick="q2" />
+            </tb:toolbarGroup>
 
-<h:body>
-    <tb:toolbar id="tb" height="45" itemSeparator="grid" itemStyle="color:red;" itemClass="custom-item">
-        <f:facet name="itemSeparator">
-            ||
-        </f:facet>
-        <tb:toolbarGroup itemStyle="border: 1px solid green" itemClass="custom-item-group" itemSeparator="line"
-                         onitemclick="22">
-            <h:graphicImage value="/images/icons/create_doc.gif"/>
-            <a href="#">link 1</a> Text
-            <a href="#">link 2</a>
-            <h:graphicImage value="/images/icons/create_folder.gif" onclick="q1"/>
-            <h:graphicImage value="/images/icons/copy.gif"/>
-            <a href="#">link 3</a> Text
-            <a href="#">link 4</a>
-        </tb:toolbarGroup>
-        <tb:toolbarGroup itemSeparator="none">
-            <h:graphicImage value="/images/icons/save.gif" onclick="q2"/>
-            <h:graphicImage value="/images/icons/save.gif" onclick="q2"/>
-            <h:graphicImage value="/images/icons/save.gif" onclick="q2"/>
-            <h:graphicImage value="/images/icons/save.gif" onclick="q2"/>
-        </tb:toolbarGroup>
-        <tb:toolbarGroup itemSeparator="line">
-            <h:graphicImage value="/images/icons/save.gif" onclick="q2"/>
-            <h:graphicImage value="/images/icons/save.gif" onclick="q2"/>
-        </tb:toolbarGroup>
+            <tb:toolbarGroup location="right" itemSeparator="square">
+                <h:graphicImage value="/images/icons/find.gif" />
+                <h:graphicImage value="/images/icons/filter.gif" />
+            </tb:toolbarGroup>
+        </tb:toolbar>
+        <br />
+        <tb:toolbar itemSeparator="grid" itemStyle="border: 1px solid green" itemClass="custom-item">
+            <tb:toolbarGroup itemSeparator="line" itemStyle="border: 1px solid green" itemClass="custom-item-group">
+                <h:graphicImage value="/images/icons/create_doc.gif" />
+                <h:graphicImage value="/images/icons/create_folder.gif" />
+                <h:graphicImage value="/images/icons/copy.gif" />
+            </tb:toolbarGroup>
+            <tb:toolbarGroup itemSeparator="disc">
+                <h:graphicImage value="/images/icons/save.gif" />
+                <h:graphicImage value="/images/icons/save_as.gif" />
+                <h:graphicImage value="/images/icons/save_all.gif" />
+            </tb:toolbarGroup>
+            <tb:toolbarGroup location="right" itemSeparator="square">
+                <h:graphicImage value="/images/icons/find.gif" />
+                <h:graphicImage value="/images/icons/filter.gif" />
+            </tb:toolbarGroup>
+        </tb:toolbar>
 
-        <tb:toolbarGroup location="right" itemSeparator="square">
-            <h:graphicImage value="/images/icons/find.gif"/>
-            <h:graphicImage value="/images/icons/filter.gif"/>
-        </tb:toolbarGroup>
-    </tb:toolbar>
-    <br/>
-    <tb:toolbar itemSeparator="grid" itemStyle="border: 1px solid green" itemClass="custom-item">
-        <tb:toolbarGroup itemSeparator="line" itemStyle="border: 1px solid green" itemClass="custom-item-group">
-            <h:graphicImage value="/images/icons/create_doc.gif"/>
-            <h:graphicImage value="/images/icons/create_folder.gif"/>
-            <h:graphicImage value="/images/icons/copy.gif"/>
-        </tb:toolbarGroup>
-        <tb:toolbarGroup itemSeparator="disc">
-            <h:graphicImage value="/images/icons/save.gif"/>
-            <h:graphicImage value="/images/icons/save_as.gif"/>
-            <h:graphicImage value="/images/icons/save_all.gif"/>
-        </tb:toolbarGroup>
-        <tb:toolbarGroup location="right" itemSeparator="square">
-            <h:graphicImage value="/images/icons/find.gif"/>
-            <h:graphicImage value="/images/icons/filter.gif"/>
-        </tb:toolbarGroup>
-    </tb:toolbar>
+        <br />
+        <tb:toolbar height="26" itemSeparator="grid">
+            <tb:toolbarGroup itemSeparator="line">
+                <h:graphicImage value="/images/icons/create_doc.gif" />
+                <h:graphicImage value="/images/icons/create_folder.gif" />
+                <h:graphicImage value="/images/icons/copy.gif" />
+            </tb:toolbarGroup>
+            <tb:toolbarGroup itemSeparator="disc">
+                <h:graphicImage value="/images/icons/save.gif" />
+                <h:graphicImage value="/images/icons/save_as.gif" />
+                <h:graphicImage value="/images/icons/save_all.gif" />
+            </tb:toolbarGroup>
+            <tb:toolbarGroup location="right" itemSeparator="square">
+                <h:graphicImage value="/images/icons/find.gif" />
+                <h:graphicImage value="/images/icons/filter.gif" />
+            </tb:toolbarGroup>
+        </tb:toolbar>
 
-    <br/>
-    <tb:toolbar height="26" itemSeparator="grid">
-        <tb:toolbarGroup itemSeparator="line">
-            <h:graphicImage value="/images/icons/create_doc.gif"/>
-            <h:graphicImage value="/images/icons/create_folder.gif"/>
-            <h:graphicImage value="/images/icons/copy.gif"/>
-        </tb:toolbarGroup>
-        <tb:toolbarGroup itemSeparator="disc">
-            <h:graphicImage value="/images/icons/save.gif"/>
-            <h:graphicImage value="/images/icons/save_as.gif"/>
-            <h:graphicImage value="/images/icons/save_all.gif"/>
-        </tb:toolbarGroup>
-        <tb:toolbarGroup location="right" itemSeparator="square">
-            <h:graphicImage value="/images/icons/find.gif"/>
-            <h:graphicImage value="/images/icons/filter.gif"/>
-        </tb:toolbarGroup>
-    </tb:toolbar>
-
-    <h:form>
-        <a4j:commandLink value="Ajax Rerender Toolbar" render="tb" />
-        <a4j:log />
-    </h:form>
-</h:body>
+        <h:form>
+            <a4j:commandLink value="Ajax Rerender Toolbar" render="tb" />
+            <a4j:log />
+        </h:form>
+    </h:body>
 </f:view>
 </html>

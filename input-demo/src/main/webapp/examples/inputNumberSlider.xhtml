@@ -1,10 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:ins="http://richfaces.org/input">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:ins="http://richfaces.org/input">
 <!--
 JBoss, Home of Professional Open Source
 Copyright ${year}, Red Hat, Inc. and individual contributors
@@ -29,93 +26,95 @@ License along with this software; if not, write to the Free
 Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
-	<h:head>
-		<title>Richfaces InputNumberSlider Demo</title>
-	</h:head>
-	<h:body>
-		<h:form id="form">
-			<h:outputText value="Skin: "/>
-			<h:selectOneMenu value="#{skinBean.skin}" onchange="submit();">
-				<f:selectItems value="#{skinBean.skins}"/>
-			</h:selectOneMenu>
-			<br />
-			<h:outputText value="Date: "/>
-			<h:outputText id="date" value="#{inputNumberSliderBean.date}" />			
-			<br />
-			<ins:inputNumberSlider id="ins" value="#{inputNumberSliderBean.value}" accesskey="#{inputNumberSliderBean.accesskey}" delay="#{inputNumberSliderBean.delay}"
-				disabled="#{inputNumberSliderBean.disabled}" enableManualInput="#{inputNumberSliderBean.enableManualInput}"
-				inputPosition="#{inputNumberSliderBean.inputPosition}" inputSize="#{inputNumberSliderBean.inputSize}" showArrows="#{inputNumberSliderBean.showArrows}"
-				showBoundaryValues="#{inputNumberSliderBean.showBoundaryValues}" showInput="#{inputNumberSliderBean.showInput}"
-				showTooltip="#{inputNumberSliderBean.showTooltip}" maxValue="#{inputNumberSliderBean.maxValue}" minValue="#{inputNumberSliderBean.minValue}"
-				step="#{inputNumberSliderBean.step}" >
-				<f:ajax render="date" />
-			</ins:inputNumberSlider>
-			<br />
-			<h:outputText value="Accesskey: "/>
-			<h:inputText value="#{inputNumberSliderBean.accesskey}">
-				<f:ajax render="ins"/>
-			</h:inputText>			
-			<br />
-			<h:outputText value="EnableManualInput: "/>
-			<h:selectBooleanCheckbox value="#{inputNumberSliderBean.enableManualInput}">
-				<f:ajax render="ins"/>
-			</h:selectBooleanCheckbox>
-			<br />
-			<h:outputText value="Disabled "/>
-			<h:selectBooleanCheckbox value="#{inputNumberSliderBean.disabled}">
-				<f:ajax render="ins"/>
-			</h:selectBooleanCheckbox>
-			<br />
-			<h:outputText value="Delay: "/>
-			<h:inputText value="#{inputNumberSliderBean.delay}">
-				<f:ajax render="ins"/>
-			</h:inputText>
-			<br />
-			<h:outputText value="InputPosition: "/>
-			<h:selectOneMenu value="#{inputNumberSliderBean.inputPosition}">
-				<f:selectItems value="#{inputNumberSliderBean.positionTypes}"/>
-				<f:ajax render="ins"/>
-			</h:selectOneMenu>				
-			<br />
-			<h:outputText value="InputSize: "/>
-			<h:inputText value="#{inputNumberSliderBean.inputSize}">
-				<f:ajax render="ins"/>
-			</h:inputText>
-			<br />
-			<h:outputText value="MaxValue: "/>
-			<h:inputText value="#{inputNumberSliderBean.maxValue}">
-				<f:ajax render="ins"/>
-			</h:inputText>
-			<br />
-			<h:outputText value="MinValue: "/>
-			<h:inputText value="#{inputNumberSliderBean.minValue}">
-				<f:ajax render="ins"/>
-			</h:inputText>
-			<br />
-			<h:outputText value="ShowArrows: "/>
-			<h:selectBooleanCheckbox value="#{inputNumberSliderBean.showArrows}">
-				<f:ajax render="ins"/>
-			</h:selectBooleanCheckbox>
-			<br />
-			<h:outputText value="ShowBoundaryValues: "/>
-			<h:selectBooleanCheckbox value="#{inputNumberSliderBean.showBoundaryValues}">
-				<f:ajax render="ins"/>
-			</h:selectBooleanCheckbox>
-			<br />
-			<h:outputText value="ShowInput: "/>
-			<h:selectBooleanCheckbox value="#{inputNumberSliderBean.showInput}">
-				<f:ajax render="ins"/>
-			</h:selectBooleanCheckbox>
-			<br />
-			<h:outputText value="ShowTooltip: "/>
-			<h:selectBooleanCheckbox value="#{inputNumberSliderBean.showTooltip}">
-				<f:ajax render="ins"/>
-			</h:selectBooleanCheckbox>
-			<br />
-			<h:outputText value="Step: "/>
-			<h:inputText value="#{inputNumberSliderBean.step}">
-				<f:ajax render="ins"/>
-			</h:inputText>
-		</h:form>
-	</h:body>
+<h:head>
+    <title>Richfaces InputNumberSlider Demo</title>
+</h:head>
+<h:body>
+    <h:form id="form">
+        <h:outputText value="Skin: " />
+        <h:selectOneMenu value="#{skinBean.skin}" onchange="submit();">
+            <f:selectItems value="#{skinBean.skins}" />
+        </h:selectOneMenu>
+        <br />
+        <h:outputText value="Date: " />
+        <h:outputText id="date" value="#{inputNumberSliderBean.date}" />
+        <br />
+        <ins:inputNumberSlider id="ins" value="#{inputNumberSliderBean.value}" accesskey="#{inputNumberSliderBean.accesskey}"
+            delay="#{inputNumberSliderBean.delay}" disabled="#{inputNumberSliderBean.disabled}"
+            enableManualInput="#{inputNumberSliderBean.enableManualInput}"
+            inputPosition="#{inputNumberSliderBean.inputPosition}" inputSize="#{inputNumberSliderBean.inputSize}"
+            showArrows="#{inputNumberSliderBean.showArrows}" showBoundaryValues="#{inputNumberSliderBean.showBoundaryValues}"
+            showInput="#{inputNumberSliderBean.showInput}" showTooltip="#{inputNumberSliderBean.showTooltip}"
+            maxValue="#{inputNumberSliderBean.maxValue}" minValue="#{inputNumberSliderBean.minValue}"
+            step="#{inputNumberSliderBean.step}">
+            <f:ajax render="date" />
+        </ins:inputNumberSlider>
+        <br />
+        <h:outputText value="Accesskey: " />
+        <h:inputText value="#{inputNumberSliderBean.accesskey}">
+            <f:ajax render="ins" />
+        </h:inputText>
+        <br />
+        <h:outputText value="EnableManualInput: " />
+        <h:selectBooleanCheckbox value="#{inputNumberSliderBean.enableManualInput}">
+            <f:ajax render="ins" />
+        </h:selectBooleanCheckbox>
+        <br />
+        <h:outputText value="Disabled " />
+        <h:selectBooleanCheckbox value="#{inputNumberSliderBean.disabled}">
+            <f:ajax render="ins" />
+        </h:selectBooleanCheckbox>
+        <br />
+        <h:outputText value="Delay: " />
+        <h:inputText value="#{inputNumberSliderBean.delay}">
+            <f:ajax render="ins" />
+        </h:inputText>
+        <br />
+        <h:outputText value="InputPosition: " />
+        <h:selectOneMenu value="#{inputNumberSliderBean.inputPosition}">
+            <f:selectItems value="#{inputNumberSliderBean.positionTypes}" />
+            <f:ajax render="ins" />
+        </h:selectOneMenu>
+        <br />
+        <h:outputText value="InputSize: " />
+        <h:inputText value="#{inputNumberSliderBean.inputSize}">
+            <f:ajax render="ins" />
+        </h:inputText>
+        <br />
+        <h:outputText value="MaxValue: " />
+        <h:inputText value="#{inputNumberSliderBean.maxValue}">
+            <f:ajax render="ins" />
+        </h:inputText>
+        <br />
+        <h:outputText value="MinValue: " />
+        <h:inputText value="#{inputNumberSliderBean.minValue}">
+            <f:ajax render="ins" />
+        </h:inputText>
+        <br />
+        <h:outputText value="ShowArrows: " />
+        <h:selectBooleanCheckbox value="#{inputNumberSliderBean.showArrows}">
+            <f:ajax render="ins" />
+        </h:selectBooleanCheckbox>
+        <br />
+        <h:outputText value="ShowBoundaryValues: " />
+        <h:selectBooleanCheckbox value="#{inputNumberSliderBean.showBoundaryValues}">
+            <f:ajax render="ins" />
+        </h:selectBooleanCheckbox>
+        <br />
+        <h:outputText value="ShowInput: " />
+        <h:selectBooleanCheckbox value="#{inputNumberSliderBean.showInput}">
+            <f:ajax render="ins" />
+        </h:selectBooleanCheckbox>
+        <br />
+        <h:outputText value="ShowTooltip: " />
+        <h:selectBooleanCheckbox value="#{inputNumberSliderBean.showTooltip}">
+            <f:ajax render="ins" />
+        </h:selectBooleanCheckbox>
+        <br />
+        <h:outputText value="Step: " />
+        <h:inputText value="#{inputNumberSliderBean.step}">
+            <f:ajax render="ins" />
+        </h:inputText>
+    </h:form>
+</h:body>
 </html>

@@ -2,14 +2,14 @@
  *
  */
 package org.richfaces;
- 
+
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
- 
+
 /**
  * @author Ilya Shaikovsky
  *
@@ -17,33 +17,24 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean
 @ViewScoped
 public class ProgressBarBean implements Serializable {
-    
     private static final long serialVersionUID = -446286889238296278L;
-
     private int minValue = 0;
-    
     private int maxValue = 100;
-    
     private int value = 50;
-    
     private String label = "'label' attribute";
-    
     private boolean childrenRendered = false;
-    
     private boolean enabled = false;
-    
-    private boolean initialFacetRendered = true; 
-    
+    private boolean initialFacetRendered = true;
     private boolean finishFacetRendered = true;
-    
+
     public boolean isEnabled() {
         return enabled;
     }
- 
+
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
- 
+
     public int getMinValue() {
         return minValue;
     }
@@ -83,7 +74,7 @@ public class ProgressBarBean implements Serializable {
     public void setChildrenRendered(boolean childrenRendered) {
         this.childrenRendered = childrenRendered;
     }
-    
+
     public boolean isInitialFacetRendered() {
         return initialFacetRendered;
     }
@@ -107,7 +98,7 @@ public class ProgressBarBean implements Serializable {
     public void increaseValueByFive() {
         value += 5;
     }
-    
+
     public String getCurrentTimeAsString() {
         return DateFormat.getTimeInstance().format(new Date());
     }

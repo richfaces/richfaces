@@ -32,24 +32,21 @@ import org.richfaces.log.Logger;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class PhaseTracker implements PhaseListener {
-
     private static final long serialVersionUID = 6358081870120864332L;
-
     private Logger logger = LogFactory.getLogger(PhaseTracker.class);
-
     private ThreadLocal<Long> phaseTimer = new ThreadLocal<Long>();
-    
+
     public void afterPhase(PhaseEvent event) {
         Long phaseStartTime = phaseTimer.get();
-        
+
         long measuredTime = 0;
         if (phaseStartTime != null) {
             measuredTime = System.currentTimeMillis() - phaseStartTime.longValue();
         }
-        
+
         logger.debug(MessageFormat.format("Phase {0} completed by {1}ms", event.getPhaseId(), measuredTime));
         phaseTimer.set(null);
     }
@@ -62,5 +59,4 @@ public class PhaseTracker implements PhaseListener {
     public PhaseId getPhaseId() {
         return PhaseId.ANY_PHASE;
     }
-
 }

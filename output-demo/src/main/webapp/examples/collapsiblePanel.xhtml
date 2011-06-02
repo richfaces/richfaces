@@ -1,25 +1,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:pn="http://richfaces.org/output">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:pn="http://richfaces.org/output">
 
 <body>
-<ui:composition template="/templates/template.xhtml">
+    <ui:composition template="/templates/template.xhtml">
 
-    <ui:define name="title">Collapsible Panel QUnit</ui:define>
-    <ui:define name="body_head">Collapsible Panel QUnit</ui:define>
+        <ui:define name="title">Collapsible Panel QUnit</ui:define>
+        <ui:define name="body_head">Collapsible Panel QUnit</ui:define>
 
-    <ui:define name="body">
-        <p>Page</p>
+        <ui:define name="body">
+            <p>Page</p>
 
-        <h:form id="f">
-            <pn:collapsiblePanel id="panel1" expanded="false" switchType="server">
-                <f:facet name="headerExpanded" >
+            <h:form id="f">
+                <pn:collapsiblePanel id="panel1" expanded="false" switchType="server">
+                    <f:facet name="headerExpanded">
                     header exanded
                 </f:facet>
-                <f:facet name="headerCollapsed" >
+                    <f:facet name="headerCollapsed">
                     header collapsed
                 </f:facet>
 
@@ -27,11 +24,11 @@
 
             </pn:collapsiblePanel>
 
-            <pn:collapsiblePanel id="panel2" expanded="false" switchType="ajax" toggleListener="#{collapsiblePanel.action}" >
-                <f:facet name="headerExpanded" >
+                <pn:collapsiblePanel id="panel2" expanded="false" switchType="ajax" toggleListener="#{collapsiblePanel.action}">
+                    <f:facet name="headerExpanded">
                     header expanded
                 </f:facet>
-                <f:facet name="headerCollapsed" >
+                    <f:facet name="headerCollapsed">
                     header collapsed
                 </f:facet>
 
@@ -39,11 +36,11 @@
 
             </pn:collapsiblePanel>
 
-            <pn:collapsiblePanel id="panel3" expanded="false" switchType="client">
-                <f:facet name="headerExpanded" >
+                <pn:collapsiblePanel id="panel3" expanded="false" switchType="client">
+                    <f:facet name="headerExpanded">
                     header expanded
                 </f:facet>
-                <f:facet name="headerCollapsed" >
+                    <f:facet name="headerCollapsed">
                     header collapsed
                 </f:facet>
 
@@ -51,9 +48,9 @@
 
             </pn:collapsiblePanel>
 
-        </h:form>
-    </ui:define>
-</ui:composition>
+            </h:form>
+        </ui:define>
+    </ui:composition>
 </body>
 </html>
 

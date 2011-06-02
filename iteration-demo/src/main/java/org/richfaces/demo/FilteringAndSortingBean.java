@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.demo;
 
 import java.util.Comparator;
@@ -28,22 +27,17 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
 import org.richfaces.component.SortOrder;
-
 import org.richfaces.demo.model.Employee;
 import org.richfaces.model.Filter;
 
-@ManagedBean(name="filteringAndSortingBean")
+@ManagedBean(name = "filteringAndSortingBean")
 @SessionScoped
 public class FilteringAndSortingBean {
-    
     private SortOrder nameSortOrder = SortOrder.unsorted;
-    
     private SortOrder emailSortOrder = SortOrder.unsorted;
-    
     private String nameFilterValue;
-
     private String titleFilterValue;
-    
+
     public Filter<?> getFilter() {
         return new Filter<Employee>() {
             public boolean accept(Employee employee) {
@@ -54,7 +48,7 @@ public class FilteringAndSortingBean {
             }
         };
     }
-    
+
     public Comparator<?> getComparator() {
         return new Comparator<Employee>() {
             public int compare(Employee o1, Employee o2) {
@@ -97,5 +91,4 @@ public class FilteringAndSortingBean {
     public String getNameFilterValue() {
         return nameFilterValue;
     }
-
 }

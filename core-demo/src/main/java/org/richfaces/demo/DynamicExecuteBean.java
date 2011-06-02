@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.demo;
 
 import java.io.Serializable;
@@ -36,13 +33,10 @@ import javax.faces.model.SelectItem;
 @ManagedBean(name = "dynamicExecuteBean")
 @SessionScoped
 public class DynamicExecuteBean implements Serializable {
-
     private static final long serialVersionUID = -486936947341873167L;
-
-    private static final SelectItem[] POSSIBLE_EXECUTE_OPTIONS = new SelectItem[] {
-        new SelectItem(null, "default"), new SelectItem("@none"), new SelectItem("@this"), new SelectItem("@form"),
-        new SelectItem("formId"), new SelectItem("anotherFormId"), new SelectItem("@all")
-    };
+    private static final SelectItem[] POSSIBLE_EXECUTE_OPTIONS = new SelectItem[] { new SelectItem(null, "default"),
+            new SelectItem("@none"), new SelectItem("@this"), new SelectItem("@form"), new SelectItem("formId"),
+            new SelectItem("anotherFormId"), new SelectItem("@all") };
     private int actionsCounter = 0;
     private Object execute = null;
     private String inputValue;

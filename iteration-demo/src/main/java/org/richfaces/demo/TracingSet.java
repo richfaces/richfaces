@@ -36,25 +36,21 @@ import com.google.common.collect.ForwardingSet;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class TracingSet<E> extends ForwardingSet<E> implements Serializable {
-
     private static final long serialVersionUID = 267329344963751893L;
-
     private static final Logger LOGGER = LogFactory.getLogger(TracingSet.class);
-    
+
     private class TracingIterator extends ForwardingIterator<E> {
-
         private final Iterator<E> itr = backingCollection.iterator();
-
         private E lastObject;
-        
+
         @Override
         protected Iterator<E> delegate() {
             return itr;
         }
-        
+
         @Override
         public E next() {
             try {
@@ -65,16 +61,16 @@ public class TracingSet<E> extends ForwardingSet<E> implements Serializable {
                 throw e;
             }
         }
-        
+
         @Override
         public void remove() {
             LOGGER.info("TracingSet.TracingIterator.remove() " + lastObject);
             super.remove();
         }
     }
-    
+
     private Set<E> backingCollection = new HashSet<E>();
-    
+
     @Override
     protected Set<E> delegate() {
         return backingCollection;

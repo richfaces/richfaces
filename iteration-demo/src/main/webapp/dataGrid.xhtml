@@ -1,11 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:it="http://richfaces.org/iteration"
-	xmlns:a4j="http://richfaces.org/a4j"
-	>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:it="http://richfaces.org/iteration" xmlns:a4j="http://richfaces.org/a4j">
 
 <!--JBoss, Home of Professional Open Source
 Copyright ${year}, Red Hat, Inc. and individual contributors
@@ -34,29 +29,29 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 <f:view contentType="text/html" />
 
 <h:head>
-	<title>Richfaces Tables</title>
+    <title>Richfaces Tables</title>
 </h:head>
 
 <h:body>
-	<h:form id="form1">
-		<it:dataGrid id="dataGrid" columns="3" var="record" elements="8" value="#{dataBean.employeeList}">
-			<f:facet name="header">
-				<h:outputText value="header"/>
-			</f:facet>
-			
-			<f:facet name="caption">
-				<h:outputText value="caption"/>
-			</f:facet>
+    <h:form id="form1">
+        <it:dataGrid id="dataGrid" columns="3" var="record" elements="8" value="#{dataBean.employeeList}">
+            <f:facet name="header">
+                <h:outputText value="header" />
+            </f:facet>
 
-			<h:outputText value="#{record.name}"/> 
-			<h:outputText value="#{record.title}"/> 
-			<h:outputText value="#{record.EMail}"/>
-			
-			<f:facet name="footer">
-				<it:dataScroller id="scroller3" for="dataGrid" page="#{dataBean.page}" maxPages="7"></it:dataScroller>
-			</f:facet>
-			 
-		</it:dataGrid>
-	</h:form>
+            <f:facet name="caption">
+                <h:outputText value="caption" />
+            </f:facet>
+
+            <h:outputText value="#{record.name}" />
+            <h:outputText value="#{record.title}" />
+            <h:outputText value="#{record.EMail}" />
+
+            <f:facet name="footer">
+                <it:dataScroller id="scroller3" for="dataGrid" page="#{dataBean.page}" maxPages="7"></it:dataScroller>
+            </f:facet>
+
+        </it:dataGrid>
+    </h:form>
 </h:body>
 </html>

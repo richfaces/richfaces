@@ -21,7 +21,6 @@
  */
 package demo;
 
-
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.Date;
@@ -38,57 +37,49 @@ import org.richfaces.log.Logger;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @ManagedBean
 @SessionScoped
 public class ChatBean implements Serializable {
-
     private static final long serialVersionUID = -6377543444437645751L;
-
     private static final Logger LOGGER = LogFactory.getLogger(ChatBean.class);
-    
     private String userName;
-    
     private String message;
-    
     private boolean chatJoined;
-    
     private String subchannel;
-
     @ManagedProperty("#{channelsBean}")
     private ChannelsBean channelsBean;
-
     @ManagedProperty("#{jmsBean}")
     private JMSBean jmsBean;
 
     private TopicsContext lookupTopicsContext() {
         return TopicsContext.lookup();
     }
-    
+
     public String getMessage() {
         return message;
     }
-    
+
     public void setMessage(String message) {
         this.message = message;
     }
-    
+
     public String getUserName() {
         return userName;
     }
-    
+
     public void setUserName(String userName) {
         this.userName = userName;
     }
-    
+
     private void sendJMSMessage(TopicKey key, String text) {
         jmsBean.publish(key, text);
     }
-    
+
     private void sendMessage(TopicKey key, String text) {
         sendJMSMessage(key, text);
-        //sendSimpleMessage(key, text);
+        // sendSimpleMessage(key, text);
     }
 
     private void sendSimpleMessage(TopicKey key, String text) {
@@ -98,26 +89,26 @@ public class ChatBean implements Serializable {
             LOGGER.error(e.getMessage(), e);
         }
     }
-    
+
     private void publishStateChangeMessage(String name, String action) {
-        sendMessage(new TopicKey("chat", name), MessageFormat.format("*** {0} {1} chat in {2,time,medium}", 
-            userName, action, new Date()));
+        sendMessage(new TopicKey("chat", name),
+                MessageFormat.format("*** {0} {1} chat in {2,time,medium}", userName, action, new Date()));
     }
-    
+
     public void joinChat() {
         if (!chatJoined) {
             if (userName == null) {
                 throw new NullPointerException("username");
             }
-            
+
             chatJoined = true;
-            
+
             for (Channel subchannel : channelsBean.getChannels()) {
                 publishStateChangeMessage(subchannel.getName(), "joined");
             }
         }
     }
-    
+
     public void handleStateChange(Channel channel) {
         String action;
         if (channel.isRendered()) {
@@ -130,17 +121,17 @@ public class ChatBean implements Serializable {
     }
 
     public void say() {
-        sendMessage(new TopicKey("chat", subchannel), MessageFormat.format("{0,time,medium} {1}: {2}", new Date(), 
-            userName, message));
+        sendMessage(new TopicKey("chat", subchannel),
+                MessageFormat.format("{0,time,medium} {1}: {2}", new Date(), userName, message));
     }
-    
+
     /**
      * @return the subchannel
      */
     public String getSubchannel() {
         return subchannel;
     }
-    
+
     /**
      * @param subchannel the subchannel to set
      */

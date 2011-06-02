@@ -14,7 +14,6 @@ import org.richfaces.event.CurrentDateChangeEvent;
 @ManagedBean
 @SessionScoped
 public class CalendarBean {
-
     private Locale locale;
     private boolean popup;
     private String pattern;
@@ -43,7 +42,7 @@ public class CalendarBean {
     public void setMode(String mode) {
         this.mode = mode;
     }
-    
+
     public Locale getLocale() {
         return locale;
     }
@@ -133,13 +132,14 @@ public class CalendarBean {
     public int getVerticalOffset() {
         return verticalOffset;
     }
-    
+
     public void doValueChangeListener(ValueChangeEvent event) {
-        System.out.println("doValueChangeListener: old value = " + event.getOldValue()+", new value = "+event.getNewValue());
+        System.out
+                .println("doValueChangeListener: old value = " + event.getOldValue() + ", new value = " + event.getNewValue());
     }
-    
+
     public void doCurrentDataChangeListener(CurrentDateChangeEvent event) {
-        System.out.println("doCurrentDataChangeListener: "+event.getCurrentDateString());
+        System.out.println("doCurrentDataChangeListener: " + event.getCurrentDateString());
     }
 
     public Positioning[] getPositioningValues() {

@@ -32,18 +32,14 @@ import com.google.common.collect.Iterators;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class LazyTreeNode implements TreeNode, Serializable {
-
     private static final long serialVersionUID = 7222747310505408841L;
-
     private TreeNode srcNode;
-    
     private LazyTreeNode parentNode;
-    
     private List<LazyTreeNode> children = null;
-    
+
     public LazyTreeNode(LazyTreeNode parentNode, TreeNode srcNode) {
         super();
         this.parentNode = parentNode;
@@ -58,25 +54,25 @@ public class LazyTreeNode implements TreeNode, Serializable {
         if (children != null) {
             return;
         }
-        
+
         children = new ArrayList<LazyTreeNode>();
-        
+
         Enumeration srcChildren = srcNode.children();
         while (srcChildren.hasMoreElements()) {
             TreeNode srcChild = (TreeNode) srcChildren.nextElement();
             children.add(new LazyTreeNode(this, srcChild));
         }
     }
-    
+
     public TreeNode getChildAt(int childIndex) {
         initializeChildren();
-        
+
         return children.get(childIndex);
     }
 
     public int getChildCount() {
         initializeChildren();
-        
+
         return children.size();
     }
 
@@ -98,7 +94,7 @@ public class LazyTreeNode implements TreeNode, Serializable {
 
     public Enumeration children() {
         initializeChildren();
-        
+
         return Iterators.asEnumeration(children.iterator());
     }
 

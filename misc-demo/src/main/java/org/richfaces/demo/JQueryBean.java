@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.demo;
 
 import java.util.ArrayList;
@@ -36,15 +35,13 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class JQueryBean {
-
     private List<String> componentsDataList;
-
     private List<String> emphasizedElements;
 
     public JQueryBean() {
         componentsDataList = new ArrayList<String>();
         addComponent();
-        
+
         emphasizedElements = new ArrayList<String>();
         for (int i = 0; i < 4; i++) {
             emphasizedElements.add(UUID.randomUUID().toString());

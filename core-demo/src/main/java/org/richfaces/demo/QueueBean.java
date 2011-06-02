@@ -24,17 +24,15 @@ package org.richfaces.demo;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-
 /**
  * @author Konstantin Mishin
- * 
+ *
  */
 @ManagedBean
 @SessionScoped
 public class QueueBean {
-    
     private int counter;
-    
+
     public void increment() throws InterruptedException {
         Thread.sleep(2000);
         counter++;

@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:a4j="http://richfaces.org/a4j">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j">
 <f:view>
-	<h:head>
-	</h:head>
-	<h:body>
-		<a4j:mediaOutput createContent="#{mediaOutputBean.createContent}" value="richfaces.jpg" 
-			element="img" /><br />
-		<h:form>
-			<a4j:mediaOutput createContent="#{mediaOutputBean.createContent}" value="richfaces-twitter.jpg" 
-				element="img" cacheable="true" fileName="richfaces-twitter.jpg">
-			    	<f:ajax event="dblclick" listener="#{commandBean.listener}" />
-			</a4j:mediaOutput><br />
-		</h:form>
-	</h:body>
+    <h:head>
+    </h:head>
+    <h:body>
+        <a4j:mediaOutput createContent="#{mediaOutputBean.createContent}" value="richfaces.jpg" element="img" />
+        <br />
+        <h:form>
+            <a4j:mediaOutput createContent="#{mediaOutputBean.createContent}" value="richfaces-twitter.jpg" element="img"
+                cacheable="true" fileName="richfaces-twitter.jpg">
+                <f:ajax event="dblclick" listener="#{commandBean.listener}" />
+            </a4j:mediaOutput>
+            <br />
+        </h:form>
+    </h:body>
 </f:view>
 </html>

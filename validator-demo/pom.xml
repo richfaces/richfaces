@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <parent>
         <groupId>org.richfaces.examples</groupId>
@@ -23,6 +24,9 @@
         <finalName>validator-demo</finalName>
         <plugins>
             <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+            </plugin>
+            <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <webResources>
@@ -37,28 +41,27 @@
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>maven-jetty-plugin</artifactId>
             </plugin>
-		</plugins>
+        </plugins>
     </build>
-
 
     <dependencies>
         <dependency>
-        	<groupId>org.richfaces.examples</groupId>
-        	<artifactId>template</artifactId>
-        	<version>4.1.0-SNAPSHOT</version>
-        	<type>war</type>
+            <groupId>org.richfaces.examples</groupId>
+            <artifactId>template</artifactId>
+            <version>4.1.0-SNAPSHOT</version>
+            <type>war</type>
         </dependency>
         <dependency>
-        	<groupId>org.richfaces.ui.validator</groupId>
-        	<artifactId>richfaces-ui-validator-ui</artifactId>
+            <groupId>org.richfaces.ui.validator</groupId>
+            <artifactId>richfaces-ui-validator-ui</artifactId>
         </dependency>
         <dependency>
-        	<groupId>org.richfaces.ui.validator</groupId>
-        	<artifactId>richfaces-ui-validator-api</artifactId>
+            <groupId>org.richfaces.ui.validator</groupId>
+            <artifactId>richfaces-ui-validator-api</artifactId>
         </dependency>
         <dependency>
-        	<groupId>javax.validation</groupId>
-        	<artifactId>validation-api</artifactId>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -69,16 +72,16 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.5.11</version>
-        </dependency>       
+        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>1.5.11</version>
         </dependency>
         <dependency>
-        	<groupId>javax.servlet</groupId>
-        	<artifactId>jstl</artifactId>
-        	<version>1.2</version>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
         </dependency>
     </dependencies>
 </project>

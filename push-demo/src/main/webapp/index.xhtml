@@ -1,22 +1,21 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core">
 
-	<f:view>
-		<h:head>
-		</h:head>
-		<h:body>
-			<h:form id="form">
-				Enter username: <h:inputText value="#{username}" required="true" />
-				<h:commandLink action="chat" value="Enter chat" />
-			</h:form>
-			<h:link value="Test with bad user name" outcome="chat">
-				<f:param name="username" value="badname" />
-			</h:link>
-		</h:body>
-	</f:view>
+<f:view>
+    <h:head>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            Enter username:
+            <h:inputText value="#{username}" required="true" />
+            <h:commandLink action="chat" value="Enter chat" />
+        </h:form>
+        <h:link value="Test with bad user name" outcome="chat">
+            <f:param name="username" value="badname" />
+        </h:link>
+    </h:body>
+</f:view>
 </html>

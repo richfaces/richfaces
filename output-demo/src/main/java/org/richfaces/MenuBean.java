@@ -18,7 +18,7 @@ public class MenuBean {
     public void setCheckbox(boolean checkbox) {
         this.checkbox = checkbox;
     }
-    
+
     public boolean isDisabled() {
         return disabled;
     }
@@ -26,7 +26,7 @@ public class MenuBean {
     public void setDisabled(boolean disabled) {
         this.disabled = disabled;
     }
-    
+
     public String getMode() {
         return mode;
     }
@@ -34,35 +34,39 @@ public class MenuBean {
     public void setMode(String mode) {
         this.mode = mode;
     }
-    
+
     public String getCurrent() {
         return this.current;
     }
-    
+
     public void setCurrent(String current) {
         this.current = current;
     }
-    
+
     public String doNew() {
-        this.current="New";
+        this.current = "New";
         return null;
     }
+
     public String doOpen() {
-        this.current="Open";
+        this.current = "Open";
         return null;
     }
+
     public String doClose() {
-        this.current="Close";
+        this.current = "Close";
         return null;
     }
+
     public String doSave() {
-        this.current="Save";
+        this.current = "Save";
         return null;
     }
+
     public String doExit() {
-        this.current="Exit";
+        this.current = "Exit";
         return null;
-    }    
+    }
 
     public void setValue(String value) {
         this.current = value;

@@ -37,19 +37,15 @@ import com.google.common.collect.Lists;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @ManagedBean(name = "rf10888")
 @SessionScoped
 public class RF10888 {
-
     private String name;
-    
     private String surname;
-    
     private String email;
-
-    @ManagedProperty(value = "#{persistenceService}") 
+    @ManagedProperty(value = "#{persistenceService}")
     private PersistenceService persistenceService;
 
     public String getName() {
@@ -79,17 +75,19 @@ public class RF10888 {
     public void setPersistenceService(PersistenceService persistenceService) {
         this.persistenceService = persistenceService;
     }
-    
+
     private Predicate<Person> contains(String value, Function<Person, CharSequence> accessor) {
-        return Predicates.compose(Predicates.contains(Pattern.compile(Pattern.quote(value), Pattern.CASE_INSENSITIVE)), accessor);
+        return Predicates.compose(Predicates.contains(Pattern.compile(Pattern.quote(value), Pattern.CASE_INSENSITIVE)),
+                accessor);
     }
-    
+
     public Object getFilteredData() {
         @SuppressWarnings("unchecked")
-        List<Person> resultList = (List<Person>) persistenceService.getEntityManager().createQuery("SELECT p from Person as p").getResultList();
-        
+        List<Person> resultList = (List<Person>) persistenceService.getEntityManager().createQuery("SELECT p from Person as p")
+                .getResultList();
+
         List<Predicate<Person>> predicates = Lists.newArrayList();
-        
+
         if (!Strings.isNullOrEmpty(name)) {
             predicates.add(contains(name, new Function<Person, CharSequence>() {
                 public CharSequence apply(Person input) {
@@ -111,8 +109,7 @@ public class RF10888 {
                 }
             }));
         }
-        
+
         return Lists.newArrayList(Collections2.filter(resultList, Predicates.and(predicates)));
     }
-    
 }

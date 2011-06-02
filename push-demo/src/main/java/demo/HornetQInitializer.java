@@ -48,10 +48,9 @@ import org.richfaces.application.push.PushContextFactory;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class HornetQInitializer implements SystemEventListener {
-
     private JMSServerManager serverManager;
 
     public void processEvent(SystemEvent event) throws AbortProcessingException {
@@ -62,9 +61,9 @@ public class HornetQInitializer implements SystemEventListener {
                 throw new AbortProcessingException(e);
             }
 
-            //force push context initialization so that its PreDestroyApplicationevent listener is added before HornetQ stopper
+            // force push context initialization so that its PreDestroyApplicationevent listener is added before HornetQ stopper
             ServiceTracker.getService(PushContextFactory.class).getPushContext();
-            
+
             Application application = FacesContext.getCurrentInstance().getApplication();
             application.subscribeToEvent(PreDestroyApplicationEvent.class, this);
         } else {
@@ -77,8 +76,8 @@ public class HornetQInitializer implements SystemEventListener {
     }
 
     /**
-     * @throws Exception 
-     * 
+     * @throws Exception
+     *
      */
     private void stopHornetQ() throws Exception {
         serverManager.stop();
@@ -86,8 +85,8 @@ public class HornetQInitializer implements SystemEventListener {
     }
 
     /**
-     * @throws Exception 
-     * 
+     * @throws Exception
+     *
      */
     private void startHornetQ() throws Exception {
         // Step 2. Create the Configuration, and set the properties accordingly
@@ -105,19 +104,20 @@ public class HornetQInitializer implements SystemEventListener {
         // Step 3. Create and start the server
         HornetQServer server = HornetQServers.newHornetQServer(configuration);
 
-        serverManager = new JMSServerManagerImpl(server);  
+        serverManager = new JMSServerManagerImpl(server);
 
-        //if you want to use JNDI, simple inject a context here or don't call this method and make sure the JNDI parameters are set.  
+        // if you want to use JNDI, simple inject a context here or don't call this method and make sure the JNDI parameters are
+        // set.
         InitialContext context = new InitialContext();
-        serverManager.setContext(context);  
-        serverManager.start();  
+        serverManager.setContext(context);
+        serverManager.start();
 
-        ConnectionFactoryConfiguration connectionFactoryConfiguration = new ConnectionFactoryConfigurationImpl("ConnectionFactory", new TransportConfiguration(NettyConnectorFactory.class.getName()), 
-            (String) null);
+        ConnectionFactoryConfiguration connectionFactoryConfiguration = new ConnectionFactoryConfigurationImpl(
+                "ConnectionFactory", new TransportConfiguration(NettyConnectorFactory.class.getName()), (String) null);
         connectionFactoryConfiguration.setUseGlobalPools(false);
-        
+
         serverManager.createConnectionFactory(false, connectionFactoryConfiguration, "ConnectionFactory");
-        
+
         serverManager.createTopic(false, "chat", "/topic/chat");
         serverManager.createTopic(false, "info", "/topic/info");
     }
@@ -125,5 +125,4 @@ public class HornetQInitializer implements SystemEventListener {
     public boolean isListenerForSource(Object source) {
         return true;
     }
-
 }

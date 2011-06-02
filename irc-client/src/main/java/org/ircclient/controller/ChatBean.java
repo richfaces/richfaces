@@ -24,7 +24,6 @@ import org.richfaces.log.Logger;
 @ManagedBean
 @SessionScoped
 public class ChatBean extends PircBot implements Serializable {
-
     private static final long serialVersionUID = -4945680041914388092L;
     private static final String SERVER_URL = "irc.freenode.org";
     private static final int SERVER_PORT = 6667;
@@ -32,10 +31,8 @@ public class ChatBean extends PircBot implements Serializable {
     private static final String SUBTOPIC_SEPARATOR = "_";
     private static final String DEFAULT_CHANNEL = "richfaces";
     private static final Logger LOGGER = LogFactory.getLogger(ChatBean.class);
-
     private String channelName;
     private String message;
-
     private transient TopicsContext topicsContext;
 
     public String connect() {
@@ -45,22 +42,22 @@ public class ChatBean extends PircBot implements Serializable {
             channelName = DEFAULT_CHANNEL;
         } catch (NickAlreadyInUseException e) {
             FacesContext.getCurrentInstance().addMessage(
-                null,
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, this.getName() + " nick already in use", this.getName()
-                    + " nick already in use"));
+                    null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, this.getName() + " nick already in use", this.getName()
+                            + " nick already in use"));
             return null;
         } catch (IOException e) {
             FacesContext.getCurrentInstance().addMessage(
-                null,
-                new FacesMessage(FacesMessage.SEVERITY_ERROR, "Sorry, server unresponsible. Try again later.",
-                    "Sorry, server unresponsible. Try again later."));
+                    null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Sorry, server unresponsible. Try again later.",
+                            "Sorry, server unresponsible. Try again later."));
             return null;
         } catch (IrcException e) {
             FacesContext.getCurrentInstance().addMessage(
-                null,
-                new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Sorry, we encountered IRC services problems. Try again later.",
-                    "Sorry, we encountered IRC services problems. Try again later."));
+                    null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                            "Sorry, we encountered IRC services problems. Try again later.",
+                            "Sorry, we encountered IRC services problems. Try again later."));
             return null;
         }
         return "chat";
@@ -131,8 +128,8 @@ public class ChatBean extends PircBot implements Serializable {
     protected void onNickChange(String oldNick, String login, String hostname, String newNick) {
         try {
             getTopicsContext().publish(new TopicKey("chat", getListSubtopic()), null);
-            Message messageObject = new Message(" changed nick to " + newNick, oldNick, DateFormat.getInstance()
-                .format(new Date()));
+            Message messageObject = new Message(" changed nick to " + newNick, oldNick, DateFormat.getInstance().format(
+                    new Date()));
             getTopicsContext().publish(new TopicKey("chat", getMessagesSubtopic()), messageObject);
         } catch (MessageException e) {
             LOGGER.error(e.getMessage(), e);
@@ -143,8 +140,8 @@ public class ChatBean extends PircBot implements Serializable {
     protected void onQuit(String sourceNick, String sourceLogin, String sourceHostname, String reason) {
         try {
             getTopicsContext().publish(new TopicKey("chat", getListSubtopic()), null);
-            Message messageObject = new Message("left channel" + reason, sourceNick, DateFormat.getInstance().format(
-                new Date()));
+            Message messageObject = new Message("left channel" + reason, sourceNick, DateFormat.getInstance()
+                    .format(new Date()));
             getTopicsContext().publish(new TopicKey("chat", getMessagesSubtopic()), messageObject);
         } catch (MessageException e) {
             LOGGER.error(e.getMessage(), e);
@@ -200,5 +197,4 @@ public class ChatBean extends PircBot implements Serializable {
     public void setMessage(String message) {
         this.message = message;
     }
-
 }

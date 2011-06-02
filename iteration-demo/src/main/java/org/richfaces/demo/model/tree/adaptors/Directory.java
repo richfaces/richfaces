@@ -26,30 +26,25 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
- * @author Nick Belaevski
- *         mailto:nbelaevski@exadel.com
- *         created 24.07.2007
+ * @author Nick Belaevski mailto:nbelaevski@exadel.com created 24.07.2007
  *
  */
 public class Directory extends Entry {
-
     @XmlElement(name = "directory")
     private List<Directory> directories;
-    
     @XmlElement(name = "file")
     private List<File> files;
- 
     @XmlElement(name = "archive")
     private List<ArchiveFile> archiveFiles;
- 
+
     public List<Directory> getDirectories() {
         return directories;
     }
-    
+
     public List<File> getFiles() {
         return files;
     }
-    
+
     public List<ArchiveFile> getArchiveFiles() {
         return archiveFiles;
     }

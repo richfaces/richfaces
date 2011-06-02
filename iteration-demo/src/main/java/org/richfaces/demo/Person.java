@@ -27,24 +27,20 @@ import javax.persistence.Id;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @Entity
 public class Person {
-    
     private String name;
-    
     private String surname;
-
     private String email;
-    
     @Id
     @GeneratedValue
     private Long id;
 
     public Person() {
     }
-    
+
     public Person(String name) {
         super();
         this.name = name;
@@ -80,5 +76,5 @@ public class Person {
 
     public void setEmail(String email) {
         this.email = email;
-    }    
+    }
 }

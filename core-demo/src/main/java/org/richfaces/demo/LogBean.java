@@ -28,24 +28,19 @@ import org.richfaces.component.LogMode;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @ManagedBean
 @SessionScoped
 public class LogBean {
-
-    private static final LogMode[] LOG_MODES = new LogMode[] {
-        LogMode.inline, LogMode.popup
-    };
-    
+    private static final LogMode[] LOG_MODES = new LogMode[] { LogMode.inline, LogMode.popup };
     private LogMode mode = LogMode.inline;
-
     private Character hotkey = 'l';
-    
+
     public LogMode getMode() {
         return mode;
     }
-    
+
     public void setMode(LogMode logMode) {
         this.mode = logMode;
     }
@@ -57,7 +52,7 @@ public class LogBean {
     public void setHotkey(Character hotkey) {
         this.hotkey = hotkey;
     }
-    
+
     public LogMode[] getLogModes() {
         return LOG_MODES;
     }

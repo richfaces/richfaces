@@ -31,29 +31,29 @@ RichFaces.QUnit.run(function() {
 
     function testFirst(items) {
 
-        ok( isLabelVisible(items[0], "act"), "1 item: active visible");
+        ok(isLabelVisible(items[0], "act"), "1 item: active visible");
         ok(!isLabelVisible(items[0], "inact"), "1 item: inactive unvisible");
-        ok(!isLabelVisible(items[0],"dis"), "1 item: disabled unvisible");
+        ok(!isLabelVisible(items[0], "dis"), "1 item: disabled unvisible");
 
-        ok(!isLabelVisible(items[1],"act"), "2 item: active visible");
-        ok(!isLabelVisible(items[1],"inact"), "2 item: inactive unvisible");
-        ok( isLabelVisible(items[1],"dis"), "2 item: disabled unvisible");
+        ok(!isLabelVisible(items[1], "act"), "2 item: active visible");
+        ok(!isLabelVisible(items[1], "inact"), "2 item: inactive unvisible");
+        ok(isLabelVisible(items[1], "dis"), "2 item: disabled unvisible");
 
         ok(!isLabelVisible(items[2], "act"), "3 item: active unvisible");
-        ok( isLabelVisible(items[2], "inact"), "3 item: inactive visible");
+        ok(isLabelVisible(items[2], "inact"), "3 item: inactive visible");
         ok(!isLabelVisible(items[2], "dis"), "3 item: disabled unvisible");
     }
 
     function testLast(items) {
         ok(!isLabelVisible(items[0], "act"), "1 item: active unvisible");
-        ok( isLabelVisible(items[0], "inact"), "1 item: inactive visible");
+        ok(isLabelVisible(items[0], "inact"), "1 item: inactive visible");
         ok(!isLabelVisible(items[0], "dis"), "1 item: disabled unvisible");
 
         ok(!isLabelVisible(items[1], "act"), "2 item: active visible");
         ok(!isLabelVisible(items[1], "inact"), "2 item: inactive unvisible");
-        ok( isLabelVisible(items[1], "dis"), "2 item: disabled unvisible");
+        ok(isLabelVisible(items[1], "dis"), "2 item: disabled unvisible");
 
-        ok( isLabelVisible(items[2], "act"), "3 item: active visible");
+        ok(isLabelVisible(items[2], "act"), "3 item: active visible");
         ok(!isLabelVisible(items[2], "inact"), "3 item: inactive unvisible");
         ok(!isLabelVisible(items[2], "dis"), "3 item: disabled unvisible");
     }
@@ -97,7 +97,7 @@ RichFaces.QUnit.run(function() {
 
         c.switchToItem(items[0].getName());
         testFirst(items);
-        
+
         c.switchToItem(items[1].getName());
         testFirst(items);
     });

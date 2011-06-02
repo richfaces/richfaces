@@ -29,14 +29,12 @@ import javax.faces.lifecycle.LifecycleFactory;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class PersistenceLifecycleFactory extends LifecycleFactory implements FacesWrapper<LifecycleFactory> {
-
     private LifecycleFactory lifecycleFactory;
-    
     private Lifecycle defaultLifecycle;
-    
+
     public PersistenceLifecycleFactory(LifecycleFactory lifecycleFactory) {
         super();
         this.lifecycleFactory = lifecycleFactory;
@@ -53,20 +51,19 @@ public class PersistenceLifecycleFactory extends LifecycleFactory implements Fac
             if (defaultLifecycle == null) {
                 createDefaultLifecycle();
             }
-            
+
             return defaultLifecycle;
         }
-        
+
         return lifecycleFactory.getLifecycle(lifecycleId);
     }
 
     private void createDefaultLifecycle() {
         defaultLifecycle = new PersistenceLifecycle(lifecycleFactory.getLifecycle(DEFAULT_LIFECYCLE));
     }
-    
+
     @Override
     public Iterator<String> getLifecycleIds() {
         return lifecycleFactory.getLifecycleIds();
     }
-
 }

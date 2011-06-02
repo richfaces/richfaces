@@ -127,21 +127,25 @@ RichFaces.QUnit.run(function() {
         var switchHandler = handler("switch handler invoked", undefined);
         var switchHandlerWrapper = RichFaces.Event.bindById(PANEL_MENU_GROUP_ID, "switch", switchHandler);
 
-        c.switch();
+        c.
+        switch () ;
 
-        RichFaces.Event.unbindById(PANEL_MENU_GROUP_ID, "beforeswitch", beforeSwitchHandlerWrapper);
-        RichFaces.Event.unbindById(PANEL_MENU_GROUP_ID, "switch", switchHandlerWrapper);
+            RichFaces.Event.unbindById(PANEL_MENU_GROUP_ID, "beforeswitch", beforeSwitchHandlerWrapper);
+            RichFaces.Event.unbindById(PANEL_MENU_GROUP_ID, "switch", switchHandlerWrapper);
 
-        // TODO undo changes
+            // TODO undo changes
+        }
+
+        test("RichFaces.ui.Tooltip.switch test", function () {
+            testSwitchEvents(false);
+        });
+
+        test("RichFaces.ui.Tooltip.switch test cancelable event", function () {
+            testSwitchEvents(true);
+        });
+
+
     }
 
-    test("RichFaces.ui.Tooltip.switch test", function () {
-        testSwitchEvents(false);
-    });
-
-    test("RichFaces.ui.Tooltip.switch test cancelable event", function () {
-        testSwitchEvents(true);
-    });
-
-
-});
+    )
+    ;
