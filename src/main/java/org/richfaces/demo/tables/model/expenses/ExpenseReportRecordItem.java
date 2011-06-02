@@ -1,7 +1,6 @@
 package org.richfaces.demo.tables.model.expenses;
 
 public class ExpenseReportRecordItem {
-
     private String city;
     private String day;
     private double meals;

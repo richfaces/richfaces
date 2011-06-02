@@ -65,5 +65,4 @@ public class CDXmlDescriptor implements Serializable {
     public void setYear(int year) {
         this.year = year;
     }
-
 }

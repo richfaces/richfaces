@@ -13,12 +13,11 @@ import org.richfaces.model.UploadedFile;
 
 /**
  * @author Ilya Shaikovsky
- * 
+ *
  */
 @ManagedBean
 @SessionScoped
 public class FileUploadBean implements Serializable {
-
     private ArrayList<UploadedImage> files = new ArrayList<UploadedImage>();
 
     public void paint(OutputStream stream, Object object) throws IOException {
@@ -59,5 +58,4 @@ public class FileUploadBean implements Serializable {
     public void setFiles(ArrayList<UploadedImage> files) {
         this.files = files;
     }
-
 }

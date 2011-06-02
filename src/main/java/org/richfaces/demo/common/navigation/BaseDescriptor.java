@@ -6,9 +6,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
 public class BaseDescriptor implements Serializable {
-
     private static final long serialVersionUID = 5614594358147757458L;
-    
     private String id;
     private String name;
     private boolean newItem;
@@ -39,7 +37,7 @@ public class BaseDescriptor implements Serializable {
     public void setCurrentItem(boolean currentItem) {
         this.currentItem = currentItem;
     }
-    
+
     @XmlElement
     public String getId() {
         return id;

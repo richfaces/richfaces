@@ -14,25 +14,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 @ManagedBean
 @ApplicationScoped
 public class NavigationParser {
-
     private List<GroupDescriptor> groupsList;
-    
+
     @XmlRootElement(name = "root")
     private static final class CapitalsHolder {
-        
         private List<GroupDescriptor> groups;
-        
+
         @XmlElement(name = "group")
         public List<GroupDescriptor> getGroups() {
             return groups;
         }
-        
+
         @SuppressWarnings("unused")
         public void setGroups(List<GroupDescriptor> groups) {
             this.groups = groups;
         }
     }
-    
+
     public synchronized List<GroupDescriptor> getGroupsList() {
         if (groupsList == null) {
             ClassLoader ccl = Thread.currentThread().getContextClassLoader();
@@ -46,7 +44,7 @@ public class NavigationParser {
                 throw new FacesException(e.getMessage(), e);
             }
         }
-        
+
         return groupsList;
     }
 }

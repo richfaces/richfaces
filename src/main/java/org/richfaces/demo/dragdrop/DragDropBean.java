@@ -20,17 +20,12 @@ import com.google.common.collect.Lists;
 @ManagedBean
 @ViewScoped
 public class DragDropBean implements Serializable {
-
     private static final long serialVersionUID = 1416925735640720492L;
-
     private static final FrameworkFamilyPredicate CF_PREDICATE = new FrameworkFamilyPredicate(cf);
-
     private static final FrameworkFamilyPredicate DOT_NET_PREDICATE = new FrameworkFamilyPredicate(dotNet);
-
     private static final FrameworkFamilyPredicate PHP_PREDICATE = new FrameworkFamilyPredicate(php);
 
     private static final class FrameworkFamilyPredicate implements Predicate<Framework> {
-
         private Framework.Family family;
 
         public FrameworkFamilyPredicate(Family family) {
@@ -41,11 +36,9 @@ public class DragDropBean implements Serializable {
         public boolean apply(Framework input) {
             return family.equals(input.getFamily());
         }
-
     }
 
     private List<Framework> source;
-
     private List<Framework> target;
 
     public DragDropBean() {
@@ -98,5 +91,4 @@ public class DragDropBean implements Serializable {
         source.add(new Framework("Symfony", php));
         source.add(new Framework("PowerWEB", dotNet));
     }
-
 }

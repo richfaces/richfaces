@@ -7,7 +7,7 @@ import javax.faces.bean.ViewScoped;
 
 @ManagedBean
 @ViewScoped
-public class Profile implements Serializable{
+public class Profile implements Serializable {
     private String firstName;
     private String lastName;
     private String company;

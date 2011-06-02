@@ -4,9 +4,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 public class InventoryVendorItem implements Serializable {
-
     private static final long serialVersionUID = -5424674835711375626L;
-    
     BigDecimal activity;
     BigDecimal changePrice;
     BigDecimal changeSearches;

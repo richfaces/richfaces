@@ -11,29 +11,26 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-
 @ManagedBean
 @ApplicationScoped
 public class CapitalsParser {
-
     private List<Capital> capitalsList;
-    
+
     @XmlRootElement(name = "capitals")
     private static final class CapitalsHolder {
-        
         private List<Capital> capitals;
-        
+
         @XmlElement(name = "capital")
         public List<Capital> getCapitals() {
             return capitals;
         }
-        
+
         @SuppressWarnings("unused")
         public void setCapitals(List<Capital> capitals) {
             this.capitals = capitals;
         }
     }
-    
+
     public synchronized List<Capital> getCapitalsList() {
         if (capitalsList == null) {
             ClassLoader ccl = Thread.currentThread().getContextClassLoader();
@@ -47,7 +44,7 @@ public class CapitalsParser {
                 throw new FacesException(e.getMessage(), e);
             }
         }
-        
+
         return capitalsList;
     }
 }

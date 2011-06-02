@@ -27,19 +27,16 @@ import javax.faces.event.PhaseListener;
 import javax.faces.lifecycle.Lifecycle;
 
 class PersistenceLifecycle extends Lifecycle {
-
     private static final class PersistenceServiceRef {
-        
-        static final PersistenceService PERSISTENCE_SERVICE = (PersistenceService) FacesContext.getCurrentInstance().
-            getExternalContext().getApplicationMap().get("persistenceService");
-        
+        static final PersistenceService PERSISTENCE_SERVICE = (PersistenceService) FacesContext.getCurrentInstance()
+                .getExternalContext().getApplicationMap().get("persistenceService");
+
         private PersistenceServiceRef() {
         }
-        
     }
-    
+
     private Lifecycle lifecycle;
-    
+
     public PersistenceLifecycle(Lifecycle lifecycle) {
         this.lifecycle = lifecycle;
     }
@@ -71,6 +68,4 @@ class PersistenceLifecycle extends Lifecycle {
             PersistenceServiceRef.PERSISTENCE_SERVICE.closeEntityManager();
         }
     }
-
-
 }

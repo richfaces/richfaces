@@ -16,14 +16,15 @@ import javax.faces.context.FacesContext;
 import com.google.common.base.Function;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+
 public class FileSystemNode {
-    
     private static final Function<String, FileSystemNode> FACTORY = new Function<String, FileSystemNode>() {
         public FileSystemNode apply(String from) {
             return new FileSystemNode(from.substring(0, from.length() - 1));
-        };
-    };
+        }
 
+        ;
+    };
     private static final Function<String, String> TO_SHORT_PATH = new Function<String, String>() {
         public String apply(String from) {
             int idx = from.lastIndexOf('/');
@@ -31,17 +32,15 @@ public class FileSystemNode {
             if (idx < 0) {
                 return from;
             }
-            
+
             return from.substring(idx + 1);
-        };
+        }
+
+        ;
     };
-    
     private String path;
-
     private List<FileSystemNode> directories;
-
     private List<String> files;
-    
     private String shortPath;
 
     public FileSystemNode(String path) {
@@ -53,7 +52,7 @@ public class FileSystemNode {
             shortPath = path;
         }
     }
-    
+
     public synchronized List<FileSystemNode> getDirectories() {
         if (directories == null) {
             directories = Lists.newArrayList();
@@ -67,10 +66,10 @@ public class FileSystemNode {
     public synchronized List<String> getFiles() {
         if (files == null) {
             files = new ArrayList<String>();
-            
+
             Iterables.addAll(files, transform(filter(getResourcePaths(), not(containsPattern("/$"))), TO_SHORT_PATH));
         }
-        
+
         return files;
     }
 
@@ -78,16 +77,15 @@ public class FileSystemNode {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ExternalContext externalContext = facesContext.getExternalContext();
         Set<String> resourcePaths = externalContext.getResourcePaths(this.path);
-        
+
         if (resourcePaths == null) {
             resourcePaths = Collections.emptySet();
         }
-        
+
         return resourcePaths;
     }
-    
+
     public String getShortPath() {
         return shortPath;
     }
-
 }

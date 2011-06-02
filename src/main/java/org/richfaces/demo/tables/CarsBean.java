@@ -25,7 +25,7 @@ import org.richfaces.demo.tables.model.cars.InventoryVendorList;
 @SessionScoped
 public class CarsBean implements Serializable {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -3832235132261771583L;
     private static final int DECIMALS = 1;
