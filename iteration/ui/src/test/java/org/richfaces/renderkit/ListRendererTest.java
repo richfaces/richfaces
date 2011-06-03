@@ -39,9 +39,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  *
  */
 public class ListRendererTest {
-
     private HtmlUnitEnvironment environment;
-
     private DataBean testBean;
 
     @Before
@@ -154,4 +152,3 @@ public class ListRendererTest {
         }
     }
 }
-

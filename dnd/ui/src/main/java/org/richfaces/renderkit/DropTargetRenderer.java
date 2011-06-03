@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit;
 
 import java.util.Collections;
@@ -44,64 +43,59 @@ import org.richfaces.renderkit.util.CoreAjaxRendererUtils;
 
 import com.google.common.base.Strings;
 
-
 /**
  * @author abelevich
  *
  */
-
 @JsfRenderer(type = "org.richfaces.DropTargetRenderer", family = AbstractDropTarget.COMPONENT_FAMILY)
 public class DropTargetRenderer extends DnDRenderBase {
-    
     /**
-     * 
+     *
      */
     private static final Set<String> ALL_SET = Collections.singleton("@all");
     /**
-     * 
+     *
      */
     private static final Set<String> NONE_SET = Collections.singleton("@none");
 
     @Override
     protected void doDecode(FacesContext facesContext, UIComponent component) {
         Map<String, String> requestParamMap = facesContext.getExternalContext().getRequestParameterMap();
-        
+
         if (requestParamMap.get(component.getClientId(facesContext)) == null) {
             return;
         }
-        
+
         String dragSourceId = (String) requestParamMap.get("dragSource");
         if (Strings.isNullOrEmpty(dragSourceId)) {
             return;
         }
-        
-        
+
         DragSourceContextCallBack dragSourceContextCallBack = new DragSourceContextCallBack();
-        boolean invocationResult = facesContext.getViewRoot().invokeOnComponent(facesContext, dragSourceId, dragSourceContextCallBack);
-        
+        boolean invocationResult = facesContext.getViewRoot().invokeOnComponent(facesContext, dragSourceId,
+            dragSourceContextCallBack);
+
         if (!invocationResult) {
-            //TODO - log
+            // TODO - log
             return;
         }
-        
+
         AbstractDropTarget dropTarget = (AbstractDropTarget) component;
-        new DropEvent(dropTarget, dropTarget.getDropValue(), 
-            dragSourceContextCallBack.getDragSource(), dragSourceContextCallBack.getDragValue()).queue();
+        new DropEvent(dropTarget, dropTarget.getDropValue(), dragSourceContextCallBack.getDragSource(),
+            dragSourceContextCallBack.getDragValue()).queue();
     }
-    
+
     private final class DragSourceContextCallBack implements ContextCallback {
-        
         private AbstractDragSource dragSource;
-        
         private Object dragValue;
 
         public void invokeContextCallback(FacesContext context, UIComponent target) {
-            if(target instanceof AbstractDragSource) {
-                this.dragSource = (AbstractDragSource)target;
-                this.dragValue = this.dragSource.getDragValue(); 
+            if (target instanceof AbstractDragSource) {
+                this.dragSource = (AbstractDragSource) target;
+                this.dragValue = this.dragSource.getDragValue();
             }
         }
-        
+
         public AbstractDragSource getDragSource() {
             return dragSource;
         }
@@ -110,7 +104,7 @@ public class DropTargetRenderer extends DnDRenderBase {
             return dragValue;
         }
     }
-    
+
     @Override
     public DnDScript createScript(String name) {
         return new DropScript(name);
@@ -120,7 +114,7 @@ public class DropTargetRenderer extends DnDRenderBase {
     public Map<String, Object> getOptions(FacesContext facesContext, UIComponent component) {
         Map<String, Object> options = new HashMap<String, Object>();
 
-        if(component instanceof AbstractDropTarget) {
+        if (component instanceof AbstractDropTarget) {
             JSReference dragSourceId = new JSReference("dragSourceId");
             JSFunctionDefinition function = new JSFunctionDefinition(JSReference.EVENT, dragSourceId);
 
@@ -130,10 +124,10 @@ public class DropTargetRenderer extends DnDRenderBase {
             ajaxFunction.setSource(new JSReference("event", "target"));
             ajaxFunction.getOptions().setAjaxComponent(component.getClientId(facesContext));
             function.addToBody(ajaxFunction);
-            
-            AbstractDropTarget dropTarget = (AbstractDropTarget)component;
+
+            AbstractDropTarget dropTarget = (AbstractDropTarget) component;
             Set<String> acceptedTypes = CoreAjaxRendererUtils.asSimpleSet(dropTarget.getAcceptedTypes());
-            
+
             if (acceptedTypes != null) {
                 if (acceptedTypes.contains("@none")) {
                     acceptedTypes = NONE_SET;
@@ -141,7 +135,7 @@ public class DropTargetRenderer extends DnDRenderBase {
                     acceptedTypes = ALL_SET;
                 }
             }
-            
+
             options.put("acceptedTypes", acceptedTypes);
             options.put("ajaxFunction", function);
             options.put("parentId", getParentClientId(facesContext, component));
@@ -153,5 +147,4 @@ public class DropTargetRenderer extends DnDRenderBase {
     public String getScriptName() {
         return "new RichFaces.ui.Droppable";
     }
-    
 }

@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import org.richfaces.cdk.annotations.Attribute;
@@ -28,107 +27,96 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
-
 /**
  * @author Anton Belevich
  *
  */
-
-@JsfComponent(
-    type = AbstractInplaceSelect.COMPONENT_TYPE,
-    family = AbstractInplaceSelect.COMPONENT_FAMILY, 
-    generate = "org.richfaces.component.UIInplaceSelect",
-    renderer = @JsfRenderer(type = "org.richfaces.InplaceSelectRenderer"),
-    tag = @Tag(name="inplaceSelect"),
-    attributes = "core-props.xml"
-)
+@JsfComponent(type = AbstractInplaceSelect.COMPONENT_TYPE, family = AbstractInplaceSelect.COMPONENT_FAMILY, generate = "org.richfaces.component.UIInplaceSelect", renderer = @JsfRenderer(type = "org.richfaces.InplaceSelectRenderer"), tag = @Tag(name = "inplaceSelect"), attributes = "core-props.xml")
 public abstract class AbstractInplaceSelect extends AbstractSelectComponent implements InplaceComponent {
-    
     public static final String COMPONENT_TYPE = "org.richfaces.InplaceSelect";
-    
     public static final String COMPONENT_FAMILY = "org.richfaces.Select";
-    
+
     @Attribute
     public abstract String getInputWidth();
-    
-    @Attribute(hidden=true)
+
+    @Attribute(hidden = true)
     public abstract InplaceState getState();
-    
+
     @Attribute
     public abstract boolean isDisabled();
-    
-    @Attribute(defaultValue="true")
+
+    @Attribute(defaultValue = "true")
     public abstract boolean isOpenOnEdit();
-    
-    @Attribute(defaultValue="true")
+
+    @Attribute(defaultValue = "true")
     public abstract boolean isSaveOnSelect();
 
-    @Attribute(defaultValue="true")
+    @Attribute(defaultValue = "true")
     public abstract boolean isSaveOnBlur();
 
     @Attribute
     public abstract boolean isShowControls();
-    
+
     @Attribute
     public abstract int getTabindex();
-    
+
     @Override
     @Attribute
     public abstract String getItemClass();
-    
+
     @Override
     @Attribute
     public abstract String getSelectItemClass();
-    
+
     @Override
     @Attribute
     public abstract String getListClass();
 
     @Attribute
     public abstract String getChangedClass();
-    
+
     @Attribute
     public abstract String getDefaultLabel();
-    
+
     @Attribute
     public abstract String getDisabledClass();
-    
+
     @Attribute
     public abstract String getActiveClass();
 
     @Attribute()
     public abstract String getEditEvent();
 
-    @Attribute(events=@EventName("inputclick"))
+    @Attribute(events = @EventName("inputclick"))
     public abstract String getOninputclick();
-    
-    @Attribute(events=@EventName("inputdblclick"))
+
+    @Attribute(events = @EventName("inputdblclick"))
     public abstract String getOninputdblclick();
-    
-    @Attribute(events=@EventName("inputmousedown"))
+
+    @Attribute(events = @EventName("inputmousedown"))
     public abstract String getOninputmousedown();
-    
-    @Attribute(events=@EventName("inputmousemove"))
+
+    @Attribute(events = @EventName("inputmousemove"))
     public abstract String getOninputmousemove();
-    
-    @Attribute(events=@EventName("inputmouseout"))
+
+    @Attribute(events = @EventName("inputmouseout"))
     public abstract String getOninputmouseout();
-    
-    @Attribute(events=@EventName("inputmouseover"))
+
+    @Attribute(events = @EventName("inputmouseover"))
     public abstract String getOninputmouseover();
-    
-    @Attribute(events=@EventName("inputmouseup"))
+
+    @Attribute(events = @EventName("inputmouseup"))
     public abstract String getOninputmouseup();
-    
-    @Attribute(events=@EventName("inputkeydown"))
+
+    @Attribute(events = @EventName("inputkeydown"))
     public abstract String getOninputkeydown();
-    
-    @Attribute(events=@EventName("inputkeypress"))
+
+    @Attribute(events = @EventName("inputkeypress"))
     public abstract String getOninputkeypress();
-    
-    @Attribute(events=@EventName("inputkeyup"))
+
+    @Attribute(events = @EventName("inputkeyup"))
     public abstract String getOninputkeyup();
-    
-    @Attribute(events=@EventName("inputselect"))
+
+    @Attribute(events = @EventName("inputselect"))
     public abstract String getOninputselect();
 }

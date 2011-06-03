@@ -25,29 +25,18 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class ByteSequenceMatcher {
-
     public interface BytesHandler {
-
         void handle(byte[] bytes, int length) throws IOException;
-
     }
 
     private static final int ZERO_READS_NUMBER = 20;
-
     private byte[] buffer;
-
     private int readLength = 0;
-
     private int zeroReadCounter = ZERO_READS_NUMBER;
-
     private boolean bufferEOF = false;
-
     private boolean isEOF = false;
-
     private boolean isMatched = false;
-
     private InputStream inputStream;
-
     private BytesHandler bytesHandler;
 
     public ByteSequenceMatcher(InputStream inputStream, int bufferSize) {
@@ -73,7 +62,6 @@ public class ByteSequenceMatcher {
         }
 
         readLength -= usedLength;
-
 
         while (!bufferEOF) {
             int remaining = buffer.length - readLength;

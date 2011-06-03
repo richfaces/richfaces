@@ -19,15 +19,14 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 .rf-pm {
+    
 }
 
 .rf-pm-itm {
     border-top-width: 1px;
     border-top-style: solid;
     border-top-color: '#{richSkin.panelBorderColor}';
-    
     color: '#{richSkin.generalTextColor}';
     padding: 2px 1px 2px 2px;
     cursor: pointer;
@@ -66,7 +65,7 @@
 }
 
 .rf-pm-itm-sel {
-    font-style:italic;
+    font-style: italic;
 }
 
 .rf-pm-gr {
@@ -81,19 +80,19 @@
 }
 
 .rf-pm-gr-sel {
-    font-style:italic;
+    font-style: italic;
 }
 
 .rf-pm-gr-hdr {
     font-weight: bold;
     color: '#{richSkin.generalTextColor}';
-
     padding: 2px 1px 2px 2px;
     cursor: pointer;
     white-space: nowrap;
 }
 
 .rf-pm-gr-cnt {
+    
 }
 
 .rf-pm-gr-gr {
@@ -128,7 +127,6 @@
     color: '#{richSkin.generalTextColor}';
     cursor: pointer;
     white-space: nowrap;
-
     border-width: 1px;
     border-style: solid;
     border-color: '#{richSkin.panelBorderColor}';
@@ -170,7 +168,7 @@
 }
 
 .rf-pm-top-itm-sel {
-    font-style:italic;
+    font-style: italic;
 }
 
 .rf-pm-top-gr {
@@ -181,7 +179,7 @@
 }
 
 .rf-pm-top-gr-sel {
-    font-style:italic;
+    font-style: italic;
 }
 
 .rf-pm-top-gr-hdr {
@@ -191,7 +189,6 @@
     padding-top: 2px;
     cursor: pointer;
     white-space: nowrap;
-
     background-image: "url(#{resource['org.richfaces.images:pmenu_bg.png']})";
     background-position: top left;
     background-repeat: repeat-x;
@@ -206,7 +203,6 @@
     padding-top: 2px;
     cursor: pointer;
     white-space: nowrap;
-
     background-image: "url(#{resource['org.richfaces.images:pmenu_bg_dis.png']})";
     background-position: top left;
     background-repeat: repeat-x;
@@ -214,12 +210,12 @@
     font-weight: bold;
 }
 
-.rf-pm-gr-hdr-dis, .rf-pm-itm-dis, .rf-pm-top-itm-dis {
-	color: '#{richSkin.tabDisabledTextColor}';
-	cursor: default;
+.rf-pm-gr-hdr-dis,.rf-pm-itm-dis,.rf-pm-top-itm-dis {
+    color: '#{richSkin.tabDisabledTextColor}';
+    cursor: default;
 }
 
-.rf-pm-itm, .rf-pm-itm-dis:hover {
+.rf-pm-itm,.rf-pm-itm-dis:hover {
     background-color: inherit;
 }
 
@@ -229,6 +225,7 @@
 }
 
 .rf-pm-top-gr-cnt {
+    
 }
 
 .rf-pm-top-gr-gr {
@@ -267,15 +264,38 @@
     display: block;
 }
 
-.rf-pm-ico-colps {}
-.rf-pm-ico-exp {}
+.rf-pm-ico-colps {
+    
+}
 
-.rf-pm-ico {}
-.rf-pm-ico-colps {}
-.rf-pm-ico-exp {}
+.rf-pm-ico-exp {
+    
+}
 
-.rf-pm-hdr-exp .rf-pm-ico-exp   { display: block; }
-.rf-pm-hdr-exp .rf-pm-ico-colps { display: none; }
+.rf-pm-ico {
+    
+}
 
-.rf-pm-hdr-colps .rf-pm-ico-exp   { display: none; }
-.rf-pm-hdr-colps .rf-pm-ico-colps { display: block; }
+.rf-pm-ico-colps {
+    
+}
+
+.rf-pm-ico-exp {
+    
+}
+
+.rf-pm-hdr-exp .rf-pm-ico-exp {
+    display: block;
+}
+
+.rf-pm-hdr-exp .rf-pm-ico-colps {
+    display: none;
+}
+
+.rf-pm-hdr-colps .rf-pm-ico-exp {
+    display: none;
+}
+
+.rf-pm-hdr-colps .rf-pm-ico-colps {
+    display: block;
+}

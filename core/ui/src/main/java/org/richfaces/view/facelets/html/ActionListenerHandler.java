@@ -44,14 +44,11 @@ import org.richfaces.view.facelets.TagHandlerUtils;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class ActionListenerHandler extends TagHandler implements ActionSource2AttachedObjectHandler {
-
     private TagAttribute binding;
-
     private String listenerType;
-
     private TagAttribute listenerMethod;
 
     public ActionListenerHandler(TagConfig config) {
@@ -141,5 +138,4 @@ public class ActionListenerHandler extends TagHandler implements ActionSource2At
             applyAttachedObject(ctx.getFacesContext(), parent);
         }
     }
-
 }

@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.component;
 
 import javax.faces.component.UIComponentBase;
@@ -32,13 +31,11 @@ import org.richfaces.cdk.annotations.TagType;
 
 /**
  * JSF component class
- * 
+ *
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.PopupPanelRenderer"))
 public abstract class AbstractPopupPanel extends UIComponentBase {
-
     public static final String COMPONENT_TYPE = "org.richfaces.PopupPanel";
-
     public static final String COMPONENT_FAMILY = "org.richfaces.PopupPanel";
 
     @Attribute
@@ -46,7 +43,7 @@ public abstract class AbstractPopupPanel extends UIComponentBase {
 
     @Attribute
     public abstract String getStyleClass();
-    
+
     @Attribute
     public abstract String getVisualOptions();
 

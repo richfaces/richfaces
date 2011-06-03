@@ -8,6 +8,5 @@ public enum IconPosition {
     left,
     right,
     none;
-
     public static final IconPosition DEFAULT = none;
 }

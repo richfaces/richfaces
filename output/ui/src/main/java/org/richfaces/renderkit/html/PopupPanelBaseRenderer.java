@@ -1,6 +1,5 @@
 package org.richfaces.renderkit.html;
 
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -22,27 +21,22 @@ import org.richfaces.json.JSONMap;
 import org.richfaces.renderkit.RendererBase;
 
 //TODO nick - JSF have concept of library, it should be used instead of '/' in resource names
-@ResourceDependencies( { 
-    @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"), 
-    @ResourceDependency(library = "org.richfaces", name = "popupPanel.js"),
-    @ResourceDependency(library = "org.richfaces", name = "popupPanelBorders.js"), 
-    @ResourceDependency(library = "org.richfaces", name = "popupPanelSizer.js"),
-    @ResourceDependency(name="richfaces-event.js",library="",target=""),
-    @ResourceDependency(library = "org.richfaces", name = "popupPanel.ecss")
-
-})
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "popupPanel.js"),
+        @ResourceDependency(library = "org.richfaces", name = "popupPanelBorders.js"),
+        @ResourceDependency(library = "org.richfaces", name = "popupPanelSizer.js"),
+        @ResourceDependency(name = "richfaces-event.js", library = "", target = ""),
+        @ResourceDependency(library = "org.richfaces", name = "popupPanel.ecss") })
 public class PopupPanelBaseRenderer extends RendererBase {
-
     private static final String CONTROLS_FACET = "controls";
     private static final String HEADER_FACET = "header";
     private static final int SIZE = 10;
     private static final String STATE_OPTION_SUFFIX = "StateOption_";
-    
     private static final String DEFAULT_LEFT = "auto";
     private static final String DEFAULT_TOP = "auto";
-    
-    //TODO nick - use enums
+    // TODO nick - use enums
     private static final Set<String> ALLOWED_ATTACHMENT_OPTIONS = new HashSet<String>();
+
     static {
         ALLOWED_ATTACHMENT_OPTIONS.add("body");
         ALLOWED_ATTACHMENT_OPTIONS.add("parent");
@@ -100,7 +94,7 @@ public class PopupPanelBaseRenderer extends RendererBase {
     }
 
     public void checkOptions(FacesContext context, UIComponent component) {
-    	AbstractPopupPanel panel = (AbstractPopupPanel) component;
+        AbstractPopupPanel panel = (AbstractPopupPanel) component;
         if (panel.isAutosized() && panel.isResizeable()) {
             throw new IllegalArgumentException("Autosized modal panel can't be resizeable.");
         }
@@ -109,8 +103,7 @@ public class PopupPanelBaseRenderer extends RendererBase {
         if (domElementAttachment != null && domElementAttachment.trim().length() != 0) {
             if (!ALLOWED_ATTACHMENT_OPTIONS.contains(domElementAttachment)) {
                 throw new IllegalArgumentException("Value '" + domElementAttachment
-                    + "' of domElementAttachment attribute is illegal. " + "Allowed values are: "
-                    + ALLOWED_ATTACHMENT_OPTIONS);
+                    + "' of domElementAttachment attribute is illegal. " + "Allowed values are: " + ALLOWED_ATTACHMENT_OPTIONS);
             }
         }
 
@@ -118,14 +111,12 @@ public class PopupPanelBaseRenderer extends RendererBase {
             if (panel.getMinHeight() < SIZE) {
                 throw new FacesException("Attribbute minWidth should be greater then 10px");
             }
-
         }
 
         if (panel.getMinWidth() != -1) {
             if (panel.getMinWidth() < SIZE) {
                 throw new FacesException("Attribbute minHeight should be greater then 10px");
             }
-
         }
     }
 
@@ -135,7 +126,7 @@ public class PopupPanelBaseRenderer extends RendererBase {
 
     @SuppressWarnings("unchecked")
     public String buildShowScript(FacesContext context, UIComponent component) {
-    	AbstractPopupPanel panel = (AbstractPopupPanel) component;
+        AbstractPopupPanel panel = (AbstractPopupPanel) component;
         StringBuilder result = new StringBuilder();
 
         // Bug https://jira.jboss.org/jira/browse/RF-2466
@@ -144,7 +135,7 @@ public class PopupPanelBaseRenderer extends RendererBase {
         if (panel.isShow()) {
             result.append("RichFaces.ui.PopupPanel.showPopupPanel('" + panel.getClientId(context) + "', {");
 
-            //TODO nick - use ScriptUtils.toScript
+            // TODO nick - use ScriptUtils.toScript
             Iterator<Map.Entry<String, Object>> it = ((Map<String, Object>) getHandledVisualOptions(panel)).entrySet()
                 .iterator();
             while (it.hasNext()) {
@@ -164,14 +155,14 @@ public class PopupPanelBaseRenderer extends RendererBase {
         return null;
     }
 
-    public String getStyleIfTrimmed(UIComponent panel){
-    	if (panel.getAttributes().get("trimOverlayedElements").equals(Boolean.TRUE)) {
-    	    return "position: relative; z-index : 0";
-    	}
-    	return "";
+    public String getStyleIfTrimmed(UIComponent panel) {
+        if (panel.getAttributes().get("trimOverlayedElements").equals(Boolean.TRUE)) {
+            return "position: relative; z-index : 0";
+        }
+        return "";
     }
 
-    public String getContainerStyle(UIComponent panel){
+    public String getContainerStyle(UIComponent panel) {
         StringBuilder res = new StringBuilder();
         Map<String, Object> attrs = panel.getAttributes();
         res.append("position: ").append(((Boolean) attrs.get("followByScroll")) ? "fixed" : "absolute").append("; ");
@@ -186,10 +177,11 @@ public class PopupPanelBaseRenderer extends RendererBase {
             res.append(style);
         }
 
-    	return res.toString();
+        return res.toString();
     }
+
     private Object buildEventFunction(Object eventFunction) {
-        if(eventFunction != null && eventFunction.toString().length() > 0) {
+        if (eventFunction != null && eventFunction.toString().length() > 0) {
             return "new Function(\"" + eventFunction.toString() + "\");";
         }
         return null;
@@ -206,7 +198,7 @@ public class PopupPanelBaseRenderer extends RendererBase {
         }
         return result;
     }
-    
+
     private Map<String, Object> prepareVisualOptions(Object value, AbstractPopupPanel panel) {
         if (null == value) {
             return new HashMap<String, Object>();
@@ -223,24 +215,25 @@ public class PopupPanelBaseRenderer extends RendererBase {
                 throw new FacesException(e);
             }
         } else {
-            throw new FacesException("Attribute visualOptions of component [" + panel.getClientId(FacesContext.getCurrentInstance())
+            throw new FacesException("Attribute visualOptions of component ["
+                + panel.getClientId(FacesContext.getCurrentInstance())
                 + "] must be instance of Map or String, but its type is " + value.getClass().getSimpleName());
         }
     }
-    
+
     protected String getLeftOrDefault(UIComponent component) {
         String leftProperty = ((AbstractPopupPanel) component).getLeft();
         if (leftProperty == null || leftProperty.length() == 0) {
-            leftProperty = DEFAULT_LEFT; 
+            leftProperty = DEFAULT_LEFT;
         }
         return leftProperty;
     }
-    
+
     protected String getTopOrDefault(UIComponent component) {
         String topProperty = ((AbstractPopupPanel) component).getTop();
         if (topProperty == null || topProperty.length() == 0) {
-            topProperty = DEFAULT_TOP; 
+            topProperty = DEFAULT_TOP;
         }
         return topProperty;
-    }    
+    }
 }

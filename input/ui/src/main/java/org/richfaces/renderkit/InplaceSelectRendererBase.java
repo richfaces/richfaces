@@ -19,32 +19,27 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit;
 
-import org.richfaces.component.AbstractInplaceSelect;
-import org.richfaces.component.InplaceComponent;
-import org.richfaces.renderkit.util.HtmlDimensions;
+import java.io.IOException;
+import java.util.List;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.io.IOException;
-import java.util.List;
+
+import org.richfaces.component.AbstractInplaceSelect;
+import org.richfaces.component.InplaceComponent;
+import org.richfaces.renderkit.util.HtmlDimensions;
 
 /**
  * @author Anton Belevich
- * 
+ *
  */
-
-@ResourceDependencies({
-        @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-        @ResourceDependency(name = "jquery.js"),
-        @ResourceDependency(name = "richfaces.js"),
-        @ResourceDependency(name = "jquery.position.js"),
-        @ResourceDependency(name = "richfaces-event.js"),
-        @ResourceDependency(name = "richfaces-base-component.js"),
+@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"), @ResourceDependency(name = "jquery.js"),
+        @ResourceDependency(name = "richfaces.js"), @ResourceDependency(name = "jquery.position.js"),
+        @ResourceDependency(name = "richfaces-event.js"), @ResourceDependency(name = "richfaces-base-component.js"),
         @ResourceDependency(name = "richfaces-selection.js"),
         @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceBase.js"),
@@ -54,36 +49,37 @@ import java.util.List;
         @ResourceDependency(library = "org.richfaces", name = "inplaceSelect.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceSelect.ecss") })
 public class InplaceSelectRendererBase extends InplaceInputRendererBase {
-
-    public static final String ITEM_CSS = "rf-is-opt"; 
+    public static final String ITEM_CSS = "rf-is-opt";
 
     public List<ClientSelectItem> getConvertedSelectItems(FacesContext facesContext, UIComponent component) {
         return SelectHelper.getConvertedSelectItems(facesContext, component);
     }
-    
-    public void encodeItems(FacesContext facesContext, UIComponent component, List<ClientSelectItem> clientSelectItems) throws IOException {
+
+    public void encodeItems(FacesContext facesContext, UIComponent component, List<ClientSelectItem> clientSelectItems)
+        throws IOException {
         SelectHelper.encodeItems(facesContext, component, clientSelectItems, HtmlConstants.SPAN_ELEM, ITEM_CSS);
     }
-    
+
     public void renderListHandlers(FacesContext facesContext, UIComponent component) throws IOException {
-        RenderKitUtils.renderPassThroughAttributesOptimized(facesContext, component, SelectHelper.SELECT_LIST_HANDLER_ATTRIBUTES);
+        RenderKitUtils.renderPassThroughAttributesOptimized(facesContext, component,
+            SelectHelper.SELECT_LIST_HANDLER_ATTRIBUTES);
     }
-    
+
     @Override
     public void renderInputHandlers(FacesContext facesContext, UIComponent component) throws IOException {
         RenderKitUtils.renderPassThroughAttributesOptimized(facesContext, component, INPLACE_INPUT_HANDLER_ATTRIBUTES);
     }
-    
+
     public String getSelectInputLabel(FacesContext facesContext, UIComponent component) {
         return SelectHelper.getSelectInputLabel(facesContext, component);
     }
-    
+
     public String getListWidth(UIComponent component) {
-        AbstractInplaceSelect select = (AbstractInplaceSelect)component;
+        AbstractInplaceSelect select = (AbstractInplaceSelect) component;
         String width = getListWidth(select);
         return (width != null && width.trim().length() != 0) ? ("width: " + width) : "";
     }
-    
+
     protected String getListWidth(AbstractInplaceSelect select) {
         String width = HtmlDimensions.formatSize(select.getListWidth());
         if (width == null || width.length() == 0) {
@@ -91,7 +87,7 @@ public class InplaceSelectRendererBase extends InplaceInputRendererBase {
         }
         return width;
     }
-    
+
     protected String getListHeight(AbstractInplaceSelect select) {
         String height = HtmlDimensions.formatSize(select.getListHeight());
         if (height == null || height.length() == 0) {
@@ -99,13 +95,13 @@ public class InplaceSelectRendererBase extends InplaceInputRendererBase {
         }
         return height;
     }
-    
+
     public String getListHeight(UIComponent component) {
-        AbstractInplaceSelect select = (AbstractInplaceSelect)component;
+        AbstractInplaceSelect select = (AbstractInplaceSelect) component;
         String height = getListHeight(select);
         return (height != null && height.trim().length() != 0) ? ("height: " + height) : "";
     }
-    
+
     public String getSelectLabel(FacesContext facesContext, UIComponent component) {
         AbstractInplaceSelect select = (AbstractInplaceSelect) component;
         String label = getSelectInputLabel(facesContext, select);
@@ -143,7 +139,7 @@ public class InplaceSelectRendererBase extends InplaceInputRendererBase {
         AbstractInplaceSelect inplaceSelect = (AbstractInplaceSelect) component;
         return getDisableStateCss(inplaceSelect);
     }
-    
+
     public String getEditCss(InplaceComponent component) {
         return "rf-is-fld-cntr";
     }
@@ -151,20 +147,20 @@ public class InplaceSelectRendererBase extends InplaceInputRendererBase {
     public String getNoneCss(InplaceComponent component) {
         return "rf-is-none";
     }
-    
+
     public String getListCss(UIComponent component) {
-        AbstractInplaceSelect inplaceSelect = (AbstractInplaceSelect)component;
+        AbstractInplaceSelect inplaceSelect = (AbstractInplaceSelect) component;
         String css = inplaceSelect.getListClass();
         css = (css != null) ? concatClasses("rf-is-lst-cord", css) : "rf-is-lst-cord";
-        return css; 
+        return css;
     }
-    
+
     protected String getInputWidthStyle(UIComponent component) {
         String value = ((AbstractInplaceSelect) component).getInputWidth();
         if (value == null || "".equals(value)) {
             return "";
         } else {
-            return "width: "+HtmlDimensions.formatSize(value)+";";
+            return "width: " + HtmlDimensions.formatSize(value) + ";";
         }
     }
 }

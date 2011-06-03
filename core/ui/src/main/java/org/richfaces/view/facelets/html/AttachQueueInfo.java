@@ -30,9 +30,7 @@ import org.richfaces.component.AbstractAttachQueue;
  *
  */
 final class AttachQueueInfo {
-
     private UIComponent parentComponent;
-
     private AbstractAttachQueue attachQueue;
 
     public AttachQueueInfo(UIComponent parentComponent) {
@@ -51,5 +49,4 @@ final class AttachQueueInfo {
     public AbstractAttachQueue getAttachQueue() {
         return attachQueue;
     }
-
 }

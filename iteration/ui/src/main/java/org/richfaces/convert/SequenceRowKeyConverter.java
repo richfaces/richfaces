@@ -20,15 +20,11 @@ import com.google.common.collect.ObjectArrays;
  * @author Nick Belaevski
  * @since 3.3.1
  */
-
 public class SequenceRowKeyConverter<T> implements Converter {
-
     static final Splitter SEPARATOR_SPLITTER = Splitter.on(SEPARATOR_CHAR);
-    
     private Class<T> clazz;
-    
     private Converter delegateConverter;
-    
+
     public SequenceRowKeyConverter(Class<T> clazz, Converter delegateConverter) {
         super();
         this.clazz = clazz;
@@ -42,12 +38,12 @@ public class SequenceRowKeyConverter<T> implements Converter {
 
         Iterable<String> split = SEPARATOR_SPLITTER.split(value);
         List<T> keysList = Lists.<T>newArrayList();
-        
-        for (String s: split) {
+
+        for (String s : split) {
             T convertedKey = clazz.cast(delegateConverter.getAsObject(context, component, s));
             keysList.add(convertedKey);
         }
-        
+
         return new SequenceRowKey(keysList.toArray(ObjectArrays.newArray(clazz, keysList.size())));
     }
 
@@ -55,21 +51,21 @@ public class SequenceRowKeyConverter<T> implements Converter {
         if (value == null) {
             return "";
         }
-        
+
         SequenceRowKey sequenceRowKey = (SequenceRowKey) value;
-        
+
         StringBuilder result = new StringBuilder();
-        
-        for (Object simpleKey: sequenceRowKey.getSimpleKeys()) {
+
+        for (Object simpleKey : sequenceRowKey.getSimpleKeys()) {
             String convertedKey = delegateConverter.getAsString(context, component, simpleKey);
-            
+
             if (result.length() > 0) {
                 result.append(SEPARATOR_CHAR);
             }
-            
+
             result.append(convertedKey);
         }
-        
+
         return result.toString();
     }
 }

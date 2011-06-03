@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.richfaces.validator;
 
@@ -15,9 +15,7 @@ import javax.validation.metadata.ConstraintDescriptor;
  *
  */
 public interface BeanValidatorFactory {
-    
     Validator getValidator(FacesContext context);
 
     FacesMessage interpolateMessage(FacesContext context, final ConstraintDescriptor<? extends Annotation> constrain);
-
 }

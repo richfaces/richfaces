@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.richfaces.validator;
 
@@ -20,10 +20,9 @@ import javax.validation.metadata.ConstraintDescriptor;
 
 /**
  * @author asmirnov
- * 
+ *
  */
 public class RichFacesBeanValidatorFactory implements BeanValidatorFactory {
-
     private ValidatorFactory validatorFactory;
     private ValidatorContext validatorContext;
 
@@ -38,8 +37,7 @@ public class RichFacesBeanValidatorFactory implements BeanValidatorFactory {
         try {
             validatorFactory = Validation.buildDefaultValidatorFactory();
             validatorContext = validatorFactory.usingContext();
-            MessageInterpolator jsfMessageInterpolator =
-                new JsfMessageInterpolator(validatorFactory.getMessageInterpolator());
+            MessageInterpolator jsfMessageInterpolator = new JsfMessageInterpolator(validatorFactory.getMessageInterpolator());
             validatorContext.messageInterpolator(jsfMessageInterpolator);
         } catch (ValidationException e) {
             throw new InitializationException(e);
@@ -48,29 +46,26 @@ public class RichFacesBeanValidatorFactory implements BeanValidatorFactory {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.richfaces.validator.BeanValidatorFactory#getValidator(javax.faces.context.FacesContext)
      */
     public Validator getValidator(FacesContext context) {
         return validatorContext.getValidator();
     }
 
-    public FacesMessage interpolateMessage(FacesContext context,
-        final ConstraintDescriptor<? extends Annotation> constrain) {
+    public FacesMessage interpolateMessage(FacesContext context, final ConstraintDescriptor<? extends Annotation> constrain) {
         if (constrain.getAttributes().containsKey("message")) {
             Object object = constrain.getAttributes().get("message");
             String interpolatedMessage;
-            interpolatedMessage =
-                validatorFactory.getMessageInterpolator().interpolate(object.toString(), new Context() {
+            interpolatedMessage = validatorFactory.getMessageInterpolator().interpolate(object.toString(), new Context() {
+                public Object getValidatedValue() {
+                    return "{0}";
+                }
 
-                    public Object getValidatedValue() {
-                        return "{0}";
-                    }
-
-                    public ConstraintDescriptor<?> getConstraintDescriptor() {
-                        return constrain;
-                    }
-                }, MessageFactory.getCurrentLocale(context));
+                public ConstraintDescriptor<?> getConstraintDescriptor() {
+                    return constrain;
+                }
+            }, MessageFactory.getCurrentLocale(context));
             return new FacesMessage(interpolatedMessage);
         } else {
             return MessageFactory.createMessage(context, UIInput.UPDATE_MESSAGE_ID);
@@ -78,7 +73,6 @@ public class RichFacesBeanValidatorFactory implements BeanValidatorFactory {
     }
 
     private static final class JsfMessageInterpolator implements MessageInterpolator {
-
         private MessageInterpolator delegate;
 
         public JsfMessageInterpolator(MessageInterpolator delegate) {
@@ -103,7 +97,5 @@ public class RichFacesBeanValidatorFactory implements BeanValidatorFactory {
                 return delegate.interpolate(messageTemplate, context, locale);
             }
         }
-
     }
-
 }

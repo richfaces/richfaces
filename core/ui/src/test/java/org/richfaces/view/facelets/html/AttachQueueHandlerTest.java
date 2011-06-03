@@ -46,27 +46,21 @@ import org.junit.Test;
 import org.richfaces.component.AbstractAttachQueue;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class AttachQueueHandlerTest {
-
     private FacesEnvironment environment;
-
     private FacesRequest facesRequest;
-
     private FacesContext facesContext;
-
     private UIViewRoot viewRoot;
 
     @Before
     public void setUp() throws Exception {
         environment = FacesEnvironment.createEnvironment();
 
-        environment.withWebRoot(
-            getClass().getResource("/org/richfaces/view/facelets/html/attachQueueWithNestedAjax.xhtml"));
+        environment.withWebRoot(getClass().getResource("/org/richfaces/view/facelets/html/attachQueueWithNestedAjax.xhtml"));
 
         environment.start();
 
@@ -88,7 +82,7 @@ public class AttachQueueHandlerTest {
         environment.release();
         environment = null;
     }
-    
+
     private void buildView(String viewId) throws IOException {
         viewRoot.setViewId(viewId);
         ViewHandler viewHandler = facesContext.getApplication().getViewHandler();
@@ -99,14 +93,14 @@ public class AttachQueueHandlerTest {
     private AjaxBehavior getAjaxBehavior(String componentId, String eventName) {
         UIComponent component = viewRoot.findComponent(componentId);
         assertNotNull(component);
-        
+
         ClientBehaviorHolder behaviorHolder = (ClientBehaviorHolder) component;
-        
+
         String localEventName = eventName;
         if (localEventName == null) {
             localEventName = behaviorHolder.getDefaultEventName();
         }
-        
+
         List<ClientBehavior> behaviors = behaviorHolder.getClientBehaviors().get(localEventName);
         if (behaviors != null) {
             for (ClientBehavior behavior : behaviors) {
@@ -115,21 +109,21 @@ public class AttachQueueHandlerTest {
                 }
             }
         }
-        
+
         return null;
     }
-    
+
     private void checkNotAssignedToParent(String attachQueueId) {
         UIComponent attachQueue = viewRoot.findComponent(attachQueueId);
-        
+
         assertTrue(attachQueue instanceof AbstractAttachQueue);
         assertNull(attachQueue.getParent().getAttributes().get(AjaxRendererUtils.QUEUE_ID_ATTRIBUTE));
     }
-    
+
     @Test
     public void testAttachQueueWithNestedAjax() throws Exception {
         buildView("/attachQueueWithNestedAjax.xhtml");
-        
+
         AjaxBehavior defaultEvent = getAjaxBehavior(":form:defaultEventText", null);
         assertNotNull(defaultEvent);
         assertEquals("form:defaultEventQueue", defaultEvent.getQueueId());
@@ -137,58 +131,58 @@ public class AttachQueueHandlerTest {
         AjaxBehavior keyup = getAjaxBehavior(":form:keyupText", "keyup");
         assertNotNull(keyup);
         assertEquals("form:keyupQueue", keyup.getQueueId());
-        
+
         checkNotAssignedToParent(":form:defaultEventQueue");
         checkNotAssignedToParent(":form:keyupQueue");
     }
-    
+
     @Test
     public void testAttachQueueWithParentComponent() throws Exception {
         buildView("/attachQueueWithParentComponent.xhtml");
-        
+
         UIComponent link = viewRoot.findComponent(":form:link");
         assertEquals("form:attachQueue", link.getAttributes().get(AjaxRendererUtils.QUEUE_ID_ATTRIBUTE));
     }
-    
+
     @Test
     public void testAttachQueueWithWrappingAjax() throws Exception {
         buildView("/attachQueueWithWrappingAjax.xhtml");
-        
+
         AjaxBehavior defaultEventInput = getAjaxBehavior(":form:defaultEventInput", null);
         assertNotNull(defaultEventInput);
         assertEquals("form:defaultEventQueue", defaultEventInput.getQueueId());
-        
+
         AjaxBehavior defaultEventLinkBehavior = getAjaxBehavior(":form:defaultEventLink", null);
         assertNotNull(defaultEventLinkBehavior);
         assertEquals("form:defaultEventQueue", defaultEventLinkBehavior.getQueueId());
-        
+
         AjaxBehavior valueChangeInput = getAjaxBehavior(":form:valueChangeInput", null);
         assertNotNull(valueChangeInput);
         assertEquals("form:valueChangeQueue", valueChangeInput.getQueueId());
-        
+
         AjaxBehavior valueChangeLink = getAjaxBehavior(":form:valueChangeLink", null);
         assertNull(valueChangeLink);
 
         checkNotAssignedToParent(":form:defaultEventQueue");
         checkNotAssignedToParent(":form:valueChangeQueue");
     }
-    
+
     @Test
     public void testAttachQueueWithWrappingBehaviors() throws Exception {
         buildView("/attachQueueWithWrappingBehaviors.xhtml");
-        
+
         AjaxBehavior input = getAjaxBehavior(":form:input", "click");
         assertNotNull(input);
         assertEquals("form:clickQueue", input.getQueueId());
-        
+
         AjaxBehavior button = getAjaxBehavior(":form:button", "click");
         assertNotNull(button);
         assertEquals("form:clickQueue", button.getQueueId());
-        
+
         AjaxBehavior nestedInputClick = getAjaxBehavior(":form:nestedInput", "click");
         assertNotNull(nestedInputClick);
         assertEquals("form:clickQueue", nestedInputClick.getQueueId());
-        
+
         AjaxBehavior nestedInputChange = getAjaxBehavior(":form:nestedInput", "valueChange");
         assertNotNull(nestedInputChange);
         assertEquals("form:valueChangeQueue", nestedInputChange.getQueueId());

@@ -17,7 +17,8 @@
     Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF site:
     http://www.fsf.org.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
@@ -103,8 +104,6 @@
             <artifactId>jstl</artifactId>
             <scope>provided</scope>
         </dependency>
-
-
 
     </dependencies>
 
@@ -242,8 +241,7 @@
                                         </parameter>
                                     </parameters>
                                     <fileMappers>
-                                        <fileMapper
-                                                implementation="org.codehaus.plexus.components.io.filemappers.RegExpFileMapper">
+                                        <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.RegExpFileMapper">
                                             <pattern>^(.*)\.(.*)$</pattern>
                                             <replacement>all.txt</replacement>
                                         </fileMapper>
@@ -290,7 +288,7 @@
             </dependencies>
         </profile>
     </profiles>
-    
+
     <scm>
         <connection>scm:git:git://github.com/richfaces/components.git</connection>
         <developerConnection>scm:git:git@github.com:richfaces/components.git</developerConnection>

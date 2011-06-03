@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.richfaces.component;
 
@@ -13,10 +13,9 @@ import javax.faces.validator.ValidatorException;
 
 /**
  * @author Konstantin Mishin
- * 
+ *
  */
 public class UIInputNumber extends UIInput {
-
     @Override
     protected void validateValue(FacesContext context, Object newValue) {
         Map<String, Object> attributes = getAttributes();
@@ -39,5 +38,4 @@ public class UIInputNumber extends UIInput {
             return Double.parseDouble(value.toString());
         }
     }
-
 }

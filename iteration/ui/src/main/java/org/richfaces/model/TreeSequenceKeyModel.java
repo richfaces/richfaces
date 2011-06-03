@@ -27,17 +27,14 @@ import org.ajax4jsf.model.DataVisitor;
 import org.ajax4jsf.model.ExtendedDataModel;
 import org.ajax4jsf.model.Range;
 
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public abstract class TreeSequenceKeyModel<V> extends ExtendedDataModel<V> implements TreeDataModel<V> {
-
     private V data;
-    
     private SequenceRowKey rowKey;
-    
+
     public SequenceRowKey getRowKey() {
         return rowKey;
     }
@@ -49,16 +46,16 @@ public abstract class TreeSequenceKeyModel<V> extends ExtendedDataModel<V> imple
             setupKey(sequenceKey);
         }
     }
-    
+
     protected void setData(V data) {
         this.data = data;
     }
-    
+
     protected void setRowKeyAndData(SequenceRowKey key, V data) {
         this.rowKey = key;
         this.data = data;
     }
-    
+
     public boolean isDataAvailable() {
         return getRowKey() == null || data != null;
     }
@@ -67,42 +64,37 @@ public abstract class TreeSequenceKeyModel<V> extends ExtendedDataModel<V> imple
         if (!isDataAvailable()) {
             throw new IllegalArgumentException();
         }
-        
+
         return data;
     }
-    
+
     protected abstract void setupKey(SequenceRowKey key);
-    
-    //TODO ExtendedDataModel legacy
+
+    // TODO ExtendedDataModel legacy
     @Override
     public void walk(FacesContext context, DataVisitor visitor, Range range, Object argument) {
         throw new UnsupportedOperationException();
     }
-
 
     @Override
     public boolean isRowAvailable() {
         return isDataAvailable();
     }
 
-
     @Override
     public int getRowCount() {
         throw new UnsupportedOperationException();
     }
-
 
     @Override
     public V getRowData() {
         return getData();
     }
 
-
     @Override
     public int getRowIndex() {
         throw new UnsupportedOperationException();
     }
-
 
     @Override
     public void setRowIndex(int rowIndex) {
@@ -111,11 +103,11 @@ public abstract class TreeSequenceKeyModel<V> extends ExtendedDataModel<V> imple
 
     public Object getParentRowKey(Object rowKey) {
         SequenceRowKey key = getRowKey();
-        
+
         if (key == null) {
             return null;
         }
-        
+
         return key.getParent();
     }
 }

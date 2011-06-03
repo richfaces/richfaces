@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.event;
 
 import javax.faces.component.UIComponent;
@@ -28,28 +27,23 @@ import javax.faces.event.FacesListener;
 
 /**
  * @author Anton Belevich
- * 
+ *
  */
 public class CollapsibleSubTableToggleEvent extends FacesEvent {
-
     private static final long serialVersionUID = 2916560585918250885L;
-    
     private String togglerId;
-
     private boolean expanded;
-    
-    
-   
+
     public CollapsibleSubTableToggleEvent(UIComponent source, boolean expanded) {
         this(source, expanded, null);
     }
-    
+
     public CollapsibleSubTableToggleEvent(UIComponent source, boolean expanded, String toggerId) {
         super(source);
         this.expanded = expanded;
         this.togglerId = toggerId;
     }
-  
+
     public String getTogglerId() {
         return togglerId;
     }

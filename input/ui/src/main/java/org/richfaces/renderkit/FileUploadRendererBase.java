@@ -34,14 +34,14 @@ import org.richfaces.request.MultipartRequest;
  * @author Nick Belaevski
  */
 public class FileUploadRendererBase extends RendererBase {
-
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
         ExternalContext externalContext = context.getExternalContext();
-        MultipartRequest multipartRequest = (MultipartRequest) externalContext.getRequestMap().get(MultipartRequest.REQUEST_ATTRIBUTE_NAME);
+        MultipartRequest multipartRequest = (MultipartRequest) externalContext.getRequestMap().get(
+            MultipartRequest.REQUEST_ATTRIBUTE_NAME);
         if (multipartRequest != null) {
             String clientId = component.getClientId(context);
-            
+
             for (UploadedFile file : multipartRequest.getUploadedFiles()) {
                 if (clientId.equals(file.getParameterName())) {
                     component.queueEvent(new FileUploadEvent(component, file));

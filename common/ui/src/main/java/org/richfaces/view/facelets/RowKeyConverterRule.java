@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.view.facelets;
 
 import javax.faces.convert.Converter;
@@ -64,8 +63,8 @@ public class RowKeyConverterRule extends MetaRule {
 
         @Override
         public void applyMetadata(FaceletContext ctx, Object instance) {
-            ((UIDataAdaptor) instance).setValueExpression("rowKeyConverter",
-                attribute.getValueExpression(ctx, Converter.class));
+            ((UIDataAdaptor) instance)
+                .setValueExpression("rowKeyConverter", attribute.getValueExpression(ctx, Converter.class));
         }
     }
 

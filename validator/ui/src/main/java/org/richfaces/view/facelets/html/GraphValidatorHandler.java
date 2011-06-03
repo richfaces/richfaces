@@ -44,15 +44,13 @@ import org.richfaces.component.AbstractGraphValidator;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class GraphValidatorHandler extends ComponentHandler {
-
-    private static final String BUILT_IN_BEAN_VALIDATOR_ATTRIBUTE_NAME = GraphValidatorHandler.class.getName() 
+    private static final String BUILT_IN_BEAN_VALIDATOR_ATTRIBUTE_NAME = GraphValidatorHandler.class.getName()
         + ":BUILT_IN_BEAN_VALIDATOR_ATTRIBUTE_NAME";
-    
-    private class FacesBeanValidatorAddListener implements ComponentSystemEventListener, StateHolder {
 
+    private class FacesBeanValidatorAddListener implements ComponentSystemEventListener, StateHolder {
         public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
             FacesContext context = FacesContext.getCurrentInstance();
             Validator childrenValidator = createChildrenValidator(context, event.getComponent());
@@ -75,7 +73,7 @@ public class GraphValidatorHandler extends ComponentHandler {
             throw new UnsupportedOperationException();
         }
     }
-    
+
     public GraphValidatorHandler(ComponentConfig config) {
         super(config);
     }
@@ -87,15 +85,15 @@ public class GraphValidatorHandler extends ComponentHandler {
             result = context.getApplication().createValidator(BeanValidator.VALIDATOR_ID);
             context.getAttributes().put(BUILT_IN_BEAN_VALIDATOR_ATTRIBUTE_NAME, result);
         }
-        
+
         return result;
     }
-    
+
     private void setupValidators(FacesContext context, UIComponent component, Validator validator) {
         if (component.getChildCount() == 0 && component.getFacetCount() == 0) {
             return;
         }
-        
+
         Iterator<UIComponent> facetsAndChildren = component.getFacetsAndChildren();
         while (facetsAndChildren.hasNext()) {
             UIComponent child = facetsAndChildren.next();
@@ -103,12 +101,11 @@ public class GraphValidatorHandler extends ComponentHandler {
                 EditableValueHolder input = (EditableValueHolder) child;
                 setupValidator(context, input, validator);
             }
-            
+
             if (!(child instanceof AbstractGraphValidator)) {
-                //don't setup validators for nested GVs
+                // don't setup validators for nested GVs
                 setupValidators(context, child, validator);
             }
-            
         }
     }
 
@@ -120,7 +117,7 @@ public class GraphValidatorHandler extends ComponentHandler {
         boolean addBeanValidator = true;
         Class<?> validatorToRemoveClass = getBuiltInBeanValidator(context).getClass();
         Validator validatorToRemove = null;
-        
+
         Validator[] validators = input.getValidators();
         for (int i = 0; i < validators.length; i++) {
             Validator nextValidator = validators[i];
@@ -128,16 +125,16 @@ public class GraphValidatorHandler extends ComponentHandler {
                 addBeanValidator = false;
                 continue;
             }
-            
+
             if (nextValidator.getClass().equals(validatorToRemoveClass)) {
                 validatorToRemove = nextValidator;
             }
         }
-        
+
         if (validatorToRemove != null) {
             input.removeValidator(validatorToRemove);
         }
-        
+
         if (addBeanValidator) {
             input.addValidator(beanValidator);
         }
@@ -145,14 +142,14 @@ public class GraphValidatorHandler extends ComponentHandler {
 
     private Validator createChildrenValidator(FacesContext context, UIComponent c) {
         AbstractGraphValidator graphValidator = (AbstractGraphValidator) c;
-        
+
         return graphValidator.createChildrenValidator(context);
-    } 
-    
+    }
+
     @Override
     public void applyNextHandler(FaceletContext ctx, UIComponent c) throws IOException, FacesException, ELException {
         super.applyNextHandler(ctx, c);
-        
+
         if (c.isInView()) {
             setupValidators(ctx.getFacesContext(), c, createChildrenValidator(ctx.getFacesContext(), c));
         } else {

@@ -1,4 +1,3 @@
-
 /**
  *
  */
@@ -14,12 +13,10 @@ import java.util.Set;
 import junit.framework.TestCase;
 
 /**
- * @author Nick Belaevski - nbelaevski@exadel.com
- * created 12.04.2007
+ * @author Nick Belaevski - nbelaevski@exadel.com created 12.04.2007
  *
  */
 public class JsonTest extends TestCase {
-
     /**
      * @param name
      */
@@ -28,7 +25,8 @@ public class JsonTest extends TestCase {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see junit.framework.TestCase#setUp()
      */
     protected void setUp() throws Exception {
@@ -36,7 +34,8 @@ public class JsonTest extends TestCase {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see junit.framework.TestCase#tearDown()
      */
     protected void tearDown() throws Exception {
@@ -141,7 +140,6 @@ public class JsonTest extends TestCase {
         assertEquals(etalonMap, map.get("map"));
     }
 }
-
 
 class JsonTestMockMapEntry implements Map.Entry {
     private Object key;

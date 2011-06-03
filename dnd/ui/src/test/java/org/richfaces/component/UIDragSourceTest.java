@@ -8,7 +8,7 @@ public class UIDragSourceTest {
     private UIDragSource dragSource;
 
     @Before
-    public void setUp () {
+    public void setUp() {
         dragSource = new UIDragSource();
     }
 

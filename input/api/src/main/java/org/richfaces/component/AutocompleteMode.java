@@ -23,12 +23,14 @@ package org.richfaces.component;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public enum AutocompleteMode {
 
-    client, lazyClient, ajax, cachedAjax;
-    
+    client,
+    lazyClient,
+    ajax,
+    cachedAjax;
     public static final AutocompleteMode DEFAULT = cachedAjax;
-    
+
 }

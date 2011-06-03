@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.richfaces.validator;
 
@@ -8,5 +8,4 @@ package org.richfaces.validator;
  *
  */
 public interface ValidatorDescriptor extends FacesObjectDescriptor {
-
 }

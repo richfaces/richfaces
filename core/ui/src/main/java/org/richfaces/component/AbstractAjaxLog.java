@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.component;
 
 import javax.faces.application.ResourceDependencies;
@@ -37,19 +34,12 @@ import org.richfaces.cdk.annotations.TagType;
  * @author Nick Belaevski
  *
  */
-@ResourceDependencies(value = {
-        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"), 
+@ResourceDependencies(value = { @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(library = "org.richfaces", name = "log.js"),
-        @ResourceDependency(library = "org.richfaces", name = "log.ecss")
-        })
-@JsfComponent(
-        tag = @Tag(name = "log", type = TagType.Facelets),
-        renderer = @JsfRenderer(type = "org.richfaces.AjaxLogRenderer")
-)
+        @ResourceDependency(library = "org.richfaces", name = "log.ecss") })
+@JsfComponent(tag = @Tag(name = "log", type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.AjaxLogRenderer"))
 public abstract class AbstractAjaxLog extends UIComponentBase {
-
-    public static final String COMPONENT_TYPE="org.richfaces.AjaxLog";
-
+    public static final String COMPONENT_TYPE = "org.richfaces.AjaxLog";
     public static final String COMPONENT_FAMILY = "org.richfaces.AjaxLog";
 
     @Attribute
@@ -60,25 +50,25 @@ public abstract class AbstractAjaxLog extends UIComponentBase {
 
     @Attribute
     public abstract String getStyleClass();
-    
+
     @Attribute
     public abstract LogMode getMode();
 
-//  public abstract String getHotkey();
-//  public abstract void setHotkey(String newvalue);
-//
-//  public abstract String getName();
-//  public abstract void setName(String newvalue);
-//
-//  public abstract String getWidth();
-//  public abstract void setWidth(String newvalue);
-//
-//  public abstract String getHeight();
-//  public abstract void setHeight(String newvalue);
-//
-//  public abstract String getLevel();
-//  public abstract void setLevel(String newvalue);
-//
-//  public abstract boolean isPopup();
-//  public abstract void setPopup(boolean popup);
+    // public abstract String getHotkey();
+    // public abstract void setHotkey(String newvalue);
+    //
+    // public abstract String getName();
+    // public abstract void setName(String newvalue);
+    //
+    // public abstract String getWidth();
+    // public abstract void setWidth(String newvalue);
+    //
+    // public abstract String getHeight();
+    // public abstract void setHeight(String newvalue);
+    //
+    // public abstract String getLevel();
+    // public abstract void setLevel(String newvalue);
+    //
+    // public abstract boolean isPopup();
+    // public abstract void setPopup(boolean popup);
 }

@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit.html;
 
 import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
@@ -47,27 +46,23 @@ import org.richfaces.renderkit.util.PanelIcons;
  * @author akolonitsky
  * @since 2010-08-27
  */
-@ResourceDependencies( {
-    @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-    @ResourceDependency(name = "jquery.js"),
-    @ResourceDependency(name = "richfaces.js"),
-    @ResourceDependency(name = "richfaces-event.js"),
-    @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(library = "org.richfaces", name = "togglePanel.js"),
-    @ResourceDependency(library = "org.richfaces", name = "togglePanelItem.js"),
-    @ResourceDependency(library = "org.richfaces", name = "collapsiblePanel.js"),
-    @ResourceDependency(library = "org.richfaces", name = "collapsiblePanelItem.js"),
-    @ResourceDependency(library = "org.richfaces", name = "icons.ecss"),
-    @ResourceDependency(library = "org.richfaces", name = "collapsiblePanel.ecss") })
+@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"), @ResourceDependency(name = "jquery.js"),
+        @ResourceDependency(name = "richfaces.js"), @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(name = "richfaces-base-component.js"),
+        @ResourceDependency(library = "org.richfaces", name = "togglePanel.js"),
+        @ResourceDependency(library = "org.richfaces", name = "togglePanelItem.js"),
+        @ResourceDependency(library = "org.richfaces", name = "collapsiblePanel.js"),
+        @ResourceDependency(library = "org.richfaces", name = "collapsiblePanelItem.js"),
+        @ResourceDependency(library = "org.richfaces", name = "icons.ecss"),
+        @ResourceDependency(library = "org.richfaces", name = "collapsiblePanel.ecss") })
 @JsfRenderer(type = "org.richfaces.CollapsiblePanelRenderer", family = AbstractCollapsiblePanel.COMPONENT_FAMILY)
 public class CollapsiblePanelRenderer extends TogglePanelRenderer {
-
     public static final String SWITCH = "switch";
     public static final String BEFORE_SWITCH = "beforeswitch";
-
-    private final TableIconsRendererHelper<AbstractCollapsiblePanel> headerRenderer = new TableIconsRendererHelper<AbstractCollapsiblePanel>("header", "rf-cp") {
-  
-        protected void encodeHeaderLeftIcon(ResponseWriter writer, FacesContext context, AbstractCollapsiblePanel panel) throws IOException {
+    private final TableIconsRendererHelper<AbstractCollapsiblePanel> headerRenderer = new TableIconsRendererHelper<AbstractCollapsiblePanel>(
+        "header", "rf-cp") {
+        protected void encodeHeaderLeftIcon(ResponseWriter writer, FacesContext context, AbstractCollapsiblePanel panel)
+            throws IOException {
             String leftCollapsedIcon = panel.getLeftCollapsedIcon();
             if (leftCollapsedIcon == null || leftCollapsedIcon.trim().length() == 0) {
                 leftCollapsedIcon = PanelIcons.chevronUp.toString();
@@ -76,19 +71,20 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
             if (leftExpandedIcon == null || leftExpandedIcon.trim().length() == 0) {
                 leftExpandedIcon = PanelIcons.chevronDown.toString();
             }
-            
-            encodeTdIcon(writer, context, cssClassPrefix + "-ico",
-                leftCollapsedIcon, leftExpandedIcon, PanelIcons.State.header);
+
+            encodeTdIcon(writer, context, cssClassPrefix + "-ico", leftCollapsedIcon, leftExpandedIcon, PanelIcons.State.header);
         }
 
-        protected void encodeHeaderRightIcon(ResponseWriter writer, FacesContext context, AbstractCollapsiblePanel panel) throws IOException {
-            //TODO nick - should this be "-ico-exp"? also why expanded icon state is connected with right icon alignment?
-            encodeTdIcon(writer, context, cssClassPrefix + "-exp-ico",
-                    panel.getRightCollapsedIcon(), panel.getRightExpandedIcon(), PanelIcons.State.header);
+        protected void encodeHeaderRightIcon(ResponseWriter writer, FacesContext context, AbstractCollapsiblePanel panel)
+            throws IOException {
+            // TODO nick - should this be "-ico-exp"? also why expanded icon state is connected with right icon alignment?
+            encodeTdIcon(writer, context, cssClassPrefix + "-exp-ico", panel.getRightCollapsedIcon(),
+                panel.getRightExpandedIcon(), PanelIcons.State.header);
         }
 
         @Override
-        protected void encodeHeaderTextValue(ResponseWriter writer, FacesContext context, AbstractCollapsiblePanel component) throws IOException {
+        protected void encodeHeaderTextValue(ResponseWriter writer, FacesContext context, AbstractCollapsiblePanel component)
+            throws IOException {
             writer.startElement(DIV_ELEM, null);
             writer.writeAttribute(CLASS_ATTRIBUTE, cssClassPrefix + "-lbl-exp", null);
             writeFacetOrAttr(writer, context, component, text, text + "Expanded");
@@ -115,8 +111,8 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
 
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
-        return new JSObject("RichFaces.ui.CollapsiblePanel",
-            component.getClientId(context), getScriptObjectOptions(context, component));
+        return new JSObject("RichFaces.ui.CollapsiblePanel", component.getClientId(context), getScriptObjectOptions(context,
+            component));
     }
 
     @Override
@@ -134,21 +130,22 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
         return options;
     }
 
-    private void encodeHeader(ResponseWriter writer, FacesContext context, AbstractCollapsiblePanel component) throws IOException {
+    private void encodeHeader(ResponseWriter writer, FacesContext context, AbstractCollapsiblePanel component)
+        throws IOException {
         writer.startElement(DIV_ELEM, null);
         writer.writeAttribute(ID_ATTRIBUTE, component.getClientId(context) + ":header", null);
-        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-cp-hdr",
-                "rf-cp-hdr-" + (component.isExpanded() ? "exp" : "colps"),
+        writer.writeAttribute(
+            CLASS_ATTRIBUTE,
+            concatClasses("rf-cp-hdr", "rf-cp-hdr-" + (component.isExpanded() ? "exp" : "colps"),
                 attributeAsString(component, "headerClass")), null);
 
         headerRenderer.encodeHeader(writer, context, component);
 
         writer.endElement(DIV_ELEM);
     }
-    
+
     @Override
-    protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component)
-        throws IOException {
+    protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
 
         AbstractCollapsiblePanel panel = (AbstractCollapsiblePanel) component;
 
@@ -156,7 +153,8 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
         encodeEmptyChild(writer, context, component, panel);
     }
 
-    private void encodeContentChild(ResponseWriter writer, FacesContext context, UIComponent component, AbstractCollapsiblePanel panel) throws IOException {
+    private void encodeContentChild(ResponseWriter writer, FacesContext context, UIComponent component,
+        AbstractCollapsiblePanel panel) throws IOException {
         if (panel.isExpanded()) {
             encodeContent(writer, context, component, true);
         } else {
@@ -179,7 +177,8 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
         }
     }
 
-    private void encodeEmptyChild(ResponseWriter writer, FacesContext context, UIComponent component, AbstractCollapsiblePanel panel) throws IOException {
+    private void encodeEmptyChild(ResponseWriter writer, FacesContext context, UIComponent component,
+        AbstractCollapsiblePanel panel) throws IOException {
         if (!panel.isExpanded()) {
             encodeEmptyDiv(writer, context, component, true);
         } else {
@@ -206,7 +205,8 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
         return "<div id=\"" + id + "\" style=\"display:none\" ></div>";
     }
 
-    private void encodeContent(ResponseWriter writer, FacesContext context, UIComponent component, boolean visible) throws IOException {
+    private void encodeContent(ResponseWriter writer, FacesContext context, UIComponent component, boolean visible)
+        throws IOException {
         writer.startElement(DIV_ELEM, component);
         writer.writeAttribute(ID_ATTRIBUTE, component.getClientId(context) + ":content", null);
         writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-cp-b", attributeAsString(component, "bodyClass")), null);
@@ -217,7 +217,8 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
         writer.endElement(DIV_ELEM);
     }
 
-    private void encodeEmptyDiv(ResponseWriter writer, FacesContext context, UIComponent component, boolean visible) throws IOException {
+    private void encodeEmptyDiv(ResponseWriter writer, FacesContext context, UIComponent component, boolean visible)
+        throws IOException {
         writer.startElement(DIV_ELEM, component);
         writer.writeAttribute(ID_ATTRIBUTE, component.getClientId(context) + ":empty", null);
         writer.writeAttribute(CLASS_ATTRIBUTE, "rf-cp-empty", null);
@@ -230,4 +231,3 @@ public class CollapsiblePanelRenderer extends TogglePanelRenderer {
         return AbstractCollapsiblePanel.class;
     }
 }
-

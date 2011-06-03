@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import org.junit.Assert;
@@ -31,11 +30,10 @@ import org.junit.Test;
  * @since 2010-08-27
  */
 public class UICollapsiblePanelTest {
-
     private UICollapsiblePanel collapsiblePanel;
 
     @Before
-    public void setUp () {
+    public void setUp() {
         collapsiblePanel = new UICollapsiblePanel();
     }
 
@@ -44,4 +42,3 @@ public class UICollapsiblePanelTest {
         Assert.assertNotNull(collapsiblePanel);
     }
 }
-

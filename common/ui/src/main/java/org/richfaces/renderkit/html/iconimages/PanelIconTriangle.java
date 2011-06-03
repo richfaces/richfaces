@@ -18,17 +18,15 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit.html.iconimages;
+
+import java.awt.Graphics2D;
+import java.awt.geom.GeneralPath;
 
 import org.richfaces.resource.DynamicUserResource;
 
-import java.awt.*;
-import java.awt.geom.GeneralPath;
-
 @DynamicUserResource
 public class PanelIconTriangle extends PanelIconTriangleBasic {
-
     void draw(GeneralPath path, Graphics2D g2d) {
         g2d.translate(47, 30);
         path.moveTo(0, 0);
@@ -36,6 +34,5 @@ public class PanelIconTriangle extends PanelIconTriangleBasic {
         path.lineTo(33, 34);
         path.lineTo(0, 67);
         path.closePath();
-
     }
 }

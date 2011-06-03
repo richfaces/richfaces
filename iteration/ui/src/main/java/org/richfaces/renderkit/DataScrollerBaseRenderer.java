@@ -19,8 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-
 package org.richfaces.renderkit;
 
 import static org.richfaces.component.DataScrollerControlsMode.auto;
@@ -45,16 +43,12 @@ import org.richfaces.component.DataScrollerControlsMode;
 import org.richfaces.event.DataScrollEvent;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 
-@ResourceDependencies( { 
-    @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"), 
-    @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"), 
-    @ResourceDependency(name = "richfaces-event.js"),
-    @ResourceDependency(library = "org.richfaces", name = "datascroller.js"),
-    @ResourceDependency(library = "org.richfaces", name = "datascroller.ecss")
-
-})
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+        @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(library = "org.richfaces", name = "datascroller.js"),
+        @ResourceDependency(library = "org.richfaces", name = "datascroller.ecss") })
 public class DataScrollerBaseRenderer extends RendererBase {
-
     public void doDecode(FacesContext context, UIComponent component) {
         Map<String, String> paramMap = context.getExternalContext().getRequestParameterMap();
 
@@ -80,7 +74,7 @@ public class DataScrollerBaseRenderer extends RendererBase {
         }
         return mode;
     }
-    
+
     public ControlsState getControlsState(FacesContext context, UIComponent component) {
 
         int fastStep = (Integer) component.getAttributes().get("fastStepOrDefault");
@@ -92,10 +86,10 @@ public class DataScrollerBaseRenderer extends RendererBase {
 
         boolean useFirst = true;
         boolean useLast = true;
-        
+
         boolean useBackFast = true;
         boolean useForwFast = true;
-        
+
         ControlsState controlsState = new ControlsState();
 
         if (pageIndex <= minPageIdx) {
@@ -117,8 +111,8 @@ public class DataScrollerBaseRenderer extends RendererBase {
         DataScrollerControlsMode boundaryControls = getModeOrDefault(component, "boundaryControls");
         DataScrollerControlsMode stepControls = getModeOrDefault(component, "stepControls");
         DataScrollerControlsMode fastControls = getModeOrDefault(component, "fastControls");
-        
-        boolean isAuto = auto.equals(boundaryControls); 
+
+        boolean isAuto = auto.equals(boundaryControls);
         if (isAuto || show.equals(boundaryControls)) {
             if (isAuto) {
                 controlsState.setFirstRendered(useFirst);
@@ -131,7 +125,7 @@ public class DataScrollerBaseRenderer extends RendererBase {
             controlsState.setFirstRendered(false);
             controlsState.setLastRendered(false);
         }
-        
+
         isAuto = auto.equals(stepControls);
         if (isAuto || show.equals(stepControls)) {
             if (isAuto) {
@@ -145,7 +139,7 @@ public class DataScrollerBaseRenderer extends RendererBase {
             controlsState.setPreviousRendered(false);
             controlsState.setNextRendered(false);
         }
-        
+
         isAuto = auto.equals(fastControls);
         if (isAuto || show.equals(fastControls)) {
             if (isAuto) {
@@ -168,8 +162,7 @@ public class DataScrollerBaseRenderer extends RendererBase {
         return controlsState;
     }
 
-    public Map<String, String> renderPager(ResponseWriter out, FacesContext context, UIComponent component)
-        throws IOException {
+    public Map<String, String> renderPager(ResponseWriter out, FacesContext context, UIComponent component) throws IOException {
 
         int currentPage = (Integer) component.getAttributes().get("page");
         int maxPages = (Integer) component.getAttributes().get("maxPagesOrDefault");
@@ -198,9 +191,9 @@ public class DataScrollerBaseRenderer extends RendererBase {
         }
 
         String clientId = component.getClientId(context);
-        
+
         int size = start + pages;
-        for (int i = start ; i < size; i++) {
+        for (int i = start; i < size; i++) {
 
             boolean isCurrentPage = (i + 1 == currentPage);
             String styleClass;
@@ -218,7 +211,6 @@ public class DataScrollerBaseRenderer extends RendererBase {
                 styleClass = "";
             }
 
-
             if (isCurrentPage) {
                 out.startElement(HtmlConstants.SPAN_ELEM, component);
                 out.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-ds-nmb-btn rf-ds-act " + styleClass, null);
@@ -227,7 +219,6 @@ public class DataScrollerBaseRenderer extends RendererBase {
                 out.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-ds-nmb-btn " + styleClass, null);
                 out.writeAttribute(HtmlConstants.HREF_ATTR, "javascript:void(0);", null);
             }
-
 
             if (null != style) {
                 out.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, style, null);
@@ -241,8 +232,8 @@ public class DataScrollerBaseRenderer extends RendererBase {
             digital.put(id, page);
 
             out.writeText(page, null);
-        
-            if(isCurrentPage) {
+
+            if (isCurrentPage) {
                 out.endElement(HtmlConstants.SPAN_ELEM);
             } else {
                 out.endElement(HtmlConstants.A_ELEMENT);
@@ -252,8 +243,7 @@ public class DataScrollerBaseRenderer extends RendererBase {
         return digital;
     }
 
-    public Map<String, Map<String, String>> getControls(FacesContext context, UIComponent component,
-        ControlsState controlsState) {
+    public Map<String, Map<String, String>> getControls(FacesContext context, UIComponent component, ControlsState controlsState) {
 
         Map<String, Map<String, String>> controls = new HashMap<String, Map<String, String>>();
         Map<String, String> right = new HashMap<String, String>();
@@ -272,11 +262,11 @@ public class DataScrollerBaseRenderer extends RendererBase {
         if (controlsState.getPreviousRendered() && controlsState.getPreviousEnabled()) {
             left.put(clientId + "_ds_prev", AbstractDataScroller.PREVIOUS_FACET_NAME);
         }
-        
+
         if (controlsState.getFastForwardRendered() && controlsState.getFastForwardEnabled()) {
             right.put(clientId + "_ds_ff", AbstractDataScroller.FAST_FORWARD_FACET_NAME);
         }
-        
+
         if (controlsState.getNextRendered() && controlsState.getNextEnabled()) {
             right.put(clientId + "_ds_next", AbstractDataScroller.NEXT_FACET_NAME);
         }
@@ -295,8 +285,8 @@ public class DataScrollerBaseRenderer extends RendererBase {
         return controls;
     }
 
-    public void buildScript(ResponseWriter writer, FacesContext context, UIComponent component, Map buttons,
-        Map digitals) throws IOException {
+    public void buildScript(ResponseWriter writer, FacesContext context, UIComponent component, Map buttons, Map digitals)
+        throws IOException {
 
         JSFunction function = new JSFunction("new RichFaces.ui.DataScroller");
         function.addParameter(component.getClientId(context));
@@ -324,7 +314,7 @@ public class DataScrollerBaseRenderer extends RendererBase {
         definition.addToBody(function.toScript());
         return definition;
     }
-    
+
     public void encodeFacet(FacesContext context, UIComponent component) throws IOException {
         component.encodeAll(context);
     }

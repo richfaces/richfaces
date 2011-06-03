@@ -30,18 +30,16 @@ import org.richfaces.model.SequenceRowKey;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class MapDataTuplesIterator extends BaseTupleIterator {
-
     private Map<?, ?> dataMap;
-    
     private Iterator<?> keys;
-    
+
     public MapDataTuplesIterator(SequenceRowKey baseKey, Map<?, ?> dataMap) {
         this(baseKey, dataMap, null);
     }
-    
+
     public MapDataTuplesIterator(SequenceRowKey baseKey, Map<?, ?> dataMap, UIComponent component) {
         super(baseKey, component);
 
@@ -58,5 +56,4 @@ public class MapDataTuplesIterator extends BaseTupleIterator {
         Object key = keys.next();
         setKeyAndData(key, dataMap.get(key));
     }
-
 }

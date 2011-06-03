@@ -34,16 +34,13 @@ import org.richfaces.renderkit.HtmlConstants;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 class ProgressBarStateEncoder {
-
     private static final int DEFAULT_MIN_VALUE = 0;
-    
     private static final int DEFAULT_MAX_VALUE = 100;
-    
     private boolean renderContentAsPlaceHolders;
-    
+
     public ProgressBarStateEncoder(boolean renderContentAsPlaceHolders) {
         super();
         this.renderContentAsPlaceHolders = renderContentAsPlaceHolders;
@@ -55,11 +52,11 @@ class ProgressBarStateEncoder {
 
     private void encodeStateFacet(FacesContext context, UIComponent component, ProgressBarState state,
         ProgressBarState currentState) throws IOException {
-        
+
         if (!state.hasContent(context, component)) {
             return;
         }
-        
+
         String clientId = state.getStateClientId(context, component);
 
         ResponseWriter responseWriter = context.getResponseWriter();
@@ -69,7 +66,7 @@ class ProgressBarStateEncoder {
         responseWriter.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId, null);
 
         responseWriter.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, getContentStyle(state == currentState), null);
-        
+
         if (!renderContentAsPlaceHolders || state == currentState) {
             state.encodeContent(context, component);
         }
@@ -93,7 +90,7 @@ class ProgressBarStateEncoder {
 
     /**
      * Calculates percent value according to min & max value
-     * 
+     *
      * @param value
      * @param minValue
      * @param maxValue
@@ -113,11 +110,11 @@ class ProgressBarStateEncoder {
 
     public void encodeProgressStateContent(FacesContext context, UIComponent component, ProgressBarState currentState)
         throws IOException {
-        
+
         if (!ProgressBarState.progressState.hasContent(context, component)) {
             return;
         }
-        
+
         ResponseWriter responseWriter = context.getResponseWriter();
         String stateClientId = ProgressBarState.progressState.getStateClientId(context, component);
 
@@ -129,7 +126,7 @@ class ProgressBarStateEncoder {
         if (!renderContentAsPlaceHolders || currentState == ProgressBarState.progressState) {
             ProgressBarState.progressState.encodeContent(context, component);
         }
-        
+
         responseWriter.endElement(HtmlConstants.DIV_ELEM);
     }
 
@@ -138,12 +135,10 @@ class ProgressBarStateEncoder {
 
         ResponseWriter responseWriter = context.getResponseWriter();
         responseWriter.startElement(HtmlConstants.DIV_ELEM, component);
-        responseWriter.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context) + ".rmng",
-            null);
+        responseWriter.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context) + ".rmng", null);
         responseWriter.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
             HtmlUtil.concatClasses("rf-pb-rmng", component.getAttributes().get("remainingClass")), null);
 
-        
         responseWriter.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE,
             getContentStyle(currentState == ProgressBarState.progressState), null);
 
@@ -174,7 +169,7 @@ class ProgressBarStateEncoder {
         throws IOException {
         encodeStateFacet(context, component, ProgressBarState.finishState, currentState);
     }
-    
+
     protected Object getMaxValueOrDefault(UIComponent component) {
         Object maxValue = ((AbstractProgressBar) component).getMaxValue();
         if (maxValue == null) {
@@ -182,15 +177,15 @@ class ProgressBarStateEncoder {
         }
         return maxValue;
     }
-    
+
     protected Object getMinValueOrDefault(UIComponent component) {
         Object maxValue = ((AbstractProgressBar) component).getMinValue();
         if (maxValue == null) {
             maxValue = DEFAULT_MIN_VALUE;
         }
         return maxValue;
-    }  
-    
+    }
+
     protected Object getValueOrDefault(UIComponent component) {
         Object value = ((AbstractProgressBar) component).getValue();
         if (value == null) {

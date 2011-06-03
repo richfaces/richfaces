@@ -1,12 +1,11 @@
 package org.richfaces.renderkit.html;
 
+import java.io.IOException;
+
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
-import java.io.IOException;
-
 public class AccordionRendererTest extends RendererTestBase {
-
     @Test
     public void testAccordion() throws IOException, SAXException {
         doTest("accordion", "f:accordion");

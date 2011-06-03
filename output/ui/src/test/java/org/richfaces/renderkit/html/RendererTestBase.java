@@ -18,18 +18,9 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit.html;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import org.custommonkey.xmlunit.Diff;
-import org.custommonkey.xmlunit.XMLUnit;
-import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.xml.sax.SAXException;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,21 +29,29 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.URISyntaxException;
 
-import static org.junit.Assert.assertNotNull;
+import org.custommonkey.xmlunit.Diff;
+import org.custommonkey.xmlunit.XMLUnit;
+import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.xml.sax.SAXException;
+
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * @author akolonitsky
  * @since Oct 22, 2010
  */
 public abstract class RendererTestBase {
-
     static {
         XMLUnit.setNormalizeWhitespace(true);
         XMLUnit.setIgnoreDiffBetweenTextAndCDATA(true);
         XMLUnit.setIgnoreWhitespace(true);
         XMLUnit.setIgnoreComments(true);
     }
-    
+
     protected HtmlUnitEnvironment environment;
 
     @Before
@@ -60,7 +59,7 @@ public abstract class RendererTestBase {
         environment = new HtmlUnitEnvironment();
         environment.withWebRoot(new File(this.getClass().getResource(".").toURI()));
         environment.start();
-        
+
         environment.getWebClient().setJavaScriptEnabled(false);
     }
 
@@ -92,6 +91,4 @@ public abstract class RendererTestBase {
         xmlDiff.overrideDifferenceListener(new IgnoreScriptsContent());
         Assert.assertTrue("XML was not similar:" + xmlDiff.toString() + "\n\n" + pageCode, xmlDiff.similar());
     }
-    
 }
-

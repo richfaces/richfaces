@@ -36,23 +36,15 @@ import org.richfaces.view.facelets.TagHandlerUtils;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
-@Event(listener = ActionListener.class, source = "org.richfaces.event.DummyActionListenerSource",
-    tag = {
-        @Tag(name = "actionListener", handler = "org.richfaces.view.facelets.html.ActionListenerHandler", 
-            generate = false, type = TagType.Facelets)
-        }
-)
+@Event(listener = ActionListener.class, source = "org.richfaces.event.DummyActionListenerSource", tag = { @Tag(name = "actionListener", handler = "org.richfaces.view.facelets.html.ActionListenerHandler", generate = false, type = TagType.Facelets) })
 class LazyActionListener implements ActionListener, Serializable {
-
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 6303879250524609909L;
-
     private final String type;
-
     private final ValueExpression binding;
 
     public LazyActionListener(String type, ValueExpression binding) {

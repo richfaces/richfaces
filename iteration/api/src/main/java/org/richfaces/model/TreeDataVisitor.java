@@ -21,19 +21,17 @@
  */
 package org.richfaces.model;
 
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface TreeDataVisitor {
+    // TODO make it possible to stop when visit complete
+    void enterNode();
 
-    //TODO make it possible to stop when visit complete
-    public void enterNode();
-    
-    public void exitNode();
+    void exitNode();
 
-    public void beforeChildrenVisit();
+    void beforeChildrenVisit();
 
-    public void afterChildrenVisit();
+    void afterChildrenVisit();
 }

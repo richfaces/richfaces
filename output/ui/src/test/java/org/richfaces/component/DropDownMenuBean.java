@@ -11,11 +11,11 @@ public class DropDownMenuBean {
     public void doAction() {
         _current = "action";
     }
-    
+
     public static String getCurrent() {
         return _current;
     }
-    
+
     public static void setCurrent(String current) {
         _current = current;
     }

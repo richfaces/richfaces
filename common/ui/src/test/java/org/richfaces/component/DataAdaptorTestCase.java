@@ -57,11 +57,9 @@ import org.jboss.test.faces.AbstractFacesTest;
  *
  */
 public class DataAdaptorTestCase extends AbstractFacesTest {
-
     private static final String VAR_NAME = "item";
 
     private static class TestCallback {
-
         private int value;
 
         public void handle() {
@@ -82,7 +80,6 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
     }
 
     private MockDataAdaptor mockDataAdaptor;
-
     private List<String> data;
 
     private ExtendedDataModel<String> createDataModel() {
@@ -90,8 +87,8 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
     }
 
     private Object getVarValue() {
-        return facesContext.getApplication().evaluateExpressionGet(facesContext,
-            MessageFormat.format("#'{'{0}'}'", VAR_NAME), Object.class);
+        return facesContext.getApplication().evaluateExpressionGet(facesContext, MessageFormat.format("#'{'{0}'}'", VAR_NAME),
+            Object.class);
     }
 
     @Override
@@ -126,7 +123,6 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
 
     private UIComponent createCallbackComponent(final TestCallback callback) throws Exception {
         return new HtmlOutputText() {
-
             private void notifyCallbacks() {
                 callback.handle();
             }
@@ -321,7 +317,6 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
 
         final TestCallback testCallback = new TestCallback();
         input.addValueChangeListener(new ValueChangeListener() {
-
             public void processValueChange(ValueChangeEvent event) throws AbortProcessingException {
                 testCallback.getAndIncrement();
                 assertEquals(data.get(1), getVarValue());
@@ -353,7 +348,6 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
         boolean invocationResult;
         final TestCallback callback = new TestCallback();
         invocationResult = mockDataAdaptor.invokeOnComponent(facesContext, "_data", new ContextCallback() {
-
             public void invokeContextCallback(FacesContext context, UIComponent target) {
                 callback.getAndIncrement();
                 assertEquals(mockDataAdaptor, target);
@@ -368,7 +362,6 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
         final char separatorChar = UINamingContainer.getSeparatorChar(facesContext);
         invocationResult = mockDataAdaptor.invokeOnComponent(facesContext, "_data" + separatorChar + "_facet",
             new ContextCallback() {
-
                 public void invokeContextCallback(FacesContext context, UIComponent target) {
                     callback.getAndIncrement();
                     assertEquals(facet, target);
@@ -380,9 +373,8 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
         assertEquals(1, callback.get());
         callback.reset();
 
-        invocationResult = mockDataAdaptor.invokeOnComponent(facesContext, "_data" + separatorChar + "2"
-            + separatorChar + "_child", new ContextCallback() {
-
+        invocationResult = mockDataAdaptor.invokeOnComponent(facesContext, "_data" + separatorChar + "2" + separatorChar
+            + "_child", new ContextCallback() {
             public void invokeContextCallback(FacesContext context, UIComponent target) {
                 callback.getAndIncrement();
                 assertEquals(child, target);
@@ -395,22 +387,20 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
         assertEquals(1, callback.get());
         callback.reset();
 
-        invocationResult = mockDataAdaptor.invokeOnComponent(facesContext, "_data" + separatorChar + "100"
-            + separatorChar + "_child", new ContextCallback() {
-
+        invocationResult = mockDataAdaptor.invokeOnComponent(facesContext, "_data" + separatorChar + "100" + separatorChar
+            + "_child", new ContextCallback() {
             public void invokeContextCallback(FacesContext context, UIComponent target) {
                 fail();
             }
         });
         assertFalse(invocationResult);
 
-        invocationResult = mockDataAdaptor.invokeOnComponent(facesContext, "_data" + separatorChar
-            + "nonExistentComponent", new ContextCallback() {
-
-            public void invokeContextCallback(FacesContext context, UIComponent target) {
-                fail();
-            }
-        });
+        invocationResult = mockDataAdaptor.invokeOnComponent(facesContext, "_data" + separatorChar + "nonExistentComponent",
+            new ContextCallback() {
+                public void invokeContextCallback(FacesContext context, UIComponent target) {
+                    fail();
+                }
+            });
         assertFalse(invocationResult);
     }
 
@@ -433,12 +423,11 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
         idsToVisit.add("_data" + separatorChar + "0" + separatorChar + "_child");
         idsToVisit.add("_data" + separatorChar + "2" + separatorChar + "_child");
 
-        VisitContext partialVisitContext = VisitContext.createVisitContext(facesContext, idsToVisit, EnumSet
-            .of(VisitHint.SKIP_UNRENDERED));
+        VisitContext partialVisitContext = VisitContext.createVisitContext(facesContext, idsToVisit,
+            EnumSet.of(VisitHint.SKIP_UNRENDERED));
 
         final TestCallback callback = new TestCallback();
         mockDataAdaptor.visitTree(fullVisitContext, new VisitCallback() {
-
             public VisitResult visit(VisitContext context, UIComponent target) {
                 callback.getAndIncrement();
                 assertNotNull(target);
@@ -452,7 +441,6 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
         callback.reset();
 
         mockDataAdaptor.visitTree(partialVisitContext, new VisitCallback() {
-
             public VisitResult visit(VisitContext context, UIComponent target) {
                 callback.getAndIncrement();
                 assertNotNull(target);
@@ -466,7 +454,6 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
         callback.reset();
 
         mockDataAdaptor.visitTree(fullVisitContext, new VisitCallback() {
-
             public VisitResult visit(VisitContext context, UIComponent target) {
                 callback.getAndIncrement();
 
@@ -484,7 +471,6 @@ public class DataAdaptorTestCase extends AbstractFacesTest {
 }
 
 class IterationStateHolderComponent extends UIComponentBase implements IterationStateHolder {
-
     private Object iterationState;
 
     @Override
@@ -499,5 +485,4 @@ class IterationStateHolderComponent extends UIComponentBase implements Iteration
     public void setIterationState(Object state) {
         iterationState = state;
     }
-
 }

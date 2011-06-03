@@ -45,20 +45,17 @@ import org.richfaces.validator.GraphValidatorState;
 
 /**
  * JSF component class
- * 
+ *
  */
-@JsfComponent(tag=@Tag(name="graphValidator",type=TagType.Facelets, handler = "org.richfaces.view.facelets.html.GraphValidatorHandler"))
+@JsfComponent(tag = @Tag(name = "graphValidator", type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.GraphValidatorHandler"))
 public abstract class AbstractGraphValidator extends UIComponentBase {
-
     public static final String COMPONENT_TYPE = "org.richfaces.GraphValidator";
-
     public static final String COMPONENT_FAMILY = "org.richfaces.GraphValidator";
-    
     private static final Logger LOG = RichfacesLogger.COMPONENTS.getLogger();
 
     /**
      * Get object for validation
-     * 
+     *
      * @return
      */
     @Attribute
@@ -66,14 +63,14 @@ public abstract class AbstractGraphValidator extends UIComponentBase {
 
     /**
      * Set object for validation
-     * 
+     *
      * @param newvalue
      */
     public abstract void setValue(Object newvalue);
 
     /**
      * Get object for validation
-     * 
+     *
      * @return
      */
     @Attribute
@@ -81,14 +78,14 @@ public abstract class AbstractGraphValidator extends UIComponentBase {
 
     /**
      * Set object for validation
-     * 
+     *
      * @param newvalue
      */
     public abstract void setSummary(String newvalue);
 
     /**
      * Get set of profiles for validation
-     * 
+     *
      * @return
      */
     @Attribute
@@ -96,22 +93,22 @@ public abstract class AbstractGraphValidator extends UIComponentBase {
 
     /**
      * Set set of profiles for validation
-     * 
+     *
      * @param newvalue
      */
     public abstract void setGroups(Class<?>[] newvalue);
 
     /**
      * Get graph validator Id.
-     * 
+     *
      * @return
      */
-    @Attribute(defaultValue="org.richfaces.BeanValidator")
+    @Attribute(defaultValue = "org.richfaces.BeanValidator")
     public abstract String getType();
 
     /**
      * Set graph validator Id.
-     * 
+     *
      * @param newvalue
      */
     public abstract void setType(String newvalue);
@@ -168,7 +165,6 @@ public abstract class AbstractGraphValidator extends UIComponentBase {
         }
     }
 
-
     protected GraphValidatorState getValidatorState(FacesContext context) {
         Object value = getValue();
         if (null != value) {
@@ -186,7 +182,7 @@ public abstract class AbstractGraphValidator extends UIComponentBase {
             validatorState.setActive(true);
             super.processValidators(context);
             validatorState.setActive(wasActive);
-            if(!context.isValidationFailed()){
+            if (!context.isValidationFailed()) {
                 validateObject(context, validatorState.getCloned());
             }
         } else {
@@ -222,7 +218,6 @@ public abstract class AbstractGraphValidator extends UIComponentBase {
                     context.addMessage(clientId, new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, msg));
                 }
             }
-
         }
     }
 
@@ -237,5 +232,4 @@ public abstract class AbstractGraphValidator extends UIComponentBase {
         }
         return validator;
     }
-    
 }

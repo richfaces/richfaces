@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import java.io.IOException;
@@ -47,9 +46,9 @@ import javax.faces.event.PhaseId;
 import javax.faces.event.PostValidateEvent;
 import javax.faces.event.PreValidateEvent;
 
+import org.richfaces.application.FacesMessages;
 import org.richfaces.application.MessageFactory;
 import org.richfaces.application.ServiceTracker;
-import org.richfaces.application.FacesMessages;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -71,24 +70,18 @@ import com.google.common.base.Strings;
  * @author akolonitsky
  * @version 1.0
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"),
-        renderer = @JsfRenderer(type = "org.richfaces.TogglePanelRenderer"))
-public abstract class AbstractTogglePanel extends UIOutput implements AbstractDivPanel, ItemChangeSource, MetaComponentResolver, MetaComponentEncoder {
-
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"), renderer = @JsfRenderer(type = "org.richfaces.TogglePanelRenderer"))
+public abstract class AbstractTogglePanel extends UIOutput implements AbstractDivPanel, ItemChangeSource,
+    MetaComponentResolver, MetaComponentEncoder {
     public static final String ACTIVE_ITEM_META_COMPONENT = "activeItem";
-    
     public static final String COMPONENT_TYPE = "org.richfaces.TogglePanel";
-
     public static final String COMPONENT_FAMILY = "org.richfaces.TogglePanel";
-
     public static final String META_NAME_FIRST = "@first";
     public static final String META_NAME_PREV = "@prev";
     public static final String META_NAME_NEXT = "@next";
     public static final String META_NAME_LAST = "@last";
-
     // TODO What is MessageId ?
     public static final String UPDATE_MESSAGE_ID = "javax.faces.component.UIInput.UPDATE";
-
     private String submittedActiveItem = null;
 
     private enum PropertyKeys {
@@ -102,7 +95,6 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     protected AbstractTogglePanel() {
         setRendererType("org.richfaces.TogglePanelRenderer");
     }
-
 
     // -------------------------------------------------- Editable Value Holder
 
@@ -142,7 +134,9 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     }
 
     /**
-     * <p>Set the "required field" state for this component.</p>
+     * <p>
+     * Set the "required field" state for this component.
+     * </p>
      *
      * @param required The new "required field" state
      */
@@ -161,16 +155,15 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
 
     // ----------------------------------------------------- UIComponent Methods
 
-
     @Override
     public void encodeBegin(FacesContext context) throws IOException {
         AbstractTogglePanelItemInterface item = null;
         String activeItem = getActiveItem();
-        
+
         if (!Strings.isNullOrEmpty(activeItem)) {
             item = this.getItem(activeItem);
         }
-        
+
         if (item == null || !((UIComponent) item).isRendered()) {
             List<AbstractTogglePanelItemInterface> renderedItems = this.getRenderedItems();
             if (!renderedItems.isEmpty()) {
@@ -182,13 +175,12 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     }
 
     /**
-     * <p>Specialized decode behavior on top of that provided by the
-     * superclass.  In addition to the standard
-     * <code>processDecodes</code> behavior inherited from {@link
-     * javax.faces.component.UIComponentBase}, calls <code>processValue()</code> if the the
-     * <code>immediate</code> property is true; if the component is
-     * invalid afterwards or a <code>RuntimeException</code> is thrown,
-     * calls {@link FacesContext#renderResponse}.  </p>
+     * <p>
+     * Specialized decode behavior on top of that provided by the superclass. In addition to the standard
+     * <code>processDecodes</code> behavior inherited from {@link javax.faces.component.UIComponentBase}, calls
+     * <code>processValue()</code> if the the <code>immediate</code> property is true; if the component is invalid afterwards or
+     * a <code>RuntimeException</code> is thrown, calls {@link FacesContext#renderResponse}.
+     * </p>
      *
      * @throws NullPointerException {@inheritDoc}
      */
@@ -224,7 +216,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         } finally {
             popComponentFromEL(context);
         }
-        
+
         ItemChangeEvent event = createItemChangeEvent(context);
         if (event != null) {
             event.queue();
@@ -232,14 +224,12 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     }
 
     /**
-     * <p>In addition to the standard <code>processValidators</code> behavior
-     * inherited from {@link javax.faces.component.UIComponentBase}, calls <code>processValue()</code>
-     * if the <code>immediate</code> property is false (which is the
-     * default);  if the component is invalid afterwards, calls
-     * {@link FacesContext#renderResponse}.
-     * If a <code>RuntimeException</code> is thrown during
-     * validation processing, calls {@link FacesContext#renderResponse}
-     * and re-throw the exception.
+     * <p>
+     * In addition to the standard <code>processValidators</code> behavior inherited from
+     * {@link javax.faces.component.UIComponentBase}, calls <code>processValue()</code> if the <code>immediate</code> property
+     * is false (which is the default); if the component is invalid afterwards, calls {@link FacesContext#renderResponse}. If a
+     * <code>RuntimeException</code> is thrown during validation processing, calls {@link FacesContext#renderResponse} and
+     * re-throw the exception.
      * </p>
      *
      * @throws NullPointerException {@inheritDoc}
@@ -275,14 +265,11 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
     }
 
     /**
-     * <p>In addition to the standard <code>processUpdates</code> behavior
-     * inherited from {@link javax.faces.component.UIComponentBase}, calls
-     * <code>updateModel()</code>.
-     * If the component is invalid afterwards, calls
-     * {@link FacesContext#renderResponse}.
-     * If a <code>RuntimeException</code> is thrown during
-     * update processing, calls {@link FacesContext#renderResponse}
-     * and re-throw the exception.
+     * <p>
+     * In addition to the standard <code>processUpdates</code> behavior inherited from
+     * {@link javax.faces.component.UIComponentBase}, calls <code>updateModel()</code>. If the component is invalid afterwards,
+     * calls {@link FacesContext#renderResponse}. If a <code>RuntimeException</code> is thrown during update processing, calls
+     * {@link FacesContext#renderResponse} and re-throw the exception.
      * </p>
      *
      * @throws NullPointerException {@inheritDoc}
@@ -371,8 +358,7 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
             }
 
             if (messageStr == null) {
-                message = ServiceTracker.getService(MessageFactory.class).createMessage(context,
-                    FacesMessage.SEVERITY_ERROR,
+                message = ServiceTracker.getService(MessageFactory.class).createMessage(context, FacesMessage.SEVERITY_ERROR,
                     FacesMessages.UIINPUT_UPDATE, MessageUtil.getLabel(context, this));
             } else {
                 message = new FacesMessage(FacesMessage.SEVERITY_ERROR, messageStr, messageStr);
@@ -380,18 +366,18 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
             setValid(false);
         } catch (Exception e) {
             caught = e;
-            //message = MessageFactory.getMessage(context, UPDATE_MESSAGE_ID,
-            //              MessageFactory.getHeader(context, this));
+            // message = MessageFactory.getMessage(context, UPDATE_MESSAGE_ID,
+            // MessageFactory.getHeader(context, this));
             setValid(false);
         }
 
         if (caught != null) {
             assert message != null;
 
-            @SuppressWarnings({"ThrowableInstanceNeverThrown"})
+            @SuppressWarnings({ "ThrowableInstanceNeverThrown" })
             UpdateModelException toQueue = new UpdateModelException(message, caught);
-            ExceptionQueuedEventContext eventContext = new ExceptionQueuedEventContext(context,
-                toQueue, this, PhaseId.UPDATE_MODEL_VALUES);
+            ExceptionQueuedEventContext eventContext = new ExceptionQueuedEventContext(context, toQueue, this,
+                PhaseId.UPDATE_MODEL_VALUES);
             context.getApplication().publishEvent(context, ExceptionQueuedEvent.class, eventContext);
         }
     }
@@ -413,28 +399,28 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
             UIComponent actvComp = null;
 
             if (previous != null) {
-                prevComp = (UIComponent)getItem(previous);
+                prevComp = (UIComponent) getItem(previous);
             }
             if (activeItem != null) {
-                actvComp = (UIComponent)getItem(activeItem);
+                actvComp = (UIComponent) getItem(activeItem);
             }
-            
+
             return new ItemChangeEvent(this, previous, prevComp, activeItem, actvComp);
         }
         return null;
     }
-    
+
     @Override
     public void queueEvent(FacesEvent event) {
         if ((event instanceof ItemChangeEvent) && (event.getComponent() == this)) {
-            setEventPhase((ItemChangeEvent)event);
+            setEventPhase((ItemChangeEvent) event);
         }
         super.queueEvent(event);
     }
 
     protected void setEventPhase(ItemChangeEvent event) {
-        if (isImmediate() || (event.getNewItem() != null &&
-            RendererUtils.getInstance().isBooleanAttribute(event.getNewItem(), "immediate"))) {
+        if (isImmediate()
+            || (event.getNewItem() != null && RendererUtils.getInstance().isBooleanAttribute(event.getNewItem(), "immediate"))) {
             event.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
         } else {
             event.setPhaseId(PhaseId.UPDATE_MODEL_VALUES);
@@ -595,12 +581,10 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         this.submittedActiveItem = submittedActiveItem;
     }
 
-
     // ------------------------------------------------ Properties
 
-
     @Override
-    @Attribute(hidden=true)
+    @Attribute(hidden = true)
     public void setValue(Object value) {
         super.setValue(value);
 
@@ -625,14 +609,13 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         }
     }
 
-    
     @Attribute(generate = false)
     public SwitchType getSwitchType() {
         SwitchType switchType = (SwitchType) getStateHelper().eval(PropertyKeys.switchType);
         if (switchType == null) {
             switchType = SwitchType.DEFAULT;
         }
-        return switchType; 
+        return switchType;
     }
 
     public void setSwitchType(SwitchType switchType) {
@@ -659,7 +642,6 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
 
     @Attribute
     public abstract MethodExpression getItemChangeListener();
-
 
     // ------------------------------------------------ Html Attributes
 
@@ -690,15 +672,14 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         return null;
     }
 
-    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
-        String metaComponentId) {
+    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
         return null;
     }
-    
+
     public void encodeMetaComponent(FacesContext context, String metaComponentId) throws IOException {
         ((MetaComponentRenderer) getRenderer(context)).encodeMetaComponent(context, this, metaComponentId);
     }
-    
+
     @Override
     public boolean visitTree(VisitContext context, VisitCallback callback) {
         if (!isVisitable(context)) {
@@ -719,19 +700,20 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
                 if (context instanceof ExtendedVisitContext) {
                     ExtendedVisitContext extendedVisitContext = (ExtendedVisitContext) context;
                     if (extendedVisitContext.getVisitMode() == ExtendedVisitContextMode.RENDER) {
-    
-                        result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback, ACTIVE_ITEM_META_COMPONENT);
+
+                        result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback,
+                            ACTIVE_ITEM_META_COMPONENT);
                         if (result == VisitResult.COMPLETE) {
                             return true;
                         }
                     }
                 }
             }
-            
+
             if (result == VisitResult.ACCEPT) {
                 Iterator<UIComponent> kids = this.getFacetsAndChildren();
 
-                while(kids.hasNext()) {
+                while (kids.hasNext()) {
                     boolean done = kids.next().visitTree(context, callback);
 
                     if (done) {
@@ -744,5 +726,5 @@ public abstract class AbstractTogglePanel extends UIOutput implements AbstractDi
         }
 
         return false;
-    }    
+    }
 }

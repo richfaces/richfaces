@@ -19,9 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
-
 
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
@@ -34,12 +32,9 @@ import org.richfaces.cdk.annotations.TagType;
  * @author akolonitsky
  * @since 2010-08-05
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"),
-        renderer = @JsfRenderer(type = "org.richfaces.AccordionRenderer"))
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"), renderer = @JsfRenderer(type = "org.richfaces.AccordionRenderer"))
 public abstract class AbstractAccordion extends AbstractTogglePanel {
-
     public static final String COMPONENT_TYPE = "org.richfaces.Accordion";
-
     public static final String COMPONENT_FAMILY = "org.richfaces.Accordion";
 
     protected AbstractAccordion() {
@@ -58,8 +53,7 @@ public abstract class AbstractAccordion extends AbstractTogglePanel {
         if (res == null) {
             res = getFirstItem().getName();
         } else {
-            AbstractTogglePanelTitledItem item =
-                    (AbstractTogglePanelTitledItem) super.getItemByIndex(super.getChildIndex(res));
+            AbstractTogglePanelTitledItem item = (AbstractTogglePanelTitledItem) super.getItemByIndex(super.getChildIndex(res));
             if (item.isDisabled()) {
                 res = getFirstItem().getName();
             }
@@ -113,5 +107,4 @@ public abstract class AbstractAccordion extends AbstractTogglePanel {
 
     @Attribute(events = @EventName("beforeitemchange"))
     public abstract String getOnbeforeitemchange();
-
 }

@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit.html.images;
 
 import java.awt.BasicStroke;
@@ -51,13 +50,10 @@ import org.richfaces.skin.SkinFactory;
  */
 @DynamicUserResource
 public class CalendarIcon extends AbstractJava2DUserResource implements StateHolderResource {
-
     private static final Dimension DIMENSION = new Dimension(20, 20);
-    
     private Integer headerTextColor;
-    
     private Integer headerBackgroundColor;
-    
+
     public CalendarIcon() {
         super(DIMENSION);
     }
@@ -67,18 +63,18 @@ public class CalendarIcon extends AbstractJava2DUserResource implements StateHol
         FacesContext context = FacesContext.getCurrentInstance();
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
         Skin defaultSkin = SkinFactory.getInstance(context).getDefaultSkin(context);
-        
+
         this.headerTextColor = skin.getColorParameter(context, Skin.HEADER_BACKGROUND_COLOR);
         if (this.headerTextColor == null) {
             this.headerTextColor = defaultSkin.getColorParameter(context, Skin.HEADER_BACKGROUND_COLOR);
         }
-        
+
         this.headerBackgroundColor = skin.getColorParameter(context, Skin.SELECT_CONTROL_COLOR);
         if (this.headerBackgroundColor == null) {
             this.headerBackgroundColor = defaultSkin.getColorParameter(context, Skin.SELECT_CONTROL_COLOR);
         }
     }
-    
+
     public boolean isTransient() {
         return false;
     }
@@ -104,9 +100,9 @@ public class CalendarIcon extends AbstractJava2DUserResource implements StateHol
         Dimension dimension = getDimension();
         graphics2d.drawImage(image, 0, 0, dimension.width, dimension.height, null);
     }
-    
+
     public BufferedImage paintImage() {
-        
+
         BufferedImage image = createImage(16, 16);
 
         Graphics2D g2d = image.createGraphics();
@@ -122,20 +118,20 @@ public class CalendarIcon extends AbstractJava2DUserResource implements StateHol
         int w = 16;
         int h = 16;
 
-        //Draw Border
+        // Draw Border
         g2d.setColor(borderColor);
         Rectangle2D border = new Rectangle2D.Double(1, 1, w - 3, h - 3);
-        RoundRectangle2D round = new RoundRectangle2D.Double(1, 1, w- 3, h - 3, 2, 2);
+        RoundRectangle2D round = new RoundRectangle2D.Double(1, 1, w - 3, h - 3, 2, 2);
         g2d.draw(round);
 
         Color lightBlue = new Color(216, 226, 240);
-        Paint gradient1 = new GradientPaint(w-4, h-4, lightBlue, 2, 2, Color.white);
+        Paint gradient1 = new GradientPaint(w - 4, h - 4, lightBlue, 2, 2, Color.white);
         g2d.setPaint(gradient1);
         border = new Rectangle2D.Double(2, 2, w - 4, h - 4);
         g2d.fill(border);
 
         border = new Rectangle2D.Double(3, 3, w - 6, h - 6);
-        gradient1 = new GradientPaint(3, 3, lightBlue , w - 6, h - 6, borderColor);
+        gradient1 = new GradientPaint(3, 3, lightBlue, w - 6, h - 6, borderColor);
         g2d.setPaint(gradient1);
         g2d.fill(border);
 
@@ -146,7 +142,7 @@ public class CalendarIcon extends AbstractJava2DUserResource implements StateHol
         g2d.drawLine(9, 6, 9, 11);
         g2d.drawLine(11, 6, 11, 11);
 
-        //Draw orange rectangle
+        // Draw orange rectangle
         border = new Rectangle2D.Double(3, 3, 10, 3);
         g2d.setColor(Color.white);
         g2d.fill(border);
@@ -157,7 +153,7 @@ public class CalendarIcon extends AbstractJava2DUserResource implements StateHol
         gradient1 = new GradientPaint(12, 4, activeColor, 4, 7, c2);
         g2d.setPaint(gradient1);
         g2d.fill(border);
-        //g2d.setColor(activeColor);
+        // g2d.setColor(activeColor);
 
         c = new Color(activeColor.getRed(), activeColor.getGreen(), activeColor.getBlue(), 150);
         c2 = new Color(activeColor.getRed(), activeColor.getGreen(), activeColor.getBlue(), 200);
@@ -167,12 +163,12 @@ public class CalendarIcon extends AbstractJava2DUserResource implements StateHol
         g2d.fill(border);
 
         gradient1 = new GradientPaint(4, 4, c, 10, 4, c2);
-        //g2d.setPaint(gradient1);
+        // g2d.setPaint(gradient1);
         g2d.setColor(c);
         g2d.fill(border);
 
         g2d.dispose();
-        
+
         return image;
     }
 }

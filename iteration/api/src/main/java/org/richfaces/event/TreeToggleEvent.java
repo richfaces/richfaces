@@ -27,28 +27,26 @@ import javax.faces.event.FacesListener;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class TreeToggleEvent extends FacesEvent {
-
     private static final long serialVersionUID = -7264894390585192069L;
-
     private boolean expanded;
-    
+
     public TreeToggleEvent(UIComponent component, boolean expanded) {
         super(component);
-        
+
         this.expanded = expanded;
     }
 
     public boolean isExpanded() {
         return expanded;
     }
-    
+
     public boolean isCollapsed() {
         return !isExpanded();
     }
-    
+
     @Override
     public boolean isAppropriateListener(FacesListener listener) {
         return listener instanceof TreeToggleListener;
@@ -58,5 +56,4 @@ public class TreeToggleEvent extends FacesEvent {
     public void processListener(FacesListener listener) {
         ((TreeToggleListener) listener).processTreeToggle(this);
     }
-
 }

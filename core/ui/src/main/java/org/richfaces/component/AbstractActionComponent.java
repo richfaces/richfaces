@@ -30,10 +30,9 @@ import org.richfaces.cdk.annotations.Attribute;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public abstract class AbstractActionComponent extends UICommand {
-
     @Attribute
     public abstract boolean isBypassUpdates();
 
@@ -50,7 +49,7 @@ public abstract class AbstractActionComponent extends UICommand {
                 } else {
                     event.setPhaseId(PhaseId.INVOKE_APPLICATION);
                 }
-            } 
+            }
 
             // UICommand set Phase ID for all ActionEvents - bypass it.
             getParent().queueEvent(event);

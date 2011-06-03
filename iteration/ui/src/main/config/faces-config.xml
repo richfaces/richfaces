@@ -15,7 +15,7 @@
         <converter-id>org.richfaces.IntegerSequenceRowKeyConverter</converter-id>
         <converter-class>org.richfaces.convert.IntegerSequenceRowKeyConverter</converter-class>
     </converter>
-    
+
     <converter>
         <converter-id>org.richfaces.StringSequenceRowKeyConverter</converter-id>
         <converter-class>org.richfaces.convert.StringSequenceRowKeyConverter</converter-class>

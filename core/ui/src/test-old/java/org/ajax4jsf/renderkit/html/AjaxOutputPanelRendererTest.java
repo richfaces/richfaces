@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.renderkit.html;
 
 import javax.faces.component.UIForm;
@@ -29,7 +26,6 @@ import javax.faces.component.html.HtmlForm;
 
 import org.ajax4jsf.component.UIAjaxOutputPanel;
 import org.ajax4jsf.tests.AbstractAjax4JsfTestCase;
-
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -93,7 +89,8 @@ public class AjaxOutputPanelRendererTest extends AbstractAjax4JsfTestCase {
             HtmlElement empty = page.getHtmlElementById(panel1.getClientId(facesContext));
 
             assertFalse("ElementNotFoundException was not thrown", true);
-        } catch (ElementNotFoundException e) {}
+        } catch (ElementNotFoundException e) {
+        }
 
         HtmlElement div = page.getHtmlElementById(panel2.getClientId(facesContext));
 

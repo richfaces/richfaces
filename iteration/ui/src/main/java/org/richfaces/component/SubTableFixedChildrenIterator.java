@@ -23,13 +23,11 @@ package org.richfaces.component;
 
 import javax.faces.component.UIComponent;
 
-
 /**
  * @author asmirnov
- * 
+ *
  */
 public class SubTableFixedChildrenIterator extends DataTableFixedChildrenIterator {
-
     public SubTableFixedChildrenIterator(UIDataTableBase dataTable) {
         super(dataTable);
     }

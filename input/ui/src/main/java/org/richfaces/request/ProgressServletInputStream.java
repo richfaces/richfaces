@@ -25,13 +25,10 @@ import java.io.IOException;
 
 import javax.servlet.ServletInputStream;
 
-
 class ProgressServletInputStream extends ServletInputStream {
-
     private ServletInputStream wrappedStream;
-    
     private ProgressControl progressControl;
-    
+
     protected ProgressServletInputStream(ServletInputStream wrappedStream, ProgressControl progressControl) {
         this.wrappedStream = wrappedStream;
         this.progressControl = progressControl;
@@ -96,5 +93,4 @@ class ProgressServletInputStream extends ServletInputStream {
     public boolean markSupported() {
         return wrappedStream.markSupported();
     }
-    
 }

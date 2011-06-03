@@ -18,13 +18,9 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.component;
 
 import java.text.NumberFormat;
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -45,8 +41,8 @@ public class QueueSizeTest extends AbstractQueueComponentTest {
     }
 
     protected TestsResult simulate(int numberOfEvents, SequenceGenerator<Integer> userDelayGenerator,
-                                   SequenceGenerator<Integer> processTimeGenerator,
-                                   SequenceGenerator<String> requestIdGenerator)
+            SequenceGenerator<Integer> processTimeGenerator,
+            SequenceGenerator<String> requestIdGenerator)
             throws Exception {
         NumberFormat numberFormat = NumberFormat.getInstance();
 
@@ -63,7 +59,7 @@ public class QueueSizeTest extends AbstractQueueComponentTest {
 
             time += userDelay;
             ajax(time, numberFormat.format(i),
-                 parametersBuilder.similarityGroupingId(requestIdGenerator.next()).requestTime(requestTime));
+                    parametersBuilder.similarityGroupingId(requestIdGenerator.next()).requestTime(requestTime));
         }
 
         TestsResult result = getTestsResult();
@@ -90,7 +86,7 @@ public class QueueSizeTest extends AbstractQueueComponentTest {
 
     public void testUnlimitedOverload() throws Exception {
         TestsResult result = simulate(numberOfEvents, new RandomSequenceGenerator(5, 100),
-                                      new RandomSequenceGenerator(50, 300), new UUIDGenerator());
+                new RandomSequenceGenerator(50, 300), new UUIDGenerator());
 
         checkQueueOrdering(result);
         assertEquals(numberOfEvents, result.getDataList().size());
@@ -98,7 +94,7 @@ public class QueueSizeTest extends AbstractQueueComponentTest {
 
     public void testUnlimitedUnderload() throws Exception {
         TestsResult result = simulate(numberOfEvents, new RandomSequenceGenerator(50, 300),
-                                      new RandomSequenceGenerator(5, 100), new UUIDGenerator());
+                new RandomSequenceGenerator(5, 100), new UUIDGenerator());
 
         checkQueueOrdering(result);
         assertEquals(numberOfEvents, result.getDataList().size());
@@ -107,7 +103,7 @@ public class QueueSizeTest extends AbstractQueueComponentTest {
     public void testUnlimitedEmulateUser() throws Exception {
         TableRequestIdGenerator requestIdGenerator = new TableRequestIdGenerator();
         TestsResult result = simulate(numberOfEvents, new RandomSequenceGenerator(5, 100),
-                                      new RandomSequenceGenerator(5, 100), requestIdGenerator);
+                new RandomSequenceGenerator(5, 100), requestIdGenerator);
 
         checkQueueOrdering(result);
         assertTrue(requestIdGenerator.getUniqueIdsCounter() <= result.getDataList().size());
@@ -118,7 +114,7 @@ public class QueueSizeTest extends AbstractQueueComponentTest {
         renderView("/queue-size.xhtml");
 
         ParametersBuilder parametersBuilder =
-            createAjaxParameters().eventsQueue(queueName).requestDelay(300).requestTime(300);
+                createAjaxParameters().eventsQueue(queueName).requestDelay(300).requestTime(300);
 
         ajax(0, "a", parametersBuilder.similarityGroupingId("a"));
         ajax(100, "b", parametersBuilder.similarityGroupingId("b"));
@@ -136,7 +132,7 @@ public class QueueSizeTest extends AbstractQueueComponentTest {
         renderView("/queue-size.xhtml");
 
         ParametersBuilder parametersBuilder =
-            createAjaxParameters().eventsQueue(queueName).requestTime(300).requestDelay(200);
+                createAjaxParameters().eventsQueue(queueName).requestTime(300).requestDelay(200);
 
         ajax(0, "a", parametersBuilder.similarityGroupingId("a"));
         ajax(100, "b", parametersBuilder.similarityGroupingId("b"));
@@ -322,7 +318,7 @@ public class QueueSizeTest extends AbstractQueueComponentTest {
         renderView("/queue-size.xhtml");
 
         ParametersBuilder parametersBuilder =
-            createAjaxParameters().eventsQueue("singleSizedDefaultQueue").requestDelay(0);
+                createAjaxParameters().eventsQueue("singleSizedDefaultQueue").requestDelay(0);
 
         ajax(0, "a", parametersBuilder);
         ajax(500, "b", parametersBuilder);
@@ -343,7 +339,6 @@ public class QueueSizeTest extends AbstractQueueComponentTest {
         public abstract T next();
     }
 
-
     private static final class RandomSequenceGenerator implements SequenceGenerator<Integer> {
         private Random random = new Random();
         private int limit;
@@ -360,10 +355,9 @@ public class QueueSizeTest extends AbstractQueueComponentTest {
         }
     }
 
-
     private static final class TableRequestIdGenerator implements SequenceGenerator<String> {
         private static final String[] requestIds = new String[] {
-            "aaa", "bbb", "ccc", "ddd", "eee", "fff"
+                "aaa", "bbb", "ccc", "ddd", "eee", "fff"
         };
         private Random random = new Random();
         private int uniqueIdsCounter = 0;
@@ -385,13 +379,11 @@ public class QueueSizeTest extends AbstractQueueComponentTest {
         }
     }
 
-
     private static final class UUIDGenerator implements SequenceGenerator<String> {
         public String next() {
             return UUID.randomUUID().toString();
         }
     }
-
 
     ;
 }

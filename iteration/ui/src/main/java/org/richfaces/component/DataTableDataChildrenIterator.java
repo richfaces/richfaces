@@ -31,14 +31,12 @@ import com.google.common.collect.Iterators;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 class DataTableDataChildrenIterator extends AbstractIterator<UIComponent> {
-
     private Iterator<UIComponent> dataTableChildren;
-    
     private Iterator<UIComponent> columnChildren = Iterators.emptyIterator();
-    
+
     public DataTableDataChildrenIterator(UIComponent dataTable) {
         super();
         this.dataTableChildren = dataTable.getChildren().iterator();
@@ -50,7 +48,7 @@ class DataTableDataChildrenIterator extends AbstractIterator<UIComponent> {
             if (columnChildren.hasNext()) {
                 return columnChildren.next();
             }
-            
+
             UIComponent child = dataTableChildren.next();
             if (child instanceof UIColumn || child instanceof AbstractColumn) {
                 columnChildren = child.getChildren().iterator();
@@ -62,8 +60,7 @@ class DataTableDataChildrenIterator extends AbstractIterator<UIComponent> {
 
         dataTableChildren = Iterators.emptyIterator();
         columnChildren = Iterators.emptyIterator();
-    
+
         return endOfData();
     }
-
 }

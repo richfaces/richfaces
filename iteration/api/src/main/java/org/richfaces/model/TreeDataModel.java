@@ -25,38 +25,35 @@ import java.util.Iterator;
 
 import javax.faces.convert.Converter;
 
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
-//TODO - add necessary methods for tree adaptors support
+// TODO - add necessary methods for tree adaptors support
 public interface TreeDataModel<E> {
+    char SEPARATOR_CHAR = '.';
 
-    public static final char SEPARATOR_CHAR = '.';
-    
-    public Object getRowKey();
-    
-    public void setRowKey(Object rowKey);
-    
-    public boolean isDataAvailable();
-    
-    public boolean isLeaf();
-    
-    public E getData();
-    
-    public Iterator<TreeDataModelTuple> children();
+    Object getRowKey();
 
-    public Object getParentRowKey(Object rowKey);
-    
-    public Object getWrappedData();
+    void setRowKey(Object rowKey);
 
-    public void setWrappedData(Object data);
- 
-    public TreeDataModelTuple createSnapshot();
+    boolean isDataAvailable();
 
-    public void restoreFromSnapshot(TreeDataModelTuple tuple);
-    
-    public Converter getRowKeyConverter();
-    
+    boolean isLeaf();
+
+    E getData();
+
+    Iterator<TreeDataModelTuple> children();
+
+    Object getParentRowKey(Object rowKey);
+
+    Object getWrappedData();
+
+    void setWrappedData(Object data);
+
+    TreeDataModelTuple createSnapshot();
+
+    void restoreFromSnapshot(TreeDataModelTuple tuple);
+
+    Converter getRowKeyConverter();
 }

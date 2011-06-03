@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.component;
 
 import java.util.ArrayList;
@@ -93,7 +90,8 @@ public class DataAdaptorTestCase extends AbstractAjax4JsfTestCase {
                 childChildInvoked++;
                 super.processDecodes(context);
             }
-        };;
+        };
+        ;
         childChildInvoked = 0;
         childChild.setId("childChild");
         child.getChildren().add(childChild);
@@ -102,7 +100,8 @@ public class DataAdaptorTestCase extends AbstractAjax4JsfTestCase {
                 childChildFacetInvoked++;
                 super.processDecodes(context);
             }
-        };;
+        };
+        ;
         childChildFacetInvoked = 0;
         childChildFacet.setId("childChildFacet");
         childChild.getFacets().put("facet", childChildFacet);

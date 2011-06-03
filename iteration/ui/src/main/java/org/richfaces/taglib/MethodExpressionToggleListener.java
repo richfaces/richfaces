@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.taglib;
 
 import javax.el.MethodExpression;
@@ -29,20 +28,19 @@ import org.richfaces.event.CollapsibleSubTableToggleEvent;
 import org.richfaces.event.CollapsibleSubTableToggleListener;
 
 public class MethodExpressionToggleListener implements CollapsibleSubTableToggleListener {
-    
     private MethodExpression methodExpression;
-    
+
     public MethodExpressionToggleListener() {
         super();
     }
-    
+
     MethodExpressionToggleListener(MethodExpression methodExpression) {
         super();
         this.methodExpression = methodExpression;
     }
-    
+
     public void processCollapsibleSubTableToggle(CollapsibleSubTableToggleEvent toggleEvent) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        methodExpression.invoke(facesContext.getELContext(), new Object[]{toggleEvent});
+        methodExpression.invoke(facesContext.getELContext(), new Object[] { toggleEvent });
     }
 }

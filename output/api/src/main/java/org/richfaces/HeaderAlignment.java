@@ -5,5 +5,9 @@ package org.richfaces;
  * @since Aug 24, 2010
  */
 public enum HeaderAlignment {
-    left, center, right, bottom, top
+    left,
+    center,
+    right,
+    bottom,
+    top
 }

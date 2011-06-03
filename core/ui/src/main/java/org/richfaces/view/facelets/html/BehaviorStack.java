@@ -19,9 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-
-
 package org.richfaces.view.facelets.html;
 
 import java.util.ArrayList;
@@ -40,12 +37,12 @@ import javax.faces.context.FacesContext;
 /**
  * @author Nick Belaevski
  *
- * This class is necessary to handle nesting wrapping behaviors properly and is created
- * to work around this issue: https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=655
+ *         This class is necessary to handle nesting wrapping behaviors properly and is created to work around this issue:
+ *         https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=655
  *
  */
 
-//TODO - check for bug resolution
+// TODO - check for bug resolution
 final class BehaviorStack {
     private static final String BEHAVIOR_STACK = "org.richfaces.BehaviorStack";
     private LinkedList<BehaviorInfoImpl> behaviorStack = null;
@@ -97,13 +94,10 @@ final class BehaviorStack {
     }
 
     static interface BehaviorInfo {
-
-        public List<ClientBehavior> getBehaviors();
-
+        List<ClientBehavior> getBehaviors();
     }
 
     private static class BehaviorInfoImpl implements BehaviorInfo {
-
         private String behaviorId;
         private Object behaviorState;
         private String eventName;

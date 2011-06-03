@@ -19,26 +19,23 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.event;
 
 import javax.el.MethodExpression;
 import javax.faces.event.AbortProcessingException;
 
 /**
- * <p><strong><span
- * class="changed_modified_2_0">MethodExpressionPanelToggleListener</span></strong>
- * is a {@link PanelToggleListener} that wraps a {@link
- * MethodExpression}. When it receives a {@link PanelToggleEvent}, it
- * executes a method on an object identified by the {@link
- * MethodExpression}.</p>
+ * <p>
+ * <strong><span class="changed_modified_2_0">MethodExpressionPanelToggleListener</span></strong> is a
+ * {@link PanelToggleListener} that wraps a {@link MethodExpression}. When it receives a {@link PanelToggleEvent}, it executes a
+ * method on an object identified by the {@link MethodExpression}.
+ * </p>
  *
  * @author akolonitsky
  * @version 1.0
  *
  */
 public class MethodExpressionPanelToggleListener extends MethodExpressionEventListener implements PanelToggleListener {
-
     public MethodExpressionPanelToggleListener() {
         super();
     }

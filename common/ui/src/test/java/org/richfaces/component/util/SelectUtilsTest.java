@@ -19,7 +19,6 @@ import com.google.common.collect.Lists;
  * @since 27.01.11
  */
 public class SelectUtilsTest extends AbstractFacesTest {
-
     @Override
     public void setUp() throws Exception {
         super.setUp();
@@ -31,13 +30,12 @@ public class SelectUtilsTest extends AbstractFacesTest {
         super.tearDown();
     }
 
-    
-    private static final <T> List<T> asList(Iterator<T> itr) {
+    private static <T> List<T> asList(Iterator<T> itr) {
         List<T> result = Lists.newArrayList();
         Iterators.addAll(result, itr);
         return result;
     }
-    
+
     /**
      * The aim of this test is to check first part of {@link SelectUtils#getSelectItems}, for {@link UISelectOne}
      */
@@ -109,9 +107,8 @@ public class SelectUtilsTest extends AbstractFacesTest {
     }
 
     private class UISelectItemStub extends UISelectItem {
-
-        public UISelectItemStub(Object itemValue, String itemLabel, String itemDescription,
-                                boolean itemDisabled, boolean itemEscaped, boolean noSelectionOption) {
+        public UISelectItemStub(Object itemValue, String itemLabel, String itemDescription, boolean itemDisabled,
+            boolean itemEscaped, boolean noSelectionOption) {
             super();
             setItemValue(itemValue);
             setItemLabel(itemLabel);

@@ -12,9 +12,8 @@ import org.richfaces.renderkit.AjaxCommandRendererBase;
 import org.richfaces.renderkit.util.HandlersChain;
 
 public class MenuItemRendererBase extends AjaxCommandRendererBase {
-    
     public static final String RENDERER_TYPE = "org.richfaces.MenuItemRenderer";
-    
+
     protected boolean isDisabled(FacesContext facesContext, UIComponent component) {
         if (component instanceof AbstractMenuItem) {
             return ((AbstractMenuItem) component).isDisabled();
@@ -24,32 +23,32 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
 
     protected UIComponent getIconFacet(FacesContext facesContext, UIComponent component) {
         UIComponent facet = null;
-        AbstractMenuItem menuItem = (AbstractMenuItem) component; 
+        AbstractMenuItem menuItem = (AbstractMenuItem) component;
         if (menuItem != null) {
-            
+
             if (menuItem.isDisabled()) {
                 facet = menuItem.getFacet(AbstractMenuItem.Facets.iconDisabled.toString());
             } else {
                 facet = menuItem.getFacet(AbstractMenuItem.Facets.icon.toString());
             }
         }
-        return facet;   
-    }      
-    
+        return facet;
+    }
+
     protected String getIconAttribute(FacesContext facesContext, UIComponent component) {
         String icon = null;
-        AbstractMenuItem menuItem = (AbstractMenuItem) component; 
+        AbstractMenuItem menuItem = (AbstractMenuItem) component;
         if (menuItem != null) {
-            
+
             if (menuItem.isDisabled()) {
                 icon = menuItem.getIconDisabled();
             } else {
                 icon = menuItem.getIcon();
             }
         }
-        return icon;   
-    }     
-    
+        return icon;
+    }
+
     @Override
     public void doDecode(FacesContext context, UIComponent component) {
         AbstractMenuItem menuItem = (AbstractMenuItem) component;
@@ -60,7 +59,7 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
             }
         }
     }
-    
+
     private UIComponent getUIForm(UIComponent component) {
         if (component != null) {
             UIComponent parent = component.getParent();
@@ -73,7 +72,7 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
         }
         return null;
     }
-    
+
     protected String getOnClickFunction(FacesContext facesContext, UIComponent component) {
         AbstractMenuItem menuItem = (AbstractMenuItem) component;
         Mode subminMode = resolveSubmitMode(menuItem);
@@ -84,13 +83,13 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
         }
     }
 
-    /** overridden due to {@link https://issues.jboss.org/browse/RF-10695}
+    /**
+     * overridden due to {@link https://issues.jboss.org/browse/RF-10695}
      *
      * @param context
      * @param component
      * @return
      */
-
     @Override
     public String getOnClick(FacesContext context, UIComponent component) {
         StringBuffer onClick = new StringBuffer();
@@ -127,8 +126,9 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
         }
         return Mode.server;
     }
-    
-    protected String getStyleClass(FacesContext facesContext, UIComponent component, String ddMenuStyle, String menuGroupStyle, String menuItemStyle) {
+
+    protected String getStyleClass(FacesContext facesContext, UIComponent component, String ddMenuStyle, String menuGroupStyle,
+        String menuItemStyle) {
         UIComponent ddMenu = getDDMenu(component);
         UIComponent menuGroup = getMenuGroup(component);
         Object styleClass = null;
@@ -144,6 +144,7 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
 
     /**
      * Finds a parent of given UI <code>component</code>.
+     *
      * @param component <code>UIComponent</code>
      * @param parentClass <code>Class</code> of desired parent
      * @return <code>UIComponent</code>
@@ -160,27 +161,30 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
         }
         return null;
     }
-    
+
     /**
      * Returns a parent <code>AbstractDropDownMenu</code> object of the given component.
+     *
      * @param component
      * @return <code>AbstractDropDownMenu</code>
      */
     protected AbstractDropDownMenu getDDMenu(UIComponent component) {
         return (AbstractDropDownMenu) getParent(component, AbstractDropDownMenu.class);
-    }  
-    
+    }
+
     /**
      * Returns a parent <code>AbstractMenuGroup</code> object of the given component.
+     *
      * @param component
      * @return <code>AbstractMenuGroup</code>
      */
     protected AbstractMenuGroup getMenuGroup(UIComponent component) {
         return (AbstractMenuGroup) getParent(component, AbstractMenuGroup.class);
     }
-    
+
     /**
-     * It is introduced due to RF-10004 CDK: isEmpty method is generated incorrectly 
+     * It is introduced due to RF-10004 CDK: isEmpty method is generated incorrectly
+     *
      * @param str
      * @return
      */
@@ -191,7 +195,7 @@ public class MenuItemRendererBase extends AjaxCommandRendererBase {
         return true;
     }
 
-    public String getSubmitMode(UIComponent component){
+    public String getSubmitMode(UIComponent component) {
         return this.resolveSubmitMode((AbstractMenuItem) component).name();
     }
 }

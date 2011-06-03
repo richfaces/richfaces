@@ -19,19 +19,17 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.event;
 
 import javax.el.MethodExpression;
 import javax.faces.event.AbortProcessingException;
 
 /**
- * <p><strong><span
- * class="changed_modified_2_0">MethodExpressionItemChangeListener</span></strong>
- * is a {@link ItemChangeListener} that wraps a {@link
- * MethodExpression}. When it receives a {@link ItemChangeEvent}, it
- * executes a method on an object identified by the {@link
- * MethodExpression}.</p>
+ * <p>
+ * <strong><span class="changed_modified_2_0">MethodExpressionItemChangeListener</span></strong> is a {@link ItemChangeListener}
+ * that wraps a {@link MethodExpression}. When it receives a {@link ItemChangeEvent}, it executes a method on an object
+ * identified by the {@link MethodExpression}.
+ * </p>
  *
  * @author akolonitsky
  * @version 1.0
@@ -39,12 +37,11 @@ import javax.faces.event.AbortProcessingException;
  *
  */
 public class MethodExpressionItemChangeListener extends MethodExpressionEventListener implements ItemChangeListener {
-
     public MethodExpressionItemChangeListener() {
     }
 
     public MethodExpressionItemChangeListener(MethodExpression methodExprOneArg) {
-       super(methodExprOneArg);
+        super(methodExprOneArg);
     }
 
     public MethodExpressionItemChangeListener(MethodExpression methodExprOneArg, MethodExpression methodExprZeroArg) {
@@ -57,4 +54,3 @@ public class MethodExpressionItemChangeListener extends MethodExpressionEventLis
         processEvent(itemChangeEvent);
     }
 }
-

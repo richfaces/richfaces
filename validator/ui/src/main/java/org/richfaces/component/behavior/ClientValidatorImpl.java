@@ -22,6 +22,7 @@
  */
 package org.richfaces.component.behavior;
 
+import java.org.richfaces.component.UIRichMessages;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -72,24 +73,17 @@ import com.google.common.collect.Lists;
 /**
  * <p class="changed_added_4_0">
  * </p>
- * 
+ *
  * @author asmirnov@exadel.com
- * 
+ *
  */
 @JsfBehavior(id = "org.richfaces.behavior.ClientValidator", tag = @Tag(name = "validator", handler = "org.richfaces.view.facelets.html.ClientValidatorHandler", type = TagType.Facelets))
 public class ClientValidatorImpl extends AjaxBehavior implements ClientValidatorBehavior {
-    
-
     private static final Set<String> NONE = Collections.emptySet();
-
     private static final Set<String> THIS = Collections.singleton("@this");
-
     private static final Class<?>[] EMPTY_GROUPS = new Class<?>[0];
-
     private static final String VALUE = "value";
-
     private static final Logger LOG = RichfacesLogger.COMPONENTS.getLogger();
-
     private Class<?>[] groups;
 
     @Override
@@ -115,29 +109,29 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
         // Add message components to re-render list ( if any )
         FacesContext facesContext = FacesContext.getCurrentInstance();
         PartialViewContext partialViewContext = facesContext.getPartialViewContext();
-        if(partialViewContext.isAjaxRequest()){
+        if (partialViewContext.isAjaxRequest()) {
             UIComponent component = event.getComponent();
-            if(component instanceof EditableValueHolder){
+            if (component instanceof EditableValueHolder) {
                 String clientId = component.getClientId(facesContext);
                 Iterator<FacesMessage> messages = facesContext.getMessages(clientId);
                 JavaScriptService javaScriptService = ServiceTracker.getService(JavaScriptService.class);
-                javaScriptService.addPageReadyScript(facesContext, new MessageUpdateScript(clientId,messages));
+                javaScriptService.addPageReadyScript(facesContext, new MessageUpdateScript(clientId, messages));
             }
         }
         super.broadcast(event);
     }
-    
+
     public Set<UIComponent> getMessages(FacesContext context, UIComponent component) {
         Set<UIComponent> messages = new HashSet<UIComponent>();
-        findMessages(component.getParent(),component, messages, false,component.getId());
+        findMessages(component.getParent(), component, messages, false, component.getId());
         // TODO - enable then UIRichMessages will be done
-//        findRichMessages(context, context.getViewRoot(), messages);
+        // findRichMessages(context, context.getViewRoot(), messages);
         return messages;
     }
 
     /**
      * Find all instances of the {@link UIRichMessages} and update list of the rendered messages.
-     * 
+     *
      * @param context
      * @param component
      * @param messages
@@ -160,14 +154,15 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
 
     /**
      * Recursive search messages for the parent component.
-     * 
+     *
      * @param parent
      * @param component
      * @param messages
-     * @param id 
+     * @param id
      * @return
      */
-    protected boolean findMessages(UIComponent parent, UIComponent component, Set<UIComponent> messages, boolean found, Object id) {
+    protected boolean findMessages(UIComponent parent, UIComponent component, Set<UIComponent> messages, boolean found,
+        Object id) {
         Iterator<UIComponent> facetsAndChildren = parent.getFacetsAndChildren();
         while (facetsAndChildren.hasNext()) {
             UIComponent child = (UIComponent) facetsAndChildren.next();
@@ -180,29 +175,26 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
                         found = true;
                     }
                 } else {
-                    found |= findMessages(child, null, messages, found,id);
+                    found |= findMessages(child, null, messages, found, id);
                 }
             }
         }
         if (!(found && parent instanceof NamingContainer) && component != null) {
             UIComponent newParent = parent.getParent();
             if (null != newParent) {
-                found = findMessages(newParent, parent, messages, found,id);
+                found = findMessages(newParent, parent, messages, found, id);
             }
         }
         return found;
     }
 
-
     /**
      * <p class="changed_added_4_0">
      * Look up for {@link ClientBehaviorRenderer} instence
      * </p>
-     * 
-     * @param context
-     *            current JSF context
-     * @param rendererType
-     *            desired renderer type
+     *
+     * @param context current JSF context
+     * @param rendererType desired renderer type
      * @return renderer instance
      * @throws {@link FacesException} if renderer can not be found
      */
@@ -225,7 +217,7 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.richfaces.component.behavior.ClientValidatorBehavior#getConverter(javax.faces.component.behavior.
      * ClientBehaviorContext)
      */
@@ -243,7 +235,7 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
                     converter = createConverterByType(facesContext, valueType);
                 }
             }
-            if(null != converter){
+            if (null != converter) {
                 FacesConverterService converterService = ServiceTracker.getService(facesContext, FacesConverterService.class);
                 String converterMessage = (String) component.getAttributes().get("converterMessage");
                 return converterService.getConverterDescription(facesContext, input, converter, converterMessage);
@@ -255,15 +247,13 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
         }
     }
 
-    Converter createConverterByType(FacesContext facesContext, Class<?> valueType)
-        throws ConverterNotFoundException {
-        Converter converter = null; 
+    Converter createConverterByType(FacesContext facesContext, Class<?> valueType) throws ConverterNotFoundException {
+        Converter converter = null;
         if (valueType != null && valueType != Object.class) {
             Application application = facesContext.getApplication();
             converter = application.createConverter(valueType);
             if (null == converter && valueType != String.class) {
-                throw new ConverterNotFoundException("No converter registered for type "
-                    + valueType.getName());
+                throw new ConverterNotFoundException("No converter registered for type " + valueType.getName());
             }
         }
         return converter;
@@ -271,7 +261,7 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.richfaces.component.behavior.ClientValidatorBehavior#getValidators(javax.faces.component.behavior.
      * ClientBehaviorContext)
      */
@@ -293,11 +283,13 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
                         if (null != valueExpression && !beanValidatorsProcessed) {
                             BeanValidatorService beanValidatorService = ServiceTracker.getService(facesContext,
                                 BeanValidatorService.class);
-                            validators.addAll(beanValidatorService.getConstrains(facesContext, valueExpression, validatorMessage, getGroups()));
+                            validators.addAll(beanValidatorService.getConstrains(facesContext, valueExpression,
+                                validatorMessage, getGroups()));
                             beanValidatorsProcessed = true;
                         }
                     } else {
-                        validators.add(facesValidatorService.getValidatorDescription(facesContext, input, validator, validatorMessage));
+                        validators.add(facesValidatorService.getValidatorDescription(facesContext, input, validator,
+                            validatorMessage));
                     }
                 }
             }
@@ -373,9 +365,10 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
             }
         }
     }
-    
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see org.richfaces.component.behavior.ClientValidatorBehavior#isImmediateSet()
      */
     public boolean isImmediateSet() {
@@ -388,17 +381,17 @@ public class ClientValidatorImpl extends AjaxBehavior implements ClientValidator
     public boolean isLimitRender() {
         return true;
     }
-    
+
     @Override
     public boolean isBypassUpdates() {
         return true;
     }
-    
+
     @Override
     public Collection<String> getExecute() {
         return THIS;
     }
-    
+
     @Override
     public Collection<String> getRender() {
         return NONE;

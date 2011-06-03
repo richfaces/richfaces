@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.component;
 
 import javax.faces.application.FacesMessage;
@@ -28,8 +27,7 @@ import javax.faces.context.FacesContext;
 import org.richfaces.component.util.MessageUtil;
 
 /**
- * @author Nick - mailto:nbelaevski@exadel.com
- *         created 20.02.2007
+ * @author Nick - mailto:nbelaevski@exadel.com created 20.02.2007
  */
 public abstract class UIRangedNumberInput extends UIInput {
     public abstract String getMaxValue();

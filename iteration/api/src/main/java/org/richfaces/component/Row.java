@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import java.util.Iterator;
@@ -35,14 +34,12 @@ import org.ajax4jsf.model.DataVisitor;
  * @author shura
  */
 public interface Row {
-
     /**
      * Get iterator for all columns contained in this row.
      */
-    public Iterator<UIComponent> columns();
+    Iterator<UIComponent> columns();
 
-    public void setRowKey(FacesContext context, Object rowKey);
-    
-    public void walk(FacesContext context, DataVisitor visitor, Object argument);
+    void setRowKey(FacesContext context, Object rowKey);
 
+    void walk(FacesContext context, DataVisitor visitor, Object argument);
 }

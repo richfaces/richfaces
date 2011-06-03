@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.richfaces.el;
 
@@ -20,18 +20,15 @@ import javax.faces.el.CompositeComponentExpressionHolder;
 import org.richfaces.validator.GraphValidatorState;
 
 /**
- * This class wraps original ELContext and capture whole call stack to the target object so it could be used to extract
- * semantic information like annotations or Jena Model properties.
- * 
+ * This class wraps original ELContext and capture whole call stack to the target object so it could be used to extract semantic
+ * information like annotations or Jena Model properties.
+ *
  * @author asmirnov
- * 
+ *
  */
 public class CapturingELContext extends ELContext {
-
     private final ELContext parent;
-
     private ValueReference reference = null;
-
     private final InterceptingResolver resolver;
 
     public CapturingELContext(ELContext parent) {
@@ -76,7 +73,7 @@ public class CapturingELContext extends ELContext {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.el.ELContext#getELResolver()
      */
     @Override
@@ -119,12 +116,11 @@ public class CapturingELContext extends ELContext {
     /**
      * This resolver records all intermediate objects from the EL-expression that can be used to detect Semantic Beans
      * annotations or Jena Model properties.
-     * 
+     *
      * @author asmirnov
-     * 
+     *
      */
     private final class InterceptingResolver extends ELResolver {
-
         private ELResolver delegate;
         private boolean clonedObject;
 
@@ -186,7 +182,5 @@ public class CapturingELContext extends ELContext {
         public Class<?> getCommonPropertyType(ELContext context, Object base) {
             return delegate.getCommonPropertyType(context, base);
         }
-
     }
-
 }

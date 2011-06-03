@@ -20,7 +20,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
 
 public class CalendarRenderTest extends RendererTestBase {
-
     @Override
     public void setUp() throws URISyntaxException {
         environment = new HtmlUnitEnvironment();
@@ -28,64 +27,63 @@ public class CalendarRenderTest extends RendererTestBase {
         environment.withResource("/WEB-INF/faces-config.xml", "org/richfaces/component/faces-config.xml");
         environment.start();
     }
-    
+
     @Test
     public void testExistenceCalendarPopup() throws Exception {
-        HtmlPage page =  environment.getPage("/calendarTest.jsf");
+        HtmlPage page = environment.getPage("/calendarTest.jsf");
         HtmlElement calendarPopupElement = page.getElementById("form:calendarPopup");
         Assert.assertNotNull("form:calendarPopup element missed.", calendarPopupElement);
     }
-    
+
     @Test
     public void testExistenceCalendarContent() throws Exception {
-        HtmlPage page =  environment.getPage("/calendarTest.jsf");
+        HtmlPage page = environment.getPage("/calendarTest.jsf");
         HtmlElement calendarContentElement = page.getElementById("form:calendarContent");
         Assert.assertNotNull("form:calendarContent element missed.", calendarContentElement);
-    }    
-    
+    }
+
     @Test
     public void testRenderCalendarScript() throws Exception {
         doTest("calendarTest", "calendarScript", "form:calendarScript");
     }
-    
+
     @Test
     public void testRenderCalendarContent() throws Exception {
         doTest("calendarTest", "calendarContent", "form:calendarContent");
     }
-    
+
     @Test
     public void testCalendarScrolling() throws Exception {
-        HtmlPage page =  environment.getPage("/calendarTest.jsf");
+        HtmlPage page = environment.getPage("/calendarTest.jsf");
 
         HtmlImage calendarPopupButton = (HtmlImage) page.getElementById("form:calendarPopupButton");
         assertNotNull(calendarPopupButton);
         page = (HtmlPage) calendarPopupButton.click();
         HtmlElement calendarHeaderElement = page.getElementById("form:calendarHeader");
         assertNotNull("form:calendarHeader element missed.", calendarHeaderElement);
-        
+
         HtmlTableDataCell nextTD = null;
         List<?> tds = calendarHeaderElement.getByXPath("table/tbody/tr/td");
-        for (Object td : tds)
-        {
+        for (Object td : tds) {
             HtmlTableDataCell htdc = (HtmlTableDataCell) td;
             if (">".equals(htdc.asText())) {
-                nextTD = htdc; 
+                nextTD = htdc;
             }
         }
         assertNotNull(nextTD);
         HtmlElement div = nextTD.getChildElements().iterator().next();
-        
-        //Before click
+
+        // Before click
         Calendar calendar = Calendar.getInstance();
         calendar.set(CalendarBean.CURRENT_YEAR, CalendarBean.CURRENT_MONTH, CalendarBean.CURRENT_DAY);
         String month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US);
         assertTrue(calendarHeaderElement.asText().indexOf(month) > -1);
-        
+
         page = div.click();
-        
-        //After click
+
+        // After click
         calendar.add(Calendar.MONTH, 1);
         month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US);
         assertTrue(calendarHeaderElement.asText().indexOf(month) > -1);
-    }     
+    }
 }

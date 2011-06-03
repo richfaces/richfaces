@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import javax.faces.component.EditableValueHolder;
@@ -33,23 +32,18 @@ import org.ajax4jsf.component.IterationStateHolder;
 //from RI
 
 /**
- * This class keep values of {@link EditableValueHolder} row-sensitive
- * fields.
+ * This class keep values of {@link EditableValueHolder} row-sensitive fields.
  *
  * @author shura
  */
 public final class SavedState implements StateHolder {
-
     public static final SavedState EMPTY = new SavedState();
-
     private static final long serialVersionUID = -1563864456074187422L;
-
     private boolean valid = true;
     private boolean localValueSet;
     private boolean submitted;
     private Object submittedValue;
     private Object value;
-
     private Object iterationState;
 
     public SavedState() {
@@ -66,7 +60,7 @@ public final class SavedState implements StateHolder {
 
     public SavedState(IterationStateHolder ish) {
         super();
-        
+
         this.iterationState = ish.getIterationState();
     }
 
@@ -147,64 +141,58 @@ public final class SavedState implements StateHolder {
     public void apply(UIForm form) {
         form.setSubmitted(this.submitted);
     }
-    
+
     private boolean isObjectTransient(Object o) {
         if (o == null) {
             return true;
         }
-        
+
         if (o instanceof StateHolder) {
             return ((StateHolder) o).isTransient();
         }
-        
+
         return false;
     }
-    
+
     public void setTransient(boolean newTransientValue) {
         throw new UnsupportedOperationException();
     }
-    
+
     public boolean isTransient() {
         if (iterationState != null) {
             return isObjectTransient(iterationState);
         }
-        
+
         if (!valid) {
             return false;
         }
-        
+
         if (localValueSet || submitted) {
             return false;
         }
-        
+
         return isObjectTransient(submittedValue) && isObjectTransient(value);
     }
-    
+
     public Object saveState(FacesContext context) {
         if (isTransient()) {
             return null;
         }
-        
+
         if (iterationState != null) {
-            return new Object[] {
-                UIComponentBase.saveAttachedState(context, iterationState)
-            };
+            return new Object[] { UIComponentBase.saveAttachedState(context, iterationState) };
         } else {
-            return new Object[] {
-                valid ? Boolean.TRUE : Boolean.FALSE,
-                localValueSet ? Boolean.TRUE : Boolean.FALSE,
-                submitted ? Boolean.TRUE : Boolean.FALSE,
-                UIComponentBase.saveAttachedState(context, submittedValue),
-                UIComponentBase.saveAttachedState(context, value)
-            };
+            return new Object[] { valid ? Boolean.TRUE : Boolean.FALSE, localValueSet ? Boolean.TRUE : Boolean.FALSE,
+                    submitted ? Boolean.TRUE : Boolean.FALSE, UIComponentBase.saveAttachedState(context, submittedValue),
+                    UIComponentBase.saveAttachedState(context, value) };
         }
     }
-    
+
     public void restoreState(FacesContext context, Object stateObject) {
         if (stateObject == null) {
             return;
         }
-        
+
         Object[] state = (Object[]) stateObject;
 
         if (state.length == 1) {
@@ -217,5 +205,4 @@ public final class SavedState implements StateHolder {
             value = UIComponentBase.restoreAttachedState(context, state[4]);
         }
     }
-    
 }

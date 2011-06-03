@@ -20,18 +20,17 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit.html;
 
 import javax.faces.render.ClientBehaviorRenderer;
 
 /**
- * <p class="changed_added_4_0"></p>
+ * <p class="changed_added_4_0">
+ * </p>
+ *
  * @author asmirnov@exadel.com
  *
  */
 public class FormClientValidatorRenderer extends ClientBehaviorRenderer {
-    
-    public static final String RENDERER_TYPE="org.richfaces.FormValidatorRenderer";
-
+    public static final String RENDERER_TYPE = "org.richfaces.FormValidatorRenderer";
 }

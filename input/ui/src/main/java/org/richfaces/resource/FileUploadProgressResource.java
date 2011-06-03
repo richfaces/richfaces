@@ -27,10 +27,9 @@ import org.richfaces.request.ProgressControl;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class FileUploadProgressResource extends AbstractJSONResource {
-
     private static final Object UID_ALT_KEY = "rf_fu_uid_alt";
 
     @Override
@@ -38,5 +37,4 @@ public class FileUploadProgressResource extends AbstractJSONResource {
         String uploadId = context.getExternalContext().getRequestParameterMap().get(UID_ALT_KEY);
         return ProgressControl.getProgress(context, uploadId);
     }
-
 }

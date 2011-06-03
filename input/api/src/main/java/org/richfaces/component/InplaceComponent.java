@@ -19,34 +19,30 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
-
 
 /**
  * @author Anton Belevich
  *
  */
 public interface InplaceComponent {
-    
-    public boolean isDisabled();
-    
-    public String getDefaultLabel();
-    
-    public String getEditEvent();
-    
-    public boolean isShowControls();
-    
-    public boolean isSaveOnBlur();
-    
-    public InplaceState getState();
+    boolean isDisabled();
 
-    public String getActiveClass();
+    String getDefaultLabel();
 
-    public String getChangedClass();
+    String getEditEvent();
 
-    public String getDisabledClass();
+    boolean isShowControls();
 
-    public abstract int getTabindex();
+    boolean isSaveOnBlur();
 
+    InplaceState getState();
+
+    String getActiveClass();
+
+    String getChangedClass();
+
+    String getDisabledClass();
+
+    int getTabindex();
 }

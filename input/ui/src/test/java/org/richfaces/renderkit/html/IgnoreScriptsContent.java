@@ -20,13 +20,10 @@
  */
 
 /*
- * 
+ *
  */
 
-
-
 // Remove after test moved to the test-jsf project
-
 package org.richfaces.renderkit.html;
 
 import org.custommonkey.xmlunit.Difference;
@@ -39,7 +36,6 @@ import org.w3c.dom.Node;
  * @since Oct 22, 2010
  */
 public class IgnoreScriptsContent implements DifferenceListener {
-
     public int differenceFound(Difference difference) {
         if (DifferenceConstants.TEXT_VALUE_ID == difference.getId()
             && !"script".equalsIgnoreCase(difference.getTestNodeDetail().getNode().getLocalName())) {

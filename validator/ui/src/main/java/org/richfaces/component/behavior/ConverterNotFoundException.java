@@ -20,26 +20,30 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component.behavior;
 
 /**
- * <p class="changed_added_4_0">This exception thrown if Client validator cannot determine Converter associated with target UIComponent</p>
+ * <p class="changed_added_4_0">
+ * This exception thrown if Client validator cannot determine Converter associated with target UIComponent
+ * </p>
+ *
  * @author asmirnov@exadel.com
  *
  */
 @SuppressWarnings("serial")
 public class ConverterNotFoundException extends Exception {
-
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
      */
     public ConverterNotFoundException() {
         // TODO Auto-generated constructor stub
     }
 
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @param message
      */
     public ConverterNotFoundException(String message) {
@@ -48,7 +52,9 @@ public class ConverterNotFoundException extends Exception {
     }
 
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @param cause
      */
     public ConverterNotFoundException(Throwable cause) {
@@ -57,7 +63,9 @@ public class ConverterNotFoundException extends Exception {
     }
 
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @param message
      * @param cause
      */
@@ -65,5 +73,4 @@ public class ConverterNotFoundException extends Exception {
         super(message, cause);
         // TODO Auto-generated constructor stub
     }
-
 }

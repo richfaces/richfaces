@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import java.util.List;
@@ -51,42 +50,21 @@ import org.richfaces.event.DataScrollEvent;
 import org.richfaces.event.DataScrollListener;
 import org.richfaces.event.DataScrollSource;
 
-
-@JsfComponent(
-    type = AbstractDataScroller.COMPONENT_TYPE,
-    family = AbstractDataScroller.COMPONENT_FAMILY, 
-    generate = "org.richfaces.component.UIDataScroller",
-    renderer = @JsfRenderer(type = "org.richfaces.DataScrollerRenderer"),
-    tag = @Tag(name="dataScroller", handler="org.richfaces.taglib.DataScrollerHandler", type=TagType.Facelets)
-)
+@JsfComponent(type = AbstractDataScroller.COMPONENT_TYPE, family = AbstractDataScroller.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDataScroller", renderer = @JsfRenderer(type = "org.richfaces.DataScrollerRenderer"), tag = @Tag(name = "dataScroller", handler = "org.richfaces.taglib.DataScrollerHandler", type = TagType.Facelets))
 public abstract class AbstractDataScroller extends UIComponentBase implements DataScrollSource, IterationStateHolder {
-
     public static final String COMPONENT_TYPE = "org.richfaces.DataScroller";
-
     public static final String COMPONENT_FAMILY = "org.richfaces.DataScroller";
-
     public static final String SCROLLER_STATE_ATTRIBUTE = COMPONENT_TYPE + ":page";
-
     public static final String FIRST_FACET_NAME = "first";
-
     public static final String LAST_FACET_NAME = "last";
-
     public static final String NEXT_FACET_NAME = "next";
-
     public static final String PREVIOUS_FACET_NAME = "previous";
-    
     public static final String FAST_FORWARD_FACET_NAME = "fastforward";
-
     public static final String FAST_REWIND_FACET_NAME = "fastrewind";
-
     public static final String FIRST_DISABLED_FACET_NAME = "first_disabled";
-
     public static final String LAST_DISABLED_FACET_NAME = "last_disabled";
-
     public static final String PAGEMODE_FULL = "full";
-
     public static final String PAGEMODE_SHORT = "short";
-    
     private Integer page;
 
     @Attribute(defaultValue = "true")
@@ -96,7 +74,7 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
     public abstract String getLastPageMode();
 
     @Attribute
-    public  abstract Object getRender();
+    public abstract Object getRender();
 
     @Attribute
     public abstract int getMaxPages();
@@ -106,19 +84,19 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
         if (maxPages <= 0) {
             maxPages = 10;
         }
-        
+
         return maxPages;
     }
-    
+
     @Attribute
     public abstract DataScrollerControlsMode getBoundaryControls();
-    
+
     @Attribute
     public abstract DataScrollerControlsMode getFastControls();
 
     @Attribute
     public abstract DataScrollerControlsMode getStepControls();
-    
+
     @Attribute
     public abstract int getFastStep();
 
@@ -129,10 +107,10 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
         }
         return fastStep;
     }
-    
+
     @Attribute
     public String getFor() {
-        return (String)getStateHelper().eval("for");
+        return (String) getStateHelper().eval("for");
     }
 
     public void setFor(String forId) {
@@ -176,24 +154,22 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
             }
 
             facesContext.getPartialViewContext().getRenderIds().add(dataTableId);
-            
-            //add datascroller to render 
+
+            // add datascroller to render
             String dataScrollerId = getClientId(facesContext);
-            if(!facesContext.getPartialViewContext().getRenderIds().contains(dataScrollerId)) {
+            if (!facesContext.getPartialViewContext().getRenderIds().contains(dataScrollerId)) {
                 facesContext.getPartialViewContext().getRenderIds().add(dataScrollerId);
             }
-            
         }
-        
+
         super.broadcast(event);
     }
 
     /**
      * Finds the dataTable which id is mapped to the "for" property
-     * 
+     *
      * @return the dataTable component
      */
-
     public UIComponent getDataTable() {
         return DataScrollerUtils.findDataTable(this);
     }
@@ -210,7 +186,7 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
             newPage = 1;
         } else if (LAST_FACET_NAME.equals(facetName)) {
             newPage = pageCount > 0 ? pageCount : 1;
-        }  else if (PREVIOUS_FACET_NAME.equals(facetName)) {
+        } else if (PREVIOUS_FACET_NAME.equals(facetName)) {
             newPage = getPage() - 1;
         } else if (NEXT_FACET_NAME.equals(facetName)) {
             newPage = getPage() + 1;
@@ -269,16 +245,18 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
 
     @Facet
     public abstract UIComponent getLast();
+
     @Facet
     public abstract UIComponent getNext();
 
     @Facet
     public abstract UIComponent getPrevious();
+
     @Facet
     public abstract UIComponent getFastForward();
+
     @Facet
     public abstract UIComponent getFastRewind();
-
 
     private static boolean isRendered(UIComponent component) {
         UIComponent c = component;
@@ -332,7 +310,7 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
     private MessageFactory getMessageFactory(FacesContext context) {
         return ServiceTracker.getService(MessageFactory.class);
     }
-    
+
     private void updateModel(int newPage) {
 
         FacesContext facesContext = getFacesContext();
@@ -359,9 +337,8 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
                 }
                 FacesMessage message;
                 if (null == messageStr) {
-                    message = ServiceTracker.getService(MessageFactory.class).createMessage(facesContext, 
-                        FacesMessages.UIINPUT_UPDATE,
-                        MessageUtil.getLabel(facesContext, this));
+                    message = ServiceTracker.getService(MessageFactory.class).createMessage(facesContext,
+                        FacesMessages.UIINPUT_UPDATE, MessageUtil.getLabel(facesContext, this));
                 } else {
                     message = new FacesMessage(FacesMessage.SEVERITY_ERROR, messageStr, messageStr);
                 }
@@ -369,16 +346,14 @@ public abstract class AbstractDataScroller extends UIComponentBase implements Da
                 facesContext.addMessage(getClientId(facesContext), message);
                 facesContext.renderResponse();
             } catch (IllegalArgumentException e) {
-                FacesMessage message = ServiceTracker.getService(MessageFactory.class).createMessage(facesContext, 
-                    FacesMessages.UIINPUT_UPDATE,
-                    MessageUtil.getLabel(facesContext, this));
+                FacesMessage message = ServiceTracker.getService(MessageFactory.class).createMessage(facesContext,
+                    FacesMessages.UIINPUT_UPDATE, MessageUtil.getLabel(facesContext, this));
                 facesContext.getExternalContext().log(message.getSummary(), e);
                 facesContext.addMessage(getClientId(facesContext), message);
                 facesContext.renderResponse();
             } catch (Exception e) {
-                FacesMessage message = ServiceTracker.getService(MessageFactory.class).createMessage(facesContext, 
-                    FacesMessages.UIINPUT_UPDATE,
-                    MessageUtil.getLabel(facesContext, this));
+                FacesMessage message = ServiceTracker.getService(MessageFactory.class).createMessage(facesContext,
+                    FacesMessages.UIINPUT_UPDATE, MessageUtil.getLabel(facesContext, this));
                 facesContext.getExternalContext().log(message.getSummary(), e);
                 facesContext.addMessage(getClientId(facesContext), message);
                 facesContext.renderResponse();

@@ -8,17 +8,13 @@ import org.richfaces.resource.ResourceKey;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.ImmutableSet.Builder;
 
-
-public class ClientAndAjaxScript extends ClientOnlyScript{
-    
-    
-    
+public class ClientAndAjaxScript extends ClientOnlyScript {
     private final String ajaxScript;
     private final Iterable<ResourceKey> resources;
-    
+
     public ClientAndAjaxScript(LibraryScriptFunction clientSideConverterScript,
         Collection<? extends LibraryScriptFunction> validatorScripts, String ajaxScript) {
-        super(clientSideConverterScript,validatorScripts);
+        super(clientSideConverterScript, validatorScripts);
         this.ajaxScript = ajaxScript;
         Builder<ResourceKey> builder = ImmutableSet.<ResourceKey>builder();
         builder.add(AjaxOnlyScript.AJAX_RESOURCE);
@@ -26,19 +22,20 @@ public class ClientAndAjaxScript extends ClientOnlyScript{
         resources = builder.build();
     }
 
-
     @Override
     public Iterable<ResourceKey> getResources() {
         return resources;
     }
-    
 
     @Override
     protected void appendAjaxParameter(Appendable target) throws IOException {
         target.append(',');
         appendAjaxParameter(target, ajaxScript);
     }
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -51,8 +48,9 @@ public class ClientAndAjaxScript extends ClientOnlyScript{
         return result;
     }
 
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -90,5 +88,4 @@ public class ClientAndAjaxScript extends ClientOnlyScript{
         }
         return true;
     }
-
 }

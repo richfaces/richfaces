@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.event;
 
 import java.util.Date;
@@ -33,7 +32,6 @@ import javax.faces.event.FacesListener;
  *
  */
 public class CurrentDateChangeEvent extends FacesEvent {
-
     private static final long serialVersionUID = -8169207286087810907L;
     private Date currentDate = null;
     private String currentDateString = null;
@@ -48,7 +46,7 @@ public class CurrentDateChangeEvent extends FacesEvent {
     }
 
     public void processListener(FacesListener listener) {
-        ((CurrentDateChangeListener)listener).processCurrentDateChange(this);
+        ((CurrentDateChangeListener) listener).processCurrentDateChange(this);
     }
 
     public Date getCurrentDate() {
@@ -62,5 +60,4 @@ public class CurrentDateChangeEvent extends FacesEvent {
     public String getCurrentDateString() {
         return currentDateString;
     }
-
 }

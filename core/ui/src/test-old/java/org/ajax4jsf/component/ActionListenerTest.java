@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.component;
 
 import java.io.Serializable;
@@ -28,7 +25,6 @@ import java.io.Serializable;
 import javax.el.ELContext;
 import javax.el.ExpressionFactory;
 import javax.el.ValueExpression;
-
 import javax.faces.component.UICommand;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -43,11 +39,10 @@ import org.richfaces.test.AbstractFacesTest;
  *
  */
 public class ActionListenerTest extends AbstractFacesTest {
-
     /*
-     *  (non-Javadoc)
-     * @see junit.framework.TestCase#setUp()
-     */
+    *  (non-Javadoc)
+    * @see junit.framework.TestCase#setUp()
+    */
     public void setUp() throws Exception {
         super.setUp();
         setupFacesRequest();
@@ -143,13 +138,11 @@ public class ActionListenerTest extends AbstractFacesTest {
         }
     }
 
-
     static class TestConverter implements Converter {
-
         /*
-         *  (non-Javadoc)
-         * @see javax.faces.convert.Converter#getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.String)
-         */
+        *  (non-Javadoc)
+        * @see javax.faces.convert.Converter#getAsObject(javax.faces.context.FacesContext, javax.faces.component.UIComponent, java.lang.String)
+        */
         public Object getAsObject(FacesContext context, UIComponent comp, String str) {
             Bean bean = new Bean();
             String[] values = str.split(";");

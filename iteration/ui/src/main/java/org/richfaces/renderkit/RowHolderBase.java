@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit;
 
 import javax.faces.context.FacesContext;
@@ -27,13 +26,9 @@ import javax.faces.context.FacesContext;
 import org.richfaces.component.Row;
 
 public abstract class RowHolderBase {
-
     private FacesContext context;
-
     private int currentRow;
-    
     private int processCell;
-    
 
     public RowHolderBase(FacesContext context) {
         this(context, 0);
@@ -65,7 +60,7 @@ public abstract class RowHolderBase {
     public void resetCurrentRow() {
         this.currentRow = 0;
     }
-    
+
     public int getProcessCell() {
         return processCell;
     }
@@ -73,7 +68,7 @@ public abstract class RowHolderBase {
     public void resetProcessCell() {
         this.processCell = 0;
     }
-    
+
     public int nextCell() {
         return processCell++;
     }

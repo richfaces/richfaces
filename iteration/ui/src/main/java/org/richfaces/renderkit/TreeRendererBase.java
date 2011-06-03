@@ -51,27 +51,20 @@ import org.richfaces.renderkit.util.AjaxRendererUtils;
 import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
 
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public abstract class TreeRendererBase extends RendererBase implements MetaComponentRenderer {
-
     static final Logger LOGGER = RichfacesLogger.RENDERKIT.getLogger();
-
     private static final JSReference PARAMS_JS_REF = new JSReference("params");
-
     private static final JSReference SOURCE_JS_REF = new JSReference("source");
-
     private static final JSReference COMPLETE_JS_REF = new JSReference("complete");
-
     private static final String SELECTION_STATE = "__SELECTION_STATE";
-
 
     /**
      * @author Nick Belaevski
-     * 
+     *
      */
     private final class RowKeyContextCallback implements ContextCallback {
         private Object rowKey;
@@ -142,7 +135,7 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
         }
 
         if (selectedKeys.hasNext()) {
-            //TODO - better message
+            // TODO - better message
             throw new IllegalArgumentException("Selection object should not contain more than one keys!");
         }
 
@@ -160,23 +153,22 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
 
         SwitchType selectionType = getSelectionTypeOrDefault(tree);
         if (selectionType != SwitchType.ajax && selectionType != SwitchType.client) {
-            //TODO - better message
+            // TODO - better message
             throw new IllegalArgumentException(String.valueOf(selectionType));
         }
 
         return selectionType;
     }
 
-    public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId)
-        throws IOException {
+    public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) throws IOException {
 
         if (SELECTION_META_COMPONENT_ID.equals(metaComponentId)) {
             PartialResponseWriter writer = context.getPartialViewContext().getPartialResponseWriter();
-            
+
             writer.startUpdate(getSelectionStateInputId(context, component));
             encodeSelectionStateInput(context, component);
             writer.endUpdate();
-            
+
             JSFunction function = new JSFunction("RichFaces.$", component.getClientId(context));
 
             ExtendedPartialViewContext partialContext = ExtendedPartialViewContext.getInstance(context);
@@ -212,7 +204,7 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
         Collection<Object> selection = tree.getSelection();
 
         Collection<Object> newSelection = null;
-        
+
         if (selectionRowKey == null) {
             if (!selection.isEmpty()) {
                 newSelection = Collections.emptySet();
@@ -222,18 +214,19 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
                 newSelection = Collections.singleton(selectionRowKey);
             }
         }
-        
+
         if (newSelection != null) {
             new TreeSelectionChangeEvent(component, Sets.newHashSet(selection), newSelection).queue();
         }
 
         PartialViewContext pvc = context.getPartialViewContext();
         if (pvc.isAjaxRequest()) {
-            pvc.getRenderIds().add(tree.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
-                + AbstractTree.SELECTION_META_COMPONENT_ID);
+            pvc.getRenderIds().add(
+                tree.getClientId(context) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
+                    + AbstractTree.SELECTION_META_COMPONENT_ID);
         }
     }
-    
+
     protected void createTreeRenderingContext(FacesContext context, UIComponent component) {
         TreeRenderingContext.create(context, (AbstractTree) component);
     }
@@ -242,7 +235,7 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
         TreeRenderingContext treeRenderingContext = TreeRenderingContext.get(facesContext);
         return treeRenderingContext.getHandlers();
     }
-    
+
     protected void deleteTreeRenderingContext(FacesContext context) {
         TreeRenderingContext.delete(context);
     }
@@ -254,7 +247,7 @@ public abstract class TreeRendererBase extends RendererBase implements MetaCompo
         }
         return selectionType;
     }
-    
+
     static SwitchType getToggleTypeOrDefault(AbstractTree tree) {
         SwitchType toggleType = tree.getToggleType();
         if (toggleType == null) {

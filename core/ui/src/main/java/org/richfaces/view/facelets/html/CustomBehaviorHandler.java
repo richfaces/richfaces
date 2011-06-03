@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.view.facelets.html;
 
 import javax.faces.view.facelets.BehaviorConfig;
@@ -33,10 +32,9 @@ import org.richfaces.view.facelets.tag.BehaviorRule;
 
 /**
  * @author Anton Belevich
- * 
+ *
  */
 public class CustomBehaviorHandler extends BehaviorHandler {
-
     TagHandlerDelegate helper;
 
     public CustomBehaviorHandler(BehaviorConfig config) {

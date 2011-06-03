@@ -6,17 +6,16 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
 public final class NumberUtils {
-    
     private static final Logger LOGGER = RichfacesLogger.COMPONENTS.getLogger();
-    
+
     private NumberUtils() {
-    	
+
     }
+
     /**
      * Converts value attr to number value
-     * 
-     * @param v -
-     *            value attr
+     *
+     * @param v - value attr
      * @return result
      */
     public static Number getNumber(Object v) {
@@ -28,9 +27,9 @@ public final class NumberUtils {
                 } else {
                     Number n = (Number) v;
                     if ((n instanceof BigDecimal) || (n instanceof Double) // Double
-                                                                            // or
-                                                                            // BigDecimal
-                            || (n instanceof Float)) {
+                        // or
+                        // BigDecimal
+                        || (n instanceof Float)) {
                         result = n.floatValue();
                     } else if (n instanceof Integer || n instanceof Long) { // Integer
                         result = n.longValue();

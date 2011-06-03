@@ -1,7 +1,6 @@
 /*
  * GENERATED FILE - DO NOT EDIT
  */
-
 package org.richfaces.request;
 
 import static org.easymock.EasyMock.createControl;
@@ -17,9 +16,7 @@ import org.easymock.internal.ThrowableWrapper;
 import org.jboss.test.faces.mock.FacesMockController.MockObject;
 
 public class MockUploadResource extends FileUploadResource implements MockObject {
-
     private final IMocksControl control;
-
     private final String name;
 
     /**
@@ -89,7 +86,8 @@ public class MockUploadResource extends FileUploadResource implements MockObject
         try {
             return invokeMethod(this.control, this, getInputStreamMethod0);
         } catch (RuntimeException e) {
-            if (e.getCause() instanceof ThrowableWrapper && ((ThrowableWrapper) e.getCause()).getThrowable() instanceof IOException) {
+            if (e.getCause() instanceof ThrowableWrapper
+                && ((ThrowableWrapper) e.getCause()).getThrowable() instanceof IOException) {
                 throw (IOException) ((ThrowableWrapper) e.getCause()).getThrowable();
             } else {
                 throw e;
@@ -117,5 +115,4 @@ public class MockUploadResource extends FileUploadResource implements MockObject
     public void delete() throws IOException {
         invokeMethod(this.control, this, deleteMethod0);
     }
-
 }

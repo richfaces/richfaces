@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.json;
 
 import java.io.Serializable;
@@ -26,11 +25,9 @@ import java.util.AbstractCollection;
 import java.util.Iterator;
 
 /**
- * @author Nick Belaevski - nbelaevski@exadel.com
- *         created 15.12.2006
+ * @author Nick Belaevski - nbelaevski@exadel.com created 15.12.2006
  */
 public class JSONCollection extends AbstractCollection implements Serializable {
-
     /**
      *
      */

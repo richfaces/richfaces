@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.component;
 
 /**
@@ -28,7 +25,6 @@ package org.ajax4jsf.component;
  * @since 3.3.0
  */
 public class QueueParallelTest extends AbstractQueueComponentTest {
-
     /**
      * @param name
      */

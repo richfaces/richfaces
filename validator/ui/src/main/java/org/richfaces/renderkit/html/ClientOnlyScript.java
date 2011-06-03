@@ -1,15 +1,19 @@
 package org.richfaces.renderkit.html;
 
-import com.google.common.collect.*;
-import org.ajax4jsf.javascript.ScriptUtils;
-import org.richfaces.resource.ResourceKey;
-
 import java.io.IOException;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
-public class ClientOnlyScript extends ValidatorScriptBase {
+import org.ajax4jsf.javascript.ScriptUtils;
+import org.richfaces.resource.ResourceKey;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Sets;
+import com.google.common.collect.UnmodifiableIterator;
+
+public class ClientOnlyScript extends ValidatorScriptBase {
     public static final ResourceKey CSV_RESOURCE = ResourceKey.create("csv.reslib", "org.richfaces");
     protected final LibraryScriptFunction converter;
     protected final ImmutableList<? extends LibraryScriptFunction> validators;
@@ -37,11 +41,7 @@ public class ClientOnlyScript extends ValidatorScriptBase {
 
     @Override
     public void appendFunctionName(Appendable target) throws IOException {
-        target.append("window")
-              .append(DOT)
-              .append(super.getName())
-              .append(EQUALS)
-              .append(FUNCTION);
+        target.append("window").append(DOT).append(super.getName()).append(EQUALS).append(FUNCTION);
     }
 
     @Override
@@ -71,9 +71,11 @@ public class ClientOnlyScript extends ValidatorScriptBase {
 
     protected void appendConverter(Appendable target, LibraryScriptFunction converter) throws IOException {
         target.append(LEFT_CURLY_BRACKET).append("f").append(COLON).append(converter.getName()).append(COMMA);
-        target.append(PARAMS).append(COLON);ScriptUtils.appendScript(target, converter.getParameters());
+        target.append(PARAMS).append(COLON);
+        ScriptUtils.appendScript(target, converter.getParameters());
         target.append(COMMA);
-        target.append(MESSAGE).append(COLON);ScriptUtils.appendScript(target, converter.getMessage());
+        target.append(MESSAGE).append(COLON);
+        ScriptUtils.appendScript(target, converter.getMessage());
         target.append(RIGHT_CURLY_BRACKET);
     }
 
@@ -83,7 +85,7 @@ public class ClientOnlyScript extends ValidatorScriptBase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -97,7 +99,7 @@ public class ClientOnlyScript extends ValidatorScriptBase {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -128,5 +130,4 @@ public class ClientOnlyScript extends ValidatorScriptBase {
         }
         return true;
     }
-
 }

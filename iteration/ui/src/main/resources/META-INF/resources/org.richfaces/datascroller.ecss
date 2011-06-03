@@ -37,12 +37,10 @@ a.rf-ds-btn {
     border-style: solid;
     border-color: '#{richSkin.tableBorderColor}';
     display: inline-block;
-
     background-position: top left;
     background-repeat: repeat-x;
     background-color: '#{richSkin.headerBackgroundColor}';
     background-image: "url(#{resource['org.richfaces.images:dsBtnGrad.png']})";
-
     font-size: '#{richSkin.generalSizeFont}';
     font-family: '#{richSkin.generalFamilyFont}';
     color: '#{richSkin.generalTextColor}';
@@ -59,11 +57,11 @@ a.rf-ds-btn {
     cursor: default;
 }
 
-.rf-ds-btn-first, .rf-ds-btn-fastrwd, .rf-ds-btn-prev {
+.rf-ds-btn-first,.rf-ds-btn-fastrwd,.rf-ds-btn-prev {
     margin-right: 1px;
 }
 
-.rf-ds-btn-next, .rf-ds-btn-fastfwd, .rf-ds-btn-last {
+.rf-ds-btn-next,.rf-ds-btn-fastfwd,.rf-ds-btn-last {
     margin-left: 1px;
 }
 
@@ -80,20 +78,16 @@ a.rf-ds-btn {
     border-top-width: 1px;
     border-top-style: solid;
     border-top-color: '#{richSkin.tableBorderColor}';
-
     background-color: '#{richSkin.tableBackgroundColor}';
     background-image: "url(#{resource['org.richfaces.images:dsDigGrad.png']})";
-
     background-position: top left;
     background-repeat: repeat-x;
-
     display: inline-block;
     font-size: '#{richSkin.generalSizeFont}';
     font-family: '#{richSkin.generalFamilyFont}';
     text-decoration: none;
     color: '#{richSkin.generalTextColor}';
     font-weight: normal;
-
 }
 
 .rf-ds-nmb-btn:hover {
@@ -113,7 +107,7 @@ a.rf-ds-btn {
     background: '#{richSkin.additionalBackgroundColor}';
 }
 
-.rf-ds-act, .rf-ds-act:hover {
+.rf-ds-act,.rf-ds-act:hover {
     cursor: default;
     font-weight: bold;
     border-width: 1px;

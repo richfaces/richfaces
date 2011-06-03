@@ -20,24 +20,24 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.javascript.client.message;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
- * <p class="changed_added_4_0"></p>
+ * <p class="changed_added_4_0">
+ * </p>
+ *
  * @author asmirnov@exadel.com
  *
  */
 public class ClearMessageTest extends MessageTestBase {
-    
     private static final String ERROR_MESSAGE = "Error";
-    
+
     @Test
     public void testClear() throws Exception {
         setUpMessage();
@@ -49,9 +49,10 @@ public class ClearMessageTest extends MessageTestBase {
 
     @Override
     protected String getMessageContent() {
-        
-        return "<span class='rf-msg-err'><span class='rf-msg-sum'>"+ERROR_MESSAGE+"</span><span>";
+
+        return "<span class='rf-msg-err'><span class='rf-msg-sum'>" + ERROR_MESSAGE + "</span><span>";
     }
+
     @Override
     protected String getJavaScriptFunctionName() {
         return "clearMessage";

@@ -28,21 +28,20 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public final class TreeConverterUtil {
-
     private static final class SeparatorCharHolder {
-     
         static final char SEPARATOR_CHAR = UINamingContainer.getSeparatorChar(FacesContext.getCurrentInstance());
 
-        private SeparatorCharHolder() {}
-        
+        private SeparatorCharHolder() {
+        }
     }
-    
+
     private static final char ESCAPE_CHAR = '_';
 
-    private TreeConverterUtil() {}
+    private TreeConverterUtil() {
+    }
 
     private static boolean shouldEscape(char c) {
         if ('a' <= c && c <= 'z') {
@@ -60,7 +59,7 @@ public final class TreeConverterUtil {
         if (c == ESCAPE_CHAR || c == SeparatorCharHolder.SEPARATOR_CHAR) {
             return true;
         }
-        
+
         if ('-' == c || '\u00B7' == c) {
             return false;
         }
@@ -141,7 +140,8 @@ public final class TreeConverterUtil {
 
     private static void checkAvailable(String s, int idx, int len) {
         if (s.length() < idx + len) {
-            throw new IllegalArgumentException(MessageFormat.format("Expected {0} available chars in ''{1}'' string starting from {2} index", len, s, idx));
+            throw new IllegalArgumentException(MessageFormat.format(
+                "Expected {0} available chars in ''{1}'' string starting from {2} index", len, s, idx));
         }
     }
 
@@ -159,7 +159,8 @@ public final class TreeConverterUtil {
             int charValue = parseHexString(numString);
             return (char) charValue;
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(MessageFormat.format("Substring ''{0}'' of ''{1}'' string is not a valid hex number ", numString, s));
+            throw new IllegalArgumentException(MessageFormat.format(
+                "Substring ''{0}'' of ''{1}'' string is not a valid hex number ", numString, s));
         }
     }
 
@@ -174,7 +175,7 @@ public final class TreeConverterUtil {
             if (idx >= 0) {
                 sb.append(s.subSequence(startIdx, idx));
 
-                idx++; //skip escape char
+                idx++; // skip escape char
 
                 char c = getNextChar(s, idx);
 
@@ -197,10 +198,9 @@ public final class TreeConverterUtil {
                         break;
 
                     default:
-                        throw new IllegalArgumentException(MessageFormat.format("Unexpected char ''{0}'' in ''{1}'' string located at index {2}", c, s, idx));
+                        throw new IllegalArgumentException(MessageFormat.format(
+                            "Unexpected char ''{0}'' in ''{1}'' string located at index {2}", c, s, idx));
                 }
-
-
             } else {
                 sb.append(s.subSequence(startIdx, s.length()));
             }
@@ -211,7 +211,6 @@ public final class TreeConverterUtil {
         return sb.toString();
     }
 
-
     public static String escape(String s) {
         StringBuilder sb = new StringBuilder(s.length());
 
@@ -220,7 +219,7 @@ public final class TreeConverterUtil {
         char[] cs = s.toCharArray();
         for (int idx = 0; idx < cs.length; idx++) {
             char c = cs[idx];
-            
+
             if (shouldEscape(c)) {
                 sb.append(cs, start, idx - start);
                 sb.append(ESCAPE_CHAR);

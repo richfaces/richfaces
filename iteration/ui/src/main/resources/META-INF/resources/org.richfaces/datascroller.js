@@ -36,9 +36,9 @@
     };
 
     var togglePressClass = function(el, event) {
-        if (event.type == 'mousedown'){
+        if (event.type == 'mousedown') {
             el.addClass('rf-ds-press');
-        } else if (event.type == 'mouseup' || event.type =='mouseout'){
+        } else if (event.type == 'mouseup' || event.type == 'mouseout') {
             el.removeClass('rf-ds-press');
         }
     };

@@ -27,20 +27,18 @@ import org.richfaces.request.ByteSequenceMatcher.BytesHandler;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 interface FileUploadParam extends BytesHandler {
+    void create() throws IOException;
 
-    public void create() throws IOException;
-    
-    public void complete();
-    
-    public String getName();
-    
-    public boolean isFileParam();
-    
-    public String getValue();
-    
-    public FileUploadResource getResource();
-    
+    void complete();
+
+    String getName();
+
+    boolean isFileParam();
+
+    String getValue();
+
+    FileUploadResource getResource();
 }

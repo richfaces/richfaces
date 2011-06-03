@@ -28,8 +28,6 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-import junit.framework.Assert;
-
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
@@ -39,7 +37,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 public class NestedRepeatTest {
-
     private HtmlUnitEnvironment environment;
 
     @Before
@@ -62,7 +59,6 @@ public class NestedRepeatTest {
     public void testRendering() throws Exception {
         HtmlPage page = environment.getPage("/NestedRepeatTest.jsf");
 
-        
         for (int i = 0; i < 3; i++) {
             HtmlElement input = page.getElementById("form:outer:" + i + ":inner:0:input");
             input.type(Integer.toString(i));
@@ -70,7 +66,7 @@ public class NestedRepeatTest {
 
         HtmlElement ajax = page.getElementById("form:ajax");
         page = ajax.click();
-        
+
         for (int i = 0; i < 3; i++) {
             HtmlElement input = page.getElementById("form:outer:" + i + ":inner:0:input");
             assertEquals(Integer.toString(i), input.getAttribute("value"));
@@ -78,7 +74,6 @@ public class NestedRepeatTest {
     }
 
     public static class DataBean implements Serializable {
-
         private List<DataItem> listDataItems = new LinkedList<DataItem>() {
             {
                 add(new DataItem());
@@ -110,7 +105,6 @@ public class NestedRepeatTest {
         public void setList(List<Inner> list) {
             this.list = list;
         }
-
     }
 
     public static class Inner implements Serializable {
@@ -124,5 +118,4 @@ public class NestedRepeatTest {
             this.status = status;
         }
     }
-
 }

@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import javax.el.MethodExpression;
@@ -44,18 +43,14 @@ import org.richfaces.event.PanelToggleSource;
  * @author akolonitsky
  * @since 2010-08-27
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.CollapsiblePanelTagHandler"),
-        renderer = @JsfRenderer(type = "org.richfaces.CollapsiblePanelRenderer"))
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.CollapsiblePanelTagHandler"), renderer = @JsfRenderer(type = "org.richfaces.CollapsiblePanelRenderer"))
 public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel implements PanelToggleSource {
-
     public static final String COMPONENT_TYPE = "org.richfaces.CollapsiblePanel";
-
     public static final String COMPONENT_FAMILY = "org.richfaces.CollapsiblePanel";
 
     public enum States {
         expanded("exp"),
         collapsed("colps");
-
         private final String abbreviation;
 
         States(String abbreviation) {
@@ -90,9 +85,10 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
     protected boolean isActiveItem(UIComponent kid, String value) {
         return isExpanded();
     }
-    
-    @Attribute(defaultValue="true")
+
+    @Attribute(defaultValue = "true")
     public abstract boolean isExpanded();
+
     public abstract void setExpanded(boolean expanded);
 
     @Attribute(hidden = true)
@@ -200,21 +196,21 @@ public abstract class AbstractCollapsiblePanel extends AbstractTogglePanel imple
     public void removePanelToggleListener(PanelToggleListener listener) {
         removeFacesListener(listener);
     }
-    
+
     @Override
     public Object getValue() {
         return String.valueOf(isExpanded());
     }
-    
+
     @Override
     public void setValue(Object value) {
         setExpanded(Boolean.parseBoolean((String) value));
     }
-    
+
     @Override
     public void broadcast(FacesEvent event) throws AbortProcessingException {
         if (event instanceof PanelToggleEvent) {
-            setExpanded(((PanelToggleEvent)event).getExpanded());
+            setExpanded(((PanelToggleEvent) event).getExpanded());
             setSubmittedActiveItem(null);
             if (event.getPhaseId() != PhaseId.UPDATE_MODEL_VALUES) {
                 FacesContext.getCurrentInstance().renderResponse();

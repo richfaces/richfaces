@@ -20,7 +20,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit.html;
 
 import java.util.Map;
@@ -36,12 +35,11 @@ import com.google.common.collect.ImmutableSet;
  * <p class="changed_added_4_0">
  * This class represents call to function in external library.
  * </p>
- * 
+ *
  * @author asmirnov@exadel.com
- * 
+ *
  */
 public class LibraryScriptFunction implements ResourceLibrary {
-
     private final ImmutableSet<ResourceKey> resources;
     private final String name;
     private final Message message;
@@ -60,7 +58,7 @@ public class LibraryScriptFunction implements ResourceLibrary {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.richfaces.renderkit.html.LibraryScriptString#getResource()
      */
     public Iterable<ResourceKey> getResources() {
@@ -70,7 +68,7 @@ public class LibraryScriptFunction implements ResourceLibrary {
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
      * @return the message
      */
     public Message getMessage() {
@@ -80,16 +78,16 @@ public class LibraryScriptFunction implements ResourceLibrary {
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
      * @return the parameters
      */
     public Map<String, ? extends Object> getParameters() {
         return this.parameters;
     }
-    
+
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -105,7 +103,7 @@ public class LibraryScriptFunction implements ResourceLibrary {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -150,5 +148,4 @@ public class LibraryScriptFunction implements ResourceLibrary {
         }
         return true;
     }
-
 }

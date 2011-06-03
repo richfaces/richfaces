@@ -38,73 +38,68 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @RunWith(MockTestRunner.class)
 public class SavedStateTest {
-
     @Mock
-    private FacesContext facesContext; 
-
+    private FacesContext facesContext;
     private IterationStateHolder iterationStateHolder;
-    
     private String iterationState;
-    
+
     @Before
     public void setUp() throws Exception {
         iterationStateHolder = new IterationStateHolder() {
-            
             public void setIterationState(Object state) {
                 iterationState = (String) state;
             }
-            
+
             public Object getIterationState() {
                 return iterationState;
             }
         };
     }
-    
+
     @After
     public void tearDown() throws Exception {
         iterationStateHolder = null;
     }
-    
+
     private void checkDefaultState(SavedState state) {
-        
+
         assertTrue(state.isValid());
         assertFalse(state.isLocalValueSet());
         assertFalse(state.isSubmitted());
-        
+
         assertNull(state.getIterationState());
         assertNull(state.getSubmittedValue());
         assertNull(state.getValue());
     }
-    
+
     @Test
     public void testDefaultValue() throws Exception {
         SavedState state = new SavedState();
         checkDefaultState(state);
-        
+
         SavedState inputState = new SavedState(new UIInput());
         checkDefaultState(inputState);
-        
+
         SavedState formState = new SavedState(new UIForm());
         checkDefaultState(formState);
-        
+
         SavedState iterationState = new SavedState(iterationStateHolder);
         checkDefaultState(iterationState);
     }
-    
+
     @Test
     public void testIterationStateHolderConstructor() throws Exception {
         this.iterationState = "some state";
         SavedState iterationState = new SavedState(iterationStateHolder);
 
         assertEquals("some state", iterationState.getIterationState());
-        
+
         assertFalse(iterationState.isSubmitted());
         assertTrue(iterationState.isValid());
         assertNull(iterationState.getSubmittedValue());
@@ -120,7 +115,7 @@ public class SavedStateTest {
 
         assertEquals("some state", this.iterationState);
     }
-    
+
     @Test
     public void testFormConstructor() {
         UIForm form = new UIForm();
@@ -129,7 +124,7 @@ public class SavedStateTest {
         SavedState formState = new SavedState(form);
 
         assertTrue(formState.isSubmitted());
-        
+
         assertTrue(formState.isValid());
         assertNull(formState.getSubmittedValue());
         assertNull(formState.getValue());
@@ -144,14 +139,14 @@ public class SavedStateTest {
 
         UIForm form = new UIForm();
         formState.apply(form);
-        
+
         assertTrue(form.isSubmitted());
     }
 
     @Test
     public void testInputConstructor() {
         UIInput input = new UIInput();
-        
+
         input.setValid(false);
         input.setSubmittedValue("submitted");
         input.setValue("value");
@@ -163,7 +158,7 @@ public class SavedStateTest {
         assertEquals("submitted", inputState.getSubmittedValue());
         assertEquals("value", inputState.getValue());
         assertTrue(inputState.isLocalValueSet());
-        
+
         assertFalse(inputState.isSubmitted());
         assertNull(inputState.getIterationState());
     }
@@ -175,10 +170,10 @@ public class SavedStateTest {
         state.setSubmittedValue("submitted");
         state.setValue("value");
         state.setLocalValueSet(true);
-        
+
         UIInput input = new UIInput();
         state.apply(input);
-        
+
         assertFalse(input.isValid());
         assertEquals("submitted", input.getSubmittedValue());
         assertEquals("value", input.getValue());
@@ -188,13 +183,13 @@ public class SavedStateTest {
     @Test
     public void testTransient() throws Exception {
         SavedState defaultState = new SavedState();
-        
+
         assertTrue(defaultState.isTransient());
-        
+
         SavedState state = new SavedState();
         state.setIterationState("something");
         assertFalse(state.isTransient());
-        
+
         state = new SavedState();
         state.setLocalValueSet(true);
         assertFalse(state.isTransient());

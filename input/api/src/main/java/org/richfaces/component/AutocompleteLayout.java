@@ -23,14 +23,14 @@ package org.richfaces.component;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
-//TODO nick - move to API
+// TODO nick - move to API
 public enum AutocompleteLayout {
 
-    table, 
-    list, 
-    grid, 
-    //TODO nick - rename into 'simple'?
+    table,
+    list,
+    grid,
+    // TODO nick - rename into 'simple'?
     div
 }

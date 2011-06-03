@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.view.facelets;
 
 import java.io.IOException;
@@ -44,17 +43,12 @@ import javax.faces.view.facelets.TagHandler;
  * @since Aug 31, 2010
  */
 public abstract class EventListenerHandler extends TagHandler implements AttachedObjectHandler {
-
     protected final TagAttribute binding;
-
     protected final String listenerType;
 
     public abstract static class LazyEventListener<L extends FacesListener> implements FacesListener, Serializable {
-
         private static final long serialVersionUID = 1L;
-
         protected final String type;
-
         protected final ValueExpression binding;
 
         protected LazyEventListener(String type, ValueExpression binding) {
@@ -133,7 +127,4 @@ public abstract class EventListenerHandler extends TagHandler implements Attache
     }
 
     public abstract boolean isEventSource(UIComponent comp);
-
 }
-
-

@@ -36,18 +36,13 @@ import com.google.common.collect.Lists;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class SwingTreeNodeImpl<T> implements TreeNode, Serializable {
-
     private static final long serialVersionUID = 8841984268370598781L;
-
     private TreeNode parent;
-
     private T data;
-
     private Collection<TreeNode> children;
-
     private boolean allowUpdateParents = true;
 
     public SwingTreeNodeImpl() {

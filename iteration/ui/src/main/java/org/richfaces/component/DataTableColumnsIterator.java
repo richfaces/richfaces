@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import java.util.Iterator;
@@ -29,17 +28,15 @@ import javax.faces.component.UIComponent;
 
 import com.google.common.collect.AbstractIterator;
 
-
 /**
  * Iterator for all children table columns.
- * 
+ *
  * @author asmirnov
- * 
+ *
  */
 class DataTableColumnsIterator extends AbstractIterator<UIComponent> {
-
     private Iterator<UIComponent> childrenIterator;
-    
+
     public DataTableColumnsIterator(UIComponent component) {
         super();
         this.childrenIterator = component.getChildren().iterator();
@@ -49,13 +46,12 @@ class DataTableColumnsIterator extends AbstractIterator<UIComponent> {
     protected UIComponent computeNext() {
         while (childrenIterator.hasNext()) {
             UIComponent child = childrenIterator.next();
-            
+
             if (child instanceof UIColumn || child instanceof Column) {
                 return child;
             }
         }
-        
+
         return endOfData();
     }
-    
 }

@@ -20,26 +20,30 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component.behavior;
 
 /**
- * <p class="changed_added_4_0">This exception thrown if UIInput component associated with client side validator has no appropriate UIMessage(s)</p>
+ * <p class="changed_added_4_0">
+ * This exception thrown if UIInput component associated with client side validator has no appropriate UIMessage(s)
+ * </p>
+ *
  * @author asmirnov@exadel.com
  *
  */
 @SuppressWarnings("serial")
 public class MessageNotFoundException extends Exception {
-
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
      */
     public MessageNotFoundException() {
         // TODO Auto-generated constructor stub
     }
 
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @param message
      */
     public MessageNotFoundException(String message) {
@@ -48,7 +52,9 @@ public class MessageNotFoundException extends Exception {
     }
 
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @param cause
      */
     public MessageNotFoundException(Throwable cause) {
@@ -57,7 +63,9 @@ public class MessageNotFoundException extends Exception {
     }
 
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @param message
      * @param cause
      */
@@ -65,5 +73,4 @@ public class MessageNotFoundException extends Exception {
         super(message, cause);
         // TODO Auto-generated constructor stub
     }
-
 }

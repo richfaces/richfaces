@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.taglib.html;
 
 import java.util.Map;
@@ -35,7 +32,6 @@ import org.ajax4jsf.tests.AbstractAjax4JsfTestCase;
 import org.ajax4jsf.tests.MockFaceletContext;
 import org.ajax4jsf.tests.MockPageContext;
 import org.ajax4jsf.tests.MockValueExpression;
-
 import com.sun.facelets.FaceletContext;
 import com.sun.facelets.FaceletHandler;
 import com.sun.facelets.tag.Location;
@@ -44,7 +40,6 @@ import com.sun.facelets.tag.TagAttribute;
 import com.sun.facelets.tag.TagAttributes;
 import com.sun.facelets.tag.TagConfig;
 import com.sun.facelets.tag.TagHandler;
-
 import junit.framework.TestCase;
 
 /**
@@ -79,6 +74,7 @@ public class KeepAliveTagsTest extends AbstractAjax4JsfTestCase {
         KeepAliveHandler handler = new KeepAliveHandler(new TagConfig() {
             private Tag tag;
             private String tagId;
+
             {
                 tagId = "_tagId0";
 
@@ -86,16 +82,19 @@ public class KeepAliveTagsTest extends AbstractAjax4JsfTestCase {
                 String ns = "urn:unk";
 
                 tag = new Tag(location, ns, "tag", null,
-                              new TagAttributes(new TagAttribute[] {
-                                  new TagAttribute(location, "", "beanName", null, beanName),
-                                  new TagAttribute(location, "", "ajaxOnly", null, String.valueOf(ajaxOnly))}));
+                        new TagAttributes(new TagAttribute[] {
+                                new TagAttribute(location, "", "beanName", null, beanName),
+                                new TagAttribute(location, "", "ajaxOnly", null, String.valueOf(ajaxOnly)) }));
             }
+
             public FaceletHandler getNextHandler() {
                 return null;
             }
+
             public Tag getTag() {
                 return tag;
             }
+
             public String getTagId() {
                 return null;
             }

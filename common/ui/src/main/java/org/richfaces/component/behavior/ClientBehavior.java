@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component.behavior;
 
 import java.io.Serializable;
@@ -37,15 +36,13 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author Anton Belevich
- * 
+ *
  *         base class for the client behaviors
  */
 public abstract class ClientBehavior extends ClientBehaviorBase {
-
     private StateHelper behaviorStateHelper = null;
-
     private Map<String, ValueExpression> bindings;
-    
+
     public StateHelper getStateHelper() {
         if (behaviorStateHelper == null) {
             behaviorStateHelper = new BehaviorStateHelper(this);
@@ -76,7 +73,6 @@ public abstract class ClientBehavior extends ClientBehaviorBase {
                 }
                 bindings.put(name, valueExpression);
             }
-
         } else {
             if (bindings != null) {
                 bindings.remove(name);
@@ -115,17 +111,16 @@ public abstract class ClientBehavior extends ClientBehaviorBase {
                 state = new Object[] { parentState };
             }
         } else {
-            
+
             Object savedHelper = null;
-            if(behaviorStateHelper != null) {
+            if (behaviorStateHelper != null) {
                 savedHelper = behaviorStateHelper.saveState(context);
             }
-            
+
             state = new Object[3];
             state[0] = parentState;
             state[1] = savedHelper;
             state[2] = saveBindings(context, bindings);
-
         }
         return state;
     }
@@ -135,7 +130,7 @@ public abstract class ClientBehavior extends ClientBehaviorBase {
         if (state != null) {
             Object[] stateObject = (Object[]) state;
             super.restoreState(context, stateObject[0]);
-          
+
             if (stateObject.length == 3) {
                 getStateHelper().restoreState(context, stateObject[1]);
                 this.bindings = restoreBindings(context, stateObject[2]);

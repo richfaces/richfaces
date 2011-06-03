@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit.html.iconimages;
 
 import java.awt.BasicStroke;
@@ -31,7 +30,6 @@ import org.richfaces.resource.DynamicUserResource;
 
 @DynamicUserResource
 public class PanelIconGrid extends PanelIconBasic {
-
     @Override
     protected void paintImage(Graphics2D g2d, Color color) {
 
@@ -52,7 +50,5 @@ public class PanelIconGrid extends PanelIconBasic {
         g2d.fill(path);
         g2d.clearRect(16, 0, 8, 40);
         g2d.clearRect(0, 16, 40, 8);
-
     }
-
 }

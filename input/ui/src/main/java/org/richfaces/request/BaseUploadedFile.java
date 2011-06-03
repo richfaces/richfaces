@@ -32,12 +32,11 @@ import com.google.common.io.Closeables;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public abstract class BaseUploadedFile implements UploadedFile {
-
     private String parameterName;
-    
+
     public BaseUploadedFile(String parameterName) {
         super();
         this.parameterName = parameterName;
@@ -57,11 +56,11 @@ public abstract class BaseUploadedFile implements UploadedFile {
 
     public byte[] getData() {
         long size = getSize();
-        
+
         if (size > Integer.MAX_VALUE) {
             throw new FileUploadException("Resource content is too long to be allocated as byte[]");
         }
-        
+
         InputStream is = null;
         try {
             is = getInputStream();
@@ -74,5 +73,4 @@ public abstract class BaseUploadedFile implements UploadedFile {
             Closeables.closeQuietly(is);
         }
     }
-    
 }

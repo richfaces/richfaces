@@ -31,25 +31,22 @@ import com.google.common.collect.Maps;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class TreeNodeImpl implements TreeNode {
-
     private List<Object> keysList = null;
-    
     private Map<Object, TreeNode> children = null;
-    
     private boolean leaf;
-    
+
     public TreeNodeImpl() {
         this(false);
     }
-    
+
     public TreeNodeImpl(boolean leaf) {
         super();
-        
+
         this.leaf = leaf;
-        
+
         if (!leaf) {
             keysList = Lists.newArrayList();
             children = Maps.newHashMap();
@@ -60,55 +57,54 @@ public class TreeNodeImpl implements TreeNode {
         if (isLeaf()) {
             throw new IllegalStateException("Cannot add children to leaf");
         }
-        
+
         keysList.add(key);
         children.put(key, child);
     }
-    
+
     public void insertChild(int idx, Object key, TreeNode child) {
         if (isLeaf()) {
             throw new IllegalStateException("Cannot add children to leaf");
         }
-        
+
         keysList.add(idx, key);
         children.put(key, child);
     }
-    
+
     public void removeChild(Object key) {
         if (isLeaf()) {
             return;
         }
-        
+
         children.remove(key);
         keysList.remove(key);
     }
-    
+
     public TreeNode getChild(Object key) {
         if (isLeaf()) {
             return null;
         }
-        
+
         return children.get(key);
     }
-    
+
     public Iterator<Object> getChildrenKeysIterator() {
         if (isLeaf()) {
             return Iterators.emptyIterator();
         }
-        
+
         return Iterators.unmodifiableIterator(keysList.iterator());
     }
-    
+
     public int indexOf(Object key) {
         if (isLeaf()) {
             return -1;
         }
-        
+
         return keysList.indexOf(key);
     }
-    
+
     public boolean isLeaf() {
         return leaf;
     }
-    
 }

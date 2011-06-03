@@ -19,5 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-@org.richfaces.cdk.annotations.TagLibrary(uri="http://richfaces.org/misc", shortName="misc")
+@org.richfaces.cdk.annotations.TagLibrary(uri = "http://richfaces.org/misc", shortName = "misc")
 package org.richfaces.component;
+

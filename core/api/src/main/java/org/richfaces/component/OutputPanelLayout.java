@@ -23,12 +23,12 @@ package org.richfaces.component;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public enum OutputPanelLayout {
 
-    inline, block;
-    
+    inline,
+    block;
     public static final OutputPanelLayout DEFAULT = inline;
-    
+
 }

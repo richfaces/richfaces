@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit.util;
 
 import javax.faces.component.UIComponent;
@@ -30,8 +29,7 @@ import org.jboss.test.faces.AbstractFacesTest;
 import org.richfaces.component.SwitchType;
 
 /**
- * @author Nick Belaevski - nbelaevski@exadel.com
- * created 11.04.2007
+ * @author Nick Belaevski - nbelaevski@exadel.com created 11.04.2007
  *
  */
 public class FormUtilTest extends AbstractFacesTest {
@@ -67,7 +65,8 @@ public class FormUtilTest extends AbstractFacesTest {
         try {
             FormUtil.throwEnclFormReqExceptionIfNeed(facesContext, testComponent);
             fail();
-        } catch (EnclosingFormRequiredException e) {}
+        } catch (EnclosingFormRequiredException e) {
+        }
     }
 
     public void testThrowEnclFormReqExceptionIfNeedClient() throws Exception {

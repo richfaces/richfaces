@@ -19,33 +19,34 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
+
+import static javax.faces.component.UIComponentBase.restoreAttachedState;
+import static javax.faces.component.UIComponentBase.saveAttachedState;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.faces.component.PartialStateHolder;
 import javax.faces.component.StateHelper;
 import javax.faces.component.StateHolder;
-import static javax.faces.component.UIComponentBase.restoreAttachedState;
-import static javax.faces.component.UIComponentBase.saveAttachedState;
 import javax.faces.context.FacesContext;
-import java.io.Serializable;
-import java.util.*;
 
 /**
  * @author akolonitsky
  * @since Feb 2, 2010
  *
- * A base implementation for
- * maps which implement the PartialStateHolder interface.
- * <p/>
- * This can be used as a base-class for all
- * state-holder implementations in components,
- * converters and validators and other implementations
- * of the StateHolder interface.
+ *        A base implementation for maps which implement the PartialStateHolder interface.
+ *        <p/>
+ *        This can be used as a base-class for all state-holder implementations in components, converters and validators and
+ *        other implementations of the StateHolder interface.
  */
-@SuppressWarnings({"unchecked"})
+@SuppressWarnings({ "unchecked" })
 public class PartialStateHolderHelper implements StateHelper {
-
     private PartialStateHolder stateHolder;
     private boolean isTransient;
     private Map<Serializable, Object> deltaMap;
@@ -53,22 +54,17 @@ public class PartialStateHolderHelper implements StateHelper {
 
     // ------------------------------------------------------------ Constructors
 
-
     public PartialStateHolderHelper(PartialStateHolder stateHolder) {
 
         this.stateHolder = stateHolder;
         this.deltaMap = new HashMap<Serializable, Object>();
         this.defaultMap = new HashMap<Serializable, Object>();
-
     }
-
 
     // ------------------------------------------------ Methods from StateHelper
 
-
     /**
-     * Put the object in the main-map
-     * and/or the delta-map, if necessary.
+     * Put the object in the main-map and/or the delta-map, if necessary.
      *
      * @param key
      * @param value
@@ -90,10 +86,8 @@ public class PartialStateHolderHelper implements StateHelper {
         }
     }
 
-
     /**
-     * We need to remove from both
-     * maps, if we do remove an existing key.
+     * We need to remove from both maps, if we do remove an existing key.
      *
      * @param key
      * @return the removed object in the delta-map. if not present, the removed object from the main map
@@ -113,7 +107,6 @@ public class PartialStateHolderHelper implements StateHelper {
         }
     }
 
-
     /**
      * @see StateHelper#put(java.io.Serializable, String, Object)
      */
@@ -127,7 +120,6 @@ public class PartialStateHolderHelper implements StateHelper {
                 deltaMap.put(key, dMap);
             }
             ret = dMap.put(mapKey, value);
-
         }
         Map<String, Object> map = (Map<String, Object>) get(key);
         if (map == null) {
@@ -140,15 +132,11 @@ public class PartialStateHolderHelper implements StateHelper {
             map.put(mapKey, value);
             return ret;
         }
-
     }
 
-
     /**
-     * Get the object from the main-map.
-     * As everything is written through
-     * from the delta-map to the main-map, this
-     * should be enough.
+     * Get the object from the main-map. As everything is written through from the delta-map to the main-map, this should be
+     * enough.
      *
      * @param key
      * @return
@@ -157,14 +145,12 @@ public class PartialStateHolderHelper implements StateHelper {
         return defaultMap.get(key);
     }
 
-
     /**
      * @see StateHelper#eval(java.io.Serializable)
      */
     public Object eval(Serializable key) {
         return eval(key, null);
     }
-
 
     /**
      * @see StateHelper#eval(java.io.Serializable, Object)
@@ -181,7 +167,6 @@ public class PartialStateHolderHelper implements StateHelper {
     protected Object getValueExpressionValue(String name) {
         return null;
     }
-
 
     /**
      * @see StateHelper#add(java.io.Serializable, Object)
@@ -202,9 +187,7 @@ public class PartialStateHolderHelper implements StateHelper {
             defaultMap.put(key, items);
         }
         items.add(value);
-
     }
-
 
     /**
      * @see StateHelper#remove(java.io.Serializable, Object)
@@ -219,14 +202,10 @@ public class PartialStateHolderHelper implements StateHelper {
         return null;
     }
 
-
     // ------------------------------------------------ Methods from StateHolder
 
-
     /**
-     * One and only implementation of
-     * save-state - makes all other implementations
-     * unnecessary.
+     * One and only implementation of save-state - makes all other implementations unnecessary.
      *
      * @param context
      * @return the saved state
@@ -242,14 +221,11 @@ public class PartialStateHolderHelper implements StateHelper {
         }
     }
 
-
     /**
-     * One and only implementation of
-     * restore state. Makes all other implementations
-     * unnecessary.
+     * One and only implementation of restore state. Makes all other implementations unnecessary.
      *
      * @param context FacesContext
-     * @param state   the state to be restored.
+     * @param state the state to be restored.
      */
     public void restoreState(FacesContext context, Object state) {
 
@@ -278,17 +254,15 @@ public class PartialStateHolderHelper implements StateHelper {
             if (value != null) {
                 if (value instanceof Collection) {
                     value = restoreAttachedState(context, value);
-                    /*} else if (value instanceof StateHolderSaver) {
-                 value = ((StateHolderSaver) value).restore(context);*/
+                    /*
+                     * } else if (value instanceof StateHolderSaver) { value = ((StateHolderSaver) value).restore(context);
+                     */
                 } else {
-                    value = value instanceof Serializable
-                            ? value
-                            : restoreAttachedState(context, value);
+                    value = value instanceof Serializable ? value : restoreAttachedState(context, value);
                 }
             }
             if (value instanceof Map) {
-                for (Map.Entry<String, Object> entry : ((Map<String, Object>) value)
-                        .entrySet()) {
+                for (Map.Entry<String, Object> entry : ((Map<String, Object>) value).entrySet()) {
                     this.put(serializable, entry.getKey(), entry.getValue());
                 }
             } else if (value instanceof List) {
@@ -304,14 +278,12 @@ public class PartialStateHolderHelper implements StateHelper {
         }
     }
 
-
     /**
      * @see javax.faces.component.StateHolder#isTransient()
      */
     public boolean isTransient() {
         return isTransient;
     }
-
 
     /**
      * @see javax.faces.component.StateHolder#setTransient(boolean)
@@ -320,19 +292,17 @@ public class PartialStateHolderHelper implements StateHelper {
         isTransient = newTransientValue;
     }
 
-
     // --------------------------------------------------------- Private Methods
-
 
     private Object saveMap(FacesContext context, Map<Serializable, Object> map) {
 
         if (map.isEmpty()) {
             if (!stateHolder.initialStateMarked()) {
                 // only need to propagate the stateHolder's delta status when
-                // delta tracking has been disabled.  We're assuming that
+                // delta tracking has been disabled. We're assuming that
                 // the VDL will reset the status when the view is reconstructed,
                 // so no need to save the state if the saved state is the default.
-                return new Object[]{stateHolder.initialStateMarked()};
+                return new Object[] { stateHolder.initialStateMarked() };
             }
             return null;
         }
@@ -347,9 +317,7 @@ public class PartialStateHolderHelper implements StateHelper {
                 value = Void.TYPE;
             }
             savedState[i * 2] = entry.getKey();
-            if (value instanceof Collection
-                    || value instanceof StateHolder
-                    || !(value instanceof Serializable)) {
+            if (value instanceof Collection || value instanceof StateHolder || !(value instanceof Serializable)) {
                 value = saveAttachedState(context, value);
             }
             savedState[i * 2 + 1] = value;
@@ -359,9 +327,7 @@ public class PartialStateHolderHelper implements StateHelper {
             savedState[savedState.length - 1] = stateHolder.initialStateMarked();
         }
         return savedState;
-
     }
-
 
     private Object removeFromList(Serializable key, Object value) {
         Object ret = null;
@@ -388,7 +354,6 @@ public class PartialStateHolderHelper implements StateHelper {
         return ret;
     }
 
-
     private Object removeFromMap(Serializable key, String mapKey) {
         Object ret = null;
         if (stateHolder.initialStateMarked()) {
@@ -406,7 +371,6 @@ public class PartialStateHolderHelper implements StateHelper {
                 ret = map.remove(mapKey);
             } else {
                 map.remove(mapKey);
-
             }
             if (map.isEmpty()) {
                 defaultMap.remove(key);
@@ -417,5 +381,4 @@ public class PartialStateHolderHelper implements StateHelper {
         }
         return ret;
     }
-
 }

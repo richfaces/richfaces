@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit.html.images;
 
 import java.awt.Transparency;
@@ -31,17 +30,16 @@ import java.awt.image.WritableRaster;
 
 /**
  * @author Maksim Kaszynski
- * 
+ *
  */
 public class DisabledCalendarIcon extends CalendarIcon {
-
     @Override
     protected BufferedImage createImage(int width, int height) {
         ColorSpace gsColorSpace = ColorSpace.getInstance(ColorSpace.CS_GRAY);
-        ComponentColorModel ccm = new ComponentColorModel(gsColorSpace, true, false, Transparency.TRANSLUCENT, DataBuffer.TYPE_BYTE);
+        ComponentColorModel ccm = new ComponentColorModel(gsColorSpace, true, false, Transparency.TRANSLUCENT,
+            DataBuffer.TYPE_BYTE);
         WritableRaster raster = ccm.createCompatibleWritableRaster(width, height);
 
         return new BufferedImage(ccm, raster, ccm.isAlphaPremultiplied(), null);
     }
-
 }

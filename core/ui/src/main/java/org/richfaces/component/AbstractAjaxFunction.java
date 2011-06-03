@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.component;
 
 import org.richfaces.cdk.annotations.Attribute;
@@ -34,18 +31,11 @@ import org.richfaces.cdk.annotations.TagType;
  * @version $Revision: 1.1.2.2 $ $Date: 2007/01/23 20:01:04 $
  *
  */
-@JsfComponent(
-    renderer = @JsfRenderer(type = "org.richfaces.FunctionRenderer"),
-    tag = @Tag(name = "jsFunction", type = TagType.Facelets),
-    attributes = {"ajax-props.xml"}
-)
+@JsfComponent(renderer = @JsfRenderer(type = "org.richfaces.FunctionRenderer"), tag = @Tag(name = "jsFunction", type = TagType.Facelets), attributes = { "ajax-props.xml" })
 public abstract class AbstractAjaxFunction extends AbstractActionComponent {
-
     public static final String COMPONENT_FAMILY = "javax.faces.Command";
-
     public static final String COMPONENT_TYPE = "org.richfaces.Function";
 
     @Attribute(required = true)
     public abstract String getName();
-
 }

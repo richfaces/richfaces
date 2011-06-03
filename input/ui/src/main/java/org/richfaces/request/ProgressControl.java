@@ -28,22 +28,16 @@ import javax.servlet.ServletInputStream;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public final class ProgressControl {
-
     private static final String UPLOAD_PROGRESS_PREFIX = "_richfaces_upload_percents";
-    
     long totalBytesRead = 0;
-    
     private Map<String, Object> contextMap;
-    
     private String attributeName;
-
     private long length;
-    
     private byte lastUpdatedPercentValue;
-    
+
     public ProgressControl(String uploadId, long length) {
         this.attributeName = getContextAttributeName(uploadId);
         this.length = length;
@@ -55,7 +49,7 @@ public final class ProgressControl {
         if (progress != null) {
             return progress.byteValue();
         }
-        
+
         return 0;
     }
 
@@ -68,27 +62,27 @@ public final class ProgressControl {
             contextMap.remove(attributeName);
         }
     }
-    
+
     public void advance(long bytesRead) {
         totalBytesRead += bytesRead;
 
         byte percent;
         if (length != 0) {
-            percent = (byte) Math.floor( ((double)totalBytesRead) / length * 100);
+            percent = (byte) Math.floor(((double) totalBytesRead) / length * 100);
         } else {
             percent = 100;
         }
-        
+
         if (percent > lastUpdatedPercentValue && contextMap != null) {
             lastUpdatedPercentValue = percent;
             contextMap.put(attributeName, lastUpdatedPercentValue);
         }
     }
-    
+
     public void setContextMap(Map<String, Object> contextMap) {
         this.contextMap = contextMap;
     }
-    
+
     public ServletInputStream wrapStream(ServletInputStream inputStream) {
         return new ProgressServletInputStream(inputStream, this);
     }

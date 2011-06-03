@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.view.facelets.tag;
 
 import javax.faces.event.AjaxBehaviorEvent;
@@ -34,18 +33,13 @@ import org.ajax4jsf.component.behavior.MethodExpressionAjaxBehaviorListener;
 
 /**
  * @author Anton Belevich
- * 
+ *
  */
 public class AjaxBehaviorRule extends BehaviorRule {
-
     public static final Class<?>[] AJAX_BEHAVIOR_LISTENER_SIG = new Class[] { AjaxBehaviorEvent.class };
-
     public static final AjaxBehaviorRule INSTANCE = new AjaxBehaviorRule();
-
     public static final String EXECUTE = "execute";
-
     public static final String RENDER = "render";
-
     public static final String LISTENER = "listener";
 
     @Override
@@ -70,7 +64,6 @@ public class AjaxBehaviorRule extends BehaviorRule {
                 }
 
                 return new ValueExpressionMetadata(name, type, attribute);
-
             } else if (meta != null && meta.getWriteMethod(name) != null) {
                 return new LiteralAttributeMetadata(name, attribute.getValue());
             }
@@ -78,11 +71,8 @@ public class AjaxBehaviorRule extends BehaviorRule {
 
         return null;
     }
-        
-    
-    
-    public static final class AjaxBehaviorListenerMapper extends Metadata {
 
+    public static final class AjaxBehaviorListenerMapper extends Metadata {
         private final TagAttribute attr;
 
         public AjaxBehaviorListenerMapper(TagAttribute attr) {
@@ -94,5 +84,4 @@ public class AjaxBehaviorRule extends BehaviorRule {
                 .getMethodExpression(ctx, null, AjaxBehaviorRule.AJAX_BEHAVIOR_LISTENER_SIG)));
         }
     }
-
 }

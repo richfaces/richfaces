@@ -29,7 +29,6 @@ import java.awt.geom.GeneralPath;
  * @author Anton Belevich
  */
 public abstract class PanelIconTriangleBasic extends PanelIconBasic {
-
     protected void paintImage(Graphics2D g2d, Color color) {
 
         GeneralPath path = new GeneralPath();
@@ -41,9 +40,7 @@ public abstract class PanelIconTriangleBasic extends PanelIconBasic {
 
         g2d.setColor(color);
         g2d.fill(path);
-
     }
 
     abstract void draw(GeneralPath path, Graphics2D g2d);
-
 }

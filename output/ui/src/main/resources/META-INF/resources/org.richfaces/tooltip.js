@@ -93,246 +93,246 @@
     };
 
     rf.ui.Tooltip = rf.BaseComponent.extendClass({
-        // class name
-        name:"Tooltip",
+            // class name
+            name:"Tooltip",
 
-        /**
-         * @class Tooltip
-         * @name Tooltip
-         *
-         * @constructor
-         * @param {String} componentId - component id
-         * */
-        init : function (componentId, options) {
-            $super.constructor.call(this, componentId);
-            this.namespace = "."+rf.Event.createNamespace(this.name, this.id);
-            this.options = $.extend(this.options, DEFAULT_OPTIONS, options || {});
-            this.attachToDom();
+            /**
+             * @class Tooltip
+             * @name Tooltip
+             *
+             * @constructor
+             * @param {String} componentId - component id
+             * */
+            init : function (componentId, options) {
+                $super.constructor.call(this, componentId);
+                this.namespace = "." + rf.Event.createNamespace(this.name, this.id);
+                this.options = $.extend(this.options, DEFAULT_OPTIONS, options || {});
+                this.attachToDom();
 
-            this.mode = this.options.mode;
-            this.target = this.options.target;
-            this.shown = false;
+                this.mode = this.options.mode;
+                this.target = this.options.target;
+                this.shown = false;
 
-            this.__addUserEventHandler("hide");
-            this.__addUserEventHandler("show");
-            this.__addUserEventHandler("beforehide");
-            this.__addUserEventHandler("beforeshow");
-            this.popupId = this.id+':wrp';
-            this.popup = new rf.ui.Popup(this.popupId, {
-                attachTo: this.target,
-                attachToBody: true,
-                positionType: "TOOLTIP",
-                positionOffset: this.options.offset,
-                jointPoint: this.options.jointPoint,
-                direction: this.options.direction
-            });
+                this.__addUserEventHandler("hide");
+                this.__addUserEventHandler("show");
+                this.__addUserEventHandler("beforehide");
+                this.__addUserEventHandler("beforeshow");
+                this.popupId = this.id + ':wrp';
+                this.popup = new rf.ui.Popup(this.popupId, {
+                        attachTo: this.target,
+                        attachToBody: true,
+                        positionType: "TOOLTIP",
+                        positionOffset: this.options.offset,
+                        jointPoint: this.options.jointPoint,
+                        direction: this.options.direction
+                    });
 
-            var handlers = {};
-            handlers[this.options.showEvent + this.namespace] = this.__showHandler;
-            handlers[this.options.hideEvent + this.namespace] = this.__hideHandler;
-            
-            rf.Event.bindById(this.target, handlers, this);
+                var handlers = {};
+                handlers[this.options.showEvent + this.namespace] = this.__showHandler;
+                handlers[this.options.hideEvent + this.namespace] = this.__hideHandler;
 
-            if (this.options.hideEvent == 'mouseleave') {
-            	rf.Event.bindById(this.popupId, this.options.hideEvent + this.namespace, this.__hideHandler, this);
-            }
-        },
+                rf.Event.bindById(this.target, handlers, this);
 
-        /***************************** Public Methods  ****************************************************************/
-        /**
-         * @methodOf
-         * @name PanelMenuItem#hide
-         *
-         * TODO ...
-         *
-         * @return {void} TODO ...
-         */
-        hide: function () {
-
-            var tooltip = this;
-            if (tooltip.hidingTimerHandle) {
-                window.clearTimeout(tooltip.hidingTimerHandle);
-                tooltip.hidingTimerHandle = undefined;
-            }
-            if (this.shown) {
-                this.__hide();
-            }
-        },
-
-        __hideHandler: function(event) {
-        	if (event.type == 'mouseleave' && this.__isInside(event.relatedTarget)) {
-        		return;
-        	}
-
-            this.hide();
-
-            if (this.options.followMouse) {
-                rf.Event.unbindById(this.target, "mousemove" + this.namespace);
-            }
-
-        },
-        
-        /**
-         * @private
-         * @return {void} TODO ...
-         */
-        __hide: function () {
-            var tooltip = this;
-            this.__delay(this.options.hideDelay, function () {
-                tooltip.__fireBeforeHide();
-                tooltip.popup.hide();
-                tooltip.shown = false;
-                tooltip.__fireHide();
-            });
-        },
-
-        __mouseMoveHandler: function(event) {
-            this.saveShowEvent=event;
-            if(this.shown){
-               this.popup.show(this.saveShowEvent);
-            }
-        },
-        
-        __showHandler: function(event) {
-            this.show(event);
-            var tooltip = this;
-
-            if (tooltip.options.followMouse) {
-                rf.Event.bindById(tooltip.target, "mousemove" + tooltip.namespace, tooltip.__mouseMoveHandler, tooltip);
-            }
-        },
-        
-        /**
-         * @methodOf
-         * @name PanelMenuItem#show
-         *
-         * TODO ...
-         *
-         * @return {void} TODO ...
-         */
-        show: function (event) {
-            var tooltip = this;
-            if (tooltip.hidingTimerHandle) {
-                window.clearTimeout(tooltip.hidingTimerHandle);
-                tooltip.hidingTimerHandle = undefined;
-            }
-
-            if (!this.shown) {
-                SHOW_ACTION.exec(this, event);
-            }
-
-        },
-
-        onCompleteHandler : function () {
-            this.__content().show();
-            this.__loading().hide();
-
-            return this.__fireShow();
-        },
-
-        /**
-         * @private
-         * @return {void} TODO ...
-         */
-        __show: function (event) {
-            var tooltip = this;
-            this.__delay(this.options.showDelay, function () {
-                if (!tooltip.options.followMouse) {
-                    tooltip.saveShowEvent = event;
+                if (this.options.hideEvent == 'mouseleave') {
+                    rf.Event.bindById(this.popupId, this.options.hideEvent + this.namespace, this.__hideHandler, this);
                 }
-                if (!tooltip.shown) {
-                    tooltip.__fireBeforeShow();
-                    tooltip.popup.show(tooltip.saveShowEvent);
+            },
+
+            /***************************** Public Methods  ****************************************************************/
+            /**
+             * @methodOf
+             * @name PanelMenuItem#hide
+             *
+             * TODO ...
+             *
+             * @return {void} TODO ...
+             */
+            hide: function () {
+
+                var tooltip = this;
+                if (tooltip.hidingTimerHandle) {
+                    window.clearTimeout(tooltip.hidingTimerHandle);
+                    tooltip.hidingTimerHandle = undefined;
                 }
-                //for showing tooltip in followMouse mode
-                tooltip.shown = true;
-            });
-        },
+                if (this.shown) {
+                    this.__hide();
+                }
+            },
 
-        /***************************** Private Methods ****************************************************************/
-        __delay : function (delay, action) {
-            var tooltip = this;
+            __hideHandler: function(event) {
+                if (event.type == 'mouseleave' && this.__isInside(event.relatedTarget)) {
+                    return;
+                }
 
-            if (delay > 0) {
-                tooltip.hidingTimerHandle = window.setTimeout(function() {
-                    action();
+                this.hide();
 
-                    if (tooltip.hidingTimerHandle) {
-                        window.clearTimeout(tooltip.hidingTimerHandle);
-                        tooltip.hidingTimerHandle = undefined;
+                if (this.options.followMouse) {
+                    rf.Event.unbindById(this.target, "mousemove" + this.namespace);
+                }
+
+            },
+
+            /**
+             * @private
+             * @return {void} TODO ...
+             */
+            __hide: function () {
+                var tooltip = this;
+                this.__delay(this.options.hideDelay, function () {
+                    tooltip.__fireBeforeHide();
+                    tooltip.popup.hide();
+                    tooltip.shown = false;
+                    tooltip.__fireHide();
+                });
+            },
+
+            __mouseMoveHandler: function(event) {
+                this.saveShowEvent = event;
+                if (this.shown) {
+                    this.popup.show(this.saveShowEvent);
+                }
+            },
+
+            __showHandler: function(event) {
+                this.show(event);
+                var tooltip = this;
+
+                if (tooltip.options.followMouse) {
+                    rf.Event.bindById(tooltip.target, "mousemove" + tooltip.namespace, tooltip.__mouseMoveHandler, tooltip);
+                }
+            },
+
+            /**
+             * @methodOf
+             * @name PanelMenuItem#show
+             *
+             * TODO ...
+             *
+             * @return {void} TODO ...
+             */
+            show: function (event) {
+                var tooltip = this;
+                if (tooltip.hidingTimerHandle) {
+                    window.clearTimeout(tooltip.hidingTimerHandle);
+                    tooltip.hidingTimerHandle = undefined;
+                }
+
+                if (!this.shown) {
+                    SHOW_ACTION.exec(this, event);
+                }
+
+            },
+
+            onCompleteHandler : function () {
+                this.__content().show();
+                this.__loading().hide();
+
+                return this.__fireShow();
+            },
+
+            /**
+             * @private
+             * @return {void} TODO ...
+             */
+            __show: function (event) {
+                var tooltip = this;
+                this.__delay(this.options.showDelay, function () {
+                    if (!tooltip.options.followMouse) {
+                        tooltip.saveShowEvent = event;
                     }
-                }, delay);
-            } else {
-                action();
+                    if (!tooltip.shown) {
+                        tooltip.__fireBeforeShow();
+                        tooltip.popup.show(tooltip.saveShowEvent);
+                    }
+                    //for showing tooltip in followMouse mode
+                    tooltip.shown = true;
+                });
+            },
+
+            /***************************** Private Methods ****************************************************************/
+            __delay : function (delay, action) {
+                var tooltip = this;
+
+                if (delay > 0) {
+                    tooltip.hidingTimerHandle = window.setTimeout(function() {
+                        action();
+
+                        if (tooltip.hidingTimerHandle) {
+                            window.clearTimeout(tooltip.hidingTimerHandle);
+                            tooltip.hidingTimerHandle = undefined;
+                        }
+                    }, delay);
+                } else {
+                    action();
+                }
+            },
+
+            __detectAncestorNode: function(leaf, element) {
+                // Return true if "element" is "leaf" or one of its parents
+                var node = leaf;
+                while (node != null && node != element) {
+                    node = node.parentNode;
+                }
+                return (node != null);
+            },
+
+            __loading : function () {
+                return $(document.getElementById(this.id + ":loading"));
+            },
+
+            __content : function () {
+                return $(document.getElementById(this.id + ":content"));
+            },
+
+            __fireHide : function () {
+                return rf.Event.fireById(this.id, "hide", { id: this.id });
+            },
+
+            __fireShow : function () {
+                return rf.Event.fireById(this.id, "show", { id: this.id });
+            },
+
+            __fireBeforeHide : function () {
+                return rf.Event.fireById(this.id, "beforehide", { id: this.id });
+            },
+
+            __fireBeforeShow : function () {
+                return rf.Event.fireById(this.id, "beforeshow", { id: this.id });
+            },
+
+            /**
+             * @private
+             * */
+            __addUserEventHandler : function (name) {
+                var handler = this.options["on" + name];
+                if (handler) {
+                    rf.Event.bindById(this.id, name + this.namespace, handler);
+                }
+            },
+
+            __contains: function(id, elt) {
+                while (elt) {
+                    if (id == elt.id) {
+                        return true;
+                    }
+
+                    elt = elt.parentNode;
+                }
+                return false;
+            },
+
+            __isInside: function(elt) {
+                return this.__contains(this.target, elt) || this.__contains(this.popupId, elt);
+            },
+
+            destroy: function () {
+                rf.Event.unbindById(this.popupId, this.namespace);
+                rf.Event.unbindById(this.target, this.namespace);
+                this.popup.destroy();
+                this.popup = null;
+                $super.destroy.call(this);
             }
-        },
-
-        __detectAncestorNode: function(leaf, element) {
-            // Return true if "element" is "leaf" or one of its parents
-            var node = leaf;
-            while (node != null && node != element) {
-                node = node.parentNode;
-            }
-            return (node != null);
-        },
-
-        __loading : function () {
-            return $(document.getElementById(this.id + ":loading"));
-        },
-
-        __content : function () {
-            return $(document.getElementById(this.id + ":content"));
-        },
-
-        __fireHide : function () {
-            return rf.Event.fireById(this.id, "hide", { id: this.id });
-        },
-
-        __fireShow : function () {
-            return rf.Event.fireById(this.id, "show", { id: this.id });
-        },
-
-        __fireBeforeHide : function () {
-            return rf.Event.fireById(this.id, "beforehide", { id: this.id });
-        },
-
-        __fireBeforeShow : function () {
-            return rf.Event.fireById(this.id, "beforeshow", { id: this.id });
-        },
-
-        /**
-         * @private
-         * */
-        __addUserEventHandler : function (name) {
-            var handler = this.options["on" + name];
-            if (handler) {
-                rf.Event.bindById(this.id, name + this.namespace, handler);
-            }
-        },
-
-        __contains: function(id, elt) {
-        	while (elt) {
-        		if (id == elt.id) {
-        			return true;
-        		}
-        		
-        		elt = elt.parentNode;
-        	}
-        	return false;
-        },
-        
-        __isInside: function(elt) {
-        	return this.__contains(this.target, elt) || this.__contains(this.popupId, elt);
-        },
-        
-        destroy: function () {
-        	rf.Event.unbindById(this.popupId, this.namespace);
-        	rf.Event.unbindById(this.target, this.namespace);
-        	this.popup.destroy();
-        	this.popup = null;
-            $super.destroy.call(this);
-        }
-    });
+        });
 
     // define super class link
     var $super = rf.ui.Tooltip.$super;

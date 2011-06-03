@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.event;
 
 import javax.faces.component.UIComponent;
@@ -31,23 +30,19 @@ import javax.faces.event.FacesListener;
  *
  */
 public class DropEvent extends FacesEvent {
-  
     private static final long serialVersionUID = -8093828320587434589L;
-
     private UIComponent dragSource;
-    
     private Object dropValue;
-    
     private Object dragValue;
 
     public DropEvent(UIComponent dropTarget, Object dropValue, UIComponent dragSource, Object dragValue) {
         super(dropTarget);
-        
+
         this.dropValue = dropValue;
         this.dragSource = dragSource;
         this.dragValue = dragValue;
     }
-   
+
     public UIComponent getDragSource() {
         return dragSource;
     }
@@ -68,7 +63,7 @@ public class DropEvent extends FacesEvent {
     public boolean isAppropriateListener(FacesListener listener) {
         return (listener instanceof DropListener);
     }
-    
+
     @Override
     public void processListener(FacesListener listener) {
         ((DropListener) listener).processDrop(this);

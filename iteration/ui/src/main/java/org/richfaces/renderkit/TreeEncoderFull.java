@@ -27,10 +27,9 @@ import org.richfaces.component.AbstractTree;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 class TreeEncoderFull extends TreeEncoderBase {
-
     public TreeEncoderFull(FacesContext context, AbstractTree tree) {
         super(context, tree);
     }

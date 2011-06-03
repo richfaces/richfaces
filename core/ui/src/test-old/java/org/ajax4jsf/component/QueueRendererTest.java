@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.component;
 
 import java.util.List;
@@ -32,9 +29,7 @@ import javax.faces.component.UIViewRoot;
 
 import org.ajax4jsf.renderkit.html.scripts.QueueScriptResourceRenderer;
 import org.ajax4jsf.tests.AbstractAjax4JsfTestCase;
-
 import org.jaxen.JaxenException;
-
 import com.gargoylesoftware.htmlunit.html.DomText;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
@@ -83,12 +78,12 @@ public class QueueRendererTest extends AbstractAjax4JsfTestCase {
 
     private String getQueueScript(HtmlPage page) throws JaxenException {
         List<?> list = page.getByXPath("//head/script[@id='" + QueueScriptResourceRenderer.QUEUE_SCRIPT_ID
-                                       + "']/text()");
+                + "']/text()");
         DomText text = (DomText) list.get(0);
         String scriptData = text.getData();
 
         return scriptData.replaceAll(
-            "^\\Qif (typeof A4J != 'undefined') { if (A4J.AJAX) { with (A4J.AJAX) {\\E|\\Q}}};\\E$", "");
+                "^\\Qif (typeof A4J != 'undefined') { if (A4J.AJAX) { with (A4J.AJAX) {\\E|\\Q}}};\\E$", "");
     }
 
     private String[] splitScript(String s) {
@@ -103,7 +98,7 @@ public class QueueRendererTest extends AbstractAjax4JsfTestCase {
 
     private String createQueueInitString(String queueName, String queueParams, String requestParams) {
         StringBuilder builder = new StringBuilder("if (!EventQueue.getQueue('").append(queueName).append(
-                                    "')) { EventQueue.addQueue(new EventQueue('").append(queueName).append("'");
+                "')) { EventQueue.addQueue(new EventQueue('").append(queueName).append("'");
 
         builder.append(",");
         builder.append(String.valueOf(queueParams));

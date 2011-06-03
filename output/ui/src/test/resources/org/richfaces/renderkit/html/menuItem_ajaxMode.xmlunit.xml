@@ -1,14 +1,14 @@
-      <div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:menuItem">
-        <span class="rf-ddm-itm-ic ">
-          <div class="rf-ddm-emptyIcon">
-          </div>
-        </span>
-        <span class="rf-ddm-itm-lbl ">
-          Test
-        </span>
-              <script type="text/javascript">
-//<![CDATA[
+<div class="rf-ddm-itm rf-ddm-itm-unsel " id="form:menuItem">
+    <span class="rf-ddm-itm-ic ">
+        <div class="rf-ddm-emptyIcon">
+        </div>
+    </span>
+    <span class="rf-ddm-itm-lbl ">
+        Test
+    </span>
+    <script type="text/javascript">
+        //<![CDATA[
     new RichFaces.ui.MenuItem("form:menuItem",{"mode":"ajax","submitFunction":function(event){RichFaces.ajax("form:menuItem",event,{"incId":"1"} );return false;}} );
  //]]>
-      </script>
-      </div>
+    </script>
+</div>

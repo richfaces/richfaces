@@ -40,37 +40,35 @@ import org.richfaces.application.push.TopicKey;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @DynamicResource
 public class PushResource extends AbstractUserResource {
-
     private static final String PUSH_TOPIC_PARAM = "pushTopic";
-
     private static final String FORGET_PUSH_SESSION_ID_PARAM = "forgetPushSessionId";
 
     private Map<String, String> getFailuresMap(Map<TopicKey, String> failedSubscriptions) {
-        Map<String,String> result = new HashMap<String, String>();
-        
-        for (Entry<TopicKey, String> entry: failedSubscriptions.entrySet()) {
+        Map<String, String> result = new HashMap<String, String>();
+
+        for (Entry<TopicKey, String> entry : failedSubscriptions.entrySet()) {
             result.put(entry.getKey().getTopicAddress(), entry.getValue());
         }
-        
+
         return result;
     }
-    
+
     public void encode(FacesContext facesContext) throws IOException {
         ExternalContext externalContext = facesContext.getExternalContext();
 
         PushContextFactory pushContextFactory = ServiceTracker.getService(PushContextFactory.class);
-        
-        //resource plugin stub
+
+        // resource plugin stub
         if (pushContextFactory == null) {
             return;
         }
-        
+
         PushContext pushContext = pushContextFactory.getPushContext();
-        
+
         String forgetPushSessionId = externalContext.getRequestParameterMap().get(FORGET_PUSH_SESSION_ID_PARAM);
         if (forgetPushSessionId != null) {
             Session oldSession = pushContext.getSessionManager().getPushSession(forgetPushSessionId);
@@ -78,29 +76,28 @@ public class PushResource extends AbstractUserResource {
                 oldSession.invalidate();
             }
         }
-        
+
         Session session = pushContext.getSessionFactory().createSession(UUID.randomUUID().toString());
-        
+
         String[] topicNames = externalContext.getRequestParameterValuesMap().get(PUSH_TOPIC_PARAM);
-        
+
         if (topicNames == null) {
             throw new IllegalArgumentException();
         }
-        
+
         session.subscribe(topicNames);
-        
+
         Map<String, Object> subscriptionData = new HashMap<String, Object>(4);
         subscriptionData.put("sessionId", session.getId());
 
         Map<TopicKey, String> failedSubscriptions = session.getFailedSubscriptions();
         subscriptionData.put("failures", getFailuresMap(failedSubscriptions));
-        
+
         Writer outWriter = facesContext.getExternalContext().getResponseOutputWriter();
         ScriptUtils.appendScript(outWriter, subscriptionData);
     }
-    
+
     public String getContentType() {
         return "text/javascript; charset=utf-8";
     }
-
 }

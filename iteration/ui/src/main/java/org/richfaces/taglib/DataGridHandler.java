@@ -19,35 +19,31 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.taglib;
-
-import org.richfaces.view.facelets.RowKeyConverterRule;
 
 import javax.faces.view.facelets.ComponentConfig;
 import javax.faces.view.facelets.ComponentHandler;
 import javax.faces.view.facelets.MetaRuleset;
+
+import org.richfaces.view.facelets.RowKeyConverterRule;
 
 /**
  * @author Anton Belevich
  *
  */
 public class DataGridHandler extends ComponentHandler {
-    
     private static final String ELEMENTS = "elements";
-    
-    private static final String ROWS = "rows"; 
-    
+    private static final String ROWS = "rows";
+
     public DataGridHandler(ComponentConfig config) {
         super(config);
     }
-        
+
     @Override
     protected MetaRuleset createMetaRuleset(Class type) {
         MetaRuleset metaRuleset = super.createMetaRuleset(type);
         metaRuleset.alias(ELEMENTS, ROWS);
         metaRuleset.addRule(RowKeyConverterRule.INSTANCE);
-        return metaRuleset; 
+        return metaRuleset;
     }
-    
 }

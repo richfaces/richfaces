@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import java.io.IOException;
@@ -51,132 +50,120 @@ import org.richfaces.renderkit.MetaComponentRenderer;
  * @author Anton Belevich
  *
  */
-
-@JsfComponent(
-    type = AbstractDataGrid.COMPONENT_TYPE,
-    family = AbstractDataGrid.COMPONENT_FAMILY, 
-    generate = "org.richfaces.component.UIDataGrid",
-    renderer = @JsfRenderer(type = "org.richfaces.DataGridRenderer"),
-    tag = @Tag(name="dataGrid", handler="org.richfaces.taglib.DataGridHandler", type=TagType.Facelets),
-    attributes = {"core-props.xml", "dataGrid-rows-props.xml", "rowKeyConverter-prop.xml"}
-)
+@JsfComponent(type = AbstractDataGrid.COMPONENT_TYPE, family = AbstractDataGrid.COMPONENT_FAMILY, generate = "org.richfaces.component.UIDataGrid", renderer = @JsfRenderer(type = "org.richfaces.DataGridRenderer"), tag = @Tag(name = "dataGrid", handler = "org.richfaces.taglib.DataGridHandler", type = TagType.Facelets), attributes = {
+        "core-props.xml", "dataGrid-rows-props.xml", "rowKeyConverter-prop.xml" })
 public abstract class AbstractDataGrid extends UISequence implements Row, MetaComponentResolver, MetaComponentEncoder {
-    
     public static final String COMPONENT_TYPE = "org.richfaces.DataGrid";
-    
     public static final String COMPONENT_FAMILY = UIDataTableBase.COMPONENT_FAMILY;
-    
     public static final String HEADER_FACET_NAME = "header";
     public static final String FOOTER_FACET_NAME = "footer";
     public static final String CAPTION_FACET_NAME = "caption";
     public static final String NODATA_FACET_NAME = "noData";
-    
     public static final String HEADER = "header";
     public static final String FOOTER = "footer";
     public static final String BODY = "body";
-    
     private static final Logger RENDERKIT_LOG = RichfacesLogger.RENDERKIT.getLogger();
-
     private static final Set<String> SUPPORTED_META_COMPONENTS = new HashSet<String>();
-    
+
     static {
         SUPPORTED_META_COMPONENTS.add(HEADER);
         SUPPORTED_META_COMPONENTS.add(FOOTER);
         SUPPORTED_META_COMPONENTS.add(BODY);
     }
 
-
     enum PropertyKeys {
         columns
     }
 
-    @Attribute(aliases = @Alias(value="rows"))
+    @Attribute(aliases = @Alias(value = "rows"))
     public abstract int getElements();
 
     @Facet
     public abstract UIComponent getHeader();
+
     @Facet
     public abstract UIComponent getFooter();
+
     @Facet
     public abstract UIComponent getCaption();
+
     @Facet
     public abstract UIComponent getNoData();
 
     @Attribute
     public int getColumns() {
-        int columns = (Integer)getStateHelper().eval(PropertyKeys.columns, 1);
+        int columns = (Integer) getStateHelper().eval(PropertyKeys.columns, 1);
         return (columns < 1 ? 1 : columns);
     }
-    
+
     public void setColumns(int count) {
         getStateHelper().put(PropertyKeys.columns, count);
     }
-    
+
     public Iterator<UIComponent> columns() {
-        //DataGrid doesn't work with column components
+        // DataGrid doesn't work with column components
         return null;
     }
-    
-    //TODO: copy from UIDataTableBase
+
+    // TODO: copy from UIDataTableBase
     public void encodeMetaComponent(FacesContext context, String metaComponentId) throws IOException {
         context.getApplication().publishEvent(context, PreRenderComponentEvent.class, this);
         MetaComponentRenderer renderer = (MetaComponentRenderer) getRenderer(context);
         renderer.encodeMetaComponent(context, this, metaComponentId);
     }
-    
+
     protected boolean visitFixedChildren(VisitContext visitContext, VisitCallback callback) {
         if (visitContext instanceof ExtendedVisitContext) {
             ExtendedVisitContext extendedVisitContext = (ExtendedVisitContext) visitContext;
             if (extendedVisitContext.getVisitMode() == ExtendedVisitContextMode.RENDER) {
-                //TODO nick - call preEncodeBegin(...) and emit PreRenderEvent
+                // TODO nick - call preEncodeBegin(...) and emit PreRenderEvent
                 VisitResult visitResult;
-                
+
                 visitResult = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback, HEADER);
-                
-                if (visitResult == VisitResult.ACCEPT){
-                    //TODO:
-                } else if (visitResult == VisitResult.COMPLETE) {
-                    return true;
-                }
-                
-                visitResult = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback, FOOTER);
-                
+
                 if (visitResult == VisitResult.ACCEPT) {
-                    //TODO nick - visit footer?
+                    // TODO:
                 } else if (visitResult == VisitResult.COMPLETE) {
                     return true;
                 }
-                
+
+                visitResult = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback, FOOTER);
+
+                if (visitResult == VisitResult.ACCEPT) {
+                    // TODO nick - visit footer?
+                } else if (visitResult == VisitResult.COMPLETE) {
+                    return true;
+                }
+
                 if (visitResult == VisitResult.REJECT) {
                     return false;
                 }
             }
         }
-        
+
         return super.visitFixedChildren(visitContext, callback);
     }
-    
+
     protected boolean visitDataChildren(VisitContext visitContext, final VisitCallback callback, boolean visitRows) {
         if (visitContext instanceof ExtendedVisitContext && visitRows) {
             ExtendedVisitContext extendedVisitContext = (ExtendedVisitContext) visitContext;
-            
+
             if (extendedVisitContext.getVisitMode() == ExtendedVisitContextMode.RENDER) {
-                //TODO nick - call preEncodeBegin(...) and emit PreRenderEvent
+                // TODO nick - call preEncodeBegin(...) and emit PreRenderEvent
                 setRowKey(visitContext.getFacesContext(), null);
-                
+
                 VisitResult result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback, BODY);
-                
+
                 if (result == VisitResult.ACCEPT) {
-                    //TODO nick - visit body?
+                    // TODO nick - visit body?
                 } else {
                     return result == VisitResult.COMPLETE;
                 }
             }
         }
-        
+
         return super.visitDataChildren(visitContext, callback, visitRows);
     }
-
 
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
         if (SUPPORTED_META_COMPONENTS.contains(metaComponentId)) {
@@ -193,12 +180,11 @@ public abstract class AbstractDataGrid extends UISequence implements Row, MetaCo
                 }
             }
         }
-        
-        return null;    
+
+        return null;
     }
-    
-    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
-        String metaComponentId) {
+
+    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
 
         return null;
     }

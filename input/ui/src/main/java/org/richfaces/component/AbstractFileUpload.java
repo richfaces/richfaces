@@ -42,16 +42,13 @@ import org.richfaces.renderkit.RenderKitUtils;
 
 /**
  * @author Konstantin Mishin
- * 
+ *
  */
-@JsfComponent(tag = @Tag(generate = false, handler = "org.richfaces.view.facelets.FileUploadHandler"),
-    renderer = @JsfRenderer(type = "org.richfaces.FileUploadRenderer"),
-    attributes = {"events-props.xml", "core-props.xml", "ajax-props.xml", "i18n-props.xml", "fileUploadListener-props.xml"})
+@JsfComponent(tag = @Tag(generate = false, handler = "org.richfaces.view.facelets.FileUploadHandler"), renderer = @JsfRenderer(type = "org.richfaces.FileUploadRenderer"), attributes = {
+        "events-props.xml", "core-props.xml", "ajax-props.xml", "i18n-props.xml", "fileUploadListener-props.xml" })
 @ListenerFor(systemEventClass = PostAddToViewEvent.class)
 public abstract class AbstractFileUpload extends UIComponentBase {
-    
     public static final String COMPONENT_TYPE = "org.richfaces.FileUpload";
-
     public static final String COMPONENT_FAMILY = "org.richfaces.FileUpload";
 
     @Attribute
@@ -116,36 +113,38 @@ public abstract class AbstractFileUpload extends UIComponentBase {
             component.getAttributes().put("resource", resourcePath);
         }
     }
-    
+
     /**
-     * <p>Add a new {@link FileUploadListener} to the set of listeners
-     * interested in being notified when {@link org.richfaces.FileUploadEvent}s occur.</p>
+     * <p>
+     * Add a new {@link FileUploadListener} to the set of listeners interested in being notified when
+     * {@link org.richfaces.FileUploadEvent}s occur.
+     * </p>
      *
      * @param listener The {@link FileUploadListener} to be added
-     * @throws NullPointerException if <code>listener</code>
-     *                              is <code>null</code>
+     * @throws NullPointerException if <code>listener</code> is <code>null</code>
      */
     public void addFileUploadListener(FileUploadListener listener) {
         addFacesListener(listener);
     }
 
     /**
-     * <p>Return the set of registered {@link FileUploadListener}s for this
-     * {@link AbstractFileUpload} instance.  If there are no registered listeners,
-     * a zero-length array is returned.</p>
+     * <p>
+     * Return the set of registered {@link FileUploadListener}s for this {@link AbstractFileUpload} instance. If there are no
+     * registered listeners, a zero-length array is returned.
+     * </p>
      */
     public FileUploadListener[] getFileUploadListeners() {
         return (FileUploadListener[]) getFacesListeners(FileUploadListener.class);
     }
 
     /**
-     * <p>Remove an existing {@link FileUploadListener} (if any) from the
-     * set of listeners interested in being notified when
-     * {@link FileUploadListener}s occur.</p>
+     * <p>
+     * Remove an existing {@link FileUploadListener} (if any) from the set of listeners interested in being notified when
+     * {@link FileUploadListener}s occur.
+     * </p>
      *
      * @param listener The {@link FileUploadListener} to be removed
-     * @throws NullPointerException if <code>listener</code>
-     *                              is <code>null</code>
+     * @throws NullPointerException if <code>listener</code> is <code>null</code>
      */
     public void removeFileUploadListener(FileUploadListener listener) {
         removeFacesListener(listener);

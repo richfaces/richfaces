@@ -18,21 +18,20 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.view.facelets;
+
+import java.io.IOException;
 
 import javax.el.ELException;
 import javax.faces.FacesException;
 import javax.faces.component.UIComponent;
 import javax.faces.view.facelets.FaceletContext;
-import javax.faces.view.facelets.FaceletException;
 import javax.faces.view.facelets.TagConfig;
 import javax.faces.view.facelets.TagHandler;
-import java.io.IOException;
 
 /**
- * This if "empty" facelets tag handler stub. This handler used to ignore tags on a page.
- * At most, it used to bypass &lt;jsp:root&gt; and other tags, so we can use same markup for an facelets an jsp pages.
+ * This if "empty" facelets tag handler stub. This handler used to ignore tags on a page. At most, it used to bypass
+ * &lt;jsp:root&gt; and other tags, so we can use same markup for an facelets an jsp pages.
  *
  * @author asmirnov
  */
@@ -42,11 +41,11 @@ public class EmptyHandler extends TagHandler {
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see com.sun.facelets.FaceletHandler#apply(com.sun.facelets.FaceletContext, javax.faces.component.UIComponent)
      */
-    public void apply(FaceletContext ctx, UIComponent parent)
-        throws IOException, FacesException, FaceletException, ELException {
+    public void apply(FaceletContext ctx, UIComponent parent) throws IOException, FacesException, ELException {
 
         this.nextHandler.apply(ctx, parent);
     }

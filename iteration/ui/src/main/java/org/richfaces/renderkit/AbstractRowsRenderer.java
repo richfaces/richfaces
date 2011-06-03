@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit;
 
 import java.io.IOException;
@@ -40,49 +39,42 @@ import org.richfaces.component.UIDataTableBase;
 
 /**
  * @author Anton Belevich
- * 
+ *
  */
-
-@ResourceDependencies({
-    @ResourceDependency(library = "javax.faces", name = "jsf.js"), 
-    @ResourceDependency(name = "jquery.js"),
-    @ResourceDependency(name = "richfaces.js")
-})
+@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"), @ResourceDependency(name = "jquery.js"),
+        @ResourceDependency(name = "richfaces.js") })
 public abstract class AbstractRowsRenderer extends RendererBase implements DataVisitor {
-  
     private static final Map<String, ComponentAttribute> ROW_HANDLER_ATTRIBUTES = Collections
-    .unmodifiableMap(ComponentAttribute.createMap(
-        new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("rowclick").
-            setComponentAttributeName("onrowclick"),
-        new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE).setEventNames("rowdblclick").
-            setComponentAttributeName("onrowdblclick"),
-        new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE).setEventNames("rowmousedown").
-            setComponentAttributeName("onrowmousedown"),
-        new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE).setEventNames("rowmouseup").
-            setComponentAttributeName("onrowmouseup"),
-        new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE).setEventNames("rowmouseover").
-            setComponentAttributeName("onrowmouseover"),
-        new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE).setEventNames("rowmousemove").
-            setComponentAttributeName("onrowmousemove"),
-        new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE).setEventNames("rowmouseout").
-            setComponentAttributeName("onrowmouseout"),
-        new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE).setEventNames("rowkeypress").
-            setComponentAttributeName("onrowkeypress"),
-        new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE).setEventNames("rowkeydown").
-            setComponentAttributeName("onrowkeydown"),
-        new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE).setEventNames("rowkeyup").
-            setComponentAttributeName("onrowkeyup")
-    ));
-    
-    public abstract void encodeRow(ResponseWriter writer, FacesContext facesContext, RowHolderBase rowHolder) throws IOException;
-    
-    public abstract RowHolderBase createRowHolder(FacesContext context, UIComponent component, Object [] options);
-    
+        .unmodifiableMap(ComponentAttribute.createMap(
+            new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("rowclick").setComponentAttributeName(
+                "onrowclick"),
+            new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE).setEventNames("rowdblclick").setComponentAttributeName(
+                "onrowdblclick"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE).setEventNames("rowmousedown")
+                .setComponentAttributeName("onrowmousedown"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE).setEventNames("rowmouseup").setComponentAttributeName(
+                "onrowmouseup"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE).setEventNames("rowmouseover")
+                .setComponentAttributeName("onrowmouseover"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE).setEventNames("rowmousemove")
+                .setComponentAttributeName("onrowmousemove"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE).setEventNames("rowmouseout").setComponentAttributeName(
+                "onrowmouseout"),
+            new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE).setEventNames("rowkeypress").setComponentAttributeName(
+                "onrowkeypress"), new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE).setEventNames("rowkeydown")
+                .setComponentAttributeName("onrowkeydown"), new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE)
+                .setEventNames("rowkeyup").setComponentAttributeName("onrowkeyup")));
+
+    public abstract void encodeRow(ResponseWriter writer, FacesContext facesContext, RowHolderBase rowHolder)
+        throws IOException;
+
+    public abstract RowHolderBase createRowHolder(FacesContext context, UIComponent component, Object[] options);
+
     public DataVisitResult process(FacesContext facesContext, Object rowKey, Object argument) {
         RowHolderBase holder = (RowHolderBase) argument;
         Row row = holder.getRow();
         row.setRowKey(facesContext, rowKey);
-        
+
         try {
             ResponseWriter writer = facesContext.getResponseWriter();
             holder.resetProcessCell();
@@ -90,39 +82,39 @@ public abstract class AbstractRowsRenderer extends RendererBase implements DataV
         } catch (IOException e) {
             throw new FacesException(e);
         }
-        
+
         holder.nextRow();
         return DataVisitResult.CONTINUE;
     }
-    
+
     protected void encodeRows(FacesContext facesContext, RowHolderBase rowHolder) {
         rowHolder.getRow().walk(facesContext, this, rowHolder);
     }
-    
+
     public void encodeFakeRow(FacesContext facesContext, RowHolderBase rowHolder) throws IOException {
     }
 
     protected void renderRowHandlers(FacesContext context, UIDataTableBase dataTable) throws IOException {
         RenderKitUtils.renderPassThroughAttributesOptimized(context, dataTable, ROW_HANDLER_ATTRIBUTES);
     }
-    
-    public void processRows(ResponseWriter writer, FacesContext facesContext, UIComponent component, Object[] options) throws IOException {
+
+    public void processRows(ResponseWriter writer, FacesContext facesContext, UIComponent component, Object[] options)
+        throws IOException {
         RowHolderBase rowHolder = createRowHolder(facesContext, component, options);
         encodeRows(facesContext, rowHolder);
-        if(!rowHolder.hasWalkedOverRows()) {
+        if (!rowHolder.hasWalkedOverRows()) {
             try {
                 encodeFakeRow(facesContext, rowHolder);
-            } catch (IOException e){
+            } catch (IOException e) {
                 throw new FacesException(e);
             }
         } else {
             doCleanup(facesContext, rowHolder);
         }
     }
-    
-    
+
     protected void doCleanup(FacesContext context, RowHolderBase rowHolder) throws IOException {
-        //Hook method   
+        // Hook method
     }
 
     protected void doEncodeChildren(ResponseWriter writer, FacesContext facesContext, UIComponent component) throws IOException {
@@ -132,62 +124,62 @@ public abstract class AbstractRowsRenderer extends RendererBase implements DataV
     public boolean getRendersChildren() {
         return true;
     }
-    
+
     protected String get(FacesContext context, String key) {
-        return (String)context.getAttributes().get(key);
+        return (String) context.getAttributes().get(key);
     }
-    
+
     protected void put(FacesContext context, String key, String value) {
         context.getAttributes().put(key, value);
     }
-    
+
     protected String[] getRowClasses(RowHolderBase rowHolder) {
         String[] rowClasses = new String[0];
         if (rowHolder.getRow() instanceof UIDataTableBase) {
-            String classes = ((UIDataTableBase)rowHolder.getRow()).getRowClasses();
-            if(null != classes){
-                rowClasses=classes.split(",");
+            String classes = ((UIDataTableBase) rowHolder.getRow()).getRowClasses();
+            if (null != classes) {
+                rowClasses = classes.split(",");
             }
         }
         return rowClasses;
     }
-    
+
     protected String[] getColumnClasses(RowHolderBase rowHolder) {
         String[] columnClasses = new String[0];
         if (rowHolder.getRow() instanceof UIDataTableBase) {
-            String classes = ((UIDataTableBase)rowHolder.getRow()).getColumnClasses();
-            if(null != classes){
-                columnClasses=classes.split(",");
+            String classes = ((UIDataTableBase) rowHolder.getRow()).getColumnClasses();
+            if (null != classes) {
+                columnClasses = classes.split(",");
             }
         }
         return columnClasses;
     }
-    
+
     protected String getColumnClass(RowHolderBase rowHolder, int columnNumber) {
-        String styleClass = ""; 
+        String styleClass = "";
         String[] columnClasses = getColumnClasses(rowHolder);
         if (columnClasses.length > columnNumber) {
             styleClass = columnClasses[columnNumber];
         }
-        
+
         return styleClass;
     }
-    
+
     protected String getRowClassAttribute(RowHolderBase rowHolder) {
         String rowClass = "";
         if (rowHolder.getRow() instanceof UIDataTableBase) {
-            rowClass = ((UIDataTableBase)rowHolder.getRow()).getRowClass();
+            rowClass = ((UIDataTableBase) rowHolder.getRow()).getRowClass();
         }
         return rowClass;
     }
-    
+
     protected String getRowClass(RowHolderBase rowHolder) {
-        String styleClass = ""; 
+        String styleClass = "";
         String[] rowClasses = getRowClasses(rowHolder);
         if (rowClasses.length > 0) {
             int styleIndex = rowHolder.getCurrentRow() % rowClasses.length;
             styleClass = rowClasses[styleIndex];
         }
         return concatClasses(getRowClassAttribute(rowHolder), styleClass);
-    }    
+    }
 }

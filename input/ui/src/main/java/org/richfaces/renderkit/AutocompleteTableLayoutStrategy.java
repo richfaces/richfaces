@@ -7,10 +7,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 
-
-public class AutocompleteTableLayoutStrategy extends AbstractAutocompleteLayoutStrategy implements
-    AutocompleteEncodeStrategy {
-
+public class AutocompleteTableLayoutStrategy extends AbstractAutocompleteLayoutStrategy implements AutocompleteEncodeStrategy {
     public void encodeFakeItem(FacesContext facesContext, UIComponent component) throws IOException {
         ResponseWriter responseWriter = facesContext.getResponseWriter();
         responseWriter.startElement(HtmlConstants.TR_ELEMENT, component);
@@ -18,7 +15,6 @@ public class AutocompleteTableLayoutStrategy extends AbstractAutocompleteLayoutS
         responseWriter.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, "display:none", null);
         responseWriter.endElement(HtmlConstants.TD_ELEM);
         responseWriter.endElement(HtmlConstants.TR_ELEMENT);
-
     }
 
     public void encodeItemsContainerBegin(FacesContext facesContext, UIComponent component) throws IOException {
@@ -34,24 +30,24 @@ public class AutocompleteTableLayoutStrategy extends AbstractAutocompleteLayoutS
         responseWriter.endElement(HtmlConstants.TBODY_ELEMENT);
         responseWriter.endElement(HtmlConstants.TABLE_ELEMENT);
     }
-    
+
     public void encodeItemBegin(FacesContext facesContext, UIComponent component) throws IOException {
         ResponseWriter writer = facesContext.getResponseWriter();
         writer.startElement(HtmlConstants.TR_ELEMENT, component);
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-au-itm", null);
         writer.startElement(HtmlConstants.TD_ELEM, component);
     }
-    
+
     private void encodeItemChildBegin(FacesContext facesContext, UIComponent component) throws IOException {
-    	ResponseWriter writer = facesContext.getResponseWriter();
+        ResponseWriter writer = facesContext.getResponseWriter();
         writer.startElement(HtmlConstants.TD_ELEM, component);
     }
-    
+
     private void encodeItemChildEnd(FacesContext facesContext, UIComponent component) throws IOException {
         ResponseWriter writer = facesContext.getResponseWriter();
         writer.endElement(HtmlConstants.TD_ELEM);
     }
-    
+
     public void encodeItemEnd(FacesContext facesContext, UIComponent component) throws IOException {
         ResponseWriter writer = facesContext.getResponseWriter();
         writer.endElement(HtmlConstants.TD_ELEM);

@@ -30,44 +30,35 @@ import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 
 /**
- * @author Anton Belevich 
+ * @author Anton Belevich
  *
  */
-@JsfComponent(
-    type = AbstractInplaceInput.COMPONENT_TYPE,
-    family = AbstractInplaceInput.COMPONENT_FAMILY, 
-    generate = "org.richfaces.component.UIInplaceInput",
-    renderer = @JsfRenderer(type = "org.richfaces.InplaceInputRenderer"),
-    tag = @Tag(name="inplaceInput"),
-    attributes = "core-props.xml"
-)
+@JsfComponent(type = AbstractInplaceInput.COMPONENT_TYPE, family = AbstractInplaceInput.COMPONENT_FAMILY, generate = "org.richfaces.component.UIInplaceInput", renderer = @JsfRenderer(type = "org.richfaces.InplaceInputRenderer"), tag = @Tag(name = "inplaceInput"), attributes = "core-props.xml")
 public abstract class AbstractInplaceInput extends UIInput implements InplaceComponent {
-    
     public static final String COMPONENT_TYPE = "org.richfaces.InplaceInput";
-    
     public static final String COMPONENT_FAMILY = "org.richfaces.InplaceInput";
 
     @Attribute
     public abstract boolean isDisabled();
-   
+
     @Attribute
     public abstract String getDefaultLabel();
-    
-    @Attribute(defaultValue="true")
+
+    @Attribute(defaultValue = "true")
     public abstract boolean isSaveOnBlur();
-    
-    @Attribute(hidden=true)
+
+    @Attribute(hidden = true)
     public abstract InplaceState getState();
-    
+
     @Attribute
     public abstract String getEditEvent();
-    
+
     @Attribute
     public abstract boolean isShowControls();
-    
+
     @Attribute
     public abstract String getInputWidth();
-    
+
     @Attribute
     public abstract int getTabindex();
 
@@ -80,78 +71,77 @@ public abstract class AbstractInplaceInput extends UIInput implements InplaceCom
     @Attribute
     public abstract String getDisabledClass();
 
-    @Attribute(events=@EventName("click"))
+    @Attribute(events = @EventName("click"))
     public abstract String getOnclick();
-    
-    @Attribute(events=@EventName("ondblclick"))
+
+    @Attribute(events = @EventName("ondblclick"))
     public abstract String getOndblclick();
-   
-    @Attribute(events=@EventName("keydown"))
+
+    @Attribute(events = @EventName("keydown"))
     public abstract String getOnkeydown();
-    
-    @Attribute(events=@EventName("keypress"))
+
+    @Attribute(events = @EventName("keypress"))
     public abstract String getOnkeypress();
-    
-    @Attribute(events=@EventName("keyup"))
+
+    @Attribute(events = @EventName("keyup"))
     public abstract String getOnkeyup();
-    
-    @Attribute(events=@EventName("mousedown"))
+
+    @Attribute(events = @EventName("mousedown"))
     public abstract String getOnmousedown();
-    
-    @Attribute(events=@EventName("mousemove"))
+
+    @Attribute(events = @EventName("mousemove"))
     public abstract String getOnmousemove();
-    
-    @Attribute(events=@EventName("mouseout"))
+
+    @Attribute(events = @EventName("mouseout"))
     public abstract String getOnmouseout();
-    
-    @Attribute(events=@EventName("mouseover"))
+
+    @Attribute(events = @EventName("mouseover"))
     public abstract String getOnmouseover();
-    
-    @Attribute(events=@EventName("mouseup"))
+
+    @Attribute(events = @EventName("mouseup"))
     public abstract String getOnmouseup();
 
-    @Attribute(events=@EventName("inputclick"))
+    @Attribute(events = @EventName("inputclick"))
     public abstract String getOninputclick();
-    
-    @Attribute(events=@EventName("inputdblclick"))
+
+    @Attribute(events = @EventName("inputdblclick"))
     public abstract String getOninputdblclick();
-    
-    @Attribute(events=@EventName("inputmousedown"))
+
+    @Attribute(events = @EventName("inputmousedown"))
     public abstract String getOninputmousedown();
-    
-    @Attribute(events=@EventName("inputmousemove"))
+
+    @Attribute(events = @EventName("inputmousemove"))
     public abstract String getOninputmousemove();
-    
-    @Attribute(events=@EventName("inputmouseout"))
+
+    @Attribute(events = @EventName("inputmouseout"))
     public abstract String getOninputmouseout();
-    
-    @Attribute(events=@EventName("inputmouseover"))
+
+    @Attribute(events = @EventName("inputmouseover"))
     public abstract String getOninputmouseover();
-    
-    @Attribute(events=@EventName("inputmouseup"))
+
+    @Attribute(events = @EventName("inputmouseup"))
     public abstract String getOninputmouseup();
-    
-    @Attribute(events=@EventName("inputkeydown"))
+
+    @Attribute(events = @EventName("inputkeydown"))
     public abstract String getOninputkeydown();
-    
-    @Attribute(events=@EventName("inputkeypress"))
+
+    @Attribute(events = @EventName("inputkeypress"))
     public abstract String getOninputkeypress();
-    
-    @Attribute(events=@EventName("inputkeyup"))
+
+    @Attribute(events = @EventName("inputkeyup"))
     public abstract String getOninputkeyup();
-    
-    @Attribute(events=@EventName("inputselect"))
+
+    @Attribute(events = @EventName("inputselect"))
     public abstract String getOninputselect();
-    
-    @Attribute(events=@EventName("change"))
+
+    @Attribute(events = @EventName("change"))
     public abstract String getOnchange();
-    
-    @Attribute(events=@EventName("focus"))
+
+    @Attribute(events = @EventName("focus"))
     public abstract String getOnfocus();
-  
-    @Attribute(events=@EventName("blur"))
+
+    @Attribute(events = @EventName("blur"))
     public abstract String getOnblur();
 
-    
-    //TODO: what is default event?, add onViewActivated, onEditActivated events support
+    // TODO: what is default event?, add onViewActivated, onEditActivated events support
 }

@@ -32,30 +32,28 @@ import org.richfaces.component.AbstractTreeNode;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 class TreeEncoderPartial extends TreeEncoderBase {
-
     protected final AbstractTreeNode treeNode;
-    
     private Object rowKey;
 
     public TreeEncoderPartial(FacesContext context, AbstractTreeNode treeNode) {
         super(context, treeNode.findTreeComponent());
-        
+
         this.treeNode = treeNode;
-        
+
         this.rowKey = tree.getRowKey();
 
         if (this.rowKey == null) {
             throw new NullPointerException("rowKey");
         }
     }
-    
+
     @Override
     public void encode() throws IOException {
         String elementId = treeNode.getClientId(context);
-        
+
         PartialResponseWriter prw = context.getPartialViewContext().getPartialResponseWriter();
         prw.startUpdate(elementId);
 
@@ -66,9 +64,9 @@ class TreeEncoderPartial extends TreeEncoderBase {
             tree.setRowKey(context, rowKey);
 
             encodeTree();
-            
+
             prw.endUpdate();
-            
+
             clientEventHandlers = TreeRenderingContext.get(context).getHandlers();
         } finally {
             try {
@@ -81,8 +79,8 @@ class TreeEncoderPartial extends TreeEncoderBase {
         }
 
         prw.startEval();
-        JSFunction function = new JSFunction("RichFaces.ui.TreeNode.initNodeByAjax", elementId, 
-            Collections.singletonMap("clientEventHandlers", clientEventHandlers));
+        JSFunction function = new JSFunction("RichFaces.ui.TreeNode.initNodeByAjax", elementId, Collections.singletonMap(
+            "clientEventHandlers", clientEventHandlers));
         prw.write(function.toScript());
         prw.endEval();
     }

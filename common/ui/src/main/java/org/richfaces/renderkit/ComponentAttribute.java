@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit;
 
 import java.util.Map;
@@ -29,7 +28,6 @@ import java.util.TreeMap;
  * @author Nick Belaevski
  */
 public class ComponentAttribute implements Comparable<ComponentAttribute> {
-    
     public enum Kind {
         BOOL,
         GENERIC,
@@ -37,17 +35,13 @@ public class ComponentAttribute implements Comparable<ComponentAttribute> {
     }
 
     private final String htmlAttributeName;
-    
     private String componentAttributeName;
-    
     private Object defaultValue;
-    
-    private String[] eventNames = {};
-    
+    private String[] eventNames = { };
     private Kind kind = Kind.GENERIC;
-    
+
     //TODO handling for aliases: "styleClass" -> "class"
-    
+
     public ComponentAttribute(String htmlAttributeName) {
         super();
         this.htmlAttributeName = htmlAttributeName;
@@ -86,22 +80,22 @@ public class ComponentAttribute implements Comparable<ComponentAttribute> {
     }
 
     public static final Map<String, ComponentAttribute> createMap(ComponentAttribute... attributes) {
-        Map<String,ComponentAttribute> result = new TreeMap<String, ComponentAttribute>();
-        
+        Map<String, ComponentAttribute> result = new TreeMap<String, ComponentAttribute>();
+
         for (ComponentAttribute componentAttribute : attributes) {
             result.put(componentAttribute.getComponentAttributeName(), componentAttribute);
         }
-        
+
         return result;
     }
-    
+
     /**
      * @return the name
      */
     public String getHtmlAttributeName() {
         return htmlAttributeName;
     }
-    
+
     /**
      * @return the componentAttributeName
      */
@@ -111,31 +105,31 @@ public class ComponentAttribute implements Comparable<ComponentAttribute> {
 
     /**
      * @param componentAttributeName the componentAttributeName to set
-     * @return 
+     * @return
      */
     public ComponentAttribute setComponentAttributeName(String componentAttributeName) {
         this.componentAttributeName = componentAttributeName;
-        
+
         return this;
     }
-    
+
     /**
      * @return the eventNames
      */
     public String[] getEventNames() {
         return eventNames;
     }
-    
+
     /**
      * @param eventNames the eventNames to set
-     * @return 
+     * @return
      */
     public ComponentAttribute setEventNames(String... eventNames) {
         this.eventNames = eventNames;
-    
+
         return this;
     }
-    
+
     public int compareTo(ComponentAttribute o) {
         return getHtmlAttributeName().compareTo(o.getHtmlAttributeName());
     }

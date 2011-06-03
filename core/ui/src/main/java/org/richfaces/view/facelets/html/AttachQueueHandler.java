@@ -33,7 +33,6 @@ import org.richfaces.component.AbstractAttachQueue;
  *
  */
 public class AttachQueueHandler extends ComponentHandler {
-
     /**
      * @param config
      */
@@ -47,7 +46,7 @@ public class AttachQueueHandler extends ComponentHandler {
 
         AbstractAttachQueue attachQueue = ((AbstractAttachQueue) c);
         boolean associateWithParent = true;
-        
+
         AttachQueueStack attachQueueStack = AttachQueueStack.getStack(ctx.getFacesContext(), false);
         if (attachQueueStack != null) {
             AttachQueueInfo attachQueueInfo = attachQueueStack.peek();
@@ -59,7 +58,7 @@ public class AttachQueueHandler extends ComponentHandler {
                 }
             }
         }
-        
+
         if (associateWithParent) {
             attachQueue.associateWith(parent);
         }

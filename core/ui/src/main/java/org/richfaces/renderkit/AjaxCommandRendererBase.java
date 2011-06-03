@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.renderkit;
 
 import java.util.Map;
@@ -40,21 +37,19 @@ import org.richfaces.renderkit.util.HandlersChain;
  * @version $Revision: 1.1.2.3 $ $Date: 2007/02/12 17:46:53 $
  *
  */
-@ResourceDependencies({
-    @ResourceDependency(library = "org.richfaces", name = "ajax.reslib")
-})
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib") })
 public abstract class AjaxCommandRendererBase extends RendererBase {
     private static final Logger LOG = RichfacesLogger.RENDERKIT.getLogger();
 
     @Override
     protected void queueComponentEventForBehaviorEvent(FacesContext context, UIComponent component, String eventName) {
         super.queueComponentEventForBehaviorEvent(context, component, eventName);
-        
+
         if ("action".equals(eventName) || "click".equals(eventName)) {
             new ActionEvent(component).queue();
-        } 
+        }
     }
-    
+
     @Override
     protected void doDecode(FacesContext facesContext, UIComponent uiComponent) {
         if (isSubmitted(facesContext, uiComponent)) {
@@ -105,50 +100,27 @@ public abstract class AjaxCommandRendererBase extends RendererBase {
         return onClick.toString();
     }
 
-/*  public String getStringValue(UIComponent component) {
-        Object value = getValue(component);
-        return convertToString(value);
-    }
-
-    protected String convertToString(Object obj ) {
-        return ( obj == null ? "" : obj.toString() );
-    }
-
-    protected String convertToString(boolean b ) {
-        return String.valueOf(b);
-    }
-
-    protected String convertToString(int b ) {
-        return b!=Integer.MIN_VALUE?String.valueOf(b):"";
-    }
-
-    protected String convertToString(long b ) {
-        return b!=Long.MIN_VALUE?String.valueOf(b):"";
-    }
-
-    public void encodeChildren(FacesContext context, UIComponent component)
-            throws IOException {
-        renderChildren(context, component);
-    }
-
-    public Object getValue(UIComponent component) {
-        if (component instanceof ValueHolder) {
-            return ((ValueHolder) component).getValue();
-        }
-        return component.getAttributes().get("value");
-    }
-
-
-    public String getType(UIComponent uiComponent) {
-        String type;
-        if (uiComponent instanceof HtmlCommandButton) {
-            type = ((HtmlCommandButton) uiComponent).getType();
-        } else {
-            type = (String) uiComponent.getAttributes().get("type");
-        }
-        if (type == null) {
-            type = "button";
-        }
-        return type;
-    }*/
+    /*
+     * public String getStringValue(UIComponent component) { Object value = getValue(component); return convertToString(value);
+     * }
+     *
+     * protected String convertToString(Object obj ) { return ( obj == null ? "" : obj.toString() ); }
+     *
+     * protected String convertToString(boolean b ) { return String.valueOf(b); }
+     *
+     * protected String convertToString(int b ) { return b!=Integer.MIN_VALUE?String.valueOf(b):""; }
+     *
+     * protected String convertToString(long b ) { return b!=Long.MIN_VALUE?String.valueOf(b):""; }
+     *
+     * public void encodeChildren(FacesContext context, UIComponent component) throws IOException { renderChildren(context,
+     * component); }
+     *
+     * public Object getValue(UIComponent component) { if (component instanceof ValueHolder) { return ((ValueHolder)
+     * component).getValue(); } return component.getAttributes().get("value"); }
+     *
+     *
+     * public String getType(UIComponent uiComponent) { String type; if (uiComponent instanceof HtmlCommandButton) { type =
+     * ((HtmlCommandButton) uiComponent).getType(); } else { type = (String) uiComponent.getAttributes().get("type"); } if (type
+     * == null) { type = "button"; } return type; }
+     */
 }

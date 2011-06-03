@@ -19,15 +19,14 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit.html;
 
-import com.google.common.base.Predicate;
-import org.ajax4jsf.javascript.JSObject;
-import org.richfaces.cdk.annotations.JsfRenderer;
-import org.richfaces.component.*;
-import org.richfaces.context.ExtendedPartialViewContext;
-import org.richfaces.renderkit.HtmlConstants;
+import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
+import static org.richfaces.renderkit.HtmlConstants.DIV_ELEM;
+import static org.richfaces.renderkit.HtmlConstants.ID_ATTRIBUTE;
+
+import java.io.IOException;
+import java.util.Map;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -35,32 +34,34 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.event.ActionEvent;
-import java.io.IOException;
-import java.util.Map;
 
-import static org.richfaces.renderkit.HtmlConstants.*;
+import org.ajax4jsf.javascript.JSObject;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.component.AbstractTab;
+import org.richfaces.component.AbstractTabPanel;
+import org.richfaces.component.AbstractTogglePanelItemInterface;
+import org.richfaces.component.ComponentIterators;
+import org.richfaces.context.ExtendedPartialViewContext;
+import org.richfaces.renderkit.HtmlConstants;
+
+import com.google.common.base.Predicate;
 
 /**
  * @author akolonitsky
  * @since 2010-08-24
  */
-@ResourceDependencies( { // TODO review
-    @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-    @ResourceDependency(name = "jquery.js"),
-    @ResourceDependency(name = "richfaces.js"),
-    @ResourceDependency(name = "richfaces-event.js"),
-    @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(library = "org.richfaces", name = "togglePanelItem.js"),
-    @ResourceDependency(library = "org.richfaces", name = "tab.js")
-})
+@ResourceDependencies({ // TODO review
+@ResourceDependency(library = "javax.faces", name = "jsf.js"), @ResourceDependency(name = "jquery.js"),
+        @ResourceDependency(name = "richfaces.js"), @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(name = "richfaces-base-component.js"),
+        @ResourceDependency(library = "org.richfaces", name = "togglePanelItem.js"),
+        @ResourceDependency(library = "org.richfaces", name = "tab.js") })
 @JsfRenderer(type = "org.richfaces.TabRenderer", family = AbstractTab.COMPONENT_FAMILY)
 public class TabRenderer extends TogglePanelItemRenderer {
-
     @Override
     protected void doDecode(FacesContext context, UIComponent component) {
 
-        Map<String, String> requestMap =
-                context.getExternalContext().getRequestParameterMap();
+        Map<String, String> requestMap = context.getExternalContext().getRequestParameterMap();
 
         AbstractTab tab = (AbstractTab) component;
         String compClientId = component.getClientId(context);
@@ -81,44 +82,40 @@ public class TabRenderer extends TogglePanelItemRenderer {
 
     protected static void addOnCompleteParam(FacesContext context, String newValue, String panelId) {
         StringBuilder onComplete = new StringBuilder();
-        onComplete.append("RichFaces.$('").append(panelId)
-                    .append("').onCompleteHandler('").append(newValue).append("');");
+        onComplete.append("RichFaces.$('").append(panelId).append("').onCompleteHandler('").append(newValue).append("');");
 
         ExtendedPartialViewContext.getInstance(context).appendOncomplete(onComplete.toString());
     }
 
     @Override
-    protected void doEncodeItemBegin(ResponseWriter writer, FacesContext context, UIComponent component)
-        throws IOException {
+    protected void doEncodeItemBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
 
         super.doEncodeItemBegin(writer, context, component);
         encodeContentBegin(context, component, writer);
     }
-    
+
     @Override
     protected String getStyleClass(UIComponent component) {
         return concatClasses("rf-tab", attributeAsString(component, "styleClass"));
     }
 
     @Override
-    protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component)
-        throws IOException {
+    protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
 
         AbstractTab tab = (AbstractTab) component;
-        
+
         if (tab.shouldProcess() && !tab.isDisabled()) {
             super.doEncodeChildren(writer, context, tab);
         }
     }
 
     @Override
-    protected void doEncodeItemEnd(ResponseWriter writer, FacesContext context, UIComponent component)
-        throws IOException {
+    protected void doEncodeItemEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
 
         encodeContentEnd(component, writer);
         super.doEncodeItemEnd(writer, context, component);
     }
-    
+
     @Override
     protected void writeJavaScript(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         Object script = getScriptObject(context, component);
@@ -144,8 +141,7 @@ public class TabRenderer extends TogglePanelItemRenderer {
 
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
-        return new JSObject("RichFaces.ui.Tab", component.getClientId(context),
-            getScriptObjectOptions(context, component));
+        return new JSObject("RichFaces.ui.Tab", component.getClientId(context), getScriptObjectOptions(context, component));
     }
 
     @Override
@@ -170,6 +166,4 @@ public class TabRenderer extends TogglePanelItemRenderer {
             }
         });
     }
-
 }
-

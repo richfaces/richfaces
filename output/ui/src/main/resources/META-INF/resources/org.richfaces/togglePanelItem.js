@@ -26,114 +26,114 @@
 
     rf.ui.TogglePanelItem = rf.BaseComponent.extendClass({
 
-        // class name
-        name:"TogglePanelItem",
+            // class name
+            name:"TogglePanelItem",
 
-        init : function (componentId, options) {
-            $super.constructor.call(this, componentId);
-            this.attachToDom(this.id);
+            init : function (componentId, options) {
+                $super.constructor.call(this, componentId);
+                this.attachToDom(this.id);
 
-            this.options = $.extend(this.options, options || {});
-            this.name = this.options.name;
-            this.togglePanelId = this.options.togglePanelId;
-            this.switchMode = this.options.switchMode;
-            this.disabled = this.options.disabled || false;
+                this.options = $.extend(this.options, options || {});
+                this.name = this.options.name;
+                this.togglePanelId = this.options.togglePanelId;
+                this.switchMode = this.options.switchMode;
+                this.disabled = this.options.disabled || false;
 
-            this.index = options["index"];
-            this.getTogglePanel().getItems()[this.index] = this;
+                this.index = options["index"];
+                this.getTogglePanel().getItems()[this.index] = this;
 
-            this.__addUserEventHandler("enter");
-            this.__addUserEventHandler("leave");
-        },
+                this.__addUserEventHandler("enter");
+                this.__addUserEventHandler("leave");
+            },
 
-        /***************************** Public Methods *****************************************************************/
-        /**
-         * @methodOf TogglePanelItem
-         * @name TogglePanelItem#getName
-         *
-         * @return {String} panel item name
-         */
-        getName: function () {
-            return this.options.name;
-        },
+            /***************************** Public Methods *****************************************************************/
+            /**
+             * @methodOf TogglePanelItem
+             * @name TogglePanelItem#getName
+             *
+             * @return {String} panel item name
+             */
+            getName: function () {
+                return this.options.name;
+            },
 
-        /**
-         * @methodOf
-         * @name TogglePanelItem#getTogglePanel
-         *
-         * @return {TogglePanel} parent TogglePanel
-         * */
-        getTogglePanel : function () {
-            return rf.$(this.togglePanelId);
-        },
+            /**
+             * @methodOf
+             * @name TogglePanelItem#getTogglePanel
+             *
+             * @return {TogglePanel} parent TogglePanel
+             * */
+            getTogglePanel : function () {
+                return rf.$(this.togglePanelId);
+            },
 
-        /**
-         * @methodOf
-         * @name TogglePanelItem#isSelected
-         *
-         * @return {Boolean} true if this panel item is selected in the parent toggle panel
-         * */
-        isSelected : function () {
-            return this.getName() == this.getTogglePanel().getSelectItem();
-        },
+            /**
+             * @methodOf
+             * @name TogglePanelItem#isSelected
+             *
+             * @return {Boolean} true if this panel item is selected in the parent toggle panel
+             * */
+            isSelected : function () {
+                return this.getName() == this.getTogglePanel().getSelectItem();
+            },
 
 
-        /***************************** Private Methods ****************************************************************/
+            /***************************** Private Methods ****************************************************************/
 
-        /**
-         * @private
-         * */
-        __addUserEventHandler : function (name) {
-            var handler = this.options["on" + name];
-            if (handler) {
-                rf.Event.bindById(this.id, name, handler);
+            /**
+             * @private
+             * */
+            __addUserEventHandler : function (name) {
+                var handler = this.options["on" + name];
+                if (handler) {
+                    rf.Event.bindById(this.id, name, handler);
+                }
+            },
+
+            /**
+             * @private
+             *
+             * used in TogglePanel
+             * */
+            __enter : function () {
+                rf.getDomElement(this.id).style.display = "block";
+
+                return this.__fireEnter();
+            },
+
+            /**
+             * @private
+             *
+             * used in TogglePanel
+             * */
+            __leave : function () {
+                var continueProcess = this.__fireLeave();
+                if (!continueProcess) {
+                    return false;
+                }
+
+                rf.getDomElement(this.id).style.display = "none";
+                return true;
+            },
+
+            __fireLeave : function () {
+                return rf.Event.fireById(this.id, "leave");
+            },
+
+            __fireEnter : function () {
+                return rf.Event.fireById(this.id, "enter");
+            },
+
+            // class stuff
+            destroy: function () {
+                var parent = this.getTogglePanel();
+                if (parent) {
+                    delete parent.getItems()[this.index];
+                }
+
+                $super.destroy.call(this);
             }
-        },
-
-        /**
-         * @private
-         *
-         * used in TogglePanel
-         * */
-        __enter : function () {
-            rf.getDomElement(this.id).style.display = "block";
-
-            return this.__fireEnter();
-        },
-
-        /**
-         * @private
-         *
-         * used in TogglePanel
-         * */
-        __leave : function () {
-            var continueProcess = this.__fireLeave();
-            if (!continueProcess) {
-                return false;
-            }
-
-            rf.getDomElement(this.id).style.display = "none";
-            return true;
-        },
-
-        __fireLeave : function () {
-            return rf.Event.fireById(this.id, "leave");
-        },
-
-        __fireEnter : function () {
-            return rf.Event.fireById(this.id, "enter");
-        },
-
-        // class stuff
-        destroy: function () {
-            var parent = this.getTogglePanel();
-            if (parent) {
-            	delete parent.getItems()[this.index];
-            }
-
-            $super.destroy.call(this);
-        }
-    });
+        });
 
     // define super class link
     var $super = rf.ui.TogglePanelItem.$super;
