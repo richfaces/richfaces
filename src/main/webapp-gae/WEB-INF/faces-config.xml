@@ -115,7 +115,7 @@
     <managed-bean>
         <managed-bean-name>carsBean</managed-bean-name>
         <managed-bean-class>org.richfaces.demo.tables.CarsBean</managed-bean-class>
-        <managed-bean-scope>view</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
         <managed-bean-name>carsFilteringBean</managed-bean-name>
@@ -130,7 +130,7 @@
     <managed-bean>
         <managed-bean-name>extTableSelectionBean</managed-bean-name>
         <managed-bean-class>org.richfaces.demo.tables.ExtTableSelectionBean</managed-bean-class>
-        <managed-bean-scope>view</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
             <property-name>inventoryItems</property-name>
             <value>#{carsBean.allInventoryItems}</value>
@@ -251,6 +251,11 @@
         <managed-bean-name>opBean2</managed-bean-name>
         <managed-bean-class>org.richfaces.demo.outputPanel.OutputPanelBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>carsSortingBean</managed-bean-name>
+        <managed-bean-class>org.richfaces.demo.tables.CarsSortingBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <factory>
         <lifecycle-factory>org.richfaces.demo.arrangeablemodel.PersistenceLifecycleFactory</lifecycle-factory>
