@@ -286,7 +286,11 @@
                     <sample new="true">
                         <id>edt-sorting</id>
                         <name>Table Sorting</name>
-                    </sample>                    
+                    </sample>    
+                    <sample new="true">
+                        <id>edt-filtering</id>
+                        <name>Table Filtering</name>
+                    </sample>                                      
                 </samples>
             </demo>
             <demo>
