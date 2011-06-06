@@ -528,12 +528,16 @@
                 <name>rich:autocomplete</name>
                 <samples>
                     <sample>
-                        <id>cachedAjax</id>
-                        <name>Autocomplete in Cached Ajax mode</name>
+                        <id>modes</id>
+                        <name>Autocompletion Modes</name>
+                    </sample>
+                    <sample new="true">
+                        <id>customLayouts</id>
+                        <name>Custom Popup Layouts</name>
                     </sample>
                     <sample>
                         <id>clientFilter</id>
-                        <name>Custom client filter</name>
+                        <name>Custom Client Filter</name>
                     </sample>
                 </samples>
             </demo>
