@@ -36,7 +36,8 @@
     <name>Richfaces UI Components UI</name>
 
     <properties>
-        <faces-shade-transformers.version>4</faces-shade-transformers.version>
+        <faces-shade-transformers.version>5-SNAPSHOT</faces-shade-transformers.version>
+        <faces-vdl-documentation.version>1-SNAPSHOT</faces-vdl-documentation.version>
         <assembly.projects.group>org.richfaces.ui</assembly.projects.group>
     </properties>
 
@@ -103,6 +104,7 @@
             <artifactId>jstl</artifactId>
             <scope>provided</scope>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -181,6 +183,30 @@
                                     <excludeTransitive>true</excludeTransitive>
                                 </configuration>
                             </execution>
+                            <execution>
+                                <id>vdldeps</id>
+                                <phase>process-sources</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>org.richfaces.build.resources</groupId>
+                                            <artifactId>faces-vdl-documentation</artifactId>
+                                            <version>${faces-vdl-documentation.version}</version>
+                                            <outputDirectory>${project.build.directory}/resources/</outputDirectory>
+                                            <includes>**/*.xsl</includes>
+                                        </artifactItem>
+                                        <artifactItem>
+                                            <groupId>org.richfaces.build.resources</groupId>
+                                            <artifactId>faces-vdl-documentation</artifactId>
+                                            <outputDirectory>${project.build.directory}/vdldoc/</outputDirectory>
+                                            <includes>**/*.css</includes>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
                         </executions>
                     </plugin>
                     <plugin>
@@ -191,8 +217,75 @@
                             <sourcepath>${basedir}/target/dependency</sourcepath>
                         </configuration>
                     </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>xml-maven-plugin</artifactId>
+                        <version>1.0</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>transform</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <transformationSets>
+                                <transformationSet>
+                                    <dir>src/main/properties</dir>
+                                    <stylesheet>target/resources/xsl/common.xsl</stylesheet>
+                                    <parameters>
+                                        <parameter>
+                                            <name>output-dir</name>
+                                            <value>target/vdldoc/</value>
+                                        </parameter>
+                                    </parameters>
+                                    <fileMappers>
+                                        <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.RegExpFileMapper">
+                                            <pattern>^(.*)\.(.*)$</pattern>
+                                            <replacement>all.txt</replacement>
+                                        </fileMapper>
+                                    </fileMappers>
+                                </transformationSet>
+                            </transformationSets>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>net.sf.saxon</groupId>
+                                <artifactId>saxon</artifactId>
+                                <version>8.7</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <version>2.2.1</version>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/main/assembly/vdldoc-assembly.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>make-assembly</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                 </plugins>
+
             </build>
+            <dependencies>
+                <dependency>
+                    <groupId>org.richfaces.build.resources</groupId>
+                    <artifactId>faces-vdl-documentation</artifactId>
+                    <version>${faces-vdl-documentation.version}</version>
+                    <scope>runtime</scope>
+                </dependency>
+            </dependencies>
         </profile>
     </profiles>
 
