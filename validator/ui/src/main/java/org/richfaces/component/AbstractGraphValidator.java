@@ -221,8 +221,8 @@ public abstract class AbstractGraphValidator extends UIComponentBase {
         }
     }
 
-    public Validator createChildrenValidator(FacesContext context) {
-        FacesBeanValidator validator = (FacesBeanValidator) context.getApplication().createValidator(getType());
+    public Validator createChildrenValidator() {
+        FacesBeanValidator validator = (FacesBeanValidator) getFacesContext().getApplication().createValidator(getType());
         validator.setSummary(getSummary());
         ValueExpression expression = getValueExpression("groups");
         if (null != expression) {
