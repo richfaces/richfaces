@@ -10,7 +10,6 @@ import javax.faces.model.SelectItem;
 
 /**
  * @author Ilya Shaikovsky
- * 
  */
 @ManagedBean(name = "selectsBean")
 @RequestScoped

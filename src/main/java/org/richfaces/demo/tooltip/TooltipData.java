@@ -18,5 +18,4 @@ public class TooltipData implements Serializable {
     public Date getTooltipDate() {
         return new Date();
     }
-
 }

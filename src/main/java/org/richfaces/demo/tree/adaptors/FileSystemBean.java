@@ -9,7 +9,6 @@ import javax.faces.bean.RequestScoped;
 @RequestScoped
 public class FileSystemBean {
     private static final String SRC_PATH = "/WEB-INF";
-
     private List<FileSystemNode> srcRoots;
 
     public synchronized List<FileSystemNode> getSourceRoots() {

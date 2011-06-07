@@ -3,23 +3,29 @@
  */
 package org.richfaces.demo.tables;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.model.SelectItem;
+
 import org.richfaces.demo.common.data.RandomHelper;
 import org.richfaces.demo.tables.model.cars.InventoryItem;
 import org.richfaces.demo.tables.model.cars.InventoryVendorItem;
 import org.richfaces.demo.tables.model.cars.InventoryVendorList;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-import javax.faces.model.SelectItem;
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.*;
-
 @ManagedBean(name = "carsBean")
 @ViewScoped
 public class CarsBean implements Serializable {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -3832235132261771583L;
     private static final int DECIMALS = 1;

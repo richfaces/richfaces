@@ -5,20 +5,20 @@
     <sessions-enabled>true</sessions-enabled>
 
     <system-properties>
-        <property name="java.util.logging.config.file" value="WEB-INF/classes/logging.properties"/>
+        <property name="java.util.logging.config.file" value="WEB-INF/classes/logging.properties" />
     </system-properties>
 
     <resource-files>
-        <exclude path="/static-resources/**"/>
+        <exclude path="/static-resources/**" />
     </resource-files>
 
     <static-files>
-        <include path="/images/**.*"/>
-        <include path="/static-resources/**.*"/>
-        <include path="/*.ico"/>
-        <include path="/resources/**.*"/>
-        <exclude path="/templates/**.*"/>
-        <exclude path="/*.xhtml"/>
+        <include path="/images/**.*" />
+        <include path="/static-resources/**.*" />
+        <include path="/*.ico" />
+        <include path="/resources/**.*" />
+        <exclude path="/templates/**.*" />
+        <exclude path="/*.xhtml" />
     </static-files>
 
 </appengine-web-app>

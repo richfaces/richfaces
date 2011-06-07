@@ -1,6 +1,8 @@
 package org.richfaces.demo.components.sh;
 
-import org.ajax4jsf.javascript.JSFunction;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import javax.faces.FacesException;
 import javax.faces.application.ResourceDependencies;
@@ -10,27 +12,30 @@ import javax.faces.component.UIComponentBase;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+
+import org.ajax4jsf.javascript.JSFunction;
 
 @FacesComponent(value = "syntaxHighlighter")
-@ResourceDependencies({ @ResourceDependency(library = "js", name = "shCore.js"),
-    @ResourceDependency(name = "jquery.js"),
-    @ResourceDependency(library = "css", name = "shCore.css"),
-    @ResourceDependency(library = "css", name = "shThemeDefault.css"),
-    @ResourceDependency(library = "js", name = "shBrushJScript.js"),
-    @ResourceDependency(library = "js", name = "shBrushJava.js"),
-    @ResourceDependency(library = "js", name = "shBrushXml.js"),
-    @ResourceDependency(library = "js", name = "shBrushCss.js"),
-    @ResourceDependency(library = "js", name = "shBrushPlain.js") })
+@ResourceDependencies({ @ResourceDependency(library = "js", name = "shCore.js"), @ResourceDependency(name = "jquery.js"),
+        @ResourceDependency(library = "css", name = "shCore.css"),
+        @ResourceDependency(library = "css", name = "shThemeDefault.css"),
+        @ResourceDependency(library = "js", name = "shBrushJScript.js"),
+        @ResourceDependency(library = "js", name = "shBrushJava.js"),
+        @ResourceDependency(library = "js", name = "shBrushXml.js"),
+        @ResourceDependency(library = "js", name = "shBrushCss.js"),
+        @ResourceDependency(library = "js", name = "shBrushPlain.js") })
 public class SyntaxHighlighter extends UIComponentBase {
     private static final String COMPONENT_FAMILY = "org.richfaces.SyntaxHighlighter";
     private static final String DEFAULT_SOURCE_TYPE = "xhtml";
 
     enum propertyKeys {
-        sourceType, src, style, styleClass
-    };
+        sourceType,
+        src,
+        style,
+        styleClass
+    }
+
+    ;
 
     @Override
     public String getFamily() {
@@ -52,12 +57,12 @@ public class SyntaxHighlighter extends UIComponentBase {
             in.close();
         }
     }
-    
-    private void renderLabel(FacesContext context, String label) throws IOException{
+
+    private void renderLabel(FacesContext context, String label) throws IOException {
         ResponseWriter writer = context.getResponseWriter();
         writer.writeText(label.toCharArray(), 0, label.length());
     }
-    
+
     private void renderContent(FacesContext context) throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         String src = getSrc();

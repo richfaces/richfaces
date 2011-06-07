@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.richfaces.demo.progressBar;
 
@@ -11,14 +11,11 @@ import javax.faces.bean.ViewScoped;
 
 /**
  * @author Ilya Shaikovsky
- * 
  */
 @ManagedBean
 @ViewScoped
 public class ProgressBarBean implements Serializable {
-
     private static final long serialVersionUID = -314414475508376585L;
-
     private boolean buttonRendered = true;
     private boolean enabled = false;
     private Long startTime;

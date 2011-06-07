@@ -1,11 +1,10 @@
 package org.richfaces.demo.mediaOutput;
 
 /**
- * @author Ilya Shaikovsky Class created to hold rgb properties of the color. Used in order to avoid AWT dependencies as
- *         GAE not allows them
+ * @author Ilya Shaikovsky Class created to hold rgb properties of the color. Used in order to avoid AWT dependencies as GAE not
+ *         allows them
  */
 public class Color {
-
     private int red;
     private int green;
     private int blue;
@@ -39,6 +38,7 @@ public class Color {
     public void setBlue(int blue) {
         this.blue = blue;
     }
+
     @Override
     public String toString() {
         return String.valueOf(getRed()) + String.valueOf(getGreen()) + String.valueOf(getBlue());

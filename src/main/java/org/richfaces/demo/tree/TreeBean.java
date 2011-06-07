@@ -41,7 +41,6 @@ import org.richfaces.event.TreeSelectionChangeEvent;
 
 /**
  * @author Ilya Shaikovsky
- * 
  */
 @ManagedBean
 @ApplicationScoped
@@ -125,5 +124,4 @@ public class TreeBean implements Serializable {
     public void setCurrentSelection(TreeNode currentSelection) {
         this.currentSelection = currentSelection;
     }
-
 }

@@ -66,5 +66,4 @@ public class SkinBean implements Serializable {
     public List<String> getSkins() {
         return skins;
     }
-
 }

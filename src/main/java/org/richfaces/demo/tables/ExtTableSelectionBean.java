@@ -16,7 +16,7 @@ import org.richfaces.demo.tables.model.cars.InventoryItem;
 @ManagedBean
 @ViewScoped
 public class ExtTableSelectionBean implements Serializable {
-    private String selectionMode="multiple";
+    private String selectionMode = "multiple";
     private Collection<Object> selection;
     @ManagedProperty(value = "#{carsBean.allInventoryItems}")
     private List<InventoryItem> inventoryItems;
