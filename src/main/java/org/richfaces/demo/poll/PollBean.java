@@ -11,7 +11,6 @@ import javax.faces.bean.ViewScoped;
 
 /**
  * @author Ilya Shaikovsky
- *
  */
 @ManagedBean
 @ViewScoped

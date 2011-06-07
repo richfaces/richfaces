@@ -13,7 +13,6 @@ import org.richfaces.model.UploadedFile;
 
 /**
  * @author Ilya Shaikovsky
- *
  */
 @ManagedBean
 @SessionScoped

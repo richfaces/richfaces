@@ -29,7 +29,6 @@ import javax.faces.lifecycle.LifecycleFactory;
 
 /**
  * @author Nick Belaevski
- *
  */
 public class PersistenceLifecycleFactory extends LifecycleFactory implements FacesWrapper<LifecycleFactory> {
     private LifecycleFactory lifecycleFactory;

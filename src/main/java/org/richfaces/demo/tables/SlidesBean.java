@@ -11,7 +11,6 @@ import org.richfaces.demo.tables.model.slides.Picture;
 
 /**
  * @author Ilya Shaikovsky
- *
  */
 @ManagedBean
 @ViewScoped

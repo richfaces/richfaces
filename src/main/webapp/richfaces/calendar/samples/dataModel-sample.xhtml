@@ -2,16 +2,16 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich">
-    <style>
-.bdc {
-    background-color: gray;
-}
+    <h:outputStylesheet>
+        .bdc {
+        background-color: gray;
+        }
 
-.wdc {
-    font-weight: bold;
-    font-style: italic;
-}
-</style>
+        .wdc {
+        font-weight: bold;
+        font-style: italic;
+        }
+    </h:outputStylesheet>
     <h:form>
         <rich:calendar mode="ajax" boundaryDatesMode="scroll" dataModel="#{calendarModel}" />
     </h:form>

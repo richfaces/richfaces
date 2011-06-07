@@ -46,4 +46,9 @@ public class PasswordValidationBean implements Cloneable, Serializable {
     public String getConfirm() {
         return confirm;
     }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

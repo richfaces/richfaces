@@ -3,53 +3,41 @@
     xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich">
 
-    <style>
-.panelc {
-    width: 25%;
-}
+    <h:outputStylesheet>
+        .panelc { width:25%; }
+        .valign { vertical-align:top; }
+        .dropTargetPanel { width: 90%; }
+        .footerClass {
+        text-align: center;
+        padding-top: 5px;
+        }
 
-.valign {
-    vertical-align: top;
-}
-
-.dropTargetPanel {
-    width: 90%;
-}
-
-.footerClass {
-    text-align: center;
-    padding-top: 5px;
-}
-
-.default {
-    font-size: 11px;
-    cursor: pointer;
-    width: 100px;
-    border: 1px solid gray;
-    padding: 2px
-}
-
-.rf-ind-drag.default {
-    padding-left: 30px;
-    background-image: url("#{facesContext.externalContext.requestContextPath}/images/dnd/default.gif");
-    background-position: 5px;
-    background-repeat: no-repeat;
-}
-
-.rf-ind-drag.accept {
-    background-image: url("#{facesContext.externalContext.requestContextPath}/images/dnd/accept.gif");
-    background-position: 5px;
-    background-repeat: no-repeat;
-    border: 2px solid green
-}
-
-.rf-ind-drag.reject {
-    border: 2px solid red;
-    background-image: url("#{facesContext.externalContext.requestContextPath}/images/dnd/reject.gif");
-    background-position: 5px;
-    background-repeat: no-repeat;
-}
-</style>
+        .default{
+        font-size:11px;
+        cursor:pointer;
+        width:100px;
+        border:1px solid gray;
+        padding:2px
+        }
+        .rf-ind-drag.default{
+        padding-left:30px;
+        background-image: url("#{facesContext.externalContext.requestContextPath}/images/dnd/default.gif");
+        background-position: 5px;
+        background-repeat: no-repeat;
+        }
+        .rf-ind-drag.accept{
+        background-image: url("#{facesContext.externalContext.requestContextPath}/images/dnd/accept.gif");
+        background-position: 5px;
+        background-repeat: no-repeat;
+        border:2px solid green
+        }
+        .rf-ind-drag.reject{
+        border:2px solid red;
+        background-image: url("#{facesContext.externalContext.requestContextPath}/images/dnd/reject.gif");
+        background-position: 5px;
+        background-repeat: no-repeat;
+        }
+    </h:outputStylesheet>
     <rich:dragIndicator id="ind" acceptClass="accept" rejectClass="reject" draggingClass="default">
         Drag the item to proper area..
     </rich:dragIndicator>
@@ -88,6 +76,7 @@
                     </h:column>
                 </h:dataTable>
 
+
             </rich:panel>
 
             <rich:panel styleClass="dropTargetPanel">
@@ -102,6 +91,7 @@
                         <h:outputText value="#{fm.name}"></h:outputText>
                     </h:column>
                 </h:dataTable>
+
 
             </rich:panel>
 
