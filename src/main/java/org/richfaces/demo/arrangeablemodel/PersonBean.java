@@ -36,7 +36,6 @@ import com.google.common.collect.Maps;
 
 /**
  * @author Nick Belaevski
- *
  */
 @ManagedBean
 @SessionScoped

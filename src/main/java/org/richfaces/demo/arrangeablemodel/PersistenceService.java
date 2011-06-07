@@ -47,7 +47,6 @@ import com.google.common.io.Closeables;
 
 /**
  * @author Nick Belaevski
- *
  */
 @ManagedBean(eager = true)
 @ApplicationScoped

@@ -13,7 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.model.SelectItem;
 
 import org.richfaces.demo.common.data.RandomHelper;
@@ -22,7 +22,7 @@ import org.richfaces.demo.tables.model.cars.InventoryVendorItem;
 import org.richfaces.demo.tables.model.cars.InventoryVendorList;
 
 @ManagedBean(name = "carsBean")
-@SessionScoped
+@ViewScoped
 public class CarsBean implements Serializable {
     /**
      *

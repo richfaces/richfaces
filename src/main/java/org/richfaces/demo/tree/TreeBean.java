@@ -41,7 +41,6 @@ import org.richfaces.event.TreeSelectionChangeEvent;
 
 /**
  * @author Ilya Shaikovsky
- *
  */
 @ManagedBean
 @ApplicationScoped

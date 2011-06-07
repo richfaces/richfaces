@@ -51,8 +51,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package com.sun.faces.facelets.impl;
 
 import javax.faces.context.FacesContext;
@@ -60,26 +58,21 @@ import javax.faces.context.FacesContext;
 import com.sun.faces.util.Util;
 
 /**
- * Used to provide aliases to Facelets generated unique IDs with tend to be
- * womewhat long.
+ * Used to provide aliases to Facelets generated unique IDs with tend to be womewhat long.
  */
 public class IdMapper {
-
     private static final String KEY = IdMapper.class.getName();
 
     // ------------------------------------------------------------ Constructors
 
-
-    IdMapper() { }
-
+    IdMapper() {
+    }
 
     // ---------------------------------------------------------- Public Methods
-
 
     public String getAliasedId(String id) {
         return "R" + id;
     }
-
 
     public static void setMapper(FacesContext ctx, IdMapper mapper) {
 
@@ -89,14 +82,11 @@ public class IdMapper {
         } else {
             ctx.getAttributes().put(KEY, mapper);
         }
-
     }
-
 
     public static IdMapper getMapper(FacesContext ctx) {
 
         Util.notNull("ctx", ctx);
         return ((IdMapper) ctx.getAttributes().get(KEY));
-
     }
 }

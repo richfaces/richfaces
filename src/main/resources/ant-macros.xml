@@ -12,11 +12,11 @@
     <property name="appengine.sdk.home" location="${ant.file.appengine-ant-macros}../../../.." />
     <property name="appengine.tools.classpath" location="${appengine.sdk.home}/lib/appengine-tools-api.jar" />
 
-    <!--
-      A macrodef for dev_appserver. Use like:
-
-      <dev_appserver war="${war}"/>
-    -->
+    <!-- 
+    A macrodef for dev_appserver. Use like:
+    
+    <dev_appserver war="${war}"/>
+  -->
     <macrodef name="dev_appserver" description="Runs the App Engine Development App Server">
         <attribute name="war" description="The exploded war directory containing the application" />
         <attribute name="port" default="8080" description="The port the server starts on" />
@@ -36,12 +36,12 @@
         </sequential>
     </macrodef>
 
-    <!--
-      A macrodef for appcfg. Use like:
+    <!-- 
+    A macrodef for appcfg. Use like:
+    
+    <appcfg action="update" war="${war}"/>
 
-      <appcfg action="update" war="${war}"/>
-
-    -->
+  -->
     <macrodef name="appcfg" description="Manages an application">
         <attribute name="war" description="The exploded war directory containing the application" />
         <attribute name="action" description="One of (update, rollback, update_indexes, request_logs)" />
@@ -59,27 +59,27 @@
         </sequential>
     </macrodef>
 
-    <!--
-      A taskdef for ORM enhancement. Use like:
-
-      <enhance failonerror="true">
-        <classpath>
-          <pathelement path="${appengine.tools.classpath}"/>
-          <pathelement path="@{war}/WEB-INF/classes"/>
-          <fileset dir="@{war}/WEB-INF/lib" includes="*.jar"/>
-        </classpath>
-        <fileset dir="@{war}/WEB-INF/classes" includes="**/*.class"/>
-      </enhance>
-
-      Alternatively, use the <enhance_war/> macrodef below.
-    -->
+    <!-- 
+    A taskdef for ORM enhancement. Use like:
+    
+    <enhance failonerror="true">
+      <classpath>
+        <pathelement path="${appengine.tools.classpath}"/>
+        <pathelement path="@{war}/WEB-INF/classes"/>
+        <fileset dir="@{war}/WEB-INF/lib" includes="*.jar"/>
+      </classpath>
+      <fileset dir="@{war}/WEB-INF/classes" includes="**/*.class"/>
+    </enhance>
+        
+    Alternatively, use the <enhance_war/> macrodef below.
+  -->
     <taskdef name="enhance" classpath="${appengine.tools.classpath}" classname="com.google.appengine.tools.enhancer.EnhancerTask" />
 
-    <!--
-      A macrodef for ORM enhancement for a war. Use like:
-
-      <enhance_war war="${war}"/>
-    -->
+    <!-- 
+    A macrodef for ORM enhancement for a war. Use like:
+     
+    <enhance_war war="${war}"/>  
+  -->
     <macrodef name="enhance_war" description="Run the ORM enhancer on an exploded war">
         <attribute name="war" description="The exploded war directory containing the application" />
         <element name="args" optional="true" description="Additional arguments to the enhancer" />

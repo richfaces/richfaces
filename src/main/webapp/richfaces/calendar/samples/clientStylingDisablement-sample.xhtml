@@ -2,32 +2,32 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j"
     xmlns:rich="http://richfaces.org/rich">
-    <style>
-.everyThirdDay {
-    background-color: gray;
-}
+    <h:outputStylesheet>
+        .everyThirdDay {
+        background-color: gray;
+        }
 
-.weekendBold {
-    font-weight: bold;
-    font-style: italic;
-}
-</style>
-    <script type="text/javascript">
+        .weekendBold {
+        font-weight: bold;
+        font-style: italic;
+        }
+    </h:outputStylesheet>
+    <h:outputScript>
         var curDt = new Date();
-        function disablementFunction(day) {
-            if (day.isWeekend) return false;
-            if (curDt == undefined) {
-                curDt = day.date.getDate();
-            }
-            if (curDt.getTime() - day.date.getTime() &lt; 0) return true; else return false;
+        function disablementFunction(day){
+        if (day.isWeekend) return false;
+        if (curDt==undefined){
+        curDt = day.date.getDate();
         }
-        function disabledClassesProv(day) {
-            if (curDt.getTime() - day.date.getTime() &gt;= 0) return 'rf-cal-boundary-day';
-            var res = '';
-            if (day.isWeekend) res += 'weekendBold ';
-            if (day.day % 3 == 0) res += 'everyThirdDay';
-            return res;
+        if (curDt.getTime() - day.date.getTime() &lt; 0) return true; else return false;
         }
-    </script>
+        function disabledClassesProv(day){
+        if (curDt.getTime() - day.date.getTime() &gt;= 0) return 'rf-cal-boundary-day';
+        var res = '';
+        if (day.isWeekend) res+='weekendBold ';
+        if (day.day%3==0) res+='everyThirdDay';
+        return res;
+        }
+    </h:outputScript>
     <rich:calendar dayDisableFunction="disablementFunction" dayClassFunction="disabledClassesProv" boundaryDatesMode="scroll" />
 </ui:composition>

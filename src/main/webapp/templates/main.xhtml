@@ -4,38 +4,33 @@
 <f:view contentType="text/html">
     <h:head>
         <title>RichFaces Showcase</title>
-        <script type="text/javascript">
+        <h:outputScript>
             var _gaq = _gaq || [];
             _gaq.push(['_setAccount', 'UA-7306415-4']);
             _gaq.push(['_trackPageview']);
 
             (function() {
-                var ga = document.createElement('script');
-                ga.type = 'text/javascript';
-                ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0];
-                s.parentNode.insertBefore(ga, s);
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
             })();
-        </script>
+        </h:outputScript>
         <h:outputStylesheet library="css" name="application.css" />
     </h:head>
     <h:body>
         <div id="page">
             <div id="header">
                 <a href="#" class="logo"><img src="#{facesContext.externalContext.requestContextPath}/images/rf-logo.png"
-                    alt="RF logo" />
-                </a>
+                    alt="RF logo" /> </a>
 
                 <div class="right-controls">
                     <ul class="top-links layout">
-                        <li><a href="http://jboss.org/richfaces" target="_blank">Project Site</a>
-                        </li>
+                        <li><a href="http://jboss.org/richfaces" target="_blank">Project Site</a></li>
                         <li><a href="http://www.jboss.org/community/wiki/richfaceswikihomepage" target="_blank">Project
-                                Wiki</a></li>
-                        <li><a href="http://community.jboss.org/community/richfaces" target="_blank">RichFaces
-                                Community Space</a>
+                                Wiki</a>
                         </li>
+                        <li><a href="http://community.jboss.org/community/richfaces" target="_blank">RichFaces
+                                Community Space</a></li>
                         <li class="download-link"><a href="http://jboss.org/richfaces/download/stable.html" target="_blank">Download</a>
                         </li>
                         <li class="last"><a

@@ -27,7 +27,6 @@ import javax.persistence.Id;
 
 /**
  * @author Nick Belaevski
- *
  */
 @Entity
 public class Person {

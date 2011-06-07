@@ -38,28 +38,28 @@
             </h:panelGrid>
         </h:form>
     </rich:panel>
-    <script type="text/javascript">
+    <h:outputScript>
         var events = 0;
         var updates = 0;
         var outEvents = #{rich:element('events')};
         var outUpdates = #{rich:element('updates')};
         var outRequests = #{rich:element('requests')};
 
-        var requests = 0;
-        function addEvent() {
-            events++;
+        var requests=0;
+        function addEvent(){
+        events++;
         }
-        function addUpdate() {
-            updates++;
+        function addUpdate(){
+        updates++;
         }
-        function addRequest() {
-            requests++;
+        function addRequest(){
+        requests++;
         }
 
-        function printCounts() {
-            outEvents.innerHTML = events;
-            outUpdates.innerHTML = updates;
-            outRequests.innerHTML = requests;
+        function printCounts(){
+        outEvents.innerHTML=events;
+        outUpdates.innerHTML=updates;
+        outRequests.innerHTML=requests;
         }
-    </script>
+    </h:outputScript>
 </ui:composition>

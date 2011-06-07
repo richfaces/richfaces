@@ -5,11 +5,11 @@
 
 <ui:composition template="/templates/main.xhtml">
     <ui:define name="body">
-        <style>
-.navigation .rf-tab-hdr-brd,.navigation .rf-tab {
-    display: none;
-}
-</style>
+        <h:outputStylesheet>
+            .navigation .rf-tab-hdr-brd,.navigation .rf-tab {
+            display: none;
+            }
+        </h:outputStylesheet>
         <rich:tabPanel switchType="client" styleClass="navigation" activeItem="#{demoNavigator.currentSample.id}"
             onbeforeitemchange="return false;">
             <c:forEach items="#{demoNavigator.currentDemo.samples}" var="s">
