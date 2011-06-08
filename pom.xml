@@ -77,38 +77,19 @@
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>1.0.0.GA</version>
             <scope>${dependency.scope}</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
             <version>1.5.8</version>
+            <scope>${dependency.scope}</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-jdk14</artifactId>
             <version>1.5.8</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>4.1.0.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>1.0.0.GA</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.5.8</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-jdk14</artifactId>
-            <version>1.5.8</version>
+            <scope>${dependency.scope}</scope>
         </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>
@@ -169,8 +150,7 @@
                 <configuration>
                     <webResources>
                         <resource>
-                            <directory>${basedir}/src/main/java
-                            </directory>
+                            <directory>${basedir}/src/main/java</directory>
                             <targetPath>/WEB-INF/src</targetPath>
                         </resource>
                     </webResources>
@@ -400,14 +380,6 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-war-plugin</artifactId>
-                        <configuration>
-                            <webResources>
-                                <resource>
-                                    <directory>${basedir}/src/main/java</directory>
-                                    <targetPath>/WEB-INF/src</targetPath>
-                                </resource>
-                            </webResources>
-                        </configuration>
                         <executions>
                             <execution>
                                 <id>default-war</id>
@@ -419,6 +391,10 @@
                                         <resource>
                                             <directory>src/main/resources-tomcat</directory>
                                             <targetPath>/WEB-INF/classes</targetPath>
+                                        </resource>
+                                        <resource>
+                                            <directory>${basedir}/src/main/java</directory>
+                                            <targetPath>/WEB-INF/src</targetPath>
                                         </resource>
                                     </webResources>
                                 </configuration>
@@ -435,15 +411,19 @@
                                     </webappDirectory>
 
                                     <packagingExcludes>
-                                        WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-validator-*,WEB-INF/lib/slf4j-*
+                                        WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/slf4j-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*
                                     </packagingExcludes>
                                     <warSourceExcludes>
-                                        WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-validator-*,WEB-INF/lib/slf4j-*
+                                        WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/slf4j-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*
                                     </warSourceExcludes>
                                     <webResources>
                                         <resource>
                                             <directory>src/main/resources-jee6</directory>
                                             <targetPath>/WEB-INF/classes</targetPath>
+                                        </resource>
+                                        <resource>
+                                            <directory>${basedir}/src/main/java</directory>
+                                            <targetPath>/WEB-INF/src</targetPath>
                                         </resource>
                                     </webResources>
                                 </configuration>
