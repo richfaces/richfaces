@@ -3,19 +3,11 @@ package org.richfaces.component;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 
-import org.hamcrest.Matcher;
-import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
@@ -25,19 +17,14 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  * @author asmirnov
  *
  */
-public class ClientValidationTest {
-    private HtmlUnitEnvironment environment;
-
-    @Before
-    public void setUp() {
-        this.environment = new HtmlUnitEnvironment();
-        this.environment.withWebRoot("org/richfaces/component/client-test.xhtml").start();
+public class ClientValidationTest extends IntegrationTestBase {
+    
+    protected String getFacesConfig() {
+        return "faces-config.xml";
     }
 
-    @After
-    public void thearDown() throws Exception {
-        environment.release();
-        environment = null;
+    protected String getPageName() {
+        return "client-test";
     }
 
     @Test
@@ -49,39 +36,16 @@ public class ClientValidationTest {
 
     @Test
     public void testSubmitTooShortValue() throws Exception {
-        submitValueAndCheckMesage("", not(equalTo("")));
+        submitValueAndCheckMessage("", not(equalTo("")));
     }
 
     @Test
     public void testSubmitTooLongValue() throws Exception {
-        submitValueAndCheckMesage("123456", not(equalTo("")));
+        submitValueAndCheckMessage("123456", not(equalTo("")));
     }
 
     @Test
     public void testSubmitProperValue() throws Exception {
-        submitValueAndCheckMesage("ab", equalTo(""));
-    }
-
-    private void submitValueAndCheckMesage(String value, Matcher<String> matcher) throws Exception {
-        HtmlPage page = requestPage();
-        HtmlInput input = getInput(page);
-        page = (HtmlPage) input.setValueAttribute(value);
-        input.fireEvent("blur");
-        System.out.println(page.asXml());
-        HtmlElement message = page.getElementById("uiMessage");
-        assertThat(message.getTextContent(), matcher);
-    }
-
-    private HtmlInput getInput(HtmlPage page) {
-        HtmlForm htmlForm = page.getFormByName("form");
-        assertNotNull(htmlForm);
-        HtmlInput input = htmlForm.getInputByName("form:text");
-        return input;
-    }
-
-    private HtmlPage requestPage() throws IOException {
-        HtmlPage page = environment.getPage("/client-test.jsf");
-        System.out.println(page.asXml());
-        return page;
+        submitValueAndCheckMessage("ab", equalTo(""));
     }
 }

@@ -26,20 +26,14 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  * @author asmirnov
  *
  */
-@Ignore
-public class AjaxValidationTest {
-    private HtmlUnitEnvironment environment;
+public class AjaxValidationTest extends IntegrationTestBase {
 
-    @Before
-    public void setUp() {
-        this.environment = new HtmlUnitEnvironment();
-        this.environment.withWebRoot("org/richfaces/component/test.xhtml").start();
+    protected String getFacesConfig() {
+        return "faces-config.xml";
     }
 
-    @After
-    public void thearDown() throws Exception {
-        environment.release();
-        environment = null;
+    protected String getPageName() {
+        return "test";
     }
 
     @Test
@@ -51,39 +45,17 @@ public class AjaxValidationTest {
 
     @Test
     public void testSubmitTooShortValue() throws Exception {
-        submitValueAndCheckMesage("", not(equalTo("")));
+        submitValueAndCheckMessage("", not(equalTo("")));
     }
 
     @Test
     public void testSubmitTooLongValue() throws Exception {
-        submitValueAndCheckMesage("123456", not(equalTo("")));
+        submitValueAndCheckMessage("123456", not(equalTo("")));
     }
 
     @Test
     public void testSubmitProperValue() throws Exception {
-        submitValueAndCheckMesage("ab", equalTo(""));
+        submitValueAndCheckMessage("ab", equalTo(""));
     }
 
-    private void submitValueAndCheckMesage(String value, Matcher<String> matcher) throws Exception {
-        HtmlPage page = requestPage();
-        HtmlInput input = getInput(page);
-        input.setValueAttribute(value);
-        input.fireEvent("blur");
-        System.out.println(page.asXml());
-        HtmlElement message = page.getElementById("uiMessage");
-        assertThat(message.getTextContent(), matcher);
-    }
-
-    private HtmlInput getInput(HtmlPage page) {
-        HtmlForm htmlForm = page.getFormByName("form");
-        assertNotNull(htmlForm);
-        HtmlInput input = htmlForm.getInputByName("form:text");
-        return input;
-    }
-
-    private HtmlPage requestPage() throws IOException {
-        HtmlPage page = environment.getPage("/test.jsf");
-        System.out.println(page.asXml());
-        return page;
-    }
 }

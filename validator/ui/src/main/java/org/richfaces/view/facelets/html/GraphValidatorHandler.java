@@ -22,6 +22,7 @@
 package org.richfaces.view.facelets.html;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Iterator;
 
 import javax.el.ELException;
@@ -43,11 +44,24 @@ import javax.faces.view.facelets.FaceletContext;
 import org.richfaces.component.AbstractGraphValidator;
 import org.richfaces.validator.FacesBeanValidator;
 
+import com.google.common.base.Function;
+import com.google.common.base.Joiner;
+import com.google.common.collect.Iterables;
+
 /**
  * @author Nick Belaevski
  *
  */
 public class GraphValidatorHandler extends ComponentHandler {
+    
+    private static final Joiner GROUPS_JOINER = Joiner.on(BeanValidator.VALIDATION_GROUPS_DELIMITER);
+    
+    private static final Function<Class<?>, String> CLASS_TO_NAME = new Function<Class<?>, String>() {
+
+        public String apply(Class<?> input) {
+            return input.getName();
+        }
+    };
 
     private class FacesBeanValidatorAddListener implements ComponentSystemEventListener, StateHolder {
         private final SetupValidatorsParameter parameterObject;
@@ -137,7 +151,7 @@ public class GraphValidatorHandler extends ComponentHandler {
             BeanValidator defaultBeanValidator = (BeanValidator) defaultValidator;
             Class<?>[] groups = parameterObject.getGroups();
             if(null ==  defaultBeanValidator.getValidationGroups() && null != groups && groups.length >0){
-                // TODO - set validation groups for default validator.
+                defaultBeanValidator.setValidationGroups(GROUPS_JOINER.join(Iterables.transform(Arrays.asList(groups), CLASS_TO_NAME)));
             }
         }
 
