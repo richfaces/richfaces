@@ -57,6 +57,7 @@ public class FacesBeanValidator implements Serializable, Validator, GraphValidat
     private String summary = null;
     private ValueExpression groupsExpression = null;
     private Class<?>[] groups = null;
+    private boolean validateFields = true;
 
     public FacesBeanValidator() {
     }
@@ -104,7 +105,7 @@ public class FacesBeanValidator implements Serializable, Validator, GraphValidat
                     BeanValidatorService validatorService = ServiceTracker.getService(BeanValidatorService.class);
                     Collection<String> messages = validatorService.validateExpression(context, valueExpression, convertedValue,
                         getGroups());
-                    if (!messages.isEmpty()) {
+                    if (isValidateFields() && !messages.isEmpty()) {
                         input.setValid(false);
                         Object label = getLabel(context, component);
                         Locale locale = context.getViewRoot().getLocale();
@@ -177,5 +178,25 @@ public class FacesBeanValidator implements Serializable, Validator, GraphValidat
 
     public void setGroups(ValueExpression profilesExpression) {
         this.groupsExpression = profilesExpression;
+    }
+
+    /**
+     * <p class="changed_added_4_0">
+     * </p>
+     *
+     * @return the ignoreErrors
+     */
+    public boolean isValidateFields() {
+        return this.validateFields;
+    }
+
+    /**
+     * <p class="changed_added_4_0">
+     * </p>
+     *
+     * @param ignoreErrors the ignoreErrors to set
+     */
+    public void setValidateFields(boolean ignoreErrors) {
+        this.validateFields = ignoreErrors;
     }
 }

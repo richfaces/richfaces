@@ -22,6 +22,7 @@
 package org.richfaces.view.facelets.html;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Iterator;
 
 import javax.el.ELException;
@@ -41,20 +42,36 @@ import javax.faces.view.facelets.ComponentHandler;
 import javax.faces.view.facelets.FaceletContext;
 
 import org.richfaces.component.AbstractGraphValidator;
+import org.richfaces.validator.FacesBeanValidator;
+
+import com.google.common.base.Function;
+import com.google.common.base.Joiner;
+import com.google.common.collect.Iterables;
 
 /**
  * @author Nick Belaevski
  *
  */
 public class GraphValidatorHandler extends ComponentHandler {
-    private static final String BUILT_IN_BEAN_VALIDATOR_ATTRIBUTE_NAME = GraphValidatorHandler.class.getName()
-        + ":BUILT_IN_BEAN_VALIDATOR_ATTRIBUTE_NAME";
+
+    private static final Joiner GROUPS_JOINER = Joiner.on(BeanValidator.VALIDATION_GROUPS_DELIMITER);
+
+    private static final Function<Class<?>, String> CLASS_TO_NAME = new Function<Class<?>, String>() {
+
+        public String apply(Class<?> input) {
+            return input.getName();
+        }
+    };
 
     private class FacesBeanValidatorAddListener implements ComponentSystemEventListener, StateHolder {
+        private final SetupValidatorsParameter parameterObject;
+
+        public FacesBeanValidatorAddListener(SetupValidatorsParameter parameterObject) {
+            this.parameterObject = parameterObject;
+        }
+
         public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
-            FacesContext context = FacesContext.getCurrentInstance();
-            Validator childrenValidator = createChildrenValidator(context, event.getComponent());
-            setupValidators(context, event.getComponent(), childrenValidator);
+            setupValidators(parameterObject, event.getComponent());
         }
 
         public Object saveState(FacesContext context) {
@@ -78,18 +95,16 @@ public class GraphValidatorHandler extends ComponentHandler {
         super(config);
     }
 
-    private Validator getBuiltInBeanValidator(FacesContext context) {
-        Validator result = (Validator) context.getAttributes().get(BUILT_IN_BEAN_VALIDATOR_ATTRIBUTE_NAME);
-
-        if (result == null) {
-            result = context.getApplication().createValidator(BeanValidator.VALIDATOR_ID);
-            context.getAttributes().put(BUILT_IN_BEAN_VALIDATOR_ATTRIBUTE_NAME, result);
+    private Class<? extends Validator> getBuiltInBeanValidatorClass(FacesContext context) {
+        try {
+            Validator beanValidator = context.getApplication().createValidator(BeanValidator.VALIDATOR_ID);
+            return beanValidator.getClass();
+        } catch(FacesException e){
+            return null;
         }
-
-        return result;
     }
 
-    private void setupValidators(FacesContext context, UIComponent component, Validator validator) {
+    private void setupValidators(SetupValidatorsParameter parameterObject, UIComponent component) {
         if (component.getChildCount() == 0 && component.getFacetCount() == 0) {
             return;
         }
@@ -99,12 +114,12 @@ public class GraphValidatorHandler extends ComponentHandler {
             UIComponent child = facetsAndChildren.next();
             if (child instanceof EditableValueHolder) {
                 EditableValueHolder input = (EditableValueHolder) child;
-                setupValidator(context, input, validator);
+                setupValidator(parameterObject, input);
             }
 
             if (!(child instanceof AbstractGraphValidator)) {
                 // don't setup validators for nested GVs
-                setupValidators(context, child, validator);
+                setupValidators(parameterObject, child);
             }
         }
     }
@@ -112,27 +127,32 @@ public class GraphValidatorHandler extends ComponentHandler {
     /**
      * @param context TODO
      * @param input
+     * @param defaultValidatorClass TODO
      */
-    private void setupValidator(FacesContext context, EditableValueHolder input, Validator beanValidator) {
+    private void setupValidator(SetupValidatorsParameter parameterObject, EditableValueHolder input) {
         boolean addBeanValidator = true;
-        Class<?> validatorToRemoveClass = getBuiltInBeanValidator(context).getClass();
-        Validator validatorToRemove = null;
-
+        Validator defaultValidator = null;
+        Validator beanValidator = parameterObject.getValidator();
         Validator[] validators = input.getValidators();
         for (int i = 0; i < validators.length; i++) {
             Validator nextValidator = validators[i];
             if (nextValidator.getClass().equals(beanValidator.getClass())) {
                 addBeanValidator = false;
-                continue;
-            }
-
-            if (nextValidator.getClass().equals(validatorToRemoveClass)) {
-                validatorToRemove = nextValidator;
+            } else if (nextValidator.getClass().equals(parameterObject.getDefaultValidatorClass())) {
+                defaultValidator = nextValidator;
             }
         }
 
-        if (validatorToRemove != null) {
-            input.removeValidator(validatorToRemove);
+        if (defaultValidator != null && defaultValidator instanceof BeanValidator) {
+            if (beanValidator instanceof FacesBeanValidator) {
+                FacesBeanValidator facesBeanValidator = (FacesBeanValidator) beanValidator;
+                facesBeanValidator.setValidateFields(false);
+            }
+            BeanValidator defaultBeanValidator = (BeanValidator) defaultValidator;
+            Class<?>[] groups = parameterObject.getGroups();
+            if(null ==  defaultBeanValidator.getValidationGroups() && null != groups && groups.length >0){
+                defaultBeanValidator.setValidationGroups(GROUPS_JOINER.join(Iterables.transform(Arrays.asList(groups), CLASS_TO_NAME)));
+            }
         }
 
         if (addBeanValidator) {
@@ -140,20 +160,19 @@ public class GraphValidatorHandler extends ComponentHandler {
         }
     }
 
-    private Validator createChildrenValidator(FacesContext context, UIComponent c) {
-        AbstractGraphValidator graphValidator = (AbstractGraphValidator) c;
-
-        return graphValidator.createChildrenValidator(context);
-    }
 
     @Override
     public void applyNextHandler(FaceletContext ctx, UIComponent c) throws IOException, FacesException, ELException {
         super.applyNextHandler(ctx, c);
-
-        if (c.isInView()) {
-            setupValidators(ctx.getFacesContext(), c, createChildrenValidator(ctx.getFacesContext(), c));
-        } else {
-            c.subscribeToEvent(PostAddToViewEvent.class, new FacesBeanValidatorAddListener());
+        if (c instanceof AbstractGraphValidator) {
+            AbstractGraphValidator graphValidator = (AbstractGraphValidator) c;
+            FacesContext facesContext = ctx.getFacesContext();
+            SetupValidatorsParameter parameterObject = new SetupValidatorsParameter(graphValidator, getBuiltInBeanValidatorClass(facesContext), graphValidator.getGroups());
+            if (c.isInView()) {
+                setupValidators(parameterObject, c);
+            } else {
+                c.subscribeToEvent(PostAddToViewEvent.class, new FacesBeanValidatorAddListener(parameterObject));
+            }
         }
     }
 }
