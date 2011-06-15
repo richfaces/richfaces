@@ -172,7 +172,7 @@
             </demo>
         </demos>
     </group>
-    <group new="true">
+    <group>
         <name>Validation</name>
         <demos>
             <demo>
@@ -193,7 +193,7 @@
                 <id>graphValidator</id>
                 <name>rich:graphValidator</name>
                 <samples>
-                    <sample new="true">
+                    <sample>
                         <id>passwordValidation</id>
                         <name>Password Validation</name>
                     </sample>
@@ -234,7 +234,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo new="true">
+            <demo>
                 <id>dataTable</id>
                 <name>rich:dataTable</name>
                 <samples>
@@ -261,7 +261,7 @@
                         <id>tableFiltering</id>
                         <name>Data Table Filtering</name>
                     </sample>
-                    <sample new="true">
+                    <sample>
                         <id>dataTableEdit</id>
                         <name>Data Table Edit</name>
                     </sample>
@@ -277,12 +277,20 @@
                 <samples>
                     <sample>
                         <id>simpleTable</id>
-                        <name>ExtendedData Table Basic Usage</name>
+                        <name>Basic Usage</name>
                     </sample>
                     <sample>
                         <id>exTableSelection</id>
-                        <name>ExtendedData Table Selection usage</name>
+                        <name>Selection Management</name>
                     </sample>
+                    <sample new="true">
+                        <id>edt-sorting</id>
+                        <name>Table Sorting</name>
+                    </sample>    
+                    <sample new="true">
+                        <id>edt-filtering</id>
+                        <name>Table Filtering</name>
+                    </sample>                                      
                 </samples>
             </demo>
             <demo>
@@ -334,17 +342,17 @@
     <group>
         <name>Trees</name>
         <demos>
-            <demo new="true">
+            <demo>
                 <id>tree</id>
                 <name>rich:tree</name>
                 <samples>
-                    <sample new="true">
+                    <sample>
                         <id>tree</id>
                         <name>Simple tree from XML</name>
                     </sample>
                 </samples>
             </demo>
-            <demo new="true">
+            <demo>
                 <id>treeAdaptors</id>
                 <name>Tree Adaptors</name>
                 <samples>
@@ -381,7 +389,7 @@
                         <id>simple</id>
                         <name>Simple Toggle Panel</name>
                     </sample>
-                    <sample new="true">
+                    <sample>
                         <id>wizard</id>
                         <name>Wizard creation</name>
                     </sample>
@@ -425,7 +433,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo new="true">
+            <demo>
                 <id>popup</id>
                 <name>rich:popupPanel</name>
                 <samples>
@@ -437,7 +445,7 @@
                         <id>modalPopup</id>
                         <name>Modal panel example</name>
                     </sample>
-                    <sample new="true">
+                    <sample>
                         <id>login</id>
                         <name>Login panel positioning</name>
                     </sample>
@@ -520,12 +528,16 @@
                 <name>rich:autocomplete</name>
                 <samples>
                     <sample>
-                        <id>cachedAjax</id>
-                        <name>Autocomplete in Cached Ajax mode</name>
+                        <id>modes</id>
+                        <name>Autocompletion Modes</name>
+                    </sample>
+                    <sample new="true">
+                        <id>customLayouts</id>
+                        <name>Custom Popup Layouts</name>
                     </sample>
                     <sample>
                         <id>clientFilter</id>
-                        <name>Custom client filter</name>
+                        <name>Custom Client Filter</name>
                     </sample>
                 </samples>
             </demo>
@@ -612,7 +624,7 @@
     <group>
         <name>Drag and Drop</name>
         <demos>
-            <demo new="true">
+            <demo>
                 <id>dragDrop</id>
                 <name>Drag and Drop</name>
                 <samples>
@@ -620,7 +632,7 @@
                         <id>dragDrop</id>
                         <name>Drag and Drop usage example</name>
                     </sample>
-                    <sample new="true">
+                    <sample>
                         <id>dragIndicator</id>
                         <name>Drag Indicator usage example</name>
                     </sample>
@@ -661,7 +673,7 @@
                     </sample>
                 </samples>
             </demo>
-            <demo new="true">
+            <demo>
                 <id>hashParam</id>
                 <name>rich:hashParam</name>
                 <samples>

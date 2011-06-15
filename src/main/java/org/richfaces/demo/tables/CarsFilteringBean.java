@@ -3,13 +3,13 @@ package org.richfaces.demo.tables;
 import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 import org.richfaces.demo.tables.model.cars.InventoryItem;
 import org.richfaces.model.Filter;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class CarsFilteringBean implements Serializable {
     /**
      *

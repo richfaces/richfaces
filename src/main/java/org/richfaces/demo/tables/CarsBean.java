@@ -14,6 +14,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import org.richfaces.demo.common.data.RandomHelper;
@@ -29,12 +30,19 @@ public class CarsBean implements Serializable {
      */
     private static final long serialVersionUID = -3832235132261771583L;
     private static final int DECIMALS = 1;
+    private static final int CLIENT_ROWS_IN_AJAX_MODE = 15;
     private static final int ROUNDING_MODE = BigDecimal.ROUND_HALF_UP;
     private List<InventoryItem> allInventoryItems = null;
     private List<InventoryVendorList> inventoryVendorLists = null;
     private int currentCarIndex;
     private InventoryItem editedCar;
     private int page = 1;
+
+    private int clientRows;
+
+    public void switchAjaxLoading(ValueChangeEvent event) {
+        this.clientRows = (Boolean) event.getNewValue() ? CLIENT_ROWS_IN_AJAX_MODE : 0;
+    }
 
     public void remove() {
         allInventoryItems.remove(allInventoryItems.get(currentCarIndex));
@@ -225,5 +233,13 @@ public class CarsBean implements Serializable {
 
     public void setPage(int page) {
         this.page = page;
+    }
+
+    public int getClientRows() {
+        return clientRows;
+    }
+
+    public void setClientRows(int clientRows) {
+        this.clientRows = clientRows;
     }
 }
