@@ -14,12 +14,13 @@
 
     <groupId>org.richfaces.examples</groupId>
     <artifactId>richfaces-showcase</artifactId>
-    <version>4.1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Richfaces Examples: Richfaces Showcase Application</name>
 
     <properties>
         <gae.version>1.4.2</gae.version>
+        <hornetq.version>2.1.2.Final</hornetq.version>
+        <netty.version>3.2.2.Final</netty.version>
         <dependency.scope>compile</dependency.scope>
         <container.resources>src/main/resources-tomcat</container.resources>
         <container.resources.exclude></container.resources.exclude>
@@ -107,6 +108,43 @@
             <version>3.6.3.Final</version>
             <scope>${dependency.scope}</scope>
         </dependency>
+        
+        
+        <!-- Dependencies for Push and JMS -->
+        <dependency>
+            <groupId>org.atmosphere</groupId>
+            <artifactId>atmosphere-runtime</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.jms</groupId>
+            <artifactId>jms</artifactId>
+            <version>1.1</version>
+            <scope>${dependency.scope}</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hornetq</groupId>
+            <artifactId>hornetq-core</artifactId>
+            <version>${hornetq.version}</version>
+            <scope>${dependency.scope}</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hornetq</groupId>
+            <artifactId>hornetq-jms</artifactId>
+            <version>${hornetq.version}</version>
+            <scope>${dependency.scope}</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hornetq</groupId>
+            <artifactId>hornetq-logging</artifactId>
+            <version>${hornetq.version}</version>
+            <scope>${dependency.scope}</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.netty</groupId>
+            <artifactId>netty</artifactId>
+            <version>${netty.version}</version>
+            <scope>${dependency.scope}</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -168,8 +206,7 @@
                         <type>pom</type>
                         <exclusions>
                             <exclusion>
-                                <groupId>com.google.appengine.orm
-                                </groupId>
+                                <groupId>com.google.appengine.orm</groupId>
                                 <artifactId>jdo2-api</artifactId>
                             </exclusion>
                         </exclusions>
@@ -502,10 +539,8 @@
     </profiles>
 
     <scm>
-        <connection>scm:git:git://github.com/richfaces/showcase.git
-        </connection>
-        <developerConnection>scm:git:git@github.com:richfaces/showcase.git
-        </developerConnection>
+        <connection>scm:git:git://github.com/richfaces/showcase.git</connection>
+        <developerConnection>scm:git:git@github.com:richfaces/showcase.git</developerConnection>
         <url>https://github.com/richfaces/showcase</url>
     </scm>
 </project>

@@ -60,6 +60,20 @@
                     </sample>
                 </samples>
             </demo>
+            <demo new="true">
+                <id>push</id>
+                <name>a4j:push</name>
+                <samples>
+                    <sample>
+                        <id>pushJms</id>
+                        <name>JMS Push</name>
+                    </sample>
+                    <sample>
+                        <id>pushTopicsContext</id>
+                        <name>Topics Context Usage</name>
+                    </sample>
+                </samples>
+            </demo>
             <demo>
                 <id>param</id>
                 <name>a4j:param</name>

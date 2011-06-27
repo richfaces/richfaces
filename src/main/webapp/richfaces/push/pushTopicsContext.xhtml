@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition>
+    <p>
+        Push can be controlled by <b>programmatic API</b>. However durable topic still needs to be created and registered in
+        RichFaces and Java Messaging Service.
+    </p>
+
+
+    <rich:panel>
+        <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    </rich:panel>
+
+    <p>
+        Programmatic API consists from <b><tt>TopicKey</tt> </b> which addresses the topic and <b><tt>TopicsContext</tt>
+        </b> used for publishing messages.
+    </p>
+
+    <p>
+        For the purpose of observing events from the server, client creates <b>pernament connection</b> to the server either by
+        <i>WebSocket connection</i> or <i>long-polling method</i>. Pernament connections are managed by <i>Atmosphere
+            Framework</i>.
+    </p>
+
+    <p>
+        In this example, message doesn't contain any data - it <b>instructs client to rerender part of the page</b>, in this
+        case it forces client to load new unique ID.
+    </p>
+
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Source" />
+        <ui:param name="hideLabel" value="Hide Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/push/TopicsContextMessageProducer.java" />
+        <ui:param name="sourceType" value="java" />
+        <ui:param name="openLabel" value="View TopicsContext Message Producer" />
+        <ui:param name="hideLabel" value="Hide TopicsContext Message Producer" />
+    </ui:include>
+</ui:composition>
+</html>
