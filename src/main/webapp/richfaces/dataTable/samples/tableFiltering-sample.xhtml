@@ -40,7 +40,7 @@
                         <h:inputText value="#{carsFilteringBean.mileageFilter}">
                             <f:convertNumber groupingUsed="true" />
                             <f:validateLongRange maximum="500000" />
-                            <a4j:ajax event="blur" render="form:table" execute="@this" />
+                            <a4j:ajax event="blur" render="table" execute="@this" />
                         </h:inputText>
                     </h:panelGroup>
                 </f:facet>

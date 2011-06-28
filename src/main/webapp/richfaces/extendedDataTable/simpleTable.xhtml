@@ -15,6 +15,9 @@
         The component does not require the use of a special model; it supports all the standard models supported by the <b>rich:dataTable</b>
         component.
     </p>
+    <p>In order to turn on Ajax loading - you should just specify <b>clientRows</b> attribute with number of rows to be loaded on the client.
+    In the sample below it's set to 15 or to 0 according to checkbox value. 0 value means load all the rows
+    (or attribute could be just not defined at all).</p>
     <ui:include src="#{demoNavigator.sampleIncludeURI}" />
     <ui:include src="/templates/includes/source-view.xhtml">
         <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
@@ -22,7 +25,6 @@
         <ui:param name="openLabel" value="View Source" />
         <ui:param name="hideLabel" value="Hide Source" />
     </ui:include>
-    <p>In order to turn on Ajax loading - just specify clientRows attribute with number of rows to be loaded on the client</p>
 </ui:composition>
 
 </html>
