@@ -21,61 +21,36 @@
  */
 package org.richfaces.demo.push;
 
-import java.io.Serializable;
-import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.event.Event;
+import javax.enterprise.event.Observes;
 import javax.inject.Inject;
-import javax.inject.Named;
+
+import org.richfaces.application.push.TopicKey;
+import org.richfaces.application.push.TopicsContext;
 
 /**
+ * Observes CDI Events annotated by Push and pass event pay-loads to topic specific to current user identifier.
+ *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
-@Named
-@SessionScoped
-public class PushBean implements Serializable {
+public class PushEventObserver {
 
-    private static final long serialVersionUID = 1L;
+    private static final Logger LOGGER = Logger.getLogger(PushEventObserver.class.getName());
 
-    private String userIdentifier;
+    public static final String PUSH_CDI_TOPIC = "pushCdiTopic";
 
     @Inject
-    @Push
-    Event<String> pushEvent;
+    PushBean pushBean;
 
-    @PostConstruct
-    public void initialize() {
-        if (userIdentifier == null) {
-            userIdentifier = getUUID().replace("-", "");
+    public void onPushEvent(@Observes @Push Object message) {
+        try {
+            TopicKey topicKey = new TopicKey(PUSH_CDI_TOPIC, pushBean.getUserIdentifier());
+            TopicsContext topicsContext = TopicsContext.lookup();
+            topicsContext.publish(topicKey, message);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "push failed", e);
         }
-    }
-
-    /**
-     * Sends message.
-     *
-     * @param message to send
-     */
-    public void sendMessage(String message) {
-        pushEvent.fire(message);
-    }
-
-    /**
-     * Returns current user identifier.
-     *
-     * @return current user identifier.
-     */
-    public String getUserIdentifier() {
-        return userIdentifier;
-    }
-
-    /**
-     * Generates unique ID as string.
-     *
-     * @return unique ID as string.
-     */
-    public String getUUID() {
-        return UUID.randomUUID().toString();
     }
 }

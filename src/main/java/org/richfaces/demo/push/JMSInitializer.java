@@ -23,6 +23,7 @@ package org.richfaces.demo.push;
 
 import static org.richfaces.demo.push.JMSMessageProducer.PUSH_JMS_TOPIC;
 import static org.richfaces.demo.push.TopicsContextMessageProducer.PUSH_TOPICS_CONTEXT_TOPIC;
+import static org.richfaces.demo.push.PushEventObserver.PUSH_CDI_TOPIC;
 
 import java.util.HashSet;
 import java.util.logging.Level;
@@ -72,6 +73,7 @@ public class JMSInitializer extends AbstractInitializer {
             createConnectionFactory();
             createTopic(PUSH_JMS_TOPIC, "/topic/" + PUSH_JMS_TOPIC);
             createTopic(PUSH_TOPICS_CONTEXT_TOPIC, "/topic/" + PUSH_TOPICS_CONTEXT_TOPIC);
+            createTopic(PUSH_CDI_TOPIC, "/topic/" + PUSH_CDI_TOPIC);
         }
 
         ServiceTracker.getService(PushContextFactory.class).getPushContext();

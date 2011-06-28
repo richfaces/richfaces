@@ -21,61 +21,21 @@
  */
 package org.richfaces.demo.push;
 
-import java.io.Serializable;
-import java.util.UUID;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
-import javax.inject.Named;
+import javax.enterprise.inject.Stereotype;
 
 /**
+ * Classifier for CDI events passed to RichFaces Push.
+ *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
-@Named
-@SessionScoped
-public class PushBean implements Serializable {
+@Stereotype
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ ElementType.TYPE, ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER })
+public @interface Push {
 
-    private static final long serialVersionUID = 1L;
-
-    private String userIdentifier;
-
-    @Inject
-    @Push
-    Event<String> pushEvent;
-
-    @PostConstruct
-    public void initialize() {
-        if (userIdentifier == null) {
-            userIdentifier = getUUID().replace("-", "");
-        }
-    }
-
-    /**
-     * Sends message.
-     *
-     * @param message to send
-     */
-    public void sendMessage(String message) {
-        pushEvent.fire(message);
-    }
-
-    /**
-     * Returns current user identifier.
-     *
-     * @return current user identifier.
-     */
-    public String getUserIdentifier() {
-        return userIdentifier;
-    }
-
-    /**
-     * Generates unique ID as string.
-     *
-     * @return unique ID as string.
-     */
-    public String getUUID() {
-        return UUID.randomUUID().toString();
-    }
 }

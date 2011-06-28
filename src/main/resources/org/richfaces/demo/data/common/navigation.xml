@@ -72,6 +72,10 @@
                         <id>pushTopicsContext</id>
                         <name>Topics Context Usage</name>
                     </sample>
+                    <sample>
+                        <id>pushCdi</id>
+                        <name>CDI Push</name>
+                    </sample>
                 </samples>
             </demo>
             <demo>
