@@ -360,6 +360,12 @@
             },
 
             setValue: function(value) {
+                if (value == null || value == '') {
+                    this.__setValue('');
+                    this.__save();
+                    this.__updateItems();
+                    return;
+                }
                 var item;
                 for (var i = 0; i < this.clientItems.length; i++) {
                     item = this.clientItems[i];
