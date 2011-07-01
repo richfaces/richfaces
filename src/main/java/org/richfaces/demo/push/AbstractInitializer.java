@@ -28,6 +28,8 @@ import javax.faces.event.PostConstructApplicationEvent;
 import javax.faces.event.PreDestroyApplicationEvent;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 
 /**
  * <p>
@@ -41,7 +43,7 @@ import javax.faces.event.SystemEventListener;
  *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
-public abstract class AbstractInitializer implements Initializer, SystemEventListener {
+public abstract class AbstractInitializer implements Initializer, SystemEventListener, ServletContextListener {
 
     private boolean correctlyInitialized = false;
 
@@ -67,6 +69,23 @@ public abstract class AbstractInitializer implements Initializer, SystemEventLis
             } catch (Exception e) {
                 throw new AbortProcessingException(e);
             }
+        }
+    }
+    
+    public void contextInitialized(ServletContextEvent sce) {
+        try {
+            initialize();
+            correctlyInitialized = true;
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        }
+    }
+    
+    public void contextDestroyed(ServletContextEvent sce) {
+        try {
+            unload();
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
         }
     }
 

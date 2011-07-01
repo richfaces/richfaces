@@ -71,5 +71,13 @@
     <filter-mapping>
         <filter-name>PushFilter</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>ASYNC</dispatcher>
+        <dispatcher>ERROR</dispatcher>
     </filter-mapping>
+    <listener>
+        <listener-class>org.richfaces.demo.push.JMSInitializer</listener-class>
+    </listener>
 </web-app>

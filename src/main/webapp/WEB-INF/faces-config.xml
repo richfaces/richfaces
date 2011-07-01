@@ -18,11 +18,11 @@
     </managed-bean>
 
     <application>
-        <system-event-listener>
+        <!-- <system-event-listener>
             <system-event-listener-class>org.richfaces.demo.push.JMSInitializer</system-event-listener-class>
             <system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
-        </system-event-listener>
-        <system-event-listener>
+        </system-event-listener>-->
+        <!-- <system-event-listener>
             <system-event-listener-class>org.richfaces.demo.push.TopicsInitializer</system-event-listener-class>
             <system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
         </system-event-listener>
@@ -33,6 +33,6 @@
         <system-event-listener>
             <system-event-listener-class>org.richfaces.demo.push.TopicsContextMessageProducerInitializer</system-event-listener-class>
             <system-event-class>javax.faces.event.PostConstructApplicationEvent</system-event-class>
-        </system-event-listener>
+        </system-event-listener> -->
     </application>
 </faces-config>
