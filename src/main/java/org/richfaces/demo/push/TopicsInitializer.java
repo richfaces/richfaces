@@ -25,6 +25,12 @@ import static org.richfaces.demo.push.JMSMessageProducer.PUSH_JMS_TOPIC;
 import static org.richfaces.demo.push.PushEventObserver.PUSH_CDI_TOPIC;
 import static org.richfaces.demo.push.TopicsContextMessageProducer.PUSH_TOPICS_CONTEXT_TOPIC;
 
+import java.util.logging.Logger;
+
+import javax.naming.InitialContext;
+import javax.naming.NameNotFoundException;
+import javax.naming.NamingException;
+
 import org.richfaces.application.push.Topic;
 import org.richfaces.application.push.TopicKey;
 import org.richfaces.application.push.TopicsContext;
@@ -38,21 +44,57 @@ import org.richfaces.application.push.impl.DefaultMessageDataSerializer;
  */
 public class TopicsInitializer extends AbstractInitializer {
 
+    private static final Logger LOGGER = Logger.getLogger(TopicsInitializer.class.getName());
+
     /*
      * (non-Javadoc)
      *
      * @see org.richfaces.demo.push.Initializer#initialize()
      */
     public void initialize() throws Exception {
-        TopicsContext topicsContext = TopicsContext.lookup();
+        TopicsContext.lookup();
 
-        Topic pushJmsTopic = topicsContext.getOrCreateTopic(new TopicKey(PUSH_JMS_TOPIC));
-        pushJmsTopic.setMessageDataSerializer(DefaultMessageDataSerializer.instance());
+        new RegisterTopicThread(PUSH_JMS_TOPIC).start();
+        new RegisterTopicThread(PUSH_TOPICS_CONTEXT_TOPIC).start();
+        new RegisterTopicThread(PUSH_CDI_TOPIC).start();
+    }
 
-        Topic pushTopicsContextTopic = topicsContext.getOrCreateTopic(new TopicKey(PUSH_TOPICS_CONTEXT_TOPIC));
-        pushTopicsContextTopic.setMessageDataSerializer(DefaultMessageDataSerializer.instance());
+    private class RegisterTopicThread extends Thread {
 
-        Topic pushCdiTopic = topicsContext.getOrCreateTopic(new TopicKey(PUSH_CDI_TOPIC));
-        pushCdiTopic.setMessageDataSerializer(DefaultMessageDataSerializer.instance());
+        public RegisterTopicThread(final String topicName) {
+            super(new Runnable() {
+
+                public void run() {
+                    waitForJmsTopicReady();
+
+                    TopicsContext topicsContext = TopicsContext.lookup();
+                    Topic pushJmsTopic = topicsContext.getOrCreateTopic(new TopicKey(PUSH_JMS_TOPIC));
+                    pushJmsTopic.setMessageDataSerializer(DefaultMessageDataSerializer.instance());
+                }
+
+                private void waitForJmsTopicReady() {
+                    while (!isJmsTopicReady()) {
+                        try {
+                            LOGGER.severe("topic " + topicName + " not ready yet, sleeping");
+                            Thread.sleep(500);
+                        } catch (InterruptedException e) {
+                            throw new IllegalStateException(e);
+                        }
+                    }
+                }
+
+                private boolean isJmsTopicReady() {
+                    try {
+                        InitialContext.doLookup("topic/" + topicName);
+                        return true;
+                    } catch (NameNotFoundException e) {
+                        return false;
+                    } catch (NamingException e) {
+                        LOGGER.severe(e.getMessage());
+                    }
+                    return false;
+                }
+            }, "RegisterTopicThread");
+        }
     }
 }

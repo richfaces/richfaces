@@ -25,6 +25,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.naming.NameNotFoundException;
+
 /**
  * Runnable which are periodically sending messages until it is stopped or underlying thread is interrupted.
  *
@@ -55,6 +57,8 @@ public class MessageProducerRunnable implements Runnable {
         while (runFlag.get()) {
             try {
                 messageProducer.sendMessage();
+            } catch (NameNotFoundException e) {
+                LOGGER.fine(e.getMessage());
             } catch (Exception e) {
                 LOGGER.log(Level.SEVERE, e.getMessage(), e);
             }

@@ -33,12 +33,13 @@ import javax.servlet.ServletContextListener;
 
 /**
  * <p>
- * Abstract initializater and finalizer listening for JSF PostConstructApplicationEvent (needs to be registered explicitly in
- * faces-config.xml).
+ * Abstract initializater and finalizer listening for JSF PostConstructApplicationEvent (needs to be registered
+ * explicitly in faces-config.xml).
  * </p>
  *
  * <p>
- * After observing PostConstructApplicationEvent, it registers to PreDestroyApplicationEvent to observe finalization phase.
+ * After observing PostConstructApplicationEvent, it registers to PreDestroyApplicationEvent to observe finalization
+ * phase.
  * </p>
  *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -71,7 +72,7 @@ public abstract class AbstractInitializer implements Initializer, SystemEventLis
             }
         }
     }
-    
+
     public void contextInitialized(ServletContextEvent sce) {
         try {
             initialize();
@@ -80,7 +81,7 @@ public abstract class AbstractInitializer implements Initializer, SystemEventLis
             throw new IllegalStateException(e);
         }
     }
-    
+
     public void contextDestroyed(ServletContextEvent sce) {
         try {
             unload();

@@ -21,8 +21,12 @@
  */
 package org.richfaces.demo.push;
 
+import static org.richfaces.demo.push.JMSMessageProducer.PUSH_JMS_TOPIC;
+
+import org.richfaces.application.push.Topic;
 import org.richfaces.application.push.TopicKey;
 import org.richfaces.application.push.TopicsContext;
+import org.richfaces.application.push.impl.DefaultMessageDataSerializer;
 
 /**
  * Sends message to topic using TopicsContext.

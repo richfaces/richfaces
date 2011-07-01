@@ -26,34 +26,20 @@ import static org.richfaces.demo.push.PushEventObserver.PUSH_CDI_TOPIC;
 import static org.richfaces.demo.push.TopicsContextMessageProducer.PUSH_TOPICS_CONTEXT_TOPIC;
 
 import java.io.Closeable;
-import java.lang.management.ManagementFactory;
 import java.net.InetAddress;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.management.MBeanServer;
-import javax.management.MBeanServerConnection;
-import javax.management.MBeanServerInvocationHandler;
-import javax.management.ObjectName;
-import javax.management.remote.JMXConnector;
-import javax.management.remote.JMXConnectorFactory;
-import javax.management.remote.JMXServiceURL;
-import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NameNotFoundException;
 import javax.naming.NamingException;
 
-import javax.jms.Session;
 import org.hornetq.api.core.TransportConfiguration;
-import org.hornetq.api.core.management.ObjectNameBuilder;
 import org.hornetq.api.jms.management.JMSServerControl;
 import org.hornetq.core.config.Configuration;
 import org.hornetq.core.config.impl.ConfigurationImpl;
@@ -66,26 +52,21 @@ import org.hornetq.jms.server.JMSServerManager;
 import org.hornetq.jms.server.config.ConnectionFactoryConfiguration;
 import org.hornetq.jms.server.config.impl.ConnectionFactoryConfigurationImpl;
 import org.hornetq.jms.server.impl.JMSServerManagerImpl;
-import org.jboss.as.cli.handlers.jms.JmsTopicAddHandler;
 import org.jboss.as.controller.client.MessageSeverity;
 import org.jboss.as.controller.client.ModelControllerClient;
 import org.jboss.as.controller.client.OperationMessageHandler;
 import org.jboss.dmr.ModelNode;
 import org.jboss.threads.AsyncFuture;
-import org.jboss.threads.AsyncFutureTask;
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.application.push.PushContextFactory;
-import org.richfaces.demo.arrangeablemodel.PersistenceService;
 
 /**
  * Initializes JMS server and creates requested topics.
- * 
+ *
  * @author Nick Belaevski
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
 public class JMSInitializer extends AbstractInitializer {
 
-    private static final Logger LOGGER = Logger.getLogger(PersistenceService.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(JMSInitializer.class.getName());
 
     ModelControllerClient client;
     private HornetQServer jmsServer;
@@ -95,7 +76,7 @@ public class JMSInitializer extends AbstractInitializer {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.richfaces.demo.push.Initializer#initialize()
      */
     public void initialize() throws Exception {
@@ -109,15 +90,13 @@ public class JMSInitializer extends AbstractInitializer {
         }
 
         createTopic(PUSH_JMS_TOPIC, "/topic/" + PUSH_JMS_TOPIC);
-//        createTopic(PUSH_TOPICS_CONTEXT_TOPIC, "/topic/" + PUSH_TOPICS_CONTEXT_TOPIC);
-//        createTopic(PUSH_CDI_TOPIC, "/topic/" + PUSH_CDI_TOPIC);
-
-        //ServiceTracker.getService(PushContextFactory.class).getPushContext();
+        createTopic(PUSH_TOPICS_CONTEXT_TOPIC, "/topic/" + PUSH_TOPICS_CONTEXT_TOPIC);
+        createTopic(PUSH_CDI_TOPIC, "/topic/" + PUSH_CDI_TOPIC);
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.richfaces.demo.push.Initializer#unload()
      */
     public void unload() throws Exception {
@@ -187,16 +166,16 @@ public class JMSInitializer extends AbstractInitializer {
             executeAsync.addListener(new TopicStartupListener(), topicName);
         }
     }
-    
+
     private static class TopicStartupListener implements AsyncFuture.Listener<ModelNode, String> {
         public void handleComplete(AsyncFuture<? extends ModelNode> future, String attachment) {
             LOGGER.severe("handleComplete");
         }
-        
+
         public void handleFailed(AsyncFuture<? extends ModelNode> future, Throwable cause, String attachment) {
             LOGGER.severe("handleFailed");
         }
-        
+
         public void handleCancelled(AsyncFuture<? extends ModelNode> future, String attachment) {
             LOGGER.severe("handleCancelled");
         }
@@ -231,12 +210,13 @@ public class JMSInitializer extends AbstractInitializer {
     }
 
     public static void safeClose(final Closeable closeable) {
-        if (closeable != null)
+        if (closeable != null) {
             try {
                 closeable.close();
             } catch (Throwable t) {
                 LOGGER.log(Level.SEVERE, "Failed to close resource %s", closeable);
             }
+        }
     }
 
     private void unloadTopics() throws Exception {
@@ -263,7 +243,7 @@ public class JMSInitializer extends AbstractInitializer {
 
     /**
      * Returns true if JMS server is already running.
-     * 
+     *
      * @return true if JMS server is already running.
      */
     private boolean isJMSInitialized() {
