@@ -39,7 +39,7 @@ public class PushEventObserver {
 
     private static final Logger LOGGER = Logger.getLogger(PushEventObserver.class.getName());
 
-    public static final String PUSH_CDI_TOPIC = "pushCdiTopic";
+    public static final String PUSH_CDI_TOPIC = "pushCdi";
 
     @Inject
     PushBean pushBean;

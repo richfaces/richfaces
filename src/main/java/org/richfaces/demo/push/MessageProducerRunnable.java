@@ -57,8 +57,6 @@ public class MessageProducerRunnable implements Runnable {
         while (runFlag.get()) {
             try {
                 messageProducer.sendMessage();
-            } catch (NameNotFoundException e) {
-                LOGGER.fine(e.getMessage());
             } catch (Exception e) {
                 LOGGER.log(Level.SEVERE, e.getMessage(), e);
             }

@@ -5,3 +5,4 @@ test-output
 .project
 .clover
 .externalToolBuilders
+src/main/webapp/META-INF/MANIFEST.MF

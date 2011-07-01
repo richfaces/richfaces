@@ -39,6 +39,7 @@ import javax.naming.InitialContext;
 import javax.naming.NameNotFoundException;
 import javax.naming.NamingException;
 
+import javax.jms.Topic;
 import org.hornetq.api.core.TransportConfiguration;
 import org.hornetq.api.jms.management.JMSServerControl;
 import org.hornetq.core.config.Configuration;
@@ -80,6 +81,8 @@ public class JMSInitializer extends AbstractInitializer {
      * @see org.richfaces.demo.push.Initializer#initialize()
      */
     public void initialize() throws Exception {
+        InitialContext.doLookup("topic/test");
+
         if (isJMSInitialized()) {
             kickOffJMSConfiguration();
         } else {
@@ -156,7 +159,7 @@ public class JMSInitializer extends AbstractInitializer {
         operation.get("address").add("subsystem", "messaging");
         ModelNode result = client.execute(operation, emptyOperationMessageHandler);
 
-        if (!result.get("result").get("jms-topic").toString().contains(topicName)) {
+        if (!result.get("result").get("jms-topic").toString().contains("\"" + topicName + "\"")) {
             operation = new ModelNode();
             operation.get("operation").set("add");
             operation.get("address").add("subsystem", "messaging");

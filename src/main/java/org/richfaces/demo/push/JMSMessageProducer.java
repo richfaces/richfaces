@@ -37,6 +37,7 @@ import javax.jms.TopicConnectionFactory;
 import javax.jms.TopicPublisher;
 import javax.jms.TopicSession;
 import javax.naming.InitialContext;
+import javax.naming.NameNotFoundException;
 import javax.naming.NamingException;
 
 /**
@@ -46,7 +47,7 @@ import javax.naming.NamingException;
  */
 public class JMSMessageProducer implements MessageProducer {
 
-    public static final String PUSH_JMS_TOPIC = "pushJmsTopic";
+    public static final String PUSH_JMS_TOPIC = "pushJms";
 
     private static final Logger LOGGER = Logger.getLogger(JMSMessageProducer.class.getName());
 
@@ -65,6 +66,8 @@ public class JMSMessageProducer implements MessageProducer {
             initializeMessaging();
             ObjectMessage message = session.createObjectMessage(createMessage());
             publisher.publish(message);
+        } catch (NameNotFoundException e) {
+            LOGGER.fine(e.getMessage());
         } catch (JMSException e) {
             LOGGER.log(Level.SEVERE, e.getMessage(), e);
         }

@@ -68,7 +68,7 @@ public class TopicsInitializer extends AbstractInitializer {
                     waitForJmsTopicReady();
 
                     TopicsContext topicsContext = TopicsContext.lookup();
-                    Topic pushJmsTopic = topicsContext.getOrCreateTopic(new TopicKey(PUSH_JMS_TOPIC));
+                    Topic pushJmsTopic = topicsContext.getOrCreateTopic(new TopicKey(topicName));
                     pushJmsTopic.setMessageDataSerializer(DefaultMessageDataSerializer.instance());
                 }
 

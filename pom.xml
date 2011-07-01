@@ -199,6 +199,11 @@
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Dependencies>org.hornetq</Dependencies>
+                        </manifestEntries>
+                    </archive>
                     <webResources>
                         <resource>
                             <directory>src/main/webapp</directory>
@@ -301,24 +306,27 @@
                 <container.resources>src/main/resources-jboss-as7</container.resources>
                 <dependency.scope>provided</dependency.scope>
             </properties>
-            <!-- <dependencies>
+            <dependencies>
                 <dependency>
                     <groupId>org.hornetq</groupId>
                     <artifactId>hornetq-core</artifactId>
                     <version>${hornetq.version}</version>
                     <scope>compile</scope>
+                    <optional>true</optional>
                 </dependency>
                 <dependency>
                     <groupId>org.hornetq</groupId>
                     <artifactId>hornetq-jms</artifactId>
                     <version>${hornetq.version}</version>
                     <scope>compile</scope>
+                    <optional>true</optional>
                 </dependency>
                 <dependency>
                     <groupId>org.hornetq</groupId>
                     <artifactId>hornetq-logging</artifactId>
                     <version>${hornetq.version}</version>
                     <scope>compile</scope>
+                    <optional>true</optional>
                 </dependency>
                 <dependency>
                     <groupId>org.jboss.netty</groupId>
@@ -326,8 +334,6 @@
                     <version>3.2.2.Final</version>
                     <scope>compile</scope>
                 </dependency>
-            </dependencies> -->
-            <dependencies>
                 <dependency>
                     <groupId>org.slf4j</groupId>
                     <artifactId>slf4j-api</artifactId>

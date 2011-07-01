@@ -21,12 +21,9 @@
  */
 package org.richfaces.demo.push;
 
-import static org.richfaces.demo.push.JMSMessageProducer.PUSH_JMS_TOPIC;
-
-import org.richfaces.application.push.Topic;
+import org.richfaces.application.push.MessageException;
 import org.richfaces.application.push.TopicKey;
 import org.richfaces.application.push.TopicsContext;
-import org.richfaces.application.push.impl.DefaultMessageDataSerializer;
 
 /**
  * Sends message to topic using TopicsContext.
@@ -35,7 +32,7 @@ import org.richfaces.application.push.impl.DefaultMessageDataSerializer;
  */
 public class TopicsContextMessageProducer implements MessageProducer {
 
-    public static final String PUSH_TOPICS_CONTEXT_TOPIC = "pushTopicsContextTopic";
+    public static final String PUSH_TOPICS_CONTEXT_TOPIC = "pushTopicsContext";
 
     /*
      * (non-Javadoc)
@@ -43,9 +40,15 @@ public class TopicsContextMessageProducer implements MessageProducer {
      * @see org.richfaces.demo.push.MessageProducer#sendMessage()
      */
     public void sendMessage() throws Exception {
-        TopicKey topicKey = new TopicKey(PUSH_TOPICS_CONTEXT_TOPIC);
-        TopicsContext topicsContext = TopicsContext.lookup();
-        topicsContext.publish(topicKey, "message");
+        try {
+            TopicKey topicKey = new TopicKey(PUSH_TOPICS_CONTEXT_TOPIC);
+            TopicsContext topicsContext = TopicsContext.lookup();
+            topicsContext.publish(topicKey, "message");
+        } catch (MessageException e) {
+            if (!e.getMessage().matches("^Topic .* not found$")) {
+                throw e;
+            }
+        }
     }
 
     /*
