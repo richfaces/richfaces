@@ -31,6 +31,11 @@
         this.listElem.bind("mousedown", $.proxy(this.__onListMouseDown, this));
         this.listElem.bind("mouseup", $.proxy(this.__onMouseUp, this));
 
+        var listEventHandlers = {};
+        listEventHandlers["listshow" + this.namespace] = this.__listshowHandler;
+        listEventHandlers["listhide" + this.namespace] = this.__listhideHandler;
+        rf.Event.bind(this.input, listEventHandlers, this);
+
         this.items = this.popupList.__getItems();
         this.enableManualInput = mergedOptions.enableManualInput;
 
@@ -70,6 +75,12 @@
         return{
             name : "select",
             defaultLabelClass : "rf-sel-dflt-lbl",
+
+            __listshowHandler: function(e) {
+            },
+
+            __listhideHandler: function(e) {
+            },
 
             __onBtnMouseDown: function(e) {
                 if (!this.popupList.isVisible()) {
@@ -258,10 +269,12 @@
 
             __showPopup: function() {
                 this.popupList.show();
+                this.invokeEvent.call(this, "listshow", document.getElementById(this.id));
             },
 
             __hidePopup: function() {
                 this.popupList.hide();
+                this.invokeEvent.call(this, "listhide", document.getElementById(this.id));
             },
 
             showPopup: function() {
