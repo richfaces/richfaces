@@ -1,7 +1,7 @@
 #!/bin/bash
 
 MODULES="archetypes build cdk components core dev-examples showcase"
-SCRIPTS=`dirname $0`
+SCRIPTS=`dirname $(readlink -f $0)`
 TOPDIR=`readlink -f $SCRIPTS/../..`
 BRANCH="develop"
 CURL=/usr/bin/curl
