@@ -28,9 +28,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 import javax.swing.tree.TreeNode;
 
 import org.richfaces.component.UITree;
@@ -43,8 +43,9 @@ import org.richfaces.event.TreeSelectionChangeEvent;
  * @author Ilya Shaikovsky
  */
 @ManagedBean
-@ApplicationScoped
+@ViewScoped
 public class TreeBean implements Serializable {
+    private static final long serialVersionUID = 1L;
     @ManagedProperty(value = "#{cdsParser.cdsList}")
     private List<CDXmlDescriptor> cdXmlDescriptors;
     private List<TreeNode> rootNodes = new ArrayList<TreeNode>();
