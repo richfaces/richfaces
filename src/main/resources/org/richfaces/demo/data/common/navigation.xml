@@ -283,11 +283,11 @@
                         <id>exTableSelection</id>
                         <name>Selection Management</name>
                     </sample>
-                    <sample new="true">
+                    <sample>
                         <id>edt-sorting</id>
                         <name>Table Sorting</name>
                     </sample>    
-                    <sample new="true">
+                    <sample>
                         <id>edt-filtering</id>
                         <name>Table Filtering</name>
                     </sample>                                      
@@ -531,7 +531,7 @@
                         <id>modes</id>
                         <name>Autocompletion Modes</name>
                     </sample>
-                    <sample new="true">
+                    <sample>
                         <id>customLayouts</id>
                         <name>Custom Popup Layouts</name>
                     </sample>
