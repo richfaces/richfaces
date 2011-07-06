@@ -240,11 +240,11 @@
                 <samples>
                     <sample>
                         <id>simpleTable</id>
-                        <name>Data Table Basic</name>
+                        <name>Basic Data Table</name>
                     </sample>
                     <sample>
                         <id>tableStyling</id>
-                        <name>Data Table Styling</name>
+                        <name>Styling</name>
                         <description>
                             <!-- TODO: rowClass should appears at this sample after completion -->
                             <!-- TODO: rowClasses should be used instead of jQuerry selectors
@@ -255,19 +255,19 @@
                     </sample>
                     <sample>
                         <id>tableSorting</id>
-                        <name>Data Table Sorting</name>
+                        <name>Sorting</name>
                     </sample>
                     <sample>
                         <id>tableFiltering</id>
-                        <name>Data Table Filtering</name>
+                        <name>Filtering</name>
                     </sample>
                     <sample>
                         <id>dataTableEdit</id>
-                        <name>Data Table Edit</name>
+                        <name>Editing</name>
                     </sample>
                     <sample new="true">
                         <id>arrangeableModel</id>
-                        <name>Arrangeable Model Sample</name>
+                        <name>Arrangeable</name>
                     </sample>
                 </samples>
             </demo>
