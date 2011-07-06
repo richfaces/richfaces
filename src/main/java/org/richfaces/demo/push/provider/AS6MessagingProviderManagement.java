@@ -41,7 +41,7 @@ import org.hornetq.api.jms.management.JMSServerControl;
  *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
-public class AS6ManagementProvider implements MessagingProviderManagement {
+public class AS6MessagingProviderManagement implements MessagingProviderManagement {
 
     private JMSServerControl serverControl;
 

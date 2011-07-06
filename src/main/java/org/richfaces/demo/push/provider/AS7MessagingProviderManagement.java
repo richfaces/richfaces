@@ -34,9 +34,9 @@ import org.jboss.dmr.ModelNode;
  *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
-public class AS7ManagementProvider implements MessagingProviderManagement {
+public class AS7MessagingProviderManagement implements MessagingProviderManagement {
 
-    private static final Logger LOGGER = Logger.getLogger(AS7ManagementProvider.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(AS7MessagingProviderManagement.class.getName());
 
     private ModelControllerClient client;
 

@@ -42,7 +42,7 @@ import org.richfaces.application.push.impl.DefaultMessageDataSerializer;
  * @author Nick Belaevski
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
-public class TopicsInitializer extends AbstractInitializer {
+public class TopicsInitializer extends AbstractCapabilityInitializer {
 
     private static final Logger LOGGER = Logger.getLogger(TopicsInitializer.class.getName());
 
@@ -51,7 +51,7 @@ public class TopicsInitializer extends AbstractInitializer {
      *
      * @see org.richfaces.demo.push.Initializer#initialize()
      */
-    public void initialize() throws Exception {
+    public void initializeCapability() throws Exception {
         TopicsContext.lookup();
 
         new RegisterTopicThread(PUSH_JMS_TOPIC).start();

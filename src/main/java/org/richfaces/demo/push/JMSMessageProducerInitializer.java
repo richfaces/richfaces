@@ -37,5 +37,4 @@ public class JMSMessageProducerInitializer extends AbstractMessageProducerInitia
     public MessageProducer createMessageProducer() {
         return new JMSMessageProducer();
     }
-
 }

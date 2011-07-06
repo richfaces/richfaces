@@ -22,22 +22,22 @@
 package org.richfaces.demo.push;
 
 /**
- * Implementations of initialization and finalization phases.
+ * Initialize and finalize capability.
  *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
-public interface Initializer {
+public interface CapabilityInitializer {
     /**
      * Initializes provided capability.
      *
      * @throws Exception
      */
-    void initialize() throws Exception;
+    void initializeCapability() throws Exception;
 
     /**
      * Finalizes provided capability and frees allocated resources.
      *
      * @throws Exception
      */
-    void unload() throws Exception;
+    void finalizeCapability() throws Exception;
 }

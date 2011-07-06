@@ -55,6 +55,8 @@
     <login-config>
         <auth-method>BASIC</auth-method>
     </login-config>
+    
+    <!-- Registers Push -->
     <context-param>
         <param-name>org.richfaces.push.jms.connectionUsername</param-name>
         <param-value>guest</param-value>
@@ -72,6 +74,8 @@
         <filter-name>PushFilter</filter-name>
         <servlet-name>Faces Servlet</servlet-name>
     </filter-mapping>
+    
+    <!-- Initializes CDI -->
     <listener>
         <listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
     </listener>

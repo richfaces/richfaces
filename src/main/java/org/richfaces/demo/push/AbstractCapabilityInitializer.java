@@ -44,7 +44,7 @@ import javax.servlet.ServletContextListener;
  *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
-public abstract class AbstractInitializer implements Initializer, SystemEventListener, ServletContextListener {
+public abstract class AbstractCapabilityInitializer implements CapabilityInitializer, SystemEventListener, ServletContextListener {
 
     private boolean correctlyInitialized = false;
 
@@ -59,14 +59,14 @@ public abstract class AbstractInitializer implements Initializer, SystemEventLis
             application.subscribeToEvent(PreDestroyApplicationEvent.class, this);
 
             try {
-                initialize();
+                initializeCapability();
                 correctlyInitialized = true;
             } catch (Exception e) {
                 throw new AbortProcessingException(e);
             }
         } else {
             try {
-                unload();
+                finalizeCapability();
             } catch (Exception e) {
                 throw new AbortProcessingException(e);
             }
@@ -75,7 +75,7 @@ public abstract class AbstractInitializer implements Initializer, SystemEventLis
 
     public void contextInitialized(ServletContextEvent sce) {
         try {
-            initialize();
+            initializeCapability();
             correctlyInitialized = true;
         } catch (Exception e) {
             throw new IllegalStateException(e);
@@ -84,7 +84,7 @@ public abstract class AbstractInitializer implements Initializer, SystemEventLis
 
     public void contextDestroyed(ServletContextEvent sce) {
         try {
-            unload();
+            finalizeCapability();
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }
@@ -113,6 +113,6 @@ public abstract class AbstractInitializer implements Initializer, SystemEventLis
      *
      * @see org.richfaces.demo.push.Initializer#unload()
      */
-    public void unload() throws Exception {
+    public void finalizeCapability() throws Exception {
     }
 }

@@ -44,11 +44,12 @@ import org.hornetq.jms.server.impl.JMSServerManagerImpl;
 /**
  * Starts HornetQ, binds ConnectionFactory to the context and create topics.
  *
+ * @author Nick Belaevski
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
-public class CustomServerManagementProvider implements MessagingProviderManagement {
+public class CustomMessagingServerManagement implements MessagingProviderManagement {
 
-    private static final Logger LOGGER = Logger.getLogger(CustomServerManagementProvider.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(CustomMessagingServerManagement.class.getName());
 
     private HornetQServer jmsServer;
     private JMSServerManager jmsServerManager;

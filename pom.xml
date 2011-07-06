@@ -164,13 +164,8 @@
             <groupId>org.jboss.as</groupId>
             <artifactId>jboss-as-controller-client</artifactId>
             <version>7.0.0.CR1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.as</groupId>
-            <artifactId>jboss-as-cli</artifactId>
-            <version>7.0.0.CR1</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 
@@ -215,6 +210,7 @@
                 <configuration>
                     <archive>
                         <manifestEntries>
+                            <!-- Initialize HornetQ module on AS7 -->
                             <Dependencies>org.hornetq</Dependencies>
                         </manifestEntries>
                     </archive>
@@ -254,35 +250,6 @@
                 </dependencies>
             </plugin>
         </plugins>
-        <pluginManagement>
-            <plugins>
-                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-                <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.apache.maven.plugins</groupId>
-                                        <artifactId>maven-checkstyle-plugin</artifactId>
-                                        <versionRange>[2.5,)</versionRange>
-                                        <goals>
-                                            <goal>check</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <ignore></ignore>
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
 
     <profiles>
@@ -322,49 +289,23 @@
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>org.hornetq</groupId>
-                    <artifactId>hornetq-core</artifactId>
-                    <version>${hornetq.version}</version>
-                    <scope>compile</scope>
-                    <optional>true</optional>
-                </dependency>
-                <dependency>
-                    <groupId>org.hornetq</groupId>
-                    <artifactId>hornetq-jms</artifactId>
-                    <version>${hornetq.version}</version>
-                    <scope>compile</scope>
-                    <optional>true</optional>
-                </dependency>
-                <dependency>
-                    <groupId>org.hornetq</groupId>
-                    <artifactId>hornetq-logging</artifactId>
-                    <version>${hornetq.version}</version>
-                    <scope>compile</scope>
-                    <optional>true</optional>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.netty</groupId>
-                    <artifactId>netty</artifactId>
-                    <version>3.2.2.Final</version>
-                    <scope>compile</scope>
-                </dependency>
-                <dependency>
                     <groupId>org.slf4j</groupId>
                     <artifactId>slf4j-api</artifactId>
                     <version>1.5.8</version>
-                    <scope>compile</scope>
+                    <scope>runtime</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.slf4j</groupId>
                     <artifactId>slf4j-jdk14</artifactId>
                     <version>1.5.8</version>
-                    <scope>compile</scope>
+                    <scope>runtime</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.jboss.as</groupId>
                     <artifactId>jboss-as-controller-client</artifactId>
                     <version>7.0.0.CR1</version>
                     <scope>compile</scope>
+                    <optional>false</optional>
                 </dependency>
             </dependencies>
             <build>

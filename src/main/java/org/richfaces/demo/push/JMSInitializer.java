@@ -32,19 +32,18 @@ import javax.naming.InitialContext;
 import javax.naming.NameNotFoundException;
 import javax.naming.NamingException;
 
-import org.richfaces.demo.push.provider.AS6ManagementProvider;
-import org.richfaces.demo.push.provider.AS7ManagementProvider;
-import org.richfaces.demo.push.provider.CustomServerManagementProvider;
+import org.richfaces.demo.push.provider.AS6MessagingProviderManagement;
+import org.richfaces.demo.push.provider.AS7MessagingProviderManagement;
+import org.richfaces.demo.push.provider.CustomMessagingServerManagement;
 import org.richfaces.demo.push.provider.InitializationFailedException;
 import org.richfaces.demo.push.provider.MessagingProviderManagement;
 
 /**
  * Initializes JMS server and creates requested topics.
  *
- * @author Nick Belaevski
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
-public class JMSInitializer extends AbstractInitializer {
+public class JMSInitializer extends AbstractCapabilityInitializer {
 
     private static final Logger LOGGER = Logger.getLogger(JMSInitializer.class.getName());
 
@@ -55,7 +54,7 @@ public class JMSInitializer extends AbstractInitializer {
      *
      * @see org.richfaces.demo.push.Initializer#initialize()
      */
-    public void initialize() throws Exception {
+    public void initializeCapability() throws Exception {
         provider = initializeCurrentProvider();
 
         provider.createTopic(PUSH_JMS_TOPIC, "/topic/" + PUSH_JMS_TOPIC);
@@ -68,7 +67,7 @@ public class JMSInitializer extends AbstractInitializer {
      *
      * @see org.richfaces.demo.push.Initializer#unload()
      */
-    public void unload() throws Exception {
+    public void finalizeCapability() throws Exception {
         provider.finalizeProvider();
     }
 
@@ -77,11 +76,12 @@ public class JMSInitializer extends AbstractInitializer {
      *
      * @return all providers which are available from current context
      */
+    @SuppressWarnings("unchecked")
     private Class<? extends MessagingProviderManagement>[] getAvailableProviders() {
         if (isConnectionFactoryRegistered()) {
-            return new Class[] { AS7ManagementProvider.class, AS6ManagementProvider.class };
+            return new Class[] { AS7MessagingProviderManagement.class, AS6MessagingProviderManagement.class };
         } else {
-            return new Class[] { CustomServerManagementProvider.class };
+            return new Class[] { CustomMessagingServerManagement.class };
         }
     }
 
