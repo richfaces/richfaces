@@ -155,8 +155,22 @@
         <dependency>
             <groupId>org.jboss.weld.servlet</groupId>
             <artifactId>weld-servlet</artifactId>
-            <version>1.0.1-Final</version>
+            <version>1.1.0.Final</version>
             <scope>${dependency.scope}</scope>
+        </dependency>
+        
+        <!-- JBoss AS7 management -->
+        <dependency>
+            <groupId>org.jboss.as</groupId>
+            <artifactId>jboss-as-controller-client</artifactId>
+            <version>7.0.0.CR1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.as</groupId>
+            <artifactId>jboss-as-cli</artifactId>
+            <version>7.0.0.CR1</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -350,12 +364,7 @@
                     <groupId>org.jboss.as</groupId>
                     <artifactId>jboss-as-controller-client</artifactId>
                     <version>7.0.0.CR1</version>
-                </dependency>
-                <dependency>
-                    <groupId>org.jboss.as</groupId>
-                    <artifactId>jboss-as-cli</artifactId>
-                    <version>7.0.0.CR1</version>
-                    <scope>provided</scope>
+                    <scope>compile</scope>
                 </dependency>
             </dependencies>
             <build>

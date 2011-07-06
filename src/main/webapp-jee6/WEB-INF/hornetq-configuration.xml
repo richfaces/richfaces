@@ -1,7 +1,7 @@
 <configuration xmlns="urn:hornetq" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:hornetq /schema/hornetq-configuration.xsd">
 
     <security-settings>
-        <security-setting match="jms.topic.pushJms">
+        <security-setting match="#">
             <permission type="createDurableQueue" roles="guest" />
             <permission type="deleteDurableQueue" roles="guest" />
             <permission type="createNonDurableQueue" roles="guest" />

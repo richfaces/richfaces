@@ -25,39 +25,18 @@ import static org.richfaces.demo.push.JMSMessageProducer.PUSH_JMS_TOPIC;
 import static org.richfaces.demo.push.PushEventObserver.PUSH_CDI_TOPIC;
 import static org.richfaces.demo.push.TopicsContextMessageProducer.PUSH_TOPICS_CONTEXT_TOPIC;
 
-import java.io.Closeable;
-import java.net.InetAddress;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.management.MBeanServer;
 import javax.naming.InitialContext;
 import javax.naming.NameNotFoundException;
 import javax.naming.NamingException;
 
-import javax.jms.Topic;
-import org.hornetq.api.core.TransportConfiguration;
-import org.hornetq.api.jms.management.JMSServerControl;
-import org.hornetq.core.config.Configuration;
-import org.hornetq.core.config.impl.ConfigurationImpl;
-import org.hornetq.core.remoting.impl.netty.NettyAcceptorFactory;
-import org.hornetq.core.remoting.impl.netty.NettyConnectorFactory;
-import org.hornetq.core.server.HornetQServer;
-import org.hornetq.core.server.HornetQServers;
-import org.hornetq.jms.management.impl.JMSServerControlImpl;
-import org.hornetq.jms.server.JMSServerManager;
-import org.hornetq.jms.server.config.ConnectionFactoryConfiguration;
-import org.hornetq.jms.server.config.impl.ConnectionFactoryConfigurationImpl;
-import org.hornetq.jms.server.impl.JMSServerManagerImpl;
-import org.jboss.as.controller.client.MessageSeverity;
-import org.jboss.as.controller.client.ModelControllerClient;
-import org.jboss.as.controller.client.OperationMessageHandler;
-import org.jboss.dmr.ModelNode;
-import org.jboss.threads.AsyncFuture;
+import org.richfaces.demo.push.provider.AS6ManagementProvider;
+import org.richfaces.demo.push.provider.AS7ManagementProvider;
+import org.richfaces.demo.push.provider.CustomServerManagementProvider;
+import org.richfaces.demo.push.provider.InitializationFailedException;
+import org.richfaces.demo.push.provider.MessagingProviderManagement;
 
 /**
  * Initializes JMS server and creates requested topics.
@@ -69,11 +48,7 @@ public class JMSInitializer extends AbstractInitializer {
 
     private static final Logger LOGGER = Logger.getLogger(JMSInitializer.class.getName());
 
-    ModelControllerClient client;
-    private HornetQServer jmsServer;
-    private JMSServerManager jmsServerManager;
-    private JMSServerControl jmsServerControl;
-    private MBeanServer mBeanServer;
+    private MessagingProviderManagement provider;
 
     /*
      * (non-Javadoc)
@@ -81,20 +56,11 @@ public class JMSInitializer extends AbstractInitializer {
      * @see org.richfaces.demo.push.Initializer#initialize()
      */
     public void initialize() throws Exception {
-        InitialContext.doLookup("topic/test");
+        provider = initializeCurrentProvider();
 
-        if (isJMSInitialized()) {
-            kickOffJMSConfiguration();
-        } else {
-            startJMSServer();
-            startJMSServerManager();
-            createJMSConnectionFactory();
-            createJMSServerControlViaServerManager();
-        }
-
-        createTopic(PUSH_JMS_TOPIC, "/topic/" + PUSH_JMS_TOPIC);
-        createTopic(PUSH_TOPICS_CONTEXT_TOPIC, "/topic/" + PUSH_TOPICS_CONTEXT_TOPIC);
-        createTopic(PUSH_CDI_TOPIC, "/topic/" + PUSH_CDI_TOPIC);
+        provider.createTopic(PUSH_JMS_TOPIC, "/topic/" + PUSH_JMS_TOPIC);
+        provider.createTopic(PUSH_TOPICS_CONTEXT_TOPIC, "/topic/" + PUSH_TOPICS_CONTEXT_TOPIC);
+        provider.createTopic(PUSH_CDI_TOPIC, "/topic/" + PUSH_CDI_TOPIC);
     }
 
     /*
@@ -103,153 +69,48 @@ public class JMSInitializer extends AbstractInitializer {
      * @see org.richfaces.demo.push.Initializer#unload()
      */
     public void unload() throws Exception {
-        unloadTopics();
-        stopJMSServerManager();
-        stopJMSServer();
-    }
-
-    private void kickOffJMSConfiguration() throws Exception {
-        client = ModelControllerClient.Factory.create(InetAddress.getLocalHost(), 9999);
-
-        // ModelNode operation = new ModelNode();
-        // operation.get("operation").set("read-resource");
-        // operation.get("address").setEmptyList();
-        // ModelNode result = client.execute(operation);
-        //
-        //
-        // if (!"success".equals(result.get("outcome").asString())) {
-        // throw new IllegalStateException("Adding topic unsuccessfull");
-        // }
-
-    }
-
-    private void startJMSServer() throws Exception {
-        jmsServer = HornetQServers.newHornetQServer(createHornetQConfiguration());
-    }
-
-    private void startJMSServerManager() throws Exception {
-        jmsServerManager = new JMSServerManagerImpl(jmsServer);
-
-        InitialContext context = new InitialContext();
-        jmsServerManager.setContext(context);
-        jmsServerManager.start();
-    }
-
-    private void createJMSConnectionFactory() throws Exception {
-        List<String> connectors = Arrays.asList(new String[] { "netty" });
-
-        ConnectionFactoryConfiguration connectionFactoryConfiguration = new ConnectionFactoryConfigurationImpl(
-            "ConnectionFactory", false, connectors, (String) null);
-        connectionFactoryConfiguration.setUseGlobalPools(false);
-
-        jmsServerManager.createConnectionFactory(false, connectionFactoryConfiguration, "ConnectionFactory");
-    }
-
-    private void createJMSServerControlViaServerManager() throws Exception {
-        jmsServerControl = new JMSServerControlImpl(jmsServerManager);
-    }
-
-    private Set<String> deployedTopics = new HashSet<String>();
-
-    private void createTopic(String topicName, String jndiName) throws Exception {
-        jndiName = jndiName.replaceFirst("/", "");
-
-        ModelNode operation = new ModelNode();
-        operation.get("operation").set("read-resource");
-        operation.get("address").add("subsystem", "messaging");
-        ModelNode result = client.execute(operation, emptyOperationMessageHandler);
-
-        if (!result.get("result").get("jms-topic").toString().contains("\"" + topicName + "\"")) {
-            operation = new ModelNode();
-            operation.get("operation").set("add");
-            operation.get("address").add("subsystem", "messaging");
-            operation.get("address").add("jms-topic", topicName);
-            operation.get("entries").add("topic/" + topicName);
-            AsyncFuture<ModelNode> executeAsync = client.executeAsync(operation, emptyOperationMessageHandler);
-            executeAsync.addListener(new TopicStartupListener(), topicName);
-        }
-    }
-
-    private static class TopicStartupListener implements AsyncFuture.Listener<ModelNode, String> {
-        public void handleComplete(AsyncFuture<? extends ModelNode> future, String attachment) {
-            LOGGER.severe("handleComplete");
-        }
-
-        public void handleFailed(AsyncFuture<? extends ModelNode> future, Throwable cause, String attachment) {
-            LOGGER.severe("handleFailed");
-        }
-
-        public void handleCancelled(AsyncFuture<? extends ModelNode> future, String attachment) {
-            LOGGER.severe("handleCancelled");
-        }
-    }
-
-    private void isTopicDeployed(String topicName) throws Exception {
-
-    }
-
-    private ModelNode createOperationOnTopic(String operationName, String topicName) {
-        final ModelNode operation = new ModelNode();
-        operation.get("operation").set(operationName);
-        operation.get("address").add("subsystem", "messaging");
-        operation.get("address").add("jms-topic", topicName);
-        return operation;
-    }
-
-    private Configuration createHornetQConfiguration() {
-        Configuration configuration = new ConfigurationImpl();
-        configuration.setPersistenceEnabled(false);
-        configuration.setSecurityEnabled(false);
-
-        TransportConfiguration transportationConfiguration = new TransportConfiguration(
-            NettyAcceptorFactory.class.getName());
-        HashSet<TransportConfiguration> setTransp = new HashSet<TransportConfiguration>();
-        setTransp.add(transportationConfiguration);
-        configuration.setAcceptorConfigurations(setTransp);
-        configuration.getConnectorConfigurations().put("netty",
-            new TransportConfiguration(NettyConnectorFactory.class.getName()));
-
-        return configuration;
-    }
-
-    public static void safeClose(final Closeable closeable) {
-        if (closeable != null) {
-            try {
-                closeable.close();
-            } catch (Throwable t) {
-                LOGGER.log(Level.SEVERE, "Failed to close resource %s", closeable);
-            }
-        }
-    }
-
-    private void unloadTopics() throws Exception {
-        for (String topicName : deployedTopics) {
-            unloadTopic(topicName);
-        }
-    }
-
-    private OperationMessageHandler emptyOperationMessageHandler = new OperationMessageHandler() {
-
-        public void handleReport(MessageSeverity severity, String message) {
-            LOGGER.log(Level.SEVERE, message);
-        }
-    };
-
-    private void unloadTopic(String topicName) {
-        LOGGER.severe("unloading topic " + topicName);
-        final ModelNode operation = new ModelNode();
-        operation.get("operation").set("remove");
-        operation.get("address").add("subsystem", "messaging");
-        operation.get("address").add("jms-topic", topicName);
-        client.executeAsync(operation, emptyOperationMessageHandler);
+        provider.finalizeProvider();
     }
 
     /**
-     * Returns true if JMS server is already running.
+     * Returns all providers which are available from current context
      *
-     * @return true if JMS server is already running.
+     * @return all providers which are available from current context
      */
-    private boolean isJMSInitialized() {
+    private Class<? extends MessagingProviderManagement>[] getAvailableProviders() {
+        if (isConnectionFactoryRegistered()) {
+            return new Class[] { AS7ManagementProvider.class, AS6ManagementProvider.class };
+        } else {
+            return new Class[] { CustomServerManagementProvider.class };
+        }
+    }
+
+    /**
+     * Returns one of providers available from current context which are able to initialize successfully
+     *
+     * @return one of providers available from current context which are able to initialize successfully
+     */
+    private MessagingProviderManagement initializeCurrentProvider() {
+        for (Class<? extends MessagingProviderManagement> c : getAvailableProviders()) {
+            try {
+                MessagingProviderManagement provider = c.newInstance();
+                provider.initializeProvider();
+                return provider;
+            } catch (InitializationFailedException e) {
+                // TODO
+            } catch (Exception e) {
+                throw new IllegalStateException(e);
+            }
+        }
+        throw new IllegalStateException("no management provider has been successfully initialized");
+    }
+
+    /**
+     * Returns true if ConnectionFactory is already registered
+     *
+     * @return true if ConnectionFactory is already registered
+     */
+    private boolean isConnectionFactoryRegistered() {
         try {
             return null != InitialContext.doLookup("java:/ConnectionFactory");
         } catch (NamingException e) {
@@ -260,13 +121,4 @@ public class JMSInitializer extends AbstractInitializer {
         }
     }
 
-    private void stopJMSServer() throws Exception {
-        jmsServer.stop();
-        jmsServer = null;
-    }
-
-    private void stopJMSServerManager() throws Exception {
-        jmsServerManager.stop();
-        jmsServerManager = null;
-    }
 }
