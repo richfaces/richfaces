@@ -36,7 +36,7 @@
             <rich:column filter="#{carsFilteringBean.mileageFilterImpl}">
                 <f:facet name="header">
                     <h:panelGroup>
-                        <h:outputText value="Mileage &lt; " />
+                        <h:outputText value="Mileage &le; " />
                         <h:inputText value="#{carsFilteringBean.mileageFilter}">
                             <f:convertNumber groupingUsed="true" />
                             <f:validateLongRange maximum="500000" />

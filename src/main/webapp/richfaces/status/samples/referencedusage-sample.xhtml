@@ -18,11 +18,11 @@
                             <h:graphicImage value="/images/ai.gif" style="width:16px; height:16px;" alt="ai" />
                         </f:facet>
                     </a4j:status>
-                    <h:outputText value="Adress:" />
+                    <h:outputText value="Address:" />
                     <h:inputText value="#{userBean.address}">
-                        <a4j:ajax status="adressStatus" event="keyup" />
-                    </h:inputText>
-                    <a4j:status name="adressStatus">
+						<a4j:ajax status="addressStatus" event="keyup" />
+					</h:inputText>
+                    <a4j:status name="addressStatus">
                         <f:facet name="start">
                             <h:graphicImage value="/images/ai.gif" style="width:16px; height:16px;" alt="ai" />
                         </f:facet>
