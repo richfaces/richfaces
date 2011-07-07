@@ -164,8 +164,7 @@
             <groupId>org.jboss.as</groupId>
             <artifactId>jboss-as-controller-client</artifactId>
             <version>7.0.0.CR1</version>
-            <scope>compile</scope>
-            <optional>true</optional>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -231,25 +230,6 @@
                     </webResources>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>net.kindleit</groupId>
-                <artifactId>maven-gae-plugin</artifactId>
-                <version>0.7.3</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>net.kindleit</groupId>
-                        <artifactId>gae-runtime</artifactId>
-                        <version>${gae.version}</version>
-                        <type>pom</type>
-                        <exclusions>
-                            <exclusion>
-                                <groupId>com.google.appengine.orm</groupId>
-                                <artifactId>jdo2-api</artifactId>
-                            </exclusion>
-                        </exclusions>
-                    </dependency>
-                </dependencies>
-            </plugin>
         </plugins>
     </build>
 
@@ -311,7 +291,6 @@
                     <artifactId>jboss-as-controller-client</artifactId>
                     <version>7.0.0.CR1</version>
                     <scope>compile</scope>
-                    <optional>false</optional>
                 </dependency>
             </dependencies>
             <build>
@@ -348,6 +327,11 @@
                 <dependency.scope>provided</dependency.scope>
             </properties>
             <dependencies>
+                <dependency>
+                    <groupId>org.atmosphere</groupId>
+                    <artifactId>atmosphere-runtime</artifactId>
+                    <scope>provided</scope>
+                </dependency>
                 <dependency>
                     <groupId>net.sf.ehcache</groupId>
                     <artifactId>ehcache</artifactId>
@@ -394,6 +378,33 @@
             <build>
                 <plugins>
                     <plugin>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/push/**/*.*</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>net.kindleit</groupId>
+                        <artifactId>maven-gae-plugin</artifactId>
+                        <version>0.7.3</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>net.kindleit</groupId>
+                                <artifactId>gae-runtime</artifactId>
+                                <version>${gae.version}</version>
+                                <type>pom</type>
+                                <exclusions>
+                                    <exclusion>
+                                        <groupId>com.google.appengine.orm</groupId>
+                                        <artifactId>jdo2-api</artifactId>
+                                    </exclusion>
+                                </exclusions>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                    <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>build-helper-maven-plugin</artifactId>
                         <executions>
@@ -432,6 +443,9 @@
                                 <resource>
                                     <directory>${basedir}/src/main/java</directory>
                                     <targetPath>/WEB-INF/src</targetPath>
+                                    <excludes>
+                                        <exclude>**/push/**/*.*</exclude>
+                                    </excludes>
                                 </resource>
                             </webResources>
                         </configuration>
@@ -535,10 +549,10 @@
                                     <webappDirectory>${project.build.directory}/${project.build.finalName}-tomcat6
                                     </webappDirectory>
                                     <packagingExcludes>
-                                        WEB-INF/lib/jboss-as-controller-client-*
+                                        WEB-INF/lib/jboss-*,WEB-INF/lib/xnio-*
                                     </packagingExcludes>
                                     <warSourceExcludes>
-                                        WEB-INF/lib/jboss-as-controller-client-*
+                                        WEB-INF/lib/jboss-*,WEB-INF/lib/xnio-*
                                     </warSourceExcludes>
                                     <webResources>
                                         <resource>
@@ -568,10 +582,10 @@
                                     </webappDirectory>
 
                                     <packagingExcludes>
-                                        WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/slf4j-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*,WEB-INF/lib/jboss-as-controller-client-*
+                                        WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/slf4j-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*,WEB-INF/lib/jboss-*,WEB-INF/lib/xnio-*
                                     </packagingExcludes>
                                     <warSourceExcludes>
-                                        WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/slf4j-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*,WEB-INF/lib/jboss-as-controller-client-*
+                                        WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/slf4j-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*,WEB-INF/lib/jboss-*,WEB-INF/lib/xnio-*
                                     </warSourceExcludes>
                                     <webResources>
                                         <resource>
