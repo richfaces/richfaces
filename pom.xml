@@ -208,6 +208,7 @@
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
+                    <classifier>tomcat6</classifier>
                     <archive>
                         <manifestEntries>
                             <!-- Initialize HornetQ module on AS7 -->
@@ -264,6 +265,7 @@
                     <plugin>
                         <artifactId>maven-war-plugin</artifactId>
                         <configuration>
+                            <classifier>jee6</classifier>
                             <webResources>
                                 <resource>
                                     <directory>src/main/webapp-tomcat</directory>
@@ -275,6 +277,10 @@
                                     <directory>src/main/webapp-jee6</directory>
                                     <targetPath>/</targetPath>
                                 </resource>
+                                <resource>
+                                    <directory>src/main/java</directory>
+                                    <targetPath>/WEB-INF/src</targetPath>
+                                </resource>
                             </webResources>
                         </configuration>
                     </plugin>
@@ -282,9 +288,9 @@
             </build>
         </profile>
         <profile>
-            <id>jboss-as7</id>
+            <id>jbas7</id>
             <properties>
-                <container.resources>src/main/resources-jboss-as7</container.resources>
+                <container.resources>src/main/resources-jbas7</container.resources>
                 <dependency.scope>provided</dependency.scope>
             </properties>
             <dependencies>
@@ -313,6 +319,7 @@
                     <plugin>
                         <artifactId>maven-war-plugin</artifactId>
                         <configuration>
+                            <classifier>jbas7</classifier>
                             <webResources>
                                 <resource>
                                     <directory>src/main/webapp-tomcat</directory>
@@ -323,6 +330,10 @@
                                 <resource>
                                     <directory>src/main/webapp-jee6</directory>
                                     <targetPath>/</targetPath>
+                                </resource>
+                                <resource>
+                                    <directory>src/main/java</directory>
+                                    <targetPath>/WEB-INF/src</targetPath>
                                 </resource>
                             </webResources>
                         </configuration>
@@ -504,6 +515,14 @@
             <properties>
                 <container.resources.exclude>**</container.resources.exclude>
             </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-controller-client</artifactId>
+                    <version>7.0.0.CR1</version>
+                    <scope>compile</scope>
+                </dependency>
+            </dependencies>
             <build>
                 <plugins>
                     <plugin>
@@ -515,6 +534,12 @@
                                     <classifier>tomcat6</classifier>
                                     <webappDirectory>${project.build.directory}/${project.build.finalName}-tomcat6
                                     </webappDirectory>
+                                    <packagingExcludes>
+                                        WEB-INF/lib/jboss-as-controller-client-*
+                                    </packagingExcludes>
+                                    <warSourceExcludes>
+                                        WEB-INF/lib/jboss-as-controller-client-*
+                                    </warSourceExcludes>
                                     <webResources>
                                         <resource>
                                             <directory>src/main/webapp-tomcat</directory>
@@ -543,10 +568,10 @@
                                     </webappDirectory>
 
                                     <packagingExcludes>
-                                        WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/slf4j-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*
+                                        WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/slf4j-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*,WEB-INF/lib/jboss-as-controller-client-*
                                     </packagingExcludes>
                                     <warSourceExcludes>
-                                        WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/slf4j-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*
+                                        WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/slf4j-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*,WEB-INF/lib/jboss-as-controller-client-*
                                     </warSourceExcludes>
                                     <webResources>
                                         <resource>
@@ -560,6 +585,44 @@
                                         </resource>
                                         <resource>
                                             <directory>src/main/resources-jee6</directory>
+                                            <targetPath>/WEB-INF/classes</targetPath>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/java</directory>
+                                            <targetPath>/WEB-INF/src</targetPath>
+                                        </resource>
+                                    </webResources>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>jbas7</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>war</goal>
+                                </goals>
+                                <configuration>
+                                    <classifier>jbas7</classifier>
+                                    <webappDirectory>${project.build.directory}/${project.build.finalName}-jbas7
+                                    </webappDirectory>
+
+                                    <packagingExcludes>
+                                        WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*
+                                    </packagingExcludes>
+                                    <warSourceExcludes>
+                                        WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*
+                                    </warSourceExcludes>
+                                    <webResources>
+                                        <resource>
+                                            <directory>src/main/webapp-tomcat</directory>
+                                            <excludes>
+                                                <exclude>**</exclude>
+                                            </excludes>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/webapp-jee6</directory>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/resources-jbas7</directory>
                                             <targetPath>/WEB-INF/classes</targetPath>
                                         </resource>
                                         <resource>
