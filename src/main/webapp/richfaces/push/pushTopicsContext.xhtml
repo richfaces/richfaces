@@ -4,8 +4,8 @@
 
 <ui:composition>
     <p>
-        Push can be controlled by <b>programmatic API</b>. However durable topic still needs to be created and registered in
-        RichFaces and Java Messaging Service.
+        Push can be controlled by a <b>programmatic API</b>. However a durable topic still needs to be created and registered in
+        both RichFaces and the Java Messaging Service.
     </p>
 
 
@@ -14,19 +14,19 @@
     </rich:panel>
 
     <p>
-        Programmatic API consists from <b><tt>TopicKey</tt> </b> which addresses the topic and <b><tt>TopicsContext</tt>
-        </b> used for publishing messages.
+        The programmatic API consists of a <b><tt>TopicKey</tt> </b> which addresses the topic, and a <b><tt>TopicsContext</tt>
+        </b> which is used for publishing messages.
     </p>
 
     <p>
-        For the purpose of observing events from the server, client creates <b>pernament connection</b> to the server either by
-        <i>WebSocket connection</i> or <i>long-polling method</i>. Pernament connections are managed by <i>Atmosphere
+        For the purpose of observing events from the server, the client creates a <b>permanent connection</b> to the server either by using a
+        <i>WebSocket connection</i> or the <i>long-polling method</i>. Permanent connections are managed by the <i>Atmosphere
             Framework</i>.
     </p>
 
     <p>
-        In this example, message doesn't contain any data - it <b>instructs client to rerender part of the page</b>, in this
-        case it forces client to load new unique ID.
+        In this example, the message doesn't contain any data - it <b>instructs the client to re-render part of the page</b>.  In this
+        case it forces the client to load new unique ID.
     </p>
 
     <ui:include src="/templates/includes/source-view.xhtml">

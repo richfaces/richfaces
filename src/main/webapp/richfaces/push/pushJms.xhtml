@@ -4,8 +4,8 @@
 
 <ui:composition>
     <p>
-        This example introduces <b>Push via JMS</b> capability - messages from <i>Java Messaging System</i> are observed by <i>RichFaces
-            Push</i> and transported via <i>Comet</i> to client.
+        This example introduces the <b>Push via JMS</b> capability - messages from the <i>Java Messaging System</i> are observed by <i>RichFaces
+            Push</i> and transported via <i>Comet</i> to the client.
     </p>
 
     <rich:panel>
@@ -13,13 +13,13 @@
     </rich:panel>
 
     <p>
-        For the purpose of observing events from the server, client creates <b>pernament connection</b> to the server either by
-        <i>WebSocket connection</i> or <i>long-polling method</i>. Pernament connections are managed by <i>Atmosphere
+        For the purpose of observing events from the server, the client creates a <b>permanent connection</b> to the server either by using a
+        <i>WebSocket connection</i> or the <i>long-polling method</i>. Permanent connections are managed by the <i>Atmosphere
             Framework</i>.
     </p>
 
-    <p>In this example <b>Message payload</b> is serialized to JSON and transfered to the client. On the client-side, <b><tt>dataavailable</tt></b>
-        event is triggered with <b><tt>event.rf.data</tt></b> payload which contains serialized data.</p>
+    <p>In this example the <b>Message payload</b> is serialized to JSON and transfered to the client. On the client-side, a <b><tt>dataavailable</tt></b>
+        event is triggered with the <b><tt>event.rf.data</tt></b> payload which contains the serialized data.</p>
         
     <ui:include src="/templates/includes/source-view.xhtml">
         <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />

@@ -5,12 +5,12 @@
 <ui:composition>
 
     <p>
-        This example shows how simple can be usage of push when employing <b>CDI Events</b>, effectively decoupling event
-        producer and consumer across view layer.
+        This example shows how simple it can be to use push when coupled with <b>CDI Events</b>, effectively decoupling event
+        producers and consumers across the view layer.
     </p>
 
-    <p>Following link opens the consumer-client window - you can even copy the link and open it in separated browser
-        (simulating two distinct users, which doesn't share session).</p>
+    <p>The following link opens the consumer-client window - you can even copy the link and open it in separate browser
+        (simulating two distinct users, who don't share sessions).</p>
 
     <h:outputScript library="js" name="jquery.popupWindow.js" target="head" />
 
@@ -29,7 +29,7 @@
         }); 
     </script>
 
-    <p>Use the input bellow to send a message to all of the windows opened by link above:</p>
+    <p>Use the input bellow to send a message to all of the windows opened by the above link:</p>
 
     <ui:include src="#{demoNavigator.sampleIncludeURI}" />
 
