@@ -14,12 +14,12 @@
 
     <groupId>org.richfaces.examples</groupId>
     <artifactId>richfaces-showcase</artifactId>
-    <version>4.1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Richfaces Examples: Richfaces Showcase Application</name>
 
     <properties>
         <gae.version>1.4.2</gae.version>
+        <hornetq.version>2.2.6.Final</hornetq.version>
         <dependency.scope>compile</dependency.scope>
         <container.resources>src/main/resources-tomcat</container.resources>
         <container.resources.exclude></container.resources.exclude>
@@ -107,6 +107,65 @@
             <version>3.6.3.Final</version>
             <scope>${dependency.scope}</scope>
         </dependency>
+        
+        
+        <!-- Dependencies for Push and JMS -->
+        <dependency>
+            <groupId>org.atmosphere</groupId>
+            <artifactId>atmosphere-runtime</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.jms</groupId>
+            <artifactId>jms</artifactId>
+            <version>1.1</version>
+            <scope>${dependency.scope}</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hornetq</groupId>
+            <artifactId>hornetq-core</artifactId>
+            <version>${hornetq.version}</version>
+            <scope>${dependency.scope}</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hornetq</groupId>
+            <artifactId>hornetq-jms</artifactId>
+            <version>${hornetq.version}</version>
+            <scope>${dependency.scope}</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hornetq</groupId>
+            <artifactId>hornetq-logging</artifactId>
+            <version>${hornetq.version}</version>
+            <scope>${dependency.scope}</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.netty</groupId>
+            <artifactId>netty</artifactId>
+            <version>3.2.2.Final</version>
+            <scope>${dependency.scope}</scope>
+        </dependency>
+        
+        <!-- Dependencies for CDI -->
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <version>1.0-SP4</version>
+            <scope>${dependency.scope}</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.weld.servlet</groupId>
+            <artifactId>weld-servlet</artifactId>
+            <version>1.1.0.Final</version>
+            <scope>${dependency.scope}</scope>
+        </dependency>
+        
+        <!-- JBoss AS7 management -->
+        <dependency>
+            <groupId>org.jboss.as</groupId>
+            <artifactId>jboss-as-controller-client</artifactId>
+            <version>7.0.0.CR1</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -148,33 +207,28 @@
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
+                    <classifier>tomcat6</classifier>
+                    <archive>
+                        <manifestEntries>
+                            <!-- Initialize HornetQ module on AS7 -->
+                            <Dependencies>org.hornetq</Dependencies>
+                        </manifestEntries>
+                    </archive>
                     <webResources>
                         <resource>
-                            <directory>${basedir}/src/main/java</directory>
+                            <directory>src/main/webapp</directory>
+                            <targetPath>/</targetPath>
+                        </resource>
+                        <resource>
+                            <directory>src/main/webapp-tomcat</directory>
+                            <targetPath>/</targetPath>
+                        </resource>
+                        <resource>
+                            <directory>src/main/java</directory>
                             <targetPath>/WEB-INF/src</targetPath>
                         </resource>
                     </webResources>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>net.kindleit</groupId>
-                <artifactId>maven-gae-plugin</artifactId>
-                <version>0.7.3</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>net.kindleit</groupId>
-                        <artifactId>gae-runtime</artifactId>
-                        <version>${gae.version}</version>
-                        <type>pom</type>
-                        <exclusions>
-                            <exclusion>
-                                <groupId>com.google.appengine.orm
-                                </groupId>
-                                <artifactId>jdo2-api</artifactId>
-                            </exclusion>
-                        </exclusions>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>
@@ -186,13 +240,85 @@
                 <container.resources>src/main/resources-jee6</container.resources>
                 <dependency.scope>provided</dependency.scope>
             </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <configuration>
+                            <classifier>jee6</classifier>
+                            <webResources>
+                                <resource>
+                                    <directory>src/main/webapp-tomcat</directory>
+                                    <excludes>
+                                        <exclude>**</exclude>
+                                    </excludes>
+                                </resource>
+                                <resource>
+                                    <directory>src/main/webapp-jee6</directory>
+                                    <targetPath>/</targetPath>
+                                </resource>
+                                <resource>
+                                    <directory>src/main/java</directory>
+                                    <targetPath>/WEB-INF/src</targetPath>
+                                </resource>
+                            </webResources>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
         <profile>
-            <id>jboss-as7</id>
+            <id>jbas7</id>
             <properties>
-                <container.resources>src/main/resources-jboss-as7</container.resources>
+                <container.resources>src/main/resources-jbas7</container.resources>
                 <dependency.scope>provided</dependency.scope>
             </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                    <version>1.5.8</version>
+                    <scope>runtime</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-jdk14</artifactId>
+                    <version>1.5.8</version>
+                    <scope>runtime</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-controller-client</artifactId>
+                    <version>7.0.0.CR1</version>
+                    <scope>compile</scope>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <configuration>
+                            <classifier>jbas7</classifier>
+                            <webResources>
+                                <resource>
+                                    <directory>src/main/webapp-tomcat</directory>
+                                    <excludes>
+                                        <exclude>**</exclude>
+                                    </excludes>
+                                </resource>
+                                <resource>
+                                    <directory>src/main/webapp-jee6</directory>
+                                    <targetPath>/</targetPath>
+                                </resource>
+                                <resource>
+                                    <directory>src/main/java</directory>
+                                    <targetPath>/WEB-INF/src</targetPath>
+                                </resource>
+                            </webResources>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
         <profile>
             <id>gae</id>
@@ -201,6 +327,11 @@
                 <dependency.scope>provided</dependency.scope>
             </properties>
             <dependencies>
+                <dependency>
+                    <groupId>org.atmosphere</groupId>
+                    <artifactId>atmosphere-runtime</artifactId>
+                    <scope>provided</scope>
+                </dependency>
                 <dependency>
                     <groupId>net.sf.ehcache</groupId>
                     <artifactId>ehcache</artifactId>
@@ -247,6 +378,33 @@
             <build>
                 <plugins>
                     <plugin>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/push/**/*.*</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>net.kindleit</groupId>
+                        <artifactId>maven-gae-plugin</artifactId>
+                        <version>0.7.3</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>net.kindleit</groupId>
+                                <artifactId>gae-runtime</artifactId>
+                                <version>${gae.version}</version>
+                                <type>pom</type>
+                                <exclusions>
+                                    <exclusion>
+                                        <groupId>com.google.appengine.orm</groupId>
+                                        <artifactId>jdo2-api</artifactId>
+                                    </exclusion>
+                                </exclusions>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                    <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>build-helper-maven-plugin</artifactId>
                         <executions>
@@ -269,30 +427,25 @@
                         <configuration>
                             <webResources>
                                 <resource>
-                                    <directory>src/main/webapp
-                                    </directory>
+                                    <directory>src/main/webapp</directory>
                                     <excludes>
-                                        <exclude>WEB-INF/web.xml
-                                        </exclude>
-                                        <exclude>WEB-INF/faces-config.xml
-                                        </exclude>
+                                        <exclude>WEB-INF/faces-config.xml</exclude>
                                     </excludes>
                                 </resource>
                                 <resource>
-                                    <directory>src/main/webapp-gae
-                                    </directory>
+                                    <directory>src/main/webapp-gae</directory>
                                 </resource>
                                 <resource>
                                     <directory>${project.build.directory}/generated-resources
                                     </directory>
-                                    <targetPath>static-resources
-                                    </targetPath>
+                                    <targetPath>static-resources</targetPath>
                                 </resource>
                                 <resource>
-                                    <directory>${basedir}/src/main/java
-                                    </directory>
-                                    <targetPath>/WEB-INF/src
-                                    </targetPath>
+                                    <directory>${basedir}/src/main/java</directory>
+                                    <targetPath>/WEB-INF/src</targetPath>
+                                    <excludes>
+                                        <exclude>**/push/**/*.*</exclude>
+                                    </excludes>
                                 </resource>
                             </webResources>
                         </configuration>
@@ -376,6 +529,14 @@
             <properties>
                 <container.resources.exclude>**</container.resources.exclude>
             </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.jboss.as</groupId>
+                    <artifactId>jboss-as-controller-client</artifactId>
+                    <version>7.0.0.CR1</version>
+                    <scope>compile</scope>
+                </dependency>
+            </dependencies>
             <build>
                 <plugins>
                     <plugin>
@@ -387,13 +548,23 @@
                                     <classifier>tomcat6</classifier>
                                     <webappDirectory>${project.build.directory}/${project.build.finalName}-tomcat6
                                     </webappDirectory>
+                                    <packagingExcludes>
+                                        WEB-INF/lib/jboss-*,WEB-INF/lib/xnio-*
+                                    </packagingExcludes>
+                                    <warSourceExcludes>
+                                        WEB-INF/lib/jboss-*,WEB-INF/lib/xnio-*
+                                    </warSourceExcludes>
                                     <webResources>
+                                        <resource>
+                                            <directory>src/main/webapp-tomcat</directory>
+                                            <targetPath>/</targetPath>
+                                        </resource>
                                         <resource>
                                             <directory>src/main/resources-tomcat</directory>
                                             <targetPath>/WEB-INF/classes</targetPath>
                                         </resource>
                                         <resource>
-                                            <directory>${basedir}/src/main/java</directory>
+                                            <directory>src/main/java</directory>
                                             <targetPath>/WEB-INF/src</targetPath>
                                         </resource>
                                     </webResources>
@@ -411,18 +582,65 @@
                                     </webappDirectory>
 
                                     <packagingExcludes>
-                                        WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/slf4j-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*
+                                        WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/slf4j-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*,WEB-INF/lib/jboss-*,WEB-INF/lib/xnio-*
                                     </packagingExcludes>
                                     <warSourceExcludes>
-                                        WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/slf4j-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*
+                                        WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/slf4j-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*,WEB-INF/lib/jboss-*,WEB-INF/lib/xnio-*
                                     </warSourceExcludes>
                                     <webResources>
+                                        <resource>
+                                            <directory>src/main/webapp-tomcat</directory>
+                                            <excludes>
+                                                <exclude>**</exclude>
+                                            </excludes>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/webapp-jee6</directory>
+                                        </resource>
                                         <resource>
                                             <directory>src/main/resources-jee6</directory>
                                             <targetPath>/WEB-INF/classes</targetPath>
                                         </resource>
                                         <resource>
-                                            <directory>${basedir}/src/main/java</directory>
+                                            <directory>src/main/java</directory>
+                                            <targetPath>/WEB-INF/src</targetPath>
+                                        </resource>
+                                    </webResources>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>jbas7</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>war</goal>
+                                </goals>
+                                <configuration>
+                                    <classifier>jbas7</classifier>
+                                    <webappDirectory>${project.build.directory}/${project.build.finalName}-jbas7
+                                    </webappDirectory>
+
+                                    <packagingExcludes>
+                                        WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*
+                                    </packagingExcludes>
+                                    <warSourceExcludes>
+                                        WEB-INF/lib/jsf-api*,WEB-INF/lib/jsf-impl*,WEB-INF/lib/jta-*,WEB-INF/lib/jstl-*,WEB-INF/lib/validation-api-*,WEB-INF/lib/hibernate-*,WEB-INF/lib/antlr-*,WEB-INF/lib/asm-*,WEB-INF/lib/cglib-*,WEB-INF/lib/commons-collections-*,WEB-INF/lib/dom4j-*,WEB-INF/lib/hsqldb-*,WEB-INF/lib/javassist-*,WEB-INF/lib/cdi-api-*,WEB-INF/lib/hornetq-*,WEB-INF/lib/javax.inject-*,WEB-INF/lib/jboss-interceptors-*,WEB-INF/lib/jms-*,WEB-INF/lib/jsr250-api-*,WEB-INF/lib/netty-*,WEB-INF/lib/weld-servlet-*
+                                    </warSourceExcludes>
+                                    <webResources>
+                                        <resource>
+                                            <directory>src/main/webapp-tomcat</directory>
+                                            <excludes>
+                                                <exclude>**</exclude>
+                                            </excludes>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/webapp-jee6</directory>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/resources-jbas7</directory>
+                                            <targetPath>/WEB-INF/classes</targetPath>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/java</directory>
                                             <targetPath>/WEB-INF/src</targetPath>
                                         </resource>
                                     </webResources>
@@ -502,10 +720,8 @@
     </profiles>
 
     <scm>
-        <connection>scm:git:git://github.com/richfaces/showcase.git
-        </connection>
-        <developerConnection>scm:git:git@github.com:richfaces/showcase.git
-        </developerConnection>
+        <connection>scm:git:git://github.com/richfaces/showcase.git</connection>
+        <developerConnection>scm:git:git@github.com:richfaces/showcase.git</developerConnection>
         <url>https://github.com/richfaces/showcase</url>
     </scm>
 </project>

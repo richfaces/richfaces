@@ -23,6 +23,7 @@ package org.richfaces.demo.arrangeablemodel;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -34,7 +35,7 @@ public class Person {
     private String surname;
     private String email;
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     public Person() {
