@@ -236,7 +236,7 @@
     <managed-bean>
         <managed-bean-name>treeBean</managed-bean-name>
         <managed-bean-class>org.richfaces.demo.tree.TreeBean</managed-bean-class>
-        <managed-bean-scope>application</managed-bean-scope>
+        <managed-bean-scope>session</managed-bean-scope>
         <managed-property>
             <property-name>cdXmlDescriptors</property-name>
             <value>#{cdsParser.cdsList}</value>
