@@ -22,7 +22,6 @@
 package org.richfaces.demo.push.provider;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,7 +41,7 @@ public class AS7MessagingProviderManagement implements MessagingProviderManageme
 
     public void initializeProvider() throws InitializationFailedException {
         try {
-            client = ModelControllerClient.Factory.create(InetAddress.getLocalHost(), 9999);
+            client = ModelControllerClient.Factory.create("127.0.0.1", 9999);
         } catch (Exception e) {
             throw new InitializationFailedException();
         } catch (NoClassDefFoundError e) {
