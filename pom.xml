@@ -183,6 +183,16 @@
             </resource>
         </resources>
 
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>net.kindleit</groupId>
+                    <artifactId>maven-gae-plugin</artifactId>
+                    <version>0.7.3</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <plugins>
             <plugin>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -388,7 +398,6 @@
                     <plugin>
                         <groupId>net.kindleit</groupId>
                         <artifactId>maven-gae-plugin</artifactId>
-                        <version>0.7.3</version>
                         <dependencies>
                             <dependency>
                                 <groupId>net.kindleit</groupId>
@@ -687,11 +696,6 @@
         </profile>
         <profile>
             <id>unpack-gae-sdk</id>
-            <activation>
-                <property>
-                    <name>!gae.home</name>
-                </property>
-            </activation>
             <dependencies>
                 <dependency>
                     <groupId>com.google.appengine</groupId>
