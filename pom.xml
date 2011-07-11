@@ -218,12 +218,6 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <classifier>tomcat6</classifier>
-                    <archive>
-                        <manifestEntries>
-                            <!-- Initialize HornetQ module on AS7 -->
-                            <Dependencies>org.hornetq</Dependencies>
-                        </manifestEntries>
-                    </archive>
                     <webResources>
                         <resource>
                             <directory>src/main/webapp</directory>
