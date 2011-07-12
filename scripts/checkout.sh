@@ -53,6 +53,7 @@ pull_upstream_all_modules() {
                         if [[ "$USERNAME" != "richfaces" ]]; then
                                 pushd $MODULE >/dev/null
 					RESULT=`git stash`
+					echo Updating ${MODULE}...
                                         git pull $QUIET --rebase upstream $BRANCH
 					if [[ ! $RESULT =~ "No local changes to save" ]]; then
 						git stash $QUIET pop
@@ -61,6 +62,7 @@ pull_upstream_all_modules() {
 			else
 				pushd $MODULE >/dev/null
 					RESULT=`git stash`
+					echo Updating ${MODULE}...
                                         git pull $QUIET --rebase origin $BRANCH
 					if [[ ! $RESULT =~ "No local changes to save" ]]; then
                                                 git stash $QUIET pop
