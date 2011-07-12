@@ -56,7 +56,7 @@ pull_upstream_all_modules() {
 					echo Updating ${MODULE}...
                                         git pull $QUIET --rebase upstream $BRANCH
 					if [[ ! $RESULT =~ "No local changes to save" ]]; then
-						git stash $QUIET pop
+						git stash pop $QUIET
 					fi
                                 popd >/dev/null
 			else
@@ -65,7 +65,7 @@ pull_upstream_all_modules() {
 					echo Updating ${MODULE}...
                                         git pull $QUIET --rebase origin $BRANCH
 					if [[ ! $RESULT =~ "No local changes to save" ]]; then
-                                                git stash $QUIET pop
+                                                git stash pop $QUIET
                                         fi
                                 popd >/dev/null
                         fi
