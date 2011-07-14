@@ -138,6 +138,7 @@ public class UISequence extends UIDataAdaptor {
     // TODO make this a property of model
 
     @Override
+    @Attribute
     public Converter getRowKeyConverter() {
         Converter converter = super.getRowKeyConverter();
 
