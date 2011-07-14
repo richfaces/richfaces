@@ -65,18 +65,11 @@
         <param-name>org.richfaces.push.jms.connectionPassword</param-name>
         <param-value>guest</param-value>
     </context-param>
-    <filter>
-        <filter-name>PushFilter</filter-name>
-        <filter-class>org.richfaces.webapp.PushFilter</filter-class>
-        <async-supported>true</async-supported>
-    </filter>
-    <filter-mapping>
-        <filter-name>PushFilter</filter-name>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>FORWARD</dispatcher>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>ASYNC</dispatcher>
-        <dispatcher>ERROR</dispatcher>
-    </filter-mapping>
+    
+    <!-- Force this Servlet to use one Thread per connection
+         instead of native API as workaround for (RF-11064)  -->
+    <context-param>
+        <param-name>org.atmosphere.useBlocking</param-name>
+        <param-value>true</param-value>
+    </context-param>
 </web-app>
