@@ -21,17 +21,6 @@
  */
 package org.richfaces.application.push.impl;
 
-import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionFactory;
-import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionPassword;
-import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionPasswordEnvRef;
-import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionUsername;
-import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionUsernameEnvRef;
-import static org.richfaces.application.CoreConfiguration.Items.pushJMSTopicsNamespace;
-import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSConnectionFactory;
-import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSConnectionPassword;
-import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSConnectionUsername;
-import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSTopicsNamespace;
-
 import java.util.concurrent.ThreadFactory;
 
 import javax.faces.FacesException;
@@ -40,12 +29,9 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.PreDestroyApplicationEvent;
 import javax.faces.event.SystemEvent;
 import javax.faces.event.SystemEventListener;
-import javax.naming.InitialContext;
-import javax.naming.Name;
-import javax.naming.NameParser;
 
-import org.richfaces.application.ServiceTracker;
-import org.richfaces.application.configuration.ConfigurationService;
+import org.richfaces.application.CoreConfiguration;
+import org.richfaces.application.configuration.ConfigurationServiceHelper;
 import org.richfaces.application.push.PushContext;
 import org.richfaces.application.push.SessionFactory;
 import org.richfaces.application.push.SessionManager;
@@ -54,7 +40,6 @@ import org.richfaces.application.push.impl.jms.JMSTopicsContextImpl;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
-import com.google.common.base.Strings;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 /**
@@ -77,53 +62,21 @@ public class PushContextImpl implements PushContext, SystemEventListener {
         this.pushHandlerUrl = pushHandlerUrl;
     }
 
-    private String getFirstNonEmptyConfgirutationValue(FacesContext facesContext, ConfigurationService service, Enum<?>... keys) {
-        for (Enum<?> key : keys) {
-            String value = service.getStringValue(facesContext, key);
-            if (!Strings.isNullOrEmpty(value)) {
-                return value;
-            }
-        }
-
-        return "";
-    }
-
-    private String getConnectionFactory(FacesContext facesContext, ConfigurationService configurationService) {
-        return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, pushPropertiesJMSConnectionFactory,
-            pushJMSConnectionFactory);
-    }
-
-    private String getTopicsNamespace(FacesContext facesContext, ConfigurationService configurationService) {
-        return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, pushPropertiesJMSTopicsNamespace,
-            pushJMSTopicsNamespace);
-    }
-
-    private String getPassword(FacesContext facesContext, ConfigurationService configurationService) {
-        return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, pushPropertiesJMSConnectionPassword,
-            pushJMSConnectionPasswordEnvRef, pushJMSConnectionPassword);
-    }
-
-    private String getUserName(FacesContext facesContext, ConfigurationService configurationService) {
-        return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, pushPropertiesJMSConnectionUsername,
-            pushJMSConnectionUsernameEnvRef, pushJMSConnectionUsername);
-    }
-
     public void init(FacesContext facesContext) {
         try {
             facesContext.getApplication().subscribeToEvent(PreDestroyApplicationEvent.class, this);
 
-            ConfigurationService configurationService = ServiceTracker.getService(ConfigurationService.class);
+            boolean disableJMS = ConfigurationServiceHelper.getBooleanConfigurationValue(facesContext,
+                CoreConfiguration.Items.pushJMSDisable);
 
-            InitialContext initialContext = new InitialContext();
-
-            NameParser nameParser = initialContext.getNameParser("");
-
-            Name cnfName = nameParser.parse(getConnectionFactory(facesContext, configurationService));
-            Name topicsNamespace = nameParser.parse(getTopicsNamespace(facesContext, configurationService));
+            if (disableJMS) {
+                topicsContext = new TopicsContextImpl(PUBLISH_THREAD_FACTORY);
+            } else {
+                topicsContext = JMSTopicsContextImpl.getInstanceInitializedFromContext(PUBLISH_THREAD_FACTORY, facesContext);
+            }
 
             sessionManager = new SessionManagerImpl(SESSION_MANAGER_THREAD_FACTORY);
-            topicsContext = new JMSTopicsContextImpl(PUBLISH_THREAD_FACTORY, initialContext, cnfName, topicsNamespace,
-                getUserName(facesContext, configurationService), getPassword(facesContext, configurationService));
+
             sessionFactory = new SessionFactoryImpl(sessionManager, topicsContext);
 
             facesContext.getExternalContext().getApplicationMap().put(INSTANCE_KEY_NAME, this);

@@ -21,10 +21,22 @@
  */
 package org.richfaces.application.push.impl.jms;
 
+import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionFactory;
+import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionPassword;
+import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionPasswordEnvRef;
+import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionUsername;
+import static org.richfaces.application.CoreConfiguration.Items.pushJMSConnectionUsernameEnvRef;
+import static org.richfaces.application.CoreConfiguration.Items.pushJMSTopicsNamespace;
+import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSConnectionFactory;
+import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSConnectionPassword;
+import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSConnectionUsername;
+import static org.richfaces.application.CoreConfiguration.PushPropertiesItems.pushPropertiesJMSTopicsNamespace;
+
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ThreadFactory;
 
 import javax.faces.FacesException;
+import javax.faces.context.FacesContext;
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
@@ -36,15 +48,19 @@ import javax.jms.TextMessage;
 import javax.jms.Topic;
 import javax.naming.InitialContext;
 import javax.naming.Name;
+import javax.naming.NameParser;
 import javax.naming.NamingException;
 
 import org.ajax4jsf.javascript.JSLiteral;
+import org.richfaces.application.ServiceTracker;
+import org.richfaces.application.configuration.ConfigurationService;
 import org.richfaces.application.push.TopicKey;
 import org.richfaces.application.push.impl.TopicsContextImpl;
 import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
 import com.google.common.base.Function;
+import com.google.common.base.Strings;
 import com.google.common.collect.MapMaker;
 
 /**
@@ -176,32 +192,82 @@ public class JMSTopicsContextImpl extends TopicsContextImpl {
     private final String username;
     private final String password;
     private final ConcurrentMap<String, JMSTopicContext> contextsMap = new MapMaker()
-        .makeComputingMap(new Function<String, JMSTopicContext>() {
-            public JMSTopicContext apply(String name) {
-                JMSTopicContext topicContext = new JMSTopicContext(name);
-                try {
-                    topicContext.start();
-                } catch (Exception e) {
+            .makeComputingMap(new Function<String, JMSTopicContext>() {
+                public JMSTopicContext apply(String name) {
+                    JMSTopicContext topicContext = new JMSTopicContext(name);
                     try {
-                        topicContext.stop();
-                    } catch (Exception e1) {
-                        LOGGER.error(e1.getMessage(), e1);
-                    }
+                        topicContext.start();
+                    } catch (Exception e) {
+                        try {
+                            topicContext.stop();
+                        } catch (Exception e1) {
+                            LOGGER.error(e1.getMessage(), e1);
+                        }
 
-                    throw new FacesException(e.getMessage(), e);
+                        throw new FacesException(e.getMessage(), e);
+                    }
+                    return topicContext;
                 }
-                return topicContext;
-            }
-        });
+            });
 
     public JMSTopicsContextImpl(ThreadFactory threadFactory, InitialContext initialContext, Name connectionFactoryName,
-        Name topicsNamespace, String username, String password) {
+            Name topicsNamespace, String username, String password) {
         super(threadFactory);
         this.initialContext = initialContext;
         this.connectionFactoryName = connectionFactoryName;
         this.topicsNamespace = topicsNamespace;
         this.username = username;
         this.password = password;
+    }
+
+    public static JMSTopicsContextImpl getInstanceInitializedFromContext(ThreadFactory threadFactory, FacesContext facesContext)
+            throws NamingException {
+        ConfigurationService configurationService = ServiceTracker.getService(ConfigurationService.class);
+
+        InitialContext initialContext = new InitialContext();
+
+        NameParser nameParser = initialContext.getNameParser("");
+
+        Name connectionFactoryName = nameParser.parse(getConnectionFactory(facesContext, configurationService));
+        Name topicsNamespace = nameParser.parse(getTopicsNamespace(facesContext, configurationService));
+
+        String username = getUserName(facesContext, configurationService);
+        String password = getPassword(facesContext, configurationService);
+
+        return new JMSTopicsContextImpl(threadFactory, initialContext, connectionFactoryName, topicsNamespace, username,
+                password);
+    }
+
+    private static String getConnectionFactory(FacesContext facesContext, ConfigurationService configurationService) {
+        return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, pushPropertiesJMSConnectionFactory,
+                pushJMSConnectionFactory);
+    }
+
+    private static String getTopicsNamespace(FacesContext facesContext, ConfigurationService configurationService) {
+        return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, pushPropertiesJMSTopicsNamespace,
+                pushJMSTopicsNamespace);
+    }
+
+    private static String getPassword(FacesContext facesContext, ConfigurationService configurationService) {
+        return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, pushPropertiesJMSConnectionPassword,
+                pushJMSConnectionPasswordEnvRef, pushJMSConnectionPassword);
+    }
+
+    private static String getUserName(FacesContext facesContext, ConfigurationService configurationService) {
+        return getFirstNonEmptyConfgirutationValue(facesContext, configurationService, pushPropertiesJMSConnectionUsername,
+                pushJMSConnectionUsernameEnvRef, pushJMSConnectionUsername);
+    }
+
+    private static String getFirstNonEmptyConfgirutationValue(FacesContext facesContext, ConfigurationService service,
+            Enum<?>... keys) {
+        for (Enum<?> key : keys) {
+            String value = service.getStringValue(facesContext, key);
+            if (!Strings.isNullOrEmpty(value)) {
+                return value;
+            }
+        }
+
+        return "";
     }
 
     private Name appendToName(Name name, String comp) throws NamingException {
