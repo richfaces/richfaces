@@ -34,6 +34,7 @@ public interface HtmlConstants {
     String BODY_ELEMENT = "body";
     String IMG_ELEMENT = "img";
     String INPUT_ELEM = "input";
+    String OPTION_ELEM = "option";
     String INPUT_TYPE_HIDDEN = "hidden";
     String BUTTON = "button";
     String CAPTION_ELEMENT = "caption";
