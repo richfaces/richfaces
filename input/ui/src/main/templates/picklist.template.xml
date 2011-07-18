@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+          xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.PickListRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.SelectManyRendererBase</cdk:superclass>
+        <cdk:component-family>org.richfaces.SelectMany</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.PickListRenderer</cdk:renderer-type>
+        <cdk:renders-children>true</cdk:renders-children>
+    </cc:interface>
+
+    <cc:implementation>
+
+        <cdk:call expression="generateSelectItemsLists(facesContext, component);" />
+
+        <cdk:object type="java.util.List" type-arguments="org.richfaces.renderkit.ClientSelectItem" name="clientSelectItemsAvailable"
+                    value="#{getConvertedSelectItemsAvailable(facesContext, component)}" />
+
+        <cdk:object type="java.util.List" type-arguments="org.richfaces.renderkit.ClientSelectItem" name="clientSelectItemsSelected"
+                            value="#{getConvertedSelectItemsSelected(facesContext, component)}" />
+
+        <cdk:object type="java.lang.Object" name="disabled" value="#{component.attributes['disabled']}" />
+
+        <table>
+            <tr>
+                <td>
+                    <select multiple="true" id="#{clientId}SourceId" name="#{clientId}Source"
+                             class="#{concatClasses('rf-pick-source', component.attributes['selectItemClass'])}">
+                        <cdk:call expression="encodeItems(facesContext, component, clientSelectItemsAvailable);" />
+                    </select>
+                </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                <button type="button" onclick="removeAll('#{clientId}SourceId', '#{clientId}TargetId')">&lt;&lt;</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" onclick="remove('#{clientId}SourceId', '#{clientId}TargetId')">&lt;</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" onclick="add('#{clientId}SourceId', '#{clientId}TargetId')">&gt;</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button type="button" onclick="addAll('#{clientId}SourceId', '#{clientId}TargetId')">&gt;&gt;</button>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <select multiple="true" id="#{clientId}TargetId" name="#{clientId}Target"
+                            class="#{concatClasses('rf-pick-target', component.attributes['selectItemClass'])}">
+                        <cdk:call expression="encodeItems(facesContext, component, clientSelectItemsSelected);" />
+                    </select>
+                </td>
+            </tr>
+        </table>
+    </cc:implementation>
+</cdk:root>

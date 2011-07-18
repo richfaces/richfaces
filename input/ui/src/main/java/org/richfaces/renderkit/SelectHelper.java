@@ -40,6 +40,7 @@ import org.richfaces.component.util.SelectUtils;
 
 /**
  * @author abelevich
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  *
  */
 public final class SelectHelper {
@@ -72,19 +73,33 @@ public final class SelectHelper {
     private SelectHelper() {
     }
 
+    public static List<SelectItem> getSelectItems(FacesContext facesContext, UIComponent component) {
+        Iterator<SelectItem> selectItemIterator = SelectUtils.getSelectItems(facesContext, component);
+        List<SelectItem> selectItems = new ArrayList<SelectItem>();
+
+        while (selectItemIterator.hasNext()) {
+            SelectItem selectItem = selectItemIterator.next();
+            selectItems.add(selectItem);
+        }
+        return selectItems;
+    }
+
     public static List<ClientSelectItem> getConvertedSelectItems(FacesContext facesContext, UIComponent component) {
-        AbstractSelectComponent select = (AbstractSelectComponent) component;
-        Iterator<SelectItem> selectItems = SelectUtils.getSelectItems(facesContext, select);
+        Iterator<SelectItem> selectItems = SelectUtils.getSelectItems(facesContext, component);
         List<ClientSelectItem> clientSelectItems = new ArrayList<ClientSelectItem>();
 
         while (selectItems.hasNext()) {
             SelectItem selectItem = selectItems.next();
-
-            String convertedStringValue = InputUtils.getConvertedStringValue(facesContext, select, selectItem.getValue());
-            String label = selectItem.getLabel();
-            clientSelectItems.add(new ClientSelectItem(convertedStringValue, label));
+            clientSelectItems.add(generateClientSelectItem(facesContext,component, selectItem));
         }
         return clientSelectItems;
+    }
+
+    public static ClientSelectItem generateClientSelectItem(FacesContext facesContext, UIComponent component, SelectItem selectItem) {
+        String convertedStringValue = InputUtils.getConvertedStringValue(facesContext, component, selectItem.getValue());
+        String label = selectItem.getLabel();
+        ClientSelectItem clientSelectItem = new ClientSelectItem(convertedStringValue, label);
+        return clientSelectItem;
     }
 
     public static void encodeItems(FacesContext facesContext, UIComponent component, List<ClientSelectItem> clientSelectItems,
