@@ -23,6 +23,12 @@ package org.richfaces.renderkit;
 
 import org.richfaces.component.AbstractSelectManyComponent;
 import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.json.JSONArray;
+import org.richfaces.json.JSONCollection;
+import org.richfaces.json.JSONException;
+import org.richfaces.json.JSONStringer;
+import org.richfaces.json.JSONTokener;
+import org.richfaces.json.JSONWriter;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -124,22 +130,35 @@ public class SelectManyRendererBase extends RendererBase {
         }
     }
 
+    public String csvEncodeItems(List<ClientSelectItem> clientSelectItems) {
+        if (clientSelectItems == null || clientSelectItems.isEmpty()) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        Iterator<ClientSelectItem> iter = clientSelectItems.iterator();
+        while (iter.hasNext()) {
+            ClientSelectItem item = iter.next();
+            sb.append(item.getConvertedValue());
+            if (iter.hasNext()) {
+                sb.append(",");
+            }
+        }
+        return sb.toString();
+    }
+
     @Override
     public void doDecode(FacesContext context, UIComponent component){
         ExternalContext external = context.getExternalContext();
-        Map requestParams = external.getRequestParameterValuesMap();
+        Map requestParams = external.getRequestParameterMap();
         AbstractSelectManyComponent select = (AbstractSelectManyComponent)component;
         String clientId = select.getClientId(context);
-        String[] submittedValue = (String[])requestParams.get(clientId+"Target");
+        String submittedValue = (String)requestParams.get(clientId+"Hidden");
         if (submittedValue != null) {
-            System.out.println("Submitted value: ");
-            for (String value :submittedValue) {
-                System.out.println("               : " + value);
-            }
+            String[] values = submittedValue.split(",");
             if (select.getValue() instanceof List) {
-                select.setSubmittedValue(Arrays.asList(submittedValue));
+                select.setSubmittedValue(Arrays.asList(values));
             } else if (select.getValue() instanceof Object[]) {
-                select.setSubmittedValue(submittedValue);
+                select.setSubmittedValue(values);
             } else {
                 throw new IllegalArgumentException("Value expression must evaluate to either a List or Object[]");
             }

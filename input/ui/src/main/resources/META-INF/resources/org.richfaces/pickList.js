@@ -8,6 +8,7 @@
         this.pickList = $(document.getElementById(id + "PickList"));
         this.sourceList = $(document.getElementById(id + "Source"));
         this.targetList = $(document.getElementById(id + "Target"));
+        this.hiddenValues = $(document.getElementById(id + "Hidden"));
         this.addButton = $('.rf-pick-add', this.pickList);
         this.addButton.bind("click", $.proxy(this.add, this));
         this.addAllButton = $('.rf-pick-add-all', this.pickList);
@@ -38,26 +39,32 @@
 
             add: function() {
                 $('option:selected', this.sourceList).remove().appendTo(this.targetList);
+                this.encodeHiddenValues();
             },
 
             remove: function() {
                 $('option:selected', this.targetList).remove().appendTo(this.sourceList);
+                this.encodeHiddenValues();
             },
 
             addAll: function() {
                 $('option', this.sourceList).remove().appendTo(this.targetList);
+                this.encodeHiddenValues();
             },
 
             removeAll: function() {
                 $('option', this.targetList).remove().appendTo(this.sourceList);
+                this.encodeHiddenValues();
+            },
+
+            encodeHiddenValues: function() {
+                var encoded = new Array();
+                $('option', this.targetList).each(function( index ) {
+                    encoded.push($(this).val());
+                });
+                this.hiddenValues.val(encoded.join(","));
             }
         };
     })());
 
 })(jQuery, window.RichFaces);
-
-$(document).ready( function () {
-    $('form:has(.rf-pick-target)').submit(function() {
-        $('.rf-pick-target option', $(this)).attr('selected', 'selected');
-    });
-});

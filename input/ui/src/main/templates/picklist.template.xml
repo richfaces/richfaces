@@ -65,6 +65,8 @@
                     </td>
                 </tr>
             </table>
+            <cdk:object type="java.lang.Object" name="hiddenValues" value="#{csvEncodeItems(clientSelectItemsSelected)}" />
+            <input type="hidden" name="#{clientId}Hidden" id="#{clientId}Hidden" value="#{hiddenValues}" />
         </div>
         <script type="text/javascript">
             <cdk:scriptObject name="options">
