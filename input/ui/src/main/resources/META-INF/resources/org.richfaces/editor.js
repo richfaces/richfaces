@@ -7,37 +7,91 @@
     
     var defaultOptions = {};
     
-    var ckeditor;
-    
-    var updateElement = function() {
-        ckeditor.updateElement();
-    };
-    
-    rf.ui.Editor = function(componentId, options) {
+    rf.ui.Editor = function(componentId, domBinding, options) {
         $super.constructor.call(this, componentId, options, defaultOptions);
         
+        var self = this;
+        this.textareaId = componentId;
+        this.domBinding = domBinding;
+        
+        this.attachToDom(this.textareaId);
+        this.attachToDom(this.domBinding);
+        
+        this.__updateElement = function() {
+            self.ckeditor.updateElement();
+        }
+        
         $(document).ready(function() {
-            ckeditor = CKEDITOR.replace(componentId);
-            
-            form = $('form').has(document.getElementById(componentId)).get(0);
-            
-            rf.Event.bind(form, 'ajaxsubmit', updateElement);
+            self.ckeditor = CKEDITOR.replace(self.textareaId);
+            rf.Event.bind(self.__getForm(), 'ajaxsubmit', self.__updateElement);
         });
     };
     
-    rf.ui.Base.extend(rf.ui.Editor);
+    rf.BaseComponent.extend(rf.ui.Editor);
     
     var $super = rf.ui.Editor.$super;
     
     $.extend(rf.ui.Editor.prototype, {
         
         name : "Editor",
+    
+        /**
+         * Updates editor with the content of associated textarea
+         */
+        __updateEditor : function() {
+            var textarea = this.__getTextarea();
+            textarea.hide();
+            this.attachToDom(textarea);
+            var newValue = textarea.val();
+            this.ckeditor.setData(newValue);
+        },
         
+        __getTextarea : function() {
+            return $(document.getElementById(this.textareaId));
+        },
+        
+        /**
+         * Returns the form where this editor component is placed
+         */
+        __getForm : function() {
+            return $('form').has(this.__getTextarea()).get(0);
+        },
+    
+        /**
+         * Overrides #destroy method in order to do not destroy
+         * editor component when cleaning textarea (needs to be destroyed
+         * when cleaning domBinding)
+         */
         destroy : function() {
-            rf.Event.unbind(form, 'ajaxsubmit', updateElement);
-            ckeditor.destroy();
+            // do not destroy component here
+        },
+        
+        /**
+         * Detaches editor from DOM element and destroys component if necessary (see bellow).
+         * 
+         * Destroys editor component if detaching from non-textarea element.
+         * This method replaces #destroy() when applied to non-textarea elements.
+         */
+        detach : function(source) {
+            // destroy editor
+            if (!$(source).is('textarea')) {
+                if (this.__updateElement) {
+                    rf.Event.unbind(this.__getForm(), 'ajaxsubmit', this.__updateElement);
+                    this.__updateElement = null;
+                }
+                
+                if (this.ckeditor) {
+                    this.ckeditor.destroy();
+                    this.ckeditor = null;
+                }
+                
+                this.__getTextarea().show();
+                
+                $super.destroy.call(this);
+            }
             
-            $super.destroy.call(this);
+            // detach editor
+            $super.detach.call(this);
         }
     });
 })(jQuery, RichFaces);
