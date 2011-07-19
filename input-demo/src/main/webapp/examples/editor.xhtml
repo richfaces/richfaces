@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:in="http://richfaces.org/input" xmlns:a4j="http://richfaces.org/a4j">
+<f:view contentType="text/html" />
+
+<h:head>
+    <title>InplaceInput</title>
+</h:head>
+
+<h:body>
+    <!-- <a4j:log mode="inline" />  -->
+
+    <fieldset>
+        <legend>Update value</legend>
+
+        <h:form id="form2a">
+            <in:editor id="editor2" value="#{editor.value}" />
+        </h:form>
+
+        <h:form id="form2b">
+            <in:editor id="editor3" value="#{editor.value}" />
+
+            <a4j:commandButton value="Update" process="@form" render="editor2" />
+        </h:form>
+    </fieldset>
+
+    <fieldset>
+        <legend>Trivial submit/ajax</legend>
+
+        <h:form id="form1">
+            <in:editor id="editor1" value="#{editor.value}" />
+
+            <h:commandButton value="Submit" />
+
+            <a4j:commandButton value="Ajax" process="@form" render="output1" />
+
+            <a4j:outputPanel id="output1">
+                #{editor.value}
+            </a4j:outputPanel>
+        </h:form>
+    </fieldset>
+
+</h:body>
+</html>
