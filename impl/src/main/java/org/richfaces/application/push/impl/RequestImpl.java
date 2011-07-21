@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.atmosphere.cpr.AtmosphereResourceEvent;
 import org.atmosphere.cpr.AtmosphereResourceEventListener;
+import org.atmosphere.cpr.BroadcasterLifeCyclePolicy;
 import org.atmosphere.cpr.Meteor;
 import org.atmosphere.websocket.WebSocketSupport;
 import org.richfaces.application.push.Request;
@@ -43,6 +44,7 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
     private Session session;
     private final Meteor meteor;
     private boolean hasActiveBroadcaster = false;
+    private BroadcasterLifeCyclePolicy policy;
 
     public RequestImpl(Meteor meteor, Session session) {
         super();
@@ -51,6 +53,11 @@ public class RequestImpl implements Request, AtmosphereResourceEventListener {
         meteor.addListener(this);
 
         this.session = session;
+
+        //Set policy to EMPTY_DESTROY so that Broadcaster is removed from BroadcasterFactory and releases resources if
+        //there is no AtmosphereResource associated with it.
+        policy = new BroadcasterLifeCyclePolicy.Builder().policy(BroadcasterLifeCyclePolicy.ATMOSPHERE_RESOURCE_POLICY.EMPTY_DESTROY).build();
+        this.meteor.getBroadcaster().setBroadcasterLifeCyclePolicy(policy);
     }
 
     public void suspend() {
