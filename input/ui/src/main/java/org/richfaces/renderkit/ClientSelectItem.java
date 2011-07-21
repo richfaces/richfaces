@@ -26,10 +26,21 @@ import java.io.IOException;
 import org.ajax4jsf.javascript.ScriptString;
 import org.ajax4jsf.javascript.ScriptUtils;
 
+/**
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
+ */
 public final class ClientSelectItem implements ScriptString {
     private String clientId;
-    private String label;
-    private String convertedValue;
+    private final String label;
+    private final String convertedValue;
+    /**
+     * The initial selection status of the SelectItem
+     */
+    private final boolean selected;
+    /**
+     * The initial sort order of the SelectItem
+     */
+    private final Integer sortOrder;
 
     public ClientSelectItem(String convertedValue, String label) {
         this(convertedValue, label, null);
@@ -40,6 +51,23 @@ public final class ClientSelectItem implements ScriptString {
         this.convertedValue = convertedValue;
         this.label = label;
         this.clientId = clientId;
+        this.selected = false;
+        this.sortOrder = 0;
+    }
+
+    public ClientSelectItem(String convertedValue, String label, Integer sortOrder, boolean selected) {
+        this.label = label;
+        this.convertedValue = convertedValue;
+        this.selected = selected;
+        this.sortOrder = sortOrder;
+    }
+
+    public ClientSelectItem(String convertedValue, String label, Integer sortOrder, boolean selected, String clientId) {
+        this.clientId = clientId;
+        this.label = label;
+        this.convertedValue = convertedValue;
+        this.selected = selected;
+        this.sortOrder = sortOrder;
     }
 
     public String getClientId() {
@@ -74,4 +102,13 @@ public final class ClientSelectItem implements ScriptString {
         return "{ 'id' : " + ScriptUtils.toScript(clientId) + " , 'label' : " + ScriptUtils.toScript(label) + ", 'value' : "
             + ScriptUtils.toScript(convertedValue) + "}";
     }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public Integer getSortOrder() {
+        return sortOrder;
+    }
+
 }

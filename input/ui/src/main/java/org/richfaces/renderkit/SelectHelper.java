@@ -90,15 +90,15 @@ public final class SelectHelper {
 
         while (selectItems.hasNext()) {
             SelectItem selectItem = selectItems.next();
-            clientSelectItems.add(generateClientSelectItem(facesContext,component, selectItem));
+            clientSelectItems.add(generateClientSelectItem(facesContext,component, selectItem, 0, false));
         }
         return clientSelectItems;
     }
 
-    public static ClientSelectItem generateClientSelectItem(FacesContext facesContext, UIComponent component, SelectItem selectItem) {
+    public static ClientSelectItem generateClientSelectItem(FacesContext facesContext, UIComponent component, SelectItem selectItem, int sortOrder, boolean selected) {
         String convertedStringValue = InputUtils.getConvertedStringValue(facesContext, component, selectItem.getValue());
         String label = selectItem.getLabel();
-        ClientSelectItem clientSelectItem = new ClientSelectItem(convertedStringValue, label);
+        ClientSelectItem clientSelectItem = new ClientSelectItem(convertedStringValue, label, sortOrder, selected);
         return clientSelectItem;
     }
 
