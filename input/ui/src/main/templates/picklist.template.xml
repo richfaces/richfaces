@@ -14,24 +14,36 @@
 
     <cc:implementation>
 
-        <cdk:call expression="generateSelectItemsLists(facesContext, component);" />
-
-        <cdk:object type="java.util.List" type-arguments="org.richfaces.renderkit.ClientSelectItem" name="clientSelectItemsAvailable"
-                    value="#{getConvertedSelectItemsAvailable(facesContext, component)}" />
-
-        <cdk:object type="java.util.List" type-arguments="org.richfaces.renderkit.ClientSelectItem" name="clientSelectItemsSelected"
-                            value="#{getConvertedSelectItemsSelected(facesContext, component)}" />
+        <cdk:object type="java.util.List" type-arguments="org.richfaces.renderkit.ClientSelectItem" name="clientSelectItems"
+                    value="#{getClientSelectItems(facesContext, component)}" />
 
         <cdk:object type="java.lang.Object" name="disabled" value="#{component.attributes['disabled']}" />
 
-        <div id="#{clientId}PickList">
+
+        <div id="#{clientId}">
             <table>
                 <tr>
                     <td>
-                        <select multiple="true" id="#{clientId}Source" name="#{clientId}Source"
-                                 class="#{concatClasses('rf-pick-source', component.attributes['selectItemClass'])}">
-                            <cdk:call expression="encodeItems(facesContext, component, clientSelectItemsAvailable);" />
-                        </select>
+
+                        <div id="#{clientId}Source" class="#{concatClasses('rf-pick', component.attributes['styleClass'])}" style="#{component.attributes['style']}">
+                            <div id="#{clientId}SourceList" class="#{concatClasses('rf-pick-source', component.attributes['selectItemClass'])}">
+                                <!-- cdk:call expression="renderListHandlers(facesContext, component);" / -->
+                                <div class="rf-pick-shdw">
+                                    <div class="rf-pick-shdw-t"></div>
+                                    <div class="rf-pick-shdw-l"></div>
+                                    <div class="rf-pick-shdw-r"></div>
+                                    <div class="rf-pick-shdw-b"></div>
+
+                                    <div class="rf-pick-lst-dcrtn">
+                                        <div class="rf-pick-lst-scrl"> <!--  style='{encodeHeightAndWidth(component)}"> -->
+                                            <div id="#{clientId}SourceItems">
+                                                <cdk:call expression="encodeSourceItems(facesContext, component, clientSelectItems);" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
                     <td>
                         <table>
@@ -58,22 +70,40 @@
                         </table>
                     </td>
                     <td>
-                        <select multiple="true" id="#{clientId}Target" name="#{clientId}Target"
-                                class="#{concatClasses('rf-pick-target', component.attributes['selectItemClass'])}">
-                            <cdk:call expression="encodeItems(facesContext, component, clientSelectItemsSelected);" />
-                        </select>
+
+                        <div id="#{clientId}Target" class="#{concatClasses('rf-pick', component.attributes['styleClass'])}" style="#{component.attributes['style']}">
+                            <div id="#{clientId}TargetList" class="#{concatClasses('rf-pick-source', component.attributes['selectItemClass'])}">
+                                <!-- cdk:call expression="renderListHandlers(facesContext, component);" / -->
+                                <div class="rf-pick-shdw">
+                                    <div class="rf-pick-shdw-t"></div>
+                                    <div class="rf-pick-shdw-l"></div>
+                                    <div class="rf-pick-shdw-r"></div>
+                                    <div class="rf-pick-shdw-b"></div>
+
+                                    <div class="rf-pick-lst-dcrtn">
+                                        <div class="rf-pick-lst-scrl"> <!--  style='{encodeHeightAndWidth(component)}"> -->
+                                            <div id="#{clientId}TargetItems">
+                                                <cdk:call expression="encodeTargetItems(facesContext, component, clientSelectItems);" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </td>
+
                 </tr>
             </table>
-            <cdk:object type="java.lang.Object" name="hiddenValues" value="#{csvEncodeItems(clientSelectItemsSelected)}" />
-            <input type="hidden" name="#{clientId}Hidden" id="#{clientId}Hidden" value="#{hiddenValues}" />
+            <cdk:object type="java.lang.Object" name="hiddenValues" value="#{csvEncodeSelectedItems(clientSelectItems)}" />
+            <input type="text" id="#{clientId}SelValue" name="#{clientId}" value="#{hiddenValues}" />
+            <script type="text/javascript">
+                <cdk:scriptObject name="options">
+                    <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onblur onselectitem onfocus"
+                        wrapper="eventHandler" />
+                    <cdk:scriptOption name="items" value="#{clientSelectItems}" />
+                </cdk:scriptObject>
+                new RichFaces.ui.PickList("#{clientId}", #{toScriptArgs(options)});
+            </script>
         </div>
-        <script type="text/javascript">
-            <cdk:scriptObject name="options">
-                <cdk:scriptOption name="itemsAvailable" value="#{clientSelectItemsAvailable}" />
-                <cdk:scriptOption name="itemsSelected" value="#{clientSelectItemsSelected}" />
-            </cdk:scriptObject>
-            new RichFaces.ui.PickList("#{clientId}", #{toScriptArgs(options)});
-        </script>
     </cc:implementation>
 </cdk:root>

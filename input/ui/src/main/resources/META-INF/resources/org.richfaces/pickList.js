@@ -5,10 +5,13 @@
     rf.ui.PickList = function(id, options) {
         var mergedOptions = $.extend({}, defaultOptions, options);
         $super.constructor.call(this, id, mergedOptions);
-        this.pickList = $(document.getElementById(id + "PickList"));
-        this.sourceList = $(document.getElementById(id + "Source"));
-        this.targetList = $(document.getElementById(id + "Target"));
-        this.hiddenValues = $(document.getElementById(id + "Hidden"));
+        mergedOptions['scrollContainer'] = $(document.getElementById(id + "SourceItems")).parent()[0];
+        this.sourceList = new rf.ui.List(id+ "Source", this, mergedOptions);
+        mergedOptions['scrollContainer'] = $(document.getElementById(id + "TargetItems")).parent()[0];
+        this.targetList = new rf.ui.List(id+ "Target", this, mergedOptions);
+        this.pickList = $(document.getElementById(id));
+        this.hiddenValues = $(document.getElementById(id + "SelValue"));
+
         this.addButton = $('.rf-pick-add', this.pickList);
         this.addButton.bind("click", $.proxy(this.add, this));
         this.addAllButton = $('.rf-pick-add-all', this.pickList);
@@ -22,6 +25,17 @@
     var $super = rf.ui.PickList.$super;
 
     var defaultOptions = {
+        defaultLabel: "",
+//        selectFirst: true,
+//        showControl: true,
+//        enableManualInput: false,
+        itemCss: "rf-pick-opt",
+        selectItemCss: "rf-pick-sel",
+        listCss: "rf-pick-lst-cord",
+        clickRequiredToSelect: true,
+        multipleSelect: true
+//        changeDelay: 8,
+//        disabled: false
     };
 
     $.extend(rf.ui.PickList.prototype, (function () {
@@ -37,30 +51,38 @@
                 return this.namespace;
             },
 
+            __focusHandler: function(e) {
+                alert("focus");
+            },
+
             add: function() {
-                $('option:selected', this.sourceList).remove().appendTo(this.targetList);
+                var items = this.sourceList.removeSelectedItems();
+                this.targetList.addItems(items);
                 this.encodeHiddenValues();
             },
 
             remove: function() {
-                $('option:selected', this.targetList).remove().appendTo(this.sourceList);
+                var items = this.targetList.removeSelectedItems();
+                this.sourceList.addItems(items);
                 this.encodeHiddenValues();
             },
 
             addAll: function() {
-                $('option', this.sourceList).remove().appendTo(this.targetList);
+                var items = this.sourceList.removeAllItems();
+                this.targetList.addItems(items);
                 this.encodeHiddenValues();
             },
 
             removeAll: function() {
-                $('option', this.targetList).remove().appendTo(this.sourceList);
+                var items = this.targetList.removeAllItems();
+                this.sourceList.addItems(items);
                 this.encodeHiddenValues();
             },
 
             encodeHiddenValues: function() {
                 var encoded = new Array();
-                $('option', this.targetList).each(function( index ) {
-                    encoded.push($(this).val());
+                this.targetList.__getItems().each(function( index ) {
+                    encoded.push($(this).attr('value'));
                 });
                 this.hiddenValues.val(encoded.join(","));
             }

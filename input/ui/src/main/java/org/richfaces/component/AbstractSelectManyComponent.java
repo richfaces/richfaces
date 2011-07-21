@@ -56,6 +56,9 @@ public abstract class AbstractSelectManyComponent extends UISelectMany {
     public abstract String getDisabledClass();
 
     @Attribute
+    public abstract String getEscape();
+
+    @Attribute
     public abstract String getListClass();
 
     @Attribute(events = @EventName("blur"))

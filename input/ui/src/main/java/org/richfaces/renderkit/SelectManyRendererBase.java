@@ -23,17 +23,10 @@ package org.richfaces.renderkit;
 
 import org.richfaces.component.AbstractSelectManyComponent;
 import org.richfaces.component.util.HtmlUtil;
-import org.richfaces.json.JSONArray;
-import org.richfaces.json.JSONCollection;
-import org.richfaces.json.JSONException;
-import org.richfaces.json.JSONStringer;
-import org.richfaces.json.JSONTokener;
-import org.richfaces.json.JSONWriter;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
 import javax.faces.model.SelectItem;
@@ -58,20 +51,18 @@ import java.util.Set;
         @ResourceDependency(name = "richfaces-selection.js"),
         @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "popup.js"),
+        @ResourceDependency(library = "org.richfaces", name = "list.js"),
         @ResourceDependency(library = "org.richfaces", name = "popupList.js"),
-        @ResourceDependency(library = "org.richfaces", name = "select.js"),
-        @ResourceDependency(library = "org.richfaces", name = "select.ecss"),
-        @ResourceDependency(library = "org.richfaces", name = "pickList.js") })
+        @ResourceDependency(library = "org.richfaces", name = "pickList.js"),
+        @ResourceDependency(library = "org.richfaces", name = "pickList.ecss") })
 public class SelectManyRendererBase extends RendererBase {
-    public static final String ITEM_CSS = ""; //"rf-sel-opt";
-    protected List<ClientSelectItem> convertedSelectItemsAvailable;
-    protected List<ClientSelectItem> convertedSelectItemsSelected;
+    public static final String ITEM_CSS = "rf-pick-opt";
 
-    public void generateSelectItemsLists(FacesContext facesContext, UIComponent component) {
+    public List<ClientSelectItem> getClientSelectItems(FacesContext facesContext, UIComponent component) {
         AbstractSelectManyComponent select = (AbstractSelectManyComponent) component;
         List<SelectItem> selectItemsAll = SelectHelper.getSelectItems(facesContext, component);
-        convertedSelectItemsAvailable = new ArrayList<ClientSelectItem>();
-        convertedSelectItemsSelected = new ArrayList<ClientSelectItem>();
+        List<ClientSelectItem> clientSelectItems = new ArrayList<ClientSelectItem>();
+
         Object object = select.getValue();
         Object[] values;
         if (object == null) {
@@ -86,51 +77,18 @@ public class SelectManyRendererBase extends RendererBase {
             throw new IllegalArgumentException("Value expression must evaluate to either a List or Object[]");
         }
         Set<Object> valuesSet = new HashSet<Object>(Arrays.asList(values));
+        int sortOrder = 0;
+        // TODO: Deal with SelectItemGroups
         for (SelectItem selectItem : selectItemsAll) {
-            if (valuesSet.contains(selectItem.getValue())) {
-                convertedSelectItemsSelected.add(SelectHelper.generateClientSelectItem(facesContext, component, selectItem));
-            } else {
-                convertedSelectItemsAvailable.add(SelectHelper.generateClientSelectItem(facesContext, component, selectItem));
-            }
+            boolean selected = valuesSet.contains(selectItem.getValue());
+            ClientSelectItem clientSelectItem = SelectHelper.generateClientSelectItem(facesContext, component, selectItem, sortOrder, selected);
+            clientSelectItems.add(clientSelectItem);
+            sortOrder++;
         }
+        return clientSelectItems;
     }
 
-    public List<ClientSelectItem> getConvertedSelectItemsAvailable(FacesContext facesContext, UIComponent component) {
-        return convertedSelectItemsAvailable;
-    }
-
-    public List<ClientSelectItem> getConvertedSelectItemsSelected(FacesContext facesContext, UIComponent component) {
-        return convertedSelectItemsSelected;
-    }
-
-    public void encodeItems(FacesContext facesContext, UIComponent component, List<ClientSelectItem> clientSelectItems)
-            throws IOException {
-        AbstractSelectManyComponent select = (AbstractSelectManyComponent) component;
-        if (clientSelectItems != null && !clientSelectItems.isEmpty()) {
-            ResponseWriter writer = facesContext.getResponseWriter();
-            String clientId = component.getClientId(facesContext);
-            int i = 0;
-            for (ClientSelectItem clientSelectItem : clientSelectItems) {
-                String itemClientId = clientId + "Item" + (i++);
-                clientSelectItem.setClientId(itemClientId);
-                writer.startElement(HtmlConstants.OPTION_ELEM, component);
-                writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, itemClientId, null);
-                writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, clientSelectItem.getConvertedValue(), null);
-                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
-                    HtmlUtil.concatClasses(select.getItemClass(), ITEM_CSS), null);
-                String label = clientSelectItem.getLabel();
-                if (label != null && label.trim().length() > 0) {
-                    writer.writeText(label, null);
-                } else {
-                    writer.write("\u00a0");
-                }
-                writer.endElement(HtmlConstants.OPTION_ELEM);
-                writer.write('\n');
-            }
-        }
-    }
-
-    public String csvEncodeItems(List<ClientSelectItem> clientSelectItems) {
+    public String csvEncodeSelectedItems(List<ClientSelectItem> clientSelectItems) {
         if (clientSelectItems == null || clientSelectItems.isEmpty()) {
             return "";
         }
@@ -138,21 +96,22 @@ public class SelectManyRendererBase extends RendererBase {
         Iterator<ClientSelectItem> iter = clientSelectItems.iterator();
         while (iter.hasNext()) {
             ClientSelectItem item = iter.next();
-            sb.append(item.getConvertedValue());
-            if (iter.hasNext()) {
-                sb.append(",");
+            if (item.isSelected()) {
+                if (sb.length() > 0) {
+                    sb.append(",");
+                }
+                sb.append(item.getConvertedValue());
             }
         }
         return sb.toString();
     }
 
     @Override
-    public void doDecode(FacesContext context, UIComponent component){
-        ExternalContext external = context.getExternalContext();
-        Map requestParams = external.getRequestParameterMap();
+    public void doDecode(FacesContext facesContext, UIComponent component){
+        Map requestParams = facesContext.getExternalContext().getRequestParameterMap();
         AbstractSelectManyComponent select = (AbstractSelectManyComponent)component;
-        String clientId = select.getClientId(context);
-        String submittedValue = (String)requestParams.get(clientId+"Hidden");
+        String clientId = select.getClientId(facesContext);
+        String submittedValue = (String)requestParams.get(clientId);
         if (submittedValue != null) {
             String[] values = submittedValue.split(",");
             if (select.getValue() instanceof List) {
@@ -169,6 +128,52 @@ public class SelectManyRendererBase extends RendererBase {
                 select.setSubmittedValue(new String[0]);
             } else {
                 throw new IllegalArgumentException("Value expression must evaluate to either a List or Object[]");
+            }
+        }
+    }
+
+    public void encodeTargetItems(FacesContext context, UIComponent component, List<ClientSelectItem> clientSelectItems) throws IOException {
+        List<ClientSelectItem> selectItemsForSelectedValues = selectItemsFilter(clientSelectItems, true);
+        encodeItems(context, component, false, selectItemsForSelectedValues);
+    }
+
+    public void encodeSourceItems(FacesContext context, UIComponent component, List<ClientSelectItem> clientSelectItems) throws IOException {
+        List<ClientSelectItem> selectItemsForAvailableList = selectItemsFilter(clientSelectItems, false);
+        encodeItems(context, component, true, selectItemsForAvailableList);
+    }
+
+    protected List<ClientSelectItem> selectItemsFilter(List<ClientSelectItem> selectItems, boolean filterSelected) {
+        List<ClientSelectItem> result = new ArrayList<ClientSelectItem>();
+        for (ClientSelectItem selectItem : selectItems) {
+            if (selectItem.isSelected() == filterSelected) {
+                result.add(selectItem);
+            }
+        }
+        return result;
+    }
+
+    private void encodeItems(FacesContext facesContext, UIComponent component, boolean source, List<ClientSelectItem> clientSelectItems) throws IOException {
+                AbstractSelectManyComponent select = (AbstractSelectManyComponent) component;
+        if (clientSelectItems != null && !clientSelectItems.isEmpty()) {
+            ResponseWriter writer = facesContext.getResponseWriter();
+            String clientId = component.getClientId(facesContext);
+            int i = 0;
+            for (ClientSelectItem clientSelectItem : clientSelectItems) {
+                String itemClientId = clientId + "Item" + (i++);
+                clientSelectItem.setClientId(itemClientId);
+                writer.startElement(HtmlConstants.DIV_ELEM, component);
+                writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, itemClientId, null);
+                writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, clientSelectItem.getConvertedValue(), null);
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
+                    HtmlUtil.concatClasses(select.getItemClass(), ITEM_CSS), null);
+                String label = clientSelectItem.getLabel();
+                if (label != null && label.trim().length() > 0) {
+                    writer.writeText(label, null);
+                } else {
+                    writer.write("\u00a0");
+                }
+                writer.endElement(HtmlConstants.DIV_ELEM);
+                writer.write('\n');
             }
         }
     }

@@ -1,0 +1,158 @@
+.rf-pick-inp,.rf-pick-opt {
+    color: '#{richSkin.generalTextColor}';
+    font-size: '#{richSkin.generalSizeFont}';
+    font-family: '#{richSkin.generalFamilyFont}';
+}
+
+.rf-pick-cntr {
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{richSkin.panelBorderColor}';
+    display: inline-block;
+    font-size: 1px;
+    white-space: nowrap;
+}
+
+input.rf-pick-inp {
+    background-color: '#{richSkin.controlBackgroundColor}';
+    background-image: url("#{resource['org.richfaces.images:inputBackgroundImage.png']}");
+    background-position: 1px 1px;
+    background-repeat: no-repeat;
+    border: 0px;
+    margin: 0px;
+    padding: 0px;
+    vertical-align: top;
+    width: 182px;
+}
+
+.rf-pick {
+    display: inline-block;
+}
+
+.rf-pick-fld-err input {
+    color: #FF0000;
+}
+
+.rf-pick-btn {
+    background-image: "url(#{resource['org.richfaces.images:autocompleteButtonGradient.png']})";
+    background-repeat: repeat-x;
+    background-position: top left;
+    background-color: '#{richSkin.headerBackgroundColor}';
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: '#{richSkin.panelBorderColor}';
+    display: inline-block;
+    vertical-align: top;
+}
+
+.rf-pick-btn-arrow {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: "url(#{resource['org.richfaces.images:comboDownButton.png']})";
+    cursor: pointer;
+    width: 15px;
+    height: 16px;
+    display: inline-block;
+}
+
+.rf-pick-btn-dis {
+    
+}
+
+.rf-pick-btn-dis .rf-pick-btn-arrow {
+    cursor: default;
+    background-image: "url(#{resource['org.richfaces.images:comboDisabledDownButton.png']})";
+}
+
+.rf-pick-lst-cord {
+    position: absolute;
+    z-index: 10000;
+    /* TODO nick - review: font-size: 0px; */
+    display: none;
+}
+
+.rf-pick-lst-dcrtn {
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{richSkin.panelBorderColor}';
+    padding: 0px;
+    background-color: '#{richSkin.tableBackgroundColor}';
+}
+
+.rf-pick-lst-scrl {
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.rf-pick-opt {
+    padding: 2px;
+    white-space: nowrap;
+    cursor: pointer;
+    list-style-type: none;
+}
+
+.rf-pick-sel {
+    padding: 1px;
+    width: 100%;
+    background-color: '#{richSkin.headerBackgroundColor}';
+    border-width: 1px;
+    border-style: dotted;
+    border-color: '#{richSkin.generalTextColor}';
+}
+
+.rf-pick-shdw {
+    border: 0px solid red;
+    display: inline-block;
+    padding: 6px 6px 6px 6px;
+    top: -6px;
+    left: -7px;
+}
+
+.rf-pick-shdw-t {
+    background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
+    background-position: top left;
+    position: absolute;
+    width: 6px;
+    top: 0px;
+    bottom: 6px;
+    left: 0px;
+}
+
+.rf-pick-shdw-l {
+    background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
+    background-position: bottom left;
+    position: absolute;
+    height: 6px;
+    bottom: 0px;
+    left: 0px;
+    right: 6px;
+}
+
+.rf-pick-u-shdw-r {
+    background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
+    background-position: bottom right;
+    position: absolute;
+    width: 6px;
+    top: 6px;
+    bottom: 0px;
+    right: 0px;
+}
+
+.rf-pick-shdw-b {
+    background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
+    background-position: right top;
+    position: absolute;
+    height: 6px;
+    top: 0px;
+    left: 6px;
+    right: 0px;
+}
+
+.rf-pick-lst-ul {
+    margin: 0px;
+    padding: 0px;
+}
+
+input.rf-pick-dflt-lbl {
+    color: #b3b3b3;
+}
