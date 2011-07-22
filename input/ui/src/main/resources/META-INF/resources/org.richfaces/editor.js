@@ -14,6 +14,7 @@
         var $this = this;
         this.textareaId = componentId;
         this.domBinding = domBinding;
+        this.valueChanged = false;
         
         this.attachToDom(this.textareaId);
         this.attachToDom(this.domBinding);
@@ -29,6 +30,7 @@
         this.__blurHandler = function(e) {
             $this.invokeEvent.call($this, "blur", $this.__getTextarea(), e);
             if ($this.getEditor().checkDirty()) {
+                $this.valueChanged = true;
                 $this.__changeHandler();
             }
             $this.getEditor().resetDirty();
@@ -70,7 +72,7 @@
             textarea.hide();
             this.attachToDom(textarea);
             var newValue = textarea.val();
-            this.ckeditor.setData(newValue);
+            this.setValue(newValue);
         },
         
         __getTextarea: function() {
@@ -86,6 +88,50 @@
         
         getEditor: function() {
             return this.ckeditor;
+        },
+        
+        setValue: function(newValue) {
+            $this = this;
+            this.ckeditor.setData(newValue, function() {
+                $this.valueChanged = false;
+                $this.ckeditor.resetDirty();
+            });
+        },
+        
+        getValue: function() {
+            return this.ckeditor.getData();
+        },
+        
+        getInput: function() {
+            return document.getElementById(this.textareaId);
+        },
+        
+        focus: function() {
+            this.ckeditor.focus();
+        },
+        
+        blur: function() {
+            this.ckeditor.blur();
+        },
+        
+        isFocused: function() {
+            return this.ckeditor.focusManager.hasFocus;
+        },
+        
+        isDirty: function() {
+            return this.ckeditor.checkDirty();
+        },
+        
+        isValueChanged: function() {
+            return this.valueChanged || this.ckeditor.checkDirty();
+        },
+        
+        setReadOnly: function(readOnly) {
+            this.ckeditor.setReadOnly(readOnly !== false);
+        },
+        
+        isReadOnly: function() {
+            return this.ckeditor.readOnly;
         },
     
         /**
