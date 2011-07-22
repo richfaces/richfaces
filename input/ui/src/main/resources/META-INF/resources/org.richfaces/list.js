@@ -130,6 +130,7 @@
             removeAllItems: function() {
                 var items = this.__getItems().detach();
                 this.__updateItemsList();
+                rf.Event.fire(this, "removeitems", items);
                 return items;
             },
 
@@ -137,6 +138,7 @@
                 var parentContainer = this.scrollContainer;
                 parentContainer.append(items);
                 this.__updateItemsList();
+                rf.Event.fire(this, "additems", items);
             },
 
             getItemByIndex: function(i) {

@@ -34,6 +34,7 @@ input.rf-pick-inp {
 }
 
 .rf-pick-btn {
+    width : 100%;
     background-image: "url(#{resource['org.richfaces.images:autocompleteButtonGradient.png']})";
     background-repeat: repeat-x;
     background-position: top left;
@@ -43,32 +44,12 @@ input.rf-pick-inp {
     border-left-color: '#{richSkin.panelBorderColor}';
     display: inline-block;
     vertical-align: top;
-}
-
-.rf-pick-btn-arrow {
-    background-position: center;
-    background-repeat: no-repeat;
-    background-image: "url(#{resource['org.richfaces.images:comboDownButton.png']})";
     cursor: pointer;
-    width: 15px;
-    height: 16px;
-    display: inline-block;
 }
 
 .rf-pick-btn-dis {
-    
-}
-
-.rf-pick-btn-dis .rf-pick-btn-arrow {
     cursor: default;
-    background-image: "url(#{resource['org.richfaces.images:comboDisabledDownButton.png']})";
-}
-
-.rf-pick-lst-cord {
-    position: absolute;
-    z-index: 10000;
-    /* TODO nick - review: font-size: 0px; */
-    display: none;
+    color : #dddddd;
 }
 
 .rf-pick-lst-dcrtn {

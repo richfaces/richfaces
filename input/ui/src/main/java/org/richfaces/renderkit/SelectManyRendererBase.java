@@ -23,6 +23,7 @@ package org.richfaces.renderkit;
 
 import org.richfaces.component.AbstractSelectManyComponent;
 import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.renderkit.util.HtmlDimensions;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
@@ -176,5 +177,59 @@ public class SelectManyRendererBase extends RendererBase {
                 writer.write('\n');
             }
         }
+    }
+
+    //TODO: Make the following methods DRY with the corresponding SelectRendererBase methods
+    protected String getMinListHeight(AbstractSelectManyComponent select) {
+        String height = HtmlDimensions.formatSize(select.getMinListHeight());
+        if (height == null || height.length() == 0) {
+            height = "20px";
+        }
+        return height;
+    }
+
+    protected String getMaxListHeight(AbstractSelectManyComponent select) {
+        String height = HtmlDimensions.formatSize(select.getMaxListHeight());
+        if (height == null || height.length() == 0) {
+            height = "100px";
+        }
+        return height;
+    }
+
+    protected String getListHeight(AbstractSelectManyComponent select) {
+        String height = HtmlDimensions.formatSize(select.getListHeight());
+        if (height == null || height.length() == 0) {
+            height = "auto";
+        }
+        return height;
+    }
+
+    protected String getListWidth(AbstractSelectManyComponent select) {
+        String width = HtmlDimensions.formatSize(select.getListWidth());
+        if (width == null || width.length() == 0) {
+            width = "200px";
+        }
+        return width;
+    }
+
+    public String encodeHeightAndWidth(UIComponent component) {
+        AbstractSelectManyComponent select = (AbstractSelectManyComponent) component;
+
+        String height = getListHeight(select);
+        if (!"auto".equals(height)) {
+            height = (height != null && height.trim().length() != 0) ? ("height: " + height) : "";
+        } else {
+            String minHeight = getMinListHeight(select);
+            minHeight = (minHeight != null && minHeight.trim().length() != 0) ? ("min-height: " + minHeight) : "";
+
+            String maxHeight = getMaxListHeight(select);
+            maxHeight = (maxHeight != null && maxHeight.trim().length() != 0) ? ("max-height: " + maxHeight) : "";
+            height = concatStyles(minHeight, maxHeight);
+        }
+
+        String width = getListWidth(select);
+        width = (width != null && width.trim().length() != 0) ? ("width: " + width) : "";
+
+        return concatStyles(height, width);
     }
 }

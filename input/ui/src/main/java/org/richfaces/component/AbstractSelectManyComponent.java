@@ -37,6 +37,12 @@ public abstract class AbstractSelectManyComponent extends UISelectMany {
     @Attribute()
     public abstract String getListHeight();
 
+    @Attribute()
+    public abstract String getMinListHeight();
+
+    @Attribute()
+    public abstract String getMaxListHeight();
+
     @Attribute
     public abstract String getDefaultLabel();
 
@@ -60,6 +66,18 @@ public abstract class AbstractSelectManyComponent extends UISelectMany {
 
     @Attribute
     public abstract String getListClass();
+
+    @Attribute(defaultValue = ">> Add all")
+    public abstract String getAddAllText();
+
+    @Attribute(defaultValue = "> Add")
+    public abstract String getAddText();
+
+    @Attribute(defaultValue = "< Remove")
+    public abstract String getRemoveText();
+
+    @Attribute(defaultValue = "<< Remove all")
+    public abstract String getRemoveAllText();
 
     @Attribute(events = @EventName("blur"))
     public abstract String getOnblur();
@@ -106,12 +124,6 @@ public abstract class AbstractSelectManyComponent extends UISelectMany {
     @Attribute(events = @EventName("listdblclick"))
     public abstract String getOnlistdblclick();
 
-    @Attribute(events = @EventName("listshow"))
-    public abstract String getOnlistshow();
-
-    @Attribute(events = @EventName("listhide"))
-    public abstract String getOnlisthide();
-
     @Attribute(events = @EventName("listmousedown"))
     public abstract String getOnlistmousedown();
 
@@ -136,6 +148,9 @@ public abstract class AbstractSelectManyComponent extends UISelectMany {
     @Attribute(events = @EventName("listkeyup"))
     public abstract String getOnlistkeyup();
 
-    @Attribute(events = @EventName("selectitem"))
-    public abstract String getOnselectitem();
+    @Attribute(events = @EventName("additems"))
+    public abstract String getOnadditem();
+
+    @Attribute(events = @EventName("removeitems"))
+    public abstract String getOnremoveitem();
 }

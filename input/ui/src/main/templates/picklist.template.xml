@@ -24,7 +24,6 @@
             <table>
                 <tr>
                     <td>
-
                         <div id="#{clientId}Source" class="#{concatClasses('rf-pick', component.attributes['styleClass'])}" style="#{component.attributes['style']}">
                             <div id="#{clientId}SourceList" class="#{concatClasses('rf-pick-source', component.attributes['selectItemClass'])}">
                                 <!-- cdk:call expression="renderListHandlers(facesContext, component);" / -->
@@ -35,7 +34,7 @@
                                     <div class="rf-pick-shdw-b"></div>
 
                                     <div class="rf-pick-lst-dcrtn">
-                                        <div class="rf-pick-lst-scrl"> <!--  style='{encodeHeightAndWidth(component)}"> -->
+                                        <div class="rf-pick-lst-scrl" style="#{encodeHeightAndWidth(component)}">
                                             <div id="#{clientId}SourceItems">
                                                 <cdk:call expression="encodeSourceItems(facesContext, component, clientSelectItems);" />
                                             </div>
@@ -49,30 +48,29 @@
                         <table>
                             <tr>
                                 <td>
-                                    <button type="button" class="rf-pick-rem-all">&lt;&lt;</button>
+                                    <button type="button" class="rf-pick-btn rf-pick-add-all">#{component.attributes['addAllText']}</button>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <button type="button" class="rf-pick-rem">&lt;</button>
+                                    <button type="button" class="rf-pick-btn rf-pick-add">#{component.attributes['addText']}</button>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <button type="button" class="rf-pick-add">&gt;</button>
+                                    <button type="button" class="rf-pick-btn rf-pick-rem">#{component.attributes['removeText']}</button>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <button type="button" class="rf-pick-add-all">&gt;&gt;</button>
+                                    <button type="button" class="rf-pick-btn rf-pick-rem-all">#{component.attributes['removeAllText']}</button>
                                 </td>
                             </tr>
                         </table>
                     </td>
                     <td>
-
                         <div id="#{clientId}Target" class="#{concatClasses('rf-pick', component.attributes['styleClass'])}" style="#{component.attributes['style']}">
-                            <div id="#{clientId}TargetList" class="#{concatClasses('rf-pick-source', component.attributes['selectItemClass'])}">
+                            <div id="#{clientId}TargetList" class="#{concatClasses('rf-pick-target', component.attributes['selectItemClass'])}">
                                 <!-- cdk:call expression="renderListHandlers(facesContext, component);" / -->
                                 <div class="rf-pick-shdw">
                                     <div class="rf-pick-shdw-t"></div>
@@ -81,7 +79,7 @@
                                     <div class="rf-pick-shdw-b"></div>
 
                                     <div class="rf-pick-lst-dcrtn">
-                                        <div class="rf-pick-lst-scrl"> <!--  style='{encodeHeightAndWidth(component)}"> -->
+                                        <div class="rf-pick-lst-scrl" style="#{encodeHeightAndWidth(component)}">
                                             <div id="#{clientId}TargetItems">
                                                 <cdk:call expression="encodeTargetItems(facesContext, component, clientSelectItems);" />
                                             </div>
@@ -91,14 +89,13 @@
                             </div>
                         </div>
                     </td>
-
                 </tr>
             </table>
             <cdk:object type="java.lang.Object" name="hiddenValues" value="#{csvEncodeSelectedItems(clientSelectItems)}" />
-            <input type="text" id="#{clientId}SelValue" name="#{clientId}" value="#{hiddenValues}" />
+            <input type="hidden" id="#{clientId}SelValue" name="#{clientId}" value="#{hiddenValues}" />
             <script type="text/javascript">
                 <cdk:scriptObject name="options">
-                    <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onblur onselectitem onfocus"
+                    <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onblur onadditems onremoveitems onfocus"
                         wrapper="eventHandler" />
                     <cdk:scriptOption name="items" value="#{clientSelectItems}" />
                 </cdk:scriptObject>

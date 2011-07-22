@@ -20,22 +20,28 @@
         this.removeButton.bind("click", $.proxy(this.remove, this));
         this.removeAllButton = $('.rf-pick-rem-all', this.pickList);
         this.removeAllButton.bind("click", $.proxy(this.removeAll, this));
+
+        if (mergedOptions['onadditems'] && mergedOptions['onadditems'] == 'function') {
+            rf.Event.bind(this.targetList, "additems", mergedOptions['onadditems']);
+        }
+        rf.Event.bind(this.targetList, "additems", $.proxy(this.toggleButtons, this));
+
+        // Adding items to the source list happens after removing them from the target list
+        if (mergedOptions['onremoveitems'] && mergedOptions['onremoveitems'] == 'function') {
+            rf.Event.bind(this.sourceList, "additems", mergedOptions['onremoveitems']);
+        }
+        rf.Event.bind(this.sourceList, "additems", $.proxy(this.toggleButtons, this));
     };
     rf.BaseComponent.extend(rf.ui.PickList);
     var $super = rf.ui.PickList.$super;
 
     var defaultOptions = {
         defaultLabel: "",
-//        selectFirst: true,
-//        showControl: true,
-//        enableManualInput: false,
         itemCss: "rf-pick-opt",
         selectItemCss: "rf-pick-sel",
         listCss: "rf-pick-lst-cord",
         clickRequiredToSelect: true,
         multipleSelect: true
-//        changeDelay: 8,
-//        disabled: false
     };
 
     $.extend(rf.ui.PickList.prototype, (function () {
@@ -85,6 +91,29 @@
                     encoded.push($(this).attr('value'));
                 });
                 this.hiddenValues.val(encoded.join(","));
+            },
+
+            toggleButtons: function() {
+                this.__toggleButton(this.addButton, this.sourceList.__getItems());
+                this.__toggleButton(this.removeButton, this.targetList.__getItems());
+            },
+
+            __toggleButton: function(button, list) {
+                if (list.length == 0) {
+                    if (! button.hasClass('rf-pick-btn-dis')) {
+                        button.addClass('rf-pick-btn-dis')
+                    }
+                    if (! button.attr('disabled')) {
+                        button.attr('disabled', true);
+                    }
+                } else {
+                    if (button.hasClass('rf-pick-btn-dis')) {
+                        button.removeClass('rf-pick-btn-dis')
+                    }
+                    if (button.attr('disabled')) {
+                        button.attr('disabled', false);
+                    }
+                }
             }
         };
     })());
