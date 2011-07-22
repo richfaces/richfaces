@@ -36,18 +36,20 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
     <cc:implementation>
 
-        <textarea id="#{clientId}" name="#{clientId}">#{getInputValue(facesContext, component)}</textarea>
+        <textarea id="#{clientId}" name="#{clientId}" cdk:passThroughWithExclusions="id">#{getInputValue(facesContext, component)}</textarea>
         <span id="#{clientId}DomBinding" />
         <script id="#{clientId}Script" type="text/javascript">
+            <cdk:scriptObject name="options">
+                <cdk:scriptOption wrapper="eventHandler" attributes="oninit" />
+            </cdk:scriptObject>
             window.CKEDITOR_BASEPATH = '#{facesContext.externalContext.requestContextPath}/faces/javax.faces.resource/ckeditor/';
                       
             if (!document.getElementById('#{clientId}DomBinding')[RichFaces.RICH_CONTAINER]) {
-                new RichFaces.ui.Editor("#{clientId}", "#{clientId}DomBinding");
+                new RichFaces.ui.Editor("#{clientId}", "#{clientId}DomBinding", #{empty toScriptArgs(options) ? 'null' : toScriptArgs(options)});
             } else {
                 RichFaces.$("#{clientId}DomBinding").__updateEditor();
             }
         </script>
-        
 
     </cc:implementation>
 </cdk:root>
