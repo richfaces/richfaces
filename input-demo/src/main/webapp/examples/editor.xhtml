@@ -10,18 +10,75 @@
 
 <h:body>
     <!-- <a4j:log mode="inline" />  -->
+    
+    <fieldset>
+        <legend>JavaScript API</legend>
 
+        <h:form id="form5">
+            <in:editor id="editor5" value="#{editor.value}" />
+            
+            <input type="button" value="setReadOnly(true)"
+                onclick="document.getElementById('form5:editor5').rf.component.setReadOnly(true)" />
+            <input type="button" value="setReadOnly(false)"
+                onclick="document.getElementById('form5:editor5').rf.component.setReadOnly(false)" />
+            <input type="button" value="isReadOnly()"
+                onclick="alert(document.getElementById('form5:editor5').rf.component.isReadOnly())" />
+            <input type="button" value="setValue('test')"
+                onclick="document.getElementById('form5:editor5').rf.component.setValue('test')" />
+            <input type="button" value="getValue()"
+                onclick="alert(document.getElementById('form5:editor5').rf.component.getValue())" />
+            <input type="button" value="getEditor()"
+                onclick="alert(document.getElementById('form5:editor5').rf.component.getEditor())" />
+            <input type="button" value="getInput()"
+                onclick="alert(document.getElementById('form5:editor5').rf.component.getInput())" />
+            <input type="button" value="focus()"
+                onclick="document.getElementById('form5:editor5').rf.component.focus()" />
+            <input type="button" value="blur()"
+                onclick="document.getElementById('form5:editor5').rf.component.blur()" />
+            <input type="button" value="isFocused()"
+                onclick="alert(document.getElementById('form5:editor5').rf.component.isFocused())" />
+            <input type="button" value="isDirty()"
+                onclick="alert(document.getElementById('form5:editor5').rf.component.isDirty())" />
+            <input type="button" value="isValueChanged()"
+                onclick="alert(document.getElementById('form5:editor5').rf.component.isValueChanged())" />
+        </h:form>
+    </fieldset>
+    
+    <fieldset>
+        <legend>Events</legend>
+
+        <h:form id="form4">
+            <in:editor id="editor4" value="#{editor.value}" >
+                <f:ajax event="change" />
+            </in:editor>
+        </h:form>
+    </fieldset>
+    
+    <fieldset>
+        <legend>Rereender Editor</legend>
+
+        <h:form id="form3a">
+            <in:editor id="editor3a" value="#{editor.value}" />
+        </h:form>
+
+        <h:form id="form3b">
+            <in:editor id="editor3b" value="#{editor.value}" />
+
+            <a4j:commandButton value="Update" process="@form" render="form3a" />
+        </h:form>
+    </fieldset>
+    
     <fieldset>
         <legend>Update value</legend>
 
         <h:form id="form2a">
-            <in:editor id="editor2" value="#{editor.value}" />
+            <in:editor id="editor2a" value="#{editor.value}" />
         </h:form>
 
         <h:form id="form2b">
-            <in:editor id="editor3" value="#{editor.value}" />
+            <in:editor id="editor2b" value="#{editor.value}" />
 
-            <a4j:commandButton value="Update" process="@form" render="editor2" />
+            <a4j:commandButton value="Update" process="@form" render="editor2a" />
         </h:form>
     </fieldset>
 
