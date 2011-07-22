@@ -5,6 +5,8 @@ import javax.el.ELException;
 import javax.el.ValueExpression;
 import javax.faces.context.FacesContext;
 
+import org.richfaces.validator.GraphValidatorState;
+
 public class ValueExpressionAnalayserImpl implements ValueExpressionAnalayser {
     private abstract static class ValueResolutionCommand {
         private ValueDescriptor valueDescriptor;
@@ -58,7 +60,7 @@ public class ValueExpressionAnalayserImpl implements ValueExpressionAnalayser {
         ValueExpression expression = initialExpression;
 
         while (expression != null) {
-            CapturingELContext capturingContext = new CapturingELContext(context.getELContext());
+            CapturingELContext capturingContext = new CapturingELContext(context.getELContext(),GraphValidatorState.getStateMap(context));
             command.resolve(expression, capturingContext);
 
             if (capturingContext.hasReferenceExpression()) {
