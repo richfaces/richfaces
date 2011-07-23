@@ -44,6 +44,9 @@
         multipleSelect: true
     };
 
+    // TODO: Find a way to toggle buttons on page load
+    // $.ready($.proxy(this.toggleButtons, this));
+
     $.extend(rf.ui.PickList.prototype, (function () {
 
         return {

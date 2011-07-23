@@ -62,6 +62,9 @@ public abstract class AbstractSelectManyComponent extends UISelectMany {
     public abstract String getDisabledClass();
 
     @Attribute
+    public abstract boolean isDisabled();
+
+    @Attribute
     public abstract String getEscape();
 
     @Attribute
