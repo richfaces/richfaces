@@ -5,7 +5,9 @@
 (function($, rf) {
     rf.ui = rf.ui || {};
     
-    var defaultOptions = {};
+    var defaultOptions = {
+        readonly: false
+    };
     
     rf.ui.Editor = function(componentId, domBinding, options) {
         $super.constructor.call(this, componentId);
@@ -45,9 +47,12 @@
         }
         
         $(document).ready(function() {
-            $this.ckeditor = CKEDITOR.replace($this.textareaId);
-            rf.Event.bind($this.__getForm(), 'ajaxsubmit', $this.__updateElement);
+            var textarea = $this.__getTextarea();
             
+            $this.ckeditor = CKEDITOR.replace($this.textareaId, $this.__getConfiguration());
+            
+            // register event handlers
+            rf.Event.bind($this.__getForm(), 'ajaxsubmit', $this.__updateElement);
             $this.ckeditor.on('instanceReady', $this.__initHandler);
             $this.ckeditor.on('blur', $this.__blurHandler);
             $this.ckeditor.on('focus', $this.__focusHandler);
@@ -65,12 +70,16 @@
         name: "Editor",
     
         /**
-         * Updates editor with the content of associated textarea
+         * Updates editor with the value and attributes of associated textarea
          */
         __updateEditor: function() {
             var textarea = this.__getTextarea();
+            
             textarea.hide();
             this.attachToDom(textarea);
+            
+            this.__updateEditorConfiguration();
+            
             var newValue = textarea.val();
             this.setValue(newValue);
         },
@@ -84,6 +93,21 @@
          */
         __getForm: function() {
             return $('form').has(this.__getTextarea()).get(0);
+        },
+        
+        __getConfiguration: function() {
+            var textarea = this.__getTextarea();
+            return {
+                readOnly: textarea.attr('readonly') || this.options.readonly
+            }
+        },
+        
+        __updateEditorConfiguration: function() {
+            var conf = this.__getConfiguration();
+            // readonly
+            if (this.isReadOnly() !== conf.readOnly) {
+                this.setReadOnly(conf.readOnly);
+            }
         },
         
         getEditor: function() {

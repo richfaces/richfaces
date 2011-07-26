@@ -13,6 +13,9 @@ public abstract class AbstractEditor extends UIInput {
     public static final String COMPONENT_TYPE = "org.richfaces.Editor";
     public static final String COMPONENT_FAMILY = "org.richfaces.Editor";
 
+    @Attribute(defaultValue = "false")
+    public abstract boolean isReadonly();
+
     @Attribute(events = @EventName("init"))
     public abstract String getOninit();
 

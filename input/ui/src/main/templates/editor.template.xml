@@ -35,8 +35,10 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     </cc:interface>
 
     <cc:implementation>
-
-        <textarea id="#{clientId}" name="#{clientId}" cdk:passThroughWithExclusions="id">#{getInputValue(facesContext, component)}</textarea>
+        <textarea id="#{clientId}" name="#{clientId}" cdk:passThroughWithExclusions="id readonly"
+                readonly="#{component.attributes['readonly'] ? 'readonly' : ''}">
+            #{getInputValue(facesContext, component)}
+        </textarea>
         <span id="#{clientId}DomBinding" />
         <script id="#{clientId}Script" type="text/javascript">
             <cdk:scriptObject name="options">
