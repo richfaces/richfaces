@@ -36,7 +36,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 
     <cc:implementation>
         <textarea id="#{clientId}" name="#{clientId}" cdk:passThroughWithExclusions="id readonly"
-                readonly="#{component.attributes['readonly'] ? 'readonly' : ''}">
+                readonly="#{component.attributes['readonly'] ? 'readonly' : ''}"
+                style="#{empty component.attributes['width'] ? '' : 'width: ' + component.attributes['width'] + '; '}#{empty component.attributes['height'] ? '' : 'height: ' + component.attributes['height'] + '; '}">
             #{getInputValue(facesContext, component)}
         </textarea>
         <span id="#{clientId}DomBinding" />

@@ -98,15 +98,33 @@
         __getConfiguration: function() {
             var textarea = this.__getTextarea();
             return {
-                readOnly: textarea.attr('readonly') || this.options.readonly
+                readOnly: textarea.attr('readonly') || this.options.readonly,
+                width: textarea.width(),
+                height: textarea.height()
             }
         },
         
         __updateEditorConfiguration: function() {
             var conf = this.__getConfiguration();
+            var editor = this.getEditor();
+            var textarea = this.__getTextarea();
+            
             // readonly
             if (this.isReadOnly() !== conf.readOnly) {
                 this.setReadOnly(conf.readOnly);
+            }
+            
+            // width & height
+            var newWidth = (editor.config.width !== textarea.width()) ?  textarea.width() : null;
+            var newHeight = (editor.config.height !== textarea.height()) ?  textarea.height() : null;
+            if (newWidth !== null || newHeight !== null) {
+                if (newWidth === null) {
+                    newWidth = editor.config.width;
+                }
+                if (newHeight === null) {
+                    newHeight = editor.config.height;
+                }
+                editor.resize(newWidth, newHeight, true);
             }
         },
         

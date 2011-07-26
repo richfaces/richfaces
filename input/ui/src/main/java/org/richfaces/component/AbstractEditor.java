@@ -16,6 +16,12 @@ public abstract class AbstractEditor extends UIInput {
     @Attribute(defaultValue = "false")
     public abstract boolean isReadonly();
 
+    @Attribute(defaultValue = "100%")
+    public abstract String getWidth();
+
+    @Attribute(defaultValue = "200px")
+    public abstract String getHeight();
+
     @Attribute(events = @EventName("init"))
     public abstract String getOninit();
 
