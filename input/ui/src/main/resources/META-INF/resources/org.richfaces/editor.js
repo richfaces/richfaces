@@ -6,6 +6,7 @@
     rf.ui = rf.ui || {};
     
     var defaultOptions = {
+        toolbar: 'Basic',
         readonly: false
     };
     
@@ -21,11 +22,21 @@
         this.attachToDom(this.textareaId);
         this.attachToDom(this.domBinding);
         
+        this.__initializeEditor = function() {
+            $this.ckeditor = CKEDITOR.replace($this.textareaId, $this.__getConfiguration());
+            
+            // register event handlers
+            rf.Event.bind($this.__getForm(), 'ajaxsubmit', $this.__updateElement);
+            $this.ckeditor.on('instanceReady', $this.__instanceReadyHandler);
+            $this.ckeditor.on('blur', $this.__blurHandler);
+            $this.ckeditor.on('focus', $this.__focusHandler);
+        }
+        
         this.__updateElement = function() {
             $this.ckeditor.updateElement();
         }
         
-        this.__initHandler = function(e) {
+        this.__instanceReadyHandler = function(e) {
             $this.invokeEvent.call($this, "init", $this.__getTextarea(), e);
         }
         
@@ -46,18 +57,7 @@
             $this.invokeEvent.call($this, "change", $this.__getTextarea(), e);
         }
         
-        $(document).ready(function() {
-            var textarea = $this.__getTextarea();
-            
-            $this.ckeditor = CKEDITOR.replace($this.textareaId, $this.__getConfiguration());
-            
-            // register event handlers
-            rf.Event.bind($this.__getForm(), 'ajaxsubmit', $this.__updateElement);
-            $this.ckeditor.on('instanceReady', $this.__initHandler);
-            $this.ckeditor.on('blur', $this.__blurHandler);
-            $this.ckeditor.on('focus', $this.__focusHandler);
-        });
-        
+        $(document).ready(this.__initializeEditor);
         rf.Event.bindById(this.__getTextarea(), 'init', this.options.oninit, this);
     };
     
@@ -79,9 +79,6 @@
             this.attachToDom(textarea);
             
             this.__updateEditorConfiguration();
-            
-            var newValue = textarea.val();
-            this.setValue(newValue);
         },
         
         __getTextarea: function() {
@@ -98,16 +95,45 @@
         __getConfiguration: function() {
             var textarea = this.__getTextarea();
             return {
+                toolbar: this.__getToolbar(),
                 readOnly: textarea.attr('readonly') || this.options.readonly,
                 width: textarea.width(),
                 height: textarea.height()
             }
         },
         
+        __getToolbar: function() {
+            var toolbar = this.options.toolbar;
+            
+            var lowercase = toolbar.toLowerCase();
+            if (lowercase === 'basic') {
+                return 'Basic';
+            }
+            if (lowercase === 'full') {
+                return 'Full';
+            }
+            
+            return toolbar;
+        },
+        
+        __setOptions: function(options) {
+            this.options = $.extend({}, defaultOptions, options);
+        },
+        
+        /**
+         * Updates editor configuration and value by synchronizing its settings with options and textarea settings.
+         */
         __updateEditorConfiguration: function() {
             var conf = this.__getConfiguration();
             var editor = this.getEditor();
             var textarea = this.__getTextarea();
+            
+            // toolbar 
+            if (editor.config.toolbar !== conf.toolbar) {
+                editor.destroy();
+                this.__initializeEditor();
+                return;
+            }
             
             // readonly
             if (this.isReadOnly() !== conf.readOnly) {
@@ -126,6 +152,10 @@
                 }
                 editor.resize(newWidth, newHeight, true);
             }
+            
+            // value
+            var newValue = textarea.val();
+            this.setValue(newValue);
         },
         
         getEditor: function() {

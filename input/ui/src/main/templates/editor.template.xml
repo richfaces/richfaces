@@ -43,14 +43,18 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <span id="#{clientId}DomBinding" />
         <script id="#{clientId}Script" type="text/javascript">
             <cdk:scriptObject name="options">
+                <cdk:scriptOption attributes="toolbar" />
                 <cdk:scriptOption wrapper="eventHandler" attributes="oninit" />
             </cdk:scriptObject>
             window.CKEDITOR_BASEPATH = '#{facesContext.externalContext.requestContextPath}/faces/javax.faces.resource/ckeditor/';
-                      
+            
+            options = #{empty toScriptArgs(options) ? 'null' : toScriptArgs(options)};
             if (!document.getElementById('#{clientId}DomBinding')[RichFaces.RICH_CONTAINER]) {
-                new RichFaces.ui.Editor("#{clientId}", "#{clientId}DomBinding", #{empty toScriptArgs(options) ? 'null' : toScriptArgs(options)});
+                new RichFaces.ui.Editor("#{clientId}", "#{clientId}DomBinding", options);
             } else {
-                RichFaces.$("#{clientId}DomBinding").__updateEditor();
+                var editor = RichFaces.$("#{clientId}DomBinding");
+                editor.__setOptions(options);
+                editor.__updateEditor();
             }
         </script>
 
