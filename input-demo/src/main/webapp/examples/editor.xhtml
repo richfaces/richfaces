@@ -5,11 +5,92 @@
 <f:view contentType="text/html" />
 
 <h:head>
-    <title>InplaceInput</title>
+    <title>Editor</title>
 </h:head>
 
 <h:body>
     <!-- <a4j:log mode="inline" />  -->
+    
+    <fieldset>
+        <legend>Validation</legend>
+        
+        <h:messages for="editor7" />
+        
+        <h:form id="form7">
+            <in:editor id="editor7" value="#{editor.value}" required="true" />
+            
+            <h:commandButton value="Validate" />
+        </h:form>
+    </fieldset>
+    
+    <fieldset>
+        <legend>Attributes</legend>
+
+        <h:form id="form6">
+            <a4j:outputPanel id="panel6">
+                <in:editor id="editor6" value="#{editor.value}"
+                    readonly="#{editor.readonly}" width="#{editor.width}" height="#{editor.height}"
+                    rendered="#{editor.rendered}" toolbar="#{editor.toolbar}"
+                    oninit="#{editor.oninit}" onfocus="#{editor.onfocus}" onblur="#{editor.onblur}" onchange="#{editor.onchange}"
+                    styleClass="#{editor.styleClass}" style="#{editor.style}"
+                    editorClass="#{editor.editorClass}" editorStyle="#{editor.editorStyle}" 
+                    textareaClass="#{editor.textareaClass}" textareaStyle="#{editor.textareaStyle}" />
+            </a4j:outputPanel>
+        </h:form>
+
+        <h:form>
+            <h:panelGrid columns="2">
+                <h:outputLabel value="Readonly:" />
+                <h:inputText value="#{editor.readonly}"  />
+                
+                <h:outputLabel value="Width:" />
+                <h:inputText value="#{editor.width}" />
+                
+                <h:outputLabel value="Height:" />
+                <h:inputText value="#{editor.height}" />
+                
+                <h:outputLabel value="Rendered:" />
+                <h:selectBooleanCheckbox value="#{editor.rendered}" />
+                
+                <h:outputLabel value="Toolbar:" />
+                <h:inputText value="#{editor.toolbar}" />
+                
+                <h:outputLabel value="oninit:" />
+                <h:inputText value="#{editor.oninit}" />
+                
+                <h:outputLabel value="onfocus:" />
+                <h:inputText value="#{editor.onfocus}" />
+                
+                <h:outputLabel value="onblur:" />
+                <h:inputText value="#{editor.onblur}" />
+                
+                <h:outputLabel value="onchange:" />
+                <h:inputText value="#{editor.onchange}" />
+                
+                <h:outputLabel value="styleClass:" />
+                <h:inputText value="#{editor.styleClass}" />
+                
+                <h:outputLabel value="editorClass:" />
+                <h:inputText value="#{editor.editorClass}" />
+                
+                <h:outputLabel value="textareaClass:" />
+                <h:inputText value="#{editor.textareaClass}" />
+                
+                <h:outputLabel value="style:" />
+                <h:inputText value="#{editor.style}" />
+                
+                <h:outputLabel value="editorStyle:" />
+                <h:inputText value="#{editor.editorStyle}" />
+                
+                <h:outputLabel value="textareaStyle:" />
+                <h:inputText value="#{editor.textareaStyle}" />
+                
+                <a4j:commandButton value="Rerender" render="editor6 inplace6" />
+                <h:commandButton value="Post" />
+                <a4j:commandButton value="Rerender Panel" render="panel6" />
+            </h:panelGrid>
+        </h:form>
+    </fieldset>
     
     <fieldset>
         <legend>JavaScript API</legend>
