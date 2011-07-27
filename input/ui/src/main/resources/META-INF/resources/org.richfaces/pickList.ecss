@@ -1,36 +1,11 @@
-.rf-pick-inp,.rf-pick-opt {
+.rf-pick-opt {
     color: '#{richSkin.generalTextColor}';
     font-size: '#{richSkin.generalSizeFont}';
     font-family: '#{richSkin.generalFamilyFont}';
 }
 
-.rf-pick-cntr {
-    border-width: 1px;
-    border-style: solid;
-    border-color: '#{richSkin.panelBorderColor}';
-    display: inline-block;
-    font-size: 1px;
-    white-space: nowrap;
-}
-
-input.rf-pick-inp {
-    background-color: '#{richSkin.controlBackgroundColor}';
-    background-image: url("#{resource['org.richfaces.images:inputBackgroundImage.png']}");
-    background-position: 1px 1px;
-    background-repeat: no-repeat;
-    border: 0px;
-    margin: 0px;
-    padding: 0px;
-    vertical-align: top;
-    width: 182px;
-}
-
 .rf-pick {
     display: inline-block;
-}
-
-.rf-pick-fld-err input {
-    color: #FF0000;
 }
 
 .rf-pick-header {
@@ -101,11 +76,6 @@ input.rf-pick-inp {
     border-width: 1px;
     border-style: dotted;
     border-color: '#{richSkin.generalTextColor}';
-}
-
-.rf-pick-lst-ul {
-    margin: 0px;
-    padding: 0px;
 }
 
 input.rf-pick-dflt-lbl {
