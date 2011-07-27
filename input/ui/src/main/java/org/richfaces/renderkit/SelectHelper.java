@@ -98,7 +98,7 @@ public final class SelectHelper {
     public static ClientSelectItem generateClientSelectItem(FacesContext facesContext, UIComponent component, SelectItem selectItem, int sortOrder, boolean selected) {
         String convertedStringValue = InputUtils.getConvertedStringValue(facesContext, component, selectItem.getValue());
         String label = selectItem.getLabel();
-        ClientSelectItem clientSelectItem = new ClientSelectItem(convertedStringValue, label, sortOrder, selected);
+        ClientSelectItem clientSelectItem = new ClientSelectItem(selectItem, convertedStringValue, label, sortOrder, selected);
         return clientSelectItem;
     }
 

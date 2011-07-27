@@ -26,6 +26,8 @@ import java.io.IOException;
 import org.ajax4jsf.javascript.ScriptString;
 import org.ajax4jsf.javascript.ScriptUtils;
 
+import javax.faces.model.SelectItem;
+
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
@@ -33,6 +35,8 @@ public final class ClientSelectItem implements ScriptString {
     private String clientId;
     private final String label;
     private final String convertedValue;
+    private final SelectItem selectItem;
+
     /**
      * The initial selection status of the SelectItem
      */
@@ -42,12 +46,8 @@ public final class ClientSelectItem implements ScriptString {
      */
     private final Integer sortOrder;
 
-    public ClientSelectItem(String convertedValue, String label) {
-        this(convertedValue, label, null);
-    }
-
-    public ClientSelectItem(String convertedValue, String label, String clientId) {
-        super();
+    public ClientSelectItem(SelectItem selectItem, String convertedValue, String label, String clientId) {
+        this.selectItem = selectItem;
         this.convertedValue = convertedValue;
         this.label = label;
         this.clientId = clientId;
@@ -55,19 +55,25 @@ public final class ClientSelectItem implements ScriptString {
         this.sortOrder = 0;
     }
 
-    public ClientSelectItem(String convertedValue, String label, Integer sortOrder, boolean selected) {
+    public ClientSelectItem(SelectItem selectItem, String convertedValue, String label, Integer sortOrder, boolean selected) {
+        this.selectItem = selectItem;
         this.label = label;
         this.convertedValue = convertedValue;
         this.selected = selected;
         this.sortOrder = sortOrder;
     }
 
-    public ClientSelectItem(String convertedValue, String label, Integer sortOrder, boolean selected, String clientId) {
+    public ClientSelectItem(SelectItem selectItem, String convertedValue, String label, Integer sortOrder, boolean selected, String clientId) {
+        this.selectItem = selectItem;
         this.clientId = clientId;
         this.label = label;
         this.convertedValue = convertedValue;
         this.selected = selected;
         this.sortOrder = sortOrder;
+    }
+
+    public SelectItem getSelectItem() {
+        return selectItem;
     }
 
     public String getClientId() {

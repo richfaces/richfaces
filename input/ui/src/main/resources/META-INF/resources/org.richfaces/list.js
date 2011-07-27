@@ -95,6 +95,7 @@
                     this.selectListener.selectItem(item);
                 } else {
                     item.addClass(this.selectItemCss);
+                    rf.Event.fire(this, "selectItem", item);
                 }
                 this.__scrollToSelectedItem(this);
             },
@@ -104,6 +105,7 @@
                     this.selectListener.unselectItem(item);
                 } else {
                     item.removeClass(this.selectItemCss);
+                    rf.Event.fire(this, "unselectItem", item);
                 }
             },
 

@@ -8,6 +8,7 @@
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "SourceItems")).parent()[0];
         this.sourceList = new rf.ui.List(id+ "Source", this, mergedOptions);
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "TargetItems")).parent()[0];
+        this.selectItemCss = mergedOptions['selectItemCss'];
         this.targetList = new rf.ui.List(id+ "Target", this, mergedOptions);
         this.pickList = $(document.getElementById(id));
         this.hiddenValues = $(document.getElementById(id + "SelValue"));
@@ -31,6 +32,14 @@
             rf.Event.bind(this.sourceList, "additems", mergedOptions['onremoveitems']);
         }
         rf.Event.bind(this.sourceList, "additems", $.proxy(this.toggleButtons, this));
+
+        rf.Event.bind(this.sourceList, "selectItem", $.proxy(this.toggleButtons, this));
+        rf.Event.bind(this.sourceList, "unselectItem", $.proxy(this.toggleButtons, this));
+        rf.Event.bind(this.targetList, "selectItem", $.proxy(this.toggleButtons, this));
+        rf.Event.bind(this.targetList, "unselectItem", $.proxy(this.toggleButtons, this));
+
+        // TODO: Is there a "Richfaces way" of executing a method after page load?
+        $(document).ready($.proxy(this.toggleButtons, this));
     };
     rf.BaseComponent.extend(rf.ui.PickList);
     var $super = rf.ui.PickList.$super;
@@ -43,9 +52,6 @@
         clickRequiredToSelect: true,
         multipleSelect: true
     };
-
-    // TODO: Find a way to toggle buttons on page load
-    // $.ready($.proxy(this.toggleButtons, this));
 
     $.extend(rf.ui.PickList.prototype, (function () {
 
@@ -102,7 +108,7 @@
             },
 
             __toggleButton: function(button, list) {
-                if (list.length == 0) {
+                if (list.filter('.' + this.selectItemCss).length == 0) {
                     if (! button.hasClass('rf-pick-btn-dis')) {
                         button.addClass('rf-pick-btn-dis')
                     }

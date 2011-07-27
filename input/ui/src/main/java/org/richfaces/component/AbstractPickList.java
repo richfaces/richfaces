@@ -49,4 +49,10 @@ public abstract class AbstractPickList extends AbstractSelectManyComponent {
 
     @Attribute
     public abstract String getTitle();
+
+    @Attribute
+    public abstract String getSourceCaption();
+
+    @Attribute
+    public abstract String getTargetCaption();
 }

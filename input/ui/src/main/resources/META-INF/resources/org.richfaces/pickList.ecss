@@ -33,6 +33,28 @@ input.rf-pick-inp {
     color: #FF0000;
 }
 
+.rf-pick-header {
+    vertical-align: middle;
+    text-align: center;
+    height: 22px;
+    white-space: nowrap;
+    background-image: "url(#{resource['org.richfaces.images:colHdrGrad.png']})";
+    background-repeat: repeat-x;
+    background-position: top left;
+    background-color: '#{richSkin.headerBackgroundColor}';
+    font-size: '#{richSkin.headerSizeFont}';
+    font-family: '#{richSkin.headerFamilyFont}';
+    font-weight: '#{richSkin.headerWeightFont}';
+    color: '#{richSkin.headerTextColor}';
+}
+
+.rf-pick-source-caption, .rf-pick-target-caption {
+    font-size: '#{richSkin.headerSizeFont}';
+    font-family: '#{richSkin.headerFamilyFont}';
+    font-weight: '#{richSkin.headerWeightFont}';
+    color: '#{richSkin.headerTextColor}';
+}
+
 .rf-pick-btn {
     width : 100%;
     background-image: "url(#{resource['org.richfaces.images:autocompleteButtonGradient.png']})";
@@ -81,54 +103,6 @@ input.rf-pick-inp {
     border-color: '#{richSkin.generalTextColor}';
 }
 
-.rf-pick-shdw {
-    border: 0px solid red;
-    display: inline-block;
-    padding: 6px 6px 6px 6px;
-    top: -6px;
-    left: -7px;
-}
-
-.rf-pick-shdw-t {
-    background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
-    background-position: top left;
-    position: absolute;
-    width: 6px;
-    top: 0px;
-    bottom: 6px;
-    left: 0px;
-}
-
-.rf-pick-shdw-l {
-    background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
-    background-position: bottom left;
-    position: absolute;
-    height: 6px;
-    bottom: 0px;
-    left: 0px;
-    right: 6px;
-}
-
-.rf-pick-u-shdw-r {
-    background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
-    background-position: bottom right;
-    position: absolute;
-    width: 6px;
-    top: 6px;
-    bottom: 0px;
-    right: 0px;
-}
-
-.rf-pick-shdw-b {
-    background-image: "url(#{resource['org.richfaces:combo_list_shadow.png']})";
-    background-position: right top;
-    position: absolute;
-    height: 6px;
-    top: 0px;
-    left: 6px;
-    right: 0px;
-}
-
 .rf-pick-lst-ul {
     margin: 0px;
     padding: 0px;
@@ -136,4 +110,12 @@ input.rf-pick-inp {
 
 input.rf-pick-dflt-lbl {
     color: #b3b3b3;
+}
+
+.rf-pick-cell {
+    padding-right : 1px;
+}
+
+.rf-pick-internal-table {
+    width : 100%;
 }

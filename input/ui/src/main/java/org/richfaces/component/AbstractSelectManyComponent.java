@@ -21,16 +21,38 @@
  */
 package org.richfaces.component;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterators;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 
+import javax.faces.component.UIColumn;
+import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectMany;
+import java.util.Iterator;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  *
  */
 public abstract class AbstractSelectManyComponent extends UISelectMany {
+
+    public Iterator<UIColumn> columns() {
+        return Iterators.filter(getChildren().iterator(), UIColumn.class);
+    }
+
+    @Attribute()
+    public abstract String getColumnVar();
+
+    @Attribute()
+    public abstract String getItemValue();
+
+    @Attribute()
+    public abstract String getItemLabel();
+
+    @Attribute()
+    public abstract String getItems();
+
     @Attribute()
     public abstract String getListWidth();
 
@@ -69,6 +91,12 @@ public abstract class AbstractSelectManyComponent extends UISelectMany {
 
     @Attribute
     public abstract String getListClass();
+
+    @Attribute
+    public abstract String getColumnClasses();
+
+    @Attribute
+    public abstract String getHeaderClass();
 
     @Attribute(defaultValue = ">> Add all")
     public abstract String getAddAllText();
