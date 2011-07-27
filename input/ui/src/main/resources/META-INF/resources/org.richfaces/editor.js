@@ -7,7 +7,11 @@
     
     var defaultOptions = {
         toolbar: 'Basic',
-        readonly: false
+        readonly: false,
+        style: '',
+        styleClass: '',
+        editorStyle: '',
+        editorClass: ''
     };
     
     rf.ui.Editor = function(componentId, domBinding, options) {
@@ -17,6 +21,7 @@
         var $this = this;
         this.textareaId = componentId;
         this.domBinding = domBinding;
+        this.editorElementId = 'cke_' + componentId;
         this.valueChanged = false;
         
         this.attachToDom(this.textareaId);
@@ -37,6 +42,8 @@
         }
         
         this.__instanceReadyHandler = function(e) {
+            $this.__setupStyling();
+            
             $this.invokeEvent.call($this, "init", $this.__getTextarea(), e);
         }
         
@@ -102,6 +109,37 @@
             }
         },
         
+        __setupStyling: function() {
+            var span = $(document.getElementById(this.editorElementId));
+            var styleClass = $.trim(this.options.styleClass + ' ' + this.options.editorClass);
+            if (this.initialStyle == undefined) {
+                this.initialStyle = span.attr('style');
+            }
+            var style = this.__concatStyles(this.initialStyle, this.options.style, this.options.editorStyle);
+            if (this.oldStyleClass !== styleClass) {
+                if (this.oldStyleClass) {
+                    span.removeClass(this.oldStyleClass);
+                }
+                span.addClass(styleClass);
+                this.oldStyleClass = styleClass;
+            }
+            if (this.oldStyle !== style) {
+                span.attr('style', style);
+                this.oldStyle = style;
+            }
+        },
+        
+        __concatStyles: function() {
+            var result = "";
+            for( var i = 0; i < arguments.length; i++ ) {
+                var style = $.trim(arguments[i]);
+                if (style) {
+                    result = result + style + "; ";
+                }
+            }
+            return result;
+        },
+        
         __getToolbar: function() {
             var toolbar = this.options.toolbar;
             
@@ -152,6 +190,9 @@
                 }
                 editor.resize(newWidth, newHeight, true);
             }
+            
+            // styleClass
+            this.__setupStyling();
             
             // value
             var newValue = textarea.val();
