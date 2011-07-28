@@ -49,26 +49,18 @@ public final class SelectHelper {
     public static final String OPTIONS_ENABLE_MANUAL_INPUT = "enableManualInput";
     public static final String OPTIONS_LIST_SELECT_FIRST = "selectFirst";
     public static final String OPTIONS_INPUT_DEFAULT_LABEL = "defaultLabel";
-    public static final Map<String, ComponentAttribute> SELECT_LIST_HANDLER_ATTRIBUTES = Collections
-        .unmodifiableMap(ComponentAttribute.createMap(
-            new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("listclick").setComponentAttributeName(
-                "onlistclick"),
-            new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE).setEventNames("listdblclick").setComponentAttributeName(
-                "onlistdblclick"),
-            new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE).setEventNames("listmousedown")
-                .setComponentAttributeName("onlistmousedown"),
-            new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE).setEventNames("listmouseup").setComponentAttributeName(
-                "onlistmouseup"),
-            new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE).setEventNames("listmouseover")
-                .setComponentAttributeName("onlistmouseover"),
-            new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE).setEventNames("listmousemove")
-                .setComponentAttributeName("onlistmousemove"),
-            new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE).setEventNames("listmouseout").setComponentAttributeName(
-                "onlistmouseout"),
-            new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE).setEventNames("listkeypress").setComponentAttributeName(
-                "onlistkeypress"), new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE).setEventNames("listkeydown")
-                .setComponentAttributeName("onlistkeydown"), new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE)
-                .setEventNames("listkeyup").setComponentAttributeName("onlistkeyup")));
+    public static final Map<String, ComponentAttribute> SELECT_LIST_HANDLER_ATTRIBUTES =
+            Collections.unmodifiableMap(ComponentAttribute.createMap(
+            new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("listclick").setComponentAttributeName("onlistclick"),
+            new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE).setEventNames("listdblclick").setComponentAttributeName("onlistdblclick"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE).setEventNames("listmousedown").setComponentAttributeName("onlistmousedown"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE).setEventNames("listmouseup").setComponentAttributeName("onlistmouseup"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE).setEventNames("listmouseover").setComponentAttributeName("onlistmouseover"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE).setEventNames("listmousemove").setComponentAttributeName("onlistmousemove"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE).setEventNames("listmouseout").setComponentAttributeName("onlistmouseout"),
+            new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE).setEventNames("listkeypress").setComponentAttributeName("onlistkeypress"),
+            new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE).setEventNames("listkeydown").setComponentAttributeName("onlistkeydown"),
+            new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE).setEventNames("listkeyup").setComponentAttributeName("onlistkeyup")));
 
     private SelectHelper() {
     }
