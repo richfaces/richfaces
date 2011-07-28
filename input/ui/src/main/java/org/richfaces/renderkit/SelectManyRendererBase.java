@@ -22,6 +22,7 @@
 package org.richfaces.renderkit;
 
 import org.richfaces.component.AbstractSelectManyComponent;
+import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.renderkit.util.HtmlDimensions;
 
 import javax.faces.application.ResourceDependencies;
@@ -175,5 +176,15 @@ public class SelectManyRendererBase extends InputRendererBase {
         width = (width != null && width.trim().length() != 0) ? ("width: " + width) : "";
 
         return concatStyles(height, width);
+    }
+
+    public String getButtonClass(UIComponent component, String buttonClass) {
+        AbstractSelectManyComponent select = (AbstractSelectManyComponent) component;
+        if (!select.isDisabled()) {
+            return HtmlUtil.concatClasses(buttonClass, SelectManyHelper.BUTTON_CSS);
+        } else {
+            return HtmlUtil.concatClasses(buttonClass, SelectManyHelper.BUTTON_CSS, SelectManyHelper.BUTTON_CSS_DIS);
+
+        }
     }
 }

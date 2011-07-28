@@ -57,6 +57,9 @@ import java.util.TreeSet;
  */
 public class SelectManyHelper {
     public static final String ITEM_CSS = "rf-pick-opt";
+    public static final String ITEM_CSS_DIS = "rf-pick-opt-dis";
+    public static final String BUTTON_CSS = "rf-pick-btn";
+    public static final String BUTTON_CSS_DIS = "rf-pick-btn-dis";
 
     public static void encodeHeader(FacesContext facesContext, UIComponent component, SelectManyRendererBase renderer, String rowClass, String cellClass) throws IOException {
         ResponseWriter writer = facesContext.getResponseWriter();
@@ -119,7 +122,13 @@ public class SelectManyHelper {
         String clientId = table.getClientId(facesContext);
         writer.startElement(HtmlConstants.TR_ELEMENT, table);
         writer.writeAttribute("id", clientId, null);
-        writer.writeAttribute("class", "rf-pick-opt", null);
+        String itemCss;
+        if (!table.isDisabled()) {
+            itemCss = HtmlUtil.concatClasses(table.getItemClass(), ITEM_CSS);
+        } else {
+            itemCss = HtmlUtil.concatClasses(table.getItemClass(), ITEM_CSS, ITEM_CSS_DIS);
+        }
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, itemCss, null);
 
         writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, clientSelectItem.getConvertedValue(), null);
 
@@ -170,8 +179,13 @@ public class SelectManyHelper {
                 writer.startElement(HtmlConstants.DIV_ELEM, component);
                 writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, itemClientId, null);
                 writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, clientSelectItem.getConvertedValue(), null);
-                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
-                        HtmlUtil.concatClasses(select.getItemClass(), ITEM_CSS), null);
+                String itemCss;
+                if (!select.isDisabled()) {
+                    itemCss = HtmlUtil.concatClasses(select.getItemClass(), ITEM_CSS);
+                } else {
+                    itemCss = HtmlUtil.concatClasses(select.getItemClass(), ITEM_CSS, ITEM_CSS_DIS);
+                }
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, itemCss, null);
                 String label = clientSelectItem.getLabel();
                 if (label != null && label.trim().length() > 0) {
                     writer.writeText(label, null);

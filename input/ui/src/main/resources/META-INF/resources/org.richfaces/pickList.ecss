@@ -69,6 +69,10 @@
     list-style-type: none;
 }
 
+.rf-pick-opt-dis {
+    cursor: default;
+}
+
 .rf-pick-sel {
     padding: 1px;
     width: 100%;

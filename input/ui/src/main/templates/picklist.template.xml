@@ -66,22 +66,22 @@
                         <table>
                             <tr>
                                 <td>
-                                    <button type="button" class="rf-pick-btn rf-pick-add-all">#{component.attributes['addAllText']}</button>
+                                    <button type="button" class="#{getButtonClass(component, 'rf-pick-add-all')}" disabled="#{disabled}">#{component.attributes['addAllText']}</button>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <button type="button" class="rf-pick-btn rf-pick-add">#{component.attributes['addText']}</button>
+                                    <button type="button" class="#{getButtonClass(component, 'rf-pick-add')}" disabled="#{disabled}">#{component.attributes['addText']}</button>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <button type="button" class="rf-pick-btn rf-pick-rem">#{component.attributes['removeText']}</button>
+                                    <button type="button" class="#{getButtonClass(component, 'rf-pick-rem')}" disabled="#{disabled}">#{component.attributes['removeText']}</button>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <button type="button" class="rf-pick-btn rf-pick-rem-all">#{component.attributes['removeAllText']}</button>
+                                    <button type="button" class="#{getButtonClass(component, 'rf-pick-rem-all')}" disabled="#{disabled}">#{component.attributes['removeAllText']}</button>
                                 </td>
                             </tr>
                         </table>
@@ -126,13 +126,14 @@
                 </tr>
             </table>
             <cdk:object type="java.lang.Object" name="hiddenValues" value="#{csvEncodeSelectedItems(clientSelectItems)}" />
-            <input type="hidden" id="#{clientId}SelValue" name="#{clientId}" value="#{hiddenValues}" />
+            <input type="hidden" id="#{clientId}SelValue" name="#{clientId}" value="#{hiddenValues}" disabled="#{disabled}"/>
             <script type="text/javascript">
                 <cdk:scriptObject name="options">
                     <cdk:scriptOption name="selectItemCss" value="#{concatClasses('rf-pick-sel', component.attributes['selectItemClass'])}" />
                     <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onblur onadditems onremoveitems onfocus"
                         wrapper="eventHandler" />
                     <cdk:scriptOption name="items" value="#{clientSelectItems}" />
+                    <cdk:scriptOption attributes="disabled" />
                 </cdk:scriptObject>
                 new RichFaces.ui.PickList("#{clientId}", #{toScriptArgs(options)});
             </script>

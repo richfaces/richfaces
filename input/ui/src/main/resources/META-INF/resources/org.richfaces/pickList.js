@@ -21,6 +21,7 @@
         this.removeButton.bind("click", $.proxy(this.remove, this));
         this.removeAllButton = $('.rf-pick-rem-all', this.pickList);
         this.removeAllButton.bind("click", $.proxy(this.removeAll, this));
+        this.disabled = mergedOptions.disabled;
 
         if (mergedOptions['onadditems'] && mergedOptions['onadditems'] == 'function') {
             rf.Event.bind(this.targetList, "additems", mergedOptions['onadditems']);
@@ -50,7 +51,8 @@
         selectItemCss: "rf-pick-sel",
         listCss: "rf-pick-lst-cord",
         clickRequiredToSelect: true,
-        multipleSelect: true
+        multipleSelect: true,
+        disabled : false
     };
 
     $.extend(rf.ui.PickList.prototype, (function () {
@@ -108,7 +110,7 @@
             },
 
             __toggleButton: function(button, list) {
-                if (list.filter('.' + this.selectItemCss).length == 0) {
+                if (this.disabled || list.filter('.' + this.selectItemCss).length == 0) {
                     if (! button.hasClass('rf-pick-btn-dis')) {
                         button.addClass('rf-pick-btn-dis')
                     }

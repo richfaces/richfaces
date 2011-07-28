@@ -15,6 +15,7 @@
         this.clickRequiredToSelect = mergedOptions.clickRequiredToSelect;
         this.multipleSelect = mergedOptions.multipleSelect;
         this.index = -1;
+        this.disabled = mergedOptions.disabled;
 
         this.lastMouseX = null;
         this.lastMouseY = null;
@@ -27,7 +28,8 @@
 
     var defaultOptions = {
         clickRequiredToSelect: false,
-        multipleSelect: false
+        multipleSelect: false,
+        disabled : false
     };
 
     var bindEventHandlers = function () {
@@ -61,7 +63,7 @@
     var onMouseOver = function(e) {
         if (this.lastMouseX == null || this.lastMouseX != e.pageX || this.lastMouseY != e.pageY) {
             var item = this.__getItem(e);
-            if (item && !this.clickRequiredToSelect) {
+            if (item && !this.clickRequiredToSelect && !this.disabled) {
                 this.__select(item);
             }
         }
@@ -71,7 +73,9 @@
         var item = this.__getItem(e);
         this.processItem(item);
         var clickModified = e.metaKey;
-        this.__select(item, clickModified && this.clickRequiredToSelect);
+        if (!this.disabled) {
+            this.__select(item, clickModified && this.clickRequiredToSelect);
+        }
     };
 
     $.extend(rf.ui.List.prototype, ( function () {
