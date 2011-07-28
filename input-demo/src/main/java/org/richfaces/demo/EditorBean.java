@@ -1,12 +1,14 @@
 package org.richfaces.demo;
 
+import java.io.Serializable;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ValueChangeEvent;
 
 @ManagedBean(name = "editor")
 @ViewScoped
-public class EditorBean {
+public class EditorBean implements Serializable {
 
     private String value = "Editor Initial Value";
     private boolean readonly = false;
