@@ -22,7 +22,8 @@
 
 
         <div id="#{clientId}" class="#{concatClasses('rf-pick', component.attributes['styleClass'])}" style="#{component.attributes['style']}"
-                cdk:passThroughWithExclusions="class autocomplete id value disabled name type readonly onchange onblur onfocus onlistshow onlisthide style">
+            cdk:passThrough="onclick:listclick ondblclick:listdblclick onmousedown:listmousedown onmouseup:listmouseup onmouseover:onlistmouseover 
+            onmousemove:listmousemove onmouseout:listmouseout onkeypress:listkeypress onkeydown:listkeydown onkeyup:listkeyup">
             <table>
                 <tr>
                     <td>
@@ -34,7 +35,9 @@
                                         #{sourceCaption}
                                     </div>
                                 </c:if>
-                                <div class="rf-pick-lst-dcrtn">
+                                <div class="rf-pick-lst-dcrtn"
+                                    cdk:passThrough="onclick:sourceclick ondblclick:sourcedblclick onmousedown:sourcemousedown onmouseup:sourcemouseup onmouseover:onsourcemouseover 
+                                    onmousemove:sourcemousemove onmouseout:sourcemouseout onkeypress:sourcekeypress onkeydown:sourcekeydown onkeyup:sourcekeyup">
                                     <div class="rf-pick-lst-scrl" style="#{encodeHeightAndWidth(component)}">
                                         <c:choose>
                                             <c:when test="#{! hasColumnChildren}">
@@ -95,7 +98,9 @@
                                         #{targetCaption}
                                     </div>
                                 </c:if>
-                                <div class="rf-pick-lst-dcrtn">
+                                <div class="rf-pick-lst-dcrtn"
+                                    cdk:passThrough="onclick:targetclick ondblclick:targetdblclick onmousedown:targetmousedown onmouseup:targetmouseup onmouseover:ontargetmouseover 
+                                    onmousemove:targetmousemove onmouseout:targetmouseout onkeypress:targetkeypress onkeydown:targetkeydown onkeyup:targetkeyup">
                                     <div class="rf-pick-lst-scrl" style="#{encodeHeightAndWidth(component)}">
                                         <c:choose>
                                             <c:when test="#{! hasColumnChildren}">

@@ -23,13 +23,13 @@
         this.removeAllButton.bind("click", $.proxy(this.removeAll, this));
         this.disabled = mergedOptions.disabled;
 
-        if (mergedOptions['onadditems'] && mergedOptions['onadditems'] == 'function') {
+        if (mergedOptions['onadditems'] && typeof mergedOptions['onadditems'] == 'function') {
             rf.Event.bind(this.targetList, "additems", mergedOptions['onadditems']);
         }
         rf.Event.bind(this.targetList, "additems", $.proxy(this.toggleButtons, this));
 
         // Adding items to the source list happens after removing them from the target list
-        if (mergedOptions['onremoveitems'] && mergedOptions['onremoveitems'] == 'function') {
+        if (mergedOptions['onremoveitems'] && typeof mergedOptions['onremoveitems'] == 'function') {
             rf.Event.bind(this.sourceList, "additems", mergedOptions['onremoveitems']);
         }
         rf.Event.bind(this.sourceList, "additems", $.proxy(this.toggleButtons, this));

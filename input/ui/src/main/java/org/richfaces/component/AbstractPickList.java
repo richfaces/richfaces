@@ -1,6 +1,7 @@
 package org.richfaces.component;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -48,11 +49,70 @@ public abstract class AbstractPickList extends AbstractSelectManyComponent {
     public abstract String getStyleClass();
 
     @Attribute
-    public abstract String getTitle();
-
-    @Attribute
     public abstract String getSourceCaption();
 
     @Attribute
     public abstract String getTargetCaption();
+
+    // Source list attributes
+    @Attribute(events = @EventName("sourceclick"))
+    public abstract String getOnsourceclick();
+
+    @Attribute(events = @EventName("sourcedblclick"))
+    public abstract String getOnsourcedblclick();
+
+    @Attribute(events = @EventName("sourcemousedown"))
+    public abstract String getOnsourcemousedown();
+
+    @Attribute(events = @EventName("sourcemouseup"))
+    public abstract String getOnsourcemouseup();
+
+    @Attribute(events = @EventName("sourcemouseover"))
+    public abstract String getOnsourcemouseover();
+
+    @Attribute(events = @EventName("sourcemousemove"))
+    public abstract String getOnsourcemousemove();
+
+    @Attribute(events = @EventName("sourcemouseout"))
+    public abstract String getOnsourcemouseout();
+
+    @Attribute(events = @EventName("sourcekeypress"))
+    public abstract String getOnsourcekeypress();
+
+    @Attribute(events = @EventName("sourcekeydown"))
+    public abstract String getOnsourcekeydown();
+
+    @Attribute(events = @EventName("sourcekeyup"))
+    public abstract String getOnsourcekeyup();
+
+    // Target list events
+    @Attribute(events = @EventName("targetclick"))
+    public abstract String getOntargetclick();
+
+    @Attribute(events = @EventName("targetdblclick"))
+    public abstract String getOntargetdblclick();
+
+    @Attribute(events = @EventName("targetmousedown"))
+    public abstract String getOntargetmousedown();
+
+    @Attribute(events = @EventName("targetmouseup"))
+    public abstract String getOntargetmouseup();
+
+    @Attribute(events = @EventName("targetmouseover"))
+    public abstract String getOntargetmouseover();
+
+    @Attribute(events = @EventName("targetmousemove"))
+    public abstract String getOntargetmousemove();
+
+    @Attribute(events = @EventName("targetmouseout"))
+    public abstract String getOntargetmouseout();
+
+    @Attribute(events = @EventName("targetkeypress"))
+    public abstract String getOntargetkeypress();
+
+    @Attribute(events = @EventName("targetkeydown"))
+    public abstract String getOntargetkeydown();
+
+    @Attribute(events = @EventName("targetkeyup"))
+    public abstract String getOntargetkeyup();
 }
