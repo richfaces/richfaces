@@ -14,6 +14,9 @@ import javax.faces.render.RenderKit;
 
 public class FakeFacesContext extends FacesContext {
     
+    public static void setFacesContext(FacesContext context) {
+        FacesContext.setCurrentInstance(context);
+    }
     @Override
     public Application getApplication() {
         // TODO Auto-generated method stub

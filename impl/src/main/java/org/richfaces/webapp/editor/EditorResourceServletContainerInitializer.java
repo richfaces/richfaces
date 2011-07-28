@@ -11,7 +11,7 @@ import javax.servlet.ServletRegistration.Dynamic;
 public class EditorResourceServletContainerInitializer implements ServletContainerInitializer {
 
     private static final String SKIP_SERVLET_REGISTRATION_PARAM = "org.richfaces.editor.skipResourceServletRegistration";
-    public static final String EDITOR_RESOURCES_DEFAULT_MAPPING = "/org.richfaces.editor/";
+    public static final String EDITOR_RESOURCES_DEFAULT_MAPPING = "/org.richfaces.resources/";
 
     public void onStartup(Set<Class<?>> c, ServletContext servletContext) throws ServletException {
         if (Boolean.valueOf(servletContext.getInitParameter(SKIP_SERVLET_REGISTRATION_PARAM))) {
@@ -30,5 +30,4 @@ public class EditorResourceServletContainerInitializer implements ServletContain
         Dynamic dynamicRegistration = context.addServlet("AutoRegisteredEditorResourceServlet", EditorResourceServlet.class);
         dynamicRegistration.addMapping(EDITOR_RESOURCES_DEFAULT_MAPPING);
     }
-
 }

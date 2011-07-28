@@ -31,7 +31,7 @@ public class EditorResourceServletTest {
         
         environment.withContent("/test.js", "test-javascript");
 
-        FacesRequest request = environment.cre
+        FacesRequest request = environment.createFacesRequest("http://localhost:8080/test.jsf");
         assertNotNull(request.execute());
         String contentAsString = request.getConnection().getContentAsString();
         System.out.println(contentAsString);
