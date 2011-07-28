@@ -1,1 +1,1 @@
-org.richfaces.webapp.PushServletContainerInitializer
+org.richfaces.webapp.RichFacesServletsInitializer

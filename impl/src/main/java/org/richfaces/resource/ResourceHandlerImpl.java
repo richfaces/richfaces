@@ -66,7 +66,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
         }
     }
 
-    protected static String getResourcePathFromRequest(FacesContext context) {
+    public static String getResourcePathFromRequest(FacesContext context) {
         String resourceName = Util.decodeResourceURL(context);
 
         if (resourceName != null) {
@@ -127,7 +127,7 @@ public class ResourceHandlerImpl extends ResourceHandlerWrapper {
         context.getExternalContext().setResponseStatus(HttpServletResponse.SC_NOT_MODIFIED);
     }
 
-    private static void sendResourceNotFound(FacesContext context) {
+    public static void sendResourceNotFound(FacesContext context) {
         context.getExternalContext().setResponseStatus(HttpServletResponse.SC_NOT_FOUND);
     }
 

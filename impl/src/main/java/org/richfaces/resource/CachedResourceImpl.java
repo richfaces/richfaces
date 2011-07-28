@@ -48,7 +48,7 @@ import org.richfaces.util.Util;
  * @author Nick Belaevski
  * @since 4.0
  */
-class CachedResourceImpl extends AbstractCacheableResource {
+public class CachedResourceImpl extends AbstractCacheableResource {
     // [0..1]
     private static final float CACHE_EXPIRATION_COEFFICIENT = 0.9f;
     private static final Logger LOGGER = RichfacesLogger.RESOURCE.getLogger();
