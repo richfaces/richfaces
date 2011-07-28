@@ -43,10 +43,10 @@
                                                 </div>
                                             </c:when>
                                             <c:otherwise>
-                                                <div id="#{clientId}headerBox" class="rf-pick-list">
+                                                <div id="#{clientId}headerBox" class="rf-pick-lst">
                                                     <table class="rf-pick-internal-table" cellpadding="0" cellspacing="0">
                                                         <c:if test="#{isHeaderExists(facesContext, component)}">
-                                                            <thead class="rf-pick-list-header">
+                                                            <thead class="rf-pick-lst-header">
                                                                 <cdk:call expression="encodeSourceHeader(facesContext, component);" />
                                                             </thead>
                                                         </c:if>
@@ -104,10 +104,10 @@
                                                 </div>
                                             </c:when>
                                             <c:otherwise>
-                                                <div id="#{clientId}headerBox" class="rf-pick-list">
+                                                <div id="#{clientId}headerBox" class="rf-pick-lst">
                                                     <table class="rf-pick-internal-table" cellpadding="0" cellspacing="0">
                                                         <c:if test="#{isHeaderExists(facesContext, component)}">
-                                                            <thead class="rf-pick-list-header">
+                                                            <thead class="rf-pick-lst-header">
                                                                 <cdk:call expression="encodeTargetHeader(facesContext, component);" />
                                                             </thead>
                                                         </c:if>
