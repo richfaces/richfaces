@@ -32,7 +32,7 @@ import org.richfaces.log.RichfacesLogger;
 
 /**
  * <p>
- * Runs all servlet container initializers listed in associated
+ * Runs all servlet container initializers listed in {@link #INITIALIZERS}.
  * </p>
  *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -42,7 +42,7 @@ public class RichFacesServletsInitializer implements ServletContainerInitializer
     private static final Logger LOGGER = RichfacesLogger.APPLICATION.getLogger();
 
     private Class<?>[] INITIALIZERS = new Class<?>[] { PushServletContainerInitializer.class,
-            EditorResourceServletContainerInitializer.class };
+            ResourceServletContainerInitializer.class };
 
     /**
      * Takes classes listed in {@link #INITIALIZERS} and tries to initialize them as {@link ServletContainerInitializer}s.

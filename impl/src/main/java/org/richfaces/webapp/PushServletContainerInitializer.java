@@ -22,11 +22,8 @@
 package org.richfaces.webapp;
 
 import java.text.MessageFormat;
-import java.util.Collection;
 import java.util.Set;
 
-import javax.servlet.FilterRegistration;
-import javax.servlet.ServletContainerInitializer;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
@@ -42,35 +39,12 @@ import com.google.common.collect.Iterables;
  * @author Nick Belaevski
  *
  */
-public class PushServletContainerInitializer implements ServletContainerInitializer {
+public class PushServletContainerInitializer extends GenericServletContainerInitializer {
+
     private static final Logger LOGGER = RichfacesLogger.WEBAPP.getLogger();
     private static final String ATMOSPHERE_SERVLET_CLASS = "org.atmosphere.cpr.AtmosphereServlet";
     private static final String SKIP_SERVLET_REGISTRATION_PARAM = "org.richfaces.push.skipPushServletRegistration";
     private static final String PUSH_CONTEXT_DEFAULT_MAPPING = '/' + PushContextFactoryImpl.PUSH_CONTEXT_RESOURCE_NAME;
-
-    private boolean hasPushFilterMapping(ServletContext context) {
-        Collection<? extends FilterRegistration> filterRegistrations = context.getFilterRegistrations().values();
-        for (FilterRegistration filterRegistration : filterRegistrations) {
-            if (PushFilter.class.getName().equals(filterRegistration.getClassName())) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private ServletRegistration getPushServletRegistration(ServletContext context) {
-        Collection<? extends ServletRegistration> servletRegistrations = context.getServletRegistrations().values();
-        for (ServletRegistration servletRegistration : servletRegistrations) {
-            if (PushServlet.class.getName().equals(servletRegistration.getClassName())) {
-                if (servletRegistration.getMappings() != null && !servletRegistration.getMappings().isEmpty()) {
-                    return servletRegistration;
-                }
-            }
-        }
-
-        return null;
-    }
 
     private static void registerPushServlet(ServletContext context) {
         Dynamic dynamicRegistration = context.addServlet("AutoRegisteredPushServlet", PushServlet.class);
@@ -87,14 +61,14 @@ public class PushServletContainerInitializer implements ServletContainerInitiali
             return;
         }
 
-        if (hasPushFilterMapping(servletContext)) {
+        if (hasFilterMapping(PushFilter.class, servletContext)) {
             return;
         }
 
         try {
             String pushHandlerMapping;
 
-            ServletRegistration servletRegistration = getPushServletRegistration(servletContext);
+            ServletRegistration servletRegistration = getServletRegistration(PushServlet.class, servletContext);
             if (servletRegistration == null) {
                 registerPushServlet(servletContext);
                 pushHandlerMapping = PUSH_CONTEXT_DEFAULT_MAPPING;

@@ -24,26 +24,26 @@ package org.richfaces.webapp;
 import java.text.MessageFormat;
 import java.util.Set;
 
-import javax.servlet.ServletContainerInitializer;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration;
 import javax.servlet.ServletRegistration.Dynamic;
 
 /**
  * <p>
- * Initializes {@link EditorResourceServlet}.
+ * Initializes {@link ResourceServlet}.
  * </p>
  *
  * <p>
- * Initialization can be turned of by "org.richfaces.editor.skipResourceServletRegistration" context parameter.
+ * Initialization can be turned of by "org.richfaces.resources.skipResourceServletRegistration" context parameter.
  * </p>
  *
  *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
-public class EditorResourceServletContainerInitializer implements ServletContainerInitializer {
+public class ResourceServletContainerInitializer extends GenericServletContainerInitializer {
 
-    private static final String SKIP_SERVLET_REGISTRATION_PARAM = "org.richfaces.editor.skipResourceServletRegistration";
+    private static final String SKIP_SERVLET_REGISTRATION_PARAM = "org.richfaces.resources.skipResourceServletRegistration";
     public static final String EDITOR_RESOURCES_DEFAULT_MAPPING = "/org.richfaces.resources/*";
 
     public void onStartup(Set<Class<?>> c, ServletContext servletContext) throws ServletException {
@@ -52,15 +52,18 @@ public class EditorResourceServletContainerInitializer implements ServletContain
         }
 
         try {
-            registerServlet(servletContext);
+            ServletRegistration servletRegistration = getServletRegistration(ResourceServlet.class, servletContext);
+            if (servletRegistration == null) {
+                registerServlet(servletContext);
+            }
         } catch (Exception e) {
-            servletContext.log(
-                    MessageFormat.format("Exception registering RichFaces Editor Resources Servlet: {0}", e.getMessage()), e);
+            servletContext
+                    .log(MessageFormat.format("Exception registering RichFaces Resource Servlet: {0]", e.getMessage()), e);
         }
     }
 
     private static void registerServlet(ServletContext context) {
-        Dynamic dynamicRegistration = context.addServlet("AutoRegisteredEditorResourceServlet", EditorResourceServlet.class);
+        Dynamic dynamicRegistration = context.addServlet("AutoRegisteredEditorResourceServlet", ResourceServlet.class);
         dynamicRegistration.addMapping(EDITOR_RESOURCES_DEFAULT_MAPPING);
     }
 }
