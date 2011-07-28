@@ -2,6 +2,7 @@ package org.richfaces.el;
 
 import java.beans.FeatureDescriptor;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -22,8 +23,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.richfaces.el.model.Bean;
 import org.richfaces.el.model.Person;
+import org.richfaces.validator.GraphValidatorState;
 
 import com.google.common.collect.Iterators;
+import com.google.common.collect.Maps;
 
 public class ELTestBase {
     class DummyELResolver extends ELResolver {
@@ -127,7 +130,7 @@ public class ELTestBase {
         bean.setMap(map);
         elResolver = new DummyELResolver();
         elContext = new DummyELContext();
-        capturingELContext = new CapturingELContext(elContext);
+        capturingELContext = new CapturingELContext(elContext,Collections.<Object,GraphValidatorState>emptyMap());
     }
 
     @After

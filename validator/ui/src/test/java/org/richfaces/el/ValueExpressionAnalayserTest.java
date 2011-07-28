@@ -1,7 +1,10 @@
 package org.richfaces.el;
 
+import static junit.framework.Assert.*;
 import static org.easymock.EasyMock.expect;
 import static org.junit.Assert.assertEquals;
+
+import java.util.HashMap;
 
 import javax.el.ELException;
 import javax.el.ValueExpression;
@@ -46,19 +49,24 @@ public class ValueExpressionAnalayserTest extends ELTestBase {
     @Test
     public void testGetDescriptionPositive() throws Exception {
         ValueExpression expression = parse("#{bean.string}");
-        expect(facesContext.getELContext()).andReturn(elContext);
-        FacesMock.replay(facesEnvironment);
+        recordFacesContextExpectations();
         ValueDescriptor propertyDescriptor = analayser.getPropertyDescriptor(facesContext, expression);
         assertEquals(Bean.class, propertyDescriptor.getBeanType());
         assertEquals("string", propertyDescriptor.getName());
         FacesMock.verify(facesEnvironment);
     }
 
+    private void recordFacesContextExpectations() {
+        expect(facesContext.getELContext()).andReturn(elContext);
+        expect(facesContext.getAttributes()).andStubReturn(new HashMap<Object, Object>());
+        FacesMock.replay(facesEnvironment);
+    }
+
     @Test(expected = ELException.class)
     public void testGetDescriptionNegative() throws Exception {
         ValueExpression expression = parse("#{bean}");
-        expect(facesContext.getELContext()).andReturn(elContext);
-        FacesMock.replay(facesEnvironment);
+        recordFacesContextExpectations();
         ValueDescriptor propertyDescriptor = analayser.getPropertyDescriptor(facesContext, expression);
+        assertNull(propertyDescriptor);
     }
 }

@@ -31,9 +31,9 @@ public class CapturingELContext extends ELContext {
     private ValueReference reference = null;
     private final InterceptingResolver resolver;
 
-    public CapturingELContext(ELContext parent) {
+    public CapturingELContext(ELContext parent,Map<Object, GraphValidatorState> states) {
         this.parent = parent;
-        resolver = new InterceptingResolver(parent.getELResolver());
+        resolver = new InterceptingResolver(parent.getELResolver(),states);
     }
 
     public ValueReference getReference() {
@@ -121,11 +121,13 @@ public class CapturingELContext extends ELContext {
      *
      */
     private final class InterceptingResolver extends ELResolver {
-        private ELResolver delegate;
+        private final ELResolver delegate;
         private boolean clonedObject;
+        private final Map<Object, GraphValidatorState> states;
 
-        public InterceptingResolver(ELResolver delegate) {
+        public InterceptingResolver(ELResolver delegate, Map<Object, GraphValidatorState> states) {
             this.delegate = delegate;
+            this.states = states;
         }
 
         // Capture the base and property rather than write the value
@@ -148,11 +150,11 @@ public class CapturingELContext extends ELContext {
         public Object getValue(ELContext context, Object base, Object property) {
             reference = new ValueReference(base, property, reference);
             Object value = delegate.getValue(context, base, property);
-            if (null != value && context.isPropertyResolved()) {
-                FacesContext facesContext = (FacesContext) context.getContext(FacesContext.class);
-                Object clone = GraphValidatorState.getActiveClone(facesContext, value);
-                if (null != clone) {
+            if (null != value && context.isPropertyResolved() && states.containsKey(value)) {
+                GraphValidatorState graphValidatorState = states.get(value);
+                if (graphValidatorState.isActive()) {
                     this.clonedObject = true;
+                    Object clone = graphValidatorState.getCloned();
                     return clone;
                 }
             }

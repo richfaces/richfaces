@@ -51,7 +51,7 @@ public final class GraphValidatorState {
         getStateMap(context).put(base, state);
     }
 
-    private static Map<Object, GraphValidatorState> getStateMap(FacesContext context) {
+    public static Map<Object, GraphValidatorState> getStateMap(FacesContext context) {
         IdentityHashMap<Object, GraphValidatorState> statesMap = (IdentityHashMap<Object, GraphValidatorState>) context
             .getAttributes().get(STATE_ATTRIBUTE);
         if (null == statesMap) {
