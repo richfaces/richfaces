@@ -29,6 +29,7 @@ import javax.faces.application.ResourceDependency;
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
         @ResourceDependency(name = "richfaces-event.js"), @ResourceDependency(name = "richfaces-jsf-event.js"),
         @ResourceDependency(library = "org.richfaces", name = "editor.js"),
-        @ResourceDependency(library = "ckeditor", name = "ckeditor.js", target = "body") })
+        @ResourceDependency(library = "org.richfaces.ckeditor", name = "ckeditor.js", target = "body") })
 public class EditorRendererBase extends InputRendererBase {
+    
 }

@@ -51,7 +51,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
                 <cdk:scriptOption attributes="toolbar style styleClass editorStyle editorClass" />
                 <cdk:scriptOption wrapper="eventHandler" attributes="oninit" />
             </cdk:scriptObject>
-            window.CKEDITOR_BASEPATH = '#{facesContext.externalContext.requestContextPath}/faces/javax.faces.resource/ckeditor/';
+            window.CKEDITOR_BASEPATH = '#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/rfRes/org.richfaces.ckeditor/';
             
             options = #{empty toScriptArgs(options) ? 'null' : toScriptArgs(options)};
             if (!document.getElementById('#{clientId}DomBinding')[RichFaces.RICH_CONTAINER]) {
