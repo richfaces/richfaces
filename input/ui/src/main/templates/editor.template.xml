@@ -42,7 +42,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <textarea id="#{clientId}" name="#{clientId}" cdk:passThroughWithExclusions="id readonly style styleClass"
                 class="#{concatClasses(component.attributes['styleClass'], component.attributes['textareaClass'])}"
                 readonly="#{component.attributes['readonly'] ? 'readonly' : ''}"
-                style="#{empty style ? '' : style + '; '}#{empty textareaStyle ? '' : textareaStyle + '; '}#{empty width ? '' : 'width: ' + width + '; '}#{empty height ? '' : 'height: ' + height + '; '}">
+                style="#{empty style ? '' : style + '; '}#{empty textareaStyle ? '' : textareaStyle + '; '}width: #{empty width ? DEFAULT_WIDTH : width}; height: #{empty height ? DEFAULT_HEIGHT : height}; ">
             #{getInputValue(facesContext, component)}
         </textarea>
         <span id="#{clientId}DomBinding" />

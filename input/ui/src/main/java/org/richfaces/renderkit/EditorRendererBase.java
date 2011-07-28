@@ -24,6 +24,9 @@ package org.richfaces.renderkit;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 
+/**
+ * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ */
 @ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
         @ResourceDependency(name = "richfaces-utils.js"),
         @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
@@ -31,5 +34,7 @@ import javax.faces.application.ResourceDependency;
         @ResourceDependency(library = "org.richfaces", name = "editor.js"),
         @ResourceDependency(library = "org.richfaces.ckeditor", name = "ckeditor.js", target = "body") })
 public class EditorRendererBase extends InputRendererBase {
-    
+
+    public static final String DEFAULT_WIDTH = "100%";
+    public static final String DEFAULT_HEIGHT = "200px";
 }
