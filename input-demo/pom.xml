@@ -117,6 +117,10 @@
             <artifactId>richfaces-ui-output-ui</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.richfaces.ui.iteration</groupId>
+            <artifactId>richfaces-ui-iteration-ui</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.richfaces.ui.core</groupId>
             <artifactId>richfaces-ui-core-ui</artifactId>
         </dependency>
