@@ -44,6 +44,7 @@ import org.richfaces.renderkit.util.HtmlDimensions;
         @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "popup.js"),
+        @ResourceDependency(library = "org.richfaces", name = "list.js"),
         @ResourceDependency(library = "org.richfaces", name = "popupList.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceInput.js"),
         @ResourceDependency(library = "org.richfaces", name = "inplaceSelect.js"),

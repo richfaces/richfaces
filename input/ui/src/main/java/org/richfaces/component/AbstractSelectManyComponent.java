@@ -1,4 +1,4 @@
-/*
+/**
  * JBoss, Home of Professional Open Source
  * Copyright 2010, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -21,21 +21,38 @@
  */
 package org.richfaces.component;
 
-import javax.faces.component.UISelectOne;
-
+import com.google.common.collect.Iterators;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 
+import javax.faces.component.UIColumn;
+import javax.faces.component.UISelectMany;
+import java.util.Iterator;
+
 /**
- * @author abelevich
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  *
  */
-public abstract class AbstractSelectComponent extends UISelectOne {
+public abstract class AbstractSelectManyComponent extends UISelectMany {
+
+    public Iterator<UIColumn> columns() {
+        return Iterators.filter(getChildren().iterator(), UIColumn.class);
+    }
+
+    @Attribute()
+    public abstract String getColumnVar();
+
     @Attribute()
     public abstract String getListWidth();
 
     @Attribute()
     public abstract String getListHeight();
+
+    @Attribute()
+    public abstract String getMinListHeight();
+
+    @Attribute()
+    public abstract String getMaxListHeight();
 
     @Attribute
     public abstract String getDefaultLabel();
@@ -47,16 +64,28 @@ public abstract class AbstractSelectComponent extends UISelectOne {
     public abstract String getSelectItemClass();
 
     @Attribute
-    public abstract String getActiveClass();
-
-    @Attribute
-    public abstract String getChangedClass();
-
-    @Attribute
     public abstract String getDisabledClass();
 
     @Attribute
-    public abstract String getListClass();
+    public abstract boolean isDisabled();
+
+    @Attribute
+    public abstract String getColumnClasses();
+
+    @Attribute
+    public abstract String getHeaderClass();
+
+    @Attribute(defaultValue = ">> Add all")
+    public abstract String getAddAllText();
+
+    @Attribute(defaultValue = "> Add")
+    public abstract String getAddText();
+
+    @Attribute(defaultValue = "< Remove")
+    public abstract String getRemoveText();
+
+    @Attribute(defaultValue = "<< Remove all")
+    public abstract String getRemoveAllText();
 
     @Attribute(events = @EventName("blur"))
     public abstract String getOnblur();
@@ -127,6 +156,9 @@ public abstract class AbstractSelectComponent extends UISelectOne {
     @Attribute(events = @EventName("listkeyup"))
     public abstract String getOnlistkeyup();
 
-    @Attribute(events = @EventName("selectitem"))
-    public abstract String getOnselectitem();
+    @Attribute(events = @EventName("additems"))
+    public abstract String getOnadditem();
+
+    @Attribute(events = @EventName("removeitems"))
+    public abstract String getOnremoveitem();
 }

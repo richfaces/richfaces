@@ -40,6 +40,7 @@ import org.richfaces.component.util.SelectUtils;
 
 /**
  * @author abelevich
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  *
  */
 public final class SelectHelper {
@@ -48,43 +49,49 @@ public final class SelectHelper {
     public static final String OPTIONS_ENABLE_MANUAL_INPUT = "enableManualInput";
     public static final String OPTIONS_LIST_SELECT_FIRST = "selectFirst";
     public static final String OPTIONS_INPUT_DEFAULT_LABEL = "defaultLabel";
-    public static final Map<String, ComponentAttribute> SELECT_LIST_HANDLER_ATTRIBUTES = Collections
-        .unmodifiableMap(ComponentAttribute.createMap(
-            new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("listclick").setComponentAttributeName(
-                "onlistclick"),
-            new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE).setEventNames("listdblclick").setComponentAttributeName(
-                "onlistdblclick"),
-            new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE).setEventNames("listmousedown")
-                .setComponentAttributeName("onlistmousedown"),
-            new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE).setEventNames("listmouseup").setComponentAttributeName(
-                "onlistmouseup"),
-            new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE).setEventNames("listmouseover")
-                .setComponentAttributeName("onlistmouseover"),
-            new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE).setEventNames("listmousemove")
-                .setComponentAttributeName("onlistmousemove"),
-            new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE).setEventNames("listmouseout").setComponentAttributeName(
-                "onlistmouseout"),
-            new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE).setEventNames("listkeypress").setComponentAttributeName(
-                "onlistkeypress"), new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE).setEventNames("listkeydown")
-                .setComponentAttributeName("onlistkeydown"), new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE)
-                .setEventNames("listkeyup").setComponentAttributeName("onlistkeyup")));
+    public static final Map<String, ComponentAttribute> SELECT_LIST_HANDLER_ATTRIBUTES =
+            Collections.unmodifiableMap(ComponentAttribute.createMap(
+            new ComponentAttribute(HtmlConstants.ONCLICK_ATTRIBUTE).setEventNames("listclick").setComponentAttributeName("onlistclick"),
+            new ComponentAttribute(HtmlConstants.ONDBLCLICK_ATTRIBUTE).setEventNames("listdblclick").setComponentAttributeName("onlistdblclick"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEDOWN_ATTRIBUTE).setEventNames("listmousedown").setComponentAttributeName("onlistmousedown"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEUP_ATTRIBUTE).setEventNames("listmouseup").setComponentAttributeName("onlistmouseup"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEOVER_ATTRIBUTE).setEventNames("listmouseover").setComponentAttributeName("onlistmouseover"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEMOVE_ATTRIBUTE).setEventNames("listmousemove").setComponentAttributeName("onlistmousemove"),
+            new ComponentAttribute(HtmlConstants.ONMOUSEOUT_ATTRIBUTE).setEventNames("listmouseout").setComponentAttributeName("onlistmouseout"),
+            new ComponentAttribute(HtmlConstants.ONKEYPRESS_ATTRIBUTE).setEventNames("listkeypress").setComponentAttributeName("onlistkeypress"),
+            new ComponentAttribute(HtmlConstants.ONKEYDOWN_ATTRIBUTE).setEventNames("listkeydown").setComponentAttributeName("onlistkeydown"),
+            new ComponentAttribute(HtmlConstants.ONKEYUP_ATTRIBUTE).setEventNames("listkeyup").setComponentAttributeName("onlistkeyup")));
 
     private SelectHelper() {
     }
 
+    public static List<SelectItem> getSelectItems(FacesContext facesContext, UIComponent component) {
+        Iterator<SelectItem> selectItemIterator = SelectUtils.getSelectItems(facesContext, component);
+        List<SelectItem> selectItems = new ArrayList<SelectItem>();
+
+        while (selectItemIterator.hasNext()) {
+            SelectItem selectItem = selectItemIterator.next();
+            selectItems.add(selectItem);
+        }
+        return selectItems;
+    }
+
     public static List<ClientSelectItem> getConvertedSelectItems(FacesContext facesContext, UIComponent component) {
-        AbstractSelectComponent select = (AbstractSelectComponent) component;
-        Iterator<SelectItem> selectItems = SelectUtils.getSelectItems(facesContext, select);
+        Iterator<SelectItem> selectItems = SelectUtils.getSelectItems(facesContext, component);
         List<ClientSelectItem> clientSelectItems = new ArrayList<ClientSelectItem>();
 
         while (selectItems.hasNext()) {
             SelectItem selectItem = selectItems.next();
-
-            String convertedStringValue = InputUtils.getConvertedStringValue(facesContext, select, selectItem.getValue());
-            String label = selectItem.getLabel();
-            clientSelectItems.add(new ClientSelectItem(convertedStringValue, label));
+            clientSelectItems.add(generateClientSelectItem(facesContext,component, selectItem, 0, false));
         }
         return clientSelectItems;
+    }
+
+    public static ClientSelectItem generateClientSelectItem(FacesContext facesContext, UIComponent component, SelectItem selectItem, int sortOrder, boolean selected) {
+        String convertedStringValue = InputUtils.getConvertedStringValue(facesContext, component, selectItem.getValue());
+        String label = selectItem.getLabel();
+        ClientSelectItem clientSelectItem = new ClientSelectItem(selectItem, convertedStringValue, label, sortOrder, selected);
+        return clientSelectItem;
     }
 
     public static void encodeItems(FacesContext facesContext, UIComponent component, List<ClientSelectItem> clientSelectItems,

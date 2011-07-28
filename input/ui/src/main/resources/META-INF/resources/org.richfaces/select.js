@@ -26,6 +26,7 @@
 
         this.selectFirst = mergedOptions.selectFirst;
         this.popupList = new rf.ui.PopupList((id + "List"), this, mergedOptions);
+        this.list = this.popupList.__getList();
         this.listElem = $(document.getElementById(id + "List"));
 
         this.listElem.bind("mousedown", $.proxy(this.__onListMouseDown, this));
@@ -36,11 +37,10 @@
         listEventHandlers["listhide" + this.namespace] = this.__listhideHandler;
         rf.Event.bind(this.input, listEventHandlers, this);
 
-        this.items = this.popupList.__getItems();
         this.enableManualInput = mergedOptions.enableManualInput;
 
-        if (this.items.length > 0 && this.enableManualInput) {
-            this.cache = new rf.utils.Cache("", this.items, getData, true);
+        if (this.list.length > 0 && this.enableManualInput) {
+            this.cache = new rf.utils.Cache("", this.list, getData, true);
         }
         this.changeDelay = mergedOptions.changeDelay;
     };
@@ -121,21 +121,21 @@
                             this.__updateItems();
                             this.__showPopup();
                         } else {
-                            this.popupList.__selectNext();
+                            this.list.__selectNext();
                         }
                         break;
 
                     case rf.KEYS.UP:
                         e.preventDefault();
                         if (visible) {
-                            this.popupList.__selectPrev();
+                            this.list.__selectPrev();
                         }
                         break;
 
                     case rf.KEYS.RETURN:
                         e.preventDefault();
                         if (visible) {
-                            this.popupList.__selectCurrent();
+                            this.list.__selectCurrent();
                         }
                         return false;
                         break;
@@ -161,13 +161,12 @@
             },
 
             __onChangeValue: function(e) {
-                this.popupList.__selectByIndex();
+                this.list.__selectByIndex();
                 var newValue = this.__getValue();
                 if (this.cache && this.cache.isCached(newValue)) {
                     this.__updateItems();
 
-                    var items = this.popupList.__getItems();
-                    if (items.length != 0) {
+                    if (this.items.length != 0) {
                         this.container.removeClass("rf-sel-fld-err");
                     } else {
                         this.container.addClass("rf-sel-fld-err");
@@ -205,15 +204,15 @@
                 this.__updateItemsFromCache(newValue);
 
                 if (this.selectFirst) {
-                    this.popupList.__selectByIndex(0);
+                    this.list.__selectByIndex(0);
                 }
             },
 
             __updateItemsFromCache: function(value) {
-                if (this.items.length > 0 && this.enableManualInput) {
+                if (this.list.length > 0 && this.enableManualInput) {
                     var newItems = this.cache.getItems(value);
                     var items = $(newItems);
-                    this.popupList.__setItems(items);
+                    this.list.__setItems(items);
                     $(document.getElementById(this.id + "Items")).empty().append(items);
                 }
             },
@@ -385,7 +384,7 @@
                     if (item.value == value) {
                         this.__setValue(item.label);
                         this.__save();
-                        this.popupList.__selectByIndex(i);
+                        this.list.__selectByIndex(i);
                         return;
                     }
                 }

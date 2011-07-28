@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+          xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.PickListRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.PickListRendererBase</cdk:superclass>
+        <cdk:component-family>org.richfaces.SelectMany</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.PickListRenderer</cdk:renderer-type>
+        <cdk:renders-children>true</cdk:renders-children>
+    </cc:interface>
+
+    <cc:implementation>
+
+        <cdk:object type="java.util.List" type-arguments="org.richfaces.renderkit.ClientSelectItem" name="clientSelectItems"
+                    value="#{getClientSelectItems(facesContext, component)}" />
+
+        <cdk:object type="java.lang.Object" name="disabled" value="#{component.attributes['disabled']}" />
+        <cdk:object type="java.lang.Boolean" name="hasColumnChildren" value="#{hasColumnChildren(facesContext, component)}" />
+
+
+        <div id="#{clientId}" class="#{concatClasses('rf-pick', component.attributes['styleClass'])}" style="#{component.attributes['style']}"
+            cdk:passThrough="onclick:listclick ondblclick:listdblclick onmousedown:listmousedown onmouseup:listmouseup onmouseover:onlistmouseover 
+            onmousemove:listmousemove onmouseout:listmouseout onkeypress:listkeypress onkeydown:listkeydown onkeyup:listkeyup">
+            <table>
+                <tr>
+                    <td>
+                        <div id="#{clientId}Source">
+                            <div id="#{clientId}SourceList" class="#{concatClasses('rf-pick-source', component.attributes['selectItemClass'])}">
+                                <cdk:object type="java.lang.Object" name="sourceCaption" value="#{component.attributes['sourceCaption']}" />
+                                <c:if test="#{! empty sourceCaption}">
+                                    <div class="rf-pick-source-caption">
+                                        #{sourceCaption}
+                                    </div>
+                                </c:if>
+                                <div class="rf-pick-lst-dcrtn"
+                                    cdk:passThrough="onclick:sourceclick ondblclick:sourcedblclick onmousedown:sourcemousedown onmouseup:sourcemouseup onmouseover:onsourcemouseover 
+                                    onmousemove:sourcemousemove onmouseout:sourcemouseout onkeypress:sourcekeypress onkeydown:sourcekeydown onkeyup:sourcekeyup">
+                                    <div class="rf-pick-lst-scrl" style="#{encodeHeightAndWidth(component)}">
+                                        <c:choose>
+                                            <c:when test="#{! hasColumnChildren}">
+                                                <div id="#{clientId}SourceItems">
+                                                    <cdk:call expression="encodeSourceItems(facesContext, component, clientSelectItems);" />
+                                                </div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div id="#{clientId}headerBox" class="rf-pick-lst">
+                                                    <table class="rf-pick-internal-table" cellpadding="0" cellspacing="0">
+                                                        <c:if test="#{isHeaderExists(facesContext, component)}">
+                                                            <thead class="rf-pick-lst-header">
+                                                                <cdk:call expression="encodeSourceHeader(facesContext, component);" />
+                                                            </thead>
+                                                        </c:if>
+                                                        <tbody id="#{clientId}SourceItems">
+                                                            <cdk:call expression="encodeSourceRows(facesContext, component, clientSelectItems);" />
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>
+                                    <button type="button" class="#{getButtonClass(component, 'rf-pick-add-all')}" disabled="#{disabled}">#{component.attributes['addAllText']}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="button" class="#{getButtonClass(component, 'rf-pick-add')}" disabled="#{disabled}">#{component.attributes['addText']}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="button" class="#{getButtonClass(component, 'rf-pick-rem')}" disabled="#{disabled}">#{component.attributes['removeText']}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="button" class="#{getButtonClass(component, 'rf-pick-rem-all')}" disabled="#{disabled}">#{component.attributes['removeAllText']}</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <div id="#{clientId}Target" class="#{concatClasses('rf-pick', component.attributes['styleClass'])}" style="#{component.attributes['style']}">
+                            <div id="#{clientId}TargetList" class="#{concatClasses('rf-pick-target', component.attributes['selectItemClass'])}">
+                                <cdk:object type="java.lang.Object" name="targetCaption" value="#{component.attributes['targetCaption']}" />
+                                <c:if test="#{! empty targetCaption}">
+                                    <div class="rf-pick-target-caption">
+                                        #{targetCaption}
+                                    </div>
+                                </c:if>
+                                <div class="rf-pick-lst-dcrtn"
+                                    cdk:passThrough="onclick:targetclick ondblclick:targetdblclick onmousedown:targetmousedown onmouseup:targetmouseup onmouseover:ontargetmouseover 
+                                    onmousemove:targetmousemove onmouseout:targetmouseout onkeypress:targetkeypress onkeydown:targetkeydown onkeyup:targetkeyup">
+                                    <div class="rf-pick-lst-scrl" style="#{encodeHeightAndWidth(component)}">
+                                        <c:choose>
+                                            <c:when test="#{! hasColumnChildren}">
+                                                <div id="#{clientId}TargetItems">
+                                                    <cdk:call expression="encodeTargetItems(facesContext, component, clientSelectItems);" />
+                                                </div>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <div id="#{clientId}headerBox" class="rf-pick-lst">
+                                                    <table class="rf-pick-internal-table" cellpadding="0" cellspacing="0">
+                                                        <c:if test="#{isHeaderExists(facesContext, component)}">
+                                                            <thead class="rf-pick-lst-header">
+                                                                <cdk:call expression="encodeTargetHeader(facesContext, component);" />
+                                                            </thead>
+                                                        </c:if>
+                                                        <tbody id="#{clientId}TargetItems">
+                                                            <cdk:call expression="encodeTargetRows(facesContext, component, clientSelectItems);" />
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <cdk:object type="java.lang.Object" name="hiddenValues" value="#{csvEncodeSelectedItems(clientSelectItems)}" />
+            <input type="hidden" id="#{clientId}SelValue" name="#{clientId}" value="#{hiddenValues}" disabled="#{disabled}"/>
+            <script type="text/javascript">
+                <cdk:scriptObject name="options">
+                    <cdk:scriptOption name="selectItemCss" value="#{concatClasses('rf-pick-sel', component.attributes['selectItemClass'])}" />
+                    <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onblur onadditems onremoveitems onfocus"
+                        wrapper="eventHandler" />
+                    <cdk:scriptOption name="items" value="#{clientSelectItems}" />
+                    <cdk:scriptOption attributes="disabled" />
+                </cdk:scriptObject>
+                new RichFaces.ui.PickList("#{clientId}", #{toScriptArgs(options)});
+            </script>
+        </div>
+    </cc:implementation>
+</cdk:root>
