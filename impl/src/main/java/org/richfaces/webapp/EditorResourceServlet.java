@@ -55,14 +55,14 @@ import org.richfaces.resource.ResourceHandlerImpl;
  * <p>
  * Servlet which serves resources for rich:editor component.
  * </p>
- * 
+ *
  * <p>
  * These resources are generated dynamically and some of them cannot be used with FacesServlet mappings by suffixes (e.g. .jsf).
  * Therefore this servlet provides prefix mappings and serves only selected resources (from editor resource library) to avoid
  * security problems.
  * </p>
- * 
- * 
+ *
+ *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
 public class EditorResourceServlet extends HttpServlet {

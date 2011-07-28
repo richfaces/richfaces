@@ -35,7 +35,7 @@ import javax.faces.context.ExternalContext;
 
 /**
  * Provides adapter for partial implementations of {@link ExternalContext}.
- * 
+ *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
 public class ExternalContextAdapter extends ExternalContext {

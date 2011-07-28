@@ -35,7 +35,7 @@ import javax.faces.render.RenderKit;
 
 /**
  * Provides adapter for partial implementations of {@link FacesContext}.
- * 
+ *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
 public class FacesContextAdapter extends FacesContext {

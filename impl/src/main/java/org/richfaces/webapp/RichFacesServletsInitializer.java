@@ -34,7 +34,7 @@ import org.richfaces.log.RichfacesLogger;
  * <p>
  * Runs all servlet container initializers listed in associated
  * </p>
- * 
+ *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
 public class RichFacesServletsInitializer implements ServletContainerInitializer {

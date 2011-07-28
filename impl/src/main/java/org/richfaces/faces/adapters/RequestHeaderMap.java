@@ -40,19 +40,19 @@
 
 package org.richfaces.faces.adapters;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-import java.util.Collections;
-import java.util.Collection;
-import java.util.Iterator;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.sun.faces.util.Util;
 
 /**
- * @see javax.faces.context.ExternalContext#getRequestHeaderMap()  
+ * @see javax.faces.context.ExternalContext#getRequestHeaderMap()
  */
 public class RequestHeaderMap extends BaseContextMap<String> {
 
@@ -62,14 +62,11 @@ public class RequestHeaderMap extends BaseContextMap<String> {
 
     // ------------------------------------------------------------ Constructors
 
-
     public RequestHeaderMap(HttpServletRequest request) {
         this.request = request;
     }
 
-
     // -------------------------------------------------------- Methods from Map
-
 
     @Override
     public String get(Object key) {
@@ -78,61 +75,49 @@ public class RequestHeaderMap extends BaseContextMap<String> {
         return (request.getHeader(key.toString()));
     }
 
-
     @Override
-    public Set<Map.Entry<String,String>> entrySet() {
+    public Set<Map.Entry<String, String>> entrySet() {
         return Collections.unmodifiableSet(super.entrySet());
     }
-
 
     @Override
     public Set<String> keySet() {
         return Collections.unmodifiableSet(super.keySet());
     }
 
-
     @Override
     public Collection<String> values() {
         return Collections.unmodifiableCollection(super.values());
     }
-
 
     @Override
     public boolean containsKey(Object key) {
         return (request.getHeader(key.toString()) != null);
     }
 
-
     @Override
     public boolean equals(Object obj) {
-        return !(obj == null ||
-                 !(obj.getClass()
-                   == theUnmodifiableMapClass)) && super.equals(obj);
+        return !(obj == null || !(obj.getClass() == theUnmodifiableMapClass)) && super.equals(obj);
     }
-
 
     @Override
     public int hashCode() {
         int hashCode = 7 * request.hashCode();
-        for (Iterator i = entrySet().iterator(); i.hasNext(); ) {
+        for (Iterator i = entrySet().iterator(); i.hasNext();) {
             hashCode += i.next().hashCode();
         }
         return hashCode;
     }
 
-
     // --------------------------------------------- Methods from BaseContextMap
 
-
-    protected Iterator<Map.Entry<String,String>> getEntryIterator() {
+    protected Iterator<Map.Entry<String, String>> getEntryIterator() {
         return new EntryIterator(request.getHeaderNames());
     }
-
 
     protected Iterator<String> getKeyIterator() {
         return new KeyIterator(request.getHeaderNames());
     }
-
 
     protected Iterator<String> getValueIterator() {
         return new ValueIterator(request.getHeaderNames());

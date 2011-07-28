@@ -43,7 +43,7 @@ import javax.faces.validator.Validator;
 
 /**
  * Provides adapter for partial implementations of {@link Application}.
- * 
+ *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
 @SuppressWarnings("deprecation")

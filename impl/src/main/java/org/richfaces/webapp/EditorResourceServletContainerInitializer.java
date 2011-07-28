@@ -33,12 +33,12 @@ import javax.servlet.ServletRegistration.Dynamic;
  * <p>
  * Initializes {@link EditorResourceServlet}.
  * </p>
- * 
+ *
  * <p>
  * Initialization can be turned of by "org.richfaces.editor.skipResourceServletRegistration" context parameter.
  * </p>
- * 
- * 
+ *
+ *
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
 public class EditorResourceServletContainerInitializer implements ServletContainerInitializer {
