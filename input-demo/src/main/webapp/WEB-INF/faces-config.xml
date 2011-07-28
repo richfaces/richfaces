@@ -37,6 +37,10 @@
             <from-outcome>select</from-outcome>
             <to-view-id>/examples/select.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>pickList</from-outcome>
+            <to-view-id>/examples/pickList.xhtml</to-view-id>
+        </navigation-case>
 
         <!-- QUnit -->
         <navigation-case>
