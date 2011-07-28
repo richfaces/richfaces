@@ -9,7 +9,20 @@
 </h:head>
 
 <h:body>
+    
     <!-- <a4j:log mode="inline" />  -->
+
+    <fieldset>
+        <legend>Render All</legend>
+        
+        <h:form id="form8a">
+            <in:editor id="editor8a" value="#{editor.value}" />
+        </h:form>
+        
+        <h:form id="form8b">
+            <a4j:commandButton value="Update All" render="@all" />
+        </h:form>
+    </fieldset>
     
     <fieldset>
         <legend>Validation</legend>
