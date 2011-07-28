@@ -1,4 +1,25 @@
-package org.richfaces.webapp.editor;
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright 2010, Red Hat, Inc. and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
+package org.richfaces.faces.adapters;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,210 +33,177 @@ import java.util.Set;
 
 import javax.faces.context.ExternalContext;
 
-public class FakeExternalContext extends ExternalContext {
+/**
+ * Provides adapter for partial implementations of {@link ExternalContext}.
+ * 
+ * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ */
+public class ExternalContextAdapter extends ExternalContext {
 
     @Override
     public void dispatch(String path) throws IOException {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public String encodeActionURL(String url) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public String encodeNamespace(String name) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public String encodeResourceURL(String url) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Map<String, Object> getApplicationMap() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public String getAuthType() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Object getContext() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public String getInitParameter(String name) {
-        // TODO Auto-generated method stub
         return null;
     }
 
+    @SuppressWarnings("rawtypes")
     @Override
     public Map getInitParameterMap() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public String getRemoteUser() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Object getRequest() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public String getRequestContextPath() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Map<String, Object> getRequestCookieMap() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Map<String, String> getRequestHeaderMap() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Map<String, String[]> getRequestHeaderValuesMap() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Locale getRequestLocale() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Iterator<Locale> getRequestLocales() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Map<String, Object> getRequestMap() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Map<String, String> getRequestParameterMap() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Iterator<String> getRequestParameterNames() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Map<String, String[]> getRequestParameterValuesMap() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public String getRequestPathInfo() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public String getRequestServletPath() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public URL getResource(String path) throws MalformedURLException {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public InputStream getResourceAsStream(String path) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Set<String> getResourcePaths(String path) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Object getResponse() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Object getSession(boolean create) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Map<String, Object> getSessionMap() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Principal getUserPrincipal() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public boolean isUserInRole(String role) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public void log(String message) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void log(String message, Throwable exception) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void redirect(String url) throws IOException {
-        // TODO Auto-generated method stub
-
     }
-
 }

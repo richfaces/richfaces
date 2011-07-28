@@ -38,33 +38,29 @@
  * holder.
  */
 
-package org.richfaces.webapp.editor;
+package org.richfaces.faces.adapters;
 
-import java.util.HashMap;
+import java.util.Enumeration;
 import java.util.Map;
-import java.util.Set;
-import java.util.Collections;
-import java.util.Collection;
 import java.util.Iterator;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletContext;
 
 import com.sun.faces.util.Util;
 
 /**
- * @see javax.faces.context.ExternalContext#getRequestHeaderMap()  
+ * @see javax.faces.context.ExternalContext#getApplicationMap()
  */
-public class RequestHeaderMap extends BaseContextMap<String> {
+public class ApplicationMap extends BaseContextMap<Object> {
 
-    private final HttpServletRequest request;
+    private final ServletContext servletContext;
 
-    static final Class<?> theUnmodifiableMapClass = Collections.unmodifiableMap(new HashMap<Object, Object>()).getClass();
 
     // ------------------------------------------------------------ Constructors
 
 
-    public RequestHeaderMap(HttpServletRequest request) {
-        this.request = request;
+    public ApplicationMap(ServletContext servletContext) {
+        this.servletContext = servletContext;
     }
 
 
@@ -72,48 +68,69 @@ public class RequestHeaderMap extends BaseContextMap<String> {
 
 
     @Override
-    public String get(Object key) {
+    public void clear() {
+        for (Enumeration e = servletContext.getAttributeNames();
+             e.hasMoreElements(); ) {
+            servletContext.removeAttribute((String) e.nextElement());
+        }
+    }
+
+
+    // Supported by maps if overridden
+    @Override
+    public void putAll(Map t) {
+        for (Iterator i = t.entrySet().iterator(); i.hasNext(); ) {
+            Map.Entry entry = (Map.Entry) i.next();
+            servletContext.setAttribute((String) entry.getKey(),
+                                        entry.getValue());
+        }
+    }
+
+
+    @Override
+    public Object get(Object key) {
         Util.notNull("key", key);
-
-        return (request.getHeader(key.toString()));
+        return servletContext.getAttribute(key.toString());
     }
 
 
     @Override
-    public Set<Map.Entry<String,String>> entrySet() {
-        return Collections.unmodifiableSet(super.entrySet());
+    public Object put(String key, Object value) {
+        Util.notNull("key", key);
+        Object result = servletContext.getAttribute(key);
+        servletContext.setAttribute(key, value);
+        return (result);
     }
 
 
     @Override
-    public Set<String> keySet() {
-        return Collections.unmodifiableSet(super.keySet());
-    }
-
-
-    @Override
-    public Collection<String> values() {
-        return Collections.unmodifiableCollection(super.values());
+    public Object remove(Object key) {
+        if (key == null) {
+            return null;
+        }
+        String keyString = key.toString();
+        Object result = servletContext.getAttribute(keyString);
+        servletContext.removeAttribute(keyString);
+        return (result);
     }
 
 
     @Override
     public boolean containsKey(Object key) {
-        return (request.getHeader(key.toString()) != null);
+        return (servletContext.getAttribute(key.toString()) != null);
     }
 
 
     @Override
     public boolean equals(Object obj) {
-        return !(obj == null ||
-                 !(obj.getClass()
-                   == theUnmodifiableMapClass)) && super.equals(obj);
+        return !(obj == null || !(obj instanceof ApplicationMap))
+                   && super.equals(obj);
     }
 
 
     @Override
     public int hashCode() {
-        int hashCode = 7 * request.hashCode();
+        int hashCode = 7 * servletContext.hashCode();
         for (Iterator i = entrySet().iterator(); i.hasNext(); ) {
             hashCode += i.next().hashCode();
         }
@@ -124,18 +141,19 @@ public class RequestHeaderMap extends BaseContextMap<String> {
     // --------------------------------------------- Methods from BaseContextMap
 
 
-    protected Iterator<Map.Entry<String,String>> getEntryIterator() {
-        return new EntryIterator(request.getHeaderNames());
+    @SuppressWarnings("unchecked")
+    protected Iterator<Map.Entry<String, Object>> getEntryIterator() {
+        return new EntryIterator(servletContext.getAttributeNames());
     }
 
-
+    @SuppressWarnings("unchecked")
     protected Iterator<String> getKeyIterator() {
-        return new KeyIterator(request.getHeaderNames());
+        return new KeyIterator(servletContext.getAttributeNames());
     }
 
-
-    protected Iterator<String> getValueIterator() {
-        return new ValueIterator(request.getHeaderNames());
+    @SuppressWarnings("unchecked")
+    protected Iterator<Object> getValueIterator() {
+        return new ValueIterator(servletContext.getAttributeNames());
     }
 
-} // END RequestHeaderMap
+} // END ApplicationMap

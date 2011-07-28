@@ -1,1 +1,1 @@
-org.richfaces.webapp.editor.EditorResourceServletContainerInitializer
+org.richfaces.webapp.RichFacesServletsInitializer

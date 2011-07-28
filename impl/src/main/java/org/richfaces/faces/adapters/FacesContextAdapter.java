@@ -1,4 +1,25 @@
-package org.richfaces.webapp.editor;
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright 2010, Red Hat, Inc. and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
+package org.richfaces.faces.adapters;
 
 import java.util.Iterator;
 
@@ -12,123 +33,102 @@ import javax.faces.context.ResponseStream;
 import javax.faces.context.ResponseWriter;
 import javax.faces.render.RenderKit;
 
-public class FakeFacesContext extends FacesContext {
-    
+/**
+ * Provides adapter for partial implementations of {@link FacesContext}.
+ * 
+ * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
+ */
+public class FacesContextAdapter extends FacesContext {
+
     public static void setFacesContext(FacesContext context) {
         FacesContext.setCurrentInstance(context);
     }
+
     @Override
     public Application getApplication() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Iterator<String> getClientIdsWithMessages() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public ExternalContext getExternalContext() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Severity getMaximumSeverity() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Iterator<FacesMessage> getMessages() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public Iterator<FacesMessage> getMessages(String clientId) {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public RenderKit getRenderKit() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public boolean getRenderResponse() {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean getResponseComplete() {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public ResponseStream getResponseStream() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public void setResponseStream(ResponseStream responseStream) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public ResponseWriter getResponseWriter() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public void setResponseWriter(ResponseWriter responseWriter) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public UIViewRoot getViewRoot() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public void setViewRoot(UIViewRoot root) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void addMessage(String clientId, FacesMessage message) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void release() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void renderResponse() {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void responseComplete() {
-        // TODO Auto-generated method stub
-
     }
-
 }

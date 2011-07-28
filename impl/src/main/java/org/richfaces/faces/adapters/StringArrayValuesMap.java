@@ -38,7 +38,7 @@
  * holder.
  */
 
-package org.richfaces.webapp.editor;
+package org.richfaces.faces.adapters;
 
 import java.util.Collections;
 import java.util.HashMap;
