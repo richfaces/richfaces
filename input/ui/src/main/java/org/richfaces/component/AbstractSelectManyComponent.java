@@ -1,4 +1,4 @@
-/*
+/**
  * JBoss, Home of Professional Open Source
  * Copyright 2010, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
@@ -21,13 +21,11 @@
  */
 package org.richfaces.component;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.Iterators;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 
 import javax.faces.component.UIColumn;
-import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectMany;
 import java.util.Iterator;
 
@@ -43,15 +41,6 @@ public abstract class AbstractSelectManyComponent extends UISelectMany {
 
     @Attribute()
     public abstract String getColumnVar();
-
-    @Attribute()
-    public abstract String getItemValue();
-
-    @Attribute()
-    public abstract String getItemLabel();
-
-    @Attribute()
-    public abstract String getItems();
 
     @Attribute()
     public abstract String getListWidth();
@@ -75,22 +64,10 @@ public abstract class AbstractSelectManyComponent extends UISelectMany {
     public abstract String getSelectItemClass();
 
     @Attribute
-    public abstract String getActiveClass();
-
-    @Attribute
-    public abstract String getChangedClass();
-
-    @Attribute
     public abstract String getDisabledClass();
 
     @Attribute
     public abstract boolean isDisabled();
-
-    @Attribute
-    public abstract String getEscape();
-
-    @Attribute
-    public abstract String getListClass();
 
     @Attribute
     public abstract String getColumnClasses();

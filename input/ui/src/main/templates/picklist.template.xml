@@ -21,11 +21,12 @@
         <cdk:object type="java.lang.Boolean" name="hasColumnChildren" value="#{hasColumnChildren(facesContext, component)}" />
 
 
-        <div id="#{clientId}">
+        <div id="#{clientId}" class="#{concatClasses('rf-pick', component.attributes['styleClass'])}" style="#{component.attributes['style']}"
+                cdk:passThroughWithExclusions="class autocomplete id value disabled name type readonly onchange onblur onfocus onlistshow onlisthide style">
             <table>
                 <tr>
                     <td>
-                        <div id="#{clientId}Source" class="#{concatClasses('rf-pick', component.attributes['styleClass'])}" style="#{component.attributes['style']}">
+                        <div id="#{clientId}Source">
                             <div id="#{clientId}SourceList" class="#{concatClasses('rf-pick-source', component.attributes['selectItemClass'])}">
                                 <cdk:object type="java.lang.Object" name="sourceCaption" value="#{component.attributes['sourceCaption']}" />
                                 <c:if test="#{! empty sourceCaption}">
@@ -128,6 +129,7 @@
             <input type="hidden" id="#{clientId}SelValue" name="#{clientId}" value="#{hiddenValues}" />
             <script type="text/javascript">
                 <cdk:scriptObject name="options">
+                    <cdk:scriptOption name="selectItemCss" value="#{concatClasses('rf-pick-sel', component.attributes['selectItemClass'])}" />
                     <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onblur onadditems onremoveitems onfocus"
                         wrapper="eventHandler" />
                     <cdk:scriptOption name="items" value="#{clientSelectItems}" />
