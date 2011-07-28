@@ -295,16 +295,24 @@ public class SelectManyHelper {
     public static Converter getItemConverter(FacesContext facesContext, UIComponent component) {
         Converter converter = null;
         if (component instanceof ValueHolder) {
+            // If the component has an attached Converter, use it.
             converter = ((ValueHolder) component).getConverter();
-        } else {
-            ValueExpression ve = component.getValueExpression("value");
-            if (ve != null) {
-                Class<?> valueType = ve.getType(facesContext.getELContext());
-                if (valueType.isArray()) {
-                    converter = facesContext.getApplication().createConverter(valueType);
-                }
+            if (converter != null) {
+                return converter;
             }
         }
+        // If not, look for a ValueExpression for value (if any). The ValueExpression must point to something that is:
+        ValueExpression ve = component.getValueExpression("value");
+        if (ve != null) {
+            Class<?> valueType = ve.getType(facesContext.getELContext());
+            // An array of primitives (such as int[]). Look up the registered by-class Converter for this primitive type.
+            // An array of objects (such as Integer[] or String[]). Look up the registered by-class Converter for the underlying element type.
+            if (valueType != null && valueType.isArray()) {
+                converter = facesContext.getApplication().createConverter(valueType);
+            }
+            //A java.util.Collection. Do not convert the values.
+        }
+        // If for any reason a Converter cannot be found, assume the type to be a String array.
         return converter;
     }
 
