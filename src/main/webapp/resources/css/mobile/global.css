@@ -190,12 +190,30 @@ body > header > div img.logo {
     left: 5px;
 }
 
+ .rf-pm-top-gr-sel, .rf-pm-top-gr-gr, .rf-pm-hdr-colps {
+   border-radius: 8px;
+   -moz-border-radius: 8px;
+   -webkit-border-radius: 8px;
+
+}
+
+ .nav-list {
+   width: 95%;
+   border:  1px solid #777;
+   margin: 0 auto 0 auto;
+    padding:  5px;
+   border-radius: 8px;
+   -moz-border-radius: 8px;
+   -webkit-border-radius: 8px;
+
+}
+
 /*************************************************
 RichFaces panelMenu styles overwriting
 *************************************************/
 
 nav .rf-pm {
-    border: 1px solid #B0BDC5;
+    /*border: 1px solid #B0BDC5;*/
     border-bottom: 0;
 }
 
