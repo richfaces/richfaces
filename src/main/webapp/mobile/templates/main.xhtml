@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+<f:view contentType="text/html">
+    <h:head>
+        <title>RichFaces Showcase</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"/>
+        <!-- enable full-screen mode -->
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <!-- controls the appearance of the status bar in full-screen mode -->
+        <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+        <h:outputScript>
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-7306415-4']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </h:outputScript>
+        <h:outputStylesheet library="css" name="mobile/base.css" />
+        <h:outputStylesheet library="css" name="mobile/brand.css" />
+        <h:outputStylesheet library="css" name="mobile/global.css" />
+
+    </h:head>
+    <h:body>
+        <div id="browser">
+            <header>
+                <div>
+                   <a href="#{facesContext.externalContext.requestContextPath}/index.jsp" class="logo">
+                       <img src="#{facesContext.externalContext.requestContextPath}/images/mobile/rf-logo-small.png" alt="RF logo" class="logo"/>
+                   </a>
+                </div>
+            </header>
+            <div class="category-list-page">
+                <nav>
+                <rich:panelMenu activeItem="#{demoNavigator.currentDemo.id}">
+                    <c:forEach items="#{demoNavigator.groups}" var="gr">
+                        <rich:panelMenuGroup label="#{gr.name}" rightExpandedIcon="#{gr.newItems ? '/images/icons/new-ic.gif' : null}"
+                            rightCollapsedIcon="#{gr.newItems ? '/images/icons/new-ic.gif' : null}">
+                            <c:forEach items="#{gr.demos}" var="d">
+                                <rich:panelMenuItem label="#{d.name}" action="#{d.id}" mode="client" name="#{d.id}"
+                                    rightIcon="#{(d.newItems || gr.newItem) ? '/images/icons/new-small-ic.gif' : null}"
+                                    onclick="document.location.href='#{facesContext.externalContext.requestContextPath}/richfaces/component-sample.jsf?demo=#{d.id}&amp;skin=#{skinBean.skin}'">
+                                </rich:panelMenuItem>
+                            </c:forEach>
+                        </rich:panelMenuGroup>
+                    </c:forEach>
+                </rich:panelMenu>
+                </nav>
+            </div>
+            <div class="component-list-page">
+                <nav>
+
+                </nav>
+            </div>
+            <div class="component-detail-page">
+                <nav>
+
+                </nav>
+            </div>
+        </div>
+    </h:body>
+</f:view>
+</html>
