@@ -58,6 +58,18 @@ public abstract class AbstractSelectManyComponent extends UISelectMany {
     public abstract String getDefaultLabel();
 
     @Attribute
+    public abstract String getStyle();
+
+    @Attribute(hidden = true)
+    public abstract String getActiveClass();
+
+    @Attribute(hidden = true)
+    public abstract String getChangedClass();
+
+    @Attribute
+    public abstract String getStyleClass();
+
+    @Attribute
     public abstract String getItemClass();
 
     @Attribute
@@ -74,18 +86,6 @@ public abstract class AbstractSelectManyComponent extends UISelectMany {
 
     @Attribute
     public abstract String getHeaderClass();
-
-    @Attribute(defaultValue = ">> Add all")
-    public abstract String getAddAllText();
-
-    @Attribute(defaultValue = "> Add")
-    public abstract String getAddText();
-
-    @Attribute(defaultValue = "< Remove")
-    public abstract String getRemoveText();
-
-    @Attribute(defaultValue = "<< Remove all")
-    public abstract String getRemoveAllText();
 
     @Attribute(events = @EventName("blur"))
     public abstract String getOnblur();
