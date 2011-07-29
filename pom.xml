@@ -663,6 +663,7 @@
                                 <phase>package</phase>
                                 <configuration>
                                     <finalName>sources</finalName>
+                                    <appendAssemblyId>false</appendAssemblyId>
                                     <descriptor>assembler.xml
                                     </descriptor>
                                 </configuration>
