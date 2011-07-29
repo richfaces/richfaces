@@ -1,0 +1,76 @@
+/*
+ * JBoss, Home of Professional Open Source
+ * Copyright 2011, Red Hat, Inc. and individual contributors
+ * by the @authors tag. See the copyright.txt in the distribution for a
+ * full listing of individual contributors.
+ *
+ * This is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 of
+ * the License, or (at your option) any later version.
+ *
+ * This software is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this software; if not, write to the Free
+ * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+ * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+ */
+
+/* author Wesley Hales | whales@redhat.com */
+
+/*************************************************/
+/*Colors
+/*************************************************/
+
+/*************************************************/
+/*Font Base
+/*************************************************/
+strong, h1, h2, h3, h5, h6 {
+   font-weight: bold;
+}
+
+h1 {
+   font-size: 2em;
+}
+
+h2 {
+   font-size: 1.5em;
+}
+
+h3 {
+   font-size: 1em;
+}
+
+h4 {
+   font-size: 1em;
+}
+
+h5 {
+   font-size: 0.75em;
+}
+
+h6 {
+   font-size: 0.6875em;
+}
+
+p, dl, dt, dd, ul, ol, pre, input, textarea, blockquote, cite, label, select {
+   font-size: 0.6875em;
+}
+
+em {
+   font-style: italic;
+}
+
+abbr, acronym {
+   border-bottom: 1px dotted #000;
+   cursor: help;
+}
+
+th {
+   font-weight: bold;
+   text-align: center;
+}
