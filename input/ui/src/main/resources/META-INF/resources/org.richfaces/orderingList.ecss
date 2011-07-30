@@ -1,0 +1,95 @@
+.rf-ord-opt {
+    color: '#{richSkin.generalTextColor}';
+    font-size: '#{richSkin.generalSizeFont}';
+    font-family: '#{richSkin.generalFamilyFont}';
+}
+
+.rf-ord {
+    display: inline-block;
+}
+
+.rf-ord-header {
+    vertical-align: middle;
+    text-align: center;
+    height: 22px;
+    white-space: nowrap;
+    background-image: "url(#{resource['org.richfaces.images:colHdrGrad.png']})";
+    background-repeat: repeat-x;
+    background-position: top left;
+    background-color: '#{richSkin.headerBackgroundColor}';
+    font-size: '#{richSkin.headerSizeFont}';
+    font-family: '#{richSkin.headerFamilyFont}';
+    font-weight: '#{richSkin.headerWeightFont}';
+    color: '#{richSkin.headerTextColor}';
+}
+
+.rf-ord-source-caption, .rf-ord-target-caption {
+    font-size: '#{richSkin.headerSizeFont}';
+    font-family: '#{richSkin.headerFamilyFont}';
+    font-weight: '#{richSkin.headerWeightFont}';
+    color: '#{richSkin.headerTextColor}';
+}
+
+.rf-ord-btn {
+    width : 100%;
+    background-image: "url(#{resource['org.richfaces.images:autocompleteButtonGradient.png']})";
+    background-repeat: repeat-x;
+    background-position: top left;
+    background-color: '#{richSkin.headerBackgroundColor}';
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: '#{richSkin.panelBorderColor}';
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+}
+
+.rf-ord-btn-dis {
+    cursor: default;
+    color : #dddddd;
+}
+
+.rf-ord-lst-dcrtn {
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{richSkin.panelBorderColor}';
+    padding: 0px;
+    background-color: '#{richSkin.tableBackgroundColor}';
+}
+
+.rf-ord-lst-scrl {
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.rf-ord-opt {
+    padding: 2px;
+    white-space: nowrap;
+    cursor: pointer;
+    list-style-type: none;
+}
+
+.rf-ord-opt-dis {
+    cursor: default;
+}
+
+.rf-ord-sel {
+    padding: 1px;
+    width: 100%;
+    background-color: '#{richSkin.headerBackgroundColor}';
+    border-width: 1px;
+    border-style: dotted;
+    border-color: '#{richSkin.generalTextColor}';
+}
+
+input.rf-ord-dflt-lbl {
+    color: #b3b3b3;
+}
+
+.rf-ord-cell {
+    padding-right : 1px;
+}
+
+.rf-ord-internal-table {
+    width : 100%;
+}

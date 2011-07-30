@@ -21,10 +21,13 @@
  */
 package org.richfaces.renderkit;
 
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
 import org.richfaces.component.AbstractSelectManyComponent;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.renderkit.util.HtmlDimensions;
 
+import javax.annotation.Nullable;
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
 import javax.faces.component.EditableValueHolder;
@@ -56,10 +59,18 @@ import java.util.TreeSet;
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
  */
 public class SelectManyHelper {
-    public static final String ITEM_CSS = "rf-pick-opt";
-    public static final String ITEM_CSS_DIS = "rf-pick-opt-dis";
-    public static final String BUTTON_CSS = "rf-pick-btn";
-    public static final String BUTTON_CSS_DIS = "rf-pick-btn-dis";
+    public static final String ITEM_CSS = "-opt";
+    public static final String ITEM_CSS_DIS = "-opt-dis";
+    public static final String BUTTON_CSS = "-btn";
+    public static final String BUTTON_CSS_DIS = "-btn-dis";
+
+    public static Predicate<ClientSelectItem> SELECTED_PREDICATE =  new Predicate<ClientSelectItem>() {
+        public boolean apply(@Nullable ClientSelectItem clientSelectItem) {
+            return clientSelectItem.isSelected();
+        }
+    };
+
+    public static Predicate<ClientSelectItem> UNSELECTED_PREDICATE = Predicates.not(SELECTED_PREDICATE);
 
     public static void encodeHeader(FacesContext facesContext, UIComponent component, SelectManyRendererBase renderer, String rowClass, String cellClass) throws IOException {
         ResponseWriter writer = facesContext.getResponseWriter();
@@ -97,26 +108,27 @@ public class SelectManyHelper {
         }
     }
 
-    public static void encodeRows(FacesContext facesContext, UIComponent component, SelectManyRendererBase renderer, List<ClientSelectItem> clientSelectItems, boolean source) throws IOException {
+    public static void encodeRows(FacesContext facesContext, UIComponent component, SelectManyRendererBase renderer, Iterator<ClientSelectItem> clientSelectItems, String cssPrefix) throws IOException {
         AbstractSelectManyComponent select = (AbstractSelectManyComponent) component;
-        if (clientSelectItems != null && !clientSelectItems.isEmpty()) {
+        if (clientSelectItems != null && clientSelectItems.hasNext()) {
             String clientId = component.getClientId(facesContext);
             int i = 0;
             Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
             Object oldColumnVar = requestMap.get(select.getColumnVar());
-            for (ClientSelectItem clientSelectItem : clientSelectItems) {
-                if (source == !clientSelectItem.isSelected()) {
-                    requestMap.put(select.getColumnVar(), clientSelectItem.getSelectItem().getValue());
-                    encodeOneRow(facesContext, component, renderer, clientSelectItem);
-                }
+            while (clientSelectItems.hasNext()) {
+                ClientSelectItem clientSelectItem = clientSelectItems.next();
+                requestMap.put(select.getColumnVar(), clientSelectItem.getSelectItem().getValue());
+                encodeOneRow(facesContext, component, renderer, clientSelectItem, cssPrefix);
             }
             requestMap.put(select.getColumnVar(), oldColumnVar);
             oldColumnVar = null;
         }
     }
 
-    public static void encodeOneRow(FacesContext facesContext, UIComponent component, SelectManyRendererBase renderer, ClientSelectItem clientSelectItem) throws IOException {
+    public static void encodeOneRow(FacesContext facesContext, UIComponent component, SelectManyRendererBase renderer, ClientSelectItem clientSelectItem, String cssPrefix) throws IOException {
         AbstractSelectManyComponent table = (AbstractSelectManyComponent) component;
+        String defaultItemCss = cssPrefix + ITEM_CSS;
+        String defaultItemCssDis = cssPrefix + ITEM_CSS_DIS;
 
         ResponseWriter writer = facesContext.getResponseWriter();
         String clientId = table.getClientId(facesContext);
@@ -124,15 +136,15 @@ public class SelectManyHelper {
         writer.writeAttribute("id", clientId, null);
         String itemCss;
         if (!table.isDisabled()) {
-            itemCss = HtmlUtil.concatClasses(table.getItemClass(), ITEM_CSS);
+            itemCss = HtmlUtil.concatClasses(table.getItemClass(), defaultItemCss);
         } else {
-            itemCss = HtmlUtil.concatClasses(table.getItemClass(), ITEM_CSS, ITEM_CSS_DIS);
+            itemCss = HtmlUtil.concatClasses(table.getItemClass(), defaultItemCss, defaultItemCssDis);
         }
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, itemCss, null);
 
         writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, clientSelectItem.getConvertedValue(), null);
 
-        String cellClassName = "rf-pick-cell";
+        String cellClassName = cssPrefix + "-cell";
 
         String[] columnClasses;
         if (table.getColumnClasses() != null) {
@@ -167,13 +179,16 @@ public class SelectManyHelper {
         writer.endElement(HtmlConstants.TR_ELEMENT);
     }
 
-    public static void encodeItems(FacesContext facesContext, UIComponent component, boolean source, List<ClientSelectItem> clientSelectItems) throws IOException {
+    public static void encodeItems(FacesContext facesContext, UIComponent component, Iterator<ClientSelectItem> clientSelectItems, String cssPrefix) throws IOException {
         AbstractSelectManyComponent select = (AbstractSelectManyComponent) component;
-        if (clientSelectItems != null && !clientSelectItems.isEmpty()) {
+        String defaultItemCss = cssPrefix + ITEM_CSS;
+        String defaultItemCssDis = cssPrefix + ITEM_CSS_DIS;
+        if (clientSelectItems != null && clientSelectItems.hasNext()) {
             ResponseWriter writer = facesContext.getResponseWriter();
             String clientId = component.getClientId(facesContext);
             int i = 0;
-            for (ClientSelectItem clientSelectItem : clientSelectItems) {
+            while (clientSelectItems.hasNext()) {
+                ClientSelectItem clientSelectItem = clientSelectItems.next();
                 String itemClientId = clientId + "Item" + (i++);
                 clientSelectItem.setClientId(itemClientId);
                 writer.startElement(HtmlConstants.DIV_ELEM, component);
@@ -181,9 +196,9 @@ public class SelectManyHelper {
                 writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, clientSelectItem.getConvertedValue(), null);
                 String itemCss;
                 if (!select.isDisabled()) {
-                    itemCss = HtmlUtil.concatClasses(select.getItemClass(), ITEM_CSS);
+                    itemCss = HtmlUtil.concatClasses(select.getItemClass(), defaultItemCss);
                 } else {
-                    itemCss = HtmlUtil.concatClasses(select.getItemClass(), ITEM_CSS, ITEM_CSS_DIS);
+                    itemCss = HtmlUtil.concatClasses(select.getItemClass(), defaultItemCss, defaultItemCssDis);
                 }
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, itemCss, null);
                 String label = clientSelectItem.getLabel();
@@ -328,15 +343,5 @@ public class SelectManyHelper {
         }
         // If for any reason a Converter cannot be found, assume the type to be a String array.
         return converter;
-    }
-
-    public static List<ClientSelectItem> selectItemsFilter(List<ClientSelectItem> selectItems, boolean filterSelected) {
-        List<ClientSelectItem> result = new ArrayList<ClientSelectItem>();
-        for (ClientSelectItem selectItem : selectItems) {
-            if (selectItem.isSelected() == filterSelected) {
-                result.add(selectItem);
-            }
-        }
-        return result;
     }
 }

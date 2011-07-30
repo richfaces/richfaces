@@ -21,11 +21,17 @@
  **/
 package org.richfaces.renderkit;
 
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
+import com.google.common.collect.Iterators;
+
+import javax.annotation.Nullable;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -43,6 +49,7 @@ import java.util.List;
         @ResourceDependency(library = "org.richfaces", name = "pickList.js"),
         @ResourceDependency(library = "org.richfaces", name = "pickList.ecss")})
 public class PickListRendererBase extends SelectManyRendererBase {
+    public static String CSS_PREFIX = "rf-pick";
 
     public void encodeSourceHeader(FacesContext facesContext, UIComponent component) throws IOException {
         SelectManyHelper.encodeHeader(facesContext, component, this, "rf-pick-header", "rf-pick-header-tab-cell");
@@ -53,21 +60,26 @@ public class PickListRendererBase extends SelectManyRendererBase {
     }
 
     public void encodeSourceRows(FacesContext facesContext, UIComponent component, List<ClientSelectItem> clientSelectItems) throws IOException {
-        SelectManyHelper.encodeRows(facesContext, component, this, clientSelectItems, true);
+        Iterator<ClientSelectItem> sourceItems = Iterators.filter(clientSelectItems.iterator(), SelectManyHelper.UNSELECTED_PREDICATE);
+        SelectManyHelper.encodeRows(facesContext, component, this, sourceItems, CSS_PREFIX);
     }
 
     public void encodeTargetRows(FacesContext facesContext, UIComponent component, List<ClientSelectItem> clientSelectItems) throws IOException {
-        SelectManyHelper.encodeRows(facesContext, component, this, clientSelectItems, false);
-    }
-
-    public void encodeTargetItems(FacesContext facesContext, UIComponent component, List<ClientSelectItem> clientSelectItems) throws IOException {
-        List<ClientSelectItem> selectItemsForSelectedValues = SelectManyHelper.selectItemsFilter(clientSelectItems, true);
-        SelectManyHelper.encodeItems(facesContext, component, false, selectItemsForSelectedValues);
+        Iterator<ClientSelectItem> targetItems = Iterators.filter(clientSelectItems.iterator(), SelectManyHelper.SELECTED_PREDICATE);
+        SelectManyHelper.encodeRows(facesContext, component, this, targetItems, CSS_PREFIX);
     }
 
     public void encodeSourceItems(FacesContext facesContext, UIComponent component, List<ClientSelectItem> clientSelectItems) throws IOException {
-        List<ClientSelectItem> selectItemsForAvailableList = SelectManyHelper.selectItemsFilter(clientSelectItems, false);
-        SelectManyHelper.encodeItems(facesContext, component, true, selectItemsForAvailableList);
+        Iterator<ClientSelectItem> sourceItems = Iterators.filter(clientSelectItems.iterator(), SelectManyHelper.UNSELECTED_PREDICATE);
+        SelectManyHelper.encodeItems(facesContext, component, sourceItems, CSS_PREFIX);
     }
 
+    public void encodeTargetItems(FacesContext facesContext, UIComponent component, List<ClientSelectItem> clientSelectItems) throws IOException {
+        Iterator<ClientSelectItem> targetItems = Iterators.filter(clientSelectItems.iterator(), SelectManyHelper.SELECTED_PREDICATE);
+        SelectManyHelper.encodeItems(facesContext, component, targetItems, CSS_PREFIX);
+    }
+
+    public String getButtonClass(UIComponent component, String buttonClass) {
+        return getButtonClass(component, CSS_PREFIX, buttonClass);
+    }
 }

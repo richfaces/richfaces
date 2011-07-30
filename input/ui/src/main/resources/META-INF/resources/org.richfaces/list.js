@@ -115,7 +115,7 @@
 
             currentSelectItem: function() {
                 if (this.items && this.index != -1) {
-                    return this.items[this.index];
+                    return $(this.items[this.index]);
                 }
             },
 
@@ -145,6 +145,26 @@
                 parentContainer.append(items);
                 this.__updateItemsList();
                 rf.Event.fire(this, "additems", items);
+            },
+
+            moveUp: function(item) {
+                item.insertBefore(item.prev());
+                this.__updateItemsList();
+            },
+
+            moveDown: function(item) {
+                item.insertAfter(item.next());
+                this.__updateItemsList();
+            },
+
+            moveToTop: function(item) {
+                item.insertBefore(item.siblings().first());
+                this.__updateItemsList();
+            },
+
+            moveToBottom: function(item) {
+                item.insertAfter(item.siblings().last());
+                this.__updateItemsList();
             },
 
             getItemByIndex: function(i) {
