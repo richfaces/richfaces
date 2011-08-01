@@ -39,7 +39,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <jetty.port>8080</jetty.port>
-        <richfaces.checkstyle.version>3-SNAPSHOT</richfaces.checkstyle.version>
+        <richfaces.checkstyle.version>3</richfaces.checkstyle.version>
     </properties>
 
     <dependencyManagement>
