@@ -36,7 +36,7 @@
     </description>
 
     <properties>
-        <richfaces.checkstyle.version>3-SNAPSHOT</richfaces.checkstyle.version>
+        <richfaces.checkstyle.version>3</richfaces.checkstyle.version>
     </properties>
 
     <dependencyManagement>
