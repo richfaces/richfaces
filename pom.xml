@@ -221,15 +221,13 @@
                     <webResources>
                         <resource>
                             <directory>src/main/webapp</directory>
-                            <targetPath>/</targetPath>
                         </resource>
                         <resource>
                             <directory>src/main/webapp-tomcat</directory>
-                            <targetPath>/</targetPath>
                         </resource>
                         <resource>
                             <directory>src/main/java</directory>
-                            <targetPath>/WEB-INF/src</targetPath>
+                            <targetPath>WEB-INF/src</targetPath>
                         </resource>
                     </webResources>
                 </configuration>
@@ -259,11 +257,10 @@
                                 </resource>
                                 <resource>
                                     <directory>src/main/webapp-jee6</directory>
-                                    <targetPath>/</targetPath>
                                 </resource>
                                 <resource>
                                     <directory>src/main/java</directory>
-                                    <targetPath>/WEB-INF/src</targetPath>
+                                    <targetPath>WEB-INF/src</targetPath>
                                 </resource>
                             </webResources>
                         </configuration>
@@ -312,11 +309,10 @@
                                 </resource>
                                 <resource>
                                     <directory>src/main/webapp-jee6</directory>
-                                    <targetPath>/</targetPath>
                                 </resource>
                                 <resource>
                                     <directory>src/main/java</directory>
-                                    <targetPath>/WEB-INF/src</targetPath>
+                                    <targetPath>WEB-INF/src</targetPath>
                                 </resource>
                             </webResources>
                         </configuration>
@@ -445,7 +441,7 @@
                                 </resource>
                                 <resource>
                                     <directory>${basedir}/src/main/java</directory>
-                                    <targetPath>/WEB-INF/src</targetPath>
+                                    <targetPath>WEB-INF/src</targetPath>
                                     <excludes>
                                         <exclude>**/push/**/*.*</exclude>
                                     </excludes>
@@ -560,15 +556,14 @@
                                     <webResources>
                                         <resource>
                                             <directory>src/main/webapp-tomcat</directory>
-                                            <targetPath>/</targetPath>
                                         </resource>
                                         <resource>
                                             <directory>src/main/resources-tomcat</directory>
-                                            <targetPath>/WEB-INF/classes</targetPath>
+                                            <targetPath>WEB-INF/classes</targetPath>
                                         </resource>
                                         <resource>
                                             <directory>src/main/java</directory>
-                                            <targetPath>/WEB-INF/src</targetPath>
+                                            <targetPath>WEB-INF/src</targetPath>
                                         </resource>
                                     </webResources>
                                 </configuration>
@@ -602,11 +597,11 @@
                                         </resource>
                                         <resource>
                                             <directory>src/main/resources-jee6</directory>
-                                            <targetPath>/WEB-INF/classes</targetPath>
+                                            <targetPath>WEB-INF/classes</targetPath>
                                         </resource>
                                         <resource>
                                             <directory>src/main/java</directory>
-                                            <targetPath>/WEB-INF/src</targetPath>
+                                            <targetPath>WEB-INF/src</targetPath>
                                         </resource>
                                     </webResources>
                                 </configuration>
@@ -640,11 +635,11 @@
                                         </resource>
                                         <resource>
                                             <directory>src/main/resources-jbas7</directory>
-                                            <targetPath>/WEB-INF/classes</targetPath>
+                                            <targetPath>WEB-INF/classes</targetPath>
                                         </resource>
                                         <resource>
                                             <directory>src/main/java</directory>
-                                            <targetPath>/WEB-INF/src</targetPath>
+                                            <targetPath>WEB-INF/src</targetPath>
                                         </resource>
                                     </webResources>
                                 </configuration>
