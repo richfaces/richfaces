@@ -6,9 +6,9 @@
     <h:form>
         <h:panelGrid columns="3">
             <h:outputLabel value="Message:" />
-            <h:inputText styleClass="message" value="#{message}" />
+            <h:inputText styleClass="message" value="#{pushBean.message}" />
 
-            <a4j:commandButton value="Send" action="#{pushBean.sendMessage(message)}" execute="@form"
+            <a4j:commandButton value="Send" action="#{pushBean.sendMessage}" execute="@form"
                 oncomplete="jQuery('.message').val('')" />
         </h:panelGrid>
     </h:form>

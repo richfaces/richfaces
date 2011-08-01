@@ -40,6 +40,7 @@ public class PushBean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String userIdentifier;
+    private String message;
 
     @Inject
     @Push
@@ -57,7 +58,7 @@ public class PushBean implements Serializable {
      *
      * @param message to send
      */
-    public void sendMessage(String message) {
+    public void sendMessage() {
         pushEvent.fire(message);
     }
 
@@ -77,5 +78,13 @@ public class PushBean implements Serializable {
      */
     public String getUUID() {
         return UUID.randomUUID().toString();
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
