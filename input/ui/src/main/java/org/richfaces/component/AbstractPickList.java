@@ -15,44 +15,26 @@ public abstract class AbstractPickList extends AbstractSelectManyComponent {
     public static final String COMPONENT_TYPE = "org.richfaces.PickList";
     public static final String COMPONENT_FAMILY = "org.richfaces.SelectMany";
 
-    @Attribute
-    public abstract boolean isDisabled();
-
-    @Attribute()
-    public abstract boolean isEnableManualInput();
-
-    @Attribute(defaultValue = "true")
-    public abstract boolean isSelectFirst();
-
     @Attribute(defaultValue = "true")
     public abstract boolean isShowButton();
-
-    @Attribute()
-    public abstract String getMinListHeight();
-
-    @Attribute()
-    public abstract String getMaxListHeight();
-
-    @Attribute(hidden = true)
-    public abstract String getActiveClass();
-
-    @Attribute(hidden = true)
-    public abstract String getChangedClass();
-
-    @Attribute(hidden = true)
-    public abstract String getDisabledClass();
-
-    @Attribute
-    public abstract String getStyle();
-
-    @Attribute
-    public abstract String getStyleClass();
 
     @Attribute
     public abstract String getSourceCaption();
 
     @Attribute
     public abstract String getTargetCaption();
+
+    @Attribute(defaultValue = ">> Add all")
+    public abstract String getAddAllText();
+
+    @Attribute(defaultValue = "> Add")
+    public abstract String getAddText();
+
+    @Attribute(defaultValue = "< Remove")
+    public abstract String getRemoveText();
+
+    @Attribute(defaultValue = "<< Remove all")
+    public abstract String getRemoveAllText();
 
     // Source list attributes
     @Attribute(events = @EventName("sourceclick"))
