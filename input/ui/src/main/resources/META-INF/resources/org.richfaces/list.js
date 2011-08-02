@@ -147,28 +147,26 @@
                 rf.Event.fire(this, "additems", items);
             },
 
-            moveUp: function(item) {
-                item.insertBefore(item.prev());
-                this.__updateItemsList();
-                this.__updateIndex(item);
-            },
+            move: function(items, step) {
+                if (step === 0) {
+                    return;
+                }
+                var that = this;
+                if (step > 0) {
+                    items = $(items.get().reverse());
+                }
+                items.each(function(i) {
+                    var index = that.items.index(this);
+                    var indexNew = index + step;
+                    var existingItem = that.items[indexNew];
+                    if (step < 0) {
+                        $(this).insertBefore(existingItem);
+                    } else {
+                        $(this).insertAfter(existingItem);
+                    }
+                    that.__updateItemsList();
+                });
 
-            moveDown: function(item) {
-                item.insertAfter(item.next());
-                this.__updateItemsList();
-                this.__updateIndex(item);
-            },
-
-            moveToTop: function(item) {
-                item.insertBefore(item.siblings().first());
-                this.__updateItemsList();
-                this.__updateIndex(item);
-            },
-
-            moveToBottom: function(item) {
-                item.insertAfter(item.siblings().last());
-                this.__updateItemsList();
-                this.__updateIndex(item);
             },
 
             getItemByIndex: function(i) {

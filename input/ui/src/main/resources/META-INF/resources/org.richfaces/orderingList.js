@@ -41,6 +41,7 @@
         selectItemCss: "rf-ord-sel",
         listCss: "rf-ord-lst-cord",
         clickRequiredToSelect: true,
+        multipleSelect: true,
         disabled : false
     };
 
@@ -62,26 +63,28 @@
             },
 
             up: function() {
-                var item = this.list.currentSelectItem();
-                this.list.moveUp(item);
+                var items = this.list.getSelectedItems();
+                this.list.move(items, -1);
                 this.encodeHiddenValues();
             },
 
             down: function() {
-                var item = this.list.currentSelectItem();
-                this.list.moveDown(item);
+                var items = this.list.getSelectedItems();
+                this.list.move(items, 1);
                 this.encodeHiddenValues();
             },
 
             upTop: function() {
-                var item = this.list.currentSelectItem();
-                this.list.moveToTop(item);
+                var selectedItems = this.list.getSelectedItems();
+                var index = this.list.items.index(selectedItems.first());
+                this.list.move(selectedItems, -index);
                 this.encodeHiddenValues();
             },
 
             downBottom: function() {
-                var item = this.list.currentSelectItem();
-                this.list.moveToBottom(item);
+                var selectedItems = this.list.getSelectedItems();
+                var index = this.list.items.index(selectedItems.last());
+                this.list.move(selectedItems, (this.list.items.length -1) - index);
                 this.encodeHiddenValues();
             },
 
