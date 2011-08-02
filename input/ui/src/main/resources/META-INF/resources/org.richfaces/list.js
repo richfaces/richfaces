@@ -150,21 +150,25 @@
             moveUp: function(item) {
                 item.insertBefore(item.prev());
                 this.__updateItemsList();
+                this.__updateIndex(item);
             },
 
             moveDown: function(item) {
                 item.insertAfter(item.next());
                 this.__updateItemsList();
+                this.__updateIndex(item);
             },
 
             moveToTop: function(item) {
                 item.insertBefore(item.siblings().first());
                 this.__updateItemsList();
+                this.__updateIndex(item);
             },
 
             moveToBottom: function(item) {
                 item.insertAfter(item.siblings().last());
                 this.__updateItemsList();
+                this.__updateIndex(item);
             },
 
             getItemByIndex: function(i) {
@@ -190,6 +194,20 @@
                 return this.items.length;
             },
 
+            __updateIndex: function(item) {
+                if (item === null) {
+                    this.index = -1;
+                } else {
+                    var index = this.items.index(item);
+                    if (index < 0) {
+                        index = 0;
+                    } else if (index >= this.items.length) {
+                        index = this.items.length - 1;
+                    }
+                    this.index = index;
+                }
+            },
+
             __updateItemsList: function () {
                 return (this.items = this.list.find("." + this.itemCss));
             },
@@ -203,12 +221,17 @@
                 if (this.items.length == 0) return;
 
                 if (!this.multipleSelect) {
-                    if (this.index == index) return;
+                    if (!this.clickRequiredToSelect && this.index == index) return;
 
-                    var item;
                     if (this.index != -1) {
-                        item = this.items.eq(this.index);
+                        var item = this.items.eq(this.index);
                         this.unselectItem(item);
+                        var oldIndex = this.index;
+                        this.index = -1;
+                    }
+
+                    if (this.clickRequiredToSelect && oldIndex == index) {
+                        return;
                     }
                 }
 
