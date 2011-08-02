@@ -21,6 +21,9 @@
  */
 package org.richfaces.demo.push.provider;
 
+import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -46,10 +49,17 @@ public class AS6MessagingProviderManagement implements MessagingProviderManageme
     private JMSServerControl serverControl;
 
     public void initializeProvider() throws InitializationFailedException {
+        //determine bound IP address
+        String ipAddr = System.getProperty("jboss.bind.address");
+
+        if(ipAddr.isEmpty()){
+           ipAddr = "localhost";
+        }
+
         try {
             ObjectName on = ObjectNameBuilder.DEFAULT.getJMSServerObjectName();
             JMXConnector connector = JMXConnectorFactory.connect(new JMXServiceURL(
-                "service:jmx:rmi:///jndi/rmi://localhost:1090/jmxrmi"), new HashMap<String, Object>());
+                "service:jmx:rmi:///jndi/rmi://" + ipAddr + ":1090/jmxrmi"), new HashMap<String, Object>());
             MBeanServerConnection mbsc = connector.getMBeanServerConnection();
             serverControl = (JMSServerControl) MBeanServerInvocationHandler.newProxyInstance(mbsc, on,
                 JMSServerControl.class, false);
