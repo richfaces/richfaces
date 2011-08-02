@@ -98,16 +98,26 @@
 
             toggleButtons: function() {
                 var list = this.list.__getItems();
-                if (this.disabled || list.filter('.' + this.selectItemCss).length == 0) {
+                if (this.disabled || this.list.getSelectedItems().length === 0) {
                     this.__disableButton(this.upButton);
                     this.__disableButton(this.upTopButton);
                     this.__disableButton(this.downButton);
                     this.__disableButton(this.downBottomButton);
                 } else {
-                    this.__enableButton(this.upButton);
-                    this.__enableButton(this.upTopButton);
-                    this.__enableButton(this.downButton);
-                    this.__enableButton(this.downBottomButton);
+                    if (this.list.items.index(this.list.getSelectedItems().first()) === 0) {
+                        this.__disableButton(this.upButton);
+                        this.__disableButton(this.upTopButton);
+                    } else {
+                        this.__enableButton(this.upButton);
+                        this.__enableButton(this.upTopButton);
+                    }
+                    if (this.list.items.index(this.list.getSelectedItems().last()) === (this.list.items.length - 1)) {
+                        this.__disableButton(this.downButton);
+                        this.__disableButton(this.downBottomButton);
+                    } else {
+                        this.__enableButton(this.downButton);
+                        this.__enableButton(this.downBottomButton);
+                    }
                 }
             },
 
