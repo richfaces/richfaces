@@ -213,7 +213,7 @@ public class SelectManyHelper {
         }
     }
 
-    public static List<ClientSelectItem> getClientSelectItems(FacesContext facesContext, AbstractSelectManyComponent select, List<SelectItem> selectItems) {
+    public static List<ClientSelectItem> getClientSelectItems(FacesContext facesContext, AbstractSelectManyComponent select, Iterator<SelectItem> selectItems) {
         List<ClientSelectItem> clientSelectItems = new ArrayList<ClientSelectItem>();
         Object object = select.getValue();
         List values;
@@ -230,7 +230,8 @@ public class SelectManyHelper {
         Set<Object> valuesSet = new HashSet<Object>(values);
         int sortOrder = 0;
         // TODO: Deal with SelectItemGroups
-        for (SelectItem selectItem : selectItems) {
+        while (selectItems.hasNext()) {
+            SelectItem selectItem = selectItems.next();
             boolean selected = valuesSet.contains(selectItem.getValue());
             ClientSelectItem clientSelectItem = SelectHelper.generateClientSelectItem(facesContext, select, selectItem, sortOrder, selected);
             clientSelectItems.add(clientSelectItem);

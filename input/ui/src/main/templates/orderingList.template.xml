@@ -90,7 +90,7 @@
                 </tr>
             </table>
             <cdk:object type="java.lang.Object" name="hiddenValues" value="#{csvEncodeSelectedItems(clientSelectItems)}" />
-            <input type="hidden" id="#{clientId}SelValue" name="#{clientId}" value="#{hiddenValues}" disabled="#{disabled}"/>
+            <input type="text" id="#{clientId}SelValue" name="#{clientId}" value="#{hiddenValues}" disabled="#{disabled}"/>
             <script type="text/javascript">
                 <cdk:scriptObject name="options">
                     <cdk:scriptOption name="selectItemCss" value="#{concatClasses('rf-ord-sel', component.attributes['selectItemClass'])}" />
