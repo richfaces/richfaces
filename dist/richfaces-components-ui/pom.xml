@@ -37,7 +37,7 @@
 
     <properties>
         <faces-shade-transformers.version>5</faces-shade-transformers.version>
-        <faces-vdl-documentation.version>4.1.0-SNAPSHOT</faces-vdl-documentation.version>
+        <faces-vdl-documentation.version>1</faces-vdl-documentation.version>
         <assembly.projects.group>org.richfaces.ui</assembly.projects.group>
     </properties>
 
