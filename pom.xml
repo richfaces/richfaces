@@ -37,6 +37,7 @@
                 <module>../parent</module>
                 <module>../checkstyle</module>
                 <module>../shade-transformers</module>
+		<module>../vdl-doc</module>
             </modules>
         </profile>
         <profile>
