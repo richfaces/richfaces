@@ -63,9 +63,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-        <!-- Override the default 2.0.9 from jboss-parent -->
-        <maven.min.version>2.1.0</maven.min.version>
     </properties>
 
     <prerequisites>
