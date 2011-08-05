@@ -16,7 +16,9 @@ public abstract class AbstractOrderingList extends AbstractSelectManyComponent i
     public static final String COMPONENT_FAMILY = "org.richfaces.SelectMany";
 
     @Attribute()
-    public abstract Object getItemValues();
+    public Object getItemValues() {
+        return getValue();
+    }
 
     @Attribute()
     public abstract Object getVar();
