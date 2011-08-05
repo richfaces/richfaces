@@ -29,11 +29,23 @@ else
    exit 1;
 fi
 
+EXCLUSIONS="'*/target/*' '*/.git/*' '*/build/scripts/*'"
+OMIT_PATHS=""
+for exclude in $EXCLUSIONS; do
+	OMIT_PATHS="$OMIT_PATHS -not -path $exclude"
+done
+
    echo
    echo =================================
-   echo "Changing <version>$ORIG_VERSION</version> into <version>$NEW_VERSION</version>"
+   echo "Changing <version>$ORIG_VERSION</version> into <version>$NEW_VERSION</version>" for all POMs
 
-   find $DESTINATION -name "pom.xml" -not -path "*/target/*" | xargs perl -pi -e "s/<version>$ORIG_VERSION<\/version>/<version>$NEW_VERSION<\/version>/"
+   eval "find $DESTINATION -name 'pom.xml' $OMIT_PATHS -exec sed -ri 's#<version>$ORIG_VERSION<\/version>#<version>$NEW_VERSION<\/version>#' {} \;"
+
+   echo =================================
+   echo "Changing $ORIG_VERSION into $NEW_VERSION for all other files"
+   echo =================================
+
+   eval "find $DESTINATION -type f $OMIT_PATHS -exec grep -q '$ORIG_VERSION' {} \; -exec sed -ri 's#$ORIG_VERSION#$NEW_VERSION#g' {} \; -print"
    
    echo =================================
 
