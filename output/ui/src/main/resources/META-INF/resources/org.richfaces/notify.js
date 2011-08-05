@@ -30,8 +30,6 @@ RichFaces.ui.NotifyStack = (function() {
     };
     return {
         register: function(id, stack) {
-            stack = jQuery.extend({}, defaultOptions, stack);
-            
             var isVertical = (stack.direction == 'vertical');
             var isFirst = (stack.method == 'first');
             
@@ -76,7 +74,7 @@ RichFaces.ui.NotifyStack = (function() {
         getStack: function(id) {
             var stack = stacks[id];
             if (stack == null) {
-                stack = jQuery.extend({}, jQuery.pnotify.defaults.pnotify_stack);
+                stack = jQuery.extend({}, jQuery.pnotify.defaults.pnotify_stack, defaultOptions);
                 this.register(id, stack);
             }
             return stack;
