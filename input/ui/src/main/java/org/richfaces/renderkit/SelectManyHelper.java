@@ -23,16 +23,25 @@ package org.richfaces.renderkit;
 
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
+import com.google.common.collect.Iterators;
+import org.richfaces.application.FacesMessages;
+import org.richfaces.application.MessageFactory;
+import org.richfaces.application.ServiceTracker;
 import org.richfaces.component.AbstractSelectManyComponent;
 import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.component.util.InputUtils;
+import org.richfaces.component.util.MessageUtil;
+import org.richfaces.component.util.SelectUtils;
 import org.richfaces.renderkit.util.HtmlDimensions;
 
 import javax.annotation.Nullable;
 import javax.el.ValueExpression;
 import javax.faces.FacesException;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UISelectMany;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
@@ -344,5 +353,80 @@ public class SelectManyHelper {
         }
         // If for any reason a Converter cannot be found, assume the type to be a String array.
         return converter;
+    }
+
+    public static void validateValue(FacesContext facesContext, AbstractSelectManyComponent select, Object value) {
+        // Skip validation if it is not necessary
+        if (!select.isValid() || (value == null)) {
+            return;
+        }
+
+        boolean doAddMessage = false;
+
+        // Ensure that the values match one of the available options
+        // Don't arrays cast to "Object[]", as we may now be using an array
+        // of primitives
+        List<ClientSelectItem> clientSelectItems = getClientSelectItems(facesContext, select, SelectUtils.getSelectItems(facesContext, select));
+        for (Iterator i = getValuesIterator(value); i.hasNext(); ) {
+            Iterator items = SelectUtils.getSelectItems(facesContext, select);
+            Object convertedValue = InputUtils.getConvertedStringValue(facesContext, select, i.next());
+            if (!matches(clientSelectItems, convertedValue)) {
+                doAddMessage = true;
+                break; // Since at least one value is invalid
+            }
+        }
+
+        // Ensure that if the value is noSelection and a
+        // value is required, a message is queued
+        if (select.isRequired()) {
+            for (Iterator i = getValuesIterator(value); i.hasNext();) {
+                Object convertedValue = InputUtils.getConvertedStringValue(facesContext, select, i.next());
+                if (valueIsNoSelectionOption(clientSelectItems, convertedValue)) {
+                    doAddMessage = true;
+                    break;
+                }
+            }
+        }
+
+        if (doAddMessage) {
+            // Enqueue an error message if an invalid value was specified
+            FacesMessage message = ServiceTracker.getService(MessageFactory.class)
+                    .createMessage(facesContext, FacesMessages.UISELECTMANY_INVALID, MessageUtil.getLabel(facesContext, select));
+            facesContext.addMessage(select.getClientId(facesContext), message);
+            select.setValid(false);
+        }
+    }
+
+    private static boolean matches(List<ClientSelectItem> clientSelectItems, Object selectedValue) {
+        for (ClientSelectItem clientSelectItem : clientSelectItems) {
+            if (selectedValue == null && clientSelectItem.getConvertedValue() == null) {
+                return true;
+            } else if (selectedValue != null && selectedValue.equals(clientSelectItem.getConvertedValue())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean valueIsNoSelectionOption(List<ClientSelectItem> clientSelectItems, Object selectedValue) {
+        for (ClientSelectItem clientSelectItem : clientSelectItems) {
+            if (clientSelectItem.getSelectItem().isNoSelectionOption()) {
+                if (selectedValue == null && clientSelectItem.getConvertedValue() == null) {
+                    return true;
+                } else if (selectedValue != null && selectedValue.equals(clientSelectItem.getConvertedValue())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static Iterator<Object> getValuesIterator(Object value) {
+        if (value instanceof Collection) {
+            return ((Collection) value).iterator();
+        } else {
+            return (Iterators.forArray((Object[]) value));
+        }
+
     }
 }
