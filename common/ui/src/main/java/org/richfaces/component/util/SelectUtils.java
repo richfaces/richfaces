@@ -192,19 +192,17 @@ public final class SelectUtils {
             return Iterators.singletonIterator(result);
         }
 
-        private Iterator<SelectItem> createUISelectItemsIterator(UISelectItems selectItems) {
-            Object value = selectItems.getValue();
-
+        private Iterator<SelectItem> createSelectItemsIterator(UIComponent component, Object value) {
             if (value == null) {
                 return Iterators.emptyIterator();
             } else if (value instanceof SelectItem) {
                 return Iterators.singletonIterator((SelectItem) value);
             } else if (value instanceof Object[]) {
                 Iterator<Object> data = Iterators.forArray((Object[]) value);
-                return new GenericItemsIterator(context, selectItems, data);
+                return new GenericItemsIterator(context, component, data);
             } else if (value instanceof Iterable<?>) {
                 Iterator<?> data = ((Iterable<?>) value).iterator();
-                return new GenericItemsIterator(context, selectItems, data);
+                return new GenericItemsIterator(context, component, data);
             } else if (value instanceof Map) {
                 return new MapItemsIterator((Map<?, ?>) value);
             } else {
@@ -213,15 +211,26 @@ public final class SelectUtils {
                     level = Logger.Level.WARNING;
                 }
                 if (LOG.isLogEnabled(level)) {
-                    ValueExpression expression = selectItems.getValueExpression("value");
+                    ValueExpression expression = component.getValueExpression("value");
                     LOG.log(level, String.format("ValueExpression %s of UISelectItems with component-path %s"
                         + " does not reference an Object of type SelectItem," + " array, Iterable or Map, but of type: %s",
                         (expression == null ? null : expression.getExpressionString()),
-                        RichfacesLogger.getComponentPath(selectItems), (value == null ? null : value.getClass().getName())));
+                        RichfacesLogger.getComponentPath(component), (value == null ? null : value.getClass().getName())));
                 }
             }
 
             return Iterators.emptyIterator();
+        }
+
+        private Iterator<SelectItem> createUISelectItemsIterator(UISelectItems selectItems) {
+            Object value = selectItems.getValue();
+            return createSelectItemsIterator(selectItems, value);
+
+        }
+
+        private Iterator<SelectItem> createUISelectItemsInterfaceIterator(UIComponent component) {
+            Object value = ((SelectItemsInterface)component).getItemValues();
+            return createSelectItemsIterator(component, value);
         }
 
         private Iterator<SelectItem> createIterator(UIComponent child) {
@@ -233,6 +242,8 @@ public final class SelectUtils {
                 return createUISelectItemIterator((UISelectItem) child);
             } else if (child instanceof UISelectItems) {
                 return createUISelectItemsIterator((UISelectItems) child);
+            } else if (child instanceof SelectItemsInterface) {
+                return createUISelectItemsInterfaceIterator(child);
             }
 
             return Iterators.emptyIterator();
@@ -250,6 +261,12 @@ public final class SelectUtils {
      * @return list of {@link SelectItem} taken from f:selectItem and f:selectItems
      */
     public static Iterator<SelectItem> getSelectItems(FacesContext context, UIComponent component) {
-        return new SelectItemsIterator(context, component.getChildren().iterator());
+        Iterator<UIComponent> children = component.getChildren().iterator();
+        if (component instanceof SelectItemsInterface) {
+            Iterator<UIComponent> self = Iterators.singletonIterator(component);
+            children = Iterators.concat(self, children);
+        }
+        Iterator<SelectItem> iterator = new SelectItemsIterator(context, children);
+        return iterator;
     }
 }

@@ -23,6 +23,7 @@ package org.richfaces.renderkit;
 
 import org.richfaces.component.AbstractSelectManyComponent;
 import org.richfaces.component.util.HtmlUtil;
+import org.richfaces.component.util.SelectUtils;
 import org.richfaces.renderkit.util.HtmlDimensions;
 
 import javax.faces.application.ResourceDependencies;
@@ -56,7 +57,7 @@ public class SelectManyRendererBase extends InputRendererBase {
 
     public List<ClientSelectItem> getClientSelectItems(FacesContext facesContext, UIComponent component) {
         AbstractSelectManyComponent select = (AbstractSelectManyComponent) component;
-        return  SelectManyHelper.getClientSelectItems(facesContext, select, SelectHelper.getSelectItems(facesContext, component));
+        return  SelectManyHelper.getClientSelectItems(facesContext, select, SelectUtils.getSelectItems(facesContext, component));
     }
 
     public String csvEncodeSelectedItems(List<ClientSelectItem> clientSelectItems) {
@@ -178,7 +179,7 @@ public class SelectManyRendererBase extends InputRendererBase {
         return concatStyles(height, width);
     }
 
-    public String getButtonClass(UIComponent component, String buttonClass) {
+    public String getButtonClass(UIComponent component, String cssPrefix, String buttonClass) {
         AbstractSelectManyComponent select = (AbstractSelectManyComponent) component;
         if (!select.isDisabled()) {
             return HtmlUtil.concatClasses(buttonClass, SelectManyHelper.BUTTON_CSS);
