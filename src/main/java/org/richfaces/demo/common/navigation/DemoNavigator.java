@@ -99,10 +99,21 @@ public class DemoNavigator implements Serializable {
         if (handler instanceof ConfigurableNavigationHandler) {
             ConfigurableNavigationHandler navigationHandler = (ConfigurableNavigationHandler) handler;
 
-            NavigationCase navCase = navigationHandler.getNavigationCase(context, null, getCurrentDemo().getId() + SEPARATOR
+                demo = getCurrentDemo().getId();
+                sample = getCurrentSample().getId();
+
+
+            NavigationCase navCase = navigationHandler.getNavigationCase(context, null, "/richfaces" + SEPARATOR + getCurrentDemo().getId() + SEPARATOR
                     + getCurrentSample().getId());
 
+
+            if(navCase == null){
+                navCase = new NavigationCase("/welcome.xhtml",null,
+                 null,null, "/richfaces/ajax/ajax.xhtml", null,false,true);
+            }
+
             return navCase.getToViewId(context);
+
         }
 
         return null;
@@ -114,6 +125,7 @@ public class DemoNavigator implements Serializable {
      */
     public String getSampleIncludeURI() {
         String sampleURI = getSampleURI();
+        System.out.println("-------sampleURI-" + sampleURI);
         StringBuffer sampleURIBuffer = new StringBuffer(sampleURI);
         int folderOffset = sampleURIBuffer.lastIndexOf(currentSample.getId());
         int fileNameOffset = sampleURIBuffer.lastIndexOf(currentSample.getId()) + currentSample.getId().length()

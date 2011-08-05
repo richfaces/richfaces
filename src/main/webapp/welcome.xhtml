@@ -6,21 +6,23 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <!--if mobile device detected-->
-<f:view rendered="#{true}">
-    <ui:composition template="/mobile/templates/main.xhtml">
+
+
+     <ui:composition template="/mobile/templates/main.xhtml">
         <ui:define name="body">
             Welcome To RichFaces 4.x Mobile Demo
         </ui:define>
     </ui:composition>
-</f:view>
 
+
+
+<ui:remove>
 <!--normal desktop version-->
-<f:view rendered="#{false}">
     <ui:composition template="/templates/main.xhtml">
-        <ui:define name="body">
-            Welcome To RichFaces 4.x Demo
-        </ui:define>
-    </ui:composition>
-</f:view>
+            <ui:define name="body">
+                Welcome To RichFaces 4.x Demo
+            </ui:define>
+        </ui:composition>
 
+ </ui:remove>
 </html>

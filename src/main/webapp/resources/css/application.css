@@ -255,7 +255,7 @@ a.show,a.hide {
     width: 5px;
 }
 
-/*--- RichFaces tablePanel styles overwriting ---*/
+/*--- RichFaces tabPanel styles overwriting ---*/
 .navigation .rf-tab-hdr-tabline-vis {
     background: #ebf6fd;
     border: 0;
