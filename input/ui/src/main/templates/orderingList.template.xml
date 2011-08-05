@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+          xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+          xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.OrderingListRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.OrderingListRendererBase</cdk:superclass>
+        <cdk:component-family>org.richfaces.SelectMany</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.OrderingListRenderer</cdk:renderer-type>
+        <cdk:renders-children>true</cdk:renders-children>
+    </cc:interface>
+
+    <cc:implementation>
+
+        <cdk:object type="java.util.List" type-arguments="org.richfaces.renderkit.ClientSelectItem" name="clientSelectItems"
+                    value="#{getClientSelectItems(facesContext, component)}" />
+
+        <cdk:object type="java.lang.Object" name="disabled" value="#{component.attributes['disabled']}" />
+        <cdk:object type="java.lang.Boolean" name="hasColumnChildren" value="#{hasColumnChildren(facesContext, component)}" />
+
+
+        <div id="#{clientId}" class="#{concatClasses('rf-ord', component.attributes['styleClass'])}" style="#{component.attributes['style']}"
+            cdk:passThrough="onclick:listclick ondblclick:listdblclick onmousedown:listmousedown onmouseup:listmouseup onmouseover:onlistmouseover 
+            onmousemove:listmousemove onmouseout:listmouseout onkeypress:listkeypress onkeydown:listkeydown onkeyup:listkeyup">
+            <table>
+                <tr>
+                    <td>
+                        <div id="#{clientId}List" class="#{concatClasses('rf-ord-list', component.attributes['selectItemClass'])}">
+                            <cdk:object type="java.lang.Object" name="caption" value="#{component.attributes['caption']}" />
+                            <c:if test="#{! empty caption}">
+                                <div class="rf-ord-caption">
+                                    #{caption}
+                                </div>
+                            </c:if>
+                            <div class="rf-ord-lst-dcrtn"
+                                cdk:passThrough="onclick:listclick ondblclick:listdblclick onmousedown:listmousedown onmouseup:listmouseup onmouseover:onlistmouseover
+                                onmousemove:listmousemove onmouseout:listmouseout onkeypress:listkeypress onkeydown:listkeydown onkeyup:listkeyup">
+                                <div class="rf-ord-lst-scrl" style="#{encodeHeightAndWidth(component)}">
+                                    <c:choose>
+                                        <c:when test="#{! hasColumnChildren}">
+                                            <div id="#{clientId}Items">
+                                                <cdk:call expression="encodeItems(facesContext, component, clientSelectItems);" />
+                                            </div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div id="#{clientId}headerBox" class="rf-ord-lst">
+                                                <table class="rf-ord-internal-table" cellpadding="0" cellspacing="0">
+                                                    <c:if test="#{isHeaderExists(facesContext, component)}">
+                                                        <thead class="rf-ord-lst-header">
+                                                            <cdk:call expression="encodeHeader(facesContext, component);" />
+                                                        </thead>
+                                                    </c:if>
+                                                    <tbody id="#{clientId}Items">
+                                                        <cdk:call expression="encodeRows(facesContext, component, clientSelectItems);" />
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td>
+                                    <button type="button" class="#{getButtonClass(component, 'rf-ord-up-top')}" disabled="#{disabled}">#{component.attributes['upTopText']}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="button" class="#{getButtonClass(component, 'rf-ord-up')}" disabled="#{disabled}">#{component.attributes['upText']}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="button" class="#{getButtonClass(component, 'rf-ord-down')}" disabled="#{disabled}">#{component.attributes['downText']}</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <button type="button" class="#{getButtonClass(component, 'rf-ord-down-bottom')}" disabled="#{disabled}">#{component.attributes['downBottomText']}</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <cdk:object type="java.lang.Object" name="hiddenValues" value="#{csvEncodeSelectedItems(clientSelectItems)}" />
+            <input type="hidden" id="#{clientId}SelValue" name="#{clientId}" value="#{hiddenValues}" disabled="#{disabled}"/>
+            <script type="text/javascript">
+                <cdk:scriptObject name="options">
+                    <cdk:scriptOption name="selectItemCss" value="#{concatClasses('rf-ord-sel', component.attributes['selectItemClass'])}" />
+                    <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onblur onadditems onremoveitems onfocus"
+                        wrapper="eventHandler" />
+                    <cdk:scriptOption name="items" value="#{clientSelectItems}" />
+                    <cdk:scriptOption attributes="disabled" />
+                </cdk:scriptObject>
+                new RichFaces.ui.OrderingList("#{clientId}", #{toScriptArgs(options)});
+            </script>
+        </div>
+    </cc:implementation>
+</cdk:root>

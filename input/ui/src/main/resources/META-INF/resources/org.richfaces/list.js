@@ -115,7 +115,7 @@
 
             currentSelectItem: function() {
                 if (this.items && this.index != -1) {
-                    return this.items[this.index];
+                    return $(this.items[this.index]);
                 }
             },
 
@@ -147,6 +147,28 @@
                 rf.Event.fire(this, "additems", items);
             },
 
+            move: function(items, step) {
+                if (step === 0) {
+                    return;
+                }
+                var that = this;
+                if (step > 0) {
+                    items = $(items.get().reverse());
+                }
+                items.each(function(i) {
+                    var index = that.items.index(this);
+                    var indexNew = index + step;
+                    var existingItem = that.items[indexNew];
+                    if (step < 0) {
+                        $(this).insertBefore(existingItem);
+                    } else {
+                        $(this).insertAfter(existingItem);
+                    }
+                    that.__updateItemsList();
+                });
+
+            },
+
             getItemByIndex: function(i) {
                 if (i >= 0 && i < this.items.length) {
                     return this.items[i];
@@ -170,6 +192,20 @@
                 return this.items.length;
             },
 
+            __updateIndex: function(item) {
+                if (item === null) {
+                    this.index = -1;
+                } else {
+                    var index = this.items.index(item);
+                    if (index < 0) {
+                        index = 0;
+                    } else if (index >= this.items.length) {
+                        index = this.items.length - 1;
+                    }
+                    this.index = index;
+                }
+            },
+
             __updateItemsList: function () {
                 return (this.items = this.list.find("." + this.itemCss));
             },
@@ -183,12 +219,17 @@
                 if (this.items.length == 0) return;
 
                 if (!this.multipleSelect) {
-                    if (this.index == index) return;
+                    if (!this.clickRequiredToSelect && this.index == index) return;
 
-                    var item;
                     if (this.index != -1) {
-                        item = this.items.eq(this.index);
+                        var item = this.items.eq(this.index);
                         this.unselectItem(item);
+                        var oldIndex = this.index;
+                        this.index = -1;
+                    }
+
+                    if (this.clickRequiredToSelect && oldIndex == index) {
+                        return;
                     }
                 }
 
