@@ -42,6 +42,10 @@ public class RichBean implements Serializable {
         values = new ArrayList<EntityBean>();
         values.add(new EntityBean("Option 1", "1"));
         values.add(new EntityBean("Option 2", "2"));
+        values.add(new EntityBean("Option 3", "3"));
+        values.add(new EntityBean("Option 4", "4"));
+        values.add(new EntityBean("Option 5", "5"));
+        values.add(new EntityBean("Option 6", "6"));
     }
 
     public List<EntityBean> getValues() {
