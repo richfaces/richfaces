@@ -36,8 +36,8 @@
     <name>Richfaces UI Components UI</name>
 
     <properties>
-        <faces-shade-transformers.version>5-SNAPSHOT</faces-shade-transformers.version>
-        <faces-vdl-documentation.version>1-SNAPSHOT</faces-vdl-documentation.version>
+        <faces-shade-transformers.version>5</faces-shade-transformers.version>
+        <faces-vdl-documentation.version>1</faces-vdl-documentation.version>
         <assembly.projects.group>org.richfaces.ui</assembly.projects.group>
     </properties>
 

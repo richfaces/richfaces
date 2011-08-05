@@ -65,17 +65,6 @@ public final class SelectHelper {
     private SelectHelper() {
     }
 
-    public static List<SelectItem> getSelectItems(FacesContext facesContext, UIComponent component) {
-        Iterator<SelectItem> selectItemIterator = SelectUtils.getSelectItems(facesContext, component);
-        List<SelectItem> selectItems = new ArrayList<SelectItem>();
-
-        while (selectItemIterator.hasNext()) {
-            SelectItem selectItem = selectItemIterator.next();
-            selectItems.add(selectItem);
-        }
-        return selectItems;
-    }
-
     public static List<ClientSelectItem> getConvertedSelectItems(FacesContext facesContext, UIComponent component) {
         Iterator<SelectItem> selectItems = SelectUtils.getSelectItems(facesContext, component);
         List<ClientSelectItem> clientSelectItems = new ArrayList<ClientSelectItem>();
