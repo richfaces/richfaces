@@ -304,9 +304,9 @@
             pnotify.opts = opts;
             // Create a drop shadow.
             if (opts.pnotify_shadow && !$.browser.msie)
-                pnotify.shadow_container = $("<div />", {"class": "rf-ntf-sh"}).prependTo(pnotify);
+                pnotify.shadow_container = $("<div />", {"class": "rf-ntf-shdw"}).prependTo(pnotify);
             // Create a container for the notice contents.
-            pnotify.container = $("<div />", {"class": "rf-ntf-co"})
+            pnotify.container = $("<div />", {"class": "rf-ntf-cnt"})
                     .appendTo(pnotify);
 
             pnotify.pnotify_version = "1.0.1";
@@ -323,9 +323,9 @@
                 // Update the shadow.
                 if (opts.pnotify_shadow != old_opts.pnotify_shadow) {
                     if (opts.pnotify_shadow && !$.browser.msie)
-                        pnotify.shadow_container = $("<div />", {"class": "rf-ntf-sh"}).prependTo(pnotify);
+                        pnotify.shadow_container = $("<div />", {"class": "rf-ntf-shdw"}).prependTo(pnotify);
                     else
-                        pnotify.children(".rf-ntf-sh").remove();
+                        pnotify.children(".rf-ntf-shdw").remove();
                 }
                 // Update the additional classes.
                 if (opts.pnotify_addclass === false)
@@ -348,15 +348,15 @@
                 pnotify.pnotify_history = opts.pnotify_history;
                 // Change the notice type.
                 if (opts.pnotify_type != old_opts.pnotify_type)
-                    pnotify.container.toggleClass("rf-ntf-co rf-ntf-co-hover");
+                    pnotify.container.toggleClass("rf-ntf-cnt rf-ntf-cnt-hov");
                 if ((opts.pnotify_notice_icon != old_opts.pnotify_notice_icon && opts.pnotify_type == "notice") ||
                         (opts.pnotify_error_icon != old_opts.pnotify_error_icon && opts.pnotify_type == "error") ||
                         (opts.pnotify_type != old_opts.pnotify_type)) {
                     // Remove any old icon.
-                    pnotify.container.find("div.rf-ntf-ic").remove();
+                    pnotify.container.find("div.rf-ntf-ico").remove();
                     //					if ((opts.pnotify_error_icon && opts.pnotify_type == "error") || (opts.pnotify_notice_icon)) {
                     // Build the new icon.
-                    $("<div />", {"class": "rf-ntf-ic"})
+                    $("<div />", {"class": "rf-ntf-ico"})
                             .append($("<span />", {"class": opts.pnotify_type == "error" ? opts.pnotify_error_icon : opts.pnotify_notice_icon}))
                             .prependTo(pnotify.container);
                     //					}
@@ -506,7 +506,7 @@
 
             // Provide a button to close the notice.
             pnotify.closer = $("<div />", {
-                "class": "rf-ntf-cl",
+                "class": "rf-ntf-cls",
                 "css": {"cursor": "pointer", "visibility": "hidden"},
                 "click": function() {
                     pnotify.pnotify_remove();
@@ -514,12 +514,12 @@
                     pnotify.closer.css("visibility", "hidden");
                 }
             })
-                    .append($("<span />", {"class": "rf-ntf-cl-ic"}))
+                    .append($("<span />", {"class": "rf-ntf-cls-ico"}))
                     .appendTo(pnotify.container);
 
             // Add the appropriate icon.
             //			if ((opts.pnotify_error_icon && opts.pnotify_type == "error") || (opts.pnotify_notice_icon)) {
-            $("<div />", {"class": "rf-ntf-ic"})
+            $("<div />", {"class": "rf-ntf-ico"})
                     .append($("<span />", {"class": opts.pnotify_type == "error" ? opts.pnotify_error_icon : opts.pnotify_notice_icon}))
                     .appendTo(pnotify.container);
             //			}
@@ -538,7 +538,7 @@
                 opts.pnotify_text = opts.pnotify_text.replace(/\n/g, "<br />");
             // Add text.
             pnotify.text_container = $("<div />", {
-                "class": "rf-ntf-te",
+                "class": "rf-ntf-txt",
                 "html": opts.pnotify_text
             })
                     .appendTo(pnotify.container);
@@ -546,7 +546,7 @@
                 pnotify.text_container.hide();
 
             //Append div with clear:both class
-            $("<div />", {"class":"rf-ntf-fcl"}).appendTo(pnotify.container);
+            $("<div />", {"class":"rf-ntf-clr"}).appendTo(pnotify.container);
 
             // Set width and min height.
             if (typeof opts.pnotify_width == "string")
@@ -577,14 +577,14 @@
                 var body_history = body.data("pnotify_history");
                 if (typeof body_history == "undefined") {
                     body_history = $("<div />", {
-                        "class": "rf-ntf-hc",
+                        "class": "rf-ntf-hstr",
                         "mouseleave": function() {
                             body_history.animate({top: "-" + history_handle_top + "px"}, {duration: 100, queue: false});
                         }
                     })
-                            .append($("<div />", {"class": "rf-ntf-hh", "text": "Redisplay"}))
+                            .append($("<div />", {"class": "rf-ntf-hstr-hdr", "text": "Redisplay"}))
                             .append($("<button />", {
-                        "class": "rf-ntf-ha",
+                        "class": "rf-ntf-hstr-all",
                         "text": "All",
                         //							"mouseenter": function(){
                         //								$(this).addClass("ui-state-hover");
@@ -603,7 +603,7 @@
                         }
                     }))
                             .append($("<button />", {
-                        "class": "rf-ntf-hl",
+                        "class": "rf-ntf-hstr-last",
                         "text": "Last",
                         //							"mouseenter": function(){
                         //								$(this).addClass("ui-state-hover");
@@ -630,7 +630,7 @@
 
                     // Make a handle so the user can pull down the history pull down.
                     var handle = $("<span />", {
-                        "class": "rf-ntf-hp",
+                        "class": "rf-ntf-hstr-hndl",
                         "mouseenter": function() {
                             body_history.animate({top: "0"}, {duration: 100, queue: false});
                         }

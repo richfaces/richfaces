@@ -27,7 +27,7 @@ html > body .rf-ntf {
     position: fixed;
 }
 
-.rf-ntf .rf-ntf-sh {
+.rf-ntf .rf-ntf-shdw {
     margin: 0;
     padding: 8px;
     opacity: .3;
@@ -40,11 +40,9 @@ html > body .rf-ntf {
     right: -.2em;
     background-color: '#{richSkin.headerBackgroundColor}';
     color: '#{richSkin.headerTextColor}';
-'-moz-border-radius' : 8 px;
-'-webkit-border-radius' : 8 px;
 }
 
-.rf-ntf-co {
+.rf-ntf-cnt {
     /* height: 100%; was causing bottom-positioned notifications to overlap the bottom side of the page */
     padding: .8em;
     border-width: 1px;
@@ -53,42 +51,33 @@ html > body .rf-ntf {
     border-color: '#{richSkin.panelBorderColor}';
     background-color: '#{richSkin.generalBackgroundColor}';
     color: '#{richSkin.panelTextColor}';
-'-moz-border-radius' : 4 px;
-'-webkit-border-radius' : 4 px;
 }
 
-.rf-ntf-co-hover {
+.rf-ntf-cnt-hov {
     background: red;
 }
 
-.rf-ntf-cl {
+.rf-ntf-cls {
     float: right;
     margin-left: .2em;
 }
 
-.rf-ntf-cl-ic {
+.rf-ntf-cls-ico {
     display: block;
-    width: 16px;
-    height: 16px;
-    background-image:"url(#{resource['org.richfaces:close_act.gif']})";
+    width: 11px;
+    height: 11px;
+    background-image:"url(#{resource['org.richfaces:notify_close.png']})";
 }
 
-.rf-ntf-ti {
-    display: block;
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-bottom: .4em;
-}
-
-.rf-ntf-te {
+.rf-ntf-txt {
     display: block;
 }
 
-.rf-ntf-fcl{
+.rf-ntf-clr {
     clear:both;
 }
 
-.rf-ntf-ic {
+.rf-ntf-ico {
     display: none;
     float: left;
     margin-right: 0.5em;
@@ -96,7 +85,7 @@ html > body .rf-ntf {
     height: 16px;
 }
 
-.rf-ntf-hc {
+.rf-ntf-hstr {
     background-color: '#{richSkin.headerBackgroundColor}';
     border-color: '#{richSkin.headerBackgroundColor}';
     font-size: '#{richSkin.headerSizeFont}';
@@ -115,30 +104,19 @@ html > body .rf-ntf {
     width: 70px;
     z-index: 10000;
     color: '#{richSkin.panelTextColor}';
-'-moz-border-radius-bottomleft' : 4 px;
-'-webkit-border-bottom-left-radius' : 4 px;
-'-moz-border-radius-bottomright' : 4 px;
-'-webkit-border-bottom-right-radius' : 4 px;
 }
 
-.rf-ntf-hc .rf-ntf-hh {
+.rf-ntf-hstr-hdr {
     padding: 2px;
 }
 
-.rf-ntf-hc button {
+.rf-ntf-hstr button {
     cursor: pointer;
     display: block;
     width: 100%;
 }
 
-/*
-.rc-ny-ha {
-    border-radius: 4px;
-'-moz-border-radius' : 4 px;
-'-webkit-border-radius' : 4 px;
-}*/
-
-.rf-ntf-hc .rf-ntf-hp {
+.rf-ntf-hstr-hndl {
     display: block;
     margin: 0 auto;
     width: 16px;
@@ -147,33 +125,22 @@ html > body .rf-ntf {
     background-image:"url(#{resource['org.richfaces.images:triangleDown.png']})";
 }
 
-/*
-.rc-ny-hl {
-    font-weight: normal;
-    color: '#{richSkin.panelTextColor}';
-    border-radius: 4px;
-    border-color: '#{richSkin.panelBorderColor}';
-    background-color: '#{richSkin.generalBackgroundColor}';
-'-moz-border-radius' : 4 px;
-'-webkit-border-radius' : 4 px;
-}*/
-
-.rf-ntf-info .rf-ntf-ic {
+.rf-ntf-info .rf-ntf-ico {
     display: block;
     background-image: "url(#{resource['org.richfaces:info.png']})";
 }
 
-.rf-ntf-warn .rf-ntf-ic {
+.rf-ntf-warn .rf-ntf-ico {
     display: block;
     background-image: "url(#{resource['org.richfaces:warning.png']})";
 }
 
-.rf-ntf-error .rf-ntf-ic {
+.rf-ntf-error .rf-ntf-ico {
     display: block;
     background-image: "url(#{resource['org.richfaces:error.png']})";
 }
 
-.rf-ntf-fatal .rf-ntf-ic {
+.rf-ntf-fatal .rf-ntf-ico {
     display: block;
     background-image: "url(#{resource['org.richfaces:fatal.png']})";
 }
