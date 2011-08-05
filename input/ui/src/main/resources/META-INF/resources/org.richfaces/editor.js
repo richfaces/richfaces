@@ -43,6 +43,7 @@
         
         this.__instanceReadyHandler = function(e) {
             $this.__setupStyling();
+            $this.__setupPassThroughAttributes();
             
             $this.invokeEvent.call($this, "init", $this.__getTextarea(), e);
         }
@@ -104,8 +105,8 @@
             return {
                 toolbar: this.__getToolbar(),
                 readOnly: textarea.attr('readonly') || this.options.readonly,
-                width: textarea.width(),
-                height: textarea.height()
+                width: this.__resolveUnits(textarea.width()),
+                height: this.__resolveUnits(textarea.height())
             }
         },
         
@@ -127,6 +128,14 @@
                 span.attr('style', style);
                 this.oldStyle = style;
             }
+        },
+        
+        __setupPassThroughAttributes: function() {
+            var textarea = this.__getTextarea();
+            var span = $(document.getElementById(this.editorElementId));
+            
+            // title
+            span.attr('title', textarea.attr('title'));
         },
         
         __concatStyles: function() {
@@ -191,12 +200,24 @@
                 editor.resize(newWidth, newHeight, true);
             }
             
-            // styleClass
+            // styling
             this.__setupStyling();
+            
+            // pass through attributes
+            this.__setupPassThroughAttributes();
             
             // value
             var newValue = textarea.val();
             this.setValue(newValue);
+        },
+        
+        __resolveUnits: function(dimension) {
+            var dimension = $.trim(dimension);
+            if (dimension.match(/^[0-9]+$/)) {
+                return dimension + 'px';
+            } else {
+                return dimension;
+            }
         },
         
         getEditor: function() {

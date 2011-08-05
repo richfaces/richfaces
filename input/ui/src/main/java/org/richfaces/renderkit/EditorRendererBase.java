@@ -37,4 +37,13 @@ public class EditorRendererBase extends InputRendererBase {
 
     public static final String DEFAULT_WIDTH = "100%";
     public static final String DEFAULT_HEIGHT = "200px";
+
+    public String resolveUnits(Object dimension) {
+        String dim = (String) dimension;
+        if (dim.matches("^[0-9]+$")) {
+            return dim + "px";
+        } else {
+            return dim;
+        }
+    }
 }

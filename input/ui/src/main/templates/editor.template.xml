@@ -37,8 +37,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
     <cc:implementation>
         <cdk:object name="style" value="#{component.attributes['style']}" />
         <cdk:object name="textareaStyle" value="#{component.attributes['textareaStyle']}" />
-        <cdk:object name="width" value="#{component.attributes['width']}" />
-        <cdk:object name="height" value="#{component.attributes['height']}" />
+        <cdk:object name="width" value="#{resolveUnits(component.attributes['width'])}" />
+        <cdk:object name="height" value="#{resolveUnits(component.attributes['height'])}" />
         <textarea id="#{clientId}" name="#{clientId}" cdk:passThroughWithExclusions="id readonly style styleClass"
                 class="#{concatClasses(component.attributes['styleClass'], component.attributes['textareaClass'])}"
                 readonly="#{component.attributes['readonly'] ? 'readonly' : ''}"
