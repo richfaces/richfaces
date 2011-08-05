@@ -26,14 +26,14 @@ RichFaces.ui.NotifyStack = (function() {
     var defaultOptions = {
         position: "topRight",
         direction: "vertical",
-        method: "first"
+        method: "last"
     };
     return {
         register: function(id, stack) {
             var isVertical = (stack.direction == 'vertical');
             var isFirst = (stack.method == 'first');
             
-            stack.push = isFirst ? 'bottom' : 'top';
+            stack.push = isFirst ? 'top' : 'bottom';
             
             switch (stack.position) {
                 case "topLeft":
