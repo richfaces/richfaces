@@ -35,6 +35,9 @@ import org.richfaces.component.AbstractNotifyMessages;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.util.RendererUtils;
 
+/**
+ * @author Bernard Labno
+ */
 @JsfRenderer(family = AbstractNotifyMessages.COMPONENT_FAMILY, type = NotifyMessagesRenderer.RENDERER_TYPE)
 public class NotifyMessagesRenderer extends NotifyRenderer {
 

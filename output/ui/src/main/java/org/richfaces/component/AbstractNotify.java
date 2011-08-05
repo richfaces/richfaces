@@ -32,6 +32,9 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.renderkit.html.NotifyRenderer;
 
+/**
+ * @author Bernard Labno
+ */
 @JsfComponent(tag = @Tag(name = "notify", type = TagType.Facelets), renderer = @JsfRenderer(family = AbstractNotify.COMPONENT_FAMILY, type = NotifyRenderer.RENDERER_TYPE))
 public abstract class AbstractNotify extends UIComponentBase implements NotifyAttributes {
 
@@ -49,7 +52,7 @@ public abstract class AbstractNotify extends UIComponentBase implements NotifyAt
     public abstract String getDetail();
 
     public abstract void setDetail(String text);
-    
+
     @Attribute(description = @Description("Defines the position of the notification"))
     public abstract CornerPosition getPosition();
 

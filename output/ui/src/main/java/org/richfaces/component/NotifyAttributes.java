@@ -24,6 +24,9 @@ package org.richfaces.component;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.Description;
 
+/**
+ * @author Bernard Labno
+ */
 public interface NotifyAttributes {
 
     @Attribute(description = @Description("If true, notification have to be closed manually"))

@@ -33,6 +33,9 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.renderkit.html.NotifyMessagesRenderer;
 
+/**
+ * @author Bernard Labno
+ */
 @JsfComponent(tag = @Tag(name = "notifyMessages", type = TagType.Facelets), renderer = @JsfRenderer(family = AbstractNotifyMessages.COMPONENT_FAMILY, type = NotifyMessagesRenderer.RENDERER_TYPE), attributes = { "ajax-props.xml" })
 public abstract class AbstractNotifyMessages extends UIMessages implements AjaxOutput, NotifyAttributes {
 
@@ -53,7 +56,7 @@ public abstract class AbstractNotifyMessages extends UIMessages implements AjaxO
     public abstract boolean isKeepTransient();
 
     public abstract void setKeepTransient(boolean ajaxRendered);
-    
+
     @Attribute(description = @Description("Defines the position of the messages"))
     public abstract CornerPosition getPosition();
 

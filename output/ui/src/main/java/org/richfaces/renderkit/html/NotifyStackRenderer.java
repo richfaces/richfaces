@@ -38,6 +38,9 @@ import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RendererBase;
 import org.richfaces.renderkit.util.RendererUtils;
 
+/**
+ * @author Bernard Labno
+ */
 @JsfRenderer(family = AbstractNotifyStack.COMPONENT_FAMILY, type = NotifyStackRenderer.RENDERER_TYPE)
 @ResourceDependencies({ @ResourceDependency(name = "jquery.js", target = "head"),
         @ResourceDependency(name = "richfaces.js", target = "head"),

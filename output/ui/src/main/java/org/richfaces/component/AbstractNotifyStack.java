@@ -34,6 +34,9 @@ import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.renderkit.html.NotifyStackRenderer;
 
+/**
+ * @author Bernard Labno
+ */
 @JsfComponent(tag = @Tag(name = "notifyStack", type = TagType.Facelets), renderer = @JsfRenderer(family = AbstractNotifyStack.COMPONENT_FAMILY, type = NotifyStackRenderer.RENDERER_TYPE))
 public abstract class AbstractNotifyStack extends UIComponentBase {
 

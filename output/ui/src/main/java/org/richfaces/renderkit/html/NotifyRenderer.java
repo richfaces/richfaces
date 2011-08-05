@@ -41,6 +41,9 @@ import org.richfaces.component.AbstractNotifyStack;
 import org.richfaces.renderkit.HtmlConstants;
 import org.richfaces.renderkit.RendererBase;
 
+/**
+ * @author Bernard Labno
+ */
 @JsfRenderer(family = AbstractNotify.COMPONENT_FAMILY, type = NotifyRenderer.RENDERER_TYPE)
 @ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
         @ResourceDependency(name = "jquery.js", target = "head"), @ResourceDependency(name = "richfaces.js", target = "head"),
@@ -127,7 +130,8 @@ public class NotifyRenderer extends RendererBase {
         if (styleClass == null) {
             styleClass = "";
         }
-        addOptionIfSetAndNotDefault("styleClass", getStackClass(context, notify) + " " + getStackStyleClass(context, notify) + " " + styleClass, options);
+        addOptionIfSetAndNotDefault("styleClass", getStackClass(context, notify) + " " + getStackStyleClass(context, notify)
+                + " " + styleClass, options);
         addOptionIfSetAndNotDefault("delay", notify.getDelay(), options);
         return options;
     }
@@ -149,7 +153,7 @@ public class NotifyRenderer extends RendererBase {
             }
         }
     }
-    
+
     protected String getStackClass(FacesContext context, AbstractNotify notify) {
         AbstractNotifyStack stack = getStackComponent(context, notify);
         CornerPosition position = CornerPosition.topRight;
