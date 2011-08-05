@@ -2,7 +2,7 @@
 
 MODULES="archetypes build cdk components core dev-examples showcase"
 
-EXECUTE=$*
+EXECUTE="$@"
 
 SCRIPTS=`dirname $0`
 TOPDIR=`readlink -f $SCRIPTS/../..`
@@ -10,6 +10,6 @@ TOPDIR=`readlink -f $SCRIPTS/../..`
 for MODULE in $MODULES; do
 	pushd "$TOPDIR/$MODULE" >/dev/null
 		echo "Running '$EXECUTE' on module '$MODULE'"
-		$EXECUTE
+		eval "$EXECUTE"
 	popd >/dev/null
 done
