@@ -83,6 +83,20 @@
             <from-outcome>qunit/collapsiblePanel</from-outcome>
             <to-view-id>/qunit/collapsiblePanel.xhtml</to-view-id>
         </navigation-case>
+        
+        <!-- CollapsiblePanel navigation -->
+        <navigation-case>
+            <from-outcome>notify</from-outcome>
+            <to-view-id>/examples/notify.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>notify_1</from-outcome>
+            <to-view-id>/examples/notify_1.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>notify_2</from-outcome>
+            <to-view-id>/examples/notify_2.xhtml</to-view-id>
+        </navigation-case>
 
         <!-- TabPanel navigation -->
         <navigation-case>
