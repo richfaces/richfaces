@@ -45,6 +45,10 @@
             <from-outcome>orderingList</from-outcome>
             <to-view-id>/examples/orderingList.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>editor</from-outcome>
+            <to-view-id>/examples/editor.xhtml</to-view-id>
+        </navigation-case>
 
         <!-- QUnit -->
         <navigation-case>
