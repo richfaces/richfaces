@@ -26,6 +26,7 @@ public class EditorBean implements Serializable {
     private String style;
     private String textareaStyle;
     private String editorStyle;
+    private String title;
 
     public String getValue() {
         return value;
@@ -157,5 +158,13 @@ public class EditorBean implements Serializable {
 
     public void setEditorStyle(String editorStyle) {
         this.editorStyle = editorStyle;
+    }
+    
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    
+    public String getTitle() {
+        return title;
     }
 }

@@ -9,8 +9,6 @@
 </h:head>
 
 <h:body>
-    
-    <!-- <a4j:log mode="inline" />  -->
 
     <fieldset>
         <legend>Render All</legend>
@@ -22,7 +20,7 @@
         <h:form id="form8b">
             <a4j:commandButton value="Update All" render="@all" />
         </h:form>
-    </fieldset>
+    </fieldset> 
     
     <fieldset>
         <legend>Validation</legend>
@@ -41,7 +39,7 @@
 
         <h:form id="form6">
             <a4j:outputPanel id="panel6">
-                <in:editor id="editor6" value="#{editor.value}"
+                <in:editor id="editor6" value="#{editor.value}" title="#{editor.title}"
                     readonly="#{editor.readonly}" width="#{editor.width}" height="#{editor.height}"
                     rendered="#{editor.rendered}" toolbar="#{editor.toolbar}"
                     oninit="#{editor.oninit}" onfocus="#{editor.onfocus}" onblur="#{editor.onblur}" onchange="#{editor.onchange}"
@@ -97,6 +95,9 @@
                 
                 <h:outputLabel value="textareaStyle:" />
                 <h:inputText value="#{editor.textareaStyle}" />
+                
+                <h:outputLabel value="title:" />
+                <h:inputText value="#{editor.title}" />
                 
                 <a4j:commandButton value="Rerender" render="editor6 inplace6" />
                 <h:commandButton value="Post" />
@@ -158,7 +159,7 @@
         <h:form id="form3b">
             <in:editor id="editor3b" value="#{editor.value}" />
 
-            <a4j:commandButton value="Update" process="@form" render="form3a" />
+            <a4j:commandButton id="commandButton" value="Update" process="@form" render="form3a" />
         </h:form>
     </fieldset>
     
@@ -192,5 +193,7 @@
         </h:form>
     </fieldset>
 
+    
+    <a4j:log mode="inline" />
 </h:body>
 </html>
