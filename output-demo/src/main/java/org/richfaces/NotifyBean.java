@@ -58,25 +58,29 @@ public class NotifyBean implements Serializable {
 
     public void sayHello() {
         for (int i = 0; i < getMessagesCount(); i++) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, i + ". Hello", greeting));
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, i + ". Hello", greeting));
         }
     }
 
     public void warnMe() {
         for (int i = 0; i < getMessagesCount(); i++) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, i + ". Stop!", greeting));
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_WARN, i + ". Stop!", greeting));
         }
     }
 
     public void sayError() {
         for (int i = 0; i < getMessagesCount(); i++) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, i + ". This is outrage", greeting));
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, i + ". This is outrage", greeting));
         }
     }
 
     public void sayFatal() {
         for (int i = 0; i < getMessagesCount(); i++) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, i + ". Fatality", greeting));
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_FATAL, i + ". Fatality", greeting));
         }
     }
 
@@ -183,11 +187,11 @@ public class NotifyBean implements Serializable {
     public void setMethod(String method) {
         this.method = method;
     }
-    
+
     public String getPosition() {
         return this.position;
     }
-    
+
     public void setPosition(String position) {
         this.position = position;
     }
