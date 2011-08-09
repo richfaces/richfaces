@@ -105,5 +105,17 @@
         <url-pattern>/faces/*</url-pattern>
         <url-pattern>*.jsf</url-pattern>
     </servlet-mapping>
+    
+    
+    <servlet>
+        <servlet-name>Resource Servlet</servlet-name>
+        <servlet-class>org.richfaces.webapp.ResourceServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>Resource Servlet</servlet-name>
+        <url-pattern>/org.richfaces.resources/*</url-pattern>
+    </servlet-mapping>
 
 </web-app>
