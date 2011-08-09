@@ -11,12 +11,15 @@ import org.richfaces.cdk.annotations.Tag;
  *
  */
 @JsfComponent(type = AbstractPickList.COMPONENT_TYPE, family = AbstractPickList.COMPONENT_FAMILY, generate = "org.richfaces.component.UIPickList", renderer = @JsfRenderer(type = "org.richfaces.PickListRenderer"), tag = @Tag(name = "pickList"))
-public abstract class AbstractPickList extends AbstractSelectManyComponent {
+public abstract class AbstractPickList extends AbstractOrderingComponent {
     public static final String COMPONENT_TYPE = "org.richfaces.PickList";
     public static final String COMPONENT_FAMILY = "org.richfaces.SelectMany";
 
     @Attribute(defaultValue = "true")
     public abstract boolean isShowButton();
+
+    @Attribute(defaultValue = "false")
+    public abstract boolean isOrderable();
 
     @Attribute
     public abstract String getSourceCaption();

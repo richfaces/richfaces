@@ -8,7 +8,8 @@
         this.orderingList = $(document.getElementById(id));
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "Items")).parent()[0];
         this.list = new rf.ui.List(id+ "List", this, mergedOptions);
-        this.hiddenValues = $(document.getElementById(id + "SelValue"));
+        var hiddenId = mergedOptions['hiddenId'] ===null ? id + "SelValue" : mergedOptions['hiddenId'];
+        this.hiddenValues = $(document.getElementById(hiddenId));
         this.selectItemCss = mergedOptions['selectItemCss'];
         this.disabled = mergedOptions.disabled;
 

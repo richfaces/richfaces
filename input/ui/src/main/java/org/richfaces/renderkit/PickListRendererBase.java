@@ -47,7 +47,9 @@ import java.util.List;
         @ResourceDependency(library = "org.richfaces", name = "list.js"),
         @ResourceDependency(library = "org.richfaces", name = "popupList.js"),
         @ResourceDependency(library = "org.richfaces", name = "pickList.js"),
-        @ResourceDependency(library = "org.richfaces", name = "pickList.ecss")})
+        @ResourceDependency(library = "org.richfaces", name = "pickList.ecss"),
+        @ResourceDependency(library = "org.richfaces", name = "orderingList.js"),
+        @ResourceDependency(library = "org.richfaces", name = "orderingList.ecss")})
 public class PickListRendererBase extends SelectManyRendererBase {
     public static String CSS_PREFIX = "rf-pick";
 

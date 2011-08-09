@@ -182,9 +182,9 @@ public class SelectManyRendererBase extends InputRendererBase {
     public String getButtonClass(UIComponent component, String cssPrefix, String buttonClass) {
         AbstractSelectManyComponent select = (AbstractSelectManyComponent) component;
         if (!select.isDisabled()) {
-            return HtmlUtil.concatClasses(buttonClass, SelectManyHelper.BUTTON_CSS);
+            return HtmlUtil.concatClasses(buttonClass, cssPrefix + SelectManyHelper.BUTTON_CSS);
         } else {
-            return HtmlUtil.concatClasses(buttonClass, SelectManyHelper.BUTTON_CSS, SelectManyHelper.BUTTON_CSS_DIS);
+            return HtmlUtil.concatClasses(buttonClass, cssPrefix + SelectManyHelper.BUTTON_CSS, cssPrefix + SelectManyHelper.BUTTON_CSS_DIS);
 
         }
     }

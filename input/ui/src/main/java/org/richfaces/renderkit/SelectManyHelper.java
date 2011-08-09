@@ -54,6 +54,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -72,6 +74,14 @@ public class SelectManyHelper {
     public static final String ITEM_CSS_DIS = "-opt-dis";
     public static final String BUTTON_CSS = "-btn";
     public static final String BUTTON_CSS_DIS = "-btn-dis";
+    public static Comparator<ClientSelectItem> clientSelectItemComparator = new Comparator<ClientSelectItem>() {
+        public int compare(ClientSelectItem clientSelectItem, ClientSelectItem clientSelectItem1) {
+            Integer sortOrder = (clientSelectItem == null || clientSelectItem.getSortOrder() == null) ? 0 : clientSelectItem.getSortOrder();
+            Integer sortOrder1 = (clientSelectItem1 == null || clientSelectItem1.getSortOrder() == null) ? 0 : clientSelectItem1.getSortOrder();
+            return sortOrder.compareTo(sortOrder1);
+        }
+    };
+
 
     public static Predicate<ClientSelectItem> SELECTED_PREDICATE =  new Predicate<ClientSelectItem>() {
         public boolean apply(@Nullable ClientSelectItem clientSelectItem) {
@@ -237,15 +247,26 @@ public class SelectManyHelper {
             throw new IllegalArgumentException("Value expression must evaluate to either a List or Object[]");
         }
         Set<Object> valuesSet = new HashSet<Object>(values);
-        int sortOrder = 0;
+        int count = valuesSet.size();
         // TODO: Deal with SelectItemGroups
         while (selectItems.hasNext()) {
             SelectItem selectItem = selectItems.next();
-            boolean selected = valuesSet.contains(selectItem.getValue());
+            boolean selected;
+            int sortOrder;
+            if (valuesSet.contains(selectItem.getValue())) { // TODO: this requires value#equals() to be overridden. Redo with comparators?
+                selected = true;
+                sortOrder = values.indexOf(selectItem.getValue());
+            } else {
+                selected = false;
+                sortOrder = count;
+            }
             ClientSelectItem clientSelectItem = SelectHelper.generateClientSelectItem(facesContext, select, selectItem, sortOrder, selected);
             clientSelectItems.add(clientSelectItem);
-            sortOrder++;
+            if (selected) {
+                count++;
+            }
         }
+        Collections.sort(clientSelectItems, clientSelectItemComparator);
         return clientSelectItems;
     }
 
