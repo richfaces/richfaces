@@ -159,11 +159,11 @@ public class EditorBean implements Serializable {
     public void setEditorStyle(String editorStyle) {
         this.editorStyle = editorStyle;
     }
-    
+
     public void setTitle(String title) {
         this.title = title;
     }
-    
+
     public String getTitle() {
         return title;
     }
