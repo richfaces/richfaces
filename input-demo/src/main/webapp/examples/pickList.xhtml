@@ -140,5 +140,32 @@
             </h:panelGroup>
         </h:form>
     </fieldset>
+    <fieldset>
+        <legend>PickList w/ ordering (listShuttle)</legend>
+        <h:form>
+            <in:pickList id="pickList" value="#{richBean.values}" columnVar="item" sourceCaption="Source Items" targetCaption="Target Items" orderable="true">
+                <f:selectItems value="#{entityBeanSelector.values}"/>
+                <f:converter converterId="EntityBeanConverter" />
+                <it:column>
+                    #{item.value}
+                </it:column>
+                <it:column>
+                    #{item.title}
+                </it:column>
+            </in:pickList>
+            <h:commandButton value="submit">
+                <f:ajax execute="@form" render="pickList out" />
+            </h:commandButton>
+
+            <h:panelGroup id="out">
+                <ui:repeat value="#{richBean.values}" var="value">
+                    <h:outputText value="#{value}">
+                        <f:converter converterId="EntityBeanConverter" />
+                    </h:outputText>
+                    <br/>
+                </ui:repeat>
+            </h:panelGroup>
+        </h:form>
+    </fieldset>
 </h:body>
 </html>
