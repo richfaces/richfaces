@@ -166,7 +166,7 @@
                     }
                     that.__updateItemsList();
                 });
-
+                rf.Event.fire(this, "moveitems", items);
             },
 
             getItemByIndex: function(i) {

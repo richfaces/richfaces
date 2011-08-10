@@ -9,9 +9,19 @@
         this.sourceList = new rf.ui.List(id+ "Source", this, mergedOptions);
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "TargetItems")).parent()[0];
         this.selectItemCss = mergedOptions['selectItemCss'];
-        this.targetList = new rf.ui.List(id+ "Target", this, mergedOptions);
+        var hiddenId = id + "SelValue";
+        this.hiddenValues = $(document.getElementById(hiddenId));
+        mergedOptions['hiddenId'] = hiddenId;
+        this.orderable = mergedOptions['orderable'];
+
+        if (this.orderable) {
+            this.orderingList = new rf.ui.OrderingList(id+ "Target", mergedOptions);
+            this.targetList = this.orderingList.list;
+            this.targetList.selectListener = this;
+        } else {
+            this.targetList = new rf.ui.List(id+ "Target", this, mergedOptions);
+        }
         this.pickList = $(document.getElementById(id));
-        this.hiddenValues = $(document.getElementById(id + "SelValue"));
 
         this.addButton = $('.rf-pick-add', this.pickList);
         this.addButton.bind("click", $.proxy(this.add, this));
@@ -107,6 +117,9 @@
             toggleButtons: function() {
                 this.__toggleButton(this.addButton, this.sourceList.__getItems());
                 this.__toggleButton(this.removeButton, this.targetList.__getItems());
+                if (this.orderable) {
+                    this.orderingList.toggleButtons();
+                }
             },
 
             __toggleButton: function(button, list) {
