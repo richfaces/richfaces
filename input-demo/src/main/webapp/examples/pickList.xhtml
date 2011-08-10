@@ -39,12 +39,14 @@
                 <f:ajax execute="@form" render="pickList out" />
             </h:commandButton>
 
-            <h:panelGroup id="out">
-                <ui:repeat value="#{inputBean.values}" var="value">
-                    <h:outputText value="#{value}"/>
-                    <br/>
-                </ui:repeat>
-            </h:panelGroup>
+            <div style="display: inline-block;">
+                <h:panelGroup id="out">
+                    <ui:repeat value="#{inputBean.values}" var="value">
+                        <h:outputText value="#{value}"/>
+                        <br/>
+                    </ui:repeat>
+                </h:panelGroup>
+            </div>
         </h:form>
     </fieldset>
     <fieldset>
@@ -71,12 +73,14 @@
                 <f:ajax execute="@form" render="pickList out" />
             </h:commandButton>
 
-            <h:panelGroup id="out">
-                <ui:repeat value="#{inputBean.values}" var="value">
-                    <h:outputText value="#{value}"/>
-                    <br/>
-                </ui:repeat>
-            </h:panelGroup>
+            <div style="display: inline-block;">
+                <h:panelGroup id="out">
+                    <ui:repeat value="#{inputBean.values}" var="value">
+                        <h:outputText value="#{value}"/>
+                        <br/>
+                    </ui:repeat>
+                </h:panelGroup>
+            </div>
         </h:form>
     </fieldset>
     <fieldset>
@@ -105,12 +109,14 @@
                 <f:ajax execute="@form" render="pickList out" />
             </h:commandButton>
 
-            <h:panelGroup id="out">
-                <ui:repeat value="#{inputBean.values}" var="value">
-                    <h:outputText value="#{value}"/>
-                    <br/>
-                </ui:repeat>
-            </h:panelGroup>
+            <div style="display: inline-block;">
+                <h:panelGroup id="out">
+                    <ui:repeat value="#{inputBean.values}" var="value">
+                        <h:outputText value="#{value}"/>
+                        <br/>
+                    </ui:repeat>
+                </h:panelGroup>
+            </div>
         </h:form>
     </fieldset>
     <fieldset>
@@ -130,14 +136,16 @@
                 <f:ajax execute="@form" render="pickList out" />
             </h:commandButton>
 
-            <h:panelGroup id="out">
-                <ui:repeat value="#{richBean.values}" var="value">
-                    <h:outputText value="#{value}">
-                        <f:converter converterId="EntityBeanConverter" />
-                    </h:outputText>
-                    <br/>
-                </ui:repeat>
-            </h:panelGroup>
+            <div style="display: inline-block;">
+                <h:panelGroup id="out">
+                    <ui:repeat value="#{richBean.values}" var="value">
+                        <h:outputText value="#{value}">
+                            <f:converter converterId="EntityBeanConverter" />
+                        </h:outputText>
+                        <br/>
+                    </ui:repeat>
+                </h:panelGroup>
+            </div>
         </h:form>
     </fieldset>
     <fieldset>
@@ -157,14 +165,16 @@
                 <f:ajax execute="@form" render="pickList out" />
             </h:commandButton>
 
-            <h:panelGroup id="out">
-                <ui:repeat value="#{richBean.values}" var="value">
-                    <h:outputText value="#{value}">
-                        <f:converter converterId="EntityBeanConverter" />
-                    </h:outputText>
-                    <br/>
-                </ui:repeat>
-            </h:panelGroup>
+            <div style="display: inline-block;">
+                <h:panelGroup id="out">
+                    <ui:repeat value="#{richBean.values}" var="value">
+                        <h:outputText value="#{value}">
+                            <f:converter converterId="EntityBeanConverter" />
+                        </h:outputText>
+                        <br/>
+                    </ui:repeat>
+                </h:panelGroup>
+            </div>
         </h:form>
     </fieldset>
 </h:body>
