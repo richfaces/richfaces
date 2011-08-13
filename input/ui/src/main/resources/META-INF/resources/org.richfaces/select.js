@@ -33,14 +33,14 @@
         this.listElem.bind("mouseup", $.proxy(this.__onMouseUp, this));
 
         var listEventHandlers = {};
-        listEventHandlers["listshow" + this.namespace] = this.__listshowHandler;
-        listEventHandlers["listhide" + this.namespace] = this.__listhideHandler;
+        listEventHandlers["listshow" + this.namespace] = $.proxy(this.__listshowHandler, this);
+        listEventHandlers["listhide" + this.namespace] = $.proxy(this.__listhideHandler, this);
         rf.Event.bind(this.input, listEventHandlers, this);
 
         this.enableManualInput = mergedOptions.enableManualInput;
 
-        if (this.list.length > 0 && this.enableManualInput) {
-            this.cache = new rf.utils.Cache("", this.list, getData, true);
+        if (this.list.length() > 0 && this.enableManualInput) {
+            this.cache = new rf.utils.Cache("", this.list.__getItems(), getData, true);
         }
         this.changeDelay = mergedOptions.changeDelay;
     };
@@ -180,9 +180,12 @@
 
             __blurHandler: function(e) {
                 if (!this.isMouseDown) {
-                    this.timeoutId = window.setTimeout($.proxy(function() {
-                        this.onblur(e);
-                    }, this), 200);
+                    var that = this;
+                    this.timeoutId = window.setTimeout(function() {
+                        if (that.input !== null) {
+                            that.onblur(e);
+                        }
+                    }, 200);
                 } else {
                     this.__setInputFocus();
                     this.isMouseDown = false;
