@@ -6,7 +6,8 @@
         var mergedOptions = $.extend({}, defaultOptions, options);
         $super.constructor.call(this, id, mergedOptions);
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "SourceItems")).parent()[0];
-        this.sourceList = new rf.ui.List(id+ "Source", this, mergedOptions);
+        mergedOptions['listener']=this;
+        this.sourceList = new rf.ui.ListMulti(id+ "Source", mergedOptions);
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "TargetItems")).parent()[0];
         this.selectItemCss = mergedOptions['selectItemCss'];
         var hiddenId = id + "SelValue";
@@ -17,9 +18,8 @@
         if (this.orderable) {
             this.orderingList = new rf.ui.OrderingList(id+ "Target", mergedOptions);
             this.targetList = this.orderingList.list;
-            this.targetList.selectListener = this;
         } else {
-            this.targetList = new rf.ui.List(id+ "Target", this, mergedOptions);
+            this.targetList = new rf.ui.ListMulti(id+ "Target", mergedOptions);
         }
         this.pickList = $(document.getElementById(id));
 
@@ -61,7 +61,6 @@
         selectItemCss: "rf-pick-sel",
         listCss: "rf-pick-lst-cord",
         clickRequiredToSelect: true,
-        multipleSelect: true,
         disabled : false
     };
 

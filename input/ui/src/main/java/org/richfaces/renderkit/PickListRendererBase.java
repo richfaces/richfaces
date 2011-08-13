@@ -21,11 +21,8 @@
  **/
 package org.richfaces.renderkit;
 
-import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
 import com.google.common.collect.Iterators;
 
-import javax.annotation.Nullable;
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
@@ -45,6 +42,7 @@ import java.util.List;
         @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "popup.js"),
         @ResourceDependency(library = "org.richfaces", name = "list.js"),
+        @ResourceDependency(library = "org.richfaces", name = "listMulti.js"),
         @ResourceDependency(library = "org.richfaces", name = "popupList.js"),
         @ResourceDependency(library = "org.richfaces", name = "pickList.js"),
         @ResourceDependency(library = "org.richfaces", name = "pickList.ecss"),

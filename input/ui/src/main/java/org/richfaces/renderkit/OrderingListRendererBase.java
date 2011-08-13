@@ -39,6 +39,7 @@ import java.util.List;
         @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "popup.js"),
         @ResourceDependency(library = "org.richfaces", name = "list.js"),
+        @ResourceDependency(library = "org.richfaces", name = "listMulti.js"),
         @ResourceDependency(library = "org.richfaces", name = "orderingList.js"),
         @ResourceDependency(library = "org.richfaces", name = "orderingList.ecss")})
 public class OrderingListRendererBase extends SelectManyRendererBase {

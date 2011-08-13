@@ -2,18 +2,17 @@
 
     rf.ui = rf.ui || {};
 
-    rf.ui.List = function(id, listener, options) {
+    rf.ui.List = function(id, options) {
+        $super.constructor.call(this, id);
         this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, id);
         var mergedOptions = $.extend({}, defaultOptions, options);
-        $super.constructor.call(this, id, mergedOptions);
         this.list = $(document.getElementById(id));
-        this.selectListener = listener;
+        this.selectListener = mergedOptions.selectListener;
         this.selectItemCss = mergedOptions.selectItemCss;
         this.scrollContainer = $(mergedOptions.scrollContainer);
         this.itemCss = mergedOptions.itemCss;
         this.listCss = mergedOptions.listCss;
         this.clickRequiredToSelect = mergedOptions.clickRequiredToSelect;
-        this.multipleSelect = mergedOptions.multipleSelect;
         this.index = -1;
         this.disabled = mergedOptions.disabled;
 
@@ -28,8 +27,8 @@
 
     var defaultOptions = {
         clickRequiredToSelect: false,
-        multipleSelect: false,
-        disabled : false
+        disabled : false,
+        selectListener : false
     };
 
     var bindEventHandlers = function () {
@@ -123,20 +122,15 @@
                 return this.index;
             },
 
-            getSelectedItems: function() {
-                return this.list.find("." + this.selectItemCss);;
-            },
-
-            removeSelectedItems: function() {
-                var items = this.getSelectedItems().detach();
+            removeItems: function(items) {
+                $(items).detach();
                 this.__updateItemsList();
-                return items;
+                rf.Event.fire(this, "removeitems", items);
             },
 
             removeAllItems: function() {
-                var items = this.__getItems().detach();
-                this.__updateItemsList();
-                rf.Event.fire(this, "removeitems", items);
+                var items = this.__getItems();
+                this.removeItems(items);
                 return items;
             },
 
@@ -216,49 +210,61 @@
             },
 
             __selectByIndex: function(index, clickModified) {
-                if (this.items.length == 0) return;
-
-                if (!this.multipleSelect) {
-                    if (!this.clickRequiredToSelect && this.index == index) return;
-
-                    if (this.index != -1) {
-                        var item = this.items.eq(this.index);
-                        this.unselectItem(item);
-                        var oldIndex = this.index;
-                        this.index = -1;
-                    }
-
-                    if (this.clickRequiredToSelect && oldIndex == index) {
-                        return;
-                    }
-                }
-
-                if (index == undefined) {
-                    this.index = -1;
+                if (! this.__isSelectByIndexValid(index)) {
                     return;
                 }
 
-                if (index < 0) {
-                    index = 0;
-                } else if (index >= this.items.length) {
-                    index = this.items.length - 1;
+                if (!this.clickRequiredToSelect && this.index == index) {
+                    return; // do nothing if re-selecting the same item
                 }
-                this.index = index;
 
-                item = this.items.eq(this.index);
-                if (this.multipleSelect && ! clickModified) {
-                    var that = this;
-                    this.getSelectedItems().each( function(index) {
-                        that.unselectItem($(this))
-                    });
-                    this.selectItem(item);
-                } else {
-                    if (this.isSelected(item)) {
-                        this.unselectItem(item);
-                    } else {
-                        this.selectItem(item);
-                    }
+                var oldIndex = this.__unselectPrevious();
+
+                if (this.clickRequiredToSelect && oldIndex == index) {
+                    return; //do nothing after unselecting item
                 }
+
+                this.index = this.__sanitizeSelectedIndex(index);
+
+                var item = this.items.eq(this.index);
+                if (this.isSelected(item)) {
+                    this.unselectItem(item);
+                } else {
+                    this.selectItem(item);
+                }
+            },
+
+            __isSelectByIndexValid: function(index) {
+                if (this.items.length == 0) {
+                    return false;
+                }
+                if (index == undefined) {
+                    this.index = -1;
+                    return false;
+                }
+                return true;
+            },
+
+            __sanitizeSelectedIndex: function(index) {
+                var sanitizedIndex;
+                if (index < 0) {
+                    sanitizedIndex = 0;
+                } else if (index >= this.items.length) {
+                    sanitizedIndex = this.items.length - 1;
+                } else {
+                    sanitizedIndex = index;
+                }
+                return sanitizedIndex;
+            },
+
+            __unselectPrevious: function() {
+                var oldIndex = this.index;
+                if (oldIndex != -1) {
+                    var item = this.items.eq(oldIndex);
+                    this.unselectItem(item);
+                    this.index = -1;
+                }
+                return oldIndex;
             },
 
             __selectItemByValue: function(value) {

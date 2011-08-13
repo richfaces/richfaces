@@ -49,6 +49,7 @@ import java.util.Map;
         @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "popup.js"),
         @ResourceDependency(library = "org.richfaces", name = "list.js"),
+        @ResourceDependency(library = "org.richfaces", name = "listMulti.js"),
         @ResourceDependency(library = "org.richfaces", name = "popupList.js"),
         @ResourceDependency(library = "org.richfaces", name = "pickList.js"),
         @ResourceDependency(library = "org.richfaces", name = "pickList.ecss")})
