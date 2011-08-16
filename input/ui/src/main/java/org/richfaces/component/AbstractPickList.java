@@ -15,9 +15,6 @@ public abstract class AbstractPickList extends AbstractOrderingComponent {
     public static final String COMPONENT_TYPE = "org.richfaces.PickList";
     public static final String COMPONENT_FAMILY = "org.richfaces.SelectMany";
 
-    @Attribute(defaultValue = "true")
-    public abstract boolean isShowButton();
-
     @Attribute(defaultValue = "false")
     public abstract boolean isOrderable();
 

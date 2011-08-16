@@ -23,7 +23,7 @@ public abstract class AbstractOrderingComponent extends AbstractSelectManyCompon
     @Attribute()
     public abstract Object getItemLabel();
 
-    @Attribute(defaultValue = "true")
+    @Attribute(defaultValue = "true", hidden = true) // TODO: unhide once javascript API's are available RF-11209
     public abstract boolean isShowButton();
 
     @Attribute(defaultValue = "First")
