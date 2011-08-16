@@ -58,9 +58,6 @@ public abstract class AbstractSelectManyComponent extends UISelectMany {
     public abstract String getMaxListHeight();
 
     @Attribute
-    public abstract String getDefaultLabel();
-
-    @Attribute
     public abstract String getStyle();
 
     @Attribute(hidden = true)
