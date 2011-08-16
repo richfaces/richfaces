@@ -6,9 +6,8 @@
         var mergedOptions = $.extend({}, defaultOptions, options);
         $super.constructor.call(this, id, mergedOptions);
         this.orderingList = $(document.getElementById(id));
-        mergedOptions['listener']=this;
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "Items")).parent()[0];
-        this.list = new rf.ui.ListMulti(id+ "List", this, mergedOptions);
+        this.list = new rf.ui.ListMulti(id+ "List", mergedOptions);
         var hiddenId = mergedOptions['hiddenId'] ===null ? id + "SelValue" : mergedOptions['hiddenId'];
         this.hiddenValues = $(document.getElementById(hiddenId));
         this.selectItemCss = mergedOptions['selectItemCss'];

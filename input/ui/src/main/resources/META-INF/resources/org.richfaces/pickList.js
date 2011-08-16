@@ -6,7 +6,6 @@
         var mergedOptions = $.extend({}, defaultOptions, options);
         $super.constructor.call(this, id, mergedOptions);
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "SourceItems")).parent()[0];
-        mergedOptions['listener']=this;
         this.sourceList = new rf.ui.ListMulti(id+ "Source", mergedOptions);
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "TargetItems")).parent()[0];
         this.selectItemCss = mergedOptions['selectItemCss'];
