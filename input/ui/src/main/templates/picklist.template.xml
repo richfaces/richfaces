@@ -19,7 +19,8 @@
 
         <cdk:object type="java.lang.Object" name="disabled" value="#{component.attributes['disabled']}" />
         <cdk:object type="java.lang.Boolean" name="hasColumnChildren" value="#{hasColumnChildren(facesContext, component)}" />
-
+        <cdk:object name="itemClass" value="#{component.attributes['itemClass']}" />
+        <cdk:object name="selectItemClass" value="#{component.attributes['selectItemClass']}" />
 
         <div id="#{clientId}" class="#{concatClasses('rf-pick', component.attributes['styleClass'])}" style="#{component.attributes['style']}"
              cdk:passThrough="onclick:listclick ondblclick:listdblclick onmousedown:listmousedown onmouseup:listmouseup onmouseover:onlistmouseover
@@ -28,7 +29,7 @@
                 <tr>
                     <td>
                         <div id="#{clientId}Source">
-                            <div id="#{clientId}SourceList" class="#{concatClasses('rf-pick-source', component.attributes['selectItemClass'])}">
+                            <div id="#{clientId}SourceList" class="rf-pick-source">
                                 <cdk:object type="java.lang.Object" name="sourceCaption" value="#{component.attributes['sourceCaption']}" />
                                 <c:if test="#{! empty sourceCaption}">
                                     <div class="rf-pick-source-caption">
@@ -94,7 +95,7 @@
                             <tr>
                                 <td>
                                     <div>
-                                        <div id="#{clientId}TargetList" class="#{concatClasses('rf-pick-target', component.attributes['selectItemClass'])}">
+                                        <div id="#{clientId}TargetList" class="rf-pick-target">
                                             <cdk:object type="java.lang.Object" name="targetCaption" value="#{component.attributes['targetCaption']}" />
                                             <c:if test="#{! empty targetCaption}">
                                                 <div class="rf-pick-target-caption">
@@ -166,7 +167,8 @@
             <input type="hidden" id="#{clientId}SelValue" name="#{clientId}" value="#{hiddenValues}" disabled="#{disabled}"/>
             <script type="text/javascript">
                 <cdk:scriptObject name="options">
-                    <cdk:scriptOption name="selectItemCss" value="#{concatClasses('rf-pick-sel', component.attributes['selectItemClass'])}" />
+                    <cdk:scriptOption name="itemCss" value="#{(empty itemClass) ? 'rf-pick-opt' : itemClass.toString()}" />
+                    <cdk:scriptOption name="selectItemCss" value="#{(empty selectItemClass) ? 'rf-pick-sel' : selectItemClass.toString()}" />
                     <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onblur onadditems onremoveitems onfocus orderable"
                                       wrapper="eventHandler" />
                     <cdk:scriptOption name="items" value="#{clientSelectItems}" />

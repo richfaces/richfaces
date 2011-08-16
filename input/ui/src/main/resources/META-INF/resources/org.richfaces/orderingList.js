@@ -42,7 +42,8 @@
         selectItemCss: "rf-ord-sel",
         listCss: "rf-ord-lst-cord",
         clickRequiredToSelect: true,
-        disabled : false
+        disabled : false,
+        hiddenId : null
     };
 
     $.extend(rf.ui.OrderingList.prototype, (function () {

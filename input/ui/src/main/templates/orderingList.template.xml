@@ -19,7 +19,8 @@
 
         <cdk:object type="java.lang.Object" name="disabled" value="#{component.attributes['disabled']}" />
         <cdk:object type="java.lang.Boolean" name="hasColumnChildren" value="#{hasColumnChildren(facesContext, component)}" />
-
+        <cdk:object name="itemClass" value="#{component.attributes['itemClass']}" />
+        <cdk:object name="selectItemClass" value="#{component.attributes['selectItemClass']}" />
 
         <div id="#{clientId}" class="#{concatClasses('rf-ord', component.attributes['styleClass'])}" style="#{component.attributes['style']}"
             cdk:passThrough="onclick:listclick ondblclick:listdblclick onmousedown:listmousedown onmouseup:listmouseup onmouseover:onlistmouseover 
@@ -27,7 +28,7 @@
             <table>
                 <tr>
                     <td>
-                        <div id="#{clientId}List" class="#{concatClasses('rf-ord-list', component.attributes['selectItemClass'])}">
+                        <div id="#{clientId}List" class="rf-ord-list">
                             <cdk:object type="java.lang.Object" name="caption" value="#{component.attributes['caption']}" />
                             <c:if test="#{! empty caption}">
                                 <div class="rf-ord-caption">
@@ -93,7 +94,8 @@
             <input type="hidden" id="#{clientId}SelValue" name="#{clientId}" value="#{hiddenValues}" disabled="#{disabled}"/>
             <script type="text/javascript">
                 <cdk:scriptObject name="options">
-                    <cdk:scriptOption name="selectItemCss" value="#{concatClasses('rf-ord-sel', component.attributes['selectItemClass'])}" />
+                    <cdk:scriptOption name="itemCss" value="#{(empty itemClass) ? 'rf-ord-opt' : itemClass.toString()}" />
+                    <cdk:scriptOption name="selectItemCss" value="#{(empty selectItemClass) ? 'rf-ord-sel' : selectItemClass.toString()}" />
                     <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onblur onadditems onremoveitems onfocus"
                         wrapper="eventHandler" />
                     <cdk:scriptOption name="items" value="#{clientSelectItems}" />

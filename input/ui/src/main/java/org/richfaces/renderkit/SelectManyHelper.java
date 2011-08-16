@@ -154,10 +154,9 @@ public class SelectManyHelper {
         writer.startElement(HtmlConstants.TR_ELEMENT, table);
         writer.writeAttribute("id", clientId, null);
         String itemCss;
-        if (!table.isDisabled()) {
-            itemCss = HtmlUtil.concatClasses(table.getItemClass(), defaultItemCss);
-        } else {
-            itemCss = HtmlUtil.concatClasses(table.getItemClass(), defaultItemCss, defaultItemCssDis);
+        itemCss = table.getItemClass() == null || table.getItemClass().isEmpty() ? defaultItemCss : table.getItemClass();
+        if (table.isDisabled()) {
+            itemCss = HtmlUtil.concatClasses(itemCss, defaultItemCssDis);
         }
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, itemCss, null);
 
@@ -213,11 +212,9 @@ public class SelectManyHelper {
                 writer.startElement(HtmlConstants.DIV_ELEM, component);
                 writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, itemClientId, null);
                 writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, clientSelectItem.getConvertedValue(), null);
-                String itemCss;
-                if (!select.isDisabled()) {
-                    itemCss = HtmlUtil.concatClasses(select.getItemClass(), defaultItemCss);
-                } else {
-                    itemCss = HtmlUtil.concatClasses(select.getItemClass(), defaultItemCss, defaultItemCssDis);
+                String itemCss = select.getItemClass() == null || select.getItemClass().isEmpty() ? defaultItemCss : select.getItemClass();
+                if (select.isDisabled()) {
+                    itemCss = HtmlUtil.concatClasses(itemCss, defaultItemCssDis);
                 }
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, itemCss, null);
                 String label = clientSelectItem.getLabel();
