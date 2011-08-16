@@ -11,6 +11,9 @@
 .my-select-class {
     font-weight: bold;
 }
+.out {
+    display: inline-block;
+}
 </style>
 </h:head>
 
@@ -39,14 +42,12 @@
                 <f:ajax execute="@form" render="pickList out" />
             </h:commandButton>
 
-            <div style="display: inline-block;">
-                <h:panelGroup id="out">
-                    <ui:repeat value="#{inputBean.values}" var="value">
-                        <h:outputText value="#{value}"/>
-                        <br/>
-                    </ui:repeat>
-                </h:panelGroup>
-            </div>
+            <h:panelGroup id="out" class="out">
+                <ui:repeat value="#{inputBean.values}" var="value">
+                    <h:outputText value="#{value}"/>
+                    <br/>
+                </ui:repeat>
+            </h:panelGroup>
         </h:form>
     </fieldset>
     <fieldset>
@@ -73,14 +74,12 @@
                 <f:ajax execute="@form" render="pickList out" />
             </h:commandButton>
 
-            <div style="display: inline-block;">
-                <h:panelGroup id="out">
-                    <ui:repeat value="#{inputBean.values}" var="value">
-                        <h:outputText value="#{value}"/>
-                        <br/>
-                    </ui:repeat>
-                </h:panelGroup>
-            </div>
+            <h:panelGroup id="out" class="out">
+                <ui:repeat value="#{inputBean.values}" var="value">
+                    <h:outputText value="#{value}"/>
+                    <br/>
+                </ui:repeat>
+            </h:panelGroup>
         </h:form>
     </fieldset>
     <fieldset>
@@ -109,14 +108,12 @@
                 <f:ajax execute="@form" render="pickList out" />
             </h:commandButton>
 
-            <div style="display: inline-block;">
-                <h:panelGroup id="out">
-                    <ui:repeat value="#{inputBean.values}" var="value">
-                        <h:outputText value="#{value}"/>
-                        <br/>
-                    </ui:repeat>
-                </h:panelGroup>
-            </div>
+            <h:panelGroup id="out" class="out">
+                <ui:repeat value="#{inputBean.values}" var="value">
+                    <h:outputText value="#{value}"/>
+                    <br/>
+                </ui:repeat>
+            </h:panelGroup>
         </h:form>
     </fieldset>
     <fieldset>
@@ -136,16 +133,14 @@
                 <f:ajax execute="@form" render="pickList out" />
             </h:commandButton>
 
-            <div style="display: inline-block;">
-                <h:panelGroup id="out">
-                    <ui:repeat value="#{richBean.values}" var="value">
-                        <h:outputText value="#{value}">
-                            <f:converter converterId="EntityBeanConverter" />
-                        </h:outputText>
-                        <br/>
-                    </ui:repeat>
-                </h:panelGroup>
-            </div>
+            <h:panelGroup id="out" class="out">
+                <ui:repeat value="#{richBean.values}" var="value">
+                    <h:outputText value="#{value}">
+                        <f:converter converterId="EntityBeanConverter" />
+                    </h:outputText>
+                    <br/>
+                </ui:repeat>
+            </h:panelGroup>
         </h:form>
     </fieldset>
     <fieldset>
@@ -165,16 +160,41 @@
                 <f:ajax execute="@form" render="pickList out" />
             </h:commandButton>
 
-            <div style="display: inline-block;">
-                <h:panelGroup id="out">
-                    <ui:repeat value="#{richBean.values}" var="value">
-                        <h:outputText value="#{value}">
-                            <f:converter converterId="EntityBeanConverter" />
-                        </h:outputText>
-                        <br/>
-                    </ui:repeat>
-                </h:panelGroup>
-            </div>
+            <h:panelGroup id="out" class="out">
+                <ui:repeat value="#{richBean.values}" var="value">
+                    <h:outputText value="#{value}">
+                        <f:converter converterId="EntityBeanConverter" />
+                    </h:outputText>
+                    <br/>
+                </ui:repeat>
+            </h:panelGroup>
+        </h:form>
+    </fieldset>
+    <fieldset>
+        <legend>PickList w/ my-select-class</legend>
+        <h:form>
+            <in:pickList id="pickList" value="#{richBean.values}" columnVar="item" sourceCaption="Source Items" targetCaption="Target Items" orderable="true" selectItemClass="my-select-class">
+                <f:selectItems value="#{entityBeanSelector.values}"/>
+                <f:converter converterId="EntityBeanConverter" />
+                <it:column>
+                    #{item.value}
+                </it:column>
+                <it:column>
+                    #{item.title}
+                </it:column>
+            </in:pickList>
+            <h:commandButton value="submit">
+                <f:ajax execute="@form" render="pickList out" />
+            </h:commandButton>
+
+            <h:panelGroup id="out" class="out">
+                <ui:repeat value="#{richBean.values}" var="value">
+                    <h:outputText value="#{value}">
+                        <f:converter converterId="EntityBeanConverter" />
+                    </h:outputText>
+                    <br/>
+                </ui:repeat>
+            </h:panelGroup>
         </h:form>
     </fieldset>
 </h:body>
