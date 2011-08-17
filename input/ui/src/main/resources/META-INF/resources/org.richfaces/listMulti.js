@@ -23,7 +23,7 @@
             name : "listMulti",
 
             getSelectedItems: function() {
-                return this.list.find("." + this.selectItemCss);;
+                return this.list.find("." + this.selectItemCssMarker);
             },
 
             removeSelectedItems: function() {

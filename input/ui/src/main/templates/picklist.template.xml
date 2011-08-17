@@ -19,8 +19,6 @@
 
         <cdk:object type="java.lang.Object" name="disabled" value="#{component.attributes['disabled']}" />
         <cdk:object type="java.lang.Boolean" name="hasColumnChildren" value="#{hasColumnChildren(facesContext, component)}" />
-        <cdk:object name="itemClass" value="#{component.attributes['itemClass']}" />
-        <cdk:object name="selectItemClass" value="#{component.attributes['selectItemClass']}" />
 
         <div id="#{clientId}" class="#{concatClasses('rf-pick', component.attributes['styleClass'])}" style="#{component.attributes['style']}"
              cdk:passThrough="onclick:listclick ondblclick:listdblclick onmousedown:listmousedown onmouseup:listmouseup onmouseover:onlistmouseover
@@ -168,8 +166,8 @@
             <script type="text/javascript">
                 <cdk:scriptObject name="options">
                     <cdk:scriptOption name="clientSelectItems" value="#{clientSelectItems}" />
-                    <cdk:scriptOption name="itemCss" value="#{(empty itemClass) ? 'rf-pick-opt' : itemClass.toString()}" />
-                    <cdk:scriptOption name="selectItemCss" value="#{(empty selectItemClass) ? 'rf-pick-sel' : selectItemClass.toString()}" />
+                    <cdk:scriptOption name="itemCss" value="#{concatClasses('rf-pick-opt', component.attributes['itemClass'])}" />
+                    <cdk:scriptOption name="selectItemCss" value="#{concatClasses('rf-pick-sel', component.attributes['selectItemClass'])}" />
                     <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onblur onadditems onremoveitems onfocus orderable"
                                       wrapper="eventHandler" />
                     <cdk:scriptOption attributes="disabled" />

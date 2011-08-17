@@ -150,13 +150,15 @@ public class SelectManyHelper {
 
         ResponseWriter writer = facesContext.getResponseWriter();
         String clientId = table.getClientId(facesContext);
-        writer.startElement(HtmlConstants.TR_ELEMENT, table);
         String itemClientId = clientId + "Item" + clientSelectItem.getSortOrder();
+        clientSelectItem.setClientId(itemClientId);
+        writer.startElement(HtmlConstants.TR_ELEMENT, table);
         writer.writeAttribute("id", itemClientId, null);
         String itemCss;
-        itemCss = table.getItemClass() == null || table.getItemClass().isEmpty() ? defaultItemCss : table.getItemClass();
-        if (table.isDisabled()) {
-            itemCss = HtmlUtil.concatClasses(itemCss, defaultItemCssDis);
+        if (!table.isDisabled()) {
+            itemCss = HtmlUtil.concatClasses(table.getItemClass(), defaultItemCss);
+        } else {
+            itemCss = HtmlUtil.concatClasses(table.getItemClass(), defaultItemCss, defaultItemCssDis);
         }
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, itemCss, null);
 
@@ -208,9 +210,11 @@ public class SelectManyHelper {
                 clientSelectItem.setClientId(itemClientId);
                 writer.startElement(HtmlConstants.DIV_ELEM, component);
                 writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, itemClientId, null);
-                String itemCss = select.getItemClass() == null || select.getItemClass().isEmpty() ? defaultItemCss : select.getItemClass();
-                if (select.isDisabled()) {
-                    itemCss = HtmlUtil.concatClasses(itemCss, defaultItemCssDis);
+                String itemCss;
+                if (!select.isDisabled()) {
+                    itemCss = HtmlUtil.concatClasses(select.getItemClass(), defaultItemCss);
+                } else {
+                    itemCss = HtmlUtil.concatClasses(select.getItemClass(), defaultItemCss, defaultItemCssDis);
                 }
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, itemCss, null);
                 String label = clientSelectItem.getLabel();

@@ -9,8 +9,9 @@
         this.list = $(document.getElementById(id));
         this.selectListener = mergedOptions.selectListener;
         this.selectItemCss = mergedOptions.selectItemCss;
+        this.selectItemCssMarker = mergedOptions.selectItemCss.split(" ", 1)[0];
         this.scrollContainer = $(mergedOptions.scrollContainer);
-        this.itemCss = mergedOptions.itemCss;
+        this.itemCss = mergedOptions.itemCss.split(" ", 1)[0]; // we only need one of the item css classes to identify the item
         this.listCss = mergedOptions.listCss;
         this.clickRequiredToSelect = mergedOptions.clickRequiredToSelect;
         this.index = -1;
@@ -98,7 +99,7 @@
             },
 
             isSelected: function(item) {
-                return item.hasClass(this.selectItemCss);
+                return item.hasClass(this.selectItemCssMarker);
             },
 
             selectItem: function(item) {
