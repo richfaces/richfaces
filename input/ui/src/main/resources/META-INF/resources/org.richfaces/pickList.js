@@ -105,11 +105,7 @@
             },
 
             encodeHiddenValues: function() {
-                var encoded = new Array();
-                this.targetList.__getItems().each(function( index ) {
-                    encoded.push($(this).attr('value'));
-                });
-                this.hiddenValues.val(encoded.join(","));
+                this.hiddenValues.val(this.targetList.csvEncodeValues());
             },
 
             toggleButtons: function() {

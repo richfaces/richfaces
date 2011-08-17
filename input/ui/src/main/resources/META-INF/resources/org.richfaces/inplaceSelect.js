@@ -10,7 +10,7 @@
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "Items")).parent()[0];
         this.popupList = new rf.ui.PopupList(id + "List", this, mergedOptions);
         this.list = this.popupList.__getList();
-        this.items = mergedOptions.items;
+        this.clientSelectItems = mergedOptions.clientSelectItems;
         this.selValueInput = $(document.getElementById(id + "selValue"));
         this.initialValue = this.selValueInput.val();
         this.listHandler = $(document.getElementById(id + "List"));
@@ -87,9 +87,9 @@
                 var item = this.list.currentSelectItem();
                 if (item) {
                     var index = this.list.getSelectedItemIndex();
-                    if (this.list.getItemByIndex(index).label == this.__getValue()) {
+                    var value = this.list.getClientSelectItemByIndex(index).value;
+                    if (value == this.__getValue()) {
                         this.savedIndex = index;
-                        var value = this.getItemValue(item);
                         this.saveItemValue(value);
                         this.list.__selectByIndex(this.savedIndex);
                     } else {
@@ -98,9 +98,8 @@
                 }
             },
             oncancel: function() {
-                var prevItem = this.list.getItemByIndex(this.savedIndex);
-                if (prevItem) {
-                    var value = this.getItemValue(prevItem);
+                var value = this.list.getClientSelectItemByIndex(this.savedIndex).value;
+                if (value) {
                     this.saveItemValue(value);
                     this.list.__selectByIndex(this.savedIndex);
                 } else {
@@ -120,8 +119,8 @@
                 }
             },
             processItem: function(item) {
-                var label = this.getItemLabel(item);
-                this.__setValue(label);
+                var value = $(item).data('clientSelectItem').value;
+                this.__setValue(value);
 
                 this.__setInputFocus();
                 this.__hidePopup();
@@ -132,26 +131,9 @@
 
                 this.invokeEvent.call(this, "selectitem", document.getElementById(this.id));
             },
-            findItemObject: function(item) {
-                var key = $(item).attr("id");
-                var itemObject;
-                $.each(this.items, function() {
-                    if (this.id == key) {
-                        itemObject = this;
-                        return false;
-                    }
-                });
-                return itemObject;
-            },
-            getItemValue: function(item) {
-                return this.findItemObject(item).value;
-            },
             saveItemValue: function(value) {
                 this.selValueInput.val(value);
 
-            },
-            getItemLabel: function(item) {
-                return this.findItemObject(item).label;
             },
             __isValueChanged: function() {
                 return (this.focusValue != this.selValueInput.val());
@@ -230,7 +212,8 @@
             },
             setValue: function(value) {
                 var item = this.list.__selectItemByValue();
-                this.__setValue(item.label);
+                var value = item.data('clientSelectItem').value;
+                this.__setValue(value);
                 this.save();
             },
             destroy: function() {

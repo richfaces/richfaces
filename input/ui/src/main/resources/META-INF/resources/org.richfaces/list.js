@@ -19,7 +19,14 @@
         this.lastMouseX = null;
         this.lastMouseY = null;
         bindEventHandlers.call(this);
-        this.__updateItemsList();
+        this.__updateItemsList(); // initialize this.items
+        if (mergedOptions.clientSelectItems !== null) {
+            var clientSelectItemsMap = [];
+            $.each(mergedOptions.clientSelectItems, function(i) {
+                clientSelectItemsMap[this.id] = this;
+            });
+            this.__storeClientSelectItems(this.items, clientSelectItemsMap);
+        }
     };
 
     rf.BaseComponent.extend(rf.ui.List);
@@ -28,7 +35,8 @@
     var defaultOptions = {
         clickRequiredToSelect: false,
         disabled : false,
-        selectListener : false
+        selectListener : false,
+        clientSelectItems : null
     };
 
     var bindEventHandlers = function () {
@@ -169,6 +177,12 @@
                 }
             },
 
+            getClientSelectItemByIndex: function(i) {
+                if (i >= 0 && i < this.items.length) {
+                    return $(this.items[i]).data('clientSelectItem');
+                }
+            },
+
             resetSelection: function() {
                 var item = this.currentSelectItem();
                 if (item) {
@@ -202,6 +216,14 @@
 
             __updateItemsList: function () {
                 return (this.items = this.list.find("." + this.itemCss));
+            },
+
+            __storeClientSelectItems: function(items, clientSelectItemsMap) {
+                items.each(function (i)  {
+                    var item = $(this);
+                    var id = item.attr("id");
+                    item.data('clientSelectItem', clientSelectItemsMap[id]);
+                })
             },
 
             __select: function(item, clickModified) {
@@ -268,16 +290,25 @@
             },
 
             __selectItemByValue: function(value) {
-                var item;
-                for (var i = 0; i < this.items.length; i++) {
-                    item = this.items[i];
-                    if (item.value == value) {
-                        this.__selectByIndex(i);
-                        return;
-                    }
-                }
+                var item = null;
                 this.resetSelection();
+                var that = this;
+                this.__getItems().each(function( i ) {
+                    if ($(this).data('clientSelectItem').value == value) {
+                        that.__selectByIndex(i);
+                        item = $(this);
+                        return false; //break
+                    }
+                });
                 return item;
+            },
+
+            csvEncodeValues: function() {
+                var encoded = new Array();
+                this.__getItems().each(function( index ) {
+                    encoded.push($(this).data('clientSelectItem').value);
+                });
+                return encoded.join(",");
             },
 
             __selectCurrent: function() {

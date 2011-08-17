@@ -131,7 +131,6 @@ public class SelectManyHelper {
         AbstractSelectManyComponent select = (AbstractSelectManyComponent) component;
         if (clientSelectItems != null && clientSelectItems.hasNext()) {
             String clientId = component.getClientId(facesContext);
-            int i = 0;
             Map<String, Object> requestMap = facesContext.getExternalContext().getRequestMap();
             Object oldColumnVar = requestMap.get(select.getColumnVar());
             while (clientSelectItems.hasNext()) {
@@ -152,15 +151,14 @@ public class SelectManyHelper {
         ResponseWriter writer = facesContext.getResponseWriter();
         String clientId = table.getClientId(facesContext);
         writer.startElement(HtmlConstants.TR_ELEMENT, table);
-        writer.writeAttribute("id", clientId, null);
+        String itemClientId = clientId + "Item" + clientSelectItem.getSortOrder();
+        writer.writeAttribute("id", itemClientId, null);
         String itemCss;
         itemCss = table.getItemClass() == null || table.getItemClass().isEmpty() ? defaultItemCss : table.getItemClass();
         if (table.isDisabled()) {
             itemCss = HtmlUtil.concatClasses(itemCss, defaultItemCssDis);
         }
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, itemCss, null);
-
-        writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, clientSelectItem.getConvertedValue(), null);
 
         String cellClassName = cssPrefix + "-cell";
 
@@ -204,14 +202,12 @@ public class SelectManyHelper {
         if (clientSelectItems != null && clientSelectItems.hasNext()) {
             ResponseWriter writer = facesContext.getResponseWriter();
             String clientId = component.getClientId(facesContext);
-            int i = 0;
             while (clientSelectItems.hasNext()) {
                 ClientSelectItem clientSelectItem = clientSelectItems.next();
-                String itemClientId = clientId + "Item" + (i++);
+                String itemClientId = clientId + "Item" + clientSelectItem.getSortOrder();
                 clientSelectItem.setClientId(itemClientId);
                 writer.startElement(HtmlConstants.DIV_ELEM, component);
                 writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, itemClientId, null);
-                writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, clientSelectItem.getConvertedValue(), null);
                 String itemCss = select.getItemClass() == null || select.getItemClass().isEmpty() ? defaultItemCss : select.getItemClass();
                 if (select.isDisabled()) {
                     itemCss = HtmlUtil.concatClasses(itemCss, defaultItemCssDis);

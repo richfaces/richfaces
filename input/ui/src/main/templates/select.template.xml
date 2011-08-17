@@ -60,7 +60,7 @@
             </div>
             <script type="text/javascript">
                 <cdk:scriptObject name="options">
-                    <cdk:scriptOption name="items" value="#{clientSelectItems}" />
+                    <cdk:scriptOption name="clientSelectItems" value="#{clientSelectItems}" />
                     <cdk:scriptOption name="itemCss" value="rf-sel-opt" />
                     <cdk:scriptOption name="selectItemCss"
                         value="#{concatClasses('rf-sel-sel', component.attributes['selectItemClass'])}" />

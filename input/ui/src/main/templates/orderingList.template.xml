@@ -94,11 +94,11 @@
             <input type="hidden" id="#{clientId}SelValue" name="#{clientId}" value="#{hiddenValues}" disabled="#{disabled}"/>
             <script type="text/javascript">
                 <cdk:scriptObject name="options">
+                    <cdk:scriptOption name="clientSelectItems" value="#{clientSelectItems}" />
                     <cdk:scriptOption name="itemCss" value="#{(empty itemClass) ? 'rf-ord-opt' : itemClass.toString()}" />
                     <cdk:scriptOption name="selectItemCss" value="#{(empty selectItemClass) ? 'rf-ord-sel' : selectItemClass.toString()}" />
                     <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onblur onadditems onremoveitems onfocus"
                         wrapper="eventHandler" />
-                    <cdk:scriptOption name="items" value="#{clientSelectItems}" />
                     <cdk:scriptOption attributes="disabled" />
                 </cdk:scriptObject>
                 new RichFaces.ui.OrderingList("#{clientId}", #{toScriptArgs(options)});
