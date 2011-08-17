@@ -223,7 +223,8 @@
                 items.each(function (i)  {
                     var item = $(this);
                     var id = item.attr("id");
-                    item.data('clientSelectItem', clientSelectItemsMap[id]);
+                    var clientSelectItem = clientSelectItemsMap[id];
+                    item.data('clientSelectItem', clientSelectItem);
                 })
             },
 

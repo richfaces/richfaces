@@ -259,7 +259,7 @@ public class SelectManyHelper {
             }
             ClientSelectItem clientSelectItem = SelectHelper.generateClientSelectItem(facesContext, select, selectItem, sortOrder, selected);
             clientSelectItems.add(clientSelectItem);
-            if (selected) {
+            if (!selected) {
                 count++;
             }
         }
