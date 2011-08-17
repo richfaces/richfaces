@@ -87,10 +87,11 @@
                 var item = this.list.currentSelectItem();
                 if (item) {
                     var index = this.list.getSelectedItemIndex();
-                    var value = this.list.getClientSelectItemByIndex(index).value;
-                    if (value == this.__getValue()) {
+                    var clientSelectItem = this.list.getClientSelectItemByIndex(index);
+                    var label = clientSelectItem.label;
+                    if (label == this.__getValue()) {
                         this.savedIndex = index;
-                        this.saveItemValue(value);
+                        this.saveItemValue(clientSelectItem.value);
                         this.list.__selectByIndex(this.savedIndex);
                     } else {
                         this.list.__selectItemByValue(this.getValue());
@@ -119,8 +120,8 @@
                 }
             },
             processItem: function(item) {
-                var value = $(item).data('clientSelectItem').value;
-                this.__setValue(value);
+                var label = $(item).data('clientSelectItem').label;
+                this.__setValue(label);
 
                 this.__setInputFocus();
                 this.__hidePopup();
@@ -212,8 +213,8 @@
             },
             setValue: function(value) {
                 var item = this.list.__selectItemByValue();
-                var value = item.data('clientSelectItem').value;
-                this.__setValue(value);
+                var clientSelectItem = item.data('clientSelectItem');
+                this.__setValue(clientSelectItem.label);
                 this.save();
             },
             destroy: function() {
