@@ -37,10 +37,11 @@
         listEventHandlers["listhide" + this.namespace] = $.proxy(this.__listhideHandler, this);
         rf.Event.bind(this.input, listEventHandlers, this);
 
+        this.originalItems = this.list.__getItems();
         this.enableManualInput = mergedOptions.enableManualInput;
 
-        if (this.list.length() > 0 && this.enableManualInput) {
-            this.cache = new rf.utils.Cache("", this.list.__getItems(), getData, true);
+        if (this.originalItems.length > 0 && this.enableManualInput) {
+            this.cache = new rf.utils.Cache("", this.originalItems, getData, true);
         }
         this.changeDelay = mergedOptions.changeDelay;
     };
@@ -212,7 +213,7 @@
             },
 
             __updateItemsFromCache: function(value) {
-                if (this.list.length() > 0 && this.enableManualInput) {
+                if (this.originalItems.length > 0 && this.enableManualInput) {
                     var newItems = this.cache.getItems(value);
                     var items = $(newItems);
                     this.list.__setItems(items);
