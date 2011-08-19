@@ -156,12 +156,6 @@ public abstract class AbstractSelectManyComponent extends UISelectMany {
     @Attribute(events = @EventName("listkeyup"))
     public abstract String getOnlistkeyup();
 
-    @Attribute(events = @EventName("additems"))
-    public abstract String getOnadditem();
-
-    @Attribute(events = @EventName("removeitems"))
-    public abstract String getOnremoveitem();
-
     /**
      * Override the validateValue of SelectMany in cases where the component implements SelectItemsInterface
      *

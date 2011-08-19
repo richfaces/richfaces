@@ -97,7 +97,7 @@
                     <cdk:scriptOption name="clientSelectItems" value="#{clientSelectItems}" />
                     <cdk:scriptOption name="itemCss" value="#{concatClasses('rf-ord-opt', component.attributes['itemClass'])}" />
                     <cdk:scriptOption name="selectItemCss" value="#{concatClasses('rf-ord-sel', component.attributes['selectItemClass'])}" />
-                    <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onblur onadditems onremoveitems onfocus"
+                    <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onblur onfocus"
                         wrapper="eventHandler" />
                     <cdk:scriptOption attributes="disabled" />
                 </cdk:scriptObject>

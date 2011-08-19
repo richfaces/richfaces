@@ -97,4 +97,11 @@ public abstract class AbstractPickList extends AbstractOrderingComponent {
 
     @Attribute(events = @EventName("targetkeyup"))
     public abstract String getOntargetkeyup();
+
+    @Attribute(events = @EventName("additems"))
+    public abstract String getOnadditems();
+
+    @Attribute(events = @EventName("removeitems"))
+    public abstract String getOnremoveitems();
+
 }
