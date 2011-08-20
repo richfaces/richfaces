@@ -28,6 +28,7 @@
                     <td>
                         <div id="#{clientId}Source">
                             <div id="#{clientId}SourceList" class="rf-pick-source">
+                                <input id="#{clientId}SourceListFocusKeeper" type="button" value="" style="width: 1px; position: absolute; left: -32767px;" />
                                 <cdk:object type="java.lang.Object" name="sourceCaption" value="#{component.attributes['sourceCaption']}" />
                                 <c:if test="#{! empty sourceCaption}">
                                     <div class="rf-pick-source-caption">
@@ -94,6 +95,7 @@
                                 <td>
                                     <div>
                                         <div id="#{clientId}TargetList" class="rf-pick-target">
+                                            <input id="#{clientId}TargetListFocusKeeper" type="button" value="" style="width: 1px; position: absolute; left: -32767px;" />
                                             <cdk:object type="java.lang.Object" name="targetCaption" value="#{component.attributes['targetCaption']}" />
                                             <c:if test="#{! empty targetCaption}">
                                                 <div class="rf-pick-target-caption">
@@ -167,8 +169,9 @@
                 <cdk:scriptObject name="options">
                     <cdk:scriptOption name="clientSelectItems" value="#{clientSelectItems}" />
                     <cdk:scriptOption name="itemCss" value="#{concatClasses('rf-pick-opt', component.attributes['itemClass'])}" />
+                    <cdk:scriptOption name="orderable" value="#{component.attributes['orderable']}" />
                     <cdk:scriptOption name="selectItemCss" value="#{concatClasses('rf-pick-sel', component.attributes['selectItemClass'])}" />
-                    <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onblur onadditems onremoveitems onfocus orderable"
+                    <cdk:scriptOption attributes="onbegin oncomplete onerror onbeforedomupdate onchange onblur onadditems onremoveitems onfocus"
                                       wrapper="eventHandler" />
                     <cdk:scriptOption attributes="disabled" />
                 </cdk:scriptObject>

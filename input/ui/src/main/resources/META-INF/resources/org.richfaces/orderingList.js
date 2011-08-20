@@ -30,6 +30,8 @@
         rf.Event.bind(this.list, "selectItem", $.proxy(this.toggleButtons, this));
         rf.Event.bind(this.list, "unselectItem", $.proxy(this.toggleButtons, this));
 
+        rf.Event.bind(this.list, "keydown" + this.list.namespace, $.proxy(this.__keydownHandler, this));
+
         // TODO: Is there a "Richfaces way" of executing a method after page load?
         $(document).ready($.proxy(this.toggleButtons, this));
     };
@@ -60,7 +62,44 @@
             },
 
             __focusHandler: function(e) {
-                alert("focus");
+            },
+
+            __keydownHandler: function(e) {
+                if (e.isDefaultPrevented()) return;
+                if (! e.metaKey) return;
+
+                var code;
+                if (e.keyCode) {
+                    code = e.keyCode;
+                } else if (e.which) {
+                    code = e.which;
+                }
+
+                switch (code) {
+                    case rf.KEYS.DOWN:
+                        e.preventDefault();
+                        this.down();
+                        break;
+
+                    case rf.KEYS.UP:
+                        e.preventDefault();
+                        this.up();
+                        break;
+
+                    case rf.KEYS.HOME:
+                        e.preventDefault();
+                        this.upTop();
+                        break;
+
+                    case rf.KEYS.END:
+                        e.preventDefault();
+                        this.downBottom();
+                        break;
+
+                    default:
+                        break;
+                }
+                return;
             },
 
             up: function() {
@@ -90,7 +129,12 @@
             },
 
             encodeHiddenValues: function() {
-                this.hiddenValues.val(this.list.csvEncodeValues());
+                var oldHiddenValues = this.hiddenValues.val();
+                var newHiddenValues = this.list.csvEncodeValues();
+                if (oldHiddenValues !== newHiddenValues)  {
+                    this.hiddenValues.val(this.list.csvEncodeValues());
+                    this.invokeEvent.call(this, "change", document.getElementById(this.id));
+                }
             },
 
             toggleButtons: function() {

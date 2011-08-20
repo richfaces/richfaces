@@ -8,6 +8,7 @@
         this.getInput().bind("click", $.proxy(this.__clickHandler, this));
         mergedOptions['attachTo'] = id;
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "Items")).parent()[0];
+        mergedOptions['focusKeeperEnabled'] = false;
         this.popupList = new rf.ui.PopupList(id + "List", this, mergedOptions);
         this.list = this.popupList.__getList();
         this.clientSelectItems = mergedOptions.clientSelectItems;

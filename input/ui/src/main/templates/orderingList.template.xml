@@ -29,6 +29,7 @@
                 <tr>
                     <td>
                         <div id="#{clientId}List" class="rf-ord-list">
+                            <input id="#{clientId}ListFocusKeeper" type="button" value="" style="width: 1px; position: absolute; left: -32767px;" />
                             <cdk:object type="java.lang.Object" name="caption" value="#{component.attributes['caption']}" />
                             <c:if test="#{! empty caption}">
                                 <div class="rf-ord-caption">

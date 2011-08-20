@@ -7,7 +7,7 @@
         var mergedOptions = $.extend({}, defaultOptions, options);
         mergedOptions['attachTo'] = id;
         mergedOptions['scrollContainer'] = $(document.getElementById(id + "Items")).parent()[0];
-
+        mergedOptions['focusKeeperEnabled'] = false;
         $super.constructor.call(this, id, mergedOptions);
 
         this.options = mergedOptions;

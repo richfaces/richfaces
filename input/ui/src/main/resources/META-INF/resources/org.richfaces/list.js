@@ -4,7 +4,6 @@
 
     rf.ui.List = function(id, options) {
         $super.constructor.call(this, id);
-        this.namespace = this.namespace || "." + rf.Event.createNamespace(this.name, id);
         var mergedOptions = $.extend({}, defaultOptions, options);
         this.list = $(document.getElementById(id));
         this.selectListener = mergedOptions.selectListener;
@@ -17,9 +16,17 @@
         this.index = -1;
         this.disabled = mergedOptions.disabled;
 
+        this.focusKeeper = $(document.getElementById(id + "FocusKeeper"));
+        this.focusKeeper.focused = false;
+
         this.lastMouseX = null;
         this.lastMouseY = null;
+
         bindEventHandlers.call(this);
+        if (mergedOptions.focusKeeperEnabled) {
+            bindFocusEventHandlers.call(this);
+        }
+
         this.__updateItemsList(); // initialize this.items
         if (mergedOptions.clientSelectItems !== null) {
             var clientSelectItemsMap = [];
@@ -30,25 +37,34 @@
         }
     };
 
-    rf.BaseComponent.extend(rf.ui.List);
+    rf.ui.InputBase.extend(rf.ui.List);
     var $super = rf.ui.List.$super;
 
     var defaultOptions = {
         clickRequiredToSelect: false,
         disabled : false,
         selectListener : false,
-        clientSelectItems : null
+        clientSelectItems : null,
+        focusKeeperEnabled : true
     };
 
     var bindEventHandlers = function () {
         var handlers = {};
-        handlers["click" + this.namespace] = onClick;
+        handlers["click" + this.namespace] = $.proxy(this.onClick, this);
         handlers["mouseover" + this.namespace] = onMouseOver;
         if (!$.browser.msie && !$.browser.opera) {
             handlers["mouseenter" + this.namespace] = onMouseEnter;
             handlers["mouseleave" + this.namespace] = onMouseLeave;
         }
         rf.Event.bind(this.list, handlers, this);
+    };
+
+    var bindFocusEventHandlers = function () {
+        var focusEventHandlers = {};
+        focusEventHandlers[($.browser.opera || $.browser.mozilla ? "keypress" : "keydown") + this.namespace] = $.proxy(this.__keydownHandler, this);
+        focusEventHandlers["blur" + this.namespace] = $.proxy(this.__blurHandler, this);
+        focusEventHandlers["focus" + this.namespace] = $.proxy(this.__focusHandler, this);
+        rf.Event.bind(this.focusKeeper, focusEventHandlers, this);
     };
 
     var onMouseLeave = function(e) {
@@ -74,15 +90,6 @@
             if (item && !this.clickRequiredToSelect && !this.disabled) {
                 this.__select(item);
             }
-        }
-    };
-
-    var onClick = function(e) {
-        var item = this.__getItem(e);
-        this.processItem(item);
-        var clickModified = e.metaKey;
-        if (!this.disabled) {
-            this.__select(item, clickModified && this.clickRequiredToSelect);
         }
     };
 
@@ -118,6 +125,64 @@
                 } else {
                     item.removeClass(this.selectItemCss);
                     rf.Event.fire(this, "unselectItem", item);
+                }
+            },
+
+            __blurHandler: function(e) {
+                if (!this.isMouseDown) {
+                    var that = this;
+                    this.timeoutId = window.setTimeout(function() {
+                        that.invokeEvent.call(that, "blur", document.getElementById(that.id), e);
+                    }, 200);
+                } else {
+                    this.isMouseDown = false;
+                }
+            },
+
+            __keydownHandler: function(e) {
+                if (e.isDefaultPrevented()) return;
+                if (e.metaKey) return;
+
+                var code;
+                if (e.keyCode) {
+                    code = e.keyCode;
+                } else if (e.which) {
+                    code = e.which;
+                }
+
+                switch (code) {
+                    case rf.KEYS.DOWN:
+                        e.preventDefault();
+                        this.__selectNext();
+                        break;
+
+                    case rf.KEYS.UP:
+                        e.preventDefault();
+                        this.__selectPrev();
+                        break;
+
+                    case rf.KEYS.HOME:
+                        e.preventDefault();
+                        this.__selectByIndex(0);
+                        break;
+
+                    case rf.KEYS.END:
+                        e.preventDefault();
+                        this.__selectByIndex(this.items.length - 1);
+                        break;
+
+                    default:
+                        break;
+                }
+            },
+
+            onClick: function(e) {
+                this.setFocus();
+                var item = this.__getItem(e);
+                this.processItem(item);
+                var clickModified = e.metaKey;
+                if (!this.disabled) {
+                    this.__select(item, clickModified && this.clickRequiredToSelect);
                 }
             },
 
@@ -167,6 +232,7 @@
                     } else {
                         $(this).insertAfter(existingItem);
                     }
+                    that.index = that.index + step;
                     that.__updateItemsList();
                 });
                 rf.Event.fire(this, "moveitems", items);
@@ -369,7 +435,13 @@
                         }
                     }
                 }
-            }
+            },
+
+            setFocus : function() {
+    		    this.focusKeeper.focus();
+	    	    this.focusKeeper.focused = true;
+	        }
+
         }
     })());
 
