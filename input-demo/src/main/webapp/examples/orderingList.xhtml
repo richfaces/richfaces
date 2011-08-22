@@ -63,7 +63,7 @@
     <fieldset>
         <legend>OrderingList - disabled</legend>
         <h:form>
-            <in:orderingList id="orderingList" value="#{richBean.values}" columnVar="item" disabled="true">
+            <in:orderingList id="orderingList" value="#{richBean.values}" columnVar="item" disabled="true" disabledClass="someDisabledClass">
                 <f:converter converterId="EntityBeanConverter" />
                 <it:column>
                     #{item.value}
