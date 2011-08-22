@@ -397,11 +397,19 @@ public class SelectManyHelper {
         // Ensure that if the value is noSelection and a
         // value is required, a message is queued
         if (select.isRequired()) {
-            for (Iterator i = getValuesIterator(value); i.hasNext();) {
-                Object convertedValue = InputUtils.getConvertedStringValue(facesContext, select, i.next());
-                if (valueIsNoSelectionOption(clientSelectItems, convertedValue)) {
-                    doAddMessage = true;
-                    break;
+            Iterator i = getValuesIterator(value);
+            if (! i.hasNext()) {
+                FacesMessage message = ServiceTracker.getService(MessageFactory.class)
+                        .createMessage(facesContext, FacesMessages.UIINPUT_REQUIRED, MessageUtil.getLabel(facesContext, select));
+                facesContext.addMessage(select.getClientId(facesContext), message);
+                select.setValid(false);
+            } else {
+                while (i.hasNext()) {
+                    Object convertedValue = InputUtils.getConvertedStringValue(facesContext, select, i.next());
+                    if (valueIsNoSelectionOption(clientSelectItems, convertedValue)) {
+                        doAddMessage = true;
+                        break;
+                    }
                 }
             }
         }
