@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+	<p>That sample shows the <b>rich:extenedDataTable</b> sorting
+	example. Actually if you will just look into the code you will see that
+	it's completely similar to <b>rich:dataTable</b> one because both
+	tables follows completely the same rules for sorting definition.</p>
+	<p>Besides that demo shows addition of sorting icons (manual for
+	now) and switching between multiple and single sorting.</p>
+	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+		<ui:param name="sourceType" value="xhtml" />
+		<ui:param name="openLabel" value="View Source" />
+		<ui:param name="hideLabel" value="Hide Source" />
+	</ui:include>
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src"
+			value="/WEB-INF/src/org/richfaces/demo/tables/CarsSortingBean.java" />
+		<ui:param name="sourceType" value="java" />
+		<ui:param name="openLabel" value="View CarsSortingBean Source" />
+		<ui:param name="hideLabel" value="Hide CarsSortingBean Source" />
+	</ui:include>
+	<p>Multiple selection in that sample follows very simple rules.
+	Next column added to sorting just clarifies sorting criteria. If you
+	need some other column to become main sorting property - reset sorting
+	from the beginning.</p>
+
+</ui:composition>
+
+</html>

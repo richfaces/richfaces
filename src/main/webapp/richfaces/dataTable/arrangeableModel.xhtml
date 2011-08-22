@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+    <p>
+        That sample shows you <b>ArrangeableModel </b>implementation in order to perform in-db sorting filtering and paging of
+        the data
+    </p>
+
+    <p>
+        While exploring sources pay most attention to <b>JPADataModel </b>which is actually generic abstract model which have
+        most of the functionality implemented.
+    </p>
+
+    <p>
+        <b>PersonBean </b>provides the sorting/filtering controller and instantiates concrete model for Person entity
+    </p>
+
+    <p>We using JPA and Hibernate entity manager in order to work with the db.</p>
+    <ui:include src="#{demoNavigator.sampleIncludeURI}" />
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View Page Source" />
+        <ui:param name="hideLabel" value="Hide Page Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/richfaces/dataTable/samples/jpaColumn.xhtml" />
+        <ui:param name="sourceType" value="xhtml" />
+        <ui:param name="openLabel" value="View jpaColumn.xhtml Source" />
+        <ui:param name="hideLabel" value="Hide jpaColumn.xhtml Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/arrangeablemodel/JPADataModel.java" />
+        <ui:param name="sourceType" value="java" />
+        <ui:param name="openLabel" value="View JPADataModel Source" />
+        <ui:param name="hideLabel" value="Hide JPADataModel Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/arrangeablemodel/PersonBean.java" />
+        <ui:param name="sourceType" value="java" />
+        <ui:param name="openLabel" value="View PersonBean Source" />
+        <ui:param name="hideLabel" value="Hide PersonBean Source" />
+    </ui:include>
+    <ui:include src="/templates/includes/source-view.xhtml">
+        <ui:param name="src" value="/WEB-INF/src/org/richfaces/demo/arrangeablemodel/Person.java" />
+        <ui:param name="sourceType" value="java" />
+        <ui:param name="openLabel" value="View Person Source" />
+        <ui:param name="hideLabel" value="Hide Person Source" />
+    </ui:include>
+</ui:composition>
+</html>

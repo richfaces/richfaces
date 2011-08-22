@@ -3,9 +3,7 @@ package org.richfaces.demo.fileupload;
 import java.io.Serializable;
 
 public class UploadedImage implements Serializable {
-
     private static final long serialVersionUID = -8192553629588066292L;
-
     private String name;
     private String mime;
     private long length;

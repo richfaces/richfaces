@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition>
+	<p><b>rich:autocomplete</b> component could be used to show complex
+	popups with suggestions. You need to remember next points to use it in
+	that way:</p>
+	<ul>
+		<li>Passing custom objects instead of just String's to list
+		requires you to define <b>var</b> attribute (similar as using table
+		components). That variable will be used while iterating the
+		suggestions and encoding the popup using your custom layout.</li>
+		<li>As it was just mentioned you're responsible for popup markup
+		definition in that case and should use nested components for that.</li>
+		<li>Type of the layout encoded using nested components should be
+		defined using <b>layout</b> attribute. Possible values are <i>'list'</i>
+		(suggestions wrapped to HTML unordered list), <i>'div'</i> (default
+		one, suggestions wrapped with just div element) and <i>'table'</i>
+		(suggestions are encoded as table rows, columns definition required in
+		that case).</li>
+		<li>Using <b>fetchValue</b> attribute you should define the
+		String which should be inserted to input after some row get selected.
+		If not defined just your object <b>toString()</b> method used.</li>
+	</ul>
+	<ui:include src="#{demoNavigator.sampleIncludeURI}" />
+	<ui:include src="/templates/includes/source-view.xhtml">
+		<ui:param name="src" value="#{demoNavigator.sampleIncludeURI}" />
+		<ui:param name="sourceType" value="xhtml" />
+		<ui:param name="openLabel" value="View Source" />
+		<ui:param name="hideLabel" value="Hide Source" />
+	</ui:include>
+	<fieldset><legend><b>Note:</b></legend> <i>Both samples
+	are using <b>autocompleteList</b> to populate data, however it will
+	works the same for <b>autocompleteMethod</b> too.</i></fieldset>
+
+</ui:composition>
+
+</html>

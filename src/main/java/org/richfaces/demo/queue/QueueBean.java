@@ -9,7 +9,7 @@ import javax.faces.bean.ViewScoped;
 @ViewScoped
 public class QueueBean implements Serializable {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 7503791626510224913L;
     private Long requestDelay = new Long(500);
@@ -61,5 +61,4 @@ public class QueueBean implements Serializable {
     public void setEvents(int events) {
         this.events = events;
     }
-
 }

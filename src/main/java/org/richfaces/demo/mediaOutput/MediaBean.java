@@ -26,22 +26,15 @@ import javax.faces.context.FacesContext;
 public class MediaBean {
     private static final String RICHFACES_MEDIA_OUTPUT_IMAGE_SOURCE = "/richfaces/mediaOutput/image/source.png";
     private static final int BUFFER_SIZE = 8192;
-
     private Color[] colors;
     private boolean isIndexed = false;
-
     private Charset asciiCharset = Charset.forName("US-ASCII");
-
     private int sectionLength;
-
     private int imageWidth;
-
     private byte[] lengthBytes = new byte[4];
-
     private byte[] chunkTypeBytes = new byte[4];
 
     private class Section {
-
         protected void writeHeaderSectionData(OutputStream outChannel) throws IOException {
             outChannel.write(lengthBytes);
             outChannel.write(chunkTypeBytes);
@@ -79,10 +72,11 @@ public class MediaBean {
             writeHeaderSectionData(outChannel);
             writeSectionData(inChannel, outChannel);
         }
-    };
+    }
+
+    ;
 
     private class HeaderSection extends Section {
-
         @Override
         protected void writeSectionData(InputStream inChannel, OutputStream outChannel) throws IOException {
             // // Width 4 bytes
@@ -120,8 +114,9 @@ public class MediaBean {
 
             outChannel.write(crc);
         }
+    }
 
-    };
+    ;
 
     private void transformColors(byte[] data, int offset, int length) {
         float[] intensities = new float[3];
@@ -182,10 +177,11 @@ public class MediaBean {
                 writeInt(outChannel, (int) crc32.getValue());
             }
         }
-    };
+    }
+
+    ;
 
     private class LimitedInputStream extends FilterInputStream {
-
         private int remaining;
 
         protected LimitedInputStream(InputStream inChannel) {
@@ -253,10 +249,11 @@ public class MediaBean {
 
             return skipped;
         }
-    };
+    }
+
+    ;
 
     private class DataSection extends Section {
-
         private byte paeth(byte a, byte b, byte c) {
             int p = (a & 0xFF) + (b & 0xFF) - (c & 0xFF);
             int pa = Math.abs(p - a);
@@ -274,20 +271,19 @@ public class MediaBean {
             }
 
             return (byte) pr;
-        };
+        }
+
+        ;
 
         private class Filter {
             protected int idx;
             byte a = 0;
             byte b = 0;
             byte c = 0;
-
             byte oa = 0;
             byte ob = 0;
             byte oc = 0;
-
             int step = 3;
-
             byte[] bs;
             byte[] ps;
 
@@ -309,7 +305,9 @@ public class MediaBean {
                 idx = idx + step;
                 setIdx(idx);
             }
-        };
+        }
+
+        ;
 
         private class SubFilter extends Filter {
             @Override
@@ -317,7 +315,9 @@ public class MediaBean {
                 bs[idx] = (byte) ((bs[idx] & 0xFF) + (a & 0xFF) - (oa & 0xFF));
                 setIdx(idx + step);
             }
-        };
+        }
+
+        ;
 
         private class UpFilter extends Filter {
             @Override
@@ -325,7 +325,9 @@ public class MediaBean {
                 bs[idx] = (byte) ((bs[idx] & 0xFF) + (b & 0xFF) - (ob & 0xFF));
                 setIdx(idx + step);
             }
-        };
+        }
+
+        ;
 
         private class PaethFilter extends Filter {
             @Override
@@ -385,8 +387,8 @@ public class MediaBean {
 
                 int read = 0;
 
-                InputStream inflaterInputStream = new BufferedInputStream(new InflaterInputStream(
-                    new LimitedInputStream(inChannel), new Inflater(), 2048), BUFFER_SIZE);
+                InputStream inflaterInputStream = new BufferedInputStream(new InflaterInputStream(new LimitedInputStream(
+                        inChannel), new Inflater(), 2048), BUFFER_SIZE);
                 ByteArrayOutputStream baos = new ByteArrayOutputStream(sectionLength);
                 DeflaterOutputStream deflaterOutputStream = new DeflaterOutputStream(baos, new Deflater(), 2048);
 
@@ -419,8 +421,9 @@ public class MediaBean {
                 writeInt(outChannel, (int) crc32.getValue());
             }
         }
+    }
 
-    };
+    ;
 
     private Section readNextSection(InputStream inChannel) throws IOException {
         int read = inChannel.read(lengthBytes);
@@ -455,8 +458,8 @@ public class MediaBean {
         colors = ((MediaData) data).getNewColors();
 
         ExternalContext extContext = FacesContext.getCurrentInstance().getExternalContext();
-        BufferedInputStream inStream = new BufferedInputStream(extContext
-            .getResourceAsStream(RICHFACES_MEDIA_OUTPUT_IMAGE_SOURCE), BUFFER_SIZE);
+        BufferedInputStream inStream = new BufferedInputStream(
+                extContext.getResourceAsStream(RICHFACES_MEDIA_OUTPUT_IMAGE_SOURCE), BUFFER_SIZE);
         try {
             // skip 8-bytes of header
             byte[] bs = new byte[8];

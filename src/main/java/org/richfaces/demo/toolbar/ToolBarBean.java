@@ -7,7 +7,7 @@ import javax.faces.bean.ViewScoped;
 
 @ManagedBean
 @ViewScoped
-public class ToolBarBean implements Serializable{
+public class ToolBarBean implements Serializable {
     private String groupSeparator;
     private String groupItemSeparator;
 
@@ -26,5 +26,4 @@ public class ToolBarBean implements Serializable{
     public void setGroupSeparator(String groupSeparator) {
         this.groupSeparator = groupSeparator;
     }
-
 }

@@ -37,7 +37,6 @@ public class AutocompleteBean {
             for (int i = 0; i < 10; i++) {
                 result.add(capitals.get(i).getState());
             }
-
         } else {
             Iterator<Capital> iterator = capitals.iterator();
             while (iterator.hasNext()) {
@@ -66,6 +65,10 @@ public class AutocompleteBean {
 
     public void setAutocompleteList(List<String> autocompleteList) {
         this.autocompleteList = autocompleteList;
+    }
+
+    public List<Capital> getCapitals() {
+        return capitals;
     }
 
     public void setCapitals(List<Capital> capitals) {

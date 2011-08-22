@@ -2,9 +2,9 @@ package org.richfaces.demo.tables.model.cars;
 
 import java.io.Serializable;
 
-public class InventoryItem extends InventoryVendorItem implements Serializable{
+public class InventoryItem extends InventoryVendorItem implements Serializable {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 2052446469750935597L;
     private String vendor;

@@ -1,55 +1,58 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:a4j="http://richfaces.org/a4j">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j">
 <f:view contentType="text/html">
-<h:head>
-<title>RichFaces Showcase</title>
-<script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-7306415-4']);
-  _gaq.push(['_trackPageview']);
+    <h:head>
+        <title>RichFaces Showcase</title>
+        <h:outputScript>
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-7306415-4']);
+            _gaq.push(['_trackPageview']);
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-</script>	
-<h:outputStylesheet library="css" name="application.css"/>	
-</h:head>
-<h:body>
-    <div id="page">
-        <div id="header">
-            <a href="#" class="logo"><img src="#{facesContext.externalContext.requestContextPath}/images/rf-logo.png" alt="RF logo"/></a>
-            <div class="right-controls">
-                <ul class="top-links layout">
-                    <li><a href="http://jboss.org/richfaces" target="_blank">Project Site</a></li>
-                    <li><a href="http://www.jboss.org/community/wiki/richfaceswikihomepage" target="_blank">Project Wiki</a></li>
-                    <li><a href="http://community.jboss.org/community/richfaces" target="_blank">RichFaces Community Space</a></li>
-                    <li class="download-link"><a href="http://jboss.org/richfaces/download/stable.html" target="_blank">Download</a></li>
-                    <li class="last"><a href="http://anonsvn.jboss.org/repos/richfaces/trunk/examples/richfaces-showcase/" target="_blank">Sources</a></li>
-                </ul>
-                <ui:include src="/templates/includes/skin-chooser.xhtml" />
+            (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </h:outputScript>
+        <h:outputStylesheet library="css" name="application.css" />
+    </h:head>
+    <h:body>
+        <div id="page">
+            <div id="header">
+                <a href="#" class="logo"><img src="#{facesContext.externalContext.requestContextPath}/images/rf-logo.png"
+                    alt="RF logo" /> </a>
+
+                <div class="right-controls">
+                    <ul class="top-links layout">
+                        <li><a href="http://jboss.org/richfaces" target="_blank">Project Site</a></li>
+                        <li><a href="http://www.jboss.org/community/wiki/richfaceswikihomepage" target="_blank">Project
+                                Wiki</a>
+                        </li>
+                        <li><a href="http://community.jboss.org/community/richfaces" target="_blank">RichFaces
+                                Community Space</a></li>
+                        <li class="download-link"><a href="http://jboss.org/richfaces/download/stable.html" target="_blank">Download</a>
+                        </li>
+                        <li class="last"><a
+                            href="http://anonsvn.jboss.org/repos/richfaces/trunk/examples/richfaces-showcase/" target="_blank">Sources</a>
+                        </li>
+                    </ul>
+                    <ui:include src="/templates/includes/skin-chooser.xhtml" />
+                </div>
             </div>
-        </div>
-        <div id="page-content">
-            <div class="left-menu">
-				<ui:include src="/templates/includes/navigation.xhtml" />
+            <div id="page-content">
+                <div class="left-menu">
+                    <ui:include src="/templates/includes/navigation.xhtml" />
+                </div>
+                <div class="content-container">
+                    <ui:insert name="body">
+                        Body content missed
+                    </ui:insert>
+                </div>
+                <div class="clear"></div>
             </div>
-            <div class="content-container">
-				<ui:insert name="body">
-				     	Body content missed
-				</ui:insert>
-            </div>
-            <div class="clear"></div>
+            <div id="footer">#{a4j}</div>
         </div>
-        <div id="footer">
-				#{a4j}
-        </div>
-    </div>
-</h:body> 
+    </h:body>
 </f:view>
 </html>

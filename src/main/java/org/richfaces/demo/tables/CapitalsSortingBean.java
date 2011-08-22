@@ -12,9 +12,8 @@ import org.richfaces.demo.tables.model.capitals.Capital;
 @ManagedBean
 @ViewScoped
 public class CapitalsSortingBean implements Serializable {
-
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -6237417487105926855L;
     private static final String TIMEZONE_GMT_SEPARATOR = "-";
@@ -54,7 +53,6 @@ public class CapitalsSortingBean implements Serializable {
 
     public Comparator<Capital> getTimeZoneComparator() {
         return new Comparator<Capital>() {
-
             public int compare(Capital o1, Capital o2) {
                 int tz1Int = Integer.valueOf(o1.getTimeZone().split(TIMEZONE_GMT_SEPARATOR)[1]);
                 int tz2Int = Integer.valueOf(o2.getTimeZone().split(TIMEZONE_GMT_SEPARATOR)[1]);
@@ -93,5 +91,4 @@ public class CapitalsSortingBean implements Serializable {
     public void setTimeZonesOrder(SortOrder timeZonesOrder) {
         this.timeZonesOrder = timeZonesOrder;
     }
-
 }
