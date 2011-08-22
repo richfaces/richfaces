@@ -24,16 +24,16 @@ public abstract class AbstractPickList extends AbstractOrderingComponent {
     @Attribute
     public abstract String getTargetCaption();
 
-    @Attribute(defaultValue = ">> Add all")
+    @Attribute(defaultValue = "⇒ Add all")
     public abstract String getAddAllText();
 
-    @Attribute(defaultValue = "> Add")
+    @Attribute(defaultValue = "→ Add")
     public abstract String getAddText();
 
-    @Attribute(defaultValue = "< Remove")
+    @Attribute(defaultValue = "← Remove")
     public abstract String getRemoveText();
 
-    @Attribute(defaultValue = "<< Remove all")
+    @Attribute(defaultValue = "⇐ Remove all")
     public abstract String getRemoveAllText();
 
     // Source list attributes

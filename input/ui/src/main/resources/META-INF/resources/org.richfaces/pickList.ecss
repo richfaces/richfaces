@@ -42,6 +42,7 @@
     display: inline-block;
     vertical-align: top;
     cursor: pointer;
+    text-align : left;
 }
 
 .rf-pick-btn-dis {

@@ -26,16 +26,16 @@ public abstract class AbstractOrderingComponent extends AbstractSelectManyCompon
     @Attribute(defaultValue = "true", hidden = true) // TODO: unhide once javascript API's are available RF-11209
     public abstract boolean isShowButton();
 
-    @Attribute(defaultValue = "First")
+    @Attribute(defaultValue = "⇑ First")
     public abstract String getUpTopText();
 
-    @Attribute(defaultValue = "Up")
+    @Attribute(defaultValue = "↑ Up")
     public abstract String getUpText();
 
-    @Attribute(defaultValue = "Down")
+    @Attribute(defaultValue = "↓ Down")
     public abstract String getDownText();
 
-    @Attribute(defaultValue = "Last")
+    @Attribute(defaultValue = "⇓ Last")
     public abstract String getDownBottomText();
 
 }
