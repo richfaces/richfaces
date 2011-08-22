@@ -8,7 +8,7 @@ public class UIDropTargetTest {
     private UIDropTarget dragTarget;
 
     @Before
-    public void setUp () {
+    public void setUp() {
         dragTarget = new UIDropTarget();
     }
 

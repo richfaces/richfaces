@@ -19,39 +19,25 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit;
 
 /**
  * @author Nick Belaevski - nbelaevski@exadel.com
- * 
+ *
  */
 public class ControlsState {
-
     private boolean firstRendered = true;
-
     private boolean firstEnabled = true;
-
     private boolean lastRendered = true;
-
     private boolean lastEnabled = true;
-    
     private boolean nextRendered = true;
-    
     private boolean nextEnabled = true;
-
     private boolean previousRendered = true;
-    
     private boolean previousEnabled = true;
-
     private boolean fastRewindRendered = true;
-
     private boolean fastRewindEnabled = true;
-
     private boolean fastForwardRendered = true;
-
     private boolean fastForwardEnabled = true;
-
     private boolean controlsSeparatorRendered = false;
 
     public boolean getFirstRendered() {
@@ -117,7 +103,7 @@ public class ControlsState {
     public void setFastForwardEnabled(boolean fastForwardEnabled) {
         this.fastForwardEnabled = fastForwardEnabled;
     }
-    
+
     public boolean getNextRendered() {
         return nextRendered;
     }

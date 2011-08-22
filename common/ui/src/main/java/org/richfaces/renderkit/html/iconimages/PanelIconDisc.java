@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit.html.iconimages;
 
 import java.awt.Color;
@@ -30,7 +29,6 @@ import org.richfaces.resource.DynamicUserResource;
 
 @DynamicUserResource
 public class PanelIconDisc extends PanelIconBasic {
-
     @Override
     protected void paintImage(Graphics2D g2d, Color color) {
 
@@ -42,5 +40,4 @@ public class PanelIconDisc extends PanelIconBasic {
 
         g2d.fill(new Ellipse2D.Double(0, 0, dim, dim));
     }
-
 }

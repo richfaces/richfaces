@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.richfaces.validator.model;
 
@@ -14,9 +14,8 @@ import com.google.common.collect.Lists;
  * @author asmirnov
  *
  */
-@XmlRootElement(name="scripts")
+@XmlRootElement(name = "scripts")
 public class ClientSideScripts {
-    
     private Collection<Component> component = Lists.newArrayList();
 
     public void setComponent(Collection<Component> component) {
@@ -27,5 +26,4 @@ public class ClientSideScripts {
     public Collection<Component> getComponent() {
         return component;
     }
-    
 }

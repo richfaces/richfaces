@@ -28,19 +28,19 @@ import com.google.common.base.Strings;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public final class MessageUtil {
+    private MessageUtil() {
+    }
 
-    private MessageUtil() {}
-    
     public static String getLabel(FacesContext context, UIComponent component) {
         String label = (String) component.getAttributes().get("label");
 
         if (Strings.isNullOrEmpty(label)) {
             label = component.getClientId(context);
         }
-        
+
         return label;
     }
 }

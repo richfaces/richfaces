@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import java.util.HashMap;
@@ -37,18 +36,11 @@ import org.richfaces.cdk.annotations.Tag;
 
 /**
  * @author Anton Belevich
- * 
+ *
  */
-
-@JsfComponent(
-        type = UIHashParameter.COMPONENT_TYPE, 
-        family = UIHashParameter.COMPONENT_FAMILY, 
-        tag = @Tag(name = "hashParam", handler="javax.faces.view.facelets.ComponentHandler")
-)
+@JsfComponent(type = UIHashParameter.COMPONENT_TYPE, family = UIHashParameter.COMPONENT_FAMILY, tag = @Tag(name = "hashParam", handler = "javax.faces.view.facelets.ComponentHandler"))
 public class UIHashParameter extends UIComponentBase {
-
     public static final String COMPONENT_TYPE = "org.richfaces.HashParameter";
-
     public static final String COMPONENT_FAMILY = "org.richfaces.HashParameter";
 
     enum PropertyKeys {
@@ -68,7 +60,7 @@ public class UIHashParameter extends UIComponentBase {
     public void setName(String name) {
         getStateHelper().put(PropertyKeys.name, name);
     }
-    
+
     @Attribute
     public Map<String, Object> getValue() {
         List<UIComponent> children = getChildren();

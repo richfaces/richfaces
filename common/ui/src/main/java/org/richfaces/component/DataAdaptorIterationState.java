@@ -30,19 +30,15 @@ import org.ajax4jsf.model.DataComponentState;
 import org.ajax4jsf.model.ExtendedDataModel;
 
 public final class DataAdaptorIterationState implements StateHolder {
-    
     private DataComponentState componentState;
-    
     private Object savedComponentState;
-    
     private boolean componentStateIsStateHolder;
-    
     private ExtendedDataModel<?> dataModel;
 
     public DataAdaptorIterationState() {
         super();
     }
-    
+
     public DataAdaptorIterationState(DataComponentState componentState, ExtendedDataModel<?> dataModel) {
         super();
         this.componentState = componentState;
@@ -52,7 +48,7 @@ public final class DataAdaptorIterationState implements StateHolder {
     public ExtendedDataModel<?> getDataModel() {
         return dataModel;
     }
-    
+
     public DataComponentState getComponentState() {
         return componentState;
     }
@@ -67,20 +63,20 @@ public final class DataAdaptorIterationState implements StateHolder {
             savedComponentState = null;
         }
     }
-    
+
     public void setTransient(boolean newTransientValue) {
         throw new UnsupportedOperationException();
     }
-    
+
     public boolean isTransient() {
         if (componentState instanceof StateHolder) {
             return ((StateHolder) componentState).isTransient();
         }
-        
+
         if (componentState instanceof Serializable) {
             return false;
         }
-        
+
         return true;
     }
 
@@ -88,10 +84,10 @@ public final class DataAdaptorIterationState implements StateHolder {
         if (isTransient()) {
             return null;
         }
-        
+
         boolean localComponentStateIsHolder = false;
         Object localSavedComponentState = null;
-        
+
         if (componentState instanceof StateHolder) {
             localComponentStateIsHolder = true;
 
@@ -101,12 +97,9 @@ public final class DataAdaptorIterationState implements StateHolder {
             localSavedComponentState = componentState;
         }
 
-        return new Object[] {
-            localComponentStateIsHolder ? Boolean.TRUE : Boolean.FALSE,
-            localSavedComponentState
-        };
+        return new Object[] { localComponentStateIsHolder ? Boolean.TRUE : Boolean.FALSE, localSavedComponentState };
     }
-    
+
     public void restoreState(FacesContext context, Object stateObject) {
         if (stateObject != null) {
             Object[] state = (Object[]) stateObject;
@@ -120,5 +113,4 @@ public final class DataAdaptorIterationState implements StateHolder {
             }
         }
     }
-    
 }

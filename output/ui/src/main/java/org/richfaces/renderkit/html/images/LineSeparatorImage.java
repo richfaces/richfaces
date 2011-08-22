@@ -9,7 +9,6 @@ import org.richfaces.resource.DynamicUserResource;
 
 @DynamicUserResource
 public class LineSeparatorImage extends ToolbarSeparatorImage {
-
     public Dimension getDimension() {
         return calculateDimension();
     }
@@ -22,9 +21,9 @@ public class LineSeparatorImage extends ToolbarSeparatorImage {
         g2d.setColor(new Color(255, 255, 255, 150));
         g2d.drawLine(1, -1, 1, dimensions.height + 2);
     }
-    
+
     private Dimension calculateDimension() {
-        int h = this.getSeparatorHeight();     
+        int h = this.getSeparatorHeight();
         int w = 2;
         return new Dimension(w, h);
     }

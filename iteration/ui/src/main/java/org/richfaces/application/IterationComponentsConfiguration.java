@@ -25,16 +25,16 @@ import org.richfaces.application.configuration.ConfigurationItem;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public final class IterationComponentsConfiguration {
+    private IterationComponentsConfiguration() {
+    }
 
-    private IterationComponentsConfiguration() {}
-    
     public enum Items {
-        
+
         @ConfigurationItem(defaultValue = "false", names = "org.richfaces.datatableUsesViewLocale")
         datatableUsesViewLocale
-        
+
     }
 }

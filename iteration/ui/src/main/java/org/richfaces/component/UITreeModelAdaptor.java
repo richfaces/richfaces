@@ -27,21 +27,18 @@ import org.richfaces.cdk.annotations.Tag;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
-@JsfComponent(type = UITreeModelAdaptor.COMPONENT_TYPE,
-    family = UITreeModelAdaptor.COMPONENT_FAMILY,
-    tag = @Tag(name = "treeModelAdaptor", handler = "org.richfaces.view.facelets.TreeModelAdaptorHandler"))
+@JsfComponent(type = UITreeModelAdaptor.COMPONENT_TYPE, family = UITreeModelAdaptor.COMPONENT_FAMILY, tag = @Tag(name = "treeModelAdaptor", handler = "org.richfaces.view.facelets.TreeModelAdaptorHandler"))
 public class UITreeModelAdaptor extends AbstractTreeModelAdaptor implements TreeModelAdaptor {
-
     public static final String COMPONENT_TYPE = "org.richfaces.TreeModelAdaptor";
-    
     public static final String COMPONENT_FAMILY = "org.richfaces.TreeModelAdaptor";
 
     private enum PropertyKeys {
-        nodes, leaf
+        nodes,
+        leaf
     }
-    
+
     @Override
     public String getFamily() {
         return COMPONENT_FAMILY;
@@ -50,12 +47,12 @@ public class UITreeModelAdaptor extends AbstractTreeModelAdaptor implements Tree
     @Attribute
     public Object getNodes() {
         Object nodes = getStateHelper().eval(PropertyKeys.nodes);
-        
+
         memoizeDefaultRowKeyConverter(nodes);
-        
+
         return nodes;
     }
-    
+
     public void setNodes(Object nodes) {
         getStateHelper().put(PropertyKeys.nodes, nodes);
     }
@@ -68,5 +65,4 @@ public class UITreeModelAdaptor extends AbstractTreeModelAdaptor implements Tree
     public void setLeaf(boolean leaf) {
         getStateHelper().put(PropertyKeys.leaf, leaf);
     }
-
 }

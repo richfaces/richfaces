@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+JBoss, Home of Professional Open Source
+Copyright ${year}, Red Hat, Inc. and individual contributors
+by the @authors tag. See the copyright.txt in the distribution for a
+full listing of individual contributors.
+
+
+This is free software; you can redistribute it and/or modify it
+under the terms of the GNU Lesser General Public License as
+published by the Free Software Foundation; either version 2.1 of
+the License, or (at your option) any later version.
+
+
+This software is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details.
+
+
+You should have received a copy of the GNU Lesser General Public
+License along with this software; if not, write to the Free
+Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+02110-1301 USA, or see the FSF site: http://www.fsf.org.
+-->
+<cdk:root xmlns="http://jboss.org/schema/richfaces/cdk/xhtml-el" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/core"
+    xmlns:c="http://jboss.org/schema/richfaces/cdk/jstl/core" xmlns:cc="http://jboss.org/schema/richfaces/cdk/jsf/composite"
+    xmlns:javaee="http://java.sun.com/xml/ns/javaee">
+
+    <cc:interface>
+        <cdk:class>org.richfaces.renderkit.html.EditorRenderer</cdk:class>
+        <cdk:superclass>org.richfaces.renderkit.EditorRendererBase</cdk:superclass>
+        <cdk:component-family>org.richfaces.Editor</cdk:component-family>
+        <cdk:renderer-type>org.richfaces.EditorRenderer</cdk:renderer-type>
+    </cc:interface>
+
+    <cc:implementation>
+        <cdk:object name="style" value="#{component.attributes['style']}" />
+        <cdk:object name="textareaStyle" value="#{component.attributes['textareaStyle']}" />
+        <cdk:object name="width" value="#{resolveUnits(component.attributes['width'])}" />
+        <cdk:object name="height" value="#{resolveUnits(component.attributes['height'])}" />
+        <textarea id="#{clientId}" name="#{clientId}" cdk:passThroughWithExclusions="id readonly style styleClass"
+                class="#{concatClasses(component.attributes['styleClass'], component.attributes['textareaClass'])}"
+                readonly="#{component.attributes['readonly'] ? 'readonly' : ''}"
+                style="#{empty style ? '' : style + '; '}#{empty textareaStyle ? '' : textareaStyle + '; '}width: #{empty width ? DEFAULT_WIDTH : width}; height: #{empty height ? DEFAULT_HEIGHT : height}; ">
+            #{getInputValue(facesContext, component)}
+        </textarea>
+        <span id="#{clientId}DomBinding" />
+        <script id="#{clientId}Script" type="text/javascript">
+            <cdk:scriptObject name="options">
+                <cdk:scriptOption attributes="toolbar style styleClass editorStyle editorClass" />
+                <cdk:scriptOption wrapper="eventHandler" attributes="oninit" />
+            </cdk:scriptObject>
+            window.CKEDITOR_BASEPATH = '#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/org.richfaces.ckeditor/';
+            
+            options = #{empty toScriptArgs(options) ? 'null' : toScriptArgs(options)};
+            if (!document.getElementById('#{clientId}DomBinding')[RichFaces.RICH_CONTAINER]) {
+                new RichFaces.ui.Editor("#{clientId}", "#{clientId}DomBinding", options);
+            } else {
+                var editor = RichFaces.$("#{clientId}DomBinding");
+                editor.__setOptions(options);
+                editor.__updateEditor();
+            }
+        </script>
+
+    </cc:implementation>
+</cdk:root>

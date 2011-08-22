@@ -23,13 +23,11 @@ package org.richfaces.component;
 
 import org.junit.Test;
 
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class DummyQueueTest extends AbstractQueueComponentTest {
-
     @Test
     public void testFoo() throws Exception {
         renderView("/test.jsf");

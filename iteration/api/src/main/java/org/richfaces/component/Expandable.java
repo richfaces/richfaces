@@ -19,21 +19,18 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-
 package org.richfaces.component;
 
 import org.richfaces.event.CollapsibleSubTableToggleListener;
 
 public interface Expandable {
+    boolean isExpanded();
 
-    public boolean isExpanded();
-    
-    public void setExpanded(boolean expand);
+    void setExpanded(boolean expand);
 
-    public void addCollapsibleSubTableToggleListener(CollapsibleSubTableToggleListener listener);
+    void addCollapsibleSubTableToggleListener(CollapsibleSubTableToggleListener listener);
 
-    public void removeCollapsibleSubTableToggleListener(CollapsibleSubTableToggleListener listener);
+    void removeCollapsibleSubTableToggleListener(CollapsibleSubTableToggleListener listener);
 
-    public CollapsibleSubTableToggleListener[] getCollapsibleSubTableToggleListener();
+    CollapsibleSubTableToggleListener[] getCollapsibleSubTableToggleListener();
 }

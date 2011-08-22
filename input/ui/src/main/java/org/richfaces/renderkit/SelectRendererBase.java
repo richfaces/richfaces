@@ -19,41 +19,41 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit;
 
-import org.richfaces.component.AbstractSelect;
-import org.richfaces.component.AbstractSelectComponent;
-import org.richfaces.renderkit.util.HtmlDimensions;
+import java.io.IOException;
+import java.util.List;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import java.io.IOException;
-import java.util.List;
+
+import org.richfaces.component.AbstractSelect;
+import org.richfaces.component.AbstractSelectComponent;
+import org.richfaces.renderkit.util.HtmlDimensions;
 
 /**
  * @author abelevich
  *
  */
-@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-        @ResourceDependency(name = "jquery.js"), @ResourceDependency(name = "jquery.position.js"),
-        @ResourceDependency(name = "richfaces.js"), @ResourceDependency(name = "richfaces-utils.js"),
-        @ResourceDependency(name = "jquery.position.js"),
+@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"), @ResourceDependency(name = "jquery.js"),
+        @ResourceDependency(name = "jquery.position.js"), @ResourceDependency(name = "richfaces.js"),
+        @ResourceDependency(name = "richfaces-utils.js"), @ResourceDependency(name = "jquery.position.js"),
         @ResourceDependency(name = "richfaces-event.js"), @ResourceDependency(name = "richfaces-base-component.js"),
         @ResourceDependency(name = "richfaces-selection.js"),
         @ResourceDependency(library = "org.richfaces", name = "inputBase.js"),
         @ResourceDependency(library = "org.richfaces", name = "popup.js"),
+        @ResourceDependency(library = "org.richfaces", name = "list.js"),
         @ResourceDependency(library = "org.richfaces", name = "popupList.js"),
         @ResourceDependency(library = "org.richfaces", name = "select.js"),
         @ResourceDependency(library = "org.richfaces", name = "select.ecss") })
 public class SelectRendererBase extends InputRendererBase {
-    
-    public static final String ITEM_CSS = "rf-sel-opt"; 
-    
+    public static final String ITEM_CSS = "rf-sel-opt";
+
     public void renderListHandlers(FacesContext facesContext, UIComponent component) throws IOException {
-        RenderKitUtils.renderPassThroughAttributesOptimized(facesContext, component, SelectHelper.SELECT_LIST_HANDLER_ATTRIBUTES);
+        RenderKitUtils.renderPassThroughAttributesOptimized(facesContext, component,
+            SelectHelper.SELECT_LIST_HANDLER_ATTRIBUTES);
     }
 
     public List<ClientSelectItem> getConvertedSelectItems(FacesContext facesContext, UIComponent component) {
@@ -71,7 +71,7 @@ public class SelectRendererBase extends InputRendererBase {
         }
         return height;
     }
-    
+
     protected String getMaxListHeight(AbstractSelect select) {
         String height = HtmlDimensions.formatSize(select.getMaxListHeight());
         if (height == null || height.length() == 0) {
@@ -79,7 +79,7 @@ public class SelectRendererBase extends InputRendererBase {
         }
         return height;
     }
-    
+
     protected String getListHeight(AbstractSelect select) {
         String height = HtmlDimensions.formatSize(select.getListHeight());
         if (height == null || height.length() == 0) {
@@ -87,7 +87,7 @@ public class SelectRendererBase extends InputRendererBase {
         }
         return height;
     }
-    
+
     protected String getListWidth(AbstractSelect select) {
         String width = HtmlDimensions.formatSize(select.getListWidth());
         if (width == null || width.length() == 0) {
@@ -95,12 +95,12 @@ public class SelectRendererBase extends InputRendererBase {
         }
         return width;
     }
-    
+
     public String encodeHeightAndWidth(UIComponent component) {
-        AbstractSelect select = (AbstractSelect)component;
-        
+        AbstractSelect select = (AbstractSelect) component;
+
         String height = getListHeight(select);
-        if(!"auto".equals(height)) {
+        if (!"auto".equals(height)) {
             height = (height != null && height.trim().length() != 0) ? ("height: " + height) : "";
         } else {
             String minHeight = getMinListHeight(select);
@@ -116,14 +116,14 @@ public class SelectRendererBase extends InputRendererBase {
 
         return concatStyles(height, width);
     }
-    
+
     public String getListCss(UIComponent component) {
-        AbstractSelect inplaceSelect = (AbstractSelect)component;
+        AbstractSelect inplaceSelect = (AbstractSelect) component;
         String css = inplaceSelect.getListClass();
         css = (css != null) ? concatClasses("rf-sel-lst-cord", css) : "rf-sel-lst-cord";
-        return css; 
+        return css;
     }
-    
+
     public String getSelectLabel(FacesContext facesContext, UIComponent component) {
         AbstractSelectComponent select = (AbstractSelectComponent) component;
         String label = getSelectInputLabel(facesContext, select);

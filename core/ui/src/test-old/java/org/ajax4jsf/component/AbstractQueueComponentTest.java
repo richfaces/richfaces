@@ -18,15 +18,10 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.component;
 
 import java.io.IOException;
-
 import java.net.URL;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,13 +47,11 @@ import org.ajax4jsf.renderkit.RendererUtils.HTML;
 import org.ajax4jsf.resource.InternetResourceBuilder;
 import org.ajax4jsf.resource.ResourceNotFoundException;
 import org.ajax4jsf.tests.AbstractAjax4JsfTestCase;
-
 import org.mozilla.javascript.FunctionObject;
 import org.mozilla.javascript.NativeArray;
 import org.mozilla.javascript.NativeObject;
 import org.mozilla.javascript.ScriptableObject;
 import org.mozilla.javascript.Undefined;
-
 import com.gargoylesoftware.htmlunit.AlertHandler;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.ScriptPreProcessor;
@@ -66,7 +59,6 @@ import com.gargoylesoftware.htmlunit.ScriptResult;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine;
-
 import com.sun.facelets.Facelet;
 import com.sun.facelets.FaceletFactory;
 import com.sun.facelets.compiler.Compiler;
@@ -85,15 +77,16 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
     private static final String SIMULATION_SCRIPT_NAME = "org/ajax4jsf/component/simulation.js";
     private static final Compiler compiler = new SAXCompiler();
     private static final ScriptableObject systemOut = new ScriptableObject() {
-
         /**
          *
          */
         private static final long serialVersionUID = -8574162538513136625L;
+
         @Override
         public String getClassName() {
             return "systemOut";
         }
+
         @SuppressWarnings("unused")
         public void println(String s) {
             System.out.println(s);
@@ -103,8 +96,8 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
     static {
         try {
             systemOut.defineProperty("println",
-                                     new FunctionObject(null, systemOut.getClass().getMethod("println", String.class),
-                                         systemOut), ScriptableObject.READONLY);
+                    new FunctionObject(null, systemOut.getClass().getMethod("println", String.class),
+                            systemOut), ScriptableObject.READONLY);
         } catch (SecurityException e) {
             throw new IllegalStateException(e.getMessage(), e);
         } catch (NoSuchMethodException e) {
@@ -158,7 +151,7 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
     }
 
     protected void checkRequestData(RequestData requestData, String data, double startTime, double endTime,
-                                    boolean aborted) {
+            boolean aborted) {
         assertEquals("Data check failed for " + requestData, data, requestData.getData());
         assertEquals("Start time check failed for " + requestData, startTime, requestData.getStartTime());
         assertEquals("End time check failed for " + requestData, endTime, requestData.getEndTime());
@@ -182,7 +175,7 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
 
     protected void executeOnTime(int time, String expression) {
         JSFunction function = new JSFunction("simulationContext.executeOnTime", time,
-                                  new JSFunctionDefinition().addToBody(expression));
+                new JSFunctionDefinition().addToBody(expression));
 
         page.executeJavaScript(function.toScript());
     }
@@ -193,7 +186,7 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
 
     protected void clickOnTime(int time, String id) {
         JSFunction function = new JSFunction("simulationContext.executeOnTime", time,
-                                  new JSFunctionDefinition().addToBody(buildClickExpression(id)));
+                new JSFunctionDefinition().addToBody(buildClickExpression(id)));
 
         page.executeJavaScript(function.toScript());
     }
@@ -243,7 +236,7 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
 
     protected void postRenderView() throws Exception {
         ScriptableObject scriptableObject =
-            (ScriptableObject) this.page.executeJavaScript("window.LOG").getJavaScriptResult();
+                (ScriptableObject) this.page.executeJavaScript("window.LOG").getJavaScriptResult();
 
         scriptableObject.defineProperty("out", systemOut, ScriptableObject.READONLY);
     }
@@ -334,7 +327,6 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
         }
     }
 
-
     private final static class AjaxSubmitFunctionResourceRenderer extends Renderer implements UserResourceRenderer2 {
         public void encodeToHead(FacesContext facesContext, UIComponent component) throws IOException {
             JSFunction ajaxFunction = AjaxRendererUtils.buildAjaxFunction(component, facesContext);
@@ -342,8 +334,8 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
 
             options.put("requestDelay", new JSReference("options.requestDelay"));
             options.put("similarityGroupingId",
-                        new JSReference("options.similarityGroupingId || '" + component.getClientId(facesContext)
-                                        + "'"));
+                    new JSReference("options.similarityGroupingId || '" + component.getClientId(facesContext)
+                            + "'"));
             options.put("data", new JSReference("data"));
             options.put("requestTime", new JSReference("options.requestTime"));
             options.put("timeout", new JSReference("options.timeout"));
@@ -357,11 +349,10 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
             responseWriter.startElement(HTML.SCRIPT_ELEM, component);
             responseWriter.writeAttribute(HTML.TYPE_ATTR, "text/javascript", null);
             responseWriter.writeText("var " + AJAX_SUBMIT + " = function(data, options) {" + ajaxFunction.toScript()
-                                     + "};", null);
+                    + "};", null);
             responseWriter.endElement(HTML.SCRIPT_ELEM);
         }
     }
-
 
     protected static final class ParametersBuilder {
         private Map<String, Object> parameters;
@@ -448,7 +439,6 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
         }
     }
 
-
     protected static final class RequestData {
         private boolean aborted;
         private String data;
@@ -501,7 +491,6 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
         }
     }
 
-
     protected static final class TestsResult {
         private List<RequestData> dataList = new ArrayList<RequestData>();
         private double currentTime;
@@ -541,10 +530,8 @@ public abstract class AbstractQueueComponentTest extends AbstractAjax4JsfTestCas
         }
     }
 
-
     ;
 }
-
 
 class UnescapingScriptPreprocessor implements ScriptPreProcessor {
     private static final Map<String, String> ENTITIES_MAP = new HashMap<String, String>();

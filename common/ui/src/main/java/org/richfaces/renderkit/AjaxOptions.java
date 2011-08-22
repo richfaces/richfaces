@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit;
 
 import java.io.IOException;
@@ -34,15 +33,11 @@ import org.ajax4jsf.javascript.ScriptUtils;
  * @since 4.0
  */
 public class AjaxOptions extends ScriptStringBase {
-
     public static final String PARAMETERS = "parameters";
-
     public static final String CLIENT_PARAMETERS = "clientParameters";
-
     private Map<String, Object> options = new HashMap<String, Object>();
-
     private Object beforesubmitHandler;
-    
+
     public void appendScript(Appendable target) throws IOException {
         ScriptUtils.appendScript(target, options);
     }
@@ -64,14 +59,16 @@ public class AjaxOptions extends ScriptStringBase {
     }
 
     public boolean hasParameters() {
-        @SuppressWarnings("unchecked") Map<String, Object> parameters = (Map<String, Object>) options.get(PARAMETERS);
+        @SuppressWarnings("unchecked")
+        Map<String, Object> parameters = (Map<String, Object>) options.get(PARAMETERS);
 
         return (parameters != null) && !parameters.isEmpty();
     }
 
     // TODO: optimize rendered data
     public Map<String, Object> getParameters() {
-        @SuppressWarnings("unchecked") Map<String, Object> parameters = (Map<String, Object>) options.get(PARAMETERS);
+        @SuppressWarnings("unchecked")
+        Map<String, Object> parameters = (Map<String, Object>) options.get(PARAMETERS);
 
         if (parameters == null) {
             parameters = new LinkedHashMap<String, Object>();
@@ -83,7 +80,8 @@ public class AjaxOptions extends ScriptStringBase {
 
     public Object getParameter(String parameterName) {
         Object result = null;
-        @SuppressWarnings("unchecked") Map<String, Object> parameters = (Map<String, Object>) options.get(PARAMETERS);
+        @SuppressWarnings("unchecked")
+        Map<String, Object> parameters = (Map<String, Object>) options.get(PARAMETERS);
 
         if (parameters != null) {
             result = parameters.get(parameterName);
@@ -100,30 +98,31 @@ public class AjaxOptions extends ScriptStringBase {
         if (params == null || params.isEmpty()) {
             return;
         }
-        
+
         getParameters().putAll(params);
     }
-    
+
     public void removeParameter(String parameterName) {
-        @SuppressWarnings("unchecked") Map<String, Object> parameters = (Map<String, Object>) options.get(PARAMETERS);
+        @SuppressWarnings("unchecked")
+        Map<String, Object> parameters = (Map<String, Object>) options.get(PARAMETERS);
 
         if (parameters != null) {
             parameters.remove(parameterName);
         }
     }
-    
+
     public Object getClientParameters() {
         return options.get(CLIENT_PARAMETERS);
     }
-    
+
     public void setClientParameters(Object value) {
         options.put(CLIENT_PARAMETERS, value);
     }
-    
+
     public Object getAjaxComponent() {
         return getParameter(AjaxConstants.AJAX_COMPONENT_ID_PARAMETER);
     }
-    
+
     public void setAjaxComponent(Object ajaxComponent) {
         getParameters().put(AjaxConstants.AJAX_COMPONENT_ID_PARAMETER, ajaxComponent);
     }
@@ -131,7 +130,7 @@ public class AjaxOptions extends ScriptStringBase {
     public Object getBeforesubmitHandler() {
         return beforesubmitHandler;
     }
-    
+
     public void setBeforesubmitHandler(Object beforesubmitHandler) {
         this.beforesubmitHandler = beforesubmitHandler;
     }

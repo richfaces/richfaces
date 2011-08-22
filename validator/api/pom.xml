@@ -18,14 +18,15 @@
     http://www.fsf.org.
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.richfaces.ui</groupId>
         <artifactId>richfaces-ui-parent</artifactId>
-        <version>4.0.0.Final</version>
+        <version>4.1.0.20110805-M1</version>
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
@@ -33,7 +34,7 @@
     <artifactId>richfaces-ui-validator-api</artifactId>
     <name>Richfaces UI Components: validator api</name>
     <packaging>jar</packaging>
-    
+
     <build>
         <plugins>
             <plugin>
@@ -52,17 +53,17 @@
             <artifactId>richfaces-ui-common-api</artifactId>
         </dependency>
         <dependency>
-        	<groupId>javax.validation</groupId>
-        	<artifactId>validation-api</artifactId>
-        	<scope>provided</scope>
-        	<optional>true</optional>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/tags/4.0.0.20110319-Final/ui/validator/api</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/tags/4.0.0.20110319-Final/ui/validator/api</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/tags/4.0.0.20110319-Final/ui/validator/api</url>
+        <connection>scm:git:git://github.com/richfaces/components.git</connection>
+        <developerConnection>scm:git:git@github.com:richfaces/components.git</developerConnection>
+        <url>https://github.com/richfaces/components</url>
     </scm>
 
 </project>

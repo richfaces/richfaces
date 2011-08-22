@@ -56,40 +56,32 @@ import org.junit.Test;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class RenderKitUtilsMocksTest {
-
     /**
-     * 
+     *
      */
     private static final String CLIENT_ID = "submittedId";
-
     private MockFacesEnvironment facesEnvironment;
-
     private ResponseWriter responseWriter;
-
     private FacesContext facesContext;
-
     private ExternalContext externalContext;
-    
     private Map<String, Object> componentAttributes;
-    
     private Map<String, List<ClientBehavior>> behaviorsMap;
-
     private Map<String, ComponentAttribute> knownAttributes;
-    
+
     @Before
     public void setUp() throws Exception {
         facesEnvironment = MockFacesEnvironment.createEnvironment().withExternalContext();
-        
+
         facesContext = facesEnvironment.getFacesContext();
         externalContext = facesEnvironment.getExternalContext();
-        
+
         responseWriter = facesEnvironment.createMock(ResponseWriter.class);
         expect(facesContext.getResponseWriter()).andStubReturn(responseWriter);
         expect(responseWriter.getContentType()).andStubReturn("application/xhtml+xml");
-        
+
         componentAttributes = new HashMap<String, Object>();
         behaviorsMap = new HashMap<String, List<ClientBehavior>>();
         knownAttributes = new TreeMap<String, ComponentAttribute>();
@@ -99,7 +91,7 @@ public class RenderKitUtilsMocksTest {
     public void tearDown() throws Exception {
         this.facesEnvironment.verify();
         this.facesEnvironment.release();
-        
+
         this.facesEnvironment = null;
         this.responseWriter = null;
         this.facesContext = null;
@@ -126,7 +118,7 @@ public class RenderKitUtilsMocksTest {
             Arrays.asList("click", "action", "mousemove", "keypress", "blur", "contextmenu"));
         return behaviorHolder;
     }
-    
+
     @Test
     public void testRenderPassThroughAttributes() throws Exception {
         knownAttributes.put("disabled", new ComponentAttribute("disabled"));
@@ -161,7 +153,7 @@ public class RenderKitUtilsMocksTest {
 
     private ClientBehavior createClientBehavior(String handlerData, Set<ClientBehaviorHint> hints) {
         ClientBehavior behavior = facesEnvironment.createMock(ClientBehavior.class);
-        expect(behavior.getScript(EasyMock.<ClientBehaviorContext> notNull())).andStubReturn(
+        expect(behavior.getScript(EasyMock.<ClientBehaviorContext>notNull())).andStubReturn(
             MessageFormat.format("prompt({0})", handlerData));
 
         expect(behavior.getHints()).andStubReturn(hints);
@@ -170,14 +162,11 @@ public class RenderKitUtilsMocksTest {
 
     @Test
     public void testBehaviors() throws Exception {
-        knownAttributes.put("onclick", new ComponentAttribute("onclick")
-            .setEventNames(new String[] { "click", "action" }));
-        knownAttributes.put("onmousemove", new ComponentAttribute("onmousemove")
-            .setEventNames(new String[] { "mousemove" }));
-        knownAttributes.put("onkeypress", new ComponentAttribute("onkeypress")
-            .setEventNames(new String[] { "keypress" }));
-        knownAttributes.put("oncontextmenu", new ComponentAttribute("oncontextmenu")
-            .setEventNames(new String[] { "contextmenu" }));
+        knownAttributes.put("onclick", new ComponentAttribute("onclick").setEventNames(new String[] { "click", "action" }));
+        knownAttributes.put("onmousemove", new ComponentAttribute("onmousemove").setEventNames(new String[] { "mousemove" }));
+        knownAttributes.put("onkeypress", new ComponentAttribute("onkeypress").setEventNames(new String[] { "keypress" }));
+        knownAttributes.put("oncontextmenu",
+            new ComponentAttribute("oncontextmenu").setEventNames(new String[] { "contextmenu" }));
 
         componentAttributes.put("onkeypress", "alert(keypress)");
         componentAttributes.put("onmousemove", "alert(mousemove)");
@@ -199,10 +188,11 @@ public class RenderKitUtilsMocksTest {
         ClientBehaviorHolder behaviorHolder = createMockClientBehaviorHolder();
         UIComponent component = (UIComponent) behaviorHolder;
 
-        responseWriter.writeAttribute(eq("onkeypress"), eq("return jsf.util.chain(this, event, 'alert(keypress)','prompt(keypress)')"),
-            EasyMock.<String>isNull());
+        responseWriter.writeAttribute(eq("onkeypress"),
+            eq("return jsf.util.chain(this, event, 'alert(keypress)','prompt(keypress)')"), EasyMock.<String>isNull());
         responseWriter.writeAttribute(eq("onclick"),
-            eq("return jsf.util.chain(this, event, 'alert(click)','prompt(action1)','prompt(action2)')"), EasyMock.<String>isNull());
+            eq("return jsf.util.chain(this, event, 'alert(click)','prompt(action1)','prompt(action2)')"),
+            EasyMock.<String>isNull());
         responseWriter.writeAttribute(eq("onmousemove"), eq("alert(mousemove)"), EasyMock.<String>isNull());
         responseWriter.writeAttribute(eq("oncontextmenu"), eq("prompt(contextmenu)"), EasyMock.<String>isNull());
 
@@ -210,13 +200,11 @@ public class RenderKitUtilsMocksTest {
 
         RenderKitUtils.renderPassThroughAttributes(facesContext, component, knownAttributes);
     }
-    
+
     private UIComponent setupBehaviorsTestForDisabledComponent() throws IOException {
         knownAttributes.put("style", new ComponentAttribute("style"));
-        knownAttributes.put("onclick", new ComponentAttribute("onclick")
-            .setEventNames(new String[] { "click", "action" }));
-        knownAttributes.put("onmousemove", new ComponentAttribute("onmousemove")
-            .setEventNames(new String[] { "mousemove" }));
+        knownAttributes.put("onclick", new ComponentAttribute("onclick").setEventNames(new String[] { "click", "action" }));
+        knownAttributes.put("onmousemove", new ComponentAttribute("onmousemove").setEventNames(new String[] { "mousemove" }));
 
         componentAttributes.put("onmousemove", "alert(mousemove)");
         componentAttributes.put("onclick", "alert(click)");
@@ -231,7 +219,7 @@ public class RenderKitUtilsMocksTest {
         UIComponent component = (UIComponent) behaviorHolder;
         return component;
     }
-    
+
     @Test
     public void testBehaviorsForDisabledComponent() throws Exception {
         componentAttributes.put("disabled", Boolean.TRUE);
@@ -249,10 +237,9 @@ public class RenderKitUtilsMocksTest {
         componentAttributes.put("disabled", Boolean.FALSE);
         UIComponent component = setupBehaviorsTestForDisabledComponent();
 
-        responseWriter.writeAttribute(eq("onclick"), eq("return jsf.util.chain(this, event, 'alert(click)','prompt(action1)')"),
-            EasyMock.<String>isNull());
-        responseWriter.writeAttribute(eq("onmousemove"),
-            eq("alert(mousemove)"), EasyMock.<String>isNull());
+        responseWriter.writeAttribute(eq("onclick"),
+            eq("return jsf.util.chain(this, event, 'alert(click)','prompt(action1)')"), EasyMock.<String>isNull());
+        responseWriter.writeAttribute(eq("onmousemove"), eq("alert(mousemove)"), EasyMock.<String>isNull());
         responseWriter.writeAttribute(eq("style"), eq("color:green"), EasyMock.<String>isNull());
 
         facesEnvironment.replay();
@@ -292,7 +279,7 @@ public class RenderKitUtilsMocksTest {
     public void testIsNonDisabledNull() throws Exception {
         checkDisabled(null, false);
     }
-    
+
     private UIComponent setupTestDecodeBehaviors(String behaviorSourceId, String behaviorEventName) throws Exception {
         ClientBehaviorHolder behaviorHolder = createMockClientBehaviorHolder();
         UIComponent component = (UIComponent) behaviorHolder;
@@ -301,7 +288,7 @@ public class RenderKitUtilsMocksTest {
         requestParameterMap.put(RenderKitUtils.BEHAVIOR_SOURCE_ID, behaviorSourceId);
         requestParameterMap.put(RenderKitUtils.BEHAVIOR_EVENT_NAME, behaviorEventName);
         expect(externalContext.getRequestParameterMap()).andStubReturn(requestParameterMap);
-        
+
         ClientBehavior actionBehavior = createClientBehavior("action1", EnumSet.of(ClientBehaviorHint.SUBMITTING));
         ClientBehavior actionBehavior1 = createClientBehavior("action2", EnumSet.of(ClientBehaviorHint.SUBMITTING));
         behaviorsMap.put("action", Arrays.asList(actionBehavior, actionBehavior1));
@@ -311,17 +298,17 @@ public class RenderKitUtilsMocksTest {
 
         return component;
     }
-    
+
     @Test
     public void testDecodeActionBehaviors() throws Exception {
         UIComponent component = setupTestDecodeBehaviors(CLIENT_ID, "action");
-        
+
         List<ClientBehavior> behaviors = behaviorsMap.get("action");
         for (ClientBehavior clientBehavior : behaviors) {
             clientBehavior.decode(same(facesContext), same(component));
             expectLastCall();
         }
-        
+
         facesEnvironment.replay();
 
         assertEquals("action", RenderKitUtils.decodeBehaviors(facesContext, component));
@@ -330,24 +317,24 @@ public class RenderKitUtilsMocksTest {
     @Test
     public void testDecodeBlurBehaviors() throws Exception {
         UIComponent component = setupTestDecodeBehaviors(CLIENT_ID, "blur");
-        
+
         List<ClientBehavior> behaviors = behaviorsMap.get("blur");
         for (ClientBehavior clientBehavior : behaviors) {
             clientBehavior.decode(same(facesContext), same(component));
             expectLastCall();
         }
-        
+
         facesEnvironment.replay();
 
         assertEquals("blur", RenderKitUtils.decodeBehaviors(facesContext, component));
     }
-    
+
     @Test
     public void testDecodeNonMatchingClientId() throws Exception {
         UIComponent component = setupTestDecodeBehaviors("wrongId", "action");
-        
-        //nothing should be called - clientId is not matched
-        
+
+        // nothing should be called - clientId is not matched
+
         facesEnvironment.replay();
 
         assertNull(RenderKitUtils.decodeBehaviors(facesContext, component));
@@ -356,9 +343,9 @@ public class RenderKitUtilsMocksTest {
     @Test
     public void testDecodeNoSubmittedBehavior() throws Exception {
         UIComponent component = setupTestDecodeBehaviors(CLIENT_ID, null);
-        
-        //nothing should be called - no behavior event information was submitted
-        
+
+        // nothing should be called - no behavior event information was submitted
+
         facesEnvironment.replay();
 
         assertNull(RenderKitUtils.decodeBehaviors(facesContext, component));
@@ -367,8 +354,8 @@ public class RenderKitUtilsMocksTest {
     @Test
     public void testDecodeContextMenuBehaviors() throws Exception {
         UIComponent component = setupTestDecodeBehaviors(CLIENT_ID, "contextmenu");
-        
-        //nothing should be called - no context menu behaviors were created
+
+        // nothing should be called - no context menu behaviors were created
 
         facesEnvironment.replay();
 

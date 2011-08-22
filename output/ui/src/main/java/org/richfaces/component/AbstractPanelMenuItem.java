@@ -3,24 +3,22 @@
  * Copyright ${year}, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
- * 
+ *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation; either version 2.1 of
  * the License, or (at your option) any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-
 package org.richfaces.component;
 
 import javax.faces.component.UIComponent;
@@ -40,17 +38,14 @@ import com.google.common.base.Predicate;
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets))
 public abstract class AbstractPanelMenuItem extends AbstractActionComponent implements AjaxProps {
-
     public static final String COMPONENT_TYPE = "org.richfaces.PanelMenuItem";
-
     public static final String COMPONENT_FAMILY = "org.richfaces.PanelMenuItem";
-
     private static final ParentItemPredicate PARENT_ITEM_PREDICATE = new ParentItemPredicate();
 
     protected AbstractPanelMenuItem() {
         setRendererType("org.richfaces.PanelMenuItemRenderer");
     }
-    
+
     public boolean isActiveItem() {
         return this.getName().equals(this.getPanelMenu().getActiveItem());
     }
@@ -113,13 +108,13 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
 
     // ------------------------------------------------ Html Attributes
     enum Properties {
-        leftIcon, 
-        leftDisabledIcon, 
-        rightIcon, 
-        rightDisabledIcon, 
-        styleClass, 
-        disabledClass, 
-        execute, 
+        leftIcon,
+        leftDisabledIcon,
+        rightIcon,
+        rightDisabledIcon,
+        styleClass,
+        disabledClass,
+        execute,
         name,
         value
     }
@@ -127,7 +122,7 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
     @Attribute(generate = false)
     public String getDisabledClass() {
         return (String) getStateHelper().eval(Properties.disabledClass,
-                isTopItem() ? getPanelMenu().getTopItemDisabledClass() : getPanelMenu().getItemDisabledClass());
+            isTopItem() ? getPanelMenu().getTopItemDisabledClass() : getPanelMenu().getItemDisabledClass());
     }
 
     public void setDisabledClass(String disabledClass) {
@@ -137,7 +132,7 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
     @Attribute(generate = false)
     public String getLeftIcon() {
         return (String) getStateHelper().eval(Properties.leftIcon,
-                isTopItem() ? getPanelMenu().getTopItemLeftIcon() : getPanelMenu().getItemLeftIcon());
+            isTopItem() ? getPanelMenu().getTopItemLeftIcon() : getPanelMenu().getItemLeftIcon());
     }
 
     public void setLeftIcon(String leftIcon) {
@@ -150,7 +145,7 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
     @Attribute(generate = false)
     public String getLeftDisabledIcon() {
         return (String) getStateHelper().eval(Properties.leftDisabledIcon,
-                isTopItem() ? getPanelMenu().getTopItemDisabledLeftIcon() : getPanelMenu().getItemDisabledLeftIcon());
+            isTopItem() ? getPanelMenu().getTopItemDisabledLeftIcon() : getPanelMenu().getItemDisabledLeftIcon());
     }
 
     public void setLeftDisabledIcon(String leftDisabledIcon) {
@@ -160,7 +155,7 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
     @Attribute(generate = false)
     public String getRightIcon() {
         return (String) getStateHelper().eval(Properties.rightIcon,
-                isTopItem() ? getPanelMenu().getTopItemRightIcon() : getPanelMenu().getItemRightIcon());
+            isTopItem() ? getPanelMenu().getTopItemRightIcon() : getPanelMenu().getItemRightIcon());
     }
 
     public void setRightIcon(String iconRight) {
@@ -173,7 +168,7 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
     @Attribute(generate = false)
     public String getRightDisabledIcon() {
         return (String) getStateHelper().eval(Properties.rightDisabledIcon,
-                isTopItem() ? getPanelMenu().getTopItemDisabledRightIcon() : getPanelMenu().getItemDisabledRightIcon());
+            isTopItem() ? getPanelMenu().getTopItemDisabledRightIcon() : getPanelMenu().getItemDisabledRightIcon());
     }
 
     public void setRightDisabledIcon(String rightDisabledIcon) {
@@ -186,7 +181,7 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
     @Attribute(generate = false)
     public String getStyleClass() {
         return (String) getStateHelper().eval(Properties.styleClass,
-                isTopItem() ? getPanelMenu().getTopItemClass() : getPanelMenu().getItemClass());
+            isTopItem() ? getPanelMenu().getTopItemClass() : getPanelMenu().getItemClass());
     }
 
     public void setStyleClass(String styleClass) {
@@ -228,7 +223,7 @@ public abstract class AbstractPanelMenuItem extends AbstractActionComponent impl
             return comp instanceof AbstractPanelMenuGroup || comp instanceof AbstractPanelMenu;
         }
     }
-    
+
     @Attribute(generate = false, hidden = true)
     public Object getValue() {
         return getStateHelper().eval(Properties.value);

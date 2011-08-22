@@ -63,44 +63,39 @@ import org.richfaces.renderkit.RenderKitUtils.ScriptHashVariableWrapper;
  * @author Konstantin Mishin
  *
  */
-
-
 @JsfRenderer(type = "org.richfaces.ExtendedDataTableRenderer", family = AbstractExtendedDataTable.COMPONENT_FAMILY)
-@ResourceDependencies({
-    @ResourceDependency(library="org.richfaces", name = "extendedDataTable.ecss"),
-    @ResourceDependency(library="org.richfaces", name = "ajax.reslib"),
-    @ResourceDependency(library="org.richfaces", name = "base-component.reslib"),
-    @ResourceDependency(name = "jquery.position.js"),
-    @ResourceDependency(library="org.richfaces", name = "extendedDataTable.js") 
-})
+@ResourceDependencies({ @ResourceDependency(library = "org.richfaces", name = "extendedDataTable.ecss"),
+        @ResourceDependency(library = "org.richfaces", name = "ajax.reslib"),
+        @ResourceDependency(library = "org.richfaces", name = "base-component.reslib"),
+        @ResourceDependency(name = "jquery.position.js"),
+        @ResourceDependency(library = "org.richfaces", name = "extendedDataTable.js") })
 public class ExtendedDataTableRenderer extends SelectionRenderer implements MetaComponentRenderer {
-
     private static final JSReference CLIENT_PARAMS = new JSReference("clientParams");
 
     private static enum PartName {
-        
-        frozen, normal;
-        
+
+        frozen,
+        normal;
         private String id;
-        
+
         private PartName() {
             id = String.valueOf(this.toString().charAt(0));
         }
-        
+
         public String getId() {
             return id;
         }
     }
-        
+
     private class Part {
         private PartName name;
         private List<UIComponent> columns;
-        
+
         public Part(PartName name, List<UIComponent> columns) {
             this.name = name;
             this.columns = columns;
         }
-        
+
         public PartName getName() {
             return name;
         }
@@ -108,18 +103,15 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         public List<UIComponent> getColumns() {
             return columns;
         }
-
     }
-    
-    private class RendererState extends RowHolderBase{
 
+    private class RendererState extends RowHolderBase {
         private UIDataTableBase table;
         private List<Part> parts;
         private Part current;
         private Iterator<Part> partIterator;
-        
         private EncoderVariance encoderVariance = EncoderVariance.full;
-        
+
         public RendererState(FacesContext context, UIDataTableBase table) {
             super(context);
             this.table = table;
@@ -133,7 +125,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                 if (component.isRendered()) {
                     columnsMap.put(component.getId(), component);
                 }
-            }            
+            }
             String[] columnsOrder = (String[]) table.getAttributes().get("columnsOrder");
             if (columnsOrder != null && columnsOrder.length > 0) {
                 int i = 0;
@@ -145,12 +137,12 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             for (; iterator.hasNext();) {
                 columns.add(iterator.next());
             }
-            
+
             int frozenColumnsAttribute = (Integer) table.getAttributes().get("frozenColumns");
             if (frozenColumnsAttribute < 0) {
                 frozenColumnsAttribute = 0;
             }
-            
+
             int count = Math.min(frozenColumnsAttribute, columns.size());
             frozenColumns = columns.subList(0, count);
             columns = columns.subList(count, columns.size());
@@ -179,7 +171,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         public Part getPart() {
             return current;
         }
-        
+
         public boolean hasNextPart() {
             return partIterator.hasNext();
         }
@@ -187,7 +179,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         public EncoderVariance getEncoderVariance() {
             return encoderVariance;
         }
-        
+
         public void setEncoderVariance(EncoderVariance encoderVariance) {
             this.encoderVariance = encoderVariance;
         }
@@ -196,16 +188,14 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
     private enum EncoderVariance {
         full {
             public void encodeStartUpdate(FacesContext context, String targetId) throws IOException {
-                //do nothing
+                // do nothing
             }
-            
-            public void encodeEndUpdate(FacesContext context) throws IOException {
-                //do nothing
-            }
-        }, 
-        
-        partial {
 
+            public void encodeEndUpdate(FacesContext context) throws IOException {
+                // do nothing
+            }
+        },
+        partial {
             private void switchResponseWriter(FacesContext context, boolean writerState) {
                 ResponseWriter writer = context.getResponseWriter();
                 ((OnOffResponseWriter) writer).setSwitchedOn(writerState);
@@ -213,63 +203,58 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
 
             public void encodeStartUpdate(FacesContext context, String targetId) throws IOException {
                 switchResponseWriter(context, true);
-                
+
                 context.getPartialViewContext().getPartialResponseWriter().startUpdate(targetId);
             }
 
             public void encodeEndUpdate(FacesContext context) throws IOException {
                 context.getPartialViewContext().getPartialResponseWriter().endUpdate();
-                
+
                 switchResponseWriter(context, false);
             }
         };
 
         public abstract void encodeStartUpdate(FacesContext context, String targetId) throws IOException;
-        
-        public abstract void encodeEndUpdate(FacesContext context) throws IOException;
-        
-    }
-    
-    private static final Map<java.lang.String, org.richfaces.renderkit.ComponentAttribute> EVENT_ATTRIBUTES
-        = Collections.unmodifiableMap(ComponentAttribute.createMap(new ComponentAttribute("onselectionchange")
-            .setEventNames(new String[] {"selectionchange"}), new ComponentAttribute("onbeforeselectionchange")
-                .setEventNames(new String[] {"beforeselectionchange"})));
 
-    private void encodeEmptyFooterCell(FacesContext context, ResponseWriter writer, UIComponent column)
-        throws IOException {
+        public abstract void encodeEndUpdate(FacesContext context) throws IOException;
+
+    }
+
+    private static final Map<java.lang.String, org.richfaces.renderkit.ComponentAttribute> EVENT_ATTRIBUTES = Collections
+        .unmodifiableMap(ComponentAttribute.createMap(
+            new ComponentAttribute("onselectionchange").setEventNames(new String[] { "selectionchange" }),
+            new ComponentAttribute("onbeforeselectionchange").setEventNames(new String[] { "beforeselectionchange" })));
+
+    private void encodeEmptyFooterCell(FacesContext context, ResponseWriter writer, UIComponent column) throws IOException {
         if (column.isRendered()) {
             writer.startElement(HtmlConstants.TD_ELEM, column);
             writer.startElement(HtmlConstants.DIV_ELEM, column);
-            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-ftr-c-emp rf-edt-c-"
-                + column.getId(), null);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-ftr-c-emp rf-edt-c-" + column.getId(), null);
             writer.endElement(HtmlConstants.DIV_ELEM);
             writer.endElement(HtmlConstants.TD_ELEM);
         }
     }
 
-    private void encodeHeaderOrFooterCell(FacesContext context, ResponseWriter writer, UIComponent column,
-        String facetName) throws IOException {
+    private void encodeHeaderOrFooterCell(FacesContext context, ResponseWriter writer, UIComponent column, String facetName)
+        throws IOException {
         if (column.isRendered()) {
 
             String classAttribute = facetName + "Class";
             writer.startElement(HtmlConstants.TD_ELEM, column);
             if ("header".equals(facetName)) {
                 writer.startElement(HtmlConstants.DIV_ELEM, column);
-                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-rsz-cntr rf-edt-c-"
-                    + column.getId(), null);
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-rsz-cntr rf-edt-c-" + column.getId(), null);
                 writer.startElement(HtmlConstants.DIV_ELEM, column);
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-rsz", null);
                 writer.endElement(HtmlConstants.DIV_ELEM);
                 writer.endElement(HtmlConstants.DIV_ELEM);
             }
             writer.startElement(HtmlConstants.DIV_ELEM, column);
-            writer.writeAttribute(
-                HtmlConstants.CLASS_ATTRIBUTE,
-                HtmlUtil.concatClasses("rf-edt-" + getFacetClassName(facetName) + "-c", "rf-edt-c-"
-                    + column.getId(), (String) column.getAttributes().get(classAttribute)), null);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, HtmlUtil.concatClasses("rf-edt-"
+                + getFacetClassName(facetName) + "-c", "rf-edt-c-" + column.getId(),
+                (String) column.getAttributes().get(classAttribute)), null);
             writer.startElement(HtmlConstants.DIV_ELEM, column);
-            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-" + getFacetClassName(facetName)
-                + "-c-cnt", null);
+            writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-" + getFacetClassName(facetName) + "-c-cnt", null);
             UIComponent facet = column.getFacet(facetName);
             if (facet != null && facet.isRendered()) {
                 facet.encodeAll(context);
@@ -286,10 +271,10 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         } else if ("footer".equals(name)) {
             return "ftr";
         }
-        
+
         throw new IllegalArgumentException(name);
     }
-    
+
     private void encodeHeaderOrFooter(RendererState state, String name) throws IOException {
         FacesContext context = state.getContext();
         ResponseWriter writer = context.getResponseWriter();
@@ -316,8 +301,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                     writer.startElement(HtmlConstants.DIV_ELEM, table);
                     if (PartName.frozen.equals(partName)) {
                         if ("header".equals(name)) {
-                            writer
-                            .writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId + ":frozenHeader", null);
+                            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId + ":frozenHeader", null);
                         }
                     } else {
                         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId + ":" + name, null);
@@ -433,8 +417,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                 writer.writeAttribute(HtmlConstants.CELLPADDING_ATTRIBUTE, "0", null);
                 writer.writeAttribute(HtmlConstants.CELLSPACING_ATTRIBUTE, "0", null);
                 writer.startElement(HtmlConstants.TBODY_ELEMENT, table);
-                writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId + ":tb"
-                    + partName.getId(), null);
+                writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId + ":tb" + partName.getId(), null);
                 encodeRows(context, state);
                 writer.endElement(HtmlConstants.TBODY_ELEMENT);
                 writer.endElement(HtmlConstants.TABLE_ELEMENT);
@@ -475,14 +458,13 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             encoderVariance.encodeEndUpdate(context);
         }
     }
-    
+
     @Override
     protected Class<? extends UIComponent> getComponentClass() {
         return AbstractExtendedDataTable.class;
     }
 
-    public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) 
-        throws IOException {
+    public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) throws IOException {
         AbstractExtendedDataTable table = (AbstractExtendedDataTable) component;
         if (AbstractExtendedDataTable.SCROLL.equals(metaComponentId)) {
             final PartialResponseWriter writer = context.getPartialViewContext().getPartialResponseWriter();
@@ -523,8 +505,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                         public DataVisitResult process(FacesContext context, Object rowKey, Object argument) {
                             UIDataTableBase dataTable = state.getRow();
                             dataTable.setRowKey(context, rowKey);
-                            ids.add(dataTable.getContainerClientId(context) + ":"
-                                + state.getPart().getName().getId());
+                            ids.add(dataTable.getContainerClientId(context) + ":" + state.getPart().getName().getId());
                             return DataVisitResult.CONTINUE;
                         }
                     }, removeRange, null);
@@ -533,8 +514,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                             UIDataTableBase dataTable = state.getRow();
                             dataTable.setRowKey(context, rowKey);
                             HashMap<String, String> attributes = new HashMap<String, String>(1);
-                            String id = dataTable.getContainerClientId(context) + ":"
-                                + state.getPart().getName().getId();
+                            String id = dataTable.getContainerClientId(context) + ":" + state.getPart().getName().getId();
                             attributes.put("id", id);
                             try {
                                 writer.updateAttributes(ids.remove(0), attributes);
@@ -546,15 +526,14 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
                             }
                             return DataVisitResult.CONTINUE;
                         }
-                    },  addRange, null);
+                    }, addRange, null);
                     writer.startEval();
                     if (difference < 0) {
                         difference += clientRows;
                     }
-                    
-                    //TODO nick - move this to external JavaScript file
-                    writer.write("var richTBody = document.getElementById('" + clientId + ":tb"
-                        + partId + "');");
+
+                    // TODO nick - move this to external JavaScript file
+                    writer.write("var richTBody = document.getElementById('" + clientId + ":tb" + partId + "');");
                     writer.write("var richRows = richTBody.rows;");
                     writer.write("for (var i = 0; i < " + difference
                         + "; i++ ) richTBody.appendChild(richTBody.removeChild(richRows[0]));");
@@ -580,13 +559,14 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
 
                 RendererState state = createRowHolder(context, component, null);
                 state.setEncoderVariance(EncoderVariance.partial);
-                
+
                 PartialResponseWriter writer = context.getPartialViewContext().getPartialResponseWriter();
-                
+
                 if (UIDataTableBase.HEADER.equals(metaComponentId)) {
                     encodeHeader(state);
                     writer.startEval();
-                    writer.write("jQuery(" + ScriptUtils.toScript('#' + ScriptUtils.escapeCSSMetachars(table.getClientId(context)))
+                    writer.write("jQuery("
+                        + ScriptUtils.toScript('#' + ScriptUtils.escapeCSSMetachars(table.getClientId(context)))
                         + ").triggerHandler('rich:onajaxcomplete', {reinitializeHeader: true});");
                     writer.endEval();
                 } else if (UIDataTableBase.FOOTER.equals(metaComponentId)) {
@@ -610,18 +590,17 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             }
         }
     }
-    
+
     public void decodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) {
         throw new UnsupportedOperationException();
     }
 
-    protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component)
-        throws IOException {
+    protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         Map<String, Object> attributes = component.getAttributes();
         writer.startElement(HtmlConstants.DIV_ELEM, component);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context), null);
-        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, HtmlUtil.concatClasses("rf-edt",
-            (String) attributes.get("styleClass")), null);
+        writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
+            HtmlUtil.concatClasses("rf-edt", (String) attributes.get("styleClass")), null);
         renderAttribute(context, HtmlConstants.STYLE_ATTRIBUTE, attributes.get("style"));
     }
 
@@ -629,8 +608,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         return new RendererState(context, (UIDataTableBase) component);
     }
 
-    protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component)
-        throws IOException {
+    protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
 
         UIDataTableBase table = (UIDataTableBase) component;
         Object key = table.getRowKey();
@@ -645,8 +623,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         table.restoreOrigValue(context);
     }
 
-    protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component)
-        throws IOException {
+    protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         writer.startElement(HtmlConstants.TABLE_ELEMENT, component);
         String clientId = component.getClientId(context);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId + ":r", null);
@@ -682,18 +659,19 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         encodeSelectionInput(writer, context, component);
         AjaxFunction ajaxFunction = buildAjaxFunction(context, component);
         ajaxFunction.getOptions().setClientParameters(CLIENT_PARAMS);
-        
+
         Map<String, Object> attributes = component.getAttributes();
         Map<String, Object> options = new HashMap<String, Object>();
-        addToScriptHash(options, "selectionMode", attributes.get("selectionMode"),
-            SelectionMode.multiple);
-        addToScriptHash(options, "onbeforeselectionchange", RenderKitUtils.getAttributeAndBehaviorsValue(context,
-            component, EVENT_ATTRIBUTES.get("onbeforeselectionchange")), null, ScriptHashVariableWrapper.eventHandler);
-        addToScriptHash(options, "onselectionchange", RenderKitUtils.getAttributeAndBehaviorsValue(context,
-            component, EVENT_ATTRIBUTES.get("onselectionchange")), null, ScriptHashVariableWrapper.eventHandler);
+        addToScriptHash(options, "selectionMode", attributes.get("selectionMode"), SelectionMode.multiple);
+        addToScriptHash(options, "onbeforeselectionchange",
+            RenderKitUtils.getAttributeAndBehaviorsValue(context, component, EVENT_ATTRIBUTES.get("onbeforeselectionchange")),
+            null, ScriptHashVariableWrapper.eventHandler);
+        addToScriptHash(options, "onselectionchange",
+            RenderKitUtils.getAttributeAndBehaviorsValue(context, component, EVENT_ATTRIBUTES.get("onselectionchange")), null,
+            ScriptHashVariableWrapper.eventHandler);
         StringBuilder builder = new StringBuilder("new RichFaces.ui.ExtendedDataTable('");
-        builder.append(clientId).append("', ").append(getRowCount(component))
-            .append(", function(event, clientParams) {").append(ajaxFunction.toScript()).append(";}");
+        builder.append(clientId).append("', ").append(getRowCount(component)).append(", function(event, clientParams) {")
+            .append(ajaxFunction.toScript()).append(";}");
         if (!options.isEmpty()) {
             builder.append(",").append(ScriptUtils.toScript(options));
         }
@@ -701,7 +679,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         getUtils().writeScript(context, component, builder.toString());
         writer.endElement(HtmlConstants.DIV_ELEM);
     }
-    
+
     private int getRowCount(UIComponent component) {
         UIDataTableBase table = (UIDataTableBase) component;
         int rows = table.getRows();
@@ -719,7 +697,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         FacesContext context = state.getContext();
         ResponseWriter writer = context.getResponseWriter();
         UIDataTableBase table = state.getRow();
-        
+
         PartialViewContext pvc = context.getPartialViewContext();
         if (!pvc.isAjaxRequest()) {
             writer.startElement("style", table);
@@ -729,21 +707,19 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         } else {
             writer.startElement(HtmlConstants.SCRIPT_ELEM, table);
             writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.TEXT_JAVASCRIPT_TYPE, null);
-            
+
             String cssText = getCSSText(context, table);
-            JSFunction function = new JSFunction("RichFaces.utils.addCSSText", cssText, table.getClientId(context) 
-                + ":st");
-            
+            JSFunction function = new JSFunction("RichFaces.utils.addCSSText", cssText, table.getClientId(context) + ":st");
+
             writer.writeText(function.toScript(), null);
-            
+
             writer.endElement(HtmlConstants.SCRIPT_ELEM);
         }
-        
     }
 
     protected String getCSSText(FacesContext context, UIDataTableBase table) throws IOException {
         StringBuilder sb = new StringBuilder();
-        
+
         sb.append("div.rf-edt-cnt { width: 100%; }"); // TODO getNormalizedId(context, state.getGrid())
 
         Iterator<UIComponent> columns = table.columns();
@@ -759,22 +735,21 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             sb.append("width: " + width + ";");
             sb.append("}");
         }
-        
+
         return sb.toString();
     }
 
-    public void encodeRow(ResponseWriter writer, FacesContext facesContext, RowHolderBase rowHolder)
-        throws IOException {
+    public void encodeRow(ResponseWriter writer, FacesContext facesContext, RowHolderBase rowHolder) throws IOException {
         RendererState state = (RendererState) rowHolder;
         AbstractExtendedDataTable table = (AbstractExtendedDataTable) state.getRow();
         writer.startElement(HtmlConstants.TR_ELEMENT, table);
-        
+
         if (rowHolder.getRow() instanceof UIDataTableBase) {
-            renderRowHandlers(facesContext, (UIDataTableBase)rowHolder.getRow());
+            renderRowHandlers(facesContext, (UIDataTableBase) rowHolder.getRow());
         }
-        
+
         String rowClass = getRowClass(rowHolder);
-        
+
         StringBuilder builder = new StringBuilder();
         Collection<Object> selection = table.getSelection();
         if (selection != null && selection.contains(table.getRowKey())) {
@@ -792,37 +767,36 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             }
             builder.append("rf-edt-r-sht");
         }
-        rowClass = concatClasses(builder.toString(), rowClass); 
+        rowClass = concatClasses(builder.toString(), rowClass);
         if (rowClass.length() > 0) {
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, rowClass, null);
         }
         Iterator<UIComponent> columns = null;
         Part part = state.getPart();
-        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE,
-            table.getContainerClientId(facesContext) + ":" + part.getName().getId(), null);
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, table.getContainerClientId(facesContext) + ":"
+            + part.getName().getId(), null);
         columns = part.getColumns().iterator();
         int columnNumber = 0;
         while (columns.hasNext()) {
             UIComponent column = (UIComponent) columns.next();
             if (column.isRendered()) {
                 writer.startElement(HtmlConstants.TD_ELEM, table);
-                
-                String columnClass = concatClasses(getColumnClass(rowHolder, columnNumber), 
+
+                String columnClass = concatClasses(getColumnClass(rowHolder, columnNumber),
                     column.getAttributes().get(HtmlConstants.STYLE_CLASS_ATTR));
                 if (!"".equals(columnClass)) {
                     writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, columnClass, null);
                 }
-                
-                String columnStyle = (String)column.getAttributes().get(HtmlConstants.STYLE_ATTRIBUTE);
+
+                String columnStyle = (String) column.getAttributes().get(HtmlConstants.STYLE_ATTRIBUTE);
                 if (!"".equals(columnStyle)) {
                     writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, columnStyle, null);
                 }
-                
+
                 columnNumber++;
-                
+
                 writer.startElement(HtmlConstants.DIV_ELEM, table);
-                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-c rf-edt-c-"
-                    + column.getId(), null);
+                writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-c rf-edt-c-" + column.getId(), null);
                 writer.startElement(HtmlConstants.DIV_ELEM, column);
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-edt-c-cnt", null);
                 renderChildren(facesContext, column);
@@ -845,7 +819,7 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
         if (map.get(clientId) != null) {
             updateClientFirst(context, component, map.get("rich:clientFirst"));
         }
-        
+
         decodeSortingFiltering(context, component);
     }
 
@@ -859,30 +833,30 @@ public class ExtendedDataTableRenderer extends SelectionRenderer implements Meta
             }
         }
     }
-    
+
     private void updateColumnsOrder(FacesContext context, UIComponent component, String columnsOrderString) {
         if (columnsOrderString != null && columnsOrderString.length() > 0) {
             String[] columnsOrder = columnsOrderString.split(",");
             updateAttribute(context, component, "columnsOrder", columnsOrder);
-            context.getPartialViewContext().getRenderIds().add(component.getClientId(context)); //TODO Use partial re-rendering here.
+            context.getPartialViewContext().getRenderIds().add(component.getClientId(context)); // TODO Use partial re-rendering
+                                                                                                // here.
         }
     }
-    
+
     private void updateClientFirst(FacesContext context, UIComponent component, String clientFirst) {
         if (clientFirst != null && clientFirst.length() > 0) {
             Integer value = Integer.valueOf(clientFirst);
             Map<String, Object> attributes = component.getAttributes();
             if (!value.equals(attributes.get("clientFirst"))) {
                 attributes.put(AbstractExtendedDataTable.SUBMITTED_CLIENT_FIRST, value);
-                context.getPartialViewContext().getRenderIds().add(
-                    component.getClientId(context) + "@" + AbstractExtendedDataTable.SCROLL);
+                context.getPartialViewContext().getRenderIds()
+                    .add(component.getClientId(context) + "@" + AbstractExtendedDataTable.SCROLL);
             }
         }
     }
-        
+
     /**
-     * @deprecated
-     * TODO Remove this method when width in relative units in columns will be implemented.
+     * @deprecated TODO Remove this method when width in relative units in columns will be implemented.
      * @param column
      * @return width
      */

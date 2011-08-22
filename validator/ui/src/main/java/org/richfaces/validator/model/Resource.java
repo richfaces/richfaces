@@ -3,13 +3,13 @@ package org.richfaces.validator.model;
 import javax.xml.bind.annotation.XmlElement;
 
 public class Resource {
-    
     private String name;
-    
     private String library;
 
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @return the name
      */
     @XmlElement
@@ -18,7 +18,9 @@ public class Resource {
     }
 
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @param name the name to set
      */
     public void setName(String name) {
@@ -26,7 +28,9 @@ public class Resource {
     }
 
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @return the library
      */
     @XmlElement
@@ -35,11 +39,12 @@ public class Resource {
     }
 
     /**
-     * <p class="changed_added_4_0"></p>
+     * <p class="changed_added_4_0">
+     * </p>
+     *
      * @param library the library to set
      */
     public void setLibrary(String library) {
         this.library = library;
     }
-
 }

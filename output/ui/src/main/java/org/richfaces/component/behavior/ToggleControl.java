@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component.behavior;
 
 import javax.el.ExpressionFactory;
@@ -28,8 +27,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorContext;
 import javax.faces.context.FacesContext;
 
-import org.ajax4jsf.component.behavior.ClientBehavior;
-import org.richfaces.cdk.annotations.*;
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfBehavior;
+import org.richfaces.cdk.annotations.JsfBehaviorRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 import org.richfaces.component.AbstractTogglePanel;
 import org.richfaces.component.ComponentIterators;
 import org.richfaces.renderkit.util.RendererUtils;
@@ -38,16 +40,9 @@ import org.richfaces.renderkit.util.RendererUtils;
  * @author akolonitsky
  *
  */
-
-@JsfBehavior(
-        id = "org.richfaces.component.behavior.ToggleControl",
-        tag = @Tag(name = "toggleControl", handler = "org.richfaces.view.facelets.html.CustomBehaviorHandler", type = TagType.Facelets),
-        renderer = @JsfBehaviorRenderer(type = "org.richfaces.component.behavior.ToggleControl")
-)
+@JsfBehavior(id = "org.richfaces.component.behavior.ToggleControl", tag = @Tag(name = "toggleControl", handler = "org.richfaces.view.facelets.html.CustomBehaviorHandler", type = TagType.Facelets), renderer = @JsfBehaviorRenderer(type = "org.richfaces.component.behavior.ToggleControl"))
 public class ToggleControl extends ClientBehavior {
-
     public static final String BEHAVIOR_ID = "org.richfaces.component.behavior.ToggleControl";
-
     private static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
 
     private enum PropertyKeys {
@@ -107,8 +102,8 @@ public class ToggleControl extends ClientBehavior {
             if (null != targetComponent) {
                 return (AbstractTogglePanel) targetComponent;
             } else {
-                throw new FacesException("Parent panel for control (id="
-                        + comp.getClientId(getFacesContext()) + ") has not been found.");
+                throw new FacesException("Parent panel for control (id=" + comp.getClientId(getFacesContext())
+                    + ") has not been found.");
             }
         } else {
             return getEnclosedPanel(comp);
@@ -122,8 +117,8 @@ public class ToggleControl extends ClientBehavior {
 
         AbstractTogglePanel panel = ComponentIterators.getParent(comp, AbstractTogglePanel.class);
         if (panel == null) {
-            throw new FacesException("Parent panel for control (id="
-                    + comp.getClientId(FacesContext.getCurrentInstance()) + ") has not been found.");
+            throw new FacesException("Parent panel for control (id=" + comp.getClientId(FacesContext.getCurrentInstance())
+                + ") has not been found.");
         }
 
         return panel;
@@ -142,7 +137,7 @@ public class ToggleControl extends ClientBehavior {
             setTargetPanel((String) value);
         } else if (compare(PropertyKeys.disableDefault, name)) {
             ExpressionFactory expFactory = getFacesContext().getApplication().getExpressionFactory();
-            setDisableDefault((Boolean)expFactory.coerceToType(value, Boolean.class));
+            setDisableDefault((Boolean) expFactory.coerceToType(value, Boolean.class));
         }
     }
 }

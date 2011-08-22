@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.richfaces.validator;
 
@@ -24,6 +24,7 @@ import javax.validation.metadata.ConstraintDescriptor;
 import javax.validation.metadata.ElementDescriptor.ConstraintFinder;
 import javax.validation.metadata.PropertyDescriptor;
 
+import org.richfaces.component.util.Strings;
 import org.richfaces.el.ValueDescriptor;
 import org.richfaces.el.ValueExpressionAnalayser;
 
@@ -31,14 +32,13 @@ import com.google.common.collect.ImmutableSet;
 
 /**
  * @author asmirnov
- * 
+ *
  */
 public class BeanValidatorServiceImpl implements BeanValidatorService {
-
-    private static final Collection<String> HIDDEN_PARAMS = ImmutableSet.of("message","payload","groups");
+    private static final Collection<String> HIDDEN_PARAMS = ImmutableSet.of("message", "payload", "groups");
     private static final String FACES_CONTEXT_IS_NULL = "Faces context is null";
     private static final String INPUT_PARAMETERS_IS_NOT_CORRECT = "Input parameters is not correct.";
-    private static final Class<?>[] DEFAULT_GROUP={};
+    private static final Class<?>[] DEFAULT_GROUP = {};
     private final ValueExpressionAnalayser analayser;
     private final BeanValidatorFactory validatorFactory;
 
@@ -49,20 +49,20 @@ public class BeanValidatorServiceImpl implements BeanValidatorService {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.richfaces.validator.BeanValidatorService#getConstrains(javax.faces.context.FacesContext,
      * javax.el.ValueExpression, java.lang.Class<?>[])
      */
-    public Collection<ValidatorDescriptor> getConstrains(FacesContext context, ValueExpression expression,
+    public Collection<ValidatorDescriptor> getConstrains(FacesContext context, ValueExpression expression, String message,
         Class<?>... groups) {
         try {
             ValueDescriptor propertyDescriptor = analayser.getPropertyDescriptor(context, expression);
-            
+
             if (propertyDescriptor == null) {
                 return Collections.emptySet();
             }
-            
-            return processBeanAttribute(context, propertyDescriptor, groups);
+
+            return processBeanAttribute(context, propertyDescriptor, message, groups);
         } catch (ELException e) {
             return Collections.emptySet();
         }
@@ -72,11 +72,10 @@ public class BeanValidatorServiceImpl implements BeanValidatorService {
         return validatorFactory.getValidator(context);
     }
 
-    Collection<ValidatorDescriptor> processBeanAttribute(FacesContext context, ValueDescriptor descriptor,
+    Collection<ValidatorDescriptor> processBeanAttribute(FacesContext context, ValueDescriptor descriptor, String msg,
         Class<?>... groups) {
-        PropertyDescriptor constraintsForProperty =
-            getValidator(context).getConstraintsForClass(descriptor.getBeanType()).getConstraintsForProperty(
-                descriptor.getName());
+        PropertyDescriptor constraintsForProperty = getValidator(context).getConstraintsForClass(descriptor.getBeanType())
+            .getConstraintsForProperty(descriptor.getName());
         if (null != constraintsForProperty) {
             ConstraintFinder propertyConstraints = constraintsForProperty.findConstraints();
             if (null != groups && groups.length > 0) {
@@ -87,23 +86,22 @@ public class BeanValidatorServiceImpl implements BeanValidatorService {
                 .getConstraintDescriptors();
 
             // ContextHolder is an arbitrary object, it will depend on the implementation
-            Set<ValidatorDescriptor> descriptors = new HashSet<ValidatorDescriptor>(constraints.size());
-            processConstraints(context, constraints, descriptors);
-            return descriptors;
-
+            FacesMessage message = Strings.isEmpty(msg) ? null : new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
+            return processConstraints(context, constraints, message);
         } else {
             return Collections.emptySet();
         }
     }
 
-    void processConstraints(FacesContext context, Set<ConstraintDescriptor<?>> constraints,
-        Collection<ValidatorDescriptor> descriptors) {
+    Collection<ValidatorDescriptor> processConstraints(FacesContext context, Set<ConstraintDescriptor<?>> constraints,
+        FacesMessage msg) {
+        Set<ValidatorDescriptor> descriptors = new HashSet<ValidatorDescriptor>(constraints.size());
         for (ConstraintDescriptor<?> cd : constraints) {
             Annotation a = cd.getAnnotation();
             Map<String, Object> parameters = cd.getAttributes();
             // TODO if cd.isReportedAsSingleConstraint() make sure than only the root constraint raises an error message
             // if one or several of the composing constraints are invalid)
-            FacesMessage message = validatorFactory.interpolateMessage(context, cd);
+            FacesMessage message = null == msg ? validatorFactory.interpolateMessage(context, cd) : msg;
             Class<? extends Annotation> validatorClass = findAnnotationClass(a);
             BeanValidatorDescriptor beanValidatorDescriptor = new BeanValidatorDescriptor(validatorClass, message);
             for (Map.Entry<String, Object> entry : parameters.entrySet()) {
@@ -113,7 +111,7 @@ public class BeanValidatorServiceImpl implements BeanValidatorService {
                     try {
                         Method method = validatorClass.getDeclaredMethod(key);
                         Object defaultValue = method.getDefaultValue();
-                        if(!value.equals(defaultValue)){
+                        if (!value.equals(defaultValue)) {
                             beanValidatorDescriptor.addParameter(key, value);
                         }
                     } catch (SecurityException e) {
@@ -125,8 +123,10 @@ public class BeanValidatorServiceImpl implements BeanValidatorService {
             }
             beanValidatorDescriptor.makeImmutable();
             descriptors.add(beanValidatorDescriptor);
-            processConstraints(context, cd.getComposingConstraints(), descriptors); // process the composing constraints
+            descriptors.addAll(processConstraints(context, cd.getComposingConstraints(), msg)); // process the composing
+                                                                                                // constraints
         }
+        return descriptors;
     }
 
     private Class<? extends Annotation> findAnnotationClass(Annotation a) {
@@ -145,11 +145,11 @@ public class BeanValidatorServiceImpl implements BeanValidatorService {
 
     public Collection<String> validateExpression(FacesContext context, ValueExpression expression, Object newValue,
         Class<?>... groups) {
-        
+
         if (null == context) {
             throw new FacesException(INPUT_PARAMETERS_IS_NOT_CORRECT);
         }
-        
+
         Collection<String> validationMessages = null;
         if (null != expression) {
             ValueDescriptor valueDescriptor;
@@ -160,25 +160,23 @@ public class BeanValidatorServiceImpl implements BeanValidatorService {
             }
 
             if (valueDescriptor != null) {
-                validationMessages = validate(context, valueDescriptor.getBeanType(), valueDescriptor.getName(), newValue, groups);
+                validationMessages = validate(context, valueDescriptor.getBeanType(), valueDescriptor.getName(), newValue,
+                    groups);
             }
-            
         }
-        
+
         if (validationMessages == null) {
             validationMessages = Collections.emptySet();
         }
-        
+
         return validationMessages;
     }
 
-
-
     /**
      * Class for identify validator instance by locale
-     * 
+     *
      * @author amarkhel
-     * 
+     *
      */
     protected static class ValidatorKey {
         private final Class<? extends Object> validatableClass;
@@ -186,18 +184,18 @@ public class BeanValidatorServiceImpl implements BeanValidatorService {
 
         /**
          * Constructor for ValidatorKey object
-         * 
-         * @param validatableClass
-         *            - class to validate
-         * @param locale
-         *            - User locale to determine Resource bundle, used during validation process
+         *
+         * @param validatableClass - class to validate
+         * @param locale - User locale to determine Resource bundle, used during validation process
          */
         public ValidatorKey(Class<? extends Object> validatableClass, Locale locale) {
             this.validatableClass = validatableClass;
             this.locale = locale;
         }
 
-        /* (non-Javadoc)
+        /*
+         * (non-Javadoc)
+         *
          * @see java.lang.Object#hashCode()
          */
         @Override
@@ -209,7 +207,9 @@ public class BeanValidatorServiceImpl implements BeanValidatorService {
             return result;
         }
 
-        /* (non-Javadoc)
+        /*
+         * (non-Javadoc)
+         *
          * @see java.lang.Object#equals(java.lang.Object)
          */
         @Override
@@ -240,23 +240,19 @@ public class BeanValidatorServiceImpl implements BeanValidatorService {
             }
             return true;
         }
-
-
-
     }
-
 
     protected Collection<String> validate(FacesContext facesContext, Class<?> beanType, String property, Object value,
         Class<?>[] groups) {
-        
+
         @SuppressWarnings("unchecked")
-        Set<ConstraintViolation<Object>> constrains =
-            getValidator(facesContext).validateValue((Class<Object>) beanType, property, value, getGroups(groups));
+        Set<ConstraintViolation<Object>> constrains = getValidator(facesContext).validateValue((Class<Object>) beanType,
+            property, value, getGroups(groups));
         return extractMessages(constrains);
     }
 
     private Class<?>[] getGroups(Class<?>[] groups) {
-        return null==groups?DEFAULT_GROUP:groups;
+        return null == groups ? DEFAULT_GROUP : groups;
     }
 
     public Collection<String> validateObject(FacesContext context, Object value, Class<?>... groups) {
@@ -272,11 +268,9 @@ public class BeanValidatorServiceImpl implements BeanValidatorService {
             for (ConstraintViolation<? extends Object> constraintViolation : violations) {
                 messages.add(constraintViolation.getMessage());
             }
-
         } else {
             messages = Collections.emptySet();
         }
         return messages;
     }
-
 }

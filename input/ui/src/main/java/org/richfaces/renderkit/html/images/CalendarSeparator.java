@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit.html.images;
 
 import java.awt.Color;
@@ -45,11 +44,9 @@ import org.richfaces.skin.SkinFactory;
  */
 @DynamicUserResource
 public class CalendarSeparator extends AbstractJava2DUserResource implements StateHolderResource {
-
     private static final Dimension DIMENSION = new Dimension(1, 15);
-    
     private Integer headerTextColor;
-    
+
     public CalendarSeparator() {
         super(DIMENSION);
     }
@@ -59,7 +56,7 @@ public class CalendarSeparator extends AbstractJava2DUserResource implements Sta
         FacesContext context = FacesContext.getCurrentInstance();
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
         Skin defaultSkin = SkinFactory.getInstance(context).getDefaultSkin(context);
-        
+
         this.headerTextColor = skin.getColorParameter(context, Skin.HEADER_TEXT_COLOR);
         if (this.headerTextColor == null) {
             this.headerTextColor = defaultSkin.getColorParameter(context, Skin.HEADER_TEXT_COLOR);
@@ -86,11 +83,11 @@ public class CalendarSeparator extends AbstractJava2DUserResource implements Sta
         graphics2d.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_QUALITY);
         graphics2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
         graphics2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-        
+
         Color color = new Color(this.headerTextColor);
         graphics2d.setColor(color);
-        
-        for (int i = 0;i < DIMENSION.getHeight(); i += 2 ) {
+
+        for (int i = 0; i < DIMENSION.getHeight(); i += 2) {
             graphics2d.drawLine(0, i, 0, i);
         }
     }

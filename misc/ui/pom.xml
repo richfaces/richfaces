@@ -17,20 +17,21 @@
     Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF site:
     http://www.fsf.org.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.richfaces.ui</groupId>
         <artifactId>richfaces-ui-parent</artifactId>
-        <version>4.0.0.Final</version>
+        <version>4.1.0.20110805-M1</version>
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.ui.misc</groupId>
     <artifactId>richfaces-ui-misc-ui</artifactId>
-    <version>4.0.0.Final</version>
+    <version>4.1.0.20110805-M1</version>
     <packaging>jar</packaging>
     <name>Richfaces UI Misc UI</name>
 
@@ -45,23 +46,21 @@
             </plugin>
         </plugins>
     </build>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.richfaces.ui.common</groupId>
             <artifactId>richfaces-ui-common-ui</artifactId>
-       </dependency>
+        </dependency>
         <dependency>
-             <groupId>org.richfaces.ui.core</groupId>
+            <groupId>org.richfaces.ui.core</groupId>
             <artifactId>richfaces-ui-core-ui</artifactId>
-       </dependency>       
+        </dependency>
     </dependencies>
 
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/tags/4.0.0.20110319-Final/ui/misc/dist/richfaces-ui-misc-ui
-        </connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/tags/4.0.0.20110319-Final/ui/misc/dist/richfaces-ui-misc-ui
-        </developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/tags/4.0.0.20110319-Final/ui/misc/dist/richfaces-ui-misc-ui</url>
+        <connection>scm:git:git://github.com/richfaces/components.git</connection>
+        <developerConnection>scm:git:git@github.com:richfaces/components.git</developerConnection>
+        <url>https://github.com/richfaces/components</url>
     </scm>
 </project>

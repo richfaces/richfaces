@@ -36,16 +36,16 @@ import org.richfaces.convert.ConverterUtil;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public abstract class AbstractTreeModelAdaptor extends UIComponentBase {
-
     private enum PropertyKeys {
-        rowKeyConverter, rowKeyConverterSet
+        rowKeyConverter,
+        rowKeyConverterSet
     }
-    
+
     private Converter rowKeyConverter;
-    
+
     @Attribute
     public Converter getRowKeyConverter() {
         if (this.rowKeyConverter != null) {
@@ -71,18 +71,18 @@ public abstract class AbstractTreeModelAdaptor extends UIComponentBase {
         if (isSetRowKeyConverter()) {
             return;
         }
-        
+
         if (value instanceof Iterable<?>) {
             setRowKeyConverter(ConverterUtil.integerConverter());
         } else if (value instanceof Map<?, ?>) {
             setRowKeyConverter(ConverterUtil.stringConverter());
         }
     }
-    
+
     private boolean isSetRowKeyConverter() {
         return isLocalRowKeyConverterSet() || getValueExpression(PropertyKeys.rowKeyConverter.toString()) != null;
     }
-    
+
     private boolean isLocalRowKeyConverterSet() {
         Boolean value = (Boolean) getStateHelper().get(PropertyKeys.rowKeyConverterSet);
         return Boolean.TRUE.equals(value);
@@ -109,23 +109,23 @@ public abstract class AbstractTreeModelAdaptor extends UIComponentBase {
     @Override
     public void restoreState(FacesContext context, Object stateObject) {
         Object[] state = (Object[]) stateObject;
-        
+
         super.restoreState(context, state[0]);
-        
+
         boolean converterHasPartialState = Boolean.TRUE.equals(state[1]);
         Object savedConverterState = state[2];
-        
+
         if (converterHasPartialState) {
             ((StateHolder) rowKeyConverter).restoreState(context, savedConverterState);
         } else {
             rowKeyConverter = (Converter) UIComponentBase.restoreAttachedState(context, savedConverterState);
         }
     }
-    
+
     @Override
     public Object saveState(FacesContext context) {
         Object parentState = super.saveState(context);
-        
+
         Object converterState = null;
         boolean nullDelta = true;
 
@@ -159,11 +159,6 @@ public abstract class AbstractTreeModelAdaptor extends UIComponentBase {
             converterState = saveAttachedState(context, rowKeyConverter);
         }
 
-        return new Object[] {
-            parentState,
-            converterHasPartialState,
-            converterState
-        };
+        return new Object[] { parentState, converterHasPartialState, converterState };
     }
-    
 }

@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit;
 
 /**
@@ -27,12 +26,8 @@ package org.richfaces.renderkit;
  *
  */
 public interface PopupConstants {
-    
-    public static final String OPTIONS_ITEM_CLASS = "itemCss";
-
-    public static final String OPTIONS_SELECT_ITEM_CLASS = "selectItemCss";
-    
-    public static final String OPTIONS_LIST_CLASS = "listCss";
-
-    public static final String OPTIONS_LIST_CORD = "list";
+    String OPTIONS_ITEM_CLASS = "itemCss";
+    String OPTIONS_SELECT_ITEM_CLASS = "selectItemCss";
+    String OPTIONS_LIST_CLASS = "listCss";
+    String OPTIONS_LIST_CORD = "list";
 }

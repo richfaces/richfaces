@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.richfaces.javascript;
 
@@ -27,10 +27,9 @@ import com.google.common.collect.Maps;
 
 /**
  * @author asmirnov
- * 
+ *
  */
 public final class ClientServiceConfigParser {
-
     private static final Logger LOG = RichfacesLogger.CONFIG.getLogger();
 
     private ClientServiceConfigParser() {
@@ -61,20 +60,19 @@ public final class ClientServiceConfigParser {
             for (Component component : clientSideScripts.getComponent()) {
                 try {
                     Class<?> componentClass = loader.loadClass(component.getType());
-                    Iterable<ResourceKey> resources =
-                        Iterables.transform(component.getResource(), new Function<Resource, ResourceKey>() {
-
+                    Iterable<ResourceKey> resources = Iterables.transform(component.getResource(),
+                        new Function<Resource, ResourceKey>() {
                             public ResourceKey apply(Resource from) {
                                 return ResourceKey.create(from.getName(), from.getLibrary());
                             }
-
                         });
-                    LibraryFunctionImplementation function =
-                        new LibraryFunctionImplementation(component.getFunction(), resources);
+                    LibraryFunctionImplementation function = new LibraryFunctionImplementation(component.getFunction(),
+                        resources);
                     result.put(componentClass, function);
                 } catch (ClassNotFoundException e) {
                     // throw new FacesException("Class for component not found", e);
-                    LOG.warn("Found JavaScript function definition for class "+component.getType()+", but that class is not presented");
+                    LOG.warn("Found JavaScript function definition for class " + component.getType()
+                        + ", but that class is not presented");
                 }
             }
         } catch (Exception e) {
@@ -82,5 +80,4 @@ public final class ClientServiceConfigParser {
         }
         return result;
     }
-
 }

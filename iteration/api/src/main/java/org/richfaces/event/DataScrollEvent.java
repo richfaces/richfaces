@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.event;
 
 import javax.faces.component.UIComponent;
@@ -29,9 +28,8 @@ import javax.faces.event.FacesListener;
  * @author Wesley Hales
  */
 public class DataScrollEvent extends ActionEvent {
-
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 2657353903701932561L;
     private String oldScrolVal;
@@ -40,13 +38,10 @@ public class DataScrollEvent extends ActionEvent {
 
     /**
      * Creates a new ScrollerEvent.
-     * 
-     * @param component
-     *            the source of the event
-     * @param thisOldScrolVal
-     *            the previously showing item identifier
-     * @param thisNewScrolVal
-     *            the currently showing item identifier
+     *
+     * @param component the source of the event
+     * @param thisOldScrolVal the previously showing item identifier
+     * @param thisNewScrolVal the currently showing item identifier
      */
     public DataScrollEvent(UIComponent component, String thisOldScrolVal, String thisNewScrolVal, int page) {
         super(component);
@@ -77,9 +72,8 @@ public class DataScrollEvent extends ActionEvent {
 
     /**
      * Delivers this event to the SliderListener.
-     * 
-     * @param listener
-     *            the slider listener
+     *
+     * @param listener the slider listener
      */
     public void processListener(FacesListener listener) {
         if (listener instanceof DataScrollListener) {

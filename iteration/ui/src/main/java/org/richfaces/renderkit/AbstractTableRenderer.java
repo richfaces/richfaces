@@ -19,35 +19,31 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit;
 
-import org.richfaces.component.Row;
-import org.richfaces.component.UIDataTableBase;
-import org.richfaces.component.util.HtmlUtil;
+import java.io.IOException;
+import java.util.Iterator;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.context.ResponseWriter;
-import java.io.IOException;
-import java.util.Iterator;
+
+import org.richfaces.component.Row;
+import org.richfaces.component.UIDataTableBase;
+import org.richfaces.component.util.HtmlUtil;
 
 /**
  * @author Anton Belevich
  *
  */
-
-@ResourceDependencies({
-    @ResourceDependency(name = "richfaces-event.js")
-})    
+@ResourceDependencies({ @ResourceDependency(name = "richfaces-event.js") })
 public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer implements MetaComponentRenderer {
-    
-    public static final String HIDDEN_CONTAINER_ID =":sc"; 
-    
+    public static final String HIDDEN_CONTAINER_ID = ":sc";
+
     public abstract EncodeStrategy getHiddenContainerStrategy(UIDataTableBase dataTableBase);
-    
+
     public boolean isColumnAttributeSet(UIDataTableBase table, String attributeName) {
         Iterator<UIComponent> columns = table.columns();
         boolean result = false;
@@ -57,35 +53,33 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         }
         return result;
     }
-    
+
     @Override
     public RowHolderBase createRowHolder(FacesContext context, UIComponent component, Object[] options) {
         RowHolder rowHolder = null;
-        if(component instanceof UIDataTableBase) {
-            rowHolder = new RowHolder(context, (UIDataTableBase)component);
-            rowHolder.setUpdatePartial((Boolean)options[0]);
-            rowHolder.setEncodeParentTBody((Boolean)options[1]);
-        }    
+        if (component instanceof UIDataTableBase) {
+            rowHolder = new RowHolder(context, (UIDataTableBase) component);
+            rowHolder.setUpdatePartial((Boolean) options[0]);
+            rowHolder.setEncodeParentTBody((Boolean) options[1]);
+        }
 
         return rowHolder;
     }
-    
+
     protected class SimpleHeaderEncodeStrategy implements EncodeStrategy {
-        public void begin(ResponseWriter writer, FacesContext context,  UIComponent column, Object [] params)
-            throws IOException {
+        public void begin(ResponseWriter writer, FacesContext context, UIComponent column, Object[] params) throws IOException {
         }
 
-        public void end(ResponseWriter writer, FacesContext context, UIComponent column, Object [] params)
-            throws IOException {
+        public void end(ResponseWriter writer, FacesContext context, UIComponent column, Object[] params) throws IOException {
         }
     }
-    
+
     protected void doDecode(FacesContext context, UIComponent component) {
         decodeSortingFiltering(context, component);
     }
-    
+
     protected void putRowStylesIntoContext(FacesContext facesContext, RowHolderBase rowHolder) {
-        UIDataTableBase dataTableBase = (UIDataTableBase)rowHolder.getRow();
+        UIDataTableBase dataTableBase = (UIDataTableBase) rowHolder.getRow();
 
         String rowClass = getRowSkinClass();
         String cellClass = getCellSkinClass();
@@ -95,27 +89,28 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         cellClass = mergeStyleClasses(CELL_CLASS_KEY, cellClass, dataTableBase);
         firstClass = mergeStyleClasses(FIRST_ROW_CLASS_KEY, firstClass, dataTableBase);
 
-        saveRowStyles(facesContext, dataTableBase.getClientId(facesContext), firstClass, rowClass, cellClass);    	
+        saveRowStyles(facesContext, dataTableBase.getClientId(facesContext), firstClass, rowClass, cellClass);
     }
 
     protected boolean isEncodeHeaders(UIDataTableBase table) {
         return table.isColumnFacetPresent(UIDataTableBase.HEADER) || isColumnAttributeSet(table, "sortBy")
-            || isColumnAttributeSet(table, "comparator")
-            || isColumnAttributeSet(table, "filterBy");
+            || isColumnAttributeSet(table, "comparator") || isColumnAttributeSet(table, "filterBy");
     }
 
     public void encodeTableStructure(ResponseWriter writer, FacesContext context, UIDataTableBase dataTable) throws IOException {
-        //DataTableRenderer override this method   
+        // DataTableRenderer override this method
     }
-    
-    public void encodeBeforeRows(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase, boolean encodeParentTBody, boolean partialUpdate) throws IOException {
+
+    public void encodeBeforeRows(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase,
+        boolean encodeParentTBody, boolean partialUpdate) throws IOException {
     }
-    
-    public void encodeAfterRows(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase, boolean encodeParentTBody, boolean partialUpdate) throws IOException {
+
+    public void encodeAfterRows(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase,
+        boolean encodeParentTBody, boolean partialUpdate) throws IOException {
     }
-    
+
     public abstract boolean encodeParentTBody(UIDataTableBase dataTableBase);
-    
+
     public void encodeTableFacets(ResponseWriter writer, FacesContext context, UIDataTableBase dataTable) throws IOException {
 
         Object key = dataTable.getRowKey();
@@ -123,42 +118,41 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         dataTable.setRowKey(context, null);
 
         encodeTableStructure(writer, context, dataTable);
-        
+
         encodeHeaderFacet(writer, context, dataTable, false);
         encodeFooterFacet(writer, context, dataTable, false);
         dataTable.setRowKey(context, key);
         dataTable.restoreOrigValue(context);
     }
-    
+
     public void encodeTableRows(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase,
         boolean encodePartialUpdate) throws IOException {
-        
+
         int rowCount = dataTableBase.getRowCount();
-       
+
         Object key = dataTableBase.getRowKey();
         dataTableBase.captureOrigValue(facesContext);
         dataTableBase.setRowKey(facesContext, null);
-        
+
         boolean encodeParentTBody = encodeParentTBody(dataTableBase);
         encodeBeforeRows(writer, facesContext, dataTableBase, encodeParentTBody, encodePartialUpdate);
 
         if (rowCount > 0) {
-            processRows(writer, facesContext, dataTableBase, new Object[]{encodePartialUpdate, encodeParentTBody});
+            processRows(writer, facesContext, dataTableBase, new Object[] { encodePartialUpdate, encodeParentTBody });
         } else {
-            encodeNoDataFacetOrLabel(writer,facesContext,dataTableBase);
+            encodeNoDataFacetOrLabel(writer, facesContext, dataTableBase);
         }
-       
-        
+
         encodeAfterRows(writer, facesContext, dataTableBase, encodeParentTBody, encodePartialUpdate);
 
-        if(encodePartialUpdate) {
+        if (encodePartialUpdate) {
             String id = dataTableBase.getClientId(facesContext) + HIDDEN_CONTAINER_ID;
             partialStart(facesContext, id);
         }
-        
-        encodeHiddens(writer, facesContext, dataTableBase, new Object[]{encodeParentTBody});
 
-        if(encodePartialUpdate) {
+        encodeHiddens(writer, facesContext, dataTableBase, new Object[] { encodeParentTBody });
+
+        if (encodePartialUpdate) {
             partialEnd(facesContext);
         }
 
@@ -194,57 +188,60 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         }
         writer.endElement(HtmlConstants.TD_ELEM);
         writer.endElement(HtmlConstants.TR_ELEMENT);
+    }
 
-    }
-           
     protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
-        if(component instanceof UIDataTableBase) {
-            encodeTableRows(writer, context, (UIDataTableBase)component, false);
-        }    
+        if (component instanceof UIDataTableBase) {
+            encodeTableRows(writer, context, (UIDataTableBase) component, false);
+        }
     }
-    
+
     public void encodeTableStart(ResponseWriter writer, FacesContext context, UIDataTableBase component) throws IOException {
         writer.startElement(HtmlConstants.TABLE_ELEMENT, component);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context), null);
         String styleClass = getTableSkinClass();
         encodeStyleClass(writer, context, component, HtmlConstants.STYLE_CLASS_ATTR, styleClass);
     }
-    
-    protected void encodeHiddens(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase, Object [] params) throws IOException {
+
+    protected void encodeHiddens(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase,
+        Object[] params) throws IOException {
         EncodeStrategy encodeStrategy = getHiddenContainerStrategy(dataTableBase);
-        if(encodeStrategy != null) {
+        if (encodeStrategy != null) {
             encodeStrategy.begin(writer, facesContext, dataTableBase, params);
-            
+
             encodeClientScript(writer, facesContext, dataTableBase);
             encodeHiddenInput(writer, facesContext, dataTableBase);
-            
+
             encodeStrategy.end(writer, facesContext, dataTableBase, params);
-        }    
+        }
     }
-    
+
     public void encodeTableEnd(ResponseWriter writer) throws IOException {
         writer.endElement(HtmlConstants.TABLE_ELEMENT);
     }
-    
-    public abstract void encodeClientScript(ResponseWriter writer, FacesContext context, UIDataTableBase component) throws IOException;
-    
-    public abstract void encodeHiddenInput(ResponseWriter writer, FacesContext context, UIDataTableBase component) throws IOException;
-           
+
+    public abstract void encodeClientScript(ResponseWriter writer, FacesContext context, UIDataTableBase component)
+        throws IOException;
+
+    public abstract void encodeHiddenInput(ResponseWriter writer, FacesContext context, UIDataTableBase component)
+        throws IOException;
+
     public void encodeTableBodyStart(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase)
         throws IOException {
-           
+
         writer.startElement(HtmlConstants.TBODY_ELEMENT, dataTableBase);
-        String clientId = (dataTableBase.getRelativeRowIndex() < 0) ? dataTableBase.getContainerClientId(facesContext) : dataTableBase.getRelativeClientId(facesContext);
-       
-        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE,  clientId + ":tb", null);
+        String clientId = (dataTableBase.getRowKey() == null) ? dataTableBase.getContainerClientId(facesContext)
+            : dataTableBase.getRelativeClientId(facesContext);
+
+        writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, clientId + ":tb", null);
         writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, getTableBodySkinClass(), null);
     }
-    
+
     public void encodeTableBodyEnd(ResponseWriter writer) throws IOException {
         writer.endElement(HtmlConstants.TBODY_ELEMENT);
     }
 
-    public void encodeFooterFacet(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTable, 
+    public void encodeFooterFacet(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTable,
         boolean encodePartialUpdate) throws IOException {
 
         UIComponent footer = dataTable.getFooter();
@@ -267,35 +264,34 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
                 writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, footerClientId, null);
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dt-tft", null);
             }
-     
+
             int columns = getColumnsCount(dataTable.columns());
 
             boolean encodePartialUpdateForChildren = (encodePartialUpdate && !partialUpdateEncoded);
-            
+
             if (columnFacetPresent) {
-                
-                
-                String rowClass =  getColumnFooterSkinClass();
+
+                String rowClass = getColumnFooterSkinClass();
                 String cellClass = getColumnFooterCellSkinClass();
                 String firstClass = getColumnFooterFirstSkinClass();
-                
+
                 rowClass = mergeStyleClasses("columnFooterClass", rowClass, dataTable);
                 cellClass = mergeStyleClasses("columnFooterCellClass", cellClass, dataTable);
                 firstClass = mergeStyleClasses("firstColumnFooterClass", firstClass, dataTable);
-                                
+
                 saveRowStyles(facesContext, clientId, firstClass, rowClass, cellClass);
-                
+
                 String targetId = clientId + ":cf";
-                
+
                 if (encodePartialUpdateForChildren) {
                     partialStart(facesContext, targetId);
                 }
-                
+
                 writer.startElement(HtmlConstants.TR_ELEMENT, dataTable);
                 writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, targetId, null);
-                
+
                 encodeStyleClass(writer, facesContext, dataTable, null, rowClass);
-                encodeColumnFacet(facesContext, writer, dataTable, UIDataTableBase.FOOTER,columns, cellClass);
+                encodeColumnFacet(facesContext, writer, dataTable, UIDataTableBase.FOOTER, columns, cellClass);
                 writer.endElement(HtmlConstants.TR_ELEMENT);
 
                 if (encodePartialUpdateForChildren) {
@@ -304,43 +300,42 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
             }
 
             if (footer != null && footer.isRendered()) {
-                         
-                String rowClass =  getFooterSkinClass();
+
+                String rowClass = getFooterSkinClass();
                 String cellClass = getFooterCellSkinClass();
                 String firstClass = getFooterFirstSkinClass();
-                
+
                 rowClass = mergeStyleClasses("footerClass", rowClass, dataTable);
                 cellClass = mergeStyleClasses("footerCellClass", cellClass, dataTable);
                 firstClass = mergeStyleClasses("footerFirstClass", firstClass, dataTable);
                 // TODO nick - rename method "encodeTableHeaderFacet"
                 saveRowStyles(facesContext, clientId, firstClass, rowClass, cellClass);
-                encodeTableFacet(facesContext, writer, clientId, columns, footer, UIDataTableBase.FOOTER, rowClass, cellClass, 
+                encodeTableFacet(facesContext, writer, clientId, columns, footer, UIDataTableBase.FOOTER, rowClass, cellClass,
                     encodePartialUpdateForChildren);
             }
 
             if (encodeTfoot) {
                 writer.endElement(HtmlConstants.TFOOT_ELEMENT);
-                
+
                 if (partialUpdateEncoded) {
                     partialEnd(facesContext);
                 }
             }
         }
-
     }
-    
+
     protected String mergeStyleClasses(String classAttribibute, String skinClass, UIComponent component) {
-        String resultClass = skinClass; 
-        
+        String resultClass = skinClass;
+
         String styleClass = null;
-        if(classAttribibute != null && component != null ) {
-            styleClass = (String)component.getAttributes().get(classAttribibute);
+        if (classAttribibute != null && component != null) {
+            styleClass = (String) component.getAttributes().get(classAttribibute);
         }
-             
+
         return HtmlUtil.concatClasses(resultClass, styleClass);
     }
-    
-    public void encodeHeaderFacet(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTable, 
+
+    public void encodeHeaderFacet(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTable,
         boolean encodePartialUpdate) throws IOException {
 
         UIComponent header = dataTable.getHeader();
@@ -349,9 +344,9 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
         boolean encodeThead = containsThead();
 
         if ((header != null && header.isRendered()) || isEncodeHeaders) {
-            
+
             String id = dataTable.getClientId(facesContext);
-            
+
             boolean partialUpdateEncoded = false;
 
             String clientId = dataTable.getClientId(facesContext);
@@ -362,58 +357,58 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
                     partialUpdateEncoded = true;
                     partialStart(facesContext, headerClientId);
                 }
-                
+
                 writer.startElement(HtmlConstants.THEAD_ELEMENT, dataTable);
                 setCellElement(facesContext, id, HtmlConstants.TH_ELEM);
-                
+
                 writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, headerClientId, null);
                 writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, "rf-dt-thd", null);
             }
-            
+
             int columns = getColumnsCount(dataTable.columns());
-            
+
             boolean encodePartialUpdateForChildren = (encodePartialUpdate && !partialUpdateEncoded);
-            
+
             if (header != null && header.isRendered()) {
-                                
-                String rowClass =  getHeaderSkinClass();
+
+                String rowClass = getHeaderSkinClass();
                 String cellClass = getHeaderCellSkinClass();
                 String firstClass = getHeaderFirstSkinClass();
-                
+
                 rowClass = mergeStyleClasses("headerClass", rowClass, dataTable);
                 cellClass = mergeStyleClasses("headerCellClass", cellClass, dataTable);
                 firstClass = mergeStyleClasses("headerFirstClass", firstClass, dataTable);
                 saveRowStyles(facesContext, clientId, firstClass, rowClass, cellClass);
 
-                encodeTableFacet(facesContext, writer, clientId, columns, header, UIDataTableBase.HEADER, rowClass, cellClass, 
+                encodeTableFacet(facesContext, writer, clientId, columns, header, UIDataTableBase.HEADER, rowClass, cellClass,
                     encodePartialUpdateForChildren);
             }
 
             if (isEncodeHeaders) {
-                
-                String rowClass =  getColumnHeaderSkinClass();
+
+                String rowClass = getColumnHeaderSkinClass();
                 String cellClass = getColumnHeaderCellSkinClass();
                 String firstClass = getColumnHeaderFirstSkinClass();
-                
+
                 rowClass = mergeStyleClasses("columnHeaderClass", rowClass, dataTable);
                 cellClass = mergeStyleClasses("columnHeaderCellClass", cellClass, dataTable);
                 firstClass = mergeStyleClasses("columnHeaderFirstClass", firstClass, dataTable);
                 saveRowStyles(facesContext, clientId, firstClass, rowClass, cellClass);
-                 
+
                 String targetId = clientId + ":ch";
-                
+
                 if (encodePartialUpdateForChildren) {
                     partialStart(facesContext, targetId);
                 }
-                
+
                 writer.startElement(HtmlConstants.TR_ELEMENT, dataTable);
                 writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, targetId, null);
-                
+
                 encodeStyleClass(writer, facesContext, dataTable, null, rowClass);
-                
+
                 encodeColumnFacet(facesContext, writer, dataTable, UIDataTableBase.HEADER, columns, cellClass);
                 writer.endElement(HtmlConstants.TR_ELEMENT);
-                
+
                 if (encodePartialUpdateForChildren) {
                     partialEnd(facesContext);
                 }
@@ -422,27 +417,25 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
             if (encodeThead) {
                 setCellElement(facesContext, id, null);
                 writer.endElement(HtmlConstants.THEAD_ELEMENT);
-                
+
                 if (partialUpdateEncoded) {
                     partialEnd(facesContext);
                 }
             }
-            
         }
-
     }
-    
-    protected void encodeColumnFacet(FacesContext context, ResponseWriter writer, UIDataTableBase dataTableBase,  String facetName, int colCount, String cellClass) throws IOException {
+
+    protected void encodeColumnFacet(FacesContext context, ResponseWriter writer, UIDataTableBase dataTableBase,
+        String facetName, int colCount, String cellClass) throws IOException {
         int tColCount = 0;
-        String id  = dataTableBase.getClientId(context);
+        String id = dataTableBase.getClientId(context);
         String element = getCellElement(context, id);
-        
+
         Iterator<UIComponent> headers = dataTableBase.columns();
-        
+
         while (headers.hasNext()) {
             UIComponent column = headers.next();
-            
-            
+
             if (!column.isRendered() || (column instanceof Row)) {
                 continue;
             }
@@ -464,29 +457,30 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
 
             writer.writeAttribute(HtmlConstants.SCOPE_ATTRIBUTE, HtmlConstants.COL_ELEMENT, null);
             getUtils().encodeAttribute(context, column, HtmlConstants.COLSPAN_ATTRIBUTE);
-            
+
             EncodeStrategy strategy = getHeaderEncodeStrategy(column, facetName);
-            if(strategy != null) {
-                strategy.begin(writer, context, column, new String[] {facetName});
-    
+            if (strategy != null) {
+                strategy.begin(writer, context, column, new String[] { facetName });
+
                 UIComponent facet = column.getFacet(facetName);
                 if (facet != null && facet.isRendered()) {
                     facet.encodeAll(context);
                 }
-                strategy.end(writer, context, column, new String[] {facetName});
-            } 
+                strategy.end(writer, context, column, new String[] { facetName });
+            }
             writer.endElement(element);
         }
     }
-    
-    protected void encodeTableFacet(FacesContext facesContext, ResponseWriter writer, String id, int columns, 
-        UIComponent footer, String facetName, String rowClass, String cellClass, boolean encodePartialUpdate) throws IOException {
-        
+
+    protected void encodeTableFacet(FacesContext facesContext, ResponseWriter writer, String id, int columns,
+        UIComponent footer, String facetName, String rowClass, String cellClass, boolean encodePartialUpdate)
+        throws IOException {
+
         boolean isColumnGroup = (footer instanceof Row);
         String element = getCellElement(facesContext, id);
-        
+
         boolean partialUpdateEncoded = false;
-        
+
         if (!isColumnGroup) {
             String targetId = id + ":" + facetName.charAt(0);
 
@@ -494,12 +488,12 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
                 partialUpdateEncoded = true;
                 partialStart(facesContext, targetId);
             }
-            
+
             writer.startElement(HtmlConstants.TR_ELEMENT, footer);
             writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, targetId, null);
 
             encodeStyleClass(writer, facesContext, footer, null, rowClass);
-            
+
             writer.startElement(element, footer);
 
             encodeStyleClass(writer, facesContext, footer, null, cellClass);
@@ -509,89 +503,87 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
             }
 
             writer.writeAttribute(HtmlConstants.SCOPE_ATTRIBUTE, HtmlConstants.COLGROUP_ELEMENT, null);
-        }    
-        
+        }
+
         if (encodePartialUpdate && !partialUpdateEncoded) {
             partialStart(facesContext, footer.getClientId(facesContext));
         }
-        
+
         footer.encodeAll(facesContext);
-       
+
         if (encodePartialUpdate && !partialUpdateEncoded) {
             partialEnd(facesContext);
         }
 
-        if (isColumnGroup){
+        if (isColumnGroup) {
             writer.endElement(HtmlConstants.TR_ELEMENT);
         } else {
             writer.endElement(element);
             writer.endElement(HtmlConstants.TR_ELEMENT);
-            
+
             if (partialUpdateEncoded) {
                 partialEnd(facesContext);
             }
-        }    
-    }   
-    
-    public  abstract EncodeStrategy getHeaderEncodeStrategy(UIComponent column, String tableFacetName);
-      
+        }
+    }
+
+    public abstract EncodeStrategy getHeaderEncodeStrategy(UIComponent column, String tableFacetName);
+
     public abstract boolean containsThead();
-    
+
     public abstract String getTableSkinClass();
-    
+
     public abstract String getTableBodySkinClass();
-    
+
     public abstract String getFirstRowSkinClass();
 
     public abstract String getRowSkinClass();
-        
+
     public abstract String getHeaderCellSkinClass();
 
     public abstract String getHeaderSkinClass();
 
     public abstract String getHeaderFirstSkinClass();
-    
+
     public abstract String getColumnHeaderCellSkinClass();
 
     public abstract String getColumnHeaderSkinClass();
-    
+
     public abstract String getColumnHeaderFirstSkinClass();
 
     public abstract String getFooterCellSkinClass();
 
     public abstract String getFooterSkinClass();
-    
+
     public abstract String getFooterFirstSkinClass();
 
     public abstract String getColumnFooterCellSkinClass();
 
     public abstract String getColumnFooterSkinClass();
-    
+
     public abstract String getColumnFooterFirstSkinClass();
-    
+
     public abstract String getCellSkinClass();
-    
+
     public abstract String getNoDataClass();
-    
+
     public abstract String getNoDataCellClass();
 
-    public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId)
-        throws IOException {
+    public void encodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) throws IOException {
 
         UIDataTableBase table = (UIDataTableBase) component;
-        
-        
+
         if (UIDataTableBase.HEADER.equals(metaComponentId)) {
             encodeHeaderFacet(context.getResponseWriter(), context, table, true);
         } else if (UIDataTableBase.FOOTER.equals(metaComponentId)) {
             encodeFooterFacet(context.getResponseWriter(), context, table, true);
-        } else if(UIDataTableBase.BODY.equals(metaComponentId)) {
+        } else if (UIDataTableBase.BODY.equals(metaComponentId)) {
             encodeTableRows(context.getResponseWriter(), context, table, true);
         } else {
             throw new IllegalArgumentException("Unsupported metaComponentIdentifier: " + metaComponentId);
         }
     }
-    
+
     public void decodeMetaComponent(FacesContext context, UIComponent component, String metaComponentId) {
         throw new UnsupportedOperationException();
     }
@@ -599,8 +591,8 @@ public abstract class AbstractTableRenderer extends AbstractTableBaseRenderer im
     protected void partialStart(FacesContext facesContext, String id) throws IOException {
         facesContext.getPartialViewContext().getPartialResponseWriter().startUpdate(id);
     }
-    
+
     protected void partialEnd(FacesContext facesContext) throws IOException {
-        facesContext.getPartialViewContext().getPartialResponseWriter().endUpdate();   
+        facesContext.getPartialViewContext().getPartialResponseWriter().endUpdate();
     }
 }

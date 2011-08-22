@@ -19,9 +19,20 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-
 package org.richfaces.renderkit;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import javax.faces.application.ResourceDependencies;
+import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIColumn;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.context.ResponseWriter;
+import javax.faces.event.AbortProcessingException;
 
 import org.ajax4jsf.javascript.JSFunction;
 import org.richfaces.cdk.annotations.JsfRenderer;
@@ -32,46 +43,27 @@ import org.richfaces.component.UIDataTableBase;
 import org.richfaces.event.CollapsibleSubTableToggleEvent;
 import org.richfaces.renderkit.util.AjaxRendererUtils;
 
-import javax.faces.application.ResourceDependencies;
-import javax.faces.application.ResourceDependency;
-import javax.faces.component.UIColumn;
-import javax.faces.component.UIComponent;
-import javax.faces.context.FacesContext;
-import javax.faces.context.ResponseWriter;
-import javax.faces.event.AbortProcessingException;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
 /**
  * @author Anton Belevich
  *
  */
-
 @JsfRenderer(type = "org.richfaces.CollapsibleSubTableRenderer", family = AbstractCollapsibleSubTable.COMPONENT_FAMILY)
-@ResourceDependencies({
-    @ResourceDependency(name = "jquery.js"),
-    @ResourceDependency(name = "richfaces.js"),
-    @ResourceDependency(library="org.richfaces", name = "collapsible-subtable.ecss"),
-    @ResourceDependency(library="org.richfaces", name = "collapsible-subtable.js")
-})
+@ResourceDependencies({ @ResourceDependency(name = "jquery.js"), @ResourceDependency(name = "richfaces.js"),
+        @ResourceDependency(library = "org.richfaces", name = "collapsible-subtable.ecss"),
+        @ResourceDependency(library = "org.richfaces", name = "collapsible-subtable.js") })
 public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
-
     public static final String TB_ROW = ":c";
-    
-    private static final String STATE = ":state"; 
-    
+    private static final String STATE = ":state";
     private static final String OPTIONS = ":options";
-    
     private static final String DISPLAY_NONE = "display: none;";
-    
+
     private class CollapsibleSubTableHiddenEncodeStrategy implements EncodeStrategy {
-       
-        public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params) throws IOException {
-            AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable)component;
+        public void begin(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params)
+            throws IOException {
+            AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable) component;
             writer.startElement(HtmlConstants.TR_ELEMENT, subTable);
-            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, subTable.getContainerClientId(context) + HIDDEN_CONTAINER_ID, null);
+            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, subTable.getContainerClientId(context) + HIDDEN_CONTAINER_ID,
+                null);
             writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, DISPLAY_NONE, null);
             writer.startElement(HtmlConstants.TD_ELEM, subTable);
         }
@@ -79,101 +71,109 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
         public void end(ResponseWriter writer, FacesContext context, UIComponent component, Object[] params) throws IOException {
             writer.endElement(HtmlConstants.TD_ELEM);
             writer.endElement(HtmlConstants.TR_ELEMENT);
-            
-            if(params != null && params.length ==1) {
-                boolean endTbody = (Boolean)params[0];
-                if(endTbody) {
+
+            if (params != null && params.length == 1) {
+                boolean endTbody = (Boolean) params[0];
+                if (endTbody) {
                     encodeTableBodyEnd(writer);
                 }
             }
         }
-        
-    };
-        
+    }
+
+    ;
+
     protected void doDecode(FacesContext facesContext, UIComponent component) {
-        AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable)component;
-       
+        AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable) component;
+
         String clientId = subTable.getClientId(facesContext);
         Map<String, String> requestMap = facesContext.getExternalContext().getRequestParameterMap();
 
         String optionsId = clientId + OPTIONS;
         String togglerId = requestMap.get(optionsId);
-                
+
         String stateId = clientId + STATE;
-        String state = (String)requestMap.get(stateId);
-                
-        boolean isExpanded = true; 
-        if(state != null) {
+        String state = (String) requestMap.get(stateId);
+
+        boolean isExpanded = true;
+        if (state != null) {
             int newValue = Integer.parseInt(state);
-            
-            if(newValue < 1) {
+
+            if (newValue < 1) {
                 isExpanded = false;
-            } 
-            
-            if(subTable.isExpanded() != isExpanded) {
+            }
+
+            if (subTable.isExpanded() != isExpanded) {
                 new CollapsibleSubTableToggleEvent(subTable, isExpanded, togglerId).queue();
             }
         }
     }
-    
+
     @Override
-    public void encodeFirstRowStart(ResponseWriter writer, FacesContext context, String parentId, int currentRow, UIComponent component) throws IOException {
+    public void encodeFirstRowStart(ResponseWriter writer, FacesContext context, String parentId, int currentRow,
+        UIComponent component) throws IOException {
         writer.startElement(HtmlConstants.TR_ELEMENT, component);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, parentId + ":" + currentRow + ":b", null);
-        String styleClass = concatClasses(getRowClass(context, parentId), getFirstRowClass(context, parentId), component.getAttributes().get(ROW_CLASS));
+        String styleClass = concatClasses(getRowClass(context, parentId), getFirstRowClass(context, parentId), component
+            .getAttributes().get(ROW_CLASS));
         encodeStyleClass(writer, context, component, HtmlConstants.STYLE_CLASS_ATTR, styleClass);
     }
-    
+
     @Override
-    public void encodeRowStart(ResponseWriter writer, FacesContext context, String parentId, int currentRow, UIComponent component) throws IOException {
+    public void encodeRowStart(ResponseWriter writer, FacesContext context, String parentId, int currentRow,
+        UIComponent component) throws IOException {
         writer.startElement(HtmlConstants.TR_ELEMENT, component);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, parentId + ":" + currentRow + ":b", null);
         String styleClass = concatClasses(getRowClass(context, parentId), component.getAttributes().get(ROW_CLASS));
         encodeStyleClass(writer, context, component, HtmlConstants.STYLE_CLASS_ATTR, styleClass);
     }
-    
+
     public void encodeTableFacets(ResponseWriter writer, FacesContext context, UIDataTableBase dataTable) throws IOException {
-        AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable)dataTable;
+        AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable) dataTable;
 
         encodeStyle(writer, context, subTable, null);
 
         encodeHeaderFacet(writer, context, subTable, false);
-        
-        String rowClass =  getRowSkinClass();
+
+        String rowClass = getRowSkinClass();
         String cellClass = getCellSkinClass();
         String firstClass = getFirstRowSkinClass();
-        
+
         rowClass = mergeStyleClasses("rowClass", rowClass, subTable);
         cellClass = mergeStyleClasses("cellClass", cellClass, subTable);
         firstClass = mergeStyleClasses("firstRowClass", firstClass, subTable);
-        
+
         saveRowStyles(context, subTable.getContainerClientId(context), firstClass, rowClass, cellClass);
     }
-    
+
     @Override
-    public void encodeTableBodyStart(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase) throws IOException {
-        AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable)dataTableBase;
-        
+    public void encodeTableBodyStart(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase)
+        throws IOException {
+        AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable) dataTableBase;
+
         UIDataTableBase component = findParent(subTable);
-        if(component instanceof AbstractDataTable) {
+        if (component instanceof AbstractDataTable) {
             writer.startElement(HtmlConstants.TBODY_ELEMENT, null);
-            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getRelativeClientId(facesContext) + ":" + subTable.getId() + TB_ROW, null);
+            writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE,
+                component.getRelativeClientId(facesContext) + ":" + subTable.getId() + TB_ROW, null);
             writer.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, getTableSkinClass(), null);
-            
-            String predefinedStyles = !subTable.isExpanded() ?  DISPLAY_NONE : null;
+
+            String predefinedStyles = !subTable.isExpanded() ? DISPLAY_NONE : null;
             encodeStyle(writer, facesContext, subTable, predefinedStyles);
         }
     }
-    
+
     @Override
-    public void encodeBeforeRows(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase, boolean encodeParentTBody, boolean partialUpdate) throws IOException {
-        AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable)dataTableBase;
+    public void encodeBeforeRows(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase,
+        boolean encodeParentTBody, boolean partialUpdate) throws IOException {
+        AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable) dataTableBase;
         encodeTableBodyStart(writer, facesContext, subTable);
         encodeSubTableDomElement(writer, facesContext, subTable);
         encodeHeaderFacet(writer, facesContext, subTable, false);
     }
 
-    private void encodeSubTableDomElement(ResponseWriter writer, FacesContext facesContext, AbstractCollapsibleSubTable subTable) throws IOException{
+    private void encodeSubTableDomElement(ResponseWriter writer, FacesContext facesContext, AbstractCollapsibleSubTable subTable)
+        throws IOException {
         writer.startElement(HtmlConstants.TR_ELEMENT, subTable);
         writer.writeAttribute(HtmlConstants.STYLE_ATTRIBUTE, DISPLAY_NONE, null);
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, subTable.getContainerClientId(facesContext), null);
@@ -181,34 +181,34 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
         writer.endElement(HtmlConstants.TD_ELEM);
         writer.endElement(HtmlConstants.TR_ELEMENT);
     }
-    
+
     public void encodeRow(ResponseWriter writer, FacesContext facesContext, RowHolderBase holder) throws IOException {
-        RowHolder rowHolder = (RowHolder)holder;
+        RowHolder rowHolder = (RowHolder) holder;
         Row row = rowHolder.getRow();
-        putRowStylesIntoContext(facesContext, rowHolder);    
+        putRowStylesIntoContext(facesContext, rowHolder);
         rowHolder.setRowStart(true);
         Iterator<UIComponent> components = row.columns();
         if (rowHolder.isUpdatePartial()) {
-            partialStart(facesContext,((AbstractCollapsibleSubTable) row).getRelativeClientId(facesContext) + ":b");
+            partialStart(facesContext, ((AbstractCollapsibleSubTable) row).getRelativeClientId(facesContext) + ":b");
         }
-        
+
         int columnNumber = 0;
         while (components.hasNext()) {
             UIComponent component = components.next();
-            if(component.isRendered()) {
-                if(component instanceof UIColumn ) {
+            if (component.isRendered()) {
+                if (component instanceof UIColumn) {
                     component.getAttributes().put(COLUMN_CLASS, getColumnClass(rowHolder, columnNumber));
-                    encodeColumn(facesContext, writer, (UIColumn)component , rowHolder);
+                    encodeColumn(facesContext, writer, (UIColumn) component, rowHolder);
                     columnNumber++;
                 } else if (component instanceof AbstractCollapsibleSubTable) {
-                    if(component.isRendered()) {
+                    if (component.isRendered()) {
                         encodeRowEnd(writer);
                     }
-                    
+
                     component.encodeAll(facesContext);
                     rowHolder.setRowStart(true);
                 }
-            }    
+            }
         }
 
         encodeRowEnd(writer);
@@ -221,16 +221,16 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
     @Override
     public void encodeAfterRows(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase,
         boolean encodeParentTBody, boolean partialUpdate) throws IOException {
-        AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable)dataTableBase;
+        AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable) dataTableBase;
         encodeFooterFacet(writer, facesContext, subTable, false);
     }
 
     @Override
     public boolean encodeParentTBody(UIDataTableBase dataTableBase) {
-        UIDataTableBase parent = findParent((AbstractCollapsibleSubTable)dataTableBase);
+        UIDataTableBase parent = findParent((AbstractCollapsibleSubTable) dataTableBase);
         return (parent instanceof AbstractDataTable);
     }
-    
+
     public void encodeHiddenInput(ResponseWriter writer, FacesContext facesContext, UIDataTableBase dataTableBase)
         throws IOException {
         AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable) dataTableBase;
@@ -241,9 +241,10 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
         writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, stateId, null);
         writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, stateId, null);
         writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.INPUT_TYPE_HIDDEN, null);
-        
-        int state = subTable.isExpanded() ? AbstractCollapsibleSubTable.EXPANDED_STATE : AbstractCollapsibleSubTable.COLLAPSED_STATE;
-        
+
+        int state = subTable.isExpanded() ? AbstractCollapsibleSubTable.EXPANDED_STATE
+            : AbstractCollapsibleSubTable.COLLAPSED_STATE;
+
         writer.writeAttribute(HtmlConstants.VALUE_ATTRIBUTE, state, null);
         writer.endElement(HtmlConstants.INPUT_ELEM);
 
@@ -253,17 +254,15 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
         writer.writeAttribute(HtmlConstants.NAME_ATTRIBUTE, optionsId, null);
         writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.INPUT_TYPE_HIDDEN, null);
         writer.endElement(HtmlConstants.INPUT_ELEM);
-
     }
-    
+
     public boolean containsThead() {
         return false;
     }
 
     public EncodeStrategy getHeaderEncodeStrategy(UIComponent column, String tableFacetName) {
-        //TODO: anton -> use RichHeaderEncodeStrategy for our columns ???   
+        // TODO: anton -> use RichHeaderEncodeStrategy for our columns ???
         return new SimpleHeaderEncodeStrategy();
-        
     }
 
     public void encodeClientScript(ResponseWriter writer, FacesContext facesContext, UIDataTableBase component)
@@ -291,11 +290,11 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
         writer.writeText(jsFunction.toScript(), null);
         writer.endElement(HtmlConstants.SCRIPT_ELEM);
     }
-    
+
     public String getTableSkinClass() {
         return "rf-cst";
     }
-        
+
     public String getRowSkinClass() {
         return "rf-cst-r";
     }
@@ -315,7 +314,7 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
     public String getCellSkinClass() {
         return "rf-cst-c";
     }
-   
+
     public String getHeaderCellSkinClass() {
         return "rf-cst-hdr-c";
     }
@@ -331,7 +330,7 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
     public String getFooterSkinClass() {
         return "rf-cst-ftr";
     }
-    
+
     public String getFooterCellSkinClass() {
         return "rf-cst-ftr-c";
     }
@@ -347,9 +346,9 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
     public String getColumnFooterSkinClass() {
         return "rf-cst-sftr";
     }
-    
+
     public String getColumnFooterFirstSkinClass() {
-        return "rf-cst-sftr-fst";    
+        return "rf-cst-sftr-fst";
     }
 
     public String getColumnHeaderFirstSkinClass() {
@@ -367,31 +366,31 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
     public String getHeaderSkinClass() {
         return "rf-cst-hdr";
     }
-    
+
     public String getNoDataClass() {
         return "rf-cst-nd";
     }
-    
+
     @Override
     public String getNoDataCellClass() {
         return "rf-cst-nd-c";
     }
-    
+
     @Override
     public String getTableBodySkinClass() {
         // AbstractSubTable doesn't have tbody
         return null;
     }
-    
+
     @Override
     public void encodeMetaComponent(FacesContext facesContext, UIComponent component, String metaComponentId)
         throws IOException {
-        AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable)component;
-        
-        if(AbstractCollapsibleSubTable.BODY.equals(metaComponentId)) {
+        AbstractCollapsibleSubTable subTable = (AbstractCollapsibleSubTable) component;
+
+        if (AbstractCollapsibleSubTable.BODY.equals(metaComponentId)) {
             ResponseWriter writer = facesContext.getResponseWriter();
             UIDataTableBase dataTableBase = findParent(subTable);
-            
+
             String updateId = dataTableBase.getRelativeClientId(facesContext) + ":" + subTable.getId() + TB_ROW;
 
             partialStart(facesContext, updateId);
@@ -399,7 +398,7 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
             partialEnd(facesContext);
         }
     }
-    
+
     @Override
     public EncodeStrategy getHiddenContainerStrategy(UIDataTableBase dataTableBase) {
         return new CollapsibleSubTableHiddenEncodeStrategy();
@@ -408,14 +407,14 @@ public class CollapsibleSubTableRenderer extends AbstractTableRenderer {
     protected UIDataTableBase findParent(AbstractCollapsibleSubTable subTable) {
         UIComponent parent = subTable.getParent();
 
-        while(parent != null && !(parent instanceof UIDataTableBase)) {
+        while (parent != null && !(parent instanceof UIDataTableBase)) {
             parent = parent.getParent();
         }
-        
-        if(parent == null){
-            //TODO: anton -> do we need this?
+
+        if (parent == null) {
+            // TODO: anton -> do we need this?
             throw new AbortProcessingException("UISubTable should be a child of UIDataTable or UISubTable");
         }
-        return (UIDataTableBase)parent;
+        return (UIDataTableBase) parent;
     }
 }

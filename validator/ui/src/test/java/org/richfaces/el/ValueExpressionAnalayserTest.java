@@ -1,8 +1,10 @@
 package org.richfaces.el;
 
-
+import static junit.framework.Assert.*;
 import static org.easymock.EasyMock.expect;
 import static org.junit.Assert.assertEquals;
+
+import java.util.HashMap;
 
 import javax.el.ELException;
 import javax.el.ValueExpression;
@@ -24,15 +26,12 @@ import com.google.common.collect.Maps;
 
 @RunWith(MockTestRunner.class)
 public class ValueExpressionAnalayserTest extends ELTestBase {
-    
     private ValueExpressionAnalayser analayser;
-    
     @Mock
     @Environment(Feature.EXTERNAL_CONTEXT)
     private MockFacesEnvironment facesEnvironment;
-
     private FacesContext facesContext;
-    
+
     @Before
     public void setUpAnalayser() throws Exception {
         analayser = new ValueExpressionAnalayserImpl();
@@ -46,22 +45,28 @@ public class ValueExpressionAnalayserTest extends ELTestBase {
         analayser = null;
         facesEnvironment.release();
     }
+
     @Test
     public void testGetDescriptionPositive() throws Exception {
         ValueExpression expression = parse("#{bean.string}");
-        expect(facesContext.getELContext()).andReturn(elContext);
-        FacesMock.replay(facesEnvironment);
+        recordFacesContextExpectations();
         ValueDescriptor propertyDescriptor = analayser.getPropertyDescriptor(facesContext, expression);
         assertEquals(Bean.class, propertyDescriptor.getBeanType());
         assertEquals("string", propertyDescriptor.getName());
         FacesMock.verify(facesEnvironment);
     }
-    
-    @Test(expected=ELException.class)
+
+    private void recordFacesContextExpectations() {
+        expect(facesContext.getELContext()).andReturn(elContext);
+        expect(facesContext.getAttributes()).andStubReturn(new HashMap<Object, Object>());
+        FacesMock.replay(facesEnvironment);
+    }
+
+    @Test(expected = ELException.class)
     public void testGetDescriptionNegative() throws Exception {
         ValueExpression expression = parse("#{bean}");
-        expect(facesContext.getELContext()).andReturn(elContext);
-        FacesMock.replay(facesEnvironment);
+        recordFacesContextExpectations();
         ValueDescriptor propertyDescriptor = analayser.getPropertyDescriptor(facesContext, expression);
+        assertNull(propertyDescriptor);
     }
 }

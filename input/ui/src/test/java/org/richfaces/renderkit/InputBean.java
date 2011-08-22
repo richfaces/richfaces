@@ -21,11 +21,9 @@
  */
 package org.richfaces.renderkit;
 
-
 public class InputBean {
-    
-    private String value; 
-    
+    private String value;
+
     public InputBean() {
     }
 

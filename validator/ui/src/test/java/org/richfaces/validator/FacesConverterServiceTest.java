@@ -32,7 +32,6 @@ import org.junit.runner.RunWith;
 
 @RunWith(MockTestRunner.class)
 public class FacesConverterServiceTest {
-    
     @Mock()
     @Environment({ Feature.APPLICATION })
     protected MockFacesEnvironment environment;
@@ -46,7 +45,6 @@ public class FacesConverterServiceTest {
     protected MockController controller;
     protected Converter converter;
 
-    
     @Before
     public void setUp() {
         // create service impl.
@@ -58,19 +56,20 @@ public class FacesConverterServiceTest {
         attributes.put("label", "foo");
         expect(input.getAttributes()).andStubReturn(attributes);
     }
-    
+
     @After
     public void tearDown() {
         controller.verify();
         serviceImpl = null;
         controller.release();
     }
-    
+
     @Test
     public void getConverterClass() throws Exception {
         converter = new BooleanConverter();
         controller.replay();
-        ConverterDescriptor converterDescription = serviceImpl.getConverterDescription(environment.getFacesContext(), input, converter);
+        ConverterDescriptor converterDescription = serviceImpl.getConverterDescription(environment.getFacesContext(), input,
+            converter, null);
         assertEquals(converter.getClass(), converterDescription.getImplementationClass());
     }
 
@@ -79,13 +78,14 @@ public class FacesConverterServiceTest {
         converter = new IntegerConverter();
         FacesMessage facesMessage = null;
         controller.replay();
-        try{
+        try {
             converter.getAsObject(environment.getFacesContext(), input, "abc");
-        } catch(ConverterException e){
+        } catch (ConverterException e) {
             facesMessage = e.getFacesMessage();
         }
         assertNotNull(facesMessage);
-        ConverterDescriptor converterDescription = serviceImpl.getConverterDescription(environment.getFacesContext(), input, converter);
+        ConverterDescriptor converterDescription = serviceImpl.getConverterDescription(environment.getFacesContext(), input,
+            converter, null);
         String summary = converterDescription.getMessage().getSummary();
         summary = summary.replace("{2}", "foo");
         summary = summary.replace("'{0}'", "abc");
@@ -102,7 +102,8 @@ public class FacesConverterServiceTest {
         converter.setType("both");
         converter.setTimeZone(TimeZone.getTimeZone("EST"));
         controller.replay();
-        ConverterDescriptor converterDescription = serviceImpl.getConverterDescription(environment.getFacesContext(), input, converter);
+        ConverterDescriptor converterDescription = serviceImpl.getConverterDescription(environment.getFacesContext(), input,
+            converter, null);
         Map<String, ? extends Object> additionalParameters = converterDescription.getAdditionalParameters();
         assertEquals("short", additionalParameters.get("dateStyle"));
         assertEquals("MM/DD/YYYY", additionalParameters.get("pattern"));

@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.richfaces.javascript;
 
@@ -24,43 +24,32 @@ import com.google.common.collect.MapMaker;
 
 /**
  * @author asmirnov
- * 
+ *
  */
 public class ClientScriptServiceImpl implements ClientScriptService {
-
     private static final String TEXT_JAVASCRIPT = "text/javascript";
-
     private static final String ORG_RICHFACES_CSV = "org.richfaces.csv";
-    
     private static final LibraryFunction NO_SCRIPT = new LibraryFunction() {
-        
         public Iterable<ResourceKey> getResources() {
             return Collections.emptySet();
         }
-        
+
         public String getName() {
             return null;
         }
     };
-
     private static final Function<Class<?>, ? extends LibraryFunction> RESOURCE_SCRIPT_FUNCTION = new Function<Class<?>, LibraryFunction>() {
-
         public LibraryFunction apply(Class<?> arg0) {
             return getScriptResource(FacesContext.getCurrentInstance(), arg0);
         }
     };
-    
     private static final Function<Class<?>, ? extends LibraryFunction> ANNOTATION_SCRIPT_FUNCTION = new Function<Class<?>, LibraryFunction>() {
-
         public LibraryFunction apply(Class<?> arg0) {
             return getScriptFromAnnotation(arg0);
         }
     };
-
     private final ConcurrentMap<Class<?>, LibraryFunction> resourcesMapping;
-
     private final ConcurrentMap<Class<?>, LibraryFunction> annotationsMapping;
-
     private final Map<Class<?>, LibraryFunction> defaultMapping;
 
     public ClientScriptServiceImpl(Map<Class<?>, LibraryFunction> defaultMapping) {
@@ -71,7 +60,7 @@ public class ClientScriptServiceImpl implements ClientScriptService {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.richfaces.validator.ClientScriptService#getScript(java.lang.Class)
      */
     public LibraryFunction getScript(FacesContext facesContext, Class<?> javaClass) throws ScriptNotFoundException {
@@ -79,20 +68,20 @@ public class ClientScriptServiceImpl implements ClientScriptService {
             throw new NullPointerException();
         }
         LibraryFunction function = NO_SCRIPT;// RF-10719, temporary disable. getFromComputationMap(resourcesMapping, javaClass);
-        if(NO_SCRIPT == function) {
+        if (NO_SCRIPT == function) {
             if (defaultMapping.containsKey(javaClass)) {
                 function = defaultMapping.get(javaClass);
             } else {
                 function = getFromComputationMap(annotationsMapping, javaClass);
             }
         }
-        if(NO_SCRIPT == function) {
-            throw new ScriptNotFoundException("No client-side script for class "+javaClass.getName());
+        if (NO_SCRIPT == function) {
+            throw new ScriptNotFoundException("No client-side script for class " + javaClass.getName());
         }
         return function;
     }
-    
-    private LibraryFunction getFromComputationMap(ConcurrentMap<Class<?>, LibraryFunction> map, Class<?> clazz){
+
+    private LibraryFunction getFromComputationMap(ConcurrentMap<Class<?>, LibraryFunction> map, Class<?> clazz) {
         try {
             return map.get(clazz);
         } catch (ComputationException e) {
@@ -105,8 +94,8 @@ public class ClientScriptServiceImpl implements ClientScriptService {
         if (javaClass.isAnnotationPresent(ClientSideScript.class)) {
             ClientSideScript clientSideScript = javaClass.getAnnotation(ClientSideScript.class);
             List<ResourceKey> resources = Lists.newArrayList();
-            for(ResourceDependency dependency: clientSideScript.resources()){
-                resources.add(ResourceKey.create(dependency.name(),dependency.library()));
+            for (ResourceDependency dependency : clientSideScript.resources()) {
+                resources.add(ResourceKey.create(dependency.name(), dependency.library()));
             }
             return new LibraryFunctionImplementation(clientSideScript.function(), resources);
         } else {
@@ -114,16 +103,15 @@ public class ClientScriptServiceImpl implements ClientScriptService {
         }
     }
 
-    private static LibraryFunction getScriptResource(FacesContext facesContext, Class<?> javaClass){
+    private static LibraryFunction getScriptResource(FacesContext facesContext, Class<?> javaClass) {
         ResourceHandler resourceHandler = facesContext.getApplication().getResourceHandler();
         String resourceName = javaClass.getSimpleName() + ".js";
         Resource facesResource = resourceHandler.createResource(resourceName, ORG_RICHFACES_CSV, TEXT_JAVASCRIPT);
         if (null != facesResource) {
             final String functionName = Strings.firstToLowerCase(javaClass.getSimpleName());
-            return new LibraryFunctionImplementation(functionName,resourceName,  ORG_RICHFACES_CSV);
+            return new LibraryFunctionImplementation(functionName, resourceName, ORG_RICHFACES_CSV);
         } else {
             return NO_SCRIPT;
         }
     }
-
 }

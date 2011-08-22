@@ -1,7 +1,9 @@
 package org.richfaces.javascript.client.validator;
 
-import static org.easymock.EasyMock.*;
-import static org.junit.Assert.*;
+import static org.easymock.EasyMock.expect;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -24,14 +26,15 @@ import org.richfaces.validator.FacesValidatorServiceImpl;
 import com.gargoylesoftware.htmlunit.ScriptException;
 
 public abstract class ValidatorTestBase extends MockTestBase {
-
     /**
-     * <p class="changed_added_4_0">TODO remove to check all messages.</p>
+     * <p class="changed_added_4_0">
+     * TODO remove to check all messages.
+     * </p>
+     *
      * @deprecated Remove this option then all messages will be passed properly.
      */
     public static final String IGNORE_MESSAGE = "ignoreMessage";
     private static final Converter NUMBER_CONVERTER = new Converter() {
-
         public String getAsString(FacesContext context, UIComponent component, Object value) {
 
             return String.valueOf(value);
@@ -41,6 +44,7 @@ public abstract class ValidatorTestBase extends MockTestBase {
             return Double.valueOf(value);
         }
     };
+
     public ValidatorTestBase(RunParameters criteria) {
         super(criteria);
     }
@@ -55,8 +59,8 @@ public abstract class ValidatorTestBase extends MockTestBase {
             // client-side script has to throw exception too.
             try {
                 validateOnClient(validator);
-                assertFalse("JSF validator throws exception for value: " + criteria.getValue()
-                    + ", validator options: " + getOptions(), true);
+                assertFalse("JSF validator throws exception for value: " + criteria.getValue() + ", validator options: "
+                    + getOptions(), true);
             } catch (ScriptException e2) {
                 // both methods throws exceptions - it's ok.
                 Throwable cause = e2.getCause();
@@ -71,16 +75,14 @@ public abstract class ValidatorTestBase extends MockTestBase {
     }
 
     protected Object validateOnClient(Validator validator) throws ValidationException {
-        JSFunction clientSideFunction =
-            new JSFunction("RichFaces.csv." + getJavaScriptFunctionName(), criteria.getValue(), TEST_COMPONENT_ID,
-                getJavaScriptOptions(), getErrorMessage(validator));
+        JSFunction clientSideFunction = new JSFunction("RichFaces.csv." + getJavaScriptFunctionName(), criteria.getValue(),
+            TEST_COMPONENT_ID, getJavaScriptOptions(), getErrorMessage(validator));
         return qunit.runScript(clientSideFunction.toScript());
-
     }
 
     private Object getErrorMessage(Validator validator) {
         FacesValidatorServiceImpl validatorService = new FacesValidatorServiceImpl();
-        FacesMessage message = validatorService.getMessage(facesEnvironment.getFacesContext(), validator, input);
+        FacesMessage message = validatorService.getMessage(facesEnvironment.getFacesContext(), validator, input, null);
         return new Message(message);
     }
 

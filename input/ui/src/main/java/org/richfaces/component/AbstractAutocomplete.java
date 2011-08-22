@@ -21,10 +21,7 @@
  */
 package org.richfaces.component;
 
-import org.richfaces.cdk.annotations.*;
-import org.richfaces.context.ExtendedVisitContext;
-import org.richfaces.context.ExtendedVisitContextMode;
-import org.richfaces.renderkit.MetaComponentRenderer;
+import java.io.IOException;
 
 import javax.el.MethodExpression;
 import javax.faces.component.UIComponent;
@@ -33,26 +30,34 @@ import javax.faces.component.visit.VisitCallback;
 import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
-import java.io.IOException;
+
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Signature;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
+import org.richfaces.context.ExtendedVisitContext;
+import org.richfaces.context.ExtendedVisitContextMode;
+import org.richfaces.renderkit.MetaComponentRenderer;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.AutocompleteHandler"), renderer = @JsfRenderer(type = "org.richfaces.AutocompleteRenderer"))
 public abstract class AbstractAutocomplete extends UIInput implements MetaComponentResolver, MetaComponentEncoder {
-
     public static final String ITEMS_META_COMPONENT_ID = "items";
-
     public static final String COMPONENT_TYPE = "org.richfaces.Autocomplete";
-
     public static final String COMPONENT_FAMILY = UIInput.COMPONENT_FAMILY;
 
     // TODO nick - change to Object - https://jira.jboss.org/browse/RF-8897
     @Attribute()
     public abstract Object getAutocompleteList();
 
-    @Attribute(signature = @Signature(returnType = Object.class, parameters = {FacesContext.class, UIComponent.class, String.class}))
+    @Attribute(signature = @Signature(returnType = Object.class, parameters = { FacesContext.class, UIComponent.class,
+            String.class }))
     public abstract MethodExpression getAutocompleteMethod();
 
     public abstract void setAutocompleteMethod(MethodExpression expression);
@@ -69,13 +74,13 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
 
     @Attribute
     public abstract String getFilterFunction();
-	
+
     @Attribute(defaultValue = "rf-au-itm-sel")
     public abstract String getSelectedItemClass();
-    
+
     @Attribute()
     public abstract String getPopupClass();
-    
+
     @Attribute()
     public abstract String getInputClass();
 
@@ -84,7 +89,7 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
 
     @Attribute
     public abstract String getLayout();
-    
+
     @Attribute
     public abstract String getTokens();
 
@@ -160,7 +165,7 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
     @Attribute(events = @EventName("listkeyup"))
     public abstract String getOnlistkeyup();
 
-    @Attribute(events = @EventName("change"))
+    @Attribute(events = @EventName(value = "change", defaultEvent = true))
     public abstract String getOnchange();
 
     @Attribute(events = @EventName("blur"))
@@ -168,7 +173,7 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
 
     @Attribute(events = @EventName("focus"))
     public abstract String getOnfocus();
-    
+
     @Attribute(events = @EventName("selectitem"))
     public abstract String getOnselectitem();
 
@@ -183,7 +188,7 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
 
     @Attribute(events = @EventName("beforedomupdate"))
     public abstract String getOnbeforedomupdate();
-    
+
     @Attribute
     public abstract String getClientFilterFunction();
 
@@ -195,8 +200,7 @@ public abstract class AbstractAutocomplete extends UIInput implements MetaCompon
         return null;
     }
 
-    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
-        String metaComponentId) {
+    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
 
         return null;
     }

@@ -52,46 +52,37 @@ import org.richfaces.renderkit.ComponentAttribute.Kind;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public final class RenderKitUtils {
-
     /**
-     * 
+     *
      */
     static final String BEHAVIOR_SOURCE_ID = "javax.faces.source";
-
     /**
-     * 
+     *
      */
     static final String BEHAVIOR_EVENT_NAME = "javax.faces.behavior.event";
-
     /**
-     * 
+     *
      */
     private static final String XHTML_ATTRIBUTE_PREFIX = "xml:";
-
     /**
-     * 
+     *
      */
     private static final String XHTML_CONTENT_TYPE = "application/xhtml+xml";
-
     // TODO - check what's in MyFaces
     private static final String ATTRIBUTES_THAT_ARE_SET = UIComponentBase.class.getName() + ".attributesThatAreSet";
-
-    private static final String[] BOOLEAN_ATTRIBUTE_NAMES = { "checked", "compact", "declare", "defer", "disabled",
-        "ismap", "multiple", "nohref", "noshade", "nowrap", "readonly", "selected" };
-
-    private static final String[] URI_ATTRIBUTE_NAMES = { "action", "background", "cite", "classid", "codebase",
-        "data", "href", "longdesc", "profile", "src", "usemap" };
-
+    private static final String[] BOOLEAN_ATTRIBUTE_NAMES = { "checked", "compact", "declare", "defer", "disabled", "ismap",
+            "multiple", "nohref", "noshade", "nowrap", "readonly", "selected" };
+    private static final String[] URI_ATTRIBUTE_NAMES = { "action", "background", "cite", "classid", "codebase", "data",
+            "href", "longdesc", "profile", "src", "usemap" };
     private static final String[] XHTML_ATTRIBUTE_NAMES = { "lang" };
-
     private static final String DISABLED_ATTRIBUTE_NAME = "disabled";
 
     /**
      * Wrapper class around object value used to transform values into particular JS objects
-     * 
+     *
      * @author Nick Belaevski
      * @since 3.3.2
      */
@@ -101,51 +92,51 @@ public final class RenderKitUtils {
          * No-op default wrapper
          */
         noop {
-
             @Override
             Object wrap(Object o) {
                 return o;
             }
-            
-        }, 
-        
-
+        },
         /**
          * Convert parameter to array of srings.
          */
         asArray {
-
             @Override
             Object wrap(Object o) {
                 return asArray(o);
             }
-            
-        }, 
-        
+        },
         /**
-         * Event handler functions wrapper. Wraps <pre>functionCode</pre> object into:
-         * <pre>function(event) {
+         * Event handler functions wrapper. Wraps
+         *
+         * <pre>
+         * functionCode
+         * </pre>
+         *
+         * object into:
+         *
+         * <pre>
+         * function(event) {
          *   functionCode
-         * }</pre>
+         * }
+         * </pre>
          */
         eventHandler {
-
             @Override
             Object wrap(Object o) {
                 return new JSFunctionDefinition("event").addToBody(o);
             }
-            
         };
-        
+
         /**
          * Method that does the wrapping
-         * 
+         *
          * @param o object to wrap
          * @return wrapped object
          */
         abstract Object wrap(Object o);
     }
-    
+
     private RenderKitUtils() {
         // utility constructor
     }
@@ -308,7 +299,7 @@ public final class RenderKitUtils {
     }
 
     private static boolean isAttributeSet(Object attributeValue) {
-        //TODO - consider required attributes with "" value (like 'alt')
+        // TODO - consider required attributes with "" value (like 'alt')
         if (attributeValue == null) {
             return false;
         } else if (attributeValue instanceof String) {
@@ -333,13 +324,13 @@ public final class RenderKitUtils {
 
         return attributeValue.toString().length() > 0;
     }
-    
+
     public static boolean shouldRenderAttribute(Object attributeValue) {
-        //TODO - consider required attributes with "" value (like 'alt')
+        // TODO - consider required attributes with "" value (like 'alt')
         if (!isAttributeSet(attributeValue)) {
             return false;
         }
-        
+
         if (attributeValue instanceof Boolean && Boolean.FALSE.equals(attributeValue)) {
             return false;
         }
@@ -385,8 +376,8 @@ public final class RenderKitUtils {
         }
     }
 
-    //TODO - create special method for event handlers that will return String?
-    //TODO - add check for 'disabled'?
+    // TODO - create special method for event handlers that will return String?
+    // TODO - add check for 'disabled'?
     public static Object getAttributeAndBehaviorsValue(FacesContext facesContext, UIComponent component,
         ComponentAttribute componentAttribute) {
         if (facesContext == null) {
@@ -413,9 +404,8 @@ public final class RenderKitUtils {
                         List<ClientBehavior> behaviorsList = behaviorsMap.get(eventName);
                         if (!behaviorsList.isEmpty()) {
                             // TODO - parameters handling
-                            ClientBehaviorContext behaviorContext =
-                                ClientBehaviorContext.createClientBehaviorContext(facesContext, component, eventName,
-                                    null, null);
+                            ClientBehaviorContext behaviorContext = ClientBehaviorContext.createClientBehaviorContext(
+                                facesContext, component, eventName, null, null);
                             attributeValue = createBehaviorsChain(attributeValue, behaviorContext, behaviorsList);
                         }
                         break;
@@ -482,8 +472,8 @@ public final class RenderKitUtils {
         renderPassThroughAttributes(context, component, attributes);
     }
 
-    public static void renderPassThroughAttributes(FacesContext context, UIComponent component, Collection<ComponentAttribute> attributes)
-        throws IOException {
+    public static void renderPassThroughAttributes(FacesContext context, UIComponent component,
+        Collection<ComponentAttribute> attributes) throws IOException {
         boolean disabled = isDisabled(component);
         for (ComponentAttribute knownAttribute : attributes) {
             if (!disabled || knownAttribute.getEventNames().length == 0) {
@@ -533,7 +523,7 @@ public final class RenderKitUtils {
         return new Attributes();
     }
 
-    public static Attributes attributes(Enum<?> ... attrs) {
+    public static Attributes attributes(Enum<?>... attrs) {
         Attributes res = new Attributes();
         for (Enum<?> attr : attrs) {
             res.generic(attr.toString(), attr.toString());
@@ -541,25 +531,24 @@ public final class RenderKitUtils {
 
         return res;
     }
-    
-    public static Attributes attributes(String ... attrs) {
+
+    public static Attributes attributes(String... attrs) {
         Attributes res = new Attributes();
         for (String attr : attrs) {
             res.generic(attr, attr);
         }
-        
+
         return res;
     }
 
     /**
-     * Checks if the argument passed in is empty or not.
-     * Object is empty if it is: <br />
-     *  - <code>null<code><br />
+     * Checks if the argument passed in is empty or not. Object is empty if it is: <br />
+     * - <code>null<code><br />
      *  - zero-length string<br />
      *  - empty collection<br />
      *  - empty map<br />
      *  - zero-length array<br />
-     * 
+     *
      * @param o object to check for emptiness
      * @since 3.3.2
      * @return <code>true</code> if the argument is empty, <code>false</code> otherwise
@@ -568,56 +557,47 @@ public final class RenderKitUtils {
         if (null == o) {
             return true;
         }
-        if (o instanceof String ) {
-            return (0 == ((String)o).length());
+        if (o instanceof String) {
+            return (0 == ((String) o).length());
         }
         if (o instanceof Collection) {
-            return ((Collection<?>)o).isEmpty();
+            return ((Collection<?>) o).isEmpty();
         }
         if (o instanceof Map) {
-            return ((Map<?, ?>)o).isEmpty();
+            return ((Map<?, ?>) o).isEmpty();
         }
         if (o.getClass().isArray()) {
             return Array.getLength(o) == 0;
         }
         return false;
     }
-    
-    public static void addToScriptHash(Map<String, Object> hash, 
-        String name, 
-        Object value) {
-        
+
+    public static void addToScriptHash(Map<String, Object> hash, String name, Object value) {
+
         addToScriptHash(hash, name, value, null, null);
     }
-    
-    public static void addToScriptHash(Map<String, Object> hash, 
-        String name, 
-        Object value,
-        Object defaultValue) {
-        
+
+    public static void addToScriptHash(Map<String, Object> hash, String name, Object value, Object defaultValue) {
+
         addToScriptHash(hash, name, value, defaultValue, null);
     }
 
     /**
-     * Puts value into map under specified key if the value is not empty and not default. 
-     * Performs optional value wrapping.
-     * 
+     * Puts value into map under specified key if the value is not empty and not default. Performs optional value wrapping.
+     *
      * @param hash
      * @param name
      * @param value
      * @param defaultValue
      * @param wrapper
-     * 
+     *
      * @since 3.3.2
      */
-    public static void addToScriptHash(Map<String, Object> hash, 
-            String name, 
-            Object value, 
-            Object defaultValue,
-            ScriptHashVariableWrapper wrapper) {
-        
+    public static void addToScriptHash(Map<String, Object> hash, String name, Object value, Object defaultValue,
+        ScriptHashVariableWrapper wrapper) {
+
         ScriptHashVariableWrapper wrapperOrDefault = wrapper != null ? wrapper : ScriptHashVariableWrapper.noop;
-        
+
         if (!isEmpty(value) && isAttributeSet(value)) {
             if (defaultValue != null) {
                 if (!String.valueOf(defaultValue).equals(value.toString())) {
@@ -631,80 +611,64 @@ public final class RenderKitUtils {
         }
     }
 
-    public static void addToScriptHash(Map<String, Object> hash, FacesContext facesContext, UIComponent component, 
+    public static void addToScriptHash(Map<String, Object> hash, FacesContext facesContext, UIComponent component,
         Attributes attributes, ScriptHashVariableWrapper wrapper) {
-        
+
         boolean disabled = isDisabled(component);
         for (ComponentAttribute knownAttribute : attributes) {
             if (!disabled || knownAttribute.getEventNames().length == 0) {
                 String attributeName = knownAttribute.getComponentAttributeName();
-                addToScriptHash(hash, attributeName, 
-                    getAttributeAndBehaviorsValue(facesContext, component, knownAttribute),
+                addToScriptHash(hash, attributeName, getAttributeAndBehaviorsValue(facesContext, component, knownAttribute),
                     knownAttribute.getDefaultValue(), wrapper);
             }
         }
-    }    
-    
-    public static String concat(String... strings) {
-        if (strings == null) {
-            return "";
-        }
-        
-        StringBuilder sb = new StringBuilder();
-        for (String s : strings) {
-            if (s == null || s.length() == 0) {
-                continue;
-            }
-            
-            sb.append(s);
-        }
-        return sb.toString();
     }
-    
+
     public static String toScriptArgs(Object... objects) {
         if (objects == null) {
             return "";
         }
-        
+
         int lastNonNullIdx = objects.length - 1;
         for (; 0 <= lastNonNullIdx; lastNonNullIdx--) {
             if (!isEmpty(objects[lastNonNullIdx])) {
                 break;
             }
         }
-        
+
         if (lastNonNullIdx < 0) {
             return "";
         }
-        
+
         if (lastNonNullIdx == 0) {
             return ScriptUtils.toScript(objects[lastNonNullIdx]);
         }
-        
+
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i <= lastNonNullIdx; i++) {
             if (sb.length() > 0) {
                 sb.append(",");
             }
-            
+
             sb.append(ScriptUtils.toScript(objects[i]));
         }
-        
+
         return sb.toString();
     }
-    
+
     public static String getResourcePath(FacesContext context, String library, String resourceName) {
         String path = null;
-        if(resourceName != null) {
+        if (resourceName != null) {
             ResourceHandler resourceHandler = context.getApplication().getResourceHandler();
-            Resource resource = (library != null) ? resourceHandler.createResource(resourceName,library) : resourceHandler.createResource(resourceName);
-            if(resource != null) {
-                path = resource.getRequestPath(); 
+            Resource resource = (library != null) ? resourceHandler.createResource(resourceName, library) : resourceHandler
+                .createResource(resourceName);
+            if (resource != null) {
+                path = resource.getRequestPath();
             }
         }
         return path;
     }
-    
+
     public static String getResourceURL(String url, FacesContext context) {
         if (null == url) {
             return null;
@@ -724,23 +688,23 @@ public final class RenderKitUtils {
 
     public static Object getFirstNonEmptyAttribute(String attributeName, UIComponent component) {
         Object attributeValue = component.getAttributes().get(attributeName);
-        
+
         return !isEmpty(attributeValue) ? attributeValue : null;
     }
-    
+
     public static Object getFirstNonEmptyAttribute(String attributeName, UIComponent componentA, UIComponent componentB) {
         Object attributeValue = componentA.getAttributes().get(attributeName);
-        
+
         if (!isEmpty(attributeValue)) {
             return attributeValue;
         }
 
         attributeValue = componentB.getAttributes().get(attributeName);
-        
+
         if (!isEmpty(attributeValue)) {
             return attributeValue;
         }
-        
+
         return null;
     }
 
@@ -751,13 +715,12 @@ public final class RenderKitUtils {
                 return attributeValue;
             }
         }
-        
+
         return null;
     }
-    
+
     @SuppressWarnings("serial")
     public static final class Attributes extends TreeSet<ComponentAttribute> {
-        
         private ComponentAttribute last;
 
         public void render(FacesContext context, UIComponent component) throws IOException {
@@ -790,11 +753,14 @@ public final class RenderKitUtils {
             attribute.setKind(Kind.BOOL);
             return this;
         }
-        
-        public Attributes defaultValue(Object value){
+
+        public Attributes defaultValue(Object value) {
             last.setDefaultValue(value);
             return this;
         }
     }
 
+    public static String getBehaviorSourceId(FacesContext facesContext) {
+        return facesContext.getExternalContext().getRequestParameterMap().get(BEHAVIOR_SOURCE_ID);
+    }
 }

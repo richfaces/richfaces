@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.event;
 
 import java.util.ArrayList;
@@ -38,18 +37,17 @@ import javax.faces.event.SystemEventListener;
 import org.ajax4jsf.Messages;
 import org.richfaces.DataScrollerUtils;
 import org.richfaces.component.AbstractDataScroller;
+import org.richfaces.component.DataComponentsContextUtil;
 import org.richfaces.component.UIDataAdaptor;
 import org.richfaces.component.util.MessageUtil;
-import org.richfaces.log.RichfacesLogger;
 import org.richfaces.log.Logger;
-
+import org.richfaces.log.RichfacesLogger;
 
 public class DataTablePreRenderListener implements SystemEventListener {
-
     private static final Logger LOG = RichfacesLogger.COMPONENTS.getLogger();
 
     public boolean isListenerForSource(Object source) {
-        return ((source instanceof AbstractDataScroller) ||(source instanceof UIDataAdaptor) || (source instanceof UIData));
+        return ((source instanceof AbstractDataScroller) || (source instanceof UIDataAdaptor) || (source instanceof UIData));
     }
 
     public AbstractDataScroller processActiveDatascroller(FacesContext facesContext, List<AbstractDataScroller> dataScrollers,
@@ -86,7 +84,6 @@ public class DataTablePreRenderListener implements SystemEventListener {
                     activeComponent = datascroller;
                 }
             }
-
         }
 
         if (activeComponent == null) {
@@ -96,7 +93,6 @@ public class DataTablePreRenderListener implements SystemEventListener {
         if (!valid) {
             String formattedMessage = getPageDifferentMessage(facesContext, activeComponent, dataScrollers, values);
             LOG.error(formattedMessage);
-
         }
 
         return activeComponent;
@@ -111,21 +107,22 @@ public class DataTablePreRenderListener implements SystemEventListener {
         if ((source instanceof UIDataAdaptor) || (source instanceof UIData)) {
             dataTable = source;
             List<AbstractDataScroller> dataScrollers = DataScrollerUtils.findDataScrollers(dataTable);
-            if(!dataScrollers.isEmpty()) { 
+            if (!dataScrollers.isEmpty()) {
                 activeDataScroller = processActiveDatascroller(facesContext, dataScrollers, dataTable);
-            }    
-
+            }
         } else if (source instanceof AbstractDataScroller) {
             activeDataScroller = (AbstractDataScroller) source;
             dataTable = activeDataScroller.getDataTable();
         }
-        
-        String scrollerStateKey  = dataTable.getClientId(facesContext) + AbstractDataScroller.SCROLLER_STATE_ATTRIBUTE; 
+
         if ((activeDataScroller != null) && (dataTable != null)) {
+            DataComponentsContextUtil.resetDataModelOncePerPhase(facesContext, dataTable);
+
+            String scrollerStateKey = dataTable.getClientId(facesContext) + AbstractDataScroller.SCROLLER_STATE_ATTRIBUTE;
             int rowCount = DataScrollerUtils.getRowCount(dataTable);
             int rows = DataScrollerUtils.getRows(dataTable);
             int pageCount = DataScrollerUtils.getPageCount(dataTable, rowCount, rows);
-            
+
             int page = activeDataScroller.getPage();
             int newPage = -1;
 
@@ -137,8 +134,8 @@ public class DataTablePreRenderListener implements SystemEventListener {
 
             if (newPage != -1) {
                 Object label = MessageUtil.getLabel(facesContext, activeDataScroller);
-                String formattedMessage = Messages.getMessage(Messages.DATASCROLLER_PAGE_MISSING, new Object[] { label,
-                    page, pageCount, newPage });
+                String formattedMessage = Messages.getMessage(Messages.DATASCROLLER_PAGE_MISSING, new Object[] { label, page,
+                        pageCount, newPage });
 
                 LOG.warn(formattedMessage);
                 page = newPage;
@@ -188,9 +185,8 @@ public class DataTablePreRenderListener implements SystemEventListener {
             builder.append(scrollerItr.hasNext() ? ",\n" : "]");
         }
 
-        return Messages.getMessage(Messages.DATASCROLLER_PAGES_DIFFERENT, new Object[] {
-            MessageUtil.getLabel(facesContext, activeComponent), builder });
-
+        return Messages.getMessage(Messages.DATASCROLLER_PAGES_DIFFERENT,
+            new Object[] { MessageUtil.getLabel(facesContext, activeComponent), builder });
     }
 
     private static boolean same(Object o1, Object o2) {

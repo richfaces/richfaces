@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit.html;
 
 import java.io.IOException;
@@ -40,47 +39,52 @@ import org.richfaces.renderkit.RendererBase;
  */
 @JsfRenderer(type = "org.richfaces.OutputPanelRenderer", family = AbstractOutputPanel.COMPONENT_FAMILY)
 public class AjaxOutputPanelRenderer extends RendererBase {
-
-    private static final String[] STYLE_ATTRIBUTES = new String[]{"style", "class"};
+    private static final String[] STYLE_ATTRIBUTES = new String[] { "style", "class" };
 
     private boolean hasNoneLayout(UIComponent component) {
-        //TODO - A1 won't support 'none' layout
+        // TODO - A1 won't support 'none' layout
         return false;
     }
 
-    /* (non-Javadoc)
-      * @see javax.faces.render.Renderer#encodeChildren(javax.faces.context.FacesContext,
-      * javax.faces.component.UIComponent)
-      */
+    /*
+     * (non-Javadoc)
+     *
+     * @see javax.faces.render.Renderer#encodeChildren(javax.faces.context.FacesContext, javax.faces.component.UIComponent)
+     */
     @Override
     public void encodeChildren(FacesContext context, UIComponent component) throws IOException {
         //
         renderChildren(context, component);
     }
 
-    /* (non-Javadoc)
-      * @see javax.faces.render.Renderer#getRendersChildren()
-      */
+    /*
+     * (non-Javadoc)
+     *
+     * @see javax.faces.render.Renderer#getRendersChildren()
+     */
     @Override
     public boolean getRendersChildren() {
         return true;
     }
 
-    /* (non-Javadoc)
-      * @see org.ajax4jsf.renderkit.RendererBase#getComponentClass()
-      */
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.ajax4jsf.renderkit.RendererBase#getComponentClass()
+     */
     @Override
     protected Class<? extends UIComponent> getComponentClass() {
         return AbstractOutputPanel.class;
     }
 
-    /* (non-Javadoc)
-      * @see org.ajax4jsf.renderkit.RendererBase#doEncodeBegin(javax.faces.context.ResponseWriter,
-      * javax.faces.context.FacesContext, javax.faces.component.UIComponent)
-      */
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.ajax4jsf.renderkit.RendererBase#doEncodeBegin(javax.faces.context.ResponseWriter,
+     * javax.faces.context.FacesContext, javax.faces.component.UIComponent)
+     */
     @Override
-    protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component)
-        throws IOException {
+    protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
 
         AbstractOutputPanel panel = (AbstractOutputPanel) component;
         if (!hasNoneLayout(component)) {
@@ -100,10 +104,12 @@ public class AjaxOutputPanelRenderer extends RendererBase {
         return OutputPanelLayout.block.equals(layout) ? HtmlConstants.DIV_ELEM : HtmlConstants.SPAN_ELEM;
     }
 
-    /* (non-Javadoc)
-      * @see org.ajax4jsf.renderkit.RendererBase#doEncodeEnd(javax.faces.context.ResponseWriter,
-      * javax.faces.context.FacesContext, javax.faces.component.UIComponent)
-      */
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.ajax4jsf.renderkit.RendererBase#doEncodeEnd(javax.faces.context.ResponseWriter,
+     * javax.faces.context.FacesContext, javax.faces.component.UIComponent)
+     */
     @Override
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         AbstractOutputPanel panel = (AbstractOutputPanel) component;
@@ -126,7 +132,5 @@ public class AjaxOutputPanelRenderer extends RendererBase {
             markNoTransient(element);
             element.setTransient(false);
         }
-
     }
-
 }

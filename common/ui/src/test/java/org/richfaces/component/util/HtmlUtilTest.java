@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.component.util;
 
 import javax.faces.component.UIComponent;
@@ -30,8 +27,7 @@ import javax.faces.context.FacesContext;
 import junit.framework.TestCase;
 
 /**
- * @author Nick Belaevski - nbelaevski@exadel.com
- * created 11.04.2007
+ * @author Nick Belaevski - nbelaevski@exadel.com created 11.04.2007
  *
  */
 public class HtmlUtilTest extends TestCase {
@@ -62,12 +58,14 @@ public class HtmlUtilTest extends TestCase {
                 // TODO Auto-generated method stub
                 return null;
             }
+
             public UIComponent findComponent(String expr) {
                 if ("-Test".equals(expr)) {
                     return new UIComponentBase() {
                         public String getClientId(FacesContext context) {
                             return "component$1";
                         }
+
                         public String getFamily() {
 
                             // TODO Auto-generated method stub
@@ -79,6 +77,7 @@ public class HtmlUtilTest extends TestCase {
                         public String getClientId(FacesContext context) {
                             return "component2";
                         }
+
                         public String getFamily() {
 
                             // TODO Auto-generated method stub

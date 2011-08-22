@@ -7,7 +7,6 @@ import org.ajax4jsf.javascript.JSFunctionDefinition;
 import org.ajax4jsf.javascript.JSReference;
 
 public abstract class ValidatorScriptBase extends JSFunctionDefinition implements ComponentValidatorScript {
-
     public static final String ELEMENT = "e";
     public static final JSReference ELEMENT_REF = new JSReference(ELEMENT);
     public static final String EVENT = "event";
@@ -29,22 +28,19 @@ public abstract class ValidatorScriptBase extends JSFunctionDefinition implement
     public static final JSReference PARAMS_REF = new JSReference(PARAMS);
     public static final String MESSAGE = "m";
     public static final JSReference MESSAGE_REF = new JSReference(MESSAGE);
-
     public static final NullConverterScript NULL_CONVERTER_SCRIPT = new NullConverterScript();
     public static final String CSV_NAMESPACE = "RichFaces.csv.";
     public static final String VALUE_FUNCTION_NAME = CSV_NAMESPACE + "getValue";
     public static final JSFunction GET_VALUE_FUNCTION = new JSFunction(VALUE_FUNCTION_NAME, CLIENT_ID_REF, ELEMENT_REF);
     public static final String VALIDATE_FUNCTION_NAME = CSV_NAMESPACE + "validate";
-    public static final JSFunction VALIDATE_FUNCTION = new JSFunction(VALIDATE_FUNCTION_NAME, CLIENT_ID_REF,
-        ELEMENT_REF);
+    public static final JSFunction VALIDATE_FUNCTION = new JSFunction(VALIDATE_FUNCTION_NAME, CLIENT_ID_REF, ELEMENT_REF);
 
     public ValidatorScriptBase() {
         super(EVENT, CLIENT_ID, ELEMENT, DISABLE_AJAX);
     }
 
     public String createCallScript(String clientId, String sourceId) {
-        JSFunction callFunction =
-            new JSFunction(getName(), EVENT_REF, clientId, null != sourceId ? sourceId : JSReference.THIS);
+        JSFunction callFunction = new JSFunction(getName(), EVENT_REF, clientId, null != sourceId ? sourceId : JSReference.THIS);
         return callFunction.toScript();
     }
 
@@ -65,8 +61,7 @@ public abstract class ValidatorScriptBase extends JSFunctionDefinition implement
     }
 
     protected void appendValidatorCall(Appendable target) throws IOException {
-        JSFunction callValidator =
-            new JSFunction(VALIDATE_FUNCTION_NAME, EVENT_REF, CLIENT_ID_REF, ELEMENT_REF, PARAMS_REF);
+        JSFunction callValidator = new JSFunction(VALIDATE_FUNCTION_NAME, EVENT_REF, CLIENT_ID_REF, ELEMENT_REF, PARAMS_REF);
         callValidator.appendScript(target);
         target.append(EOL);
     }
@@ -81,5 +76,4 @@ public abstract class ValidatorScriptBase extends JSFunctionDefinition implement
         ajaxFunction.addToBody(ajaxScript);
         ajaxFunction.appendScript(target);
     }
-
 }

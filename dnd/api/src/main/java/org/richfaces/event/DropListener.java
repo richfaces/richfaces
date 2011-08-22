@@ -19,18 +19,14 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.event;
 
 import javax.faces.event.FacesListener;
-
 
 /**
  * @author abelevich
  *
  */
-public interface DropListener extends FacesListener  {
-    
-    public void processDrop(DropEvent event);
-
+public interface DropListener extends FacesListener {
+    void processDrop(DropEvent event);
 }

@@ -12,16 +12,15 @@
     License along with this software; if not, write to the Free Software Foundation, 
     Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA, or see the 
     FSF site: http://www.fsf.org. -->
-<cdk:properties xmlns:xi="http://www.w3.org/2001/XInclude"
-    xmlns:cdk="http://jboss.org/schema/richfaces/cdk/extensions"
+<cdk:properties xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:cdk="http://jboss.org/schema/richfaces/cdk/extensions"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee">
 
     <property>
         <property-name>assignTo</property-name>
         <property-class>java.lang.Object</property-class>
-		<property-extension>
-			<cdk:generate>false</cdk:generate>
-		</property-extension>
+        <property-extension>
+            <cdk:generate>false</cdk:generate>
+        </property-extension>
     </property>
 
 </cdk:properties>

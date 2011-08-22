@@ -19,26 +19,22 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
+import org.richfaces.renderkit.html.DivPanelRenderer;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
-
-import static org.richfaces.renderkit.html.DivPanelRenderer.capitalize;
 
 /**
  * @author akolonitsky
  * @since 2010-08-05
  */
 public interface AbstractTogglePanelTitledItem extends AbstractTogglePanelItemInterface {
-
     public enum HeaderStates {
         active("act"),
         inactive("inact"),
         disabled("dis");
-
-        private final String abbreviation;
+        private String abbreviation;
 
         HeaderStates(String abbreviation) {
             this.abbreviation = abbreviation;
@@ -49,10 +45,7 @@ public interface AbstractTogglePanelTitledItem extends AbstractTogglePanelItemIn
         }
 
         public String headerClass() {
-            return new StringBuilder("header")
-                    .append(capitalize(this.toString()))
-                    .append("Class")
-                    .toString();
+            return new StringBuilder("header").append(DivPanelRenderer.capitalize(this.toString())).append("Class").toString();
         }
     }
 
@@ -66,35 +59,35 @@ public interface AbstractTogglePanelTitledItem extends AbstractTogglePanelItemIn
     // ------------------------------------------------ Html Attributes
 
     @Attribute
-    public abstract String getHeaderActiveClass();
+    String getHeaderActiveClass();
 
     @Attribute
-    public abstract String getHeaderDisabledClass();
+    String getHeaderDisabledClass();
 
     @Attribute
-    public abstract String getHeaderInactiveClass();
+    String getHeaderInactiveClass();
 
     @Attribute
-    public abstract String getHeaderClass();
+    String getHeaderClass();
 
     @Attribute
-    public abstract String getHeaderStyle();
+    String getHeaderStyle();
 
     @Attribute
-    public abstract String getContentClass();
+    String getContentClass();
 
     @Attribute(events = @EventName("headerclick"))
-    public abstract String getOnheaderclick();
+    String getOnheaderclick();
 
     @Attribute(events = @EventName("headerdblclick"))
-    public abstract String getOnheaderdblclick();
+    String getOnheaderdblclick();
 
     @Attribute(events = @EventName("headermousedown"))
-    public abstract String getOnheadermousedown();
+    String getOnheadermousedown();
 
     @Attribute(events = @EventName("headermousemove"))
-    public abstract String getOnheadermousemove() ;
+    String getOnheadermousemove();
 
     @Attribute(events = @EventName("headermouseup"))
-    public abstract String getOnheadermouseup();
+    String getOnheadermouseup();
 }

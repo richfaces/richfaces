@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.component;
 
 import java.util.Date;
@@ -30,7 +27,6 @@ import javax.faces.application.Resource;
 import javax.faces.application.ResourceHandler;
 import javax.faces.component.UIOutput;
 
-import org.ajax4jsf.resource.ResourceComponent;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 import org.richfaces.cdk.annotations.JsfComponent;
@@ -43,18 +39,14 @@ import org.richfaces.resource.MediaOutputResource;
  * @author shura
  *
  */
-@JsfComponent(
-        tag = @Tag(generate = false, handler = "org.richfaces.view.facelets.html.MediaOutputHandler", type = TagType.Facelets),
-        renderer = @JsfRenderer(type = "org.richfaces.MediaOutputRenderer")
-)
-public abstract class AbstractMediaOutput extends UIOutput implements ResourceComponent {
-
+@JsfComponent(tag = @Tag(generate = false, handler = "org.richfaces.view.facelets.html.MediaOutputHandler", type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.MediaOutputRenderer"))
+public abstract class AbstractMediaOutput extends UIOutput {
     public static final String COMPONENT_TYPE = "org.richfaces.MediaOutput";
-
     public static final String COMPONENT_FAMILY = "org.richfaces.MediaOutput";
 
     /**
      * Get URI attribute for resource ( src for images, href for links etc ).
+     *
      * @return
      */
     @Attribute
@@ -62,6 +54,7 @@ public abstract class AbstractMediaOutput extends UIOutput implements ResourceCo
 
     /**
      * Get Element name for rendering ( imj , a , object, applet ).
+     *
      * @return
      */
     @Attribute
@@ -132,6 +125,8 @@ public abstract class AbstractMediaOutput extends UIOutput implements ResourceCo
     @Attribute
     public abstract MethodExpression getCreateContent();
 
+    public abstract void setCreateContent(MethodExpression createContent);
+
     @Attribute
     public abstract String getRel();
 
@@ -170,7 +165,10 @@ public abstract class AbstractMediaOutput extends UIOutput implements ResourceCo
 
     @Attribute
     public abstract String getFileName();
-    
+
+    @Attribute
+    public abstract Object getValue();
+
     @Attribute(events = @EventName("blur"))
     public abstract String getOnblur();
 
@@ -206,16 +204,4 @@ public abstract class AbstractMediaOutput extends UIOutput implements ResourceCo
 
     @Attribute(events = @EventName("mouseup"))
     public abstract String getOnmouseup();
-
-    @Deprecated
-    public boolean isSession() {
-        return true;
-    }
-
-    @Deprecated
-    public void setSession(boolean session) {
-        if (!session) {
-            // TODO: log
-        }
-    }
 }

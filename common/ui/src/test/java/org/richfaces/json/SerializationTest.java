@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.json;
 
 import java.io.ByteArrayInputStream;
@@ -51,8 +48,7 @@ public class SerializationTest extends TestCase {
     }
 
     public void testJSONObject() throws Exception {
-        JSONObject restoredObject =
-            saveRestore(new JSONObject("{a:null, b:'abc', c: {d: 'e', f: 'g'}, h: ['i', 'j']}"));
+        JSONObject restoredObject = saveRestore(new JSONObject("{a:null, b:'abc', c: {d: 'e', f: 'g'}, h: ['i', 'j']}"));
 
         assertSame(JSONObject.NULL, restoredObject.get("a"));
         assertEquals("abc", restoredObject.get("b"));

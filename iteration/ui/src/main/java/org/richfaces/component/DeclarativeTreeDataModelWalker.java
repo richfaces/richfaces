@@ -35,26 +35,18 @@ import com.google.common.collect.Iterables;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class DeclarativeTreeDataModelWalker {
-
     private static final Logger LOGGER = RichfacesLogger.COMPONENTS.getLogger();
-    
     private String var;
-    
     private FacesContext facesContext;
-    
     private UIComponent rootComponent;
-    
     private UIComponent currentComponent;
-
     private Map<String, Object> contextMap;
-    
     private Object modelData;
-    
     private Object data;
-    
+
     public DeclarativeTreeDataModelWalker(FacesContext facesContext, AbstractTree rootComponent) {
         super();
 
@@ -63,12 +55,11 @@ public class DeclarativeTreeDataModelWalker {
         this.contextMap = rootComponent.getVariablesMap(facesContext);
         this.var = rootComponent.getVar();
         this.currentComponent = rootComponent;
-        
     }
-    
+
     private void setupModelComponentContext(String modelId) {
         if (currentComponent instanceof TreeModelRecursiveAdaptor && modelId.equals(currentComponent.getId())) {
-            //currentComponent already set
+            // currentComponent already set
             modelData = ((TreeModelRecursiveAdaptor) currentComponent).getNodes();
         } else {
             currentComponent = Iterables.find(currentComponent.getChildren(), ComponentPredicates.withId(modelId));
@@ -79,32 +70,43 @@ public class DeclarativeTreeDataModelWalker {
             }
         }
     }
-    
+
     private void setupDataModelContext(Object key) {
         if (modelData instanceof Iterable<?>) {
             Iterable<?> iterable = (Iterable<?>) modelData;
-            data = Iterables.get(iterable, (Integer) key);
+            Integer index = (Integer) key;
+
+            if (index < Iterables.size(iterable)) {
+                data = Iterables.get(iterable, index);
+            } else {
+                data = null;
+            }
         } else {
             data = ((Map<?, ?>) modelData).get(key);
         }
     }
-    
+
+    private void resetForDataNotAvailable() {
+        data = null;
+        currentComponent = rootComponent;
+    }
+
     protected FacesContext getFacesContext() {
         return facesContext;
     }
-    
+
     protected UIComponent getRootComponent() {
         return rootComponent;
     }
-    
+
     public UIComponent getCurrentComponent() {
         return currentComponent;
     }
-    
+
     public Object getData() {
         return data;
     }
-    
+
     public void walk(SequenceRowKey key) {
         Object initialContextValue = null;
 
@@ -118,9 +120,20 @@ public class DeclarativeTreeDataModelWalker {
                 if (var != null) {
                     contextMap.put(var, data);
                 }
-                
+
                 setupModelComponentContext(declarativeKey.getModelId());
+
+                if (modelData == null) {
+                    resetForDataNotAvailable();
+                    break;
+                }
+
                 setupDataModelContext(declarativeKey.getModelKey());
+
+                if (data == null) {
+                    resetForDataNotAvailable();
+                    break;
+                }
             }
         } finally {
             if (var != null) {
@@ -132,5 +145,4 @@ public class DeclarativeTreeDataModelWalker {
             }
         }
     }
-
 }

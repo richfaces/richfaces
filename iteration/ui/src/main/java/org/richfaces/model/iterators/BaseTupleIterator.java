@@ -32,18 +32,14 @@ import com.google.common.collect.UnmodifiableIterator;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public abstract class BaseTupleIterator extends UnmodifiableIterator<TreeDataModelTuple> {
-
     private SequenceRowKey baseKey;
- 
     private UIComponent component;
-    
     private Object rowKey;
-    
     private Object data;
-    
+
     public BaseTupleIterator(SequenceRowKey baseKey) {
         this(baseKey, null);
     }
@@ -59,23 +55,23 @@ public abstract class BaseTupleIterator extends UnmodifiableIterator<TreeDataMod
     protected UIComponent getComponent() {
         return component;
     }
-    
+
     protected SequenceRowKey getBaseKey() {
         return baseKey;
     }
-    
+
     protected void setKeyAndData(Object rowKey, Object data) {
         this.rowKey = rowKey;
         this.data = data;
     }
-    
+
     protected Object getKey() {
         return rowKey;
     }
-    
+
     public final TreeDataModelTuple next() {
         proceedToNext();
-        
+
         Object modelKey = getWrappedKey();
         SequenceRowKey nextKey = getCompositeKey(modelKey);
         return createTuple(nextKey);
@@ -83,37 +79,37 @@ public abstract class BaseTupleIterator extends UnmodifiableIterator<TreeDataMod
 
     protected TreeDataModelTuple createTuple(SequenceRowKey key) {
         TreeDataModelTuple result;
-        
+
         if (component != null) {
             result = new DeclarativeTreeDataModelTuple(key, data, component);
         } else {
             result = new TreeDataModelTuple(key, data);
         }
-        
+
         return result;
     }
-    
+
     protected Object getWrappedKey() {
         Object modelKey;
-        
+
         if (getComponent() != null) {
             modelKey = new DeclarativeModelKey(getComponent().getId(), getKey());
         } else {
             modelKey = getKey();
         }
-        
+
         return modelKey;
     }
 
     protected SequenceRowKey getCompositeKey(Object modelKey) {
         SequenceRowKey result;
-        
+
         if (getBaseKey() != null) {
             result = getBaseKey().append(modelKey);
         } else {
             result = new SequenceRowKey(modelKey);
         }
-        
+
         return result;
     }
 }

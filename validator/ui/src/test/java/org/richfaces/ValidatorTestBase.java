@@ -12,7 +12,6 @@ import org.junit.After;
 import org.richfaces.application.ServicesFactory;
 
 public class ValidatorTestBase {
-
     @Mock()
     @Environment({ Feature.APPLICATION, Feature.RENDER_KIT, Feature.EL_CONTEXT })
     protected MockFacesEnvironment environment;
@@ -30,5 +29,4 @@ public class ValidatorTestBase {
     public void tearDown() throws Exception {
         controller.release();
     }
-
 }

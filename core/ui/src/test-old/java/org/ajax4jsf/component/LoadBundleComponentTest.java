@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.component;
 
 import java.util.HashMap;
@@ -111,22 +108,26 @@ public class LoadBundleComponentTest extends org.ajax4jsf.tests.AbstractAjax4Jsf
         try {
             loadedMap.put("key1", "value1");
             assertFalse("UnsupportedOperationException was not thrown", true);
-        } catch (UnsupportedOperationException e) {}
+        } catch (UnsupportedOperationException e) {
+        }
 
         try {
             loadedMap.putAll(new HashMap());
             assertFalse("UnsupportedOperationException was not thrown", true);
-        } catch (UnsupportedOperationException e) {}
+        } catch (UnsupportedOperationException e) {
+        }
 
         try {
             loadedMap.remove("key1");
             assertFalse("UnsupportedOperationException was not thrown", true);
-        } catch (UnsupportedOperationException e) {}
+        } catch (UnsupportedOperationException e) {
+        }
 
         try {
             loadedMap.clear();
             assertFalse("UnsupportedOperationException was not thrown", true);
-        } catch (UnsupportedOperationException e) {}
+        } catch (UnsupportedOperationException e) {
+        }
 
         assertNull(loadedMap.keySet());
         assertNull(loadedMap.values());

@@ -31,28 +31,26 @@ import com.google.common.collect.Lists;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class StateHolderArray implements StateHolder {
-
     private boolean tranzient = false;
-    
     private ArrayList<Object> backingList = Lists.newArrayListWithCapacity(2);
-    
+
     public Object saveState(FacesContext context) {
         Object[] savedState = new Object[backingList.size()];
 
         boolean hasNonNullState = false;
-        
+
         for (int i = 0; i < savedState.length; i++) {
             Object state = UIComponentBase.saveAttachedState(context, backingList.get(i));
             savedState[i] = state;
-            
+
             if (state != null) {
                 hasNonNullState = true;
             }
         }
-        
+
         if (hasNonNullState) {
             return savedState;
         } else {
@@ -63,9 +61,9 @@ public class StateHolderArray implements StateHolder {
     public void restoreState(FacesContext context, Object stateObject) {
         if (stateObject != null) {
             Object[] state = (Object[]) stateObject;
-            
+
             backingList.ensureCapacity(state.length);
-            
+
             for (int i = 0; i < state.length; i++) {
                 backingList.add(UIComponentBase.restoreAttachedState(context, state[i]));
             }
@@ -79,7 +77,7 @@ public class StateHolderArray implements StateHolder {
     public void setTransient(boolean newTransientValue) {
         this.tranzient = newTransientValue;
     }
-    
+
     public boolean add(Object e) {
         return backingList.add(e);
     }
@@ -91,5 +89,4 @@ public class StateHolderArray implements StateHolder {
     public boolean isEmpty() {
         return backingList.isEmpty();
     }
-
 }

@@ -4,7 +4,6 @@ import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.EventName;
 
 public interface AjaxProps {
-
     @Attribute
     Object getExecute();
 

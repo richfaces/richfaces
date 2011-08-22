@@ -28,13 +28,11 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class SequenceIterationStatusTest {
-
     @Test
     public void testBeginEnd() throws Exception {
         SequenceIterationStatus s1 = new SequenceIterationStatus(5, 10, 5, 100);
@@ -49,7 +47,7 @@ public class SequenceIterationStatusTest {
         assertNull(s3.getBegin());
         assertEquals(Integer.valueOf(Integer.MAX_VALUE), s3.getEnd());
     }
-    
+
     @Test
     public void testFirst() throws Exception {
         SequenceIterationStatus s1 = new SequenceIterationStatus(0, 10, 0, 100);
@@ -82,15 +80,15 @@ public class SequenceIterationStatusTest {
         SequenceIterationStatus s1 = new SequenceIterationStatus(0, 9, 9, 100);
         assertTrue(s1.isLast());
         assertFalse(s1.isFirst());
-        
+
         SequenceIterationStatus s2 = new SequenceIterationStatus(0, 9, 8, 100);
         assertFalse(s2.isLast());
         assertFalse(s2.isFirst());
-        
+
         SequenceIterationStatus s3 = new SequenceIterationStatus(0, 100, 9, 10);
         assertTrue(s3.isLast());
         assertFalse(s3.isFirst());
-        
+
         SequenceIterationStatus s4 = new SequenceIterationStatus(0, 100, 8, 10);
         assertFalse(s4.isLast());
         assertFalse(s4.isFirst());
@@ -98,7 +96,7 @@ public class SequenceIterationStatusTest {
         SequenceIterationStatus s5 = new SequenceIterationStatus(0, null, 9, 10);
         assertTrue(s5.isLast());
         assertFalse(s5.isFirst());
-        
+
         SequenceIterationStatus s6 = new SequenceIterationStatus(0, null, 8, 10);
         assertFalse(s6.isLast());
         assertFalse(s6.isFirst());
@@ -122,7 +120,7 @@ public class SequenceIterationStatusTest {
         assertTrue(s4.isEven());
         assertFalse(s4.isOdd());
     }
-    
+
     @Test
     public void testGetRowCount() throws Exception {
         SequenceIterationStatus s1 = new SequenceIterationStatus(0, 100, 0, 200);
@@ -140,7 +138,7 @@ public class SequenceIterationStatusTest {
         SequenceIterationStatus s2 = new SequenceIterationStatus(0, 400, 100, 150);
         assertTrue(100 == s2.getIndex());
     }
-    
+
     @Test
     public void testGetCount() throws Exception {
         SequenceIterationStatus s1 = new SequenceIterationStatus(0, 100, 0, 10);

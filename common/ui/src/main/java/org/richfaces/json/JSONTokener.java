@@ -1,44 +1,41 @@
 package org.richfaces.json;
 
 /*
-Copyright (c) 2002 JSON.org
+ Copyright (c) 2002 JSON.org
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+ The above copyright notice and this permission notice shall be included in all
+ copies or substantial portions of the Software.
 
-The Software shall be used for Good, not Evil.
+ The Software shall be used for Good, not Evil.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-*/
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+ */
 
 /**
- * A JSONTokener takes a source string and extracts characters and tokens from
- * it. It is used by the JSONObject and JSONArray constructors to parse
- * JSON source strings.
+ * A JSONTokener takes a source string and extracts characters and tokens from it. It is used by the JSONObject and JSONArray
+ * constructors to parse JSON source strings.
  *
  * @author JSON.org
  * @version 2
  */
 public class JSONTokener {
-
     /**
      * The index of the next character.
      */
     private int myIndex;
-
     /**
      * The source string being tokenized.
      */
@@ -55,9 +52,8 @@ public class JSONTokener {
     }
 
     /**
-     * Back up one character. This provides a sort of lookahead capability,
-     * so that you can test for a digit or letter before attempting to parse
-     * the next number or identifier.
+     * Back up one character. This provides a sort of lookahead capability, so that you can test for a digit or letter before
+     * attempting to parse the next number or identifier.
      */
     public void back() {
         if (this.myIndex > 0) {
@@ -68,8 +64,7 @@ public class JSONTokener {
     /**
      * Get the hex value of a character (base16).
      *
-     * @param c A character between '0' and '9' or between 'A' and 'F' or
-     *          between 'a' and 'f'.
+     * @param c A character between '0' and '9' or between 'A' and 'F' or between 'a' and 'f'.
      * @return An int between 0 and 15, or -1 if c was not a hex digit.
      */
     public static int dehexchar(char c) {
@@ -89,8 +84,7 @@ public class JSONTokener {
     }
 
     /**
-     * Determine if the source string still contains characters that next()
-     * can consume.
+     * Determine if the source string still contains characters that next() can consume.
      *
      * @return true if not yet at the end of the source.
      */
@@ -116,8 +110,7 @@ public class JSONTokener {
     }
 
     /**
-     * Consume the next character, and check that it matches a specified
-     * character.
+     * Consume the next character, and check that it matches a specified character.
      *
      * @param c The character to match.
      * @return The character.
@@ -138,8 +131,7 @@ public class JSONTokener {
      *
      * @param n The number of characters to take.
      * @return A string of n characters.
-     * @throws JSONException Substring bounds error if there are not
-     *                       n characters remaining in the source string.
+     * @throws JSONException Substring bounds error if there are not n characters remaining in the source string.
      */
     public String next(int n) throws JSONException {
         int i = this.myIndex;
@@ -155,8 +147,7 @@ public class JSONTokener {
     }
 
     /**
-     * Get the next char in the string, skipping whitespace
-     * and comments (slashslash, slashstar, and hash).
+     * Get the next char in the string, skipping whitespace and comments (slashslash, slashstar, and hash).
      *
      * @return A character, or 0 if there are no more characters.
      * @throws JSONException
@@ -209,14 +200,11 @@ public class JSONTokener {
     }
 
     /**
-     * Return the characters up to the next close quote character.
-     * Backslash processing is done. The formal JSON format does not
-     * allow strings in single quotes, but an implementation is allowed to
-     * accept them.
+     * Return the characters up to the next close quote character. Backslash processing is done. The formal JSON format does not
+     * allow strings in single quotes, but an implementation is allowed to accept them.
      *
-     * @param quote The quoting character, either
-     *              <code>"</code>&nbsp;<small>(double quote)</small> or
-     *              <code>'</code>&nbsp;<small>(single quote)</small>.
+     * @param quote The quoting character, either <code>"</code>&nbsp;<small>(double quote)</small> or <code>'</code>
+     *        &nbsp;<small>(single quote)</small>.
      * @return A String.
      * @throws JSONException Unterminated string.
      */
@@ -289,8 +277,7 @@ public class JSONTokener {
     }
 
     /**
-     * Get the text up but not including the specified character or the
-     * end of line, whichever comes first.
+     * Get the text up but not including the specified character or the end of line, whichever comes first.
      *
      * @param d A delimiter character.
      * @return A string.
@@ -314,8 +301,7 @@ public class JSONTokener {
     }
 
     /**
-     * Get the text up but not including one of the specified delimeter
-     * characters or the end of line, whichever comes first.
+     * Get the text up but not including one of the specified delimeter characters or the end of line, whichever comes first.
      *
      * @param delimiters A set of delimiter characters.
      * @return A string, trimmed.
@@ -340,8 +326,8 @@ public class JSONTokener {
     }
 
     /**
-     * Get the next value. The value can be a Boolean, Double, Integer,
-     * JSONArray, JSONObject, Long, or String, or the JSONObject.NULL object.
+     * Get the next value. The value can be a Boolean, Double, Integer, JSONArray, JSONObject, Long, or String, or the
+     * JSONObject.NULL object.
      *
      * @return An object.
      * @throws JSONException If syntax error.
@@ -367,12 +353,10 @@ public class JSONTokener {
         }
 
         /*
-         * Handle unquoted text. This could be the values true, false, or
-         * null, or it can be a number. An implementation (such as this one)
-         * is allowed to also accept non-standard forms.
+         * Handle unquoted text. This could be the values true, false, or null, or it can be a number. An implementation (such
+         * as this one) is allowed to also accept non-standard forms.
          *
-         * Accumulate characters until we reach the end of the text or a
-         * formatting character.
+         * Accumulate characters until we reach the end of the text or a formatting character.
          */
         StringBuffer sb = new StringBuffer();
         char b = c;
@@ -406,11 +390,9 @@ public class JSONTokener {
         }
 
         /*
-         * If it might be a number, try converting it. We support the 0- and 0x-
-         * conventions. If a number cannot be produced, then the value will just
-         * be a string. Note that the 0-, 0x-, plus, and implied string
-         * conventions are non-standard. A JSON parser is free to accept
-         * non-JSON forms as long as it accepts all correct JSON forms.
+         * If it might be a number, try converting it. We support the 0- and 0x- conventions. If a number cannot be produced,
+         * then the value will just be a string. Note that the 0-, 0x-, plus, and implied string conventions are non-standard. A
+         * JSON parser is free to accept non-JSON forms as long as it accepts all correct JSON forms.
          */
         if (((b >= '0') && (b <= '9')) || (b == '.') || (b == '-') || (b == '+')) {
             if (b == '0') {
@@ -450,12 +432,11 @@ public class JSONTokener {
     }
 
     /**
-     * Skip characters until the next character is the requested character.
-     * If the requested character is not found, no characters are skipped.
+     * Skip characters until the next character is the requested character. If the requested character is not found, no
+     * characters are skipped.
      *
      * @param to A character to skip to.
-     * @return The requested character, or zero if the requested character
-     *         is not found.
+     * @return The requested character, or zero if the requested character is not found.
      */
     public char skipTo(char to) {
         char c;
@@ -477,8 +458,7 @@ public class JSONTokener {
     }
 
     /**
-     * Skip characters until past the requested string.
-     * If it is not found, we are left at the end of the source.
+     * Skip characters until past the requested string. If it is not found, we are left at the end of the source.
      *
      * @param to A string to skip past.
      */

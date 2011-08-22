@@ -21,59 +21,27 @@
     02110-1301 USA, or see the FSF site: http://www.fsf.org.
 -->
 
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:pn="http://richfaces.org/output"
-      xmlns:rich="http://richfaces.org/rich">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:pn="http://richfaces.org/output" xmlns:rich="http://richfaces.org/rich">
 
-    <h:head>
-        <title>Richfaces PanelMenuGroup Test</title>
-    </h:head>
+<h:head>
+    <title>Richfaces PanelMenuGroup Test</title>
+</h:head>
 
 <h:body>
     <h:form id="f">
-        <pn:panelMenu
-                itemRightIcon="triangleUp"
-                itemLeftIcon="triangleDown"
-                itemClass="itemClass"
-
-                itemDisabledRightIcon="chevronUp"
-                itemDisabledLeftIcon="chevronDown"
-                itemDisabledClass="itemDisabledClass"
-
-                topItemRightIcon="triangle"
-                topItemLeftIcon="triangle"
-                topItemClass="topItemClass"
-                
-                topItemDisabledRightIcon="chevron"
-                topItemDisabledLeftIcon="chevron"
-                topItemDisabledClass="topItemDisabledClass"
-
-                groupCollapsedRightIcon="triangleUp"
-                groupExpandedRightIcon="disc"
-                groupCollapsedLeftIcon="triangleDown"
-                groupExpandedLeftIcon="disc"
-                groupClass="groupClass"
-
-                groupDisabledRightIcon="chevronUp"
-                groupDisabledLeftIcon="chevronDown"
-                groupDisabledClass="groupDisabledClass"
-
-                topGroupCollapsedRightIcon="triangle"
-                topGroupExpandedRightIcon="disc"
-                topGroupCollapsedLeftIcon="triangle"
-                topGroupExpandedLeftIcon="disc"
-                topGroupClass="topGroupClass"
-
-                topGroupDisabledRightIcon="chevron"
-                topGroupDisabledLeftIcon="chevron"
-                topGroupDisabledClass="topGroupDisabledClass"
-                >
+        <pn:panelMenu itemRightIcon="triangleUp" itemLeftIcon="triangleDown" itemClass="itemClass"
+            itemDisabledRightIcon="chevronUp" itemDisabledLeftIcon="chevronDown" itemDisabledClass="itemDisabledClass"
+            topItemRightIcon="triangle" topItemLeftIcon="triangle" topItemClass="topItemClass"
+            topItemDisabledRightIcon="chevron" topItemDisabledLeftIcon="chevron" topItemDisabledClass="topItemDisabledClass"
+            groupCollapsedRightIcon="triangleUp" groupExpandedRightIcon="disc" groupCollapsedLeftIcon="triangleDown"
+            groupExpandedLeftIcon="disc" groupClass="groupClass" groupDisabledRightIcon="chevronUp"
+            groupDisabledLeftIcon="chevronDown" groupDisabledClass="groupDisabledClass" topGroupCollapsedRightIcon="triangle"
+            topGroupExpandedRightIcon="disc" topGroupCollapsedLeftIcon="triangle" topGroupExpandedLeftIcon="disc"
+            topGroupClass="topGroupClass" topGroupDisabledRightIcon="chevron" topGroupDisabledLeftIcon="chevron"
+            topGroupDisabledClass="topGroupDisabledClass">
 
             <pn:panelMenuGroup id="panelMenuGroup-top"></pn:panelMenuGroup>
             <pn:panelMenuGroup id="panelMenuGroup-topDis" disabled="true"></pn:panelMenuGroup>

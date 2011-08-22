@@ -36,7 +36,6 @@ import org.jboss.test.faces.FacesEnvironment.FacesRequest;
 import org.jboss.test.faces.htmlunit.HtmlUnitEnvironment;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
@@ -44,10 +43,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * @author Andrey Markhel
- * 
+ *
  */
 public class PopupRendererTest {
-
     private HtmlUnitEnvironment environment;
 
     @Before
@@ -69,17 +67,16 @@ public class PopupRendererTest {
         facesRequest.start();
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ViewHandler vh = facesContext.getApplication().getViewHandler();
-        ViewDeclarationLanguage vdl = vh.getViewDeclarationLanguage(facesContext, facesContext.getViewRoot()
-            .getViewId());
+        ViewDeclarationLanguage vdl = vh.getViewDeclarationLanguage(facesContext, facesContext.getViewRoot().getViewId());
         vdl.buildView(facesContext, facesContext.getViewRoot());
         return facesRequest;
     }
 
-   /**
+    /**
      * Test method for
-     * {@link org.richfaces.renderkit.ExtendedDataTableRenderer#doEncodeBegin(javax.faces.context.ResponseWriter,
-     * javax.faces.context.FacesContext, javax.faces.component.UIComponent)}.
-     * 
+     * {@link org.richfaces.renderkit.ExtendedDataTableRenderer#doEncodeBegin(javax.faces.context.ResponseWriter, javax.faces.context.FacesContext, javax.faces.component.UIComponent)}
+     * .
+     *
      * @throws IOException
      */
     @Test
@@ -103,12 +100,11 @@ public class PopupRendererTest {
         HtmlElement panelContent = panelWithFacet.getElementById("panel_content");
         assertNotNull(panelContent);
         assertEquals("rf-pp-cnt", panelContent.getAttribute("class"));
-        assertEquals("The CDK includes", panelContent
-                .getTextContent().trim().substring(0, 16));
+        assertEquals("The CDK includes", panelContent.getTextContent().trim().substring(0, 16));
         HtmlElement panelHeader = panelWithFacet.getElementById("panel_header");
         assertNotNull(panelHeader);
         assertEquals("rf-pp-hdr header", panelHeader.getAttribute("class"));
-        //assertEquals("cursor: move;", panelHeader.getAttribute("style"));
+        // assertEquals("cursor: move;", panelHeader.getAttribute("style"));
         assertEquals("Write your own custom rich components with built-in AJAX", panelHeader.getTextContent().trim());
         HtmlElement panelResizer = panelWithFacet.getElementById("panelResizerN");
         assertNotNull(panelResizer);
@@ -121,5 +117,4 @@ public class PopupRendererTest {
         sizeButton.click();
         String width = panelContainer.getAttribute("width");
     }
-
 }

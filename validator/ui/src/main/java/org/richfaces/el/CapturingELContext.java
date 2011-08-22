@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.richfaces.el;
 
@@ -20,23 +20,20 @@ import javax.faces.el.CompositeComponentExpressionHolder;
 import org.richfaces.validator.GraphValidatorState;
 
 /**
- * This class wraps original ELContext and capture whole call stack to the target object so it could be used to extract
- * semantic information like annotations or Jena Model properties.
- * 
+ * This class wraps original ELContext and capture whole call stack to the target object so it could be used to extract semantic
+ * information like annotations or Jena Model properties.
+ *
  * @author asmirnov
- * 
+ *
  */
 public class CapturingELContext extends ELContext {
-
     private final ELContext parent;
-
     private ValueReference reference = null;
-
     private final InterceptingResolver resolver;
 
-    public CapturingELContext(ELContext parent) {
+    public CapturingELContext(ELContext parent,Map<Object, GraphValidatorState> states) {
         this.parent = parent;
-        resolver = new InterceptingResolver(parent.getELResolver());
+        resolver = new InterceptingResolver(parent.getELResolver(),states);
     }
 
     public ValueReference getReference() {
@@ -76,7 +73,7 @@ public class CapturingELContext extends ELContext {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see javax.el.ELContext#getELResolver()
      */
     @Override
@@ -119,17 +116,18 @@ public class CapturingELContext extends ELContext {
     /**
      * This resolver records all intermediate objects from the EL-expression that can be used to detect Semantic Beans
      * annotations or Jena Model properties.
-     * 
+     *
      * @author asmirnov
-     * 
+     *
      */
     private final class InterceptingResolver extends ELResolver {
-
-        private ELResolver delegate;
+        private final ELResolver delegate;
         private boolean clonedObject;
+        private final Map<Object, GraphValidatorState> states;
 
-        public InterceptingResolver(ELResolver delegate) {
+        public InterceptingResolver(ELResolver delegate, Map<Object, GraphValidatorState> states) {
             this.delegate = delegate;
+            this.states = states;
         }
 
         // Capture the base and property rather than write the value
@@ -152,11 +150,11 @@ public class CapturingELContext extends ELContext {
         public Object getValue(ELContext context, Object base, Object property) {
             reference = new ValueReference(base, property, reference);
             Object value = delegate.getValue(context, base, property);
-            if (null != value && context.isPropertyResolved()) {
-                FacesContext facesContext = (FacesContext) context.getContext(FacesContext.class);
-                Object clone = GraphValidatorState.getActiveClone(facesContext, value);
-                if (null != clone) {
+            if (null != value && context.isPropertyResolved() && states.containsKey(value)) {
+                GraphValidatorState graphValidatorState = states.get(value);
+                if (graphValidatorState.isActive()) {
                     this.clonedObject = true;
+                    Object clone = graphValidatorState.getCloned();
                     return clone;
                 }
             }
@@ -186,7 +184,5 @@ public class CapturingELContext extends ELContext {
         public Class<?> getCommonPropertyType(ELContext context, Object base) {
             return delegate.getCommonPropertyType(context, base);
         }
-
     }
-
 }

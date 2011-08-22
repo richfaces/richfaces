@@ -10,12 +10,10 @@ import org.richfaces.event.TreeToggleSource;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 final class TreeToggleListenerExpressionMetadata extends Metadata {
-
     private static final Class<?>[] SIGNATURE = new Class[] { TreeToggleEvent.class };
-
     private final TagAttribute attr;
 
     TreeToggleListenerExpressionMetadata(TagAttribute attr) {
@@ -27,5 +25,4 @@ final class TreeToggleListenerExpressionMetadata extends Metadata {
         ((TreeToggleSource) instance).addTreeToggleListener(new MethodExpressionTreeToggleListener(this.attr
             .getMethodExpression(ctx, null, SIGNATURE)));
     }
-
 }

@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.richfaces.renderkit.html;
 
 import java.io.IOException;
@@ -39,7 +36,6 @@ import com.google.common.base.Strings;
  *
  */
 public abstract class CommandButtonRendererBase extends AjaxCommandRendererBase {
-
     protected void encodeTypeAndImage(FacesContext context, UIComponent uiComponent) throws IOException {
         ResponseWriter writer = context.getResponseWriter();
         String type = (String) uiComponent.getAttributes().get("type");

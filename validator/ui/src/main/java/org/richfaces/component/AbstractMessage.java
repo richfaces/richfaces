@@ -20,7 +20,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import javax.faces.component.UIMessage;
@@ -35,28 +34,16 @@ import org.richfaces.cdk.annotations.Tag;
 /**
  * <p class="changed_added_4_0">
  * </p>
- * 
+ *
  * @author asmirnov@exadel.com
- * 
+ *
  */
-@JsfComponent(
-    generate="org.richfaces.component.UIRichMessage",
-    type="org.richfaces.Message",
-    components=@RendererSpecificComponent(
-        tag=@Tag(name="message"),
-        generate="org.richfaces.component.html.HtmlMessage",
-        attributes={"core-props.xml","events-props.xml","i18n-props.xml"},
-        renderer=@JsfRenderer(template="message.template.xml")
-        )
-    )
+@JsfComponent(generate = "org.richfaces.component.UIRichMessage", type = "org.richfaces.Message", components = @RendererSpecificComponent(tag = @Tag(name = "message"), generate = "org.richfaces.component.html.HtmlMessage", attributes = {
+        "core-props.xml", "events-props.xml", "i18n-props.xml" }, renderer = @JsfRenderer(template = "message.template.xml")))
 public abstract class AbstractMessage extends UIMessage implements AjaxOutput {
-
-    @Attribute(defaultValue="true")
+    @Attribute(defaultValue = "true")
     public abstract boolean isAjaxRendered();
 
     @Attribute
     public abstract boolean isKeepTransient();
-
-    
-
 }

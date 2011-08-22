@@ -33,7 +33,6 @@ import org.richfaces.renderkit.util.RendererUtils;
  */
 @JsfRenderer(type = "org.richfaces.QueueRenderer", family = "org.richfaces.Queue")
 public class QueueRenderer extends QueueRendererBase {
-
     private final RendererUtils utils = RendererUtils.getInstance();
 
     protected String getQueueName(FacesContext context, UIComponent comp) {
@@ -50,5 +49,4 @@ public class QueueRenderer extends QueueRendererBase {
 
         return nameAttributeValue;
     }
-
 }

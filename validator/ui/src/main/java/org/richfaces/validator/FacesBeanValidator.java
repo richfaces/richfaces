@@ -41,29 +41,27 @@ import org.richfaces.cdk.annotations.JsfValidator;
 import com.google.common.base.Strings;
 
 /**
- * Implementation of the JSF validator to use with Bean Validation / Hibernate validator
- * TODO - implement partial state saving.
+ * Implementation of the JSF validator to use with Bean Validation / Hibernate validator TODO - implement partial state saving.
+ *
  * @author asmirnov
- * 
+ *
  */
-@JsfValidator(id=FacesBeanValidator.BEAN_VALIDATOR_TYPE)
+@JsfValidator(id = FacesBeanValidator.BEAN_VALIDATOR_TYPE)
 public class FacesBeanValidator implements Serializable, Validator, GraphValidator {
-
     public static final String BEAN_VALIDATOR_TYPE = "org.richfaces.BeanValidator";
     /**
-	 * 
-	 */
+     *
+     */
     private static final long serialVersionUID = -264568176252121853L;
     private ValueExpression summaryExpression = null;
-
     private String summary = null;
-
     private ValueExpression groupsExpression = null;
-
     private Class<?>[] groups = null;
+    private boolean validateFields = true;
 
     public FacesBeanValidator() {
     }
+
     /**
      * @return the summary
      */
@@ -78,16 +76,14 @@ public class FacesBeanValidator implements Serializable, Validator, GraphValidat
     }
 
     /**
-     * @param summary
-     *            the summary to set
+     * @param summary the summary to set
      */
     public void setSummary(ValueExpression summary) {
         this.summaryExpression = summary;
     }
 
     /**
-     * @param summary
-     *            the summary to set
+     * @param summary the summary to set
      */
     public void setSummary(String summary) {
         this.summary = summary;
@@ -95,9 +91,9 @@ public class FacesBeanValidator implements Serializable, Validator, GraphValidat
 
     /*
      * (non-Javadoc)
-     * 
-     * @see javax.faces.validator.Validator#validate(javax.faces.context.FacesContext,
-     * javax.faces.component.UIComponent, java.lang.Object)
+     *
+     * @see javax.faces.validator.Validator#validate(javax.faces.context.FacesContext, javax.faces.component.UIComponent,
+     * java.lang.Object)
      */
     public void validate(FacesContext context, UIComponent component, Object convertedValue) throws ValidatorException {
         if (component instanceof EditableValueHolder) {
@@ -107,10 +103,9 @@ public class FacesBeanValidator implements Serializable, Validator, GraphValidat
                 ValueExpression valueExpression = component.getValueExpression("value");
                 if (null != valueExpression) {
                     BeanValidatorService validatorService = ServiceTracker.getService(BeanValidatorService.class);
-                    Collection<String> messages =
-                        validatorService.validateExpression(context, valueExpression, convertedValue,
-                            getGroups());
-                    if (!messages.isEmpty()) {
+                    Collection<String> messages = validatorService.validateExpression(context, valueExpression, convertedValue,
+                        getGroups());
+                    if (isValidateFields() && !messages.isEmpty()) {
                         input.setValid(false);
                         Object label = getLabel(context, component);
                         Locale locale = context.getViewRoot().getLocale();
@@ -118,11 +113,13 @@ public class FacesBeanValidator implements Serializable, Validator, GraphValidat
                         for (String msg : messages) {
                             // https://jira.jboss.org/jira/browse/RF-7636 -
                             // format values.
-                            String formattedMessage = formatMessage(msg, locale, label, convertedValue); // create Summary message ?
+                            String formattedMessage = formatMessage(msg, locale, label, convertedValue); // create Summary
+                                                                                                         // message ?
                             String summary = getSummary();
-                            String formattedSummary = Strings.isNullOrEmpty(summary) ? formattedMessage:formatMessage(summary, locale, label, convertedValue);
-                            context.addMessage(component.getClientId(context), new FacesMessage(
-                                FacesMessage.SEVERITY_ERROR, formattedSummary, formattedMessage));
+                            String formattedSummary = Strings.isNullOrEmpty(summary) ? formattedMessage : formatMessage(
+                                summary, locale, label, convertedValue);
+                            context.addMessage(component.getClientId(context), new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                                formattedSummary, formattedMessage));
                         }
                     }
                 }
@@ -152,8 +149,8 @@ public class FacesBeanValidator implements Serializable, Validator, GraphValidat
         return label;
     }
 
-    public Collection<String> validateGraph(FacesContext context, UIComponent component, Object value,
-        Class<?>[] groups) throws ValidatorException {
+    public Collection<String> validateGraph(FacesContext context, UIComponent component, Object value, Class<?>[] groups)
+        throws ValidatorException {
         BeanValidatorService validatorService = ServiceTracker.getService(BeanValidatorService.class);
         Collection<String> messages = validatorService.validateObject(context, value, groups);
         return messages;
@@ -173,8 +170,7 @@ public class FacesBeanValidator implements Serializable, Validator, GraphValidat
     }
 
     /**
-     * @param profiles
-     *            the profiles to set
+     * @param profiles the profiles to set
      */
     public void setGroups(Class<?>... profiles) {
         this.groups = profiles;
@@ -182,5 +178,25 @@ public class FacesBeanValidator implements Serializable, Validator, GraphValidat
 
     public void setGroups(ValueExpression profilesExpression) {
         this.groupsExpression = profilesExpression;
+    }
+
+    /**
+     * <p class="changed_added_4_0">
+     * </p>
+     *
+     * @return the ignoreErrors
+     */
+    public boolean isValidateFields() {
+        return this.validateFields;
+    }
+
+    /**
+     * <p class="changed_added_4_0">
+     * </p>
+     *
+     * @param ignoreErrors the ignoreErrors to set
+     */
+    public void setValidateFields(boolean ignoreErrors) {
+        this.validateFields = ignoreErrors;
     }
 }

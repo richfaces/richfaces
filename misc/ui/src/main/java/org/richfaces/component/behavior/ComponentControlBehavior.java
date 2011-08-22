@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component.behavior;
 
 import java.util.ArrayList;
@@ -27,7 +26,6 @@ import java.util.List;
 
 import javax.faces.component.UIComponent;
 
-import org.ajax4jsf.component.behavior.ClientBehavior;
 import org.richfaces.cdk.annotations.Attribute;
 import org.richfaces.cdk.annotations.JsfBehavior;
 import org.richfaces.cdk.annotations.Tag;
@@ -35,21 +33,19 @@ import org.richfaces.cdk.annotations.TagType;
 
 /**
  * @author Anton Belevich
- * 
+ *
  */
-@JsfBehavior(
-        id = "org.richfaces.behavior.ComponentControlBehavior", 
-        tag = @Tag(name = "componentControl", 
-        handler = "org.richfaces.taglib.ComponentControlHandler", type = TagType.Facelets)
-)
+@JsfBehavior(id = "org.richfaces.behavior.ComponentControlBehavior", tag = @Tag(name = "componentControl", handler = "org.richfaces.taglib.ComponentControlHandler", type = TagType.Facelets))
 public class ComponentControlBehavior extends ClientBehavior {
-
     public static final String BEHAVIOR_ID = "org.richfaces.behavior.ComponentControlBehavior";
-
     private List<UIComponent> children;
 
     enum PropertyKeys {
-        target, selector, operation, onbeforeoperation, event
+        target,
+        selector,
+        operation,
+        onbeforeoperation,
+        event
     }
 
     public List<UIComponent> getChildren() {
@@ -67,7 +63,7 @@ public class ComponentControlBehavior extends ClientBehavior {
     public void setEvent(String event) {
         getStateHelper().put(PropertyKeys.event, event);
     }
-    
+
     @Attribute
     public String getTarget() {
         return (String) getStateHelper().eval(PropertyKeys.target);
@@ -94,12 +90,12 @@ public class ComponentControlBehavior extends ClientBehavior {
     public void setOperation(String operation) {
         getStateHelper().put(PropertyKeys.operation, operation);
     }
-    
+
     @Attribute
     public String getOnbeforeoperation() {
         return (String) getStateHelper().eval(PropertyKeys.onbeforeoperation);
     }
-    
+
     public void setOnbeforeoperation(String onbeforeoperation) {
         getStateHelper().put(PropertyKeys.onbeforeoperation, onbeforeoperation);
     }

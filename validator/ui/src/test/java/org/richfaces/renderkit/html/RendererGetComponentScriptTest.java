@@ -1,9 +1,12 @@
 package org.richfaces.renderkit.html;
 
-import static org.easymock.EasyMock.*;
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-import static org.junit.matchers.JUnitMatchers.*;
+import static org.easymock.EasyMock.expect;
+import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.not;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.matchers.JUnitMatchers.containsString;
+import static org.junit.matchers.JUnitMatchers.hasItem;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -34,13 +37,9 @@ import com.google.common.collect.Lists;
 
 @RunWith(MockTestRunner.class)
 public class RendererGetComponentScriptTest extends RendererTestBase {
-
     private static final String JSF_AJAX_REQUEST = "jsf.ajax.request(element,event)";
-
     private static final String NUMBER_CONVERTER = "numConverter";
-
     private static final Matcher<ResourceKey> CORE_LIBRARY_MATCHER = new BaseMatcher<ResourceKey>() {
-
         public boolean matches(Object arg0) {
             if (arg0 instanceof ResourceKey) {
                 ResourceKey resource = (ResourceKey) arg0;
@@ -54,7 +53,6 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
             arg0.appendText("Library is RichFaces core validators");
         }
     };
-
     @Mock
     private ConverterDescriptor converterDescription;
 
@@ -62,7 +60,7 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
      * <p class="changed_added_4_0">
      * Test generated script for case there is no client-side converter.
      * </p>
-     * 
+     *
      * @throws Exception
      */
     @SuppressWarnings("unchecked")
@@ -76,8 +74,7 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
         // check what generated script contains ajax call only.
         assertThat(
             script,
-            allOf(containsString(JSF_AJAX_REQUEST), not(containsString(REGEX_VALIDATOR)),
-                not(containsString(NUMBER_CONVERTER))));
+            allOf(containsString(JSF_AJAX_REQUEST), not(containsString(REGEX_VALIDATOR)), not(containsString(NUMBER_CONVERTER))));
     }
 
     private void exceptGetAjaxScript() {
@@ -88,7 +85,7 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
     /**
      * <p class="changed_added_4_0">
      * </p>
-     * 
+     *
      * @param renderer
      * @return
      */
@@ -103,7 +100,7 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
      * <p class="changed_added_4_0">
      * Test generated script for case there is no client-side validator scripts.
      * </p>
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -116,15 +113,14 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
         // check what generated script contains ajax call only.
         assertThat(
             script,
-            allOf(containsString(JSF_AJAX_REQUEST), not(containsString(REGEX_VALIDATOR)),
-                not(containsString(NUMBER_CONVERTER))));
+            allOf(containsString(JSF_AJAX_REQUEST), not(containsString(REGEX_VALIDATOR)), not(containsString(NUMBER_CONVERTER))));
     }
 
     /**
      * <p class="changed_added_4_0">
      * Test generated script for case there is no client-side script for some validator, but exists for other
      * </p>
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -144,7 +140,7 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
      * <p class="changed_added_4_0">
      * Test case when validation does not required at all.
      * </p>
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -159,7 +155,7 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
      * <p class="changed_added_4_0">
      * Test for case when client side converter is not required.
      * </p>
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -171,8 +167,7 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
         // check what generated script contains ajax and client side scripts.
         assertThat(
             script,
-            allOf(not(containsString(JSF_AJAX_REQUEST)), containsString(REGEX_VALIDATOR),
-                not(containsString(NUMBER_CONVERTER))));
+            allOf(not(containsString(JSF_AJAX_REQUEST)), containsString(REGEX_VALIDATOR), not(containsString(NUMBER_CONVERTER))));
         assertThat(validatorScript.getResources(), hasItem(CORE_LIBRARY_MATCHER));
     }
 
@@ -180,7 +175,7 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
      * <p class="changed_added_4_0">
      * Test case when all converter and validators available on client.
      * </p>
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -190,10 +185,8 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
         ComponentValidatorScript validatorScript = callGetScript(renderer);
         String script = validatorScript.toScript();
         // check what generated script contains ajax and client side scripts.
-        assertThat(
-            script,
-            allOf(not(containsString(JSF_AJAX_REQUEST)), containsString(REGEX_VALIDATOR),
-                containsString(NUMBER_CONVERTER)));
+        assertThat(script,
+            allOf(not(containsString(JSF_AJAX_REQUEST)), containsString(REGEX_VALIDATOR), containsString(NUMBER_CONVERTER)));
         assertThat(validatorScript.getResources(), hasItem(CORE_LIBRARY_MATCHER));
     }
 
@@ -205,12 +198,8 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
         return createFunction(NUMBER_CONVERTER, VALIDATOR_MESSAGE);
     }
 
-
     private LibraryScriptFunction createFunction(final String name, Message validatorMessage) {
         LibraryFunction libraryScript = new LibraryFunction() {
-
-            
-
             public String getName() {
                 return name;
             }
@@ -225,11 +214,9 @@ public class RendererGetComponentScriptTest extends RendererTestBase {
     private ClientValidatorRenderer createStubRenderer(final LibraryScriptFunction converterFunction,
         final LibraryScriptFunction... validatorFunctions) {
         return new ClientValidatorRenderer() {
-
-
             @Override
-            LibraryScriptFunction getClientSideConverterScript(FacesContext facesContext,
-                ConverterDescriptor converter) throws ScriptNotFoundException {
+            LibraryScriptFunction getClientSideConverterScript(FacesContext facesContext, ConverterDescriptor converter)
+                throws ScriptNotFoundException {
                 if (null == converterFunction) {
                     throw new ScriptNotFoundException();
                 }

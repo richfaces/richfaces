@@ -28,7 +28,6 @@ import org.junit.runner.RunWith;
 
 @RunWith(MockTestRunner.class)
 public class FacesValidatorServiceTest {
-    
     @Mock()
     @Environment({ Feature.APPLICATION })
     protected MockFacesEnvironment environment;
@@ -40,7 +39,6 @@ public class FacesValidatorServiceTest {
     protected MockController controller;
     protected Validator validator;
 
-    
     @Before
     public void setUp() {
         // create service impl.
@@ -53,19 +51,20 @@ public class FacesValidatorServiceTest {
         expect(input.getAttributes()).andStubReturn(attributes);
         expect(input.getRequiredMessage()).andStubReturn(null);
     }
-    
+
     @After
     public void tearDown() {
         controller.verify();
         serviceImpl = null;
         controller.release();
     }
-    
+
     @Test
     public void getConverterClass() throws Exception {
         validator = new LengthValidator();
         controller.replay();
-        ValidatorDescriptor validatorDescription = serviceImpl.getValidatorDescription(environment.getFacesContext(), input, validator);
+        ValidatorDescriptor validatorDescription = serviceImpl.getValidatorDescription(environment.getFacesContext(), input,
+            validator, null);
         assertEquals(validator.getClass(), validatorDescription.getImplementationClass());
     }
 
@@ -74,16 +73,16 @@ public class FacesValidatorServiceTest {
         validator = new RequiredValidator();
         FacesMessage facesMessage = null;
         controller.replay();
-        try{
+        try {
             validator.validate(environment.getFacesContext(), input, null);
-        } catch(ValidatorException e){
+        } catch (ValidatorException e) {
             facesMessage = e.getFacesMessage();
         }
         assertNotNull(facesMessage);
-        ValidatorDescriptor validatorDescription = serviceImpl.getValidatorDescription(environment.getFacesContext(), input, validator);
+        ValidatorDescriptor validatorDescription = serviceImpl.getValidatorDescription(environment.getFacesContext(), input,
+            validator, null);
         String summary = validatorDescription.getMessage().getSummary();
         summary = summary.replace("{0}", "foo");
         assertEquals(facesMessage.getSummary(), summary);
     }
-
 }

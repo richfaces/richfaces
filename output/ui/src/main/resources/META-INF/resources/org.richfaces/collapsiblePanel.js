@@ -26,59 +26,59 @@
 
     rf.ui.CollapsiblePanel = rf.ui.TogglePanel.extendClass({
 
-        name:"CollapsiblePanel",
+            name:"CollapsiblePanel",
 
-        /**
-         * @class CollapsiblePanel
-         * @name CollapsiblePanel
-         *
-         * @constructor
-         * @param {String} componentId - component id
-         * @param {Hash} options - params
-         * */
-        init : function (componentId, options) {
-            rf.ui.TogglePanel.call(this, componentId, options);
-            this.switchMode = options.switchMode;
+            /**
+             * @class CollapsiblePanel
+             * @name CollapsiblePanel
+             *
+             * @constructor
+             * @param {String} componentId - component id
+             * @param {Hash} options - params
+             * */
+            init : function (componentId, options) {
+                rf.ui.TogglePanel.call(this, componentId, options);
+                this.switchMode = options.switchMode;
 
-            this.__addUserEventHandler("beforeswitch");
-            this.__addUserEventHandler("switch");
+                this.__addUserEventHandler("beforeswitch");
+                this.__addUserEventHandler("switch");
 
-            this.options.cycledSwitching = true;
+                this.options.cycledSwitching = true;
 
-            var panel = this;
-            $(document.getElementById(this.id)).ready(function () { // TODO
-                rf.Event.bindById(panel.id + ":header", "click", panel.__onHeaderClick, panel);
+                var panel = this;
+                $(document.getElementById(this.id)).ready(function () { // TODO
+                    rf.Event.bindById(panel.id + ":header", "click", panel.__onHeaderClick, panel);
 
-                new RichFaces.ui.CollapsiblePanelItem(
-                    panel.id + ":content", {"index":0, "togglePanelId":panel.id, "switchMode":panel.switchMode, "name":"true"}),
+                    new RichFaces.ui.CollapsiblePanelItem(
+                        panel.id + ":content", {"index":0, "togglePanelId":panel.id, "switchMode":panel.switchMode, "name":"true"}),
 
-                new RichFaces.ui.CollapsiblePanelItem(
-                    panel.id + ":empty", {"index":1, "togglePanelId":panel.id, "switchMode":panel.switchMode, "name":"false"})
-            })
-        },
+                        new RichFaces.ui.CollapsiblePanelItem(
+                            panel.id + ":empty", {"index":1, "togglePanelId":panel.id, "switchMode":panel.switchMode, "name":"false"})
+                })
+            },
 
-        switchPanel : function (to) {
-            this.switchToItem(to || "@next");
-        },
+            switchPanel : function (to) {
+                this.switchToItem(to || "@next");
+            },
 
-        /***************************** Private Methods ********************************************************/
+            /***************************** Private Methods ********************************************************/
 
-        __onHeaderClick : function () {
-            this.switchToItem("@next");
-        },
+            __onHeaderClick : function () {
+                this.switchToItem("@next");
+            },
 
-        __fireItemChange : function (oldItem, newItem) {
-            return new rf.Event.fireById(this.id, "switch", {
-                id: this.id,
-                isExpanded : newItem.getName()
-            });
-        },
+            __fireItemChange : function (oldItem, newItem) {
+                return new rf.Event.fireById(this.id, "switch", {
+                        id: this.id,
+                        isExpanded : newItem.getName()
+                    });
+            },
 
-        __fireBeforeItemChange : function (oldItem, newItem) {
-            return rf.Event.fireById(this.id, "beforeswitch", {
-                id: this.id,
-                isExpanded : newItem.getName()
-            });
-        }
-    });
+            __fireBeforeItemChange : function (oldItem, newItem) {
+                return rf.Event.fireById(this.id, "beforeswitch", {
+                        id: this.id,
+                        isExpanded : newItem.getName()
+                    });
+            }
+        });
 })(jQuery, RichFaces);

@@ -16,7 +16,9 @@
     write to the Free Software Foundation, Inc., 51 Franklin St,
     Fifth Floor, Boston, MA 02110-1301 USA, or see the FSF site:
     http://www.fsf.org.
---><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!-- This aggregator pom, is not released, and is only used to make it easy to build all of the
@@ -25,13 +27,13 @@
     <parent>
         <groupId>org.richfaces</groupId>
         <artifactId>richfaces-parent</artifactId>
-        <version>10</version>
-<relativePath>../parent/pom.xml</relativePath>
+        <version>11</version>
+        <relativePath>../parent/pom.xml</relativePath>
     </parent>
 
     <groupId>org.richfaces.ui</groupId>
     <artifactId>richfaces-ui-aggregator</artifactId>
-    <version>4.0.0.Final</version>
+    <version>4.1.0.20110805-M1</version>
     <packaging>pom</packaging>
     <name>RichFaces UI: Aggregator</name>
 
@@ -46,11 +48,5 @@
         <module>dist</module>
         <module>dnd</module>
         <module>validator</module>
-  </modules>
-
-  <scm>
-    <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/modules/build/parent/tags/4.0.0.20110319-Final</connection>
-    <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/modules/build/parent/tags/4.0.0.20110319-Final</developerConnection>
-    <url>http://fisheye.jboss.org/browse/richfaces/modules/build/parent/tags/4.0.0.20110319-Final</url>
-  </scm>
+    </modules>
 </project>

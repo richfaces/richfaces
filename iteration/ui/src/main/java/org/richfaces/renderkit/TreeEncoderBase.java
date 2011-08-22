@@ -37,17 +37,16 @@ import org.richfaces.model.TreeDataModelTuple;
 import org.richfaces.model.TreeDataVisitor;
 
 abstract class TreeEncoderBase implements TreeDataVisitor {
-
     private static final class QueuedData {
-
         private enum State {
-            initial, visited, encoded
+            initial,
+            visited,
+            encoded
         }
-        
+
         private State state = State.initial;
-        
         private TreeDataModelTuple tuple;
-        
+
         public QueuedData(TreeDataModelTuple tuple) {
             super();
             this.tuple = tuple;
@@ -56,7 +55,7 @@ abstract class TreeEncoderBase implements TreeDataVisitor {
         public boolean isEncoded() {
             return state == State.encoded;
         }
-        
+
         public void makeEncoded() {
             this.state = State.encoded;
         }
@@ -64,25 +63,20 @@ abstract class TreeEncoderBase implements TreeDataVisitor {
         public void makeVisited() {
             this.state = State.visited;
         }
-        
+
         public boolean isVisited() {
             return state == State.visited;
         }
-        
+
         public TreeDataModelTuple getTuple() {
             return tuple;
         }
-        
     }
 
     static final String TREE_NODE_STATE_ATTRIBUTE = "__treeNodeState";
-
     protected final FacesContext context;
-
     protected final ResponseWriter responseWriter;
-
     protected final AbstractTree tree;
-
     private LinkedList<QueuedData> queuedDataList = new LinkedList<QueuedData>();
 
     public TreeEncoderBase(FacesContext context, AbstractTree tree) {
@@ -100,14 +94,14 @@ abstract class TreeEncoderBase implements TreeDataVisitor {
         if (queuedDataList.isEmpty()) {
             return;
         }
-        
+
         QueuedData data = queuedDataList.getLast();
         if (!data.isEncoded()) {
             data.makeEncoded();
             tree.restoreFromSnapshot(context, data.getTuple());
-            
+
             TreeNodeState nodeState = getNodeState(tree.isLeaf(), false);
-            
+
             writeTreeNodeStartElement(nodeState);
             tree.findTreeNodeComponent().encodeAll(context);
         }
@@ -135,21 +129,21 @@ abstract class TreeEncoderBase implements TreeDataVisitor {
 
     public void afterChildrenVisit() {
     }
-    
+
     public void enterNode() {
         TreeDataModelTuple tuple = tree.createSnapshot();
         QueuedData queuedData = new QueuedData(tuple);
-        
+
         try {
             flushParentNode();
         } catch (IOException e) {
             throw new FacesException(e.getMessage(), e);
         }
-        
+
         tree.restoreFromSnapshot(context, tuple);
         queuedDataList.add(queuedData);
     }
-    
+
     public void exitNode() {
         QueuedData data = queuedDataList.removeLast();
 
@@ -159,7 +153,7 @@ abstract class TreeEncoderBase implements TreeDataVisitor {
                 writeTreeNodeStartElement(getNodeState(tree.isLeaf(), data.isVisited()));
                 tree.findTreeNodeComponent().encodeAll(context);
             }
-        
+
             writeTreeNodeEndElement();
         } catch (IOException e) {
             throw new FacesException(e.getMessage(), e);
@@ -172,9 +166,8 @@ abstract class TreeEncoderBase implements TreeDataVisitor {
         context.getAttributes().put(TREE_NODE_STATE_ATTRIBUTE, nodeState);
 
         responseWriter.startElement(HtmlConstants.DIV_ELEM, tree);
-        responseWriter.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE, 
-            HtmlUtil.concatClasses("rf-tr-nd", nodeState.getNodeClass()), 
-            null);
+        responseWriter.writeAttribute(HtmlConstants.CLASS_ATTRIBUTE,
+            HtmlUtil.concatClasses("rf-tr-nd", nodeState.getNodeClass()), null);
         responseWriter.writeAttribute(HtmlConstants.ID_ATTRIBUTE, treeNodeComponent.getClientId(context), null);
 
         emitClientToggleEvent(treeNodeComponent, nodeState);
@@ -188,11 +181,13 @@ abstract class TreeEncoderBase implements TreeDataVisitor {
 
     private void emitClientToggleEvent(AbstractTreeNode treeNode, TreeNodeState nodeState) {
         if (treeNode.getClientId(context).equals(context.getAttributes().get(TreeNodeRendererBase.AJAX_TOGGLED_NODE_ATTRIBUTE))) {
-            TreeNodeState initialState = (TreeNodeState) context.getAttributes().get(TreeNodeRendererBase.AJAX_TOGGLED_NODE_STATE_ATTRIBUTE);
+            TreeNodeState initialState = (TreeNodeState) context.getAttributes().get(
+                TreeNodeRendererBase.AJAX_TOGGLED_NODE_STATE_ATTRIBUTE);
 
             if (initialState.isDifferentThan(nodeState)) {
                 ExtendedPartialViewContext partialContext = ExtendedPartialViewContext.getInstance(context);
-                partialContext.appendOncomplete(new JSFunction("RichFaces.ui.TreeNode.emitToggleEvent", treeNode.getClientId(context)));
+                partialContext.appendOncomplete(new JSFunction("RichFaces.ui.TreeNode.emitToggleEvent", treeNode
+                    .getClientId(context)));
             }
         }
     }

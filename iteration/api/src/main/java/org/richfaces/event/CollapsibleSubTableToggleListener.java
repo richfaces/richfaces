@@ -19,17 +19,14 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.event;
 
 import javax.faces.event.FacesListener;
 
 /**
  * @author Anton Belevich
- * 
+ *
  */
 public interface CollapsibleSubTableToggleListener extends FacesListener {
-
-    public void processCollapsibleSubTableToggle(CollapsibleSubTableToggleEvent event);
-
+    void processCollapsibleSubTableToggle(CollapsibleSubTableToggleEvent event);
 }

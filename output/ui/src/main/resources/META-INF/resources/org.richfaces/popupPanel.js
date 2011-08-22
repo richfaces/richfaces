@@ -316,8 +316,8 @@
                     if (this.options.overlapEmbedObjects && !this.iframe) {
                         this.iframe = this.markerId + "IFrame";
                         $("<iframe src=\"javascript:''\" frameborder=\"0\" scrolling=\"no\" id=\"" + this.iframe + "\" " +
-                                "class=\"rf-pp-ifr\" style=\"width:" + this.options.width + "px; height:" + this.options.height + "px;\">" +
-                                "</iframe>").insertBefore($(':first-child', this.cdiv)[0]);
+                            "class=\"rf-pp-ifr\" style=\"width:" + this.options.width + "px; height:" + this.options.height + "px;\">" +
+                            "</iframe>").insertBefore($(':first-child', this.cdiv)[0]);
 
                         eIframe = $(richfaces.getDomElement(this.iframe));
 
@@ -404,10 +404,10 @@
 
                 if (root.focus && root.nodeType == 1 && (tagName = root.tagName) &&
                     // Many not visible elements have focus method, we is had to avoid processing them.
-                        (idx = formElements.indexOf(tagName.toLowerCase())) != -1 &&
-                        formElements.charAt(idx - 1) === '|' &&
-                        formElements.charAt(idx + tagName.length) === '|' &&
-                        !root.disabled && root.type != "hidden") {
+                    (idx = formElements.indexOf(tagName.toLowerCase())) != -1 &&
+                    formElements.charAt(idx - 1) === '|' &&
+                    formElements.charAt(idx + tagName.length) === '|' &&
+                    !root.disabled && root.type != "hidden") {
                     callback.call(this, root);
                 } else {
                     if (root != this.div) {
@@ -546,16 +546,16 @@
 
 
                 if (newSize >= this.currentMinWidth || this.options.autosized) {
-                        cssHashWH.width = newSize + 'px';
-                        shadowHashWH.width = newSize + 'px';
-                        contentHashWH.width = newSize - scrollerWidth + 'px';
-                        scrollerHashWH.width = newSize - scrollerWidth + 'px';
+                    cssHashWH.width = newSize + 'px';
+                    shadowHashWH.width = newSize + 'px';
+                    contentHashWH.width = newSize - scrollerWidth + 'px';
+                    scrollerHashWH.width = newSize - scrollerWidth + 'px';
                 } else {
-                        cssHashWH.width = this.currentMinWidth + 'px';
-                        shadowHashWH.width = this.currentMinWidth + 'px';
-                        contentHashWH.width = this.currentMinWidth - scrollerWidth + 'px';
-                        scrollerHashWH.width = this.currentMinWidth - scrollerWidth + 'px';
-                        vetoes.vx = oldWidthSize - this.currentMinWidth;
+                    cssHashWH.width = this.currentMinWidth + 'px';
+                    shadowHashWH.width = this.currentMinWidth + 'px';
+                    contentHashWH.width = this.currentMinWidth - scrollerWidth + 'px';
+                    scrollerHashWH.width = this.currentMinWidth - scrollerWidth + 'px';
+                    vetoes.vx = oldWidthSize - this.currentMinWidth;
 
                     vetoes.x = true;
                 }
@@ -704,7 +704,7 @@
                 var target = elt;
                 while (target) {
                     if (target[0] && (!target[0].tagName /* document node doesn't have tagName */
-                            || target[0].tagName.toLowerCase() != "form")) {
+                        || target[0].tagName.toLowerCase() != "form")) {
 
                         target = $(target).parent();
                     } else {
@@ -745,13 +745,17 @@
     })());
     $.extend(richfaces.ui.PopupPanel, {
 
-        showPopupPanel : function (id, opts, event) {
-            richfaces.Event.ready(function(){richfaces.$(id).show()});
-        },
+            showPopupPanel : function (id, opts, event) {
+                richfaces.Event.ready(function() {
+                    richfaces.$(id).show()
+                });
+            },
 
-        hidePopupPanel : function (id, opts, event) {
-            richfaces.Event.ready(function(){richfaces.$(id).hide()});
-        }
-    });
+            hidePopupPanel : function (id, opts, event) {
+                richfaces.Event.ready(function() {
+                    richfaces.$(id).hide()
+                });
+            }
+        });
 
 })(jQuery, window.RichFaces);

@@ -11,14 +11,13 @@ import org.richfaces.resource.DynamicUserResource;
 
 @DynamicUserResource
 public class GridSeparatorImage extends ToolbarSeparatorImage {
-
     public Dimension getDimension() {
         return calculateDimension();
     }
-    
+
     public void paint(Graphics2D g2d) {
         Dimension dimensions = calculateDimension();
-        
+
         BufferedImage texture = new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB);
         Graphics2D txG2d = texture.createGraphics();
         txG2d.setColor(new Color(this.getHeaderBackgroundColor()));
@@ -29,9 +28,9 @@ public class GridSeparatorImage extends ToolbarSeparatorImage {
         g2d.setPaint(new TexturePaint(texture, new Rectangle(1, 1, 3, 3)));
         g2d.fillRect(0, 0, dimensions.width, dimensions.height);
     }
-    
+
     private Dimension calculateDimension() {
-        int h = (int)(this.getSeparatorHeight() * 0.8);
+        int h = (int) (this.getSeparatorHeight() * 0.8);
         h = h - h % 3;
         int w = 9;
         return new Dimension(w, h);

@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.component.util;
 
 import java.util.regex.Matcher;
@@ -38,9 +37,8 @@ import com.google.common.base.Strings;
  * @author Nick Belaevski - nbelaevski@exadel.com created 09.02.2007
  */
 public final class HtmlUtil {
-    public static final Pattern ID_SELECTOR_PATTERN =
-        Pattern.compile(
-            "#((?:-[A-Za-z_-]|[A-Za-z_]|\\\\[^A-F0-9U]|\\\\[A-F0-9]{1,6}\\s?|\\\\U[0-9A-F]{2}(?:A[1-9A-F]|[B-F][0-9A-F]))(?:\\\\[A-F0-9]{1,6}\\s?|[A-Za-z0-9_-]|\\\\:)*)");
+    public static final Pattern ID_SELECTOR_PATTERN = Pattern
+        .compile("#((?:-[A-Za-z_-]|[A-Za-z_]|\\\\[^A-F0-9U]|\\\\[A-F0-9]{1,6}\\s?|\\\\U[0-9A-F]{2}(?:A[1-9A-F]|[B-F][0-9A-F]))(?:\\\\[A-F0-9]{1,6}\\s?|[A-Za-z0-9_-]|\\\\:)*)");
     private static final String ORG_AJAX4JSF = "org.ajax4jsf.";
     private static final String ORG_RICHFACES = "org.richfaces.";
     private static final RendererUtils RENDERER_UTILS = RendererUtils.getInstance();
@@ -70,7 +68,8 @@ public final class HtmlUtil {
             UIComponent target = RENDERER_UTILS.findComponentFor(context, component, unescaped);
 
             if (target != null) {
-                matcher.appendReplacement(sb, escapeReplacement("#" + ScriptUtils.escapeCSSMetachars(target.getClientId(context))));
+                matcher.appendReplacement(sb,
+                    escapeReplacement("#" + ScriptUtils.escapeCSSMetachars(target.getClientId(context))));
             }
         }
 
@@ -106,8 +105,7 @@ public final class HtmlUtil {
             return true;
         }
 
-        if ((rendererType != null)
-            && (rendererType.startsWith(ORG_AJAX4JSF) || rendererType.startsWith(ORG_RICHFACES))) {
+        if ((rendererType != null) && (rendererType.startsWith(ORG_AJAX4JSF) || rendererType.startsWith(ORG_RICHFACES))) {
             return true;
         }
 
@@ -130,7 +128,7 @@ public final class HtmlUtil {
 
         return result.toString();
     }
-    
+
     public static String concatClasses(Object... classes) {
         return concat(' ', classes);
     }

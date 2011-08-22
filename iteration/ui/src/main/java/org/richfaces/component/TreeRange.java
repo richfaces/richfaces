@@ -25,18 +25,16 @@ import org.ajax4jsf.model.Range;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class TreeRange implements Range {
-
     private AbstractTree tree;
-    
     private boolean traverseAll;
-    
+
     public TreeRange(AbstractTree tree) {
         super();
         this.tree = tree;
-        
+
         traverseAll = (SwitchType.client == tree.getToggleType());
     }
 
@@ -44,20 +42,19 @@ public class TreeRange implements Range {
         if (tree.getRowKey() == null) {
             return true;
         }
-        
+
         return tree.findTreeNodeComponent() != null;
     }
-    
+
     public boolean shouldIterateChildren() {
         if (tree.getRowKey() == null) {
             return true;
         }
-        
+
         if (tree.isLeaf()) {
             return false;
         }
-        
+
         return traverseAll || tree.isExpanded();
     }
-    
 }

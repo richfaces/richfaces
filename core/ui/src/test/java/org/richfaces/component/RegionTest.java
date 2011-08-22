@@ -46,55 +46,43 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-
-
 /**
  * Test page pseudo-code:
+ *
  * <pre>
  * &lt;h:form id=&quot;form&quot;&gt;
- *    &lt;a4j:testCommandComponent id=&quot;testCommand&quot; 
- *          binding=&quot;#{testCommand}&quot; 
+ *    &lt;a4j:testCommandComponent id=&quot;testCommand&quot;
+ *          binding=&quot;#{testCommand}&quot;
  *          execute=&quot;#{testCommandExecute}&quot; /&gt;
- *              
+ *
  *    &lt;a4j:region id=&quot;region&quot;&gt;
- *        &lt;a4j:testCommandComponent id=&quot;testCommandRegion&quot; 
- *          binding=&quot;#{testCommandRegion}&quot; 
+ *        &lt;a4j:testCommandComponent id=&quot;testCommandRegion&quot;
+ *          binding=&quot;#{testCommandRegion}&quot;
  *          execute=&quot;#{testCommandRegionExecute}&quot; /&gt;
- *              
+ *
  *    &lt;/a4j:region&gt;
  * &lt;/h:form&gt;
  * </pre>
- * 
+ *
  * TestCommandComponent is assumed to have execute=@this by default
- * 
+ *
  * @author Nick Belaevski
- * 
+ *
  */
 public class RegionTest {
-        
     private FacesEnvironment environment;
-
     private FacesRequest request;
-
     private FacesContext facesContext;
-    
     private UIComponent testCommand;
-    
     private String testCommandExecute;
-    
     private UIComponent testCommandRegion;
-    
     private String testCommandRegionExecute;
-    
     private String testCommandClientId;
-    
     private String testCommandRegionClientId;
-
     private String regionClientId;
-    
-    @SuppressWarnings("serial")
-    private static abstract class StringFieldValueExpression extends ValueExpression {
 
+    @SuppressWarnings("serial")
+    private abstract static class StringFieldValueExpression extends ValueExpression {
         @Override
         public Class<?> getExpectedType() {
             return String.class;
@@ -128,34 +116,32 @@ public class RegionTest {
         @Override
         public boolean isLiteralText() {
             return false;
-        } 
+        }
     }
-    
+
     @SuppressWarnings("serial")
     private ValueExpression createFirstLinkExecuteExpression() {
         return new StringFieldValueExpression() {
-            
             @Override
             public void setValue(ELContext context, Object value) {
                 testCommandExecute = (String) value;
             }
-            
+
             @Override
             public Object getValue(ELContext context) {
                 return testCommandExecute;
             }
         };
     }
-    
+
     @SuppressWarnings("serial")
     private ValueExpression createNestedFirstLinkExecuteExpression() {
         return new StringFieldValueExpression() {
-            
             @Override
             public void setValue(ELContext context, Object value) {
                 testCommandRegionExecute = (String) value;
             }
-            
+
             @Override
             public Object getValue(ELContext context) {
                 return testCommandRegionExecute;
@@ -165,13 +151,13 @@ public class RegionTest {
 
     private void createView() {
         Application application = facesContext.getApplication();
-        
+
         UIViewRoot viewRoot = facesContext.getViewRoot();
 
         UIComponent form = application.createComponent(UIForm.COMPONENT_TYPE);
         form.setId("form");
         viewRoot.getChildren().add(form);
-        
+
         testCommand = createTestLink();
         testCommand.setId("testCommand");
         testCommand.setValueExpression("execute", createFirstLinkExecuteExpression());
@@ -182,7 +168,7 @@ public class RegionTest {
         region.setId("region");
         form.getChildren().add(region);
         regionClientId = region.getClientId(facesContext);
-        
+
         testCommandRegion = createTestLink();
         testCommandRegion.setId("testCommandRegion");
         testCommandRegion.setValueExpression("execute", createNestedFirstLinkExecuteExpression());
@@ -193,56 +179,56 @@ public class RegionTest {
     private UIComponent createTestLink() {
         return facesContext.getApplication().createComponent(UICommand.COMPONENT_TYPE);
     }
-    
+
     private void setActivatorComponentId(String clientId) {
         request.withParameter(AJAX_COMPONENT_ID_PARAMETER, clientId);
     }
-    
+
     private <T> void assertSingleElementCollection(T expected, Collection<T> actual) {
         Iterator<T> iterator = actual.iterator();
         assertTrue(iterator.hasNext());
-        
+
         assertEquals(expected, iterator.next());
-        
+
         assertFalse(iterator.hasNext());
     }
-    
+
     @Before
     public void setUp() throws Exception {
         environment = FacesEnvironment.createEnvironment();
         environment.start();
-        
+
         request = environment.createFacesRequest();
         request.start();
-        
+
         facesContext = FacesContext.getCurrentInstance();
         createView();
     }
-    
+
     @After
     public void tearDown() throws Exception {
         testCommandClientId = null;
         testCommandRegionClientId = null;
-        
+
         testCommand = null;
         testCommandRegion = null;
-        
+
         testCommandExecute = null;
         testCommandRegionExecute = null;
-        
+
         facesContext = null;
-        
+
         request.release();
         request = null;
-        
+
         environment.release();
         environment = null;
     }
-    
+
     @Test
     public void testDefaults() throws Exception {
         setActivatorComponentId(testCommandClientId);
-        
+
         Collection<String> executeIds = facesContext.getPartialViewContext().getExecuteIds();
         assertSingleElementCollection(testCommandClientId, executeIds);
     }
@@ -250,7 +236,7 @@ public class RegionTest {
     @Test
     public void testDefaultsInRegion() throws Exception {
         setActivatorComponentId(testCommandRegionClientId);
-        
+
         Collection<String> executeIds = facesContext.getPartialViewContext().getExecuteIds();
         assertSingleElementCollection(regionClientId, executeIds);
     }
@@ -259,7 +245,7 @@ public class RegionTest {
     public void testExecuteThis() throws Exception {
         testCommandExecute = THIS;
         setActivatorComponentId(testCommandClientId);
-        
+
         Collection<String> executeIds = facesContext.getPartialViewContext().getExecuteIds();
         assertSingleElementCollection(testCommandClientId, executeIds);
     }
@@ -268,20 +254,20 @@ public class RegionTest {
     public void testExecuteThisInRegion() throws Exception {
         testCommandRegionExecute = THIS;
         setActivatorComponentId(testCommandRegionClientId);
-        
+
         Collection<String> executeIds = facesContext.getPartialViewContext().getExecuteIds();
         assertSingleElementCollection(testCommandRegionClientId, executeIds);
     }
-    
+
     @Test
     public void testExecuteAll() throws Exception {
         testCommandExecute = ALL;
         setActivatorComponentId(testCommandClientId);
-        
+
         Collection<String> executeIds = facesContext.getPartialViewContext().getExecuteIds();
         assertSingleElementCollection(ALL, executeIds);
     }
-    
+
     @Test
     public void testExecuteAllInRegion() throws Exception {
         testCommandRegionExecute = ALL;
@@ -290,7 +276,7 @@ public class RegionTest {
         Collection<String> executeIds = facesContext.getPartialViewContext().getExecuteIds();
         assertSingleElementCollection(ALL, executeIds);
     }
-    
+
     @Test
     public void testExecuteRegion() throws Exception {
         testCommandExecute = AjaxContainer.META_CLIENT_ID;
@@ -299,7 +285,7 @@ public class RegionTest {
         Collection<String> executeIds = facesContext.getPartialViewContext().getExecuteIds();
         assertSingleElementCollection(testCommandClientId, executeIds);
     }
-    
+
     @Test
     public void testExecuteRegionInRegion() throws Exception {
         testCommandRegionExecute = AjaxContainer.META_CLIENT_ID;

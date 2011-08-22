@@ -8,7 +8,7 @@ public class UIDragIndicatorTest {
     private UIDragIndicator indicator;
 
     @Before
-    public void setUp () {
+    public void setUp() {
         indicator = new UIDragIndicator();
     }
 

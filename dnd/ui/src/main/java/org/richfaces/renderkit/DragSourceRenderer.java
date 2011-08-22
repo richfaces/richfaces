@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit;
 
 import java.util.HashMap;
@@ -37,15 +36,13 @@ import org.richfaces.javascript.DragScript;
  * @author abelevich
  *
  */
-
 @JsfRenderer(type = "org.richfaces.DragSourceRenderer", family = AbstractDragSource.COMPONENT_FAMILY)
 public class DragSourceRenderer extends DnDRenderBase {
-
     @Override
     public Map<String, Object> getOptions(FacesContext facesContext, UIComponent component) {
         Map<String, Object> options = new HashMap<String, Object>();
-        if(component instanceof AbstractDragSource) {
-            AbstractDragSource dragSource = (AbstractDragSource)component;
+        if (component instanceof AbstractDragSource) {
+            AbstractDragSource dragSource = (AbstractDragSource) component;
             options.put("indicator", getDragIndicatorClientId(facesContext, dragSource));
             options.put("type", dragSource.getType());
             options.put("parentId", getParentClientId(facesContext, component));
@@ -57,21 +54,20 @@ public class DragSourceRenderer extends DnDRenderBase {
     public String getScriptName() {
         return "new RichFaces.ui.Draggable";
     }
-    
+
     @Override
     public DnDScript createScript(String name) {
         return new DragScript(name);
     }
-    
+
     public String getDragIndicatorClientId(FacesContext facesContext, AbstractDragSource dragSource) {
         String indicatorId = dragSource.getDragIndicator();
-        if(indicatorId != null) {
+        if (indicatorId != null) {
             UIComponent indicator = getUtils().findComponentFor(facesContext, dragSource, indicatorId);
-            if(indicator != null) {
+            if (indicator != null) {
                 indicatorId = indicator.getClientId(facesContext);
             }
         }
         return indicatorId;
     }
-   
 }

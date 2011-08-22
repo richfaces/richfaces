@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.ajax4jsf.component.behavior;
 
 import javax.el.ELContext;
@@ -33,16 +32,12 @@ import javax.faces.event.AjaxBehaviorListener;
 
 /**
  * @author Anton Belevich
- * 
+ *
  */
 public class MethodExpressionAjaxBehaviorListener implements AjaxBehaviorListener, StateHolder {
-
     private static final Class<?>[] ACTION_LISTENER_ZEROARG_SIG = new Class[] {};
-
     private MethodExpression methodExpressionOneArg = null;
-
     private MethodExpression methodExpressionZeroArg = null;
-    
     private boolean isTransient;
 
     public MethodExpressionAjaxBehaviorListener() {
@@ -53,13 +48,14 @@ public class MethodExpressionAjaxBehaviorListener implements AjaxBehaviorListene
 
         FacesContext context = FacesContext.getCurrentInstance();
         ELContext elContext = context.getELContext();
-        this.methodExpressionZeroArg = context.getApplication().getExpressionFactory().createMethodExpression(
-            elContext, methodExpressionOneArg.getExpressionString(), Void.class, ACTION_LISTENER_ZEROARG_SIG);
-
+        this.methodExpressionZeroArg = context
+            .getApplication()
+            .getExpressionFactory()
+            .createMethodExpression(elContext, methodExpressionOneArg.getExpressionString(), Void.class,
+                ACTION_LISTENER_ZEROARG_SIG);
     }
 
-    MethodExpressionAjaxBehaviorListener(MethodExpression methodExpressionOneArg,
-        MethodExpression methodExpressionZeroArg) {
+    MethodExpressionAjaxBehaviorListener(MethodExpression methodExpressionOneArg, MethodExpression methodExpressionZeroArg) {
         this.methodExpressionOneArg = methodExpressionOneArg;
         this.methodExpressionZeroArg = methodExpressionZeroArg;
     }
@@ -68,18 +64,18 @@ public class MethodExpressionAjaxBehaviorListener implements AjaxBehaviorListene
 
         FacesContext context = FacesContext.getCurrentInstance();
         ELContext elContext = context.getELContext();
-        
+
         try {
-            methodExpressionOneArg.invoke(elContext, new Object[] { event});
+            methodExpressionOneArg.invoke(elContext, new Object[] { event });
         } catch (MethodNotFoundException mnfe) {
             methodExpressionZeroArg.invoke(elContext, new Object[] {});
-        } 
+        }
     }
 
     public boolean isTransient() {
         return isTransient;
     }
-    
+
     public void setTransient(boolean newTransientValue) {
         isTransient = newTransientValue;
     }
@@ -99,7 +95,6 @@ public class MethodExpressionAjaxBehaviorListener implements AjaxBehaviorListene
         if (context == null) {
             throw new NullPointerException();
         }
-        return new Object[] { methodExpressionOneArg, methodExpressionZeroArg  };
+        return new Object[] { methodExpressionOneArg, methodExpressionZeroArg };
     }
-    
 }

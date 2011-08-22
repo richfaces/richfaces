@@ -29,50 +29,53 @@ import javax.faces.context.ResponseWriterWrapper;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class OnOffResponseWriter extends ResponseWriterWrapper {
-
     private static final Writer NO_OP_WRITER = new Writer() {
-        
         @Override
         public void write(char[] cbuf, int off, int len) throws IOException {
-            //do nothing
+            // do nothing
         }
-        
+
         public void write(char[] cbuf) throws IOException {
-            //do nothing
-        };
+            // do nothing
+        }
+
+        ;
 
         public void write(int c) throws IOException {
-            //do nothing
-        };
-        
+            // do nothing
+        }
+
+        ;
+
         public void write(String str) throws IOException {
-            //do nothing
-        };
-        
+            // do nothing
+        }
+
+        ;
+
         public void write(String str, int off, int len) throws IOException {
-            //do nothing
-        };
-        
+            // do nothing
+        }
+
+        ;
+
         @Override
         public void flush() throws IOException {
-            //do nothing
+            // do nothing
         }
-        
+
         @Override
         public void close() throws IOException {
-            //do nothing
+            // do nothing
         }
     };
-    
     private boolean switchedOn = false;
-
     private ResponseWriter wrappedWriter;
-    
     private ResponseWriter stubWriter;
-    
+
     public OnOffResponseWriter(ResponseWriter wrappedWriter) {
         super();
         this.wrappedWriter = wrappedWriter;
@@ -84,7 +87,7 @@ public class OnOffResponseWriter extends ResponseWriterWrapper {
             if (stubWriter == null) {
                 stubWriter = wrappedWriter.cloneWithWriter(NO_OP_WRITER);
             }
-            
+
             return stubWriter;
         } else {
             return wrappedWriter;
@@ -94,7 +97,7 @@ public class OnOffResponseWriter extends ResponseWriterWrapper {
     public void setSwitchedOn(boolean newState) {
         switchedOn = newState;
     }
-    
+
     public boolean isSwitchedOn() {
         return switchedOn;
     }

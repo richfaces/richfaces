@@ -26,10 +26,8 @@ import javax.faces.event.FacesListener;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public interface TreeSelectionChangeListener extends FacesListener {
-
-    public void processTreeSelectionChange(TreeSelectionChangeEvent event) throws AbortProcessingException;
-    
+    void processTreeSelectionChange(TreeSelectionChangeEvent event) throws AbortProcessingException;
 }

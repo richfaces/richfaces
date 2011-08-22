@@ -2,6 +2,7 @@ package org.richfaces.el;
 
 import java.beans.FeatureDescriptor;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -22,13 +23,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.richfaces.el.model.Bean;
 import org.richfaces.el.model.Person;
+import org.richfaces.validator.GraphValidatorState;
 
 import com.google.common.collect.Iterators;
+import com.google.common.collect.Maps;
 
 public class ELTestBase {
-
     class DummyELResolver extends ELResolver {
-
         private final ELResolver beanResolver = new BeanELResolver();
         private final ELResolver mapResolver = new MapELResolver();
         private final ELResolver listResolver = new ListELResolver();
@@ -85,15 +86,13 @@ public class ELTestBase {
             // do nothing
 
         }
-
     }
 
     class DummyELContext extends ELContext {
-
         public DummyELContext() {
             putContext(FacesContext.class, FacesContext.getCurrentInstance());
         }
-        
+
         @Override
         public ELResolver getELResolver() {
             return elResolver;
@@ -108,7 +107,6 @@ public class ELTestBase {
         public VariableMapper getVariableMapper() {
             return null;
         }
-
     }
 
     protected ExpressionFactoryImpl expressionFactory;
@@ -132,7 +130,7 @@ public class ELTestBase {
         bean.setMap(map);
         elResolver = new DummyELResolver();
         elContext = new DummyELContext();
-        capturingELContext = new CapturingELContext(elContext);
+        capturingELContext = new CapturingELContext(elContext,Collections.<Object,GraphValidatorState>emptyMap());
     }
 
     @After
@@ -144,5 +142,4 @@ public class ELTestBase {
         ValueExpression expression = expressionFactory.createValueExpression(elContext, expressionString, String.class);
         return expression;
     }
-
 }

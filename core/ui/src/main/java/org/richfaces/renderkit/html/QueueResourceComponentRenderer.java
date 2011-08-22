@@ -44,33 +44,41 @@ import org.richfaces.renderkit.HtmlConstants;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @JsfRenderer(type = "org.richfaces.QueueResourceComponentRenderer", family = UIOutput.COMPONENT_FAMILY)
 @ResourceDependency(library = "org.richfaces", name = "ajax.reslib")
 public class QueueResourceComponentRenderer extends Renderer {
-
     private static final String FUNCTION_NAME = "RichFaces.queue.setQueueOptions";
 
     private enum QueueOptions {
-        onbeforedomupdate, oncomplete, onerror, onevent, onrequestdequeue, onrequestqueue, onsubmit, 
-        requestDelay, queueId, ignoreDupResponses, requestGroupingId
+        onbeforedomupdate,
+        oncomplete,
+        onerror,
+        onevent,
+        onrequestdequeue,
+        onrequestqueue,
+        onsubmit,
+        requestDelay,
+        queueId,
+        ignoreDupResponses,
+        requestGroupingId
     }
 
     private void appendOptions(UIComponent queue, Map<String, Object> optionsHash) {
         Map<String, Object> attributes = queue.getAttributes();
-        
+
         for (QueueOptions option : QueueOptions.values()) {
             String optionName = option.name();
             Object value = attributes.get(optionName);
             addToScriptHash(optionsHash, optionName, value);
         }
     }
-    
+
     @Override
     public void encodeEnd(FacesContext context, UIComponent component) throws IOException {
         super.encodeEnd(context, component);
-        
+
         if (!getBooleanConfigurationValue(context, CommonComponentsConfiguration.Items.queueEnabled)) {
             return;
         }
@@ -78,15 +86,15 @@ public class QueueResourceComponentRenderer extends Renderer {
         QueueRegistry registry = QueueRegistry.getInstance(context);
         if (registry != null && registry.hasQueuesToEncode()) {
             ResponseWriter writer = context.getResponseWriter();
-            
+
             writer.startElement(HtmlConstants.SCRIPT_ELEM, component);
             writer.writeAttribute(HtmlConstants.ID_ATTRIBUTE, component.getClientId(context), null);
             writer.writeAttribute(HtmlConstants.TYPE_ATTR, HtmlConstants.JAVASCRIPT_TYPE, null);
-            
+
             writer.writeText(FUNCTION_NAME, null);
             writer.writeText("({", null);
-            
-            Map<String,Object> queueOptionsMap = new LinkedHashMap<String, Object>();
+
+            Map<String, Object> queueOptionsMap = new LinkedHashMap<String, Object>();
 
             boolean isFirst = true;
             Map<String, UIComponent> registeredQueues = registry.getRegisteredQueues();
@@ -113,7 +121,7 @@ public class QueueResourceComponentRenderer extends Renderer {
             }
 
             writer.writeText("});", null);
-            
+
             writer.endElement(HtmlConstants.SCRIPT_ELEM);
         }
     }

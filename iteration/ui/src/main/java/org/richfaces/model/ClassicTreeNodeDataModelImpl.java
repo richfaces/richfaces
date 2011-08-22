@@ -30,12 +30,11 @@ import org.richfaces.model.iterators.ClassicTreeNodeTuplesIterator;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class ClassicTreeNodeDataModelImpl extends NodesTreeSequenceKeyModel<TreeNode> {
-
     private static final Converter DEFAULT_CONVERTER = new StringSequenceRowKeyConverter();
-    
+
     public boolean isLeaf() {
         return getData().isLeaf();
     }
@@ -48,7 +47,7 @@ public class ClassicTreeNodeDataModelImpl extends NodesTreeSequenceKeyModel<Tree
     protected TreeNode setupChildContext(Object segment) {
         return getData().getChild(segment);
     }
-    
+
     @Override
     public Object getWrappedData() {
         return getRootNode();

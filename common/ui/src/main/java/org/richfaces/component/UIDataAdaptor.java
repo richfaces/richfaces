@@ -19,15 +19,16 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import static org.richfaces.component.util.Strings.NamingContainerDataHolder.SEPARATOR_CHAR_JOINER;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.el.ValueExpression;
@@ -57,9 +58,12 @@ import javax.faces.event.ComponentSystemEvent;
 import javax.faces.event.ComponentSystemEventListener;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.ListenerFor;
+import javax.faces.event.ListenersFor;
 import javax.faces.event.PhaseId;
+import javax.faces.event.PostAddToViewEvent;
+import javax.faces.event.PostRestoreStateEvent;
 import javax.faces.event.PostValidateEvent;
-import javax.faces.event.PreRenderComponentEvent;
+import javax.faces.event.PreRenderViewEvent;
 import javax.faces.event.PreValidateEvent;
 
 import org.ajax4jsf.component.IterationStateHolder;
@@ -74,34 +78,33 @@ import org.richfaces.log.Logger;
 import org.richfaces.log.RichfacesLogger;
 
 /**
- * Base class for iterable components, like dataTable, Tomahawk dataList, Facelets repeat, tree etc., with support for
- * partial rendering on AJAX responces for one or more selected iterations.
+ * Base class for iterable components, like dataTable, Tomahawk dataList, Facelets repeat, tree etc., with support for partial
+ * rendering on AJAX responces for one or more selected iterations.
  *
  * @author shura
  */
-@ListenerFor(systemEventClass = PreRenderComponentEvent.class)
-public abstract class UIDataAdaptor extends UIComponentBase implements NamingContainer,
-    UniqueIdVendor, IterationStateHolder, ComponentSystemEventListener {
-
+@ListenersFor({ @ListenerFor(systemEventClass = PostAddToViewEvent.class),
+        @ListenerFor(systemEventClass = PostRestoreStateEvent.class), @ListenerFor(systemEventClass = PreRenderViewEvent.class) })
+public abstract class UIDataAdaptor extends UIComponentBase implements NamingContainer, UniqueIdVendor, IterationStateHolder,
+    ComponentSystemEventListener {
     /**
-     * <p>The standard component family for this component.</p>
+     * <p>
+     * The standard component family for this component.
+     * </p>
      */
     public static final String COMPONENT_FAMILY = "org.richfaces.Data";
-
     /**
-     * <p>The standard component type for this component.</p>
+     * <p>
+     * The standard component type for this component.
+     * </p>
      */
     public static final String COMPONENT_TYPE = "org.richfaces.Data";
-
     private static final VisitCallback STUB_CALLBACK = new VisitCallback() {
-
         public VisitResult visit(VisitContext context, UIComponent target) {
             return VisitResult.ACCEPT;
         }
     };
-
     private static final Logger LOG = RichfacesLogger.COMPONENTS.getLogger();
-
     /**
      * Visitor for process decode on children components.
      */
@@ -111,7 +114,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
             c.processDecodes(context);
         }
     };
-
     /**
      * Visitor for process validation phase
      */
@@ -121,7 +123,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
             c.processValidators(context);
         }
     };
-
     /**
      * Visitor for process update model phase.
      */
@@ -131,22 +132,16 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
             c.processUpdates(context);
         }
     };
-
-    //TODO nick - PSH support?
+    // TODO nick - PSH support?
     private DataComponentState componentState = null;
     private ExtendedDataModel<?> extendedDataModel = null;
-    
     private Object rowKey = null;
-
     private String containerClientId;
-
     private Object originalVarValue;
-
     private Converter rowKeyConverter;
 
     /**
      * @author Nick Belaevski
-     *
      */
     private final class DataVisitorForVisitTree implements DataVisitor {
         /**
@@ -184,12 +179,12 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
                         return DataVisitResult.STOP;
                     }
-                    
+
                     if (result == VisitResult.ACCEPT) {
                         result = visitDataChildrenMetaComponents((ExtendedVisitContext) visitContext, callback);
                         if (VisitResult.COMPLETE.equals(result)) {
                             visitResult = true;
-                            
+
                             return DataVisitResult.STOP;
                         }
                     }
@@ -219,7 +214,14 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     private enum PropertyKeys {
-        lastId, var, rowKeyVar, stateVar, childState, rowKeyConverter, rowKeyConverterSet, keepSaved
+        lastId,
+        var,
+        rowKeyVar,
+        stateVar,
+        childState,
+        rowKeyConverter,
+        rowKeyConverterSet,
+        keepSaved
     }
 
     public UIDataAdaptor() {
@@ -231,7 +233,8 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see javax.faces.component.UIComponent#getFamily()
      */
     @Override
@@ -240,7 +243,8 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see javax.faces.component.UniqueIdVendor#createUniqueId(javax.faces.context.FacesContext, java.lang.String)
      */
     public String createUniqueId(FacesContext context, String seed) {
@@ -260,36 +264,32 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     /**
-     * Setup current row by key. Perform same functionality as
-     * {@link javax.faces.component.UIData#setRowIndex(int)}, but for key object - it may be not only
-     * row number in sequence data, but, for example - path to current node in
-     * tree.
+     * Setup current row by key. Perform same functionality as {@link javax.faces.component.UIData#setRowIndex(int)}, but for
+     * key object - it may be not only row number in sequence data, but, for example - path to current node in tree.
      *
-     * @param faces -
-     *              current FacesContext
-     * @param key   new key value.
+     * @param facesContext - current FacesContext
+     * @param rowKey new key value.
      */
     public void setRowKey(FacesContext facesContext, Object rowKey) {
         this.saveChildState(facesContext);
-        
+
         this.rowKey = rowKey;
-        
+
         getExtendedDataModel().setRowKey(rowKey);
-        
+
         this.containerClientId = null;
 
         boolean rowSelected = (rowKey != null) && isRowAvailable();
 
         setupVariable(facesContext, rowSelected);
-        
+
         this.restoreChildState(facesContext);
     }
 
     /**
-     * Save values of {@link EditableValueHolder} fields before change current
-     * row.
+     * Save values of {@link EditableValueHolder} fields before change current row.
      *
-     * @param faces
+     * @param facesContext
      */
     protected void saveChildState(FacesContext facesContext) {
         Iterator<UIComponent> itr = dataChildren();
@@ -301,8 +301,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
     /**
      * @param facesContext
-     * @param next
-     * @param childState
      */
     protected void saveChildState(FacesContext facesContext, UIComponent component) {
 
@@ -362,6 +360,16 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         }
     }
 
+    protected Iterator<UIComponent> allFixedChildren() {
+        if (getFacetCount() > 0) {
+            List<UIComponent> children = new ArrayList<UIComponent>();
+
+            return getFacets().values().iterator();
+        } else {
+            return Collections.<UIComponent>emptyList().iterator();
+        }
+    }
+
     /**
      * @param facesContext
      */
@@ -374,12 +382,9 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     /**
-     * Restore values of {@link EditableValueHolder} fields after change current
-     * row.
+     * Restore values of {@link EditableValueHolder} fields after change current row.
      *
      * @param facesContext
-     * @param next
-     * @param childState
      */
     protected void restoreChildState(FacesContext facesContext, UIComponent component) {
         String id = component.getId();
@@ -388,8 +393,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
         SavedState savedState = null;
         @SuppressWarnings("unchecked")
-        Map<String, SavedState> savedStatesMap = (Map<String, SavedState>) getStateHelper()
-            .get(PropertyKeys.childState);
+        Map<String, SavedState> savedStatesMap = (Map<String, SavedState>) getStateHelper().get(PropertyKeys.childState);
 
         if (savedStatesMap != null) {
             savedState = savedStatesMap.get(component.getClientId(facesContext));
@@ -433,21 +437,22 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     protected FacesEvent wrapEvent(FacesEvent event) {
         return new RowKeyContextEventWrapper(this, event, getRowKey());
     }
-    
+
     @Override
     public void queueEvent(FacesEvent event) {
         super.queueEvent(wrapEvent(event));
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see javax.faces.component.UIComponentBase#broadcast(javax.faces.event.FacesEvent)
      */
     @Override
     public void broadcast(FacesEvent event) throws AbortProcessingException {
         if (event instanceof RowKeyContextEventWrapper) {
             RowKeyContextEventWrapper eventWrapper = (RowKeyContextEventWrapper) event;
-            
+
             eventWrapper.broadcast(getFacesContext());
         } else {
             super.broadcast(event);
@@ -504,7 +509,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         getStateHelper().put(PropertyKeys.stateVar, stateVar);
     }
 
-    //XXX - review and probably remove - useful method, should be left
+    // XXX - review and probably remove - useful method, should be left
     public int getRowCount() {
         return getExtendedDataModel().getRowCount();
     }
@@ -518,11 +523,11 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     /**
-     * Boolean attribute that defines whether this iteration component will reset saved children's state
-     * before rendering. By default state is reset if there are no faces messages with severity error or higher.
+     * Boolean attribute that defines whether this iteration component will reset saved children's state before rendering. By
+     * default state is reset if there are no faces messages with severity error or higher.
+     *
      * @return
      */
-    
     @Attribute
     public boolean isKeepSaved() {
         Object value = getStateHelper().eval(PropertyKeys.keepSaved);
@@ -539,14 +544,12 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     /**
-     * Setup EL variable for different iteration. Value of row data and
-     * component state will be put into request scope attributes with names
-     * given by "var" and "varState" bean properties.
+     * Setup EL variable for different iteration. Value of row data and component state will be put into request scope
+     * attributes with names given by "var" and "varState" bean properties.
      * <p/>
      * Changed: does not check for row availability now
      *
-     * @param faces       current faces context
-     * @param localModel
+     * @param faces current faces context
      * @param rowSelected
      */
     protected void setupVariable(FacesContext faces, boolean rowSelected) {
@@ -586,8 +589,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         if (componentState == null) {
             componentState = createComponentState();
 
-            if ((componentStateExpression != null)
-                && !componentStateExpression.isReadOnly(getFacesContext().getELContext())) {
+            if ((componentStateExpression != null) && !componentStateExpression.isReadOnly(getFacesContext().getELContext())) {
                 componentStateExpression.setValue(getFacesContext().getELContext(), componentState);
             }
         }
@@ -611,7 +613,6 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     /**
      * @param var
      * @param attrs
-     * @param rowData
      */
     private void removeVariable(String var, Map<String, Object> attrs) {
         if (var != null) {
@@ -644,7 +645,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
     private String getRowKeyAsString(FacesContext facesContext, Object rowKey) {
         assert rowKey != null;
-        
+
         Converter rowKeyConverter = getRowKeyConverter();
         if (rowKeyConverter == null) {
             // Create default converter for a row key.
@@ -656,18 +657,18 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
                 setRowKeyConverter(rowKeyConverter);
             }
         }
-        
+
         if (rowKeyConverter != null) {
             return rowKeyConverter.getAsString(facesContext, this, rowKey);
         } else {
             return rowKey.toString();
         }
     }
-    
+
     public String getContainerClientId() {
         return getContainerClientId(getFacesContext());
     }
-    
+
     @Override
     public String getContainerClientId(FacesContext facesContext) {
         if (facesContext == null) {
@@ -676,18 +677,18 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
         if (null == containerClientId) {
             containerClientId = super.getContainerClientId(facesContext);
-            
+
             Object rowKey = getRowKey();
-            
+
             if (rowKey != null) {
                 String rowKeyString = getRowKeyAsString(facesContext, rowKey);
                 containerClientId = SEPARATOR_CHAR_JOINER.join(containerClientId, rowKeyString);
-            }            
+            }
         }
 
         return containerClientId;
     }
-    
+
     /**
      * Save current state of data variable.
      *
@@ -727,7 +728,8 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see javax.faces.component.UIComponent#setValueExpression(java.lang.String, javax.el.ValueExpression)
      */
     @Override
@@ -740,8 +742,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     /**
-     * Check for validation errors on children components. If true, saved values
-     * must be keep on render phase
+     * Check for validation errors on children components. If true, saved values must be keep on render phase
      *
      * @param context
      * @return
@@ -755,8 +756,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     /**
-     * Perform iteration on all children components and all data rows with given
-     * visitor.
+     * Perform iteration on all children components and all data rows with given visitor.
      *
      * @param faces
      * @param visitor
@@ -819,8 +819,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         }
 
         pushComponentToEL(faces, this);
-        preDecode(faces);
-        this.iterate(faces, decodeVisitor);
+        processDecodesChildren(faces);
         this.decode(faces);
         popComponentFromEL(faces);
     }
@@ -834,7 +833,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         Application app = faces.getApplication();
         app.publishEvent(faces, PreValidateEvent.class, this);
         preValidate(faces);
-        this.iterate(faces, validateVisitor);
+        processValidatesChildren(faces);
         app.publishEvent(faces, PostValidateEvent.class, this);
         popComponentFromEL(faces);
     }
@@ -846,7 +845,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
         pushComponentToEL(faces, this);
         preUpdate(faces);
-        this.iterate(faces, updateVisitor);
+        processUpdatesChildren(faces);
 
         doUpdate();
 
@@ -854,9 +853,21 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     protected void doUpdate() {
-        
+
     }
-    
+
+    protected void processDecodesChildren(FacesContext faces) {
+        this.iterate(faces, decodeVisitor);
+    }
+
+    protected void processValidatesChildren(FacesContext faces) {
+        this.iterate(faces, validateVisitor);
+    }
+
+    protected void processUpdatesChildren(FacesContext faces) {
+        this.iterate(faces, updateVisitor);
+    }
+
     @Override
     public void setId(String id) {
         super.setId(id);
@@ -864,7 +875,8 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see org.ajax4jsf.component.IterationStateHolder#getIterationState()
      */
     public Object getIterationState() {
@@ -886,7 +898,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         if (stateObject != null) {
             DataAdaptorIterationState iterationState = (DataAdaptorIterationState) stateObject;
             iterationState.restoreComponentState(this);
-            
+
             this.componentState = iterationState.getComponentState();
             this.extendedDataModel = iterationState.getDataModel();
         } else {
@@ -903,14 +915,16 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         getStateHelper().remove(PropertyKeys.childState);
     }
 
-    protected void preDecode(FacesContext context) {
-        resetDataModel();
+    private void resetState() {
+        DataComponentsContextUtil.resetDataModelOncePerPhase(getFacesContext(), this);
 
-        Object savedChildState = getStateHelper().get(PropertyKeys.childState);
-        // TODO - verify the check for null: savedChildState == null
-        if (savedChildState == null || !isKeepSaved()) {
+        if (!isKeepSaved()) {
             resetChildState();
         }
+    }
+
+    protected void preDecode(FacesContext context) {
+        resetState();
     }
 
     // TODO - do we need this method?
@@ -922,12 +936,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     protected void preEncodeBegin(FacesContext context) {
-        resetDataModel();
-
-        if (!isKeepSaved()) {
-            //TODO - this also resets state for the nested iteration components - is it correct?
-            resetChildState();
-        }
+        resetState();
     }
 
     @Override
@@ -949,7 +958,8 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     /*
-     *  (non-Javadoc)
+     * (non-Javadoc)
+     *
      * @see javax.faces.component.UIComponentBase#saveState(javax.faces.context.FacesContext)
      */
     @Override
@@ -990,12 +1000,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
             converterState = saveAttachedState(context, rowKeyConverter);
         }
 
-        return new Object[] {
-            parentState,
-            savedComponentState,
-            converterHasPartialState,
-            converterState
-        };
+        return new Object[] { parentState, savedComponentState, converterHasPartialState, converterState };
     }
 
     /*
@@ -1006,7 +1011,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     @Override
     public void restoreState(FacesContext context, Object stateObject) {
         if (stateObject == null) {
-            return ;
+            return;
         }
 
         Object[] state = (Object[]) stateObject;
@@ -1047,8 +1052,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     @Override
-    public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback)
-        throws FacesException {
+    public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback) throws FacesException {
 
         if ((null == context) || (null == clientId) || (null == callback)) {
             throw new NullPointerException();
@@ -1091,7 +1095,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
                 // Call for a child component - try to detect row key
                 // baseId.length() + 1 expression skips SEPARATOR_CHAR
-                //TODO - convertKeyString
+                // TODO - convertKeyString
                 String rowKeyString = extractKeySegment(context, clientId.substring(baseId.length() + 1));
 
                 if (rowKeyString != null) {
@@ -1099,7 +1103,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
 
                     if (null != keyConverter) {
                         try {
-                            //TODO: review
+                            // TODO: review
                             newRowKey = keyConverter.getAsObject(context, this, rowKeyString);
                         } catch (ConverterException e) {
 
@@ -1136,6 +1140,90 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
         }
 
         return found;
+    }
+
+    public boolean invokeOnRow(FacesContext context, String clientId, ContextCallback callback) {
+        if ((null == context) || (null == clientId) || (null == callback)) {
+            throw new NullPointerException();
+        }
+
+        String baseId = getClientId(context);
+
+        if (!matchesBaseId(clientId, baseId, UINamingContainer.getSeparatorChar(context))) {
+            return false;
+        }
+
+        String rowId = clientId.substring(baseId.length() + 1);
+        if (rowId.indexOf(UINamingContainer.getSeparatorChar(context)) >= 0) {
+            return false;
+        }
+
+        Object oldRowKey = getRowKey();
+
+        captureOrigValue(context);
+
+        try {
+
+            setRowKey(context, null);
+
+            Iterator<UIComponent> fixedChildrenItr = fixedChildren();
+
+            while (fixedChildrenItr.hasNext()) {
+                if (checkAllFixedChildren(fixedChildrenItr.next(), rowId)) {
+                    return false;
+                }
+            }
+
+            Object newRowKey = null;
+
+            if (rowId != null) {
+                Converter keyConverter = getRowKeyConverter();
+
+                if (null != keyConverter) {
+                    try {
+                        newRowKey = keyConverter.getAsObject(context, this, rowId);
+                    } catch (ConverterException e) {
+                        LOG.warn(e);
+                    }
+                }
+            }
+
+            setRowKey(context, newRowKey);
+            callback.invokeContextCallback(context, this);
+        } catch (Exception e) {
+            throw new FacesException(e);
+        } finally {
+            try {
+                setRowKey(context, oldRowKey);
+                restoreOrigValue(context);
+            } catch (Exception e) {
+                LOG.error(e.getMessage(), e);
+            }
+        }
+
+        return true;
+    }
+
+    private boolean checkAllFixedChildren(UIComponent fixedChild, String id) {
+        if (fixedChild.getId().equals(id)) {
+            return true;
+        }
+
+        if (fixedChild instanceof NamingContainer) {
+            return false;
+        }
+
+        for (UIComponent uiComponent : fixedChild.getChildren()) {
+            if (checkAllFixedChildren(uiComponent, id)) {
+                return true;
+            }
+        }
+        for (UIComponent uiComponent : fixedChild.getFacets().values()) {
+            if (checkAllFixedChildren(uiComponent, id)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // Tests whether we need to visit our children as part of
@@ -1185,7 +1273,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     protected VisitResult visitDataChildrenMetaComponents(ExtendedVisitContext extendedVisitContext, VisitCallback callback) {
         return VisitResult.ACCEPT;
     }
-    
+
     protected boolean visitDataChildren(VisitContext visitContext, VisitCallback callback, boolean visitRows) {
 
         if (visitRows) {
@@ -1244,7 +1332,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
                 if (visitRows) {
                     setRowKey(facesContext, null);
                 }
-                
+
                 if (visitFixedChildren(visitContext, callback)) {
                     return true;
                 }
@@ -1257,8 +1345,8 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
                         if (directSubtreeIdsToVisit.isEmpty()) {
                             return false;
                         } else {
-                            VisitContext directChildrenVisitContext =
-                                extendedVisitContext.createNamingContainerVisitContext(this, directSubtreeIdsToVisit);
+                            VisitContext directChildrenVisitContext = extendedVisitContext.createNamingContainerVisitContext(
+                                this, directSubtreeIdsToVisit);
 
                             if (visitRows) {
                                 setRowKey(facesContext, null);
@@ -1296,7 +1384,7 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     }
 
     /**
-     * @param facesContext
+     * @param context
      * @return
      */
     private boolean requiresRowIteration(FacesContext context) {
@@ -1349,7 +1437,16 @@ public abstract class UIDataAdaptor extends UIComponentBase implements NamingCon
     public void processEvent(ComponentSystemEvent event) throws AbortProcessingException {
         super.processEvent(event);
 
-        if (event instanceof PreRenderComponentEvent) {
+        if (event instanceof PostAddToViewEvent) {
+            getFacesContext().getViewRoot().subscribeToEvent(PreRenderViewEvent.class, this);
+        }
+
+        if (event instanceof PostRestoreStateEvent) {
+            getFacesContext().getViewRoot().subscribeToEvent(PreRenderViewEvent.class, this);
+            preDecode(getFacesContext());
+        }
+
+        if (event instanceof PreRenderViewEvent) {
             preEncodeBegin(getFacesContext());
         }
     }

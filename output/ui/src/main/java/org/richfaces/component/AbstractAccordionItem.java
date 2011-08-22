@@ -19,28 +19,29 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
-
-import org.richfaces.cdk.annotations.*;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.ClientBehaviorHolder;
+
+import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.JsfComponent;
+import org.richfaces.cdk.annotations.JsfRenderer;
+import org.richfaces.cdk.annotations.Tag;
+import org.richfaces.cdk.annotations.TagType;
 
 /**
  * @author akolonitsky
  * @since 2010-08-13
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.AccordionItemRenderer"))
-public abstract class AbstractAccordionItem extends AbstractTogglePanelItem implements AbstractTogglePanelTitledItem, ClientBehaviorHolder {
-
+public abstract class AbstractAccordionItem extends AbstractTogglePanelItem implements AbstractTogglePanelTitledItem,
+    ClientBehaviorHolder {
     public static final String COMPONENT_TYPE = "org.richfaces.AccordionItem";
-
     public static final String COMPONENT_FAMILY = "org.richfaces.AccordionItem";
 
     enum Properties {
         header,
-        
         contentClass,
         leftActiveIcon,
         leftInactiveIcon,
@@ -100,7 +101,6 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
     public void setLeftDisabledIcon(String leftDisabledIcon) {
         getStateHelper().put(Properties.leftDisabledIcon, leftDisabledIcon);
     }
-
 
     @Attribute(generate = false)
     public String getLeftInactiveIcon() {
@@ -182,7 +182,7 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
     public void setContentClass(String contentClass) {
         getStateHelper().put(Properties.contentClass, contentClass);
     }
-    
+
     @Attribute(generate = false)
     public SwitchType getSwitchType() {
         SwitchType switchType = (SwitchType) getStateHelper().eval(Properties.switchType);
@@ -192,11 +192,10 @@ public abstract class AbstractAccordionItem extends AbstractTogglePanelItem impl
         if (switchType == null) {
             switchType = SwitchType.DEFAULT;
         }
-        return switchType; 
+        return switchType;
     }
 
     public void setSwitchType(SwitchType switchType) {
         getStateHelper().put(Properties.switchType, switchType);
     }
 }
-

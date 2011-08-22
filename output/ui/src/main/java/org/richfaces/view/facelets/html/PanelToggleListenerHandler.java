@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.view.facelets.html;
 
 import javax.el.ValueExpression;
@@ -40,7 +39,6 @@ import org.richfaces.view.facelets.EventListenerHandler;
  * @version 1.0
  */
 public final class PanelToggleListenerHandler extends EventListenerHandler {
-
     private static class LazyPanelToggleListener extends LazyEventListener<PanelToggleListener> implements PanelToggleListener {
         private static final long serialVersionUID = -391020876192823200L;
 
@@ -73,4 +71,3 @@ public final class PanelToggleListenerHandler extends EventListenerHandler {
         return comp instanceof PanelToggleSource;
     }
 }
-

@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.component;
 
 import javax.faces.component.UIComponentBase;
@@ -28,29 +27,26 @@ import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
 import org.richfaces.cdk.annotations.TagType;
+
 /**
  * JSF component class
- * 
+ *
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets), 
-	renderer = @JsfRenderer(type = "org.richfaces.PanelRenderer"),
-	attributes = {"core-props.xml", "events-props.xml"}
-)
+@JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.PanelRenderer"), attributes = {
+        "core-props.xml", "events-props.xml" })
 public abstract class AbstractPanel extends UIComponentBase {
-    
     public static final String COMPONENT_TYPE = "org.richfaces.Panel";
-    
-    public static final String COMPONENT_FAMILY = "org.richfaces.Panel";    
+    public static final String COMPONENT_FAMILY = "org.richfaces.Panel";
 
     @Attribute
     public abstract String getHeader();
-    
+
     @Attribute
     public abstract String getHeaderClass();
-    
+
     @Attribute
     public abstract String getBodyClass();
-   
+
     public boolean getRendersChildren() {
         return true;
     }

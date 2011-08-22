@@ -51,18 +51,15 @@ enum ProgressBarState {
             UIComponent facet = component.getFacet("initial");
             return facet != null && facet.isRendered();
         }
-        
+
         @Override
-        public void encodeStateForMetaComponent(FacesContext context, UIComponent component,
-            ProgressBarStateEncoder encoder) throws IOException {
-            
+        public void encodeStateForMetaComponent(FacesContext context, UIComponent component, ProgressBarStateEncoder encoder)
+            throws IOException {
+
             encoder.encodeInitialState(context, component, this);
         }
-
-    }, 
-
+    },
     progressState {
-
         @Override
         public String getStateClientId(FacesContext context, UIComponent component) {
             return component.getClientId(context) + ".lbl";
@@ -78,11 +75,11 @@ enum ProgressBarState {
             ResponseWriter responseWriter = context.getResponseWriter();
 
             if (component.getChildCount() > 0) {
-                for (UIComponent child: component.getChildren()) {
+                for (UIComponent child : component.getChildren()) {
                     child.encodeAll(context);
                 }
             }
-            
+
             Object label = component.getAttributes().get("label");
             if (label != null) {
                 responseWriter.writeText(label, null);
@@ -93,15 +90,14 @@ enum ProgressBarState {
         public boolean hasContent(FacesContext context, UIComponent component) {
             return true;
         }
-        
+
         @Override
-        public void encodeStateForMetaComponent(FacesContext context, UIComponent component,
-            ProgressBarStateEncoder encoder) throws IOException {
-            
+        public void encodeStateForMetaComponent(FacesContext context, UIComponent component, ProgressBarStateEncoder encoder)
+            throws IOException {
+
             encoder.encodeProgressStateContent(context, component, this);
         }
-    }, 
-
+    },
     finishState {
         @Override
         public String getStateClientId(FacesContext context, UIComponent component) {
@@ -126,10 +122,10 @@ enum ProgressBarState {
             UIComponent facet = component.getFacet("finish");
             return facet != null && facet.isRendered();
         }
-        
+
         @Override
-        public void encodeStateForMetaComponent(FacesContext context, UIComponent component,
-            ProgressBarStateEncoder encoder) throws IOException {
+        public void encodeStateForMetaComponent(FacesContext context, UIComponent component, ProgressBarStateEncoder encoder)
+            throws IOException {
 
             encoder.encodeCompleteState(context, component, this);
         }
@@ -142,6 +138,7 @@ enum ProgressBarState {
     public abstract void encodeContent(FacesContext context, UIComponent component) throws IOException;
 
     public abstract boolean hasContent(FacesContext context, UIComponent component);
-    
-    public abstract void encodeStateForMetaComponent(FacesContext context, UIComponent component, ProgressBarStateEncoder encoder) throws IOException;
+
+    public abstract void encodeStateForMetaComponent(FacesContext context, UIComponent component,
+        ProgressBarStateEncoder encoder) throws IOException;
 }

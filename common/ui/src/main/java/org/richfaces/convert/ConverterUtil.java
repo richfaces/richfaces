@@ -30,16 +30,15 @@ import com.google.common.base.Strings;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public final class ConverterUtil {
-
     public static final class StringConverter implements Converter {
         public String getAsString(FacesContext context, UIComponent component, Object value) {
             if (value == null) {
                 return "";
             }
-            
+
             return value.toString();
         }
 
@@ -47,16 +46,16 @@ public final class ConverterUtil {
             if (Strings.isNullOrEmpty(value)) {
                 return null;
             }
-            
+
             return value;
         }
     }
 
     private static final Converter STRING_CONVERTER = new StringConverter();
-    
     private static final Converter INTEGER_CONVERTER = new IntegerConverter();
-    
-    private ConverterUtil() {}
+
+    private ConverterUtil() {
+    }
 
     public static Converter stringConverter() {
         return STRING_CONVERTER;
@@ -65,5 +64,4 @@ public final class ConverterUtil {
     public static Converter integerConverter() {
         return INTEGER_CONVERTER;
     }
-    
 }

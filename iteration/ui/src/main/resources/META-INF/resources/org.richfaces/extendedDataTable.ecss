@@ -18,149 +18,149 @@
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
- */ 
+ */
 .rf-edt {
-	overflow: hidden;
-	background-color: '#{richSkin.tableBackgroundColor}';
-	border: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
+    overflow: hidden;
+    background-color: '#{richSkin.tableBackgroundColor}';
+    border: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
 }
 
-.rf-edt-hdr, .rf-edt-tbl-hdr {
-	background-image : "url(#{resource['org.richfaces.images:colHdrGrad.png']})";
+.rf-edt-hdr,.rf-edt-tbl-hdr {
+    background-image: "url(#{resource['org.richfaces.images:colHdrGrad.png']})";
 }
 
 .rf-edt-tbl-hdr {
-	border-bottom: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
+    border-bottom: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
 }
 
 .rf-edt-b {
-	overflow-x: hidden;
-	overflow-y: auto;
-	width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
 }
 
 .rf-edt-spcr {
-	height: 0px;
-	font-size: 0px; /*for IE7 only*/
+    height: 0px;
+    font-size: 0px; /*for IE7 only*/
 }
 
-.rf-edt-ftr, .rf-edt-tbl-ftr {
-	border-top: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
-	background-color: '#{richSkin.tableFooterBackgroundColor}';
+.rf-edt-ftr,.rf-edt-tbl-ftr {
+    border-top: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
+    background-color: '#{richSkin.tableFooterBackgroundColor}';
 }
 
 .rf-edt-ftr-fzn {
-	vertical-align: top;
+    vertical-align: top;
 }
 
 .rf-edt-cnt {
-	overflow: hidden;
+    overflow: hidden;
 }
 
 div.rf-edt-ftr-cnt {
-	overflow-x: auto;
-	overflow-y: visible;
+    overflow-x: auto;
+    overflow-y: visible;
 }
 
 .rf-edt-rsz-cntr {
-	left : 0px;
-	position: relative;
-	height: 0px;
+    left: 0px;
+    position: relative;
+    height: 0px;
 }
 
 .rf-edt-rsz {
-	background-image: url("#{resource['spacer.gif']}");
-	cursor: e-resize;
-	height: 20px; /*TODO*/
-	position: absolute;
-	left: 100%;
-	margin-left: -3px;
-	width: 6px;
+    background-image: url("#{resource['spacer.gif']}");
+    cursor: e-resize;
+    height: 20px; /*TODO*/
+    position: absolute;
+    left: 100%;
+    margin-left: -3px;
+    width: 6px;
 }
 
 .rf-edt-rsz-mkr {
-	cursor: e-resize;
-	position: absolute;
-	border-left: '1px dotted #{richSkin.generalTextColor}';
-	/*background-color: #848089;*/
-	width: 1px;
-	display: none;
+    cursor: e-resize;
+    position: absolute;
+    border-left: '1px dotted #{richSkin.generalTextColor}';
+    /*background-color: #848089;*/
+    width: 1px;
+    display: none;
 }
 
 .rf-edt-rord {
-	position: absolute;
-	border-collapse: collapse;
-	display: none;
+    position: absolute;
+    border-collapse: collapse;
+    display: none;
 }
 
 .rf-edt-rord th {
-	width: 20px;
-	height: 5px;
-	font-size: 1px;
-	background-color: '#{richSkin.tableHeaderBackgroundColor}';
-	border: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
+    width: 20px;
+    height: 5px;
+    font-size: 1px;
+    background-color: '#{richSkin.tableHeaderBackgroundColor}';
+    border: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
 }
 
 .rf-edt-rord td {
-	width: 20px;
-	height: 5px;
-	font-size: 1px;
-	background-color: '#{richSkin.tableBackgroundColor}';
-	border: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
+    width: 20px;
+    height: 5px;
+    font-size: 1px;
+    background-color: '#{richSkin.tableBackgroundColor}';
+    border: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
 }
 
-.rf-edt-c, .rf-edt-hdr-c, .rf-edt-ftr-c {
-	overflow-x: hidden;
-	border-bottom: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
-	border-right: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
+.rf-edt-c,.rf-edt-hdr-c,.rf-edt-ftr-c {
+    overflow-x: hidden;
+    border-bottom: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
+    border-right: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
 }
 
 .rf-edt-c {
-	height: 20px;
-	overflow: hidden;
+    height: 20px;
+    overflow: hidden;
 }
 
 .rf-edt-ftr-c-emp {
-	border-right: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
-	height: 1px;
+    border-right: '#{richSkin.tableBorderWidth} solid #{richSkin.tableBorderColor}';
+    height: 1px;
 }
 
 .rf-edt-c-cnt {
-	white-space: nowrap;
+    white-space: nowrap;
 }
 
-.rf-edt-c-cnt, .rf-edt-hdr-c-cnt, .rf-edt-ftr-c-cnt, .rf-edt-tbl-hdr, .rf-edt-tbl-ftr {
-	padding: 3px 7px;
-	font-family: '#{richSkin.generalFamilyFont}';
-	font-size: '#{richSkin.generalSizeFont}';
+.rf-edt-c-cnt,.rf-edt-hdr-c-cnt,.rf-edt-ftr-c-cnt,.rf-edt-tbl-hdr,.rf-edt-tbl-ftr {
+    padding: 3px 7px;
+    font-family: '#{richSkin.generalFamilyFont}';
+    font-size: '#{richSkin.generalSizeFont}';
 }
 
-.rf-edt-hdr-c-cnt, .rf-edt-tbl-hdr, .rf-edt-ftr-c-cnt, .rf-edt-tbl-ftr {
-	font-weight: bold;
-	text-align: center;
+.rf-edt-hdr-c-cnt,.rf-edt-tbl-hdr,.rf-edt-ftr-c-cnt,.rf-edt-tbl-ftr {
+    font-weight: bold;
+    text-align: center;
 }
 
-.rf-edt-hdr-c-cnt, .rf-edt-tbl-hdr {
-	color: '#{richSkin.tableHeaderTextColor}';
+.rf-edt-hdr-c-cnt,.rf-edt-tbl-hdr {
+    color: '#{richSkin.tableHeaderTextColor}';
 }
 
-.rf-edt-c-cnt, .rf-edt-ftr-c-cnt, .rf-edt-tbl-ftr {
-	color: '#{richSkin.generalTextColor}';	
+.rf-edt-c-cnt,.rf-edt-ftr-c-cnt,.rf-edt-tbl-ftr {
+    color: '#{richSkin.generalTextColor}';
 }
 
 .rf-edt-rord-mkr {
-	position: absolute;
-	height: 9px;
-	font-size: 9px;
-	width: 9px;
-	background-image: url("#{resource['org.richfaces:reorderMarker.gif']}");
-	display: none;
+    position: absolute;
+    height: 9px;
+    font-size: 9px;
+    width: 9px;
+    background-image: url("#{resource['org.richfaces:reorderMarker.gif']}");
+    display: none;
 }
 
 .rf-edt-r-sel {
-	background-color: '#{richSkin.additionalBackgroundColor}';	/*TODO Probably use other skin property.*/
+    background-color: '#{richSkin.additionalBackgroundColor}'; /*TODO Probably use other skin property.*/
 }
 
 .rf-edt-r-act {
-	font-weight: bold;	/*TODO Probably use other property.*/
+    font-weight: bold; /*TODO Probably use other property.*/
 }

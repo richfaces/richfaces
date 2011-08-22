@@ -31,18 +31,14 @@ import javax.faces.context.FacesContext;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public final class PartialStateHolderUtil {
-
     private static final class StateHolderObject implements Serializable {
-        
         private static final long serialVersionUID = 6157742187482213801L;
-
         private boolean partialState;
-        
         private Object savedState;
-        
+
         public StateHolderObject(boolean partialState, Object savedState) {
             super();
             this.partialState = partialState;
@@ -57,11 +53,11 @@ public final class PartialStateHolderUtil {
             return savedState;
         }
     }
-    
+
     private PartialStateHolderUtil() {
-        //utility class constructor
+        // utility class constructor
     }
-    
+
     public static Object saveState(FacesContext context, UIComponent component, Object objectToSave) {
         Object savedState = null;
         boolean nullDelta = true;
@@ -97,10 +93,10 @@ public final class PartialStateHolderUtil {
         } else {
             savedState = UIComponentBase.saveAttachedState(context, objectToSave);
         }
-        
+
         return new StateHolderObject(converterHasPartialState, savedState);
     }
-    
+
     public static Object restoreState(FacesContext context, Object savedState, Object existingObject) {
         if (savedState != null) {
             StateHolderObject stateHolderObject = (StateHolderObject) savedState;

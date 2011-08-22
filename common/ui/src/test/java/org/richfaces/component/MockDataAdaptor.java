@@ -29,12 +29,11 @@ import org.ajax4jsf.model.ExtendedDataModel;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class MockDataAdaptor extends UIDataAdaptor {
-
     private ExtendedDataModel<?> dataModel;
-    
+
     @Override
     protected DataComponentState createComponentState() {
         return new MockDataAdaptorComponentState();
@@ -53,7 +52,9 @@ public class MockDataAdaptor extends UIDataAdaptor {
         this.dataModel = dataModel;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see org.richfaces.component.UIDataAdaptor#getRowKeyConverter()
      */
     @Override
@@ -62,5 +63,4 @@ public class MockDataAdaptor extends UIDataAdaptor {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         return facesContext.getApplication().createConverter(Integer.class);
     }
-    
 }

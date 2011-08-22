@@ -108,298 +108,302 @@
     };
 
     rf.ui.PanelMenuGroup = rf.ui.PanelMenuItem.extendClass({
-        // class name
-        name:"PanelMenuGroup",
+            // class name
+            name:"PanelMenuGroup",
 
-        /**
-         * @class PanelMenuGroup
-         * @name PanelMenuGroup
-         *
-         * @constructor
-         * @param {String} componentId - component id
-         * @param {Hash} options - params
-         * */
-        init : function (componentId, options) {
-            $super.constructor.call(this, componentId, $.extend({}, __DEFAULT_OPTIONS, options || {}));
+            /**
+             * @class PanelMenuGroup
+             * @name PanelMenuGroup
+             *
+             * @constructor
+             * @param {String} componentId - component id
+             * @param {Hash} options - params
+             * */
+            init : function (componentId, options) {
+                $super.constructor.call(this, componentId, $.extend({}, __DEFAULT_OPTIONS, options || {}));
 
-            this.options.bubbleSelection = this.__rfPanelMenu().options.bubbleSelection;
-            this.options.expandSingle = this.__rfPanelMenu().options.expandSingle;
+                this.options.bubbleSelection = this.__rfPanelMenu().options.bubbleSelection;
+                this.options.expandSingle = this.__rfPanelMenu().options.expandSingle;
 
-            if (!this.options.disabled) {
-                var menuGroup = this;
+                if (!this.options.disabled) {
+                    var menuGroup = this;
 
-                if (!this.options.selectable) {
+                    if (!this.options.selectable) {
 
-                    //TODO nick - this can be replaced by jQuery.delegate on menu itself
-                    if (this.options.expandEvent == this.options.collapseEvent) {
-                        this.__header().bind(this.options.expandEvent, function () {
-                            menuGroup.switchExpantion();
-                        });
+                        //TODO nick - this can be replaced by jQuery.delegate on menu itself
+                        if (this.options.expandEvent == this.options.collapseEvent) {
+                            this.__header().bind(this.options.expandEvent, function () {
+                                menuGroup.switchExpantion();
+                            });
 
+                        } else {
+                            this.__header().bind(this.options.expandEvent, function () {
+                                if (menuGroup.collapsed()) {
+                                    return menuGroup.expand();
+                                }
+                            });
+
+                            this.__header().bind(this.options.collapseEvent, function () {
+                                if (menuGroup.expanded()) {
+                                    return menuGroup.collapse();
+                                }
+                            });
+                        }
                     } else {
-                        this.__header().bind(this.options.expandEvent, function () {
-                            if (menuGroup.collapsed()) {
-                                return menuGroup.expand();
+
+                        if (this.options.expandEvent == this.options.collapseEvent) {
+                            if (this.options.expandEvent != 'click') {
+                                this.__header().bind(this.options.expandEvent, function () {
+                                    menuGroup.switchExpantion();
+                                });
                             }
-                        });
 
-                        this.__header().bind(this.options.collapseEvent, function () {
-                            if (menuGroup.expanded()) {
-                                return menuGroup.collapse();
+                        } else {
+                            if (this.options.expandEvent != 'click') {
+                                this.__header().bind(this.options.expandEvent, function () {
+                                    if (menuGroup.collapsed()) {
+                                        return menuGroup.expand();
+                                    }
+                                });
                             }
-                        });
-                    }
-                } else {
-                	
-                	if (this.options.expandEvent == this.options.collapseEvent) {
-                		if (this.options.expandEvent != 'click') {
-	                        this.__header().bind(this.options.expandEvent, function () {
-	                            menuGroup.switchExpantion();
-	                        });
-                		}
 
-                    } else {
-                    	if (this.options.expandEvent != 'click') {
-	                        this.__header().bind(this.options.expandEvent, function () {
-	                            if (menuGroup.collapsed()) {
-	                                return menuGroup.expand();
-	                            }
-	                        });
-                    	}
-
-                    	if (this.options.collapseEvent != 'click') {
-	                        this.__header().bind(this.options.collapseEvent, function () {
-	                            if (menuGroup.expanded()) {
-	                                return menuGroup.collapse();
-	                            }
-	                        });
-                    	}
-                    }
-                	
-                }
-
-                if (this.options.selectable || this.options.bubbleSelection) {
-                    this.__content().bind("select", function (event) {
-                        if (menuGroup.options.selectable && menuGroup.__isMyEvent(event)) {
-                            menuGroup.expand();
+                            if (this.options.collapseEvent != 'click') {
+                                this.__header().bind(this.options.collapseEvent, function () {
+                                    if (menuGroup.expanded()) {
+                                        return menuGroup.collapse();
+                                    }
+                                });
+                            }
                         }
 
-                        if (menuGroup.options.bubbleSelection && !menuGroup.__isMyEvent(event)) {
-                            menuGroup.__select();
-                            if (!menuGroup.expanded()) {
+                    }
+
+                    if (this.options.selectable || this.options.bubbleSelection) {
+                        this.__content().bind("select", function (event) {
+                            if (menuGroup.options.selectable && menuGroup.__isMyEvent(event)) {
                                 menuGroup.expand();
                             }
-                        }
-                    });
 
-                    this.__content().bind("unselect", function (event) {
-                        if (menuGroup.options.selectable && menuGroup.__isMyEvent(event)) {
-                            menuGroup.collapse();
-                        }
+                            if (menuGroup.options.bubbleSelection && !menuGroup.__isMyEvent(event)) {
+                                menuGroup.__select();
+                                if (!menuGroup.expanded()) {
+                                    menuGroup.expand();
+                                }
+                            }
+                        });
 
-                        if (menuGroup.options.bubbleSelection && !menuGroup.__isMyEvent(event)) {
-                            menuGroup.__unselect();
-                        }
-                    });
+                        this.__content().bind("unselect", function (event) {
+                            if (menuGroup.options.selectable && menuGroup.__isMyEvent(event)) {
+                                menuGroup.collapse();
+                            }
+
+                            if (menuGroup.options.bubbleSelection && !menuGroup.__isMyEvent(event)) {
+                                menuGroup.__unselect();
+                            }
+                        });
+                    }
+
+                    /*this.__addUserEventHandler("beforecollapse");
+                     this.__addUserEventHandler("collapse");
+                     this.__addUserEventHandler("beforeexpand");
+                     this.__addUserEventHandler("expand");
+                     this.__addUserEventHandler("beforeswitch");
+                     this.__addUserEventHandler("switch");*/
+                }
+            },
+
+            /***************************** Public Methods  ****************************************************************/
+            expanded : function () {
+                // TODO check invariant in dev mode
+                // return this.__content().hasClass("rf-pm-exp")
+                return this.__getExpandValue();
+            },
+
+            expand : function () {
+                if (this.expanded()) return;
+                if (!this.__fireEvent("beforeexpand")) {
+                    return false;
                 }
 
-                if (menuGroup.options.expandSingle) {
-                	var component = this;
-                    menuGroup.__group().bind("expand", function (event) {
-                    	component.__rfPanelMenu().__collapseGroups(event);
-                    	event.stopPropagation();
-                    });
+                EXPAND_ITEM.exec(this, true);
+            },
+
+            __expand : function () {
+                this.__updateStyles(true);
+                this.__collapseForExpandSingle();
+
+                return this.__fireEvent("expand");
+            },
+
+            collapsed : function () {
+                // TODO check invariant in dev mode
+                // return this.__content().hasClass("rf-pm-colps")
+                return !this.__getExpandValue();
+            },
+
+            collapse : function () {
+                if (!this.expanded()) return;
+                if (!this.__fireEvent("beforecollapse")) {
+                    return false;
                 }
 
-                /*this.__addUserEventHandler("beforecollapse");
-                this.__addUserEventHandler("collapse");
-                this.__addUserEventHandler("beforeexpand");
-                this.__addUserEventHandler("expand");
-                this.__addUserEventHandler("beforeswitch");
-                this.__addUserEventHandler("switch");*/
+                EXPAND_ITEM.exec(this, false);
+            },
+
+            __collapse : function () {
+                this.__updateStyles(false);
+
+                this.__childGroups().each(function(index, group) {
+                    //TODO nick - why not group.collapse()?
+                    rf.$(group.id).__collapse();
+                });
+
+                return this.__fireEvent("collapse");
+            },
+
+            __updateStyles : function (expand) {
+                if (expand) {
+                    //expand
+                    this.__content().removeClass("rf-pm-colps").addClass("rf-pm-exp");
+                    this.__header().removeClass("rf-pm-hdr-colps").addClass("rf-pm-hdr-exp");
+
+                    this.__setExpandValue(true);
+                } else {
+                    this.__content().addClass("rf-pm-colps").removeClass("rf-pm-exp");
+                    this.__header().addClass("rf-pm-hdr-colps").removeClass("rf-pm-hdr-exp");
+
+                    this.__setExpandValue(false);
+                }
+            },
+
+            /**
+             * @methodOf
+             * @name PanelMenuGroup#switch
+             *
+             * TODO ...
+             *
+             * @param {boolean} expand
+             * @return {void} TODO ...
+             */
+            switchExpantion : function () { // TODO rename
+                var continueProcess = this.__fireEvent("beforeswitch");
+                if (!continueProcess) {
+                    return false;
+                }
+
+                if (this.expanded()) {
+                    this.collapse();
+                } else {
+                    this.expand();
+                }
+            },
+
+            /**
+             * please, remove this method when client side ajax events will be added
+             *
+             * */
+            onCompleteHandler : function () {
+                if (this.options.selectable) {
+                    $super.onCompleteHandler.call(this);
+                }
+
+                EXPAND_ITEM.execClient(this, this.expanded());
+            },
+
+            __switch : function (expand) {
+                if (expand) {
+                    this.__expand();
+                } else {
+                    this.__collapse();
+                }
+                return this.__fireEvent("switch");
+            },
+
+            /***************************** Private Methods ****************************************************************/
+            __childGroups : function () {
+                return this.__content().children(".rf-pm-gr")
+            },
+
+            __group : function () {
+                return $(rf.getDomElement(this.id))
+            },
+
+            __header : function () {
+                return $(rf.getDomElement(this.id + ":hdr"))
+            },
+
+            __content : function () {
+                return $(rf.getDomElement(this.id + ":cnt"))
+            },
+
+            __expandValueInput : function () {
+                return document.getElementById(this.id + ":expanded");
+            },
+
+            __getExpandValue : function () {
+                return this.__expandValueInput().value == "true";
+            },
+
+            __collapseForExpandSingle: function() {
+                if (this.options.expandSingle) {
+                    this.__rfPanelMenu().__collapseGroups(this);
+                }
+            },
+
+            /**
+             * @methodOf
+             * @name PanelMenuGroup#__setExpandValue
+             *
+             * @param {boolean} value - is group expanded?
+             * @return {boolean} preview value
+             */
+            __setExpandValue : function (value) {
+                var input = this.__expandValueInput();
+                var oldValue = input.value;
+
+                input.value = value;
+
+                return oldValue;
+            },
+
+            __changeState : function () {
+                if (!this.__getExpandValue()) {
+                    this.__collapseForExpandSingle();
+                }
+
+                var state = {};
+                state["expanded"] = this.__setExpandValue(!this.__getExpandValue());
+                if (this.options.selectable) {
+                    state["itemName"] = this.__rfPanelMenu().selectedItem(this.itemName); // TODO bad function name for function which change component state
+                }
+
+                return state;
+            },
+
+            __restoreState : function (state) {
+                if (!state) {
+                    return;
+                }
+
+                if (state["expanded"]) {
+                    this.__setExpandValue(state["expanded"]);
+                }
+
+                if (state["itemName"]) {
+                    this.__rfPanelMenu().selectedItem(state["itemName"]);
+                }
+            },
+
+            __isMyEvent: function (event) {
+                return this.id == event.target.id;
+            },
+
+            destroy: function () {
+                rf.Event.unbindById(this.id, "." + this.namespace);
+
+                $super.destroy.call(this);
             }
-        },
-
-        /***************************** Public Methods  ****************************************************************/
-        expanded : function () {
-            // TODO check invariant in dev mode
-            // return this.__content().hasClass("rf-pm-exp")
-            return this.__getExpandValue();
-        },
-        
-        expand : function () {
-        	if (this.expanded()) return;
-        	if (!this.__fireEvent("beforeexpand")) {
-        		return false;
-        	}
-
-        	EXPAND_ITEM.exec(this, true);
-        },
-
-        __expand : function () {
-    		this.__updateStyles(true);
-    		return this.__fireEvent("expand");
-        },
-
-        collapsed : function () {
-            // TODO check invariant in dev mode
-            // return this.__content().hasClass("rf-pm-colps")
-            return !this.__getExpandValue();
-        },
-        
-        collapse : function () {
-        	if (!this.expanded()) return;
-    		if (!this.__fireEvent("beforecollapse")) {
-        		return false;
-        	}
-
-        	EXPAND_ITEM.exec(this, false);
-        },
-        
-        __collapse : function () {
-    		this.__updateStyles(false);
-    		
-            this.__childGroups().each (function(index, group) {
-            	//TODO nick - why not group.collapse()?
-                rf.$(group.id).__collapse();
-            });
-    		
-    		return this.__fireEvent("collapse");
-        },
-
-        __updateStyles : function (expand) {
-        	if (expand) {
-                //expand
-                this.__content().removeClass("rf-pm-colps").addClass("rf-pm-exp");
-                this.__header().removeClass("rf-pm-hdr-colps").addClass("rf-pm-hdr-exp");
-
-                this.__setExpandValue(true);
-        	} else {
-                this.__content().addClass("rf-pm-colps").removeClass("rf-pm-exp");
-                this.__header().addClass("rf-pm-hdr-colps").removeClass("rf-pm-hdr-exp");
-
-                this.__setExpandValue(false);
-        	}
-        },
-
-        /**
-         * @methodOf
-         * @name PanelMenuGroup#switch
-         *
-         * TODO ...
-         * 
-         * @param {boolean} expand
-         * @return {void} TODO ...
-         */
-        switchExpantion : function () { // TODO rename
-            var continueProcess = this.__fireEvent("beforeswitch");
-            if (!continueProcess) {
-                return false;
-            }
-
-            if (this.expanded()) {
-            	this.collapse();
-            } else {
-            	this.expand();
-            }
-        },
-
-        /**
-         * please, remove this method when client side ajax events will be added
-         *
-         * */
-        onCompleteHandler : function () {
-            if (this.options.selectable) {
-                $super.onCompleteHandler.call(this);
-            }
-
-            EXPAND_ITEM.execClient(this, this.expanded());
-        },
-
-        __switch : function (expand) {
-            if (expand) {
-                this.__expand();
-            } else {
-                this.__collapse();
-            }
-            return this.__fireEvent("switch");
-        },
-
-        /***************************** Private Methods ****************************************************************/
-        __childGroups : function () {
-            return this.__content().children(".rf-pm-gr")
-        },
-
-        __group : function () {
-            return $(rf.getDomElement(this.id))
-        },
-
-        __header : function () {
-            return $(rf.getDomElement(this.id + ":hdr"))
-        },
-
-        __content : function () {
-            return $(rf.getDomElement(this.id + ":cnt"))
-        },
-
-        __expandValueInput : function () {
-            return document.getElementById(this.id + ":expanded");
-        },
-
-        __getExpandValue : function () {
-            return this.__expandValueInput().value == "true"; 
-        },
-
-        /**
-         * @methodOf
-         * @name PanelMenuGroup#__setExpandValue
-         *
-         * @param {boolean} value - is group expanded?
-         * @return {boolean} preview value
-         */
-        __setExpandValue : function (value) {
-            var input = this.__expandValueInput();
-            var oldValue = input.value;
-
-            input.value = value;
-
-            return oldValue;
-        },
-
-        __changeState : function () {
-            var state = {};
-            state["expanded"] = this.__setExpandValue(!this.__getExpandValue());
-            if (this.options.selectable) {
-                state["itemName"] = this.__rfPanelMenu().selectedItem(this.itemName); // TODO bad function name for function which change component state
-            }
-
-            return state;
-        },
-
-        __restoreState : function (state) {
-            if (!state) {
-                return;
-            }
-
-            if (state["expanded"]) {
-                this.__setExpandValue(state["expanded"]);
-            }
-            
-            if (state["itemName"]) {
-                this.__rfPanelMenu().selectedItem(state["itemName"]);
-            }
-        },
-
-        __isMyEvent: function (event) {
-            return this.id == event.target.id; 
-        },
-        
-        destroy: function () {
-            rf.Event.unbindById(this.id, "."+this.namespace);
-
-            $super.destroy.call(this);
-        }
-    });
+        });
 
     // define super class link
     var $super = rf.ui.PanelMenuGroup.$super;

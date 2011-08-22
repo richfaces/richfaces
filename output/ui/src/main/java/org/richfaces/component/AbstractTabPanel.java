@@ -19,9 +19,7 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
-
 
 import org.richfaces.HeaderAlignment;
 import org.richfaces.HeaderPosition;
@@ -35,12 +33,9 @@ import org.richfaces.cdk.annotations.TagType;
  * @author akolonitsky
  * @since 2010-08-24
  */
-@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"),
-        renderer = @JsfRenderer(type = "org.richfaces.TabPanelRenderer"))
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.TogglePanelTagHandler"), renderer = @JsfRenderer(type = "org.richfaces.TabPanelRenderer"))
 public abstract class AbstractTabPanel extends AbstractTogglePanel {
-
     public static final String COMPONENT_TYPE = "org.richfaces.TabPanel";
-
     public static final String COMPONENT_FAMILY = "org.richfaces.TabPanel";
 
     protected AbstractTabPanel() {
@@ -59,8 +54,7 @@ public abstract class AbstractTabPanel extends AbstractTogglePanel {
         if (res == null) {
             res = getFirstItem().getName();
         } else {
-            AbstractTogglePanelTitledItem item =
-                    (AbstractTogglePanelTitledItem) super.getItemByIndex(super.getChildIndex(res));
+            AbstractTogglePanelTitledItem item = (AbstractTogglePanelTitledItem) super.getItemByIndex(super.getChildIndex(res));
             if (item.isDisabled()) {
                 res = getFirstItem().getName();
             }
@@ -96,7 +90,7 @@ public abstract class AbstractTabPanel extends AbstractTogglePanel {
 
     @Attribute(hidden = true)
     public abstract Object getData();
-    
+
     @Attribute(hidden = true)
     public abstract String getStatus();
 

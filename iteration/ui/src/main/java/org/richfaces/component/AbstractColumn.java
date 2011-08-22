@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.component;
 
 import java.util.Comparator;
@@ -39,32 +38,25 @@ import org.richfaces.model.SortField;
  * @author Anton Belevich
  *
  */
-
-@JsfComponent(
-    type = AbstractColumn.COMPONENT_TYPE,
-    family = AbstractColumn.COMPONENT_FAMILY, 
-    facets={@Facet(name="header",description=@Description("Column header")),@Facet(name="footer",description=@Description("Column footer"))},
-    generate = "org.richfaces.component.UIColumn",
-    tag = @Tag(name="column")
-)
+@JsfComponent(type = AbstractColumn.COMPONENT_TYPE, family = AbstractColumn.COMPONENT_FAMILY, facets = {
+        @Facet(name = "header", description = @Description("Column header")),
+        @Facet(name = "footer", description = @Description("Column footer")) }, generate = "org.richfaces.component.UIColumn", tag = @Tag(name = "column"))
 public abstract class AbstractColumn extends javax.faces.component.UIColumn implements Column {
-
     public static final String COMPONENT_TYPE = "org.richfaces.Column";
-    
     public static final String COMPONENT_FAMILY = "org.richfaces.Column";
-    
+
     @Attribute
     public abstract boolean isBreakRowBefore();
-    
+
     @Attribute
     public abstract SortOrder getSortOrder();
 
     @Attribute
     public abstract Filter<?> getFilter();
-    
+
     @Attribute
     public abstract Object getFilterValue();
-    
+
     @Attribute
     public abstract int getRowspan();
 
@@ -75,7 +67,7 @@ public abstract class AbstractColumn extends javax.faces.component.UIColumn impl
     public abstract Comparator<?> getComparator();
 
     @Attribute
-    public abstract Boolean isFilterExpression();
+    public abstract Object getFilterExpression();
 
     @Attribute
     public abstract Object getSortBy();
@@ -88,10 +80,10 @@ public abstract class AbstractColumn extends javax.faces.component.UIColumn impl
 
     @Attribute
     public abstract String getWidth();
-    
+
     @Attribute
     public abstract String getStyle();
-    
+
     @Attribute
     public abstract String getStyleClass();
 
@@ -117,5 +109,4 @@ public abstract class AbstractColumn extends javax.faces.component.UIColumn impl
         }
         return field;
     }
-
 }

@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit;
 
 import javax.faces.component.UIComponent;
@@ -32,17 +31,12 @@ import org.richfaces.component.Row;
  *
  */
 public class RowHolder extends RowHolderBase {
-
     private Row row;
-   
     private String parentClientId;
-    
     private boolean isRowStart;
-    
     private boolean updatePartial;
-    
     private boolean encodeParentTBody;
-    
+
     public RowHolder(FacesContext context, Row row) {
         this(context, row, 0, true);
     }
@@ -52,7 +46,7 @@ public class RowHolder extends RowHolderBase {
         this.row = row;
         this.parentClientId = ((UIComponent) row).getClientId(context);
     }
-    
+
     public boolean isEncodeParentTBody() {
         return encodeParentTBody;
     }
@@ -76,7 +70,7 @@ public class RowHolder extends RowHolderBase {
     public void setParentClientId(String parentClientId) {
         this.parentClientId = parentClientId;
     }
-   
+
     public Row getRow() {
         return this.row;
     }

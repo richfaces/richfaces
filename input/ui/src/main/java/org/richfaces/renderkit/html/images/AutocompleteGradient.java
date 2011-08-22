@@ -42,40 +42,35 @@ import org.richfaces.skin.SkinFactory;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 @DynamicUserResource
 public class AutocompleteGradient extends AbstractJava2DUserResource implements StateHolderResource {
-
     private static final Dimension DIMENSION = new Dimension(18, 8);
-  
     private String topColorParam;
-    
     private String bottomColorParam;
-    
     private Integer topColor;
-    
     private Integer bottomColor;
-    
+
     public AutocompleteGradient() {
         super(DIMENSION);
     }
-    
+
     @PostConstructResource
     public void initialize() {
         FacesContext context = FacesContext.getCurrentInstance();
         Skin skin = SkinFactory.getInstance(context).getSkin(context);
-        
+
         topColor = skin.getColorParameter(context, topColorParam);
         bottomColor = skin.getColorParameter(context, bottomColorParam);
     }
-    
+
     public void paint(Graphics2D graphics2d) {
         if (topColor == null || bottomColor == null) {
             return;
         }
         Dimension dimension = getDimension();
-        
+
         GradientPaint paint = new GradientPaint(0, 0, new Color(topColor), 0, dimension.height, new Color(bottomColor));
         graphics2d.setPaint(paint);
         graphics2d.fill(new Rectangle(dimension));
@@ -85,22 +80,22 @@ public class AutocompleteGradient extends AbstractJava2DUserResource implements 
         if (topColor != null && bottomColor != null) {
             dataOutput.writeBoolean(true);
             dataOutput.writeInt(topColor);
-            dataOutput.writeInt(bottomColor);    
+            dataOutput.writeInt(bottomColor);
         } else {
             dataOutput.writeBoolean(false);
         }
     }
-    
+
     public void readState(FacesContext context, DataInput dataInput) throws IOException {
         if (dataInput.readBoolean()) {
             topColor = dataInput.readInt();
             bottomColor = dataInput.readInt();
         } else {
             topColor = null;
-            bottomColor = null;    
+            bottomColor = null;
         }
     }
- 
+
     public boolean isTransient() {
         return false;
     }

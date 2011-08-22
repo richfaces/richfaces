@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.renderkit.html.iconimages;
 
 import java.awt.Color;
@@ -41,14 +40,11 @@ import org.richfaces.skin.SkinFactory;
  * @author Alex.Kolonitsky
  */
 public abstract class PanelIconBasic extends AbstractJava2DUserResource implements StateHolderResource {
-
     private static final Dimension DIMENSION = new Dimension(16, 16);
-
     private Color color;
-
     @ResourceParameter(defaultValue = "false")
     private boolean disabled;
-    
+
     protected PanelIconBasic() {
         super(DIMENSION);
     }
@@ -57,7 +53,7 @@ public abstract class PanelIconBasic extends AbstractJava2DUserResource implemen
         if (color == null || graphics2D == null) {
             return;
         }
-        
+
         paintImage(graphics2D, color);
     }
 
@@ -82,7 +78,7 @@ public abstract class PanelIconBasic extends AbstractJava2DUserResource implemen
     public void setDisabled(boolean topIcon) {
         this.disabled = topIcon;
     }
-    
+
     public void writeState(FacesContext context, DataOutput dataOutput) throws IOException {
         dataOutput.writeInt(color.getRGB());
     }
@@ -90,5 +86,4 @@ public abstract class PanelIconBasic extends AbstractJava2DUserResource implemen
     public void readState(FacesContext context, DataInput dataInput) throws IOException {
         color = new Color(dataInput.readInt());
     }
-
 }

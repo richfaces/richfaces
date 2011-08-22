@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.taglib;
 
 import javax.el.MethodExpression;
@@ -29,20 +28,19 @@ import org.richfaces.event.FilteringEvent;
 import org.richfaces.event.FilteringListener;
 
 public class MethodExpressionFilteringListener implements FilteringListener {
-
     private MethodExpression methodExpression;
-    
+
     public MethodExpressionFilteringListener() {
         super();
     }
-    
+
     MethodExpressionFilteringListener(MethodExpression methodExpression) {
         super();
         this.methodExpression = methodExpression;
     }
-    
+
     public void processFiltering(FilteringEvent filteringEvent) {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        methodExpression.invoke(facesContext.getELContext(), new Object[]{filteringEvent});
+        methodExpression.invoke(facesContext.getELContext(), new Object[] { filteringEvent });
     }
 }

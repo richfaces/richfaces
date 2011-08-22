@@ -6,7 +6,6 @@ import org.richfaces.resource.ResourceKey;
 
 import com.google.common.collect.ImmutableList;
 
-
 final class LibraryFunctionImplementation implements LibraryFunction {
     private final Iterable<ResourceKey> library;
     private final String functionName;
@@ -17,7 +16,7 @@ final class LibraryFunctionImplementation implements LibraryFunction {
     }
 
     LibraryFunctionImplementation(String functionName, String resource, String library) {
-        this.library = Collections.singleton(ResourceKey.create(resource,library));
+        this.library = Collections.singleton(ResourceKey.create(resource, library));
         this.functionName = functionName;
     }
 

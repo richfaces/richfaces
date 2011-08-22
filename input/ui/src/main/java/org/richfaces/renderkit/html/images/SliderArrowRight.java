@@ -19,17 +19,15 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit.html.images;
 
 import java.awt.Graphics2D;
 
 /**
  * @author Konstantin Mishin
- * 
+ *
  */
 public class SliderArrowRight extends SliderArrowBase {
-    
     @Override
     public void paint(Graphics2D graphics2d) {
         super.paint(graphics2d);

@@ -18,9 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
-
-
 package org.ajax4jsf.component;
 
 import java.util.Iterator;
@@ -37,11 +34,10 @@ import org.ajax4jsf.tests.MockDataModel;
  *
  */
 public class MockDataAdaptor extends UIDataAdaptor {
-
     /*
-     *  (non-Javadoc)
-     * @see org.ajax4jsf.ajax.repeat.UIDataAdaptor#createComponentState()
-     */
+    *  (non-Javadoc)
+    * @see org.ajax4jsf.ajax.repeat.UIDataAdaptor#createComponentState()
+    */
     protected DataComponentState createComponentState() {
 
         // TODO Auto-generated method stub

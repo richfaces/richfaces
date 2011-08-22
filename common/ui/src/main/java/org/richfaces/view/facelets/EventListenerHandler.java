@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.view.facelets;
 
 import java.io.IOException;
@@ -30,7 +29,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AbortProcessingException;
 import javax.faces.event.FacesEvent;
 import javax.faces.event.FacesListener;
-import javax.faces.view.EditableValueHolderAttachedObjectHandler;
+import javax.faces.view.AttachedObjectHandler;
 import javax.faces.view.facelets.ComponentHandler;
 import javax.faces.view.facelets.FaceletContext;
 import javax.faces.view.facelets.TagAttribute;
@@ -43,18 +42,13 @@ import javax.faces.view.facelets.TagHandler;
  * @author akolonitsky
  * @since Aug 31, 2010
  */
-public abstract class EventListenerHandler extends TagHandler implements EditableValueHolderAttachedObjectHandler {
-
+public abstract class EventListenerHandler extends TagHandler implements AttachedObjectHandler {
     protected final TagAttribute binding;
-
     protected final String listenerType;
 
     public abstract static class LazyEventListener<L extends FacesListener> implements FacesListener, Serializable {
-
         private static final long serialVersionUID = 1L;
-
         protected final String type;
-
         protected final ValueExpression binding;
 
         protected LazyEventListener(String type, ValueExpression binding) {
@@ -75,7 +69,7 @@ public abstract class EventListenerHandler extends TagHandler implements Editabl
             }
             if (instance == null && this.type != null) {
                 try {
-                    instance = (L) forName(this.type).newInstance();
+                    instance = (L) TagHandlerUtils.loadClass(this.type, Object.class).newInstance();
                 } catch (Exception e) {
                     throw new AbortProcessingException("Couldn't Lazily instantiate EventListener", e);
                 }
@@ -97,7 +91,7 @@ public abstract class EventListenerHandler extends TagHandler implements Editabl
         if (type != null) {
             if (type.isLiteral()) {
                 try {
-                    forName(type.getValue());
+                    TagHandlerUtils.loadClass(type.getValue(), Object.class);
                 } catch (ClassNotFoundException e) {
                     throw new TagAttributeException(type, "Couldn't qualify EventListener", e);
                 }
@@ -123,7 +117,7 @@ public abstract class EventListenerHandler extends TagHandler implements Editabl
             // Allow the composite component to know about the target component.
             TagHandlerUtils.getOrCreateRetargetableHandlersList(parent).add(this);
         } else {
-            throw new TagException(this.tag, "Parent is not of type EditableValueHolder, type is: " + parent);
+            throw new TagException(this.tag, "Parent does not match event source requirements: " + parent);
         }
     }
 
@@ -132,16 +126,5 @@ public abstract class EventListenerHandler extends TagHandler implements Editabl
         return attr == null ? null : attr.getValue();
     }
 
-    public static Class<?> forName(String name) throws ClassNotFoundException {
-        if (null == name || "".equals(name)) {
-            return null;
-        }
-
-        return Class.forName(name, false, Thread.currentThread().getContextClassLoader());
-    }
-
     public abstract boolean isEventSource(UIComponent comp);
-
 }
-
-

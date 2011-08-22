@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit.html;
 
 import static org.richfaces.renderkit.HtmlConstants.CLASS_ATTRIBUTE;
@@ -48,58 +47,48 @@ import org.richfaces.renderkit.RenderKitUtils;
  * @author akolonitsky
  * @since 2010-08-05
  */
-
-@ResourceDependencies({
-    @ResourceDependency(library = "javax.faces", name = "jsf.js"),
-    @ResourceDependency(name = "jquery.js"),
-    @ResourceDependency(name = "richfaces.js"),
-    @ResourceDependency(name = "richfaces-event.js"),
-    @ResourceDependency(name = "richfaces-base-component.js"),
-    @ResourceDependency(library = "org.richfaces", name = "togglePanelItem.js"),
-    @ResourceDependency(library = "org.richfaces", name = "accordionItem.js")
-    })
+@ResourceDependencies({ @ResourceDependency(library = "javax.faces", name = "jsf.js"), @ResourceDependency(name = "jquery.js"),
+        @ResourceDependency(name = "richfaces.js"), @ResourceDependency(name = "richfaces-event.js"),
+        @ResourceDependency(name = "richfaces-base-component.js"),
+        @ResourceDependency(library = "org.richfaces", name = "togglePanelItem.js"),
+        @ResourceDependency(library = "org.richfaces", name = "accordionItem.js") })
 @JsfRenderer(type = "org.richfaces.AccordionItemRenderer", family = AbstractAccordionItem.COMPONENT_FAMILY)
 public class AccordionItemRenderer extends TogglePanelItemRenderer {
-
     private static final RenderKitUtils.Attributes HEADER_ATTRIBUTES = RenderKitUtils.attributes()
-        .generic("style", "headerStyle")
-        .generic("onclick", "onheaderclick", "headerclick")
+        .generic("style", "headerStyle").generic("onclick", "onheaderclick", "headerclick")
         .generic("ondblclick", "onheaderdblclick", "headerdblclick")
         .generic("onmousedown", "onheadermousedown", "headermousedown")
         .generic("onmousemove", "onheadermousemove", "headermousemove")
         .generic("onmouseup", "onheadermouseup", "headermouseup");
-
     private final TableIconsRendererHelper<AbstractAccordionItem> headerRenderer = new AccordionItemHeaderRenderer();
 
     public AccordionItemRenderer() {
         super(false);
     }
-    
+
     @Override
     protected void doEncodeBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         doEncodeItemBegin(writer, context, component);
     }
 
     @Override
-    protected void doEncodeItemBegin(ResponseWriter writer, FacesContext context, UIComponent component)
-        throws IOException {
+    protected void doEncodeItemBegin(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
 
         super.doEncodeItemBegin(writer, context, component);
         encodeHeader(context, (AbstractAccordionItem) component);
         encodeContentBegin(context, component);
     }
-    
+
     @Override
     protected String getStyleClass(UIComponent component) {
         return concatClasses("rf-ac-itm", attributeAsString(component, "styleClass"));
     }
 
     @Override
-    protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component)
-        throws IOException {
+    protected void doEncodeChildren(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
 
         AbstractAccordionItem item = (AbstractAccordionItem) component;
-        
+
         if (!item.isDisabled()) {
             super.doEncodeChildren(writer, context, item);
         }
@@ -109,11 +98,10 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
     protected void doEncodeEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
         doEncodeItemEnd(writer, context, component);
     }
-    
+
     @Override
-    protected void doEncodeItemEnd(ResponseWriter writer, FacesContext context, UIComponent component)
-        throws IOException {
-        
+    protected void doEncodeItemEnd(ResponseWriter writer, FacesContext context, UIComponent component) throws IOException {
+
         encodeContentEnd(writer, component);
 
         super.doEncodeItemEnd(writer, context, component);
@@ -122,7 +110,8 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
     private void encodeContentBegin(FacesContext context, UIComponent component) throws IOException {
         ResponseWriter writer = context.getResponseWriter();
         writer.startElement(DIV_ELEM, component);
-        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-ac-itm-cnt", attributeAsString(component, "contentClass")), null);
+        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-ac-itm-cnt", attributeAsString(component, "contentClass")),
+            null);
         writer.writeAttribute("id", component.getClientId(context) + ":content", null);
 
         AbstractTogglePanelTitledItem item = (AbstractTogglePanelTitledItem) component;
@@ -140,7 +129,8 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
         writer.startElement(DIV_ELEM, component);
 
         String stateCssClass = "rf-ac-itm-hdr-" + (component.isDisabled() ? "dis" : (component.isActive() ? "act" : "inact"));
-        writer.writeAttribute(CLASS_ATTRIBUTE, concatClasses("rf-ac-itm-hdr", stateCssClass, attributeAsString(component, "headerClass")), null);
+        writer.writeAttribute(CLASS_ATTRIBUTE,
+            concatClasses("rf-ac-itm-hdr", stateCssClass, attributeAsString(component, "headerClass")), null);
 
         writer.writeAttribute(ID_ATTRIBUTE, component.getClientId(context) + ":header", null);
         renderPassThroughAttributes(context, component, HEADER_ATTRIBUTES);
@@ -152,8 +142,8 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
 
     @Override
     protected JSObject getScriptObject(FacesContext context, UIComponent component) {
-        return new JSObject("RichFaces.ui.AccordionItem", component.getClientId(context),
-            getScriptObjectOptions(context, component));
+        return new JSObject("RichFaces.ui.AccordionItem", component.getClientId(context), getScriptObjectOptions(context,
+            component));
     }
 
     @Override
@@ -168,6 +158,4 @@ public class AccordionItemRenderer extends TogglePanelItemRenderer {
     protected Class<? extends UIComponent> getComponentClass() {
         return AbstractAccordionItem.class;
     }
-    
 }
-

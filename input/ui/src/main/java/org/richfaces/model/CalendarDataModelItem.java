@@ -20,48 +20,40 @@
  */
 package org.richfaces.model;
 
-
-
 /**
- * @author Alexej Kushunin
- * created 19.06.2007
+ * @author Alexej Kushunin created 19.06.2007
  *
  */
-
 public interface CalendarDataModelItem {
     /**
-     *@return true if date is �selectable� on calendar, default
-     *implementation return true
-    **/
+     * @return true if date is �selectable� on calendar, default implementation return true
+     **/
     boolean isEnabled();
-    
+
     /**
-     * @return String that will be appended to style class for that date span.
-     * For example it may be �relevant holyday� � that mean class will be like �rich-cal-day relevant holyday�.
-     * Default implementation return empty string.
+     * @return String that will be appended to style class for that date span. For example it may be �relevant holyday� � that
+     *         mean class will be like �rich-cal-day relevant holyday�. Default implementation return empty string.
      * */
-    public String getStyleClass();  
-    
+    String getStyleClass();
+
     /**
-     * @return any additional payload that must be JSON-serialazable object.
-     * May be used in custom date representation on calendar (inside custom facet).*/
-    public Object getData();
-    
+     * @return any additional payload that must be JSON-serialazable object. May be used in custom date representation on
+     *         calendar (inside custom facet).
+     */
+    Object getData();
+
     /**
-     * @return true if given date has an associated with it tooltip data.
-     * Default implementation return false.*/
-    public boolean hasToolTip();
-    
+     * @return true if given date has an associated with it tooltip data. Default implementation return false.
+     */
+    boolean hasToolTip();
+
     /**
-     *@return tool tip data that will be used in �batch� tooltip loading mode.
+     * @return tool tip data that will be used in �batch� tooltip loading mode.
      **/
-    public Object getToolTip();
-    
+    Object getToolTip();
+
     /**
-     *@return day of the month on which data must be shown.
+     * @return day of the month on which data must be shown.
      **/
-    public int getDay();    
+    int getDay();
 }
-
-
-

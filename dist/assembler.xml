@@ -1,4 +1,5 @@
 <assembly>
+    <id>sources</id>
     <formats>
         <format>dir</format>
     </formats>
@@ -18,7 +19,7 @@
                         <directory>src/main/resources/META-INF/resources</directory>
                         <outputDirectory>/</outputDirectory>
                         <includes>
-                            <include>*.js</include>   
+                            <include>*.js</include>
                         </includes>
                     </fileSet>
                 </fileSets>

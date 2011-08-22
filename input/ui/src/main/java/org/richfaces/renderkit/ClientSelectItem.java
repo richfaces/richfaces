@@ -19,7 +19,6 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.renderkit;
 
 import java.io.IOException;
@@ -27,22 +26,54 @@ import java.io.IOException;
 import org.ajax4jsf.javascript.ScriptString;
 import org.ajax4jsf.javascript.ScriptUtils;
 
+import javax.faces.model.SelectItem;
+
+/**
+ * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
+ */
 public final class ClientSelectItem implements ScriptString {
-
     private String clientId;
-    private String label;
-    private String convertedValue;
+    private final String label;
+    private final String convertedValue;
+    private final SelectItem selectItem;
 
-    public ClientSelectItem(String convertedValue, String label) {
-        this(convertedValue, label, null);
-    }
+    /**
+     * The initial selection status of the SelectItem
+     */
+    private final boolean selected;
+    /**
+     * The initial sort order of the SelectItem
+     */
+    private final Integer sortOrder;
 
-    public ClientSelectItem(String convertedValue, String label,
-            String clientId) {
-        super();
+    public ClientSelectItem(SelectItem selectItem, String convertedValue, String label, String clientId) {
+        this.selectItem = selectItem;
         this.convertedValue = convertedValue;
         this.label = label;
         this.clientId = clientId;
+        this.selected = false;
+        this.sortOrder = 0;
+    }
+
+    public ClientSelectItem(SelectItem selectItem, String convertedValue, String label, Integer sortOrder, boolean selected) {
+        this.selectItem = selectItem;
+        this.label = label;
+        this.convertedValue = convertedValue;
+        this.selected = selected;
+        this.sortOrder = sortOrder;
+    }
+
+    public ClientSelectItem(SelectItem selectItem, String convertedValue, String label, Integer sortOrder, boolean selected, String clientId) {
+        this.selectItem = selectItem;
+        this.clientId = clientId;
+        this.label = label;
+        this.convertedValue = convertedValue;
+        this.selected = selected;
+        this.sortOrder = sortOrder;
+    }
+
+    public SelectItem getSelectItem() {
+        return selectItem;
     }
 
     public String getClientId() {
@@ -69,15 +100,21 @@ public final class ClientSelectItem implements ScriptString {
         try {
             appendScript(stringBuilder);
         } catch (IOException e) {
-            //ignore
+            // ignore
         }
     }
-    
+
     public String toScript() {
-        return "{ 'id' : " + ScriptUtils.toScript(clientId)
-                + " , 'label' : " + ScriptUtils.toScript(label)
-                + ", 'value' : " + ScriptUtils.toScript(convertedValue)
-                + "}";
+        return "{ 'id' : " + ScriptUtils.toScript(clientId) + " , 'label' : " + ScriptUtils.toScript(label) + ", 'value' : "
+            + ScriptUtils.toScript(convertedValue) + "}";
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public Integer getSortOrder() {
+        return sortOrder;
     }
 
 }

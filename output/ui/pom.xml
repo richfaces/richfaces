@@ -19,14 +19,15 @@
     http://www.fsf.org.
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.richfaces.ui</groupId>
         <artifactId>richfaces-ui-parent</artifactId>
-        <version>4.0.0.Final</version>
+        <version>4.1.0.20110805-M1</version>
         <relativePath>../../parent/pom.xml</relativePath>
     </parent>
 
@@ -34,7 +35,7 @@
     <artifactId>richfaces-ui-output-ui</artifactId>
     <name>Richfaces UI Components: Output UI</name>
     <packaging>jar</packaging>
-    
+
     <build>
         <plugins>
             <plugin>
@@ -74,11 +75,11 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    
+
     <scm>
-        <connection>scm:svn:http://anonsvn.jboss.org/repos/richfaces/tags/4.0.0.20110319-Final/ui/output/panels/ui</connection>
-        <developerConnection>scm:svn:https://svn.jboss.org/repos/richfaces/tags/4.0.0.20110319-Final/ui/output/panels/ui</developerConnection>
-        <url>http://fisheye.jboss.org/browse/richfaces/tags/4.0.0.20110319-Final/ui/output/panels/ui</url>
+        <connection>scm:git:git://github.com/richfaces/components.git</connection>
+        <developerConnection>scm:git:git@github.com:richfaces/components.git</developerConnection>
+        <url>https://github.com/richfaces/components</url>
     </scm>
-	
+
 </project>

@@ -20,19 +20,16 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.javascript;
 
 /**
  * <p class="changed_added_4_0">
  * This class contains information about JavaScript associated with JSF object ( converter or validator )
  * </p>
- * 
+ *
  * @author asmirnov@exadel.com
- * 
+ *
  */
-public interface LibraryScript  {
-
+public interface LibraryScript {
     LibraryResource getResource();
-
 }

@@ -28,14 +28,12 @@ import org.richfaces.model.TreeNode;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class ClassicTreeNodeTuplesIterator extends BaseTupleIterator {
-
     private TreeNode treeNode;
-
     private Iterator<Object> childrenKeysIterator = null;
-    
+
     public ClassicTreeNodeTuplesIterator(TreeNode treeNode, SequenceRowKey baseKey) {
         super(baseKey);
         this.treeNode = treeNode;
@@ -53,5 +51,4 @@ public class ClassicTreeNodeTuplesIterator extends BaseTupleIterator {
 
         setKeyAndData(key, data);
     }
-    
 }

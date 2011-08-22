@@ -3,24 +3,22 @@
  * Copyright ${year}, Red Hat, Inc. and individual contributors
  * by the @authors tag. See the copyright.txt in the distribution for a
  * full listing of individual contributors.
- * 
+ *
  * This is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Lesser General Public License as
  * published by the Free Software Foundation; either version 2.1 of
  * the License, or (at your option) any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this software; if not, write to the Free
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-
 package org.richfaces.component;
 
 import javax.el.MethodExpression;
@@ -48,16 +46,10 @@ import org.richfaces.renderkit.util.PanelIcons;
  * @author akolonitsky
  * @since 2010-10-25
  */
-@JsfComponent(
-        tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.PanelMenuTagHandler"),
-        renderer = @JsfRenderer(type = "org.richfaces.PanelMenuRenderer")
-)
+@JsfComponent(tag = @Tag(type = TagType.Facelets, handler = "org.richfaces.view.facelets.html.PanelMenuTagHandler"), renderer = @JsfRenderer(type = "org.richfaces.PanelMenuRenderer"))
 public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSource {
-
     public static final String COMPONENT_TYPE = "org.richfaces.PanelMenu";
-
     public static final String COMPONENT_FAMILY = "org.richfaces.PanelMenu";
-
     private String submittedActiveItem;
 
     private enum PropertyKeys {
@@ -72,28 +64,28 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
     public void processDecodes(FacesContext context) {
         super.processDecodes(context);
 
-        //TODO nick - is component immediate = true only?
-        //TODO nick - processValue should be executed in context of component, i.e. when 'component' EL variable is set
+        // TODO nick - is component immediate = true only?
+        // TODO nick - processValue should be executed in context of component, i.e. when 'component' EL variable is set
 
         ItemChangeEvent event = createItemChangeEvent(context);
         if (event != null) {
             event.queue();
         }
     }
-    
+
     public void queueEvent(FacesEvent event) {
         if ((event instanceof ItemChangeEvent) && (event.getComponent() == this)) {
-            setEventPhase((ItemChangeEvent)event);
+            setEventPhase((ItemChangeEvent) event);
         }
         super.queueEvent(event);
     }
-    
+
     public void setEventPhase(FacesEvent event) {
         if (event instanceof ItemChangeEvent) {
-            AbstractPanelMenuItem actItm = (AbstractPanelMenuItem) ((ItemChangeEvent)event).getNewItem(); 
+            AbstractPanelMenuItem actItm = (AbstractPanelMenuItem) ((ItemChangeEvent) event).getNewItem();
             if (isImmediate() || (actItm != null && actItm.isImmediate())) {
                 event.setPhaseId(PhaseId.APPLY_REQUEST_VALUES);
-            } else if (actItm!= null && actItm.isBypassUpdates()) {
+            } else if (actItm != null && actItm.isBypassUpdates()) {
                 event.setPhaseId(PhaseId.PROCESS_VALIDATIONS);
             } else {
                 event.setPhaseId(PhaseId.UPDATE_MODEL_VALUES);
@@ -119,7 +111,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
             if (activeItem != null) {
                 actItm = getItem(activeItem);
             }
-            
+
             return new ItemChangeEvent(this, previous, prevItm, activeItem, actItm);
         }
         return null;
@@ -150,7 +142,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
         return (String) getValue();
     }
 
-    //TODO nick - where is EL-expression updated?
+    // TODO nick - where is EL-expression updated?
     public void setActiveItem(String value) {
         setValue(value);
     }
@@ -177,7 +169,6 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
     public String getFamily() {
         return COMPONENT_FAMILY;
     }
-
 
     // ------------------------------------------------ Component Attributes
 
@@ -477,8 +468,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
             return null;
         }
 
-        if (comp instanceof AbstractPanelMenuItem
-                && itemName.equals(((AbstractPanelMenuItem) comp).getName())) {
+        if (comp instanceof AbstractPanelMenuItem && itemName.equals(((AbstractPanelMenuItem) comp).getName())) {
             return (AbstractPanelMenuItem) comp;
         }
 
@@ -505,7 +495,7 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
     public void removeItemChangeListener(ItemChangeListener listener) {
         removeFacesListener(listener);
     }
-    
+
     @Attribute(generate = false, hidden = true)
     public Object getValue() {
         return getStateHelper().eval(Properties.value);
@@ -513,5 +503,5 @@ public abstract class AbstractPanelMenu extends UIOutput implements ItemChangeSo
 
     public void setValue(Object value) {
         getStateHelper().put(Properties.value, value);
-    }    
+    }
 }

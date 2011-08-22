@@ -20,11 +20,10 @@
  */
 
 /*
- * UIProgressBar.java		Date created: 19.12.2007
+ * UIProgressBar.java Date created: 19.12.2007
  * Last modified by: $Author$
- * $Revision$	$Date$
+ * $Revision$ $Date$
  */
-
 package org.richfaces.component;
 
 import java.io.IOException;
@@ -49,19 +48,16 @@ import org.richfaces.renderkit.MetaComponentRenderer;
 
 /**
  * Class provides base component class for progress bar
- * 
+ *
  * @author "Andrey Markavtsov"
- * 
+ *
  */
 @JsfComponent(tag = @Tag(type = TagType.Facelets), renderer = @JsfRenderer(type = "org.richfaces.ProgressBarRenderer"))
 public abstract class AbstractProgressBar extends UIComponentBase implements MetaComponentResolver, MetaComponentEncoder {
-
     /** Component type */
     public static final String COMPONENT_TYPE = "org.richfaces.ProgressBar";
-
     /** Component family */
     public static final String COMPONENT_FAMILY = "org.richfaces.ProgressBar";
-
     public static final String STATE_META_COMPONENT_ID = "state";
 
     @Attribute(events = @EventName("click"))
@@ -92,9 +88,9 @@ public abstract class AbstractProgressBar extends UIComponentBase implements Met
     public abstract String getLabel();
 
     @Attribute
-    public abstract Object getData(); 
+    public abstract Object getData();
 
-    public abstract void setData(Object data); 
+    public abstract void setData(Object data);
 
     @Attribute
     public abstract int getInterval();
@@ -106,10 +102,10 @@ public abstract class AbstractProgressBar extends UIComponentBase implements Met
     public abstract String getOnbeforedomupdate();
 
     @Attribute(events = @EventName("complete"))
-    public abstract String getOncomplete(); 
+    public abstract String getOncomplete();
 
     @Attribute(events = @EventName("finish"))
-    public abstract String getOnfinish(); 
+    public abstract String getOnfinish();
 
     @Attribute
     public abstract String getInitialClass();
@@ -137,13 +133,13 @@ public abstract class AbstractProgressBar extends UIComponentBase implements Met
 
     @Attribute(hidden = true)
     public abstract String getResource();
-    
+
     @Attribute
     public abstract String getStyle();
-    
+
     @Attribute
     public abstract String getStyleClass();
-    
+
     public void encodeMetaComponent(FacesContext context, String metaComponentId) throws IOException {
         ((MetaComponentRenderer) getRenderer(context)).encodeMetaComponent(context, this, metaComponentId);
     }
@@ -168,7 +164,7 @@ public abstract class AbstractProgressBar extends UIComponentBase implements Met
                 if (context instanceof ExtendedVisitContext) {
                     ExtendedVisitContext extendedVisitContext = (ExtendedVisitContext) context;
                     if (extendedVisitContext.getVisitMode() == ExtendedVisitContextMode.RENDER) {
-    
+
                         result = extendedVisitContext.invokeMetaComponentVisitCallback(this, callback, STATE_META_COMPONENT_ID);
                         if (result == VisitResult.COMPLETE) {
                             return true;
@@ -176,11 +172,11 @@ public abstract class AbstractProgressBar extends UIComponentBase implements Met
                     }
                 }
             }
-            
+
             if (result == VisitResult.ACCEPT) {
                 Iterator<UIComponent> kids = this.getFacetsAndChildren();
 
-                while(kids.hasNext()) {
+                while (kids.hasNext()) {
                     boolean done = kids.next().visitTree(context, callback);
 
                     if (done) {
@@ -198,14 +194,14 @@ public abstract class AbstractProgressBar extends UIComponentBase implements Met
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
 
         if (STATE_META_COMPONENT_ID.equals(metaComponentId)) {
-            return contextComponent.getClientId(facesContext) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR + metaComponentId;
+            return contextComponent.getClientId(facesContext) + MetaComponentResolver.META_COMPONENT_SEPARATOR_CHAR
+                + metaComponentId;
         }
 
         return null;
     }
 
-    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
-        String metaComponentId) {
+    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
         return null;
     }
 }

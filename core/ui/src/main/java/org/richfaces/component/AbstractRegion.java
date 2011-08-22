@@ -33,13 +33,9 @@ import org.richfaces.cdk.annotations.TagType;
  * @author Nick Belaevski
  *
  */
-@JsfComponent(
-    tag = @Tag(name = "region", type = TagType.Facelets)
-)
+@JsfComponent(tag = @Tag(name = "region", type = TagType.Facelets))
 public abstract class AbstractRegion extends UIComponentBase implements MetaComponentResolver, AjaxContainer {
-
     public static final String COMPONENT_TYPE = "org.richfaces.Region";
-
     public static final String COMPONENT_FAMILY = "org.richfaces.AjaxContainer";
 
     public String resolveClientId(FacesContext facesContext, UIComponent contextComponent, String metaId) {
@@ -50,9 +46,8 @@ public abstract class AbstractRegion extends UIComponentBase implements MetaComp
 
         return null;
     }
-    
-    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent,
-        String metaComponentId) {
+
+    public String substituteUnresolvedClientId(FacesContext facesContext, UIComponent contextComponent, String metaComponentId) {
 
         return null;
     }

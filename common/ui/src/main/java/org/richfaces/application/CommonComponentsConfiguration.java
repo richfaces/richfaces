@@ -25,17 +25,16 @@ import org.richfaces.application.configuration.ConfigurationItem;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public final class CommonComponentsConfiguration {
-
-    private CommonComponentsConfiguration() {}
+    private CommonComponentsConfiguration() {
+    }
 
     public enum Items {
-        
+
         @ConfigurationItem(defaultValue = "true", names = "org.richfaces.queue.enabled", literal = true)
         queueEnabled
 
     }
-    
 }

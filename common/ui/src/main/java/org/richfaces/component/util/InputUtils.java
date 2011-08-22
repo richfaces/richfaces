@@ -18,7 +18,6 @@
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  */
-
 package org.richfaces.component.util;
 
 import javax.el.ValueExpression;
@@ -38,36 +37,33 @@ import com.google.common.base.Strings;
  * @author Manfred Geiler
  */
 public final class InputUtils {
-
     private static final ConverterLookupStrategy DEFAULT_CONVERTER_LOOKUP_STRATEGY = new ConverterLookupStrategy() {
-        
         public Converter getConverterByValue(FacesContext context, UIComponent component, Object value) {
             Converter result = null;
-            
+
             if (component instanceof ValueHolder) {
                 result = ((ValueHolder) component).getConverter();
             }
-            
+
             if (result == null && value != null) {
                 result = getConverterForType(context, value.getClass());
             }
-            
+
             return result;
         }
-        
+
         public Converter getConverterByProperty(FacesContext context, UIComponent component) {
             return findConverter(context, component, "value");
         }
     };
-    
+
     private InputUtils() {
     }
 
     public static interface ConverterLookupStrategy {
+        Converter getConverterByProperty(FacesContext context, UIComponent component);
 
-        public Converter getConverterByProperty(FacesContext context, UIComponent component);
-
-        public Converter getConverterByValue(FacesContext context, UIComponent component, Object value);
+        Converter getConverterByValue(FacesContext context, UIComponent component, Object value);
     }
 
     public static boolean isDisabled(UIComponent component) {
@@ -87,10 +83,11 @@ public final class InputUtils {
         return context.getApplication().createConverter(type);
     }
 
-    public static String getConvertedStringValue(FacesContext context, UIComponent component, Object value) throws ConverterException {
+    public static String getConvertedStringValue(FacesContext context, UIComponent component, Object value)
+        throws ConverterException {
         return getConvertedStringValue(context, component, DEFAULT_CONVERTER_LOOKUP_STRATEGY, value);
     }
-    
+
     public static String getConvertedStringValue(FacesContext context, UIComponent component,
         ConverterLookupStrategy converterLookupStrategy, Object value) throws ConverterException {
 
@@ -98,7 +95,7 @@ public final class InputUtils {
         if (converter != null) {
             return converter.getAsString(context, component, value);
         }
-        
+
         if (value == null) {
             return "";
         }
@@ -112,7 +109,7 @@ public final class InputUtils {
 
     public static Converter findConverter(FacesContext facesContext, UIComponent component, String property) {
         Converter converter = null;
-        
+
         if (component instanceof ValueHolder) {
             converter = ((ValueHolder) component).getConverter();
         }
@@ -129,16 +126,14 @@ public final class InputUtils {
                 } else {
                     converter = facesContext.getApplication().createConverter(valueType);
                 }
-
             }
         }
 
         return converter;
     }
 
-    public static Object getConvertedValue(FacesContext context, UIComponent component, Object val)
-        throws ConverterException {
-        
+    public static Object getConvertedValue(FacesContext context, UIComponent component, Object val) throws ConverterException {
+
         return getConvertedValue(context, component, DEFAULT_CONVERTER_LOOKUP_STRATEGY, val);
     }
 
@@ -164,7 +159,7 @@ public final class InputUtils {
 
     public static String getInputValue(FacesContext context, UIComponent component,
         ConverterLookupStrategy converterLookupStrategy) throws ConverterException {
-        
+
         UIInput input = (UIInput) component;
         String submittedValue = (String) input.getSubmittedValue();
 

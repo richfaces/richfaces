@@ -20,26 +20,29 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
 package org.richfaces.javascript;
 
 import javax.faces.context.FacesContext;
 
 /**
- * <p class="changed_added_4_0">This interface describes service that determines JavaScript module and function
- * for Java corresponded version ( both Converter and Validator )</p>
+ * <p class="changed_added_4_0">
+ * This interface describes service that determines JavaScript module and function for Java corresponded version ( both
+ * Converter and Validator )
+ * </p>
+ *
  * @author asmirnov@exadel.com
  *
  */
 public interface ClientScriptService {
-    
     /**
-     * <p class="changed_added_4_0">Get description for client-side version of Java implementation</p>
+     * <p class="changed_added_4_0">
+     * Get description for client-side version of Java implementation
+     * </p>
+     *
      * @param facesContext TODO
      * @param javaClass either Converter or Validator class.
      * @return description of client-side script.
      * @throws ScriptNotFoundException if no JavaScript code associated with Java class.
      */
     LibraryFunction getScript(FacesContext facesContext, Class<?> javaClass) throws ScriptNotFoundException;
-
 }

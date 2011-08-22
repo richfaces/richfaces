@@ -27,14 +27,11 @@ import com.google.common.base.Objects;
 
 /**
  * @author Nick Belaevski
- * 
+ *
  */
 public class DeclarativeModelKey implements Serializable {
-
     private static final long serialVersionUID = 7065813074553570168L;
-
     private String modelId;
-
     private Object modelKey;
 
     public DeclarativeModelKey(String modelId, Object modelKey) {
