@@ -20,7 +20,7 @@
         <cdk:object type="java.lang.Object" name="disabled" value="#{component.attributes['disabled']}" />
         <cdk:object type="java.lang.Boolean" name="hasColumnChildren" value="#{hasColumnChildren(facesContext, component)}" />
 
-        <div id="#{clientId}" class="#{concatClasses('rf-pick', component.attributes['styleClass'])}" style="#{component.attributes['style']}"
+        <div id="#{clientId}" class="#{concatClasses('rf-pick', component.attributes['styleClass'], disabled ? component.attributes['disabledClass'] : '')}" style="#{component.attributes['style']}"
              cdk:passThrough="onclick:listclick ondblclick:listdblclick onmousedown:listmousedown onmouseup:listmouseup onmouseover:onlistmouseover
             onmousemove:listmousemove onmouseout:listmouseout onkeypress:listkeypress onkeydown:listkeydown onkeyup:listkeyup">
             <table>

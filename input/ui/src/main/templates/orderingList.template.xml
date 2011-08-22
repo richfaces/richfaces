@@ -22,7 +22,7 @@
         <cdk:object name="itemClass" value="#{component.attributes['itemClass']}" />
         <cdk:object name="selectItemClass" value="#{component.attributes['selectItemClass']}" />
 
-        <div id="#{clientId}" class="#{concatClasses('rf-ord', component.attributes['styleClass'])}" style="#{component.attributes['style']}"
+        <div id="#{clientId}" class="#{concatClasses('rf-ord', component.attributes['styleClass'], disabled ? component.attributes['disabledClass'] : '')}" style="#{component.attributes['style']}"
             cdk:passThrough="onclick:listclick ondblclick:listdblclick onmousedown:listmousedown onmouseup:listmouseup onmouseover:onlistmouseover 
             onmousemove:listmousemove onmouseout:listmouseout onkeypress:listkeypress onkeydown:listkeydown onkeyup:listkeyup">
             <table>
