@@ -18,7 +18,6 @@
         $super.constructor.call(this, componentId);
         this.options = $.extend({}, defaultOptions, options);
         
-        var $this = this;
         this.textareaId = componentId;
         this.domBinding = domBinding;
         this.editorElementId = 'cke_' + componentId;
@@ -27,45 +26,7 @@
         this.attachToDom(this.textareaId);
         this.attachToDom(this.domBinding);
         
-        this.__initializeEditor = function() {
-            $this.ckeditor = CKEDITOR.replace($this.textareaId, $this.__getConfiguration());
-            
-            // register event handlers
-            rf.Event.bind($this.__getForm(), 'ajaxsubmit', $this.__updateElement);
-            $this.ckeditor.on('instanceReady', $this.__instanceReadyHandler);
-            $this.ckeditor.on('blur', $this.__blurHandler);
-            $this.ckeditor.on('focus', $this.__focusHandler);
-        }
-        
-        this.__updateElement = function() {
-            $this.ckeditor.updateElement();
-        }
-        
-        this.__instanceReadyHandler = function(e) {
-            $this.__setupStyling();
-            $this.__setupPassThroughAttributes();
-            
-            $this.invokeEvent.call($this, "init", $this.__getTextarea(), e);
-        }
-        
-        this.__blurHandler = function(e) {
-            $this.invokeEvent.call($this, "blur", $this.__getTextarea(), e);
-            if ($this.getEditor().checkDirty()) {
-                $this.valueChanged = true;
-                $this.__changeHandler();
-            }
-            $this.getEditor().resetDirty();
-        }
-        
-        this.__focusHandler = function(e) {
-            $this.invokeEvent.call($this, "focus", $this.__getTextarea(), e);
-        }
-        
-        this.__changeHandler = function(e) {
-            $this.invokeEvent.call($this, "change", $this.__getTextarea(), e);
-        }
-        
-        $(document).ready(this.__initializeEditor);
+        $(document).ready($.proxy(this.__initializationHandler, this));
         rf.Event.bindById(this.__getTextarea(), 'init', this.options.oninit, this);
     };
     
@@ -77,6 +38,44 @@
         
         name: "Editor",
     
+        __initializationHandler: function() {
+            this.ckeditor = CKEDITOR.replace(this.textareaId, this.__getConfiguration());
+            
+            // register event handlers
+            rf.Event.bind(this.__getForm(), 'ajaxsubmit', $.proxy(this.__updateElementHandler, this));
+            this.ckeditor.on('instanceReady', $.proxy(this.__instanceReadyHandler, this));
+            this.ckeditor.on('blur', $.proxy(this.__blurHandler, this));
+            this.ckeditor.on('focus', $.proxy(this.__focusHandler, this));
+        },
+        
+        __updateElementHandler: function() {
+            this.ckeditor.updateElement();
+        },
+        
+        __instanceReadyHandler: function(e) {
+            this.__setupStyling();
+            this.__setupPassThroughAttributes();
+            
+            this.invokeEvent.call(this, "init", this.__getTextarea(), e);
+        },
+        
+        __blurHandler: function(e) {
+            this.invokeEvent.call(this, "blur", this.__getTextarea(), e);
+            if (this.getEditor().checkDirty()) {
+                this.valueChanged = true;
+                this.__changeHandler();
+            }
+            this.getEditor().resetDirty();
+        },
+        
+        __focusHandler: function(e) {
+            this.invokeEvent.call(this, "focus", this.__getTextarea(), e);
+        },
+        
+        __changeHandler: function(e) {
+            this.invokeEvent.call(this, "change", this.__getTextarea(), e);
+        },
+        
         /**
          * Updates editor with the value and attributes of associated textarea
          */
@@ -229,11 +228,10 @@
         },
         
         setValue: function(newValue) {
-            $this = this;
-            this.ckeditor.setData(newValue, function() {
-                $this.valueChanged = false;
-                $this.ckeditor.resetDirty();
-            });
+            this.ckeditor.setData(newValue, $.proxy(function() {
+                this.valueChanged = false;
+                this.ckeditor.resetDirty();
+            }, this));
         },
         
         getValue: function() {
