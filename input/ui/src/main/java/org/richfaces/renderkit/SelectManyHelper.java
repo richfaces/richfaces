@@ -379,7 +379,7 @@ public class SelectManyHelper {
 
     public static UISelectItems getPseudoSelectItems(SelectItemsInterface selectItemsInterface) {
         UISelectItems selectItems = null;
-        if (selectItemsInterface.getVar() != null) {
+        if (selectItemsInterface.getVar() != null && selectItemsInterface.getItemValues() != null) {
             selectItems = new UISelectItems();
             selectItems.setValue(selectItemsInterface.getItemValues());
             selectItems.getAttributes().put("var", selectItemsInterface.getVar());
