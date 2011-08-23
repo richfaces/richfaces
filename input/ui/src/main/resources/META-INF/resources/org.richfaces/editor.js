@@ -106,12 +106,16 @@
                 toolbar: this.__getToolbar(),
                 readOnly: textarea.attr('readonly') || this.options.readonly,
                 width: this.__resolveUnits(textarea.width()),
-                height: this.__resolveUnits(textarea.height())
+                height: this.__resolveUnits(textarea.height()),
+                bodyClass: 'rf-ed-b'
             }
         },
         
         __setupStyling: function() {
             var span = $(document.getElementById(this.editorElementId));
+            if (!span.hasClass('rf-ed')) {
+                span.addClass('rf-ed');
+            }
             var styleClass = $.trim(this.options.styleClass + ' ' + this.options.editorClass);
             if (this.initialStyle == undefined) {
                 this.initialStyle = span.attr('style');

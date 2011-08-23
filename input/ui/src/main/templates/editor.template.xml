@@ -40,13 +40,13 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <cdk:object name="width" value="#{resolveUnits(component.attributes['width'])}" />
         <cdk:object name="height" value="#{resolveUnits(component.attributes['height'])}" />
         <textarea id="#{clientId}" name="#{clientId}" cdk:passThroughWithExclusions="id readonly style styleClass"
-                class="#{concatClasses(component.attributes['styleClass'], component.attributes['textareaClass'])}"
+                class="#{concatClasses('rf-ed-inp', component.attributes['styleClass'], component.attributes['textareaClass'])}"
                 readonly="#{component.attributes['readonly'] ? 'readonly' : ''}"
                 style="#{empty style ? '' : style + '; '}#{empty textareaStyle ? '' : textareaStyle + '; '}width: #{empty width ? DEFAULT_WIDTH : width}; height: #{empty height ? DEFAULT_HEIGHT : height}; ">
             #{getInputValue(facesContext, component)}
         </textarea>
-        <span id="#{clientId}DomBinding" />
-        <script id="#{clientId}Script" type="text/javascript">
+        <span id="#{clientId}DomBinding" class="rf-ed-bndg" />
+        <script id="#{clientId}Script" class="rf-ed-scrpt" type="text/javascript">
             <cdk:scriptObject name="options">
                 <cdk:scriptOption attributes="toolbar style styleClass editorStyle editorClass" />
                 <cdk:scriptOption wrapper="eventHandler" attributes="oninit" />
