@@ -28,9 +28,12 @@ import org.richfaces.component.util.SelectItemsInterface;
 import org.richfaces.renderkit.SelectManyHelper;
 
 import javax.faces.component.UIColumn;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UISelectItems;
 import javax.faces.component.UISelectMany;
 import javax.faces.context.FacesContext;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author <a href="http://community.jboss.org/people/bleathem">Brian Leathem</a>
@@ -165,9 +168,14 @@ public abstract class AbstractSelectManyComponent extends UISelectMany {
     @Override
     protected void validateValue(FacesContext facesContext, Object value) {
         if (this instanceof SelectItemsInterface) {
-            SelectManyHelper.validateValue(facesContext, this, value);
-        } else {
-            super.validateValue(facesContext, value);
+            UISelectItems pseudoSelectItems = SelectManyHelper.getPseudoSelectItems((SelectItemsInterface) this);
+            if (pseudoSelectItems != null) {
+                this.getChildren().add(pseudoSelectItems);
+                super.validateValue(facesContext, value);
+                this.getChildren().remove(pseudoSelectItems);
+                return;
+            }
         }
+        super.validateValue(facesContext, value);
     }
 }

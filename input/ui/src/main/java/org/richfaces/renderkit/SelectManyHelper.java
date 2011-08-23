@@ -31,6 +31,7 @@ import org.richfaces.component.AbstractSelectManyComponent;
 import org.richfaces.component.util.HtmlUtil;
 import org.richfaces.component.util.InputUtils;
 import org.richfaces.component.util.MessageUtil;
+import org.richfaces.component.util.SelectItemsInterface;
 import org.richfaces.component.util.SelectUtils;
 import org.richfaces.renderkit.util.HtmlDimensions;
 
@@ -41,6 +42,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.component.EditableValueHolder;
 import javax.faces.component.UIColumn;
 import javax.faces.component.UIComponent;
+import javax.faces.component.UISelectItems;
 import javax.faces.component.UISelectMany;
 import javax.faces.component.ValueHolder;
 import javax.faces.context.FacesContext;
@@ -375,87 +377,20 @@ public class SelectManyHelper {
         return converter;
     }
 
-    public static void validateValue(FacesContext facesContext, AbstractSelectManyComponent select, Object value) {
-        // Skip validation if it is not necessary
-        if (!select.isValid() || (value == null)) {
-            return;
-        }
-
-        boolean doAddMessage = false;
-
-        // Ensure that the values match one of the available options
-        // Don't arrays cast to "Object[]", as we may now be using an array
-        // of primitives
-        List<ClientSelectItem> clientSelectItems = getClientSelectItems(facesContext, select, SelectUtils.getSelectItems(facesContext, select));
-        for (Iterator i = getValuesIterator(value); i.hasNext(); ) {
-            Iterator items = SelectUtils.getSelectItems(facesContext, select);
-            Object convertedValue = InputUtils.getConvertedStringValue(facesContext, select, i.next());
-            if (!matches(clientSelectItems, convertedValue)) {
-                doAddMessage = true;
-                break; // Since at least one value is invalid
+    public static UISelectItems getPseudoSelectItems(SelectItemsInterface selectItemsInterface) {
+        UISelectItems selectItems = null;
+        if (selectItemsInterface.getVar() != null) {
+            selectItems = new UISelectItems();
+            selectItems.setValue(selectItemsInterface.getItemValues());
+            selectItems.getAttributes().put("var", selectItemsInterface.getVar());
+            if (selectItemsInterface.getItemValue() != null) {
+                selectItems.getAttributes().put("itemValue", selectItemsInterface.getItemValue());
+            }
+            if (selectItemsInterface.getItemLabel() != null) {
+                selectItems.getAttributes().put("itemLabel", selectItemsInterface.getItemLabel());
             }
         }
-
-        // Ensure that if the value is noSelection and a
-        // value is required, a message is queued
-        if (select.isRequired()) {
-            RequiredValidator requiredValidator = new RequiredValidator();
-            try {
-                requiredValidator.validate(facesContext, select, value);
-            } catch (ValidatorException e) {
-                FacesMessage msg = e.getFacesMessage();
-                facesContext.addMessage(select.getClientId(facesContext), msg);
-            }
-            if (select.isValid()) {
-                for (Iterator i = getValuesIterator(value); i.hasNext();) {
-                    Object convertedValue = InputUtils.getConvertedStringValue(facesContext, select, i.next());
-                    if (valueIsNoSelectionOption(clientSelectItems, convertedValue)) {
-                        doAddMessage = true;
-                        break;
-                    }
-                }
-            }
-        }
-
-        if (doAddMessage) {
-            // Enqueue an error message if an invalid value was specified
-            FacesMessage message = ServiceTracker.getService(MessageFactory.class)
-                    .createMessage(facesContext, FacesMessages.UISELECTMANY_INVALID, MessageUtil.getLabel(facesContext, select));
-            facesContext.addMessage(select.getClientId(facesContext), message);
-            select.setValid(false);
-        }
+        return selectItems;
     }
 
-    private static boolean matches(List<ClientSelectItem> clientSelectItems, Object selectedValue) {
-        for (ClientSelectItem clientSelectItem : clientSelectItems) {
-            if (selectedValue == null && clientSelectItem.getConvertedValue() == null) {
-                return true;
-            } else if (selectedValue != null && selectedValue.equals(clientSelectItem.getConvertedValue())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static boolean valueIsNoSelectionOption(List<ClientSelectItem> clientSelectItems, Object selectedValue) {
-        for (ClientSelectItem clientSelectItem : clientSelectItems) {
-            if (clientSelectItem.getSelectItem().isNoSelectionOption()) {
-                if (selectedValue == null && clientSelectItem.getConvertedValue() == null) {
-                    return true;
-                } else if (selectedValue != null && selectedValue.equals(clientSelectItem.getConvertedValue())) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    private static Iterator<Object> getValuesIterator(Object value) {
-        if (value instanceof Collection) {
-            return ((Collection) value).iterator();
-        } else {
-            return (Iterators.forArray((Object[]) value));
-        }
-
-    }
 }
