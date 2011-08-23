@@ -48,6 +48,8 @@ import javax.faces.context.ResponseWriter;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.model.SelectItem;
+import javax.faces.validator.RequiredValidator;
+import javax.faces.validator.ValidatorException;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
@@ -397,14 +399,15 @@ public class SelectManyHelper {
         // Ensure that if the value is noSelection and a
         // value is required, a message is queued
         if (select.isRequired()) {
-            Iterator i = getValuesIterator(value);
-            if (! i.hasNext()) {
-                FacesMessage message = ServiceTracker.getService(MessageFactory.class)
-                        .createMessage(facesContext, FacesMessages.UIINPUT_REQUIRED, MessageUtil.getLabel(facesContext, select));
-                facesContext.addMessage(select.getClientId(facesContext), message);
-                select.setValid(false);
-            } else {
-                while (i.hasNext()) {
+            RequiredValidator requiredValidator = new RequiredValidator();
+            try {
+                requiredValidator.validate(facesContext, select, value);
+            } catch (ValidatorException e) {
+                FacesMessage msg = e.getFacesMessage();
+                facesContext.addMessage(select.getClientId(facesContext), msg);
+            }
+            if (select.isValid()) {
+                for (Iterator i = getValuesIterator(value); i.hasNext();) {
                     Object convertedValue = InputUtils.getConvertedStringValue(facesContext, select, i.next());
                     if (valueIsNoSelectionOption(clientSelectItems, convertedValue)) {
                         doAddMessage = true;
