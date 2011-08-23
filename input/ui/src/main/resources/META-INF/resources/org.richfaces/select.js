@@ -328,9 +328,7 @@
                 this.__setInputFocus();
                 this.__save();
 
-                if (this.focusValue != this.selValueInput.val()) {
-                    this.invokeEvent.call(this, "selectitem", document.getElementById(this.id));
-                }
+                this.invokeEvent.call(this, "selectitem", document.getElementById(this.id));
             },
 
             __save: function() {
