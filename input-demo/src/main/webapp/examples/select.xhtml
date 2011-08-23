@@ -14,11 +14,11 @@
 </h:head>
 
 <h:body>
-    <h:form>
-        <fieldset>
+    <fieldset>
+        <h:form>
             <legend>Select Test App| enableManualInput="true"</legend>
             <div style="width: 400px; height: 100px; overflow: auto;">
-                <in:select id="select" openOnEdit="true" enableManualInput="true" defaultLabel="Select Value ..."
+                <in:select id="select1" openOnEdit="true" enableManualInput="true" defaultLabel="Select Value ..."
                            value="#{inputBean.value}" style="font-size: 2em;" styleClass="my-select-class" title="Title">
                     <f:selectItem itemLabel="Label#1" itemValue="Value#1" />
                     <f:selectItem itemLabel="Label#2" itemValue="Value#2" />
@@ -34,10 +34,10 @@
                     <f:selectItem itemLabel="Label#12" itemValue="Value#12" />
                     <f:selectItem itemLabel="Label#13" itemValue="Value#13" />
                     <f:selectItem itemLabel="Label#14" itemValue="Value#14" />
-                    <f:ajax event="change" execute="@form" render="out" />
+                    <f:ajax event="change" execute="@form" render="out1" />
                 </in:select>
                 <h:commandButton value="submit">
-                    <f:ajax execute="@form" render="select out" />
+                    <f:ajax execute="@form" render="select1 out1" />
                 </h:commandButton>
             </div>
 
@@ -45,16 +45,16 @@
                 <li><h:commandButton value="ShowPopup" onclick="#{misc:component('select')}.showPopup(); return false;" /></li>
                 <li><h:commandButton value="HidePopup" onclick="#{misc:component('select')}.hidePopup(); return false;" /></li>
             </ul>
-            <h:panelGroup id="out">
+            <h:panelGroup id="out1">
                 <h:outputText value="Selected Value: #{inputBean.value}" />
             </h:panelGroup>
-        </fieldset>
-    </h:form>
-    <h:form>
-        <fieldset>
+        </h:form>
+    </fieldset>
+    <fieldset>
+        <h:form>
             <legend>Select Test App | enableManualInput="false"</legend>
             <div style="width: 400px; height: 100px; overflow: auto;">
-                <in:select id="select" openOnEdit="true" enableManualInput="false" defaultLabel="Select Value ..."
+                <in:select id="select2" openOnEdit="true" enableManualInput="false" defaultLabel="Select Value ..."
                            value="#{inputBean.value}" style="font-size: 2em;" styleClass="my-select-class" title="Title">
                     <f:selectItem itemLabel="Label#1" itemValue="Value#1" />
                     <f:selectItem itemLabel="Label#2" itemValue="Value#2" />
@@ -70,10 +70,10 @@
                     <f:selectItem itemLabel="Label#12" itemValue="Value#12" />
                     <f:selectItem itemLabel="Label#13" itemValue="Value#13" />
                     <f:selectItem itemLabel="Label#14" itemValue="Value#14" />
-                    <f:ajax event="change" execute="@form" render="out" />
+                    <f:ajax event="change" execute="@form" render="out2" />
                 </in:select>
                 <h:commandButton value="submit">
-                    <f:ajax execute="@form" render="select out" />
+                    <f:ajax execute="@form" render="select2 out2" />
                 </h:commandButton>
             </div>
 
@@ -81,10 +81,47 @@
                 <li><h:commandButton value="ShowPopup" onclick="#{misc:component('select')}.showPopup(); return false;" /></li>
                 <li><h:commandButton value="HidePopup" onclick="#{misc:component('select')}.hidePopup(); return false;" /></li>
             </ul>
-            <h:panelGroup id="out">
+            <h:panelGroup id="out2">
                 <h:outputText value="Selected Value: #{inputBean.value}" />
             </h:panelGroup>
-        </fieldset>
-    </h:form>
+        </h:form>
+    </fieldset>
+    <fieldset>
+        <h:form id='form3'>
+            <legend>Select Test App | selectItem Listner</legend>
+            <div style="width: 400px; height: 100px; overflow: auto;">
+                <in:select id="select3" openOnEdit="true" enableManualInput="false" defaultLabel="Select Value ..." onselectitem="$('#events').append('Item Selected ')" onchange="$('#events').append('Item Changed ')"
+                           value="#{inputBean.value}" style="font-size: 2em;" styleClass="my-select-class" title="Title">
+                    <f:selectItem itemLabel="Label#1" itemValue="Value#1" />
+                    <f:selectItem itemLabel="Label#2" itemValue="Value#2" />
+                    <f:selectItem itemLabel="Label#3" itemValue="Value#3" />
+                    <f:selectItem itemLabel="Label#4" itemValue="Value#4" />
+                    <f:selectItem itemLabel="Label#5" itemValue="Value#5" />
+                    <f:selectItem itemLabel="Label#6" itemValue="Value#6" />
+                    <f:selectItem itemLabel="Label#7" itemValue="Value#7" />
+                    <f:selectItem itemLabel="Label#8" itemValue="Value#8" />
+                    <f:selectItem itemLabel="Label#9" itemValue="Value#9" />
+                    <f:selectItem itemLabel="Label#10" itemValue="Value#10" />
+                    <f:selectItem itemLabel="Label#11" itemValue="Value#11" />
+                    <f:selectItem itemLabel="Label#12" itemValue="Value#12" />
+                    <f:selectItem itemLabel="Label#13" itemValue="Value#13" />
+                    <f:selectItem itemLabel="Label#14" itemValue="Value#14" />
+                    <f:ajax event="change" execute="@form" render="out3" />
+                </in:select>
+                <h:commandButton value="submit">
+                    <f:ajax execute="@form" render="select3 out3" />
+                </h:commandButton>
+            </div>
+
+            <ul>
+                <li><h:commandButton value="ShowPopup" onclick="#{misc:component('select')}.showPopup(); return false;" /></li>
+                <li><h:commandButton value="HidePopup" onclick="#{misc:component('select')}.hidePopup(); return false;" /></li>
+            </ul>
+            <h:panelGroup id="out3">
+                <h:outputText value="Selected Value: #{inputBean.value}" />
+            </h:panelGroup>
+            <div id="events"></div>
+        </h:form>
+    </fieldset>
 </h:body>
 </html>
