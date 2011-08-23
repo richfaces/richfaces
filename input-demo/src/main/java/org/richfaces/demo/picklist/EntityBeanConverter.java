@@ -32,7 +32,6 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter("EntityBeanConverter")
 public class EntityBeanConverter implements Converter {
     public Object getAsObject(FacesContext facesContext, UIComponent component, String s) {
-        System.out.println("Converting" + s);
         Integer value = Integer.parseInt(s);
         return new EntityBean(String.format("Option %d", value), value.toString());
     }
