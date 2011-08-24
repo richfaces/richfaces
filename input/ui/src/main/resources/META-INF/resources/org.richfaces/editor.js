@@ -11,7 +11,9 @@
         style: '',
         styleClass: '',
         editorStyle: '',
-        editorClass: ''
+        editorClass: '',
+        width: '100%',
+        height: '200px'
     };
     
     rf.ui.Editor = function(componentId, options) {
@@ -91,8 +93,8 @@
             return {
                 toolbar: this.__getToolbar(),
                 readOnly: textarea.attr('readonly') || this.options.readonly,
-                width: this.__resolveUnits(textarea.width()),
-                height: this.__resolveUnits(textarea.height()),
+                width: this.__resolveUnits(this.options.width),
+                height: this.__resolveUnits(this.options.height),
                 bodyClass: 'rf-ed-b'
             }
         },
