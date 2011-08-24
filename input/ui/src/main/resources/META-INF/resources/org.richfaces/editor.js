@@ -14,17 +14,16 @@
         editorClass: ''
     };
     
-    rf.ui.Editor = function(componentId, domBinding, options) {
+    rf.ui.Editor = function(componentId, options) {
         $super.constructor.call(this, componentId);
         this.options = $.extend({}, defaultOptions, options);
         
-        this.textareaId = componentId;
-        this.domBinding = domBinding;
-        this.editorElementId = 'cke_' + componentId;
+        this.componentId = componentId;
+        this.textareaId = componentId + ':inp';
+        this.editorElementId = 'cke_' + this.textareaId;
         this.valueChanged = false;
         
-        this.attachToDom(this.textareaId);
-        this.attachToDom(this.domBinding);
+        this.attachToDom(this.componentId);
         
         $(document).ready($.proxy(this.__initializationHandler, this));
         rf.Event.bindById(this.__getTextarea(), 'init', this.options.oninit, this);
@@ -42,13 +41,13 @@
             this.ckeditor = CKEDITOR.replace(this.textareaId, this.__getConfiguration());
             
             // register event handlers
-            rf.Event.bind(this.__getForm(), 'ajaxsubmit', $.proxy(this.__updateElementHandler, this));
+            rf.Event.bind(this.__getForm(), 'ajaxsubmit', $.proxy(this.__updateTextareaHandler, this));
             this.ckeditor.on('instanceReady', $.proxy(this.__instanceReadyHandler, this));
             this.ckeditor.on('blur', $.proxy(this.__blurHandler, this));
             this.ckeditor.on('focus', $.proxy(this.__focusHandler, this));
         },
         
-        __updateElementHandler: function() {
+        __updateTextareaHandler: function() {
             this.ckeditor.updateElement();
         },
         
@@ -74,18 +73,6 @@
         
         __changeHandler: function(e) {
             this.invokeEvent.call(this, "change", this.__getTextarea(), e);
-        },
-        
-        /**
-         * Updates editor with the value and attributes of associated textarea
-         */
-        __updateEditor: function() {
-            var textarea = this.__getTextarea();
-            
-            textarea.hide();
-            this.attachToDom(textarea);
-            
-            this.__updateEditorConfiguration();
         },
         
         __getTextarea: function() {
@@ -170,50 +157,6 @@
             this.options = $.extend({}, defaultOptions, options);
         },
         
-        /**
-         * Updates editor configuration and value by synchronizing its settings with options and textarea settings.
-         */
-        __updateEditorConfiguration: function() {
-            var conf = this.__getConfiguration();
-            var editor = this.getEditor();
-            var textarea = this.__getTextarea();
-            
-            // toolbar 
-            if (editor.config.toolbar !== conf.toolbar) {
-                editor.destroy();
-                this.__initializeEditor();
-                return;
-            }
-            
-            // readonly
-            if (this.isReadOnly() !== conf.readOnly) {
-                this.setReadOnly(conf.readOnly);
-            }
-            
-            // width & height
-            var newWidth = (editor.config.width !== textarea.width()) ?  textarea.width() : null;
-            var newHeight = (editor.config.height !== textarea.height()) ?  textarea.height() : null;
-            if (newWidth !== null || newHeight !== null) {
-                if (newWidth === null) {
-                    newWidth = editor.config.width;
-                }
-                if (newHeight === null) {
-                    newHeight = editor.config.height;
-                }
-                editor.resize(newWidth, newHeight, true);
-            }
-            
-            // styling
-            this.__setupStyling();
-            
-            // pass through attributes
-            this.__setupPassThroughAttributes();
-            
-            // value
-            var newValue = textarea.val();
-            this.setValue(newValue);
-        },
-        
         __resolveUnits: function(dimension) {
             var dimension = $.trim(dimension);
             if (dimension.match(/^[0-9]+$/)) {
@@ -247,7 +190,7 @@
         },
         
         blur: function() {
-            this.ckeditor.blur();
+            this.ckeditor.focusManager.forceBlur();
         },
         
         isFocused: function() {
@@ -270,41 +213,17 @@
             return this.ckeditor.readOnly;
         },
     
-        /**
-         * Overrides #destroy method in order to do not destroy
-         * editor component when cleaning textarea (needs to be destroyed
-         * when cleaning domBinding)
-         */
         destroy: function() {
-            // do not destroy component here
-        },
-        
-        /**
-         * Detaches editor from DOM element and destroys component if necessary (see bellow).
-         * 
-         * Destroys editor component if detaching from non-textarea element.
-         * This method replaces #destroy() when applied to non-textarea elements.
-         */
-        detach: function(source) {
-            // destroy editor
-            if (!$(source).is('textarea')) {
-                if (this.__updateElement) {
-                    rf.Event.unbind(this.__getForm(), 'ajaxsubmit', this.__updateElement);
-                    this.__updateElement = null;
-                }
-                
-                if (this.ckeditor) {
-                    this.ckeditor.destroy();
-                    this.ckeditor = null;
-                }
-                
-                this.__getTextarea().show();
-                
-                $super.destroy.call(this);
+            rf.Event.unbind(this.__getForm(), 'ajaxsubmit', this.__updateTextareaHandler);
+            
+            if (this.ckeditor) {
+                this.ckeditor.destroy();
+                this.ckeditor = null;
             }
             
-            // detach editor
-            $super.detach.call(this);
+            this.__getTextarea().show();
+            
+            $super.destroy.call(this);
         }
     });
 })(jQuery, RichFaces);
