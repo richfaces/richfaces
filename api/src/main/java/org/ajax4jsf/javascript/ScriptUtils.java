@@ -359,7 +359,6 @@ public final class ScriptUtils {
             }
             hexString.append(hex);
         }
-        Hex
         return hexString.toString();
     }
 
