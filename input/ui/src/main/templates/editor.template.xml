@@ -53,7 +53,7 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	                <cdk:scriptOption wrapper="eventHandler" attributes="oninit" />
 	            </cdk:scriptObject>
 	            window.CKEDITOR_BASEPATH = '#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/org.richfaces.ckeditor/';
-                new RichFaces.ui.Editor("#{clientId}", #{empty toScriptArgs(options) ? 'null' : toScriptArgs(options)});
+                new RichFaces.ui.Editor("#{clientId}", #{empty toScriptArgs(options) ? 'null' : toScriptArgs(options)}, "#{getConfig(component)}");
 	        </script>
         </div>
         

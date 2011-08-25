@@ -23,6 +23,9 @@ package org.richfaces.renderkit;
 
 import javax.faces.application.ResourceDependencies;
 import javax.faces.application.ResourceDependency;
+import javax.faces.component.UIComponent;
+
+import org.ajax4jsf.javascript.ScriptUtils;
 
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
@@ -45,5 +48,13 @@ public class EditorRendererBase extends InputRendererBase {
         } else {
             return dim;
         }
+    }
+
+    public String getConfig(UIComponent component) {
+        UIComponent config = component.getFacet("config");
+        if (config == null) {
+            return "";
+        }
+        return ScriptUtils.escapeJavaScript(config.toString());
     }
 }

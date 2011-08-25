@@ -16,7 +16,7 @@
         height: '200px'
     };
     
-    rf.ui.Editor = function(componentId, options) {
+    rf.ui.Editor = function(componentId, options, config) {
         $super.constructor.call(this, componentId);
         this.options = $.extend({}, defaultOptions, options);
         
@@ -24,6 +24,7 @@
         this.textareaId = componentId + ':inp';
         this.editorElementId = 'cke_' + this.textareaId;
         this.valueChanged = false;
+        this.config = config;
         
         this.attachToDom(this.componentId);
         
@@ -90,13 +91,21 @@
         
         __getConfiguration: function() {
             var textarea = this.__getTextarea();
-            return {
+            return $.extend({
                 toolbar: this.__getToolbar(),
                 readOnly: textarea.attr('readonly') || this.options.readonly,
                 width: this.__resolveUnits(this.options.width),
                 height: this.__resolveUnits(this.options.height),
                 bodyClass: 'rf-ed-b'
-            }
+            }, this.__getConfig());
+        },
+        
+        __getConfig: function() {
+        	try {
+        		return $.parseJSON("{ " + this.config + " }");
+        	} catch (e) { 
+        		RichFaces.log.error("failed to parse editor configuration: " + e);
+        	}
         },
         
         __setupStyling: function() {

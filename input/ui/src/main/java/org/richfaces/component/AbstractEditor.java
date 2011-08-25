@@ -21,10 +21,13 @@
  */
 package org.richfaces.component;
 
+import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
 
 import org.richfaces.cdk.annotations.Attribute;
+import org.richfaces.cdk.annotations.Description;
 import org.richfaces.cdk.annotations.EventName;
+import org.richfaces.cdk.annotations.Facet;
 import org.richfaces.cdk.annotations.JsfComponent;
 import org.richfaces.cdk.annotations.JsfRenderer;
 import org.richfaces.cdk.annotations.Tag;
@@ -61,4 +64,7 @@ public abstract class AbstractEditor extends UIInput {
 
     @Attribute(events = @EventName("change"))
     public abstract String getOnchange();
+
+    @Facet(description = @Description("Detailed configuration of editor in JSON format"))
+    public abstract UIComponent getConfig();
 }
