@@ -97,15 +97,7 @@
                 width : this.__resolveUnits(this.options.width),
                 height : this.__resolveUnits(this.options.height),
                 bodyClass : 'rf-ed-b'
-            }, this.__getConfig());
-        },
-
-        __getConfig : function() {
-            try {
-                return $.parseJSON("{ " + this.config + " }");
-            } catch (e) {
-                RichFaces.log.error("failed to parse editor configuration: " + e);
-            }
+            }, this.config);
         },
 
         __setupStyling : function() {

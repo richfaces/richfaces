@@ -39,6 +39,8 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
         <cdk:object name="textareaStyle" value="#{component.attributes['textareaStyle']}" />
         <cdk:object name="width" value="#{resolveUnits(component.attributes['width'])}" />
         <cdk:object name="height" value="#{resolveUnits(component.attributes['height'])}" />
+        <cdk:object name="config" value="#{component.attributes['config']}" />
+        <cdk:object name="configFacet" value="#{component.facets['config']}" type="javax.faces.component.UIComponent" />
         
         <div id="#{clientId}" class="rf-ed">
 	        <textarea id="#{clientId}:inp" name="#{clientId}" cdk:passThroughWithExclusions="id readonly style styleClass"
@@ -53,7 +55,25 @@ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
 	                <cdk:scriptOption wrapper="eventHandler" attributes="oninit" />
 	            </cdk:scriptObject>
 	            window.CKEDITOR_BASEPATH = '#{facesContext.externalContext.requestContextPath}/org.richfaces.resources/javax.faces.resource/org.richfaces.ckeditor/';
-                new RichFaces.ui.Editor("#{clientId}", #{empty toScriptArgs(options) ? 'null' : toScriptArgs(options)}, "#{getConfig(component)}");
+                
+                (function() {
+                    var options = #{empty toScriptArgs(options) ? 'null' : toScriptArgs(options)};
+                    var config = {
+                    <c:choose>
+                        <c:when test="#{configFacet != null and configFacet.isRendered()}">
+                            <cdk:call expression="configFacet.encodeAll(facesContext)" />
+                        </c:when>
+                        <c:when test="#{not empty config}">
+                            #{config}
+                        </c:when>
+                        <c:otherwise>
+    
+                        </c:otherwise>
+                    </c:choose>
+                    };
+                    
+                    new RichFaces.ui.Editor("#{clientId}", options, config);
+                })();
 	        </script>
         </div>
         

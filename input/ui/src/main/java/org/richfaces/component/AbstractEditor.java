@@ -36,7 +36,7 @@ import org.richfaces.renderkit.EditorRendererBase;
 /**
  * @author <a href="mailto:lfryc@redhat.com">Lukas Fryc</a>
  */
-@JsfComponent(type = AbstractEditor.COMPONENT_TYPE, family = AbstractEditor.COMPONENT_FAMILY, generate = "org.richfaces.component.UIEditor", renderer = @JsfRenderer(type = "org.richfaces.EditorRenderer"), tag = @Tag(name = "editor"), attributes = "core-props.xml")
+@JsfComponent(type = AbstractEditor.COMPONENT_TYPE, family = AbstractEditor.COMPONENT_FAMILY, generate = "org.richfaces.component.UIEditor", renderer = @JsfRenderer(type = "org.richfaces.EditorRenderer"), facets = @Facet(name = "config", description = @Description("Detailed configuration of editor in JSON format")), tag = @Tag(name = "editor"), attributes = "core-props.xml")
 public abstract class AbstractEditor extends UIInput {
     public static final String COMPONENT_TYPE = "org.richfaces.Editor";
     public static final String COMPONENT_FAMILY = "org.richfaces.Editor";
@@ -65,6 +65,6 @@ public abstract class AbstractEditor extends UIInput {
     @Attribute(events = @EventName("change"))
     public abstract String getOnchange();
 
-    @Facet(description = @Description("Detailed configuration of editor in JSON format"))
+    @Attribute(description = @Description("Detailed configuration of editor in JSON format"))
     public abstract UIComponent getConfig();
 }
