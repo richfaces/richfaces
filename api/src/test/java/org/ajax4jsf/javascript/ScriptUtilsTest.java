@@ -490,4 +490,12 @@ public class ScriptUtilsTest extends TestCase {
         assertThat(serializedSFTimeZone, StringContains.containsString("\"ID\":\"America\\/New_York\""));
         assertThat(serializedSFTimeZone, StringContains.containsString("\"rawOffset\":-18000000"));
     }
+
+    @Test
+    public void testGetMD5scriptHash() throws Exception {
+        String testString = "Some string to hash";
+        String expectedMD5hash = "7624f3fd394f02f0ff8c53fac249129a";
+        String computedMD5hash = ScriptUtils.getMD5scriptHash(testString);
+        assertEquals(expectedMD5hash, computedMD5hash);
+    }
 }

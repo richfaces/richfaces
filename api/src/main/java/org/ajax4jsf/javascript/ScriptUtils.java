@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
 import java.nio.CharBuffer;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Collection;
@@ -268,7 +270,8 @@ public final class ScriptUtils {
         }
     }
 
-    public static String getValidJavascriptName(String s) {
+    public static String getValidJavascriptName(String script) {
+        String s = "av_" + getMD5scriptHash(script);
         StringBuffer buf = null;
         final int len = s.length();
 
@@ -328,6 +331,36 @@ public final class ScriptUtils {
         }
 
         return buf == null ? s : buf.toString();
+    }
+
+    public static String getMD5scriptHash(String script) {
+        byte[] bytesOfScript = new byte[0];
+        try {
+            bytesOfScript = script.getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException("UTF-8 appears to be an unsupported character set on this platform", e);
+        }
+
+        MessageDigest md = null;
+        try {
+            md = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Unable to locate MD5 hash algorithm", e);
+        }
+        md.reset();
+        //byte[] thedigest = md.digest(bytesOfScript);
+        md.update(bytesOfScript);
+        byte[] messageDigest = md.digest();
+        StringBuffer hexString = new StringBuffer();
+        for (int i = 0; i < messageDigest.length; i++) {
+            String hex = Integer.toHexString(0xFF & messageDigest[i]);
+            if (hex.length() == 1) {
+                hexString.append('0');
+            }
+            hexString.append(hex);
+        }
+        Hex
+        return hexString.toString();
     }
 
     public static boolean shouldRenderAttribute(Object attributeVal) {
