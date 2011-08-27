@@ -37,6 +37,7 @@
 
     <properties>
         <richfaces.checkstyle.version>3</richfaces.checkstyle.version>
+	<test-jsf.version>1.0.7-SNAPSHOT</test-jsf.version>
     </properties>
 
     <dependencyManagement>
@@ -52,27 +53,27 @@
             <dependency>
                 <groupId>org.jboss.test-jsf</groupId>
                 <artifactId>htmlunit-client</artifactId>
-                <version>1.0.6</version>
+                <version>${test-jsf.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.test-jsf</groupId>
                 <artifactId>jsf-mock</artifactId>
-                <version>1.0.6</version>
+                <version>${test-jsf.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.test-jsf</groupId>
                 <artifactId>jsf-test-stage</artifactId>
-                <version>1.0.6</version>
+                <version>${test-jsf.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.test-jsf</groupId>
                 <artifactId>jsf-test-jetty</artifactId>
-                <version>1.0.6</version>
+                <version>${test-jsf.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jboss.test-jsf</groupId>
                 <artifactId>jsf-test-qunit</artifactId>
-                <version>1.0.6</version>
+                <version>${test-jsf.version}</version>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
