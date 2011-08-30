@@ -1,0 +1,110 @@
+/* basic skinning styles */
+html .cke_skin_richfaces input,
+html .cke_skin_richfaces select,
+html .cke_skin_richfaces textarea,
+html .cke_skin_richfaces button,
+html .cke_skin_richfaces keygen,
+html .cke_skin_richfaces isindex,
+html .cke_skin_richfaces legend,
+html .cke_skin_richfaces a,
+html .cke_skin_richfaces * {
+    font-size: '#{richSkin.generalSizeFont}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    color: '#{richSkin.controlTextColor}';
+}
+
+html .cke_skin_richfaces fieldset {
+    border-width: 1px;
+    border-style: solid;
+    padding: 10px;
+    border-color: '#{richSkin.panelBorderColor}';
+}
+
+html .cke_skin_richfaces hr {
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{richSkin.panelBorderColor}';
+}
+
+html .cke_skin_richfaces a {
+    color: '#{richSkin.generalLinkColor}';
+}
+
+html .cke_skin_richfaces a:hover {
+    color: '#{richSkin.hoverLinkColor}';
+}
+
+html .cke_skin_richfaces a:visited {
+    color: '#{richSkin.visitedLinkColor}';
+}
+
+/* extended skinning styles */
+html .cke_skin_richfaces input,
+html .cke_skin_richfaces select,
+html .cke_skin_richfaces textarea,
+html .cke_skin_richfaces button,
+html .cke_skin_richfaces keygen,
+html .cke_skin_richfaces isindex {
+    border-width: 1px;
+    border-color: '#{richSkin.panelBorderColor}';
+    color: '#{richSkin.controlTextColor}';
+}
+
+html .cke_skin_richfaces button,
+html .cke_skin_richfaces input[type="reset"],
+html .cke_skin_richfaces input[type="submit"],
+html .cke_skin_richfaces input[type="button"] {
+    border-width: 1px;
+    border-color: '#{richSkin.panelBorderColor}';
+    font-size: '#{richSkin.generalSizeFont}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    color: '#{richSkin.headerTextColor}';
+    background-repeat: repeat-x;
+    background-position: top left;
+    background-color: '#{richSkin.headerBackgroundColor}';
+    background-image: "url(#{resource['org.richfaces.images:buttonBackgroundImage.png']})";
+}
+
+html .cke_skin_richfaces button:hover,
+html .cke_skin_richfaces input[type="reset"]:hover,
+html .cke_skin_richfaces input[type="submit"]:hover,
+html .cke_skin_richfaces input[type="button"]:hover {
+    background-position: bottom left;
+    background-repeat: repeat-x;
+    background-image: "url(#{resource['org.richfaces.images:buttonHoverBackgroundImage.png']})";
+}
+
+html .cke_skin_richfaces button[disabled],
+html .cke_skin_richfaces input[type="reset"][disabled],
+html .cke_skin_richfaces input[type="submit"][disabled],
+html .cke_skin_richfaces input[type="button"][disabled] {
+    color: '#{richSkin.tabDisabledTextColor}';
+    border-color: '#{richSkin.tableFooterBackgroundColor}';
+    background-color: '#{richSkin.tableFooterBackgroundColor}';
+    background-image: "url(#{resource['org.richfaces.images:buttonDisabledBackgroundImage.png']})";
+    background-position: top left;
+}
+
+html .cke_skin_richfaces textarea,
+html .cke_skin_richfaces input[type="text"],
+html .cke_skin_richfaces input[type="password"],
+html .cke_skin_richfaces select {
+    border-width: 1px;
+    border-style: solid;
+    border-color: '#{richSkin.panelBorderColor}';
+    font-size: '#{richSkin.generalSizeFont}';
+    font-family: '#{richSkin.generalFamilyFont}';
+    color: '#{richSkin.controlTextColor}';
+    background-repeat: no-repeat;
+    background-position: 1px 1px;
+    background-color: '#{richSkin.controlBackgroundColor}';
+    background-image: "url(#{resource['org.richfaces.images:inputBackgroundImage.png']})";
+}
+
+html .cke_skin_richfaces textarea[disabled],
+html .cke_skin_richfaces input[type="text"][disabled],
+html .cke_skin_richfaces input[type="password"][disabled],
+html .cke_skin_richfaces select[disabled] {
+    color: '#{richSkin.panelBorderColor}';
+    cursor: default;
+}
