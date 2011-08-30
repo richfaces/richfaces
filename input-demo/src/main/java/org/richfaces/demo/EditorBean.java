@@ -16,9 +16,12 @@ public class EditorBean implements Serializable {
     private String height = "500px";
     private boolean rendered = true;
     private String toolbar;
+    private String skin;
+    private String lang;
     private String oninit;
     private String onfocus;
     private String onblur;
+    private String ondirty;
     private String onchange;
     private String styleClass;
     private String textareaClass;
@@ -75,6 +78,22 @@ public class EditorBean implements Serializable {
     public void setToolbar(String toolbar) {
         this.toolbar = toolbar;
     }
+    
+    public String getSkin() {
+        return skin;
+    }
+    
+    public void setSkin(String skin) {
+        this.skin = skin;
+    }
+    
+    public String getLang() {
+        return lang;
+    }
+    
+    public void setLang(String lang) {
+        this.lang = lang;
+    }
 
     public void valueChangeListener(ValueChangeEvent event) {
         System.out.println("editor value changed: " + event);
@@ -110,6 +129,14 @@ public class EditorBean implements Serializable {
 
     public void setOnchange(String onchange) {
         this.onchange = onchange;
+    }
+    
+    public String getOndirty() {
+        return ondirty;
+    }
+    
+    public void setOndirty(String ondirty) {
+        this.ondirty = ondirty;
     }
 
     public String getStyleClass() {

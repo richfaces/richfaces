@@ -5,7 +5,7 @@
 <f:view contentType="text/html" />
 
 <h:head>
-    <title>Editor</title>
+    <title>0</title>
 </h:head>
 
 <h:body>
@@ -16,7 +16,6 @@
         <h:form id="form9">
             <in:editor id="editor9" value="#{editor.value}">
                 <f:facet name="config">
-                    skin: "office2003",
                     toolbar: "MyToolbar",
                     toolbar_MyToolbar:
                         [
@@ -69,8 +68,9 @@
             <a4j:outputPanel id="panel6">
                 <in:editor id="editor6" value="#{editor.value}" title="#{editor.title}"
                     readonly="#{editor.readonly}" width="#{editor.width}" height="#{editor.height}"
-                    rendered="#{editor.rendered}" toolbar="#{editor.toolbar}"
+                    rendered="#{editor.rendered}" toolbar="#{editor.toolbar}" skin="#{editor.skin}" lang="#{editor.lang}"
                     oninit="#{editor.oninit}" onfocus="#{editor.onfocus}" onblur="#{editor.onblur}" onchange="#{editor.onchange}"
+                    ondirty="#{editor.ondirty}"
                     styleClass="#{editor.styleClass}" style="#{editor.style}"
                     editorClass="#{editor.editorClass}" editorStyle="#{editor.editorStyle}" 
                     textareaClass="#{editor.textareaClass}" textareaStyle="#{editor.textareaStyle}" />
@@ -94,6 +94,12 @@
                 <h:outputLabel value="Toolbar:" />
                 <h:inputText value="#{editor.toolbar}" />
                 
+                <h:outputLabel value="Skin:" />
+                <h:inputText value="#{editor.skin}" />
+                
+                <h:outputLabel value="Lang:" />
+                <h:inputText value="#{editor.lang}" />
+                
                 <h:outputLabel value="oninit:" />
                 <h:inputText value="#{editor.oninit}" />
                 
@@ -105,6 +111,9 @@
                 
                 <h:outputLabel value="onchange:" />
                 <h:inputText value="#{editor.onchange}" />
+                
+                <h:outputLabel value="ondirty:" />
+                <h:inputText value="#{editor.ondirty}" />
                 
                 <h:outputLabel value="styleClass:" />
                 <h:inputText value="#{editor.styleClass}" />
@@ -138,7 +147,7 @@
         <legend>JavaScript API</legend>
 
         <h:form id="form5">
-            <in:editor id="editor5" value="#{editor.value}" />
+            <in:editor id="editor5" value="#{editor.value}" toolbar="full" ondirty="document.title = parseInt(document.title) + 1" />
             
             <input type="button" value="setReadOnly(true)"
                 onclick="document.getElementById('form5:editor5').rf.component.setReadOnly(true)" />
@@ -160,10 +169,10 @@
                 onclick="document.getElementById('form5:editor5').rf.component.blur()" />
             <input type="button" value="isFocused()"
                 onclick="alert(document.getElementById('form5:editor5').rf.component.isFocused())" />
-            <input type="button" value="isDirty()"
-                onclick="alert(document.getElementById('form5:editor5').rf.component.isDirty())" />
             <input type="button" value="isValueChanged()"
                 onclick="alert(document.getElementById('form5:editor5').rf.component.isValueChanged())" />
+            <input type="button" value="isDirty()"
+                onclick="alert(document.getElementById('form5:editor5').rf.component.isDirty())" />
         </h:form>
     </fieldset>
     
@@ -172,7 +181,10 @@
 
         <h:form id="form4">
             <in:editor id="editor4" value="#{editor.value}" >
-                <f:ajax event="change" />
+                <a4j:ajax event="dirty">
+                    <a4j:attachQueue requestDelay="500" />
+                </a4j:ajax>
+                <a4j:ajax event="change" />
             </in:editor>
         </h:form>
     </fieldset>
