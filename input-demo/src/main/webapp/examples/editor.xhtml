@@ -9,6 +9,33 @@
 </h:head>
 
 <h:body>
+    
+    <fieldset>
+        <legend>Configuration</legend>
+
+        <h:form id="form9">
+            <in:editor id="editor9" value="#{editor.value}">
+                <f:facet name="config">
+                    skin: "office2003",
+                    toolbar: "MyToolbar",
+                    toolbar_MyToolbar:
+                        [
+                        	{ name: 'document', items : [ 'NewPage','Preview' ] },
+                        	{ name: 'clipboard', items : [ 'Cut','Copy','Paste','PasteText','PasteFromWord','-','Undo','Redo' ] },
+                        	{ name: 'editing', items : [ 'Find','Replace','-','SelectAll','-','Scayt' ] },
+                        	{ name: 'insert', items : [ 'Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'
+                                     ,'Iframe' ] },
+                                    '/',
+                        	{ name: 'styles', items : [ 'Styles','Format' ] },
+                        	{ name: 'basicstyles', items : [ 'Bold','Italic','Strike','-','RemoveFormat' ] },
+                        	{ name: 'paragraph', items : [ 'NumberedList','BulletedList','-','Outdent','Indent','-','Blockquote' ] },
+                        	{ name: 'links', items : [ 'Link','Unlink','Anchor' ] },
+                        	{ name: 'tools', items : [ 'Maximize','-','About' ] }
+                        ]
+               		</f:facet>
+            </in:editor>
+        </h:form>
+    </fieldset>
 
     <fieldset>
         <legend>Render All</legend>
@@ -33,6 +60,7 @@
             <h:commandButton value="Validate" />
         </h:form>
     </fieldset>
+    
     
     <fieldset>
         <legend>Attributes</legend>
@@ -193,7 +221,7 @@
         </h:form>
     </fieldset>
 
-    
+
     <a4j:log mode="inline" />
 </h:body>
 </html>
